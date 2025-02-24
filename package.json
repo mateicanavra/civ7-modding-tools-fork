@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsx build.ts",
-    "tsc": "tsc build.ts"
+    "tsc": "tsc --noemit build.ts"
   },
   "repository": "https://github.com/izica/civ7-mod-generator-tool",
   "author": "izica <artemiztomska@gmail.com>",
