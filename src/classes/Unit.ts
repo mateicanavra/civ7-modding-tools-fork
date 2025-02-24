@@ -4,19 +4,17 @@ import { XmlElement } from "jstoxml";
 
 import { KINDS } from "../constants";
 import { locale } from "../utils";
+import { TClassProperties } from "../types";
 
 import { Base } from "./Base";
 import { XmlFile } from "./XmlFile";
-import { CriteriaBundle } from "./CriteriaBundle";
+import { ActionGroupBundle } from "./ActionGroupBundle";
 
-type TUnit = {
-    type: string;
-    criteriaBundle: CriteriaBundle
-}
+type TUnit = TClassProperties<Unit>;
 
 export class Unit extends Base<TUnit> implements TUnit {
     type: string = `unit-${uuid()}`;
-    criteriaBundle = new CriteriaBundle();
+    actionGroupBundle = new ActionGroupBundle();
 
     constructor(payload: Partial<TUnit> = {}) {
         super();
@@ -54,7 +52,7 @@ export class Unit extends Base<TUnit> implements TUnit {
                 filename: `${lodash.kebabCase(this.type)}.xml`,
                 filepath: `/units/`,
                 content: this.toUnit(),
-                criterias: this.criteriaBundle.values()
+                actionGroups: [this.actionGroupBundle.current]
             })
         ];
     }

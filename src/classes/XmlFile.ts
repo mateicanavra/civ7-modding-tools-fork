@@ -1,25 +1,26 @@
 import * as fs from 'node:fs';
 import { toXML, XmlElement } from "jstoxml";
 
-import { Criteria } from "./Criteria";
-import { Base } from "./Base";
+import { TClassProperties } from "../types";
 
-type TXmlFile = {
-    filename: string;
-    filepath: string;
-    content: XmlElement | XmlElement[];
-    criterias: Criteria[]
-}
+import { Base } from "./Base";
+import { ActionGroup } from "./ActionGroup";
+
+type TXmlFile = TClassProperties<XmlFile>;
 
 export class XmlFile extends Base<TXmlFile> implements TXmlFile {
     filepath: string = '/';
     filename: string = 'file.xml';
     content: XmlElement | XmlElement[] = [];
-    criterias: Criteria[] = []
+    actionGroups: ActionGroup[] = []
 
     constructor(payload: Partial<TXmlFile> = {}) {
         super();
         this.fill(payload);
+    }
+
+    get modInfoFilepath(){
+        return `${this.filepath}${this.filename}`;
     }
 
     write(dist: string) {
