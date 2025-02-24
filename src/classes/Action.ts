@@ -15,7 +15,7 @@ export class Action extends Base<TAction> implements TAction {
     scope: 'shell' | 'game' = 'shell';
     actionCriteria: Criteria;
 
-    constructor(payload?: Partial<TAction>) {
+    constructor(payload: Partial<TAction> = {}) {
         super();
         this.fill(payload);
     }

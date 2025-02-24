@@ -1,3 +1,3 @@
 export { AGES } from './AGES';
-export { CRITERIAS } from './CRITERIAS';
+export { CRITERIA_BUNDLES } from './CRITERIA_BUNDLES';
 export { KINDS } from './KINDS';

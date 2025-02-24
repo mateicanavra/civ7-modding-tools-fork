@@ -1,1 +1,0 @@
-export {TCriteriasBundle} from './TCriteriasBundle';

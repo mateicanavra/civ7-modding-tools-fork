@@ -15,7 +15,7 @@ export class ActionGroup extends Base<TActionGroup> implements TActionGroup {
     scope: 'shell' | 'game' = 'shell';
     actionCriteria: Criteria;
 
-    constructor(payload?: Partial<TActionGroup>) {
+    constructor(payload: Partial<TActionGroup> = {}) {
         super();
         this.fill(payload);
     }

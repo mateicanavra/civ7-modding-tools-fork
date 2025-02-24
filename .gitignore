@@ -1,6 +1,7 @@
 *
 !.gitignore
 !README.me
+!LICENSE
 !package.json
 !src
 !src/**

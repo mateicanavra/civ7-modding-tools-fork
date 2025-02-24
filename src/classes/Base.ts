@@ -1,5 +1,6 @@
-import { toXML, XmlElement } from "jstoxml";
-import { XMLFile } from "./XMLFile";
+import { XmlElement } from "jstoxml";
+
+import { XmlFile } from "./XmlFile";
 
 export class Base<T extends Object> {
     fill(payload?: Partial<T>) {
@@ -10,7 +11,11 @@ export class Base<T extends Object> {
         }
     }
 
-    build(): XMLFile[] {
+    toXmlElement(): XmlElement | XmlElement[] {
+        return [];
+    }
+
+    build(): XmlFile[] {
         return [];
     }
 }

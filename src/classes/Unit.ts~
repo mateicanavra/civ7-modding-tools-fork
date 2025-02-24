@@ -4,14 +4,15 @@ import { XmlElement } from "jstoxml";
 
 import { KINDS } from "../constants";
 import { locale } from "../utils";
+import { TCriteriaBundle } from "../types";
 
 import { Base } from "./Base";
+import { Criteria } from "./Criteria";
 import { XmlFile } from "./XmlFile";
 import { CriteriaBundle } from "./CriteriaBundle";
 
 type TUnit = {
     type: string;
-    criteriaBundle: CriteriaBundle
 }
 
 export class Unit extends Base<TUnit> implements TUnit {

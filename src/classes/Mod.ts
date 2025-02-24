@@ -1,9 +1,8 @@
-import _ from "lodash";
+import * as lodash from "lodash";
 
 import { Base } from "./Base";
 import { Unit } from "./Unit";
-import { XMLFile } from "./XMLFile";
-import { write } from "node:fs";
+import { XmlFile } from "./XmlFile";
 
 type TMod = {
     id: string;
@@ -25,7 +24,7 @@ export class Mod extends Base<TMod> implements TMod {
 
     units: Unit[] = [];
 
-    constructor(payload?: Partial<TMod>) {
+    constructor(payload: Partial<TMod> = {}) {
         super();
         this.fill(payload);
     }
@@ -46,22 +45,36 @@ export class Mod extends Base<TMod> implements TMod {
                     Version: this.version,
                     AffectsSavedGames: +this.affectsSavedGames
                 },
+                Dependencies: [{
+                    _name: 'Mod',
+                    _attrs: {
+                        id: 'base-standard',
+                        title: 'LOC_MODULE_BASE_STANDARD_NAME'
+                    }
+                }],
             }
         };
     }
 
     build(dist = './dist') {
-        const xml = new XMLFile({
-            path: 'config.xml',
+
+        const modInfo = new XmlFile({
+            filename: `${this.id}.modinfo`,
+            filepath: '/',
             content: this.toXMLElement()
         });
-        let files: XMLFile[] = [
-            ..._.flatten(this.units.map(unit => unit.build()))
+
+        modInfo.write(dist);
+
+        let files: XmlFile[] = [
+            ...lodash.flatten(this.units.map(unit => unit.build()))
         ];
 
-        files.forEach(file => file.write());
+        const criterias = lodash.uniqBy(files.flatMap(file => file.criterias), criteria => criteria.id);
+        console.log(criterias);
 
-        console.log(files);
+        files.forEach(file => file.write(dist));
+
 
         return [];
     }

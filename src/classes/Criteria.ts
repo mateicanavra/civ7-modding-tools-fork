@@ -11,10 +11,10 @@ type TCriteria = {
 
 export class Criteria extends Base<TCriteria> implements TCriteria {
     id: string = `action-criteria-${uuid()}`;
-    isAny?: boolean = true
+    isAny?: boolean = false;
     ages: (typeof AGES[keyof typeof AGES])[] = [];
 
-    constructor(payload?: Partial<TCriteria>) {
+    constructor(payload: Partial<TCriteria> = {}) {
         super();
         this.fill(payload);
     }
