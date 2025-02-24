@@ -31,6 +31,7 @@ yarn build
 - - [x] Visual remap
 - - [x] Icons
 - - [x] Replace
+- - [x] Remap
 - - [x] Texts
 - - [ ] Game effects
 - [x] Civilizations
