@@ -11,3 +11,5 @@ export { YIELD } from './YIELD';
 export { FORMATION_CLASS } from './FORMATION_CLASS';
 export { ICON_PATH } from './ICON_PATH';
 export { LANGUAGE } from './LANGUAGE';
+export { TAG_TRAIT } from './TAG_TRAIT';
+export { TRAIT } from './TRAIT';

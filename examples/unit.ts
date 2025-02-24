@@ -11,7 +11,6 @@ const unit = new Unit({
     unitStat: new UnitStat({ combat: 40 }),
     typeTags: [UNIT_CLASS.RECON, UNIT_CLASS.RECON_ABILITIES],
     visualRemap: UNIT.ARMY_COMMANDER,
-    unitReplace: UNIT.SCOUT,
     icon: ICON_PATH.CIV_SYM_HAN,
     localizations: [
         new UnitLocalization({ name: 'Test scout', description: 'test scout description' })

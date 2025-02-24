@@ -25,7 +25,8 @@ type TUnit = TClassProperties<Unit>;
 
 export class Unit extends Base<TUnit> implements TUnit {
     actionGroupBundle = new ActionGroupBundle();
-    type: string = `unit-${uuid()}`;
+    name: string = uuid();
+    type: string = '';
     tag = '';
     baseSightRange: number = 2;
     baseMoves: number = 2;
@@ -46,13 +47,23 @@ export class Unit extends Base<TUnit> implements TUnit {
     constructor(payload: Partial<TUnit> = {}) {
         super();
         this.fill(payload);
-        this.type = lodash.snakeCase(this.type).toLocaleUpperCase();
+        const typedName = lodash.snakeCase(this.name).toLocaleUpperCase();
+
+        if(!this.type){
+            this.type = `UNIT_${typedName}`;
+        }
+        if(!this.type.startsWith('UNIT_')){
+            this.type = `UNIT_${this.type}`;
+        }
         if (!this.tag) {
             this.tag = this.type.replace('UNIT_', 'UNIT_CLASS_');
         }
+        if(!this.tag.startsWith('UNIT_CLASS_')){
+            this.tag = `UNIT_CLASS_${this.tag}`;
+        }
     }
 
-    private toUpdateDatabase(): XmlElement {
+    private toGame(): XmlElement {
         return {
             Database: {
                 Types: {
@@ -142,19 +153,6 @@ export class Unit extends Base<TUnit> implements TUnit {
         }
     }
 
-    private toTexts(): XmlElement {
-        return {
-            Database: {
-                EnglishText: {
-                    Row: {
-                        ID: this.type,
-                        Path: this.icon,
-                    }
-                }
-            }
-        }
-    }
-
     private toLocalization(): XmlElement {
         return {
             Database: this.localizations.map(localization => {
@@ -164,23 +162,21 @@ export class Unit extends Base<TUnit> implements TUnit {
     }
 
     build() {
-        const unitName = lodash.kebabCase(this.type.replace('UNIT_', ''));
-        const directory = `/units/${unitName}/`;
-        const files: XmlFile[] = [];
+        const name = lodash.kebabCase(this.type.replace('UNIT_', ''));
+        const directory = `/units/${name}/`;
 
-
-        files.push(
+        const files: XmlFile[] = [(
             new XmlFile({
-                filename: `unit.xml`,
+                filename: `game.xml`,
                 filepath: directory,
-                content: this.toUpdateDatabase(),
+                content: this.toGame(),
                 actionGroups: [
                     this.actionGroupBundle.current.clone().fill({
                         actions: [ACTIONS_GROUPS_ACTION.UPDATE_DATABASE]
                     })
                 ]
             })
-        );
+        )];
 
         if (this.icon) {
             files.push(new XmlFile({
@@ -213,7 +209,7 @@ export class Unit extends Base<TUnit> implements TUnit {
 
         if (this.localizations.length > 0) {
             files.push(new XmlFile({
-                filename: `localizations.xml`,
+                filename: `localization.xml`,
                 filepath: directory,
                 content: this.toLocalization(),
                 actionGroups: [

@@ -29,7 +29,7 @@ export class XmlFile extends Base<TXmlFile> implements TXmlFile {
                 header: true,
                 indent: '    '
             });
-            console.log(`${dist}${this.filepath}${this.filename}`, data)
+            console.log(`${dist}${this.filepath}${this.filename}`);
             fs.mkdir(`${dist}${this.filepath}`, { recursive: true }, (err) => {
                 fs.writeFileSync(`${dist}${this.filepath}${this.filename}`, data + `\n<!-- generated with https://github.com/izica/civ7-modding-tool -->`);
             });

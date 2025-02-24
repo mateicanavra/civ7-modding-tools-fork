@@ -1,5 +1,6 @@
 import { XmlElement } from "jstoxml";
 
+import { ActionGroupBundle } from "./ActionGroupBundle";
 import { XmlFile } from "./XmlFile";
 
 export class Base<T extends Object> {
