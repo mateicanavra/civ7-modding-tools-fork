@@ -18,7 +18,7 @@ export class UnitStat extends Base<TUnitStat> implements TUnitStat {
 
     toXmlElement() {
         return {
-            _name: 'UnitStat',
+            _name: 'Row',
             _attrs: {
                 UnitType: this.unitType,
                 Combat: this.combat,

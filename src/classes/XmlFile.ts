@@ -31,7 +31,7 @@ export class XmlFile extends Base<TXmlFile> implements TXmlFile {
             });
             console.log(`${dist}${this.filepath}${this.filename}`, data)
             fs.mkdir(`${dist}${this.filepath}`, { recursive: true }, (err) => {
-                fs.writeFileSync(`${dist}${this.filepath}${this.filename}`, data);
+                fs.writeFileSync(`${dist}${this.filepath}${this.filename}`, data + `\n<!-- generated with https://github.com/izica/civ7-mod-generator-tool -->`);
             });
         } catch (err) {
             console.error(err);

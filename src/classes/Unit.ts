@@ -2,7 +2,15 @@ import { v4 as uuid } from 'uuid';
 import * as lodash from 'lodash';
 import { XmlElement } from "jstoxml";
 
-import { ACTIONS_GROUPS_ACTION, CORE_CLASS, DOMAIN, KIND, UNIT_CLASS, UNIT_MOVEMENT_CLASS } from "../constants";
+import {
+    ACTIONS_GROUPS_ACTION,
+    CORE_CLASS,
+    DOMAIN,
+    FORMATION_CLASS,
+    KIND,
+    UNIT_CLASS,
+    UNIT_MOVEMENT_CLASS
+} from "../constants";
 import { locale } from "../utils";
 import { TClassProperties, TObjectValues } from "../types";
 
@@ -20,10 +28,10 @@ export class Unit extends Base<TUnit> implements TUnit {
     tag = '';
     baseSightRange: number = 2;
     baseMoves: number = 2;
-    combat: number = 20;
     unitMovementClass: TObjectValues<typeof UNIT_MOVEMENT_CLASS> = UNIT_MOVEMENT_CLASS.FOOT;
     domain: TObjectValues<typeof DOMAIN> = DOMAIN.LAND;
     coreClass: TObjectValues<typeof CORE_CLASS> = CORE_CLASS.MILITARY;
+    formationClass: TObjectValues<typeof FORMATION_CLASS> = FORMATION_CLASS.LAND_COMBAT;
     zoneOfControl: boolean = true;
     unitStat = new UnitStat();
     unitCost = new UnitCost();
@@ -54,12 +62,12 @@ export class Unit extends Base<TUnit> implements TUnit {
                     _attrs: {
                         ...locale(this.type, ['Name', 'Description']),
                         UnitType: this.type,
-                        Kind: KIND.UNIT,
                         BaseSightRange: this.baseSightRange,
                         BaseMoves: this.baseMoves,
                         UnitMovementClass: this.unitMovementClass,
                         Domain: this.domain,
                         CoreClass: this.coreClass,
+                        FormationClass: this.formationClass,
                         ZoneOfControl: this.zoneOfControl ? "true" : "false"
                     },
                 },

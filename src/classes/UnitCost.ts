@@ -19,7 +19,7 @@ export class UnitCost extends Base<TUnitCost> implements TUnitCost {
 
     toXmlElement() {
         return {
-            _name: 'UnitCost',
+            _name: 'Row',
             _attrs: {
                 UnitType: this.unitType,
                 Cost: this.cost,

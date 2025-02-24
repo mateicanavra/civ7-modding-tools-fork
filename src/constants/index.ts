@@ -7,3 +7,4 @@ export { KIND } from './KIND';
 export { UNIT_CLASS } from './UNIT_CLASS';
 export { UNIT_MOVEMENT_CLASS } from './UNIT_MOVEMENT_CLASS';
 export { YIELD } from './YIELD';
+export { FORMATION_CLASS } from './FORMATION_CLASS';

@@ -1,4 +1,5 @@
 import * as lodash from "lodash";
+import * as fs from 'node:fs';
 
 import { TClassProperties, TObjectValues } from "../types";
 import { ACTIONS_GROUPS_ACTION } from "../constants";
@@ -31,7 +32,10 @@ export class Mod extends Base<TMod> implements TMod {
         ];
     }
 
-    build(dist = './dist') {
+    build(dist = './dist', clear = false) {
+        if(clear){
+            fs.rm(dist, { recursive: true }, () => undefined)
+        }
         const xmlFiles = this.getXmlFiles();
 
         const criterias = lodash.uniqBy(
