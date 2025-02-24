@@ -1,0 +1,6 @@
+*
+!.gitignore
+!README.me
+!package.json
+!src
+!src/**

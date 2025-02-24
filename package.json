@@ -1,0 +1,20 @@
+{
+  "name": "civ7-mod-generator-tool",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsx build.ts"
+  },
+  "repository": "https://github.com/izica/civ7-mod-generator-tool",
+  "author": "izica <artemiztomska@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/jstoxml": "^5.0.0",
+    "@types/node": "^22.13.5",
+    "jstoxml": "^5.0.2",
+    "lodash": "^4.17.21",
+    "tsx": "^4.19.3",
+    "typescript": "5.7.3",
+    "uuid": "^11.1.0"
+  }
+}
