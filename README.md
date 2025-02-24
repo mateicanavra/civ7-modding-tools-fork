@@ -1,4 +1,4 @@
-# civ7-mod-generator-tool
+# civ7-modding-tool
 Mod generation tool for Civilization 7.
 
 ## Usage

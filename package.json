@@ -1,5 +1,5 @@
 {
-  "name": "civ7-mod-generator-tool",
+  "name": "civ7-modding-tool",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -7,7 +7,7 @@
     "dev": "tsx dev.ts",
     "tsc": "tsc --noemit build.ts"
   },
-  "repository": "https://github.com/izica/civ7-mod-generator-tool",
+  "repository": "https://github.com/izica/civ7-modding-tool",
   "author": "izica <artemiztomska@gmail.com>",
   "license": "MIT",
   "dependencies": {
