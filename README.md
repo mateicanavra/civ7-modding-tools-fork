@@ -15,7 +15,7 @@ yarn build
 * written in typescript
 * typed entities
 
-## Mod covering / TODO
+## Modding covering / TODO
 - [x] Mod info
 - - [x] Properties
 - - [x] Autogenerate Criteria
