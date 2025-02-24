@@ -1,4 +1,4 @@
-# civ7-modding-tool
+# izica`s modding tools
 Mod generation tool for Civilization 7.
 
 ## Usage
