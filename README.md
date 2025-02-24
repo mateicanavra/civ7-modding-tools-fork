@@ -34,11 +34,16 @@ yarn build
 - - [x] Remap
 - - [x] Texts
 - - [ ] Game effects
+- - [ ] ...and more
 - [x] Civilizations
 - - [x] Creating
 - - [x] Civilization items
 - - [x] Binding unique units
 - - [x] Texts
+- - [ ] Binding unique constructibles
+- - [ ] Icons
+- - [ ] Civics
+- - [ ] ...and more
 - [ ] Constructibles
 - [ ] Named places
 - [ ] Resources
