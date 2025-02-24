@@ -1,6 +1,7 @@
 import * as lodash from "lodash";
 
-import { TClassProperties } from "../types";
+import { TClassProperties, TObjectValues } from "../types";
+import { ACTIONS_GROUPS_ACTIONS } from "../constants";
 
 import { Base } from "./Base";
 import { Unit } from "./Unit";
@@ -34,22 +35,31 @@ export class Mod extends Base<TMod> implements TMod {
             criteria => criteria.id
         );
 
-        const actionGroupsWithFiles: Record<string, {actionGroup: ActionGroup, actions: string[]}> = xmlFiles.reduce((prev, xmlFile) => {
+        type TActionGroups = {
+            actionGroup: ActionGroup,
+            actions: Partial<Record<TObjectValues<typeof ACTIONS_GROUPS_ACTIONS>, string[]>>
+        }[]
+        const actionGroups: TActionGroups = Object.values(xmlFiles.reduce((prev, xmlFile) => {
             let result = {...prev};
 
             xmlFile.actionGroups.forEach(actionGroup => {
                 if(!result[actionGroup.id]) {
                     result[actionGroup.id] = {
                         actionGroup,
-                        files: []
+                        actions: {}
                     }
                 }
-                result[actionGroup.id].files.push(xmlFile.modInfoFilepath);
+                actionGroup.actions.forEach(action => {
+                    if(!result[actionGroup.id].actions[action]){
+                        result[actionGroup.id].actions[action] = [];
+                    }
+                    result[actionGroup.id].actions[action].push(xmlFile.modInfoFilepath);
+                })
             });
             return result;
-        }, {});
+        }, {}));
 
-        console.log({actionGroupsWithFiles})
+        console.log(JSON.stringify(actionGroups))
 
         xmlFiles.forEach(xmlFile => xmlFile.write(dist));
 
@@ -79,14 +89,21 @@ export class Mod extends Base<TMod> implements TMod {
                         }
                     }],
                     ActionCriteria: criterias.map(criteria => criteria.toXMLElement()),
-                    // ActionGroups: actionGroups.map(actionGroup => ({
-                    //     _name: 'ActionGroup',
-                    //     _attrs: {
-                    //         id: actionGroup.id,
-                    //         scope: actionGroup.scope,
-                    //         criteria: actionGroup.criteria.id
-                    //     },
-                    // }))
+                    ActionGroups: actionGroups.map(({actionGroup, actions}) => ({
+                        _name: 'ActionGroup',
+                        _attrs: {
+                            id: actionGroup.id,
+                            scope: actionGroup.scope,
+                            criteria: actionGroup.criteria,
+                        },
+                        _content: {
+                            Actions: Object.entries(actions).map(([key, items]) =>  ({
+                                [key]: items.map(item => ({
+                                    Item: item
+                                }))
+                            }))
+                        }
+                    }))
                 }
             }
         });

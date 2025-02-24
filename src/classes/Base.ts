@@ -9,6 +9,7 @@ export class Base<T extends Object> {
                 this[key] = value;
             }
         }
+        return this;
     }
 
     toXmlElement(): XmlElement | XmlElement[] {

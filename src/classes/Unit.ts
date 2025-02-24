@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 import * as lodash from 'lodash';
 import { XmlElement } from "jstoxml";
 
-import { KINDS } from "../constants";
+import { ACTIONS_GROUPS_ACTIONS, KINDS } from "../constants";
 import { locale } from "../utils";
 import { TClassProperties } from "../types";
 
@@ -47,12 +47,17 @@ export class Unit extends Base<TUnit> implements TUnit {
     }
 
     build() {
+        const unitName = lodash.kebabCase(this.type);
         return [
             new XmlFile({
-                filename: `${lodash.kebabCase(this.type)}.xml`,
-                filepath: `/units/`,
+                filename: `unit.xml`,
+                filepath: `/units/${unitName}/`,
                 content: this.toUnit(),
-                actionGroups: [this.actionGroupBundle.current]
+                actionGroups: [
+                    this.actionGroupBundle.current.fill({
+                        actions: [ACTIONS_GROUPS_ACTIONS.UPDATE_DATABASE]
+                    })
+                ]
             })
         ];
     }
