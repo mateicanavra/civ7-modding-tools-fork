@@ -4,6 +4,7 @@ export { AGE } from './AGE';
 export { CORE_CLASS } from './CORE_CLASS';
 export { DOMAIN } from './DOMAIN';
 export { KIND } from './KIND';
+export { UNIT } from './UNIT';
 export { UNIT_CLASS } from './UNIT_CLASS';
 export { UNIT_MOVEMENT_CLASS } from './UNIT_MOVEMENT_CLASS';
 export { YIELD } from './YIELD';

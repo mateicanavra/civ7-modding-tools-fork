@@ -34,7 +34,7 @@ export class Mod extends Base<TMod> implements TMod {
 
     build(dist = './dist', clear = false) {
         if(clear){
-            fs.rm(dist, { recursive: true }, () => undefined)
+            fs.rmSync(dist, { recursive: true });
         }
         const xmlFiles = this.getXmlFiles();
 

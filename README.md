@@ -21,12 +21,14 @@ yarn build
 - - [x] Autogenerate Criteria
 - - [x] Autogenerate ActionGroups
 - - [ ] Import files
+- [ ] Localization tool
 - [x] Units
 - - [x] Creating
 - - [x] Stats
 - - [x] Costs
 - - [x] Visual remap
 - - [x] Icons
+- - [x] Replace
 - - [ ] Game effects
 - [ ] Civilizations
 - [ ] Constructibles

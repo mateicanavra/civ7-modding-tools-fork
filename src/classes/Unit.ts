@@ -38,6 +38,7 @@ export class Unit extends Base<TUnit> implements TUnit {
     unitReplace: string = '';
     typeTags: TObjectValues<typeof UNIT_CLASS>[] = [];
     visualRemap: string = '';
+    traitType: string = '';
 
     constructor(payload: Partial<TUnit> = {}) {
         super();
@@ -69,7 +70,8 @@ export class Unit extends Base<TUnit> implements TUnit {
                         Domain: this.domain,
                         CoreClass: this.coreClass,
                         FormationClass: this.formationClass,
-                        ZoneOfControl: this.zoneOfControl ? "true" : "false"
+                        ZoneOfControl: this.zoneOfControl ? "true" : "false",
+                        TraitType: this.traitType
                     },
                 },
                 Tags: [{
