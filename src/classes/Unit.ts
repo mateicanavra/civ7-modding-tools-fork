@@ -39,6 +39,7 @@ export class Unit extends Base<TUnit> implements TUnit {
     typeTags: TObjectValues<typeof UNIT_CLASS>[] = [];
     visualRemap: string = '';
     traitType: string = '';
+    icon: string = '';
 
     constructor(payload: Partial<TUnit> = {}) {
         super();
@@ -49,7 +50,7 @@ export class Unit extends Base<TUnit> implements TUnit {
         }
     }
 
-    private toUnit(): XmlElement {
+    private toUpdateDatabase(): XmlElement {
         return {
             Database: {
                 Types: {
@@ -109,7 +110,7 @@ export class Unit extends Base<TUnit> implements TUnit {
         }
     }
 
-    private toVisualRemap(): XmlElement {
+    private toVisualRemaps(): XmlElement {
         return {
             Database: {
                 VisualRemaps: {
@@ -125,29 +126,58 @@ export class Unit extends Base<TUnit> implements TUnit {
         }
     }
 
+    private toIconDefinitions(): XmlElement {
+        return {
+            Database: {
+                IconDefinitions: {
+                    Row: {
+                        ID: this.type,
+                        Path: this.icon,
+                    }
+                }
+            }
+        }
+    }
 
     build() {
         const unitName = lodash.kebabCase(this.type.replace('UNIT_', ''));
         const directory = `/units/${unitName}/`;
+        const files: XmlFile[] = [];
 
-        const files = [
+        if (this.icon) {
+            files.push(new XmlFile({
+                filename: `icon.xml`,
+                filepath: directory,
+                content: this.toIconDefinitions(),
+                actionGroups: [
+                    this.actionGroupBundle.game.clone().fill({
+                        actions: [ACTIONS_GROUPS_ACTION.UPDATE_ICONS]
+                    }),
+                    this.actionGroupBundle.shell.clone().fill({
+                        actions: [ACTIONS_GROUPS_ACTION.UPDATE_ICONS]
+                    }),
+                ]
+            }));
+        }
+
+        files.push(
             new XmlFile({
                 filename: `unit.xml`,
                 filepath: directory,
-                content: this.toUnit(),
+                content: this.toUpdateDatabase(),
                 actionGroups: [
                     this.actionGroupBundle.current.fill({
                         actions: [ACTIONS_GROUPS_ACTION.UPDATE_DATABASE]
                     })
                 ]
             })
-        ];
+        );
 
-        if(this.visualRemap) {
+        if (this.visualRemap) {
             files.push(new XmlFile({
                 filename: `visual-remap.xml`,
                 filepath: directory,
-                content: this.toVisualRemap(),
+                content: this.toVisualRemaps(),
                 actionGroups: [
                     this.actionGroupBundle.current.clone().fill({
                         actions: [ACTIONS_GROUPS_ACTION.UPDATE_VISUAL_REMAPS]
@@ -155,6 +185,7 @@ export class Unit extends Base<TUnit> implements TUnit {
                 ]
             }));
         }
+
 
         return files;
     }

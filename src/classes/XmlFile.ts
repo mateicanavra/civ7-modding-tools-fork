@@ -20,7 +20,7 @@ export class XmlFile extends Base<TXmlFile> implements TXmlFile {
     }
 
     get modInfoFilepath(){
-        return `${this.filepath}${this.filename}`;
+        return `${this.filepath.slice(1)}${this.filename}`;
     }
 
     write(dist: string) {
