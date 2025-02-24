@@ -1,7 +1,10 @@
 *
 !.gitignore
 !README.me
+!build.ts
 !LICENSE
 !package.json
 !src
 !src/**
+!examples
+!examples/**

@@ -37,6 +37,7 @@ export class Unit extends Base<TUnit> implements TUnit {
     unitCost = new UnitCost();
     unitReplace: string = '';
     typeTags: TObjectValues<typeof UNIT_CLASS>[] = [];
+    visualRemap: string = '';
 
     constructor(payload: Partial<TUnit> = {}) {
         super();
@@ -106,12 +107,31 @@ export class Unit extends Base<TUnit> implements TUnit {
         }
     }
 
+    private toVisualRemap(): XmlElement {
+        return {
+            Database: {
+                VisualRemaps: {
+                    Row: {
+                        ID: `REMAP_${this.type}`,
+                        ...locale(this.type, ['DisplayName']),
+                        Kind: 'UNIT',
+                        From: this.type,
+                        To: this.visualRemap
+                    }
+                }
+            }
+        }
+    }
+
+
     build() {
         const unitName = lodash.kebabCase(this.type.replace('UNIT_', ''));
-        return [
+        const directory = `/units/${unitName}/`;
+
+        const files = [
             new XmlFile({
                 filename: `unit.xml`,
-                filepath: `/units/${unitName}/`,
+                filepath: directory,
                 content: this.toUnit(),
                 actionGroups: [
                     this.actionGroupBundle.current.fill({
@@ -120,5 +140,20 @@ export class Unit extends Base<TUnit> implements TUnit {
                 ]
             })
         ];
+
+        if(this.visualRemap) {
+            files.push(new XmlFile({
+                filename: `visual-remap.xml`,
+                filepath: directory,
+                content: this.toVisualRemap(),
+                actionGroups: [
+                    this.actionGroupBundle.current.clone().fill({
+                        actions: [ACTIONS_GROUPS_ACTION.UPDATE_VISUAL_REMAPS]
+                    })
+                ]
+            }));
+        }
+
+        return files;
     }
 }

@@ -16,6 +16,10 @@ export class Base<T extends Object> {
         return [];
     }
 
+    clone(): this {
+        return Object.assign(Object.create(Object.getPrototypeOf(this)), this);
+    }
+
     build(): XmlFile[] {
         return [];
     }
