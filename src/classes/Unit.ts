@@ -19,6 +19,7 @@ import { XmlFile } from "./XmlFile";
 import { ActionGroupBundle } from "./ActionGroupBundle";
 import { UnitStat } from "./UnitStat";
 import { UnitCost } from "./UnitCost";
+import { UnitLocalization } from "../localizations";
 
 type TUnit = TClassProperties<Unit>;
 
@@ -40,6 +41,7 @@ export class Unit extends Base<TUnit> implements TUnit {
     visualRemap: string = '';
     traitType: string = '';
     icon: string = '';
+    localizations: UnitLocalization[] = [];
 
     constructor(payload: Partial<TUnit> = {}) {
         super();
@@ -63,7 +65,8 @@ export class Unit extends Base<TUnit> implements TUnit {
                 Units: {
                     _name: 'Row',
                     _attrs: {
-                        ...locale(this.type, ['Name', 'Description']),
+                        Name: locale(this.type, 'Name'),
+                        Description: locale(this.type, 'Description'),
                         UnitType: this.type,
                         BaseSightRange: this.baseSightRange,
                         BaseMoves: this.baseMoves,
@@ -116,7 +119,7 @@ export class Unit extends Base<TUnit> implements TUnit {
                 VisualRemaps: {
                     Row: {
                         ID: `REMAP_${this.type}`,
-                        ...locale(this.type, ['DisplayName']),
+                        DisplayName: locale(this.type, 'Name'),
                         Kind: 'UNIT',
                         From: this.type,
                         To: this.visualRemap
@@ -139,10 +142,45 @@ export class Unit extends Base<TUnit> implements TUnit {
         }
     }
 
+    private toTexts(): XmlElement {
+        return {
+            Database: {
+                EnglishText: {
+                    Row: {
+                        ID: this.type,
+                        Path: this.icon,
+                    }
+                }
+            }
+        }
+    }
+
+    private toLocalization(): XmlElement {
+        return {
+            Database: this.localizations.map(localization => {
+                return localization.fill({ prefix: this.type }).toXmlElement();
+            })
+        }
+    }
+
     build() {
         const unitName = lodash.kebabCase(this.type.replace('UNIT_', ''));
         const directory = `/units/${unitName}/`;
         const files: XmlFile[] = [];
+
+
+        files.push(
+            new XmlFile({
+                filename: `unit.xml`,
+                filepath: directory,
+                content: this.toUpdateDatabase(),
+                actionGroups: [
+                    this.actionGroupBundle.current.clone().fill({
+                        actions: [ACTIONS_GROUPS_ACTION.UPDATE_DATABASE]
+                    })
+                ]
+            })
+        );
 
         if (this.icon) {
             files.push(new XmlFile({
@@ -160,19 +198,6 @@ export class Unit extends Base<TUnit> implements TUnit {
             }));
         }
 
-        files.push(
-            new XmlFile({
-                filename: `unit.xml`,
-                filepath: directory,
-                content: this.toUpdateDatabase(),
-                actionGroups: [
-                    this.actionGroupBundle.current.fill({
-                        actions: [ACTIONS_GROUPS_ACTION.UPDATE_DATABASE]
-                    })
-                ]
-            })
-        );
-
         if (this.visualRemap) {
             files.push(new XmlFile({
                 filename: `visual-remap.xml`,
@@ -186,6 +211,21 @@ export class Unit extends Base<TUnit> implements TUnit {
             }));
         }
 
+        if (this.localizations.length > 0) {
+            files.push(new XmlFile({
+                filename: `localizations.xml`,
+                filepath: directory,
+                content: this.toLocalization(),
+                actionGroups: [
+                    this.actionGroupBundle.shell.clone().fill({
+                        actions: [ACTIONS_GROUPS_ACTION.UPDATE_TEXT]
+                    }),
+                    this.actionGroupBundle.game.clone().fill({
+                        actions: [ACTIONS_GROUPS_ACTION.UPDATE_TEXT]
+                    })
+                ]
+            }));
+        }
 
         return files;
     }

@@ -10,3 +10,4 @@ export { UNIT_MOVEMENT_CLASS } from './UNIT_MOVEMENT_CLASS';
 export { YIELD } from './YIELD';
 export { FORMATION_CLASS } from './FORMATION_CLASS';
 export { ICON_PATH } from './ICON_PATH';
+export { LANGUAGE } from './LANGUAGE';

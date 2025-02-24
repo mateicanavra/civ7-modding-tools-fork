@@ -1,10 +1,5 @@
 import * as lodash from 'lodash';
 
-export const locale = (prefix: string, variables: string[]): Record<string, string> => {
-    return variables.reduce((prev, current) => {
-        return {
-            ...prev,
-            [current]: `LOC_${prefix}_${lodash.snakeCase(current).toLocaleUpperCase()}`
-        }
-    }, {});
+export const locale = (prefix: string, variable: string): string => {
+    return `LOC_${prefix}_${lodash.snakeCase(variable).toLocaleUpperCase()}`;
 }

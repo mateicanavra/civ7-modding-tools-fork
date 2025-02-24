@@ -21,7 +21,9 @@ yarn build
 - - [x] Autogenerate Criteria
 - - [x] Autogenerate ActionGroups
 - - [ ] Import files
-- [ ] Localization tool
+- [x] Localization tool
+- - [x] English
+- - [ ] Internalization (help wanted)
 - [x] Units
 - - [x] Creating
 - - [x] Stats

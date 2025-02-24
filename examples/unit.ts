@@ -1,4 +1,4 @@
-import { ACTION_GROUP_BUNDLE, ICON_PATH, Mod, UNIT, Unit, UNIT_CLASS, UnitStat } from './src';
+import { ACTION_GROUP_BUNDLE, ICON_PATH, Mod, UNIT, Unit, UNIT_CLASS, UnitLocalization, UnitStat } from './src';
 
 const mod = new Mod({
     id: 'mod-test',
@@ -8,13 +8,14 @@ const mod = new Mod({
 const unit = new Unit({
     type: 'UNIT_TEST_SCOUT',
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
-    unitStat: new UnitStat({
-        combat: 40
-    }),
+    unitStat: new UnitStat({ combat: 40 }),
     typeTags: [UNIT_CLASS.RECON, UNIT_CLASS.RECON_ABILITIES],
-    visualRemap: 'UNIT_ARMY_COMMANDER',
+    visualRemap: UNIT.ARMY_COMMANDER,
     unitReplace: UNIT.SCOUT,
-    icon: ICON_PATH.CIV_SYM_HAN
+    icon: ICON_PATH.CIV_SYM_HAN,
+    localizations: [
+        new UnitLocalization({ name: 'Test scout', description: 'test scout description' })
+    ]
 });
 
 mod.fill({
