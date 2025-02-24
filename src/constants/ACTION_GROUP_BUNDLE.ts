@@ -1,5 +1,5 @@
 import { ActionGroup, ActionGroupBundle, Criteria } from "../classes";
-import { AGES } from "./AGES";
+import { AGE } from "./AGE";
 import { TObjectValues } from "../types";
 
 const shell = new ActionGroup({
@@ -12,15 +12,15 @@ const game = new ActionGroup({
     criteria: new Criteria({ id: 'always' })
 });
 
-export const ACTION_GROUP_BUNDLES: Record<TObjectValues<typeof AGES>, ActionGroupBundle> = {
-    [AGES.AGE_ANTIQUITY]: new ActionGroupBundle({
+export const ACTION_GROUP_BUNDLE: Record<TObjectValues<typeof AGE>, ActionGroupBundle> = {
+    [AGE.ANTIQUITY]: new ActionGroupBundle({
         shell,
         game,
         current: new ActionGroup({
             scope: 'game',
             criteria: new Criteria({
                 id: 'age-antiquity-current',
-                ages: [AGES.AGE_ANTIQUITY]
+                ages: [AGE.ANTIQUITY]
             })
         }),
         exist: new ActionGroup({
@@ -28,18 +28,18 @@ export const ACTION_GROUP_BUNDLES: Record<TObjectValues<typeof AGES>, ActionGrou
             criteria: new Criteria({
                 id: 'age-antiquity-exist',
                 isAny: true,
-                ages: [AGES.AGE_ANTIQUITY, AGES.AGE_EXPLORATION, AGES.AGE_MODERN]
+                ages: [AGE.ANTIQUITY, AGE.EXPLORATION, AGE.MODERN]
             })
         })
     }),
-    [AGES.AGE_EXPLORATION]: new ActionGroupBundle({
+    [AGE.EXPLORATION]: new ActionGroupBundle({
         shell,
         game,
         current: new ActionGroup({
             scope: 'game',
             criteria: new Criteria({
                 id: 'age-exploration-current',
-                ages: [AGES.AGE_EXPLORATION]
+                ages: [AGE.EXPLORATION]
             })
         }),
         exist: new ActionGroup({
@@ -47,18 +47,18 @@ export const ACTION_GROUP_BUNDLES: Record<TObjectValues<typeof AGES>, ActionGrou
             criteria: new Criteria({
                 id: 'age-exploration-exist',
                 isAny: true,
-                ages: [AGES.AGE_EXPLORATION, AGES.AGE_MODERN]
+                ages: [AGE.EXPLORATION, AGE.MODERN]
             })
         })
     }),
-    [AGES.AGE_MODERN]: new ActionGroupBundle({
+    [AGE.MODERN]: new ActionGroupBundle({
         shell,
         game,
         current: new ActionGroup({
             scope: 'game',
             criteria: new Criteria({
                 id: 'age-modern-current',
-                ages: [AGES.AGE_ANTIQUITY]
+                ages: [AGE.ANTIQUITY]
             })
         }),
         exist: new ActionGroup({
@@ -66,7 +66,7 @@ export const ACTION_GROUP_BUNDLES: Record<TObjectValues<typeof AGES>, ActionGrou
             criteria: new Criteria({
                 id: 'age-modern-exist',
                 isAny: true,
-                ages: [AGES.AGE_MODERN]
+                ages: [AGE.MODERN]
             })
         })
     }),

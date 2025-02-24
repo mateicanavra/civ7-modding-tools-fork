@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 
 import { Base } from "./Base";
-import { AGES } from "../constants";
+import { AGE } from "../constants";
 import { TClassProperties } from "../types";
 
 type TCriteria = TClassProperties<Criteria>;
@@ -9,7 +9,7 @@ type TCriteria = TClassProperties<Criteria>;
 export class Criteria extends Base<TCriteria> implements TCriteria {
     id: string = `criteria-${uuid()}`;
     isAny?: boolean = false;
-    ages: (typeof AGES[keyof typeof AGES])[] = [];
+    ages: (typeof AGE[keyof typeof AGE])[] = [];
 
     constructor(payload: Partial<TCriteria> = {}) {
         super();

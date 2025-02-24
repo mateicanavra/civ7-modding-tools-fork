@@ -1,0 +1,5 @@
+export const AGE = {
+    ANTIQUITY: "AGE_ANTIQUITY",
+    EXPLORATION: "AGE_EXPLORATION",
+    MODERN: "AGE_MODERN"
+} as const;

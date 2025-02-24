@@ -3,3 +3,5 @@ export { ActionGroup } from './ActionGroup';
 export { Mod } from './Mod';
 export { Criteria } from './Criteria';
 export { Unit } from './Unit';
+export { UnitStat } from './UnitStat';
+export { UnitCost } from './UnitCost';
