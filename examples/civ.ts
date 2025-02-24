@@ -20,7 +20,7 @@ const unit = new Unit({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     unitStat: new UnitStat({ combat: 40 }),
     typeTags: [UNIT_CLASS.RECON, UNIT_CLASS.RECON_ABILITIES],
-    visualRemap: UNIT.ARMY_COMMANDER,
+    visualRemap: UNIT.ARCHER,
     unitReplace: UNIT.SCOUT,
     icon: ICON_PATH.CIV_SYM_HAN,
     localizations: [

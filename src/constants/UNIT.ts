@@ -1,5 +1,6 @@
 export const UNIT = {
     SCOUT: 'UNIT_SCOUT',
+    ARCHER: 'UNIT_ARCHER',
     SETTLER: 'UNIT_SETTLER',
     ARMY_COMMANDER: 'UNIT_ARMY_COMMANDER',
 } as const;
