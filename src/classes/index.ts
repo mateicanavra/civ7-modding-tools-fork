@@ -1,6 +1,7 @@
 export { ActionGroup } from './ActionGroup';
 export { ActionGroupBundle } from './ActionGroupBundle';
 export { Civilization } from './Civilization';
+export { CivilizationItem } from './CivilizationItem';
 export { Criteria } from './Criteria';
 export { Mod } from './Mod';
 export { Unit } from './Unit';

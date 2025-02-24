@@ -10,6 +10,8 @@ import { Base } from "./Base";
 import { locale } from "../utils";
 import { XmlFile } from "./XmlFile";
 import { ActionGroupBundle } from "./ActionGroupBundle";
+import { Unit } from "./Unit";
+import { CivilizationItem } from "./CivilizationItem";
 
 type TCivilization = TClassProperties<Civilization>;
 
@@ -23,6 +25,7 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
     traitAbility: string = '';
     type: string = '';
     icon: string = '';
+    civilizationItems: CivilizationItem[] = [];
     civilizationTags: TObjectValues<typeof TAG_TRAIT>[] = [];
     civilizationTraits: TObjectValues<typeof TRAIT>[] = [];
     localizations: CivilizationLocalization[] = [];
@@ -60,7 +63,11 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
         }
     }
 
-    toShell() {
+    addUnits(units: Unit[]) {
+
+    }
+
+    private toShell() {
         return {
             Database: {
                 Civilizations: {
@@ -82,7 +89,12 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
                         TagType: civilizationTag,
                     }
                 })),
-                CivilizationItems: []
+                CivilizationItems: this.civilizationItems.map(civilizationItem => {
+                    return civilizationItem.fill({
+                        civilizationType: this.type,
+                        civilizationDomain: this.domain
+                    }).toXmlElement();
+                })
             }
         }
     }

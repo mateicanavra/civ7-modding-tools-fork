@@ -20,6 +20,7 @@ import { ActionGroupBundle } from "./ActionGroupBundle";
 import { UnitStat } from "./UnitStat";
 import { UnitCost } from "./UnitCost";
 import { UnitLocalization } from "../localizations";
+import { Civilization } from "./Civilization";
 
 type TUnit = TClassProperties<Unit>;
 
@@ -61,6 +62,11 @@ export class Unit extends Base<TUnit> implements TUnit {
         if(!this.tag.startsWith('UNIT_CLASS_')){
             this.tag = `UNIT_CLASS_${this.tag}`;
         }
+    }
+
+    bindToCivilization(civilization: Civilization) {
+        this.traitType = civilization.trait;
+        return this;
     }
 
     private toGame(): XmlElement {

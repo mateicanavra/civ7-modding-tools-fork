@@ -1,4 +1,4 @@
-import { ACTION_GROUP_BUNDLE, ICON_PATH, Mod, UNIT, Unit, UNIT_CLASS, UnitLocalization, UnitStat } from './src';
+import { ACTION_GROUP_BUNDLE, ICON_PATH, Mod, UNIT, Unit, UNIT_CLASS, UnitStat } from './src';
 
 const mod = new Mod({
     id: 'mod-test',
@@ -8,13 +8,13 @@ const mod = new Mod({
 const unit = new Unit({
     type: 'UNIT_TEST_SCOUT',
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
-    unitStat: new UnitStat({ combat: 40 }),
+    unitStat: new UnitStat({
+        combat: 40
+    }),
     typeTags: [UNIT_CLASS.RECON, UNIT_CLASS.RECON_ABILITIES],
-    visualRemap: UNIT.ARMY_COMMANDER,
-    icon: ICON_PATH.CIV_SYM_HAN,
-    localizations: [
-        new UnitLocalization({ name: 'Test scout', description: 'test scout description' })
-    ]
+    visualRemap: 'UNIT_ARMY_COMMANDER',
+    unitReplace: UNIT.SCOUT,
+    icon: ICON_PATH.CIV_SYM_HAN
 });
 
 mod.fill({
@@ -22,4 +22,3 @@ mod.fill({
 });
 
 mod.build('./dist/mod-test');
-mod.build('C:/Users/izica/AppData/Local/Firaxis Games/Sid Meier\'s Civilization VII/Mods/test', true);
