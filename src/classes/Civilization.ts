@@ -74,7 +74,8 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
 
         if(this.icons?.main){
             this.icons.main.fill({
-                id: this.type
+                id: this.type,
+                path: `civ_sym_${lodash.snakeCase(this.name)}`
             });
         }
     }
@@ -88,10 +89,6 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
                 item.fill({ traitType: this.trait })
             }
         })
-    }
-
-    getIcons(): Icon[] {
-        return Object.values(this.icons).filter(icon => !!icon);
     }
 
     private toShell() {

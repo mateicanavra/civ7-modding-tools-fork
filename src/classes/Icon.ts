@@ -10,11 +10,12 @@ type TIcon = TClassProperties<Icon>;
 
 export class Icon extends Base<TIcon> implements TIcon {
     id: string = randomUUID();
-    path: string = '';
     modId: string = '';
+    path: string = '';
+    content: string = '';
 
     get isExternal() {
-        return fs.existsSync(this.path);
+        return fs.existsSync(this.content);
     }
 
     constructor(payload: Partial<TIcon> = {}) {
@@ -22,11 +23,26 @@ export class Icon extends Base<TIcon> implements TIcon {
         this.fill(payload);
     }
 
+    fill(payload: Partial<TIcon> = {}) {
+        super.fill(payload);
+
+        if(this.isExternal && !this.path) {
+            this.path =`fs://game/${this.modId}/${path.basename(this.content)}`;
+            return this;
+        }
+
+        if(this.isExternal && !this.path.startsWith('fs:')) {
+            this.path = `fs://game/${this.modId}/${this.path}`;
+        }
+
+        return this;
+    }
+
     toXmlElement() {
         return {
             Row: {
                 ID: this.id,
-                Path: this.isExternal ? `fs://game/${this.modId}/${path.basename(this.path)}` : this.path,
+                Path: this.path,
             }
         }
     }

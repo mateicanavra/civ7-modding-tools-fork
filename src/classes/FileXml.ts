@@ -5,11 +5,11 @@ import { TClassProperties } from "../types";
 
 import { Base } from "./Base";
 import { ActionGroup } from "./ActionGroup";
-import { File } from "./File";
+import { FileBase } from "./FileBase";
 
 type TXmlFile = TClassProperties<FileXml>;
 
-export class FileXml extends File<FileXml> implements TXmlFile {
+export class FileXml extends FileBase<FileXml> implements TXmlFile {
     content: XmlElement | XmlElement[] | null = null;
 
     constructor(payload: Partial<TXmlFile> = {}) {

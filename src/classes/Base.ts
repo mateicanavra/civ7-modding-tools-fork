@@ -1,6 +1,6 @@
 import { XmlElement } from "jstoxml";
 
-import { File } from "./File";
+import { FileBase } from "./FileBase";
 
 export class Base<T extends Object> {
     constructor(payload: Partial<T> = {}) {
@@ -24,7 +24,7 @@ export class Base<T extends Object> {
         return Object.assign(Object.create(Object.getPrototypeOf(this)), this);
     }
 
-    getFiles(): File[] {
+    getFiles(): FileBase[] {
         return [];
     }
 }

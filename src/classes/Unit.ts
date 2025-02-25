@@ -19,7 +19,7 @@ import { ActionGroupBundle } from "./ActionGroupBundle";
 import { Base } from "./Base";
 import { UnitCost } from "./UnitCost";
 import { UnitStat } from "./UnitStat";
-import { File } from "./File";
+import { FileBase } from "./FileBase";
 import { FileXml } from "./FileXml";
 import { Icon } from "./Icon";
 import { FileImport } from "./FileImport";

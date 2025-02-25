@@ -4,14 +4,15 @@ import { toXML, XmlElement } from "jstoxml";
 
 import { TClassProperties } from "../types";
 
-import { File } from "./File";
+import { FileBase } from "./FileBase";
 import { Icon } from "./Icon";
 import { ACTION_GROUP_ACTION } from "../constants";
 import { ACTION_GROUP } from "../constants/ACTION_GROUP";
+import { it } from "node:test";
 
 type TXmlFile = TClassProperties<FileImport>;
 
-export class FileImport extends File<FileImport> implements TXmlFile {
+export class FileImport extends FileBase<FileImport> implements TXmlFile {
     path = '/imports/';
     content = '';
 
@@ -21,9 +22,9 @@ export class FileImport extends File<FileImport> implements TXmlFile {
     }
 
     static from(item: Icon) {
-        if(item instanceof Icon){
+        if(item instanceof Icon && item.isExternal){
             return new FileImport({
-                content: item.path,
+                content: item.content,
                 name: path.basename(item.path),
                 actionGroupActions: [ACTION_GROUP_ACTION.IMPORT_FILES],
                 actionGroups: [ACTION_GROUP.SHELL, ACTION_GROUP.GAME]
