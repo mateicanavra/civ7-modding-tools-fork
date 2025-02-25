@@ -12,6 +12,8 @@ import { ConstructibleMaintenance } from "./ConstructibleMaintenance";
 import { ConstructibleYieldChange } from "./ConstructibleYieldChange";
 import { FileXml } from "./FileXml";
 import { randomUUID } from "node:crypto";
+import { Icon } from "./Icon";
+import { FileImport } from "./FileImport";
 
 type TConstructible = TClassProperties<Constructible>;
 
@@ -23,7 +25,7 @@ export class Constructible extends Base<TConstructible> implements TConstructibl
     population: number = 1;
     isDistrictDefense = false;
     traitType: string = '';
-    icon: string = '';
+    icon = new Icon({ path: 'blp:impicon_greatwall' });
 
     age: TObjectValues<typeof AGE> = AGE.ANTIQUITY;
     constructibleClass: TObjectValues<typeof CONSTRUCTIBLE_CLASS> = CONSTRUCTIBLE_CLASS.BUILDING;
@@ -50,10 +52,14 @@ export class Constructible extends Base<TConstructible> implements TConstructibl
         if (!this.type.startsWith(typePrefix)) {
             this.type = `${typePrefix}${this.type}`;
         }
+
+        this.icon.fill({
+            id: this.type
+        });
     }
 
     private toLocalization(): XmlElement {
-        if(!this.localizations){
+        if (!this.localizations) {
             return null
         }
         return {
@@ -127,6 +133,14 @@ export class Constructible extends Base<TConstructible> implements TConstructibl
         };
     }
 
+    private toIconDefinitions(): XmlElement {
+        return {
+            Database: {
+                IconDefinitions: [this.icon.toXmlElement()]
+            }
+        }
+    }
+
     getFiles() {
         const directory = `/constructibles/${lodash.kebabCase(this.name)}/`;
 
@@ -139,12 +153,20 @@ export class Constructible extends Base<TConstructible> implements TConstructibl
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
             }),
             new FileXml({
+                path: directory,
+                name: `icons.xml`,
+                content: this.toIconDefinitions(),
+                actionGroups: [this.actionGroupBundle.current, this.actionGroupBundle.shell],
+                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_ICONS]
+            }),
+            new FileXml({
                 name: `localization.xml`,
                 path: directory,
                 content: this.toLocalization(),
                 actionGroups: [this.actionGroupBundle.shell, this.actionGroupBundle.game],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_TEXT]
-            })
+            }),
+            FileImport.from(this.icon)
         ];
     }
 }

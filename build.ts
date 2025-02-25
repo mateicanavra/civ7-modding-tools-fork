@@ -28,6 +28,7 @@ const mod = new Mod({
 const unit = new Unit({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     name: 'TEST_SCOUT',
+    icon: new Icon({modId: mod.id, content: './assets/unit-icon.png'}),
     unitStat: new UnitStat({ combat: 40 }),
     typeTags: [UNIT_CLASS.RECON, UNIT_CLASS.RECON_ABILITIES],
     visualRemap: UNIT.ARCHER,
@@ -40,7 +41,7 @@ const unit = new Unit({
 const constructible = new Constructible({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     name: 'TEST_BARN',
-
+    icon: new Icon({modId: mod.id, content: './assets/constructible-icon.png'}),
     typeTags: [
         CONSTRUCTIBLE_TYPE_TAG.UNIQUE,
         CONSTRUCTIBLE_TYPE_TAG.PERSISTENT,
@@ -48,17 +49,14 @@ const constructible = new Constructible({
         CONSTRUCTIBLE_TYPE_TAG.FOOD,
         CONSTRUCTIBLE_TYPE_TAG.PRODUCTION,
     ],
-
     constructibleYieldChanges: [
         new ConstructibleYieldChange({ yieldType: YIELD.PRODUCTION, yieldChange: 5 }),
         new ConstructibleYieldChange({ yieldType: YIELD.FOOD, yieldChange: 5 })
     ],
-
     constructibleMaintenances: [
         new ConstructibleMaintenance({ yieldType: YIELD.GOLD, amount: 1 }),
         new ConstructibleMaintenance({ yieldType: YIELD.HAPPINESS, amount: 1 }),
     ],
-
     localizations: [
         new ConstructibleLocalization({
             name: 'Test constructible',

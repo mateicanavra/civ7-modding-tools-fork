@@ -36,7 +36,7 @@ export class Unit extends Base<TUnit> implements TUnit {
     unitReplace: string = '';
     visualRemap: string = '';
     traitType: string = '';
-    icons: { main?: Icon } = {};
+    icon = new Icon({path: 'fs://game/civ_sym_han'})
 
     unitMovementClass: TObjectValues<typeof UNIT_MOVEMENT_CLASS> = UNIT_MOVEMENT_CLASS.FOOT;
     domain: TObjectValues<typeof DOMAIN> = DOMAIN.LAND;
@@ -69,6 +69,10 @@ export class Unit extends Base<TUnit> implements TUnit {
         if (!this.tag.startsWith(tagPrefix)) {
             this.tag = `${tagPrefix}${this.tag}`;
         }
+
+        this.icon.fill({
+            id: this.type
+        });
     }
 
     private toGame(): XmlElement {
@@ -163,15 +167,9 @@ export class Unit extends Base<TUnit> implements TUnit {
     }
 
     private toIconDefinitions(): XmlElement {
-        const icons = Object.values(this.icons).filter(icon => !!icon);
-
-        if(!icons.length){
-            return  null;
-        }
-
         return {
             Database: {
-                IconDefinitions: icons.map(icon => icon.toXmlElement())
+                IconDefinitions: [this.icon.toXmlElement()]
             }
         }
     }
@@ -209,7 +207,7 @@ export class Unit extends Base<TUnit> implements TUnit {
                 actionGroups: [this.actionGroupBundle.shell, this.actionGroupBundle.game],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_TEXT]
             }),
-            ...Object.values(this.icons).filter(icon => !!icon && icon.isExternal).map(icon => FileImport.from(icon))
+            FileImport.from(this.icon)
         ];
     }
 }
