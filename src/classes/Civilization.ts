@@ -1,20 +1,30 @@
 import { XmlElement } from "jstoxml";
 import * as lodash from "lodash";
+import { randomUUID } from "node:crypto";
 
 import { TClassProperties, TObjectValues } from "../types";
-import { ACTION_GROUP_ACTION, AGE, KIND, TAG_TRAIT, TRAIT } from "../constants";
+import {
+    ACTION_GROUP_ACTION,
+    AGE,
+    BIOME, BUILDING_CULTURES,
+    FEATURE_CLASS,
+    KIND,
+    RESOURCE,
+    TAG_TRAIT,
+    TRAIT,
+    UNIT_CULTURE
+} from "../constants";
 import { CivilizationLocalization } from "../localizations";
-
-import { Base } from "./Base";
 import { locale } from "../utils";
-import { FileXml } from "./FileXml";
+
 import { ActionGroupBundle } from "./ActionGroupBundle";
+import { Base } from "./Base";
 import { CivilizationItem } from "./CivilizationItem";
-import { Unit } from "./Unit";
 import { Constructible } from "./Constructible";
-import { randomUUID } from "node:crypto";
-import { Icon } from "./Icon";
 import { FileImport } from "./FileImport";
+import { FileXml } from "./FileXml";
+import { Icon } from "./Icon";
+import { Unit } from "./Unit";
 
 type TCivilization = TClassProperties<Civilization>;
 
@@ -25,11 +35,18 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
     traitAbility: string = '';
     type: string = '';
 
+    startBiasBiomes: { biome: TObjectValues<typeof BIOME>, score: number }[] = [];
+    startBiasResources: { resource: TObjectValues<typeof RESOURCE>, score: number }[] = [];
+    startBiasTerrains: { terrain: TObjectValues<typeof RESOURCE>, score: number }[] = [];
+    startBiasFeatureClasses: { featureClass: TObjectValues<typeof FEATURE_CLASS>, score: number }[] = [];
+
     icons: { main?: Icon } = {};
 
     age: TObjectValues<typeof AGE> = AGE.ANTIQUITY
     civilizationTags: TObjectValues<typeof TAG_TRAIT>[] = [];
     civilizationTraits: TObjectValues<typeof TRAIT>[] = [];
+    civilizationBuildingCultures: TObjectValues<typeof BUILDING_CULTURES>[] = [BUILDING_CULTURES.ANT_MUD];
+    civilizationUnitCulture: TObjectValues<typeof UNIT_CULTURE> = UNIT_CULTURE.EURO;
 
     actionGroupBundle = new ActionGroupBundle();
     civilizationItems: CivilizationItem[] = [];
@@ -235,7 +252,53 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
                         CivilizationType: this.type,
                         CityName: locale(this.type, `cityNames${i}`),
                     }
-                }))
+                })),
+                StartBiasBiomes: this.startBiasBiomes.map(startBiasBiome => ({
+                    _name: 'Row',
+                    _attrs: {
+                        CivilizationType: this.type,
+                        BiomeType: startBiasBiome.biome,
+                        Score: startBiasBiome.score,
+                    }
+                })),
+                StartBiasResources: this.startBiasResources.map(startBiasResource => ({
+                    _name: 'Row',
+                    _attrs: {
+                        CivilizationType: this.type,
+                        ResourceType: startBiasResource.resource,
+                        Score: startBiasResource.score,
+                    }
+                })),
+                StartBiasTerrains: this.startBiasTerrains.map(startBiasTerrain => ({
+                    _name: 'Row',
+                    _attrs: {
+                        CivilizationType: this.type,
+                        TerrainType: startBiasTerrain.terrain,
+                        Score: startBiasTerrain.score,
+                    }
+                })),
+                StartBiasFeatureClasses: this.startBiasFeatureClasses.map(startBiasFeatureClass => ({
+                    _name: 'Row',
+                    _attrs: {
+                        CivilizationType: this.type,
+                        FeatureClassType: startBiasFeatureClass.featureClass,
+                        Score: startBiasFeatureClass.score,
+                    }
+                })),
+                VisArt_CivilizationBuildingCultures: this.civilizationBuildingCultures.map(civilizationBuildingCulture => ({
+                    _name: 'Row',
+                    _attrs: {
+                        CivilizationType: this.type,
+                        BuildingCulture: civilizationBuildingCulture,
+                    }
+                })),
+                VisArt_CivilizationUnitCultures: {
+                    _name: 'Row',
+                    _attrs: {
+                        CivilizationType: this.type,
+                        BuildingCulture: this.civilizationUnitCulture,
+                    }
+                }
             }
         };
     }

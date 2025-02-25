@@ -1,14 +1,11 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { toXML, XmlElement } from "jstoxml";
 
+import { ACTION_GROUP_ACTION, ACTION_GROUP } from "../constants";
 import { TClassProperties } from "../types";
 
 import { FileBase } from "./FileBase";
 import { Icon } from "./Icon";
-import { ACTION_GROUP_ACTION } from "../constants";
-import { ACTION_GROUP } from "../constants/ACTION_GROUP";
-import { it } from "node:test";
 
 type TXmlFile = TClassProperties<FileImport>;
 

@@ -42,6 +42,8 @@ yarn build
 - - [x] Binding unique constructibles
 - - [x] Icons
 - - [x] City names
+- - [x] Start biases
+- - [x] Visual arts
 - - [ ] Civics
 - - [ ] ...and more
 - [x] Constructibles
