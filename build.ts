@@ -28,7 +28,7 @@ const mod = new Mod({
 const unit = new Unit({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     name: 'TEST_SCOUT',
-    icon: new Icon({modId: mod.id, content: './assets/unit-icon.png'}),
+    icon: new Icon({ modId: mod.id, content: './assets/unit-icon.png' }),
     unitStat: new UnitStat({ combat: 40 }),
     typeTags: [UNIT_CLASS.RECON, UNIT_CLASS.RECON_ABILITIES],
     visualRemap: UNIT.ARCHER,
@@ -90,6 +90,7 @@ const civilization = new Civilization({
             name: 'Test civilization',
             description: 'Test civilization desc',
             fullName: 'Test civilization full name',
+            adjective: 'Test adjective',
         })
     ]
 });

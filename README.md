@@ -20,7 +20,7 @@ yarn build
 - - [x] Properties
 - - [x] Autogenerate Criteria
 - - [x] Autogenerate ActionGroups
-- - [ ] Import files
+- - [x] Import custom icons
 - [x] Localization tool
 - - [x] English
 - - [ ] Internalization (help wanted)
@@ -40,7 +40,7 @@ yarn build
 - - [x] Texts
 - - [x] Binding unique units
 - - [x] Binding unique constructibles
-- - [ ] Icons
+- - [x] Icons
 - - [ ] Civics
 - - [ ] ...and more
 - [x] Constructibles
@@ -51,7 +51,7 @@ yarn build
 - - [x] Maintenances
 - - [x] Cost
 - - [x] Texts
-- - [ ] Icons
+- - [x] Icons
 - - [ ] Remap (don't work at the time)
 - - [ ] as Improvement
 - - [ ] as Quarter

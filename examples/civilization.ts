@@ -3,10 +3,12 @@ import {
     Civilization,
     CivilizationItem,
     CivilizationLocalization,
-    Constructible, CONSTRUCTIBLE_TYPE_TAG,
+    Constructible,
+    CONSTRUCTIBLE_TYPE_TAG,
     ConstructibleLocalization,
+    ConstructibleMaintenance,
     ConstructibleYieldChange,
-    ICON_PATH,
+    Icon,
     Mod,
     TAG_TRAIT,
     TRAIT,
@@ -17,7 +19,6 @@ import {
     UnitStat,
     YIELD
 } from './src';
-import { ConstructibleMaintenance } from "./src/classes/ConstructibleMaintenance";
 
 const mod = new Mod({
     id: 'mod-test',
@@ -27,11 +28,11 @@ const mod = new Mod({
 const unit = new Unit({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     name: 'TEST_SCOUT',
+    icon: new Icon({ modId: mod.id, content: './assets/unit-icon.png' }),
     unitStat: new UnitStat({ combat: 40 }),
     typeTags: [UNIT_CLASS.RECON, UNIT_CLASS.RECON_ABILITIES],
     visualRemap: UNIT.ARCHER,
     unitReplace: UNIT.SCOUT,
-    icon: ICON_PATH.CIV_SYM_HAN,
     localizations: [
         new UnitLocalization({ name: 'Test scout', description: 'test scout description' })
     ]
@@ -40,7 +41,7 @@ const unit = new Unit({
 const constructible = new Constructible({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     name: 'TEST_BARN',
-
+    icon: new Icon({modId: mod.id, content: './assets/constructible-icon.png'}),
     typeTags: [
         CONSTRUCTIBLE_TYPE_TAG.UNIQUE,
         CONSTRUCTIBLE_TYPE_TAG.PERSISTENT,
@@ -48,17 +49,14 @@ const constructible = new Constructible({
         CONSTRUCTIBLE_TYPE_TAG.FOOD,
         CONSTRUCTIBLE_TYPE_TAG.PRODUCTION,
     ],
-
     constructibleYieldChanges: [
         new ConstructibleYieldChange({ yieldType: YIELD.PRODUCTION, yieldChange: 5 }),
         new ConstructibleYieldChange({ yieldType: YIELD.FOOD, yieldChange: 5 })
     ],
-
     constructibleMaintenances: [
         new ConstructibleMaintenance({ yieldType: YIELD.GOLD, amount: 1 }),
         new ConstructibleMaintenance({ yieldType: YIELD.HAPPINESS, amount: 1 }),
     ],
-
     localizations: [
         new ConstructibleLocalization({
             name: 'Test constructible',
@@ -71,9 +69,18 @@ const constructible = new Constructible({
 const civilization = new Civilization({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     name: 'TEST_CIV',
-    civilizationTags: [TAG_TRAIT.CULTURAL, TAG_TRAIT.ECONOMIC],
-    civilizationTraits: [TRAIT.ANTIQUITY_CIV, TRAIT.ATTRIBUTE_CULTURAL, TRAIT.ATTRIBUTE_ECONOMIC],
-    icon: 'civ_sym_han.png',
+    civilizationTags: [
+        TAG_TRAIT.CULTURAL,
+        TAG_TRAIT.ECONOMIC
+    ],
+    civilizationTraits: [
+        TRAIT.ANTIQUITY_CIV,
+        TRAIT.ATTRIBUTE_CULTURAL,
+        TRAIT.ATTRIBUTE_ECONOMIC
+    ],
+    icons: {
+        main: new Icon({ modId: mod.id, content: './assets/civ-icon.png' })
+    },
     civilizationItems: [
         CivilizationItem.from(unit),
         CivilizationItem.from(constructible),
@@ -83,6 +90,7 @@ const civilization = new Civilization({
             name: 'Test civilization',
             description: 'Test civilization desc',
             fullName: 'Test civilization full name',
+            adjective: 'Test adjective',
         })
     ]
 });
@@ -95,7 +103,7 @@ civilization.bind([
 mod.fill({
     civilizations: [civilization],
     constructibles: [constructible],
-    units: [unit]
+    units: [unit],
 });
 
 mod.build('./dist/mod-test', true);

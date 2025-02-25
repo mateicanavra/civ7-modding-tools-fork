@@ -7,6 +7,7 @@ export class CivilizationLocalization extends BaseLocalization<TCivilizationLoca
     name = 'test';
     description = 'text';
     fullName = 'text';
+    adjective = 'text';
 
     constructor(payload: Partial<TCivilizationLocalization> = {}) {
         super();
