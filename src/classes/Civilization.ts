@@ -10,7 +10,6 @@ import { Base } from "./Base";
 import { locale } from "../utils";
 import { XmlFile } from "./XmlFile";
 import { ActionGroupBundle } from "./ActionGroupBundle";
-import { Unit } from "./Unit";
 import { CivilizationItem } from "./CivilizationItem";
 
 type TCivilization = TClassProperties<Civilization>;
@@ -33,25 +32,30 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
     constructor(payload: Partial<TCivilization> = {}) {
         super();
         this.fill(payload);
-        const typedName = lodash.snakeCase(this.name).toLocaleUpperCase()
 
+        const typeName = lodash.snakeCase(this.name).toLocaleUpperCase()
+        const typePrefix = 'CIVILIZATION_';
         if(!this.type){
-            this.type = `CIVILIZATION_${typedName}`;
+            this.type = `${typePrefix}${typeName}`;
         }
-        if(!this.type.startsWith('CIVILIZATION_')){
-            this.type = `CIVILIZATION_${this.type}`;
+        if(!this.type.startsWith(typePrefix)){
+            this.type = `${typePrefix}${this.type}`;
         }
+
+        const traitPrefix = 'TRAIT_';
         if (!this.trait) {
-            this.trait = this.type.replace('CIVILIZATION_', 'TRAIT_');
+            this.trait = this.type.replace(typePrefix, traitPrefix);
         }
-        if(!this.trait.startsWith('TRAIT_')){
-            this.trait = `TRAIT_${this.trait}`;
+        if(!this.trait.startsWith(traitPrefix)){
+            this.trait = `${traitPrefix}${this.trait}`;
         }
+
+        const traitAbilityPostfix = '_ABILITY';
         if (!this.traitAbility) {
-            this.traitAbility = `${this.trait}_ABILITY`;
+            this.traitAbility = `${this.trait}${traitAbilityPostfix}`;
         }
-        if(!this.traitAbility.endsWith('_ABILITY')){
-            this.traitAbility = `${this.traitAbility}_ABILITY`;
+        if(!this.traitAbility.endsWith(traitAbilityPostfix)){
+            this.traitAbility = `${this.traitAbility}${traitAbilityPostfix}`;
         }
 
         if(!this.domain) {
@@ -61,10 +65,6 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
                 [AGE.MODERN]: 'ModernAgeCivilizations',
             }[this.age];
         }
-    }
-
-    addUnits(units: Unit[]) {
-
     }
 
     private toShell() {
@@ -206,8 +206,7 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
     }
 
     build() {
-        const name = lodash.kebabCase(this.type.replace('CIVILIZATION_', ''));
-        const directory = `/civilization/${name}/`;
+        const directory = `/civilization/${lodash.kebabCase(this.name)}/`;
 
         const files: XmlFile[] = [(
             new XmlFile({

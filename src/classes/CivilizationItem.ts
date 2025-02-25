@@ -8,6 +8,7 @@ import * as lodash from "lodash";
 import { ActionGroupBundle } from "./ActionGroupBundle";
 import { Unit } from "./Unit";
 import { XmlElement } from "jstoxml";
+import { Constructible } from "./Constructible";
 
 type TCivilizationItem = TClassProperties<CivilizationItem>;
 
@@ -23,11 +24,19 @@ export class CivilizationItem extends Base<TCivilizationItem> implements TCivili
         this.fill(payload);
     }
     
-    static from(data: Unit) {
+    static from(data: Unit | Constructible) {
         if(data instanceof Unit){
             return new CivilizationItem({
-                type: data.type,
                 kind: KIND.UNIT,
+                type: data.type,
+                icon: data.icon
+            })
+        }
+
+        if(data instanceof Constructible){
+            return new CivilizationItem({
+                kind: KIND.IMPROVEMENT, // TODO wtf is this KIND_BUILDING / KIND_IMPROVEMENT / KIND_QUARTER, what diff in view
+                type: data.type,
                 icon: data.icon
             })
         }

@@ -168,8 +168,7 @@ export class Unit extends Base<TUnit> implements TUnit {
     }
 
     build() {
-        const name = lodash.kebabCase(this.type.replace('UNIT_', ''));
-        const directory = `/units/${name}/`;
+        const directory = `/units/${lodash.kebabCase(this.name)}/`;
 
         const files: XmlFile[] = [(
             new XmlFile({

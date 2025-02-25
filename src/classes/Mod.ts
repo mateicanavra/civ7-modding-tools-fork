@@ -4,11 +4,12 @@ import * as fs from 'node:fs';
 import { TClassProperties, TObjectValues } from "../types";
 import { ACTIONS_GROUPS_ACTION } from "../constants";
 
+import { ActionGroup } from "./ActionGroup";
 import { Base } from "./Base";
+import { Civilization } from "./Civilization";
+import { Constructible } from "./Constructible";
 import { Unit } from "./Unit";
 import { XmlFile } from "./XmlFile";
-import { ActionGroup } from "./ActionGroup";
-import { Civilization } from "./Civilization";
 
 type TMod = TClassProperties<Mod>;
 
@@ -21,6 +22,7 @@ export class Mod extends Base<TMod> implements TMod {
     affectsSavedGames: boolean = true;
 
     civilizations: Civilization[] = [];
+    constructibles: Constructible[] = [];
     units: Unit[] = [];
 
     constructor(payload: Partial<TMod> = {}) {
@@ -31,6 +33,7 @@ export class Mod extends Base<TMod> implements TMod {
     private getXmlFiles(): XmlFile[] {
         return [
             ...this.civilizations.flatMap(civilization => civilization.build()),
+            ...this.constructibles.flatMap(constructible => constructible.build()),
             ...this.units.flatMap(unit => unit.build()),
         ];
     }

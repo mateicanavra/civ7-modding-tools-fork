@@ -1,7 +1,6 @@
 export { ACTIONS_GROUPS_ACTION } from './ACTIONS_GROUPS_ACTION';
 export { ACTION_GROUP_BUNDLE } from './ACTION_GROUP_BUNDLE';
 export { AGE } from './AGE';
-export { CONSTRUCTIBLE_CLASS } from './CONSTRUCTIBLE_CLASS';
 export { CONSTRUCTIBLE_TYPE_TAG } from './CONSTRUCTIBLE_TYPE_TAG';
 export { CORE_CLASS } from './CORE_CLASS';
 export { DOMAIN } from './DOMAIN';
