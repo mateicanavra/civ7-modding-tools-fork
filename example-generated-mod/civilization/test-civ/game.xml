@@ -32,7 +32,7 @@
         <Row CivilizationType="CIVILIZATION_TEST_CIV" BuildingCulture="ANT_MUD"/>
     </VisArt_CivilizationBuildingCultures>
     <VisArt_CivilizationUnitCultures>
-        <Row CivilizationType="CIVILIZATION_TEST_CIV" BuildingCulture="Euro"/>
+        <Row CivilizationType="CIVILIZATION_TEST_CIV" UnitCulture="Euro"/>
     </VisArt_CivilizationUnitCultures>
 </Database>
 <!-- generated with https://github.com/izica/civ7-modding-tools -->

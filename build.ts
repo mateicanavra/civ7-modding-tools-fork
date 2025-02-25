@@ -115,4 +115,4 @@ mod.fill({
     units: [unit],
 });
 
-mod.build('./dist/mod-test', true);
+mod.build('./example-generated-mod', true);

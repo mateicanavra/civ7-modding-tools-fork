@@ -25,6 +25,7 @@ import { FileImport } from "./FileImport";
 import { FileXml } from "./FileXml";
 import { Icon } from "./Icon";
 import { Unit } from "./Unit";
+import { Modifier } from "./Modifier";
 
 type TCivilization = TClassProperties<Civilization>;
 
@@ -51,6 +52,7 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
     actionGroupBundle = new ActionGroupBundle();
     civilizationItems: CivilizationItem[] = [];
     localizations: CivilizationLocalization[] = [];
+    modifiers: Modifier[] = [];
 
     constructor(payload: Partial<TCivilization> = {}) {
         super();
@@ -224,6 +226,7 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
                         Adjective: locale(this.type, 'Adjective'),
                         CapitalName: locale(this.type, 'cityNames0'),
                         StartingCivilizationLevelType: 'CIVILIZATION_LEVEL_FULL_CIV',
+                        // UniqueCultureProgressionTree: `TREE_CIVICS_${this.type}`,
                         RandomCityNameDepth: '10',
                     }
                 }],
@@ -296,7 +299,7 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
                     _name: 'Row',
                     _attrs: {
                         CivilizationType: this.type,
-                        BuildingCulture: this.civilizationUnitCulture,
+                        UnitCulture: this.civilizationUnitCulture,
                     }
                 }
             }
@@ -313,6 +316,18 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
         return {
             Database: {
                 IconDefinitions: icons.map(icon => icon.toXmlElement())
+            }
+        }
+    }
+
+    private toGameEffects(): XmlElement {
+        return {
+            _name: 'GameEffects',
+            _attrs: {
+                xmlns: 'GameEffects'
+            },
+            _content: {
+
             }
         }
     }
