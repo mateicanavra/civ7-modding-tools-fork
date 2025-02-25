@@ -14,6 +14,7 @@ import { Unit } from "./Unit";
 import { Constructible } from "./Constructible";
 import { randomUUID } from "node:crypto";
 import { Icon } from "./Icon";
+import { FileImport } from "./FileImport";
 
 type TCivilization = TClassProperties<Civilization>;
 
@@ -70,6 +71,12 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
                 [AGE.MODERN]: 'ModernAgeCivilizations',
             }[this.age];
         }
+
+        if(this.icons?.main){
+            this.icons.main.fill({
+                id: this.type
+            });
+        }
     }
 
     bind(items: (Unit | Constructible)[]) {
@@ -98,7 +105,7 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
                         CivilizationName: locale(this.type, 'Name'),
                         CivilizationFullName: locale(this.type, 'FullName'),
                         CivilizationDescription: locale(this.type, 'Description'),
-                        CivilizationIcon: this.icons?.main.id
+                        CivilizationIcon: this.type
                     }
                 },
                 CivilizationTags: this.civilizationTags.map(civilizationTag => ({
@@ -228,6 +235,20 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
         };
     }
 
+    private toIconDefinitions(): XmlElement {
+        const icons = Object.values(this.icons).filter(icon => !!icon);
+
+        if(!icons.length){
+            return  null;
+        }
+
+        return {
+            Database: {
+                IconDefinitions: icons.map(icon => icon.toXmlElement())
+            }
+        }
+    }
+
     getFiles() {
         const directory = `/civilization/${lodash.kebabCase(this.name)}/`;
 
@@ -250,7 +271,7 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
                 name: `legacy.xml`,
                 path: directory,
                 content: this.toLegacy(),
-                actionGroups: [this.actionGroupBundle.exist],
+                actionGroups: [this.actionGroupBundle.game],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
             }),
             new FileXml({
@@ -260,6 +281,14 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
                 actionGroups: [this.actionGroupBundle.shell, this.actionGroupBundle.game],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_TEXT]
             }),
+            new FileXml({
+                path: directory,
+                name: `icons.xml`,
+                content: this.toIconDefinitions(),
+                actionGroups: [this.actionGroupBundle.shell, this.actionGroupBundle.game],
+                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_ICONS]
+            }),
+            ...Object.values(this.icons).filter(icon => !!icon && icon.isExternal).map(icon => FileImport.from(icon))
         ];
     }
 }

@@ -9,7 +9,7 @@ import { Base } from "./Base";
 type TIcon = TClassProperties<Icon>;
 
 export class Icon extends Base<TIcon> implements TIcon {
-    id = randomUUID();
+    id: string = randomUUID();
     path: string = '';
     modId: string = '';
 

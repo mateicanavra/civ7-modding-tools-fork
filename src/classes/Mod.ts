@@ -82,7 +82,7 @@ export class Mod extends Base<TMod> implements TMod {
                 _attrs: {
                     id: this.id,
                     version: this.version,
-                    xmlms: "ModInfo"
+                    xmlns: "ModInfo"
                 },
                 _content: {
                     Properties: {

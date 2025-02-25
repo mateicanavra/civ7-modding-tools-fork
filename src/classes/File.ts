@@ -19,6 +19,9 @@ export class File<T = any> extends Base<TFile<T>> implements TFile<T> {
     }
 
     get modInfoPath(){
+        if(this.path.startsWith('/')){
+            return `${this.path}${this.name}`.slice(1);
+        }
         return `${this.path}${this.name}`;
     }
 
