@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Database>
+    <IconDefinitions>
+        <Row>
+            <ID>CIVILIZATION_TEST_CIV</ID>
+            <Path>fs://game/mod-test/civ_sym_test_civ</Path>
+        </Row>
+    </IconDefinitions>
+</Database>
+<!-- generated with https://github.com/izica/civ7-modding-tools -->

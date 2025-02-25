@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Database>
+    <VisualRemaps>
+        <Row>
+            <ID>REMAP_UNIT_TEST_SCOUT</ID>
+            <DisplayName>LOC_UNIT_TEST_SCOUT_NAME</DisplayName>
+            <Kind>UNIT</Kind>
+            <From>UNIT_TEST_SCOUT</From>
+            <To>UNIT_ARCHER</To>
+        </Row>
+    </VisualRemaps>
+</Database>
+<!-- generated with https://github.com/izica/civ7-modding-tools -->

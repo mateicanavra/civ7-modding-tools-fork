@@ -1,5 +1,6 @@
 import {
     ACTION_GROUP_BUNDLE,
+    BIOME,
     Civilization,
     CivilizationItem,
     CivilizationLocalization,
@@ -10,6 +11,7 @@ import {
     ConstructibleYieldChange,
     Icon,
     Mod,
+    RESOURCE,
     TAG_TRAIT,
     TRAIT,
     Unit,
@@ -41,7 +43,7 @@ const unit = new Unit({
 const constructible = new Constructible({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     name: 'TEST_BARN',
-    icon: new Icon({modId: mod.id, content: './assets/constructible-icon.png'}),
+    icon: new Icon({ modId: mod.id, content: './assets/constructible-icon.png' }),
     typeTags: [
         CONSTRUCTIBLE_TYPE_TAG.UNIQUE,
         CONSTRUCTIBLE_TYPE_TAG.PERSISTENT,
@@ -85,12 +87,19 @@ const civilization = new Civilization({
         CivilizationItem.from(unit),
         CivilizationItem.from(constructible),
     ],
+    startBiasResources: [
+        { resource: RESOURCE.HORSES, score: 20 }
+    ],
+    startBiasBiomes: [
+        { biome: BIOME.GRASSLAND, score: 20 }
+    ],
     localizations: [
         new CivilizationLocalization({
             name: 'Test civilization',
             description: 'Test civilization desc',
             fullName: 'Test civilization full name',
             adjective: 'Test adjective',
+            cityNames: ['Test city 1', 'Test city 2']
         })
     ]
 });

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Database>
+    <EnglishText>
+        <Row Tag="LOC_UNIT_TEST_SCOUT_NAME">
+            <Text>Test scout</Text>
+        </Row>
+        <Row Tag="LOC_UNIT_TEST_SCOUT_DESCRIPTION">
+            <Text>test scout description</Text>
+        </Row>
+    </EnglishText>
+</Database>
+<!-- generated with https://github.com/izica/civ7-modding-tools -->

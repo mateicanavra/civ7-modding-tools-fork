@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Database>
+    <Types>
+        <Row Type="TRAIT_TEST_CIV" Kind="KIND_TRAIT"/>
+        <Row Type="TRAIT_TEST_CIV_ABILITY" Kind="KIND_TRAIT"/>
+    </Types>
+    <Traits>
+        <Row TraitType="TRAIT_TEST_CIV" InternalOnly="true"/>
+        <Row TraitType="TRAIT_TEST_CIV_ABILITY" Name="LOC_TRAIT_TEST_CIV_ABILITY_NAME" Description="LOC_TRAIT_TEST_CIV_ABILITY_DESCRIPTION" InternalOnly="true"/>
+    </Traits>
+    <Civilizations>
+        <Row CivilizationType="CIVILIZATION_TEST_CIV" Name="LOC_CIVILIZATION_TEST_CIV_NAME" FullName="LOC_CIVILIZATION_TEST_CIV_FULL_NAME" Description="LOC_CIVILIZATION_TEST_CIV_DESCRIPTION" Adjective="LOC_CIVILIZATION_TEST_CIV_ADJECTIVE" CapitalName="LOC_CIVILIZATION_TEST_CIV_CITY_NAMES_0" StartingCivilizationLevelType="CIVILIZATION_LEVEL_FULL_CIV" RandomCityNameDepth="10"/>
+    </Civilizations>
+    <CivilizationTraits>
+        <Row CivilizationType="CIVILIZATION_TEST_CIV" TraitType="TRAIT_TEST_CIV"/>
+        <Row CivilizationType="CIVILIZATION_TEST_CIV" TraitType="TRAIT_TEST_CIV_ABILITY"/>
+        <Row CivilizationType="CIVILIZATION_TEST_CIV" TraitType="TRAIT_ANTIQUITY_CIV"/>
+        <Row CivilizationType="CIVILIZATION_TEST_CIV" TraitType="TRAIT_ATTRIBUTE_CULTURAL"/>
+        <Row CivilizationType="CIVILIZATION_TEST_CIV" TraitType="TRAIT_ATTRIBUTE_ECONOMIC"/>
+    </CivilizationTraits>
+    <CityNames>
+        <Row CivilizationType="CIVILIZATION_TEST_CIV" CityName="LOC_CIVILIZATION_TEST_CIV_CITY_NAMES_0"/>
+        <Row CivilizationType="CIVILIZATION_TEST_CIV" CityName="LOC_CIVILIZATION_TEST_CIV_CITY_NAMES_1"/>
+    </CityNames>
+    <StartBiasBiomes>
+        <Row CivilizationType="CIVILIZATION_TEST_CIV" BiomeType="BIOME_GRASSLAND" Score="20"/>
+    </StartBiasBiomes>
+    <StartBiasResources>
+        <Row CivilizationType="CIVILIZATION_TEST_CIV" ResourceType="RESOURCE_HORSES" Score="20"/>
+    </StartBiasResources>
+    <VisArt_CivilizationBuildingCultures>
+        <Row CivilizationType="CIVILIZATION_TEST_CIV" BuildingCulture="ANT_MUD"/>
+    </VisArt_CivilizationBuildingCultures>
+    <VisArt_CivilizationUnitCultures>
+        <Row CivilizationType="CIVILIZATION_TEST_CIV" BuildingCulture="Euro"/>
+    </VisArt_CivilizationUnitCultures>
+</Database>
+<!-- generated with https://github.com/izica/civ7-modding-tools -->

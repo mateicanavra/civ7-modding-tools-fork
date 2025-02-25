@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Database>
+    <Types>
+        <Row Type="UNIT_TEST_SCOUT" Kind="KIND_UNIT"/>
+    </Types>
+    <Units>
+        <Row Name="LOC_UNIT_TEST_SCOUT_NAME" Description="LOC_UNIT_TEST_SCOUT_DESCRIPTION" UnitType="UNIT_TEST_SCOUT" BaseSightRange="2" BaseMoves="2" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" ZoneOfControl="true" TraitType="TRAIT_TEST_CIV"/>
+    </Units>
+    <Tags>
+        <Row Tag="UNIT_CLASS_TEST_SCOUT" Category="UNIT_CLASS"/>
+    </Tags>
+    <TypeTags>
+        <Row Type="UNIT_TEST_SCOUT" Tag="UNIT_CLASS_TEST_SCOUT"/>
+        <Row Type="UNIT_TEST_SCOUT" Tag="UNIT_CLASS_RECON"/>
+        <Row Type="UNIT_TEST_SCOUT" Tag="UNIT_CLASS_RECON_ABILITIES"/>
+    </TypeTags>
+    <Unit_Stats>
+        <Row UnitType="UNIT_TEST_SCOUT" Combat="40" RangedCombat="0" Bombard="0" Range="0"/>
+    </Unit_Stats>
+    <Unit_Costs>
+        <Row UnitType="UNIT_TEST_SCOUT" Cost="10" YieldType="YIELD_PRODUCTION"/>
+    </Unit_Costs>
+    <UnitReplaces>
+        <Row CivUniqueUnitType="UNIT_TEST_SCOUT" ReplacesUnitType="UNIT_SCOUT"/>
+    </UnitReplaces>
+</Database>
+<!-- generated with https://github.com/izica/civ7-modding-tools -->

@@ -10,3 +10,5 @@
 !examples/**
 !assets
 !assets/**
+!example-generated-mod
+!example-generated-mod/**

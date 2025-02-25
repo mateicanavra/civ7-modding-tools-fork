@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Database>
+    <Civilizations>
+        <Row Domain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_TEST_CIV" CivilizationName="LOC_CIVILIZATION_TEST_CIV_NAME" CivilizationFullName="LOC_CIVILIZATION_TEST_CIV_FULL_NAME" CivilizationDescription="LOC_CIVILIZATION_TEST_CIV_DESCRIPTION" CivilizationIcon="CIVILIZATION_TEST_CIV"/>
+    </Civilizations>
+    <CivilizationTags>
+        <Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_TEST_CIV" TagType="TAG_TRAIT_CULTURAL"/>
+        <Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_TEST_CIV" TagType="TAG_TRAIT_ECONOMIC"/>
+    </CivilizationTags>
+    <CivilizationItems>
+        <Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_TEST_CIV" Type="UNIT_TEST_SCOUT" Kind="KIND_UNIT" Name="LOC_UNIT_TEST_SCOUT_NAME" Description="LOC_UNIT_TEST_SCOUT_DESCRIPTION" Icon=""/>
+        <Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_TEST_CIV" Type="BUILDING_TEST_BARN" Kind="KIND_IMPROVEMENT" Name="LOC_BUILDING_TEST_BARN_NAME" Description="LOC_BUILDING_TEST_BARN_DESCRIPTION" Icon=""/>
+    </CivilizationItems>
+</Database>
+<!-- generated with https://github.com/izica/civ7-modding-tools -->
