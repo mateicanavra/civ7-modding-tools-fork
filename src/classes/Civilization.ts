@@ -166,6 +166,7 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
     }
 
     private toGame() {
+        const cityNamesLength = Math.max(...this.localizations.map(localization => localization.cityNames.length));
         return {
             Database: {
                 Types: [{
@@ -181,19 +182,6 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
                         Kind: KIND.TRAIT
                     }
                 }],
-                Civilizations: [{
-                    _name: 'Row',
-                    _attrs: {
-                        CivilizationType: this.type,
-                        Name: locale(this.type, 'Name'),
-                        FullName: locale(this.type, 'FullName'),
-                        Description: locale(this.type, 'Description'),
-                        Adjective: locale(this.type, 'Adjective'),
-                        StartingCivilizationLevelType: 'CIVILIZATION_LEVEL_FULL_CIV',
-                        CapitalName: locale(this.type, 'CAPITAL'),
-                        RandomCityNameDepth: '10',
-                    }
-                }],
                 Traits: [{
                     _name: 'Row',
                     _attrs: {
@@ -207,6 +195,19 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
                         Name: locale(this.traitAbility, 'Name'),
                         Description: locale(this.traitAbility, 'Description'),
                         InternalOnly: "true"
+                    }
+                }],
+                Civilizations: [{
+                    _name: 'Row',
+                    _attrs: {
+                        CivilizationType: this.type,
+                        Name: locale(this.type, 'Name'),
+                        FullName: locale(this.type, 'FullName'),
+                        Description: locale(this.type, 'Description'),
+                        Adjective: locale(this.type, 'Adjective'),
+                        CapitalName: locale(this.type, 'cityNames0'),
+                        StartingCivilizationLevelType: 'CIVILIZATION_LEVEL_FULL_CIV',
+                        RandomCityNameDepth: '10',
                     }
                 }],
                 CivilizationTraits: [{
@@ -227,7 +228,14 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
                         CivilizationType: this.type,
                         TraitType: civilizationTrait,
                     }
-                }))]
+                }))],
+                CityNames: Array.from(Array(cityNamesLength)).map((_, i) => ({
+                    _name: 'Row',
+                    _attrs: {
+                        CivilizationType: this.type,
+                        CityName: locale(this.type, `cityNames${i}`),
+                    }
+                }))
             }
         };
     }

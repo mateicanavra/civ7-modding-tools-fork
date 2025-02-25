@@ -36,7 +36,6 @@ export class CivilizationItem extends Base<TCivilizationItem> implements TCivili
             return new CivilizationItem({
                 kind: KIND.IMPROVEMENT, // TODO wtf is this KIND_BUILDING / KIND_IMPROVEMENT / KIND_QUARTER, what diff in view
                 type: data.type,
-                icon: data.icon
             })
         }
         

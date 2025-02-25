@@ -41,6 +41,7 @@ yarn build
 - - [x] Binding unique units
 - - [x] Binding unique constructibles
 - - [x] Icons
+- - [x] City names
 - - [ ] Civics
 - - [ ] ...and more
 - [x] Constructibles

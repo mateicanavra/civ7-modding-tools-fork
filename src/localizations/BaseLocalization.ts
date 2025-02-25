@@ -27,7 +27,18 @@ export class BaseLocalization<T> {
 
         const node = this.locale === LANGUAGE.en_US ? 'EnglishText' : 'LocalizedText';
         return {
-            [node]: (keys as string[]).map((key) => {
+            [node]: (keys as string[]).flatMap((key) => {
+                if (Array.isArray(this[key])) {
+                    return this[key].map((value, index) => ({
+                        _name: 'Row',
+                        _attrs: {
+                            Tag: locale(this.prefix, `${key}${index}`),
+                        },
+                        _content: {
+                            Text: value
+                        }
+                    }))
+                }
                 return {
                     _name: 'Row',
                     _attrs: {
