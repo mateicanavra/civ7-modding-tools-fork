@@ -11,3 +11,6 @@ export { Mod } from './Mod';
 export { Unit } from './Unit';
 export { UnitCost } from './UnitCost';
 export { UnitStat } from './UnitStat';
+export { Argument } from './Argument';
+export { Modifier } from './Modifier';
+export { Requirement } from './Requirement';
