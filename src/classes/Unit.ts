@@ -3,7 +3,7 @@ import { XmlElement } from "jstoxml";
 import { randomUUID } from "node:crypto";
 
 import {
-    ACTIONS_GROUPS_ACTION,
+    ACTION_GROUP_ACTION,
     CORE_CLASS,
     DOMAIN,
     FORMATION_CLASS,
@@ -19,7 +19,10 @@ import { ActionGroupBundle } from "./ActionGroupBundle";
 import { Base } from "./Base";
 import { UnitCost } from "./UnitCost";
 import { UnitStat } from "./UnitStat";
-import { XmlFile } from "./XmlFile";
+import { File } from "./File";
+import { FileXml } from "./FileXml";
+import { Icon } from "./Icon";
+import { FileImport } from "./FileImport";
 
 type TUnit = TClassProperties<Unit>;
 
@@ -33,7 +36,7 @@ export class Unit extends Base<TUnit> implements TUnit {
     unitReplace: string = '';
     visualRemap: string = '';
     traitType: string = '';
-    icon: string = '';
+    icons: { main?: Icon } = {};
 
     unitMovementClass: TObjectValues<typeof UNIT_MOVEMENT_CLASS> = UNIT_MOVEMENT_CLASS.FOOT;
     domain: TObjectValues<typeof DOMAIN> = DOMAIN.LAND;
@@ -130,6 +133,9 @@ export class Unit extends Base<TUnit> implements TUnit {
     }
 
     private toVisualRemaps(): XmlElement {
+        if(!this.visualRemap){
+            return null;
+        }
         return {
             Database: {
                 VisualRemaps: {
@@ -146,6 +152,9 @@ export class Unit extends Base<TUnit> implements TUnit {
     }
 
     private toLocalization(): XmlElement {
+        if(!this.localizations){
+            return null;
+        }
         return {
             Database: this.localizations.map(localization => {
                 return localization.fill({ prefix: this.type }).toXmlElement();
@@ -153,51 +162,54 @@ export class Unit extends Base<TUnit> implements TUnit {
         }
     }
 
-    build() {
+    private toIconDefinitions(): XmlElement {
+        const icons = Object.values(this.icons).filter(icon => !!icon);
+
+        if(!icons.length){
+            return  null;
+        }
+
+        return {
+            Database: {
+                IconDefinitions: icons.map(icon => icon.toXmlElement())
+            }
+        }
+    }
+
+
+    getFiles() {
         const directory = `/units/${lodash.kebabCase(this.name)}/`;
 
-        const files: XmlFile[] = [(
-            new XmlFile({
-                filename: `game.xml`,
-                filepath: directory,
+        return [
+            new FileXml({
+                path: directory,
+                name: `game.xml`,
                 content: this.toGame(),
-                actionGroups: [
-                    this.actionGroupBundle.current.clone().fill({
-                        actions: [ACTIONS_GROUPS_ACTION.UPDATE_DATABASE]
-                    })
-                ]
-            })
-        )];
-
-        if (this.visualRemap) {
-            files.push(new XmlFile({
-                filename: `visual-remap.xml`,
-                filepath: directory,
+                actionGroups: [this.actionGroupBundle.current],
+                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
+            }),
+            new FileXml({
+                path: directory,
+                name: `icons.xml`,
+                content: this.toIconDefinitions(),
+                actionGroups: [this.actionGroupBundle.current, this.actionGroupBundle.shell],
+                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_ICONS]
+            }),
+            new FileXml({
+                path: directory,
+                name: `visual-remap.xml`,
                 content: this.toVisualRemaps(),
-                actionGroups: [
-                    this.actionGroupBundle.current.clone().fill({
-                        actions: [ACTIONS_GROUPS_ACTION.UPDATE_VISUAL_REMAPS]
-                    })
-                ]
-            }));
-        }
-
-        if (this.localizations.length > 0) {
-            files.push(new XmlFile({
-                filename: `localization.xml`,
-                filepath: directory,
+                actionGroups: [this.actionGroupBundle.current],
+                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_VISUAL_REMAPS]
+            }),
+            new FileXml({
+                name: `localization.xml`,
+                path: directory,
                 content: this.toLocalization(),
-                actionGroups: [
-                    this.actionGroupBundle.shell.clone().fill({
-                        actions: [ACTIONS_GROUPS_ACTION.UPDATE_TEXT]
-                    }),
-                    this.actionGroupBundle.game.clone().fill({
-                        actions: [ACTIONS_GROUPS_ACTION.UPDATE_TEXT]
-                    })
-                ]
-            }));
-        }
-
-        return files;
+                actionGroups: [this.actionGroupBundle.shell, this.actionGroupBundle.game],
+                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_TEXT]
+            }),
+            ...Object.values(this.icons).filter(icon => !!icon && icon.isExternal).map(icon => FileImport.from(icon))
+        ];
     }
 }

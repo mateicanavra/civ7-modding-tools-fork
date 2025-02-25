@@ -2,8 +2,8 @@ import { TClassProperties, TObjectValues } from "../types";
 
 import { Base } from "./Base";
 import { locale } from "../utils";
-import { XmlFile } from "./XmlFile";
-import { ACTIONS_GROUPS_ACTION, KIND, TAG_TRAIT } from "../constants";
+import { FileXml } from "./FileXml";
+import { ACTION_GROUP_ACTION, KIND, TAG_TRAIT } from "../constants";
 import * as lodash from "lodash";
 import { ActionGroupBundle } from "./ActionGroupBundle";
 import { Unit } from "./Unit";
@@ -29,7 +29,6 @@ export class CivilizationItem extends Base<TCivilizationItem> implements TCivili
             return new CivilizationItem({
                 kind: KIND.UNIT,
                 type: data.type,
-                icon: data.icon
             })
         }
 

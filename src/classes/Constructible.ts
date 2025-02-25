@@ -2,7 +2,7 @@ import { XmlElement } from "jstoxml";
 import * as lodash from "lodash";
 
 import { TClassProperties, TObjectValues } from "../types";
-import { ACTIONS_GROUPS_ACTION, AGE, CONSTRUCTIBLE_CLASS, CONSTRUCTIBLE_TYPE_TAG, DISTRICT, KIND } from "../constants";
+import { ACTION_GROUP_ACTION, AGE, CONSTRUCTIBLE_CLASS, CONSTRUCTIBLE_TYPE_TAG, DISTRICT, KIND } from "../constants";
 import { ConstructibleLocalization } from "../localizations";
 import { locale } from "../utils";
 
@@ -10,7 +10,7 @@ import { ActionGroupBundle } from "./ActionGroupBundle";
 import { Base } from "./Base";
 import { ConstructibleMaintenance } from "./ConstructibleMaintenance";
 import { ConstructibleYieldChange } from "./ConstructibleYieldChange";
-import { XmlFile } from "./XmlFile";
+import { FileXml } from "./FileXml";
 import { randomUUID } from "node:crypto";
 
 type TConstructible = TClassProperties<Constructible>;
@@ -53,6 +53,9 @@ export class Constructible extends Base<TConstructible> implements TConstructibl
     }
 
     private toLocalization(): XmlElement {
+        if(!this.localizations){
+            return null
+        }
         return {
             Database: this.localizations.map(localization => {
                 return localization.fill({ prefix: this.type }).toXmlElement();
@@ -124,38 +127,24 @@ export class Constructible extends Base<TConstructible> implements TConstructibl
         };
     }
 
-    build() {
+    getFiles() {
         const directory = `/constructibles/${lodash.kebabCase(this.name)}/`;
 
-        const files: XmlFile[] = [(
-            new XmlFile({
-                filename: `game.xml`,
-                filepath: directory,
+        return [
+            new FileXml({
+                name: `game.xml`,
+                path: directory,
                 content: this.toGame(),
-                actionGroups: [
-                    this.actionGroupBundle.game.clone().fill({
-                        actions: [ACTIONS_GROUPS_ACTION.UPDATE_DATABASE]
-                    })
-                ]
-            })
-        )];
-
-        if (this.localizations.length > 0) {
-            files.push(new XmlFile({
-                filename: `localization.xml`,
-                filepath: directory,
+                actionGroups: [this.actionGroupBundle.game],
+                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
+            }),
+            new FileXml({
+                name: `localization.xml`,
+                path: directory,
                 content: this.toLocalization(),
-                actionGroups: [
-                    this.actionGroupBundle.shell.clone().fill({
-                        actions: [ACTIONS_GROUPS_ACTION.UPDATE_TEXT]
-                    }),
-                    this.actionGroupBundle.game.clone().fill({
-                        actions: [ACTIONS_GROUPS_ACTION.UPDATE_TEXT]
-                    })
-                ]
-            }));
-        }
-
-        return files;
+                actionGroups: [this.actionGroupBundle.shell, this.actionGroupBundle.game],
+                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_TEXT]
+            })
+        ];
     }
 }

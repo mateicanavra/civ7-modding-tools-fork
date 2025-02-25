@@ -2,14 +2,14 @@ import * as lodash from "lodash";
 import * as fs from 'node:fs';
 
 import { TClassProperties, TObjectValues } from "../types";
-import { ACTIONS_GROUPS_ACTION } from "../constants";
+import { ACTION_GROUP_ACTION } from "../constants";
 
 import { ActionGroup } from "./ActionGroup";
 import { Base } from "./Base";
 import { Civilization } from "./Civilization";
 import { Constructible } from "./Constructible";
 import { Unit } from "./Unit";
-import { XmlFile } from "./XmlFile";
+import { FileXml } from "./FileXml";
 import { Icon } from "./Icon";
 
 type TMod = TClassProperties<Mod>;
@@ -31,15 +31,13 @@ export class Mod extends Base<TMod> implements TMod {
         this.fill(payload);
     }
 
-    private getXmlFiles(): XmlFile[] {
+    getFiles() {
         return [
-            ...this.civilizations.flatMap(civilization => civilization.build()),
-            ...this.constructibles.flatMap(constructible => constructible.build()),
-            ...this.units.flatMap(unit => unit.build()),
+            ...this.civilizations.flatMap(civilization => civilization.getFiles()),
+            ...this.constructibles.flatMap(constructible => constructible.getFiles()),
+            ...this.units.flatMap(unit => unit.getFiles()),
         ];
     }
-
-
 
     // TODO maybe refactoring in feature?
     build(dist = './dist', clear = false) {
@@ -49,39 +47,36 @@ export class Mod extends Base<TMod> implements TMod {
             fs.mkdirSync(dist, { recursive: true });
         }
 
-        const xmlFiles = this.getXmlFiles();
+        const files = this.getFiles();
 
         const criterias = lodash.uniqBy(
-            xmlFiles.flatMap(file => file.actionGroups.map(actionGroup => actionGroup.criteria)),
+            files.flatMap(file => file.actionGroups.map(actionGroup => actionGroup.criteria)),
             criteria => criteria.id
         );
 
-        const actionGroups: {
+        const actionGroups: Record<string, {
             actionGroup: ActionGroup,
-            actions: Partial<Record<TObjectValues<typeof ACTIONS_GROUPS_ACTION>, string[]>>
-        }[] = Object.values(xmlFiles.reduce((prev, xmlFile) => {
-            let result = { ...prev };
+            actions: Partial<Record<TObjectValues<typeof ACTION_GROUP_ACTION>, string[]>>
+        }> = {};
 
-            xmlFile.actionGroups.forEach(actionGroup => {
-                if (!result[actionGroup.id]) {
-                    result[actionGroup.id] = {
-                        actionGroup,
-                        actions: {}
-                    }
+        files.forEach(file => {
+            file.actionGroups.forEach(actionGroup => {
+                if(!actionGroups[actionGroup.id]) {
+                    actionGroups[actionGroup.id] = { actionGroup, actions: {} }
                 }
-                actionGroup.actions.forEach(action => {
-                    if (!result[actionGroup.id].actions[action]) {
-                        result[actionGroup.id].actions[action] = [];
+
+                file.actionGroupActions.forEach(actionGroupAction => {
+                    if(!actionGroups[actionGroup.id].actions[actionGroupAction]) {
+                        actionGroups[actionGroup.id].actions[actionGroupAction] = [];
                     }
-                    result[actionGroup.id].actions[action].push(xmlFile.modInfoFilepath);
+                    actionGroups[actionGroup.id].actions[actionGroupAction].push(file.modInfoPath);
                 })
             });
-            return result;
-        }, {}));
+        });
 
-        const modInfo = new XmlFile({
-            filename: `${this.id}.modinfo`,
-            filepath: '/',
+        const modInfo = new FileXml({
+            name: `${this.id}.modinfo`,
+            path: '/',
             content: {
                 _name: 'Mod',
                 _attrs: {
@@ -106,7 +101,7 @@ export class Mod extends Base<TMod> implements TMod {
                         }
                     }],
                     ActionCriteria: criterias.map(criteria => criteria.toXMLElement()),
-                    ActionGroups: actionGroups.map(({ actionGroup, actions }) => ({
+                    ActionGroups: Object.values(actionGroups).map(({ actionGroup, actions }) => ({
                         _name: 'ActionGroup',
                         _attrs: {
                             id: actionGroup.id,
@@ -126,7 +121,7 @@ export class Mod extends Base<TMod> implements TMod {
         });
 
         modInfo.write(dist);
-        xmlFiles.forEach(xmlFile => xmlFile.write(dist));
+        files.forEach(file => file.write(dist));
 
         return [];
     }

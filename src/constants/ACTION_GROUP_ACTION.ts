@@ -1,4 +1,4 @@
-export const ACTIONS_GROUPS_ACTION = {
+export const ACTION_GROUP_ACTION = {
     UPDATE_ICONS: "UpdateIcons",
     UPDATE_DATABASE: "UpdateDatabase",
     IMPORT_FILES: "ImportFiles",

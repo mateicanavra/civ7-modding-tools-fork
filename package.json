@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsx build.ts",
     "dev": "tsx dev.ts",
-    "tsc": "tsc --noemit build.ts"
+    "tsc": "tsc --noemit dev.ts"
   },
   "repository": "https://github.com/izica/civ7-modding-tools",
   "author": "izica <artemiztomska@gmail.com>",

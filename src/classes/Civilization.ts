@@ -2,12 +2,12 @@ import { XmlElement } from "jstoxml";
 import * as lodash from "lodash";
 
 import { TClassProperties, TObjectValues } from "../types";
-import { ACTIONS_GROUPS_ACTION, AGE, KIND, TAG_TRAIT, TRAIT } from "../constants";
+import { ACTION_GROUP_ACTION, AGE, KIND, TAG_TRAIT, TRAIT } from "../constants";
 import { CivilizationLocalization } from "../localizations";
 
 import { Base } from "./Base";
 import { locale } from "../utils";
-import { XmlFile } from "./XmlFile";
+import { FileXml } from "./FileXml";
 import { ActionGroupBundle } from "./ActionGroupBundle";
 import { CivilizationItem } from "./CivilizationItem";
 import { Unit } from "./Unit";
@@ -24,7 +24,7 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
     traitAbility: string = '';
     type: string = '';
 
-    icons: {main?: Icon} = {};
+    icons: { main?: Icon } = {};
 
     age: TObjectValues<typeof AGE> = AGE.ANTIQUITY
     civilizationTags: TObjectValues<typeof TAG_TRAIT>[] = [];
@@ -83,7 +83,7 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
         })
     }
 
-    getIcons (): Icon[] {
+    getIcons(): Icon[] {
         return Object.values(this.icons).filter(icon => !!icon);
     }
 
@@ -120,6 +120,9 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
     }
 
     private toLocalization(): XmlElement {
+        if(!this.localizations.length){
+            return null;
+        }
         return {
             Database: this.localizations.map(localization => {
                 return localization.fill({ prefix: this.type }).toXmlElement();
@@ -225,60 +228,38 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
         };
     }
 
-    build() {
+    getFiles() {
         const directory = `/civilization/${lodash.kebabCase(this.name)}/`;
 
-        const files: XmlFile[] = [(
-            new XmlFile({
-                filename: `shell.xml`,
-                filepath: directory,
+        return [
+            new FileXml({
+                name: `shell.xml`,
+                path: directory,
                 content: this.toShell(),
-                actionGroups: [
-                    this.actionGroupBundle.shell.clone().fill({
-                        actions: [ACTIONS_GROUPS_ACTION.UPDATE_DATABASE]
-                    })
-                ]
-            })
-        )];
-
-        files.push(new XmlFile({
-            filename: `game.xml`,
-            filepath: directory,
-            content: this.toGame(),
-            actionGroups: [
-                this.actionGroupBundle.current.clone().fill({
-                    actions: [ACTIONS_GROUPS_ACTION.UPDATE_DATABASE]
-                })
-            ]
-        }));
-
-        files.push(new XmlFile({
-            filename: `legacy.xml`,
-            filepath: directory,
-            content: this.toLegacy(),
-            actionGroups: [
-                this.actionGroupBundle.exist.clone().fill({
-                    actions: [ACTIONS_GROUPS_ACTION.UPDATE_DATABASE]
-                })
-            ]
-        }));
-
-        if (this.localizations.length > 0) {
-            files.push(new XmlFile({
-                filename: `localization.xml`,
-                filepath: directory,
+                actionGroups: [this.actionGroupBundle.shell],
+                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
+            }),
+            new FileXml({
+                name: `game.xml`,
+                path: directory,
+                content: this.toGame(),
+                actionGroups: [this.actionGroupBundle.current],
+                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
+            }),
+            new FileXml({
+                name: `legacy.xml`,
+                path: directory,
+                content: this.toLegacy(),
+                actionGroups: [this.actionGroupBundle.exist],
+                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
+            }),
+            new FileXml({
+                name: `localization.xml`,
+                path: directory,
                 content: this.toLocalization(),
-                actionGroups: [
-                    this.actionGroupBundle.shell.clone().fill({
-                        actions: [ACTIONS_GROUPS_ACTION.UPDATE_TEXT]
-                    }),
-                    this.actionGroupBundle.game.clone().fill({
-                        actions: [ACTIONS_GROUPS_ACTION.UPDATE_TEXT]
-                    })
-                ]
-            }));
-        }
-
-        return files;
+                actionGroups: [this.actionGroupBundle.shell, this.actionGroupBundle.game],
+                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_TEXT]
+            }),
+        ];
     }
 }

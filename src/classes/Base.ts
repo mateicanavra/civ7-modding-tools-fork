@@ -1,7 +1,6 @@
 import { XmlElement } from "jstoxml";
 
-import { ActionGroupBundle } from "./ActionGroupBundle";
-import { XmlFile } from "./XmlFile";
+import { File } from "./File";
 
 export class Base<T extends Object> {
     constructor(payload: Partial<T> = {}) {
@@ -25,7 +24,7 @@ export class Base<T extends Object> {
         return Object.assign(Object.create(Object.getPrototypeOf(this)), this);
     }
 
-    build(): XmlFile[] {
+    getFiles(): File[] {
         return [];
     }
 }

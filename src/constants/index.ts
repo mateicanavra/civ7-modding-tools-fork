@@ -1,4 +1,4 @@
-export { ACTIONS_GROUPS_ACTION } from './ACTIONS_GROUPS_ACTION';
+export { ACTION_GROUP_ACTION } from './ACTION_GROUP_ACTION';
 export { ACTION_GROUP_BUNDLE } from './ACTION_GROUP_BUNDLE';
 export { AGE } from './AGE';
 export { CONSTRUCTIBLE_CLASS } from './CONSTRUCTIBLE_CLASS';
@@ -7,7 +7,7 @@ export { CORE_CLASS } from './CORE_CLASS';
 export { DISTRICT } from './DISTRICT';
 export { DOMAIN } from './DOMAIN';
 export { FORMATION_CLASS } from './FORMATION_CLASS';
-export { ICON_PATH } from './ICON_PATH';
+export { ICON } from './ICON';
 export { KIND } from './KIND';
 export { LANGUAGE } from './LANGUAGE';
 export { TAG_TRAIT } from './TAG_TRAIT';

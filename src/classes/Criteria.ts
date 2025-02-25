@@ -2,7 +2,6 @@ import { randomUUID } from "node:crypto";
 
 import { AGE } from "../constants";
 import { TClassProperties } from "../types";
-
 import { Base } from "./Base";
 
 type TCriteria = TClassProperties<Criteria>;

@@ -1,73 +1,25 @@
-import { ActionGroup, ActionGroupBundle, Criteria } from "../classes";
+import { ActionGroupBundle } from "../classes/ActionGroupBundle";
+
 import { AGE } from "./AGE";
-import { TObjectValues } from "../types";
-
-const shell = new ActionGroup({
-    scope: 'shell',
-    criteria: new Criteria({ id: 'always' })
-});
-
-const game = new ActionGroup({
-    scope: 'game',
-    criteria: new Criteria({ id: 'always' })
-});
+import { ACTION_GROUP } from "./ACTION_GROUP";
 
 export const ACTION_GROUP_BUNDLE = {
     [AGE.ANTIQUITY]: new ActionGroupBundle({
-        shell,
-        game,
-        current: new ActionGroup({
-            scope: 'game',
-            criteria: new Criteria({
-                id: 'age-antiquity-current',
-                ages: [AGE.ANTIQUITY]
-            })
-        }),
-        exist: new ActionGroup({
-            scope: 'game',
-            criteria: new Criteria({
-                id: 'age-antiquity-exist',
-                isAny: true,
-                ages: [AGE.ANTIQUITY, AGE.EXPLORATION, AGE.MODERN]
-            })
-        })
+        shell: ACTION_GROUP.SHELL,
+        game: ACTION_GROUP.GAME,
+        current: ACTION_GROUP.AGE_ANTIQUITY_CURRENT,
+        exist: ACTION_GROUP.AGE_ANTIQUITY_EXIST
     }),
     [AGE.EXPLORATION]: new ActionGroupBundle({
-        shell,
-        game,
-        current: new ActionGroup({
-            scope: 'game',
-            criteria: new Criteria({
-                id: 'age-exploration-current',
-                ages: [AGE.EXPLORATION]
-            })
-        }),
-        exist: new ActionGroup({
-            scope: 'game',
-            criteria: new Criteria({
-                id: 'age-exploration-exist',
-                isAny: true,
-                ages: [AGE.EXPLORATION, AGE.MODERN]
-            })
-        })
+        shell: ACTION_GROUP.SHELL,
+        game: ACTION_GROUP.GAME,
+        current: ACTION_GROUP.AGE_EXPLORATION_CURRENT,
+        exist: ACTION_GROUP.AGE_EXPLORATION_EXIST
     }),
     [AGE.MODERN]: new ActionGroupBundle({
-        shell,
-        game,
-        current: new ActionGroup({
-            scope: 'game',
-            criteria: new Criteria({
-                id: 'age-modern-current',
-                ages: [AGE.ANTIQUITY]
-            })
-        }),
-        exist: new ActionGroup({
-            scope: 'game',
-            criteria: new Criteria({
-                id: 'age-modern-exist',
-                isAny: true,
-                ages: [AGE.MODERN]
-            })
-        })
+        shell: ACTION_GROUP.SHELL,
+        game: ACTION_GROUP.GAME,
+        current: ACTION_GROUP.AGE_MODERN_CURRENT,
+        exist: ACTION_GROUP.AGE_MODERN_EXIST
     }),
 } as const;
