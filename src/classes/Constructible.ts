@@ -3,13 +3,12 @@ import { XmlElement } from "jstoxml";
 import * as lodash from "lodash";
 
 import { TClassProperties, TObjectValues } from "../types";
-import { ACTIONS_GROUPS_ACTION, AGE, CONSTRUCTIBLE_CLASS, CONSTRUCTIBLE_TYPE_TAG, KIND } from "../constants";
+import { ACTIONS_GROUPS_ACTION, AGE, CONSTRUCTIBLE_CLASS, CONSTRUCTIBLE_TYPE_TAG, DISTRICT, KIND } from "../constants";
 import { ConstructibleLocalization } from "../localizations";
 import { locale } from "../utils";
 
 import { ActionGroupBundle } from "./ActionGroupBundle";
 import { Base } from "./Base";
-import { Civilization } from "./Civilization";
 import { ConstructibleMaintenance } from "./ConstructibleMaintenance";
 import { ConstructibleYieldChange } from "./ConstructibleYieldChange";
 import { XmlFile } from "./XmlFile";
@@ -28,6 +27,10 @@ export class Constructible extends Base<TConstructible> implements TConstructibl
 
     age: TObjectValues<typeof AGE> = AGE.ANTIQUITY;
     constructibleClass: TObjectValues<typeof CONSTRUCTIBLE_CLASS> = CONSTRUCTIBLE_CLASS.BUILDING;
+    constructibleValidDistricts: TObjectValues<typeof DISTRICT>[] = [
+        DISTRICT.URBAN,
+        DISTRICT.CITY_CENTER,
+    ];
     typeTags: TObjectValues<typeof CONSTRUCTIBLE_TYPE_TAG>[] = [];
 
     actionGroupBundle = new ActionGroupBundle();
@@ -48,12 +51,6 @@ export class Constructible extends Base<TConstructible> implements TConstructibl
             this.type = `${typePrefix}${this.type}`;
         }
     }
-
-    bindToCivilization(civilization: Civilization) {
-        this.traitType = civilization.trait;
-        return this;
-    }
-
 
     private toLocalization(): XmlElement {
         return {
@@ -104,6 +101,15 @@ export class Constructible extends Base<TConstructible> implements TConstructibl
                         Age: this.age,
                     }
                 }],
+                Constructible_ValidDistricts: this.constructibleValidDistricts.map(constructibleValidDistrict => {
+                    return {
+                        _name: 'Row',
+                        _attrs: {
+                            ConstructibleType: this.type,
+                            DistrictType: constructibleValidDistrict
+                        }
+                    }
+                }),
                 Constructible_YieldChanges: this.constructibleYieldChanges.map(constructibleYieldChange => {
                     return constructibleYieldChange.fill({
                         constructibleType: this.type

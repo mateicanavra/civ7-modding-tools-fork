@@ -11,6 +11,8 @@ import { locale } from "../utils";
 import { XmlFile } from "./XmlFile";
 import { ActionGroupBundle } from "./ActionGroupBundle";
 import { CivilizationItem } from "./CivilizationItem";
+import { Unit } from "./Unit";
+import { Constructible } from "./Constructible";
 
 type TCivilization = TClassProperties<Civilization>;
 
@@ -35,10 +37,10 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
 
         const typeName = lodash.snakeCase(this.name).toLocaleUpperCase()
         const typePrefix = 'CIVILIZATION_';
-        if(!this.type){
+        if (!this.type) {
             this.type = `${typePrefix}${typeName}`;
         }
-        if(!this.type.startsWith(typePrefix)){
+        if (!this.type.startsWith(typePrefix)) {
             this.type = `${typePrefix}${this.type}`;
         }
 
@@ -46,7 +48,7 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
         if (!this.trait) {
             this.trait = this.type.replace(typePrefix, traitPrefix);
         }
-        if(!this.trait.startsWith(traitPrefix)){
+        if (!this.trait.startsWith(traitPrefix)) {
             this.trait = `${traitPrefix}${this.trait}`;
         }
 
@@ -54,17 +56,28 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
         if (!this.traitAbility) {
             this.traitAbility = `${this.trait}${traitAbilityPostfix}`;
         }
-        if(!this.traitAbility.endsWith(traitAbilityPostfix)){
+        if (!this.traitAbility.endsWith(traitAbilityPostfix)) {
             this.traitAbility = `${this.traitAbility}${traitAbilityPostfix}`;
         }
 
-        if(!this.domain) {
+        if (!this.domain) {
             this.domain = {
                 [AGE.ANTIQUITY]: 'AntiquityAgeCivilizations',
                 [AGE.EXPLORATION]: 'ExplorationAgeCivilizations',
                 [AGE.MODERN]: 'ModernAgeCivilizations',
             }[this.age];
         }
+    }
+
+    bind(items: (Unit | Constructible)[]) {
+        items.forEach(item => {
+            if (item instanceof Unit) {
+                item.fill({ traitType: this.trait })
+            }
+            if (item instanceof Constructible) {
+                item.fill({ traitType: this.trait })
+            }
+        })
     }
 
     private toShell() {
@@ -147,7 +160,7 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
                         Type: this.trait,
                         Kind: KIND.TRAIT
                     }
-                },{
+                }, {
                     _name: 'Row',
                     _attrs: {
                         Type: this.traitAbility,

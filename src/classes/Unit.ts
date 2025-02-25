@@ -13,14 +13,13 @@ import {
 } from "../constants";
 import { locale } from "../utils";
 import { TClassProperties, TObjectValues } from "../types";
-
-import { Base } from "./Base";
-import { XmlFile } from "./XmlFile";
-import { ActionGroupBundle } from "./ActionGroupBundle";
-import { UnitStat } from "./UnitStat";
-import { UnitCost } from "./UnitCost";
 import { UnitLocalization } from "../localizations";
-import { Civilization } from "./Civilization";
+
+import { ActionGroupBundle } from "./ActionGroupBundle";
+import { Base } from "./Base";
+import { UnitCost } from "./UnitCost";
+import { UnitStat } from "./UnitStat";
+import { XmlFile } from "./XmlFile";
 
 type TUnit = TClassProperties<Unit>;
 
@@ -50,23 +49,18 @@ export class Unit extends Base<TUnit> implements TUnit {
         this.fill(payload);
         const typedName = lodash.snakeCase(this.name).toLocaleUpperCase();
 
-        if(!this.type){
+        if (!this.type) {
             this.type = `UNIT_${typedName}`;
         }
-        if(!this.type.startsWith('UNIT_')){
+        if (!this.type.startsWith('UNIT_')) {
             this.type = `UNIT_${this.type}`;
         }
         if (!this.tag) {
             this.tag = this.type.replace('UNIT_', 'UNIT_CLASS_');
         }
-        if(!this.tag.startsWith('UNIT_CLASS_')){
+        if (!this.tag.startsWith('UNIT_CLASS_')) {
             this.tag = `UNIT_CLASS_${this.tag}`;
         }
-    }
-
-    bindToCivilization(civilization: Civilization) {
-        this.traitType = civilization.trait;
-        return this;
     }
 
     private toGame(): XmlElement {

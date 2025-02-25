@@ -31,20 +31,32 @@ yarn build
 - - [x] Visual remap
 - - [x] Icons
 - - [x] Replace
-- - [x] Remap
 - - [x] Texts
 - - [ ] Game effects
 - - [ ] ...and more
 - [x] Civilizations
 - - [x] Creating
 - - [x] Civilization items
-- - [x] Binding unique units
 - - [x] Texts
-- - [ ] Binding unique constructibles
+- - [x] Binding unique units
+- - [x] Binding unique constructibles
 - - [ ] Icons
 - - [ ] Civics
 - - [ ] ...and more
-- [ ] Constructibles
+- [x] Constructibles
+- - [x] Creating
+- - [x] Tags
+- - [x] Yield Changes
+- - [x] Valid Districts
+- - [x] Maintenances
+- - [x] Cost
+- - [x] Texts
+- - [ ] Icons
+- - [ ] Remap (don't work at the time)
+- - [ ] as Improvement
+- - [ ] as Quarter
+- - [ ] Game effects
+- - [ ] ...and more
 - [ ] Named places
 - [ ] Resources
 - [ ] Techs

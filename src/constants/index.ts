@@ -4,6 +4,7 @@ export { AGE } from './AGE';
 export { CONSTRUCTIBLE_CLASS } from './CONSTRUCTIBLE_CLASS';
 export { CONSTRUCTIBLE_TYPE_TAG } from './CONSTRUCTIBLE_TYPE_TAG';
 export { CORE_CLASS } from './CORE_CLASS';
+export { DISTRICT } from './DISTRICT';
 export { DOMAIN } from './DOMAIN';
 export { FORMATION_CLASS } from './FORMATION_CLASS';
 export { ICON_PATH } from './ICON_PATH';
