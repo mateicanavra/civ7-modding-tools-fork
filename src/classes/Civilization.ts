@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid';
 import { XmlElement } from "jstoxml";
 import * as lodash from "lodash";
 
@@ -13,22 +12,26 @@ import { ActionGroupBundle } from "./ActionGroupBundle";
 import { CivilizationItem } from "./CivilizationItem";
 import { Unit } from "./Unit";
 import { Constructible } from "./Constructible";
+import { randomUUID } from "node:crypto";
+import { Icon } from "./Icon";
 
 type TCivilization = TClassProperties<Civilization>;
 
 export class Civilization extends Base<TCivilization> implements TCivilization {
-    actionGroupBundle = new ActionGroupBundle();
-
-    age: TObjectValues<typeof AGE> = AGE.ANTIQUITY
     domain = '';
-    name: string = uuid();
+    name: string = randomUUID();
     trait: string = '';
     traitAbility: string = '';
     type: string = '';
-    icon: string = '';
-    civilizationItems: CivilizationItem[] = [];
+
+    icons: {main?: Icon} = {};
+
+    age: TObjectValues<typeof AGE> = AGE.ANTIQUITY
     civilizationTags: TObjectValues<typeof TAG_TRAIT>[] = [];
     civilizationTraits: TObjectValues<typeof TRAIT>[] = [];
+
+    actionGroupBundle = new ActionGroupBundle();
+    civilizationItems: CivilizationItem[] = [];
     localizations: CivilizationLocalization[] = [];
 
     constructor(payload: Partial<TCivilization> = {}) {
@@ -80,6 +83,10 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
         })
     }
 
+    getIcons (): Icon[] {
+        return Object.values(this.icons).filter(icon => !!icon);
+    }
+
     private toShell() {
         return {
             Database: {
@@ -91,7 +98,7 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
                         CivilizationName: locale(this.type, 'Name'),
                         CivilizationFullName: locale(this.type, 'FullName'),
                         CivilizationDescription: locale(this.type, 'Description'),
-                        CivilizationIcon: this.icon
+                        CivilizationIcon: this.icons?.main.id
                     }
                 },
                 CivilizationTags: this.civilizationTags.map(civilizationTag => ({

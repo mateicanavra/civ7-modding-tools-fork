@@ -17,7 +17,6 @@
     "jstoxml": "^5.0.2",
     "lodash": "^4.17.21",
     "tsx": "^4.19.3",
-    "typescript": "5.7.3",
-    "uuid": "^11.1.0"
+    "typescript": "5.7.3"
   }
 }

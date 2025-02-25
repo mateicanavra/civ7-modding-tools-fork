@@ -10,6 +10,7 @@ import { Civilization } from "./Civilization";
 import { Constructible } from "./Constructible";
 import { Unit } from "./Unit";
 import { XmlFile } from "./XmlFile";
+import { Icon } from "./Icon";
 
 type TMod = TClassProperties<Mod>;
 
@@ -38,8 +39,11 @@ export class Mod extends Base<TMod> implements TMod {
         ];
     }
 
+
+
+    // TODO maybe refactoring in feature?
     build(dist = './dist', clear = false) {
-        if(clear){
+        if (clear) {
             fs.mkdirSync(dist, { recursive: true });
             fs.rmSync(dist, { recursive: true });
             fs.mkdirSync(dist, { recursive: true });
@@ -75,7 +79,6 @@ export class Mod extends Base<TMod> implements TMod {
             return result;
         }, {}));
 
-        // TODO maybe refactoring in feature?
         const modInfo = new XmlFile({
             filename: `${this.id}.modinfo`,
             filepath: '/',

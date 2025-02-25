@@ -1,4 +1,3 @@
-import { v4 as uuid } from 'uuid';
 import { XmlElement } from "jstoxml";
 import * as lodash from "lodash";
 
@@ -12,11 +11,12 @@ import { Base } from "./Base";
 import { ConstructibleMaintenance } from "./ConstructibleMaintenance";
 import { ConstructibleYieldChange } from "./ConstructibleYieldChange";
 import { XmlFile } from "./XmlFile";
+import { randomUUID } from "node:crypto";
 
 type TConstructible = TClassProperties<Constructible>;
 
 export class Constructible extends Base<TConstructible> implements TConstructible {
-    name: string = uuid();
+    name: string = randomUUID();
     type: string = '';
     kind: (typeof KIND)['CONSTRUCTIBLE'] | (typeof KIND)['QUARTER'] = KIND.CONSTRUCTIBLE;
     cost: number = 10;

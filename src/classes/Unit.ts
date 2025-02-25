@@ -1,6 +1,6 @@
-import { v4 as uuid } from 'uuid';
 import * as lodash from 'lodash';
 import { XmlElement } from "jstoxml";
+import { randomUUID } from "node:crypto";
 
 import {
     ACTIONS_GROUPS_ACTION,
@@ -24,42 +24,47 @@ import { XmlFile } from "./XmlFile";
 type TUnit = TClassProperties<Unit>;
 
 export class Unit extends Base<TUnit> implements TUnit {
-    actionGroupBundle = new ActionGroupBundle();
-    name: string = uuid();
+    name: string = randomUUID();
     type: string = '';
     tag = '';
     baseSightRange: number = 2;
     baseMoves: number = 2;
+    zoneOfControl: boolean = true;
+    unitReplace: string = '';
+    visualRemap: string = '';
+    traitType: string = '';
+    icon: string = '';
+
     unitMovementClass: TObjectValues<typeof UNIT_MOVEMENT_CLASS> = UNIT_MOVEMENT_CLASS.FOOT;
     domain: TObjectValues<typeof DOMAIN> = DOMAIN.LAND;
     coreClass: TObjectValues<typeof CORE_CLASS> = CORE_CLASS.MILITARY;
     formationClass: TObjectValues<typeof FORMATION_CLASS> = FORMATION_CLASS.LAND_COMBAT;
-    zoneOfControl: boolean = true;
+    typeTags: TObjectValues<typeof UNIT_CLASS>[] = [];
+
+    actionGroupBundle = new ActionGroupBundle();
     unitStat = new UnitStat();
     unitCost = new UnitCost();
-    unitReplace: string = '';
-    typeTags: TObjectValues<typeof UNIT_CLASS>[] = [];
-    visualRemap: string = '';
-    traitType: string = '';
-    icon: string = '';
     localizations: UnitLocalization[] = [];
 
     constructor(payload: Partial<TUnit> = {}) {
         super();
         this.fill(payload);
-        const typedName = lodash.snakeCase(this.name).toLocaleUpperCase();
 
+        const typePrefix = 'UNIT_';
+        const typeName = lodash.snakeCase(this.name).toLocaleUpperCase();
         if (!this.type) {
-            this.type = `UNIT_${typedName}`;
+            this.type = `${typePrefix}${typeName}`;
         }
-        if (!this.type.startsWith('UNIT_')) {
-            this.type = `UNIT_${this.type}`;
+        if (!this.type.startsWith(typePrefix)) {
+            this.type = `${typePrefix}${this.type}`;
         }
+
+        const tagPrefix = 'UNIT_CLASS_';
         if (!this.tag) {
-            this.tag = this.type.replace('UNIT_', 'UNIT_CLASS_');
+            this.tag = this.type.replace(typePrefix, tagPrefix);
         }
-        if (!this.tag.startsWith('UNIT_CLASS_')) {
-            this.tag = `UNIT_CLASS_${this.tag}`;
+        if (!this.tag.startsWith(tagPrefix)) {
+            this.tag = `${tagPrefix}${this.tag}`;
         }
     }
 
@@ -140,19 +145,6 @@ export class Unit extends Base<TUnit> implements TUnit {
         }
     }
 
-    private toIconDefinitions(): XmlElement {
-        return {
-            Database: {
-                IconDefinitions: {
-                    Row: {
-                        ID: this.type,
-                        Path: this.icon,
-                    }
-                }
-            }
-        }
-    }
-
     private toLocalization(): XmlElement {
         return {
             Database: this.localizations.map(localization => {
@@ -176,22 +168,6 @@ export class Unit extends Base<TUnit> implements TUnit {
                 ]
             })
         )];
-
-        if (this.icon) {
-            files.push(new XmlFile({
-                filename: `icon.xml`,
-                filepath: directory,
-                content: this.toIconDefinitions(),
-                actionGroups: [
-                    this.actionGroupBundle.game.clone().fill({
-                        actions: [ACTIONS_GROUPS_ACTION.UPDATE_ICONS]
-                    }),
-                    this.actionGroupBundle.shell.clone().fill({
-                        actions: [ACTIONS_GROUPS_ACTION.UPDATE_ICONS]
-                    }),
-                ]
-            }));
-        }
 
         if (this.visualRemap) {
             files.push(new XmlFile({

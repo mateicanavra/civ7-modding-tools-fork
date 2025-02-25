@@ -12,7 +12,7 @@ const game = new ActionGroup({
     criteria: new Criteria({ id: 'always' })
 });
 
-export const ACTION_GROUP_BUNDLE: Record<TObjectValues<typeof AGE>, ActionGroupBundle> = {
+export const ACTION_GROUP_BUNDLE = {
     [AGE.ANTIQUITY]: new ActionGroupBundle({
         shell,
         game,
@@ -70,5 +70,4 @@ export const ACTION_GROUP_BUNDLE: Record<TObjectValues<typeof AGE>, ActionGroupB
             })
         })
     }),
-
 } as const;

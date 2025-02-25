@@ -1,13 +1,14 @@
-import { v4 as uuid } from 'uuid';
+import { randomUUID } from "node:crypto";
 
-import { Base } from "./Base";
 import { AGE } from "../constants";
 import { TClassProperties } from "../types";
+
+import { Base } from "./Base";
 
 type TCriteria = TClassProperties<Criteria>;
 
 export class Criteria extends Base<TCriteria> implements TCriteria {
-    id: string = `criteria-${uuid()}`;
+    id: string = `criteria-${randomUUID()}`;
     isAny?: boolean = false;
     ages: (typeof AGE[keyof typeof AGE])[] = [];
 

@@ -9,7 +9,11 @@ export class BaseLocalization<T> {
     locale: TObjectValues<typeof LANGUAGE> = LANGUAGE.en_US;
     prefix = '';
 
-    fill(payload?: Partial<T>) {
+    constructor(payload: Partial<T> = {}) {
+        this.fill(payload);
+    }
+
+    fill(payload: Partial<T> = {}) {
         for (const [key, value] of Object.entries(payload)) {
             if (this.hasOwnProperty(key)) {
                 this[key] = value;
