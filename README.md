@@ -11,9 +11,23 @@ yarn install
 yarn build
 ```
 
+## Previews
+#### Create mod with builders
+![Builders](previews/builders.png)
+
+#### Full strong typed
+![Typed](previews/typed.png)
+
+#### You have full control of generation
+![Controllable](previews/controllable.png)
+
+#### or you can do it full manually
+![Manually](previews/manually.png)
+
 ## Features
 * written in typescript
 * typed entities
+* easy mod creation
 
 ## Modding covering / TODO
 - [x] Mod info
