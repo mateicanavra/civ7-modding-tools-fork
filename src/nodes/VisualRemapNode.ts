@@ -16,7 +16,7 @@ export type TVisualRemapNode = Pick<VisualRemapNode,
 export class VisualRemapNode extends BaseNode<TVisualRemapNode> {
     id: string = randomUUID();
     displayName: string = 'LOC_';
-    kind: TObjectValues<typeof KIND> = KIND.UNIT;
+    kind: string = 'UNIT';
     from: string = 'UNIT_';
     to: string = 'UNIT_';
 

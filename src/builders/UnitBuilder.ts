@@ -12,7 +12,7 @@ import {
     UnitNode, UnitReplaceNode,
     UnitStatNode,
     VisualRemapNode,
-    TVisualRemapNode
+    TVisualRemapNode, TIconDefinitionNode, IconDefinitionNode
 } from "../nodes";
 import { ACTION_GROUP_ACTION, KIND, UNIT_CLASS } from "../constants";
 import { locale } from "../utils";
@@ -26,11 +26,15 @@ type TUnitBuilder = TClassProperties<UnitBuilder>
 export class UnitBuilder extends BaseBuilder<TUnitBuilder> {
     _game: DatabaseNode = new DatabaseNode();
     _localizations: DatabaseNode = new DatabaseNode();
+    _icons: DatabaseNode = new DatabaseNode();
     _visualRemap: DatabaseNode | null = null;
 
     unit: TPartialWithRequired<TUnitNode, 'unitType'> = { unitType: 'UNIT_CUSTOM' }
     unitStat: Partial<TUnitStatNode> = {};
     unitCost: Partial<TUnitCostNode> = {};
+    icon: TPartialWithRequired<TIconDefinitionNode, 'path'> = {
+        path: 'fs://game/civ_sym_han'
+    }
     unitReplace: Partial<TUnitReplaceNode> = {};
     visualRemap: TPartialWithRequired<TVisualRemapNode, 'to'> | null = null;
     localizations: TUnitLocalization[] = [];
@@ -93,13 +97,20 @@ export class UnitBuilder extends BaseBuilder<TUnitBuilder> {
                     new VisualRemapNode({
                         id: `REMAP_${this.unit.unitType}`,
                         displayName: locale(this.unit.unitType, 'name'),
-                        kind: KIND.UNIT,
+                        kind: 'UNIT',
                         from: this.unit.unitType,
                         ...this.visualRemap
                     })
                 ]
             })
         }
+
+        this._icons.fill({
+            iconDefinitions: [new IconDefinitionNode({
+                id: this.unit.unitType,
+                ...this.icon,
+            })]
+        })
 
         this._localizations.fill({
             englishText: this.localizations.map(item => {
@@ -137,6 +148,13 @@ export class UnitBuilder extends BaseBuilder<TUnitBuilder> {
                 content: this._localizations.toXmlElement(),
                 actionGroups: [this.actionGroupBundle.shell, this.actionGroupBundle.always],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_TEXT]
+            }),
+            new XmlFile({
+                path,
+                name: 'icons.xml',
+                content: this._icons.toXmlElement(),
+                actionGroups: [this.actionGroupBundle.shell, this.actionGroupBundle.current],
+                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_ICONS]
             }),
         ]
     }
