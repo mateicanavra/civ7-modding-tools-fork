@@ -136,7 +136,10 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
         });
 
         this._icons.fill({
-            iconDefinitions: [new IconDefinitionNode(this.icon)]
+            iconDefinitions: [new IconDefinitionNode({
+                id: this.civilization.civilizationType,
+                ...this.icon,
+            })]
         });
 
         this._localizations.fill({
@@ -181,7 +184,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                 name: 'icons.xml',
                 content: this._icons.toXmlElement(),
                 actionGroups: [this.actionGroupBundle.shell, this.actionGroupBundle.always],
-                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
+                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_ICONS]
             }),
             new XmlFile({
                 path,
