@@ -1,57 +1,57 @@
 // fix for import loop
-import { ActionGroup } from "../classes/ActionGroup";
-import { Criteria } from "../classes/Criteria";
+import { ActionGroupNode } from "../nodes/ActionGroupNode";
+import { CriteriaNode } from "../nodes/CriteriaNode";
 
 import { AGE } from "./AGE";
 
 export const ACTION_GROUP = {
-    SHELL: new ActionGroup({
+    SHELL: new ActionGroupNode({
         scope: 'shell',
-        criteria: new Criteria({ id: 'ALWAYS' })
+        criteria: new CriteriaNode({ id: 'always' })
     }),
-    GAME: new ActionGroup({
+    GAME: new ActionGroupNode({
         scope: 'game',
-        criteria: new Criteria({ id: 'ALWAYS' })
+        criteria: new CriteriaNode({ id: 'always' })
     }),
-    AGE_ANTIQUITY_CURRENT: new ActionGroup({
+    AGE_ANTIQUITY_CURRENT: new ActionGroupNode({
         scope: 'game',
-        criteria: new Criteria({
-            id: `${AGE.ANTIQUITY}_CURRENT`,
+        criteria: new CriteriaNode({
+            id: `age-antiquity-current`,
             ages: [AGE.ANTIQUITY]
         })
     }),
-    AGE_ANTIQUITY_EXIST: new ActionGroup({
+    AGE_ANTIQUITY_EXIST: new ActionGroupNode({
         scope: 'game',
-        criteria: new Criteria({
-            id: `${AGE.ANTIQUITY}_EXIST`,
+        criteria: new CriteriaNode({
+            id: `age-antiquity-exist`,
             ages: [AGE.ANTIQUITY, AGE.EXPLORATION, AGE.MODERN]
         })
     }),
-    AGE_EXPLORATION_CURRENT: new ActionGroup({
+    AGE_EXPLORATION_CURRENT: new ActionGroupNode({
         scope: 'game',
-        criteria: new Criteria({
-            id: `${AGE.EXPLORATION}_CURRENT`,
+        criteria: new CriteriaNode({
+            id: `age-exploration-current`,
             ages: [AGE.EXPLORATION]
         })
     }),
-    AGE_EXPLORATION_EXIST: new ActionGroup({
+    AGE_EXPLORATION_EXIST: new ActionGroupNode({
         scope: 'game',
-        criteria: new Criteria({
-            id: `${AGE.EXPLORATION}_EXIST`,
+        criteria: new CriteriaNode({
+            id: `age-exploration-exist`,
             ages: [AGE.EXPLORATION, AGE.MODERN]
         })
     }),
-    AGE_MODERN_CURRENT: new ActionGroup({
+    AGE_MODERN_CURRENT: new ActionGroupNode({
         scope: 'game',
-        criteria: new Criteria({
-            id: `${AGE.MODERN}_CURRENT`,
+        criteria: new CriteriaNode({
+            id: `age-modern-current`,
             ages: [AGE.MODERN]
         })
     }),
-    AGE_MODERN_EXIST: new ActionGroup({
+    AGE_MODERN_EXIST: new ActionGroupNode({
         scope: 'game',
-        criteria: new Criteria({
-            id: `${AGE.MODERN}_EXIST`,
+        criteria: new CriteriaNode({
+            id: `age-modern-exist`,
             ages: [AGE.MODERN]
         })
     }),

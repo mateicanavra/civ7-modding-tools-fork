@@ -1,4 +1,4 @@
-import { ActionGroupBundle } from "../classes/ActionGroupBundle";
+import { ActionGroupBundle } from "../core/ActionGroupBundle";
 
 import { AGE } from "./AGE";
 import { ACTION_GROUP } from "./ACTION_GROUP";

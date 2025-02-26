@@ -3,13 +3,11 @@ import { toXML, XmlElement } from "jstoxml";
 
 import { TClassProperties } from "../types";
 
-import { Base } from "./Base";
-import { ActionGroup } from "./ActionGroup";
 import { BaseFile } from "./BaseFile";
 
-type TXmlFile = TClassProperties<FileXml>;
+type TXmlFile = TClassProperties<XmlFile>;
 
-export class FileXml extends BaseFile<FileXml> implements TXmlFile {
+export class XmlFile extends BaseFile<XmlFile> implements TXmlFile {
     content: XmlElement | XmlElement[] | null = null;
 
     constructor(payload: Partial<TXmlFile> = {}) {
@@ -18,7 +16,7 @@ export class FileXml extends BaseFile<FileXml> implements TXmlFile {
     }
 
     write(dist: string) {
-        if(!this.content){
+        if (!this.content) {
             return;
         }
 

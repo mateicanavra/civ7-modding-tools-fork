@@ -1,3 +1,5 @@
+export { ActionGroupNode } from './ActionGroupNode';
+export { CriteriaNode } from './CriteriaNode';
 export { ConstructibleNode } from './ConstructibleNode';
 export { Database } from './Database';
 export { TagNode } from './TagNode';

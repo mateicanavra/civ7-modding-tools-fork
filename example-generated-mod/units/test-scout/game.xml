@@ -4,7 +4,19 @@
         <Row Type="UNIT_TEST_SCOUT" Kind="KIND_UNIT"/>
     </Types>
     <Units>
-        <Row Name="LOC_UNIT_TEST_SCOUT_NAME" Description="LOC_UNIT_TEST_SCOUT_DESCRIPTION" UnitType="UNIT_TEST_SCOUT" BaseSightRange="50" BaseMoves="40" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" ZoneOfControl="true" TraitType="TRAIT_TEST_CIV"/>
+        <Row
+            Name="LOC_UNIT_TEST_SCOUT_NAME"
+            Description="LOC_UNIT_TEST_SCOUT_DESCRIPTION"
+            UnitType="UNIT_TEST_SCOUT"
+            BaseSightRange="50"
+            BaseMoves="40"
+            UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT"
+            Domain="DOMAIN_LAND"
+            CoreClass="CORE_CLASS_MILITARY"
+            FormationClass="FORMATION_CLASS_LAND_COMBAT"
+            ZoneOfControl="true"
+            TraitType="TRAIT_TEST_CIV"
+        />
     </Units>
     <Tags>
         <Row Tag="UNIT_CLASS_TEST_SCOUT" Category="UNIT_CLASS"/>

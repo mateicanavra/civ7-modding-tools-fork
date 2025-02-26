@@ -1,32 +1,23 @@
-import { TClassProperties, TObjectValues } from "../types";
+import { TObjectValues } from "../types";
+import { fill } from "../utils";
 import { ACTION_GROUP_ACTION } from "../constants";
+import { ActionGroupNode } from "../nodes";
 
-import { Base } from "./Base";
-import { ActionGroup } from "./ActionGroup";
-
-
-export class BaseFile<T> {
+export class BaseFile<T = any> {
     path: string = '/';
     name: string = 'file.txt';
     content: any = null;
-    actionGroups: ActionGroup[] = [];
+    actionGroups: ActionGroupNode[] = [];
     actionGroupActions: TObjectValues<typeof ACTION_GROUP_ACTION>[] = [ACTION_GROUP_ACTION.UPDATE_DATABASE];
 
     constructor(payload: Partial<T> = {}) {
         this.fill(payload);
     }
 
-    fill(payload: Partial<T> = {}) {
-        for (const [key, value] of Object.entries(payload)) {
-            if (this.hasOwnProperty(key)) {
-                this[key] = value;
-            }
-        }
-        return this;
-    }
+    fill = fill<T>;
 
-    get modInfoPath(){
-        if(this.path.startsWith('/')){
+    get modInfoPath() {
+        if (this.path.startsWith('/')) {
             return `${this.path}${this.name}`.slice(1);
         }
         return `${this.path}${this.name}`;
