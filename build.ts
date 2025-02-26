@@ -9,7 +9,7 @@ import {
     ConstructibleLocalization,
     ConstructibleMaintenance,
     ConstructibleYieldChange,
-    Icon,
+    Icon, ImportFileBuilder,
     Mod,
     RESOURCE,
     TAG_TRAIT,
@@ -106,7 +106,7 @@ const civilization = new Civilization({
 
 civilization.bind([
     unit,
-    constructible
+    constructible,
 ]);
 
 mod.fill({

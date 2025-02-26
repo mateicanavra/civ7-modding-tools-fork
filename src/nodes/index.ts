@@ -19,4 +19,4 @@ export { CivilizationTagNode, TCivilizationTagNode } from './CivilizationTagNode
 export { LegacyCivilizationNode, TLegacyCivilizationNode } from './LegacyCivilizationNode';
 export { ShellCivilizationNode, TShellCivilizationNode } from './ShellCivilizationNode';
 export { LegacyCivilizationTraitNode, TLegacyCivilizationTraitNode } from './LegacyCivilizationTraitNode';
-
+export { IconDefinitionNode, TIconDefinitionNode } from './IconDefinitionNode';

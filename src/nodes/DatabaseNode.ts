@@ -18,6 +18,7 @@ import { CivilizationTagNode } from "./CivilizationTagNode";
 import { LegacyCivilizationNode } from "./LegacyCivilizationNode";
 import { LegacyCivilizationTraitNode } from "./LegacyCivilizationTraitNode";
 import { ShellCivilizationNode } from "./ShellCivilizationNode";
+import { IconDefinitionNode } from "./IconDefinitionNode";
 
 export type TDatabase = Pick<DatabaseNode,
     "typeTags" |
@@ -36,6 +37,7 @@ export type TDatabase = Pick<DatabaseNode,
     "civilizationTraits" |
     "civilizationTags" |
     "visualRemaps" |
+    "iconDefinitions" |
     "civilizations"
 >;
 
@@ -57,6 +59,7 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     unitReplaces: UnitReplaceNode[] = [];
     visualRemaps: VisualRemapNode[] = [];
     englishText: EnglishTextNode[] = [];
+    iconDefinitions: IconDefinitionNode[] = [];
 
     constructor(payload: Partial<TDatabase> = {}) {
         super();

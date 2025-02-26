@@ -4,7 +4,7 @@ import { TClassProperties, TObjectValues } from "../types";
 import {
     CivilizationNode,
     CivilizationTagNode,
-    DatabaseNode,
+    DatabaseNode, IconDefinitionNode,
     LegacyCivilizationNode,
     LegacyCivilizationTraitNode, ShellCivilizationNode,
     TCivilizationNode,
@@ -27,6 +27,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
     _shell: DatabaseNode = new DatabaseNode();
     _legacy: DatabaseNode = new DatabaseNode();
     _localizations: DatabaseNode = new DatabaseNode();
+    _icons: DatabaseNode = new DatabaseNode();
 
     trait: TPartialWithRequired<TraitNode, 'traitType'> = { traitType: 'TRAIT_' };
     traitAbility: TPartialWithRequired<TraitNode, 'traitType'> = { traitType: 'TRAIT_ABILITY_' };
@@ -38,6 +39,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
     civilizationTraits: (TObjectValues<typeof TRAIT> | string)[] = [];
     civilizationTags: TObjectValues<typeof TAG_TRAIT>[] = [];
     localizations: Partial<TCivilizationLocalization>[] = [];
+    icon: TPartialWithRequired<IconDefinitionNode, 'path'> = { path: 'fs://game/civ_sym_han' }
 
     constructor(payload: Partial<TCivilizationBuilder> = {}) {
         super();
@@ -131,7 +133,11 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                     ...this.trait
                 })
             ]
-        })
+        });
+
+        this._icons.fill({
+            iconDefinitions: [new IconDefinitionNode(this.icon)]
+        });
 
         this._localizations.fill({
             englishText: this.localizations.map(item => {
@@ -168,6 +174,13 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                 name: 'shell.xml',
                 content: this._shell.toXmlElement(),
                 actionGroups: [this.actionGroupBundle.shell],
+                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
+            }),
+            new XmlFile({
+                path,
+                name: 'icons.xml',
+                content: this._icons.toXmlElement(),
+                actionGroups: [this.actionGroupBundle.shell, this.actionGroupBundle.always],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
             }),
             new XmlFile({
