@@ -5,7 +5,6 @@ import { COLLECTION, EFFECT } from "../constants";
 
 import { Base } from "./Base";
 import { Requirement } from "./Requirement";
-import { Argument } from "./Argument";
 
 type TModifier = TClassProperties<Modifier>;
 
@@ -17,7 +16,7 @@ export class Modifier extends Base<TModifier> implements TModifier {
     isPermanent = false;
 
     requirements: Requirement[] = [];
-    arguments: Argument[] = [];
+    arguments: Record<string, string | number> = {};
 
     constructor(payload: Partial<TModifier> = {}) {
         super();
@@ -34,7 +33,19 @@ export class Modifier extends Base<TModifier> implements TModifier {
                 "run-once": this.runOnce ? "true" : "false",
                 permanent: this.isPermanent ? "true" : "false",
             },
-            _content: this.requirements.map(requirement => requirement.toXmlElement())
+            _content: [
+                {
+                    _name: 'SubjectRequirements',
+                    _content: this.requirements.map(requirement => requirement.toXmlElement())
+                },
+                ...Object.entries(this.arguments).map(([key, value]) => ({
+                    _name: 'Argument',
+                    _attrs: {
+                        name: key
+                    },
+                    _content: value
+                })),
+            ]
         }
     }
 }

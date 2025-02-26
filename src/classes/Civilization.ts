@@ -8,7 +8,7 @@ import {
     AGE,
     BIOME, BUILDING_CULTURES,
     FEATURE_CLASS,
-    KIND,
+    KIND, REQUIREMENT,
     RESOURCE,
     TAG_TRAIT,
     TRAIT,
@@ -26,6 +26,7 @@ import { FileXml } from "./FileXml";
 import { Icon } from "./Icon";
 import { Unit } from "./Unit";
 import { Modifier } from "./Modifier";
+import { Requirement } from "./Requirement";
 
 type TCivilization = TClassProperties<Civilization>;
 
@@ -216,6 +217,15 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
                         InternalOnly: "true"
                     }
                 }],
+                TraitModifiers: [
+                    ...this.modifiers.map(modifier => ({
+                        _name: 'Row',
+                        _attrs: {
+                            TraitType: this.traitAbility,
+                            ModifierId: modifier.id
+                        }
+                    }))
+                ],
                 Civilizations: [{
                     _name: 'Row',
                     _attrs: {
@@ -326,9 +336,21 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
             _attrs: {
                 xmlns: 'GameEffects'
             },
-            _content: {
-
-            }
+            _content: [
+                this.modifiers.map(modifier => {
+                    return modifier.fill({
+                        requirements: [
+                            new Requirement({
+                                type: REQUIREMENT.PLAYER_HAS_CIVILIZATION_OR_LEADER_TRAIT,
+                                arguments: {
+                                    TraitType: this.trait
+                                }
+                            }),
+                            ...modifier.requirements,
+                        ]
+                    }).toXmlElement();
+                })
+            ]
         }
     }
 
@@ -355,6 +377,13 @@ export class Civilization extends Base<TCivilization> implements TCivilization {
                 path: directory,
                 content: this.toLegacy(),
                 actionGroups: [this.actionGroupBundle.game],
+                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
+            }),
+            new FileXml({
+                name: `game-effects.xml`,
+                path: directory,
+                content: this.toGameEffects(),
+                actionGroups: [this.actionGroupBundle.current],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
             }),
             new FileXml({

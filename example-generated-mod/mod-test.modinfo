@@ -19,7 +19,7 @@
         </Criteria>
     </ActionCriteria>
     <ActionGroups>
-        <ActionGroup id="action-group-b9dbd8dc-93c1-443c-8de4-01dd6de62789" scope="shell" criteria="ALWAYS">
+        <ActionGroup id="action-group-1be03b6f-adae-4448-bbe5-ddacb542149c" scope="shell" criteria="ALWAYS">
             <Actions>
                 <UpdateDatabase>
                     <Item>civilization/test-civ/shell.xml</Item>
@@ -41,10 +41,11 @@
                 </ImportFiles>
             </Actions>
         </ActionGroup>
-        <ActionGroup id="action-group-3afda1af-6959-4407-a710-0759e4d4fadc" scope="game" criteria="AGE_ANTIQUITY_CURRENT">
+        <ActionGroup id="action-group-343470b6-a8b0-45ed-bc1a-b82e8d6da569" scope="game" criteria="AGE_ANTIQUITY_CURRENT">
             <Actions>
                 <UpdateDatabase>
                     <Item>civilization/test-civ/game.xml</Item>
+                    <Item>civilization/test-civ/game-effects.xml</Item>
                     <Item>units/test-scout/game.xml</Item>
                 </UpdateDatabase>
                 <UpdateIcons>
@@ -56,7 +57,7 @@
                 </UpdateVisualRemaps>
             </Actions>
         </ActionGroup>
-        <ActionGroup id="action-group-560b4d8a-341e-416b-8b82-f3e4de588dda" scope="game" criteria="ALWAYS">
+        <ActionGroup id="action-group-39dbfddb-ccdd-45d5-b3fb-4780095c4431" scope="game" criteria="ALWAYS">
             <Actions>
                 <UpdateDatabase>
                     <Item>civilization/test-civ/legacy.xml</Item>

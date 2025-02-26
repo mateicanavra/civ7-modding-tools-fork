@@ -7,7 +7,7 @@ type TRequirement = TClassProperties<Requirement>;
 
 export class Requirement extends Base<TRequirement> implements TRequirement {
     type: TObjectValues<typeof REQUIREMENT> = REQUIREMENT.GAME_IS_STARTED;
-    arguments: Record<string, string | number> = {};
+    arguments: Record<string, number>;
     constructor(payload: Partial<TRequirement> = {}) {
         super();
         this.fill(payload);

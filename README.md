@@ -44,6 +44,7 @@ yarn build
 - - [x] City names
 - - [x] Start biases
 - - [x] Visual arts
+- - [x] Game effects
 - - [ ] Civics
 - - [ ] ...and more
 - [x] Constructibles
