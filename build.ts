@@ -56,7 +56,7 @@ civilization.bind([
     unit
 ]);
 
-mod = mod.add([
+mod.add([
     civilization,
     civilizationIcon,
     unit,

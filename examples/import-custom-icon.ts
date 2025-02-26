@@ -25,7 +25,7 @@ const civilization = new CivilizationBuilder({
     ]
 })
 
-mod = mod.add([
+mod.add([
     civilization,
     civilizationIcon,
 ]);

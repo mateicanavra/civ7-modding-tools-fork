@@ -22,7 +22,7 @@ const unit = new UnitBuilder({
     ],
 });
 
-mod = mod.add([
+mod.add([
     unit,
 ]);
 
