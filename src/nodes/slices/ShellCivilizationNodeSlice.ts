@@ -1,7 +1,7 @@
-import { BaseNode } from "./BaseNode";
-import { CivilizationNode } from "./CivilizationNode";
+import { BaseNode } from "../BaseNode";
+import { CivilizationNode } from "../CivilizationNode";
 
-export type TShellCivilizationNode = Pick<ShellCivilizationNode,
+export type TShellCivilizationNodeSlice = Pick<ShellCivilizationNodeSlice,
     "domain" |
     "civilizationType" |
     "civilizationName" |
@@ -10,7 +10,7 @@ export type TShellCivilizationNode = Pick<ShellCivilizationNode,
     "civilizationIcon"
 >;
 
-export class ShellCivilizationNode extends BaseNode<TShellCivilizationNode> {
+export class ShellCivilizationNodeSlice extends BaseNode<TShellCivilizationNodeSlice> {
     domain: string = '';
     civilizationType: string = '';
     civilizationName: string = '';
@@ -18,13 +18,13 @@ export class ShellCivilizationNode extends BaseNode<TShellCivilizationNode> {
     civilizationDescription: string = '';
     civilizationIcon: string = '';
 
-    constructor(payload: Partial<TShellCivilizationNode> = {}) {
+    constructor(payload: Partial<TShellCivilizationNodeSlice> = {}) {
         super();
         this.fill(payload);
     }
 
     static from(civilization: CivilizationNode) {
-        return new ShellCivilizationNode({
+        return new ShellCivilizationNodeSlice({
             ...civilization,
             civilizationIcon: civilization.civilizationType,
             civilizationName: civilization.name,

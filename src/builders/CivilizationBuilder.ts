@@ -4,9 +4,9 @@ import { TClassProperties, TObjectValues, TPartialWithRequired } from "../types"
 import {
     CivilizationNode,
     CivilizationTagNode,
-    DatabaseNode, GameCivilizationNode, IconDefinitionNode,
+    DatabaseNode, GameCivilizationNodeSlice, IconDefinitionNode,
     LegacyCivilizationNode,
-    LegacyCivilizationTraitNode, ShellCivilizationNode,
+    LegacyCivilizationTraitNode, ShellCivilizationNodeSlice,
     TCivilizationNode,
     TLegacyCivilizationNode,
     TraitNode,
@@ -57,6 +57,15 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
             }
         }
 
+        const civilization = new CivilizationNode({
+            adjective: locale(this.civilization.civilizationType, 'adjective'),
+            capitalName: locale(this.civilization.civilizationType, 'cityNames_1'),
+            description: locale(this.civilization.civilizationType, 'description'),
+            fullName: locale(this.civilization.civilizationType, 'fullName'),
+            name: locale(this.civilization.civilizationType, 'name'),
+            ...this.civilization,
+        });
+
         this._game.fill({
             types: [
                 new TypeNode({
@@ -80,28 +89,10 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                     ...this.traitAbility
                 })
             ],
-            civilizations: [
-                new GameCivilizationNode({
-                    adjective: locale(this.civilization.civilizationType, 'adjective'),
-                    capitalName: locale(this.civilization.civilizationType, 'cityName_1'),
-                    description: locale(this.civilization.civilizationType, 'description'),
-                    fullName: locale(this.civilization.civilizationType, 'fullName'),
-                    name: locale(this.civilization.civilizationType, 'name'),
-                    ...this.civilization,
-                })
-            ],
+            civilizations: [GameCivilizationNodeSlice.from(civilization)],
         });
         this._shell.fill({
-            civilizations: [
-                ShellCivilizationNode.from(new CivilizationNode({
-                    adjective: locale(this.civilization.civilizationType, 'adjective'),
-                    capitalName: locale(this.civilization.civilizationType, 'cityName_1'),
-                    description: locale(this.civilization.civilizationType, 'description'),
-                    fullName: locale(this.civilization.civilizationType, 'fullName'),
-                    name: locale(this.civilization.civilizationType, 'name'),
-                    ...this.civilization,
-                }))
-            ],
+            civilizations: [ShellCivilizationNodeSlice.from(civilization)],
             civilizationTags: this.civilizationTags.map(item => {
                 return new CivilizationTagNode({
                     civilizationDomain: this.civilization.domain,
@@ -117,12 +108,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
             ],
             legacyCivilizations: [
                 new LegacyCivilizationNode({
-                    adjective: locale(this.civilization.civilizationType, 'adjective'),
-                    capitalName: locale(this.civilization.civilizationType, 'cityName_1'),
-                    description: locale(this.civilization.civilizationType, 'description'),
-                    fullName: locale(this.civilization.civilizationType, 'fullName'),
-                    name: locale(this.civilization.civilizationType, 'name'),
-                    ...this.civilization,
+                    ...civilization,
                     ...this.civilizationLegacy
                 })
             ],
