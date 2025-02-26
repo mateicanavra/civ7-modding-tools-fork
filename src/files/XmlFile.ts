@@ -8,7 +8,7 @@ import { BaseFile } from "./BaseFile";
 type TXmlFile = TClassProperties<XmlFile>;
 
 export class XmlFile extends BaseFile<XmlFile> implements TXmlFile {
-    content: XmlElement | XmlElement[] | null = null;
+    content: XmlElement | XmlElement[] | null | undefined = null;
 
     constructor(payload: Partial<TXmlFile> = {}) {
         super();

@@ -6,7 +6,7 @@ import { TClassProperties, TObjectValues } from "../types";
 import { ACTION_GROUP_ACTION } from "../constants";
 import { BaseBuilder } from "../builders";
 import { ActionGroupNode } from "../nodes";
-import { XmlFile } from "../files";
+import { BaseFile, XmlFile } from "../files";
 
 
 type TMod = TClassProperties<Mod>;
@@ -20,6 +20,7 @@ export class Mod {
     affectsSavedGames: boolean = true;
 
     private builders: BaseBuilder[] = [];
+    private files: BaseFile[] = [];
 
     constructor(payload: Partial<TMod> = {}) {
         this.fill(payload);
@@ -33,6 +34,18 @@ export class Mod {
         } else {
             this.builders.push(data)
         }
+
+        return this;
+    }
+
+    addFiles(data: BaseFile | BaseFile[]) {
+        if(Array.isArray(data)) {
+            this.files = this.files.concat(data);
+        } else {
+            this.files.push(data)
+        }
+
+        return this;
     }
 
     // TODO maybe refactoring in feature?
@@ -43,7 +56,9 @@ export class Mod {
             fs.mkdirSync(dist, { recursive: true });
         }
 
-        const files = this.builders.flatMap(builder => builder.build());
+        const files = this.builders
+            .flatMap(builder => builder.build())
+            .concat(this.files);
 
         const criterias = lodash.uniqBy(
             files.flatMap(file => file.actionGroups.map(actionGroup => actionGroup.criteria)),

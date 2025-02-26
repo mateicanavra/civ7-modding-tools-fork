@@ -3,7 +3,7 @@ import { randomUUID } from "node:crypto";
 import { BaseNode } from "./BaseNode";
 import { CriteriaNode } from "./CriteriaNode";
 
-type TActionGroupNode = Pick<ActionGroupNode, "id" | "scope" | "criteria">
+export type TActionGroupNode = Pick<ActionGroupNode, "id" | "scope" | "criteria">
 
 export class ActionGroupNode extends BaseNode<TActionGroupNode> {
     id: string = randomUUID();

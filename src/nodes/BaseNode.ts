@@ -18,6 +18,9 @@ export class BaseNode<T extends Object = object> {
         Object.keys(this)
             .filter(key => !key.startsWith('_'))
             .forEach(key => {
+                if(['fill'].includes(key)){
+                    return;
+                }
                 if (this[key] === null || this[key] === undefined) {
                     return;
                 }

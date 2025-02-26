@@ -3,7 +3,7 @@ import { YIELD } from "../constants";
 
 import { BaseNode } from "./BaseNode";
 
-type TUnitCostNode = Pick<UnitCostNode,
+export type TUnitCostNode = Pick<UnitCostNode,
     "unitType" |
     "yieldType" |
     "cost"

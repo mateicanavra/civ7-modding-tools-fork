@@ -1,6 +1,6 @@
 import { BaseNode } from "./BaseNode";
 
-type TTagNode = Pick<TagNode, "tag" | "category">;
+export type TTagNode = Pick<TagNode, "tag" | "category">;
 
 export class TagNode extends BaseNode<TTagNode> {
     tag = 'TAG';

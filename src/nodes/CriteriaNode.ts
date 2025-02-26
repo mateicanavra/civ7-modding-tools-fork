@@ -5,7 +5,7 @@ import { BaseNode } from "./BaseNode";
 import { TObjectValues } from "../types";
 import { AGE } from "../constants";
 
-type TCriteriaNode = Pick<CriteriaNode, "id" | "any" | "ages">;
+export type TCriteriaNode = Pick<CriteriaNode, "id" | "any" | "ages">;
 
 export class CriteriaNode extends BaseNode<TCriteriaNode> {
     id: string = randomUUID();

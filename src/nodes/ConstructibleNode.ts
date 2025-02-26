@@ -3,7 +3,7 @@ import { AGE, CONSTRUCTIBLE_CLASS } from "../constants";
 
 import { BaseNode } from "./BaseNode";
 
-type TConstructibleNode = Pick<ConstructibleNode,
+export type TConstructibleNode = Pick<ConstructibleNode,
     "constructibleType" |
     "adjacentDistrict" |
     "adjacentLake" |

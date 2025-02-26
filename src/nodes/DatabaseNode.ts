@@ -4,23 +4,33 @@ import { TypeNode } from "./TypeNode";
 import { ConstructibleNode } from "./ConstructibleNode";
 import { UnitNode } from "./UnitNode";
 import { TagNode } from "./TagNode";
-import { UnitStat } from "../classes";
+import { UnitStatNode } from "./UnitStatNode";
+import { UnitCostNode } from "./UnitCostNode";
+import { VisualRemapNode } from "./VisualRemapNode";
+import { UnitReplaceNode } from "./UnitReplaceNode";
 
-type TDatabase = Pick<Database,
+export type TDatabase = Pick<DatabaseNode,
     "typeTags" |
     "types" |
     "tags" |
     "constructibles" |
-    "units"
+    "units" |
+    "unitStats" |
+    "unitCosts" |
+    "unitReplaces" |
+    "visualRemaps"
 >;
 
-export class Database extends BaseNode<TDatabase> {
+export class DatabaseNode extends BaseNode<TDatabase> {
     typeTags: TypeTagNode[] = [];
     types: TypeNode[] = [];
     tags: TagNode[] = [];
     constructibles: ConstructibleNode[] = [];
     units: UnitNode[] = [];
-    unitStats: UnitStat[] = [];
+    unitStats: UnitStatNode[] = [];
+    unitCosts: UnitCostNode[] = [];
+    unitReplaces: UnitReplaceNode[] = [];
+    visualRemaps: VisualRemapNode[] = [];
 
     constructor(payload: Partial<TDatabase> = {}) {
         super();
@@ -36,7 +46,9 @@ export class Database extends BaseNode<TDatabase> {
                 Constructibles: this.constructibles.map(item => item.toXmlElement()),
                 Units: this.units.map(item => item.toXmlElement()),
                 Unit_Stats: this.unitStats.map(item => item.toXmlElement()),
-                Unit_Costs: this.unitStats.map(item => item.toXmlElement()),
+                Unit_Costs: this.unitCosts.map(item => item.toXmlElement()),
+                UnitReplaces: this.unitReplaces.map(item => item.toXmlElement()),
+                VisualRemaps: this.visualRemaps.map(item => item.toXmlElement()),
             }
         }
     }

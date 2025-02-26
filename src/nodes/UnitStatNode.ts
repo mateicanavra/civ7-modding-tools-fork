@@ -1,6 +1,6 @@
 import { BaseNode } from "./BaseNode";
 
-type TUnitStatNode = Pick<UnitStatNode,
+export type TUnitStatNode = Pick<UnitStatNode,
     "unitType" |
     "bombard" |
     "combat" |

@@ -3,7 +3,7 @@ import { CORE_CLASS, DOMAIN, FORMATION_CLASS, UNIT_MOVEMENT_CLASS } from "../con
 
 import { BaseNode } from "./BaseNode";
 
-type TUnitNode = Pick<UnitNode,
+export type TUnitNode = Pick<UnitNode,
     "unitType" |
     "baseMoves" |
     "baseSightRange" |
