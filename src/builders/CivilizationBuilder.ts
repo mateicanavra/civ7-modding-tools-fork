@@ -1,6 +1,6 @@
 import * as lodash from "lodash";
 
-import { TClassProperties, TObjectValues } from "../types";
+import { TClassProperties, TObjectValues, TPartialWithRequired } from "../types";
 import {
     CivilizationNode,
     CivilizationTagNode,
@@ -15,10 +15,9 @@ import {
 import { ACTION_GROUP_ACTION, AGE, KIND, TAG_TRAIT, TRAIT } from "../constants";
 import { locale } from "../utils";
 import { XmlFile } from "../files";
+import { CivilizationLocalization, TCivilizationLocalization } from "../localizations";
 
 import { BaseBuilder } from "./BaseBuilder";
-import { TPartialWithRequired } from "../types/TWithRequired";
-import { CivilizationLocalization, TCivilizationLocalization } from "../localizations";
 
 type TCivilizationBuilder = TClassProperties<CivilizationBuilder>
 

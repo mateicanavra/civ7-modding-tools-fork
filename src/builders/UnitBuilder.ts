@@ -1,6 +1,6 @@
 import * as lodash from "lodash";
 
-import { TClassProperties, TObjectValues } from "../types";
+import { TClassProperties, TObjectValues, TPartialWithRequired } from "../types";
 import {
     DatabaseNode,
     TagNode,
@@ -17,10 +17,9 @@ import {
 import { ACTION_GROUP_ACTION, KIND, UNIT_CLASS } from "../constants";
 import { locale } from "../utils";
 import { XmlFile } from "../files";
+import { TUnitLocalization, UnitLocalization } from "../localizations";
 
 import { BaseBuilder } from "./BaseBuilder";
-import { TPartialWithRequired } from "../types/TWithRequired";
-import { TUnitLocalization, UnitLocalization } from "../localizations";
 
 type TUnitBuilder = TClassProperties<UnitBuilder>
 
