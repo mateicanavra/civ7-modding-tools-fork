@@ -15,7 +15,7 @@ export type TCivilizationNode = Pick<CivilizationNode,
 >;
 
 export class CivilizationNode extends BaseNode<TCivilizationNode> {
-    civilizationType: string = 'CIVILIZATION_CUSTOM';
+    civilizationType: `CIVILIZATION_${string}` = 'CIVILIZATION_CUSTOM';
     adjective: string = '';
     capitalName: string = '';
     fullName: string = '';

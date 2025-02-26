@@ -64,7 +64,7 @@ export type TUnitNode = Pick<UnitNode,
 >;
 
 export class UnitNode extends BaseNode<TUnitNode> {
-    unitType: string = 'UNIT_TYPE';
+    unitType: `UNIT_${string}` = 'UNIT_TYPE';
     baseMoves: number = 1;
     baseSightRange: number = 1;
     name: string = 'UNIT_NAME';
