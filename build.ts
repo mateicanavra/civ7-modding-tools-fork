@@ -21,9 +21,15 @@ const civilization = new CivilizationBuilder({
         path: `fs://game/${mod.id}/${civilizationIcon.name}`
     },
     localizations: [
-        { name: 'Custom civilization', description: 'test description', fullName: 'test full name', adjective: 'test adjective' }
+        { name: 'Custom civilization', description: 'test description', fullName: 'test full name', adjective: 'test adjective', cityNames: ['Gondor'] }
     ]
-})
+});
+
+const unitIcon = new ImportFileBuilder({
+    actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
+    content: './assets/unit-icon.png',
+    name: 'scout.png'
+});
 
 const unit = new UnitBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
@@ -32,6 +38,9 @@ const unit = new UnitBuilder({
         unitType: 'UNIT_CUSTOM_SCOUT',
         baseMoves: 2,
         baseSightRange: 10,
+    },
+    icon: {
+        path: `fs://game/${mod.id}/${unitIcon.name}`
     },
     unitCost: { cost: 20 },
     unitStat: { combat: 0 },
@@ -42,10 +51,15 @@ const unit = new UnitBuilder({
     ],
 });
 
+civilization.bind([
+    unit
+]);
+
 mod = mod.add([
     civilization,
     civilizationIcon,
     unit,
+    unitIcon
 ]);
 
 mod.build('./dist');
