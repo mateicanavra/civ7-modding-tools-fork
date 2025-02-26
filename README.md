@@ -12,7 +12,7 @@ yarn build
 ```
 
 ## Previews
-#### Create mod with builders
+#### Use builders for easy and faster mod creating
 ```typescript
 const mod = new Mod({
     id: 'mod-test',
@@ -43,10 +43,10 @@ mod.add([unit]).build('./dist');
 #### Full strong typed
 ![Typed](previews/typed.png)
 
-#### You have full control of generation
+#### Full control of generation
 ![Controllable](previews/controllable.png)
 
-#### or you can do it full manually
+#### Possibility to full manually creation
 ```typescript
 const mod = new Mod({
     id: 'mod-test',
