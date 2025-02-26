@@ -2,7 +2,7 @@ import { BaseLocalization } from "./BaseLocalization";
 
 import { TClassProperties } from "../types";
 
-type TConstructibleLocalization = TClassProperties<ConstructibleLocalization>;
+export type TConstructibleLocalization = TClassProperties<ConstructibleLocalization>;
 
 export class ConstructibleLocalization extends BaseLocalization<TConstructibleLocalization> {
     name = 'test';

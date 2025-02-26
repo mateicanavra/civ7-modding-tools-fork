@@ -6,7 +6,7 @@ import { fill } from "../utils";
 type TActionGroupBundleActionGroupBundle = TClassProperties<ActionGroupBundle>;
 export class ActionGroupBundle {
     shell: ActionGroupNode = new ActionGroupNode();
-    game: ActionGroupNode = new ActionGroupNode();
+    always: ActionGroupNode = new ActionGroupNode();
     current: ActionGroupNode = new ActionGroupNode();
     exist: ActionGroupNode = new ActionGroupNode();
 

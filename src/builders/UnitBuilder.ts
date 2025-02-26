@@ -114,7 +114,7 @@ export class UnitBuilder extends BaseBuilder<TUnitBuilder> {
         return [
             new XmlFile({
                 path,
-                name: 'game.xml',
+                name: 'current.xml',
                 content: this._game.toXmlElement(),
                 actionGroups: [this.actionGroupBundle.current],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
@@ -130,7 +130,7 @@ export class UnitBuilder extends BaseBuilder<TUnitBuilder> {
                 path,
                 name: 'localization.xml',
                 content: this._localizations.toXmlElement(),
-                actionGroups: [this.actionGroupBundle.shell, this.actionGroupBundle.game],
+                actionGroups: [this.actionGroupBundle.shell, this.actionGroupBundle.always],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_TEXT]
             }),
         ]

@@ -33,9 +33,9 @@ export class BaseLocalization<T> {
                 }
 
                 if(Array.isArray(this[key])){
-                    return this[key].map(value => {
+                    return this[key].map((value, index) => {
                         return new EnglishTextNode({
-                            tag: locale(this.prefix, `${key}`),
+                            tag: locale(this.prefix, `${key}_${index + 1}`),
                             text: value
                         })
                     });

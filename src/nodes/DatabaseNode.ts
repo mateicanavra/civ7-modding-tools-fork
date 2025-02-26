@@ -1,3 +1,5 @@
+import * as lodash from "lodash";
+
 import { BaseNode } from "./BaseNode";
 import { TypeTagNode } from "./TypeTagNode";
 import { TypeNode } from "./TypeNode";
@@ -9,25 +11,45 @@ import { UnitCostNode } from "./UnitCostNode";
 import { VisualRemapNode } from "./VisualRemapNode";
 import { UnitReplaceNode } from "./UnitReplaceNode";
 import { EnglishTextNode } from "./EnglishTextNode";
+import { CivilizationNode } from "./CivilizationNode";
+import { TraitNode } from "./TraitNode";
+import { CivilizationTraitNode } from "./CivilizationTraitNode";
+import { CivilizationTagNode } from "./CivilizationTagNode";
+import { LegacyCivilizationNode } from "./LegacyCivilizationNode";
+import { LegacyCivilizationTraitNode } from "./LegacyCivilizationTraitNode";
 
 export type TDatabase = Pick<DatabaseNode,
     "typeTags" |
     "types" |
     "tags" |
     "constructibles" |
+    "legacyCivilizations" |
+    "legacyCivilizationTraits" |
     "units" |
+    "traits" |
     "unitStats" |
     "unitCosts" |
     "unitReplaces" |
     "englishText" |
-    "visualRemaps"
+    "traitModifiers" |
+    "civilizationTraits" |
+    "civilizationTags" |
+    "visualRemaps" |
+    "civilizations"
 >;
 
 export class DatabaseNode extends BaseNode<TDatabase> {
     typeTags: TypeTagNode[] = [];
+    traits: TraitNode[] = [];
+    traitModifiers: TraitNode[] = [];
     types: TypeNode[] = [];
     tags: TagNode[] = [];
     constructibles: ConstructibleNode[] = [];
+    civilizations: CivilizationNode[] = [];
+    civilizationTraits: CivilizationTraitNode[] = [];
+    civilizationTags: CivilizationTagNode[] = [];
+    legacyCivilizations: LegacyCivilizationNode[] = [];
+    legacyCivilizationTraits: LegacyCivilizationTraitNode[] = [];
     units: UnitNode[] = [];
     unitStats: UnitStatNode[] = [];
     unitCosts: UnitCostNode[] = [];
@@ -41,18 +63,29 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     }
 
     toXmlElement() {
+        const except = [];
+        const additionalMapping = {
+            unitStats: 'Unit_Stats',
+            unitCosts: 'Unit_Costs',
+        }
+        const data = Object.keys(this)
+            .filter(key => !except.includes(key))
+            .reduce((prev, current) => {
+                if (Array.isArray(this[current])) {
+                    let key = additionalMapping[current]
+                        ? additionalMapping[current]
+                        : lodash.startCase(current).replace(/ /g, "");
+
+                    return {
+                        ...prev,
+                        [key]: this[current].map(item => item.toXmlElement())
+                    }
+                }
+                return prev;
+            }, {});
         return {
             Database: {
-                Types: this.types.map(item => item.toXmlElement()),
-                Tags: this.tags.map(item => item.toXmlElement()),
-                TypeTags: this.typeTags.map(item => item.toXmlElement()),
-                Constructibles: this.constructibles.map(item => item.toXmlElement()),
-                Units: this.units.map(item => item.toXmlElement()),
-                Unit_Stats: this.unitStats.map(item => item.toXmlElement()),
-                Unit_Costs: this.unitCosts.map(item => item.toXmlElement()),
-                UnitReplaces: this.unitReplaces.map(item => item.toXmlElement()),
-                VisualRemaps: this.visualRemaps.map(item => item.toXmlElement()),
-                EnglishText: this.englishText.map(item => item.toXmlElement()),
+                ...data,
             }
         }
     }

@@ -11,4 +11,11 @@ export { UnitStatNode, TUnitStatNode } from './UnitStatNode';
 export { UnitReplaceNode, TUnitReplaceNode } from './UnitReplaceNode';
 export { VisualRemapNode, TVisualRemapNode } from './VisualRemapNode';
 export { EnglishTextNode, TEnglishTextNode } from './EnglishTextNode';
+export { TraitNode, TTraitNode } from './TraitNode';
+export { TraitModifierNode, TTraitModifierNode } from './TraitModifierNode';
+export { CivilizationNode, TCivilizationNode } from './CivilizationNode';
+export { CivilizationTraitNode, TCivilizationTraitNode } from './CivilizationTraitNode';
+export { CivilizationTagNode, TCivilizationTagNode } from './CivilizationTagNode';
+export { LegacyCivilizationNode, TLegacyCivilizationNode } from './LegacyCivilizationNode';
+export { LegacyCivilizationTraitNode, TLegacyCivilizationTraitNode } from './LegacyCivilizationTraitNode';
 
