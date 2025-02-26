@@ -28,6 +28,10 @@ export class Mod {
 
     fill = fill<TMod>;
 
+    /**
+     * @description add/link builders to mod
+     * @param data
+     */
     add(data: BaseBuilder | BaseBuilder[]) {
         if(Array.isArray(data)) {
             this.builders = this.builders.concat(data);

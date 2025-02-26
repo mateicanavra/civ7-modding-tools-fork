@@ -3,10 +3,13 @@ import * as lodash from "lodash";
 import { TClassProperties, TObjectValues, TPartialWithRequired } from "../types";
 import {
     CivilizationNode,
-    CivilizationTagNode,
-    DatabaseNode, GameCivilizationNodeSlice, IconDefinitionNode,
+    CivilizationTagNode, CivilizationTraitNode,
+    DatabaseNode,
+    GameCivilizationNodeSlice,
+    IconDefinitionNode,
     LegacyCivilizationNode,
-    LegacyCivilizationTraitNode, ShellCivilizationNodeSlice,
+    LegacyCivilizationTraitNode,
+    ShellCivilizationNodeSlice,
     TCivilizationNode,
     TLegacyCivilizationNode,
     TraitNode,
@@ -18,11 +21,12 @@ import { XmlFile } from "../files";
 import { CivilizationLocalization, TCivilizationLocalization } from "../localizations";
 
 import { BaseBuilder } from "./BaseBuilder";
+import { UnitBuilder } from "./UnitBuilder";
 
 type TCivilizationBuilder = TClassProperties<CivilizationBuilder>
 
 export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
-    _game: DatabaseNode = new DatabaseNode();
+    _current: DatabaseNode = new DatabaseNode();
     _shell: DatabaseNode = new DatabaseNode();
     _legacy: DatabaseNode = new DatabaseNode();
     _localizations: DatabaseNode = new DatabaseNode();
@@ -66,7 +70,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
             ...this.civilization,
         });
 
-        this._game.fill({
+        this._current.fill({
             types: [
                 new TypeNode({
                     kind: KIND.TRAIT,
@@ -90,6 +94,16 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                 })
             ],
             civilizations: [GameCivilizationNodeSlice.from(civilization)],
+            civilizationTraits: [
+                new CivilizationTraitNode({
+                    ...civilization,
+                    ...this.trait
+                }),
+                new CivilizationTraitNode({
+                    ...civilization,
+                    ...this.traitAbility
+                }),
+            ]
         });
         this._shell.fill({
             civilizations: [ShellCivilizationNodeSlice.from(civilization)],
@@ -97,7 +111,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                 return new CivilizationTagNode({
                     civilizationDomain: this.civilization.domain,
                     tagType: item,
-                    ...this.civilization,
+                    ...civilization,
                 })
             })
         })
@@ -114,7 +128,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
             ],
             legacyCivilizationTraits: [
                 new LegacyCivilizationTraitNode({
-                    ...this.civilization,
+                    ...civilization,
                     ...this.trait
                 })
             ]
@@ -139,6 +153,20 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
         return this;
     }
 
+    /**
+     * @description Bind entity as unique to this civilization
+     * @param items
+     */
+    bind(items: (UnitBuilder)[] = []) {
+        items.forEach(item => {
+            if (item instanceof UnitBuilder) {
+                item._game.units.forEach(unit => {
+                    unit.traitType = this.trait.traitType;
+                });
+            }
+        })
+        return this;
+    }
 
     build() {
         const path = `/civilizations/${lodash.kebabCase(this.civilization.civilizationType.replace('CIVILIZATION_', ''))}/`;
@@ -146,7 +174,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
             new XmlFile({
                 path,
                 name: 'current.xml',
-                content: this._game.toXmlElement(),
+                content: this._current.toXmlElement(),
                 actionGroups: [this.actionGroupBundle.current],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
             }),
