@@ -2,6 +2,7 @@ import * as lodash from "lodash";
 
 import { TClassProperties, TObjectValues, TPartialWithRequired } from "../types";
 import {
+    CivilizationItemNode,
     CivilizationNode,
     CivilizationTagNode, CivilizationTraitNode,
     DatabaseNode,
@@ -10,7 +11,7 @@ import {
     LegacyCivilizationNode,
     LegacyCivilizationTraitNode,
     ShellCivilizationNodeSlice,
-    TCivilizationNode,
+    TCivilizationNode, TIconDefinitionNode,
     TLegacyCivilizationNode,
     TraitNode,
     TypeNode
@@ -32,6 +33,9 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
     _localizations: DatabaseNode = new DatabaseNode();
     _icons: DatabaseNode = new DatabaseNode();
 
+    civilizationTraits: (TObjectValues<typeof TRAIT> | string)[] = [];
+    civilizationTags: TObjectValues<typeof TAG_TRAIT>[] = [];
+
     trait: TPartialWithRequired<TraitNode, 'traitType'> = { traitType: 'TRAIT_' };
     traitAbility: TPartialWithRequired<TraitNode, 'traitType'> = { traitType: 'TRAIT_ABILITY_' };
     civilization: TPartialWithRequired<TCivilizationNode, 'civilizationType' | 'domain'> = {
@@ -39,10 +43,9 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
         domain: 'AntiquityAgeCivilizations'
     }
     civilizationLegacy: TPartialWithRequired<TLegacyCivilizationNode, 'age'> = { age: AGE.ANTIQUITY }
-    civilizationTraits: (TObjectValues<typeof TRAIT> | string)[] = [];
-    civilizationTags: TObjectValues<typeof TAG_TRAIT>[] = [];
     localizations: Partial<TCivilizationLocalization>[] = [];
-    icon: TPartialWithRequired<IconDefinitionNode, 'path'> = { path: 'fs://game/civ_sym_han' }
+    icon: TPartialWithRequired<TIconDefinitionNode, 'path'> = { path: 'fs://game/civ_sym_han' }
+    civilizationItems: TPartialWithRequired<CivilizationItemNode, "type" | "kind">[] = []
 
     constructor(payload: Partial<TCivilizationBuilder> = {}) {
         super();
@@ -105,6 +108,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                 }),
             ]
         });
+
         this._shell.fill({
             civilizations: [ShellCivilizationNodeSlice.from(civilization)],
             civilizationTags: this.civilizationTags.map(item => {
@@ -112,6 +116,13 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                     civilizationDomain: this.civilization.domain,
                     tagType: item,
                     ...civilization,
+                })
+            }),
+            civilizationItems: this.civilizationItems.map(item => {
+                return new CivilizationItemNode({
+                    civilizationDomain: civilization.domain,
+                    ...civilization,
+                    ...item
                 })
             })
         })
@@ -162,6 +173,17 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
             if (item instanceof UnitBuilder) {
                 item._game.units.forEach(unit => {
                     unit.traitType = this.trait.traitType;
+
+                    this._shell.civilizationItems.push(
+                        new CivilizationItemNode({
+                            civilizationDomain: this.civilization.domain,
+                            civilizationType: this.civilization.civilizationType,
+                            type: unit.unitType,
+                            kind: KIND.UNIT,
+                            icon: unit.unitType,
+                            ...unit,
+                        })
+                    )
                 });
             }
         })

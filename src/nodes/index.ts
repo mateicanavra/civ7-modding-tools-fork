@@ -17,7 +17,9 @@ export { CivilizationNode, TCivilizationNode } from './CivilizationNode';
 export { CivilizationTraitNode, TCivilizationTraitNode } from './CivilizationTraitNode';
 export { CivilizationTagNode, TCivilizationTagNode } from './CivilizationTagNode';
 export { LegacyCivilizationNode, TLegacyCivilizationNode } from './LegacyCivilizationNode';
-export { ShellCivilizationNodeSlice, TShellCivilizationNodeSlice } from './slices/ShellCivilizationNodeSlice';
 export { LegacyCivilizationTraitNode, TLegacyCivilizationTraitNode } from './LegacyCivilizationTraitNode';
 export { IconDefinitionNode, TIconDefinitionNode } from './IconDefinitionNode';
+export { CivilizationItemNode, TCivilizationItemNode } from './CivilizationItemNode';
+
+export { ShellCivilizationNodeSlice, TShellCivilizationNodeSlice } from './slices/ShellCivilizationNodeSlice';
 export { GameCivilizationNodeSlice, TGameCivilizationNodeSlice } from './slices/GameCivilizationNodeSlice';

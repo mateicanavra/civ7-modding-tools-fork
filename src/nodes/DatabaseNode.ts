@@ -20,6 +20,7 @@ import { LegacyCivilizationTraitNode } from "./LegacyCivilizationTraitNode";
 import { ShellCivilizationNodeSlice } from "./slices/ShellCivilizationNodeSlice";
 import { IconDefinitionNode } from "./IconDefinitionNode";
 import { GameCivilizationNodeSlice } from "./slices/GameCivilizationNodeSlice";
+import { CivilizationItemNode } from "./CivilizationItemNode";
 
 export type TDatabase = Pick<DatabaseNode,
     "typeTags" |
@@ -36,6 +37,7 @@ export type TDatabase = Pick<DatabaseNode,
     "englishText" |
     "traitModifiers" |
     "civilizationTraits" |
+    "civilizationItems" |
     "civilizationTags" |
     "visualRemaps" |
     "iconDefinitions" |
@@ -50,6 +52,7 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     tags: TagNode[] = [];
     constructibles: ConstructibleNode[] = [];
     civilizations: CivilizationNode[] | ShellCivilizationNodeSlice[] | GameCivilizationNodeSlice[] = [];
+    civilizationItems: CivilizationItemNode[] = [];
     civilizationTraits: CivilizationTraitNode[] = [];
     civilizationTags: CivilizationTagNode[] = [];
     legacyCivilizations: LegacyCivilizationNode[] = [];
