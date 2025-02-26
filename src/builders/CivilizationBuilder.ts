@@ -1,8 +1,15 @@
 import * as lodash from "lodash";
 
 import { TClassProperties, TObjectValues } from "../types";
-import { CivilizationNode, CivilizationTagNode, DatabaseNode, TCivilizationNode, TypeNode } from "../nodes";
-import { ACTION_GROUP_ACTION, KIND, TAG_TRAIT, TRAIT } from "../constants";
+import {
+    CivilizationNode,
+    CivilizationTagNode,
+    DatabaseNode, LegacyCivilizationNode, LegacyCivilizationTraitNode,
+    TCivilizationNode,
+    TLegacyCivilizationNode, TraitNode,
+    TypeNode
+} from "../nodes";
+import { ACTION_GROUP_ACTION, AGE, KIND, TAG_TRAIT, TRAIT } from "../constants";
 import { locale } from "../utils";
 import { XmlFile } from "../files";
 
@@ -18,7 +25,13 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
     _legacy: DatabaseNode = new DatabaseNode();
     _localizations: DatabaseNode = new DatabaseNode();
 
-    civilization: TPartialWithRequired<TCivilizationNode, 'civilizationType'> = { civilizationType: 'CIVILIZATION_CUSTOM' }
+    trait: TPartialWithRequired<TraitNode, 'traitType'> = { traitType: 'TRAIT_' };
+    traitAbility: TPartialWithRequired<TraitNode, 'traitType'> = { traitType: 'TRAIT_ABILITY_' };
+    civilization: TPartialWithRequired<TCivilizationNode, 'civilizationType' | 'domain'> = {
+        civilizationType: 'CIVILIZATION_CUSTOM',
+        domain: 'AntiquityAgeCivilizations'
+    }
+    civilizationLegacy: TPartialWithRequired<TLegacyCivilizationNode, 'age'> = { age: AGE.ANTIQUITY }
     civilizationTraits: (TObjectValues<typeof TRAIT> | string)[] = [];
     civilizationTags: TObjectValues<typeof TAG_TRAIT>[] = [];
     localizations: Partial<TCivilizationLocalization>[] = [];
@@ -29,25 +42,46 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
     }
 
     migrate() {
+        if(this.trait.traitType === 'TRAIT_') {
+            this.trait = {
+                traitType: this.civilization.civilizationType.replace('CIVILIZATION_', 'TRAIT_'),
+            }
+        }
+        if(this.traitAbility.traitType === 'TRAIT_ABILITY_') {
+            this.traitAbility = {
+                traitType: this.trait.traitType + '_ABILITY',
+            }
+        }
+
         this._game.fill({
             types: [
                 new TypeNode({
-                    type: this.civilization.civilizationType,
-                    kind: KIND.TRAIT
+                    kind: KIND.TRAIT,
+                    type: this.trait.traitType
                 }),
                 new TypeNode({
-                    type: `${this.civilization.civilizationType}_ABILITY`,
-                    kind: KIND.TRAIT
+                    kind: KIND.TRAIT,
+                    type: this.traitAbility.traitType
                 }),
             ],
             traits: [
-
+                new TraitNode({
+                    internalOnly: true,
+                    ...this.trait
+                }),
+                new TraitNode({
+                    name: locale(this.civilization.civilizationType + '_ABILITY', 'name'),
+                    description: locale(this.civilization.civilizationType + '_ABILITY', 'description'),
+                    internalOnly: true,
+                    ...this.traitAbility
+                })
             ],
             civilizations: [
                 new CivilizationNode({
                     capitalName: locale(this.civilization.civilizationType, 'cityName_1'),
                     name: locale(this.civilization.civilizationType, 'name'),
                     description: locale(this.civilization.civilizationType, 'description'),
+                    fullName: locale(this.civilization.civilizationType, 'fullName'),
                     adjective: locale(this.civilization.civilizationType, 'adjective'),
                     ...this.civilization,
                 })
@@ -59,6 +93,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                 new CivilizationNode({
                     name: locale(this.civilization.civilizationType, 'name'),
                     description: locale(this.civilization.civilizationType, 'description'),
+                    fullName: locale(this.civilization.civilizationType, 'fullName'),
                     adjective: locale(this.civilization.civilizationType, 'adjective'),
                     ...this.civilization
                 })
@@ -66,10 +101,32 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
             civilizationTags: this.civilizationTags.map(item => {
                 return new CivilizationTagNode({
                     civilizationDomain: this.civilization.domain,
-                    civilizationType: this.civilization.civilizationType,
-                    tagType: item
+                    tagType: item,
+                    ...this.civilization,
                 })
             })
+        })
+
+        this._legacy.fill({
+            types: [
+                new TypeNode({type: this.civilization.civilizationType, kind: KIND.CIVILIZATION}),
+            ],
+            legacyCivilizations: [
+                new LegacyCivilizationNode({
+                    name: locale(this.civilization.civilizationType, 'name'),
+                    description: locale(this.civilization.civilizationType, 'description'),
+                    fullName: locale(this.civilization.civilizationType, 'fullName'),
+                    adjective: locale(this.civilization.civilizationType, 'adjective'),
+                    ...this.civilization,
+                    ...this.civilizationLegacy
+                })
+            ],
+            legacyCivilizationTraits: [
+                new LegacyCivilizationTraitNode({
+                    ...this.civilization,
+                    ...this.trait
+                })
+            ]
         })
 
         this._localizations.fill({

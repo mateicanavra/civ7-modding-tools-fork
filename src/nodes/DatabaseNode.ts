@@ -39,10 +39,10 @@ export type TDatabase = Pick<DatabaseNode,
 >;
 
 export class DatabaseNode extends BaseNode<TDatabase> {
-    typeTags: TypeTagNode[] = [];
-    traits: TraitNode[] = [];
-    traitModifiers: TraitNode[] = [];
     types: TypeNode[] = [];
+    traits: TraitNode[] = [];
+    typeTags: TypeTagNode[] = [];
+    traitModifiers: TraitNode[] = [];
     tags: TagNode[] = [];
     constructibles: ConstructibleNode[] = [];
     civilizations: CivilizationNode[] = [];
