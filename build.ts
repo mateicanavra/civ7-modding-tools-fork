@@ -10,6 +10,7 @@ const civilizationIcon = new ImportFileBuilder({
     content: './assets/civ-icon.png',
     name: 'civ_sym_gondor'
 });
+
 const civilization = new CivilizationBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     civilization: {
