@@ -8,6 +8,7 @@ import { UnitStatNode } from "./UnitStatNode";
 import { UnitCostNode } from "./UnitCostNode";
 import { VisualRemapNode } from "./VisualRemapNode";
 import { UnitReplaceNode } from "./UnitReplaceNode";
+import { EnglishTextNode } from "./EnglishTextNode";
 
 export type TDatabase = Pick<DatabaseNode,
     "typeTags" |
@@ -18,6 +19,7 @@ export type TDatabase = Pick<DatabaseNode,
     "unitStats" |
     "unitCosts" |
     "unitReplaces" |
+    "englishText" |
     "visualRemaps"
 >;
 
@@ -31,6 +33,7 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     unitCosts: UnitCostNode[] = [];
     unitReplaces: UnitReplaceNode[] = [];
     visualRemaps: VisualRemapNode[] = [];
+    englishText: EnglishTextNode[] = [];
 
     constructor(payload: Partial<TDatabase> = {}) {
         super();
@@ -49,6 +52,7 @@ export class DatabaseNode extends BaseNode<TDatabase> {
                 Unit_Costs: this.unitCosts.map(item => item.toXmlElement()),
                 UnitReplaces: this.unitReplaces.map(item => item.toXmlElement()),
                 VisualRemaps: this.visualRemaps.map(item => item.toXmlElement()),
+                EnglishText: this.englishText.map(item => item.toXmlElement()),
             }
         }
     }

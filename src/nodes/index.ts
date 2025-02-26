@@ -10,4 +10,5 @@ export { UnitNode, TUnitNode } from './UnitNode';
 export { UnitStatNode, TUnitStatNode } from './UnitStatNode';
 export { UnitReplaceNode, TUnitReplaceNode } from './UnitReplaceNode';
 export { VisualRemapNode, TVisualRemapNode } from './VisualRemapNode';
+export { EnglishTextNode, TEnglishTextNode } from './EnglishTextNode';
 

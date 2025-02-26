@@ -20,11 +20,13 @@ import { XmlFile } from "../files";
 
 import { BaseBuilder } from "./BaseBuilder";
 import { TPartialWithRequired } from "../types/TWithRequired";
+import { TUnitLocalization, UnitLocalization } from "../localizations";
 
 type TUnitBuilder = TClassProperties<UnitBuilder>
 
 export class UnitBuilder extends BaseBuilder<TUnitBuilder> {
     _game: DatabaseNode = new DatabaseNode();
+    _localizations: DatabaseNode = new DatabaseNode();
     _visualRemap: DatabaseNode | null = null;
 
     unit: TPartialWithRequired<TUnitNode, 'unitType'> = { unitType: 'UNIT_CUSTOM' }
@@ -32,6 +34,7 @@ export class UnitBuilder extends BaseBuilder<TUnitBuilder> {
     unitCost: Partial<TUnitCostNode> = {};
     unitReplace: Partial<TUnitReplaceNode> = {};
     visualRemap: TPartialWithRequired<TVisualRemapNode, 'to'> | null = null;
+    localizations: TUnitLocalization[] = [];
 
     typeTags: TObjectValues<typeof UNIT_CLASS>[] = [];
 
@@ -93,6 +96,15 @@ export class UnitBuilder extends BaseBuilder<TUnitBuilder> {
             })
         }
 
+        this._localizations.fill({
+            englishText: this.localizations.map(item => {
+                return new UnitLocalization({
+                    prefix: this.unit.unitType,
+                    ...item
+                });
+            }).flatMap(item => item.getNodes())
+        });
+
         return this;
     }
 
@@ -113,6 +125,13 @@ export class UnitBuilder extends BaseBuilder<TUnitBuilder> {
                 content: this._visualRemap?.toXmlElement(),
                 actionGroups: [this.actionGroupBundle.current],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_VISUAL_REMAPS]
+            }),
+            new XmlFile({
+                path,
+                name: 'localization.xml',
+                content: this._localizations.toXmlElement(),
+                actionGroups: [this.actionGroupBundle.shell, this.actionGroupBundle.game],
+                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_TEXT]
             }),
         ]
     }
