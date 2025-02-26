@@ -4,7 +4,7 @@ import { TClassProperties, TObjectValues, TPartialWithRequired } from "../types"
 import {
     CivilizationNode,
     CivilizationTagNode,
-    DatabaseNode, IconDefinitionNode,
+    DatabaseNode, GameCivilizationNode, IconDefinitionNode,
     LegacyCivilizationNode,
     LegacyCivilizationTraitNode, ShellCivilizationNode,
     TCivilizationNode,
@@ -81,7 +81,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                 })
             ],
             civilizations: [
-                new CivilizationNode({
+                new GameCivilizationNode({
                     adjective: locale(this.civilization.civilizationType, 'adjective'),
                     capitalName: locale(this.civilization.civilizationType, 'cityName_1'),
                     description: locale(this.civilization.civilizationType, 'description'),

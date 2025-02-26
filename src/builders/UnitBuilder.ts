@@ -59,7 +59,7 @@ export class UnitBuilder extends BaseBuilder<TUnitBuilder> {
             ],
             tags: [
                 new TagNode({
-                    category: this.unit.unitType,
+                    category: 'UNIT_CLASS',
                     tag: this.unit.unitType.replace('UNIT_', 'UNIT_CLASS_')
                 })
             ],
@@ -73,8 +73,14 @@ export class UnitBuilder extends BaseBuilder<TUnitBuilder> {
                     tag: item
                 }))
             ],
-            unitStats: [new UnitStatNode(this.unitStat)],
-            unitCosts: [new UnitCostNode(this.unitCost)],
+            unitStats: [new UnitStatNode({
+                ...this.unit,
+                ...this.unitStat
+            })],
+            unitCosts: [new UnitCostNode({
+                ...this.unit,
+                ...this.unitCost
+            })],
             unitReplaces: [new UnitReplaceNode({
                 civUniqueUnitType: this.unit.unitType,
                 ...this.unitReplace
