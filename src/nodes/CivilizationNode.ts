@@ -16,10 +16,10 @@ export type TCivilizationNode = Pick<CivilizationNode,
 
 export class CivilizationNode extends BaseNode<TCivilizationNode> {
     civilizationType: string = 'CIVILIZATION_CUSTOM';
-    adjective: string = 'adjective';
-    capitalName: string = 'capitalName';
-    fullName: string = 'fullName';
-    name: string = 'name';
+    adjective: string = '';
+    capitalName: string = '';
+    fullName: string = '';
+    name: string = '';
     domain: string | null = null;
     startingCivilizationLevelType: string = 'CIVILIZATION_LEVEL_FULL_CIV';
 

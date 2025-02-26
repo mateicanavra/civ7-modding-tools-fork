@@ -21,7 +21,7 @@ export class BaseNode<T extends Object = object> {
                 if(['fill'].includes(key)){
                     return;
                 }
-                if (this[key] === null || this[key] === undefined) {
+                if (this[key] === null || this[key] === undefined || this[key] === '') {
                     return;
                 }
                 if (typeof this[key] === 'boolean') {

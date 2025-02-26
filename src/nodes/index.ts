@@ -17,5 +17,6 @@ export { CivilizationNode, TCivilizationNode } from './CivilizationNode';
 export { CivilizationTraitNode, TCivilizationTraitNode } from './CivilizationTraitNode';
 export { CivilizationTagNode, TCivilizationTagNode } from './CivilizationTagNode';
 export { LegacyCivilizationNode, TLegacyCivilizationNode } from './LegacyCivilizationNode';
+export { ShellCivilizationNode, TShellCivilizationNode } from './ShellCivilizationNode';
 export { LegacyCivilizationTraitNode, TLegacyCivilizationTraitNode } from './LegacyCivilizationTraitNode';
 

@@ -17,6 +17,7 @@ import { CivilizationTraitNode } from "./CivilizationTraitNode";
 import { CivilizationTagNode } from "./CivilizationTagNode";
 import { LegacyCivilizationNode } from "./LegacyCivilizationNode";
 import { LegacyCivilizationTraitNode } from "./LegacyCivilizationTraitNode";
+import { ShellCivilizationNode } from "./ShellCivilizationNode";
 
 export type TDatabase = Pick<DatabaseNode,
     "typeTags" |
@@ -45,7 +46,7 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     traitModifiers: TraitNode[] = [];
     tags: TagNode[] = [];
     constructibles: ConstructibleNode[] = [];
-    civilizations: CivilizationNode[] = [];
+    civilizations: CivilizationNode[] | ShellCivilizationNode[] = [];
     civilizationTraits: CivilizationTraitNode[] = [];
     civilizationTags: CivilizationTagNode[] = [];
     legacyCivilizations: LegacyCivilizationNode[] = [];

@@ -4,9 +4,12 @@ import { TClassProperties, TObjectValues } from "../types";
 import {
     CivilizationNode,
     CivilizationTagNode,
-    DatabaseNode, LegacyCivilizationNode, LegacyCivilizationTraitNode,
+    DatabaseNode,
+    LegacyCivilizationNode,
+    LegacyCivilizationTraitNode, ShellCivilizationNode,
     TCivilizationNode,
-    TLegacyCivilizationNode, TraitNode,
+    TLegacyCivilizationNode,
+    TraitNode,
     TypeNode
 } from "../nodes";
 import { ACTION_GROUP_ACTION, AGE, KIND, TAG_TRAIT, TRAIT } from "../constants";
@@ -42,12 +45,12 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
     }
 
     migrate() {
-        if(this.trait.traitType === 'TRAIT_') {
+        if (this.trait.traitType === 'TRAIT_') {
             this.trait = {
                 traitType: this.civilization.civilizationType.replace('CIVILIZATION_', 'TRAIT_'),
             }
         }
-        if(this.traitAbility.traitType === 'TRAIT_ABILITY_') {
+        if (this.traitAbility.traitType === 'TRAIT_ABILITY_') {
             this.traitAbility = {
                 traitType: this.trait.traitType + '_ABILITY',
             }
@@ -78,25 +81,25 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
             ],
             civilizations: [
                 new CivilizationNode({
+                    adjective: locale(this.civilization.civilizationType, 'adjective'),
                     capitalName: locale(this.civilization.civilizationType, 'cityName_1'),
-                    name: locale(this.civilization.civilizationType, 'name'),
                     description: locale(this.civilization.civilizationType, 'description'),
                     fullName: locale(this.civilization.civilizationType, 'fullName'),
-                    adjective: locale(this.civilization.civilizationType, 'adjective'),
+                    name: locale(this.civilization.civilizationType, 'name'),
                     ...this.civilization,
                 })
             ],
         });
-
         this._shell.fill({
             civilizations: [
-                new CivilizationNode({
-                    name: locale(this.civilization.civilizationType, 'name'),
+                ShellCivilizationNode.from(new CivilizationNode({
+                    adjective: locale(this.civilization.civilizationType, 'adjective'),
+                    capitalName: locale(this.civilization.civilizationType, 'cityName_1'),
                     description: locale(this.civilization.civilizationType, 'description'),
                     fullName: locale(this.civilization.civilizationType, 'fullName'),
-                    adjective: locale(this.civilization.civilizationType, 'adjective'),
-                    ...this.civilization
-                })
+                    name: locale(this.civilization.civilizationType, 'name'),
+                    ...this.civilization,
+                }))
             ],
             civilizationTags: this.civilizationTags.map(item => {
                 return new CivilizationTagNode({
@@ -109,14 +112,15 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
 
         this._legacy.fill({
             types: [
-                new TypeNode({type: this.civilization.civilizationType, kind: KIND.CIVILIZATION}),
+                new TypeNode({ type: this.civilization.civilizationType, kind: KIND.CIVILIZATION }),
             ],
             legacyCivilizations: [
                 new LegacyCivilizationNode({
-                    name: locale(this.civilization.civilizationType, 'name'),
+                    adjective: locale(this.civilization.civilizationType, 'adjective'),
+                    capitalName: locale(this.civilization.civilizationType, 'cityName_1'),
                     description: locale(this.civilization.civilizationType, 'description'),
                     fullName: locale(this.civilization.civilizationType, 'fullName'),
-                    adjective: locale(this.civilization.civilizationType, 'adjective'),
+                    name: locale(this.civilization.civilizationType, 'name'),
                     ...this.civilization,
                     ...this.civilizationLegacy
                 })
