@@ -106,6 +106,12 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                     ...civilization,
                     ...this.traitAbility
                 }),
+                ...this.civilizationTraits.map(item => {
+                    return new CivilizationTraitNode({
+                        ...civilization,
+                        traitType: item,
+                    })
+                })
             ]
         });
 
@@ -171,7 +177,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
     bind(items: (UnitBuilder)[] = []) {
         items.forEach(item => {
             if (item instanceof UnitBuilder) {
-                item._game.units.forEach(unit => {
+                item._current.units.forEach(unit => {
                     unit.traitType = this.trait.traitType;
 
                     this._shell.civilizationItems.push(
@@ -186,7 +192,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                     )
                 });
             }
-        })
+        });
         return this;
     }
 

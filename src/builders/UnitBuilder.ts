@@ -24,7 +24,7 @@ import { BaseBuilder } from "./BaseBuilder";
 type TUnitBuilder = TClassProperties<UnitBuilder>
 
 export class UnitBuilder extends BaseBuilder<TUnitBuilder> {
-    _game: DatabaseNode = new DatabaseNode();
+    _current: DatabaseNode = new DatabaseNode();
     _localizations: DatabaseNode = new DatabaseNode();
     _icons: DatabaseNode = new DatabaseNode();
     _visualRemap: DatabaseNode | null = null;
@@ -47,7 +47,7 @@ export class UnitBuilder extends BaseBuilder<TUnitBuilder> {
     }
 
     migrate() {
-        this._game.fill({
+        this._current.fill({
             types: [
                 new TypeNode({
                     type: this.unit.unitType,
@@ -131,7 +131,7 @@ export class UnitBuilder extends BaseBuilder<TUnitBuilder> {
             new XmlFile({
                 path,
                 name: 'current.xml',
-                content: this._game.toXmlElement(),
+                content: this._current.toXmlElement(),
                 actionGroups: [this.actionGroupBundle.current],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
             }),

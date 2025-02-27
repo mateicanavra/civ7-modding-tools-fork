@@ -12,6 +12,7 @@ export { UnitReplaceNode, TUnitReplaceNode } from './UnitReplaceNode';
 export { VisualRemapNode, TVisualRemapNode } from './VisualRemapNode';
 export { EnglishTextNode, TEnglishTextNode } from './EnglishTextNode';
 export { TraitNode, TTraitNode } from './TraitNode';
+export { BuildingNode, TBuildingNode } from './BuildingNode';
 export { TraitModifierNode, TTraitModifierNode } from './TraitModifierNode';
 export { CivilizationNode, TCivilizationNode } from './CivilizationNode';
 export { CivilizationTraitNode, TCivilizationTraitNode } from './CivilizationTraitNode';
@@ -20,6 +21,9 @@ export { LegacyCivilizationNode, TLegacyCivilizationNode } from './LegacyCiviliz
 export { LegacyCivilizationTraitNode, TLegacyCivilizationTraitNode } from './LegacyCivilizationTraitNode';
 export { IconDefinitionNode, TIconDefinitionNode } from './IconDefinitionNode';
 export { CivilizationItemNode, TCivilizationItemNode } from './CivilizationItemNode';
+export { ConstructibleYieldChangeNode, TConstructibleYieldChangeNode } from './ConstructibleYieldChangeNode';
+export { ConstructibleMaintenanceNode, TConstructibleMaintenanceNode } from './ConstructibleMaintenanceNode';
+export { ConstructibleValidDistrictNode, TConstructibleValidDistrictNode } from './ConstructibleValidDistrictNode';
 
 export { ShellCivilizationNodeSlice, TShellCivilizationNodeSlice } from './slices/ShellCivilizationNodeSlice';
 export { GameCivilizationNodeSlice, TGameCivilizationNodeSlice } from './slices/GameCivilizationNodeSlice';

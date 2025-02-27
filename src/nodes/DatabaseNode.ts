@@ -21,49 +21,65 @@ import { ShellCivilizationNodeSlice } from "./slices/ShellCivilizationNodeSlice"
 import { IconDefinitionNode } from "./IconDefinitionNode";
 import { GameCivilizationNodeSlice } from "./slices/GameCivilizationNodeSlice";
 import { CivilizationItemNode } from "./CivilizationItemNode";
+import { ConstructibleValidDistrictNode } from "./ConstructibleValidDistrictNode";
+import { ConstructibleMaintenanceNode } from "./ConstructibleMaintenanceNode";
+import { ConstructibleYieldChangeNode } from "./ConstructibleYieldChangeNode";
+import { BuildingNode } from "./BuildingNode";
 
 export type TDatabase = Pick<DatabaseNode,
-    "typeTags" |
-    "types" |
-    "tags" |
-    "constructibles" |
-    "legacyCivilizations" |
-    "legacyCivilizationTraits" |
-    "units" |
-    "traits" |
-    "unitStats" |
-    "unitCosts" |
-    "unitReplaces" |
-    "englishText" |
-    "traitModifiers" |
-    "civilizationTraits" |
     "civilizationItems" |
     "civilizationTags" |
-    "visualRemaps" |
+    "civilizationTraits" |
+    "civilizations" |
+    "constructibleMaintenances" |
+    "constructibleValidDistricts" |
+    "constructibleYieldChanges" |
+    "constructibles" |
+    "englishText" |
     "iconDefinitions" |
-    "civilizations"
+    "legacyCivilizationTraits" |
+    "legacyCivilizations" |
+    "tags" |
+    "traitModifiers" |
+    "traits" |
+    "typeTags" |
+    "types" |
+    "unitCosts" |
+    "buildings" |
+    "unitReplaces" |
+    "unitStats" |
+    "units" |
+    "visualRemaps"
 >;
 
 export class DatabaseNode extends BaseNode<TDatabase> {
     types: TypeNode[] = [];
-    traits: TraitNode[] = [];
-    typeTags: TypeTagNode[] = [];
-    traitModifiers: TraitNode[] = [];
     tags: TagNode[] = [];
-    constructibles: ConstructibleNode[] = [];
+    typeTags: TypeTagNode[] = [];
+    traits: TraitNode[] = [];
+    traitModifiers: TraitNode[] = [];
+
     civilizations: CivilizationNode[] | ShellCivilizationNodeSlice[] | GameCivilizationNodeSlice[] = [];
     civilizationItems: CivilizationItemNode[] = [];
-    civilizationTraits: CivilizationTraitNode[] = [];
     civilizationTags: CivilizationTagNode[] = [];
-    legacyCivilizations: LegacyCivilizationNode[] = [];
+    civilizationTraits: CivilizationTraitNode[] = [];
     legacyCivilizationTraits: LegacyCivilizationTraitNode[] = [];
+    legacyCivilizations: LegacyCivilizationNode[] = [];
+
+    buildings: BuildingNode[] = [];
+    constructibles: ConstructibleNode[] = [];
+    constructibleMaintenances: ConstructibleMaintenanceNode[] = [];
+    constructibleValidDistricts: ConstructibleValidDistrictNode[] = [];
+    constructibleYieldChanges: ConstructibleYieldChangeNode[] = [];
+
     units: UnitNode[] = [];
-    unitStats: UnitStatNode[] = [];
     unitCosts: UnitCostNode[] = [];
     unitReplaces: UnitReplaceNode[] = [];
-    visualRemaps: VisualRemapNode[] = [];
+    unitStats: UnitStatNode[] = [];
+
     englishText: EnglishTextNode[] = [];
     iconDefinitions: IconDefinitionNode[] = [];
+    visualRemaps: VisualRemapNode[] = [];
 
     constructor(payload: Partial<TDatabase> = {}) {
         super();
@@ -73,13 +89,20 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     toXmlElement() {
         const except = [];
         const additionalMapping = {
-            unitStats: 'Unit_Stats',
+            constructibleMaintenances: 'Constructible_Maintenances',
+            constructibleValidDistricts: 'Constructible_ValidDistricts',
+            constructibleYieldChanges: 'Constructible_YieldChanges',
             unitCosts: 'Unit_Costs',
+            unitStats: 'Unit_Stats',
         }
         const data = Object.keys(this)
             .filter(key => !except.includes(key))
             .reduce((prev, current) => {
                 if (Array.isArray(this[current])) {
+                    if(this[current].length === 0){
+                        return prev;
+                    }
+
                     let key = additionalMapping[current]
                         ? additionalMapping[current]
                         : lodash.startCase(current).replace(/ /g, "");

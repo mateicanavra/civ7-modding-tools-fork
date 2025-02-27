@@ -24,11 +24,12 @@ export class BaseNode<T extends Object = object> {
                 if (this[key] === null || this[key] === undefined || this[key] === '') {
                     return;
                 }
+
+                let nodeAttributeName = lodash.startCase(key).replace(/ /g, "")
                 if (typeof this[key] === 'boolean') {
-                    result[key] = this[key] ? 'true' : 'false';
+                    result[nodeAttributeName] = this[key] ? 'true' : 'false';
                     return;
                 }
-                let nodeAttributeName = lodash.startCase(key).replace(/ /g, "")
                 result[nodeAttributeName] = this[key]
             });
         return result;

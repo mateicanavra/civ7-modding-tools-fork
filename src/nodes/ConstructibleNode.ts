@@ -41,7 +41,7 @@ export type TConstructibleNode = Pick<ConstructibleNode,
 
 export class ConstructibleNode extends BaseNode<TConstructibleNode> {
     constructibleClass: TObjectValues<typeof CONSTRUCTIBLE_CLASS> = CONSTRUCTIBLE_CLASS.BUILDING;
-    constructibleType: string = 'test';
+    constructibleType: `BUILDING_${string}` = 'BUILDING_';
     cost: number = 1;
     name: string = 'test';
     population: number = 1;

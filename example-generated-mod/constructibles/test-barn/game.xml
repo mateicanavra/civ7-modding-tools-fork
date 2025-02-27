@@ -14,7 +14,9 @@
         <Row Type="BUILDING_TEST_BARN" Tag="PRODUCTION"/>
     </TypeTags>
     <Constructibles>
-        <Row ConstructibleType="BUILDING_TEST_BARN" Name="LOC_BUILDING_TEST_BARN_NAME" Description="LOC_BUILDING_TEST_BARN_DESCRIPTION" Tooltip="LOC_BUILDING_TEST_BARN_TOOLTIP" ConstructibleClass="BUILDING" Cost="1" Population="1" DistrictDefense="false" Age="AGE_ANTIQUITY"/>
+        <Row ConstructibleType="BUILDING_TEST_BARN" Name="LOC_BUILDING_TEST_BARN_NAME"
+             Description="LOC_BUILDING_TEST_BARN_DESCRIPTION" Tooltip="LOC_BUILDING_TEST_BARN_TOOLTIP"
+             ConstructibleClass="BUILDING" Cost="1" Population="1" DistrictDefense="false" Age="AGE_ANTIQUITY"/>
     </Constructibles>
     <Constructible_ValidDistricts>
         <Row ConstructibleType="BUILDING_TEST_BARN" DistrictType="DISTRICT_URBAN"/>
