@@ -11,70 +11,68 @@
         <Mod id="base-standard" title="LOC_MODULE_BASE_STANDARD_NAME"/>
     </Dependencies>
     <ActionCriteria>
-        <Criteria id="ALWAYS">
-            <AlwaysMet/>
-        </Criteria>
-        <Criteria id="AGE_ANTIQUITY_CURRENT">
+        <Criteria id="age-antiquity-current">
             <AgeInUse>AGE_ANTIQUITY</AgeInUse>
+        </Criteria>
+        <Criteria id="always">
+            <AlwaysMet/>
         </Criteria>
     </ActionCriteria>
     <ActionGroups>
-        <ActionGroup id="action-group-1be03b6f-adae-4448-bbe5-ddacb542149c" scope="shell" criteria="ALWAYS">
+        <ActionGroup id="932f1122-1346-4fe4-a715-f4d7e1a58a0d" scope="game" criteria="age-antiquity-current">
             <Actions>
                 <UpdateDatabase>
-                    <Item>civilization/test-civ/shell.xml</Item>
+                    <Item>civilizations/gondor/current.xml</Item>
+                    <Item>civilizations/gondor/game-effects.xml</Item>
+                    <Item>units/custom-scout/current.xml</Item>
                 </UpdateDatabase>
-                <UpdateText>
-                    <Item>civilization/test-civ/localization.xml</Item>
-                    <Item>constructibles/test-barn/localization.xml</Item>
-                    <Item>units/test-scout/localization.xml</Item>
-                </UpdateText>
+                <UpdateVisualRemaps>
+                    <Item>units/custom-scout/visual-remap.xml</Item>
+                </UpdateVisualRemaps>
                 <UpdateIcons>
-                    <Item>civilization/test-civ/icons.xml</Item>
-                    <Item>constructibles/test-barn/icons.xml</Item>
-                    <Item>units/test-scout/icons.xml</Item>
+                    <Item>units/custom-scout/icons.xml</Item>
+                    <Item>constructibles/building-custom/icons.xml</Item>
                 </UpdateIcons>
+            </Actions>
+        </ActionGroup>
+        <ActionGroup id="e3bcef51-6bff-432e-ad31-b5d93c9c7ed1" scope="game" criteria="always">
+            <Actions>
+                <UpdateDatabase>
+                    <Item>civilizations/gondor/legacy.xml</Item>
+                    <Item>constructibles/building-custom/always.xml</Item>
+                </UpdateDatabase>
+                <UpdateIcons>
+                    <Item>civilizations/gondor/icons.xml</Item>
+                </UpdateIcons>
+                <UpdateText>
+                    <Item>civilizations/gondor/localization.xml</Item>
+                    <Item>units/custom-scout/localization.xml</Item>
+                    <Item>constructibles/building-custom/localization.xml</Item>
+                </UpdateText>
                 <ImportFiles>
-                    <Item>imports/civ_sym_test_civ</Item>
-                    <Item>imports/constructible-icon.png</Item>
-                    <Item>imports/unit-icon.png</Item>
+                    <Item>imports/civ_sym_gondor</Item>
+                    <Item>imports/scout.png</Item>
                 </ImportFiles>
             </Actions>
         </ActionGroup>
-        <ActionGroup id="action-group-343470b6-a8b0-45ed-bc1a-b82e8d6da569" scope="game" criteria="AGE_ANTIQUITY_CURRENT">
+        <ActionGroup id="2c1c1d3f-f029-4983-b610-8ec7f13394bd" scope="shell" criteria="always">
             <Actions>
                 <UpdateDatabase>
-                    <Item>civilization/test-civ/game.xml</Item>
-                    <Item>civilization/test-civ/game-effects.xml</Item>
-                    <Item>units/test-scout/game.xml</Item>
+                    <Item>civilizations/gondor/shell.xml</Item>
                 </UpdateDatabase>
                 <UpdateIcons>
-                    <Item>constructibles/test-barn/icons.xml</Item>
-                    <Item>units/test-scout/icons.xml</Item>
+                    <Item>civilizations/gondor/icons.xml</Item>
+                    <Item>units/custom-scout/icons.xml</Item>
+                    <Item>constructibles/building-custom/icons.xml</Item>
                 </UpdateIcons>
-                <UpdateVisualRemaps>
-                    <Item>units/test-scout/visual-remap.xml</Item>
-                </UpdateVisualRemaps>
-            </Actions>
-        </ActionGroup>
-        <ActionGroup id="action-group-39dbfddb-ccdd-45d5-b3fb-4780095c4431" scope="game" criteria="ALWAYS">
-            <Actions>
-                <UpdateDatabase>
-                    <Item>civilization/test-civ/legacy.xml</Item>
-                    <Item>constructibles/test-barn/game.xml</Item>
-                </UpdateDatabase>
                 <UpdateText>
-                    <Item>civilization/test-civ/localization.xml</Item>
-                    <Item>constructibles/test-barn/localization.xml</Item>
-                    <Item>units/test-scout/localization.xml</Item>
+                    <Item>civilizations/gondor/localization.xml</Item>
+                    <Item>units/custom-scout/localization.xml</Item>
+                    <Item>constructibles/building-custom/localization.xml</Item>
                 </UpdateText>
-                <UpdateIcons>
-                    <Item>civilization/test-civ/icons.xml</Item>
-                </UpdateIcons>
                 <ImportFiles>
-                    <Item>imports/civ_sym_test_civ</Item>
-                    <Item>imports/constructible-icon.png</Item>
-                    <Item>imports/unit-icon.png</Item>
+                    <Item>imports/civ_sym_gondor</Item>
+                    <Item>imports/scout.png</Item>
                 </ImportFiles>
             </Actions>
         </ActionGroup>

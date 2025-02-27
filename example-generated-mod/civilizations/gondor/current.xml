@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Database>
+    <Types>
+        <Row Type="TRAIT_GONDOR" Kind="KIND_TRAIT"/>
+        <Row Type="TRAIT_GONDOR_ABILITY" Kind="KIND_TRAIT"/>
+    </Types>
+    <Traits>
+        <Row TraitType="TRAIT_GONDOR" InternalOnly="true"/>
+        <Row TraitType="TRAIT_GONDOR_ABILITY" Name="LOC_CIVILIZATION_GONDOR_ABILITY_NAME" Description="LOC_CIVILIZATION_GONDOR_ABILITY_DESCRIPTION" InternalOnly="true"/>
+    </Traits>
+    <TraitModifiers>
+        <Row TraitType="TRAIT_GONDOR_ABILITY" ModifierId="6d2d266e-9bc1-45a8-bd0a-0b7cfea46c95"/>
+    </TraitModifiers>
+    <Civilizations>
+        <Row CivilizationType="CIVILIZATION_GONDOR" CapitalName="LOC_CIVILIZATION_GONDOR_CITY_NAMES_1" Adjective="LOC_CIVILIZATION_GONDOR_ADJECTIVE" FullName="LOC_CIVILIZATION_GONDOR_FULL_NAME" Name="LOC_CIVILIZATION_GONDOR_NAME" StartingCivilizationLevelType="CIVILIZATION_LEVEL_FULL_CIV"/>
+    </Civilizations>
+    <CivilizationTraits>
+        <Row TraitType="TRAIT_GONDOR" CivilizationType="CIVILIZATION_GONDOR"/>
+        <Row TraitType="TRAIT_GONDOR_ABILITY" CivilizationType="CIVILIZATION_GONDOR"/>
+        <Row TraitType="TRAIT_ANTIQUITY_CIV" CivilizationType="CIVILIZATION_GONDOR"/>
+        <Row TraitType="TRAIT_ATTRIBUTE_EXPANSIONIST" CivilizationType="CIVILIZATION_GONDOR"/>
+        <Row TraitType="TRAIT_ATTRIBUTE_MILITARISTIC" CivilizationType="CIVILIZATION_GONDOR"/>
+    </CivilizationTraits>
+</Database>
+<!-- generated with https://github.com/izica/civ7-modding-tools -->

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Database>
+    <Civilizations>
+        <Row Domain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_GONDOR" CivilizationName="LOC_CIVILIZATION_GONDOR_NAME" CivilizationFullName="LOC_CIVILIZATION_GONDOR_FULL_NAME" CivilizationDescription="LOC_CIVILIZATION_GONDOR_DESCRIPTION" CivilizationIcon="CIVILIZATION_GONDOR"/>
+    </Civilizations>
+    <CivilizationItems>
+        <Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_GONDOR" Type="UNIT_CUSTOM_SCOUT" Kind="KIND_UNIT" Name="LOC_UNIT_CUSTOM_SCOUT_NAME" Description="LOC_UNIT_CUSTOM_SCOUT_DESCRIPTION" Icon="UNIT_CUSTOM_SCOUT"/>
+        <Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_GONDOR" Type="BUILDING_CUSTOM" Kind="KIND_IMPROVEMENT" Name="LOC_BUILDING_CUSTOM_NAME" Description="LOC_BUILDING_CUSTOM_DESCRIPTION"/>
+    </CivilizationItems>
+    <CivilizationTags>
+        <Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_GONDOR" TagType="TAG_TRAIT_CULTURAL"/>
+        <Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_GONDOR" TagType="TAG_TRAIT_ECONOMIC"/>
+    </CivilizationTags>
+</Database>
+<!-- generated with https://github.com/izica/civ7-modding-tools -->

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GameEffects xmlns="GameEffects">
+    <Modifier id="6d2d266e-9bc1-45a8-bd0a-0b7cfea46c95" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_MOVEMENT" permanent="true">
+        <SubjectRequirements>
+            <Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+                <Argument name="Tag">UNIT_CLASS_RECON</Argument>
+            </Requirement>
+        </SubjectRequirements>
+        <Argument name="Amount">10</Argument>
+    </Modifier>
+</GameEffects>
+<!-- generated with https://github.com/izica/civ7-modding-tools -->
