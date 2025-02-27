@@ -51,7 +51,7 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     traitModifiers: TraitNode[] = [];
     tags: TagNode[] = [];
     constructibles: ConstructibleNode[] = [];
-    civilizations: CivilizationNode[] | ShellCivilizationNodeSlice[] | GameCivilizationNodeSlice[] = [];
+    civilizations: CivilizationNode[] = [];
     civilizationItems: CivilizationItemNode[] = [];
     civilizationTraits: CivilizationTraitNode[] = [];
     civilizationTags: CivilizationTagNode[] = [];
