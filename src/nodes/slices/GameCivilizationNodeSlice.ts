@@ -11,6 +11,7 @@ export type TGameCivilizationNodeSlice = Pick<GameCivilizationNodeSlice,
     "capitalName"
 >;
 
+// TODO should extend CivilizationNode, not BaseNode, need to update CivilizationNode -> CivilizationNode<T>
 export class GameCivilizationNodeSlice extends BaseNode<TGameCivilizationNodeSlice> {
     civilizationType = 'CIVILIZATION_';
     capitalName = 'capitalName';
