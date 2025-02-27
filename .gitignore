@@ -14,3 +14,4 @@
 !previews/**
 !example-generated-mod
 !example-generated-mod/**
+!.editorconfig
