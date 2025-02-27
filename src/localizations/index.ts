@@ -1,3 +1,3 @@
-export { CivilizationLocalization } from './CivilizationLocalization'
-export { ConstructibleLocalization } from './ConstructibleLocalization'
-export { UnitLocalization } from './UnitLocalization'
+export { CivilizationLocalization, TCivilizationLocalization } from './CivilizationLocalization'
+export { ConstructibleLocalization, TConstructibleLocalization } from './ConstructibleLocalization'
+export { UnitLocalization, TUnitLocalization } from './UnitLocalization'

@@ -4,7 +4,12 @@
         <Row Type="CIVILIZATION_TEST_CIV" Kind="KIND_CIVILIZATION"/>
     </Types>
     <LegacyCivilizations>
-        <Row CivilizationType="CIVILIZATION_TEST_CIV" Name="LOC_CIVILIZATION_TEST_CIV_NAME" FullName="LOC_CIVILIZATION_TEST_CIV_FULL_NAME" Adjective="LOC_CIVILIZATION_TEST_CIV_ADJECTIVE" Age="AGE_ANTIQUITY"/>
+        <Row CivilizationType="CIVILIZATION_TEST_CIV"
+             Name="LOC_CIVILIZATION_TEST_CIV_NAME"
+             FullName="LOC_CIVILIZATION_TEST_CIV_FULL_NAME"
+             Adjective="LOC_CIVILIZATION_TEST_CIV_ADJECTIVE"
+             Age="AGE_ANTIQUITY"
+        />
     </LegacyCivilizations>
     <LegacyCivilizationTraits>
         <Row CivilizationType="CIVILIZATION_TEST_CIV" TraitType="TRAIT_TEST_CIV"/>

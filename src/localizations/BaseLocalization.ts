@@ -1,19 +1,20 @@
 import * as lodash from "lodash";
+import { XmlElement } from "jstoxml";
 
 import { TObjectValues } from "../types";
 import { LANGUAGE } from "../constants";
-import { XmlElement } from "jstoxml";
 import { locale } from "../utils";
+import { EnglishTextNode } from "../nodes";
 
 export class BaseLocalization<T> {
-    locale: TObjectValues<typeof LANGUAGE> = LANGUAGE.en_US;
-    prefix = '';
+    locale?: TObjectValues<typeof LANGUAGE> = LANGUAGE.en_US;
+    prefix?: string = '';
 
     constructor(payload: Partial<T> = {}) {
         this.fill(payload);
     }
 
-    fill(payload: Partial<T> = {}) {
+    fill<T>(payload: Partial<T> = {}) {
         for (const [key, value] of Object.entries(payload)) {
             if (this.hasOwnProperty(key)) {
                 this[key] = value;
@@ -22,33 +23,31 @@ export class BaseLocalization<T> {
         return this;
     }
 
-    toXmlElement(): XmlElement | XmlElement[] {
+    getNodes(): EnglishTextNode[] {
         const keys = lodash.without(Object.keys(this), 'prefix', 'locale');
 
-        const node = this.locale === LANGUAGE.en_US ? 'EnglishText' : 'LocalizedText';
-        return {
-            [node]: (keys as string[]).flatMap((key) => {
-                if (Array.isArray(this[key])) {
-                    return this[key].map((value, index) => ({
-                        _name: 'Row',
-                        _attrs: {
-                            Tag: locale(this.prefix, `${key}${index}`),
-                        },
-                        _content: {
-                            Text: value
-                        }
-                    }))
+        if(this.locale === LANGUAGE.en_US){
+            return (keys as string[]).flatMap((key) => {
+                if(!this[key]){
+                    return null;
                 }
-                return {
-                    _name: 'Row',
-                    _attrs: {
-                        Tag: locale(this.prefix, key),
-                    },
-                    _content: {
-                        Text: this[key]
-                    }
+
+                if(Array.isArray(this[key])){
+                    return this[key].map((value, index) => {
+                        return new EnglishTextNode({
+                            tag: locale(this.prefix, `${key}_${index + 1}`),
+                            text: value
+                        })
+                    });
                 }
-            })
+
+                return new EnglishTextNode({
+                    tag: locale(this.prefix, key),
+                    text: this[key]
+                });
+            }).filter(item => !!item);
         }
+
+        return [];
     }
 }

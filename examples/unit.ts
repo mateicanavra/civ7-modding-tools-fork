@@ -1,24 +1,29 @@
-import { ACTION_GROUP_BUNDLE, ICON_PATH, Mod, UNIT, Unit, UNIT_CLASS, UnitStat } from './src';
+import { ACTION_GROUP_BUNDLE, Mod, UNIT, UNIT_CLASS, UnitBuilder } from "./src";
 
-const mod = new Mod({
+let mod = new Mod({
     id: 'mod-test',
-    version: '1'
+    version: '1',
 });
 
-const unit = new Unit({
-    type: 'UNIT_TEST_SCOUT',
+const unit = new UnitBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
-    unitStat: new UnitStat({
-        combat: 40
-    }),
     typeTags: [UNIT_CLASS.RECON, UNIT_CLASS.RECON_ABILITIES],
-    visualRemap: 'UNIT_ARMY_COMMANDER',
-    unitReplace: UNIT.SCOUT,
-    icon: ICON_PATH.CIV_SYM_HAN
+    unit: {
+        unitType: 'UNIT_CUSTOM_SCOUT',
+        baseMoves: 2,
+        baseSightRange: 10,
+    },
+    unitCost: { cost: 20 },
+    unitStat: { combat: 0 },
+    unitReplace: { replacesUnitType: UNIT.SCOUT },
+    visualRemap: { to: UNIT.ARMY_COMMANDER },
+    localizations: [
+        { name: 'Custom scout', description: 'test description' },
+    ],
 });
 
-mod.fill({
-    units: [unit]
-});
+mod.add([
+    unit,
+]);
 
-mod.build('./dist/mod-test');
+mod.build('./dist');

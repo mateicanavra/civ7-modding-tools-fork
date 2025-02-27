@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Database>
     <Civilizations>
-        <Row Domain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_TEST_CIV" CivilizationName="LOC_CIVILIZATION_TEST_CIV_NAME" CivilizationFullName="LOC_CIVILIZATION_TEST_CIV_FULL_NAME" CivilizationDescription="LOC_CIVILIZATION_TEST_CIV_DESCRIPTION" CivilizationIcon="CIVILIZATION_TEST_CIV"/>
+        <Row
+            Domain="AntiquityAgeCivilizations"
+            CivilizationType="CIVILIZATION_TEST_CIV"
+            CivilizationName="LOC_CIVILIZATION_TEST_CIV_NAME"
+            CivilizationFullName="LOC_CIVILIZATION_TEST_CIV_FULL_NAME"
+            CivilizationDescription="LOC_CIVILIZATION_TEST_CIV_DESCRIPTION"
+            CivilizationIcon="CIVILIZATION_TEST_CIV"
+        />
     </Civilizations>
     <CivilizationTags>
         <Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_TEST_CIV" TagType="TAG_TRAIT_CULTURAL"/>

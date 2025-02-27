@@ -1,118 +1,66 @@
-import {
-    ACTION_GROUP_BUNDLE,
-    BIOME,
-    Civilization,
-    CivilizationItem,
-    CivilizationLocalization,
-    Constructible,
-    CONSTRUCTIBLE_TYPE_TAG,
-    ConstructibleLocalization,
-    ConstructibleMaintenance,
-    ConstructibleYieldChange,
-    Icon,
-    Mod,
-    RESOURCE,
-    TAG_TRAIT,
-    TRAIT,
-    Unit,
-    UNIT,
-    UNIT_CLASS,
-    UnitLocalization,
-    UnitStat,
-    YIELD
-} from './src';
+import { ACTION_GROUP_BUNDLE, CivilizationBuilder, ImportFileBuilder, Mod, TAG_TRAIT, UNIT, UNIT_CLASS, UnitBuilder } from "./src";
 
-const mod = new Mod({
+let mod = new Mod({
     id: 'mod-test',
-    version: '1'
+    version: '1',
 });
 
-const unit = new Unit({
+const civilizationIcon = new ImportFileBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
-    name: 'TEST_SCOUT',
-    icon: new Icon({ modId: mod.id, content: './assets/unit-icon.png' }),
-    unitStat: new UnitStat({ combat: 40 }),
-    typeTags: [UNIT_CLASS.RECON, UNIT_CLASS.RECON_ABILITIES],
-    visualRemap: UNIT.ARCHER,
-    unitReplace: UNIT.SCOUT,
-    localizations: [
-        new UnitLocalization({ name: 'Test scout', description: 'test scout description' })
-    ]
+    content: './assets/civ-icon.png',
+    name: 'civ_sym_gondor'
 });
 
-const constructible = new Constructible({
+const civilization = new CivilizationBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
-    name: 'TEST_BARN',
-    icon: new Icon({ modId: mod.id, content: './assets/constructible-icon.png' }),
-    typeTags: [
-        CONSTRUCTIBLE_TYPE_TAG.UNIQUE,
-        CONSTRUCTIBLE_TYPE_TAG.PERSISTENT,
-        CONSTRUCTIBLE_TYPE_TAG.AGELESS,
-        CONSTRUCTIBLE_TYPE_TAG.FOOD,
-        CONSTRUCTIBLE_TYPE_TAG.PRODUCTION,
-    ],
-    constructibleYieldChanges: [
-        new ConstructibleYieldChange({ yieldType: YIELD.PRODUCTION, yieldChange: 5 }),
-        new ConstructibleYieldChange({ yieldType: YIELD.FOOD, yieldChange: 5 })
-    ],
-    constructibleMaintenances: [
-        new ConstructibleMaintenance({ yieldType: YIELD.GOLD, amount: 1 }),
-        new ConstructibleMaintenance({ yieldType: YIELD.HAPPINESS, amount: 1 }),
-    ],
-    localizations: [
-        new ConstructibleLocalization({
-            name: 'Test constructible',
-            description: 'test constructible description',
-            tooltip: 'test constructible tooltip'
-        })
-    ]
-});
-
-const civilization = new Civilization({
-    actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
-    name: 'TEST_CIV',
-    civilizationTags: [
-        TAG_TRAIT.CULTURAL,
-        TAG_TRAIT.ECONOMIC
-    ],
-    civilizationTraits: [
-        TRAIT.ANTIQUITY_CIV,
-        TRAIT.ATTRIBUTE_CULTURAL,
-        TRAIT.ATTRIBUTE_ECONOMIC
-    ],
-    icons: {
-        main: new Icon({ modId: mod.id, content: './assets/civ-icon.png' })
+    civilization: {
+        domain: 'AntiquityAgeCivilizations',
+        civilizationType: 'CIVILIZATION_GONDOR'
     },
-    civilizationItems: [
-        CivilizationItem.from(unit),
-        CivilizationItem.from(constructible),
-    ],
-    startBiasResources: [
-        { resource: RESOURCE.HORSES, score: 20 }
-    ],
-    startBiasBiomes: [
-        { biome: BIOME.GRASSLAND, score: 20 }
-    ],
+    civilizationTags: [TAG_TRAIT.CULTURAL, TAG_TRAIT.ECONOMIC],
+    icon: {
+        path: `fs://game/${mod.id}/${civilizationIcon.name}`
+    },
     localizations: [
-        new CivilizationLocalization({
-            name: 'Test civilization',
-            description: 'Test civilization desc',
-            fullName: 'Test civilization full name',
-            adjective: 'Test adjective',
-            cityNames: ['Test city 1', 'Test city 2']
-        })
+        { name: 'Custom civilization', description: 'test description', fullName: 'test full name', adjective: 'test adjective', cityNames: ['Gondor'] }
     ]
+});
+
+const unitIcon = new ImportFileBuilder({
+    actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
+    content: './assets/unit-icon.png',
+    name: 'scout.png'
+});
+
+const unit = new UnitBuilder({
+    actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
+    typeTags: [UNIT_CLASS.RECON, UNIT_CLASS.RECON_ABILITIES],
+    unit: {
+        unitType: 'UNIT_CUSTOM_SCOUT',
+        baseMoves: 2,
+        baseSightRange: 10,
+    },
+    icon: {
+        path: `fs://game/${mod.id}/${unitIcon.name}`
+    },
+    unitCost: { cost: 20 },
+    unitStat: { combat: 0 },
+    unitReplace: { replacesUnitType: UNIT.SCOUT },
+    visualRemap: { to: UNIT.ARMY_COMMANDER },
+    localizations: [
+        { name: 'Custom scout', description: 'test description' },
+    ],
 });
 
 civilization.bind([
-    unit,
-    constructible
+    unit
 ]);
 
-mod.fill({
-    civilizations: [civilization],
-    constructibles: [constructible],
-    units: [unit],
-});
+mod.add([
+    civilization,
+    civilizationIcon,
+    unit,
+    unitIcon
+]);
 
-mod.build('./example-generated-mod', true);
+mod.build('./dist');

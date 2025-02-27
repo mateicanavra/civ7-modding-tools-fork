@@ -8,6 +8,9 @@
         <Row TraitType="TRAIT_TEST_CIV" InternalOnly="true"/>
         <Row TraitType="TRAIT_TEST_CIV_ABILITY" Name="LOC_TRAIT_TEST_CIV_ABILITY_NAME" Description="LOC_TRAIT_TEST_CIV_ABILITY_DESCRIPTION" InternalOnly="true"/>
     </Traits>
+    <TraitModifiers>
+        <Row TraitType="TRAIT_TEST_CIV_ABILITY" ModifierId="392e690f-3f13-4b3e-b933-998eb3c8bc52"/>
+    </TraitModifiers>
     <Civilizations>
         <Row CivilizationType="CIVILIZATION_TEST_CIV" Name="LOC_CIVILIZATION_TEST_CIV_NAME" FullName="LOC_CIVILIZATION_TEST_CIV_FULL_NAME" Description="LOC_CIVILIZATION_TEST_CIV_DESCRIPTION" Adjective="LOC_CIVILIZATION_TEST_CIV_ADJECTIVE" CapitalName="LOC_CIVILIZATION_TEST_CIV_CITY_NAMES_0" StartingCivilizationLevelType="CIVILIZATION_LEVEL_FULL_CIV" RandomCityNameDepth="10"/>
     </Civilizations>
@@ -26,7 +29,7 @@
         <Row CivilizationType="CIVILIZATION_TEST_CIV" BiomeType="BIOME_GRASSLAND" Score="20"/>
     </StartBiasBiomes>
     <StartBiasResources>
-        <Row CivilizationType="CIVILIZATION_TEST_CIV" ResourceType="RESOURCE_HORSES" Score="20"/>
+        <Row CivilizationType="CIVILIZATION_TEST_CIV" ResourceType="RESOURCE_HORSES" Score="90"/>
     </StartBiasResources>
     <VisArt_CivilizationBuildingCultures>
         <Row CivilizationType="CIVILIZATION_TEST_CIV" BuildingCulture="ANT_MUD"/>
