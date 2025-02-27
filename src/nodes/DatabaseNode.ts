@@ -25,6 +25,7 @@ import { ConstructibleYieldChangeNode } from "./ConstructibleYieldChangeNode";
 import { BuildingNode } from "./BuildingNode";
 import { ShellCivilizationNodeSlice } from "./slices/ShellCivilizationNodeSlice";
 import { GameCivilizationNodeSlice } from "./slices/GameCivilizationNodeSlice";
+import { TraitModifierNode } from "./TraitModifierNode";
 
 export type TDatabase = Pick<DatabaseNode,
     "civilizationItems" |
@@ -57,7 +58,7 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     tags: TagNode[] = [];
     typeTags: TypeTagNode[] = [];
     traits: TraitNode[] = [];
-    traitModifiers: TraitNode[] = [];
+    traitModifiers: TraitModifierNode[] = [];
 
     civilizations: CivilizationNode[] | ShellCivilizationNodeSlice[] | GameCivilizationNodeSlice[] = [];
     civilizationItems: CivilizationItemNode[] = [];

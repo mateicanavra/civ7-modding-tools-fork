@@ -4,15 +4,21 @@ import { TClassProperties, TObjectValues, TPartialWithRequired } from "../types"
 import {
     CivilizationItemNode,
     CivilizationNode,
-    CivilizationTagNode, CivilizationTraitNode,
+    CivilizationTagNode,
+    CivilizationTraitNode,
     DatabaseNode,
     GameCivilizationNodeSlice,
+    GameEffectNode,
     IconDefinitionNode,
     LegacyCivilizationNode,
     LegacyCivilizationTraitNode,
+    ModifierNode,
     ShellCivilizationNodeSlice,
-    TCivilizationNode, TIconDefinitionNode,
+    TCivilizationNode,
+    TIconDefinitionNode,
     TLegacyCivilizationNode,
+    TModifierNode,
+    TraitModifierNode,
     TraitNode,
     TypeNode
 } from "../nodes";
@@ -33,6 +39,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
     _legacy: DatabaseNode = new DatabaseNode();
     _localizations: DatabaseNode = new DatabaseNode();
     _icons: DatabaseNode = new DatabaseNode();
+    _gameEffects: GameEffectNode | null = null;
 
     civilizationTraits: (TObjectValues<typeof TRAIT> | string)[] = [];
     civilizationTags: TObjectValues<typeof TAG_TRAIT>[] = [];
@@ -46,7 +53,8 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
     civilizationLegacy: TPartialWithRequired<TLegacyCivilizationNode, 'age'> = { age: AGE.ANTIQUITY }
     localizations: Partial<TCivilizationLocalization>[] = [];
     icon: TPartialWithRequired<TIconDefinitionNode, 'path'> = { path: 'fs://game/civ_sym_han' }
-    civilizationItems: TPartialWithRequired<CivilizationItemNode, "type" | "kind">[] = []
+    civilizationItems: TPartialWithRequired<CivilizationItemNode, "type" | "kind">[] = [];
+    modifiers: Partial<TModifierNode>[] = [];
 
     constructor(payload: Partial<TCivilizationBuilder> = {}) {
         super();
@@ -168,6 +176,20 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
             }).flatMap(item => item.getNodes())
         });
 
+        if(this.modifiers.length > 0){
+            const modifiers = this.modifiers.map(item => {
+                return new ModifierNode(item);
+            });
+            this._current.fill({
+                traitModifiers: modifiers.map(item => {
+                    return new TraitModifierNode({
+                        traitType: this.traitAbility.traitType,
+                        modifierId: item.id
+                    });
+                })
+            })
+            this._gameEffects = new GameEffectNode({ modifiers });
+        }
         return this;
     }
 
@@ -252,6 +274,13 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                 content: this._localizations.toXmlElement(),
                 actionGroups: [this.actionGroupBundle.shell, this.actionGroupBundle.always],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_TEXT]
+            }),
+            new XmlFile({
+                path,
+                name: 'game-effects.xml',
+                content: this._gameEffects?.toXmlElement(),
+                actionGroups: [this.actionGroupBundle.current],
+                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
             }),
         ]
     }
