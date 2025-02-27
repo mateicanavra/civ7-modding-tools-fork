@@ -1,4 +1,16 @@
-import { ACTION_GROUP_BUNDLE, CivilizationBuilder, ImportFileBuilder, Mod, TAG_TRAIT, UNIT, UNIT_CLASS, UnitBuilder } from "./src";
+import {
+    ACTION_GROUP_BUNDLE,
+    CivilizationBuilder,
+    CONSTRUCTIBLE_TYPE_TAG,
+    ConstructibleBuilder, ConstructibleLocalization,
+    DISTRICT,
+    ImportFileBuilder,
+    Mod,
+    TAG_TRAIT, TRAIT,
+    UNIT,
+    UNIT_CLASS,
+    UnitBuilder, YIELD
+} from "./src";
 
 let mod = new Mod({
     id: 'mod-test',
@@ -10,13 +22,17 @@ const civilizationIcon = new ImportFileBuilder({
     content: './assets/civ-icon.png',
     name: 'civ_sym_gondor'
 });
-
 const civilization = new CivilizationBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     civilization: {
         domain: 'AntiquityAgeCivilizations',
         civilizationType: 'CIVILIZATION_GONDOR'
     },
+    civilizationTraits: [
+        TRAIT.ANTIQUITY_CIV,
+        TRAIT.ATTRIBUTE_EXPANSIONIST,
+        TRAIT.ATTRIBUTE_MILITARISTIC,
+    ],
     civilizationTags: [TAG_TRAIT.CULTURAL, TAG_TRAIT.ECONOMIC],
     icon: {
         path: `fs://game/${mod.id}/${civilizationIcon.name}`
@@ -52,15 +68,44 @@ const unit = new UnitBuilder({
     ],
 });
 
+const constructible = new ConstructibleBuilder({
+    actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
+    constructible: {
+        constructibleType: 'BUILDING_CUSTOM',
+    },
+    building: {},
+    typeTags: [
+        CONSTRUCTIBLE_TYPE_TAG.AGELESS,
+        CONSTRUCTIBLE_TYPE_TAG.PRODUCTION,
+        CONSTRUCTIBLE_TYPE_TAG.FOOD
+    ],
+    constructibleValidDistricts: [
+        DISTRICT.URBAN,
+        DISTRICT.CITY_CENTER,
+    ],
+    constructibleYieldChanges: [
+        { yieldType: YIELD.GOLD, yieldChange: 20 },
+    ],
+    constructibleMaintenances: [
+        { yieldType: YIELD.PRODUCTION, amount: 1 },
+        { yieldType: YIELD.HAPPINESS, amount: 1 },
+    ],
+    localizations: [
+        {name: 'Custom building', description: 'Custom building test description', tooltip: 'Custom building test tooltip'},
+    ]
+});
+
 civilization.bind([
-    unit
+    unit,
+    constructible
 ]);
 
 mod.add([
     civilization,
     civilizationIcon,
     unit,
-    unitIcon
+    unitIcon,
+    constructible,
 ]);
 
 mod.build('./dist');
