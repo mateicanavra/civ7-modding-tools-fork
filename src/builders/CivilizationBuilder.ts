@@ -82,6 +82,18 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
             ...this.civilization,
         });
 
+        const trait =  new TraitNode({
+                internalOnly: true,
+                ...this.trait
+            });
+
+        const traitAbility = new TraitNode({
+            name: locale(this.civilization.civilizationType + '_ABILITY', 'name'),
+            description: locale(this.civilization.civilizationType + '_ABILITY', 'description'),
+            internalOnly: true,
+            ...this.traitAbility
+        });
+
         this._current.fill({
             types: [
                 new TypeNode({
@@ -93,18 +105,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                     type: this.traitAbility.traitType
                 }),
             ],
-            traits: [
-                new TraitNode({
-                    internalOnly: true,
-                    ...this.trait
-                }),
-                new TraitNode({
-                    name: locale(this.civilization.civilizationType + '_ABILITY', 'name'),
-                    description: locale(this.civilization.civilizationType + '_ABILITY', 'description'),
-                    internalOnly: true,
-                    ...this.traitAbility
-                })
-            ],
+            traits: [trait, traitAbility],
             civilizations: [GameCivilizationNodeSlice.from(civilization)],
             civilizationTraits: [
                 new CivilizationTraitNode({
@@ -133,13 +134,22 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                     ...civilization,
                 })
             }),
-            civilizationItems: this.civilizationItems.map(item => {
-                return new CivilizationItemNode({
-                    civilizationDomain: civilization.domain,
+            civilizationItems: [
+                new CivilizationItemNode({
                     ...civilization,
-                    ...item
+                    ...traitAbility,
+                    civilizationDomain: civilization.domain,
+                    type: this.traitAbility.traitType,
+                    kind: KIND.TRAIT,
+                }),
+                ...this.civilizationItems.map(item => {
+                    return new CivilizationItemNode({
+                        civilizationDomain: civilization.domain,
+                        ...civilization,
+                        ...item
+                    })
                 })
-            })
+            ]
         })
 
         this._legacy.fill({
