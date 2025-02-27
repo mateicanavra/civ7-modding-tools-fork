@@ -11,6 +11,7 @@ import {
     UNIT_CLASS,
     UnitBuilder, YIELD
 } from "./src";
+import { COLLECTION, EFFECT, REQUIREMENT } from "../src";
 
 let mod = new Mod({
     id: 'mod-test',
@@ -39,7 +40,17 @@ const civilization = new CivilizationBuilder({
     },
     localizations: [
         { name: 'Custom civilization', description: 'test description', fullName: 'test full name', adjective: 'test adjective', cityNames: ['Gondor'] }
-    ]
+    ],
+    modifiers: [{
+        collection: COLLECTION.PLAYER_UNITS,
+        effect: EFFECT.UNIT_ADJUST_MOVEMENT,
+        permanent: true,
+        requirements: [{
+            type: REQUIREMENT.UNIT_TAG_MATCHES,
+            arguments: [{ name: 'Tag', value: UNIT_CLASS.RECON }]
+        }],
+        arguments: [{ name: 'Amount', value: 10 }]
+    }]
 });
 
 const unitIcon = new ImportFileBuilder({

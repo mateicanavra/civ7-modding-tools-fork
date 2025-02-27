@@ -1,11 +1,11 @@
 import {
     ACTION_GROUP_BUNDLE,
-    CivilizationBuilder,
+    CivilizationBuilder, COLLECTION,
     CONSTRUCTIBLE_TYPE_TAG,
     ConstructibleBuilder, ConstructibleLocalization,
-    DISTRICT,
+    DISTRICT, EFFECT,
     ImportFileBuilder,
-    Mod,
+    Mod, REQUIREMENT,
     TAG_TRAIT, TRAIT,
     UNIT,
     UNIT_CLASS,
@@ -39,7 +39,17 @@ const civilization = new CivilizationBuilder({
     },
     localizations: [
         { name: 'Custom civilization', description: 'test description', fullName: 'test full name', adjective: 'test adjective', cityNames: ['Gondor'] }
-    ]
+    ],
+    modifiers: [{
+        collection: COLLECTION.PLAYER_UNITS,
+        effect: EFFECT.UNIT_ADJUST_MOVEMENT,
+        permanent: true,
+        requirements: [{
+            type: REQUIREMENT.UNIT_TAG_MATCHES,
+            arguments: [{ name: 'Tag', value: UNIT_CLASS.RECON }]
+        }],
+        arguments: [{ name: 'Amount', value: 10 }]
+    }]
 });
 
 const unitIcon = new ImportFileBuilder({
