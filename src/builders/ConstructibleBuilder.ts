@@ -20,9 +20,9 @@ import {
 import { ACTION_GROUP_ACTION, CONSTRUCTIBLE_TYPE_TAG, DISTRICT, KIND } from "../constants";
 import { XmlFile } from "../files";
 import { ConstructibleLocalization, TConstructibleLocalization } from "../localizations";
+import { locale } from "../utils";
 
 import { BaseBuilder } from "./BaseBuilder";
-import { locale } from "../utils";
 
 type TConstructibleBuilder = TClassProperties<ConstructibleBuilder>
 

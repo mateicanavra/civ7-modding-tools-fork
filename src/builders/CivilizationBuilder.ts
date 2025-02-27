@@ -23,6 +23,7 @@ import { CivilizationLocalization, TCivilizationLocalization } from "../localiza
 
 import { BaseBuilder } from "./BaseBuilder";
 import { UnitBuilder } from "./UnitBuilder";
+import { ConstructibleBuilder } from "./ConstructibleBuilder";
 
 type TCivilizationBuilder = TClassProperties<CivilizationBuilder>
 
@@ -174,7 +175,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
      * @description Bind entity as unique to this civilization
      * @param items
      */
-    bind(items: (UnitBuilder)[] = []) {
+    bind(items: (UnitBuilder | ConstructibleBuilder)[] = []) {
         items.forEach(item => {
             if (item instanceof UnitBuilder) {
                 item._current.units.forEach(unit => {
@@ -188,6 +189,24 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                             kind: KIND.UNIT,
                             icon: unit.unitType,
                             ...unit,
+                        })
+                    )
+                });
+            }
+
+            if (item instanceof ConstructibleBuilder) {
+                item._always.buildings.forEach(building => {
+                    building.traitType = this.trait.traitType;
+                });
+                item._always.constructibles.forEach(constructible => {
+                    this._shell.civilizationItems.push(
+                        new CivilizationItemNode({
+                            civilizationDomain: this.civilization.domain,
+                            civilizationType: this.civilization.civilizationType,
+                            type: constructible.constructibleType,
+                            kind: KIND.IMPROVEMENT,
+                            icon: '',
+                            ...constructible,
                         })
                     )
                 });
