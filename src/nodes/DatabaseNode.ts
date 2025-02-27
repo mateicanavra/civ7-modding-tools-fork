@@ -17,9 +17,7 @@ import { CivilizationTraitNode } from "./CivilizationTraitNode";
 import { CivilizationTagNode } from "./CivilizationTagNode";
 import { LegacyCivilizationNode } from "./LegacyCivilizationNode";
 import { LegacyCivilizationTraitNode } from "./LegacyCivilizationTraitNode";
-import { ShellCivilizationNodeSlice } from "./slices/ShellCivilizationNodeSlice";
 import { IconDefinitionNode } from "./IconDefinitionNode";
-import { GameCivilizationNodeSlice } from "./slices/GameCivilizationNodeSlice";
 import { CivilizationItemNode } from "./CivilizationItemNode";
 import { ConstructibleValidDistrictNode } from "./ConstructibleValidDistrictNode";
 import { ConstructibleMaintenanceNode } from "./ConstructibleMaintenanceNode";
@@ -59,7 +57,7 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     traits: TraitNode[] = [];
     traitModifiers: TraitNode[] = [];
 
-    civilizations: CivilizationNode[] | ShellCivilizationNodeSlice[] | GameCivilizationNodeSlice[] = [];
+    civilizations: CivilizationNode[] = [];
     civilizationItems: CivilizationItemNode[] = [];
     civilizationTags: CivilizationTagNode[] = [];
     civilizationTraits: CivilizationTraitNode[] = [];
@@ -99,7 +97,7 @@ export class DatabaseNode extends BaseNode<TDatabase> {
             .filter(key => !except.includes(key))
             .reduce((prev, current) => {
                 if (Array.isArray(this[current])) {
-                    if(this[current].length === 0){
+                    if (this[current].length === 0) {
                         return prev;
                     }
 
