@@ -71,7 +71,6 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
     icon: TPartialWithRequired<TIconDefinitionNode, 'path'> = { path: 'fs://game/civ_sym_han' }
     civilizationItems: TPartialWithRequired<TCivilizationItemNode, "type" | "kind">[] = [];
     civilizationUnlocks: TPartialWithRequired<TCivilizationUnlockNode, "type">[] = [];
-    modifiers: Partial<TModifierNode>[] = [];
 
     constructor(payload: Partial<TCivilizationBuilder> = {}) {
         super();
@@ -261,9 +260,6 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
             }).flatMap(item => item.getNodes())
         });
 
-        if (this.modifiers.length > 0) {
-
-        }
         return this;
     }
 
