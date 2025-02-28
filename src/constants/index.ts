@@ -19,6 +19,7 @@ export { ICON } from './ICON';
 export { KIND } from './KIND';
 export { LANGUAGE } from './LANGUAGE';
 export { REQUIREMENT } from './REQUIREMENT';
+export { REQUIREMENT_SET } from './REQUIREMENT_SET';
 export { RESOURCE } from './RESOURCE';
 export { TAG_TRAIT } from './TAG_TRAIT';
 export { TERRAIN } from './TERRAIN';

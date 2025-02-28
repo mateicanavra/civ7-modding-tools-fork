@@ -15,6 +15,10 @@ import {
     LegacyCivilizationNode,
     LegacyCivilizationTraitNode,
     ModifierNode,
+    RequirementArgumentNode,
+    RequirementNode,
+    RequirementSetNode,
+    RequirementSetRequirementNode,
     ShellCivilizationNodeSlice,
     TCivilizationItemNode,
     TCivilizationNode,
@@ -25,9 +29,12 @@ import {
     TraitModifierNode,
     TraitNode,
     TTraitNode,
-    TypeNode, UnlockNode, UnlockRewardNode
+    TypeNode, UnlockConfigurationValueNode,
+    UnlockNode,
+    UnlockRequirementNode,
+    UnlockRewardNode
 } from "../nodes";
-import { ACTION_GROUP_ACTION, AGE, KIND, TAG_TRAIT, TRAIT } from "../constants";
+import { ACTION_GROUP_ACTION, AGE, KIND, REQUIREMENT, REQUIREMENT_SET, TAG_TRAIT, TRAIT } from "../constants";
 import { locale } from "../utils";
 import { XmlFile } from "../files";
 import { CivilizationLocalization, TCivilizationLocalization } from "../localizations";
@@ -169,29 +176,53 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
             })
         })
 
-        this._unlocks.fill({
-            kinds: [new KindNode({ kind: KIND.UNLOCK }).insertOrIgnore()],
-            types: this.civilizationUnlocks.map(item => {
-                return new TypeNode({
-                    type: `UNLOCK_${item.type}`,
-                    kind: KIND.UNLOCK
-                }).insertOrIgnore();
-            }),
-            unlocks: this.civilizationUnlocks.map(item => {
-                return new UnlockNode({
-                    unlockType: `UNLOCK_${item.type}`,
-                }).insertOrIgnore();
-            }),
-            unlockRewards: this.civilizationUnlocks.map(item => {
-                return new UnlockRewardNode({
-                    unlockType: `UNLOCK_${item.type}`,
-                    name: locale(item.type, 'name'),
-                    description: 'LOC_UNLOCK_EXPLORATION_CIV_DESCRIPTION', // TODO what is the best way to do it?,
-                    icon: item.type,
-                    civUnlock: true
-                }).insertOrIgnore();
-            })
+        this._unlocks = new DatabaseNode({
+            kinds: [new KindNode({ kind: KIND.UNLOCK }).insertOrIgnore()]
         });
+
+        this.civilizationUnlocks.map(item => {
+            this._unlocks.types.push(new TypeNode({
+                type: `UNLOCK_${item.type}`,
+                kind: KIND.UNLOCK
+            }).insertOrIgnore())
+            this._unlocks.unlocks.push(new UnlockNode({
+                unlockType: `UNLOCK_${item.type}`,
+            }).insertOrIgnore());
+            this._unlocks.unlockRewards.push(new UnlockRewardNode({
+                unlockType: `UNLOCK_${item.type}`,
+                name: locale(item.type, 'name'),
+                description: 'LOC_UNLOCK_EXPLORATION_CIV_DESCRIPTION', // TODO what is the best way to do it?,
+                icon: item.type,
+                civUnlock: true
+            }).insertOrIgnore());
+            this._unlocks.requirementSets.push(new RequirementSetNode({
+                requirementSetId: `REQSET_${civilization.civilizationType}`,
+                requirementSetType: REQUIREMENT_SET.TEST_ALL
+            }));
+            this._unlocks.requirements.push(new RequirementNode({
+                requirementId: `REQ_${civilization.civilizationType}`,
+                requirementType: REQUIREMENT.PLAYER_CIVILIZATION_TYPE_MATCHES
+            }));
+            this._unlocks.requirementArguments.push(new RequirementArgumentNode({
+                requirementId: `REQ_${civilization.civilizationType}`,
+                name: 'CivilizationType',
+                value: civilization.civilizationType
+            }));
+            this._unlocks.requirementSetRequirements.push(new RequirementSetRequirementNode({
+                requirementSetId: `REQSET_${civilization.civilizationType}`,
+                requirementId: `REQ_${civilization.civilizationType}`,
+            }));
+            this._unlocks.unlockRequirements.push(new UnlockRequirementNode({
+                unlockType: `UNLOCK_${item.type}`,
+                requirementSetId: `REQSET_${civilization.civilizationType}`,
+                description: locale(civilization.civilizationType, 'unlockPlayAs'),
+                tooltip: locale(civilization.civilizationType, 'unlockPlayAs'),
+            }));
+            this._unlocks.unlockConfigurationValues.push(new UnlockConfigurationValueNode({
+                unlockType: `UNLOCK_${item.type}`,
+                configurationValue: item.type,
+            }).insertOrIgnore());
+        })
 
         this._legacy.fill({
             types: [

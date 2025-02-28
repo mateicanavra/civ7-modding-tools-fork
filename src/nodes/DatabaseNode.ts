@@ -30,6 +30,12 @@ import { CivilizationUnlockNode } from "./CivilizationUnlockNode";
 import { KindNode } from "./KindNode";
 import { UnlockNode } from "./UnlockNode";
 import { UnlockRewardNode } from "./UnlockRewardNode";
+import { RequirementSetNode } from "./RequirementSetNode";
+import { RequirementNode } from "./RequirementNode";
+import { RequirementArgumentNode } from "./RequirementArgumentNode";
+import { RequirementSetRequirementNode } from "./RequirementSetRequirementNode";
+import { UnlockRequirementNode } from "./UnlockRequirementNode";
+import { UnlockConfigurationValueNode } from "./UnlockConfigurationValueNode";
 
 export type TDatabase = Pick<DatabaseNode,
     "civilizationItems" |
@@ -57,6 +63,11 @@ export type TDatabase = Pick<DatabaseNode,
     "unitStats" |
     "units" |
     "unlocks" |
+    "unlockRequirements" |
+    "unlockConfigurationValues" |
+    "requirementSets" |
+    "requirementArguments" |
+    "requirementSetRequirements" |
     "unlockRewards" |
     "visualRemaps"
 >;
@@ -96,6 +107,13 @@ export class DatabaseNode extends BaseNode<TDatabase> {
 
     unlocks: UnlockNode[] = [];
     unlockRewards: UnlockRewardNode[] = [];
+    unlockRequirements: UnlockRequirementNode[] = [];
+    unlockConfigurationValues: UnlockConfigurationValueNode[] = [];
+
+    requirementSets: RequirementSetNode[] = [];
+    requirements: RequirementNode[] = [];
+    requirementArguments: RequirementArgumentNode[] = [];
+    requirementSetRequirements: RequirementSetRequirementNode[] = [];
 
     constructor(payload: Partial<TDatabase> = {}) {
         super();

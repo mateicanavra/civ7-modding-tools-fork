@@ -32,6 +32,12 @@ export { CivilizationUnlockNode, TCivilizationUnlockNode } from './CivilizationU
 export { KindNode, TKindNode } from './KindNode';
 export { UnlockNode, TUnlockNode } from './UnlockNode';
 export { UnlockRewardNode, TUnlockRewardNode } from './UnlockRewardNode';
+export { UnlockRequirementNode, TUnlockRequirementNode } from './UnlockRequirementNode';
+export { RequirementSetNode, TRequirementSetNode } from './RequirementSetNode';
+export { RequirementSetRequirementNode, TRequirementSetRequirementNode } from './RequirementSetRequirementNode';
+export { RequirementNode, TRequirementNode } from './RequirementNode';
+export { RequirementArgumentNode, TRequirementArgumentNode } from './RequirementArgumentNode';
+export { UnlockConfigurationValueNode, TUnlockConfigurationValueNode } from './UnlockConfigurationValueNode';
 
 export { ShellCivilizationNodeSlice, TShellCivilizationNodeSlice } from './slices/ShellCivilizationNodeSlice';
 export { GameCivilizationNodeSlice, TGameCivilizationNodeSlice } from './slices/GameCivilizationNodeSlice';
