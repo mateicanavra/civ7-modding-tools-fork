@@ -8,6 +8,7 @@ import { XmlFile } from "../files";
 
 import { ProgressionTreeNodeBuilder } from "./ProgressionTreeNodeBuilder";
 import { BaseBuilder } from "./BaseBuilder";
+import { ProgressionTreeLocalization, TProgressionTreeLocalization } from "../localizations";
 
 type TProgressionTreeBuilder = TClassProperties<ProgressionTreeBuilder>
 
@@ -20,6 +21,8 @@ export class ProgressionTreeBuilder extends BaseBuilder<TProgressionTreeBuilder>
         progressionTreeType: 'TREE_CIVICS_CUSTOM',
         ageType: AGE.ANTIQUITY
     }
+
+    localizations: TProgressionTreeLocalization[] = [];
 
     constructor(payload: Partial<TProgressionTreeBuilder> = {}) {
         super();
@@ -34,7 +37,16 @@ export class ProgressionTreeBuilder extends BaseBuilder<TProgressionTreeBuilder>
                 ...this.progressionTree,
                 name: locale(this.progressionTree.progressionTreeType, 'name')
             })],
-        })
+        });
+
+        this._localizations.fill({
+            englishText: this.localizations.map(item => {
+                return new ProgressionTreeLocalization({
+                    prefix: this.progressionTree.progressionTreeType,
+                    ...item
+                });
+            }).flatMap(item => item.getNodes())
+        });
     }
 
     bind(items: ProgressionTreeNodeBuilder[]) {

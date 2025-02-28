@@ -5,6 +5,9 @@ import { ADVISORY, KIND } from "../constants";
 import { BaseBuilder } from "./BaseBuilder";
 import { locale } from "../utils";
 import { ModifierBuilder } from "./ModifierBuilder";
+import { ConstructibleBuilder } from "./ConstructibleBuilder";
+import { UnitBuilder } from "./UnitBuilder";
+import { ProgressionTreeNodeLocalization, TProgressionTreeNodeLocalization } from "../localizations";
 
 type TProgressionTreeNodeBuilder = TClassProperties<ProgressionTreeNodeBuilder>
 
@@ -13,11 +16,11 @@ export class ProgressionTreeNodeBuilder extends BaseBuilder<TProgressionTreeNode
     _localizations: DatabaseNode = new DatabaseNode();
     _gameEffects: GameEffectNode = new GameEffectNode();
 
-
     progressionTreeNode: TPartialWithRequired<TProgressionTreeNodeNode, 'progressionTreeNodeType'> = {
         progressionTreeNodeType: 'NODE_CIVIC_'
     }
     progressionTreeAdvisories: TObjectValues<typeof ADVISORY>[] = [];
+    localizations: TProgressionTreeNodeLocalization[] = [];
 
     constructor(payload: Partial<TProgressionTreeNodeBuilder> = {}) {
         super();
@@ -38,12 +41,21 @@ export class ProgressionTreeNodeBuilder extends BaseBuilder<TProgressionTreeNode
                     advisoryClassType: item
                 });
             }),
-        })
+        });
+
+        this._localizations.fill({
+            englishText: this.localizations.map(item => {
+                return new ProgressionTreeNodeLocalization({
+                    prefix: this.progressionTreeNode.progressionTreeNodeType,
+                    ...item
+                });
+            }).flatMap(item => item.getNodes())
+        });
     }
 
-    bind(items: ModifierBuilder[], unlockDepth = 1){
+    bind(items: (ModifierBuilder | ConstructibleBuilder | UnitBuilder)[], unlockDepth = 1) {
         items.forEach(item => {
-            if(item instanceof ModifierBuilder) {
+            if (item instanceof ModifierBuilder) {
                 item._gameEffects.modifiers.forEach((modifier) => {
                     this._gameEffects.modifiers.push(modifier);
 
@@ -59,6 +71,28 @@ export class ProgressionTreeNodeBuilder extends BaseBuilder<TProgressionTreeNode
                     ...this._localizations.englishText,
                     ...item._localizations.englishText
                 ];
+            }
+
+            if (item instanceof ConstructibleBuilder) {
+                item._always.constructibles.forEach((constructible) => {
+                    this._current.progressionTreeNodeUnlocks.push(new ProgressionTreeNodeUnlockNode({
+                        progressionTreeNodeType: this.progressionTreeNode.progressionTreeNodeType,
+                        targetKind: KIND.CONSTRUCTIBLE,
+                        targetType: constructible.constructibleType,
+                        unlockDepth: unlockDepth
+                    }));
+                });
+            }
+
+            if (item instanceof UnitBuilder) {
+                item._current.units.forEach((unit) => {
+                    this._current.progressionTreeNodeUnlocks.push(new ProgressionTreeNodeUnlockNode({
+                        progressionTreeNodeType: this.progressionTreeNode.progressionTreeNodeType,
+                        targetKind: KIND.UNIT,
+                        targetType: unit.unitType,
+                        unlockDepth: unlockDepth
+                    }));
+                });
             }
         });
 
