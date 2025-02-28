@@ -1,7 +1,7 @@
 import * as lodash from "lodash";
 
 import { TClassProperties, TPartialWithRequired } from "../types";
-import { DatabaseNode, GameEffectNode, ProgressionTreeNode, TProgressionTreeNode, TypeNode } from "../nodes";
+import { DatabaseNode, GameEffectNode, ProgressionTreeNode, ProgressionTreePrereqNode, TProgressionTreeNode, TProgressionTreePrereqNode, TypeNode } from "../nodes";
 import { ACTION_GROUP_ACTION, AGE, KIND } from "../constants";
 import { locale } from "../utils";
 import { XmlFile } from "../files";
@@ -21,6 +21,7 @@ export class ProgressionTreeBuilder extends BaseBuilder<TProgressionTreeBuilder>
         progressionTreeType: 'TREE_CIVICS_CUSTOM',
         ageType: AGE.ANTIQUITY
     }
+    progressionTreePrereqs: TProgressionTreePrereqNode[] = [];
 
     localizations: TProgressionTreeLocalization[] = [];
 
@@ -37,6 +38,9 @@ export class ProgressionTreeBuilder extends BaseBuilder<TProgressionTreeBuilder>
                 ...this.progressionTree,
                 name: locale(this.progressionTree.progressionTreeType, 'name')
             })],
+            progressionTreePrereqs: this.progressionTreePrereqs.map(item => {
+                return new ProgressionTreePrereqNode(item)
+            })
         });
 
         this._localizations.fill({
