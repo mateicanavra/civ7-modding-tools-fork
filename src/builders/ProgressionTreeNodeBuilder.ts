@@ -41,24 +41,26 @@ export class ProgressionTreeNodeBuilder extends BaseBuilder<TProgressionTreeNode
         })
     }
 
-    bind(item: ModifierBuilder, unlockDepth = 1){
-        if(item instanceof ModifierBuilder) {
-            item._gameEffects.modifiers.forEach((modifier) => {
-                this._gameEffects.modifiers.push(modifier);
+    bind(items: ModifierBuilder[], unlockDepth = 1){
+        items.forEach(item => {
+            if(item instanceof ModifierBuilder) {
+                item._gameEffects.modifiers.forEach((modifier) => {
+                    this._gameEffects.modifiers.push(modifier);
 
-                this._current.progressionTreeNodeUnlocks.push(new ProgressionTreeNodeUnlockNode({
-                    progressionTreeNodeType: this.progressionTreeNode.progressionTreeNodeType,
-                    targetKind: KIND.MODIFIER,
-                    targetType: modifier.id,
-                    unlockDepth: unlockDepth
-                }));
-            });
+                    this._current.progressionTreeNodeUnlocks.push(new ProgressionTreeNodeUnlockNode({
+                        progressionTreeNodeType: this.progressionTreeNode.progressionTreeNodeType,
+                        targetKind: KIND.MODIFIER,
+                        targetType: modifier.id,
+                        unlockDepth: unlockDepth
+                    }));
+                });
 
-            this._localizations.englishText = [
-                ...this._localizations.englishText,
-                ...item._localizations.englishText
-            ];
-        }
+                this._localizations.englishText = [
+                    ...this._localizations.englishText,
+                    ...item._localizations.englishText
+                ];
+            }
+        });
 
         return this;
     }

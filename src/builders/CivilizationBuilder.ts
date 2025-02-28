@@ -44,6 +44,7 @@ import { BaseBuilder } from "./BaseBuilder";
 import { UnitBuilder } from "./UnitBuilder";
 import { ConstructibleBuilder } from "./ConstructibleBuilder";
 import { ProgressionTreeBuilder } from "./ProgressionTreeBuilder";
+import { ModifierBuilder } from "./ModifierBuilder";
 
 type TCivilizationBuilder = TClassProperties<CivilizationBuilder>
 
@@ -261,18 +262,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
         });
 
         if (this.modifiers.length > 0) {
-            const modifiers = this.modifiers.map(item => {
-                return new ModifierNode(item);
-            });
-            this._current.fill({
-                traitModifiers: modifiers.map(item => {
-                    return new TraitModifierNode({
-                        traitType: this.traitAbility.traitType,
-                        modifierId: item.id
-                    });
-                })
-            })
-            this._gameEffects = new GameEffectNode({ modifiers });
+
         }
         return this;
     }
@@ -281,7 +271,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
      * @description Bind entity as unique to this civilization
      * @param items
      */
-    bind(items: (UnitBuilder | ConstructibleBuilder | ProgressionTreeBuilder)[] = []) {
+    bind(items: (UnitBuilder | ConstructibleBuilder | ProgressionTreeBuilder | ModifierBuilder)[] = []) {
         items.forEach(item => {
             if (item instanceof UnitBuilder) {
                 item._current.units.forEach(unit => {
@@ -298,6 +288,20 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                         })
                     )
                 });
+            }
+
+            if (item instanceof ModifierBuilder) {
+                if(!this._gameEffects){
+                    this._gameEffects = new GameEffectNode();
+                }
+
+                item._gameEffects.modifiers.forEach(modifier => {
+                    this._current.traitModifiers.push(new TraitModifierNode({
+                        traitType: this.traitAbility.traitType,
+                        modifierId: modifier.id
+                    }));
+                    this._gameEffects.modifiers.push(modifier);
+                })
             }
 
             if (item instanceof ConstructibleBuilder) {
