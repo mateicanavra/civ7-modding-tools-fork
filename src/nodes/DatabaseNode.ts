@@ -40,6 +40,11 @@ import { AdjacencyYieldChangeNode } from "./AdjacencyYieldChangeNode";
 import { ConstructibleAdjacencyNode } from "./ConstructibleAdjacencyNode";
 import { WarehouseYieldChangeNode } from "./WarehouseYieldChangeNode";
 import { ConstructibleWarehouseYieldNode } from "./ConstructibleWarehouseYieldNode";
+import { ProgressionTreeAdvisoryNode } from "./ProgressionTreeAdvisoryNode";
+import { ProgressionTreeNode } from "./ProgressionTreeNode";
+import { ProgressionTreeNodeNode } from "./ProgressionTreeNodeNode";
+import { ProgressionTreeNodeUnlockNode } from "./ProgressionTreeNodeUnlockNode";
+import { ProgressionTreePrereqNode } from "./ProgressionTreePrereqNode";
 
 export type TDatabase = Pick<DatabaseNode,
     "civilizationItems" |
@@ -76,6 +81,11 @@ export type TDatabase = Pick<DatabaseNode,
     "adjacencyYieldChanges" |
     "constructibleAdjacencies" |
     "warehouseYieldChanges" |
+    "progressionTreeAdvisories" |
+    "progressionTrees" |
+    "progressionTreeNodes" |
+    "progressionTreeNodeUnlocks" |
+    "progressionTreePrereqs" |
     "constructibleWarehouseYields" |
     "visualRemaps"
 >;
@@ -107,6 +117,12 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     constructibleAdjacencies: ConstructibleAdjacencyNode[] = [];
     warehouseYieldChanges: WarehouseYieldChangeNode[] = [];
     constructibleWarehouseYields: ConstructibleWarehouseYieldNode[] = [];
+
+    progressionTreeAdvisories: ProgressionTreeAdvisoryNode[] = [];
+    progressionTrees: ProgressionTreeNode[] = [];
+    progressionTreeNodes: ProgressionTreeNodeNode[] = [];
+    progressionTreeNodeUnlocks: ProgressionTreeNodeUnlockNode[] = [];
+    progressionTreePrereqs: ProgressionTreePrereqNode[] = [];
 
     units: UnitNode[] = [];
     unitCosts: UnitCostNode[] = [];
@@ -142,6 +158,7 @@ export class DatabaseNode extends BaseNode<TDatabase> {
             adjacencyYieldChanges: 'Adjacency_YieldChanges',
             warehouseYieldChanges: 'Warehouse_YieldChanges',
             constructibleWarehouseYields: 'Constructible_WarehouseYields',
+            progressionTreeAdvisories: 'ProgressionTree_Advisories',
             unitCosts: 'Unit_Costs',
             unitStats: 'Unit_Stats',
         }
