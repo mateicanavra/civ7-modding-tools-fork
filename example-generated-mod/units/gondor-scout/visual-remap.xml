@@ -2,10 +2,10 @@
 <Database>
     <VisualRemaps>
         <Row>
-            <ID>REMAP_UNIT_CUSTOM_SCOUT</ID>
-            <DisplayName>LOC_UNIT_CUSTOM_SCOUT_NAME</DisplayName>
+            <ID>REMAP_UNIT_GONDOR_SCOUT</ID>
+            <DisplayName>LOC_UNIT_GONDOR_SCOUT_NAME</DisplayName>
             <Kind>UNIT</Kind>
-            <From>UNIT_CUSTOM_SCOUT</From>
+            <From>UNIT_GONDOR_SCOUT</From>
             <To>UNIT_ARMY_COMMANDER</To>
         </Row>
     </VisualRemaps>

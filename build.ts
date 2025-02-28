@@ -1,11 +1,11 @@
 import {
-    ACTION_GROUP_BUNDLE,
+    ACTION_GROUP_BUNDLE, ADVISORY, AGE,
     CivilizationBuilder, COLLECTION,
     CONSTRUCTIBLE_TYPE_TAG,
     ConstructibleBuilder,
     DISTRICT, EFFECT,
     ImportFileBuilder,
-    Mod, ModifierBuilder, REQUIREMENT,
+    Mod, ModifierBuilder, ProgressionTreeBuilder, ProgressionTreeNodeBuilder, REQUIREMENT,
     TAG_TRAIT, TRAIT,
     UNIT,
     UNIT_CLASS,
@@ -65,7 +65,7 @@ const unit = new UnitBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     typeTags: [UNIT_CLASS.RECON, UNIT_CLASS.RECON_ABILITIES],
     unit: {
-        unitType: 'UNIT_CUSTOM_SCOUT',
+        unitType: 'UNIT_GONDOR_SCOUT',
         baseMoves: 2,
         baseSightRange: 10,
     },
@@ -84,7 +84,7 @@ const unit = new UnitBuilder({
 const constructible = new ConstructibleBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     constructible: {
-        constructibleType: 'BUILDING_CUSTOM',
+        constructibleType: 'BUILDING_GONDOR',
     },
     building: {},
     typeTags: [
@@ -108,9 +108,77 @@ const constructible = new ConstructibleBuilder({
     ]
 });
 
+const progressionTreeNode = new ProgressionTreeNodeBuilder({
+    progressionTreeNode: {
+        progressionTreeNodeType: 'NODE_CIVICS_GONDOR1',
+    },
+    progressionTreeAdvisories: [ADVISORY.CLASS_FOOD],
+    localizations: [{
+        name: 'Civic name'
+    }]
+}).bind([
+    new ModifierBuilder({
+        modifier: {
+            collection: COLLECTION.OWNER,
+            effect: EFFECT.PLAYER_ADJUST_CONSTRUCTIBLE_YIELD,
+            arguments: [
+                { name: 'Tag', value: 'FOOD' },
+                { name: 'YieldType', value: 'YIELD_FOOD' },
+                { name: 'Amount', value: 10 },
+            ],
+        },
+        localizations: [{
+            description: '+10 Food'
+        }]
+    }),
+    constructible,
+    unit
+]);
+
+const progressionTreeNode2 = new ProgressionTreeNodeBuilder({
+    progressionTreeNode: {
+        progressionTreeNodeType: 'NODE_CIVICS_GONDOR2',
+    },
+    progressionTreeAdvisories: [ADVISORY.CLASS_FOOD],
+    localizations: [{
+        name: 'Civic name'
+    }]
+}).bind([
+    new ModifierBuilder({
+        modifier: {
+            collection: COLLECTION.OWNER,
+            effect: EFFECT.PLAYER_ADJUST_CONSTRUCTIBLE_YIELD,
+            arguments: [
+                { name: 'Tag', value: 'SCIENCE' },
+                { name: 'YieldType', value: 'YIELD_SCIENCE' },
+                { name: 'Amount', value: 10 },
+            ],
+        },
+        localizations: [{
+            description: '+10 science'
+        }]
+    }),
+]);
+
+const progressionTree = new ProgressionTreeBuilder({
+    actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
+    progressionTree: {
+        progressionTreeType: `TREE_CIVICS_GONDOR`,
+        ageType: AGE.ANTIQUITY
+    },
+    progressionTreePrereqs: [{
+        node: progressionTreeNode2.progressionTreeNode.progressionTreeNodeType,
+        prereqNode: progressionTreeNode.progressionTreeNode.progressionTreeNodeType
+    }],
+    localizations: [{
+        name: 'Tree name'
+    }]
+}).bind([progressionTreeNode, progressionTreeNode2]);
+
 civilization.bind([
     unit,
-    constructible
+    constructible,
+    progressionTree
 ]);
 
 mod.add([
@@ -119,6 +187,7 @@ mod.add([
     unit,
     unitIcon,
     constructible,
+    progressionTree
 ]);
 
-mod.build('./dist');
+mod.build('./example-generated-mod');

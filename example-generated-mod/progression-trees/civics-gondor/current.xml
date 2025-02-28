@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Database>
+    <Types>
+        <Row Type="TREE_CIVICS_GONDOR" Kind="KIND_TREE"/>
+        <Row Type="NODE_CIVICS_GONDOR1" Kind="KIND_TREE_NODE"/>
+        <Row Type="NODE_CIVICS_GONDOR2" Kind="KIND_TREE_NODE"/>
+    </Types>
+    <ProgressionTree_Advisories>
+        <Row ProgressionTreeNodeType="NODE_CIVICS_GONDOR1" AdvisoryClassType="ADVISORY_CLASS_FOOD"/>
+        <Row ProgressionTreeNodeType="NODE_CIVICS_GONDOR2" AdvisoryClassType="ADVISORY_CLASS_FOOD"/>
+    </ProgressionTree_Advisories>
+    <ProgressionTrees>
+        <Row ProgressionTreeType="TREE_CIVICS_GONDOR" AgeType="AGE_ANTIQUITY" SystemType="SYSTEM_CULTURE" Name="LOC_TREE_CIVICS_GONDOR_NAME"/>
+    </ProgressionTrees>
+    <ProgressionTreeNodes>
+        <Row ProgressionTreeNodeType="NODE_CIVICS_GONDOR1" ProgressionTree="TREE_CIVICS_GONDOR" Cost="150" Name="LOC_NODE_CIVICS_GONDOR1_NAME" IconString="cult_aksum"/>
+        <Row ProgressionTreeNodeType="NODE_CIVICS_GONDOR2" ProgressionTree="TREE_CIVICS_GONDOR" Cost="150" Name="LOC_NODE_CIVICS_GONDOR2_NAME" IconString="cult_aksum"/>
+    </ProgressionTreeNodes>
+    <ProgressionTreeNodeUnlocks>
+        <Row ProgressionTreeNodeType="NODE_CIVICS_GONDOR1" TargetKind="KIND_MODIFIER" TargetType="MOD_87FDEC4134294986ADE80C8657355261" UnlockDepth="1"/>
+        <Row ProgressionTreeNodeType="NODE_CIVICS_GONDOR1" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_GONDOR" UnlockDepth="1"/>
+        <Row ProgressionTreeNodeType="NODE_CIVICS_GONDOR1" TargetKind="KIND_UNIT" TargetType="UNIT_GONDOR_SCOUT" UnlockDepth="1"/>
+        <Row ProgressionTreeNodeType="NODE_CIVICS_GONDOR2" TargetKind="KIND_MODIFIER" TargetType="MOD_5FBA4C08B57648BA9CDE3EC1B93D783D" UnlockDepth="1"/>
+        <Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAIN_CHIEFDOM" TargetKind="KIND_MODIFIER" TargetType="MOD_TREE_CIVICS_GONDOR_REVEAL" UnlockDepth="1" Hidden="true"/>
+    </ProgressionTreeNodeUnlocks>
+    <ProgressionTreePrereqs>
+        <Row Node="NODE_CIVICS_GONDOR2" PrereqNode="NODE_CIVICS_GONDOR1"/>
+    </ProgressionTreePrereqs>
+</Database>
+<!-- generated with https://github.com/izica/civ7-modding-tools -->

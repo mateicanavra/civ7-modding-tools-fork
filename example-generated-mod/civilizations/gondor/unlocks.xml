@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Database>
+    <Kinds>
+        <InsertOrIgnore Kind="KIND_UNLOCK"/>
+    </Kinds>
+</Database>
+<!-- generated with https://github.com/izica/civ7-modding-tools -->

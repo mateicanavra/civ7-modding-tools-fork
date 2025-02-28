@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GameEffects xmlns="GameEffects">
+    <Modifier id="MOD_87FDEC4134294986ADE80C8657355261" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+        <Argument name="Tag">FOOD</Argument>
+        <Argument name="YieldType">YIELD_FOOD</Argument>
+        <Argument name="Amount">10</Argument>
+        <String context="Description">LOC_MOD_87FDEC4134294986ADE80C8657355261_DESCRIPTION</String>
+    </Modifier>
+    <Modifier id="MOD_5FBA4C08B57648BA9CDE3EC1B93D783D" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+        <Argument name="Tag">SCIENCE</Argument>
+        <Argument name="YieldType">YIELD_SCIENCE</Argument>
+        <Argument name="Amount">10</Argument>
+        <String context="Description">LOC_MOD_5FBA4C08B57648BA9CDE3EC1B93D783D_DESCRIPTION</String>
+    </Modifier>
+</GameEffects>
+<!-- generated with https://github.com/izica/civ7-modding-tools -->

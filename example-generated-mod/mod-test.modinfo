@@ -19,35 +19,39 @@
         </Criteria>
     </ActionCriteria>
     <ActionGroups>
-        <ActionGroup id="932f1122-1346-4fe4-a715-f4d7e1a58a0d" scope="game" criteria="age-antiquity-current">
+        <ActionGroup id="3888113e-ed9d-4d7a-b812-370639c2d803" scope="game" criteria="age-antiquity-current">
             <Actions>
                 <UpdateDatabase>
                     <Item>civilizations/gondor/current.xml</Item>
+                    <Item>civilizations/gondor/unlocks.xml</Item>
                     <Item>civilizations/gondor/game-effects.xml</Item>
-                    <Item>units/custom-scout/current.xml</Item>
+                    <Item>units/gondor-scout/current.xml</Item>
+                    <Item>progression-trees/civics-gondor/current.xml</Item>
+                    <Item>progression-trees/civics-gondor/game-effects.xml</Item>
                 </UpdateDatabase>
                 <UpdateVisualRemaps>
-                    <Item>units/custom-scout/visual-remap.xml</Item>
+                    <Item>units/gondor-scout/visual-remap.xml</Item>
                 </UpdateVisualRemaps>
                 <UpdateIcons>
-                    <Item>units/custom-scout/icons.xml</Item>
-                    <Item>constructibles/building-custom/icons.xml</Item>
+                    <Item>units/gondor-scout/icons.xml</Item>
+                    <Item>constructibles/building-gondor/icons.xml</Item>
                 </UpdateIcons>
             </Actions>
         </ActionGroup>
-        <ActionGroup id="e3bcef51-6bff-432e-ad31-b5d93c9c7ed1" scope="game" criteria="always">
+        <ActionGroup id="de64aacd-1764-4db9-bc0d-9c8cd783f80b" scope="game" criteria="always">
             <Actions>
                 <UpdateDatabase>
                     <Item>civilizations/gondor/legacy.xml</Item>
-                    <Item>constructibles/building-custom/always.xml</Item>
+                    <Item>constructibles/building-gondor/always.xml</Item>
                 </UpdateDatabase>
                 <UpdateIcons>
                     <Item>civilizations/gondor/icons.xml</Item>
                 </UpdateIcons>
                 <UpdateText>
                     <Item>civilizations/gondor/localization.xml</Item>
-                    <Item>units/custom-scout/localization.xml</Item>
-                    <Item>constructibles/building-custom/localization.xml</Item>
+                    <Item>units/gondor-scout/localization.xml</Item>
+                    <Item>constructibles/building-gondor/localization.xml</Item>
+                    <Item>progression-trees/civics-gondor/localization.xml</Item>
                 </UpdateText>
                 <ImportFiles>
                     <Item>imports/civ_sym_gondor</Item>
@@ -55,20 +59,21 @@
                 </ImportFiles>
             </Actions>
         </ActionGroup>
-        <ActionGroup id="2c1c1d3f-f029-4983-b610-8ec7f13394bd" scope="shell" criteria="always">
+        <ActionGroup id="7954facc-9f96-42ba-89ce-dec3780cad90" scope="shell" criteria="always">
             <Actions>
                 <UpdateDatabase>
                     <Item>civilizations/gondor/shell.xml</Item>
                 </UpdateDatabase>
                 <UpdateIcons>
                     <Item>civilizations/gondor/icons.xml</Item>
-                    <Item>units/custom-scout/icons.xml</Item>
-                    <Item>constructibles/building-custom/icons.xml</Item>
+                    <Item>units/gondor-scout/icons.xml</Item>
+                    <Item>constructibles/building-gondor/icons.xml</Item>
                 </UpdateIcons>
                 <UpdateText>
                     <Item>civilizations/gondor/localization.xml</Item>
-                    <Item>units/custom-scout/localization.xml</Item>
-                    <Item>constructibles/building-custom/localization.xml</Item>
+                    <Item>units/gondor-scout/localization.xml</Item>
+                    <Item>constructibles/building-gondor/localization.xml</Item>
+                    <Item>progression-trees/civics-gondor/localization.xml</Item>
                 </UpdateText>
                 <ImportFiles>
                     <Item>imports/civ_sym_gondor</Item>

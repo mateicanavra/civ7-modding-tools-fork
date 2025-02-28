@@ -19,6 +19,9 @@
         <Row Tag="LOC_CIVILIZATION_GONDOR_ABILITY_DESCRIPTION">
             <Text>text</Text>
         </Row>
+        <Row Tag="LOC_CIVILIZATION_GONDOR_UNLOCK_PLAY_AS">
+            <Text>Play as [B]Something[/B].</Text>
+        </Row>
         <Row Tag="LOC_CIVILIZATION_GONDOR_CITY_NAMES_1">
             <Text>Gondor</Text>
         </Row>
