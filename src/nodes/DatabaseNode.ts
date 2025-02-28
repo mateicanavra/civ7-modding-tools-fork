@@ -36,6 +36,10 @@ import { RequirementArgumentNode } from "./RequirementArgumentNode";
 import { RequirementSetRequirementNode } from "./RequirementSetRequirementNode";
 import { UnlockRequirementNode } from "./UnlockRequirementNode";
 import { UnlockConfigurationValueNode } from "./UnlockConfigurationValueNode";
+import { AdjacencyYieldChangeNode } from "./AdjacencyYieldChangeNode";
+import { ConstructibleAdjacencyNode } from "./ConstructibleAdjacencyNode";
+import { WarehouseYieldChangeNode } from "./WarehouseYieldChangeNode";
+import { ConstructibleWarehouseYieldNode } from "./ConstructibleWarehouseYieldNode";
 
 export type TDatabase = Pick<DatabaseNode,
     "civilizationItems" |
@@ -69,6 +73,10 @@ export type TDatabase = Pick<DatabaseNode,
     "requirementArguments" |
     "requirementSetRequirements" |
     "unlockRewards" |
+    "adjacencyYieldChanges" |
+    "constructibleAdjacencies" |
+    "warehouseYieldChanges" |
+    "constructibleWarehouseYields" |
     "visualRemaps"
 >;
 
@@ -95,6 +103,10 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     constructibleMaintenances: ConstructibleMaintenanceNode[] = [];
     constructibleValidDistricts: ConstructibleValidDistrictNode[] = [];
     constructibleYieldChanges: ConstructibleYieldChangeNode[] = [];
+    adjacencyYieldChanges: AdjacencyYieldChangeNode[] = [];
+    constructibleAdjacencies: ConstructibleAdjacencyNode[] = [];
+    warehouseYieldChanges: WarehouseYieldChangeNode[] = [];
+    constructibleWarehouseYields: ConstructibleWarehouseYieldNode[] = [];
 
     units: UnitNode[] = [];
     unitCosts: UnitCostNode[] = [];
@@ -126,6 +138,10 @@ export class DatabaseNode extends BaseNode<TDatabase> {
             constructibleMaintenances: 'Constructible_Maintenances',
             constructibleValidDistricts: 'Constructible_ValidDistricts',
             constructibleYieldChanges: 'Constructible_YieldChanges',
+            constructibleAdjacencies: 'Constructible_Adjacencies',
+            adjacencyYieldChanges: 'Adjacency_YieldChanges',
+            warehouseYieldChanges: 'Warehouse_YieldChanges',
+            constructibleWarehouseYields: 'Constructible_WarehouseYields',
             unitCosts: 'Unit_Costs',
             unitStats: 'Unit_Stats',
         }
