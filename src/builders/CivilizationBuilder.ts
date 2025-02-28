@@ -14,7 +14,7 @@ import {
     KindNode,
     LegacyCivilizationNode,
     LegacyCivilizationTraitNode,
-    ModifierNode,
+    ModifierNode, ProgressionTreeNodeUnlockNode,
     RequirementArgumentNode,
     RequirementNode,
     RequirementSetNode,
@@ -29,12 +29,13 @@ import {
     TraitModifierNode,
     TraitNode,
     TTraitNode,
-    TypeNode, UnlockConfigurationValueNode,
+    TypeNode,
+    UnlockConfigurationValueNode,
     UnlockNode,
     UnlockRequirementNode,
     UnlockRewardNode
 } from "../nodes";
-import { ACTION_GROUP_ACTION, AGE, KIND, REQUIREMENT, REQUIREMENT_SET, TAG_TRAIT, TRAIT } from "../constants";
+import { ACTION_GROUP_ACTION, AGE, EFFECT, KIND, REQUIREMENT, REQUIREMENT_SET, TAG_TRAIT, TRAIT } from "../constants";
 import { locale } from "../utils";
 import { XmlFile } from "../files";
 import { CivilizationLocalization, TCivilizationLocalization } from "../localizations";
@@ -42,6 +43,7 @@ import { CivilizationLocalization, TCivilizationLocalization } from "../localiza
 import { BaseBuilder } from "./BaseBuilder";
 import { UnitBuilder } from "./UnitBuilder";
 import { ConstructibleBuilder } from "./ConstructibleBuilder";
+import { ProgressionTreeBuilder } from "./ProgressionTreeBuilder";
 
 type TCivilizationBuilder = TClassProperties<CivilizationBuilder>
 
@@ -279,7 +281,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
      * @description Bind entity as unique to this civilization
      * @param items
      */
-    bind(items: (UnitBuilder | ConstructibleBuilder)[] = []) {
+    bind(items: (UnitBuilder | ConstructibleBuilder | ProgressionTreeBuilder)[] = []) {
         items.forEach(item => {
             if (item instanceof UnitBuilder) {
                 item._current.units.forEach(unit => {
@@ -314,6 +316,34 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                         })
                     )
                 });
+            }
+
+            if (item instanceof ProgressionTreeBuilder) {
+                item._current.progressionTrees.forEach(progressionTree => {
+                    this._gameEffects.modifiers.push(new ModifierNode({
+                        id: `MOD_${progressionTree.progressionTreeType}_REVEAL`,
+                        effect: EFFECT.PLAYER_REVEAL_CULTURE_TREE,
+                        requirements: [{
+                            type: REQUIREMENT.PLAYER_HAS_CIVILIZATION_OR_LEADER_TRAIT,
+                            arguments: [{
+                                name: 'TraitType',
+                                value: this.trait.traitType
+                            }]
+                        }],
+                        arguments: [{
+                            name: 'ProgressionTreeType',
+                            value: progressionTree.progressionTreeType
+                        }]
+                    }));
+
+                    item._current.progressionTreeNodeUnlocks.push(new ProgressionTreeNodeUnlockNode({
+                        progressionTreeNodeType: 'NODE_CIVIC_AQ_MAIN_CHIEFDOM',
+                        targetKind: KIND.MODIFIER,
+                        targetType: `MOD_${progressionTree.progressionTreeType}_REVEAL`,
+                        unlockDepth: 1,
+                        hidden: true
+                    }));
+                })
             }
         });
         return this;

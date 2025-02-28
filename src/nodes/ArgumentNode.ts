@@ -15,7 +15,7 @@ export class ArgumentNode extends BaseNode<TArgumentNode> {
 
     toXmlElement() {
         return {
-            _name: this.name,
+            _name: this._name,
             _attrs: {
                 name: this.name,
             },
