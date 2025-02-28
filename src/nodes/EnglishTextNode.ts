@@ -3,6 +3,7 @@ import { BaseNode } from "./BaseNode";
 export type TEnglishTextNode = Pick<EnglishTextNode, "tag" | "text">;
 
 export class EnglishTextNode extends BaseNode<TEnglishTextNode> {
+    _name = 'Row';
     tag = 'LOC_';
     text: string | number = 'text'
 
@@ -13,7 +14,7 @@ export class EnglishTextNode extends BaseNode<TEnglishTextNode> {
 
     toXmlElement() {
         return {
-            _name: 'Row',
+            _name: this._name,
             _attrs: {
                 Tag: this.tag,
             },

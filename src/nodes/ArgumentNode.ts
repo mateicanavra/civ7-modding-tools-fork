@@ -3,6 +3,8 @@ import { BaseNode } from "./BaseNode";
 export type TArgumentNode = Pick<ArgumentNode, "name" | "value">;
 
 export class ArgumentNode extends BaseNode<TArgumentNode> {
+    _name = 'Argument';
+
     name: string = '';
     value: string | number = '';
 
@@ -13,7 +15,7 @@ export class ArgumentNode extends BaseNode<TArgumentNode> {
 
     toXmlElement() {
         return {
-            _name: 'Argument',
+            _name: this.name,
             _attrs: {
                 name: this.name,
             },

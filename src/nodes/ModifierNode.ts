@@ -5,7 +5,7 @@ import { COLLECTION, EFFECT } from "../constants";
 
 import { BaseNode } from "./BaseNode";
 import { ArgumentNode, TArgumentNode } from "./ArgumentNode";
-import { RequirementNode, TRequirementNode } from "./RequirementNode";
+import { ModifierRequirementNode, TModifierRequirementNode } from "./ModifierRequirementNode";
 
 export type TModifierNode = Pick<ModifierNode,
     "id" |
@@ -18,11 +18,13 @@ export type TModifierNode = Pick<ModifierNode,
 >;
 
 export class ModifierNode extends BaseNode<TModifierNode> {
+    _name = 'Modifier';
+
     id: string = randomUUID();
     collection: TObjectValues<typeof COLLECTION> = COLLECTION.OWNER;
     effect: TObjectValues<typeof EFFECT> = EFFECT.CITY_ADJUST_YIELD_PER_RESOURCE;
     arguments: TArgumentNode[] = [];
-    requirements: TRequirementNode[] = [];
+    requirements: TModifierRequirementNode[] = [];
     permanent: boolean | null = null;
     runOnce: boolean | null = null;
 
@@ -38,13 +40,13 @@ export class ModifierNode extends BaseNode<TModifierNode> {
             }
         }
         this.arguments = this.arguments.map(item => new ArgumentNode(item));
-        this.requirements = this.requirements.map(item => new RequirementNode(item));
+        this.requirements = this.requirements.map(item => new ModifierRequirementNode(item));
         return this;
     }
 
     toXmlElement() {
         return {
-            _name: 'Modifier',
+            _name: this._name,
             _attrs: {
                 id: this.id,
                 collection: this.collection,
@@ -55,7 +57,7 @@ export class ModifierNode extends BaseNode<TModifierNode> {
             _content: [
                 {
                     _name: 'SubjectRequirements',
-                    _content: this.requirements.map(item => new RequirementNode(item).toXmlElement())
+                    _content: this.requirements.map(item => new ModifierRequirementNode(item).toXmlElement())
                 },
                 ...this.arguments.map(item => new ArgumentNode(item).toXmlElement())
             ]

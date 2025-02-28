@@ -18,7 +18,7 @@ export class BaseNode<T extends Object = object> {
         Object.keys(this)
             .filter(key => !key.startsWith('_'))
             .forEach(key => {
-                if(['fill'].includes(key)){
+                if (['fill'].includes(key)) {
                     return;
                 }
                 if (this[key] === null || this[key] === undefined || this[key] === '') {
@@ -33,6 +33,16 @@ export class BaseNode<T extends Object = object> {
                 result[nodeAttributeName] = this[key]
             });
         return result;
+    }
+
+    insertOrIgnore() {
+        if (!['Row', 'InsertOrIgnore'].includes(this._name)) {
+            throw new Error('Only Row|InsertOrIgnore nodes can be transformed to InsertOrIgnore.');
+        }
+
+        this._name = 'InsertOrIgnore';
+
+        return this;
     }
 
     toXmlElement(): XmlElement | XmlElement[] {

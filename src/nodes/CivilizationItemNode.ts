@@ -14,7 +14,7 @@ export type TCivilizationItemNode = Pick<CivilizationItemNode,
 
 export class CivilizationItemNode extends BaseNode<TCivilizationItemNode> {
     civilizationDomain = '';
-    civilizationType = '';
+    civilizationType: `CIVILIZATION_${string}` = 'CIVILIZATION_';
     type = '';
     kind: TObjectValues<typeof KIND> = KIND.UNIT;
     name: string = '';

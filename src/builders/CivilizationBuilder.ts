@@ -6,21 +6,26 @@ import {
     CivilizationNode,
     CivilizationTagNode,
     CivilizationTraitNode,
+    CivilizationUnlockNode,
     DatabaseNode,
     GameCivilizationNodeSlice,
     GameEffectNode,
     IconDefinitionNode,
+    KindNode,
     LegacyCivilizationNode,
     LegacyCivilizationTraitNode,
     ModifierNode,
     ShellCivilizationNodeSlice,
+    TCivilizationItemNode,
     TCivilizationNode,
+    TCivilizationUnlockNode,
     TIconDefinitionNode,
     TLegacyCivilizationNode,
     TModifierNode,
     TraitModifierNode,
     TraitNode,
-    TypeNode
+    TTraitNode,
+    TypeNode, UnlockNode, UnlockRewardNode
 } from "../nodes";
 import { ACTION_GROUP_ACTION, AGE, KIND, TAG_TRAIT, TRAIT } from "../constants";
 import { locale } from "../utils";
@@ -39,12 +44,13 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
     _legacy: DatabaseNode = new DatabaseNode();
     _localizations: DatabaseNode = new DatabaseNode();
     _icons: DatabaseNode = new DatabaseNode();
+    _unlocks: DatabaseNode = new DatabaseNode();
     _gameEffects: GameEffectNode | null = null;
 
     civilizationTraits: (TObjectValues<typeof TRAIT> | string)[] = [];
     civilizationTags: TObjectValues<typeof TAG_TRAIT>[] = [];
 
-    trait: TPartialWithRequired<TraitNode, 'traitType'> = { traitType: 'TRAIT_' };
+    trait: TPartialWithRequired<TTraitNode, 'traitType'> = { traitType: 'TRAIT_' };
     traitAbility: TPartialWithRequired<TraitNode, 'traitType'> = { traitType: 'TRAIT_ABILITY_' };
     civilization: TPartialWithRequired<TCivilizationNode, 'civilizationType' | 'domain'> = {
         civilizationType: 'CIVILIZATION_CUSTOM',
@@ -53,7 +59,8 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
     civilizationLegacy: TPartialWithRequired<TLegacyCivilizationNode, 'age'> = { age: AGE.ANTIQUITY }
     localizations: Partial<TCivilizationLocalization>[] = [];
     icon: TPartialWithRequired<TIconDefinitionNode, 'path'> = { path: 'fs://game/civ_sym_han' }
-    civilizationItems: TPartialWithRequired<CivilizationItemNode, "type" | "kind">[] = [];
+    civilizationItems: TPartialWithRequired<TCivilizationItemNode, "type" | "kind">[] = [];
+    civilizationUnlocks: TPartialWithRequired<TCivilizationUnlockNode, "type">[] = [];
     modifiers: Partial<TModifierNode>[] = [];
 
     constructor(payload: Partial<TCivilizationBuilder> = {}) {
@@ -82,10 +89,10 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
             ...this.civilization,
         });
 
-        const trait =  new TraitNode({
-                internalOnly: true,
-                ...this.trait
-            });
+        const trait = new TraitNode({
+            internalOnly: true,
+            ...this.trait
+        });
 
         const traitAbility = new TraitNode({
             name: locale(this.civilization.civilizationType + '_ABILITY', 'name'),
@@ -149,8 +156,42 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                         ...item
                     })
                 })
-            ]
+            ],
+            civilizationUnlocks: this.civilizationUnlocks.map(item => {
+                return new CivilizationUnlockNode({
+                    ...civilization,
+                    civilizationDomain: civilization.domain,
+                    name: locale(item.type, 'name'),
+                    description: locale(item.type, 'description'),
+                    icon: item.type,
+                    ...item
+                })
+            })
         })
+
+        this._unlocks.fill({
+            kinds: [new KindNode({ kind: KIND.UNLOCK }).insertOrIgnore()],
+            types: this.civilizationUnlocks.map(item => {
+                return new TypeNode({
+                    type: `UNLOCK_${item.type}`,
+                    kind: KIND.UNLOCK
+                }).insertOrIgnore();
+            }),
+            unlocks: this.civilizationUnlocks.map(item => {
+                return new UnlockNode({
+                    unlockType: `UNLOCK_${item.type}`,
+                }).insertOrIgnore();
+            }),
+            unlockRewards: this.civilizationUnlocks.map(item => {
+                return new UnlockRewardNode({
+                    unlockType: `UNLOCK_${item.type}`,
+                    name: locale(item.type, 'name'),
+                    description: 'LOC_UNLOCK_EXPLORATION_CIV_DESCRIPTION', // TODO what is the best way to do it?,
+                    icon: item.type,
+                    civUnlock: true
+                }).insertOrIgnore();
+            })
+        });
 
         this._legacy.fill({
             types: [
@@ -186,7 +227,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
             }).flatMap(item => item.getNodes())
         });
 
-        if(this.modifiers.length > 0){
+        if (this.modifiers.length > 0) {
             const modifiers = this.modifiers.map(item => {
                 return new ModifierNode(item);
             });
@@ -254,6 +295,13 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                 path,
                 name: 'current.xml',
                 content: this._current.toXmlElement(),
+                actionGroups: [this.actionGroupBundle.current],
+                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
+            }),
+            new XmlFile({
+                path,
+                name: 'unlocks.xml',
+                content: this._unlocks.toXmlElement(),
                 actionGroups: [this.actionGroupBundle.current],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
             }),

@@ -4,6 +4,7 @@ import { ModifierNode } from "./ModifierNode";
 export type TGameEffectNode = Pick<GameEffectNode, "modifiers">;
 
 export class GameEffectNode extends BaseNode<TGameEffectNode> {
+    _name = 'GameEffects';
     modifiers: ModifierNode[] = [];
 
     constructor(payload: Partial<TGameEffectNode> = {}) {
@@ -13,7 +14,7 @@ export class GameEffectNode extends BaseNode<TGameEffectNode> {
 
     toXmlElement() {
         return {
-            _name: 'GameEffects',
+            _name: this._name,
             _attrs: {
                 xmlns: "GameEffects",
             },

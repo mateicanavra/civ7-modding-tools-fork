@@ -26,6 +26,10 @@ import { BuildingNode } from "./BuildingNode";
 import { ShellCivilizationNodeSlice } from "./slices/ShellCivilizationNodeSlice";
 import { GameCivilizationNodeSlice } from "./slices/GameCivilizationNodeSlice";
 import { TraitModifierNode } from "./TraitModifierNode";
+import { CivilizationUnlockNode } from "./CivilizationUnlockNode";
+import { KindNode } from "./KindNode";
+import { UnlockNode } from "./UnlockNode";
+import { UnlockRewardNode } from "./UnlockRewardNode";
 
 export type TDatabase = Pick<DatabaseNode,
     "civilizationItems" |
@@ -40,20 +44,27 @@ export type TDatabase = Pick<DatabaseNode,
     "iconDefinitions" |
     "legacyCivilizationTraits" |
     "legacyCivilizations" |
+    "civilizationUnlocks" |
     "tags" |
     "traitModifiers" |
     "traits" |
     "typeTags" |
+    "kinds" |
     "types" |
     "unitCosts" |
     "buildings" |
     "unitReplaces" |
     "unitStats" |
     "units" |
+    "unlocks" |
+    "unlockRewards" |
     "visualRemaps"
 >;
 
 export class DatabaseNode extends BaseNode<TDatabase> {
+    _name = 'Database';
+
+    kinds: KindNode[] = [];
     types: TypeNode[] = [];
     tags: TagNode[] = [];
     typeTags: TypeTagNode[] = [];
@@ -64,6 +75,7 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     civilizationItems: CivilizationItemNode[] = [];
     civilizationTags: CivilizationTagNode[] = [];
     civilizationTraits: CivilizationTraitNode[] = [];
+    civilizationUnlocks: CivilizationUnlockNode[] = [];
     legacyCivilizationTraits: LegacyCivilizationTraitNode[] = [];
     legacyCivilizations: LegacyCivilizationNode[] = [];
 
@@ -81,6 +93,9 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     englishText: EnglishTextNode[] = [];
     iconDefinitions: IconDefinitionNode[] = [];
     visualRemaps: VisualRemapNode[] = [];
+
+    unlocks: UnlockNode[] = [];
+    unlockRewards: UnlockRewardNode[] = [];
 
     constructor(payload: Partial<TDatabase> = {}) {
         super();

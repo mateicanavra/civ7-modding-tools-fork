@@ -27,7 +27,11 @@ export { ConstructibleValidDistrictNode, TConstructibleValidDistrictNode } from 
 export { ArgumentNode, TArgumentNode } from './ArgumentNode';
 export { GameEffectNode, TGameEffectNode } from './GameEffectNode';
 export { ModifierNode, TModifierNode } from './ModifierNode';
-export { RequirementNode, TRequirementNode } from './RequirementNode';
+export { ModifierRequirementNode, TModifierRequirementNode } from './ModifierRequirementNode';
+export { CivilizationUnlockNode, TCivilizationUnlockNode } from './CivilizationUnlockNode';
+export { KindNode, TKindNode } from './KindNode';
+export { UnlockNode, TUnlockNode } from './UnlockNode';
+export { UnlockRewardNode, TUnlockRewardNode } from './UnlockRewardNode';
 
 export { ShellCivilizationNodeSlice, TShellCivilizationNodeSlice } from './slices/ShellCivilizationNodeSlice';
 export { GameCivilizationNodeSlice, TGameCivilizationNodeSlice } from './slices/GameCivilizationNodeSlice';

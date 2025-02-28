@@ -8,6 +8,8 @@ import { AGE } from "../constants";
 export type TCriteriaNode = Pick<CriteriaNode, "id" | "any" | "ages">;
 
 export class CriteriaNode extends BaseNode<TCriteriaNode> {
+    _name = 'Criteria';
+
     id: string = randomUUID();
     ages: TObjectValues<typeof AGE>[] = [];
     any: boolean | null = null;
@@ -19,7 +21,7 @@ export class CriteriaNode extends BaseNode<TCriteriaNode> {
 
     toXmlElement() {
         return {
-            _name: 'Criteria',
+            _name: this._name,
             _attrs: {
                 id: this.id,
                 ...(this.any ? { any: "true" } : {}),
