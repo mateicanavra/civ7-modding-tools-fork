@@ -6,9 +6,11 @@ import { COLLECTION, EFFECT } from "../constants";
 import { BaseNode } from "./BaseNode";
 import { ArgumentNode, TArgumentNode } from "./ArgumentNode";
 import { ModifierRequirementNode, TModifierRequirementNode } from "./ModifierRequirementNode";
+import { StringNode, TStringNode } from "./StringNode";
 
 export type TModifierNode = Pick<ModifierNode,
     "id" |
+    "strings" |
     "collection" |
     "effect" |
     "arguments" |
@@ -20,11 +22,12 @@ export type TModifierNode = Pick<ModifierNode,
 export class ModifierNode extends BaseNode<TModifierNode> {
     _name = 'Modifier';
 
-    id: string = randomUUID();
+    id: string = `MOD_` +randomUUID().split('-').join('').toLocaleUpperCase();
     collection: TObjectValues<typeof COLLECTION> = COLLECTION.OWNER;
     effect: TObjectValues<typeof EFFECT> = EFFECT.CITY_ADJUST_YIELD_PER_RESOURCE;
     arguments: TArgumentNode[] = [];
     requirements: TModifierRequirementNode[] = [];
+    strings: TStringNode[] = [];
     permanent: boolean | null = null;
     runOnce: boolean | null = null;
 
@@ -59,7 +62,8 @@ export class ModifierNode extends BaseNode<TModifierNode> {
                     _name: 'SubjectRequirements',
                     _content: this.requirements.map(item => new ModifierRequirementNode(item).toXmlElement())
                 },
-                ...this.arguments.map(item => new ArgumentNode(item).toXmlElement())
+                ...this.arguments.map(item => new ArgumentNode(item).toXmlElement()),
+                ...this.strings.map(item => new StringNode(item).toXmlElement()),
             ]
         }
     }

@@ -14,6 +14,7 @@ type TProgressionTreeBuilder = TClassProperties<ProgressionTreeBuilder>
 export class ProgressionTreeBuilder extends BaseBuilder<TProgressionTreeBuilder> {
     _current: DatabaseNode = new DatabaseNode();
     _gameEffects: GameEffectNode = new GameEffectNode();
+    _localizations: DatabaseNode = new DatabaseNode();
 
     progressionTree: TPartialWithRequired<TProgressionTreeNode, 'progressionTreeType' | 'ageType'> = {
         progressionTreeType: 'TREE_CIVICS_CUSTOM',
@@ -38,6 +39,15 @@ export class ProgressionTreeBuilder extends BaseBuilder<TProgressionTreeBuilder>
 
     bind(items: ProgressionTreeNodeBuilder[]) {
         items.forEach(item => {
+            item._current.progressionTreeNodes.forEach(item => {
+                item.fill({
+                    progressionTree: this.progressionTree.progressionTreeType,
+                });
+            })
+            this._current.types = [
+                ...this._current.types,
+                ...item._current.types,
+            ];
             this._current.progressionTreeNodes = [
                 ...this._current.progressionTreeNodes,
                 ...item._current.progressionTreeNodes,
@@ -57,6 +67,11 @@ export class ProgressionTreeBuilder extends BaseBuilder<TProgressionTreeBuilder>
             this._gameEffects.modifiers = [
                 ...this._gameEffects.modifiers,
                 ...item._gameEffects.modifiers
+            ];
+
+            this._localizations.englishText = [
+                ...this._localizations.englishText,
+                ...item._localizations.englishText
             ];
         })
         return this;
@@ -78,6 +93,13 @@ export class ProgressionTreeBuilder extends BaseBuilder<TProgressionTreeBuilder>
                 content: this._gameEffects?.toXmlElement(),
                 actionGroups: [this.actionGroupBundle.current],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
+            }),
+            new XmlFile({
+                path,
+                name: 'localization.xml',
+                content: this._localizations.toXmlElement(),
+                actionGroups: [this.actionGroupBundle.shell, this.actionGroupBundle.always],
+                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_TEXT]
             }),
         ];
     }

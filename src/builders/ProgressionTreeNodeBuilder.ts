@@ -1,31 +1,23 @@
 import { TClassProperties, TObjectValues, TPartialWithRequired } from "../types";
-import {
-    DatabaseNode,
-    GameEffectNode,
-    ModifierNode,
-    ProgressionTreeAdvisoryNode,
-    ProgressionTreeNodeNode,
-    ProgressionTreeNodeUnlockNode,
-    TModifierNode,
-    TProgressionTreeNodeNode,
-    TypeNode
-} from "../nodes";
+import { DatabaseNode, GameEffectNode, ProgressionTreeAdvisoryNode, ProgressionTreeNodeNode, ProgressionTreeNodeUnlockNode, TProgressionTreeNodeNode, TypeNode } from "../nodes";
 import { ADVISORY, KIND } from "../constants";
 
 import { BaseBuilder } from "./BaseBuilder";
 import { locale } from "../utils";
+import { ModifierBuilder } from "./ModifierBuilder";
 
 type TProgressionTreeNodeBuilder = TClassProperties<ProgressionTreeNodeBuilder>
 
 export class ProgressionTreeNodeBuilder extends BaseBuilder<TProgressionTreeNodeBuilder> {
     _current: DatabaseNode = new DatabaseNode();
+    _localizations: DatabaseNode = new DatabaseNode();
     _gameEffects: GameEffectNode = new GameEffectNode();
+
 
     progressionTreeNode: TPartialWithRequired<TProgressionTreeNodeNode, 'progressionTreeNodeType'> = {
         progressionTreeNodeType: 'NODE_CIVIC_'
     }
     progressionTreeAdvisories: TObjectValues<typeof ADVISORY>[] = [];
-    modifiers: Partial<TModifierNode>[] = [];
 
     constructor(payload: Partial<TProgressionTreeNodeBuilder> = {}) {
         super();
@@ -47,23 +39,28 @@ export class ProgressionTreeNodeBuilder extends BaseBuilder<TProgressionTreeNode
                 });
             }),
         })
+    }
 
-        if (this.modifiers.length > 0) {
-            this._gameEffects = new GameEffectNode({
-                modifiers: this.modifiers.map(item => {
-                    return new ModifierNode(item);
-                })
-            });
+    bind(item: ModifierBuilder, unlockDepth = 1){
+        if(item instanceof ModifierBuilder) {
+            item._gameEffects.modifiers.forEach((modifier) => {
+                this._gameEffects.modifiers.push(modifier);
 
-            this._gameEffects.modifiers.forEach(modifier => {
                 this._current.progressionTreeNodeUnlocks.push(new ProgressionTreeNodeUnlockNode({
                     progressionTreeNodeType: this.progressionTreeNode.progressionTreeNodeType,
                     targetKind: KIND.MODIFIER,
                     targetType: modifier.id,
-                    unlockDepth: 1
+                    unlockDepth: unlockDepth
                 }));
-            })
+            });
+
+            this._localizations.englishText = [
+                ...this._localizations.englishText,
+                ...item._localizations.englishText
+            ];
         }
+
+        return this;
     }
 
     build() {
