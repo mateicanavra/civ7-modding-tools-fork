@@ -33,7 +33,7 @@ export function createGodConstructible(actionGroupBundle: ActionGroupBundle) {
             { yieldType: YIELD.GOLD, amount: 1 },
         ],
         localizations: [
-            { name: 'GOD BUILDING', description: '', tooltip: '' },
+            { name: 'GOD BUILDING', description: 'ONLY FOR TESTING', tooltip: 'ONLY FOR TESTING' },
         ]
     });
 }
