@@ -45,6 +45,8 @@ import { ProgressionTreeNode } from "./ProgressionTreeNode";
 import { ProgressionTreeNodeNode } from "./ProgressionTreeNodeNode";
 import { ProgressionTreeNodeUnlockNode } from "./ProgressionTreeNodeUnlockNode";
 import { ProgressionTreePrereqNode } from "./ProgressionTreePrereqNode";
+import { TraditionNode } from "./TraditionNode";
+import { TraditionModifierNode } from "./TraditionModifierNode";
 
 export type TDatabase = Pick<DatabaseNode,
     "civilizationItems" |
@@ -85,6 +87,8 @@ export type TDatabase = Pick<DatabaseNode,
     "progressionTrees" |
     "progressionTreeNodes" |
     "progressionTreeNodeUnlocks" |
+    "traditions" |
+    "traditionModifiers" |
     "progressionTreePrereqs" |
     "constructibleWarehouseYields" |
     "visualRemaps"
@@ -123,6 +127,9 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     progressionTreeNodes: ProgressionTreeNodeNode[] = [];
     progressionTreeNodeUnlocks: ProgressionTreeNodeUnlockNode[] = [];
     progressionTreePrereqs: ProgressionTreePrereqNode[] = [];
+
+    traditions: TraditionNode[] = [];
+    traditionModifiers: TraditionModifierNode[] = [];
 
     units: UnitNode[] = [];
     unitCosts: UnitCostNode[] = [];

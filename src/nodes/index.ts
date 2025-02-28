@@ -44,6 +44,8 @@ export { UnlockRequirementNode, TUnlockRequirementNode } from './UnlockRequireme
 export { UnlockRewardNode, TUnlockRewardNode } from './UnlockRewardNode';
 export { VisualRemapNode, TVisualRemapNode } from './VisualRemapNode';
 export { StringNode, TStringNode } from './StringNode';
+export { TraditionNode, TTraditionNode } from './TraditionNode';
+export { TraditionModifierNode, TTraditionModifierNode } from './TraditionModifierNode';
 
 export { ShellCivilizationNodeSlice, TShellCivilizationNodeSlice } from './slices/ShellCivilizationNodeSlice';
 export { GameCivilizationNodeSlice, TGameCivilizationNodeSlice } from './slices/GameCivilizationNodeSlice';

@@ -8,6 +8,7 @@ import { ModifierBuilder } from "./ModifierBuilder";
 import { ConstructibleBuilder } from "./ConstructibleBuilder";
 import { UnitBuilder } from "./UnitBuilder";
 import { ProgressionTreeNodeLocalization, TProgressionTreeNodeLocalization } from "../localizations";
+import { TraditionBuilder } from "./TraditionBuilder";
 
 type TProgressionTreeNodeBuilder = TClassProperties<ProgressionTreeNodeBuilder>
 
@@ -53,7 +54,7 @@ export class ProgressionTreeNodeBuilder extends BaseBuilder<TProgressionTreeNode
         });
     }
 
-    bind(items: (ModifierBuilder | ConstructibleBuilder | UnitBuilder)[], unlockDepth = 1) {
+    bind(items: (ModifierBuilder | ConstructibleBuilder | UnitBuilder | TraditionBuilder)[], unlockDepth = 1) {
         items.forEach(item => {
             if (item instanceof ModifierBuilder) {
                 item._gameEffects.modifiers.forEach((modifier) => {
@@ -90,6 +91,17 @@ export class ProgressionTreeNodeBuilder extends BaseBuilder<TProgressionTreeNode
                         progressionTreeNodeType: this.progressionTreeNode.progressionTreeNodeType,
                         targetKind: KIND.UNIT,
                         targetType: unit.unitType,
+                        unlockDepth: unlockDepth
+                    }));
+                });
+            }
+
+            if (item instanceof TraditionBuilder) {
+                item._current.traditions.forEach((tradition) => {
+                    this._current.progressionTreeNodeUnlocks.push(new ProgressionTreeNodeUnlockNode({
+                        progressionTreeNodeType: this.progressionTreeNode.progressionTreeNodeType,
+                        targetKind: KIND.TRADITION,
+                        targetType: tradition.traditionType,
                         unlockDepth: unlockDepth
                     }));
                 });

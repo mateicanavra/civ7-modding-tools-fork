@@ -19,7 +19,7 @@
         </Criteria>
     </ActionCriteria>
     <ActionGroups>
-        <ActionGroup id="3888113e-ed9d-4d7a-b812-370639c2d803" scope="game" criteria="age-antiquity-current">
+        <ActionGroup id="37dd7f3f-9f82-4911-936a-f6f180c03c55" scope="game" criteria="age-antiquity-current">
             <Actions>
                 <UpdateDatabase>
                     <Item>civilizations/gondor/current.xml</Item>
@@ -38,7 +38,7 @@
                 </UpdateIcons>
             </Actions>
         </ActionGroup>
-        <ActionGroup id="de64aacd-1764-4db9-bc0d-9c8cd783f80b" scope="game" criteria="always">
+        <ActionGroup id="79c35646-93bc-48df-9579-0f1cbadc5560" scope="game" criteria="always">
             <Actions>
                 <UpdateDatabase>
                     <Item>civilizations/gondor/legacy.xml</Item>
@@ -59,7 +59,7 @@
                 </ImportFiles>
             </Actions>
         </ActionGroup>
-        <ActionGroup id="7954facc-9f96-42ba-89ce-dec3780cad90" scope="shell" criteria="always">
+        <ActionGroup id="7f00baf9-d371-401f-88a6-e776d5f55ab0" scope="shell" criteria="always">
             <Actions>
                 <UpdateDatabase>
                     <Item>civilizations/gondor/shell.xml</Item>

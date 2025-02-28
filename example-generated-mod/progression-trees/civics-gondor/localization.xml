@@ -7,13 +7,13 @@
         <Row Tag="LOC_NODE_CIVICS_GONDOR1_NAME">
             <Text>Civic name</Text>
         </Row>
-        <Row Tag="LOC_MOD_87FDEC4134294986ADE80C8657355261_DESCRIPTION">
+        <Row Tag="LOC_MOD_991285F30C1E405A94885C7E382E3ECF_DESCRIPTION">
             <Text>+10 Food</Text>
         </Row>
         <Row Tag="LOC_NODE_CIVICS_GONDOR2_NAME">
             <Text>Civic name</Text>
         </Row>
-        <Row Tag="LOC_MOD_5FBA4C08B57648BA9CDE3EC1B93D783D_DESCRIPTION">
+        <Row Tag="LOC_MOD_67360DBB8B4D4A619BE85A70D926EDCA_DESCRIPTION">
             <Text>+10 science</Text>
         </Row>
     </EnglishText>
