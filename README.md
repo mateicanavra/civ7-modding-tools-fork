@@ -96,7 +96,7 @@ mod.addFiles([unitFile]).build('./dist');
 - [x] Mod info
 - [x] Localization tool
 - - [x] English
-- - [ ] Internalization (help wanted)
+- - [ ] Internalization
 - [x] Units
 - [x] Civilizations
 - [x] Constructibles
