@@ -13,8 +13,8 @@ type TImportFileBuilder = TClassProperties<ImportFileBuilder>
 export class ImportFileBuilder extends BaseBuilder<TImportFileBuilder> {
     content: string = '';
     name: string = '';
-    actionGroups: ActionGroupNode[] = [this.actionGroupBundle.shell, this.actionGroupBundle.always];
-    actionGroupActions: TObjectValues<typeof ACTION_GROUP_ACTION>[] = [ACTION_GROUP_ACTION.IMPORT_FILES];
+    actionGroups: ActionGroupNode[] = [];
+    actionGroupActions: TObjectValues<typeof ACTION_GROUP_ACTION>[] = [];
 
     constructor(payload: Partial<TImportFileBuilder> = {}) {
         super();
