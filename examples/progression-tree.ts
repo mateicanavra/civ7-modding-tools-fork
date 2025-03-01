@@ -15,6 +15,7 @@ import {
     TRAIT,
     UNIT_CLASS
 } from "./src";
+import { TraditionBuilder } from "../src";
 
 let mod = new Mod({
     id: 'mod-test',
@@ -56,6 +57,31 @@ const civilization = new CivilizationBuilder({
     }]
 });
 
+const tradition = new TraditionBuilder({
+    actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
+    tradition: {
+        traditionType: 'TRADITION_SCYTHIA1'
+    },
+    localizations: [{
+        name: 'Test tradition',
+        description: 'Test tradition description',
+    }]
+}).bind([
+    new ModifierBuilder({
+        modifier: {
+            collection: COLLECTION.OWNER,
+            effect: EFFECT.PLAYER_ADJUST_CONSTRUCTIBLE_YIELD,
+            arguments: [
+                { name: 'Tag', value: 'FOOD' },
+                { name: 'YieldType', value: 'YIELD_FOOD' },
+                { name: 'Amount', value: 10 },
+            ],
+        },
+        localizations: [{
+            description: 'Test tradition description DASDASD'
+        }]
+    }),
+]);
 
 const progressionTreeNode = new ProgressionTreeNodeBuilder({
     progressionTreeNode: {
@@ -80,6 +106,7 @@ const progressionTreeNode = new ProgressionTreeNodeBuilder({
             description: '+10 Food'
         }]
     }),
+    tradition
 ]);
 
 const progressionTreeNode2 = new ProgressionTreeNodeBuilder({
@@ -129,7 +156,8 @@ civilization.bind([
 mod.add([
     civilization,
     civilizationIcon,
-    progressionTree
+    progressionTree,
+    tradition
 ]);
 
 mod.build('./dist');
