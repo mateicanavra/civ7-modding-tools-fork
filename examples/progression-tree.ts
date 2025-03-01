@@ -78,8 +78,6 @@ const tradition = new TraditionBuilder({
         },
         localizations: [{
             description: 'Test tradition description DASDASD'
-        }, {
-
         }]
     }),
 ]);
