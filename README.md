@@ -100,6 +100,7 @@ mod.addFiles([unitFile]).build('./dist');
 ## Modding covering
 - [x] Mod info
 - [x] Localization tool
+- [x] Import custom files
 - - [x] English
 - - [ ] Internalization
 - [x] Units
