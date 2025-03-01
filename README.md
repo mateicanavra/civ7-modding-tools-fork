@@ -3,10 +3,10 @@ Mod generation tool for Civilization 7.
 
 - [Usage](#usage)
 - [Previews](#previews)
-    - [Use builders for easy and faster mod creating](#use-builders-for-easy-and-faster-mod-creating)
-    - [Full strong typed](#full-strong-typed)
+    - [Use builders for easier and faster mod creation](#use-builders-for-easy-and-faster-mod-creating)
+    - [Full strongly typed](#full-strongly-typed)
     - [Full control of generation](#full-control-of-generation)
-    - [Possibility to full manually creation](#possibility-to-full-manually-creation)
+    - [Possibility of fully manual creation](#possibility-of-full-manually-creation)
 - [Features](#features)
 - [Modding covering / TODO](#modding-covering--todo)
 - [Examples](https://github.com/izica/civ7-modding-tools/tree/main/examples)
@@ -15,10 +15,11 @@ Mod generation tool for Civilization 7.
     - [Import custom icon](https://github.com/izica/civ7-modding-tools/blob/main/examples/import-custom-icon.ts)
     - [Create civics progression tree](https://github.com/izica/civ7-modding-tools/blob/main/examples/progression-tree.ts)
       
-## Usage
-Copy example from examples folder to build.ts,
+## Getting started
+build.ts contains all the necessary code to get started, so you can begin by modifying it to fit your needs.
+Also you can copy an example from the examples folder into build.ts.
 
-then run commands
+Then, run the following commands:
 
 ```bash
 yarn install
@@ -26,7 +27,7 @@ yarn build
 ```
 
 ## Previews
-#### Use builders for easy and faster mod creating
+#### Use builders for easier and faster mod creation
 ```typescript
 const mod = new Mod({
     id: 'mod-test',
@@ -54,13 +55,13 @@ const unit = new UnitBuilder({
 mod.add([unit]).build('./dist');
 ```
 
-#### Full strong typed
+#### Full strongly typed
 ![Typed](previews/typed.png)
 
 #### Full control of generation
 ![Controllable](previews/controllable.png)
 
-#### Possibility to full manually creation
+#### Possibility of fully manual creation
 ```typescript
 const mod = new Mod({
     id: 'mod-test',
