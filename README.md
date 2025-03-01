@@ -9,8 +9,12 @@ Mod generation tool for Civilization 7.
     - [Possibility to full manually creation](#possibility-to-full-manually-creation)
 - [Features](#features)
 - [Modding covering / TODO](#modding-covering--todo)
-- [Full example](#full-example)
-
+- [Examples](https://github.com/izica/civ7-modding-tools/tree/main/examples)
+    - [Init and create civilization](https://github.com/izica/civ7-modding-tools/blob/main/examples/civilization.ts)
+    - [Create unit](https://github.com/izica/civ7-modding-tools/blob/main/examples/unit.ts)
+    - [Import custom icon](https://github.com/izica/civ7-modding-tools/blob/main/examples/import-custom-icon.ts)
+    - [Create civics progression tree](https://github.com/izica/civ7-modding-tools/blob/main/examples/progression-tree.ts)
+      
 ## Usage
 Copy example from examples folder to build.ts,
 
