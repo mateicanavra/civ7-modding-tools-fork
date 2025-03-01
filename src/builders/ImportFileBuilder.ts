@@ -1,16 +1,20 @@
 import * as fs from "node:fs";
+import * as path from "node:path";
 
-import { TClassProperties } from "../types";
+import { TClassProperties, TObjectValues } from "../types";
 import { ImportFile } from "../files";
 import { ACTION_GROUP_ACTION } from "../constants";
 
 import { BaseBuilder } from "./BaseBuilder";
+import { ActionGroupNode } from "../nodes";
 
 type TImportFileBuilder = TClassProperties<ImportFileBuilder>
 
 export class ImportFileBuilder extends BaseBuilder<TImportFileBuilder> {
     content: string = '';
     name: string = '';
+    actionGroups: ActionGroupNode[] = [this.actionGroupBundle.shell, this.actionGroupBundle.always];
+    actionGroupActions: TObjectValues<typeof ACTION_GROUP_ACTION>[] = [ACTION_GROUP_ACTION.IMPORT_FILES];
 
     constructor(payload: Partial<TImportFileBuilder> = {}) {
         super();
@@ -24,10 +28,10 @@ export class ImportFileBuilder extends BaseBuilder<TImportFileBuilder> {
 
         return [
             new ImportFile({
-                name: this.name,
+                name: this.name ? this.name : path.basename(this.content),
                 content: this.content,
-                actionGroups: [this.actionGroupBundle.shell, this.actionGroupBundle.always],
-                actionGroupActions: [ACTION_GROUP_ACTION.IMPORT_FILES]
+                actionGroups: this.actionGroups.length > 0 ? this.actionGroups : [this.actionGroupBundle.shell, this.actionGroupBundle.always],
+                actionGroupActions: this.actionGroupActions.length > 0 ? this.actionGroupActions : [ACTION_GROUP_ACTION.IMPORT_FILES]
             }),
         ]
     }

@@ -12,9 +12,10 @@ Mod generation tool for Civilization 7.
 - [Examples](https://github.com/izica/civ7-modding-tools/tree/main/examples)
     - [Init and create civilization](https://github.com/izica/civ7-modding-tools/blob/main/examples/civilization.ts)
     - [Create unit](https://github.com/izica/civ7-modding-tools/blob/main/examples/unit.ts)
+    - [Import sql file](https://github.com/izica/civ7-modding-tools/blob/main/examples/import-sql-file.ts)
     - [Import custom icon](https://github.com/izica/civ7-modding-tools/blob/main/examples/import-custom-icon.ts)
     - [Create civics progression tree](https://github.com/izica/civ7-modding-tools/blob/main/examples/progression-tree.ts)
-      
+
 ## Getting started
 [build.ts](https://github.com/izica/civ7-modding-tools/blob/main/build.ts) contains all the necessary code to get started, so you can begin by modifying it to fit your needs.
 Also you can copy an example from the [examples](https://github.com/izica/civ7-modding-tools/tree/main/examples) folder into [build.ts](https://github.com/izica/civ7-modding-tools/blob/main/build.ts).

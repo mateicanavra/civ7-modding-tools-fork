@@ -58,9 +58,8 @@ const civilization = new CivilizationBuilder({
 });
 
 const tradition = new TraditionBuilder({
-    actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     tradition: {
-        traditionType: 'TRADITION_SCYTHIA1'
+        traditionType: 'TRADITION_GONDOR'
     },
     localizations: [{
         name: 'Test tradition',
@@ -79,6 +78,8 @@ const tradition = new TraditionBuilder({
         },
         localizations: [{
             description: 'Test tradition description DASDASD'
+        }, {
+
         }]
     }),
 ]);
