@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file.
 
 - Initial release
 
-## [1.1] - ?
+## [1.1] - 2025-03-02
 
 ### Added
 
@@ -34,7 +34,7 @@ All notable changes to this project will be documented in this file.
 - - actionGroups,
 - - actionGroupActions
 - CivilizationBuilder
-- -startBiasBiomes
+- - startBiasBiomes
 - - startBiasTerrains
 - - startBiasResources
 - - startBiasRiver
