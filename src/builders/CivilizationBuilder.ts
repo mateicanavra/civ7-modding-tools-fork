@@ -14,28 +14,38 @@ import {
     KindNode,
     LegacyCivilizationNode,
     LegacyCivilizationTraitNode,
-    ModifierNode, ProgressionTreeNodeUnlockNode,
+    ModifierNode,
+    ProgressionTreeNodeUnlockNode,
     RequirementArgumentNode,
     RequirementNode,
     RequirementSetNode,
     RequirementSetRequirementNode,
     ShellCivilizationNodeSlice,
+    StartBiasAdjacentToCoastNode,
+    StartBiasBiomeNode,
+    StartBiasFeatureClassNode, StartBiasResourceNode,
+    StartBiasRiverNode,
+    StartBiasTerrainNode,
     TCivilizationItemNode,
     TCivilizationNode,
     TCivilizationUnlockNode,
     TIconDefinitionNode,
     TLegacyCivilizationNode,
-    TModifierNode,
     TraitModifierNode,
     TraitNode,
+    TStartBiasBiomeNode,
+    TStartBiasFeatureClassNode, TStartBiasResourceNode,
+    TStartBiasTerrainNode,
     TTraitNode,
     TypeNode,
     UnlockConfigurationValueNode,
     UnlockNode,
     UnlockRequirementNode,
-    UnlockRewardNode
+    UnlockRewardNode,
+    VisArtCivilizationBuildingCultureNode,
+    VisArtCivilizationUnitCultureNode
 } from "../nodes";
-import { ACTION_GROUP_ACTION, AGE, EFFECT, KIND, REQUIREMENT, REQUIREMENT_SET, TAG_TRAIT, TRAIT } from "../constants";
+import { ACTION_GROUP_ACTION, AGE, BUILDING_CULTURES, EFFECT, KIND, REQUIREMENT, REQUIREMENT_SET, TAG_TRAIT, TRAIT, UNIT_CULTURE } from "../constants";
 import { locale } from "../utils";
 import { XmlFile } from "../files";
 import { CivilizationLocalization, TCivilizationLocalization } from "../localizations";
@@ -71,6 +81,15 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
     icon: TPartialWithRequired<TIconDefinitionNode, 'path'> = { path: 'fs://game/civ_sym_han' }
     civilizationItems: TPartialWithRequired<TCivilizationItemNode, "type" | "kind">[] = [];
     civilizationUnlocks: TPartialWithRequired<TCivilizationUnlockNode, "type">[] = [];
+
+    startBiasBiomes: TPartialWithRequired<TStartBiasBiomeNode, 'biomeType'>[] = [];
+    startBiasResources: TPartialWithRequired<TStartBiasResourceNode, 'resourceType'>[] = [];
+    startBiasTerrains: TPartialWithRequired<TStartBiasTerrainNode, 'terrainType'>[] = [];
+    startBiasRiver: number | null = null;
+    startBiasFeatureClasses: TPartialWithRequired<TStartBiasFeatureClassNode, 'featureClassType'>[] = [];
+    startBiasAdjacentToCoast: number | null = null;
+    visArtCivilizationBuildingCultures: TObjectValues<typeof BUILDING_CULTURES>[] = [];
+    visArtCivilizationUnitCulture: TObjectValues<typeof UNIT_CULTURE> | null = null;
 
     constructor(payload: Partial<TCivilizationBuilder> = {}) {
         super();
@@ -138,7 +157,55 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                         traitType: item,
                     })
                 })
-            ]
+            ],
+            startBiasBiomes: this.startBiasBiomes.map(item => {
+                return new StartBiasBiomeNode({
+                    ...civilization,
+                    ...item
+                })
+            }),
+            startBiasTerrains: this.startBiasTerrains.map(item => {
+                return new StartBiasTerrainNode({
+                    ...civilization,
+                    ...item
+                })
+            }),
+            startBiasFeatureClasses: this.startBiasFeatureClasses.map(item => {
+                return new StartBiasFeatureClassNode({
+                    ...civilization,
+                    ...item
+                })
+            }),
+            startBiasResources: this.startBiasResources.map(item => {
+                return new StartBiasResourceNode({
+                    ...civilization,
+                    ...item
+                })
+            }),
+            startBiasRivers: this.startBiasRiver !== null ? [
+                new StartBiasRiverNode({
+                    ...civilization,
+                    score: this.startBiasRiver
+                })
+            ] : [],
+            startBiasAdjacentToCoasts: this.startBiasAdjacentToCoast !== null ? [
+                new StartBiasAdjacentToCoastNode({
+                    ...civilization,
+                    score: this.startBiasAdjacentToCoast
+                })
+            ] : [],
+            visArtCivilizationBuildingCultures: this.visArtCivilizationBuildingCultures.map(item => {
+                return new VisArtCivilizationBuildingCultureNode({
+                    ...civilization,
+                    buildingCulture: item
+                })
+            }),
+            visArtCivilizationUnitCultures: this.visArtCivilizationUnitCulture !== null ? [
+                new VisArtCivilizationUnitCultureNode({
+                    ...civilization,
+                    unitCulture: this.visArtCivilizationUnitCulture
+                })
+            ] : [],
         });
 
         this._shell.fill({
@@ -287,7 +354,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
             }
 
             if (item instanceof ModifierBuilder) {
-                if(!this._gameEffects){
+                if (!this._gameEffects) {
                     this._gameEffects = new GameEffectNode();
                 }
 

@@ -53,6 +53,14 @@ export { ConstructibleValidBiomeNode, TConstructibleValidBiomeNode } from './Con
 export { ConstructibleValidFeatureNode, TConstructibleValidFeatureNode } from './ConstructibleValidFeatureNode';
 export { ConstructibleValidTerrainNode, TConstructibleValidTerrainNode } from './ConstructibleValidTerrainNode';
 export { ConstructiblePlunderNode, TConstructiblePlunderNode } from './ConstructiblePlunderNode';
+export { StartBiasBiomeNode, TStartBiasBiomeNode } from './StartBiasBiomeNode';
+export { StartBiasTerrainNode, TStartBiasTerrainNode } from './StartBiasTerrainNode';
+export { StartBiasRiverNode, TStartBiasRiverNode } from './StartBiasRiverNode';
+export { StartBiasFeatureClassNode, TStartBiasFeatureClassNode } from './StartBiasFeatureClassNode';
+export { StartBiasAdjacentToCoastNode, TStartBiasAdjacentToCoastNode } from './StartBiasAdjacentToCoastNode';
+export { StartBiasResourceNode, TStartBiasResourceNode } from './StartBiasResourceNode';
+export { VisArtCivilizationBuildingCultureNode, TVisArtCivilizationBuildingCultureNode } from './VisArtCivilizationBuildingCultureNode';
+export { VisArtCivilizationUnitCultureNode, TVisArtCivilizationUnitCultureNode } from './VisArtCivilizationUnitCultureNode';
 
 export { ShellCivilizationNodeSlice, TShellCivilizationNodeSlice } from './slices/ShellCivilizationNodeSlice';
 export { GameCivilizationNodeSlice, TGameCivilizationNodeSlice } from './slices/GameCivilizationNodeSlice';

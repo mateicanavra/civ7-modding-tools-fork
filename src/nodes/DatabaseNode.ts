@@ -54,6 +54,14 @@ import { ConstructibleValidFeatureNode } from "./ConstructibleValidFeatureNode";
 import { ConstructibleValidTerrainNode } from "./ConstructibleValidTerrainNode";
 import { ConstructibleValidResourceNode } from "./ConstructibleValidResourceNode";
 import { ConstructiblePlunderNode } from "./ConstructiblePlunderNode";
+import { StartBiasBiomeNode } from "./StartBiasBiomeNode";
+import { StartBiasTerrainNode } from "./StartBiasTerrainNode";
+import { StartBiasRiverNode } from "./StartBiasRiverNode";
+import { StartBiasFeatureClassNode } from "./StartBiasFeatureClassNode";
+import { StartBiasAdjacentToCoastNode } from "./StartBiasAdjacentToCoastNode";
+import { VisArtCivilizationBuildingCultureNode } from "./VisArtCivilizationBuildingCultureNode";
+import { VisArtCivilizationUnitCultureNode } from "./VisArtCivilizationUnitCultureNode";
+import { StartBiasResourceNode } from "./StartBiasResourceNode";
 
 export type TDatabase = Pick<DatabaseNode,
     "civilizationItems" |
@@ -105,6 +113,14 @@ export type TDatabase = Pick<DatabaseNode,
     "constructibleValidResources" |
     "constructiblePlunders" |
     "improvements" |
+    "startBiasBiomes" |
+    "startBiasTerrains" |
+    "startBiasRivers" |
+    "startBiasResources" |
+    "startBiasFeatureClasses" |
+    "startBiasAdjacentToCoasts" |
+    "visArtCivilizationBuildingCultures" |
+    "visArtCivilizationUnitCultures" |
     "visualRemaps"
 >;
 
@@ -172,12 +188,26 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     requirementArguments: RequirementArgumentNode[] = [];
     requirementSetRequirements: RequirementSetRequirementNode[] = [];
 
+    startBiasBiomes: StartBiasBiomeNode[] = [];
+    startBiasResources: StartBiasResourceNode[] = [];
+    startBiasTerrains: StartBiasTerrainNode[] = [];
+    startBiasRivers: StartBiasRiverNode[] = [];
+    startBiasFeatureClasses: StartBiasFeatureClassNode[] = [];
+    startBiasAdjacentToCoasts: StartBiasAdjacentToCoastNode[] = [];
+    visArtCivilizationBuildingCultures: VisArtCivilizationBuildingCultureNode[] = [];
+    visArtCivilizationUnitCultures: VisArtCivilizationUnitCultureNode[] = [];
+
     constructor(payload: Partial<TDatabase> = {}) {
         super();
         this.fill(payload);
     }
 
     toXmlElement() {
+        //check if all nodes is empty
+        if (Object.keys(this).filter(key => Array.isArray(this[key])).every(key => this[key].length === 0)) {
+            return null;
+        }
+
         const except = [];
         const additionalMapping = {
             constructibleMaintenances: 'Constructible_Maintenances',
@@ -194,6 +224,8 @@ export class DatabaseNode extends BaseNode<TDatabase> {
             warehouseYieldChanges: 'Warehouse_YieldChanges',
             constructibleWarehouseYields: 'Constructible_WarehouseYields',
             progressionTreeAdvisories: 'ProgressionTree_Advisories',
+            visArtCivilizationBuildingCultures: 'VisArt_CivilizationBuildingCultures',
+            visArtCivilizationUnitCultures: 'VisArt_CivilizationUnitCultures',
             unitCosts: 'Unit_Costs',
             unitStats: 'Unit_Stats',
         }

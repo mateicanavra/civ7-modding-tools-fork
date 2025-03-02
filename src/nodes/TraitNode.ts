@@ -1,6 +1,11 @@
 import { BaseNode } from "./BaseNode";
 
-export type TTraitNode = Pick<TraitNode, "traitType" | "name" | "description" | "internalOnly">;
+export type TTraitNode = Pick<TraitNode,
+    "traitType" |
+    "name" |
+    "description" |
+    "internalOnly"
+>;
 
 export class TraitNode extends BaseNode<TTraitNode> {
     traitType = 'TRAIT_';

@@ -4,16 +4,26 @@ import { TClassProperties, TObjectValues, TPartialWithRequired } from "../types"
 import {
     BuildingNode,
     ConstructibleMaintenanceNode,
-    ConstructibleNode, ConstructiblePlunderNode, ConstructibleValidBiomeNode,
-    ConstructibleValidDistrictNode, ConstructibleValidFeatureNode, ConstructibleValidResourceNode, ConstructibleValidTerrainNode,
+    ConstructibleNode,
+    ConstructiblePlunderNode,
+    ConstructibleValidBiomeNode,
+    ConstructibleValidDistrictNode,
+    ConstructibleValidFeatureNode,
+    ConstructibleValidResourceNode,
+    ConstructibleValidTerrainNode,
     ConstructibleYieldChangeNode,
-    DatabaseNode, DistrictFreeConstructibleNode,
-    IconDefinitionNode, ImprovementNode,
+    DatabaseNode,
+    DistrictFreeConstructibleNode,
+    IconDefinitionNode,
+    ImprovementNode,
     TBuildingNode,
     TConstructibleMaintenanceNode,
-    TConstructibleNode, TConstructibleValidResourceNode,
-    TConstructibleYieldChangeNode, TDistrictFreeConstructibleNode,
-    TIconDefinitionNode, TImprovementNode,
+    TConstructibleNode,
+    TConstructibleValidResourceNode,
+    TConstructibleYieldChangeNode,
+    TDistrictFreeConstructibleNode,
+    TIconDefinitionNode,
+    TImprovementNode,
     TypeNode,
     TypeTagNode
 } from "../nodes";
@@ -36,8 +46,8 @@ export class ConstructibleBuilder extends BaseBuilder<TConstructibleBuilder> {
     constructibleValidBiomes: TObjectValues<typeof BIOME>[] = [];
     constructibleValidFeatures: TObjectValues<typeof FEATURE>[] = [];
     constructibleValidTerrains: TObjectValues<typeof TERRAIN>[] = [];
-    constructibleValidResources: TPartialWithRequired<TConstructibleValidResourceNode, 'resourceType'>[] =[];
-    constructiblePlunders: TPartialWithRequired<ConstructiblePlunderNode, 'plunderType'>[] =[];
+    constructibleValidResources: TPartialWithRequired<TConstructibleValidResourceNode, 'resourceType'>[] = [];
+    constructiblePlunders: TPartialWithRequired<ConstructiblePlunderNode, 'plunderType'>[] = [];
 
     building: Partial<TBuildingNode> | null = null;
     improvement: Partial<TImprovementNode> | null = null;
@@ -51,7 +61,6 @@ export class ConstructibleBuilder extends BaseBuilder<TConstructibleBuilder> {
     }
     localizations: TConstructibleLocalization[] = [];
     districtFreeConstructibles: TPartialWithRequired<TDistrictFreeConstructibleNode, 'districtType'>[] = [];
-
 
     constructor(payload: Partial<TConstructibleBuilder> = {}) {
         super();
@@ -135,7 +144,7 @@ export class ConstructibleBuilder extends BaseBuilder<TConstructibleBuilder> {
                     constructibleType: this.constructible.constructibleType,
                     ...item
                 })
-            })
+            }),
         });
 
         this._icons.fill({

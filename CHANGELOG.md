@@ -22,9 +22,26 @@ All notable changes to this project will be documented in this file.
 - - constructibleValidFeatures
 - - constructibleValidTerrains
 - - constructiblePlunders
+- - startBiasBiomes
+- - startBiasTerrains
+- - startBiasResources
+- - startBiasRivers
+- - startBiasFeatureClasses
+- - startBiasAdjacentToCoasts
+- - visArtCivilizationBuildingCultures
+- - visArtCivilizationUnitCultures
 - ImportFileBuilder
 - - actionGroups,
 - - actionGroupActions
+- CivilizationBuilder
+- -startBiasBiomes
+- - startBiasTerrains
+- - startBiasResources
+- - startBiasRiver
+- - startBiasFeatureClasses
+- - startBiasAdjacentToCoast
+- - visArtCivilizationBuildingCultures
+- - visArtCivilizationUnitCulture
 - ConstructibleBuilder
 - - improvement
 - - districtFreeConstructibles

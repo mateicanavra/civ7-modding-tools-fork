@@ -1,6 +1,9 @@
 import { BaseNode } from "./BaseNode";
 
-export type TTraitModifierNode = Pick<TraitModifierNode, "traitType" | "modifierId">;
+export type TTraitModifierNode = Pick<TraitModifierNode,
+    "traitType" |
+    "modifierId"
+>;
 
 export class TraitModifierNode extends BaseNode<TTraitModifierNode> {
     traitType = 'TRAIT_';

@@ -1,6 +1,9 @@
 import { BaseNode } from "./BaseNode";
 
-export type TTraditionModifierNode = Pick<TraditionModifierNode, "traditionType" | "modifierId">;
+export type TTraditionModifierNode = Pick<TraditionModifierNode,
+    "traditionType" |
+    "modifierId"
+>;
 
 export class TraditionModifierNode extends BaseNode<TTraditionModifierNode> {
     traditionType: `TRADITION_${string}` = 'TRADITION_';

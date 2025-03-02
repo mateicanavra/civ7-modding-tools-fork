@@ -3,7 +3,10 @@ import { KIND } from "../constants";
 
 import { BaseNode } from "./BaseNode";
 
-export type TTypeNode = Pick<TypeNode, "type" | "kind">;
+export type TTypeNode = Pick<TypeNode,
+    "type" |
+    "kind"
+>;
 
 export class TypeNode extends BaseNode<TTypeNode> {
     type = 'TYPE';
