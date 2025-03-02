@@ -1,3 +1,6 @@
+import { TObjectValues } from "../types";
+import { DISTRICT } from "../constants";
+
 import { BaseNode } from "./BaseNode";
 
 export type TConstructibleValidDistrictNode = Pick<ConstructibleValidDistrictNode,
@@ -7,7 +10,7 @@ export type TConstructibleValidDistrictNode = Pick<ConstructibleValidDistrictNod
 
 export class ConstructibleValidDistrictNode extends BaseNode<TConstructibleValidDistrictNode> {
     constructibleType = 'BUILDING_';
-    districtType = 'DISTRICT_';
+    districtType: TObjectValues<typeof DISTRICT> = DISTRICT.RURAL;
 
     constructor(payload: Partial<TConstructibleValidDistrictNode> = {}) {
         super();

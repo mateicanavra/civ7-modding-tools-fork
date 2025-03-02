@@ -4,20 +4,20 @@ import { TClassProperties, TObjectValues, TPartialWithRequired } from "../types"
 import {
     BuildingNode,
     ConstructibleMaintenanceNode,
-    ConstructibleNode,
-    ConstructibleValidDistrictNode,
+    ConstructibleNode, ConstructibleValidBiomeNode,
+    ConstructibleValidDistrictNode, ConstructibleValidFeatureNode, ConstructibleValidResourceNode, ConstructibleValidTerrainNode,
     ConstructibleYieldChangeNode,
-    DatabaseNode,
-    IconDefinitionNode,
+    DatabaseNode, DistrictFreeConstructibleNode,
+    IconDefinitionNode, ImprovementNode,
     TBuildingNode,
     TConstructibleMaintenanceNode,
-    TConstructibleNode,
-    TConstructibleYieldChangeNode,
-    TIconDefinitionNode,
+    TConstructibleNode, TConstructibleValidResourceNode,
+    TConstructibleYieldChangeNode, TDistrictFreeConstructibleNode,
+    TIconDefinitionNode, TImprovementNode,
     TypeNode,
     TypeTagNode
 } from "../nodes";
-import { ACTION_GROUP_ACTION, CONSTRUCTIBLE_TYPE_TAG, DISTRICT, KIND } from "../constants";
+import { ACTION_GROUP_ACTION, BIOME, CONSTRUCTIBLE_TYPE_TAG, DISTRICT, FEATURE, KIND, TERRAIN } from "../constants";
 import { XmlFile } from "../files";
 import { ConstructibleLocalization, TConstructibleLocalization } from "../localizations";
 import { locale } from "../utils";
@@ -33,8 +33,13 @@ export class ConstructibleBuilder extends BaseBuilder<TConstructibleBuilder> {
 
     typeTags: TObjectValues<typeof CONSTRUCTIBLE_TYPE_TAG>[] = [];
     constructibleValidDistricts: TObjectValues<typeof DISTRICT>[] = [];
+    constructibleValidBiomes: TObjectValues<typeof BIOME>[] = [];
+    constructibleValidFeatures: TObjectValues<typeof FEATURE>[] = [];
+    constructibleValidTerrains: TObjectValues<typeof TERRAIN>[] = [];
+    constructibleValidResources: TPartialWithRequired<TConstructibleValidResourceNode, 'resourceType'>[] =[];
 
     building: Partial<TBuildingNode> | null = null;
+    improvement: Partial<TImprovementNode> | null = null;
     constructible: TPartialWithRequired<TConstructibleNode, 'constructibleType'> = {
         constructibleType: 'BUILDING_CUSTOM',
     }
@@ -44,6 +49,8 @@ export class ConstructibleBuilder extends BaseBuilder<TConstructibleBuilder> {
         path: 'fs://game/civ_sym_han'
     }
     localizations: TConstructibleLocalization[] = [];
+    districtFreeConstructibles: TPartialWithRequired<TDistrictFreeConstructibleNode, 'districtType'>[] = [];
+
 
     constructor(payload: Partial<TConstructibleBuilder> = {}) {
         super();
@@ -59,6 +66,10 @@ export class ConstructibleBuilder extends BaseBuilder<TConstructibleBuilder> {
             buildings: this.building ? [new BuildingNode({
                 ...this.constructible,
                 ...this.building
+            })] : [],
+            improvements: this.improvement ? [new ImprovementNode({
+                ...this.constructible,
+                ...this.improvement
             })] : [],
             typeTags: this.typeTags.map(item => new TypeTagNode({
                 type: this.constructible.constructibleType,
@@ -76,6 +87,30 @@ export class ConstructibleBuilder extends BaseBuilder<TConstructibleBuilder> {
                     districtType: item
                 })
             }),
+            constructibleValidBiomes: this.constructibleValidBiomes.map(item => {
+                return new ConstructibleValidBiomeNode({
+                    ...this.constructible,
+                    biomeType: item
+                })
+            }),
+            constructibleValidFeatures: this.constructibleValidFeatures.map(item => {
+                return new ConstructibleValidFeatureNode({
+                    ...this.constructible,
+                    featureType: item
+                })
+            }),
+            constructibleValidTerrains: this.constructibleValidTerrains.map(item => {
+                return new ConstructibleValidTerrainNode({
+                    ...this.constructible,
+                    terrainType: item
+                })
+            }),
+            constructibleValidResources: this.constructibleValidResources.map(item => {
+                return new ConstructibleValidResourceNode({
+                    ...this.constructible,
+                    ...item
+                })
+            }),
             constructibleMaintenances: this.constructibleMaintenances.map(item => {
                 return new ConstructibleMaintenanceNode({
                     ...this.constructible,
@@ -85,6 +120,12 @@ export class ConstructibleBuilder extends BaseBuilder<TConstructibleBuilder> {
             constructibleYieldChanges: this.constructibleYieldChanges.map(item => {
                 return new ConstructibleYieldChangeNode({
                     ...this.constructible,
+                    ...item
+                })
+            }),
+            districtFreeConstructibles: this.districtFreeConstructibles.map(item => {
+                return new DistrictFreeConstructibleNode({
+                    constructibleType: this.constructible.constructibleType,
                     ...item
                 })
             })

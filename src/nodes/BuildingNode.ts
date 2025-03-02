@@ -25,7 +25,7 @@ export type TBuildingNode = Pick<BuildingNode,
 >;
 
 export class BuildingNode extends BaseNode<TBuildingNode> {
-    constructibleType: `BUILDING_${string}` = 'BUILDING_';
+    constructibleType: string = 'BUILDING_';
     movable = false;
     traitType: string | null = null;
     allowsHolyCity: boolean | null = null;

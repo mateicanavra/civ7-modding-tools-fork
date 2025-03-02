@@ -47,6 +47,12 @@ import { ProgressionTreeNodeUnlockNode } from "./ProgressionTreeNodeUnlockNode";
 import { ProgressionTreePrereqNode } from "./ProgressionTreePrereqNode";
 import { TraditionNode } from "./TraditionNode";
 import { TraditionModifierNode } from "./TraditionModifierNode";
+import { DistrictFreeConstructibleNode } from "./DistrictFreeConstructibleNode";
+import { ImprovementNode } from "./ImprovementNode";
+import { ConstructibleValidBiomeNode } from "./ConstructibleValidBiomeNode";
+import { ConstructibleValidFeatureNode } from "./ConstructibleValidFeatureNode";
+import { ConstructibleValidTerrainNode } from "./ConstructibleValidTerrainNode";
+import { ConstructibleValidResourceNode } from "./ConstructibleValidResourceNode";
 
 export type TDatabase = Pick<DatabaseNode,
     "civilizationItems" |
@@ -91,6 +97,12 @@ export type TDatabase = Pick<DatabaseNode,
     "traditionModifiers" |
     "progressionTreePrereqs" |
     "constructibleWarehouseYields" |
+    "districtFreeConstructibles" |
+    "constructibleValidBiomes" |
+    "constructibleValidFeatures" |
+    "constructibleValidTerrains" |
+    "constructibleValidResources" |
+    "improvements" |
     "visualRemaps"
 >;
 
@@ -113,14 +125,21 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     legacyCivilizations: LegacyCivilizationNode[] = [];
 
     buildings: BuildingNode[] = [];
+    improvements: ImprovementNode[] = [];
     constructibles: ConstructibleNode[] = [];
     constructibleMaintenances: ConstructibleMaintenanceNode[] = [];
     constructibleValidDistricts: ConstructibleValidDistrictNode[] = [];
+    constructibleValidBiomes: ConstructibleValidBiomeNode[] = [];
+    constructibleValidFeatures: ConstructibleValidFeatureNode[] = [];
+    constructibleValidTerrains: ConstructibleValidTerrainNode[] = [];
+    constructibleValidResources: ConstructibleValidResourceNode[] = [];
     constructibleYieldChanges: ConstructibleYieldChangeNode[] = [];
     adjacencyYieldChanges: AdjacencyYieldChangeNode[] = [];
     constructibleAdjacencies: ConstructibleAdjacencyNode[] = [];
     warehouseYieldChanges: WarehouseYieldChangeNode[] = [];
     constructibleWarehouseYields: ConstructibleWarehouseYieldNode[] = [];
+
+    districtFreeConstructibles: DistrictFreeConstructibleNode[] = [];
 
     progressionTreeAdvisories: ProgressionTreeAdvisoryNode[] = [];
     progressionTrees: ProgressionTreeNode[] = [];
@@ -160,8 +179,13 @@ export class DatabaseNode extends BaseNode<TDatabase> {
         const additionalMapping = {
             constructibleMaintenances: 'Constructible_Maintenances',
             constructibleValidDistricts: 'Constructible_ValidDistricts',
+            constructibleValidBiomes: 'Constructible_ValidBiomes',
+            constructibleValidFeatures: 'Constructible_ValidFeatures',
+            constructibleValidTerrains: 'Constructible_ValidTerrains',
+            constructibleValidResources: 'Constructible_ValidResources',
             constructibleYieldChanges: 'Constructible_YieldChanges',
             constructibleAdjacencies: 'Constructible_Adjacencies',
+            districtFreeConstructibles: 'District_FreeConstructibles',
             adjacencyYieldChanges: 'Adjacency_YieldChanges',
             warehouseYieldChanges: 'Warehouse_YieldChanges',
             constructibleWarehouseYields: 'Constructible_WarehouseYields',

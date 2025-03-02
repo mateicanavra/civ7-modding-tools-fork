@@ -46,6 +46,12 @@ export { VisualRemapNode, TVisualRemapNode } from './VisualRemapNode';
 export { StringNode, TStringNode } from './StringNode';
 export { TraditionNode, TTraditionNode } from './TraditionNode';
 export { TraditionModifierNode, TTraditionModifierNode } from './TraditionModifierNode';
+export { DistrictFreeConstructibleNode, TDistrictFreeConstructibleNode } from './DistrictFreeConstructibleNode';
+export { ImprovementNode, TImprovementNode } from './ImprovementNode';
+export { ConstructibleValidResourceNode, TConstructibleValidResourceNode } from './ConstructibleValidResourceNode';
+export { ConstructibleValidBiomeNode, TConstructibleValidBiomeNode } from './ConstructibleValidBiomeNode';
+export { ConstructibleValidFeatureNode, TConstructibleValidFeatureNode } from './ConstructibleValidFeatureNode';
+export { ConstructibleValidTerrainNode, TConstructibleValidTerrainNode } from './ConstructibleValidTerrainNode';
 
 export { ShellCivilizationNodeSlice, TShellCivilizationNodeSlice } from './slices/ShellCivilizationNodeSlice';
 export { GameCivilizationNodeSlice, TGameCivilizationNodeSlice } from './slices/GameCivilizationNodeSlice';
