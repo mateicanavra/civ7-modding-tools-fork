@@ -51,5 +51,16 @@ All notable changes to this project will be documented in this file.
 - - constructibleValidTerrains
 - - constructiblePlunders
 
+## [1.2] - ?
+
+### Changed
+
+- added autobinding improvements to civilization
+
+### Fixed
+
+- age transition
+
+
 
 
