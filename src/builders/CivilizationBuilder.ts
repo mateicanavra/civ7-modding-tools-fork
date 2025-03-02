@@ -368,8 +368,11 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
             }
 
             if (item instanceof ConstructibleBuilder) {
-                item._always.buildings.forEach(building => {
-                    building.traitType = this.trait.traitType;
+                item._always.buildings.forEach(item => {
+                    item.traitType = this.trait.traitType;
+                });
+                item._always.improvements.forEach(item => {
+                    item.traitType = this.trait.traitType;
                 });
                 item._always.constructibles.forEach(constructible => {
                     this._shell.civilizationItems.push(
