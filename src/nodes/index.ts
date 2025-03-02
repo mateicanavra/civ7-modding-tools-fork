@@ -52,6 +52,7 @@ export { ConstructibleValidResourceNode, TConstructibleValidResourceNode } from 
 export { ConstructibleValidBiomeNode, TConstructibleValidBiomeNode } from './ConstructibleValidBiomeNode';
 export { ConstructibleValidFeatureNode, TConstructibleValidFeatureNode } from './ConstructibleValidFeatureNode';
 export { ConstructibleValidTerrainNode, TConstructibleValidTerrainNode } from './ConstructibleValidTerrainNode';
+export { ConstructiblePlunderNode, TConstructiblePlunderNode } from './ConstructiblePlunderNode';
 
 export { ShellCivilizationNodeSlice, TShellCivilizationNodeSlice } from './slices/ShellCivilizationNodeSlice';
 export { GameCivilizationNodeSlice, TGameCivilizationNodeSlice } from './slices/GameCivilizationNodeSlice';

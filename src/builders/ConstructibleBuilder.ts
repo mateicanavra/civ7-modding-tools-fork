@@ -4,7 +4,7 @@ import { TClassProperties, TObjectValues, TPartialWithRequired } from "../types"
 import {
     BuildingNode,
     ConstructibleMaintenanceNode,
-    ConstructibleNode, ConstructibleValidBiomeNode,
+    ConstructibleNode, ConstructiblePlunderNode, ConstructibleValidBiomeNode,
     ConstructibleValidDistrictNode, ConstructibleValidFeatureNode, ConstructibleValidResourceNode, ConstructibleValidTerrainNode,
     ConstructibleYieldChangeNode,
     DatabaseNode, DistrictFreeConstructibleNode,
@@ -37,6 +37,7 @@ export class ConstructibleBuilder extends BaseBuilder<TConstructibleBuilder> {
     constructibleValidFeatures: TObjectValues<typeof FEATURE>[] = [];
     constructibleValidTerrains: TObjectValues<typeof TERRAIN>[] = [];
     constructibleValidResources: TPartialWithRequired<TConstructibleValidResourceNode, 'resourceType'>[] =[];
+    constructiblePlunders: TPartialWithRequired<ConstructiblePlunderNode, 'plunderType'>[] =[];
 
     building: Partial<TBuildingNode> | null = null;
     improvement: Partial<TImprovementNode> | null = null;
@@ -107,6 +108,12 @@ export class ConstructibleBuilder extends BaseBuilder<TConstructibleBuilder> {
             }),
             constructibleValidResources: this.constructibleValidResources.map(item => {
                 return new ConstructibleValidResourceNode({
+                    ...this.constructible,
+                    ...item
+                })
+            }),
+            constructiblePlunders: this.constructiblePlunders.map(item => {
+                return new ConstructiblePlunderNode({
                     ...this.constructible,
                     ...item
                 })

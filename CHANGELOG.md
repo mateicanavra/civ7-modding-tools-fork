@@ -12,6 +12,8 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - import custom files, for example sql, added example
+- contants
+- - PLUNDER
 - Database
 - - improvements
 - - districtFreeConstructibles
@@ -19,6 +21,7 @@ All notable changes to this project will be documented in this file.
 - - constructibleValidBiomes
 - - constructibleValidFeatures
 - - constructibleValidTerrains
+- - constructiblePlunders
 - ImportFileBuilder
 - - actionGroups,
 - - actionGroupActions
@@ -29,6 +32,7 @@ All notable changes to this project will be documented in this file.
 - - constructibleValidBiomes
 - - constructibleValidFeatures
 - - constructibleValidTerrains
+- - constructiblePlunders
 
 
 

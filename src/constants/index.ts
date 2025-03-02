@@ -31,3 +31,4 @@ export { UNIT_CLASS } from './UNIT_CLASS';
 export { UNIT_CULTURE } from './UNIT_CULTURE';
 export { UNIT_MOVEMENT_CLASS } from './UNIT_MOVEMENT_CLASS';
 export { YIELD } from './YIELD';
+export { PLUNDER } from './PLUNDER';

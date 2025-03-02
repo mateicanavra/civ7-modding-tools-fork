@@ -53,6 +53,7 @@ import { ConstructibleValidBiomeNode } from "./ConstructibleValidBiomeNode";
 import { ConstructibleValidFeatureNode } from "./ConstructibleValidFeatureNode";
 import { ConstructibleValidTerrainNode } from "./ConstructibleValidTerrainNode";
 import { ConstructibleValidResourceNode } from "./ConstructibleValidResourceNode";
+import { ConstructiblePlunderNode } from "./ConstructiblePlunderNode";
 
 export type TDatabase = Pick<DatabaseNode,
     "civilizationItems" |
@@ -102,6 +103,7 @@ export type TDatabase = Pick<DatabaseNode,
     "constructibleValidFeatures" |
     "constructibleValidTerrains" |
     "constructibleValidResources" |
+    "constructiblePlunders" |
     "improvements" |
     "visualRemaps"
 >;
@@ -138,6 +140,7 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     constructibleAdjacencies: ConstructibleAdjacencyNode[] = [];
     warehouseYieldChanges: WarehouseYieldChangeNode[] = [];
     constructibleWarehouseYields: ConstructibleWarehouseYieldNode[] = [];
+    constructiblePlunders: ConstructiblePlunderNode[] = [];
 
     districtFreeConstructibles: DistrictFreeConstructibleNode[] = [];
 
@@ -185,6 +188,7 @@ export class DatabaseNode extends BaseNode<TDatabase> {
             constructibleValidResources: 'Constructible_ValidResources',
             constructibleYieldChanges: 'Constructible_YieldChanges',
             constructibleAdjacencies: 'Constructible_Adjacencies',
+            constructiblePlunders: 'Constructible_Plunders',
             districtFreeConstructibles: 'District_FreeConstructibles',
             adjacencyYieldChanges: 'Adjacency_YieldChanges',
             warehouseYieldChanges: 'Warehouse_YieldChanges',
