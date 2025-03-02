@@ -295,8 +295,11 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
 
         this._legacy.fill({
             types: [
-                new TypeNode({ type: this.civilization.civilizationType, kind: KIND.CIVILIZATION }),
+                new TypeNode({ type: this.civilization.civilizationType, kind: KIND.CIVILIZATION }).insertOrIgnore(),
+                new TypeNode({ kind: KIND.TRAIT, type: this.trait.traitType }).insertOrIgnore(),
+                new TypeNode({ kind: KIND.TRAIT, type: this.traitAbility.traitType }).insertOrIgnore(),
             ],
+            traits: [new TraitNode(trait).insertOrIgnore()],
             legacyCivilizations: [
                 new LegacyCivilizationNode({
                     ...civilization,
