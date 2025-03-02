@@ -14,7 +14,7 @@ All notable changes to this project will be documented in this file.
 - import custom files, for example sql, added example
 - contants
 - - PLUNDER
-- Database
+- Database nodes
 - - improvements
 - - districtFreeConstructibles
 - - constructibleValidResources
@@ -30,10 +30,10 @@ All notable changes to this project will be documented in this file.
 - - startBiasAdjacentToCoasts
 - - visArtCivilizationBuildingCultures
 - - visArtCivilizationUnitCultures
-- ImportFileBuilder
+- ImportFileBuilder properties
 - - actionGroups,
 - - actionGroupActions
-- CivilizationBuilder
+- CivilizationBuilder properties
 - - startBiasBiomes
 - - startBiasTerrains
 - - startBiasResources
@@ -42,7 +42,7 @@ All notable changes to this project will be documented in this file.
 - - startBiasAdjacentToCoast
 - - visArtCivilizationBuildingCultures
 - - visArtCivilizationUnitCulture
-- ConstructibleBuilder
+- ConstructibleBuilder properties
 - - improvement
 - - districtFreeConstructibles
 - - constructibleValidResources
