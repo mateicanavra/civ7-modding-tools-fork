@@ -1,15 +1,25 @@
 import {
-    ACTION_GROUP_BUNDLE, ADVISORY, AGE,
-    CivilizationBuilder, COLLECTION,
+    ACTION_GROUP_BUNDLE,
+    ADVISORY,
+    AGE,
+    CivilizationBuilder,
+    COLLECTION,
     CONSTRUCTIBLE_TYPE_TAG,
     ConstructibleBuilder,
-    DISTRICT, EFFECT,
+    DISTRICT,
+    EFFECT,
     ImportFileBuilder,
-    Mod, ModifierBuilder, ProgressionTreeBuilder, ProgressionTreeNodeBuilder, REQUIREMENT,
-    TAG_TRAIT, TRAIT,
+    Mod,
+    ModifierBuilder,
+    ProgressionTreeBuilder,
+    ProgressionTreeNodeBuilder,
+    REQUIREMENT,
+    TAG_TRAIT,
+    TRAIT,
     UNIT,
     UNIT_CLASS,
-    UnitBuilder, YIELD
+    UnitBuilder,
+    YIELD
 } from "./src";
 
 let mod = new Mod({
@@ -104,7 +114,7 @@ const constructible = new ConstructibleBuilder({
         { yieldType: YIELD.HAPPINESS, amount: 1 },
     ],
     localizations: [
-        {name: 'Custom building', description: 'Custom building test description', tooltip: 'Custom building test tooltip'},
+        { name: 'Custom building', description: 'Custom building test description', tooltip: 'Custom building test tooltip' },
     ]
 });
 
@@ -191,3 +201,4 @@ mod.add([
 ]);
 
 mod.build('./example-generated-mod');
+mod.build('C:/Users/izica/AppData/Local/Firaxis Games/Sid Meier\'s Civilization VII/Mods/test');

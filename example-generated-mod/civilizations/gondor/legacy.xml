@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Database>
     <Types>
-        <Row Type="CIVILIZATION_GONDOR" Kind="KIND_CIVILIZATION"/>
+        <InsertOrIgnore Type="CIVILIZATION_GONDOR" Kind="KIND_CIVILIZATION"/>
+        <InsertOrIgnore Type="TRAIT_GONDOR" Kind="KIND_TRAIT"/>
+        <InsertOrIgnore Type="TRAIT_GONDOR_ABILITY" Kind="KIND_TRAIT"/>
     </Types>
+    <Traits>
+        <InsertOrIgnore TraitType="TRAIT_GONDOR" InternalOnly="true"/>
+    </Traits>
     <LegacyCivilizationTraits>
         <Row TraitType="TRAIT_GONDOR" CivilizationType="CIVILIZATION_GONDOR"/>
     </LegacyCivilizationTraits>
