@@ -201,4 +201,3 @@ mod.add([
 ]);
 
 mod.build('./example-generated-mod');
-mod.build('C:/Users/izica/AppData/Local/Firaxis Games/Sid Meier\'s Civilization VII/Mods/test');
