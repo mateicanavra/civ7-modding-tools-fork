@@ -54,10 +54,12 @@ export class TraditionBuilder extends BaseBuilder<TTraditionBuilder> {
                 item._gameEffects.modifiers.forEach((modifier) => {
                     this._gameEffects.modifiers.push(modifier);
 
-                    this._current.traditionModifiers.push(new TraditionModifierNode({
-                        traditionType: this.tradition.traditionType,
-                        modifierId: modifier.id
-                    }))
+                    if(!item.detached) {
+                        this._current.traditionModifiers.push(new TraditionModifierNode({
+                            traditionType: this.tradition.traditionType,
+                            modifierId: modifier.id
+                        }))
+                    }
                 });
 
                 this._localizations.englishText = [

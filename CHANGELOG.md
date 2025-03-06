@@ -13,7 +13,7 @@ All notable changes to this project will be documented in this file.
 
 - import custom files, for example sql, added example
 - contants
-- - PLUNDER
+  - PLUNDER
 - Database nodes
   - improvements
   - districtFreeConstructibles
@@ -68,7 +68,4 @@ All notable changes to this project will be documented in this file.
 
 - age transition
 - civilization legacy
-
-
-
 
