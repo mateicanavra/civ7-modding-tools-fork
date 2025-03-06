@@ -51,7 +51,7 @@ All notable changes to this project will be documented in this file.
   - constructibleValidTerrains
   - constructiblePlunders
 
-## [1.2] - ?
+## [1.2] - 2025-03-06
 
 ### Added
 
@@ -62,7 +62,6 @@ All notable changes to this project will be documented in this file.
   - uniqueQuarters
   - uniqueQuarterModifiers
   - gameModifiers
-
 
 ### Fixed
 
