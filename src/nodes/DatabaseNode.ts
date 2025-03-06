@@ -62,6 +62,9 @@ import { StartBiasAdjacentToCoastNode } from "./StartBiasAdjacentToCoastNode";
 import { VisArtCivilizationBuildingCultureNode } from "./VisArtCivilizationBuildingCultureNode";
 import { VisArtCivilizationUnitCultureNode } from "./VisArtCivilizationUnitCultureNode";
 import { StartBiasResourceNode } from "./StartBiasResourceNode";
+import { UniqueQuarterNode } from "./UniqueQuarterNode";
+import { UniqueQuarterModifierNode } from "./UniqueQuarterModifierNode";
+import { GameModifierNode } from "./GameModifierNode";
 
 export type TDatabase = Pick<DatabaseNode,
     "civilizationItems" |
@@ -121,6 +124,9 @@ export type TDatabase = Pick<DatabaseNode,
     "startBiasAdjacentToCoasts" |
     "visArtCivilizationBuildingCultures" |
     "visArtCivilizationUnitCultures" |
+    "uniqueQuarters" |
+    "uniqueQuarterModifiers" |
+    "gameModifiers" |
     "visualRemaps"
 >;
 
@@ -177,6 +183,11 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     englishText: EnglishTextNode[] = [];
     iconDefinitions: IconDefinitionNode[] = [];
     visualRemaps: VisualRemapNode[] = [];
+
+    uniqueQuarters: UniqueQuarterNode[] = [];
+    uniqueQuarterModifiers: UniqueQuarterModifierNode[] = [];
+
+    gameModifiers: GameModifierNode[] = [];
 
     unlocks: UnlockNode[] = [];
     unlockRewards: UnlockRewardNode[] = [];

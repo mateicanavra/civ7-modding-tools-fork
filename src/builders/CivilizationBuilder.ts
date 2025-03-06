@@ -23,7 +23,8 @@ import {
     ShellCivilizationNodeSlice,
     StartBiasAdjacentToCoastNode,
     StartBiasBiomeNode,
-    StartBiasFeatureClassNode, StartBiasResourceNode,
+    StartBiasFeatureClassNode,
+    StartBiasResourceNode,
     StartBiasRiverNode,
     StartBiasTerrainNode,
     TCivilizationItemNode,
@@ -34,7 +35,8 @@ import {
     TraitModifierNode,
     TraitNode,
     TStartBiasBiomeNode,
-    TStartBiasFeatureClassNode, TStartBiasResourceNode,
+    TStartBiasFeatureClassNode,
+    TStartBiasResourceNode,
     TStartBiasTerrainNode,
     TTraitNode,
     TypeNode,
@@ -55,6 +57,7 @@ import { UnitBuilder } from "./UnitBuilder";
 import { ConstructibleBuilder } from "./ConstructibleBuilder";
 import { ProgressionTreeBuilder } from "./ProgressionTreeBuilder";
 import { ModifierBuilder } from "./ModifierBuilder";
+import { UniqueQuarterBuilder } from "./UniqueQuarterBuilder";
 
 type TCivilizationBuilder = TClassProperties<CivilizationBuilder>
 
@@ -337,7 +340,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
      * @description Bind entity as unique to this civilization
      * @param items
      */
-    bind(items: (UnitBuilder | ConstructibleBuilder | ProgressionTreeBuilder | ModifierBuilder)[] = []) {
+    bind(items: (UnitBuilder | ConstructibleBuilder | ProgressionTreeBuilder | ModifierBuilder | UniqueQuarterBuilder)[] = []) {
         items.forEach(item => {
             if (item instanceof UnitBuilder) {
                 item._current.units.forEach(unit => {
@@ -368,6 +371,12 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                     }));
                     this._gameEffects.modifiers.push(modifier);
                 })
+            }
+
+            if (item instanceof UniqueQuarterBuilder) {
+                item._always.uniqueQuarters.forEach(item => {
+                    item.traitType = this.trait.traitType;
+                });
             }
 
             if (item instanceof ConstructibleBuilder) {
