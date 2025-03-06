@@ -66,16 +66,20 @@ export class UniqueQuarterBuilder extends BaseBuilder<TUniqueQuarterBuilder> {
             if (item instanceof ModifierBuilder) {
                 item._gameEffects.modifiers.forEach((modifier) => {
                     this._gameEffects.modifiers.push(modifier);
-
-                    this._always.gameModifiers.push(new GameModifierNode({
-                        modifierId: modifier.id
-                    }));
-
-                    this._always.uniqueQuarterModifiers.push(new UniqueQuarterModifierNode({
-                        uniqueQuarterType: this.uniqueQuarter.uniqueQuarterType,
-                        modifierId: modifier.id
-                    }));
                 });
+
+                if(!item.detached){
+                    item._gameEffects.modifiers.forEach((modifier) => {
+                        this._always.gameModifiers.push(new GameModifierNode({
+                            modifierId: modifier.id
+                        }));
+
+                        this._always.uniqueQuarterModifiers.push(new UniqueQuarterModifierNode({
+                            uniqueQuarterType: this.uniqueQuarter.uniqueQuarterType,
+                            modifierId: modifier.id
+                        }));
+                    });
+                }
 
                 this._localizations.englishText = [
                     ...this._localizations.englishText,
@@ -88,27 +92,27 @@ export class UniqueQuarterBuilder extends BaseBuilder<TUniqueQuarterBuilder> {
     }
 
     build() {
-        const path = `/constructibles/${lodash.kebabCase(this.uniqueQuarter.uniqueQuarterType.replace('QUARTER_', ''))}/`;
+        const path = `/constructibles/${lodash.kebabCase(this.uniqueQuarter.uniqueQuarterType)}/`;
         return [
             new XmlFile({
                 path,
                 name: 'always.xml',
                 content: this._always.toXmlElement(),
-                actionGroups: [this.actionGroupBundle.current],
+                actionGroups: [this.actionGroupBundle.always],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
             }),
             new XmlFile({
                 path,
                 name: 'icons.xml',
                 content: this._icons.toXmlElement(),
-                actionGroups: [this.actionGroupBundle.current],
+                actionGroups: [this.actionGroupBundle.always],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_ICONS]
             }),
             new XmlFile({
                 path,
                 name: 'game-effects.xml',
                 content: this._gameEffects.toXmlElement(),
-                actionGroups: [this.actionGroupBundle.current],
+                actionGroups: [this.actionGroupBundle.always],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
             }),
             new XmlFile({

@@ -374,8 +374,19 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
             }
 
             if (item instanceof UniqueQuarterBuilder) {
-                item._always.uniqueQuarters.forEach(item => {
-                    item.traitType = this.trait.traitType;
+                item._always.uniqueQuarters.forEach(uniqueQuarter => {
+                    uniqueQuarter.traitType = this.trait.traitType;
+
+                    this._shell.civilizationItems.push(
+                        new CivilizationItemNode({
+                            civilizationDomain: this.civilization.domain,
+                            civilizationType: this.civilization.civilizationType,
+                            type: uniqueQuarter.uniqueQuarterType,
+                            kind: KIND.QUARTER,
+                            icon: uniqueQuarter.uniqueQuarterType,
+                            ...uniqueQuarter,
+                        })
+                    )
                 });
             }
 

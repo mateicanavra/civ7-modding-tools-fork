@@ -17,10 +17,11 @@
         <Row ProgressionTreeNodeType="NODE_CIVICS_GONDOR2" ProgressionTree="TREE_CIVICS_GONDOR" Cost="150" Name="LOC_NODE_CIVICS_GONDOR2_NAME" IconString="cult_aksum"/>
     </ProgressionTreeNodes>
     <ProgressionTreeNodeUnlocks>
-        <Row ProgressionTreeNodeType="NODE_CIVICS_GONDOR1" TargetKind="KIND_MODIFIER" TargetType="MOD_140D24CD5FFC442CAC9E010600BCA945" UnlockDepth="1"/>
+        <Row ProgressionTreeNodeType="NODE_CIVICS_GONDOR1" TargetKind="KIND_MODIFIER" TargetType="MOD_1566D4DEE558477EAFBE52277C990FDD" UnlockDepth="1"/>
         <Row ProgressionTreeNodeType="NODE_CIVICS_GONDOR1" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_GONDOR" UnlockDepth="1"/>
+        <Row ProgressionTreeNodeType="NODE_CIVICS_GONDOR1" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_GONDOR2" UnlockDepth="1"/>
         <Row ProgressionTreeNodeType="NODE_CIVICS_GONDOR1" TargetKind="KIND_UNIT" TargetType="UNIT_GONDOR_SCOUT" UnlockDepth="1"/>
-        <Row ProgressionTreeNodeType="NODE_CIVICS_GONDOR2" TargetKind="KIND_MODIFIER" TargetType="MOD_3D46D0DE107B44A781230424F4E41E61" UnlockDepth="1"/>
+        <Row ProgressionTreeNodeType="NODE_CIVICS_GONDOR2" TargetKind="KIND_MODIFIER" TargetType="MOD_77D9723B90DD449FAF17E123E2CB179E" UnlockDepth="1"/>
         <Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAIN_CHIEFDOM" TargetKind="KIND_MODIFIER" TargetType="MOD_TREE_CIVICS_GONDOR_REVEAL" UnlockDepth="1" Hidden="true"/>
     </ProgressionTreeNodeUnlocks>
     <ProgressionTreePrereqs>

@@ -19,7 +19,7 @@
         </Criteria>
     </ActionCriteria>
     <ActionGroups>
-        <ActionGroup id="0db2d9b3-f1d4-49ee-a260-14705da51bc0" scope="game" criteria="age-antiquity-current">
+        <ActionGroup id="f3a49e33-7880-4ad8-94ba-8885e72c79c4" scope="game" criteria="age-antiquity-current">
             <Actions>
                 <UpdateDatabase>
                     <Item>civilizations/gondor/current.xml</Item>
@@ -34,23 +34,33 @@
                 </UpdateVisualRemaps>
                 <UpdateIcons>
                     <Item>units/gondor-scout/icons.xml</Item>
-                    <Item>constructibles/building-gondor/icons.xml</Item>
                 </UpdateIcons>
             </Actions>
         </ActionGroup>
-        <ActionGroup id="9a8673a9-9802-4461-9bd8-d3809aafe9bb" scope="game" criteria="always">
+        <ActionGroup id="9e3fc660-64e7-40d5-ad35-887fffbeff62" scope="game" criteria="always">
             <Actions>
                 <UpdateDatabase>
                     <Item>civilizations/gondor/legacy.xml</Item>
                     <Item>constructibles/building-gondor/always.xml</Item>
+                    <Item>constructibles/building-gondor-2/always.xml</Item>
+                    <Item>constructibles/quarter-gondor/always.xml</Item>
+                    <Item>constructibles/quarter-gondor/game-effects.xml</Item>
+                    <Item>constructibles/building-god/always.xml</Item>
                 </UpdateDatabase>
                 <UpdateIcons>
                     <Item>civilizations/gondor/icons.xml</Item>
+                    <Item>constructibles/building-gondor/icons.xml</Item>
+                    <Item>constructibles/building-gondor-2/icons.xml</Item>
+                    <Item>constructibles/quarter-gondor/icons.xml</Item>
+                    <Item>constructibles/building-god/icons.xml</Item>
                 </UpdateIcons>
                 <UpdateText>
                     <Item>civilizations/gondor/localization.xml</Item>
                     <Item>units/gondor-scout/localization.xml</Item>
                     <Item>constructibles/building-gondor/localization.xml</Item>
+                    <Item>constructibles/building-gondor-2/localization.xml</Item>
+                    <Item>constructibles/quarter-gondor/localization.xml</Item>
+                    <Item>constructibles/building-god/localization.xml</Item>
                     <Item>progression-trees/civics-gondor/localization.xml</Item>
                 </UpdateText>
                 <ImportFiles>
@@ -59,7 +69,7 @@
                 </ImportFiles>
             </Actions>
         </ActionGroup>
-        <ActionGroup id="6da08ee4-6e2f-4052-a042-de0acbc73850" scope="shell" criteria="always">
+        <ActionGroup id="0e4bd8e2-4067-412a-8be5-c0f70e232270" scope="shell" criteria="always">
             <Actions>
                 <UpdateDatabase>
                     <Item>civilizations/gondor/shell.xml</Item>
@@ -68,11 +78,16 @@
                     <Item>civilizations/gondor/icons.xml</Item>
                     <Item>units/gondor-scout/icons.xml</Item>
                     <Item>constructibles/building-gondor/icons.xml</Item>
+                    <Item>constructibles/building-gondor-2/icons.xml</Item>
+                    <Item>constructibles/building-god/icons.xml</Item>
                 </UpdateIcons>
                 <UpdateText>
                     <Item>civilizations/gondor/localization.xml</Item>
                     <Item>units/gondor-scout/localization.xml</Item>
                     <Item>constructibles/building-gondor/localization.xml</Item>
+                    <Item>constructibles/building-gondor-2/localization.xml</Item>
+                    <Item>constructibles/quarter-gondor/localization.xml</Item>
+                    <Item>constructibles/building-god/localization.xml</Item>
                     <Item>progression-trees/civics-gondor/localization.xml</Item>
                 </UpdateText>
                 <ImportFiles>

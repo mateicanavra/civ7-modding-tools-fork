@@ -7,6 +7,9 @@
         <Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_GONDOR" Type="TRAIT_GONDOR_ABILITY" Kind="KIND_TRAIT" Name="LOC_CIVILIZATION_GONDOR_ABILITY_NAME" Description="LOC_CIVILIZATION_GONDOR_ABILITY_DESCRIPTION"/>
         <Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_GONDOR" Type="UNIT_GONDOR_SCOUT" Kind="KIND_UNIT" Name="LOC_UNIT_GONDOR_SCOUT_NAME" Description="LOC_UNIT_GONDOR_SCOUT_DESCRIPTION" Icon="UNIT_GONDOR_SCOUT"/>
         <Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_GONDOR" Type="BUILDING_GONDOR" Kind="KIND_IMPROVEMENT" Name="LOC_BUILDING_GONDOR_NAME" Description="LOC_BUILDING_GONDOR_DESCRIPTION"/>
+        <Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_GONDOR" Type="BUILDING_GONDOR2" Kind="KIND_IMPROVEMENT" Name="LOC_BUILDING_GONDOR2_NAME" Description="LOC_BUILDING_GONDOR2_DESCRIPTION"/>
+        <Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_GONDOR" Type="QUARTER_GONDOR" Kind="KIND_QUARTER" Name="LOC_QUARTER_GONDOR_NAME" Description="LOC_QUARTER_GONDOR_DESCRIPTION" Icon="QUARTER_GONDOR"/>
+        <Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_GONDOR" Type="BUILDING_GOD" Kind="KIND_IMPROVEMENT" Name="LOC_BUILDING_GOD_NAME" Description="LOC_BUILDING_GOD_DESCRIPTION"/>
     </CivilizationItems>
     <CivilizationTags>
         <Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_GONDOR" TagType="TAG_TRAIT_CULTURAL"/>

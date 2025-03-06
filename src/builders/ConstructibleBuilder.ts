@@ -188,7 +188,7 @@ export class ConstructibleBuilder extends BaseBuilder<TConstructibleBuilder> {
                 path,
                 name: 'icons.xml',
                 content: this._icons.toXmlElement(),
-                actionGroups: [this.actionGroupBundle.shell, this.actionGroupBundle.current],
+                actionGroups: [this.actionGroupBundle.shell, this.actionGroupBundle.always],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_ICONS]
             }),
         ]

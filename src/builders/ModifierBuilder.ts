@@ -13,6 +13,9 @@ export class ModifierBuilder extends BaseBuilder<TModifierBuilder> {
     _gameEffects: GameEffectNode = new GameEffectNode();
     _localizations: DatabaseNode = new DatabaseNode();
 
+    /** @description if detached only adding into game effects file while binding*/
+    detached = false;
+
     modifier: Partial<TModifierNode> = {}
 
     localizations: Partial<TModifierLocalization>[] = [];
