@@ -56,6 +56,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 - new UniqueQuarterBuilder
+- unique quarter example
 - autobinding improvements to civilization
 - autobinding quarters to civilization
 - Database nodes
