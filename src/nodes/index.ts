@@ -20,11 +20,11 @@ export { LegacyCivilizationNode, TLegacyCivilizationNode } from './LegacyCiviliz
 export { LegacyCivilizationTraitNode, TLegacyCivilizationTraitNode } from './LegacyCivilizationTraitNode';
 export { ModifierNode, TModifierNode } from './ModifierNode';
 export { ModifierRequirementNode, TModifierRequirementNode } from './ModifierRequirementNode';
-export { ProgressionTreeAdvisoryNode, TProgressionTreeAdvisoryNode} from './ProgressionTreeAdvisoryNode';
-export { ProgressionTreeNode, TProgressionTreeNode} from './ProgressionTreeNode';
-export { ProgressionTreeNodeNode, TProgressionTreeNodeNode} from './ProgressionTreeNodeNode';
-export { ProgressionTreeNodeUnlockNode, TProgressionTreeNodeUnlockNode} from './ProgressionTreeNodeUnlockNode';
-export { ProgressionTreePrereqNode, TProgressionTreePrereqNode} from './ProgressionTreePrereqNode';
+export { ProgressionTreeAdvisoryNode, TProgressionTreeAdvisoryNode } from './ProgressionTreeAdvisoryNode';
+export { ProgressionTreeNode, TProgressionTreeNode } from './ProgressionTreeNode';
+export { ProgressionTreeNodeNode, TProgressionTreeNodeNode } from './ProgressionTreeNodeNode';
+export { ProgressionTreeNodeUnlockNode, TProgressionTreeNodeUnlockNode } from './ProgressionTreeNodeUnlockNode';
+export { ProgressionTreePrereqNode, TProgressionTreePrereqNode } from './ProgressionTreePrereqNode';
 export { RequirementArgumentNode, TRequirementArgumentNode } from './RequirementArgumentNode';
 export { RequirementNode, TRequirementNode } from './RequirementNode';
 export { RequirementSetNode, TRequirementSetNode } from './RequirementSetNode';
@@ -61,6 +61,9 @@ export { StartBiasAdjacentToCoastNode, TStartBiasAdjacentToCoastNode } from './S
 export { StartBiasResourceNode, TStartBiasResourceNode } from './StartBiasResourceNode';
 export { VisArtCivilizationBuildingCultureNode, TVisArtCivilizationBuildingCultureNode } from './VisArtCivilizationBuildingCultureNode';
 export { VisArtCivilizationUnitCultureNode, TVisArtCivilizationUnitCultureNode } from './VisArtCivilizationUnitCultureNode';
+export { UniqueQuarterModifierNode, TUniqueQuarterModifierNode } from './UniqueQuarterModifierNode';
+export { UniqueQuarterNode, TUniqueQuarterNode } from './UniqueQuarterNode';
+export { GameModifierNode, TGameModifierNode } from './GameModifierNode';
 
 export { ShellCivilizationNodeSlice, TShellCivilizationNodeSlice } from './slices/ShellCivilizationNodeSlice';
 export { GameCivilizationNodeSlice, TGameCivilizationNodeSlice } from './slices/GameCivilizationNodeSlice';

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GameEffects xmlns="GameEffects">
-    <Modifier id="MOD_0A4FBF770FCC4937B16FD6985CFB081F" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_MOVEMENT" permanent="true">
+    <Modifier id="MOD_7509D59FF53F472584613317EDCA4C9B" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_MOVEMENT" permanent="true">
         <SubjectRequirements>
             <Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
                 <Argument name="Tag">UNIT_CLASS_RECON</Argument>

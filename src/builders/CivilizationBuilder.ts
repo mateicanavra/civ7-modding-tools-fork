@@ -23,7 +23,8 @@ import {
     ShellCivilizationNodeSlice,
     StartBiasAdjacentToCoastNode,
     StartBiasBiomeNode,
-    StartBiasFeatureClassNode, StartBiasResourceNode,
+    StartBiasFeatureClassNode,
+    StartBiasResourceNode,
     StartBiasRiverNode,
     StartBiasTerrainNode,
     TCivilizationItemNode,
@@ -34,7 +35,8 @@ import {
     TraitModifierNode,
     TraitNode,
     TStartBiasBiomeNode,
-    TStartBiasFeatureClassNode, TStartBiasResourceNode,
+    TStartBiasFeatureClassNode,
+    TStartBiasResourceNode,
     TStartBiasTerrainNode,
     TTraitNode,
     TypeNode,
@@ -55,6 +57,7 @@ import { UnitBuilder } from "./UnitBuilder";
 import { ConstructibleBuilder } from "./ConstructibleBuilder";
 import { ProgressionTreeBuilder } from "./ProgressionTreeBuilder";
 import { ModifierBuilder } from "./ModifierBuilder";
+import { UniqueQuarterBuilder } from "./UniqueQuarterBuilder";
 
 type TCivilizationBuilder = TClassProperties<CivilizationBuilder>
 
@@ -295,8 +298,11 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
 
         this._legacy.fill({
             types: [
-                new TypeNode({ type: this.civilization.civilizationType, kind: KIND.CIVILIZATION }),
+                new TypeNode({ type: this.civilization.civilizationType, kind: KIND.CIVILIZATION }).insertOrIgnore(),
+                new TypeNode({ kind: KIND.TRAIT, type: this.trait.traitType }).insertOrIgnore(),
+                new TypeNode({ kind: KIND.TRAIT, type: this.traitAbility.traitType }).insertOrIgnore(),
             ],
+            traits: [new TraitNode(trait).insertOrIgnore()],
             legacyCivilizations: [
                 new LegacyCivilizationNode({
                     ...civilization,
@@ -334,7 +340,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
      * @description Bind entity as unique to this civilization
      * @param items
      */
-    bind(items: (UnitBuilder | ConstructibleBuilder | ProgressionTreeBuilder | ModifierBuilder)[] = []) {
+    bind(items: (UnitBuilder | ConstructibleBuilder | ProgressionTreeBuilder | ModifierBuilder | UniqueQuarterBuilder)[] = []) {
         items.forEach(item => {
             if (item instanceof UnitBuilder) {
                 item._current.units.forEach(unit => {
@@ -367,9 +373,29 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                 })
             }
 
+            if (item instanceof UniqueQuarterBuilder) {
+                item._always.uniqueQuarters.forEach(uniqueQuarter => {
+                    uniqueQuarter.traitType = this.trait.traitType;
+
+                    this._shell.civilizationItems.push(
+                        new CivilizationItemNode({
+                            civilizationDomain: this.civilization.domain,
+                            civilizationType: this.civilization.civilizationType,
+                            type: uniqueQuarter.uniqueQuarterType,
+                            kind: KIND.QUARTER,
+                            icon: uniqueQuarter.uniqueQuarterType,
+                            ...uniqueQuarter,
+                        })
+                    )
+                });
+            }
+
             if (item instanceof ConstructibleBuilder) {
-                item._always.buildings.forEach(building => {
-                    building.traitType = this.trait.traitType;
+                item._always.buildings.forEach(item => {
+                    item.traitType = this.trait.traitType;
+                });
+                item._always.improvements.forEach(item => {
+                    item.traitType = this.trait.traitType;
                 });
                 item._always.constructibles.forEach(constructible => {
                     this._shell.civilizationItems.push(

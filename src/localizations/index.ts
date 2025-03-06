@@ -5,3 +5,4 @@ export { ModifierLocalization, TModifierLocalization } from './ModifierLocalizat
 export { ProgressionTreeNodeLocalization, TProgressionTreeNodeLocalization } from './ProgressionTreeNodeLocalization'
 export { ProgressionTreeLocalization, TProgressionTreeLocalization } from './ProgressionTreeLocalization'
 export { TraditionLocalization, TTraditionLocalization } from './TraditionLocalization'
+export { UniqueQuarterLocalization, TUniqueQuarterLocalization } from './UniqueQuarterLocalization'

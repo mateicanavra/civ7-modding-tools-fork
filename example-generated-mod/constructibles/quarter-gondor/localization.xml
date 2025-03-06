@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Database>
+    <EnglishText>
+        <Row Tag="LOC_QUARTER_GONDOR_NAME">
+            <Text>Custom unique quarter</Text>
+        </Row>
+        <Row Tag="LOC_QUARTER_GONDOR_DESCRIPTION">
+            <Text>Custom unique quarter test description</Text>
+        </Row>
+    </EnglishText>
+</Database>
+<!-- generated with https://github.com/izica/civ7-modding-tools -->

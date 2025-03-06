@@ -15,41 +15,60 @@ All notable changes to this project will be documented in this file.
 - contants
 - - PLUNDER
 - Database nodes
-- - improvements
-- - districtFreeConstructibles
-- - constructibleValidResources
-- - constructibleValidBiomes
-- - constructibleValidFeatures
-- - constructibleValidTerrains
-- - constructiblePlunders
-- - startBiasBiomes
-- - startBiasTerrains
-- - startBiasResources
-- - startBiasRivers
-- - startBiasFeatureClasses
-- - startBiasAdjacentToCoasts
-- - visArtCivilizationBuildingCultures
-- - visArtCivilizationUnitCultures
+  - improvements
+  - districtFreeConstructibles
+  - constructibleValidResources
+  - constructibleValidBiomes
+  - constructibleValidFeatures
+  - constructibleValidTerrains
+  - constructiblePlunders
+  - startBiasBiomes
+  - startBiasTerrains
+  - startBiasResources
+  - startBiasRivers
+  - startBiasFeatureClasses
+  - startBiasAdjacentToCoasts
+  - visArtCivilizationBuildingCultures
+  - visArtCivilizationUnitCultures
 - ImportFileBuilder properties
-- - actionGroups,
-- - actionGroupActions
+  - actionGroups,
+  - actionGroupActions
 - CivilizationBuilder properties
-- - startBiasBiomes
-- - startBiasTerrains
-- - startBiasResources
-- - startBiasRiver
-- - startBiasFeatureClasses
-- - startBiasAdjacentToCoast
-- - visArtCivilizationBuildingCultures
-- - visArtCivilizationUnitCulture
+  - startBiasBiomes
+  - startBiasTerrains
+  - startBiasResources
+  - startBiasRiver
+  - startBiasFeatureClasses
+  - startBiasAdjacentToCoast
+  - visArtCivilizationBuildingCultures
+  - visArtCivilizationUnitCulture
 - ConstructibleBuilder properties
-- - improvement
-- - districtFreeConstructibles
-- - constructibleValidResources
-- - constructibleValidBiomes
-- - constructibleValidFeatures
-- - constructibleValidTerrains
-- - constructiblePlunders
+  - improvement
+  - districtFreeConstructibles
+  - constructibleValidResources
+  - constructibleValidBiomes
+  - constructibleValidFeatures
+  - constructibleValidTerrains
+  - constructiblePlunders
+
+## [1.2] - ?
+
+### Added
+
+- new UniqueQuarterBuilder
+- autobinding improvements to civilization
+- autobinding quarters to civilization
+- Database nodes
+  - uniqueQuarters
+  - uniqueQuarterModifiers
+  - gameModifiers
+
+
+### Fixed
+
+- age transition
+- civilization legacy
+
 
 
 

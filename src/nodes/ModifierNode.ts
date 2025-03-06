@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 
-import { TObjectValues } from "../types";
+import { TObjectValues, TPartialWithRequired } from "../types";
 import { COLLECTION, EFFECT } from "../constants";
 
 import { BaseNode } from "./BaseNode";
@@ -26,7 +26,7 @@ export class ModifierNode extends BaseNode<TModifierNode> {
     collection: TObjectValues<typeof COLLECTION> = COLLECTION.OWNER;
     effect: TObjectValues<typeof EFFECT> = EFFECT.CITY_ADJUST_YIELD_PER_RESOURCE;
     arguments: TArgumentNode[] = [];
-    requirements: TModifierRequirementNode[] = [];
+    requirements: TPartialWithRequired<TModifierRequirementNode, 'type'>[] = [];
     strings: TStringNode[] = [];
     permanent: boolean | null = null;
     runOnce: boolean | null = null;

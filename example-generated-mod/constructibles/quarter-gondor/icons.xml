@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Database>
+    <IconDefinitions>
+        <Row>
+            <ID>QUARTER_GONDOR</ID>
+            <Path>fs://game/civ_sym_han</Path>
+        </Row>
+    </IconDefinitions>
+</Database>
+<!-- generated with https://github.com/izica/civ7-modding-tools -->

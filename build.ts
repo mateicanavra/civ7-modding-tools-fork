@@ -1,15 +1,27 @@
 import {
-    ACTION_GROUP_BUNDLE, ADVISORY, AGE,
-    CivilizationBuilder, COLLECTION,
+    ACTION_GROUP_BUNDLE,
+    ADVISORY,
+    AGE,
+    CivilizationBuilder,
+    COLLECTION,
     CONSTRUCTIBLE_TYPE_TAG,
     ConstructibleBuilder,
-    DISTRICT, EFFECT,
+    createGodConstructible,
+    DISTRICT,
+    EFFECT,
     ImportFileBuilder,
-    Mod, ModifierBuilder, ProgressionTreeBuilder, ProgressionTreeNodeBuilder, REQUIREMENT,
-    TAG_TRAIT, TRAIT,
+    Mod,
+    ModifierBuilder,
+    ProgressionTreeBuilder,
+    ProgressionTreeNodeBuilder,
+    REQUIREMENT,
+    TAG_TRAIT,
+    TRAIT,
+    UniqueQuarterBuilder,
     UNIT,
     UNIT_CLASS,
-    UnitBuilder, YIELD
+    UnitBuilder,
+    YIELD
 } from "./src";
 
 let mod = new Mod({
@@ -104,11 +116,70 @@ const constructible = new ConstructibleBuilder({
         { yieldType: YIELD.HAPPINESS, amount: 1 },
     ],
     localizations: [
-        {name: 'Custom building', description: 'Custom building test description', tooltip: 'Custom building test tooltip'},
+        { name: 'Custom building', description: 'Custom building test description', tooltip: 'Custom building test tooltip' },
     ]
 });
 
+const constructible2 = new ConstructibleBuilder({
+    actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
+    constructible: {
+        constructibleType: 'BUILDING_GONDOR2',
+    },
+    building: {},
+    typeTags: [
+        CONSTRUCTIBLE_TYPE_TAG.AGELESS,
+        CONSTRUCTIBLE_TYPE_TAG.PRODUCTION,
+        CONSTRUCTIBLE_TYPE_TAG.FOOD
+    ],
+    constructibleValidDistricts: [
+        DISTRICT.URBAN,
+        DISTRICT.CITY_CENTER,
+    ],
+    constructibleYieldChanges: [
+        { yieldType: YIELD.GOLD, yieldChange: 20 },
+    ],
+    constructibleMaintenances: [
+        { yieldType: YIELD.PRODUCTION, amount: 1 },
+        { yieldType: YIELD.HAPPINESS, amount: 1 },
+    ],
+    localizations: [
+        { name: 'Custom building', description: 'Custom building test description', tooltip: 'Custom building test tooltip' },
+    ]
+});
+
+const uniqueQuarter = new UniqueQuarterBuilder({
+    actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
+    uniqueQuarter: {
+        uniqueQuarterType: 'QUARTER_GONDOR',
+        buildingType1: constructible.constructible.constructibleType,
+        buildingType2: constructible2.constructible.constructibleType,
+    },
+    localizations: [
+        { name: 'Custom unique quarter', description: 'Custom unique quarter test description' },
+    ]
+}).bind([
+    new ModifierBuilder({
+        modifier: {
+            collection: COLLECTION.ALL_CITIES,
+            effect: EFFECT.CITY_ADJUST_YIELD,
+            permanent: true,
+            requirements: [{
+                type: REQUIREMENT.CITY_HAS_UNIQUE_QUARTER,
+                arguments: [{ name: 'UniqueQuarterType', value: 'QUARTER_GONDOR' }]
+            }, {
+                type: REQUIREMENT.CITY_IS_CITY
+            }],
+            arguments: [
+                { name: "YieldType", value: YIELD.GOLD },
+                { name: "Amount", value: 2000 },
+                { name: "Tooltip", value: 'LOC_QUARTER_GONDOR_NAME' }
+            ]
+        }
+    }),
+])
+
 const progressionTreeNode = new ProgressionTreeNodeBuilder({
+    actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     progressionTreeNode: {
         progressionTreeNodeType: 'NODE_CIVICS_GONDOR1',
     },
@@ -132,10 +203,12 @@ const progressionTreeNode = new ProgressionTreeNodeBuilder({
         }]
     }),
     constructible,
+    constructible2,
     unit
 ]);
 
 const progressionTreeNode2 = new ProgressionTreeNodeBuilder({
+    actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     progressionTreeNode: {
         progressionTreeNodeType: 'NODE_CIVICS_GONDOR2',
     },
@@ -175,10 +248,16 @@ const progressionTree = new ProgressionTreeBuilder({
     }]
 }).bind([progressionTreeNode, progressionTreeNode2]);
 
+
+const godConstructible = createGodConstructible(ACTION_GROUP_BUNDLE.AGE_ANTIQUITY);
+
 civilization.bind([
     unit,
     constructible,
-    progressionTree
+    constructible2,
+    uniqueQuarter,
+    progressionTree,
+    godConstructible
 ]);
 
 mod.add([
@@ -187,6 +266,9 @@ mod.add([
     unit,
     unitIcon,
     constructible,
+    constructible2,
+    uniqueQuarter,
+    godConstructible,
     progressionTree
 ]);
 
