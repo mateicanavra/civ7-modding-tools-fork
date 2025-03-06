@@ -1,7 +1,7 @@
 import * as lodash from "lodash"
 
 import { TClassProperties, TPartialWithRequired } from "../types";
-import { DatabaseNode, GameEffectNode, GameModifierNode, TypeNode, UniqueQuarterModifierNode, UniqueQuarterNode } from "../nodes";
+import { DatabaseNode, GameEffectNode, GameModifierNode, IconDefinitionNode, TIconDefinitionNode, TypeNode, UniqueQuarterModifierNode, UniqueQuarterNode } from "../nodes";
 import { TUniqueQuarterLocalization, UniqueQuarterLocalization } from "../localizations";
 import { XmlFile } from "../files";
 import { ACTION_GROUP_ACTION, KIND } from "../constants";
@@ -25,6 +25,10 @@ export class UniqueQuarterBuilder extends BaseBuilder<TUniqueQuarterBuilder> {
         buildingType2: 'BUILDING_CUSTOM2',
     }
 
+    icon: TPartialWithRequired<TIconDefinitionNode, 'path'> = {
+        path: 'fs://game/civ_sym_han'
+    }
+
     localizations: Partial<TUniqueQuarterLocalization>[] = [];
 
     constructor(payload: Partial<TUniqueQuarterBuilder> = {}) {
@@ -39,6 +43,13 @@ export class UniqueQuarterBuilder extends BaseBuilder<TUniqueQuarterBuilder> {
                 ...this.uniqueQuarter,
             })]
         });
+
+        this._icons.fill({
+            iconDefinitions: [new IconDefinitionNode({
+                id: this.uniqueQuarter.uniqueQuarterType,
+                ...this.icon,
+            })]
+        })
 
         this._localizations.fill({
             englishText: this.localizations.map(item => {
@@ -88,7 +99,7 @@ export class UniqueQuarterBuilder extends BaseBuilder<TUniqueQuarterBuilder> {
             }),
             new XmlFile({
                 path,
-                name: 'always.xml',
+                name: 'icons.xml',
                 content: this._icons.toXmlElement(),
                 actionGroups: [this.actionGroupBundle.current],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_ICONS]
