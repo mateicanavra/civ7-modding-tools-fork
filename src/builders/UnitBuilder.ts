@@ -3,16 +3,23 @@ import * as lodash from "lodash";
 import { TClassProperties, TObjectValues, TPartialWithRequired } from "../types";
 import {
     DatabaseNode,
+    IconDefinitionNode,
     TagNode,
+    TIconDefinitionNode,
     TUnitCostNode,
-    TUnitNode, TUnitReplaceNode,
+    TUnitNode,
+    TUnitReplaceNode,
     TUnitStatNode,
+    TUnitUpgradeNode,
+    TVisualRemapNode,
     TypeNode,
-    TypeTagNode, UnitCostNode,
-    UnitNode, UnitReplaceNode,
+    TypeTagNode,
+    UnitCostNode,
+    UnitNode,
+    UnitReplaceNode,
     UnitStatNode,
-    VisualRemapNode,
-    TVisualRemapNode, TIconDefinitionNode, IconDefinitionNode
+    UnitUpgradeNode,
+    VisualRemapNode
 } from "../nodes";
 import { ACTION_GROUP_ACTION, KIND, UNIT_CLASS } from "../constants";
 import { locale } from "../utils";
@@ -35,7 +42,8 @@ export class UnitBuilder extends BaseBuilder<TUnitBuilder> {
     icon: TPartialWithRequired<TIconDefinitionNode, 'path'> = {
         path: 'fs://game/civ_sym_han'
     }
-    unitReplace: Partial<TUnitReplaceNode> = {};
+    unitReplace: TPartialWithRequired<TUnitReplaceNode, 'replacesUnitType'> | null = null;
+    unitUpgrade: TPartialWithRequired<TUnitUpgradeNode, 'upgradeUnit'> | null = null;
     visualRemap: TPartialWithRequired<TVisualRemapNode, 'to'> | null = null;
     localizations: TUnitLocalization[] = [];
 
@@ -85,13 +93,17 @@ export class UnitBuilder extends BaseBuilder<TUnitBuilder> {
                 ...this.unit,
                 ...this.unitCost
             })],
-            unitReplaces: [new UnitReplaceNode({
+            unitReplaces: this.unitReplace ? [new UnitReplaceNode({
                 civUniqueUnitType: this.unit.unitType,
                 ...this.unitReplace
-            })]
+            })] : [],
+            unitUpgrades: this.unitUpgrade ? [new UnitUpgradeNode({
+                unit: this.unit.unitType,
+                ...this.unitUpgrade
+            })] : [],
         })
 
-        if(this.visualRemap){
+        if (this.visualRemap) {
             this._visualRemap = new DatabaseNode({
                 visualRemaps: [
                     new VisualRemapNode({

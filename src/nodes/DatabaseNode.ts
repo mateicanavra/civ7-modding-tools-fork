@@ -65,6 +65,7 @@ import { StartBiasResourceNode } from "./StartBiasResourceNode";
 import { UniqueQuarterNode } from "./UniqueQuarterNode";
 import { UniqueQuarterModifierNode } from "./UniqueQuarterModifierNode";
 import { GameModifierNode } from "./GameModifierNode";
+import { UnitUpgradeNode } from "./UnitUpgradeNode";
 
 export type TDatabase = Pick<DatabaseNode,
     "civilizationItems" |
@@ -91,6 +92,7 @@ export type TDatabase = Pick<DatabaseNode,
     "unitReplaces" |
     "unitStats" |
     "units" |
+    "unitUpgrades" |
     "unlocks" |
     "unlockRequirements" |
     "unlockConfigurationValues" |
@@ -178,6 +180,7 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     units: UnitNode[] = [];
     unitCosts: UnitCostNode[] = [];
     unitReplaces: UnitReplaceNode[] = [];
+    unitUpgrades: UnitUpgradeNode[] = [];
     unitStats: UnitStatNode[] = [];
 
     englishText: EnglishTextNode[] = [];
