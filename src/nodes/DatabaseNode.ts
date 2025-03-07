@@ -66,6 +66,7 @@ import { UniqueQuarterNode } from "./UniqueQuarterNode";
 import { UniqueQuarterModifierNode } from "./UniqueQuarterModifierNode";
 import { GameModifierNode } from "./GameModifierNode";
 import { UnitUpgradeNode } from "./UnitUpgradeNode";
+import { UnitAdvisoryNode } from "./UnitAdvisoryNode";
 
 export type TDatabase = Pick<DatabaseNode,
     "civilizationItems" |
@@ -93,10 +94,12 @@ export type TDatabase = Pick<DatabaseNode,
     "unitStats" |
     "units" |
     "unitUpgrades" |
+    "unitAdvisories" |
     "unlocks" |
     "unlockRequirements" |
     "unlockConfigurationValues" |
     "requirementSets" |
+    "requirements" |
     "requirementArguments" |
     "requirementSetRequirements" |
     "unlockRewards" |
@@ -182,6 +185,7 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     unitReplaces: UnitReplaceNode[] = [];
     unitUpgrades: UnitUpgradeNode[] = [];
     unitStats: UnitStatNode[] = [];
+    unitAdvisories: UnitAdvisoryNode[] = [];
 
     englishText: EnglishTextNode[] = [];
     iconDefinitions: IconDefinitionNode[] = [];
@@ -242,6 +246,7 @@ export class DatabaseNode extends BaseNode<TDatabase> {
             visArtCivilizationUnitCultures: 'VisArt_CivilizationUnitCultures',
             unitCosts: 'Unit_Costs',
             unitStats: 'Unit_Stats',
+            unitAdvisories: 'Unit_Advisories',
         }
         const data = Object.keys(this)
             .filter(key => !except.includes(key))

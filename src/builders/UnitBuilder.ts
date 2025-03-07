@@ -5,7 +5,7 @@ import {
     DatabaseNode,
     IconDefinitionNode,
     TagNode,
-    TIconDefinitionNode,
+    TIconDefinitionNode, TUnitAdvisoryNode,
     TUnitCostNode,
     TUnitNode,
     TUnitReplaceNode,
@@ -13,7 +13,7 @@ import {
     TUnitUpgradeNode,
     TVisualRemapNode,
     TypeNode,
-    TypeTagNode,
+    TypeTagNode, UnitAdvisoryNode,
     UnitCostNode,
     UnitNode,
     UnitReplaceNode,
@@ -45,6 +45,7 @@ export class UnitBuilder extends BaseBuilder<TUnitBuilder> {
     unitReplace: TPartialWithRequired<TUnitReplaceNode, 'replacesUnitType'> | null = null;
     unitUpgrade: TPartialWithRequired<TUnitUpgradeNode, 'upgradeUnit'> | null = null;
     visualRemap: TPartialWithRequired<TVisualRemapNode, 'to'> | null = null;
+    unitAdvisories: TPartialWithRequired<TUnitAdvisoryNode, 'advisoryClassType'>[] = [];
     localizations: TUnitLocalization[] = [];
 
     typeTags: TObjectValues<typeof UNIT_CLASS>[] = [];
@@ -101,6 +102,10 @@ export class UnitBuilder extends BaseBuilder<TUnitBuilder> {
                 unit: this.unit.unitType,
                 ...this.unitUpgrade
             })] : [],
+            unitAdvisories: this.unitAdvisories.map(item => new UnitAdvisoryNode({
+                unitType: this.unit.unitType,
+                ...item
+            }))
         })
 
         if (this.visualRemap) {

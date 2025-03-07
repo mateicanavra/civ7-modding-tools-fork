@@ -65,6 +65,7 @@ export { UnlockRewardNode, TUnlockRewardNode } from './UnlockRewardNode';
 export { VisArtCivilizationBuildingCultureNode, TVisArtCivilizationBuildingCultureNode } from './VisArtCivilizationBuildingCultureNode';
 export { VisArtCivilizationUnitCultureNode, TVisArtCivilizationUnitCultureNode } from './VisArtCivilizationUnitCultureNode';
 export { VisualRemapNode, TVisualRemapNode } from './VisualRemapNode';
+export { UnitAdvisoryNode, TUnitAdvisoryNode } from './UnitAdvisoryNode';
 
 export { ShellCivilizationNodeSlice, TShellCivilizationNodeSlice } from './slices/ShellCivilizationNodeSlice';
 export { GameCivilizationNodeSlice, TGameCivilizationNodeSlice } from './slices/GameCivilizationNodeSlice';
