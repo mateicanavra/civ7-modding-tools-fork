@@ -249,7 +249,24 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
         })
 
         this._unlocks = new DatabaseNode({
-            kinds: [new KindNode({ kind: KIND.UNLOCK }).insertOrIgnore()]
+            kinds: [new KindNode({ kind: KIND.UNLOCK }).insertOrIgnore()],
+            requirementSets: [new RequirementSetNode({
+                requirementSetId: `REQSET_${civilization.civilizationType}`,
+                requirementSetType: REQUIREMENT_SET.TEST_ALL
+            })],
+            requirements: [new RequirementNode({
+                requirementId: `REQ_${civilization.civilizationType}`,
+                requirementType: REQUIREMENT.PLAYER_CIVILIZATION_TYPE_MATCHES
+            })],
+            requirementArguments: [new RequirementArgumentNode({
+                requirementId: `REQ_${civilization.civilizationType}`,
+                name: 'CivilizationType',
+                value: civilization.civilizationType
+            })],
+            requirementSetRequirements: [new RequirementSetRequirementNode({
+                requirementSetId: `REQSET_${civilization.civilizationType}`,
+                requirementId: `REQ_${civilization.civilizationType}`,
+            })],
         });
 
         this.civilizationUnlocks.map(item => {
@@ -267,23 +284,6 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                 icon: item.type,
                 civUnlock: true
             }).insertOrIgnore());
-            this._unlocks.requirementSets.push(new RequirementSetNode({
-                requirementSetId: `REQSET_${civilization.civilizationType}`,
-                requirementSetType: REQUIREMENT_SET.TEST_ALL
-            }));
-            this._unlocks.requirements.push(new RequirementNode({
-                requirementId: `REQ_${civilization.civilizationType}`,
-                requirementType: REQUIREMENT.PLAYER_CIVILIZATION_TYPE_MATCHES
-            }));
-            this._unlocks.requirementArguments.push(new RequirementArgumentNode({
-                requirementId: `REQ_${civilization.civilizationType}`,
-                name: 'CivilizationType',
-                value: civilization.civilizationType
-            }));
-            this._unlocks.requirementSetRequirements.push(new RequirementSetRequirementNode({
-                requirementSetId: `REQSET_${civilization.civilizationType}`,
-                requirementId: `REQ_${civilization.civilizationType}`,
-            }));
             this._unlocks.unlockRequirements.push(new UnlockRequirementNode({
                 unlockType: `UNLOCK_${item.type}`,
                 requirementSetId: `REQSET_${civilization.civilizationType}`,
