@@ -46,13 +46,15 @@ class ProgressionTreeNodeBuilder extends BaseBuilder_1.BaseBuilder {
             if (item instanceof ModifierBuilder_1.ModifierBuilder) {
                 item._gameEffects.modifiers.forEach((modifier) => {
                     this._gameEffects.modifiers.push(modifier);
-                    this._current.progressionTreeNodeUnlocks.push(new nodes_1.ProgressionTreeNodeUnlockNode({
-                        progressionTreeNodeType: this.progressionTreeNode.progressionTreeNodeType,
-                        targetKind: constants_1.KIND.MODIFIER,
-                        targetType: modifier.id,
-                        unlockDepth: unlockDepth,
-                        hidden: hidden
-                    }));
+                    if (!item.detached) {
+                        this._current.progressionTreeNodeUnlocks.push(new nodes_1.ProgressionTreeNodeUnlockNode({
+                            progressionTreeNodeType: this.progressionTreeNode.progressionTreeNodeType,
+                            targetKind: constants_1.KIND.MODIFIER,
+                            targetType: modifier.id,
+                            unlockDepth: unlockDepth,
+                            hidden: hidden
+                        }));
+                    }
                 });
                 this._localizations.englishText = [
                     ...this._localizations.englishText,

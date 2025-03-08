@@ -236,15 +236,14 @@ class CivilizationBuilder extends BaseBuilder_1.BaseBuilder {
                 });
             }
             if (item instanceof ModifierBuilder_1.ModifierBuilder) {
-                if (!this._gameEffects) {
-                    this._gameEffects = new nodes_1.GameEffectNode();
-                }
                 item._gameEffects.modifiers.forEach(modifier => {
-                    this._current.traitModifiers.push(new nodes_1.TraitModifierNode({
-                        traitType: this.traitAbility.traitType,
-                        modifierId: modifier.id
-                    }));
                     this._gameEffects.modifiers.push(modifier);
+                    if (!item.detached) {
+                        this._current.traitModifiers.push(new nodes_1.TraitModifierNode({
+                            traitType: this.traitAbility.traitType,
+                            modifierId: modifier.id
+                        }));
+                    }
                 });
             }
             if (item instanceof UniqueQuarterBuilder_1.UniqueQuarterBuilder) {

@@ -360,16 +360,15 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
             }
 
             if (item instanceof ModifierBuilder) {
-                if (!this._gameEffects) {
-                    this._gameEffects = new GameEffectNode();
-                }
-
                 item._gameEffects.modifiers.forEach(modifier => {
-                    this._current.traitModifiers.push(new TraitModifierNode({
-                        traitType: this.traitAbility.traitType,
-                        modifierId: modifier.id
-                    }));
                     this._gameEffects.modifiers.push(modifier);
+
+                    if (!item.detached) {
+                        this._current.traitModifiers.push(new TraitModifierNode({
+                            traitType: this.traitAbility.traitType,
+                            modifierId: modifier.id
+                        }));
+                    }
                 })
             }
 
