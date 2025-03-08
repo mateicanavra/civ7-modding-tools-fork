@@ -18,6 +18,21 @@ Mod generation tool for Civilization 7.
     - [Unique-quarter](https://github.com/izica/civ7-modding-tools/blob/main/examples/unique-quarter.ts)
 
 ## Getting started
+
+### Usage from npm
+
+```bash
+npm install civ7-modding-tools
+```
+To build mod you need to run your script with `node.js` or `tsx`;
+
+### Usage from repository
+Download repo ZIP file or clone it to your local machine and run the following commands:
+
+```bash
+clone https://github.com/izica/civ7-modding-tools
+```
+
 [build.ts](https://github.com/izica/civ7-modding-tools/blob/main/build.ts) contains all the necessary code to get started, so you can begin by modifying it to fit your needs.
 Also you can copy an example from the [examples](https://github.com/izica/civ7-modding-tools/tree/main/examples) folder into [build.ts](https://github.com/izica/civ7-modding-tools/blob/main/build.ts).
 

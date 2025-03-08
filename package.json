@@ -1,6 +1,6 @@
 {
     "name": "civ7-modding-tools",
-    "version": "1.2",
+    "version": "1.2.0",
     "main": "dist/index.js",
     "scripts": {
         "build": "tsx build.ts",
@@ -18,7 +18,12 @@
     },
     "author": "izica <artemiztomska@gmail.com>",
     "license": "MIT",
-    "keywords": ["typescript", "civilization", "modding", "tools"],
+    "keywords": [
+        "typescript",
+        "civilization",
+        "modding",
+        "tools"
+    ],
     "dependencies": {
         "@types/jstoxml": "^5.0.0",
         "@types/lodash": "^4.17.15",
