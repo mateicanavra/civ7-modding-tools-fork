@@ -19,15 +19,8 @@ Mod generation tool for Civilization 7.
 
 ## Getting started
 
-### Usage from npm
-
-```bash
-npm install civ7-modding-tools
-```
-To build mod you need to run your script with `node.js` or `tsx`;
-
 ### Usage from repository
-Download repo ZIP file or clone it to your local machine and run the following commands:
+Download repo ZIP file or clone:
 
 ```bash
 clone https://github.com/izica/civ7-modding-tools
@@ -42,6 +35,30 @@ Then, run the following commands:
 npm install
 npm run build
 ```
+
+### Usage from npm
+
+```bash
+npm install civ7-modding-tools
+```
+
+```typescript
+import { Mod } from 'civ7-modding-tools';
+// or you can import from 'civ7-modding-tools/src' for full typescript source
+
+let mod = new Mod({
+    id: 'test-mod',
+    version: '1',
+});
+/* ... */
+mod.build('./dist');
+```
+
+To build mod you need to run your script with `node.js` or `tsx`;
+```bash
+tsx build.ts
+```
+
 
 ## Previews
 #### Use builders for easier and faster mod creation

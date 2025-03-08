@@ -1,0 +1,1 @@
+{"version":3,"file":"RequirementNode.js","sourceRoot":"","sources":["../../src/nodes/RequirementNode.ts"],"names":[],"mappings":";;;AACA,4CAA2C;AAE3C,yCAAsC;AAOtC,MAAa,eAAgB,SAAQ,mBAA0B;IAI3D,YAAY,UAAqC,EAAE;QAC/C,KAAK,EAAE,CAAC;QAJZ,kBAAa,GAAkB,MAAM,CAAC;QACtC,oBAAe,GAA6C,uBAAW,CAAC,YAAY,CAAC;QAIjF,IAAI,CAAC,IAAI,CAAC,OAAO,CAAC,CAAC;IACvB,CAAC;CACJ;AARD,0CAQC"}

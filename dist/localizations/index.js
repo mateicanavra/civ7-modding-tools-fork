@@ -1,0 +1,20 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UniqueQuarterLocalization = exports.TraditionLocalization = exports.ProgressionTreeLocalization = exports.ProgressionTreeNodeLocalization = exports.ModifierLocalization = exports.UnitLocalization = exports.ConstructibleLocalization = exports.CivilizationLocalization = void 0;
+var CivilizationLocalization_1 = require("./CivilizationLocalization");
+Object.defineProperty(exports, "CivilizationLocalization", { enumerable: true, get: function () { return CivilizationLocalization_1.CivilizationLocalization; } });
+var ConstructibleLocalization_1 = require("./ConstructibleLocalization");
+Object.defineProperty(exports, "ConstructibleLocalization", { enumerable: true, get: function () { return ConstructibleLocalization_1.ConstructibleLocalization; } });
+var UnitLocalization_1 = require("./UnitLocalization");
+Object.defineProperty(exports, "UnitLocalization", { enumerable: true, get: function () { return UnitLocalization_1.UnitLocalization; } });
+var ModifierLocalization_1 = require("./ModifierLocalization");
+Object.defineProperty(exports, "ModifierLocalization", { enumerable: true, get: function () { return ModifierLocalization_1.ModifierLocalization; } });
+var ProgressionTreeNodeLocalization_1 = require("./ProgressionTreeNodeLocalization");
+Object.defineProperty(exports, "ProgressionTreeNodeLocalization", { enumerable: true, get: function () { return ProgressionTreeNodeLocalization_1.ProgressionTreeNodeLocalization; } });
+var ProgressionTreeLocalization_1 = require("./ProgressionTreeLocalization");
+Object.defineProperty(exports, "ProgressionTreeLocalization", { enumerable: true, get: function () { return ProgressionTreeLocalization_1.ProgressionTreeLocalization; } });
+var TraditionLocalization_1 = require("./TraditionLocalization");
+Object.defineProperty(exports, "TraditionLocalization", { enumerable: true, get: function () { return TraditionLocalization_1.TraditionLocalization; } });
+var UniqueQuarterLocalization_1 = require("./UniqueQuarterLocalization");
+Object.defineProperty(exports, "UniqueQuarterLocalization", { enumerable: true, get: function () { return UniqueQuarterLocalization_1.UniqueQuarterLocalization; } });
+//# sourceMappingURL=index.js.map

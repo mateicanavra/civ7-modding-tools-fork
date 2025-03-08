@@ -1,0 +1,1 @@
+export { createGodConstructible } from './createGodConstructible';

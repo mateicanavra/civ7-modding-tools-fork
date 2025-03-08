@@ -1,20 +1,21 @@
 {
     "name": "civ7-modding-tools",
-    "version": "1.2.0",
+    "version": "1.2.2",
     "main": "dist/index.js",
     "scripts": {
         "build": "tsx build.ts",
         "dev": "tsx dev.ts",
-        "compile": "tsup src/index.ts --dts --format esm,cjs --sourcemap --splitting"
+        "compile": "tsc --project tsconfig.json"
     },
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
     "files": [
-        "dist"
+        "dist",
+        "src"
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/izica/civ7-modding-tools"
+        "url": "git+https://github.com/izica/civ7-modding-tools.git"
     },
     "author": "izica <artemiztomska@gmail.com>",
     "license": "MIT",

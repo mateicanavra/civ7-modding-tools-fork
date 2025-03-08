@@ -1,0 +1,31 @@
+import { TClassProperties, TObjectValues, TPartialRequired } from "../types";
+import { ConstructiblePlunderNode, DatabaseNode, TBuildingNode, TConstructibleMaintenanceNode, TConstructibleNode, TConstructibleValidResourceNode, TConstructibleYieldChangeNode, TDistrictFreeConstructibleNode, TIconDefinitionNode, TImprovementNode } from "../nodes";
+import { BIOME, CONSTRUCTIBLE_TYPE_TAG, DISTRICT, FEATURE, TERRAIN } from "../constants";
+import { XmlFile } from "../files";
+import { TConstructibleLocalization } from "../localizations";
+import { BaseBuilder } from "./BaseBuilder";
+type TConstructibleBuilder = TClassProperties<ConstructibleBuilder>;
+export declare class ConstructibleBuilder extends BaseBuilder<TConstructibleBuilder> {
+    _always: DatabaseNode;
+    _localizations: DatabaseNode;
+    _icons: DatabaseNode;
+    typeTags: TObjectValues<typeof CONSTRUCTIBLE_TYPE_TAG>[];
+    constructibleValidDistricts: TObjectValues<typeof DISTRICT>[];
+    constructibleValidBiomes: TObjectValues<typeof BIOME>[];
+    constructibleValidFeatures: TObjectValues<typeof FEATURE>[];
+    constructibleValidTerrains: TObjectValues<typeof TERRAIN>[];
+    constructibleValidResources: TPartialRequired<TConstructibleValidResourceNode, 'resourceType'>[];
+    constructiblePlunders: TPartialRequired<ConstructiblePlunderNode, 'plunderType'>[];
+    building: Partial<TBuildingNode> | null;
+    improvement: Partial<TImprovementNode> | null;
+    constructible: TPartialRequired<TConstructibleNode, 'constructibleType'>;
+    constructibleYieldChanges: Partial<TConstructibleYieldChangeNode>[];
+    constructibleMaintenances: Partial<TConstructibleMaintenanceNode>[];
+    icon: TPartialRequired<TIconDefinitionNode, 'path'>;
+    localizations: TConstructibleLocalization[];
+    districtFreeConstructibles: TPartialRequired<TDistrictFreeConstructibleNode, 'districtType'>[];
+    constructor(payload?: Partial<TConstructibleBuilder>);
+    migrate(): this;
+    build(): XmlFile[];
+}
+export {};
