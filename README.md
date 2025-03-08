@@ -39,8 +39,8 @@ Also you can copy an example from the [examples](https://github.com/izica/civ7-m
 Then, run the following commands:
 
 ```bash
-yarn install
-yarn build
+npm install
+npm run build
 ```
 
 ## Previews
