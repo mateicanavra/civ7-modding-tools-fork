@@ -41,6 +41,8 @@ const files_1 = require("../files");
 const localizations_1 = require("../localizations");
 const utils_1 = require("../utils");
 const BaseBuilder_1 = require("./BaseBuilder");
+const AdjacencyYieldChangeNode_1 = require("../nodes/AdjacencyYieldChangeNode");
+const ConstructibleAdjacencyNode_1 = require("../nodes/ConstructibleAdjacencyNode");
 class ConstructibleBuilder extends BaseBuilder_1.BaseBuilder {
     constructor(payload = {}) {
         super();
@@ -61,11 +63,12 @@ class ConstructibleBuilder extends BaseBuilder_1.BaseBuilder {
         };
         this.constructibleYieldChanges = [];
         this.constructibleMaintenances = [];
+        this.adjacencyYieldChanges = [];
         this.icon = {
             path: 'fs://game/civ_sym_han'
         };
-        this.localizations = [];
         this.districtFreeConstructibles = [];
+        this.localizations = [];
         this.fill(payload);
     }
     migrate() {
@@ -109,6 +112,16 @@ class ConstructibleBuilder extends BaseBuilder_1.BaseBuilder {
                 return new nodes_1.DistrictFreeConstructibleNode(Object.assign({ constructibleType: this.constructible.constructibleType }, item));
             }),
         });
+        if (this.adjacencyYieldChanges.length) {
+            this.adjacencyYieldChanges.forEach(item => {
+                const adjacencyYieldChange = new AdjacencyYieldChangeNode_1.AdjacencyYieldChangeNode(item);
+                this._always.constructibleAdjacencies.push(new ConstructibleAdjacencyNode_1.ConstructibleAdjacencyNode({
+                    constructibleType: this.constructible.constructibleType,
+                    yieldChangeId: adjacencyYieldChange.id,
+                }));
+                this._always.adjacencyYieldChanges.push(adjacencyYieldChange);
+            });
+        }
         this._icons.fill({
             iconDefinitions: [new nodes_1.IconDefinitionNode(Object.assign({ id: this.constructible.constructibleType }, this.icon))]
         });

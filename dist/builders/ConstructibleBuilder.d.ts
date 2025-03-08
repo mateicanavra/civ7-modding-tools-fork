@@ -4,6 +4,7 @@ import { BIOME, CONSTRUCTIBLE_TYPE_TAG, DISTRICT, FEATURE, TERRAIN } from "../co
 import { XmlFile } from "../files";
 import { TConstructibleLocalization } from "../localizations";
 import { BaseBuilder } from "./BaseBuilder";
+import { TAdjacencyYieldChangeNode } from "../nodes/AdjacencyYieldChangeNode";
 type TConstructibleBuilder = TClassProperties<ConstructibleBuilder>;
 export declare class ConstructibleBuilder extends BaseBuilder<TConstructibleBuilder> {
     _always: DatabaseNode;
@@ -21,9 +22,10 @@ export declare class ConstructibleBuilder extends BaseBuilder<TConstructibleBuil
     constructible: TPartialRequired<TConstructibleNode, 'constructibleType'>;
     constructibleYieldChanges: Partial<TConstructibleYieldChangeNode>[];
     constructibleMaintenances: Partial<TConstructibleMaintenanceNode>[];
+    adjacencyYieldChanges: Partial<TAdjacencyYieldChangeNode>[];
     icon: TPartialRequired<TIconDefinitionNode, 'path'>;
-    localizations: TConstructibleLocalization[];
     districtFreeConstructibles: TPartialRequired<TDistrictFreeConstructibleNode, 'districtType'>[];
+    localizations: TConstructibleLocalization[];
     constructor(payload?: Partial<TConstructibleBuilder>);
     migrate(): this;
     build(): XmlFile[];

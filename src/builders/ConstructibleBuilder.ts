@@ -33,6 +33,8 @@ import { ConstructibleLocalization, TConstructibleLocalization } from "../locali
 import { locale } from "../utils";
 
 import { BaseBuilder } from "./BaseBuilder";
+import { AdjacencyYieldChangeNode, TAdjacencyYieldChangeNode } from "../nodes/AdjacencyYieldChangeNode";
+import { ConstructibleAdjacencyNode } from "../nodes/ConstructibleAdjacencyNode";
 
 type TConstructibleBuilder = TClassProperties<ConstructibleBuilder>
 
@@ -56,11 +58,16 @@ export class ConstructibleBuilder extends BaseBuilder<TConstructibleBuilder> {
     }
     constructibleYieldChanges: Partial<TConstructibleYieldChangeNode>[] = [];
     constructibleMaintenances: Partial<TConstructibleMaintenanceNode>[] = [];
+
+    adjacencyYieldChanges: Partial<TAdjacencyYieldChangeNode>[] = [];
+
     icon: TPartialRequired<TIconDefinitionNode, 'path'> = {
         path: 'fs://game/civ_sym_han'
     }
-    localizations: TConstructibleLocalization[] = [];
+
     districtFreeConstructibles: TPartialRequired<TDistrictFreeConstructibleNode, 'districtType'>[] = [];
+
+    localizations: TConstructibleLocalization[] = [];
 
     constructor(payload: Partial<TConstructibleBuilder> = {}) {
         super();
@@ -146,6 +153,17 @@ export class ConstructibleBuilder extends BaseBuilder<TConstructibleBuilder> {
                 })
             }),
         });
+
+        if (this.adjacencyYieldChanges.length) {
+            this.adjacencyYieldChanges.forEach(item => {
+                const adjacencyYieldChange = new AdjacencyYieldChangeNode(item);
+                this._always.constructibleAdjacencies.push(new ConstructibleAdjacencyNode({
+                    constructibleType: this.constructible.constructibleType,
+                    yieldChangeId: adjacencyYieldChange.id,
+                }))
+                this._always.adjacencyYieldChanges.push(adjacencyYieldChange);
+            });
+        }
 
         this._icons.fill({
             iconDefinitions: [new IconDefinitionNode({
