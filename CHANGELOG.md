@@ -94,7 +94,7 @@ All notable changes to this project will be documented in this file.
 
 ### Fixed
 
-- fixed muplitple civilization unlocks
+- fixed multiple civilization unlocks
 - almost all node attributes are now optional
 
 
