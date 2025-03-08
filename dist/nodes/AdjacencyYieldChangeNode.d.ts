@@ -3,7 +3,7 @@ import { AGE, YIELD } from "../constants";
 import { BaseNode } from "./BaseNode";
 export type TAdjacencyYieldChangeNode = Pick<AdjacencyYieldChangeNode, "id" | "age" | "yieldType" | "yieldChange" | "adjacentBiome" | "adjacentConstructible" | "adjacentConstructibleTag" | "adjacentDistrict" | "adjacentFeature" | "adjacentFeatureClass" | "adjacentLake" | "adjacentNaturalWonder" | "adjacentNavigableRiver" | "adjacentQuarter" | "adjacentResource" | "adjacentResourceClass" | "adjacentRiver" | "adjacentSeaResource" | "adjacentTerrain" | "adjacentUniqueQuarter" | "adjacentUniqueQuarterType" | "projectMaxYield" | "self" | "tilesRequired">;
 export declare class AdjacencyYieldChangeNode extends BaseNode<TAdjacencyYieldChangeNode> {
-    id: `${string}-${string}-${string}-${string}-${string}`;
+    id: string;
     age: TObjectValues<typeof AGE> | null;
     yieldType: TObjectValues<typeof YIELD> | null;
     yieldChange: number | null;

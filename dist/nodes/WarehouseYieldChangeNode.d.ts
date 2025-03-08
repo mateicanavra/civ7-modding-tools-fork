@@ -3,7 +3,7 @@ import { AGE, YIELD } from "../constants";
 import { BaseNode } from "./BaseNode";
 export type TWarehouseYieldChangeNode = Pick<WarehouseYieldChangeNode, "id" | "age" | "yieldType" | "yieldChange" | "biomeInCity" | "constructibleInCity" | "districtInCity" | "featureClassInCity" | "featureInCity" | "lakeInCity" | "minorRiverInCity" | "naturalWonderInCity" | "navigableRiverInCity" | "overbuilt" | "resourceInCity" | "routeInCity" | "terrainInCity" | "terrainTagInCity">;
 export declare class WarehouseYieldChangeNode extends BaseNode<TWarehouseYieldChangeNode> {
-    id: `${string}-${string}-${string}-${string}-${string}`;
+    id: string;
     age: TObjectValues<typeof AGE> | null;
     yieldType: TObjectValues<typeof YIELD> | null;
     yieldChange: number | null;
