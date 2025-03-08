@@ -27,7 +27,7 @@ export type TWarehouseYieldChangeNode = Pick<WarehouseYieldChangeNode,
 >;
 
 export class WarehouseYieldChangeNode extends BaseNode<TWarehouseYieldChangeNode> {
-    id = randomUUID();
+    id: string = randomUUID();
     age: TObjectValues<typeof AGE> | null = AGE.ANTIQUITY;
     yieldType: TObjectValues<typeof YIELD> | null = YIELD.FOOD;
     yieldChange: number | null = 1;

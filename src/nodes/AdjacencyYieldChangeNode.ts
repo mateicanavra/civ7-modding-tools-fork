@@ -33,7 +33,7 @@ export type TAdjacencyYieldChangeNode = Pick<AdjacencyYieldChangeNode,
 >;
 
 export class AdjacencyYieldChangeNode extends BaseNode<TAdjacencyYieldChangeNode> {
-    id = randomUUID();
+    id: string = randomUUID();
     age: TObjectValues<typeof AGE> | null = AGE.ANTIQUITY;
     yieldType: TObjectValues<typeof YIELD> | null = YIELD.FOOD;
     yieldChange: number | null = 1;
