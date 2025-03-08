@@ -80,6 +80,7 @@ All notable changes to this project will be documented in this file.
 - NPM support: now you can install this package from npm
 
 ### Updated
+- almost all node attributes are now optional
 - constants
   - REQUIREMENT
   - COLLECTION
@@ -95,6 +96,6 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 
 - fixed multiple civilization unlocks
-- almost all node attributes are now optional
+
 
 
