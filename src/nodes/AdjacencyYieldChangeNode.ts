@@ -34,7 +34,7 @@ export type TAdjacencyYieldChangeNode = Pick<AdjacencyYieldChangeNode,
 
 export class AdjacencyYieldChangeNode extends BaseNode<TAdjacencyYieldChangeNode> {
     id: string = randomUUID();
-    age: TObjectValues<typeof AGE> | null = AGE.ANTIQUITY;
+    age: TObjectValues<typeof AGE> | null = null;
     yieldType: TObjectValues<typeof YIELD> | null = YIELD.FOOD;
     yieldChange: number | null = 1;
     adjacentBiome : string | null = null;
@@ -56,7 +56,7 @@ export class AdjacencyYieldChangeNode extends BaseNode<TAdjacencyYieldChangeNode
     adjacentUniqueQuarterType : string | null = null;
     projectMaxYield : boolean | null = null;
     self : boolean | null = null;
-    tilesRequired : string | null = null;
+    tilesRequired : number | null = null;
 
     constructor(payload: Partial<TAdjacencyYieldChangeNode> = {}) {
         super();
