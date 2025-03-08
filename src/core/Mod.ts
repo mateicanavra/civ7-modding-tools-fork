@@ -8,7 +8,6 @@ import { BaseBuilder } from "../builders";
 import { ActionGroupNode } from "../nodes";
 import { BaseFile, XmlFile } from "../files";
 
-
 type TMod = TClassProperties<Mod>;
 
 export class Mod {
@@ -84,7 +83,7 @@ export class Mod {
                     if(!actionGroups[actionGroup.id].actions[actionGroupAction]) {
                         actionGroups[actionGroup.id].actions[actionGroupAction] = [];
                     }
-                    actionGroups[actionGroup.id].actions[actionGroupAction].push(file.modInfoPath);
+                    actionGroups[actionGroup.id].actions[actionGroupAction]?.push(file.modInfoPath);
                 })
             });
         });
