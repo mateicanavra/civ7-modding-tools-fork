@@ -6,6 +6,9 @@
 !package.json
 !src
 !src/**
+!dist
+!dist/**
+!tsconfig.json
 !examples
 !examples/**
 !assets

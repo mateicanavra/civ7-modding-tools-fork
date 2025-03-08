@@ -1,15 +1,24 @@
 {
     "name": "civ7-modding-tools",
-    "version": "1.0.0",
-    "main": "index.js",
+    "version": "1.2",
+    "main": "dist/index.js",
     "scripts": {
         "build": "tsx build.ts",
         "dev": "tsx dev.ts",
-        "compile": "tsup src/index.ts --dts --format esm,cjs"
+        "compile": "tsup src/index.ts --dts --format esm,cjs --sourcemap --splitting"
     },
-    "repository": "https://github.com/izica/civ7-modding-tools",
+    "module": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/izica/civ7-modding-tools"
+    },
     "author": "izica <artemiztomska@gmail.com>",
     "license": "MIT",
+    "keywords": ["typescript", "civilization", "modding", "tools"],
     "dependencies": {
         "@types/jstoxml": "^5.0.0",
         "@types/lodash": "^4.17.15",
@@ -21,9 +30,12 @@
         "typescript": "5.7.3"
     },
     "tsup": {
-        "entry": ["src/index.ts"],
+        "entry": [
+            "src/index.ts"
+        ],
         "splitting": true,
         "sourcemap": true,
-        "clean": true
+        "bundle": false,
+        "clean": false
     }
 }
