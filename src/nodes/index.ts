@@ -66,6 +66,7 @@ export { VisArtCivilizationBuildingCultureNode, TVisArtCivilizationBuildingCultu
 export { VisArtCivilizationUnitCultureNode, TVisArtCivilizationUnitCultureNode } from './VisArtCivilizationUnitCultureNode';
 export { VisualRemapNode, TVisualRemapNode } from './VisualRemapNode';
 export { UnitAdvisoryNode, TUnitAdvisoryNode } from './UnitAdvisoryNode';
+export { WarehouseYieldChangeNode, TWarehouseYieldChangeNode } from './WarehouseYieldChangeNode';
 
 export { ShellCivilizationNodeSlice, TShellCivilizationNodeSlice } from './slices/ShellCivilizationNodeSlice';
 export { GameCivilizationNodeSlice, TGameCivilizationNodeSlice } from './slices/GameCivilizationNodeSlice';
