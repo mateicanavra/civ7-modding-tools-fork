@@ -51,6 +51,8 @@ All notable changes to this project will be documented in this file.
   - constructibleValidTerrains
   - constructiblePlunders
 
+
+
 ## [1.2] - 2025-03-06
 
 ### Added
@@ -68,4 +70,31 @@ All notable changes to this project will be documented in this file.
 
 - age transition
 - civilization legacy
+
+
+
+## [1.2.3] - 2025-03-08
+
+### Added
+
+- NPM support: now you can install this package from npm
+
+### Updated
+- constants
+  - REQUIREMENT
+  - COLLECTION
+  - EFFECT
+  - UNIT_CLASS
+- UnitBuilder
+  - unitUpgrade
+  - unitAdvisories
+- Database
+  - unitUpgrades
+  - unitAdvisories
+
+### Fixed
+
+- fixed muplitple civilization unlocks
+- almost all node attributes are now optional
+
 
