@@ -1,6 +1,10 @@
 import { BaseNode } from "./BaseNode";
 
-export type TCivilizationTagNode = Pick<CivilizationTagNode, "civilizationDomain" | "civilizationType" | 'tagType'>;
+export type TCivilizationTagNode = Pick<CivilizationTagNode,
+    "civilizationDomain" |
+    "civilizationType" |
+    'tagType'
+>;
 
 export class CivilizationTagNode extends BaseNode<TCivilizationTagNode> {
     civilizationDomain: string | null = 'CIVILIZATION_';

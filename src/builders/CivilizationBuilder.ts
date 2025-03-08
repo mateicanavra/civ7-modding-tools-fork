@@ -2,6 +2,7 @@ import * as lodash from "lodash";
 
 import { TClassProperties, TObjectValues, TPartialRequired } from "../types";
 import {
+    CityNameNode,
     CivilizationItemNode,
     CivilizationNode,
     CivilizationTagNode,
@@ -332,6 +333,14 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                 });
             }).flatMap(item => item.getNodes())
         });
+
+        const cityNamesCount = lodash.maxBy(this.localizations, loc => loc.cityNames?.length || 0)?.cityNames?.length || 0;
+        for (let i = 1; i <= cityNamesCount; i++) {
+            this._current.cityNames.push(new CityNameNode({
+                civilizationType: this.civilization.civilizationType,
+                cityName: locale(this.civilization.civilizationType, `cityNames_${i}`)
+            }));
+        }
 
         return this;
     }

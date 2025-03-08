@@ -67,6 +67,7 @@ import { UniqueQuarterModifierNode } from "./UniqueQuarterModifierNode";
 import { GameModifierNode } from "./GameModifierNode";
 import { UnitUpgradeNode } from "./UnitUpgradeNode";
 import { UnitAdvisoryNode } from "./UnitAdvisoryNode";
+import { CityNameNode } from "./CityNameNode";
 
 export type TDatabase = Pick<DatabaseNode,
     "civilizationItems" |
@@ -132,6 +133,7 @@ export type TDatabase = Pick<DatabaseNode,
     "uniqueQuarters" |
     "uniqueQuarterModifiers" |
     "gameModifiers" |
+    "cityNames" |
     "visualRemaps"
 >;
 
@@ -168,6 +170,8 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     warehouseYieldChanges: WarehouseYieldChangeNode[] = [];
     constructibleWarehouseYields: ConstructibleWarehouseYieldNode[] = [];
     constructiblePlunders: ConstructiblePlunderNode[] = [];
+
+    cityNames: CityNameNode[] = [];
 
     districtFreeConstructibles: DistrictFreeConstructibleNode[] = [];
 

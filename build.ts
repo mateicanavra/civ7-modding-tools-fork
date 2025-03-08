@@ -50,7 +50,7 @@ const civilization = new CivilizationBuilder({
         path: `fs://game/${mod.id}/${civilizationIcon.name}`
     },
     localizations: [
-        { name: 'Custom civilization', description: 'test description', fullName: 'test full name', adjective: 'test adjective', cityNames: ['Gondor'] }
+        { name: 'Custom civilization', description: 'test description', fullName: 'test full name', adjective: 'test adjective', cityNames: ['Gondor', 'New Gondor'] }
     ],
 }).bind([
     new ModifierBuilder({

@@ -1,6 +1,9 @@
 import { BaseNode } from "./BaseNode";
 
-export type TCivilizationTraitNode = Pick<CivilizationTraitNode, "traitType" | "civilizationType">;
+export type TCivilizationTraitNode = Pick<CivilizationTraitNode,
+    "traitType" |
+    "civilizationType"
+>;
 
 export class CivilizationTraitNode extends BaseNode<TCivilizationTraitNode> {
     traitType: string | null = 'TRAIT_';
