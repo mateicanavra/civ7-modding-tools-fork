@@ -8,7 +8,7 @@ Mod generation tool for Civilization 7.
     - [Full control of generation](#full-control-of-generation)
     - [Possibility of fully manual creation](#possibility-of-full-manually-creation)
 - [Features](#features)
-- [Modding covering / TODO](#modding-covering--todo)
+- [Modding covering](#modding-covering)
 - [Examples](https://github.com/izica/civ7-modding-tools/tree/main/examples)
     - [Init and create civilization](https://github.com/izica/civ7-modding-tools/blob/main/examples/civilization.ts)
     - [Create unit](https://github.com/izica/civ7-modding-tools/blob/main/examples/unit.ts)
