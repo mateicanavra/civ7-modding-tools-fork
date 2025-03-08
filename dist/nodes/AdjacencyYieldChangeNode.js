@@ -8,7 +8,7 @@ class AdjacencyYieldChangeNode extends BaseNode_1.BaseNode {
     constructor(payload = {}) {
         super();
         this.id = (0, node_crypto_1.randomUUID)();
-        this.age = constants_1.AGE.ANTIQUITY;
+        this.age = null;
         this.yieldType = constants_1.YIELD.FOOD;
         this.yieldChange = 1;
         this.adjacentBiome = null;

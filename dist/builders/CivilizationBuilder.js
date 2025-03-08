@@ -80,6 +80,7 @@ class CivilizationBuilder extends BaseBuilder_1.BaseBuilder {
         this.fill(payload);
     }
     migrate() {
+        var _a, _b;
         if (this.trait.traitType === 'TRAIT_') {
             this.trait = {
                 traitType: this.civilization.civilizationType.replace('CIVILIZATION_', 'TRAIT_'),
@@ -221,6 +222,13 @@ class CivilizationBuilder extends BaseBuilder_1.BaseBuilder {
                 return new localizations_1.CivilizationLocalization(Object.assign({ prefix: this.civilization.civilizationType }, item));
             }).flatMap(item => item.getNodes())
         });
+        const cityNamesCount = ((_b = (_a = lodash.maxBy(this.localizations, loc => { var _a; return ((_a = loc.cityNames) === null || _a === void 0 ? void 0 : _a.length) || 0; })) === null || _a === void 0 ? void 0 : _a.cityNames) === null || _b === void 0 ? void 0 : _b.length) || 0;
+        for (let i = 1; i <= cityNamesCount; i++) {
+            this._current.cityNames.push(new nodes_1.CityNameNode({
+                civilizationType: this.civilization.civilizationType,
+                cityName: (0, utils_1.locale)(this.civilization.civilizationType, `cityNames_${i}`)
+            }));
+        }
         return this;
     }
     /**

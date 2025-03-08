@@ -68,6 +68,7 @@ class DatabaseNode extends BaseNode_1.BaseNode {
         this.warehouseYieldChanges = [];
         this.constructibleWarehouseYields = [];
         this.constructiblePlunders = [];
+        this.cityNames = [];
         this.districtFreeConstructibles = [];
         this.progressionTreeAdvisories = [];
         this.progressionTrees = [];

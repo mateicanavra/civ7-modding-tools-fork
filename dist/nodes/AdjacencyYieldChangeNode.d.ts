@@ -26,6 +26,6 @@ export declare class AdjacencyYieldChangeNode extends BaseNode<TAdjacencyYieldCh
     adjacentUniqueQuarterType: string | null;
     projectMaxYield: boolean | null;
     self: boolean | null;
-    tilesRequired: string | null;
+    tilesRequired: number | null;
     constructor(payload?: Partial<TAdjacencyYieldChangeNode>);
 }
