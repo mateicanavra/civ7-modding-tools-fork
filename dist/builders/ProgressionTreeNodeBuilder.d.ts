@@ -16,7 +16,7 @@ export declare class ProgressionTreeNodeBuilder extends BaseBuilder<TProgression
     progressionTreeAdvisories: TObjectValues<typeof ADVISORY>[];
     localizations: TProgressionTreeNodeLocalization[];
     constructor(payload?: Partial<TProgressionTreeNodeBuilder>);
-    bind(items: (ModifierBuilder | ConstructibleBuilder | UnitBuilder | TraditionBuilder)[], unlockDepth?: number): this;
+    bind(items: (ModifierBuilder | ConstructibleBuilder | UnitBuilder | TraditionBuilder)[], unlockDepth?: number, hidden?: boolean | null): this;
     build(): never[];
 }
 export {};

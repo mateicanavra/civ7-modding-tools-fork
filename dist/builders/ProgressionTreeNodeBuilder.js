@@ -41,7 +41,7 @@ class ProgressionTreeNodeBuilder extends BaseBuilder_1.BaseBuilder {
             }).flatMap(item => item.getNodes())
         });
     }
-    bind(items, unlockDepth = 1) {
+    bind(items, unlockDepth = 1, hidden = null) {
         items.forEach(item => {
             if (item instanceof ModifierBuilder_1.ModifierBuilder) {
                 item._gameEffects.modifiers.forEach((modifier) => {
@@ -50,7 +50,8 @@ class ProgressionTreeNodeBuilder extends BaseBuilder_1.BaseBuilder {
                         progressionTreeNodeType: this.progressionTreeNode.progressionTreeNodeType,
                         targetKind: constants_1.KIND.MODIFIER,
                         targetType: modifier.id,
-                        unlockDepth: unlockDepth
+                        unlockDepth: unlockDepth,
+                        hidden: hidden
                     }));
                 });
                 this._localizations.englishText = [
@@ -64,7 +65,8 @@ class ProgressionTreeNodeBuilder extends BaseBuilder_1.BaseBuilder {
                         progressionTreeNodeType: this.progressionTreeNode.progressionTreeNodeType,
                         targetKind: constants_1.KIND.CONSTRUCTIBLE,
                         targetType: constructible.constructibleType,
-                        unlockDepth: unlockDepth
+                        unlockDepth: unlockDepth,
+                        hidden: hidden
                     }));
                 });
             }
@@ -74,7 +76,8 @@ class ProgressionTreeNodeBuilder extends BaseBuilder_1.BaseBuilder {
                         progressionTreeNodeType: this.progressionTreeNode.progressionTreeNodeType,
                         targetKind: constants_1.KIND.UNIT,
                         targetType: unit.unitType,
-                        unlockDepth: unlockDepth
+                        unlockDepth: unlockDepth,
+                        hidden: hidden
                     }));
                 });
             }
@@ -84,7 +87,8 @@ class ProgressionTreeNodeBuilder extends BaseBuilder_1.BaseBuilder {
                         progressionTreeNodeType: this.progressionTreeNode.progressionTreeNodeType,
                         targetKind: constants_1.KIND.TRADITION,
                         targetType: tradition.traditionType,
-                        unlockDepth: unlockDepth
+                        unlockDepth: unlockDepth,
+                        hidden: hidden
                     }));
                 });
             }

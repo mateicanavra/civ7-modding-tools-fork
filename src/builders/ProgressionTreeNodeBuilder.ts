@@ -54,7 +54,7 @@ export class ProgressionTreeNodeBuilder extends BaseBuilder<TProgressionTreeNode
         });
     }
 
-    bind(items: (ModifierBuilder | ConstructibleBuilder | UnitBuilder | TraditionBuilder)[], unlockDepth = 1) {
+    bind(items: (ModifierBuilder | ConstructibleBuilder | UnitBuilder | TraditionBuilder)[], unlockDepth = 1, hidden: boolean | null = null) {
         items.forEach(item => {
             if (item instanceof ModifierBuilder) {
                 item._gameEffects.modifiers.forEach((modifier) => {
@@ -64,7 +64,8 @@ export class ProgressionTreeNodeBuilder extends BaseBuilder<TProgressionTreeNode
                         progressionTreeNodeType: this.progressionTreeNode.progressionTreeNodeType,
                         targetKind: KIND.MODIFIER,
                         targetType: modifier.id,
-                        unlockDepth: unlockDepth
+                        unlockDepth: unlockDepth,
+                        hidden: hidden
                     }));
                 });
 
@@ -80,7 +81,8 @@ export class ProgressionTreeNodeBuilder extends BaseBuilder<TProgressionTreeNode
                         progressionTreeNodeType: this.progressionTreeNode.progressionTreeNodeType,
                         targetKind: KIND.CONSTRUCTIBLE,
                         targetType: constructible.constructibleType,
-                        unlockDepth: unlockDepth
+                        unlockDepth: unlockDepth,
+                        hidden: hidden
                     }));
                 });
             }
@@ -91,7 +93,8 @@ export class ProgressionTreeNodeBuilder extends BaseBuilder<TProgressionTreeNode
                         progressionTreeNodeType: this.progressionTreeNode.progressionTreeNodeType,
                         targetKind: KIND.UNIT,
                         targetType: unit.unitType,
-                        unlockDepth: unlockDepth
+                        unlockDepth: unlockDepth,
+                        hidden: hidden
                     }));
                 });
             }
@@ -102,7 +105,8 @@ export class ProgressionTreeNodeBuilder extends BaseBuilder<TProgressionTreeNode
                         progressionTreeNodeType: this.progressionTreeNode.progressionTreeNodeType,
                         targetKind: KIND.TRADITION,
                         targetType: tradition.traditionType,
-                        unlockDepth: unlockDepth
+                        unlockDepth: unlockDepth,
+                        hidden: hidden
                     }));
                 });
             }
