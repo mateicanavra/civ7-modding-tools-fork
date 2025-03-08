@@ -1,6 +1,6 @@
 import * as lodash from "lodash";
 
-import { TClassProperties, TPartialWithRequired } from "../types";
+import { TClassProperties, TPartialRequired } from "../types";
 import { DatabaseNode, GameEffectNode, ProgressionTreeNode, ProgressionTreePrereqNode, TProgressionTreeNode, TProgressionTreePrereqNode, TypeNode } from "../nodes";
 import { ACTION_GROUP_ACTION, AGE, KIND } from "../constants";
 import { locale } from "../utils";
@@ -17,7 +17,7 @@ export class ProgressionTreeBuilder extends BaseBuilder<TProgressionTreeBuilder>
     _gameEffects: GameEffectNode = new GameEffectNode();
     _localizations: DatabaseNode = new DatabaseNode();
 
-    progressionTree: TPartialWithRequired<TProgressionTreeNode, 'progressionTreeType' | 'ageType'> = {
+    progressionTree: TPartialRequired<TProgressionTreeNode, 'progressionTreeType' | 'ageType'> = {
         progressionTreeType: 'TREE_CIVICS_CUSTOM',
         ageType: AGE.ANTIQUITY
     }

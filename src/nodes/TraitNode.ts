@@ -8,7 +8,7 @@ export type TTraitNode = Pick<TraitNode,
 >;
 
 export class TraitNode extends BaseNode<TTraitNode> {
-    traitType: string = 'TRAIT_';
+    traitType: string | null = 'TRAIT_';
     name: string | null = null;
     description: string | null = null;
     internalOnly: boolean | null = null;

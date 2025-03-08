@@ -1,6 +1,6 @@
 import * as lodash from "lodash"
 
-import { TClassProperties, TPartialWithRequired } from "../types";
+import { TClassProperties, TPartialRequired } from "../types";
 import { DatabaseNode, GameEffectNode, TraditionModifierNode, TraditionNode, TTraditionNode, TypeNode } from "../nodes";
 import { TraditionLocalization, TTraditionLocalization } from "../localizations";
 import { XmlFile } from "../files";
@@ -19,7 +19,7 @@ export class TraditionBuilder extends BaseBuilder<TTraditionBuilder> {
     _gameEffects: GameEffectNode = new GameEffectNode();
     _localizations: DatabaseNode = new DatabaseNode();
 
-    tradition: TPartialWithRequired<TTraditionNode, 'traditionType'> = {
+    tradition: TPartialRequired<TTraditionNode, 'traditionType'> = {
         traditionType: 'TRADITION_CUSTOM'
     }
 

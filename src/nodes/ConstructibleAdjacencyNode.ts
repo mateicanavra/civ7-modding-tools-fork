@@ -9,7 +9,7 @@ export type TConstructibleAdjacencyNode = Pick<ConstructibleAdjacencyNode,
 export class ConstructibleAdjacencyNode extends BaseNode<TConstructibleAdjacencyNode> {
     constructibleType = 'BUILDING_';
     requiresActivation: boolean | null = null;
-    yieldChangeId = '';
+    yieldChangeId: string | null = null;
 
     constructor(payload: Partial<TConstructibleAdjacencyNode> = {}) {
         super();

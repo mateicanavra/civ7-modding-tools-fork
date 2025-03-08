@@ -9,8 +9,8 @@ export type TConstructibleValidDistrictNode = Pick<ConstructibleValidDistrictNod
 >;
 
 export class ConstructibleValidDistrictNode extends BaseNode<TConstructibleValidDistrictNode> {
-    constructibleType = 'BUILDING_';
-    districtType: TObjectValues<typeof DISTRICT> = DISTRICT.RURAL;
+    constructibleType: string | null = 'BUILDING_';
+    districtType: TObjectValues<typeof DISTRICT> | null = DISTRICT.RURAL;
 
     constructor(payload: Partial<TConstructibleValidDistrictNode> = {}) {
         super();

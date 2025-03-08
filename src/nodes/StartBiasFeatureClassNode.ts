@@ -13,8 +13,8 @@ export type TStartBiasFeatureClassNode = Pick<StartBiasFeatureClassNode,
 export class StartBiasFeatureClassNode extends BaseNode<TStartBiasFeatureClassNode> {
     civilizationType: `CIVILIZATION_${string}` | null = null;
     leaderType: `LEADER_${string}` | null = null;
-    featureClassType: TObjectValues<typeof FEATURE_CLASS> = FEATURE_CLASS.VEGETATED;
-    score: number = 5;
+    featureClassType: TObjectValues<typeof FEATURE_CLASS> | null = FEATURE_CLASS.VEGETATED;
+    score: number | null = 5;
 
     constructor(payload: Partial<TStartBiasFeatureClassNode> = {}) {
         super();

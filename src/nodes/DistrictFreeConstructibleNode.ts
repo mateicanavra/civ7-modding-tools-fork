@@ -15,8 +15,8 @@ export type TDistrictFreeConstructibleNode = Pick<DistrictFreeConstructibleNode,
 >
 
 export class DistrictFreeConstructibleNode extends BaseNode<TDistrictFreeConstructibleNode> {
-    constructibleType: string = 'CONSTRUCTIBLE_';
-    districtType: `DISTRICT_${string}` = 'DISTRICT_';
+    constructibleType: string | null = 'CONSTRUCTIBLE_';
+    districtType: `DISTRICT_${string}` | null = 'DISTRICT_';
     featureType: TObjectValues<typeof FEATURE> | null = null;
     resourceType: TObjectValues<typeof RESOURCE> | null = null;
     terrainType: TObjectValues<typeof TERRAIN> | null = null;

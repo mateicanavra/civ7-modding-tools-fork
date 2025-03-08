@@ -6,8 +6,8 @@ export type TUnlockConfigurationValueNode = Pick<UnlockConfigurationValueNode,
 >;
 
 export class UnlockConfigurationValueNode extends BaseNode<TUnlockConfigurationValueNode> {
-    unlockType: `UNLOCK_${string}`= 'UNLOCK_';
-    configurationValue: string= '';
+    unlockType: `UNLOCK_${string}` | null = 'UNLOCK_';
+    configurationValue: string | null = null;
 
     constructor(payload: Partial<TUnlockConfigurationValueNode> = {}) {
         super();

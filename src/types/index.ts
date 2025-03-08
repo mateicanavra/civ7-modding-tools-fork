@@ -1,4 +1,5 @@
-export { TObjectValues } from './TObjectValues';
 export { TClassProperties } from './TClassProperties';
 export { TLocalizationProperties } from './TLocalizationProperties';
-export { TPartialWithRequired } from './TPartialWithRequired';
+export { TObjectValues } from './TObjectValues';
+export { TPartialNullable } from './TPartialNullable';
+export { TPartialRequired } from './TPartialRequired';

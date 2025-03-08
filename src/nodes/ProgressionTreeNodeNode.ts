@@ -9,11 +9,11 @@ export type TProgressionTreeNodeNode = Pick<ProgressionTreeNodeNode,
 >;
 
 export class ProgressionTreeNodeNode extends BaseNode<TProgressionTreeNodeNode> {
-    progressionTreeNodeType: `NODE_${string}` = 'NODE_'
-    progressionTree: `TREE_${string}` = 'TREE_'
-    cost = 150;
-    name: string = 'LOC_CIVIC__NAME';
-    iconString: string = 'cult_aksum';
+    progressionTreeNodeType: `NODE_${string}` | null = 'NODE_'
+    progressionTree: `TREE_${string}` | null = 'TREE_'
+    cost: number | null = 150;
+    name: string | null = 'LOC_CIVIC__NAME';
+    iconString: string | null = 'cult_aksum';
 
     constructor(payload: Partial<TProgressionTreeNodeNode> = {}) {
         super();

@@ -5,7 +5,7 @@ import { ActionGroupBundle } from "../core";
 /**
  * @description create building for testing
  */
-export function createGodConstructible(actionGroupBundle: ActionGroupBundle) {
+export function createGodConstructible(actionGroupBundle: ActionGroupBundle, constructibleType: string = 'BUILDING_GOD' ) {
     return new ConstructibleBuilder({
         actionGroupBundle,
         constructible: {

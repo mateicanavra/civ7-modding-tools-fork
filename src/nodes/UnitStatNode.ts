@@ -9,7 +9,7 @@ export type TUnitStatNode = Pick<UnitStatNode,
 >;
 
 export class UnitStatNode extends BaseNode<TUnitStatNode> {
-    unitType: string = 'UNIT_TYPE';
+    unitType: string | null = 'UNIT_TYPE';
     bombard: number | null = null;
     combat: number | null = null;
     range: number | null = null;

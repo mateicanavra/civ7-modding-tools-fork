@@ -9,8 +9,8 @@ export type TRequirementNode = Pick<RequirementNode,
 >;
 
 export class RequirementNode extends BaseNode<TRequirementNode> {
-    requirementId: string = 'REQ_';
-    requirementType: TObjectValues<typeof REQUIREMENT> = REQUIREMENT.IS_AGE_COUNT;
+    requirementId: string | null = 'REQ_';
+    requirementType: TObjectValues<typeof REQUIREMENT> | null = REQUIREMENT.IS_AGE_COUNT;
 
     constructor(payload: Partial<TRequirementNode> = {}) {
         super();

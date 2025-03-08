@@ -13,8 +13,8 @@ export type TStartBiasBiomeNode = Pick<StartBiasBiomeNode,
 export class StartBiasBiomeNode extends BaseNode<TStartBiasBiomeNode> {
     civilizationType: `CIVILIZATION_${string}` | null = null;
     leaderType: `LEADER_${string}` | null = null;
-    biomeType: TObjectValues<typeof BIOME> = BIOME.GRASSLAND;
-    score: number = 5;
+    biomeType: TObjectValues<typeof BIOME> | null = BIOME.GRASSLAND;
+    score: number | null = 5;
 
     constructor(payload: Partial<TStartBiasBiomeNode> = {}) {
         super();

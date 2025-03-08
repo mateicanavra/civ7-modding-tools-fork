@@ -6,8 +6,8 @@ export type TTraditionModifierNode = Pick<TraditionModifierNode,
 >;
 
 export class TraditionModifierNode extends BaseNode<TTraditionModifierNode> {
-    traditionType: `TRADITION_${string}` = 'TRADITION_';
-    modifierId= 'Name';
+    traditionType: `TRADITION_${string}` | null = 'TRADITION_';
+    modifierId: string | null = 'Name';
 
     constructor(payload: Partial<TTraditionModifierNode> = {}) {
         super();

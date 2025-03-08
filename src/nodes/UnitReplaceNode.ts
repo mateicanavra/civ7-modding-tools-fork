@@ -6,8 +6,8 @@ export type TUnitReplaceNode = Pick<UnitReplaceNode,
 >;
 
 export class UnitReplaceNode extends BaseNode<TUnitReplaceNode> {
-    civUniqueUnitType: string = 'UNIT_TYPE';
-    replacesUnitType: string = 'UNIT_TYPE';
+    civUniqueUnitType: string | null = 'UNIT_TYPE';
+    replacesUnitType: string | null = 'UNIT_TYPE';
 
     constructor(payload: Partial<TUnitReplaceNode> = {}) {
         super();

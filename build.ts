@@ -249,15 +249,12 @@ const progressionTree = new ProgressionTreeBuilder({
 }).bind([progressionTreeNode, progressionTreeNode2]);
 
 
-const godConstructible = createGodConstructible(ACTION_GROUP_BUNDLE.AGE_ANTIQUITY);
-
 civilization.bind([
     unit,
     constructible,
     constructible2,
     uniqueQuarter,
     progressionTree,
-    godConstructible
 ]);
 
 mod.add([
@@ -268,7 +265,6 @@ mod.add([
     constructible,
     constructible2,
     uniqueQuarter,
-    godConstructible,
     progressionTree
 ]);
 

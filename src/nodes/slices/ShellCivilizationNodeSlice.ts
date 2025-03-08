@@ -11,12 +11,12 @@ export type TShellCivilizationNodeSlice = Pick<ShellCivilizationNodeSlice,
 >;
 
 export class ShellCivilizationNodeSlice extends BaseNode<TShellCivilizationNodeSlice> {
-    domain: string = '';
-    civilizationType: string = '';
-    civilizationName: string = '';
-    civilizationFullName: string = '';
-    civilizationDescription: string = '';
-    civilizationIcon: string = '';
+    domain: string | null = null;
+    civilizationType: string | null = null;
+    civilizationName: string | null = null;
+    civilizationFullName: string | null = null;
+    civilizationDescription: string | null = null;
+    civilizationIcon: string | null = null;
 
     constructor(payload: Partial<TShellCivilizationNodeSlice> = {}) {
         super();

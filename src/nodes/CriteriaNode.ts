@@ -10,7 +10,7 @@ export type TCriteriaNode = Pick<CriteriaNode, "id" | "any" | "ages">;
 export class CriteriaNode extends BaseNode<TCriteriaNode> {
     _name = 'Criteria';
 
-    id: string = randomUUID();
+    id: string | null = randomUUID();
     ages: TObjectValues<typeof AGE>[] = [];
     any: boolean | null = null;
 

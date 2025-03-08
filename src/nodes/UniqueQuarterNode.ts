@@ -10,11 +10,11 @@ export type TUniqueQuarterNode = Pick<UniqueQuarterNode,
 >;
 
 export class UniqueQuarterNode extends BaseNode<TUniqueQuarterNode> {
-    uniqueQuarterType: `QUARTER_${string}` = 'QUARTER_';
-    buildingType1 = '';
-    buildingType2 = '';
-    name = '';
-    description = '';
+    uniqueQuarterType: `QUARTER_${string}` | null = 'QUARTER_';
+    buildingType1: string | null = null;
+    buildingType2: string | null = null;
+    name: string | null = null;
+    description: string | null = null;
     traitType: string | null = null;
 
     constructor(payload: Partial<TUniqueQuarterNode> = {}) {

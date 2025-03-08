@@ -1,4 +1,4 @@
-import { TClassProperties, TObjectValues, TPartialWithRequired } from "../types";
+import { TClassProperties, TObjectValues, TPartialRequired } from "../types";
 import { DatabaseNode, GameEffectNode, ProgressionTreeAdvisoryNode, ProgressionTreeNodeNode, ProgressionTreeNodeUnlockNode, TProgressionTreeNodeNode, TypeNode } from "../nodes";
 import { ADVISORY, KIND } from "../constants";
 
@@ -17,7 +17,7 @@ export class ProgressionTreeNodeBuilder extends BaseBuilder<TProgressionTreeNode
     _localizations: DatabaseNode = new DatabaseNode();
     _gameEffects: GameEffectNode = new GameEffectNode();
 
-    progressionTreeNode: TPartialWithRequired<TProgressionTreeNodeNode, 'progressionTreeNodeType'> = {
+    progressionTreeNode: TPartialRequired<TProgressionTreeNodeNode, 'progressionTreeNodeType'> = {
         progressionTreeNodeType: 'NODE_CIVIC_'
     }
     progressionTreeAdvisories: TObjectValues<typeof ADVISORY>[] = [];

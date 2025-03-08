@@ -13,8 +13,8 @@ export type TStartBiasTerrainNode = Pick<StartBiasTerrainNode,
 export class StartBiasTerrainNode extends BaseNode<TStartBiasTerrainNode> {
     civilizationType: `CIVILIZATION_${string}` | null = null;
     leaderType: `LEADER_${string}` | null = null;
-    terrainType: TObjectValues<typeof TERRAIN> = TERRAIN.FLAT;
-    score: number = 5;
+    terrainType: TObjectValues<typeof TERRAIN> | null = TERRAIN.FLAT;
+    score: number | null = 5;
 
     constructor(payload: Partial<TStartBiasTerrainNode> = {}) {
         super();

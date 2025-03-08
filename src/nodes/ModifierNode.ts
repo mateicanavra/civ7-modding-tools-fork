@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 
-import { TObjectValues, TPartialWithRequired } from "../types";
+import { TObjectValues, TPartialRequired } from "../types";
 import { COLLECTION, EFFECT } from "../constants";
 
 import { BaseNode } from "./BaseNode";
@@ -22,11 +22,11 @@ export type TModifierNode = Pick<ModifierNode,
 export class ModifierNode extends BaseNode<TModifierNode> {
     _name = 'Modifier';
 
-    id: string = `MOD_` +randomUUID().split('-').join('').toLocaleUpperCase();
-    collection: TObjectValues<typeof COLLECTION> = COLLECTION.OWNER;
-    effect: TObjectValues<typeof EFFECT> = EFFECT.CITY_ADJUST_YIELD_PER_RESOURCE;
+    id: string = `MOD_` + randomUUID().split('-').join('').toLocaleUpperCase();
+    collection: TObjectValues<typeof COLLECTION> | null = COLLECTION.OWNER;
+    effect: TObjectValues<typeof EFFECT> | null = EFFECT.CITY_ADJUST_YIELD_PER_RESOURCE;
     arguments: TArgumentNode[] = [];
-    requirements: TPartialWithRequired<TModifierRequirementNode, 'type'>[] = [];
+    requirements: TPartialRequired<TModifierRequirementNode, 'type'>[] = [];
     strings: TStringNode[] = [];
     permanent: boolean | null = null;
     runOnce: boolean | null = null;
@@ -34,17 +34,6 @@ export class ModifierNode extends BaseNode<TModifierNode> {
     constructor(payload: Partial<TModifierNode> = {}) {
         super();
         this.fill(payload);
-    }
-
-    fill = (payload: Partial<TModifierNode> = {}) => {
-        for (const [key, value] of Object.entries(payload)) {
-            if (this.hasOwnProperty(key)) {
-                this[key] = value;
-            }
-        }
-        this.arguments = this.arguments.map(item => new ArgumentNode(item));
-        this.requirements = this.requirements.map(item => new ModifierRequirementNode(item));
-        return this;
     }
 
     toXmlElement() {

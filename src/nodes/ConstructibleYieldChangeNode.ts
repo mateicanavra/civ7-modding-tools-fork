@@ -9,9 +9,9 @@ export type TConstructibleYieldChangeNode = Pick<ConstructibleYieldChangeNode,
 >;
 
 export class ConstructibleYieldChangeNode extends BaseNode<TConstructibleYieldChangeNode> {
-    constructibleType = 'BUILDING_';
-    yieldType: TObjectValues<typeof YIELD> = YIELD.GOLD;
-    yieldChange = 1;
+    constructibleType: string | null = 'BUILDING_';
+    yieldType: TObjectValues<typeof YIELD> | null = YIELD.GOLD;
+    yieldChange: number | null = 1;
 
     constructor(payload: Partial<TConstructibleYieldChangeNode> = {}) {
         super();

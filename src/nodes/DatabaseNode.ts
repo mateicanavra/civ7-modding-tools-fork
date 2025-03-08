@@ -226,7 +226,7 @@ export class DatabaseNode extends BaseNode<TDatabase> {
             return null;
         }
 
-        const except = [];
+        const except: string[] = [];
         const additionalMapping = {
             constructibleMaintenances: 'Constructible_Maintenances',
             constructibleValidDistricts: 'Constructible_ValidDistricts',

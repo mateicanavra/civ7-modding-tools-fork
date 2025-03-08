@@ -1,14 +1,10 @@
-import { TObjectValues } from "../types";
-import { KIND } from "../constants";
-
 import { BaseNode } from "./BaseNode";
-import { XmlElement } from "jstoxml";
 
 export type TIconDefinitionNode = Pick<IconDefinitionNode, "id" | "path">;
 
 export class IconDefinitionNode extends BaseNode<TIconDefinitionNode> {
     id = 'id';
-    path: string = 'path';
+    path: string | null = 'path';
 
     constructor(payload: Partial<TIconDefinitionNode> = {}) {
         super();

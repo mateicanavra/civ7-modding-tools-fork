@@ -13,10 +13,10 @@ export type TProgressionTreeNodeUnlockNode = Pick<ProgressionTreeNodeUnlockNode,
 >;
 
 export class ProgressionTreeNodeUnlockNode extends BaseNode<TProgressionTreeNodeUnlockNode> {
-    progressionTreeNodeType: `NODE_${string}` = 'NODE_'
+    progressionTreeNodeType: `NODE_${string}` | null = 'NODE_'
     targetKind: TObjectValues<typeof KIND> = KIND.MODIFIER;
-    targetType: string = 'MOD_'
-    unlockDepth: number = 1;
+    targetType: string | null = 'MOD_'
+    unlockDepth: number | null = 1;
     hidden: boolean | null = null;
     aIIgnoreUnlockValue: boolean | null = null;
 

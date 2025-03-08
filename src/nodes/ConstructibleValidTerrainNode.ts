@@ -9,8 +9,8 @@ export type TConstructibleValidTerrainNode = Pick<ConstructibleValidTerrainNode,
 >;
 
 export class ConstructibleValidTerrainNode extends BaseNode<TConstructibleValidTerrainNode> {
-    constructibleType = 'BUILDING_';
-    terrainType: TObjectValues<typeof TERRAIN> = TERRAIN.FLAT;
+    constructibleType: string | null = 'BUILDING_';
+    terrainType: TObjectValues<typeof TERRAIN> | null = TERRAIN.FLAT;
 
     constructor(payload: Partial<TConstructibleValidTerrainNode> = {}) {
         super();

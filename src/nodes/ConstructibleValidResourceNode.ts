@@ -10,8 +10,8 @@ export type TConstructibleValidResourceNode = Pick<ConstructibleValidResourceNod
 >;
 
 export class ConstructibleValidResourceNode extends BaseNode<TConstructibleValidResourceNode> {
-    constructibleType = 'BUILDING_';
-    resourceType: TObjectValues<typeof RESOURCE> = RESOURCE.GOLD;
+    constructibleType: string | null = 'BUILDING_';
+    resourceType: TObjectValues<typeof RESOURCE> | null = RESOURCE.GOLD;
     rate: number | null = null;
 
     constructor(payload: Partial<TConstructibleValidResourceNode> = {}) {

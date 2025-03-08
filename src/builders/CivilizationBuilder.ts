@@ -1,6 +1,6 @@
 import * as lodash from "lodash";
 
-import { TClassProperties, TObjectValues, TPartialWithRequired } from "../types";
+import { TClassProperties, TObjectValues, TPartialRequired } from "../types";
 import {
     CivilizationItemNode,
     CivilizationNode,
@@ -68,28 +68,28 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
     _localizations: DatabaseNode = new DatabaseNode();
     _icons: DatabaseNode = new DatabaseNode();
     _unlocks: DatabaseNode = new DatabaseNode();
-    _gameEffects: GameEffectNode | null = null;
+    _gameEffects: GameEffectNode = new GameEffectNode();
 
     civilizationTraits: (TObjectValues<typeof TRAIT> | string)[] = [];
     civilizationTags: TObjectValues<typeof TAG_TRAIT>[] = [];
 
-    trait: TPartialWithRequired<TTraitNode, 'traitType'> = { traitType: 'TRAIT_' };
-    traitAbility: TPartialWithRequired<TraitNode, 'traitType'> = { traitType: 'TRAIT_ABILITY_' };
-    civilization: TPartialWithRequired<TCivilizationNode, 'civilizationType' | 'domain'> = {
+    trait: TPartialRequired<TTraitNode, 'traitType'> = { traitType: 'TRAIT_' };
+    traitAbility: TPartialRequired<TraitNode, 'traitType'> = { traitType: 'TRAIT_ABILITY_' };
+    civilization: TPartialRequired<TCivilizationNode, 'civilizationType' | 'domain'> = {
         civilizationType: 'CIVILIZATION_CUSTOM',
         domain: 'AntiquityAgeCivilizations'
     }
-    civilizationLegacy: TPartialWithRequired<TLegacyCivilizationNode, 'age'> = { age: AGE.ANTIQUITY }
+    civilizationLegacy: TPartialRequired<TLegacyCivilizationNode, 'age'> = { age: AGE.ANTIQUITY }
     localizations: Partial<TCivilizationLocalization>[] = [];
-    icon: TPartialWithRequired<TIconDefinitionNode, 'path'> = { path: 'fs://game/civ_sym_han' }
-    civilizationItems: TPartialWithRequired<TCivilizationItemNode, "type" | "kind">[] = [];
-    civilizationUnlocks: TPartialWithRequired<TCivilizationUnlockNode, "type">[] = [];
+    icon: TPartialRequired<TIconDefinitionNode, 'path'> = { path: 'fs://game/civ_sym_han' }
+    civilizationItems: TPartialRequired<TCivilizationItemNode, "type" | "kind">[] = [];
+    civilizationUnlocks: TPartialRequired<TCivilizationUnlockNode, "type">[] = [];
 
-    startBiasBiomes: TPartialWithRequired<TStartBiasBiomeNode, 'biomeType'>[] = [];
-    startBiasResources: TPartialWithRequired<TStartBiasResourceNode, 'resourceType'>[] = [];
-    startBiasTerrains: TPartialWithRequired<TStartBiasTerrainNode, 'terrainType'>[] = [];
+    startBiasBiomes: TPartialRequired<TStartBiasBiomeNode, 'biomeType'>[] = [];
+    startBiasResources: TPartialRequired<TStartBiasResourceNode, 'resourceType'>[] = [];
+    startBiasTerrains: TPartialRequired<TStartBiasTerrainNode, 'terrainType'>[] = [];
     startBiasRiver: number | null = null;
-    startBiasFeatureClasses: TPartialWithRequired<TStartBiasFeatureClassNode, 'featureClassType'>[] = [];
+    startBiasFeatureClasses: TPartialRequired<TStartBiasFeatureClassNode, 'featureClassType'>[] = [];
     startBiasAdjacentToCoast: number | null = null;
     visArtCivilizationBuildingCultures: TObjectValues<typeof BUILDING_CULTURES>[] = [];
     visArtCivilizationUnitCulture: TObjectValues<typeof UNIT_CULTURE> | null = null;
@@ -224,13 +224,13 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                 new CivilizationItemNode({
                     ...civilization,
                     ...traitAbility,
-                    civilizationDomain: civilization.domain,
+                    civilizationDomain: this.civilization.domain,
                     type: this.traitAbility.traitType,
                     kind: KIND.TRAIT,
                 }),
                 ...this.civilizationItems.map(item => {
                     return new CivilizationItemNode({
-                        civilizationDomain: civilization.domain,
+                        civilizationDomain: this.civilization.domain,
                         ...civilization,
                         ...item
                     })
@@ -239,7 +239,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
             civilizationUnlocks: this.civilizationUnlocks.map(item => {
                 return new CivilizationUnlockNode({
                     ...civilization,
-                    civilizationDomain: civilization.domain,
+                    civilizationDomain: this.civilization.domain,
                     name: locale(item.type, 'name'),
                     description: locale(item.type, 'description'),
                     icon: item.type,

@@ -1,22 +1,29 @@
 {
-  "name": "civ7-modding-tools",
-  "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "build": "tsx build.ts",
-    "dev": "tsx dev.ts",
-    "tsc": "tsc --noemit dev.ts"
-  },
-  "repository": "https://github.com/izica/civ7-modding-tools",
-  "author": "izica <artemiztomska@gmail.com>",
-  "license": "MIT",
-  "dependencies": {
-    "@types/jstoxml": "^5.0.0",
-    "@types/lodash": "^4.17.15",
-    "@types/node": "^22.13.5",
-    "jstoxml": "^5.0.2",
-    "lodash": "^4.17.21",
-    "tsx": "^4.19.3",
-    "typescript": "5.7.3"
-  }
+    "name": "civ7-modding-tools",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsx build.ts",
+        "dev": "tsx dev.ts",
+        "compile": "tsup src/index.ts --dts --format esm,cjs"
+    },
+    "repository": "https://github.com/izica/civ7-modding-tools",
+    "author": "izica <artemiztomska@gmail.com>",
+    "license": "MIT",
+    "dependencies": {
+        "@types/jstoxml": "^5.0.0",
+        "@types/lodash": "^4.17.15",
+        "@types/node": "^22.13.5",
+        "jstoxml": "^5.0.2",
+        "lodash": "^4.17.21",
+        "tsup": "^8.4.0",
+        "tsx": "^4.19.3",
+        "typescript": "5.7.3"
+    },
+    "tsup": {
+        "entry": ["src/index.ts"],
+        "splitting": true,
+        "sourcemap": true,
+        "clean": true
+    }
 }

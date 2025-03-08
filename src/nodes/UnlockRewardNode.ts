@@ -9,10 +9,10 @@ export type TUnlockRewardNode = Pick<UnlockRewardNode,
 >;
 
 export class UnlockRewardNode extends BaseNode<TUnlockRewardNode> {
-    unlockType: `UNLOCK_${string}` = 'UNLOCK_';
-    name: string = '';
-    description: string = '';
-    icon: string = '';
+    unlockType: `UNLOCK_${string}` | null = 'UNLOCK_';
+    name: string | null = null;
+    description: string | null = null;
+    icon: string | null = null;
     civUnlock: boolean | null = null;
 
     constructor(payload: Partial<TUnlockRewardNode> = {}) {

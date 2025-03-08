@@ -8,10 +8,10 @@ export type TUnlockRequirementNode = Pick<UnlockRequirementNode,
 >;
 
 export class UnlockRequirementNode extends BaseNode<TUnlockRequirementNode> {
-    unlockType: `UNLOCK_${string}`= 'UNLOCK_';
-    requirementSetId: string= '';
-    description: string= '';
-    tooltip: string= '';
+    unlockType: `UNLOCK_${string}` | null = 'UNLOCK_';
+    requirementSetId: string | null = null;
+    description: string | null = null;
+    tooltip: string | null = null;
 
     constructor(payload: Partial<TUnlockRequirementNode> = {}) {
         super();

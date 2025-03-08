@@ -10,9 +10,9 @@ export type TUnitCostNode = Pick<UnitCostNode,
 >;
 
 export class UnitCostNode extends BaseNode<TUnitCostNode> {
-    unitType: string = 'UNIT_TYPE';
-    yieldType: TObjectValues<typeof YIELD> = YIELD.PRODUCTION;
-    cost: number = 1;
+    unitType: string | null = 'UNIT_TYPE';
+    yieldType: TObjectValues<typeof YIELD> | null = YIELD.PRODUCTION;
+    cost: number | null = 1;
 
     constructor(payload: Partial<TUnitCostNode> = {}) {
         super();

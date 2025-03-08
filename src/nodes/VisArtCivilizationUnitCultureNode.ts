@@ -9,8 +9,8 @@ export type TVisArtCivilizationUnitCultureNode = Pick<VisArtCivilizationUnitCult
 >;
 
 export class VisArtCivilizationUnitCultureNode extends BaseNode<TVisArtCivilizationUnitCultureNode> {
-    civilizationType: `CIVILIZATION_${string}` = 'CIVILIZATION_';
-    unitCulture: TObjectValues<typeof UNIT_CULTURE> = UNIT_CULTURE.MED;
+    civilizationType: `CIVILIZATION_${string}` | null = 'CIVILIZATION_';
+    unitCulture: TObjectValues<typeof UNIT_CULTURE> | null = UNIT_CULTURE.MED;
 
     constructor(payload: Partial<TVisArtCivilizationUnitCultureNode> = {}) {
         super();

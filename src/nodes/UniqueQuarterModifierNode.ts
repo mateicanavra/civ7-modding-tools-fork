@@ -6,8 +6,8 @@ export type TUniqueQuarterModifierNode = Pick<UniqueQuarterModifierNode,
 >;
 
 export class UniqueQuarterModifierNode extends BaseNode<TUniqueQuarterModifierNode> {
-    uniqueQuarterType: `QUARTER_${string}` = 'QUARTER_';
-    modifierId = '';
+    uniqueQuarterType: `QUARTER_${string}` | null = 'QUARTER_';
+    modifierId: string | null = null;
 
     constructor(payload: Partial<TUniqueQuarterModifierNode> = {}) {
         super();

@@ -7,9 +7,9 @@ export type TConstructibleWarehouseYieldNode = Pick<ConstructibleWarehouseYieldN
 >;
 
 export class ConstructibleWarehouseYieldNode extends BaseNode<TConstructibleWarehouseYieldNode> {
-    constructibleType = 'BUILDING_';
+    constructibleType: string | null = 'BUILDING_';
     requiresActivation: boolean | null = null;
-    yieldChangeId = '';
+    yieldChangeId: string | null = null;
 
     constructor(payload: Partial<TConstructibleWarehouseYieldNode> = {}) {
         super();

@@ -9,11 +9,11 @@ export type TLegacyCivilizationNode = Pick<LegacyCivilizationNode,
 >;
 
 export class LegacyCivilizationNode extends BaseNode<TLegacyCivilizationNode> {
-    civilizationType = 'CIVILIZATION_';
-    adjective = 'adjective';
-    age = 'adjective';
-    fullName = 'FullName';
-    name = 'Name';
+    civilizationType: string | null = 'CIVILIZATION_';
+    adjective: string | null = 'adjective';
+    age: string | null = 'adjective';
+    fullName: string | null = 'FullName';
+    name: string | null = 'Name';
 
     constructor(payload: Partial<TLegacyCivilizationNode> = {}) {
         super();

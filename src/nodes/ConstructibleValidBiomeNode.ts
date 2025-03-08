@@ -9,8 +9,8 @@ export type TConstructibleValidBiomeNode = Pick<ConstructibleValidBiomeNode,
 >;
 
 export class ConstructibleValidBiomeNode extends BaseNode<TConstructibleValidBiomeNode> {
-    constructibleType = 'BUILDING_';
-    biomeType: TObjectValues<typeof BIOME> = BIOME.GRASSLAND;
+    constructibleType: string | null = 'BUILDING_';
+    biomeType: TObjectValues<typeof BIOME> | null = BIOME.GRASSLAND;
 
     constructor(payload: Partial<TConstructibleValidBiomeNode> = {}) {
         super();

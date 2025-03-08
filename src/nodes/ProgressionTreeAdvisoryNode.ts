@@ -9,8 +9,8 @@ export type TProgressionTreeAdvisoryNode = Pick<ProgressionTreeAdvisoryNode,
 >;
 
 export class ProgressionTreeAdvisoryNode extends BaseNode<TProgressionTreeAdvisoryNode> {
-    progressionTreeNodeType: `NODE_${string}` = 'NODE_'
-    advisoryClassType: TObjectValues<typeof ADVISORY> = ADVISORY.CLASS_FOOD;
+    progressionTreeNodeType: `NODE_${string}` | null = 'NODE_'
+    advisoryClassType: TObjectValues<typeof ADVISORY> | null = ADVISORY.CLASS_FOOD;
 
     constructor(payload: Partial<TProgressionTreeAdvisoryNode> = {}) {
         super();

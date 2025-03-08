@@ -6,8 +6,8 @@ export type TTraitModifierNode = Pick<TraitModifierNode,
 >;
 
 export class TraitModifierNode extends BaseNode<TTraitModifierNode> {
-    traitType = 'TRAIT_';
-    modifierId = 'MOD_';
+    traitType: string | null = 'TRAIT_';
+    modifierId: string | null = 'MOD_';
 
     constructor(payload: Partial<TTraitModifierNode> = {}) {
         super();

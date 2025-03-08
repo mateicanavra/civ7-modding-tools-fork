@@ -45,7 +45,7 @@ export class BaseNode<T extends Object = object> {
         return this;
     }
 
-    toXmlElement(): XmlElement | XmlElement[] {
+    toXmlElement(): XmlElement | XmlElement[] | null {
         return {
             _name: this._name,
             _attrs: this.getAttributes(),

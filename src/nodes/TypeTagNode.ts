@@ -6,8 +6,8 @@ export type TTypeTagNode = Pick<TypeTagNode,
 >;
 
 export class TypeTagNode extends BaseNode<TTypeTagNode> {
-    tag = 'TAG';
-    type = 'TYPE';
+    tag: string | null = 'TAG';
+    type: string | null = 'TYPE';
 
     constructor(payload: Partial<TTypeTagNode> = {}) {
         super();

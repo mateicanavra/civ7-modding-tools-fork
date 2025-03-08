@@ -4,8 +4,8 @@ export type TEnglishTextNode = Pick<EnglishTextNode, "tag" | "text">;
 
 export class EnglishTextNode extends BaseNode<TEnglishTextNode> {
     _name = 'Row';
-    tag = 'LOC_';
-    text: string | number = 'text'
+    tag: string | null = 'LOC_';
+    text: string | number | null = 'text'
 
     constructor(payload: Partial<TEnglishTextNode> = {}) {
         super();

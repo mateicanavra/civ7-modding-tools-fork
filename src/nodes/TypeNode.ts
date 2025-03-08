@@ -9,8 +9,8 @@ export type TTypeNode = Pick<TypeNode,
 >;
 
 export class TypeNode extends BaseNode<TTypeNode> {
-    type = 'TYPE';
-    kind: TObjectValues<typeof KIND> = KIND.CONSTRUCTIBLE;
+    type: string | null = 'TYPE';
+    kind: TObjectValues<typeof KIND> | null = KIND.CONSTRUCTIBLE;
 
     constructor(payload: Partial<TTypeNode> = {}) {
         super();

@@ -7,9 +7,9 @@ export type TRequirementArgumentNode = Pick<RequirementArgumentNode,
 >;
 
 export class RequirementArgumentNode extends BaseNode<TRequirementArgumentNode> {
-    requirementId: string = 'REQ_';
-    name: string = '';
-    value: string = '';
+    requirementId: string | null = 'REQ_';
+    name: string | null = null;
+    value: string | null = null;
 
     constructor(payload: Partial<TRequirementArgumentNode> = {}) {
         super();

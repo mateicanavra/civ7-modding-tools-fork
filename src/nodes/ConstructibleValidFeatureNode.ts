@@ -9,8 +9,8 @@ export type TConstructibleValidFeatureNode = Pick<ConstructibleValidFeatureNode,
 >;
 
 export class ConstructibleValidFeatureNode extends BaseNode<TConstructibleValidFeatureNode> {
-    constructibleType = 'BUILDING_';
-    featureType: TObjectValues<typeof FEATURE> = FEATURE.ICE;
+    constructibleType: string | null = 'BUILDING_';
+    featureType: TObjectValues<typeof FEATURE> | null = FEATURE.ICE;
 
     constructor(payload: Partial<TConstructibleValidFeatureNode> = {}) {
         super();

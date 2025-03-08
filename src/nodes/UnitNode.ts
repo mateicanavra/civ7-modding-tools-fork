@@ -64,15 +64,15 @@ export type TUnitNode = Pick<UnitNode,
 >;
 
 export class UnitNode extends BaseNode<TUnitNode> {
-    unitType: `UNIT_${string}` = 'UNIT_TYPE';
-    baseMoves: number = 1;
-    baseSightRange: number = 1;
-    name: string = 'UNIT_NAME';
+    unitType: `UNIT_${string}` | null = 'UNIT_TYPE';
+    baseMoves: number | null = 1;
+    baseSightRange: number | null = 1;
+    name: string | null = 'UNIT_NAME';
 
-    coreClass: TObjectValues<typeof CORE_CLASS> = CORE_CLASS.MILITARY;
-    domain: TObjectValues<typeof DOMAIN> = DOMAIN.LAND;
-    formationClass: TObjectValues<typeof FORMATION_CLASS> = FORMATION_CLASS.LAND_COMBAT;
-    unitMovementClass: TObjectValues<typeof UNIT_MOVEMENT_CLASS> = UNIT_MOVEMENT_CLASS.FOOT;
+    coreClass: TObjectValues<typeof CORE_CLASS> | null = CORE_CLASS.MILITARY;
+    domain: TObjectValues<typeof DOMAIN> | null = DOMAIN.LAND;
+    formationClass: TObjectValues<typeof FORMATION_CLASS> | null = FORMATION_CLASS.LAND_COMBAT;
+    unitMovementClass: TObjectValues<typeof UNIT_MOVEMENT_CLASS> | null = UNIT_MOVEMENT_CLASS.FOOT;
 
     airSlots: number | null = null;
     allowBarbarians: boolean | null = null;

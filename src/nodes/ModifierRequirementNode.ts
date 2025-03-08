@@ -13,7 +13,7 @@ export type TModifierRequirementNode = Pick<ModifierRequirementNode,
 export class ModifierRequirementNode extends BaseNode<TModifierRequirementNode> {
     _name = 'Requirement';
 
-    type: TObjectValues<typeof REQUIREMENT> = REQUIREMENT.PLAYER_HAS_CIVILIZATION_OR_LEADER_TRAIT;
+    type: TObjectValues<typeof REQUIREMENT> | null = REQUIREMENT.PLAYER_HAS_CIVILIZATION_OR_LEADER_TRAIT;
     arguments: TArgumentNode[] = [];
 
     constructor(payload: Partial<TModifierRequirementNode> = {}) {

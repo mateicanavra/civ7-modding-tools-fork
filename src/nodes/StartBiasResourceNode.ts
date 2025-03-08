@@ -13,8 +13,8 @@ export type TStartBiasResourceNode = Pick<StartBiasResourceNode,
 export class StartBiasResourceNode extends BaseNode<TStartBiasResourceNode> {
     civilizationType: `CIVILIZATION_${string}` | null = null;
     leaderType: `LEADER_${string}` | null = null;
-    resourceType: TObjectValues<typeof RESOURCE> = RESOURCE.HORSES;
-    score: number = 5;
+    resourceType: TObjectValues<typeof RESOURCE> | null = RESOURCE.HORSES;
+    score: number | null = 5;
 
     constructor(payload: Partial<TStartBiasResourceNode> = {}) {
         super();

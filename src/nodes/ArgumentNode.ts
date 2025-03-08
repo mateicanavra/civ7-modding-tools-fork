@@ -5,8 +5,8 @@ export type TArgumentNode = Pick<ArgumentNode, "name" | "value">;
 export class ArgumentNode extends BaseNode<TArgumentNode> {
     _name = 'Argument';
 
-    name: string = '';
-    value: string | number = '';
+    name: string | null = null;
+    value: string | number | null = null;
 
     constructor(payload: Partial<TArgumentNode> = {}) {
         super();

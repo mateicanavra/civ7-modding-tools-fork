@@ -1,6 +1,6 @@
 import * as lodash from "lodash";
 
-import { TClassProperties, TObjectValues, TPartialWithRequired } from "../types";
+import { TClassProperties, TObjectValues, TPartialRequired } from "../types";
 import {
     DatabaseNode,
     IconDefinitionNode,
@@ -36,16 +36,16 @@ export class UnitBuilder extends BaseBuilder<TUnitBuilder> {
     _icons: DatabaseNode = new DatabaseNode();
     _visualRemap: DatabaseNode | null = null;
 
-    unit: TPartialWithRequired<TUnitNode, 'unitType'> = { unitType: 'UNIT_CUSTOM' }
+    unit: TPartialRequired<TUnitNode, 'unitType'> = { unitType: 'UNIT_CUSTOM' }
     unitStat: Partial<TUnitStatNode> = {};
     unitCost: Partial<TUnitCostNode> = {};
-    icon: TPartialWithRequired<TIconDefinitionNode, 'path'> = {
+    icon: TPartialRequired<TIconDefinitionNode, 'path'> = {
         path: 'fs://game/civ_sym_han'
     }
-    unitReplace: TPartialWithRequired<TUnitReplaceNode, 'replacesUnitType'> | null = null;
-    unitUpgrade: TPartialWithRequired<TUnitUpgradeNode, 'upgradeUnit'> | null = null;
-    visualRemap: TPartialWithRequired<TVisualRemapNode, 'to'> | null = null;
-    unitAdvisories: TPartialWithRequired<TUnitAdvisoryNode, 'advisoryClassType'>[] = [];
+    unitReplace: TPartialRequired<TUnitReplaceNode, 'replacesUnitType'> | null = null;
+    unitUpgrade: TPartialRequired<TUnitUpgradeNode, 'upgradeUnit'> | null = null;
+    visualRemap: TPartialRequired<TVisualRemapNode, 'to'> | null = null;
+    unitAdvisories: TPartialRequired<TUnitAdvisoryNode, 'advisoryClassType'>[] = [];
     localizations: TUnitLocalization[] = [];
 
     typeTags: TObjectValues<typeof UNIT_CLASS>[] = [];

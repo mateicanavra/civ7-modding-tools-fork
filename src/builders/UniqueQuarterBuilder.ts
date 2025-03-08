@@ -1,6 +1,6 @@
 import * as lodash from "lodash"
 
-import { TClassProperties, TPartialWithRequired } from "../types";
+import { TClassProperties, TPartialRequired } from "../types";
 import { DatabaseNode, GameEffectNode, GameModifierNode, IconDefinitionNode, TIconDefinitionNode, TypeNode, UniqueQuarterModifierNode, UniqueQuarterNode } from "../nodes";
 import { TUniqueQuarterLocalization, UniqueQuarterLocalization } from "../localizations";
 import { XmlFile } from "../files";
@@ -19,13 +19,13 @@ export class UniqueQuarterBuilder extends BaseBuilder<TUniqueQuarterBuilder> {
     _gameEffects: GameEffectNode = new GameEffectNode();
     _icons: DatabaseNode = new DatabaseNode();
 
-    uniqueQuarter: TPartialWithRequired<UniqueQuarterNode, 'uniqueQuarterType' | 'buildingType1' | 'buildingType2'> = {
+    uniqueQuarter: TPartialRequired<UniqueQuarterNode, 'uniqueQuarterType' | 'buildingType1' | 'buildingType2'> = {
         uniqueQuarterType: 'QUARTER_CUSTOM',
         buildingType1: 'BUILDING_CUSTOM1',
         buildingType2: 'BUILDING_CUSTOM2',
     }
 
-    icon: TPartialWithRequired<TIconDefinitionNode, 'path'> = {
+    icon: TPartialRequired<TIconDefinitionNode, 'path'> = {
         path: 'fs://game/civ_sym_han'
     }
 

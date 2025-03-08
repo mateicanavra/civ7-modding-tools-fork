@@ -15,13 +15,13 @@ export type TCivilizationNode = Pick<CivilizationNode,
 >;
 
 export class CivilizationNode extends BaseNode<TCivilizationNode> {
-    civilizationType: `CIVILIZATION_${string}` = 'CIVILIZATION_CUSTOM';
-    adjective: string = '';
-    capitalName: string = '';
-    fullName: string = '';
-    name: string = '';
+    civilizationType: `CIVILIZATION_${string}` | null = 'CIVILIZATION_CUSTOM';
+    adjective: string | null = null;
+    capitalName: string | null = null;
+    fullName: string | null = null;
+    name: string | null = null;
     domain: string | null = null;
-    startingCivilizationLevelType: string = 'CIVILIZATION_LEVEL_FULL_CIV';
+    startingCivilizationLevelType: string | null = 'CIVILIZATION_LEVEL_FULL_CIV';
 
     aiTargetCityPercentage: number | null = null;
     description: string | null = null;

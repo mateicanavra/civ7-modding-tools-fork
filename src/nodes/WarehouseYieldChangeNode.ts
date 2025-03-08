@@ -28,9 +28,9 @@ export type TWarehouseYieldChangeNode = Pick<WarehouseYieldChangeNode,
 
 export class WarehouseYieldChangeNode extends BaseNode<TWarehouseYieldChangeNode> {
     id = randomUUID();
-    age: TObjectValues<typeof AGE> = AGE.ANTIQUITY;
-    yieldType: TObjectValues<typeof YIELD> = YIELD.FOOD;
-    yieldChange = 1;
+    age: TObjectValues<typeof AGE> | null = AGE.ANTIQUITY;
+    yieldType: TObjectValues<typeof YIELD> | null = YIELD.FOOD;
+    yieldChange: number | null = 1;
     biomeInCity: string | null = null;
     constructibleInCity: string | null = null;
     districtInCity: string | null = null;

@@ -5,8 +5,8 @@ export type TStringNode = Pick<StringNode, "context" | "value">;
 export class StringNode extends BaseNode<TStringNode> {
     _name = 'String';
 
-    context: string = '';
-    value?: string | number = '';
+    context: string | null = null;
+    value?: string | number | null = null;
 
     constructor(payload: Partial<TStringNode> = {}) {
         super();

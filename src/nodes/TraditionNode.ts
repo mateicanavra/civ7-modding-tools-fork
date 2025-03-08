@@ -7,9 +7,9 @@ export type TTraditionNode = Pick<TraditionNode,
 >;
 
 export class TraditionNode extends BaseNode<TTraditionNode> {
-    traditionType: `TRADITION_${string}` = 'TRADITION_';
-    name = 'Name';
-    description = 'Description';
+    traditionType: `TRADITION_${string}` | null = 'TRADITION_';
+    name: string | null = 'Name';
+    description: string | null = 'Description';
     isCrisis: boolean | null = null;
 
     constructor(payload: Partial<TTraditionNode> = {}) {

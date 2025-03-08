@@ -11,10 +11,10 @@ export type TProgressionTreeNode = Pick<ProgressionTreeNode,
 >;
 
 export class ProgressionTreeNode extends BaseNode<TProgressionTreeNode> {
-    progressionTreeType: `TREE_${string}` = 'TREE_'
-    ageType: TObjectValues<typeof AGE> = AGE.ANTIQUITY;
-    systemType: TObjectValues<typeof SYSTEM> = SYSTEM.CULTURE;
-    name: string = '';
+    progressionTreeType: `TREE_${string}` | null = 'TREE_'
+    ageType: TObjectValues<typeof AGE> | null = AGE.ANTIQUITY;
+    systemType: TObjectValues<typeof SYSTEM> | null = SYSTEM.CULTURE;
+    name: string | null = null;
 
     constructor(payload: Partial<TProgressionTreeNode> = {}) {
         super();

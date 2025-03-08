@@ -13,13 +13,13 @@ export type TCivilizationItemNode = Pick<CivilizationItemNode,
 >;
 
 export class CivilizationItemNode extends BaseNode<TCivilizationItemNode> {
-    civilizationDomain = '';
-    civilizationType: `CIVILIZATION_${string}` = 'CIVILIZATION_';
-    type = '';
-    kind: TObjectValues<typeof KIND> = KIND.UNIT;
-    name: string = '';
-    description: string = '';
-    icon: string = '';
+    civilizationDomain: string | null = null;
+    civilizationType: `CIVILIZATION_${string}` | null = 'CIVILIZATION_';
+    type: string | null = null;
+    kind: TObjectValues<typeof KIND> | null = KIND.UNIT;
+    name: string | null = null;
+    description: string | null = null;
+    icon: string | null = null;
 
     constructor(payload: Partial<TCivilizationItemNode> = {}) {
         super();

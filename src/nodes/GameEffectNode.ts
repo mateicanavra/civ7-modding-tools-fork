@@ -13,6 +13,10 @@ export class GameEffectNode extends BaseNode<TGameEffectNode> {
     }
 
     toXmlElement() {
+        if (this.modifiers.length === 0) {
+            return null
+        }
+
         return {
             _name: this._name,
             _attrs: {

@@ -15,15 +15,15 @@ export type TCivilizationUnlockNode = Pick<CivilizationUnlockNode,
 >;
 
 export class CivilizationUnlockNode extends BaseNode<TCivilizationUnlockNode> {
-    civilizationDomain = '';
-    civilizationType: `CIVILIZATION_${string}` = 'CIVILIZATION_';
-    type: `CIVILIZATION_${string}` = 'CIVILIZATION_';
+    civilizationDomain: string | null = '';
+    civilizationType: `CIVILIZATION_${string}` | null = 'CIVILIZATION_';
+    type: `CIVILIZATION_${string}` | null = 'CIVILIZATION_';
     kind: TObjectValues<typeof KIND> = KIND.CIVILIZATION;
-    name: string = '';
-    description: string = '';
-    icon: string = '';
-    ageDomain = 'StandardAges';
-    ageType: TObjectValues<typeof AGE> = AGE.ANTIQUITY;
+    name: string | null = null;
+    description: string | null = null;
+    icon: string | null = null;
+    ageDomain: string | null = 'StandardAges';
+    ageType: TObjectValues<typeof AGE> | null = AGE.ANTIQUITY;
 
     constructor(payload: Partial<TCivilizationUnlockNode> = {}) {
         super();

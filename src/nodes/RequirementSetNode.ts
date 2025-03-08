@@ -8,8 +8,8 @@ export type TRequirementSetNode = Pick<RequirementSetNode,
 >;
 
 export class RequirementSetNode extends BaseNode<TRequirementSetNode> {
-    requirementSetId: string = 'REQSET_';
-    requirementSetType: TObjectValues<typeof REQUIREMENT_SET> = REQUIREMENT_SET.TEST_ALL;
+    requirementSetId: string | null = 'REQSET_';
+    requirementSetType: TObjectValues<typeof REQUIREMENT_SET> | null = REQUIREMENT_SET.TEST_ALL;
 
     constructor(payload: Partial<TRequirementSetNode> = {}) {
         super();

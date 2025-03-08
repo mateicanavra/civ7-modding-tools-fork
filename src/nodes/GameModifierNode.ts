@@ -5,7 +5,7 @@ export type TGameModifierNode = Pick<GameModifierNode,
 >;
 
 export class GameModifierNode extends BaseNode<TGameModifierNode> {
-    modifierId = '';
+    modifierId: string | null = null;
 
     constructor(payload: Partial<TGameModifierNode> = {}) {
         super();

@@ -10,9 +10,9 @@ export type TConstructiblePlunderNode = Pick<ConstructiblePlunderNode,
 >;
 
 export class ConstructiblePlunderNode extends BaseNode<TConstructiblePlunderNode> {
-    constructibleType = 'BUILDING_';
-    plunderType: TObjectValues<typeof PLUNDER> = PLUNDER.HEAL;
-    amount: number = 30;
+    constructibleType: string | null = 'BUILDING_';
+    plunderType: TObjectValues<typeof PLUNDER> | null = PLUNDER.HEAL;
+    amount: number | null = 30;
 
     constructor(payload: Partial<TConstructiblePlunderNode> = {}) {
         super();

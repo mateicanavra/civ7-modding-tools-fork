@@ -9,8 +9,8 @@ export type TUnitAdvisoryNode = Pick<UnitAdvisoryNode,
 >;
 
 export class UnitAdvisoryNode extends BaseNode<TUnitAdvisoryNode> {
-    unitType: string = 'UNIT_TYPE';
-    advisoryClassType: TObjectValues<typeof ADVISORY> = ADVISORY.CLASS_FOOD;
+    unitType: string | null = 'UNIT_TYPE';
+    advisoryClassType: TObjectValues<typeof ADVISORY> | null = ADVISORY.CLASS_FOOD;
 
     constructor(payload: Partial<TUnitAdvisoryNode> = {}) {
         super();

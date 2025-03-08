@@ -9,7 +9,7 @@ export type TStartBiasAdjacentToCoastNode = Pick<StartBiasAdjacentToCoastNode,
 export class StartBiasAdjacentToCoastNode extends BaseNode<TStartBiasAdjacentToCoastNode> {
     civilizationType: `CIVILIZATION_${string}` | null = null;
     leaderType: `LEADER_${string}` | null = null;
-    score: number = 5;
+    score: number | null = 5;
 
     constructor(payload: Partial<TStartBiasAdjacentToCoastNode> = {}) {
         super();

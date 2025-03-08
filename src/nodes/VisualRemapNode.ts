@@ -11,11 +11,11 @@ export type TVisualRemapNode = Pick<VisualRemapNode,
 >;
 
 export class VisualRemapNode extends BaseNode<TVisualRemapNode> {
-    id: string = randomUUID();
-    displayName: string = 'LOC_';
-    kind: string = 'UNIT';
-    from: string = 'UNIT_';
-    to: string = 'UNIT_';
+    id: string | null = randomUUID();
+    displayName: string | null = 'LOC_';
+    kind: string | null = 'UNIT';
+    from: string | null = 'UNIT_';
+    to: string | null = 'UNIT_';
 
     constructor(payload: Partial<TVisualRemapNode> = {}) {
         super();

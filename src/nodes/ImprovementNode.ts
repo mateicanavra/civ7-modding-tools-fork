@@ -33,7 +33,7 @@ export type TImprovementNode = Pick<ImprovementNode,
 >;
 
 export class ImprovementNode extends BaseNode<TImprovementNode> {
-    constructibleType: string = `IMPROVEMENT_`;
+    constructibleType: string | null = `IMPROVEMENT_`;
     adjacentSeaResource: boolean | null = null;
     airSlots: number | null = null;
     barbarianCamp: boolean | null = null;

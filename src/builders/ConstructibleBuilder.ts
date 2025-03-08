@@ -1,6 +1,6 @@
 import * as lodash from "lodash";
 
-import { TClassProperties, TObjectValues, TPartialWithRequired } from "../types";
+import { TClassProperties, TObjectValues, TPartialRequired } from "../types";
 import {
     BuildingNode,
     ConstructibleMaintenanceNode,
@@ -46,21 +46,21 @@ export class ConstructibleBuilder extends BaseBuilder<TConstructibleBuilder> {
     constructibleValidBiomes: TObjectValues<typeof BIOME>[] = [];
     constructibleValidFeatures: TObjectValues<typeof FEATURE>[] = [];
     constructibleValidTerrains: TObjectValues<typeof TERRAIN>[] = [];
-    constructibleValidResources: TPartialWithRequired<TConstructibleValidResourceNode, 'resourceType'>[] = [];
-    constructiblePlunders: TPartialWithRequired<ConstructiblePlunderNode, 'plunderType'>[] = [];
+    constructibleValidResources: TPartialRequired<TConstructibleValidResourceNode, 'resourceType'>[] = [];
+    constructiblePlunders: TPartialRequired<ConstructiblePlunderNode, 'plunderType'>[] = [];
 
     building: Partial<TBuildingNode> | null = null;
     improvement: Partial<TImprovementNode> | null = null;
-    constructible: TPartialWithRequired<TConstructibleNode, 'constructibleType'> = {
+    constructible: TPartialRequired<TConstructibleNode, 'constructibleType'> = {
         constructibleType: 'BUILDING_CUSTOM',
     }
     constructibleYieldChanges: Partial<TConstructibleYieldChangeNode>[] = [];
     constructibleMaintenances: Partial<TConstructibleMaintenanceNode>[] = [];
-    icon: TPartialWithRequired<TIconDefinitionNode, 'path'> = {
+    icon: TPartialRequired<TIconDefinitionNode, 'path'> = {
         path: 'fs://game/civ_sym_han'
     }
     localizations: TConstructibleLocalization[] = [];
-    districtFreeConstructibles: TPartialWithRequired<TDistrictFreeConstructibleNode, 'districtType'>[] = [];
+    districtFreeConstructibles: TPartialRequired<TDistrictFreeConstructibleNode, 'districtType'>[] = [];
 
     constructor(payload: Partial<TConstructibleBuilder> = {}) {
         super();
