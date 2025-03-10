@@ -2,11 +2,6 @@
 Mod generation tool for Civilization 7.
 
 - [Usage](#usage)
-- [Previews](#previews)
-    - [Use builders for easier and faster mod creation](#use-builders-for-easy-and-faster-mod-creating)
-    - [Full strongly typed](#full-strongly-typed)
-    - [Full control of generation](#full-control-of-generation)
-    - [Possibility of fully manual creation](#possibility-of-full-manually-creation)
 - [Currently state](#currently-state)
     - [Done](#done)
     - [Currently working on](#currently-working-on)
@@ -14,6 +9,11 @@ Mod generation tool for Civilization 7.
 - [Getting started](#getting-started)
     - [Install from repository](#install-from-repository)
     - [Install from NPM](#install-from-npm)
+- [Previews](#previews)
+    - [Use builders for easier and faster mod creation](#use-builders-for-easy-and-faster-mod-creating)
+    - [Full strongly typed](#full-strongly-typed)
+    - [Full control of generation](#full-control-of-generation)
+    - [Possibility of fully manual creation](#possibility-of-full-manually-creation)
 - [Features](#features)
 - [Examples](https://github.com/izica/civ7-modding-tools/tree/main/examples)
     - [Init and create civilization](https://github.com/izica/civ7-modding-tools/blob/main/examples/civilization.ts)
