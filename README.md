@@ -4,7 +4,7 @@ Mod generation tool for Civilization 7.
 - [Usage](#usage)
 - [Currently state](#currently-state)
     - [Done](#done)
-    - [Currently working on](#currently-working-on)
+    - [Working on](#working-on)
     - [TODO](#todo)
 - [Getting started](#getting-started)
     - [Install from repository](#install-from-repository)
@@ -40,7 +40,7 @@ Mod generation tool for Civilization 7.
 - [x] Traditions
 - [x] Game Effects
 
-### Currently working on
+### Working on
 - [ ] Great People nodes(+builder?)
 - [ ] New civ unlock system(+builder?)
 
