@@ -7,10 +7,11 @@ Mod generation tool for Civilization 7.
     - [Full strongly typed](#full-strongly-typed)
     - [Full control of generation](#full-control-of-generation)
     - [Possibility of fully manual creation](#possibility-of-full-manually-creation)
+- [Currently state](#currently-state)
+    - [Done](#done)
+    - [Currently working on](#currently-working-on)
+    - [TODO](#todo)
 - [Features](#features)
-- [Done](#done)
-- [Currently working on](#currently-working-on)
-- [TODO](#todo)
 - [Examples](https://github.com/izica/civ7-modding-tools/tree/main/examples)
     - [Init and create civilization](https://github.com/izica/civ7-modding-tools/blob/main/examples/civilization.ts)
     - [Create unit](https://github.com/izica/civ7-modding-tools/blob/main/examples/unit.ts)
@@ -19,8 +20,36 @@ Mod generation tool for Civilization 7.
     - [Create civics progression tree](https://github.com/izica/civ7-modding-tools/blob/main/examples/progression-tree.ts)
     - [Unique-quarter](https://github.com/izica/civ7-modding-tools/blob/main/examples/unique-quarter.ts)
 
-## Getting started
+## Currently state
+### Done
+- [x] Mod info
+- [x] Import custom files
+- [x] Localization
+    - [x] English
+- [x] Units
+- [x] Civilizations
+- [x] Constructibles
+    - [x] Base building
+    - [x] Improvement
+    - [x] Unique quarter 
+- [x] City names
+- [x] Civics
+- [x] Traditions
+- [x] Game Effects
 
+### Currently working on
+- [ ] Great People nodes(+builder?)
+- [ ] New civ unlock system(+builder?)
+
+### Todo
+- [ ] AI nodes(+builder?)
+- [ ] Localization/Internalization
+- [ ] Unit abilities nodes(+builder?)
+- [ ] Wonder nodes(+builder?)
+- [ ] ???
+
+      
+## Getting started
 ### Usage from repository
 Download repo ZIP file or clone:
 
@@ -132,31 +161,3 @@ mod.addFiles([unitFile]).build('./dist');
 * written in typescript
 * typed entities
 * easy mod creation
-
-## Done
-- [x] Mod info
-- [x] Localization tool
-- [x] Import custom files
-- [x] Localization
-    - [x] English
-- [x] Units
-- [x] Civilizations
-- [x] Constructibles
-    - [x] Base building
-    - [x] Improvement
-    - [x] Unique quarter 
-- [x] City names
-- [x] Civics
-- [x] Traditions
-- [x] Game Effects
-
-## Currently working on
-- [ ] Great People nodes(+builder?)
-- [ ] New civ unlock system(+builder?)
-
-## Todo
-- [ ] AI nodes(+builder?)
-- [ ] Localization/Internalization
-- [ ] Unit abilities nodes(+builder?)
-- [ ] Wonder nodes(+builder?)
-- [ ] ???
