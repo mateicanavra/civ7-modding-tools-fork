@@ -11,6 +11,9 @@ Mod generation tool for Civilization 7.
     - [Done](#done)
     - [Currently working on](#currently-working-on)
     - [TODO](#todo)
+- [Getting started](#getting-started)
+    - [Install from repository](#install-from-repository)
+    - [Install from NPM](#install-from-npm)
 - [Features](#features)
 - [Examples](https://github.com/izica/civ7-modding-tools/tree/main/examples)
     - [Init and create civilization](https://github.com/izica/civ7-modding-tools/blob/main/examples/civilization.ts)
@@ -50,7 +53,7 @@ Mod generation tool for Civilization 7.
 
       
 ## Getting started
-### Usage from repository
+### Install from repository
 Download repo ZIP file or clone:
 
 ```bash
@@ -67,7 +70,7 @@ npm install
 npm run build
 ```
 
-### Usage from npm
+### Install from npm
 
 ```bash
 npm install civ7-modding-tools
