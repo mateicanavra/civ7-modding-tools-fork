@@ -14,7 +14,6 @@ Mod generation tool for Civilization 7.
     - [Full strongly typed](#full-strongly-typed)
     - [Full control of generation](#full-control-of-generation)
     - [Possibility of fully manual creation](#possibility-of-full-manually-creation)
-- [Features](#features)
 - [Examples](https://github.com/izica/civ7-modding-tools/tree/main/examples)
     - [Init and create civilization](https://github.com/izica/civ7-modding-tools/blob/main/examples/civilization.ts)
     - [Create unit](https://github.com/izica/civ7-modding-tools/blob/main/examples/unit.ts)
@@ -159,8 +158,3 @@ const unitFile = new XmlFile({
 
 mod.addFiles([unitFile]).build('./dist');
 ```
-
-## Features
-* written in typescript
-* typed entities
-* easy mod creation
