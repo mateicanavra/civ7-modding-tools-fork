@@ -9,6 +9,8 @@ Mod generation tool for Civilization 7.
     - [Possibility of fully manual creation](#possibility-of-full-manually-creation)
 - [Features](#features)
 - [Modding covering](#modding-covering)
+- [Currently working on](#currently-working-on)
+- [TODO](#todo)
 - [Examples](https://github.com/izica/civ7-modding-tools/tree/main/examples)
     - [Init and create civilization](https://github.com/izica/civ7-modding-tools/blob/main/examples/civilization.ts)
     - [Create unit](https://github.com/izica/civ7-modding-tools/blob/main/examples/unit.ts)
@@ -144,3 +146,14 @@ mod.addFiles([unitFile]).build('./dist');
 - [x] Civics
 - [x] Traditions
 - [x] Game Effects
+
+## Currently working on
+- [ ] Great People nodes(+builder?)
+- [ ] New civ unlock system(+builder?)
+
+## Todo
+- [ ] AI nodes(+builder?)
+- [ ] Internalization fix
+- [ ] Unit abilities nodes(+builder?)
+- [ ] Wonder nodes(+builder?)
+- [ ] ???
