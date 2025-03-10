@@ -142,7 +142,10 @@ mod.addFiles([unitFile]).build('./dist');
 - [x] Units
 - [x] Civilizations
 - [x] Constructibles
-- [x] Named places
+    - [x] Base building
+    - [x] Improvement
+    - [x] Unique quarter 
+- [x] City names
 - [x] Civics
 - [x] Traditions
 - [x] Game Effects
