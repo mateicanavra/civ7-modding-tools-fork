@@ -8,7 +8,7 @@ Mod generation tool for Civilization 7.
     - [Full control of generation](#full-control-of-generation)
     - [Possibility of fully manual creation](#possibility-of-full-manually-creation)
 - [Features](#features)
-- [Modding covering](#modding-covering)
+- [Done](#done)
 - [Currently working on](#currently-working-on)
 - [TODO](#todo)
 - [Examples](https://github.com/izica/civ7-modding-tools/tree/main/examples)
@@ -133,12 +133,12 @@ mod.addFiles([unitFile]).build('./dist');
 * typed entities
 * easy mod creation
 
-## Modding covering
+## Done
 - [x] Mod info
 - [x] Localization tool
 - [x] Import custom files
-- - [x] English
-- - [ ] Internalization
+- [x] Localization
+    - [x] English
 - [x] Units
 - [x] Civilizations
 - [x] Constructibles
@@ -153,7 +153,7 @@ mod.addFiles([unitFile]).build('./dist');
 
 ## Todo
 - [ ] AI nodes(+builder?)
-- [ ] Internalization fix
+- [ ] Localization/Internalization
 - [ ] Unit abilities nodes(+builder?)
 - [ ] Wonder nodes(+builder?)
 - [ ] ???
