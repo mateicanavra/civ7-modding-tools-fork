@@ -11,7 +11,7 @@ export type TStartBiasFeatureClassNode = Pick<StartBiasFeatureClassNode,
 >;
 
 export class StartBiasFeatureClassNode extends BaseNode<TStartBiasFeatureClassNode> {
-    civilizationType: `CIVILIZATION_${string}` | null = null;
+    civilizationType: string | null = null;
     leaderType: `LEADER_${string}` | null = null;
     featureClassType: TObjectValues<typeof FEATURE_CLASS> | null = FEATURE_CLASS.VEGETATED;
     score: number | null = 5;

@@ -7,20 +7,14 @@ import {
     CivilizationNode,
     CivilizationTagNode,
     CivilizationTraitNode,
-    CivilizationUnlockNode,
     DatabaseNode,
     GameCivilizationNodeSlice,
     GameEffectNode,
     IconDefinitionNode,
-    KindNode,
     LegacyCivilizationNode,
     LegacyCivilizationTraitNode,
     ModifierNode,
     ProgressionTreeNodeUnlockNode,
-    RequirementArgumentNode,
-    RequirementNode,
-    RequirementSetNode,
-    RequirementSetRequirementNode,
     ShellCivilizationNodeSlice,
     StartBiasAdjacentToCoastNode,
     StartBiasBiomeNode,
@@ -30,7 +24,6 @@ import {
     StartBiasTerrainNode,
     TCivilizationItemNode,
     TCivilizationNode,
-    TCivilizationUnlockNode,
     TIconDefinitionNode,
     TLegacyCivilizationNode,
     TraitModifierNode,
@@ -41,14 +34,10 @@ import {
     TStartBiasTerrainNode,
     TTraitNode,
     TypeNode,
-    UnlockConfigurationValueNode,
-    UnlockNode,
-    UnlockRequirementNode,
-    UnlockRewardNode,
     VisArtCivilizationBuildingCultureNode,
     VisArtCivilizationUnitCultureNode
 } from "../nodes";
-import { ACTION_GROUP_ACTION, AGE, BUILDING_CULTURES, EFFECT, KIND, REQUIREMENT, REQUIREMENT_SET, TAG_TRAIT, TRAIT, UNIT_CULTURE } from "../constants";
+import { ACTION_GROUP_ACTION, AGE, BUILDING_CULTURES, EFFECT, KIND, REQUIREMENT, TAG_TRAIT, TRAIT, UNIT_CULTURE } from "../constants";
 import { locale } from "../utils";
 import { XmlFile } from "../files";
 import { CivilizationLocalization, TCivilizationLocalization } from "../localizations";
@@ -59,6 +48,7 @@ import { ConstructibleBuilder } from "./ConstructibleBuilder";
 import { ProgressionTreeBuilder } from "./ProgressionTreeBuilder";
 import { ModifierBuilder } from "./ModifierBuilder";
 import { UniqueQuarterBuilder } from "./UniqueQuarterBuilder";
+import { CivilizationUnlockBuilder } from "./CivilizationUnlockBuilder";
 
 type TCivilizationBuilder = TClassProperties<CivilizationBuilder>
 
@@ -68,7 +58,6 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
     _legacy: DatabaseNode = new DatabaseNode();
     _localizations: DatabaseNode = new DatabaseNode();
     _icons: DatabaseNode = new DatabaseNode();
-    _unlocks: DatabaseNode = new DatabaseNode();
     _gameEffects: GameEffectNode = new GameEffectNode();
 
     civilizationTraits: (TObjectValues<typeof TRAIT> | string)[] = [];
@@ -84,7 +73,6 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
     localizations: Partial<TCivilizationLocalization>[] = [];
     icon: TPartialRequired<TIconDefinitionNode, 'path'> = { path: 'fs://game/civ_sym_han' }
     civilizationItems: TPartialRequired<TCivilizationItemNode, "type" | "kind">[] = [];
-    civilizationUnlocks: TPartialRequired<TCivilizationUnlockNode, "type">[] = [];
 
     startBiasBiomes: TPartialRequired<TStartBiasBiomeNode, 'biomeType'>[] = [];
     startBiasResources: TPartialRequired<TStartBiasResourceNode, 'resourceType'>[] = [];
@@ -237,65 +225,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                     })
                 })
             ],
-            civilizationUnlocks: this.civilizationUnlocks.map(item => {
-                return new CivilizationUnlockNode({
-                    ...civilization,
-                    civilizationDomain: this.civilization.domain,
-                    name: locale(item.type, 'name'),
-                    description: locale(item.type, 'description'),
-                    icon: item.type,
-                    ...item
-                })
-            })
-        })
-
-        this._unlocks = new DatabaseNode({
-            kinds: [new KindNode({ kind: KIND.UNLOCK }).insertOrIgnore()],
-            requirementSets: [new RequirementSetNode({
-                requirementSetId: `REQSET_${civilization.civilizationType}`,
-                requirementSetType: REQUIREMENT_SET.TEST_ALL
-            })],
-            requirements: [new RequirementNode({
-                requirementId: `REQ_${civilization.civilizationType}`,
-                requirementType: REQUIREMENT.PLAYER_CIVILIZATION_TYPE_MATCHES
-            })],
-            requirementArguments: [new RequirementArgumentNode({
-                requirementId: `REQ_${civilization.civilizationType}`,
-                name: 'CivilizationType',
-                value: civilization.civilizationType
-            })],
-            requirementSetRequirements: [new RequirementSetRequirementNode({
-                requirementSetId: `REQSET_${civilization.civilizationType}`,
-                requirementId: `REQ_${civilization.civilizationType}`,
-            })],
         });
-
-        this.civilizationUnlocks.map(item => {
-            this._unlocks.types.push(new TypeNode({
-                type: `UNLOCK_${item.type}`,
-                kind: KIND.UNLOCK
-            }).insertOrIgnore())
-            this._unlocks.unlocks.push(new UnlockNode({
-                unlockType: `UNLOCK_${item.type}`,
-            }).insertOrIgnore());
-            this._unlocks.unlockRewards.push(new UnlockRewardNode({
-                unlockType: `UNLOCK_${item.type}`,
-                name: locale(item.type, 'name'),
-                description: 'LOC_UNLOCK_EXPLORATION_CIV_DESCRIPTION', // TODO what is the best way to do it?,
-                icon: item.type,
-                civUnlock: true
-            }).insertOrIgnore());
-            this._unlocks.unlockRequirements.push(new UnlockRequirementNode({
-                unlockType: `UNLOCK_${item.type}`,
-                requirementSetId: `REQSET_${civilization.civilizationType}`,
-                description: locale(civilization.civilizationType, 'unlockPlayAs'),
-                tooltip: locale(civilization.civilizationType, 'unlockPlayAs'),
-            }));
-            this._unlocks.unlockConfigurationValues.push(new UnlockConfigurationValueNode({
-                unlockType: `UNLOCK_${item.type}`,
-                configurationValue: item.type,
-            }).insertOrIgnore());
-        })
 
         this._legacy.fill({
             types: [
@@ -372,7 +302,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                 item._gameEffects.modifiers.forEach(modifier => {
                     this._gameEffects.modifiers.push(modifier);
 
-                    if (!item.detached) {
+                    if (!item.isDetached) {
                         this._current.traitModifiers.push(new TraitModifierNode({
                             traitType: this.traitAbility.traitType,
                             modifierId: modifier.id
@@ -457,13 +387,6 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                 path,
                 name: 'current.xml',
                 content: this._current.toXmlElement(),
-                actionGroups: [this.actionGroupBundle.current],
-                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
-            }),
-            new XmlFile({
-                path,
-                name: 'unlocks.xml',
-                content: this._unlocks.toXmlElement(),
                 actionGroups: [this.actionGroupBundle.current],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
             }),

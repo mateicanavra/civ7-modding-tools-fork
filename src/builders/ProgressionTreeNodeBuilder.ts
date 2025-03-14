@@ -26,7 +26,9 @@ export class ProgressionTreeNodeBuilder extends BaseBuilder<TProgressionTreeNode
     constructor(payload: Partial<TProgressionTreeNodeBuilder> = {}) {
         super();
         this.fill(payload);
+    }
 
+    migrate() {
         this._current.fill({
             types: [new TypeNode({
                 type: this.progressionTreeNode.progressionTreeNodeType,
@@ -52,6 +54,8 @@ export class ProgressionTreeNodeBuilder extends BaseBuilder<TProgressionTreeNode
                 });
             }).flatMap(item => item.getNodes())
         });
+
+        return this;
     }
 
     bind(items: (ModifierBuilder | ConstructibleBuilder | UnitBuilder | TraditionBuilder)[], unlockDepth = 1, hidden: boolean | null = null) {
@@ -60,7 +64,7 @@ export class ProgressionTreeNodeBuilder extends BaseBuilder<TProgressionTreeNode
                 item._gameEffects.modifiers.forEach((modifier) => {
                     this._gameEffects.modifiers.push(modifier);
 
-                    if (!item.detached) {
+                    if (!item.isDetached) {
                         this._current.progressionTreeNodeUnlocks.push(new ProgressionTreeNodeUnlockNode({
                             progressionTreeNodeType: this.progressionTreeNode.progressionTreeNodeType,
                             targetKind: KIND.MODIFIER,

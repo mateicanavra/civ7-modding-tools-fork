@@ -28,7 +28,9 @@ export class TraditionBuilder extends BaseBuilder<TTraditionBuilder> {
     constructor(payload: Partial<TTraditionBuilder> = {}) {
         super();
         this.fill(payload);
+    }
 
+    migrate() {
         this._current.fill({
             types: [new TypeNode({ kind: KIND.TRADITION, type: this.tradition.traditionType })],
             traditions: [new TraditionNode({
@@ -46,6 +48,8 @@ export class TraditionBuilder extends BaseBuilder<TTraditionBuilder> {
                 });
             }).flatMap(item => item.getNodes())
         });
+
+        return this;
     }
 
     bind(items: (ModifierBuilder | ConstructibleBuilder | UnitBuilder)[]) {
@@ -54,7 +58,7 @@ export class TraditionBuilder extends BaseBuilder<TTraditionBuilder> {
                 item._gameEffects.modifiers.forEach((modifier) => {
                     this._gameEffects.modifiers.push(modifier);
 
-                    if(!item.detached) {
+                    if(!item.isDetached) {
                         this._current.traditionModifiers.push(new TraditionModifierNode({
                             traditionType: this.tradition.traditionType,
                             modifierId: modifier.id

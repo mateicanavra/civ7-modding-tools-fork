@@ -14,7 +14,7 @@ export class ModifierBuilder extends BaseBuilder<TModifierBuilder> {
     _localizations: DatabaseNode = new DatabaseNode();
 
     /** @description if detached only adding into game effects file while binding*/
-    detached = false;
+    isDetached = false;
 
     modifier: Partial<TModifierNode> = {}
 
@@ -23,7 +23,9 @@ export class ModifierBuilder extends BaseBuilder<TModifierBuilder> {
     constructor(payload: Partial<TModifierBuilder> = {}) {
         super();
         this.fill(payload);
+    }
 
+    migrate() {
         const modifier = new ModifierNode(this.modifier);
 
         if(this.localizations.length > 0) {
@@ -47,6 +49,8 @@ export class ModifierBuilder extends BaseBuilder<TModifierBuilder> {
         this._gameEffects.fill({
             modifiers: [modifier]
         });
+
+        return this;
     }
 
     build() {

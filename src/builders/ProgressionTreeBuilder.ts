@@ -28,7 +28,9 @@ export class ProgressionTreeBuilder extends BaseBuilder<TProgressionTreeBuilder>
     constructor(payload: Partial<TProgressionTreeBuilder> = {}) {
         super();
         this.fill(payload);
+    }
 
+    migrate() {
         this._current.fill({
             types: [new TypeNode({
                 type: this.progressionTree.progressionTreeType,
@@ -51,6 +53,8 @@ export class ProgressionTreeBuilder extends BaseBuilder<TProgressionTreeBuilder>
                 });
             }).flatMap(item => item.getNodes())
         });
+
+        return this;
     }
 
     bind(items: ProgressionTreeNodeBuilder[]) {

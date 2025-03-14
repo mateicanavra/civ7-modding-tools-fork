@@ -34,7 +34,9 @@ export class UniqueQuarterBuilder extends BaseBuilder<TUniqueQuarterBuilder> {
     constructor(payload: Partial<TUniqueQuarterBuilder> = {}) {
         super();
         this.fill(payload);
+    }
 
+    migrate() {
         this._always.fill({
             types: [new TypeNode({ kind: KIND.QUARTER, type: this.uniqueQuarter.uniqueQuarterType })],
             uniqueQuarters: [new UniqueQuarterNode({
@@ -59,6 +61,8 @@ export class UniqueQuarterBuilder extends BaseBuilder<TUniqueQuarterBuilder> {
                 });
             }).flatMap(item => item.getNodes())
         });
+
+        return this;
     }
 
     bind(items: (ModifierBuilder | ConstructibleBuilder)[]) {
@@ -68,7 +72,7 @@ export class UniqueQuarterBuilder extends BaseBuilder<TUniqueQuarterBuilder> {
                     this._gameEffects.modifiers.push(modifier);
                 });
 
-                if(!item.detached){
+                if(!item.isDetached){
                     item._gameEffects.modifiers.forEach((modifier) => {
                         this._always.gameModifiers.push(new GameModifierNode({
                             modifierId: modifier.id

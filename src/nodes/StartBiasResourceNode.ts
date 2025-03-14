@@ -11,7 +11,7 @@ export type TStartBiasResourceNode = Pick<StartBiasResourceNode,
 >;
 
 export class StartBiasResourceNode extends BaseNode<TStartBiasResourceNode> {
-    civilizationType: `CIVILIZATION_${string}` | null = null;
+    civilizationType: string | null = null;
     leaderType: `LEADER_${string}` | null = null;
     resourceType: TObjectValues<typeof RESOURCE> | null = RESOURCE.HORSES;
     score: number | null = 5;

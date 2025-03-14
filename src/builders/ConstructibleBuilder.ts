@@ -84,7 +84,6 @@ export class ConstructibleBuilder extends BaseBuilder<TConstructibleBuilder> {
             }
         }
 
-
         this._always.fill({
             types: [new TypeNode({
                 type: this.constructible.constructibleType,

@@ -7,7 +7,7 @@ export type TStartBiasRiverNode = Pick<StartBiasRiverNode,
 >;
 
 export class StartBiasRiverNode extends BaseNode<TStartBiasRiverNode> {
-    civilizationType: `CIVILIZATION_${string}` | null = null;
+    civilizationType: string | null = null;
     leaderType: `LEADER_${string}` | null = null;
     score: number | null = 5;
 

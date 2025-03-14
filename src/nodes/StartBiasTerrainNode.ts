@@ -11,7 +11,7 @@ export type TStartBiasTerrainNode = Pick<StartBiasTerrainNode,
 >;
 
 export class StartBiasTerrainNode extends BaseNode<TStartBiasTerrainNode> {
-    civilizationType: `CIVILIZATION_${string}` | null = null;
+    civilizationType: string | null = null;
     leaderType: `LEADER_${string}` | null = null;
     terrainType: TObjectValues<typeof TERRAIN> | null = TERRAIN.FLAT;
     score: number | null = 5;

@@ -16,8 +16,8 @@ export type TCivilizationUnlockNode = Pick<CivilizationUnlockNode,
 
 export class CivilizationUnlockNode extends BaseNode<TCivilizationUnlockNode> {
     civilizationDomain: string | null = '';
-    civilizationType: `CIVILIZATION_${string}` | null = 'CIVILIZATION_';
-    type: `CIVILIZATION_${string}` | null = 'CIVILIZATION_';
+    civilizationType: string | null = 'CIVILIZATION_';
+    type: string | null = 'CIVILIZATION_';
     kind: TObjectValues<typeof KIND> = KIND.CIVILIZATION;
     name: string | null = null;
     description: string | null = null;

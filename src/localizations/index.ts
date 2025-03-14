@@ -6,3 +6,4 @@ export { ProgressionTreeNodeLocalization, TProgressionTreeNodeLocalization } fro
 export { ProgressionTreeLocalization, TProgressionTreeLocalization } from './ProgressionTreeLocalization'
 export { TraditionLocalization, TTraditionLocalization } from './TraditionLocalization'
 export { UniqueQuarterLocalization, TUniqueQuarterLocalization } from './UniqueQuarterLocalization'
+export { CivilizationUnlockLocalization, TCivilizationUnlockLocalization } from './CivilizationUnlockLocalization'
