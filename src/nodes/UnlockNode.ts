@@ -3,7 +3,7 @@ import { BaseNode } from "./BaseNode";
 export type TUnlockNode = Pick<UnlockNode, "unlockType">;
 
 export class UnlockNode extends BaseNode<TUnlockNode> {
-    unlockType: `UNLOCK_${string}` | null = 'UNLOCK_';
+    unlockType: string | null = 'UNLOCK_';
 
     constructor(payload: Partial<TUnlockNode> = {}) {
         super();

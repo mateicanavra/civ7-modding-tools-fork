@@ -9,7 +9,7 @@ export type TUnlockRewardNode = Pick<UnlockRewardNode,
 >;
 
 export class UnlockRewardNode extends BaseNode<TUnlockRewardNode> {
-    unlockType: `UNLOCK_${string}` | null = 'UNLOCK_';
+    unlockType: string | null = 'UNLOCK_';
     name: string | null = null;
     description: string | null = null;
     icon: string | null = null;
