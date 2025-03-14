@@ -30,7 +30,7 @@ import {
 import { ACTION_GROUP_ACTION, BIOME, CONSTRUCTIBLE_TYPE_TAG, DISTRICT, FEATURE, KIND, TERRAIN } from "../constants";
 import { XmlFile } from "../files";
 import { ConstructibleLocalization, TConstructibleLocalization } from "../localizations";
-import { locale } from "../utils";
+import { locale, trim } from "../utils";
 
 import { BaseBuilder } from "./BaseBuilder";
 import { AdjacencyYieldChangeNode, TAdjacencyYieldChangeNode } from "../nodes/AdjacencyYieldChangeNode";
@@ -195,7 +195,7 @@ export class ConstructibleBuilder extends BaseBuilder<TConstructibleBuilder> {
 
 
     build() {
-        const path = `/constructibles/${lodash.kebabCase(this.constructible.constructibleType.replace('CONSTRUCTIBLE_', ''))}/`;
+        const path = `/constructibles/${lodash.kebabCase(trim(this.constructible.constructibleType))}/`;
         return [
             new XmlFile({
                 path,

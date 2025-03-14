@@ -38,7 +38,7 @@ import {
     VisArtCivilizationUnitCultureNode
 } from "../nodes";
 import { ACTION_GROUP_ACTION, AGE, BUILDING_CULTURES, CIVILIZATION_DOMAIN, EFFECT, KIND, REQUIREMENT, TAG_TRAIT, TRAIT, UNIT_CULTURE } from "../constants";
-import { locale } from "../utils";
+import { locale, trim } from "../utils";
 import { XmlFile } from "../files";
 import { CivilizationLocalization, TCivilizationLocalization } from "../localizations";
 
@@ -406,7 +406,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
                 this._shell.leaderCivilizationBias.push(new LeaderCivilizationBiasNode({
                     civilizationDomain: CIVILIZATION_DOMAIN.from(item.leaderUnlock.ageType),
                     civilizationType: item.leaderUnlock.type,
-                    reasonType: locale(`PLAY_AS_${item.leaderUnlock.leaderType.replace('LEADER_', '')}_${item.leaderUnlock.type.replace('CIVILIZATION_', '')}`, 'TOOLTIP'),
+                    reasonType: locale(`PLAY_AS_${trim(item.leaderUnlock.leaderType)}_${trim(item.leaderUnlock.type)}`, 'TOOLTIP'),
                     ...item.leaderUnlock,
                     ...item.leaderCivilizationBias
                 }))
@@ -416,7 +416,7 @@ export class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
     }
 
     build() {
-        const path = `/civilizations/${lodash.kebabCase(this.civilization.civilizationType.replace('CIVILIZATION_', ''))}/`;
+        const path = `/civilizations/${lodash.kebabCase(trim(this.civilization.civilizationType))}/`;
         return [
             new XmlFile({
                 path,

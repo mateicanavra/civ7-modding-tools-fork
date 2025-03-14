@@ -5,7 +5,7 @@ import { DatabaseNode, GameEffectNode, TraditionModifierNode, TraditionNode, TTr
 import { TraditionLocalization, TTraditionLocalization } from "../localizations";
 import { XmlFile } from "../files";
 import { ACTION_GROUP_ACTION, KIND } from "../constants";
-import { locale } from "../utils";
+import { locale, trim } from "../utils";
 
 import { ModifierBuilder } from "./ModifierBuilder";
 import { ConstructibleBuilder } from "./ConstructibleBuilder";
@@ -77,7 +77,7 @@ export class TraditionBuilder extends BaseBuilder<TTraditionBuilder> {
     }
 
     build() {
-        const path = `/traditions/${lodash.kebabCase(this.tradition.traditionType.replace('TRADITION_', ''))}/`;
+        const path = `/traditions/${lodash.kebabCase(trim(this.tradition.traditionType))}/`;
         return [
             new XmlFile({
                 path,

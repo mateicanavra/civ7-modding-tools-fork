@@ -3,7 +3,7 @@ import * as lodash from "lodash";
 import { TClassProperties, TPartialRequired } from "../types";
 import { DatabaseNode, GameEffectNode, ProgressionTreeNode, ProgressionTreePrereqNode, TProgressionTreeNode, TProgressionTreePrereqNode, TypeNode } from "../nodes";
 import { ACTION_GROUP_ACTION, AGE, KIND } from "../constants";
-import { locale } from "../utils";
+import { locale, trim } from "../utils";
 import { XmlFile } from "../files";
 
 import { ProgressionTreeNodeBuilder } from "./ProgressionTreeNodeBuilder";
@@ -98,7 +98,7 @@ export class ProgressionTreeBuilder extends BaseBuilder<TProgressionTreeBuilder>
     }
 
     build() {
-        const path = `/progression-trees/${lodash.kebabCase(this.progressionTree.progressionTreeType.replace('TREE_', ''))}/`;
+        const path = `/progression-trees/${lodash.kebabCase(trim(this.progressionTree.progressionTreeType))}/`;
         return [
             new XmlFile({
                 path,

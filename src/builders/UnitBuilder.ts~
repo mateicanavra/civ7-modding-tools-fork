@@ -22,7 +22,7 @@ import {
     VisualRemapNode
 } from "../nodes";
 import { ACTION_GROUP_ACTION, KIND, UNIT_CLASS } from "../constants";
-import { locale, trim } from "../utils";
+import { locale } from "../utils";
 import { XmlFile } from "../files";
 import { TUnitLocalization, UnitLocalization } from "../localizations";
 
@@ -143,7 +143,7 @@ export class UnitBuilder extends BaseBuilder<TUnitBuilder> {
 
 
     build() {
-        const path = `/units/${lodash.kebabCase(trim(this.unit.unitType))}/`;
+        const path = `/units/${lodash.kebabCase(this.unit.unitType.replace('UNIT_', ''))}/`;
         return [
             new XmlFile({
                 path,

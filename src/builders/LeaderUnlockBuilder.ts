@@ -1,3 +1,5 @@
+import { kebabCase } from "lodash";
+
 import { TClassProperties, TPartialRequired } from "../types";
 import { DatabaseNode, TLeaderCivilizationBiasNode, TLeaderUnlockNode } from "../nodes";
 import { LeaderUnlockLocalization, TLeaderUnlockLocalization } from "../localizations";
@@ -5,6 +7,7 @@ import { ACTION_GROUP_ACTION, AGE } from "../constants";
 
 import { BaseBuilder } from "./BaseBuilder";
 import { XmlFile } from "../files";
+import { trim } from "../utils";
 
 type TLeaderUnlockBuilder = TClassProperties<LeaderUnlockBuilder>;
 
@@ -30,7 +33,7 @@ export class LeaderUnlockBuilder extends BaseBuilder<TLeaderUnlockBuilder> {
         this._localizations.fill({
             englishText: this.localizations.map(item => {
                 return new LeaderUnlockLocalization({
-                    prefix: `PLAY_AS_${this.leaderUnlock.leaderType.replace('LEADER_', '')}_${this.leaderUnlock.type.replace('CIVILIZATION_', '')}`,
+                    prefix: `PLAY_AS_${trim(this.leaderUnlock.leaderType)}_${trim(this.leaderUnlock.type)}`,
                     ...item
                 });
             }).flatMap(item => item.getNodes())
@@ -40,7 +43,7 @@ export class LeaderUnlockBuilder extends BaseBuilder<TLeaderUnlockBuilder> {
     }
 
     build() {
-        const name = `${this.leaderUnlock.leaderType.replace('LEADER_', '').replace('_', '-').toLocaleLowerCase()}-${this.leaderUnlock.type.replace('CIVILIZATION_', '').replace('_', '-').toLocaleLowerCase()}`;
+        const name = `${kebabCase(trim(this.leaderUnlock.leaderType))}-${kebabCase(trim(this.leaderUnlock.type))}`;
         const path = `/unlocks/${name}/`;
         return [
             new XmlFile({

@@ -15,7 +15,7 @@ import {
 import { TCivilizationUnlockLocalization } from "../localizations";
 import { XmlFile } from "../files";
 import { ACTION_GROUP_ACTION, AGE, KIND, REQUIREMENT, REQUIREMENT_SET } from "../constants";
-import { locale } from "../utils";
+import { locale, trim } from "../utils";
 
 import { BaseBuilder } from "./BaseBuilder";
 
@@ -43,8 +43,8 @@ export class CivilizationUnlockBuilder extends BaseBuilder<TCivilizationUnlockBu
 
     migrate() {
         const unlockType = `UNLOCK_${this.to.civilizationType}`;
-        const requirementSetId = `REQSET_CIV_IS_${this.from.civilizationType.replace('CIVILIZATION_', '')}`;
-        const requirementId = `REQ_CIV_IS_${this.from.civilizationType.replace('CIVILIZATION_', '')}`;
+        const requirementSetId = `REQSET_CIV_IS_${trim(this.from.civilizationType)}`;
+        const requirementId = `REQ_CIV_IS_${trim(this.from.civilizationType)}`;
 
         this._current.fill({
             kinds: [new KindNode({ kind: KIND.UNLOCK }).insertOrIgnore()],
@@ -90,7 +90,7 @@ export class CivilizationUnlockBuilder extends BaseBuilder<TCivilizationUnlockBu
     }
 
     build() {
-        const name = `${this.from.civilizationType.replace('CIVILIZATION_', '').replace('_', '-').toLocaleLowerCase()}-${this.to.civilizationType.replace('CIVILIZATION_', '').replace('_', '-').toLocaleLowerCase()}`;
+        const name = `${trim(this.from.civilizationType).replace('_', '-').toLocaleLowerCase()}-${this.to.civilizationType.replace('CIVILIZATION_', '').replace('_', '-').toLocaleLowerCase()}`;
         const path = `/unlocks/${name}/`;
         return [
             new XmlFile({
