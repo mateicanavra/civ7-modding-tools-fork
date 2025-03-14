@@ -11,7 +11,7 @@ import {
     UNIT_CLASS,
     UnitBuilder, YIELD
 } from "./src";
-import { COLLECTION, EFFECT, REQUIREMENT } from "../src";
+import { AGE, CivilizationUnlockBuilder, COLLECTION, EFFECT, REQUIREMENT } from "../src";
 
 let mod = new Mod({
     id: 'mod-test',
@@ -51,6 +51,12 @@ const civilization = new CivilizationBuilder({
         }],
         arguments: [{ name: 'Amount', value: 10 }]
     }]
+});
+
+const civilizationUnlockToPrussia = new CivilizationUnlockBuilder({
+    actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_EXPLORATION,
+    from: { civilizationType: civilization.civilization.civilizationType, ageType: AGE.ANTIQUITY, },
+    to: { civilizationType: 'CIVILIZATION_PRUSSIA', ageType: AGE.MODERN, },
 });
 
 const unitIcon = new ImportFileBuilder({
@@ -114,9 +120,10 @@ civilization.bind([
 mod.add([
     civilization,
     civilizationIcon,
+    civilizationUnlockToPrussia,
     unit,
     unitIcon,
-    constructible,
+    constructible
 ]);
 
 mod.build('./dist');
