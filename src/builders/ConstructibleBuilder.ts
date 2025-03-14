@@ -193,7 +193,6 @@ export class ConstructibleBuilder extends BaseBuilder<TConstructibleBuilder> {
         return this;
     }
 
-
     build() {
         const path = `/constructibles/${lodash.kebabCase(trim(this.constructible.constructibleType))}/`;
         return [
