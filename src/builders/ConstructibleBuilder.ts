@@ -75,13 +75,15 @@ export class ConstructibleBuilder extends BaseBuilder<TConstructibleBuilder> {
     }
 
     migrate() {
-        if(this.constructible.constructibleType.startsWith('BUILDING_') && !this.improvement && !this.building) {
-            this.building = {};
+        if(!this.improvement && !this.building) {
+            if(this.constructible.constructibleType.startsWith('BUILDING_')){
+                this.building = {};
+            }
+            if(this.constructible.constructibleType.startsWith('IMPROVEMENT_')) {
+                this.improvement = {};
+            }
         }
 
-        if(this.constructible.constructibleType.startsWith('IMPROVEMENT_') && !this.improvement && !this.building) {
-            this.building = {};
-        }
 
         this._always.fill({
             types: [new TypeNode({
