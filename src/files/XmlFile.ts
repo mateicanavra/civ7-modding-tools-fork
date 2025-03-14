@@ -16,12 +16,8 @@ export class XmlFile extends BaseFile<XmlFile> implements TXmlFile {
     }
 
     write(dist: string) {
-        if (!this.content) {
-            return;
-        }
-
         try {
-            const data = toXML(this.content, {
+            const data = toXML(this.content || undefined, {
                 header: true,
                 indent: '    '
             });

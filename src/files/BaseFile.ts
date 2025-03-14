@@ -16,6 +16,10 @@ export class BaseFile<T = any> {
 
     fill = fill<T>;
 
+    get isEmpty() {
+        return !this.content;
+    }
+
     get modInfoPath() {
         if (this.path.startsWith('/')) {
             return `${this.path}${this.name}`.slice(1);

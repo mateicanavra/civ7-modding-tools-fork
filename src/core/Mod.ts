@@ -32,7 +32,7 @@ export class Mod {
      * @param data
      */
     add(data: BaseBuilder | BaseBuilder[]) {
-        if(Array.isArray(data)) {
+        if (Array.isArray(data)) {
             this.builders = this.builders.concat(data);
         } else {
             this.builders.push(data)
@@ -42,7 +42,7 @@ export class Mod {
     }
 
     addFiles(data: BaseFile | BaseFile[]) {
-        if(Array.isArray(data)) {
+        if (Array.isArray(data)) {
             this.files = this.files.concat(data);
         } else {
             this.files.push(data)
@@ -61,7 +61,8 @@ export class Mod {
 
         const files = this.builders
             .flatMap(builder => builder.build())
-            .concat(this.files);
+            .concat(this.files)
+            .filter(file => !file.isEmpty)
 
         const criterias = lodash.uniqBy(
             files.flatMap(file => file.actionGroups.map(actionGroup => actionGroup.criteria)),
@@ -75,12 +76,12 @@ export class Mod {
 
         files.forEach(file => {
             file.actionGroups.forEach(actionGroup => {
-                if(!actionGroups[actionGroup.id]) {
+                if (!actionGroups[actionGroup.id]) {
                     actionGroups[actionGroup.id] = { actionGroup, actions: {} }
                 }
 
                 file.actionGroupActions.forEach(actionGroupAction => {
-                    if(!actionGroups[actionGroup.id].actions[actionGroupAction]) {
+                    if (!actionGroups[actionGroup.id].actions[actionGroupAction]) {
                         actionGroups[actionGroup.id].actions[actionGroupAction] = [];
                     }
                     actionGroups[actionGroup.id].actions[actionGroupAction]?.push(file.modInfoPath);
