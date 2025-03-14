@@ -68,6 +68,8 @@ import { GameModifierNode } from "./GameModifierNode";
 import { UnitUpgradeNode } from "./UnitUpgradeNode";
 import { UnitAdvisoryNode } from "./UnitAdvisoryNode";
 import { CityNameNode } from "./CityNameNode";
+import { LeaderUnlockNode } from "./LeaderUnlockNode";
+import { LeaderCivilizationBiasNode } from "./LeaderCivilizationBiasNode";
 
 export type TDatabase = Pick<DatabaseNode,
     "civilizationItems" |
@@ -134,6 +136,8 @@ export type TDatabase = Pick<DatabaseNode,
     "uniqueQuarterModifiers" |
     "gameModifiers" |
     "cityNames" |
+    "leaderUnlocks" |
+    "leaderCivilizationBias" |
     "visualRemaps"
 >;
 
@@ -154,6 +158,9 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     civilizationUnlocks: CivilizationUnlockNode[] = [];
     legacyCivilizationTraits: LegacyCivilizationTraitNode[] = [];
     legacyCivilizations: LegacyCivilizationNode[] = [];
+
+    leaderUnlocks: LeaderUnlockNode[] = [];
+    leaderCivilizationBias: LeaderCivilizationBiasNode[] = [];
 
     buildings: BuildingNode[] = [];
     improvements: ImprovementNode[] = [];

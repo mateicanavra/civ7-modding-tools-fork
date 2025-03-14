@@ -1,6 +1,9 @@
 import { BaseNode } from "./BaseNode";
 
-export type TEnglishTextNode = Pick<EnglishTextNode, "tag" | "text">;
+export type TEnglishTextNode = Pick<EnglishTextNode,
+    "tag" |
+    "text"
+>;
 
 export class EnglishTextNode extends BaseNode<TEnglishTextNode> {
     _name = 'Row';

@@ -1,6 +1,9 @@
 import { BaseNode } from "./BaseNode";
 
-export type TIconDefinitionNode = Pick<IconDefinitionNode, "id" | "path">;
+export type TIconDefinitionNode = Pick<IconDefinitionNode,
+    "id" |
+    "path"
+>;
 
 export class IconDefinitionNode extends BaseNode<TIconDefinitionNode> {
     id = 'id';

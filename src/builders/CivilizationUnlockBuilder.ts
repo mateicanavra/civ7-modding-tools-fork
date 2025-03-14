@@ -1,6 +1,5 @@
 import { TClassProperties, TObjectValues } from "../types";
 import {
-    CivilizationUnlockNode,
     DatabaseNode,
     KindNode,
     RequirementArgumentNode,
@@ -15,19 +14,15 @@ import {
 } from "../nodes";
 import { TCivilizationUnlockLocalization } from "../localizations";
 import { XmlFile } from "../files";
-import { ACTION_GROUP_ACTION, AGE, CIVILIZATION_DOMAIN, KIND, REQUIREMENT, REQUIREMENT_SET } from "../constants";
+import { ACTION_GROUP_ACTION, AGE, KIND, REQUIREMENT, REQUIREMENT_SET } from "../constants";
+import { locale } from "../utils";
 
 import { BaseBuilder } from "./BaseBuilder";
-import { locale } from "../utils";
 
 type TCivilizationUnlockBuilder = TClassProperties<CivilizationUnlockBuilder>;
 
 export class CivilizationUnlockBuilder extends BaseBuilder<TCivilizationUnlockBuilder> {
     _current: DatabaseNode = new DatabaseNode();
-    _shell: DatabaseNode = new DatabaseNode();
-
-    /** @description if true - add to existing civilization to new civilization */
-    isAdditive: boolean = false;
 
     from: { civilizationType: string, ageType: TObjectValues<typeof AGE> } = {
         civilizationType: 'CIVILIZATION_FROM',
@@ -47,20 +42,6 @@ export class CivilizationUnlockBuilder extends BaseBuilder<TCivilizationUnlockBu
     }
 
     migrate() {
-        this._shell.fill({
-            civilizationUnlocks: [new CivilizationUnlockNode({
-                ageDomain: 'StandardAges',
-                civilizationDomain: CIVILIZATION_DOMAIN.from(this.from.ageType),
-                civilizationType: this.from.civilizationType,
-                type: this.to.civilizationType,
-                ageType: this.to.ageType,
-                kind: KIND.CIVILIZATION,
-                name: locale(this.to.civilizationType, 'NAME'),
-                description: locale(this.to.civilizationType, 'DESCRIPTION'),
-                icon: this.to.civilizationType
-            })]
-        });
-
         const unlockType = `UNLOCK_${this.to.civilizationType}`;
         const requirementSetId = `REQSET_CIV_IS_${this.from.civilizationType.replace('CIVILIZATION_', '')}`;
         const requirementId = `REQ_CIV_IS_${this.from.civilizationType.replace('CIVILIZATION_', '')}`;
@@ -105,24 +86,13 @@ export class CivilizationUnlockBuilder extends BaseBuilder<TCivilizationUnlockBu
             }).insertOrIgnore()]
         });
 
-        if (this.isAdditive) {
-
-        }
-
         return this;
     }
 
     build() {
         const name = `${this.from.civilizationType.replace('CIVILIZATION_', '').replace('_', '-').toLocaleLowerCase()}-${this.to.civilizationType.replace('CIVILIZATION_', '').replace('_', '-').toLocaleLowerCase()}`;
-        const path = `/civilization-unlocks/${name}/`;
+        const path = `/unlocks/${name}/`;
         return [
-            new XmlFile({
-                path,
-                name: `shell.xml`,
-                content: this._shell.toXmlElement(),
-                actionGroups: [this.actionGroupBundle.shell],
-                actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
-            }),
             new XmlFile({
                 path,
                 name: `current.xml`,

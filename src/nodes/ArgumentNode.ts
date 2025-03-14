@@ -1,6 +1,9 @@
 import { BaseNode } from "./BaseNode";
 
-export type TArgumentNode = Pick<ArgumentNode, "name" | "value">;
+export type TArgumentNode = Pick<ArgumentNode,
+    "name" |
+    "value"
+>;
 
 export class ArgumentNode extends BaseNode<TArgumentNode> {
     _name = 'Argument';

@@ -5,7 +5,11 @@ import { BaseNode } from "./BaseNode";
 import { TObjectValues } from "../types";
 import { AGE } from "../constants";
 
-export type TCriteriaNode = Pick<CriteriaNode, "id" | "any" | "ages">;
+export type TCriteriaNode = Pick<CriteriaNode,
+    "id" |
+    "any" |
+    "ages"
+>;
 
 export class CriteriaNode extends BaseNode<TCriteriaNode> {
     _name = 'Criteria';

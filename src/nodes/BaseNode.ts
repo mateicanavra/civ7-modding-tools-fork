@@ -3,7 +3,6 @@ import * as lodash from "lodash";
 
 import { fill } from "../utils";
 
-
 export class BaseNode<T extends Object = object> {
     _name: string = 'Row';
 

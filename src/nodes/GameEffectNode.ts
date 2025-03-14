@@ -1,7 +1,9 @@
 import { BaseNode } from "./BaseNode";
 import { ModifierNode } from "./ModifierNode";
 
-export type TGameEffectNode = Pick<GameEffectNode, "modifiers">;
+export type TGameEffectNode = Pick<GameEffectNode,
+    "modifiers"
+>;
 
 export class GameEffectNode extends BaseNode<TGameEffectNode> {
     _name = 'GameEffects';
