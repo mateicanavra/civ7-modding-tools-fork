@@ -106,9 +106,9 @@ export class LeaderUnlockBuilder extends BaseBuilder<TLeaderUnlockBuilder> {
         return [
             new XmlFile({
                 path,
-                name: 'current.xml',
+                name: 'always.xml',
                 content: this._current.toXmlElement(),
-                actionGroups: [this.actionGroupBundle.current],
+                actionGroups: [this.actionGroupBundle.always],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
             }),
             new XmlFile({
