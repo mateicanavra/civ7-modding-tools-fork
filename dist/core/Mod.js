@@ -82,7 +82,8 @@ class Mod {
         }
         const files = this.builders
             .flatMap(builder => builder.build())
-            .concat(this.files);
+            .concat(this.files)
+            .filter(file => !file.isEmpty);
         const criterias = lodash.uniqBy(files.flatMap(file => file.actionGroups.map(actionGroup => actionGroup.criteria)), criteria => criteria.id);
         const actionGroups = {};
         files.forEach(file => {

@@ -7,10 +7,11 @@ export declare class ModifierBuilder extends BaseBuilder<TModifierBuilder> {
     _gameEffects: GameEffectNode;
     _localizations: DatabaseNode;
     /** @description if detached only adding into game effects file while binding*/
-    detached: boolean;
+    isDetached: boolean;
     modifier: Partial<TModifierNode>;
     localizations: Partial<TModifierLocalization>[];
     constructor(payload?: Partial<TModifierBuilder>);
+    migrate(): this;
     build(): never[];
 }
 export {};

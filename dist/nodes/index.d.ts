@@ -68,5 +68,7 @@ export { VisualRemapNode, TVisualRemapNode } from './VisualRemapNode';
 export { UnitAdvisoryNode, TUnitAdvisoryNode } from './UnitAdvisoryNode';
 export { WarehouseYieldChangeNode, TWarehouseYieldChangeNode } from './WarehouseYieldChangeNode';
 export { CityNameNode, TCityNameNode } from './CityNameNode';
+export { LeaderCivilizationBiasNode, TLeaderCivilizationBiasNode } from './LeaderCivilizationBiasNode';
+export { LeaderUnlockNode, TLeaderUnlockNode } from './LeaderUnlockNode';
 export { ShellCivilizationNodeSlice, TShellCivilizationNodeSlice } from './slices/ShellCivilizationNodeSlice';
 export { GameCivilizationNodeSlice, TGameCivilizationNodeSlice } from './slices/GameCivilizationNodeSlice';

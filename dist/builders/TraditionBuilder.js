@@ -53,6 +53,8 @@ class TraditionBuilder extends BaseBuilder_1.BaseBuilder {
         };
         this.localizations = [];
         this.fill(payload);
+    }
+    migrate() {
         this._current.fill({
             types: [new nodes_1.TypeNode({ kind: constants_1.KIND.TRADITION, type: this.tradition.traditionType })],
             traditions: [new nodes_1.TraditionNode(Object.assign({ name: (0, utils_1.locale)(this.tradition.traditionType, 'name'), description: (0, utils_1.locale)(this.tradition.traditionType, 'description') }, this.tradition))]
@@ -62,13 +64,14 @@ class TraditionBuilder extends BaseBuilder_1.BaseBuilder {
                 return new localizations_1.TraditionLocalization(Object.assign({ prefix: this.tradition.traditionType }, item));
             }).flatMap(item => item.getNodes())
         });
+        return this;
     }
     bind(items) {
         items.forEach(item => {
             if (item instanceof ModifierBuilder_1.ModifierBuilder) {
                 item._gameEffects.modifiers.forEach((modifier) => {
                     this._gameEffects.modifiers.push(modifier);
-                    if (!item.detached) {
+                    if (!item.isDetached) {
                         this._current.traditionModifiers.push(new nodes_1.TraditionModifierNode({
                             traditionType: this.tradition.traditionType,
                             modifierId: modifier.id
@@ -84,7 +87,7 @@ class TraditionBuilder extends BaseBuilder_1.BaseBuilder {
         return this;
     }
     build() {
-        const path = `/traditions/${lodash.kebabCase(this.tradition.traditionType.replace('TRADITION_', ''))}/`;
+        const path = `/traditions/${lodash.kebabCase((0, utils_1.trim)(this.tradition.traditionType))}/`;
         return [
             new files_1.XmlFile({
                 path,

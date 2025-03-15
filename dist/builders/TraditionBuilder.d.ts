@@ -14,6 +14,7 @@ export declare class TraditionBuilder extends BaseBuilder<TTraditionBuilder> {
     tradition: TPartialRequired<TTraditionNode, 'traditionType'>;
     localizations: Partial<TTraditionLocalization>[];
     constructor(payload?: Partial<TTraditionBuilder>);
+    migrate(): this;
     bind(items: (ModifierBuilder | ConstructibleBuilder | UnitBuilder)[]): this;
     build(): XmlFile[];
 }

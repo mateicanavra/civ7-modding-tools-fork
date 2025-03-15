@@ -44,9 +44,6 @@ class ImportFile extends BaseFile_1.BaseFile {
         this.fill(payload);
     }
     write(dist) {
-        if (!this.content) {
-            return;
-        }
         try {
             console.log(`${dist}${this.path}${this.name}`);
             fs.mkdir(`${dist}${this.path}`, { recursive: true }, (err) => {

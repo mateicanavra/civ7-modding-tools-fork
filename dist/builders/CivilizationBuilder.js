@@ -46,6 +46,8 @@ const ConstructibleBuilder_1 = require("./ConstructibleBuilder");
 const ProgressionTreeBuilder_1 = require("./ProgressionTreeBuilder");
 const ModifierBuilder_1 = require("./ModifierBuilder");
 const UniqueQuarterBuilder_1 = require("./UniqueQuarterBuilder");
+const CivilizationUnlockBuilder_1 = require("./CivilizationUnlockBuilder");
+const LeaderUnlockBuilder_1 = require("./LeaderUnlockBuilder");
 class CivilizationBuilder extends BaseBuilder_1.BaseBuilder {
     constructor(payload = {}) {
         super();
@@ -54,7 +56,6 @@ class CivilizationBuilder extends BaseBuilder_1.BaseBuilder {
         this._legacy = new nodes_1.DatabaseNode();
         this._localizations = new nodes_1.DatabaseNode();
         this._icons = new nodes_1.DatabaseNode();
-        this._unlocks = new nodes_1.DatabaseNode();
         this._gameEffects = new nodes_1.GameEffectNode();
         this.civilizationTraits = [];
         this.civilizationTags = [];
@@ -68,7 +69,6 @@ class CivilizationBuilder extends BaseBuilder_1.BaseBuilder {
         this.localizations = [];
         this.icon = { path: 'fs://game/civ_sym_han' };
         this.civilizationItems = [];
-        this.civilizationUnlocks = [];
         this.startBiasBiomes = [];
         this.startBiasResources = [];
         this.startBiasTerrains = [];
@@ -150,55 +150,6 @@ class CivilizationBuilder extends BaseBuilder_1.BaseBuilder {
                     return new nodes_1.CivilizationItemNode(Object.assign(Object.assign({ civilizationDomain: this.civilization.domain }, civilization), item));
                 })
             ],
-            civilizationUnlocks: this.civilizationUnlocks.map(item => {
-                return new nodes_1.CivilizationUnlockNode(Object.assign(Object.assign(Object.assign({}, civilization), { civilizationDomain: this.civilization.domain, name: (0, utils_1.locale)(item.type, 'name'), description: (0, utils_1.locale)(item.type, 'description'), icon: item.type }), item));
-            })
-        });
-        this._unlocks = new nodes_1.DatabaseNode({
-            kinds: [new nodes_1.KindNode({ kind: constants_1.KIND.UNLOCK }).insertOrIgnore()],
-            requirementSets: [new nodes_1.RequirementSetNode({
-                    requirementSetId: `REQSET_${civilization.civilizationType}`,
-                    requirementSetType: constants_1.REQUIREMENT_SET.TEST_ALL
-                })],
-            requirements: [new nodes_1.RequirementNode({
-                    requirementId: `REQ_${civilization.civilizationType}`,
-                    requirementType: constants_1.REQUIREMENT.PLAYER_CIVILIZATION_TYPE_MATCHES
-                })],
-            requirementArguments: [new nodes_1.RequirementArgumentNode({
-                    requirementId: `REQ_${civilization.civilizationType}`,
-                    name: 'CivilizationType',
-                    value: civilization.civilizationType
-                })],
-            requirementSetRequirements: [new nodes_1.RequirementSetRequirementNode({
-                    requirementSetId: `REQSET_${civilization.civilizationType}`,
-                    requirementId: `REQ_${civilization.civilizationType}`,
-                })],
-        });
-        this.civilizationUnlocks.map(item => {
-            this._unlocks.types.push(new nodes_1.TypeNode({
-                type: `UNLOCK_${item.type}`,
-                kind: constants_1.KIND.UNLOCK
-            }).insertOrIgnore());
-            this._unlocks.unlocks.push(new nodes_1.UnlockNode({
-                unlockType: `UNLOCK_${item.type}`,
-            }).insertOrIgnore());
-            this._unlocks.unlockRewards.push(new nodes_1.UnlockRewardNode({
-                unlockType: `UNLOCK_${item.type}`,
-                name: (0, utils_1.locale)(item.type, 'name'),
-                description: 'LOC_UNLOCK_EXPLORATION_CIV_DESCRIPTION', // TODO what is the best way to do it?,
-                icon: item.type,
-                civUnlock: true
-            }).insertOrIgnore());
-            this._unlocks.unlockRequirements.push(new nodes_1.UnlockRequirementNode({
-                unlockType: `UNLOCK_${item.type}`,
-                requirementSetId: `REQSET_${civilization.civilizationType}`,
-                description: (0, utils_1.locale)(civilization.civilizationType, 'unlockPlayAs'),
-                tooltip: (0, utils_1.locale)(civilization.civilizationType, 'unlockPlayAs'),
-            }));
-            this._unlocks.unlockConfigurationValues.push(new nodes_1.UnlockConfigurationValueNode({
-                unlockType: `UNLOCK_${item.type}`,
-                configurationValue: item.type,
-            }).insertOrIgnore());
         });
         this._legacy.fill({
             types: [
@@ -246,7 +197,7 @@ class CivilizationBuilder extends BaseBuilder_1.BaseBuilder {
             if (item instanceof ModifierBuilder_1.ModifierBuilder) {
                 item._gameEffects.modifiers.forEach(modifier => {
                     this._gameEffects.modifiers.push(modifier);
-                    if (!item.detached) {
+                    if (!item.isDetached) {
                         this._current.traitModifiers.push(new nodes_1.TraitModifierNode({
                             traitType: this.traitAbility.traitType,
                             modifierId: modifier.id
@@ -297,24 +248,34 @@ class CivilizationBuilder extends BaseBuilder_1.BaseBuilder {
                     }));
                 });
             }
+            if (item instanceof CivilizationUnlockBuilder_1.CivilizationUnlockBuilder) {
+                this._shell.civilizationUnlocks.push(new nodes_1.CivilizationUnlockNode({
+                    ageDomain: 'StandardAges',
+                    civilizationDomain: constants_1.CIVILIZATION_DOMAIN.from(item.from.ageType),
+                    civilizationType: item.from.civilizationType,
+                    type: item.to.civilizationType,
+                    ageType: item.to.ageType,
+                    kind: constants_1.KIND.CIVILIZATION,
+                    name: (0, utils_1.locale)(item.to.civilizationType, 'NAME'),
+                    description: (0, utils_1.locale)(item.to.civilizationType, 'DESCRIPTION'),
+                    icon: item.to.civilizationType
+                }));
+            }
+            if (item instanceof LeaderUnlockBuilder_1.LeaderUnlockBuilder) {
+                this._shell.leaderUnlocks.push(new nodes_1.LeaderUnlockNode(Object.assign({ leaderDomain: 'StandardLeaders', ageDomain: 'StandardAges', kind: constants_1.KIND.CIVILIZATION, name: (0, utils_1.locale)(item.leaderUnlock.type, 'name'), description: (0, utils_1.locale)(item.leaderUnlock.type, 'description'), icon: item.leaderUnlock.type }, item.leaderUnlock)));
+                this._shell.leaderCivilizationBias.push(new nodes_1.LeaderCivilizationBiasNode(Object.assign(Object.assign({ civilizationDomain: constants_1.CIVILIZATION_DOMAIN.from(item.leaderUnlock.ageType), civilizationType: item.leaderUnlock.type, reasonType: (0, utils_1.locale)(`PLAY_AS_${(0, utils_1.trim)(item.leaderUnlock.leaderType)}_${(0, utils_1.trim)(item.leaderUnlock.type)}`, 'TOOLTIP') }, item.leaderUnlock), item.leaderCivilizationBias)));
+            }
         });
         return this;
     }
     build() {
         var _a;
-        const path = `/civilizations/${lodash.kebabCase(this.civilization.civilizationType.replace('CIVILIZATION_', ''))}/`;
+        const path = `/civilizations/${lodash.kebabCase((0, utils_1.trim)(this.civilization.civilizationType))}/`;
         return [
             new files_1.XmlFile({
                 path,
                 name: 'current.xml',
                 content: this._current.toXmlElement(),
-                actionGroups: [this.actionGroupBundle.current],
-                actionGroupActions: [constants_1.ACTION_GROUP_ACTION.UPDATE_DATABASE]
-            }),
-            new files_1.XmlFile({
-                path,
-                name: 'unlocks.xml',
-                content: this._unlocks.toXmlElement(),
                 actionGroups: [this.actionGroupBundle.current],
                 actionGroupActions: [constants_1.ACTION_GROUP_ACTION.UPDATE_DATABASE]
             }),

@@ -53,6 +53,8 @@ class DatabaseNode extends BaseNode_1.BaseNode {
         this.civilizationUnlocks = [];
         this.legacyCivilizationTraits = [];
         this.legacyCivilizations = [];
+        this.leaderUnlocks = [];
+        this.leaderCivilizationBias = [];
         this.buildings = [];
         this.improvements = [];
         this.constructibles = [];

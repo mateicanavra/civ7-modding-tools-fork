@@ -45,10 +45,12 @@ class ModifierBuilder extends BaseBuilder_1.BaseBuilder {
         this._gameEffects = new nodes_1.GameEffectNode();
         this._localizations = new nodes_1.DatabaseNode();
         /** @description if detached only adding into game effects file while binding*/
-        this.detached = false;
+        this.isDetached = false;
         this.modifier = {};
         this.localizations = [];
         this.fill(payload);
+    }
+    migrate() {
         const modifier = new nodes_1.ModifierNode(this.modifier);
         if (this.localizations.length > 0) {
             Object.keys(this.localizations[0]).forEach(key => {
@@ -66,6 +68,7 @@ class ModifierBuilder extends BaseBuilder_1.BaseBuilder {
         this._gameEffects.fill({
             modifiers: [modifier]
         });
+        return this;
     }
     build() {
         return [];

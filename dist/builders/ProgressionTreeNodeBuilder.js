@@ -22,6 +22,8 @@ class ProgressionTreeNodeBuilder extends BaseBuilder_1.BaseBuilder {
         this.progressionTreeAdvisories = [];
         this.localizations = [];
         this.fill(payload);
+    }
+    migrate() {
         this._current.fill({
             types: [new nodes_1.TypeNode({
                     type: this.progressionTreeNode.progressionTreeNodeType,
@@ -40,13 +42,14 @@ class ProgressionTreeNodeBuilder extends BaseBuilder_1.BaseBuilder {
                 return new localizations_1.ProgressionTreeNodeLocalization(Object.assign({ prefix: this.progressionTreeNode.progressionTreeNodeType }, item));
             }).flatMap(item => item.getNodes())
         });
+        return this;
     }
     bind(items, unlockDepth = 1, hidden = null) {
         items.forEach(item => {
             if (item instanceof ModifierBuilder_1.ModifierBuilder) {
                 item._gameEffects.modifiers.forEach((modifier) => {
                     this._gameEffects.modifiers.push(modifier);
-                    if (!item.detached) {
+                    if (!item.isDetached) {
                         this._current.progressionTreeNodeUnlocks.push(new nodes_1.ProgressionTreeNodeUnlockNode({
                             progressionTreeNodeType: this.progressionTreeNode.progressionTreeNodeType,
                             targetKind: constants_1.KIND.MODIFIER,

@@ -44,11 +44,8 @@ class XmlFile extends BaseFile_1.BaseFile {
         this.fill(payload);
     }
     write(dist) {
-        if (!this.content) {
-            return;
-        }
         try {
-            const data = (0, jstoxml_1.toXML)(this.content, {
+            const data = (0, jstoxml_1.toXML)(this.content || undefined, {
                 header: true,
                 indent: '    '
             });

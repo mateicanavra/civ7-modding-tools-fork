@@ -13,6 +13,7 @@ export declare class ProgressionTreeBuilder extends BaseBuilder<TProgressionTree
     progressionTreePrereqs: TProgressionTreePrereqNode[];
     localizations: TProgressionTreeLocalization[];
     constructor(payload?: Partial<TProgressionTreeBuilder>);
+    migrate(): this;
     bind(items: ProgressionTreeNodeBuilder[]): this;
     build(): XmlFile[];
 }

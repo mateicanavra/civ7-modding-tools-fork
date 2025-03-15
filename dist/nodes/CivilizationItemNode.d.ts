@@ -4,7 +4,7 @@ import { KIND } from "../constants";
 export type TCivilizationItemNode = Pick<CivilizationItemNode, "civilizationDomain" | "civilizationType" | "type" | "kind" | "name" | "description" | "icon">;
 export declare class CivilizationItemNode extends BaseNode<TCivilizationItemNode> {
     civilizationDomain: string | null;
-    civilizationType: `CIVILIZATION_${string}` | null;
+    civilizationType: string | null;
     type: string | null;
     kind: TObjectValues<typeof KIND> | null;
     name: string | null;

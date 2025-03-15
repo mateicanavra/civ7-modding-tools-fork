@@ -66,7 +66,9 @@ import { GameModifierNode } from "./GameModifierNode";
 import { UnitUpgradeNode } from "./UnitUpgradeNode";
 import { UnitAdvisoryNode } from "./UnitAdvisoryNode";
 import { CityNameNode } from "./CityNameNode";
-export type TDatabase = Pick<DatabaseNode, "civilizationItems" | "civilizationTags" | "civilizationTraits" | "civilizations" | "constructibleMaintenances" | "constructibleValidDistricts" | "constructibleYieldChanges" | "constructibles" | "englishText" | "iconDefinitions" | "legacyCivilizationTraits" | "legacyCivilizations" | "civilizationUnlocks" | "tags" | "traitModifiers" | "traits" | "typeTags" | "kinds" | "types" | "unitCosts" | "buildings" | "unitReplaces" | "unitStats" | "units" | "unitUpgrades" | "unitAdvisories" | "unlocks" | "unlockRequirements" | "unlockConfigurationValues" | "requirementSets" | "requirements" | "requirementArguments" | "requirementSetRequirements" | "unlockRewards" | "adjacencyYieldChanges" | "constructibleAdjacencies" | "warehouseYieldChanges" | "progressionTreeAdvisories" | "progressionTrees" | "progressionTreeNodes" | "progressionTreeNodeUnlocks" | "traditions" | "traditionModifiers" | "progressionTreePrereqs" | "constructibleWarehouseYields" | "districtFreeConstructibles" | "constructibleValidBiomes" | "constructibleValidFeatures" | "constructibleValidTerrains" | "constructibleValidResources" | "constructiblePlunders" | "improvements" | "startBiasBiomes" | "startBiasTerrains" | "startBiasRivers" | "startBiasResources" | "startBiasFeatureClasses" | "startBiasAdjacentToCoasts" | "visArtCivilizationBuildingCultures" | "visArtCivilizationUnitCultures" | "uniqueQuarters" | "uniqueQuarterModifiers" | "gameModifiers" | "cityNames" | "visualRemaps">;
+import { LeaderUnlockNode } from "./LeaderUnlockNode";
+import { LeaderCivilizationBiasNode } from "./LeaderCivilizationBiasNode";
+export type TDatabase = Pick<DatabaseNode, "civilizationItems" | "civilizationTags" | "civilizationTraits" | "civilizations" | "constructibleMaintenances" | "constructibleValidDistricts" | "constructibleYieldChanges" | "constructibles" | "englishText" | "iconDefinitions" | "legacyCivilizationTraits" | "legacyCivilizations" | "civilizationUnlocks" | "tags" | "traitModifiers" | "traits" | "typeTags" | "kinds" | "types" | "unitCosts" | "buildings" | "unitReplaces" | "unitStats" | "units" | "unitUpgrades" | "unitAdvisories" | "unlocks" | "unlockRequirements" | "unlockConfigurationValues" | "requirementSets" | "requirements" | "requirementArguments" | "requirementSetRequirements" | "unlockRewards" | "adjacencyYieldChanges" | "constructibleAdjacencies" | "warehouseYieldChanges" | "progressionTreeAdvisories" | "progressionTrees" | "progressionTreeNodes" | "progressionTreeNodeUnlocks" | "traditions" | "traditionModifiers" | "progressionTreePrereqs" | "constructibleWarehouseYields" | "districtFreeConstructibles" | "constructibleValidBiomes" | "constructibleValidFeatures" | "constructibleValidTerrains" | "constructibleValidResources" | "constructiblePlunders" | "improvements" | "startBiasBiomes" | "startBiasTerrains" | "startBiasRivers" | "startBiasResources" | "startBiasFeatureClasses" | "startBiasAdjacentToCoasts" | "visArtCivilizationBuildingCultures" | "visArtCivilizationUnitCultures" | "uniqueQuarters" | "uniqueQuarterModifiers" | "gameModifiers" | "cityNames" | "leaderUnlocks" | "leaderCivilizationBias" | "visualRemaps">;
 export declare class DatabaseNode extends BaseNode<TDatabase> {
     _name: string;
     kinds: KindNode[];
@@ -82,6 +84,8 @@ export declare class DatabaseNode extends BaseNode<TDatabase> {
     civilizationUnlocks: CivilizationUnlockNode[];
     legacyCivilizationTraits: LegacyCivilizationTraitNode[];
     legacyCivilizations: LegacyCivilizationNode[];
+    leaderUnlocks: LeaderUnlockNode[];
+    leaderCivilizationBias: LeaderCivilizationBiasNode[];
     buildings: BuildingNode[];
     improvements: ImprovementNode[];
     constructibles: ConstructibleNode[];

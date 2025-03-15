@@ -72,6 +72,14 @@ class ConstructibleBuilder extends BaseBuilder_1.BaseBuilder {
         this.fill(payload);
     }
     migrate() {
+        if (!this.improvement && !this.building) {
+            if (this.constructible.constructibleType.startsWith('BUILDING_')) {
+                this.building = {};
+            }
+            if (this.constructible.constructibleType.startsWith('IMPROVEMENT_')) {
+                this.improvement = {};
+            }
+        }
         this._always.fill({
             types: [new nodes_1.TypeNode({
                     type: this.constructible.constructibleType,
@@ -133,7 +141,7 @@ class ConstructibleBuilder extends BaseBuilder_1.BaseBuilder {
         return this;
     }
     build() {
-        const path = `/constructibles/${lodash.kebabCase(this.constructible.constructibleType.replace('CONSTRUCTIBLE_', ''))}/`;
+        const path = `/constructibles/${lodash.kebabCase((0, utils_1.trim)(this.constructible.constructibleType))}/`;
         return [
             new files_1.XmlFile({
                 path,

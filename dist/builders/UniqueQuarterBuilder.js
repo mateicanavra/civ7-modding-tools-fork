@@ -59,6 +59,8 @@ class UniqueQuarterBuilder extends BaseBuilder_1.BaseBuilder {
         };
         this.localizations = [];
         this.fill(payload);
+    }
+    migrate() {
         this._always.fill({
             types: [new nodes_1.TypeNode({ kind: constants_1.KIND.QUARTER, type: this.uniqueQuarter.uniqueQuarterType })],
             uniqueQuarters: [new nodes_1.UniqueQuarterNode(Object.assign({ name: (0, utils_1.locale)(this.uniqueQuarter.uniqueQuarterType, 'name'), description: (0, utils_1.locale)(this.uniqueQuarter.uniqueQuarterType, 'description') }, this.uniqueQuarter))]
@@ -71,6 +73,7 @@ class UniqueQuarterBuilder extends BaseBuilder_1.BaseBuilder {
                 return new localizations_1.UniqueQuarterLocalization(Object.assign({ prefix: this.uniqueQuarter.uniqueQuarterType }, item));
             }).flatMap(item => item.getNodes())
         });
+        return this;
     }
     bind(items) {
         items.forEach(item => {
@@ -78,7 +81,7 @@ class UniqueQuarterBuilder extends BaseBuilder_1.BaseBuilder {
                 item._gameEffects.modifiers.forEach((modifier) => {
                     this._gameEffects.modifiers.push(modifier);
                 });
-                if (!item.detached) {
+                if (!item.isDetached) {
                     item._gameEffects.modifiers.forEach((modifier) => {
                         this._always.gameModifiers.push(new nodes_1.GameModifierNode({
                             modifierId: modifier.id

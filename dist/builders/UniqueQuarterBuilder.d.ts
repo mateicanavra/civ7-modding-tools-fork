@@ -15,6 +15,7 @@ export declare class UniqueQuarterBuilder extends BaseBuilder<TUniqueQuarterBuil
     icon: TPartialRequired<TIconDefinitionNode, 'path'>;
     localizations: Partial<TUniqueQuarterLocalization>[];
     constructor(payload?: Partial<TUniqueQuarterBuilder>);
+    migrate(): this;
     bind(items: (ModifierBuilder | ConstructibleBuilder)[]): this;
     build(): XmlFile[];
 }

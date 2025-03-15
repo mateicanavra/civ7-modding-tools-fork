@@ -114,7 +114,7 @@ class UnitBuilder extends BaseBuilder_1.BaseBuilder {
     }
     build() {
         var _a;
-        const path = `/units/${lodash.kebabCase(this.unit.unitType.replace('UNIT_', ''))}/`;
+        const path = `/units/${lodash.kebabCase((0, utils_1.trim)(this.unit.unitType))}/`;
         return [
             new files_1.XmlFile({
                 path,

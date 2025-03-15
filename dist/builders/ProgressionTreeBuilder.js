@@ -54,6 +54,8 @@ class ProgressionTreeBuilder extends BaseBuilder_1.BaseBuilder {
         this.progressionTreePrereqs = [];
         this.localizations = [];
         this.fill(payload);
+    }
+    migrate() {
         this._current.fill({
             types: [new nodes_1.TypeNode({
                     type: this.progressionTree.progressionTreeType,
@@ -69,6 +71,7 @@ class ProgressionTreeBuilder extends BaseBuilder_1.BaseBuilder {
                 return new localizations_1.ProgressionTreeLocalization(Object.assign({ prefix: this.progressionTree.progressionTreeType }, item));
             }).flatMap(item => item.getNodes())
         });
+        return this;
     }
     bind(items) {
         items.forEach(item => {
@@ -110,7 +113,7 @@ class ProgressionTreeBuilder extends BaseBuilder_1.BaseBuilder {
     }
     build() {
         var _a;
-        const path = `/progression-trees/${lodash.kebabCase(this.progressionTree.progressionTreeType.replace('TREE_', ''))}/`;
+        const path = `/progression-trees/${lodash.kebabCase((0, utils_1.trim)(this.progressionTree.progressionTreeType))}/`;
         return [
             new files_1.XmlFile({
                 path,

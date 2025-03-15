@@ -1,5 +1,5 @@
 import { TClassProperties, TObjectValues, TPartialRequired } from "../types";
-import { DatabaseNode, GameEffectNode, TCivilizationItemNode, TCivilizationNode, TCivilizationUnlockNode, TIconDefinitionNode, TLegacyCivilizationNode, TraitNode, TStartBiasBiomeNode, TStartBiasFeatureClassNode, TStartBiasResourceNode, TStartBiasTerrainNode, TTraitNode } from "../nodes";
+import { DatabaseNode, GameEffectNode, TCivilizationItemNode, TCivilizationNode, TIconDefinitionNode, TLegacyCivilizationNode, TraitNode, TStartBiasBiomeNode, TStartBiasFeatureClassNode, TStartBiasResourceNode, TStartBiasTerrainNode, TTraitNode } from "../nodes";
 import { BUILDING_CULTURES, TAG_TRAIT, TRAIT, UNIT_CULTURE } from "../constants";
 import { XmlFile } from "../files";
 import { TCivilizationLocalization } from "../localizations";
@@ -9,6 +9,8 @@ import { ConstructibleBuilder } from "./ConstructibleBuilder";
 import { ProgressionTreeBuilder } from "./ProgressionTreeBuilder";
 import { ModifierBuilder } from "./ModifierBuilder";
 import { UniqueQuarterBuilder } from "./UniqueQuarterBuilder";
+import { CivilizationUnlockBuilder } from "./CivilizationUnlockBuilder";
+import { LeaderUnlockBuilder } from "./LeaderUnlockBuilder";
 type TCivilizationBuilder = TClassProperties<CivilizationBuilder>;
 export declare class CivilizationBuilder extends BaseBuilder<TCivilizationBuilder> {
     _current: DatabaseNode;
@@ -16,7 +18,6 @@ export declare class CivilizationBuilder extends BaseBuilder<TCivilizationBuilde
     _legacy: DatabaseNode;
     _localizations: DatabaseNode;
     _icons: DatabaseNode;
-    _unlocks: DatabaseNode;
     _gameEffects: GameEffectNode;
     civilizationTraits: (TObjectValues<typeof TRAIT> | string)[];
     civilizationTags: TObjectValues<typeof TAG_TRAIT>[];
@@ -27,7 +28,6 @@ export declare class CivilizationBuilder extends BaseBuilder<TCivilizationBuilde
     localizations: Partial<TCivilizationLocalization>[];
     icon: TPartialRequired<TIconDefinitionNode, 'path'>;
     civilizationItems: TPartialRequired<TCivilizationItemNode, "type" | "kind">[];
-    civilizationUnlocks: TPartialRequired<TCivilizationUnlockNode, "type">[];
     startBiasBiomes: TPartialRequired<TStartBiasBiomeNode, 'biomeType'>[];
     startBiasResources: TPartialRequired<TStartBiasResourceNode, 'resourceType'>[];
     startBiasTerrains: TPartialRequired<TStartBiasTerrainNode, 'terrainType'>[];
@@ -42,7 +42,7 @@ export declare class CivilizationBuilder extends BaseBuilder<TCivilizationBuilde
      * @description Bind entity as unique to this civilization
      * @param items
      */
-    bind(items?: (UnitBuilder | ConstructibleBuilder | ProgressionTreeBuilder | ModifierBuilder | UniqueQuarterBuilder)[]): this;
+    bind(items?: (UnitBuilder | ConstructibleBuilder | ProgressionTreeBuilder | ModifierBuilder | UniqueQuarterBuilder | CivilizationUnlockBuilder | LeaderUnlockBuilder)[]): this;
     build(): XmlFile[];
 }
 export {};

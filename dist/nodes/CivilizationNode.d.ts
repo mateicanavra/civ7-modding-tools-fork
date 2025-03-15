@@ -1,7 +1,7 @@
 import { BaseNode } from "./BaseNode";
 export type TCivilizationNode = Pick<CivilizationNode, "civilizationType" | "adjective" | "capitalName" | "fullName" | "name" | "domain" | "aiTargetCityPercentage" | "description" | "randomCityNameDepth" | "startingCivilizationLevelType" | "uniqueCultureProgressionTree">;
 export declare class CivilizationNode extends BaseNode<TCivilizationNode> {
-    civilizationType: `CIVILIZATION_${string}` | null;
+    civilizationType: string | null;
     adjective: string | null;
     capitalName: string | null;
     fullName: string | null;

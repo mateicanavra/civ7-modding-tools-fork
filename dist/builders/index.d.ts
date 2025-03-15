@@ -8,3 +8,5 @@ export { ProgressionTreeNodeBuilder } from './ProgressionTreeNodeBuilder';
 export { ModifierBuilder } from './ModifierBuilder';
 export { TraditionBuilder } from './TraditionBuilder';
 export { UniqueQuarterBuilder } from './UniqueQuarterBuilder';
+export { CivilizationUnlockBuilder } from './CivilizationUnlockBuilder';
+export { LeaderUnlockBuilder } from './LeaderUnlockBuilder';

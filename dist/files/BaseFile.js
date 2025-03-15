@@ -13,6 +13,9 @@ class BaseFile {
         this.fill = (utils_1.fill);
         this.fill(payload);
     }
+    get isEmpty() {
+        return !this.content;
+    }
     get modInfoPath() {
         if (this.path.startsWith('/')) {
             return `${this.path}${this.name}`.slice(1);

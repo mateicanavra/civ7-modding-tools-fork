@@ -4,8 +4,8 @@ import { AGE, KIND } from "../constants";
 export type TCivilizationUnlockNode = Pick<CivilizationUnlockNode, "civilizationDomain" | "civilizationType" | "type" | "kind" | "name" | "description" | "ageDomain" | "ageType" | "icon">;
 export declare class CivilizationUnlockNode extends BaseNode<TCivilizationUnlockNode> {
     civilizationDomain: string | null;
-    civilizationType: `CIVILIZATION_${string}` | null;
-    type: `CIVILIZATION_${string}` | null;
+    civilizationType: string | null;
+    type: string | null;
     kind: TObjectValues<typeof KIND>;
     name: string | null;
     description: string | null;
