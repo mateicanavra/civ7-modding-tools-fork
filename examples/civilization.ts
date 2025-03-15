@@ -9,10 +9,9 @@ import {
     TAG_TRAIT, TRAIT,
     UNIT,
     UNIT_CLASS,
-    UnitBuilder, YIELD
+    UnitBuilder, YIELD,
+    AGE, CivilizationUnlockBuilder, COLLECTION, EFFECT, LeaderUnlockBuilder, REQUIREMENT
 } from "./src";
-
-import { AGE, CivilizationUnlockBuilder, COLLECTION, EFFECT, REQUIREMENT } from "../src";
 
 let mod = new Mod({
     id: 'mod-test',
@@ -40,7 +39,7 @@ const civilization = new CivilizationBuilder({
         path: `fs://game/${mod.id}/${civilizationIcon.name}`
     },
     localizations: [
-        { name: 'Custom civilization', description: 'test description', fullName: 'test full name', adjective: 'test adjective', cityNames: ['Gondor'] }
+        { name: 'Gondor', description: 'test description', fullName: 'test full name', adjective: 'test adjective', cityNames: ['Gondor'] }
     ],
     modifiers: [{
         collection: COLLECTION.PLAYER_UNITS,
@@ -58,6 +57,21 @@ const civilizationUnlockToPrussia = new CivilizationUnlockBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_EXPLORATION,
     from: { civilizationType: civilization.civilization.civilizationType, ageType: AGE.ANTIQUITY, },
     to: { civilizationType: 'CIVILIZATION_PRUSSIA', ageType: AGE.MODERN, },
+});
+
+const leaderCatherineUnlock = new LeaderUnlockBuilder({
+    actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_EXPLORATION,
+    leaderUnlock: {
+        leaderType: 'LEADER_CATHERINE',
+        type: civilization.civilization.civilizationType,
+        ageType: AGE.EXPLORATION,
+    },
+    leaderCivilizationBias: {
+        bias: 6,
+    },
+    localizations: [{
+        tooltip: `[B]Catherine[/B] ruled [B]Gondor[/B].`
+    }]
 });
 
 const unitIcon = new ImportFileBuilder({
@@ -115,13 +129,16 @@ const constructible = new ConstructibleBuilder({
 
 civilization.bind([
     unit,
-    constructible
+    constructible,
+    civilizationUnlockToPrussia,
+    leaderCatherineUnlock
 ]);
 
 mod.add([
     civilization,
     civilizationIcon,
     civilizationUnlockToPrussia,
+    leaderCatherineUnlock,
     unit,
     unitIcon,
     constructible

@@ -30,10 +30,12 @@ Mod generation tool for Civilization 7.
     - [x] English
 - [x] Units
 - [x] Civilizations
+  - [x] Civilization unlocks
+  - [x] Leader unlocks
 - [x] Constructibles
     - [x] Base building
     - [x] Improvement
-    - [x] Unique quarter 
+    - [x] Unique quarter
 - [x] City names
 - [x] Civics
 - [x] Traditions
@@ -41,7 +43,6 @@ Mod generation tool for Civilization 7.
 
 ### Working on
 - [ ] Great People nodes(+builder?)
-- [ ] New civ unlock system(+builder?)
 
 ### Todo
 - [ ] AI nodes(+builder?)
@@ -50,7 +51,7 @@ Mod generation tool for Civilization 7.
 - [ ] Wonder nodes(+builder?)
 - [ ] ???
 
-      
+
 ## Getting started
 ### Install from repository
 Download repo ZIP file or clone:

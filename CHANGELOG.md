@@ -98,4 +98,36 @@ All notable changes to this project will be documented in this file.
 - fixed multiple civilization unlocks
 
 
+## [1.3.0] - 2025-03-15
+
+### Added
+- **CivilizationUnlockBuilder**
+    - Added an example to `examples/civilization.ts`
+- **LeaderUnlockBuilder**
+    - Added an example to `examples/civilization.ts`
+- **DatabaseNode**
+    - Added `cityNames`
+- **CivilizationBuilder**
+    - Generates and auto-binds city names based on localizations
+- **Constants**
+    - `CIVILIZATION_DOMAIN`
+        - Added `.from(AGE)` method
+- **Nodes**
+    - `CityNameNode`
+    - `LeaderCivilizationBiasNode`
+    - `LeaderUnlockNode`
+
+### Fixed
+- Skip empty files during mod generation
+
+### Updated
+- **ProgressionTreeNodeBuilder**
+    - Added the ability to hide bindings
+- Reworked civilization unlocks
+- Added detached modifiers (modifiers not attached to a specific entity but added to the game-effects file, such as cascade modifiers)
+- **ConstructibleBuilder**
+    - `adjacencyYieldChanges`
+    - If `building` or `improvement` is not provided, it is auto-detected based on `constructibleType`
+
+
 
