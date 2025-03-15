@@ -1,6 +1,10 @@
-export const trim = (string: string | null | undefined): string => {
+export const trim = (string: string | null | undefined, prefix?: string): string => {
     if (!string) {
         return '';
+    }
+
+    if (prefix && string.startsWith(prefix)) {
+        return string.substring(prefix.length);
     }
 
     const prefixes = [
@@ -15,6 +19,7 @@ export const trim = (string: string | null | undefined): string => {
         'TREE_',
         'TRADITION_',
         'CONSTRUCTIBLE_',
+        'UNLOCK_',
     ];
     for (const prefix of prefixes) {
         if (string.startsWith(prefix)) {

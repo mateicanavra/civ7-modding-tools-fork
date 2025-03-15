@@ -26,7 +26,7 @@ import { locale, trim } from "../utils";
 type TLeaderUnlockBuilder = TClassProperties<LeaderUnlockBuilder>;
 
 export class LeaderUnlockBuilder extends BaseBuilder<TLeaderUnlockBuilder> {
-    _current: DatabaseNode = new DatabaseNode();
+    _always: DatabaseNode = new DatabaseNode();
     _localizations: DatabaseNode = new DatabaseNode();
 
     leaderUnlock: TPartialRequired<TLeaderUnlockNode, "leaderType" | "type" | "ageType"> = {
@@ -57,7 +57,7 @@ export class LeaderUnlockBuilder extends BaseBuilder<TLeaderUnlockBuilder> {
         const unlockType = `UNLOCK_${this.leaderUnlock.type}`;
         const requirementSetId = `REQSET_LEADER_IS_${trim(this.leaderUnlock.leaderType)}`;
         const requirementId = `REQ_LEADER_IS_${trim(this.leaderUnlock.leaderType)}`;
-        this._current.fill({
+        this._always.fill({
             kinds: [new KindNode({ kind: KIND.UNLOCK }).insertOrIgnore()],
             types: [new TypeNode({ kind: KIND.UNLOCK, type: unlockType }).insertOrIgnore()],
             unlocks: [new UnlockNode({ unlockType }).insertOrIgnore()],
@@ -107,7 +107,7 @@ export class LeaderUnlockBuilder extends BaseBuilder<TLeaderUnlockBuilder> {
             new XmlFile({
                 path,
                 name: 'always.xml',
-                content: this._current.toXmlElement(),
+                content: this._always.toXmlElement(),
                 actionGroups: [this.actionGroupBundle.always],
                 actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
             }),
