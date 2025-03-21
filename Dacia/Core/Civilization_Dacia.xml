@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameData>
+	<Types>
+		<Row Type="CIVILIZATION_DACIA" Kind="KIND_CIVILIZATION" />
+	</Types>
+
+	<Civilizations>
+		<Row 
+			CivilizationType="CIVILIZATION_DACIA" 
+			Name="LOC_CIVILIZATION_DACIA_NAME" 
+			Description="LOC_CIVILIZATION_DACIA_DESCRIPTION" 
+			Adjective="LOC_CIVILIZATION_DACIA_ADJECTIVE" 
+			StartingCivilizationLevelType="CIVILIZATION_LEVEL_FULL_CIV" 
+			RandomCityNameDepth="10" 
+			Ethnicity="ETHNICITY_EURO"/>
+	</Civilizations>
+
+	<CivilizationInfo>
+		<Row 
+			CivilizationType="CIVILIZATION_DACIA" 
+			Header="LOC_CIVINFO_DACIA_HEADER" 
+			Caption1="LOC_CIVINFO_DACIA_CAPTION_1" 
+			Caption2="LOC_CIVINFO_DACIA_CAPTION_2" 
+			SortIndex="40"/>
+	</CivilizationInfo>
+
+	<!-- Civilization Start Bias -->
+	<StartBiasTerrains>
+		<Row CivilizationType="CIVILIZATION_DACIA" TerrainType="TERRAIN_GRASS_HILLS" Tier="1" />
+		<Row CivilizationType="CIVILIZATION_DACIA" TerrainType="TERRAIN_PLAINS_HILLS" Tier="1" />
+		<Row CivilizationType="CIVILIZATION_DACIA" TerrainType="TERRAIN_PLAINS" Tier="2" />
+	</StartBiasTerrains>
+
+	<StartBiasResources>
+		<Row CivilizationType="CIVILIZATION_DACIA" ResourceType="RESOURCE_HORSES" Tier="2" />
+		<Row CivilizationType="CIVILIZATION_DACIA" ResourceType="RESOURCE_IRON" Tier="2" />
+	</StartBiasResources>
+
+	<StartBiasFeatures>
+		<Row CivilizationType="CIVILIZATION_DACIA" FeatureType="FEATURE_FOREST" Tier="2" />
+	</StartBiasFeatures>
+
+	<!-- Civilization Traits -->
+	<CivilizationTraits>
+		<Row CivilizationType="CIVILIZATION_DACIA" TraitType="TRAIT_CIVILIZATION_DACIA_ABILITY" />
+	</CivilizationTraits>
+
+	<Traits>
+		<Row TraitType="TRAIT_CIVILIZATION_DACIA_ABILITY" Name="LOC_TRAIT_CIVILIZATION_DACIA_ABILITY_NAME" Description="LOC_TRAIT_CIVILIZATION_DACIA_ABILITY_DESCRIPTION" />
+	</Traits>
+
+	<!-- Civilization Colors -->
+	<CivilizationColors>
+		<Row CivilizationType="CIVILIZATION_DACIA" PrimaryColor="COLOR_CIVILIZATION_DACIA_PRIMARY" SecondaryColor="COLOR_CIVILIZATION_DACIA_SECONDARY" />
+	</CivilizationColors>
+
+	<Colors>
+		<Row Type="COLOR_CIVILIZATION_DACIA_PRIMARY" Red="0.8" Green="0.35" Blue="0.2" Alpha="1" />
+		<Row Type="COLOR_CIVILIZATION_DACIA_SECONDARY" Red="0.75" Green="0.7" Blue="0.6" Alpha="1" />
+	</Colors>
+
+	<!-- Civilization Icons -->
+	<CivilizationIcons>
+		<Row CivilizationType="CIVILIZATION_DACIA" IconType="ICON_CIVILIZATION_DACIA" />
+	</CivilizationIcons>
+
+	<!-- =================== PLACEHOLDER UNIQUE ENTITIES =================== -->
+	<!-- Unique Unit Placeholder -->
+	<!-- <Types>
+		<Row Type="UNIT_DACIA_UNIQUE" Kind="KIND_UNIT" />
+	</Types>
+	<UnitReplaces>
+		<Row CivUniqueUnitType="UNIT_DACIA_UNIQUE" ReplacesUnitType="UNIT_SWORDSMAN" />
+	</UnitReplaces> -->
+
+	<!-- Unique Building Placeholder -->
+	<!-- <Types>
+		<Row Type="BUILDING_DACIA_UNIQUE" Kind="KIND_BUILDING" />
+	</Types>
+	<BuildingReplaces>
+		<Row CivUniqueBuildingType="BUILDING_DACIA_UNIQUE" ReplacesBuildingType="BUILDING_GRANARY" />
+	</BuildingReplaces> -->
+
+	<!-- Civilization Abilities Modifiers -->
+	<TraitModifiers>
+		<!-- Trait bonuses will be defined here -->
+		<Row TraitType="TRAIT_CIVILIZATION_DACIA_ABILITY" ModifierId="MODIFIER_DACIA_PLACEHOLDER" />
+	</TraitModifiers>
+
+	<Modifiers>
+		<Row>
+			<ModifierId>MODIFIER_DACIA_PLACEHOLDER</ModifierId>
+			<ModifierType>MODIFIER_PLACEHOLDER</ModifierType>
+		</Row>
+	</Modifiers>
+
+</GameData>
+

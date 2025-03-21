@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameData>
+    <!-- =================================================================== -->
+    <!-- LEADER 1 DEFINITION                                                -->
+    <!-- =================================================================== -->
+    <Leaders>
+        <Row>
+            <LeaderType>LEADER_DACIA_1</LeaderType>
+            <Name>LOC_LEADER_DACIA_1_NAME</Name>
+            <InheritFrom>LEADER_DEFAULT</InheritFrom>
+            <SceneLayers>BACKGROUND_CLIFF</SceneLayers>
+            <!-- Additional leader attributes will go here -->
+        </Row>
+    </Leaders>
+
+    <!-- Leader Traits for Leader 1 -->
+    <LeaderTraits>
+        <!-- 
+        <Row>
+            <LeaderType>LEADER_DACIA_1</LeaderType>
+            <TraitType>TRAIT_LEADER_DACIA_1_ABILITY</TraitType>
+        </Row>
+        Additional traits can be added here
+        -->
+    </LeaderTraits>
+
+    <!-- Leader 1 Ability Definition -->
+    <Traits>
+        <!-- 
+        <Row>
+            <TraitType>TRAIT_LEADER_DACIA_1_ABILITY</TraitType>
+            <Name>LOC_TRAIT_LEADER_DACIA_1_ABILITY_NAME</Name>
+            <Description>LOC_TRAIT_LEADER_DACIA_1_ABILITY_DESCRIPTION</Description>
+        </Row>
+        -->
+    </Traits>
+
+    <!-- Leader 1 Agenda -->
+    <HistoricalAgendas>
+        <!-- 
+        <Row>
+            <LeaderType>LEADER_DACIA_1</LeaderType>
+            <AgendaType>AGENDA_DACIA_1</AgendaType>
+        </Row>
+        -->
+    </HistoricalAgendas>
+
+    <Agendas>
+        <!-- 
+        <Row>
+            <AgendaType>AGENDA_DACIA_1</AgendaType>
+            <Name>LOC_AGENDA_DACIA_1_NAME</Name>
+            <Description>LOC_AGENDA_DACIA_1_DESCRIPTION</Description>
+        </Row>
+        -->
+    </Agendas>
+
+    <!-- =================================================================== -->
+    <!-- LEADER 2 DEFINITION                                                -->
+    <!-- =================================================================== -->
+    <Leaders>
+        <Row>
+            <LeaderType>LEADER_DACIA_2</LeaderType>
+            <Name>LOC_LEADER_DACIA_2_NAME</Name>
+            <InheritFrom>LEADER_DEFAULT</InheritFrom>
+            <SceneLayers>BACKGROUND_MOUNTAIN</SceneLayers>
+            <!-- Additional leader attributes will go here -->
+        </Row>
+    </Leaders>
+
+    <!-- Leader Traits for Leader 2 -->
+    <LeaderTraits>
+        <!-- 
+        <Row>
+            <LeaderType>LEADER_DACIA_2</LeaderType>
+            <TraitType>TRAIT_LEADER_DACIA_2_ABILITY</TraitType>
+        </Row>
+        Additional traits can be added here
+        -->
+    </LeaderTraits>
+
+    <!-- Leader 2 Ability Definition -->
+    <Traits>
+        <!-- 
+        <Row>
+            <TraitType>TRAIT_LEADER_DACIA_2_ABILITY</TraitType>
+            <Name>LOC_TRAIT_LEADER_DACIA_2_ABILITY_NAME</Name>
+            <Description>LOC_TRAIT_LEADER_DACIA_2_ABILITY_DESCRIPTION</Description>
+        </Row>
+        -->
+    </Traits>
+
+    <!-- Leader 2 Agenda -->
+    <HistoricalAgendas>
+        <!-- 
+        <Row>
+            <LeaderType>LEADER_DACIA_2</LeaderType>
+            <AgendaType>AGENDA_DACIA_2</AgendaType>
+        </Row>
+        -->
+    </HistoricalAgendas>
+
+    <Agendas>
+        <!-- 
+        <Row>
+            <AgendaType>AGENDA_DACIA_2</AgendaType>
+            <Name>LOC_AGENDA_DACIA_2_NAME</Name>
+            <Description>LOC_AGENDA_DACIA_2_DESCRIPTION</Description>
+        </Row>
+        -->
+    </Agendas>
+
+    <!-- =================================================================== -->
+    <!-- LEADER-CIVILIZATION ASSIGNMENTS                                     -->
+    <!-- =================================================================== -->
+    <CivilizationLeaders>
+        <!-- 
+        <Row>
+            <CivilizationType>CIVILIZATION_DACIA</CivilizationType>
+            <LeaderType>LEADER_DACIA_1</LeaderType>
+            <CapitalName>LOC_CITY_NAME_DACIA_CAPITAL</CapitalName>
+        </Row>
+        <Row>
+            <CivilizationType>CIVILIZATION_DACIA</CivilizationType>
+            <LeaderType>LEADER_DACIA_2</LeaderType>
+            <CapitalName>LOC_CITY_NAME_DACIA_CAPITAL</CapitalName>
+        </Row>
+        -->
+    </CivilizationLeaders>
+
+    <!-- =================================================================== -->
+    <!-- LEADER PREFERRED AGENDAS                                           -->
+    <!-- =================================================================== -->
+    <LeaderPreferredAgendas>
+        <!-- 
+        <Row>
+            <LeaderType>LEADER_DACIA_1</LeaderType>
+            <AgendaSlotType>PREFERRED_AGENDA</AgendaSlotType>
+            <AgendaType>AGENDA_MILITARISTIC</AgendaType>
+        </Row>
+        <Row>
+            <LeaderType>LEADER_DACIA_2</LeaderType>
+            <AgendaSlotType>PREFERRED_AGENDA</AgendaSlotType>
+            <AgendaType>AGENDA_CULTURED</AgendaType>
+        </Row>
+        -->
+    </LeaderPreferredAgendas>
+</GameData>
+
