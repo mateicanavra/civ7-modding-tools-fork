@@ -28,6 +28,7 @@ Mod generation tool for Civilization 7.
 - [x] Import custom files
 - [x] Localization
     - [x] English
+    - [x] Internalization
 - [x] Units
 - [x] Civilizations
   - [x] Civilization unlocks
@@ -46,7 +47,6 @@ Mod generation tool for Civilization 7.
 
 ### Todo
 - [ ] AI nodes(+builder?)
-- [ ] Localization/Internalization
 - [ ] Unit abilities nodes(+builder?)
 - [ ] Wonder nodes(+builder?)
 - [ ] ???
