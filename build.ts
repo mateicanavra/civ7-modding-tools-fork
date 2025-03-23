@@ -24,7 +24,8 @@ import {
     BIOME,
     FEATURE,
     FEATURE_CLASS,
-    RESOURCE
+    RESOURCE,
+    CIVILIZATION_DOMAIN
 } from "civ7-modding-tools";
 
 let mod = new Mod({
@@ -111,6 +112,11 @@ const civilization = new CivilizationBuilder({
     ]
 });
 
+const civilizationUnlockToMongolia = new CivilizationUnlockBuilder({
+    actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_EXPLORATION,
+    from: { civilizationType: civilization.civilization.civilizationType, ageType: AGE.ANTIQUITY, },
+    to: { civilizationType: 'CIVILIZATION_MONGOLIA', ageType: AGE.MODERN, },
+});
 const civilizationUnlockToPrussia = new CivilizationUnlockBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_EXPLORATION,
     from: { civilizationType: civilization.civilization.civilizationType, ageType: AGE.ANTIQUITY, },
@@ -132,17 +138,17 @@ const leaderCatherineUnlock = new LeaderUnlockBuilder({
     }]
 });
 
-const unitIcon = new ImportFileBuilder({
+const falxmanUnitIcon = new ImportFileBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     content: 'blp:unitflag_swordsman',
-    name: 'falx_warrior'
+    name: 'falxman'
 });
 
-const unit = new UnitBuilder({
+const falxmanUnit = new UnitBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     typeTags: [UNIT_CLASS.COMBAT, UNIT_CLASS.INFANTRY],
     unit: {
-        unitType: 'UNIT_FALX_WARRIOR',
+        unitType: 'UNIT_FALXMAN',
         baseMoves: 2,
         baseSightRange: 2,
     },
@@ -158,7 +164,7 @@ const unit = new UnitBuilder({
     ],
 });
 
-const constructible = new ConstructibleBuilder({
+const mountainSanctuaryConstructible = new ConstructibleBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     constructible: {
         constructibleType: 'BUILDING_MOUNTAIN_SANCTUARY',
@@ -204,8 +210,9 @@ const constructible = new ConstructibleBuilder({
 });
 
 civilization.bind([
-    unit,
-    constructible,
+    falxmanUnit,
+    mountainSanctuaryConstructible,
+    civilizationUnlockToMongolia,
     civilizationUnlockToPrussia,
     leaderCatherineUnlock,
     reconMovementModifier
@@ -214,11 +221,12 @@ civilization.bind([
 mod.add([
     civilization,
     civilizationIcon,
+    civilizationUnlockToMongolia,
     civilizationUnlockToPrussia,
     leaderCatherineUnlock,
-    unit,
-    unitIcon,
-    constructible,
+    falxmanUnit,
+    falxmanUnitIcon,
+    mountainSanctuaryConstructible,
     reconMovementModifier
 ]);
 

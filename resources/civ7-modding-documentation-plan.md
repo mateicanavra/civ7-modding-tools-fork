@@ -10,7 +10,7 @@ We will create a new `/modding` folder within the `/resources` directory to hous
 
 ### 1. Main Architecture Overview
 
-**Filename:** `civ7-modding-architecture.md`
+**Filename:** `civ7-modding-architecture.md` ✅ COMPLETED
 
 **Purpose:** Provide a high-level understanding of the game's architecture and modding framework.
 
@@ -28,7 +28,7 @@ These documents will provide detailed technical information about the game's int
 
 #### 2.1 Database Schemas Reference
 
-**Filename:** `civ7-database-schemas.md`
+**Filename:** `civ7-database-schemas.md` ✅ COMPLETED
 
 **Key Contents:**
 - Core gameplay schema
@@ -41,7 +41,7 @@ These documents will provide detailed technical information about the game's int
 
 #### 2.2 Age Modules Reference
 
-**Filename:** `civ7-age-modules.md`
+**Filename:** `civ7-age-modules.md` ✅ COMPLETED
 
 **Key Contents:**
 - Common age module structure
@@ -53,7 +53,7 @@ These documents will provide detailed technical information about the game's int
 
 #### 2.3 Base-Standard Module Reference
 
-**Filename:** `civ7-base-standard-module.md`
+**Filename:** `civ7-base-standard-module.md` ✅ COMPLETED
 
 **Key Contents:**
 - Core structure of the base-standard module
@@ -64,7 +64,7 @@ These documents will provide detailed technical information about the game's int
 
 #### 2.4 DLC and Community Mod Patterns
 
-**Filename:** `civ7-mod-patterns.md`
+**Filename:** `civ7-mod-patterns.md` ✅ COMPLETED
 
 **Key Contents:**
 - Official DLC structure and implementation
@@ -81,7 +81,7 @@ These documents will provide task-oriented guidance for common modding goals.
 
 #### 3.1 Creating New Civilizations
 
-**Filename:** `civ7-creating-civilizations.md`
+**Filename:** `civ7-creating-civilizations.md` ✅ COMPLETED
 
 **Key Contents:**
 - Step-by-step guide for creating a new civilization
@@ -93,7 +93,7 @@ These documents will provide task-oriented guidance for common modding goals.
 
 #### 3.2 Creating New Leaders
 
-**Filename:** `civ7-creating-leaders.md`
+**Filename:** `civ7-creating-leaders.md` ✅ COMPLETED
 
 **Key Contents:**
 - Step-by-step guide for creating a new leader
@@ -105,7 +105,7 @@ These documents will provide task-oriented guidance for common modding goals.
 
 #### 3.3 Modifying Existing Content
 
-**Filename:** `civ7-modifying-existing-content.md`
+**Filename:** `civ7-modifying-existing-content.md` 🔄 NEXT UP
 
 **Key Contents:**
 - Approaches for modifying existing civilizations and leaders
@@ -113,6 +113,19 @@ These documents will provide task-oriented guidance for common modding goals.
 - Changing gameplay mechanics
 - Compatibility considerations
 - Examples from community mods
+
+#### 3.4 Using TypeScript Modding Tools
+
+**Filename:** `civ7-typescript-modding-tools.md`
+
+**Key Contents:**
+- Setup and installation of the TypeScript modding toolkit
+- Basic usage patterns and examples
+- Declarative XML generation approach
+- Integration with other modding workflows
+- Creating a complete civilization using the toolkit
+- Advanced usage techniques and customization
+- Troubleshooting common issues
 
 ### 4. Reference Appendices
 
@@ -138,6 +151,7 @@ These documents will provide task-oriented guidance for common modding goals.
 2. **Visual Assets**: For now, we'll focus on how to reference existing game assets rather than creating new ones
 3. **XML Templates**: Instead of creating detailed templates, we'll point to DLCs and community mods (especially Scythia) as reference examples
 4. **Community Integration**: The Scythia civilization mod will be referenced as a community example alongside the official DLC content
+5. **Modding Tools Integration**: The TypeScript modding toolkit (https://github.com/izica/civ7-modding-tools) will be extensively covered as a productivity enhancement for modders
 
 ## Future Considerations
 
@@ -148,10 +162,14 @@ These documents will provide task-oriented guidance for common modding goals.
 
 ## Implementation Sequence
 
-1. Create the `/resources/modding` directory
-2. Develop the architecture overview document
-3. Split existing content into technical reference documents
-4. Develop practical guides
-5. Create reference appendices
-6. Verify cross-references and navigation
-7. Final review and refinement 
+1. ✅ Create the `/resources/modding` directory
+2. ✅ Develop the architecture overview document
+3. ✅ Split existing content into technical reference documents
+4. 🔄 Develop practical guides
+   - ✅ Creating New Civilizations
+   - ✅ Creating New Leaders
+   - 🔄 Modifying Existing Content
+   - 🔜 TypeScript Modding Tools
+5. 🔜 Create reference appendices
+6. 🔜 Verify cross-references and navigation
+7. 🔜 Final review and refinement 
