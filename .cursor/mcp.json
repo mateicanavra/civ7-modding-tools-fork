@@ -1,0 +1,26 @@
+{
+	"mcpServers": {
+		"Civ7-gameplay": {
+			"command": "/Library/Frameworks/Python.framework/Versions/3.11/bin/uv",
+			"args": [
+				"--directory",
+				"/Users/mateicanavra/Documents/.nosync/DEV/servers/src/sqlite",
+				"run",
+				"mcp-server-sqlite",
+				"--db-path",
+				"/tmp/civ7-db.sqlite"
+			]
+		},
+		"Civ7-mods": {
+			"command": "/Library/Frameworks/Python.framework/Versions/3.11/bin/uv",
+			"args": [
+				"--directory",
+				"/Users/mateicanavra/Documents/.nosync/DEV/servers/src/sqlite",
+				"run",
+				"mcp-server-sqlite",
+				"--db-path",
+				"/tmp/civ7-mods.sqlite"
+			]
+		}
+	}
+}

@@ -1,0 +1,30 @@
+{
+  "name": "civ-mod-dacia",
+  "version": "1.0.0",
+  "description": "This mod adds the Dacia civilization to Civilization VII, including Decebalus as a leader, along with unique abilities, units, and buildings.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsx build.ts",
+    "start": "tsx build.ts",
+    "deploy": "bash deploy.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mateicanavra/civ-mod-dacia.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mateicanavra/civ-mod-dacia/issues"
+  },
+  "homepage": "https://github.com/mateicanavra/civ-mod-dacia#readme",
+  "dependencies": {
+    "civ7-modding-tools": "^1.3.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}

@@ -1,0 +1,31 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "/Users/mateicanavra/Library/Application Support/Civilization VII/Mods"
+		},
+		{
+			"path": "../civ7-modding-tools"
+		},
+		{
+			"path": "../../../../Library/Application Support/Steam/steamapps/common/Sid Meier's Civilization VII/CivilizationVII.app/Contents/Resources"
+		},
+	],
+	"settings": {
+		"files.exclude": {
+			"**/.git": true,
+			"**/.svn": true,
+			"**/.hg": true,
+			"**/CVS": true,
+			"**/.DS_Store": true,
+			"**/Thumbs.db": true,
+			"**/Base/Assets/{Benchmark,Demo,Legal}/**": true,
+			"**/civmods-{auto-explore*,BetterWonder*,colorful-top*,custom-alerts*,cyberdisc*,detailed-*,first-settler*,ged-ynamp*,discovery*,completed*,Community_*,detailed-wonder*,enhanced-diplomacy*,tcs-*,ui-*,wonders*,ov*,moxl*,mm-compact*,MLK*,misc-ui*,leugi*,search*,cd_global*,helicoid*,Mattifus*,purchase*,claimed*,slot*,victory*,misc*,finwickle*,chrispresso-debug*,Civ7MapUser*,better-maps*,delay-raze*,yourname*}/**": true,
+			"**/{MoreLenses*,RHQ*,*Simple UI*,civ7-lf*}/**": true,
+			"**/Platforms/**": true,
+		}
+	},
+}
+
