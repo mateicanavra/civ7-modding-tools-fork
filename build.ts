@@ -37,7 +37,7 @@ let mod = new Mod({
 
 const civilizationIcon = new ImportFileBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
-    content: 'blp:civ_sym_scythia',
+    content: './imports/civ_sym_dacia',
     name: 'civ_sym_dacia'
 });
 
