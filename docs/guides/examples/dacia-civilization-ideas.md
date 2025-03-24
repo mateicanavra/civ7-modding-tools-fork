@@ -2,24 +2,145 @@
 
 ---
 
-# Military Strategies for the Dacian CIV
+# Dacian Civilization Ideas for Civilization VII
 
-### Hit & Run
-Conquer a settlement to acquire forward settled friendly territory. Dacia under Burebista grants units in that settlement (now friendly territory) 100% faster recovery if it has a temple of Zalmoxis. If a settlement has an Altar, it must be overbuilt with the Temple of Zalmoxis.
-
-
-## Power Punches (Superior Dacian Abilities and Bonuses)
-
-### The Dark Forest
-+1 combat strength, +1 movement, and +1 sight on forest tiles. Navigable river tiles between two forest tiles don't require embarkation.
-
-### The Hills Have Eyes
-+5 combat strength, +1 movement, and +1 sight on rough terrain. Gain influence equal to 50% of unit's HP after destroying an enemy unit.
-
-### The Rest of Us
-+100% influence toward becoming suzerein of a hostile city-state. +100% influence toward rejecting diplomatic actions from civs with a larger military. +5 combat strength against city-states.
+This document collects concepts and design ideas for the Dacian civilization mod in Civilization VII.
 
 ---
+
+## Civilization Abilities
+
+### Murus Dacicus
+*"Dacian Wall" fortifications encircle every settlement.*
+- All **cities gain +3 City Defense Strength** from the start
+- **Walls and other defensive structures are built 30% faster**
+- Each completed wall level provides **+2 🛠️ Production** to that city
+- Reflects Dacia's famed layered stone-and-timber ramparts that made cities tough to crack
+
+### Carpathian Defenders
+Units receive +5 **🗡️ Combat Strength** when fighting in Hills or Forest terrain. Gold Mines provide +1 **🛠️ Production** and +1 **🎭 Culture**.
+
+---
+
+## Leader Options
+
+### King Burebista (82-44 BCE)
+*First unifier of the Dacian tribes, who forged a powerful kingdom with common laws and religion*
+
+![Burebista statue](https://commons.wikimedia.org/wiki/File:Burebista_statue_in_Calarasi.jpg)
+
+#### Leader Ability: Unifier of the Tribes
+- **Capturing a city immediately grants a lump sum of 🕊️ Influence**
+- **Improves Dacia's relations with City-States**
+- Diplomatic actions with City-States cost 50% less Influence
+- Reflects Burebista's talent for bringing allies or vassals into the fold
+
+### King Decebalus (c. 87-106 CE)
+*Last king of independent Dacia, celebrated for his fierce guerrilla resistance against Rome*
+
+![Decebalus Mountain Engraving](https://commons.wikimedia.org/wiki/File:Decebalus_Mountain_Engraving.jpg)
+
+#### Leader Ability: One with the Wolves
+- **All units gain +5 🗡️ Combat Strength when fighting on Hills or in Forest terrain**
+- Units ignore movement penalties in those terrains
+- **When a Dacian unit is killed in combat, Dacia gains a small amount of 🕊️ Influence**
+- Enemies earn 50% less XP from defeating Dacian units
+- Reflects the Dacian ethos of "death before dishonor" and their wolf spirit
+
+---
+
+## Units
+
+### Military Units
+
+#### Falxman (Unique Military Unit)
+*Dacian heavy infantry wielding the deadly two-handed falx blade*
+- **Classical-era melee unit** that replaces the standard swordsman
+- **+5 🗡️ Combat Strength when attacking**
+- **Deals bonus damage vs. fortified units or district defenses**
+- Slightly lower defense against ranged attacks (no shield)
+- Requires Iron; upgrades from Warriors and into later Gunpowder units
+- Historical note: The falx could cleave through Roman helmets, forcing Romans to reinforce their armor
+
+### Civilian Units
+
+#### Dacian Miner (Unique Civilian Unit)
+*Expert miners who extracted vast quantities of gold and silver from the Carpathian Mountains*
+- Replaces the standard Builder unit in the Classical era
+- Can create **enhanced Gold and Silver mines** that provide +1 🛠️ Production and +1 🎭 Culture
+- Can build the **River Cache** improvement on river tiles, which stores gold (provides one-time gold when built and can be "harvested" later for emergency funds)
+- Can create hidden resource stockpiles that cannot be pillaged by enemies
+- Reflects how "Decebalus had ingeniously buried a huge hoard of gold and silver under the river Sargesia"
+- Historical note: Dacian mining was so productive that controlling these resources was a prime motivator for Roman conquest
+
+#### Murus Engineer (Unique Civilian Unit)
+*Master builders skilled in the distinctive Murus Dacicus fortification technique*
+- Ancient era civilian unit with **3 specialized charges**
+- Can construct **Ancient Walls** on districts at an accelerated rate
+- Walls built by Murus Engineers provide +2 City Defense Strength compared to standard walls
+- Units defending on tiles with these walls receive +3 🗡️ Combat Strength
+- Reflects the unique Dacian construction method of creating composite walls with stone faces and rubble-timber core
+- Historical note: The Murus Dacicus technique created extraordinarily resilient fortifications that proved challenging even for Roman legions to breach
+
+#### Zalmoxian Priest (Alternative Civilian Unit Concept)
+*White-robed "kapnobatai" or "smoke-walkers" who conducted ceremonies at mountain sanctuaries*
+- Religious unit that can establish Mountain Sanctuaries in hill and mountain territories
+- Can perform rituals that temporarily boost combat strength of nearby units
+- Provides culture bombs when establishing religious sites
+- Can conduct "Message to Zalmoxis" ceremony that provides a significant one-time Faith boost
+
+#### Metallurgist (Alternative Civilian Unit Concept)
+*Dacian smiths who crafted everything from agricultural implements to finely ornamented jewelry and weaponry*
+- Can enhance military units with special equipment, providing combat bonuses
+- Creates artifacts when working at archaeological sites 
+- Improves resource yields from strategic resources
+
+---
+
+## Infrastructure
+
+### Temple of Zalmoxis (Unique Building)
+*A high sanctuary devoted to the Dacians' supreme deity*
+- Unique Temple building in the Worship quarter
+- Provides **+6 😊 Happiness** (higher than a regular Temple's 4)
+- Contains a Relic slot
+- **Units trained in or garrisoned in a city with this building heal at double rate** within the city's territory
+- Unlocks at the Theology civic; replaces the default Temple
+
+### Mountain Sanctuary (Unique Building)
+*Sacred places where Dacians communed with their gods*
+- Provides +1 🎭 Culture, +1 🛠️ Production, and +1 Influence when adjacent to a Mountain tile
+- Grants bonus yields when built on hill tiles
+- Acts as a defensive structure, providing combat bonuses to units fighting near it
+
+---
+
+## Gameplay Strategies & Synergies
+
+### Military Strategies
+
+#### Hit & Run
+- Conquer settlements to acquire forward positions
+- Units in captured settlements with Temple of Zalmoxis heal 100% faster
+- Exploit hill and forest terrain for combat advantages
+
+#### Terrain Mastery
+- "The Dark Forest": +1 combat strength, +1 movement, and +1 sight on forest tiles
+- "The Hills Have Eyes": +5 combat strength, +1 movement, and +1 sight on rough terrain
+- Gain influence equal to 50% of unit's HP after destroying an enemy unit
+
+### Diplomatic Advantages
+- "The Rest of Us": +100% influence toward becoming suzerain of a hostile city-state
+- +100% influence toward rejecting diplomatic actions from civs with a larger military
+- +5 combat strength against city-states
+
+### Economic Focus
+- Leverage enhanced mining capabilities for strong gold and production economies
+- Strategic placement of hidden caches for emergency resources
+- Use mountain territories for both defensive and economic advantages
+
+---
+
 # Other thoughts
 ### Interactive Modifiers
 Modifiers that are applied only after a specific in-game interaction, like creating a settlement, conquering a settlement, befriending a city-state, etc.

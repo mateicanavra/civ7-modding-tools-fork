@@ -1,6 +1,6 @@
 ---
-description: Process: How to implement documentation reorganization changes in a controlled, step-by-step manner
-globs: **/*.md
+description: When the user asks to reorganize documentation
+globs: 
 alwaysApply: false
 ---
 

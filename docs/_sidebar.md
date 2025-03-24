@@ -40,4 +40,5 @@
   * [File Paths Reference](/reference/file-paths-reference.md)
   * [Modding Reference](/reference/modding-reference.md)
   * [Gameplay Mechanics](/reference/gameplay-mechanics.md)
-  * [Modding Guide: Civs & Leaders](/reference/modding-guide-civs-leaders.md) 
+  * [Modding Guide: Civs & Leaders](/reference/modding-guide-civs-leaders.md)
+  * [Community Modding Tips](/reference/community-modding-tips.md)
