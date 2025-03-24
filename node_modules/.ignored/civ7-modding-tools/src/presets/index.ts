@@ -1,1 +1,0 @@
-export { createGodConstructible } from './createGodConstructible'

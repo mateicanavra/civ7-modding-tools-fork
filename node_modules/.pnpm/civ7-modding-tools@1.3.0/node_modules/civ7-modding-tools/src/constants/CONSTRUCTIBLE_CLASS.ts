@@ -1,5 +1,0 @@
-export const CONSTRUCTIBLE_CLASS = {
-    BUILDING: "BUILDING",
-    IMPROVEMENT: "IMPROVEMENT",
-    WONDER: "WONDER",
-} as const;

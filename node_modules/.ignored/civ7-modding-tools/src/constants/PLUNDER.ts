@@ -1,6 +1,0 @@
-export const PLUNDER = {
-    SCIENCE: 'PLUNDER_SCIENCE',
-    GOLD: 'PLUNDER_GOLD',
-    CULTURE: 'PLUNDER_CULTURE',
-    HEAL: 'PLUNDER_HEAL',
-} as const;
