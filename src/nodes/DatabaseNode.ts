@@ -70,6 +70,10 @@ import { UnitAdvisoryNode } from "./UnitAdvisoryNode";
 import { CityNameNode } from "./CityNameNode";
 import { LeaderUnlockNode } from "./LeaderUnlockNode";
 import { LeaderCivilizationBiasNode } from "./LeaderCivilizationBiasNode";
+import { UnitAbilityNode } from "./UnitAbilityNode";
+import { ChargedUnitAbilityNode } from "./ChargedUnitAbilityNode";
+import { Unit_AbilityNode } from "./Unit_AbilityNode";
+import { UnitAbilityModifierNode } from "./UnitAbilityModifierNode";
 
 export type TDatabase = Pick<DatabaseNode,
     "civilizationItems" |
@@ -98,6 +102,10 @@ export type TDatabase = Pick<DatabaseNode,
     "units" |
     "unitUpgrades" |
     "unitAdvisories" |
+    "unitAbilities" |
+    "chargedUnitAbilities" |
+    "unit_Abilities" |
+    "unitAbilityModifiers" |
     "unlocks" |
     "unlockRequirements" |
     "unlockConfigurationValues" |
@@ -197,6 +205,12 @@ export class DatabaseNode extends BaseNode<TDatabase> {
     unitUpgrades: UnitUpgradeNode[] = [];
     unitStats: UnitStatNode[] = [];
     unitAdvisories: UnitAdvisoryNode[] = [];
+    
+    // Unit ability properties
+    unitAbilities: UnitAbilityNode[] = [];
+    chargedUnitAbilities: ChargedUnitAbilityNode[] = [];
+    unit_Abilities: Unit_AbilityNode[] = [];
+    unitAbilityModifiers: UnitAbilityModifierNode[] = [];
 
     englishText: EnglishTextNode[] = [];
     iconDefinitions: IconDefinitionNode[] = [];
@@ -258,6 +272,10 @@ export class DatabaseNode extends BaseNode<TDatabase> {
             unitCosts: 'Unit_Costs',
             unitStats: 'Unit_Stats',
             unitAdvisories: 'Unit_Advisories',
+            unitAbilities: 'UnitAbilities',
+            chargedUnitAbilities: 'ChargedUnitAbilities',
+            unit_Abilities: 'Unit_Abilities',
+            unitAbilityModifiers: 'UnitAbilityModifiers',
         }
         const data = Object.keys(this)
             .filter(key => !except.includes(key))

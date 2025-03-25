@@ -58,6 +58,9 @@ export { UnitNode, TUnitNode } from './UnitNode';
 export { UnitReplaceNode, TUnitReplaceNode } from './UnitReplaceNode';
 export { UnitStatNode, TUnitStatNode } from './UnitStatNode';
 export { UnitUpgradeNode, TUnitUpgradeNode } from './UnitUpgradeNode';
+export { UnitAbilityNode, TUnitAbilityNode } from './UnitAbilityNode';
+export { ChargedUnitAbilityNode, TChargedUnitAbilityNode } from './ChargedUnitAbilityNode';
+export { Unit_AbilityNode, TUnit_AbilityNode } from './Unit_AbilityNode';
 export { UnlockConfigurationValueNode, TUnlockConfigurationValueNode } from './UnlockConfigurationValueNode';
 export { UnlockNode, TUnlockNode } from './UnlockNode';
 export { UnlockRequirementNode, TUnlockRequirementNode } from './UnlockRequirementNode';
@@ -73,3 +76,7 @@ export { LeaderUnlockNode, TLeaderUnlockNode } from './LeaderUnlockNode';
 
 export { ShellCivilizationNodeSlice, TShellCivilizationNodeSlice } from './slices/ShellCivilizationNodeSlice';
 export { GameCivilizationNodeSlice, TGameCivilizationNodeSlice } from './slices/GameCivilizationNodeSlice';
+
+export * from './UnitAbilityNode';
+export * from './UnitAbilityModifierNode';
+export * from './Unit_AbilityNode';
