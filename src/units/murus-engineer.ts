@@ -10,21 +10,17 @@
 import {
 	UnitBuilder,
 	UNIT_CLASS,
-	UNIT,
 	AbilityBuilder,
-	ActionGroupBundle,
-	ACTION_GROUP,
 	ModifierBuilder,
 	ImportFileBuilder,
-    RESOURCE,
-} from "civ7-modding-tools";
-import {
 	ACTION_GROUP_BUNDLE,
 	COLLECTION,
 	EFFECT,
-	mod,
 	REQUIREMENT,
-} from "../config";
+	ABILITY,
+	TERRAIN,
+	RESOURCE,
+} from "civ7-modding-tools";
 import { UnitPackage } from "../types";
 
 // Define unit icon
@@ -65,7 +61,7 @@ const unitDefinition = new UnitBuilder({
 const claimResourceAbility = new AbilityBuilder({
 	actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
 	ability: {
-		abilityType: "ABILITY_CLAIM_RESOURCE",
+		abilityType: ABILITY.CLAIM_RESOURCE,
 		name: "Claim Resource",
 		description:
 			"Claim an unclaimed resource, adding it to your civilization.",
@@ -77,11 +73,11 @@ const claimResourceAbility = new AbilityBuilder({
 });
 
 // Define ability charge modifier
-const grantAbilityChargeModifier = new ModifierBuilder({
+const grantAbilityChargeModifierHill = new ModifierBuilder({
 	actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
 	modifier: {
-		id: "MURUS_ENGINEER_MOD_GRANT_ABILITY_CHARGE",
-		collection: COLLECTION.OWNER,
+		id: "MURUS_ENGINEER_MOD_GRANT_ABILITY_CHARGE_HILL",
+		collection: COLLECTION.PLAYER_UNITS,
 		effect: EFFECT.GRANT_UNIT_ABILITY_CHARGE,
 		permanent: true,
 		requirements: [
@@ -89,23 +85,37 @@ const grantAbilityChargeModifier = new ModifierBuilder({
 				type: REQUIREMENT.UNIT_TYPE_MATCHES,
 				arguments: [{ name: "UnitType", value: "UNIT_MURUS_ENGINEER" }],
 			},
-            // {
-            //     type: REQUIREMENT.PLOT_RESOURCE_TYPE_MATCHES,
-            //     arguments: [{ name: "ResourceType", value: RESOURCE.GOLD }],
-            // },
-            // {
-            //     type: REQUIREMENT.PLOT_RESOURCE_TYPE_MATCHES,
-            //     arguments: [{ name: "ResourceType", value: RESOURCE.IRON }],
-            // },
-            // {
-            //     type: REQUIREMENT.PLOT_RESOURCE_TYPE_MATCHES,
-            //     arguments: [{ name: "ResourceType", value: RESOURCE.SILVER }],
-            // },
-            // {
-            //     type: REQUIREMENT.PLOT_RESOURCE_TYPE_MATCHES,
-            //     arguments: [{ name: "ResourceType", value: RESOURCE.WINE }],
-            // },
+			{
+				type: REQUIREMENT.PLOT_TERRAIN_TYPE_MATCHES,
+				arguments: [{ name: "TerrainType", value: TERRAIN.HILL }],
+			},
+		],
+		arguments: [
+			{
+				name: "ChargedAbilityType",
+				value: "CHARGED_ABILITY_CLAIM_RESOURCE",
+			},
+			{ name: "Amount", value: 3 },
+		],
+	},
+});
 
+const grantAbilityChargeModifierSalt = new ModifierBuilder({
+	actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
+	modifier: {
+		id: "MURUS_ENGINEER_MOD_GRANT_ABILITY_CHARGE_SALT",
+		collection: COLLECTION.PLAYER_UNITS,
+		effect: EFFECT.GRANT_UNIT_ABILITY_CHARGE,
+		permanent: true,
+		requirements: [
+			{
+				type: REQUIREMENT.UNIT_TYPE_MATCHES,
+				arguments: [{ name: "UnitType", value: "UNIT_MURUS_ENGINEER" }],
+			},
+			{
+				type: REQUIREMENT.PLOT_RESOURCE_TYPE_MATCHES,
+				arguments: [{ name: "ResourceType", value: RESOURCE.SALT }],
+			},
 		],
 		arguments: [
 			{
@@ -121,12 +131,15 @@ const grantAbilityChargeModifier = new ModifierBuilder({
 claimResourceAbility.bind([unitDefinition]);
 
 // Bind the modifier to the ability - this generates the UnitAbilityModifiers section
-claimResourceAbility.bindModifiers([grantAbilityChargeModifier]);
+claimResourceAbility.bindModifiers([
+	grantAbilityChargeModifierHill,
+	grantAbilityChargeModifierSalt,
+]);
 
 // Export the unit package conforming to the UnitPackage interface
 export const murusEngineer: UnitPackage = {
 	unit: unitDefinition,
 	abilities: [claimResourceAbility],
-	modifiers: [grantAbilityChargeModifier],
+	modifiers: [grantAbilityChargeModifierHill, grantAbilityChargeModifierSalt],
 	imports: [murusEngineerIcon],
 };

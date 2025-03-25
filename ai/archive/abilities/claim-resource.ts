@@ -1,7 +1,7 @@
 import { TypeNode, DatabaseNode } from "civ7-modding-tools";
 import { XmlFile } from "civ7-modding-tools";
 import { ACTION_GROUP, ACTION_GROUP_ACTION, KIND } from "civ7-modding-tools";
-import { ACTION_GROUP_BUNDLE } from "../config";
+// import { ACTION_GROUP_BUNDLE } from "../config";
 import { XmlElement } from "jstoxml";
 
 export function createClaimResourceAbilities() {

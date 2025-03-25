@@ -4,6 +4,7 @@
 
 // Export everything from individual files
 export * from "./mountain-sanctuary";
+export * from "./murus-dacicus";
 
 // Import packages for collection
 import { mountainSanctuary } from "./mountain-sanctuary";

@@ -3,7 +3,7 @@ import { allCivilizations, civilizationAbilities, civilizationModifiers, civiliz
 import { allUnits, unitAbilities, unitModifiers, unitImports } from "./src/units";
 import { allConstructibles, constructibleAbilities, constructibleModifiers, constructibleImports } from "./src/constructibles";
 import { sharedModifiers, sharedAbilities, sharedUnlocks } from "./src/shared";
-import { mod } from "./src/config";
+import { mod } from "./mod";
 
 // Add all components to the mod
 mod.add([

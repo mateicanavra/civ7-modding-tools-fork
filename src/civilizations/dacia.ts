@@ -6,28 +6,26 @@
 
 import { 
     CivilizationBuilder, 
+    CivilizationUnlockBuilder,
+    LeaderUnlockBuilder,
+    ImportFileBuilder,
+    ModifierBuilder,
     TRAIT, 
     TAG_TRAIT, 
     TERRAIN, 
     BIOME, 
     FEATURE_CLASS, 
     RESOURCE,
-    ModifierBuilder,
-    CivilizationUnlockBuilder,
-    LeaderUnlockBuilder,
     AGE,
-    ImportFileBuilder
-} from "civ7-modding-tools";
-import { 
     ACTION_GROUP_BUNDLE,
     COLLECTION,
     EFFECT,
     REQUIREMENT,
-    mod
-} from "../config";
+} from "civ7-modding-tools";
 import { falxman, murusEngineer } from "../units";
-import { mountainSanctuary } from "../constructibles";
+import { mountainSanctuary, murusDacicus } from "../constructibles";
 import { CivilizationPackage } from "../types";
+import { mod } from "../../mod";
 
 // Define civilization icon
 const civilizationIcon = new ImportFileBuilder({
@@ -62,10 +60,11 @@ const civilization = new CivilizationBuilder({
     ],
     startBiasFeatureClasses: [{ featureClassType: FEATURE_CLASS.VEGETATED }],
     startBiasResources: [
-        { resourceType: RESOURCE.GOLD },
-        { resourceType: RESOURCE.HORSES },
-        { resourceType: RESOURCE.SILVER },
-        { resourceType: RESOURCE.WINE },
+        { resourceType: RESOURCE.GOLD, score: 9 },
+        { resourceType: RESOURCE.HORSES, score: 5 },
+        { resourceType: RESOURCE.SILVER, score: 8 },
+        { resourceType: RESOURCE.WINE, score: 4 },
+        { resourceType: RESOURCE.SALT, score: 8 },
     ],
     startBiasRiver: 1,
     startBiasAdjacentToCoast: 0,
@@ -244,6 +243,9 @@ civilization.bind([
     ...(falxman.modifiers || []),
     ...(murusEngineer.modifiers || []),
     mountainSanctuary.constructible,
+    murusDacicus.constructible,
+    // ...(mountainSanctuary.modifiers || []),
+    ...(murusDacicus.modifiers || []),
     terrainCombatModifier,
     forestCombatModifier,
     goldMineProductionModifier,
@@ -260,7 +262,7 @@ export const dacia: CivilizationPackage = {
         terrainCombatModifier, 
         forestCombatModifier, 
         goldMineProductionModifier, 
-        goldMineCultureModifier
+        goldMineCultureModifier,
     ],
     imports: [civilizationIcon],
     unlocks: {

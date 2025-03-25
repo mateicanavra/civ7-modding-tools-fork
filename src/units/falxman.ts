@@ -11,9 +11,12 @@ import {
     UnitBuilder,
     ImportFileBuilder,
     UNIT_CLASS,
-    ModifierBuilder
+    ModifierBuilder,
+    ACTION_GROUP_BUNDLE,
+    COLLECTION,
+    EFFECT,
+    REQUIREMENT,
 } from "civ7-modding-tools";
-import { ACTION_GROUP_BUNDLE, COLLECTION, EFFECT, mod, REQUIREMENT } from "../config";
 import { UnitPackage } from "../types";
 
 // Define unit icon
