@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "civ7-modding-tools": ["../civ7-modding-tools/src"],
+      "civ7-modding-tools/*": ["../civ7-modding-tools/src/*"]
+    }
+  }
+} 

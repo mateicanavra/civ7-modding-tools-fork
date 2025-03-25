@@ -1,25 +1,35 @@
 // Import all components
-import { allImports } from "./src/imports";
-import { allCivilizations } from "./src/civilizations";
-import { allUnits } from "./src/units";
-import { allConstructibles } from "./src/constructibles";
-import { allUnlocks } from "./src/unlocks";
-import { allModifiers } from "./src/modifiers";
-import { claimResourceAbilityFiles } from "./src/abilities";
+import { allCivilizations, civilizationAbilities, civilizationModifiers, civilizationImports } from "./src/civilizations";
+import { allUnits, unitAbilities, unitModifiers, unitImports } from "./src/units";
+import { allConstructibles, constructibleAbilities, constructibleModifiers, constructibleImports } from "./src/constructibles";
+import { sharedModifiers, sharedAbilities, sharedUnlocks } from "./src/shared";
 import { mod } from "./src/config";
 
 // Add all components to the mod
 mod.add([
+	// Main entities
 	...allCivilizations,
-	...allImports,
 	...allUnits,
 	...allConstructibles,
-	...allUnlocks,
-	...allModifiers
+	...sharedUnlocks,
+	
+	// Abilities from all package types
+	...civilizationAbilities,
+	...unitAbilities,
+	...constructibleAbilities,
+	...sharedAbilities,
+	
+	// Modifiers from all package types
+	...civilizationModifiers,
+	...unitModifiers,
+	...constructibleModifiers,
+	...sharedModifiers,
+	
+	// Imports from all package types
+	...civilizationImports,
+	...unitImports,
+	...constructibleImports
 ]);
-
-// Add file-based abilities
-mod.addFiles(claimResourceAbilityFiles);
 
 // Build the mod to the dist directory
 mod.build("./dist");

@@ -1,20 +1,23 @@
-import { civilization } from "./dacia";
-import { falxmanUnit, murusEngineerUnit } from "../units";
-import { mountainSanctuaryConstructible } from "../constructibles";
-import { allModifiers } from "../modifiers";
-import { allUnlocks } from "../unlocks";
+/**
+ * Exports all civilizations using the CivilizationPackage pattern.
+ */
 
-// Bind components to civilization
-civilization.bind([
-    falxmanUnit,
-    murusEngineerUnit,
-    mountainSanctuaryConstructible,
-    ...allUnlocks,
-    ...allModifiers,
-]);
+// Export everything from individual files
+export * from './dacia';
 
-export const allCivilizations = [
-    civilization
-];
+// Import packages for collection
+import { dacia } from './dacia';
+import { extractComponents } from '../utils';
 
-export { civilization }; 
+// Collect all civilization packages
+export const civilizationPackages = [dacia];
+
+// Extract and export components
+const { 
+    entities: allCivilizations, 
+    abilities: civilizationAbilities, 
+    modifiers: civilizationModifiers, 
+    imports: civilizationImports 
+} = extractComponents(civilizationPackages, 'civilization');
+
+export { allCivilizations, civilizationAbilities, civilizationModifiers, civilizationImports };

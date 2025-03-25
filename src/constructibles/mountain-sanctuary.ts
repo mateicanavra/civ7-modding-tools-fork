@@ -1,7 +1,9 @@
 import { ConstructibleBuilder, CONSTRUCTIBLE_TYPE_TAG, DISTRICT, TERRAIN, YIELD } from "civ7-modding-tools";
 import { ACTION_GROUP_BUNDLE } from "../config";
+import { ConstructiblePackage } from "../types";
 
-export const mountainSanctuaryConstructible = new ConstructibleBuilder({
+// Define the Mountain Sanctuary constructible
+const constructible = new ConstructibleBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     constructible: {
         constructibleType: "BUILDING_MOUNTAIN_SANCTUARY",
@@ -43,4 +45,10 @@ export const mountainSanctuaryConstructible = new ConstructibleBuilder({
                 "The Mountain Sanctuaries were sacred places where Dacians communed with their gods and gained spiritual strength.",
         },
     ],
-}); 
+});
+
+// Export as a ConstructiblePackage
+export const mountainSanctuary: ConstructiblePackage = {
+    constructible,
+    modifiers: []
+};

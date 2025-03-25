@@ -1,8 +1,40 @@
-import { UnitBuilder, UNIT_CLASS, UNIT } from "civ7-modding-tools";
-import { ACTION_GROUP_BUNDLE } from "../config";
-import { murusEngineerIcon } from "../imports";
+/**
+ * Murus Engineer - Dacian unique civilian unit
+ * 
+ * This file contains:
+ * - Unit definition
+ * - Claim resource ability implementation
+ * - Ability charge modifier implementation
+ */
 
-export const murusEngineerUnit = new UnitBuilder({
+import { 
+    UnitBuilder, 
+    UNIT_CLASS, 
+    UNIT,
+    AbilityBuilder,
+    ActionGroupBundle,
+    ACTION_GROUP,
+    ModifierBuilder,
+    ImportFileBuilder
+} from "civ7-modding-tools";
+import { 
+    ACTION_GROUP_BUNDLE, 
+    COLLECTION, 
+    EFFECT, 
+    mod, 
+    REQUIREMENT 
+} from "../config";
+import { UnitPackage } from "../types";
+
+// Define unit icon
+const murusEngineerIcon = new ImportFileBuilder({
+    actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
+    content: "blp:unitflag_prospector",
+    name: "murus_engineer",
+});
+
+// Define the Murus Engineer unit
+const unitDefinition = new UnitBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     typeTags: [UNIT_CLASS.RECON],
     unit: {
@@ -14,6 +46,7 @@ export const murusEngineerUnit = new UnitBuilder({
         canBeDamaged: false,
     },
     icon: {
+        // path: `fs://game/${mod.id}/${murusEngineerIcon.name}`,
         path: "blp:unitflag_prospector",
     },
     unitCost: { cost: 80 },
@@ -25,4 +58,52 @@ export const murusEngineerUnit = new UnitBuilder({
                 "Dacian unique civilian unit with 3 specialized charges for building Ancient Walls and claiming resources. Walls built by Murus Engineers provide +2 [icon:CITY_DEFENSE] City Defense Strength and units defending on these walls receive +3 [icon:COMBAT_MELEE] Combat Strength.",
         },
     ],
-}); 
+});
+
+// Define Claim Resource ability
+const claimResourceAbility = new AbilityBuilder({
+    actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
+    ability: {
+        abilityType: "ABILITY_CLAIM_RESOURCE",
+        name: "Claim Resource",
+        description: "Claim an unclaimed resource, adding it to your civilization."
+    },
+    chargedAbility: {
+        enabled: true,
+        rechargeTurns: 1
+    }
+});
+
+// Define ability charge modifier
+const grantAbilityChargeModifier = new ModifierBuilder({
+    actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
+    modifier: {
+        id: "MURUS_ENGINEER_MOD_GRANT_ABILITY_CHARGE",
+        collection: COLLECTION.OWNER,
+        effect: EFFECT.GRANT_UNIT_ABILITY_CHARGE,
+        permanent: true,
+        requirements: [{
+            type: REQUIREMENT.UNIT_TYPE_MATCHES,
+            arguments: [{ name: "UnitType", value: "UNIT_MURUS_ENGINEER" }]
+        }],
+        arguments: [
+            { name: "AbilityType", value: "ABILITY_CLAIM_RESOURCE" },
+            { name: "ChargedAbilityType", value: "CHARGED_ABILITY_CLAIM_RESOURCE" },
+            { name: "Amount", value: 3 }
+        ]
+    }
+});
+
+// Bind the ability to the unit using the modern pattern
+claimResourceAbility.bind([unitDefinition]);
+
+// Bind the modifier to the ability - this generates the UnitAbilityModifiers section
+claimResourceAbility.bindModifiers([grantAbilityChargeModifier]);
+
+// Export the unit package conforming to the UnitPackage interface
+export const murusEngineer: UnitPackage = {
+  unit: unitDefinition,
+  abilities: [claimResourceAbility],
+  modifiers: [grantAbilityChargeModifier],
+  imports: [murusEngineerIcon]
+};

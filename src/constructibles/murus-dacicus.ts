@@ -1,7 +1,9 @@
-import { ConstructibleBuilder, CONSTRUCTIBLE_TYPE_TAG, DISTRICT, TERRAIN, YIELD, TRAIT } from "civ7-modding-tools";
-import { ACTION_GROUP_BUNDLE } from "../config";
+import { ConstructibleBuilder, CONSTRUCTIBLE_TYPE_TAG, DISTRICT, TERRAIN, YIELD, TRAIT, ModifierBuilder } from "civ7-modding-tools";
+import { ACTION_GROUP_BUNDLE, COLLECTION, EFFECT, REQUIREMENT } from "../config";
+import { ConstructiblePackage } from "../types";
 
-export const murusDacicusConstructible = new ConstructibleBuilder({
+// Define the Murus Dacicus constructible
+const constructible = new ConstructibleBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     constructible: {
         constructibleType: "BUILDING_MURUS_DACICUS",
@@ -40,4 +42,35 @@ export const murusDacicusConstructible = new ConstructibleBuilder({
         }
     ],
     // The replacement is likely handled at the civilization level or through modifiers
-}); 
+});
+
+// Define the wall defense modifier
+const wallDefenseModifier = new ModifierBuilder({
+    actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
+    modifier: {
+        collection: COLLECTION.CITY_DISTRICTS,
+        effect: EFFECT.ADJUST_UNIT_BASE_COMBAT_STRENGTH,
+        arguments: [{ name: "Amount", value: 5 }],
+        requirements: [
+            {
+                type: REQUIREMENT.PLOT_HAS_CONSTRUCTIBLE,
+                arguments: [{ name: "ConstructibleType", value: "BUILDING_MURUS_DACICUS" }],
+            }
+        ],
+    },
+    localizations: [
+        {
+            description:
+                "+5 District Defense Strength for all districts in cities with Murus Dacicus.",
+        },
+    ],
+});
+
+// Export as a ConstructiblePackage
+export const murusDacicus: ConstructiblePackage = {
+    constructible,
+    modifiers: [wallDefenseModifier]
+};
+
+// Export the constructible directly for backward compatibility
+export const murusDacicusConstructible = murusDacicus.constructible; 
