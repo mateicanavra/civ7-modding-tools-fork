@@ -1,17 +1,6 @@
 {
 	"mcpServers": {
-		"Civ7-gameplay": {
-			"command": "/Library/Frameworks/Python.framework/Versions/3.11/bin/uv",
-			"args": [
-				"--directory",
-				"/Users/mateicanavra/Documents/.nosync/DEV/servers/src/sqlite",
-				"run",
-				"mcp-server-sqlite",
-				"--db-path",
-				"/tmp/civ7-db.sqlite"
-			]
-		},
-		"Civ7-mods": {
+		"Civ7-mods-db": {
 			"command": "/Library/Frameworks/Python.framework/Versions/3.11/bin/uv",
 			"args": [
 				"--directory",
@@ -20,6 +9,101 @@
 				"mcp-server-sqlite",
 				"--db-path",
 				"/tmp/civ7-mods.sqlite"
+			]
+		},
+		"Civ7-halloffame-db": {
+			"command": "/Library/Frameworks/Python.framework/Versions/3.11/bin/uv",
+			"args": [
+				"--directory",
+				"/Users/mateicanavra/Documents/.nosync/DEV/servers/src/sqlite",
+				"run",
+				"mcp-server-sqlite",
+				"--db-path",
+				"/tmp/civ7-halloffame.sqlite"
+			]
+		},
+		"Civ7-localstorage-db": {
+			"command": "/Library/Frameworks/Python.framework/Versions/3.11/bin/uv",
+			"args": [
+				"--directory",
+				"/Users/mateicanavra/Documents/.nosync/DEV/servers/src/sqlite",
+				"run",
+				"mcp-server-sqlite",
+				"--db-path",
+				"/tmp/civ7-localstorage.sqlite"
+			]
+		},
+		"Civ7-gameplay-debug-db": {
+			"command": "/Library/Frameworks/Python.framework/Versions/3.11/bin/uv",
+			"args": [
+				"--directory",
+				"/Users/mateicanavra/Documents/.nosync/DEV/servers/src/sqlite",
+				"run",
+				"mcp-server-sqlite",
+				"--db-path",
+				"/tmp/civ7-gameplay-debug.sqlite"
+			]
+		},
+		"Civ7-colors-debug-db": {
+			"command": "/Library/Frameworks/Python.framework/Versions/3.11/bin/uv",
+			"args": [
+				"--directory",
+				"/Users/mateicanavra/Documents/.nosync/DEV/servers/src/sqlite",
+				"run",
+				"mcp-server-sqlite",
+				"--db-path",
+				"/tmp/civ7-colors-debug.sqlite"
+			]
+		},
+		"Civ7-frontend-debug-db": {
+			"command": "/Library/Frameworks/Python.framework/Versions/3.11/bin/uv",
+			"args": [
+				"--directory",
+				"/Users/mateicanavra/Documents/.nosync/DEV/servers/src/sqlite",
+				"run",
+				"mcp-server-sqlite",
+				"--db-path",
+				"/tmp/civ7-frontend-debug.sqlite"
+			]
+		},
+		"Civ7-images-debug-db": {
+			"command": "/Library/Frameworks/Python.framework/Versions/3.11/bin/uv",
+			"args": [
+				"--directory",
+				"/Users/mateicanavra/Documents/.nosync/DEV/servers/src/sqlite",
+				"run",
+				"mcp-server-sqlite",
+				"--db-path",
+				"/tmp/civ7-images-debug.sqlite"
+			]
+		},
+		"Civ7-localization-debug-db": {
+			"command": "/Library/Frameworks/Python.framework/Versions/3.11/bin/uv",
+			"args": [
+				"--directory",
+				"/Users/mateicanavra/Documents/.nosync/DEV/servers/src/sqlite",
+				"run",
+				"mcp-server-sqlite",
+				"--db-path",
+				"/tmp/civ7-localization-debug.sqlite"
+			]
+		},
+		"Civ7-resources-filesystem": {
+			"command": "node",
+			"args": [
+				"/Users/mateicanavra/Documents/.nosync/DEV/mcp-servers/mcp-filesystem/dist/index.js",
+				"--readonly",
+				"/tmp/civ7-resources",
+				"--no-follow-symlinks"
+			]
+		},
+		"Civ7-gamedata-filesystem": {
+			"command": "node",
+			"args": [
+				"/Users/mateicanavra/Documents/.nosync/DEV/mcp-servers/mcp-filesystem/dist/index.js",
+				"--readonly",
+				"/tmp/civ7-data",
+				"--no-follow-symlinks"
 			]
 		}
 	}

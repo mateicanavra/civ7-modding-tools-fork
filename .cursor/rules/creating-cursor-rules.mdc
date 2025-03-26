@@ -67,7 +67,7 @@ More detailed information...
 You can reference other files from within an MDC file using the markdown link syntax:
 
 ```
-[rule-name.mdc](mdc:civ-mod-dacia/location/of/the/rule.mdc)
+[rule-name.mdc](mdc:civ-mod-dacia/civ-mod-dacia/civ-mod-dacia/civ-mod-dacia/location/of/the/rule.mdc)
 ```
 
 When this rule is activated, the referenced file will also be included in the context.
@@ -120,7 +120,7 @@ When working with files in Cursor, rules are automatically applied when:
 ## Creating/Renaming/Removing Rules
 
    - When a rule file is added/renamed/removed, update also the list under 010-workflow.mdc.
-   - When changs are made to multiple `mdc` files from a single request, review also [999-mdc-format](mdc:civ-mod-dacia/(mdc:.cursor/rules/999-mdc-format.mdc)) to consider whether to update it too.
+   - When changs are made to multiple `mdc` files from a single request, review also [999-mdc-format](mdc:civ-mod-dacia/civ-mod-dacia/civ-mod-dacia/civ-mod-dacia/(mdc:.cursor/rules/999-mdc-format.mdc)) to consider whether to update it too.
 
 ## Updating Rules
 

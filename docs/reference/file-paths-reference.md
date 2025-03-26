@@ -14,10 +14,6 @@ This is where the base game files are installed and contains all game assets, mo
 
 **macOS:**
 ```
-/Applications/Steam.app/steamapps/common/Sid Meier's Civilization VII/CivilizationVII.app/Contents/Resources/
-```
-or
-```
 ~/Library/Application Support/Steam/steamapps/common/Sid Meier's Civilization VII/CivilizationVII.app/Contents/Resources/
 ```
 
