@@ -27,6 +27,18 @@ This mod adds the Dacia civilization to Civilization VII, including Decebalus as
 
 2. Launch Civilization VII and enable the mod in the Additional Content menu.
 
+## Local SDK development
+
+This project uses a local clone of the `civ7-modding-tools` SDK. To set up for development, clone the SDK repository as a sibling directory and install dependencies:
+
+```bash
+git clone https://github.com/izica/civ7-modding-tools.git ../civ7-modding-tools
+pnpm install
+pnpm build
+```
+
+Now you can author and build the Dacia mod against the local SDK.
+
 ## Credits
 
 - Mod created by: Mod Author

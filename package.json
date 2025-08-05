@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/mateicanavra/civ-mod-dacia#readme",
   "dependencies": {
-    "civ7-modding-tools": "link:../civ7-modding-tools"
+    "civ7-modding-tools": "file:../civ7-modding-tools"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.39.0",
