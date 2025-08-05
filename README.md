@@ -39,6 +39,16 @@ pnpm build
 
 Now you can author and build the Dacia mod against the local SDK.
 
+## Scripts
+
+Use these npm scripts to build and deploy your mod in one step:
+
+```bash
+pnpm run build          # generate XML in dist/
+pnpm run deploy         # deploys mod via deploy.sh
+pnpm run build:deploy   # build and deploy
+```
+
 ## Credits
 
 - Mod created by: Mod Author

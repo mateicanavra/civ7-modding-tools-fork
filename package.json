@@ -10,7 +10,8 @@
     "deploy": "bash deploy.sh",
     "docs": "docsify serve docs",
     "lint": "eslint . --ext .ts",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "build:deploy": "pnpm run build && pnpm run deploy"
   },
   "repository": {
     "type": "git",
