@@ -10,7 +10,7 @@ import {
     EFFECT,
     REQUIREMENT,
 } from "civ7-modding-tools";
-import { ConstructiblePackage } from "../types";
+import { ConstructiblePackage } from '@types';
 
 // Define the Mountain Sanctuary constructible
 const constructible = new ConstructibleBuilder({

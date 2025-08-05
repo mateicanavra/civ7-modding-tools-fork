@@ -21,7 +21,7 @@ import {
 	TERRAIN,
 	RESOURCE,
 } from "civ7-modding-tools";
-import { UnitPackage } from "../types";
+import { UnitPackage } from '@types';
 
 // Define unit icon
 const murusEngineerIcon = new ImportFileBuilder({

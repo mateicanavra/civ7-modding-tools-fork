@@ -3,13 +3,13 @@
  */
 
 // Export everything from individual files
-export * from "./mountain-sanctuary";
-export * from "./murus-dacicus";
+export * from '@constructibles/mountain-sanctuary';
+export * from '@constructibles/murus-dacicus';
 
 // Import packages for collection
-import { mountainSanctuary } from "./mountain-sanctuary";
-import { murusDacicus } from "./murus-dacicus";
-import { extractComponents } from "../utils";
+import { mountainSanctuary } from '@constructibles/mountain-sanctuary';
+import { murusDacicus } from '@constructibles/murus-dacicus';
+import { extractComponents } from '@utils';
 
 // Collect all constructible packages
 export const constructiblePackages = [mountainSanctuary, murusDacicus];

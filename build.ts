@@ -1,9 +1,9 @@
 // Import all components
-import { allCivilizations, civilizationAbilities, civilizationModifiers, civilizationImports } from "./src/civilizations";
-import { allUnits, unitAbilities, unitModifiers, unitImports } from "./src/units";
-import { allConstructibles, constructibleAbilities, constructibleModifiers, constructibleImports } from "./src/constructibles";
-import { sharedModifiers, sharedAbilities, sharedUnlocks } from "./src/shared";
-import { mod } from "./mod";
+import { allCivilizations, civilizationAbilities, civilizationModifiers, civilizationImports } from "@civilizations";
+import { allUnits, unitAbilities, unitModifiers, unitImports } from "@units";
+import { allConstructibles, constructibleAbilities, constructibleModifiers, constructibleImports } from "@constructibles";
+import { sharedModifiers, sharedAbilities, sharedUnlocks } from "@shared";
+import { mod } from "@mod";
 
 // Add all components to the mod
 mod.add([

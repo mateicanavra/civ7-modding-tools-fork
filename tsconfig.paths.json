@@ -1,8 +1,19 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
-      "civ7-modding-tools": ["../civ7-modding-tools/src"],
-      "civ7-modding-tools/*": ["../civ7-modding-tools/src/*"]
+      "@mod": ["mod.ts"],
+      "@src/*": ["src/*"],
+      "@units": ["src/units"],
+      "@units/*": ["src/units/*"],
+      "@civilizations": ["src/civilizations"],
+      "@civilizations/*": ["src/civilizations/*"],
+      "@constructibles": ["src/constructibles"],
+      "@constructibles/*": ["src/constructibles/*"],
+      "@shared": ["src/shared"],
+      "@shared/*": ["src/shared/*"],
+      "@utils": ["src/utils.ts"],
+      "@types": ["src/types.ts"]
     }
   }
 } 

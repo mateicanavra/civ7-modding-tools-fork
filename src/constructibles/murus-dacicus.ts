@@ -11,7 +11,7 @@ import {
 	DOMAIN,
     ACTION_GROUP_BUNDLE,
 } from "civ7-modding-tools";
-import { ConstructiblePackage } from "../types";
+import { ConstructiblePackage } from '@types';
 
 // Define the Murus Dacicus constructible
 const constructible = new ConstructibleBuilder({

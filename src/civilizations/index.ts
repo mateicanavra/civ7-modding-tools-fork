@@ -3,11 +3,11 @@
  */
 
 // Export everything from individual files
-export * from './dacia';
+export * from '@civilizations/dacia';
 
 // Import packages for collection
-import { dacia } from './dacia';
-import { extractComponents } from '../utils';
+import { dacia } from '@civilizations/dacia';
+import { extractComponents } from '@utils';
 
 // Collect all civilization packages
 export const civilizationPackages = [dacia];

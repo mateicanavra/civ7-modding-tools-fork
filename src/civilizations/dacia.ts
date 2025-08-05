@@ -22,10 +22,10 @@ import {
     EFFECT,
     REQUIREMENT,
 } from "civ7-modding-tools";
-import { falxman, murusEngineer } from "../units";
-import { mountainSanctuary, murusDacicus } from "../constructibles";
-import { CivilizationPackage } from "../types";
-import { mod } from "../../mod";
+import { falxman, murusEngineer } from '@units';
+import { mountainSanctuary, murusDacicus } from '@constructibles';
+import { CivilizationPackage } from '@types';
+import { mod } from '@mod';
 
 // Define civilization icon
 const civilizationIcon = new ImportFileBuilder({
