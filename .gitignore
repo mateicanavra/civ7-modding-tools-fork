@@ -26,36 +26,16 @@ coverage/
 # macOS and system files anywhere
 **/.DS_Store
 
-# === Allowlist for SDK essentials ===
-*
-!.gitignore
-!README.me
-!README.md
-!build.ts
-!LICENSE
-!package.json
-!package-lock.json
-!pnpm-lock.yaml
-!tsconfig.json
-!src
-!src/**
-!dist
-!dist/**
-!examples
-!examples/**
-!assets
-!assets/**
-!previews
-!previews/**
-!example-generated-mod
-!example-generated-mod/**
-!.editorconfig
-!CHANGELOG.md
-!TECHNICAL_GUIDE.md
-!docs
+# === Custom additions for docs ===
+
+# Keep docs (documentation)
+!docs/
 !docs/**
-!entity_types
-!entity_types/**
-!scripts
-!scripts/**
-!**/civ7-official-resources.zip
+
+# Keep utility/maintenance scripts
+!fix_links.sh
+
+# Ignore the unzipped civ resources
+civ7-official-resources/
+
+# Standard Node/project outputs (already covered above)
