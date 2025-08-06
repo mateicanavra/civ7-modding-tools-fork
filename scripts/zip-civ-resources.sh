@@ -8,7 +8,7 @@ set -euo pipefail
 #   CivilizationVII.app/Contents/Resources
 #
 # Excludes platform binaries, in-game movies, icon packs, fonts, the top-level Assets folder,
-# DLC, and other large runtime assets.
+# and other large runtime assets.
 # Usage: zip-civ-resources.sh [OUTPUT_DIR]
 # OUTPUT_DIR: where to write civ7-official-resources.zip (defaults to cwd)
 
@@ -40,8 +40,7 @@ echo "🔍 Zipping slimmed Civ7 Resources to: $ZIP_PATH"
     -x "Assets.car" \
     -x "AppIcon.icns" \
     -x "default.metallib" \
-    -x "ShaderAutoGen_*" \
-    -x "DLC/*"
+    -x "ShaderAutoGen_*"
 )
 
 echo "✅ Done. Created $ZIP_PATH"
