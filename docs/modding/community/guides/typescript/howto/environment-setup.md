@@ -18,11 +18,11 @@ Before you begin, ensure you have:
    ```bash
    mkdir my-civ7-mod
    cd my-civ7-mod
-   npm init -y
+   pnpm init
    ```
 3. Install the TypeScript modding tools:
    ```bash
-   npm install civ7-modding-tools typescript ts-node
+   pnpm add civ7-modding-tools typescript ts-node
    ```
 4. Create a TypeScript configuration file (`tsconfig.json`):
    ```json
@@ -44,7 +44,7 @@ Before you begin, ensure you have:
    ```bash
    git clone https://github.com/izica/civ7-modding-tools
    cd civ7-modding-tools
-   npm install
+   pnpm install
    ```
 2. Copy the examples to use as templates:
    ```bash
@@ -88,7 +88,7 @@ mod.build('./dist');         // Output directory
 Run this script with:
 
 ```bash
-npx ts-node build.ts
+pnpm ts-node build.ts
 ```
 
 For more detailed information about the TypeScript modding tools, see:

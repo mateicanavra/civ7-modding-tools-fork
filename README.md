@@ -9,7 +9,7 @@ Originally forked from [izica/civ7-modding-tools](https://github.com/izica/civ7-
     - [TODO](#todo)
 - [Getting started](#getting-started)
     - [Install from repository](#install-from-repository)
-    - [Install from NPM](#install-from-npm)
+    - [Install from npm or pnpm](#install-from-npm-or-pnpm)
 - [Previews](#previews)
     - [Use builders for easier and faster mod creation](#use-builders-for-easy-and-faster-mod-creating)
     - [Full strongly typed](#full-strongly-typed)
@@ -25,7 +25,7 @@ Originally forked from [izica/civ7-modding-tools](https://github.com/izica/civ7-
 
 ## Civ7 Resource Archives
 
-This repo includes scripts for unpacking the official game data. By default, `npm run unzip-civ` uses the `default` profile from `scripts/civ-zip-config.json`, which omits movies, `data/icons/`, fonts, and common media types (`.mp4`, `.dds`, `.png`, `.ttf`, etc.) while retaining `Assets/schema` for database references. Run with `-- full` to extract everything or `-- assets` for only the media directories. The matching `npm run zip-civ` command creates archives using the same profiles.
+This repo includes scripts for unpacking the official game data. By default, `pnpm run unzip-civ` uses the `default` profile from `scripts/civ-zip-config.json`, which omits movies, `data/icons/`, fonts, and common media types (`.mp4`, `.dds`, `.png`, `.ttf`, etc.) while retaining `Assets/schema` for database references. Run with `-- full` to extract everything or `-- assets` for only the media directories. The matching `pnpm run zip-civ` command creates archives using the same profiles.
 
 ## Currently state
 ### Done
@@ -71,13 +71,15 @@ Also you can copy an example from the [examples](https://github.com/izica/civ7-m
 Then, run the following commands:
 
 ```bash
-npm install
-npm run build
+pnpm install
+pnpm run build
 ```
 
-### Install from npm
+### Install from npm or pnpm
 
 ```bash
+pnpm add civ7-modding-tools
+# or
 npm install civ7-modding-tools
 ```
 

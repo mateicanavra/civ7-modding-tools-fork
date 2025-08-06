@@ -34,8 +34,8 @@ Before you begin modding Civilization VII, make sure you have:
 
 3. **Install TypeScript Modding Tools**
    ```bash
-   npm init -y
-   npm install civ7-modding-tools typescript ts-node
+   pnpm init
+   pnpm add civ7-modding-tools typescript ts-node
    ```
 
 ## Understanding Mod Structure
@@ -71,7 +71,7 @@ mod.build('./dist');
 
 Run this with:
 ```bash
-npx ts-node src/index.ts
+pnpm ts-node src/index.ts
 ```
 
 ## Where to Go Next

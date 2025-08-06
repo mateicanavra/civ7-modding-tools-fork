@@ -38,6 +38,8 @@ To help you make the most of the TypeScript Modding Tools, we provide three comp
 ### Option 1: From NPM
 
 ```bash
+pnpm add civ7-modding-tools
+# or
 npm install civ7-modding-tools
 ```
 
@@ -63,12 +65,12 @@ mod.build('./output-directory');
 3. Navigate to the repository directory and install dependencies:
    ```bash
    cd civ7-modding-tools
-   npm install
+   pnpm install
    ```
 4. Modify the `build.ts` file to define your mod
 5. Run the build command:
    ```bash
-   npm run build
+   pnpm run build
    ```
 
 ## Supported Game Elements
@@ -126,7 +128,7 @@ As of March 2025, the toolkit covers approximately 60-80% of modding use cases. 
 
 ### Common Issues
 
-- **TypeScript Errors**: Ensure you have the correct version of TypeScript installed (`npm install typescript@latest`)
+- **TypeScript Errors**: Ensure you have the correct version of TypeScript installed (`pnpm add typescript@latest`)
 - **Missing Icons**: Verify file paths to custom icons are correct relative to your build script
 - **Build Failures**: Check the console output for specific error messages
 - **In-Game Issues**: Look for mod loading errors in the game's log files at `<GAME_DATA>/Logs/modding.log`
