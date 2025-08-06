@@ -34,11 +34,13 @@
 !/AGENTS.md
 !/docs
 !/docs/**
-**/civ7-official/resources/**
 !/fix_links.sh
 # 3. Re-ignore specific files and patterns that should never be tracked.
 # These rules override any un-ignoring above, ensuring that sensitive or
 # generated files are not accidentally committed.
+
+# Optionally commit to diff with official updates, but can be sizeable
+**/civ7-official/resources/**
 
 # OS/system files
 .DS_Store

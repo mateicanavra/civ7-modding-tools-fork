@@ -19,11 +19,10 @@ if [[ ! -d "$SRC_DIR" ]]; then
   exit 1
 fi
 
-OUTPUT_DIR=${1:-$(pwd)}
-if [[ ! -d "$OUTPUT_DIR" ]]; then
-  echo "❌ Output directory does not exist: $OUTPUT_DIR" >&2
-  exit 1
-fi
+OUTPUT_DIR=${1:-docs/civ7-official}
+mkdir -p "$OUTPUT_DIR"
+# Resolve output dir to an absolute path so zip can find it after `pushd`.
+OUTPUT_DIR="$(cd "$OUTPUT_DIR" && pwd)"
 
 ZIP_NAME="civ7-official-resources.zip"
 ZIP_PATH="$OUTPUT_DIR/$ZIP_NAME"
