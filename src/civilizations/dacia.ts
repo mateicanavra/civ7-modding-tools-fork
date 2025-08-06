@@ -50,15 +50,40 @@ const civilization = new CivilizationBuilder({
   icon: {
     path: `fs://game/${mod.id}/${civilizationIcon.name}`,
   },
-  startBiasTerrains: [{ terrainType: TERRAIN.MOUNTAIN }, { terrainType: TERRAIN.HILL }],
+  startBiasTerrains: [
+    { terrainType: TERRAIN.MOUNTAIN },
+    { terrainType: TERRAIN.HILL },
+    { terrainType: TERRAIN.NAVIGABLE_RIVER },
+  ],
   startBiasBiomes: [{ biomeType: BIOME.GRASSLAND }, { biomeType: BIOME.PLAINS }],
-  startBiasFeatureClasses: [{ featureClassType: FEATURE_CLASS.VEGETATED }],
+  startBiasFeatureClasses: [
+    { featureClassType: FEATURE_CLASS.VEGETATED },
+    { featureClassType: FEATURE_CLASS.FLOODPLAIN },
+  ],
   startBiasResources: [
-    { resourceType: RESOURCE.GOLD, score: 9 },
-    { resourceType: RESOURCE.HORSES, score: 5 },
-    { resourceType: RESOURCE.SILVER, score: 8 },
-    { resourceType: RESOURCE.WINE, score: 4 },
-    { resourceType: RESOURCE.SALT, score: 8 },
+    // ── Core strategic abundance ──
+    { resourceType: RESOURCE.SALT, score: 10 },
+    { resourceType: RESOURCE.LIMESTONE, score: 9 },
+    { resourceType: RESOURCE.HARDWOOD, score: 9 },
+    { resourceType: RESOURCE.GOLD, score: 8 },
+
+    // ── Secondary but still valuable ──
+    { resourceType: RESOURCE.FISH, score: 6 },
+    { resourceType: RESOURCE.WINE, score: 5 },
+    { resourceType: RESOURCE.MARBLE, score: 5 },
+    { resourceType: RESOURCE.WILD_GAME, score: 5 },
+
+    // ── Moderate / situational ──
+    { resourceType: RESOURCE.CLAY, score: 4 },
+    { resourceType: RESOURCE.HORSES, score: 4 },
+
+    // ── Minor presence ──
+    { resourceType: RESOURCE.WOOL, score: 3 },
+    { resourceType: RESOURCE.HIDES, score: 3 },
+    { resourceType: RESOURCE.GYPSUM, score: 3 },
+
+    // ── Effectively absent ──
+    { resourceType: RESOURCE.TIN, score: 0 },
   ],
   startBiasRiver: 1,
   startBiasAdjacentToCoast: 0,
