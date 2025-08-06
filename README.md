@@ -1,5 +1,6 @@
-# izica`s civ7 modding tools
-Mod generation tool for Civilization 7.
+# Civ7 Modding Tools and Resources
+
+Originally forked from [izica/civ7-modding-tools](https://github.com/izica/civ7-modding-tools), this project evolves that SDK with community documentation and scripts for working with the official Civilization VII resources. It remains a mod generation tool for Civilization 7.
 
 - [Usage](#usage)
 - [Currently state](#currently-state)
@@ -21,6 +22,10 @@ Mod generation tool for Civilization 7.
     - [Import custom icon](https://github.com/izica/civ7-modding-tools/blob/main/examples/import-custom-icon.ts)
     - [Create civics progression tree](https://github.com/izica/civ7-modding-tools/blob/main/examples/progression-tree.ts)
     - [Unique-quarter](https://github.com/izica/civ7-modding-tools/blob/main/examples/unique-quarter.ts)
+
+## Civ7 Resource Archives
+
+This repo includes scripts for unpacking the official game data. By default, `npm run unzip-civ` uses the `default` profile from `scripts/civ-zip-config.json`, which omits movies, `data/icons/`, fonts, and common media types (`.mp4`, `.dds`, `.png`, `.ttf`, etc.) while retaining `Assets/schema` for database references. Run with `-- full` to extract everything or `-- assets` for only the media directories. The matching `npm run zip-civ` command creates archives using the same profiles.
 
 ## Currently state
 ### Done

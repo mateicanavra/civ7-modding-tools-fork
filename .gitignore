@@ -35,6 +35,8 @@
 !/docs
 !/docs/**
 !/fix_links.sh
+!/scripts
+!/scripts/**
 # 3. Re-ignore specific files and patterns that should never be tracked.
 # These rules override any un-ignoring above, ensuring that sensitive or
 # generated files are not accidentally committed.

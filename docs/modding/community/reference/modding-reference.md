@@ -2,6 +2,8 @@
 
 This document serves as a comprehensive reference for modding Civilization VII, specifically for creating custom civilization mods. It documents key game files, schemas, and structures essential for understanding the game's architecture and implementing custom content.
 
+> The default `civ7-official-resources` archive excludes movies, `data/icons/`, fonts, and common media files (e.g. `.mp4`, `.dds`, `.png`) while retaining `Assets/schema` for reference. Use the `full` profile when extracting if you need the pruned media directories.
+
 ## Base Game Assets and Schemas
 
 The foundational database schemas and asset management files that define how the game stores and organizes data.
@@ -784,48 +786,32 @@ Example structure:
       <ModInUse>base-standard</ModInUse>
     </Criteria>
   </ActionCriteria>
-  <FrontEndActions>
-    <UpdateText id="ModText">
-      <Properties>
-        <LoadOrder>150</LoadOrder>
-      </Properties>
-      <File>text/en_US/your_text.xml</File>
-    </UpdateText>
-    <UpdateIcons id="ModIcons">
-      <Properties>
-        <LoadOrder>150</LoadOrder>
-      </Properties>
-      <File>assets/icons/your_icons.xml</File>
-    </UpdateIcons>
-  </FrontEndActions>
-  <InGameActions>
-    <UpdateDatabase id="GameplayData">
-      <Properties>
-        <LoadOrder>150</LoadOrder>
-      </Properties>
-      <Criteria>Gameplay</Criteria>
-      <File>civilizations/your_civilization.xml</File>
-      <File>leaders/your_leader.xml</File>
-      <File>units/your_units.xml</File>
-      <File>constructibles/your_buildings.xml</File>
-    </UpdateDatabase>
-    <UpdateText id="InGameText">
-      <Properties>
-        <LoadOrder>150</LoadOrder>
-      </Properties>
-      <File>text/en_US/your_text.xml</File>
-    </UpdateText>
-    <UpdateIcons id="InGameIcons">
-      <Properties>
-        <LoadOrder>150</LoadOrder>
-      </Properties>
-      <File>assets/icons/your_icons.xml</File>
-    </UpdateIcons>
-  </InGameActions>
+  <ActionGroups>
+    <ActionGroup id="main" scope="game" criteria="Gameplay">
+      <Actions>
+        <UpdateDatabase>
+          <Item>civilizations/your_civilization.xml</Item>
+          <Item>leaders/your_leader.xml</Item>
+          <Item>units/your_units.xml</Item>
+          <Item>constructibles/your_buildings.xml</Item>
+        </UpdateDatabase>
+        <UpdateText>
+          <Item>text/en_US/your_text.xml</Item>
+        </UpdateText>
+        <UpdateIcons>
+          <Item>assets/icons/your_icons.xml</Item>
+        </UpdateIcons>
+      </Actions>
+    </ActionGroup>
+  </ActionGroups>
 </Mod>
 ```
 
 This structure ensures that the game correctly loads and integrates your mod's content.
+
+### Module Layout and Dependency Files
+
+Official modules store content under `data/`, `text/`, `icons/`, and similar folders. Each module also ships a companion `.dep` file describing art and library dependencies. Include a `.dep` file alongside your `.modinfo` when your mod relies on custom art or libraries.
 
 ## Conclusion
 

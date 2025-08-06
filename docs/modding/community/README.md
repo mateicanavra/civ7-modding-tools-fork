@@ -4,6 +4,8 @@
 
 This documentation provides comprehensive information about modding Civilization VII, including guides, tutorials, and reference materials. Whether you're new to modding or an experienced developer, you'll find valuable resources to help you create amazing content for Civilization VII.
 
+Examples are verified against the official SDK and `civ7-official-resources` snapshot. Large media assets are not included in this repo's archive; consult a full game installation when you need art, movies, fonts, or other assets.
+
 ## What's Inside
 
 - **Modding Guides**: Learn the basics of Civilization VII modding, understand the architecture, and explore common patterns
