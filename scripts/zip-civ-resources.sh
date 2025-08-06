@@ -28,11 +28,14 @@ ZIP_NAME="civ7-official-resources.zip"
 ZIP_PATH="$OUTPUT_DIR/$ZIP_NAME"
 
 echo "🔍 Zipping slimmed Civ7 Resources to: $ZIP_PATH"
-zip -r -X "$ZIP_PATH" "$SRC_DIR" \
-  -x "*/Platforms/*" \
-  -x "*/movies/*" \
-  -x "*/data/icons/*" \
-  -x "*/Assets/*" \
-  -x "*/fonts/*"
+(
+  cd "$SRC_DIR"
+  zip -r -X "$ZIP_PATH" . \
+    -x "Platforms/*" \
+    -x "movies/*" \
+    -x "data/icons/*" \
+    -x "Assets/*" \
+    -x "fonts/*"
+)
 
 echo "✅ Done. Created $ZIP_PATH"
