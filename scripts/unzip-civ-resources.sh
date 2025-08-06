@@ -6,13 +6,13 @@ set -euo pipefail
 # Usage: unzip-civ-resources.sh [ZIPFILE]
 # ZIPFILE:  path to civ7-official-resources.zip (defaults to civ7-official-resources.zip in cwd)
 
-ZIP_FILE=${1:-civ7-official-resources.zip}
+ZIP_FILE=${1:-docs/civ7-official/civ7-official-resources.zip}
 if [[ ! -f "$ZIP_FILE" ]]; then
   echo "❌ Zip file not found: $ZIP_FILE" >&2
   exit 1
 fi
 
-DEST_DIR="docs/modding/civ7-official/resources"
+DEST_DIR="civ7-official-resources"
 echo "🔍 Unpacking '$ZIP_FILE' to '$DEST_DIR'..."
 rm -rf "$DEST_DIR"
 mkdir -p "$DEST_DIR"
