@@ -58,3 +58,4 @@ coverage/
 !entity_types/**
 !scripts
 !scripts/**
+!**/civ7-official-resources.zip
