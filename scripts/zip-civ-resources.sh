@@ -7,7 +7,8 @@ set -euo pipefail
 #   ~/Library/Application Support/Steam/steamapps/common/Sid Meier's Civilization VII/
 #   CivilizationVII.app/Contents/Resources
 #
-# Excludes platform binaries, in-game movies, icon packs, fonts, and the top-level Assets folder.
+# Excludes platform binaries, in-game movies, icon packs, fonts, the top-level Assets folder,
+# DLC, and other large runtime assets.
 # Usage: zip-civ-resources.sh [OUTPUT_DIR]
 # OUTPUT_DIR: where to write civ7-official-resources.zip (defaults to cwd)
 
@@ -31,11 +32,16 @@ echo "🔍 Zipping slimmed Civ7 Resources to: $ZIP_PATH"
 (
   cd "$SRC_DIR"
   zip -r -X "$ZIP_PATH" . \
-    -x "Platforms/*" \
-    -x "movies/*" \
-    -x "data/icons/*" \
-    -x "Assets/*" \
-    -x "fonts/*"
+    -x "*/Platforms/*" \
+    -x "*/movies/*" \
+    -x "*/data/icons/*" \
+    -x "*/Assets/*" \
+    -x "*/fonts/*" \
+    -x "Assets.car" \
+    -x "AppIcon.icns" \
+    -x "default.metallib" \
+    -x "ShaderAutoGen_*" \
+    -x "DLC/*"
 )
 
 echo "✅ Done. Created $ZIP_PATH"
