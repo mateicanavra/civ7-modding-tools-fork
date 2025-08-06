@@ -56,3 +56,5 @@ coverage/
 !docs/**
 !entity_types
 !entity_types/**
+!scripts
+!scripts/**

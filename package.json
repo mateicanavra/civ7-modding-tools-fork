@@ -5,7 +5,9 @@
     "scripts": {
         "build": "tsx build.ts",
         "dev": "tsx dev.ts",
-        "compile": "tsc --project tsconfig.json"
+        "compile": "tsc --project tsconfig.json",
+        "zip-civ-resources": "bash scripts/zip-civ-resources.sh",
+        "unzip-civ-resources": "bash scripts/unzip-civ-resources.sh"
     },
     "module": "dist/index.js",
     "types": "dist/index.d.ts",
