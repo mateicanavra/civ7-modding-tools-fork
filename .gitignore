@@ -52,6 +52,7 @@ coverage/
 !.editorconfig
 !CHANGELOG.md
 !TECHNICAL_GUIDE.md
+!AGENTS.md
 !docs
 !docs/**
 !entity_types
