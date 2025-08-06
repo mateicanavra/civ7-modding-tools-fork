@@ -1,7 +1,21 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TraitModifierNode = exports.TraditionNode = exports.TraditionModifierNode = exports.TagNode = exports.StringNode = exports.StartBiasTerrainNode = exports.StartBiasRiverNode = exports.StartBiasResourceNode = exports.StartBiasFeatureClassNode = exports.StartBiasBiomeNode = exports.StartBiasAdjacentToCoastNode = exports.RequirementSetRequirementNode = exports.RequirementSetNode = exports.RequirementNode = exports.RequirementArgumentNode = exports.ProgressionTreePrereqNode = exports.ProgressionTreeNodeUnlockNode = exports.ProgressionTreeNodeNode = exports.ProgressionTreeNode = exports.ProgressionTreeAdvisoryNode = exports.ModifierRequirementNode = exports.ModifierNode = exports.LegacyCivilizationTraitNode = exports.LegacyCivilizationNode = exports.KindNode = exports.ImprovementNode = exports.IconDefinitionNode = exports.GameModifierNode = exports.GameEffectNode = exports.EnglishTextNode = exports.DistrictFreeConstructibleNode = exports.DatabaseNode = exports.CriteriaNode = exports.ConstructibleYieldChangeNode = exports.ConstructibleValidTerrainNode = exports.ConstructibleValidResourceNode = exports.ConstructibleValidFeatureNode = exports.ConstructibleValidDistrictNode = exports.ConstructibleValidBiomeNode = exports.ConstructiblePlunderNode = exports.ConstructibleNode = exports.ConstructibleMaintenanceNode = exports.CivilizationUnlockNode = exports.CivilizationTraitNode = exports.CivilizationTagNode = exports.CivilizationNode = exports.CivilizationItemNode = exports.BuildingNode = exports.ArgumentNode = exports.ActionGroupNode = void 0;
-exports.GameCivilizationNodeSlice = exports.ShellCivilizationNodeSlice = exports.LeaderUnlockNode = exports.LeaderCivilizationBiasNode = exports.CityNameNode = exports.WarehouseYieldChangeNode = exports.UnitAdvisoryNode = exports.VisualRemapNode = exports.VisArtCivilizationUnitCultureNode = exports.VisArtCivilizationBuildingCultureNode = exports.UnlockRewardNode = exports.UnlockRequirementNode = exports.UnlockNode = exports.UnlockConfigurationValueNode = exports.UnitUpgradeNode = exports.UnitStatNode = exports.UnitReplaceNode = exports.UnitNode = exports.UnitCostNode = exports.UniqueQuarterNode = exports.UniqueQuarterModifierNode = exports.TypeTagNode = exports.TypeNode = exports.TraitNode = void 0;
+exports.GameCivilizationNodeSlice = exports.ShellCivilizationNodeSlice = exports.LeaderUnlockNode = exports.LeaderCivilizationBiasNode = exports.CityNameNode = exports.WarehouseYieldChangeNode = exports.UnitAdvisoryNode = exports.VisualRemapNode = exports.VisArtCivilizationUnitCultureNode = exports.VisArtCivilizationBuildingCultureNode = exports.UnlockRewardNode = exports.UnlockRequirementNode = exports.UnlockNode = exports.UnlockConfigurationValueNode = exports.Unit_AbilityNode = exports.ChargedUnitAbilityNode = exports.UnitAbilityNode = exports.UnitUpgradeNode = exports.UnitStatNode = exports.UnitReplaceNode = exports.UnitNode = exports.UnitCostNode = exports.UniqueQuarterNode = exports.UniqueQuarterModifierNode = exports.TypeTagNode = exports.TypeNode = exports.TraitNode = void 0;
 var ActionGroupNode_1 = require("./ActionGroupNode");
 Object.defineProperty(exports, "ActionGroupNode", { enumerable: true, get: function () { return ActionGroupNode_1.ActionGroupNode; } });
 var ArgumentNode_1 = require("./ArgumentNode");
@@ -122,6 +136,12 @@ var UnitStatNode_1 = require("./UnitStatNode");
 Object.defineProperty(exports, "UnitStatNode", { enumerable: true, get: function () { return UnitStatNode_1.UnitStatNode; } });
 var UnitUpgradeNode_1 = require("./UnitUpgradeNode");
 Object.defineProperty(exports, "UnitUpgradeNode", { enumerable: true, get: function () { return UnitUpgradeNode_1.UnitUpgradeNode; } });
+var UnitAbilityNode_1 = require("./UnitAbilityNode");
+Object.defineProperty(exports, "UnitAbilityNode", { enumerable: true, get: function () { return UnitAbilityNode_1.UnitAbilityNode; } });
+var ChargedUnitAbilityNode_1 = require("./ChargedUnitAbilityNode");
+Object.defineProperty(exports, "ChargedUnitAbilityNode", { enumerable: true, get: function () { return ChargedUnitAbilityNode_1.ChargedUnitAbilityNode; } });
+var Unit_AbilityNode_1 = require("./Unit_AbilityNode");
+Object.defineProperty(exports, "Unit_AbilityNode", { enumerable: true, get: function () { return Unit_AbilityNode_1.Unit_AbilityNode; } });
 var UnlockConfigurationValueNode_1 = require("./UnlockConfigurationValueNode");
 Object.defineProperty(exports, "UnlockConfigurationValueNode", { enumerable: true, get: function () { return UnlockConfigurationValueNode_1.UnlockConfigurationValueNode; } });
 var UnlockNode_1 = require("./UnlockNode");
@@ -150,4 +170,7 @@ var ShellCivilizationNodeSlice_1 = require("./slices/ShellCivilizationNodeSlice"
 Object.defineProperty(exports, "ShellCivilizationNodeSlice", { enumerable: true, get: function () { return ShellCivilizationNodeSlice_1.ShellCivilizationNodeSlice; } });
 var GameCivilizationNodeSlice_1 = require("./slices/GameCivilizationNodeSlice");
 Object.defineProperty(exports, "GameCivilizationNodeSlice", { enumerable: true, get: function () { return GameCivilizationNodeSlice_1.GameCivilizationNodeSlice; } });
+__exportStar(require("./UnitAbilityNode"), exports);
+__exportStar(require("./UnitAbilityModifierNode"), exports);
+__exportStar(require("./Unit_AbilityNode"), exports);
 //# sourceMappingURL=index.js.map

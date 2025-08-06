@@ -85,6 +85,11 @@ class DatabaseNode extends BaseNode_1.BaseNode {
         this.unitUpgrades = [];
         this.unitStats = [];
         this.unitAdvisories = [];
+        // Unit ability properties
+        this.unitAbilities = [];
+        this.chargedUnitAbilities = [];
+        this.unit_Abilities = [];
+        this.unitAbilityModifiers = [];
         this.englishText = [];
         this.iconDefinitions = [];
         this.visualRemaps = [];
@@ -135,6 +140,10 @@ class DatabaseNode extends BaseNode_1.BaseNode {
             unitCosts: 'Unit_Costs',
             unitStats: 'Unit_Stats',
             unitAdvisories: 'Unit_Advisories',
+            unitAbilities: 'UnitAbilities',
+            chargedUnitAbilities: 'ChargedUnitAbilities',
+            unit_Abilities: 'Unit_Abilities',
+            unitAbilityModifiers: 'UnitAbilityModifiers',
         };
         const data = Object.keys(this)
             .filter(key => !except.includes(key))

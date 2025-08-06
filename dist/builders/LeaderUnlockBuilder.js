@@ -11,7 +11,7 @@ const utils_1 = require("../utils");
 class LeaderUnlockBuilder extends BaseBuilder_1.BaseBuilder {
     constructor(payload = {}) {
         super();
-        this._current = new nodes_1.DatabaseNode();
+        this._always = new nodes_1.DatabaseNode();
         this._localizations = new nodes_1.DatabaseNode();
         this.leaderUnlock = {
             leaderType: 'LEADER_',
@@ -31,7 +31,7 @@ class LeaderUnlockBuilder extends BaseBuilder_1.BaseBuilder {
         const unlockType = `UNLOCK_${this.leaderUnlock.type}`;
         const requirementSetId = `REQSET_LEADER_IS_${(0, utils_1.trim)(this.leaderUnlock.leaderType)}`;
         const requirementId = `REQ_LEADER_IS_${(0, utils_1.trim)(this.leaderUnlock.leaderType)}`;
-        this._current.fill({
+        this._always.fill({
             kinds: [new nodes_1.KindNode({ kind: constants_1.KIND.UNLOCK }).insertOrIgnore()],
             types: [new nodes_1.TypeNode({ kind: constants_1.KIND.UNLOCK, type: unlockType }).insertOrIgnore()],
             unlocks: [new nodes_1.UnlockNode({ unlockType }).insertOrIgnore()],
@@ -79,7 +79,7 @@ class LeaderUnlockBuilder extends BaseBuilder_1.BaseBuilder {
             new files_1.XmlFile({
                 path,
                 name: 'always.xml',
-                content: this._current.toXmlElement(),
+                content: this._always.toXmlElement(),
                 actionGroups: [this.actionGroupBundle.always],
                 actionGroupActions: [constants_1.ACTION_GROUP_ACTION.UPDATE_DATABASE]
             }),

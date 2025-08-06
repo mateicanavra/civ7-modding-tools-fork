@@ -11,4 +11,5 @@ export declare const KIND: {
     readonly TREE_NODE: "KIND_TREE_NODE";
     readonly TRADITION: "KIND_TRADITION";
     readonly IMPROVEMENT: "KIND_IMPROVEMENT";
+    readonly ABILITY: "KIND_ABILITY";
 };

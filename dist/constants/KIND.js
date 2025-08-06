@@ -14,5 +14,6 @@ exports.KIND = {
     TREE_NODE: 'KIND_TREE_NODE',
     TRADITION: 'KIND_TRADITION',
     IMPROVEMENT: 'KIND_IMPROVEMENT',
+    ABILITY: 'KIND_ABILITY',
 };
 //# sourceMappingURL=KIND.js.map

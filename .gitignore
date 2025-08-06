@@ -1,14 +1,46 @@
+# === Standard SDK/Node .gitignore entries ===
+# OS/system files
+.DS_Store
+Thumbs.db
+
+# IDEs/editors/settings
+.vscode/
+.idea/
+*.code-workspace
+.cursor/
+.roo/
+
+# Node/npm
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.env
+.env.*
+
+# Build/coverage/temp (if you generate coverage or temp outside dist/)
+coverage/
+*.tmp
+*.log
+
+# macOS and system files anywhere
+**/.DS_Store
+
+# === Allowlist for SDK essentials ===
 *
 !.gitignore
 !README.me
+!README.md
 !build.ts
 !LICENSE
 !package.json
+!package-lock.json
+!pnpm-lock.yaml
+!tsconfig.json
 !src
 !src/**
 !dist
 !dist/**
-!tsconfig.json
 !examples
 !examples/**
 !assets
@@ -19,3 +51,8 @@
 !example-generated-mod/**
 !.editorconfig
 !CHANGELOG.md
+!TECHNICAL_GUIDE.md
+!docs
+!docs/**
+!entity_types
+!entity_types/**

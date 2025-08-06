@@ -19,11 +19,10 @@
         </Criteria>
     </ActionCriteria>
     <ActionGroups>
-        <ActionGroup id="65ff3d65-ab5b-48cd-a138-cd82c4ef82ca" scope="game" criteria="age-antiquity-current">
+        <ActionGroup id="8797822b-8177-429b-9c46-59e440c81f1c" scope="game" criteria="age-antiquity-current">
             <Actions>
                 <UpdateDatabase>
                     <Item>civilizations/gondor/current.xml</Item>
-                    <Item>civilizations/gondor/unlocks.xml</Item>
                     <Item>civilizations/gondor/game-effects.xml</Item>
                     <Item>units/gondor-scout/current.xml</Item>
                     <Item>progression-trees/civics-gondor/current.xml</Item>
@@ -37,26 +36,26 @@
                 </UpdateIcons>
             </Actions>
         </ActionGroup>
-        <ActionGroup id="31ff912c-5368-4e7f-b142-8888019cd71e" scope="game" criteria="always">
+        <ActionGroup id="ec512134-3338-4973-ad91-13152284a438" scope="game" criteria="always">
             <Actions>
                 <UpdateDatabase>
                     <Item>civilizations/gondor/legacy.xml</Item>
-                    <Item>constructibles/building-gondor/always.xml</Item>
-                    <Item>constructibles/building-gondor-2/always.xml</Item>
+                    <Item>constructibles/gondor/always.xml</Item>
+                    <Item>constructibles/gondor-2/always.xml</Item>
                     <Item>constructibles/quarter-gondor/always.xml</Item>
                     <Item>constructibles/quarter-gondor/game-effects.xml</Item>
                 </UpdateDatabase>
                 <UpdateIcons>
                     <Item>civilizations/gondor/icons.xml</Item>
-                    <Item>constructibles/building-gondor/icons.xml</Item>
-                    <Item>constructibles/building-gondor-2/icons.xml</Item>
+                    <Item>constructibles/gondor/icons.xml</Item>
+                    <Item>constructibles/gondor-2/icons.xml</Item>
                     <Item>constructibles/quarter-gondor/icons.xml</Item>
                 </UpdateIcons>
                 <UpdateText>
                     <Item>civilizations/gondor/localization.xml</Item>
                     <Item>units/gondor-scout/localization.xml</Item>
-                    <Item>constructibles/building-gondor/localization.xml</Item>
-                    <Item>constructibles/building-gondor-2/localization.xml</Item>
+                    <Item>constructibles/gondor/localization.xml</Item>
+                    <Item>constructibles/gondor-2/localization.xml</Item>
                     <Item>constructibles/quarter-gondor/localization.xml</Item>
                     <Item>progression-trees/civics-gondor/localization.xml</Item>
                 </UpdateText>
@@ -66,7 +65,7 @@
                 </ImportFiles>
             </Actions>
         </ActionGroup>
-        <ActionGroup id="e929b886-086f-480e-83a8-746bafee7b75" scope="shell" criteria="always">
+        <ActionGroup id="87f388e9-4f44-4d4d-8b5c-6f40ae216384" scope="shell" criteria="always">
             <Actions>
                 <UpdateDatabase>
                     <Item>civilizations/gondor/shell.xml</Item>
@@ -74,14 +73,14 @@
                 <UpdateIcons>
                     <Item>civilizations/gondor/icons.xml</Item>
                     <Item>units/gondor-scout/icons.xml</Item>
-                    <Item>constructibles/building-gondor/icons.xml</Item>
-                    <Item>constructibles/building-gondor-2/icons.xml</Item>
+                    <Item>constructibles/gondor/icons.xml</Item>
+                    <Item>constructibles/gondor-2/icons.xml</Item>
                 </UpdateIcons>
                 <UpdateText>
                     <Item>civilizations/gondor/localization.xml</Item>
                     <Item>units/gondor-scout/localization.xml</Item>
-                    <Item>constructibles/building-gondor/localization.xml</Item>
-                    <Item>constructibles/building-gondor-2/localization.xml</Item>
+                    <Item>constructibles/gondor/localization.xml</Item>
+                    <Item>constructibles/gondor-2/localization.xml</Item>
                     <Item>constructibles/quarter-gondor/localization.xml</Item>
                     <Item>progression-trees/civics-gondor/localization.xml</Item>
                 </UpdateText>

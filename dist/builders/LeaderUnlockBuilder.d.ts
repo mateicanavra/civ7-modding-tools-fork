@@ -5,7 +5,7 @@ import { BaseBuilder } from "./BaseBuilder";
 import { XmlFile } from "../files";
 type TLeaderUnlockBuilder = TClassProperties<LeaderUnlockBuilder>;
 export declare class LeaderUnlockBuilder extends BaseBuilder<TLeaderUnlockBuilder> {
-    _current: DatabaseNode;
+    _always: DatabaseNode;
     _localizations: DatabaseNode;
     leaderUnlock: TPartialRequired<TLeaderUnlockNode, "leaderType" | "type" | "ageType">;
     leaderCivilizationBias: Partial<TLeaderCivilizationBiasNode>;

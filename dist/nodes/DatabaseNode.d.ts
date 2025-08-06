@@ -68,7 +68,11 @@ import { UnitAdvisoryNode } from "./UnitAdvisoryNode";
 import { CityNameNode } from "./CityNameNode";
 import { LeaderUnlockNode } from "./LeaderUnlockNode";
 import { LeaderCivilizationBiasNode } from "./LeaderCivilizationBiasNode";
-export type TDatabase = Pick<DatabaseNode, "civilizationItems" | "civilizationTags" | "civilizationTraits" | "civilizations" | "constructibleMaintenances" | "constructibleValidDistricts" | "constructibleYieldChanges" | "constructibles" | "englishText" | "iconDefinitions" | "legacyCivilizationTraits" | "legacyCivilizations" | "civilizationUnlocks" | "tags" | "traitModifiers" | "traits" | "typeTags" | "kinds" | "types" | "unitCosts" | "buildings" | "unitReplaces" | "unitStats" | "units" | "unitUpgrades" | "unitAdvisories" | "unlocks" | "unlockRequirements" | "unlockConfigurationValues" | "requirementSets" | "requirements" | "requirementArguments" | "requirementSetRequirements" | "unlockRewards" | "adjacencyYieldChanges" | "constructibleAdjacencies" | "warehouseYieldChanges" | "progressionTreeAdvisories" | "progressionTrees" | "progressionTreeNodes" | "progressionTreeNodeUnlocks" | "traditions" | "traditionModifiers" | "progressionTreePrereqs" | "constructibleWarehouseYields" | "districtFreeConstructibles" | "constructibleValidBiomes" | "constructibleValidFeatures" | "constructibleValidTerrains" | "constructibleValidResources" | "constructiblePlunders" | "improvements" | "startBiasBiomes" | "startBiasTerrains" | "startBiasRivers" | "startBiasResources" | "startBiasFeatureClasses" | "startBiasAdjacentToCoasts" | "visArtCivilizationBuildingCultures" | "visArtCivilizationUnitCultures" | "uniqueQuarters" | "uniqueQuarterModifiers" | "gameModifiers" | "cityNames" | "leaderUnlocks" | "leaderCivilizationBias" | "visualRemaps">;
+import { UnitAbilityNode } from "./UnitAbilityNode";
+import { ChargedUnitAbilityNode } from "./ChargedUnitAbilityNode";
+import { Unit_AbilityNode } from "./Unit_AbilityNode";
+import { UnitAbilityModifierNode } from "./UnitAbilityModifierNode";
+export type TDatabase = Pick<DatabaseNode, "civilizationItems" | "civilizationTags" | "civilizationTraits" | "civilizations" | "constructibleMaintenances" | "constructibleValidDistricts" | "constructibleYieldChanges" | "constructibles" | "englishText" | "iconDefinitions" | "legacyCivilizationTraits" | "legacyCivilizations" | "civilizationUnlocks" | "tags" | "traitModifiers" | "traits" | "typeTags" | "kinds" | "types" | "unitCosts" | "buildings" | "unitReplaces" | "unitStats" | "units" | "unitUpgrades" | "unitAdvisories" | "unitAbilities" | "chargedUnitAbilities" | "unit_Abilities" | "unitAbilityModifiers" | "unlocks" | "unlockRequirements" | "unlockConfigurationValues" | "requirementSets" | "requirements" | "requirementArguments" | "requirementSetRequirements" | "unlockRewards" | "adjacencyYieldChanges" | "constructibleAdjacencies" | "warehouseYieldChanges" | "progressionTreeAdvisories" | "progressionTrees" | "progressionTreeNodes" | "progressionTreeNodeUnlocks" | "traditions" | "traditionModifiers" | "progressionTreePrereqs" | "constructibleWarehouseYields" | "districtFreeConstructibles" | "constructibleValidBiomes" | "constructibleValidFeatures" | "constructibleValidTerrains" | "constructibleValidResources" | "constructiblePlunders" | "improvements" | "startBiasBiomes" | "startBiasTerrains" | "startBiasRivers" | "startBiasResources" | "startBiasFeatureClasses" | "startBiasAdjacentToCoasts" | "visArtCivilizationBuildingCultures" | "visArtCivilizationUnitCultures" | "uniqueQuarters" | "uniqueQuarterModifiers" | "gameModifiers" | "cityNames" | "leaderUnlocks" | "leaderCivilizationBias" | "visualRemaps">;
 export declare class DatabaseNode extends BaseNode<TDatabase> {
     _name: string;
     kinds: KindNode[];
@@ -116,6 +120,10 @@ export declare class DatabaseNode extends BaseNode<TDatabase> {
     unitUpgrades: UnitUpgradeNode[];
     unitStats: UnitStatNode[];
     unitAdvisories: UnitAdvisoryNode[];
+    unitAbilities: UnitAbilityNode[];
+    chargedUnitAbilities: ChargedUnitAbilityNode[];
+    unit_Abilities: Unit_AbilityNode[];
+    unitAbilityModifiers: UnitAbilityModifierNode[];
     englishText: EnglishTextNode[];
     iconDefinitions: IconDefinitionNode[];
     visualRemaps: VisualRemapNode[];

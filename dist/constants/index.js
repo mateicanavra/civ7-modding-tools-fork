@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.YIELD = exports.UNIT_MOVEMENT_CLASS = exports.UNIT_CULTURE = exports.UNIT_CLASS = exports.UNIT = exports.TRAIT = exports.TERRAIN = exports.TAG_TRAIT = exports.SYSTEM = exports.RESOURCE = exports.REQUIREMENT_SET = exports.REQUIREMENT = exports.PLUNDER = exports.LANGUAGE = exports.KIND = exports.ICON = exports.FORMATION_CLASS = exports.FERTILITY = exports.FEATURE_CLASS = exports.FEATURE = exports.EFFECT = exports.DOMAIN = exports.DISTRICT = exports.CORE_CLASS = exports.CONSTRUCTIBLE_TYPE_TAG = exports.CONSTRUCTIBLE_CLASS = exports.COLLECTION = exports.CIVILIZATION_DOMAIN = exports.BUILDING_CULTURES = exports.BIOME = exports.AGE = exports.ADVISORY = exports.ACTION_GROUP_BUNDLE = exports.ACTION_GROUP_ACTION = exports.ACTION_GROUP = void 0;
+exports.ABILITY = exports.YIELD = exports.UNIT_MOVEMENT_CLASS = exports.UNIT_CULTURE = exports.UNIT_CLASS = exports.UNIT = exports.TRAIT = exports.TERRAIN = exports.TAG_TRAIT = exports.SYSTEM = exports.RESOURCE_CLASS = exports.RESOURCE = exports.REQUIREMENT_SET = exports.REQUIREMENT = exports.PLUNDER = exports.LANGUAGE = exports.KIND = exports.ICON = exports.FORMATION_CLASS = exports.FERTILITY = exports.FEATURE_CLASS = exports.FEATURE = exports.EFFECT = exports.DOMAIN = exports.DISTRICT = exports.CORE_CLASS = exports.CONSTRUCTIBLE_TYPE_TAG = exports.CONSTRUCTIBLE_CLASS = exports.COLLECTION = exports.CIVILIZATION_DOMAIN = exports.BUILDING_CULTURES = exports.BIOME = exports.AGE = exports.ADVISORY = exports.ACTION_GROUP_BUNDLE = exports.ACTION_GROUP_ACTION = exports.ACTION_GROUP = void 0;
 var ACTION_GROUP_1 = require("./ACTION_GROUP");
 Object.defineProperty(exports, "ACTION_GROUP", { enumerable: true, get: function () { return ACTION_GROUP_1.ACTION_GROUP; } });
 var ACTION_GROUP_ACTION_1 = require("./ACTION_GROUP_ACTION");
@@ -53,6 +53,8 @@ var REQUIREMENT_SET_1 = require("./REQUIREMENT_SET");
 Object.defineProperty(exports, "REQUIREMENT_SET", { enumerable: true, get: function () { return REQUIREMENT_SET_1.REQUIREMENT_SET; } });
 var RESOURCE_1 = require("./RESOURCE");
 Object.defineProperty(exports, "RESOURCE", { enumerable: true, get: function () { return RESOURCE_1.RESOURCE; } });
+var RESOURCE_CLASS_1 = require("./RESOURCE_CLASS");
+Object.defineProperty(exports, "RESOURCE_CLASS", { enumerable: true, get: function () { return RESOURCE_CLASS_1.RESOURCE_CLASS; } });
 var SYSTEM_1 = require("./SYSTEM");
 Object.defineProperty(exports, "SYSTEM", { enumerable: true, get: function () { return SYSTEM_1.SYSTEM; } });
 var TAG_TRAIT_1 = require("./TAG_TRAIT");
@@ -71,4 +73,6 @@ var UNIT_MOVEMENT_CLASS_1 = require("./UNIT_MOVEMENT_CLASS");
 Object.defineProperty(exports, "UNIT_MOVEMENT_CLASS", { enumerable: true, get: function () { return UNIT_MOVEMENT_CLASS_1.UNIT_MOVEMENT_CLASS; } });
 var YIELD_1 = require("./YIELD");
 Object.defineProperty(exports, "YIELD", { enumerable: true, get: function () { return YIELD_1.YIELD; } });
+var ABILITY_1 = require("./ABILITY");
+Object.defineProperty(exports, "ABILITY", { enumerable: true, get: function () { return ABILITY_1.ABILITY; } });
 //# sourceMappingURL=index.js.map

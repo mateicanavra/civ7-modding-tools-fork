@@ -25,6 +25,9 @@
         <Row Tag="LOC_CIVILIZATION_GONDOR_CITY_NAMES_1">
             <Text>Gondor</Text>
         </Row>
+        <Row Tag="LOC_CIVILIZATION_GONDOR_CITY_NAMES_2">
+            <Text>New Gondor</Text>
+        </Row>
     </EnglishText>
 </Database>
 <!-- generated with https://github.com/izica/civ7-modding-tools -->

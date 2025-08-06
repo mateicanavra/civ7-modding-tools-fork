@@ -1,0 +1,1 @@
+{"version":3,"file":"UnitAbilityModifierNode.js","sourceRoot":"","sources":["../../src/nodes/UnitAbilityModifierNode.ts"],"names":[],"mappings":";;;AAAA,yCAAsC;AAOtC,MAAa,uBAAwB,SAAQ,mBAAkC;IAI3E,YAAY,UAA6C,EAAE;QACvD,KAAK,CAAC,OAAO,CAAC,CAAC;QACf,IAAI,CAAC,eAAe,GAAG,OAAO,CAAC,eAAe,IAAI,EAAE,CAAC;QACrD,IAAI,CAAC,UAAU,GAAG,OAAO,CAAC,UAAU,IAAI,EAAE,CAAC;IAC/C,CAAC;CACJ;AATD,0DASC"}
