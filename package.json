@@ -6,8 +6,9 @@
         "build": "tsx build.ts",
         "dev": "tsx dev.ts",
         "compile": "tsc --project tsconfig.json",
-        "zip-civ-resources": "bash scripts/zip-civ-resources.sh",
-        "unzip-civ-resources": "bash scripts/unzip-civ-resources.sh",
+        "zip-civ": "bash scripts/zip-civ-resources.sh",
+        "unzip-civ": "bash scripts/unzip-civ-resources.sh",
+        "refresh-resources": "pnpm run build && pnpm run compile && pnpm run zip-civ && pnpm run unzip-civ",
         "docs": "docsify serve docs"
     },
     "module": "dist/index.js",

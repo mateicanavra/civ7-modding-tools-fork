@@ -7,10 +7,10 @@
         <Row UniqueQuarterType="QUARTER_GONDOR" BuildingType1="BUILDING_GONDOR" BuildingType2="BUILDING_GONDOR2" Name="LOC_QUARTER_GONDOR_NAME" Description="LOC_QUARTER_GONDOR_DESCRIPTION" TraitType="TRAIT_GONDOR"/>
     </UniqueQuarters>
     <UniqueQuarterModifiers>
-        <Row UniqueQuarterType="QUARTER_GONDOR" ModifierId="MOD_FD94A3EFB57842C2A6A40AFDA0FC9275"/>
+        <Row UniqueQuarterType="QUARTER_GONDOR" ModifierId="MOD_6E4D68D90999443EB417C5D3A5B0AC34"/>
     </UniqueQuarterModifiers>
     <GameModifiers>
-        <Row ModifierId="MOD_FD94A3EFB57842C2A6A40AFDA0FC9275"/>
+        <Row ModifierId="MOD_6E4D68D90999443EB417C5D3A5B0AC34"/>
     </GameModifiers>
 </Database>
 <!-- generated with https://github.com/izica/civ7-modding-tools -->

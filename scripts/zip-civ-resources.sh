@@ -28,6 +28,9 @@ fi
 ZIP_NAME="civ7-official-resources.zip"
 ZIP_PATH="$OUTPUT_DIR/$ZIP_NAME"
 
+# Ensure any old archive is deleted before creating a new one.
+rm -f "$ZIP_PATH"
+
 echo "🔍 Zipping slimmed Civ7 Resources to: $ZIP_PATH"
 pushd "$SRC_DIR" >/dev/null
 zip -r -X "$ZIP_PATH" . \
