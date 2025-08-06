@@ -64,4 +64,4 @@ coverage/
 *.log
 
 # Project-specific large directories
-civ7-official-resources/
+docs/modding/civ7-official/resources/
