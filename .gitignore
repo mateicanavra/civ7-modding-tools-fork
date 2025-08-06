@@ -1,6 +1,48 @@
-# === Standard SDK/Node .gitignore entries ===
+# === Allowlist Strategy ===
+# This .gitignore file uses an "allowlist" strategy. First, everything is
+# ignored, and then specific, essential files and directories are explicitly
+# un-ignored. This provides strict control over what is committed.
+
+# 1. Ignore everything by default.
+*
+
+# 2. Un-ignore (allow) the essential project files and directories.
+!.gitignore
+!/README.me
+!/README.md
+!/build.ts
+!/LICENSE
+!/package.json
+!/package-lock.json
+!/pnpm-lock.yaml
+!/tsconfig.json
+!/src
+!/src/**
+!/dist
+!/dist/**
+!/examples
+!/examples/**
+!/assets
+!/assets/**
+!/previews
+!/previews/**
+!/example-generated-mod
+!/example-generated-mod/**
+!/.editorconfig
+!/CHANGELOG.md
+!/TECHNICAL_GUIDE.md
+!/AGENTS.md
+!/docs
+!/docs/**
+!/fix_links.sh
+
+# 3. Re-ignore specific files and patterns that should never be tracked.
+# These rules override any un-ignoring above, ensuring that sensitive or
+# generated files are not accidentally committed.
+
 # OS/system files
 .DS_Store
+**/.DS_Store
 Thumbs.db
 
 # IDEs/editors/settings
@@ -10,32 +52,16 @@ Thumbs.db
 .cursor/
 .roo/
 
-# Node/npm
+# Node/npm build outputs and sensitive files
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .env
 .env.*
-
-# Build/coverage/temp (if you generate coverage or temp outside dist/)
 coverage/
 *.tmp
 *.log
 
-# macOS and system files anywhere
-**/.DS_Store
-
-# === Custom additions for docs ===
-
-# Keep docs (documentation)
-!docs/
-!docs/**
-
-# Keep utility/maintenance scripts
-!fix_links.sh
-
-# Ignore the unzipped civ resources
-civ7-official-resources/
-
-# Standard Node/project outputs (already covered above)
+# Project-specific large directories
+docs/modding/civ7-official/resources/

@@ -12,13 +12,15 @@ if [[ ! -f "$ZIP_FILE" ]]; then
   exit 1
 fi
 
-DEST_DIR="civ7-official-resources"
+DEST_DIR="docs/modding/civ7-official/resources"
 echo "🔍 Unpacking '$ZIP_FILE' to '$DEST_DIR'..."
+rm -rf "$DEST_DIR"
 mkdir -p "$DEST_DIR"
-if command -v bsdtar >/dev/null 2>&1; then
-  bsdtar -xf "$ZIP_FILE" -C "$DEST_DIR" --strip-components=1
-elif command -v unzip >/dev/null 2>&1; then
+
+if command -v unzip >/dev/null 2>&1; then
   unzip -qq "$ZIP_FILE" -d "$DEST_DIR"
+elif command -v bsdtar >/dev/null 2>&1; then
+  bsdtar -xf "$ZIP_FILE" -C "$DEST_DIR"
 else
   echo "❌ Neither 'unzip' nor 'bsdtar' is available to extract archives." >&2
   exit 1
