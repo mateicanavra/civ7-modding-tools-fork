@@ -1,0 +1,76 @@
+{
+    "$schema": "./civ-zip-config.schema.json",
+
+    // Optional: Override the game's resource directory path.
+    // If commented out, the script will use the default path for your OS.
+    // "src_path": "~/Library/Application Support/Steam/steamapps/common/Sid Meier's Civilization VII/CivilizationVII.app/Contents/Resources",
+
+    // The default profile includes core gameplay data and excludes large assets,
+    // making it ideal for quick, focused modding tasks.
+    "default": {
+        "zip": {
+            // `exclude` patterns prevent certain files from being included.
+            // These are standard zip/rsync path patterns.
+            "exclude": [
+                "*/Platforms/*",
+                "*/movies/*",
+                "*/data/icons/*",
+                "*/fonts/*",
+                "*/Assets/Benchmark/*",
+                "*/Assets/Legal/*",
+                "Assets.car",
+                "AppIcon.icns",
+                "default.metallib",
+                "ShaderAutoGen_*",
+                "*.mp4",
+                "*.webm",
+                "*.mov",
+                "*.ogg",
+                "*.mp3",
+                "*.wav",
+                "*.dds",
+                "*.png",
+                "*.ttf",
+                "*.otf",
+            ],
+            "zip_path": "docs/civ7-official/civ7-official-resources.zip",
+        },
+        "unzip": {
+            // The directory where the profile's archive will be extracted.
+            "extract_path": "docs/civ7-official/resources",
+        },
+    },
+
+    // The 'full' profile includes almost all game resources, suitable for
+    // comprehensive analysis or when you need access to everything.
+    "full": {
+        "zip": {
+            "exclude": [],
+            "zip_path": "docs/civ7-official/civ7-official-resources-full.zip",
+        },
+        "unzip": {
+            "extract_path": "docs/civ7-official/resources-full",
+        },
+    },
+
+    // The 'assets' profile is for working with media like icons, fonts,
+    // and movies, excluding the core XML/SQL data files.
+    "assets": {
+        "zip": {
+            "include": [
+                "Assets/*",
+                "movies/*",
+                "data/icons/*",
+                "fonts/*",
+                "Assets.car",
+                "AppIcon.icns",
+                "default.metallib",
+                "ShaderAutoGen_*",
+            ],
+            "zip_path": "docs/civ7-official/civ7-official-resources-assets.zip",
+        },
+        "unzip": {
+            "extract_path": "docs/civ7-official/resources-assets",
+        },
+    },
+}

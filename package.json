@@ -4,11 +4,14 @@
     "main": "dist/index.js",
     "scripts": {
         "build": "tsx build.ts",
+        "build:cli": "pnpm --filter @civ7-modding/cli build",
+        "publish:cli": "pnpm --filter @civ7-modding/cli publish:local",
         "dev": "tsx dev.ts",
         "compile": "tsc --project tsconfig.json",
-        "zip-civ": "bash scripts/zip-civ-resources.sh",
-        "unzip-civ": "bash scripts/unzip-civ-resources.sh",
-        "refresh": "pnpm run build && pnpm run compile && pnpm run zip-civ && pnpm run unzip-civ",
+        "zip-civ": "pnpm --filter @civ7-modding/cli zip",
+        "unzip-civ": "pnpm --filter @civ7-modding/cli unzip",
+        "refresh": "pnpm install && pnpm run build:cli && pnpm run compile",
+        "refresh:data": "pnpm run zip-civ && pnpm run unzip-civ",
         "docs": "docsify serve docs"
     },
     "module": "dist/index.js",

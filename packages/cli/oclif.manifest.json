@@ -1,0 +1,115 @@
+{
+  "commands": {
+    "unzip": {
+      "aliases": [],
+      "args": {
+        "profile": {
+          "default": "default",
+          "description": "The profile to use from the config file.",
+          "name": "profile",
+          "required": false
+        },
+        "zipfile": {
+          "description": "Overrides the source path for the zip archive.",
+          "name": "zipfile",
+          "required": false
+        },
+        "extractpath": {
+          "description": "Overrides the output directory for extraction.",
+          "name": "extractpath",
+          "required": false
+        }
+      },
+      "description": "\nThis command reads profiles from 'civ-zip-config.jsonc' to extract a resource archive.\nThe source zip file and extraction path are determined by the profile, but can be overridden.\n",
+      "examples": [
+        "<%= config.bin %> unzip",
+        "<%= config.bin %> unzip full",
+        "<%= config.bin %> unzip --config ./my-config.jsonc default",
+        "<%= config.bin %> unzip default ./my-custom-archive.zip ./my-custom-output-dir"
+      ],
+      "flags": {
+        "config": {
+          "description": "Path to the configuration file.",
+          "name": "config",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "unzip",
+      "pluginAlias": "@civ7-modding/cli",
+      "pluginName": "@civ7-modding/cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Unzips Civilization VII resources based on a profile.",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "unzip.js"
+      ]
+    },
+    "zip": {
+      "aliases": [],
+      "args": {
+        "profile": {
+          "default": "default",
+          "description": "The profile to use from the config file.",
+          "name": "profile",
+          "required": false
+        },
+        "zipfile": {
+          "description": "Overrides the output path for the zip archive.",
+          "name": "zipfile",
+          "required": false
+        }
+      },
+      "description": "\nThis command reads profiles from 'civ-zip-config.jsonc' to create a zip archive of the game's resources.\nIt automatically detects the operating system to find the default game resource directory but can be overridden.\nThe command supports include/exclude patterns and provides a summary of the operation.\n",
+      "examples": [
+        "<%= config.bin %> zip",
+        "<%= config.bin %> zip full",
+        "<%= config.bin %> zip --verbose assets",
+        "<%= config.bin %> zip --config ./my-config.jsonc default",
+        "<%= config.bin %> zip default ./my-custom-archive.zip"
+      ],
+      "flags": {
+        "verbose": {
+          "char": "v",
+          "description": "Enables verbose output from the zip command.",
+          "name": "verbose",
+          "required": false,
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "config": {
+          "description": "Path to the configuration file.",
+          "name": "config",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "zip",
+      "pluginAlias": "@civ7-modding/cli",
+      "pluginName": "@civ7-modding/cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Zips Civilization VII resources based on a profile.",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "zip.js"
+      ]
+    }
+  },
+  "version": "0.1.0"
+}

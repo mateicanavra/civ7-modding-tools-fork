@@ -1,36 +1,84 @@
 # Civ7 Modding Tools and Resources
 
-This repository is a community-maintained fork of [izica/civ7-modding-tools](https://github.com/izica/civ7-modding-tools). The original project focused on generating Civilization VII mods programmatically. This fork extends that SDK with community documentation and utilities for browsing the official game data. It remains a mod generation toolkit for Civilization VII.
+This repository is a community-maintained fork of [izica/civ7-modding-tools](https://github.com/izica/civ7-modding-tools). The original project focused on generating Civilization VII mods programmatically. This fork extends that SDK with community documentation and a dedicated command-line interface (CLI) for browsing and managing the official game data.
 
 - [Features](#features)
-- [Installation](#installation)
-- [Civ7 Resource Archives](#civ7-resource-archives)
-- [Getting Started](#getting-started)
+- [Installation and Setup](#installation-and-setup)
+- [Using the CLI](#using-the-cli)
+- [Getting Started with Mod Generation](#getting-started-with-mod-generation)
 - [Status](#status)
 - [Examples](#examples)
 - [Previews](#previews)
 - [Differences from upstream](#differences-from-upstream)
 
 ## Features
-- Strongly typed builders for units, civilizations, constructibles, and more
-- Scripts to extract or archive Civ7 resources (`pnpm run unzip-civ`, `pnpm run zip-civ`)
-- Configurable extraction profiles (default/full/assets) via `scripts/civ-zip-config.json`
-- Embedded documentation under `docs/` with guides and gap analyses
-- pnpm workspace setup
+- A command-line interface (CLI) to extract or archive Civ7 resources (`civ7 zip`, `civ7 unzip`).
+- Configurable extraction profiles (default/full/assets) via `civ-zip-config.jsonc` in the project root.
+- Strongly typed builders for units, civilizations, constructibles, and more.
+- Embedded documentation under `docs/` with guides and gap analyses.
+- pnpm workspace setup for easy package management.
 
-## Installation
-Clone this repository, then install dependencies and build the toolkit:
+## Installation and Setup
+
+Setting up this project is a two-step process. First, you install the project dependencies and the CLI. Second, you use the newly installed CLI to pull in the game data.
+
+### Step 1: Install Dependencies and Link the CLI
+
+This command will install all necessary dependencies, build the CLI, and create a global link to the `civ7` executable, making it available everywhere in your terminal.
 
 ```bash
-pnpm install
-pnpm run build
+pnpm refresh
+```
+You only need to run this command once for the initial setup, or whenever you pull changes that affect dependencies or the CLI source code.
+
+**Note:** After running this command, you may need to open a new terminal session or source your shell's profile file (e.g., `source ~/.zshrc`) for the `civ7` command to become available.
+
+### Step 2: Refresh Game Data
+
+After the `civ7` command is available, you can use it to populate the repository with the official game data from your local Civilization VII installation. This script runs `civ7 zip` and `civ7 unzip` in sequence using the `default` profile.
+
+```bash
+pnpm refresh:data
 ```
 
-## Civ7 Resource Archives
-By default `pnpm run unzip-civ` extracts game data into `civ7-official-resources/` using the `default` profile, which retains database schemas but omits large media such as movies, icons, fonts, and common media extensions (`.mp4`, `.dds`, `.png`, `.ttf`, etc.). Use `-- full` for a complete extraction or `-- assets` for only the media directories. `pnpm run zip-civ` creates archives following the same profiles.
+You can run this command whenever you want to ensure the local resource data is up-to-date with your game files.
 
-## Getting Started
-[`build.ts`](build.ts) contains starter code. Copy an example from the [`examples`](examples) directory or write your own script and run:
+## Using the CLI
+
+Once set up, you can use the `civ7` command directly to manage game resource archives. Its behavior is configured by the `civ-zip-config.jsonc` file located in the project root. You can customize the default profiles or add your own.
+
+### Unzipping Resources
+```bash
+# Unzip using the 'default' profile
+civ7 unzip
+
+# Unzip using the 'full' profile
+civ7 unzip full
+
+# Override the source archive and destination directory
+civ7 unzip default ./my-archive.zip ./my-output-dir
+```
+
+### Zipping Resources
+```bash
+# Zip using the 'default' profile
+civ7 zip
+
+# Zip using the 'assets' profile with verbose output
+civ7 zip --verbose assets
+
+# Use a custom config file instead of the one in the project root
+civ7 zip --config ./my-custom-config.jsonc default
+```
+
+### Profiles
+- **default**: Includes core gameplay data and excludes large assets. Ideal for quick, focused modding tasks.
+- **full**: Includes almost all game resources, suitable for comprehensive analysis.
+- **assets**: Includes only media like icons, fonts, and movies.
+
+
+## Getting Started with Mod Generation
+The core of this repository is the mod generation library. `build.ts` contains starter code. Copy an example from the [`examples`](examples) directory or write your own script and run:
 
 ```bash
 tsx build.ts
@@ -141,6 +189,6 @@ mod.addFiles([unitFile]).build('./dist');
 This fork diverges from the original in several ways:
 - Uses `pnpm` instead of `npm` for workspace management.
 - Includes `docs/` with community guides, gap analyses, and session notes.
-- Ships scripts and configuration to zip or unzip official Civ7 resources.
+- **Ships a dedicated CLI** and configuration to zip or unzip official Civ7 resources.
 - Adds extra builders, constants, and resource classes to cover more modding features.
 - Provides `AGENTS.md` with workspace guidance and XML verification tips.
