@@ -1,98 +1,123 @@
-# izica`s civ7 modding tools
-Mod generation tool for Civilization 7.
+# Civ7 Modding Tools and Resources
 
-- [Usage](#usage)
-- [Currently state](#currently-state)
-    - [Done](#done)
-    - [Working on](#working-on)
-    - [TODO](#todo)
-- [Getting started](#getting-started)
-    - [Install from repository](#install-from-repository)
-    - [Install from NPM](#install-from-npm)
+This repository is a community-maintained fork of [izica/civ7-modding-tools](https://github.com/izica/civ7-modding-tools). The original project focused on generating Civilization VII mods programmatically. This fork extends that SDK with community documentation and a dedicated command-line interface (CLI) for browsing and managing the official game data.
+
+- [Features](#features)
+- [Installation and Setup](#installation-and-setup)
+- [Using the CLI](#using-the-cli)
+- [Getting Started with Mod Generation](#getting-started-with-mod-generation)
+- [Status](#status)
+- [Examples](#examples)
 - [Previews](#previews)
-    - [Use builders for easier and faster mod creation](#use-builders-for-easy-and-faster-mod-creating)
-    - [Full strongly typed](#full-strongly-typed)
-    - [Full control of generation](#full-control-of-generation)
-    - [Possibility of fully manual creation](#possibility-of-full-manually-creation)
-- [Examples](https://github.com/izica/civ7-modding-tools/tree/main/examples)
-    - [Init and create civilization](https://github.com/izica/civ7-modding-tools/blob/main/examples/civilization.ts)
-    - [Create unit](https://github.com/izica/civ7-modding-tools/blob/main/examples/unit.ts)
-    - [Import sql file](https://github.com/izica/civ7-modding-tools/blob/main/examples/import-sql-file.ts)
-    - [Import custom icon](https://github.com/izica/civ7-modding-tools/blob/main/examples/import-custom-icon.ts)
-    - [Create civics progression tree](https://github.com/izica/civ7-modding-tools/blob/main/examples/progression-tree.ts)
-    - [Unique-quarter](https://github.com/izica/civ7-modding-tools/blob/main/examples/unique-quarter.ts)
+- [Differences from upstream](#differences-from-upstream)
 
-## Currently state
-### Done
-- [x] Mod info
-- [x] Import custom files
-- [x] Localization
-    - [x] English
-    - [x] Internalization
-- [x] Units
-- [x] Civilizations
-  - [x] Civilization unlocks
-  - [x] Leader unlocks
-- [x] Constructibles
-    - [x] Base building
-    - [x] Improvement
-    - [x] Unique quarter
-- [x] City names
-- [x] Civics
-- [x] Traditions
-- [x] Game Effects
+## Features
+- A command-line interface (CLI) to extract or archive Civ7 resources (`civ7 zip`, `civ7 unzip`).
+- Configurable extraction profiles (default/full/assets) via `civ-zip-config.jsonc` in the project root.
+- Strongly typed builders for units, civilizations, constructibles, and more.
+- Embedded documentation under `docs/` with guides and gap analyses.
+- pnpm workspace setup for easy package management.
 
-### Working on
-- [ ] Great People nodes(+builder?)
+## Installation and Setup
 
-### Todo
-- [ ] AI nodes(+builder?)
-- [ ] Unit abilities nodes(+builder?)
-- [ ] Wonder nodes(+builder?)
-- [ ] ???
+Setting up this project is a two-step process. First, you install the project dependencies and the CLI. Second, you use the newly installed CLI to pull in the game data.
 
+### Step 1: Install Dependencies and Link the CLI
 
-## Getting started
-### Install from repository
-Download repo ZIP file or clone:
+This command will install all necessary dependencies, build the CLI, and create a global link to the `civ7` executable, making it available everywhere in your terminal.
 
 ```bash
-clone https://github.com/izica/civ7-modding-tools
+pnpm refresh
 ```
+You only need to run this command once for the initial setup, or whenever you pull changes that affect dependencies or the CLI source code.
 
-[build.ts](https://github.com/izica/civ7-modding-tools/blob/main/build.ts) contains all the necessary code to get started, so you can begin by modifying it to fit your needs.
-Also you can copy an example from the [examples](https://github.com/izica/civ7-modding-tools/tree/main/examples) folder into [build.ts](https://github.com/izica/civ7-modding-tools/blob/main/build.ts).
+**Note:** After running this command, you may need to open a new terminal session or source your shell's profile file (e.g., `source ~/.zshrc`) for the `civ7` command to become available.
 
-Then, run the following commands:
+### Step 2: Refresh Game Data
+
+After the `civ7` command is available, you can use it to populate the repository with the official game data from your local Civilization VII installation. This script runs `civ7 zip` and `civ7 unzip` in sequence using the `default` profile.
 
 ```bash
-npm install
-npm run build
+pnpm refresh:data
 ```
 
-### Install from npm
+You can run this command whenever you want to ensure the local resource data is up-to-date with your game files.
 
+## Using the CLI
+
+Once set up, you can use the `civ7` command directly to manage game resource archives. Its behavior is configured by the `civ-zip-config.jsonc` file located in the project root. You can customize the default profiles or add your own.
+
+### Unzipping Resources
 ```bash
-npm install civ7-modding-tools
+# Unzip using the 'default' profile
+civ7 unzip
+
+# Unzip using the 'full' profile
+civ7 unzip full
+
+# Override the source archive and destination directory
+civ7 unzip default ./my-archive.zip ./my-output-dir
 ```
 
-```typescript
-import { Mod } from 'civ7-modding-tools';
-// or you can import from 'civ7-modding-tools/src' for full typescript source
+### Zipping Resources
+```bash
+# Zip using the 'default' profile
+civ7 zip
 
-let mod = new Mod({
-    id: 'test-mod',
-    version: '1',
-});
-/* ... */
-mod.build('./dist');
+# Zip using the 'assets' profile with verbose output
+civ7 zip --verbose assets
+
+# Use a custom config file instead of the one in the project root
+civ7 zip --config ./my-custom-config.jsonc default
 ```
 
-To build mod you need to run your script with `node.js` or `tsx`;
+### Profiles
+- **default**: Includes core gameplay data and excludes large assets. Ideal for quick, focused modding tasks.
+- **full**: Includes almost all game resources, suitable for comprehensive analysis.
+- **assets**: Includes only media like icons, fonts, and movies.
+
+
+## Getting Started with Mod Generation
+The core of this repository is the mod generation library. `build.ts` contains starter code. Copy an example from the [`examples`](examples) directory or write your own script and run:
+
 ```bash
 tsx build.ts
 ```
 
+## Status
+### Done
+- Mod info
+- Import custom files
+- Localization (English, Internalization)
+- Units
+- Civilizations
+  - Civilization unlocks
+  - Leader unlocks
+- Constructibles
+  - Base building
+  - Improvement
+  - Unique quarter
+- City names
+- Civics
+- Traditions
+- Game Effects
+
+### Working on
+- Great People nodes (+builder?)
+
+### Todo
+- AI nodes (+builder?)
+- Unit abilities nodes (+builder?)
+- Wonder nodes (+builder?)
+- ???
+
+## Examples
+- [Init and create civilization](examples/civilization.ts)
+- [Create unit](examples/unit.ts)
+- [Import sql file](examples/import-sql-file.ts)
+- [Import custom icon](examples/import-custom-icon.ts)
+- [Create civics progression tree](examples/progression-tree.ts)
+- [Unique quarter](examples/unique-quarter.ts)
 
 ## Previews
 #### Use builders for easier and faster mod creation
@@ -159,3 +184,11 @@ const unitFile = new XmlFile({
 
 mod.addFiles([unitFile]).build('./dist');
 ```
+
+## Differences from upstream
+This fork diverges from the original in several ways:
+- Uses `pnpm` instead of `npm` for workspace management.
+- Includes `docs/` with community guides, gap analyses, and session notes.
+- **Ships a dedicated CLI** and configuration to zip or unzip official Civ7 resources.
+- Adds extra builders, constants, and resource classes to cover more modding features.
+- Provides `AGENTS.md` with workspace guidance and XML verification tips.
