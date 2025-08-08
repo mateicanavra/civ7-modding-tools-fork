@@ -1,6 +1,6 @@
-## XML-first crawl plan (temporary)
+## XML-first crawl plan (archived)
 
-This document outlines a pragmatic XML-first approach to build deep relationship graphs from the official Civ VII resources without requiring the compiled DB.
+This document is now archived. The plan has been implemented in the CLI on branch `feature/cli-crawl-render-slice` and will be maintained via `FEATURES.md`.
 
 ### Objectives
 - **Depth**: Resolve Trait → Modifier → RequirementSet → Requirement → Arguments chains, plus cross-links (Units, Improvements, Buildings, etc.).
@@ -92,9 +92,9 @@ This document outlines a pragmatic XML-first approach to build deep relationship
 - Mixed shapes (text vs attributes for values): support both and prefer attributes when present.
 - Future schema drift: guard with best-effort parsing and continue on per-file failures.
 
-### Acceptance criteria
-- Crawling `CIVILIZATION_ROME` yields edges from Traits to the `TRAIT_MOD_TWELVE_TABLES_*` modifiers and their attached modifiers + requirement sets.
-- Manifest contains all GameEffects files responsible for the linked modifiers.
-- Rendered SVG shows multiple layers beyond Trait-level nodes.
+### Implementation status
+- Implemented: GameEffects normalization, attach-chains, requirement set synthesis, layering and deletes, provenance.
+- Verified on seeds: `CIVILIZATION_ROME`, `LEADER_GENGHIS_KHAN`.
+- Visualization improvements tracked in `FEATURES.md`.
 
 
