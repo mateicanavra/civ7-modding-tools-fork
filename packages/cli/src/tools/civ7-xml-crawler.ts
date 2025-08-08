@@ -16,6 +16,13 @@
  * - A JSON graph (nodes+edges) and a manifest of XML files required for that feature
  * - Optional GraphViz DOT export for visualization
  *
+ * Split when (guidance for future refactors)
+ * -----------------------------------------
+ * - GameEffects normalization rules solidify and require independent tests → extract `gameeffects-normalizer.ts`
+ * - Database table parsing/delete layering expands (e.g., SQL support) → extract `database-indexer.ts`
+ * - Expanders grow significantly or need tuning in isolation → extract `graph-expanders.ts`
+ * - We want isolated type-level tests → extract `crawler-types.ts`
+ *
  * Dependencies
  * ------------
  *   npm i fast-xml-parser
@@ -31,6 +38,12 @@ import { COLUMN_TO_TABLE, PREFIX_TO_TABLE, PRIMARY_KEYS } from './crawler-consta
 // Types
 // -----------------------------
 
+/**
+ * A generic row emitted from either Database XML (<Database><Table><Row />...) or
+ * synthesized from GameEffects normalization.
+ * - __table: logical table name (e.g., Modifiers, RequirementSets)
+ * - __file: absolute path to source XML file (provenance for manifest slicing)
+ */
 export type Row = Record<string, any> & { __table?: string; __file?: string };
 
 export interface RowRecord {
@@ -74,8 +87,13 @@ export interface CrawlResult {
 // XML Parsing & Indexing
 // -----------------------------
 
+/** Shared XML parser configured to keep attributes and preserve original keys. */
 const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: '' });
 
+/**
+ * Recursively find all XML files under a root path or accept a single XML file.
+ * Returns a deterministic lexicographically sorted list to enable last-write-wins layering.
+ */
 export async function findXmlFiles(root: string): Promise<string[]> {
   const out: string[] = [];
   async function walk(dir: string) {
@@ -93,6 +111,10 @@ export async function findXmlFiles(root: string): Promise<string[]> {
   return out.sort((a, b) => a.localeCompare(b));
 }
 
+/**
+ * Collect classic Civ-style tables from a parsed Database XML object.
+ * Looks for shapes like: <Database><Table><Row/></Table></Database> and returns a map table->rows
+ */
 function findTables(obj: any, acc: Record<string, any[]> = {}): Record<string, any[]> {
   if (!obj || typeof obj !== 'object') return acc;
   for (const [k, v] of Object.entries(obj)) {
@@ -110,6 +132,9 @@ function findTables(obj: any, acc: Record<string, any[]> = {}): Record<string, a
 }
 
 // Collect <Delete .../> operations from Database-style XML
+/**
+ * Collect <Delete .../> nodes grouped by table for layering semantics.
+ */
 function findDeletes(obj: any, acc: Record<string, any[]> = {}): Record<string, any[]> {
   if (!obj || typeof obj !== 'object') return acc;
   for (const [k, v] of Object.entries(obj)) {
@@ -130,11 +155,13 @@ function findDeletes(obj: any, acc: Record<string, any[]> = {}): Record<string, 
 // GameEffects normalization helpers
 // -----------------------------
 
+/** Normalize scalar-or-array into array. */
 function toArray<T>(v: T | T[] | undefined): T[] {
   if (v === undefined || v === null) return [];
   return Array.isArray(v) ? v : [v];
 }
 
+/** Get attribute by any of the provided names, case-insensitive. */
 function getAttrCaseInsensitive(obj: any, ...names: string[]): any {
   if (!obj || typeof obj !== 'object') return undefined;
   const keys = Object.keys(obj);
@@ -145,6 +172,9 @@ function getAttrCaseInsensitive(obj: any, ...names: string[]): any {
   return undefined;
 }
 
+/**
+ * Read a value from an <Argument ...> node supporting both attribute and inner-text styles.
+ */
 function readArgumentValue(node: any): string | undefined {
   if (!node || typeof node !== 'object') return undefined;
   const explicit = getAttrCaseInsensitive(node, 'Value');
@@ -157,6 +187,9 @@ function readArgumentValue(node: any): string | undefined {
   return undefined;
 }
 
+/**
+ * Locate <GameEffects> blocks anywhere in a parsed XML tree.
+ */
 function collectGameEffectsRoots(obj: any, out: any[] = []): any[] {
   if (!obj || typeof obj !== 'object') return out;
   for (const [k, v] of Object.entries(obj)) {
@@ -182,11 +215,16 @@ export async function buildIndexFromXml(root: string): Promise<Index> {
   const deleteSpecs: DeleteSpec[] = [];
   let seqCounter = 0;
 
+  /** Ensure a TableIndex exists for a given table name. */
   function ensureTable(table: string): TableIndex {
     if (!tables.has(table)) tables.set(table, { table, rows: [], byCol: new Map() });
     return tables.get(table)!;
   }
 
+  /**
+   * Insert a row into the in-memory index with provenance and sequence ordering.
+   * Also builds a per-table column index to support fast joins during crawl.
+   */
   function indexRow(table: string, row: Row, file: string) {
     const ti = ensureTable(table);
     row.__table = table;
@@ -203,6 +241,7 @@ export async function buildIndexFromXml(root: string): Promise<Index> {
     }
   }
 
+  /** Record a Delete spec (table + where attributes) with sequence for layering. */
   function addDelete(table: string, whereRaw: any, file: string) {
     const where: Record<string, string> = {};
     for (const [k, v] of Object.entries(whereRaw || {})) {
@@ -353,11 +392,13 @@ export async function buildIndexFromXml(root: string): Promise<Index> {
   return { tables };
 }
 
-function normalizeRow(raw: any): Row {
-  // fast-xml-parser flattens attributes into keys already; ensure nested tags are also flattened if trivial
-  return raw as Row;
-}
+/**
+ * Normalize a raw parsed <Row> payload.
+ * fast-xml-parser already flattens attributes; we keep the record as-is to avoid losing original shapes.
+ */
+function normalizeRow(raw: any): Row { return raw as Row; }
 
+/** Return the primary key value for a row if known, with basic fallbacks. */
 function getPrimaryKey(table: string, row: Row): string | undefined {
   const pk = PRIMARY_KEYS[table];
   if (pk && row[pk]) return String(row[pk]);
@@ -370,6 +411,7 @@ function getPrimaryKey(table: string, row: Row): string | undefined {
 // Query helpers
 // -----------------------------
 
+/** Lookup rows by a specific column value using the prebuilt column index. */
 function findBy(table: string, col: string, val: string, idx: Index): RowRecord[] {
   const ti = idx.tables.get(table); if (!ti) return [];
   const colIdx = ti.byCol.get(col); if (!colIdx) return [];
@@ -378,6 +420,7 @@ function findBy(table: string, col: string, val: string, idx: Index): RowRecord[
   return list.filter((rr) => !rr.deleted);
 }
 
+/** Resolve a single row by primary key using last-write-wins (latest sequence). */
 function getByPk(table: string, id: string, idx: Index): RowRecord | undefined {
   const pk = PRIMARY_KEYS[table]; if (!pk) return undefined;
   const matches = findBy(table, pk, id, idx);
@@ -389,6 +432,7 @@ function getByPk(table: string, id: string, idx: Index): RowRecord | undefined {
   return latest;
 }
 
+/** Guess a table name from a well-known ID prefix (e.g., LEADER_*, MODIFIER_*). */
 function guessTableFromId(id: string): string | undefined {
   for (const [re, table] of PREFIX_TO_TABLE) if (re.test(id)) return table;
   return undefined;
@@ -400,6 +444,10 @@ function guessTableFromId(id: string): string | undefined {
 
 type Expander = (rr: RowRecord, idx: Index) => NodeKey[];
 
+/**
+ * Table-specific expansion rules for BFS crawling.
+ * Keep focused and conservative; genericEdges handles common cross-table references via known columns.
+ */
 const EXPANDERS: Record<string, Expander> = {
   Leaders: (rr, idx) => {
     const out: NodeKey[] = [];
@@ -506,6 +554,9 @@ const EXPANDERS: Record<string, Expander> = {
 };
 
 // Generic linker: any known column => follow to target table
+/**
+ * Generic linker: for any known column→table mapping, follow to the target table if the row exists.
+ */
 function genericEdges(rr: RowRecord, idx: Index): NodeKey[] {
   const out: NodeKey[] = [];
   for (const [col, targetTable] of Object.entries(COLUMN_TO_TABLE)) {
@@ -523,6 +574,10 @@ function nkToStr(nk: NodeKey): string { return `${nk.table}|${nk.id}`; }
 // Crawl
 // -----------------------------
 
+/**
+ * Breadth-first crawl from a seed node, materializing nodes and edges while pruning
+ * to existing targets. Produces a manifest of source files from node provenance.
+ */
 export function crawl(idx: Index, seed: NodeKey): CrawlResult {
   const graph: Graph = { nodes: new Map(), edges: [] };
   const seen = new Set<string>();
@@ -568,6 +623,7 @@ export function crawl(idx: Index, seed: NodeKey): CrawlResult {
 // Export helpers
 // -----------------------------
 
+/** Shape graph for JSON output (stable schema for consumers). */
 export function graphToJson(g: Graph) {
   return {
     nodes: Array.from(g.nodes.values()).map(n => ({ table: n.key.table, id: n.key.id, file: n.file, row: n.row })),
@@ -575,6 +631,7 @@ export function graphToJson(g: Graph) {
   };
 }
 
+/** Serialize graph to GraphViz DOT for visualization. */
 export function graphToDot(g: Graph): string {
   const lines: string[] = ['digraph G {'];
   for (const n of g.nodes.values()) {
@@ -598,6 +655,9 @@ function sanitize(s: string) { return s.replace(/[^A-Za-z0-9_:\-]/g, '_').slice(
 // Seed parsing convenience
 // -----------------------------
 
+/**
+ * Accept seed as "Table:ID" or a bare ID with a recognizable prefix.
+ */
 export function parseSeed(input: string): NodeKey | undefined {
   // Accept forms: "Table:ID" or just "ID" (we'll guess the table from the prefix)
   const parts = input.split(':');
