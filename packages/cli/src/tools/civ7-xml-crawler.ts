@@ -442,7 +442,9 @@ function guessTableFromId(id: string): string | undefined {
 // Expanders (table-specific graph edges)
 // -----------------------------
 
-type Expander = (rr: RowRecord, idx: Index) => NodeKey[];
+interface EdgeTarget { key: NodeKey; label?: string }
+
+type Expander = (rr: RowRecord, idx: Index) => EdgeTarget[];
 
 /**
  * Table-specific expansion rules for BFS crawling.
@@ -450,103 +452,103 @@ type Expander = (rr: RowRecord, idx: Index) => NodeKey[];
  */
 const EXPANDERS: Record<string, Expander> = {
   Leaders: (rr, idx) => {
-    const out: NodeKey[] = [];
+    const out: EdgeTarget[] = [];
     for (const ltr of findBy('LeaderTraits', 'LeaderType', rr.row.LeaderType, idx)) {
-      if (ltr.row.TraitType) out.push({ table: 'Traits', id: String(ltr.row.TraitType) });
+      if (ltr.row.TraitType) out.push({ key: { table: 'Traits', id: String(ltr.row.TraitType) }, label: 'LeaderTraits' });
     }
     // Agendas (if present)
     for (const hag of findBy('HistoricalAgendas' as any, 'LeaderType', rr.row.LeaderType, idx)) {
-      if (hag.row.AgendaType) out.push({ table: 'Agendas', id: String(hag.row.AgendaType) });
+      if (hag.row.AgendaType) out.push({ key: { table: 'Agendas', id: String(hag.row.AgendaType) }, label: 'Agenda' });
     }
     return out;
   },
   Civilizations: (rr, idx) => {
-    const out: NodeKey[] = [];
+    const out: EdgeTarget[] = [];
     for (const ctr of findBy('CivilizationTraits', 'CivilizationType', rr.row.CivilizationType, idx)) {
-      if (ctr.row.TraitType) out.push({ table: 'Traits', id: String(ctr.row.TraitType) });
+      if (ctr.row.TraitType) out.push({ key: { table: 'Traits', id: String(ctr.row.TraitType) }, label: 'CivilizationTraits' });
     }
     // Start biases
     for (const sbr of findBy('StartBiasTerrains' as any, 'CivilizationType', rr.row.CivilizationType, idx)) {
-      out.push({ table: 'StartBiasTerrains' as any, id: `${sbr.row.CivilizationType}:${sbr.row.TerrainType}` });
+      out.push({ key: { table: 'StartBiasTerrains' as any, id: `${sbr.row.CivilizationType}:${sbr.row.TerrainType}` }, label: 'StartBiasTerrains' });
     }
     for (const sbr of findBy('StartBiasResources' as any, 'CivilizationType', rr.row.CivilizationType, idx)) {
-      out.push({ table: 'StartBiasResources' as any, id: `${sbr.row.CivilizationType}:${sbr.row.ResourceType}` });
+      out.push({ key: { table: 'StartBiasResources' as any, id: `${sbr.row.CivilizationType}:${sbr.row.ResourceType}` }, label: 'StartBiasResources' });
     }
     return out;
   },
   Traits: (rr, idx) => {
-    const out: NodeKey[] = [];
+    const out: EdgeTarget[] = [];
     for (const tmr of findBy('TraitModifiers', 'TraitType', rr.row.TraitType, idx)) {
-      if (tmr.row.ModifierId) out.push({ table: 'Modifiers', id: String(tmr.row.ModifierId) });
+      if (tmr.row.ModifierId) out.push({ key: { table: 'Modifiers', id: String(tmr.row.ModifierId) }, label: 'TraitModifiers' });
     }
     return out;
   },
   Modifiers: (rr, idx) => {
-    const out: NodeKey[] = [];
+    const out: EdgeTarget[] = [];
     // Link to RequirementSets
     for (const col of ['SubjectRequirementSetId','OwnerRequirementSetId','RequirementSetId']) {
-      const v = rr.row[col]; if (v) out.push({ table: 'RequirementSets', id: String(v) });
+      const v = rr.row[col]; if (v) out.push({ key: { table: 'RequirementSets', id: String(v) }, label: col });
     }
     // Link to ModifierArguments
     for (const mar of findBy('ModifierArguments', 'ModifierId', rr.row.ModifierId, idx)) {
-      out.push({ table: 'ModifierArguments', id: `${mar.row.ModifierId}:${mar.row.Name}` });
+      out.push({ key: { table: 'ModifierArguments', id: `${mar.row.ModifierId}:${mar.row.Name}` }, label: 'Argument' });
       // Opportunistically follow argument references (e.g., ImprovementType, UnitType, DistrictType, etc.)
       const name = String(mar.row.Name || '');
       const value = String(mar.row.Value || '');
       const targetTable = COLUMN_TO_TABLE[name as keyof typeof COLUMN_TO_TABLE];
       if (targetTable && value) {
         const pk = PRIMARY_KEYS[targetTable];
-        if (pk && getByPk(targetTable, value, idx)) out.push({ table: targetTable, id: value });
+        if (pk && getByPk(targetTable, value, idx)) out.push({ key: { table: targetTable, id: value }, label: name });
       }
       // Attach chain: Name === 'ModifierId' should reference another Modifier
       if (name.toLowerCase() === 'modifierid' && value) {
-        if (getByPk('Modifiers', value, idx)) out.push({ table: 'Modifiers', id: value });
+        if (getByPk('Modifiers', value, idx)) out.push({ key: { table: 'Modifiers', id: value }, label: 'Attach' });
       }
     }
     return out;
   },
   RequirementSets: (rr, idx) => {
-    const out: NodeKey[] = [];
+    const out: EdgeTarget[] = [];
     for (const rsr of findBy('RequirementSetRequirements', 'RequirementSetId', rr.row.RequirementSetId, idx)) {
-      if (rsr.row.RequirementId) out.push({ table: 'Requirements', id: String(rsr.row.RequirementId) });
+      if (rsr.row.RequirementId) out.push({ key: { table: 'Requirements', id: String(rsr.row.RequirementId) }, label: 'Requirement' });
     }
     return out;
   },
   Requirements: (rr, idx) => {
-    const out: NodeKey[] = [];
+    const out: EdgeTarget[] = [];
     for (const rar of findBy('RequirementArguments', 'RequirementId', rr.row.RequirementId, idx)) {
-      out.push({ table: 'RequirementArguments', id: `${rar.row.RequirementId}:${rar.row.Name}` });
+      out.push({ key: { table: 'RequirementArguments', id: `${rar.row.RequirementId}:${rar.row.Name}` }, label: 'Argument' });
       const name = String(rar.row.Name || '');
       const value = String(rar.row.Value || '');
       const targetTable = COLUMN_TO_TABLE[name as keyof typeof COLUMN_TO_TABLE];
       if (targetTable && value) {
         const pk = PRIMARY_KEYS[targetTable];
-        if (pk && getByPk(targetTable, value, idx)) out.push({ table: targetTable, id: value });
+        if (pk && getByPk(targetTable, value, idx)) out.push({ key: { table: targetTable, id: value }, label: name });
       }
     }
     return out;
   },
   Units: (rr, idx) => {
-    const out: NodeKey[] = [];
+    const out: EdgeTarget[] = [];
     // UnitAbilities
     for (const uam of findBy('UnitAbilityModifiers', 'UnitAbilityType', rr.row.UnitAbilityType ?? rr.row.AbilityType ?? '', idx)) {
-      if (uam.row.ModifierId) out.push({ table: 'Modifiers', id: String(uam.row.ModifierId) });
+      if (uam.row.ModifierId) out.push({ key: { table: 'Modifiers', id: String(uam.row.ModifierId) }, label: 'UnitAbilityModifier' });
     }
     // Replacement/Upgrade link guesses
     for (const k of ['ReplacesUnitType','UpgradesTo']) {
-      const v = rr.row[k]; if (v && getByPk('Units', v, idx)) out.push({ table: 'Units', id: String(v) });
+      const v = rr.row[k]; if (v && getByPk('Units', v, idx)) out.push({ key: { table: 'Units', id: String(v) }, label: k });
     }
     return out;
   },
   Improvements: (rr, idx) => {
-    const out: NodeKey[] = [];
+    const out: EdgeTarget[] = [];
     for (const t of ['Improvement_YieldChanges','Improvement_ValidTerrains','Improvement_ValidFeatures','Improvement_AdjacentDistrictYields']) {
       const ti = idx.tables.get(t); if (!ti) continue;
       const col = 'ImprovementType';
       const map = ti.byCol.get(col); if (!map) continue;
       const list = map.get(rr.row.ImprovementType);
       if (list) {
-        for (const r of list) out.push({ table: t, id: `${r.row.ImprovementType}:${Object.values(r.row).join('|')}` });
+        for (const r of list) out.push({ key: { table: t, id: `${r.row.ImprovementType}:${Object.values(r.row).join('|')}` }, label: t });
       }
     }
     return out;
@@ -557,12 +559,12 @@ const EXPANDERS: Record<string, Expander> = {
 /**
  * Generic linker: for any known column→table mapping, follow to the target table if the row exists.
  */
-function genericEdges(rr: RowRecord, idx: Index): NodeKey[] {
-  const out: NodeKey[] = [];
+function genericEdges(rr: RowRecord, idx: Index): EdgeTarget[] {
+  const out: EdgeTarget[] = [];
   for (const [col, targetTable] of Object.entries(COLUMN_TO_TABLE)) {
     const v = rr.row[col];
     if (typeof v === 'string' && PRIMARY_KEYS[targetTable]) {
-      if (getByPk(targetTable, v, idx)) out.push({ table: targetTable, id: v });
+      if (getByPk(targetTable, v, idx)) out.push({ key: { table: targetTable, id: v }, label: col });
     }
   }
   return out;
@@ -601,16 +603,17 @@ export function crawl(idx: Index, seed: NodeKey): CrawlResult {
     const curRR = getByPk(cur.table, cur.id, idx)!;
 
     const ex = EXPANDERS[cur.table as keyof typeof EXPANDERS];
-    const nextKeys: NodeKey[] = [
+    const nextEdges: EdgeTarget[] = [
       ...(ex ? ex(curRR, idx) : []),
       ...genericEdges(curRR, idx),
     ];
 
-    for (const nk of nextKeys) {
-      const before = nkToStr(cur);
-      const after = nkToStr(nk);
+    for (const edge of nextEdges) {
+      const nk = edge.key;
       if (!getByPk(nk.table, nk.id, idx)) continue;
-      graph.edges.push({ from: cur, to: nk });
+      // Skip self-loops for readability
+      if (nk.table === cur.table && nk.id === cur.id) continue;
+      graph.edges.push({ from: cur, to: nk, label: edge.label });
       enqueue(nk);
     }
   }
