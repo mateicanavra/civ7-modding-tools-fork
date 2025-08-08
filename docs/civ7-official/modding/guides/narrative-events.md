@@ -110,6 +110,16 @@ So we've defined three new Narrative Events (A, B, and C) in `Types`/`NarrativeS
 
 ![](images/Event_1.png)
 
+
+```xml
+%[{ examples/fxs-new-narrative-event/data/antiquity-discovery.xml }]%
+```
+
+
+```sql
+%[{ examples/fxs-new-narrative-event/data/antiquity-discovery-game-effects.sql }]%
+```
+
 Most of the columns here are self-explanatory, but here are some columns worth noting.
 
 * `NarrativeStories`
