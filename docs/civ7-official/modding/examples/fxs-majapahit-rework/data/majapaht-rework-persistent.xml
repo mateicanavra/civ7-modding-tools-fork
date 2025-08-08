@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is for changes that will persist across Ages -->
+<!-- Basically just the changes to the Majapahit Traditions -->
+<!-- Changes to unique buildings or Borobudur (the Wonder) would probably be here too -->
+<Database>
+	<TraditionModifiers>
+		<!-- Delete old modifiers -->
+		<!-- Note how the tag is 'Delete' instead of 'Row' -->
+		<Delete TraditionType="TRADITION_PANJI"/>
+		<Delete TraditionType="TRADITION_NEGARAKERTAGAMA"/>
+		<!-- Now that the old stuff is deleted, we can add new modifiers -->
+		<!-- Panji Modifiers -->
+		<Row TraditionType="TRADITION_PANJI" ModifierId="MOD_FXS_TRADITION_PANJI_QUARTER_CULTURE"/>
+		<Row TraditionType="TRADITION_PANJI" ModifierId="MOD_FXS_TRADITION_PANJI_QUARTER_CULTURE_ISLAND"/>
+		<!-- Negarakertagma Modifiers -->
+		<Row TraditionType="TRADITION_NEGARAKERTAGAMA" ModifierId="MOD_FXS_TRADITION_NEGARAKERTAGAMA_ADJACENCY"/>
+	</TraditionModifiers>
+	<!-- Adjacency Yield Changes -->
+	<!-- While the adjacency is ACTIVATED with a modifier, it is still handled as a separate system. -->
+	<!-- So we define it here. -->
+	<Adjacency_YieldChanges>
+		<!-- Yep, you can split up a single row like this -->
+		<!-- Makes it easier to read than a single long line. -->
+		<Row
+			ID="FXS_NegarakertagamaQuarterHappiness"
+			YieldType="YIELD_HAPPINESS"
+			YieldChange="1"
+			TilesRequired="1"
+			AdjacentQuarter="true"
+		/>
+	</Adjacency_YieldChanges>
+	<Constructible_Adjacencies>
+		<!-- Notice how I need two distinct entries here where I could get away with a single statement in SQL -->
+		<!-- In this case, the difference is minor, but for more complex condition, SQL wins out on brevity -->
+		<Row ConstructibleType="BUILDING_PALACE" YieldChangeId="FXS_NegarakertagamaQuarterHappiness" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_CITY_HALL" YieldChangeId="FXS_NegarakertagamaQuarterHappiness" RequiresActivation="true"/>
+	</Constructible_Adjacencies>
+</Database>

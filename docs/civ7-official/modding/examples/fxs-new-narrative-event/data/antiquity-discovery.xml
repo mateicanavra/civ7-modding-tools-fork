@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <Types>
+        <Row Type="DISCOVERY_FXS_FRAGRANT_BUSH" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="DISCOVERY_FXS_FRAGRANT_BUSH_A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="DISCOVERY_FXS_FRAGRANT_BUSH_B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="DISCOVERY_FXS_FRAGRANT_BUSH_C" Kind="KIND_NARRATIVE_STORY"/>
+    </Types>
+    <NarrativeStories>
+        <!-- Initial Event -->
+        <Row
+            NarrativeStoryType="DISCOVERY_FXS_FRAGRANT_BUSH"
+            Name="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_NAME"
+            Description="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_DESCRIPTION"
+            Completion="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_COMPLETION"
+            StoryTitle="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_STORYTITLE"
+
+            Age="AGE_ANTIQUITY"
+            Queue="NARRATIVE_GROUP_DISCOVERY_CAMPFIRE_BASIC"
+
+			StartEveryone="TRUE"
+			FirstOnly="TRUE"
+			ForceChoice="TRUE"
+
+            Hidden="FALSE"
+            Activation="AUTO"
+            UIActivation="DISCOVERY"
+        
+            RequirementSetId="REQSET_DISCOVERY_BASE_NARRATIVE"
+        />
+        <!-- Options -->
+        <Row
+            NarrativeStoryType="DISCOVERY_FXS_FRAGRANT_BUSH_A"
+            Name="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_A_NAME"
+            Description="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_A_DESCRIPTION"
+            Completion="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_A_COMPLETION"
+            StoryTitle="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_A_STORYTITLE"
+
+            Age="AGE_ANTIQUITY"
+            Hidden="TRUE"
+            Activation="LINKED"
+            UIActivation="DISCOVERY"
+        
+            RequirementSetId="Met"
+        />
+        <Row
+            NarrativeStoryType="DISCOVERY_FXS_FRAGRANT_BUSH_B"
+            Name="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_B_NAME"
+            Description="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_B_DESCRIPTION"
+            Completion="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_B_COMPLETION"
+            StoryTitle="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_B_STORYTITLE"
+
+            Age="AGE_ANTIQUITY"
+            Hidden="TRUE"
+            Activation="LINKED"
+            UIActivation="DISCOVERY"
+        
+            RequirementSetId="Met"
+        />
+        <Row
+            NarrativeStoryType="DISCOVERY_FXS_FRAGRANT_BUSH_C"
+            Name="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_C_NAME"
+            Description="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_C_DESCRIPTION"
+            Completion="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_C_COMPLETION"
+            StoryTitle="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_C_STORYTITLE"
+
+            Age="AGE_ANTIQUITY"
+            Hidden="TRUE"
+            Activation="LINKED"
+            UIActivation="DISCOVERY"
+        
+            RequirementSetId="Met"
+        />
+    </NarrativeStories>
+    <NarrativeStoryOverrides>
+        <Row NarrativeStoryType="DISCOVERY_FXS_FRAGRANT_BUSH" OverriddenStoryType="DISCOVERY_BASE"/>
+    </NarrativeStoryOverrides>
+    <NarrativeStory_Links>
+        <Row
+            FromNarrativeStoryType="DISCOVERY_FXS_FRAGRANT_BUSH"
+            ToNarrativeStoryType="DISCOVERY_FXS_FRAGRANT_BUSH_A"
+            Priority="0"
+            Name="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_A_NAME"
+            Description="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_A_DESCRIPTION"
+        />
+        <Row
+            FromNarrativeStoryType="DISCOVERY_FXS_FRAGRANT_BUSH"
+            ToNarrativeStoryType="DISCOVERY_FXS_FRAGRANT_BUSH_B"
+            Priority="1"
+            Name="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_B_NAME"
+            Description="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_B_DESCRIPTION"
+        />
+        <Row
+            FromNarrativeStoryType="DISCOVERY_FXS_FRAGRANT_BUSH"
+            ToNarrativeStoryType="DISCOVERY_FXS_FRAGRANT_BUSH_C"
+            Priority="2"
+            Name="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_C_NAME"
+            Description="LOC_DISCOVERY_FXS_FRAGRANT_BUSH_C_DESCRIPTION"
+        />
+    </NarrativeStory_Links>
+    <NarrativeRewardIcons>
+        <Row NarrativeStoryType="DISCOVERY_FXS_FRAGRANT_BUSH_A" RewardIconType="YIELD_SCIENCE"/>
+        <Row NarrativeStoryType="DISCOVERY_FXS_FRAGRANT_BUSH_B" RewardIconType="YIELD_CULTURE"/>
+        <Row NarrativeStoryType="DISCOVERY_FXS_FRAGRANT_BUSH_C" RewardIconType="YIELD_HAPPINESS"/>
+    </NarrativeRewardIcons>
+    <NarrativeStory_TextReplacements>
+        <Row
+            NarrativeStoryType="DISCOVERY_FXS_FRAGRANT_BUSH_A" 
+            NarrativeStoryTextType="REWARD" 
+            NarrativeTextReplacementType="REWARD"
+            Priority="1"
+        />
+        <Row
+            NarrativeStoryType="DISCOVERY_FXS_FRAGRANT_BUSH_B" 
+            NarrativeStoryTextType="REWARD" 
+            NarrativeTextReplacementType="REWARD"
+            Priority="1"
+        />
+        <Row
+            NarrativeStoryType="DISCOVERY_FXS_FRAGRANT_BUSH_C" 
+            NarrativeStoryTextType="REWARD" 
+            NarrativeTextReplacementType="REWARD"
+            Priority="1"
+        />
+    </NarrativeStory_TextReplacements>
+    <NarrativeStory_Rewards>
+        <!-- Predefined Reward to remove triggering Constructible -->
+        <Row
+            NarrativeStoryType="DISCOVERY_FXS_FRAGRANT_BUSH"
+            NarrativeRewardType="DISCOVERY_BASE_REWARD"
+            Activation="COMPLETE"
+        />
+        <!-- Custom Rewards -->
+        <Row
+            NarrativeStoryType="DISCOVERY_FXS_FRAGRANT_BUSH_A"
+            NarrativeRewardType="DISCOVERY_FXS_FRAGRANT_BUSH_A_REWARD"
+            Activation="COMPLETE"
+        />
+        <Row
+            NarrativeStoryType="DISCOVERY_FXS_FRAGRANT_BUSH_B"
+            NarrativeRewardType="DISCOVERY_FXS_FRAGRANT_BUSH_B_REWARD"
+            Activation="COMPLETE"
+        />
+        <Row
+            NarrativeStoryType="DISCOVERY_FXS_FRAGRANT_BUSH_C"
+            NarrativeRewardType="DISCOVERY_FXS_FRAGRANT_BUSH_C_REWARD"
+            Activation="COMPLETE"
+        />
+    </NarrativeStory_Rewards>
+    <NarrativeRewards>
+        <Row NarrativeRewardType="DISCOVERY_FXS_FRAGRANT_BUSH_A_REWARD" ModifierID="DISCOVERY_FXS_FRAGRANT_BUSH_A_MODIFIER"/>
+        <Row NarrativeRewardType="DISCOVERY_FXS_FRAGRANT_BUSH_B_REWARD" ModifierID="DISCOVERY_FXS_FRAGRANT_BUSH_B_MODIFIER"/>
+        <Row NarrativeRewardType="DISCOVERY_FXS_FRAGRANT_BUSH_C_REWARD" ModifierID="DISCOVERY_FXS_FRAGRANT_BUSH_C_MODIFIER"/>
+    </NarrativeRewards>
+</Database>

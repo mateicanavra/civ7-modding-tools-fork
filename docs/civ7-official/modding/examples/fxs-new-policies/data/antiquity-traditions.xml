@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <Types>
+        <Row Type="TRADITION_FXS_CYLINDER_SEALS" Kind="KIND_TRADITION"/>
+        <Row Type="TRADITION_FXS_ORACLE_BONES" Kind="KIND_TRADITION"/>
+    </Types>
+	<Traditions>
+		<Row TraditionType="TRADITION_FXS_CYLINDER_SEALS" Name="LOC_TRADITION_FXS_CYLINDER_SEALS_NAME" Description="LOC_TRADITION_FXS_CYLINDER_SEALS_DESCRIPTION"/>
+        <Row TraditionType="TRADITION_FXS_ORACLE_BONES" Name="LOC_TRADITION_FXS_ORACLE_BONES_NAME" Description="LOC_TRADITION_FXS_ORACLE_BONES_DESCRIPTION"/>
+    </Traditions>
+	<ProgressionTreeNodeUnlocks>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAIN_CHIEFDOM" TargetKind="KIND_TRADITION" TargetType="TRADITION_FXS_CYLINDER_SEALS" UnlockDepth="1"/>
+        <Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAIN_CHIEFDOM" TargetKind="KIND_TRADITION" TargetType="TRADITION_FXS_ORACLE_BONES" UnlockDepth="1"/>
+    </ProgressionTreeNodeUnlocks>
+	<TraditionModifiers>
+		<Row TraditionType="TRADITION_FXS_CYLINDER_SEALS" ModifierId="FXS_CYLINDER_SEALS_MOD_PALACE_FOOD"/>
+		<Row TraditionType="TRADITION_FXS_CYLINDER_SEALS" ModifierId="FXS_CYLINDER_SEALS_MOD_PALACE_GOLD"/>
+		<Row TraditionType="TRADITION_FXS_ORACLE_BONES" ModifierId="FXS_ORACLE_BONES_MOD_PALACE_HAPPINESS"/>
+		<Row TraditionType="TRADITION_FXS_ORACLE_BONES" ModifierId="FXS_ORACLE_BONES_MOD_PALACE_CULTURE"/>
+    </TraditionModifiers>
+</Database>

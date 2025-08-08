@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+    <Modifier id="DISCOVERY_FXS_FRAGRANT_BUSH_A_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_DISCOVERY" run-once="true" permanent="true">
+        <Argument name="YieldType">YIELD_SCIENCE</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MINOR</Argument>
+    </Modifier>
+    <Modifier id="DISCOVERY_FXS_FRAGRANT_BUSH_B_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_DISCOVERY" run-once="true" permanent="true">
+        <Argument name="YieldType">YIELD_CULTURE</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MINOR</Argument>
+    </Modifier>
+    <Modifier id="DISCOVERY_FXS_FRAGRANT_BUSH_C_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_DISCOVERY" run-once="true" permanent="true">
+        <Argument name="YieldType">YIELD_HAPPINESS</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MINOR</Argument>
+    </Modifier>
+</GameEffects>

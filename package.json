@@ -12,7 +12,9 @@
         "unzip-civ": "pnpm --filter @civ7-modding/cli unzip",
         "refresh": "pnpm install && pnpm run build:cli && pnpm run compile",
         "refresh:data": "pnpm run zip-civ && pnpm run unzip-civ",
-        "docs": "docsify serve docs"
+        "docs:all": "docsify serve docs -p 3000",
+        "docs:community": "docsify serve docs/community -p 3010",
+        "docs:official": "docsify serve docs/civ7-official/modding -p 3020"
     },
     "module": "dist/index.js",
     "types": "dist/index.d.ts",

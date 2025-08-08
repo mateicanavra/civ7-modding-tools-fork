@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!-- UPDATE ICONS
+Civic modifier unlocks should have icons to represent what they unlock
+Just setting them here. -->
+<Database>
+	<IconAliases>
+		<!-- Note the "Replace" instead of "Row" -->
+		<!-- This allows us to update ALIRAN_KEPERCAYAAN but also add a new icon entry for NUSUNTARA in a single statement. -->
+		<Replace ID="MOD_ALIRAN_KEPERCAYAAN_CONVERT_EXTRA_CULTURE" OtherID="MOD_UNIT_UPGRADE"/>
+		<Replace ID="MOD_FXS_NUSUNTARA_TREASURE_FLEET_GENERATION" OtherID="MOD_UNLOCK_TREASURE_FLEET"/>
+	</IconAliases>
+</Database>

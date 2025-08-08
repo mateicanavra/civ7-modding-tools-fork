@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="MOD_FXS_TRADITION_PANJI_QUARTER_CULTURE_MODIFIER" collection="COLLECTION_CITY_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IS_QUARTER"/>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_TO_COAST"></Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="MOD_FXS_TRADITION_PANJI_QUARTER_CULTURE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">MOD_FXS_TRADITION_PANJI_QUARTER_CULTURE_MODIFIER</Argument>
+	</Modifier>
+	<Modifier id="MOD_FXS_TRADITION_PANJI_QUARTER_CULTURE_ISLAND" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+			<Requirement type="REQUIREMENT_CITY_IS_ISLAND">
+				<Argument name="Tiles">15</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ModifierId">MOD_FXS_TRADITION_PANJI_QUARTER_CULTURE_MODIFIER</Argument>
+	</Modifier>
+	<Modifier id="MOD_FXS_TRADITION_NEGARAKERTAGAMA_ADJACENCY" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ACTIVATE_CONSTRUCTIBLE_ADJACENCY">
+		<Argument name="ConstructibleAdjacency">FXS_NegarakertagamaQuarterHappiness</Argument>
+	</Modifier>
+</GameEffects>

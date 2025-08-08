@@ -32,3 +32,5 @@ Thumbs.db
 # Modify this to match your zip output
 civ7-official-resources/
 docs/civ7-official/resources/
+
+.early.coverage/

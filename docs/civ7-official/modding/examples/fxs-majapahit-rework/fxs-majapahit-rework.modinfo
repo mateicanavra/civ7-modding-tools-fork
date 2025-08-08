@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Mod id="fxs-majapahit-rework" version="1"
+	xmlns="ModInfo">
+	<Properties>
+		<Name>Example Mod - Majapahit Rework</Name>
+		<Description>Reworks the Majapahit Civ</Description>
+		<Authors>Firaxis</Authors>
+		<Package>Mod</Package>
+	</Properties>
+	<Dependencies>
+	</Dependencies>
+	<References>
+	</References>
+	<ActionCriteria>
+		<Criteria id="exploration-age-current">
+			<AgeInUse>AGE_EXPLORATION</AgeInUse>
+		</Criteria>
+		<Criteria id="exploration-age-persist">
+			<AgeInUse inverse="1">AGE_ANTIQUITY</AgeInUse>
+		</Criteria>
+		<Criteria id="always">
+			<AlwaysMet></AlwaysMet>
+		</Criteria>
+	</ActionCriteria>
+	<ActionGroups>
+		<ActionGroup id="shell-always" scope="shell" criteria="always">
+			<Properties>
+				<LoadOrder>20</LoadOrder>
+			</Properties>
+			<Actions>
+				<UpdateText>
+					<Item>text/majapaht-rework-text.sql</Item>
+				</UpdateText>
+			</Actions>
+		</ActionGroup>
+		<ActionGroup id="game-exp" scope="game" criteria="exploration-age-current">
+			<Properties>
+				<LoadOrder>20</LoadOrder>
+			</Properties>
+			<Actions>
+				<UpdateDatabase>
+					<Item>data/majapaht-rework-exploration-modifiers.sql</Item>
+					<Item>data/majapaht-rework-exploration.xml</Item>
+				</UpdateDatabase>
+				<UpdateIcons>
+					<Item>data/majapaht-rework-icons.xml</Item>
+				</UpdateIcons>
+			</Actions>
+		</ActionGroup>
+		<ActionGroup id="game-exp-persist" scope="game" criteria="exploration-age-persist">
+			<Properties>
+				<LoadOrder>20</LoadOrder>
+			</Properties>
+			<Actions>
+				<UpdateDatabase>
+					<Item>data/majapaht-rework-persistent-modifiers.xml</Item>
+					<Item>data/majapaht-rework-persistent.sql</Item>
+				</UpdateDatabase>
+				<UpdateText>
+					<Item>text/majapaht-rework-text.sql</Item>
+				</UpdateText>
+			</Actions>
+		</ActionGroup>
+	</ActionGroups>
+</Mod>

@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <Types>
+        <!-- Initial Event -->
+        <Row Type="EVENT_FXS_THE_YONA" Kind="KIND_NARRATIVE_STORY"/>
+        <!-- Art and Architecture -->
+        <Row Type="EVENT_FXS_THE_YONA_A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EVENT_FXS_THE_YONA_AA" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EVENT_FXS_THE_YONA_AB" Kind="KIND_NARRATIVE_STORY"/>
+        <!-- Trade and Philosophy -->
+        <Row Type="EVENT_FXS_THE_YONA_B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EVENT_FXS_THE_YONA_BA" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EVENT_FXS_THE_YONA_BB" Kind="KIND_NARRATIVE_STORY"/>
+        <!-- Prepare for War -->
+        <Row Type="EVENT_FXS_THE_YONA_C" Kind="KIND_NARRATIVE_STORY"/>
+    </Types>
+    <NarrativeStories>
+        <!-- ============================ -->
+        <!-- Initial Event -->
+        <!-- ============================ -->
+        <Row
+            NarrativeStoryType="EVENT_FXS_THE_YONA"
+
+            Name="LOC_EVENT_FXS_THE_YONA_NAME"
+            Description="LOC_EVENT_FXS_THE_YONA_DESCRIPTION"
+            Completion="LOC_EVENT_FXS_THE_YONA_COMPLETION"
+            StoryTitle="LOC_EVENT_FXS_THE_YONA_STORYTITLE"
+            Imperative="LOC_EVENT_FXS_THE_YONA_IMPERATIVE"
+
+            Age="AGE_ANTIQUITY"
+            IsQuest="FALSE"
+            Hidden="FALSE"
+            Activation="REQUISITE"
+            UIActivation="STANDARD"
+        
+            ActivationRequirementSetId="REQSET_EVENT_FXS_THE_YONA_REQUISITE"
+            RequirementSetId="REQSET_EVENT_FXS_THE_YONA_NARRATIVE"
+        />
+        <!-- ============================ -->
+        <!-- Art and Architecture -->
+        <!-- ============================ -->
+        <Row
+            NarrativeStoryType="EVENT_FXS_THE_YONA_A"
+            Name="LOC_EVENT_FXS_THE_YONA_A_NAME"
+            Description="LOC_EVENT_FXS_THE_YONA_A_DESCRIPTION"
+            Completion="LOC_EVENT_FXS_THE_YONA_A_COMPLETION"
+            StoryTitle="LOC_EVENT_FXS_THE_YONA_A_STORYTITLE"
+            Imperative="LOC_EVENT_FXS_THE_YONA_A_IMPERATIVE"
+
+            Age="AGE_ANTIQUITY"
+            IsQuest="TRUE"
+            Hidden="FALSE"
+            Activation="LINKED"
+            UIActivation="STANDARD"
+        
+            RequirementSetId="REQSET_EVENT_FXS_THE_YONA_A_NARRATIVE"
+        />
+        <Row
+            NarrativeStoryType="EVENT_FXS_THE_YONA_AA"
+            Name="LOC_EVENT_FXS_THE_YONA_AA_NAME"
+            Description="LOC_EVENT_FXS_THE_YONA_AA_DESCRIPTION"
+            Completion="LOC_EVENT_FXS_THE_YONA_AA_COMPLETION"
+            StoryTitle="LOC_EVENT_FXS_THE_YONA_AA_STORYTITLE"
+
+            Age="AGE_ANTIQUITY"
+            IsQuest="FALSE"
+            Hidden="TRUE"
+            Activation="LINKED"
+            UIActivation="STANDARD"
+        
+            RequirementSetId="Met"
+        />
+        <Row
+            NarrativeStoryType="EVENT_FXS_THE_YONA_AB"
+            Name="LOC_EVENT_FXS_THE_YONA_AB_NAME"
+            Description="LOC_EVENT_FXS_THE_YONA_AB_DESCRIPTION"
+            Completion="LOC_EVENT_FXS_THE_YONA_AB_COMPLETION"
+            StoryTitle="LOC_EVENT_FXS_THE_YONA_AB_STORYTITLE"
+
+            Age="AGE_ANTIQUITY"
+            IsQuest="FALSE"
+            Hidden="TRUE"
+            Activation="LINKED"
+            UIActivation="STANDARD"
+        
+            RequirementSetId="Met"
+        />
+        <!-- ============================ -->
+        <!-- Trade and Philosophy -->
+        <!-- ============================ -->
+        <Row
+            NarrativeStoryType="EVENT_FXS_THE_YONA_B"
+            Name="LOC_EVENT_FXS_THE_YONA_B_NAME"
+            Description="LOC_EVENT_FXS_THE_YONA_B_DESCRIPTION"
+            Completion="LOC_EVENT_FXS_THE_YONA_B_COMPLETION"
+            StoryTitle="LOC_EVENT_FXS_THE_YONA_B_STORYTITLE"
+            Imperative="LOC_EVENT_FXS_THE_YONA_B_IMPERATIVE"
+
+            Age="AGE_ANTIQUITY"
+            IsQuest="TRUE"
+            Hidden="FALSE"
+            Activation="LINKED"
+            UIActivation="STANDARD"
+        
+            RequirementSetId="REQSET_EVENT_FXS_THE_YONA_B_NARRATIVE"
+        />
+        <Row
+            NarrativeStoryType="EVENT_FXS_THE_YONA_BA"
+            Name="LOC_EVENT_FXS_THE_YONA_BA_NAME"
+            Description="LOC_EVENT_FXS_THE_YONA_BA_DESCRIPTION"
+            Completion="LOC_EVENT_FXS_THE_YONA_BA_COMPLETION"
+            StoryTitle="LOC_EVENT_FXS_THE_YONA_BA_STORYTITLE"
+
+            Age="AGE_ANTIQUITY"
+            IsQuest="FALSE"
+            Hidden="TRUE"
+            Activation="LINKED"
+            UIActivation="STANDARD"
+        
+            RequirementSetId="Met"
+        />
+        <Row
+            NarrativeStoryType="EVENT_FXS_THE_YONA_BB"
+            Name="LOC_EVENT_FXS_THE_YONA_BB_NAME"
+            Description="LOC_EVENT_FXS_THE_YONA_BB_DESCRIPTION"
+            Completion="LOC_EVENT_FXS_THE_YONA_BB_COMPLETION"
+            StoryTitle="LOC_EVENT_FXS_THE_YONA_BB_STORYTITLE"
+
+            Age="AGE_ANTIQUITY"
+            IsQuest="FALSE"
+            Hidden="TRUE"
+            Activation="LINKED"
+            UIActivation="STANDARD"
+        
+            RequirementSetId="Met"
+        />
+        <!-- ============================ -->
+        <!-- Prepare for War -->
+        <!-- ============================ -->
+        <Row
+            NarrativeStoryType="EVENT_FXS_THE_YONA_C"
+            Name="LOC_EVENT_FXS_THE_YONA_C_NAME"
+            Description="LOC_EVENT_FXS_THE_YONA_C_DESCRIPTION"
+            Completion="LOC_EVENT_FXS_THE_YONA_C_COMPLETION"
+            StoryTitle="LOC_EVENT_FXS_THE_YONA_C_STORYTITLE"
+
+            Age="AGE_ANTIQUITY"
+            IsQuest="FALSE"
+            Hidden="TRUE"
+            Activation="LINKED"
+            UIActivation="STANDARD"
+        
+            RequirementSetId="Met"
+        />
+    </NarrativeStories>
+    <NarrativeStory_Links>
+        <!-- ============================ -->
+        <!-- FROM: Initial Event -->
+        <!-- ============================ -->
+        <Row
+            FromNarrativeStoryType="EVENT_FXS_THE_YONA"
+            ToNarrativeStoryType="EVENT_FXS_THE_YONA_A"
+            Priority="0"
+            Name="LOC_EVENT_FXS_THE_YONA_A_NAME"
+            Description="LOC_EVENT_FXS_THE_YONA_A_DESCRIPTION"
+        />
+        <Row
+            FromNarrativeStoryType="EVENT_FXS_THE_YONA"
+            ToNarrativeStoryType="EVENT_FXS_THE_YONA_B"
+            Priority="1"
+            Name="LOC_EVENT_FXS_THE_YONA_B_NAME"
+            Description="LOC_EVENT_FXS_THE_YONA_B_DESCRIPTION"
+        />
+        <Row
+            FromNarrativeStoryType="EVENT_FXS_THE_YONA"
+            ToNarrativeStoryType="EVENT_FXS_THE_YONA_C"
+            Priority="2"
+            Name="LOC_EVENT_FXS_THE_YONA_C_NAME"
+            Description="LOC_EVENT_FXS_THE_YONA_C_DESCRIPTION"
+        />
+        <!-- ============================ -->
+        <!-- FROM: OPTION A -->
+        <!-- ============================ -->
+        <Row
+            FromNarrativeStoryType="EVENT_FXS_THE_YONA_A"
+            ToNarrativeStoryType="EVENT_FXS_THE_YONA_AA"
+            Priority="0"
+            Name="LOC_EVENT_FXS_THE_YONA_AA_NAME"
+            Description="LOC_EVENT_FXS_THE_YONA_AA_DESCRIPTION"
+        />
+        <Row
+            FromNarrativeStoryType="EVENT_FXS_THE_YONA_A"
+            ToNarrativeStoryType="EVENT_FXS_THE_YONA_AB"
+            Priority="1"
+            Name="LOC_EVENT_FXS_THE_YONA_AB_NAME"
+            Description="LOC_EVENT_FXS_THE_YONA_AB_DESCRIPTION"
+        />
+        <!-- ============================ -->
+        <!-- FROM: OPTION B -->
+        <!-- ============================ -->
+        <Row
+            FromNarrativeStoryType="EVENT_FXS_THE_YONA_B"
+            ToNarrativeStoryType="EVENT_FXS_THE_YONA_BA"
+            Priority="0"
+            Name="LOC_EVENT_FXS_THE_YONA_BA_NAME"
+            Description="LOC_EVENT_FXS_THE_YONA_BA_DESCRIPTION"
+        />
+        <Row
+            FromNarrativeStoryType="EVENT_FXS_THE_YONA_B"
+            ToNarrativeStoryType="EVENT_FXS_THE_YONA_BB"
+            Priority="1"
+            Name="LOC_EVENT_FXS_THE_YONA_BB_NAME"
+            Description="LOC_EVENT_FXS_THE_YONA_BB_DESCRIPTION"
+        />
+    </NarrativeStory_Links>
+    <NarrativeRewardIcons>
+        <Row NarrativeStoryType="EVENT_FXS_THE_YONA_A" RewardIconType="QUEST"/>
+        <Row NarrativeStoryType="EVENT_FXS_THE_YONA_B" RewardIconType="QUEST"/>
+        <Row NarrativeStoryType="EVENT_FXS_THE_YONA_AA" RewardIconType="YIELD_HAPPINESS"/>
+        <Row NarrativeStoryType="EVENT_FXS_THE_YONA_AB" RewardIconType="YIELD_CULTURE"/>
+        <Row NarrativeStoryType="EVENT_FXS_THE_YONA_AB" RewardIconType="YIELD_SCIENCE"/>
+        <Row NarrativeStoryType="EVENT_FXS_THE_YONA_BA" RewardIconType="UNIT"/>
+        <Row NarrativeStoryType="EVENT_FXS_THE_YONA_BB" RewardIconType="GREATWORK"/>
+        <Row NarrativeStoryType="EVENT_FXS_THE_YONA_C" RewardIconType="UNIT"/>
+    </NarrativeRewardIcons>
+    <NarrativeStory_TextReplacements>
+        <Row
+            NarrativeStoryType="EVENT_FXS_THE_YONA_AB" 
+            NarrativeStoryTextType="REWARD" 
+            NarrativeTextReplacementType="REWARD"
+            Priority="1"
+        />
+        <Row
+            NarrativeStoryType="EVENT_FXS_THE_YONA_AB" 
+            NarrativeStoryTextType="REWARD" 
+            NarrativeTextReplacementType="REWARD"
+            Priority="2"
+        />
+        <Row
+            NarrativeStoryType="EVENT_FXS_THE_YONA_BA" 
+            NarrativeStoryTextType="REWARD" 
+            NarrativeTextReplacementType="REWARD"
+            Priority="1"
+        />
+        <Row
+            NarrativeStoryType="EVENT_FXS_THE_YONA_BB" 
+            NarrativeStoryTextType="REWARD" 
+            NarrativeTextReplacementType="REWARD"
+            Priority="1"
+        />
+        <Row
+            NarrativeStoryType="EVENT_FXS_THE_YONA_C" 
+            NarrativeStoryTextType="REWARD" 
+            NarrativeTextReplacementType="REWARD"
+            Priority="1"
+        />
+    </NarrativeStory_TextReplacements>
+    <NarrativeStory_Rewards>
+        <Row
+            NarrativeStoryType="EVENT_FXS_THE_YONA_AA"
+            NarrativeRewardType="EVENT_FXS_THE_YONA_AA_REWARD"
+            Activation="COMPLETE"
+        />
+        <Row
+            NarrativeStoryType="EVENT_FXS_THE_YONA_AB"
+            NarrativeRewardType="EVENT_FXS_THE_YONA_AB_REWARD"
+            Activation="COMPLETE"
+        />
+        <Row
+            NarrativeStoryType="EVENT_FXS_THE_YONA_AB"
+            NarrativeRewardType="EVENT_FXS_THE_YONA_AB_REWARD2"
+            Activation="COMPLETE"
+        />
+        <Row
+            NarrativeStoryType="EVENT_FXS_THE_YONA_BA"
+            NarrativeRewardType="EVENT_FXS_THE_YONA_BA_REWARD"
+            Activation="COMPLETE"
+        />
+        <Row
+            NarrativeStoryType="EVENT_FXS_THE_YONA_BB"
+            NarrativeRewardType="EVENT_FXS_THE_YONA_BB_REWARD"
+            Activation="COMPLETE"
+        />
+        <Row
+            NarrativeStoryType="EVENT_FXS_THE_YONA_C"
+            NarrativeRewardType="EVENT_FXS_THE_YONA_C_REWARD"
+            Activation="COMPLETE"
+        />
+    </NarrativeStory_Rewards>
+    <NarrativeRewards>
+        <Row NarrativeRewardType="EVENT_FXS_THE_YONA_AA_REWARD" ModifierID="EVENT_FXS_THE_YONA_AA_MODIFIER"/>
+        <Row NarrativeRewardType="EVENT_FXS_THE_YONA_AB_REWARD" ModifierID="EVENT_FXS_THE_YONA_AB_MODIFIER"/>
+        <Row NarrativeRewardType="EVENT_FXS_THE_YONA_AB_REWARD2" ModifierID="EVENT_FXS_THE_YONA_AB_MODIFIER2"/>
+        <Row NarrativeRewardType="EVENT_FXS_THE_YONA_BA_REWARD" ModifierID="EVENT_FXS_THE_YONA_BA_MODIFIER"/>
+        <Row NarrativeRewardType="EVENT_FXS_THE_YONA_BB_REWARD" ModifierID="EVENT_FXS_THE_YONA_BB_MODIFIER"/>
+        <Row NarrativeRewardType="EVENT_FXS_THE_YONA_C_REWARD" ModifierID="EVENT_FXS_THE_YONA_C_MODIFIER"/>
+    </NarrativeRewards>
+</Database>
