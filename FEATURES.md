@@ -24,6 +24,19 @@ This document tracks completed work and upcoming enhancements for the CLI and XM
     - Proper DOT/URI escaping; no URLs on edges.
   - Acceptance: Verified on `LEADER_AMINA`, `CIVILIZATION_ROME`; no Phase A regressions; large graphs still render.
 
+- Phase D — Structural grouping (Completed)
+  - VIZ-11: Cluster requirement sets
+    - Each `RequirementSet` is rendered as a cluster containing its `Requirements` and `RequirementArguments`.
+    - Preserves Phase B layered ranks; cluster members are removed from global ranks to avoid double-parenting.
+    - Edges to/from clusters use invisible anchors with `lhead`/`ltail` for clean routing.
+    - Acceptance: Rome/Amina show each ReqSet as a grouped unit; labels and edge styles preserved.
+
+- VIZ-19 — Semantic tooltips (Completed)
+  - Modifiers: include `Effect`, `Collection`, optional `Permanent`, plus top N `Name=Value` arguments.
+  - RequirementSets: include `RequirementSetType` and count of requirements.
+  - Requirements: include `RequirementType` and key `Name=Value` arguments.
+  - Acceptance: Tooltips show concise summaries in addition to `table:id` + path.
+
 - Phase F (Baseline) — Local Interactive Visualizer (VIZ-13)
   - Explore defaults to generating and opening a local HTML viewer:
     - `civ7 explore <seed>` now emits `out/<seed>/graph.svg` and `out/<seed>/graph.html`, then opens `graph.html`.
@@ -44,32 +57,33 @@ This document tracks completed work and upcoming enhancements for the CLI and XM
 
 ### Next up
 
-- Phase D — Structural grouping
-  - VIZ-11: Cluster requirement sets
-    - Render each `RequirementSet` together with its `Requirements` and `RequirementArguments` inside a cluster box.
-    - Keep Phase B layering; clusters should not break left→right flow.
-    - Acceptance: Rome/Amina show each ReqSet as a grouped unit; labels and edge styles preserved.
-
-- VIZ-19: Semantic tooltips (Modifiers/ReqSets/Requirements)
-  - Modifiers: include `Effect`, `Collection`, `Permanent?`, and top arguments.
-  - RequirementSets: include `RequirementSetType` and count of requirements.
-  - Requirements: include `RequirementType` and key arguments.
-  - Acceptance: Hover shows concise summaries in addition to `table:id` + path.
-
-- Phase C — Complexity controls
+- Phase C — Complexity controls (crawler + viewer cross-cutting)
   - VIZ-4: Toggle noisy structures via flags (optional)
+    - Examples: `--viz.hideArguments`, `--viz.hideRequirementArguments`, `--viz.hideGenericEdges`.
   - VIZ-5: Depth limiting
+    - Examples: `--viz.maxDepth=N` to cap BFS depth; consider per-table depth caps later.
+  - Direction: Adjust how deep we traverse and which structures we reveal to surface more meaningful information with controllable complexity.
 
-### Upcoming (Tickets, prioritized shallow → deep)
+### Future development
 
-- Execution order (priority)
-  1. Phase D — Structural grouping (VIZ-11)
-  2. VIZ-19 — Semantic tooltips
-  3. Phase C — Complexity controls (VIZ-4, VIZ-5)
-  4. Phase E — Config-driven styling (VIZ-10) [Optional]
-  5. Phase F (Advanced) — VIZ-15, VIZ-16, VIZ-17, VIZ-18 [Later]
+- Rich viewer milestone (defer)
+  - Consider leveraging existing graph libraries for a richer UI with less custom code.
+  - Candidate: AntV G6 (+ ELK for layout) to provide minimap, search, filters, deep-linking, and configurable styling out of the box.
+  - Bundle: Treat as a dedicated milestone alongside styling; package as a static app if pursued.
 
-#### Phase A — Quick visual clarity
+- Parked items (until rich viewer milestone):
+  - Phase E — Config-driven styling (VIZ-10)
+    - Override node/edge styles via config; better done within the chosen viewer framework.
+  - Phase F (Advanced) — VIZ-15..18 (minimap/search/state/packaging)
+    - To be implemented within the rich viewer track.
+
+---
+
+## Phase reference (static descriptions)
+
+The sections below describe each phase in detail. They are not a roadmap and may include items already completed.
+
+#### Phase A — Quick visual clarity (Completed)
 - VIZ-8: Global layout tuning
   - Set graph attrs: `rankdir=LR`, `overlap=false`, `splines=true`, `concentrate=true`, `nodesep`, `ranksep`.
 - VIZ-1: Node styling by table (shape, border, color)
@@ -87,18 +101,18 @@ This document tracks completed work and upcoming enhancements for the CLI and XM
 - VIZ-6: Tooltips and hyperlinks (provenance-aware)
   - Node `tooltip` and `URL` to file paths; preserve full IDs; edge tooltips added; offline-safe and escaped.
 
-#### Phase C — Complexity controls
+#### Phase C — Complexity controls (Next)
 - VIZ-4: Toggle noisy structures via flags (optional)
   - Flags: `--viz.hideArguments`, `--viz.hideRequirementArguments`, `--viz.hideGenericEdges`.
 - VIZ-5: Depth limiting
   - Optional `--viz.maxDepth=N` to cap BFS depth.
 
-#### Phase D — Structural grouping
+#### Phase D — Structural grouping (Completed)
 - VIZ-11: Cluster requirement sets
   - Render each `RequirementSet` and its `Requirements`/`Arguments` as a subgraph cluster; style aligns with RequirementSet node color.
   - Non-goal: clustering by file; file is provenance, not a semantic boundary. Consider file overlays later if needed.
 
-#### VIZ-19 — Semantic tooltips (new)
+#### VIZ-19 — Semantic tooltips (Completed)
 - Purpose: add meaning without changing labels heavily.
 - Content by type:
   - Modifiers: `Effect`, `Collection`, optional `Permanent`, plus a few `Name=Value` arguments.
@@ -112,7 +126,7 @@ This document tracks completed work and upcoming enhancements for the CLI and XM
 - VIZ-12: HTML wrapper for pan/zoom UX (optional)
   - `--viz.html` to emit a minimal HTML viewer that wraps the SVG for panning/zooming.
 
-#### Phase F (Baseline) — Local Interactive Visualizer (keep server pipeline as-is)
+#### Phase F (Baseline) — Local Interactive Visualizer (keep server pipeline as-is) (Completed)
 
 Goal: Add a polished, local, interactive visualization path without changing the server-side crawl→DOT pipeline.
 
@@ -138,6 +152,8 @@ Goal: Add a polished, local, interactive visualization path without changing the
 
 - VIZ-18: Packaging (optional)
   - Scope: If needed, split into `packages/viewer/` (Vite+TS) and publish a static bundle; CLI copies it and injects DOT.
+
+---
 
 Notes
 - Keep crawl/index/DOT rendering exactly as-is. Visualizers are additive, consuming the DOT output.
