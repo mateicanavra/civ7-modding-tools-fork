@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GameEffects xmlns="GameEffects">
-    <Modifier id="MOD_8F3B1E06F1C94E94BA8B79830D7DB5AC" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_YIELD" permanent="true">
+    <Modifier id="MOD_6F2C570C650C4C5DB5E52B5220C8317B" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_YIELD" permanent="true">
         <SubjectRequirements>
             <Requirement type="REQUIREMENT_CITY_HAS_UNIQUE_QUARTER">
                 <Argument name="UniqueQuarterType">QUARTER_GONDOR</Argument>
