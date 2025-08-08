@@ -22,7 +22,7 @@ import {
     UNIT_CLASS,
     UnitBuilder,
     YIELD
-} from "./src";
+} from "@civ7/sdk";
 
 let mod = new Mod({
     id: 'mod-test',

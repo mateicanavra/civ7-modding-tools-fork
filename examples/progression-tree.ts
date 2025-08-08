@@ -14,8 +14,8 @@ import {
     TAG_TRAIT,
     TRAIT,
     UNIT_CLASS
-} from "./src";
-import { TraditionBuilder } from "../src";
+} from "@civ7/sdk";
+import { TraditionBuilder } from "@civ7/sdk";
 
 let mod = new Mod({
     id: 'mod-test',

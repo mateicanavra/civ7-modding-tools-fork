@@ -17,6 +17,10 @@
     "dist",
     "src"
   ],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/izica/civ7-modding-tools.git"
@@ -35,11 +39,13 @@
     "fast-xml-parser": "^5.2.5",
     "jstoxml": "^5.0.2",
     "lodash": "^4.17.21",
-    "tsup": "^8.4.0",
     "tsx": "^4.19.3"
   },
   "devDependencies": {
+    "@eslint/js": "^9.33.0",
     "@types/node": "^22.13.13",
+    "@typescript-eslint/eslint-plugin": "^8.39.0",
+    "@typescript-eslint/parser": "^8.39.0",
     "docsify-cli": "^4.4.4",
     "eslint": "^9.33.0",
     "prettier": "^3.6.2",
@@ -47,14 +53,5 @@
     "turbo": "^2.5.5",
     "typescript": "5.7.3",
     "vitest": "^3.2.4"
-  },
-  "tsup": {
-    "entry": [
-      "src/index.ts"
-    ],
-    "splitting": true,
-    "sourcemap": true,
-    "bundle": false,
-    "clean": false
   }
 }

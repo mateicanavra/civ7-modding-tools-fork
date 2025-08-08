@@ -16,7 +16,7 @@ Create a safe branch for the monorepo migration, pin Node/pnpm via Corepack, rem
 ## Tasks
 
 - [ ] Create branch: `git checkout -b chore/monorepo-turbo`
-- [ ] Enable Corepack & pin pnpm: `corepack enable` (Node 20 LTS)
+- [ ] Enable Corepack & pin pnpm: `corepack enable` (Node 20 LTS) — Deferred (not executed now; revisit later to improve reproducibility)
 - [ ] Remove npm lockfile: `git rm -f package-lock.json`
 - [ ] Add root `.npmrc`:
   ```
@@ -50,6 +50,8 @@ Create a safe branch for the monorepo migration, pin Node/pnpm via Corepack, rem
 - Corepack-enabled pnpm works; Node 20 in use
 - No `package-lock.json` in repo
 - `tsconfig.base.json` present and valid
+
+Note: Corepack enabling is intentionally deferred to avoid potential impact on other local projects. Consider enabling in a follow-up once ready.
 
 ## Out of Scope
 

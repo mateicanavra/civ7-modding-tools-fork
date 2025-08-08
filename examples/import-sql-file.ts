@@ -1,4 +1,4 @@
-import { ACTION_GROUP_BUNDLE, CivilizationBuilder, ImportFileBuilder, Mod, TAG_TRAIT } from "./src";
+import { ACTION_GROUP_BUNDLE, CivilizationBuilder, ImportFileBuilder, Mod, TAG_TRAIT } from "@civ7/sdk";
 
 let mod = new Mod({
     id: 'mod-test',

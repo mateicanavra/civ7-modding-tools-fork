@@ -1,4 +1,4 @@
-import { REQUIREMENT, REQUIREMENT_SET, RESOURCE, UnlockBuilder } from "./src";
+import { REQUIREMENT, REQUIREMENT_SET, RESOURCE, UnlockBuilder } from "@civ7/sdk";
 
 const civilizationUnlock = new UnlockBuilder({
     unlockConfigurationValue: {

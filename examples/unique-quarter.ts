@@ -10,8 +10,8 @@ import {
     UNIT,
     UNIT_CLASS,
     UnitBuilder, YIELD
-} from "./src";
-import { COLLECTION, EFFECT, ModifierBuilder, REQUIREMENT, UniqueQuarterBuilder } from "../src";
+} from "@civ7/sdk";
+import { COLLECTION, EFFECT, ModifierBuilder, REQUIREMENT, UniqueQuarterBuilder } from "@civ7/sdk";
 
 let mod = new Mod({
     id: 'mod-test',
