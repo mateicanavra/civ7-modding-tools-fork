@@ -22,7 +22,7 @@ Before you begin, ensure you have:
    ```
 3. Install the TypeScript modding tools:
    ```bash
-   pnpm add civ7-modding-tools typescript ts-node
+   pnpm add @civ7/sdk typescript ts-node
    ```
 4. Create a TypeScript configuration file (`tsconfig.json`):
    ```json
@@ -70,7 +70,7 @@ my-civ7-mod/
 Create a `build.ts` file in your project root:
 
 ```typescript
-import { Mod } from 'civ7-modding-tools';
+import { Mod } from '@civ7/sdk';
 
 // Create a new mod
 const mod = new Mod({

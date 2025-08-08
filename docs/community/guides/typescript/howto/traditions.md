@@ -24,7 +24,7 @@ import {
     TraditionBuilder,
     COLLECTION,
     EFFECT
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-tradition-mod',
@@ -91,7 +91,7 @@ import {
     REQUIREMENT,
     UNIT_CLASS,
     YIELD
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-complex-tradition-mod',
@@ -163,7 +163,7 @@ import {
     COLLECTION,
     EFFECT,
     REQUIREMENT
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-civ-tradition-mod',
@@ -223,7 +223,7 @@ import {
     EFFECT,
     REQUIREMENT,
     AGE
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-age-tradition-mod',
@@ -303,7 +303,7 @@ import {
     EFFECT,
     REQUIREMENT,
     YIELD
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-conditional-tradition-mod',
@@ -360,7 +360,7 @@ import {
     Mod,
     TraditionBuilder,
     TraditionGroupBuilder
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-tradition-group-mod',

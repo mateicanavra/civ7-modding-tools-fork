@@ -1,0 +1,20 @@
+{
+  "name": "@civ7/playground",
+  "private": true,
+  "scripts": {
+    "dev": "tsx src/build.ts",
+    "build": "tsx src/build.ts",
+    "lint": "echo 'no lint'",
+    "test": "echo \"no tests\"",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@civ7/sdk": "workspace:*"
+  },
+  "devDependencies": {
+    "tsx": "^4",
+    "typescript": "^5",
+    "rimraf": "^6",
+    "@civ7/config": "workspace:*"
+  }
+}

@@ -71,7 +71,7 @@ import {
     ACTION_GROUP_BUNDLE,
     ImportFileBuilder,
     Mod
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-sql-mod',

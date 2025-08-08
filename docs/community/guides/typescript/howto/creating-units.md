@@ -13,7 +13,7 @@ import {
     UNIT, 
     UNIT_CLASS, 
     UnitBuilder 
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 // Create a new mod
 const mod = new Mod({
@@ -129,7 +129,7 @@ To use custom art assets for your unit:
 import { 
     ImportFileBuilder, 
     UnitBuilder 
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 // Import a custom icon
 const customUnitIcon = new ImportFileBuilder({

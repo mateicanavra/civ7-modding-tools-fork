@@ -10,7 +10,7 @@ import {
     UnitBuilder,
     ModifierBuilder, 
     ACTION_GROUP_BUNDLE 
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 // Create a resource claiming ability
 const claimResourceAbility = new AbilityBuilder({

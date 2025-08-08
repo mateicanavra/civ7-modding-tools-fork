@@ -15,7 +15,7 @@ import {
     ACTION_GROUP_BUNDLE,
     ImportFileBuilder,
     Mod
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-assets-mod',
@@ -91,7 +91,7 @@ import {
     ImportFileBuilder,
     Mod,
     UnitBuilder
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-assets-mod',
@@ -258,7 +258,7 @@ import {
     ImportFileBuilder,
     Mod,
     UnitBuilder
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'dacia-assets-mod',

@@ -38,14 +38,13 @@ To help you make the most of the TypeScript Modding Tools, we provide three comp
 ### Option 1: From NPM
 
 ```bash
-pnpm add civ7-modding-tools
+pnpm add @civ7/sdk
 # or
-npm install civ7-modding-tools
+npm install @civ7/sdk
 ```
 
 ```typescript
-import { Mod } from 'civ7-modding-tools';
-// or import from 'civ7-modding-tools/src' for full typescript source
+import { Mod } from '@civ7/sdk';
 
 let mod = new Mod({
     id: 'my-mod',

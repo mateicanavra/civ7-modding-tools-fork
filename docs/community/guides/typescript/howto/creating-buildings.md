@@ -14,7 +14,7 @@ import {
     DISTRICT, 
     Mod, 
     YIELD 
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-building-mod',
@@ -83,7 +83,7 @@ import {
     TERRAIN, 
     Mod, 
     YIELD 
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 // Create an improvement
 const sacredGrove = new ConstructibleBuilder({

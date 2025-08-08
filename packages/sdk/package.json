@@ -1,0 +1,42 @@
+{
+  "name": "@civ7/sdk",
+  "version": "0.0.0",
+  "private": false,
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm,cjs",
+    "dev": "tsup src/index.ts --format esm,cjs --watch",
+    "test": "echo 'no tests'",
+    "lint": "echo 'no lint'",
+    "clean": "rimraf dist",
+    "prepublishOnly": "pnpm build"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^5.2.5",
+    "jstoxml": "^5.0.2",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "tsup": "^7",
+    "typescript": "^5",
+    "vitest": "^2",
+    "@types/node": "^20",
+    "eslint": "^9",
+    "@types/jstoxml": "^5.0.0",
+    "@types/lodash": "^4.17.16",
+    "@civ7/config": "workspace:*"
+  },
+  "engines": { "node": ">=20" },
+  "publishConfig": { "access": "public" }
+}

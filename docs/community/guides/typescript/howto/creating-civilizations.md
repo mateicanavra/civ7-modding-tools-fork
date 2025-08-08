@@ -19,7 +19,7 @@ import {
     EFFECT,
     REQUIREMENT,
     UNIT_CLASS
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-civ-mod',
@@ -167,7 +167,7 @@ import {
     ConstructibleBuilder,
     UNIT_CLASS,
     CONSTRUCTIBLE_TYPE_TAG
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 // Create a unique unit for Dacia
 const falxWarrior = new UnitBuilder({
