@@ -639,7 +639,7 @@ export function graphToDot(g: Graph): string {
   const lines: string[] = ['digraph G {'];
 
   // Global graph tuning (Phase A: VIZ-8)
-  lines.push('  graph [rankdir=LR, overlap=false, splines=true, concentrate=true, nodesep=0.5, ranksep=0.6];');
+  lines.push('  graph [rankdir=LR, compound=true, overlap=false, splines=true, concentrate=true, nodesep=0.5, ranksep=0.6];');
   lines.push('  node  [fontname="Helvetica", fontsize=10, shape=box, style=filled, fillcolor="#ffffff", color="#555555", penwidth=1.2];');
   lines.push('  edge  [fontname="Helvetica", fontsize=9, color="#555555"];');
 
@@ -675,15 +675,20 @@ export function graphToDot(g: Graph): string {
 
   lines.push('  }');
 
-  // Nodes with provenance tooltips/links (Phase B: VIZ-6)
+  // Nodes with provenance tooltips/links (Phase B: VIZ-6) and semantic summaries (VIZ-19)
   const layerToIds = new Map<number, string[]>();
   for (const n of g.nodes.values()) {
+    // Skip explicit RequirementSet nodes (we represent them as clusters)
+    if (n.key.table === 'RequirementSets') continue;
     const id = sanitize(`${n.key.table}_${n.key.id}`);
     const label = formatNodeLabel(n.key.table, n.key.id);
     const styleAttrs = nodeStyleAttrs(n.key.table);
     const isAbs = typeof n.file === 'string' && path.isAbsolute(n.file);
     const relOrAbs = isAbs ? path.relative(process.cwd(), n.file) : (n.file ?? '');
-    const nodeTooltip = escapeDotString(`${n.key.table}:${n.key.id}\n${relOrAbs}`);
+    const semanticTip = buildSemanticTooltip(n, g);
+    const tooltipLines = [`${n.key.table}:${n.key.id}`, relOrAbs];
+    if (semanticTip) tooltipLines.push(semanticTip);
+    const nodeTooltip = escapeDotString(tooltipLines.filter(Boolean).join('\n'));
     const urlAttr = isAbs ? `, URL="${escapeDotString(buildFileUrl(n.file))}"` : '';
     const targetAttr = `, target="_blank"`;
     lines.push(`  "${id}" [label="${label}"${styleAttrs ? ', ' + styleAttrs : ''}, tooltip="${nodeTooltip}"${urlAttr}${targetAttr}];`);
@@ -697,7 +702,88 @@ export function graphToDot(g: Graph): string {
   }
 
 
-  // Layered ranks (Phase B: VIZ-3)
+  // RequirementSet clusters (Phase D: VIZ-11)
+  const reqsetColor = '#1565c0';
+  // Build quick lookup for edges from a given node
+  const fromKeyToEdges = new Map<string, GraphEdge[]>();
+  for (const e of g.edges) {
+    const k = nkToStr(e.from);
+    const arr = fromKeyToEdges.get(k) || [];
+    arr.push(e); fromKeyToEdges.set(k, arr);
+  }
+  // Compute clusters and remember member node ids
+  const clusterMembers = new Set<string>();
+  const clusters: Array<{ rsKey: NodeKey; membersByLayer: Map<number, string[]> }> = [];
+  for (const n of g.nodes.values()) {
+    if (n.key.table !== 'RequirementSets') continue;
+    const membersByLayer = new Map<number, string[]>();
+    const rsId = sanitize(`${n.key.table}_${n.key.id}`);
+    const add = (table: string, id: string) => {
+      const nodeId = sanitize(`${table}_${id}`);
+      const layer = getLayerForTable(table);
+      if (layer === null) return;
+      const list = membersByLayer.get(layer) || [];
+      list.push(nodeId); membersByLayer.set(layer, list);
+      clusterMembers.add(nodeId);
+    };
+    // Add invisible anchor for cluster edge routing
+    const anchorId = sanitize(`RSANCHOR_${n.key.id}`);
+    const anchorLayer = 4; // RequirementSets layer
+    const listA = membersByLayer.get(anchorLayer) || [];
+    listA.push(anchorId); membersByLayer.set(anchorLayer, listA);
+    clusterMembers.add(anchorId);
+    // Collect Requirements under this set
+    const edgesFromRS = fromKeyToEdges.get(nkToStr(n.key)) || [];
+    const reqIds: string[] = [];
+    for (const e of edgesFromRS) {
+      if (e.label === 'Requirement' && e.to.table === 'Requirements') {
+        add(e.to.table, e.to.id);
+        reqIds.push(e.to.id);
+      }
+    }
+    // Collect RequirementArguments for each Requirement
+    for (const reqId of reqIds) {
+      const edgesFromReq = fromKeyToEdges.get(`Requirements|${reqId}`) || [];
+      for (const e of edgesFromReq) {
+        if (e.label === 'Argument' && e.to.table === 'RequirementArguments') {
+          add(e.to.table, e.to.id);
+        }
+      }
+    }
+    if (membersByLayer.size > 0) clusters.push({ rsKey: n.key, membersByLayer });
+  }
+
+  // Remove cluster member nodes from global layer ranks to avoid double-parenting
+  for (const [layer, ids] of layerToIds.entries()) {
+    const filtered = ids.filter((nid) => !clusterMembers.has(nid));
+    layerToIds.set(layer, filtered);
+  }
+
+  // Emit clusters, preserving per-layer ranks inside each cluster
+  for (const c of clusters) {
+    lines.push(`  subgraph cluster_reqset_${sanitize(c.rsKey.id)} {`);
+    const rsNode = g.nodes.get(`${c.rsKey.table}|${c.rsKey.id}`);
+    const rsType = rsNode?.row?.RequirementSetType ? String(rsNode.row.RequirementSetType) : '';
+    lines.push(`    color="${reqsetColor}"; penwidth=1.8; style="rounded"; bgcolor="#eaf2fb"; label="${escapeDotString(rsType)}";`);
+    const innerLayers = Array.from(c.membersByLayer.keys()).sort((a, b) => a - b);
+    for (const layer of innerLayers) {
+      const ids = c.membersByLayer.get(layer)!;
+      if (!ids.length) continue;
+      lines.push('    subgraph {');
+      lines.push('      rank=same;');
+      for (const nid of ids) {
+        if (nid.startsWith('RSANCHOR_')) {
+          lines.push(`      "${nid}" [label="", shape=point, width=0.01, height=0.01, color="${reqsetColor}"];`);
+        } else {
+          lines.push(`      "${nid}";`);
+        }
+      }
+      lines.push('    }');
+    }
+    lines.push('  }');
+  }
+
+  // Layered ranks (Phase B: VIZ-3) for remaining (non-clustered) nodes
   const orderedLayers = Array.from(layerToIds.keys()).sort((a, b) => a - b);
   for (const layer of orderedLayers) {
     const ids = layerToIds.get(layer)!;
@@ -709,16 +795,32 @@ export function graphToDot(g: Graph): string {
   }
 
   // Edges with tooltips (Phase B: VIZ-6)
+  const reqsetEdgeLabels = new Set(['SubjectRequirementSetId','OwnerRequirementSetId','RequirementSetId']);
   for (const e of g.edges) {
-    const from = sanitize(`${e.from.table}_${e.from.id}`);
-    const to = sanitize(`${e.to.table}_${e.to.id}`);
     const styleAttrs = edgeStyleAttrs(e.label);
     const parts: string[] = [styleAttrs];
-    if (e.label) {
-      parts.push(`label=\"${escapeDotString(e.label)}\"`);
-      const edgeTooltip = `${e.label} from ${e.from.table}:${e.from.id} → ${e.to.table}:${e.to.id}`;
-      parts.push(`tooltip=\"${escapeDotString(edgeTooltip)}\"`);
+    if (e.label) parts.push(`label=\"${escapeDotString(e.label)}\"`);
+    const edgeTooltip = e.label ? `${e.label} from ${e.from.table}:${e.from.id} → ${e.to.table}:${e.to.id}` : '';
+    if (edgeTooltip) parts.push(`tooltip=\"${escapeDotString(edgeTooltip)}\"`);
+
+    // Redirect edges touching RequirementSets to cluster anchor with lhead/ltail
+    if (e.to.table === 'RequirementSets' && reqsetEdgeLabels.has(e.label || '')) {
+      const from = sanitize(`${e.from.table}_${e.from.id}`);
+      const anchor = sanitize(`RSANCHOR_${e.to.id}`);
+      parts.push(`lhead=\"cluster_reqset_${sanitize(e.to.id)}\"`);
+      lines.push(`  "${from}" -> "${anchor}" [${parts.join(', ')}];`);
+      continue;
     }
+    if (e.from.table === 'RequirementSets') {
+      const anchor = sanitize(`RSANCHOR_${e.from.id}`);
+      const to = sanitize(`${e.to.table}_${e.to.id}`);
+      parts.push(`ltail=\"cluster_reqset_${sanitize(e.from.id)}\"`);
+      lines.push(`  "${anchor}" -> "${to}" [${parts.join(', ')}];`);
+      continue;
+    }
+
+    const from = sanitize(`${e.from.table}_${e.from.id}`);
+    const to = sanitize(`${e.to.table}_${e.to.id}`);
     lines.push(`  "${from}" -> "${to}" [${parts.join(', ')}];`);
   }
   lines.push('}');
@@ -757,6 +859,90 @@ function getLayerForTable(table: string): number | null {
   return Object.prototype.hasOwnProperty.call(mapping, table) ? mapping[table] : null;
 }
 
+// Build semantic summary lines for tooltips (VIZ-19)
+function buildSemanticTooltip(n: GraphNode, g: Graph): string | undefined {
+  try {
+    const t = n.key.table;
+    const row = n.row || {};
+    if (t === 'Modifiers') {
+      const effect = row.Effect ? `Effect=${row.Effect}` : undefined;
+      const coll = row.Collection ? `Collection=${row.Collection}` : undefined;
+      const perm = row.Permanent !== undefined ? `Permanent=${row.Permanent}` : undefined;
+      const args = summarizeArgsFor('ModifierArguments', 'ModifierId', n.key.id, g, 3);
+      return [effect, coll, perm, args].filter(Boolean).join(' | ');
+    }
+    if (t === 'RequirementSets') {
+      const type = row.RequirementSetType ? `Type=${row.RequirementSetType}` : undefined;
+      // count linked requirements
+      const count = countOutgoing(n.key, g, 'Requirement', 'Requirements');
+      const cnt = `Requirements=${count}`;
+      return [type, cnt].filter(Boolean).join(' | ');
+    }
+    if (t === 'Requirements') {
+      const rtype = row.RequirementType ? `Type=${row.RequirementType}` : undefined;
+      const args = summarizeArgsFor('RequirementArguments', 'RequirementId', n.key.id, g, 3);
+      return [rtype, args].filter(Boolean).join(' | ');
+    }
+    return undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+// Build concise semantic line for labels (not too long)
+function buildSemanticSummary(n: GraphNode, g: Graph): string | undefined {
+  const t = n.key.table;
+  const tip = buildSemanticTooltip(n, g);
+  if (!tip) return undefined;
+  // Keep only the first two segments and truncate
+  const parts = tip.split(' | ').slice(0, 2).join(' • ');
+  return truncate(parts, 64);
+}
+
+function truncate(s: string, max: number): string {
+  if (s.length <= max) return s;
+  return s.slice(0, Math.max(0, max - 1)) + '…';
+}
+
+function summarizeArgsFor(argTable: 'ModifierArguments'|'RequirementArguments', foreignKey: string, fkValue: string, g: Graph, maxItems: number): string | undefined {
+  const items: string[] = [];
+  let i = 0;
+  for (const n of g.nodes.values()) {
+    if (n.key.table !== argTable) continue;
+    const r = n.row || {};
+    if (String(r[foreignKey] || '') !== fkValue) continue;
+    const name = String(r.Name ?? '');
+    const value = String(r.Value ?? '');
+    items.push(`${name}=${value}`);
+    if (++i >= maxItems) break;
+  }
+  if (!items.length) return undefined;
+  const more = countArgsFor(argTable, foreignKey, fkValue, g) - items.length;
+  return `Args: ${items.join(', ')}${more > 0 ? ` (+${more} more)` : ''}`;
+}
+
+function countArgsFor(argTable: 'ModifierArguments'|'RequirementArguments', foreignKey: string, fkValue: string, g: Graph): number {
+  let c = 0;
+  for (const n of g.nodes.values()) {
+    if (n.key.table !== argTable) continue;
+    const r = n.row || {};
+    if (String(r[foreignKey] || '') !== fkValue) continue;
+    c++;
+  }
+  return c;
+}
+
+function countOutgoing(from: NodeKey, g: Graph, label?: string, toTable?: string): number {
+  let c = 0;
+  for (const e of g.edges) {
+    if (e.from.table !== from.table || e.from.id !== from.id) continue;
+    if (label && e.label !== label) continue;
+    if (toTable && e.to.table !== toTable) continue;
+    c++;
+  }
+  return c;
+}
+
 // -----------------------------
 // DOT styling helpers (Phase A)
 // -----------------------------
@@ -764,6 +950,13 @@ function getLayerForTable(table: string): number | null {
 function formatNodeLabel(table: string, id: string): string {
   const wrapped = wrapId(id, 24);
   const label = `${table}\n${wrapped}`.replace(/"/g, '\\"');
+  return label;
+}
+
+function formatNodeLabelWithSemantic(table: string, id: string, semantic: string): string {
+  const wrapped = wrapId(id, 24);
+  const sem = wrapId(semantic, 28);
+  const label = `${table}\n${wrapped}\n${sem}`.replace(/"/g, '\\"');
   return label;
 }
 
