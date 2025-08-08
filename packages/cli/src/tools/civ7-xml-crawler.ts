@@ -637,22 +637,133 @@ export function graphToJson(g: Graph) {
 /** Serialize graph to GraphViz DOT for visualization. */
 export function graphToDot(g: Graph): string {
   const lines: string[] = ['digraph G {'];
+
+  // Global graph tuning (Phase A: VIZ-8)
+  lines.push('  graph [rankdir=LR, overlap=false, splines=true, concentrate=true, nodesep=0.5, ranksep=0.6];');
+  lines.push('  node  [fontname="Helvetica", fontsize=10, shape=box, style=filled, fillcolor="#ffffff", color="#555555", penwidth=1.2];');
+  lines.push('  edge  [fontname="Helvetica", fontsize=9, color="#555555"];');
+
+  // Legend (Phase A: VIZ-7)
+  lines.push('  subgraph cluster_legend {');
+  lines.push('    label="Legend"; fontsize=10; color="#BBBBBB";');
+  // Node samples
+  const legendNodes: Array<{ name: string; table: string }> = [
+    { name: 'Legend_Traits', table: 'Traits' },
+    { name: 'Legend_Modifiers', table: 'Modifiers' },
+    { name: 'Legend_ReqSets', table: 'RequirementSets' },
+    { name: 'Legend_Requirements', table: 'Requirements' },
+    { name: 'Legend_ModArgs', table: 'ModifierArguments' },
+    { name: 'Legend_ReqArgs', table: 'RequirementArguments' },
+  ];
+  for (const ln of legendNodes) {
+    const attrs = nodeStyleAttrs(ln.table);
+    const label = ln.table;
+    lines.push(`    "${ln.name}" [label="${label}"${attrs ? ', ' + attrs : ''}];`);
+  }
+  // Edge samples
+  lines.push('    "Legend_Primary_A" [label="Primary", shape=plaintext, color="#555555"];');
+  lines.push('    "Legend_Primary_B" [label="", shape=point, width=0.05, color="#555555"];');
+  lines.push(`    "Legend_Primary_A" -> "Legend_Primary_B" [${edgeStyleAttrs('TraitModifiers')}];`);
+
+  lines.push('    "Legend_Attach_A" [label="Attach", shape=plaintext, color="#ef6c00"];');
+  lines.push('    "Legend_Attach_B" [label="", shape=point, width=0.05, color="#ef6c00"];');
+  lines.push(`    "Legend_Attach_A" -> "Legend_Attach_B" [${edgeStyleAttrs('Attach')}];`);
+
+  lines.push('    "Legend_ReqSet_A" [label="ReqSet link", shape=plaintext, color="#1976d2"];');
+  lines.push('    "Legend_ReqSet_B" [label="", shape=point, width=0.05, color="#1976d2"];');
+  lines.push(`    "Legend_ReqSet_A" -> "Legend_ReqSet_B" [${edgeStyleAttrs('SubjectRequirementSetId')}];`);
+
+  lines.push('  }');
+
+  // Nodes
   for (const n of g.nodes.values()) {
     const id = sanitize(`${n.key.table}_${n.key.id}`);
-    const label = `${n.key.table}\n${n.key.id}`.replace(/"/g, '\\"');
-    lines.push(`  "${id}" [label="${label}"];`);
+    const label = formatNodeLabel(n.key.table, n.key.id);
+    const attrs = nodeStyleAttrs(n.key.table);
+    lines.push(`  "${id}" [label="${label}"${attrs ? ', ' + attrs : ''}];`);
   }
+  // Edges
   for (const e of g.edges) {
     const from = sanitize(`${e.from.table}_${e.from.id}`);
     const to = sanitize(`${e.to.table}_${e.to.id}`);
-    const lbl = e.label ? ` [label="${e.label}"]` : '';
-    lines.push(`  "${from}" -> "${to}"${lbl};`);
+    const styleAttrs = edgeStyleAttrs(e.label);
+    const lbl = e.label ? `, label="${e.label.replace(/"/g, '\\"')}"` : '';
+    lines.push(`  "${from}" -> "${to}" [${styleAttrs}${lbl}];`);
   }
   lines.push('}');
   return lines.join('\n');
 }
 
 function sanitize(s: string) { return s.replace(/[^A-Za-z0-9_:\-]/g, '_').slice(0, 120); }
+
+// -----------------------------
+// DOT styling helpers (Phase A)
+// -----------------------------
+
+function formatNodeLabel(table: string, id: string): string {
+  const wrapped = wrapId(id, 24);
+  const label = `${table}\n${wrapped}`.replace(/"/g, '\\"');
+  return label;
+}
+
+function wrapId(id: string, maxLen: number): string {
+  // Prefer breaking at underscores/hyphens
+  const tokens = id.split(/([_-])/); // keep delimiters
+  const lines: string[] = [];
+  let current = '';
+  for (const t of tokens) {
+    const next = current ? current + t : t;
+    if (next.length > maxLen && current) {
+      lines.push(current);
+      current = t.replace(/^[_-]/, '');
+    } else {
+      current = next;
+    }
+  }
+  if (current) lines.push(current);
+  // Fallback if still very long
+  const normalized = lines
+    .flatMap(line => chunk(line, maxLen))
+    .join('\n');
+  return normalized;
+}
+
+function chunk(s: string, size: number): string[] {
+  const out: string[] = [];
+  for (let i = 0; i < s.length; i += size) out.push(s.slice(i, i + size));
+  return out;
+}
+
+function nodeStyleAttrs(table: string): string {
+  const styles: Record<string, { shape: string; fill: string; border: string; style?: string; pen?: number }> = {
+    Leaders: { shape: 'box', fill: '#eef7ff', border: '#3f51b5', style: 'filled,rounded', pen: 1.4 },
+    Civilizations: { shape: 'box', fill: '#eef7ff', border: '#3f51b5', style: 'filled,rounded', pen: 1.4 },
+    Traits: { shape: 'ellipse', fill: '#e8f5e9', border: '#2e7d32', style: 'filled', pen: 1.6 },
+    Modifiers: { shape: 'hexagon', fill: '#fff3e0', border: '#ef6c00', style: 'filled', pen: 1.6 },
+    RequirementSets: { shape: 'box', fill: '#e3f2fd', border: '#1565c0', style: 'filled,rounded', pen: 1.6 },
+    Requirements: { shape: 'note', fill: '#f3e5f5', border: '#6a1b9a', style: 'filled', pen: 1.4 },
+    ModifierArguments: { shape: 'parallelogram', fill: '#fce4ec', border: '#ad1457', style: 'filled', pen: 1.2 },
+    RequirementArguments: { shape: 'parallelogram', fill: '#ede7f6', border: '#4527a0', style: 'filled', pen: 1.2 },
+  };
+  const s = styles[table];
+  if (!s) return '';
+  const parts = [`shape=${s.shape}`, `fillcolor="${s.fill}"`, `color="${s.border}"`];
+  if (s.style) parts.push(`style="${s.style}"`);
+  if (s.pen) parts.push(`penwidth=${s.pen}`);
+  return parts.join(', ');
+}
+
+function edgeStyleAttrs(label?: string): string {
+  const primary = ['LeaderTraits', 'CivilizationTraits', 'TraitModifiers', 'Requirement'];
+  const reqset = ['SubjectRequirementSetId', 'OwnerRequirementSetId', 'RequirementSetId'];
+  if (label && primary.includes(label)) return 'color="#555555", style=solid, penwidth=1.6';
+  if (label && reqset.includes(label)) return 'color="#1976d2", style=solid, penwidth=1.4';
+  if (label === 'Attach') return 'color="#ef6c00", style=dashed, penwidth=1.3';
+  if (label === 'Argument') return 'color="#9e9e9e", style=dotted, penwidth=1.0';
+  // Heuristic: generic column-based links
+  if (label && /Type$/.test(label)) return 'color="#888888", style=dotted, penwidth=1.0';
+  return 'color="#777777", style=solid, penwidth=1.1';
+}
 
 // -----------------------------
 // Seed parsing convenience
