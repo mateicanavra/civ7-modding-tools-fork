@@ -37,3 +37,6 @@ civ7-official-resources/
 docs/civ7-official/resources/
 
 .early.coverage/
+
+# Turbo cache
+.turbo/

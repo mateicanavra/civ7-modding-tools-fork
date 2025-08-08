@@ -1,5 +1,5 @@
 {
-    "name": "@civ7-modding/cli",
+    "name": "@civ7/cli",
     "version": "0.1.0",
     "description": "CLI for managing Civilization VII modding resources.",
     "author": "Your Name",
@@ -31,6 +31,7 @@
         "version": "oclif readme && git add README.md"
     },
     "dependencies": {
+        "@civ7/sdk": "workspace:*",
         "@oclif/core": "^4.5.2",
         "@oclif/plugin-help": "^6.2.32",
         "@hpcc-js/wasm": "^2.22.0",
