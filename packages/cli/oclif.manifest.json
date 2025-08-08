@@ -63,6 +63,104 @@
         "crawl.js"
       ]
     },
+    "explore": {
+      "aliases": [],
+      "args": {
+        "seed": {
+          "description": "Seed identifier: Table:ID or an ID with a known prefix (e.g., LEADER_*)",
+          "name": "seed",
+          "required": true
+        },
+        "outDir": {
+          "description": "Output directory (default: out/<seed>)",
+          "name": "outDir",
+          "required": false
+        }
+      },
+      "description": "Runs the full pipeline: crawl resources for a seed, emit graph.json/graph.dot, render SVG, and optionally open a visualizer (local SVG or Graphviz Online).",
+      "examples": [
+        "<%= config.bin %> explore LEADER_AMINA",
+        "<%= config.bin %> explore CIVILIZATION_ROME --openOnline"
+      ],
+      "flags": {
+        "config": {
+          "description": "Path to civ-zip-config.jsonc",
+          "name": "config",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "profile": {
+          "description": "Profile key from config",
+          "name": "profile",
+          "required": false,
+          "default": "default",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "root": {
+          "description": "Override root folder (XML dir) if not using config",
+          "name": "root",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "engine": {
+          "description": "Graphviz engine",
+          "name": "engine",
+          "default": "dot",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "options": [
+            "dot",
+            "neato",
+            "fdp",
+            "sfdp",
+            "circo",
+            "twopi"
+          ],
+          "type": "option"
+        },
+        "open": {
+          "description": "Open the generated SVG in your default browser",
+          "name": "open",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "openOnline": {
+          "description": "Open GraphvizOnline with DOT in the URL hash (may be too long for big graphs)",
+          "name": "openOnline",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "maxUrlLength": {
+          "description": "Max URL length for online viewer (guard)",
+          "name": "maxUrlLength",
+          "default": 8000,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "explore",
+      "pluginAlias": "@civ7-modding/cli",
+      "pluginName": "@civ7-modding/cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Crawl + render + open a visualization in one pipeline.",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "explore.js"
+      ]
+    },
     "render": {
       "aliases": [],
       "args": {
