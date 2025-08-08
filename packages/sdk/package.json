@@ -22,12 +22,18 @@
     "clean": "rimraf dist",
     "prepublishOnly": "pnpm build"
   },
+  "dependencies": {
+    "jstoxml": "^7.0.1",
+    "lodash": "^4.17.21"
+  },
   "devDependencies": {
-    "tsup": "^7",
-    "typescript": "^5",
-    "vitest": "^2",
-    "@types/node": "^20",
-    "eslint": "^9"
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4",
+    "@types/node": "^24.2.1",
+    "eslint": "^9.33.0",
+    "@types/lodash": "^4.17.20",
+    "@types/jstoxml": "^5.0.0"
   },
   "engines": { "node": ">=20" },
   "publishConfig": { "access": "public" }

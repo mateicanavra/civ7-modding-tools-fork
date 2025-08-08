@@ -80,6 +80,13 @@ Low
 - Docs/Playground: Bun runtime for dev; no JS emission in dev.
 - Minimize toolchains: only `tsup` (SDK) and `tsc` (CLI publish). All other workflows use Bun.
 
+### Dependency policy (monorepo)
+
+- Keep runtime dependencies local to each workspace (apps/packages) that use them.
+- Keep shared dev toolchain (TypeScript, ESLint/Prettier, Turbo, rimraf) at the root; pin versions via `pnpm.overrides` to align across the repo.
+- Avoid top-level runtime deps; only tooling at root. Remove unused root deps proactively.
+- Only add test runners (e.g., Vitest) and docs runtime tooling (e.g., Docsify CLI) in the specific app/package that needs them.
+
 # Issue: Phase 1 — Introduce Turborepo & Root Scripts — Completed
 
 ## Goal
@@ -221,7 +228,7 @@ Medium
 
 ---
 
-# Issue: Phase 3 — Refactor CLI to consume `@civ7/sdk` — In Progress
+# Issue: Phase 3 — Refactor CLI to consume `@civ7/sdk` — Completed (deferred integration)
 
 ## Goal
 
@@ -236,20 +243,21 @@ Point CLI to the SDK, ensure build order and bin resolution.
 
 ## Tasks
 
-- [x] Rename package to `@civ7/cli` and add workspace dep on `@civ7/sdk`
-- [ ] Replace any remaining imports to `@civ7/sdk` (verify none remaining)
-- [ ] Ensure CLI `package.json`:
+- [x] Rename package to `@civ7/cli`
+- [x] Defer SDK integration: remove unused `@civ7/sdk` dependency to keep CLI lean now; add a clear stub in `packages/cli/src/index.ts` documenting intent to import from `@civ7/sdk` later.
+- [x] Ensure CLI `package.json`:
   - `"name": "@civ7/cli"`, `"private": false`
-  - `"bin": { "civ7": "./bin/run.js" }` (existing pattern) and oclif `commands: "./dist/commands"`
+  - `"bin": { "civ7": "./bin/run.js" }` and oclif `commands: "./dist/commands"`
   - `"prepublishOnly": "pnpm build"`
-- [ ] Dev runs on Bun (`pnpm -F @civ7/cli dev` → `bun run src/index.ts`). Keep `bun-types` for now.
-- [ ] Build uses `tsc` + `oclif manifest` only for packaging/publish (not needed during dev)
-- [ ] Validate: `pnpm -w -F @civ7/cli run build` then `node packages/cli/bin/run.js --help`
+- [x] Dev runs on Bun (`pnpm -F @civ7/cli dev` → `bun run src/index.ts`). Keep `bun-types`.
+- [x] Build uses `tsc` + `oclif manifest` only for packaging/publish
+- [x] Validate: `pnpm --filter @civ7/cli run build` then `node packages/cli/bin/run.js --help`
 
 ## Acceptance Criteria
 
-- CLI builds after SDK and runs
+- CLI builds and runs
 - No references to removed root `src/*`
+- Future: when integrating SDK, re-add `@civ7/sdk` dependency and replace imports
 
 ## Complexity
 

@@ -10,8 +10,8 @@
     "@civ7/sdk": "workspace:*"
   },
   "devDependencies": {
-    "typescript": "^5",
-    "rimraf": "^6"
+    "typescript": "^5.9.2",
+    "rimraf": "^6.0.1"
   }
 }
 
