@@ -13,7 +13,7 @@ This repository is a community-maintained fork of [izica/civ7-modding-tools](htt
 
 ## Features
 - A command-line interface (CLI) to extract or archive Civ7 resources (`civ7 zip`, `civ7 unzip`).
-- Configurable extraction profiles (default/full/assets) via `civ-zip-config.jsonc` in the project root.
+- Configurable extraction profiles (default/full/assets) via `civ.config.jsonc` in the project root.
 - Strongly typed builders for units, civilizations, constructibles, and more.
 - Embedded documentation under `docs/` with guides and gap analyses.
 - pnpm workspace setup for easy package management.
@@ -45,7 +45,7 @@ You can run this command whenever you want to ensure the local resource data is 
 
 ## Using the CLI
 
-Once set up, you can use the `civ7` command directly to manage game resource archives. Its behavior is configured by the `civ-zip-config.jsonc` file located in the project root. You can customize the default profiles or add your own.
+Once set up, you can use the `civ7` command directly to manage game resource archives. Its behavior is configured by the `civ.config.jsonc` file located in the project root. You can customize the default profiles or add your own.
 
 ### Unzipping Resources
 ```bash

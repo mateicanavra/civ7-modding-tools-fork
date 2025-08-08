@@ -1,5 +1,334 @@
 {
   "commands": {
+    "crawl": {
+      "aliases": [],
+      "args": {
+        "seed": {
+          "description": "Seed identifier: either Table:ID or an ID with a known prefix (e.g., LEADER_*)",
+          "name": "seed",
+          "required": true
+        },
+        "outDir": {
+          "description": "Output directory (default: out/<seed>)",
+          "name": "outDir",
+          "required": false
+        }
+      },
+      "description": "\nGiven a root folder (or single XML file) and a seed (e.g., LEADER_*, TRAIT_*, or Table:ID),\nthis command builds an in-memory index of Civ-style XML and performs a breadth-first crawl\nto discover related rows. It writes a graph (JSON + DOT) and a manifest of XML files.\n",
+      "examples": [
+        "<%= config.bin %> crawl LEADER_AMANITORE",
+        "<%= config.bin %> crawl Traits:TRAIT_SOME_TRAIT --profile default",
+        "<%= config.bin %> crawl LEADER_AMANITORE ./out/genghis"
+      ],
+      "flags": {
+        "config": {
+          "description": "Path to config file",
+          "name": "config",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "profile": {
+          "description": "Profile key from config",
+          "name": "profile",
+          "required": false,
+          "default": "default",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "root": {
+          "description": "Override root folder (XML dir) if not using config",
+          "name": "root",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "crawl",
+      "pluginAlias": "@civ7-modding/cli",
+      "pluginName": "@civ7-modding/cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Crawl Civ XML resources and output a dependency graph + manifest",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "crawl.js"
+      ]
+    },
+    "explore": {
+      "aliases": [],
+      "args": {
+        "seed": {
+          "description": "Seed identifier: Table:ID or an ID with a known prefix (e.g., LEADER_*)",
+          "name": "seed",
+          "required": true
+        },
+        "outDir": {
+          "description": "Output directory (default: out/<seed>)",
+          "name": "outDir",
+          "required": false
+        }
+      },
+      "description": "Runs the full pipeline: crawl resources for a seed, emit graph.json/graph.dot, render SVG, and optionally open a visualizer (local SVG or Graphviz Online).",
+      "examples": [
+        "<%= config.bin %> explore LEADER_AMINA",
+        "<%= config.bin %> explore CIVILIZATION_ROME --openOnline"
+      ],
+      "flags": {
+        "config": {
+          "description": "Path to config file",
+          "name": "config",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "profile": {
+          "description": "Profile key from config",
+          "name": "profile",
+          "required": false,
+          "default": "default",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "root": {
+          "description": "Override root folder (XML dir) if not using config",
+          "name": "root",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "engine": {
+          "description": "Graphviz engine",
+          "name": "engine",
+          "default": "dot",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "options": [
+            "dot",
+            "neato",
+            "fdp",
+            "sfdp",
+            "circo",
+            "twopi"
+          ],
+          "type": "option"
+        },
+        "open": {
+          "description": "Open the generated visualization (HTML viewer by default) in your default browser",
+          "name": "open",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "openOnline": {
+          "description": "Open GraphvizOnline with DOT in the URL hash (may be too long for big graphs)",
+          "name": "openOnline",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "maxUrlLength": {
+          "description": "Max URL length for online viewer (guard)",
+          "name": "maxUrlLength",
+          "default": 8000,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "vizHtml": {
+          "aliases": [
+            "viz.html"
+          ],
+          "description": "Emit a local HTML viewer (graph.html) that embeds the generated SVG and adds pan/zoom",
+          "name": "vizHtml",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "serve": {
+          "description": "Serve the output directory and open http://localhost:<port>/graph.html",
+          "name": "serve",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "port": {
+          "description": "Port for --serve (default 3000 or next free)",
+          "name": "port",
+          "default": 3000,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "explore",
+      "pluginAlias": "@civ7-modding/cli",
+      "pluginName": "@civ7-modding/cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Crawl + render + open a visualization in one pipeline.",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "explore.js"
+      ]
+    },
+    "render": {
+      "aliases": [],
+      "args": {
+        "input": {
+          "description": "Path to DOT file (defaults to out/<seed>/graph.dot)",
+          "name": "input",
+          "required": true
+        },
+        "output": {
+          "description": "Path to output SVG (defaults to out/<seed>/graph.svg)",
+          "name": "output",
+          "required": false
+        }
+      },
+      "description": "\nRenders a Graphviz DOT file to SVG using a WebAssembly Graphviz engine.\n",
+      "examples": [
+        "<%= config.bin %> render ./out/graph.dot ./out/graph.svg"
+      ],
+      "flags": {
+        "config": {
+          "description": "Path to config file",
+          "name": "config",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "profile": {
+          "description": "Profile key from config",
+          "name": "profile",
+          "required": false,
+          "default": "default",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "engine": {
+          "description": "Graphviz engine",
+          "name": "engine",
+          "default": "dot",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "options": [
+            "dot",
+            "neato",
+            "fdp",
+            "sfdp",
+            "circo",
+            "twopi"
+          ],
+          "type": "option"
+        },
+        "format": {
+          "description": "Output format",
+          "name": "format",
+          "default": "svg",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "options": [
+            "svg"
+          ],
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "render",
+      "pluginAlias": "@civ7-modding/cli",
+      "pluginName": "@civ7-modding/cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Render a Graphviz DOT file to an SVG (no external deps).",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "render.js"
+      ]
+    },
+    "slice": {
+      "aliases": [],
+      "args": {
+        "manifest": {
+          "description": "Path to manifest.txt (defaults to out/<seed>/manifest.txt)",
+          "name": "manifest",
+          "required": true
+        }
+      },
+      "description": "\nReads a manifest.txt (one absolute path per line) and copies those files from a given root into a destination folder,\npreserving relative directory structure.\n",
+      "examples": [
+        "<%= config.bin %> slice ./out/<seed>/manifest.txt",
+        "<%= config.bin %> slice --profile default ./out/<seed>/manifest.txt ./out/<seed>-slice"
+      ],
+      "flags": {
+        "config": {
+          "description": "Path to config file",
+          "name": "config",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "profile": {
+          "description": "Profile key from config",
+          "name": "profile",
+          "required": false,
+          "default": "default",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "root": {
+          "description": "Override root directory (XML source) if not using config",
+          "name": "root",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "dest": {
+          "description": "Override destination directory",
+          "name": "dest",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "slice",
+      "pluginAlias": "@civ7-modding/cli",
+      "pluginName": "@civ7-modding/cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Copy files from manifest.txt into a destination folder (preserving paths).",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "slice.js"
+      ]
+    },
     "unzip": {
       "aliases": [],
       "args": {
@@ -20,7 +349,7 @@
           "required": false
         }
       },
-      "description": "\nThis command reads profiles from 'civ-zip-config.jsonc' to extract a resource archive.\nThe source zip file and extraction path are determined by the profile, but can be overridden.\n",
+      "description": "\nReads profiles from the CLI config to extract a resource archive.\nThe source zip file and extraction path are determined by the profile, but can be overridden.\n",
       "examples": [
         "<%= config.bin %> unzip",
         "<%= config.bin %> unzip full",
@@ -68,7 +397,7 @@
           "required": false
         }
       },
-      "description": "\nThis command reads profiles from 'civ-zip-config.jsonc' to create a zip archive of the game's resources.\nIt automatically detects the operating system to find the default game resource directory but can be overridden.\nThe command supports include/exclude patterns and provides a summary of the operation.\n",
+      "description": "\nReads profiles from the CLI config to create a zip archive of the game's resources.\nAutomatically detects OS defaults but can be overridden. Supports include/exclude patterns and prints a summary.\n",
       "examples": [
         "<%= config.bin %> zip",
         "<%= config.bin %> zip full",

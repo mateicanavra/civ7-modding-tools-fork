@@ -15,7 +15,7 @@ export default class Unzip extends Command {
     static summary = "Unzips Civilization VII resources based on a profile.";
 
     static description = `
-This command reads profiles from 'civ-zip-config.jsonc' to extract a resource archive.
+Reads profiles from the CLI config to extract a resource archive.
 The source zip file and extraction path are determined by the profile, but can be overridden.
 `;
 
@@ -69,8 +69,8 @@ The source zip file and extraction path are determined by the profile, but can b
         // Use a Set to avoid checking the same path twice if cwd is root
         const searchPaths = new Set<string | undefined>([
             configPath, // 1. Path from --config flag
-            path.join(process.cwd(), "civ-zip-config.jsonc"), // 2. Current working directory
-            path.join(projectRoot, "civ-zip-config.jsonc"), // 3. Project root
+            path.join(process.cwd(), "civ.config.jsonc"), // 2. Current working directory
+            path.join(projectRoot, "civ.config.jsonc"), // 3. Project root
         ]);
 
         for (const p of searchPaths) {
@@ -103,9 +103,7 @@ The source zip file and extraction path are determined by the profile, but can b
         // --- 1. Find and Parse Config ---
         const configPath = this.findConfig(flags.config);
         if (!configPath) {
-            this.error(
-                "Config file not found. Please create 'civ-zip-config.jsonc' or use the --config flag.",
-            );
+            this.error("Config file not found. Provide --config or create a config file in the project root.");
         }
         this.log(`→ Using config: ${configPath}`);
 

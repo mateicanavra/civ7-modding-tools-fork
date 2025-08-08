@@ -16,9 +16,8 @@ export default class Zip extends Command {
     static summary = "Zips Civilization VII resources based on a profile.";
 
     static description = `
-This command reads profiles from 'civ-zip-config.jsonc' to create a zip archive of the game's resources.
-It automatically detects the operating system to find the default game resource directory but can be overridden.
-The command supports include/exclude patterns and provides a summary of the operation.
+Reads profiles from the CLI config to create a zip archive of the game's resources.
+Automatically detects OS defaults but can be overridden. Supports include/exclude patterns and prints a summary.
 `;
 
     static examples = [
@@ -74,8 +73,8 @@ The command supports include/exclude patterns and provides a summary of the oper
         // Use a Set to avoid checking the same path twice if cwd is root
         const searchPaths = new Set<string | undefined>([
             configFlag, // 1. Path from --config flag
-            path.join(process.cwd(), "civ-zip-config.jsonc"), // 2. Current working directory
-            path.join(projectRoot, "civ-zip-config.jsonc"), // 3. Project root
+            path.join(process.cwd(), "civ.config.jsonc"), // 2. Current working directory
+            path.join(projectRoot, "civ.config.jsonc"), // 3. Project root
         ]);
 
         for (const p of searchPaths) {
@@ -109,10 +108,7 @@ The command supports include/exclude patterns and provides a summary of the oper
         const configPath = this.findConfig(flags.config);
 
         if (!configPath) {
-            this.error(
-                "Config file not found. Please ensure 'civ-zip-config.jsonc' is in the project root or use the --config flag.",
-                { exit: 1 },
-            );
+            this.error("Config file not found. Provide --config or create a config file in the project root.", { exit: 1 });
         }
 
         this.log(`→ Using config: ${configPath}`);

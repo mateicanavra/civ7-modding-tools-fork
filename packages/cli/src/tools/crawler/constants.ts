@@ -1,0 +1,68 @@
+// Centralized constants for Civ XML crawler
+
+export const PRIMARY_KEYS: Record<string, string> = {
+  Types: 'Type',
+  Traits: 'TraitType',
+  Leaders: 'LeaderType',
+  Civilizations: 'CivilizationType',
+  LeaderTraits: '',
+  CivilizationTraits: '',
+  Modifiers: 'ModifierId',
+  ModifierArguments: '',
+  RequirementSets: 'RequirementSetId',
+  RequirementSetRequirements: '',
+  Requirements: 'RequirementId',
+  RequirementArguments: '',
+  Units: 'UnitType',
+  UnitAbilities: 'UnitAbilityType',
+  UnitAbilityModifiers: '',
+  Buildings: 'BuildingType',
+  Districts: 'DistrictType',
+  Improvements: 'ImprovementType',
+  Resources: 'ResourceType',
+  Technologies: 'TechnologyType',
+  Civics: 'CivicType',
+  Agendas: 'AgendaType',
+  Improvement_YieldChanges: '',
+  Improvement_ValidTerrains: '',
+  Improvement_ValidFeatures: '',
+  Improvement_AdjacentDistrictYields: '',
+};
+
+export const COLUMN_TO_TABLE: Record<string, string> = {
+  TraitType: 'Traits',
+  LeaderType: 'Leaders',
+  CivilizationType: 'Civilizations',
+  ModifierId: 'Modifiers',
+  RequirementSetId: 'RequirementSets',
+  RequirementId: 'Requirements',
+  UnitType: 'Units',
+  UnitAbilityType: 'UnitAbilities',
+  AbilityType: 'UnitAbilities',
+  BuildingType: 'Buildings',
+  DistrictType: 'Districts',
+  ImprovementType: 'Improvements',
+  ResourceType: 'Resources',
+  TechnologyType: 'Technologies',
+  CivicType: 'Civics',
+  AgendaType: 'Agendas',
+};
+
+export const PREFIX_TO_TABLE: Array<[RegExp, string]> = [
+  [/^LEADER_/, 'Leaders'],
+  [/^CIVILIZATION_/, 'Civilizations'],
+  [/^TRAIT_/, 'Traits'],
+  [/^MODIFIER_/, 'Modifiers'],
+  [/^REQUIREMENTSET_/, 'RequirementSets'],
+  [/^REQUIREMENT_/, 'Requirements'],
+  [/^UNIT_/, 'Units'],
+  [/^BUILDING_/, 'Buildings'],
+  [/^DISTRICT_/, 'Districts'],
+  [/^IMPROVEMENT_/, 'Improvements'],
+  [/^RESOURCE_/, 'Resources'],
+  [/^TECH_|^TECHNOLOGY_/, 'Technologies'],
+  [/^CIVIC_/, 'Civics'],
+  [/^AGENDA_/, 'Agendas'],
+];
+
+
