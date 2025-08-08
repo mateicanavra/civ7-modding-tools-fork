@@ -2,7 +2,8 @@ import { Args, Command, Flags } from "@oclif/core";
 import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import * as fssync from "node:fs";
-import { buildIndexFromXml, parseSeed, crawl, graphToJson, graphToDot } from "../tools/crawler";
+import { buildIndexFromXml, parseSeed, crawl } from "../tools/crawler";
+import { graphToJson, graphToDot } from "../tools/graph";
 import { findProjectRoot, resolveOutDir, resolveRootFromConfigOrFlag } from "../utils/cli-helpers";
 
 export default class Crawl extends Command {
@@ -22,7 +23,7 @@ to discover related rows. It writes a graph (JSON + DOT) and a manifest of XML f
     ];
 
     static flags = {
-        config: Flags.string({ description: "Path to civ-zip-config.jsonc", required: false }),
+        config: Flags.string({ description: "Path to config file", required: false }),
         profile: Flags.string({ description: "Profile key from config", required: false, default: "default" }),
         root: Flags.string({ description: "Override root folder (XML dir) if not using config", required: false }),
     } as const;
@@ -40,9 +41,7 @@ to discover related rows. It writes a graph (JSON + DOT) and a manifest of XML f
 
         const projectRoot = findProjectRoot(process.cwd());
         const root = await resolveRootFromConfigOrFlag({ projectRoot, profile: flags.profile!, flagsRoot: flags.root, flagsConfig: flags.config });
-        if (!root) {
-            this.error("Could not determine XML root directory. Provide --root or define unzip.extract_path in civ-zip-config.jsonc");
-        }
+        if (!root) this.error("Could not determine XML root directory. Provide --root or define unzip.extract_path in the config file.");
         if (!fssync.existsSync(root)) {
             this.error(`Root path not found: ${root}`);
         }

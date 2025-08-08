@@ -22,7 +22,7 @@
       ],
       "flags": {
         "config": {
-          "description": "Path to civ-zip-config.jsonc",
+          "description": "Path to config file",
           "name": "config",
           "required": false,
           "hasDynamicHelp": false,
@@ -84,7 +84,7 @@
       ],
       "flags": {
         "config": {
-          "description": "Path to civ-zip-config.jsonc",
+          "description": "Path to config file",
           "name": "config",
           "required": false,
           "hasDynamicHelp": false,
@@ -204,7 +204,7 @@
       ],
       "flags": {
         "config": {
-          "description": "Path to civ-zip-config.jsonc",
+          "description": "Path to config file",
           "name": "config",
           "required": false,
           "hasDynamicHelp": false,
@@ -280,7 +280,7 @@
       ],
       "flags": {
         "config": {
-          "description": "Path to civ-zip-config.jsonc",
+          "description": "Path to config file",
           "name": "config",
           "required": false,
           "hasDynamicHelp": false,
@@ -349,7 +349,7 @@
           "required": false
         }
       },
-      "description": "\nThis command reads profiles from 'civ-zip-config.jsonc' to extract a resource archive.\nThe source zip file and extraction path are determined by the profile, but can be overridden.\n",
+      "description": "\nReads profiles from the CLI config to extract a resource archive.\nThe source zip file and extraction path are determined by the profile, but can be overridden.\n",
       "examples": [
         "<%= config.bin %> unzip",
         "<%= config.bin %> unzip full",
@@ -397,7 +397,7 @@
           "required": false
         }
       },
-      "description": "\nThis command reads profiles from 'civ-zip-config.jsonc' to create a zip archive of the game's resources.\nIt automatically detects the operating system to find the default game resource directory but can be overridden.\nThe command supports include/exclude patterns and provides a summary of the operation.\n",
+      "description": "\nReads profiles from the CLI config to create a zip archive of the game's resources.\nAutomatically detects OS defaults but can be overridden. Supports include/exclude patterns and prints a summary.\n",
       "examples": [
         "<%= config.bin %> zip",
         "<%= config.bin %> zip full",

@@ -17,7 +17,7 @@ Renders a Graphviz DOT file to SVG using a WebAssembly Graphviz engine.
   ];
 
   static flags = {
-    config: Flags.string({ description: "Path to civ-zip-config.jsonc", required: false }),
+    config: Flags.string({ description: "Path to config file", required: false }),
     profile: Flags.string({ description: "Profile key from config", required: false, default: "default" }),
     engine: Flags.string({
       description: "Graphviz engine",

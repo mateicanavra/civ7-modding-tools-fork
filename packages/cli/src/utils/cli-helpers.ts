@@ -27,12 +27,12 @@ export function expandPath(filePath: string): string {
   return filePath;
 }
 
-/** Find civ-zip config by checking a few prioritized locations. */
+/** Find CLI config by checking a few prioritized locations. */
 export function findConfig(projectRoot: string, configFlag?: string): string | null {
   const searchPaths = new Set<string | undefined>([
     configFlag,
-    path.join(process.cwd(), 'civ-zip-config.jsonc'),
-    path.join(projectRoot, 'civ-zip-config.jsonc'),
+    path.join(process.cwd(), 'civ.config.jsonc'),
+    path.join(projectRoot, 'civ.config.jsonc'),
   ]);
   for (const p of searchPaths) {
     if (p && fssync.existsSync(p)) return p;
@@ -50,7 +50,7 @@ export interface ResolvedRootOptions {
 /**
  * Resolve the XML root directory based on precedence:
  * 1) --root flag (if provided)
- * 2) unzip.extract_path from civ-zip-config.jsonc for the selected profile
+ * 2) unzip.extract_path from config for the selected profile
  */
 export async function resolveRootFromConfigOrFlag(opts: ResolvedRootOptions): Promise<string> {
   const { projectRoot, profile, flagsRoot, flagsConfig } = opts;

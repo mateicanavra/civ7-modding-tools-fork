@@ -19,7 +19,7 @@ preserving relative directory structure.
   ];
 
   static flags = {
-    config: Flags.string({ description: "Path to civ-zip-config.jsonc", required: false }),
+    config: Flags.string({ description: "Path to config file", required: false }),
     profile: Flags.string({ description: "Profile key from config", required: false, default: "default" }),
     root: Flags.string({ description: "Override root directory (XML source) if not using config", required: false }),
     dest: Flags.string({ description: "Override destination directory", required: false }),

@@ -1,5 +1,5 @@
 {
-    "$schema": "./civ-zip-config.schema.json",
+    "$schema": "./civ.config.schema.json",
 
     // Optional: Override the game's resource directory path.
     // If commented out, the script will use the default path for your OS.

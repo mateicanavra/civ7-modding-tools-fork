@@ -3,10 +3,10 @@ import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import * as fssync from "node:fs";
 import { Graphviz } from "@hpcc-js/wasm";
-import { buildIndexFromXml, crawl, graphToDot, graphToJson, parseSeed } from "../tools/crawler";
+import { buildIndexFromXml, crawl, parseSeed } from "../tools/crawler";
+import { graphToDot, graphToJson, buildGraphViewerHtml } from "../tools/graph";
 import { findProjectRoot, resolveOutDir, resolveRootFromConfigOrFlag } from "../utils/cli-helpers";
 import { spawn } from "node:child_process";
-import { buildGraphViewerHtml } from "../tools/graph/viewer";
 import * as http from "node:http";
 
 export default class Explore extends Command {
@@ -20,7 +20,7 @@ export default class Explore extends Command {
   ];
 
   static flags = {
-    config: Flags.string({ description: "Path to civ-zip-config.jsonc", required: false }),
+    config: Flags.string({ description: "Path to config file", required: false }),
     profile: Flags.string({ description: "Profile key from config", required: false, default: "default" }),
     root: Flags.string({ description: "Override root folder (XML dir) if not using config", required: false }),
     engine: Flags.string({ description: "Graphviz engine", options: ["dot", "neato", "fdp", "sfdp", "circo", "twopi"], default: "dot" }),
@@ -43,7 +43,7 @@ export default class Explore extends Command {
 
     const projectRoot = findProjectRoot(process.cwd());
     const root = await resolveRootFromConfigOrFlag({ projectRoot, profile: flags.profile!, flagsRoot: flags.root, flagsConfig: flags.config });
-    if (!root) this.error("Could not determine XML root directory. Provide --root or define unzip.extract_path in civ-zip-config.jsonc");
+    if (!root) this.error("Could not determine XML root directory. Provide --root or define unzip.extract_path in the config file.");
     if (!fssync.existsSync(root)) this.error(`Root path not found: ${root}`);
 
     const seed = args.seed;

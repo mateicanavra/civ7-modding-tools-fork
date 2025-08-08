@@ -9,7 +9,7 @@ This document tracks completed work and upcoming enhancements for the CLI and XM
   - Attach-chain traversal via `ModifierArguments(Name="ModifierId") → Modifiers`.
   - Light layering and delete semantics: respects Database `<Delete>`, deterministic file order (lexicographic), last write wins by sequence, prunes non-existent targets.
   - Provenance on every row (`__file`, `__table`) for accurate manifest slicing.
-  - CLI UX unchanged; defaults from `civ-zip-config.jsonc`.
+- CLI UX unchanged; defaults from `civ.config.jsonc`.
   - Acceptance validated on: `CIVILIZATION_ROME`, `LEADER_GENGHIS_KHAN`.
 
 - Visualization improvements (Completed)
@@ -122,7 +122,7 @@ The sections below describe each phase in detail. They are not a roadmap and may
 
 #### Phase E — Theming & wrapper (defer until requested)
 - VIZ-10: Config-driven styling (optional)
-  - Optional `viz` block in `civ-zip-config.jsonc` to override table/node/edge styles.
+  - Optional `viz` block in `civ.config.jsonc` to override table/node/edge styles.
 - VIZ-12: HTML wrapper for pan/zoom UX (optional)
   - `--viz.html` to emit a minimal HTML viewer that wraps the SVG for panning/zooming.
 
