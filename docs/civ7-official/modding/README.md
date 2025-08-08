@@ -10,3 +10,5 @@ Notes:
 - Images are under `guides/images/` and used by multiple pages.
 - HTML duplicates from the original export were removed to avoid manual maintenance.
 
+<!-- Developer-only authoring notes live in top-level README and community docs. -->
+

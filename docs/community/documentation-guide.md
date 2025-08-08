@@ -310,3 +310,24 @@ The following how-to guides provide step-by-step instructions for specific moddi
 ```
 
 This diagram shows the relationships and recommended reading paths between documents, with arrows indicating logical progression or references between documents. 
+
+## Developer Notes: Embedding external files (Docsify)
+
+- Prefer embedding example sources instead of copy/pasting.
+- Reference: Docsify Embed files [link](https://docsify.js.org/#/embed-files).
+- Sites load `docsify-include-template` and a local plugin `plugins/code-slicer.js` to support line slicing.
+
+Pattern:
+
+```markdown
+<details class="code-example">
+<summary>filename.ext (excerpt)</summary>
+
+```xml lines=1-80
+%[{ relative/path/to/file.xml }]%
+```
+</details>
+```
+
+- Use `lines=START-END` to slice; `lines=40-` means from 40 to EOF.
+- Keep paths relative to the site root so they work with `pnpm docs:all` and per-site servers.

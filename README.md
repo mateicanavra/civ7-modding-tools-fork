@@ -192,3 +192,36 @@ This fork diverges from the original in several ways:
 - **Ships a dedicated CLI** and configuration to zip or unzip official Civ7 resources.
 - Adds extra builders, constants, and resource classes to cover more modding features.
 - Provides `AGENTS.md` with workspace guidance and XML verification tips.
+
+## Docs authoring (Docsify)
+
+We render documentation with Docsify. To embed XML/SQL examples directly from files without copy‑pasting:
+
+- Use the include syntax inside a fenced block. Example:
+
+  ```xml
+  %[{ examples/fxs-new-narrative-event/data/antiquity-discovery.xml }]%
+  ```
+
+- To show only a subset of lines, add a `lines=START-END` hint in the fence info:
+
+  ```xml lines=1-80
+  %[{ examples/fxs-new-narrative-event/data/antiquity-discovery.xml }]%
+  ```
+
+- Wrap large snippets in a collapsible toggle to keep pages tidy:
+
+  <details class="code-example">
+  <summary>antiquity-discovery.xml (excerpt)</summary>
+
+  ```xml lines=1-80
+  %[{ examples/fxs-new-narrative-event/data/antiquity-discovery.xml }]%
+  ```
+  </details>
+
+Notes
+- Syntax highlighting is via Prism (XML/SQL enabled).
+- Includes are handled with `docsify-include-template`; line slicing is provided by a small local plugin `plugins/code-slicer.js` (loaded by the docs site).
+- Keep paths relative to the docs site root so they work with `pnpm run docs:all` and per‑site servers.
+
+Reference: Docsify Embed files [link](https://docsify.js.org/#/embed-files)
