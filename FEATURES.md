@@ -34,16 +34,20 @@ This document tracks completed work and upcoming enhancements for the CLI and XM
   - `--port` selects port (default 3000, falls back if busy).
   - Use with `civ7 explore <seed> --serve` for local iteration.
 
+### Next up
+
+- Phase B — Layout semantics & UX
+  - VIZ-3: Layered layout by table (rank hints) — keep `rankdir=LR`; group ranks Leaders/Civs → Traits → Modifiers → RequirementSets → Requirements → Arguments.
+  - VIZ-6: Tooltips and hyperlinks (provenance-aware) — add `tooltip` with full IDs; add `URL` to source file paths; offline-safe and escaped.
+
 ### Upcoming (Tickets, prioritized shallow → deep)
 
 - Execution order (priority)
-  1. Phase A — Quick visual clarity (done; incremental tweaks okay)
-  2. Phase F (Baseline) — Local Interactive Visualizer (VIZ-13)
-  3. Phase B — Layout semantics & UX (VIZ-3, VIZ-6)
-  4. Phase C — Complexity controls (VIZ-4, VIZ-5)
-  5. Phase D — Structural grouping (VIZ-11)
-  6. Optional: Phase F (Dev server) — VIZ-14; Phase E — Config-driven styling (VIZ-10)
-  7. Later: Phase F (Advanced) — VIZ-15, VIZ-16, VIZ-17, VIZ-18
+  1. Phase B — Layout semantics & UX (VIZ-3, VIZ-6) [Next]
+  2. Phase C — Complexity controls (VIZ-4, VIZ-5)
+  3. Phase D — Structural grouping (VIZ-11)
+  4. Phase E — Config-driven styling (VIZ-10) [Optional]
+  5. Phase F (Advanced) — VIZ-15, VIZ-16, VIZ-17, VIZ-18 [Later]
 
 #### Phase A — Quick visual clarity
 - VIZ-8: Global layout tuning
