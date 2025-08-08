@@ -13,7 +13,7 @@ import {
     LeaderUnlockBuilder,
     Mod,
     AGE
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-leader-mod',
@@ -84,7 +84,7 @@ import {
     ACTION_GROUP_ACTION,
     ImportFileBuilder,
     Mod
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-custom-leader-mod',
@@ -142,7 +142,7 @@ import {
     EFFECT,
     REQUIREMENT,
     AGE
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-age-specific-mod',
@@ -183,7 +183,7 @@ import {
     LeaderUnlockBuilder,
     Mod,
     AGE
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-leader-transition-mod',

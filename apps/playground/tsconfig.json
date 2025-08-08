@@ -2,11 +2,9 @@
   "extends": "@civ7/config/tsconfig/base",
   "compilerOptions": {
     "composite": true,
-    "declaration": true,
     "outDir": "dist",
     "rootDir": "src",
-    "types": ["bun-types"],
     "noEmit": false
   },
-  "include": ["src/**/*"]
+  "include": ["src"]
 }

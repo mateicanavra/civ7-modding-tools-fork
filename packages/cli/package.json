@@ -1,60 +1,57 @@
 {
-    "name": "@civ7-modding/cli",
-    "version": "0.1.0",
-    "description": "CLI for managing Civilization VII modding resources.",
-    "author": "Your Name",
-    "license": "MIT",
-    "main": "dist/index.js",
-    "bin": {
-        "civ7": "./bin/run.js"
-    },
-    "files": [
-        "bin",
-        "dist",
-        "oclif.manifest.json"
-    ],
-    "scripts": {
-        "build": "rimraf dist && tsc -b --force && oclif manifest && chmod +x bin/run.js",
-        "start": "pnpm run build && node .",
-        "dev": "bun run src/index.ts",
-        "publish:local": "pnpm run build && pnpm link --global",
-        "crawl": "node ./bin/run.js crawl",
+  "name": "@civ7/cli",
+  "version": "0.1.0",
+  "description": "CLI for managing Civilization VII modding resources.",
+  "author": "Your Name",
+  "license": "MIT",
+  "private": false,
+  "bin": { "civ7": "./bin/run.js" },
+  "files": ["bin", "dist", "oclif.manifest.json"],
+  "scripts": {
+    "build": "rimraf dist && tsc -b --force && oclif manifest && chmod +x bin/run.js",
+    "dev": "bun run src/index.ts",
+    "publish:local": "pnpm run build && pnpm link --global",
+    "crawl": "node ./bin/run.js crawl",
     "render": "node ./bin/run.js render",
     "explore": "node ./bin/run.js explore",
-        "slice": "node ./bin/run.js slice",
-        "zip": "node ./bin/run.js zip",
-        "unzip": "node ./bin/run.js unzip",
-        "pack": "pnpm pack",
-        "publish": "pnpm publish",
-        "prepack": "pnpm run build && oclif readme",
-        "postpack": "rimraf oclif.manifest.json",
-        "version": "oclif readme && git add README.md"
-    },
-    "dependencies": {
-        "@oclif/core": "^4.5.2",
-        "@oclif/plugin-help": "^6.2.32",
-        "@hpcc-js/wasm": "^2.22.0",
-        "fast-xml-parser": "^5.2.5",
-        "jsonc-parser": "^3.3.1",
-        "tslib": "^2.6.3"
-    },
-    "devDependencies": {
-        "@types/node": "^24.2.0",
-        "bun-types": "latest",
-        "oclif": "^4.22.6",
-        "rimraf": "^6.0.1",
-        "typescript": "^5.9.2"
-    },
-    "oclif": {
-        "bin": "civ7",
-        "dirname": "cli",
-        "commands": "./dist/commands",
-        "plugins": [
-            "@oclif/plugin-help"
-        ],
-        "topicSeparator": " "
-    },
-    "engines": {
-        "node": ">=18.0.0"
-    }
+    "slice": "node ./bin/run.js slice",
+    "zip": "node ./bin/run.js zip",
+    "unzip": "node ./bin/run.js unzip",
+    "pack": "pnpm pack",
+    "publish": "pnpm publish",
+    "prepack": "pnpm run build && oclif readme",
+    "postpack": "rimraf oclif.manifest.json",
+    "version": "oclif readme && git add README.md",
+    "lint": "echo 'no lint'",
+    "test": "echo \"no tests\"",
+    "clean": "rimraf dist",
+    "prepublishOnly": "pnpm build"
+  },
+  "dependencies": {
+    "@oclif/core": "^4.5.2",
+    "@oclif/plugin-help": "^6.2.32",
+    "@hpcc-js/wasm": "^2.22.0",
+    "fast-xml-parser": "^5.2.5",
+    "jsonc-parser": "^3.3.1",
+    "tslib": "^2.6.3",
+    "@civ7/sdk": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^24.2.0",
+    "bun-types": "latest",
+    "oclif": "^4.22.6",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.9.2",
+    "eslint": "^9",
+    "@civ7/config": "workspace:*"
+  },
+  "oclif": {
+    "bin": "civ7",
+    "dirname": "cli",
+    "commands": "./dist/commands",
+    "plugins": ["@oclif/plugin-help"],
+    "topicSeparator": " "
+  },
+  "engines": { "node": ">=20" },
+  "publishConfig": { "access": "public" }
 }

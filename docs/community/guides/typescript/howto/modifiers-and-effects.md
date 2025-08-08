@@ -23,7 +23,7 @@ import {
     EFFECT,
     Mod,
     ModifierBuilder
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-modifier-mod',
@@ -64,7 +64,7 @@ import {
     ModifierBuilder,
     REQUIREMENT,
     UNIT_CLASS
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-complex-modifier-mod',
@@ -106,7 +106,7 @@ mod.add([complexModifier]);
 Collections define what game entities are affected by a modifier. Here are some commonly used collections:
 
 ```typescript
-import { COLLECTION } from "civ7-modding-tools";
+import { COLLECTION } from "@civ7/sdk";
 
 // Available collections
 const collections = {
@@ -133,7 +133,7 @@ const collections = {
 Effects define what the modifier actually does. Here are some commonly used effects:
 
 ```typescript
-import { EFFECT } from "civ7-modding-tools";
+import { EFFECT } from "@civ7/sdk";
 
 // Unit effects
 const unitEffects = {
@@ -163,7 +163,7 @@ const playerEffects = {
 Requirements define conditions that must be met for the modifier to apply:
 
 ```typescript
-import { REQUIREMENT } from "civ7-modding-tools";
+import { REQUIREMENT } from "@civ7/sdk";
 
 // Unit requirements
 const unitRequirements = {
@@ -273,7 +273,7 @@ import {
     ModifierBuilder,
     TraditionBuilder,
     UnitBuilder
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 // Create a civilization
 const dacia = new CivilizationBuilder({

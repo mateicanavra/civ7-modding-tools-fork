@@ -29,7 +29,7 @@ import {
     EFFECT,
     YIELD,
     AGE
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-civics-mod',
@@ -146,7 +146,7 @@ import {
     ProgressionTreeBuilder,
     ProgressionTreeNodeBuilder,
     AGE
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-complex-tree-mod',
@@ -253,7 +253,7 @@ import {
     EFFECT,
     REQUIREMENT,
     UNIT_CLASS
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-unlockable-mod',
@@ -326,7 +326,7 @@ import {
     ProgressionTreeBuilder,
     ProgressionTreeNodeBuilder,
     AGE
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-age-tree-mod',
@@ -376,7 +376,7 @@ import {
     ProgressionTreeNodeBuilder,
     ProgressionTreeVisualsBuilder,
     AGE
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-visuals-mod',

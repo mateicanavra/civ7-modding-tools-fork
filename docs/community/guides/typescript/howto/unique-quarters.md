@@ -29,7 +29,7 @@ import {
     EFFECT,
     REQUIREMENT,
     YIELD
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'my-quarter-mod',
@@ -158,7 +158,7 @@ import {
     ConstructibleBuilder,
     ModifierBuilder,
     /* other imports */
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 // Create your civilization
 const dacia = new CivilizationBuilder({
@@ -214,7 +214,7 @@ mod.add([dacia, building1, building2, dacianQuarter]);
 Create unique quarters that are only available in specific Ages:
 
 ```typescript
-import { AGE, /* other imports */ } from "civ7-modding-tools";
+import { AGE, /* other imports */ } from "@civ7/sdk";
 
 // Create an Antiquity Age unique quarter
 const ancientQuarter = new UniqueQuarterBuilder({

@@ -22,7 +22,7 @@ import {
     CivilizationBuilder,
     Mod,
     UnitBuilder
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'binding-example-mod',
@@ -108,7 +108,7 @@ import {
     ACTION_GROUP_BUNDLE,
     Mod,
     UnitBuilder
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'age-specific-mod',
@@ -224,7 +224,7 @@ Each component can be defined in its own file:
 
 **src/civilizations/dacia.ts**:
 ```typescript
-import { CivilizationBuilder, ACTION_GROUP_BUNDLE } from "civ7-modding-tools";
+import { CivilizationBuilder, ACTION_GROUP_BUNDLE } from "@civ7/sdk";
 
 export function createDacianCivilization() {
     return new CivilizationBuilder({
@@ -240,7 +240,7 @@ export function createDacianCivilization() {
 
 **src/units/falx-warrior.ts**:
 ```typescript
-import { UnitBuilder, ACTION_GROUP_BUNDLE } from "civ7-modding-tools";
+import { UnitBuilder, ACTION_GROUP_BUNDLE } from "@civ7/sdk";
 
 export function createFalxWarrior() {
     return new UnitBuilder({
@@ -260,7 +260,7 @@ The main build file imports and combines all components:
 
 **build.ts**:
 ```typescript
-import { Mod } from "civ7-modding-tools";
+import { Mod } from "@civ7/sdk";
 import { createDacianCivilization } from "./src/civilizations/dacia";
 import { createFalxWarrior } from "./src/units/falx-warrior";
 import { createMountainScout } from "./src/units/mountain-scout";
@@ -324,7 +324,7 @@ import {
     TypeNode,
     UnitNode,
     XmlFile
-} from "civ7-modding-tools";
+} from "@civ7/sdk";
 
 const mod = new Mod({
     id: 'manual-node-mod',
@@ -418,7 +418,7 @@ For truly advanced mods, you can extend the built-in tools by creating custom bu
 ### Creating a Custom Builder Class
 
 ```typescript
-import { BuilderBase, ACTION_GROUP_BUNDLE } from "civ7-modding-tools";
+import { BuilderBase, ACTION_GROUP_BUNDLE } from "@civ7/sdk";
 
 // Create a custom builder for a game element not directly supported
 export class ReligionBuilder extends BuilderBase {
