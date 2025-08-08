@@ -2,7 +2,7 @@ import { Args, Command, Flags } from "@oclif/core";
 import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import * as fssync from "node:fs";
-import { buildIndexFromXml, parseSeed, crawl, graphToJson, graphToDot } from "../tools/civ7-xml-crawler";
+import { buildIndexFromXml, parseSeed, crawl, graphToJson, graphToDot } from "../tools/crawler";
 import { findProjectRoot, resolveOutDir, resolveRootFromConfigOrFlag } from "../utils/cli-helpers";
 
 export default class Crawl extends Command {

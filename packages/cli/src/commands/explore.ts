@@ -3,10 +3,10 @@ import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import * as fssync from "node:fs";
 import { Graphviz } from "@hpcc-js/wasm";
-import { buildIndexFromXml, crawl, graphToDot, graphToJson, parseSeed } from "../tools/civ7-xml-crawler";
+import { buildIndexFromXml, crawl, graphToDot, graphToJson, parseSeed } from "../tools/crawler";
 import { findProjectRoot, resolveOutDir, resolveRootFromConfigOrFlag } from "../utils/cli-helpers";
 import { spawn } from "node:child_process";
-import { buildSvgViewerHtml } from "../tools/html-viewer";
+import { buildGraphViewerHtml } from "../tools/graph/viewer";
 import * as http from "node:http";
 
 export default class Explore extends Command {
@@ -77,7 +77,7 @@ export default class Explore extends Command {
     let htmlPath: string | null = null;
     const useHtmlViewer = Boolean((flags as any)["viz.html"]) || Boolean((flags as any).vizHtml);
     if (useHtmlViewer) {
-      const html = buildSvgViewerHtml({ title: `${seed} — Graph`, svg });
+      const html = buildGraphViewerHtml({ title: `${seed} — Graph`, svg });
       htmlPath = path.join(outDir, "graph.html");
       await fs.writeFile(htmlPath, html, "utf8");
     }

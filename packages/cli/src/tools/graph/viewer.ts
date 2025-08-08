@@ -2,11 +2,11 @@
  * Build a self-contained HTML document that embeds a provided SVG string and adds
  * minimal pan/zoom/fit-to-screen interactions without any external dependencies.
  */
-export function buildSvgViewerHtml(params: { title: string; svg: string }): string {
-    const { title, svg } = params;
-    const safeTitle = String(title || "Graph");
+export function buildGraphViewerHtml(params: { title: string; svg: string }): string {
+  const { title, svg } = params;
+  const safeTitle = String(title || 'Graph');
 
-    return /*html*/ `<!doctype html>
+  return /*html*/ `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -63,6 +63,18 @@ export function buildSvgViewerHtml(params: { title: string; svg: string }): stri
   <meta name="apple-mobile-web-app-status-bar-style" content="#0b0f12" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="format-detection" content="telephone=no" />
+  <meta name="description" content="Interactive graph viewer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="referrer" content="no-referrer" />
+  <meta name="robots" content="noindex" />
+  <meta name="generator" content="civ7-modding-tools" />
+  <meta name="application-name" content="Civ7 Modding Tools" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0b0f12" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="#0b0f12" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="format-detection" content="telephone=no" />
+  
 </head>
 <body>
   <div id="viewer">
@@ -88,13 +100,11 @@ export function buildSvgViewerHtml(params: { title: string; svg: string }): stri
       svg.setAttribute('height', '100%');
       svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
 
-      // Use viewBox for pan/zoom to avoid transform order pitfalls
       var baseVB = (function resolveBaseViewBox() {
         var vb = svg.viewBox && svg.viewBox.baseVal;
         if (vb && vb.width && vb.height) {
           return { x: vb.x, y: vb.y, width: vb.width, height: vb.height };
         }
-        // Fallback to content bbox
         try {
           var bbox = (svg).getBBox();
           return { x: bbox.x, y: bbox.y, width: bbox.width, height: bbox.height };
@@ -114,7 +124,6 @@ export function buildSvgViewerHtml(params: { title: string; svg: string }): stri
         svg.setAttribute('viewBox', x + ' ' + y + ' ' + w + ' ' + h);
       }
 
-      // Smooth zoom animation state
       var zoomAnim = null; // { from:{x,y,w,h}, to:{x,y,w,h}, start:number, dur:number }
       function lerp(a, b, t) { return a + (b - a) * t; }
       function clamp01(v) { return v < 0 ? 0 : (v > 1 ? 1 : v); }
@@ -150,20 +159,14 @@ export function buildSvgViewerHtml(params: { title: string; svg: string }): stri
         scheduleZoomRect(newX, newY, newW, newH, durMs);
       }
 
-      function fit() {
-        setViewBox(baseVB.x, baseVB.y, baseVB.width, baseVB.height);
-      }
-
-      // Initial fit and responsive fit
+      function fit() { setViewBox(baseVB.x, baseVB.y, baseVB.width, baseVB.height); }
       fit();
       window.addEventListener('resize', fit);
 
       function getClientRect() { return svg.getBoundingClientRect(); }
 
-      // Wheel zoom around cursor (direct, non-animated) using viewBox math
       container.addEventListener('wheel', function(e) {
         e.preventDefault();
-        // Cancel any ongoing keyboard zoom animation to prioritize mouse control
         if (zoomAnim) { zoomAnim = null; }
         var rect = getClientRect();
         var cx = e.clientX - rect.left;
@@ -172,7 +175,7 @@ export function buildSvgViewerHtml(params: { title: string; svg: string }): stri
         var ry = cy / (rect.height || 1);
         var currentScale = baseVB.width / curVB.width;
         var wheel = e.deltaY;
-        var zoomFactor = Math.exp(-wheel * 0.001); // wheel up => zoom in
+        var zoomFactor = Math.exp(-wheel * 0.001);
         var newScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, currentScale * zoomFactor));
         var newW = baseVB.width / newScale;
         var newH = baseVB.height / newScale;
@@ -181,12 +184,10 @@ export function buildSvgViewerHtml(params: { title: string; svg: string }): stri
         setViewBox(newX, newY, newW, newH);
       }, { passive: false });
 
-      // Drag to pan by shifting viewBox
       var dragging = false;
       var startX = 0, startY = 0, startVBx = 0, startVBy = 0, startVBw = 0, startVBh = 0;
       container.addEventListener('mousedown', function(e) {
         if (e.button !== 0) return;
-        // Cancel any ongoing zoom animation to avoid conflicts while dragging
         if (zoomAnim) { zoomAnim = null; }
         dragging = true;
         startX = e.clientX; startY = e.clientY;
@@ -205,7 +206,6 @@ export function buildSvgViewerHtml(params: { title: string; svg: string }): stri
       });
       window.addEventListener('mouseup', function() { dragging = false; });
 
-      // Keyboard pan (WASD/Arrows) with smooth animation, and zoom (+/-)
       function panBy(dxScreenPx, dyScreenPx) {
         var rect = getClientRect();
         var dx = dxScreenPx * (curVB.width / (rect.width || 1));
@@ -213,20 +213,13 @@ export function buildSvgViewerHtml(params: { title: string; svg: string }): stri
         setViewBox(curVB.x + dx, curVB.y + dy, curVB.width, curVB.height);
       }
 
-      function zoomBy(factor, anchorRx, anchorRy) {
-        var newScale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, (baseVB.width / curVB.width) * factor));
-        var newW = baseVB.width / newScale;
-        var newH = baseVB.height / newScale;
-        var newX = curVB.x + (anchorRx * (curVB.width - newW));
-        var newY = curVB.y + (anchorRy * (curVB.height - newH));
-        setViewBox(newX, newY, newW, newH);
-      }
+      function scheduleZoomToCenter(factor) { scheduleZoomToAtAnchor(0.5, 0.5, factor, 220); }
 
       var pressed = { left: false, right: false, up: false, down: false, shift: false };
-      var vx = 0, vy = 0; // pixels per second
-      var BASE_SPEED = 2000; // px/s (larger steps)
-      var ACCEL = 16000; // px/s^2 (start faster)
-      var DECEL = 3500;  // px/s^2 (longer ease-out)
+      var vx = 0, vy = 0;
+      var BASE_SPEED = 2000;
+      var ACCEL = 16000;
+      var DECEL = 3500;
       var rafId = 0;
       var lastTs = 0;
 
@@ -235,7 +228,6 @@ export function buildSvgViewerHtml(params: { title: string; svg: string }): stri
         var dt = Math.max(0, (ts - lastTs) / 1000);
         lastTs = ts;
 
-        // Target velocity from input
         var dx = (pressed.right ? 1 : 0) + (pressed.left ? -1 : 0);
         var dy = (pressed.down ? 1 : 0) + (pressed.up ? -1 : 0);
         var len = Math.hypot(dx, dy) || 0;
@@ -245,27 +237,23 @@ export function buildSvgViewerHtml(params: { title: string; svg: string }): stri
         var targetVx = dx * speed;
         var targetVy = dy * speed;
 
-        // Smooth acceleration/deceleration towards target
-        var ax = ((Math.abs(targetVx) > 0) ? ACCEL : DECEL) * (targetVx - vx > 0 ? 1 : -1);
-        var ay = ((Math.abs(targetVy) > 0) ? ACCEL : DECEL) * (targetVy - vy > 0 ? 1 : -1);
-
-        // Clamp so we don't overshoot target
         function approach(v, target, a) {
           var delta = target - v;
           var step = a * dt;
           if (Math.abs(delta) <= step) return target;
           return v + Math.sign(delta) * step;
         }
+
+        var ax = ((Math.abs(targetVx) > 0) ? ACCEL : DECEL) * (targetVx - vx > 0 ? 1 : -1);
+        var ay = ((Math.abs(targetVy) > 0) ? ACCEL : DECEL) * (targetVy - vy > 0 ? 1 : -1);
         vx = approach(vx, targetVx, Math.abs(targetVx) > 0 ? ACCEL : DECEL);
         vy = approach(vy, targetVy, Math.abs(targetVy) > 0 ? ACCEL : DECEL);
 
         if (vx !== 0 || vy !== 0) {
-          // Cancel zoom animation while actively panning
           if (zoomAnim) { flushZoomAnimation(); zoomAnim = null; }
           panBy(vx * dt, vy * dt);
         }
 
-        // Progress zoom animation if active
         if (zoomAnim) {
           var t = (ts - zoomAnim.start) / zoomAnim.dur;
           if (t >= 1) {
@@ -291,19 +279,18 @@ export function buildSvgViewerHtml(params: { title: string; svg: string }): stri
         else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') { pressed.right = true; e.preventDefault(); }
         else if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') { pressed.up = true; e.preventDefault(); }
         else if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') { pressed.down = true; e.preventDefault(); }
-        else if (e.key === '+' || e.key === '=') { scheduleZoomToAtAnchor(0.5, 0.5, 1.4, 220); e.preventDefault(); }
-        else if (e.key === '-' || e.key === '_') { scheduleZoomToAtAnchor(0.5, 0.5, 1/1.4, 220); e.preventDefault(); }
+        else if (e.key === '+' || e.key === '=') { scheduleZoomToCenter(1.4); e.preventDefault(); }
+        else if (e.key === '-' || e.key === '_') { scheduleZoomToCenter(1/1.4); e.preventDefault(); }
         else if (e.key === '0') { scheduleZoomRect(baseVB.x, baseVB.y, baseVB.width, baseVB.height, 260); e.preventDefault(); }
       });
       window.addEventListener('keyup', function(e) {
         if (e.key === 'Shift') pressed.shift = false;
         else if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A') pressed.left = false;
-        else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') pressed.right = false;
+        else if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D') pressed right = false;
         else if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') pressed.up = false;
         else if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') pressed.down = false;
       });
 
-      // Double-click to refit (direct)
       container.addEventListener('dblclick', fit);
     });
   })();
@@ -313,5 +300,12 @@ export function buildSvgViewerHtml(params: { title: string; svg: string }): stri
 }
 
 function escapeHtml(input: string): string {
-    return input.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  return input
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
+
+

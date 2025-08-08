@@ -5,7 +5,7 @@ export const PRIMARY_KEYS: Record<string, string> = {
   Traits: 'TraitType',
   Leaders: 'LeaderType',
   Civilizations: 'CivilizationType',
-  LeaderTraits: '', // composite, no single PK
+  LeaderTraits: '',
   CivilizationTraits: '',
   Modifiers: 'ModifierId',
   ModifierArguments: '',
@@ -14,7 +14,7 @@ export const PRIMARY_KEYS: Record<string, string> = {
   Requirements: 'RequirementId',
   RequirementArguments: '',
   Units: 'UnitType',
-  UnitAbilities: 'UnitAbilityType', // sometimes 'AbilityType' in Civ6
+  UnitAbilities: 'UnitAbilityType',
   UnitAbilityModifiers: '',
   Buildings: 'BuildingType',
   Districts: 'DistrictType',
@@ -23,14 +23,12 @@ export const PRIMARY_KEYS: Record<string, string> = {
   Technologies: 'TechnologyType',
   Civics: 'CivicType',
   Agendas: 'AgendaType',
-  // Common improvement aux tables — all composite
   Improvement_YieldChanges: '',
   Improvement_ValidTerrains: '',
   Improvement_ValidFeatures: '',
   Improvement_AdjacentDistrictYields: '',
 };
 
-// Map common column names to target table for generic linking
 export const COLUMN_TO_TABLE: Record<string, string> = {
   TraitType: 'Traits',
   LeaderType: 'Leaders',
@@ -50,7 +48,6 @@ export const COLUMN_TO_TABLE: Record<string, string> = {
   AgendaType: 'Agendas',
 };
 
-// Prefix guessing if only an ID is provided as a seed (e.g. TRAIT_*, UNIT_*, etc.)
 export const PREFIX_TO_TABLE: Array<[RegExp, string]> = [
   [/^LEADER_/, 'Leaders'],
   [/^CIVILIZATION_/, 'Civilizations'],
