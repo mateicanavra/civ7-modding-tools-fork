@@ -1,1 +1,0 @@
-{"version":3,"file":"StartBiasRiverNode.js","sourceRoot":"","sources":["../../src/nodes/StartBiasRiverNode.ts"],"names":[],"mappings":";;;AAAA,yCAAsC;AAQtC,MAAa,kBAAmB,SAAQ,mBAA6B;IAKjE,YAAY,UAAwC,EAAE;QAClD,KAAK,EAAE,CAAC;QALZ,qBAAgB,GAAkB,IAAI,CAAC;QACvC,eAAU,GAA8B,IAAI,CAAC;QAC7C,UAAK,GAAkB,CAAC,CAAC;QAIrB,IAAI,CAAC,IAAI,CAAC,OAAO,CAAC,CAAC;IACvB,CAAC;CACJ;AATD,gDASC"}

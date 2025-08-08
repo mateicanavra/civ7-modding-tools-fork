@@ -1,1 +1,0 @@
-{"version":3,"file":"CivilizationTagNode.js","sourceRoot":"","sources":["../../src/nodes/CivilizationTagNode.ts"],"names":[],"mappings":";;;AAAA,yCAAsC;AAQtC,MAAa,mBAAoB,SAAQ,mBAA8B;IAKnE,YAAY,UAAyC,EAAE;QACnD,KAAK,EAAE,CAAC;QALZ,uBAAkB,GAAkB,eAAe,CAAC;QACpD,qBAAgB,GAAkB,eAAe,CAAC;QAClD,YAAO,GAAkB,eAAe,CAAC;QAIrC,IAAI,CAAC,IAAI,CAAC,OAAO,CAAC,CAAC;IACvB,CAAC;CACJ;AATD,kDASC"}

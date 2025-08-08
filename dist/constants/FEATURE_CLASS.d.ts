@@ -1,6 +1,0 @@
-export declare const FEATURE_CLASS: {
-    readonly VEGETATED: "FEATURE_CLASS_VEGETATED";
-    readonly FLOODPLAIN: "FEATURE_CLASS_FLOODPLAIN";
-    readonly AQUATIC: "FEATURE_CLASS_AQUATIC";
-    readonly WET: "FEATURE_CLASS_WET";
-};

@@ -1,7 +1,0 @@
-export declare const UNIT_MOVEMENT_CLASS: {
-    readonly MOUNTED: "UNIT_MOVEMENT_CLASS_MOUNTED";
-    readonly FOOT: "UNIT_MOVEMENT_CLASS_FOOT";
-    readonly WHEELED: "UNIT_MOVEMENT_CLASS_WHEELED";
-    readonly AIR: "UNIT_MOVEMENT_CLASS_AIR";
-    readonly NAVAL: "UNIT_MOVEMENT_CLASS_NAVAL";
-};

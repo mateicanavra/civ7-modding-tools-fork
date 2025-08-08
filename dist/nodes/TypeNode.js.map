@@ -1,1 +1,0 @@
-{"version":3,"file":"TypeNode.js","sourceRoot":"","sources":["../../src/nodes/TypeNode.ts"],"names":[],"mappings":";;;AACA,4CAAoC;AAEpC,yCAAsC;AAOtC,MAAa,QAAS,SAAQ,mBAAmB;IAI7C,YAAY,UAA8B,EAAE;QACxC,KAAK,EAAE,CAAC;QAJZ,SAAI,GAAkB,MAAM,CAAC;QAC7B,SAAI,GAAsC,gBAAI,CAAC,aAAa,CAAC;QAIzD,IAAI,CAAC,IAAI,CAAC,OAAO,CAAC,CAAC;IACvB,CAAC;CACJ;AARD,4BAQC"}

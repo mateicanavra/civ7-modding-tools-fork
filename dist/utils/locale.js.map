@@ -1,1 +1,0 @@
-{"version":3,"file":"locale.js","sourceRoot":"","sources":["../../src/utils/locale.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA,+CAAiC;AAE1B,MAAM,MAAM,GAAG,CAAC,MAAiC,EAAE,QAAgB,EAAU,EAAE;IAClF,OAAO,OAAO,MAAM,IAAI,EAAE,IAAI,MAAM,CAAC,SAAS,CAAC,QAAQ,CAAC,CAAC,iBAAiB,EAAE,EAAE,CAAC;AACnF,CAAC,CAAA;AAFY,QAAA,MAAM,UAElB"}

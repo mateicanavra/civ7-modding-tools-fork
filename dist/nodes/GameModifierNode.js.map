@@ -1,1 +1,0 @@
-{"version":3,"file":"GameModifierNode.js","sourceRoot":"","sources":["../../src/nodes/GameModifierNode.ts"],"names":[],"mappings":";;;AAAA,yCAAsC;AAMtC,MAAa,gBAAiB,SAAQ,mBAA2B;IAG7D,YAAY,UAAsC,EAAE;QAChD,KAAK,EAAE,CAAC;QAHZ,eAAU,GAAkB,IAAI,CAAC;QAI7B,IAAI,CAAC,IAAI,CAAC,OAAO,CAAC,CAAC;IACvB,CAAC;CACJ;AAPD,4CAOC"}

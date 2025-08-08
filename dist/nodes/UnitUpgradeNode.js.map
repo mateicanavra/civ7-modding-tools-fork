@@ -1,1 +1,0 @@
-{"version":3,"file":"UnitUpgradeNode.js","sourceRoot":"","sources":["../../src/nodes/UnitUpgradeNode.ts"],"names":[],"mappings":";;;AAAA,yCAAsC;AAOtC,MAAa,eAAgB,SAAQ,mBAA0B;IAI3D,YAAY,UAAqC,EAAE;QAC/C,KAAK,EAAE,CAAC;QAJZ,SAAI,GAAkB,WAAW,CAAC;QAClC,gBAAW,GAAkB,WAAW,CAAC;QAIrC,IAAI,CAAC,IAAI,CAAC,OAAO,CAAC,CAAC;IACvB,CAAC;CACJ;AARD,0CAQC"}

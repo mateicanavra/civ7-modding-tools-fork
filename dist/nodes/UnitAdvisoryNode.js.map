@@ -1,1 +1,0 @@
-{"version":3,"file":"UnitAdvisoryNode.js","sourceRoot":"","sources":["../../src/nodes/UnitAdvisoryNode.ts"],"names":[],"mappings":";;;AACA,4CAA+C;AAE/C,yCAAsC;AAOtC,MAAa,gBAAiB,SAAQ,mBAA2B;IAI7D,YAAY,UAAsC,EAAE;QAChD,KAAK,EAAE,CAAC;QAJZ,aAAQ,GAAkB,WAAW,CAAC;QACtC,sBAAiB,GAA0C,oBAAQ,CAAC,UAAU,CAAC;QAI3E,IAAI,CAAC,IAAI,CAAC,OAAO,CAAC,CAAC;IACvB,CAAC;CACJ;AARD,4CAQC"}
