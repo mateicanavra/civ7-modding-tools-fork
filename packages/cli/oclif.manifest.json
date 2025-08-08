@@ -125,7 +125,7 @@
           "type": "option"
         },
         "open": {
-          "description": "Open the generated SVG in your default browser",
+          "description": "Open the generated visualization (HTML viewer by default) in your default browser",
           "name": "open",
           "allowNo": false,
           "type": "boolean"
@@ -140,6 +140,29 @@
           "description": "Max URL length for online viewer (guard)",
           "name": "maxUrlLength",
           "default": 8000,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "vizHtml": {
+          "aliases": [
+            "viz.html"
+          ],
+          "description": "Emit a local HTML viewer (graph.html) that embeds the generated SVG and adds pan/zoom",
+          "name": "vizHtml",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "serve": {
+          "description": "Serve the output directory and open http://localhost:<port>/graph.html",
+          "name": "serve",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "port": {
+          "description": "Port for --serve (default 3000 or next free)",
+          "name": "port",
+          "default": 3000,
           "hasDynamicHelp": false,
           "multiple": false,
           "type": "option"

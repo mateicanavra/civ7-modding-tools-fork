@@ -6,6 +6,8 @@ import { Graphviz } from "@hpcc-js/wasm";
 import { buildIndexFromXml, crawl, graphToDot, graphToJson, parseSeed } from "../tools/civ7-xml-crawler";
 import { findProjectRoot, resolveOutDir, resolveRootFromConfigOrFlag } from "../utils/cli-helpers";
 import { spawn } from "node:child_process";
+import { buildSvgViewerHtml } from "../tools/html-viewer";
+import * as http from "node:http";
 
 export default class Explore extends Command {
   static id = "explore";
@@ -22,9 +24,13 @@ export default class Explore extends Command {
     profile: Flags.string({ description: "Profile key from config", required: false, default: "default" }),
     root: Flags.string({ description: "Override root folder (XML dir) if not using config", required: false }),
     engine: Flags.string({ description: "Graphviz engine", options: ["dot", "neato", "fdp", "sfdp", "circo", "twopi"], default: "dot" }),
-    open: Flags.boolean({ description: "Open the generated SVG in your default browser", default: true }),
+    open: Flags.boolean({ description: "Open the generated visualization (HTML viewer by default) in your default browser", default: true }),
     openOnline: Flags.boolean({ description: "Open GraphvizOnline with DOT in the URL hash (may be too long for big graphs)", default: false }),
     maxUrlLength: Flags.integer({ description: "Max URL length for online viewer (guard)", default: 8000 }),
+    // Viewer options
+    vizHtml: Flags.boolean({ description: "Emit a local HTML viewer (graph.html) that embeds the generated SVG and adds pan/zoom", default: true, aliases: ["viz.html"] }),
+    serve: Flags.boolean({ description: "Serve the output directory and open http://localhost:<port>/graph.html", default: false }),
+    port: Flags.integer({ description: "Port for --serve (default 3000 or next free)", default: 3000 }),
   } as const;
 
   static args = {
@@ -62,10 +68,30 @@ export default class Explore extends Command {
     const svgPath = path.join(outDir, "graph.svg");
     await fs.writeFile(svgPath, svg, "utf8");
 
+    // Optionally build HTML viewer
+    let htmlPath: string | null = null;
+    const useHtmlViewer = Boolean((flags as any)["viz.html"]) || Boolean((flags as any).vizHtml);
+    if (useHtmlViewer) {
+      const html = buildSvgViewerHtml({ title: `${seed} — Graph`, svg });
+      htmlPath = path.join(outDir, "graph.html");
+      await fs.writeFile(htmlPath, html, "utf8");
+    }
+
     this.log(`Explore pipeline complete. Output: ${outDir}`);
 
     // Open visualization(s)
-    if (flags.open) {
+    if (useHtmlViewer) {
+      if (flags.serve) {
+        const { url } = await this.startStaticServer(outDir, flags.port!);
+        await this.openUrl(`${url}/graph.html`);
+        this.log(`Serving ${outDir} at ${url} (Ctrl+C to stop)`);
+        // Keep process alive while server runs
+        await new Promise(() => {});
+      } else if (flags.open && htmlPath) {
+        await this.openInBrowser(htmlPath);
+      }
+    } else if (flags.open) {
+      // Default: open SVG
       await this.openInBrowser(svgPath);
     }
     if (flags.openOnline) {
@@ -113,6 +139,69 @@ export default class Explore extends Command {
       child.on("error", reject);
       child.unref();
       resolve();
+    });
+  }
+
+  /**
+   * Start a minimal static server rooted at rootDir. If the requested port is busy, falls back to an ephemeral port.
+   */
+  private startStaticServer(rootDir: string, desiredPort: number): Promise<{ server: http.Server; url: string; port: number }> {
+    const root = path.resolve(rootDir);
+    const contentTypes: Record<string, string> = {
+      ".html": "text/html; charset=utf-8",
+      ".svg": "image/svg+xml; charset=utf-8",
+      ".json": "application/json; charset=utf-8",
+      ".txt": "text/plain; charset=utf-8",
+      ".dot": "text/vnd.graphviz; charset=utf-8",
+      ".xml": "application/xml; charset=utf-8",
+      ".css": "text/css; charset=utf-8",
+      ".js": "text/javascript; charset=utf-8",
+    };
+
+    const server = http.createServer(async (req, res) => {
+      try {
+        if (!req.url) { res.statusCode = 400; res.end("Bad Request"); return; }
+        const url = new URL(req.url, "http://localhost");
+        let pathname = decodeURIComponent(url.pathname);
+        if (pathname === "/") pathname = "/graph.html";
+        const safePath = path.normalize(path.join(root, pathname));
+        if (!safePath.startsWith(root)) { res.statusCode = 403; res.end("Forbidden"); return; }
+        const stat = await fs.stat(safePath).catch(() => null);
+        if (!stat || !stat.isFile()) { res.statusCode = 404; res.end("Not Found"); return; }
+        const ext = path.extname(safePath).toLowerCase();
+        const ctype = contentTypes[ext] || "application/octet-stream";
+        res.setHeader("Content-Type", ctype);
+        const data = await fs.readFile(safePath);
+        res.statusCode = 200;
+        res.end(data);
+      } catch (_err) {
+        res.statusCode = 500;
+        res.end("Internal Server Error");
+      }
+    });
+
+    function listen(port: number): Promise<{ port: number }> {
+      return new Promise((resolve) => {
+        server.once("error", () => {
+          // Retry with ephemeral port 0
+          server.removeAllListeners("error");
+          server.listen(0, "127.0.0.1", () => {
+            const addr = server.address();
+            const actual = typeof addr === "string" ? port : (addr?.port ?? port);
+            resolve({ port: actual });
+          });
+        });
+        server.listen(port, "127.0.0.1", () => {
+          const addr = server.address();
+          const actual = typeof addr === "string" ? port : (addr?.port ?? port);
+          resolve({ port: actual });
+        });
+      });
+    }
+
+    return listen(Math.max(0, desiredPort || 3000)).then(({ port }) => {
+      const url = `http://localhost:${port}`;
+      return { server, url, port };
     });
   }
 }

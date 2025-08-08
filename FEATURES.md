@@ -16,6 +16,24 @@ This document tracks completed work and upcoming enhancements for the CLI and XM
   - Edge labeling for readability (e.g., `LeaderTraits`, `TraitModifiers`, `Argument`, `Attach`, `SubjectRequirementSetId`, `OwnerRequirementSetId`).
   - Self-loop edges suppressed.
 
+- Phase F (Baseline) — Local Interactive Visualizer (VIZ-13)
+  - Explore defaults to generating and opening a local HTML viewer:
+    - `civ7 explore <seed>` now emits `out/<seed>/graph.svg` and `out/<seed>/graph.html`, then opens `graph.html`.
+    - `--viz.html` (alias `--vizHtml`) controls HTML viewer emission (default: true).
+    - `--open` controls auto-open behavior (default: true); `--openOnline` unchanged.
+  - Viewer design (offline, single file, no deps):
+    - Wraps the rendered `graph.svg` (from `@hpcc-js/wasm` in Node) inside a minimal HTML shell.
+    - Mouse: wheel zoom anchored to cursor; drag to pan; double‑click to fit.
+    - Keyboard: WASD/Arrow pan with acceleration/deceleration; `+`/`-` to zoom; `0` to fit; `Shift` for faster pan.
+    - Fit-to-screen on load and window resize.
+    - Light theme background to match SVG defaults; no external network calls.
+  - Acceptance: Works offline; preserves DOT styling fidelity; handles large graphs.
+
+- Phase F (Dev server) — VIZ-14 (optional) 
+  - `--serve` flag starts a tiny static server rooted at `out/<seed>` and opens `http://localhost:<port>/graph.html`.
+  - `--port` selects port (default 3000, falls back if busy).
+  - Use with `civ7 explore <seed> --serve` for local iteration.
+
 ### Upcoming (Tickets, prioritized shallow → deep)
 
 - Execution order (priority)
@@ -65,21 +83,9 @@ This document tracks completed work and upcoming enhancements for the CLI and XM
 
 Goal: Add a polished, local, interactive visualization path without changing the server-side crawl→DOT pipeline.
 
-- VIZ-13: Explore — local HTML viewer using d3-graphviz (baseline)
-  - Why: Fastest path to beautiful DOT rendering with pan/zoom and fit-to-screen.
-  - Scope:
-    - CLI: `civ7 explore <seed> --viz.html` to emit `graph.html` next to SVG (embed DOT inline).
-    - Viewer: Single-file HTML + d3-graphviz to render DOT→SVG, with zoom and fit options.
-    - Auto-open in default browser after generation (macOS `open`, Linux `xdg-open`, Windows `start`).
-  - Acceptance:
-    - Works offline; no external services; opens in <2s on Amina/Rome graphs.
-    - Honors our DOT styling (shapes, colors, edge styles); responsive fit.
-  - Risks: Large graphs are still SVG; acceptable for now.
+// Completed as an SVG wrapper (no d3-graphviz) — see Completed section above.
 
-- VIZ-14: Explore — dev server mode (optional)
-  - Why: Enable quick iteration and hot reload for large graphs.
-  - Scope: `--serve` flag spins a tiny local HTTP server (Express or Node http) that serves `graph.html`, `graph.dot`, and opens `http://localhost:<port>`.
-  - Acceptance: Server starts; browser opens; refresh picks up new DOT.
+// Completed — see Completed section above.
 
 - VIZ-15: Advanced viewer prototype (G6 + ELK)
   - Why: Rich UX (minimap, search, filters) and scalable layout beyond plain DOT.
@@ -102,7 +108,7 @@ Goal: Add a polished, local, interactive visualization path without changing the
 
 Notes
 - Keep crawl/index/DOT rendering exactly as-is. Visualizers are additive, consuming the DOT output.
-- Continue to prefer `@hpcc-js/wasm` for server-side rendering; d3-graphviz for the local HTML viewer; G6+ELK for advanced UX if/when needed.
+- Continue to prefer `@hpcc-js/wasm` for server-side rendering; baseline local viewer is a lightweight SVG wrapper; consider d3-graphviz or G6+ELK for advanced UX if/when needed.
 
 ### Archived Plans
 
