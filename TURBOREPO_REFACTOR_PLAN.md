@@ -1,5 +1,5 @@
 
-# Issue: Phase 0 — Prep & Guardrails (migration branch, toolchain, base configs)
+# Issue: Phase 0 — Prep & Guardrails (migration branch, toolchain, base configs) — Completed
 
 ## Goal
 
@@ -13,20 +13,20 @@ Create a safe branch for the monorepo migration, pin Node/pnpm via Corepack, rem
 - Add root dev tooling minimal for monorepo
 - Establish root TS base config and repo-level dotfiles
 
-## Tasks
+## Tasks (Completed)
 
-- [ ] Create branch: `git checkout -b chore/monorepo-turbo`
+- [x] Create branch: `git checkout -b chore/monorepo-turbo`
 - [ ] Enable Corepack & pin pnpm: `corepack enable` (Node 20 LTS) — Deferred (not executed now; revisit later to improve reproducibility)
-- [ ] Remove npm lockfile: `git rm -f package-lock.json`
-- [ ] Add root `.npmrc`:
+- [x] Remove npm lockfile: `git rm -f package-lock.json`
+- [x] Add root `.npmrc`:
   ```
   shared-workspace-lockfile=true
   only-built-dependencies[]=docsify
   only-built-dependencies[]=esbuild
   ```
-- [ ] Pin pnpm in root `package.json`: add `"packageManager": "pnpm@10.10.0"`
-- [ ] Add `.nvmrc` with `20` to standardize local Node to LTS
-- [ ] Add root `tsconfig.base.json`:
+- [x] Pin pnpm in root `package.json`: add `"packageManager": "pnpm@10.10.0"`
+- [x] Add `.nvmrc` with `20` to standardize local Node to LTS
+- [x] Add root `tsconfig.base.json`:
   ```json
   {
     "compilerOptions": {
@@ -42,8 +42,8 @@ Create a safe branch for the monorepo migration, pin Node/pnpm via Corepack, rem
     }
   }
   ```
-- [ ] Add minimal root `.eslintrc.cjs` and `.prettierrc` (can be replaced by shared config in Phase 6)
-- [ ] Add root dev deps (workspace): `pnpm add -D -w turbo typescript vitest @types/node eslint prettier rimraf`
+- [x] Add minimal root `.eslintrc.cjs` and `.prettierrc` (can be replaced by shared config in Phase 6)
+- [x] Add root dev deps (workspace): `pnpm add -D -w turbo typescript vitest @types/node eslint prettier rimraf`
 
 ## Acceptance Criteria
 
@@ -63,8 +63,24 @@ Note: Corepack enabling is intentionally deferred to avoid potential impact on o
 Low
 
 ---
+ 
+## Tooling Principles (Bun-first dev)
 
-# Issue: Phase 1 — Introduce Turborepo & Root Scripts
+- We will use Bun for development/runtime where possible (fast TS execution, hot reload, bundler/runner), and minimize TS→JS build steps.
+- SDK remains the only package that always builds JS artifacts (CJS/ESM + types) for Node consumption.
+- CLI, docs, and playground run on Bun in dev; they do not emit JS in dev. The CLI will still have a targeted build step (tsc + oclif manifest) only for packaging/publish.
+- Do not remove Bun-specific config (e.g., `bun-types`) from the CLI while we migrate to Bun-first workflows.
+- Reduce duplicate TS toolchains (avoid mixing tsx/ts-node/custom bundlers) in favor of Bun for apps and `tsup` for the SDK.
+
+### Final decisions (concise)
+
+- CLI (dev): Bun runtime via `bin/dev.js` shebang; no JS emission in dev, per oclif Bin Scripts guidance [Templates → Bin Scripts](https://oclif.io/docs/templates/#bin-scripts).
+- CLI (publish): Node runtime. Emit per-file CJS with `tsc` to `dist/`, then run `oclif manifest`; keep `bin/run.js` shebang as Node (broad compatibility). ESM is optional; follow oclif ESM guidance if needed [ESM](https://oclif.io/docs/esm).
+- SDK: keep dual outputs ESM+CJS+`.d.ts` via `tsup` with `exports` map. Rationale: maximize consumer compatibility with negligible maintenance overhead. Most consumers are modern Node, but we keep CJS for now and can drop it in a future major release.
+- Docs/Playground: Bun runtime for dev; no JS emission in dev.
+- Minimize toolchains: only `tsup` (SDK) and `tsc` (CLI publish). All other workflows use Bun.
+
+# Issue: Phase 1 — Introduce Turborepo & Root Scripts — Completed
 
 ## Goal
 
@@ -76,9 +92,9 @@ Adopt Turborepo for orchestration/caching; route scripts through Turbo.
 - Normalize root scripts (rename docs script)
 - Normalize workspace globs
 
-## Tasks
+## Tasks (Completed)
 
-- [ ] Create `turbo.json`:
+- [x] Create `turbo.json`:
   ```json
   {
     "$schema": "https://turbo.build/schema.json",
@@ -92,7 +108,7 @@ Adopt Turborepo for orchestration/caching; route scripts through Turbo.
     }
   }
   ```
-- [ ] Update root `package.json` scripts:
+- [x] Update root `package.json` scripts:
   ```json
   {
     "scripts": {
@@ -105,13 +121,13 @@ Adopt Turborepo for orchestration/caching; route scripts through Turbo.
     }
   }
   ```
-- [ ] Replace `pnpm-workspace.yaml` contents with:
+- [x] Replace `pnpm-workspace.yaml` contents with:
   ```yaml
   packages:
     - "apps/*"
     - "packages/*"
   ```
-- [ ] Remove root `docs:community` and `docs:official` scripts; keep only `docs:dev`
+- [x] Remove root `docs:community` and `docs:official` scripts; keep only `docs:dev`
 
 ## Acceptance Criteria
 
@@ -125,7 +141,7 @@ Low
 
 ---
 
-# Issue: Phase 2 — Extract SDK into `packages/sdk`
+# Issue: Phase 2 — Extract SDK into `packages/sdk` — Completed
 
 ## Goal
 
@@ -137,10 +153,10 @@ Move reusable library code to `@civ7/sdk` with ESM+CJS builds and types.
 - Add package manifest, tsconfig, `tsup` build
 - Define `exports` and `files`
 
-## Tasks
+## Tasks (Completed)
 
-- [ ] Create `packages/sdk/` and move current root `src/**` there
-- [ ] Add `packages/sdk/package.json`:
+- [x] Create `packages/sdk/` and move current root `src/**` there
+- [x] Add `packages/sdk/package.json`:
   ```json
   {
     "name": "@civ7/sdk",
@@ -177,7 +193,7 @@ Move reusable library code to `@civ7/sdk` with ESM+CJS builds and types.
     "publishConfig": { "access": "public" }
   }
   ```
-- [ ] Add `packages/sdk/tsconfig.json`:
+- [x] Add `packages/sdk/tsconfig.json`:
   ```json
   {
     "extends": "../../tsconfig.base.json",
@@ -191,8 +207,8 @@ Move reusable library code to `@civ7/sdk` with ESM+CJS builds and types.
     "include": ["src"]
   }
   ```
-- [ ] Ensure `packages/sdk/src/index.ts` re-exports the public API
-- [ ] Update imports throughout repo (including examples/build scripts) to `@civ7/sdk`
+- [x] Ensure `packages/sdk/src/index.ts` re-exports the public API
+- [x] Update imports throughout repo (including examples/build scripts) to `@civ7/sdk`
 
 ## Acceptance Criteria
 
@@ -205,7 +221,7 @@ Medium
 
 ---
 
-# Issue: Phase 3 — Refactor CLI to consume `@civ7/sdk`
+# Issue: Phase 3 — Refactor CLI to consume `@civ7/sdk` — In Progress
 
 ## Goal
 
@@ -216,17 +232,19 @@ Point CLI to the SDK, ensure build order and bin resolution.
 - Add workspace dependency `@civ7/sdk`
 - Replace imports to use `@civ7/sdk`
 - Keep oclif + tsc pipeline
+ - Keep Bun as the dev runtime for the CLI. No JS outputs needed in dev; retain a build only for packaging/publishing.
 
 ## Tasks
 
-- [ ] Add dependency: `pnpm -w -F @civ7/cli add @civ7/sdk@workspace:*`
-- [ ] Replace intra-repo imports to `@civ7/sdk`
+- [x] Rename package to `@civ7/cli` and add workspace dep on `@civ7/sdk`
+- [ ] Replace any remaining imports to `@civ7/sdk` (verify none remaining)
 - [ ] Ensure CLI `package.json`:
   - `"name": "@civ7/cli"`, `"private": false`
   - `"bin": { "civ7": "./bin/run.js" }` (existing pattern) and oclif `commands: "./dist/commands"`
   - `"prepublishOnly": "pnpm build"`
-- [ ] Build uses `tsc` + `oclif manifest` (keep current approach)
-- [ ] Validate: `pnpm -w build` then `pnpm -w -F @civ7/cli exec node ./bin/run.js --help`
+- [ ] Dev runs on Bun (`pnpm -F @civ7/cli dev` → `bun run src/index.ts`). Keep `bun-types` for now.
+- [ ] Build uses `tsc` + `oclif manifest` only for packaging/publish (not needed during dev)
+- [ ] Validate: `pnpm -w -F @civ7/cli run build` then `node packages/cli/bin/run.js --help`
 
 ## Acceptance Criteria
 
@@ -259,8 +277,8 @@ Provide a docs app that serves both docs collections from one server; keep Markd
     "name": "@civ7/docs",
     "private": true,
     "scripts": {
-      "dev": "docsify serve ./site -p 4000",
-      "docs": "docsify serve ./site -p 4000",
+      "dev": "bunx docsify-cli serve ./site -p 4000",
+      "docs": "bunx docsify-cli serve ./site -p 4000",
       "build": "cp -R site dist",
       "clean": "rimraf dist"
     },
@@ -353,7 +371,7 @@ Separate processed/official Civ7 resources as a distinct package, not mixed with
 
 ---
 
-# Issue: Phase 5 — Playground App for Examples & Scripts
+# Issue: Phase 5 — Playground App for Examples & Scripts — Next Up
 
 ## Goal
 
@@ -373,12 +391,12 @@ Move demos/scripts into `apps/playground` that consumes `@civ7/sdk`.
     "name": "@civ7/playground",
     "private": true,
     "scripts": {
-      "dev": "tsx src/build.ts",
-      "build": "tsx src/build.ts",
+      "dev": "bun run src/build.ts",
+      "build": "bun run src/build.ts",
       "clean": "rimraf dist"
     },
     "dependencies": { "@civ7/sdk": "workspace:*" },
-    "devDependencies": { "tsx": "^4", "typescript": "^5", "rimraf": "^6" }
+    "devDependencies": { "typescript": "^5", "rimraf": "^6" }
   }
   ```
 - [ ] Move `build.ts` → `apps/playground/src/build.ts`
