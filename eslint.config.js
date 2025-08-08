@@ -1,21 +1,27 @@
 // Flat config for ESLint v9
-import js from "@eslint/js";
 import tseslint from "@typescript-eslint/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
+import globals from "globals";
 
 export default [
-  js.configs.recommended,
+  {
+    ignores: [
+      "**/dist/**",
+      "out/**",
+      ".turbo/**",
+      "node_modules/**",
+      "docs/civ7-official/resources/**"
+    ]
+  },
   {
     files: ["**/*.ts"],
     languageOptions: {
       parser: tsParser,
-      parserOptions: { ecmaVersion: "latest", sourceType: "module" }
+      parserOptions: { ecmaVersion: "latest", sourceType: "module" },
+      globals: globals.node
     },
     plugins: { "@typescript-eslint": tseslint },
     rules: {}
-  },
-  {
-    ignores: ["dist/**", "out/**", ".turbo/**", "node_modules/**"]
   }
 ];
 

@@ -19,7 +19,7 @@
         </Criteria>
     </ActionCriteria>
     <ActionGroups>
-        <ActionGroup id="9ff99ca0-82cb-45f3-bf43-48e8fb64b9fd" scope="game" criteria="age-antiquity-current">
+        <ActionGroup id="cd7306ee-e605-4104-be70-e39e7b35731c" scope="game" criteria="age-antiquity-current">
             <Actions>
                 <UpdateDatabase>
                     <Item>civilizations/gondor/current.xml</Item>
@@ -36,7 +36,7 @@
                 </UpdateIcons>
             </Actions>
         </ActionGroup>
-        <ActionGroup id="a2b8dd2a-782e-4d86-ac34-d4dca5372d24" scope="game" criteria="always">
+        <ActionGroup id="bf0712d3-0ec2-4e1d-aaf8-1348884ed939" scope="game" criteria="always">
             <Actions>
                 <UpdateDatabase>
                     <Item>civilizations/gondor/legacy.xml</Item>
@@ -59,13 +59,9 @@
                     <Item>constructibles/quarter-gondor/localization.xml</Item>
                     <Item>progression-trees/civics-gondor/localization.xml</Item>
                 </UpdateText>
-                <ImportFiles>
-                    <Item>imports/civ_sym_gondor</Item>
-                    <Item>imports/scout.png</Item>
-                </ImportFiles>
             </Actions>
         </ActionGroup>
-        <ActionGroup id="fbeb4fe6-94f5-48e6-950b-011955799ea0" scope="shell" criteria="always">
+        <ActionGroup id="cd5cdca0-4f3d-40ae-9c68-ad7f4043b6a9" scope="shell" criteria="always">
             <Actions>
                 <UpdateDatabase>
                     <Item>civilizations/gondor/shell.xml</Item>
@@ -84,10 +80,6 @@
                     <Item>constructibles/quarter-gondor/localization.xml</Item>
                     <Item>progression-trees/civics-gondor/localization.xml</Item>
                 </UpdateText>
-                <ImportFiles>
-                    <Item>imports/civ_sym_gondor</Item>
-                    <Item>imports/scout.png</Item>
-                </ImportFiles>
             </Actions>
         </ActionGroup>
     </ActionGroups>

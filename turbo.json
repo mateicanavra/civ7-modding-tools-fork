@@ -1,7 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    "build": { "dependsOn": ["^build"], "outputs": ["dist/**", "types/**"] },
+    "build": { "dependsOn": ["^build"], "outputs": ["dist/**", "types/**", "example-generated-mod/**"] },
     "dev": { "cache": false, "persistent": true },
     "lint": {},
     "test": { "dependsOn": ["^build"] },

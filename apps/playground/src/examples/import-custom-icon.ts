@@ -7,7 +7,7 @@ let mod = new Mod({
 
 const civilizationIcon = new ImportFileBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
-    content: './assets/civ-icon.png',
+    content: '../assets/civ-icon.png',
     name: 'civ_sym_gondor'
 });
 const civilization = new CivilizationBuilder({

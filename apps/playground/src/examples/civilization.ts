@@ -20,7 +20,7 @@ let mod = new Mod({
 
 const civilizationIcon = new ImportFileBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
-    content: './assets/civ-icon.png',
+    content: '../assets/civ-icon.png',
     name: 'civ_sym_gondor'
 });
 const civilization = new CivilizationBuilder({
@@ -40,17 +40,7 @@ const civilization = new CivilizationBuilder({
     },
     localizations: [
         { name: 'Gondor', description: 'test description', fullName: 'test full name', adjective: 'test adjective', cityNames: ['Gondor'] }
-    ],
-    modifiers: [{
-        collection: COLLECTION.PLAYER_UNITS,
-        effect: EFFECT.UNIT_ADJUST_MOVEMENT,
-        permanent: true,
-        requirements: [{
-            type: REQUIREMENT.UNIT_TAG_MATCHES,
-            arguments: [{ name: 'Tag', value: UNIT_CLASS.RECON }]
-        }],
-        arguments: [{ name: 'Amount', value: 10 }]
-    }]
+    ]
 });
 
 const civilizationUnlockToPrussia = new CivilizationUnlockBuilder({
@@ -76,7 +66,7 @@ const leaderCatherineUnlock = new LeaderUnlockBuilder({
 
 const unitIcon = new ImportFileBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
-    content: './assets/unit-icon.png',
+    content: '../assets/unit-icon.png',
     name: 'scout.png'
 });
 

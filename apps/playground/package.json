@@ -1,0 +1,18 @@
+{
+  "name": "@civ7/playground",
+  "private": true,
+  "scripts": {
+    "dev": "bun run src/build.ts",
+    "build": "bun run src/build.ts",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@civ7/sdk": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "rimraf": "^6"
+  }
+}
+
+
