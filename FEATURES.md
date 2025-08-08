@@ -44,6 +44,18 @@ This document tracks completed work and upcoming enhancements for the CLI and XM
 
 ### Next up
 
+- Phase D — Structural grouping
+  - VIZ-11: Cluster requirement sets
+    - Render each `RequirementSet` together with its `Requirements` and `RequirementArguments` inside a cluster box.
+    - Keep Phase B layering; clusters should not break left→right flow.
+    - Acceptance: Rome/Amina show each ReqSet as a grouped unit; labels and edge styles preserved.
+
+- VIZ-19: Semantic tooltips (Modifiers/ReqSets/Requirements)
+  - Modifiers: include `Effect`, `Collection`, `Permanent?`, and top arguments.
+  - RequirementSets: include `RequirementSetType` and count of requirements.
+  - Requirements: include `RequirementType` and key arguments.
+  - Acceptance: Hover shows concise summaries in addition to `table:id` + path.
+
 - Phase C — Complexity controls
   - VIZ-4: Toggle noisy structures via flags (optional)
   - VIZ-5: Depth limiting
@@ -51,10 +63,11 @@ This document tracks completed work and upcoming enhancements for the CLI and XM
 ### Upcoming (Tickets, prioritized shallow → deep)
 
 - Execution order (priority)
-  1. Phase C — Complexity controls (VIZ-4, VIZ-5)
-  2. Phase D — Structural grouping (VIZ-11)
-  3. Phase E — Config-driven styling (VIZ-10) [Optional]
-  4. Phase F (Advanced) — VIZ-15, VIZ-16, VIZ-17, VIZ-18 [Later]
+  1. Phase D — Structural grouping (VIZ-11)
+  2. VIZ-19 — Semantic tooltips
+  3. Phase C — Complexity controls (VIZ-4, VIZ-5)
+  4. Phase E — Config-driven styling (VIZ-10) [Optional]
+  5. Phase F (Advanced) — VIZ-15, VIZ-16, VIZ-17, VIZ-18 [Later]
 
 #### Phase A — Quick visual clarity
 - VIZ-8: Global layout tuning
@@ -82,7 +95,16 @@ This document tracks completed work and upcoming enhancements for the CLI and XM
 
 #### Phase D — Structural grouping
 - VIZ-11: Cluster requirement sets
-  - Render each `RequirementSet` and its `Requirements`/`Arguments` as a subgraph cluster.
+  - Render each `RequirementSet` and its `Requirements`/`Arguments` as a subgraph cluster; style aligns with RequirementSet node color.
+  - Non-goal: clustering by file; file is provenance, not a semantic boundary. Consider file overlays later if needed.
+
+#### VIZ-19 — Semantic tooltips (new)
+- Purpose: add meaning without changing labels heavily.
+- Content by type:
+  - Modifiers: `Effect`, `Collection`, optional `Permanent`, plus a few `Name=Value` arguments.
+  - RequirementSets: `RequirementSetType` and number of requirements.
+  - Requirements: `RequirementType` and key `Name=Value` arguments.
+- Acceptance: Tooltip shows summaries; DOT strings escaped; no performance regressions.
 
 #### Phase E — Theming & wrapper (defer until requested)
 - VIZ-10: Config-driven styling (optional)
