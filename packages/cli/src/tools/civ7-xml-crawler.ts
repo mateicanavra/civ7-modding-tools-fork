@@ -763,8 +763,16 @@ export function graphToDot(g: Graph): string {
   for (const c of clusters) {
     lines.push(`  subgraph cluster_reqset_${sanitize(c.rsKey.id)} {`);
     const rsNode = g.nodes.get(`${c.rsKey.table}|${c.rsKey.id}`);
-    const rsType = rsNode?.row?.RequirementSetType ? String(rsNode.row.RequirementSetType) : '';
-    lines.push(`    color="${reqsetColor}"; penwidth=1.8; style="rounded"; bgcolor="#eaf2fb"; label="${escapeDotString(rsType)}";`);
+    const rsType = rsNode?.row?.RequirementSetType ? `ReqSet: ${String(rsNode.row.RequirementSetType)}` : 'ReqSet';
+    const isAbs = rsNode && typeof rsNode.file === 'string' && path.isAbsolute(rsNode.file);
+    const relOrAbs = rsNode && isAbs ? path.relative(process.cwd(), rsNode.file) : (rsNode?.file ?? '');
+    const tooltip = escapeDotString(`RequirementSets:${c.rsKey.id}\n${relOrAbs}`);
+    lines.push(`    color=\"${reqsetColor}\"; penwidth=2.0; style=\"rounded\"; bgcolor=\"#eaf2fb\";`);
+    lines.push(`    label=\"${escapeDotString(rsType)}\"; labelloc=\"t\"; margin=\"10\"; fontname=\"Helvetica\"; fontsize=10;`);
+    lines.push(`    tooltip=\"${tooltip}\";`);
+    if (rsNode && isAbs) {
+      lines.push(`    URL=\"${escapeDotString(buildFileUrl(rsNode.file))}\"; target=\"_blank\";`);
+    }
     const innerLayers = Array.from(c.membersByLayer.keys()).sort((a, b) => a - b);
     for (const layer of innerLayers) {
       const ids = c.membersByLayer.get(layer)!;

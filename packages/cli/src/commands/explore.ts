@@ -47,7 +47,12 @@ export default class Explore extends Command {
     if (!fssync.existsSync(root)) this.error(`Root path not found: ${root}`);
 
     const seed = args.seed;
-    const outDir = resolveOutDir(projectRoot, seed, args.outDir);
+    // Guard against accidental boolean strings being parsed as OUTDIR (e.g., --open=false)
+    let outDirArg = args.outDir as string | undefined;
+    if (outDirArg === 'false' || outDirArg === 'true' || (outDirArg && outDirArg.startsWith('--'))) {
+      outDirArg = undefined;
+    }
+    const outDir = resolveOutDir(projectRoot, seed, outDirArg);
 
     // Crawl
     const idx = await buildIndexFromXml(root);
@@ -79,7 +84,8 @@ export default class Explore extends Command {
 
     this.log(`Explore pipeline complete. Output: ${outDir}`);
 
-    // Open visualization(s)
+    // Open visualization(s) only in interactive terminals (avoid CI/pipes)
+    const shouldOpen = Boolean(flags.open) && Boolean(process.stdout.isTTY) && !process.env.CI;
     if (useHtmlViewer) {
       if (flags.serve) {
         const { url } = await this.startStaticServer(outDir, flags.port!);
@@ -87,10 +93,10 @@ export default class Explore extends Command {
         this.log(`Serving ${outDir} at ${url} (Ctrl+C to stop)`);
         // Keep process alive while server runs
         await new Promise(() => {});
-      } else if (flags.open && htmlPath) {
+      } else if (shouldOpen && htmlPath) {
         await this.openInBrowser(htmlPath);
       }
-    } else if (flags.open) {
+    } else if (shouldOpen) {
       // Default: open SVG
       await this.openInBrowser(svgPath);
     }

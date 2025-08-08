@@ -17,7 +17,7 @@ coverage/
 dist/
 
 # CLI outputs
-out/
+out/**
 
 # OS/system files
 .DS_Store
