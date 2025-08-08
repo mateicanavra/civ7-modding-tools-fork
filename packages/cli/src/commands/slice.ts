@@ -1,9 +1,9 @@
 import { Args, Command, Flags } from "@oclif/core";
 import { promises as fs } from "node:fs";
 import * as path from "node:path";
-import * as os from "node:os";
 import * as fssync from "node:fs";
 import { parse } from "jsonc-parser";
+import { expandPath, findConfig, findProjectRoot } from "../utils/cli-helpers";
 
 export default class Slice extends Command {
   static id = "slice";
@@ -29,56 +29,29 @@ preserving relative directory structure.
     manifest: Args.string({ description: "Path to manifest.txt (defaults to out/<seed>/manifest.txt)", required: true }),
   } as const;
 
-  private findProjectRoot(startDir: string): string {
-    let currentDir = startDir;
-    while (currentDir !== path.parse(currentDir).root) {
-      if (fssync.existsSync(path.join(currentDir, "pnpm-workspace.yaml"))) {
-        return currentDir;
-      }
-      currentDir = path.dirname(currentDir);
-    }
-    throw new Error("Could not find project root. Are you in a pnpm workspace?");
-  }
-
-  private expandPath(filePath: string): string {
-    if (filePath.startsWith("~")) return path.join(os.homedir(), filePath.slice(1));
-    return filePath;
-  }
-
-  private findConfig(configFlag?: string): string | null {
-    const projectRoot = this.findProjectRoot(process.cwd());
-    const searchPaths = new Set<string | undefined>([
-      configFlag,
-      path.join(process.cwd(), "civ-zip-config.jsonc"),
-      path.join(projectRoot, "civ-zip-config.jsonc"),
-    ]);
-    for (const p of searchPaths) if (p && fssync.existsSync(p)) return p;
-    return null;
-  }
-
   public async run(): Promise<void> {
     const { args, flags } = await this.parse(Slice);
-    const projectRoot = this.findProjectRoot(process.cwd());
+    const projectRoot = findProjectRoot(process.cwd());
 
     // Resolve root from config or flag
     let rootFromConfig: string | undefined;
-    const configPath = this.findConfig(flags.config);
+    const configPath = findConfig(projectRoot, flags.config);
     if (configPath) {
       const cfgRaw = await fs.readFile(configPath, "utf8");
       const cfg: Record<string, any> = parse(cfgRaw);
       const profileCfg = cfg[flags.profile!];
       if (profileCfg?.unzip?.extract_path) {
-        rootFromConfig = path.resolve(projectRoot, this.expandPath(profileCfg.unzip.extract_path));
+        rootFromConfig = path.resolve(projectRoot, expandPath(profileCfg.unzip.extract_path));
       }
     }
 
-    const root = path.resolve(projectRoot, this.expandPath(flags.root || rootFromConfig || ""));
+    const root = path.resolve(projectRoot, expandPath(flags.root || rootFromConfig || ""));
     if (!root) this.error("Could not determine root. Provide --root or define unzip.extract_path in config.");
     if (!fssync.existsSync(root)) this.error(`Root not found: ${root}`);
 
-    const manifestPath = path.resolve(projectRoot, this.expandPath(args.manifest));
+    const manifestPath = path.resolve(projectRoot, expandPath(args.manifest));
     const defaultDest = path.join(path.dirname(manifestPath), "slice");
-    const dest = path.resolve(projectRoot, this.expandPath(flags.dest || defaultDest));
+    const dest = path.resolve(projectRoot, expandPath(flags.dest || defaultDest));
 
     const manifestRaw = await fs.readFile(manifestPath, "utf8");
     const files = manifestRaw.split(/\r?\n/).map(l => l.trim()).filter(Boolean);

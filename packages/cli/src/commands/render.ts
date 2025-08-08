@@ -3,8 +3,7 @@ import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import { Graphviz } from "@hpcc-js/wasm";
 import * as fssync from "node:fs";
-import * as os from "node:os";
-import { parse } from "jsonc-parser";
+import { findProjectRoot } from "../utils/cli-helpers";
 
 export default class Render extends Command {
   static id = "render";
@@ -37,20 +36,9 @@ Renders a Graphviz DOT file to SVG using a WebAssembly Graphviz engine.
     output: Args.string({ description: "Path to output SVG (defaults to out/<seed>/graph.svg)", required: false }),
   } as const;
 
-  private findProjectRoot(startDir: string): string {
-    let currentDir = startDir;
-    while (currentDir !== path.parse(currentDir).root) {
-      if (fssync.existsSync(path.join(currentDir, "pnpm-workspace.yaml"))) {
-        return currentDir;
-      }
-      currentDir = path.dirname(currentDir);
-    }
-    throw new Error("Could not find project root. Are you in a pnpm workspace?");
-  }
-
   public async run(): Promise<void> {
     const { args, flags } = await this.parse(Render);
-    const projectRoot = this.findProjectRoot(process.cwd());
+    const projectRoot = findProjectRoot(process.cwd());
 
     // If user passes a seed instead of a path, resolve default paths
     const inputLooksLikeSeed = !args.input.endsWith('.dot') && !args.input.includes(path.sep);

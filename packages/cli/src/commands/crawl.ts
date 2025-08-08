@@ -1,10 +1,9 @@
 import { Args, Command, Flags } from "@oclif/core";
 import { promises as fs } from "node:fs";
 import * as path from "node:path";
-import * as os from "node:os";
 import * as fssync from "node:fs";
-import { parse } from "jsonc-parser";
 import { buildIndexFromXml, parseSeed, crawl, graphToJson, graphToDot } from "../tools/civ7-xml-crawler";
+import { findProjectRoot, resolveOutDir, resolveRootFromConfigOrFlag } from "../utils/cli-helpers";
 
 export default class Crawl extends Command {
     static id = "crawl";
@@ -36,53 +35,11 @@ to discover related rows. It writes a graph (JSON + DOT) and a manifest of XML f
         outDir: Args.string({ description: "Output directory (default: out/<seed>)", required: false }),
     } as const;
 
-    // Helper function to find the project root from any script location
-    private findProjectRoot(startDir: string): string {
-        let currentDir = startDir;
-        while (currentDir !== path.parse(currentDir).root) {
-            if (fssync.existsSync(path.join(currentDir, "pnpm-workspace.yaml"))) {
-                return currentDir;
-            }
-            currentDir = path.dirname(currentDir);
-        }
-        throw new Error("Could not find project root. Are you in a pnpm workspace?");
-    }
-
-    private expandPath(filePath: string): string {
-        if (filePath.startsWith("~")) {
-            return path.join(os.homedir(), filePath.slice(1));
-        }
-        return filePath;
-    }
-
-    // Helper to find the config file by searching in prioritized locations.
-    private findConfig(configFlag?: string): string | null {
-        const projectRoot = this.findProjectRoot(process.cwd());
-        const searchPaths = new Set<string | undefined>([configFlag, path.join(process.cwd(), "civ-zip-config.jsonc"), path.join(projectRoot, "civ-zip-config.jsonc")]);
-        for (const p of searchPaths) {
-            if (p && fssync.existsSync(p)) return p;
-        }
-        return null;
-    }
-
     public async run(): Promise<void> {
         const { args, flags } = await this.parse(Crawl);
 
-        const projectRoot = this.findProjectRoot(process.cwd());
-
-        // Determine root from config (default) or flag
-        let rootFromConfig: string | undefined;
-        const configPath = this.findConfig(flags.config);
-        if (configPath) {
-            const configFileContent = await fs.readFile(configPath, "utf8");
-            const cfg: Record<string, any> = parse(configFileContent);
-            const profileCfg = cfg[flags.profile!];
-            if (profileCfg?.unzip?.extract_path) {
-                rootFromConfig = path.resolve(projectRoot, this.expandPath(profileCfg.unzip.extract_path));
-            }
-        }
-
-        const root = path.resolve(projectRoot, this.expandPath(flags.root || rootFromConfig || ""));
+        const projectRoot = findProjectRoot(process.cwd());
+        const root = await resolveRootFromConfigOrFlag({ projectRoot, profile: flags.profile!, flagsRoot: flags.root, flagsConfig: flags.config });
         if (!root) {
             this.error("Could not determine XML root directory. Provide --root or define unzip.extract_path in civ-zip-config.jsonc");
         }
@@ -91,8 +48,7 @@ to discover related rows. It writes a graph (JSON + DOT) and a manifest of XML f
         }
 
         const seed = args.seed;
-        const defaultOut = path.join(projectRoot, "out", seed.replace(/[^A-Za-z0-9_\-:.]/g, "_"));
-        const outDir = path.resolve(projectRoot, args.outDir ? this.expandPath(args.outDir) : defaultOut);
+        const outDir = resolveOutDir(projectRoot, seed, args.outDir);
 
         const idx = await buildIndexFromXml(root);
         const parsedSeed = parseSeed(seed);
