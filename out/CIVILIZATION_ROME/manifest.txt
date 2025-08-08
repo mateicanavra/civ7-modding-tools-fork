@@ -1,4 +1,0 @@
-/Users/mateicanavra/Documents/.nosync/DEV/civ7-modding-tools/docs/civ7-official/resources/Base/modules/age-antiquity/config/config.xml
-/Users/mateicanavra/Documents/.nosync/DEV/civ7-modding-tools/docs/civ7-official/resources/Base/modules/age-antiquity/data/civilizations.xml
-/Users/mateicanavra/Documents/.nosync/DEV/civ7-modding-tools/docs/civ7-official/resources/Base/modules/base-standard/data/attributes.xml
-/Users/mateicanavra/Documents/.nosync/DEV/civ7-modding-tools/docs/civ7-official/resources/Base/modules/base-standard/data/civilizations.xml
