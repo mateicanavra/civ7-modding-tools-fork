@@ -1,20 +1,28 @@
 {
-    "compilerOptions": {
-        "declaration": true,
-        "importHelpers": true,
-        "module": "CommonJS",
-        "outDir": "dist",
-        "rootDir": "src",
-        "strict": true,
-        "target": "ESNext",
-        "lib": ["ESNext"],
-        "moduleResolution": "node",
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true,
-        "resolveJsonModule": true,
-        "composite": true,
-        "types": ["bun-types"]
-    },
-    "include": ["src/**/*"]
+  "compilerOptions": {
+    "declaration": true,
+    "importHelpers": true,
+    "module": "CommonJS",
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": true,
+    "target": "ESNext",
+    "lib": [
+      "ESNext"
+    ],
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "composite": true,
+    "types": [
+      "bun-types"
+    ],
+    "noEmit": false
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "extends": "@civ7/config/tsconfig/base"
 }

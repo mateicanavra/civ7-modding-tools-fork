@@ -1,0 +1,10 @@
+{
+  "name": "@civ7/config",
+  "private": true,
+  "files": ["tsconfig", "eslint", "prettier"],
+  "exports": {
+    "./tsconfig/base": "./tsconfig/tsconfig.base.json",
+    "./eslint": "./eslint/index.cjs",
+    "./prettier": "./prettier/index.json"
+  }
+}

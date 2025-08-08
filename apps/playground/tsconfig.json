@@ -1,0 +1,4 @@
+{
+  "extends": "@civ7/config/tsconfig/base",
+  "include": ["src"]
+}

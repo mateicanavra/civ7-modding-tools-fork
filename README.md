@@ -1,8 +1,23 @@
 # Civ7 Modding Tools and Resources
 
-This repository is a community-maintained fork of [izica/civ7-modding-tools](https://github.com/izica/civ7-modding-tools). The original project focused on generating Civilization VII mods programmatically. This fork extends that SDK with community documentation and a dedicated command-line interface (CLI) for browsing and managing the official game data.
+This repository is a community-maintained fork of [izica/civ7-modding-tools](https://github.com/izica/civ7-modding-tools). It is now structured as a pnpm-powered monorepo.
 
-- [Features](#features)
+## Monorepo structure
+- `packages/sdk` – reusable Civ7 SDK
+- `packages/cli` – command line interface
+- `packages/docs-plugins` – local docs plugins
+- `packages/config` – shared TS/ESLint/Prettier presets
+- `apps/docs` – docs app serving content from `docs/`
+- `apps/playground` – example scripts using the SDK
+- `docs/` – markdown content for contributors
+## Development
+- `pnpm build` – run package builds through Turbo
+- `pnpm dev` – run dev tasks
+- `pnpm docs` – serve the docs app
+- `pnpm -F @civ7/cli dev` – work on the CLI
+- `pnpm -F @civ7/playground dev` – run the playground scripts
+
+
 - [Installation and Setup](#installation-and-setup)
 - [Using the CLI](#using-the-cli)
 - [Getting Started with Mod Generation](#getting-started-with-mod-generation)

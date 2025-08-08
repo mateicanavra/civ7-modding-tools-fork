@@ -1,0 +1,19 @@
+{
+  "name": "@civ7/docs",
+  "private": true,
+  "scripts": {
+    "predev": "mkdir -p site/plugins && cp ../../packages/docs-plugins/code-slicer.js site/plugins/",
+    "prebuild": "mkdir -p site/plugins && cp ../../packages/docs-plugins/code-slicer.js site/plugins/",
+    "dev": "docsify serve ./site -p 4000",
+    "docs": "docsify serve ./site -p 4000",
+    "build": "cp -R site dist",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@civ7/docs-plugins": "workspace:*"
+  },
+  "devDependencies": {
+    "docsify-cli": "^4",
+    "rimraf": "^6"
+  }
+}
