@@ -37,6 +37,8 @@ export interface RowRecord {
   key?: string; // optional for composite tables
   row: Row;
   file: string;
+  seq: number; // global insertion order for layering & deletes
+  deleted?: boolean;
 }
 
 export interface TableIndex {
@@ -154,7 +156,8 @@ export async function findXmlFiles(root: string): Promise<string[]> {
   const stat = await fs.stat(root);
   if (stat.isDirectory()) await walk(root);
   else if (root.toLowerCase().endsWith('.xml')) out.push(root);
-  return out.sort();
+  // Deterministic order: Base before DLC (lexicographic handles common cases), then lexicographic
+  return out.sort((a, b) => a.localeCompare(b));
 }
 
 function findTables(obj: any, acc: Record<string, any[]> = {}): Record<string, any[]> {
@@ -173,29 +176,206 @@ function findTables(obj: any, acc: Record<string, any[]> = {}): Record<string, a
   return acc;
 }
 
+// Collect <Delete .../> operations from Database-style XML
+function findDeletes(obj: any, acc: Record<string, any[]> = {}): Record<string, any[]> {
+  if (!obj || typeof obj !== 'object') return acc;
+  for (const [k, v] of Object.entries(obj)) {
+    if (!v) continue;
+    if (typeof v === 'object' && 'Delete' in v) {
+      const delsRaw = (v as any).Delete;
+      const arr = Array.isArray(delsRaw) ? delsRaw : [delsRaw];
+      if (!acc[k]) acc[k] = [];
+      for (const d of arr) acc[k].push(d);
+    } else if (typeof v === 'object') {
+      findDeletes(v, acc);
+    }
+  }
+  return acc;
+}
+
+// -----------------------------
+// GameEffects normalization helpers
+// -----------------------------
+
+function toArray<T>(v: T | T[] | undefined): T[] {
+  if (v === undefined || v === null) return [];
+  return Array.isArray(v) ? v : [v];
+}
+
+function getAttrCaseInsensitive(obj: any, ...names: string[]): any {
+  if (!obj || typeof obj !== 'object') return undefined;
+  const keys = Object.keys(obj);
+  for (const n of names) {
+    const k = keys.find((kk) => kk.toLowerCase() === n.toLowerCase());
+    if (k !== undefined) return obj[k];
+  }
+  return undefined;
+}
+
+function readArgumentValue(node: any): string | undefined {
+  if (!node || typeof node !== 'object') return undefined;
+  const explicit = getAttrCaseInsensitive(node, 'Value');
+  if (explicit !== undefined) return String(explicit);
+  // fast-xml-parser uses '#text' for inner text by default
+  if (typeof node['#text'] !== 'undefined') return String(node['#text']);
+  // Some files may use 'Text' or similar
+  const txt = getAttrCaseInsensitive(node, 'Text');
+  if (txt !== undefined) return String(txt);
+  return undefined;
+}
+
+function collectGameEffectsRoots(obj: any, out: any[] = []): any[] {
+  if (!obj || typeof obj !== 'object') return out;
+  for (const [k, v] of Object.entries(obj)) {
+    if (!v) continue;
+    if (k === 'GameEffects' && typeof v === 'object') {
+      out.push(v);
+    }
+    if (typeof v === 'object') collectGameEffectsRoots(v, out);
+  }
+  return out;
+}
+
+interface DeleteSpec {
+  table: string;
+  where: Record<string, string>;
+  file: string;
+  seq: number;
+}
+
 export async function buildIndexFromXml(root: string): Promise<Index> {
   const files = await findXmlFiles(root);
   const tables = new Map<string, TableIndex>();
+  const deleteSpecs: DeleteSpec[] = [];
+  let seqCounter = 0;
+
+  function ensureTable(table: string): TableIndex {
+    if (!tables.has(table)) tables.set(table, { table, rows: [], byCol: new Map() });
+    return tables.get(table)!;
+  }
+
+  function indexRow(table: string, row: Row, file: string) {
+    const ti = ensureTable(table);
+    row.__table = table;
+    row.__file = file;
+    const rr: RowRecord = { table, key: getPrimaryKey(table, row), row, file, seq: seqCounter++ };
+    ti.rows.push(rr);
+    // index common columns (will rebuild after deletes, but keep for interim lookups)
+    for (const [col, val] of Object.entries(row)) {
+      if (typeof val !== 'string') continue;
+      let map = ti.byCol.get(col);
+      if (!map) { map = new Map(); ti.byCol.set(col, map); }
+      const list = map.get(val) || [];
+      list.push(rr); map.set(val, list);
+    }
+  }
+
+  function addDelete(table: string, whereRaw: any, file: string) {
+    const where: Record<string, string> = {};
+    for (const [k, v] of Object.entries(whereRaw || {})) {
+      // Skip nested elements; only attributes are relevant for where
+      if (v !== null && typeof v !== 'object' && k !== '__table' && k !== '__file') {
+        where[k] = String(v);
+      }
+    }
+    deleteSpecs.push({ table, where, file, seq: seqCounter++ });
+  }
+
   for (const file of files) {
     try {
       const text = await fs.readFile(file, 'utf8');
       const obj = parser.parse(text);
+
+      // 1) Database-style tables
       const tablesInFile = findTables(obj);
       for (const [table, rows] of Object.entries(tablesInFile)) {
-        if (!tables.has(table)) tables.set(table, { table, rows: [], byCol: new Map() });
-        const ti = tables.get(table)!;
         for (const raw of rows) {
           const row: Row = normalizeRow(raw);
-          row.__table = table; row.__file = file;
-          const rr: RowRecord = { table, key: getPrimaryKey(table, row), row, file };
-          ti.rows.push(rr);
-          // index common columns
-          for (const [col, val] of Object.entries(row)) {
-            if (typeof val !== 'string') continue;
-            let map = ti.byCol.get(col);
-            if (!map) { map = new Map(); ti.byCol.set(col, map); }
-            const list = map.get(val) || [];
-            list.push(rr); map.set(val, list);
+          indexRow(table, row, file);
+        }
+      }
+
+      // Collect deletes in the same pass
+      const deletesInFile = findDeletes(obj);
+      for (const [table, dels] of Object.entries(deletesInFile)) {
+        for (const d of dels) addDelete(table, d, file);
+      }
+
+      // 2) GameEffects normalization
+      const geRoots = collectGameEffectsRoots(obj);
+      for (const ge of geRoots) {
+        const modifiersRaw = toArray(getAttrCaseInsensitive(ge, 'Modifier'));
+        for (const mod of modifiersRaw) {
+          const modId = String(getAttrCaseInsensitive(mod, 'id', 'Id', 'ID', 'ModifierId', 'ModifierID') || '');
+          if (!modId) continue;
+          const collection = String(getAttrCaseInsensitive(mod, 'collection', 'Collection') || '');
+          const effect = String(getAttrCaseInsensitive(mod, 'effect', 'Effect') || '');
+          const permanentVal = getAttrCaseInsensitive(mod, 'permanent', 'Permanent');
+          const permanent = typeof permanentVal === 'undefined' ? undefined : String(permanentVal);
+
+          const synthesized: Row = {
+            ModifierId: modId,
+            Collection: collection,
+            Effect: effect,
+            ...(permanent !== undefined ? { Permanent: permanent } : {}),
+          };
+
+          // Subject/Owner requirements
+          const subjReqs = getAttrCaseInsensitive(mod, 'SubjectRequirements');
+          const ownerReqs = getAttrCaseInsensitive(mod, 'OwnerRequirements');
+
+          if (subjReqs && typeof subjReqs === 'object') {
+            const setId = `REQSET_${modId}_SUBJECT`;
+            synthesized['SubjectRequirementSetId'] = setId;
+            const setType = String(getAttrCaseInsensitive(subjReqs, 'type', 'Type') || '');
+            indexRow('RequirementSets', { RequirementSetId: setId, RequirementSetType: setType }, file);
+            const reqs = toArray(getAttrCaseInsensitive(subjReqs, 'Requirement'));
+            let i = 0;
+            for (const r of reqs) {
+              const reqId = `REQ_${modId}_SUBJECT_${i++}`;
+              const reqType = String(getAttrCaseInsensitive(r, 'type', 'Type') || '');
+              indexRow('Requirements', { RequirementId: reqId, RequirementType: reqType }, file);
+              indexRow('RequirementSetRequirements', { RequirementSetId: setId, RequirementId: reqId, Index: i - 1 }, file);
+              // Requirement Arguments
+              const args = toArray(getAttrCaseInsensitive(r, 'Argument'));
+              for (const a of args) {
+                const name = String(getAttrCaseInsensitive(a, 'name', 'Name') || '');
+                const value = readArgumentValue(a) || '';
+                indexRow('RequirementArguments', { RequirementId: reqId, Name: name, Value: value }, file);
+              }
+            }
+          }
+
+          if (ownerReqs && typeof ownerReqs === 'object') {
+            const setId = `REQSET_${modId}_OWNER`;
+            synthesized['OwnerRequirementSetId'] = setId;
+            const setType = String(getAttrCaseInsensitive(ownerReqs, 'type', 'Type') || '');
+            indexRow('RequirementSets', { RequirementSetId: setId, RequirementSetType: setType }, file);
+            const reqs = toArray(getAttrCaseInsensitive(ownerReqs, 'Requirement'));
+            let i = 0;
+            for (const r of reqs) {
+              const reqId = `REQ_${modId}_OWNER_${i++}`;
+              const reqType = String(getAttrCaseInsensitive(r, 'type', 'Type') || '');
+              indexRow('Requirements', { RequirementId: reqId, RequirementType: reqType }, file);
+              indexRow('RequirementSetRequirements', { RequirementSetId: setId, RequirementId: reqId, Index: i - 1 }, file);
+              const args = toArray(getAttrCaseInsensitive(r, 'Argument'));
+              for (const a of args) {
+                const name = String(getAttrCaseInsensitive(a, 'name', 'Name') || '');
+                const value = readArgumentValue(a) || '';
+                indexRow('RequirementArguments', { RequirementId: reqId, Name: name, Value: value }, file);
+              }
+            }
+          }
+
+          // Emit modifier row
+          indexRow('Modifiers', synthesized, file);
+
+          // Emit modifier arguments
+          const args = toArray(getAttrCaseInsensitive(mod, 'Argument'));
+          for (const a of args) {
+            const name = String(getAttrCaseInsensitive(a, 'name', 'Name') || '');
+            const value = readArgumentValue(a) || '';
+            indexRow('ModifierArguments', { ModifierId: modId, Name: name, Value: value }, file);
           }
         }
       }
@@ -204,6 +384,39 @@ export async function buildIndexFromXml(root: string): Promise<Index> {
       // console.warn('Parse error', file, e);
     }
   }
+
+  // Apply deletes with layering semantics: a Delete only affects rows with lower seq
+  if (deleteSpecs.length) {
+    for (const [table, ti] of tables.entries()) {
+      const relevantDeletes = deleteSpecs.filter((d) => d.table === table);
+      if (relevantDeletes.length === 0) continue;
+      for (const rr of ti.rows) {
+        for (const del of relevantDeletes) {
+          if (del.seq > rr.seq) {
+            let match = true;
+            for (const [k, v] of Object.entries(del.where)) {
+              if (String((rr.row as any)[k]) !== String(v)) { match = false; break; }
+            }
+            if (match) { rr.deleted = true; break; }
+          }
+        }
+      }
+      // Rebuild byCol excluding deleted
+      const newByCol = new Map<string, Map<string, RowRecord[]>>();
+      for (const rr of ti.rows) {
+        if (rr.deleted) continue;
+        for (const [col, val] of Object.entries(rr.row)) {
+          if (typeof val !== 'string') continue;
+          let map = newByCol.get(col);
+          if (!map) { map = new Map(); newByCol.set(col, map); }
+          const list = map.get(val) || [];
+          list.push(rr); map.set(val, list);
+        }
+      }
+      ti.byCol = newByCol;
+    }
+  }
+
   return { tables };
 }
 
@@ -227,13 +440,20 @@ function getPrimaryKey(table: string, row: Row): string | undefined {
 function findBy(table: string, col: string, val: string, idx: Index): RowRecord[] {
   const ti = idx.tables.get(table); if (!ti) return [];
   const colIdx = ti.byCol.get(col); if (!colIdx) return [];
-  return colIdx.get(val) || [];
+  const list = colIdx.get(val) || [];
+  // Filter out deleted rows if any remain
+  return list.filter((rr) => !rr.deleted);
 }
 
 function getByPk(table: string, id: string, idx: Index): RowRecord | undefined {
   const pk = PRIMARY_KEYS[table]; if (!pk) return undefined;
   const matches = findBy(table, pk, id, idx);
-  return matches[0];
+  // Last-write-wins: return the latest by seq
+  let latest: RowRecord | undefined;
+  for (const rr of matches) {
+    if (!latest || rr.seq > latest.seq) latest = rr;
+  }
+  return latest;
 }
 
 function guessTableFromId(id: string): string | undefined {
@@ -296,6 +516,10 @@ const EXPANDERS: Record<string, Expander> = {
       if (targetTable && value) {
         const pk = PRIMARY_KEYS[targetTable];
         if (pk && getByPk(targetTable, value, idx)) out.push({ table: targetTable, id: value });
+      }
+      // Attach chain: Name === 'ModifierId' should reference another Modifier
+      if (name.toLowerCase() === 'modifierid' && value) {
+        if (getByPk('Modifiers', value, idx)) out.push({ table: 'Modifiers', id: value });
       }
     }
     return out;
