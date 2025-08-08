@@ -21,7 +21,11 @@ Create a safe branch for the monorepo migration, pin Node/pnpm via Corepack, rem
 - [ ] Add root `.npmrc`:
   ```
   shared-workspace-lockfile=true
+  only-built-dependencies[]=docsify
+  only-built-dependencies[]=esbuild
   ```
+- [ ] Pin pnpm in root `package.json`: add `"packageManager": "pnpm@10.10.0"`
+- [ ] Add `.nvmrc` with `20` to standardize local Node to LTS
 - [ ] Add root `tsconfig.base.json`:
   ```json
   {
