@@ -16,6 +16,9 @@ coverage/
 *.tsbuildinfo
 dist/
 
+# CLI outputs
+out/
+
 # OS/system files
 .DS_Store
 **/.DS_Store
