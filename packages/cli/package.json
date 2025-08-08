@@ -18,6 +18,9 @@
         "start": "pnpm run build && node .",
         "dev": "bun run src/index.ts",
         "publish:local": "pnpm run build && pnpm link --global",
+        "crawl": "node ./bin/run.js crawl",
+        "render": "node ./bin/run.js render",
+        "slice": "node ./bin/run.js slice",
         "zip": "node ./bin/run.js zip",
         "unzip": "node ./bin/run.js unzip",
         "pack": "pnpm pack",
@@ -29,6 +32,8 @@
     "dependencies": {
         "@oclif/core": "^4.5.2",
         "@oclif/plugin-help": "^6.2.32",
+        "@hpcc-js/wasm": "^2.22.0",
+        "fast-xml-parser": "^5.2.5",
         "jsonc-parser": "^3.3.1",
         "tslib": "^2.6.3"
     },
