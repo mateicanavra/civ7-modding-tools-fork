@@ -675,26 +675,87 @@ export function graphToDot(g: Graph): string {
 
   lines.push('  }');
 
-  // Nodes
+  // Nodes with provenance tooltips/links (Phase B: VIZ-6)
+  const layerToIds = new Map<number, string[]>();
   for (const n of g.nodes.values()) {
     const id = sanitize(`${n.key.table}_${n.key.id}`);
     const label = formatNodeLabel(n.key.table, n.key.id);
-    const attrs = nodeStyleAttrs(n.key.table);
-    lines.push(`  "${id}" [label="${label}"${attrs ? ', ' + attrs : ''}];`);
+    const styleAttrs = nodeStyleAttrs(n.key.table);
+    const isAbs = typeof n.file === 'string' && path.isAbsolute(n.file);
+    const relOrAbs = isAbs ? path.relative(process.cwd(), n.file) : (n.file ?? '');
+    const nodeTooltip = escapeDotString(`${n.key.table}:${n.key.id}\n${relOrAbs}`);
+    const urlAttr = isAbs ? `, URL="${escapeDotString(buildFileUrl(n.file))}"` : '';
+    const targetAttr = `, target="_blank"`;
+    lines.push(`  "${id}" [label="${label}"${styleAttrs ? ', ' + styleAttrs : ''}, tooltip="${nodeTooltip}"${urlAttr}${targetAttr}];`);
+
+    const layer = getLayerForTable(n.key.table);
+    if (layer !== null) {
+      const list = layerToIds.get(layer) || [];
+      list.push(id);
+      layerToIds.set(layer, list);
+    }
   }
-  // Edges
+
+
+  // Layered ranks (Phase B: VIZ-3)
+  const orderedLayers = Array.from(layerToIds.keys()).sort((a, b) => a - b);
+  for (const layer of orderedLayers) {
+    const ids = layerToIds.get(layer)!;
+    if (!ids.length) continue;
+    lines.push(`  subgraph "layer_${layer}" {`);
+    lines.push('    rank=same;');
+    for (const nid of ids) lines.push(`    "${nid}";`);
+    lines.push('  }');
+  }
+
+  // Edges with tooltips (Phase B: VIZ-6)
   for (const e of g.edges) {
     const from = sanitize(`${e.from.table}_${e.from.id}`);
     const to = sanitize(`${e.to.table}_${e.to.id}`);
     const styleAttrs = edgeStyleAttrs(e.label);
-    const lbl = e.label ? `, label="${e.label.replace(/"/g, '\\"')}"` : '';
-    lines.push(`  "${from}" -> "${to}" [${styleAttrs}${lbl}];`);
+    const parts: string[] = [styleAttrs];
+    if (e.label) {
+      parts.push(`label=\"${escapeDotString(e.label)}\"`);
+      const edgeTooltip = `${e.label} from ${e.from.table}:${e.from.id} → ${e.to.table}:${e.to.id}`;
+      parts.push(`tooltip=\"${escapeDotString(edgeTooltip)}\"`);
+    }
+    lines.push(`  "${from}" -> "${to}" [${parts.join(', ')}];`);
   }
   lines.push('}');
   return lines.join('\n');
 }
 
 function sanitize(s: string) { return s.replace(/[^A-Za-z0-9_:\-]/g, '_').slice(0, 120); }
+
+// -----------------------------
+// DOT helpers (Phase B)
+// -----------------------------
+
+function escapeDotString(s: string): string {
+  return String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+}
+
+function buildFileUrl(absPath: string): string {
+  // Produces file:///... style URL; encode spaces and other characters
+  const encoded = encodeURI(absPath);
+  return `file://${encoded}`;
+}
+
+function getLayerForTable(table: string): number | null {
+  const mapping: Record<string, number> = {
+    Leaders: 1,
+    Civilizations: 1,
+    Traits: 2,
+    LeaderTraits: 2,
+    CivilizationTraits: 2,
+    Modifiers: 3,
+    RequirementSets: 4,
+    Requirements: 5,
+    ModifierArguments: 6,
+    RequirementArguments: 6,
+  };
+  return Object.prototype.hasOwnProperty.call(mapping, table) ? mapping[table] : null;
+}
 
 // -----------------------------
 // DOT styling helpers (Phase A)
@@ -764,6 +825,8 @@ function edgeStyleAttrs(label?: string): string {
   if (label && /Type$/.test(label)) return 'color="#888888", style=dotted, penwidth=1.0';
   return 'color="#777777", style=solid, penwidth=1.1';
 }
+
+// edgeColor helper removed (fan-out logic reverted)
 
 // -----------------------------
 // Seed parsing convenience

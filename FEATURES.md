@@ -16,6 +16,14 @@ This document tracks completed work and upcoming enhancements for the CLI and XM
   - Edge labeling for readability (e.g., `LeaderTraits`, `TraitModifiers`, `Argument`, `Attach`, `SubjectRequirementSetId`, `OwnerRequirementSetId`).
   - Self-loop edges suppressed.
 
+- Phase B — Layout semantics & UX (Completed)
+  - VIZ-3: Layered layout by table with `rankdir=LR`; group ranks: Leaders/Civilizations → Traits → Modifiers → RequirementSets → Requirements → Arguments.
+  - VIZ-6: Provenance-aware tooltips and hyperlinks.
+    - Nodes: tooltip shows `Table:Id` and relative path; `URL` points to `file://<abs>`; `target=_blank`.
+    - Edges: tooltip shows `<label> from <fromTable>:<fromId> → <toTable>:<toId>`.
+    - Proper DOT/URI escaping; no URLs on edges.
+  - Acceptance: Verified on `LEADER_AMINA`, `CIVILIZATION_ROME`; no Phase A regressions; large graphs still render.
+
 - Phase F (Baseline) — Local Interactive Visualizer (VIZ-13)
   - Explore defaults to generating and opening a local HTML viewer:
     - `civ7 explore <seed>` now emits `out/<seed>/graph.svg` and `out/<seed>/graph.html`, then opens `graph.html`.
@@ -36,18 +44,17 @@ This document tracks completed work and upcoming enhancements for the CLI and XM
 
 ### Next up
 
-- Phase B — Layout semantics & UX
-  - VIZ-3: Layered layout by table (rank hints) — keep `rankdir=LR`; group ranks Leaders/Civs → Traits → Modifiers → RequirementSets → Requirements → Arguments.
-  - VIZ-6: Tooltips and hyperlinks (provenance-aware) — add `tooltip` with full IDs; add `URL` to source file paths; offline-safe and escaped.
+- Phase C — Complexity controls
+  - VIZ-4: Toggle noisy structures via flags (optional)
+  - VIZ-5: Depth limiting
 
 ### Upcoming (Tickets, prioritized shallow → deep)
 
 - Execution order (priority)
-  1. Phase B — Layout semantics & UX (VIZ-3, VIZ-6) [Next]
-  2. Phase C — Complexity controls (VIZ-4, VIZ-5)
-  3. Phase D — Structural grouping (VIZ-11)
-  4. Phase E — Config-driven styling (VIZ-10) [Optional]
-  5. Phase F (Advanced) — VIZ-15, VIZ-16, VIZ-17, VIZ-18 [Later]
+  1. Phase C — Complexity controls (VIZ-4, VIZ-5)
+  2. Phase D — Structural grouping (VIZ-11)
+  3. Phase E — Config-driven styling (VIZ-10) [Optional]
+  4. Phase F (Advanced) — VIZ-15, VIZ-16, VIZ-17, VIZ-18 [Later]
 
 #### Phase A — Quick visual clarity
 - VIZ-8: Global layout tuning
@@ -61,11 +68,11 @@ This document tracks completed work and upcoming enhancements for the CLI and XM
 - VIZ-7: Legend/Key cluster
   - Add a legend subgraph that explains node and edge styles.
 
-#### Phase B — Layout semantics & UX
+#### Phase B — Layout semantics & UX (Completed)
 - VIZ-3: Layered layout by table (rank hints)
-  - Use `rankdir=LR`; group ranks: Leaders/Civs → Traits → Modifiers → RequirementSets → Requirements → Arguments.
+  - `rankdir=LR`; grouped ranks: Leaders/Civs → Traits → Modifiers → RequirementSets → Requirements → Arguments.
 - VIZ-6: Tooltips and hyperlinks (provenance-aware)
-  - Add node `tooltip` and `URL` to file paths; preserve full IDs in tooltip.
+  - Node `tooltip` and `URL` to file paths; preserve full IDs; edge tooltips added; offline-safe and escaped.
 
 #### Phase C — Complexity controls
 - VIZ-4: Toggle noisy structures via flags (optional)
