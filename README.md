@@ -1,22 +1,32 @@
 # Civ7 Modding Tools and Resources
 
-This repository is a community-maintained fork of [izica/civ7-modding-tools](https://github.com/izica/civ7-modding-tools). The original project focused on generating Civilization VII mods programmatically. This fork extends that SDK with community documentation and a dedicated command-line interface (CLI) for browsing and managing the official game data.
+A comprehensive monorepo workspace for Civilization VII modding, providing tools, documentation, and an SDK for creating mods programmatically.
 
-- [Features](#features)
-- [Installation and Setup](#installation-and-setup)
+This repository is a community-maintained fork of [izica/civ7-modding-tools](https://github.com/izica/civ7-modding-tools), extended with:
+- 📦 **[@civ7/sdk](packages/sdk)** - TypeScript SDK for programmatic mod generation
+- 🛠️ **[@civ7/cli](packages/cli)** - Command-line tools for managing game resources
+- 📚 **[Documentation](apps/docs)** - Comprehensive modding guides and references
+- 🎮 **[Playground](apps/playground)** - Examples and experimentation space
+
+## Quick Links
+- [Installation](#installation-and-setup)
 - [Using the CLI](#using-the-cli)
-- [Getting Started with Mod Generation](#getting-started-with-mod-generation)
-- [Status](#status)
-- [Examples](#examples)
-- [Previews](#previews)
-- [Differences from upstream](#differences-from-upstream)
+- [SDK Documentation](packages/sdk/README.md)
+- [Community Guides](apps/docs/site/community/)
+- [Official Modding Docs](apps/docs/site/civ7-official/modding/)
 
-## Features
-- A command-line interface (CLI) to extract or archive Civ7 resources (`civ7 zip`, `civ7 unzip`).
-- Configurable extraction profiles (default/full/assets) via `civ.config.jsonc` in the project root.
-- Strongly typed builders for units, civilizations, constructibles, and more.
-- Embedded documentation under `docs/` with guides and gap analyses.
-- pnpm workspace setup for easy package management.
+## Workspace Structure
+
+```
+civ7-modding-tools/
+├── packages/
+│   ├── sdk/          # TypeScript SDK for mod generation
+│   └── cli/          # Command-line tools
+├── apps/
+│   ├── docs/         # Documentation site (Docsify)
+│   └── playground/   # Example mods and experiments
+└── civ.config.jsonc  # CLI configuration
+```
 
 ## Installation and Setup
 
@@ -78,150 +88,76 @@ civ7 zip --config ./my-custom-config.jsonc default
 
 
 ## Getting Started with Mod Generation
-The core of this repository is the mod generation library. `build.ts` contains starter code. Copy an example from the [`examples`](examples) directory or write your own script and run:
+
+The SDK provides strongly-typed builders for creating mods. For detailed documentation, see the [SDK README](packages/sdk/README.md).
+
+### Quick Example
+
+```typescript
+import { Mod, UnitBuilder } from '@civ7/sdk';
+
+const mod = new Mod({ id: 'my-mod', version: '1.0.0' });
+// Add builders and generate
+mod.build('./output');
+```
+
+For complete examples, check the [playground](apps/playground/src/examples/).
+
+
+
+
+
+
+
+## Documentation
+
+Comprehensive documentation is available in the [docs app](apps/docs/):
+
+- **[Community Guides](apps/docs/site/community/)** - Tutorials, patterns, and best practices
+- **[Official Modding Docs](apps/docs/site/civ7-official/modding/)** - Firaxis documentation and examples
+- **[SDK Reference](packages/sdk/)** - API documentation for the TypeScript SDK
+
+To serve the documentation locally:
 
 ```bash
-tsx build.ts
+pnpm docs:dev
+# Visit http://localhost:4000
 ```
 
-## Status
-### Done
-- Mod info
-- Import custom files
-- Localization (English, Internalization)
-- Units
-- Civilizations
-  - Civilization unlocks
-  - Leader unlocks
-- Constructibles
-  - Base building
-  - Improvement
-  - Unique quarter
-- City names
-- Civics
-- Traditions
-- Game Effects
+## Contributing
 
-### Working on
-- Great People nodes (+builder?)
+This is a community-maintained project. Contributions are welcome!
 
-### Todo
-- AI nodes (+builder?)
-- Unit abilities nodes (+builder?)
-- Wonder nodes (+builder?)
-- ???
+### Development Setup
 
-## Examples
-- [Init and create civilization](examples/civilization.ts)
-- [Create unit](examples/unit.ts)
-- [Import sql file](examples/import-sql-file.ts)
-- [Import custom icon](examples/import-custom-icon.ts)
-- [Create civics progression tree](examples/progression-tree.ts)
-- [Unique quarter](examples/unique-quarter.ts)
+```bash
+# Install dependencies
+pnpm install
 
-## Previews
-#### Use builders for easier and faster mod creation
-```typescript
-const mod = new Mod({
-    id: 'mod-test',
-    version: '1',
-});
+# Build all packages
+pnpm build
 
-const unit = new UnitBuilder({
-    actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
-    typeTags: [UNIT_CLASS.RECON, UNIT_CLASS.RECON_ABILITIES],
-    unit: {
-        unitType: 'UNIT_CUSTOM_SCOUT',
-        baseMoves: 2,
-        baseSightRange: 10,
-    },
-    unitCost: { cost: 20 },
-    unitStat: { combat: 0 },
-    unitReplace: { replacesUnitType: UNIT.SCOUT },
-    visualRemap: { to: UNIT.ARMY_COMMANDER },
-    localizations: [
-        { name: 'Custom scout', description: 'test description' }
-    ],
-});
+# Run tests
+pnpm test
 
-
-mod.add([unit]).build('./dist');
+# Serve documentation
+pnpm docs:dev
 ```
 
-#### Full strongly typed
-![Typed](previews/typed.png)
+### Project Structure
 
-#### Full control of generation
-![Controllable](previews/controllable.png)
+- **Monorepo**: Uses pnpm workspaces and Turborepo for efficient builds
+- **TypeScript**: Fully typed with strict mode
+- **Testing**: Vitest for unit tests
+- **Linting**: ESLint with TypeScript support
+- **Documentation**: Docsify for static site generation
 
-#### Possibility of fully manual creation
-```typescript
-const mod = new Mod({
-    id: 'mod-test',
-    version: '1',
-});
+## License
 
-const unit = new UnitNode({
-    unitType: 'UNIT_CUSTOM_SCOUT',
-    baseMoves: 2,
-    baseSightRange: 10,
-})
+MIT - See [LICENSE](LICENSE) for details
 
-const database = new DatabaseNode({
-    types: [
-        new TypeNode({ type: unit.unitType, kind: KIND.UNIT })
-    ],
-    units: [unit]
-});
+## Acknowledgments
 
-const unitFile = new XmlFile({
-    path: `/units/${unit.unitType}.xml`,
-    name: 'unit.xml',
-    content: database.toXmlElement(),
-    actionGroups: [ACTION_GROUP.AGE_ANTIQUITY_CURRENT],
-    actionGroupActions: [ACTION_GROUP_ACTION.UPDATE_DATABASE]
-});
-
-mod.addFiles([unitFile]).build('./dist');
-```
-
-## Differences from upstream
-This fork diverges from the original in several ways:
-- Uses `pnpm` instead of `npm` for workspace management.
-- Includes `docs/` with community guides, gap analyses, and session notes.
-- **Ships a dedicated CLI** and configuration to zip or unzip official Civ7 resources.
-- Adds extra builders, constants, and resource classes to cover more modding features.
-- Provides `AGENTS.md` with workspace guidance and XML verification tips.
-
-## Docs authoring (Docsify)
-
-We render documentation with Docsify. To embed XML/SQL examples directly from files without copy‑pasting:
-
-- Use the include syntax inside a fenced block. Example:
-
-  ```xml
-  %[{ examples/fxs-new-narrative-event/data/antiquity-discovery.xml }]%
-  ```
-
-- To show only a subset of lines, add a `lines=START-END` hint in the fence info:
-
-  ```xml lines=1-80
-  %[{ examples/fxs-new-narrative-event/data/antiquity-discovery.xml }]%
-  ```
-
-- Wrap large snippets in a collapsible toggle to keep pages tidy:
-
-  <details class="code-example">
-  <summary>antiquity-discovery.xml (excerpt)</summary>
-
-  ```xml lines=1-80
-  %[{ examples/fxs-new-narrative-event/data/antiquity-discovery.xml }]%
-  ```
-  </details>
-
-Notes
-- Syntax highlighting is via Prism (XML/SQL enabled).
-- Includes are handled with `docsify-include-template`; line slicing is provided by a small local plugin `plugins/code-slicer.js` (loaded by the docs site).
-- Keep paths relative to the docs site root so they work with `pnpm run docs:all` and per‑site servers.
-
-Reference: Docsify Embed files [link](https://docsify.js.org/#/embed-files)
+- Original SDK by [izica](https://github.com/izica/civ7-modding-tools)
+- Civilization VII by Firaxis Games
+- Community contributors

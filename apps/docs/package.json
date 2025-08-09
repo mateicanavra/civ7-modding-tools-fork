@@ -1,0 +1,16 @@
+{
+  "name": "@civ7/docs",
+  "private": true,
+  "scripts": {
+    "dev": "bunx docsify-cli serve ./site -p 4000",
+    "docs": "bunx docsify-cli serve ./site -p 4000",
+    "build": "cp -R site dist",
+    "clean": "rimraf dist"
+  },
+  "devDependencies": {
+    "docsify-cli": "^4.4.4",
+    "rimraf": "^6.0.1"
+  }
+}
+
+

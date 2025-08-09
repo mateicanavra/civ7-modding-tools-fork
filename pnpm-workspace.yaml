@@ -1,5 +1,3 @@
 packages:
-  - packages/*
-onlyBuiltDependencies:
-  - docsify
-  - esbuild
+  - "apps/*"
+  - "packages/*"
