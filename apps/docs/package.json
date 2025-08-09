@@ -5,11 +5,13 @@
     "dev": "bunx docsify-cli serve ./site -p 4000",
     "docs": "bunx docsify-cli serve ./site -p 4000",
     "build": "cp -R site dist",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "test": "vitest"
   },
   "devDependencies": {
     "docsify-cli": "^4.4.4",
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",
+    "vitest": "^3.2.4"
   }
 }
 

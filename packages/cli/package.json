@@ -29,7 +29,8 @@
         "prepublishOnly": "pnpm build",
         "prepack": "pnpm run build && oclif readme",
         "postpack": "rimraf oclif.manifest.json",
-        "version": "oclif readme && git add README.md"
+        "version": "oclif readme && git add README.md",
+        "test": "vitest"
     },
     "dependencies": {
         "@oclif/core": "^4.5.2",
@@ -44,7 +45,8 @@
         "bun-types": "^1.2.19",
         "oclif": "^4.22.6",
         "rimraf": "^6.0.1",
-        "typescript": "^5.9.2"
+        "typescript": "^5.9.2",
+        "vitest": "^3.2.4"
     },
     "oclif": {
         "bin": "civ7",

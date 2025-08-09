@@ -140,6 +140,8 @@ pnpm build
 # Run tests
 pnpm test
 
+See [TESTING.md](TESTING.md) for details on the Vitest setup and package-specific smoke tests.
+
 # Serve documentation
 pnpm docs:dev
 ```

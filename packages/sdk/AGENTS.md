@@ -82,6 +82,8 @@ Builder -> Nodes -> XML Files -> Mod Output
 
 ## Testing & Validation
 
+- Run `pnpm --filter @civ7/sdk test` to execute the Vitest suite (see `TESTING.md`).
+
 ### Type Checking
 ```bash
 cd packages/sdk

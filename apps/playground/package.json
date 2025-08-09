@@ -4,14 +4,16 @@
   "scripts": {
     "dev": "bun run src/build.ts",
     "build": "bun run src/build.ts",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "test": "vitest"
   },
   "dependencies": {
     "@civ7/sdk": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.9.2",
-    "rimraf": "^6.0.1"
+    "rimraf": "^6.0.1",
+    "vitest": "^3.2.4"
   }
 }
 
