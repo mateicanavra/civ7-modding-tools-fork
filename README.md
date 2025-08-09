@@ -140,6 +140,12 @@ pnpm build
 # Run tests
 pnpm test
 
+# Visualize test runs
+pnpm test:ui
+
+# Run a single suite
+pnpm vitest --project <cli|sdk|docs|playground>
+
 See [TESTING.md](TESTING.md) for details on the Vitest setup and package-specific smoke tests.
 
 # Serve documentation

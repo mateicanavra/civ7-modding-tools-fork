@@ -30,7 +30,7 @@
         "prepack": "pnpm run build && oclif readme",
         "postpack": "rimraf oclif.manifest.json",
         "version": "oclif readme && git add README.md",
-        "test": "vitest"
+        "test": "vitest run --project cli"
     },
     "dependencies": {
         "@oclif/core": "^4.5.2",

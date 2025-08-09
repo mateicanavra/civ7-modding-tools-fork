@@ -5,7 +5,7 @@
     "dev": "bun run src/build.ts",
     "build": "bun run src/build.ts",
     "clean": "rimraf dist",
-    "test": "vitest"
+    "test": "vitest run --project playground"
   },
   "dependencies": {
     "@civ7/sdk": "workspace:*"

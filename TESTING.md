@@ -8,14 +8,22 @@ This repository uses [Vitest](https://vitest.dev/) for unit tests across all wor
 pnpm test
 ```
 
-Runs `vitest` in every workspace through Turborepo. Build artifacts are generated first so packages can import one another.
+Executes `vitest` across all configured projects defined in `vitest.config.ts`.
+
+## Visualizing test runs
+
+```bash
+pnpm test:ui
+```
+
+Opens the interactive Vitest UI for all workspaces.
 
 ## Running a single workspace
 
 ```bash
-pnpm --filter <workspace> test
+pnpm vitest --project <name>
 ```
 
-Use the workspace name from `package.json` to run an individual suite.
+Use the project name from `vitest.config.ts` (`cli`, `sdk`, `docs`, or `playground`) to target an individual suite.
 
 Each app and package includes a minimal smoke test and a local `TESTING.md` describing recommended scenarios to cover.

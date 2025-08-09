@@ -6,7 +6,7 @@
     "docs": "bunx docsify-cli serve ./site -p 4000",
     "build": "cp -R site dist",
     "clean": "rimraf dist",
-    "test": "vitest"
+    "test": "vitest run --project docs"
   },
   "devDependencies": {
     "docsify-cli": "^4.4.4",
