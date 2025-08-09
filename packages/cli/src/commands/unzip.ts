@@ -4,6 +4,7 @@ import * as path from "node:path";
 import * as os from "node:os";
 import { spawn } from "node:child_process";
 import { parse } from "jsonc-parser";
+import { loadConfig, resolveUnzipDir, resolveZipPath } from "../utils";
 
 // Define the structure of the config file for type safety
 interface UnzipConfig {
@@ -101,33 +102,19 @@ The source zip file and extraction path are determined by the profile, but can b
         const { args, flags } = await this.parse(Unzip);
 
         // --- 1. Find and Parse Config ---
-        const configPath = this.findConfig(flags.config);
-        if (!configPath) {
-            this.error("Config file not found. Provide --config or create a config file in the project root.");
-        }
-        this.log(`→ Using config: ${configPath}`);
-
-        const configFileContent = fs.readFileSync(configPath, "utf8");
-        const config: UnzipConfig = parse(configFileContent);
+        const projectRoot = this.findProjectRoot(process.cwd());
+        const cfg = await loadConfig(projectRoot, flags.config);
+        if (!cfg.path) this.error("Config file not found. Provide --config or create a config file in the project root.");
+        this.log(`→ Using config: ${cfg.path}`);
+        const config: UnzipConfig = cfg.raw as any;
         const profileConfig = config[args.profile];
 
         if (!profileConfig) {
-            this.error(`Profile '${args.profile}' not found in ${configPath}`);
+            this.error(`Profile '${args.profile}' not found in ${cfg.path}`);
         }
-
-        const projectRoot = this.findProjectRoot(process.cwd());
 
         // --- 2. Determine Source Zip File ---
-        const zipPathFromConfig = profileConfig.zip?.zip_path;
-        let zipFile = args.zipfile || zipPathFromConfig;
-
-        if (!zipFile) {
-            this.error(
-                `Source zip file not defined for profile '${args.profile}' and no override provided.`,
-            );
-        }
-
-        zipFile = path.resolve(projectRoot, this.expandPath(zipFile));
+        const zipFile = resolveZipPath({ projectRoot, profile: args.profile!, flagsConfig: flags.config }, config as any, args.zipfile);
 
         if (!fs.existsSync(zipFile)) {
             this.error(`Source zip file not found: ${zipFile}`);
@@ -136,16 +123,7 @@ The source zip file and extraction path are determined by the profile, but can b
         this.log(`→ Using source: ${zipFile}`);
 
         // --- 3. Determine Extraction Destination ---
-        const extractPathFromConfig = profileConfig.unzip?.extract_path;
-        let destDir = args.extractpath || extractPathFromConfig;
-
-        if (!destDir) {
-            this.error(
-                `Extraction path not defined for profile '${args.profile}' and no override provided.`,
-            );
-        }
-
-        destDir = path.resolve(projectRoot, this.expandPath(destDir));
+        const destDir = resolveUnzipDir({ projectRoot, profile: args.profile!, flagsConfig: flags.config }, config as any, args.extractpath);
         this.log(`→ Extracting to: ${destDir}`);
 
         // --- 4. Prepare Destination ---

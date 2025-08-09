@@ -52,6 +52,21 @@ These defaults ensure no repo‑root writes and keep artifacts easy to ignore/sh
     "unzip": "resources",
     "graph": "graph"
   }
+  ,
+  "resources": {
+    // If provided, CLI uses this path to locate the installed Civ7 data to zip
+    // Non‑interactive default: unset → CLI requires flag/env
+    "installDir": "",
+    // Archive file name under outputDirs.zip (paired with unzipDir)
+    "archiveName": "civ7-official-resources.zip",
+    // Folder name under outputDirs.unzip for extracted resources (current default in repo config uses "resources")
+    "unzipFolder": "resources"
+  },
+  "crawler": {
+    // Defaults derive from resources.unzipFolder
+    "inputDir": "",
+    "outputDir": "crawler"
+  }
 }
 ```
 
@@ -84,6 +99,12 @@ These defaults ensure no repo‑root writes and keep artifacts easy to ignore/sh
 5) Git ignores
    - Ensure `.civ7/` is in project `.gitignore` templates and monorepo `.gitignore`
 
+6) Non‑interactive behavior
+   - If `resources.installDir` is not set and `--civ-install` flag/env not provided, zip step is skipped with a clear message (or the command fails fast when zip is explicitly requested)
+   - Pairing rule: `zip` output (`outputDirs.zip/archiveName`) is the sole input for `unzip`; `unzip` target is `outputDirs.unzip/unzipFolder`
+   - `crawler.inputDir` defaults to the effective unzip directory; `crawler.outputDir` defaults to `outputDirs.base/crawler`
+   - All paths can be overridden per command with `--out` (or command‑specific flags), but defaults ensure a coherent pipeline
+
 #### SDK (`@civ7/sdk`)
 - No global config lookup
 - Accept explicit parameters in APIs only (unchanged)
@@ -97,6 +118,36 @@ These defaults ensure no repo‑root writes and keep artifacts easy to ignore/sh
 - Keep generated mod outputs in the app (current: `apps/playground/example-generated-mod/`)
 - Option (future): switch to `.civ7/outputs/playground/` for consistency
 
+##### Playground end‑to‑end (defaults and inputs)
+Required inputs (non‑interactive):
+- Civ7 install directory (flag `--civ-install`, env `CIV7_INSTALL_DIR`, or config `resources.installDir`)
+
+Derived and defaults (proposed future):
+- Archive path: `${outputDirs.base}/${outputDirs.zip}/${resources.archiveName}`
+- Unzip dir: `${outputDirs.base}/${outputDirs.unzip}/${resources.unzipFolder}`
+- Crawler input: `unzip dir`
+- Crawler output: `${outputDirs.base}/${crawler.outputDir}` (adjacent to resources)
+
+Proposed CLI flow (future):
+```
+civ7 playground init [--civ-install /path/to/Civ7] [--with-docs]
+  → civ7 zip --install-dir /path/to/Civ7 --out ${outputDirs.base}/${outputDirs.zip}
+  → civ7 unzip --archive ${archiveName} --out ${outputDirs.base}/${outputDirs.unzip}
+  → civ7 explore graph --in ${unzipDir} --out ${outputDirs.base}/${crawler.outputDir}
+  → (optional) scaffold docs and point to crawler outputs or include docs as dev dependency
+```
+Notes:
+- We do not download game resources; users must provide a local install path or a pre‑existing archive path
+- Pairing rule guarantees zip/unzip coherence and crawler adjacency
+
+### Current behavior (from code) vs proposed
+- Zip/unzip paths come from `civ.config.jsonc` per profile (see `packages/cli/src/commands/zip.ts`, `unzip.ts`). In this repo’s config:
+  - default: `zip.zip_path = "docs/civ7-official/civ7-official-resources.zip"`, `unzip.extract_path = "docs/civ7-official/resources"`
+  - full: `zip_path = "docs/civ7-official/civ7-official-resources-full.zip"`, `extract_path = "docs/civ7-official/resources-full"`
+  - assets: `zip_path = "docs/civ7-official/civ7-official-resources-assets.zip"`, `extract_path = "docs/civ7-official/resources-assets"`
+- Root (XML) for crawler/explore resolves from `unzip.extract_path` or `--root` (see `resolveRootFromConfigOrFlag`), and explore/crawl default outputs are `out/<seed>` (see `resolveOutDir`).
+- Proposed change keeps SDK pure, adds CLI `OutputResolver`, and moves defaults under `.civ7/` to avoid repo‑root pollution; existing config remains valid until we switch.
+
 ### Practical Reasons (this repo)
 - Keeps root clean while enabling full local workflows
 - Doesn’t require a shared config between CLI and SDK
@@ -107,6 +158,7 @@ These defaults ensure no repo‑root writes and keep artifacts easy to ignore/sh
   - `civ7 playground init` → scaffolds a minimal project with:
     - `package.json` with `@civ7/sdk`
     - `civ.config.jsonc` with `outputDirs` prefilled
+    - `resources` and `crawler` sections prefilled with sensible defaults
     - example script(s) under `src/`
     - `.gitignore` including `.civ7/`
   - `civ7 playground run` → executes example build or user scripts

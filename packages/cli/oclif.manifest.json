@@ -421,6 +421,14 @@
           "hasDynamicHelp": false,
           "multiple": false,
           "type": "option"
+        },
+        "installDir": {
+          "description": "Override Civ7 install directory (source)",
+          "name": "installDir",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
         }
       },
       "hasDynamicHelp": false,

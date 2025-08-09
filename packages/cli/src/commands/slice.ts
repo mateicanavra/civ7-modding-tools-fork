@@ -3,7 +3,7 @@ import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import * as fssync from "node:fs";
 import { parse } from "jsonc-parser";
-import { expandPath, findConfig, findProjectRoot } from "../utils/cli-helpers";
+import { expandPath, findConfig, findProjectRoot } from "../utils";
 
 export default class Slice extends Command {
   static id = "slice";

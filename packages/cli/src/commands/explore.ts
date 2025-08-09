@@ -5,7 +5,7 @@ import * as fssync from "node:fs";
 import { Graphviz } from "@hpcc-js/wasm";
 import { buildIndexFromXml, crawl, parseSeed } from "../tools/crawler";
 import { graphToDot, graphToJson, buildGraphViewerHtml } from "../tools/graph";
-import { findProjectRoot, resolveOutDir, resolveRootFromConfigOrFlag } from "../utils/cli-helpers";
+import { loadConfig, resolveGraphOutDir, findProjectRoot, resolveRootFromConfigOrFlag } from "../utils";
 import { spawn } from "node:child_process";
 import * as http from "node:http";
 
@@ -42,6 +42,7 @@ export default class Explore extends Command {
     const { args, flags } = await this.parse(Explore);
 
     const projectRoot = findProjectRoot(process.cwd());
+    const cfg = await loadConfig(projectRoot, flags.config);
     const root = await resolveRootFromConfigOrFlag({ projectRoot, profile: flags.profile!, flagsRoot: flags.root, flagsConfig: flags.config });
     if (!root) this.error("Could not determine XML root directory. Provide --root or define unzip.extract_path in the config file.");
     if (!fssync.existsSync(root)) this.error(`Root path not found: ${root}`);
@@ -52,7 +53,7 @@ export default class Explore extends Command {
     if (outDirArg === 'false' || outDirArg === 'true' || (outDirArg && outDirArg.startsWith('--'))) {
       outDirArg = undefined;
     }
-    const outDir = resolveOutDir(projectRoot, seed, outDirArg);
+    const outDir = resolveGraphOutDir({ projectRoot, profile: flags.profile!, flagsConfig: flags.config }, cfg.raw ?? {}, seed, outDirArg);
 
     // Crawl
     const idx = await buildIndexFromXml(root);

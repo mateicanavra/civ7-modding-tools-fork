@@ -3,7 +3,7 @@ import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import { Graphviz } from "@hpcc-js/wasm";
 import * as fssync from "node:fs";
-import { findProjectRoot } from "../utils/cli-helpers";
+import { findProjectRoot } from "../utils";
 
 export default class Render extends Command {
   static id = "render";

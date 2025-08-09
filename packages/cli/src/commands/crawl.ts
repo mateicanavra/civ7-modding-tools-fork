@@ -4,7 +4,7 @@ import * as path from "node:path";
 import * as fssync from "node:fs";
 import { buildIndexFromXml, parseSeed, crawl } from "../tools/crawler";
 import { graphToJson, graphToDot } from "../tools/graph";
-import { findProjectRoot, resolveOutDir, resolveRootFromConfigOrFlag } from "../utils/cli-helpers";
+import { loadConfig, resolveGraphOutDir, findProjectRoot, resolveRootFromConfigOrFlag } from "../utils";
 
 export default class Crawl extends Command {
     static id = "crawl";
@@ -40,6 +40,7 @@ to discover related rows. It writes a graph (JSON + DOT) and a manifest of XML f
         const { args, flags } = await this.parse(Crawl);
 
         const projectRoot = findProjectRoot(process.cwd());
+        const cfg = await loadConfig(projectRoot, flags.config);
         const root = await resolveRootFromConfigOrFlag({ projectRoot, profile: flags.profile!, flagsRoot: flags.root, flagsConfig: flags.config });
         if (!root) this.error("Could not determine XML root directory. Provide --root or define unzip.extract_path in the config file.");
         if (!fssync.existsSync(root)) {
@@ -47,7 +48,7 @@ to discover related rows. It writes a graph (JSON + DOT) and a manifest of XML f
         }
 
         const seed = args.seed;
-        const outDir = resolveOutDir(projectRoot, seed, args.outDir);
+        const outDir = resolveGraphOutDir({ projectRoot, profile: flags.profile!, flagsConfig: flags.config }, cfg.raw ?? {}, seed, args.outDir);
 
         const idx = await buildIndexFromXml(root);
         const parsedSeed = parseSeed(seed);

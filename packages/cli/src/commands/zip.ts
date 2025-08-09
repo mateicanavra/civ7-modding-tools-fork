@@ -4,6 +4,7 @@ import * as path from "node:path";
 import * as os from "node:os";
 import { spawn } from "node:child_process";
 import { parse } from "jsonc-parser";
+import { loadConfig, resolveInstallDir, resolveZipPath } from "../utils";
 
 // Define the structure of the config file for type safety
 interface ZipConfig {
@@ -37,6 +38,10 @@ Automatically detects OS defaults but can be overridden. Supports include/exclud
         }),
         config: Flags.string({
             description: "Path to the configuration file.",
+            required: false,
+        }),
+        installDir: Flags.string({
+            description: "Override Civ7 install directory (source)",
             required: false,
         }),
     };
@@ -105,41 +110,19 @@ Automatically detects OS defaults but can be overridden. Supports include/exclud
         const { args, flags } = await this.parse(Zip);
 
         // --- 1. Find and Parse Config ---
-        const configPath = this.findConfig(flags.config);
-
-        if (!configPath) {
-            this.error("Config file not found. Provide --config or create a config file in the project root.", { exit: 1 });
-        }
-
-        this.log(`→ Using config: ${configPath}`);
-        const configFileContent = fs.readFileSync(configPath, "utf8");
-        const config: ZipConfig = parse(configFileContent);
+        const projectRoot = this.findProjectRoot(process.cwd());
+        const cfg = await loadConfig(projectRoot, flags.config);
+        if (!cfg.path) this.error("Config file not found. Provide --config or create a config file in the project root.");
+        this.log(`→ Using config: ${cfg.path}`);
+        const config: ZipConfig = cfg.raw as any;
         const profileConfig = config[args.profile];
 
         if (!profileConfig) {
-            this.error(`Profile '${args.profile}' not found in ${configPath}`);
+            this.error(`Profile '${args.profile}' not found in ${cfg.path}`);
         }
 
         // --- 2. Determine Source Directory ---
-        let srcDir: string;
-        if (config.src_path) {
-            srcDir = this.expandPath(config.src_path);
-        } else {
-            const platform = os.platform();
-            if (platform === "darwin") {
-                srcDir = this.expandPath(
-                    "~/Library/Application Support/Steam/steamapps/common/Sid Meier's Civilization VII/CivilizationVII.app/Contents/Resources",
-                );
-            } else if (platform === "win32") {
-                srcDir =
-                    "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Sid Meier's Civilization VII\\Base";
-            } else {
-                this.warn(
-                    "Unsupported OS detected. Please specify 'src_path' in the config file.",
-                );
-                srcDir = ""; // Will cause the script to exit gracefully below
-            }
-        }
+        const srcDir = resolveInstallDir(config as any, flags.installDir);
 
         if (!srcDir || !fs.existsSync(srcDir)) {
             this.error(
@@ -150,20 +133,7 @@ Automatically detects OS defaults but can be overridden. Supports include/exclud
         this.log(`→ Using source: ${srcDir}`);
 
         // --- 3. Determine Zip Destination ---
-        const zipPathOverride = args.zipfile;
-        const zipPathFromConfig = profileConfig.zip?.zip_path;
-        let zipPath = zipPathOverride || zipPathFromConfig;
-
-        if (!zipPath) {
-            this.error(
-                `Zip destination path not defined for profile '${args.profile}' and no override provided.`,
-            );
-        }
-
-        zipPath = path.resolve(
-            this.findProjectRoot(process.cwd()),
-            this.expandPath(zipPath),
-        );
+        const zipPath = resolveZipPath({ projectRoot, profile: args.profile!, flagsConfig: flags.config }, config as any, args.zipfile);
         this.log(`→ Saving to: ${zipPath}`);
 
         // --- 4. Prepare Destination ---

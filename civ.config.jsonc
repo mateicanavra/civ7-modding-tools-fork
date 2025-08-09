@@ -33,11 +33,11 @@
                 "*.ttf",
                 "*.otf",
             ],
-            "zip_path": "docs/civ7-official/civ7-official-resources.zip",
+            "zip_path": "apps/docs/site/civ7-official/civ7-official-resources.zip",
         },
         "unzip": {
             // The directory where the profile's archive will be extracted.
-            "extract_path": "docs/civ7-official/resources",
+            "extract_path": "apps/docs/site/civ7-official/resources",
         },
     },
 
@@ -46,10 +46,10 @@
     "full": {
         "zip": {
             "exclude": [],
-            "zip_path": "docs/civ7-official/civ7-official-resources-full.zip",
+            "zip_path": "apps/docs/site/civ7-official/civ7-official-resources-full.zip",
         },
         "unzip": {
-            "extract_path": "docs/civ7-official/resources-full",
+            "extract_path": "apps/docs/site/civ7-official/resources-full",
         },
     },
 
@@ -67,10 +67,10 @@
                 "default.metallib",
                 "ShaderAutoGen_*",
             ],
-            "zip_path": "docs/civ7-official/civ7-official-resources-assets.zip",
+            "zip_path": "apps/docs/site/civ7-official/civ7-official-resources-assets.zip",
         },
         "unzip": {
-            "extract_path": "docs/civ7-official/resources-assets",
+            "extract_path": "apps/docs/site/civ7-official/resources-assets",
         },
     },
 }
