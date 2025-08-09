@@ -1,4 +1,31 @@
 
+# Turborepo Migration Plan
+
+## Current Status: Phase 5.1 Complete
+
+### Completed Phases
+- ✅ Phase 0: Prep & Guardrails
+- ✅ Phase 1: Turborepo & Root Scripts
+- ✅ Phase 2: SDK Package Extraction
+- ✅ Phase 3: CLI Refactoring (SDK integration deferred)
+- ✅ Phase 4: Docs App (simplified architecture)
+- ✅ Phase 5: Playground App
+- ✅ Phase 5.1: SDK Documentation Organization
+
+### Next Immediate Step
+**Phase 6: Shared Config Package** - Centralize TypeScript, ESLint, and Prettier configs
+
+### Upcoming Phases (in order)
+1. Phase 7: CI with Turbo Cache
+2. Phase 8: Repo Cleanup & Contributor Docs
+3. Phase 9: Prepare Packages for Publication
+
+### Deferred/Modified
+- Phase 4.1: Docs Plugin Package (not needed with simplified architecture)
+- Phase 4.2: Game Resources Package (future consideration)
+
+---
+
 # Issue: Phase 0 — Prep & Guardrails (migration branch, toolchain, base configs) — Completed
 
 ## Goal
@@ -265,99 +292,63 @@ Low–Medium
 
 ---
 
-# Issue: Phase 4 — Docs App as Workspace (single service)
+# Issue: Phase 4 — Docs App as Workspace — Completed (simplified architecture)
 
 ## Goal
 
-Provide a docs app that serves both docs collections from one server; keep Markdown content at repo root.
+Provide a docs app that serves both docs collections from one server.
 
 ## Scope
 
-- Create `apps/docs/` (Docsify) that reads from `../../docs`
+- Create `apps/docs/` (Docsify) with self-contained content
 - Replace root scripts with `docs:dev` that runs this app
-- Support loading the docs plugin (moved in Phase 4.1)
+- Include docs plugin directly in site
 
-## Tasks
+## Implementation Note
 
-- [ ] Create `apps/docs/package.json`:
-  ```json
-  {
-    "name": "@civ7/docs",
-    "private": true,
-    "scripts": {
-      "dev": "bunx docsify-cli serve ./site -p 4000",
-      "docs": "bunx docsify-cli serve ./site -p 4000",
-      "build": "cp -R site dist",
-      "clean": "rimraf dist"
-    },
-    "devDependencies": {
-      "docsify-cli": "^4",
-      "rimraf": "^6"
-    }
-  }
-  ```
-- [ ] Create `apps/docs/site/` minimal `index.html` that:
-  - renders content from `../../docs` (root docs host both official/community)
-  - loads plugin from `./plugins/code-slicer.js` (copied in Phase 4.1)
-- [ ] Wire root `docs:dev` to this app (Turbo pipeline `docs` already present)
+After extensive discussion, we chose a simplified architecture:
+- Moved entire `docs/` tree into `apps/docs/site/` for self-contained serving
+- Plugin (`code-slicer.js`) lives directly in `apps/docs/site/plugins/`
+- No symlinks or complex copy operations needed
+- Documented future migration path in `apps/docs/site/sessions/docs-architecture.md`
+
+## Tasks (Completed)
+
+- [x] Created `apps/docs/package.json` with simplified scripts
+- [x] Moved all docs content to `apps/docs/site/`
+- [x] Plugin included directly at `apps/docs/site/plugins/code-slicer.js`
+- [x] Updated root `docs:dev` to serve from `apps/docs`
+- [x] Created architecture documentation for future migration
 
 ## Acceptance Criteria
 
-- `pnpm -w docs:dev` serves all docs on one port (4000)
-- No content moved out of `docs/`
+- `pnpm -w docs:dev` serves all docs on port 4000 ✓
+- Single self-contained docs directory ✓
 
 ## Complexity
 
-Low
+Low (simplified from original plan)
 
 ---
 
-# Issue: Phase 4.1 — Package Docs Plugin and Copy Step
+# Issue: Phase 4.1 — Package Docs Plugin — Deferred
 
 ## Goal
 
-Package the local docs plugin and copy it into the served site.
+Package the local docs plugin as a separate package.
 
-## Scope
+## Status: Deferred
 
-- Create `packages/docs-plugins/` with `code-slicer.js`
-- Add copy steps in docs app
+Based on simplified docs architecture in Phase 4:
+- Plugin currently lives at `apps/docs/site/plugins/code-slicer.js`
+- Works without additional packaging or copy steps
+- May revisit if/when docs architecture evolves to multi-package setup
 
-## Tasks
-
-- [ ] Create `packages/docs-plugins/package.json`:
-  ```json
-  {
-    "name": "@civ7/docs-plugins",
-    "version": "0.0.0",
-    "private": true,
-    "type": "module",
-    "files": ["code-slicer.js"]
-  }
-  ```
-- [ ] Move plugin to `packages/docs-plugins/code-slicer.js`
-- [ ] Update `apps/docs/package.json`:
-  ```json
-  {
-    "scripts": {
-      "predev": "mkdir -p site/plugins && cp ../../packages/docs-plugins/code-slicer.js site/plugins/",
-      "prebuild": "mkdir -p site/plugins && cp ../../packages/docs-plugins/code-slicer.js site/plugins/"
-    },
-    "dependencies": {
-      "@civ7/docs-plugins": "workspace:*"
-    }
-  }
-  ```
-- [ ] Ensure docs site loads `./plugins/code-slicer.js`
-
-## Acceptance Criteria
-
-- Starting docs copies plugin; plugin works
-- Plugin lives in its own package
+See `apps/docs/site/sessions/docs-architecture.md` for future migration plans.
 
 ## Complexity
 
-Low
+Low (when needed)
 
 ---
 
@@ -379,7 +370,59 @@ Separate processed/official Civ7 resources as a distinct package, not mixed with
 
 ---
 
-# Issue: Phase 5 — Playground App for Examples & Scripts — Next Up
+# Issue: Phase 5 — Playground App for Examples & Scripts — Completed
+
+## Goal
+
+Move demos/scripts into `apps/playground` that consumes `@civ7/sdk`.
+
+## Scope
+
+- Create `apps/playground/` with a runner
+- Move `build.ts` and example scripts here
+- Keep generated outputs separate from examples
+
+## Tasks (Completed)
+
+- [x] Created `apps/playground/package.json`
+- [x] Moved `build.ts` → `apps/playground/src/build.ts`
+- [x] Moved `examples/**` → `apps/playground/src/examples/**`
+- [x] Generated outputs in `apps/playground/example-generated-mod/`
+- [x] All imports updated to use `@civ7/sdk`
+
+## Acceptance Criteria
+
+- Playground runs builds using the SDK ✓
+- No root-level example/build scripts remain ✓
+
+## Complexity
+
+Low
+
+---
+
+# Issue: Phase 5.1 — SDK Documentation Organization — Completed
+
+## Goal
+
+Organize SDK-specific documentation within the SDK package.
+
+## Tasks (Completed)
+
+- [x] Moved `CHANGELOG.md` from root to `packages/sdk/`
+- [x] Created comprehensive `packages/sdk/README.md` with SDK-specific content
+- [x] Created `packages/sdk/AGENTS.md` for AI navigation
+- [x] Moved `TECHNICAL_GUIDE.md` to `packages/sdk/`
+- [x] Updated root README to be workspace-focused
+
+## Acceptance Criteria
+
+- SDK package is self-documenting ✓
+- Root README describes overall workspace ✓
+
+---
+
+# Issue: Phase 6 — Shared Config Package — Next Up
 
 ## Goal
 
@@ -423,7 +466,7 @@ Low
 
 ---
 
-# Issue: Phase 6 — Shared Config Package (`@civ7/config`)
+# Issue: Phase 6 — Shared Config Package (`@civ7/config`) — Next Immediate Step
 
 ## Goal
 
