@@ -3,7 +3,6 @@
   "version": "1.3.0",
   "type": "module",
   "packageManager": "pnpm@10.10.0",
-  "main": "dist/index.js",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
@@ -12,12 +11,6 @@
     "docs:dev": "turbo run docs",
     "clean": "turbo run clean"
   },
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "src"
-  ],
   "workspaces": [
     "apps/*",
     "packages/*"

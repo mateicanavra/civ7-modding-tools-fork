@@ -13,7 +13,7 @@
 - ✅ Phase 5.1: SDK Documentation Organization
 
 ### Next Immediate Step
-**Phase 6: Shared Config Package** - Centralize TypeScript, ESLint, and Prettier configs
+**Phase 7: CI with Turbo Cache** - Add GitHub Actions workflow and Turbo caching
 
 ### Upcoming Phases (in order)
 1. Phase 7: CI with Turbo Cache
@@ -21,6 +21,7 @@
 3. Phase 9: Prepare Packages for Publication
 
 ### Deferred/Modified
+- Phase 6: Shared Config Package — Scrapped. Reason: packages require divergent TS configs (SDK Bundler/ESNext with tsup, CLI CommonJS/Node with oclif, apps run with Bun and noEmit). Centralizing offered no net benefit and introduced breakage. Keep per-package tsconfig; consider shared ESLint/Prettier later only if they reduce duplication.
 - Phase 4.1: Docs Plugin Package (not needed with simplified architecture)
 - Phase 4.2: Game Resources Package (future consideration)
 
@@ -422,89 +423,26 @@ Organize SDK-specific documentation within the SDK package.
 
 ---
 
-# Issue: Phase 6 — Shared Config Package — Next Up
+# Issue: Phase 6 — Shared Config Package — Scrapped
 
-## Goal
+## Decision
+Attempt to centralize TS/ESLint/Prettier configs showed minimal benefit and caused TS config conflicts/build errors. Packages have different compilation/runtime needs (SDK with Bundler + ESNext + tsup, CLI with CommonJS + Node + oclif, apps/docs/playground run on Bun with noEmit). We will keep per‑package `tsconfig.json`.
 
-Move demos/scripts into `apps/playground` that consumes `@civ7/sdk`.
+## Rationale
+- Most settings needed overriding per package
+- Centralization increased complexity without benefit
+- Existing per-package configs are simple and stable
 
-## Scope
-
-- Create `apps/playground/` with a runner
-- Move `build.ts` and example scripts here
-- Keep generated outputs separate from examples
-
-## Tasks
-
-- [ ] Create `apps/playground/package.json`:
-  ```json
-  {
-    "name": "@civ7/playground",
-    "private": true,
-    "scripts": {
-      "dev": "bun run src/build.ts",
-      "build": "bun run src/build.ts",
-      "clean": "rimraf dist"
-    },
-    "dependencies": { "@civ7/sdk": "workspace:*" },
-    "devDependencies": { "typescript": "^5", "rimraf": "^6" }
-  }
-  ```
-- [ ] Move `build.ts` → `apps/playground/src/build.ts`
-- [ ] Move `examples/**` → `apps/playground/src/examples/**` (update imports to `@civ7/sdk`)
-- [ ] Keep generated outputs under `apps/playground/dist/` (or continue using `example-generated-mod/` but document it)
-- [ ] Validate: `pnpm -w -F @civ7/playground dev` runs end-to-end
-
-## Acceptance Criteria
-
-- Playground runs builds using the SDK
-- No root-level example/build scripts remain
-
-## Complexity
-
-Low
+## Follow-ups
+- Optional: shared ESLint/Prettier presets in the future only if they reduce duplication
 
 ---
 
-# Issue: Phase 6 — Shared Config Package (`@civ7/config`) — Next Immediate Step
+# Issue: Phase 6 — Shared Config Package (`@civ7/config`) — Scrapped
 
-## Goal
+Centralization abandoned. Keep per‑package `tsconfig.json`. Revisit only if package needs converge. ESLint/Prettier sharing is optional later.
 
-Centralize reusable config (TS/ESLint/Prettier).
-
-## Scope
-
-- Add `packages/config/` with TS/Eslint/Prettier presets
-- Point all workspaces to use them
-
-## Tasks
-
-- [ ] Create `packages/config/package.json`:
-  ```json
-  {
-    "name": "@civ7/config",
-    "private": true,
-    "files": ["tsconfig", "eslint", "prettier"],
-    "exports": {
-      "./tsconfig/base": "./tsconfig/tsconfig.base.json",
-      "./eslint": "./eslint/index.cjs",
-      "./prettier": "./prettier/index.json"
-    }
-  }
-  ```
-- [ ] Add `packages/config/tsconfig/tsconfig.base.json` (copy/trim root base)
-- [ ] Add `packages/config/eslint/index.cjs`
-- [ ] Add `packages/config/prettier/index.json`
-- [ ] Update each workspace `tsconfig.json` to `extends: "@civ7/config/tsconfig/base"`
-
-## Acceptance Criteria
-
-- All workspaces build/lint with shared config
-- Root `tsconfig.base.json` remains no-emit base
-
-## Complexity
-
-Low
+---
 
 ---
 
@@ -567,27 +505,49 @@ Low
 
 ## Goal
 
-Remove stale root code paths and document the monorepo layout.
+Remove stale root code paths and document the monorepo layout. Normalize all tool outputs so nothing writes to the repo root, and establish a consistent workspace output policy.
 
 ## Scope
 
 - Delete/relocate obsolete root scripts (`src` references)
+- Root hygiene: audit loose files at repo root and move/retire
+- Normalize output destinations across all packages/apps
 - Update `README.md`; add `CONTRIBUTING.md`
 - Consider `CODEOWNERS`
 
 ## Tasks
 
-- [ ] Remove root imports/scripts to old `src/*`
-- [ ] Update `README.md` with: monorepo structure; how to run SDK, CLI, docs, playground; editing docs in `/docs`
-- [ ] Add `CONTRIBUTING.md` with two paths:
-  - Docs/content: edit `/docs` Markdown
-  - Code: standard pnpm + Turbo commands
+### Root hygiene
+- [ ] Audit and relocate `fix_links.sh` (move under `apps/docs/scripts/` or replace with a Node script invoked by docs app)
+- [ ] Verify `tsconfig.base.json` usage; document inheritance or remove if no longer used
+- [ ] Audit presence/need of `.editorconfig`; add/update to standardize editors if missing
+- [ ] Review other loose root files (tools, helper scripts) and move into the owning package/app or delete
+- [ ] Ensure `.gitignore` covers all generated outputs and large local artifacts
+
+### Outputs normalization (policy + implementation)
+- [ ] Inventory current outputs and default locations:
+  - CLI: `zip`/`unzip`, `graph export`, any temporary files
+  - Docs: build output (`apps/docs/dist`)
+  - Playground: generated mod outputs (`apps/playground/example-generated-mod/` or `dist/`)
+  - SDK: build artifacts (`packages/sdk/dist`)
+- [ ] Define workspace output policy: no outputs at repo root; default to package-local `dist/` or a top-level `outputs/` tree
+- [ ] Add configuration for outputs (extend `civ.config.jsonc` with an `outputDirs` section and per-command overrides)
+- [ ] Update CLI defaults to respect the output policy/config (e.g., unzip/zip destinations, graph export directory)
+- [ ] Confirm docs build emits only to `apps/docs/dist`
+- [ ] Confirm SDK build remains `packages/sdk/dist`
+- [ ] Confirm Playground outputs stay under its app directory
+- [ ] Update `.gitignore` to exclude all configured output paths
+
+### Contributor docs
+- [ ] Update `README.md` with: monorepo structure; how to run SDK, CLI, docs, playground; where outputs go and how to configure them
+- [ ] Add `CONTRIBUTING.md` with clear guidance on running tasks and the output policy
 - [ ] (Optional) Add `CODEOWNERS`
 
 ## Acceptance Criteria
 
 - No dead paths
 - New contributors can run locally following docs
+- Running CLI commands (zip/unzip/graph), building docs, building SDK, and running playground examples do not write any files at repo root; outputs are confined to package-local `dist/` or the configured `outputs/` locations
 
 ## Complexity
 
