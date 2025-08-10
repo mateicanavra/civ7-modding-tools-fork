@@ -17,7 +17,7 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
-    "test": "echo 'no tests yet'",
+    "test": "vitest run --project sdk",
     "lint": "echo 'no lint yet'",
     "clean": "rimraf dist",
     "prepublishOnly": "pnpm build"

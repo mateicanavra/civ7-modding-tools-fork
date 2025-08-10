@@ -142,8 +142,8 @@ Tip: All commands support `--help` via oclif.
 
 ### Testing
 
-- No automated tests are present in this package yet.
-- Recommended strategy when adding tests:
+- A minimal [Vitest](https://vitest.dev/) suite lives in `test/`. Run `pnpm --filter @civ7/cli test`.
+- Recommended strategy for expanding coverage:
   - Unit‑test seed parsing, index construction, and expander rules.
   - Snapshot DOT/JSON for a small sample seed.
   - CLI smoke tests via `bin/run.js` with fixtures.

@@ -1,0 +1,18 @@
+# Testing
+
+This package uses [Vitest](https://vitest.dev/) with the Node environment.
+
+## Running tests
+
+```bash
+pnpm --filter @civ7/cli test
+```
+
+## Current smoke tests
+
+- `expandPath` expands `~` to the user's home directory.
+
+## Suggested future tests
+
+- `findProjectRoot` locates the workspace root.
+- CLI commands produce expected output files.
