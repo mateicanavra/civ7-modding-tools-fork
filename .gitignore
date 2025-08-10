@@ -20,6 +20,9 @@ dist/
 out/**
 .civ7/**
 
+# Docs build output (for Turbo outputs)
+apps/docs/dist/
+
 # Playground generated examples
 apps/playground/example-generated-mod/
 

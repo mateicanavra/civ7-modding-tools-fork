@@ -3,10 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "bunx docsify-cli serve ./site -p 4000",
-    "docs": "bunx docsify-cli serve ./site -p 4000",
-    "build": "echo 'docs: no build step required (Docsify serves ./site)'",
+    "start": "bunx docsify-cli serve ./site -p 4000 --no-open",
     "fix:links": "bun run scripts/fix-links.ts",
-    "clean": "rimraf dist",
     "test": "vitest run --project docs"
   },
   "devDependencies": {

@@ -11,7 +11,7 @@
     "test": "vitest run",
     "test:ui": "vitest --ui",
     "setup:corepack": "corepack enable && corepack prepare pnpm@10.10.0 --activate",
-    "docs-dev": "turbo run docs",
+    "docs-dev": "turbo run dev --filter @civ7/docs",
     "clean": "turbo run clean",
     "unzip-civ": "node packages/cli/dist/bin/run.js unzip"
   },

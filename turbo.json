@@ -5,7 +5,6 @@
     "dev": { "cache": false, "persistent": true },
     "lint": {},
     "test": { "dependsOn": ["^build"] },
-    "docs": { "cache": false },
     "clean": {}
   }
 }
