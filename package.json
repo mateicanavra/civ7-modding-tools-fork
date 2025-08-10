@@ -1,6 +1,7 @@
 {
   "name": "civ7-modding-tools",
   "version": "1.3.0",
+  "description": "CLI tools and utilities for Civilization VII modding, including resource extraction, graph visualization, and XML analysis",
   "type": "module",
   "packageManager": "pnpm@10.10.0",
   "scripts": {
@@ -9,8 +10,9 @@
     "lint": "turbo run lint",
     "test": "vitest run",
     "test:ui": "vitest --ui",
-    "docs:dev": "turbo run docs",
-    "clean": "turbo run clean"
+    "docs-dev": "turbo run docs",
+    "clean": "turbo run clean",
+    "unzip-civ": "node packages/cli/dist/bin/run.js unzip"
   },
   "workspaces": [
     "apps/*",
@@ -18,16 +20,30 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/izica/civ7-modding-tools.git"
+    "url": "git+https://github.com/mateicanavra/civ7-modding-tools-fork.git"
   },
-  "author": "izica <artemiztomska@gmail.com>",
+  "homepage": "https://github.com/mateicanavra/civ7-modding-tools-fork#readme",
+  "bugs": {
+    "url": "https://github.com/mateicanavra/civ7-modding-tools-fork/issues"
+  },
+  "author": "Matei <tools@matei.work>",
   "license": "MIT",
   "keywords": [
-    "typescript",
-    "civilization",
+    "civilization-vii",
+    "civ7",
     "modding",
-    "tools"
+    "tools",
+    "cli",
+    "xml",
+    "graph-visualization",
+    "typescript",
+    "game-modding",
+    "resource-extraction"
   ],
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=10.10.0"
+  },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
     "@types/node": "^24.2.1",

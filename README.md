@@ -2,7 +2,7 @@
 
 A comprehensive monorepo workspace for Civilization VII modding, providing tools, documentation, and an SDK for creating mods programmatically.
 
-This repository is a community-maintained fork of [izica/civ7-modding-tools](https://github.com/izica/civ7-modding-tools), extended with:
+This repository began from [izica/civ7-modding-tools](https://github.com/izica/civ7-modding-tools) and has since diverged; it is maintained independently and extended with:
 - 📦 **[@civ7/sdk](packages/sdk)** - TypeScript SDK for programmatic mod generation
 - 🛠️ **[@civ7/cli](packages/cli)** - Command-line tools for managing game resources
 - 📚 **[Documentation](apps/docs)** - Comprehensive modding guides and references
@@ -164,8 +164,8 @@ pnpm docs:dev
 
 MIT - See [LICENSE](LICENSE) for details
 
-## Acknowledgments
+## Credits
 
-- Original SDK by [izica](https://github.com/izica/civ7-modding-tools)
+- Upstream inspiration and original base: [izica/civ7-modding-tools](https://github.com/izica/civ7-modding-tools)
 - Civilization VII by Firaxis Games
 - Community contributors
