@@ -32,6 +32,13 @@ civ7-modding-tools/
 
 Setting up this project is a two-step process. First, you install the project dependencies and the CLI. Second, you use the newly installed CLI to pull in the game data.
 
+### Prerequisites
+- Node 20 (see `.nvmrc`)
+- Optional: pin pnpm via Corepack for reproducibility
+  ```bash
+  pnpm run setup:corepack
+  ```
+
 ### Step 1: Install Dependencies and Link the CLI
 
 This command will install all necessary dependencies, build the CLI, and create a global link to the `civ7` executable, making it available everywhere in your terminal.
