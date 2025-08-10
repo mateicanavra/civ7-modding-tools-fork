@@ -20,6 +20,9 @@ dist/
 out/**
 .civ7/**
 
+# Playground generated examples
+apps/playground/example-generated-mod/
+
 # OS/system files
 .DS_Store
 **/.DS_Store
@@ -35,7 +38,6 @@ Thumbs.db
 # Project-specific ignores
 # Modify this to match your zip output
 **/civ7-official/resources/
-**/example-generated-mod/
 .early.coverage/
 
 # Turbo cache

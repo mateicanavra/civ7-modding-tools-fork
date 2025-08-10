@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "bunx docsify-cli serve ./site -p 4000",
     "docs": "bunx docsify-cli serve ./site -p 4000",
-    "build": "cp -R site dist",
+    "build": "echo 'docs: no build step required (Docsify serves ./site)'",
+    "fix:links": "bun run scripts/fix-links.ts",
     "clean": "rimraf dist",
     "test": "vitest run --project docs"
   },
