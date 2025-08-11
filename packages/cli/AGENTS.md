@@ -138,6 +138,7 @@ Tip: All commands support `--help` via oclif.
   - Unit‑test seed parsing, index construction, and expander rules.
   - Snapshot DOT/JSON for a small sample seed.
   - CLI smoke tests via `bin/run.js` with fixtures.
+  - Integration tests ensure `crawl` and `explore` commands call `@civ7/plugin-graph` pipelines.
 
 ### CI/CD and publishing
 

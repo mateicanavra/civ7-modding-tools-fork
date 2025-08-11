@@ -11,6 +11,7 @@ pnpm --filter @civ7/cli test
 ## Current smoke tests
 
 - `expandPath` expands `~` to the user's home directory.
+- `crawl` and `explore` commands delegate to `@civ7/plugin-graph` pipelines.
 
 ## Suggested future tests
 
