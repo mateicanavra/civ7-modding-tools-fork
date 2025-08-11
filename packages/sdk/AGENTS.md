@@ -142,3 +142,6 @@ See `apps/playground/src/examples/` for working examples
 - [TECHNICAL_GUIDE.md](./TECHNICAL_GUIDE.md) - Deep technical details
 - [CHANGELOG.md](./CHANGELOG.md) - Version history
 - Game schema: Extract with `pnpm refresh:data` at workspace root
+
+### Testing Notes
+- `XmlFile.write` uses an asynchronous `fs.mkdir` callback; wait briefly after `Mod.build` in tests before reading generated files.
