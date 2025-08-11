@@ -96,9 +96,6 @@ importers:
       '@oclif/plugin-help':
         specifier: ^6.2.32
         version: 6.2.32
-      fast-xml-parser:
-        specifier: ^5.2.5
-        version: 5.2.5
       tslib:
         specifier: ^2.8.1
         version: 2.8.1
@@ -160,8 +157,8 @@ importers:
   packages/plugins/plugin-graph:
     dependencies:
       '@hpcc-js/wasm':
-        specifier: ^2.25.0
-        version: 2.25.0
+        specifier: ^2.26.0
+        version: 2.26.0
       fast-xml-parser:
         specifier: ^5.2.5
         version: 5.2.5
@@ -555,8 +552,8 @@ packages:
     resolution: {integrity: sha512-Z5kJ+wU3oA7MMIqVR9tyZRtjYPr4OC004Q4Rw7pgOKUOKkJfZ3O24nz3WYfGRpMDNmcOi3TwQOmgm7B7Tpii0w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@hpcc-js/wasm@2.25.0':
-    resolution: {integrity: sha512-UvYoAEbzwgkl3Oxgxde9DvHgQUrjBqnEl1R5An0w/4uxtjS0AiggX/gxjfCRe5ruJjv47IsR7owH3DK755EUZg==}
+  '@hpcc-js/wasm@2.26.0':
+    resolution: {integrity: sha512-dagfg8NMi5to7jFt6p+WjIWV37w9X3GEp6iPFmp9fE7xmLAjl2RGBlHga/JgMmoCWRlbSfAz7UpayxxQoNO8uQ==}
     hasBin: true
 
   '@humanfs/core@0.19.1':
@@ -3842,7 +3839,7 @@ snapshots:
       '@eslint/core': 0.15.2
       levn: 0.4.1
 
-  '@hpcc-js/wasm@2.25.0':
+  '@hpcc-js/wasm@2.26.0':
     dependencies:
       yargs: 18.0.0
 

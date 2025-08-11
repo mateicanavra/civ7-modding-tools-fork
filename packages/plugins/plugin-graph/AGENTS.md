@@ -5,7 +5,7 @@ This package hosts the XML crawler and graph utilities used by the CLI and other
 ## Development notes
 - Language: TypeScript (strict) compiled with `tsup` to ESM and CJS.
 - Runtime: Node.js >= 20.
-- `fast-xml-parser` is a peer dependency; consumers must provide it.
+- Uses `fast-xml-parser` for XML parsing and `@hpcc-js/wasm` for Graphviz rendering.
 - No CLI-specific side effects or file-system writes—functions should accept inputs and return data.
 - When modifying code here, run:
   ```bash

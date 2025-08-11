@@ -4,11 +4,13 @@ Utilities for crawling and rendering Civilization‑style XML graphs.
 
 ## Usage
 
-Install `fast-xml-parser` alongside the plugin:
+Install the plugin:
 
 ```bash
-pnpm add @civ7/plugin-graph fast-xml-parser
+pnpm add @civ7/plugin-graph
 ```
+
+The library bundles `fast-xml-parser` for XML parsing and `@hpcc-js/wasm` for Graphviz rendering.
 
 ### crawlGraph
 

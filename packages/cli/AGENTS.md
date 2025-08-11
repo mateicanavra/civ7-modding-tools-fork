@@ -17,7 +17,7 @@ This document orients AI agents and contributors to the `@civ7-modding/cli` pack
 - **CLI framework**: `@oclif/core`
 - **Language**: TypeScript (strict), `tsc` build to CommonJS
 - **Graph rendering**: `@hpcc-js/wasm` (Graphviz compiled to WebAssembly)
-- **XML parsing**: `fast-xml-parser`
+- **Graph logic & XML parsing**: `@civ7/plugin-graph` (uses `fast-xml-parser` internally)
 - **Configuration**: `@civ7/config` (JSONC via `jsonc-parser`)
 
 ### Commands (high level)
