@@ -4,15 +4,20 @@ This package uses [Vitest](https://vitest.dev/).
 
 ## Running tests
 
-```bash
-pnpm -F @civ7/config test
-```
+- Run all projects (recommended):
+  ```bash
+  pnpm test
+  ```
+- Run only this package's tests:
+  ```bash
+  npx vitest run packages/config/test
+  ```
 
 ## Current status
 
-No unit tests exist yet. Add `*.test.ts` files under `src/` or a `test/` directory and register the package in `vitest.config.ts`.
+Unit tests exist under `packages/config/test/`, covering path and directory resolvers (`expandPath`, `resolveZipPath`, `resolveUnzipDir`, `resolveGraphOutDir`, `resolveInstallDir`).
 
 ## Suggested future tests
 
-- Path resolution helpers handle profile overrides
-- Default directory fallbacks for unsupported platforms
+- Additional profile override combinations and edge cases
+- Platform-specific defaults beyond darwin/win32
