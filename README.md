@@ -13,6 +13,7 @@ This repository began from [izica/civ7-modding-tools](https://github.com/izica/c
 - [Installation](#installation-and-setup)
 - [Using the CLI](#using-the-cli)
 - [SDK Documentation](packages/sdk/README.md)
+- [Configuration Utilities](packages/config/README.md)
 - [Community Guides](apps/docs/site/community/)
 - [Official Modding Docs](apps/docs/site/civ7-official/modding/)
 
