@@ -49,6 +49,21 @@ These are independent; local dev runs source via Bun; global link runs installed
   pnpm -F @civ7/playground run dev
   ```
 
+### Root convenience scripts
+- Dev per package:
+  ```bash
+  pnpm dev:cli
+  pnpm dev:sdk
+  pnpm dev:docs
+  pnpm dev:playground
+  ```
+- Run CLI from root (Bun):
+  ```bash
+  pnpm cli -- <civ7-command-and-args>
+  # example
+  pnpm cli unzip default
+  ```
+
 ## Outputs policy
 - No outputs at repo root.
 - Defaults and configuration live in `civ.config.jsonc` and the CLI resolver.
