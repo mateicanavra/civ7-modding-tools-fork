@@ -1,5 +1,11 @@
 # CONFIG REFACTOR PLAN
 
+### Status: Completed
+- The configuration system has been successfully refactored to the new `inputs`, `outputs`, and `profiles` structure.
+- The CLI schema, root config, resolver logic, and all consuming commands have been updated.
+- A comprehensive test suite has been implemented to validate the new structure and its override logic.
+- The CLI's configuration is now more modular, intuitive, and maintainable.
+
 ### Objective
 Refactor `civ.config.jsonc` to a more modular and intuitive structure, separating inputs, outputs, and profiles. This improves clarity, maintainability, and extensibility.
 
@@ -26,7 +32,7 @@ This layered approach provides the best of both worlds: simplicity and safety fo
     },
     "outputs": {
         "baseDir": ".civ7/outputs",
-        "archive": { "dir": "archives", "name": "..." },
+        "zip": { "dir": "archives", "name": "..." },
         "unzip": { "dir": "resources" },
         "graph": { "dir": "graph" }
     },
@@ -35,8 +41,9 @@ This layered approach provides the best of both worlds: simplicity and safety fo
             "description": "...",
             "zip": { "exclude": [...] },
             "outputs": {
-                "unzip": { "dir": "..." },
-                "archive": { "dir": "...", "name": "..." }
+                "baseDir": "...", // Optional: overrides global baseDir for this profile
+                "zip": { "dir": "...", "name": "..." },
+                "unzip": { "dir": "..." }
             }
         }
     }
@@ -46,6 +53,8 @@ This layered approach provides the best of both worlds: simplicity and safety fo
 ### Implementation Steps
 1.  **Schema (`packages/cli/civ.config.schema.json`):**
     *   Update the schema to match the new `inputs`, `outputs`, and `profiles` structure.
+    *   Ensure the `zip` property under `profiles` contains behavioral settings (`exclude`/`include`).
+    *   Ensure the `outputs` property under `profiles` can contain an optional `baseDir` override, as well as `zip`, `unzip`, and `graph` objects.
     *   Deprecate/remove old top-level keys.
     *   Improve descriptions to guide users.
 
@@ -54,12 +63,13 @@ This layered approach provides the best of both worlds: simplicity and safety fo
     *   Ensure the `docs` app profile correctly overrides output paths.
 
 3.  **CLI Resolver (`packages/cli/src/utils/resolver.ts`):**
-    *   Refactor resolver functions (`resolveZipPath`, `resolveUnzipDir`, etc.) to read from the new nested structure.
-    *   Implement logic to merge global `outputs` settings with per-profile `outputs` overrides.
+    *   Refactor resolver functions to read from the new structure (e.g., `config.outputs.zip.dir`).
+    *   Implement logic to merge global `outputs` settings with per-profile `outputs` overrides, respecting the profile's `baseDir` if it exists.
 
 4.  **Tests (`packages/cli/test/resolver.test.ts`):**
     *   Update all tests to use the new config structure for mocks.
-    *   Add new tests to validate the override logic (e.g., profile overrides one part of `outputs` but inherits the rest).
+    *   Add new tests to validate the override logic (e.g., profile overrides `outputs.zip.dir` but inherits `outputs.zip.name`).
+    *   Add tests for the per-profile `baseDir` override functionality.
 
 ### Downstream Impact & Dependencies (Breaking Change)
 

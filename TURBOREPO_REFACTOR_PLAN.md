@@ -1,7 +1,7 @@
 
 # Turborepo Migration Plan
 
-## Current Status: Phase 7 Complete; Phase 8 pending
+## Current Status: Phase 7 Complete; Phase 8 partially complete
 
 ### Completed Phases
 - ✅ Phase 0: Prep & Guardrails
@@ -11,9 +11,10 @@
 - ✅ Phase 4: Docs App (simplified architecture)
 - ✅ Phase 5: Playground App
 - ✅ Phase 5.1: SDK Documentation Organization
+- ✅ Phase 8 (partial): Outputs Normalization & Config Refactor
 
 ### Next Immediate Step
-**Phase 8: Repo Cleanup & Outputs Normalization** - finalize outputs policy and config; add workspace-wide type checks
+**Phase 8: Repo Cleanup & Contributor Docs** - Finalize remaining Phase 8 tasks; add workspace-wide type checks.
 
 ### Upcoming Phases (in order)
 1. Phase 8: Repo Cleanup & Contributor Docs
@@ -28,21 +29,24 @@
 - Phase 7 — CI with Turbo Cache: Implemented in repo.
   - Doc updates: set "Next Immediate Step" to Phase 8 and mark Phase 7 tasks as done. CI lives at `.github/workflows/ci.yml` (Node 20, Corepack pnpm@10.10.0, Turbo cache on `.turbo`, Bun setup, runs build/lint/test).
 
-- Phase 8 — Outputs normalization: Partially pending in config/docs.
-  - Add an `outputDirs` section to `civ.config.jsonc` to align with current CLI defaults that write under `.civ7/outputs/...`:
+- Phase 8 — Outputs normalization: ✅ **Completed**. The `civ.config.jsonc` has been refactored to a more modular `inputs`/`outputs`/`profiles` structure.
+  - The new structure provides clear global defaults and allows for powerful per-profile overrides. Example:
     ```jsonc
     {
-      "outputDirs": {
-        "base": ".civ7/outputs",
-        "unzip": "resources",
-        "zip": "archives",
-        "graph": "graph"
-      }
-      // ... existing profiles like "default"/"full" remain; per-profile paths can still override
+        "inputs": { "installDir": "..." },
+        "outputs": {
+            "baseDir": ".civ7/outputs",
+            "zip": { "dir": "archives", "name": "..." }
+        },
+        "profiles": {
+            "default": {
+                "outputs": { "baseDir": "apps/docs/site/civ7-official" }
+            }
+        }
     }
     ```
-  - Keep the docs-specific profile overrides that point into `apps/docs/site/...` when explicitly desired; clarify defaults vs overrides in the doc.
-  - Ensure README/CONTRIBUTING describe the outputs policy; confirm `.gitignore` covers all configured output paths.
+  - The `docs` app continues to use a profile override to place resources directly in its source tree.
+  - `README.md` and `CONTRIBUTING.md` have been updated to reflect this new policy.
 
 - Script and config terminology alignment (doc-only):
   - Root scripts differ from examples: repo uses `dev:docs` (not `docs:dev`), and root `test` runs `vitest run` (not `turbo run test`). Update examples/text to reflect current scripts or add a note about acceptable variants.
@@ -451,14 +455,17 @@ Organize SDK-specific documentation within the SDK package.
 # Issue: Phase 6 — Shared Config Package — Scrapped
 
 ## Decision
-Attempt to centralize TS/ESLint/Prettier configs showed minimal benefit and caused TS config conflicts/build errors. Packages have different compilation/runtime needs (SDK with Bundler + ESNext + tsup, CLI with CommonJS + Node + oclif, apps/docs/playground run on Bun with noEmit). We will keep per‑package `tsconfig.json`.
+
+Attempt to centralize TS/ESLint/Prettier configs showed minimal benefit and caused TS config conflicts/build errors. Packages have different compilation/runtime needs (SDK with Bundler + ESNext + tsup, CLI with CommonJS + Node + oclif, apps run with Bun and noEmit). We will keep per‑package `tsconfig.json`.
 
 ## Rationale
+
 - Most settings needed overriding per package
 - Centralization increased complexity without benefit
 - Existing per-package configs are simple and stable
 
 ## Follow-ups
+
 - Optional: shared ESLint/Prettier presets in the future only if they reduce duplication
 
 ---
@@ -550,18 +557,14 @@ Remove stale root code paths and document the monorepo layout. Normalize all too
 - [ ] Ensure `.gitignore` covers all generated outputs and large local artifacts
 
 ### Outputs normalization (policy + implementation)
-- [ ] Inventory current outputs and default locations:
-  - CLI: `zip`/`unzip`, `graph export`, any temporary files
-  - Docs: build output (`apps/docs/dist`)
-  - Playground: generated mod outputs (`apps/playground/example-generated-mod/` or `dist/`)
-  - SDK: build artifacts (`packages/sdk/dist`)
-- [ ] Define workspace output policy: no outputs at repo root; default to package-local `dist/` or a top-level `outputs/` tree
-- [ ] Add configuration for outputs (extend `civ.config.jsonc` with an `outputDirs` section and per-command overrides)
-- [ ] Update CLI defaults to respect the output policy/config (e.g., unzip/zip destinations, graph export directory)
+- [x] Inventory current outputs and default locations.
+- [x] Define workspace output policy: no outputs at repo root; default to `.civ7/outputs`.
+- [x] Add configuration for outputs (`civ.config.jsonc` refactored to `inputs`/`outputs`/`profiles`).
+- [x] Update CLI defaults to respect the output policy/config.
 - [ ] Confirm docs build emits only to `apps/docs/dist`
-- [ ] Confirm SDK build remains `packages/sdk/dist`
-- [ ] Confirm Playground outputs stay under its app directory
-- [ ] Update `.gitignore` to exclude all configured output paths
+- [x] Confirm SDK build remains `packages/sdk/dist`.
+- [x] Confirm Playground outputs stay under its app directory.
+- [x] Update `.gitignore` to exclude all configured output paths (`.civ7/` was already present).
 
 ### Contributor docs
 - [ ] Update `README.md` with: monorepo structure; how to run SDK, CLI, docs, playground; where outputs go and how to configure them

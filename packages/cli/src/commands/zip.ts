@@ -1,26 +1,16 @@
 import { Args, Command, Flags } from "@oclif/core";
 import * as fs from "node:fs";
 import * as path from "node:path";
-import * as os from "node:os";
 import { spawn } from "node:child_process";
-import { parse } from "jsonc-parser";
-import { loadConfig, resolveInstallDir, resolveZipPath } from "../utils";
-
-// Define the structure of the config file for type safety
-interface ZipConfig {
-    src_path?: string;
-    [profile: string]: any;
-}
+import { loadConfig, resolveInstallDir, resolveZipPath, findProjectRoot } from "../utils";
 
 export default class Zip extends Command {
     static id = "zip";
     static summary = "Zips Civilization VII resources based on a profile.";
-
     static description = `
 Reads profiles from the CLI config to create a zip archive of the game's resources.
 Automatically detects OS defaults but can be overridden. Supports include/exclude patterns and prints a summary.
 `;
-
     static examples = [
         "<%= config.bin %> zip",
         "<%= config.bin %> zip full",
@@ -58,39 +48,6 @@ Automatically detects OS defaults but can be overridden. Supports include/exclud
         }),
     };
 
-    // Helper function to find the project root from any script location
-    private findProjectRoot(startDir: string): string {
-        let currentDir = startDir;
-        while (currentDir !== path.parse(currentDir).root) {
-            if (fs.existsSync(path.join(currentDir, "pnpm-workspace.yaml"))) {
-                return currentDir;
-            }
-            currentDir = path.dirname(currentDir);
-        }
-        throw new Error(
-            "Could not find project root. Are you in a pnpm workspace?",
-        );
-    }
-
-    // Helper to find the config file by searching in prioritized locations.
-    private findConfig(configFlag?: string): string | null {
-        const projectRoot = this.findProjectRoot(process.cwd());
-        // Use a Set to avoid checking the same path twice if cwd is root
-        const searchPaths = new Set<string | undefined>([
-            configFlag, // 1. Path from --config flag
-            path.join(process.cwd(), "civ.config.jsonc"), // 2. Current working directory
-            path.join(projectRoot, "civ.config.jsonc"), // 3. Project root
-        ]);
-
-        for (const p of searchPaths) {
-            if (p && fs.existsSync(p)) {
-                return p;
-            }
-        }
-        return null;
-    }
-
-    // Helper to format bytes into KB, MB, GB, etc.
     private formatBytes(bytes: number): string {
         if (bytes === 0) return "0 B";
         const units = ["B", "KB", "MB", "GB", "TB"];
@@ -98,42 +55,37 @@ Automatically detects OS defaults but can be overridden. Supports include/exclud
         return `${parseFloat((bytes / Math.pow(1024, i)).toFixed(2))} ${units[i]}`;
     }
 
-    // Helper to expand ~ to the user's home directory
-    private expandPath(filePath: string): string {
-        if (filePath.startsWith("~")) {
-            return path.join(os.homedir(), filePath.slice(1));
-        }
-        return filePath;
-    }
-
     public async run(): Promise<void> {
         const { args, flags } = await this.parse(Zip);
 
         // --- 1. Find and Parse Config ---
-        const projectRoot = this.findProjectRoot(process.cwd());
+        const projectRoot = findProjectRoot(process.cwd());
         const cfg = await loadConfig(projectRoot, flags.config);
-        if (!cfg.path) this.error("Config file not found. Provide --config or create a config file in the project root.");
-        this.log(`→ Using config: ${cfg.path}`);
-        const config: ZipConfig = cfg.raw as any;
-        const profileConfig = config[args.profile];
+        if (!cfg.path) {
+            this.warn("Config file not found; using default settings. To create a config, run 'civ7 config:init'.");
+        } else {
+            this.log(`→ Using config: ${cfg.path}`);
+        }
+        const config = cfg.raw;
+        const profile = config.profiles?.[args.profile!] ?? {};
 
-        if (!profileConfig) {
-            this.error(`Profile '${args.profile}' not found in ${cfg.path}`);
+        if (args.profile && !profile.description) {
+            this.warn(`Profile '${args.profile}' not found in ${cfg.path ?? 'config'}. Using default settings.`);
         }
 
         // --- 2. Determine Source Directory ---
-        const srcDir = resolveInstallDir(config as any, flags.installDir);
+        const srcDir = resolveInstallDir(config, flags.installDir);
 
         if (!srcDir || !fs.existsSync(srcDir)) {
             this.error(
-                `Source directory not found: ${srcDir}\nPlease ensure the path is correct or set 'src_path' in the config.`,
+                `Source directory not found: ${srcDir}\nPlease ensure the path is correct or set 'inputs.installDir' in the config.`,
             );
         }
 
         this.log(`→ Using source: ${srcDir}`);
 
         // --- 3. Determine Zip Destination ---
-        const zipPath = resolveZipPath({ projectRoot, profile: args.profile!, flagsConfig: flags.config }, config as any, args.zipfile);
+        const zipPath = resolveZipPath({ projectRoot, profile: args.profile }, config, args.zipfile);
         this.log(`→ Saving to: ${zipPath}`);
 
         // --- 4. Prepare Destination ---
@@ -153,8 +105,8 @@ Automatically detects OS defaults but can be overridden. Supports include/exclud
 
         zipArgs.push("-X", zipPath);
 
-        const includePatterns: string[] = profileConfig.zip?.include || [];
-        const excludePatterns: string[] = profileConfig.zip?.exclude || [];
+        const includePatterns: string[] = profile.zip?.include || [];
+        const excludePatterns: string[] = profile.zip?.exclude || [];
 
         if (includePatterns.length > 0) {
             zipArgs.push(...includePatterns);

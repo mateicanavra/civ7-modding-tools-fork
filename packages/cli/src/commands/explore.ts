@@ -44,7 +44,7 @@ export default class Explore extends Command {
     const projectRoot = findProjectRoot(process.cwd());
     const cfg = await loadConfig(projectRoot, flags.config);
     const root = await resolveRootFromConfigOrFlag({ projectRoot, profile: flags.profile!, flagsRoot: flags.root, flagsConfig: flags.config });
-    if (!root) this.error("Could not determine XML root directory. Provide --root or define unzip.extract_path in the config file.");
+    if (!root) this.error("Could not determine XML root directory. Provide --root or define 'outputs.unzip.dir' in the config file.");
     if (!fssync.existsSync(root)) this.error(`Root path not found: ${root}`);
 
     const seed = args.seed;
@@ -53,7 +53,7 @@ export default class Explore extends Command {
     if (outDirArg === 'false' || outDirArg === 'true' || (outDirArg && outDirArg.startsWith('--'))) {
       outDirArg = undefined;
     }
-    const outDir = resolveGraphOutDir({ projectRoot, profile: flags.profile!, flagsConfig: flags.config }, cfg.raw ?? {}, seed, outDirArg);
+    const outDir = resolveGraphOutDir({ projectRoot, profile: flags.profile }, cfg.raw ?? {}, seed, outDirArg);
 
     // Crawl
     const idx = await buildIndexFromXml(root);

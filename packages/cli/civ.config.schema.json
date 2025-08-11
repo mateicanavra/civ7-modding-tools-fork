@@ -1,66 +1,102 @@
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Civilization VII Zipper Configuration",
-  "description": "Configuration for zipping and unzipping Civilization VII game resources.",
-  "type": "object",
-  "properties": {
-    "$schema": {
-      "type": "string",
-      "description": "The JSON schema for this file."
-    },
-    "src_path": {
-      "type": "string",
-      "description": "Optional override for the game's resource directory path. If not provided, the script will use the default path for your OS."
-    },
-    "default": {
-      "$ref": "#/definitions/profile",
-      "description": "The default profile for a minimal, gameplay-focused resource set."
-    },
-    "full": {
-      "$ref": "#/definitions/profile",
-      "description": "The 'full' profile for zipping nearly all game resources."
-    },
-    "assets": {
-      "$ref": "#/definitions/profile",
-      "description": "The 'assets' profile for zipping only media assets like icons, fonts, and movies."
-    }
-  },
-  "definitions": {
-    "profile": {
-      "type": "object",
-      "properties": {
-        "zip": {
-          "type": "object",
-          "properties": {
-            "include": {
-              "type": "array",
-              "items": { "type": "string" },
-              "description": "A list of file patterns to include in the zip archive. If present, only these files will be included."
-            },
-            "exclude": {
-              "type": "array",
-              "items": { "type": "string" },
-              "description": "A list of file patterns to exclude from the zip archive. Used when 'include' is not present."
-            },
-            "zip_path": {
-              "type": "string",
-              "description": "The path where the final .zip archive will be saved."
-            }
-          },
-          "required": ["zip_path"]
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Civ7 Modding Tools Configuration",
+    "description": "Configuration for the Civ7 Modding Tools CLI, controlling inputs, outputs, and command profiles.",
+    "type": "object",
+    "properties": {
+        "$schema": {
+            "type": "string",
+            "description": "The JSON schema for this file."
         },
-        "unzip": {
-          "type": "object",
-          "properties": {
-            "extract_path": {
-              "type": "string",
-              "description": "The directory where the archive will be extracted."
-            }
-          },
-          "required": ["extract_path"]
+        "inputs": {
+            "type": "object",
+            "description": "Global settings for where to FIND source files.",
+            "properties": {
+                "installDir": {
+                    "type": "string",
+                    "description": "The absolute or home-relative path to the game's installation directory (e.g., '.../Contents/Resources'). This is the primary input for the 'zip' command."
+                }
+            },
+            "additionalProperties": false
+        },
+        "outputs": {
+            "type": "object",
+            "description": "Global settings for WHERE to SAVE generated files. These can be overridden by profiles.",
+            "properties": {
+                "baseDir": {
+                    "type": "string",
+                    "description": "The root directory for all outputs. Defaults to '.civ7/outputs'."
+                },
+                "zip": { "$ref": "#/definitions/outputTarget" },
+                "unzip": { "$ref": "#/definitions/outputTarget" },
+                "graph": { "$ref": "#/definitions/outputTarget" }
+            },
+            "additionalProperties": false
+        },
+        "profiles": {
+            "type": "object",
+            "description": "Named groups of command settings and path overrides. Run a profile with 'civ7 <command> <profile>'.",
+            "patternProperties": {
+                "^[a-zA-Z0-9_-]+$": { "$ref": "#/definitions/profile" }
+            },
+            "additionalProperties": false
         }
-      },
-      "required": ["zip", "unzip"]
+    },
+    "definitions": {
+        "outputTarget": {
+            "type": "object",
+            "properties": {
+                "dir": {
+                    "type": "string",
+                    "description": "A subdirectory relative to the effective 'baseDir'."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "The name of the output file (e.g., for a zip archive)."
+                }
+            },
+            "additionalProperties": false
+        },
+        "profile": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "An optional description of what this profile is for."
+                },
+                "zip": {
+                    "type": "object",
+                    "description": "Behavioral settings for the 'zip' command.",
+                    "properties": {
+                        "include": {
+                            "type": "array",
+                            "items": { "type": "string" },
+                            "description": "A list of file patterns to include in the zip archive. If present, only these files will be included."
+                        },
+                        "exclude": {
+                            "type": "array",
+                            "items": { "type": "string" },
+                            "description": "A list of file patterns to exclude from the zip archive. Used when 'include' is not present."
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "outputs": {
+                    "type": "object",
+                    "description": "Profile-specific overrides for output paths.",
+                    "properties": {
+                        "baseDir": {
+                            "type": "string",
+                            "description": "Overrides the global 'outputs.baseDir' for this profile."
+                        },
+                        "zip": { "$ref": "#/definitions/outputTarget" },
+                        "unzip": { "$ref": "#/definitions/outputTarget" },
+                        "graph": { "$ref": "#/definitions/outputTarget" }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false
+        }
     }
-  }
 }

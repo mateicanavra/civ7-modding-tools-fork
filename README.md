@@ -62,117 +62,14 @@ You can run this command whenever you want to ensure the local resource data is 
 
 ## Using the CLI
 
-Once set up, you can use the `civ7` command directly to manage game resource archives. Its behavior is configured by the `civ.config.jsonc` file located in the project root. You can customize the default profiles or add your own.
+Once set up, you can use the `civ7` command directly to manage game resource archives. Its behavior is configured by the `civ.config.jsonc` file located in the project root.
+
+The configuration uses a modular structure:
+- **`inputs`**: Defines where to find source files, like the game's installation directory.
+- **`outputs`**: Sets the default destination for generated files (zips, extracted resources, graphs). By default, everything is placed in a `.civ7/outputs` directory to keep your project clean.
+- **`profiles`**: Contains named groups of settings for specific tasks. A profile can override the default output paths, which is useful for integrating with other tools, like the docs site.
+
+You can customize the default profiles or add your own.
 
 ### Unzipping Resources
-```bash
-# Unzip using the 'default' profile
-civ7 unzip
-
-# Unzip using the 'full' profile
-civ7 unzip full
-
-# Override the source archive and destination directory
-civ7 unzip default ./my-archive.zip ./my-output-dir
 ```
-
-### Zipping Resources
-```bash
-# Zip using the 'default' profile
-civ7 zip
-
-# Zip using the 'assets' profile with verbose output
-civ7 zip --verbose assets
-
-# Use a custom config file instead of the one in the project root
-civ7 zip --config ./my-custom-config.jsonc default
-```
-
-### Profiles
-- **default**: Includes core gameplay data and excludes large assets. Ideal for quick, focused modding tasks.
-- **full**: Includes almost all game resources, suitable for comprehensive analysis.
-- **assets**: Includes only media like icons, fonts, and movies.
-
-
-## Getting Started with Mod Generation
-
-The SDK provides strongly-typed builders for creating mods. For detailed documentation, see the [SDK README](packages/sdk/README.md).
-
-### Quick Example
-
-```typescript
-import { Mod, UnitBuilder } from '@civ7/sdk';
-
-const mod = new Mod({ id: 'my-mod', version: '1.0.0' });
-// Add builders and generate
-mod.build('./output');
-```
-
-For complete examples, check the [playground](apps/playground/src/examples/).
-
-
-
-
-
-
-
-## Documentation
-
-Comprehensive documentation is available in the [docs app](apps/docs/):
-
-- **[Community Guides](apps/docs/site/community/)** - Tutorials, patterns, and best practices
-- **[Official Modding Docs](apps/docs/site/civ7-official/modding/)** - Firaxis documentation and examples
-- **[SDK Reference](packages/sdk/)** - API documentation for the TypeScript SDK
-
-To serve the documentation locally:
-
-```bash
-pnpm docs:dev
-# Visit http://localhost:4000
-```
-
-## Contributing
-
-This is a community-maintained project. Contributions are welcome!
-
-### Development Setup
-
-```bash
-# Install dependencies
-pnpm install
-
-# Build all packages
-pnpm build
-
-# Run tests
-pnpm test
-
-# Visualize test runs
-pnpm test:ui
-
-# Run a single suite
-pnpm vitest --project <cli|sdk|docs|playground>
-
-See [TESTING.md](TESTING.md) for details on the Vitest setup and package-specific smoke tests.
-
-# Serve documentation
-pnpm docs:dev
-```
-
-### Project Structure
-
-- **Monorepo**: Uses pnpm workspaces and Turborepo for efficient builds
-- **TypeScript**: Fully typed with strict mode
-- **Testing**: Vitest for unit tests
-- **Linting**: ESLint with TypeScript support
-- **Documentation**: Docsify for static site generation
-
-## License
-
-MIT - See [LICENSE](LICENSE) for details
-
-## Credits
-
-- Upstream inspiration and original base: [izica/civ7-modding-tools](https://github.com/izica/civ7-modding-tools)
-- Civilization VII by Firaxis Games
-- Community contributors

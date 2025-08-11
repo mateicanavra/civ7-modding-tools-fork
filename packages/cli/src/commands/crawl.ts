@@ -42,13 +42,13 @@ to discover related rows. It writes a graph (JSON + DOT) and a manifest of XML f
         const projectRoot = findProjectRoot(process.cwd());
         const cfg = await loadConfig(projectRoot, flags.config);
         const root = await resolveRootFromConfigOrFlag({ projectRoot, profile: flags.profile!, flagsRoot: flags.root, flagsConfig: flags.config });
-        if (!root) this.error("Could not determine XML root directory. Provide --root or define unzip.extract_path in the config file.");
+        if (!root) this.error("Could not determine XML root directory. Provide --root or define 'outputs.unzip.dir' in the config file.");
         if (!fssync.existsSync(root)) {
             this.error(`Root path not found: ${root}`);
         }
 
         const seed = args.seed;
-        const outDir = resolveGraphOutDir({ projectRoot, profile: flags.profile!, flagsConfig: flags.config }, cfg.raw ?? {}, seed, args.outDir);
+        const outDir = resolveGraphOutDir({ projectRoot, profile: flags.profile }, cfg.raw ?? {}, seed, args.outDir);
 
         const idx = await buildIndexFromXml(root);
         const parsedSeed = parseSeed(seed);
