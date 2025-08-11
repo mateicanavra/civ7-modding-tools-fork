@@ -20,6 +20,7 @@
 - Verify XML examples in docs against `civ7-official-resources` so that `<ActionGroups>` and `<Item>` tags match the SDK output.
 - Use `pnpm test` to execute the Vitest suites across all workspaces and ensure basic smoke tests pass.
 - Use `pnpm test:ui` to open the interactive Vitest UI when visualizing test runs.
+- When adding CLI command tests, mock filesystem and configuration interactions to avoid touching real resources.
 
 ## Task tracking
 - See `TASKS.md` for outstanding follow-up items.
