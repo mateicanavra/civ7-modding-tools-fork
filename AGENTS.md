@@ -10,8 +10,13 @@
 - Use `rg` to search across ages, e.g. `rg Cotton civ7-official-resources/Base/modules`.
 - The default `pnpm run unzip-civ` profile excludes large media (movies/, data/icons/, fonts/, common media extensions) but keeps `Assets/schema` for reference. Use `pnpm run unzip-civ -- full` for a full extraction or `pnpm run unzip-civ -- assets` for only assets.
 
+## Plugins architecture
+- Reusable logic lives under `packages/plugins/*` (e.g., `plugin-files`, `plugin-graph`).
+- CLI commands should remain thin wrappers around these plugins.
+
 ## Contributing
 - When modifying scripts or TypeScript sources, run `pnpm run build` before committing.
+- Run `pnpm lint` to ensure code style and `pnpm test` for unit tests across workspaces.
 - Verify XML examples in docs against `civ7-official-resources` so that `<ActionGroups>` and `<Item>` tags match the SDK output.
-- Run `pnpm test` to execute the Vitest suites across all workspaces and ensure basic smoke tests pass.
+- Use `pnpm test` to execute the Vitest suites across all workspaces and ensure basic smoke tests pass.
 - Use `pnpm test:ui` to open the interactive Vitest UI when visualizing test runs.

@@ -9,7 +9,7 @@ Create small, domain-scoped libraries under `packages/plugins/*` that expose reu
 - Switch docs sync to use the lib’s unzip programmatically for speed.
 - Establish common TS build config for plugin libs.
 
-Out of scope (deferred): extracting graph/crawl/render into a plugin; publishing oclif plugins.
+Out of scope (deferred): publishing oclif plugins.
 
 ## Assumptions
 - Node 20+, pnpm workspace, Turbo v2, Bun available for dev.
@@ -96,7 +96,6 @@ Acceptance
 - Docs updated, CI green.
 
 Future phases (deferred)
-- Extract `@civ7/plugin-graph` (crawl/render/explore core) with programmatic APIs; then thin CLI wrappers.
 - Consider promoting libs to true oclif plugins when publishing the CLI (list under `oclif.plugins`), or keep embedded command shims.
 
 ## Risks & mitigations
@@ -115,7 +114,8 @@ Future phases (deferred)
   - `@civ7/plugin-files` added and wired to CLI/docs.
   - Shared `tsconfig.plugins.json` and workspace updates.
   - Unit tests added for error handling; e2e validated via refresh/data and docs run.
-- Completed (partial): Phase 2 — `@civ7/plugin-graph`
+- Completed: Phase 2 — `@civ7/plugin-graph`
   - Implemented `graphToDot`, `graphToJson`, `buildGraphViewerHtml`, `renderSvg`.
-  - Refactored CLI: `render`, `crawl`, `explore` call plugin APIs; removed CLI `tools/graph/**`.
-  - Remaining: extract crawler/indexer from CLI into plugin; add unit tests for graph export edge cases and engine selection.
+  - Extracted crawler/indexer from CLI into the plugin; CLI `render`, `crawl`, and `explore` are thin wrappers.
+  - Added `crawlGraph` and `exploreGraph` pipelines so CLI delegates all graph logic.
+  - Future: add unit tests for graph export edge cases and engine selection.

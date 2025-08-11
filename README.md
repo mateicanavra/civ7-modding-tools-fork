@@ -7,6 +7,7 @@ This repository began from [izica/civ7-modding-tools](https://github.com/izica/c
 - 🛠️ **[@civ7/cli](packages/cli)** - Command-line tools for managing game resources
 - 📚 **[Documentation](apps/docs)** - Comprehensive modding guides and references
 - 🎮 **[Playground](apps/playground)** - Examples and experimentation space
+- 🔌 **[Plugin libraries](packages/plugins)** - Reusable file and graph logic consumed by the CLI
 
 ## Quick Links
 - [Installation](#installation-and-setup)
@@ -24,7 +25,8 @@ civ7-modding-tools/
 │   ├── cli/              # Command-line tools (oclif)
 │   ├── config/           # Shared config/path resolution (lib)
 │   └── plugins/
-│       └── plugin-files/ # Programmatic zip/unzip library (consumed by CLI/docs)
+│       ├── plugin-files/ # Programmatic zip/unzip library (consumed by CLI/docs)
+│       └── plugin-graph/ # Graph crawl/render library (consumed by CLI)
 ├── apps/
 │   ├── docs/         # Documentation site (Docsify)
 │   └── playground/   # Example mods and experiments
