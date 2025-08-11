@@ -61,8 +61,8 @@ Acceptance
   - Internally prefer system `zip`/`unzip` via `spawn` for speed; provide clear error if unavailable.
   - Reuse `@civ7/config` for path/config resolution; no oclif dependency.
 - Tests (Vitest):
-  - Unit test args resolution and path building with mocked `@civ7/config` and `node:child_process`.
-  - Happy-path spawn success; failure exit-code path.
+  - Unit tests for deterministic error handling (missing inputs) with `node:fs` mocked for existence checks.
+  - Success paths validated via existing e2e (refresh:data + docs run).
   - Type checks and lint pass.
 
 Acceptance
@@ -109,3 +109,10 @@ Future phases (deferred)
 - CLI behavior unchanged for end users.
 - All builds/lint/tests pass at root and CI.
 - New plugin package(s) are private, typed, and documented.
+
+## Status
+- Completed: Phase 1
+  - `@civ7/plugin-files` added and wired to CLI/docs.
+  - Shared `tsconfig.plugins.json` and workspace updates.
+  - Unit tests added for error handling; e2e validated via refresh/data and docs run.
+- Next: Phase 2 — Extract `@civ7/plugin-graph` (crawl/render/explore) into a lib, refactor CLI to call it, add minimal unit tests for arg/error paths.

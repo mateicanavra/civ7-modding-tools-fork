@@ -27,6 +27,11 @@ export default defineConfig({
         extends: true,
         root: r('apps/playground'),
         test: { name: 'playground' }
+      },
+      {
+        extends: true,
+        root: r('packages/plugins/plugin-files'),
+        test: { name: 'plugin-files' }
       }
     ]
   }
