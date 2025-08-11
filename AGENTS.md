@@ -14,6 +14,9 @@
 - Reusable logic lives under `packages/plugins/*` (e.g., `plugin-files`, `plugin-graph`).
 - CLI commands should remain thin wrappers around these plugins.
 
+### Testing imports
+- Prefer importing from a package's public entry point (e.g., `@civ7/plugin-graph`) in tests rather than deep paths like `../src/*`. This keeps tests resilient to internal refactors (such as folder renames like `pipelines/` → `workflows/`) and validates the surface that external consumers use.
+
 ## Contributing
 - When modifying scripts or TypeScript sources, run `pnpm run build` before committing.
 - Run `pnpm lint` to ensure code style and `pnpm test` for unit tests across workspaces.

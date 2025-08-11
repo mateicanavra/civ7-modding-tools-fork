@@ -9,7 +9,7 @@ This document orients AI agents and contributors to the `@civ7-modding/cli` pack
   - Produce a dependency graph in JSON and DOT, plus a file `manifest.txt` for slicing.
   - Render DOT to SVG via WebAssembly Graphviz and optionally emit an interactive HTML viewer.
   - Zip/unzip resource archives based on profiles defined in `civ.config.jsonc`.
-  - Core crawl/render logic lives in `@civ7/plugin-graph` (`crawlGraph`, `exploreGraph`); file archiving lives in `@civ7/plugin-files`. The CLI focuses on argument parsing, configuration, and I/O, passing its logger to plugin pipelines for progress messages.
+  - Core crawl/render logic lives in `@civ7/plugin-graph` (`crawlGraph`, `exploreGraph`); file archiving lives in `@civ7/plugin-files`. The CLI focuses on argument parsing, configuration, and I/O, passing its logger to plugin workflows for progress messages.
 
 ### Tech stack
 
@@ -99,7 +99,7 @@ Tip: All commands support `--help` via oclif.
 
 - `src/commands/` — oclif commands (`crawl`, `explore`, `render`, `slice`, `zip`, `unzip`)
 - `src/utils/` — config and path resolution helpers
- - Use `@civ7/plugin-graph` for graph pipelines (`crawlGraph`, `exploreGraph`); archive helpers are in `@civ7/plugin-files`.
+ - Use `@civ7/plugin-graph` for graph workflows (`crawlGraph`, `exploreGraph`); archive helpers are in `@civ7/plugin-files`.
 
 ### Conceptual model and traversal
 
@@ -138,7 +138,7 @@ Tip: All commands support `--help` via oclif.
   - Unit‑test seed parsing, index construction, and expander rules.
   - Snapshot DOT/JSON for a small sample seed.
   - CLI smoke tests via `bin/run.js` with fixtures.
-  - Integration tests ensure `crawl` and `explore` commands call `@civ7/plugin-graph` pipelines.
+  - Integration tests ensure `crawl` and `explore` commands call `@civ7/plugin-graph` workflows.
 
 ### CI/CD and publishing
 

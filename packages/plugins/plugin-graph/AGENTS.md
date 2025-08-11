@@ -19,8 +19,11 @@ This package hosts the XML crawler and graph utilities used by the CLI and other
 - `src/crawler/` — XML indexer, BFS crawler, seed parsing, expander rules.
 - `src/graph.ts` — `graphToDot`, `graphToJson`.
 - `src/render.ts` — `renderSvg` via WebAssembly Graphviz.
-- `src/pipelines/` — `crawlGraph` and `exploreGraph` orchestrate crawling and rendering without side effects.
+- `src/workflows/` — `crawlGraph` and `exploreGraph` orchestrate crawling and rendering without side effects.
 - `src/viewer.ts` — `buildGraphViewerHtml` for local interactive SVG.
 - `src/index.ts` — re-exports all utilities for consumers.
 
 `crawlGraph` and `exploreGraph` accept an optional `log` callback for progress messages and wrap lower-level failures with descriptive errors. Keep this package framework-agnostic and focused on reusable graph logic.
+
+### Testing imports for this package
+- Within this package, tests should import from the local source (e.g., `../src`) to avoid package self-resolution issues during workspace tests. External packages (like the CLI) should import from the published entry point (`@civ7/plugin-graph`).

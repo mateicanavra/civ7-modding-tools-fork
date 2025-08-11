@@ -36,4 +36,4 @@ const result = await exploreGraph({
 console.log(result.svg);
 ```
 
-`crawlGraph` returns the raw graph and manifest file list. `exploreGraph` wraps it with DOT, JSON, SVG, and optional HTML, keeping all file I/O outside the package. Both pipelines accept an optional `log` callback for progress messages and throw errors with context if crawling or rendering fails.
+`crawlGraph` returns the raw graph and manifest file list. `exploreGraph` wraps it with DOT, JSON, SVG, and optional HTML, keeping all file I/O outside the package. Both workflows accept an optional `log` callback for progress messages and throw errors with context if crawling or rendering fails.
