@@ -18,6 +18,8 @@
     "start": "pnpm run build && node .",
     "dev": "bun run src/index.ts",
     "publish:local": "pnpm run build && pnpm link --global",
+    "link:global": "pnpm run build && pnpm link --global",
+    "unlink:global": "pnpm unlink --global",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint .",
     "crawl": "node ./bin/run.js crawl",
