@@ -19,7 +19,7 @@
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
     "test": "vitest run --project sdk",
     "lint": "eslint .",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "check": "tsc -p tsconfig.json --noEmit",
     "clean": "rimraf dist",
     "prepublishOnly": "pnpm build"
   },

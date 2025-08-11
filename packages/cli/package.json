@@ -15,21 +15,20 @@
   ],
   "scripts": {
     "build": "rimraf dist && tsc -b --force && oclif manifest && chmod +x bin/run.js",
-    "start": "pnpm run build && node .",
     "dev": "bun run bin/dev.ts",
-    "publish:local": "pnpm run build && pnpm link --global",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run --project cli",
+
     "link:global": "pnpm run build && pnpm link --global",
     "unlink:global": "pnpm unlink --global",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
-    "lint": "eslint .",
     
-    "pack": "pnpm pack",
-    "publish": "pnpm publish",
     "prepublishOnly": "pnpm build",
+    "publish": "pnpm publish",
     "prepack": "pnpm run build && oclif readme",
+    "pack": "pnpm pack",
     "postpack": "rimraf oclif.manifest.json",
-    "version": "oclif readme && git add README.md",
-    "test": "vitest run --project cli"
+    "version": "oclif readme && git add README.md"
   },
   "dependencies": {
     "@oclif/core": "^4.5.2",

@@ -1,7 +1,7 @@
 
 # Turborepo Migration Plan
 
-## Current Status: Phase 5.1 Complete
+## Current Status: Phase 7 Complete; Phase 8 pending
 
 ### Completed Phases
 - ✅ Phase 0: Prep & Guardrails
@@ -13,17 +13,43 @@
 - ✅ Phase 5.1: SDK Documentation Organization
 
 ### Next Immediate Step
-**Phase 7: CI with Turbo Cache** - Add GitHub Actions workflow and Turbo caching
+**Phase 8: Repo Cleanup & Outputs Normalization** - finalize outputs policy and config; add workspace-wide type checks
 
 ### Upcoming Phases (in order)
-1. Phase 7: CI with Turbo Cache
-2. Phase 8: Repo Cleanup & Contributor Docs
-3. Phase 9: Prepare Packages for Publication
+1. Phase 8: Repo Cleanup & Contributor Docs
 
 ### Deferred/Modified
 - Phase 6: Shared Config Package — Scrapped. Reason: packages require divergent TS configs (SDK Bundler/ESNext with tsup, CLI CommonJS/Node with oclif, apps run with Bun and noEmit). Centralizing offered no net benefit and introduced breakage. Keep per-package tsconfig; consider shared ESLint/Prettier later only if they reduce duplication.
 - Phase 4.1: Docs Plugin Package (not needed with simplified architecture)
 - Phase 4.2: Game Resources Package (future consideration)
+
+## Status audit and outstanding items (2025-08-11)
+
+- Phase 7 — CI with Turbo Cache: Implemented in repo.
+  - Doc updates: set "Next Immediate Step" to Phase 8 and mark Phase 7 tasks as done. CI lives at `.github/workflows/ci.yml` (Node 20, Corepack pnpm@10.10.0, Turbo cache on `.turbo`, Bun setup, runs build/lint/test).
+
+- Phase 8 — Outputs normalization: Partially pending in config/docs.
+  - Add an `outputDirs` section to `civ.config.jsonc` to align with current CLI defaults that write under `.civ7/outputs/...`:
+    ```jsonc
+    {
+      "outputDirs": {
+        "base": ".civ7/outputs",
+        "unzip": "resources",
+        "zip": "archives",
+        "graph": "graph"
+      }
+      // ... existing profiles like "default"/"full" remain; per-profile paths can still override
+    }
+    ```
+  - Keep the docs-specific profile overrides that point into `apps/docs/site/...` when explicitly desired; clarify defaults vs overrides in the doc.
+  - Ensure README/CONTRIBUTING describe the outputs policy; confirm `.gitignore` covers all configured output paths.
+
+- Script and config terminology alignment (doc-only):
+  - Root scripts differ from examples: repo uses `dev:docs` (not `docs:dev`), and root `test` runs `vitest run` (not `turbo run test`). Update examples/text to reflect current scripts or add a note about acceptable variants.
+  - Turbo config examples should use `"tasks"` (Turbo v2) instead of `"pipeline"`.
+
+- Phase 9 — Publication readiness: Implemented in repo.
+  - Doc updates: mark Phase 9 checklist items as completed (SDK/CLI manifests, `files`, `bin`, `prepublishOnly`, `engines`) or move this phase to Completed.
 
 ---
 
@@ -115,7 +141,7 @@ Low
 - Avoid top-level runtime deps; only tooling at root. Remove unused root deps proactively.
 - Only add test runners (e.g., Vitest) and docs runtime tooling (e.g., Docsify CLI) in the specific app/package that needs them.
 
-# Issue: Phase 1 — Introduce Turborepo & Root Scripts — Completed
+# Issue: Phase 1 — Introduce Turborepo & Root Scripts — Completed (updated for Turbo v2)
 
 ## Goal
 
@@ -133,25 +159,24 @@ Adopt Turborepo for orchestration/caching; route scripts through Turbo.
   ```json
   {
     "$schema": "https://turbo.build/schema.json",
-    "pipeline": {
+    "tasks": {
       "build": { "dependsOn": ["^build"], "outputs": ["dist/**", "types/**"] },
       "dev":   { "cache": false, "persistent": true },
       "lint":  {},
       "test":  { "dependsOn": ["^build"] },
-      "docs":  { "cache": false },
       "clean": {}
     }
   }
   ```
-- [x] Update root `package.json` scripts:
+- [x] Update root `package.json` scripts (pnpm:dev:* convention retained):
   ```json
   {
     "scripts": {
       "build": "turbo run build",
       "dev": "turbo run dev --parallel",
       "lint": "turbo run lint",
-      "test": "turbo run test",
-      "docs:dev": "turbo run docs",
+      "test": "vitest run",
+      "dev:docs": "pnpm -F @civ7/docs dev",
       "clean": "turbo run clean"
     }
   }
@@ -446,7 +471,7 @@ Centralization abandoned. Keep per‑package `tsconfig.json`. Revisit only if pa
 
 ---
 
-# Issue: Phase 7 — CI with Turbo Cache (Build/Lint/Test)
+# Issue: Phase 7 — CI with Turbo Cache (Build/Lint/Test) — Completed
 
 ## Goal
 
@@ -458,9 +483,9 @@ Add GitHub Actions CI with pnpm + Turbo caching, Node 20.
 - Cache pnpm store and Turbo cache
 - Run `build`, `lint`, `test`
 
-## Tasks
+## Tasks (Completed)
 
-- [ ] Create workflow:
+- [x] Create workflow:
   ```yaml
   name: CI
   on:
@@ -488,7 +513,7 @@ Add GitHub Actions CI with pnpm + Turbo caching, Node 20.
         - run: pnpm lint
         - run: pnpm test
   ```
-- [ ] Ensure each workspace has `build`, `lint`, `test` (test may be no-op initially)
+- [x] Ensure each workspace has `build`, `lint`, `test` (test may be no-op initially)
 
 ## Acceptance Criteria
 
@@ -548,6 +573,25 @@ Remove stale root code paths and document the monorepo layout. Normalize all too
 - No dead paths
 - New contributors can run locally following docs
 - Running CLI commands (zip/unzip/graph), building docs, building SDK, and running playground examples do not write any files at repo root; outputs are confined to package-local `dist/` or the configured `outputs/` locations
+
+---
+
+# Cross-cutting follow-ups
+
+- Script conventions and test runners
+  - We have standardized on `pnpm:dev:*` naming (e.g., `dev:docs`). This supersedes earlier examples; keep this convention.
+  - Note: root `test` currently uses `vitest run` directly rather than `turbo run test`. Either is acceptable; pick the one that fits local dev/CI best and document the rationale.
+
+- Workspace-wide type checking
+  - Add a root `check` script that runs type checks across all apps/packages via Turbo.
+  - Suggestion:
+    - In `turbo.json`, ensure a `check` task exists (e.g., `"check": {}`).
+    - In each package/app, add a `check` script (`tsc -p tsconfig.json --noEmit` or equivalent).
+    - In root `package.json`, add: `"check": "turbo run check"`.
+
+- package.json audit
+  - Review every workspace’s `package.json` to remove obsolete scripts, ensure `devDependencies` are local and minimal, and align scripts to the monorepo conventions (dev/build/lint/test/check/publish where applicable).
+  - Verify publish settings for packages intended for npm (SDK/CLI), and that apps are private.
 
 ## Complexity
 
