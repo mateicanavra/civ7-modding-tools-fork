@@ -4,17 +4,20 @@ vi.mock('@civ7/plugin-files', () => ({
   zipResources: vi.fn(async () => ({ outputPath: '/out.zip', uncompressedSizeBytes: 0, archiveSizeBytes: 0 })),
 }));
 
-vi.mock('../../src/utils', () => ({
+vi.mock('@civ7/config', () => ({
   loadConfig: vi.fn(async () => ({ raw: { profiles: { default: {} } }, path: undefined })),
   resolveInstallDir: vi.fn(() => '/src'),
   resolveZipPath: vi.fn(() => '/out.zip'),
   findProjectRoot: vi.fn(() => '/project'),
 }));
 
-vi.mock('node:fs', () => ({
-  existsSync: vi.fn(() => true),
-  promises: {},
-}));
+vi.mock('node:fs', async () => {
+  const actual = await vi.importActual<any>('node:fs');
+  return {
+    ...actual,
+    existsSync: vi.fn(() => true),
+  };
+});
 
 import Zip from '../../src/commands/zip';
 import { zipResources } from '@civ7/plugin-files';

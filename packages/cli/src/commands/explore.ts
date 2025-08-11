@@ -3,7 +3,8 @@ import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import * as fssync from "node:fs";
 import { exploreGraph } from "@civ7/plugin-graph";
-import { loadConfig, resolveGraphOutDir, findProjectRoot, resolveRootFromConfigOrFlag } from "../utils";
+import { findProjectRoot, loadConfig, resolveGraphOutDir } from "@civ7/config";
+import { resolveRootFromConfigOrFlag } from "../utils";
 import { spawn } from "node:child_process";
 import * as http from "node:http";
 

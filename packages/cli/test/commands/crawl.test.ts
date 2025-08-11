@@ -6,10 +6,12 @@ vi.mock('@civ7/plugin-graph', () => ({
   graphToDot: vi.fn(() => 'digraph {}'),
 }));
 
-vi.mock('../../src/utils', () => ({
+vi.mock('@civ7/config', () => ({
   loadConfig: vi.fn(async () => ({ raw: {}, path: undefined })),
   resolveGraphOutDir: vi.fn(() => '/out'),
   findProjectRoot: vi.fn(() => '/project'),
+}));
+vi.mock('../../src/utils/resolver', () => ({
   resolveRootFromConfigOrFlag: vi.fn(async () => '/root'),
 }));
 
