@@ -66,11 +66,8 @@ These are independent; local dev runs source via Bun; global link runs installed
 
 ## Outputs policy
 - No outputs at repo root.
-- Defaults and configuration live in `civ.config.jsonc` and the CLI resolver.
-- The configuration is structured into three main sections:
-  - **`inputs`**: Defines global source locations, like the game's `installDir`.
-  - **`outputs`**: Defines global destination locations, defaulting to `.civ7/outputs`.
-  - **`profiles`**: Contains named groups of settings that can override the global `outputs` for specific tasks.
+- Defaults and configuration live in `civ.config.jsonc`. All CLI commands write to a central `.civ7/outputs` directory by default.
+- Apps like `docs` are responsible for pulling the resources they need from `.civ7/outputs` as part of their build/dev process. They should not be written to directly by the CLI.
 - Defaults:
   - Base outputs: `.civ7/outputs`
   - Zip archives: `.civ7/outputs/archives`

@@ -2,14 +2,17 @@
   "name": "@civ7/docs",
   "private": true,
   "scripts": {
-    "dev": "bunx docsify-cli serve ./site -p 4000",
+    "predev": "pnpm -F @civ7/config build && pnpm -F @civ7/plugin-files build",
+    "dev": "bun run scripts/sync-resources.ts && docsify serve site",
     "start": "bunx docsify-cli serve ./site -p 4000 --no-open",
-    "fix:links": "bun run scripts/fix-links.ts",
-    "test": "vitest run --project docs"
+    "fix:links": "bun run scripts/fix-links.ts"
   },
   "devDependencies": {
-    "docsify-cli": "^4.4.4",
-    "vitest": "^3.2.4"
+    "docsify-cli": "^4.4.4"
+  },
+  "dependencies": {
+    "@civ7/config": "workspace:*",
+    "@civ7/plugin-files": "workspace:*"
   }
 }
 

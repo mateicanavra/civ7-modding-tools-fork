@@ -26,31 +26,12 @@
                     "ShaderAutoGen_*", "*.mp4", "*.webm", "*.mov", "*.ogg", "*.mp3", "*.wav",
                     "*.dds", "*.png", "*.ttf", "*.otf"
                 ]
-            },
-            "outputs": {
-                "baseDir": "apps/docs/site/civ7-official",
-                "zip": {
-                    "dir": ""
-                },
-                "unzip": {
-                    "dir": "resources"
-                }
             }
         },
         "full": {
             "description": "A complete set of game resources, including all assets.",
             "zip": {
                 "exclude": []
-            },
-            "outputs": {
-                "baseDir": "apps/docs/site/civ7-official",
-                "zip": {
-                    "dir": "",
-                    "name": "civ7-official-resources-full.zip"
-                },
-                "unzip": {
-                    "dir": "resources-full"
-                }
             }
         },
         "assets": {
@@ -60,16 +41,6 @@
                     "Assets/*", "movies/*", "data/icons/*", "fonts/*", "Assets.car",
                     "AppIcon.icns", "default.metallib", "ShaderAutoGen_*"
                 ]
-            },
-            "outputs": {
-                "baseDir": "apps/docs/site/civ7-official",
-                "zip": {
-                    "dir": "",
-                    "name": "civ7-official-resources-assets.zip"
-                },
-                "unzip": {
-                    "dir": "resources-assets"
-                }
             }
         }
     }

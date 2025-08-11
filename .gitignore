@@ -46,3 +46,6 @@ Thumbs.db
 
 # Turbo cache
 .turbo/
+
+# AI-generated artifacts and archives
+.ai/

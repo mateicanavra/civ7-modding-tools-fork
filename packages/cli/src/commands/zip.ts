@@ -1,8 +1,7 @@
 import { Args, Command, Flags } from "@oclif/core";
 import * as fs from "node:fs";
-import * as path from "node:path";
-import { spawn } from "node:child_process";
 import { loadConfig, resolveInstallDir, resolveZipPath, findProjectRoot } from "../utils";
+import { zipResources } from "@civ7/plugin-files";
 
 export default class Zip extends Command {
     static id = "zip";
@@ -84,120 +83,36 @@ Automatically detects OS defaults but can be overridden. Supports include/exclud
 
         this.log(`→ Using source: ${srcDir}`);
 
-        // --- 3. Determine Zip Destination ---
-        const zipPath = resolveZipPath({ projectRoot, profile: args.profile }, config, args.zipfile);
-        this.log(`→ Saving to: ${zipPath}`);
-
-        // --- 4. Prepare Destination ---
-        const outputDir = path.dirname(zipPath);
-        fs.mkdirSync(outputDir, { recursive: true });
-
-        this.log("→ Cleaning old archive...");
-        if (fs.existsSync(zipPath)) {
-            fs.unlinkSync(zipPath);
-        }
-
-        // --- 5. Execute Zip Command ---
-        const zipArgs: string[] = ["-r"];
-        if (!flags.verbose) {
-            zipArgs.push("-q");
-        }
-
-        zipArgs.push("-X", zipPath);
-
-        const includePatterns: string[] = profile.zip?.include || [];
-        const excludePatterns: string[] = profile.zip?.exclude || [];
-
-        if (includePatterns.length > 0) {
-            zipArgs.push(...includePatterns);
-        } else {
-            zipArgs.push("."); // Zip current directory
-            for (const pat of excludePatterns) {
-                zipArgs.push("-x", pat);
-            }
-        }
-
+        // --- 3. Execute via plugin lib ---
         this.log(`→ Zipping resources with profile '${args.profile}'...`);
-
-        const zipProcess = spawn("zip", zipArgs, {
-            cwd: srcDir,
-            stdio: flags.verbose ? "inherit" : "pipe",
+        const out = args.zipfile ? resolveZipPath({ projectRoot, profile: args.profile }, config, args.zipfile) : undefined;
+        const summary = await zipResources({
+            projectRoot,
+            profile: args.profile,
+            srcDir,
+            out,
+            verbose: flags.verbose,
+            configPath: flags.config,
         });
 
-        return new Promise((resolve, reject) => {
-            zipProcess.on("close", (code) => {
-                if (code !== 0) {
-                    this.error(`Zip process exited with code ${code}.`, {
-                        exit: code ?? 1,
-                    });
-                    return reject();
-                }
+        // --- 4. Final Summary ---
+        this.log(`✅ Successfully created archive: ${summary.outputPath}`);
+        this.log("");
+        this.log("+------------------------------------------------------+");
+        this.log(`| Zip Operation Summary for Profile: '${args.profile!.padEnd(18)}' |`);
+        this.log("+-----------------------------+------------------------+");
+        this.log(`| Uncompressed Size           | ${this.formatBytes(summary.uncompressedSizeBytes).padEnd(22)} |`);
+        this.log(`| Final Archive Size          | ${this.formatBytes(summary.archiveSizeBytes).padEnd(22)} |`);
+        this.log("+-----------------------------+------------------------+");
 
-                // --- 6. Final Summary ---
-                if (!fs.existsSync(zipPath)) {
-                    this.error("Failed to create archive.");
-                    return reject();
-                }
-
-                this.log(`✅ Successfully created archive: ${zipPath}`);
-
-                const archiveStats = fs.statSync(zipPath);
-                const archiveSize = archiveStats.size;
-
-                // We still need `unzip` to get the uncompressed size from metadata
-                const unzipL = spawn("unzip", ["-l", zipPath]);
-                let output = "";
-                unzipL.stdout.on("data", (data) => {
-                    output += data.toString();
-                });
-
-                unzipL.on("close", () => {
-                    const lastLine = output.trim().split("\n").pop();
-                    const uncompressedSize = lastLine
-                        ? parseInt(lastLine.trim().split(/\s+/)[0], 10)
-                        : 0;
-
-                    this.log("");
-                    this.log(
-                        "+------------------------------------------------------+",
-                    );
-                    this.log(
-                        `| Zip Operation Summary for Profile: '${args.profile!.padEnd(18)}' |`,
-                    );
-                    this.log(
-                        "+-----------------------------+------------------------+",
-                    );
-                    this.log(
-                        `| Uncompressed Size           | ${this.formatBytes(uncompressedSize).padEnd(22)} |`,
-                    );
-                    this.log(
-                        `| Final Archive Size          | ${this.formatBytes(archiveSize).padEnd(22)} |`,
-                    );
-                    this.log(
-                        "+-----------------------------+------------------------+",
-                    );
-
-                    // GitHub Size Limit Check
-                    const GITHUB_LIMIT_BYTES = 100 * 1024 * 1024; // 100 MB
-                    if (archiveSize > GITHUB_LIMIT_BYTES) {
-                        this.log("");
-                        this.warn(
-                            `Archive size (${this.formatBytes(archiveSize)}) exceeds GitHub's 100 MB file limit.`,
-                        );
-                        this.log(
-                            "   Consider using Git LFS or a different hosting solution.",
-                        );
-                    }
-
-                    this.log("");
-                    resolve();
-                });
-            });
-
-            zipProcess.on("error", (err) => {
-                this.error(`Failed to start zip process: ${err.message}`);
-                reject(err);
-            });
-        });
+        // GitHub Size Limit Check
+        const GITHUB_LIMIT_BYTES = 100 * 1024 * 1024; // 100 MB
+        if (summary.archiveSizeBytes > GITHUB_LIMIT_BYTES) {
+            this.log("");
+            this.warn(
+                `Archive size (${this.formatBytes(summary.archiveSizeBytes)}) exceeds GitHub's 100 MB file limit.`,
+            );
+            this.log("   Consider using Git LFS or a different hosting solution.");
+        }
     }
 }

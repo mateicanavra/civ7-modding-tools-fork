@@ -11,7 +11,6 @@
     "dev:sdk": "pnpm -F @civ7/sdk dev",
     "dev:docs": "pnpm -F @civ7/docs dev",
     "dev:playground": "pnpm -F @civ7/playground dev",
-    "cli": "bun run packages/cli/src/index.ts",
     "lint": "turbo run lint",
     "test": "vitest run",
     "test:ui": "vitest --ui",
@@ -20,7 +19,8 @@
     "publish:cli": "pnpm -F @civ7/cli publish --access public",
     "publish:all": "pnpm publish:sdk && pnpm publish:cli",
     "link:cli": "pnpm -F @civ7/cli run link:global",
-    "unlink:cli": "pnpm -F @civ7/cli run unlink:global"
+    "unlink:cli": "pnpm -F @civ7/cli run unlink:global",
+    "refresh:data": "pnpm dev:cli -- zip default && pnpm dev:cli -- unzip default"
   },
   "workspaces": [
     "apps/*",

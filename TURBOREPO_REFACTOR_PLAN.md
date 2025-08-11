@@ -14,7 +14,7 @@
 - ✅ Phase 8 (partial): Outputs Normalization & Config Refactor
 
 ### Next Immediate Step
-**Phase 8: Repo Cleanup & Contributor Docs** - Finalize remaining Phase 8 tasks; add workspace-wide type checks.
+**Phase 8: Repo Cleanup & Contributor Docs** - Plugin structure introduced; finalize remaining tasks; add workspace-wide type checks.
 
 ### Upcoming Phases (in order)
 1. Phase 8: Repo Cleanup & Contributor Docs
@@ -52,6 +52,10 @@
   - Root scripts differ from examples: repo uses `dev:docs` (not `docs:dev`), and root `test` runs `vitest run` (not `turbo run test`). Update examples/text to reflect current scripts or add a note about acceptable variants.
   - Turbo config examples should use `"tasks"` (Turbo v2) instead of `"pipeline"`.
 
+- Phase 8.1 — Plugins scaffold: ✅ **Completed**.
+  - Introduced `packages/plugins/plugin-files` with programmatic `zipResources`/`unzipResources` APIs (typed, no logging) consuming `@civ7/config`.
+  - CLI `zip`/`unzip` now call the plugin lib (thin command surface, same UX).
+  - Docs sync optimized: uses plugin unzip from central archive (fallback to copy if archive missing).
 - Phase 9 — Publication readiness: Implemented in repo.
   - Doc updates: mark Phase 9 checklist items as completed (SDK/CLI manifests, `files`, `bin`, `prepublishOnly`, `engines`) or move this phase to Completed.
 
@@ -276,7 +280,7 @@ Move reusable library code to `@civ7/sdk` with ESM+CJS builds and types.
 
 ## Acceptance Criteria
 
-- `pnpm -w -F @civ7/sdk build` emits ESM, CJS, `.d.ts`
+- `pnpm -F @civ7/sdk build` emits ESM, CJS, `.d.ts`
 - No references remain to old `root/src/*`
 
 ## Complexity
@@ -352,7 +356,7 @@ After extensive discussion, we chose a simplified architecture:
 
 ## Acceptance Criteria
 
-- `pnpm -w docs:dev` serves all docs on port 4000 ✓
+- `pnpm docs:dev` serves all docs on port 4000 ✓
 - Single self-contained docs directory ✓
 
 ## Complexity
@@ -561,6 +565,7 @@ Remove stale root code paths and document the monorepo layout. Normalize all too
 - [x] Define workspace output policy: no outputs at repo root; default to `.civ7/outputs`.
 - [x] Add configuration for outputs (`civ.config.jsonc` refactored to `inputs`/`outputs`/`profiles`).
 - [x] Update CLI defaults to respect the output policy/config.
+- [x] Extract zip/unzip core into `@civ7/plugin-files`; CLI uses plugin; docs use programmatic unzip.
 - [ ] Confirm docs build emits only to `apps/docs/dist`
 - [x] Confirm SDK build remains `packages/sdk/dist`.
 - [x] Confirm Playground outputs stay under its app directory.
@@ -628,7 +633,7 @@ Make `@civ7/sdk` and `@civ7/cli` publishable to npm.
   - `"publishConfig": { "access": "public" }`
   - `"prepublishOnly": "pnpm build"`
   - `engines.node: ">=20"`
-- [ ] Verify: `pnpm -w -F @civ7/cli link --global` → `civ7 --help`
+- [ ] Verify: `pnpm -F @civ7/cli link --global` → `civ7 --help`
 
 ## Acceptance Criteria
 

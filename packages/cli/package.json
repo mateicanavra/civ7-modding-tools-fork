@@ -19,10 +19,8 @@
     "check": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint .",
     "test": "vitest run --project cli",
-
     "link:global": "pnpm run build && pnpm link --global",
     "unlink:global": "pnpm unlink --global",
-    
     "prepublishOnly": "pnpm build",
     "publish": "pnpm publish",
     "prepack": "pnpm run build && oclif readme",
@@ -31,6 +29,8 @@
     "version": "oclif readme && git add README.md"
   },
   "dependencies": {
+    "@civ7/plugin-files": "workspace:*",
+    "@civ7/config": "workspace:*",
     "@oclif/core": "^4.5.2",
     "@oclif/plugin-help": "^6.2.32",
     "@hpcc-js/wasm": "^2.25.0",

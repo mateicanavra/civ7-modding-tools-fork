@@ -20,8 +20,11 @@ This repository began from [izica/civ7-modding-tools](https://github.com/izica/c
 ```
 civ7-modding-tools/
 ├── packages/
-│   ├── sdk/          # TypeScript SDK for mod generation
-│   └── cli/          # Command-line tools
+│   ├── sdk/              # TypeScript SDK for mod generation
+│   ├── cli/              # Command-line tools (oclif)
+│   ├── config/           # Shared config/path resolution (lib)
+│   └── plugins/
+│       └── plugin-files/ # Programmatic zip/unzip library (consumed by CLI/docs)
 ├── apps/
 │   ├── docs/         # Documentation site (Docsify)
 │   └── playground/   # Example mods and experiments
@@ -52,13 +55,13 @@ You only need to run this command once for the initial setup, or whenever you pu
 
 ### Step 2: Refresh Game Data
 
-After the `civ7` command is available, you can use it to populate the repository with the official game data from your local Civilization VII installation. This script runs `civ7 zip` and `civ7 unzip` in sequence using the `default` profile.
+After the `civ7` command is available, you can use it to populate the repository with the official game data from your local Civilization VII installation. This script runs `civ7 zip` and then `civ7 unzip`, placing the outputs in the `.civ7/outputs` directory at the project root.
 
 ```bash
 pnpm refresh:data
 ```
 
-You can run this command whenever you want to ensure the local resource data is up-to-date with your game files.
+This command only needs to be run once. The `docs` and `playground` apps will automatically sync the resources they need from this central location when you run their `dev` commands. The docs app uses a fast unzip via `@civ7/plugin-files`.
 
 ## Using the CLI
 
@@ -72,4 +75,5 @@ The configuration uses a modular structure:
 You can customize the default profiles or add your own.
 
 ### Unzipping Resources
+```
 ```
