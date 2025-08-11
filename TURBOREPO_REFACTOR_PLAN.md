@@ -59,6 +59,7 @@
   - CLI `zip`/`unzip` now call the plugin lib (thin command surface, same UX).
   - Docs sync optimized: uses plugin unzip from central archive (fallback to copy if archive missing).
   - Introduced `packages/plugins/plugin-graph` with programmatic APIs: `graphToDot`, `graphToJson`, `renderSvg`, `crawlGraph`, `exploreGraph`, `buildGraphViewerHtml`, and the XML crawler/indexer. CLI `render`, `crawl`, and `explore` now delegate graph logic to these APIs.
+  - Organized graph plugin pipelines under `src/pipelines` and grouped CLI tests into `test/commands` and `test/utils` for clarity.
 - Phase 9 — Publication readiness: Implemented in repo.
   - Doc updates: mark Phase 9 checklist items as completed (SDK/CLI manifests, `files`, `bin`, `prepublishOnly`, `engines`) or move this phase to Completed.
 

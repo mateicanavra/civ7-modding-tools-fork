@@ -12,8 +12,8 @@ vi.mock('@civ7/plugin-graph', () => {
   };
 });
 
-import Crawl from '../src/commands/crawl';
-import Explore from '../src/commands/explore';
+import Crawl from '../../src/commands/crawl';
+import Explore from '../../src/commands/explore';
 import { crawlGraph, exploreGraph } from '@civ7/plugin-graph';
 
 describe('graph CLI commands', () => {

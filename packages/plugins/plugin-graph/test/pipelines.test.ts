@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { mkdtemp, writeFile, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import * as path from 'node:path';
-import { crawlGraph, exploreGraph } from '../src/pipeline';
+import { crawlGraph, exploreGraph } from '../src/pipelines';
 
 async function setupXml(): Promise<string> {
   const dir = await mkdtemp(path.join(tmpdir(), 'civ7-test-'));

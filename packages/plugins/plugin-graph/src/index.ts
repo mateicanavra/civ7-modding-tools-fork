@@ -3,4 +3,4 @@ export { buildGraphViewerHtml } from './viewer';
 export { renderSvg } from './render';
 export * as crawler from './crawler';
 export * from './types';
-export * from './pipeline';
+export * from './pipelines';

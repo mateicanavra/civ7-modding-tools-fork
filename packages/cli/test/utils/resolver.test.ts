@@ -25,7 +25,7 @@ import {
   resolveUnzipDir,
   resolveGraphOutDir,
   resolveRootFromConfigOrFlag,
-} from '../src/utils/resolver';
+} from '../../src/utils/resolver';
 
 vi.mock('node:fs', async () => {
   const originalFs = await vi.importActual('node:fs');

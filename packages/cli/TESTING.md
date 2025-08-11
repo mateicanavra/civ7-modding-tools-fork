@@ -1,6 +1,6 @@
 # Testing
 
-This package uses [Vitest](https://vitest.dev/) with the Node environment.
+This package uses [Vitest](https://vitest.dev/) with the Node environment. Tests live in `test/commands` and `test/utils`.
 
 ## Running tests
 

@@ -1,20 +1,7 @@
-import * as crawler from './crawler';
-import { graphToDot, graphToJson } from './graph';
-import { buildGraphViewerHtml } from './viewer';
-import { renderSvg } from './render';
-import { Graph } from './types';
-
-export interface CrawlGraphResult {
-  graph: Graph;
-  manifestFiles: string[];
-}
-
-export async function crawlGraph(rootDir: string, seed: string): Promise<CrawlGraphResult> {
-  const idx = await crawler.buildIndexFromXml(rootDir);
-  const parsed = crawler.parseSeed(seed);
-  if (!parsed) throw new Error(`Could not parse seed: ${seed}`);
-  return crawler.crawl(idx, parsed);
-}
+import { crawlGraph, CrawlGraphResult } from './crawl';
+import { graphToDot, graphToJson } from '../graph';
+import { renderSvg } from '../render';
+import { buildGraphViewerHtml } from '../viewer';
 
 export interface ExploreGraphOptions {
   rootDir: string;
@@ -39,3 +26,4 @@ export async function exploreGraph(opts: ExploreGraphOptions): Promise<ExploreGr
   const html = emitHtml ? buildGraphViewerHtml({ title: `${seed} — Graph`, svg }) : undefined;
   return { graph, manifestFiles, dot, json, svg, html };
 }
+

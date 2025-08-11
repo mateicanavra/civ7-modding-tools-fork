@@ -133,7 +133,7 @@ Tip: All commands support `--help` via oclif.
 
 ### Testing
 
-- A minimal [Vitest](https://vitest.dev/) suite lives in `test/`. Run `pnpm --filter @civ7/cli test`.
+- A minimal [Vitest](https://vitest.dev/) suite lives in `test/` (`test/commands` for CLI surfaces, `test/utils` for helpers). Run `pnpm --filter @civ7/cli test`.
 - Recommended strategy for expanding coverage:
   - Unit‑test seed parsing, index construction, and expander rules.
   - Snapshot DOT/JSON for a small sample seed.

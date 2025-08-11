@@ -117,5 +117,5 @@ Future phases (deferred)
 - Completed: Phase 2 — `@civ7/plugin-graph`
   - Implemented `graphToDot`, `graphToJson`, `buildGraphViewerHtml`, `renderSvg`.
   - Extracted crawler/indexer from CLI into the plugin; CLI `render`, `crawl`, and `explore` are thin wrappers.
-  - Added `crawlGraph` and `exploreGraph` pipelines so CLI delegates all graph logic.
+  - Added `crawlGraph` and `exploreGraph` pipelines under `src/pipelines` so CLI delegates all graph logic.
   - Future: add unit tests for graph export edge cases and engine selection.

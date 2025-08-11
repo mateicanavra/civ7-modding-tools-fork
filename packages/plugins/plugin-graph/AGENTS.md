@@ -13,13 +13,13 @@ This package hosts the XML crawler and graph utilities used by the CLI and other
   pnpm -F @civ7/plugin-graph lint
   pnpm -F @civ7/plugin-graph test
   ```
-  (tests are currently minimal; add coverage for new logic.)
+  (tests are currently minimal; add coverage for new logic—see `TESTING.md`.)
 
 ## Key modules
 - `src/crawler/` — XML indexer, BFS crawler, seed parsing, expander rules.
 - `src/graph.ts` — `graphToDot`, `graphToJson`.
 - `src/render.ts` — `renderSvg` via WebAssembly Graphviz.
-- `src/pipeline.ts` — `crawlGraph` and `exploreGraph` orchestrate crawling and rendering without side effects.
+- `src/pipelines/` — `crawlGraph` and `exploreGraph` orchestrate crawling and rendering without side effects.
 - `src/viewer.ts` — `buildGraphViewerHtml` for local interactive SVG.
 - `src/index.ts` — re-exports all utilities for consumers.
 
