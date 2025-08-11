@@ -1,4 +1,4 @@
-import { CrawlResult, Graph, GraphEdge, Index, NodeKey } from './types';
+import { CrawlResult, Graph, GraphEdge, Index, NodeKey } from '../types';
 import { EXPANDERS, genericEdges } from './expanders';
 import { getByPk } from './queries';
 

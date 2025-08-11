@@ -2,7 +2,7 @@ import { Args, Command, Flags } from "@oclif/core";
 import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import * as fssync from "node:fs";
-import { buildIndexFromXml, crawl, parseSeed } from "../tools/crawler";
+import { crawler } from "@civ7/plugin-graph";
 import { graphToDot, graphToJson, buildGraphViewerHtml, renderSvg } from "@civ7/plugin-graph";
 import { loadConfig, resolveGraphOutDir, findProjectRoot, resolveRootFromConfigOrFlag } from "../utils";
 import { spawn } from "node:child_process";
@@ -55,10 +55,10 @@ export default class Explore extends Command {
     const outDir = resolveGraphOutDir({ projectRoot, profile: flags.profile }, cfg.raw ?? {}, seed, outDirArg);
 
     // Crawl
-    const idx = await buildIndexFromXml(root);
-    const parsedSeed = parseSeed(seed);
+    const idx = await crawler.buildIndexFromXml(root);
+    const parsedSeed = crawler.parseSeed(seed);
     if (!parsedSeed) this.error(`Could not parse seed: ${seed}`);
-    const { graph, manifestFiles } = crawl(idx, parsedSeed);
+    const { graph, manifestFiles } = crawler.crawl(idx, parsedSeed);
 
     // Persist graph
     await fs.mkdir(outDir, { recursive: true });

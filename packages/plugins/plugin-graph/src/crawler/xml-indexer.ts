@@ -2,7 +2,7 @@ import { promises as fs } from 'node:fs';
 import * as path from 'node:path';
 import { XMLParser } from 'fast-xml-parser';
 import { PRIMARY_KEYS } from './constants';
-import { Index, Row, RowRecord, TableIndex } from './types';
+import { Index, Row, RowRecord, TableIndex } from '../types';
 
 /** Shared XML parser configured to keep attributes and preserve original keys. */
 const parser = new XMLParser({ ignoreAttributes: false, attributeNamePrefix: '' });

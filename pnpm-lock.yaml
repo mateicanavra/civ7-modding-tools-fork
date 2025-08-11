@@ -165,6 +165,9 @@ importers:
       '@hpcc-js/wasm':
         specifier: ^2.25.0
         version: 2.25.0
+      fast-xml-parser:
+        specifier: ^5.2.5
+        version: 5.2.5
     devDependencies:
       '@types/node':
         specifier: ^24.2.1

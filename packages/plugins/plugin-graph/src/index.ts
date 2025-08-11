@@ -19,4 +19,4 @@ export async function renderSvg(dot: string, engine: ExploreOptions["engine"] = 
 
 export * from "./types";
 export * from "./graph";
-// TODO: re-export crawler APIs after porting off CLI internals
+export * as crawler from "./crawler";

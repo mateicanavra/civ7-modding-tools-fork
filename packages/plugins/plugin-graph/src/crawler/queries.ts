@@ -1,5 +1,5 @@
 import { PREFIX_TO_TABLE, PRIMARY_KEYS } from './constants';
-import { Index, RowRecord } from './types';
+import { Index, RowRecord } from '../types';
 
 /** Lookup rows by a specific column value using the prebuilt column index. */
 export function findBy(table: string, col: string, val: string, idx: Index): RowRecord[] {

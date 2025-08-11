@@ -1,5 +1,5 @@
 import { COLUMN_TO_TABLE, PRIMARY_KEYS } from './constants';
-import { Index, NodeKey, RowRecord } from './types';
+import { Index, NodeKey, RowRecord } from '../types';
 import { findBy, getByPk } from './queries';
 
 export interface EdgeTarget { key: NodeKey; label?: string }

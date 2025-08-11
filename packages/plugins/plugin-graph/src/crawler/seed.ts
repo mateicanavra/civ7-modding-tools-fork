@@ -1,4 +1,4 @@
-import { NodeKey } from './types';
+import { NodeKey } from '../types';
 import { guessTableFromId } from './queries';
 
 /**
