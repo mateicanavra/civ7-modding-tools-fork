@@ -25,7 +25,7 @@ describe('graph CLI commands', () => {
     const rootDir = await mkdtemp(join(tmpdir(), 'civ7-cli-root-'));
     const outDir = await mkdtemp(join(tmpdir(), 'civ7-cli-out-'));
     await Crawl.run(['TEST_SEED', outDir, '--root', rootDir]);
-    expect(crawlGraph).toHaveBeenCalledWith(rootDir, 'TEST_SEED');
+    expect(crawlGraph).toHaveBeenCalledWith(rootDir, 'TEST_SEED', expect.any(Function));
   });
 
   test('explore delegates to plugin-graph exploreGraph', async () => {
@@ -38,6 +38,7 @@ describe('graph CLI commands', () => {
       seed: 'TEST_SEED',
       engine: 'dot',
       emitHtml: true,
+      log: expect.any(Function),
     });
   });
 });

@@ -47,4 +47,26 @@ describe('graph pipelines', () => {
       await rm(dir, { recursive: true, force: true });
     }
   });
+
+  it('crawlGraph logs progress and errors on bad seed', async () => {
+    const dir = await setupXml();
+    const logs: string[] = [];
+    try {
+      await expect(crawlGraph(dir, 'BAD_SEED', (m) => logs.push(m))).rejects.toThrow(/crawlGraph failed: Could not parse seed/);
+      expect(logs.length).toBeGreaterThan(0);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('exploreGraph surfaces crawl errors and logs', async () => {
+    const dir = await setupXml();
+    const logs: string[] = [];
+    try {
+      await expect(exploreGraph({ rootDir: dir, seed: 'BAD', log: (m) => logs.push(m) })).rejects.toThrow(/exploreGraph failed: crawlGraph failed: Could not parse seed/);
+      expect(logs.length).toBeGreaterThan(0);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
 });

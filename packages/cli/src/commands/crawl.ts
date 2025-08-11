@@ -49,7 +49,7 @@ to discover related rows. It writes a graph (JSON + DOT) and a manifest of XML f
         const seed = args.seed;
         const outDir = resolveGraphOutDir({ projectRoot, profile: flags.profile }, cfg.raw ?? {}, seed, args.outDir);
 
-        const { graph, manifestFiles } = await crawlGraph(root, seed);
+        const { graph, manifestFiles } = await crawlGraph(root, seed, this.log.bind(this));
 
         await fs.mkdir(outDir, { recursive: true });
         await fs.writeFile(path.join(outDir, "graph.json"), JSON.stringify(graphToJson(graph), null, 2), "utf8");

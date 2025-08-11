@@ -9,7 +9,7 @@ This document orients AI agents and contributors to the `@civ7-modding/cli` pack
   - Produce a dependency graph in JSON and DOT, plus a file `manifest.txt` for slicing.
   - Render DOT to SVG via WebAssembly Graphviz and optionally emit an interactive HTML viewer.
   - Zip/unzip resource archives based on profiles defined in `civ.config.jsonc`.
-  - Core crawl/render logic lives in `@civ7/plugin-graph` (`crawlGraph`, `exploreGraph`); file archiving lives in `@civ7/plugin-files`. The CLI focuses on argument parsing, configuration, and I/O.
+  - Core crawl/render logic lives in `@civ7/plugin-graph` (`crawlGraph`, `exploreGraph`); file archiving lives in `@civ7/plugin-files`. The CLI focuses on argument parsing, configuration, and I/O, passing its logger to plugin pipelines for progress messages.
 
 ### Tech stack
 

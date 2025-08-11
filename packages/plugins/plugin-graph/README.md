@@ -15,7 +15,7 @@ pnpm add @civ7/plugin-graph fast-xml-parser
 ```ts
 import { crawlGraph } from '@civ7/plugin-graph';
 
-const { graph, manifestFiles } = await crawlGraph('/path/to/xml', 'Resources/Cotton');
+const { graph, manifestFiles } = await crawlGraph('/path/to/xml', 'Resources/Cotton', console.log);
 ```
 
 ### exploreGraph
@@ -28,9 +28,10 @@ const result = await exploreGraph({
   seed: 'Resources/Cotton',
   engine: 'dot',
   emitHtml: true,
+  log: console.log,
 });
 
 console.log(result.svg);
 ```
 
-`crawlGraph` returns the raw graph and manifest file list. `exploreGraph` wraps it with DOT, JSON, SVG, and optional HTML, keeping all file I/O outside the package.
+`crawlGraph` returns the raw graph and manifest file list. `exploreGraph` wraps it with DOT, JSON, SVG, and optional HTML, keeping all file I/O outside the package. Both pipelines accept an optional `log` callback for progress messages and throw errors with context if crawling or rendering fails.

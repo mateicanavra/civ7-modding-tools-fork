@@ -23,4 +23,4 @@ This package hosts the XML crawler and graph utilities used by the CLI and other
 - `src/viewer.ts` — `buildGraphViewerHtml` for local interactive SVG.
 - `src/index.ts` — re-exports all utilities for consumers.
 
-Keep this package framework-agnostic and focused on reusable graph logic.
+`crawlGraph` and `exploreGraph` accept an optional `log` callback for progress messages and wrap lower-level failures with descriptive errors. Keep this package framework-agnostic and focused on reusable graph logic.

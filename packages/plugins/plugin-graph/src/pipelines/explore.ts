@@ -8,6 +8,7 @@ export interface ExploreGraphOptions {
   seed: string;
   engine?: 'dot' | 'neato' | 'fdp' | 'sfdp' | 'circo' | 'twopi';
   emitHtml?: boolean;
+  log?: (msg: string) => void;
 }
 
 export interface ExploreGraphResult extends CrawlGraphResult {
@@ -18,12 +19,23 @@ export interface ExploreGraphResult extends CrawlGraphResult {
 }
 
 export async function exploreGraph(opts: ExploreGraphOptions): Promise<ExploreGraphResult> {
-  const { rootDir, seed, engine = 'dot', emitHtml } = opts;
-  const { graph, manifestFiles } = await crawlGraph(rootDir, seed);
-  const dot = graphToDot(graph);
-  const json = graphToJson(graph);
-  const svg = await renderSvg(dot, engine);
-  const html = emitHtml ? buildGraphViewerHtml({ title: `${seed} — Graph`, svg }) : undefined;
-  return { graph, manifestFiles, dot, json, svg, html };
+  const { rootDir, seed, engine = 'dot', emitHtml, log = () => {} } = opts;
+  try {
+    const { graph, manifestFiles } = await crawlGraph(rootDir, seed, log);
+    log('converting graph to DOT');
+    const dot = graphToDot(graph);
+    log(`rendering SVG with engine: ${engine}`);
+    const svg = await renderSvg(dot, engine);
+    const json = graphToJson(graph);
+    const html = emitHtml ? buildGraphViewerHtml({ title: `${seed} — Graph`, svg }) : undefined;
+    return { graph, manifestFiles, dot, json, svg, html };
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    log(`exploreGraph failed: ${msg}`);
+    if (err instanceof Error) {
+      err.message = `exploreGraph failed: ${err.message}`;
+    }
+    throw err;
+  }
 }
 

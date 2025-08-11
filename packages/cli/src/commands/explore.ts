@@ -59,6 +59,7 @@ export default class Explore extends Command {
       seed,
       engine: flags.engine as 'dot' | 'neato' | 'fdp' | 'sfdp' | 'circo' | 'twopi',
       emitHtml: useHtmlViewer,
+      log: this.log.bind(this),
     });
 
     await fs.mkdir(outDir, { recursive: true });

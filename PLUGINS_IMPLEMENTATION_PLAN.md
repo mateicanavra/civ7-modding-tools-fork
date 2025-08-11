@@ -118,4 +118,5 @@ Future phases (deferred)
   - Implemented `graphToDot`, `graphToJson`, `buildGraphViewerHtml`, `renderSvg`.
   - Extracted crawler/indexer from CLI into the plugin; CLI `render`, `crawl`, and `explore` are thin wrappers.
   - Added `crawlGraph` and `exploreGraph` pipelines under `src/pipelines` so CLI delegates all graph logic.
+  - Added structured error handling and optional logging to graph pipelines.
   - Future: add unit tests for graph export edge cases and engine selection.
