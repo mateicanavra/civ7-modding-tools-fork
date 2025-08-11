@@ -1,0 +1,71 @@
+name: Publish Packages
+
+on:
+  push:
+    tags:
+      - "v*.*.*"      # publish both packages
+      - "sdk-v*.*.*"  # publish SDK only
+      - "cli-v*.*.*"  # publish CLI only
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: "https://registry.npmjs.org"
+          scope: "@civ7"
+
+      - name: Enable Corepack and pin pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@10.10.0 --activate
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Test
+        run: pnpm test
+
+      - name: Typecheck (SDK)
+        run: pnpm -F @civ7/sdk run typecheck
+
+      - name: Typecheck (CLI)
+        run: pnpm -F @civ7/cli run typecheck
+
+      - name: Determine publish target
+        id: target
+        run: |
+          TAG=${GITHUB_REF_NAME}
+          if [[ $TAG == sdk-v* ]]; then echo "target=sdk" >> $GITHUB_OUTPUT; exit 0; fi
+          if [[ $TAG == cli-v* ]]; then echo "target=cli" >> $GITHUB_OUTPUT; exit 0; fi
+          echo "target=all" >> $GITHUB_OUTPUT
+
+      - name: Publish SDK
+        if: env.NPM_TOKEN != '' && (steps.target.outputs.target == 'sdk' || steps.target.outputs.target == 'all')
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm -F @civ7/sdk publish --access public
+
+      - name: Publish CLI
+        if: env.NPM_TOKEN != '' && (steps.target.outputs.target == 'cli' || steps.target.outputs.target == 'all')
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: pnpm -F @civ7/cli publish --access public

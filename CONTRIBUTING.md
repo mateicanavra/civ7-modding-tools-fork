@@ -16,6 +16,19 @@ pnpm build
 pnpm test
 ```
 
+### Developing the CLI (@civ7/cli)
+- Local dev (Bun):
+  ```bash
+  pnpm -F @civ7/cli dev
+  ```
+- Global link (Node):
+  ```bash
+  pnpm -F @civ7/cli run build
+  pnpm -F @civ7/cli link --global
+  civ7 --help
+  ```
+These are independent; local dev runs source via Bun; global link runs installed binary.
+
 ### Workspace apps/packages
 - Docs (Docsify, Bun-first):
   ```bash
@@ -49,8 +62,34 @@ pnpm test
 - Playground: generated content remains under its app directory
 
 ## Publish readiness (Phase 9)
-- SDK: `pnpm -F @civ7/sdk pack`
+- SDK: `pnpm -F @civ7/sdk pack` (validation only; do not commit `.tgz`)
 - CLI: `pnpm -F @civ7/cli run build && pnpm -F @civ7/cli link --global && civ7 --help`
+
+### Publishing via tags (CI)
+Prerequisite: In GitHub → Settings → Secrets and variables → Actions, add secret `NPM_TOKEN` (npm automation token with publish permission).
+
+From the repo root, create and push one of the following tags:
+
+```bash
+# Publish both SDK and CLI
+git tag vX.Y.Z && git push origin vX.Y.Z
+
+# Publish only SDK
+git tag sdk-vX.Y.Z && git push origin sdk-vX.Y.Z
+
+# Publish only CLI
+git tag cli-vX.Y.Z && git push origin cli-vX.Y.Z
+```
+
+The `Publish Packages` workflow will build, lint, test, typecheck, then publish the targeted package(s). If `NPM_TOKEN` is missing, the publish steps are skipped.
+
+### Local publish (optional)
+From repo root:
+```bash
+pnpm publish:sdk   # publish SDK
+pnpm publish:cli   # publish CLI
+pnpm publish:all   # SDK then CLI
+```
 
 ## Coding style
 - 2-space indentation (see `.editorconfig`)

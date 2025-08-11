@@ -7,13 +7,17 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
+    "cli": "pnpm -F @civ7/cli dev",
     "lint": "turbo run lint",
     "test": "vitest run",
     "test:ui": "vitest --ui",
     "setup:corepack": "corepack enable && corepack prepare pnpm@10.10.0 --activate",
     "docs-dev": "turbo run dev --filter @civ7/docs",
     "clean": "turbo run clean",
-    "unzip-civ": "node packages/cli/dist/bin/run.js unzip"
+    "unzip-civ": "node packages/cli/dist/bin/run.js unzip",
+    "publish:sdk": "pnpm -F @civ7/sdk publish --access public",
+    "publish:cli": "pnpm -F @civ7/cli publish --access public",
+    "publish:all": "pnpm publish:sdk && pnpm publish:cli"
   },
   "workspaces": [
     "apps/*",
