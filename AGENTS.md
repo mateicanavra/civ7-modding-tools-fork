@@ -23,3 +23,4 @@
 
 ## Task tracking
 - See `TASKS.md` for outstanding follow-up items.
+- Past planning documents are archived under `.ai/archive/plans/`.

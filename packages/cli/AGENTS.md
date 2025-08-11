@@ -18,7 +18,7 @@ This document orients AI agents and contributors to the `@civ7-modding/cli` pack
 - **Language**: TypeScript (strict), `tsc` build to CommonJS
 - **Graph rendering**: `@hpcc-js/wasm` (Graphviz compiled to WebAssembly)
 - **XML parsing**: `fast-xml-parser`
-- **JSONC config**: `jsonc-parser`
+- **Configuration**: `@civ7/config` (JSONC via `jsonc-parser`)
 
 ### Commands (high level)
 
@@ -69,13 +69,12 @@ Tip: All commands support `--help` via oclif.
 
 ```jsonc
 {
-  "unzip": {
-    "extract_path": "/absolute/path/to/resources" // used as XML root if not overridden
+  "inputs": {
+    "installDir": "/absolute/path/to/resources"
   },
-  "zip": {
-    "src_path": "/absolute/path/to/resources",
-    "include": ["**/*.xml"],
-    "exclude": ["**/*.bak"]
+  "outputs": {
+    "unzip": { "dir": "resources" }, // used as XML root if not overridden
+    "zip": { "dir": "archives", "name": "civ7-resources.zip" }
   }
 }
 ```
@@ -164,7 +163,7 @@ Tip: All commands support `--help` via oclif.
 
 ### Troubleshooting
 
-- “Could not determine XML root directory”: provide `--root` or define `unzip.extract_path` in `civ.config.jsonc`.
+- “Could not determine XML root directory”: provide `--root` or define `outputs.unzip.dir` in `civ.config.jsonc`.
 - DOT too large for `--openOnline`: increase `--maxUrlLength` or use local HTML viewer.
 - Nothing renders: verify seed exists in indexed XML (`crawl` should log output folder with generated files).
 

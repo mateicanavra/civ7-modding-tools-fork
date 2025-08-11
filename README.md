@@ -23,7 +23,7 @@ civ7-modding-tools/
 ├── packages/
 │   ├── sdk/              # TypeScript SDK for mod generation
 │   ├── cli/              # Command-line tools (oclif)
-│   ├── config/           # Shared config/path resolution (lib)
+│   ├── config/           # Shared config/path resolution (lib + JSON schema)
 │   └── plugins/
 │       ├── plugin-files/ # Programmatic zip/unzip library (consumed by CLI/docs)
 │       └── plugin-graph/ # Graph crawl/render library (consumed by CLI)

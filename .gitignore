@@ -48,4 +48,6 @@ Thumbs.db
 .turbo/
 
 # AI-generated artifacts and archives
-.ai/
+.ai/*
+!.ai/archive/
+!.ai/archive/**

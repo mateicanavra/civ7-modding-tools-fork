@@ -142,10 +142,10 @@ Notes:
 
 ### Current behavior (from code) vs proposed
 - Zip/unzip paths come from `civ.config.jsonc` per profile (see `packages/cli/src/commands/zip.ts`, `unzip.ts`). In this repo’s config:
-  - default: `zip.zip_path = "docs/civ7-official/civ7-official-resources.zip"`, `unzip.extract_path = "docs/civ7-official/resources"`
-  - full: `zip_path = "docs/civ7-official/civ7-official-resources-full.zip"`, `extract_path = "docs/civ7-official/resources-full"`
-  - assets: `zip_path = "docs/civ7-official/civ7-official-resources-assets.zip"`, `extract_path = "docs/civ7-official/resources-assets"`
-- Root (XML) for crawler/explore resolves from `unzip.extract_path` or `--root` (see `resolveRootFromConfigOrFlag`), and explore/crawl default outputs are `out/<seed>` (see `resolveOutDir`).
+  - default: `outputs.zip.dir = "archives"`, `outputs.unzip.dir = "resources"`
+  - full: `outputs.zip.dir = "archives"`, `outputs.unzip.dir = "resources-full"`
+  - assets: `outputs.zip.dir = "archives"`, `outputs.unzip.dir = "resources-assets"`
+- Root (XML) for crawler/explore resolves from `outputs.unzip.dir` or `--root` (see `resolveRootFromConfigOrFlag`), and explore/crawl default outputs are `out/<seed>` (see `resolveGraphOutDir`).
 - Proposed change keeps SDK pure, adds CLI `OutputResolver`, and moves defaults under `.civ7/` to avoid repo‑root pollution; existing config remains valid until we switch.
 
 ### Practical Reasons (this repo)

@@ -2,8 +2,7 @@ import { Args, Command, Flags } from "@oclif/core";
 import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import * as fssync from "node:fs";
-import { parse } from "jsonc-parser";
-import { expandPath, findConfig, findProjectRoot } from "../utils";
+import { expandPath, findProjectRoot, resolveRootFromConfigOrFlag } from "../utils";
 
 export default class Slice extends Command {
   static id = "slice";
@@ -33,20 +32,15 @@ preserving relative directory structure.
     const { args, flags } = await this.parse(Slice);
     const projectRoot = findProjectRoot(process.cwd());
 
-    // Resolve root from config or flag
-    let rootFromConfig: string | undefined;
-    const configPath = findConfig(projectRoot, flags.config);
-    if (configPath) {
-      const cfgRaw = await fs.readFile(configPath, "utf8");
-      const cfg: Record<string, any> = parse(cfgRaw);
-      const profileCfg = cfg[flags.profile!];
-      if (profileCfg?.unzip?.extract_path) {
-        rootFromConfig = path.resolve(projectRoot, expandPath(profileCfg.unzip.extract_path));
-      }
+    const root = await resolveRootFromConfigOrFlag({
+      projectRoot,
+      profile: flags.profile!,
+      flagsRoot: flags.root,
+      flagsConfig: flags.config,
+    });
+    if (!root) {
+      this.error("Could not determine root. Provide --root or define 'outputs.unzip.dir' in the config file.");
     }
-
-    const root = path.resolve(projectRoot, expandPath(flags.root || rootFromConfig || ""));
-    if (!root) this.error("Could not determine root. Provide --root or define unzip.extract_path in config.");
     if (!fssync.existsSync(root)) this.error(`Root not found: ${root}`);
 
     const manifestPath = path.resolve(projectRoot, expandPath(args.manifest));
