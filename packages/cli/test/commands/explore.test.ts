@@ -16,6 +16,7 @@ vi.mock('node:fs', () => ({
   promises: {
     mkdir: vi.fn(async () => {}),
     writeFile: vi.fn(async () => {}),
+    readFile: vi.fn(async () => '{}'),
   },
 }));
 

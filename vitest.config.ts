@@ -15,6 +15,11 @@ export default defineConfig({
       },
       {
         extends: true,
+        root: r('packages/config'),
+        test: { name: 'config' }
+      },
+      {
+        extends: true,
         root: r('packages/sdk'),
         test: { name: 'sdk' }
       },
