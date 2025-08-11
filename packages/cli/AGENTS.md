@@ -9,6 +9,7 @@ This document orients AI agents and contributors to the `@civ7-modding/cli` pack
   - Produce a dependency graph in JSON and DOT, plus a file `manifest.txt` for slicing.
   - Render DOT to SVG via WebAssembly Graphviz and optionally emit an interactive HTML viewer.
   - Zip/unzip resource archives based on profiles defined in `civ.config.jsonc`.
+  - Core crawl/render logic lives in `@civ7/plugin-graph` (`crawlGraph`, `exploreGraph`); file archiving lives in `@civ7/plugin-files`. The CLI focuses on argument parsing, configuration, and I/O, passing its logger to plugin workflows for progress messages.
 
 ### Tech stack
 
@@ -16,8 +17,9 @@ This document orients AI agents and contributors to the `@civ7-modding/cli` pack
 - **CLI framework**: `@oclif/core`
 - **Language**: TypeScript (strict), `tsc` build to CommonJS
 - **Graph rendering**: `@hpcc-js/wasm` (Graphviz compiled to WebAssembly)
-- **XML parsing**: `fast-xml-parser`
-- **JSONC config**: `jsonc-parser`
+- **Graph logic & XML parsing**: `@civ7/plugin-graph` (uses `fast-xml-parser` internally)
+- **Configuration**: `@civ7/config` (JSONC via `jsonc-parser`)
+ - **Bundled plugins**: `@oclif/plugin-help`
 
 ### Commands (high level)
 
@@ -68,13 +70,12 @@ Tip: All commands support `--help` via oclif.
 
 ```jsonc
 {
-  "unzip": {
-    "extract_path": "/absolute/path/to/resources" // used as XML root if not overridden
+  "inputs": {
+    "installDir": "/absolute/path/to/resources"
   },
-  "zip": {
-    "src_path": "/absolute/path/to/resources",
-    "include": ["**/*.xml"],
-    "exclude": ["**/*.bak"]
+  "outputs": {
+    "unzip": { "dir": "resources" }, // used as XML root if not overridden
+    "zip": { "dir": "archives", "name": "civ7-resources.zip" }
   }
 }
 ```
@@ -96,19 +97,9 @@ Tip: All commands support `--help` via oclif.
 
 ### Code structure (key paths)
 
-- `src/commands/` — oclif commands
-  - `crawl.ts`, `explore.ts`, `render.ts`, `slice.ts`, `zip.ts`, `unzip.ts`
-- `src/tools/crawler/` — XML-first crawler
-  - `xml-indexer.ts` — builds an index of tables/rows from XML files
-  - `expanders.ts` — table‑specific edge expansion rules
-  - `queries.ts` — lookups like getByPk
-  - `crawler.ts` — BFS traversal, manifest derivation
-  - `seed.ts` — parse seed formats (`Table:ID`, or ID with known prefixes)
-  - `types.ts`, `constants.ts`, `index.ts`
-- `src/tools/graph/` — graph utilities
-  - `export.ts` — `graphToJson`, `graphToDot`
-  - `viewer.ts` — minimal HTML wrapper for SVG with pan/zoom
-- `src/utils/cli-helpers.ts` — project root resolution, path helpers
+- `src/commands/` — oclif commands (`crawl`, `explore`, `render`, `slice`, `zip`, `unzip`)
+- `src/utils/` — config and path resolution helpers
+ - Use `@civ7/plugin-graph` for graph workflows (`crawlGraph`, `exploreGraph`); archive helpers are in `@civ7/plugin-files`.
 
 ### Conceptual model and traversal
 
@@ -142,11 +133,12 @@ Tip: All commands support `--help` via oclif.
 
 ### Testing
 
-- A minimal [Vitest](https://vitest.dev/) suite lives in `test/`. Run `pnpm --filter @civ7/cli test`.
+- A minimal [Vitest](https://vitest.dev/) suite lives in `test/` (`test/commands` for CLI surfaces, `test/utils` for helpers). Run `pnpm --filter @civ7/cli test`.
 - Recommended strategy for expanding coverage:
   - Unit‑test seed parsing, index construction, and expander rules.
   - Snapshot DOT/JSON for a small sample seed.
   - CLI smoke tests via `bin/run.js` with fixtures.
+  - Integration tests ensure `crawl` and `explore` commands call `@civ7/plugin-graph` workflows.
 
 ### CI/CD and publishing
 
@@ -159,9 +151,9 @@ Tip: All commands support `--help` via oclif.
 ### Extending the crawler
 
 - To add new relationships:
-  1. Update or add expander functions in `src/tools/crawler/expanders.ts`.
-  2. Adjust types in `types.ts` if new node/edge metadata is needed.
-  3. Optionally update `graphToDot` to style new tables/edges.
+1. Update or add expander functions in `@civ7/plugin-graph/src/crawler/expanders.ts`.
+2. Adjust types in `@civ7/plugin-graph/src/types.ts` if new node/edge metadata is needed.
+3. Optionally update `graphToDot` in `@civ7/plugin-graph/src/graph.ts` to style new tables/edges.
 
 ### Adding a new command
 
@@ -172,15 +164,15 @@ Tip: All commands support `--help` via oclif.
 
 ### Troubleshooting
 
-- “Could not determine XML root directory”: provide `--root` or define `unzip.extract_path` in `civ.config.jsonc`.
+- “Could not determine XML root directory”: provide `--root` or define `outputs.unzip.dir` in `civ.config.jsonc`.
 - DOT too large for `--openOnline`: increase `--maxUrlLength` or use local HTML viewer.
 - Nothing renders: verify seed exists in indexed XML (`crawl` should log output folder with generated files).
 
 ### References
 
 - Commands: see `src/commands/*`
-- Crawler: see `src/tools/crawler/*`
-- Graph utilities: see `src/tools/graph/*`
+- Crawler: see `@civ7/plugin-graph/src/crawler/*`
+- Graph utilities: see `@civ7/plugin-graph/src/graph.ts` and `viewer.ts`
 - Manifest: `oclif.manifest.json` (generated)
 
 Maintainers keep a feature tracker in `FEATURES.md` for roadmap and implemented items.

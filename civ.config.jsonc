@@ -1,5 +1,5 @@
 {
-    "$schema": "./packages/cli/civ.config.schema.json",
+    "$schema": "./packages/config/schema/civ.config.schema.json",
     "inputs": {
         // "installDir": "~/Library/Application Support/Steam/steamapps/common/Sid Meier's Civilization VII/CivilizationVII.app/Contents/Resources"
     },

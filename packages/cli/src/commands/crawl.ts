@@ -2,8 +2,7 @@ import { Args, Command, Flags } from "@oclif/core";
 import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import * as fssync from "node:fs";
-import { crawler } from "@civ7/plugin-graph";
-import { graphToJson, graphToDot } from "@civ7/plugin-graph";
+import { crawlGraph, graphToJson, graphToDot } from "@civ7/plugin-graph";
 import { loadConfig, resolveGraphOutDir, findProjectRoot, resolveRootFromConfigOrFlag } from "../utils";
 
 export default class Crawl extends Command {
@@ -50,11 +49,7 @@ to discover related rows. It writes a graph (JSON + DOT) and a manifest of XML f
         const seed = args.seed;
         const outDir = resolveGraphOutDir({ projectRoot, profile: flags.profile }, cfg.raw ?? {}, seed, args.outDir);
 
-        const idx = await crawler.buildIndexFromXml(root);
-        const parsedSeed = crawler.parseSeed(seed);
-        if (!parsedSeed) this.error(`Could not parse seed: ${seed}`);
-
-        const { graph, manifestFiles } = crawler.crawl(idx, parsedSeed!);
+        const { graph, manifestFiles } = await crawlGraph(root, seed, this.log.bind(this));
 
         await fs.mkdir(outDir, { recursive: true });
         await fs.writeFile(path.join(outDir, "graph.json"), JSON.stringify(graphToJson(graph), null, 2), "utf8");

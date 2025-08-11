@@ -32,6 +32,11 @@ export default defineConfig({
         extends: true,
         root: r('packages/plugins/plugin-files'),
         test: { name: 'plugin-files' }
+      },
+      {
+        extends: true,
+        root: r('packages/plugins/plugin-graph'),
+        test: { name: 'plugin-graph' }
       }
     ]
   }

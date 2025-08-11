@@ -2,8 +2,7 @@ import { Args, Command, Flags } from "@oclif/core";
 import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import * as fssync from "node:fs";
-import { crawler } from "@civ7/plugin-graph";
-import { graphToDot, graphToJson, buildGraphViewerHtml, renderSvg } from "@civ7/plugin-graph";
+import { exploreGraph } from "@civ7/plugin-graph";
 import { loadConfig, resolveGraphOutDir, findProjectRoot, resolveRootFromConfigOrFlag } from "../utils";
 import { spawn } from "node:child_process";
 import * as http from "node:http";
@@ -54,49 +53,42 @@ export default class Explore extends Command {
     }
     const outDir = resolveGraphOutDir({ projectRoot, profile: flags.profile }, cfg.raw ?? {}, seed, outDirArg);
 
-    // Crawl
-    const idx = await crawler.buildIndexFromXml(root);
-    const parsedSeed = crawler.parseSeed(seed);
-    if (!parsedSeed) this.error(`Could not parse seed: ${seed}`);
-    const { graph, manifestFiles } = crawler.crawl(idx, parsedSeed);
+    const useHtmlViewer = Boolean((flags as any)["viz.html"]) || Boolean((flags as any).vizHtml);
+    const { dot, json, svg, html, manifestFiles } = await exploreGraph({
+      rootDir: root,
+      seed,
+      engine: flags.engine as 'dot' | 'neato' | 'fdp' | 'sfdp' | 'circo' | 'twopi',
+      emitHtml: useHtmlViewer,
+      log: this.log.bind(this),
+    });
 
-    // Persist graph
     await fs.mkdir(outDir, { recursive: true });
-    const dot = graphToDot(graph);
-    await fs.writeFile(path.join(outDir, "graph.json"), JSON.stringify(graphToJson(graph), null, 2), "utf8");
+    await fs.writeFile(path.join(outDir, "graph.json"), JSON.stringify(json, null, 2), "utf8");
     await fs.writeFile(path.join(outDir, "graph.dot"), dot, "utf8");
     await fs.writeFile(path.join(outDir, "manifest.txt"), manifestFiles.join("\n"), "utf8");
 
-    // Render SVG
-    const svg = await renderSvg(dot, flags.engine as 'dot' | 'neato' | 'fdp' | 'sfdp' | 'circo' | 'twopi');
     const svgPath = path.join(outDir, "graph.svg");
     await fs.writeFile(svgPath, svg, "utf8");
 
-    // Optionally build HTML viewer
     let htmlPath: string | null = null;
-    const useHtmlViewer = Boolean((flags as any)["viz.html"]) || Boolean((flags as any).vizHtml);
-    if (useHtmlViewer) {
-      const html = buildGraphViewerHtml({ title: `${seed} — Graph`, svg });
+    if (html) {
       htmlPath = path.join(outDir, "graph.html");
       await fs.writeFile(htmlPath, html, "utf8");
     }
 
     this.log(`Explore pipeline complete. Output: ${outDir}`);
 
-    // Open visualization(s) only in interactive terminals (avoid CI/pipes)
     const shouldOpen = Boolean(flags.open) && Boolean(process.stdout.isTTY) && !process.env.CI;
     if (useHtmlViewer) {
       if (flags.serve) {
         const { url } = await this.startStaticServer(outDir, flags.port!);
         await this.openUrl(`${url}/graph.html`);
         this.log(`Serving ${outDir} at ${url} (Ctrl+C to stop)`);
-        // Keep process alive while server runs
         await new Promise(() => {});
       } else if (shouldOpen && htmlPath) {
         await this.openInBrowser(htmlPath);
       }
     } else if (shouldOpen) {
-      // Default: open SVG
       await this.openInBrowser(svgPath);
     }
     if (flags.openOnline) {

@@ -6,7 +6,7 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": ["dist", "schema"],
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -17,6 +17,7 @@
   "scripts": {
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
+    "check": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint .",
     "clean": "rimraf dist"
   },
