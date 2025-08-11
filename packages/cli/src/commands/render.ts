@@ -1,7 +1,7 @@
 import { Args, Command, Flags } from "@oclif/core";
 import { promises as fs } from "node:fs";
 import * as path from "node:path";
-import { Graphviz } from "@hpcc-js/wasm";
+import { renderSvg } from "@civ7/plugin-graph";
 import * as fssync from "node:fs";
 import { findProjectRoot } from "../utils";
 
@@ -51,8 +51,8 @@ Renders a Graphviz DOT file to SVG using a WebAssembly Graphviz engine.
       : path.resolve(path.dirname(inputPath), 'graph.svg');
 
     const dot = await fs.readFile(inputPath, "utf8");
-    const gv = await Graphviz.load();
-    const svg = gv.layout(dot, flags.format!, flags.engine!);
+    const engine = flags.engine as 'dot' | 'neato' | 'fdp' | 'sfdp' | 'circo' | 'twopi';
+    const svg = await renderSvg(dot, engine);
 
     await fs.mkdir(path.dirname(outputPath), { recursive: true });
     await fs.writeFile(outputPath, svg, "utf8");
