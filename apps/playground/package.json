@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "bun run src/build.ts",
     "build": "bun run src/build.ts",
+    "check": "tsc -p tsconfig.json --noEmit",
     "clean": "rimraf dist",
     "test": "vitest run --project playground"
   },

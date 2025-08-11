@@ -3,6 +3,7 @@
   "tasks": {
     "build": { "dependsOn": ["^build"], "outputs": ["dist/**", "types/**", "example-generated-mod/**"] },
     "dev": { "cache": false, "persistent": true },
+    "check": { "dependsOn": ["^check"], "outputs": [] },
     "lint": {},
     "test": { "dependsOn": ["^build"] },
     "clean": {}
