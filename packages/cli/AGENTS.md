@@ -19,7 +19,7 @@ This document orients AI agents and contributors to the `@civ7-modding/cli` pack
 - **Graph rendering**: `@hpcc-js/wasm` (Graphviz compiled to WebAssembly)
 - **Graph logic & XML parsing**: `@civ7/plugin-graph` (uses `fast-xml-parser` internally)
 - **Configuration**: `@civ7/config` (JSONC via `jsonc-parser`)
-- **Bundled plugins**: `@oclif/plugin-help`, `@oclif/plugin-plugins` (suppresses `@oclif/core` warnings)
+ - **Bundled plugins**: `@oclif/plugin-help`
 
 ### Commands (high level)
 

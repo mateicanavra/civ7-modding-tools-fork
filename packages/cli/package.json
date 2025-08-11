@@ -34,7 +34,6 @@
     "@civ7/config": "workspace:*",
     "@oclif/core": "^4.5.2",
     "@oclif/plugin-help": "^6.2.32",
-    "@oclif/plugin-plugins": "^5.4.46",
     "tslib": "^2.8.1"
   },
   "devDependencies": {
@@ -53,8 +52,7 @@
     "dirname": "cli",
     "commands": "./dist/commands",
     "plugins": [
-      "@oclif/plugin-help",
-      "@oclif/plugin-plugins"
+      "@oclif/plugin-help"
     ],
     "topicSeparator": " "
   },
