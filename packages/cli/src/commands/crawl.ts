@@ -3,7 +3,7 @@ import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import * as fssync from "node:fs";
 import { buildIndexFromXml, parseSeed, crawl } from "../tools/crawler";
-import { graphToJson, graphToDot } from "../tools/graph";
+import { graphToJson, graphToDot } from "@civ7/plugin-graph";
 import { loadConfig, resolveGraphOutDir, findProjectRoot, resolveRootFromConfigOrFlag } from "../utils";
 
 export default class Crawl extends Command {

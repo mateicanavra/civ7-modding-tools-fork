@@ -2,9 +2,8 @@ import { Args, Command, Flags } from "@oclif/core";
 import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import * as fssync from "node:fs";
-import { Graphviz } from "@hpcc-js/wasm";
 import { buildIndexFromXml, crawl, parseSeed } from "../tools/crawler";
-import { graphToDot, graphToJson, buildGraphViewerHtml } from "../tools/graph";
+import { graphToDot, graphToJson, buildGraphViewerHtml, renderSvg } from "@civ7/plugin-graph";
 import { loadConfig, resolveGraphOutDir, findProjectRoot, resolveRootFromConfigOrFlag } from "../utils";
 import { spawn } from "node:child_process";
 import * as http from "node:http";
@@ -69,8 +68,7 @@ export default class Explore extends Command {
     await fs.writeFile(path.join(outDir, "manifest.txt"), manifestFiles.join("\n"), "utf8");
 
     // Render SVG
-    const gv = await Graphviz.load();
-    const svg = gv.layout(dot, "svg", flags.engine!);
+    const svg = await renderSvg(dot, flags.engine as 'dot' | 'neato' | 'fdp' | 'sfdp' | 'circo' | 'twopi');
     const svgPath = path.join(outDir, "graph.svg");
     await fs.writeFile(svgPath, svg, "utf8");
 

@@ -1,10 +1,10 @@
 import * as path from 'node:path';
-import { Graph, GraphEdge, GraphNode, NodeKey } from '../crawler/types';
+import { Graph, GraphEdge, GraphNode, NodeKey } from './types';
 
 export function graphToJson(g: Graph) {
   return {
-    nodes: Array.from(g.nodes.values()).map(n => ({ table: n.key.table, id: n.key.id, file: n.file, row: n.row })),
-    edges: g.edges.map(e => ({ from: `${e.from.table}:${e.from.id}`, to: `${e.to.table}:${e.to.id}`, label: e.label })),
+    nodes: Array.from(g.nodes.values()).map((n: GraphNode) => ({ table: n.key.table, id: n.key.id, file: n.file, row: n.row })),
+    edges: g.edges.map((e: GraphEdge) => ({ from: `${e.from.table}:${e.from.id}`, to: `${e.to.table}:${e.to.id}`, label: e.label })),
   };
 }
 
@@ -133,7 +133,7 @@ export function graphToDot(g: Graph): string {
       lines.push('      rank=same;');
       for (const nid of ids) {
         if (nid.startsWith('RSANCHOR_')) {
-          lines.push(`      "${nid}" [label="", shape=point, width=0.01, height=0.01, color="#1565c0"];`);
+          lines.push(`      "${nid}" [label="", shape=point, width=0.01, height=0.01, color=\"#1565c0\"];`);
         } else {
           lines.push(`      "${nid}";`);
         }
@@ -339,4 +339,5 @@ function edgeStyleAttrs(label?: string): string {
   if (label && /Type$/.test(label)) return 'color=\"#888888\", style=dotted, penwidth=1.0';
   return 'color=\"#777777\", style=solid, penwidth=1.1';
 }
+
 

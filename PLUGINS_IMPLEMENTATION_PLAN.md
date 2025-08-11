@@ -115,4 +115,7 @@ Future phases (deferred)
   - `@civ7/plugin-files` added and wired to CLI/docs.
   - Shared `tsconfig.plugins.json` and workspace updates.
   - Unit tests added for error handling; e2e validated via refresh/data and docs run.
-- Next: Phase 2 — Extract `@civ7/plugin-graph` (crawl/render/explore) into a lib, refactor CLI to call it, add minimal unit tests for arg/error paths.
+- Completed (partial): Phase 2 — `@civ7/plugin-graph`
+  - Implemented `graphToDot`, `graphToJson`, `buildGraphViewerHtml`, `renderSvg`.
+  - Refactored CLI: `render`, `crawl`, `explore` call plugin APIs; removed CLI `tools/graph/**`.
+  - Remaining: extract crawler/indexer from CLI into plugin; add unit tests for graph export edge cases and engine selection.

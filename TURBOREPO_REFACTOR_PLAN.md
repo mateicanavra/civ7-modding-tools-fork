@@ -14,7 +14,10 @@
 - ✅ Phase 8 (partial): Outputs Normalization & Config Refactor
 
 ### Next Immediate Step
-**Phase 8: Repo Cleanup & Contributor Docs** - Plugin structure introduced; finalize remaining tasks; add workspace-wide type checks.
+**Phase 8: Repo Cleanup & Contributor Docs**
+- Plugin structure introduced and expanded.
+- Finalize remaining tasks; add workspace-wide type checks.
+- Extract remaining crawler internals from CLI into the graph plugin and remove `packages/cli/src/tools/crawler/**`.
 
 ### Upcoming Phases (in order)
 1. Phase 8: Repo Cleanup & Contributor Docs
@@ -52,10 +55,11 @@
   - Root scripts differ from examples: repo uses `dev:docs` (not `docs:dev`), and root `test` runs `vitest run` (not `turbo run test`). Update examples/text to reflect current scripts or add a note about acceptable variants.
   - Turbo config examples should use `"tasks"` (Turbo v2) instead of `"pipeline"`.
 
-- Phase 8.1 — Plugins scaffold: ✅ **Completed**.
+- Phase 8.1 — Plugins scaffold: ✅ **Completed/Expanded**.
   - Introduced `packages/plugins/plugin-files` with programmatic `zipResources`/`unzipResources` APIs (typed, no logging) consuming `@civ7/config`.
   - CLI `zip`/`unzip` now call the plugin lib (thin command surface, same UX).
   - Docs sync optimized: uses plugin unzip from central archive (fallback to copy if archive missing).
+  - Introduced `packages/plugins/plugin-graph` with programmatic APIs: `graphToDot`, `graphToJson`, `buildGraphViewerHtml`, `renderSvg` (Graphviz WASM). CLI `render`, `crawl`, and `explore` now use these APIs for graph export/render/viewer. Remaining: extract crawler/indexer from CLI to the plugin.
 - Phase 9 — Publication readiness: Implemented in repo.
   - Doc updates: mark Phase 9 checklist items as completed (SDK/CLI manifests, `files`, `bin`, `prepublishOnly`, `engines`) or move this phase to Completed.
 

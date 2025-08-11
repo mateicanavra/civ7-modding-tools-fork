@@ -34,7 +34,6 @@
     "@civ7/config": "workspace:*",
     "@oclif/core": "^4.5.2",
     "@oclif/plugin-help": "^6.2.32",
-    "@hpcc-js/wasm": "^2.25.0",
     "fast-xml-parser": "^5.2.5",
     "jsonc-parser": "^3.3.1",
     "tslib": "^2.8.1"
