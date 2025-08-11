@@ -2,7 +2,8 @@ import { Args, Command, Flags } from "@oclif/core";
 import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import * as fssync from "node:fs";
-import { expandPath, findProjectRoot, resolveRootFromConfigOrFlag } from "../utils";
+import { expandPath, findProjectRoot } from "@civ7/config";
+import { resolveRootFromConfigOrFlag } from "../utils";
 
 export default class Slice extends Command {
   static id = "slice";

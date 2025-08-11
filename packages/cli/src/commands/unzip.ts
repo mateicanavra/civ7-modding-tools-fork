@@ -1,5 +1,5 @@
 import { Args, Command, Flags } from "@oclif/core";
-import { loadConfig, resolveUnzipDir, resolveZipPath, findProjectRoot } from "../utils";
+import { findProjectRoot, loadConfig, resolveUnzipDir, resolveZipPath } from "@civ7/config";
 import { unzipResources } from "@civ7/plugin-files";
 
 export default class Unzip extends Command {

@@ -3,7 +3,7 @@ import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import { renderSvg } from "@civ7/plugin-graph";
 import * as fssync from "node:fs";
-import { findProjectRoot } from "../utils";
+import { findProjectRoot } from "@civ7/config";
 
 export default class Render extends Command {
   static id = "render";

@@ -1,4 +1,4 @@
-import { expandPath } from '../../src/utils/resolver';
+import { expandPath } from '@civ7/config';
 import { homedir } from 'node:os';
 import { join } from 'node:path';
 import { expect, test } from 'vitest';
