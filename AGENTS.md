@@ -24,6 +24,9 @@
 - Use `pnpm test` to execute the Vitest suites across all workspaces and ensure basic smoke tests pass.
 - Use `pnpm test:ui` to open the interactive Vitest UI when visualizing test runs.
 
+### Repository and PR policy
+- We now push branches and open pull requests exclusively against the `fork` remote (`mateicanavra/civ7-modding-tools-fork`). Do not target the original `origin` upstream, as it has diverged and no longer receives updates.
+
 ## Task tracking
 - See `TASKS.md` for outstanding follow-up items.
 - Past planning documents are archived under `.ai/archive/plans/`.
