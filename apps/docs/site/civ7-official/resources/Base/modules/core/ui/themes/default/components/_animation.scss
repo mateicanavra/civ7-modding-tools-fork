@@ -1,0 +1,95 @@
+@use '../animations';
+@use '../theme' as *;
+
+
+/** Animation tinkering *********************************************************************/
+
+.fadeIn {
+	animation: fadeIn 1s;
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+
+.pulse-warn {
+	animation-timing-function: animations.$quadInOut;
+	animation: pulseWarn 2s infinite;
+}
+
+@keyframes pulseWarn {
+
+	0%,
+	100% {
+		color: color("negative-light");
+		opacity: 1;
+	}
+
+	50% {
+		color: color("accent-2");
+		opacity: 1;
+	}
+}
+
+
+.spin {
+	animation-timing-function: animations.$quadInOut;
+	animation: spin 3s infinite;
+}
+
+@keyframes spin {
+	0% {
+
+		transform: rotate(0deg);
+	}
+
+	20% {
+		transform: rotate(0deg);
+	}
+
+	50% {
+		transform: rotate(180deg);
+	}
+
+	70% {
+		transform: rotate(180deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.sand-drip {
+	animation-timing-function: animations.$quadInOut;
+	animation: sand-drip 3s infinite;
+}
+
+@keyframes sand-drip {
+	0% {
+		top: 2%; //hold
+	}
+
+	20% {
+		top: 50%; //begin flip
+	}
+
+	50% {
+		top: 50%; //end flip
+	}
+
+	70% {
+		top: 2%; // hold
+	}
+
+	100% {
+		top: 2%; //hold flip
+	}
+}

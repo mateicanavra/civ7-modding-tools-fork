@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="MEMENTO_TECUMSEH_POTESKWATE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_SUZERAIN">
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<String context="Description">LOC_MEMENTO_TECUMSEH_POTESKWATE_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_TECUMSEH_WAMPUM_BELT_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_SUZERAIN">
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<String context="Description">LOC_MEMENTO_TECUMSEH_WAMPUM_BELT_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_TECUMSEH_WARCLUB_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ADJUST_UNIT_SUZERAIN_OF_COMBAT_MODIFIER">
+		<Argument name="Amount">1</Argument>
+		<String context="Preview">LOC_MEMENTO_TECUMSEH_WARCLUB_COMBAT_PREVIEW</String>
+	</Modifier>
+</GameEffects>

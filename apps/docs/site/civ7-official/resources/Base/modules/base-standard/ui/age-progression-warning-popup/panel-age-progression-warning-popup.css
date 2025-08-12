@@ -1,0 +1,12 @@
+/* DO NOT EDIT */
+/* Generated from panel-age-progression-warning-popup.scss */
+panel-age-progression-warning-popup {
+	width: 26.6111111111rem;
+}
+
+.progress-warning__icon {
+	border-image-source: url("blp:countdown_icon");
+	border-image-slice: 11 11 11 11 fill;
+	border-image-width: 0.6111111111rem;
+	margin-right: 0.1666666667rem;
+}

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==============================================================	-->
+	<!--	Legend Unlocks												-->
+	<!-- ==============================================================	-->
+	<!-- ==================================================	-->
+	<!--	Cultural Attribute								-->
+	<!-- ==================================================	-->
+
+	<!-- ==================================================	-->
+	<!--	Diplomatic Attribute							-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_NAPOLEON_L1_01" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_RELATIONSHIP_GAIN_FROM_EVENT">
+		<Argument name="EventType">GRIEVANCE_FROM_SANCTION</Argument>
+		<Argument name="Percent">-25</Argument>
+		<Argument name="Tooltip">LOC_TREE_ATTRIBUTE_POLITICAL</Argument>
+		<String context="Description">LOC_MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_NAPOLEON_L1_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_NAPOLEON_L1_02" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_RELATIONSHIP_GAIN_FROM_EVENT">
+		<Argument name="EventType">GRIEVANCE_FROM_REJECTED_ENDEAVOR</Argument>
+		<Argument name="Percent">-25</Argument>
+		<Argument name="Tooltip">LOC_TREE_ATTRIBUTE_POLITICAL</Argument>
+	</Modifier>
+	<Modifier id="MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_NAPOLEON_L1_03" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_RELATIONSHIP_GAIN_FROM_EVENT">
+		<Argument name="EventType">FAVOR_FROM_ENDEAVOR</Argument>
+		<Argument name="Percent">25</Argument>
+		<Argument name="Tooltip">LOC_TREE_ATTRIBUTE_POLITICAL</Argument>
+	</Modifier>
+	<Modifier id="MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_NAPOLEON_L1_04" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_RELATIONSHIP_GAIN_FROM_EVENT">
+		<Argument name="EventType">FAVOR_FROM_SUPPORT</Argument>
+		<Argument name="Percent">25</Argument>
+		<Argument name="Tooltip">LOC_TREE_ATTRIBUTE_POLITICAL</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	Economic Attribute								-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_ATTRIBUTE_ECONOMIC_LEGEND_NAPOLEON_L2_01" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_ADJUST_CITY_TREASURE_FLEET_MOD">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Percent">25</Argument>
+		<Argument name="Tooltip">LOC_TREE_ATTRIBUTE_ECONOMIC</Argument>
+		<String context="Description">LOC_MOD_ATTRIBUTE_ECONOMIC_LEGEND_NAPOLEON_L2_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_ATTRIBUTE_ECONOMIC_LEGEND_NAPOLEON_L2_02" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_TRADE_YIELD">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Percent">25</Argument>
+		<Argument name="Tooltip">LOC_TREE_ATTRIBUTE_ECONOMIC</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	Expansionist Attribute							-->
+	<!-- ==================================================	-->
+
+	<!-- ==================================================	-->
+	<!--	Militaristic Attribute							-->
+	<!-- ==================================================	-->
+
+	<!-- ==================================================	-->
+	<!--	Scientific Attribute							-->
+	<!-- ==================================================	-->
+
+</GameEffects>

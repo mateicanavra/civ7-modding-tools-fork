@@ -1,0 +1,53 @@
+/* DO NOT EDIT */
+/* Generated from screen-tech-tree-chooser.scss */
+/**
+Based on Robert Penner's easing equations
+@url http://robertpenner.com/easing/
+**/
+.screen-tech-tree-chooser {
+	position: absolute;
+	top: 8.4444444444rem;
+	left: 1.3333333333rem;
+	bottom: 1.3333333333rem;
+	min-width: 23.2222222222rem;
+	pointer-events: auto;
+}
+@media (experience: mobile) {
+	.screen-tech-tree-chooser {
+		bottom: 0;
+		top: 3.0555555556rem;
+	}
+}
+.screen-tech-tree-chooser .tech-tree-currently-studying {
+	pointer-events: auto;
+	position: relative;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 0.4444444444rem;
+}
+.screen-tech-tree-chooser .tech-tree-currently-studying .tech-current__empty {
+	width: 100%;
+	min-height: 3.5555555556rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.screen-tech-tree-chooser .tech-tree-list {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+}
+
+.screen-tech-tree-chooser.hidden {
+	visibility: hidden;
+}
+
+.tech-chooser-container {
+	width: 100%;
+}
+.tech-chooser-container .fxs-scrollable {
+	padding-top: 0;
+	flex: 1 1 auto;
+}

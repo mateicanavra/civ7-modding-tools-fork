@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="GREATPERSON_RANDOM_TECH" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_PROGRESSION" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="SystemType">SYSTEM_TECH</Argument>
+		<Argument name="FreeProgressionType">FREE_PROGRESSION_NODE_ANY_UNLOCKED</Argument>
+		<String context="Summary">LOC_GREATPERSON_FREE_TECH</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_GOLD_RESOURCES" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_UNIT_YIELD_PER_RESOURCES_IN_CITY" run-once="true" permanent="true">
+		<Argument name="Amount" type="ScaleByGameSpeed">50</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_MENAGERIE" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_GRANT_FREE_BUILDING_IGNORE" run-once="true" permanent="true">
+		<Argument name="ConstructibleType">BUILDING_MENAGERIE</Argument>
+		<String context="Summary">LOC_GREATPERSON_MENAGERIE</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_MENAGERIE_SMALL_HAPPINESS" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+		<Argument name="ConstructibleType">BUILDING_MENAGERIE</Argument>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Summary">LOC_GREATPERSON_MENAGERIE_SMALL_HAPPINESS</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_HOSPITAL" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_GRANT_FREE_BUILDING_IGNORE" run-once="true" permanent="true">
+		<Argument name="ConstructibleType">BUILDING_HOSPITAL</Argument>
+		<String context="Summary">LOC_GREATPERSON_HOSPITAL</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_HOSPITAL_SMALL_FOOD" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+		<Argument name="ConstructibleType">BUILDING_HOSPITAL</Argument>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Summary">LOC_GREATPERSON_HOSPITALSMALL_FOOD</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_OBSERVATORY" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_GRANT_FREE_BUILDING_IGNORE" run-once="true" permanent="true">
+		<Argument name="ConstructibleType">BUILDING_OBSERVATORY</Argument>
+		<String context="Summary">LOC_GREATPERSON_OBSERVATORY</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_OBSERVATORY_SMALL_SCIENCE" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+		<Argument name="ConstructibleType">BUILDING_OBSERVATORY</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Summary">LOC_GREATPERSON_OBSERVATORY_SMALL_SCIENCE</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_DIPLO_TOKENS" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_DIPLOMATIC_ENVOYS" run-once="true" permanent="true">
+		<Argument name="Amount">2</Argument>
+		<String context="Summary">LOC_GREATPERSON_DIPLO_TOKENS</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_TRADITION_SLOT" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_TRADITION_SLOTS" run-once="true" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<String context="Summary">LOC_GREATPERSON_TRADITION_SLOT</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_ULEMA_SCIENCE" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+		<Argument name="ConstructibleType">BUILDING_MOSQUE, BUILDING_MADRASA</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount">3</Argument>
+		<String context="Summary">LOC_GREATPERSON_ULEMA_SCIENCE</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_GOLD_NATURAL_WONDER" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_UNIT_YIELD_ADJACENT_NATURAL_WONDERS" run-once="true" permanent="true">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameSpeed">200</Argument>
+		<String context="Summary">LOC_GREATPERSON_GOLD_NATURAL_WONDER</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_GOLD_RIVER" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_UNIT_YIELD_RIVER_LENGTH" run-once="true" permanent="true">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameSpeed">50</Argument>
+		<String context="Summary">LOC_GREATPERSON_GOLD_RIVER</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_INFLUENCE_RIVER" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_UNIT_YIELD_RIVER_LENGTH" run-once="true" permanent="true">
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="Amount" type="ScaleByGameSpeed">50</Argument>
+		<String context="Summary">LOC_GREATPERSON_DIPLOMACY_RIVER</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_FLEET_COMMANDER_SIGHT" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_SIGHT" run-once="true" permanent="true">
+		<Argument name="Amount">2</Argument>
+		<String context="Summary">LOC_GREATPERSON_FLEET_COMMANDER_SIGHT</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_FLEET_COMMANDER_MOVEMENT" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_MOVEMENT" run-once="true" permanent="true">
+		<Argument name="Amount">2</Argument>
+		<String context="Summary">LOC_GREATPERSON_GOLD_NATURAL_WONDER</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_HEAL_UNITS" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_DAMAGE" run-once="true" permanent="true">
+		<Argument name="Amount">-50</Argument>
+		<String context="Summary">LOC_GREATPERSON_FLEET_COMMANDER_MOVEMENT</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_TREASURE_FLEET_MOVEMENT" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_NAVAL_TREASURE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_REVEAL" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_REVEAL_TYPE" run-once="true" permanent="true">
+		<Argument name="RevealType">REVEAL_TYPE_DISTANT_LANDS_WATER</Argument>
+		<String context="Summary">LOC_GREATPERSON_REVEAL</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_INDEPENDENT" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_SUZERAIN_UNIT_PLOT" run-once="true" permanent="true">
+		<String context="Summary">LOC_GREATPERSON_INDEPENDENT</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_1_MOUNTED" collection="COLLECTION_OWNER" effect="EFFECT_ARMY_GRANT_UNIT" run-once="true" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="UnitTag">UNIT_CLASS_MOUNTED</Argument>
+		<Argument name="DomainType">DOMAIN_LAND</Argument>
+		<String context="Summary">LOC_GREATPERSON_1_MOUNTED</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_1_INFANTRY" collection="COLLECTION_OWNER" effect="EFFECT_ARMY_GRANT_UNIT" run-once="true" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="UnitTag">UNIT_CLASS_INFANTRY</Argument>
+		<Argument name="DomainType">DOMAIN_LAND</Argument>
+		<String context="Summary">LOC_GREATPERSON_1_INFANTRY</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_2_INFANTRY" collection="COLLECTION_OWNER" effect="EFFECT_ARMY_GRANT_UNIT" run-once="true" permanent="true">
+		<Argument name="Amount">2</Argument>
+		<Argument name="UnitTag">UNIT_CLASS_INFANTRY</Argument>
+		<Argument name="DomainType">DOMAIN_LAND</Argument>
+		<String context="Summary">LOC_GREATPERSON_2_INFANTRY</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_3_INFANTRY" collection="COLLECTION_OWNER" effect="EFFECT_ARMY_GRANT_UNIT" run-once="true" permanent="true">
+		<Argument name="Amount">3</Argument>
+		<Argument name="UnitTag">UNIT_CLASS_INFANTRY</Argument>
+		<Argument name="DomainType">DOMAIN_LAND</Argument>
+		<String context="Summary">LOC_GREATPERSON_3_INFANTRY</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_2_RANGED" collection="COLLECTION_OWNER" effect="EFFECT_ARMY_GRANT_UNIT" run-once="true" permanent="true">
+		<Argument name="Amount">2</Argument>
+		<Argument name="UnitTag">UNIT_CLASS_RANGED</Argument>
+		<Argument name="DomainType">DOMAIN_LAND</Argument>
+		<String context="Summary">LOC_GREATPERSON_2_RANGED</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_ONE_SPECIALIST" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_GRANT_UNASSIGNED_WORKERS" run-once="true" permanent="true">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_HAPPINESS" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_YIELD">
+		<Argument name="Percent">10</Argument>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Tooltip">LOC_GREAT_PERSON_INDIVIDUAL_ALIM_RABIA_NAME</Argument>
+		<String context="Description">LOC_GREAT_PERSON_INDIVIDUAL_ALIM_RABIA_DESCRIPTION</String>
+	</Modifier>
+</GameEffects>

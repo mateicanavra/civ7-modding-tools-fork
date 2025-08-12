@@ -1,0 +1,32 @@
+/* DO NOT EDIT */
+/* Generated from hex-border.scss */
+.hex-bord {
+	position: absolute;
+	left: 2.55%;
+	top: 2.55%;
+	width: 95%;
+	height: 95%;
+	filter: coh-color-matrix(0.4705882353, 0, 0, 0, 0, 0, 0.3843137255, 0, 0, 0, 0, 0, 0.2901960784, 0, 0, 0, 0, 0, 1, 0);
+}
+
+.hex-bord-piece {
+	position: absolute;
+	height: 50%;
+	width: 86.52%;
+	left: 6.74%;
+	top: 25%;
+	background-color: transparent;
+	transform-origin: center;
+	transform: rotate(0deg);
+	border-width: 0rem;
+	border-left-width: 0.1111111111rem;
+	border-right-width: 0.1111111111rem;
+	border-style: solid;
+	border-color: white;
+}
+.hex-bord-piece.hex-2 {
+	transform: rotate(-60deg);
+}
+.hex-bord-piece.hex-3 {
+	transform: rotate(-120deg);
+}

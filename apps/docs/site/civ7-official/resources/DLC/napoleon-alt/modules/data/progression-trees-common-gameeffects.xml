@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==============================================================	-->
+	<!--	Legend Unlocks												-->
+	<!-- ==============================================================	-->
+	<!-- ==================================================	-->
+	<!--	Cultural Attribute								-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_ATTRIBUTE_CULTURAL_LEGEND_NAPOLEON_ALT_L1" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_PRODUCTION">
+		<Argument name="ConstructibleType">GREATWORK</Argument>
+		<Argument name="Percent">15</Argument>
+		<Argument name="Tooltip">LOC_TREE_ATTRIBUTE_CULTURAL</Argument>
+		<String context="Description">LOC_MOD_ATTRIBUTE_CULTURAL_LEGEND_NAPOLEON_ALT_L1_DESCRIPTION</String>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	Diplomatic Attribute							-->
+	<!-- ==================================================	-->
+
+	<!-- ==================================================	-->
+	<!--	Economic Attribute								-->
+	<!-- ==================================================	-->
+
+	<!-- ==================================================	-->
+	<!--	Expansionist Attribute							-->
+	<!-- ==================================================	-->
+
+	<!-- ==================================================	-->
+	<!--	Militaristic Attribute							-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_ATTRIBUTE_MILITARISTIC_LEGEND_NAPOLEON_ALT_L2" collection="COLLECTION_PLAYER_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_IS_DISTRICT"/>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+		<String context="Description">LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_NAPOLEON_ALT_L2_DESCRIPTION</String>
+		<String context="Preview">LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_NAPOLEON_ALT_L2_COMBAT_PREVIEW</String>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	Scientific Attribute							-->
+	<!-- ==================================================	-->
+
+</GameEffects>

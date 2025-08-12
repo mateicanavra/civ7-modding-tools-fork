@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Terrains -->
+		<Row Tag="LOC_TERRAIN_MOUNTAIN_NAME">
+			<Text>Mountainous</Text>
+		</Row>
+		<Row Tag="LOC_TERRAIN_HILL_NAME">
+			<Text>Rough</Text>
+		</Row>
+		<Row Tag="LOC_TERRAIN_FLAT_NAME">
+			<Text>Flat</Text>
+		</Row>
+		<Row Tag="LOC_TERRAIN_COAST_NAME">
+			<Text>Coastal</Text>
+		</Row>
+		<Row Tag="LOC_TERRAIN_OCEAN_NAME">
+			<Text>Open Ocean</Text>
+		</Row>
+		<Row Tag="LOC_TERRAIN_LAKE_NAME">
+			<Text>Lake (Coastal)</Text>
+		</Row>
+		<Row Tag="LOC_TERRAIN_NAVIGABLE_RIVER_NAME">
+			<Text>Navigable River</Text>
+		</Row>
+		<Row Tag="LOC_NAVIGABLE_RIVER_FERRY">
+			<Text>Ferry</Text>
+		</Row>
+		<!-- Biomes -->
+		<Row Tag="LOC_BIOME_DESERT_NAME">
+			<Text>Desert</Text>
+		</Row>
+		<Row Tag="LOC_BIOME_TUNDRA_NAME">
+			<Text>Tundra</Text>
+		</Row>
+		<Row Tag="LOC_BIOME_GRASSLAND_NAME">
+			<Text>Grassland</Text>
+		</Row>
+		<Row Tag="LOC_BIOME_PLAINS_NAME">
+			<Text>Plains</Text>
+		</Row>
+		<Row Tag="LOC_BIOME_TROPICAL_NAME">
+			<Text>Tropical</Text>
+		</Row>
+		<Row Tag="LOC_BIOME_MARINE_NAME">
+			<Text>Marine</Text>
+		</Row>
+		<!-- Feature Classes -->
+		<Row Tag="LOC_FEATURE_CLASS_AQUATIC_NAME">
+			<Text>Aquatic</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_CLASS_AQUATIC_ADJ">
+			<Text>Aquatic</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_CLASS_AQUATIC_DESC">
+			<Text>Terrain that appears in the ocean, lakes, or rivers. While usually completely submerged, some aquatic terrain breaks the surface of the water or can be visible from above.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_CLASS_FLOODPLAIN_NAME">
+			<Text>Floodplain</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_CLASS_FLOODPLAIN_ADJ">
+			<Text>Floodplain</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_CLASS_FLOODPLAIN_DESC">
+			<Text>Terrain adjacent to major rivers that regularly flood the area, depositing silt and nutrients into the soil. Floodplains can be unstable places to settle, but the richness of the land makes them highly valuable for agriculture.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_CLASS_VEGETATED_NAME">
+			<Text>Vegetation</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_CLASS_VEGETATED_ADJ">
+			<Text>Vegetated</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_CLASS_VEGETATED_DESC">
+			<Text>Terrain covered by thick growths of medium to large plants. Vegetated areas were prized as sources of fuel and building supplies, as well as ideal places to hide during combat.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_CLASS_WET_NAME">
+			<Text>Wetlands</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_CLASS_WET_ADJ">
+			<Text>Wet</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_CLASS_WET_DESC">
+			<Text>Terrain that is regularly submerged but is not deep or extensive enough to be traversable by large boats or ships. Wetlands are sources of abundant life and valuable materials such as reeds, grasses, and clay.</Text>
+		</Row>
+		<!-- Features -->
+		<Row Tag="LOC_RIVER_NAME">
+			<Text>River</Text>
+		</Row>
+		<Row Tag="LOC_MINOR_RIVER_NAME">
+			<Text>Minor River</Text>
+		</Row>
+		<Row Tag="LOC_NAVIGABLE_RIVER_NAME">
+			<Text>Navigable River</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_TAIGA_NAME">
+			<Text>Taiga (Vegetated)</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_TUNDRA_BOG_NAME">
+			<Text>Tundra Bog (Wet)</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_TUNDRA_FLOODPLAIN_NAME">
+			<Text>Tundra Floodplain</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_FOREST_NAME">
+			<Text>Forest (Vegetated)</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_MARSH_NAME">
+			<Text>Marsh (Wet)</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_GRASSLAND_FLOODPLAIN_NAME">
+			<Text>Grassland Floodplain</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_SAVANNA_WOODLAND_NAME">
+			<Text>Savanna Woodland (Vegetated)</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_WATERING_HOLE_NAME">
+			<Text>Watering Hole (Wet)</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_PLAINS_FLOODPLAIN_NAME">
+			<Text>Plains Floodplain</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_RAINFOREST_NAME">
+			<Text>Rainforest (Vegetated)</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_MANGROVE_NAME">
+			<Text>Mangrove (Wet)</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_TROPICAL_FLOODPLAIN_NAME">
+			<Text>Tropical Floodplain</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_SAGEBRUSH_STEPPE_NAME">
+			<Text>Sagebrush Steppe (Vegetated)</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_OASIS_NAME">
+			<Text>Oasis (Wet)</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_DESERT_FLOODPLAIN_NAME">
+			<Text>Desert Floodplain</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_REEF_NAME">
+			<Text>Reef (Aquatic)</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_VOLCANO_NAME">
+			<Text>Volcano</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_ICE_NAME">
+			<Text>Ice</Text>
+		</Row>
+		<!-- Natural Wonders -->
+		<Row Tag="LOC_FEATURE_VALLEY_OF_FLOWERS_NAME">
+			<Text>Valley of Flowers</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_VALLEY_OF_FLOWERS_DESCRIPTION">
+			<Text>+2[icon:YIELD_FOOD] Food,[icon:YIELD_CULTURE] Culture, and[icon:YIELD_HAPPINESS] Happiness per Age. +10 Land Trade Route Range to Trade Routes from this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_VALLEY_OF_FLOWERS_TOOLTIP">
+			<Text>+10 Land Trade Route Range to this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_BARRIER_REEF_NAME">
+			<Text>Great Barrier Reef</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_BARRIER_REEF_DESCRIPTION">
+			<Text>+2[icon:YIELD_FOOD] Food,[icon:YIELD_HAPPINESS] Happiness, and[icon:YIELD_SCIENCE] Science per Age. +2[icon:YIELD_SCIENCE] Science on adjacent Marine Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_BARRIER_REEF_TOOLTIP">
+			<Text>+2[icon:YIELD_SCIENCE] Science on adjacent Marine Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_BERMUDA_TRIANGLE_NAME">
+			<Text>Bermuda Triangle</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_BERMUDA_TRIANGLE_DESCRIPTION">
+			<Text>+2[icon:YIELD_SCIENCE] Science, +2[icon:YIELD_CULTURE] Culture per Age. +1[icon:YIELD_SCIENCE] Science to Coastal Tiles in this Settlement. Units that move onto this Natural Wonder are teleported to a random Ocean location.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_BERMUDA_TRIANGLE_TOOLTIP">
+			<Text>+1[icon:YIELD_SCIENCE] Science to Coastal Tiles in this Settlement. Units that move onto this Natural Wonder are teleported to a random Ocean location.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_MOUNT_EVEREST_NAME">
+			<Text>Mount Everest</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_MOUNT_EVEREST_DESCRIPTION">
+			<Text>+2[icon:YIELD_HAPPINESS] Happiness, +2[icon:YIELD_CULTURE] Culture, +2[icon:YIELD_DIPLOMACY] Influence. On discovery, reveals all Mountain tiles on your continent.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_MOUNT_EVEREST_TOOLTIP">
+			<Text>+2[icon:YIELD_HAPPINESS] Happiness, +2[icon:YIELD_CULTURE] Culture, +2[icon:YIELD_DIPLOMACY] Influence. On discovery, reveals all Mountain tiles on your continent.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_REDWOOD_FOREST_NAME">
+			<Text>Redwood Forest</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_REDWOOD_FOREST_DESCRIPTION">
+			<Text>+2[icon:YIELD_FOOD] Food,[icon:YIELD_HAPPINESS] Happiness, and[icon:YIELD_PRODUCTION] Production per Age. +1[icon:YIELD_CULTURE] Culture and[icon:YIELD_SCIENCE] Science on Vegetated Terrain in this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_REDWOOD_FOREST_TOOLTIP">
+			<Text>+1[icon:YIELD_CULTURE] Culture and[icon:YIELD_SCIENCE] Science on Vegetated Terrain in this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_GRAND_CANYON_NAME">
+			<Text>Grand Canyon</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_GRAND_CANYON_DESCRIPTION">
+			<Text>+2[icon:YIELD_CULTURE] Culture and +4[icon:YIELD_HAPPINESS] Happiness per Age. +2[icon:YIELD_SCIENCE] Science on Flat Terrain in this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_GRAND_CANYON_TOOLTIP">
+			<Text>+2[icon:YIELD_SCIENCE] Science on Flat Terrain in this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_GULLFOSS_NAME">
+			<Text>Gullfoss</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_GULLFOSS_DESCRIPTION">
+			<Text>+6[icon:YIELD_FOOD] Food per Age. +1[icon:YIELD_CULTURE] Culture and[icon:YIELD_PRODUCTION] Production to adjacent Rural tiles. Grants Fresh Water.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_GULLFOSS_TOOLTIP">
+			<Text>+1[icon:YIELD_CULTURE] Culture and[icon:YIELD_PRODUCTION] Production to adjacent Rural tiles. Grants Fresh Water.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_HOERIKWAGGO_NAME">
+			<Text>Hoerikwaggo</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_HOERIKWAGGO_DESCRIPTION">
+			<Text>+2[icon:YIELD_CULTURE] Culture and +4[icon:YIELD_FOOD] Food per Age. +2[icon:YIELD_HAPPINESS] Happiness on adjacent Quarters.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_HOERIKWAGGO_TOOLTIP">
+			<Text>+2[icon:YIELD_HAPPINESS] Happiness on adjacent Quarters.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_IGUAZU_FALLS_NAME">
+			<Text>Iguazú Falls</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_IGUAZU_FALLS_DESCRIPTION">
+			<Text>+2[icon:YIELD_HAPPINESS] Happiness and +4[icon:YIELD_FOOD] Food per Age. +2[icon:YIELD_PRODUCTION] Production on adjacent Quarters. Grants Fresh Water.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_IGUAZU_FALLS_TOOLTIP">
+			<Text>+2[icon:YIELD_PRODUCTION] Production on adjacent Quarters. Grants Fresh Water.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_KILIMANJARO_NAME">
+			<Text>Mount Kilimanjaro</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_KILIMANJARO_DESCRIPTION">
+			<Text>+2[icon:YIELD_PRODUCTION] Production and +4[icon:YIELD_HAPPINESS] Happiness per Age. Volcano tiles.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_KILIMANJARO_TOOLTIP">
+			<Text>Volcano tiles.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_ZHANGJIAJIE_NAME">
+			<Text>Zhangjiajie</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_ZHANGJIAJIE_DESCRIPTION">
+			<Text>+2[icon:YIELD_HAPPINESS] Happiness and +4[icon:YIELD_PRODUCTION] Production per Age. +2[icon:YIELD_CULTURE] Culture on Rough Terrain in this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_ZHANGJIAJIE_TOOLTIP">
+			<Text>+2[icon:YIELD_CULTURE] Culture on Rough Terrain in this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_THERA_NAME">
+			<Text>Thera</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_THERA_DESCRIPTION">
+			<Text>+2[icon:YIELD_HAPPINESS] Happiness and +4[icon:YIELD_CULTURE] Culture per Age. Volcano tiles.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_THERA_TOOLTIP">
+			<Text>Volcano tiles.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_TORRES_DEL_PAINE_NAME">
+			<Text>Torres del Paine</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_TORRES_DEL_PAINE_DESCRIPTION">
+			<Text>+2[icon:YIELD_FOOD] Food and +4[icon:YIELD_HAPPINESS] Happiness per Age. +1 [icon:YIELD_FOOD] Food and [icon:YIELD_PRODUCTION] Production on Tundra Terrain in this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_TORRES_DEL_PAINE_TOOLTIP">
+			<Text>+1 [icon:YIELD_FOOD] Food and [icon:YIELD_PRODUCTION] Production on Tundra Terrain in this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_ULURU_NAME">
+			<Text>Uluru</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_ULURU_DESCRIPTION">
+			<Text>+6[icon:YIELD_HAPPINESS] Happiness per Age. +2[icon:YIELD_CULTURE] Culture on Desert Terrain in this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_ULURU_TOOLTIP">
+			<Text>+2[icon:YIELD_CULTURE] Culture on Desert Terrain in this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_ACTIVE">
+			<Text>Active</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_NOT_ACTIVE">
+			<Text>Not Active</Text>
+		</Row>
+	</EnglishText>
+</Database>

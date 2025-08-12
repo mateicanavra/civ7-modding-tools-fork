@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_TRADITION"/>
+	</Kinds>
+	<Types>
+		<!-- ==================================================	-->
+		<!--	MODERN							-->
+		<!-- ==================================================	-->
+		<Row Type="TRADITION_PROCEEDINGS" Kind="KIND_TRADITION"/>
+		<Row Type="TRADITION_EAST_INDIA_COMPANY" Kind="KIND_TRADITION"/>
+		<Row Type="TRADITION_NO_ETERNAL_ALLIES" Kind="KIND_TRADITION"/>
+	</Types>
+	<Traditions>
+		<!-- ==================================================	-->
+		<!--	MODERN							-->
+		<!-- ==================================================	-->
+		<Row TraditionType="TRADITION_PROCEEDINGS" Name="LOC_TRADITION_PROCEEDINGS_NAME" Description="LOC_TRADITION_PROCEEDINGS_DESCRIPTION" TraitType="TRAIT_GREAT_BRITAIN" AgeType="AGE_MODERN"/>
+		<Row TraditionType="TRADITION_EAST_INDIA_COMPANY" Name="LOC_TRADITION_EAST_INDIA_COMPANY_NAME" Description="LOC_TRADITION_EAST_INDIA_COMPANY_DESCRIPTION" TraitType="TRAIT_GREAT_BRITAIN" AgeType="AGE_MODERN"/>
+		<Row TraditionType="TRADITION_NO_ETERNAL_ALLIES" Name="LOC_TRADITION_NO_ETERNAL_ALLIES_NAME" Description="LOC_TRADITION_NO_ETERNAL_ALLIES_DESCRIPTION" TraitType="TRAIT_GREAT_BRITAIN" AgeType="AGE_MODERN"/>
+	</Traditions>
+	<TraditionModifiers>
+		<Row TraditionType="TRADITION_PROCEEDINGS" ModifierId="PROCEEDINGS_RESOURCE_AND_GREATWORK_CITY_CULTURE_AND_SCIENCE"/>
+		<Row TraditionType="TRADITION_EAST_INDIA_COMPANY" ModifierId="EAST_INDIA_COMPANY_GOLD_TOWN_BUILDINGS"/>
+		<Row TraditionType="TRADITION_NO_ETERNAL_ALLIES" ModifierId="NO_ETERNAL_ALLIES_POSITIVE_GOLD"/>
+		<Row TraditionType="TRADITION_NO_ETERNAL_ALLIES" ModifierId="NO_ETERNAL_ALLIES_NEGATIVE_GOLD"/>
+	</TraditionModifiers>
+</Database>

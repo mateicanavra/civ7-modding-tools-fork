@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_GAMENAME_TITLE_SORT">
+			<Text>Game Name</Text>
+		</Row>
+		<Row Tag="LOC_TIME_CREATED_TITLE">
+			<Text>Last Modified</Text>
+		</Row>
+		<Row Tag="LOC_SORT_DROPDOWN_NO_SELECTION">
+			<Text>Sort By</Text>
+		</Row>
+		<Row Tag="LOC_SORT_DROPDOWN_SELECTION">
+			<Text>Sort By</Text>
+		</Row>
+		<!-- Rulesets -->
+		<Row Tag="LOC_RULESET_NAME">
+			<Text>Rule Set</Text>
+		</Row>
+		<Row Tag="LOC_RULESET_DESCRIPTION">
+			<Text>Select the scenario and rules for the game</Text>
+		</Row>
+		<Row Tag="LOC_RULESET_STANDARD_NAME">
+			<Text>Standard Rules</Text>
+		</Row>
+		<Row Tag="LOC_RULESET_STANDARD_DESCRIPTION">
+			<Text>This is a standard Civilization 7 game</Text>
+		</Row>
+		<!-- Ages -->
+		<Row Tag="LOC_AGE_NAME">
+			<Text>Age</Text>
+		</Row>
+		<Row Tag="LOC_AGE_DESCRIPTION">
+			<Text>Sets the starting age</Text>
+		</Row>
+		<Row Tag="LOC_AGE_TITLE">
+			<Text>The {1_AgeName} Age</Text>
+		</Row>
+		<Row Tag="LOC_AGE_ANTIQUITY_NAME">
+			<Text>Antiquity</Text>
+		</Row>
+		<Row Tag="LOC_AGE_EXPLORATION_NAME">
+			<Text>Exploration</Text>
+		</Row>
+		<Row Tag="LOC_AGE_MODERN_NAME">
+			<Text>Modern</Text>
+		</Row>
+		<Row Tag="LOC_AGE_ANTIQUITY_DESCRIPTION">
+			<Text>Start at the dawn of history</Text>
+		</Row>
+		<Row Tag="LOC_AGE_EXPLORATION_DESCRIPTION">
+			<Text>Cross oceans and explore the world</Text>
+		</Row>
+		<Row Tag="LOC_AGE_MODERN_DESCRIPTION">
+			<Text>Enter the Industrial Revolution</Text>
+		</Row>
+		<Row Tag="LOC_AGE_COUNTDOWN_NAME">
+			<Text>End of Age Countdown</Text>
+		</Row>
+		<Row Tag="LOC_AGE_COUNTDOWN_DESCRIPTION">
+			<Text>The numbers of turns at the end of each age before an age transition. During this time, no age progression will be added from any source other than elapsed turns.</Text>
+		</Row>
+		<!-- Private Game -->
+		<Row Tag="LOC_PRIVATE_GAME">
+			<Text>Hidden Game</Text>
+		</Row>
+		<Row Tag="LOC_PRIVATE_GAME_DESCRIPTION">
+			<Text>Hidden games are not shown in the multiplayer browser. A hidden game is only accessible through a Join Code or game invite.</Text>
+		</Row>
+		<!-- Kick Vote -->
+		<Row Tag="LOC_KICKVOTE_NAME">
+			<Text>Kick Vote</Text>
+		</Row>
+		<Row Tag="LOC_KICK_VOTE_DESCRIPTION">
+			<Text>Kick through Vote</Text>
+		</Row>
+
+		<!-- Turn Timer -->
+		<Row Tag="LOC_GAME_TURNTIMER_TYPE">
+			<Text>Turn Timer</Text>
+		</Row>
+		<Row Tag="LOC_GAME_TURNTIMER_DESC">
+			<Text>Determines how long Players have to take their Turn.[n]None - Players take Turns without time constraints.[n]Standard - Turn time is based on the Turn Time option (in seconds).[n]Dynamic - Turn time is dynamically scaled based on the number of Cities and Units in play.</Text>
+		</Row>
+		<Row Tag="LOC_TURNTIMER_NONE">
+			<Text>None</Text>
+		</Row>
+		<Row Tag="LOC_TURNTIMER_NONE_DESC">
+			<Text>Players take Turns without time constraints.</Text>
+		</Row>
+		<Row Tag="LOC_TURNTIMER_STANDARD">
+			<Text>Standard</Text>
+		</Row>
+		<Row Tag="LOC_TURNTIMER_STANDARD_DESC">
+			<Text>Turn Time is based on the Turn Time option (in seconds).</Text>
+		</Row>
+		<Row Tag="LOC_TURNTIMER_DYNAMIC">
+			<Text>Dynamic</Text>
+		</Row>
+		<Row Tag="LOC_TURNTIMER_DYNAMIC_DESC">
+			<Text>Turn Time is dynamically scaled based on the number of Cities and Units in play.</Text>
+		</Row>
+		<Row Tag="LOC_GAME_TURN_TIMER_TIME">
+			<Text>Turn Time</Text>
+		</Row>
+		<Row Tag="LOC_GAME_TURN_TIMER_TIME_TOOLTIP">
+			<Text>Turn Time used by the Standard Turn Timer mode (in seconds).</Text>
+		</Row>
+
+		<!-- Game Difficulty -->
+		<Row Tag="LOC_DIFFICULTY_NAME">
+			<Text>Difficulty</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_DESCRIPTION">
+			<Text>Selects the difficulty of the game</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_SETTLER_NAME">
+			<Text>Scribe</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_SETTLER_DESCRIPTION">
+			<Text>Ideal for beginners with a forgiving pace.</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_PRINCE_NAME">
+			<Text>Governor</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_PRINCE_DESCRIPTION">
+			<Text>A balanced challenge for intermediate players.</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_KING_NAME">
+			<Text>Viceroy</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_KING_DESCRIPTION">
+			<Text>Offers a more strategic and robust gameplay experience.</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_EMPEROR_NAME">
+			<Text>Sovereign</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_EMPEROR_DESCRIPTION">
+			<Text>Increases difficulty with stronger opponents.</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_IMMORTAL_NAME">
+			<Text>Immortal</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_IMMORTAL_DESCRIPTION">
+			<Text>Requires mastery and offers a high-stakes challenge.</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_DEITY_NAME">
+			<Text>Deity</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_DEITY_DESCRIPTION">
+			<Text>The ultimate challenge, demanding advanced strategy and skill.</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_CUSTOM_NAME">
+			<Text>Custom</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_CUSTOM_DESCRIPTION">
+			<Text>Custom difficulty settings configured under advanced options.</Text>
+		</Row>
+		<!-- Difficulty System strings -->
+		<Row Tag="LOC_DIFFICULTY_ARMY_X_NAME">
+			<Text>{1_Value}: Difficulty bonus to Army XP</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_BUILDINGS_NAME">
+			<Text>{1_Value}: Difficulty bonus for constructing Buildings</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_COMBAT_NAME">
+			<Text>{1_Value}: Difficulty bonus to Combat</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_CULTURE_NAME">
+			<Text>{1_Value}: Difficulty bonus to Combat</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_GOLD_NAME">
+			<Text>{1_Value}: Difficulty bonus to Gold</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_HAPPINESS_NAME">
+			<Text>{1_Value}: Difficulty bonus to Happiness</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_INDEPENDENTS_NAME">
+			<Text>{1_Value}: Difficulty bonus to Independent healing</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_SCIENCE_NAME">
+			<Text>{1_Value}: Difficulty bonus to Science</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_UNITS_NAME">
+			<Text>{1_Value}: Difficulty bonus to constructing Units</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_WATER_DAMAGE_NAME">
+			<Text>[WIP]{1_Value}: Difficulty bonus to ocean damage</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_TECH_COST_NAME">
+			<Text>{1_Value}: Difficulty bonus to Technology cost</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_CIVIC_COST_NAME">
+			<Text>{1_Value}: Difficulty bonus to Civic cost</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_CITY_WALLS_NAME">
+			<Text>{1_Value}: Difficulty bonus free Walls in Cities</Text>
+		</Row>
+		<Row Tag="LOC_DIFFICULTY_TOWN_WALLS_NAME">
+			<Text>{1_Value}: Difficulty bonus free Walls in Towns</Text>
+		</Row>
+		<!-- Game Random Seed -->
+		<Row Tag="LOC_GAMESEED_NAME">
+			<Text>Game Random Seed</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTOS_ENABLED_NAME">
+			<Text>Mementos</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTOS_ENABLED_DESC">
+			<Text>Enable Mementos</Text>
+		</Row>
+
+		<!-- Game Speeds -->
+		<Row Tag="LOC_GAME_SPEED">
+			<Text>Game Speed</Text>
+		</Row>
+		<Row Tag="LOC_GAMESPEED_DESCRIPTION">
+			<Text>Sets the speed of the game progress</Text>
+		</Row>
+		<Row Tag="LOC_GAMESPEED_ONLINE_NAME">
+			<Text>Online</Text>
+		</Row>
+		<Row Tag="LOC_GAMESPEED_ONLINE_DESCRIPTION">
+			<Text>Fast-paced gameplay for competitive online matches. Double speed.</Text>
+		</Row>
+		<Row Tag="LOC_GAMESPEED_QUICK_NAME">
+			<Text>Quick</Text>
+		</Row>
+		<Row Tag="LOC_GAMESPEED_QUICK_DESCRIPTION">
+			<Text>A brisk game pace for rapid play sessions. 33% faster.</Text>
+		</Row>
+		<Row Tag="LOC_GAMESPEED_STANDARD_NAME">
+			<Text>Standard</Text>
+		</Row>
+		<Row Tag="LOC_GAMESPEED_STANDARD_DESCRIPTION">
+			<Text>Balanced speed suitable for most players.</Text>
+		</Row>
+		<Row Tag="LOC_GAMESPEED_EPIC_NAME">
+			<Text>Epic</Text>
+		</Row>
+		<Row Tag="LOC_GAMESPEED_EPIC_DESCRIPTION">
+			<Text>A slower, more deliberate pace for strategic depth. 50% slower.</Text>
+		</Row>
+		<Row Tag="LOC_GAMESPEED_MARATHON_NAME">
+			<Text>Marathon</Text>
+		</Row>
+		<Row Tag="LOC_GAMESPEED_MARATHON_DESCRIPTION">
+			<Text>An extended game pace for long, immersive sessions. 200% slower.</Text>
+		</Row>
+		<!-- Map Names -->
+		<Row Tag="LOC_MAP_SCRIPT">
+			<Text>Map Type</Text>
+		</Row>
+		<Row Tag="LOC_MAP_DESCRIPTION">
+			<Text>Select the type of Map for the game</Text>
+		</Row>
+		<Row Tag="LOC_MAP_ARCHIPELAGO_NAME">
+			<Text>Archipelago</Text>
+		</Row>
+		<Row Tag="LOC_MAP_ARCHIPELAGO_DESCRIPTION">
+			<Text>A series of islands providing varied terrain and water challenges.</Text>
+		</Row>
+		<Row Tag="LOC_MAP_CONTINENTS_NAME">
+			<Text>Continents</Text>
+		</Row>
+		<Row Tag="LOC_MAP_CONTINENTS_DESCRIPTION">
+			<Text>Large continuous landmasses offering balanced gameplay.</Text>
+		</Row>
+		<Row Tag="LOC_MAP_CONTINENTS_PLUS_NAME">
+			<Text>Continents Plus</Text>
+		</Row>
+		<Row Tag="LOC_MAP_CONTINENTS_PLUS_DESCRIPTION">
+			<Text>An expanded version of Continents with additional islands.</Text>
+		</Row>
+		<Row Tag="LOC_MAP_FRACTAL_NAME">
+			<Text>Fractal</Text>
+		</Row>
+		<Row Tag="LOC_MAP_FRACTAL_DESCRIPTION">
+			<Text>Unpredictable map that can result in many landmasses.</Text>
+		</Row>
+		<Row Tag="LOC_MAP_SHUFFLE_NAME">
+			<Text>Shuffle</Text>
+		</Row>
+		<Row Tag="LOC_MAP_SHUFFLE_DESCRIPTION">
+			<Text>What secrets will this map reveal?</Text>
+		</Row>
+		<Row Tag="LOC_MAP_TERRA_INCOGNITA_NAME">
+			<Text>Terra Incognita</Text>
+		</Row>
+		<Row Tag="LOC_MAP_TERRA_INCOGNITA_DESCRIPTION">
+			<Text>A classic homeland map with unpredictable distant lands.</Text>
+		</Row>
+		<Row Tag="LOC_MAP_PANGAEA_PLUS_NAME">
+			<Text>Pangaea Plus</Text>
+		</Row>
+		<Row Tag="LOC_MAP_PANGAEA_PLUS_DESCRIPTION">
+			<Text>All players start on a single large homeland surrounded by distant lands islands.</Text>
+		</Row>
+		<!-- Map Random Seed -->
+		<Row Tag="LOC_MAPSEED_NAME">
+			<Text>Map Random Seed</Text>
+		</Row>
+		<!-- Map Sizes-->
+		<Row Tag="LOC_MAP_SIZE">
+			<Text>Map Size</Text>
+		</Row>
+		<Row Tag="LOC_MAPSIZE_DESCRIPTION">
+			<Text>Select the size of the Map for the game</Text>
+		</Row>
+		<Row Tag="LOC_MAPSIZE_TINY_NAME">
+			<Text>Tiny</Text>
+		</Row>
+		<Row Tag="LOC_MAPSIZE_TINY_DESCRIPTION">
+			<Text>A compact map ideal for quick, close-quarters gameplay.</Text>
+		</Row>
+		<Row Tag="LOC_MAPSIZE_SMALL_NAME">
+			<Text>Small</Text>
+		</Row>
+		<Row Tag="LOC_MAPSIZE_SMALL_DESCRIPTION">
+			<Text>A small map that offers fast encounters.</Text>
+		</Row>
+		<Row Tag="LOC_MAPSIZE_STANDARD_NAME">
+			<Text>Standard</Text>
+		</Row>
+		<Row Tag="LOC_MAPSIZE_STANDARD_DESCRIPTION">
+			<Text>A balanced size for moderate expansion and conflict.</Text>
+		</Row>
+		<Row Tag="LOC_MAPSIZE_LARGE_NAME">
+			<Text>Large</Text>
+		</Row>
+		<Row Tag="LOC_MAPSIZE_LARGE_DESCRIPTION">
+			<Text>A spacious map designed for extensive exploration and strategy.</Text>
+		</Row>
+		<Row Tag="LOC_MAPSIZE_HUGE_NAME">
+			<Text>Huge</Text>
+		</Row>
+		<Row Tag="LOC_MAPSIZE_HUGE_DESCRIPTION">
+			<Text>An enormous map for epic, long-duration battles.</Text>
+		</Row>
+		<Row Tag="LOC_MAX_TURNS_NAME">
+			<Text>Max Turns</Text>
+		</Row>
+		<Row Tag="LOC_MAX_TURNS_DESCRIPTION">
+			<Text>The maximum Turns in a single Age.</Text>
+		</Row>
+		<!-- Single Age -->
+		<Row Tag="LOC_SINGLEAGE_NAME">
+			<Text>No Age Transitions</Text>
+		</Row>
+		<Row Tag="LOC_SINGLEAGE_DESCRIPTION">
+			<Text>Only play a single Age.  Do not Transition to later Ages.</Text>
+		</Row>
+		<!-- Multiplayer Game Name -->
+		<Row Tag="LOC_GAMENAME_NAME">
+			<Text>Game Name</Text>
+		</Row>
+		<Row Tag="LOC_GAMENAME_DESCRIPTION">
+			<Text>Sets the name of the multiplayer game</Text>
+		</Row>
+		<!-- Turn Limit-->
+		<Row Tag="LOC_LIMIT_TURNS_NAME">
+			<Text>Limit Turns</Text>
+		</Row>
+		<Row Tag="LOC_LIMIT_TURNS_DESCRIPTION">
+			<Text>Limit the maximum number of Turns</Text>
+		</Row>
+		<Row Tag="LOC_TURNLIMIT_NONE_NAME">
+			<Text>No Turn Limit</Text>
+		</Row>
+		<Row Tag="LOC_TURNLIMIT_NONE_DESCRIPTION">
+			<Text>There is no limit to the number of Turns.</Text>
+		</Row>
+		<Row Tag="LOC_TURNLIMIT_GAMESPEED_NAME">
+			<Text>By Game Speed</Text>
+		</Row>
+		<Row Tag="LOC_TURNLIMIT_GAMESPEED_DESCRIPTION">
+			<Text>The Turn Limit will scale by game speed.</Text>
+		</Row>
+		<Row Tag="LOC_TURNLIMIT_CUSTOM_NAME">
+			<Text>Custom</Text>
+		</Row>
+		<Row Tag="LOC_TURNLIMIT_CUSTOM_DESCRIPTION">
+			<Text>The game will end at the specified number of Turns.</Text>
+		</Row>
+
+		<!-- Disable Score Victory -->
+		<Row Tag="LOC_ADVANCED_OPTIONS_ENABLE_SCORE_VICTORY">
+			<Text>Score Victory (Final Age)</Text>
+		</Row>
+		<Row Tag="LOC_ADVANCED_OPTIONS_ENABLE_SCORE_VICTORY_DESCRIPTION">
+			<Text>Enables the [B]Score[/B] victory when the final age has ended.  Turning this off causes the final age to run until a player has achieved a victory.</Text>
+		</Row>
+
+		<!-- Disable Civilization Unlocks -->
+		<Row Tag="LOC_SETUP_NO_CIV_UNLOCKS_NAME">
+			<Text>Bypass Civilization Unlocks</Text>
+		</Row>
+		<Row Tag="LOC_SETUP_NO_CIV_UNLOCKS_DESC">
+			<Text>All Civilizations are always unlocked at each age transition.</Text>
+		</Row>
+
+		<!-- Legacy Path chooser-->
+		<Row Tag="LOC_SETUP_LEGACY_PATHS_NAME">
+			<Text>Legacy Paths</Text>
+		</Row>
+		<Row Tag="LOC_SETUP_LEGACY_PATHS_DESC">
+			<Text>Untick checkboxes to disable legacy paths</Text>
+		</Row>
+
+		<!-- Crises chooser -->
+		<Row Tag="LOC_SETUP_CRISIS_NAME">
+			<Text>Crises</Text>
+		</Row>
+		<Row Tag="LOC_SETUP_CRISIS_DESC">
+			<Text>Select which crises will be available in the game. This does not guarentee all selected will be used.</Text>
+		</Row>
+
+		<!-- Natural Wonder chooser -->
+		<Row Tag="LOC_SETUP_NATURAL_WONDERS_NAME">
+			<Text>Natural Wonders</Text>
+		</Row>
+		<Row Tag="LOC_SETUP_NATURAL_WONDERS_DESC">
+			<Text>Select which Natural Wonders will be available in the game. This does not guarentee all selected will be used.</Text>
+		</Row>
+
+		<!-- Age Transition -->
+		<Row Tag="LOC_AGE_TRANSITION_SETTING_NAME">
+			<Text>Age Transition Impact</Text>
+		</Row>
+		<Row Tag="LOC_AGE_TRANSITION_SETTING_DESCRIPTION">
+			<Text>Sets how drastically empires are affected by Age Transitions.</Text>
+		</Row>
+		<Row Tag="LOC_AGE_TRANSITION_SETTING_KEEP_MORE_NAME">
+			<Text>Continuity</Text>
+		</Row>
+		<Row Tag="LOC_AGE_TRANSITION_SETTING_KEEP_MORE_DESCRIPTION">
+			<Text>Default setting. Retain most of your empire and units at Age Transition.</Text>
+		</Row>
+		<Row Tag="LOC_AGE_TRANSITION_SETTING_ORIGINAL_NAME">
+			<Text>Regroup</Text>
+		</Row>
+		<Row Tag="LOC_AGE_TRANSITION_SETTING_ORIGINAL_DESCRIPTION">
+			<Text>Players' empires will reset more aggressively on Age Transition, including fewer units carried over. Leads to a more balanced start between empires in the next Age. This is the original Civ 7 Age Transition experience.</Text>
+		</Row>
+		<!-- Tags -->
+		<Row Tag="LOC_TAG_GENDER_FEMALE_NAME">
+			<Text>Female</Text>
+		</Row>
+		<Row Tag="LOC_TAG_GENDER_MALE_NAME">
+			<Text>Male</Text>
+		</Row>
+		<Row Tag="LOC_TAG_ORIGIN_AFRICA_NORTH_NAME">
+			<Text>North Africa</Text>
+		</Row>
+		<Row Tag="LOC_TAG_ORIGIN_AFRICA_SUBSAHARAN_NAME">
+			<Text>Sub-Saharan Africa</Text>
+		</Row>
+		<Row Tag="LOC_TAG_ORIGIN_AMERICA_NORTH_NAME">
+			<Text>North America</Text>
+		</Row>
+		<Row Tag="LOC_TAG_ORIGIN_AMERICA_SOUTH_NAME">
+			<Text>South America</Text>
+		</Row>
+		<Row Tag="LOC_TAG_ORIGIN_ASIA_EAST_NAME">
+			<Text>East Asia</Text>
+		</Row>
+		<Row Tag="LOC_TAG_ORIGIN_ASIA_SOUTH_NAME">
+			<Text>South Asia</Text>
+		</Row>
+		<Row Tag="LOC_TAG_ORIGIN_ASIA_SOUTHEAST_NAME">
+			<Text>Southeast Asia</Text>
+		</Row>
+		<Row Tag="LOC_TAG_ORIGIN_EUROPE_EAST_NAME">
+			<Text>Eastern Europe</Text>
+		</Row>
+		<Row Tag="LOC_TAG_ORIGIN_EUROPE_NORTH_NAME">
+			<Text>Northern Europe</Text>
+		</Row>
+		<Row Tag="LOC_TAG_ORIGIN_MEDITERANEAN_NAME">
+			<Text>Mediterranean</Text>
+		</Row>
+		<Row Tag="LOC_TAG_ORIGIN_MIDDLE_EAST_NAME">
+			<Text>Middle East</Text>
+		</Row>
+		<Row Tag="LOC_TAG_ORIGIN_OCEANIA_NAME">
+			<Text>Oceania</Text>
+		</Row>
+		<Row Tag="LOC_TAG_TRAIT_CULTURAL_NAME">
+			<Text>Cultural</Text>
+		</Row>
+		<Row Tag="LOC_TAG_TRAIT_POLITICAL_NAME">
+			<Text>Diplomatic</Text>
+		</Row>
+		<Row Tag="LOC_TAG_TRAIT_ECONOMIC_NAME">
+			<Text>Economic</Text>
+		</Row>
+		<Row Tag="LOC_TAG_TRAIT_EXPANSIONIST_NAME">
+			<Text>Expansionist</Text>
+		</Row>
+		<Row Tag="LOC_TAG_TRAIT_MILITARISTIC_NAME">
+			<Text>Militaristic</Text>
+		</Row>
+		<Row Tag="LOC_TAG_TRAIT_SCIENTIFIC_NAME">
+			<Text>Scientific</Text>
+		</Row>
+		<Row Tag="LOC_TAG_TRAIT_WILDCARD_NAME">
+			<Text>Wildcard</Text>
+		</Row>
+		<Row Tag="LOC_TAG_CONSTRUCTIBLE_SCIENCE">
+			<Text>Science</Text>
+		</Row>
+		<Row Tag="LOC_TAG_CONSTRUCTIBLE_CULTURE">
+			<Text>Culture</Text>
+		</Row>
+		<Row Tag="LOC_TAG_CONSTRUCTIBLE_HAPPINESS">
+			<Text>Happiness</Text>
+		</Row>
+		<Row Tag="LOC_TAG_CONSTRUCTIBLE_TRADE">
+			<Text>Trade</Text>
+		</Row>
+		<Row Tag="LOC_TAG_CONSTRUCTIBLE_FORTIFICATION">
+			<Text>Fortification</Text>
+		</Row>
+		<Row Tag="LOC_TAG_CONSTRUCTIBLE_GOLD">
+			<Text>Gold</Text>
+		</Row>
+		<Row Tag="LOC_TAG_CONSTRUCTIBLE_SUPPLIES">
+			<Text>Supplies</Text>
+		</Row>
+		<Row Tag="LOC_TAG_CONSTRUCTIBLE_MILITARY">
+			<Text>Military</Text>
+		</Row>
+		<Row Tag="LOC_TAG_CONSTRUCTIBLE_WATER">
+			<Text>Water</Text>
+		</Row>
+		<!-- Reasons -->
+		<Row Tag="LOC_REASON_RULED_CIV_NAME">
+			<Text>Led Civilization</Text>
+		</Row>
+		<Row Tag="LOC_REASON_RULED_CIV_DESCRIPTION">
+			<Text>Your chosen Leader led this Civilization.</Text>
+		</Row>
+		<Row Tag="LOC_REASON_UNLOCKS_CIV_NAME">
+			<Text>Unlocks Civilization</Text>
+		</Row>
+		<Row Tag="LOC_REASON_UNLOCKS_CIV_DESCRIPTION">
+			<Text>Your chosen Leader grants access to this Civilization.</Text>
+		</Row>
+		<Row Tag="LOC_REASON_GEOGRAPHY_NAME">
+			<Text>Geography</Text>
+		</Row>
+		<Row Tag="LOC_REASON_GEOGRAPHY_DESCRIPTION">
+			<Text>Your chosen Leader comes from the same geographic region as this Civilization.</Text>
+		</Row>
+		<Row Tag="LOC_REASON_HISTORY_NAME">
+			<Text>History</Text>
+		</Row>
+		<Row Tag="LOC_REASON_HISTORY_DESCRIPTION">
+			<Text>Your chosen Leader historically progressed from this Civilization.</Text>
+		</Row>
+		<Row Tag="LOC_REASON_WEAK_ASSOCIATION_NAME">
+			<Text>Weak Association</Text>
+		</Row>
+		<Row Tag="LOC_REASON_WEAK_ASSOCIATION_DESCRIPTION">
+			<Text> Your chosen Leader has cultural similarities to this Civilization.</Text>
+		</Row>
+		<Row Tag="LOC_REASON_LIVE_EVENT_NAME">
+			<Text>Live Event</Text>
+		</Row>
+		<Row Tag="LOC_REASON_LIVE_EVENT_DESCRIPTION">
+			<Text> This is a fixed Leader-Civilization combination for the Leader Mix-n-Match live event.</Text>
+		</Row>
+
+		<!-- Legacy Path Class Names -->
+		<Row Tag="LOC_LEGACY_PATH_CLASS_CULTURE_NAME">
+			<Text>Culture</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_CLASS_ECONOMIC_NAME">
+			<Text>Economic</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_CLASS_MILITARY_NAME">
+			<Text>Military</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_CLASS_SCIENCE_NAME">
+			<Text>Science</Text>
+		</Row>
+	</EnglishText>
+</Database>

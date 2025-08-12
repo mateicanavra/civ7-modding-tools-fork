@@ -1,0 +1,692 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET1" Language="it_IT">
+      <Text>Thăng Long</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET10" Language="it_IT">
+      <Text>Thái Nguyên</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET11" Language="it_IT">
+      <Text>Bắc Ninh</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET12" Language="it_IT">
+      <Text>Đường Lâm</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET13" Language="it_IT">
+      <Text>Chí Linh</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET14" Language="it_IT">
+      <Text>Xứ Đông</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET15" Language="it_IT">
+      <Text>Quốc Oai</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET16" Language="it_IT">
+      <Text>Từ Sơn</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET17" Language="it_IT">
+      <Text>Cao Bằng</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET18" Language="it_IT">
+      <Text>Nghệ An</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET19" Language="it_IT">
+      <Text>Xứ Đoài</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET2" Language="it_IT">
+      <Text>Thái Bình</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET20" Language="it_IT">
+      <Text>Việt Trì</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET21" Language="it_IT">
+      <Text>Tam Đái</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET22" Language="it_IT">
+      <Text>Châu Lạng</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET23" Language="it_IT">
+      <Text>Tuyên Quang</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET24" Language="it_IT">
+      <Text>Hưng Yên</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET25" Language="it_IT">
+      <Text>Yên Bái</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET26" Language="it_IT">
+      <Text>Bảo Thắng</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET27" Language="it_IT">
+      <Text>Quảng Trị</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET28" Language="it_IT">
+      <Text>Hồng Lĩnh</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET29" Language="it_IT">
+      <Text>Châu Lý</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET3" Language="it_IT">
+      <Text>Thanh Hóa</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET30" Language="it_IT">
+      <Text>Đỗ Động Giang</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET4" Language="it_IT">
+      <Text>Bắc Giang</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET5" Language="it_IT">
+      <Text>Đồng Hới</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET6" Language="it_IT">
+      <Text>Hà Tĩnh</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET7" Language="it_IT">
+      <Text>Hải Phòng</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET8" Language="it_IT">
+      <Text>Hội An</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET9" Language="it_IT">
+      <Text>Hoa Lư</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_FEMALE_1" Language="it_IT">
+      <Text>Nga</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_FEMALE_10" Language="it_IT">
+      <Text>Phượng</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_FEMALE_2" Language="it_IT">
+      <Text>Minh</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_FEMALE_3" Language="it_IT">
+      <Text>Mai</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_FEMALE_4" Language="it_IT">
+      <Text>Anh</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_FEMALE_5" Language="it_IT">
+      <Text>Giang</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_FEMALE_6" Language="it_IT">
+      <Text>Hạnh</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_FEMALE_7" Language="it_IT">
+      <Text>Hòa</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_FEMALE_8" Language="it_IT">
+      <Text>Thủy</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_FEMALE_9" Language="it_IT">
+      <Text>Tuyến</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_MALE_1" Language="it_IT">
+      <Text>Lĩnh</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_MALE_10" Language="it_IT">
+      <Text>Quang</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_MALE_2" Language="it_IT">
+      <Text>Liễn</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_MALE_3" Language="it_IT">
+      <Text>Hoàn</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_MALE_4" Language="it_IT">
+      <Text>Thánh</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_MALE_5" Language="it_IT">
+      <Text>Phật Mã</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_MALE_6" Language="it_IT">
+      <Text>Dương</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_MALE_7" Language="it_IT">
+      <Text>Hiếu</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_MALE_8" Language="it_IT">
+      <Text>Cường</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_MALE_9" Language="it_IT">
+      <Text>Định</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_DAI_VIET_ADJECTIVE" Language="it_IT">
+      <Text>vietnamita|vietnamita|vietnamiti|vietnamite</Text>
+      <Gender>masculine|feminine|masculine|feminine</Gender>
+      <Plurality>1|1|2|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_DAI_VIET_FULLNAME" Language="it_IT">
+      <Text>Impero del Đại Việt|dell'Impero del Đại Việt|all'Impero del Đại Việt|l'Impero del Đại Việt|dall'Impero del Đại Việt</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_DAI_VIET_NAME" Language="it_IT">
+      <Text>Đại Việt|del Đại Việt|al Đại Việt|il Đại Việt|dal Đại Việt</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_EXPLORATION_10_MAJOR_DAI_VIET_NAME" Language="it_IT">
+      <Text>Tidore|di Tidore|a Tidore|Tidore|da Tidore</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_EXPLORATION_10_MINOR_DAI_VIET_NAME" Language="it_IT">
+      <Text>di Tidore|di Tidore|di Tidore|di Tidore</Text>
+      <Gender>masculine|feminine|masculine|feminine</Gender>
+      <Plurality>1|1|2|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_DAI_VIET_CHAPTER_HISTORY_PARA_1" Language="it_IT">
+      <Text>Il Vietnam, stretto fra i due mondi del sud-est asiatico e dell'Asia orientale, ha una storia attraversata in pari misura da conflitti e da interconnessioni. Alle sue origini troviamo i regni indigeni e la dominazione Han, ma una nuova epoca ebbe inizio nel 939 d.C., quando Ngô Quyền si ribellò agli Han del sud. La famiglia di Ngô Quyền non arrivò mai a governare la nazione, e ci sarebbero voluti decenni prima che il nome entrasse in uso, ma le fondamenta erano state gettate. Con la sua capitale sul fiume Rosso, vicino all'odierna Hanoi, Đại Việt resistette per quasi mille anni, attraversando periodi di aggressiva espansione ma anche sconfitte e dominazioni straniere. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_DAI_VIET_CHAPTER_HISTORY_PARA_2" Language="it_IT">
+      <Text>Nel 1010 a.C. Lý Thái Tổ, volendo stabilire la gloria del nuovo regno, ribattezzò la capitale Thăng Long, "drago rampante". Su queste ali spiegate Đại Việt estese il proprio dominio interno attraverso la burocrazia, ma non esitò a spingersi anche verso l'esterno, a nord verso le città cinesi, a sud nei territori Cham e a ovest in quelli di Lao e Khmer. Al centro di tutto, la corte di Đại Việt era un miscuglio complesso, contraddistinto dagli intrighi politici tra gli eunuchi e le famiglie nobili: un regime che dava la priorità al potere burocratico e meritocratico, incorporando gruppi etnici diversi mentre affermava il predominio del controllo imperiale. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_DAI_VIET_CHAPTER_HISTORY_PARA_3" Language="it_IT">
+      <Text>L'ascesa del drago, tuttavia, fu contestata duecento anni dopo da un'altra potenza proveniente dal lato opposto del continente: la Mongolia. Möngke Khan, pianificando la conquista della dinastia cinese Song, chiese il tributo di Đại Việt. Quando i vietnamiti rifiutarono, saccheggiò Thăng Long e mise a morte la sua popolazione. Anche se i vietnamiti successivamente respinsero gli invasori, Đại Việt era indebolito a tal punto che dovette accettare di diventare stato tributario del vicino settentrionale. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_DAI_VIET_CHAPTER_HISTORY_PARA_4" Language="it_IT">
+      <Text>Durante questo periodo la società vietnamita cominciò a cambiare. La chiave della strategia di assimilazione cinese era la "civilizzazione" dei vietnamiti, ovvero l'allontanamento della popolazione locale dalle sue tradizioni, dalle più superficiali (per esempio i tatuaggi) a quelle più fondamentali (convertendosi dal buddismo al confucianesimo). </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_DAI_VIET_CHAPTER_HISTORY_PARA_5" Language="it_IT">
+      <Text>Il controllo cinese durò circa duecento anni finché con la ribellione di Lê Lợi, nel 1418 a.C., Đại Việt si liberò finalmente del controllo cinese. Strappando il controllo ai Ming attraverso una campagna di guerriglia, il nuovo regime introdusse una fusione tra le usanze precedenti e i costumi cinesi, fra la tradizione e nuove tecnologie come le armi da fuoco. Ben presto ne avrebbe avuto bisogno. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_DAI_VIET_CHAPTER_HISTORY_PARA_6" Language="it_IT">
+      <Text>Negli anni successivi la burocrazia si espanse, lo stato si rafforzò e Đại Việt divenne una delle società più istruite dell'Asia. Le professioni erano spesso regolamentate e supervisionate dallo stato, mentre i lavoratori eccellevano nella costruzione di elaborati sistemi di irrigazione: una conoscenza fondamentale, visto il clima del Vietnam e la sua dipendenza dalla coltivazione umida del riso. Tuttavia, a differenza dei suoi rivali in Champa e in Cina, la dipendenza del Vietnam dall'industria statale e dall'agricoltura fece sì che il paese venisse per lo più ignorato dalle rotte della Via della seta. La maggior parte dei beni di lusso (oro e argento, nonché avorio e corno di rinoceronte) erano scambiati solo localmente. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_DAI_VIET_CHAPTER_HISTORY_PARA_7" Language="it_IT">
+      <Text>Tutti gli imperi cadono. Dopo aver resistito per quasi un millennio, nei primi anni dell'Ottocento Đại Việt dovette soccombere alle divisioni interne. Ciò che seguì fu l'Impero del Vietnam o, con un termine più diffuso, la dinastia Nguyễn. Ma anche questa era destinata a durare solo pochi decenni per poi cadere davanti a un'altra invasione pianificata molto lontano, oltre l'oceano: a Parigi. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_IMPROVEMENT_WATER_PUPPET_THEATER_CHAPTER_HISTORY_PARA_1" Language="it_IT">
+      <Text>La storia vietnamita non è fatta solo di dinastie e intrighi: ci sono anche tradizioni, sia nobili sia popolari. Di queste ultime, il teatro delle marionette sull'acqua è una delle più caratteristiche. Approfittando del palcoscenico perfettamente liscio offerto da un campo di riso allagato, gli artisti delle múa rối nước (marionette sull'acqua) muovono i loro pupazzi laccati servendosi di lunghi bastoni da dietro uno schermo. Spesso si trattava di comiche messe in scena di eroi popolari (e sciocchi) che fornivano una lente attraverso la quale i cittadini comuni potevano commentare le azioni dei loro signori.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_DAI_VIET_CAM_QUAN_CHAPTER_HISTORY_PARA_1" Language="it_IT">
+      <Text>L'esercito di Đại Việt aveva trovato il modo di bilanciare soldati professionisti e truppe di leva. In tempi di pace i primi rappresentavano un peso per il bilancio e, quel che è peggio, avrebbero potuto annoiarsi e diventare ambiziosi; ai secondi, d'altra parte, capitava di essere mal equipaggiati e poco motivati a combattere nei periodi in cui i campi coltivati necessitavano di attenzione. Così i cấm quân ricevevano terre da lavorare esentasse, a patto che continuassero l'addestramento per la guerra e si tenessero pronti a entrare in azione in caso di necessità.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_DAI_VIET_CHU_NOM_CHAPTER_HISTORY_PARA_1" Language="it_IT">
+      <Text>Circondato com'era da Pali, Khmer, sanscrito e altri linguaggi, Đại Việt aveva l'imbarazzo della scelta per quanto riguarda i sistemi di scrittura a cui attingere per mettere su carta la lingua vietnamita. Tuttavia, dopo anni di politiche tendenti all'assimilazione da parte dei cinesi, che in certi periodi avevano anche governato il regno, gli scribi vietnamiti crearono il chữ nôm, un sistema ispirato al cinese, sebbene non identico. Il chữ nôm fu usato in parallelo al cinese classico per trascrivere prosa e poesia, laddove era fondamentale catturare le peculiarità del vietnamita parlato, e restò in uso dal XIII secolo d.C. fino all'occupazione coloniale francese, avvenuta nel Novecento. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_DAI_VIET_THANH_HOANG_CHAPTER_HISTORY_PARA_1" Language="it_IT">
+      <Text>Nel Đại Việt la religione era una combinazione di combinazioni, dato che riuniva buddhismo, taoismo, culto degli antenati e una fede animista basata sulla venerazione di luoghi e figure storiche, incluse la stessa Trưng Trắc. Questi dèi protettivi prendevano collettivamente il nome di thành hoàng, facendo riferimento specifico alla città e alle mura che, come spiriti, la proteggono. Ancora oggi in Vietnam si svolgono delle cerimonie per onorare questi spiriti e proteggere i villaggi e le città. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_DAI_VIET_TU_DAN_CHAPTER_HISTORY_PARA_1" Language="it_IT">
+      <Text>Fra le tradizioni cinesi assimilate e rese proprie dal Đại Việt possiamo contare il sistema di meritocrazia chiamato tứ dân, che suddivideva i cittadini in varie categorie a seconda delle loro attitudini. Quest'approccio era particolarmente rilevante in un sistema confuciano, dove il corretto sistema di governo prevedeva che tutti potessero prosperare nel ruolo a loro più adatto, ma non si adattava particolarmente bene a un sistema basato su clan e famiglie nobili, anch'esse una caratteristica centrale della vita vietnamita dell'epoca. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_VIET_KIEU_CHAPTER_HISTORY_PARA_1" Language="it_IT">
+      <Text>Nel sud-est asiatico, in genere, si diceva che ogni insediamento fosse stato fondato da un principe in cerca di un nuovo regno. Questo si allineava con la "politica mandala" delle terre indiane, in cui ogni nuova città doveva essere un modello dei cieli sulla terra, ma anche in Vietnam i nuovi insediamenti venivano attribuiti all'azione di grandi personaggi. "Quận vương" si riferisce a un nobile di questo genere, e anche gli insediamenti creati dal quận vương riflettevano l'aspirazione di dare origine a un centro di bellezza, raffinatezza e cultura. Si può discutere se tali origini mitiche di città e paesi riflettano o meno il processo reale di insediamento, ma qui la cosa importante non è tanto come la gente sia arrivata a vivere e coltivare un luogo, quanto piuttosto l'azione che ha portato alla sua legittimità e al suo riconoscimento da parte dello stato centrale. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_VOI_CHIEN_CHAPTER_HISTORY_PARA_1" Language="it_IT">
+      <Text>Gli elefanti da guerra, o voi chiến in vietnamita, erano parte integrante di molti eserciti del sud-est asiatico. Capaci di muoversi con sorprendente eleganza pur trasportando pesanti carichi, erano tanto fondamentali in ambito logistico quando terrificanti in battaglia. Appostati a grande altezza sul loro dorso, guerrieri specializzati armati di lance, picche e archi potevano colpire oltre le prime linee nemiche, o incitare l'enorme cavalcatura a travolgere anche le truppe più esperte. La cavalleria era particolarmente vulnerabile alle cariche degli elefanti: solo gli animali meglio addestrati erano in grado di fronteggiarle. Si può dire che quindi che gli elefanti assolvessero alla stessa funzione dei carri armati moderni. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_VOI_CHIEN_CHAPTER_HISTORY_PARA_2" Language="it_IT">
+      <Text>Gli elefanti, però, sono pur sempre esseri viventi. Durante i loro conflitti con la dinastia Song, le forze di Lý Thường Kiệt, incoraggiate dalle vittorie contro i Chăm a sud, schierarono i propri elefanti da guerra contro le truppe cinesi. Queste avevano però imparato a mirare alle proboscidi degli animali, affinché perdessero il controllo e travolgessero i soldati vietnamiti.  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_VOI_CHIEN_CHAPTER_HISTORY_PARA_3" Language="it_IT">
+      <Text>Gli elefanti vennero utilizzati per la propria enorme forza e relativa furtività fino almeno alla guerra del Vietnam.  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_THANH_HUE_CHAPTER_HISTORY_PARA_1" Language="it_IT">
+      <Text>Costruita nel 1803, dopo la caduta del Đại Việt, la cittadella imperiale di Huế divenne il gioiello della dinastia Nguyễn e rimane a tutt'oggi un meraviglioso simbolo della gloria della corte vietnamita. Sede degli alloggi e degli uffici non solo della corte imperiale, ma anche dei burocrati (mandarini) che vi lavoravano, era un simbolo del lusso, dell'arte e del potere della dinastia. Il palazzo, come buona parte dell'amministrazione vietnamita stessa, seguiva il modello dello stato imperiale cinese, arricchendolo con caratteristiche proprie. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_THANH_HUE_CHAPTER_HISTORY_PARA_2" Language="it_IT">
+      <Text>Inoltre, come fu il caso per gran parte della storia vietnamita, la cittadella fu spesso segnata dalla guerra. In due diversi momenti, durante l'occupazione europea e americana, vi ebbero luogo intense battaglie campali: prima nel 1947, quando i Việt Minh la dovettero difendere dai francesi, e nuovamente nel 1968, quando l'esercito nordvietnamita e i Việt Cộng vi affrontarono le truppe americane. </Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_WATER_PUPPET_THEATER_NAME" Language="it_IT">
+      <Text>Teatro di marionette sull'acqua|il Teatro di marionette sull'acqua|un Teatro di marionette sull'acqua</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_WONDER_THANH_HUE_NAME" Language="it_IT">
+      <Text>Thành Huế|Thành Huế|Thành Huế</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SONG_CHU_NAME" Language="it_IT">
+      <Text>Sông Chu</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SONG_DUONG_NAME" Language="it_IT">
+      <Text>Sông Đuống</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SONG_GAM_NAME" Language="it_IT">
+      <Text>Sông Gâm</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SONG_HONG_NAME" Language="it_IT">
+      <Text>Sông Hong</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SONG_LAM_NAME" Language="it_IT">
+      <Text>Sông Lam</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_BANG_MO_NAME" Language="it_IT">
+      <Text>Bang Mo</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_CHU_DANG_YA_NAME" Language="it_IT">
+      <Text>Chu Dang Ya</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_CU_LAO_RE_NAME" Language="it_IT">
+      <Text>Cù-Lao Ré</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_DONG_NAI_NAME" Language="it_IT">
+      <Text>Dong Nai</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_NAM_DONG_NAME" Language="it_IT">
+      <Text>Nam Dong</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_CAM_QUAN_NAME" Language="it_IT">
+      <Text>Cấm Quân</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_CHU_NOM_NAME" Language="it_IT">
+      <Text>Chữ Nôm</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_THANH_HOANG_NAME" Language="it_IT">
+      <Text>Thành Hoàng</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TU_DAN_NAME" Language="it_IT">
+      <Text>Tứ Dân</Text>
+    </Replace>
+    <Replace Tag="LOC_11042A_COMPLETION" Language="it_IT">
+      <Text>Un topolino bianco si fa vedere dai coloni, poi scappa in avanti. Lo inseguono per giorni attraverso il terreno accidentato. Quando svanisce... ecco una sorgente di acqua cristallina che sgorga dalla terra. Qui potrà sorgere una bella città.</Text>
+    </Replace>
+    <Replace Tag="LOC_11042A_STORYTITLE" Language="it_IT">
+      <Text>La foresta domata</Text>
+    </Replace>
+    <Replace Tag="LOC_11042B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11042B_NAME" Language="it_IT">
+      <Text>La fame di nuove terre spinge i nuovi migranti sempre avanti.</Text>
+    </Replace>
+    <Replace Tag="LOC_11042C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11042C_NAME" Language="it_IT">
+      <Text>Nuove terre portano nuovi pericoli.</Text>
+    </Replace>
+    <Replace Tag="LOC_11043A_COMPLETION" Language="it_IT">
+      <Text>Per molto tempo i baray dei Khmer hanno nutrito la gente. Negli anni successivi alla presa del potere da parte di Việt, tuttavia, il sacro compito di prendersene cura è stato trascurato. Il limo si è insinuato nei passaggi, tanto che durante la stagione secca compaiono ampie zone di fango esposto.</Text>
+    </Replace>
+    <Replace Tag="LOC_11043A_STORYTITLE" Language="it_IT">
+      <Text>Khmer Krom</Text>
+    </Replace>
+    <Replace Tag="LOC_11043B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11043B_NAME" Language="it_IT">
+      <Text>Riprogetta il sistema secondo i nuovi standard di Việt.</Text>
+    </Replace>
+    <Replace Tag="LOC_11043C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11043C_NAME" Language="it_IT">
+      <Text>Affida ai preti Khmer lo svolgimento dei vecchi rituali.</Text>
+    </Replace>
+    <Replace Tag="LOC_11044A_COMPLETION" Language="it_IT">
+      <Text>I cancelli del Palazzo Weiyang sono aperti, le sue infinite sale trasformate in un labirinto. Ma non è vuoto. Ora, dove i principi posavano la testa i migranti giunti dalla campagna allevano i loro bambini, dove una volta sussurravano i cortigiani i venditori del mercato urlano per vendere le loro merci. Ma è giusto così?</Text>
+    </Replace>
+    <Replace Tag="LOC_11044A_STORYTITLE" Language="it_IT">
+      <Text>Il palazzo senza fine</Text>
+    </Replace>
+    <Replace Tag="LOC_11044B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} e {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11044B_NAME" Language="it_IT">
+      <Text>Sì. Diventerà esso stesso una città.</Text>
+    </Replace>
+    <Replace Tag="LOC_11044C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11044C_NAME" Language="it_IT">
+      <Text>No. Sarà pulito e ristrutturato.</Text>
+    </Replace>
+    <Replace Tag="LOC_11045A_COMPLETION" Language="it_IT">
+      <Text>Il comandante appena promosso non spicca per le sue buone maniere. Il suo áo giao lĩnh è strappato sul petto, tanto da mostrare la pelle solcata da cicatrici. Ma nessuno osa farlo notare, anche quando lui non è presente. Si dice che i nemici di Đại Việt siano allo stesso tempo ovunque e da nessuna parte.</Text>
+    </Replace>
+    <Replace Tag="LOC_11045A_STORYTITLE" Language="it_IT">
+      <Text>La guerriglia</Text>
+    </Replace>
+    <Replace Tag="LOC_11045B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} a tutti i Comandanti.</Text>
+    </Replace>
+    <Replace Tag="LOC_11045B_NAME" Language="it_IT">
+      <Text>La sua stella si leverà ancora più in alto.</Text>
+    </Replace>
+    <Replace Tag="LOC_11045C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11045C_NAME" Language="it_IT">
+      <Text>I suoi consigli saranno preziosi per i nostri sforzi bellici.</Text>
+    </Replace>
+    <Replace Tag="LOC_11046A_COMPLETION" Language="it_IT">
+      <Text>Dopo la fine della guerra, il comandante di Việt stava remando nel lago vicino alla capitale. Una tartaruga, così racconta, è emersa dall'acqua e gli ha chiesto di consegnare la sua spada. L'animale non apparteneva al regno umano, ma a quello divino.</Text>
+    </Replace>
+    <Replace Tag="LOC_11046A_STORYTITLE" Language="it_IT">
+      <Text>Il lago della spada restituita</Text>
+    </Replace>
+    <Replace Tag="LOC_11046B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} dalle caselle di lago a {2_capital}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11046B_NAME" Language="it_IT">
+      <Text>La natura stessa riconosce la maestà di Việt.</Text>
+    </Replace>
+    <Replace Tag="LOC_11046C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} dalle caselle di lago a {2_capital}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11046C_NAME" Language="it_IT">
+      <Text>La guerra è finita.</Text>
+    </Replace>
+    <Replace Tag="LOC_11047A_COMPLETION" Language="it_IT">
+      <Text>Quando scrivono, gli studiosi usano segni che, per quanto belli, non corrispondono alla lingua vietnamita. Ispirati, si rivolgono ai loro vicini. Sicuramente troveranno qualcuno da cui imparare.</Text>
+    </Replace>
+    <Replace Tag="LOC_11047A_STORYTITLE" Language="it_IT">
+      <Text>Chữ Nôm</Text>
+    </Replace>
+    <Replace Tag="LOC_11047B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11047B_NAME" Language="it_IT">
+      <Text>Gli studiosi progettano un sistema basato sulla scrittura di altri.</Text>
+    </Replace>
+    <Replace Tag="LOC_11047C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11047C_NAME" Language="it_IT">
+      <Text>Gli studiosi continuano a scrivere a modo loro.</Text>
+    </Replace>
+    <Replace Tag="LOC_11048A_COMPLETION" Language="it_IT">
+      <Text>I diplomatici si riuniscono nella Città Proibita; i fedeli della religione {1_Religion} pregano a Notre Dame, mentre la cittadella di Huế protegge tutti. Il poeta chiede: cos'ha fatto Đại Việt per meritare la benedizione degli dèi?</Text>
+    </Replace>
+    <Replace Tag="LOC_11048A_STORYTITLE" Language="it_IT">
+      <Text>Văn Minh</Text>
+    </Replace>
+    <Replace Tag="LOC_11048B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11048B_NAME" Language="it_IT">
+      <Text>Una lunga serie di coincidenze li ha portati qui.</Text>
+    </Replace>
+    <Replace Tag="LOC_11048C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11048C_NAME" Language="it_IT">
+      <Text>È il destino.</Text>
+    </Replace>
+    <Replace Tag="LOC_11049A_COMPLETION" Language="it_IT">
+      <Text>Mentre il fumo si alza sopra la città conquistata, i soldati cominciano a discutere: potranno tenere per sé una parte del bottino? Nello stesso momento i rampolli delle famiglie nobili, bramosi di possedere terre proprie, stanno già avanzando le loro richieste a palazzo.</Text>
+    </Replace>
+    <Replace Tag="LOC_11049A_STORYTITLE" Language="it_IT">
+      <Text>Nuove terre</Text>
+    </Replace>
+    <Replace Tag="LOC_11049B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} dai miglioramenti a {2_story_city}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11049B_NAME" Language="it_IT">
+      <Text>La terra deve andare a chi ha combattuto per conquistarla.</Text>
+    </Replace>
+    <Replace Tag="LOC_11049C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} dai miglioramenti a {2_story_city}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11049C_NAME" Language="it_IT">
+      <Text>La terra deve andare alle famiglie nobili.</Text>
+    </Replace>
+    <Replace Tag="LOC_11049D_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} dai miglioramenti a {2_story_city}, ma {3_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11049D_NAME" Language="it_IT">
+      <Text>La terra rimarrà nelle mani dei cittadini originali di {1_STORY_CITY}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11050A_COMPLETION" Language="it_IT">
+      <Text>Un nobile sta pescando nel lago vicino alla capitale quando si leva la nebbia. Da essa emerge l'ombra di una barca... con la sagoma di una tigre! Agendo rapidamente, un assistente cattura la bestia in una rete, dopodiché diventa un mandarino di corte.</Text>
+    </Replace>
+    <Replace Tag="LOC_11050A_STORYTITLE" Language="it_IT">
+      <Text>La tigre</Text>
+    </Replace>
+    <Replace Tag="LOC_11050B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} dalle caselle di lago a {2_capital}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11050B_NAME" Language="it_IT">
+      <Text>Sottoponi il mandarino a processo per stregoneria.</Text>
+    </Replace>
+    <Replace Tag="LOC_11050C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11050C_NAME" Language="it_IT">
+      <Text>Lascia che torni alle sue mansioni di insegnante.</Text>
+    </Replace>
+    <Replace Tag="LOC_11051A_COMPLETION" Language="it_IT">
+      <Text>Le forze di occupazione mongole marciano nella città conquistata; gli abitanti del villaggio le osservano con cautela dalle porte e dalle finestre. Quanto sarà pervasiva, quest'occupazione? Quanto durerà? A {1_Capital}, i leader di Việt valutano eventuali rappresaglie.</Text>
+    </Replace>
+    <Replace Tag="LOC_11051A_STORYTITLE" Language="it_IT">
+      <Text>Chiêu Quốc Vương</Text>
+    </Replace>
+    <Replace Tag="LOC_11051B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11051B_NAME" Language="it_IT">
+      <Text>La gente ha sofferto abbastanza.</Text>
+    </Replace>
+    <Replace Tag="LOC_11051C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11051C_NAME" Language="it_IT">
+      <Text>Non si può dimenticare.</Text>
+    </Replace>
+    <Replace Tag="LOC_11052A_COMPLETION" Language="it_IT">
+      <Text>La figura di Trưng Trắc attraversa imponente il mercato. La sua espressione feroce inchioda gli astanti sul posto mentre la sua spada le volteggia intorno al corpo. Il suo volto, però, è quello di una vecchia: una medium, che sostiene che il suo spirito è stato sostituito da quello di Trưng.</Text>
+    </Replace>
+    <Replace Tag="LOC_11052A_STORYTITLE" Language="it_IT">
+      <Text>Lên Đảng</Text>
+    </Replace>
+    <Replace Tag="LOC_11052B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} a {2_capital}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11052B_NAME" Language="it_IT">
+      <Text>Questa è sedizione. Proibisci questa pratica.</Text>
+    </Replace>
+    <Replace Tag="LOC_11052C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11052C_NAME" Language="it_IT">
+      <Text>Questo è un onore. Occorre trovargli un posto.</Text>
+    </Replace>
+    <Replace Tag="LOC_11053A_COMPLETION" Language="it_IT">
+      <Text>La partenza di una piccola imbarcazione sembra un evento minore, ma quando raggiungerà il mondo solleverà venti e tempeste.[n] La storia di Kiều</Text>
+    </Replace>
+    <Replace Tag="LOC_11053A_STORYTITLE" Language="it_IT">
+      <Text>Văn Minh</Text>
+    </Replace>
+    <Replace Tag="LOC_11053B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11053B_NAME" Language="it_IT">
+      <Text>La nave trasporta soldati.</Text>
+    </Replace>
+    <Replace Tag="LOC_11053C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11053C_NAME" Language="it_IT">
+      <Text>La nave trasporta studiosi.</Text>
+    </Replace>
+    <Replace Tag="LOC_12008A_COMPLETION" Language="it_IT">
+      <Text>In piedi sul limitare di un campo di riso allagato, il dottor Rizal osserva una troupe di marionettisti provare un'impegnativa sequenza. In pochi istanti, stormi di uccelli prendono vita all'estremità dei loro bastoni di bambù.</Text>
+    </Replace>
+    <Replace Tag="LOC_12008A_STORYTITLE" Language="it_IT">
+      <Text>Il buon dottore e le marionette sull'acqua</Text>
+    </Replace>
+    <Replace Tag="LOC_12008B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} in tutti gli insediamenti.</Text>
+    </Replace>
+    <Replace Tag="LOC_12008B_NAME" Language="it_IT">
+      <Text>Parla con i contadini delle loro pratiche.</Text>
+    </Replace>
+    <Replace Tag="LOC_12008C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_12008C_NAME" Language="it_IT">
+      <Text>Parla con gli intrattenitori delle loro prove.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTR_YIELDS_FROM_RANDOM_EVENT" Language="it_IT">
+      <Text>Resa da inondazioni, tempeste e vulcani</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_CAM_QUAN_AUTHOR" Language="it_IT">
+      <Text>Nam quốc sơn hà</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_CAM_QUAN_QUOTE" Language="it_IT">
+      <Text>"Coi loro fendenti, le scintillanti lame vi ridurranno in schegge di bambù!"</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_CHU_NOM_AUTHOR" Language="it_IT">
+      <Text>Nguyễn Bỉnh Khiêm</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_CHU_NOM_QUOTE" Language="it_IT">
+      <Text>"Quale porta conduce alla fortuna, quale alla sfortuna? Il risultato è determinato dalle persone."</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_THANH_HOANG_AUTHOR" Language="it_IT">
+      <Text>La storia di Kiều</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_THANH_HOANG_QUOTE" Language="it_IT">
+      <Text>"Mentre il loto appassisce, i crisantemi fioriscono. Tristezza lunga, giornate corte... poi l'inverno si fa primavera."</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TU_DAN_AUTHOR" Language="it_IT">
+      <Text>Đặng Trần Côn</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TU_DAN_QUOTE" Language="it_IT">
+      <Text>"La strada verso la fama è una fra cento percorsi verso il fallimento."</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_DAI_VIET_DESCRIPTION" Language="it_IT">
+      <Text>Quando realizzi una costruzione di tipo fortificazione ricevi 5 [icon:YIELD_CULTURE] Cultura per ogni punto di popolazione urbana nell'insediamento (a velocità standard).</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_WATER_PUPPET_THEATER_DESCRIPTION" Language="it_IT">
+      <Text>+4 [icon:YIELD_FOOD] Cibo. +2 [icon:YIELD_HAPPINESS] Felicità se costruito in Terreni allagati. +1 [icon:YIELD_CULTURE] Cultura ogni volta che questo insediamento riceve fertilità da un'inondazione, tempesta o vulcano. Miglioramenti, edifici e distretti in questo insediamento non vengono danneggiati dalle inondazioni. Miglioramento esclusivo di Đại Việt. Senza epoca. Non rimuove i bonus per i Depositi in una casella. Dev'essere costruito su un miglioramento già esistente, adiacente a un fiume e non adiacente a un altro Teatro di marionette sull'acqua.</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_WATER_PUPPET_THEATER_TOOLTIP" Language="it_IT">
+      <Text>+2 [icon:YIELD_HAPPINESS] Felicità se costruito in Terreni allagati. +1 [icon:YIELD_CULTURE] Cultura ogni volta che questo insediamento riceve fertilità da un'inondazione, tempesta o vulcano. Miglioramenti, edifici e distretti in questo insediamento non vengono danneggiati dalle inondazioni. Miglioramento esclusivo di Đại Việt. Senza epoca. Non rimuove i bonus per i Depositi in una casella. Dev'essere costruito su un miglioramento già esistente, adiacente a un fiume e non adiacente a un altro Teatro di marionette sull'acqua.</Text>
+    </Replace>
+    <Replace Tag="LOC_INTRO_DAI_VIET" Language="it_IT">
+      <Text>Ispirati da potere e ricchezza, gli spiriti del territorio assisteranno all'ascesa del Đại Việt. </Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_DAI_VIET" Language="it_IT">
+      <Text>All'ombra della guerra e dell'oppressione, il popolo di Đại Việt rimane saldo. Nei campi di riso o sul dorso degli elefanti, il popolo vietnamita sogna di determinare il proprio destino, respingere gli invasori al di là delle sue rive... e conquistare nuovi territori per sé. Al suono ritmato del Trống cơm, tra i barriti degli elefanti, Đại Việt reclama i suoi diritti.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_DAI_VIET" Language="it_IT">
+      <Text>Conquista territori con Terreni allagati e nel bioma Tropicale per sfruttare al meglio i tuoi Progressi civici e costruisci Mura in tutti i tuoi distretti!</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_DAI_VIET_COMPLETE_THANH_HUE_DESC" Language="it_IT">
+      <Text>Giocando con Đại Việt, completa il Thành Huế</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_DAI_VIET_COMPLETE_THANH_HUE_NAME" Language="it_IT">
+      <Text>Thành Huế</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_DAI_VIET_LEGACY_PATH_CULTURAL_DESC" Language="it_IT">
+      <Text>Giocando con Đại Việt, completa un Percorso Retaggio culturale</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_DAI_VIET_LEGACY_PATH_CULTURAL_NAME" Language="it_IT">
+      <Text>Percorso Retaggio Đại Việt</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CAM_QUAN_FORMAL_WAR_COMBAT_ABILITY_DESCRIPTION" Language="it_IT">
+      <Text>Le unità militari ricevono +3 alla Forza di combattimento durante una Guerra formale. Il bonus è raddoppiato nel tuo territorio.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CAM_QUAN_FORTIFICATION_CONSTRUCTIBLES_DESCRIPTION" Language="it_IT">
+      <Text>+50% alla [icon:YIELD_PRODUCTION] Produzione per realizzare costruzioni di tipo fortificazione.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CHU_NOM_CULTURE_TROPICAL_DESCRIPTION" Language="it_IT">
+      <Text>Gli edifici culturali ricevono un bonus di +1 alla [icon:YIELD_CULTURE] Cultura per la vicinanza alle caselle tropicali.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CHU_NOM_FLOOD_PLAINS_CULTURE_DESCRIPTION" Language="it_IT">
+      <Text>+2 [icon:YIELD_CULTURE] Cultura dalle caselle di Terreni allagati.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_DAI_VIET_DESCRIPTION" Language="it_IT">
+      <Text>+30% alla Produzione perché è la Meraviglia esclusiva di Đại Việt.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_THANH_HOANG_GRISTMILL_WATER_PUPPET_THEATER_DESCRIPTION" Language="it_IT">
+      <Text>+2 [icon:YIELD_FOOD] Cibo dai Teatri di marionette sull'acqua negli insediamenti che hanno un Mulino di cereali.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TU_DAN_WALL_COMBAT_STRENGTH_DESCRIPTION" Language="it_IT">
+      <Text>+5 alla Forza di combattimento quando si difende nei distretti fortificati nelle caselle tropicali.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_THANH_HUE" Language="it_IT">
+      <Text>Trần Hưng Đạo</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_THANH_HUE" Language="it_IT">
+      <Text>Se gli eroi rimanessero a casa a morire vicino al fuoco, i loro nomi sarebbero scritti su bambù e seta per tutta l'eternità?</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_CAM_BINH_DESCRIPTION" Language="it_IT">
+      <Text>+2[icon:YIELD_GOLD] dalle Fortificazioni negli insediamenti che hanno almeno 1 unità di guarnigione.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_CON_KENH_DESCRIPTION" Language="it_IT">
+      <Text>+2 [icon:YIELD_CULTURE] Cultura dagli edifici legati al Cibo e +2 [icon:YIELD_FOOD] Cibo dagli edifici legati alla Cultura.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_RUONG_LANG_XA_DESCRIPTION" Language="it_IT">
+      <Text>+10% alla velocità di crescita dei Paesi.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_DAI_VIET_ABILITY_DESCRIPTION" Language="it_IT">
+      <Text>[BLIST][LI]Quando realizzi una costruzione di tipo [B]fortificazione[/B] ricevi [B]5 [icon:YIELD_CULTURE] Cultura [/B]per ogni punto di [B]popolazione urbana [/B]nell'insediamento (a velocità standard).[LI][B]+30% [icon:YIELD_PRODUCTION] Produzione [/B]per la costruzione del [B]Thành Huế[/B].[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_DAI_VIET_ABILITY_NAME" Language="it_IT">
+      <Text>Hịch Tướng Sĩ</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_EX_DAI_VIET_NAME" Language="it_IT">
+      <Text>Progressi civici del Đại Việt</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_VIET_KIEU_DESCRIPTION" Language="it_IT">
+      <Text>Colono esclusivo di Đại Việt. Quando quest'unità fonda un insediamento, ricevi 5 [icon:YIELD_CULTURE] Cultura per ogni casella tropicale entro 3 caselle dal Centro cittadino (scala con la velocità del gioco).</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_VOI_CHIEN_2_DESCRIPTION" Language="it_IT">
+      <Text>Unità a distanza esclusiva di Đại Việt di livello 2. Ha una Forza di combattimento maggiore, costa di più e ha +1 al movimento e al raggio visivo. Può muoversi dopo aver attaccato.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_VOI_CHIEN_3_DESCRIPTION" Language="it_IT">
+      <Text>Unità a distanza esclusiva di Đại Việt di livello 3. Ha una Forza di combattimento maggiore, costa di più e ha +1 al movimento e al raggio visivo. Può muoversi dopo aver attaccato.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_VOI_CHIEN_BASE_DESCRIPTION" Language="it_IT">
+      <Text>Unità a distanza esclusiva di Đại Việt. Ha una Forza di combattimento maggiore, costa di più e ha +1 al movimento e al raggio visivo. Può muoversi dopo aver attaccato.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_VOI_CHIEN_DESCRIPTION" Language="it_IT">
+      <Text>Unità a distanza esclusiva di Đại Việt di livello 1. Ha una Forza di combattimento maggiore, costa di più e ha +1 al movimento e al raggio visivo. Può muoversi dopo aver attaccato.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_DAI_VIET_DESCRIPTION" Language="it_IT">
+      <Text>Gioca con [B]Đại Việt[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_LAKSHMIBAI_DAI_VIET_TOOLTIP" Language="it_IT">
+      <Text>[B]Lakshmibai[/B] proveniva dallo stesso continente del [B]Đại Việt[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_TRUNG_TRAC_DAI_VIET_TOOLTIP" Language="it_IT">
+      <Text>[B]Trưng Trac[/B] era una monarca dell'antico Vietnam.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_TROPICAL_DAI_VIET_DESCRIPTION" Language="it_IT">
+      <Text>Possiedi tre insediamenti in terreno [B]tropicale[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_TROPICAL_DAI_VIET_TOOLTIP" Language="it_IT">
+      <Text>Gli [B]insediamenti tropicali[/B] erano una parte importante dell'identità [B]Đại Việt[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_TROPICAL_DESCRIPTION" Language="it_IT">
+      <Text>Possiedi tre insediamenti in terreno [B]tropicale[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_THANH_HUE_DESCRIPTION" Language="it_IT">
+      <Text>+4 [icon:YIELD_CULTURE] Cultura. +1 al limite degli specialisti nelle città che hanno 7 Mura dell'epoca in corso. Si comporta come un distretto fortificato che dev'essere conquistato. Dev'essere costruito adiacente a Mura medievali in una città che possiede 7 Mura medievali.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_THANH_HUE_TOOLTIP" Language="it_IT">
+      <Text>+1 al limite degli specialisti nelle città che hanno 7 Mura dell'epoca in corso. Si comporta come un distretto fortificato che dev'essere conquistato. Dev'essere costruito adiacente a Mura medievali in una città che possiede 7 Mura medievali.</Text>
+    </Replace>
+    <Replace Tag="LOC_CAM_QUAN_PREVIEW" Language="it_IT">
+      <Text>+{1_Amount} da Cấm Quân</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_TROPICAL_DAI_VIET_NARRATIVE" Language="it_IT">
+      <Text>Ricavare città e paesi dai fianchi del mondo, dove la vita esplode in modo travolgente, richiede un'attenzione costante. Nella costruzione delle loro città tropicali, i coloni {1_Civilization_Adj[2]} imitano i costumi degli abitanti già presenti, ripulendo una zona di terreno e difendendola dalle forze naturali che vorrebbero riconquistarla. </Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_CAM_BINH_NAME" Language="it_IT">
+      <Text>Cấm Binh</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_CON_KENH_NAME" Language="it_IT">
+      <Text>Con Kênh</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_RUONG_LANG_XA_NAME" Language="it_IT">
+      <Text>Ruộng Làng Xã</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_VIET_KIEU_NAME" Language="it_IT">
+      <Text>Quận Vương|un Quận Vương|dal tuo Quận Vương|al tuo Quận Vương|il tuo Quận Vương|da un Quận Vương</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_UNIT_VOI_CHIEN_NAME" Language="it_IT">
+      <Text>Voi Chiến|un Voi Chiến|dal tuo Voi Chiến|al tuo Voi Chiến|il tuo Voi Chiến|da un Voi Chiến</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+  </LocalizedText>
+</Database>

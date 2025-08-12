@@ -1,0 +1,803 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA1" Language="es_ES">
+      <Text>Preslav</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA10" Language="es_ES">
+      <Text>Plovdiv</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA11" Language="es_ES">
+      <Text>Borui</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA12" Language="es_ES">
+      <Text>Skopie</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA13" Language="es_ES">
+      <Text>Belograd </Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA14" Language="es_ES">
+      <Text>Varna</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA15" Language="es_ES">
+      <Text>Breznik</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA16" Language="es_ES">
+      <Text>Devina</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA17" Language="es_ES">
+      <Text>Pernik</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA18" Language="es_ES">
+      <Text>Lipjan</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA19" Language="es_ES">
+      <Text>Develtos</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA2" Language="es_ES">
+      <Text>Tarnovo</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA20" Language="es_ES">
+      <Text>Bitola</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA21" Language="es_ES">
+      <Text>Drembitsa</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA22" Language="es_ES">
+      <Text>Prilep</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA23" Language="es_ES">
+      <Text>Kosovo</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA24" Language="es_ES">
+      <Text>Anquialo</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA25" Language="es_ES">
+      <Text>Mélnik</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA26" Language="es_ES">
+      <Text>Mesembria</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA27" Language="es_ES">
+      <Text>Prizren</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA28" Language="es_ES">
+      <Text>Yámbol</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA29" Language="es_ES">
+      <Text>Arsa</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA3" Language="es_ES">
+      <Text>Ohrid</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA30" Language="es_ES">
+      <Text>Devol </Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA31" Language="es_ES">
+      <Text>Pazardzhik </Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA4" Language="es_ES">
+      <Text>Pliska</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA5" Language="es_ES">
+      <Text>Drastar</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA6" Language="es_ES">
+      <Text>Pleven</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA7" Language="es_ES">
+      <Text>Badín</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA8" Language="es_ES">
+      <Text>Sredets</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA9" Language="es_ES">
+      <Text>Karvuna</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_1" Language="es_ES">
+      <Text>Anna</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_10" Language="es_ES">
+      <Text>Smiltsena</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_2" Language="es_ES">
+      <Text>Desislava</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_3" Language="es_ES">
+      <Text>Keratsa</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_4" Language="es_ES">
+      <Text>Militsa</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_5" Language="es_ES">
+      <Text>Ripsimia</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_6" Language="es_ES">
+      <Text>Miroslava</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_7" Language="es_ES">
+      <Text>Kosara</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_8" Language="es_ES">
+      <Text>Maria</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_9" Language="es_ES">
+      <Text>Beloslava</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_1" Language="es_ES">
+      <Text>Boris</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_10" Language="es_ES">
+      <Text>Radivoi</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_2" Language="es_ES">
+      <Text>Asparuch</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_3" Language="es_ES">
+      <Text>Radislav</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_4" Language="es_ES">
+      <Text>Ivan</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_5" Language="es_ES">
+      <Text>Bezmer</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_6" Language="es_ES">
+      <Text>Tervel</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_7" Language="es_ES">
+      <Text>Kaloyan</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_8" Language="es_ES">
+      <Text>Ivailo</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_9" Language="es_ES">
+      <Text>Petar</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_BULGARIA_ADJECTIVE" Language="es_ES">
+      <Text>búlgaro|búlgara|búlgaros|búlgaras</Text>
+      <Gender>masculine|feminine|masculine|feminine</Gender>
+      <Plurality>1|1|2|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_BULGARIA_FULLNAME" Language="es_ES">
+      <Text>Imperio búlgaro</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_BULGARIA_NAME" Language="es_ES">
+      <Text>Bulgaria</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_EXPLORATION_9_MAJOR_BULGARIA_NAME" Language="es_ES">
+      <Text>Aberffraw</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_EXPLORATION_9_MINOR_BULGARIA_NAME" Language="es_ES">
+      <Text>galés|galesa|galeses|galesas</Text>
+      <Gender>masculine|feminine|masculine|feminine</Gender>
+      <Plurality>1|1|2|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>En torno al año 670, llegó a la región del Danubio una poderosa tribu de búlgaros dirigidos por el kan Asparuch, con la intención de instalarse allí. Por aquel entonces, la región estaba bajo el dominio del Imperio bizantino, pero tanto la expansión del kanato de los ávaros como una alianza de las tribus eslavas de la zona habían puesto a prueba su autoridad. Los búlgaros, un pueblo de origen turco procedente de las regiones del Volga y el Caspio, habían seguido a los ávaros desde las estepas eurasiáticas tras el colapso de la efímera Gran Bulgaria. Pero a diferencia de los ávaros, quienes gobernaban un imperio nómada, los búlgaros de Asparuch habían empezado a adoptar un estilo de vida más sedentario y buscaban un territorio para asentarse de manera permanente. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_10" Language="es_ES">
+      <Text>En 1185, los hermanos Pedro e Iván Asen organizaron una rebelión para independizarse. Tras dos años de dura lucha, Bizancio volvió a reconocer de nuevo a Bulgaria como reino independiente. Nacía el segundo Imperio búlgaro. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_11" Language="es_ES">
+      <Text>En este periodo se produjeron avances basados en lo conseguido durante el primer imperio, además de una adaptación a la realidad política de creciente complejidad de la región. En el pasado, Bulgaria había buscado el reconocimiento de su formidable vecino meridional, pero Bizancio estaba en un proceso de decadencia y ni su aprobación ni sus regalos tenían el mismo atractivo de antaño. El sucesor de Pedro Asen, su hermano Kaloyan, optó por buscar legitimidad en la otra Roma, la del oeste. Poco después de la caída de Constantinopla, durante la Cuarta Cruzada, el papa Inocencio III lo proclamó emperador y convirtió en patriarcado la Iglesia búlgara. Al poco tiempo, Bulgaria encontró un nuevo enemigo en el recién fundado (y efímero) Imperio latino.  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_12" Language="es_ES">
+      <Text>El auge del segundo imperio llegó en tiempos de Iván Asen II (1218-1241). A pesar de sus continuos conflictos con sus vecinos, la guerra ya no constituía la base de la economía de los búlgaros. Con su expansión, el imperio había incorporado numerosas tierras fértiles, así que su sociedad se articulaba ahora en torno a la agricultura. Pero Bulgaria se beneficiaba también de su privilegiada posición como encrucijada entre Oriente y Occidente, y se revitalizó como gran centro de comercio. Con esta pujante economía, florecieron también las artes. Se estableció una nueva capital en Tarnovo, cuyas escuelas alumbraron un movimiento creativo de extraordinaria pujanza. Artistas, arquitectos y escritores comenzaron a producir obras de gran belleza y saber, tanto religiosas como seculares. Los centros urbanos crecieron con rapidez, mientras en remotas montañas se levantaban fortalezas y monasterios.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_13" Language="es_ES">
+      <Text>Tras la muerte de Iván Asen II, las cosas comenzaron a torcerse para Bulgaria. En el frente interno se acrecentó la desigualdad entre aristócratas y campesinos, lo que desembocó en varias revueltas e incluso llevó, en un momento dado, a que se instalara un porquero en el trono durante algún tiempo. En el exterior, las transformaciones del mundo sometieron al imperio a una presión creciente desde todos lados: los mongoles desde el norte, los serbios desde el este y, más adelante, los otomanos desde el sur. Fueron estos últimos los que dieron el golpe de gracia al imperio. A lo largo de la parte final del siglo XIV, avanzaron de manera inexorable a través de los Balcanes hasta tomar Tarnovo en 1393. En 1396, fallecido su último gobernante y perdido todo el territorio, el segundo Imperio búlgaro dejó de existir.  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_2" Language="es_ES">
+      <Text>Tras forjar una alianza con las tribus eslavas unificadas, Asparuch cruzó el Danubio en el año 680. El emperador Constantino IV le salió al paso, pero los búlgaros lograron infligir una derrota decisiva al ejército bizantino en la batalla de Ongal. Esta victoria se saldó con un tratado de paz favorable que, para vergüenza de Bizancio, reconocía a Bulgaria como estado independiente y le cedía todas las tierras al norte de los Balcanes. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_3" Language="es_ES">
+      <Text>Los primeros años del primer Imperio búlgaro estuvieron caracterizados por la construcción de las instituciones del Estado y la transición de un modo de vida nómada a otro sedentario. Se construyó una capital en Pliska, hecha de piedra para garantizar su longevidad, mientras empezaba a florecer una economía basada en la agricultura. Pero fue también una época de expansión. En la organización del imperio seguían estando presentes las jerarquías militares familiares características de los orígenes nómadas de los búlgaros, gran parte de cuya riqueza se derivaba de la guerra y, en especial, de las incursiones en las ricas tierras bizantinas del sur. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_4" Language="es_ES">
+      <Text>Las relaciones entre búlgaros y bizantinos fueron siempre complejas y contribuyeron a definir la identidad de los primeros a lo largo de la Edad Media. Bulgaria mostraba una actitud agresiva hacia Bizancio porque las incursiones servían para financiar el joven estado y porque una conquista bizantina fue siempre una posibilidad realista. Pero la joven potencia codiciaba también el reconocimiento que podía otorgarle el Imperio Romano de Oriente, fuese por medio de tratados o de títulos otorgados a sus líderes. (Por poner un ejemplo, el sucesor de Asparuch, Terval, ayudó al depuesto Justiniano II a recuperar el trono, y recibió por ello, con enorme satisfacción, el título de "César"). Con el paso de los siglos, la proximidad de Bizancio ejerció una gran influencia sobre Bulgaria en múltiples facetas, de la política a la religión, pasando por la literatura y las artes plásticas. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_5" Language="es_ES">
+      <Text>A los bizantinos, por su parte, no les complacía demasiado la presencia de una amenaza tan próxima en el norte. De vez en cuando utilizaban a los búlgaros, más que nada como títeres militares frente a sus rivales en las guerras civiles, pero en general los consideraban una espina en el costado del imperio. Además, tenían preocupaciones más acuciantes: en esta época su principal rival era el Califato abasida, que representaba una amenaza mucho mayor. Para no tener que librar una guerra en dos frentes, siempre procuraron pacificar a los búlgaros por medio de tratados y sobornos mientras luchaban en el este, y no emprendieron campañas en los Balcanes excepto cuando se producía alguna pausa en conflictos más grandes o cuando eran invadidos. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_6" Language="es_ES">
+      <Text>Los búlgaros eran guerreros feroces que hacían uso del terreno agreste de los Balcanes con gran eficacia. Conocían el territorio como la palma de su mano y luchaban con emboscadas y golpes de mano para oponerse a adversarios que a menudo eran mucho más numerosos. Estas tácticas funcionaban a la perfección tanto en escaramuzas e incursiones como en grandes batallas campales, como la de Pliska, en 811, cuando el kan Krum aniquiló un ejército bizantino dirigido por Nicéforo I. El propio emperador perdió la vida en la batalla, cosa que celebró el kan de los búlgaros convirtiendo su cráneo en una copa para beber.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_7" Language="es_ES">
+      <Text>La victoria de Pliska dio paso a un periodo de paz en el que se presentaron nuevas oportunidades para Bulgaria como estado. Cirilo y Metodio, dos misioneros bizantinos, comenzaron a recorrer los Balcanes con el fin de convertir a los búlgaros y eslavos que habitaban allí. A fin de comunicar mejor sus enseñanzas, inventaron un alfabeto escrito para la lengua eslava, el glagolítico. Esto, unido a la conversión al cristianismo ortodoxo, provocó que empezaran a desdibujarse las fronteras culturales entre la nobleza búlgara y la población eslava, cuya cultura fue asimilada cada vez más por los primeros. Estas transformaciones de la identidad búlgara reforzaron el reino, que se transformó en una entidad más unificada al tiempo que abría nuevas (y pacíficas) líneas de comunicación política y económica con la Europa cristiana en su conjunto. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_8" Language="es_ES">
+      <Text>La edad de oro del primer Imperio búlgaro llegó durante el reinado de Simeón I (893-927). Educado en Constantinopla, impulsó el crecimiento de su reino tanto cultural como geográficamente. Además de ser un gran mecenas de las artes y la literatura, convirtió la nueva capital de Preslav en una metrópolis impresionante. Asimismo, llevó a cabo campañas militares que ampliaron el territorio búlgaro hasta las costas del Egeo y el Adriático. Pero su legado tendría corta vida. En el año 1014, el emperador Basilio II aniquiló al ejército búlgaro en la batalla de Clidio, victoria que le valió el epíteto de "matabúlgaros". A consecuencia de esta derrota, el Imperio búlgaro tuvo que renunciar a su independencia y se convirtió en feudatario de los bizantinos durante 150 años.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_9" Language="es_ES">
+      <Text>Pero los búlgaros no estuvieron ociosos durante estos años. Se produjeron varios intentos de recuperar la independencia, entre los que destaca sobre todo el de 1040, cuando Pedro Delyan consiguió apoderarse de una parte importante de los Balcanes occidentales antes de ser derrotado por Miguel IV (el joven príncipe noruego Harald Hardrada participó en la campaña de Miguel como miembro de la guardia varega, lo que le valió un ascenso). De forma menos violenta pero igualmente agresiva, Bizancio intentó también helenizar los Balcanes, empezando por la Iglesia búlgara. Sin embargo, el caos provocado en otras provincias por las cruzadas y las incursiones de los turcos selyúcidas impidieron que se hicieran demasiados avances en este frente. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_IMPROVEMENT_HIDDEN_FORTRESS_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>En el interior de la cordillera de los Balcanes, cerca del pueblo de Belogradchik, se alza un afloramiento rocoso con un secreto: antaño albergó entre sus rocosos picos una guarnición, protegida por murallas naturales. Lo cierto es que la accidentada geografía de las tierras búlgaras estaba salpicada de pequeñas fortalezas. Se levantaban en puntos estratégicos, amparadas en su mayor parte por el terreno: acantilados verticales, valles angostos y afloramientos situados en lugares privilegiados. Pero los búlgaros procuraban reforzar las defensas naturales y construían edificios para albergar soldados y provisiones. A menudo, las fortalezas de menor tamaño se diseñaban para pasar inadvertidas a los ojos de los espías a fin de ofrecer puntos de partida para ataques por sorpresa o incursiones de exploración, tácticas que, entre otras muchas, permitían a los búlgaros utilizar la tierra misma contra sus enemigos. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_IMPROVEMENT_HIDDEN_FORTRESS_CHAPTER_HISTORY_PARA_2" Language="es_ES">
+      <Text>Muchas de estas fortalezas no han llegado hasta nuestros días, pero entre las que sí lo han hecho destaca especialmente la de Belogradchik. Se trata de un bastión levantado en tiempos de los romanos y reforzado y ampliado posteriormente en varias ocasiones, tanto por los bizantinos como por los búlgaros y, finalmente, los otomanos. Era uno de los centros de un estado búlgaro centrado en la localidad de Vidin. En la actualidad, su trazado se extiende mucho más allá de los picachos que lo albergaban en su momento, pero la ciudadela original se funde todavía con el terreno ocultándose a la vista.  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_SEVEN_TRIBES_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>Cuando los búlgaros llegaron a Europa Oriental desde sus tierras originarias del Asia Central, se encontraron con un territorio poblado ya por los eslavos. Según el cronista bizantino Teófano, en la región del Danubio vivían siete tribus que se habían unificado durante el siglo VII para hacer frente a los bizantinos al sur y a los ávaros al oeste. Pero cuando llegaron los búlgaros, en lugar de luchar contra ellos, decidieron forjar una alianza bajo la autoridad del kan Asparuch. Esta fuerza unificada no tardaría en expulsar a las fuerzas bizantinas y cruzar el Danubio para fundar el primer Imperio búlgaro.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_SEVEN_TRIBES_CHAPTER_HISTORY_PARA_2" Language="es_ES">
+      <Text>Los eslavos siguieron siendo una población esencial en el seno del reino, y, con el paso del tiempo, los búlgaros turcos fueron absorbiendo las costumbres, la cultura y la lengua locales, hasta el punto de que, al llegar el siglo X, se habían convertido en un pueblo eslavo más.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_TARNOVO_SCHOOLS_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>En tiempos del segundo Imperio búlgaro, la capital de Tarnovo fue un centro de grandes avances artísticos, arquitectónicos y literarios. En sus escuelas se congregaban mentes creativas que alumbraron un extraordinario impulso creativo. En la escuela arquitectónica se utilizaban estructuras de ladrillo de gran complejidad y se jugaba con los diseños de influencia bizantina para levantar edificios ornamentales, tanto religiosos como seculares, que alumbraron un nuevo estilo de marcado carácter búlgaro. Sus estructuras fueron realzadas todavía más por los creadores de la escuela artística, que cubrían paredes y techos de murales y mosaicos; los pintores aplicaron también su destreza a obras más modestas, como manuscritos iluminados e iconos. La expansión de la alfabetización propició el auge de la escuela literaria, de la que brotó un verdadero torrente de textos de todo tipo, de hagiografías a salterios, pasando por cronologías y relatos populares. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_TARNOVO_SCHOOLS_CHAPTER_HISTORY_PARA_2" Language="es_ES">
+      <Text>El crecimiento de sus escuelas convirtió Tarnovo en una pujante capital de la cultura, y las obras de todos estos artistas y escritores ofrecieron nuevas vías de contacto con la espiritualidad, la educación y la representación del yo. Además, las escuelas fomentaron el aprecio del arte entre los ciudadanos por medio de manuscritos e iconos..., o, al menos, entre los ciudadanos que se los podían permitir. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_TSARSTVIE_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>La transformación del reino nómada de los búlgaros en un imperio sedentario ("tsarstvie") fue una auténtica proeza que facilitó y complicó al mismo tiempo la posición del territorio entre Oriente y Occidente. La rápida asimilación de los búlgaros por parte de los pueblos eslavos de la zona aceleró el crecimiento del reino en sus primeros tiempos, al transformar ambas identidades en una nueva realidad política que perviviría durante siglos. Pero Bulgaria se encontraba también en un cruce de caminos entre grandes potencias, lo que tuvo una enorme influencia sobre su desarrollo. Con mucha diferencia, la relación más importante es la que mantuvo con Bizancio, cuya huella se dejó sentir con claridad sobre ambos imperios búlgaros. A su vez, Occidente fue convirtiéndose cada vez más en una fuente de poder, riqueza e inspiración, a medida que los búlgaros trataban de encontrar nuevas oportunidades más allá de la órbita de los bizantinos. A lo largo de su dilatada y tumultuosa historia, el talento de los búlgaros para la adaptación y el crecimiento garantizó su longevidad, sin menoscabo del mantenimiento de una identidad nacional siempre muy marcada. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_BALIK_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>"Tarjan" es una palabra turca que hace referencia a un oficial militar de alto rango o a un gobernador provincial. Era un término frecuente entre los pueblos antiguos y medievales de Asia Central que los búlgaros aplicaron a su propia jerarquía antes de migrar al oeste. La fundación del primer Imperio búlgaro supuso la rápida transición del pueblo búlgaro de nómada a sedentario, si bien la organización política y militar de sus orígenes esteparios perduró durante esta época en la aplicación de títulos, deberes y divisiones de poder. Dicha continuidad incluía el rol de "tarjan", subdividido a su vez en una escala interna de títulos (zhupan-tarjan, oglu-tarjan, kalu-tarjan, etc.). </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_BALIK_CHAPTER_HISTORY_PARA_2" Language="es_ES">
+      <Text>Los orígenes turcos del pueblo búlgaro se fueron difuminando a medida que su estado evolucionaba con la asimilación de la población eslava local, la fuerte influencia del Imperio bizantino y su posterior conversión al cristianismo. Sin embargo, mientras los deberes del tarjan menguaban, el título sobrevivió y puede encontrarse en fuentes de épocas tan tardías como el siglo XII. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_BOYAR_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>Los boyardos, denominados "boila" durante el primer Imperio búlgaro, eran aristócratas del segundo imperio, nobles que desempeñaban funciones cívicas y militares, y que ostentaban el poder regional en tiempos de paz y la responsabilidad de activación durante la guerra. Como soldados de alto rango, exhibían las destrezas que hicieron tan efectivo al ejército búlgaro: una recia equitación y un profundo conocimiento de la tierra. La caballería era de tal valor que descuidar a un caballo, aun en tiempos de paz, conllevaba duras penas. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_BOYAR_CHAPTER_HISTORY_PARA_2" Language="es_ES">
+      <Text>El título de boyardo era hereditario, y entre ellos había una jerarquía adicional, con unos pocos boyardos superiores, que ejercían las funciones de consejo real, y otros tantos inferiores, que se centraban en el gobierno regional. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_RILA_MONASTERY_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>En el siglo X d. C., el monje Ivan (o Juan) de Rila se retiró a las montañas Rila para llevar una vida de ermitaño. Se hizo famoso por sus milagros y atrajo a muchos seguidores, que acudían en masa a su aislada cueva para aprender de él y recibir su bendición. Estos visitantes levantaron refugios en los que resguardarse, al principio temporales y, posteriormente, permanentes, lo que dio lugar al monasterio de Rila. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_RILA_MONASTERY_CHAPTER_HISTORY_PARA_2" Language="es_ES">
+      <Text>A lo largo de los siglos, el monasterio ha sufrido muchos cambios. Se ha destruido y reconstruido varias veces y, a día de hoy, el complejo representa diversas épocas del arte, la arquitectura y la historia búlgaros, si bien muestra una gran influencia de la escuela artística de Tarnovo del segundo Imperio búlgaro. Durante sus largos años de historia, el monasterio de Rila se ha erigido como un símbolo de la espiritualidad, los logros artísticos y la identidad de los búlgaros. En la actualidad, el monasterio permanece en activo. </Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIDDEN_FORTRESS_NAME" Language="es_ES">
+      <Text>Fortaleza oculta|Fortalezas ocultas</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_WONDER_RILA_MONASTERY_NAME" Language="es_ES">
+      <Text>Monasterio de Rila</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_DRINA_NAME" Language="es_ES">
+      <Text>Río Drina</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_ISKAR_NAME" Language="es_ES">
+      <Text>Río Iskar</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_MORAVA_NAME" Language="es_ES">
+      <Text>Río Morava</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_PRUT_NAME" Language="es_ES">
+      <Text>Río Prut</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_YANTRA_NAME" Language="es_ES">
+      <Text>Río Yantra</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_ADATEPE_NAME" Language="es_ES">
+      <Text>Adatepe</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_CIOMADUL_NAME" Language="es_ES">
+      <Text>Ciomadul</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_CSOVANYOS_NAME" Language="es_ES">
+      <Text>Csóványos</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_KERKIS_NAME" Language="es_ES">
+      <Text>Kerkis</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_MOUNT_KARADAG_NAME" Language="es_ES">
+      <Text>Monte Karadağ</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SEVEN_TRIBES_NAME" Language="es_ES">
+      <Text>Siete tribus</Text>
+      <Gender>feminine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TARNOVO_SCHOOLS_NAME" Language="es_ES">
+      <Text>Escuelas de Tarnovo</Text>
+      <Gender>feminine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TSARSTVIE_NAME" Language="es_ES">
+      <Text>Tsarstvie</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_11020A_COMPLETION" Language="es_ES">
+      <Text>Las montañas búlgaras albergan muchos secretos. Su grandeza, antigüedad y belleza atraen las miradas de cuantos pasan bajo sus silenciosos picos. Pero los enemigos no tardan en percibir que las montañas les devuelven la mirada, y no es precisamente amistosa.</Text>
+    </Replace>
+    <Replace Tag="LOC_11020A_STORYTITLE" Language="es_ES">
+      <Text>Los acantilados vivientes</Text>
+    </Replace>
+    <Replace Tag="LOC_11020B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11020B_NAME" Language="es_ES">
+      <Text>Se puede aprender mucho al observar a otros sin ser visto.</Text>
+    </Replace>
+    <Replace Tag="LOC_11020C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11020C_NAME" Language="es_ES">
+      <Text>En las montañas hay espacio para más secretos.</Text>
+    </Replace>
+    <Replace Tag="LOC_11021A_COMPLETION" Language="es_ES">
+      <Text>En ausencia de guerra, el Imperio búlgaro prospera. El tarjan, aun privado del campo de batalla, seguía causando sensación en las calles, y el pueblo respetaba cada vez más su autoridad en asuntos mundanos.</Text>
+    </Replace>
+    <Replace Tag="LOC_11021A_STORYTITLE" Language="es_ES">
+      <Text>Liderazgo en tiempos de paz</Text>
+    </Replace>
+    <Replace Tag="LOC_11021B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}, pero {2_reward} durante {3_turn_timer}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11021B_NAME" Language="es_ES">
+      <Text>Los tarjanes deben aprender sobre el gobierno cívico.</Text>
+    </Replace>
+    <Replace Tag="LOC_11021C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11021C_NAME" Language="es_ES">
+      <Text>La paz es el momento ideal para prepararse para la guerra.</Text>
+    </Replace>
+    <Replace Tag="LOC_11022A_COMPLETION" Language="es_ES">
+      <Text>En las laderas de las montañas, un hombre santo vive solo en una cueva y realiza milagros entre los lugareños. Muchos se amontonan en su recóndita morada con la esperanza de recibir su bendición.</Text>
+    </Replace>
+    <Replace Tag="LOC_11022A_STORYTITLE" Language="es_ES">
+      <Text>Milagros en las montañas</Text>
+    </Replace>
+    <Replace Tag="LOC_11022B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11022B_NAME" Language="es_ES">
+      <Text>Este sería un buen sitio para erigir un monasterio permanente.</Text>
+    </Replace>
+    <Replace Tag="LOC_11022C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11022C_NAME" Language="es_ES">
+      <Text>¡Que nadie moleste al ermitaño!</Text>
+    </Replace>
+    <Replace Tag="LOC_11023A_COMPLETION" Language="es_ES">
+      <Text>Los monjes del monasterio de Rila se sientan en silencio en el interior de la iglesia a contemplar la divinidad. Sus silenciosas oraciones se ven repentinamente interrumpidas; unas voces en el exterior se maravillan ante los elaborados frescos del edificio.</Text>
+    </Replace>
+    <Replace Tag="LOC_11023A_STORYTITLE" Language="es_ES">
+      <Text>Turismo cultural</Text>
+    </Replace>
+    <Replace Tag="LOC_11023B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward} y {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11023B_NAME" Language="es_ES">
+      <Text>El monasterio es un espacio para todos los búlgaros.</Text>
+    </Replace>
+    <Replace Tag="LOC_11023C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11023C_NAME" Language="es_ES">
+      <Text>Este sitio está reservado para la contemplación espiritual.</Text>
+    </Replace>
+    <Replace Tag="LOC_11024A_COMPLETION" Language="es_ES">
+      <Text>El comandante enemigo reúne a sus tropas mientras el paisaje que los rodea clama sus muertes. Los búlgaros están por todas partes y en ningún sitio al mismo tiempo. Durante toda la noche, la tierra resuena con el eco de los escudos. El enemigo está confuso, asustado, exhausto y, cuando al fin los búlgaros atacan ferozmente al romper el alba, su victoria es rauda e inapelable.</Text>
+    </Replace>
+    <Replace Tag="LOC_11024A_STORYTITLE" Language="es_ES">
+      <Text>La venganza de Varbitsa</Text>
+    </Replace>
+    <Replace Tag="LOC_11024B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward} a la caballería.</Text>
+    </Replace>
+    <Replace Tag="LOC_11024B_NAME" Language="es_ES">
+      <Text>Esta noche, los soldados beberán bien.</Text>
+    </Replace>
+    <Replace Tag="LOC_11024C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11024C_NAME" Language="es_ES">
+      <Text>La guerra continúa, ¡más refuerzos!</Text>
+    </Replace>
+    <Replace Tag="LOC_11025A_COMPLETION" Language="es_ES">
+      <Text>Un sacerdote famoso por hacer milagros ha fundado una escuela para jóvenes misioneros. Les enseña un nuevo alfabeto, así como a utilizar su educación para compartir sus conocimientos con todo el mundo.</Text>
+    </Replace>
+    <Replace Tag="LOC_11025A_STORYTITLE" Language="es_ES">
+      <Text>El sacerdote de Ohrid</Text>
+    </Replace>
+    <Replace Tag="LOC_11025B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11025B_NAME" Language="es_ES">
+      <Text>Debemos propagar esta llama para iluminar el mundo.</Text>
+    </Replace>
+    <Replace Tag="LOC_11025C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11025C_NAME" Language="es_ES">
+      <Text>Los caminos que forjan abren nuevas oportunidades para los mercaderes.</Text>
+    </Replace>
+    <Replace Tag="LOC_11026A_COMPLETION" Language="es_ES">
+      <Text>En barco y caravana, los misioneros llevan la espiritualidad búlgara a cuantos estén dispuestos a escuchar sus enseñanzas. Muchos estudiantes nuevos no tardan en buscar otras guías y parten con la esperanza de recibir la bendición de los santos búlgaros.</Text>
+    </Replace>
+    <Replace Tag="LOC_11026A_STORYTITLE" Language="es_ES">
+      <Text>Peregrinos de tierras lejanas</Text>
+    </Replace>
+    <Replace Tag="LOC_11026B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11026B_NAME" Language="es_ES">
+      <Text>Los templos deben acoger a las masas.</Text>
+    </Replace>
+    <Replace Tag="LOC_11026C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11026C_NAME" Language="es_ES">
+      <Text>Un mercado increíble para los iconos...</Text>
+    </Replace>
+    <Replace Tag="LOC_11027A_COMPLETION" Language="es_ES">
+      <Text>El humo se eleva sobre los edificios derruidos mientras los boyardos cargan sus monturas con el botín. El éxito de su última incursión les da fuerzas, aunque les sorprende que estas tierras pudieran gozar de tantas riquezas.</Text>
+    </Replace>
+    <Replace Tag="LOC_11027A_STORYTITLE" Language="es_ES">
+      <Text>Ataque por sorpresa</Text>
+    </Replace>
+    <Replace Tag="LOC_11027B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}, pero {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11027B_NAME" Language="es_ES">
+      <Text>Los vecinos ricos son una bendición para Bulgaria.</Text>
+    </Replace>
+    <Replace Tag="LOC_11027C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11027C_NAME" Language="es_ES">
+      <Text>Tal vez haya algo que aprender de su prosperidad.</Text>
+    </Replace>
+    <Replace Tag="LOC_11028A_COMPLETION" Language="es_ES">
+      <Text>Mientras el pueblo lamenta la pérdida de su capital, diversos textos ganan popularidad a lo largo y ancho del imperio. En sus páginas, profetas de antaño relatan el pasado, presente y futuro de Bulgaria con la guía de los ángeles. Muchos encuentran consuelo en la historia durante esta época turbulenta, aunque las conclusiones apocalípticas resultan inquietantes.</Text>
+    </Replace>
+    <Replace Tag="LOC_11028A_STORYTITLE" Language="es_ES">
+      <Text>Anales apócrifos</Text>
+    </Replace>
+    <Replace Tag="LOC_11028B_DESCRIPTION" Language="es_ES">
+      <Text>Ascenso gratuito del Comandante de mayor nivel.</Text>
+    </Replace>
+    <Replace Tag="LOC_11028B_NAME" Language="es_ES">
+      <Text>La rememoración del pasado brinda esperanza de cara al futuro.</Text>
+    </Replace>
+    <Replace Tag="LOC_11028C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward} a la caballería.</Text>
+    </Replace>
+    <Replace Tag="LOC_11028C_NAME" Language="es_ES">
+      <Text>La divinidad brinda fortaleza al pueblo.</Text>
+    </Replace>
+    <Replace Tag="LOC_11029A_COMPLETION" Language="es_ES">
+      <Text>Los visitantes del Imperio búlgaro admiran la belleza de sus ciudades y las dotes artísticas de sus habitantes. Sin embargo, observan los desfiles militares con cierto temor, pues saben que su reino podría ser el siguiente en caer ante una fuerza tan férrea.</Text>
+    </Replace>
+    <Replace Tag="LOC_11029A_STORYTITLE" Language="es_ES">
+      <Text>Zenit</Text>
+    </Replace>
+    <Replace Tag="LOC_11029B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11029B_NAME" Language="es_ES">
+      <Text>La reputación de Bulgaria favorece su crecimiento.</Text>
+    </Replace>
+    <Replace Tag="LOC_11029C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11029C_NAME" Language="es_ES">
+      <Text>Bulgaria se enorgullece de su ejército.</Text>
+    </Replace>
+    <Replace Tag="LOC_12006A_COMPLETION" Language="es_ES">
+      <Text>Mientras desciende lentamente por una peligrosa senda de montaña, el Dr. Rizal reflexiona sobre el dominio búlgaro, aislado del mundo por vastas montañas, pero conectado por el comercio.</Text>
+    </Replace>
+    <Replace Tag="LOC_12006A_STORYTITLE" Language="es_ES">
+      <Text>El buen doctor en una encrucijada</Text>
+    </Replace>
+    <Replace Tag="LOC_12006B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward} a Corceles.</Text>
+    </Replace>
+    <Replace Tag="LOC_12006B_NAME" Language="es_ES">
+      <Text>Ay de quien pretenda invadir estas tierras.</Text>
+    </Replace>
+    <Replace Tag="LOC_12006C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward} en todos los asentamientos.</Text>
+    </Replace>
+    <Replace Tag="LOC_12006C_NAME" Language="es_ES">
+      <Text>Esas caravanas de mercaderes intrépidos...</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SEVEN_TRIBES_AUTHOR" Language="es_ES">
+      <Text>Las leyes del kan Krum</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SEVEN_TRIBES_QUOTE" Language="es_ES">
+      <Text>"Como se ha dicho antes, los búlgaros han aniquilado a todos sus enemigos".</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TARNOVO_SCHOOLS_AUTHOR" Language="es_ES">
+      <Text>Presbítero Kosmas</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TARNOVO_SCHOOLS_QUOTE" Language="es_ES">
+      <Text>"Los demonios temen estas reliquias benditas y no se atreven a acercarse".</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TSARSTVIE_AUTHOR" Language="es_ES">
+      <Text>Elegía por Pedro I</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TSARSTVIE_QUOTE" Language="es_ES">
+      <Text>"Como el lucero del alba, apareciste ante nosotros y disipaste la sombra del enemigo".</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_BULGARIA_DESCRIPTION" Language="es_ES">
+      <Text>Recibe [icon:YIELD_PRODUCTION] Producción en todas las ciudades cuando el saqueo de edificios es equivalente al 50 % del rendimiento o los PG obtenidos. Todas las unidades de combate reciben -3 a la Fuerza de combate contra distritos con Murallas medievales.</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIDDEN_FORTRESS_DESCRIPTION" Language="es_ES">
+      <Text>+4 a la[icon:YIELD_PRODUCTION] Producción. Se debe construir en una mejora existente situada en terreno Abrupto no adyacente a otra Fortaleza oculta. Las unidades de esta casilla ganan Sigilo. Mejora exclusiva búlgara. Cuenta como Fortificación, +6 a la Fuerza de combate al defenderse. No envejece. No elimina las bonificaciones de Almacén de una casilla.</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIDDEN_FORTRESS_TOOLTIP" Language="es_ES">
+      <Text>Se debe construir en una mejora existente situada en terreno Abrupto no adyacente a otra Fortaleza oculta. Las unidades de esta casilla ganan Sigilo. Mejora exclusiva búlgara. Cuenta como Fortificación, +6 a la Fuerza de combate al defenderse. No envejece. No elimina las bonificaciones de Almacén de una casilla.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_BULGARIA" Language="es_ES">
+      <Text>En la cima de los altos picos, los monjes elevan sus oraciones hacia el cielo mientras abajo, en las llanuras, suena la trompeta. Bulgaria cabalga espada en mano con la guía de una fe más fuerte que el acero. Haz sonar el cuerno de guerra y empuña el sable, el arkani y la lanza, y permite que los búlgaros se expandan por el mundo.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_BULGARIA" Language="es_ES">
+      <Text>Combina tu habilidad exclusiva Dinastía de Krum con las Tradiciones Fingir retirada y Estratagemas, para recibir grandes bonificaciones de rendimiento al saquear casillas. Eso sí, ¡ten cuidado al atacar asentamientos fortificados!</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_INTRO_BULGARIA" Language="es_ES">
+      <Text>Igual que el jinete pisotea al dragón, Bulgaria invadirá la tierra.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BULGARIA_COMPLETE_RILA_MONASTERY_DESC" Language="es_ES">
+      <Text>Como Bulgaria, completa el monasterio de Rila.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BULGARIA_COMPLETE_RILA_MONASTERY_NAME" Language="es_ES">
+      <Text>Monasterio de Rila</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BULGARIA_LEGACY_PATH_MILITARISTIC_DESC" Language="es_ES">
+      <Text>Como Bulgaria, completa una Ruta de legado militarista.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BULGARIA_LEGACY_PATH_MILITARISTIC_NAME" Language="es_ES">
+      <Text>Ruta de legado de Bulgaria</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_BULGARIA_DESCRIPTION" Language="es_ES">
+      <Text>+30 % a la Producción para la Maravilla exclusiva de Bulgaria.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SEVEN_TRIBES_GREATWORKS_COMBAT_DESCRIPTION" Language="es_ES">
+      <Text>Las unidades de combate reciben +5 a la Fuerza de combate cuando tienes al menos 5 Reliquias en exposición.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TARNOVO_SCHOOLS_TEMPLE_HAPPINESS_HIDDEN_FORTRESS_DESCRIPTION" Language="es_ES">
+      <Text>+2 a [icon:YIELD_HAPPINESS] Felicidad por Fortalezas ocultas en asentamientos con un Templo.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TSARSTVIE_CULTURE_MOUNTAIN_HIDDEN_FORTRESS_DESCRIPTION" Language="es_ES">
+      <Text>Las Fortalezas ocultas reciben +2 a [icon:YIELD_CULTURE] Cultura por cada casilla de Montaña adyacente.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TSARSTVIE_TWO_MIGRANTS_DESCRIPTION" Language="es_ES">
+      <Text> Recibe 2 Migrantes en la capital.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_RILA_MONASTERY" Language="es_ES">
+      <Text>Juan de Rila</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_RILA_MONASTERY" Language="es_ES">
+      <Text>La riqueza del ermitaño no está en la plata o el oro, sino en la pobreza perfecta, la negación de la voluntad y la humildad sin límites.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_FALSE_RETREAT_DESCRIPTION" Language="es_ES">
+      <Text>Recibe [icon:YIELD_FOOD] Alimentos en todos los pueblos cuando el saqueo de mejoras es equivalente al 50 % del rendimiento o los PG obtenidos. Todas las unidades de combate reciben -3 a la Fuerza de combate contra distritos fortificados.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_ICONOLATRY_DESCRIPTION" Language="es_ES">
+      <Text>Las Grandes obras proporcionan +1 a [icon:YIELD_HAPPINESS] Felicidad y +1 de [icon:YIELD_GOLD] Oro.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_STRATAGEMS_DESCRIPTION" Language="es_ES">
+      <Text>+50 % a los rendimientos y PG por saquear.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_BULGARIA_ABILITY_DESCRIPTION" Language="es_ES">
+      <Text>[BLIST][LI]Recibes [B][icon:YIELD_PRODUCTION] Producción [/B]en todas las [B]ciudades [/B]cuando el saqueo de edificios es equivalente al [B]50 % del rendimiento o los PG obtenidos[/B].[LI]Todas las unidades de combate reciben [B]-3 a la Fuerza de combate[/B] contra distritos con Murallas medievales.[LI][B]+30 % a la[icon:YIELD_PRODUCTION] Producción [/B]destinada a construir el [B]monasterio de Rila[/B].[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_BULGARIA_ABILITY_NAME" Language="es_ES">
+      <Text>Dinastía de Krum</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_EX_BULGARIA_NAME" Language="es_ES">
+      <Text>Principios de Bulgaria</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BALIK_DESCRIPTION" Language="es_ES">
+      <Text>Comandante de ejército exclusivo búlgaro. Tiene 3 de Movimiento. Las unidades de su Zona de mando pueden saquear consumiendo 1 de Movimiento.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_2_DESCRIPTION" Language="es_ES">
+      <Text>Unidad de caballería exclusiva búlgara de categoría 2. Ignora el terreno Abrupto para moverse y enfrentarse a unidades enemigas. +3 a la Fuerza de combate cuando esta unidad lucha contra objetivos en terreno Abrupto. Ignora las Zonas de control.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_3_DESCRIPTION" Language="es_ES">
+      <Text>Unidad de caballería exclusiva búlgara de categoría 3. Ignora el terreno Abrupto para moverse y enfrentarse a unidades enemigas. +3 a la Fuerza de combate cuando esta unidad lucha contra objetivos en terreno Abrupto. Ignora las Zonas de control.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_BASE_DESCRIPTION" Language="es_ES">
+      <Text>Unidad de caballería exclusiva búlgara. Ignora el terreno Abrupto para moverse y enfrentarse a unidades enemigas. +3 a la Fuerza de combate cuando esta unidad lucha contra objetivos en terreno Abrupto. Ignora las Zonas de control.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_DESCRIPTION" Language="es_ES">
+      <Text>Unidad de caballería exclusiva búlgara de categoría 1. Ignora el terreno Abrupto para moverse y enfrentarse a unidades enemigas. +3 a la Fuerza de combate cuando esta unidad lucha contra objetivos en terreno Abrupto. Ignora las Zonas de control.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_ALTARS_BULGARIA_TOOLTIP" Language="es_ES">
+      <Text>Los [B]Altares[/B] eran parte fundamental de la identidad de [B]Bulgaria[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_ALTARS_DESCRIPTION" Language="es_ES">
+      <Text>Posee tres [B]Altares[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_AUGUSTUS_BULGARIA_TOOLTIP" Language="es_ES">
+      <Text>[B]Augusto[/B] gobernó la región que se convertiría en [B]Bulgaria[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BULGARIA_DESCRIPTION" Language="es_ES">
+      <Text>Juega como [B]Bulgaria[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_CATHERINE_BULGARIA_TOOLTIP" Language="es_ES">
+      <Text>[B]Catalina[/B] era del mismo continente que [B]Bulgaria[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_CHARLEMAGNE_BULGARIA_TOOLTIP" Language="es_ES">
+      <Text>[B]Bulgaria[/B] complementa estratégicamente a [B]Carlomagno[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_RILA_MONASTERY_DESCRIPTION" Language="es_ES">
+      <Text>+4 a [icon:YIELD_CULTURE] Cultura. Cuenta con 3 espacios para Reliquias. Recibe una Reliquia cada vez que se construye una Maravilla, incluida esta. No puede ser adyacente a un distrito.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_RILA_MONASTERY_TOOLTIP" Language="es_ES">
+      <Text>Cuenta con 3 espacios para Reliquias. Recibe una Reliquia cada vez que se construye una Maravilla, incluida esta. No puede ser adyacente a un distrito.</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_BOYAR_PREVIEW" Language="es_ES">
+      <Text>+{1_Amount} en terreno Abrupto</Text>
+    </Replace>
+    <Replace Tag="LOC_COMBAT_PREVIEW_NUMBER_GREATWORKS_BONUS_DESC" Language="es_ES">
+      <Text>+{1_Value} a la Fuerza de combate por Grandes obras asignadas.</Text>
+    </Replace>
+    <Replace Tag="LOC_SEVEN_TRIBES_GREATWORKS_COMBAT_PREVIEW" Language="es_ES">
+      <Text>+{1_Amount} Siete tribus</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_FALSE_RETREAT_PREVIEW" Language="es_ES">
+      <Text>{1_CombatAmount} por Fingir retirada</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_BULGARIA_ABILITY_PREVIEW" Language="es_ES">
+      <Text>{1_CombatAmount} por Dinastía de Krum</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_ALTARS_BULGARIA_NARRATIVE" Language="es_ES">
+      <Text>La religión siempre ha sido un asunto personal para el pueblo {1_Civilization_Adj}. Sin embargo, alrededor de los altares de la ciudad, se reúnen multitudes para compartir historias de los santos de antaño. En estos relatos compartidos se crea una nueva red de creyentes que ansían llevar su credo hasta los salones de poder.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_FALSE_RETREAT_NAME" Language="es_ES">
+      <Text>Fingir retirada</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_ICONOLATRY_NAME" Language="es_ES">
+      <Text>Iconolatría</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_STRATAGEMS_NAME" Language="es_ES">
+      <Text>Estratagemas</Text>
+      <Gender>feminine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BALIK_NAME" Language="es_ES">
+      <Text>Tarjan|Tarjanes</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_NAME" Language="es_ES">
+      <Text>Boyardo|Boyardos</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+  </LocalizedText>
+</Database>

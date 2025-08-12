@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Friedrich Main Menu Char Select Text-->
+		<Row Tag="LOC_MAIN_CHAR_SELECT_LEADER_FRIEDRICH_ANY">
+			<Text>We strive to do our duty, to serve our country faithfully at the expense of our blood and of our repose, to commit our whole being to it. </Text>
+		</Row>
+
+		<!--Friedrich Statement Text-->
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_FRIEDRICH_ANY">
+			<Text>Friedrich II, pleased to meet you. I am an angel in the salon, but a demon on the battlefield.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_FRIEDRICH_ANY">
+			<Text>Friedrich II, pleased to meet you. I am an angel in the salon, but a demon on the battlefield.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_FRIEDRICH_ANY">
+			<Text>Friedrich II, pleased to meet you. I am an angel in the salon, but a demon on the battlefield.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_FRIEDRICH_ANY">
+			<Text>I have been in the theater too long, and hunger for the sound of cannon.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_FRIEDRICH_ANY">
+			<Text>To war, then! You rogues! Would you live forever?</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DEFEAT_AI_LEADER_FRIEDRICH_ANY">
+			<Text>And my critics said that my poetry would be my downfall!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_FRIEDRICH">
+			<Text>"Bien sur," this is a rational offer!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_FRIEDRICH">
+			<Text>A ridiculous offer. Send one better, or not at all!</Text>
+		</Row>
+	</EnglishText>
+</Database>

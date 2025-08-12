@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_DESCRIPTION" Language="pt_BR">
+      <Text>Contém novas personalidades para Asoka e Himiko.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_NAME" Language="pt_BR">
+      <Text>Pacote de Personalidade – Asoka e Himiko</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_DESCRIPTION" Language="fr_FR">
+      <Text>Contient de nouvelles personnalités pour Ashoka et Himiko.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_NAME" Language="fr_FR">
+      <Text>Pack de personnalités : Ashoka et Himiko</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_DESCRIPTION" Language="de_DE">
+      <Text>Enthält neue Personae von Aśoka und Himiko.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_NAME" Language="de_DE">
+      <Text>Persona-Paket – Aśoka und Himiko</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_DESCRIPTION" Language="it_IT">
+      <Text>Contiene nuove personalità per Ashoka e Himiko.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_NAME" Language="it_IT">
+      <Text>Pacchetto personaggi Ashoka e Himiko</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_DESCRIPTION" Language="ja_JP">
+      <Text>アショーカと卑弥呼の新たなパーソナリティを含みます。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_NAME" Language="ja_JP">
+      <Text>パーソナリティパック - アショーカと卑弥呼</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_DESCRIPTION" Language="ko_KR">
+      <Text>아소카와 히미코의 새로운 페르소나가 포함되어 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_NAME" Language="ko_KR">
+      <Text>페르소나 팩 - 아소카 및 히미코</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_DESCRIPTION" Language="pl_PL">
+      <Text>Zawiera nowe warianty Aśoki i Himiko.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_NAME" Language="pl_PL">
+      <Text>Pakiet wariantów Aśoki i Himiko</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_DESCRIPTION" Language="ru_RU">
+      <Text>Содержит новые персоны для Ашоки и Химико.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_NAME" Language="ru_RU">
+      <Text>Набор персон: Ашока и Химико</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>包含阿育王和卑弥呼的一个新形象。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_NAME" Language="zh_Hans_CN">
+      <Text>形象包 - 阿育王和卑弥呼</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_DESCRIPTION" Language="es_ES">
+      <Text>Contiene personalidades nuevas de Ashoka y Himiko.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_NAME" Language="es_ES">
+      <Text>Pack de personalidades: Ashoka y Himiko</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>包含阿育王及卑彌呼的新形象。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_NAME" Language="zh_Hant_HK">
+      <Text>形象包：阿育王與卑彌呼</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

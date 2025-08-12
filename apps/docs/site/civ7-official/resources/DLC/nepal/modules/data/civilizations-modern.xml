@@ -1,0 +1,129 @@
+<Database>
+	<Types>
+		<!-- Major Civs -->
+		<Row Type="TRAIT_NEPAL_ABILITY" Kind="KIND_TRAIT"/>
+	</Types>
+	<Kinds>
+		<InsertOrIgnore KIND="KIND_TRAIT"/>
+	</Kinds>
+	<Civilizations>
+		<!-- Full Civs -->
+		<Row CivilizationType="CIVILIZATION_NEPAL" Name="LOC_CIVILIZATION_NEPAL_NAME" FullName="LOC_CIVILIZATION_NEPAL_FULLNAME" Description="LOC_CIVILIZATION_NEPAL_DESCRIPTION" Adjective="LOC_CIVILIZATION_NEPAL_ADJECTIVE" StartingCivilizationLevelType="CIVILIZATION_LEVEL_FULL_CIV" UniqueCultureProgressionTree="TREE_CIVICS_MO_NEPAL" CapitalName="LOC_CITY_NAME_NEPAL1" AITargetCityPercentage="25" RandomCityNameDepth="10"/>
+	</Civilizations>
+	<CivilizationFavoredWonders>
+		<Row CivilizationType="CIVILIZATION_NEPAL" FavoredWonderType="WONDER_BOUDHANATH" FavoredWonderName="LOC_WONDER_BOUDHANATH_NAME"/>
+	</CivilizationFavoredWonders>
+	<Traits>
+		<!--Civ Traits-->
+		<Row TraitType="TRAIT_NEPAL_ABILITY" Name="LOC_TRAIT_NEPAL_ABILITY_NAME" Description="LOC_TRAIT_NEPAL_ABILITY_DESCRIPTION" InternalOnly="true"/>
+	</Traits>
+	<TraitModifiers>
+		<Row TraitType="TRAIT_NEPAL_ABILITY" ModifierId="MOD_NEPAL_MOUNTAIN_WAREHOUSES"/>
+		<Row TraitType="TRAIT_NEPAL_ABILITY" ModifierId="MOD_EXPENSIVE_WAREHOUSE_BUILDINGS"/>
+		<Row TraitType="TRAIT_NEPAL_ABILITY" ModifierId="MOD_REVEAL_CIV_CULTURE_TREE_NEPAL"/>
+		<Row TraitType="TRAIT_NEPAL_ABILITY" ModifierId="MOD_CIV_WONDER_PRODUCTION_NEPAL"/>
+	</TraitModifiers>
+	<CivilizationTraits>
+		<Row CivilizationType="CIVILIZATION_NEPAL" TraitType="TRAIT_MODERN_CIV"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" TraitType="TRAIT_NEPAL"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" TraitType="TRAIT_NEPAL_ABILITY"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" TraitType="TRAIT_ATTRIBUTE_CULTURAL"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" TraitType="TRAIT_ATTRIBUTE_POLITICAL"/>
+	</CivilizationTraits>
+	<RequirementSets>
+		<Row RequirementSetId="REQSET_PLAYER_IS_NEPAL" RequirementSetType="REQUIREMENTSET_TEST_ALL"/>
+	</RequirementSets>
+	<RequirementSetRequirements>
+		<Row RequirementSetId="REQSET_PLAYER_IS_NEPAL" RequirementId="REQ_PLAYER_HAS_TRAIT_NEPAL"/>
+	</RequirementSetRequirements>
+	<Requirements>
+		<Row RequirementId="REQ_PLAYER_HAS_TRAIT_NEPAL" RequirementType="REQUIREMENT_PLAYER_HAS_CIVILIZATION_OR_LEADER_TRAIT"/>
+	</Requirements>
+	<RequirementArguments>
+		<Row RequirementId="REQ_PLAYER_HAS_TRAIT_NEPAL" Name="TraitType" Value="TRAIT_NEPAL"/>
+	</RequirementArguments>
+	<LeaderCivPriorities>
+		<!--This is the table used for AI, the UI uses LeaderCivilizationBias in config.xml-->
+		<Row Leader="LEADER_ASHOKA" Civilization="CIVILIZATION_NEPAL" Priority="3"/>
+		<Row Leader="LEADER_PACHACUTI" Civilization="CIVILIZATION_NEPAL" Priority="1"/>
+	</LeaderCivPriorities>
+	<AiListTypes>
+		<Row ListType="Nepal Unit Biases"/>
+		<Row ListType="Nepal Government Bias"/>
+		<Row ListType="Nepal Constructibles Biases" />
+		<Row ListType="Nepal Settle Plot Evaluations" />
+		<Row ListType="Nepal Tag Biases" />
+		<Row ListType="Nepal Diplo Actions" />
+	</AiListTypes>
+	<AiLists>
+		<Row ListType="Nepal Unit Biases" LeaderType="TRAIT_NEPAL" System="UnitBiases"/>
+		<Row ListType="Nepal Government Bias" LeaderType="TRAIT_NEPAL" System="GovernmentBiases"/>
+		<Row ListType="Nepal Constructibles Biases" LeaderType="TRAIT_NEPAL" System="ConstructibleBiases" />
+		<Row ListType="Nepal Settle Plot Evaluations" LeaderType="TRAIT_NEPAL" System="SettlementPlotEvaluations" />
+		<Row ListType="Nepal Tag Biases" LeaderType="TRAIT_NEPAL" System="TagBiases"/>
+		<Row ListType="Nepal Diplo Actions" LeaderType="TRAIT_NEPAL" System="DiplomaticActions"/>
+	</AiLists>
+	<AiFavoredItems>
+		<Row ListType="Nepal Unit Biases" Item="UNIT_GURKHA" Value="50"/>
+		<Row ListType="Nepal Unit Biases" Item="UNIT_GURKHA_2" Value="50"/>
+		<Row ListType="Nepal Unit Biases" Item="UNIT_GURKHA_3" Value="50"/>
+		<Row ListType="Nepal Unit Biases" Item="UNIT_SHERPA" Value="25"/>
+		<Row ListType="Nepal Government Bias" Item="GOVERNMENT_ELECTIVE_REPUBLIC" Value="25"/>
+		<Row ListType="Nepal Constructibles Biases" Item="IMPROVEMENT_HIGHLAND_POWER_STATION" Value="200"/>
+		<Row ListType="Nepal Constructibles Biases" Item="WONDER_BOUDHANATH" Value="50"/>
+		<Row ListType="Nepal Settle Plot Evaluations" Item="Specific Terrain" Favored="false" Value="10" StringVal="TERRAIN_MOUNTAIN" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_TERRAIN"/>
+		<Row ListType="Nepal Tag Biases" Item="WAREHOUSE" Value="50"/>
+		<Row ListType="Nepal Diplo Actions" Item="DIPLOMACY_ACTION_GIFT_GURKHA" Favored="true" Value="50"/>
+	</AiFavoredItems>
+	<CityNames>
+		<!--Shawnee-->
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL1"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL2"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL3"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL4"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL5"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL6"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL7"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL8"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL9"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL10"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL11"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL12"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL13"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL14"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL15"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL16"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL17"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL18"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL19"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL20"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL21"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL22"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL23"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL24"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL25"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL26"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL27"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL28"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL29"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CityName="LOC_CITY_NAME_NEPAL30"/>
+	</CityNames>
+	<StartBiasTerrains>
+		<Row CivilizationType="CIVILIZATION_NEPAL" TerrainType="TERRAIN_MOUNTAIN" Score="20"/>
+	</StartBiasTerrains>
+	<VisArt_CivilizationBuildingCultures>
+		<Row CivilizationType="CIVILIZATION_NEPAL" BuildingCulture="BUILDING_CULTURE_MID"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" BuildingCulture="ANT_MUD"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" BuildingCulture="EXP_STONE"/>
+		<Row CivilizationType="CIVILIZATION_NEPAL" BuildingCulture="MOD_MUD"/>
+	</VisArt_CivilizationBuildingCultures>
+	<VisArt_CivilizationUnitCultures>
+		<Row CivilizationType="CIVILIZATION_NEPAL" UnitCulture="Asian"/>
+	</VisArt_CivilizationUnitCultures>
+	<Independents>
+		<Update>
+			<Where IndependentType="INDEPENDENT_MODERN_23"/>
+			<Set Name="LOC_INDEPENDENT_MODERN_23_MINOR_NEPAL_NAME" CityStateName="LOC_INDEPENDENT_MODERN_23_MAJOR_NEPAL_NAME"/>
+		</Update>
+	</Independents>
+</Database>

@@ -1,0 +1,42 @@
+<fxs-frame class="panel-unit-promotion flex-auto img-square-frame"
+		   override-styling="relative flex max-w-full max-h-full" filigree-class="hidden">
+	<div class="flex absolute h-16 w-full justify-center -top-7">
+		<div class="promotion-header__lines h-full bg-contain bg-no-repeat pointer-events-none flex-auto"></div>
+		<div class="promotion-header__icon w-40 h-40 absolute -bottom-4 bg-contain bg-no-repeat pointer-events-none">
+		</div>
+	</div>
+	<div class="ml-8 mr-5 absolute inset-0">
+		<div class="my-3">
+			<fxs-hslot class="promotion-progress__container items-end mx-10 absolute">
+				<fxs-ring-meter class="experience-ring w-20 h-20 mb-5 justify-center bg-contain bg-center flex">
+					<div class="experience-level font-bold font-title-xl flex justify-center items-center flex-auto">
+					</div>
+				</fxs-ring-meter>
+			</fxs-hslot>
+			<fxs-vslot class="items-center self-center">
+				<div data-slot="header"
+					 class="panel-unit-promotion__header max-w-128 uppercase text-center tracking-100 mt-2 font-title-xl text-secondary truncate font-title-xl text-gradient-secondary self-center">
+				</div>
+				<fxs-hslot id="promotion-progress__capcontainer" class="items-center mt-3">
+					<div class="promotion-progress__caption"></div>
+				</fxs-hslot>
+			</fxs-vslot>
+		</div>
+		<fxs-scrollable class="panel-unit-promotion-content flex-auto hidden">
+			<fxs-vslot class="mr-3\.5">
+				<div class="promotion-trees-container flex" tabindex="-1"></div>
+				<div id="commendations-container" class="flex flex-col m-1 relative">
+					<fxs-inner-frame class="p-4 mt-2">
+						<fxs-hslot id="promotion-commendations-container"
+								   class="w-full flex justify-around items-center mx-1 flex-row"></fxs-hslot>
+					</fxs-inner-frame>
+				</div>
+			</fxs-vslot>
+		</fxs-scrollable>
+		<fxs-hslot id="promotion-button-container" class="flex justify-center my-3">
+			<fxs-hero-button id="promotion-confirm-button" disabled="true" caption="LOC_UI_PANTHEON_CONFIRM">
+			</fxs-hero-button>
+		</fxs-hslot>
+		<div class="panel-unit-promotion-content-loading hidden flex flex-auto justify-center items-center"></div>
+	</div>
+</fxs-frame>

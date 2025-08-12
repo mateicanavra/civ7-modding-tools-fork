@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_CONSTRUCTIBLE"/>
+	</Kinds>
+	<Types>
+		<!--Civ Unique Buildings-->
+		<Row Type="BUILDING_COTHON" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_DOCKYARD" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="QUARTER_PUNIC_PORT" Kind="KIND_QUARTER"/>
+		<!--Wonders-->
+		<Row Type="WONDER_BYRSA" Kind="KIND_CONSTRUCTIBLE"/>
+	</Types>
+	<TypeQuotes>
+		<Row Type="WONDER_BYRSA" Quote="LOC_QUOTE_WONDER_BYRSA" QuoteAuthor="LOC_QUOTE_AUTHOR_WONDER_BYRSA" QuoteAudio="VO_Quote_Byrsa"/>
+	</TypeQuotes>
+	<Constructibles>
+		<!--Civ Unique Buildings-->
+		<Row ConstructibleType="BUILDING_COTHON" Name="LOC_BUILDING_COTHON_NAME" Description="LOC_BUILDING_COTHON_DESCRIPTION" Tooltip="LOC_BUILDING_COTHON_TOOLTIP" ConstructibleClass="BUILDING" Cost="120" Population="1" Age="AGE_ANTIQUITY"/>
+		<Row ConstructibleType="BUILDING_DOCKYARD" Name="LOC_BUILDING_DOCKYARD_NAME" Description="LOC_BUILDING_DOCKYARD_DESCRIPTION" Tooltip="LOC_BUILDING_DOCKYARD_TOOLTIP" ConstructibleClass="BUILDING" Cost="120" Population="1" Age="AGE_ANTIQUITY"/>
+		<!--Wonders-->
+		<Row ConstructibleType="WONDER_BYRSA" Name="LOC_WONDER_BYRSA_NAME" Description="LOC_WONDER_BYRSA_DESCRIPTION" Tooltip="LOC_WONDER_BYRSA_TOOLTIP" ConstructibleClass="WONDER" Cost="375" Population="0" RequiresUnlock="true" ImmuneDamage="true" Age="AGE_ANTIQUITY" AdjacentTerrain="TERRAIN_COAST"/>
+	</Constructibles>
+	<Buildings>
+		<!--Civ Unique Buildings-->
+		<Row ConstructibleType="BUILDING_COTHON" Movable="false" Town="true" TraitType="TRAIT_CARTHAGE"/>
+		<Row ConstructibleType="BUILDING_DOCKYARD" Movable="false" Town="true" TraitType="TRAIT_CARTHAGE"/>
+	</Buildings>
+	<Wonders>
+		<Row ConstructibleType="WONDER_BYRSA" MaxWorldInstances="1"/>
+	</Wonders>
+	<Constructible_Maintenances>
+		<Row ConstructibleType="BUILDING_DOCKYARD" YieldType="YIELD_HAPPINESS" Amount="2"/>
+		<Row ConstructibleType="BUILDING_COTHON" YieldType="YIELD_HAPPINESS" Amount="2"/>
+		<Row ConstructibleType="BUILDING_COTHON" YieldType="YIELD_GOLD" Amount="2"/>
+	</Constructible_Maintenances>
+	<Constructible_ValidTerrains>
+		<Row ConstructibleType="BUILDING_COTHON" TerrainType="TERRAIN_COAST"/>
+		<Row ConstructibleType="BUILDING_DOCKYARD" TerrainType="TERRAIN_COAST"/>
+	</Constructible_ValidTerrains>
+	<TypeTags>
+		<Row Type="BUILDING_COTHON" Tag="PRODUCTION"/>
+		<Row Type="BUILDING_COTHON" Tag="UNIQUE"/>
+		<Row Type="BUILDING_COTHON" Tag="WATER"/>
+		<Row Type="BUILDING_COTHON" Tag="AGELESS"/>
+		<Row Type="BUILDING_DOCKYARD" Tag="GOLD"/>
+		<Row Type="BUILDING_DOCKYARD" Tag="UNIQUE"/>
+		<Row Type="BUILDING_DOCKYARD" Tag="WATER"/>
+		<Row Type="BUILDING_DOCKYARD" Tag="AGELESS"/>
+	</TypeTags>
+	<Constructible_ValidDistricts>
+		<!--Civ Unique Buildings-->
+		<Row ConstructibleType="BUILDING_COTHON" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_COTHON" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_DOCKYARD" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_DOCKYARD" DistrictType="DISTRICT_URBAN"/>
+		<!--Wonders-->
+		<Row ConstructibleType="WONDER_BYRSA" DistrictType="DISTRICT_WONDER"/>
+	</Constructible_ValidDistricts>
+	<Constructible_YieldChanges>
+		<!--Civ Unique Buildings-->
+		<Row ConstructibleType="BUILDING_COTHON" YieldType="YIELD_PRODUCTION" YieldChange="2"/>
+		<Row ConstructibleType="BUILDING_DOCKYARD" YieldType="YIELD_GOLD" YieldChange="2"/>
+		<!--Wonders-->
+		<Row ConstructibleType="WONDER_BYRSA" YieldType="YIELD_GOLD" YieldChange="2"/>
+	</Constructible_YieldChanges>
+	<Constructible_Adjacencies>
+		<Row ConstructibleType="BUILDING_COTHON" YieldChangeId="CothonCoastProduction"/>
+		<Row ConstructibleType="BUILDING_COTHON" YieldChangeId="CothonRiverProduction"/>
+		<Row ConstructibleType="BUILDING_COTHON" YieldChangeId="WonderProduction"/>
+		<Row ConstructibleType="BUILDING_DOCKYARD" YieldChangeId="DockyardDistrictFood"/>
+		<Row ConstructibleType="BUILDING_DOCKYARD" YieldChangeId="DockyardResourcesFood"/>
+		<Row ConstructibleType="BUILDING_DOCKYARD" YieldChangeId="WonderFood"/>
+	</Constructible_Adjacencies>
+	<Adjacency_YieldChanges>
+		<Row ID="CothonCoastProduction" YieldType="YIELD_PRODUCTION" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentTerrain="TERRAIN_COAST"/>
+		<Row ID="CothonRiverProduction" YieldType="YIELD_PRODUCTION" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentTerrain="TERRAIN_NAVIGABLE_RIVER"/>
+		<Row ID="DockyardDistrictFood" YieldType="YIELD_FOOD" YieldChange="1" TilesRequired="1" AdjacentDistrict="DISTRICT_URBAN"/>
+		<Row ID="DockyardResourcesFood" YieldType="YIELD_FOOD" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentResource="true"/>
+	</Adjacency_YieldChanges>
+	<Constructible_Plunders>
+		<!--Civ Unique Buildings-->
+		<Row ConstructibleType="BUILDING_COTHON" PlunderType="PLUNDER_SCIENCE" Amount="30"/>
+		<Row ConstructibleType="BUILDING_DOCKYARD" PlunderType="PLUNDER_GOLD" Amount="30"/>
+	</Constructible_Plunders>
+	<UniqueQuarters>
+		<Row UniqueQuarterType="QUARTER_PUNIC_PORT" BuildingType1="BUILDING_COTHON" BuildingType2="BUILDING_DOCKYARD" Name="LOC_QUARTER_PUNIC_PORT_NAME" Description="LOC_QUARTER_PUNIC_PORT_DESCRIPTION" Tooltip="LOC_QUARTER_PUNIC_PORT_TOOLTIP" TraitType="TRAIT_CARTHAGE"/>
+	</UniqueQuarters>
+	<GameModifiers>
+		<!-- Unique Quarter modifiers are game-wide -->
+		<Row ModifierId="MOD_CARTHAGE_PUNIC_PORT_RESOURCE_CAP"/>
+	</GameModifiers>
+	<!-- These are listed here so the AI can evalutate Unique Quarters. They do not have any effects on the game for human players. -->
+	<UniqueQuarterModifiers>
+		<Row UniqueQuarterType="QUARTER_PUNIC_PORT" ModifierId="MOD_CARTHAGE_PUNIC_PORT_RESOURCE_CAP"/>
+	</UniqueQuarterModifiers>
+	<ConstructibleModifiers>
+		<Row ConstructibleType="WONDER_BYRSA" ModifierId="MOD_BYRSA_WALLS"/>
+		<Row ConstructibleType="WONDER_BYRSA" ModifierId="MOD_BYRSA_TRADE_ROUTE_PROTECTION"/>
+	</ConstructibleModifiers>
+	<Constructible_Advisories>
+		<Row ConstructibleType="BUILDING_COTHON" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ConstructibleType="BUILDING_COTHON" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ConstructibleType="BUILDING_DOCKYARD" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ConstructibleType="BUILDING_DOCKYARD" AdvisoryClassType="ADVISORY_CLASS_FOOD"/>
+		<Row ConstructibleType="WONDER_BYRSA" AdvisoryClassType="ADVISORY_CLASS_DEFENSE"/>
+		<Row ConstructibleType="WONDER_BYRSA" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+	</Constructible_Advisories>
+</Database>

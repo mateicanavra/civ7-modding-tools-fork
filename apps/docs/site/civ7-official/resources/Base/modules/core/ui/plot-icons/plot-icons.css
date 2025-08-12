@@ -1,0 +1,37 @@
+/* DO NOT EDIT */
+/* Generated from plot-icons.scss */
+/**
+Based on Robert Penner's easing equations
+@url http://robertpenner.com/easing/
+**/
+plot-icons-root {
+	pointer-events: none;
+}
+
+plot-icons {
+	pointer-events: none;
+	position: absolute;
+	min-width: 2.6666666667rem;
+	min-height: 2.6666666667rem;
+	transform-origin: center;
+}
+
+@keyframes iconAnimateFirstTimeFadeIn {
+	0% {
+		opacity: 0;
+	}
+	75% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+.fade-in-first-time {
+	opacity: 0;
+	animation: iconAnimateFirstTimeFadeIn 3.5s forwards cubic-bezier(0.55, 0.085, 0.68, 0.53);
+}
+
+.showing {
+	opacity: 1;
+}

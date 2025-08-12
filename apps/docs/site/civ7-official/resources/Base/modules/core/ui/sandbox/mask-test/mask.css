@@ -1,0 +1,227 @@
+/* DO NOT EDIT */
+/* Generated from mask.scss */
+html {
+	font-size: 0.7407407407vh;
+}
+
+@media (max-width: 177.778vh) {
+	html {
+		font-size: 0.4166666667vw;
+	}
+}
+body {
+	overflow: hidden;
+	font-family: "BodyFont";
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	font-size: calc(1rem + -0.1111111111rem);
+	background-color: darkgrey;
+}
+
+.mask-title {
+	display: flex;
+	height: 1.7777777778rem;
+	font-size: calc(1rem + -0.1111111111rem);
+	line-height: 1.7777777778rem;
+	color: black;
+	font-family: BodyFont;
+	flex-direction: column;
+	align-items: center;
+}
+.mask-title.main-title {
+	font-size: calc(1rem + 0.7777777778rem);
+	width: 17.7777777778rem;
+}
+
+.mask-item {
+	width: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	margin: 0rem 0.8888888889rem;
+}
+
+.mask-container {
+	width: auto;
+	height: auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	margin: 1.7777777778rem 0rem;
+}
+
+.image {
+	position: relative;
+	width: 8.8888888889rem;
+	height: 8.8888888889rem;
+	background-image: url("./img/Shell_Exploration_Hex_BG.png");
+	background-size: 200%;
+	background-position: center;
+}
+
+.mask {
+	width: 8.8888888889rem;
+	height: 8.8888888889rem;
+	background-color: black;
+}
+
+.mask-2 {
+	width: 8.8888888889rem;
+	height: 8.8888888889rem;
+	background-color: black;
+}
+
+.example-container {
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.grad-expected {
+	background-image: url("./img/grad-expected.png");
+	background-size: 100%;
+}
+
+.grad-mask {
+	mask-image: linear-gradient(to right, black 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.img-grad-mask {
+	mask-image: url("./img/gradient-mask.png");
+}
+
+.bin-expected {
+	background-image: url("./img/linear-expected.png");
+	background-size: 100%;
+}
+
+.bin-mask {
+	mask-image: linear-gradient(to right, black 0%, black 25%, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%, black 50%, black 75%, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0) 100%);
+}
+
+.img-bin-mask {
+	mask-image: url("./img/linear-mask.png");
+}
+
+.img-bin-mask-2 {
+	mask-image: url("./img/linear-mask-2.png");
+}
+
+.clip-mask {
+	clip-path: polygon(0% 0%, 75% 0%, 75% 100%, 50% 100%, 50% 0%, 25% 0%, 25% 100%, 0% 100%, 0% 0%);
+}
+
+svg polygon {
+	fill: #2c2a2b;
+}
+
+.shape-expected {
+	background-image: url("./img/shape-expected.png");
+	background-size: 100%;
+}
+
+.shape-png {
+	background-image: url("./img/shape-icon.png");
+	background-size: contain;
+	background-position: center;
+	background-color: transparent;
+	filter: fxs-color-mask(#2c2a2b);
+}
+
+.shape-clip {
+	background-color: #2c2a2b;
+	background-image: none;
+	clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%, 50% 0%);
+}
+
+.example-svg {
+	width: 8.8888888889rem;
+	height: 8.8888888889rem;
+}
+
+.outline-expected {
+	background-image: url("./img/outline-expected.png");
+	background-size: 100%;
+}
+
+.outline-png {
+	background-image: url("./img/outline-icon.png");
+	background-size: contain;
+	background-position: center;
+	background-color: transparent;
+	filter: fxs-color-mask(#78624a);
+	padding: 0.6666666667rem;
+}
+.outline-png.outline-inset {
+	width: 100%;
+	height: 100%;
+	filter: none;
+}
+
+.outline-svg {
+	width: 8.8888888889rem;
+	height: 8.8888888889rem;
+}
+.outline-svg.outline-inset {
+	width: 100%;
+	height: 100%;
+	padding: 0.6666666667rem;
+	transform: translateY(-100%);
+}
+.outline-svg svg {
+	fill-opacity: 0;
+	stroke-width: 0.0555555556rem;
+	stroke: #78624a;
+	stroke-linecap: square;
+}
+
+.outline-border {
+	width: 8.8888888889rem;
+	height: 8.8888888889rem;
+	position: relative;
+}
+.outline-border.outline-inset {
+	width: 100%;
+	height: 100%;
+	padding: 0.6666666667rem;
+}
+.outline-border.outline-inset.initial {
+	margin: 0.6666666667rem;
+}
+
+.hex-bord-container {
+	position: absolute;
+	left: 2.55%;
+	top: 2.55%;
+	width: 95%;
+	height: 95%;
+	filter: none;
+}
+.hex-bord-container .hex-bord {
+	position: absolute;
+	height: 50%;
+	width: 86.52%;
+	left: 6.74%;
+	top: 25%;
+	background-color: transparent;
+	transform-origin: center;
+	transform: rotate(0deg);
+	border-width: 0rem;
+	border-left-width: 0.0555555556rem;
+	border-right-width: 0.0555555556rem;
+	border-style: solid;
+	border-color: #78624a;
+	filter: none;
+}
+.hex-bord-container .hex-bord.hex-2 {
+	transform: rotate(-60deg);
+}
+.hex-bord-container .hex-bord.hex-3 {
+	transform: rotate(60deg);
+}

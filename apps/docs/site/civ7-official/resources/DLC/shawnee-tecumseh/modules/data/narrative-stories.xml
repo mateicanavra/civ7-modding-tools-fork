@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <Types>
+    </Types>
+    <NarrativeStories>
+    </NarrativeStories>
+    <NarrativeRewards>
+    </NarrativeRewards>
+    <NarrativeStory_Rewards>
+    </NarrativeStory_Rewards>
+    <NarrativeStoryOverrides>
+    </NarrativeStoryOverrides>
+    <NarrativeVariations>
+    </NarrativeVariations>
+    <NarrativeRewardIcons>
+    </NarrativeRewardIcons>
+    <NarrativeStory_TextReplacements>
+    </NarrativeStory_TextReplacements>
+    <NarrativeStory_Links>
+    </NarrativeStory_Links>
+</Database>

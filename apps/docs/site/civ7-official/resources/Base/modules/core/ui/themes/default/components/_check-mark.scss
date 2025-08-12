@@ -1,0 +1,42 @@
+@use 'sass:math';
+@use 'sass:string';
+@use '../theme';
+@use '../../../utilities/utility-layout' as *;
+@use '../../../utilities/utility-text' as *;
+
+/** Circle Check Mark ********************************/
+.checkmark-container {
+	--checkmark-size: #{pixels(40)};
+	--bg-size: calc(#{pixels(-8)} + var(--checkmark-size));
+	--inner-circle-end: calc(#{pixels(-6)} + (.5 * var(--bg-size)));
+	--outer-circle-start: calc(#{pixels(-5)} + (.5 * var(--bg-size)));
+	--outer-circle-end: calc(#{pixels(-4)} + (.5 * var(--bg-size)));
+	--transparent-start: calc(#{pixels(-3)} + (.5 * var(--bg-size)));
+	--transparent-end: calc(.5 * var(--bg-size));
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: var(--checkmark-size);
+	height: var(--checkmark-size);
+	background-image: radial-gradient(circle at 50% 50%, theme.color('primary-3') pixels(0), theme.color('primary-3') var(--inner-circle-end), theme.color('secondary-2') var(--outer-circle-start), theme.color('secondary-2') var(--outer-circle-end), transparent var(--transparent-start), transparent var(--transparent-end)),
+		url("fs://game/shadow_circle.png");
+	background-size: var(--bg-size) var(--bg-size), 100% 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.mask-center-contain {
+	mask-repeat: no-repeat;
+	mask-position: center;
+	mask-size: contain;
+}
+
+.checkmark-icon {
+	mask-image: url("fs://game/check.png");
+}
+
+.repeated-icon {
+	mask-image: url("fs://game/renew.png");
+}

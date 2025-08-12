@@ -1,0 +1,494 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <EnglishText>
+        <Row Tag="LOC_LEADER_CHAIN_1190A_STORYTITLE">
+            <Text>The Man of Destiny</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1190A_COMPLETION">
+            <Text>Napoleon wakes in the night, dreams still clouding his mind. A tiny man, bright red in color, had perched upon his chest and read to him the fate of the world: a world lit by lightning, where men fly and the stars descend to burn the earth.[n][n]The firelight gutters in the low bronze braziers. Napoleon struggles to remember the last part. “As for you,” the dream-man had said, “you will take this world, and…”</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1190B_STORYTITLE">
+            <Text>The Man of Destiny</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1190B_NAME">
+            <Text>Infuse it with fresh ideas.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1190B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1190B_COMPLETION">
+            <Text>Napoleon's ideas span many topics, but at the end of the day, they all result in profits.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1190B_IMPERATIVE">
+            <Text>Meet all Leaders.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1190C_STORYTITLE">
+            <Text>The Man of Destiny</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1190C_NAME">
+            <Text>Galvanize it with strength.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1190C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1190C_COMPLETION">
+            <Text>Strength opens doors to new allies. But to Napoleon, they are new ears to listen to his commands.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1190C_IMPERATIVE">
+            <Text>Have 2 Commanders.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1190D_STORYTITLE">
+            <Text>The Man of Destiny</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1190D_NAME">
+            <Text>A dream is but a dream.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1190D_DESCRIPTION">
+            <Text>{1_reward} in all Settlements.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1191A_STORYTITLE">
+            <Text>Independence</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1191A_COMPLETION">
+            <Text>“The world is chaos,” the red man of destiny whispers to Bonaparte. And, indeed, the world is full of illogic and superstition – its people follow symbols, rather than ideas.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1191B_STORYTITLE">
+            <Text>Independence</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1191B_NAME">
+            <Text>It is time to wake up the people.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1191B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1191B_COMPLETION">
+            <Text>As Napoleon's people leave superstition behind, they find new avenues in life that bring prosperity to his empire.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1191B_IMPERATIVE">
+            <Text>Reach 25 Population across all Settlements.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1191C_STORYTITLE">
+            <Text>Independence</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1191C_NAME">
+            <Text>Such symbols can be manipulated.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1191C_DESCRIPTION">
+            <Text>{1_reward} in all Settlements.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1192A_STORYTITLE">
+            <Text>Independents</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1192A_COMPLETION">
+            <Text>“The world is chaos,” the red man of destiny whispers to Bonaparte. And, indeed, the landscape is a patchwork of petty, would-be kings and tyrants. What these smaller powers lack is vision.[n][n]Napoleon, while he may have his shortcomings, does not lack in vision.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1192B_STORYTITLE">
+            <Text>Independents</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1192B_NAME">
+            <Text>They will be dealt with.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1192B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1192B_COMPLETION">
+            <Text>Napoleon's bonfires strike fear in enemies' hearts, and attract friends like moths to a flame.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1192B_IMPERATIVE">
+            <Text>Capture a Settlement.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1192C_STORYTITLE">
+            <Text>Independents</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1192C_NAME">
+            <Text>Gold is a strong negotiator.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1192C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_3703A_STORYTITLE">
+            <Text>Forty Centuries</Text>
+        </Row>
+        <Row Tag="LOC_3703A_COMPLETION">
+            <Text>Gazing at his city from the base of the Great Pyramids, Napoleon sees the full extent of his lands – and those that have yet to submit to his reign. War calls out to him, but greatness may also be achieved through alternative measures.</Text>
+        </Row>
+        <Row Tag="LOC_3703B_NAME">
+            <Text>Conquest requires preparation.</Text>
+        </Row>
+        <Row Tag="LOC_3703B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_3703C_NAME">
+            <Text>Bloodshed is not always the answer.</Text>
+        </Row>
+        <Row Tag="LOC_3703C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_3704A_STORYTITLE">
+            <Text>The Start of Something Great</Text>
+        </Row>
+        <Row Tag="LOC_3704A_COMPLETION">
+            <Text>The legions of Napoleon stream through the streets of their newest settlement. Now his power resonates across the known world, the first step in a long journey – the foundation of empire that will linger forever.</Text>
+        </Row>
+        <Row Tag="LOC_3704B_NAME">
+            <Text>This imperial army needs reinforcement.</Text>
+        </Row>
+        <Row Tag="LOC_3704B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_3704C_NAME">
+            <Text>All must know of this victory.</Text>
+        </Row>
+        <Row Tag="LOC_3704C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_3705A_STORYTITLE">
+            <Text>A Breach of Privacy</Text>
+        </Row>
+        <Row Tag="LOC_3705A_COMPLETION">
+            <Text>Napoleon watches his ships disappear beneath the waves, and with them, his letters home – and those of his soldiers. But someone thought to rescue them from a watery fate, and soon these private confessions appear in translation, published by the enemy!</Text>
+        </Row>
+        <Row Tag="LOC_3705B_NAME">
+            <Text>Such humiliation is unforgivable.</Text>
+        </Row>
+        <Row Tag="LOC_3705B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_3705C_NAME">
+            <Text>Personal secrets are nothing to be ashamed of.</Text>
+        </Row>
+        <Row Tag="LOC_3705C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1193A_STORYTITLE">
+            <Text>The Next Giant</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1193A_COMPLETION">
+            <Text>What is greatness in a leader – the ambition to reform society, or the strength to conquer the world? Whatever his path, Napoleon knows that history sits in his hands.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1193B_STORYTITLE">
+            <Text>The Next Giant</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1193B_NAME">
+            <Text>Change is profitable.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1193B_DESCRIPTION">
+            <Text>Story continues.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1193C_STORYTITLE">
+            <Text>The Next Giant</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1193C_NAME">
+            <Text>A rotten core must be replaced.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1193C_DESCRIPTION">
+            <Text>Story continues.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1194A_STORYTITLE">
+            <Text>A Mass for the Masses</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1194A_COMPLETION">
+            <Text>In the temple halls, the songs of the priests ring out, and the faithful gather. Napoleon sits in the back, dressed plainly, watching and listening. In the front, a man weeps disconsolately, overcome by emotion. “What do you think of all this?” his advisor whispers.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1194B_STORYTITLE">
+            <Text>A Mass for the Masses</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1194B_NAME">
+            <Text>Belief maintains order in society.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1194B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1194B_COMPLETION">
+            <Text>Napoleon's temples are marvels, dripping in gold and gems. They are not merely symbols of the divine on earth, but daily reminders to the people of his authority.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1194B_IMPERATIVE">
+            <Text>Have 3 Temples.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1194C_STORYTITLE">
+            <Text>A Mass for the Masses</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1194C_NAME">
+            <Text>It is blindness to material truth.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1194C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1195A_STORYTITLE">
+            <Text>The Ends of the Earth</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1195A_COMPLETION">
+            <Text>Napoleon's stablehand has had too much to drink. He begins a litany of complaints to all who can hear: "The things I have picked out of Marengo’s hooves? Thorns. Ice. Red clay. White clay. Nails. Bullets. Once – a live tarantula! Quelle malchance! What will be next?”</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1195B_STORYTITLE">
+            <Text>The Ends of the Earth</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1195B_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1195B_DESCRIPTION">
+            <Text>{1_reward} in all Settlements.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1195B_COMPLETION">
+            <Text>Across land and ocean, Napoleon's steed Marengo trods the world round. In his wake, merchants gleefully collect the riches from even the most distant shores.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1195B_IMPERATIVE">
+            <Text>Gather 4 Resources in Distant Lands.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1196A_STORYTITLE">
+            <Text>Le Petit Caporal</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1196A_COMPLETION">
+            <Text>Neither harsh terrain nor stormy weather can halt the spread of Bonaparte's power. His army marches onward, enthralled by his command, seeking only to satisfy his grand vision of dominance.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1196B_STORYTITLE">
+            <Text>Le Petit Caporal</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1196B_NAME">
+            <Text>War is its own diplomacy.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1196B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1196B_COMPLETION">
+            <Text>Napoleon's armies take root in new lands. Now he is ready to negotiate.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1196B_IMPERATIVE">
+            <Text>Capture a Settlement in Distant Lands.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1196C_STORYTITLE">
+            <Text>Le Petit Caporal</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1196C_NAME">
+            <Text>War is condoned by the divine.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1196C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1197A_STORYTITLE">
+            <Text>The Artilleryman</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1197A_COMPLETION">
+            <Text>The cannon thunder echoes off of the distant cliffs. Bonaparte looks on, a faint twitch at the corner of his mouth betraying his pleasure. “Larger?” his engineer asks. “No,” responds the First Consul. “More."</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1197B_STORYTITLE">
+            <Text>The Artilleryman</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1197B_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1197B_DESCRIPTION">
+            <Text>{1_reward} in all Settlements.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1197B_COMPLETION">
+            <Text>Napoleon prefers to speak with his enemies first. But should disagreements arise, his artillery takes charge of the conversation.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1197B_IMPERATIVE">
+            <Text>Train 3 Bombards.</Text>
+        </Row>
+        <Row Tag="LOC_3706A_STORYTITLE">
+            <Text>An Innocent Victim</Text>
+        </Row>
+        <Row Tag="LOC_3706A_COMPLETION">
+            <Text>Councillors pause their hot debate over the construction of new bridge to watch Napoleon's small knife at work. As he listens, queries, and argues, the blade channels his energy, disappearing into the arm of his chair again and again. One fellow, staring at the deep gouges, suggests they take a break for the sake of everyone's nerves. "Nonsense," Napoleon waves him off. "Now where do we stand on surgeons?"</Text>
+        </Row>
+        <Row Tag="LOC_3706B_NAME">
+            <Text>The bridge issue should be resolved first.</Text>
+        </Row>
+        <Row Tag="LOC_3706B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_3706C_NAME">
+            <Text>About those surgeons…</Text>
+        </Row>
+        <Row Tag="LOC_3706C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_3707A_STORYTITLE">
+            <Text>The Traveling Library</Text>
+        </Row>
+        <Row Tag="LOC_3707A_COMPLETION">
+            <Text>Aides-de-camp stand to attention in the commander's tent as Napoleon peers into one of many large mahogany boxes. He runs his fingers across its velvet lining, then along the leather spines of the books within. Ignoring the panting soldiers depositing the final crate of tomes, he shakes his head. He is surrounded by hundreds of books – but such an inquisitive mind requires thousands.</Text>
+        </Row>
+        <Row Tag="LOC_3707B_NAME">
+            <Text>More books mean more boxes.</Text>
+        </Row>
+        <Row Tag="LOC_3707B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_3707C_NAME">
+            <Text>A new set must be published, with smaller print and no margins.</Text>
+        </Row>
+        <Row Tag="LOC_3707C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_3708A_STORYTITLE">
+            <Text>Local Religions</Text>
+        </Row>
+        <Row Tag="LOC_3708A_COMPLETION">
+            <Text>Napoleon parades through the streets of the conquered city. Its citizens watch in silence, worried for their futures and what will become of their traditions. Local religious leaders beg that their beliefs, at least, remain intact.</Text>
+        </Row>
+        <Row Tag="LOC_3708B_NAME">
+            <Text>Why change what makes the people happy?</Text>
+        </Row>
+        <Row Tag="LOC_3708B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_3708C_NAME">
+            <Text>All beliefs must be aligned.</Text>
+        </Row>
+        <Row Tag="LOC_3708C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1198A_STORYTITLE">
+            <Text>The 18th Brumaire</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1198A_COMPLETION">
+            <Text>Napoleon Bonaparte is a hero for a rational age, where a single man of daring and ambition can stand alone against the forces of reaction – or so the newspapers report. The radical pamphlets tell a different tale: a cosmetic revolution, one where authority hides behind a revolutionary’s cockade. Not a tragedy, but a farce.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1198B_STORYTITLE">
+            <Text>The 18th Brumaire</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1198B_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1198B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1198B_COMPLETION">
+            <Text>Dissidents may whisper what they will. But anyone who lays eyes on the grandeur of Napoleon's empire knows that he, and he alone, is authority.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1198B_IMPERATIVE">
+            <Text>Build a Wonder.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1198C_STORYTITLE">
+            <Text>The 18th Brumaire</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1198C_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1198C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1198D_STORYTITLE">
+            <Text>The 18th Brumaire</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1198D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1198D_DESCRIPTION">
+            <Text>{1_reward} and enter a Celebration.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1199A_STORYTITLE">
+            <Text>The 11th Frimaire</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1199A_COMPLETION">
+            <Text>Napoleon Bonaparte, the self-made emperor, a monarch stripped bare of the finery of monarchy down to the bones of niter and lead. The crown he wears is one he placed upon his own head.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1199B_STORYTITLE">
+            <Text>The 11th Frimaire</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1199B_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1199B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1199B_COMPLETION">
+            <Text>Napoleon's firepower is fearsome, yet his words command more attention than the loudest explosion. All listen when he speaks…or else.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1199B_IMPERATIVE">
+            <Text>Train a Biplane, Trench Fighter, and Bomber.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1199C_STORYTITLE">
+            <Text>The 11th Frimaire</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1199C_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1199C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1199D_STORYTITLE">
+            <Text>The 11th Frimaire</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1199D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1199D_DESCRIPTION">
+            <Text>{1_reward} and enter a Celebration.</Text>
+        </Row>
+        <Row Tag="LOC_3709A_STORYTITLE">
+            <Text>Master of Winter</Text>
+        </Row>
+        <Row Tag="LOC_3709A_COMPLETION">
+            <Text>Countless footsteps crunch in the snow as Napoleon's army marches through their newly conquered land. Soldiers marvel at the good weather that accompanied their campaign, and the well-organized supply lines that kept them healthy and fed. Some even argue that the lessons learned from this war are more valuable than the bounty that awaits them in the city.</Text>
+        </Row>
+        <Row Tag="LOC_3709B_NAME">
+            <Text>This experience will be valuable in future campaigns.</Text>
+        </Row>
+        <Row Tag="LOC_3709B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_3709C_NAME">
+            <Text>This settlement holds many great works of art…</Text>
+        </Row>
+        <Row Tag="LOC_3709C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_3710A_STORYTITLE">
+            <Text>A New Code</Text>
+        </Row>
+        <Row Tag="LOC_3710A_COMPLETION">
+            <Text>Across the French Empire, people practice law according to their own traditions. Some draw from historical codices while others rely on common law. Napoleon has had enough of this chaos. It is time for a single code – a Code civil des Français.</Text>
+        </Row>
+        <Row Tag="LOC_3710B_NAME">
+            <Text>This process takes time to complete properly.</Text>
+        </Row>
+        <Row Tag="LOC_3710B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_3710C_NAME">
+            <Text>The sooner these reforms take hold, the better.</Text>
+        </Row>
+        <Row Tag="LOC_3710C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_3711A_STORYTITLE">
+            <Text>A Modern Deity</Text>
+        </Row>
+        <Row Tag="LOC_3711A_COMPLETION">
+            <Text>Napoleon stares at the statue before him. An ancient god of war, gifted with his own likeness, gazes back. The representation is exquisite. But the physique is not flattering…nor is its near nudity. As the figure is carried away to the bowels of the palace, never to see the light of day, he compensates the sculptor heartily and sends him on his way.</Text>
+        </Row>
+        <Row Tag="LOC_3711B_NAME">
+            <Text>The arts speak the truth of human spirit.</Text>
+        </Row>
+        <Row Tag="LOC_3711B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_3711C_NAME">
+            <Text>One must be careful with wishes.</Text>
+        </Row>
+        <Row Tag="LOC_3711C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_3712A_STORYTITLE">
+            <Text>No Mere Soldier</Text>
+        </Row>
+        <Row Tag="LOC_3712A_COMPLETION">
+            <Text>As much as Napoleon surrounds himself with generals, so too does he engage the greatest of learned minds. Science, literature, music, and theology…his expertise in these subjects surprises and delights their masters.</Text>
+        </Row>
+        <Row Tag="LOC_3712B_NAME">
+            <Text>A scholar-soldier leads by example.</Text>
+        </Row>
+        <Row Tag="LOC_3712B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_3712C_NAME">
+            <Text>Intellectual pursuits must be available to all.</Text>
+        </Row>
+        <Row Tag="LOC_3712C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+    </EnglishText>
+</Database>

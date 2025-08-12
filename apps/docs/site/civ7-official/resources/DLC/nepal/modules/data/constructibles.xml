@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_CONSTRUCTIBLE"/>
+	</Kinds>
+	<Types>
+		<!--Civ Unique Improvements-->
+		<Row Type="IMPROVEMENT_HIGHLAND_POWER_STATION" Kind="KIND_CONSTRUCTIBLE"/>
+		<!--Wonders-->
+		<Row Type="WONDER_BOUDHANATH" Kind="KIND_CONSTRUCTIBLE"/>
+	</Types>
+	<TypeQuotes>
+		<Row Type="WONDER_BOUDHANATH" Quote="LOC_QUOTE_WONDER_BOUDHANATH" QuoteAuthor="LOC_QUOTE_AUTHOR_WONDER_BOUDHANATH" QuoteAudio="VO_Quote_Boudhanath"/>
+	</TypeQuotes>
+	<Constructibles>
+		<!--Civ Unique Improvements-->
+		<Row ConstructibleType="IMPROVEMENT_HIGHLAND_POWER_STATION" Name="LOC_IMPROVEMENT_HIGHLAND_POWER_STATION_NAME" Description="LOC_IMPROVEMENT_HIGHLAND_POWER_STATION_DESCRIPTION" Tooltip="LOC_IMPROVEMENT_HIGHLAND_POWER_STATION_TOOLTIP" ConstructibleClass="IMPROVEMENT" Cost="300" Population="1" Age="AGE_MODERN" RequiresUnlock="true"/>
+		<!--Wonders-->
+		<Row ConstructibleType="WONDER_BOUDHANATH" Name="LOC_WONDER_BOUDHANATH_NAME" Description="LOC_WONDER_BOUDHANATH_DESCRIPTION" Tooltip="LOC_WONDER_BOUDHANATH_TOOLTIP" ConstructibleClass="WONDER" Cost="1000" Population="0" ImmuneDamage="true" Age="AGE_MODERN" RequiresUnlock="true" AdjacentTerrain="TERRAIN_MOUNTAIN"/>
+	</Constructibles>
+	<Improvements>
+		<!--Civ Unique Improvements-->
+		<Row ConstructibleType="IMPROVEMENT_HIGHLAND_POWER_STATION" CityBuildable="true" TraitType="TRAIT_NEPAL"/>
+	</Improvements>
+	<Wonders>
+		<Row ConstructibleType="WONDER_BOUDHANATH" MaxWorldInstances="1"/>
+	</Wonders>
+	<Constructible_ValidBiomes>
+		<Row ConstructibleType="WONDER_BOUDHANATH" BiomeType="BIOME_TROPICAL"/>
+	</Constructible_ValidBiomes>
+	<Constructible_ValidTerrains>
+		<Row ConstructibleType="IMPROVEMENT_HIGHLAND_POWER_STATION" TerrainType="TERRAIN_MOUNTAIN"/>
+	</Constructible_ValidTerrains>
+	<TypeTags>
+		<Row Type="IMPROVEMENT_HIGHLAND_POWER_STATION" Tag="UNIQUE_IMPROVEMENT"/>
+		<Row Type="IMPROVEMENT_HIGHLAND_POWER_STATION" Tag="AGELESS"/>
+	</TypeTags>
+	<Constructible_ValidDistricts>
+		<!--Civ Unique Improvements-->
+		<Row ConstructibleType="IMPROVEMENT_HIGHLAND_POWER_STATION" DistrictType="DISTRICT_RURAL"/>
+		<!--Wonders-->
+		<Row ConstructibleType="WONDER_BOUDHANATH" DistrictType="DISTRICT_WONDER"/>
+	</Constructible_ValidDistricts>
+	<Constructible_YieldChanges>
+		<!--Civ Unique Improvements-->
+		<Row ConstructibleType="IMPROVEMENT_HIGHLAND_POWER_STATION" YieldType="YIELD_PRODUCTION" YieldChange="3"/>
+		<Row ConstructibleType="IMPROVEMENT_HIGHLAND_POWER_STATION" YieldType="YIELD_CULTURE" YieldChange="3"/>
+		<!--Wonders-->
+		<Row ConstructibleType="WONDER_BOUDHANATH" YieldType="YIELD_DIPLOMACY" YieldChange="4"/>
+	</Constructible_YieldChanges>
+	<Adjacency_YieldChanges>
+		<Row ID="SagarmathaWildcardFoodBuildingMountain" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentTerrain="TERRAIN_MOUNTAIN"/>
+		<Row ID="SagarmathaWildcardScienceBuildingMountain" Age="AGE_MODERN" YieldType="YIELD_SCIENCE" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentTerrain="TERRAIN_MOUNTAIN"/>
+	</Adjacency_YieldChanges>
+	<Constructible_WildcardAdjacencies>
+		<Row YieldChangeId="SagarmathaWildcardFoodBuildingMountain" RequiresActivation="true" ConstructibleTag="FOOD" CurrentAgeConstructiblesOnly="true"/>
+		<Row YieldChangeId="SagarmathaWildcardScienceBuildingMountain" RequiresActivation="true" ConstructibleTag="SCIENCE" CurrentAgeConstructiblesOnly="true"/>
+	</Constructible_WildcardAdjacencies>
+	<Constructible_Plunders>
+		<!--Civ Unique Improvements-->
+		<Row ConstructibleType="IMPROVEMENT_HIGHLAND_POWER_STATION" PlunderType="PLUNDER_HEAL" Amount="30"/>
+	</Constructible_Plunders>
+	<ConstructibleModifiers>
+		<!--Wonders-->
+		<Row ConstructibleType="WONDER_BOUDHANATH" ModifierId="MOD_BOUDHANATH_INCREASED_RELATIONSHIP"/>
+	</ConstructibleModifiers>
+	<Constructible_WarehouseYields>
+		<!-- Warehouse Buildings -->
+		<Row ConstructibleType="BUILDING_BRICKYARD" YieldChangeId="NepalBrickyardMountainProduction" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_FISHING_QUAY" YieldChangeId="NepalFishingQuayMountainFood" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_GRANARY" YieldChangeId="NepalGranaryMountainFood" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_SAW_PIT" YieldChangeId="NepalSawPitMountainProduction" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_GRISTMILL" YieldChangeId="NepalGristmillMountainFood" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_SAWMILL" YieldChangeId="NepalSawmillMountainProduction" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_STONECUTTER" YieldChangeId="NepalStonecutterMountainProduction" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_GROCER" YieldChangeId="NepalGrocerMountainFood" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_IRONWORKS" YieldChangeId="NepalIronworksMountainProduction" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_PALACE" YieldChangeId="HimalPalaceMountainCulture" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_CITY_HALL" YieldChangeId="HimalCityHallMountainCulture" RequiresActivation="true"/>
+	</Constructible_WarehouseYields>
+	<Warehouse_YieldChanges>
+		<Row ID="NepalBrickyardMountainProduction" Age="AGE_MODERN" YieldType="YIELD_PRODUCTION" YieldChange="1" TerrainInCity="TERRAIN_MOUNTAIN"/>
+		<Row ID="NepalFishingQuayMountainFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="1" TerrainInCity="TERRAIN_MOUNTAIN"/>
+		<Row ID="NepalGranaryMountainFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="1" TerrainInCity="TERRAIN_MOUNTAIN"/>
+		<Row ID="NepalSawPitMountainProduction" Age="AGE_MODERN" YieldType="YIELD_PRODUCTION" YieldChange="1" TerrainInCity="TERRAIN_MOUNTAIN"/>
+		<Row ID="NepalGristmillMountainFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="1" TerrainInCity="TERRAIN_MOUNTAIN"/>
+		<Row ID="NepalSawmillMountainProduction" Age="AGE_MODERN" YieldType="YIELD_PRODUCTION" YieldChange="1" TerrainInCity="TERRAIN_MOUNTAIN"/>
+		<Row ID="NepalStonecutterMountainProduction" Age="AGE_MODERN" YieldType="YIELD_PRODUCTION" YieldChange="1" TerrainInCity="TERRAIN_MOUNTAIN"/>
+		<Row ID="NepalGrocerMountainFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="1" TerrainInCity="TERRAIN_MOUNTAIN"/>
+		<Row ID="NepalIronworksMountainProduction" Age="AGE_MODERN" YieldType="YIELD_PRODUCTION" YieldChange="1" TerrainInCity="TERRAIN_MOUNTAIN"/>
+		<Row ID="HimalPalaceMountainCulture" Age="AGE_MODERN" YieldType="YIELD_CULTURE" YieldChange="4" TerrainInCity="TERRAIN_MOUNTAIN"/>
+		<Row ID="HimalCityHallMountainCulture" Age="AGE_MODERN" YieldType="YIELD_CULTURE" YieldChange="2" TerrainInCity="TERRAIN_MOUNTAIN"/>
+	</Warehouse_YieldChanges>
+	<Constructible_Advisories>
+		<Row ConstructibleType="IMPROVEMENT_HIGHLAND_POWER_STATION" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ConstructibleType="WONDER_BOUDHANATH" AdvisoryClassType="ADVISORY_CLASS_DIPLOMACY"/>
+	</Constructible_Advisories>
+</Database>

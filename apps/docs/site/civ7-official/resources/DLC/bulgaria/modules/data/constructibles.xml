@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_CONSTRUCTIBLE"/>
+	</Kinds>
+	<Types>
+		<!--Civ Unique Improvements-->
+		<Row Type="IMPROVEMENT_HIDDEN_FORTRESS" Kind="KIND_CONSTRUCTIBLE"/>
+		<!--Wonders-->
+		<Row Type="WONDER_RILA_MONASTERY" Kind="KIND_CONSTRUCTIBLE"/>
+	</Types>
+	<TypeQuotes>
+		<Row Type="WONDER_RILA_MONASTERY" Quote="LOC_QUOTE_WONDER_RILA_MONASTERY" QuoteAuthor="LOC_QUOTE_AUTHOR_WONDER_RILA_MONASTERY" QuoteAudio="VO_Quote_RilaMonastery"/>
+	</TypeQuotes>
+	<Constructibles>
+		<!--Civ Unique Improvements-->
+		<Row ConstructibleType="IMPROVEMENT_HIDDEN_FORTRESS" Name="LOC_IMPROVEMENT_HIDDEN_FORTRESS_NAME" Description="LOC_IMPROVEMENT_HIDDEN_FORTRESS_DESCRIPTION" Tooltip="LOC_IMPROVEMENT_HIDDEN_FORTRESS_TOOLTIP" ConstructibleClass="IMPROVEMENT" Cost="90" Population="1" Age="AGE_EXPLORATION"/>
+		<!--Wonders-->
+		<Row ConstructibleType="WONDER_RILA_MONASTERY" Name="LOC_WONDER_RILA_MONASTERY_NAME" Description="LOC_WONDER_RILA_MONASTERY_DESCRIPTION" Tooltip="LOC_WONDER_RILA_MONASTERY_TOOLTIP" ConstructibleClass="WONDER" Cost="550" Population="0" ImmuneDamage="true" Age="AGE_EXPLORATION" RequiresUnlock="true"/>
+	</Constructibles>
+	<Improvements>
+		<!--Civ Unique Improvements-->
+		<Row ConstructibleType="IMPROVEMENT_HIDDEN_FORTRESS" ResourceTier="0" CityBuildable="true" TraitType="TRAIT_BULGARIA" SameAdjacentValid="false"/>
+	</Improvements>
+	<Wonders>
+		<Row ConstructibleType="WONDER_RILA_MONASTERY" MaxWorldInstances="1" BuildOnFrontier="true"/>
+	</Wonders>
+	<Constructible_ValidTerrains>
+		<Row ConstructibleType="IMPROVEMENT_HIDDEN_FORTRESS" TerrainType="TERRAIN_HILL"/>
+	</Constructible_ValidTerrains>
+	<TypeTags>
+		<Row Type="IMPROVEMENT_HIDDEN_FORTRESS" Tag="UNIQUE_IMPROVEMENT"/>
+		<Row Type="IMPROVEMENT_HIDDEN_FORTRESS" Tag="FORTIFICATION"/>
+		<Row Type="IMPROVEMENT_HIDDEN_FORTRESS" Tag="AGELESS"/>
+		<Row Type="WONDER_RILA_MONASTERY" Tag="GREATWORK"/>
+	</TypeTags>
+	<Constructible_ValidDistricts>
+		<!--Civ Unique Improvements-->
+		<Row ConstructibleType="IMPROVEMENT_HIDDEN_FORTRESS" DistrictType="DISTRICT_RURAL"/>
+		<!--Wonders-->
+		<Row ConstructibleType="WONDER_RILA_MONASTERY" DistrictType="DISTRICT_WONDER"/>
+	</Constructible_ValidDistricts>
+	<Constructible_YieldChanges>
+		<!--Civ Unique Improvements-->
+		<Row ConstructibleType="IMPROVEMENT_HIDDEN_FORTRESS" YieldType="YIELD_PRODUCTION" YieldChange="4"/>
+		<!--Wonders-->
+		<Row ConstructibleType="WONDER_RILA_MONASTERY" YieldType="YIELD_CULTURE" YieldChange="4"/>
+	</Constructible_YieldChanges>
+	<Constructible_Adjacencies>
+		<Row ConstructibleType="IMPROVEMENT_HIDDEN_FORTRESS" YieldChangeId="TsartvieHiddenFortressMountainCulture" RequiresActivation="true"/>
+	</Constructible_Adjacencies>
+	<Adjacency_YieldChanges>
+		<Row ID="TsartvieHiddenFortressMountainCulture" YieldType="YIELD_CULTURE" YieldChange="2" TilesRequired="1" AdjacentTerrain="TERRAIN_MOUNTAIN"/>
+	</Adjacency_YieldChanges>
+	<Constructible_Plunders>
+		<!--Civ Unique Improvements-->
+		<Row ConstructibleType="IMPROVEMENT_HIDDEN_FORTRESS" PlunderType="PLUNDER_HEAL" Amount="30"/>
+	</Constructible_Plunders>
+	<ConstructibleModifiers>
+		<!--Wonders-->
+		<Row ConstructibleType="WONDER_RILA_MONASTERY" ModifierId="MOD_RILA_MONASTERY_WONDER_RELICS"/>
+	</ConstructibleModifiers>
+	<TraitModifiers>
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="MOD_HIDDEN_FORTRESS_STEALTH"/>
+	</TraitModifiers>
+</Database>

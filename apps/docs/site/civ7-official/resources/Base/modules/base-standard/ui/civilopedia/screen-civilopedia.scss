@@ -1,0 +1,91 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+@use '../../../core/ui/themes/default/baseColors';
+@use '../../../core/ui/themes/default/animations';
+@use '../../../core/ui/themes/default/theme';
+
+screen-civilopedia {
+	width: pixels(1300);
+	top: pixels(0);
+	bottom: pixels(0);
+
+	@media (experience: mobile) {
+		width: 100%;
+	}
+
+	.img-frame-filigree {
+		margin-top: pixels(4);
+	}
+
+	.fxs-close-button {
+		@media (experience: mobile) {
+			right: pixels(38);
+			top: pixels(26);	
+		}
+	}
+}
+
+// Kludge to improve the pedia content spacing w/ bulleted lists.
+// The ideal fix would be to update the text formatter to include the 
+// correct tailwind-ish classes in the span directly.
+screen-civilopedia span.indent-1 {
+	margin-left: pixels(12);
+	margin-right: pixels(6);
+}
+
+.pedia-search__icon {
+	background-image: url("fs://game/pedia_search_icon");
+}
+
+.pedia-search__results-scrollable {
+	z-index: 128;
+}
+
+.pedia-search__results {
+	z-index: 128;
+}
+
+.pedia__icon-container {
+	background-image: linear-gradient(to bottom, theme.color("primary-5") 50%, theme.color("primary-4") 100%);
+}
+
+.pedia__icon-container-circle {
+	background-image: url("fs://game/pedia_circle_frame.png");
+}
+
+.pedia-breadcrumbs__divider {
+	background-image: url("fs://game/pedia_breadcrumb-pointer.png");
+}
+
+.pedia_main-content-shadowing {
+	border-image: url("fs://game/pedia_inner_shadow.png");
+	border-image-slice: 20 20 fill;
+	border-image-width: pixels(20) pixels(20);
+}
+
+pedia-page-sidebar-portrait {
+	&.pedia-unit-portrait {
+		border: solid pixels(2) theme.color('primary-2');
+	}
+}
+
+.pedia-page-content-shadow {
+	border-image-source: url("fs://game/pedia_inner_shadow.png");
+	border-image-slice: 16 16 16 16 fill;
+	border-image-width: pixels(16) pixels(16) pixels(16) pixels(16);
+	border-image-outset: pixels(4) pixels(4) pixels(4) pixels(4);
+	background: linear-gradient(180deg, #12151F 0%, #23252B 100%);
+}
+
+.pedia-page-content {
+	background: rgba(0, 0, 0, 0.1);
+}
+
+.pedia-page-content-header {
+	background: rgba(5, 7, 13, 0.33);
+}
+
+.pedia-page-content-body {
+	background: rgba(76, 83, 102, 0.05);
+
+}

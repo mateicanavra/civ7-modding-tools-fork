@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- Victory Challenges -->
+	<Modifier id="METAPROGRESSION_CHALLENGE_ABBASID_LEGACY_PATH_SCIENCE_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_EXPLORATION_SCIENCE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_ABBASID</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_ABBASID_LEGACY_PATH_SCIENCE</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_CHOLA_LEGACY_PATH_ECONOMIC_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_EXPLORATION_ECONOMIC</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_CHOLA</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_CHOLA_LEGACY_PATH_ECONOMIC</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_HAWAII_LEGACY_PATH_CULTURE_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_EXPLORATION_CULTURE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_HAWAII</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_HAWAII_LEGACY_PATH_CULTURE</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_INCA_LEGACY_PATH_ECONOMIC_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_EXPLORATION_ECONOMIC</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_INCA</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_INCA_LEGACY_PATH_ECONOMIC</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MAJAPAHIT_LEGACY_PATH_CULTURE_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_EXPLORATION_CULTURE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MAJAPAHIT</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MAJAPAHIT_LEGACY_PATH_CULTURE</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MING_LEGACY_PATH_SCIENCE_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_EXPLORATION_SCIENCE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MING</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MING_LEGACY_PATH_SCIENCE</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MONGOLIA_LEGACY_PATH_MILITARY_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_EXPLORATION_MILITARY</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MONGOLIA</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MONGOLIA_LEGACY_PATH_MILITARY</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_NORMAN_LEGACY_PATH_MILITARY_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_EXPLORATION_MILITARY</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_NORMAN</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_NORMAN_LEGACY_PATH_MILITARY</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_SONGHAI_LEGACY_PATH_ECONOMIC_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_EXPLORATION_ECONOMIC</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_SONGHAI</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_SONGHAI_LEGACY_PATH_ECONOMIC</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_SPAIN_LEGACY_PATH_MILITARY_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_EXPLORATION_MILITARY</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_SPAIN</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_SPAIN_LEGACY_PATH_MILITARY</Argument>
+	</Modifier>
+
+	<!-- Wonder Challenges -->
+	<Modifier id="METAPROGRESSION_CHALLENGE_ABBASID_COMPLETE_HOUSE_OF_WISDOM_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_ABBASID</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_HOUSE_OF_WISDOM</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_ABBASID_COMPLETE_HOUSE_OF_WISDOM</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_CHOLA_COMPLETE_BRIHADEESWARAR_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_CHOLA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_BRIHADEESWARAR_TEMPLE</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_CHOLA_COMPLETE_BRIHADEESWARAR</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_HAWAII_COMPLETE_HALE_O_KEAWE_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_HAWAII</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_HALE_O_KEAWE</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_HAWAII_COMPLETE_HALE_O_KEAWE</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_INCA_COMPLETE_MACHU_PIKCHU_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_INCA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_MACHU_PIKCHU</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_INCA_COMPLETE_MACHU_PIKCHU</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MAJAPAHIT_COMPLETE_BOROBUDUR_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MAJAPAHIT</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_BOROBUDUR</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MAJAPAHIT_COMPLETE_CETBANG</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MING_COMPLETE_FORBIDDEN_CITY_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MING</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_FORBIDDEN_CITY</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MING_COMPLETE_FORBIDDEN_CITY</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MONGOLIA_COMPLETE_ERDENE_ZUU_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MONGOLIA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_ERDENE_ZUU</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MONGOLIA_COMPLETE_ERDENE_ZUU</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_NORMAN_COMPLETE_WHITE_TOWER_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_NORMAN</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_WHITE_TOWER</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_NORMAN_COMPLETE_WHITE_TOWER</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_SONGHAI_COMPLETE_TOMB_OF_ASKIA_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_SONGHAI</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_TOMB_OF_ASKIA</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_SONGHAI_COMPLETE_TOMB_OF_ASKIA</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_SPAIN_COMPLETE_EL_ESCORIAL_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_SPAIN</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_EL_ESCORIAL</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_SPAIN_COMPLETE_EL_ESCORIAL</Argument>
+	</Modifier>
+
+	<!-- Legacy Path Challenges -->
+	<Modifier id="METAPROGRESSION_CHALLENGE_ABBASID_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_ABBASID</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_ABBASID_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_CHOLA_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_CHOLA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_CHOLA_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_HAWAII_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_HAWAII</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_HAWAII_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_INCA_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_INCA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_INCA_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MAJAPAHIT_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MAJAPAHIT</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MAJAPAHIT_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MING_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MING</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MING_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MONGOLIA_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MONGOLIA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MONGOLIA_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_NORMAN_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_NORMAN</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_NORMAN_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_SONGHAI_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_SONGHAI</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_SONGHAI_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_SPAIN_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_SPAIN</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_SPAIN_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+</GameEffects>

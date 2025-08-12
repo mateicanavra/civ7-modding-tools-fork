@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Classical Republic -->
+		<Row Tag="LOC_GOLDEN_AGE_CLASSICAL_REPUBLIC_NAME">
+			<Text>Classical Republic</Text>
+		</Row>
+		<Row Tag="LOC_GOLDEN_AGE_CLASSICAL_REPUBLIC_1_DESCRIPTION">
+			<Text>+20%[icon:YIELD_CULTURE] Culture for {1_numTurns} Turns.</Text>
+		</Row>
+		<Row Tag="LOC_GOLDEN_AGE_CLASSICAL_REPUBLIC_2_DESCRIPTION">
+			<Text>+15%[icon:YIELD_PRODUCTION] Production towards constructing Wonders for {1_numTurns} Turns.</Text>
+		</Row>
+		<!-- Despotism -->
+		<Row Tag="LOC_GOLDEN_AGE_DESPOTISM_NAME">
+			<Text>Despotism</Text>
+		</Row>
+		<Row Tag="LOC_GOLDEN_AGE_DESPOTISM_1_DESCRIPTION">
+			<Text>+20%[icon:YIELD_SCIENCE] Science for {1_numTurns} Turns.</Text>
+		</Row>
+		<Row Tag="LOC_GOLDEN_AGE_DESPOTISM_2_DESCRIPTION">
+			<Text>+30%[icon:YIELD_PRODUCTION] Production towards training Infantry Units for {1_numTurns} Turns.</Text>
+		</Row>
+		<!-- Oligarchy -->
+		<Row Tag="LOC_GOLDEN_AGE_OLIGARCHY_NAME">
+			<Text>Oligarchy</Text>
+		</Row>
+		<Row Tag="LOC_GOLDEN_AGE_OLIGARCHY_1_DESCRIPTION">
+			<Text>+20%[icon:YIELD_FOOD] Food for {1_numTurns} Turns.</Text>
+		</Row>
+		<Row Tag="LOC_GOLDEN_AGE_OLIGARCHY_2_DESCRIPTION">
+			<Text>+30%[icon:YIELD_PRODUCTION] Production towards constructing Buildings for {1_numTurns} Turns.</Text>
+		</Row>
+		<Row Tag="LOC_GOLDEN_AGE_UNDISCLOSED_TURNS_AMOUNT">
+			<Text>a certain amount of</Text>
+		</Row>
+	</EnglishText>
+</Database>

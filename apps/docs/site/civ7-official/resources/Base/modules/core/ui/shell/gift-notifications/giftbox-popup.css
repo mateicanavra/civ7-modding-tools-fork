@@ -1,0 +1,15 @@
+/* DO NOT EDIT */
+/* Generated from giftbox-popup.scss */
+.giftbox-notification {
+	position: relative;
+	max-width: 30%;
+}
+
+.giftbox-scrollable-bg {
+	background-color: #0a0a17;
+}
+
+.img-radial-glow {
+	background-image: radial-gradient(closest-side, #dbae4b, transparent);
+	opacity: 0.1;
+}

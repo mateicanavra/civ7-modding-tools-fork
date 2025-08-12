@@ -1,0 +1,43 @@
+{
+  "name": "voronoijs",
+  "version": "1.0.0",
+  "description": "A TypeScript implementation of Steven J. Fortune's algorithm to efficiently compute Voronoi diagrams. The Voronoi object's purpose is to solely compute a Voronoi diagram, it is completely standalone, with no dependency on external code: it contains no rendering code: that is left to the user of the library.",
+  "homepage": "https://github.com/chase0213/TypeScript-Voronoi",
+  "main": "voronoi.js",
+  "scripts": {
+    "test": "mocha",
+    "build": "tsc",
+    "reportCoverage": "codecov -f coverage/coverage-remap.json",
+    "coverage": "istanbul cover _mocha --report lcovonly -- -R spec",
+    "postcoverage": "cat coverage/coverage.json | ./node_modules/.bin/remap-istanbul > coverage/coverage-remap.json && npm run reportCoverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chase0213/TypeScript-Voronoi.git"
+  },
+  "author": "Chisato Hasegawa <chase0213+dev@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chase0213/TypeScript-Voronoi/issues"
+  },
+  "devDependencies": {
+    "codecov": "^1.0.1",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "remap-istanbul": "^0.9.1",
+    "typescript": "^2.2.1"
+  },
+  "keywords": [
+    "Voronoi",
+    "Voronoi Diagram",
+    "TypeScript",
+    "ES6"
+  ],
+  "contributors": [
+    {
+      "name": "Chisato Hasegawa",
+      "email": "chase0213+dev@gmail.com"
+    }
+  ],
+  "typings": "index.d.ts"
+}

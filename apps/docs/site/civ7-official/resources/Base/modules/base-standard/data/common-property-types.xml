@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<!-- Common Property Types that all games will use.
+		 Do not add types that are associated with Definitions here.  They are defined in definition-property-types.xml -->
+	<IPropertyTypes>	
+		<Row Type="PlayerTypes" KindOf="Enum"/>
+		<Row Type="DirectionTypes" KindOf="Enum"/>
+	</IPropertyTypes>
+	
+</Database>

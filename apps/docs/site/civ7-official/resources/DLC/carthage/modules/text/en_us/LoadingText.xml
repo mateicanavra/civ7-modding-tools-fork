@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_LOADING_CIV_INTRO_TEXT_CARTHAGE">
+			<Text>From the shelter of the cothon, ships prepare for their expeditions. Some are loaded with fine pottery, grain, and other goods to be exchanged for gold and ivory. Others carry soldiers ready to profit by other means. Each will return home, to the center of the world - Carthage. Open the cothon gates, and let returning fleets shower the city in prosperity.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_INTRO_CARTHAGE">
+			<Text>The children of Tyre come from afar to claim their destiny. From the center of the world, they will command an empire that knows no equal.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIPS_TEXT_CARTHAGE">
+			<Text>The Punic Port Unique Quarter can be purchased in Towns, increasing their Resource Capacity. This persists in future Ages, setting you up with powerful benefits later!</Text>
+		</Row>
+	</EnglishText>
+</Database>

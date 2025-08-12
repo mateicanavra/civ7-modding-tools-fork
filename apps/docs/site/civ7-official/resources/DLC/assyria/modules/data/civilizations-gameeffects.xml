@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==================================================	-->
+	<!--				Civ-Specific Traits					-->
+	<!-- ==================================================	-->
+	<!-- ASSYRIA -->
+	<Modifier id="MOD_CIV_FIRST_TIME_CONQUER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_PLAYER_GRANT_PROGRESSION" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_FIRST_TIME_SETTLEMENT_OCCUPATION"/>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<Argument name="SystemType">SYSTEM_TECH</Argument>
+		<Argument name="FreeProgressionType">FREE_PROGRESSION_NODE_ANY_UNLOCKED</Argument>
+	</Modifier>
+	<Modifier id="MOD_AQ_CODEX_REDUX" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_GREAT_WORK" run-once="true" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_MAJOR"/>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_CIVILIZATION_OR_LEADER_TRAIT" inverse="true">
+				<Argument name="TraitType">TRAIT_ASSYRIA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<Argument name="ObjectType">GREATWORKOBJECT_WRITING</Argument>
+		<String context="Description">LOC_MOD_AQ_CODEX_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_AQ_MATHEMATICS_CODEX_REDUX" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_GREAT_WORK" run-once="true" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_MAJOR"/>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_CIVILIZATION_OR_LEADER_TRAIT" inverse="true">
+				<Argument name="TraitType">TRAIT_ASSYRIA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">2</Argument>
+		<Argument name="ObjectType">GREATWORKOBJECT_WRITING</Argument>
+		<String context="Description">LOC_MOD_AQ_MATHEMATICS_CODEX_DESCRIPTION</String>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--				Civ-Specific Trees					-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_REVEAL_CIV_CULTURE_TREE_ASSYRIA" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_REVEAL_CULTURE_TREE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_CIVILIZATION_OR_LEADER_TRAIT">
+				<Argument name="TraitType">TRAIT_ASSYRIA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ProgressionTreeType">TREE_CIVICS_AQ_ASSYRIA</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--				Wonder Bonuses						-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_CIV_WONDER_PRODUCTION_ASSYRIA" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_FAVORED_WONDER_PRODUCTION">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_CIVILIZATION_OR_LEADER_TRAIT">
+				<Argument name="TraitType">TRAIT_ASSYRIA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Percent">30</Argument>
+		<String context="Preview">LOC_MOD_CIV_WONDER_PRODUCTION_ASSYRIA_DESCRIPTION</String>
+	</Modifier>
+</GameEffects>

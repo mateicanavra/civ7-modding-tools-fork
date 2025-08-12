@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_CITYCOMMAND_NEW_POPULATION_HEADER">
+			<Text>Expand or Migrate?</Text>
+		</Row>
+		<Row Tag="LOC_CITYCOMMAND_NEW_POPULATION_BODY">
+			<Text>Expansion is available in {1_CityName}! Should this Population remain here and expand to a new tile, or become a Migrant and move elsewhere?</Text>
+		</Row>
+		<Row Tag="LOC_CITYCOMMAND_OPTION_SETTLE">
+			<Text>Settle</Text>
+		</Row>
+		<Row Tag="LOC_CITYCOMMAND_OPTION_MIGRATE">
+			<Text>Migrate</Text>
+		</Row>
+		<Row Tag="LOC_CITYCOMMAND_PRODUCTION_FAILURE_NO_SPAWN_LOCATION">
+			<Text>No suitable location to spawn this Unit.</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_TEXT_CITY_CENTER_RAZED">
+			<Text>City Razed!</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_TEXT_DISTRICT_RAZED">
+			<Text>District Razed!</Text>
+		</Row>
+		<Row Tag="LOC_CITYCOMMAND_DESTROY_CANNOT_RAZE_OWN_CITY">
+			<Text>You cannot raze a settlement that you have founded.</Text>
+		</Row>
+		<Row Tag="LOC_CITYCOMMAND_EXPAND_NO_EXPANSION_PLOTS">
+			<Text>This Settlement cannot expand right now.</Text>
+		</Row>
+		<Row Tag="LOC_CITYCOMMAND_DESTROY_RAZE_CONDITIONS">
+			<Text>{1_Name} will be gradually destroyed over a period of {2_NumTurns} Turns. During this time the settlement will not generate any yields.[n]{3_conquest_penalty}.[n]{4_razing_penalty}.</Text>
+		</Row>
+		<Row Tag="LOC_CITYCOMMAND_KEEP_NO_PENALTY">
+			<Text>You receive no penalty for keeping this Settlement</Text>
+		</Row>
+	</EnglishText>
+</Database>

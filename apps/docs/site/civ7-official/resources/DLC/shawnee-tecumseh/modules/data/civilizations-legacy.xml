@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<!-- Major Civs -->
+		<Row Type="TRAIT_SHAWNEE" Kind="KIND_TRAIT"/>
+		<Row Type="CIVILIZATION_SHAWNEE" Kind="KIND_CIVILIZATION"/>
+	</Types>
+	<LegacyCivilizations>
+		<!-- Full Civs -->
+		<Row CivilizationType="CIVILIZATION_SHAWNEE" Name="LOC_CIVILIZATION_SHAWNEE_NAME" FullName="LOC_CIVILIZATION_SHAWNEE_FULLNAME" Adjective="LOC_CIVILIZATION_SHAWNEE_ADJECTIVE" Age="AGE_EXPLORATION"/>
+	</LegacyCivilizations>
+	<LegacyCivilizationTraits>
+		<Row CivilizationType="CIVILIZATION_SHAWNEE" TraitType="TRAIT_SHAWNEE"/>
+	</LegacyCivilizationTraits>
+	<Traits>
+		<Row TraitType="TRAIT_SHAWNEE" InternalOnly="true"/>
+	</Traits>
+	<LegacyLeaderCivPriorities>
+		<Row Leader="LEADER_TECUMSEH" CivilizationType="CIVILIZATION_SHAWNEE"/>
+		<Row Leader="LEADER_TECUMSEH" CivilizationType="CIVILIZATION_MISSISSIPPIAN"/>
+	</LegacyLeaderCivPriorities>
+</Database>

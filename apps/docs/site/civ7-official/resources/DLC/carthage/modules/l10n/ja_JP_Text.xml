@@ -1,0 +1,818 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE1" Language="ja_JP">
+      <Text>カルタゴ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE10" Language="ja_JP">
+      <Text>ルシケード</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE11" Language="ja_JP">
+      <Text>シスドルス</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE12" Language="ja_JP">
+      <Text>ルスグニア</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE13" Language="ja_JP">
+      <Text>ティンガ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE14" Language="ja_JP">
+      <Text>ガディル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE15" Language="ja_JP">
+      <Text>オヤト</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE16" Language="ja_JP">
+      <Text>キティオン</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE17" Language="ja_JP">
+      <Text>ラパトス</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE18" Language="ja_JP">
+      <Text>イダリオン</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE19" Language="ja_JP">
+      <Text>ルスピナ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE2" Language="ja_JP">
+      <Text>ウティカ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE20" Language="ja_JP">
+      <Text>ジズ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE21" Language="ja_JP">
+      <Text>カラリー</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE22" Language="ja_JP">
+      <Text>セクシ </Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE23" Language="ja_JP">
+      <Text>カパラ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE24" Language="ja_JP">
+      <Text>ルサディール</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE25" Language="ja_JP">
+      <Text>アブデラ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE26" Language="ja_JP">
+      <Text>マラケ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE27" Language="ja_JP">
+      <Text>リルバイウム</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE28" Language="ja_JP">
+      <Text>チュル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE29" Language="ja_JP">
+      <Text>アランビュス</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE3" Language="ja_JP">
+      <Text>ハドルメトゥム</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE30" Language="ja_JP">
+      <Text>メニンクス</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE4" Language="ja_JP">
+      <Text>ヒッポ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE5" Language="ja_JP">
+      <Text>モティア</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE6" Language="ja_JP">
+      <Text>テナイ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE7" Language="ja_JP">
+      <Text>レプティス</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE8" Language="ja_JP">
+      <Text>ツァブラタン</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE9" Language="ja_JP">
+      <Text>マレス</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_1" Language="ja_JP">
+      <Text>アリシャト</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_10" Language="ja_JP">
+      <Text>ジアブコト</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_2" Language="ja_JP">
+      <Text>シフォンバール</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_3" Language="ja_JP">
+      <Text>バトバール</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_4" Language="ja_JP">
+      <Text>バトノアム</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_5" Language="ja_JP">
+      <Text>ムトゥンバール</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_6" Language="ja_JP">
+      <Text>ウンマシュタルト</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_7" Language="ja_JP">
+      <Text>ハンビ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_8" Language="ja_JP">
+      <Text>アモアシュタート</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_9" Language="ja_JP">
+      <Text>イゼベル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_1" Language="ja_JP">
+      <Text>ハミルカル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_10" Language="ja_JP">
+      <Text>ボミルカル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_2" Language="ja_JP">
+      <Text>ハンノ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_3" Language="ja_JP">
+      <Text>マゴ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_4" Language="ja_JP">
+      <Text>ハスドルバル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_5" Language="ja_JP">
+      <Text>ギスゴー</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_6" Language="ja_JP">
+      <Text>ボド</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_7" Language="ja_JP">
+      <Text>アザルバアル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_8" Language="ja_JP">
+      <Text>ボスタル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_9" Language="ja_JP">
+      <Text>マッタンバール</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_CARTHAGE_ADJECTIVE" Language="ja_JP">
+      <Text>カルタゴの</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_CARTHAGE_FULLNAME" Language="ja_JP">
+      <Text>カルタゴ帝国</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_CARTHAGE_NAME" Language="ja_JP">
+      <Text>カルタゴ</Text>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_ANTIQUITY_4_MAJOR_CARTHAGE_NAME" Language="ja_JP">
+      <Text>ファイストス</Text>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_ANTIQUITY_4_MINOR_CARTHAGE_NAME" Language="ja_JP">
+      <Text>ミノア</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_COTHON_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>コトンはカルタゴ港の内港であり、カルタゴ海軍の本拠地だった。コトンという名は、似た形をしているギリシャの酒杯に由来している。完全な人造港で、円形をしており、中央に島があった。また、内岸と外岸のどちらにも造船所が並んでおり、その上は物資が詰め込まれた倉庫になっていた。古い文献には、コトンは最大で220隻の船を収容できたとあるが、実際には170隻程度だった可能性が高いことが考古学的調査によって明らかとなっている。その特徴的な外観は古代カルタゴのシンボルとなったが、建設されたのはこの都市国家の終焉近く、第二次ポエニ戦争のすぐ後のことであり、完成から50年も経たずにカルタゴは滅亡した。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_DOCKYARD_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>カルタゴ港には軍用港の部分と商業港の部分があり、カルタゴを豊かにした経済活動の玄関口として機能していたのは後者だった。長方形をしたこの人工の船着き場では、交易品の荷揚げや積み替え、税金の徴収が行われ、各地の植民地からさまざまな貢物が運ばれてきた。第二次ポエニ戦争後に大規模な改修工事が実施されたものの、海に突き出た壁の外側に木造の埠頭を持つこの港の面積は7万平方メートルにすぎない。しかしその重要性は、規模をはるかに上回っていた。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>青銅器時代末期に起きたいわゆる「前1200年の破局」は、地中海と近東の多くの文明を衰退させた。気候変動、技術的不均衡、侵略、その他の要因が重なったことで中央集権的な体制が衰退し、結果としていくつもの国が崩壊。人々は大規模な都市から小規模な村落へ散らばっていった。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_10" Language="ja_JP">
+      <Text>紀元前3世紀になると、ローマがギリシャに替わってカルタゴ最大のライバルとなった。紀元前264年、またしてもシチリアが火種となって第一次ポエニ戦争が勃発する。20年以上かけてローマはこの戦争に勝利し、カルタゴはシチリアにおけるすべての領土を失ったばかりか、傭兵の反乱という新たな危機に直面した。にもかかわらず、紀元前218年、再び戦争が勃発する。この第二次ポエニ戦争では、カルタゴの名将ハンニバルが軍を率いて陸路でガリアを横断し、アルプスを越えて北からローマ軍を攻撃した。彼はカンナエでローマの大軍を破ったが、増援を得られなかったために征服を完遂することはできなかった。その後、ローマはカルタゴをイタリア半島とイベリア半島から駆逐して再び勝利をおさめ、地中海西部の覇者となった。カルタゴは海外領土をすべて失い、海軍も大幅に縮小されて軍艦の数はわずか10隻となり、政治の面でもローマの実質的な属国とされた。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_11" Language="ja_JP">
+      <Text>カルタゴは戦争を起こすことも禁じられた。しかし50年後、カルタゴはこの取り決めを破り、ヌミディアによる領土侵攻に報復するために軍を動員する。ローマにとってカルタゴとヌミディアの争いは関心の埒外にあったが、第二次ポエニ戦争がローマ人の心に残した傷跡は深かった。また、政治的関係では優位に立っていたものの、ローマは交易と農業という伝統的な手法によって経済力を取り戻しはじめていたカルタゴを常に警戒していた。大カトーが元老院で演説する際、必ず最後に「Ceterum autem censeo Carthaginem esse delendam」（「ところで、私はカルタゴは滅ぶべきであると考える」）と付け加えたことは有名だ。それゆえにヌミディアに対してカルタゴが軍を動かしたことは、ローマに待望の「開戦事由」を与える結果となった。宣戦布告とその後の攻囲戦を経てカルタゴは陥落し、あらゆるものが完全に滅ぼされた。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_2" Language="ja_JP">
+      <Text>しかし、すべての文明が闇に消えたわけではない。フェニキアの都市国家は、少なくともその2世紀前から隆盛期を迎えており、その最初の記録は東地中海沿岸地域を征服したエジプトの史料に見られる。これらの都市国家は交易の中心地となり、ヨーロッパ、北アフリカ、アジア間の交流を促進したが、この地域における彼らの経済力を抑えようとする諸国に悩まされていた。しかし「前1200年の破局」の後、こうした国々は衰退や滅亡の憂き目にあい、フェニキアに対する彼らの影響力は弱まることになる。かくして真の独立を果たしたフェニキアは本格的な繁栄の時代に入り、勢力の空白地帯に進出。やがて地中海全域の交易を支配するまでになる。天然の良港や周辺市場へのアクセス、近隣の資源を求め、はるかモロッコやイベリア半島まで進出した彼らは、地中海全域のヨーロッパ側と北アフリカ側の海岸に植民都市を築きはじめた。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_3" Language="ja_JP">
+      <Text>紀元前814年頃、ティルスを出発した入植者たちが、現在のチュニジアにあるチュニス湾に到達した。そこは新たな入植地として理想的だった。守りやすい丘から見下ろせる位置にある港は嵐を避けるのにうってつけだったし、地中海交易の隘路であるシチリア海峡にも近かった。入植者たちはすぐさま植民都市の建設に取りかかり、この街をカルト・ハダシュト（「新しい都市」）と名づけた。カルタゴの誕生である。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_4" Language="ja_JP">
+      <Text>ちなみに後世の文献に見られるカルタゴ建国伝説は、このいささか凡庸な物語とは趣きを異にしている。曰く、兄ピュグマリオーンに遺産を奪われ、夫を殺害された女王ディードー（エリッサ）は故郷を逃れた。北アフリカに渡った彼女は、その地を支配していたベルベル人の長に、牛の革一枚で覆えるだけの土地を譲ることを承諾させる。ディードーは牛革を切り分けて何本もの紐を作り、それをつないで丘を丸ごと囲み、後の都市の礎を手に入れたという。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_5" Language="ja_JP">
+      <Text>紀元前4世紀にアレキサンドロス大王が地中海東部沿岸を席巻するまでの数百年間、カルタゴは群小の植民都市のひとつに過ぎなかった。ところが紀元前332年、アレキサンドロスがティルスを略奪、フェニキア人は勢力の中枢を失うこととなる。難民となったティルスの人々は各地に散っていったが、その多くがやがてカルタゴに流れ着いた。ティルスの滅亡に加え、この人口の急増により、カルタゴはまたたく間に地中海における権力と富の新たな中心地となることができたのである。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_6" Language="ja_JP">
+      <Text>カルタゴの富の主な源泉は、交易と貢納、そして税金だった。都市の外に権力を広げることに無関心だった他のフェニキア人都市国家と異なり、カルタゴは征服による領土拡大を国是とし、それに向かって突き進んだ。強力な海軍を擁し、陸軍に関しても自前の軍隊に加えて隣接するヌミディア王国から兵を雇い入れていたカルタゴは、他のフェニキア人植民都市を征服し、地中海の両岸に新たな領土を獲得した。カルタゴが拡張主義を追求した理由については、交易で競合関係にあったギリシャやローマに対して優位を確立する必要があったというものから、カルタゴ政府内で軍事指導者が台頭したためというものまで、諸説ある。理由が何であれ、基本的にカルタゴは新しい領土を直接支配しなかったが、その一方で覇権主義的な手法を好み、居住地や植民地から貢物を徴収すると同時に交易の拠点として活用した。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_7" Language="ja_JP">
+      <Text>カルタゴの統治制度は、紀元前4世紀には君主制から共和制へと進化していた。その頂点に立つのは、特に有力な一族から選出される2人のスーフェース（司法権と行政権を持つ長官）だった。彼らは200～300人程度で構成される最高会議とともに国を統治した。また、スーフェースと最高会議が提案した法や措置は、市民総会で投票にかけられた。行政と軍事は分けられており、将軍は選挙や指名によって選ばれ、政治にはいっさい口を出さなかった。同様に、スーフェースも軍の指揮権を持っていなかった。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_8" Language="ja_JP">
+      <Text>物理的な意味でカルタゴの頂点に立つのは、海を見下ろす丘の上にそびえる城塞、ビュルサだった。そこからつづく斜面には4つの居住区があり、麓には大きな港があった。また、街の外には農地が広がっていた。カルタゴは農業に造詣が深く、多種多様な作物の栽培に成功し、市民を養うだけでなく輸出にも十分な量を生産していた。実際、カルタゴの農業知識に対する評価はきわめて高く、この都市の破壊を生き延びた数少ない書物に、著述家マゴによる農業書が含まれていることからも、それがうかがえる。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_9" Language="ja_JP">
+      <Text>当然、カルタゴの拡大は反発を招いた。最初の大きな衝突は、ギリシャとの間で起こった。カルタゴが小さな植民都市から一大都市国家へ成長する以前からフェニキアの主な競争相手であったギリシャは、フェニキアによる地中海交易の独占をじわじわと切り崩していた。カルタゴの台頭にともなって軋轢の中心はこの「新しい都市」へ移り、やがて両勢力は激しく争うようになる。特に紀元前480年以降、カルタゴはシチリア島の支配権をめぐり、ギリシャと戦争を繰り返した。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_CARTHAGE_RED_SLIP_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>史料の逸失や信頼性の問題により、カルタゴの宗教や神々、習わしの全貌を知ることはかなわない。だが、女神タニトのことは、カルタゴやその植民都市に浸透していたおかげで、今でも知られている。知恵、豊穣、母性を司るタニトはカルタゴの主神の一柱で、同じく主神であるバアル・ハモンの妻だった。タニトがカルタゴの主神に列に加わったのは、他の神々よりも後のことだ。バアル・ハモンがフェニキアやそれよりさらに遠い地に起源を持つのに対し、タニトは紀元前5世紀ごろ、おそらくは先住民族であるベルベル人の信仰を介して崇められるようになり、すぐに重要性でも神聖さでも夫神を上回る存在となった。タニト崇拝においては、トペテと呼ばれる聖域で人身御供が捧げられることもあったようだが、そうした儀式がカルタゴでどの程度実践されていたかは議論の余地がある。このゲームでカルタゴ文明を表すシンボルは、本来はこの女神のシンボルであり、主として石に刻まれたものやモザイク画が今に伝わっている。時代が下ると、タニトは翼と獅子の顔を持つ女神として描かれるようになった。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_CARTHAGE_SHIPSHEDS_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>カルタゴの経済力と軍事力は、船があってこそのものだった。ゆえに船の保守整備は、繁栄を左右する重大事だった。当時の船は当然ながら木造で、地中海や近辺の海に漕ぎ出せばそれなりに大きな損耗が生じた。嵐にあえば損傷したし、木材が水を吸えば船足が落ち、下手をすれば腐ることもあった。食欲旺盛な海の生き物の中には木の味を好むものもいた。とはいえ、保管や修理のために大きく重たい船を陸に上げるのは労力と時間を要する作業だったし、陸上であろうと悪天候にさらされる危険があることに変わりはなかった。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_CARTHAGE_SHIPSHEDS_CHAPTER_HISTORY_PARA_2" Language="ja_JP">
+      <Text>こうした問題を解決するため、カルタゴは船小屋を建ててそこに船を収容した。つまり、覆いのついた船台を水際に作り、船を素早く簡単に乾ドックへ移動させられるようにしたのだ。屋根があるので雨ざらしにならないし、修理が終わればすぐ海に戻せるので長いこと船を遊ばせずに済む。整備を受ける機会も増え、カルタゴの海軍や商船団は常に最良の状態に保たれていた。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_CARTHAGE_SICILIAN_WARS_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>カルタゴはフェニキアの跡を継いで地中海の交易路を支配する存在となった。だがその地位は安泰ではなく、ひっきりなしに何かしらの挑戦を受けていた。最初の宿敵はギリシャの都市国家群だった。やはり強大な海軍力を持つ彼らは、この地域の覇権をめぐって何度もカルタゴと衝突した。争いの焦点となったのは、主にシチリア（シケリア）だった。地中海を実質的に東西に分断しているこの島は、古代における海上支配の要だった。紀元前480年から紀元前306年にかけて、カルタゴとギリシャはシチリアをめぐって幾度か剣を交え、領土の奪取と奪回を繰り返した。シチリアを巡る戦争は尻すぼみ気味に終結したが、これはローマの国力がギリシャを追い抜き、ギリシャがシチリアに持っていた領土がローマのものになったからである。しかし、新たなライバルの台頭は、新たな戦争の序曲にすぎなかった。シチリアをめぐる新たな戦い、ポエニ戦争のはじまりである。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_QUARTER_PUNIC_PORT_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>海軍力に裏打ちされた経済大国だったカルタゴにとって、繁栄と存亡の鍵を握っていたのが港だ。特筆に値するのはその構造である。カルタゴ港は、商船が利用する外港と、軍艦のために築かれた内港（コトン）という二重構造になっていた。港は紀元前200年頃に湿地を掘って築かれたが、完成までにはおよそ23万5000立方メートルもの土を運び出す必要があった。建材には砂岩の切石が使われており、高い壁に阻まれて外からは中の様子がほとんど見えなかった。また、外港と内港の境は狭くなっていて、大きな鉄の鎖で封鎖できるようになっていた。第三次ポエニ戦争でカルタゴを征服すると、ローマは真っ先に港を取り壊した。しかし、チュニジアの海辺には今もその跡がはっきりと残っている。カルタゴの栄光を偲ばせる、数少ない名残の一つだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_COLONIST_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>カルタゴはフェニキア人の入植地としてはじまった。この海沿いの小さな前哨地には、地中海全体の交易を促し、その支配者となることが期待されていた。その後、都市へと成長し、独立した勢力の中心地となったカルタゴは、土地ではなく入植地を増やすことを重視する、自身の起源と同じ手法によって権勢と影響力を拡大していった。かつては、カルタゴの拡大は侵略的、帝国主義的なものであったと考えられていた（カルタゴと敵対したローマ人が書いた歴史が伝わっていたのが主な原因だ）。しかし最近の調査では、初期の勢力固めの時期には、地中海西部の海岸沿いに元々あったフェニキア人入植地を傘下に加え、強化することに焦点が置かれていたことが明らかになっている。領土そのものを奪うようになったのは、もっと後のことだ。この領土拡張期には、入植者が地中海各地やそのさらに先まで派遣された。そうして築かれた入植地は、交易拠点や物資の集積地、安全な停泊所として機能し、カルタゴの船団を支えた。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_NUMIDIAN_CAVALRY_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>カルタゴの力の源は、交易路と各地の沿岸に築かれた小さな入植地だった。そのため、カルタゴ市そのものや経済帝国としての人口はそれほど多くなく、戦時には隣国であったヌミディアから傭兵を募って戦力を補った。軽装で、投げ槍を主な武器とし、小柄だが敏捷な馬にまたがったベルベル人の戦士たちは、その機動力を活かして敵を容赦なく攻め立てた。こうしたヌミディア騎兵は、とりわけ第二次ポエニ戦争で多数が動員され、ハンニバルのイタリア遠征やローマによる北アフリカ侵攻の際に大活躍した。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_BYRSA_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>カルタゴの中心に位置する丘の上に築かれたビュルサは、街全体を見守る城塞だった。名前の由来は定かではない。ディードーが牛の皮を細く裂き、それで囲った土地が後にカルタゴになったという言い伝えから、ギリシャ語で「牛の皮」を意味する「ビュルサ」が語源であるとも言われるが、この説は信憑性に欠けている。「要塞」を意味するフェニキア語「バルサト」が変化したという説の方が、説得力があるだろう。ビュルサはカルタゴの軍事の中心だったが、この丘（丘そのものも「ビュルサ」と呼ばれた）には政治や宗教に関わる重要施設も立ち並んでいた。カルタゴの陥落後、防壁に囲まれたこの城塞は、ローマやヴァンダル、ビザンティンなどによって再利用された。現在もビュルサは考古学的に重要な遺跡としてその姿を留めている。  </Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_COTHON_NAME" Language="ja_JP">
+      <Text>コトン</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_DOCKYARD_NAME" Language="ja_JP">
+      <Text>ドックヤード</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_PUNIC_PORT_NAME" Language="ja_JP">
+      <Text>カルタゴ軍港</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BYRSA_NAME" Language="ja_JP">
+      <Text>ビュルサ</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_MEDJERDA_NAME" Language="ja_JP">
+      <Text>メジェルダ川</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_MILIANE_NAME" Language="ja_JP">
+      <Text>ミリアーヌ川</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SEJENANE_NAME" Language="ja_JP">
+      <Text>セジュナン川</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SILIANA_NAME" Language="ja_JP">
+      <Text>シリアナ川</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_TESSA_NAME" Language="ja_JP">
+      <Text>テッサ川</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_EMI_KOUSSI_NAME" Language="ja_JP">
+      <Text>エミクーシ山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_HARUJ_NAME" Language="ja_JP">
+      <Text>ハルジュ</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_JEBEL_TOUBKAL_NAME" Language="ja_JP">
+      <Text>ツブカル山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_PANTELLERIA_NAME" Language="ja_JP">
+      <Text>パンテッレリーア</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_WAW_AN_NAMUS_NAME" Language="ja_JP">
+      <Text>ワウアンナムス</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_RED_SLIP_NAME" Language="ja_JP">
+      <Text>タニトの知恵</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SHIPSHEDS_NAME" Language="ja_JP">
+      <Text>船小屋</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SICILIAN_WARS_NAME" Language="ja_JP">
+      <Text>シケリア戦争</Text>
+    </Replace>
+    <Replace Tag="LOC_11000A_COMPLETION" Language="ja_JP">
+      <Text>新たな居住地が賑わっている。カルタゴの影響は市壁を越えて広がり、世界は息を呑む豪華な紫に目を輝かせている。</Text>
+    </Replace>
+    <Replace Tag="LOC_11000A_STORYTITLE" Language="ja_JP">
+      <Text>繁栄の色</Text>
+    </Replace>
+    <Replace Tag="LOC_11000B_DESCRIPTION" Language="ja_JP">
+      <Text>斥候に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11000B_NAME" Language="ja_JP">
+      <Text>カルタゴの影響力がどこまで及ぶか見届けよう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11000C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11000C_NAME" Language="ja_JP">
+      <Text>カルタゴのものを守らねばならん。</Text>
+    </Replace>
+    <Replace Tag="LOC_11001A_COMPLETION" Language="ja_JP">
+      <Text>風に帆を膨らませ、交易船がカルタゴの港を離れていく。その光景は、渡り鳥の群れが豊かな遠くの土地を目指す姿にも似ていた。</Text>
+    </Replace>
+    <Replace Tag="LOC_11001A_STORYTITLE" Language="ja_JP">
+      <Text>追い風に乗って</Text>
+    </Replace>
+    <Replace Tag="LOC_11001B_DESCRIPTION" Language="ja_JP">
+      <Text>商人に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11001B_NAME" Language="ja_JP">
+      <Text>風に乗って交易を促進しよう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11001C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11001C_NAME" Language="ja_JP">
+      <Text>風に乗せて噂を広めよう。カルタゴの偉大さを知らしめるのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11002A_COMPLETION" Language="ja_JP">
+      <Text>カルタゴは港によって遠くの土地と結ばれている。鉄の鎖にも似たそのつながりにより、外から富が流れ込むと同時に、帝国の力は外へと広がっていく。</Text>
+    </Replace>
+    <Replace Tag="LOC_11002A_STORYTITLE" Language="ja_JP">
+      <Text>断たれることなきつながり</Text>
+    </Replace>
+    <Replace Tag="LOC_11002B_DESCRIPTION" Language="ja_JP">
+      <Text>祝宴に入る。</Text>
+    </Replace>
+    <Replace Tag="LOC_11002B_NAME" Language="ja_JP">
+      <Text>ワインの流れるままに。</Text>
+    </Replace>
+    <Replace Tag="LOC_11002C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_capital}の人口+1</Text>
+    </Replace>
+    <Replace Tag="LOC_11002C_NAME" Language="ja_JP">
+      <Text>カルタゴの港の魅力を広く知らしめよう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11003A_COMPLETION" Language="ja_JP">
+      <Text>カルタゴの人々は、どこに行こうと壮大な景色を楽しめるが、基本的な設備や社会基盤が整っていないと嘆いている。素晴らしい自然に囲まれていようと、落ち着いて鑑賞できないなら何の意味があるだろう？</Text>
+    </Replace>
+    <Replace Tag="LOC_11003A_STORYTITLE" Language="ja_JP">
+      <Text>壮観の楽しみ方</Text>
+    </Replace>
+    <Replace Tag="LOC_11003B_DESCRIPTION" Language="ja_JP">
+      <Text>交易路範囲+3。</Text>
+    </Replace>
+    <Replace Tag="LOC_11003B_NAME" Language="ja_JP">
+      <Text>社会基盤はよそから調達せねばなるまい。</Text>
+    </Replace>
+    <Replace Tag="LOC_11003C_DESCRIPTION" Language="ja_JP">
+      <Text>遺産に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11003C_NAME" Language="ja_JP">
+      <Text>遺産こそが社会の基盤だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11004A_COMPLETION" Language="ja_JP">
+      <Text>ローマ人の中には、素朴な羊飼いを祖先とする者たちがいる。だが、その面影はほんのわずかに残っている程度だ。今や彼らの野心は牧草地を超えて広がっており、カルタゴの領土が侵されるおそれも否定できない。</Text>
+    </Replace>
+    <Replace Tag="LOC_11004A_STORYTITLE" Language="ja_JP">
+      <Text>三日月と狼</Text>
+    </Replace>
+    <Replace Tag="LOC_11004B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11004B_NAME" Language="ja_JP">
+      <Text>相互の合意が恒久的な平和をもたらすのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11004C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11004C_NAME" Language="ja_JP">
+      <Text>カルタゴは油断すべきではない。</Text>
+    </Replace>
+    <Replace Tag="LOC_11004D_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11004D_NAME" Language="ja_JP">
+      <Text>民が考える以上にカルタゴにはローマとの共通点が多くある。</Text>
+    </Replace>
+    <Replace Tag="LOC_11005A_COMPLETION" Language="ja_JP">
+      <Text>カプート・ムンディ、すなわち「世界の首都」が燃えている。豪華な邸宅からも粗末な集合住宅からも煙がもうもうと立ち上り、ローマ人もカルタゴ人も等しくむせかえる。市民の多くは持ち出せるかぎりの財産を手に逃げ出した。残った者たち... 老人、病人、貧しい者、頑固者たちは、カルタゴ軍に慈悲を乞うばかりだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11005A_STORYTITLE" Language="ja_JP">
+      <Text>陥落</Text>
+    </Replace>
+    <Replace Tag="LOC_11005B_DESCRIPTION" Language="ja_JP">
+      <Text>すべての戦争で戦争への支持+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_11005B_NAME" Language="ja_JP">
+      <Text>彼らに残してやるのは灰と塩だけだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11005C_DESCRIPTION" Language="ja_JP">
+      <Text>すべての居住地の人口+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_11005C_NAME" Language="ja_JP">
+      <Text>彼らを本物の世界の首都へ連れていってやろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11005D_DESCRIPTION" Language="ja_JP">
+      <Text>最高レベルの司令官が「不動」の昇格を得る。</Text>
+    </Replace>
+    <Replace Tag="LOC_11005D_NAME" Language="ja_JP">
+      <Text>最も勇敢な将軍を手元に置こう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11006A_COMPLETION" Language="ja_JP">
+      <Text>羊皮紙に署名がなされる間、ローマとカルタゴの代表団は警戒の眼差しで互いを見つめていた。ローマの元老院議員が、「...デレンダ・エスト（滅ぶべし）」とつぶやく。だが、とにもかくにも条約は結ばれた。</Text>
+    </Replace>
+    <Replace Tag="LOC_11006A_STORYTITLE" Language="ja_JP">
+      <Text>苦渋の同意</Text>
+    </Replace>
+    <Replace Tag="LOC_11006B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11006B_NAME" Language="ja_JP">
+      <Text>ローマとカルタゴの海に平和が訪れるだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11006C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11006C_NAME" Language="ja_JP">
+      <Text>新たな同盟は新たな考えを生み出すだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11006D_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11006D_NAME" Language="ja_JP">
+      <Text>都市は万人を迎え入れる。</Text>
+    </Replace>
+    <Replace Tag="LOC_11007A_COMPLETION" Language="ja_JP">
+      <Text>条約が結ばれるや否や、老いた元老院議員が抗議の声をあげはじめた。会議のたびに、議題に関係なく、彼は主張する。いわく、繁栄を極めたカルタゴは交易を牛耳り、ローマ人を苦しめるだろう。よってカルタゴは滅ぼさねばならない、と。</Text>
+    </Replace>
+    <Replace Tag="LOC_11007A_STORYTITLE" Language="ja_JP">
+      <Text>滅ぶべし</Text>
+    </Replace>
+    <Replace Tag="LOC_11007B_DESCRIPTION" Language="ja_JP">
+      <Text>町に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11007B_NAME" Language="ja_JP">
+      <Text>これは郊外の市民に不利益どころか恩恵をもたらすだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11007C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_capital}の資源最大数+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_11007C_NAME" Language="ja_JP">
+      <Text>同盟がもたらすものはあまりに多い。損なうわけにはいかない。</Text>
+    </Replace>
+    <Replace Tag="LOC_11007D_DESCRIPTION" Language="ja_JP">
+      <Text>町に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11007D_NAME" Language="ja_JP">
+      <Text>偏屈な老人と古臭い組織には困ったものだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11008A_COMPLETION" Language="ja_JP">
+      <Text>宮殿から港湾に至るまで、カルタゴには一片の無駄もない。通りは活気に満ちあふれ、カルタゴ人は世界で最も繁栄している都市で生活を営んでいる。</Text>
+    </Replace>
+    <Replace Tag="LOC_11008A_STORYTITLE" Language="ja_JP">
+      <Text>真の富</Text>
+    </Replace>
+    <Replace Tag="LOC_11008B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_capital}の専門家上限+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_11008B_NAME" Language="ja_JP">
+      <Text>真の繁栄はカルタゴにこそ生まれる。</Text>
+    </Replace>
+    <Replace Tag="LOC_11008C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11008C_NAME" Language="ja_JP">
+      <Text>この町を侵せる者は現れまい。</Text>
+    </Replace>
+    <Replace Tag="LOC_11009A_COMPLETION" Language="ja_JP">
+      <Text>契約内容に満足したヌミディア人が頷いて同意を示す。騎兵たちにカルタゴへ忠義を尽くす義務はないが、報酬さえもらえれば、命じられるままどこへでも赴くだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11009A_STORYTITLE" Language="ja_JP">
+      <Text>買われた武力</Text>
+    </Replace>
+    <Replace Tag="LOC_11009B_DESCRIPTION" Language="ja_JP">
+      <Text>ヌミディア騎兵に+{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11009B_NAME" Language="ja_JP">
+      <Text>彼らを容赦なく戦わせよ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11009C_DESCRIPTION" Language="ja_JP">
+      <Text>ヌミディア騎兵に+{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11009C_NAME" Language="ja_JP">
+      <Text>規律を欠く行為は許されない。</Text>
+    </Replace>
+    <Replace Tag="LOC_11009D_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11009D_NAME" Language="ja_JP">
+      <Text>契約の内容を見直そう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11064A_COMPLETION" Language="ja_JP">
+      <Text>無給のヌミディア人たちは不平を漏らしている。彼らはカルタゴのためではなく、己の腹を満たすために戦っているのだ。とはいえ、カルタゴは気前のよさを見せてくれたこともある... 今回もそうかもしれない。</Text>
+    </Replace>
+    <Replace Tag="LOC_11064A_STORYTITLE" Language="ja_JP">
+      <Text>破られた契約</Text>
+    </Replace>
+    <Replace Tag="LOC_11064B_DESCRIPTION" Language="ja_JP">
+      <Text>生産関連の建造物に{1_reward}、ただし{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11064B_NAME" Language="ja_JP">
+      <Text>契約を履行するために増税しよう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11064C_DESCRIPTION" Language="ja_JP">
+      <Text>ヌミディア騎兵に{1_reward}、ただし彼らは{2_reward}を得る。</Text>
+    </Replace>
+    <Replace Tag="LOC_11064C_NAME" Language="ja_JP">
+      <Text>ヌミディアの騎兵には我々が出せるもので暮らしてもらうほかない。</Text>
+    </Replace>
+    <Replace Tag="LOC_11065A_COMPLETION" Language="ja_JP">
+      <Text>敵艦の船体は粉々に砕け散り、水夫たちは無駄と知りつつも何とか助かろうと必死にあがいた。今日も、そしてこれからも、カルタゴの海はカルタゴ人にとって安全な場所でありつづけるのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11065A_STORYTITLE" Language="ja_JP">
+      <Text>避難港</Text>
+    </Replace>
+    <Replace Tag="LOC_11065B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11065B_NAME" Language="ja_JP">
+      <Text>家族の安寧がカルタゴの成長につながるのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11065C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11065C_NAME" Language="ja_JP">
+      <Text>労働者が安全について心配する必要はない。</Text>
+    </Replace>
+    <Replace Tag="LOC_11066A_COMPLETION" Language="ja_JP">
+      <Text>巨大な石壁が、海岸から内陸の隅々まで、都市を縦横に走っている。カルタゴの守りに隙はない。</Text>
+    </Replace>
+    <Replace Tag="LOC_11066A_STORYTITLE" Language="ja_JP">
+      <Text>壁に囲まれた園</Text>
+    </Replace>
+    <Replace Tag="LOC_11066B_DESCRIPTION" Language="ja_JP">
+      <Text>駐屯ユニットに{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11066B_NAME" Language="ja_JP">
+      <Text>番兵たちに必要なものを揃えてやろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11066C_DESCRIPTION" Language="ja_JP">
+      <Text>無償の太古の防壁購入。</Text>
+    </Replace>
+    <Replace Tag="LOC_11066C_NAME" Language="ja_JP">
+      <Text>石工を徴用して防壁を延長しよう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11067A_COMPLETION" Language="ja_JP">
+      <Text>壁が築かれ、帆が張られる。そのたびにカルタゴの物語が地上に広がっていく。そこに疑問の余地はない。</Text>
+    </Replace>
+    <Replace Tag="LOC_11067A_STORYTITLE" Language="ja_JP">
+      <Text>カルタゴ人</Text>
+    </Replace>
+    <Replace Tag="LOC_11067B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11067B_NAME" Language="ja_JP">
+      <Text>その物語は厳然たる力を示している。</Text>
+    </Replace>
+    <Replace Tag="LOC_11067C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11067C_NAME" Language="ja_JP">
+      <Text>それは驚異的な富の物語だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_12004A_COMPLETION" Language="ja_JP">
+      <Text>カルタゴの通りを歩き回るリサールの目に、絶えず変化する都市が映る。騎乗した傭兵たちが足元の人々に目もくれずに闊歩する一方、港では巨大な船舶がこの街の繁栄に欠かせない物流を支えている。</Text>
+    </Replace>
+    <Replace Tag="LOC_12004A_STORYTITLE" Language="ja_JP">
+      <Text>カルタゴのよき医師</Text>
+    </Replace>
+    <Replace Tag="LOC_12004B_DESCRIPTION" Language="ja_JP">
+      <Text>ガレー船に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_12004B_NAME" Language="ja_JP">
+      <Text>船について学ぼう。</Text>
+    </Replace>
+    <Replace Tag="LOC_12004C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_12004C_NAME" Language="ja_JP">
+      <Text>畏敬の念をもって馬を眺めよう。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1030_CARTHAGEB_IMPERATIVE" Language="ja_JP">
+      <Text>庭園を保有する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1030_CARTHAGEC_IMPERATIVE" Language="ja_JP">
+      <Text>モニュメントを保有する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1031_CARTHAGEB_IMPERATIVE" Language="ja_JP">
+      <Text>アカデミーを保有する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1040_CARTHAGEC_IMPERATIVE" Language="ja_JP">
+      <Text>図書館とモニュメントを保有する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1041_CARTHAGEB_IMPERATIVE" Language="ja_JP">
+      <Text>円形闘技場を保有する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1050_CARTHAGEC_IMPERATIVE" Language="ja_JP">
+      <Text>図書館を保有する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1052_CARTHAGEB_IMPERATIVE" Language="ja_JP">
+      <Text>市場1つと交易路2つを保有する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1060_CARTHAGEC_IMPERATIVE" Language="ja_JP">
+      <Text>図書館を写本で満たす</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1062_CARTHAGEB_IMPERATIVE" Language="ja_JP">
+      <Text>アカデミーを保有する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1070_CARTHAGEC_IMPERATIVE" Language="ja_JP">
+      <Text>庭園を保有する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1070_CARTHAGEF_IMPERATIVE" Language="ja_JP">
+      <Text>庭園を保有する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1072_CARTHAGEB_IMPERATIVE" Language="ja_JP">
+      <Text>アカデミーを保有する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1072_CARTHAGED_IMPERATIVE" Language="ja_JP">
+      <Text>アカデミーを保有する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1090_CARTHAGEC_IMPERATIVE" Language="ja_JP">
+      <Text>遺産を建設する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1130_CARTHAGEB_IMPERATIVE" Language="ja_JP">
+      <Text>図書館を写本で満たす</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1140_CARTHAGEB_IMPERATIVE" Language="ja_JP">
+      <Text>庭園と市場を保有する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1170_CARTHAGEC_IMPERATIVE" Language="ja_JP">
+      <Text>モニュメントを1つ保有し、祝宴に入る</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1172_CARTHAGEB_IMPERATIVE" Language="ja_JP">
+      <Text>アカデミーを保有する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1180_CARTHAGEB_IMPERATIVE" Language="ja_JP">
+      <Text>モニュメントを1つ保有し、祝宴に入る</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1180_CARTHAGEE_IMPERATIVE" Language="ja_JP">
+      <Text>モニュメントを1つ保有し、祝宴に入る</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_COLONIST_DESCRIPTION" Language="ja_JP">
+      <Text>資源に隣接する土地に定住する場合の人口および乗船時の移動力+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_NUMIDIAN_CAVALRY_DESCRIPTION" Language="ja_JP">
+      <Text>首都に割り当てられている固有の都市資源1つにつき戦闘力+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTR_TOTAL_TRADE_ROUTES" Language="ja_JP">
+      <Text>総交易路数</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTR_YIELDS_FROM_NUM_TRADE_ROUTES" Language="ja_JP">
+      <Text>交易路の数</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_COTHON_DESCRIPTION" Language="ja_JP">
+      <Text>[icon:YIELD_PRODUCTION] 生産力+2。沿岸、航行可能な河川、遺産に隣接していると [icon:YIELD_PRODUCTION] 生産力+1。カルタゴ固有の生産関連の建造物。時代を問わない。町で購入できる。沿岸に配置する必要がある</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_COTHON_TOOLTIP" Language="ja_JP">
+      <Text>カルタゴ固有の生産関連の建造物。時代を問わない。町で購入できる。沿岸に配置する必要がある。</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_DOCKYARD_DESCRIPTION" Language="ja_JP">
+      <Text>[icon:YIELD_GOLD] ゴールド+2。資源、区域、遺産に [icon:YIELD_FOOD] 食料の隣接ボーナス+1。カルタゴ固有のゴールド関連の建造物。時代を問わない。町で購入できる。沿岸に配置する必要がある。</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_DOCKYARD_TOOLTIP" Language="ja_JP">
+      <Text>カルタゴ固有のゴールド関連の建造物。時代を問わない。町で購入できる。沿岸に配置する必要がある。</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_RED_SLIP_AUTHOR" Language="ja_JP">
+      <Text>マゴ</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_RED_SLIP_QUOTE" Language="ja_JP">
+      <Text>「都会暮らしをありがたがる者に、田舎の農場は無用の長物であろう」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SHIPSHEDS_AUTHOR" Language="ja_JP">
+      <Text>航海者ハンノ</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SHIPSHEDS_QUOTE" Language="ja_JP">
+      <Text>「それから急いで船を進め、炎と香りが燃え盛る国を通りすぎた。そこでは煮えたぎる火が川のように流れ、海へ落ちていた」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SICILIAN_WARS_AUTHOR" Language="ja_JP">
+      <Text>シケリアのディオドロス</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SICILIAN_WARS_QUOTE" Language="ja_JP">
+      <Text>「カルタゴ人は拿捕した艦隊を衆目にさらし、自分たちの強さを耳だけでなく目でも知らしめた」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_CARTHAGE_DESCRIPTION" Language="ja_JP">
+      <Text>都市を1つしか保有できない。町は「都市に変換」を使用できない。商人や入植者を1人購入するか訓練するたびに2人目を獲得する。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_CARTHAGE" Language="ja_JP">
+      <Text>外敵から守られたコトンを拠点として、無数の船が遠征に出発していく。黄金や象牙と交換するための上質な陶磁器や穀物などの商品を積んでいる船もあれば、交易以外の方法で利益を得るために兵士たちが乗り込んでいる船もある。そのいずれもが、やがては母港へ、世界の中心たるカルタゴへ帰ってくるだろう。コトンの水門を開け放て。帰還した船団がもたらす栄華を満喫しようではないか。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_CARTHAGE" Language="ja_JP">
+      <Text>固有街区「カルタゴ軍港」は町での購入が可能。これがあると資源の最大数が増加します。これは以降の時代でも維持され、後々大きなメリットをもたらしてくれます！</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_INTRO_CARTHAGE" Language="ja_JP">
+      <Text>テュルスの子らは遥かな地から天命を成就するためにやってきた。世界の中心から彼らは、比類なき帝国に号令を発するであろう</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_CARTHAGE_COMPLETE_BYRSA_DESC" Language="ja_JP">
+      <Text>カルタゴでプレイし、ビュルサを完成させる</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_CARTHAGE_COMPLETE_BYRSA_NAME" Language="ja_JP">
+      <Text>ビュルサ</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_CARTHAGE_LEGACY_PATH_MILITARISTIC_DESC" Language="ja_JP">
+      <Text>カルタゴでプレイし、軍事レガシーパスを完了する</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_CARTHAGE_LEGACY_PATH_MILITARISTIC_NAME" Language="ja_JP">
+      <Text>カルタゴのレガシーパス</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_CARTHAGE_DESCRIPTION" Language="ja_JP">
+      <Text>カルタゴの固有遺産であることにより [icon:YIELD_PRODUCTION] 生産力+30%。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_RED_SLIP_RESOURCE_CAP_DESCRIPTION" Language="ja_JP">
+      <Text>この首都に割り当てられる資源の数+3。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_RED_SLIP_TRADE_GOLD_DESCRIPTION" Language="ja_JP">
+      <Text>海洋交易路の範囲+15。首都から始まる交易路1つにつき首都の [icon:YIELD_GOLD] ゴールド+3。 </Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SHIPSHEDS_NAVAL_MOVEMENT_DESCRIPTION" Language="ja_JP">
+      <Text>海洋ユニットの移動力+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SHIPSHEDS_NAVAL_RANGE_DESCRIPTION" Language="ja_JP">
+      <Text>海洋ユニットの射程+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SICILIAN_WARS_MOVEMENT_NUMIDIAN_CAVALRY_DESCRIPTION" Language="ja_JP">
+      <Text>ヌミディア騎兵ユニットの移動力と視界+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SICILIAN_WARS_SETTLEMENT_CAP_DESCRIPTION" Language="ja_JP">
+      <Text>居住地上限+2。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SICILIAN_WARS_TOWN_PROJECT_DESCRIPTION" Language="ja_JP">
+      <Text>交易拠点を専業としている町のシティホールの写本スロット+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_PUNIC_PORT_DESCRIPTION" Language="ja_JP">
+      <Text>カルタゴの固有街区。同じ区域にコトンと造船所を建設すると築かれる。この居住地に割り当てることができる [icon:NOTIFICATION_DISCOVER_RESOURCE] 資源+2。</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_PUNIC_PORT_TOOLTIP" Language="ja_JP">
+      <Text>この居住地に割り当てることができる [icon:NOTIFICATION_DISCOVER_RESOURCE] 資源+2。</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_BYRSA" Language="ja_JP">
+      <Text>レオ・アフリカヌス</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_BYRSA" Language="ja_JP">
+      <Text>街の防壁の跡は、今日でも見ることができる</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_GAULOS_DESCRIPTION" Language="ja_JP">
+      <Text>沿岸あるいは航行可能な河川で建造物の購入に使われる [icon:YIELD_GOLD] ゴールドが発揮する効果+25%。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_QUINQUEREME_DESCRIPTION" Language="ja_JP">
+      <Text>海洋ユニットの購入に使われる [icon:YIELD_GOLD] ゴールドが発揮する効果+25%。海洋ユニットの維持に必要な [icon:YIELD_GOLD] ゴールド-1。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_SUFFETES_DESCRIPTION" Language="ja_JP">
+      <Text>工業の町からの [icon:YIELD_GOLD] ゴールド+20%。漁業または農業の町からの [icon:YIELD_FOOD] 食料+20%。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_CARTHAGE_ABILITY_DESCRIPTION" Language="ja_JP">
+      <Text>[BLIST][LI]都市を1つしか保有できない。町は[B]都市に変換[/B]を使用できない。[LI][B]商人[/B]や[B]入植者[/B]を1人購入するか訓練するたびに2人目を獲得する。[LI][B]ビュルサ[/B]の建設に対する[B][icon:YIELD_PRODUCTION] 生産力+30%[/B]。[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_CARTHAGE_ABILITY_NAME" Language="ja_JP">
+      <Text>フェニキアの遺産</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_AQ_CARTHAGE_NAME" Language="ja_JP">
+      <Text>カルタゴの社会制度</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_COLONIST_DESCRIPTION" Language="ja_JP">
+      <Text>カルタゴ固有の開拓者。資源に隣接している場所に定住する場合、乗船時の移動力と人口+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_NUMIDIAN_CAVALRY_2_DESCRIPTION" Language="ja_JP">
+      <Text>カルタゴ固有の騎兵ユニット（ティア3）。購入する以外に入手方法がなく、コストが高い。首都に割り当てられている固有の都市資源+1につき戦闘力+1。支配領域を無視する。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_NUMIDIAN_CAVALRY_BASE_DESCRIPTION" Language="ja_JP">
+      <Text>カルタゴ固有の騎兵ユニット。購入する以外に入手方法がなく、コストが高い。首都に割り当てられている固有の都市資源+1につき戦闘力+1。支配領域を無視する。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_NUMIDIAN_CAVALRY_DESCRIPTION" Language="ja_JP">
+      <Text>カルタゴ固有の騎兵ユニット（ティア2）。購入する以外に入手方法がなく、コストが高い。首都に割り当てられている固有の都市資源+1につき戦闘力+1。支配領域を無視する。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_AUGUSTUS_CARTHAGE_TOOLTIP" Language="ja_JP">
+      <Text>[B]カルタゴ[/B]は[B]アウグストゥス[/B]を戦略的に補完する。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_CARTHAGE_DESCRIPTION" Language="ja_JP">
+      <Text>[B]カルタゴ[/B]としてプレイする。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_CARTHAGE_SPAIN_TOOLTIP" Language="ja_JP">
+      <Text>[B]カルタゴ[/B]と[B]スペイン[/B]はどちらも地中海の強国だった。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_HATSHEPSUT_CARTHAGE_TOOLTIP" Language="ja_JP">
+      <Text>[B]ハトシェプスト[/B]は[B]カルタゴ[/B]と同じ大陸に属していた。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_IBN_BATTUTA_CARTHAGE_TOOLTIP" Language="ja_JP">
+      <Text>[B]イブン・バットゥータ[/B]は[B]カルタゴ[/B]と同じ地域を旅した。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ISABELLA_CARTHAGE_TOOLTIP" Language="ja_JP">
+      <Text>[B]イサベル[/B]と[B]カルタゴ[/B]はどちらも地中海を支配していた。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BYRSA_DESCRIPTION" Language="ja_JP">
+      <Text>[icon:YIELD_GOLD] ゴールド+2。交易路は略奪されない。防壁を建設可能なこの都市のタイルすべてに、防壁がもたらされる。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BYRSA_TOOLTIP" Language="ja_JP">
+      <Text>交易路が略奪されない。防壁を建設可能なこの都市のタイルすべてに、防壁がもたらされる。</Text>
+    </Replace>
+    <Replace Tag="LOC_COMBAT_PREVIEW_NUMBER_RESOURCES_CAPITAL_BONUS_DESC" Language="ja_JP">
+      <Text>首都に割り当てられている資源から得られる戦闘力+{1_Value}。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_GAULOS_NAME" Language="ja_JP">
+      <Text>ガウロス船</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_QUINQUEREME_NAME" Language="ja_JP">
+      <Text>五段櫂船</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_SUFFETES_NAME" Language="ja_JP">
+      <Text>スフェテス</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_COLONIST_NAME" Language="ja_JP">
+      <Text>入植者</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_NUMIDIAN_CAVALRY_NAME" Language="ja_JP">
+      <Text>ヌミディア騎兵</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

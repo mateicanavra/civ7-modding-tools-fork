@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<!-- Civ Unique Trees -->
+		<Row Type="TREE_CIVICS_AQ_AKSUM" Kind="KIND_TREE"/>
+		<Row Type="TREE_CIVICS_AQ_EGYPT" Kind="KIND_TREE"/>
+		<Row Type="TREE_CIVICS_AQ_GREECE" Kind="KIND_TREE"/>
+		<Row Type="TREE_CIVICS_AQ_HAN" Kind="KIND_TREE"/>
+		<Row Type="TREE_CIVICS_AQ_KHMER" Kind="KIND_TREE"/>
+		<Row Type="TREE_CIVICS_AQ_MAURYA" Kind="KIND_TREE"/>
+		<Row Type="TREE_CIVICS_AQ_MAYA" Kind="KIND_TREE"/>
+		<Row Type="TREE_CIVICS_AQ_MISSISSIPPIAN" Kind="KIND_TREE"/>
+		<Row Type="TREE_CIVICS_AQ_PERSIA" Kind="KIND_TREE"/>
+		<Row Type="TREE_CIVICS_AQ_ROME" Kind="KIND_TREE"/>
+		<!-- Civ Unique Tree Nodes -->
+		<!-- Aksum -->
+		<Row Type="NODE_CIVIC_AQ_AKSUM_PERIPLUS_OF_THE_ERYTHRAEAN_SEA" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_AKSUM_MONUMENTUM_ADULITANUM" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_AKSUM_BOOK_OF_THE_HIMYARITES" Kind="KIND_TREE_NODE"/>
+		<!-- Egypt -->
+		<Row Type="NODE_CIVIC_AQ_EGYPT_ARRIVAL_OF_HAPI" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_EGYPT_SCALES_OF_ANUBIS" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_EGYPT_LIGHT_OF_AMUN_RA" Kind="KIND_TREE_NODE"/>
+		<!-- Greece -->
+		<Row Type="NODE_CIVIC_AQ_GREECE_AGOGE" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_GREECE_EKKLESIA" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_GREECE_SYMMACHIA" Kind="KIND_TREE_NODE"/>
+		<!-- Han -->
+		<Row Type="NODE_CIVIC_AQ_HAN_ZHI" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_HAN_LI" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_HAN_YI" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_HAN_JUNZI" Kind="KIND_TREE_NODE"/>
+		<!-- Khmer -->
+		<Row Type="NODE_CIVIC_AQ_KHMER_MOUSONG" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_KHMER_AMNACH" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_KHMER_CHAKRAVARTI" Kind="KIND_TREE_NODE"/>
+		<!-- Maurya -->
+		<Row Type="NODE_CIVIC_AQ_MAURYA_ACHARYA" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_MAURYA_VYUHAM" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_MAURYA_AYURVEDA" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_MAURYA_MANTRIPARISHAD" Kind="KIND_TREE_NODE"/>
+		<!-- Maya -->
+		<Row Type="NODE_CIVIC_AQ_MAYA_RAIN_OF_CHAAC" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_MAYA_LORDS_OF_XIBALBA" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_MAYA_CALENDAR_ROUND" Kind="KIND_TREE_NODE"/>
+		<!-- Mississippian -->
+		<Row Type="NODE_CIVIC_AQ_MISSISSIPPIAN_EARTHWORKS" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_MISSISSIPPIAN_CAH_NAH_HA" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_MISSISSIPPIAN_WAAHIH" Kind="KIND_TREE_NODE"/>
+		<!-- Persia -->
+		<Row Type="NODE_CIVIC_AQ_PERSIA_SPADA" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_PERSIA_SATRAPIES" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_PERSIA_ACHAEMENID_EMPIRE" Kind="KIND_TREE_NODE"/>
+		<!-- Rome -->
+		<Row Type="NODE_CIVIC_AQ_ROME_EXERCITUS_ROMANUS" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_ROME_CIVIS_ROMANUS" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_ROME_LEGATUS_PRO_PRAETORE" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_AQ_ROME_SENATUS_POPULUSQUE_ROMANUS" Kind="KIND_TREE_NODE"/>
+	</Types>
+	<TypeQuotes>
+		<Row Type="NODE_CIVIC_AQ_AKSUM_PERIPLUS_OF_THE_ERYTHRAEAN_SEA" Quote="LOC_CIVIC_PERIPLUS_OF_THE_ERYTHRAEAN_SEA_QUOTE" QuoteAuthor="LOC_CIVIC_PERIPLUS_OF_THE_ERYTHRAEAN_SEA_QUOTE_AUTHOR" QuoteAudio="VO_Quote_PeriplusErythraeanSea" />
+		<Row Type="NODE_CIVIC_AQ_AKSUM_MONUMENTUM_ADULITANUM" Quote="LOC_CIVIC_MONUMENTUM_ADULITANUM_QUOTE" QuoteAuthor="LOC_CIVIC_MONUMENTUM_ADULITANUM_QUOTE_AUTHOR" QuoteAudio="VO_Quote_MonumentumAdulitanum"/>
+		<Row Type="NODE_CIVIC_AQ_AKSUM_BOOK_OF_THE_HIMYARITES" Quote="LOC_CIVIC_BOOK_OF_THE_HIMYARITES_QUOTE" QuoteAuthor="LOC_CIVIC_BOOK_OF_THE_HIMYARITES_QUOTE_AUTHOR" QuoteAudio="VO_Quote_BookHimyarites"/>
+		<Row Type="NODE_CIVIC_AQ_EGYPT_ARRIVAL_OF_HAPI" Quote="LOC_CIVIC_ARRIVAL_OF_HAPI_QUOTE" QuoteAuthor="LOC_CIVIC_ARRIVAL_OF_HAPI_QUOTE_AUTHOR" QuoteAudio="VO_Quote_ArrivalHapi"/>
+		<Row Type="NODE_CIVIC_AQ_EGYPT_SCALES_OF_ANUBIS" Quote="LOC_CIVIC_SCALES_OF_ANUBIS_QUOTE" QuoteAuthor="LOC_CIVIC_SCALES_OF_ANUBIS_QUOTE_AUTHOR" QuoteAudio="VO_Quote_ScalesAnubis"/>
+		<Row Type="NODE_CIVIC_AQ_EGYPT_LIGHT_OF_AMUN_RA" Quote="LOC_CIVIC_LIGHT_OF_AMUN_RA_QUOTE" QuoteAuthor="LOC_CIVIC_LIGHT_OF_AMUN_RA_QUOTE_AUTHOR" QuoteAudio="VO_Quote_LightAmunRa"/>
+		<Row Type="NODE_CIVIC_AQ_GREECE_EKKLESIA" Quote="LOC_CIVIC_EKKLESIA_QUOTE" QuoteAuthor="LOC_CIVIC_EKKLESIA_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Ekklesia"/>
+		<Row Type="NODE_CIVIC_AQ_GREECE_AGOGE" Quote="LOC_CIVIC_AGOGE_QUOTE" QuoteAuthor="LOC_CIVIC_AGOGE_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Agoge"/>
+		<Row Type="NODE_CIVIC_AQ_GREECE_SYMMACHIA" Quote="LOC_CIVIC_SYMMACHIA_QUOTE" QuoteAuthor="LOC_CIVIC_SYMMACHIA_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Symmachia"/>
+		<Row Type="NODE_CIVIC_AQ_HAN_ZHI" Quote="LOC_CIVIC_ZHI_QUOTE" QuoteAuthor="LOC_CIVIC_ZHI_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Zhi"/>
+		<Row Type="NODE_CIVIC_AQ_HAN_LI" Quote="LOC_CIVIC_LI_QUOTE" QuoteAuthor="LOC_CIVIC_LI_QUOTE_AUTHOR" QuoteAudio="VO_Quote_HanLi"/>
+		<Row Type="NODE_CIVIC_AQ_HAN_YI" Quote="LOC_CIVIC_YI_QUOTE" QuoteAuthor="LOC_CIVIC_YI_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Yi"/>
+		<Row Type="NODE_CIVIC_AQ_HAN_JUNZI" Quote="LOC_CIVIC_JUNZI_QUOTE" QuoteAuthor="LOC_CIVIC_JUNZI_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Junzi"/>
+		<Row Type="NODE_CIVIC_AQ_KHMER_MOUSONG" Quote="LOC_CIVIC_MOUSONG_QUOTE" QuoteAuthor="LOC_CIVIC_MOUSONG_QUOTE_AUTHOR" QuoteAudio="VO_Quote_KhmerMousong"/>
+		<Row Type="NODE_CIVIC_AQ_KHMER_AMNACH" Quote="LOC_CIVIC_AMNACH_QUOTE" QuoteAuthor="LOC_CIVIC_AMNACH_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Amnach"/>
+		<Row Type="NODE_CIVIC_AQ_KHMER_CHAKRAVARTI" Quote="LOC_CIVIC_CHAKRAVARTI_QUOTE" QuoteAuthor="LOC_CIVIC_CHAKRAVARTI_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Chakravarti"/>
+		<Row Type="NODE_CIVIC_AQ_MAURYA_ACHARYA" Quote="LOC_CIVIC_ACHARYA_QUOTE" QuoteAuthor="LOC_CIVIC_ACHARYA_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Acharya"/>
+		<Row Type="NODE_CIVIC_AQ_MAURYA_VYUHAM" Quote="LOC_CIVIC_VYUHAM_QUOTE" QuoteAuthor="LOC_CIVIC_VYUHAM_QUOTE_AUTHOR" QuoteAudio="VO_Quote_MauryaVyuham"/>
+		<Row Type="NODE_CIVIC_AQ_MAURYA_AYURVEDA" Quote="LOC_CIVIC_AYURVEDA_QUOTE" QuoteAuthor="LOC_CIVIC_AYURVEDA_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Ayurveda"/>
+		<Row Type="NODE_CIVIC_AQ_MAURYA_MANTRIPARISHAD" Quote="LOC_CIVIC_MANTRIPARISHAD_QUOTE" QuoteAuthor="LOC_CIVIC_MANTRIPARISHAD_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Mantiparishad"/>
+		<Row Type="NODE_CIVIC_AQ_MAYA_RAIN_OF_CHAAC" Quote="LOC_CIVIC_RAIN_OF_CHAAC_QUOTE" QuoteAuthor="LOC_CIVIC_RAIN_OF_CHAAC_QUOTE_AUTHOR" QuoteAudio="VO_Quote_RainChaac"/>
+		<Row Type="NODE_CIVIC_AQ_MAYA_LORDS_OF_XIBALBA" Quote="LOC_CIVIC_LORDS_OF_XIBALBA_QUOTE" QuoteAuthor="LOC_CIVIC_LORDS_OF_XIBALBA_QUOTE_AUTHOR" QuoteAudio="VO_Quote_LordsXibalba"/>
+		<Row Type="NODE_CIVIC_AQ_MAYA_CALENDAR_ROUND" Quote="LOC_CIVIC_CALENDAR_ROUND_QUOTE" QuoteAuthor="LOC_CIVIC_CALENDAR_ROUND_QUOTE_AUTHOR" QuoteAudio="VO_Quote_CalendarRound"/>
+		<Row Type="NODE_CIVIC_AQ_MISSISSIPPIAN_EARTHWORKS" Quote="LOC_CIVIC_EARTHWORKS_QUOTE" QuoteAuthor="LOC_CIVIC_EARTHWORKS_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Earthworks"/>
+		<Row Type="NODE_CIVIC_AQ_MISSISSIPPIAN_CAH_NAH_HA" Quote="LOC_CIVIC_CAH_NAH_HA_QUOTE" QuoteAuthor="LOC_CIVIC_CAH_NAH_HA_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Cahnahha"/>
+		<Row Type="NODE_CIVIC_AQ_MISSISSIPPIAN_WAAHIH" Quote="LOC_CIVIC_WAAHIH_QUOTE" QuoteAuthor="LOC_CIVIC_WAAHIH_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Waahih"/>
+		<Row Type="NODE_CIVIC_AQ_PERSIA_SPADA" Quote="LOC_CIVIC_SPADA_QUOTE" QuoteAuthor="LOC_CIVIC_SPADA_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Spada"/>
+		<Row Type="NODE_CIVIC_AQ_PERSIA_SATRAPIES" Quote="LOC_CIVIC_SATRAPIES_QUOTE" QuoteAuthor="LOC_CIVIC_SATRAPIES_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Satrapies"/>
+		<Row Type="NODE_CIVIC_AQ_PERSIA_ACHAEMENID_EMPIRE" Quote="LOC_CIVIC_ACHAEMENID_EMPIRE_QUOTE" QuoteAuthor="LOC_CIVIC_ACHAEMENID_EMPIRE_QUOTE_AUTHOR" QuoteAudio="VO_Quote_AchaemenidEmpire"/>
+		<Row Type="NODE_CIVIC_AQ_ROME_EXERCITUS_ROMANUS" Quote="LOC_CIVIC_EXERCITUS_ROMANUS_QUOTE" QuoteAuthor="LOC_CIVIC_EXERCITUS_ROMANUS_QUOTE_AUTHOR" QuoteAudio="VO_Quote_ExercitusRomanus"/>
+		<Row Type="NODE_CIVIC_AQ_ROME_CIVIS_ROMANUS" Quote="LOC_CIVIC_CIVIS_ROMANUS_QUOTE" QuoteAuthor="LOC_CIVIC_CIVIS_ROMANUS_QUOTE_AUTHOR" QuoteAudio="VO_Quote_CivisRomanus"/>
+		<Row Type="NODE_CIVIC_AQ_ROME_LEGATUS_PRO_PRAETORE" Quote="LOC_CIVIC_LEGATUS_PRO_PRAETORE_QUOTE" QuoteAuthor="LOC_CIVIC_LEGATUS_PRO_PRAETORE_QUOTE_AUTHOR" QuoteAudio="VO_Quote_LegatusProPraetore"/>
+		<Row Type="NODE_CIVIC_AQ_ROME_SENATUS_POPULUSQUE_ROMANUS" Quote="LOC_CIVIC_SENATUS_POPULUSQUE_ROMANUS_QUOTE" QuoteAuthor="LOC_CIVIC_SENATUS_POPULUSQUE_ROMANUS_QUOTE_AUTHOR" QuoteAudio="VO_Quote_SenatusPopulusqueRomanus"/>
+	</TypeQuotes>
+	<ProgressionTrees>
+		<!-- Civ Unique Trees -->
+		<Row ProgressionTreeType="TREE_CIVICS_AQ_AKSUM" AgeType="AGE_ANTIQUITY" SystemType="SYSTEM_CULTURE" Name="LOC_TREE_CIVICS_AQ_AKSUM_NAME"/>
+		<Row ProgressionTreeType="TREE_CIVICS_AQ_EGYPT" AgeType="AGE_ANTIQUITY" SystemType="SYSTEM_CULTURE" Name="LOC_TREE_CIVICS_AQ_EGYPT_NAME"/>
+		<Row ProgressionTreeType="TREE_CIVICS_AQ_GREECE" AgeType="AGE_ANTIQUITY" SystemType="SYSTEM_CULTURE" Name="LOC_TREE_CIVICS_AQ_GREECE_NAME"/>
+		<Row ProgressionTreeType="TREE_CIVICS_AQ_HAN" AgeType="AGE_ANTIQUITY" SystemType="SYSTEM_CULTURE" Name="LOC_TREE_CIVICS_AQ_HAN_NAME"/>
+		<Row ProgressionTreeType="TREE_CIVICS_AQ_KHMER" AgeType="AGE_ANTIQUITY" SystemType="SYSTEM_CULTURE" Name="LOC_TREE_CIVICS_AQ_KHMER_NAME"/>
+		<Row ProgressionTreeType="TREE_CIVICS_AQ_MAURYA" AgeType="AGE_ANTIQUITY" SystemType="SYSTEM_CULTURE" Name="LOC_TREE_CIVICS_AQ_MAURYA_NAME"/>
+		<Row ProgressionTreeType="TREE_CIVICS_AQ_MAYA" AgeType="AGE_ANTIQUITY" SystemType="SYSTEM_CULTURE" Name="LOC_TREE_CIVICS_AQ_MAYA_NAME"/>
+		<Row ProgressionTreeType="TREE_CIVICS_AQ_MISSISSIPPIAN" AgeType="AGE_ANTIQUITY" SystemType="SYSTEM_CULTURE" Name="LOC_TREE_CIVICS_AQ_MISSISSIPPIAN_NAME"/>
+		<Row ProgressionTreeType="TREE_CIVICS_AQ_PERSIA" AgeType="AGE_ANTIQUITY" SystemType="SYSTEM_CULTURE" Name="LOC_TREE_CIVICS_AQ_PERSIA_NAME"/>
+		<Row ProgressionTreeType="TREE_CIVICS_AQ_ROME" AgeType="AGE_ANTIQUITY" SystemType="SYSTEM_CULTURE" Name="LOC_TREE_CIVICS_AQ_ROME_NAME"/>
+
+	</ProgressionTrees>
+	<ProgressionTreeNodes>
+		<!-- Aksum -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_AKSUM_PERIPLUS_OF_THE_ERYTHRAEAN_SEA" ProgressionTree="TREE_CIVICS_AQ_AKSUM" Cost="150" Name="LOC_CIVIC_PERIPLUS_OF_THE_ERYTHRAEAN_SEA_NAME" IconString="cult_aksum" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_AKSUM_MONUMENTUM_ADULITANUM" ProgressionTree="TREE_CIVICS_AQ_AKSUM" Cost="250" Name="LOC_CIVIC_MONUMENTUM_ADULITANUM_NAME" IconString="cult_aksum" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_AKSUM_BOOK_OF_THE_HIMYARITES" ProgressionTree="TREE_CIVICS_AQ_AKSUM" Cost="250" Name="LOC_CIVIC_BOOK_OF_THE_HIMYARITES_NAME" IconString="cult_aksum" />
+		<!-- Egypt -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_EGYPT_ARRIVAL_OF_HAPI" ProgressionTree="TREE_CIVICS_AQ_EGYPT" Cost="150" Name="LOC_CIVIC_ARRIVAL_OF_HAPI_NAME" IconString="cult_egypt" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_EGYPT_SCALES_OF_ANUBIS" ProgressionTree="TREE_CIVICS_AQ_EGYPT" Cost="150" Name="LOC_CIVIC_SCALES_OF_ANUBIS_NAME" IconString="cult_egypt" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_EGYPT_LIGHT_OF_AMUN_RA" ProgressionTree="TREE_CIVICS_AQ_EGYPT" Cost="250" Name="LOC_CIVIC_LIGHT_OF_AMUN_RA_NAME" IconString="cult_egypt" />
+		<!-- Greece -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_EKKLESIA" ProgressionTree="TREE_CIVICS_AQ_GREECE" Cost="150" Name="LOC_CIVIC_EKKLESIA_NAME" IconString="cult_greece" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_AGOGE" ProgressionTree="TREE_CIVICS_AQ_GREECE" Cost="150" Name="LOC_CIVIC_AGOGE_NAME" IconString="cult_greece" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_SYMMACHIA" ProgressionTree="TREE_CIVICS_AQ_GREECE" Cost="250" Name="LOC_CIVIC_SYMMACHIA_NAME" IconString="cult_greece" />
+		<!-- Han -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_HAN_ZHI" ProgressionTree="TREE_CIVICS_AQ_HAN" Cost="150" Name="LOC_CIVIC_ZHI_NAME" IconString="cult_han"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_HAN_LI" ProgressionTree="TREE_CIVICS_AQ_HAN" Cost="250" Name="LOC_CIVIC_LI_NAME" IconString="cult_han" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_HAN_YI" ProgressionTree="TREE_CIVICS_AQ_HAN" Cost="250" Name="LOC_CIVIC_YI_NAME" IconString="cult_han" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_HAN_JUNZI" ProgressionTree="TREE_CIVICS_AQ_HAN" Cost="400" Name="LOC_CIVIC_JUNZI_NAME" IconString="cult_han" />
+		<!-- Khmer -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_KHMER_MOUSONG" ProgressionTree="TREE_CIVICS_AQ_KHMER" Cost="150" Name="LOC_CIVIC_MOUSONG_NAME" IconString="cult_khmer" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_KHMER_AMNACH" ProgressionTree="TREE_CIVICS_AQ_KHMER" Cost="250" Name="LOC_CIVIC_AMNACH_NAME" IconString="cult_khmer"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_KHMER_CHAKRAVARTI" ProgressionTree="TREE_CIVICS_AQ_KHMER" Cost="400" Name="LOC_CIVIC_CHAKRAVARTI_NAME" IconString="cult_khmer" />
+		<!-- Maurya -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAURYA_ACHARYA" ProgressionTree="TREE_CIVICS_AQ_MAURYA" Cost="150" Name="LOC_CIVIC_ACHARYA_NAME" IconString="cult_maurya" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAURYA_VYUHAM" ProgressionTree="TREE_CIVICS_AQ_MAURYA" Cost="250" Name="LOC_CIVIC_VYUHAM_NAME" IconString="cult_maurya" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAURYA_AYURVEDA" ProgressionTree="TREE_CIVICS_AQ_MAURYA" Cost="250" Name="LOC_CIVIC_AYURVEDA_NAME" IconString="cult_maurya" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAURYA_MANTRIPARISHAD" ProgressionTree="TREE_CIVICS_AQ_MAURYA" Cost="400" Name="LOC_CIVIC_MANTRIPARISHAD_NAME" IconString="cult_maurya" />
+		<!-- Maya -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAYA_RAIN_OF_CHAAC" ProgressionTree="TREE_CIVICS_AQ_MAYA" Cost="150" Name="LOC_CIVIC_RAIN_OF_CHAAC_NAME" IconString="cult_maya" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAYA_LORDS_OF_XIBALBA" ProgressionTree="TREE_CIVICS_AQ_MAYA" Cost="150" Name="LOC_CIVIC_LORDS_OF_XIBALBA_NAME" IconString="cult_maya" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAYA_CALENDAR_ROUND" ProgressionTree="TREE_CIVICS_AQ_MAYA" Cost="250" Name="LOC_CIVIC_CALENDAR_ROUND_NAME" IconString="cult_maya" />
+		<!-- Mississippian -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MISSISSIPPIAN_EARTHWORKS" ProgressionTree="TREE_CIVICS_AQ_MISSISSIPPIAN" Cost="150" Name="LOC_CIVIC_EARTHWORKS_NAME" IconString="cult_mississippian" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MISSISSIPPIAN_CAH_NAH_HA" ProgressionTree="TREE_CIVICS_AQ_MISSISSIPPIAN" Cost="250" Name="LOC_CIVIC_CAH_NAH_HA_NAME" IconString="cult_mississippian" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MISSISSIPPIAN_WAAHIH" ProgressionTree="TREE_CIVICS_AQ_MISSISSIPPIAN" Cost="250" Name="LOC_CIVIC_WAAHIH_NAME" IconString="cult_mississippian" />
+		<!-- Persia -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_PERSIA_SPADA" ProgressionTree="TREE_CIVICS_AQ_PERSIA" Cost="150" Name="LOC_CIVIC_SPADA_NAME" IconString="cult_persia" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_PERSIA_SATRAPIES" ProgressionTree="TREE_CIVICS_AQ_PERSIA" Cost="250" Name="LOC_CIVIC_SATRAPIES_NAME" IconString="cult_persia" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_PERSIA_ACHAEMENID_EMPIRE" ProgressionTree="TREE_CIVICS_AQ_PERSIA" Cost="400" Name="LOC_CIVIC_ACHAEMENID_EMPIRE_NAME" IconString="cult_persia" />
+		<!-- Rome -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_EXERCITUS_ROMANUS" ProgressionTree="TREE_CIVICS_AQ_ROME" Cost="150" Name="LOC_CIVIC_EXERCITUS_ROMANUS_NAME" IconString="cult_rome" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_CIVIS_ROMANUS" ProgressionTree="TREE_CIVICS_AQ_ROME" Cost="150" Name="LOC_CIVIC_CIVIS_ROMANUS_NAME" IconString="cult_rome" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_LEGATUS_PRO_PRAETORE" ProgressionTree="TREE_CIVICS_AQ_ROME" Cost="250" Name="LOC_CIVIC_LEGATUS_PRO_PRAETORE_NAME" IconString="cult_rome" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_SENATUS_POPULUSQUE_ROMANUS" ProgressionTree="TREE_CIVICS_AQ_ROME" Cost="400" Name="LOC_CIVIC_SENATUS_POPULUSQUE_ROMANUS_NAME" IconString="cult_rome" />
+	</ProgressionTreeNodes>
+	<ProgressionTreeNodeUnlocks>
+		<!-- Aksum -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_AKSUM_PERIPLUS_OF_THE_ERYTHRAEAN_SEA" TargetKind="KIND_CONSTRUCTIBLE" TargetType="IMPROVEMENT_HAWELT" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_AKSUM_PERIPLUS_OF_THE_ERYTHRAEAN_SEA" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_GREAT_STELE" UnlockDepth="1" AIIgnoreUnlockValue="true" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_AKSUM_PERIPLUS_OF_THE_ERYTHRAEAN_SEA" TargetKind="KIND_MODIFIER" TargetType="MOD_PERIPLUS_OF_THE_ERYTHRAEAN_SEA_RESOURCE_CAP" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_AKSUM_PERIPLUS_OF_THE_ERYTHRAEAN_SEA" TargetKind="KIND_MODIFIER" TargetType="MOD_PERIPLUS_OF_THE_ERYTHRAEAN_SEA_COASTAL_URBAN_GOLD" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_AKSUM_PERIPLUS_OF_THE_ERYTHRAEAN_SEA" TargetKind="KIND_TRADITION" TargetType="TRADITION_PORT_OF_NATIONS" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_AKSUM_MONUMENTUM_ADULITANUM" TargetKind="KIND_MODIFIER" TargetType="MOD_MONUMENTUM_ADULITANUM_ALTAR_HAWELT" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_AKSUM_MONUMENTUM_ADULITANUM" TargetKind="KIND_MODIFIER" TargetType="MOD_MONUMENTUM_ADULITANUM_MONUMENT_HAWELT" UnlockDepth="1" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_AKSUM_MONUMENTUM_ADULITANUM" TargetKind="KIND_TRADITION" TargetType="TRADITION_THRONE_OF_MY_FATHERS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_AKSUM_BOOK_OF_THE_HIMYARITES" TargetKind="KIND_MODIFIER" TargetType="MOD_HIMYARITES_DHOW_SWIFT" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_AKSUM_BOOK_OF_THE_HIMYARITES" TargetKind="KIND_TRADITION" TargetType="TRADITION_MAY_THIS_PLEASE_THE_PEOPLE" UnlockDepth="1"/>
+		<!-- Egypt -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_EGYPT_ARRIVAL_OF_HAPI" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_MORTUARY_TEMPLE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_EGYPT_ARRIVAL_OF_HAPI" TargetKind="KIND_MODIFIER" TargetType="MOD_HAPI_UNITS_IGNORE_MINOR_RIVER" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_EGYPT_ARRIVAL_OF_HAPI" TargetKind="KIND_TRADITION" TargetType="TRADITION_AKHET" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_EGYPT_SCALES_OF_ANUBIS" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_MASTABA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_EGYPT_SCALES_OF_ANUBIS" TargetKind="KIND_MODIFIER" TargetType="MOD_ANUBIS_MEDJAY_GENERATE_GOLD" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_EGYPT_SCALES_OF_ANUBIS" TargetKind="KIND_TRADITION" TargetType="TRADITION_RICHES_OF_THE_DUAT" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_EGYPT_LIGHT_OF_AMUN_RA" TargetKind="KIND_MODIFIER" TargetType="MOD_AMUN_RA_PALACE_GOLD" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_EGYPT_LIGHT_OF_AMUN_RA" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_SETTLEMENT_CAP_INCREASE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_EGYPT_LIGHT_OF_AMUN_RA" TargetKind="KIND_TRADITION" TargetType="TRADITION_KEMET" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_EGYPT_LIGHT_OF_AMUN_RA" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_PYRAMIDS" UnlockDepth="1" AIIgnoreUnlockValue="true"/>
+		<!-- Greece -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_EKKLESIA" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_ODEON" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_EKKLESIA" TargetKind="KIND_TRADITION" TargetType="TRADITION_XENIA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_EKKLESIA" TargetKind="KIND_MODIFIER" TargetType="MOD_EKKLESIA_CULTURE_ENDEAVOR" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_EKKLESIA" TargetKind="KIND_MODIFIER" TargetType="MOD_EKKLESIA_CULTURE_SANCTION" UnlockDepth="2" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_EKKLESIA" TargetKind="KIND_MODIFIER" TargetType="MOD_EKKLESIA_CULTURE_PROJECT" UnlockDepth="2" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_AGOGE" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_PARTHENON" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_AGOGE" TargetKind="KIND_TRADITION" TargetType="TRADITION_STRATEGOI" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_AGOGE" TargetKind="KIND_MODIFIER" TargetType="MOD_AGOGE_HOPLITE_ABILITY_FRIENDLY_INDEPENDENT" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_SYMMACHIA" TargetKind="KIND_MODIFIER" TargetType="MOD_SYMMACHIA_CULTURE_PER_FRIENDLY_INDEPENDENT" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_SYMMACHIA" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_SETTLEMENT_CAP_INCREASE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_SYMMACHIA" TargetKind="KIND_TRADITION" TargetType="TRADITION_DELIAN_LEAGUE" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_SYMMACHIA" TargetKind="KIND_TRADITION" TargetType="TRADITION_PELOPONNESIAN_LEAGUE" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_SYMMACHIA" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_ORACLE" UnlockDepth="2" AIIgnoreUnlockValue="true"/>
+		<!-- Han -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_HAN_ZHI" TargetKind="KIND_CONSTRUCTIBLE" TargetType="IMPROVEMENT_HAN_GREAT_WALL" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_HAN_ZHI" TargetKind="KIND_MODIFIER" TargetType="MOD_ZHI_SCIENCE_BUILDING_URBAN_ADJACENCY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_HAN_ZHI" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_SETTLEMENT_CAP_INCREASE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_HAN_LI" TargetKind="KIND_MODIFIER" TargetType="MOD_LI_DIPLOMACY_YIELD" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_HAN_LI" TargetKind="KIND_TRADITION" TargetType="TRADITION_GUANXI" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_HAN_YI" TargetKind="KIND_MODIFIER" TargetType="MOD_YI_ABILITY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_HAN_YI" TargetKind="KIND_TRADITION" TargetType="TRADITION_JIU_QING" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_HAN_JUNZI" TargetKind="KIND_MODIFIER" TargetType="MOD_JUNZI_CAPITAL_SCIENCE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_HAN_JUNZI" TargetKind="KIND_TRADITION" TargetType="TRADITION_TIANXIA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_HAN_JUNZI" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_WEIYANG_PALACE" UnlockDepth="1" AIIgnoreUnlockValue="true"/>
+		<!-- Khmer -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_KHMER_MOUSONG" TargetKind="KIND_CONSTRUCTIBLE" TargetType="IMPROVEMENT_BARAY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_KHMER_MOUSONG" TargetKind="KIND_TRADITION" TargetType="TRADITION_PITHI_CHRAT" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_KHMER_AMNACH" TargetKind="KIND_MODIFIER" TargetType="MOD_AMNACH_DANTINAS_TATHA_MOVEMENT_BONUS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_KHMER_AMNACH" TargetKind="KIND_TRADITION" TargetType="TRADITION_VARNA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_KHMER_AMNACH" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_ANGKOR_WAT" UnlockDepth="1" AIIgnoreUnlockValue="true"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_KHMER_CHAKRAVARTI" TargetKind="KIND_MODIFIER" TargetType="MOD_CHAKRAVARTI_CAPITAL_GROWTH" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_KHMER_CHAKRAVARTI" TargetKind="KIND_MODIFIER" TargetType="MOD_CHAKRAVARTI_CITY_HAPPINESS_PENALTY" UnlockDepth="1" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_KHMER_CHAKRAVARTI" TargetKind="KIND_TRADITION" TargetType="TRADITION_KAMBU_MERA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_KHMER_CHAKRAVARTI" TargetKind="KIND_MODIFIER" TargetType="MOD_CHAKRAVARTI_GREAT_WORKS_SLOTS" UnlockDepth="2"/>
+		<!-- Maurya -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAURYA_ACHARYA" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_DHARAMSHALA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAURYA_ACHARYA" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_VIHARA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAURYA_ACHARYA" TargetKind="KIND_TRADITION" TargetType="TRADITION_CHARVAKA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAURYA_VYUHAM" TargetKind="KIND_MODIFIER" TargetType="MOD_VYUHAM_CAVALRY_ABILITY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAURYA_VYUHAM" TargetKind="KIND_MODIFIER" TargetType="MOD_VYUHAM_INFANTRY_ABILITY" UnlockDepth="1" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAURYA_VYUHAM" TargetKind="KIND_TRADITION" TargetType="TRADITION_KSHATRIYA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAURYA_AYURVEDA" TargetKind="KIND_MODIFIER" TargetType="MOD_AYURVEDA_PURABHETTARAH_HEAL_ABILITY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAURYA_AYURVEDA" TargetKind="KIND_TRADITION" TargetType="TRADITION_SHRENI" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAURYA_MANTRIPARISHAD" TargetKind="KIND_MODIFIER" TargetType="MOD_MANTRIPARISHAD_OCCUPIED_CITY_YIELD" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAURYA_MANTRIPARISHAD" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_SETTLEMENT_CAP_INCREASE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAURYA_MANTRIPARISHAD" TargetKind="KIND_TRADITION" TargetType="TRADITION_ARTHASHASTRA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAURYA_MANTRIPARISHAD" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_SANCHI_STUPA" UnlockDepth="1" AIIgnoreUnlockValue="true"/>
+		<!-- Maya -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAYA_RAIN_OF_CHAAC" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_KUH_NAH" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAYA_RAIN_OF_CHAAC" TargetKind="KIND_MODIFIER" TargetType="MOD_CHAAC_ALTAR_VEGETATION_ADJACENCY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAYA_RAIN_OF_CHAAC" TargetKind="KIND_TRADITION" TargetType="TRADITION_PET_KOT" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAYA_LORDS_OF_XIBALBA" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_JALAW" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAYA_LORDS_OF_XIBALBA" TargetKind="KIND_MODIFIER" TargetType="MOD_XIBALBA_HULCHE_STEALTH" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAYA_LORDS_OF_XIBALBA" TargetKind="KIND_MODIFIER" TargetType="MOD_XIBALBA_JAGUAR_SLAYER_STEALTH" UnlockDepth="1" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAYA_LORDS_OF_XIBALBA" TargetKind="KIND_TRADITION" TargetType="TRADITION_MIRACLES_OF_THE_TWINS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAYA_CALENDAR_ROUND" TargetKind="KIND_MODIFIER" TargetType="MOD_CALENDAR_ROUND_CULTURE_FOR_TECH" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAYA_CALENDAR_ROUND" TargetKind="KIND_MODIFIER" TargetType="MOD_CALENDAR_ROUND_SCIENCE_FOR_CIVIC" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAYA_CALENDAR_ROUND" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_MUNDO_PERDIDO" UnlockDepth="1" AIIgnoreUnlockValue="true"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAYA_CALENDAR_ROUND" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_SETTLEMENT_CAP_INCREASE" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAYA_CALENDAR_ROUND" TargetKind="KIND_TRADITION" TargetType="TRADITION_TZOLKIN" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAYA_CALENDAR_ROUND" TargetKind="KIND_TRADITION" TargetType="TRADITION_HAAB" UnlockDepth="2"/>
+		<!-- Mississippian -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MISSISSIPPIAN_EARTHWORKS" TargetKind="KIND_CONSTRUCTIBLE" TargetType="IMPROVEMENT_POTKOP" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MISSISSIPPIAN_EARTHWORKS" TargetKind="KIND_MODIFIER" TargetType="MOD_EARTHWORKS_BUILDING_PRODUCTION_MODIFIER" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MISSISSIPPIAN_EARTHWORKS" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_SETTLEMENT_CAP_INCREASE" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MISSISSIPPIAN_EARTHWORKS" TargetKind="KIND_TRADITION" TargetType="TRADITION_SHELL_TEMPERED_POTTERY" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MISSISSIPPIAN_EARTHWORKS" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_MONKS_MOUND" UnlockDepth="2" AIIgnoreUnlockValue="true"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MISSISSIPPIAN_CAH_NAH_HA" TargetKind="KIND_MODIFIER" TargetType="MOD_CAH_NAH_HA_RESOURCE_CAP" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MISSISSIPPIAN_CAH_NAH_HA" TargetKind="KIND_TRADITION" TargetType="TRADITION_GIFT_ECONOMY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MISSISSIPPIAN_WAAHIH" TargetKind="KIND_MODIFIER" TargetType="MOD_WAAHIH_BURNING_ARROW_PILLAGE_ABILITY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MISSISSIPPIAN_WAAHIH" TargetKind="KIND_TRADITION" TargetType="TRADITION_ATASSA" UnlockDepth="1"/>
+		<!-- Persia -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_PERSIA_SPADA" TargetKind="KIND_MODIFIER" TargetType="MOD_SPADA_UNIT_MAINTENANCE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_PERSIA_SPADA" TargetKind="KIND_TRADITION" TargetType="TRADITION_KARA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_PERSIA_SATRAPIES" TargetKind="KIND_CONSTRUCTIBLE" TargetType="IMPROVEMENT_PAIRIDAEZA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_PERSIA_SATRAPIES" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_GATE_OF_ALL_NATIONS" UnlockDepth="1" AIIgnoreUnlockValue="true"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_PERSIA_SATRAPIES" TargetKind="KIND_TRADITION" TargetType="TRADITION_ANGARIUM" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_PERSIA_SATRAPIES" TargetKind="KIND_MODIFIER" TargetType="MOD_SATRAPIES_PAIRIDAEZA_URBAN_ADJACENCY" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_PERSIA_SATRAPIES" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_SETTLEMENT_CAP_INCREASE" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_PERSIA_ACHAEMENID_EMPIRE" TargetKind="KIND_MODIFIER" TargetType="MOD_ACHAEMENID_EMPIRE_CAPTURED_CITY_GOLD" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_PERSIA_ACHAEMENID_EMPIRE" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_SETTLEMENT_CAP_INCREASE" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_PERSIA_ACHAEMENID_EMPIRE" TargetKind="KIND_TRADITION" TargetType="TRADITION_SHAHANSHAH" UnlockDepth="2"/>
+		<!-- Rome -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_EXERCITUS_ROMANUS" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_TEMPLE_OF_JUPITER" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_EXERCITUS_ROMANUS" TargetKind="KIND_TRADITION" TargetType="TRADITION_AUXILIA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_EXERCITUS_ROMANUS" TargetKind="KIND_MODIFIER" TargetType="MOD_EXERCITUS_ROMANUS_LEGATUS_PROMOTION" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_CIVIS_ROMANUS" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_BASILICA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_CIVIS_ROMANUS" TargetKind="KIND_TRADITION" TargetType="TRADITION_CURSUS_HONORUM" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_CIVIS_ROMANUS" TargetKind="KIND_MODIFIER" TargetType="MOD_CIVIS_ROMANUS_CAPITAL_GOLD_PER_TOWN" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_LEGATUS_PRO_PRAETORE" TargetKind="KIND_MODIFIER" TargetType="MOD_LEGATUS_PRO_PRAETORE_INFANTRY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_LEGATUS_PRO_PRAETORE" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_SETTLEMENT_CAP_INCREASE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_LEGATUS_PRO_PRAETORE" TargetKind="KIND_TRADITION" TargetType="TRADITION_LATINITAS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_SENATUS_POPULUSQUE_ROMANUS" TargetKind="KIND_MODIFIER" TargetType="MOD_SENATUS_POPULUSQUE_ROMANUS_TRADITION_SLOTS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_SENATUS_POPULUSQUE_ROMANUS" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_SETTLEMENT_CAP_INCREASE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_SENATUS_POPULUSQUE_ROMANUS" TargetKind="KIND_TRADITION" TargetType="TRADITION_PRINCEPS_CIVITATIS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_SENATUS_POPULUSQUE_ROMANUS" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_COLOSSEUM" UnlockDepth="1" AIIgnoreUnlockValue="true"/>
+	</ProgressionTreeNodeUnlocks>
+	<ProgressionTreePrereqs>
+		<!-- Aksum -->
+		<Row Node="NODE_CIVIC_AQ_AKSUM_MONUMENTUM_ADULITANUM" PrereqNode="NODE_CIVIC_AQ_AKSUM_PERIPLUS_OF_THE_ERYTHRAEAN_SEA"/>
+		<Row Node="NODE_CIVIC_AQ_AKSUM_BOOK_OF_THE_HIMYARITES" PrereqNode="NODE_CIVIC_AQ_AKSUM_PERIPLUS_OF_THE_ERYTHRAEAN_SEA"/>
+		<!-- Egypt -->
+		<Row Node="NODE_CIVIC_AQ_EGYPT_LIGHT_OF_AMUN_RA" PrereqNode="NODE_CIVIC_AQ_EGYPT_ARRIVAL_OF_HAPI"/>
+		<Row Node="NODE_CIVIC_AQ_EGYPT_LIGHT_OF_AMUN_RA" PrereqNode="NODE_CIVIC_AQ_EGYPT_SCALES_OF_ANUBIS"/>
+		<!-- Greece -->
+		<Row Node="NODE_CIVIC_AQ_GREECE_SYMMACHIA" PrereqNode="NODE_CIVIC_AQ_GREECE_EKKLESIA"/>
+		<Row Node="NODE_CIVIC_AQ_GREECE_SYMMACHIA" PrereqNode="NODE_CIVIC_AQ_GREECE_AGOGE"/>
+		<!-- Han -->
+		<Row Node="NODE_CIVIC_AQ_HAN_LI" PrereqNode="NODE_CIVIC_AQ_HAN_ZHI"/>
+		<Row Node="NODE_CIVIC_AQ_HAN_YI" PrereqNode="NODE_CIVIC_AQ_HAN_ZHI"/>
+		<Row Node="NODE_CIVIC_AQ_HAN_JUNZI" PrereqNode="NODE_CIVIC_AQ_HAN_LI"/>
+		<Row Node="NODE_CIVIC_AQ_HAN_JUNZI" PrereqNode="NODE_CIVIC_AQ_HAN_YI"/>
+		<!-- Khmer -->
+		<Row Node="NODE_CIVIC_AQ_KHMER_AMNACH" PrereqNode="NODE_CIVIC_AQ_KHMER_MOUSONG"/>
+		<Row Node="NODE_CIVIC_AQ_KHMER_CHAKRAVARTI" PrereqNode="NODE_CIVIC_AQ_KHMER_AMNACH"/>
+		<!-- Maurya -->
+		<Row Node="NODE_CIVIC_AQ_MAURYA_VYUHAM" PrereqNode="NODE_CIVIC_AQ_MAURYA_ACHARYA"/>
+		<Row Node="NODE_CIVIC_AQ_MAURYA_AYURVEDA" PrereqNode="NODE_CIVIC_AQ_MAURYA_ACHARYA"/>
+		<Row Node="NODE_CIVIC_AQ_MAURYA_MANTRIPARISHAD" PrereqNode="NODE_CIVIC_AQ_MAURYA_VYUHAM"/>
+		<Row Node="NODE_CIVIC_AQ_MAURYA_MANTRIPARISHAD" PrereqNode="NODE_CIVIC_AQ_MAURYA_AYURVEDA"/>
+		<!-- Maya -->
+		<Row Node="NODE_CIVIC_AQ_MAYA_CALENDAR_ROUND" PrereqNode="NODE_CIVIC_AQ_MAYA_RAIN_OF_CHAAC"/>
+		<Row Node="NODE_CIVIC_AQ_MAYA_CALENDAR_ROUND" PrereqNode="NODE_CIVIC_AQ_MAYA_LORDS_OF_XIBALBA"/>
+		<!-- Mississippian -->
+		<Row Node="NODE_CIVIC_AQ_MISSISSIPPIAN_CAH_NAH_HA" PrereqNode="NODE_CIVIC_AQ_MISSISSIPPIAN_EARTHWORKS"/>
+		<Row Node="NODE_CIVIC_AQ_MISSISSIPPIAN_WAAHIH" PrereqNode="NODE_CIVIC_AQ_MISSISSIPPIAN_EARTHWORKS"/>
+		<!-- Persia -->
+		<Row Node="NODE_CIVIC_AQ_PERSIA_SATRAPIES" PrereqNode="NODE_CIVIC_AQ_PERSIA_SPADA"/>
+		<Row Node="NODE_CIVIC_AQ_PERSIA_ACHAEMENID_EMPIRE" PrereqNode="NODE_CIVIC_AQ_PERSIA_SATRAPIES"/>
+		<!-- Rome -->
+		<Row Node="NODE_CIVIC_AQ_ROME_LEGATUS_PRO_PRAETORE" PrereqNode="NODE_CIVIC_AQ_ROME_EXERCITUS_ROMANUS"/>
+		<Row Node="NODE_CIVIC_AQ_ROME_LEGATUS_PRO_PRAETORE" PrereqNode="NODE_CIVIC_AQ_ROME_CIVIS_ROMANUS"/>
+		<Row Node="NODE_CIVIC_AQ_ROME_SENATUS_POPULUSQUE_ROMANUS" PrereqNode="NODE_CIVIC_AQ_ROME_LEGATUS_PRO_PRAETORE"/>
+	</ProgressionTreePrereqs>
+	<ProgressionTree_Advisories>
+		<!-- Aksum -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_AKSUM_PERIPLUS_OF_THE_ERYTHRAEAN_SEA" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_AKSUM_MONUMENTUM_ADULITANUM" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_AKSUM_MONUMENTUM_ADULITANUM" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_AKSUM_BOOK_OF_THE_HIMYARITES" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_AKSUM_BOOK_OF_THE_HIMYARITES" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<!-- Egypt -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_EGYPT_ARRIVAL_OF_HAPI" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_EGYPT_ARRIVAL_OF_HAPI" AdvisoryClassType="ADVISORY_CLASS_FOOD"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_EGYPT_SCALES_OF_ANUBIS" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_EGYPT_SCALES_OF_ANUBIS" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_EGYPT_LIGHT_OF_AMUN_RA" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_EGYPT_LIGHT_OF_AMUN_RA" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<!-- Greece -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_EKKLESIA" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_EKKLESIA" AdvisoryClassType="ADVISORY_CLASS_DIPLOMACY"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_AGOGE" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_AGOGE" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_SYMMACHIA" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_GREECE_SYMMACHIA" AdvisoryClassType="ADVISORY_CLASS_DIPLOMACY"/>
+		<!-- Han -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_HAN_ZHI" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_HAN_LI" AdvisoryClassType="ADVISORY_CLASS_DIPLOMACY"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_HAN_YI" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_HAN_JUNZI" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<!-- Khmer -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_KHMER_MOUSONG" AdvisoryClassType="ADVISORY_CLASS_FOOD"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_KHMER_MOUSONG" AdvisoryClassType="ADVISORY_CLASS_INFRASTRUCTURE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_KHMER_AMNACH" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_KHMER_AMNACH" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_KHMER_CHAKRAVARTI" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<!-- Maurya -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAURYA_ACHARYA" AdvisoryClassType="ADVISORY_CLASS_HAPPINESS"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAURYA_VYUHAM" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAURYA_AYURVEDA" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAURYA_MANTRIPARISHAD" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<!-- Maya -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAYA_RAIN_OF_CHAAC" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAYA_LORDS_OF_XIBALBA" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAYA_CALENDAR_ROUND" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAYA_CALENDAR_ROUND" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<!-- Mississippian -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MISSISSIPPIAN_EARTHWORKS" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MISSISSIPPIAN_EARTHWORKS" AdvisoryClassType="ADVISORY_CLASS_INFRASTRUCTURE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MISSISSIPPIAN_CAH_NAH_HA" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MISSISSIPPIAN_WAAHIH" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<!-- Persia -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_PERSIA_SPADA" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_PERSIA_SATRAPIES" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_PERSIA_ACHAEMENID_EMPIRE" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_PERSIA_ACHAEMENID_EMPIRE" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<!-- Rome -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_EXERCITUS_ROMANUS" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_CIVIS_ROMANUS" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_LEGATUS_PRO_PRAETORE" AdvisoryClassType="ADVISORY_CLASS_EMPIRE_EXPANSION"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_LEGATUS_PRO_PRAETORE" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_ROME_SENATUS_POPULUSQUE_ROMANUS" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+	</ProgressionTree_Advisories>
+</Database>

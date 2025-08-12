@@ -1,0 +1,251 @@
+/* DO NOT EDIT */
+/* Generated from panel-diplomacy-project-reaction.scss */
+.panel-diplomacy-project-reaction {
+	display: flex;
+	flex-direction: column;
+}
+.panel-diplomacy-project-reaction.hidden {
+	display: none;
+}
+@media (max-height: 40rem) {
+	.panel-diplomacy-project-reaction {
+		max-width: 55.5555555556rem;
+	}
+}
+@media (experience: mobile) {
+	.panel-diplomacy-project-reaction {
+		width: 55.5555555556rem;
+	}
+}
+@media (experience: mobile) and (max-height: 55.5555555556rem) {
+	.panel-diplomacy-project-reaction {
+		width: 50rem;
+	}
+}
+
+.panel-diplomacy-project-reaction__response-dialog-container {
+	border-image-source: url("fs://game/hud_squarepanel-bg.png");
+	border-image-slice: 115 120 120 120 fill;
+	border-image-width: 6.6666666667rem 6.6666666667rem 6.6666666667rem 3.5555555556rem;
+	border-image-outset: 0.3888888889rem 0.6666666667rem 0.6666666667rem 0.6666666667rem;
+}
+@media (max-height: 40rem) {
+	.panel-diplomacy-project-reaction__response-dialog-container {
+		min-width: 0rem;
+		max-width: 34.4444444444rem;
+	}
+}
+
+@media (max-height: 40rem) {
+	.panel-diplomacy-project-reaction__project-dialog-container {
+		min-width: 0rem;
+		max-width: 34.4444444444rem;
+		width: 100%;
+	}
+}
+
+.panel-diplomacy-project-reaction__main-container {
+	border-image-source: url("fs://game/dip_card_holder_bg.png");
+	border-image-slice: 80 80 fill;
+	border-image-width: 4.4444444444rem 4.4444444444rem;
+	border-image-outset: 0.2222222222rem 0.8888888889rem 1.3333333333rem 0.6666666667rem;
+}
+@media (max-height: 40rem) {
+	.panel-diplomacy-project-reaction__main-container {
+		min-height: 0rem;
+		width: 55.5555555556rem;
+	}
+}
+@media (experience: mobile) {
+	.panel-diplomacy-project-reaction__main-container {
+		width: 100%;
+	}
+}
+
+.panel-diplomacy-project-reaction__response-item fxs-button {
+	width: 85%;
+	height: 3.1111111111rem;
+}
+@media (max-height: 40rem) {
+	.panel-diplomacy-project-reaction__response-item {
+		margin-left: 3.3333333333rem;
+	}
+}
+
+.panel-diplomacy-project-reaction__response-item-bg {
+	border-image-source: url("fs://game/dip_card_idle.png");
+	border-image-slice: 128 48 48 48 fill;
+	border-image-width: 6.6666666667rem 2.6666666667rem 2.6666666667rem 2.6666666667rem;
+	border-image-outset: 3.0555555556rem 3.8888888889rem 3.8888888889rem 3.8888888889rem;
+}
+@media (max-height: 40rem), (experience: mobile) {
+	.panel-diplomacy-project-reaction__response-item-bg {
+		border-image-slice: 128 90 100 115 fill;
+		border-image-width: 6.6666666667rem 5rem 5.5555555556rem 6.3888888889rem;
+		border-image-outset: 3.0555555556rem 3.8888888889rem 3.8888888889rem 3.8888888889rem;
+		margin-left: -1.1111111111rem;
+	}
+}
+@media (experience: mobile) {
+	.panel-diplomacy-project-reaction__response-item-bg {
+		margin-left: 0.4444444444rem;
+	}
+}
+
+.panel-diplomacy-project-reaction__response-item-hovered {
+	border-image-source: url("fs://game/dip_card_hover.png");
+	border-image-slice: 128 48 48 48 fill;
+	border-image-width: 6.6666666667rem 2.6666666667rem 2.6666666667rem 2.6666666667rem;
+	border-image-outset: 3.0555555556rem 3.8888888889rem 3.8888888889rem 3.8888888889rem;
+	margin-left: -0.1666666667rem;
+}
+@media (max-height: 40rem), (experience: mobile) {
+	.panel-diplomacy-project-reaction__response-item-hovered {
+		border-image-slice: 128 90 100 115 fill;
+		border-image-width: 6.6666666667rem 5rem 5.5555555556rem 6.3888888889rem;
+		border-image-outset: 3.0555555556rem 3.8888888889rem 3.8888888889rem 3.8888888889rem;
+	}
+}
+.panel-diplomacy-project-reaction__response-item-hovered .panel-diplomacy-project-reaction__pos-influence {
+	margin-left: -1.2222222222rem;
+}
+@media (max-height: 40rem) {
+	.panel-diplomacy-project-reaction__response-item-hovered .panel-diplomacy-project-reaction__pos-influence {
+		margin-left: -1.2777777778rem;
+		margin-top: -0.6666666667rem;
+	}
+}
+.panel-diplomacy-project-reaction__response-item-hovered .panel-diplomacy-project-reaction__neg-influence {
+	margin-left: -1.2222222222rem;
+}
+@media (max-height: 40rem) {
+	.panel-diplomacy-project-reaction__response-item-hovered .panel-diplomacy-project-reaction__neg-influence {
+		margin-left: -1.2777777778rem;
+		margin-top: -0.6666666667rem;
+	}
+}
+.panel-diplomacy-project-reaction__response-item-hovered .panel-diplomacy-project-reaction__neutral-influence {
+	margin-left: -1.2222222222rem;
+}
+@media (max-height: 40rem) {
+	.panel-diplomacy-project-reaction__response-item-hovered .panel-diplomacy-project-reaction__neutral-influence {
+		margin-left: -1.2777777778rem;
+		margin-top: -0.6666666667rem;
+	}
+}
+.panel-diplomacy-project-reaction__response-item-hovered .panel-diplomacy-project-reaction__accept-influence {
+	margin-left: -1rem;
+}
+@media (max-height: 40rem) {
+	.panel-diplomacy-project-reaction__response-item-hovered .panel-diplomacy-project-reaction__accept-influence {
+		margin-left: -1rem;
+		width: 3rem;
+		height: 3rem;
+		margin-top: -0.3888888889rem;
+	}
+}
+.panel-diplomacy-project-reaction__response-item-hovered .panel-diplomacy-project-reaction__accept-call-to-arms-icon {
+	margin-left: -1.2777777778rem;
+	margin-top: -0.6111111111rem;
+}
+
+.panel-diplomacy-project-reaction__main-container .fxs-close-button {
+	position: absolute;
+	top: 0rem;
+	right: 0rem;
+}
+
+.panel-diplomacy-project-reaction__project-dialog-container {
+	border-image-source: url("fs://game/hud_squarepanel-bg.png");
+	border-image-slice: 115 120 120 120 fill;
+	border-image-width: 6.6666666667rem 6.6666666667rem 6.6666666667rem 3.5555555556rem;
+	border-image-outset: 0.3888888889rem 0.6666666667rem 0.6666666667rem 0.6666666667rem;
+}
+
+/* .panel-diplomacy-project-reaction__first-meet-title-wrapper {
+	fxs-font-gradient-color: rgba(229, 210, 172, 1)
+} */
+.panel-diplomacy-project-reaction__influence {
+	height: 3.3333333333rem;
+	width: 3.3333333333rem;
+	margin-left: -1.3888888889rem;
+}
+@media (max-height: 40rem) {
+	.panel-diplomacy-project-reaction__influence {
+		width: 3.5555555556rem;
+		height: 3.5555555556rem;
+		margin-left: -1.4444444444rem;
+		margin-top: -0.7777777778rem;
+	}
+}
+
+.panel-diplomacy-project-reaction__pos-influence {
+	background-image: url("fs://game/dip_pod_relationship.png");
+}
+
+.panel-diplomacy-project-reaction__neg-influence {
+	background-image: url("fs://game/dip_pod_neg.png");
+}
+
+.panel-diplomacy-project-reaction__neutral-influence {
+	background-image: url("fs://game/dip_pod_neutral.png");
+}
+
+.panel-diplomacy-project-reaction__accept-call-to-arms-icon {
+	background-image: url("fs://game/dip_pod_alliance.png");
+}
+
+.panel-diplomacy-project-reaction__accept-influence {
+	background-image: url("fs://game/dip_pod_endeavor.png");
+	margin-left: -1.1666666667rem;
+}
+@media (max-height: 40rem) {
+	.panel-diplomacy-project-reaction__accept-influence {
+		margin-left: -1.1666666667rem;
+		width: 3rem;
+		height: 3rem;
+		margin-top: -0.5rem;
+	}
+}
+
+@media (max-height: 40rem) {
+	.panel-diplomacy-project-reaction__response-container {
+		padding-left: 0.4444444444rem;
+	}
+}
+
+.panel-diplomacy-project-reaction__diplomacy-options chooser-item {
+	border-image: url("fs://game/hud_sidepanel_list-bg.png");
+	border-image-slice: 24 fill;
+	border-image-width: 1.3333333333rem;
+}
+
+@media (max-height: 40rem) {
+	.panel-diplomacy-project-reaction__button-open-diplomacy,
+.panel-diplomacy-project-reaction__button-close {
+		max-width: 15.2777777778rem;
+	}
+}
+
+.panel-diplomacy-project-reaction__button-close:hover .panel-diplomacy-project-reaction__close-icon img {
+	margin-top: 0.7777777778rem;
+	margin-left: 0.1111111111rem;
+}
+
+.panel-diplomacy-project-reaction__button-open-diplomacy:hover .panel-diplomacy-project-reaction__diplo-icon {
+	margin-top: 0.3333333333rem;
+	margin-left: 0.1111111111rem;
+}
+
+.panel-diplomacy-project-reaction__close-icon {
+	background-image: url("fs://game/radial_highlight.png");
+	fxs-background-image-tint: #579544;
+}
+
+.panel-diplomacy-project-reaction__radial-bg {
+	background-image: url("fs://game/hud_sub_circle_bk.png");
+}
+
+.panel-diplomacy-project-reaction__radial-bg-hover {
+	background-image: url("fs://game/hud_sub_circle_hov.png");
+}

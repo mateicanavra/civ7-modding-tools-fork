@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- SCIENCE ADVISOR-->
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_1_ACCEPTED_ADVISOR_BODY_ASSYRIA">
+			<Text>The world contains innumerable mysteries waiting to be discovered, but many of them are selfishly hoarded by Assyria’s enemies. As your humble Science Advisor, I believe no cost is too great in the pursuit of knowledge. Let us begin by learning our own strength.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_1_ACCEPTED_BODY_ASSYRIA">
+			<Text>Objective: [icon:NOTIFICATION_CULTURE_TREE_REVEALED] [b]Study {LOC_CIVIC_BIRTUTU_NAME} and {LOC_CIVIC_DISCIPLINE_NAME}[/b], the first step towards establishing a [b][icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME} [/b][icon:YIELD_SCIENCE] Science Legacy of the Antiquity Age.
+			[n][n]Remember: [icon:NOTIFICATION_TEAM_VICTORIOUS] [b]Legacies [/b]improve your performance in later Ages, but [b]you can choose to pursue one, multiple, or none at all[/b].</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_1_TRACKING_BODY_ASSYRIA">
+			<Text>Study: [icon:NOTIFICATION_CULTURE_TREE_REVEALED] {LOC_CIVIC_BIRTUTU_NAME} {1_itemComplete}
+			[n]Study: [icon:NOTIFICATION_CULTURE_TREE_REVEALED] {LOC_CIVIC_DISCIPLINE_NAME} {2_itemComplete}</Text>
+		</Row>
+
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_2_ADVISOR_BODY_ASSYRIA">
+			<Text>I am no fighter, but it is clear that Assyria is as fierce as a pride of lions. We will need our mightiest to wrest the secrets of the world from others’ covetous hands. Gather your troops and prepare for battle.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_2_BODY_ASSYRIA">
+			<Text>As [b]Assyria[/b], you may only acquire Codices through [b]Settlement capture [/b]and the [b]Assyria [icon:NOTIFICATION_CULTURE_TREE_REVEALED] Civic tree[/b]. Unlike other Civilizations, you will need to create a strong military to progress upon this Legacy Path.
+			[n]Next Objective: Study [icon:NOTIFICATION_CULTURE_TREE_REVEALED] [b]{LOC_CIVIC_TUPSARRUTU_NAME}[/b], which will allow you to get a [b]Codex [/b]upon capturing a Settlement. Then, pack a {1_ArmyCommanderIcon} [b]{2_ArmyCommanderName} with Units [/b]to create a military force.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_2_TRACKING_BODY_ASSYRIA">
+			<Text>Study: [icon:NOTIFICATION_CULTURE_TREE_REVEALED] {LOC_CIVIC_TUPSARRUTU_NAME} {1_itemComplete}
+			[n]Train: {2_UnitsTarget} Military Units: {3_UnitsCurrent}/{2_UnitsTarget}
+			[n]Assemble Full Army: {4_PackedCurrent}/{2_UnitsTarget}</Text>
+		</Row>
+
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_3_ADVISOR_BODY_ASSYRIA">
+			<Text>A pride of lions indeed. Now, remember what I have said – no cost is too great in the pursuit of knowledge. Go to our enemies, and bring back our rightful spoils.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_3_BODY_ASSYRIA">
+			<Text>Next Objective: [b]Capture any Settlement[/b], creating a [b]Codex[/b]: a Great Work of the Antiquity Age.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_3_TRACKING_BODY_ASSYRIA">
+			<Text>Capture any Settlement: {1_CapturedCurrent}/{2_CapturedTarget}</Text>
+		</Row>
+
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_4_ADVISOR_BODY_ASSYRIA">
+			<Text>From the fires of war comes the light that will guide our people forward.
+			[n]But I believe that this is only the beginning. Continue our crusade for knowledge, and prepare a place to enshrine it.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_4_BODY_ASSYRIA">
+			<Text>Codices must be [b]displayed [/b]to count towards the [icon:NOTIFICATION_TEAM_VICTORIOUS] [b]{LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME} [/b][icon:YIELD_SCIENCE] Science Legacy Path, the Assyrian [icon:BUILDING_ROYAL_LIBRARY] [b]{LOC_BUILDING_ROYAL_LIBRARY_NAME} [/b]can be built in any City and has slots to [b]display [/b]your Codices. 
+			[n]Next Objective: Build a [icon:BUILDING_ROYAL_LIBRARY] [b]{LOC_BUILDING_ROYAL_LIBRARY_NAME} [/b], then earn and display [b]{1_CodexGoalNum} Codices[/b].</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_4_TRACKING_BODY_ASSYRIA">
+			<Text>Build: [icon:BUILDING_ROYAL_LIBRARY] {LOC_BUILDING_ROYAL_LIBRARY_NAME} {1_itemComplete}
+			[n]Collect &amp; Display Codices: {2_CodexCurrent}/{3_CodexTarget}</Text>
+		</Row>
+
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_5_ADVISOR_BODY_ASSYRIA">
+			<Text>{1_CodexCount} Codices now grace our halls of learning, containing the collected knowledge of the Assyrian people. What secrets yet elude us?</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_5_BODY_ASSYRIA">
+			<Text>You have achieved the first [b]Milestone [/b]in the [b]{LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME} Legacy Path[/b]! 
+			[n]Next Objective: build a second [icon:BUILDING_ROYAL_LIBRARY] [b]{LOC_BUILDING_ROYAL_LIBRARY_NAME} [/b]to house more Codices, then [b]display {1_CodexGoalNum} Codices[/b], the second Milestone along this Legacy Path.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_5_TRACKING_BODY_ASSYRIA">
+			<Text>Build: a second [icon:BUILDING_ROYAL_LIBRARY] {LOC_BUILDING_ROYAL_LIBRARY_NAME} {1_itemComplete}
+			[n]Collect &amp; Display Codices: {2_CodexCurrent}/{3_CodexTarget}</Text>
+		</Row>
+
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_6_ADVISOR_BODY_ASSYRIA">
+			<Text>We now possess {1_CodexCount} Codices. Assyrian wisdom grows by the day, and the darkness of ignorance recedes ever further.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_6_BODY_ASSYRIA">
+			<Text>You have achieved the second great [b]Milestone [/b]in the [b]{LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME} Legacy Path[/b]! Continue to collect [b]Codices [/b]to earn the last group of rewards.
+			[n]Next Objective: [b]display {1_CodexGoalNum} Codices[/b], achieving the third and [b]final [/b]Milestone in the {LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME} Legacy Path.
+			</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_6_TRACKING_BODY_ASSYRIA">
+			<Text>Collect &amp; Display Codices: {1_CodexCurrent}/{2_CodexTarget}</Text>
+		</Row>
+
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_LINE_COMPLETED_ADVISOR_BODY_ASSYRIA">
+			<Text>Our collection of Codices is the envy of the world, a veritable garden of knowledge that will bear fruit for ages to come. The mysteries of the universe are innumerable, but we should regard our work with pride.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_LINE_COMPLETED_BODY_ASSYRIA">
+			<Text>Congratulations! You've [b]displayed {1_CodexCount} Codices [/b]and successfully completed the [b][icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME} [/b][icon:YIELD_SCIENCE] Science Legacy Path of the Antiquity Age. [n]You can visit the [b]Legacy Path Screen [/b]to see more Legacy Paths you can follow, or you can forge your own path.</Text>
+		</Row>
+	</EnglishText>
+</Database>

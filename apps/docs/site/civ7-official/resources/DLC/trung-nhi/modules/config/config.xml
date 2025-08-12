@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<OwnershipConditions>
+		<Row ItemType="TRUNG NHI" Action="LOC_LOCKED_INCLUDED_WITH_CONTENT" />
+	</OwnershipConditions>
+</Database>

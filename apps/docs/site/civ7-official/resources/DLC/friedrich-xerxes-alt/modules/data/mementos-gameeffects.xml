@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="MEMENTO_FRIEDRICH_BAROQUE_FLUTE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Tag">MILITARY</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_FRIEDRICH_BAROQUE_FLUTE_NAME</Argument>
+		<String context="Description">LOC_MEMENTO_FRIEDRICH_BAROQUE_FLUTE_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_FRIEDRICH_BAROQUE_VOLTAIRE_EDITS_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_SPENT_ATTRIBUTE_POINT">
+				<Argument name="AttributeType">ATTRIBUTE_CULTURAL</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">50</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_FRIEDRICH_BAROQUE_ANTI_MACHIAVEL_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_WAR_SUPPORT_BONUS">
+		<Argument name="Amount">2</Argument>
+		<Argument name="IsAggressor">false</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_XERXES_ACHAEMENID_INCENSE_CENSER_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_PER_NUM_TRADE_ROUTES">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_XERXES_ACHAEMENID_INCENSE_CENSER_NAME</Argument>
+		<String context="Description">LOC_MEMENTO_XERXES_ACHAEMENID_INCENSE_CENSER_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_XERXES_ACHAEMENID_GOLD_FLUTED_PHIALE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_TRADE_CAPACITY">
+		<Argument name="Amount">1</Argument>
+		<Argument name="MajorsOnly">true</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_XERXES_ACHAEMENID_CHALCEDONY_SEAL_MODIFIER_1" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Tag">UNIQUE_IMPROVEMENT</Argument>
+		<Argument name="YieldType">YIELD_CULTURE, YIELD_GOLD</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_XERXES_ACHAEMENID_CHALCEDONY_SEAL_NAME</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_XERXES_ACHAEMENID_CHALCEDONY_SEAL_MODIFIER_2" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Tag">UNIQUE</Argument>
+		<Argument name="YieldType">YIELD_CULTURE, YIELD_GOLD</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_XERXES_ACHAEMENID_CHALCEDONY_SEAL_NAME</Argument>
+	</Modifier>
+</GameEffects>

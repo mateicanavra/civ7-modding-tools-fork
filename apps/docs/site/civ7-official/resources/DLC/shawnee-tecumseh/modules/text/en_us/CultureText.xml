@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+
+		<!-- ==================================================	-->
+		<!--	SHAWNEE							-->
+		<!-- ==================================================	-->
+		<Row Tag="LOC_TREE_CIVICS_EX_SHAWNEE_NAME">
+			<Text>Shawnee Civics</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_WYEHI_SIMEKOFI_NAME">
+			<Text>Wiyehi Simekofi</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_WYEHI_SIMEKOFI_QUOTE">
+			<Text>"One small twig, combined with others, makes a bundle."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_WYEHI_SIMEKOFI_QUOTE_AUTHOR">
+			<Text>Ugandan proverb</Text>
+		</Row>
+
+		<Row Tag="LOC_CIVIC_MIYASKA_LATOWEKI_NAME">
+			<Text>Miyaska Latoweki</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_MIYASKA_LATOWEKI_QUOTE">
+			<Text>"Remember and remember merchant child - your desires are the enemies of war"</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_MIYASKA_LATOWEKI_QUOTE_AUTHOR">
+			<Text>Hamazah Fansuri</Text>
+		</Row>
+
+		<Row Tag="LOC_CIVIC_TELWATIKI_NAME">
+			<Text>Telwatiki</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_TELWATIKI_QUOTE">
+			<Text>The universe is a shadow show – 'round the sun we phantom figures come and go.</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_TELWATIKI_QUOTE_AUTHOR">
+			<Text>Omar Khayyam</Text>
+		</Row>
+
+		<Row Tag="LOC_CIVIC_MALEKI_KINTAKE_NAME">
+			<Text>Maleki Kintake</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_MALEKI_KINTAKE_QUOTE">
+			<Text>"We cannot live without the Earth, but the Earth can live without us."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_MALEKI_KINTAKE_QUOTE_AUTHOR">
+			<Text>Evo Morales</Text>
+		</Row>
+
+
+		<!--Shawnee Civic Description-->
+		<Row Tag="LOC_MOD_WYEHI_SIMEKOFI_MAWASKAWE_SKOTE_DESCRIPTION">
+			<Text>Mawaskawe Skote receives +1 [icon:YIELD_CULTURE] Culture per allied City State.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_MALEKI_KINTAKE_WAREHOUSES_DESCRIPTION">
+			<Text>+2 [icon:YIELD_FOOD] Food on Farms and Camps.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_MIYASKA_LATOWEKI_ENDEAVOR_TRADE_DESCRIPTION">
+			<Text>+2 [icon:YIELD_GOLD] Gold for each trade route while you have at least 3 Endeavors active.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_MIYASKA_LATOWEKI_CITY_STATE_RESOURCES_DESCRIPTION">
+			<Text>+1 Resource Cap in your Capital per Allied City-State.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_MOD_TELWATIKI_THIRD_PARTY_DESCRIPTION">
+			<Text>You can support other player's wars 3 times instead of 1.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_TELWATIKI_INFLUENCE_DESCRIPTION">
+			<Text>+2 [icon:YIELD_DIPLOMACY] Influence Per turn.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_KISPOKO_NENA_TO_SUPPORT_DESCRIPTION">
+			<Text>The Kispoko Nena'to receives +1 Combat Strength per Positive War Support.</Text>
+		</Row>
+		<Row Tag="LOC_KISPOKO_NENA_TO_SUPPORT_COMBAT_DESCRIPTION">
+			<Text>+{1_Value} Combat Strength from Positive War Support. (Telwatiki Civic)</Text>
+		</Row>
+		<!--Shawnee Unique Traditions-->
+		<Row Tag="LOC_TRADITION_BREAD_DANCE_NAME">
+			<Text>Bread Dance</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_BREAD_DANCE_DESCRIPTION">
+			<Text>+4 [icon:YIELD_CULTURE] Culture to all Farming Towns and +4 [icon:YIELD_FOOD] Food to Fishing Towns.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_HELIKHILENAWEWIPE_NAME">
+			<Text>Helikhilenawewipe</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_HELIKHILENAWEWIPE_DESCRIPTION">
+			<Text>+50%[icon:YIELD_DIPLOMACY] Influence towards the initiating and progressing the Befriend Independent Project.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_KAKAWFE_PAFKOTAWETA_NAME">
+			<Text>Kakawfe Pafkotaweta</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_KAKAWFE_PAFKOTAWETA_DESCRIPTION">
+			<Text>Every time a Storm, Flood, or Volcanic Eruption has provided Fertility this Age receive +1 [icon:YIELD_CULTURE] Culture and +2 [icon:YIELD_GOLD] Gold. Improvements, Buildings, and Urban Districts do not get damaged by Storms.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_TAKESIYAKE_YEPEPOKI_NAME">
+			<Text>Takesiyake Yepepoki</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_TAKESIYAKE_YEPEPOKI_DESCRIPTION">
+			<Text>Cities receive +2 [icon:YIELD_PRODUCTION] Production on Tundra, Desert, and Plains tiles.</Text>
+		</Row>
+	</EnglishText>
+</Database>

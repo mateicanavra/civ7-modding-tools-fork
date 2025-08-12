@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==================================================	-->
+	<!--	Unique Abilities							-->
+	<!-- ==================================================	-->
+	<!--Nepal-->
+	<Modifier id="SHERPA_MOD_SEE_TERRAIN" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_SEE_THROUGH_TERRAIN">
+		<Argument name="CanSee">true</Argument>
+	</Modifier>
+	<Modifier id="SHERPA_MOD_MOVE_TERRAIN" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_IGNORE_MOVEMENT_OBSTACLE">
+		<Argument name="Obstacle">TERRAIN_MOUNTAIN</Argument>
+	</Modifier>
+	<Modifier id="SHERPA_MOD_MOVE_EVEREST" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_IGNORE_MOVEMENT_OBSTACLE">
+		<Argument name="Obstacle">FEATURE_MOUNT_EVEREST</Argument>
+	</Modifier>
+	<Modifier id="SHERPA_MOD_GRANT_ABILITY_CHARGE" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_UNIT_ABILITY_CHARGE" permanent="true">
+		<Argument name="ChargedAbilityType">CHARGED_ABILITY_CLAIM_MOUNTAIN</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+</GameEffects>

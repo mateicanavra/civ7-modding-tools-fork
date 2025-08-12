@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+
+		<Row Tag="LOC_VICTORY_DOMINATION_NAME">
+			<Text>Domination Victory</Text>
+		</Row>
+		<Row Tag="LOC_VICTORY_DOMINATION_DESCRIPTION">
+			<Text>Capture all settlements not owned by Independent Powers or City-States.</Text>
+		</Row>
+
+		<Row Tag="LOC_VICTORY_LEGACY_NAME">
+			<Text>Domination Victory</Text>
+		</Row>
+		<Row Tag="LOC_VICTORY_LEGACY_DESCRIPTION">
+			<Text>Have the most legacy points by the end of the game.</Text>
+		</Row>
+
+		<Row Tag="LOC_LEGACY_OPTION">
+			<Text>Legacy Option for Next Age</Text>
+		</Row>
+		<!-- Rewards -->
+		<!-- Antiquity -->
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_CULTURE_GOLDEN_AGE_NAME">
+			<Text>Wonders of the Ancient World Golden Age</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_CULTURE_GOLDEN_AGE_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_ANTIQUITY_CULTURE_GOLDEN_AGE_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_CULTURE_GOLDEN_AGE_DESCRIPTION">
+			<Text>Amphitheaters become Golden Age Amphitheaters (They retain their base yields, adjacency bonuses, and effects in the next age).</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_CULTURE_DARK_AGE_NAME">
+			<Text>Cultural Dark Age</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_CULTURE_DARK_AGE_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_ANTIQUITY_CULTURE_DARK_AGE_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_CULTURE_DARK_AGE_DESCRIPTION">
+			<Text>Missionaries have +1 charge and +1 movement, but -3[icon:YIELD_HAPPINESS] Happiness in all Settlements once you have founded a religion, doubled if the Settlement does not follow your religion.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_CULTURE_MILESTONE_2_NAME">
+			<Text>Wondrous Heritage</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_CULTURE_MILESTONE_2_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_ANTIQUITY_CULTURE_MILESTONE_2_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_CULTURE_MILESTONE_2_DESCRIPTION">
+			<Text>Wonders you control get +1[icon:YIELD_CULTURE] Culture and +1[icon:YIELD_HAPPINESS] Happiness.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_MILITARY_GOLDEN_AGE_NAME">
+			<Text>Pax Imperatoria Golden Age</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_MILITARY_GOLDEN_AGE_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_ANTIQUITY_MILITARY_GOLDEN_AGE_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_MILITARY_GOLDEN_AGE_DESCRIPTION">
+			<Text>Gain an Infantry unit in every settlement you conquered last age.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_MILITARY_GOLDEN_AGE_DESCRIPTION_DYNAMIC">
+			<Text>{LOC_LEGACY_PATH_ANTIQUITY_MILITARY_GOLDEN_AGE_DESCRIPTION} Total Units: {1_totalUnits}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_MILITARY_DARK_AGE_NAME">
+			<Text>Militaristic Dark Age</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_MILITARY_DARK_AGE_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_ANTIQUITY_MILITARY_DARK_AGE_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_MILITARY_DARK_AGE_DESCRIPTION">
+			<Text>Gain 3 fully packed cavalry armies with siege, BUT lose all of your existing armies and all of your settlements except your capital.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_MILITARY_MILESTONE_2_NAME">
+			<Text>Fealty</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_MILITARY_MILESTONE_2_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_ANTIQUITY_MILITARY_MILESTONE_2_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_MILITARY_MILESTONE_2_DESCRIPTION">
+			<Text>+2 Settlement Limit.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_GOLDEN_AGE_NAME">
+			<Text>Great Library Golden Age</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_GOLDEN_AGE_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_GOLDEN_AGE_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_GOLDEN_AGE_DESCRIPTION">
+			<Text>Academies become Golden Age Academies (They retain their base yields, adjacency bonuses, and effects in the next age).</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_DARK_AGE_NAME">
+			<Text>Scientific Dark Age</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_DARK_AGE_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_DARK_AGE_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_DARK_AGE_DESCRIPTION">
+			<Text>Gain a random Technology boost every 5 Turns, BUT -50%[icon:YIELD_SCIENCE] Science.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_MILESTONE_2_NAME">
+			<Text>Collector of Knowledge</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_MILESTONE_2_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_MILESTONE_2_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_MILESTONE_2_DESCRIPTION_DYNAMIC">
+			<Text>+{1_total_science}[icon:YIELD_SCIENCE] Science for every Codex in Antiquity. (+{2_total_from_codicies}).</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_MILESTONE_2_DESCRIPTION">
+			<Text>+1[icon:YIELD_SCIENCE] Science for every Codex in Antiquity.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_ECONOMIC_GOLDEN_AGE_NAME">
+			<Text>Silk Roads Golden Age</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_ECONOMIC_GOLDEN_AGE_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_ANTIQUITY_ECONOMIC_GOLDEN_AGE_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_ECONOMIC_GOLDEN_AGE_DESCRIPTION">
+			<Text>All of your cities from the previous age remain cities.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_ECONOMIC_DARK_AGE_NAME">
+			<Text>Economic Dark Age</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_ECONOMIC_DARK_AGE_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_ANTIQUITY_ECONOMIC_DARK_AGE_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_ECONOMIC_DARK_AGE_DESCRIPTION">
+			<Text>Naval Commanders gain a charge to create a new Settlement for every 2 Levels earned, BUT Settlers cost 100% more.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_ECONOMIC_MILESTONE_2_NAME">
+			<Text>Master Caravaneer</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_ECONOMIC_MILESTONE_2_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_ANTIQUITY_ECONOMIC_MILESTONE_2_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_ECONOMIC_MILESTONE_2_DESCRIPTION_DYNAMIC">
+			<Text>+{1_total_gold}[icon:YIELD_GOLD] Gold for every Trade Route in Antiquity. (+{2_total_from_trade_routes}).</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_ECONOMIC_MILESTONE_2_DESCRIPTION">
+			<Text>+5[icon:YIELD_GOLD] Gold for every Trade Route in Antiquity.</Text>
+		</Row>
+		<!-- Exploration -->
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_CULTURE_GOLDEN_AGE_NAME">
+			<Text>Toshakhana Golden Age</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_CULTURE_GOLDEN_AGE_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_EXPLORATION_CULTURE_GOLDEN_AGE_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_BELIEF_BONUS_17_DESCRIPTION">
+			<Text>Retain {LOC_BELIEF_BONUS_17_NAME}. {LOC_BELIEF_BONUS_17_DESCRIPTION}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_BELIEF_BONUS_18_DESCRIPTION">
+			<Text>Retain {LOC_BELIEF_BONUS_18_NAME}. {LOC_BELIEF_BONUS_18_DESCRIPTION}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_BELIEF_BONUS_19_DESCRIPTION">
+			<Text>Retain {LOC_BELIEF_BONUS_19_NAME}. {LOC_BELIEF_BONUS_19_DESCRIPTION}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_BELIEF_BONUS_20_DESCRIPTION">
+			<Text>Retain {LOC_BELIEF_BONUS_20_NAME}. {LOC_BELIEF_BONUS_20_DESCRIPTION}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_BELIEF_BONUS_21_DESCRIPTION">
+			<Text>Retain {LOC_BELIEF_BONUS_21_NAME}. {LOC_BELIEF_BONUS_21_DESCRIPTION}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_BELIEF_BONUS_22_DESCRIPTION">
+			<Text>Retain {LOC_BELIEF_BONUS_22_NAME}. {LOC_BELIEF_BONUS_22_DESCRIPTION}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_BELIEF_BONUS_23_DESCRIPTION">
+			<Text>Retain {LOC_BELIEF_BONUS_23_NAME}. {LOC_BELIEF_BONUS_23_DESCRIPTION}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_BELIEF_BONUS_24_DESCRIPTION">
+			<Text>Retain {LOC_BELIEF_BONUS_24_NAME}. {LOC_BELIEF_BONUS_24_DESCRIPTION}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_BELIEF_BONUS_25_DESCRIPTION">
+			<Text>Retain {LOC_BELIEF_BONUS_25_NAME}. {LOC_BELIEF_BONUS_25_DESCRIPTION}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_BELIEF_BONUS_26_DESCRIPTION">
+			<Text>Retain {LOC_BELIEF_BONUS_26_NAME}. {LOC_BELIEF_BONUS_26_DESCRIPTION}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_BELIEF_BONUS_27_DESCRIPTION">
+			<Text>Retain {LOC_BELIEF_BONUS_27_NAME}. {LOC_BELIEF_BONUS_27_DESCRIPTION}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_BELIEF_BONUS_28_DESCRIPTION">
+			<Text>Retain {LOC_BELIEF_BONUS_28_NAME}. {LOC_BELIEF_BONUS_28_DESCRIPTION}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_FOUNDER_BELIEF_BONUS_13_DESCRIPTION">
+			<Text>Retain {LOC_FOUNDER_BELIEF_BONUS_13_NAME}. {LOC_FOUNDER_BELIEF_BONUS_13_DESCRIPTION}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_FOUNDER_BELIEF_BONUS_14_DESCRIPTION">
+			<Text>Retain {LOC_FOUNDER_BELIEF_BONUS_14_NAME}. {LOC_FOUNDER_BELIEF_BONUS_14_DESCRIPTION}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_FOUNDER_BELIEF_BONUS_15_DESCRIPTION">
+			<Text>Retain {LOC_FOUNDER_BELIEF_BONUS_15_NAME}. {LOC_FOUNDER_BELIEF_BONUS_15_DESCRIPTION}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_FOUNDER_BELIEF_BONUS_16_DESCRIPTION">
+			<Text>Retain {LOC_FOUNDER_BELIEF_BONUS_16_NAME}. {LOC_FOUNDER_BELIEF_BONUS_16_DESCRIPTION}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_FOUNDER_BELIEF_BONUS_17_DESCRIPTION">
+			<Text>Retain {LOC_FOUNDER_BELIEF_BONUS_17_NAME}. {LOC_FOUNDER_BELIEF_BONUS_17_DESCRIPTION}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_BELIEF_BONUS_30_DESCRIPTION">
+			<Text>Retain {LOC_BELIEF_BONUS_30_NAME}. {LOC_BELIEF_BONUS_30_DESCRIPTION}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_CULTURE_GOLDEN_AGE_DESCRIPTION">
+			<Text>Keep your Religious Founder Beliefs.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_CULTURE_DARK_AGE_NAME">
+			<Text>Cultural Dark Age</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_CULTURE_DARK_AGE_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_EXPLORATION_CULTURE_DARK_AGE_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_CULTURE_DARK_AGE_DESCRIPTION">
+			<Text>Explorers get +1 movement speed and unearth Artifacts 50% faster, BUT -50%[icon:YIELD_DIPLOMACY] Influence.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_CULTURE_MILESTONE_2_NAME">
+			<Text>Deep Roots</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_CULTURE_MILESTONE_2_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_EXPLORATION_CULTURE_MILESTONE_2_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_CULTURE_MILESTONE_2_DESCRIPTION_DYNAMIC">
+			<Text>+{1_total_culture}[icon:YIELD_CULTURE]  Culture per Relic in previous Age. (+{2_total_from_relics}).</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_CULTURE_MILESTONE_2_DESCRIPTION">
+			<Text>+2[icon:YIELD_CULTURE] Culture per Relic in previous Age.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_MILITARY_GOLDEN_AGE_NAME">
+			<Text>Non Sufficit Orbis Golden Age</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_MILITARY_GOLDEN_AGE_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_EXPLORATION_MILITARY_GOLDEN_AGE_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_MILITARY_GOLDEN_AGE_DESCRIPTION">
+			<Text>Gain an Infantry Unit and a Ranged Unit in all of your Distant Lands settlements</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_MILITARY_DARK_AGE_NAME">
+			<Text>Militaristic Dark Age</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_MILITARY_DARK_AGE_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_EXPLORATION_MILITARY_DARK_AGE_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_MILITARY_DARK_AGE_DESCRIPTION">
+			<Text>Gain 2 free Levels on all Commanders and new Commanders start with 2 additional Levels, BUT all military units cost 25% more.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_MILITARY_MILESTONE_2_NAME">
+			<Text>Land of Opportunity</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_MILITARY_MILESTONE_2_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_EXPLORATION_MILITARY_MILESTONE_2_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_MILITARY_MILESTONE_2_DESCRIPTION">
+			<Text>+10[icon:YIELD_PRODUCTION] Production for Settlements in Distant Lands.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_SCIENCE_GOLDEN_AGE_NAME">
+			<Text>Enlightenment Golden Age</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_SCIENCE_GOLDEN_AGE_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_EXPLORATION_SCIENCE_GOLDEN_AGE_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_SCIENCE_GOLDEN_AGE_DESCRIPTION">
+			<Text>Universities become Golden Age Universities (They retain their base yields, adjacency bonuses, and effects in the next age).</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_SCIENCE_DARK_AGE_NAME">
+			<Text>Scientific Dark Age</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_SCIENCE_DARK_AGE_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_EXPLORATION_SCIENCE_DARK_AGE_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_SCIENCE_DARK_AGE_DESCRIPTION">
+			<Text>Flight is unlocked with Combustion, BUT +50% cost to all airplanes.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_SCIENCE_MILESTONE_2_NAME">
+			<Text>Lyceums</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_SCIENCE_MILESTONE_2_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_EXPLORATION_SCIENCE_MILESTONE_2_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_SCIENCE_MILESTONE_2_DESCRIPTION">
+			<Text>+3[icon:YIELD_SCIENCE] Science per turn for each Quarter.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_ECONOMIC_GOLDEN_AGE_NAME">
+			<Text>Treasure Fleet Golden Age</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_ECONOMIC_GOLDEN_AGE_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_EXPLORATION_ECONOMIC_GOLDEN_AGE_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_ECONOMIC_GOLDEN_AGE_DESCRIPTION">
+			<Text>All of your cities from the previous age remain cities. In addition, cities in distant lands gain 2 population.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_ECONOMIC_DARK_AGE_NAME">
+			<Text>Economic Dark Age</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_ECONOMIC_DARK_AGE_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_EXPLORATION_ECONOMIC_DARK_AGE_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_ECONOMIC_DARK_AGE_DESCRIPTION">
+			<Text>+100%[icon:YIELD_PRODUCTION] Production and [icon:YIELD_GOLD]Gold towards Rail Stations and Ports, and +1 resource slot in all Settlements, BUT -25%[icon:YIELD_CULTURE] Culture.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_ECONOMIC_MILESTONE_2_NAME">
+			<Text>Tap the Source</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_ECONOMIC_MILESTONE_2_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_EXPLORATION_ECONOMIC_MILESTONE_2_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_EXPLORATION_ECONOMIC_MILESTONE_2_DESCRIPTION">
+			<Text>+2[icon:YIELD_GOLD] Gold per turn per unique Resource you have.</Text>
+		</Row>
+		<!-- Attribute Cards -->
+		<Row Tag="LOC_LEGACY_PATH_ATTRIBUTE_MILITARY_NAME">
+			<Text>Militaristic Attribute Point</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ATTRIBUTE_MILITARY_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_ATTRIBUTE_MILITARY_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ATTRIBUTE_MILITARY_DESCRIPTION">
+			<Text>Gain 1 Militaristic Attribute Point.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ATTRIBUTE_EXPANSIONIST_NAME">
+			<Text>Expansionist Attribute Point</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ATTRIBUTE_EXPANSIONIST_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_ATTRIBUTE_EXPANSIONIST_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ATTRIBUTE_EXPANSIONIST_DESCRIPTION">
+			<Text>Gain 1 Expansionist Attribute Point.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ATTRIBUTE_CULTURE_NAME">
+			<Text>Cultural Attribute Point</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ATTRIBUTE_CULTURE_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_ATTRIBUTE_CULTURE_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ATTRIBUTE_CULTURE_DESCRIPTION">
+			<Text>Gain 1 Cultural Attribute Point.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ATTRIBUTE_SCIENCE_NAME">
+			<Text>Scientific Attribute Point</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ATTRIBUTE_SCIENCE_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_ATTRIBUTE_SCIENCE_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ATTRIBUTE_SCIENCE_DESCRIPTION">
+			<Text>Gain 1 Scientific Attribute Point.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ATTRIBUTE_ECONOMIC_NAME">
+			<Text>Economic Attribute Point</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ATTRIBUTE_ECONOMIC_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_ATTRIBUTE_ECONOMIC_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ATTRIBUTE_ECONOMIC_DESCRIPTION">
+			<Text>Gain 1 Economic Attribute Point.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ATTRIBUTE_DIPLOMATIC_NAME">
+			<Text>Diplomatic Attribute Point</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ATTRIBUTE_DIPLOMATIC_REWARD_TEXT">
+			<Text>{LOC_LEGACY_OPTION} - {LOC_LEGACY_PATH_ATTRIBUTE_DIPLOMATIC_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ATTRIBUTE_DIPLOMATIC_DESCRIPTION">
+			<Text>Gain 1 Diplomatic Attribute Point.</Text>
+		</Row>
+		<!-- Legacy Points -->
+		<Row Tag="LOC_LEGACY_POINT_ECONOMIC_REWARD_NAME">
+			<Text>Economic Legacy Point</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_POINT_ECONOMIC_REWARD_DESCRIPTION">
+			<Text>Gain 1 Economic Legacy Point. Spent for bonuses in the next age.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_POINT_ECONOMIC_REWARD_FINAL_AGE_DESCRIPTION">
+			<Text>Gain 1 Economic Legacy Point.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_POINT_SCIENCE_REWARD_NAME">
+			<Text>Scientific Legacy Point</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_POINT_SCIENCE_REWARD_DESCRIPTION">
+			<Text>Gain 1 Scientific Legacy Point. Spent for bonuses in the next age.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_POINT_SCIENCE_REWARD_FINAL_AGE_DESCRIPTION">
+			<Text>Gain 1 Scientific Legacy Point.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_POINT_MILITARY_REWARD_NAME">
+			<Text>Militaristic Legacy Point</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_POINT_MILITARY_REWARD_DESCRIPTION">
+			<Text>Gain 1 Militaristic Legacy Point. Spent for bonuses in the next age.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_POINT_MILITARY_REWARD_FINAL_AGE_DESCRIPTION">
+			<Text>Gain 1 Militaristic Legacy Point.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_POINT_CULTURE_REWARD_NAME">
+			<Text>Cultural Legacy Point</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_POINT_CULTURE_REWARD_DESCRIPTION">
+			<Text>Gain 1 Cultural Legacy Point. Spent for bonuses in the next age.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_POINT_CULTURE_REWARD_FINAL_AGE_DESCRIPTION">
+			<Text>Gain 1 Cultural Legacy Point.</Text>
+		</Row>
+		<Row Tag="LOC_MILITARY_BOOST_REWARD_NAME">
+			<Text>Military Victory Boost</Text>
+		</Row>
+		<Row Tag="LOC_MILITARY_BOOST_REWARD_MANHATTAN_PROJECT_DESCRIPTION">
+			<Text>Gain +10% production towards the Manhattan Project Wonder per Military Legacy Point.</Text>
+		</Row>
+		<Row Tag="LOC_MILITARY_BOOST_REWARD_OPERATION_IVY_DESCRIPTION">
+			<Text>Gain +10% production towards the Operation Ivy City Project per Military Legacy Point.</Text>
+		</Row>
+		<Row Tag="LOC_SCIENCE_BOOST_REWARD_NAME">
+			<Text>Science Victory Boost</Text>
+		</Row>
+		<Row Tag="LOC_SCIENCE_BOOST_REWARD_LAUNCH_ROCKET_DESCRIPTION">
+			<Text>Gain +10% production towards the Crewed Space Flight City Project per Scientific Legacy Point.</Text>
+		</Row>
+		<Row Tag="LOC_CULTURE_BOOST_REWARD_NAME">
+			<Text>Culture Victory Boost</Text>
+		</Row>
+		<Row Tag="LOC_CULTURE_BOOST_REWARD_WORLDS_FAIR_DESCRIPTION">
+			<Text>Gain +10% production towards the World's Fair Wonder per Cultural Legacy Point.</Text>
+		</Row>
+		<Row Tag="LOC_ECONOMIC_BOOST_REWARD_NAME">
+			<Text>Economic Victory Boost</Text>
+		</Row>
+		<Row Tag="LOC_ECNOMIC_BOOST_REWARD_ESTABLISH_WORLD_BANK_REDUCTION_DESCRIPTION">
+			<Text>The cost of the Great Banker's Establish World Bank Office action is reduced by 5% per Economic Legacy Point.</Text>
+		</Row>
+		<!-- Victoires -->
+		<Row Tag="LOC_AGE_REWARD_UNLOCK_MANHATTAN_PROJECT_NAME">
+			<Text>Unlock the Manhattan Project</Text>
+		</Row>
+		<Row Tag="LOC_AGE_REWARD_UNLOCK_MANHATTAN_PROJECT_DESCRIPTION">
+			<Text>Unlock the Manhattan Project Wonder.</Text>
+		</Row>
+		<Row Tag="LOC_AGE_REWARD_UNLOCK_JOHN_MAYNARD_KEYNES_NAME">
+			<Text>Unlock Unit - Great Banker</Text>
+		</Row>
+		<Row Tag="LOC_AGE_REWARD_UNLOCK_JOHN_MAYNARD_KEYNES_DESCRIPTION">
+			<Text>The Great Banker spawns in the capital.</Text>
+		</Row>
+		<Row Tag="LOC_AGE_REWARD_UNLOCK_WORLDS_FAIR_NAME">
+			<Text>Unlock the World's Fair</Text>
+		</Row>
+		<Row Tag="LOC_AGE_REWARD_UNLOCK_WORLDS_FAIR_DESCRIPTION">
+			<Text>Unlock the World's Fair Wonder.</Text>
+		</Row>
+		<Row Tag="LOC_AGE_REWARD_DARK_AGE_EARNED">
+			<Text>Earned by not reaching any milestone in this legacy path</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_VICTORY_CONDITION">
+			<Text>When Completed, unlocks the {1_Victory}[icon:{2_Icon}] victory condition.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_VIEW_VICTORY">
+			<Text>View Victories in [icon:{1_Icon}]</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_VIEW_DETAILS">
+			<Text>View Details [icon:{1_Icon}]</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_NAVIGATE_QUESTS">
+			<Text>Navigate Quests</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_NAVIGATE_REWARDS">
+			<Text>Navigate Rewards</Text>
+		</Row>
+
+		<Row Tag="LOC_DARK_AGE_REQUNLOCK_DESCRIPTION">
+			<Text>Don't win any Victories this Age</Text>
+		</Row>
+	</EnglishText>
+</Database>

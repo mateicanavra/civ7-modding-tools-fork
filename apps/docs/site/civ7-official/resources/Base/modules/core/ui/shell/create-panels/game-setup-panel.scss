@@ -1,0 +1,13 @@
+@use '../../utilities/utility-layout' as *;
+@use '../../utilities/utility-text' as *;
+@use '../../themes/default/_baseColors.scss';
+@use '../../themes/default/_animations.scss';
+
+.game-setup-selector {
+	margin: pixels(12) pixels(20);
+
+	@media (max-height: pixels(720)) {
+		min-height: pixels(96);
+		margin: pixels(4) pixels(4) pixels(4) pixels(16);
+	}
+}

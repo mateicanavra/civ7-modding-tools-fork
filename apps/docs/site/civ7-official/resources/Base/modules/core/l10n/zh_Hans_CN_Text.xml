@@ -1,0 +1,4871 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CIVILIZATION_RANDOM_NAME" Language="zh_Hans_CN">
+      <Text>随机</Text>
+    </Replace>
+    <Replace Tag="LOC_GRAMMAR_A_AN" Language="zh_Hans_CN">
+      <Text>{1: gender *:an?an {1}; *:the?the {1}; *:no_article?{1}; other?a {1};}</Text>
+    </Replace>
+    <Replace Tag="LOC_GRAMMAR_A_AN_WITH_ICON" Language="zh_Hans_CN">
+      <Text>{1: gender *:an?an {2} {1}; *:the?the {2} {1}; *:no_article?{2} {1}; other?a {2} {1};}</Text>
+    </Replace>
+    <Replace Tag="LOC_GRAMMAR_COMMA_SEPARATOR" Language="zh_Hans_CN">
+      <Text>，</Text>
+    </Replace>
+    <Replace Tag="LOC_GRAMMAR_UPPER_A_AN" Language="zh_Hans_CN">
+      <Text>{1: gender *:an?An {1}; *:the?The {1}; *:no_article?{1}; other?A {1};}</Text>
+    </Replace>
+    <Replace Tag="LOC_GRAMMAR_UPPER_A_AN_WITH_ICON" Language="zh_Hans_CN">
+      <Text>{1: gender *:an?An {2} {1}; *:the?The {2} {1}; *:no_article?{2} {1}; other?A {2} {1};}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_RANDOM_NAME" Language="zh_Hans_CN">
+      <Text>随机</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_BAD_REMARKS" Language="zh_Hans_CN">
+      <Text>不当言论</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_BAD_REMARKS_TOOLTIP" Language="zh_Hans_CN">
+      <Text>此玩家正在发表煽动性言论。</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_BULLYING" Language="zh_Hans_CN">
+      <Text>霸凌、威胁、骚扰</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_BULLYING_TOOLTIP" Language="zh_Hans_CN">
+      <Text>霸凌、威胁、骚扰</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_CHEATING" Language="zh_Hans_CN">
+      <Text>作弊</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_CHEATING_TOOLTIP" Language="zh_Hans_CN">
+      <Text>此玩家正在作弊。</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_EXPLICIT_CONTENT" Language="zh_Hans_CN">
+      <Text>成人情色内容</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_EXPLICIT_CONTENT_TOOLTIP" Language="zh_Hans_CN">
+      <Text>成人情色内容</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_FOUL_LANGUAGE" Language="zh_Hans_CN">
+      <Text>侮辱性用语</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_FOUL_LANGUAGE_TOOLTIP" Language="zh_Hans_CN">
+      <Text>此玩家正在使用不当用语。</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_FRAUD" Language="zh_Hans_CN">
+      <Text>欺诈</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_FRAUD_TOOLTIP" Language="zh_Hans_CN">
+      <Text>欺诈</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_HACKS" Language="zh_Hans_CN">
+      <Text>破解</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_HACKS_TOOLTIP" Language="zh_Hans_CN">
+      <Text>破解行为</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_HARASSMENT" Language="zh_Hans_CN">
+      <Text>成人性骚扰</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_HARASSMENT_TOOLTIP" Language="zh_Hans_CN">
+      <Text>成人性骚扰</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_HATESPEECH" Language="zh_Hans_CN">
+      <Text>仇恨言论、歧视</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_HATESPEECH_TOOLTIP" Language="zh_Hans_CN">
+      <Text>仇恨言论、歧视</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_MINORABUSE" Language="zh_Hans_CN">
+      <Text>未成年人虐待或儿童情色内容</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_MINORABUSE_TOOLTIP" Language="zh_Hans_CN">
+      <Text>未成年人虐待或儿童情色内容</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_OTHER" Language="zh_Hans_CN">
+      <Text>其他非法内容</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_OTHER_TOOLTIP" Language="zh_Hans_CN">
+      <Text>其他非法内容</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_PRIVACY" Language="zh_Hans_CN">
+      <Text>隐私</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_PRIVACY_TOOLTIP" Language="zh_Hans_CN">
+      <Text>隐私</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_SELECT_REASON" Language="zh_Hans_CN">
+      <Text>选择一个原因</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_SELFHARM" Language="zh_Hans_CN">
+      <Text>自残行为</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_SELFHARM_TOOLTIP" Language="zh_Hans_CN">
+      <Text>自杀或自残行为</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_SPAM" Language="zh_Hans_CN">
+      <Text>垃圾消息</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_SPAM_TOOLTIP" Language="zh_Hans_CN">
+      <Text>垃圾消息</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_TERRORISM" Language="zh_Hans_CN">
+      <Text>恐怖主义或暴力极端主义</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_TERRORISM_TOOLTIP" Language="zh_Hans_CN">
+      <Text>恐怖主义或暴力极端主义</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_VIOLENCE" Language="zh_Hans_CN">
+      <Text>暴力</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_VIOLENCE_TOOLTIP" Language="zh_Hans_CN">
+      <Text>暴力</Text>
+    </Replace>
+    <Replace Tag="LOC_ACCEPT" Language="zh_Hans_CN">
+      <Text>接受</Text>
+    </Replace>
+    <Replace Tag="LOC_ACCEPT_HELP" Language="zh_Hans_CN">
+      <Text>选择或接受一件物品</Text>
+    </Replace>
+    <Replace Tag="LOC_AGE_TRANSITION_CIV_LOCKED" Language="zh_Hans_CN">
+      <Text>锁定</Text>
+    </Replace>
+    <Replace Tag="LOC_AGE_TRANSITION_EDIT_MEMENTOS" Language="zh_Hans_CN">
+      <Text>变更纪念物</Text>
+    </Replace>
+    <Replace Tag="LOC_AGE_TRANSITION_SCREEN_TITLE" Language="zh_Hans_CN">
+      <Text>新文化涌现</Text>
+    </Replace>
+    <Replace Tag="LOC_AGE_TRANSITION_VIEW_DETAILS" Language="zh_Hans_CN">
+      <Text>查看详情</Text>
+    </Replace>
+    <Replace Tag="LOC_AUTHORS_FIRAXIS" Language="zh_Hans_CN">
+      <Text>Firaxis Games</Text>
+    </Replace>
+    <Replace Tag="LOC_CAMERA_PAN" Language="zh_Hans_CN">
+      <Text>移动摄像机</Text>
+    </Replace>
+    <Replace Tag="LOC_CAMERA_PAN_HELP" Language="zh_Hans_CN">
+      <Text>在世界中移动摄像机</Text>
+    </Replace>
+    <Replace Tag="LOC_CAMERA_ZOOM_IN" Language="zh_Hans_CN">
+      <Text>放大</Text>
+    </Replace>
+    <Replace Tag="LOC_CAMERA_ZOOM_IN_HELP" Language="zh_Hans_CN">
+      <Text>放大地图</Text>
+    </Replace>
+    <Replace Tag="LOC_CAMERA_ZOOM_OUT" Language="zh_Hans_CN">
+      <Text>缩小</Text>
+    </Replace>
+    <Replace Tag="LOC_CAMERA_ZOOM_OUT_HELP" Language="zh_Hans_CN">
+      <Text>缩小地图</Text>
+    </Replace>
+    <Replace Tag="LOC_CANCEL" Language="zh_Hans_CN">
+      <Text>取消</Text>
+    </Replace>
+    <Replace Tag="LOC_CANCEL_HELP" Language="zh_Hans_CN">
+      <Text>退出画面或取消</Text>
+    </Replace>
+    <Replace Tag="LOC_CENTER_PLOT_CURSOR" Language="zh_Hans_CN">
+      <Text>居中光标/重命名</Text>
+    </Replace>
+    <Replace Tag="LOC_CENTER_PLOT_CURSOR_HELP" Language="zh_Hans_CN">
+      <Text>取决于使用情景：将光标移动到镜头中央，或重命名聚焦对象。</Text>
+    </Replace>
+    <Replace Tag="LOC_CHAT_GLOBAL" Language="zh_Hans_CN">
+      <Text>所有</Text>
+    </Replace>
+    <Replace Tag="LOC_CHAT_TEAM" Language="zh_Hans_CN">
+      <Text>队伍</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_RANDOM_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>将为你选择一个文明。</Text>
+    </Replace>
+    <Replace Tag="LOC_CLOSEMGR_CONFIRM_BODY" Language="zh_Hans_CN">
+      <Text>确定要退出？</Text>
+    </Replace>
+    <Replace Tag="LOC_CLOSEMGR_CONFIRM_TITLE" Language="zh_Hans_CN">
+      <Text>确认退出</Text>
+    </Replace>
+    <Replace Tag="LOC_COPYRIGHT_BLOCK" Language="zh_Hans_CN">
+      <Text>© 1991-2025 Take-Two Interactive Software, Inc.  Developed by Firaxis Games.  2K, Firaxis Games, Sid Meier's Civilization VII, Sid Meier's Civilization, Civilization, Civ, and their respective logos are trademarks of Take-Two Interactive Software, Inc.  Sid Meier's Civilization VII uses Coherent Labs user interface technology. Copyright 2012-2025 Coherent Labs. All Rights Reserved.  Powered by Wwise © 2006-2025 Audiokinetic Inc.  All rights reserved.  Uses Oodle. Copyright © 2008-2025 by Epic Games Tools, LLC.  Uses Quixel Megascans ®, Copyright © 2017 Quixel AB.</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_CIV_UNIQUE_BONUSES_SUBTITLE" Language="zh_Hans_CN">
+      <Text>特色单位和建筑</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_ADD_MEMENTO_MAJOR" Language="zh_Hans_CN">
+      <Text>添加纪念物</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_ADD_MEMENTO_MINOR" Language="zh_Hans_CN">
+      <Text>添加纪念物</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_AGE_CIV_SELECT_CATEGORY" Language="zh_Hans_CN">
+      <Text>时代和文明</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_AGE_UNLOCK_TITLE" Language="zh_Hans_CN">
+      <Text>时代解锁</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_BUYABLE" Language="zh_Hans_CN">
+      <Text>选择以购买此领袖</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_GAME_START_CATEGORY" Language="zh_Hans_CN">
+      <Text>确认</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_GEOGRAPHIC_CHOICE" Language="zh_Hans_CN">
+      <Text>地理选择！</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_HISTORICAL_CHOICE" Language="zh_Hans_CN">
+      <Text>历史选择！</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_LEADER_SELECT_CATEGORY" Language="zh_Hans_CN">
+      <Text>领袖</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_LEADER_TO_AGE" Language="zh_Hans_CN">
+      <Text>时代：</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_LEADER_TO_CIV" Language="zh_Hans_CN">
+      <Text>文明：</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_LEARN_MORE" Language="zh_Hans_CN">
+      <Text>了解更多</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_NEXT_UNLOCK_TITLE" Language="zh_Hans_CN">
+      <Text>下个等级解锁</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_POPUP_TITLE" Language="zh_Hans_CN">
+      <Text>2K官方商店</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_RECOMMENDED_CHOICE" Language="zh_Hans_CN">
+      <Text>推荐选择！</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_STRATEGIC_CHOICE" Language="zh_Hans_CN">
+      <Text>策略选择！</Text>
+    </Replace>
+    <Replace Tag="LOC_CROSSPLAY_BODY_CONFLICT_RESOLUTION" Language="zh_Hans_CN">
+      <Text>你的本地跨平台游戏与2K帐号的绑定相冲突。你需要选择一个版本才能继续。请选择你希望保留的跨平台游戏存档，以同步到此设备和你的2K帐号。</Text>
+    </Replace>
+    <Replace Tag="LOC_CROSSPLAY_BODY_CONSOLE_CONFLICT_RESOLUTION" Language="zh_Hans_CN">
+      <Text>你的本地跨平台游戏存档与2K帐号的绑定相冲突。你需要选择一个版本才能继续。请选择你希望保留的跨平台游戏存档，以同步到此主机和你的2K帐号。</Text>
+    </Replace>
+    <Replace Tag="LOC_CROSSPLAY_CHOICE_1_CONFLICT_RESOLUTION" Language="zh_Hans_CN">
+      <Text>本地跨平台游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_CROSSPLAY_CHOICE_2_CONFLICT_RESOLUTION" Language="zh_Hans_CN">
+      <Text>2K绑定跨平台游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_CROSSPLAY_TITLE_CONFLICT_RESOLUTION" Language="zh_Hans_CN">
+      <Text>2K绑定帐号跨平台游戏存档冲突</Text>
+    </Replace>
+    <Replace Tag="LOC_CYCLE_NEXT" Language="zh_Hans_CN">
+      <Text>循环至下一个</Text>
+    </Replace>
+    <Replace Tag="LOC_CYCLE_NEXT_HELP" Language="zh_Hans_CN">
+      <Text>循环选择下一个单位或城市</Text>
+    </Replace>
+    <Replace Tag="LOC_CYCLE_PREV" Language="zh_Hans_CN">
+      <Text>循环至上一个</Text>
+    </Replace>
+    <Replace Tag="LOC_CYCLE_PREV_HELP" Language="zh_Hans_CN">
+      <Text>循环选择上一个单位或城市</Text>
+    </Replace>
+    <Replace Tag="LOC_DRIVER_OUT_OF_DATE_CONTINUE" Language="zh_Hans_CN">
+      <Text>“继续”</Text>
+    </Replace>
+    <Replace Tag="LOC_DRIVER_OUT_OF_DATE_EXIT" Language="zh_Hans_CN">
+      <Text>“退出”</Text>
+    </Replace>
+    <Replace Tag="LOC_DRIVER_OUT_OF_DATE_IGNORE" Language="zh_Hans_CN">
+      <Text>“始终忽略”</Text>
+    </Replace>
+    <Replace Tag="LOC_DRIVER_OUT_OF_DATE_MESSAGE" Language="zh_Hans_CN">
+      <Text>“此电脑的图形驱动程序可能需要更新。为获得最佳游戏体验，我们建议安装官方支持《席德·梅尔的文明VII》的最新图形驱动程序。如需更多相关信息，请访问https://support.2k.com/”</Text>
+    </Replace>
+    <Replace Tag="LOC_EDIT_MEMENTOS_CANCEL" Language="zh_Hans_CN">
+      <Text>取消</Text>
+    </Replace>
+    <Replace Tag="LOC_EDIT_MEMENTOS_CONFIRM" Language="zh_Hans_CN">
+      <Text>确认</Text>
+    </Replace>
+    <Replace Tag="LOC_EDIT_MEMENTOS_SHOWALL" Language="zh_Hans_CN">
+      <Text>显示所有领袖纪念物</Text>
+    </Replace>
+    <Replace Tag="LOC_EDIT_MEMENTOS_TITLE" Language="zh_Hans_CN">
+      <Text>选择纪念物</Text>
+    </Replace>
+    <Replace Tag="LOC_FILTERS_AUTOSAVES" Language="zh_Hans_CN">
+      <Text>保存</Text>
+    </Replace>
+    <Replace Tag="LOC_FOCUS_PLOT_CURSOR" Language="zh_Hans_CN">
+      <Text>聚焦格位指针</Text>
+    </Replace>
+    <Replace Tag="LOC_FOCUS_PLOT_CURSOR_HELP" Language="zh_Hans_CN">
+      <Text>聚焦于当前选定的格位地块</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_APP_SLEPT" Language="zh_Hans_CN">
+      <Text>由于进入睡眠模式，网络连接断开。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_APP_SLEPT_TITLE" Language="zh_Hans_CN">
+      <Text>断线</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_CONNECTION_LOST" Language="zh_Hans_CN">
+      <Text>已失去网络连接。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_CONNECTION_LOST_TITLE" Language="zh_Hans_CN">
+      <Text>断线</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_CROSSPLAY_DISABLED_CLIENT" Language="zh_Hans_CN">
+      <Text>禁用跨平台游戏时无法加入跨平台游戏。可以在选项菜单中启用跨平台游戏。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_CROSSPLAY_DISABLED_CLIENT_TITLE" Language="zh_Hans_CN">
+      <Text>跨平台游戏已禁用</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_CROSSPLAY_DISABLED_HOST" Language="zh_Hans_CN">
+      <Text>无法加入此游戏。创建主机使用另一个平台，且禁用了跨平台游戏。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_CROSSPLAY_DISABLED_HOST_TITLE" Language="zh_Hans_CN">
+      <Text>跨平台游戏不匹配</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_GAME_STARTED" Language="zh_Hans_CN">
+      <Text>无法加入此游戏。它已在进行中。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_GAME_STARTED_TITLE" Language="zh_Hans_CN">
+      <Text>游戏进行中</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_HOST_LOSTED" Language="zh_Hans_CN">
+      <Text>与创建人的网络连接已断开。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_HOST_LOSTED_TITLE" Language="zh_Hans_CN">
+      <Text>创建人断开连接</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_JOIN_FAILED" Language="zh_Hans_CN">
+      <Text>加入多人游戏会话时出错。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_JOIN_FAILED_TITLE" Language="zh_Hans_CN">
+      <Text>加入失败</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_KICK_PLATFORM_MAPSIZE" Language="zh_Hans_CN">
+      <Text>无法加入此游戏。地图尺寸与此平台不兼容。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_KICK_PLATFORM_MAPSIZE_TITLE" Language="zh_Hans_CN">
+      <Text>不支持的地图尺寸</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_KICKED" Language="zh_Hans_CN">
+      <Text>你已被踢出游戏。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_KICKED_TITLE" Language="zh_Hans_CN">
+      <Text>被踢出！</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_LOBBY_CONNECT" Language="zh_Hans_CN">
+      <Text>无法连接到游戏大厅。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_LOBBY_CONNECT_TITLE" Language="zh_Hans_CN">
+      <Text>大厅连接失败</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_MATCH_DELETED" Language="zh_Hans_CN">
+      <Text>创建人已删除游戏。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_MATCH_DELETED_TITLE" Language="zh_Hans_CN">
+      <Text>游戏已删除</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_MOD_ACCESS_DENIED" Language="zh_Hans_CN">
+      <Text>Steam 创意工坊无法访问所需的附加内容。[N]内容：[N]</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_MOD_ERROR" Language="zh_Hans_CN">
+      <Text>无法应用附加内容。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_MOD_ERROR_TITLE" Language="zh_Hans_CN">
+      <Text>模组出错</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_MOD_MISSING" Language="zh_Hans_CN">
+      <Text>必需的附加内容未购买或未安装。[N]内容：[N]</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_MOD_MISSING_DOWNLOADS_DISABLED" Language="zh_Hans_CN">
+      <Text>此游戏所需的附加内容未安装。附加内容自动下载当前已禁用。可在选项菜单中启用自动下载。[N]内容：[N]</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_MOD_MISSING_TITLE" Language="zh_Hans_CN">
+      <Text>模组缺失</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_ROOM_FULL" Language="zh_Hans_CN">
+      <Text>此房间的玩家数量已满</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_ROOM_FULL_TITLE" Language="zh_Hans_CN">
+      <Text>房间满员</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_TOO_MANY_MATCHES" Language="zh_Hans_CN">
+      <Text>已加入过多场的多人游戏。请完成或退出已加入的游戏并重试。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_TOO_MANY_MATCHES_TITLE" Language="zh_Hans_CN">
+      <Text>对战过多</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_VERSION_MISMATCH_TITLE" Language="zh_Hans_CN">
+      <Text>版本不匹配</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_LIST_ERROR_GENERAL" Language="zh_Hans_CN">
+      <Text>游戏列表更新失败。请稍后再试。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_LIST_ERROR_TITLE" Language="zh_Hans_CN">
+      <Text>游戏列表更新失败</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_ACCEPT" Language="zh_Hans_CN">
+      <Text>接受</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_BACK" Language="zh_Hans_CN">
+      <Text>返回</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_CANCEL" Language="zh_Hans_CN">
+      <Text>取消</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_CIVILIZATION" Language="zh_Hans_CN">
+      <Text>文明</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_CLOSE" Language="zh_Hans_CN">
+      <Text>关闭</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_CONFIRM" Language="zh_Hans_CN">
+      <Text>确认</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_CONTINUE" Language="zh_Hans_CN">
+      <Text>继续</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_DATE" Language="zh_Hans_CN">
+      <Text>日期</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_DESELECT" Language="zh_Hans_CN">
+      <Text>取消选择</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_GO" Language="zh_Hans_CN">
+      <Text>前进</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_HIDE_DETAILS" Language="zh_Hans_CN">
+      <Text>隐藏详情</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_LEADER" Language="zh_Hans_CN">
+      <Text>领袖</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_LESS_INFO" Language="zh_Hans_CN">
+      <Text>更少信息</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_LOGOUT" Language="zh_Hans_CN">
+      <Text>登出</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_MORE_INFO" Language="zh_Hans_CN">
+      <Text>更多信息</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_NO" Language="zh_Hans_CN">
+      <Text>否</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_OK" Language="zh_Hans_CN">
+      <Text>确定</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_PLAYER_NAME" Language="zh_Hans_CN">
+      <Text>玩家名称</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_POSITION" Language="zh_Hans_CN">
+      <Text>位置</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_RANK" Language="zh_Hans_CN">
+      <Text>排名</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_REDEEM" Language="zh_Hans_CN">
+      <Text>兑换</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_REDEEMCODE" Language="zh_Hans_CN">
+      <Text>兑换代码</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_RESET_PRIMARY_ACCOUNT" Language="zh_Hans_CN">
+      <Text>重设主要账户</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_RESUME" Language="zh_Hans_CN">
+      <Text>继续</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_SAVE" Language="zh_Hans_CN">
+      <Text>保存</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_SCORE" Language="zh_Hans_CN">
+      <Text>分数</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_SELECT" Language="zh_Hans_CN">
+      <Text>选择</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_SHOW_DETAILS" Language="zh_Hans_CN">
+      <Text>显示详情</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_TWOKPORTAL" Language="zh_Hans_CN">
+      <Text>2K网站</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_UNLINK" Language="zh_Hans_CN">
+      <Text>取消绑定</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_YES" Language="zh_Hans_CN">
+      <Text>是</Text>
+    </Replace>
+    <Replace Tag="LOC_GESTURE_THUMB_AXIS" Language="zh_Hans_CN">
+      <Text>使用摇杆的操作</Text>
+    </Replace>
+    <Replace Tag="LOC_GESTURE_THUMB_AXIS_MICROSOFT" Language="zh_Hans_CN">
+      <Text>使用摇杆的操作</Text>
+    </Replace>
+    <Replace Tag="LOC_GESTURE_THUMB_AXIS_PS4" Language="zh_Hans_CN">
+      <Text>使用操作杆的操作</Text>
+    </Replace>
+    <Replace Tag="LOC_GESTURE_THUMB_AXIS_PS5" Language="zh_Hans_CN">
+      <Text>使用操作杆的操作</Text>
+    </Replace>
+    <Replace Tag="LOC_GROUPID_ADVANCEDOPTIONS" Language="zh_Hans_CN">
+      <Text>高级</Text>
+    </Replace>
+    <Replace Tag="LOC_GROUPID_DIFFICULTY_OPTIONS" Language="zh_Hans_CN">
+      <Text>难度设置</Text>
+    </Replace>
+    <Replace Tag="LOC_GROUPID_DISASTER_CRISIS_OPTIONS" Language="zh_Hans_CN">
+      <Text>灾难与危机设置</Text>
+    </Replace>
+    <Replace Tag="LOC_GROUPID_DISASTEROPTIONS" Language="zh_Hans_CN">
+      <Text>灾难与危机设置</Text>
+    </Replace>
+    <Replace Tag="LOC_GROUPID_GAMEOPTIONS" Language="zh_Hans_CN">
+      <Text>游戏设置</Text>
+    </Replace>
+    <Replace Tag="LOC_GROUPID_LEGACYOPTIONS" Language="zh_Hans_CN">
+      <Text>传承路径设置</Text>
+    </Replace>
+    <Replace Tag="LOC_GROUPID_MAPOPTIONS" Language="zh_Hans_CN">
+      <Text>定制地图</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_CITY" Language="zh_Hans_CN">
+      <Text>城市</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_DIAL" Language="zh_Hans_CN">
+      <Text>圆盘选择器</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_DIPLOMACY" Language="zh_Hans_CN">
+      <Text>外交</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_HUD" Language="zh_Hans_CN">
+      <Text>HUD</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_PANEL" Language="zh_Hans_CN">
+      <Text>面板</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_PLACEMENT" Language="zh_Hans_CN">
+      <Text>放置</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_RADIAL_MENU" Language="zh_Hans_CN">
+      <Text>轮盘菜单</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_SHELL" Language="zh_Hans_CN">
+      <Text>指令界面</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_UNIT" Language="zh_Hans_CN">
+      <Text>单位</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_WORLD" Language="zh_Hans_CN">
+      <Text>世界</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_WORLD_BUILDER" Language="zh_Hans_CN">
+      <Text>世界生成器</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_BANNED_BODY" Language="zh_Hans_CN">
+      <Text>你被禁止参加多人游戏。详情请联系2K客户服务。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_BANNED_TITLE" Language="zh_Hans_CN">
+      <Text>用户被禁</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_CHILD_ACCOUNT" Language="zh_Hans_CN">
+      <Text>2K帐号未授权。请询问家长或监护人以获得在线游戏许可。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_CONNECTION_REJECTED" Language="zh_Hans_CN">
+      <Text>未能连接到游戏房间。如果使用了加入密码，请检查并重试。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_JOINCODE_SYNTAX" Language="zh_Hans_CN">
+      <Text>加入密码错误。请检查加入密码并重试。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_JOINCODE_TRANSPORT" Language="zh_Hans_CN">
+      <Text>不支持此加入密码的多人游戏。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_LINK_ACCOUNT" Language="zh_Hans_CN">
+      <Text>必须绑定一个2K帐号。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_LINK_INCOMPLETE" Language="zh_Hans_CN">
+      <Text>必须完善一个2K帐号。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_MATCHMAKING_FAILED" Language="zh_Hans_CN">
+      <Text>匹配失败。请重启游戏并再次尝试。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_MATCHMAKING_TIMED_OUT" Language="zh_Hans_CN">
+      <Text>匹配超时。队列中的玩家不足，请稍后重试或尝试其他队列。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_NO_ONLINE_SUB" Language="zh_Hans_CN">
+      <Text>需要订阅在线服务才能进行多人游戏。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_ROOM_FULL" Language="zh_Hans_CN">
+      <Text>游戏已满。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_ROOM_UNKNOWN_ERROR" Language="zh_Hans_CN">
+      <Text>尝试加入游戏时遭遇未知错误。请重启游戏并再次尝试。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_SESSION_ERROR" Language="zh_Hans_CN">
+      <Text>尝试开始游戏失败。请重启游戏并再次尝试。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_SESSION_UNEXPECTED" Language="zh_Hans_CN">
+      <Text>尝试加入游戏时出现未知状态。请重启游戏并再次尝试。</Text>
+    </Replace>
+    <Replace Tag="LOC_KEYBOARD_ALT" Language="zh_Hans_CN">
+      <Text>ALT</Text>
+    </Replace>
+    <Replace Tag="LOC_KEYBOARD_CAMERA_MODIFIER" Language="zh_Hans_CN">
+      <Text>摄像机修改器</Text>
+    </Replace>
+    <Replace Tag="LOC_KEYBOARD_CTRL" Language="zh_Hans_CN">
+      <Text>Ctrl</Text>
+    </Replace>
+    <Replace Tag="LOC_KEYBOARD_DOWN" Language="zh_Hans_CN">
+      <Text>键盘下箭头键</Text>
+    </Replace>
+    <Replace Tag="LOC_KEYBOARD_ENTER" Language="zh_Hans_CN">
+      <Text>键盘Enter键</Text>
+    </Replace>
+    <Replace Tag="LOC_KEYBOARD_ESCAPE" Language="zh_Hans_CN">
+      <Text>键盘Esc键</Text>
+    </Replace>
+    <Replace Tag="LOC_KEYBOARD_LEFT" Language="zh_Hans_CN">
+      <Text>键盘左箭头键</Text>
+    </Replace>
+    <Replace Tag="LOC_KEYBOARD_RIGHT" Language="zh_Hans_CN">
+      <Text>键盘右箭头键</Text>
+    </Replace>
+    <Replace Tag="LOC_KEYBOARD_SHIFT" Language="zh_Hans_CN">
+      <Text>Shift</Text>
+    </Replace>
+    <Replace Tag="LOC_KEYBOARD_UP" Language="zh_Hans_CN">
+      <Text>键盘上箭头键</Text>
+    </Replace>
+    <Replace Tag="LOC_KICK_DIALOG_TIMEOUT" Language="zh_Hans_CN">
+      <Text>你必须等待至少30秒才能发起踢出投票。</Text>
+    </Replace>
+    <Replace Tag="LOC_KICK_DIALOG_TITLE" Language="zh_Hans_CN">
+      <Text>踢出玩家？</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_DE_DE_NAME" Language="zh_Hans_CN">
+      <Text>Deutsch（德语）</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_DEFAULT_NAME" Language="zh_Hans_CN">
+      <Text>系统默认</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_DEFAULT_NAME_CONSOLE" Language="zh_Hans_CN">
+      <Text>主机默认</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_EN_US_NAME" Language="zh_Hans_CN">
+      <Text>英语</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_ES_ES_NAME" Language="zh_Hans_CN">
+      <Text>Español（西班牙语）</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_FR_FR_NAME" Language="zh_Hans_CN">
+      <Text>Français（法语）</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_IT_IT_NAME" Language="zh_Hans_CN">
+      <Text>Italiano（意大利语）</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_JA_JP_NAME" Language="zh_Hans_CN">
+      <Text>日本語（日语）</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_KO_KR_NAME" Language="zh_Hans_CN">
+      <Text>한국어（韩语）</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_PL_PL_NAME" Language="zh_Hans_CN">
+      <Text>polski（波兰语）</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_PT_BR_NAME" Language="zh_Hans_CN">
+      <Text>Português Brasileiro（巴西葡萄牙语）</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_RU_RU_NAME" Language="zh_Hans_CN">
+      <Text>Русский（俄语）</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_ZH_HANS_CN_NAME" Language="zh_Hans_CN">
+      <Text>汉语（简体中文）</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_ZH_HANT_HK_NAME" Language="zh_Hans_CN">
+      <Text>漢語（繁体中文）</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_RANDOM_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>将为你选择一位领袖。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOAD_GAME_ERROR_BAD_MAPSIZE_BODY" Language="zh_Hans_CN">
+      <Text>地图尺寸与此平台不兼容。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOAD_GAME_ERROR_BAD_MAPSIZE_TITLE" Language="zh_Hans_CN">
+      <Text>不支持的地图尺寸</Text>
+    </Replace>
+    <Replace Tag="LOC_LOAD_GAME_ERROR_LINKED_ACCOUNT" Language="zh_Hans_CN">
+      <Text>这个实时活动存档需要绑定2K帐号</Text>
+    </Replace>
+    <Replace Tag="LOC_LOAD_GAME_ERROR_MOD_CONFIG" Language="zh_Hans_CN">
+      <Text>无法配置内容</Text>
+    </Replace>
+    <Replace Tag="LOC_LOAD_GAME_ERROR_MOD_CONTENT" Language="zh_Hans_CN">
+      <Text>未能找到所需内容</Text>
+    </Replace>
+    <Replace Tag="LOC_LOAD_GAME_ERROR_MOD_OWNERSHIP" Language="zh_Hans_CN">
+      <Text>配置中包含尚未拥有的内容</Text>
+    </Replace>
+    <Replace Tag="LOC_LOAD_GAME_ERROR_MOD_VALIDATION" Language="zh_Hans_CN">
+      <Text>内容配置验证失败</Text>
+    </Replace>
+    <Replace Tag="LOC_LOAD_GAME_ERROR_SCRIPT_PROCESSING" Language="zh_Hans_CN">
+      <Text>地图生成脚本出现致命错误</Text>
+    </Replace>
+    <Replace Tag="LOC_LOAD_GAME_ERROR_UNKNOWN" Language="zh_Hans_CN">
+      <Text>发生未指定的配置错误</Text>
+    </Replace>
+    <Replace Tag="LOC_LOAD_GAME_ERROR_UNKNOWN_VERSION" Language="zh_Hans_CN">
+      <Text>不支持存档文件的版本</Text>
+    </Replace>
+    <Replace Tag="LOC_LOBBY_ERROR_DEVICE_REMOVED" Language="zh_Hans_CN">
+      <Text>设备已移除。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOBBY_ERROR_GENERAL" Language="zh_Hans_CN">
+      <Text>大厅出现错误。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOBBY_ERROR_NO_ERROR" Language="zh_Hans_CN">
+      <Text>大厅无错误。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOBBY_ERROR_TITLE" Language="zh_Hans_CN">
+      <Text>大厅错误</Text>
+    </Replace>
+    <Replace Tag="LOC_LOBBY_ERROR_UNKNOWN_ERROR" Language="zh_Hans_CN">
+      <Text>大厅出现未知错误。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOBBY_ERROR_WIFI_OFF" Language="zh_Hans_CN">
+      <Text>Wifi不可用。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TUTORIAL_REWARD_UNLOCKED_TEXT" Language="zh_Hans_CN">
+      <Text>已完成所有教程挑战</Text>
+    </Replace>
+    <Replace Tag="LOC_MODDING_ERROR_CONTENT" Language="zh_Hans_CN">
+      <Text>尝试配置模组内容时出现一个或多个错误。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODDING_ERROR_REASON_GAMEPLAY_DATABASE" Language="zh_Hans_CN">
+      <Text>游戏数据库验证失败！请参阅Database.log了解详情。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODDING_ERROR_UNKNOWN" Language="zh_Hans_CN">
+      <Text>尝试启动游戏时发生未知错误。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOUSE_BUTTON_LEFT" Language="zh_Hans_CN">
+      <Text>鼠标左键</Text>
+    </Replace>
+    <Replace Tag="LOC_MOUSE_BUTTON_MIDDLE" Language="zh_Hans_CN">
+      <Text>鼠标中键</Text>
+    </Replace>
+    <Replace Tag="LOC_MOUSE_BUTTON_RIGHT" Language="zh_Hans_CN">
+      <Text>鼠标右键</Text>
+    </Replace>
+    <Replace Tag="LOC_MOUSE_BUTTON_X1" Language="zh_Hans_CN">
+      <Text>X1鼠标按键</Text>
+    </Replace>
+    <Replace Tag="LOC_MOUSE_BUTTON_X2" Language="zh_Hans_CN">
+      <Text>X2鼠标按键</Text>
+    </Replace>
+    <Replace Tag="LOC_MOUSE_SCROLLWHEEL_DOWN" Language="zh_Hans_CN">
+      <Text>向下滚动滚轮</Text>
+    </Replace>
+    <Replace Tag="LOC_MOUSE_SCROLLWHEEL_UP" Language="zh_Hans_CN">
+      <Text>向上滚动滚轮</Text>
+    </Replace>
+    <Replace Tag="LOC_MOVE_CURSOR" Language="zh_Hans_CN">
+      <Text>浏览</Text>
+    </Replace>
+    <Replace Tag="LOC_MOVE_CURSOR_HELP" Language="zh_Hans_CN">
+      <Text>浏览菜单项</Text>
+    </Replace>
+    <Replace Tag="LOC_MP_CANT_PLAY_ONLINE_ERROR_TITLE" Language="zh_Hans_CN">
+      <Text>无法在线游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_MP_CREATE_GAME_WAITING_BODY" Language="zh_Hans_CN">
+      <Text>请稍候… </Text>
+    </Replace>
+    <Replace Tag="LOC_MP_CREATE_GAME_WAITING_TITLE" Language="zh_Hans_CN">
+      <Text>正在创建游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_MP_JOIN_PARENT_PERMISSIONS_DISABLED" Language="zh_Hans_CN">
+      <Text>2K帐号未授权。请询问家长或监护人以获得在线游戏许可。</Text>
+    </Replace>
+    <Replace Tag="LOC_MP_JOINING_ERROR_TITLE" Language="zh_Hans_CN">
+      <Text>加入出错</Text>
+    </Replace>
+    <Replace Tag="LOC_MP_JOINING_GAME_BODY" Language="zh_Hans_CN">
+      <Text>请稍候… </Text>
+    </Replace>
+    <Replace Tag="LOC_MP_JOINING_GAME_TITLE" Language="zh_Hans_CN">
+      <Text>正在加入游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_MP_MATCHMAKING_GAME_TITLE" Language="zh_Hans_CN">
+      <Text>正在搜索大厅</Text>
+    </Replace>
+    <Replace Tag="LOC_MP_PARENT_PERMISSIONS_TITLE" Language="zh_Hans_CN">
+      <Text>家长许可</Text>
+    </Replace>
+    <Replace Tag="LOC_MULTIPLAYER_DEFAULT_NO_TEAM_NAME" Language="zh_Hans_CN">
+      <Text>无队伍</Text>
+    </Replace>
+    <Replace Tag="LOC_MUTE_DIALOG_TITLE" Language="zh_Hans_CN">
+      <Text>对玩家禁言？</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_DOWN" Language="zh_Hans_CN">
+      <Text>向下</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_DOWN_HELP" Language="zh_Hans_CN">
+      <Text>向下浏览</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_LEFT" Language="zh_Hans_CN">
+      <Text>向左</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_LEFT_HELP" Language="zh_Hans_CN">
+      <Text>向左浏览</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_MOVE_CURSOR" Language="zh_Hans_CN">
+      <Text>在地图上移动指针</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_NEXT" Language="zh_Hans_CN">
+      <Text>下一步</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_NEXT_HELP" Language="zh_Hans_CN">
+      <Text>下个选项卡</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_PAN" Language="zh_Hans_CN">
+      <Text>四周查看</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_PREVIOUS" Language="zh_Hans_CN">
+      <Text>上一步</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_PREVIOUS_HELP" Language="zh_Hans_CN">
+      <Text>上一步选项卡</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_RADIAL_BEAM" Language="zh_Hans_CN">
+      <Text>移动光束</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_RADIAL_MENU" Language="zh_Hans_CN">
+      <Text>轮盘菜单</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_RIGHT" Language="zh_Hans_CN">
+      <Text>向右</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_RIGHT_HELP" Language="zh_Hans_CN">
+      <Text>向右浏览</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_SELECT" Language="zh_Hans_CN">
+      <Text>选择</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_UP" Language="zh_Hans_CN">
+      <Text>向上</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_UP_HELP" Language="zh_Hans_CN">
+      <Text>向上浏览</Text>
+    </Replace>
+    <Replace Tag="LOC_NAVIGATE_YIELDS" Language="zh_Hans_CN">
+      <Text>收益</Text>
+    </Replace>
+    <Replace Tag="LOC_NAVIGATE_YIELDS_HELP" Language="zh_Hans_CN">
+      <Text>打开收益概要</Text>
+    </Replace>
+    <Replace Tag="LOC_NEXT_ACTION" Language="zh_Hans_CN">
+      <Text>下个操作</Text>
+    </Replace>
+    <Replace Tag="LOC_NEXT_ACTION_HELP" Language="zh_Hans_CN">
+      <Text>激活下个操作；或在没有更多操作时结束玩家的回合。</Text>
+    </Replace>
+    <Replace Tag="LOC_NEXT_SELECT" Language="zh_Hans_CN">
+      <Text>下个选择</Text>
+    </Replace>
+    <Replace Tag="LOC_NOTIFICATION" Language="zh_Hans_CN">
+      <Text>通知</Text>
+    </Replace>
+    <Replace Tag="LOC_NOTIFICATION_HELP" Language="zh_Hans_CN">
+      <Text>打开抬头显示通知</Text>
+    </Replace>
+    <Replace Tag="LOC_OOBE_TITLE_AUDIO" Language="zh_Hans_CN">
+      <Text>选择声音选项</Text>
+    </Replace>
+    <Replace Tag="LOC_OOBE_TITLE_AUTOSAVE" Language="zh_Hans_CN">
+      <Text>此游戏支持自动存档。[n]此标志显示时请勿关闭游戏。</Text>
+    </Replace>
+    <Replace Tag="LOC_OOBE_TITLE_DISPLAY" Language="zh_Hans_CN">
+      <Text>选择显示选项</Text>
+    </Replace>
+    <Replace Tag="LOC_OOBE_TITLE_LANGUAGE" Language="zh_Hans_CN">
+      <Text>选择语言</Text>
+    </Replace>
+    <Replace Tag="LOC_OPEN_CULTURE_TREE" Language="zh_Hans_CN">
+      <Text>打开文化树</Text>
+    </Replace>
+    <Replace Tag="LOC_OPEN_LENS_PANEL" Language="zh_Hans_CN">
+      <Text>地图选项</Text>
+    </Replace>
+    <Replace Tag="LOC_OPEN_LENS_PANEL_HELP" Language="zh_Hans_CN">
+      <Text>打开地图选项</Text>
+    </Replace>
+    <Replace Tag="LOC_OPEN_TECH_TREE" Language="zh_Hans_CN">
+      <Text>打开科技树</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTION_KEY_QUOTE" Language="zh_Hans_CN">
+      <Text>"</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ACCEPT" Language="zh_Hans_CN">
+      <Text>接受</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ACCEPT_CHANGES" Language="zh_Hans_CN">
+      <Text>接受变更</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ACCESSIBILITY_COLORBLIND" Language="zh_Hans_CN">
+      <Text>色盲辅助功能</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ACCESSIBILITY_COLORBLIND_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>变更一些颜色，帮助患有三种常见色盲的玩家无障碍享受游戏。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ACCESSIBILITY_COLORBLIND_DEUTERANOPIA" Language="zh_Hans_CN">
+      <Text>绿色盲</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ACCESSIBILITY_COLORBLIND_NONE" Language="zh_Hans_CN">
+      <Text>标准颜色</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ACCESSIBILITY_COLORBLIND_PROTANOPIA" Language="zh_Hans_CN">
+      <Text>红色盲</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ACCESSIBILITY_COLORBLIND_TRITANOPIA" Language="zh_Hans_CN">
+      <Text>蓝色盲</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ADAPTIVE_TRIGGERS_ENABLED" Language="zh_Hans_CN">
+      <Text>自适应扳机启用</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ADAPTIVE_TRIGGERS_ENABLED_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>游戏是否启用扳机效果功能。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ARE_YOU_SURE" Language="zh_Hans_CN">
+      <Text>是否确定？</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ARE_YOU_SURE_DEFAULT" Language="zh_Hans_CN">
+      <Text>确定要恢复到默认设置？</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE" Language="zh_Hans_CN">
+      <Text>动态范围</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>动态范围——最响亮和最安静声音之间的音量差异。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE_NARROW" Language="zh_Hans_CN">
+      <Text>狭窄</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE_NARROW_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>最小动态范围——所有声音在嘈杂环境中或受限范围的扬声器上均以低音量播放。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE_STANDARD" Language="zh_Hans_CN">
+      <Text>标准</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE_STANDARD_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>中等动态范围——这通常是多数玩家的最佳设置。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE_WIDE" Language="zh_Hans_CN">
+      <Text>宽阔</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE_WIDE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>最大动态范围——建议用于高端音响系统或安静环境。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_LANGUAGE" Language="zh_Hans_CN">
+      <Text>音频语言</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_LANGUAGE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>指定讲述者使用的语言。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_MUTEONFOCUSLOSS" Language="zh_Hans_CN">
+      <Text>后台运行时静音</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_MUTEONFOCUSLOSS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>点击另一个应用程序窗口时，《文明VII》的音频将静音。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_CINEMATICS" Language="zh_Hans_CN">
+      <Text>过场动画音量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_CINEMATICS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>过场动画播放期间的音量。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_MASTER" Language="zh_Hans_CN">
+      <Text>主音量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_MASTER_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>游戏中所有声音的音量控制。所有其他音量值均由主音量调节。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_MUSIC" Language="zh_Hans_CN">
+      <Text>音乐音量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_MUSIC_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>背景音乐的音量。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_SFX" Language="zh_Hans_CN">
+      <Text>音效音量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_SFX_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>环境声音和单位移动等音效的音量。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_UI" Language="zh_Hans_CN">
+      <Text>界面音量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_UI_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>用户进行操作时界面元素的音量。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_VOICE" Language="zh_Hans_CN">
+      <Text>对话音量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_VOICE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>领袖和顾问在游戏中的音量。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUTOENDTURN" Language="zh_Hans_CN">
+      <Text>自动结束回合</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUTOENDTURN_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>自动结束游戏回合。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUTOSAVE_BETWEEN" Language="zh_Hans_CN">
+      <Text>自动存档回合间隔</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUTOSAVE_BETWEEN_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>进行自动存档所间隔的回合数。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUTOSAVE_KEEP_COUNT" Language="zh_Hans_CN">
+      <Text>自动存档数量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUTOSAVE_KEEP_COUNT_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>为当前游戏保留的自动存档数量。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUTOUNITYCYCLE" Language="zh_Hans_CN">
+      <Text>自动循环单位</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUTOUNITYCYCLE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>在选择的单位耗尽所有移动力后，循环浏览仍拥有剩余移动力的单位。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_BRIGHTNESS" Language="zh_Hans_CN">
+      <Text>亮度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_BRIGHTNESS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>校准屏幕的亮度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CAMERA_MOVEMENT_FRICTION" Language="zh_Hans_CN">
+      <Text>摄像机运动阻力</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CAMERA_MOVEMENT_FRICTION_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>使用模拟操作杆移动摄像机时施加的阻力量。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CAMERA_PANNING_SPEED" Language="zh_Hans_CN">
+      <Text>摄像机移动速度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CAMERA_PANNING_SPEED_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>摄像机移动的速度快慢。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CANCEL" Language="zh_Hans_CN">
+      <Text>取消</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CANCEL_CHANGES" Language="zh_Hans_CN">
+      <Text>取消变更</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_ACCESSIBILITY" Language="zh_Hans_CN">
+      <Text>辅助功能</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_ACCESSIBILITY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>调整屏幕、字幕和输入</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_AUDIO" Language="zh_Hans_CN">
+      <Text>音频</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_AUDIO_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>调整音频设置</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_GAME" Language="zh_Hans_CN">
+      <Text>游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_GAME_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>调整抬头显示、自动保存和时间设置</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_GRAPHICS" Language="zh_Hans_CN">
+      <Text>图像</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_GRAPHICS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>调整游戏画质与性能。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_INPUT" Language="zh_Hans_CN">
+      <Text>输入</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_INPUT_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>查看并配置控制</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_INTERFACE" Language="zh_Hans_CN">
+      <Text>界面</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_INTERFACE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>调整界面设置</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_SYSTEM" Language="zh_Hans_CN">
+      <Text>系统</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_SYSTEM_CONSOLE" Language="zh_Hans_CN">
+      <Text>主机</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_SYSTEM_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>调整界面、摄像机和触控设置</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CITY_RANGED_ATTACK_TURN_BLOCKING" Language="zh_Hans_CN">
+      <Text>城市远程攻击阻止回合结束</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CITY_RANGED_ATTACK_TURN_BLOCKING_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>如果城市可以执行远程攻击，则阻止回合结束。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CLOCK_FORMAT" Language="zh_Hans_CN">
+      <Text>时钟格式</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CLOCK_FORMAT_24HR" Language="zh_Hans_CN">
+      <Text>24小时</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CLOCK_FORMAT_AMPM" Language="zh_Hans_CN">
+      <Text>上午/下午</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CLOCK_FORMAT_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>游戏系统面板中真实世界时间的格式。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CONFIRM" Language="zh_Hans_CN">
+      <Text>确认</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CONFIRM_CHANGES" Language="zh_Hans_CN">
+      <Text>确认变更</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CROSSPLAY" Language="zh_Hans_CN">
+      <Text>跨平台游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CROSSPLAY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>和其他平台的玩家进行多人游戏。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_DEFAULT" Language="zh_Hans_CN">
+      <Text>默认</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_DEFAULTS" Language="zh_Hans_CN">
+      <Text>默认</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_DEFAULTS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>将所有变更恢复为默认设置。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_DISABLED_IN_GAME" Language="zh_Hans_CN">
+      <Text>此选项在游戏中无法修改。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_DISPLAY_LANGUAGE" Language="zh_Hans_CN">
+      <Text>显示语言</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_EMBLEM_BRIGHTNESS" Language="zh_Hans_CN">
+      <Text>将设置调整为顶部标志不可见，中间方块隐约可见。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_FGX_APPLY_CHANGES" Language="zh_Hans_CN">
+      <Text>应用变更</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_FIRSTTIMETUTORIAL" Language="zh_Hans_CN">
+      <Text>初次教程</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_FIRSTTIMETUTORIAL_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>启动游戏时启用初次教程。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_FXS_CLEAR_CHANGES" Language="zh_Hans_CN">
+      <Text>清除变更</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_0" Language="zh_Hans_CN">
+      <Text>关闭</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_0_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>警告和教程已关闭。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_0_TOOLTIP" Language="zh_Hans_CN">
+      <Text>警告和教程已关闭。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_1" Language="zh_Hans_CN">
+      <Text>仅警告</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_1_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>无教程。如果出现风险，顾问将及时提醒。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_1_TOOLTIP" Language="zh_Hans_CN">
+      <Text>无教程。如果出现风险，顾问将及时提醒。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_2" Language="zh_Hans_CN">
+      <Text>教程</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_2_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>边玩边学。同时启用警告。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_2_TOOLTIP" Language="zh_Hans_CN">
+      <Text>边玩边学。同时启用警告。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_2_TOOLTIP_ALT" Language="zh_Hans_CN">
+      <Text>边玩边学。同时启用警告。如果更变，你将需要用此设置开始新游戏才能查看教程。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_3" Language="zh_Hans_CN">
+      <Text>新人玩家</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_ASSET_QUALITY" Language="zh_Hans_CN">
+      <Text>材质质量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_ASSET_QUALITY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>选择游戏中3D物体的细节级别。设为高将使用更详细的物体，而设为低将使用更简单、细节更少的物体。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_ASSET_QUALITY_HIGH" Language="zh_Hans_CN">
+      <Text>高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_ASSET_QUALITY_LOW" Language="zh_Hans_CN">
+      <Text>低</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_AUTO" Language="zh_Hans_CN">
+      <Text>自动</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_BLOOM" Language="zh_Hans_CN">
+      <Text>泛光</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_BLOOM_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>启用泛光效果。模拟部分摄像机传感器的工作方式，使屏幕上的明亮区域渗透到周围区域。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_CALIBRATE_HDR" Language="zh_Hans_CN">
+      <Text>校准HDR</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_CALIBRATE_HDR_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>校准高动态范围显示。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_CLOUD_SHADOWS" Language="zh_Hans_CN">
+      <Text>启用云阴影</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_CLOUD_SHADOWS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>启用来自云的阴影。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_AUTO" Language="zh_Hans_CN">
+      <Text>自动</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_AUTO_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>选择最适合当前输出分辨率的DLSS模式。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_BALANCED" Language="zh_Hans_CN">
+      <Text>均衡</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_BALANCED_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>同时提供优化的性能和图像质量。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_DLAA" Language="zh_Hans_CN">
+      <Text>DLAA</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_DLAA_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>使用基于人工智能的抗锯齿技术提供更高的图像质量。DLAA使用开发DLSS的相同超分辨率技术，重建原生分辨率图像以最大化图像质量。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_PERFORMANCE" Language="zh_Hans_CN">
+      <Text>性能</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_PERFORMANCE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>提供高于均衡模式的性能增强。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_QUALITY" Language="zh_Hans_CN">
+      <Text>质量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_QUALITY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>提供高于均衡模式的图像质量。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_SETTING" Language="zh_Hans_CN">
+      <Text>NVidia DLSS质量级别</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_SETTING_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>设置NVidia DLSS的质量级别。在较高的质量级别下画质更佳，而在较低的质量级别下运行速度更快。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_ULTRA_PERFORMANCE" Language="zh_Hans_CN">
+      <Text>超高性能</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_ULTRA_PERFORMANCE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>提供最高的性能提升。仅推荐用于8K游戏。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_ENABLE_HDR" Language="zh_Hans_CN">
+      <Text>启用HDR</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_ENABLE_HDR_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>启用高动态范围显示（需要重新启动）。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FRAME_RATE_LIMIT" Language="zh_Hans_CN">
+      <Text>帧率限制</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FRAME_RATE_LIMIT_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>限制最大帧率</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR1_QUALITY_BALANCED" Language="zh_Hans_CN">
+      <Text>均衡</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR1_QUALITY_PERFORMANCE" Language="zh_Hans_CN">
+      <Text>性能</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR1_QUALITY_QUALITY" Language="zh_Hans_CN">
+      <Text>质量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR1_QUALITY_SETTING" Language="zh_Hans_CN">
+      <Text>AMD FSR1画质提升质量级别</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR1_QUALITY_SETTING_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>设置AMD FSR1的质量级别。在较高的质量级别下画质更佳，而在较低的质量级别下运行速度更快。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR1_QUALITY_ULTRA_QUALITY" Language="zh_Hans_CN">
+      <Text>超高质量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_BALANCED" Language="zh_Hans_CN">
+      <Text>均衡</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_BALANCED_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>均衡模式提供了图像质量和性能增益之间的理想折中。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_NATIVE" Language="zh_Hans_CN">
+      <Text>原生</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_NATIVE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>原生抗锯齿模式提供优于原生渲染的图像质量，性能开销适中。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_PERFORMANCE" Language="zh_Hans_CN">
+      <Text>性能</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_PERFORMANCE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>性能模式提供与原生渲染类似的图像质量，性能增益较大。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_QUALITY" Language="zh_Hans_CN">
+      <Text>质量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_QUALITY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>质量模式提供等于或优于原生渲染的图像质量，性能增益极大。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_SETTING" Language="zh_Hans_CN">
+      <Text>AMD FSR3质量级别</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_SETTING_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>设置AMD FSR3的质量级别。在较高的质量级别下画质更佳，而在较低的质量水平下运行速度更快。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_ULTRA_PERFORMANCE" Language="zh_Hans_CN">
+      <Text>超高性能</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_ULTRA_PERFORMANCE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>超高性能模式提供了最高的性能增益，同时仍保持了与原生渲染相同的图像质量。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_GENERAL_RESTRICTION" Language="zh_Hans_CN">
+      <Text>无法使用当前配置的图形选项进行设置。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_GPU_RESTRICTION" Language="zh_Hans_CN">
+      <Text>无法使用当前选定的GPU进行设置。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_GPU_SELECTION" Language="zh_Hans_CN">
+      <Text>GPU选择</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_GPU_SELECTION_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>选择用于渲染游戏的图形硬件（需要重新启动）。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_GRAPHICS_OPTIONS" Language="zh_Hans_CN">
+      <Text>图形选项</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_GRAPHICS_OPTIONS_RESTART" Language="zh_Hans_CN">
+      <Text>图形选项（需要重新启动）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_HDR_NOT_AVAILABLE" Language="zh_Hans_CN">
+      <Text>此设备不支持HDR功能。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_BALANCED" Language="zh_Hans_CN">
+      <Text>均衡</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_BALANCED_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>提供优化的性能和图像质量。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_PERFORMANCE" Language="zh_Hans_CN">
+      <Text>性能</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_PERFORMANCE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>提升整体游戏性能。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_QUALITY" Language="zh_Hans_CN">
+      <Text>质量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_QUALITY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>提供高质量视觉画质提升。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_SETTING" Language="zh_Hans_CN">
+      <Text>MetalFX Spatial画质提升质量级别</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_SETTING_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>设置MetalFX Spatial的质量级别。在较高的质量级别下画质更佳，而在较低的质量级别下运行速度更快。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_ULTRA_QUALITY" Language="zh_Hans_CN">
+      <Text>超高质量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_ULTRA_QUALITY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>提供极高质量视觉画质提升。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_BALANCED" Language="zh_Hans_CN">
+      <Text>均衡</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_BALANCED_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>提供优化的性能和图像质量。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_NATIVE" Language="zh_Hans_CN">
+      <Text>原生质量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_NATIVE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>提供最高质量的抗锯齿效果。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_PERFORMANCE" Language="zh_Hans_CN">
+      <Text>性能</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_PERFORMANCE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>提升整体游戏性能。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_QUALITY" Language="zh_Hans_CN">
+      <Text>质量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_QUALITY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>提供高质量视觉画质提升。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_SETTING" Language="zh_Hans_CN">
+      <Text>MetalFX Temporal画质提升质量级别</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_SETTING_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>设置MetalFX Temporal的质量级别。在较高的质量级别下画质更佳，而在较低的质量级别下运行速度更快。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_ULTRA_QUALITY" Language="zh_Hans_CN">
+      <Text>超高质量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_ULTRA_QUALITY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>提供极高质量视觉画质提升。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_MSAA_QUALITY" Language="zh_Hans_CN">
+      <Text>MSAA质量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_MSAA_QUALITY_1X" Language="zh_Hans_CN">
+      <Text>1x</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_MSAA_QUALITY_2X" Language="zh_Hans_CN">
+      <Text>2x</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_MSAA_QUALITY_4X" Language="zh_Hans_CN">
+      <Text>4x</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_MSAA_QUALITY_8X" Language="zh_Hans_CN">
+      <Text>8x</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_MSAA_QUALITY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>使边缘看起来更平滑。较高的采样数效果更好，而较低的采样数运行速度更快，使用的内存也较少。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_NOT_AVAILABLE_IN_GAME" Language="zh_Hans_CN">
+      <Text>此选项仅在主菜单中提供。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PARTICLE_QUALITY" Language="zh_Hans_CN">
+      <Text>粒子质量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PARTICLE_QUALITY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>选择粒子效果（如火焰和烟雾）的质量级别。设为高意味着粒子更多、运动细节更多，而设为低意味着粒子更少，且运行速度更快。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PARTICLE_QUALITY_HIGH" Language="zh_Hans_CN">
+      <Text>高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PARTICLE_QUALITY_LOW" Language="zh_Hans_CN">
+      <Text>低</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>启用前景中的点光源阴影。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_QUALITY" Language="zh_Hans_CN">
+      <Text>点光源阴影质量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_QUALITY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>选择前景中点光源的阴影质量。级别更高，则阴影细节更多；级别更低，则游戏速度更快，使用的内存更少。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_QUALITY_HIGH" Language="zh_Hans_CN">
+      <Text>高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_QUALITY_LOW" Language="zh_Hans_CN">
+      <Text>低</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_QUALITY_MEDIUM" Language="zh_Hans_CN">
+      <Text>中</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_QUALITY_OFF" Language="zh_Hans_CN">
+      <Text>关闭</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_QUALITY_ULTRA" Language="zh_Hans_CN">
+      <Text>超高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOWS" Language="zh_Hans_CN">
+      <Text>点光源阴影</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PROFILE" Language="zh_Hans_CN">
+      <Text>预期画面质量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PROFILE_BATTERY" Language="zh_Hans_CN">
+      <Text>电池</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PROFILE_CUSTOM" Language="zh_Hans_CN">
+      <Text>自定义</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PROFILE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>基于目标质量级别选择高级图形选项。建议不熟悉高级图形选项的用户使用这些预设选项。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PROFILE_HIGH" Language="zh_Hans_CN">
+      <Text>高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PROFILE_LOW" Language="zh_Hans_CN">
+      <Text>低</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PROFILE_MEDIUM" Language="zh_Hans_CN">
+      <Text>中</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PROFILE_QUALITY" Language="zh_Hans_CN">
+      <Text>质量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PROFILE_ULTRA" Language="zh_Hans_CN">
+      <Text>超高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_RESOLUTION" Language="zh_Hans_CN">
+      <Text>游戏分辨率</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_RESOLUTION_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>选择游戏的分辨率。在窗口模式下，这将决定窗口的大小；而在全屏模式下，游戏将被拉伸以填充整个屏幕。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_RESOLUTION_RESTRICTION" Language="zh_Hans_CN">
+      <Text>无法使用当前游戏分辨率进行设置。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_RESTART_WARNING" Language="zh_Hans_CN">
+      <Text>应用的某些变更需要重新启动应用程序才能生效。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SCREEN_MODE" Language="zh_Hans_CN">
+      <Text>屏幕模式</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SCREEN_MODE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>选择窗口或全屏显示。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SCREEN_MODE_FULLSCREEN" Language="zh_Hans_CN">
+      <Text>全屏</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SCREEN_MODE_RESTRICTION" Language="zh_Hans_CN">
+      <Text>无法使用当前屏幕模式进行设置。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SCREEN_MODE_WINDOWED" Language="zh_Hans_CN">
+      <Text>窗口</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SHADOW_QUALITY" Language="zh_Hans_CN">
+      <Text>阴影质量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SHADOW_QUALITY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>选择阴影质量。较高的级别提供更详细的阴影；而较低的级别速度更快，且使用更少的内存。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SHADOW_QUALITY_HIGH" Language="zh_Hans_CN">
+      <Text>高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SHADOW_QUALITY_LOW" Language="zh_Hans_CN">
+      <Text>低</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SHADOW_QUALITY_MEDIUM" Language="zh_Hans_CN">
+      <Text>中</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SHADOW_QUALITY_ULTRA" Language="zh_Hans_CN">
+      <Text>超高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SHARPENING" Language="zh_Hans_CN">
+      <Text>图像锐度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SHARPENING_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>设置图像所需的锐度级别。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SHOW_ADVANCED_GRAPHICS_OPTIONS" Language="zh_Hans_CN">
+      <Text>显示高级图形选项</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSAO_QUALITY" Language="zh_Hans_CN">
+      <Text>AMD FidelityFX环境光遮蔽</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSAO_QUALITY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>设置AMD FidelityFX环境光遮蔽的质量级别。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSAO_QUALITY_HIGH" Language="zh_Hans_CN">
+      <Text>高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSAO_QUALITY_LOW" Language="zh_Hans_CN">
+      <Text>低</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSAO_QUALITY_MEDIUM" Language="zh_Hans_CN">
+      <Text>中</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSAO_QUALITY_OFF" Language="zh_Hans_CN">
+      <Text>关闭</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSOVERLAY" Language="zh_Hans_CN">
+      <Text>屏幕空间覆层</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSOVERLAY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>启用屏幕空间覆层。增加3D覆层的细节，例如文化值和移动力的边界。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSR" Language="zh_Hans_CN">
+      <Text>AMD FidelityFX屏幕空间反射</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSR_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>在游戏中启用3D物体的反射。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSSHADOWS" Language="zh_Hans_CN">
+      <Text>屏幕空间阴影</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSSHADOWS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>启用屏幕空间阴影。这为阴影提供了额外的细节级别。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_TEXTURE_DETAIL" Language="zh_Hans_CN">
+      <Text>纹理细节</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_TEXTURE_DETAIL_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>选择纹理细节级别。较高级别在物体上拥有更多细节，而较低级别使用更少内存。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_TEXTURE_DETAIL_HIGH" Language="zh_Hans_CN">
+      <Text>高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_TEXTURE_DETAIL_LOW" Language="zh_Hans_CN">
+      <Text>低</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_TEXTURE_DETAIL_MEDIUM" Language="zh_Hans_CN">
+      <Text>中</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UNAVAILABLE" Language="zh_Hans_CN">
+      <Text>不可用</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA" Language="zh_Hans_CN">
+      <Text>画质提升/抗锯齿模式</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>选择画质提升和/或抗锯齿模式。画质提升允许以更低的分辨率进行3D渲染，以提高性能。抗锯齿能减少闪烁，产生更平滑的图像。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_DLSS" Language="zh_Hans_CN">
+      <Text>NVidia DLSS（抗锯齿和画质提升）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_DLSS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>启用NVidia DLSS</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_DLSS_DESCRIPTION_LONG" Language="zh_Hans_CN">
+      <Text>NVIDIA DLSS使用AI来提高帧率，同时保持优异的图像质量和响应速度。此功能需要GeForce RTX显卡。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_DLSS_DLAA_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>NVIDIA DLAA是一种基于AI的抗锯齿模式，用于提高图像质量。此功能需要GeForce RTX显卡。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_DLSS_SUPER_RESOLUTION_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>超分辨率将渲染更少像素并使用AI来输出高分辨率帧，以此提升帧率。此功能需要GeForce RTX显卡。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_FSR1" Language="zh_Hans_CN">
+      <Text>MSAA + AMD FidelityFX超分辨率1（抗锯齿和画质提升）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_FSR1_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>启用AMD FidelityFX超分辨率1和MSAA</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_FSR3" Language="zh_Hans_CN">
+      <Text>AMD FidelityFX超分辨率3（抗锯齿和画质提升）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_FSR3_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>启用AMD FidelityFX超分辨率3</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_FSR3_DESCRIPTION_LONG" Language="zh_Hans_CN">
+      <Text>AMD FidelityFX超分辨率3使用高质量图像画质提升，在快速帧率下生成高分辨率帧。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_METALFX_SPATIAL" Language="zh_Hans_CN">
+      <Text>MSAA + MetalFX空间降噪</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_METALFX_SPATIAL_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>启用MSAA + MetalFX空间降噪</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_METALFX_TEMPORAL" Language="zh_Hans_CN">
+      <Text>MetalFX时间降噪</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_METALFX_TEMPORAL_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>启用MetalFX时间降噪</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_MSAA" Language="zh_Hans_CN">
+      <Text>MSAA（抗锯齿）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_MSAA_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>启用多重采样抗锯齿</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_XESS" Language="zh_Hans_CN">
+      <Text>Intel XeSS（抗锯齿和画质提升）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_XESS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>启用Intel XeSS</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_XESS_DESCRIPTION_MINIMUM" Language="zh_Hans_CN">
+      <Text>Intel Xe超级采样（XeSS）技术借助机器学习，提供更高性能和卓越图像质量。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_XESS_DESCRIPTION_SHORT" Language="zh_Hans_CN">
+      <Text>Intel Xe超级采样（XeSS）技术借助机器学习，提供更高性能和卓越图像质量。硬件加速XeSS针对基于Xe-HPG微架构的GPU进行了优化。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_VSYNC" Language="zh_Hans_CN">
+      <Text>启用垂直同步</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_VSYNC_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>启用垂直同步以避免屏幕撕裂。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_WATER_QUALITY" Language="zh_Hans_CN">
+      <Text>水质量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_WATER_QUALITY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>选择水渲染质量。设置为“高”将拥有更多波纹并实现折射，而设置为“低”运行速度更快。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_WATER_QUALITY_HIGH" Language="zh_Hans_CN">
+      <Text>高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_WATER_QUALITY_LOW" Language="zh_Hans_CN">
+      <Text>低</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XEFG" Language="zh_Hans_CN">
+      <Text>Intel XeSS画面帧生成</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XEFG_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>将AI生成的画面帧插入现有的图形输出，以显著提高每秒帧率（FPS）并增强性能。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XELL" Language="zh_Hans_CN">
+      <Text>Intel Xe低延迟</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XELL_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>减少迟滞和输入延迟</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XELL_FRAME_RATE" Language="zh_Hans_CN">
+      <Text>Intel Xe低延迟帧率控制</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XELL_FRAME_RATE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>限制最大帧率</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XELL_FRAME_RATE_UNLIMITED" Language="zh_Hans_CN">
+      <Text>无限制</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_BALANCED" Language="zh_Hans_CN">
+      <Text>均衡</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_BALANCED_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>提供优化的性能和图像质量。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_NATIVE" Language="zh_Hans_CN">
+      <Text>原生</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_NATIVE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>提供最高质量的抗锯齿效果。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_PERFORMANCE" Language="zh_Hans_CN">
+      <Text>性能</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_PERFORMANCE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>提升整体游戏性能。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_QUALITY" Language="zh_Hans_CN">
+      <Text>质量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_QUALITY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>提供高质量视觉画质提升。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_SETTING" Language="zh_Hans_CN">
+      <Text>Intel XeSS质量级别</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_SETTING_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>设置Intel XeSS的质量级别。在较高的质量级别下画质更佳，而在较低的质量级别下运行速度更快。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_ULTRA_PERFORMANCE" Language="zh_Hans_CN">
+      <Text>超高性能</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_ULTRA_PERFORMANCE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>最大提升整体游戏性能。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_ULTRA_QUALITY" Language="zh_Hans_CN">
+      <Text>超高质量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_ULTRA_QUALITY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>提供极高质量视觉画质提升。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_ULTRA_QUALITY_PLUS" Language="zh_Hans_CN">
+      <Text>超高质量+</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_ULTRA_QUALITY_PLUS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>提供最高质量视觉画质提升。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_ADVANCED" Language="zh_Hans_CN">
+      <Text>高级</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_ADVISORS" Language="zh_Hans_CN">
+      <Text>顾问</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_AUTOSAVES" Language="zh_Hans_CN">
+      <Text>自动保存</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_CAMERA" Language="zh_Hans_CN">
+      <Text>摄像机</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_CONTROLS" Language="zh_Hans_CN">
+      <Text>控制</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_GAMEPAD" Language="zh_Hans_CN">
+      <Text>控制器</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_GENERAL" Language="zh_Hans_CN">
+      <Text>常规</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_SUBTITLES" Language="zh_Hans_CN">
+      <Text>字幕</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_TIMEOFDAY" Language="zh_Hans_CN">
+      <Text>时间</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_TOUCH" Language="zh_Hans_CN">
+      <Text>触控</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_TUTORIAL" Language="zh_Hans_CN">
+      <Text>教程</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_VOLUME" Language="zh_Hans_CN">
+      <Text>音量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_WIRELESS_CONTROLLER" Language="zh_Hans_CN">
+      <Text>无线控制器</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HDR_3D_BRIGHTNESS" Language="zh_Hans_CN">
+      <Text>3D亮度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HDR_CONFIRM" Language="zh_Hans_CN">
+      <Text>确认变更</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HDR_CONSTRAST" Language="zh_Hans_CN">
+      <Text>对比度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HDR_DISCARD" Language="zh_Hans_CN">
+      <Text>放弃变更</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HDR_EMBLEM_VISIBILITY" Language="zh_Hans_CN">
+      <Text>将设置调整为顶部标志不可见，中间方块隐约可见。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HDR_UI_BRIGHTNESS" Language="zh_Hans_CN">
+      <Text>UI亮度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HELP_TYPES" Language="zh_Hans_CN">
+      <Text>显示帮助</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HELP_TYPES_0" Language="zh_Hans_CN">
+      <Text>无</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HELP_TYPES_1" Language="zh_Hans_CN">
+      <Text>仅警告</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HELP_TYPES_2" Language="zh_Hans_CN">
+      <Text>所有帮助</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HELP_TYPES_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>在游戏进程中显示哪些类型的帮助。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_INPUT_DEVICE" Language="zh_Hans_CN">
+      <Text>输入设备</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_INPUT_DEVICE_AUTO" Language="zh_Hans_CN">
+      <Text>自动切换</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_INPUT_DEVICE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>支持哪些输入设备。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_INPUT_DEVICE_GAMEPAD" Language="zh_Hans_CN">
+      <Text>游戏控制器</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_INPUT_DEVICE_KBM" Language="zh_Hans_CN">
+      <Text>键盘和鼠标</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_INPUT_DEVICE_TOUCH" Language="zh_Hans_CN">
+      <Text>触控</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_INSTRUCTIONS" Language="zh_Hans_CN">
+      <Text>显示说明</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_INSTRUCTIONS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>在游戏开始时显示新手玩家说明。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_BACKSPACE" Language="zh_Hans_CN">
+      <Text>Backspace键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_CANCEL" Language="zh_Hans_CN">
+      <Text>取消</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_CAPSLOCK" Language="zh_Hans_CN">
+      <Text>Caps Lock键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_DELETE" Language="zh_Hans_CN">
+      <Text>删除</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_END" Language="zh_Hans_CN">
+      <Text>End键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_HOME" Language="zh_Hans_CN">
+      <Text>Home键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_INSERT" Language="zh_Hans_CN">
+      <Text>Insert键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_LALT" Language="zh_Hans_CN">
+      <Text>左Alt键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_LCONTROL" Language="zh_Hans_CN">
+      <Text>左Ctrl键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_LSHIFT" Language="zh_Hans_CN">
+      <Text>左Shift键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_0" Language="zh_Hans_CN">
+      <Text>0（数字键盘）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_1" Language="zh_Hans_CN">
+      <Text>1（数字键盘）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_2" Language="zh_Hans_CN">
+      <Text>2（数字键盘）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_3" Language="zh_Hans_CN">
+      <Text>3（数字键盘）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_4" Language="zh_Hans_CN">
+      <Text>4（数字键盘）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_5" Language="zh_Hans_CN">
+      <Text>5（数字键盘）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_6" Language="zh_Hans_CN">
+      <Text>6（数字键盘）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_7" Language="zh_Hans_CN">
+      <Text>7（数字键盘）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_8" Language="zh_Hans_CN">
+      <Text>8（数字键盘）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_9" Language="zh_Hans_CN">
+      <Text>9（数字键盘）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_CENTER" Language="zh_Hans_CN">
+      <Text>中心键（数字键盘）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_DECIMAL" Language="zh_Hans_CN">
+      <Text>.（数字键盘）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_DIVIDE" Language="zh_Hans_CN">
+      <Text>/（数字键盘）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_MINUS" Language="zh_Hans_CN">
+      <Text>-（数字键盘）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_MULTIPLY" Language="zh_Hans_CN">
+      <Text>*（数字键盘）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_PLUS" Language="zh_Hans_CN">
+      <Text>+（数字键盘）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NUMLOCK" Language="zh_Hans_CN">
+      <Text>数字锁定键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_PAGEDOWN" Language="zh_Hans_CN">
+      <Text>Page Down键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_PAGEUP" Language="zh_Hans_CN">
+      <Text>Page Up键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_PAUSE" Language="zh_Hans_CN">
+      <Text>暂停</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_PRINTSCREEN" Language="zh_Hans_CN">
+      <Text>Print Screen键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_RALT" Language="zh_Hans_CN">
+      <Text>右Alt键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_RCONTROL" Language="zh_Hans_CN">
+      <Text>右Control键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_RSHIFT" Language="zh_Hans_CN">
+      <Text>右Shift键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_SCROLLLOCK" Language="zh_Hans_CN">
+      <Text>Scroll Lock键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_SPACE" Language="zh_Hans_CN">
+      <Text>Space键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_TAB" Language="zh_Hans_CN">
+      <Text>Tab键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_LANGUAGE" Language="zh_Hans_CN">
+      <Text>语言</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_LANGUAGE_AUDIO" Language="zh_Hans_CN">
+      <Text>语音：</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_LANGUAGE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>选择用于音频和文本的语言。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_LANGUAGE_DISPLAY" Language="zh_Hans_CN">
+      <Text>显示：</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_LANGUAGE_TEXT" Language="zh_Hans_CN">
+      <Text>变更语言</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_LOCK_MOUSE" Language="zh_Hans_CN">
+      <Text>将鼠标锁定到窗口</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_LOCK_MOUSE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>将鼠标保持在游戏窗口区域内。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MINIMAP_SIZE" Language="zh_Hans_CN">
+      <Text>小地图尺寸</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MINIMAP_SIZE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>你希望抬头显示中显示多大尺寸的小地图？</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MINIMAP_SIZE_LARGE" Language="zh_Hans_CN">
+      <Text>大</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MINIMAP_SIZE_MEDIUM" Language="zh_Hans_CN">
+      <Text>中</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MINIMAP_SIZE_SMALL" Language="zh_Hans_CN">
+      <Text>小</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MISC_EXTREME" Language="zh_Hans_CN">
+      <Text>超大</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MISC_HIGH" Language="zh_Hans_CN">
+      <Text>高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MISC_LOW" Language="zh_Hans_CN">
+      <Text>低</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MISC_MEDIUM" Language="zh_Hans_CN">
+      <Text>中</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MISC_NONE" Language="zh_Hans_CN">
+      <Text>无</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MISC_OFF" Language="zh_Hans_CN">
+      <Text>关闭</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MISC_VERY_HIGH" Language="zh_Hans_CN">
+      <Text>极高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MISC_VERY_LOW" Language="zh_Hans_CN">
+      <Text>极低</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MOUSE_L" Language="zh_Hans_CN">
+      <Text>鼠标左键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MOUSE_M" Language="zh_Hans_CN">
+      <Text>鼠标中键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MOUSE_R" Language="zh_Hans_CN">
+      <Text>鼠标右键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MOUSE_WHEEL_DOWN" Language="zh_Hans_CN">
+      <Text>鼠标滚轮上滚</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MOUSE_WHEEL_SPEED" Language="zh_Hans_CN">
+      <Text>鼠标滚轮速度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MOUSE_WHEEL_SPEED_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>设置鼠标滚轮的速度。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MOUSE_WHEEL_UP" Language="zh_Hans_CN">
+      <Text>鼠标滚轮下滚</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MOUSE_X1" Language="zh_Hans_CN">
+      <Text>鼠标X1</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MOUSE_X2" Language="zh_Hans_CN">
+      <Text>鼠标X2</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_NARRATE_CHAT" Language="zh_Hans_CN">
+      <Text>朗读聊天消息</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_NARRATE_CHAT_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>在收到多人联机聊天消息时进行自动朗读。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_NARRATE_HOVER" Language="zh_Hans_CN">
+      <Text>悬停时朗读</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_NARRATE_HOVER_DELAY" Language="zh_Hans_CN">
+      <Text>悬停迟滞时讲述</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_NARRATE_HOVER_DELAY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>开始讲述悬停文字之前的迟滞时间量（毫秒）。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_NARRATE_HOVER_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>鼠标悬停时自动朗读光标下方的文字。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_NO" Language="zh_Hans_CN">
+      <Text>否</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_NONE_IN_CATEGORY" Language="zh_Hans_CN">
+      <Text>类别中未填入选项。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_NOTIFICATION_CAMERA_PAN" Language="zh_Hans_CN">
+      <Text>自动移动到通知</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_NOTIFICATION_CAMERA_PAN_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>自动将摄像机移动到结束回合前必须处理的通知。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_A" Language="zh_Hans_CN">
+      <Text>A</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_A_NX" Language="zh_Hans_CN">
+      <Text>A</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_A_PS" Language="zh_Hans_CN">
+      <Text>X</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_B" Language="zh_Hans_CN">
+      <Text>B</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_B_NX" Language="zh_Hans_CN">
+      <Text>B</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_B_PS" Language="zh_Hans_CN">
+      <Text>圆圈键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_BACK" Language="zh_Hans_CN">
+      <Text>"视图"按钮</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_BACK_NX" Language="zh_Hans_CN">
+      <Text>-键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_BACK_PS" Language="zh_Hans_CN">
+      <Text>触摸板</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_DOWN" Language="zh_Hans_CN">
+      <Text>方向键下</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_DOWN_NX" Language="zh_Hans_CN">
+      <Text>下键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_DOWN_PS" Language="zh_Hans_CN">
+      <Text>下方向键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_LEFT" Language="zh_Hans_CN">
+      <Text>方向键左</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_LEFT_NX" Language="zh_Hans_CN">
+      <Text>左键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_LEFT_PS" Language="zh_Hans_CN">
+      <Text>左方向键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_RIGHT" Language="zh_Hans_CN">
+      <Text>方向键右</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_RIGHT_NX" Language="zh_Hans_CN">
+      <Text>右键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_RIGHT_PS" Language="zh_Hans_CN">
+      <Text>右方向键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_UP" Language="zh_Hans_CN">
+      <Text>方向键上</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_UP_NX" Language="zh_Hans_CN">
+      <Text>上键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_UP_PS" Language="zh_Hans_CN">
+      <Text>上方向键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LSHOULDER" Language="zh_Hans_CN">
+      <Text>左缓冲键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LSHOULDER_NX" Language="zh_Hans_CN">
+      <Text>L键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LSHOULDER_PS" Language="zh_Hans_CN">
+      <Text>L1键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LTHUMB_AXIS" Language="zh_Hans_CN">
+      <Text>左摇杆</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LTHUMB_AXIS_NX" Language="zh_Hans_CN">
+      <Text>L摇杆</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LTHUMB_AXIS_PS" Language="zh_Hans_CN">
+      <Text>左操作杆</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LTHUMB_PRESS" Language="zh_Hans_CN">
+      <Text>按下左摇杆</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LTHUMB_PRESS_NX" Language="zh_Hans_CN">
+      <Text>L摇杆键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LTHUMB_PRESS_PS" Language="zh_Hans_CN">
+      <Text>L3键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LTRIGGER" Language="zh_Hans_CN">
+      <Text>左扳机键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LTRIGGER_NX" Language="zh_Hans_CN">
+      <Text>ZL键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LTRIGGER_PS" Language="zh_Hans_CN">
+      <Text>L2键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RSHOULDER" Language="zh_Hans_CN">
+      <Text>右缓冲键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RSHOULDER_NX" Language="zh_Hans_CN">
+      <Text>R键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RSHOULDER_PS" Language="zh_Hans_CN">
+      <Text>R1键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RTHUMB_AXIS" Language="zh_Hans_CN">
+      <Text>右摇杆</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RTHUMB_AXIS_NX" Language="zh_Hans_CN">
+      <Text>R摇杆</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RTHUMB_AXIS_PS" Language="zh_Hans_CN">
+      <Text>右操作杆</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RTHUMB_PRESS" Language="zh_Hans_CN">
+      <Text>按下右摇杆</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RTHUMB_PRESS_NX" Language="zh_Hans_CN">
+      <Text>R摇杆键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RTHUMB_PRESS_PS" Language="zh_Hans_CN">
+      <Text>R3键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RTRIGGER" Language="zh_Hans_CN">
+      <Text>右扳机键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RTRIGGER_NX" Language="zh_Hans_CN">
+      <Text>ZR键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RTRIGGER_PS" Language="zh_Hans_CN">
+      <Text>R2键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_SHARE" Language="zh_Hans_CN">
+      <Text>SHARE键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_START" Language="zh_Hans_CN">
+      <Text>"菜单"按钮</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_START_NX" Language="zh_Hans_CN">
+      <Text>+键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_START_PS" Language="zh_Hans_CN">
+      <Text>选项键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_X" Language="zh_Hans_CN">
+      <Text>X</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_X_NX" Language="zh_Hans_CN">
+      <Text>X</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_X_PS" Language="zh_Hans_CN">
+      <Text>正方键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_Y" Language="zh_Hans_CN">
+      <Text>Y</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_Y_NX" Language="zh_Hans_CN">
+      <Text>Y</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_Y_PS" Language="zh_Hans_CN">
+      <Text>三角键</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PLOT_TOOLTIP_DELAY" Language="zh_Hans_CN">
+      <Text>世界提示文本延迟</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PLOT_TOOLTIP_DELAY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>在世界地块上显示提示文本之前的等待时间。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PRODUCTIONPANEL_STAYSOPEN" Language="zh_Hans_CN">
+      <Text>生产面板保持打开</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PRODUCTIONPANEL_STAYSOPEN_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>放置待建造的建筑后将返回生产面板。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PROMOTIONS" Language="zh_Hans_CN">
+      <Text>显示推广内容</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PROMOTIONS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>显示来自《文明》团队的推广内容。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_QUICK_COMBAT" Language="zh_Hans_CN">
+      <Text>快速战斗</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_QUICK_COMBAT_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>开关使用快速动画来解决战斗。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_QUICK_MOVEMENT" Language="zh_Hans_CN">
+      <Text>快速移动</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_QUICK_MOVEMENT_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>开关单位在地块上的快速移动。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RELOAD_WARN_ABANDON_CHANGES" Language="zh_Hans_CN">
+      <Text>放弃变更</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RELOAD_WARN_BODY" Language="zh_Hans_CN">
+      <Text>一个或多个选项的变更将导致游戏短暂重新加载，以显示变更。你不会失去当前所在位置，但可能需要重新开始正在进行的所有操作。是否继续？</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RELOAD_WARN_CONTINUE" Language="zh_Hans_CN">
+      <Text>继续</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RELOAD_WARN_TITLE" Language="zh_Hans_CN">
+      <Text>重新加载？</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_REMAP_CONTROLLER" Language="zh_Hans_CN">
+      <Text>控制</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_REMAP_CONTROLLER_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>自定义操作配置。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_REMAP_CONTROLLER_TEXT" Language="zh_Hans_CN">
+      <Text>配置</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_REMAP_KBM" Language="zh_Hans_CN">
+      <Text>键盘+鼠标</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_REMAP_KBM_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>配置键盘和鼠标控制。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_REMAP_KBM_TEXT" Language="zh_Hans_CN">
+      <Text>配置</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_REPLACE_HOLD_TO_DRAG" Language="zh_Hans_CN">
+      <Text>用点击替换可拖动</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_REPLACE_HOLD_TO_DRAG_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>将拖放功能替换为点击、拖动和放置分离式操作。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RESET_TO_DEFAULTS" Language="zh_Hans_CN">
+      <Text>重设</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RESTART_BODY" Language="zh_Hans_CN">
+      <Text>一个或多个选项变更将在游戏重新启动后才会生效。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RESTART_TITLE" Language="zh_Hans_CN">
+      <Text>需要重新启动</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_REVERT" Language="zh_Hans_CN">
+      <Text>恢复</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_REVERT_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>确定要恢复进行的所有变更？</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RIBBON_DEFAULT_DISPLAY" Language="zh_Hans_CN">
+      <Text>默认显示产量条带</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RIBBON_DISPLAY" Language="zh_Hans_CN">
+      <Text>始终显示产量条带</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RIBBON_DISPLAY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>始终在抬头显示栏中显示玩家产量。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RUMBLE" Language="zh_Hans_CN">
+      <Text>控制器振动</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RUMBLE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>启用或禁用控制器的振动功能。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RUMBLE_FEATURE" Language="zh_Hans_CN">
+      <Text>震动功能</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RUMBLE_FEATURE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>震动功能——启用或禁用震动功能。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCALE_UI" Language="zh_Hans_CN">
+      <Text>缩放用户界面</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCALE_UI_1" Language="zh_Hans_CN">
+      <Text>1x</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCALE_UI_2" Language="zh_Hans_CN">
+      <Text>2x</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCALE_UI_4" Language="zh_Hans_CN">
+      <Text>4x</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCALE_UI_AUTO" Language="zh_Hans_CN">
+      <Text>自动</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCALE_UI_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>放大整个用户界面。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCREEN_SIZE" Language="zh_Hans_CN">
+      <Text>屏幕尺寸</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCREEN_SIZE_ADJUST_HORIZONTALLY" Language="zh_Hans_CN">
+      <Text>水平调整屏幕</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCREEN_SIZE_ADJUST_VERTICALLY" Language="zh_Hans_CN">
+      <Text>垂直调整屏幕</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCREEN_SIZE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>配置在屏幕上绘制的安全区。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCREEN_SIZE_INSTRUCTIONS_1" Language="zh_Hans_CN">
+      <Text>设置安全区的屏幕尺寸。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCREEN_SIZE_INSTRUCTIONS_2" Language="zh_Hans_CN">
+      <Text>确保轮廓可见。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCREEN_SIZE_INSTRUCTIONS_3" Language="zh_Hans_CN">
+      <Text>线条中的所有内容将显示在游戏进程中。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCREEN_SIZE_TEXT" Language="zh_Hans_CN">
+      <Text>配置</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SEARCH" Language="zh_Hans_CN">
+      <Text>搜索</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SHOW_INTRO_VIDEO" Language="zh_Hans_CN">
+      <Text>播放开场动画</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SHOW_INTRO_VIDEO_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>启动时播放开场动画。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SHOW_UNOWNED_CONTENT" Language="zh_Hans_CN">
+      <Text>显示未拥有的领袖和文明</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SHOW_UNOWNED_CONTENT_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>显示未拥有的领袖和文明</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES" Language="zh_Hans_CN">
+      <Text>显示字幕</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_BACKGROUND_OPACITY" Language="zh_Hans_CN">
+      <Text>背景透明度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_BACKGROUND_OPACITY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>选择字幕文本背景的透明度。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>在有声过场动画片段中显示字幕。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_TEXT_BORDER" Language="zh_Hans_CN">
+      <Text>文本边框</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_TEXT_BORDER_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>字幕文本周围的边框的粗细度。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_TEXT_COLOR" Language="zh_Hans_CN">
+      <Text>文本颜色</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_TEXT_COLOR_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>字幕文本使用什么颜色。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_TEXT_SIZE" Language="zh_Hans_CN">
+      <Text>文本大小</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_TEXT_SIZE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>字幕文本的大小。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_TEXT_SIZE_LARGE" Language="zh_Hans_CN">
+      <Text>大</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_TEXT_SIZE_MEDIUM" Language="zh_Hans_CN">
+      <Text>中</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_TEXT_SIZE_SMALL" Language="zh_Hans_CN">
+      <Text>小</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SYMBOL_INFINITY" Language="zh_Hans_CN">
+      <Text>无限</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TEXT_SCROLLING_SPEED" Language="zh_Hans_CN">
+      <Text>文本滚动速度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TEXT_SCROLLING_SPEED_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>自动滚动文本的速度。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TEXT_TO_SPEECH" Language="zh_Hans_CN">
+      <Text>文字转语音</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TOOLTIP_DELAY" Language="zh_Hans_CN">
+      <Text>提示文本延迟</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TOOLTIP_DELAY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>在用户界面中显示提示文本之前的等待时间。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TOUCH_INPUT_ENABLE" Language="zh_Hans_CN">
+      <Text>已启用触控输入</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TOUCH_INPUT_ENABLE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>是否在游戏中启用触控输入。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TOUCH_INPUT_NOT_AVAILABLE" Language="zh_Hans_CN">
+      <Text>未配置此设备接受触控输入。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TOUCH_INPUT_TOOLTIP_DELAY" Language="zh_Hans_CN">
+      <Text>触控提示文本延迟</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TOUCH_INPUT_TOOLTIP_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>影响使用触控时提示文本的延迟。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TUNER" Language="zh_Hans_CN">
+      <Text>调节器（禁用成就）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TUNER_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>开启模组调节器。这将禁用成就。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TUTORIALLEVEL" Language="zh_Hans_CN">
+      <Text>教程等级</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TUTORIALLEVEL_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>进行游戏时你希望得到的教程信息详细程度。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_AUTO_SCALE" Language="zh_Hans_CN">
+      <Text>启用高分辨率UI缩放</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_AUTO_SCALE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>在高显示分辨率下放大用户界面的尺寸。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_EXPERIENCE" Language="zh_Hans_CN">
+      <Text>视觉体验</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_EXPERIENCE_CONSOLE" Language="zh_Hans_CN">
+      <Text>电视机</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_EXPERIENCE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>根据你用于游戏显示的设备来优化视觉体验。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_EXPERIENCE_DESKTOP" Language="zh_Hans_CN">
+      <Text>台式电脑或笔记本电脑</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_EXPERIENCE_HANDHELD" Language="zh_Hans_CN">
+      <Text>手持设备</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_GLOBAL_SCALE" Language="zh_Hans_CN">
+      <Text>UI缩放</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_GLOBAL_SCALE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>调整用户界面元素的大小。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_HDR" Language="zh_Hans_CN">
+      <Text>校准UI亮度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_HDR_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>本文本界面将作为样本，为你展示游戏中UI界面的预览。请将其作为参考，评判UI亮度等级对界面显示效果的影响。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_SCALE" Language="zh_Hans_CN">
+      <Text>字体比例</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_SCALE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>选择文本将显示的大小。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_SCALE_EXTRA_LARGE" Language="zh_Hans_CN">
+      <Text>特大</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_SCALE_EXTRA_SMALL" Language="zh_Hans_CN">
+      <Text>特小</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_SCALE_LARGE" Language="zh_Hans_CN">
+      <Text>大</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_SCALE_MEDIUM" Language="zh_Hans_CN">
+      <Text>中</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_SCALE_SMALL" Language="zh_Hans_CN">
+      <Text>小</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UNITCYCLE_REMAININGMOVES" Language="zh_Hans_CN">
+      <Text>循环显示仍有移动力的单位</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UNITCYCLE_REMAININGMOVES_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>在结束回合的所有其他必需操作均已完成后，循环显示仍有剩余移动力的单位。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_USE_NARRATOR" Language="zh_Hans_CN">
+      <Text>使用Windows讲述人</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_USE_NARRATOR_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>使用系统内置的Windows讲述人朗读文本。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_USE_RGB" Language="zh_Hans_CN">
+      <Text>使用RGB光照</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_USE_RGB_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>使用与游戏兼容的第三方RGB光照。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_USE_SCREEN_READER" Language="zh_Hans_CN">
+      <Text>使用屏幕阅读器</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_USE_SCREEN_READER_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>使用第三方屏幕阅读器朗读文本。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_VIBRATION" Language="zh_Hans_CN">
+      <Text>震动</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_VIBRATION_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>震动——启用或禁用震动功能。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_WARN_MOD" Language="zh_Hans_CN">
+      <Text>模组兼容性警告</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_WARN_MOD_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>加载模组时发出兼容性问题警告。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_YES" Language="zh_Hans_CN">
+      <Text>是</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ZOOM_SPEED" Language="zh_Hans_CN">
+      <Text>缩放速度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ZOOM_SPEED_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>摄像机缩放的速度。</Text>
+    </Replace>
+    <Replace Tag="LOC_PANEL_X_CLOSE" Language="zh_Hans_CN">
+      <Text>关闭此项</Text>
+    </Replace>
+    <Replace Tag="LOC_PANEL_X_MINIMIZE" Language="zh_Hans_CN">
+      <Text>最小化/最大化</Text>
+    </Replace>
+    <Replace Tag="LOC_PLATFORM_ICON_EOS" Language="zh_Hans_CN">
+      <Text>Epic Games商店</Text>
+    </Replace>
+    <Replace Tag="LOC_PLATFORM_ICON_GAMECENTER" Language="zh_Hans_CN">
+      <Text>Nintendo Switch</Text>
+    </Replace>
+    <Replace Tag="LOC_PLATFORM_ICON_GENERIC_CROSSPLAY" Language="zh_Hans_CN">
+      <Text>跨平台游戏平台</Text>
+    </Replace>
+    <Replace Tag="LOC_PLATFORM_ICON_NX" Language="zh_Hans_CN">
+      <Text>Nintendo Switch</Text>
+    </Replace>
+    <Replace Tag="LOC_PLATFORM_ICON_PLAYSTATION" Language="zh_Hans_CN">
+      <Text>PlayStation</Text>
+    </Replace>
+    <Replace Tag="LOC_PLATFORM_ICON_STEAM" Language="zh_Hans_CN">
+      <Text>Steam</Text>
+    </Replace>
+    <Replace Tag="LOC_PLATFORM_ICON_T2GP" Language="zh_Hans_CN">
+      <Text>Take-Two</Text>
+    </Replace>
+    <Replace Tag="LOC_PLATFORM_ICON_XBOX" Language="zh_Hans_CN">
+      <Text>Xbox</Text>
+    </Replace>
+    <Replace Tag="LOC_PLOT_MOVE" Language="zh_Hans_CN">
+      <Text>浏览</Text>
+    </Replace>
+    <Replace Tag="LOC_PLOT_MOVE_HELP" Language="zh_Hans_CN">
+      <Text>在地图上移动格位高亮显示</Text>
+    </Replace>
+    <Replace Tag="LOC_PREVIOUS_SELECT" Language="zh_Hans_CN">
+      <Text>之前选择</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_ALL_EVENTS" Language="zh_Hans_CN">
+      <Text>所有活动</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_CHALLENGE_CLASS_EVENT" Language="zh_Hans_CN">
+      <Text>活动</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_CHALLENGE_CLASS_FOUNDATION" Language="zh_Hans_CN">
+      <Text>基础</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_CHALLENGE_CLASS_LEADER" Language="zh_Hans_CN">
+      <Text>领袖</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_CHALLENGE_COMPLETION_TOTAL" Language="zh_Hans_CN">
+      <Text>全部</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_CHALLENGE_HELP" Language="zh_Hans_CN">
+      <Text>跳至排序类型</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_CHALLENGE_RETURN" Language="zh_Hans_CN">
+      <Text>跳转到挑战</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_COMPLETION" Language="zh_Hans_CN">
+      <Text>完成</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_CURRENT_XP_TEXT" Language="zh_Hans_CN">
+      <Text>当前经验值</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_EQUIPPED" Language="zh_Hans_CN">
+      <Text>已装备</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_GAME" Language="zh_Hans_CN">
+      <Text>游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_GENERIC_TURNS" Language="zh_Hans_CN">
+      <Text>回合</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_HOF_DIFFICULTY_ALL" Language="zh_Hans_CN">
+      <Text>所有</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_HOF_DIFFICULTY_HELP" Language="zh_Hans_CN">
+      <Text>跳至难度过滤器</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_HOF_SPEED_HELP" Language="zh_Hans_CN">
+      <Text>跳至游戏速度过滤器</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_LEGEND_PROGRESS" Language="zh_Hans_CN">
+      <Text>传奇进度</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_LOCKED" Language="zh_Hans_CN">
+      <Text>锁定</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_MARK_AS_SEEN" Language="zh_Hans_CN">
+      <Text>全部标记为已查看</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_NEXT_LEVEL_XP_TEXT" Language="zh_Hans_CN">
+      <Text>下个等级经验值</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_NEXT_QUEST" Language="zh_Hans_CN">
+      <Text>下个挑战：</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_PROGRESS_BODY_CONFLICT_RESOLUTION" Language="zh_Hans_CN">
+      <Text>你的本地游戏进度与2K帐号的绑定相冲突。你需要选择一个版本才能继续。请选择你希望保留的游戏进度，以同步到此设备和你的2K帐号。</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_PROGRESS_BODY_CONSOLE_CONFLICT_RESOLUTION" Language="zh_Hans_CN">
+      <Text>你的本地游戏进度与2K帐号的绑定相冲突。你需要选择一个版本才能继续。请选择你希望保留的游戏进度，以同步到此主机和你的2K帐号。</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_PROGRESS_CHOICE_1_CONFLICT_RESOLUTION" Language="zh_Hans_CN">
+      <Text>本地游戏进度</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_PROGRESS_CHOICE_2_CONFLICT_RESOLUTION" Language="zh_Hans_CN">
+      <Text>2K绑定游戏进度</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_PROGRESS_COMING_SOON" Language="zh_Hans_CN">
+      <Text>即将推出……</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_PROGRESS_TITLE_CONFLICT_RESOLUTION" Language="zh_Hans_CN">
+      <Text>2K绑定帐号游戏进度冲突</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SAMPLE_BADGE_DATE" Language="zh_Hans_CN">
+      <Text>已完成11/23/29</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SAMPLE_BADGE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>已完成自然奇观活动</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SAMPLE_BADGE_NAME" Language="zh_Hans_CN">
+      <Text>美妙时日</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SAMPLE_BANNER_NAME" Language="zh_Hans_CN">
+      <Text>战争大师</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SAMPLE_TITLE_DATE" Language="zh_Hans_CN">
+      <Text>已完成11/25/29</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SAMPLE_TITLE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>在万圣节活动期间获得胜利。这是一款发行于2013年的Firaxis游戏。</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SAMPLE_TITLE_NAME" Language="zh_Hans_CN">
+      <Text>鬼影重重</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SELECT_BADGE" Language="zh_Hans_CN">
+      <Text>选择徽章</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SELECT_BANNER" Language="zh_Hans_CN">
+      <Text>选择背景</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SELECT_BORDER" Language="zh_Hans_CN">
+      <Text>选择边框</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SELECT_COLOR" Language="zh_Hans_CN">
+      <Text>选择颜色</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SELECT_TITLE" Language="zh_Hans_CN">
+      <Text>选择头衔</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_BADGES" Language="zh_Hans_CN">
+      <Text>徽章</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_BANNERS" Language="zh_Hans_CN">
+      <Text>背景</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_BORDERS" Language="zh_Hans_CN">
+      <Text>边框</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_CHALLENGES" Language="zh_Hans_CN">
+      <Text>挑战</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_CIVILIZATIONS" Language="zh_Hans_CN">
+      <Text>文明</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_COLORS" Language="zh_Hans_CN">
+      <Text>颜色</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_CUSTOMIZE" Language="zh_Hans_CN">
+      <Text>自定义</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_HALL_OF_FAME" Language="zh_Hans_CN">
+      <Text>名人堂</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_HISTORY" Language="zh_Hans_CN">
+      <Text>历史</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_LEADERBOARDS" Language="zh_Hans_CN">
+      <Text>排行榜</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_LEADERS" Language="zh_Hans_CN">
+      <Text>领袖</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_OVERVIEW" Language="zh_Hans_CN">
+      <Text>概览</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_PROGRESS" Language="zh_Hans_CN">
+      <Text>进度</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_TITLES" Language="zh_Hans_CN">
+      <Text>头衔</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_AMINA" Language="zh_Hans_CN">
+      <Text>战士女王</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_ASHOKA_RENOUNCER" Language="zh_Hans_CN">
+      <Text>舍世者</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_AUGUSTUS" Language="zh_Hans_CN">
+      <Text>第一公民</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_BENJAMIN_FRANKLIN" Language="zh_Hans_CN">
+      <Text>美国第一人</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_CATHERINE" Language="zh_Hans_CN">
+      <Text>北方之星</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_CHARLEMAGNE" Language="zh_Hans_CN">
+      <Text>欧洲之父</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_CONFUCIUS" Language="zh_Hans_CN">
+      <Text>至圣先师</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_DEFAULT" Language="zh_Hans_CN">
+      <Text>新时代</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_DLC_DELUXEPACK" Language="zh_Hans_CN">
+      <Text>跨越地平线</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_DLC_FOUNDERPACK" Language="zh_Hans_CN">
+      <Text>文明奠基者</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_DLC_SEASONPASS_1" Language="zh_Hans_CN">
+      <Text>歧路行者</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_DLC_SEASONPASS_2" Language="zh_Hans_CN">
+      <Text>正统领袖</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_1" Language="zh_Hans_CN">
+      <Text>疾书小吏</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_10" Language="zh_Hans_CN">
+      <Text>传奇人物</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_2" Language="zh_Hans_CN">
+      <Text>宽厚州官</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_3" Language="zh_Hans_CN">
+      <Text>天选酋长</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_4_1" Language="zh_Hans_CN">
+      <Text>无畏男爵</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_4_2" Language="zh_Hans_CN">
+      <Text>无畏女爵</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_5" Language="zh_Hans_CN">
+      <Text>凯旋总督</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_6" Language="zh_Hans_CN">
+      <Text>英明君主</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_7_1" Language="zh_Hans_CN">
+      <Text>尊贵皇帝</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_7_2" Language="zh_Hans_CN">
+      <Text>尊贵女王</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_8" Language="zh_Hans_CN">
+      <Text>不朽至尊</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_9" Language="zh_Hans_CN">
+      <Text>叛逆神祇</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FRIEDRICH_OBLIQUE" Language="zh_Hans_CN">
+      <Text>老腓特烈</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_HARRIET_TUBMAN" Language="zh_Hans_CN">
+      <Text>指挥者</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_HATSHEPSUT" Language="zh_Hans_CN">
+      <Text>太阳之声</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_HIMIKO_QUEEN_OF_WA" Language="zh_Hans_CN">
+      <Text>倭女王</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_IBN_BATTUTA" Language="zh_Hans_CN">
+      <Text>非凡旅人</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_ISABELLA" Language="zh_Hans_CN">
+      <Text>黄金时代君王</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_JOSE_RIZAL" Language="zh_Hans_CN">
+      <Text>民族英雄</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_LAFAYETTE" Language="zh_Hans_CN">
+      <Text>两世英雄</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_MACHIAVELLI" Language="zh_Hans_CN">
+      <Text>君主</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_PACHACUTI" Language="zh_Hans_CN">
+      <Text>撼地者</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_TRUNG_TRAC" Language="zh_Hans_CN">
+      <Text>叛逆女王</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_XERXES_KING_OF_KINGS" Language="zh_Hans_CN">
+      <Text>万王之王</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_VICTORIES" Language="zh_Hans_CN">
+      <Text>胜利</Text>
+    </Replace>
+    <Replace Tag="LOC_RADIAL_MENU_TITLE_TEXT" Language="zh_Hans_CN">
+      <Text>轮盘菜单</Text>
+    </Replace>
+    <Replace Tag="LOC_RANDOM_LEADER" Language="zh_Hans_CN">
+      <Text>随机领袖</Text>
+    </Replace>
+    <Replace Tag="LOC_REMAP_FOW_FOUNDER" Language="zh_Hans_CN">
+      <Text>奠基者版战争迷雾地块</Text>
+    </Replace>
+    <Replace Tag="LOC_REMAP_PALACE_FOUNDER" Language="zh_Hans_CN">
+      <Text>奠基者版宫殿</Text>
+    </Replace>
+    <Replace Tag="LOC_REMAP_SCOUT_FOUNDER" Language="zh_Hans_CN">
+      <Text>豪华版探路者皮肤</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_GAME_CONFIG_DEFAULT" Language="zh_Hans_CN">
+      <Text>游戏配置</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_GAME_CONFIG_INFO_TITLE" Language="zh_Hans_CN">
+      <Text>配置信息</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_GAME_CONFIG_LOAD_PANEL_SUBTITLE" Language="zh_Hans_CN">
+      <Text>加载配置</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_GAME_CONFIG_LOAD_PANEL_TITLE" Language="zh_Hans_CN">
+      <Text>加载保存的配置</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_GAME_CONFIG_NEW_CONFIG" Language="zh_Hans_CN">
+      <Text>新配置</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_GAME_CONFIG_SAVE_PANEL_SUBTITLE" Language="zh_Hans_CN">
+      <Text>保存配置</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_GAME_CONFIG_SAVE_PANEL_TITLE" Language="zh_Hans_CN">
+      <Text>保存你的游戏配置</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_AGETRANSITIONSAVES" Language="zh_Hans_CN">
+      <Text>时代过渡</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_AUTOSAVES" Language="zh_Hans_CN">
+      <Text>自动保存</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_BACK_BUTTON" Language="zh_Hans_CN">
+      <Text>返回</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_COMPLETE_2K_ACCOUNT" Language="zh_Hans_CN">
+      <Text>完善2K帐号</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CONFIG_TEXT" Language="zh_Hans_CN">
+      <Text>配置</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CONFIRM_LOAD_BODY" Language="zh_Hans_CN">
+      <Text>确定要加载此游戏存档？所有未保存的进度将丢失！</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CONFIRM_LOAD_IMPORT_BODY" Language="zh_Hans_CN">
+      <Text>这个存档文件并非由你创建。部分进度（如挑战）将无法追踪。是否加载这个存档？</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CONFIRM_LOAD_IMPORT_TITLE" Language="zh_Hans_CN">
+      <Text>加载导入存档</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CONFIRM_LOAD_TITLE" Language="zh_Hans_CN">
+      <Text>加载存档</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CONFIRM_OVERWRITE_TITLE" Language="zh_Hans_CN">
+      <Text>覆盖存档</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CONNECT_2K_ACCOUNT" Language="zh_Hans_CN">
+      <Text>绑定2K帐号</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CONTENT_ERROR" Language="zh_Hans_CN">
+      <Text>必需的附加内容未购买或未安装。</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CONTENT_ERROR_TITLE" Language="zh_Hans_CN">
+      <Text>内容错误</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CROSSPLAY_MISSING_2K_CLOUD_SERVICE_1" Language="zh_Hans_CN">
+      <Text>跨平台游戏存档服务不可用</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CROSSPLAY_MISSING_2K_CLOUD_SERVICE_2" Language="zh_Hans_CN">
+      <Text>稍后再试</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CROSSPLAY_MISSING_SSO_1" Language="zh_Hans_CN">
+      <Text>绑定2K帐号以使用</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CROSSPLAY_MISSING_SSO_1_A" Language="zh_Hans_CN">
+      <Text>完善2K帐号以使用</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CROSSPLAY_MISSING_SSO_2" Language="zh_Hans_CN">
+      <Text>你的跨平台游戏存档</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CROSSPLAYSAVES" Language="zh_Hans_CN">
+      <Text>跨平台游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DELETE_BUTTON" Language="zh_Hans_CN">
+      <Text>删除</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DELETE_DIALOG_TITLE" Language="zh_Hans_CN">
+      <Text>删除存档</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DELETE_ERROR" Language="zh_Hans_CN">
+      <Text>无法删除文件。</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DELETE_ERROR_TITLE" Language="zh_Hans_CN">
+      <Text>删除文件时出错</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DELETE_NAVTRAY" Language="zh_Hans_CN">
+      <Text>删除</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_ADDITIONAL_CONTENT_TITLE" Language="zh_Hans_CN">
+      <Text>可下载内容</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_AGE" Language="zh_Hans_CN">
+      <Text>时代：</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_CREATED_BY_VERSION" Language="zh_Hans_CN">
+      <Text>创建版本：</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_CREATED_TIME" Language="zh_Hans_CN">
+      <Text>创建时间：</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_DIFFERENT_PLAYER_SAVE" Language="zh_Hans_CN">
+      <Text>并非由此玩家保存，挑战将不计算在内</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_DIFFICULTY" Language="zh_Hans_CN">
+      <Text>难度：</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_MAP_INFO_TITLE" Language="zh_Hans_CN">
+      <Text>游戏选项</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_MAP_SIZE" Language="zh_Hans_CN">
+      <Text>地图尺寸：</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_MAP_TYPE" Language="zh_Hans_CN">
+      <Text>地图类型：</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_REQUIRED_CONTENT_TITLE" Language="zh_Hans_CN">
+      <Text>所需内容</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_RULE_SET" Language="zh_Hans_CN">
+      <Text>规则集：</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_SAVED_BY_PLATFORM" Language="zh_Hans_CN">
+      <Text>按平台保存：</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_SAVED_BY_VERSION" Language="zh_Hans_CN">
+      <Text>保存版本：</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_SPEED" Language="zh_Hans_CN">
+      <Text>游戏速度：</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_FILTER_BUTTON" Language="zh_Hans_CN">
+      <Text>筛选</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_GAME_TEXT" Language="zh_Hans_CN">
+      <Text>游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_LOAD_BUTTON" Language="zh_Hans_CN">
+      <Text>加载</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_LOAD_NAVTRAY" Language="zh_Hans_CN">
+      <Text>加载</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_LOCALSAVE" Language="zh_Hans_CN">
+      <Text>本地</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_LOCATION_FULL_DIALOG" Language="zh_Hans_CN">
+      <Text>存储空间不足。[N]请释放空间以创建新存档。</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_LOCATION_FULL_DIALOG_TITLE" Language="zh_Hans_CN">
+      <Text>存储空间不足</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_NEW_SAVE" Language="zh_Hans_CN">
+      <Text>新建存档</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_OVERWRITE_BUTTON" Language="zh_Hans_CN">
+      <Text>覆盖</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_OVERWRITE_NAVTRAY" Language="zh_Hans_CN">
+      <Text>覆盖</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_QUERY_ERROR" Language="zh_Hans_CN">
+      <Text>无法查询文件。</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_QUERY_ERROR_TITLE" Language="zh_Hans_CN">
+      <Text>查询文件时出错</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_QUOTA_EXCEEDED_DIALOG" Language="zh_Hans_CN">
+      <Text>游戏已超出每个用户的存储配额。[N]请删除一些存档来释放属于你的用户存储空间。</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_QUOTA_EXCEEDED_DIALOG_TITLE" Language="zh_Hans_CN">
+      <Text>超出用户存储配额</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVE_BUTTON" Language="zh_Hans_CN">
+      <Text>保存</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVE_DISABLED_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>跨平台游戏存档已达上限，请覆盖或删除</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVE_ERROR" Language="zh_Hans_CN">
+      <Text>无法保存文件。</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVE_ERROR_INVALID_CHARACTERS" Language="zh_Hans_CN">
+      <Text>无效字符。</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVE_ERROR_TITLE" Language="zh_Hans_CN">
+      <Text>保存文件时出错</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVE_NAVTRAY" Language="zh_Hans_CN">
+      <Text>新建存档</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVEACTION_AUTO" Language="zh_Hans_CN">
+      <Text>自动存档</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVEACTION_MANUAL" Language="zh_Hans_CN">
+      <Text>手动存档</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVEACTION_QUICK" Language="zh_Hans_CN">
+      <Text>快速存档</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVES" Language="zh_Hans_CN">
+      <Text>存档</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_TITLE_LOAD" Language="zh_Hans_CN">
+      <Text>加载游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_TITLE_LOAD_CONFIG" Language="zh_Hans_CN">
+      <Text>加载配置</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_TITLE_LOADING" Language="zh_Hans_CN">
+      <Text>正在加载</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_TITLE_OVERWRITING" Language="zh_Hans_CN">
+      <Text>正在覆盖游戏存档……</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_TITLE_SAVE" Language="zh_Hans_CN">
+      <Text>保存游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_TITLE_SAVE_CONFIG" Language="zh_Hans_CN">
+      <Text>保存配置</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_UNABLE_TO_LOAD_BODY" Language="zh_Hans_CN">
+      <Text>无法加载文件！</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_UNABLE_TO_LOAD_TITLE" Language="zh_Hans_CN">
+      <Text>加载失败</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_UNABLE_TO_SAVE_BODY" Language="zh_Hans_CN">
+      <Text>无法保存文件！</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_UNABLE_TO_SAVE_TITLE" Language="zh_Hans_CN">
+      <Text>保存失败</Text>
+    </Replace>
+    <Replace Tag="LOC_SCROLL_BOTTOM" Language="zh_Hans_CN">
+      <Text>滚至底部</Text>
+    </Replace>
+    <Replace Tag="LOC_SCROLL_PAN" Language="zh_Hans_CN">
+      <Text>滚动</Text>
+    </Replace>
+    <Replace Tag="LOC_SCROLL_PAN_HELP" Language="zh_Hans_CN">
+      <Text>滚动浏览列表</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_ACTION_1" Language="zh_Hans_CN">
+      <Text>互动1</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_ACTION_1_HELP" Language="zh_Hans_CN">
+      <Text>每个画面独有的特殊互动1</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_ACTION_2" Language="zh_Hans_CN">
+      <Text>互动2</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_ACTION_2_HELP" Language="zh_Hans_CN">
+      <Text>每个画面独有的特殊互动2</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_ACTION_3" Language="zh_Hans_CN">
+      <Text>互动3</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_ACTION_3_HELP" Language="zh_Hans_CN">
+      <Text>每个画面独有的特殊互动3</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_ACTION_4" Language="zh_Hans_CN">
+      <Text>提示文本</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_ACTION_4_HELP" Language="zh_Hans_CN">
+      <Text>开关项目提示文本</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_ACTION_5" Language="zh_Hans_CN">
+      <Text>社交面板</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_ACTION_5_HELP" Language="zh_Hans_CN">
+      <Text>打开社交面板</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_NEXT" Language="zh_Hans_CN">
+      <Text>次要下一步</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_NEXT_HELP" Language="zh_Hans_CN">
+      <Text>次要下一步选项卡</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_PREVIOUS" Language="zh_Hans_CN">
+      <Text>次要上一步</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_PREVIOUS_HELP" Language="zh_Hans_CN">
+      <Text>次要上一步选项卡</Text>
+    </Replace>
+    <Replace Tag="LOC_SLOTTYPE_AI" Language="zh_Hans_CN">
+      <Text>AI</Text>
+    </Replace>
+    <Replace Tag="LOC_SLOTTYPE_CLOSED" Language="zh_Hans_CN">
+      <Text>已关闭</Text>
+    </Replace>
+    <Replace Tag="LOC_SLOTTYPE_HUMANREQ" Language="zh_Hans_CN">
+      <Text>需要真人玩家</Text>
+    </Replace>
+    <Replace Tag="LOC_SLOTTYPE_OPEN" Language="zh_Hans_CN">
+      <Text>开放</Text>
+    </Replace>
+    <Replace Tag="LOC_SWAP_PLOT_SELECTION" Language="zh_Hans_CN">
+      <Text>交换格位</Text>
+    </Replace>
+    <Replace Tag="LOC_SWAP_PLOT_SELECTION_HELP" Language="zh_Hans_CN">
+      <Text>交换同一格位地块上的选定项目</Text>
+    </Replace>
+    <Replace Tag="LOC_SYSTEM_BACK" Language="zh_Hans_CN">
+      <Text>系统返回</Text>
+    </Replace>
+    <Replace Tag="LOC_SYSTEM_MENU" Language="zh_Hans_CN">
+      <Text>暂停菜单</Text>
+    </Replace>
+    <Replace Tag="LOC_SYSTEM_MENU_HELP" Language="zh_Hans_CN">
+      <Text>打开暂停菜单</Text>
+    </Replace>
+    <Replace Tag="LOC_TARGET" Language="zh_Hans_CN">
+      <Text>目标</Text>
+    </Replace>
+    <Replace Tag="LOC_TEXT_R" Language="zh_Hans_CN">
+      <Text>®</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_CHAT" Language="zh_Hans_CN">
+      <Text>聊天</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_CHAT_HELP" Language="zh_Hans_CN">
+      <Text>打开或关闭聊天窗口</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_DIPLO" Language="zh_Hans_CN">
+      <Text>领袖栏</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_DIPLO_HELP" Language="zh_Hans_CN">
+      <Text>折叠或展开领袖栏</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_MOUSE_EMULATE" Language="zh_Hans_CN">
+      <Text>开关鼠标模拟</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_QUEST" Language="zh_Hans_CN">
+      <Text>任务</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_QUEST_HELP" Language="zh_Hans_CN">
+      <Text>折叠或展开任务</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_RADIAL_MENU" Language="zh_Hans_CN">
+      <Text>轮盘菜单</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_RADIAL_MENU_HELP" Language="zh_Hans_CN">
+      <Text>打开轮盘菜单</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_TOOLTIP" Language="zh_Hans_CN">
+      <Text>格位提示文本</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_TOOLTIP_HELP" Language="zh_Hans_CN">
+      <Text>开关格位提示文本</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_ACTIVITY_HOST_MP_DESC" Language="zh_Hans_CN">
+      <Text>前往新的游戏大厅将从当前游戏中离开，你的进度也会被丢弃。确定离开吗？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_ACTIVITY_LAST_SAVE_DESC" Language="zh_Hans_CN">
+      <Text>如果你选择继续上个存档，将离开此对战。是否确定？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_ACTIVITY_LEAVE_GAME_TITLE" Language="zh_Hans_CN">
+      <Text>离开游戏？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_ACTIVITY_LEAVE_MP_GAME_TITLE" Language="zh_Hans_CN">
+      <Text>是否离开多人游戏？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_AFFECTS_SAVE" Language="zh_Hans_CN">
+      <Text>影响游戏存档…… </Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_ARG_MESSAGE" Language="zh_Hans_CN">
+      <Text>(ChatMessage)</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_ARG_PLAYER" Language="zh_Hans_CN">
+      <Text>(PlayerName)</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_DESC_GLOBAL" Language="zh_Hans_CN">
+      <Text>发送一条公开聊天。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_DESC_HELP" Language="zh_Hans_CN">
+      <Text>在聊天面板中列出聊天命令。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_DESC_RESPOND" Language="zh_Hans_CN">
+      <Text>回复最近的私信。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_DESC_TEAM" Language="zh_Hans_CN">
+      <Text>向你的队伍频道发送一条消息。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_ERROR_BLANK" Language="zh_Hans_CN">
+      <Text>命令错误：请发送一条消息</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_ERROR_RESPOND" Language="zh_Hans_CN">
+      <Text>命令错误：没有要回复的私信</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_LIST" Language="zh_Hans_CN">
+      <Text>可用聊天命令列表：</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_PROMPT_HELP" Language="zh_Hans_CN">
+      <Text>输入“/help”或“/h”查看所有聊天命令</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_FROM" Language="zh_Hans_CN">
+      <Text>发送者</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_GAMEPAD_INPUT_DESC_GLOBAL" Language="zh_Hans_CN">
+      <Text>发送至所有</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_GAMEPAD_INPUT_DESC_TEAM" Language="zh_Hans_CN">
+      <Text>发送至队伍</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_ICONS" Language="zh_Hans_CN">
+      <Text>图标</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_ICONS_EMOJI" Language="zh_Hans_CN">
+      <Text>表情</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_ICONS_RESOURCES" Language="zh_Hans_CN">
+      <Text>资源</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_ICONS_YIELDS" Language="zh_Hans_CN">
+      <Text>产量</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_NEW_MESSAGE" Language="zh_Hans_CN">
+      <Text>新消息</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_OPEN_TIP" Language="zh_Hans_CN">
+      <Text>打开聊天面板</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_OPEN_TIP_ICONS" Language="zh_Hans_CN">
+      <Text>打开图标选项</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_OPEN_TIP_PREVIEW" Language="zh_Hans_CN">
+      <Text>打开消息预览</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_OPEN_TIP_PRIVATE" Language="zh_Hans_CN">
+      <Text>打开目标选项</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_TOGGLE_TIP" Language="zh_Hans_CN">
+      <Text>开关聊天面板</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PREVIEW" Language="zh_Hans_CN">
+      <Text>预览</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PRIVATE" Language="zh_Hans_CN">
+      <Text>私人</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PROMPT_GLOBAL_SHORT" Language="zh_Hans_CN">
+      <Text>所有</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PROMPT_HELP_LONG" Language="zh_Hans_CN">
+      <Text>help</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PROMPT_HELP_SHORT" Language="zh_Hans_CN">
+      <Text>h</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PROMPT_PRIVATE_SHORT" Language="zh_Hans_CN">
+      <Text>私人</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PROMPT_RESPOND_SHORT" Language="zh_Hans_CN">
+      <Text>回复</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PROMPT_TEAM_SHORT" Language="zh_Hans_CN">
+      <Text>队伍</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_SEND" Language="zh_Hans_CN">
+      <Text>发送</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_SEND_TO" Language="zh_Hans_CN">
+      <Text>发送至</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_TEAM" Language="zh_Hans_CN">
+      <Text>队伍</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_TO" Language="zh_Hans_CN">
+      <Text>至</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CODE_REDEEM_ERROR_ALREADY_REDEEMED" Language="zh_Hans_CN">
+      <Text>代码已兑换。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CODE_REDEEM_ERROR_BAD_REQUEST" Language="zh_Hans_CN">
+      <Text>无效代码请求。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CODE_REDEEM_ERROR_RESOURCE_NOT_FOUND" Language="zh_Hans_CN">
+      <Text>未找到代码。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CODE_REDEEM_ERROR_TOO_MANY_REQUESTS" Language="zh_Hans_CN">
+      <Text>代码请求次数过多。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CODE_REDEEM_ERROR_UNSUPPORTED_MEDIA_TYPE" Language="zh_Hans_CN">
+      <Text>不支持此媒体类型。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CODE_REDEEM_INTERNAL_SERVER_ERROR" Language="zh_Hans_CN">
+      <Text>未知服务器错误。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CODE_REDEEM_UNKOWN_ERROR" Language="zh_Hans_CN">
+      <Text>出现未知错误。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTINUE_EVENTS" Language="zh_Hans_CN">
+      <Text>继续活动游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_BIND_GESTURE" Language="zh_Hans_CN">
+      <Text>按任意输入重新绑定此命令</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_BIND_TITLE" Language="zh_Hans_CN">
+      <Text>正在重新绑定</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_CONFIRM_CHANGE_BODY" Language="zh_Hans_CN">
+      <Text>是否确定要保存此新映射？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_CONFIRM_CHANGE_TITLE" Language="zh_Hans_CN">
+      <Text>确认变更</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_INVERT_STICK" Language="zh_Hans_CN">
+      <Text>切换摇杆功能</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_INVERT_STICK_MICROSOFT" Language="zh_Hans_CN">
+      <Text>切换摇杆功能</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_INVERT_STICK_PS4" Language="zh_Hans_CN">
+      <Text>切换操作杆功能</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_INVERT_STICK_PS5" Language="zh_Hans_CN">
+      <Text>切换操作杆功能</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_LEFT" Language="zh_Hans_CN">
+      <Text>左</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_RESET_DEFAULT_BODY" Language="zh_Hans_CN">
+      <Text>确定要恢复到默认映射？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_RESET_DEFAULT_TITLE" Language="zh_Hans_CN">
+      <Text>恢复默认</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_RESTORE_DEFAULT" Language="zh_Hans_CN">
+      <Text>恢复默认</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_RIGHT" Language="zh_Hans_CN">
+      <Text>右</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_SUBTITLE" Language="zh_Hans_CN">
+      <Text>查看操作设置并重新绑定</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_TITLE" Language="zh_Hans_CN">
+      <Text>控制</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_DEPENDENDENCIES" Language="zh_Hans_CN">
+      <Text>依赖关系</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_DISABLED" Language="zh_Hans_CN">
+      <Text>已禁用</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_DROPDOWN_NO_SELECTION" Language="zh_Hans_CN">
+      <Text>选择一个项目</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_ENABLED" Language="zh_Hans_CN">
+      <Text>已启用</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_ERROR_DECODING_ENTITLEMENT_NAME" Language="zh_Hans_CN">
+      <Text>错误G100：无法解码已兑换项目的名称</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_EVENTS_EXIT" Language="zh_Hans_CN">
+      <Text>返回主菜单</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_EVENTS_MULTIPLAYER" Language="zh_Hans_CN">
+      <Text>多人活动游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_EVENTS_MULTIPLAYER_NO_WIRELESS" Language="zh_Hans_CN">
+      <Text>使用无线模式将断开活动所必需的互联网连接。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_EVENTS_RULES" Language="zh_Hans_CN">
+      <Text>规则：</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_EVENTS_SINGLEPLAYER" Language="zh_Hans_CN">
+      <Text>新建活动游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_FILTER_SORT_FILTERS" Language="zh_Hans_CN">
+      <Text>过滤器</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_FILTER_SORT_SORTING" Language="zh_Hans_CN">
+      <Text>排序</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_FRIENDS_OPEN_SEARCH" Language="zh_Hans_CN">
+      <Text>寻找2K好友</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_FRIENDS_OPEN_SEARCH_TITLE" Language="zh_Hans_CN">
+      <Text>寻找2K玩家</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_FRIENDS_SEARCH" Language="zh_Hans_CN">
+      <Text>搜索</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_FRIENDS_SEARCH_FIELD" Language="zh_Hans_CN">
+      <Text>输入2K好友用户名</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_FRIENDS_SEARCH_TITLE" Language="zh_Hans_CN">
+      <Text>寻找2K好友</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_ACCEPT" Language="zh_Hans_CN">
+      <Text>接受</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_ACTIONS" Language="zh_Hans_CN">
+      <Text>行动</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_BACK" Language="zh_Hans_CN">
+      <Text>返回</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_BIND_GESTURE" Language="zh_Hans_CN">
+      <Text>按任意键重新绑定此命令</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_BIND_TITLE" Language="zh_Hans_CN">
+      <Text>当前重新映射</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CAMERA_PAN_DOWN" Language="zh_Hans_CN">
+      <Text>下移摄像机</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CAMERA_PAN_DOWN_TT" Language="zh_Hans_CN">
+      <Text>向下移动摄像机</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CAMERA_PAN_LEFT" Language="zh_Hans_CN">
+      <Text>左移摄像机</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CAMERA_PAN_LEFT_TT" Language="zh_Hans_CN">
+      <Text>向左移动摄像机</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CAMERA_PAN_RIGHT" Language="zh_Hans_CN">
+      <Text>右移摄像机</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CAMERA_PAN_RIGHT_TT" Language="zh_Hans_CN">
+      <Text>向右移动摄像机</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CAMERA_PAN_UP" Language="zh_Hans_CN">
+      <Text>上移摄像机</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CAMERA_PAN_UP_TT" Language="zh_Hans_CN">
+      <Text>向上移动摄像机</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CANCEL" Language="zh_Hans_CN">
+      <Text>取消</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CAPITAL_CITY" Language="zh_Hans_CN">
+      <Text>首都城市</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CAPITAL_CITY_TT" Language="zh_Hans_CN">
+      <Text>切换聚焦于首都城市</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CITY_HEADER" Language="zh_Hans_CN">
+      <Text>城市视图</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CIV_BACK" Language="zh_Hans_CN">
+      <Text>文明百科历史后退</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CIV_BACK_TT" Language="zh_Hans_CN">
+      <Text>当文明百科打开时在页面历史记录中后退</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CIV_FORWARD" Language="zh_Hans_CN">
+      <Text>文明百科历史前进</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CIV_FORWARD_TT" Language="zh_Hans_CN">
+      <Text>当文明百科打开时在页面历史记录中前进</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CONFIRM_CHANGE_BODY" Language="zh_Hans_CN">
+      <Text>是否确定要保存此新映射？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CONFIRM_CHANGE_TITLE" Language="zh_Hans_CN">
+      <Text>确认变更</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_DESCRIPTION_1" Language="zh_Hans_CN">
+      <Text>查看键盘映射并重新绑定输入。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_DESCRIPTION_2" Language="zh_Hans_CN">
+      <Text>查看并重新绑定键盘和鼠标映射。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_DIPLOMACY_HEADER" Language="zh_Hans_CN">
+      <Text>外交视图</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_FORCE_END_TURN" Language="zh_Hans_CN">
+      <Text>强制进入下一回合</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_FORCE_END_TURN_TT" Language="zh_Hans_CN">
+      <Text>无论是否存在必需操作，都强制结束当前回合。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_GLOBAL_ACTIONS" Language="zh_Hans_CN">
+      <Text>全局操作</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_HEADER" Language="zh_Hans_CN">
+      <Text>键盘映射</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_IN_GAME_MENU" Language="zh_Hans_CN">
+      <Text>游戏中菜单</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_IN_GAME_MENU_TT" Language="zh_Hans_CN">
+      <Text>打开游戏中菜单</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_LENSES" Language="zh_Hans_CN">
+      <Text>滤镜</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_MAP_SEARCH" Language="zh_Hans_CN">
+      <Text>地图搜索</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_MAP_SEARCH_TT" Language="zh_Hans_CN">
+      <Text>搜索世界地图</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_MENUS_HEADER" Language="zh_Hans_CN">
+      <Text>菜单</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_NEXT_ACTION" Language="zh_Hans_CN">
+      <Text>下个操作</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_NEXT_ACTION_TT" Language="zh_Hans_CN">
+      <Text>进行下个操作；或在允许的前提下结束玩家的回合。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_NEXT_CITY" Language="zh_Hans_CN">
+      <Text>下座城市</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_NEXT_CITY_TT" Language="zh_Hans_CN">
+      <Text>切换至下座城市</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_NEXT_READY_UNIT" Language="zh_Hans_CN">
+      <Text>下个就绪单位</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_NEXT_READY_UNIT_TT" Language="zh_Hans_CN">
+      <Text>切换到下个就绪单位</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_OPEN_ATTRIBUTES" Language="zh_Hans_CN">
+      <Text>打开属性</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_OPEN_ATTRIBUTES_TT" Language="zh_Hans_CN">
+      <Text>打开属性画面</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_OPEN_CIVILOPEDIA" Language="zh_Hans_CN">
+      <Text>打开文明百科</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_OPEN_GOVERNMENT" Language="zh_Hans_CN">
+      <Text>打开政体</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_OPEN_GOVERNMENT_TT" Language="zh_Hans_CN">
+      <Text>打开政体画面</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_PAUSE_ONLINE_GAME" Language="zh_Hans_CN">
+      <Text>暂停在线游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_PAUSE_ONLINE_GAME_TT" Language="zh_Hans_CN">
+      <Text>暂停一场在线游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_PREVIOUS_CITY" Language="zh_Hans_CN">
+      <Text>上座城市</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_PREVIOUS_CITY_TT" Language="zh_Hans_CN">
+      <Text>切换至上座城市</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_PREVIOUS_READY_UNIT" Language="zh_Hans_CN">
+      <Text>上个就绪单位</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_PREVIOUS_READY_UNIT_TT" Language="zh_Hans_CN">
+      <Text>切换到上个就绪单位</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_PRIMARY_KEY" Language="zh_Hans_CN">
+      <Text>主要</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_QUICK_LOAD" Language="zh_Hans_CN">
+      <Text>快速读取</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_QUICK_LOAD_TT" Language="zh_Hans_CN">
+      <Text>读取最近的快速存档（如有）。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_QUICK_SAVE" Language="zh_Hans_CN">
+      <Text>快速存档</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_QUICK_SAVE_TT" Language="zh_Hans_CN">
+      <Text>进行一次快速存档。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_RESET_DEFAULT_TITLE" Language="zh_Hans_CN">
+      <Text>恢复默认</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_SAVE" Language="zh_Hans_CN">
+      <Text>保存</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_SECONDARY_KEY" Language="zh_Hans_CN">
+      <Text>次要</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_CIVICS_SCREEN" Language="zh_Hans_CN">
+      <Text>开关市政画面</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_GREAT_PEOPLE_SCREEN" Language="zh_Hans_CN">
+      <Text>开关伟人画面</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_GREAT_WORKS_SCREEN" Language="zh_Hans_CN">
+      <Text>开关巨作画面</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_GRID" Language="zh_Hans_CN">
+      <Text>开关网格</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_GRID_TT" Language="zh_Hans_CN">
+      <Text>开关地形上的网格覆层</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_JOURNAL" Language="zh_Hans_CN">
+      <Text>开关日志</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_LENS_CONTINENT" Language="zh_Hans_CN">
+      <Text>大陆</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_LENS_CONTINENT_TT" Language="zh_Hans_CN">
+      <Text>开关大陆滤镜</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_LENS_RELIGION" Language="zh_Hans_CN">
+      <Text>宗教</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_LENS_RELIGION_TT" Language="zh_Hans_CN">
+      <Text>开关宗教滤镜</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_LENS_SETTLER" Language="zh_Hans_CN">
+      <Text>开拓者</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_LENS_SETTLER_TT" Language="zh_Hans_CN">
+      <Text>开关开拓者滤镜</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_LENS_TRADE" Language="zh_Hans_CN">
+      <Text>贸易</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_LENS_TRADE_TT" Language="zh_Hans_CN">
+      <Text>开关贸易滤镜</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_RANKINGS_SCREEN" Language="zh_Hans_CN">
+      <Text>开关排名画面</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_RELIGION" Language="zh_Hans_CN">
+      <Text>开关宗教面板</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_RESOURCE_ICONS" Language="zh_Hans_CN">
+      <Text>开关资源图标</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_RESOURCE_ICONS_TT" Language="zh_Hans_CN">
+      <Text>开关资源图标的显示</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_RESOURCE_SCREEN" Language="zh_Hans_CN">
+      <Text>开关资源画面</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_TECH_TREE" Language="zh_Hans_CN">
+      <Text>开关科技树</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_TRADE_SCREEN" Language="zh_Hans_CN">
+      <Text>开关贸易画面</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_VICTORY_PROGRESS" Language="zh_Hans_CN">
+      <Text>开关胜利进度画面</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_YIELD_ICONS" Language="zh_Hans_CN">
+      <Text>开关产量图标</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_YIELD_ICONS_TT" Language="zh_Hans_CN">
+      <Text>开关产量图标的显示</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_YIELDS_REPORT" Language="zh_Hans_CN">
+      <Text>开关产量报告</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_ACTIONS" Language="zh_Hans_CN">
+      <Text>单位行动</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_ALERT" Language="zh_Hans_CN">
+      <Text>警戒</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_ALERT_TT" Language="zh_Hans_CN">
+      <Text>让所选单位执行警戒行动</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_AND_CITY_ACTIONS" Language="zh_Hans_CN">
+      <Text>单位和城市行动</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_ATTACK" Language="zh_Hans_CN">
+      <Text>攻击</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_ATTACK_TT" Language="zh_Hans_CN">
+      <Text>让所选单位执行攻击行动</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_AUTOMATE_EXPLORATION" Language="zh_Hans_CN">
+      <Text>自动探索</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_AUTOMATE_EXPLORATION_TT" Language="zh_Hans_CN">
+      <Text>启动所选单位自动探索</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_DELETE" Language="zh_Hans_CN">
+      <Text>删除单位</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_DELETE_TT" Language="zh_Hans_CN">
+      <Text>删除所选单位</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_FORTIFIED_HEAL" Language="zh_Hans_CN">
+      <Text>驻防治疗</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_FORTIFIED_HEAL_TT" Language="zh_Hans_CN">
+      <Text>让所选单位驻防至完全恢复生命值</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_FORTIFY" Language="zh_Hans_CN">
+      <Text>驻防</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_FORTIFY_TT" Language="zh_Hans_CN">
+      <Text>让所选单位驻防</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_FOUND_CITY" Language="zh_Hans_CN">
+      <Text>建立城市</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_FOUND_CITY_TT" Language="zh_Hans_CN">
+      <Text>如果所选单位是开拓者，则建立城市</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_MOVE_TO" Language="zh_Hans_CN">
+      <Text>移动</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_MOVE_TO_TT" Language="zh_Hans_CN">
+      <Text>让所选单位执行移动行动</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_RANGED_ATTACK" Language="zh_Hans_CN">
+      <Text>远程攻击</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_RANGED_ATTACK_TT" Language="zh_Hans_CN">
+      <Text>让所选单位执行远程攻击</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_SKIP_TURN" Language="zh_Hans_CN">
+      <Text>跳过回合</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_SKIP_TURN_TT" Language="zh_Hans_CN">
+      <Text>所选单位将跳过当前回合</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_SLEEP" Language="zh_Hans_CN">
+      <Text>休眠</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_SLEEP_TT" Language="zh_Hans_CN">
+      <Text>让所选单位执行休眠行动</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_USER_INTERFACE_ACTIONS" Language="zh_Hans_CN">
+      <Text>用户界面操作</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_WORLD_HEADER" Language="zh_Hans_CN">
+      <Text>世界视图</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_LOAD_CONFIG" Language="zh_Hans_CN">
+      <Text>加载配置</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_LOAD_EVENTS" Language="zh_Hans_CN">
+      <Text>加载活动游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MOD_MULTIPLAYER" Language="zh_Hans_CN">
+      <Text>多人游戏： </Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MOD_NONE_AVAILABLE" Language="zh_Hans_CN">
+      <Text>没有可用的附加内容。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MOD_SINGLE_PLAYER" Language="zh_Hans_CN">
+      <Text>单人游戏： </Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BLOCKED_PLAYER_GAME" Language="zh_Hans_CN">
+      <Text>被屏蔽玩家的游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_CREATE_GAME" Language="zh_Hans_CN">
+      <Text>创建游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_CREATE_NAVTRAY" Language="zh_Hans_CN">
+      <Text>创建游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_ENTER_JOIN_CODE" Language="zh_Hans_CN">
+      <Text>输入加入密码</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_FILTER_CONTENT" Language="zh_Hans_CN">
+      <Text>内容</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_FILTER_EVENT" Language="zh_Hans_CN">
+      <Text>活动</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_FILTER_GAME_NAME" Language="zh_Hans_CN">
+      <Text>游戏名称</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_FILTER_GAME_SPEED" Language="zh_Hans_CN">
+      <Text>游戏速度</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_FILTER_MAP_TYPE" Language="zh_Hans_CN">
+      <Text>地图类型</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_FILTER_PLAYERS" Language="zh_Hans_CN">
+      <Text>玩家</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_FILTER_RULE" Language="zh_Hans_CN">
+      <Text>规则集</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_FILTERS" Language="zh_Hans_CN">
+      <Text>筛选</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_JOIN_BUTTON" Language="zh_Hans_CN">
+      <Text>加入密码</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_JOIN_GAME" Language="zh_Hans_CN">
+      <Text>加入</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_JOIN_NAVTRAY" Language="zh_Hans_CN">
+      <Text>加入</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_LOAD_GAME" Language="zh_Hans_CN">
+      <Text>加载游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_LOAD_NAVTRAY" Language="zh_Hans_CN">
+      <Text>加载游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_LOADING_SAVE_TOOLTIP" Language="zh_Hans_CN">
+      <Text>游戏正在加载存档</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_MISSING_MOD_TOOLTIP" Language="zh_Hans_CN">
+      <Text>缺失内容</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_PLAYERS" Language="zh_Hans_CN">
+      <Text>玩家</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_QUICK_JOIN" Language="zh_Hans_CN">
+      <Text>快速加入</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_QUICK_JOIN_NAVTRAY" Language="zh_Hans_CN">
+      <Text>快速加入</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_REFRESH_BUTTON" Language="zh_Hans_CN">
+      <Text>刷新</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_REFRESH_MESSAGE" Language="zh_Hans_CN">
+      <Text>正在更新游戏列表</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_SCREEN_SUBTITLE" Language="zh_Hans_CN">
+      <Text>公共游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_SCREEN_TITLE" Language="zh_Hans_CN">
+      <Text>浏览公共游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_TITLE" Language="zh_Hans_CN">
+      <Text>浏览游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_TITLE_INTERNET" Language="zh_Hans_CN">
+      <Text>浏览互联网游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_TITLE_LAN" Language="zh_Hans_CN">
+      <Text>浏览局域网游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_TITLE_WIRELESS" Language="zh_Hans_CN">
+      <Text>浏览无线游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_CHAT" Language="zh_Hans_CN">
+      <Text>聊天</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_CREATE_GAME_SUBTITLE" Language="zh_Hans_CN">
+      <Text>创建多人游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_CREATE_GAME_TITLE" Language="zh_Hans_CN">
+      <Text>多人游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_EXTRA_CONTENT" Language="zh_Hans_CN">
+      <Text>可下载内容</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_2K_HEART_TOOLTIP" Language="zh_Hans_CN">
+      <Text>你们是2K好友</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_ACTION_ADD_FRIEND" Language="zh_Hans_CN">
+      <Text>添加好友</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_ACTION_INVITE" Language="zh_Hans_CN">
+      <Text>发送邀请</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_ACTION_INVITED" Language="zh_Hans_CN">
+      <Text>邀请已发送</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_ACTION_NOTIFICATIONS_RECEIVED" Language="zh_Hans_CN">
+      <Text>操作已收到</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_ACTION_NOTIFICATIONS_SENT" Language="zh_Hans_CN">
+      <Text>操作已发送</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_ACTION_UNBLOCK" Language="zh_Hans_CN">
+      <Text>解除屏蔽</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_ACCEPT_INVITE_TITLE" Language="zh_Hans_CN">
+      <Text>接受游戏邀请请求？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_ACCEPT_REQUEST_TITLE" Language="zh_Hans_CN">
+      <Text>接受好友申请？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_BLOCK_TITLE" Language="zh_Hans_CN">
+      <Text>屏蔽玩家</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_CANCEL_REQUEST_TITLE" Language="zh_Hans_CN">
+      <Text>取消好友申请？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_DECLINE_INVITE_TITLE" Language="zh_Hans_CN">
+      <Text>拒绝游戏邀请请求？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_DECLINE_REQUEST_TITLE" Language="zh_Hans_CN">
+      <Text>拒绝好友申请？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_GAME_INVITE_TITLE" Language="zh_Hans_CN">
+      <Text>发送游戏邀请？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_REQUEST_TITLE" Language="zh_Hans_CN">
+      <Text>拒绝好友申请？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_UNBLOCK_TITLE" Language="zh_Hans_CN">
+      <Text>解除屏蔽玩家</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_ADD_FRIEND_TITLE" Language="zh_Hans_CN">
+      <Text>好友申请已发送</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_INVITE_TITLE" Language="zh_Hans_CN">
+      <Text>玩家已邀请</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_INVITE_TO_JOIN_TITLE" Language="zh_Hans_CN">
+      <Text>游戏邀请请求已发送</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_UNBLOCK_TITLE" Language="zh_Hans_CN">
+      <Text>玩家已解除屏蔽</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FRIENDS_LIST" Language="zh_Hans_CN">
+      <Text>好友</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_HEART_TOOLTIP" Language="zh_Hans_CN">
+      <Text>你们是好友</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_LOBBY_LIST" Language="zh_Hans_CN">
+      <Text>大厅</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_LOBBY_MULTIPLYER_REMINDER" Language="zh_Hans_CN">
+      <Text>你需要处于多人模式中</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_NOTIFICATIONS_LIST" Language="zh_Hans_CN">
+      <Text>通知</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_RECENT_LIST" Language="zh_Hans_CN">
+      <Text>最近遇到</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_REMOVE_FRIEND_TITLE" Language="zh_Hans_CN">
+      <Text>移除好友？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_SEARCH_LIST" Language="zh_Hans_CN">
+      <Text>搜索</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_SEARCH_RESULTS_LIST" Language="zh_Hans_CN">
+      <Text>搜索结果</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_SEARCHING" Language="zh_Hans_CN">
+      <Text>正在搜索……</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_TAB_INVITE" Language="zh_Hans_CN">
+      <Text>好友</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_TAB_LOBBY" Language="zh_Hans_CN">
+      <Text>大厅</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_TAB_NOTIFICATIONS" Language="zh_Hans_CN">
+      <Text>通知</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_TAB_RECENT" Language="zh_Hans_CN">
+      <Text>最近遇到</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_TAB_SEARCH" Language="zh_Hans_CN">
+      <Text>搜索结果</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_TAB_UNBLOCK" Language="zh_Hans_CN">
+      <Text>屏蔽列表</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_TITLE_INVITE" Language="zh_Hans_CN">
+      <Text>邀请好友</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_TITLE_RECENT" Language="zh_Hans_CN">
+      <Text>最近遇到</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_TITLE_SEARCH" Language="zh_Hans_CN">
+      <Text>搜索结果</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_TITLE_UNBLOCK" Language="zh_Hans_CN">
+      <Text>屏蔽列表</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_UNBLOCK_LIST" Language="zh_Hans_CN">
+      <Text>屏蔽</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_MODE_AUTOMATCH" Language="zh_Hans_CN">
+      <Text>自动匹配</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_MODE_AUTOMATCH_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>自动匹配随机玩家</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_MODE_CREATE_GAME" Language="zh_Hans_CN">
+      <Text>创建游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_MODE_CREATE_GAME_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>创建在线游戏并邀请好友</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_MODE_SUBTITLE" Language="zh_Hans_CN">
+      <Text>多人游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_MODE_TITLE" Language="zh_Hans_CN">
+      <Text>选择游戏模式</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_AI_PLAYER_COUNT" Language="zh_Hans_CN">
+      <Text>CPU玩家数量：</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_HOST" Language="zh_Hans_CN">
+      <Text>创建人：</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_HUMAN_PLAYER_COUNT" Language="zh_Hans_CN">
+      <Text>玩家数量：</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_KICK_VOTING" Language="zh_Hans_CN">
+      <Text>踢出投票：</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_PRIVATE_GAME" Language="zh_Hans_CN">
+      <Text>隐藏游戏：</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_STARTING_AGE" Language="zh_Hans_CN">
+      <Text>初始时代：</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_TURN_MODE" Language="zh_Hans_CN">
+      <Text>回合模式：</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_TURN_MODE_NONE" Language="zh_Hans_CN">
+      <Text>无</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_TURN_MODE_SIMULTANEOUS" Language="zh_Hans_CN">
+      <Text>同时</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_TURN_MODE_SINGLEPLAYER" Language="zh_Hans_CN">
+      <Text>单人游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_TURN_TIME" Language="zh_Hans_CN">
+      <Text>回合时间：</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_TURN_TIMER" Language="zh_Hans_CN">
+      <Text>回合计时器：</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_TURN_TIMER_DYNAMIC" Language="zh_Hans_CN">
+      <Text>动态</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_TURN_TIMER_NONE" Language="zh_Hans_CN">
+      <Text>无</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_TURN_TIMER_STANDARD" Language="zh_Hans_CN">
+      <Text>标准</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULES_TITLE" Language="zh_Hans_CN">
+      <Text>多人游戏规则和模组</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_HEADER_CIV" Language="zh_Hans_CN">
+      <Text>文明</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_HEADER_KICK" Language="zh_Hans_CN">
+      <Text>踢出</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_HEADER_LEADER" Language="zh_Hans_CN">
+      <Text>领袖</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_HEADER_MODS" Language="zh_Hans_CN">
+      <Text>模组</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_HEADER_PLAYER" Language="zh_Hans_CN">
+      <Text>玩家</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_HEADER_READY" Language="zh_Hans_CN">
+      <Text>就绪？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_HEADER_RULES" Language="zh_Hans_CN">
+      <Text>规则</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_HEADER_TEAM" Language="zh_Hans_CN">
+      <Text>队伍</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_HOST_LOBBY" Language="zh_Hans_CN">
+      <Text>创建大厅</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_JOIN_CODE_PLACEHOLDER" Language="zh_Hans_CN">
+      <Text>输入密码</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_JOIN_CODE_TITLE" Language="zh_Hans_CN">
+      <Text>加入密码</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_CREATE_GAME" Language="zh_Hans_CN">
+      <Text>创建游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_ERROR_GAME_STARTED" Language="zh_Hans_CN">
+      <Text>游戏已开始</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_ERROR_NO_CONNECTION" Language="zh_Hans_CN">
+      <Text>无连接</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_ERROR_ROOM_FULL" Language="zh_Hans_CN">
+      <Text>房间已满</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_ERROR_TOO_MANY_MATCHES" Language="zh_Hans_CN">
+      <Text>对战过多</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_GAMES_BROWSER" Language="zh_Hans_CN">
+      <Text>浏览游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_INTERNET" Language="zh_Hans_CN">
+      <Text>互联网</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_JOIN_GAME" Language="zh_Hans_CN">
+      <Text>加入游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_LAN" Language="zh_Hans_CN">
+      <Text>局域网</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_LOAD_GAME" Language="zh_Hans_CN">
+      <Text>加载游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_MATCHMAKE_GAME" Language="zh_Hans_CN">
+      <Text>快速加入</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_MATCHMAKE_START_ERROR" Language="zh_Hans_CN">
+      <Text>匹配未能开始</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_RELAY_SERVER_ADDRESS_PROMPT" Language="zh_Hans_CN">
+      <Text>中继服务器地址</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_SUBTITLE" Language="zh_Hans_CN">
+      <Text>加载画面</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_TITLE" Language="zh_Hans_CN">
+      <Text>多人游戏模式</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_WIRELESS" Language="zh_Hans_CN">
+      <Text>无线</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_DIFFICULTY" Language="zh_Hans_CN">
+      <Text>难度：</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_DROPDOWN_ACTION_DEFAULT" Language="zh_Hans_CN">
+      <Text>玩家上的操作</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_DROPDOWN_ACTION_DESC" Language="zh_Hans_CN">
+      <Text>此玩家槽位上的操作选择器。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_DROPDOWN_CIV_DESC" Language="zh_Hans_CN">
+      <Text>此玩家的文明选择器。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_DROPDOWN_LEADER_DESC" Language="zh_Hans_CN">
+      <Text>此玩家的领袖选择器。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_DROPDOWN_TEAM_DEFAULT" Language="zh_Hans_CN">
+      <Text>无</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_DROPDOWN_TEAM_DESC" Language="zh_Hans_CN">
+      <Text>此玩家的队伍选择器。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_GAME_OPTION" Language="zh_Hans_CN">
+      <Text>游戏选项</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_GAME_SPEED" Language="zh_Hans_CN">
+      <Text>游戏速度：</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_MAP_SIZE" Language="zh_Hans_CN">
+      <Text>地图尺寸：</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_MAP_TYPE" Language="zh_Hans_CN">
+      <Text>地图类型：</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_NAVTRAY_READY" Language="zh_Hans_CN">
+      <Text>就绪</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_NAVTRAY_UNREADY" Language="zh_Hans_CN">
+      <Text>未就绪</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_READY_BUTTON_NOT_READY" Language="zh_Hans_CN">
+      <Text>就绪？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_READY_BUTTON_STARTING_GAME" Language="zh_Hans_CN">
+      <Text>正在开始……</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_READY_BUTTON_WAITING_FOR_OTHERS" Language="zh_Hans_CN">
+      <Text>正在等待玩家</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_RULE_SET" Language="zh_Hans_CN">
+      <Text>规则集：</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_RULES" Language="zh_Hans_CN">
+      <Text>查看所有规则</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_SHOW_FRIENDS" Language="zh_Hans_CN">
+      <Text>显示好友</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_SHOW_JOIN_CODE" Language="zh_Hans_CN">
+      <Text>显示加入密码</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_SUBTITLE" Language="zh_Hans_CN">
+      <Text>大厅</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_TIME_REMAINING" Language="zh_Hans_CN">
+      <Text>剩余时间</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_MEMENTO" Language="zh_Hans_CN">
+      <Text>选择纪念物</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_NEW_GAME_CREATE" Language="zh_Hans_CN">
+      <Text>创建</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_NEW_GAME_ENTER_JOIN_CODE" Language="zh_Hans_CN">
+      <Text>请输入加入密码：</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_NEW_GAME_JOIN" Language="zh_Hans_CN">
+      <Text>加入</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_NEW_GAME_TITLE" Language="zh_Hans_CN">
+      <Text>新建游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_NOT_CONNECTED_TO_LOBBY" Language="zh_Hans_CN">
+      <Text>未连接到大厅</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAY_MODE_LOCAL" Language="zh_Hans_CN">
+      <Text>本地</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAY_MODE_LOCAL_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>创建本地游戏并邀请好友</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAY_MODE_ONLINE" Language="zh_Hans_CN">
+      <Text>在线</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAY_MODE_ONLINE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>创建和好友进行的多人在线游戏，或加入自动匹配游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAY_MODE_SUBTITLE" Language="zh_Hans_CN">
+      <Text>多人游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAY_MODE_TITLE" Language="zh_Hans_CN">
+      <Text>选择游戏模式</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_ACCEPT_T2GP_FRIEND_REQUEST" Language="zh_Hans_CN">
+      <Text>接受好友申请</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_ACCEPT_T2GP_GAME_INVITE_REQUEST" Language="zh_Hans_CN">
+      <Text>接受游戏邀请请求</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_ADD_PLAT_FRIEND" Language="zh_Hans_CN">
+      <Text>好友</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_ADD_T2GP_FRIEND" Language="zh_Hans_CN">
+      <Text>添加好友</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_BLOCK" Language="zh_Hans_CN">
+      <Text>屏蔽</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_CANCEL_T2GP_FRIEND_REQUEST" Language="zh_Hans_CN">
+      <Text>取消好友申请</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_CHAT_UNAVAILABLE" Language="zh_Hans_CN">
+      <Text>不可用</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_DECLINE_T2GP_FRIEND_REQUEST" Language="zh_Hans_CN">
+      <Text>拒绝好友申请</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_DECLINE_T2GP_GAME_INVITE_REQUEST" Language="zh_Hans_CN">
+      <Text>拒绝游戏邀请请求</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_INVITE_FRIEND" Language="zh_Hans_CN">
+      <Text>邀请加入</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_KICK" Language="zh_Hans_CN">
+      <Text>踢出</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_MUTE" Language="zh_Hans_CN">
+      <Text>禁言</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_REMOVE_FRIEND" Language="zh_Hans_CN">
+      <Text>移除好友</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_REPORT" Language="zh_Hans_CN">
+      <Text>举报</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_UNBLOCK" Language="zh_Hans_CN">
+      <Text>解除屏蔽</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_UNMUTE" Language="zh_Hans_CN">
+      <Text>取消禁言</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_VIEW_PROFILE" Language="zh_Hans_CN">
+      <Text>查看档案</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_QUICK_JOIN_JOIN" Language="zh_Hans_CN">
+      <Text>快速加入</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_QUICK_JOIN_RULE_AGE" Language="zh_Hans_CN">
+      <Text>初始时代</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_QUICK_JOIN_RULE_RULESET" Language="zh_Hans_CN">
+      <Text>规则集</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_QUICK_JOIN_RULE_SPEED" Language="zh_Hans_CN">
+      <Text>游戏速度</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_QUICK_JOIN_SUBTITLE" Language="zh_Hans_CN">
+      <Text>快速加入规则</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_REPORT_BODY" Language="zh_Hans_CN">
+      <Text>是否确定举报创建人并将此游戏房间从列表中隐藏？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_REPORT_PLAYER_BODY" Language="zh_Hans_CN">
+      <Text>这位玩家有何不当行为？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_REPORT_PLAYER_TITLE" Language="zh_Hans_CN">
+      <Text>举报玩家</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_REPORT_TITLE" Language="zh_Hans_CN">
+      <Text>举报游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_SOCIAL_BUTTON_LABEL" Language="zh_Hans_CN">
+      <Text>社交菜单</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_SOCIAL_RESTRICTED_GAME" Language="zh_Hans_CN">
+      <Text>自定义游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_STAGING_CLIENT_TITLE" Language="zh_Hans_CN">
+      <Text>多人游戏准备画面：客户端设置</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_STAGING_HOST_TITLE" Language="zh_Hans_CN">
+      <Text>多人游戏准备画面：创建人设置</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_STAGING_INVITE_BUTTON" Language="zh_Hans_CN">
+      <Text>邀请好友</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_STAGING_PLAYER_LIST_TITLE" Language="zh_Hans_CN">
+      <Text>玩家列表 </Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_STAGING_READY_BUTTON_READY" Language="zh_Hans_CN">
+      <Text>就绪</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_STAGING_READY_BUTTON_UNREADY" Language="zh_Hans_CN">
+      <Text>未就绪</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_STAGING_SUBTITLE" Language="zh_Hans_CN">
+      <Text>准备画面</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_STAGING_TITLE" Language="zh_Hans_CN">
+      <Text>多人游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_STATUS_JOINING" Language="zh_Hans_CN">
+      <Text>正在加入游戏… </Text>
+    </Replace>
+    <Replace Tag="LOC_UI_NO_INTERNET_CONNECTION" Language="zh_Hans_CN">
+      <Text>任何现有的云存档将不再可用。[n]你的传奇领袖进度可能无法被保存。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_NO_INTERNET_CONNECTION_TITLE" Language="zh_Hans_CN">
+      <Text>无网络连接</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_ODR_DOWNLOAD_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>下载将在后台继续进行</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_OPTIONS_TITLE" Language="zh_Hans_CN">
+      <Text>选项</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_REDEEM_CODE_ALREADY_REDEEMED_INFO" Language="zh_Hans_CN">
+      <Text>此代码已被兑换。[n]要兑换其他代码吗？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_REDEEM_CODE_ALREADY_REDEEMED_TITLE" Language="zh_Hans_CN">
+      <Text>代码已兑换</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_REDEEM_CODE_FAILED_TITLE" Language="zh_Hans_CN">
+      <Text>无效代码</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_REDEEM_CODE_SUCCESS_TITLE" Language="zh_Hans_CN">
+      <Text>代码成功</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_REDEEM_CODE_TEXT_FIELD" Language="zh_Hans_CN">
+      <Text>在此处输入代码</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_SAVE_CONFIG" Language="zh_Hans_CN">
+      <Text>保存配置</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_SOCIAL_TITLE" Language="zh_Hans_CN">
+      <Text>社交</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_SPOP_LOGOUT_GAME" Language="zh_Hans_CN">
+      <Text>退出登录</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_STORE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>查看《文明VII》可用的附加内容</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_TERMINATE_SESSION" Language="zh_Hans_CN">
+      <Text>终止其他会话</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_TEXT_ENTRY_DENIAL" Language="zh_Hans_CN">
+      <Text>文本输入无效</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_TEXT_TO_SPEECH_CONTROLLER" Language="zh_Hans_CN">
+      <Text>文字转语音（控制器聚焦）</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_TEXT_TO_SPEECH_CONTROLLER_TT" Language="zh_Hans_CN">
+      <Text>如果平台支持，使用文字转语音功能讲述控制器聚焦的文字</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_TEXT_TO_SPEECH_KEYBOARD" Language="zh_Hans_CN">
+      <Text>文字转语音（鼠标光标）</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_TEXT_TO_SPEECH_KEYBOARD_TT" Language="zh_Hans_CN">
+      <Text>如果平台支持，使用文字转语音功能讲述鼠标光标下的文字</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_TOOLTIP_DISABLED_CONTENT" Language="zh_Hans_CN">
+      <Text>禁用内容</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_TOOLTIP_DLCS" Language="zh_Hans_CN">
+      <Text>官方内容</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_TOOLTIP_MODS" Language="zh_Hans_CN">
+      <Text>附加内容</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_TOOLTIP_STORE" Language="zh_Hans_CN">
+      <Text>合集</Text>
+    </Replace>
+    <Replace Tag="LOC_UNMUTE_DIALOG_TITLE" Language="zh_Hans_CN">
+      <Text>取消玩家禁言？</Text>
+    </Replace>
+    <Replace Tag="LOC_UPSELL_UPGRADE_COMPLETE" Language="zh_Hans_CN">
+      <Text>感谢你的购买。请重启游戏以使更改生效。</Text>
+    </Replace>
+    <Replace Tag="LOC_XR_CONTROLLER_TRIGGER_ACCEPT" Language="zh_Hans_CN">
+      <Text>接受</Text>
+    </Replace>
+    <Replace Tag="LOC_AGE_TRANSITION_CHOOSE_CIV" Language="zh_Hans_CN">
+      <Text>选择{1_Civilization}</Text>
+    </Replace>
+    <Replace Tag="LOC_AGE_TRANSITION_PLAY_AS" Language="zh_Hans_CN">
+      <Text>扮演[B]{1_Requirement}[/B]</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_ADD_MEMENTO_UNLOCK" Language="zh_Hans_CN">
+      <Text>在{1_Level}级解锁</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_AGE_TITLE" Language="zh_Hans_CN">
+      <Text>{1_Item}时代</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_LEADER_CIV_HISTORIC_BIAS" Language="zh_Hans_CN">
+      <Text>[B]{1_LeaderName}[/B]在历史上与此文明存在关联。</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_POPUP_BODY" Language="zh_Hans_CN">
+      <Text>要购买{1_Name}吗？</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_UNLOCK_ITEM" Language="zh_Hans_CN">
+      <Text>解锁[B]{1_Item}[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_UNLOCK_ITEM_IN_AGE" Language="zh_Hans_CN">
+      <Text>在[B]{2_Age}[/B]时代中解锁[B]{1_Item}[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_UNLOCKS_LIST" Language="zh_Hans_CN">
+      <Text>解锁以下：[BLIST]{1_Items}[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_UNLOCKS_LIST_ITEM" Language="zh_Hans_CN">
+      <Text>[LI] [B]{1_UnlockName}[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_UNLOCKS_LIST_ITEM_IN_AGE" Language="zh_Hans_CN">
+      <Text>[LI] [B]{2_AgeName}[/B]时代中[B]{1_UnlockName}[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_CROSSPLAY_CHOICE_1_CONTEXT_CONFLICT_RESOLUTION" Language="zh_Hans_CN">
+      <Text>本地跨平台游戏存档{1_CrossplayType}</Text>
+    </Replace>
+    <Replace Tag="LOC_CROSSPLAY_CHOICE_2_CONTEXT_RESOLUTION" Language="zh_Hans_CN">
+      <Text>2K绑定跨平台游戏存档{1_CrossplayType}</Text>
+    </Replace>
+    <Replace Tag="LOC_DIRECT_KICK_CONFIRM_DIALOG" Language="zh_Hans_CN">
+      <Text>确定要将{1_kickPlayerName}立即踢出游戏？</Text>
+    </Replace>
+    <Replace Tag="LOC_DIRECT_MUTE_CONFIRM_DIALOG" Language="zh_Hans_CN">
+      <Text>是否要对{1_mutePlayerName}禁言？</Text>
+    </Replace>
+    <Replace Tag="LOC_DIRECT_UNMUTE_CONFIRM_DIALOG" Language="zh_Hans_CN">
+      <Text>是否取消对{1_mutePlayerName}的禁言？</Text>
+    </Replace>
+    <Replace Tag="LOC_EDIT_MEMENTOS_LEADER_TITLE" Language="zh_Hans_CN">
+      <Text>{1_LeaderName}纪念物</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_VERSION_MISMATCH" Language="zh_Hans_CN">
+      <Text>与游戏创建人版本不匹配。[N]本机版本={1_localVersion}[N]创建人版本={2_remoteVersion}</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_SUMMARY_JOIN_CODE" Language="zh_Hans_CN">
+      <Text>加入密码：{1_JoinCode}</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_CHOOSE" Language="zh_Hans_CN">
+      <Text>选择{1_Choice}</Text>
+    </Replace>
+    <Replace Tag="LOC_KICK_VOTE_CHOICE_DIALOG" Language="zh_Hans_CN">
+      <Text>{2_kickerPlayerName}发起了针对{1_kickPlayerName}的踢出投票。[N]你是否希望将{1_kickPlayerName}踢出游戏？</Text>
+    </Replace>
+    <Replace Tag="LOC_KICK_VOTE_CONFIRM_DIALOG" Language="zh_Hans_CN">
+      <Text>确定要将{1_kickPlayerName}踢出游戏？将发起投票。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOCKED_GENERIC" Language="zh_Hans_CN">
+      <Text>{1_LeaderOrCivName}已锁定。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOCKED_INCLUDED_WITH_CONTENT" Language="zh_Hans_CN">
+      <Text>{1_LeaderOrCivName}包含在{2_ContentPack}中。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOCKED_LINK_ACCOUNT" Language="zh_Hans_CN">
+      <Text>注册（或登录）2K帐号来解锁{1_LeaderOrCivName}！</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_MEMENTO_UNLOCKED_TEXT" Language="zh_Hans_CN">
+      <Text>已解锁{1_PathType}{2_level}级的纪念物</Text>
+    </Replace>
+    <Replace Tag="LOC_MULTIPLAYER_DEFAULT_GAME_NAME" Language="zh_Hans_CN">
+      <Text>{1_PlayerName}的游戏</Text>
+    </Replace>
+    <Replace Tag="LOC_MULTIPLAYER_DEFAULT_TEAM_NAME" Language="zh_Hans_CN">
+      <Text>团队{1_TeamNumber}</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PLOT_TOOLTIP_DELAY_VALUE" Language="zh_Hans_CN">
+      <Text>{1: number 0.0}秒</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TOOLTIP_DELAY_VALUE" Language="zh_Hans_CN">
+      <Text>{1: number 0.0}秒</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_ALL_QUESTS" Language="zh_Hans_CN">
+      <Text>所有{1_Quests}项挑战</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_CHALLENGE_REPEATABLE_PROGRESS" Language="zh_Hans_CN">
+      <Text>已完成：{1_CurrentProgress}/{2_MaxProgress}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_DIFFICULTY" Language="zh_Hans_CN">
+      <Text>难度：{1_Difficulty}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_GAME_SPEED" Language="zh_Hans_CN">
+      <Text>游戏速度：{1_Speed}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_NUMBER_COMPLETE" Language="zh_Hans_CN">
+      <Text>所有挑战{1_NumCompleted}/{2_Total}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_PATH_HEADER" Language="zh_Hans_CN">
+      <Text>{1_Path}{2_Level}级</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_PROGRESS_CHOICE_1_CONTEXT_CONFLICT_RESOLUTION" Language="zh_Hans_CN">
+      <Text>本地游戏进度{1_ProgressType}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_PROGRESS_CHOICE_2_CONTEXT_RESOLUTION" Language="zh_Hans_CN">
+      <Text>2K绑定游戏进度{1_ProgressType}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_PROGRESS_HEADER" Language="zh_Hans_CN">
+      <Text>{1_Level}级：{2_CurrentPoints}/{3_NextLevelPoints}经验值</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_QUEST_PROGRESS" Language="zh_Hans_CN">
+      <Text>{1_Completed}/{2_Total}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TURNS" Language="zh_Hans_CN">
+      <Text>{1_Turns}回合。</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_GAME_MOD_NOT_INSTALLED" Language="zh_Hans_CN">
+      <Text>[STYLE:text-negative]{1_modTitle} （未安装）[/STYLE]</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_GAME_MOD_NOT_OWNED" Language="zh_Hans_CN">
+      <Text>[STYLE:text-negative]{1_modTitle} （未拥有）[/STYLE]</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CONFIRM_OVERWRITE_BODY" Language="zh_Hans_CN">
+      <Text>确定要覆盖现有的这个{1_type}存档吗？此操作无法撤消。</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DELETE_DIALOG" Language="zh_Hans_CN">
+      <Text>确定要删除这个{1_type}存档吗？此操作无法撤消。</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DELETING" Language="zh_Hans_CN">
+      <Text>正在删除{1_SaveType}存档……</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_SAVE_TYPE" Language="zh_Hans_CN">
+      <Text>存档类型：{1_SaveType}</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_LOADING" Language="zh_Hans_CN">
+      <Text>正在获取{1_SaveType}存档……</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVE_DATE" Language="zh_Hans_CN">
+      <Text>{1_Date: date short}</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVE_TIME" Language="zh_Hans_CN">
+      <Text>{1_Date: time short}</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVING" Language="zh_Hans_CN">
+      <Text>正在创建{1_SaveType}存档……</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_TURN" Language="zh_Hans_CN">
+      <Text>{1_turn}回合</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_BUILD_INFO" Language="zh_Hans_CN">
+      <Text>版本：{1_BuildString}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_ALREADY_FRIEND" Language="zh_Hans_CN">
+      <Text>{1_PlayerName}已是你的好友</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_DESC_PRIVATE" Language="zh_Hans_CN">
+      <Text>向{1_Name}发送一条私信。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_ERROR_PLAYER" Language="zh_Hans_CN">
+      <Text>命令错误：名称为“{1_Name}”的玩家不存在，或有超过一名玩家拥有此名称。请输入一个精确名称。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_ERROR_UNKNOWN" Language="zh_Hans_CN">
+      <Text>命令错误：未知命令“/{1_Name}”</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_GAMEPAD_INPUT_DESC_PRIVATE" Language="zh_Hans_CN">
+      <Text>向{1_Name}发送消息</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_CONNECTED" Language="zh_Hans_CN">
+      <Text>玩家[STYLE:mp-chat__text-shrink]{1_Name}[/S]已连线……</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_DIRECT_FAIL" Language="zh_Hans_CN">
+      <Text>直接踢出[STYLE:mp-chat__text-shrink]{1_Name}[/S]失败。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_DIRECT_KICK" Language="zh_Hans_CN">
+      <Text>直接踢出[STYLE:mp-chat__text-shrink]{1_Name}[/S]成功。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_DISCONNECTED" Language="zh_Hans_CN">
+      <Text>玩家[STYLE:mp-chat__text-shrink]{1_Name}[/S]已断线……</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_KICKED_CROSSPLAY_DISABLED_CLIENT" Language="zh_Hans_CN">
+      <Text>由于客户端禁用跨平台游戏，玩家[STYLE:mp-chat__text-shrink]{1_Name}[/S]已被踢出。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_KICKED_CROSSPLAY_DISABLED_HOST" Language="zh_Hans_CN">
+      <Text>由于游戏创建人禁用跨平台游戏，玩家[STYLE:mp-chat__text-shrink]{1_Name}[/S]已被踢出。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_KICKED_DEFAULT" Language="zh_Hans_CN">
+      <Text>玩家[STYLE:mp-chat__text-shrink]{1_Name}[/S]已被踢出。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_KICKED_MOD_ERROR" Language="zh_Hans_CN">
+      <Text>由于模组出错，玩家[STYLE:mp-chat__text-shrink]{1_Name}[/S]已被踢出。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_KICKED_MOD_MISSING" Language="zh_Hans_CN">
+      <Text>由于模组缺失，玩家[STYLE:mp-chat__text-shrink]{1_Name}[/S]已被踢出。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_KICKED_NO_ROOM" Language="zh_Hans_CN">
+      <Text>由于无空位，玩家[STYLE:mp-chat__text-shrink]{1_Name}[/S]已被踢出。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_KICKED_VERSION_MISMATCH" Language="zh_Hans_CN">
+      <Text>由于版本不匹配，玩家[STYLE:mp-chat__text-shrink]{1_Name}[/S]已被踢出。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_VOTE_KICK" Language="zh_Hans_CN">
+      <Text>针对[STYLE:mp-chat__text-shrink]{1_Name}[/S]的投票成功。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_VOTE_NO_KICK" Language="zh_Hans_CN">
+      <Text>针对[STYLE:mp-chat__text-shrink]{1_Name}[/S]的投票被拒。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_VOTE_NOT_ENOUGH_PLAYERS" Language="zh_Hans_CN">
+      <Text>针对[STYLE:mp-chat__text-shrink]{1_Name}[/S]的投票已取消。没有足够投票者。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_VOTE_TARGET_INVALID" Language="zh_Hans_CN">
+      <Text>针对[STYLE:mp-chat__text-shrink]{1_Name}[/S]的投票已取消。其并非有效踢出目标。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_VOTE_TIME_ELAPSED" Language="zh_Hans_CN">
+      <Text>针对[STYLE:mp-chat__text-shrink]{1_Name}[/S]的投票已取消。投票时间已过。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_TITLE_HYBRID" Language="zh_Hans_CN">
+      <Text>{1_type}鼠标操作</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MOD_AUTHOR" Language="zh_Hans_CN">
+      <Text>创作者：{1_Name}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MOD_DATE" Language="zh_Hans_CN">
+      <Text>创建时间：{1_Date: datetime}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_AGE" Language="zh_Hans_CN">
+      <Text>时代：{1_age}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_MAP_TYPE" Language="zh_Hans_CN">
+      <Text>地图类型：{1_map_type}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_RULE_SET" Language="zh_Hans_CN">
+      <Text>规则集：{1_rule_set}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_SPEED" Language="zh_Hans_CN">
+      <Text>速度：{1_speed}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_ACCEPT_INVITE" Language="zh_Hans_CN">
+      <Text>确定接受来自{1_PlayerName}的游戏邀请吗？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_ACCEPT_REQUEST" Language="zh_Hans_CN">
+      <Text>确定要接受来自{1_PlayerName}的好友申请吗？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_BLOCK" Language="zh_Hans_CN">
+      <Text>确定要屏蔽{1_PlayerName}吗？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_CANCEL_REQUEST" Language="zh_Hans_CN">
+      <Text>确定要取消发送给{1_PlayerName}的好友申请吗？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_DECLINE_INVITE" Language="zh_Hans_CN">
+      <Text>确定拒绝来自{1_PlayerName}的游戏邀请吗？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_DECLINE_REQUEST" Language="zh_Hans_CN">
+      <Text>确定要拒绝来自{1_PlayerName}的好友申请吗？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_GAME_INVITE" Language="zh_Hans_CN">
+      <Text>确定要向{1_PlayerName}发送游戏邀请吗？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_REQUEST" Language="zh_Hans_CN">
+      <Text>确定要向{1_PlayerName}发送好友申请吗？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_UNBLOCK" Language="zh_Hans_CN">
+      <Text>确定要取消对{1_PlayerName}的屏蔽吗？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_ACCEPT_FRIEND" Language="zh_Hans_CN">
+      <Text>你现在已和{1_PlayerName}成为好友</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_ADD_FRIEND" Language="zh_Hans_CN">
+      <Text>你向{1_PlayerName}发送了好友申请</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_BLOCK" Language="zh_Hans_CN">
+      <Text>你屏蔽了{1_PlayerName}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_DECLINE_FREIND" Language="zh_Hans_CN">
+      <Text>你拒绝了来自{1_PlayerName}的好友申请</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_INVITE" Language="zh_Hans_CN">
+      <Text>你已经邀请{1_PlayerName}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_INVITE_TO_JOIN" Language="zh_Hans_CN">
+      <Text>你向{1_PlayerName}发送了游戏邀请</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_REMOVE_FRIEND" Language="zh_Hans_CN">
+      <Text>你从好友列表中移除了{1_PlayerName}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_UNBLOCK" Language="zh_Hans_CN">
+      <Text>你取消了对{1_PlayerName}的屏蔽</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_NO_RESULTS" Language="zh_Hans_CN">
+      <Text>你的{1_ListType}列表为空白。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_REMOVE_FRIEND" Language="zh_Hans_CN">
+      <Text>确定要移除好友{1_PlayerName}吗？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_ERROR_BODY" Language="zh_Hans_CN">
+      <Text>未能加入大厅：{1_Reason}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_UNKNOWN_ERROR" Language="zh_Hans_CN">
+      <Text>返回未知错误：{1_ErrorNumber}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_PLAYERS" Language="zh_Hans_CN">
+      <Text>{1_currentPlayers}/{2_maxPlayers}玩家</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_TEAM" Language="zh_Hans_CN">
+      <Text>{1_TeamNumber}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_REPORT_FEEDBACK_REPORTED" Language="zh_Hans_CN">
+      <Text>你举报了{1_PlayerName}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_REDEEM_CODE_FAILED_INFO" Language="zh_Hans_CN">
+      <Text>此代码无效。[n]{1_ErrorMessage}[n]要兑换其他代码吗？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_REDEEM_CODE_SUCCESS_INFO" Language="zh_Hans_CN">
+      <Text>代码兑换成功！你获得了[n]{1_ListOfNames}[n]。要兑换其他代码吗？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_REDEEM_CODE_SUCCESS_INFO_CURRENCY" Language="zh_Hans_CN">
+      <Text>- {1_Amount} {2_Name}[n]</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_REDEEM_CODE_SUCCESS_INFO_ENTITLEMENT" Language="zh_Hans_CN">
+      <Text>- {1_Name}[n]</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

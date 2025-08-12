@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metaprogression xmlns="Metaprogression">
+	<challenges class="CHALLENGE_CLASS_LEADER" category="CHALLENGE_CATEGORY_LEADER_CONFUCIUS" legendPath="LEGEND_PATH_CONFUCIUS">
+		<challenge id="CHALLENGE_CONFUCIUS_MILITARY_VICTORY_ANTIQUITY" scope="Career" difficulty="3">
+			<l10n>
+				<name>Pax Imperatoria</name>
+				<description>As Confucius, complete the Pax Imperatoria Legacy Path.</description>
+			</l10n>
+			<sortIndex>43000</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_MILITARY_VICTORY_ANTIQUITY" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_MILITARY_VICTORY_ANTIQUITY_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Pax Imperatoria 2</name>
+				<description>As Confucius, complete the Pax Imperatoria Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>43010</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_MILITARY_VICTORY_ANTIQUITY" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_MILITARY_VICTORY_ANTIQUITY_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Pax Imperatoria 3</name>
+				<description>As Confucius, complete the Pax Imperatoria Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>43020</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_MILITARY_VICTORY_ANTIQUITY" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_ECONOMIC_VICTORY_ANTIQUITY" scope="Career" difficulty="3">
+			<l10n>
+				<name>Silk Roads</name>
+				<description>As Confucius, complete the Silk Roads Legacy Path.</description>
+			</l10n>
+			<sortIndex>43200</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_ECONOMIC_VICTORY_ANTIQUITY" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_ECONOMIC_VICTORY_ANTIQUITY_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Silk Roads 2</name>
+				<description>As Confucius, complete the Silk Roads Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>43210</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_ECONOMIC_VICTORY_ANTIQUITY" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_ECONOMIC_VICTORY_ANTIQUITY_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Silk Roads 3</name>
+				<description>As Confucius, complete the Silk Roads Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>43220</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_ECONOMIC_VICTORY_ANTIQUITY" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_MILITARY_VICTORY_EXPLORATION" scope="Career" difficulty="3">
+			<l10n>
+				<name>Non Sufficit Orbis</name>
+				<description>As Confucius, complete the Non Sufficit Orbis Legacy Path.</description>
+			</l10n>
+			<sortIndex>43600</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_MILITARY_VICTORY_EXPLORATION" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_MILITARY_VICTORY_EXPLORATION_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Non Sufficit Orbis 2</name>
+				<description>As Confucius, complete the Non Sufficit Orbis Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>43610</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_MILITARY_VICTORY_EXPLORATION" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_MILITARY_VICTORY_EXPLORATION_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Non Sufficit Orbis 3</name>
+				<description>As Confucius, complete the Non Sufficit Orbis Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>43620</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_MILITARY_VICTORY_EXPLORATION" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_ECONOMIC_VICTORY_EXPLORATION" scope="Career" difficulty="3">
+			<l10n>
+				<name>Treasure Fleet</name>
+				<description>As Confucius, complete the Treasure Fleet Legacy Path.</description>
+			</l10n>
+			<sortIndex>43800</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_ECONOMIC_VICTORY_EXPLORATION" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_ECONOMIC_VICTORY_EXPLORATION_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Treasure Fleet 2</name>
+				<description>As Confucius, complete the Treasure Fleet Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>43810</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_ECONOMIC_VICTORY_EXPLORATION" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_ECONOMIC_VICTORY_EXPLORATION_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Treasure Fleet 3</name>
+				<description>As Confucius, complete the Treasure Fleet Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>43820</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_ECONOMIC_VICTORY_EXPLORATION" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_MILITARY_VICTORY_MODERN" scope="Career" difficulty="3">
+			<l10n>
+				<name>Ideology</name>
+				<description>As Confucius, complete the Ideology Legacy Path.</description>
+			</l10n>
+			<sortIndex>44200</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_MILITARY_VICTORY_MODERN" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_MILITARY_VICTORY_MODERN_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Ideology 2</name>
+				<description>As Confucius, complete the Ideology Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>44210</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_MILITARY_VICTORY_MODERN" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_MILITARY_VICTORY_MODERN_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Ideology 3</name>
+				<description>As Confucius, complete the Ideology Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>44220</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_MILITARY_VICTORY_MODERN" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_ECONOMIC_VICTORY_MODERN" scope="Career" difficulty="3">
+			<l10n>
+				<name>Railroad Tycoon</name>
+				<description>As Confucius, complete the Railroad Tycoon Legacy Path.</description>
+			</l10n>
+			<sortIndex>44100</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_ECONOMIC_VICTORY_MODERN" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_ECONOMIC_VICTORY_MODERN_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Railroad Tycoon 2</name>
+				<description>As Confucius, complete the Railroad Tycoon Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>44110</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_ECONOMIC_VICTORY_MODERN" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_ECONOMIC_VICTORY_MODERN_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Railroad Tycoon 3</name>
+				<description>As Confucius, complete the Railroad Tycoon Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>44120</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_ECONOMIC_VICTORY_MODERN" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_AGE_COMPLETED_ANTIQUITY" scope="Career" difficulty="2">
+			<l10n>
+				<name>Antiquity Complete</name>
+				<description>As Confucius, finish the Antiquity Age.</description>
+			</l10n>
+			<sortIndex>42800</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_ANTIQUITY_AGES_COMPLETED" threshold="1" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_AGE_COMPLETED_ANTIQUITY_2" scope="Career" difficulty="2">
+			<l10n>
+				<name>Antiquity Complete 2</name>
+				<description>As Confucius, finish the Antiquity Age twice.</description>
+			</l10n>
+			<sortIndex>42810</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_ANTIQUITY_AGES_COMPLETED" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_AGE_COMPLETED_ANTIQUITY_3" scope="Career" difficulty="2">
+			<l10n>
+				<name>Antiquity Complete 3</name>
+				<description>As Confucius, finish the Antiquity Age thrice.</description>
+			</l10n>
+			<sortIndex>42820</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_ANTIQUITY_AGES_COMPLETED" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_AGE_COMPLETED_EXPLORATION" scope="Career" difficulty="3">
+			<l10n>
+				<name>Exploration Complete</name>
+				<description>As Confucius, finish the Exploration Age.</description>
+			</l10n>
+			<sortIndex>43400</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_EXPLORATION_AGES_COMPLETED" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_AGE_COMPLETED_EXPLORATION_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Exploration Complete 2</name>
+				<description>As Confucius, finish the Exploration Age twice.</description>
+			</l10n>
+			<sortIndex>43410</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_EXPLORATION_AGES_COMPLETED" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_AGE_COMPLETED_EXPLORATION_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Exploration Complete 3</name>
+				<description>As Confucius, finish the Exploration Age thrice.</description>
+			</l10n>
+			<sortIndex>43420</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_EXPLORATION_AGES_COMPLETED" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_AGE_COMPLETED_MODERN" scope="Career" difficulty="2">
+			<l10n>
+				<name>Modern Complete</name>
+				<description>As Confucius, finish the Modern Age.</description>
+			</l10n>
+			<sortIndex>44000</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_MODERN_AGES_COMPLETED" threshold="1" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_AGE_COMPLETED_MODERN_2" scope="Career" difficulty="2">
+			<l10n>
+				<name>Modern Complete 2</name>
+				<description>As Confucius, finish the Modern Age twice.</description>
+			</l10n>
+			<sortIndex>44010</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_MODERN_AGES_COMPLETED" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_AGE_COMPLETED_MODERN_3" scope="Career" difficulty="2">
+			<l10n>
+				<name>Modern Complete 3</name>
+				<description>As Confucius, finish the Modern Age thrice.</description>
+			</l10n>
+			<sortIndex>44020</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_MODERN_AGES_COMPLETED" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_PLAY_GAMES_1" scope="Career" difficulty="1">
+			<l10n>
+				<name>Play Game 1</name>
+				<description>As Confucius, reach at least 1 Legacy Path Milestone.</description>
+			</l10n>
+			<sortIndex>44600</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_LEGACY_PATH_MILESTONE_COMPLETED" threshold="1" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_PLAY_GAMES_2" scope="Career" difficulty="1">
+			<l10n>
+				<name>Play Game 2</name>
+				<description>As Confucius, reach at least 2 Legacy Path Milestones.</description>
+			</l10n>
+			<sortIndex>44700</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_LEGACY_PATH_MILESTONE_COMPLETED" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_PLAY_GAMES_3" scope="Career" difficulty="1">
+			<l10n>
+				<name>Play Game 3</name>
+				<description>As Confucius, reach at least 3 Legacy Path Milestones.</description>
+			</l10n>
+			<sortIndex>44800</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_LEGACY_PATH_MILESTONE_COMPLETED" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_SCIENCE_VICTORY_ANTIQUITY" scope="Career" difficulty="3">
+			<l10n>
+				<name>Great Library</name>
+				<description>As Confucius, complete the Great Library Legacy Path.</description>
+			</l10n>
+			<sortIndex>43100</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_SCIENCE_VICTORY_ANTIQUITY" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_SCIENCE_VICTORY_ANTIQUITY_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Great Library 2</name>
+				<description>As Confucius, complete the Great Library Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>43110</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_SCIENCE_VICTORY_ANTIQUITY" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_SCIENCE_VICTORY_ANTIQUITY_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Great Library 3</name>
+				<description>As Confucius, complete the Great Library Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>43120</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_SCIENCE_VICTORY_ANTIQUITY" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_SCIENCE_VICTORY_EXPLORATION" scope="Career" difficulty="3">
+			<l10n>
+				<name>Enlightenment</name>
+				<description>As Confucius, complete the Enlightenment Legacy Path.</description>
+			</l10n>
+			<sortIndex>43700</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_SCIENCE_VICTORY_EXPLORATION" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_SCIENCE_VICTORY_EXPLORATION_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Enlightenment 2</name>
+				<description>As Confucius, complete the Enlightenment Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>43710</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_SCIENCE_VICTORY_EXPLORATION" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_SCIENCE_VICTORY_EXPLORATION_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Enlightenment 3</name>
+				<description>As Confucius, complete the Enlightenment Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>43720</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_SCIENCE_VICTORY_EXPLORATION" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_SCIENCE_VICTORY_MODERN" scope="Career" difficulty="3">
+			<l10n>
+				<name>Space Race</name>
+				<description>As Confucius, complete the Space Race Legacy Path.</description>
+			</l10n>
+			<sortIndex>44300</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_SCIENCE_VICTORY_MODERN" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_SCIENCE_VICTORY_MODERN_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Space Race 2</name>
+				<description>As Confucius, complete the Space Race Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>44310</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_SCIENCE_VICTORY_MODERN" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_SCIENCE_VICTORY_MODERN_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Space Race 3</name>
+				<description>As Confucius, complete the Space Race Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>44320</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_SCIENCE_VICTORY_MODERN" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_CULTURE_VICTORY_ANTIQUITY" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders of the Ancient World</name>
+				<description>As Confucius, complete the Wonders of the Ancient World Legacy Path.</description>
+			</l10n>
+			<sortIndex>42900</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_CULTURE_VICTORY_ANTIQUITY" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_CULTURE_VICTORY_ANTIQUITY_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders of the Ancient World 2</name>
+				<description>As Confucius, complete the Wonders of the Ancient World Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>42910</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_CULTURE_VICTORY_ANTIQUITY" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_CULTURE_VICTORY_ANTIQUITY_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders of the Ancient World 3</name>
+				<description>As Confucius, complete the Wonders of the Ancient World Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>42920</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_CULTURE_VICTORY_ANTIQUITY" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_CULTURE_VICTORY_EXPLORATION" scope="Career" difficulty="3">
+			<l10n>
+				<name>Toshakhana</name>
+				<description>As Confucius, complete the Toshakhana Legacy Path.</description>
+			</l10n>
+			<sortIndex>43500</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_CULTURE_VICTORY_EXPLORATION" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_CULTURE_VICTORY_EXPLORATION_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Toshakhana 2</name>
+				<description>As Confucius, complete the Toshakhana Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>43510</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_CULTURE_VICTORY_EXPLORATION" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_CULTURE_VICTORY_EXPLORATION_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Toshakhana 3</name>
+				<description>As Confucius, complete the Toshakhana Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>43520</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_CULTURE_VICTORY_EXPLORATION" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_CULTURE_VICTORY_MODERN" scope="Career" difficulty="3">
+			<l10n>
+				<name>Geographic Society</name>
+				<description>As Confucius, complete the Geographic Society Legacy Path.</description>
+			</l10n>
+			<sortIndex>44400</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_CULTURE_VICTORY_MODERN" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_CULTURE_VICTORY_MODERN_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Geographic Society 2</name>
+				<description>As Confucius, complete the Geographic Society Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>44410</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_CULTURE_VICTORY_MODERN" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_CULTURE_VICTORY_MODERN_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Geographic Society 3</name>
+				<description>As Confucius, complete the Geographic Society Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>44420</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_CULTURE_VICTORY_MODERN" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_FLAWLESS_VICTORY_ANTIQUITY" scope="Campaign" difficulty="4">
+			<l10n>
+				<name>Dual Legacies, Antiquity</name>
+				<description>As Confucius, complete 2 Legacy Paths in a single Antiquity Age.</description>
+			</l10n>
+			<sortIndex>43300</sortIndex>
+			<campaignConfig event="CHALLENGE_EVENT_LEADER_CONFUCIUS_FLAWLESS_VICTORY_ACHIEVED" />
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="legacyPathCount">2</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_FLAWLESS_VICTORY_EXPLORATION" scope="Campaign" difficulty="4">
+			<l10n>
+				<name>Dual Legacies, Exploration</name>
+				<description>As Confucius, complete 2 Legacy Paths in a single Exploration Age.</description>
+			</l10n>
+			<sortIndex>43900</sortIndex>
+			<campaignConfig event="CHALLENGE_EVENT_LEADER_CONFUCIUS_FLAWLESS_VICTORY_ACHIEVED" />
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="legacyPathCount">2</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CONFUCIUS_FLAWLESS_VICTORY_MODERN" scope="Campaign" difficulty="4">
+			<l10n>
+				<name>Dual Legacies, Modern</name>
+				<description>As Confucius, complete 2 Legacy Paths in a single Modern Age.</description>
+			</l10n>
+			<sortIndex>44500</sortIndex>
+			<campaignConfig event="CHALLENGE_EVENT_LEADER_CONFUCIUS_FLAWLESS_VICTORY_ACHIEVED" />
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="legacyPathCount">2</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_CONFUCIUS_QUEST_A_ANTIQUITY" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Righteousness</name>
+				<description>As Confucius in Antiquity, complete a quest to set trading precedents.</description>
+			</l10n>
+			<sortIndex>45500</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_CONFUCIUS_QUEST_B_ANTIQUITY" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>The Merits of Education</name>
+				<description>As Confucius in Antiquity, complete a quest to determine who can access Codices.</description>
+			</l10n>
+			<sortIndex>45600</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_CONFUCIUS_QUEST_A_EXPLORATION" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>The Wanderers</name>
+				<description>As Confucius in Exploration, complete a quest to lead the people across the ocean.</description>
+			</l10n>
+			<sortIndex>45700</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_CONFUCIUS_QUEST_B_EXPLORATION" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>World Order</name>
+				<description>As Confucius in Exploration, complete a quest to contemplate the divine order.</description>
+			</l10n>
+			<sortIndex>45800</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_CONFUCIUS_QUEST_A_MODERN" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Seeking the Ideal</name>
+				<description>As Confucius in Modern, complete a quest to spread new Confucian thought.</description>
+			</l10n>
+			<sortIndex>45900</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_CONFUCIUS_QUEST_B_MODERN" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Human Nature</name>
+				<description>As Confucius in Modern, complete a quest to cement the lessons of the past.</description>
+			</l10n>
+			<sortIndex>46000</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_CONFUCIUS_UNLOCKED_STRATEGYCARDS_EXPLORATION" scope="Campaign" difficulty="1" hidden="true" allowRewardWhenHidden="true">
+			<l10n>
+				<name>Age Transition Card Exploration</name>
+				<description>As Confucius unlock age transition legend strategycards for exploration age.</description>
+			</l10n>
+			<sortIndex>46001</sortIndex>
+			<reward type="UnlockableReward" reward="STRATEGYCARD_AS_CONFUCIUS_EXPLORATION_1" />
+			<reward type="UnlockableReward" reward="STRATEGYCARD_AS_CONFUCIUS_EXPLORATION_2" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_CONFUCIUS_UNLOCKED_STRATEGYCARDS_MODERN" scope="Campaign" difficulty="1" hidden="true" allowRewardWhenHidden="true">
+			<l10n>
+				<name>Age Transition Card Modern</name>
+				<description>As Confucius unlock age transition legend strategycards for modern age.</description>
+			</l10n>
+			<sortIndex>46002</sortIndex>
+			<reward type="UnlockableReward" reward="STRATEGYCARD_AS_CONFUCIUS_MODERN_1" />
+			<reward type="UnlockableReward" reward="STRATEGYCARD_AS_CONFUCIUS_MODERN_2" />
+		</challenge>
+	</challenges>
+</metaprogression>

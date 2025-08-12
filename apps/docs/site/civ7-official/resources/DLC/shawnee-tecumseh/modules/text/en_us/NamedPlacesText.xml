@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--Rivers-->
+		<Row Tag="LOC_RIVER_P_SIKFI_FIPI_NAME">
+			<Text>P'sikfi Fipi </Text>
+		</Row>
+		<Row Tag="LOC_RIVER_M_SIFIPIWIKI_NAME">
+			<Text>M'sifipiwiki </Text>
+		</Row>
+		<Row Tag="LOC_RIVER_PELEWA_FIPI_NAME">
+			<Text>Pelewa Fipi</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_K_TEKANI_FIPI_NAME">
+			<Text>K'tekani Fipi</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_KILEKINIKA_FIPI_NAME">
+			<Text>Kilekinika Fipi</Text>
+		</Row>
+	</EnglishText>
+</Database>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Districts-->
+		<Row Tag="LOC_DISTRICT_CITY_CENTER_NAME">
+			<Text>City Center</Text>
+		</Row>
+		<Row Tag="LOC_DISTRICT_URBAN_NAME">
+			<Text>Urban</Text>
+		</Row>
+		<Row Tag="LOC_DISTRICT_WONDER_NAME">
+			<Text>Wonder</Text>
+		</Row>
+		<Row Tag="LOC_DISTRICT_RURAL_NAME">
+			<Text>Rural</Text>
+		</Row>
+		<Row Tag="LOC_DISTRICT_WILDERNESS_NAME">
+			<Text>Wilderness</Text>
+		</Row>
+		<!--Constructible Classes-->
+		<Row Tag="LOC_CONSTRUCTIBLE_CLASS_NAME_BUILDING">
+			<Text>Building</Text>
+		</Row>
+		<Row Tag="LOC_CONSTRUCTIBLE_CLASS_NAME_IMPROVEMENT">
+			<Text>Improvement</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_CONSTRUCTIBLE_CLASS_NAME_WONDER">
+			<Text>Wonder</Text>
+		</Row>
+		<!-- Buildings-->
+		<Row Tag="LOC_BUILDING_PALACE_NAME">
+			<Text>Palace</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PALACE_DESCRIPTION">
+			<Text>Central Building for a Capital City</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_CITY_HALL_NAME">
+			<Text>City Hall</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_CITY_HALL_DESCRIPTION">
+			<Text>Central Building for a City</Text>
+		</Row>
+		<!-- Improvements-->
+		<Row Tag="LOC_IMPROVEMENT_FARM_NAME">
+			<Text>Farm</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_MINE_NAME">
+			<Text>Mine</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_CLAY_PIT_NAME">
+			<Text>Clay Pit</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_WOODCUTTER_NAME">
+			<Text>Woodcutter</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_FISHING_BOAT_NAME">
+			<Text>Fishing Boat</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_CAMP_NAME">
+			<Text>Camp</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_PASTURE_NAME">
+			<Text>Pasture</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_PLANTATION_NAME">
+			<Text>Plantation</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_QUARRY_NAME">
+			<Text>Quarry</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_OIL_RIG_NAME">
+			<Text>Oil Rig</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_EXPEDITION_BASE_NAME">
+			<Text>Expedition Base</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_EXPEDITION_BASE_DESCRIPTION">
+			<Text>The Expedition Base sits upon Natural Wonders and Mountains, allowing these tiles to be worked.</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_VILLAGE_NAME">
+			<Text>Village</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_VILLAGE_DESCRIPTION">
+			<Text>Home to a Village minor power.</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_ENCAMPMENT_NAME">
+			<Text>Encampment</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_ENCAMPMENT_DESCRIPTION">
+			<Text>Home to an Encampment minor power.</Text>
+		</Row>
+		<!--Discoveries-->
+		<Row Tag="LOC_IMPROVEMENT_CAVE_NAME">
+			<Text>Cave</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_RUINS_NAME">
+			<Text>Ruin</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_CAMPFIRE_NAME">
+			<Text>Campfire</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_TENTS_NAME">
+			<Text>Tent Camp</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_PLAZA_NAME">
+			<Text>Sunken Plaza</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_CAIRN_NAME">
+			<Text>Cairn</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_COAST_NAME">
+			<Text>Coastal Edifice</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_RICH_NAME">
+			<Text>Luxurious Encampment</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_WRECKAGE_NAME">
+			<Text>Wreckage</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_SHIPWRECK_NAME">
+			<Text>Shipwreck</Text>
+		</Row>
+	</EnglishText>
+</Database>

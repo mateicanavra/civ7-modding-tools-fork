@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="MOD_THANH_HUE_SPECIALIST_LIMIT" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_WORKER_CAP">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_THANH_HUE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILDING">
+				<Argument name="Tag">FORTIFICATION</Argument>
+				<Argument name="Amount">7</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="MOD_WATER_PUPPET_THEATER_HAPPINESS" collection="COLLECTION_CITY_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_FEATURE_TYPE_MATCHES">
+				<Argument name="FeatureClassType">FEATURE_CLASS_FLOODPLAIN</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_HAS_CONSTRUCTIBLE">
+				<Argument name="ConstructibleType">IMPROVEMENT_WATER_PUPPET_THEATER</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MOD_WATER_PUPPET_THEATER_FLOOD_IMMUNITY" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_AVOID_RANDOM_EVENT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILDING">
+				<Argument name="BuildingType">IMPROVEMENT_WATER_PUPPET_THEATER</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="RandomEventClass">CLASS_FLOOD</Argument>
+	</Modifier>
+	<Modifier id="MOD_CIV_WATER_PUPPET_THEATER_CULTURE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_RANDOM_EVENT_CONSTRUCTIBLE_YIELD">
+		<Argument name="Amount">1</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="ConstructibleType">IMPROVEMENT_WATER_PUPPET_THEATER</Argument>
+		<Argument name="Tooltip">LOC_IMPROVEMENT_WATER_PUPPET_THEATER_NAME</Argument>
+	</Modifier>
+</GameEffects>

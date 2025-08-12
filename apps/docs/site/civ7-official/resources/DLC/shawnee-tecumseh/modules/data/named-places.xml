@@ -1,0 +1,16 @@
+<Database>
+	<NamedRiverCivilizations>
+		<Row NamedRiverType="P_SIKFI_FIPI" CivilizationType="CIVILIZATION_SHAWNEE"/>
+		<Row NamedRiverType="M_SIFIPIWIKI" CivilizationType="CIVILIZATION_SHAWNEE"/>
+		<Row NamedRiverType="PELEWA_FIPI" CivilizationType="CIVILIZATION_SHAWNEE"/>
+		<Row NamedRiverType="K_TEKANI_FIPI" CivilizationType="CIVILIZATION_SHAWNEE"/>
+		<Row NamedRiverType="KILEKINIKA_FIPI" CivilizationType="CIVILIZATION_SHAWNEE"/>
+	</NamedRiverCivilizations>
+	<NamedRivers>
+		<Row NamedRiverType="P_SIKFI_FIPI" Name="LOC_RIVER_P_SIKFI_FIPI_NAME"/>
+		<Row NamedRiverType="M_SIFIPIWIKI" Name="LOC_RIVER_M_SIFIPIWIKI_NAME"/>
+		<Row NamedRiverType="PELEWA_FIPI" Name="LOC_RIVER_PELEWA_FIPI_NAME"/>
+		<Row NamedRiverType="K_TEKANI_FIPI" Name="LOC_RIVER_K_TEKANI_FIPI_NAME"/>
+		<Row NamedRiverType="KILEKINIKA_FIPI" Name="LOC_RIVER_KILEKINIKA_FIPI_NAME"/>
+	</NamedRivers>
+</Database>

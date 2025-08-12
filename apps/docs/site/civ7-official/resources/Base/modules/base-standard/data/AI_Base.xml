@@ -1,0 +1,564 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<AiBudgets>
+		<Row Budget="AI_BUDGET_CITY_DEVELOPMENT"/>
+		<Row Budget="AI_BUDGET_EXPANSION"/>
+		<Row Budget="AI_BUDGET_GARRISON"/>
+		<Row Budget="AI_BUDGET_EXPLORATION"/>
+		<Row Budget="AI_BUDGET_RELIGION"/>
+		<Row Budget="AI_BUDGET_STANDING_ARMY"/>
+		<Row Budget="AI_BUDGET_SCRIPTING"/>
+	</AiBudgets>
+	<AiPriorities>
+		<Row Priority="AI_PRIORITY_DEFAULT" Value="1"/>
+		<Row Priority="AI_PRIORITY_LOW" Value="2"/>
+		<Row Priority="AI_PRIORITY_MEDIUM" Value="3"/>
+		<Row Priority="AI_PRIORITY_HIGH" Value="4"/>
+		<Row Priority="AI_PRIORITY_PLANNING" Value="5"/>
+		<Row Priority="AI_PRIORITY_STRATEGIC" Value="6"/>
+	</AiPriorities>
+	<PlotEvalConditions>
+		<Row ConditionType="Nearest Enemy City" Value="0" PoorTooltipString="" GoodTooltipString=""/>
+		<Row ConditionType="Nearest Friendly City" Value="1" PoorValue="-50" GoodValue="-20" PoorTooltipString="LOC_SETTLEMENT_RECOMMENDATION_POOR_NEAREST_CITY" GoodTooltipString="LOC_SETTLEMENT_RECOMMENDATION_GOOD_NEAREST_CITY"/>
+		<Row ConditionType="New Resources" Value="2" PoorValue="0" GoodValue="4" PoorTooltipString="LOC_SETTLEMENT_RECOMMENDATION_POOR_NEW_RESOURCES" GoodTooltipString="LOC_SETTLEMENT_RECOMMENDATION_GOOD_NEW_RESOURCES"/>
+		<Row ConditionType="Inner Ring Yield" Value="3" PoorValue="18" GoodValue="26" PoorTooltipString="LOC_SETTLEMENT_RECOMMENDATION_POOR_INNER_YIELD" GoodTooltipString="LOC_SETTLEMENT_RECOMMENDATION_GOOD_INNER_YIELD"/>
+		<Row ConditionType="Total Yield" Value="4" PoorValue="30" GoodValue="50" PoorTooltipString="LOC_SETTLEMENT_RECOMMENDATION_POOR_TOTAL_YIELD" GoodTooltipString="LOC_SETTLEMENT_RECOMMENDATION_GOOD_TOTAL_YIELD"/>
+		<Row ConditionType="Coastal" Value="5" PoorValue="-1" GoodValue="12" PoorTooltipString="LOC_SETTLEMENT_RECOMMENDATION_POOR_COAST" GoodTooltipString="LOC_SETTLEMENT_RECOMMENDATION_GOOD_COAST"/>
+		<Row ConditionType="Fresh Water" Value="6" PoorValue="0" GoodValue="20" PoorTooltipString="LOC_SETTLEMENT_RECOMMENDATION_POOR_FRESH_WATER" GoodTooltipString="LOC_SETTLEMENT_RECOMMENDATION_GOOD_FRESH_WATER"/>
+		<Row ConditionType="Specific Resource" Value="7" PoorValue="-1" GoodValue="6" PoorTooltipString="LOC_SETTLEMENT_RECOMMENDATION_POOR_RESOURCES" GoodTooltipString="LOC_SETTLEMENT_RECOMMENDATION_GOOD_RESOURCES"/>
+		<Row ConditionType="Specific Feature" Value="8" PoorValue="-5" GoodValue="5" PoorTooltipString="LOC_SETTLEMENT_RECOMMENDATION_POOR_FEATURES" GoodTooltipString="LOC_SETTLEMENT_RECOMMENDATION_GOOD_FEATURES"/>
+		<Row ConditionType="Specific Terrain" Value="9" PoorValue="-5" GoodValue="5" PoorTooltipString="LOC_SETTLEMENT_RECOMMENDATION_POOR_TERRAIN" GoodTooltipString="LOC_SETTLEMENT_RECOMMENDATION_GOOD_TERRAIN"/>
+		<Row ConditionType="Resource Class" Value="10" PoorValue="2" GoodValue="6" PoorTooltipString="LOC_SETTLEMENT_RECOMMENDATION_POOR_STRATEGIC_RESOURCES" GoodTooltipString="LOC_SETTLEMENT_RECOMMENDATION_GOOD_STRATEGIC_RESOURCES"/>
+		<Row ConditionType="Foreign Continent" Value="11" PoorValue="-2" GoodValue="50" PoorTooltipString="LOC_SETTLEMENT_RECOMMENDATION_POOR_FOREIGN_CONTINENT" GoodTooltipString="LOC_SETTLEMENT_RECOMMENDATION_GOOD_FOREIGN_CONTINENT"/>
+		<Row ConditionType="Foreign Hemisphere" Value="12" PoorValue="0" GoodValue="1" PoorTooltipString="LOC_SETTLEMENT_RECOMMENDATION_POOR_FOREIGN_HEMISPHERE" GoodTooltipString="LOC_SETTLEMENT_RECOMMENDATION_GOOD_FOREIGN_HEMISPHERE"/>
+		<Row ConditionType="City Center Biome" Value="13" PoorValue="0" GoodValue="1" PoorTooltipString="LOC_SETTLEMENT_RECOMMENDATION_POOR_CITY_CENTER_BIOME" GoodTooltipString="LOC_SETTLEMENT_RECOMMENDATION_GOOD_CITY_CENTER_BIOME"/>
+		<Row ConditionType="Specific Biome" Value="14" PoorValue="0" GoodValue="1" PoorTooltipString="LOC_SETTLEMENT_RECOMMENDATION_POOR_SPECIFIC_BIOME" GoodTooltipString="LOC_SETTLEMENT_RECOMMENDATION_GOOD_SPECIFIC_BIOME"/>
+		<Row ConditionType="Lake" Value="15" PoorValue="0" GoodValue="1" PoorTooltipString="LOC_SETTLEMENT_RECOMMENDATION_POOR_LAKE_COUNT" GoodTooltipString="LOC_SETTLEMENT_RECOMMENDATION_GOOD_LAKE_COUNT"/>
+		<Row ConditionType="Natural Wonder In Inner Ring" Value="16" PoorValue="0" GoodValue="1" PoorTooltipString="" GoodTooltipString=""/>
+	</PlotEvalConditions>
+	<AiComponents>
+		<!-- TEMP. Components should go in their respective ages, but making sure the system works for now -->
+		<Row Component="BarbarianManager" DefaultPriority="AI_PRIORITY_HIGH"/>
+		<Row Component="BehaviorTreeManager" DefaultPriority="AI_PRIORITY_MEDIUM" Broker="True"/>
+		<Row Component="CityStateCulture" DefaultPriority="AI_PRIORITY_MEDIUM"/>
+		<Row Component="CityStateTechnology" DefaultPriority="AI_PRIORITY_MEDIUM"/>
+		<Row Component="ConstructibleBroker" DefaultPriority="AI_PRIORITY_HIGH" Broker="True"/>
+		<Row Component="Culture" DefaultPriority="AI_PRIORITY_MEDIUM" Producer="True"/>
+		<Row Component="Diplomatic" DefaultPriority="AI_PRIORITY_MEDIUM" Consumer="True"/>
+		<Row Component="DiplomaticActionBroker" DefaultPriority="AI_PRIORITY_HIGH" Broker="True"/>
+		<Row Component="Economic" DefaultPriority="AI_PRIORITY_MEDIUM"/>
+		<Row Component="FreeUnitPool" DefaultPriority="AI_PRIORITY_LOW" Producer="True"/>
+		<Row Component="GrandStrategic" DefaultPriority="AI_PRIORITY_STRATEGIC"/>
+    <Row Component="GreatPeople" DefaultPriority="AI_PRIORITY_MEDIUM" Consumer="True"/>
+		<Row Component="GreatWorks" DefaultPriority="AI_PRIORITY_MEDIUM" Consumer="True"/>
+		<Row Component="Government" DefaultPriority="AI_PRIORITY_MEDIUM" Consumer="True"/>
+		<Row Component="Happiness" DefaultPriority="AI_PRIORITY_MEDIUM"/>
+		<Row Component="Homeland" DefaultPriority="AI_PRIORITY_DEFAULT"/>
+		<Row Component="IndependentStrategic" DefaultPriority="AI_PRIORITY_STRATEGIC"/>
+		<Row Component="IndependentTactical" DefaultPriority="AI_PRIORITY_LOW"/>
+		<Row Component="LandDevelopment" DefaultPriority="AI_PRIORITY_HIGH" Consumer="True"/>
+		<Row Component="Military" DefaultPriority="AI_PRIORITY_HIGH" Consumer="True"/>
+		<Row Component="Narrative" DefaultPriority="AI_PRIORITY_LOW" Consumer="True"/>
+		<Row Component="Leader" DefaultPriority="AI_PRIORITY_MEDIUM"/>
+		<Row Component="Planning" DefaultPriority="AI_PRIORITY_PLANNING"/>
+		<Row Component="Production" DefaultPriority="AI_PRIORITY_MEDIUM"/>
+		<Row Component="ProjectBroker" DefaultPriority="AI_PRIORITY_HIGH" Broker="True"/>
+		<Row Component="Religion" DefaultPriority="AI_PRIORITY_MEDIUM" Consumer="True"/>
+		<Row Component="ResearchBroker" DefaultPriority="AI_PRIORITY_HIGH" Broker="True"/>
+		<Row Component="ScriptConsumer" DefaultPriority="AI_PRIORITY_HIGH" Consumer="True"/>
+		<Row Component="Technology" DefaultPriority="AI_PRIORITY_MEDIUM" Producer="True"/>
+		<Row Component="Tactical" DefaultPriority="AI_PRIORITY_LOW"/>
+		<Row Component="Trade" DefaultPriority="AI_PRIORITY_DEFAULT" Consumer="True"/>
+		<Row Component="Tribe_AI" DefaultPriority="AI_PRIORITY_HIGH"/>
+		<Row Component="UnitBroker" DefaultPriority="AI_PRIORITY_STRATEGIC" Broker="True"/>
+		<Row Component="AI_Victory" DefaultPriority="AI_PRIORITY_STRATEGIC"/>
+	</AiComponents>
+	<AiDefinitions>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="AI_Victory"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="BehaviorTreeManager"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Culture"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Diplomatic"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="DiplomaticActionBroker"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Economic"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Government"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="FreeUnitPool"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="GrandStrategic"/>
+    <Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="GreatPeople"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="GreatWorks"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Homeland"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Happiness"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="LandDevelopment"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Leader"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Military"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Narrative"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="ResearchBroker"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Technology"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Tactical"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Trade"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Planning"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Production"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Religion"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="UnitBroker"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="ScriptConsumer"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="ConstructibleBroker"/>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="ProjectBroker"/>
+		<Row LeaderTrait="TRAIT_LEADER_MINOR_CIV" AiComponent="BehaviorTreeManager"/>
+		<Row LeaderTrait="TRAIT_LEADER_MINOR_CIV" AiComponent="CityStateCulture"/>
+		<Row LeaderTrait="TRAIT_LEADER_MINOR_CIV" AiComponent="Economic"/>
+		<Row LeaderTrait="TRAIT_LEADER_MINOR_CIV" AiComponent="Government"/>
+		<Row LeaderTrait="TRAIT_LEADER_MINOR_CIV" AiComponent="FreeUnitPool"/>
+		<Row LeaderTrait="TRAIT_LEADER_MINOR_CIV" AiComponent="GrandStrategic"/>
+		<Row LeaderTrait="TRAIT_LEADER_MINOR_CIV" AiComponent="Homeland"/>
+		<Row LeaderTrait="TRAIT_LEADER_MINOR_CIV" AiComponent="LandDevelopment"/>
+		<Row LeaderTrait="TRAIT_LEADER_MINOR_CIV" AiComponent="Military"/>
+		<Row LeaderTrait="TRAIT_LEADER_MINOR_CIV" AiComponent="CityStateTechnology"/>
+		<Row LeaderTrait="TRAIT_LEADER_MINOR_CIV" AiComponent="Tactical"/>
+		<Row LeaderTrait="TRAIT_LEADER_MINOR_CIV" AiComponent="Planning"/>
+		<Row LeaderTrait="TRAIT_LEADER_MINOR_CIV" AiComponent="Production"/>
+		<Row LeaderTrait="TRAIT_LEADER_MINOR_CIV" AiComponent="UnitBroker"/>
+		<Row LeaderTrait="TRAIT_LEADER_MINOR_CIV" AiComponent="ScriptConsumer"/>
+		<Row LeaderTrait="TRAIT_LEADER_MINOR_CIV" AiComponent="ConstructibleBroker"/>
+	</AiDefinitions>
+	<TargetTypes>
+		<!-- Targets that are valid through all ages -->
+		<Row TargetType="TARGET_MY_CITY"/>
+		<Row TargetType="TARGET_NEUTRAL_CITY"/>
+		<Row TargetType="TARGET_ENEMY_CITY"/>
+		<Row TargetType="TARGET_MY_CITY_RAZING"/>
+		<Row TargetType="TARGET_NEUTRAL_CIVILIAN"/>
+		<Row TargetType="TARGET_ENEMY_CIVILIAN"/>
+		<Row TargetType="TARGET_TRADE_UNIT"/>
+		<Row TargetType="TARGET_LOW_PRIORITY_UNIT"/>
+		<Row TargetType="TARGET_MEDIUM_PRIORITY_UNIT"/>
+		<Row TargetType="TARGET_HIGH_PRIORITY_UNIT"/>
+		<Row TargetType="TARGET_AIR_UNIT"/>
+		<Row TargetType="TARGET_NEW_CITY"/>
+		<!-- May want to change this to SPECIAL_UNIT or something equivalent for re-use -->
+		<Row TargetType="TARGET_TREASURE_FLEET"/>
+		<Row TargetType="TARGET_MY_EXPANSION"/>
+		<Row TargetType="TARGET_ENEMY_EXPANSION"/>
+		<Row TargetType="TARGET_NEUTRAL_EXPANSION"/>
+		<Row TargetType="TARGET_ENEMY_INDEPENDENT"/>
+		<Row TargetType="TARGET_NEUTRAL_INDEPENDENT"/>
+		<Row TargetType="TARGET_SUZERAIN_SUPPORT"/>
+		<Row TargetType="TARGET_FRIENDLY_EMBARKED"/>
+	</TargetTypes>
+	<AiTactics>
+		<Row TacticType="Form Army"/>
+		<Row TacticType="Attack High Priority Unit"/>
+		<Row TacticType="Explore"/>
+		<Row TacticType="Attack Medium Priority Unit"/>
+		<Row TacticType="Attack Low Priority Unit"/>
+		<Row TacticType="Wander near camp"/>
+		<Row TacticType="Wander near city"/>
+		<Row TacticType="Wander"/>
+		<Row TacticType="Block Enemy Expansion"/>
+		<Row TacticType="Army Overrun"/>
+		<Row TacticType="Defend Home"/>
+		<Row TacticType="Capture City"/>
+		<Row TacticType="Rampage"/>
+		<Row TacticType="Upgrade Units"/>
+		<Row TacticType="Plunder Trade Route"/>
+		<Row TacticType="First Turn Settle"/>
+		<Row TacticType="Use Great Person"/>
+		<Row TacticType="Escort Embarked"/>
+		<Row TacticType="Heal"/>
+		<Row TacticType="Take Razing City"/>
+		<!-- AI shouldn't have these until modern, but since there are no air units to use them until then, just put them on all lists as effectively null tactics -->
+		<Row TacticType="Air Assault"/>
+		<Row TacticType="Air Rebase"/>
+		<Row TacticType="Use WMD"/>
+	</AiTactics>
+	<AiEvents>
+		<Row EventType="AI_EVENT_TRIBE_RAMPAGE"/>
+	</AiEvents>
+	<AiListTypes>
+		<Row ListType="Default Tactical"/>
+		<Row ListType="Default City State"/>
+		<Row ListType="Default Diplomatic"/>
+		<Row ListType="Default Settlement Plot Evaluations"/>
+		<Row ListType="Minor Civ Wonder Ban"/>
+	</AiListTypes>
+	<AiLists>
+		<Row ListType="Default Tactical" LeaderType="TRAIT_LEADER_MAJOR_CIV" System="Tactics"/>
+		<Row ListType="Default Diplomatic" LeaderType="TRAIT_LEADER_MAJOR_CIV" System="DiplomaticActions"/>
+		<Row ListType="Default Settlement Plot Evaluations" LeaderType="TRAIT_LEADER_MAJOR_CIV" System="SettlementPlotEvaluations"/>
+		<Row ListType="Default City State" LeaderType="TRAIT_LEADER_MINOR_CIV" System="Tactics"/>
+		<Row ListType="Minor Civ Wonder Ban" LeaderType="TRAIT_LEADER_MINOR_CIV" System="ConstructibleClassBiases"/>
+	</AiLists>
+	<AiFavoredItems>
+		<Row ListType="Default Tactical" Item="First Turn Settle"/>
+		<Row ListType="Default Tactical" Item="Use WMD"/>
+		<Row ListType="Default Tactical" Item="Form Army"/>
+		<Row ListType="Default Tactical" Item="Army Overrun"/>
+		<Row ListType="Default Tactical" Item="Air Assault"/>
+		<Row ListType="Default Tactical" Item="Air Rebase"/>
+		<Row ListType="Default Tactical" Item="Attack High Priority Unit"/>
+		<Row ListType="Default Tactical" Item="Take Razing City"/>
+		<Row ListType="Default Tactical" Item="Heal"/>
+		<Row ListType="Default Tactical" Item="Block Enemy Expansion"/>
+		<Row ListType="Default Tactical" Item="Attack Medium Priority Unit"/>
+		<Row ListType="Default Tactical" Item="Explore"/>
+		<Row ListType="Default Tactical" Item="Plunder Trade Route"/>
+		<Row ListType="Default Tactical" Item="Upgrade Units"/>
+		<Row ListType="Default Tactical" Item="Attack Low Priority Unit"/>
+		<Row ListType="Default Tactical" Item="Defend Home"/>
+		<Row ListType="Default Tactical" Item="Escort Embarked"/>
+		<Row ListType="Default Tactical" Item="Use Great Person"/>
+		<Row ListType="Default Tactical" Item="Wander near city"/>
+		<Row ListType="Default Tactical" Item="Wander"/>
+		<Row ListType="Default City State" Item="Army Overrun"/>
+		<Row ListType="Default City State" Item="Attack High Priority Unit"/>
+		<Row ListType="Default City State" Item="Attack Medium Priority Unit"/>
+		<Row ListType="Default City State" Item="Plunder Trade Route"/>
+		<Row ListType="Default City State" Item="Heal"/>
+		<Row ListType="Default City State" Item="Upgrade Units"/>
+		<Row ListType="Default City State" Item="Attack Low Priority Unit"/>
+		<Row ListType="Default City State" Item="Wander near city"/>
+		<Row ListType="Default Diplomatic" Item="DIPLOMACY_ACTION_GIVE_INFLUENCE_TOKEN" Value="20"/>
+		<Row ListType="Default Settlement Plot Evaluations" Item="Total Yield" Favored="false" Value="1" StringVal="YIELD_PRODUCTION" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_TOTAL_YIELD"/>
+		<Row ListType="Default Settlement Plot Evaluations" Item="Total Yield" Favored="false" Value="1" StringVal="YIELD_FOOD" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_TOTAL_YIELD"/>
+		<Row ListType="Default Settlement Plot Evaluations" Item="Total Yield" Favored="false" Value="1" StringVal="YIELD_GOLD" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_TOTAL_YIELD"/>
+		<Row ListType="Default Settlement Plot Evaluations" Item="Total Yield" Favored="false" Value="1" StringVal="YIELD_SCIENCE" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_TOTAL_YIELD"/>
+		<Row ListType="Default Settlement Plot Evaluations" Item="Total Yield" Favored="false" Value="1" StringVal="YIELD_CULTURE" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_TOTAL_YIELD"/>
+		<Row ListType="Default Settlement Plot Evaluations" Item="Total Yield" Favored="false" Value="1" StringVal="YIELD_HAPPINESS" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_TOTAL_YIELD"/>
+		<Row ListType="Default Settlement Plot Evaluations" Item="Total Yield" Favored="false" Value="1" StringVal="YIELD_DIPLOMACY" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_TOTAL_YIELD"/>
+		<Row ListType="Default Settlement Plot Evaluations" Item="Coastal" Favored="false" Value="15" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_COAST"/>
+		<Row ListType="Default Settlement Plot Evaluations" Item="Fresh Water" Favored="false" Value="10" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FRESH_WATER"/>
+		<Row ListType="Default Settlement Plot Evaluations" Item="Resource Class" Favored="false" Value="3" StringVal="RESOURCECLASS_EMPIRE" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_LUXURY_RESOURCES"/>
+		<Row ListType="Default Settlement Plot Evaluations" Item="Resource Class" Favored="false" Value="3" StringVal="RESOURCECLASS_CITY" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_STRATEGIC_RESOURCES"/>
+		<Row ListType="Default Settlement Plot Evaluations" Item="Resource Class" Favored="false" Value="3" StringVal="RESOURCECLASS_BONUS" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_STRATEGIC_RESOURCES"/>
+		<Row ListType="Default Settlement Plot Evaluations" Item="Nearest Enemy City" Favored="true" Value="5" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_NEAREST_CITY"/>
+		<Row ListType="Default Settlement Plot Evaluations" Item="Nearest Friendly City" Favored="false" Value="-6" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_NEAREST_CITY"/>
+		<Row ListType="Minor Civ Wonder Ban" Item="WONDER" Favored="false" Value="-100"/>
+	</AiFavoredItems>
+	<!-- Operations. Most should be age specific, consider moving this one in the future, but start with it here -->Favored	<AiOperationTypes>
+		<Row OperationType="ATTACK_BARBARIANS"/>
+		<Row OperationType="CITY_ASSAULT"/>
+		<Row OperationType="CITY_FOUNDING"/>
+	</AiOperationTypes>
+	<AiListTypes>
+		<Row ListType="BaseOperationsLimits"/>
+		<Row ListType="PerWarOperationsLimits"/>
+	</AiListTypes>
+	<AiLists>
+		<Row ListType="BaseOperationsLimits" LeaderType="TRAIT_LEADER_MAJOR_CIV" System="AiOperationTypes"/>
+		<Row ListType="PerWarOperationsLimits" LeaderType="TRAIT_LEADER_MAJOR_CIV" System="PerWarOperationTypes"/>
+	</AiLists>
+	<AiFavoredItems>
+		<Row ListType="BaseOperationsLimits" Item="ATTACK_BARBARIANS" Value="1"/>
+		<Row ListType="BaseOperationsLimits" Item="CITY_ASSAULT" Value="1"/>
+		<Row ListType="BaseOperationsLimits" Item="CITY_FOUNDING" Value="1"/>
+		<Row ListType="PerWarOperationsLimits" Item="CITY_ASSAULT" Value="0"/>
+	</AiFavoredItems>
+	<AiOperationLists>
+		<Row ListType="Major Civ Operations"/>
+		<Row ListType="Independent Civ Operations"/>
+		<Row ListType="City State Operations"/>
+	</AiOperationLists>
+	<AllowedOperations>
+		<Row ListType="Major Civ Operations" OperationDef="Attack Enemy City"/>
+		<Row ListType="Major Civ Operations" OperationDef="Attack Enemy Independent"/>
+		<Row ListType="Major Civ Operations" OperationDef="City Defense"/>
+		<Row ListType="Major Civ Operations" OperationDef="City Founding"/>
+		<Row ListType="Independent Civ Operations" OperationDef="Independent Raid"/>
+		<Row ListType="Independent Civ Operations" OperationDef="Independent Naval Raid"/>
+		<Row ListType="Independent Civ Operations" OperationDef="Independent Assault"/>
+		<Row ListType="Independent Civ Operations" OperationDef="Independent Large Raid"/>
+		<Row ListType="City State Operations" OperationDef="Aid Suzerain"/>
+		<Row ListType="City State Operations" OperationDef="City Defense"/>
+	</AllowedOperations>
+	<AiOperationDefs>
+		<Row OperationName="Attack Enemy City" TargetType="TARGET_ENEMY_CITY" EnemyType="WAR" OperationType="CITY_ASSAULT" BehaviorTree="Simple City Assault" SelfStart="True" Priority="3" MaxTargetDistInRegion="-1" MaxTargetDistInArea="30" MaxTargetDistInWorld="45" MinOddsOfSuccess="0.25" MustHaveUnits="5"/>
+		<Row OperationName="Attack Enemy Independent" TargetType="TARGET_ENEMY_INDEPENDENT" BehaviorTree="Minor Power Assault" Priority="2"/>
+		<Row OperationName="City Defense" TargetType="TARGET_MY_CITY" BehaviorTree="Simple City Defense" Priority="4" MaxTargetDistInRegion="-1" MaxTargetDistInArea="-1" MaxTargetDistInWorld="0"/>
+		<Row OperationName="City Founding" TargetType="TARGET_NEW_CITY" BehaviorTree="Settle New Town" Priority="2" SelfStart="false" MaxTargetDistInRegion="-1" MaxTargetDistInArea="-1" MaxTargetDistInWorld="0"/>
+		<Row OperationName="Independent Raid" TargetType="TARGET_ENEMY_CITY" EnemyType="WAR" BehaviorTree="Independent Power Raid" SelfStart="false" Priority="3"/>
+		<Row OperationName="Independent Naval Raid" TargetType="TARGET_ENEMY_CITY" EnemyType="WAR" BehaviorTree="Independent Power Raid" SelfStart="false" Priority="3" MustBeCoastal="true"/>
+		<Row OperationName="Independent Assault" TargetType="TARGET_ENEMY_CITY" EnemyType="WAR" BehaviorTree="Independent Power Assault" SelfStart="false" Priority="2"/>
+		<Row OperationName="Independent Large Raid" TargetType="TARGET_ENEMY_CITY" EnemyType="WAR" BehaviorTree="Independent Power Raid" SelfStart="false" Priority="3"/>
+		<Row OperationName="Aid Suzerain" TargetType="TARGET_SUZERAIN_SUPPORT" EnemyType="ALLY" OperationType="CITY_ASSAULT" BehaviorTree="Reinforce Ally" Priority="3" SelfStart="true" MaxTargetDistInRegion="-1" MaxTargetDistInArea="45"/>
+	</AiOperationDefs>
+	<AiTeams>
+		<Row TeamName="Enemy City Attack"/>
+		<Row TeamName="Independent Camp Attack"/>
+		<Row TeamName="City Defense"/>
+		<Row TeamName="City Founders"/>
+		<Row TeamName="Independent Civ Force"/>
+		<Row TeamName="Independent Large Civ Force"/>
+		<Row TeamName="Independent Civ Assault Force"/>
+		<Row TeamName="Aid Suzerain Attack Force"/>
+	</AiTeams>
+	<AiOperationTeams>
+		<Row TeamName="Enemy City Attack" OperationName="Attack Enemy City" InitialStrengthAdvantage="0" OngoingStrengthAdvantage="4"/>
+		<Row TeamName="Independent Camp Attack" OperationName="Attack Enemy Independent" InitialStrengthAdvantage="0" OngoingStrengthAdvantage="2"/>
+		<Row TeamName="City Defense" OperationName="City Defense" InitialStrengthAdvantage="-1" OngoingStrengthAdvantage="1"/>
+		<Row TeamName="City Founders" OperationName="City Founding" InitialStrengthAdvantage="0" OngoingStrengthAdvantage="1"/>
+		<Row TeamName="Independent Civ Force" OperationName="Independent Raid" InitialStrengthAdvantage="-3" OngoingStrengthAdvantage="0"/>
+		<Row TeamName="Independent Civ Force" OperationName="Independent Naval Raid" InitialStrengthAdvantage="-3" OngoingStrengthAdvantage="0"/>
+		<Row TeamName="Independent Large Civ Force" OperationName="Independent Large Raid" InitialStrengthAdvantage="0" OngoingStrengthAdvantage="2"/>
+		<Row TeamName="Independent Civ Assault Force" OperationName="Independent Assault" InitialStrengthAdvantage="-1" OngoingStrengthAdvantage="1"/>
+		<Row TeamName="Aid Suzerain Attack Force" OperationName="Aid Suzerain" InitialStrengthAdvantage="-2" OngoingStrengthAdvantage="0"/>
+	</AiOperationTeams>
+	<OpTeamRequirements>
+		<Row TeamName="Enemy City Attack" ClassTag="UNIT_CLASS_MELEE" MinNumber="2"/>
+		<Row TeamName="Enemy City Attack" ClassTag="UNIT_CLASS_RANGED" MinNumber="0" MaxNumber="3"/>
+		<Row TeamName="Enemy City Attack" ClassTag="UNIT_CLASS_SIEGE" MaxNumber="3"/>
+		<Row TeamName="Enemy City Attack" ClassTag="UNIT_CLASS_ARMY_COMMANDER" MinNumber="1" MaxNumber="3"/>
+		<Row TeamName="Enemy City Attack" ClassTag="UNIT_CLASS_NAVAL" MaxNumber="0"/>
+		<Row TeamName="Enemy City Attack" ClassTag="UNIT_CLASS_LOGISTICS" MaxNumber="2"/>
+		<Row TeamName="Enemy City Attack" ClassTag="UNIT_CLASS_HEALER" MinNumber="0"/>
+		<Row TeamName="Independent Camp Attack" ClassTag="UNIT_CLASS_MELEE" MinNumber="1" MaxNumber="5"/>
+		<Row TeamName="Independent Camp Attack" ClassTag="UNIT_CLASS_RANGED" MaxNumber="2"/>
+		<Row TeamName="Independent Camp Attack" ClassTag="UNIT_CLASS_ARMY_COMMANDER" MinNumber="1" MaxNumber="1"/>
+		<Row TeamName="Independent Camp Attack" ClassTag="UNIT_CLASS_NAVAL" MaxNumber="1"/>
+		<Row TeamName="Independent Camp Attack" ClassTag="UNIT_CLASS_RECON" MaxNumber="0"/>
+		<Row TeamName="City Defense" ClassTag="UNIT_CLASS_ARMY_COMMANDER" MaxNumber="1"/>
+		<Row TeamName="City Defense" ClassTag="UNIT_CLASS_NAVAL" MaxNumber="0"/>
+		<Row TeamName="City Defense" ClassTag="UNIT_CLASS_NON_COMBAT" MaxNumber="0"/>
+		<Row TeamName="City Defense" ClassTag="UNIT_CLASS_COMBAT" MinNumber="0"/>
+		<Row TeamName="City Defense" ClassTag="UNIT_CLASS_RECON" MaxNumber="0"/>
+		<Row TeamName="City Founders" ClassTag="UNIT_CLASS_CREATE_TOWN" Property="LandClaimCharges" MinNumber="1" MaxNumber="1"/>
+		<Row TeamName="City Founders" ClassTag="UNIT_CLASS_COMBAT" MaxNumber="6"/>
+		<Row TeamName="City Founders" ClassTag="UNIT_CLASS_ARMY_COMMANDER" MaxNumber="1"/>
+		<Row TeamName="City Founders" ClassTag="UNIT_CLASS_NAVAL" MaxNumber="0"/>
+		<Row TeamName="City Founders" ClassTag="UNIT_CLASS_RECON" MaxNumber="0"/>
+		<Row TeamName="Independent Civ Force" ClassTag="UNIT_CLASS_COMBAT" MinNumber="2" MaxNumber="2"/>
+		<Row TeamName="Independent Civ Force" ClassTag="UNIT_CLASS_MELEE" MinNumber="0"/>
+		<Row TeamName="Independent Civ Force" ClassTag="UNIT_CLASS_RANGED" MaxNumber="1"/>
+		<Row TeamName="Independent Large Civ Force" ClassTag="UNIT_CLASS_COMBAT" MinNumber="4"/>
+		<Row TeamName="Independent Large Civ Force" ClassTag="UNIT_CLASS_MELEE" MinNumber="0"/>
+		<Row TeamName="Independent Large Civ Force" ClassTag="UNIT_CLASS_RANGED" MaxNumber="2"/>
+		<Row TeamName="Independent Civ Assault Force" ClassTag="UNIT_CLASS_COMBAT" MinNumber="4"/>
+		<Row TeamName="Independent Civ Assault Force" ClassTag="UNIT_CLASS_RANGED" MaxNumber="1"/>
+		<Row TeamName="Independent Civ Assault Force" ClassTag="UNIT_CLASS_ARMY_COMMANDER" MinNumber="1"/>
+		<Row TeamName="Aid Suzerain Attack Force" ClassTag="UNIT_CLASS_MELEE" MinNumber="0"/>
+		<Row TeamName="Aid Suzerain Attack Force" ClassTag="UNIT_CLASS_RANGED" MinNumber="0"/>
+	</OpTeamRequirements>
+	<AiListTypes>
+		<Row ListType="Major Yield Biases"/>
+
+		<!-- Leader Yield biases -->
+		<Row ListType="Amina Yield Biases"/>
+		<Row ListType="Ashoka Renouncer Yield Biases"/>
+		<Row ListType="Augustus Yield Biases"/>
+		<Row ListType="Ben Franklin Yield Biases"/>
+		<Row ListType="Catherine Yield Biases"/>
+		<Row ListType="Charlemagne Yield Biases"/>
+		<Row ListType="Confucius Yield Biases"/>
+		<Row ListType="Friedrich Oblique Yield Biases"/>
+		<Row ListType="Harriet Yield Biases"/>
+		<Row ListType="Hatshepsut Yield Biases"/>
+		<Row ListType="Himiko Wa Yield Biases"/>
+		<Row ListType="Isabella Yield Biases"/>
+		<Row ListType="Jose Rizal Yield Biases"/>
+		<Row ListType="Lafayette Yield Biases"/>
+		<Row ListType="Machiavelli Yield Biases"/>
+		<Row ListType="Pachacuti Yield Biases"/>
+		<Row ListType="Trung Trac Yield Biases"/>
+		<Row ListType="Xerxes King Yield Biases"/>
+
+		<!-- Leader PseudoYield Biases -->
+		<Row ListType="Amina PseudoYield Biases"/>
+		<Row ListType="Ashoka Renouncer PseudoYield Biases"/>
+		<Row ListType="Augustus PseudoYield Biases"/>
+		<Row ListType="Catherine PseudoYield Biases"/>
+		<Row ListType="Confucius PseudoYield Biases"/>
+		<Row ListType="Hetshepsut PseudoYield Biases"/>
+		<Row ListType="Jose Rizal PseudoYield Biases"/>
+		<Row ListType="Lafayette PseudoYield Biases"/>
+
+		<!-- Leader AI Budget Biases -->
+		<Row ListType="Amina Budget Biases"/>
+		<Row ListType="Ibn Battuta Budget Biases"/>
+		<Row ListType="Isabella Budget Biases"/>
+		<Row ListType="Xerxes King Budget Biases"/>
+
+		<!-- Leader Tag Biases -->
+		<Row ListType="Ben Franklin Tag Biases"/>
+		<Row ListType="Charlemagne Tag Biases"/>
+		<Row ListType="Friedrich Oblique Tag Biases"/>
+
+		<!-- Leader Settlement Biases -->
+		<Row ListType="Catherine Settle Plot Conditions"/>
+		<Row ListType="Hetshepsut Settle Plot Conditions"/>
+		<Row ListType="Isabella Settle Plot Conditions"/>
+		<Row ListType="Lafayette Settle Plot Conditions"/>
+		<Row ListType="Pachacuti Settle Plot Conditions"/>
+		<Row ListType="Trung Trac Settle Plot Conditions"/>
+
+	</AiListTypes>
+	<AiLists>
+		<Row ListType="Major Yield Biases" LeaderType="TRAIT_LEADER_MAJOR_CIV" System="YieldBiases"/>
+
+		<!-- Leader Yield Biases -->
+		<Row ListType="Amina Yield Biases" LeaderType="TRAIT_LEADER_AMINA_ABILITY" System="YieldBiases"/>
+		<Row ListType="Ashoka Renouncer Yield Biases" LeaderType="TRAIT_LEADER_ASHOKA_ABILITY" System="YieldBiases"/>
+		<Row ListType="Augustus Yield Biases" LeaderType="TRAIT_LEADER_AUGUSTUS_ABILITY" System="YieldBiases"/>
+		<Row ListType="Ben Franklin Yield Biases" LeaderType="TRAIT_LEADER_BENJAMIN_FRANKLIN_ABILITY" System="YieldBiases"/>
+		<Row ListType="Catherine Yield Biases" LeaderType="TRAIT_LEADER_CATHERINE_ABILITY" System="YieldBiases"/>
+		<Row ListType="Charlemagne Yield Biases" LeaderType="TRAIT_LEADER_CHARLEMAGNE_ABILITY" System="YieldBiases"/>
+		<Row ListType="Confucius Yield Biases" LeaderType="TRAIT_LEADER_CONFUCIUS_ABILITY" System="YieldBiases"/>
+		<Row ListType="Friedrich Oblique Yield Biases" LeaderType="TRAIT_LEADER_FREDERICH_ABILITY" System="YieldBiases"/>
+		<Row ListType="Harriet Yield Biases" LeaderType="TRAIT_LEADER_HARRIET_TUBMAN_ABILITY" System="YieldBiases"/>
+		<Row ListType="Hatshepsut Yield Biases" LeaderType="TRAIT_LEADER_HATSHEPSUT_ABILITY" System="YieldBiases"/>
+		<Row ListType="Himiko Wa Yield Biases" LeaderType="TRAIT_LEADER_HIMIKO_ABILITY" System="YieldBiases"/>
+		<Row ListType="Isabella Yield Biases" LeaderType="TRAIT_LEADER_ISABELLA_ABILITY" System="YieldBiases"/>
+		<Row ListType="Jose Rizal Yield Biases" LeaderType="TRAIT_LEADER_JOSE_RIZAL_ABILITY" System="YieldBiases"/>
+		<Row ListType="Lafayette Yield Biases" LeaderType="TRAIT_LEADER_LAFAYETTE_ABILITY" System="YieldBiases"/>
+		<Row ListType="Machiavelli Yield Biases" LeaderType="TRAIT_LEADER_MACHIAVELLI_ABILITY" System="YieldBiases"/>
+		<Row ListType="Pachacuti Yield Biases" LeaderType="TRAIT_LEADER_PARCHACUTI_ABILITY" System="YieldBiases"/>
+		<Row ListType="Trung Trac Yield Biases" LeaderType="TRAIT_LEADER_TRUNG_TRAC_ABILITY" System="YieldBiases"/>
+		<Row ListType="Xerxes King Yield Biases" LeaderType="TRAIT_LEADER_XERXES_ABILITY" System="YieldBiases"/>
+
+		<!-- Leader PseudoYield Biases -->
+		<Row ListType="Amina PseudoYield Biases" LeaderType="TRAIT_LEADER_AMINA_ABILITY" System="PseudoYieldBiases"/>
+		<Row ListType="Ashoka Renouncer PseudoYield Biases" LeaderType="TRAIT_LEADER_ASHOKA_ABILITY" System="PseudoYieldBiases"/>
+		<Row ListType="Augustus PseudoYield Biases" LeaderType="TRAIT_LEADER_AUGUSTUS_ABILITY" System="PseudoYieldBiases"/>
+		<Row ListType="Catherine PseudoYield Biases" LeaderType="TRAIT_LEADER_CATHERINE_ABILITY" System="PseudoYieldBiases"/>
+		<Row ListType="Confucius PseudoYield Biases" LeaderType="TRAIT_LEADER_CONFUCIUS_ABILITY" System="PseudoYieldBiases"/>
+		<Row ListType="Hetshepsut PseudoYield Biases" LeaderType="TRAIT_LEADER_HATSHEPSUT_ABILITY" System="PseudoYieldBiases"/>
+		<Row ListType="Jose Rizal PseudoYield Biases" LeaderType="TRAIT_LEADER_JOSE_RIZAL_ABILITY" System="PseudoYieldBiases"/>
+		<Row ListType="Lafayette PseudoYield Biases" LeaderType="TRAIT_LEADER_LAFAYETTE_ABILITY" System="PseudoYieldBiases"/>
+
+		<!-- Leader AI Budget Biases -->
+		<Row ListType="Amina Budget Biases" LeaderType="TRAIT_LEADER_AMINA_ABILITY" System="AiBudgetBiases"/>
+		<Row ListType="Ibn Battuta Budget Biases" LeaderType="TRAIT_LEADER_IBN_BATTUTA_ABILITY" System="AiBudgetBiases"/>
+		<Row ListType="Isabella Budget Biases" LeaderType="TRAIT_LEADER_ISABELLA_ABILITY" System="AiBudgetBiases"/>
+		<Row ListType="Xerxes King Budget Biases" LeaderType="TRAIT_LEADER_XERXES_ABILITY" System="AiBudgetBiases"/>
+
+		<!-- Leader Tag Biases -->
+		<Row ListType="Ben Franklin Tag Biases" LeaderType="TRAIT_LEADER_BENJAMIN_FRANKLIN_ABILITY" System="TagBiases"/>
+		<Row ListType="Charlemagne Tag Biases" LeaderType="TRAIT_LEADER_CHARLEMAGNE_ABILITY" System="TagBiases"/>
+		<Row ListType="Friedrich Oblique Tag Biases" LeaderType="TRAIT_LEADER_FREDERICH_ABILITY" System="TagBiases"/>
+
+		<!-- Leader Settlement Biases -->
+		<Row ListType="Catherine Settle Plot Conditions" LeaderType="TRAIT_LEADER_CATHERINE_ABILITY" System="SettlementPlotEvaluations"/>
+		<Row ListType="Hetshepsut Settle Plot Conditions" LeaderType="TRAIT_LEADER_HATSHEPSUT_ABILITY" System="SettlementPlotEvaluations"/>
+		<Row ListType="Isabella Settle Plot Conditions" LeaderType="TRAIT_LEADER_ISABELLA_ABILITY" System="SettlementPlotEvaluations"/>
+		<Row ListType="Lafayette Settle Plot Conditions" LeaderType="TRAIT_LEADER_LAFAYETTE_ABILITY" System="SettlementPlotEvaluations"/>
+		<Row ListType="Pachacuti Settle Plot Conditions" LeaderType="TRAIT_LEADER_PARCHACUTI_ABILITY" System="SettlementPlotEvaluations"/>
+		<Row ListType="Trung Trac Settle Plot Conditions" LeaderType="TRAIT_LEADER_TRUNG_TRAC_ABILITY" System="SettlementPlotEvaluations"/>
+
+	</AiLists>
+	<AiFavoredItems>
+		<Row ListType="Major Yield Biases" Item="YIELD_SCIENCE" Value="100"/>
+		<Row ListType="Major Yield Biases" Item="YIELD_CULTURE" Value="100"/>
+
+		<!-- Leader Yield Biases -->
+		<Row ListType="Amina Yield Biases" Item="YIELD_GOLD" Value="50"/>
+		<Row ListType="Amina Yield Biases" Item="YIELD_PRODUCTION" Value="25"/>
+		<Row ListType="Ashoka Renouncer Yield Biases" Item="YIELD_HAPPINESS" Value="50"/>
+		<Row ListType="Ashoka Renouncer Yield Biases" Item="YIELD_FOOD" Value="25"/>
+		<Row ListType="Augustus Yield Biases" Item="YIELD_CULTURE" Value="50"/>
+		<Row ListType="Augustus Yield Biases" Item="YIELD_PRODUCTION" Value="25"/>
+		<Row ListType="Ben Franklin Yield Biases" Item="YIELD_SCIENCE" Value="50"/>
+		<Row ListType="Ben Franklin Yield Biases" Item="YIELD_DIPLOMACY" Value="25"/>
+		<Row ListType="Catherine Yield Biases" Item="YIELD_SCIENCE" Value="50"/>
+		<Row ListType="Catherine Yield Biases" Item="YIELD_CULTURE" Value="25"/>
+		<Row ListType="Charlemagne Yield Biases" Item="YIELD_HAPPINESS" Value="50"/>
+		<Row ListType="Charlemagne Yield Biases" Item="YIELD_SCIENCE" Value="25"/>
+		<Row ListType="Confucius Yield Biases" Item="YIELD_FOOD" Value="50"/>
+		<Row ListType="Confucius Yield Biases" Item="YIELD_SCIENCE" Value="25"/>
+		<Row ListType="Friedrich Oblique Yield Biases" Item="YIELD_PRODUCTION" Value="50"/>
+		<Row ListType="Friedrich Oblique Yield Biases" Item="YIELD_SCIENCE" Value="25"/>
+		<Row ListType="Harriet Yield Biases" Item="YIELD_DIPLOMACY" Value="50"/>
+		<Row ListType="Harriet Yield Biases" Item="YIELD_PRODUCTION" Value="25"/>
+		<Row ListType="Hatshepsut Yield Biases" Item="YIELD_CULTURE" Value="50"/>
+		<Row ListType="Hatshepsut Yield Biases" Item="YIELD_GOLD" Value="25"/>
+		<Row ListType="Himiko Wa Yield Biases" Item="YIELD_DIPLOMACY" Value="50"/>
+		<Row ListType="Himiko Wa Yield Biases" Item="YIELD_SCIENCE" Value="25"/>
+		<Row ListType="Isabella Yield Biases" Item="YIELD_GOLD" Value="50"/>
+		<Row ListType="Isabella Yield Biases" Item="YIELD_HAPPINESS" Value="25"/>
+		<Row ListType="Jose Rizal Yield Biases" Item="YIELD_HAPPINESS" Value="50"/>
+		<Row ListType="Jose Rizal Yield Biases" Item="YIELD_CULTURE" Value="25"/>
+		<Row ListType="Lafayette Yield Biases" Item="YIELD_CULTURE" Value="50"/>
+		<Row ListType="Lafayette Yield Biases" Item="YIELD_HAPPINESS" Value="25"/>
+		<Row ListType="Machiavelli Yield Biases" Item="YIELD_DIPLOMACY" Value="50"/>
+		<Row ListType="Machiavelli Yield Biases" Item="YIELD_GOLD" Value="25"/>
+		<Row ListType="Pachacuti Yield Biases" Item="YIELD_FOOD" Value="50"/>
+		<Row ListType="Pachacuti Yield Biases" Item="YIELD_GOLD" Value="25"/>
+		<Row ListType="Trung Trac Yield Biases" Item="YIELD_SCIENCE" Value="50"/>
+		<Row ListType="Trung Trac Yield Biases" Item="YIELD_PRODUCTION" Value="25"/>
+		<Row ListType="Xerxes King Yield Biases" Item="YIELD_PRODUCTION" Value="50"/>
+		<Row ListType="Xerxes King Yield Biases" Item="YIELD_GOLD" Value="25"/>
+
+		<!-- Leader PseudoYield Biases -->
+		<Row ListType="Amina PseudoYield Biases" Item="PSEUDOYIELD_CITY_DEFENSES" Value="200"/>
+		<Row ListType="Ashoka Renouncer PseudoYield Biases" Item="PSEUDOYIELD_GROWTH_FOOD" Value="50"/>
+		<Row ListType="Augustus PseudoYield Biases" Item="PSEUDOYIELD_BUILD_QUEUE_IN_CITY" Value="-25"/>
+		<Row ListType="Augustus PseudoYield Biases" Item="PSEUDOYIELD_NEW_CITY" Value="50"/>
+		<Row ListType="Catherine PseudoYield Biases" Item="PSEUDOYIELD_GREAT_WORK" Value="50"/>
+		<Row ListType="Confucius PseudoYield Biases" Item="PSEUDOYIELD_BUILD_QUEUE_IN_CITY" Value="50"/>
+		<Row ListType="Hetshepsut PseudoYield Biases" Item="PSEUDOYIELD_RESOURCE_IMPORT" Value="50"/>
+		<Row ListType="Jose Rizal PseudoYield Biases" Item="PSEDUOYIELD_GOLDEN_AGE_THRESHOLD_PERCENT_REDUCTION" Value="50"/>
+		<Row ListType="Lafayette PseudoYield Biases" Item="PSEUDOYIELD_TRADITION_SLOT" Value="50"/>
+
+		<!-- Leader AI Budget Biases -->
+		<Row ListType="Amina Budget Biases" Item="AI_BUDGET_GARRISON" Value="25"/>
+		<Row ListType="Ibn Battuta Budget Biases" Item="AI_BUDGET_EXPLORATION" Value="25"/>
+		<Row ListType="Isabella Budget Biases" Item="AI_BUDGET_EXPLORATION" Value="25"/>
+		<Row ListType="Xerxes King Budget Biases" Item="AI_BUDGET_STANDING_ARMY" Value="50"/>
+
+		<!-- Leader Tag Biases -->
+		<Row ListType="Ben Franklin Tag Biases" Item="PRODUCTION" Value="100"/>
+		<Row ListType="Charlemagne Tag Biases" Item="SCIENCE" Value="100"/>
+		<Row ListType="Friedrich Oblique Tag Biases" Item="MILITARY" Value="100"/>
+
+		<!-- Leader Settlement Biases -->
+		<Row ListType="Catherine Settle Plot Conditions" Item="City Center Biome" Favored="false" Value="15" StringVal="BIOME_TUNDRA" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_CITY_CENTER_BIOME"/>
+		<Row ListType="Hetshepsut Settle Plot Conditions" Item="Specific Terrain" Favored="false" Value="5" StringVal="TERRAIN_NAVIGABLE_RIVER" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_TERRAIN"/>
+		<Row ListType="Isabella Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="15" StringVal="FEATURE_VALLEY_OF_FLOWERS" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Isabella Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="15" StringVal="FEATURE_BARRIER_REEF" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Isabella Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="15" StringVal="FEATURE_BERMUDA_TRIANGLE" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Isabella Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="15" StringVal="FEATURE_REDWOOD_FOREST" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Isabella Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="15" StringVal="FEATURE_GRAND_CANYON" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Isabella Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="15" StringVal="FEATURE_GULLFOSS" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Isabella Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="15" StringVal="FEATURE_HOERIKWAGGO" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Isabella Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="15" StringVal="FEATURE_IGUAZU_FALLS" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Isabella Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="15" StringVal="FEATURE_KILIMANJARO" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Isabella Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="15" StringVal="FEATURE_MOUNT_EVEREST" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Isabella Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="15" StringVal="FEATURE_ZHANGJIAJIE" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Isabella Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="15" StringVal="FEATURE_THERA" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Isabella Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="15" StringVal="FEATURE_TORRES_DEL_PAINE" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Isabella Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="15" StringVal="FEATURE_ULURU" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Lafayette Settle Plot Conditions" Item="Foreign Hemisphere" Favored="false" Value="250" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FOREIGN_HEMISPHERE"/>
+		<Row ListType="Pachacuti Settle Plot Conditions" Item="Specific Terrain" Favored="false" Value="10" StringVal="TERRAIN_MOUNTAIN" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_TERRAIN"/>
+		<Row ListType="Trung Trac Settle Plot Conditions" Item="City Center Biome" Favored="false" Value="15" StringVal="BIOME_TROPICAL" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_CITY_CENTER_BIOME"/>
+
+	</AiFavoredItems>
+	<!-- City Strategies -->
+	<Strategies>
+		<Row StrategyType="CITY_STRATEGY_EARLY_FOOD" CityStrategy="true" MinNumConditionsNeeded="1" MaxNumConditionsNeeded="2"/>
+		<Row StrategyType="CITY_STRATEGY_PRODUCTION_BIAS" CityStrategy="true" MinNumConditionsNeeded="1" MaxNumConditionsNeeded="1"/>
+		<Row StrategyType="CITY_STRATEGY_STAY_HAPPY" CityStrategy="true" MinNumConditionsNeeded="1" MaxNumConditionsNeeded="1"/>
+	</Strategies>
+	<StrategyConditions>
+		<Row StrategyType="CITY_STRATEGY_EARLY_FOOD" ConditionFunction="HasFoodLessThan" ThresholdValue="10"/>
+		<Row StrategyType="CITY_STRATEGY_EARLY_FOOD" ConditionFunction="HasFoodLessThan" ThresholdValue="15"/>
+		<Row StrategyType="CITY_STRATEGY_EARLY_FOOD" ConditionFunction="HasFoodGreaterThan" Disqualifier="true" ThresholdValue="14"/>
+		<Row StrategyType="CITY_STRATEGY_EARLY_FOOD" ConditionFunction="HasRuralPopGreaterThan" Disqualifier="true" ThresholdValue="5"/>
+		<Row StrategyType="CITY_STRATEGY_PRODUCTION_BIAS" ConditionFunction="HasRuralPopGreaterThan" ThresholdValue="4"/>
+		<Row StrategyType="CITY_STRATEGY_STAY_HAPPY" ConditionFunction="HasHappinessLessThan" ThresholdValue="0"/>
+	</StrategyConditions>
+	<Strategy_Priorities>
+		<Row StrategyType="CITY_STRATEGY_EARLY_FOOD" ListType="CityStrategyFoodBias"/>
+		<Row StrategyType="CITY_STRATEGY_PRODUCTION_BIAS" ListType="CityStrategyProductionBias"/>
+		<Row StrategyType="CITY_STRATEGY_STAY_HAPPY" ListType="CityStrategyHappinessBias"/>
+	</Strategy_Priorities>
+	<AiListTypes>
+		<Row ListType="CityStrategyFoodBias"/>
+		<Row ListType="CityStrategyProductionBias"/>
+		<Row ListType="CityStrategyHappinessBias"/>
+	</AiListTypes>
+	<AiLists>
+		<Row ListType="CityStrategyFoodBias" System="YieldBiases"/>
+		<Row ListType="CityStrategyProductionBias" System="YieldBiases"/>
+		<Row ListType="CityStrategyHappinessBias" System="YieldBiases"/>
+	</AiLists>
+	<AiFavoredItems>
+		<Row ListType="CityStrategyFoodBias" Item="YIELD_FOOD" Value="100"/>
+		<Row ListType="CityStrategyProductionBias" Item="YIELD_PRODUCTION" Value="200"/>
+		<Row ListType="CityStrategyHappinessBias" Item="YIELD_HAPPINESS" Value="100"/>
+	</AiFavoredItems>
+</Database>

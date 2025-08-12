@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+    <Modifier id="11010B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY" run-once="false" permanent="true">
+        <SubjectRequirements>
+            <Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+                <Argument name="Tag">UNIT_CLASS_AIRCRAFT</Argument>
+            </Requirement>
+        </SubjectRequirements>
+        <Argument name="AbilityType">ABILITY_NARRATIVE_DEFENSIVE</Argument>
+    </Modifier>
+    <Modifier id="11010C_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_OR_CITY_UNIT_PURCHASE_EFFICIENCY" run-once="false" permanent="true">
+        <Argument name="Percent">15</Argument>
+        <Argument name="UnitTag">UNIT_CLASS_AIRCRAFT</Argument>
+    </Modifier>
+    <Modifier id="11011B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_HAPPINESS</Argument>
+        <Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+        <Argument name="ConstructibleType">BUILDING_FACTORY</Argument>
+    </Modifier>
+    <Modifier id="11011C_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_FREE_PURCHASE_CHARGE" run-once="false" permanent="true">
+        <Argument name="BuildingType">BUILDING_FACTORY</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="11012B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_CULTURE</Argument>
+        <Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+        <Argument name="ConstructibleType">BUILDING_RADIO_STATION</Argument>
+    </Modifier>
+    <Modifier id="11012C_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_UNIT" run-once="false" permanent="true">
+        <Argument name="UnitTag">UNIT_CLASS_INFANTRY</Argument>
+        <Argument name="Amount">2</Argument>
+    </Modifier>
+    <Modifier id="11012C_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADD_YIELD_DEBT_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MEDIUM_EARLY</Argument>
+    </Modifier>
+    <Modifier id="11012D_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_HAPPINESS</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MAJOR_EARLY</Argument>
+    </Modifier>
+    <Modifier id="11012D_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADD_YIELD_DEBT_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MEDIUM_EARLY</Argument>
+    </Modifier>
+    <Modifier id="11013B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION" run-once="false" permanent="true">
+        <Argument name="Percent">25</Argument>
+        <Argument name="UnitClass">UNIT_CLASS_NAVAL</Argument>
+    </Modifier>
+    <Modifier id="11013B_NARRATIVE_MODIFIER2" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_HAPPINESS</Argument>
+        <Argument name="Amount" type="ScaleByGameAge" extra="100">-1</Argument>
+        <Argument name="ConstructibleType">BUILDING_PORT</Argument>
+    </Modifier>
+    <Modifier id="11013C_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_PRODUCTION</Argument>
+        <Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+        <Argument name="ConstructibleType">BUILDING_PORT</Argument>
+    </Modifier>
+    <Modifier id="11013C_NARRATIVE_MODIFIER2" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION" run-once="false" permanent="true">
+        <Argument name="Percent">-10</Argument>
+        <Argument name="UnitClass">UNIT_CLASS_NAVAL</Argument>
+    </Modifier>
+    <Modifier id="11014B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_GOLD</Argument>
+        <Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+        <Argument name="ConstructibleType">BUILDING_PORT</Argument>
+    </Modifier>
+    <Modifier id="11014B_NARRATIVE_MODIFIER2" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+        <Argument name="Amount">-1</Argument>
+        <Argument name="ConstructibleType">BUILDING_PORT</Argument>
+    </Modifier>
+    <Modifier id="11014C_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+        <Argument name="Amount">1</Argument>
+        <Argument name="ConstructibleType">BUILDING_PORT</Argument>
+    </Modifier>
+    <Modifier id="11014C_NARRATIVE_MODIFIER2" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_GOLD</Argument>
+        <Argument name="Amount" type="ScaleByGameAge" extra="100">-1</Argument>
+        <Argument name="ConstructibleType">BUILDING_PORT</Argument>
+    </Modifier>
+    <Modifier id="11015B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_GOLD</Argument>
+        <Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+    </Modifier>
+    <Modifier id="11015B_NARRATIVE_MODIFIER2" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_HAPPINESS</Argument>
+        <Argument name="Amount" type="ScaleByGameAge" extra="100">-1</Argument>
+        <Argument name="ConstructibleType">BUILDING_SCHOOLHOUSE</Argument>
+    </Modifier>
+    <Modifier id="11015C_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_HAPPINESS</Argument>
+        <Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+        <Argument name="ConstructibleType">BUILDING_SCHOOLHOUSE</Argument>
+    </Modifier>
+    <Modifier id="11016B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION" run-once="false" permanent="true">
+        <Argument name="Percent">15</Argument>
+        <Argument name="UnitClass">UNIT_CLASS_REVENGE</Argument>
+    </Modifier>
+    <Modifier id="11016C_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY" run-once="false" permanent="true">
+        <SubjectRequirements>
+            <Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+                <Argument name="Tag">UNIT_CLASS_REVENGE</Argument>
+            </Requirement>
+        </SubjectRequirements>
+        <Argument name="AbilityType">ABILITY_NARRATIVE_STRENGTH</Argument>
+    </Modifier>
+    <Modifier id="11017B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_FOOD</Argument>
+        <Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+        <Argument name="ConstructibleType">BUILDING_RAIL_STATION</Argument>
+    </Modifier>
+    <Modifier id="11017C_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_GOLD</Argument>
+        <Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+        <Argument name="ConstructibleType">BUILDING_RAIL_STATION</Argument>
+    </Modifier>
+    <Modifier id="11018B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_SCIENCE</Argument>
+        <Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+        <Argument name="ConstructibleType">BUILDING_SCHOOLHOUSE</Argument>
+    </Modifier>
+    <Modifier id="11018B_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_DEDUCT_TREASURY_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="MultiplierType">REWARD_TYPE_MINOR_EARLY</Argument>
+    </Modifier>
+    <Modifier id="11018C_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_TRADITION_SLOTS" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="11019B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_GREAT_WORK" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="GreatWork">GREATWORK_ARTIFACT_CONTESTED_STATUE</Argument>
+    </Modifier>
+    <Modifier id="11019B_NARRATIVE_MODIFIER2" collection="COLLECTION_OPPONENT_AT_STORY" effect="EFFECT_DECLARE_WAR" run-once="true" permanent="true">
+    </Modifier>
+    <Modifier id="11019C_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MAJOR_LATE</Argument>
+    </Modifier>
+    <Modifier id="11019C_NARRATIVE_MODIFIER2" collection="COLLECTION_OPPONENT_AT_STORY" effect="EFFECT_GRANT_GREAT_WORK" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="GreatWork">GREATWORK_ARTIFACT_CONTESTED_STATUE</Argument>
+    </Modifier>
+    <Modifier id="11019_ALT2B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_GREAT_WORK" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="GreatWork">GREATWORK_ARTIFACT_KOH_I_NOOR</Argument>
+    </Modifier>
+    <Modifier id="11019_ALT2B_NARRATIVE_MODIFIER2" collection="COLLECTION_OPPONENT_AT_STORY" effect="EFFECT_DECLARE_WAR" run-once="true" permanent="true">
+    </Modifier>
+    <Modifier id="11019_ALT2C_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MAJOR_LATE</Argument>
+    </Modifier>
+    <Modifier id="11019_ALT2C_NARRATIVE_MODIFIER2" collection="COLLECTION_OPPONENT_AT_STORY" effect="EFFECT_GRANT_GREAT_WORK" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="GreatWork">GREATWORK_ARTIFACT_KOH_I_NOOR</Argument>
+    </Modifier>
+    <Modifier id="11068B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" run-once="false" permanent="true">
+        <Argument name="AttributeType">ATTRIBUTE_EXPANSIONIST</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="11068C_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" run-once="false" permanent="true">
+        <Argument name="AttributeType">ATTRIBUTE_ECONOMIC</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="12005B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_GOLD</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MINOR_EARLY</Argument>
+    </Modifier>
+    <Modifier id="12005C_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_FOOD</Argument>
+        <Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+    </Modifier>
+    <Requirement id="REQ_STORY_CIVILIZATION_GREAT_BRITAIN" type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+        <Argument name="CivilizationType">CIVILIZATION_GREAT_BRITAIN</Argument>
+    </Requirement>
+    <RequirementSet id="REQSET_11010A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11011D_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11012A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11013D_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11014A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11015A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11016A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11017A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11018A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11019E_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11019_ALT2E_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11068A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11010A_NARRATIVE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_ACTIVE_TRADITION">
+            <Argument name="TraditionType">TRADITION_THEIR_FINEST_HOUR</Argument>
+        </Requirement>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_UNIT_COMBAT_DEATH01</Argument>
+            <Argument name="GOSSIP_UNIT_COMBAT_DEATH01">Hash,OtherPlayer,Self,Hash,IsKillingUnitPlotOwner,True,Hash,KillingDomainType,DOMAIN_AIR,Hash,DomainType,DOMAIN_AIR</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11011D_NARRATIVE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_BUILDINGS">
+            <Argument name="BuildingType">BUILDING_FACTORY</Argument>
+            <Argument name="Amount">4</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11011A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_RANDOM_EVENT_DAMAGED_CONSTRUCTIBLE01</Argument>
+            <Argument name="GOSSIP_RANDOM_EVENT_DAMAGED_CONSTRUCTIBLE01">Hash,ConstructibleType,BUILDING_FACTORY</Argument>
+            <Argument name="AfterInit">True</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11012A_NARRATIVE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_UNHAPPY_CITIES">
+            <Argument name="OnlyConquered">True</Argument>
+            <Argument name="OnlyDistantLands">True</Argument>
+            <Argument name="Count">1</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11013D_NARRATIVE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_ACTIVE_TRADITION">
+            <Argument name="TraditionType">TRADITION_DRAFT</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11013A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_ACTIVE_TRADITION">
+            <Argument name="TraditionType">TRADITION_DRAFT</Argument>
+        </Requirement>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_MAKE_DOW01,GOSSIP_UNIT_COMBAT_DEATH02</Argument>
+            <Argument name="GOSSIP_MAKE_DOW01">Hash,OtherPlayer,Self</Argument>
+            <Argument name="GOSSIP_UNIT_COMBAT_DEATH02">Hash,DomainType,DOMAIN_SEA,Hash,OtherPlayer,Other</Argument>
+            <Argument name="Amount">2</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11014A_NARRATIVE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_TRADE_ROUTE_STARTED01</Argument>
+            <Argument name="GOSSIP_TRADE_ROUTE_STARTED01">Hash,WereEverAtWar,True,Hash,OtherPlayer,Other</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11015A_NARRATIVE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_CONSTRUCT_BUILDING01,GOSSIP_CITY_POPULATION_HEIGHT_CHANGED02</Argument>
+            <Argument name="GOSSIP_CONSTRUCT_BUILDING01">Hash,IsCapital,True,Hash,ConstructibleType,WONDER_OXFORD_UNIVERSITY</Argument>
+            <Argument name="GOSSIP_CITY_POPULATION_HEIGHT_CHANGED02">Numeric,TotalPop,40,Hash,IsCapital,True</Argument>
+            <Argument name="Amount">2</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11016A_NARRATIVE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_CONSTRUCT_BUILDING01,GOSSIP_CONSTRUCT_BUILDING02</Argument>
+            <Argument name="GOSSIP_CONSTRUCT_BUILDING01">Hash,ConstructibleType,BUILDING_LABORATORY</Argument>
+            <Argument name="GOSSIP_CONSTRUCT_BUILDING02">Hash,ConstructibleType,BUILDING_IRONWORKS</Argument>
+            <Argument name="Distance">0</Argument>
+            <Argument name="Amount">2</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11017A_NARRATIVE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+        <Requirement type="REQUIREMENT_COLLECTION_ANY_MET">
+            <Argument name="CollectionType">COLLECTION_PLAYER_CITIES</Argument>
+            <Argument name="RequirementSetId">SUBREQSET_11017A_NARRATIVE</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="SUBREQSET_11017A_NARRATIVE">
+        <Requirement type="REQUIREMENT_CITY_HAS_ANY_BUILDING">
+            <Argument name="BuildingType">BUILDING_RAIL_STATION,BUILDING_CANNERY</Argument>
+            <Argument name="Amount">2</Argument>
+        </Requirement>
+        <Requirement type="REQUIREMENT_CITY_POPULATION">
+            <Argument name="MinTotalPopulation">30</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11018A_NARRATIVE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_PROGRESSION_TREE_NODE">
+            <Argument name="ProgressionTreeNodeType">NODE_CIVIC_MO_MAIN_SOCIAL_QUESTION</Argument>
+            <Argument name="MinDepth">1</Argument>
+        </Requirement>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_BUILDINGS">
+            <Argument name="BuildingType">BUILDING_FACTORY</Argument>
+            <Argument name="Amount">7</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11019E_NARRATIVE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_ARTIFACT_EXTRACTED01</Argument>
+            <Argument name="GOSSIP_ARTIFACT_EXTRACTED01">Hash,RelationshipLevel,PLAYER_RELATIONSHIP_HOSTILE,Hash,AtWar,False</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11019A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_ARTIFACT_EXTRACTED01</Argument>
+            <Argument name="GOSSIP_ARTIFACT_EXTRACTED01">Hash,RelationshipLevel,PLAYER_RELATIONSHIP_HOSTILE,Hash,AtWar,False</Argument>
+        </Requirement>
+        <Requirement type="REQUIREMENT_GAME_TURN_IS_X_NARRATIVE">
+            <Argument name="AfterTurn">1</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11019_ALT2E_NARRATIVE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_ARTIFACT_EXTRACTED01</Argument>
+            <Argument name="GOSSIP_ARTIFACT_EXTRACTED01">Hash,RelationshipLevel,PLAYER_RELATIONSHIP_HOSTILE,Hash,Civilization,CIVILIZATION_MUGHAL,Hash,AtWar,False</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11019_ALT2A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_ARTIFACT_EXTRACTED01</Argument>
+            <Argument name="GOSSIP_ARTIFACT_EXTRACTED01">Hash,RelationshipLevel,PLAYER_RELATIONSHIP_HOSTILE,Hash,Civilization,CIVILIZATION_MUGHAL,Hash,AtWar,False</Argument>
+        </Requirement>
+        <Requirement type="REQUIREMENT_GAME_TURN_IS_X_NARRATIVE">
+            <Argument name="AfterTurn">1</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_11068A_NARRATIVE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_GREAT_BRITAIN"/>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_PROGRESSION_TREE_NODE">
+            <Argument name="ProgressionTreeNodeType">NODE_CIVIC_MO_GREAT_BRITAIN_SPLENDID_ISOLATION</Argument>
+            <Argument name="MinDepth">1</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_12005A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_TRADE_ROUTE_STARTED01</Argument>
+            <Argument name="GOSSIP_TRADE_ROUTE_STARTED01">Hash,OtherPlayer,Other,Hash,Civilization,CIVILIZATION_GREAT_BRITAIN</Argument>
+        </Requirement>
+    </RequirementSet>
+</GameEffects>

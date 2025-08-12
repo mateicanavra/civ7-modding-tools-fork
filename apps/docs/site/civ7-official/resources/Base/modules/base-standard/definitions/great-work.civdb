@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="Definitions">
+	<definition name="GreatWork_ValidSubType" table-name="GreatWork_ValidSubTypes" cpp="true">
+		<field name="GreatWorkSlotType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="GreatWorkObjectType" type="Text" key="true" not-null="true" hash="true"/>
+		<reference source="GreatWorkObjectType" target="GreatWorkObjectType" sourceRoleName="GreatWorkObjectTypeRef" targetRoleName="ValidSlots" to="GreatWorkObjectType"/>
+		<reference source="GreatWorkSlotType" target="GreatWorkSlotType" sourceRoleName="GreatWorkSlotRef" targetRoleName="ValidSubTypes" to="GreatWorkSlotType"/>
+		<property name="SlotReference" path="GreatWorkSlotRef"/>
+		<property name="ObjectReference" path="GreatWorkObjectTypeRef"/>
+	</definition>
+	<definition name="GreatWork" table-name="GreatWorks" cpp="true">
+		<field name="GreatWorkType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="GreatWorkObjectType" type="Text" not-null="true" hash="true"/>
+		<field name="GreatWorkSourceType" type="Text" hash="true"/>
+		<field name="GreatPersonIndividualType" type="Text"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="Description" type="Text"/>
+		<field name="Audio" type="Text"/>
+		<field name="Image" type="Text"/>
+		<field name="Quote" type="Text"/>
+		<field name="AgeType" type="Text"/>
+		<field name="Generic" type="Bool" value="true" not-null="true"/>
+		<reference source="AgeType" target="AgeType" sourceRoleName="AgeRef" to="Age"/>
+		<reference source="GreatPersonIndividualType" target="GreatPersonIndividualType" sourceRoleName="GreatPersonRef" targetRoleName="GreatWorkCollection" to="GreatPersonIndividual"/>
+		<reference source="GreatWorkObjectType" target="GreatWorkObjectType" sourceRoleName="GreatWorkObjectRef" targetRoleName="GreatWorks" on-delete="Restrict" to="GreatWorkObjectType"/>
+		<reference source="GreatWorkSourceType" target="GreatWorkSourceType" sourceRoleName="GreatWorkSourceRef" targetRoleName="GreatWorkSource" on-delete="Restrict" to="GreatWorkSourceType"/>
+		<property name="YieldChanges" path="YieldChangeRef"/>
+		<property name="AgeReference" path="AgeRef"/>
+		<property name="ConstructibleCollection" path="GreatWorkObjectRef.ValidSlots.GreatWorkSlotRef.Constructibles.ConstructibleRef"/>
+		<property name="GreatWorkObjectReference" path="GreatWorkObjectRef"/>
+		<property name="GreatWorkSourceReference" path="GreatWorkSourceRef"/>
+		<property name="GreatPersonReference" path="GreatPersonRef"/>
+	</definition>
+	<definition name="GreatWork_YieldChange" table-name="GreatWork_YieldChanges" cpp="true">
+		<field name="GreatWorkType" type="Text" key="true" not-null="true"/>
+		<field name="YieldType" type="Text" key="true" not-null="true"/>
+		<field name="YieldChange" type="Integer" not-null="true"/>
+		<reference source="GreatWorkType" target="GreatWorkType" sourceRoleName="GreatWorkRef" targetRoleName="YieldChangeRef" to="GreatWork"/>
+		<reference source="YieldType" target="YieldType" sourceRoleName="YieldRef" to="Yield"/>
+		<property name="YieldReference" path="YieldRef"/>
+	</definition>
+	<definition name="GreatWorkModifier" table-name="GreatWorkModifiers" cpp="false">
+		<field name="GreatWorkType" type="Text" key="true" not-null="true"/>
+		<field name="ModifierID" type="Text" key="true" not-null="true"/>
+		<reference source="GreatWorkType" target="GreatWorkType" to="GreatWork"/>
+	</definition>
+	<definition name="GreatWorkObjectType" table-name="GreatWorkObjectTypes" cpp="true">
+		<field name="GreatWorkObjectType" type="Text" key="true" not-null="true"/>
+		<field name="Value" type="Integer" unique="true" not-null="true"/>
+		<field name="PseudoYieldType" type="Text" not-null="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="IconString" type="Text" not-null="true"/>
+		<reference source="PseudoYieldType" target="PseudoYieldType" sourceRoleName="PseudoYieldRef" to="PseudoYield"/>
+		<property name="PseudoYieldReference" path="PseudoYieldRef"/>
+		<property name="BuildingCollection" path="ValidSlots.GreatWorkSlotRef.Constructibles.ConstructibleRef"/>
+	</definition>
+	<definition name="GreatWorkSourceType" table-name="GreatWorkSourceTypes" cpp="true">
+		<field name="GreatWorkSourceType" type="Text" key="true" not-null="true"/>
+	</definition>
+	<definition name="GreatWorkSlotType" table-name="GreatWorkSlotTypes" cpp="true">
+		<field name="GreatWorkSlotType" type="Text" key="true" not-null="true"/>
+	</definition>
+</definitions>

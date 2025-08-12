@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<Row Kind="KIND_ROUTE"/>
+	</Kinds>
+	<Types>
+		<Row Type="ROUTE_ROAD" Kind="KIND_ROUTE"/>
+	</Types>
+	<Routes>
+		<Row RouteType="ROUTE_ROAD" Name="LOC_ROUTE_ROAD_NAME" Description="LOC_ROUTE_ROAD_DESCRIPTION" MovementCost="1" PlacementValue="1" PlacementRequiresRoutePresent="false" PlacementRequiresOwnedTile="false"/>
+	</Routes>
+	<Route_ValidBuildUnits>
+	</Route_ValidBuildUnits>
+</Database>

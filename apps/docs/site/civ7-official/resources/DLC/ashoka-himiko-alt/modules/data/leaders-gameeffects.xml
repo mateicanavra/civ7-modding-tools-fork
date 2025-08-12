@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==================================================	-->
+	<!-- Ashoka, World Conqueror -->
+	<!-- ==================================================	-->
+	<Modifier id="ASHOKA_ALT_MOD_HAPPINESS_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_SURPLUS_HAPPINESS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Divisor">5</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_ASHOKA_ALT_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="ASHOKA_ALT_MOD_CAPTURED_SETTLEMENT_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_ORIGINAL_OWNER" inverse="true"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Percent">10</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_ASHOKA_ALT_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="ASHOKA_ALT_MOD_WAR_CELEBRATION" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_GOLDEN_AGE" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_DECLARED_WAR">
+				<Argument name="DeclaredByOwner">true</Argument>
+				<Argument name="WarType">FORMAL_WAR</Argument>
+			</Requirement>
+		</SubjectRequirements>
+	</Modifier>
+	<Modifier id="ASHOKA_ALT_MOD_CONQUEROR_ABILITY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ATTACH_MODIFIERS">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_IN_GOLDEN_AGE"/>
+		</OwnerRequirements>
+		<Argument name="ModifierId">ASHOKA_CONQUEROR_MOD_ADJUST_UNIT_COMBAT_STRENGTH_MODIFIER</Argument>
+	</Modifier>
+	<Modifier id="ASHOKA_CONQUEROR_MOD_ADJUST_UNIT_COMBAT_STRENGTH_MODIFIER" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_IS_DISTRICT"/>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_ABILITY_ASHOKA_CONQUEROR_COMBAT_PREVIEW</String>
+	</Modifier>
+	<Modifier id="ASHOKA_ALT_MOD_AGENDA_WITHOUT_REGRET" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_WITHOUT_REGRET_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_WITHOUT_REGRET_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_WITHOUT_REGRET_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_NUM_OWNED_TILES</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_HIGHEST</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_NEG_AMT_MEDIUM</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_LOWEST</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_AMT_MEDIUM</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Himiko, High Shaman -->
+	<!-- ==================================================	-->
+	<Modifier id="HIMIKO_ALT_MOD_HAPPINESS_BUILDING_HAPPINESS" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<Argument name="Tag">HAPPINESS</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_HIMIKO_ALT_ABILITY_NAME</Argument>
+		<String context="Description">LOC_TRAIT_LEADER_HIMIKO_ALT_ABILITY_NAME</String>
+	</Modifier>
+	<Modifier id="HIMIKO_ALT_MOD_DIPLOMACY_BUILDING_HAPPINESS" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<Argument name="Tag">DIPLOMACY</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_HIMIKO_ALT_ABILITY_NAME</Argument>
+		<String context="Description">LOC_TRAIT_LEADER_HIMIKO_ALT_ABILITY_NAME</String>
+	</Modifier>
+	<Modifier id="HIMIKO_ALT_MOD_HAPPINESS_BUILDING_PRODUCTION_RATE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_PRODUCTION">
+		<Argument name="Tag">HAPPINESS</Argument>
+		<Argument name="Percent">50</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_HIMIKO_ALT_ABILITY_NAME</Argument>
+		<String context="Description">LOC_TRAIT_LEADER_HIMIKO_ALT_ABILITY_NAME</String>
+	</Modifier>
+	<Modifier id="HIMIKO_ALT_MOD_DIPLOMACY_BUILDING_PRODUCTION_RATE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_PRODUCTION">
+		<Argument name="Tag">DIPLOMACY</Argument>
+		<Argument name="Percent">50</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_HIMIKO_ALT_ABILITY_NAME</Argument>
+		<String context="Description">LOC_TRAIT_LEADER_HIMIKO_ALT_ABILITY_NAME</String>
+	</Modifier>
+	<Modifier id="HIMIKO_ALT_MOD_CULTURE_BOOST" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_IN_GOLDEN_AGE" inverse="true"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Percent">20</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_HIMIKO_ALT_ABILITY_NAME</Argument>
+		<String context="Description">LOC_TRAIT_LEADER_HIMIKO_ALT_ABILITY_NAME</String>
+	</Modifier>
+	<Modifier id="HIMIKO_ALT_MOD_SCIENCE_PENALTY" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_IN_GOLDEN_AGE" inverse="true"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Percent">-10</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_HIMIKO_ALT_ABILITY_NAME</Argument>
+		<String context="Description">LOC_TRAIT_LEADER_HIMIKO_ALT_ABILITY_NAME</String>
+	</Modifier>
+	<Modifier id="HIMIKO_ALT_MOD_CULTURE_BOOST_CELEBRATION" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_IN_GOLDEN_AGE"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Percent">40</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_HIMIKO_ALT_ABILITY_NAME</Argument>
+		<String context="Description">LOC_TRAIT_LEADER_HIMIKO_ALT_ABILITY_NAME</String>
+	</Modifier>
+	<Modifier id="HIMIKO_ALT_MOD_SCIENCE_PENALTY_CELEBRATION" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_IN_GOLDEN_AGE"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Percent">-20</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_HIMIKO_ALT_ABILITY_NAME</Argument>
+		<String context="Description">LOC_TRAIT_LEADER_HIMIKO_ALT_ABILITY_NAME</String>
+	</Modifier>
+	<Modifier id="HIMIKO_ALT_MOD_AGENDA_SHAMAN_QUEEN" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_SHAMAN_QUEEN_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_SHAMAN_QUEEN_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_SHAMAN_QUEEN_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_DISTRICTS2</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_ALL</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_AMT_SMALL</Argument>
+		<Argument name="Arg1">CULTURE</Argument>
+		<Argument name="Arg2">HAPPINESS</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_ALL</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_NEG_AMT_SMALL</Argument>
+		<Argument name="Arg3">SCIENCE</Argument>
+		<Argument name="Arg4">GOLD</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+</GameEffects>

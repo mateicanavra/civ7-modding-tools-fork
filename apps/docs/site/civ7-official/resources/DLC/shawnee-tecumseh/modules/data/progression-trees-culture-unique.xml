@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<!--Civ Unique Mastery Trees-->
+		<Row Type="TREE_CIVICS_EX_SHAWNEE" Kind="KIND_TREE"/>
+		<!--Civ Unique Mastery Tree Nodes-->
+		<!--Shawnee-->
+		<Row Type="NODE_CIVIC_EX_SHAWNEE_WYEHI_SIMEKOFI" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_EX_SHAWNEE_MIYASKA_LATOWEKI" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_EX_SHAWNEE_TELWATIKI" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_EX_SHAWNEE_MALEKI_KINTAKE" Kind="KIND_TREE_NODE"/>
+	</Types>
+	<TypeQuotes>
+		<Row Type="NODE_CIVIC_EX_SHAWNEE_WYEHI_SIMEKOFI" Quote="LOC_CIVIC_WYEHI_SIMEKOFI_QUOTE" QuoteAuthor="LOC_CIVIC_WYEHI_SIMEKOFI_QUOTE_AUTHOR" QuoteAudio="VO_Quote_WyehiSimekofi"/>
+		<Row Type="NODE_CIVIC_EX_SHAWNEE_MIYASKA_LATOWEKI" Quote="LOC_CIVIC_MIYASKA_LATOWEKI_QUOTE" QuoteAuthor="LOC_CIVIC_MIYASKA_LATOWEKI_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Miyasaka"/>
+		<Row Type="NODE_CIVIC_EX_SHAWNEE_TELWATIKI" Quote="LOC_CIVIC_TELWATIKI_QUOTE" QuoteAuthor="LOC_CIVIC_TELWATIKI_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Telwatiki"/>
+		<Row Type="NODE_CIVIC_EX_SHAWNEE_MALEKI_KINTAKE" Quote="LOC_CIVIC_MALEKI_KINTAKE_QUOTE" QuoteAuthor="LOC_CIVIC_MALEKI_KINTAKE_QUOTE_AUTHOR" QuoteAudio="VO_Quote_MalekiKintake"/>
+	</TypeQuotes>
+	<ProgressionTrees>
+		<!--Civ Unique Mastery Trees-->
+		<Row ProgressionTreeType="TREE_CIVICS_EX_SHAWNEE" AgeType="AGE_EXPLORATION" SystemType="SYSTEM_CULTURE" Name="LOC_TREE_CIVICS_EX_SHAWNEE_NAME"/>
+	</ProgressionTrees>
+	<ProgressionTreeNodes>
+		<!--Civ Unique Mastery Tree Nodes-->
+		<!--SHAWNEE-->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_SHAWNEE_WYEHI_SIMEKOFI" ProgressionTree="TREE_CIVICS_EX_SHAWNEE" Cost="800" Name="LOC_CIVIC_WYEHI_SIMEKOFI_NAME" IconString="cult_shawnee"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_SHAWNEE_MIYASKA_LATOWEKI" ProgressionTree="TREE_CIVICS_EX_SHAWNEE" Cost="1200" Name="LOC_CIVIC_MIYASKA_LATOWEKI_NAME" IconString="cult_shawnee"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_SHAWNEE_TELWATIKI" ProgressionTree="TREE_CIVICS_EX_SHAWNEE" Cost="1200" Name="LOC_CIVIC_TELWATIKI_NAME" IconString="cult_shawnee"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_SHAWNEE_MALEKI_KINTAKE" ProgressionTree="TREE_CIVICS_EX_SHAWNEE" Cost="2000" Name="LOC_CIVIC_MALEKI_KINTAKE_NAME" IconString="cult_shawnee"/>
+	</ProgressionTreeNodes>
+	<ProgressionTreeNodeUnlocks>
+		<!--Shawnee-->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_SHAWNEE_WYEHI_SIMEKOFI" TargetKind="KIND_CONSTRUCTIBLE" TargetType="IMPROVEMENT_MAWASKAWE_SKOTE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_SHAWNEE_WYEHI_SIMEKOFI" TargetKind="KIND_TRADITION" TargetType="TRADITION_BREAD_DANCE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_SHAWNEE_WYEHI_SIMEKOFI" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_SERPENT_MOUND" UnlockDepth="1" AIIgnoreUnlockValue="true"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_SHAWNEE_WYEHI_SIMEKOFI" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_SETTLEMENT_CAP_INCREASE" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_SHAWNEE_WYEHI_SIMEKOFI" TargetKind="KIND_MODIFIER" TargetType="MOD_WYEHI_SIMEKOFI_MAWASKAWE_SKOTE" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_SHAWNEE_MIYASKA_LATOWEKI" TargetKind="KIND_MODIFIER" TargetType="_MOD_MIYASKA_LATOWEKI_ENDEAVOR_TRADE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_SHAWNEE_MIYASKA_LATOWEKI" TargetKind="KIND_TRADITION" TargetType="TRADITION_KAKAWFE_PAFKOTAWETA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_SHAWNEE_MIYASKA_LATOWEKI" TargetKind="KIND_MODIFIER" TargetType="MOD_MIYASKA_LATOWEKI_CITY_STATE_RESOURCES" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_SHAWNEE_TELWATIKI" TargetKind="KIND_TRADITION" TargetType="TRADITION_HELIKHILENAWEWIPE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_SHAWNEE_TELWATIKI" TargetKind="KIND_MODIFIER" TargetType="MOD_TELWATIKI_THIRD_PARTY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_SHAWNEE_TELWATIKI" TargetKind="KIND_MODIFIER" TargetType="MOD_TELWATIKI_INFLUENCE" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_SHAWNEE_TELWATIKI" TargetKind="KIND_MODIFIER" TargetType="MOD_KISPOKO_NENA_TO_SUPPORT" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_SHAWNEE_MALEKI_KINTAKE" TargetKind="KIND_TRADITION" TargetType="TRADITION_TAKESIYAKE_YEPEPOKI" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_SHAWNEE_MALEKI_KINTAKE" TargetKind="KIND_MODIFIER" TargetType="MOD_MALEKI_KINTAKE_WAREHOUSES" UnlockDepth="1"/>
+	</ProgressionTreeNodeUnlocks>
+	<ProgressionTreePrereqs>
+		<!--Shawnee-->
+		<Row Node="NODE_CIVIC_EX_SHAWNEE_MIYASKA_LATOWEKI" PrereqNode="NODE_CIVIC_EX_SHAWNEE_WYEHI_SIMEKOFI"/>
+		<Row Node="NODE_CIVIC_EX_SHAWNEE_TELWATIKI" PrereqNode="NODE_CIVIC_EX_SHAWNEE_WYEHI_SIMEKOFI"/>
+		<Row Node="NODE_CIVIC_EX_SHAWNEE_MALEKI_KINTAKE" PrereqNode="NODE_CIVIC_EX_SHAWNEE_MIYASKA_LATOWEKI"/>
+		<Row Node="NODE_CIVIC_EX_SHAWNEE_MALEKI_KINTAKE" PrereqNode="NODE_CIVIC_EX_SHAWNEE_TELWATIKI"/>
+	</ProgressionTreePrereqs>
+</Database>

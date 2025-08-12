@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<PseudoYields>
+    <Row PseudoYieldType="PSEUDOYIELD_DIGGING_RESEARCHING_UNIT" DefaultValue="1000"/>
+    <Row PseudoYieldType="PSEUDOYIELD_UNLOCK_CONTINENT_AGE_DIGGING" DefaultValue="1000"/>
+    <Row PseudoYieldType="PSEUDOYIELD_UNLOCK_NATURAL_WONDER_DIGGING" DefaultValue="1000"/>
+    
+    <!-- These pseudoyields aren't worth anything by themselves. Their value is dynamically computed or may be useful for certain strategies. 
+			They should have a value of 1, with biases and dynamic evaluation used to control their actual values. -->
+		<Row PseudoYieldType="PSEUDOYIELD_RAIL_CONNECTION" DefaultValue="1"/>
+		<Row PseudoYieldType="PSEUDOYIELD_POTENTIAL_RAIL_CONNECTION" DefaultValue="1"/>		
+	</PseudoYields>
+</Database>

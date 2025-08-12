@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Database>
+	<EnglishText>
+		<!-- Modern Resource v2 Tooltips-->
+		<Row Tag="LOC_ANT_RESOURCE_RICE_TOOLTIP">
+			<Text>+10%[icon:YIELD_FOOD] Food in Settlements</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_LIMESTONE_TOOLTIP">
+			<Text>+10%[icon:YIELD_PRODUCTION] Production towards Buildings</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_TIN_TOOLTIP">
+			<Text>+3% Growth Rate</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_LLAMAS_TOOLTIP">
+			<Text>+1[icon:YIELD_PRODUCTION] Production, +7[icon:YIELD_HAPPINESS] Happiness</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_HARDWOOD_TOOLTIP">
+			<Text>+20%[icon:YIELD_PRODUCTION] Production towards Civilian Units</Text>
+		</Row>
+
+	</EnglishText>
+</Database>

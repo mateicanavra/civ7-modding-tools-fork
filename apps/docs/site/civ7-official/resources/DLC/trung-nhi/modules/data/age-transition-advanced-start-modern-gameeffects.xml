@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- Advanced Start Commander XP Trung Nhi -->
+	<Modifier id="MOD_PROMOTION_ARMY_TRUNG_NHI_ADVANCED_START_MODERN" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_GRANT_UNIT_PROMOTION" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_CLASS_MATCHES">
+				<Argument name="UnitClass">UNIT_CLASS_TRUNG_NHI</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_IS_AGE_COUNT">
+				<Argument name="AgeCount">1</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+	</Modifier>
+</GameEffects>

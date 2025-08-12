@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_WAR_NAME_ONE_CIVILIZATION">
+			<Text>{1_CivilizationName} War</Text>
+		</Row>
+		<Row Tag="LOC_WAR_NAME_TWO_CIVILIZATIONS">
+			<Text>{1_CivilizationAName}-{2_CivilizationBName} War</Text>
+		</Row>
+		<Row Tag="LOC_WAR_NAME_LEADER_WAR">
+			<Text>{1_LeaderName}'s War</Text>
+		</Row>
+		<Row Tag="LOC_WAR_NAME_GEOGRAPHICAL">
+			<Text>War of the {1_Place}</Text>
+		</Row>
+	</EnglishText>
+</Database>

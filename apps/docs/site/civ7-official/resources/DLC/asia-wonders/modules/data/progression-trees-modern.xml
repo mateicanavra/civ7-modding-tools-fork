@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<ProgressionTreeNodeUnlocks>
+		<Row ProgressionTreeNodeType="NODE_TECH_MO_URBANIZATION" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_UBUDIAH_MOSQUE" UnlockDepth="1"/>
+	</ProgressionTreeNodeUnlocks>
+</Database>

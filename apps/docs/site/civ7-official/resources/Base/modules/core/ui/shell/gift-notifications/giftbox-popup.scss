@@ -1,0 +1,16 @@
+@use '../../utilities/utility-text' as *;
+@use '../../../../core/ui/themes/default/_baseColors.scss';
+
+.giftbox-notification {
+	position: relative;
+	max-width: 30%;
+}
+
+.giftbox-scrollable-bg {
+	background-color: rgb(10, 10, 23);
+}
+
+.img-radial-glow {
+	background-image: radial-gradient(closest-side, #dbae4b, transparent);
+	opacity: 0.1;
+}

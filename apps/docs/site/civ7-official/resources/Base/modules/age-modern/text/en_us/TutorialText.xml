@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_TUTORIAL_MODERN_WELCOME_TITLE">
+			<Text>Welcome to the Modern Age</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MODERN_WELCOME_BODY">
+			<Text>
+				A period of rapid industrialization begins! What forces will these new technologies unleash?
+				[n][n]The Modern Age brings many new opportunities:
+				[BLIST]
+				[LI]Build [b]Rail Stations [/b]and [b]Factories [/b]to create a bustling network of [icon:YIELD_GOLD] [b]Trade.[/b]
+				[LI]Set your eyes on the sky and research [b]Flight [/b]to become a [icon:YIELD_SCIENCE] [b]Science [/b]leader.
+				[LI]Adopt an [b]Ideology [/b]and spread its message via [icon:NOTIFICATION_DECLARE_WAR] [b]Conquest.[/b]
+				[LI]Guide [b]Explorers [/b]to excavate [b]Artifacts [/b]and enshrine the world's [icon:YIELD_CULTURE] [b]Culture.[/b]
+				[/LIST]
+			</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_RAIL_STATION_TITLE">
+			<Text>Railroads</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_RAIL_STATION_BODY">
+			<Text>You may now construct a [icon:BUILDING_RAIL_STATION] [b]{LOC_BUILDING_RAIL_STATION_NAME}[/b]![n]Two Settlements with Rail Stations connected by land will create a [b]Railroad[/b] between them. Units can be sent along Railroads with [b]Rail Transfers[/b] when on or adjacent to a [icon:BUILDING_RAIL_STATION] [b]{LOC_BUILDING_RAIL_STATION_NAME}[/b].[n]A Settlement must have a {LOC_BUILDING_RAIL_STATION_NAME} before it can have a [b][icon:BUILDING_FACTORY] [b]{LOC_BUILDING_FACTORY_NAME}[/b].</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_PORT_TITLE">
+			<Text>Railroads: Ports</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_PORT_BODY">
+			<Text>You may now construct a [icon:BUILDING_PORT] [b]{LOC_BUILDING_PORT_NAME}[/b]![n]Settlements separated by [b]water [/b]will be able to create a [b]Rail Connection [/b]if each Settlement has a [icon:BUILDING_RAIL_STATION] [b]{LOC_BUILDING_RAIL_STATION_NAME}[/b] [b]and [/b]a [icon:BUILDING_PORT] [b]{LOC_BUILDING_PORT_NAME}[/b]. </Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_FACTORY_TITLE">
+			<Text>Factories</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_FACTORY_BODY">
+			<Text>You may now construct a [icon:BUILDING_FACTORY] [b]{LOC_BUILDING_FACTORY_NAME}[/b]![n]Settlements with a [icon:BUILDING_RAIL_STATION] [b]{LOC_BUILDING_RAIL_STATION_NAME}[/b], [b]Rail Connection[/b], and [b][icon:BUILDING_FACTORY] [b]{LOC_BUILDING_FACTORY_NAME}[/b] are able to slot Factory Resources. </Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_FACTORY_RESOURCES_TITLE">
+			<Text>Factory Resources</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_FACTORY_RESOURCES_BODY">
+			<Text>With a new Age come new Resources. In the Modern Age, [b]Factory Resources [/b]are critical to your economy and the {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} Legacy Path.[n]To slot a Factory Resource into a Settlement, it must have a [b]Rail Connection [/b]and a [icon:BUILDING_FACTORY] [b]{LOC_BUILDING_FACTORY_NAME}[/b]. Only [b]one type [/b]of Factory Resource can be slotted in a Settlement at any time.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_IDEOLOGIES_UNLOCK_TITLE">
+			<Text>Ideologies</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_IDEOLOGIES_UNLOCK_BODY">
+			<Text>Completion of [icon:NOTIFICATION_FREE_CIVIC_AWARDED] [b]{1_CivicName} [/b]has given rise to various political [b]Ideologies. [/b]You now have the opportunity to choose one of the three exclusive cultural paths for your Civilization:[BLIST][LI]Democracy[LI]Fascism[LI]Communism[n][n]The [b]Civic Tree [/b]of each [b]Ideology [/b]unlocks unique Social Policies, but more importantly, aligning yourself with a particular [b]Ideology [/b]can determine who will become [b]your allies and enemies [/b]on the political stage. First adopters of an [b]Ideology [/b]receive two Social Policy slots, while second adopters receive one Social Policy slot.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_NATURAL_HISTORY_CIVIC_UNLOCKED_TITLE">
+			<Text>Archaeology</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_NATURAL_HISTORY_CIVIC_UNLOCKED_BODY">
+			<Text>Your Mastery of [icon:NOTIFICATION_FREE_CIVIC_AWARDED] [b]{LOC_CIVIC_NATURAL_HISTORY_NAME}[/b] allows you to create a new Unit, the {1_ExplorerIcon} [b]{2_ExplorerName}[/b]. Once they've conducted research at a [icon:BUILDING_UNIVERSITY] [b]{LOC_BUILDING_UNIVERSITY_NAME}[/b] or [icon:BUILDING_MUSEUM] [b]{LOC_BUILDING_MUSEUM_NAME}[/b], these highly trained experts may comb the world for [b]Artifacts[/b] of previous Ages.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_EXPLORER_TRAINED_TITLE">
+			<Text>Researching Artifacts</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_EXPLORER_TRAINED_BODY">
+			<Text>Your new {1_ExplorerIcon} [b]{2_ExplorerName} [/b]is eager to find [b]Artifacts [/b]from previous [b]Ages. [/b]First, send your [b]Explorer [/b]to a [icon:BUILDING_UNIVERSITY] [b]{LOC_BUILDING_UNIVERSITY_NAME} [/b](from the Exploration Age) or a [icon:BUILDING_MUSEUM] [b]{LOC_BUILDING_MUSEUM_NAME} [/b](from the Modern Age) and undertake the [b]Research Artifacts [/b]action there. This will reveal all the [b]Exploration Age [/b]Ruins on this [b]continent[/b].</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_RUINS_RESEARCHED_TITLE">
+			<Text>Ruins Found!</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_RUINS_RESEARCHED_BODY">
+			<Text>Your {1_ExplorerIcon} [b]{2_ExplorerName}[/b] has concluded their research, and all [b]Exploration Age Ruins[/b] on [b]this continent[/b] are now visible. Ruins are especially likely to appear on [b]Wet[/b] and [b]Vegetated[/b] Terrain away from Roads and Settlements. Your {1_ExplorerIcon} [b]{2_ExplorerName}[/b] may move to these sites and begin excavating Artifacts to enshrine in a [icon:BUILDING_MUSEUM] [b]{LOC_BUILDING_MUSEUM_NAME}[/b].</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ANTIQUITY_ARTIFACTS_UNLOCK_TITLE">
+			<Text>Antiquity Artifacts</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ANTIQUITY_ARTIFACTS_UNLOCK_BODY">
+			<Text>Studies of [icon:NOTIFICATION_FREE_CIVIC_AWARDED] [b]{LOC_CIVIC_HEGEMONY_NAME} [/b]have allowed for Artifacts from the Antiquity Age to be researched at any [icon:BUILDING_UNIVERSITY] [b]{LOC_BUILDING_UNIVERSITY_NAME} [/b]or [icon:BUILDING_MUSEUM] [b]{LOC_BUILDING_MUSEUM_NAME}.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_AIRCRAFT_CARRIER_INTRO_TITLE">
+			<Text>Naval Carriers</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_AIRCRAFT_CARRIER_INTRO_BODY">
+			<Text>The [b]Aircraft Carrier [/b]is a powerful, mobile, Naval Squadron Commander that can extend the range of your airforce across the sea. This Unit has access to unique Promotions that will support both Air and Naval Units within its command radius.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_AIRCRAFT_CARRIER_COMPLETED_TITLE">
+			<Text>Aircraft Carrier</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_AIRCRAFT_CARRIER_COMPLETED_BODY">
+			<Text>Your [b]Aircraft Carrier [/b]is finished! As with the Squadron Commander, you can base Air Units on it using the [b]Rebase [/b]action. Once based on a carrier, Air Units can launch air attacks and intercept enemy aircraft just as they would on land. Additionally, Squadron Commanders can be packed into Aircraft Carriers for easy transport.
+			</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_GREATPERSON_AVAILABLE_TITLE">
+			<Text>Great People</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_GREATPERSON_AVAILABLE_BODY">
+			<Text>Your Civilization can now produce Great Person Units. Each Great Person has a unique effect, which can be activated in specific locations.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SQUADRON_COMMANDERS_TITLE">
+			<Text>Squadron Commanders</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SQUADRON_COMMANDERS_BODY">
+			<Text>Squadron Commanders support your Air Units, and they differ from Army and Fleet Commanders in a few key ways.[BLIST][LI]Squadron Commanders don't move one tile at a time like other units, but instead establish a temporary air base on a tile you select.[LI]Air Units can move to a Squadron Commander using the [b]Rebase[/b] action.[LI]Once based with a Squadron Commander, Air Units can launch attacks from that location, and Fighter Class Units will intercept enemy air attacks within range automatically.[/BLIST]</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_AIR_COMBAT_TITLE">
+			<Text>Fighting in the Skies</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_AIR_COMBAT_BODY">
+			<Text>The advent of powered human flight has taken human conflict to the skies. Air Units are incredibly powerful weapons of war, allowing the attacker to strike targets on the ground and bombard cities from great distances.[n]There are three types of Air Combat Unit:[BLIST][LI]Bombers: the siege units of the air, ideal for attacking cities[LI]Attackers: designed for attacking Land and Naval Units[LI]Fighters: instrumental in intercepting enemy air attacks[/BLIST]</Text>
+		</Row>
+
+		<!--ADVISOR CHOOSER-->
+		<Row Tag="LOC_TUTORIAL_QUEST_SELECTION_TITLE">
+			<Text>Building Your Legacy</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_QUEST_SELECTION_BODY">
+			<Text>Civilizations are remembered for their accomplishments and the paths they take through history. Some spread their accomplishments across a wide range, while others are devoted to a single cause.[n]Your Advisors are at your service to guide you on the path of your choice. Like any great leader, you may change your mind at any time.[n]Now, choose where to focus the efforts of the {1_civAdj} people.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_QUEST_SELECTION_BODY_NO_ADVISORS">
+			<Text>(Legacy Paths are currently disabled. If you enable them, your Advisors will be at your service to guide you on the path of your choice.)</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_QUEST_BUTTON_ECONOMIC">
+			<Text>Economic</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_QUEST_BUTTON_MILITARY">
+			<Text>Military</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_QUEST_BUTTON_CULTURE">
+			<Text>Culture</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_QUEST_BUTTON_SCIENCE">
+			<Text>Science</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_QUEST_PATH_ADVISOR">			<!-- injected in LOC_TUTORIAL_QUEST_CONFIRM_BODY-->
+			<Text>{1_LegacyPathAdvisor}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_QUEST_QUOTE_ECONOMIC">
+			<Text>New industries mean new opportunities for wealth, and new ways to bring it home.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_QUEST_QUOTE_MILITARY">
+			<Text>Strength on the battlefield ignites strength at home.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_QUEST_QUOTE_CULTURE">
+			<Text>The world is explored; the past is as yet undiscovered.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_QUEST_QUOTE_SCIENCE">
+			<Text>Those who wish to test the limits of the possible need only look to the stars.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_QUEST_CONFIRM_TITLE">
+			<Text>Legacy Path: {1_LegacyPathAdvisor}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_QUEST_ALREADY_FOLLOWING">
+			<Text>Already Following</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_QUEST_CONFIRM_BODY">
+			<Text>{1_PathDescription}[n]Your [b]{2_LegacyPathAdvisor} [/b]is here to guide you in this path if you wish.[n]Note that you can change paths at any time.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_LEGACY_PATH_ECONOMIC_DESCRIPTION">
+			<Text>Collect new Resources and lead an Industrial Revolution!</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_LEGACY_PATH_MILITARY_DESCRIPTION">
+			<Text>Expand your military might and battle Ideological enemies!</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_LEGACY_PATH_CULTURE_DESCRIPTION">
+			<Text>Research the past and display Artifacts!</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_LEGACY_PATH_SCIENCE_DESCRIPTION">
+			<Text>Push the boundaries of the known and touch the stars!</Text>
+		</Row>
+
+		<!--SCIENCE ADVISOR QUESTLINE-->
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_1_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_SCIENCE_NAME} I</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_1_ADVISOR_BODY">
+			<Text>The invisible workings of Nature are known to us, and we have mastered the seas. But to truly understand ourselves, we must now look to the heavens.</Text>
+		</Row>
+		<!-- NOTE: The Modern Age may be the final Age players participate in, thus we have two options for this text.-->
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_1_BODY">
+			<Text>{1_BodyText}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_1_BODY_NOT_FINAL_AGE">
+			<Text>Objective: Research [icon:NOTIFICATION_TECH_DISCOVERED] [b]{LOC_TECH_FLIGHT_NAME}[/b], the first step towards establishing a [b][icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_MODERN_SCIENCE_NAME} [/b][icon:YIELD_SCIENCE] Science Legacy of the Modern Age.
+				[n][n]Remember: [icon:NOTIFICATION_TEAM_VICTORIOUS] [b]Legacies [/b]improve your performance in later Ages, but [b]you can choose to pursue one, multiple, or none at all[/b].</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_1_BODY_FINAL_AGE">
+			<Text>Objective: Research [icon:NOTIFICATION_TECH_DISCOVERED] [b]{LOC_TECH_FLIGHT_NAME}[/b], the first step towards establishing a [b][icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_MODERN_SCIENCE_NAME} [/b][icon:YIELD_SCIENCE] Science Legacy of the Modern Age.
+				[n][n][b]This is the final Age.[/b] You must complete any [icon:NOTIFICATION_TEAM_VICTORIOUS] [b]Legacy Path [/b]this Age to achieve [b]total Victory[/b].</Text>
+		</Row>
+
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_1_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_SCIENCE_NAME} I</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_1_TRACKING_BODY">
+			<Text>Research: [icon:NOTIFICATION_TECH_DISCOVERED] {LOC_TECH_FLIGHT_NAME} {1_itemComplete}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_2_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_SCIENCE_NAME} II</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_2_ADVISOR_BODY">
+			<Text>Our experiments with human flight are proof that we can do the impossible, make manifest our dreams. Where will those dreams take us next?</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_2_BODY">
+			<Text>Research of [icon:NOTIFICATION_TECH_DISCOVERED] [b]{LOC_TECH_FLIGHT_NAME} [/b]has led to the development of the [icon:BUILDING_AIRFIELD] {LOC_BUILDING_AIRFIELD_NAME}, a place to house [b]aircraft[/b]!
+				[n]Next Objective: Construct a [icon:BUILDING_AIRFIELD] {LOC_BUILDING_AIRFIELD_NAME}, then complete [icon:PROJECT_TRANS_OCEANIC_FLIGHT] [b]{LOC_PROJECT_TRANS_OCEANIC_FLIGHT_NAME} Project[/b], the first Milestone along the [b]{LOC_LEGACY_PATH_MODERN_SCIENCE_NAME} Legacy Path[/b].
+			</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_2_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_SCIENCE_NAME} II</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_2_TRACKING_BODY">
+			<Text>Build: [icon:BUILDING_AIRFIELD] {LOC_BUILDING_AIRFIELD_NAME} {1_itemComplete}
+				[n]Complete: [icon:PROJECT_TRANS_OCEANIC_FLIGHT] {LOC_PROJECT_TRANS_OCEANIC_FLIGHT_NAME} Project {2_itemComplete}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_3_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_SCIENCE_NAME} III</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_3_ADVISOR_BODY">
+			<Text>A distance that once took months to traverse by sea now takes hours by flight — surely there are even greater miracles we might perform. Now the question is not how far, but how fast.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_3_BODY">
+			<Text>The [icon:PROJECT_TRANS_OCEANIC_FLIGHT] [b]{LOC_PROJECT_TRANS_OCEANIC_FLIGHT_NAME} Project [/b]is complete, and you have achieved the first Milestone along the [b]{LOC_LEGACY_PATH_MODERN_SCIENCE_NAME} Legacy Path[/b]!
+				[n]Next Objective: Research [icon:NOTIFICATION_TECH_DISCOVERED] [b]{LOC_TECH_AERODYNAMICS_NAME}[/b], then complete [icon:PROJECT_BREAK_SOUND_BARRIER] [b]{LOC_PROJECT_BREAK_SOUND_BARRIER_NAME} Project[/b], the next Milestone along the [b]{LOC_LEGACY_PATH_MODERN_SCIENCE_NAME} Legacy Path[/b].</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_3_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_SCIENCE_NAME} III</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_3_TRACKING_BODY">
+			<Text>Research: [icon:NOTIFICATION_TECH_DISCOVERED] {LOC_TECH_AERODYNAMICS_NAME} {1_itemComplete}
+				[n]Complete: [icon:PROJECT_BREAK_SOUND_BARRIER] {LOC_PROJECT_BREAK_SOUND_BARRIER_NAME} Project {2_itemComplete}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_4_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_SCIENCE_NAME} IV</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_4_ADVISOR_BODY">
+			<Text>Incredible! We have proven that humanity is able to travel faster than sound itself. At last, the stars themselves are now within reach.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_4_BODY">
+			<Text>The [icon:PROJECT_BREAK_SOUND_BARRIER] [b]{LOC_PROJECT_BREAK_SOUND_BARRIER_NAME} Project [/b]is complete, and you have achieved the second Milestone along the [b]{LOC_LEGACY_PATH_MODERN_SCIENCE_NAME} Legacy Path[/b]!
+				[n]Next Objective: Research [icon:NOTIFICATION_TECH_DISCOVERED] [b]{LOC_TECH_ROCKETRY_NAME}[/b], build a [icon:BUILDING_LAUNCH_PAD] [b]{LOC_BUILDING_LAUNCH_PAD_NAME}[/b], then complete [icon:PROJECT_LAUNCH_SATELLITE] [b]{LOC_PROJECT_LAUNCH_SATELLITE_NAME} Project[/b], the final Milestone along the [b]{LOC_LEGACY_PATH_MODERN_SCIENCE_NAME} Legacy Path[/b].
+				[n]Note: To complete this quest, you must also complete the {LOC_PROJECT_TRANS_OCEANIC_FLIGHT_NAME} and {LOC_PROJECT_BREAK_SOUND_BARRIER_NAME} Projects.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_4_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_SCIENCE_NAME} IV</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_4_TRACKING_BODY">
+			<Text>Research: [icon:NOTIFICATION_TECH_DISCOVERED] {LOC_TECH_ROCKETRY_NAME} {1_itemComplete}
+				[n]Build: [icon:BUILDING_LAUNCH_PAD] {LOC_BUILDING_LAUNCH_PAD_NAME} {2_itemComplete}
+				[n]Complete: [icon:PROJECT_LAUNCH_SATELLITE] {LOC_PROJECT_LAUNCH_SATELLITE_NAME} Project {3_itemComplete}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_LINE_COMPLETED_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_SCIENCE_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_LINE_COMPLETED_ADVISOR_BODY">
+			<Text>Our scientists have dreamt of this moment for so long – our own people simultaneously touching the very edges of existence and glimpsing the world with new eyes.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_QUEST_LINE_COMPLETED_BODY">
+			<Text>Congratulations! You've completed all {LOC_LEGACY_PATH_MODERN_SCIENCE_NAME} Milestones, and completed the [b][icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_MODERN_SCIENCE_NAME} [/b][icon:YIELD_SCIENCE] Science Legacy Path of the Modern Age.
+				[n]You can visit the [b]Legacy Path Screen [/b]to see more Legacy Paths you can follow, or you can forge your own path.</Text>
+		</Row>
+		<!--SCIENCE ADVISOR CAPSTONE-->
+		<Row Tag="LOC_TUTORIAL_SCIENCE_VICTORY_AVAILABLE_TITLE">
+			<Text>Victory is within Reach</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_VICTORY_AVAILABLE_BODY">
+			<Text>Congratulations! You have completed the {LOC_LEGACY_PATH_MODERN_SCIENCE_NAME} [/b][icon:YIELD_SCIENCE] Science Legacy Path of the Modern Age. As it is the [b]final Age[/b], you now must complete one final task to [b]achieve Victory[/b].
+				[n]Objective: Complete the [icon:PROJECT_LAUNCH_ROCKET] [b]{LOC_PROJECT_LAUNCH_ROCKET_NAME}[/b] Project.
+				[n]Be wary: other [b]Leaders may be close to Victory[/b], and whoever finishes first will win.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_VICTORY_TRACKER_TITLE">
+			<Text>Science Victory</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_SCIENCE_VICTORY_TRACKER_BODY">
+			<Text>Complete: [icon:PROJECT_LAUNCH_ROCKET] {LOC_PROJECT_LAUNCH_ROCKET_NAME} Project {1_itemComplete}</Text>
+		</Row>
+		<!--CULTURE ADVISOR QUESTLINE-->
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_1_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_CULTURE_NAME} I</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_1_ADVISOR_BODY">
+			<Text>Who controls the past controls the future, they say. But we have to find it, first.</Text>
+		</Row>
+		<!-- NOTE: The Modern Age may be the final Age players participate in, thus we have two options for this text.-->
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_1_BODY">
+			<Text>{1_BodyText}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_1_BODY_NOT_FINAL_AGE">
+			<Text>Objective: [b]Study [/b][icon:NOTIFICATION_CULTURE_TREE_REVEALED] [b]{LOC_CIVIC_NATURAL_HISTORY_NAME} [/b]Civic, the first step towards establishing a [b][icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_MODERN_CULTURE_NAME} [/b][icon:YIELD_CULTURE] Cultural Legacy of the Modern Age.
+				[n]Knowledge of [b]{LOC_CIVIC_NATURAL_HISTORY_NAME} [/b]will allow you to Train a {1_ExplorerIcon} [b]{2_ExplorerName}[/b], capable of researching and excavating Artifacts from Ruins. Mastery of [b]{LOC_CIVIC_NATURAL_HISTORY_NAME} [/b]will allow {1_ExplorerIcon} [b]{2_ExplorerName} units[/b] to gain Artifacts from [b]Natural Wonders[/b] as well.
+				[n][n]Remember: [icon:NOTIFICATION_TEAM_VICTORIOUS] [b]Legacies [/b]improve your performance in later Ages, but [b]you can choose to pursue one, multiple, or none at all[/b].</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_1_BODY_FINAL_AGE">
+			<Text>Objective: [b]Study [/b][icon:NOTIFICATION_CULTURE_TREE_REVEALED] [b]{LOC_CIVIC_NATURAL_HISTORY_NAME} [/b]Civic, the first step towards establishing a [b][icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_MODERN_CULTURE_NAME} [/b][icon:YIELD_CULTURE] Cultural Legacy of the Modern Age.
+				[n]Knowledge of [b]{LOC_CIVIC_NATURAL_HISTORY_NAME} [/b]will allow you to Train a {1_ExplorerIcon} [b]{2_ExplorerName}[/b], capable of researching and excavating Artifacts from Ruins. Mastery of [b]{LOC_CIVIC_NATURAL_HISTORY_NAME} [/b]will allow {1_ExplorerIcon} [b]{2_ExplorerName} units[/b] to gain Artifacts from [b]Natural Wonders[/b] as well.
+				[n][n][b]This is the final Age.[/b] You must complete any [icon:NOTIFICATION_TEAM_VICTORIOUS] [b]Legacy Path [/b]this Age to achieve [b]total Victory[/b].</Text>
+		</Row>
+
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_1_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_CULTURE_NAME} I</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_1_TRACKING_BODY">
+			<Text>Study: [icon:NOTIFICATION_CULTURE_TREE_REVEALED] {LOC_CIVIC_NATURAL_HISTORY_NAME} {1_itemComplete}
+				[n]Train: {2_explorerIcon} {3_explorerName} {4_itemComplete}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_2_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_CULTURE_NAME} II</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_2_ADVISOR_BODY">
+			<Text>We can't just dig anywhere. Through historical records, we might find likely places to look.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_2_BODY">
+			<Text>Your {1_explorerIcon} {2_explorerName} may now Research Artifact Locations at any [icon:BUILDING_UNIVERSITY] [b]{LOC_BUILDING_UNIVERSITY_NAME} [/b](from the Exploration Age) or [icon:BUILDING_MUSEUM] [b]{LOC_BUILDING_MUSEUM_NAME} [/b](from the Modern Age). [b]Ruins [/b]on the [b]continent [/b]will be revealed from their investigation. 
+				[n]Next Objective: Have a [b]{LOC_BUILDING_UNIVERSITY_NAME} [/b]or [b]{LOC_BUILDING_MUSEUM_NAME}[/b], and have your {2_explorerName} Research Artifacts there.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_2_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_CULTURE_NAME} II</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_2_TRACKING_BODY">
+			<Text>Have: [icon:BUILDING_UNIVERSITY] [b]{LOC_BUILDING_UNIVERSITY_NAME} [/b]or [icon:BUILDING_MUSEUM] [b]{LOC_BUILDING_MUSEUM_NAME} [/b]{1_itemComplete}
+				[n]Bring {2_explorerIcon} {3_explorerName} to Research Artifacts at that location {4_itemComplete}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_3_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_CULTURE_NAME} III</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_3_ADVISOR_BODY">
+			<Text>What in the past was called a pile of old bricks might just yield clues into who we were, and why we lived as we did.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_3_BODY">
+			<Text>You've identified [b]Ruins of the Exploration Age[/b] on the continent! Your {1_explorerIcon} {2_explorerName} must go to this site and [b]Excavate Artifacts[/b] over several turns to resurface a Great Work.
+				[n]Next Objective: [b]Excavate an Artifact[/b], then [b]display it[/b].</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_3_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_CULTURE_NAME} III</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_3_TRACKING_BODY">
+			<Text>Excavate and Display an Artifact: {1_PointsCurrent}/{2_PointsGoal}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_4_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_CULTURE_NAME} IV</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_4_ADVISOR_BODY">
+			<Text>It is not sufficient to know what a thing is: we must reveal what it means. The more we find, the more each part comes together.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_4_BODY">
+			<Text>An Artifact is now on display, bringing you closer to the first Milestone along the [icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_MODERN_CULTURE_NAME} Legacy Path.
+				[n]Artifacts can be found through [b]Excavating Ruins and Natural Wonders[/b], [b]Narrative Events[/b], and [b]Overbuilding your Settlements[/b]. When Researching Artifact sites, [b]only Ruins on the continent you research will be revealed[/b], so consider [b]visiting other Civilizations [/b]to find new Ruins and Natural Wonders.
+				[n]Next Objective: Study [icon:NOTIFICATION_CULTURE_TREE_REVEALED] [b]{LOC_CIVIC_HEGEMONY_NAME} [/b]and [b]Display {1_goalNum} Artifacts[/b], the first Milestone along the [b]{LOC_LEGACY_PATH_MODERN_CULTURE_NAME} Legacy Path[/b].
+				[n]Optional Objective: [b]Research Artifacts [/b]on another continent.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_4_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_CULTURE_NAME} IV</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_4_TRACKING_BODY">
+			<Text>Study: [icon:NOTIFICATION_CULTURE_TREE_REVEALED] {LOC_CIVIC_HEGEMONY_NAME} {1_itemComplete}
+				[n]Display 5 Artifacts: {2_PointsCurrent}/{3_PointsGoal}
+				[n]Optional: Research Artifacts on different continents</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_5_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_CULTURE_NAME} V</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_5_ADVISOR_BODY">
+			<Text>Where an archaeologist sees fragments and glimpses that rarely line up, the public sees something different. Perhaps more discoveries will complete the mosaic.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_5_BODY">
+			<Text>You have displayed {1_prevGoalNum} Artifacts, and completed the first Milestone along the [b][icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_MODERN_CULTURE_NAME} [/b][icon:YIELD_CULTURE] Culture Legacy Path!
+				[n]Your new knowledge of [icon:NOTIFICATION_CULTURE_TREE_REVEALED] {LOC_CIVIC_HEGEMONY_NAME} now reveals [b]Antiquity Artifacts [/b]when researching continents; consider returning to continents you've already researched to find more Ruins. Revealing [b]Antiquity Artifacts [/b]on a continent will give you a free Artifact.
+				[n]Next Objective: [b]Display {2_goalNum} Artifacts[/b], the second Milestone along the [b]{LOC_LEGACY_PATH_MODERN_CULTURE_NAME} Legacy Path[/b].</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_5_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_CULTURE_NAME} V</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_5_TRACKING_BODY">
+			<Text>Display Artifacts: {1_PointsCurrent}/{2_PointsGoal}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_6_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_CULTURE_NAME} VI</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_6_ADVISOR_BODY">
+			<Text>The past, it seems, has not passed. Students wander the halls of our museums, lost in time.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_6_BODY">
+			<Text>You have displayed {1_prevGoalNum} Artifacts, and completed the second Milestone along the [b][icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_MODERN_CULTURE_NAME} [/b][icon:YIELD_CULTURE] Culture Legacy Path!
+				[n]Remember, Artifacts can be found through [b]Excavating Ruins and Natural Wonders[/b], [b]Narrative Events[/b], and [b]Overbuilding your Settlements[/b].
+				[n]Next Objective: [b]Display {2_goalNum} Artifacts[/b], the third Milestone along the [b]{LOC_LEGACY_PATH_MODERN_CULTURE_NAME} Legacy Path[/b].</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_6_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_CULTURE_NAME} VI</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_6_TRACKING_BODY">
+			<Text>Display Artifacts: {1_PointsCurrent}/{2_PointsGoal}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_LINE_COMPLETED_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_CULTURE_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_LINE_COMPLETED_ADVISOR_BODY">
+			<Text>Who are the {1_CivAdj} people? From where have they come? Here, in shards and fragments torn from the ground, is a story. Whether or not it is the right one is still in question.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_QUEST_LINE_COMPLETED_BODY">
+			<Text>Congratulations! You've displayed [b]{1_ArtifactNum} Artifacts[/b], and completed the [b][icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_MODERN_CULTURE_NAME} [/b][icon:YIELD_CULTURE] Culture Legacy Path of the Modern Age.
+				[n]You can visit the [b]Legacy Path Screen [/b]to see more Legacy Paths you can follow, or you can forge your own path.</Text>
+		</Row>
+		<!--CULTURE ADVISOR CAPSTONE-->
+		<Row Tag="LOC_TUTORIAL_CULTURE_VICTORY_AVAILABLE_TITLE">
+			<Text>Victory is within Reach</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_VICTORY_AVAILABLE_BODY">
+			<Text>Congratulations! You have completed the {LOC_LEGACY_PATH_MODERN_CULTURE_NAME} [/b][icon:YIELD_CULTURE] Culture Legacy Path of the Modern Age. As it is the [b]final Age[/b], you now must complete one final task to [b]achieve Victory[/b].
+				[n]Objective: [b]Build the [icon:WONDER_WORLDS_FAIR] {LOC_WONDER_WORLDS_FAIR_NAME} Wonder.[/b]
+				[n]Be wary: other [b]Leaders may be close to Victory[/b], and whoever finishes first will win.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_VICTORY_TRACKER_TITLE">
+			<Text>Culture Victory</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CULTURE_VICTORY_TRACKER_BODY">
+			<Text>Build: [icon:WONDER_WORLDS_FAIR] {LOC_WONDER_WORLDS_FAIR_NAME} Wonder {1_itemComplete}</Text>
+		</Row>
+		<!--ECONOMIC ADVISOR QUESTLINE-->
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_1_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} I</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_1_ADVISOR_BODY">
+			<Text>In the modern world time is as valuable as gold. While prosperity is our goal, efficiency should be our means.</Text>
+		</Row>
+		<!-- NOTE: The Modern Age may be the final Age players participate in, thus we have two options for this text.-->
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_1_BODY">
+			<Text>{1_BodyText}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_1_BODY_NOT_FINAL_AGE">
+			<Text>Objective: Research [icon:NOTIFICATION_TECH_DISCOVERED] [b]{LOC_TECH_INDUSTRIALIZATION_NAME} [/b]and build a [icon:BUILDING_RAIL_STATION] [b]{LOC_BUILDING_RAIL_STATION_NAME}[/b], the first steps towards establishing a [b][icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} [/b][icon:YIELD_GOLD] Economic Legacy of the Modern Age.
+				[n][n]Remember: [icon:NOTIFICATION_TEAM_VICTORIOUS] [b]Legacies [/b]improve your performance in later Ages, but [b]you can choose to pursue one, multiple, or none at all[/b].</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_1_BODY_FINAL_AGE">
+			<Text>Objective: Research [icon:NOTIFICATION_TECH_DISCOVERED] [b]{LOC_TECH_INDUSTRIALIZATION_NAME} [/b]and build a [icon:BUILDING_RAIL_STATION] [b]{LOC_BUILDING_RAIL_STATION_NAME}[/b], the first step towards establishing a [b][icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} [/b][icon:YIELD_GOLD] Economic Legacy of the Modern Age.
+				[n][n][b]This is the final Age.[/b] You must complete any [icon:NOTIFICATION_TEAM_VICTORIOUS] [b]Legacy Path [/b]this Age to achieve [b]total Victory[/b].</Text>
+		</Row>
+
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_1_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} I</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_1_TRACKING_BODY">
+			<Text>Research: [icon:NOTIFICATION_TECH_DISCOVERED] {LOC_TECH_INDUSTRIALIZATION_NAME} {1_itemComplete}
+				[n]Build: [icon:BUILDING_RAIL_STATION] {LOC_BUILDING_RAIL_STATION_NAME} {2_itemComplete}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_2_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} II</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_2_ADVISOR_BODY">
+			<Text>The locomotive: a modern workhorse for modern work. Now let’s have two more Rail Stations, and weave a net to catch our wildest dreams.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_2_BODY">
+			<Text>Research of [icon:NOTIFICATION_TECH_DISCOVERED] [b]{LOC_TECH_INDUSTRIALIZATION_NAME} [/b]has led to your first [icon:BUILDING_RAIL_STATION] [b]{LOC_BUILDING_RAIL_STATION_NAME}[/b]! Settlements with a [b]{LOC_BUILDING_RAIL_STATION_NAME} [/b]will be automatically connected to each other by [b]Rail[/b], as long as no water blocks the Railroad's path.
+				[n]Next Objective: Research [icon:NOTIFICATION_TECH_DISCOVERED] [b]{LOC_TECH_MASS_PRODUCTION_NAME} [/b] and connect {1_goalNum} Settlements by Rail.
+				[n]Tip: If two Settlements with a {LOC_BUILDING_RAIL_STATION_NAME} are separated by water, a {LOC_BUILDING_PORT_NAME} in both Settlements will complete the connection.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_2_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} II</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_2_TRACKING_BODY">
+			<Text>Research: [icon:NOTIFICATION_TECH_DISCOVERED] {LOC_TECH_MASS_PRODUCTION_NAME} {1_itemComplete}
+				[n]Connect Settlements by Rail {2_currentConnect}/{3_goalConnect}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_3_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} III</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_3_ADVISOR_BODY">
+			<Text>Now that our network of Rail Stations gives us the how, let's focus on the what. Factories will allow us to manufacture goods desired the world over.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_3_BODY">
+			<Text>Research of [icon:NOTIFICATION_TECH_DISCOVERED] [b]{LOC_TECH_MASS_PRODUCTION_NAME} [/b]has led to plans for a [icon:BUILDING_FACTORY] [b]{LOC_BUILDING_FACTORY_NAME}[/b]! Settlements with a [b]Rail connection[/b] and a [b]{LOC_BUILDING_FACTORY_NAME} [/b]will be able to slot [icon:NOTIFICATION_DISCOVER_RESOURCE][b]Factory Resources[/b], critical to the {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} Legacy Path.
+				[n]Next Objective: Build a [b]{LOC_BUILDING_FACTORY_NAME} [/b]in a Settlement with a Rail connection, slot {1_ResourceNum} Factory Resources, and earn {2_PointGoal} {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} Points.
+				[n]Tip: Every turn, you earn {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} Points based on how many Factory Resources you have slotted.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_3_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} III</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_3_TRACKING_BODY">
+			<Text>Build: [icon:BUILDING_FACTORY] {LOC_BUILDING_FACTORY_NAME} {1_itemComplete}
+				[n]Slot: [icon:NOTIFICATION_DISCOVER_RESOURCE] Factory Resources {2_ResourcesCurrent}/{3_ResourcesGoal}
+				[n]Earn: {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} Points {4_pointsCurrent}/{5_pointsGoal}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_4_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} IV</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_4_ADVISOR_BODY">
+			<Text>Trains leave our stations laden with goods and return with gold to fill our vaults.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_4_BODY">
+			<Text>Next Objective: Earn [b]{1_goalNum} {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} Points[/b], the first Milestone along the [b]{LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} Legacy Path[/b].
+				[n]Tip: As Settlements can only house one type of [icon:NOTIFICATION_DISCOVER_RESOURCE] Factory Resource at a time, it's best for each Settlement to specialize.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_4_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} IV</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_4_TRACKING_BODY">
+			<Text>Earn: {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} Points {1_pointsCurrent}/{2_pointsGoal}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_5_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} V</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_5_ADVISOR_BODY">
+			<Text>Just as I suspected, wealth begets wealth. But let's not neglect the riches our overseas settlements have to offer.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_5_BODY">
+			<Text>Next Objective: Earn [b]{1_goalNum} {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} Points[/b], the second Milestone along the [b]{LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} Legacy Path[/b].
+				[n]Tip: Constructing a [icon:BUILDING_PORT] [b]{LOC_BUILDING_PORT_NAME} [/b]on either side of an ocean can continue Rail connections across water.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_5_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} V</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_5_TRACKING_BODY">
+			<Text>Earn: {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} Points {1_pointsCurrent}/{2_pointsGoal}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_6_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} VI</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_6_ADVISOR_BODY">
+			<Text>With gold and goods flowing around the world, the people of our empire want for nothing.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_6_BODY">
+			<Text>Next Objective: Earn [b]{1_goalNum} {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} Points[/b], the third and final Milestone along the [b]{LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} Legacy Path[/b].</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_6_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} VI</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_6_TRACKING_BODY">
+			<Text>Earn: {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} Points {1_pointsCurrent}/{2_pointsGoal}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_LINE_COMPLETED_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_LINE_COMPLETED_ADVISOR_BODY">
+			<Text>Rivers, shipping lanes, railroads – these are the veins and arteries of our vast empire. And they are strong.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_QUEST_LINE_COMPLETED_BODY">
+			<Text>Congratulations! You've completed all {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} Milestones, and completed the [b][icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} [/b][icon:YIELD_GOLD] Economic Legacy Path of the Modern Age.
+				[n]You can visit the [b]Legacy Path Screen [/b]to see more Legacy Paths you can follow, or you can forge your own path.</Text>
+		</Row>
+		<!--ECONOMIC ADVISOR CAPSTONE-->
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_VICTORY_AVAILABLE_TITLE">
+			<Text>Victory is within Reach</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_VICTORY_AVAILABLE_BODY">
+			<Text>Congratulations! You have completed the {LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME} [/b][icon:YIELD_GOLD] Economic Legacy Path of the Modern Age. As it is the [b]final Age[/b], you now must complete one final task to [b]achieve Victory[/b].
+				[n]Objective: Bring the [b]Great Banker[/b], a unique Great Person, to [b]every Civilization's capital[/b] and [b]pay the Leader [icon:YIELD_GOLD] Gold and [icon:YIELD:DIPLOMACY] Influence[/b].
+				[n]Be wary: other [b]Leaders may be close to Victory[/b], and whoever finishes first will win.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_VICTORY_TRACKER_TITLE">
+			<Text>Economic Victory</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_ECONOMIC_VICTORY_TRACKER_BODY">
+			<Text>Move: the Great Banker to other Civilizations' Capitals
+				[n]Use the {LOC_GREATPERSON_ACTION_VICTORY_JOHN_MAYNARD_KEYNES} Action {1_ActionCurrent}/{2_ActionGoal}</Text>
+		</Row>
+		<!--MILITARY ADVISOR QUESTLINE-->
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_1_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_MILITARY_NAME} I</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_1_ADVISOR_BODY">
+			<Text>Strength is channeled through weapons, but sourced from the mind. For our empire to stand firm against the dangers of this modern world, we must hone our vision of ourselves and our future.</Text>
+		</Row>
+
+		<!-- NOTE: The Modern Age may be the final Age players participate in, thus we have two options for this text.-->
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_1_BODY">
+			<Text>{1_BodyText}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_1_BODY_NOT_FINAL_AGE">
+			<Text>Objective: Study [icon:NOTIFICATION_CULTURE_TREE_REVEALED] {LOC_CIVIC_POLITICAL_THEORY_NAME}, the first step towards establishing a [b][icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_MODERN_MILITARY_NAME} [/b][icon:NOTIFICATION_DECLARE_WAR] Military Legacy of the Modern Age.
+				[n][n]Remember: [icon:NOTIFICATION_TEAM_VICTORIOUS] [b]Legacies [/b]improve your performance in later Ages, but [b]you can choose to pursue one, multiple, or none at all[/b].</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_1_BODY_FINAL_AGE">
+			<Text>Objective: Study [icon:NOTIFICATION_CULTURE_TREE_REVEALED] {LOC_CIVIC_POLITICAL_THEORY_NAME}, the first step towards establishing a [b][icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_MODERN_MILITARY_NAME} [/b][icon:NOTIFICATION_DECLARE_WAR] Military Legacy of the Modern Age.
+				[n][n][b]This is the final Age.[/b] You must complete any [icon:NOTIFICATION_TEAM_VICTORIOUS] [b]Legacy Path [/b]this Age to achieve [b]total Victory[/b].</Text>
+		</Row>
+
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_1_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_MILITARY_NAME} I</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_1_TRACKING_BODY">
+			<Text>Study: [icon:NOTIFICATION_CULTURE_TREE_REVEALED] {LOC_CIVIC_POLITICAL_THEORY_NAME} {1_CompleteCheck}</Text>
+		</Row>
+
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_2_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_MILITARY_NAME} II</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_2_ADVISOR_BODY">
+			<Text>By what values do our people abide? For what cause do our soldiers fight? It is time for us to choose an ideology that will define us on the world stage.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_2_BODY">
+			<Text>Next Objective: [n]Choose and adopt a political ideology by completing its associated Civic - Democracy, Fascism, or Communism.
+			[n]Complete the {LOC_TECH_COMBUSTION_NAME} technology.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_2_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_MILITARY_NAME} II</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_2_TRACKING_BODY">
+			<Text>Study: any [icon:NOTIFICATION_CULTURE_TREE_REVEALED] Ideology Civic {1_Icon}[n]Research: [icon:NOTIFICATION_TECH_DISCOVERED] {LOC_TECH_COMBUSTION_NAME} {2_Icon}</Text>
+		</Row>
+
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_3_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_MILITARY_NAME} III</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_3_ADVISOR_BODY">
+			<Text>Our empire faces threats – not material, but ideological. To protect our citizens, we should douse these embers before they have a chance to ignite.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_3_BODY">
+			<Text>Next Objective: Research [icon:NOTIFICATION_TECH_DISCOVERED] {LOC_TECH_FLIGHT_NAME}. [n]Capture a foreign city belonging to a Civilization that follows a different Ideology.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_3_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_MILITARY_NAME} III</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_3_TRACKING_BODY">
+			<Text>Research: [icon:NOTIFICATION_TECH_DISCOVERED] {LOC_TECH_FLIGHT_NAME} {1_Icon}[n]Capture an Ideological enemy's Settlement {2_Icon}</Text>
+		</Row>
+
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_4_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_MILITARY_NAME} IV</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_4_ADVISOR_BODY">
+			<Text>The dangers of this world are ever-present, and we must move quickly to defend our core against enemies of today and tomorrow.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_4_BODY">
+			<Text>You've successfully captured an Ideologically opposed Settlement!
+				[n]Next Objective: score {1_Number} Ideology Points by capturing Settlements.
+				[n]Once adopting an Ideology, Settlements of a Civilization without an Ideology are worth 2 points.
+				[n]Settlements of a Civilization with an opposing Ideology are worth 3 points.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_4_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_MILITARY_NAME} IV</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_4_TRACKING_BODY">
+			<Text>Score Ideology Points: {1_CurrentNum}/{2_TargetNum}</Text>
+		</Row>
+
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_5_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_MILITARY_NAME} V</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_5_ADVISOR_BODY">
+			<Text>Our ideology spreads around the globe, inspiring all who adhere to its maxims! Yet opposition remains, ever poised to cast the world into darkness. We must continue our campaign.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_5_BODY">
+			<Text>You've completed the first Milestone along the [b][icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_MODERN_MILITARY_NAME} [/b][icon:NOTIFICATION_DECLARE_WAR] Military Legacy Path!
+				[n]Next Objective: score {1_Number} Ideology Points by capturing Settlements.
+				[n]Once adopting an Ideology, Settlements of a Civilization without an Ideology are worth 2 points.
+				[n]Settlements of a Civilization with an opposing Ideology are worth 3 points.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_5_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_MILITARY_NAME} V</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_5_TRACKING_BODY">
+			<Text>Score Ideology Points: {1_CurrentNum}/{2_TargetNum}</Text>
+		</Row>
+
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_6_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_MILITARY_NAME} VI</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_6_ADVISOR_BODY">
+			<Text>Our armies serve the people – their safety is paramount to the empire's success. Let us push forth once more to safeguard their future once and for all.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_6_BODY">
+			<Text>You've completed the second Milestone along the [b][icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_MODERN_MILITARY_NAME} [/b][icon:NOTIFICATION_DECLARE_WAR] Military Legacy Path!
+				[n]Next Objective: score {1_Number} Ideology Points by capturing Settlements.
+				[n]Once adopting an Ideology, Settlements of a Civilization without an Ideology are worth 2 points.
+				[n]Settlements of a Civilization with an opposing Ideology are worth 3 points.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_6_TRACKING_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_MILITARY_NAME} VI</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_6_TRACKING_BODY">
+			<Text>Score Ideology Points: {1_CurrentNum}/{2_TargetNum}</Text>
+		</Row>
+
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_LINE_COMPLETED_TITLE">
+			<Text>Legacy Path: {LOC_LEGACY_PATH_MODERN_MILITARY_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_LINE_COMPLETED_ADVISOR_BODY">
+			<Text>Victory! The might of our armies now stands unquestioned. Our empire is eternal.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_QUEST_LINE_COMPLETED_BODY">
+			<Text>Congratulations! You've completed all {LOC_LEGACY_PATH_MODERN_MILITARY_NAME} Milestones, and completed the [b][icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_MODERN_MILITARY_NAME} [/b][icon:NOTIFICATION_DECLARE_WAR] Military Legacy Path of the Modern Age.
+				[n]You can visit the [b]Legacy Path Screen [/b]to see more Legacy Paths you can follow, or you can forge your own path.
+			</Text>
+		</Row>
+		<!--MILITARY ADVISOR CAPSTONE-->
+		<Row Tag="LOC_TUTORIAL_MILITARY_VICTORY_AVAILABLE_TITLE">
+			<Text>Victory is within Reach</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_VICTORY_AVAILABLE_BODY">
+			<Text>Congratulations! You have completed the {LOC_LEGACY_PATH_MODERN_MILITARY_NAME} [/b][icon:NOTIFICATION_DECLARE_WAR] Military Legacy Path of the Modern Age. As it is the [b]final Age[/b], you now must complete one final task to [b]achieve Victory[/b].
+				[n]Objective: Complete [icon:PROJECT_OPERATION_IVY] [b]{LOC_PROJECT_OPERATION_IVY_NAME}[/b].
+				[n]Be wary: other [b]Leaders may be close to Victory[/b], and whoever finishes first will win.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_VICTORY_TRACKER_TITLE">
+			<Text>Military Victory</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_MILITARY_VICTORY_TRACKER_BODY">
+			<Text>Complete: [icon:PROJECT_OPERATION_IVY] {LOC_PROJECT_OPERATION_IVY_NAME} {1_itemComplete}</Text>
+		</Row>
+	</EnglishText>
+</Database>

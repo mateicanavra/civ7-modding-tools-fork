@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- Science Legacy Path -->
+	<Modifier id="MOD_TRANS_OCEANIC_FLIGHT_VP_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_VICTORY_POINT" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_PROJECT">
+				<Argument name="ProjectType">PROJECT_TRANS_OCEANIC_FLIGHT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<Argument name="LegacyPathType">LEGACY_PATH_MODERN_SCIENCE</Argument>
+	</Modifier>
+	<Modifier id="MOD_TRANS_OCEANIC_FLIGHT_REWARD_FROM_PROJECT" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_UNIT" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_PROJECT">
+				<Argument name="ProjectType">PROJECT_TRANS_OCEANIC_FLIGHT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<Argument name="UnitType">UNIT_SQUADRON_COMMANDER</Argument>
+	</Modifier>
+	<Modifier id="MOD_BREAK_SOUND_BARRIER_VP_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_VICTORY_POINT" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="LegacyPathType">LEGACY_PATH_MODERN_SCIENCE</Argument>
+	</Modifier>
+	<Modifier id="MOD_BREAK_SOUND_BARRIER_REWARD_FROM_PROJECT" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">1</Argument>
+		<String context="Preview">LOC_BREAK_SOUND_BARRIER_PREVIEW</String>
+	</Modifier>
+	<Modifier id="MOD_BREAK_SOUND_BARRIER_ADJUST_COMBAT_STRENGTH" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_PROJECT">
+				<Argument name="ProjectType">PROJECT_BREAK_SOUND_BARRIER</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_BREAK_SOUND_BARRIER</Argument>
+	</Modifier>
+	<Modifier id="MOD_LAUNCH_SATELLITE_VP_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_VICTORY_POINT" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="LegacyPathType">LEGACY_PATH_MODERN_SCIENCE</Argument>
+	</Modifier>
+	<Modifier id="MOD_LAUNCH_SATELLITE_REWARD_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_REVEAL_TYPE" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_PROJECT">
+				<Argument name="ProjectType">PROJECT_LAUNCH_SATELLITE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="RevealType">REVEAL_TYPE_ALL</Argument>
+	</Modifier>
+	<Modifier id="MOD_LAUNCH_ROCKET_VP_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_VICTORY_POINT" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="LegacyPathType">LEGACY_PATH_MODERN_SCIENCE</Argument>
+	</Modifier>
+	<!-- Warehouse Projects -->
+	<Modifier id="GRANARY_WAREHOUSE_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MOTownPastureFood, MOTownPlantationFood, MOTownDesertFloodplainFeatureFood, MOTownGrasslandFloodplainFeatureFood, MOTownPlainsFloodplainFeatureFood, MOTownTropicalFloodplainFeatureFood, MOTownTundraFloodplainFeatureFood, MOTownFlatTerrainFood, MOTownFishingBoatResourceFood, MOTownReefFeatureFood, MOTownColdReefFeatureFood, MOTownCoastTerrainFood, MOTownNavigableRiverFood</Argument>
+		<Argument name="Tooltip">LOC_GRANARY_WAREHOUSE_IN_THIS_TOWN_FROM_PROJECT</Argument>
+	</Modifier>
+	<Modifier id="FISHING_WAREHOUSE_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MOTownFishingBoatResourceFood, MOTownReefFeatureFood, MOTownColdReefFeatureFood, MOTownCoastTerrainFood, MOTownNavigableRiverFood, MOTownPastureFood, MOTownPlantationFood, MOTownDesertFloodplainFeatureFood, MOTownGrasslandFloodplainFeatureFood, MOTownPlainsFloodplainFeatureFood, MOTownTropicalFloodplainFeatureFood, MOTownTundraFloodplainFeatureFood, MOTownFlatTerrainFood</Argument>
+		<Argument name="Tooltip">LOC_FISHING_WAREHOUSE_IN_THIS_TOWN_FROM_PROJECT</Argument>
+	</Modifier>
+	<Modifier id="PRODUCTION_WAREHOUSE_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MOTownMineResourceProduction, MOTownQuarryProduction, MOTownRoughTerrainProduction, MOTownWetFeatureProduction, MOTownWoodcutterResourceProduction, MOTownCampProduction, MOTownVegetatedFeatureProduction</Argument>
+		<Argument name="Tooltip">LOC_BRICKYARD_WAREHOUSE_IN_THIS_TOWN_FROM_PROJECT</Argument>
+	</Modifier>
+	<!-- Common Projects -->
+	<Modifier id="FACTORY_MODS_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_ATTACH_MODIFIERS">
+		<Argument name="ModifierId">ATTACH_FACTORY_DISCOUNT_FROM_PROJECT, ATTACH_RESOURCE_SLOTS_FROM_PROJECT, ATTACH_LAND_TRADE_RANGE_IN_CITY_FROM_PROJECT, ATTACH_SEA_TRADE_RANGE_IN_CITY_FROM_PROJECT</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_LAND_TRADE_RANGE_IN_CITY_FROM_PROJECT" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_TRADE_ROUTE_RANGE">
+		<Argument name="Amount">5</Argument>
+		<Argument name="DomainType">DOMAIN_LAND</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_SEA_TRADE_RANGE_IN_CITY_FROM_PROJECT" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_TRADE_ROUTE_RANGE">
+		<Argument name="Amount">5</Argument>
+		<Argument name="DomainType">DOMAIN_SEA</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_FACTORY_DISCOUNT_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_OR_CITY_BUILDING_PURCHASE_EFFICIENCY">
+		<Argument name="BuildingType">BUILDING_FACTORY</Argument>
+		<Argument name="Percent">100</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_RESOURCE_SLOTS_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_RESOURCE_CAP">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="INFLUENCE_ON_INNS_IN_CITY_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_YIELD_PER_CONNECTED_CITY">
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<!-- Military Victory -->
+	<Modifier id="MOD_PRODUCE_WMD" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_WMD_COUNT" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="Type">WMD_NUCLEAR_DEVICE</Argument>
+	</Modifier>
+</GameEffects>

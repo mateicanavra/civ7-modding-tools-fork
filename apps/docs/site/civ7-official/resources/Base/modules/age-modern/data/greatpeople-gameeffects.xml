@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="GREATPERSON_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD" run-once="true" permanent="true">
+		<Argument name="Amount">300</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<String context="Summary">LOC_GREAT_PERSON_GOLD</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_PALACE_INFLUENCE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD" run-once="true" permanent="true">
+		<Argument name="Amount">100</Argument>
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<String context="Summary">LOC_GREAT_PERSON_INDIVIDUAL_UPARAT_CHAKRABONGSE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_FOREIGN_INFLUENCE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD" run-once="true" permanent="true">
+		<Argument name="Amount">100</Argument>
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<String context="Summary">LOC_GREAT_PERSON_INDIVIDUAL_UPARAT_PRIDI_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_TRADITION_SLOT" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_TRADITION_SLOTS" run-once="true" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<String context="Summary">LOC_GREATPERSON_TRADITION_SLOT</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_GOLDEN_AGE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_GOLDEN_AGE" run-once="true" permanent="true">
+		<String context="Summary">LOC_GREATPERSON_GOLDEN_AGE</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_5_PROMOTIONS" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_UNIT_PROMOTION" run-once="true" permanent="true">
+		<Argument name="Amount">5</Argument>
+		<String context="Summary">LOC_GREATPERSON_PROMOTIONS</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_INFANTRY_URBAN" collection="COLLECTION_OWNER" effect="EFFECT_CITY_GRANT_UNIT" run-once="true" permanent="true">
+		<Argument name="DistrictType">DISTRICT_URBAN</Argument>
+		<Argument name="UnitTag">UNIT_CLASS_INFANTRY</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_INFANTRY_CITY_CENTER" collection="COLLECTION_OWNER" effect="EFFECT_CITY_GRANT_UNIT" run-once="true" permanent="true">
+		<Argument name="DistrictType">DISTRICT_CITY_CENTER</Argument>
+		<Argument name="UnitTag">UNIT_CLASS_INFANTRY</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_FARM_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+		<Argument name="ConstructibleType">IMPROVEMENT_FARM</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Tooltip">LOC_GREAT_PERSON_INDIVIDUAL_REVOLUCIONARIO_ZAPATA_NAME</Argument>
+		<String context="Summary">LOC_GREATPERSON_FARM_CULTURE</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_FREE_STRONGER_SOLDADERAS" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_UNIT_OF_CLASS_AND_APPLY_ABILITY" run-once="true" permanent="true">
+		<Argument name="UnitTag">UNIT_CLASS_SOLDADERAS</Argument>
+		<Argument name="Amount">2</Argument>
+		<Argument name="UnitAbilityType">ABILITY_AVILA</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_FREE_STRONGER_CHANG_BEUN" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_UNIT_OF_CLASS_AND_APPLY_ABILITY" run-once="true" permanent="true">
+		<Argument name="UnitTag">UNIT_CLASS_CHANG_BEUN</Argument>
+		<Argument name="Amount">2</Argument>
+		<Argument name="UnitAbilityType">ABILITY_SAKDIPHONLASEP</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_COMMANDER_SOLDADERAS" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_HERRERA</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_COMMANDER_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_VILLA</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_COMMANDER_HEAL" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_DAMAGE" run-once="true" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+		</SubjectRequirements>
+		<Argument name="Amount">-99</Argument>
+		<Argument name="ApplyToArmy">true</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_COMMANDER_CITY_STATE_COMBAT" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_SENANURAK</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_CULTURE_FOR_PROMOTIONS" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_UNIT_YIELD_PROMOTION" run-once="true" permanent="true">
+		<Argument name="Amount" type="ScaleByGameSpeed">10</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_ABILITY_COMBAT_URBAN" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_BILLAUD_VARENNE</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_ABILITY_LOW_COMBAT" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_BRISSOT</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_RENAME_COMMANDER" collection="COLLECTION_OWNER" effect="EFFECT_ARMY_ADJUST_NAME" permanent="true">
+		<Argument name="Name">LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_SAINT_JUST_COMMANDER_NAME</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_COMMANDER_HIGH_COMBAT" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_SAINT_JUST</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_HAPPINESS_BUILDING" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+		<Argument name="ConstructibleType">BUILDING_PALACE, BUILDING_CITY_HALL</Argument>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">10</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_DISTRICT_HAPPINESS" collection="COLLECTION_CITY_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_DISTRICT_CLASS">
+				<Argument name="DistrictClass">CITYCENTER, URBAN</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Tooltip">LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_DESMOULINS_NAME</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_SCIENCE_QUARTERS" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IS_QUARTER">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Tooltip">LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_GOUGES_NAME</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_CULTURE_QUARTERS" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IS_QUARTER">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Tooltip">LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_MARAT_NAME</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_HAPPINESS_QUARTERS" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IS_QUARTER">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Tooltip">LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_MARAT_NAME</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_TRADITION" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="true" permanent="true">
+		<Argument name="Tradition">TRADITION_ROBESPIERRE_REIGN_OF_TERROR</Argument>
+		<Argument name="Lock">false</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_INDEPENDENT" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_SUZERAIN_UNIT_PLOT" run-once="true" permanent="true">
+		<String context="Summary">LOC_GREATPERSON_INDEPENDENT</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_CITY_STATE_PRODUCTION" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_YIELD_PER_SUZERAIN">
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Amount">4</Argument>
+		<Argument name="Tooltip">LOC_GREAT_PERSON_INDIVIDUAL_UPARAT_PHIBUN_NAME</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_CITY_STATE_INFLUENCE" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_YIELD_PER_SUZERAIN">
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="Amount">4</Argument>
+		<Argument name="Tooltip">LOC_GREAT_PERSON_INDIVIDUAL_UPARAT_PRIDI_NAME</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_CITY_STATE_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_YIELD_PER_SUZERAIN">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">4</Argument>
+		<Argument name="Tooltip">LOC_GREAT_PERSON_INDIVIDUAL_UPARAT_PINKLAO_NAME</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_CITY_STATE_SCIENCE" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_YIELD_PER_SUZERAIN">
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount">4</Argument>
+		<Argument name="Tooltip">LOC_GREAT_PERSON_INDIVIDUAL_UPARAT_VAJRAVUDH_NAME</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_CITY_STATE_TO_YOU" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_CITY_FROM_CITY_STATE_PLOT" run-once="true" permanent="true">
+		<String context="Summary">LOC_GREATPERSON_CITY_STATE_TO_YOU</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_ADJUST_SUPPORT_EFFECT_YIELD" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_DIPLOMACY_ADJUST_HAS_BOOSTED_SUPPORT_EFFECTS" run-once="true" permanent="true">
+		<Argument name="IsBoosted">true</Argument>
+		<Argument name="Tooltip">LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_BARRAS_NAME</Argument>
+	</Modifier>
+</GameEffects>

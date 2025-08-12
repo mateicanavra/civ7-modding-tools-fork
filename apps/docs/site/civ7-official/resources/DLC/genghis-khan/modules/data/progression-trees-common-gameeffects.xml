@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==============================================================	-->
+	<!--	Legend Unlocks												-->
+	<!-- ==============================================================	-->
+	<!-- ==================================================	-->
+	<!--	Cultural Attribute								-->
+	<!-- ==================================================	-->
+
+	<!-- ==================================================	-->
+	<!--	Diplomatic Attribute							-->
+	<!-- ==================================================	-->
+
+	<!-- ==================================================	-->
+	<!--	Economic Attribute								-->
+	<!-- ==================================================	-->
+
+	<!-- ==================================================	-->
+	<!--	Expansionist Attribute							-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_ATTRIBUTE_EXPANSIONIST_LEGEND_GENGHIS_KHAN_L1" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_TOWN_UPGRADE_DISCOUNT">
+		<Argument name="Percent">50</Argument>
+		<String context="Description">LOC_MOD_ATTRIBUTE_EXPANSIONIST_LEGEND_GENGHIS_KHAN_L1_DESCRIPTION</String>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	Militaristic Attribute							-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_ATTRIBUTE_MILITARISTIC_LEGEND_GENGHIS_KHAN_L2" collection="COLLECTION_PLAYER_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_IS_DISTRICT"/>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+		<String context="Description">LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_GENGHIS_KHAN_L2_DESCRIPTION</String>
+		<String context="Preview">LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_GENGHIS_KHAN_L2_COMBAT_PREVIEW</String>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	Scientific Attribute							-->
+	<!-- ==================================================	-->
+
+</GameEffects>

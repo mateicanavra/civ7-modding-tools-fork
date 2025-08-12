@@ -1,0 +1,29 @@
+/* DO NOT EDIT */
+/* Generated from panel-city-capture-chooser.scss */
+.keep-icon-image {
+	background-image: url("city_keep");
+}
+
+.raze-icon-image {
+	background-image: url("city_raze");
+}
+
+@media (experience: mobile) {
+	.city-capture__frame-container {
+		width: 37.3333333333rem;
+		margin-top: 0.7777777778rem;
+		margin-bottom: 0;
+	}
+}
+
+@media (experience: mobile) {
+	.cap-chooser__city-name {
+		margin-bottom: 0.5555555556rem;
+	}
+}
+
+@media (experience: mobile) {
+	.city-capture__subtitle {
+		max-width: 25rem;
+	}
+}

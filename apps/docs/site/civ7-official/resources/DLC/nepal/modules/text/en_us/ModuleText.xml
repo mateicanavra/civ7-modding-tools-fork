@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MODULE_NEPAL_NAME">
+			<Text>Nepal</Text>
+		</Row>
+		<Row Tag="LOC_MODULE_NEPAL_DESCRIPTION">
+			<Text>Contains a new Modern Age Civilization, Nepal.</Text>
+		</Row>
+	</EnglishText>
+</Database>

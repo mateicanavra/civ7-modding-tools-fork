@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Shawnee-->
+		<Row Tag="LOC_CITIZEN_CARTHAGE_MALE_1">
+			<Text>Hamilcar</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_CARTHAGE_MALE_2">
+			<Text>Hanno</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_CARTHAGE_MALE_3">
+			<Text>Mago</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_CARTHAGE_MALE_4">
+			<Text>Hasdrubal</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_CARTHAGE_MALE_5">
+			<Text>Gisgo</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_CARTHAGE_MALE_6">
+			<Text>Bodo</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_CARTHAGE_MALE_7">
+			<Text>Azarbaal</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_CARTHAGE_MALE_8">
+			<Text>Bostar</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_CARTHAGE_MALE_9">
+			<Text>Mattanbaal</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_CARTHAGE_MALE_10">
+			<Text>Bomilcar</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_CARTHAGE_FEMALE_1">
+			<Text>Arishat</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_CARTHAGE_FEMALE_2">
+			<Text>Siphonbaal</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_CARTHAGE_FEMALE_3">
+			<Text>Batbaal</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_CARTHAGE_FEMALE_4">
+			<Text>Batnoam</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_CARTHAGE_FEMALE_5">
+			<Text>Muttunbaal</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_CARTHAGE_FEMALE_6">
+			<Text>Ummashtart</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_CARTHAGE_FEMALE_7">
+			<Text>Hanbi</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_CARTHAGE_FEMALE_8">
+			<Text>Amoashtart</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_CARTHAGE_FEMALE_9">
+			<Text>Yzebel</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_CARTHAGE_FEMALE_10">
+			<Text>Zyabqot</Text>
+		</Row>
+	</EnglishText>
+</Database>

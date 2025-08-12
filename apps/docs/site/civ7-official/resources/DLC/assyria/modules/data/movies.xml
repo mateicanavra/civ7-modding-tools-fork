@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Movies>
+		<!-- Defeat movie with civ-specific audio. -->
+		<Row MovieType="MOVIE_DEFEAT_ASSYRIA" Locale="en_US" Resolution="720" Url="fs://game/age-antiquity/movies/DEFEAT_ANT_720p.webm" Audio="play_wilco_civ_loss_assyria" StopAudio="stop_wilco" Subtitles="fs://game/assyria/text/subtitles/wilco_civ_antiquity_assyria_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_ASSYRIA" Locale="en_US" Resolution="1080" Url="fs://game/age-antiquity/movies/DEFEAT_ANT_1080p.webm" Audio="play_wilco_civ_loss_assyria" StopAudio="stop_wilco" Subtitles="fs://game/assyria/text/subtitles/wilco_civ_antiquity_assyria_defeat.vtt" UseCoverFitMode="true" />
+
+
+		<!-- Civ-Specific Legacy Path -->
+		<!-- (Economic)-->
+		<Row MovieType="MOVIE_CIVILIZATION_ASSYRIA_LEGACY_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/assyria/movies/AT_Assyria_720p.webm" Audio="play_wilco_civ_economic_assyria" StopAudio="stop_wilco" Subtitles="fs://game/assyria/text/subtitles/wilco_civ_antiquity_assyria_legacy_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_ASSYRIA_LEGACY_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/assyria/movies/AT_Assyria_1080p.webm" Audio="play_wilco_civ_economic_assyria" StopAudio="stop_wilco" Subtitles="fs://game/assyria/text/subtitles/wilco_civ_antiquity_assyria_legacy_economic.vtt" UseCoverFitMode="true" />
+
+		<!-- (Military) -->
+		<Row MovieType="MOVIE_CIVILIZATION_ASSYRIA_LEGACY_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/assyria/movies/AT_Assyria_720p.webm" Audio="play_wilco_civ_military_assyria" StopAudio="stop_wilco" Subtitles="fs://game/assyria/text/subtitles/wilco_civ_antiquity_assyria_legacy_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_ASSYRIA_LEGACY_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/assyria/movies/AT_Assyria_1080p.webm" Audio="play_wilco_civ_military_assyria" StopAudio="stop_wilco" Subtitles="fs://game/assyria/text/subtitles/wilco_civ_antiquity_assyria_legacy_military.vtt" UseCoverFitMode="true" />
+
+		<!-- (Science)-->
+		<Row MovieType="MOVIE_CIVILIZATION_ASSYRIA_LEGACY_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/assyria/movies/AT_Assyria_720p.webm" Audio="play_wilco_civ_science_assyria" StopAudio="stop_wilco" Subtitles="fs://game/assyria/text/subtitles/wilco_civ_antiquity_assyria_legacy_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_ASSYRIA_LEGACY_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/assyria/movies/AT_Assyria_1080p.webm" Audio="play_wilco_civ_science_assyria" StopAudio="stop_wilco" Subtitles="fs://game/assyria/text/subtitles/wilco_civ_antiquity_assyria_legacy_science.vtt" UseCoverFitMode="true" />
+
+		<!-- (Culture)-->
+		<Row MovieType="MOVIE_CIVILIZATION_ASSYRIA_LEGACY_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/assyria/movies/AT_Assyria_720p.webm" Audio="play_wilco_civ_culture_assyria" StopAudio="stop_wilco" Subtitles="fs://game/assyria/text/subtitles/wilco_civ_antiquity_assyria_legacy_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_ASSYRIA_LEGACY_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/assyria/movies/AT_Assyria_1080p.webm" Audio="play_wilco_civ_culture_assyria" StopAudio="stop_wilco" Subtitles="fs://game/assyria/text/subtitles/wilco_civ_antiquity_assyria_legacy_culture.vtt" UseCoverFitMode="true" />
+	</Movies>
+
+	<EndGameMovies>
+		<!-- Defeats (Civ Specific) -->
+		<Row DefeatType="DEFEAT_DEFAULT" CivilizationType="CIVILIZATION_ASSYRIA" Priority="450" MovieType="MOVIE_DEFEAT_ASSYRIA" />
+		<Row DefeatType="DEFEAT_RETIRE" CivilizationType="CIVILIZATION_ASSYRIA" Priority="440" MovieType="MOVIE_DEFEAT_ASSYRIA" />
+
+
+		<!-- Age Transition/Legacy Points Victory -->
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" LastCompletedLegacyPath="LEGACY_PATH_ANTIQUITY_ECONOMIC" Priority="200" MovieType="MOVIE_CIVILIZATION_ASSYRIA_LEGACY_ECONOMIC" />
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" LastCompletedLegacyPath="LEGACY_PATH_ANTIQUITY_MILITARY" Priority="200" MovieType="MOVIE_CIVILIZATION_ASSYRIA_LEGACY_MILITARY" />
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" LastCompletedLegacyPath="LEGACY_PATH_ANTIQUITY_SCIENCE" Priority="200" MovieType="MOVIE_CIVILIZATION_ASSYRIA_LEGACY_SCIENCE" />
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" LastCompletedLegacyPath="LEGACY_PATH_ANTIQUITY_CULTURE" Priority="200" MovieType="MOVIE_CIVILIZATION_ASSYRIA_LEGACY_CULTURE" />
+
+	</EndGameMovies>
+</Database>

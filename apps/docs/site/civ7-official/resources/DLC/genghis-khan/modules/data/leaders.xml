@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_TRAIT"/>
+	</Kinds>
+	<Types>
+		<Row Type="LEADER_GENGHIS_KHAN" Kind="KIND_LEADER"/>
+		<Row Type="TRAIT_LEADER_GENGHIS_KHAN_ABILITY" Kind="KIND_TRAIT"/>
+		
+		<Row Type="ABILITY_GENGHIS_KHAN_ARMY_COMMANDER" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_GENGHIS_KHAN_COMMAND_RADIUS_COMBAT" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_GENGHIS_KHAN_NO_COMMAND_RADIUS_COMBAT" Kind="KIND_ABILITY"/>
+	</Types>
+	<Leaders>
+		<Row LeaderType="LEADER_GENGHIS_KHAN" Name="LOC_LEADER_GENGHIS_KHAN_NAME" IsMajorLeader="true" InheritFrom="LEADER_DEFAULT" />
+	</Leaders>
+	<TypeQuotes>
+		<Row Type="LEADER_GENGHIS_KHAN" Quote="LOC_MAIN_CHAR_SELECT_LEADER_GENGHIS_KHAN_ANY"/>
+	</TypeQuotes>
+	<AiListTypes>
+		<!-- Leader Psuedoyield Biases -->
+		<Row ListType="Genghis Yield Biases"/>
+		<Row ListType="Genghis Budget Biases"/>
+		<Row ListType="Genghis Tag Biases"/>
+	</AiListTypes>
+	<AiLists>
+		<!-- Leader Psuedoyield Biases -->
+		<Row ListType="Genghis Yield Biases" LeaderType="TRAIT_LEADER_GENGHIS_KHAN_ABILITY" System="YieldBiases"/>
+		<Row ListType="Genghis Budget Biases" LeaderType="TRAIT_LEADER_GENGHIS_KHAN_ABILITY" System="AiBudgetBiases"/>
+		<Row ListType="Genghis Tag Biases" LeaderType="TRAIT_LEADER_GENGHIS_KHAN_ABILITY" System="TagBiases"/>
+	</AiLists>
+	<AiFavoredItems>
+		<Row ListType="Genghis Yield Biases" Item="YIELD_PRODUCTION" Value="50"/>
+		<Row ListType="Genghis Yield Biases" Item="YIELD_GOLD" Value="25"/>
+		<Row ListType="Genghis Budget Biases" Item="AI_BUDGET_STANDING_ARMY" Value="50"/>
+		<Row ListType="Genghis Tag Biases" Item="UNIT_CLASS_MOUNTED" Value="25"/>
+		<Row ListType="Genghis Tag Biases" Item="UNIT_CLASS_CAVALRY" Value="25"/>
+		<Row ListType="Genghis Tag Biases" Item="UNIT_CLASS_ARMY_COMMANDER" Value="25"/>
+	</AiFavoredItems>
+	<Traits>
+		<Row TraitType="TRAIT_LEADER_GENGHIS_KHAN_ABILITY" InternalOnly="true" Name="LOC_TRAIT_LEADER_GENGHIS_KHAN_ABILITY_NAME" Description="LOC_TRAIT_LEADER_GENGHIS_KHAN_ABILITY_DESCRIPTION"/>
+	</Traits>
+	<LeaderTraits>
+		<Row LeaderType="LEADER_GENGHIS_KHAN" TraitType="TRAIT_LEADER_GENGHIS_KHAN_ABILITY"/>
+		<Row LeaderType="LEADER_GENGHIS_KHAN" TraitType="TRAIT_LEADER_ATTRIBUTE_EXPANSIONIST"/>
+		<Row LeaderType="LEADER_GENGHIS_KHAN" TraitType="TRAIT_LEADER_ATTRIBUTE_MILITARISTIC"/>
+		<Row LeaderType="LEADER_GENGHIS_KHAN" TraitType="TRAIT_LEADER_AGGRESSIVE"/>
+		<Row LeaderType="LEADER_GENGHIS_KHAN" TraitType="TRAIT_AQ_MILITARY_VICTORY"/>
+		<Row LeaderType="LEADER_GENGHIS_KHAN" TraitType="TRAIT_EX_MILITARY_VICTORY"/>
+		<Row LeaderType="LEADER_GENGHIS_KHAN" TraitType="TRAIT_MO_MILITARY_VICTORY"/>
+	</LeaderTraits>
+	<TraitModifiers>
+		<Row TraitType="TRAIT_LEADER_GENGHIS_KHAN_ABILITY" ModifierId="GENGHIS_KHAN_ARMY_COMMANDER_ABILITY"/>
+		<Row TraitType="TRAIT_LEADER_GENGHIS_KHAN_ABILITY" ModifierId="GENGHIS_KHAN_MOD_AGENDA_TUMEN"/>
+		<Row TraitType="TRAIT_LEADER_GENGHIS_KHAN_ABILITY" ModifierId="GENGHIS_KHAN_CAVALRY_COMBAT_STRENGTH"/>
+	</TraitModifiers>
+	<UnitClass_Abilities>
+		<Row UnitAbilityType="ABILITY_GENGHIS_KHAN_ARMY_COMMANDER" UnitClassType="UNIT_CLASS_ARMY_COMMANDER"/>
+	</UnitClass_Abilities>
+	<UnitAbilities>
+		<!--Unique-->
+		<Row UnitAbilityType="ABILITY_GENGHIS_KHAN_ARMY_COMMANDER" Name="LOC_TRAIT_LEADER_GENGHIS_KHAN_ABILITY_NAME" Description="LOC_ABILITY_GENGHIS_KHAN_ARMY_COMMANDER_DESCRIPTION" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_GENGHIS_KHAN_COMMAND_RADIUS_COMBAT" Name="LOC_TRAIT_LEADER_GENGHIS_KHAN_ABILITY_NAME" Description="LOC_ABILITY_GENGHIS_KHAN_COMMAND_RADIUS_COMBAT_DESCRIPTION" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_GENGHIS_KHAN_NO_COMMAND_RADIUS_COMBAT" Name="LOC_TRAIT_LEADER_GENGHIS_KHAN_ABILITY_NAME" Description="LOC_ABILITY_GENGHIS_KHAN_NO_COMMAND_RADIUS_COMBAT_DESCRIPTION" Inactive="true"/>
+	</UnitAbilities>
+	<UnitAbilityModifiers>
+		<Row UnitAbilityType="ABILITY_GENGHIS_KHAN_ARMY_COMMANDER" ModifierId="GENGHIS_KHAN_ARMY_COMMANDER_CONVERT_INDEPENDENT_CHARGE"/>
+		<Row UnitAbilityType="ABILITY_GENGHIS_KHAN_ARMY_COMMANDER" ModifierId="GENGHIS_KHAN_ARMY_COMMANDER_FULL_MOVEMENT"/>
+		<Row UnitAbilityType="ABILITY_GENGHIS_KHAN_ARMY_COMMANDER" ModifierId="GENGHIS_KHAN_ARMY_COMMANDER_COMMAND_RADIUS"/>
+		<Row UnitAbilityType="ABILITY_GENGHIS_KHAN_COMMAND_RADIUS_COMBAT" ModifierId="GENGHIS_KHAN_COMMAND_RADIUS_COMBAT"/>
+		<Row UnitAbilityType="ABILITY_GENGHIS_KHAN_NO_COMMAND_RADIUS_COMBAT" ModifierId="GENGHIS_KHAN_ARMY_COMMANDER_NO_COMMAND_RADIUS"/>
+	</UnitAbilityModifiers>
+</Database>

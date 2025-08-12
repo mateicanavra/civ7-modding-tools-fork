@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<ProgressionTreeNodeUnlocks>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_MAIN_ECONOMICS" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_GRAND_BAZAAR" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_MAIN_PIETY" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_WAT_XIENG_THONG" UnlockDepth="1"/>
+	</ProgressionTreeNodeUnlocks>
+</Database>

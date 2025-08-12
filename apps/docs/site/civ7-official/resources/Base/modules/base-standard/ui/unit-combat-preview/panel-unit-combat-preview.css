@@ -1,0 +1,494 @@
+/* DO NOT EDIT */
+/* Generated from panel-unit-combat-preview.scss */
+/**
+Based on Robert Penner's easing equations
+@url http://robertpenner.com/easing/
+**/
+.unit-combat-preview {
+	--attacker-color-primary: white;
+	--attacker-color-secondary: white;
+	--target-color-primary: white;
+	--target-color-secondary: black;
+	--attacker-symbol: url("fs://game/core/ui/themes/default/img/leader_symbols/leader_symb_00.png");
+	--target-symbol: url("fs://game/core/ui/themes/default/img/leader_symbols/leader_symb_06.png");
+	--defeat-color: #88292f;
+	--stalemate-color: #746b5c;
+	--victory-color: #285f23;
+	--outcome-color: var(--victory-color);
+	--transition-base-time: .375s;
+	--transition-default-ease-in: cubic-bezier(0.215, 0.61, 0.355, 1);
+	--transition-default-ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
+	pointer-events: none;
+	position: relative;
+	align-items: center;
+	justify-content: center;
+	transform-origin: center;
+}
+.unit-combat-preview.visible > .main-container > .preview-modifier-container {
+	opacity: 1;
+	transform: translateX(0rem);
+	transition-delay: 0.5s;
+	transition-timing-function: var(--transition-default-ease-in);
+}
+.unit-combat-preview.visible > .main-container > .preview-header {
+	opacity: 1;
+	transform: translateY(0rem);
+	transition-delay: 0s;
+	transition-timing-function: var(--transition-default-ease-in);
+}
+.unit-combat-preview.visible > .main-container > .preview-header > .preview-banner-container > .preview-banner {
+	opacity: 1;
+	transition-delay: 0s;
+	transition-timing-function: var(--transition-default-ease-in);
+}
+.unit-combat-preview.visible > .main-container > .preview-header > .preview-banner-container > .preview-banner.preview-banner-right {
+	transition-delay: 0s;
+}
+.unit-combat-preview.visible > .main-container > .preview-header > .preview-leader-icon-container > .preview-leader-icon {
+	opacity: 1;
+	transform: translateX(0rem) translateY(0rem);
+	transition-delay: 0s;
+	transition-timing-function: var(--transition-default-ease-in);
+}
+.unit-combat-preview.visible > .main-container > .preview-header > .preview-outcome {
+	opacity: 1;
+	transform: translateY(0rem);
+	transition-delay: 0s;
+	transition-timing-function: var(--transition-default-ease-in);
+}
+.unit-combat-preview > .main-container {
+	display: flex;
+	flex-direction: row;
+	position: relative;
+	justify-content: center;
+	align-items: flex-start;
+	height: auto;
+	padding-top: 1.1111111111rem;
+}
+.unit-combat-preview > .main-container > .preview-header {
+	position: absolute;
+	top: 0rem;
+	height: 12rem;
+	width: 12.6666666667rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	transition-property: transform, opacity;
+	transition-duration: var(--transition-base-time), 0.125s;
+	transform: translateY(0rem);
+}
+.unit-combat-preview > .main-container > .preview-header > .preview-bg {
+	position: absolute;
+	bottom: 1rem;
+	background-repeat: no-repeat;
+	background-image: url("fs://game/hud_combat-prev_center.png");
+	background-size: cover;
+	transform: scale(1);
+	width: 10.6666666667rem;
+	height: 12rem;
+}
+.unit-combat-preview > .main-container > .preview-header > .preview-bg > .preview-vs-label {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 1.3333333333rem;
+	width: 100%;
+	font-size: calc(1rem + -0.3333333333rem);
+	text-align: center;
+	line-height: 1.3333333333rem;
+	padding-left: 0.0555555556rem;
+	margin-top: 4.3333333333rem;
+}
+.unit-combat-preview > .main-container > .modifier-container {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	justify-content: flex-start;
+	background-color: var(--clr-hud-ornament__tint);
+	height: 10.6666666667rem;
+	width: 15.1111111111rem;
+	top: 0.8888888889rem;
+	left: -10.2222222222rem;
+	text-align: left;
+}
+.unit-combat-preview > .main-container > .modifier-container.right {
+	left: 9.3333333333rem;
+	text-align: right;
+}
+.unit-combat-preview > .main-container > .modifier-container > .unit-name {
+	font-size: calc(1rem + 0.2222222222rem);
+	text-align: center;
+}
+.unit-combat-preview > .main-container > .modifier-container > .modifier-text {
+	font-size: calc(1rem + -0.1111111111rem);
+}
+
+.preview-health-meter-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-self: center;
+	position: absolute;
+	width: 3.3333333333rem;
+	height: 3.6111111111rem;
+	bottom: 2.2222222222rem;
+}
+
+.preview-health-meter {
+	position: relative;
+	height: 100%;
+	width: 0.6666666667rem;
+	background-color: transparent;
+	transform-origin: 100% 100%;
+	transform: skewY(30deg);
+	border-style: solid;
+	border-width: 0.0555555556rem;
+}
+.preview-health-meter.preview-health-right {
+	transform-origin: 0% 100%;
+	transform: skewY(-30deg);
+}
+
+.preview-max-health {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	bottom: 0%;
+	background-color: transparent;
+}
+
+.preview-actual-health {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	bottom: 0%;
+	background-color: #88292f;
+	animation-name: health-flash;
+	animation-duration: 0.5s;
+	animation-direction: alternate;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease-in;
+}
+@keyframes health-flash {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0.375;
+	}
+}
+
+.preview-simulated-health {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	bottom: 0%;
+	background-color: #4aa042;
+}
+
+.preview-banner-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-start;
+	position: absolute;
+	width: 12.6666666667rem;
+	height: 8.5555555556rem;
+	top: 1rem;
+}
+
+.preview-banner {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition-property: transform, opacity;
+	transition-duration: var(--transition-base-time), 0.125s;
+	transform: translateX(0rem) translateY(0rem);
+}
+.preview-banner.preview-banner-right {
+	transform: translateX(0rem) translateY(0rem);
+}
+.preview-banner.preview-banner-right > .preview-banner-bg {
+	left: auto;
+	filter: fxs-color-tint(var(--target-color-primary));
+	transform: scaleX(-1);
+}
+.preview-banner.preview-banner-right > .preview-banner-stat-container {
+	left: auto;
+}
+
+.preview-banner-bg {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	width: 4.6666666667rem;
+	height: 9.3333333333rem;
+	transform: scale(1);
+	background-image: url("fs://game/hud_combat-prev_banner.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+	filter: fxs-color-tint(var(--attacker-color-primary));
+}
+
+.preview-banner-bars {
+	display: flex;
+	width: 2.3333333333rem;
+	justify-content: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url("fs://game/hud_combat-prev_banner-stripes.png");
+}
+
+.preview-banner-stat-container {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	align-self: center;
+	align-items: center;
+}
+
+.preview-unit-icon {
+	background-color: var(--attacker-color-primary);
+	border-top-color: var(--attacker-color-secondary);
+	border-right-color: var(--attacker-color-secondary);
+	border-bottom-color: var(--attacker-color-secondary);
+	border-left-color: var(--attacker-color-secondary);
+	fxs-background-image-tint: var(--attacker-color-secondary);
+}
+.preview-unit-icon.preview-unit-icon-right {
+	background-color: var(--target-color-primary);
+	border-top-color: var(--target-color-secondary);
+	border-right-color: var(--target-color-secondary);
+	border-bottom-color: var(--target-color-secondary);
+	border-left-color: var(--target-color-secondary);
+	fxs-background-image-tint: var(--target-color-secondary);
+}
+
+.preview-stat-icon {
+	width: 1.3333333333rem;
+	height: 1.3333333333rem;
+	background-size: contain;
+	background-repeat: no-repeat;
+	margin-top: 0.1666666667rem;
+}
+
+.preview-stat-number {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-weight: bold;
+	line-height: 1.3333333333rem;
+	margin-top: -0.4444444444rem;
+	font-size: calc(1rem + -0.1111111111rem);
+}
+
+.preview-outcome {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	position: absolute;
+	width: 9rem;
+	height: 4.6666666667rem;
+	top: 0.1666666667rem;
+	transition-property: transform, opacity;
+	transition-duration: var(--transition-base-time), 0.125s;
+	transform: translateY(0rem);
+	background-image: url("fs://game/hud_combat-prev_top-bg.png");
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.preview-outcome.preview-outcome-victory {
+	fxs-background-image-tint: #285f23;
+}
+.preview-outcome.preview-outcome-stalemate {
+	fxs-background-image-tint: #746b5c;
+}
+.preview-outcome.preview-outcome-defeat {
+	fxs-background-image-tint: #88292f;
+}
+
+.preview-outcome-color-bg {
+	display: flex;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+.preview-outcome-color-bg.preview-outcome-victory {
+	background-image: radial-gradient(#285f23, rgba(40, 95, 35, 0));
+}
+.preview-outcome-color-bg.preview-outcome-stalemate {
+	background-image: radial-gradient(#746b5c, rgba(116, 107, 92, 0));
+}
+.preview-outcome-color-bg.preview-outcome-defeat {
+	background-image: radial-gradient(#88292f, rgba(136, 41, 47, 0));
+}
+
+.preview-outcome-label {
+	position: relative;
+	display: flex;
+	flex-direction: flex-start;
+	justify-content: center;
+	min-width: 6.6666666667rem;
+	width: auto;
+	height: 2.6666666667rem;
+	flex: 1 0;
+}
+
+.preview-outcome-text {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	text-align: center;
+	font-size: calc(1rem + -0.1111111111rem);
+	line-height: 1.1111111111rem;
+	height: 1.9444444444rem;
+}
+
+.preview-leader-icon-container {
+	position: absolute;
+	width: 4.5555555556rem;
+	height: 2.2222222222rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	top: 1.6666666667rem;
+}
+
+.preview-leader-icon {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 2.2222222222rem;
+	width: 2.2222222222rem;
+	transition-property: transform, opacity;
+	transition-duration: var(--transition-base-time), 0.125s;
+}
+
+.preview-hex-bg {
+	position: absolute;
+	width: 1.7777777778rem;
+	height: 2.3333333333rem;
+	right: 0.1111111111rem;
+	top: 0.2222222222rem;
+	background-image: url("fs://game/hud_diplo_hex.png");
+	fxs-background-image-tint: var(--attacker-color-primary);
+	background-repeat: no-repeat;
+	background-size: contain;
+	transform: scale(1);
+}
+.preview-hex-bg.preview-hex-target {
+	fxs-background-image-tint: var(--target-color-primary);
+	right: 0.2777777778rem;
+}
+
+.preview-icon-img {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	bottom: -0.0555555556rem;
+	background-size: contain;
+	background-repeat: no-repeat;
+	clip-path: polygon(0% 0%, 15% 35%, 15% 75%, 50% 95%, 85% 75%, 85% 35%, 100% 0%, 0% 0%);
+}
+
+.preview-modifier-container {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	border-image-source: url("fs://game/hud_unit-panel_box-bg");
+	border-image-slice: 30 20 30 20 fill;
+	border-image-width: auto;
+	border-image-outset: 17 13 17 13;
+	min-height: 3.3333333333rem;
+	width: 16rem;
+	transition-property: transform, opacity;
+	transition-duration: var(--transition-base-time), 0.25s;
+	margin-right: 3.8888888889rem;
+	text-align: right;
+}
+.preview-modifier-container.preview-modifier-right {
+	text-align: left;
+	margin-right: 0rem;
+	margin-left: 3.8888888889rem;
+}
+.preview-modifier-container.preview-modifier-right > .preview-modifier-info > .preview-unit-name {
+	padding: 0.2777777778rem 0rem 0.2777777778rem 1.6666666667rem;
+}
+.preview-modifier-container.preview-modifier-right > .preview-modifier-info > .preview-modifier-text {
+	padding: 0rem 0.6666666667rem 0rem 1.6666666667rem;
+}
+
+.preview-modifier-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	padding: 0.9444444444rem 1.3888888889rem 0.9444444444rem 0.7222222222rem;
+	margin-bottom: 0.6666666667rem;
+}
+
+.preview-unit-name {
+	font-size: calc(1rem + -0.1111111111rem);
+	line-height: 1.1111111111rem;
+	color: #ffbadd;
+	padding: 0.2777777778rem 0rem 0.2777777778rem 0.6666666667rem;
+}
+
+.preview-header-divider {
+	display: flex;
+	width: 100%;
+	height: 0.8888888889rem;
+	border-image-source: url("fs://game/hud_section-line");
+	border-image-width: auto;
+	border-image-slice: 12 32 2 32;
+}
+
+.preview-modifier-text {
+	font-weight: bold;
+	font-size: calc(1rem + -0.1111111111rem);
+	text-align: left;
+	align-self: flex-start;
+	padding-left: 0.6666666667rem;
+}
+
+.combat-preview__banner-rod-left {
+	position: absolute;
+	left: 0rem;
+	background-image: url("fs://game/hud_combat-prev_pole.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	width: 6.6666666667rem;
+	height: 4.1111111111rem;
+}
+
+.combat-preview__banner-rod-right {
+	position: absolute;
+	right: 0rem;
+	transform: rotateY(180deg);
+	background-image: url("fs://game/hud_combat-prev_pole.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	width: 6.6666666667rem;
+	height: 4.1111111111rem;
+}
+
+.combat-preview__banner-rod-dot {
+	position: absolute;
+	background-image: url("fs://game/hud_combat-prev_pole-dot.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	width: 0.8888888889rem;
+	height: 0.8888888889rem;
+	top: 3.1111111111rem;
+	left: 5.8888888889rem;
+}

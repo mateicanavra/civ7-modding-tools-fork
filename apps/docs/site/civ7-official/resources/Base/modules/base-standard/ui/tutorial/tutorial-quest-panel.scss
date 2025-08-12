@@ -1,0 +1,153 @@
+@use '../../../core/ui/themes/default/theme';
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+
+tutorial-quest-panel {
+	--title-display: none;
+
+	height: pixels(680);
+
+	&.middle-center {
+		.tutorial-quest-panel-content {
+			top: 50%;
+			right: 50%;
+			transform: translate(50%, -50%);
+		}
+	}
+
+	&.middle-center {
+		animation-name: tutorial-quest-panel-anim-bottom;
+
+		.tutorial-quest-panel-content {
+			max-width: pixels(1220);
+		}
+	}
+
+	&.show-title {
+		--title-display: flex;
+	}
+}
+
+.tutorial-quest-panel-content {
+	padding-bottom: pixels(16);
+	transform: translate(pixels(0), pixels(48));
+	margin: pixels(0) pixels(-24);
+}
+
+.tutorial-quest-panel-title-container {
+	display: var(--title-display);
+}
+
+.tutorial-quest-panel-title {
+	margin-top: pixels(6);
+	padding-bottom: pixels(8);
+	letter-spacing: pixels(3);
+	margin-right: pixels(-3);
+	line-height: 1.5em;
+
+	p {
+		margin: 0;
+	}
+}
+
+.tutorial-quest-panel-content>.tutorial-quest-panel-body {
+	fxs-font-icon {
+		margin-right: pixels(6);
+	}
+
+	p {
+		margin-bottom: pixels(12);
+	}
+}
+
+.tutorial-quest-panel-body-text {
+	line-height: 1.25em;
+	margin-top: pixels(12);
+	margin-bottom: pixels(12);
+	margin-left: pixels(24);
+	margin-right: pixels(16);
+
+	&.empty {
+		display: none;
+	}
+}
+
+.tutorial-quest-panel-content>.tutorial-quest-panel-frame {
+	border-image: url("fs://game/Frame_large_symmetrical_inverted.png");
+	border-image-width: pixels(24);
+	border-style: solid;
+	border-image-slice: 24 fill;
+	border-image-repeat: stretch;
+	filter: fxs-color-mask(theme.$default-color-secondary-accent);
+}
+
+.tutorial-quest-panel-divider {
+	bottom: pixels(-9);
+	width: pixels(258);
+}
+
+.quest-advisor-element {
+	background-image: none;
+	width: pixels(350);
+	min-height: pixels(260);
+	margin-left: pixels(8);
+	margin-right: pixels(8);
+
+	.filigree-inner-frame-top {
+		border-image-source: url('fs://game/hud_section-line_gold.png')
+	}
+
+	.filigree-inner-frame-bottom {
+		border-image-source: url('fs://game/hud_section-line_gold.png')
+	}
+}
+
+.quest-advisor-card-backdrop {
+	border-style: solid;
+	border-width: pixels(2);
+	border-image: linear-gradient(to bottom, theme.color('secondary-2'), theme.color('secondary-3')) 1;
+	top: pixels(109);
+}
+
+.quest-advisor-card-filigree {
+	border-image-source: url('fs://game/base_advisor-filigree.png');
+	border-image-slice: 8 22 12 22 fill;
+	border-image-width: pixels(8) 0 pixels(12) 0;
+}
+
+.quest-advisor-bg {
+	height: pixels(210);
+	width: pixels(210);
+	background-image: url("fs://game/adv_port_bk.png");
+	background-size: cover;
+}
+
+.quest-advisor-portrait {
+	height: pixels(152);
+	width: pixels(152);
+	left: pixels(28);
+	top: pixels(30);
+}
+
+.quest-advisor-type-icon-bg {
+	height: pixels(100);
+	width: pixels(100);
+	left: pixels(51);
+	top: pixels(133);
+	background-image: url("fs://game/adv_icon_bk.png");
+	background-size: cover;
+}
+
+.quest-advisor-type-icon {
+	height: pixels(60);
+	width: pixels(60);
+	left: pixels(71);
+	top: pixels(153);
+}
+
+@keyframes tutorial-quest-panel-anim-bottom {
+	from {
+		opacity: 0;
+		transform: translate(pixels(0), pixels(12));
+	}
+}

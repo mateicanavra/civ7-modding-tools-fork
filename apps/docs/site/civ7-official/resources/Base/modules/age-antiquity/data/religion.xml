@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<Row Kind="KIND_BELIEF"/>
+	</Kinds>
+	<Types>
+		<!--Beliefs-->
+		<Row Type="PANTHEON_BONUS_1" Kind="KIND_BELIEF"/>
+		<Row Type="PANTHEON_BONUS_2" Kind="KIND_BELIEF"/>
+		<Row Type="PANTHEON_BONUS_3" Kind="KIND_BELIEF"/>
+		<Row Type="PANTHEON_BONUS_4" Kind="KIND_BELIEF"/>
+		<Row Type="PANTHEON_BONUS_5" Kind="KIND_BELIEF"/>
+		<Row Type="PANTHEON_BONUS_6" Kind="KIND_BELIEF"/>
+		<Row Type="PANTHEON_BONUS_7" Kind="KIND_BELIEF"/>
+		<Row Type="PANTHEON_BONUS_8" Kind="KIND_BELIEF"/>
+		<Row Type="PANTHEON_BONUS_9" Kind="KIND_BELIEF"/>
+		<Row Type="PANTHEON_BONUS_10" Kind="KIND_BELIEF"/>
+		<Row Type="PANTHEON_BONUS_11" Kind="KIND_BELIEF"/>
+		<Row Type="PANTHEON_BONUS_12" Kind="KIND_BELIEF"/>
+		<Row Type="PANTHEON_BONUS_13" Kind="KIND_BELIEF"/>
+		<Row Type="PANTHEON_BONUS_14" Kind="KIND_BELIEF"/>
+		<Row Type="PANTHEON_BONUS_15" Kind="KIND_BELIEF"/>
+		<Row Type="PANTHEON_BONUS_16" Kind="KIND_BELIEF"/>
+		<Row Type="PANTHEON_BONUS_17" Kind="KIND_BELIEF"/>
+		<Row Type="PANTHEON_BONUS_18" Kind="KIND_BELIEF"/>
+	</Types>
+	<BeliefClasses>
+		<Row BeliefClassType="BELIEF_CLASS_PANTHEON" Name="LOC_BELIEF_CLASS_PANTHEON_NAME" MaxInReligion="1"/>
+	</BeliefClasses>
+	<Beliefs>
+		<Row BeliefType="PANTHEON_BONUS_1" Name="LOC_PANTHEON_BONUS_1_NAME" Description="LOC_PANTHEON_BONUS_1_DESCRIPTION" BeliefClassType="BELIEF_CLASS_PANTHEON"/>
+		<Row BeliefType="PANTHEON_BONUS_2" Name="LOC_PANTHEON_BONUS_2_NAME" Description="LOC_PANTHEON_BONUS_2_DESCRIPTION" BeliefClassType="BELIEF_CLASS_PANTHEON"/>
+		<Row BeliefType="PANTHEON_BONUS_3" Name="LOC_PANTHEON_BONUS_3_NAME" Description="LOC_PANTHEON_BONUS_3_DESCRIPTION" BeliefClassType="BELIEF_CLASS_PANTHEON"/>
+		<Row BeliefType="PANTHEON_BONUS_4" Name="LOC_PANTHEON_BONUS_4_NAME" Description="LOC_PANTHEON_BONUS_4_DESCRIPTION" BeliefClassType="BELIEF_CLASS_PANTHEON"/>
+		<Row BeliefType="PANTHEON_BONUS_5" Name="LOC_PANTHEON_BONUS_5_NAME" Description="LOC_PANTHEON_BONUS_5_DESCRIPTION" BeliefClassType="BELIEF_CLASS_PANTHEON"/>
+		<Row BeliefType="PANTHEON_BONUS_6" Name="LOC_PANTHEON_BONUS_6_NAME" Description="LOC_PANTHEON_BONUS_6_DESCRIPTION" BeliefClassType="BELIEF_CLASS_PANTHEON"/>
+		<Row BeliefType="PANTHEON_BONUS_7" Name="LOC_PANTHEON_BONUS_7_NAME" Description="LOC_PANTHEON_BONUS_7_DESCRIPTION" BeliefClassType="BELIEF_CLASS_PANTHEON"/>
+		<Row BeliefType="PANTHEON_BONUS_8" Name="LOC_PANTHEON_BONUS_8_NAME" Description="LOC_PANTHEON_BONUS_8_DESCRIPTION" BeliefClassType="BELIEF_CLASS_PANTHEON"/>
+		<Row BeliefType="PANTHEON_BONUS_9" Name="LOC_PANTHEON_BONUS_9_NAME" Description="LOC_PANTHEON_BONUS_9_DESCRIPTION" BeliefClassType="BELIEF_CLASS_PANTHEON"/>
+		<Row BeliefType="PANTHEON_BONUS_10" Name="LOC_PANTHEON_BONUS_10_NAME" Description="LOC_PANTHEON_BONUS_10_DESCRIPTION" BeliefClassType="BELIEF_CLASS_PANTHEON"/>
+		<Row BeliefType="PANTHEON_BONUS_11" Name="LOC_PANTHEON_BONUS_11_NAME" Description="LOC_PANTHEON_BONUS_11_DESCRIPTION" BeliefClassType="BELIEF_CLASS_PANTHEON"/>
+		<Row BeliefType="PANTHEON_BONUS_12" Name="LOC_PANTHEON_BONUS_12_NAME" Description="LOC_PANTHEON_BONUS_12_DESCRIPTION" BeliefClassType="BELIEF_CLASS_PANTHEON"/>
+		<Row BeliefType="PANTHEON_BONUS_13" Name="LOC_PANTHEON_BONUS_13_NAME" Description="LOC_PANTHEON_BONUS_13_DESCRIPTION" BeliefClassType="BELIEF_CLASS_PANTHEON"/>
+		<Row BeliefType="PANTHEON_BONUS_14" Name="LOC_PANTHEON_BONUS_14_NAME" Description="LOC_PANTHEON_BONUS_14_DESCRIPTION" BeliefClassType="BELIEF_CLASS_PANTHEON"/>
+		<Row BeliefType="PANTHEON_BONUS_15" Name="LOC_PANTHEON_BONUS_15_NAME" Description="LOC_PANTHEON_BONUS_15_DESCRIPTION" BeliefClassType="BELIEF_CLASS_PANTHEON"/>
+		<Row BeliefType="PANTHEON_BONUS_16" Name="LOC_PANTHEON_BONUS_16_NAME" Description="LOC_PANTHEON_BONUS_16_DESCRIPTION" BeliefClassType="BELIEF_CLASS_PANTHEON"/>
+		<Row BeliefType="PANTHEON_BONUS_17" Name="LOC_PANTHEON_BONUS_17_NAME" Description="LOC_PANTHEON_BONUS_17_DESCRIPTION" BeliefClassType="BELIEF_CLASS_PANTHEON" Shareable="true"/>
+		<Row BeliefType="PANTHEON_BONUS_18" Name="LOC_PANTHEON_BONUS_18_NAME" Description="LOC_PANTHEON_BONUS_18_DESCRIPTION" BeliefClassType="BELIEF_CLASS_PANTHEON" Shareable="true"/>
+	</Beliefs>
+	<!-- These are listed here so the AI can evalutate the modifiers based on BeliefType. They do not have any effects on the game for human players. -->
+	<BeliefModifiers>
+		<Row BeliefType="PANTHEON_BONUS_1" ModifierID="MOD_PANTHEON_ALTAR_YIELD_INFLUENCE"/>
+		<Row BeliefType="PANTHEON_BONUS_2" ModifierID="MOD_PANTHEON_ALTAR_MOUNTAIN_ADJACENCY"/>
+		<Row BeliefType="PANTHEON_BONUS_2" ModifierID="MOD_PANTHEON_ALTAR_NATURAL_WONDER_ADJACENCY"/>
+		<Row BeliefType="PANTHEON_BONUS_3" ModifierID="MOD_PANTHEON_CITY_GROWTH_RATE"/>
+		<Row BeliefType="PANTHEON_BONUS_4" ModifierID="MOD_PANTHEON_URBAN_CULTURE"/>
+		<Row BeliefType="PANTHEON_BONUS_5" ModifierID="MOD_PANTHEON_UNIT_HEALING"/>
+		<Row BeliefType="PANTHEON_BONUS_6" ModifierID="MOD_PANTHEON_ALTAR_PASTURE_WAREHOUSE"/>
+		<Row BeliefType="PANTHEON_BONUS_6" ModifierID="MOD_PANTHEON_ALTAR_PLANTATION_WAREHOUSE"/>
+		<Row BeliefType="PANTHEON_BONUS_6" ModifierID="MOD_PANTHEON_ALTAR_DESERT_FLOODPLAIN_WAREHOUSE"/>
+		<Row BeliefType="PANTHEON_BONUS_6" ModifierID="MOD_PANTHEON_ALTAR_GRASSLAND_FLOODPLAIN_WAREHOUSE"/>
+		<Row BeliefType="PANTHEON_BONUS_6" ModifierID="MOD_PANTHEON_ALTAR_PLAINS_FLOODPLAIN_WAREHOUSE"/>
+		<Row BeliefType="PANTHEON_BONUS_6" ModifierID="MOD_PANTHEON_ALTAR_TROPICAL_FLOODPLAIN_WAREHOUSE"/>
+		<Row BeliefType="PANTHEON_BONUS_6" ModifierID="MOD_PANTHEON_ALTAR_TUNDRA_FLOODPLAIN_WAREHOUSE"/>
+		<Row BeliefType="PANTHEON_BONUS_6" ModifierID="MOD_PANTHEON_ALTAR_FLAT_WAREHOUSE"/>
+		<Row BeliefType="PANTHEON_BONUS_7" ModifierID="MOD_PANTHEON_ALTAR_CAMP_WAREHOUSE"/>
+		<Row BeliefType="PANTHEON_BONUS_7" ModifierID="MOD_PANTHEON_ALTAR_WOODCUTTER_WAREHOUSE"/>
+		<Row BeliefType="PANTHEON_BONUS_7" ModifierID="MOD_PANTHEON_ALTAR_VEGETATED_WAREHOUSE"/>
+		<Row BeliefType="PANTHEON_BONUS_8" ModifierID="MOD_PANTHEON_BUILDING_PRODUCTION"/>
+		<Row BeliefType="PANTHEON_BONUS_9" ModifierID="MOD_PANTHEON_ALTAR_FISHING_BOAT_WAREHOUSE"/>
+		<Row BeliefType="PANTHEON_BONUS_9" ModifierID="MOD_PANTHEON_ALTAR_REEF_WAREHOUSE"/>
+		<Row BeliefType="PANTHEON_BONUS_9" ModifierID="MOD_PANTHEON_ALTAR_COLD_REEF_WAREHOUSE"/>
+		<Row BeliefType="PANTHEON_BONUS_9" ModifierID="MOD_PANTHEON_ALTAR_COAST_WAREHOUSE"/>
+		<Row BeliefType="PANTHEON_BONUS_9" ModifierID="MOD_PANTHEON_ALTAR_NAVIGABLE_RIVER_WAREHOUSE"/>
+		<Row BeliefType="PANTHEON_BONUS_10" ModifierID="MOD_PANTHEON_ALTAR_YIELD"/>
+		<Row BeliefType="PANTHEON_BONUS_11" ModifierID="MOD_PANTHEON_UNIT_PRODUCTION"/>
+		<Row BeliefType="PANTHEON_BONUS_12" ModifierID="MOD_PANTHEON_URBAN_SCIENCE"/>
+		<Row BeliefType="PANTHEON_BONUS_13" ModifierID="MOD_PANTHEON_ALTAR_WONDER_PRODUCTION"/>
+		<Row BeliefType="PANTHEON_BONUS_14" ModifierID="MOD_PANTHEON_ALTAR_SETTLER_PRODUCTION"/>
+		<Row BeliefType="PANTHEON_BONUS_15" ModifierID="MOD_PANTHEON_ALTAR_COAST_ADJACENCY"/>
+		<Row BeliefType="PANTHEON_BONUS_15" ModifierID="MOD_PANTHEON_ALTAR_LAKE_ADJACENCY"/>
+		<Row BeliefType="PANTHEON_BONUS_15" ModifierID="MOD_PANTHEON_ALTAR_RIVER_ADJACENCY"/>
+		<Row BeliefType="PANTHEON_BONUS_16" ModifierID="MOD_PANTHEON_ALTAR_MINE_WAREHOUSE"/>
+		<Row BeliefType="PANTHEON_BONUS_16" ModifierID="MOD_PANTHEON_ALTAR_QUARRY_WAREHOUSE"/>
+		<Row BeliefType="PANTHEON_BONUS_16" ModifierID="MOD_PANTHEON_ALTAR_ROUGH_WAREHOUSE"/>
+		<Row BeliefType="PANTHEON_BONUS_16" ModifierID="MOD_PANTHEON_ALTAR_WET_WAREHOUSE"/>
+		<Row BeliefType="PANTHEON_BONUS_17" ModifierID="MOD_PANTHEON_RESOURCE_HAPPINESS"/>
+		<Row BeliefType="PANTHEON_BONUS_18" ModifierID="MOD_PANTHEON_INFLUENCE_EFFICIENCY"/>
+	</BeliefModifiers>
+	<Constructible_Adjacencies>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="AltarUrbanHappiness" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="AltarQuarterHappiness" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="AltarWonderHappiness" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="AltarMountainHappiness" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="AltarNaturalWonderHappiness" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="AltarVegetatedHappiness" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="AltarCoastHappiness" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="AltarLakeHappiness" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="AltarResourceHappiness" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="AltarRiverHappiness" RequiresActivation="true"/>
+	</Constructible_Adjacencies>
+	<Adjacency_YieldChanges>
+		<Row ID="AltarUrbanHappiness" Age="AGE_ANTIQUITY" YieldType="YIELD_HAPPINESS" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentQuarter="true"/>
+		<Row ID="AltarQuarterHappiness" Age="AGE_ANTIQUITY" YieldType="YIELD_HAPPINESS" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentUniqueQuarter="true"/>
+		<Row ID="AltarWonderHappiness" Age="AGE_ANTIQUITY" YieldType="YIELD_HAPPINESS" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentDistrict="DISTRICT_WONDER"/>
+		<Row ID="AltarMountainHappiness" Age="AGE_ANTIQUITY" YieldType="YIELD_HAPPINESS" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentTerrain="TERRAIN_MOUNTAIN"/>
+		<Row ID="AltarNaturalWonderHappiness" Age="AGE_ANTIQUITY" YieldType="YIELD_HAPPINESS" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentNaturalWonder="true"/>
+		<Row ID="AltarVegetatedHappiness" Age="AGE_ANTIQUITY" YieldType="YIELD_HAPPINESS" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentFeatureClass="FEATURE_CLASS_VEGETATED"/>
+		<Row ID="AltarCoastHappiness" Age="AGE_ANTIQUITY" YieldType="YIELD_HAPPINESS" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentTerrain="TERRAIN_COAST"/>
+		<Row ID="AltarLakeHappiness" Age="AGE_ANTIQUITY" YieldType="YIELD_HAPPINESS" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentLake="true"/>
+		<Row ID="AltarResourceHappiness" Age="AGE_ANTIQUITY" YieldType="YIELD_HAPPINESS" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentResource="true"/>
+		<Row ID="AltarRiverHappiness" Age="AGE_ANTIQUITY" YieldType="YIELD_HAPPINESS" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentTerrain="TERRAIN_NAVIGABLE_RIVER"/>
+	</Adjacency_YieldChanges>
+	<Constructible_WarehouseYields>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="PantheonAltarCampGold" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="PantheonAltarWoodcutterResourceGold" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="PantheonAltarVegetatedFeatureGold" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="PantheonAltarPastureFood" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="PantheonAltarPlantationFood" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="PantheonAltarDesertFloodplainFeatureFood" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="PantheonAltarGrasslandFloodplainFeatureFood" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="PantheonAltarPlainsFloodplainFeatureFood" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="PantheonAltarTropicalFloodplainFeatureFood" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="PantheonAltarTundraFloodplainFeatureFood" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="PantheonAltarFlatTerrainFood" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="PantheonAltarFishingBoatResourceProduction" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="PantheonAltarReefFeatureProduction" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="PantheonAltarColdReefFeatureProduction" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="PantheonAltarCoastTerrainProduction" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="PantheonAltarNavigableRiverProduction" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="PantheonAltarMineResourceProduction" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="PantheonAltarQuarryProduction" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="PantheonAltarRoughTerrainProduction" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="PantheonAltarWetFeatureProduction" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_ALTAR" YieldChangeId="PantheonAltarHappinessOnResources" RequiresActivation="true"/>
+	</Constructible_WarehouseYields>
+	<Warehouse_YieldChanges>
+		<Row ID="PantheonAltarCampGold" Age="AGE_ANTIQUITY" YieldType="YIELD_GOLD" YieldChange="1" ConstructibleInCity="IMPROVEMENT_CAMP"/>
+		<Row ID="PantheonAltarWoodcutterResourceGold" Age="AGE_ANTIQUITY" YieldType="YIELD_GOLD" YieldChange="1" ConstructibleInCity="IMPROVEMENT_WOODCUTTER_RESOURCE"/>
+		<Row ID="PantheonAltarVegetatedFeatureGold" Age="AGE_ANTIQUITY" YieldType="YIELD_GOLD" YieldChange="1" FeatureClassInCity="FEATURE_CLASS_VEGETATED"/>
+		<Row ID="PantheonAltarPastureFood" Age="AGE_ANTIQUITY" YieldType="YIELD_FOOD" YieldChange="1" ConstructibleInCity="IMPROVEMENT_PASTURE"/>
+		<Row ID="PantheonAltarPlantationFood" Age="AGE_ANTIQUITY" YieldType="YIELD_FOOD" YieldChange="1" ConstructibleInCity="IMPROVEMENT_PLANTATION"/>
+		<Row ID="PantheonAltarFloodplainFood" Age="AGE_ANTIQUITY" YieldType="YIELD_FOOD" YieldChange="1" FeatureClassInCity="FEATURE_CLASS_FLOODPLAIN"/>
+		<Row ID="PantheonAltarDesertFloodplainFeatureFood" Age="AGE_ANTIQUITY" YieldType="YIELD_FOOD" YieldChange="1" FeatureInCity="FEATURE_DESERT_FLOODPLAIN_MINOR"/>
+		<Row ID="PantheonAltarGrasslandFloodplainFeatureFood" Age="AGE_ANTIQUITY" YieldType="YIELD_FOOD" YieldChange="1" FeatureInCity="FEATURE_GRASSLAND_FLOODPLAIN_MINOR"/>
+		<Row ID="PantheonAltarPlainsFloodplainFeatureFood" Age="AGE_ANTIQUITY" YieldType="YIELD_FOOD" YieldChange="1" FeatureInCity="FEATURE_PLAINS_FLOODPLAIN_MINOR"/>
+		<Row ID="PantheonAltarTropicalFloodplainFeatureFood" Age="AGE_ANTIQUITY" YieldType="YIELD_FOOD" YieldChange="1" FeatureInCity="FEATURE_TROPICAL_FLOODPLAIN_MINOR"/>
+		<Row ID="PantheonAltarTundraFloodplainFeatureFood" Age="AGE_ANTIQUITY" YieldType="YIELD_FOOD" YieldChange="1" FeatureInCity="FEATURE_TUNDRA_FLOODPLAIN_MINOR"/>
+		<Row ID="PantheonAltarFlatTerrainFood" Age="AGE_ANTIQUITY" YieldType="YIELD_FOOD" YieldChange="1" TerrainInCity="TERRAIN_FLAT"/>
+		<Row ID="PantheonAltarFishingBoatResourceProduction" Age="AGE_ANTIQUITY" YieldType="YIELD_PRODUCTION" YieldChange="1" ConstructibleInCity="IMPROVEMENT_FISHING_BOAT_RESOURCE"/>
+		<Row ID="PantheonAltarReefFeatureProduction" Age="AGE_ANTIQUITY" YieldType="YIELD_PRODUCTION" YieldChange="1" FeatureInCity="FEATURE_REEF"/>
+		<Row ID="PantheonAltarColdReefFeatureProduction" Age="AGE_ANTIQUITY" YieldType="YIELD_PRODUCTION" YieldChange="1" FeatureInCity="FEATURE_COLD_REEF"/>
+		<Row ID="PantheonAltarCoastTerrainProduction" Age="AGE_ANTIQUITY" YieldType="YIELD_PRODUCTION" YieldChange="1" TerrainInCity="TERRAIN_COAST"/>
+		<Row ID="PantheonAltarNavigableRiverProduction" Age="AGE_ANTIQUITY" YieldType="YIELD_PRODUCTION" YieldChange="1" NavigableRiverInCity="true"/>
+		<Row ID="PantheonAltarMineResourceProduction" Age="AGE_ANTIQUITY" YieldType="YIELD_PRODUCTION" YieldChange="1" ConstructibleInCity="IMPROVEMENT_MINE_RESOURCE"/>
+		<Row ID="PantheonAltarQuarryProduction" Age="AGE_ANTIQUITY" YieldType="YIELD_PRODUCTION" YieldChange="1" ConstructibleInCity="IMPROVEMENT_QUARRY"/>
+		<Row ID="PantheonAltarRoughTerrainProduction" Age="AGE_ANTIQUITY" YieldType="YIELD_PRODUCTION" YieldChange="1" TerrainInCity="TERRAIN_HILL"/>
+		<Row ID="PantheonAltarWetFeatureProduction" Age="AGE_ANTIQUITY" YieldType="YIELD_PRODUCTION" YieldChange="1" FeatureClassInCity="FEATURE_CLASS_WET"/>
+		<Row ID="PantheonAltarHappinessOnResources" Age="AGE_ANTIQUITY" YieldType="YIELD_HAPPINESS" YieldChange="1" ResourceInCity="true"/>
+	</Warehouse_YieldChanges>
+</Database>

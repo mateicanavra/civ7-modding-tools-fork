@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<!-- Major Civs -->
+		<Row Type="TRAIT_GREAT_BRITAIN" Kind="KIND_TRAIT"/>
+		<Row Type="CIVILIZATION_GREAT_BRITAIN" Kind="KIND_CIVILIZATION"/>
+	</Types>
+	<LegacyCivilizations>
+		<!-- Full Civs -->
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" Name="LOC_CIVILIZATION_GREAT_BRITAIN_NAME" FullName="LOC_CIVILIZATION_GREAT_BRITAIN_FULLNAME" Adjective="LOC_CIVILIZATION_GREAT_BRITAIN_ADJECTIVE" Age="AGE_MODERN"/>
+	</LegacyCivilizations>
+	<LegacyCivilizationTraits>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" TraitType="TRAIT_GREAT_BRITAIN"/>
+	</LegacyCivilizationTraits>
+	<Traits>
+		<Row TraitType="TRAIT_GREAT_BRITAIN" InternalOnly="true"/>
+	</Traits>
+	<LegacyLeaderCivPriorities>
+		<!-- <Row Leader="LEADER_ADA_LOVELACE" CivilizationType="CIVILIZATION_GREAT_BRITAIN"/> -->
+	</LegacyLeaderCivPriorities>
+</Database>

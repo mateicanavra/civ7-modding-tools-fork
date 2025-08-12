@@ -1,0 +1,91 @@
+@use '../../../core/ui/themes/default/theme' as *;
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+
+
+.end-results-menu-border {
+	@media (max-height: pixels(1000)) {
+		top: pixels(16);
+		width: 100%;
+	}
+
+	width: 96%;
+	height: 98%;
+	border-image: url("fs://game/base_frame-filigree.png");
+	border-image-slice: 114 0 0 114 fill;
+	border-image-width: pixels(142) pixels(142) pixels(1) pixels(142);
+	fxs-border-image-tint: rgba(254, 254, 254, 0.35);
+	opacity: 0.3;
+}
+
+.end-results-menu-border-left {
+	@media (max-height: pixels(1000)) {
+		left: pixels(16);
+	}
+}
+
+.end-results-menu-border-right {
+	@media (max-height: pixels(1000)) {
+		right: pixels(16);
+	}
+}
+
+.end-results-main-container {
+	@media (max-height: pixels(1000)) {
+		top: pixels(16);
+	}
+
+	width: pixels(600);
+}
+
+.end-results-main-vslot {
+	height: 90%;
+}
+
+.end-results-bg-main {
+	width: pixels(664);
+	height: pixels(500);
+}
+
+.end-results-portrait {
+	top: pixels(150);
+	left: pixels(208);
+	width: pixels(256);
+	height: pixels(300);
+}
+
+.end-results-portrait-bg {
+	top: pixels(211);
+	left: pixels(159);
+	width: pixels(256);
+	height: pixels(300);
+	background-image: url('fs://game/final_leader-hex.png');
+	background-size: cover;
+}
+
+.end-results-portrait-overlay-back {
+	top: pixels(440);
+	left: pixels(303);
+	background-image: url('fs://game/final_civ-color-bg.png');
+	background-size: cover;
+	fxs-background-image-tint: var(--player-color-primary);
+}
+
+.end-results-portrait-overlay-middle {
+	top: pixels(440);
+	left: pixels(303);
+	background-image: url('fs://game/final_civ-frame.png');
+	background-size: cover;
+}
+
+.end-results-portrait-overlay-icon {
+	top: pixels(440);
+	left: pixels(303);
+}
+
+.end-results-title {
+	top: pixels(54);
+	font-size: pixels(64);
+	line-height: pixels(64);
+	letter-spacing: pixels(38);
+}

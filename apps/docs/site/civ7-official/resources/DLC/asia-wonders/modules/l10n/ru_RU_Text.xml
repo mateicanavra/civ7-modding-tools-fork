@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_GRAND_BAZAAR_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Рост Османской империи в XV веке также привел к расширению ее экономики, что отразилось в строительстве бедестенов (крытых базаров). Первоначально предназначенные для продажи тканей, эти рынки обеспечивали безопасное хранение ценных товаров по ночам и вскоре расширили свой ассортимент, включив в него широкий спектр предметов роскоши. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_GRAND_BAZAAR_CHAPTER_HISTORY_PARA_2" Language="ru_RU">
+      <Text>Будучи столицей империи, Стамбул приобрел два бедестена в своем сердце в течение десятилетий после захвата города у византийцев. Ич Бедестен и Сандал Бедестен, построенные рядом друг с другом, вскоре были окружены открытыми рынками, образовав одно крупное торговое пространство — Большой базар. Расположенный в центре множества торговых путей, он мог похвастаться замечательным и уникальным разнообразием мировых товаров в тысячах лавок, затмевая рынки Европы и привлекая посетителей со всего земного шара. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_GRAND_BAZAAR_CHAPTER_HISTORY_PARA_3" Language="ru_RU">
+      <Text>Большой базар по-прежнему остается действующим рынком, являясь одной из самых посещаемых достопримечательностей мира. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_MAUSOLEUM_AT_HALICARNASSUS_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Одно из семи чудес древнего мира, Мавзолей в Галикарнасе был гробницей, построенной примерно в 353–351 гг. до н. э. для Мавсола, правителя Карии в западной Анатолии. Это было великолепное сооружение, спроектированное и украшенное самыми талантливыми греческими архитекторами и скульпторами того времени; оно могло похвастаться искусными рельефами, сотнями скульптур и запряженной четырьмя лошадьми колесницей наверху, в которой стояли статуи Мавсола и его жены (и сестры) Артемисии. Именно от Мавсола и его гробницы произошло слово «мавзолей». Сооружение хорошо сохранилось в Средние века, но было разрушено — вероятно, в результате землетрясения — между XI и XV веками нашей эры, хотя его фрагменты сохранились.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_UBUDIAH_MOSQUE_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Понятие «убудия» в Коране предписывает мусульманам подчиняться только одному Богу, и именно этим принципом руководствовались при строительстве мечети Убудия. Ислам пришел в Юго-Восточную Азию в XII веке и заложил основу для новой, глобально взаимосвязанной группы султанатов по всему малайскому миру. Султанат Перак из их числа, ныне находящийся в Малайзии, приобрел известность и богатство даже под британским господством в XIX и начале XX веков. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_UBUDIAH_MOSQUE_CHAPTER_HISTORY_PARA_2" Language="ru_RU">
+      <Text>Здесь султан Идрис-шах I построил мечеть в благодарность за выздоровление от болезни. Завершенная в 1917 году, она создана из итальянского мрамора и увенчана золотыми куполами в южноазиатском стиле (хотя спроектирована британским архитектором). Строительство было задержано из-за войны и драки двух слонов, но мечеть по сей день остается символом Куала-Кангсара и Перака и служит мусульманской общине Перака как действующая мечеть.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_WAT_XIENG_THONG_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>В то время как некоторые буддийские храмы Тхеравады в Юго-Восточной Азии служили общинными школами и местами встреч, другие подчеркивали величие королевского правления. К последним относится Ват Сиенгтхонг, расположенный в Луангпхабанге, старой столице лаосского королевства Лансанг («земля миллиона слонов»). Он был построен около 1560 года лаосским королем Сеттатиратом на пике могущества Лансанга, после его защиты от вторгшихся бирманских армий и до очередной победы над армиями Аюттхаи (Сиама). Широкая телескопическая крыша придает ему изящество и элегантность, а его местоположение определено тем, что отсюда открывается вид на реки Меконг и Кхан, — и, согласно легенде, здесь обитают духи наги, которые благословляют это место.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_GRAND_BAZAAR_NAME" Language="ru_RU">
+      <Text>Большой базар|Большого базара|Большому базару|Большой базар|Большим базаром|Большом базаре</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_WONDER_MAUSOLEUM_AT_HALICARNASSUS_NAME" Language="ru_RU">
+      <Text>Мавзолей в Галикарнасе|мавзолея в Галикарнасе|мавзолею в Галикарнасе|мавзолей в Галикарнасе|мавзолеем в Галикарнасе|мавзолее в Галикарнасе</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_WONDER_UBUDIAH_MOSQUE_NAME" Language="ru_RU">
+      <Text>Мечеть Убудия|мечети Убудия|мечети Убудия|мечеть Убудия|мечетью Убудия|мечети Убудия</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_WONDER_WAT_XIENG_THONG_NAME" Language="ru_RU">
+      <Text>Ват Сиенгтхонг|Ват Сиенгтхонга|Ват Сиенгтхонгу|Ват Сиенгтхонг|Ват Сиенгтхонгом|Ват Сиенгтхонге</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_GRAND_BAZAAR" Language="ru_RU">
+      <Text>Джеймс Элрой Флеккер</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_MAUSOLEUM_AT_HALICARNASSUS" Language="ru_RU">
+      <Text>Лукиан Самосатский</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_UBUDIAH_MOSQUE" Language="ru_RU">
+      <Text>Хамза Фансури</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_WAT_XIENG_THONG" Language="ru_RU">
+      <Text>Легенда о Короле-Жабе</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_GRAND_BAZAAR" Language="ru_RU">
+      <Text>«Мы проложим золотой путь до Самарканда».</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_MAUSOLEUM_AT_HALICARNASSUS" Language="ru_RU">
+      <Text>«В Галикарнасе надо мной возвышается невероятной красоты памятник, которому нигде в мире нет равных».</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_UBUDIAH_MOSQUE" Language="ru_RU">
+      <Text>«Помни, дитя купца, желать войны не в твоих интересах».</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_WAT_XIENG_THONG" Language="ru_RU">
+      <Text>«Пусть своевременно льется дождь, и пусть лягушки кричат в полях».</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_GRAND_BAZAAR_DESCRIPTION" Language="ru_RU">
+      <Text>+2 к [icon:YIELD_GOLD] золоту. +2 ячейки ресурсов. Клетки сокровищ на родине получают +3 к [icon:YIELD_GOLD] золоту. Не устаревает. Можно разместить только по соседству с районом на родине.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_GRAND_BAZAAR_TOOLTIP" Language="ru_RU">
+      <Text>+2 ячейки ресурсов. Клетки сокровищ на родине получают +3 к [icon:YIELD_GOLD] золоту. Не устаревает. Можно разместить только по соседству с районом на родине.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_MAUSOLEUM_AT_HALICARNASSUS_DESCRIPTION" Language="ru_RU">
+      <Text>При первом уничтожении кавалерийского юнита он возрождается в ближайшем вашем поселении с 25% ОЗ. Не устаревает. Можно разместить только на ровном ландшафте и рядом с побережьем.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_MAUSOLEUM_AT_HALICARNASSUS_TOOLTIP" Language="ru_RU">
+      <Text>При первом уничтожении кавалерийского юнита он возрождается в ближайшем вашем поселении с 25% ОЗ. Не устаревает. Можно разместить только на ровном ландшафте и рядом с побережьем.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_UBUDIAH_MOSQUE_DESCRIPTION" Language="ru_RU">
+      <Text>+4 к [icon:YIELD_HAPPINESS] довольству. Улучшения в этом поселении получают +50% прибыли. Не устаревает. Должно находиться на обильном ландшафте.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_UBUDIAH_MOSQUE_TOOLTIP" Language="ru_RU">
+      <Text>Улучшения в этом поселении получают +50% прибыли. Не устаревает. Должно находиться на обильном ландшафте.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_WAT_XIENG_THONG_DESCRIPTION" Language="ru_RU">
+      <Text>+2 к [icon:YIELD_CULTURE] культуре. +200 к [icon:YIELD_GOLD] золоту (изменяется в соответствии со скоростью игры) при каждом получении вами шедевра. Не устаревает. Размещается по соседству с рекой.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_WAT_XIENG_THONG_TOOLTIP" Language="ru_RU">
+      <Text>+200 к [icon:YIELD_GOLD] золоту (изменяется в соответствии со скоростью игры) при каждом получении вами шедевра. Не устаревает. Размещается по соседству с рекой.</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

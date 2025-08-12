@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+
+		<!-- ==================================================	-->
+		<!--	NEPAL							-->
+		<!-- ==================================================	-->
+		<Row Tag="LOC_TREE_CIVICS_MO_NEPAL_NAME">
+			<Text>Nepal Civics</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SAGARMATHA_NAME">
+			<Text>Sagarmatha</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SAGARMATHA_QUOTE">
+			<Text>"Flee to the mountains, once and for all – to the calm, cool rains and the drifting fog."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SAGARMATHA_AUTHOR">
+			<Text>Rudyard Kipling</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_JYUMDO_BAGHA_NAME">
+			<Text>Jyumdo Bagha</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_JYUMDO_BAGHA_QUOTE">
+			<Text>"Better to die than be a coward."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_JYUMDO_BAGHA_AUTHOR">
+			<Text>Gurkha Motto</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SINGHA_DURBAR_NAME">
+			<Text>Singha Durbar</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SINGHA_DURBAR_QUOTE">
+			<Text>"Ayo gorkhali! The Gurkhas are upon you!"</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SINGHA_DURBAR_AUTHOR">
+			<Text>Gurkha Battle Cry</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_GORKHAPATRA_NAME">
+			<Text>Gorkhapatra</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_GORKHAPATRA_QUOTE">
+			<Text>"There is an inseparable relationship between the culture of a country and the ideology it follows."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_GORKHAPATRA_AUTHOR">
+			<Text>King Birendra</Text>
+		</Row>
+		<!--Nepal Civic Description-->
+		<Row Tag="LOC_MOD_SAGARMATHA_BUILDINGS_MOUNTAIN_ADJACENCY_DESCRIPTION">
+			<Text>Food and Science Buildings receive an adjacency from Mountains.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_SHERPA_MOUNTAIN_CLAIM_DESCRIPTION">
+			<Text>Sherpas can activate on a Mountain tile within 5 tiles of one of your Settlements' Palace or City Hall once every 5 turns. A path of tiles is claimed back to the Settlement and the Mountain tile is improved immediately with a Highland Power Station.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_JYUMDO_BAGHA_MOUNTAIN_WALLS_DESCRIPTION">
+			<Text>All Districts adjacent to Mountains receive Defensive Fortifications, one time effect. Follows normal Walls placement rules.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_GIFT_GURKHA_DESCRIPTION">
+			<Text>Unlocks the Gift Gurkha Action which Grants a Gurkha to another Civilization. Nepal receives a +10 Relationship with them and 5 [icon:YIELD_CULTURE] Culture (Scales by Gamespeed) for the current Relationship Level with them. Can only be done with Friendly or Helpful Civilizations.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_JYUMDO_BAGHA_FORTIFICATION_DESCRIPTION">
+			<Text>Units complete Fortifications in 1 turn if adjacent to a Mountain.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_GORKHAPATRA_MUSEUM_SLOTS_DESCRIPTION">
+			<Text>Museums have 2 additional Great Work Slots. </Text>
+		</Row>
+		<Row Tag="LOC_MOD_SINGHA_DURBAR_INFLUENCE_CULTURE_BUILDING_DESCRIPTION">
+			<Text>+3 [icon:YIELD_DIPLOMACY] Influence on Culture Buildings. </Text>
+		</Row>
+		<!--Nepal Unique Traditions-->
+		<Row Tag="LOC_TRADITION_HIMAL_NAME">
+			<Text>Himāl</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_HIMAL_DESCRIPTION">
+			<Text>Mountain tiles receive +4 [icon:YIELD_CULTURE] Culture in your Capital. Mountains receive +2 [icon:YIELD_CULTURE] Culture in other Settlements.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_MAITRI_SANADHI_NAME">
+			<Text>Maitri Sanadhi</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_MAITRI_SANADHI_DESCRIPTION">
+			<Text>+50% [icon:YIELD_DIPLOMACY] Influence towards initiating Endeavors if you have the least amount of Settlements, +20% otherwise.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_TUNDIKHEL_NAME">
+			<Text>Tundikhel</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_TUNDIKHEL_DESCRIPTION">
+			<Text>+3 Combat Strength for all units adjacent to Mountain terrain. This is doubled if the unit is also in your territory.</Text>
+		</Row>
+	</EnglishText>
+</Database>

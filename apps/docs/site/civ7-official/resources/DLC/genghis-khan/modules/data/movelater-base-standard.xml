@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<Row Type="UNITOPERATION_CONVERT_INDEPENDENTS" Kind="KIND_UNITOPERATION"/>
+	</Types>
+	<UnitOperations>
+		<Row OperationType="UNITOPERATION_CONVERT_INDEPENDENTS" VisibleInUI="true" HoldCycling="true" CategoryInUI="ACTIVE_PRIMARY" PriorityInUI="0" Icon="blp:action_convertindependents.png" Name="LOC_UNITOPERATION_CONVERT_INDEPENDENTS_NAME" Description="LOC_UNITOPERATION_CONVERT_INDEPENDENTS_DESCRIPTION"/>
+	</UnitOperations>
+</Database>

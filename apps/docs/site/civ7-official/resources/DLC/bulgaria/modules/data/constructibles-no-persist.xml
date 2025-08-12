@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Constructible_GreatWorks>
+		<Row ConstructibleType="WONDER_RILA_MONASTERY" GreatWorkSlotType="GREATWORKSLOT_RELIC" NumSlots="3"/>
+	</Constructible_GreatWorks>
+</Database>

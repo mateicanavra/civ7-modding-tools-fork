@@ -1,0 +1,692 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_NEPAL1" Language="ko_KR">
+      <Text>카트만두</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL10" Language="ko_KR">
+      <Text>자낙푸르담</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL11" Language="ko_KR">
+      <Text>줌라</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL12" Language="ko_KR">
+      <Text>비랏나가르</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL13" Language="ko_KR">
+      <Text>툴시푸르</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL14" Language="ko_KR">
+      <Text>부트왈</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL15" Language="ko_KR">
+      <Text>고다와리</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL16" Language="ko_KR">
+      <Text>네팔간지</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL17" Language="ko_KR">
+      <Text>고라히</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL18" Language="ko_KR">
+      <Text>룸비니</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL19" Language="ko_KR">
+      <Text>나가르코트</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL2" Language="ko_KR">
+      <Text>포카라</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL20" Language="ko_KR">
+      <Text>두리켈</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL21" Language="ko_KR">
+      <Text>칼라이야</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL22" Language="ko_KR">
+      <Text>다막</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL23" Language="ko_KR">
+      <Text>무스탕</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL24" Language="ko_KR">
+      <Text>가이갓</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL25" Language="ko_KR">
+      <Text>비르간지</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL26" Language="ko_KR">
+      <Text>산쿠</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL27" Language="ko_KR">
+      <Text>당가디</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL28" Language="ko_KR">
+      <Text>이나르와시라</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL29" Language="ko_KR">
+      <Text>암렉간지</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL3" Language="ko_KR">
+      <Text>랄리트푸르</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL30" Language="ko_KR">
+      <Text>타라케슈와르</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL4" Language="ko_KR">
+      <Text>바랏푸르</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL5" Language="ko_KR">
+      <Text>가하와</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL6" Language="ko_KR">
+      <Text>다란</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL7" Language="ko_KR">
+      <Text>헤타우다</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL8" Language="ko_KR">
+      <Text>비렌드라나가르</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL9" Language="ko_KR">
+      <Text>이타하리</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_1" Language="ko_KR">
+      <Text>샴바브</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_10" Language="ko_KR">
+      <Text>아누스카</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_2" Language="ko_KR">
+      <Text>스네하</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_3" Language="ko_KR">
+      <Text>사리타</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_4" Language="ko_KR">
+      <Text>아미타</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_5" Language="ko_KR">
+      <Text>알리나</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_6" Language="ko_KR">
+      <Text>타니샤</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_7" Language="ko_KR">
+      <Text>레슈마</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_8" Language="ko_KR">
+      <Text>슈리자</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_9" Language="ko_KR">
+      <Text>소네야</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_1" Language="ko_KR">
+      <Text>비벡</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_10" Language="ko_KR">
+      <Text>우드감</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_2" Language="ko_KR">
+      <Text>크리슈나</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_3" Language="ko_KR">
+      <Text>카말</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_4" Language="ko_KR">
+      <Text>프라사드</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_5" Language="ko_KR">
+      <Text>가간</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_6" Language="ko_KR">
+      <Text>램</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_7" Language="ko_KR">
+      <Text>비샬</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_8" Language="ko_KR">
+      <Text>아미르</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_9" Language="ko_KR">
+      <Text>로샨</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_NEPAL_ADJECTIVE" Language="ko_KR">
+      <Text>네팔의</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_NEPAL_FULLNAME" Language="ko_KR">
+      <Text>네팔 제국</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_NEPAL_NAME" Language="ko_KR">
+      <Text>네팔</Text>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_MODERN_23_MAJOR_NEPAL_NAME" Language="ko_KR">
+      <Text>푸나카</Text>
+      <Gender>neuter:vowel</Gender>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_MODERN_23_MINOR_NEPAL_NAME" Language="ko_KR">
+      <Text>부탄</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>네팔은 세계의 변경이자 중심에 자리하며, 지구의 가장 높은 계곡에 위치한 동시에 세계 최대급 국가 사이에 끼어 있는 나라입니다. 이러한 지정학적 근접성에 힘입어 네팔은 무역과 자원의 원천이 되었고, 지리적 불안정성 덕분에 계속 살아남을 수 있었습니다. 내부적으로 볼 때, 네팔은 대체로 불교를 믿는 고지대 민족과 대체로 힌두교를 믿는 저지대 민족이 섞여 있습니다. 후자의 경우, 고지대 민족과 다양한 수준의 상호작용을 하는 국가들이 생겨나면서 공존이 지배만큼이나 중요한 권력 균형이 형성되었습니다. 비록 국가의 핵심을 형성한 건 저지대의 힌두교 네와르족, 차트리족이지만, 이들은 고지대의 타망족과 셰르파족의 수송망과 자원망에 의존했던 것입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_2" Language="ko_KR">
+      <Text>인도의 북쪽 국경과 고산지 계곡 사이에는 서기 제1천년기부터 여러 개의 조공국이 존재하는 형태로 네팔 왕국이 존재했으며, 굽타 제국과 같은 국가의 비문을 보면 '네팔라'라는 이름이 간간이 등장합니다. 네팔 왕국은 서기 10세기에 카트만두가 건설되면서 본격적으로 역사에 등장했지만, 고르카 왕조와 그 시조인 프리트비 나라얀 샤가 등장하는 18세기에 이르러서야 강력한 세력을 형성합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_3" Language="ko_KR">
+      <Text>이 시기는 무슬림이 지배적이었던 무굴 제국이 인도를 통치하던 시기였지만, 말과 낙타, 코끼리 기병에 의존하던 무굴 군대는 가파르고 추운 계곡을 통제하는 데 어려움을 겪었으며 중국으로 연결된 고원의 보급로를 포위하는 것도 불가능했습니다. 따라서 네팔은 무슬림 술탄국과 제국들이 남쪽으로 전쟁을 벌이는 동안 힌두교 저항 세력의 거점이 되었습니다. 영국이 인도에 들어왔을 때 이들 또한 네팔 지역을 장악할 수 없다는 사실을 알았지만, 영국-네팔 전쟁(1814~1816)에서 무장이 열악한 네팔인들에게서 영토를 양도받고 네팔을 보호국으로 삼았습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_4" Language="ko_KR">
+      <Text>이 보호 상태는 이후 세포이 항쟁부터 제2차 세계 대전에 이르기까지 다양한 분쟁에서 영국과 긴밀한 동맹을 맺었던 라나 왕조의 고립주의정책으로 이어졌습니다. 라나 시대의 네팔은 전제정치와 고립주의자의 왕국이었으며 교묘한 동맹과 험난한 지형, 전략적으로 중요한 위치를 이용하여 독립을 유지했습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_5" Language="ko_KR">
+      <Text>라나 왕조는 쿠데타와 암살을 통해 권력을 장악했고 총리직을 통해 군주제를 통제했으며, 때로는 궁전 내의 표적을 죽이는 방식으로 권력을 강화하기도 했습니다. 라나가 영국에 충성했던 것 또한 전략적 선택이었는데, 라나 왕조의 시조인 장 바하두르는 영국에서 영국군 시설을 시찰한 후 대적하기에는 너무 강한 나라라고 판단했습니다. 대신 라나는 1857년 세포이 항쟁 당시 영국을 지원했고, 아프가니스탄과 두 차례의 세계 대전에서 영국군과 함께 싸운 정예 구르카 군단을 파견했습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_6" Language="ko_KR">
+      <Text>1950년대 후반에 입헌 군주제와 군주 독재가 서로 경쟁하는 불안정한 시기로 접어들자, 이로 인한 좌절감 때문에 공산주의 반란이 일어나며 라나 정권은 결국 몰락하게 됩니다. 그 후 2001년 왕궁에서 극적인 학살 사건이 발생한 후 군주제는 종식되었고, 네팔의 군주제는 2008년에 공식적으로 해체되었습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_IMPROVEMENT_HIGHLAND_POWER_STATION_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>1911년에는 네팔 최초의 수력 발전소가 가동되었는데, 이는 미국과 인도에 수력 발전이 등장한 직후였습니다. 네팔은 고도차가 심하고 히말라야 경사면을 따라 흐르는 수자원이 풍부하기에 수력 발전에 적합해 보였지만, 이 첫 번째 수력 발전소 이후로 새로운 수력 발전소가 건설되기까지는 상당한 시간이 걸렸습니다. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_GORKHAPATRA_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>국민 의식을 형성하는 중심에는 미디어가 있습니다. '네팔의 우편'이라 불리는 고르카파트라는 주로 총리실에서 운영했기 때문에 운영 기간 내내 검열이 심한 정부 매체 역할을 했습니다. 고르카파트라는 오늘날에도 계속 운영 중이며, 지나치게 정부의 비위를 맞춘다는 의혹이 계속 제기되고 있지만, 이 미디어를 설립했던 정권보다 더 오래 존속하고 있습니다. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_JYUMDO_BAGHA_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>네팔의 '살아있는 호랑이'(지음도 바그하)로 불리는 아마르 싱하 타파는 영국-네팔 전쟁 당시 영국군에 맞서 싸우던 네팔군의 사령관이었습니다. 이 전쟁은 1800년대 초 영국 동인도 회사가 부와 자원의 중심지로서 네팔을 지배하려 했던 전쟁이었습니다. 전쟁의 열기가 치열해지는 가운데 영국군은 무장 면에서는 앞섰지만, 지형과 계속되는 말라리아의 위협으로 인해 어려움을 겪었습니다. 결국 승리한 건 영국이었지만, 네팔에서의 통치는 제한적이었으며 엄격한 통제 속에 이루어졌습니다. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_SAGARMATHA_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>티베트어로 초몰룽마, '세계의 어머니'를 뜻하고, 네팔어 이름은 사가르마타, '하늘의 여신'이라는 뜻을 지닌 이 산은 우리에게 더 친숙한 영어 이름의 에베레스트산을 일컫습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_SAGARMATHA_CHAPTER_HISTORY_PARA_2" Language="ko_KR">
+      <Text>네팔은 하늘에서 수분을 긁어모아 지구의 생태와 지질을 형성하는 거대 산봉우리들의 그늘에 자리하고 있습니다. 인도의 아대륙을 가로지르는 뜨겁고 습한 바람이 이곳에 수분을 전달하며 봉우리 남쪽에는 울창하고 비옥한 계곡이, 북쪽에는 건조한 티베트고원이 형성됩니다. 저지대와 고지대, 강과 사막 고원, 힌두교를 믿는 네팔인과 불교를 믿는 티베트인까지 사회도 이러한 분열로 형성되어 있습니다. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_SINGHA_DURBAR_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>근대 네팔은 국가의 확고한 통제를 기반으로 한 국가였습니다. 이는 역설적으로 네팔의 영토가 어떤 국가도 차지하기 벅찰 만큼 인종적, 지리적으로 분열되어 있었기 때문입니다. 사자의 궁전이라 불리는 싱하 더르바르는 1908년에 건설되었으며 라나 왕조의 철권통치를 상징했습니다. 이곳에서 일련의 총리와 고위 관리들은 군주제를 효과적으로 통제하며 대내외적으로 강력한 통치력을 발휘했습니다. 이 싱하 더르바르에서 노예제 폐지와 네팔 독립 인정 등, 근대 네팔인의 삶에서 가장 중요한 사건이 전개되었습니다. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_GURKHA_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>'구르카'라는 이름은 원래 근대 국가 네팔의 조상 중 하나인 고르카 왕국을 가리키는 말이었지만, 19세기 후반과 20세기 초에는 다른 국가를 위해 싸우기로 계약한 네팔 전사들을 일컫는 말이 되었습니다. 특히 영국은 영국-네팔 전쟁 이후 네팔 전사들의 충성심과 용맹함에 주목하여 영국을 위해 싸우겠다는 구르카를 모아 대대를 조직했습니다. 그리고 구르카는 1857년 세포이 항쟁과 제1차 세계대전, 제2차 세계대전에서 영국을 위해 싸웠습니다. 인도 독립 이후에도 구르카는 계속 영국을 위해 싸웠지만, 개중 다수가 인도군에 입대했습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_GURKHA_CHAPTER_HISTORY_PARA_2" Language="ko_KR">
+      <Text>구르카의 가장 큰 상징은 쿠크리 나이프로, 칼날이 앞으로 구부러진 무거운 칼로서 벌채 도구로도, 무기로도 사용할 수 있는 칼입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_SHERPA_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>셰르파족은 네팔과 인도, 부탄의 고지대에 살며 티베트 계열의 불교를 믿는 소수 민족입니다. 이들은 역사적으로 가장 높은 고지대에서 생존할 수 있었습니다. 이들이 세계에서 가장 높은 봉우리를 오를 수 있다는 사실은 빠르게 퍼졌으며, 이윽고 이들의 민족명은 용감한 고지대 탐험가를 상징하는 이름이 되었습니다. 가장 유명한 셰르파족으로는 에베레스트산 정상에 최초로 오른 사람 중 하나인 텐징 노르가이가 있습니다. 오늘날 셰르파족은 네팔의 관광 산업에 깊이 관여하고 있으며, 네팔의 가장 높은 봉우리에서 등산객을 안내하는 일을 주력으로 삼습니다. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_BOUDHANATH_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>부다나트는 주로 힌두교를 믿는 네팔에서 중심적인 불교 기념비 역할을 하는 부다 스투파 주변 지역을 일컫는 말입니다. 이곳은 수도원과 법회 장소가 모여 있는 네팔의 불교 신자 거주지로, 하얀 돔과 쌍둥이 눈을 지닌 중앙 스투파는 이 도시의 상징이자 네팔의 상징이기도 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_BOUDHANATH_CHAPTER_HISTORY_PARA_2" Language="ko_KR">
+      <Text>전설에 따르면 이 스투파는 하늘에서 쫓겨난 인드라의 딸이 기념비를 세워 자신의 공덕을 더하기 위한 것이라고 합니다. 이곳에서 불교 승려들이 북쪽과 위쪽, 얼음으로 뒤덮인 봉우리와 티베트고원까지 다르마(불교에서 말하는 진리)를 전하려 출발했다는 전설이 있으며, 실제로 지금은 네팔 불교도 대부분이 이 지역에 살고 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIGHLAND_POWER_STATION_NAME" Language="ko_KR">
+      <Text>고지대 발전소</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BOUDHANATH_NAME" Language="ko_KR">
+      <Text>부다나트</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_BAGMATI_NAME" Language="ko_KR">
+      <Text>바그마티강</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_BHERI_NAME" Language="ko_KR">
+      <Text>베리강</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_GANDAKI_NAME" Language="ko_KR">
+      <Text>간다키강</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_GHAGHARA_NAME" Language="ko_KR">
+      <Text>가가라강</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_KOSI_NAME" Language="ko_KR">
+      <Text>코시강</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_DAHEI_SHAN_NAME" Language="ko_KR">
+      <Text>대흑산</Text>
+      <Gender>neuter</Gender>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_DHOSI_HILL_NAME" Language="ko_KR">
+      <Text>도시 힐</Text>
+      <Gender>neuter</Gender>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_KA_ER_DAXI_NAME" Language="ko_KR">
+      <Text>카에르닥시</Text>
+      <Gender>neuter:vowel</Gender>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_POPA_NAME" Language="ko_KR">
+      <Text>포파</Text>
+      <Gender>neuter:vowel</Gender>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_TOSHAM_HILL_NAME" Language="ko_KR">
+      <Text>토샴 힐</Text>
+      <Gender>neuter</Gender>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_GORKHAPATRA_NAME" Language="ko_KR">
+      <Text>고르카파트라</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_JYUMDO_BAGHA_NAME" Language="ko_KR">
+      <Text>지음도 바그하</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SAGARMATHA_NAME" Language="ko_KR">
+      <Text>사가르마타</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SINGHA_DURBAR_NAME" Language="ko_KR">
+      <Text>싱하 더르바르</Text>
+    </Replace>
+    <Replace Tag="LOC_11030A_COMPLETION" Language="ko_KR">
+      <Text>높은 봉우리의 공동체 주민들은 네팔의 계곡으로 내려와 많은 짐을 지고 힘겹게 등반합니다. 산은 네팔에 쉼터를 제공하지만, 이 옛 잉카인들은 진정한 고산지대의 아이들이었습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11030A_STORYTITLE" Language="ko_KR">
+      <Text>하늘의 아이들</Text>
+    </Replace>
+    <Replace Tag="LOC_11030B_DESCRIPTION" Language="ko_KR">
+      <Text>산에 {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11030B_NAME" Language="ko_KR">
+      <Text>그들이 전통을 이어가게 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_COMPLETION" Language="ko_KR">
+      <Text>서서히 잉카어는 네팔어에 자리를 내주고, 옛 관습은 사라져 갑니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_IMPERATIVE" Language="ko_KR">
+      <Text>산에 인접한 공립학교를 3개 보유하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_NAME" Language="ko_KR">
+      <Text>이들이 네팔인이 될 학교가 필요합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_STORYTITLE" Language="ko_KR">
+      <Text>하늘의 아이들</Text>
+    </Replace>
+    <Replace Tag="LOC_11032A_COMPLETION" Language="ko_KR">
+      <Text>산이 흔들리고 눈과 얼음이 쉭쉭 증기를 내뿜으며 불길로 변합니다. 사방이 불길에 휩싸인 산에서 셰르파족은 살아남을 길을 찾아 고군분투합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11032A_STORYTITLE" Language="ko_KR">
+      <Text>즈왈라무키의 분노</Text>
+    </Replace>
+    <Replace Tag="LOC_11032B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11032B_NAME" Language="ko_KR">
+      <Text>머무르며 대지의 피가 흘러 넘치는 것을 지켜봅니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11032C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward} 및 {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11032C_NAME" Language="ko_KR">
+      <Text>달아납니다!</Text>
+    </Replace>
+    <Replace Tag="LOC_11033A_COMPLETION" Language="ko_KR">
+      <Text>거대한 봉우리 두 개의 만년설이 산맥 위로 솟아오른 모습은 하늘을 지배하겠다고 선언하는 듯합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11033A_STORYTITLE" Language="ko_KR">
+      <Text>마차푸차레</Text>
+    </Replace>
+    <Replace Tag="LOC_11033B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11033B_NAME" Language="ko_KR">
+      <Text>그 아름다움을 간직하게 둡니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11034A_COMPLETION" Language="ko_KR">
+      <Text>이 탐험은 재앙이며 그 끝에는 실패와... 죽음이 있습니다. 산악 가이드는 이곳은 신들의 집이며 도전해서는 안 된다고 경고합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11034A_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}, 이야기가 계속됩니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11034A_NAME" Language="ko_KR">
+      <Text>등반할 원정대를 준비합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11034A_STORYTITLE" Language="ko_KR">
+      <Text>마차푸차레</Text>
+    </Replace>
+    <Replace Tag="LOC_11034B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11034B_NAME" Language="ko_KR">
+      <Text>닫기</Text>
+    </Replace>
+    <Replace Tag="LOC_11035A_COMPLETION" Language="ko_KR">
+      <Text>전장에서 구르카가 구르카와 마주칩니다. 그 후 네팔인의 얼굴이 적 전사자들 사이에 보입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11035A_STORYTITLE" Language="ko_KR">
+      <Text>형제 대 형제</Text>
+    </Replace>
+    <Replace Tag="LOC_11035B_DESCRIPTION" Language="ko_KR">
+      <Text>문화 건물에 {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11035B_NAME" Language="ko_KR">
+      <Text>그들은 여전히 네팔인입니다. 적절하게 장례를 치릅니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11035C_DESCRIPTION" Language="ko_KR">
+      <Text>생산력 건물에 {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11035C_NAME" Language="ko_KR">
+      <Text>네팔인에 맞서 싸우는 순간부터 그들은 외국인이 된 셈입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11036A_COMPLETION" Language="ko_KR">
+      <Text>네팔은 독립을 유지하며 다른 국가가 싸울 때 중재자 역할을 합니다. 전쟁 중인 세계에서도 사람들은 여전히 쇼핑을 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11036A_STORYTITLE" Language="ko_KR">
+      <Text>두 바위 사이에 낀 고구마</Text>
+    </Replace>
+    <Replace Tag="LOC_11036B_DESCRIPTION" Language="ko_KR">
+      <Text>교역로에 [icon:YIELD_DIPLOMACY] 영향력 +2.</Text>
+    </Replace>
+    <Replace Tag="LOC_11036B_NAME" Language="ko_KR">
+      <Text>평정을 유지하는 세력으로 남습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11036C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}, 하지만 모든 문명과의 관계 -15.</Text>
+    </Replace>
+    <Replace Tag="LOC_11036C_NAME" Language="ko_KR">
+      <Text>무기 거래에 참여합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11037A_COMPLETION" Language="ko_KR">
+      <Text>문명들이 진보라는 불에 연료를 공급할 자원을 차지하려 서두릅니다. 마을이 건축되며 철도가 건설됩니다. 하지만 네팔의 국경에서는 고독한 셰르파족 한 명이 땅에 말뚝을 하나씩 박으며 나아갑니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11037A_STORYTITLE" Language="ko_KR">
+      <Text>고지대의 탐광자</Text>
+    </Replace>
+    <Replace Tag="LOC_11037B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11037B_NAME" Language="ko_KR">
+      <Text>네팔은 겸손한 태도로 확장을 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11038A_COMPLETION" Language="ko_KR">
+      <Text>네팔인은 공평하고 냉철한 조언으로 유명합니다. 따라서 거의 모든 국제 분쟁에서 네팔 협상가들은 빠질 수 없는 존재가 되었습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11038A_STORYTITLE" Language="ko_KR">
+      <Text>상담가</Text>
+    </Replace>
+    <Replace Tag="LOC_11038B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11038B_NAME" Language="ko_KR">
+      <Text>정말 그렇습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11038C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11038C_NAME" Language="ko_KR">
+      <Text>당연히 이러한 서비스에는 대가가 따라야 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11039A_COMPLETION" Language="ko_KR">
+      <Text>네팔의 계곡에는 오랫동안 빙하의 강이 흘렀지만, 이제는 산 정상에서 맑은 물과 함께 전기가 흘러내립니다. 이것이 바로 깨끗하고, 맑으며 근대적인 표면과 험준한 봉우리가 조화를 이루는 유토피아의 모습입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11039A_STORYTITLE" Language="ko_KR">
+      <Text>산 보루</Text>
+    </Replace>
+    <Replace Tag="LOC_11039B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11039B_NAME" Language="ko_KR">
+      <Text>산은 자원이고 계곡은 집입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11039C_DESCRIPTION" Language="ko_KR">
+      <Text>산에 인접하여 방어 시 전투력 +2.</Text>
+    </Replace>
+    <Replace Tag="LOC_11039C_NAME" Language="ko_KR">
+      <Text>산은 우리의 방벽입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11040A_COMPLETION" Language="ko_KR">
+      <Text>영국군에서의 복무는 명예로운 일이며, 네팔과 외국 모두에서 존중을 받습니다. 신병들이 외국인들의 시선 아래 머나먼 해안을 향해 당당하게 행진합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11040A_STORYTITLE" Language="ko_KR">
+      <Text>구르카 여단</Text>
+    </Replace>
+    <Replace Tag="LOC_11040B_DESCRIPTION" Language="ko_KR">
+      <Text>군사 건물에 {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11040B_NAME" Language="ko_KR">
+      <Text>그들의 이름은 고향에도 기록됩니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11040C_DESCRIPTION" Language="ko_KR">
+      <Text>구르카 선물 행동 시작 시 [icon:YIELD_DIPLOMACY] 영향력 효율 +15%.</Text>
+    </Replace>
+    <Replace Tag="LOC_11040C_NAME" Language="ko_KR">
+      <Text>그들이 보낸 돈을 고향으로 보냅니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11041A_COMPLETION" Language="ko_KR">
+      <Text>사자의 궁전 싱하 더르바르가 네팔 전역에 그 위용을 드러냅니다. 하지만 수도 카트만두에서는 불만이 터져 나옵니다. 옛 가문들이 기존에 점유했던 전통적 영역이 잠식당하고 있다고 느끼는 것입니다. 정부 관리들이 소요와 위협이 있다고 보고합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11041A_STORYTITLE" Language="ko_KR">
+      <Text>옛 가문</Text>
+    </Replace>
+    <Replace Tag="LOC_11041B_DESCRIPTION" Language="ko_KR">
+      <Text>도시에 {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11041B_NAME" Language="ko_KR">
+      <Text>옛 가문들이 누렸던 권리를 허용합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11041C_DESCRIPTION" Language="ko_KR">
+      <Text>마을에 {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11041C_NAME" Language="ko_KR">
+      <Text>사자의 궁전이 지배합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11069A_COMPLETION" Language="ko_KR">
+      <Text>싱하 더르바르에 여명이 밝아오자, 네팔 관리들의 행렬이 도시를 가로질러 길게 늘어섭니다. 여기서 네팔의 새로운 질서를 다룬 초안이 작성되며, 그 초안은 전 세계에 네팔의 표식을 찍을 것입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11069A_STORYTITLE" Language="ko_KR">
+      <Text>화합의 상징</Text>
+    </Replace>
+    <Replace Tag="LOC_11069B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11069B_NAME" Language="ko_KR">
+      <Text>네팔은 세계의 정세에 기여해야 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11069C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11069C_NAME" Language="ko_KR">
+      <Text>네팔은 무엇보다도 내면의 완벽함을 추구합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_12007A_COMPLETION" Language="ko_KR">
+      <Text>셰르파를 따라 가파른 경사를 오르며, 의사 리살은 네팔 고원과 저지대의 장엄한 풍경을 돌아봅니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_12007A_STORYTITLE" Language="ko_KR">
+      <Text>좋은 의사, 고지대와 저지대</Text>
+    </Replace>
+    <Replace Tag="LOC_12007B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_12007B_NAME" Language="ko_KR">
+      <Text>고지대 사람들은 매우 독립적입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_12007C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_12007C_NAME" Language="ko_KR">
+      <Text>저지대 사람들은 따뜻하고 친절합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_SHERPA_UNLOCK_DESCRIPTION" Language="ko_KR">
+      <Text>내 정착지의 도심부에서 5타일 이내에 있는 산 타일에서 활성화합니다. 산이 즉시 고지대 발전소로 개발됩니다. 산이 국경 밖에 있는 경우, 정착지로 돌아가는 타일 경로가 점령됩니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_SHERPA_UNLOCK_NAME" Language="ko_KR">
+      <Text>산 확보</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_GORKHAPATRA_AUTHOR" Language="ko_KR">
+      <Text>비렌드라 왕</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_GORKHAPATRA_QUOTE" Language="ko_KR">
+      <Text>''한 국가의 문화와 그 문화가 따르는 이데올로기 사이에는 불가분의 관계가 있다.''</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_JYUMDO_BAGHA_AUTHOR" Language="ko_KR">
+      <Text>구르카의 모토</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_JYUMDO_BAGHA_QUOTE" Language="ko_KR">
+      <Text>''비겁하게 사느니 죽는 것이 낫다.''</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SAGARMATHA_AUTHOR" Language="ko_KR">
+      <Text>러디어드 키플링</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SAGARMATHA_QUOTE" Language="ko_KR">
+      <Text>''산으로 도망쳐라, 단호하게, 고요하고 시원한 비와 흐르는 안개 속으로.''</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SINGHA_DURBAR_AUTHOR" Language="ko_KR">
+      <Text>구르카 전투 구호</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SINGHA_DURBAR_QUOTE" Language="ko_KR">
+      <Text>''야요 고르칼리! 구르카가 찾아왔다!''</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_NEPAL_DESCRIPTION" Language="ko_KR">
+      <Text>모든 창고 건물이 산 지형 타일에 적용되지만, [icon:YIELD_GOLD] 금 및[icon:YIELD_HAPPINESS] 행복도 유지 비용이 +1 증가합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_ACTION_GIFT_GURKHA_NAME" Language="ko_KR">
+      <Text>구르카 선물</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_ACCEPT" Language="ko_KR">
+      <Text>수도에서 구르카 유닛 1기를 받습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_DESCRIPTION" Language="ko_KR">
+      <Text>구르카를 제공합니다.[n]수락: 일반 속도 기준으로 현재 상대와의 관계 수준에 관계 +10 및 [icon:YIELD_CULTURE] 문화를 5 얻습니다. 상대 지도자는 자기 문명의 수도에서 구르카 유닛을 1기 얻습니다. 우호적 또는 유용함 상태의 문명에 대해서만 수행할 수 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIGHLAND_POWER_STATION_DESCRIPTION" Language="ko_KR">
+      <Text>[icon:YIELD_PRODUCTION] 생산력이 +3, [icon:YIELD_CULTURE] 문화가 +3 증가합니다. 네팔 특유 시설입니다. 시대를 초월합니다. 타일에서 창고 보너스를 제거하지 않습니다. 지형 특성이 없는 산 타일에 배치해야 하며, 사가르마타 숙련도를 얻은 뒤 셰르파가 건설할 수 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIGHLAND_POWER_STATION_TOOLTIP" Language="ko_KR">
+      <Text>네팔 특유 시설입니다. 시대를 초월합니다. 타일에서 창고 보너스를 제거하지 않습니다. 지형 특성이 없는 산 타일에 배치해야 하며, 사가르마타 숙련도를 얻은 뒤 셰르파가 건설할 수 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_NEPAL" Language="ko_KR">
+      <Text>네팔은 절대로 굴하지 않습니다. 구르카는 높은 요새에서 감시 태세를 늦추지 않으며, 장관들은 더르바르 광장에서 계획과 음모를 꾸밉니다. 네팔 국기가 꽂힌 최정상의 봉우리에 번영을 가져오고, 그 아래 벽돌 스투파와 첨탑 아래의 비탈길에서 네팔의 적이 지치게 두십시오.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_NEPAL" Language="ko_KR">
+      <Text>셰르파는 우리 산이나 도심부에서 5타일 이내에 있는, 보유하지 않은 산 타일에 고지대 발전소를 만들 수 있습니다. 이에 맞춰 등반을 계획하세요!</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_INTRO_NEPAL" Language="ko_KR">
+      <Text>네팔은 이웃 국가들을 제치고 세계 강국으로 발돋움하려 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NEPAL_COMPLETE_BOUDHANATH_DESC" Language="ko_KR">
+      <Text>네팔로 부다나트를 완공하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NEPAL_COMPLETE_BOUDHANATH_NAME" Language="ko_KR">
+      <Text>부다나트</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NEPAL_LEGACY_PATH_CULTURAL_DESC" Language="ko_KR">
+      <Text>네팔로 문화 유산의 길을 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NEPAL_LEGACY_PATH_CULTURAL_NAME" Language="ko_KR">
+      <Text>네팔 유산의 길</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_NEPAL_DESCRIPTION" Language="ko_KR">
+      <Text>네팔의 특유 불가사의이므로 [icon:YIELD_PRODUCTION] 생산력이 +30% 증가합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_GIFT_GURKHA_DESCRIPTION" Language="ko_KR">
+      <Text>구르카를 다른 문명에 제공하는 구르카 선물 행동이 잠금 해제됩니다. 네팔은 해당 문명과의 관계가 +10 증가하고 현재 관계 수준에 따라 [icon:YIELD_CULTURE] 문화를 5 얻습니다(게임 속도에 따라 변화). 우호적 또는 유용함 상태의 문명에 대해서만 수행할 수 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_GORKHAPATRA_MUSEUM_SLOTS_DESCRIPTION" Language="ko_KR">
+      <Text>박물관에 추가 걸작 슬롯 2개가 생깁니다. </Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_JYUMDO_BAGHA_FORTIFICATION_DESCRIPTION" Language="ko_KR">
+      <Text>유닛이 산에 인접한 경우 1턴만에 요새화를 완료합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_JYUMDO_BAGHA_MOUNTAIN_WALLS_DESCRIPTION" Language="ko_KR">
+      <Text>산에 인접한 모든 특수지구가 방어 요새 효과를 받습니다. 한 번만 효과가 있습니다. 일반 성벽 배치 규칙을 따릅니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SAGARMATHA_BUILDINGS_MOUNTAIN_ADJACENCY_DESCRIPTION" Language="ko_KR">
+      <Text>식량 및 과학 건물이 산의 인접 보너스를 얻습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SHERPA_MOUNTAIN_CLAIM_DESCRIPTION" Language="ko_KR">
+      <Text>셰르파는 내 정착지의 궁전이나 시청 중 하나에서 5타일 이내에 있는 산 타일에서 5턴마다 활성화할 수 있습니다. 타일 경로가 정착지에 귀속되며, 산 타일은 즉시 고지대 발전소로 개발됩니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SINGHA_DURBAR_INFLUENCE_CULTURE_BUILDING_DESCRIPTION" Language="ko_KR">
+      <Text>근대 문화 건물의 [icon:YIELD_DIPLOMACY] 영향력이 +3 증가합니다. </Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_BOUDHANATH" Language="ko_KR">
+      <Text>현겁경</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_BOUDHANATH" Language="ko_KR">
+      <Text>이 지혜의 바다를 가르치는 자, 사물의 본질은 찰나에 불과함을 아네.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_HIMAL_DESCRIPTION" Language="ko_KR">
+      <Text>수도의 산 타일 [icon:YIELD_CULTURE] 문화가 +4 증가합니다. 다른 정착지의 산 타일 [icon:YIELD_CULTURE] 문화는 +2 증가합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_MAITRI_SANADHI_DESCRIPTION" Language="ko_KR">
+      <Text>보유한 정착지 수가 가장 적을 경우 외교 노력 시작 시 [icon:YIELD_DIPLOMACY] 영향력 효율을 +50% 제공하고, 그렇지 않으면 +20% 제공합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_TUNDIKHEL_DESCRIPTION" Language="ko_KR">
+      <Text>산 지형에 인접한 모든 유닛의 전투력이 +3 증가합니다. 해당 유닛이 우리 영토에 있으면 이 효과가 두 배가 됩니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_NEPAL_ABILITY_DESCRIPTION" Language="ko_KR">
+      <Text>[BLIST][LI][B]모든 창고 건물[/B]이 [B]산악 지형[/B] 타일에 적용되지만, [icon:YIELD_GOLD] 금과 [icon:YIELD_HAPPINESS] 행복도 유지 비용이 +1 증가합니다. [LI][B]부다나트[/B] 건설 시 [icon:YIELD_PRODUCTION] [B]생산력 효율을 +30%[/B] 제공합니다.[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_NEPAL_ABILITY_NAME" Language="ko_KR">
+      <Text>세계의 지붕</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_MO_NEPAL_NAME" Language="ko_KR">
+      <Text>네팔 사회 제도</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_2_DESCRIPTION" Language="ko_KR">
+      <Text>네팔 특유 2티어 보병 유닛입니다. 이동력이 +1, 전투력이 +5 높으며 소총 보병보다 더 비쌉니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_3_DESCRIPTION" Language="ko_KR">
+      <Text>네팔 특유 3티어 보병 유닛입니다. 이동력이 +1, 전투력이 +5 높으며 보병 중대보다 더 비쌉니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_BASE_DESCRIPTION" Language="ko_KR">
+      <Text>네팔 특유 보병 유닛입니다. 더 강하고 빠르며, 더 비쌉니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_DESCRIPTION" Language="ko_KR">
+      <Text>네팔 특유 1티어 보병 유닛입니다. 이동력이 +1, 전투력이 +5 높으며 전열보병보다 더 비쌉니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_SHERPA_DESCRIPTION" Language="ko_KR">
+      <Text>네팔 특유 정찰병입니다. 산과 거친 지형을 무시하고 시야를 확보합니다. 이동 시 지형 특성이 없는 산을 무시합니다. 에베레스트산 위로 이동할 수 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNITCOMMAND_CLAIM_MOUNTAIN_DESCRIPTION" Language="ko_KR">
+      <Text>내 정착지의 도심부에서 5타일 이내에 있는 산 타일에서 활성화합니다. 산이 즉시 고지대 발전소로 개발됩니다. 산이 국경 밖에 있는 경우, 정착지로 돌아가는 타일 경로가 점령됩니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNITCOMMAND_CLAIM_MOUNTAIN_NAME" Language="ko_KR">
+      <Text>산 확보</Text>
+    </Replace>
+    <Replace Tag="LOC_UNITCOMMAND_CLAIM_MOUNTAIN_REQUIRES_UNOWNED_MOUNTAIN" Language="ko_KR">
+      <Text>정착지의 궁전이나 시청 중 하나에서 5타일 이내에 있는, 산 타일이 있어야 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_MOUNTAIN_5_SETTLEMENTS_DESCRIPTION" Language="ko_KR">
+      <Text>5개 이상의 [B]산[/B]이 있는 정착지 3곳을 보유하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_MOUNTAIN_SETTLEMENTS_NEPAL_TOOLTIP" Language="ko_KR">
+      <Text>[B]산[/B]은 [B]네팔[/B]의 정체성에서 중요한 역할을 차지했습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ASHOKA_NEPAL_TOOLTIP" Language="ko_KR">
+      <Text>[B]아소카[/B]는 [B]네팔[/B]과 같은 대륙 출신입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_LAKSHMIBAI_NEPAL_TOOLTIP" Language="ko_KR">
+      <Text>[B]락슈미 바이[/B]는 [B]네팔[/B]과 같은 대륙 출신입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_PACHACUTI_NEPAL_TOOLTIP" Language="ko_KR">
+      <Text>[B]네팔[/B]은 [B]파차쿠티[/B]를 전략적으로 보완합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BOUDHANATH_DESCRIPTION" Language="ko_KR">
+      <Text>[icon:YIELD_DIPLOMACY] 영향력을 +4 얻습니다. 다른 모든 지도자와의 관계가 20 증가합니다. 산에 인접한 열대에 건설해야 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BOUDHANATH_TOOLTIP" Language="ko_KR">
+      <Text>다른 모든 지도자와의 관계가 20 증가합니다. 산에 인접한 열대에 건설해야 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_REJECT" Language="ko_KR">
+      <Text>외교 활동을 취소합니다.[n]{1_initialName}의 [icon:YIELD_DIPLOMACY] 영향력이 반환됩니다.[n]{2_cooldown}턴 동안 지도자 간에 새로운 외교 노력을 수행할 수 없게 됩니다.[n]관계가 악화됩니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_REQUEST" Language="ko_KR">
+      <Text>{1_leaderName}{1: gender *:vowel?가; other?이;} 구르카 유닛을 제공합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_MOUNTAIN_SETTLEMENTS_NEPAL_NARRATIVE" Language="ko_KR">
+      <Text>협곡과 계곡이 미로처럼 얽혀 있는 고지대 국가, {1_Civilization_Adj} 땅의 지붕, {1_Civilization_Adj} 국가의 손길이 흔들립니다. 세금 징수원과 인구 조사원은 나아갈 길을 잃었으나, 그곳에 남은 사람들은 자유와 자부심을 잃지 않습니다. </Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_HIMAL_NAME" Language="ko_KR">
+      <Text>히말</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_MAITRI_SANADHI_NAME" Language="ko_KR">
+      <Text>마이트리 사나디</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_TUNDIKHEL_NAME" Language="ko_KR">
+      <Text>툰디켈</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_NAME" Language="ko_KR">
+      <Text>구르카</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_SHERPA_NAME" Language="ko_KR">
+      <Text>셰르파</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

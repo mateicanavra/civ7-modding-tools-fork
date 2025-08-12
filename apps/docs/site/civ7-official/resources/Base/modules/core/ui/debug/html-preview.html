@@ -1,0 +1,162 @@
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Stylized Markup Text</title>
+	<link rel="stylesheet" href="fs://game/core/ui/themes/default/default.css">
+	<script src="fs://game/core/ui/cohtml.js"></script>
+
+	<!-- Ideally, these scripts will be nested inside of the body tag.-->
+	<style>
+		:root {
+			font-size: 16pt;
+			font-family: "BodyFont", "BodyFont-JP", "BodyFont-KR", "BodyFont-SC", "BodyFont-TC";
+
+			--color-accent: #FF8A65;
+			--color-primary: #FF5722;
+			--color-background: #bdbdbd;
+			--color-surface: #FBE9E7;
+
+			--text-color: #000000;
+			--text-color-low-contrast: #1f1f1f;
+		}
+
+		.title-bar {
+			background-color: var(--color-primary);
+			padding: 1.5rem;
+		}
+
+		.title-bar>.title {
+			font-size: 1.5rem;
+		}
+
+		body {
+			color: var(--text-color);
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+			margin: 0;
+			width: 100vw;
+			height: 100vh;
+			background-color: var(--color-background);
+		}
+
+		.background {
+			padding: 1.5rem;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+		}
+
+		.column {
+			flex-direction: row;
+		}
+
+		.window {
+			display: flex;
+			flex: 0 1 auto;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: stretch;
+			margin: 0.625rem;
+			border-radius: 0 0 8px 8px;
+			border-color: #FF8A65;
+			border-style: solid;
+			border-width: 4px;
+			overflow: scroll;
+			background-color: var(--color-surface);
+		}
+
+		.window>.header {
+			font-size: 1.32rem;
+			background-color: var(--color-accent);
+			padding: 0.32rem;
+		}
+
+		.window>.content {
+			display: flex;
+			flex-direction: column;
+			padding: 0.625rem;
+			flex: 0 1 auto;
+			resize: none;
+			width: 45vw;
+			min-height: 20vh;
+			font-size: 16pt;
+			font-family: "BodyFont", "BodyFont-JP", "BodyFont-KR", "BodyFont-SC", "BodyFont-TC";
+			height: 25vh;
+		}
+
+		#editor {
+			height: 30vh;
+			background-color: var(--color-surface);
+			border-style: none;
+			font-size: 16pt;
+			font-family: "BodyFont", "BodyFont-JP", "BodyFont-KR", "BodyFont-SC", "BodyFont-TC";
+		}
+
+		p.indent-1 {
+			margin-right: 3rem;
+		}
+
+		p {
+			padding: initial;
+		}
+	</style>
+	<style id="cssOutput">
+	</style>
+</head>
+
+<body>
+	<script src="fs://game/core/ui/component-support.js"></script>
+
+	<div class="title-bar">
+		<div class="title">HTML Previewer</div>
+	</div>
+	<div class="background">
+		<div class="column">
+			<div class="window">
+				<div class="header">CSS</div>
+				<textarea id="cssEditor" class="content"
+						  consume-keyboard-input="true">Use the editor to type in text.</textarea>
+			</div>
+			<div class="window">
+				<div class="header">HTML</div>
+				<textarea id="htmlEditor" class="content"
+						  consume-keyboard-input="true">Use the editor to type in text.</textarea>
+			</div>
+		</div>
+		<div class="window">
+			<div class="header">Output</div>
+			<div id="htmlOutput" class="content"></div>
+		</div>
+	</div>
+	<script>
+		const cssInputElement = document.querySelector('#cssEditor')
+		const htmlInputElement = document.querySelector('#htmlEditor')
+		const cssOutputElement = document.querySelector('#cssOutput')
+		const htmlOutputElement = document.querySelector('#htmlOutput')
+
+		const cssOrHtmlInputClickListener = (event) => {
+			event.target.focus()
+			event.target.select()
+		}
+
+		cssInputElement.addEventListener('click', cssOrHtmlInputClickListener)
+		htmlInputElement.addEventListener('click', cssOrHtmlInputClickListener)
+
+		const cssOrHtmlInputListener = (event) => {
+			htmlOutputElement.innerHTML = htmlInputElement.value
+
+			const el = document.querySelector('#cssOutput')
+			el.parentElement.removeChild(el)
+
+			const newOutput = document.createElement('style')
+			newOutput.setAttribute('type', 'text/css')
+			newOutput.id = 'cssOutput'
+			newOutput.innerHTML = cssInputElement.value
+			document.head.appendChild(newOutput)
+		}
+
+		htmlInputElement.addEventListener('input', cssOrHtmlInputListener)
+		cssInputElement.addEventListener('input', cssOrHtmlInputListener);
+	</script>
+</body>

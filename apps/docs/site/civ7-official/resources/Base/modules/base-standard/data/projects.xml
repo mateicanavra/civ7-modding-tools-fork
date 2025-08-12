@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_PROJECT"/>
+	</Kinds>
+	<Types>
+		<!-- Common Projects -->
+		<Row Type="PROJECT_TOWN_FORT" Kind="KIND_PROJECT"/>
+		<Row Type="PROJECT_TOWN_URBAN_CENTER" Kind="KIND_PROJECT"/>
+		<Row Type="PROJECT_TOWN_RESORT" Kind="KIND_PROJECT"/>
+	</Types>
+	<Projects>
+		<!-- Common Projects -->
+		<Row ProjectType="PROJECT_TOWN_FORT" Name="LOC_PROJECT_TOWN_FORT_NAME" ShortName="LOC_PROJECT_TOWN_FORT_SHORT_NAME" Description="LOC_PROJECT_TOWN_FORT_DESCRIPTION" Food="true" ExclusiveSpecialization="true" TownOnly="true" PrereqPopulation="7"/>
+		<Row ProjectType="PROJECT_TOWN_URBAN_CENTER" Name="LOC_PROJECT_TOWN_URBAN_CENTER_NAME" ShortName="LOC_PROJECT_TOWN_URBAN_CENTER_SHORT_NAME" Description="LOC_PROJECT_TOWN_URBAN_CENTER_DESCRIPTION" Food="true" ExclusiveSpecialization="true" TownOnly="true" PrereqPopulation="7" RequiresUnlock="false"/>
+		<Row ProjectType="PROJECT_TOWN_RESORT" Name="LOC_PROJECT_TOWN_RESORT_NAME" ShortName="LOC_PROJECT_TOWN_RESORT_SHORT_NAME" Description="LOC_PROJECT_TOWN_RESORT_DESCRIPTION" Food="true" ExclusiveSpecialization="true" TownOnly="true" PrereqPopulation="7" RequiresUnlock="false"/>
+	</Projects>
+	<ProjectModifiers>
+		<!-- Common Project Modifiers -->
+		<Row ProjectType="PROJECT_TOWN_FORT" ModifierId="FORT_HEALING_FROM_PROJECT"/>
+		<Row ProjectType="PROJECT_TOWN_URBAN_CENTER" ModifierId="URBAN_YIELDS_FROM_PROJECT"/>
+		<Row ProjectType="PROJECT_TOWN_RESORT" ModifierId="RESORT_BONUSES_FROM_PROJECT"/>
+	</ProjectModifiers>
+</Database>

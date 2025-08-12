@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_TRAIT"/>
+	</Kinds>
+	<Types>
+		<Row Type="LEADER_TECUMSEH" Kind="KIND_LEADER"/>
+		<Row Type="TRAIT_LEADER_TECUMSEH_ABILITY" Kind="KIND_TRAIT"/>
+		<Row Type="ABILITY_TECUMSEH_SUZERAIN" Kind="KIND_ABILITY"/>
+	</Types>
+	<Leaders>
+		<Row LeaderType="LEADER_TECUMSEH" Name="LOC_LEADER_TECUMSEH_NAME" IsMajorLeader="true" InheritFrom="LEADER_DEFAULT" />
+	</Leaders>
+	<LeaderQuotes>
+	</LeaderQuotes>
+	<AiFavoredItems>
+	</AiFavoredItems>
+	<Traits>
+		<Row TraitType="TRAIT_LEADER_TECUMSEH_ABILITY" InternalOnly="true" Name="LOC_TRAIT_LEADER_TECUMSEH_ABILITY_NAME" Description="LOC_TRAIT_LEADER_TECUMSEH_ABILITY_DESCRIPTION"/>
+	</Traits>
+	<LeaderTraits>
+		<Row LeaderType="LEADER_TECUMSEH" TraitType="TRAIT_LEADER_TECUMSEH_ABILITY"/>
+		<Row LeaderType="LEADER_TECUMSEH" TraitType="TRAIT_LEADER_ATTRIBUTE_POLITICAL"/>
+		<Row LeaderType="LEADER_TECUMSEH" TraitType="TRAIT_LEADER_ATTRIBUTE_MILITARISTIC"/>
+		<Row LeaderType="LEADER_TECUMSEH" TraitType="TRAIT_AQ_MILITARY_VICTORY"/>
+		<Row LeaderType="LEADER_TECUMSEH" TraitType="TRAIT_EX_MILITARY_VICTORY"/>
+		<Row LeaderType="LEADER_TECUMSEH" TraitType="TRAIT_MO_MILITARY_VICTORY"/>
+
+	</LeaderTraits>
+	<TraitModifiers>
+		<Row TraitType="TRAIT_LEADER_TECUMSEH_ABILITY" ModifierId="TECUMSEH_MOD_SUZERAIN_FOOD"/>
+		<Row TraitType="TRAIT_LEADER_TECUMSEH_ABILITY" ModifierId="TECUMSEH_MOD_SUZERAIN_PRODUCTION"/>
+		<Row TraitType="TRAIT_LEADER_TECUMSEH_ABILITY" ModifierId="TECUMSEH_MOD_SUZERAIN_ABILITY"/>
+		<Row TraitType="TRAIT_LEADER_TECUMSEH_ABILITY" ModifierId="TECUMSEH_MOD_AGENDA_SUZERAIN_OF_THE_WORLD_1"/>
+		<Row TraitType="TRAIT_LEADER_TECUMSEH_ABILITY" ModifierId="TECUMSEH_MOD_AGENDA_SUZERAIN_OF_THE_WORLD_2"/>
+	</TraitModifiers>
+	<UnitClass_Abilities>
+		<Row UnitAbilityType="ABILITY_TECUMSEH_SUZERAIN" UnitClassType="UNIT_CLASS_COMBAT"/>
+	</UnitClass_Abilities>
+	<UnitAbilities>
+		<Row UnitAbilityType="ABILITY_TECUMSEH_SUZERAIN" Inactive="true" Name="LOC_LEADER_TECUMSEH_NAME" Description="LOC_ABILITY_TECUMSEH_SUZERAIN_DESCRIPTION"/>
+		<!--Unique-->
+	</UnitAbilities>
+	<UnitAbilityModifiers>
+		<Row UnitAbilityType="ABILITY_TECUMSEH_SUZERAIN" ModifierId="TECUMSEH_MOD_SUZERAIN_COMBAT"/>
+	</UnitAbilityModifiers>
+	<TypeQuotes>
+		<Row Type="LEADER_TECUMSEH" Quote="LOC_MAIN_CHAR_SELECT_LEADER_TECUMSEH_ANY"/>
+	</TypeQuotes>
+</Database>

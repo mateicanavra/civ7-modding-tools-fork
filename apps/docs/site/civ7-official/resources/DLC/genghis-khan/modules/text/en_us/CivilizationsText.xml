@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<InsertOrIgnore Tag="LOC_CIVILIZATION_BULGARIA_NAME">
+			<Text>Bulgaria</Text>
+		</InsertOrIgnore>
+	</EnglishText>
+</Database>

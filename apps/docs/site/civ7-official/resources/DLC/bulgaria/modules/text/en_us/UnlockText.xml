@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_UNLOCK_ALTARS_DESCRIPTION">
+			<Text>Have three [B]Altars[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_ALTARS_BULGARIA_TOOLTIP">
+			<Text>[B]Altars[/B] were an important part of [B]Bulgaria's[/B] identity.</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_ALTARS_BULGARIA_NARRATIVE">
+			<Text>Religion has always been a personal matter for the  {1_Civilization_Adj} people. But around city altars, crowds gather to share stories of past saints. In these shared stories form a new network of the faithful, that seek to bring their vision to the halls of power.</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_BULGARIA_DESCRIPTION">
+			<Text>Play as [B]Bulgaria[/B].</Text>
+		</Row>
+
+		<Row Tag="LOC_UNLOCK_PLAY_AS_CATHERINE_BULGARIA_TOOLTIP">
+			<Text>[B]Catherine[/B] was from the same continent as [B]Bulgaria[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_AUGUSTUS_BULGARIA_TOOLTIP">
+			<Text>[B]Augustus[/B] ruled the region that would become [B]Bulgaria[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_CHARLEMAGNE_BULGARIA_TOOLTIP">
+			<Text>[B]Bulgaria[/B] strategically complements [B]Charlemagne[/B].</Text>
+		</Row>
+	</EnglishText>
+</Database>

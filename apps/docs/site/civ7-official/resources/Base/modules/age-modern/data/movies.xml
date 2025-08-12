@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Movies>
+		<!-- Defeat Movies -->
+		<Row MovieType="MOVIE_DEFEAT_MODERN" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/DEFEAT_MOD_720p.webm" Audio="play_wilco_civ_loss_generic_modern" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_generic_modern_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_MODERN" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/DEFEAT_MOD_1080p.webm" Audio="play_wilco_civ_loss_generic_modern" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_generic_modern_defeat.vtt" UseCoverFitMode="true" />
+
+		<!-- Defeat movie with civ-specific audio. -->
+		<Row MovieType="MOVIE_DEFEAT_AMERICA" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/DEFEAT_MOD_720p.webm" Audio="play_wilco_civ_loss_america" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_america_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_AMERICA" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/DEFEAT_MOD_1080p.webm" Audio="play_wilco_civ_loss_america" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_america_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_BUGANDA" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/DEFEAT_MOD_720p.webm" Audio="play_wilco_civ_loss_buganda" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_buganda_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_BUGANDA" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/DEFEAT_MOD_1080p.webm" Audio="play_wilco_civ_loss_buganda" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_buganda_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_FRENCH_EMPIRE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/DEFEAT_MOD_720p.webm" Audio="play_wilco_civ_loss_french_empire" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_france_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_FRENCH_EMPIRE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/DEFEAT_MOD_1080p.webm" Audio="play_wilco_civ_loss_french_empire" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_france_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_MEIJI" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/DEFEAT_MOD_720p.webm" Audio="play_wilco_civ_loss_meiji" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_meiji_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_MEIJI" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/DEFEAT_MOD_1080p.webm" Audio="play_wilco_civ_loss_meiji" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_meiji_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_MEXICO" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/DEFEAT_MOD_720p.webm" Audio="play_wilco_civ_loss_mexico" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_mexico_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_MEXICO" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/DEFEAT_MOD_1080p.webm" Audio="play_wilco_civ_loss_mexico" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_mexico_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_MUGHAL" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/DEFEAT_MOD_720p.webm" Audio="play_wilco_civ_loss_mughal" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_mughal_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_MUGHAL" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/DEFEAT_MOD_1080p.webm" Audio="play_wilco_civ_loss_mughal" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_mughal_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_PRUSSIA" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/DEFEAT_MOD_720p.webm" Audio="play_wilco_civ_loss_prussia" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_prussia_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_PRUSSIA" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/DEFEAT_MOD_1080p.webm" Audio="play_wilco_civ_loss_prussia" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_prussia_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_QING" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/DEFEAT_MOD_720p.webm" Audio="play_wilco_civ_loss_qing" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_qing_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_QING" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/DEFEAT_MOD_1080p.webm" Audio="play_wilco_civ_loss_qing" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_qing_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_RUSSIA" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/DEFEAT_MOD_720p.webm" Audio="play_wilco_civ_loss_russia" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_russia_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_RUSSIA" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/DEFEAT_MOD_1080p.webm" Audio="play_wilco_civ_loss_russia" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_russia_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_SIAM" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/DEFEAT_MOD_720p.webm" Audio="play_wilco_civ_loss_siam" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_siam_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_SIAM" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/DEFEAT_MOD_1080p.webm" Audio="play_wilco_civ_loss_siam" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_siam_defeat.vtt" UseCoverFitMode="true" />
+
+		<!-- Victory Movies-->
+		<Row MovieType="MOVIE_VICTORY_MODERN_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/VIC_Culture_MOD_720p.webm" Audio="play_wilco_vic_culture_modern" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_victory_modern_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_VICTORY_MODERN_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/VIC_Culture_MOD_1080p.webm" Audio="play_wilco_vic_culture_modern" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_victory_modern_culture.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_VICTORY_MODERN_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/VIC_Economic_MOD_720p.webm" Audio="play_wilco_vic_economic_modern" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_victory_modern_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_VICTORY_MODERN_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/VIC_Economic_MOD_1080p.webm" Audio="play_wilco_vic_economic_modern" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_victory_modern_economic.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_VICTORY_MODERN_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/VIC_Domination_MOD_720p.webm" Audio="play_wilco_vic_military_modern" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_victory_modern_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_VICTORY_MODERN_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/VIC_Domination_MOD_1080p.webm" Audio="play_wilco_vic_military_modern" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_victory_modern_military.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_VICTORY_MODERN_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/VIC_Science_MOD_720p.webm" Audio="play_wilco_vic_science_modern" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_victory_modern_science_alt.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_VICTORY_MODERN_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/VIC_Science_MOD_1080p.webm" Audio="play_wilco_vic_science_modern" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_victory_modern_science_alt.vtt" UseCoverFitMode="true" />
+
+
+		<!-- Civ-Specific Legacy Path -->
+		<!-- (Economic)-->
+		<Row MovieType="MOVIE_CIVILIZATION_AMERICA_LEGACY_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_America_720p.webm" Audio="play_wilco_civ_economic_america" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_america_legacy_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_AMERICA_LEGACY_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_America_1080p.webm" Audio="play_wilco_civ_economic_america" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_america_legacy_economic.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_BUGANDA_LEGACY_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Buganda_720p.webm" Audio="play_wilco_civ_economic_buganda" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_buganda_legacy_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_BUGANDA_LEGACY_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Buganda_1080p.webm" Audio="play_wilco_civ_economic_buganda" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_buganda_legacy_economic.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_FRENCH_EMPIRE_LEGACY_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_FrenchEmpire_720p.webm" Audio="play_wilco_civ_economic_french_empire" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_france_legacy_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_FRENCH_EMPIRE_LEGACY_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_FrenchEmpire_1080p.webm" Audio="play_wilco_civ_economic_french_empire" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_france_legacy_economic.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MEIJI_LEGACY_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Meiji_720p.webm" Audio="play_wilco_civ_economic_meiji" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_meiji_legacy_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MEIJI_LEGACY_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Meiji_1080p.webm" Audio="play_wilco_civ_economic_meiji" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_meiji_legacy_economic.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MEXICO_LEGACY_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Mexico_720p.webm" Audio="play_wilco_civ_economic_mexico" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_mexico_legacy_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MEXICO_LEGACY_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Mexico_1080p.webm" Audio="play_wilco_civ_economic_mexico" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_mexico_legacy_economic.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MUGHAL_LEGACY_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Mughal_720p.webm" Audio="play_wilco_civ_economic_mughal" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_mughal_legacy_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MUGHAL_LEGACY_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Mughal_1080p.webm" Audio="play_wilco_civ_economic_mughal" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_mughal_legacy_economic.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_PRUSSIA_LEGACY_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Prussia_720p.webm" Audio="play_wilco_civ_economic_prussia" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_prussia_legacy_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_PRUSSIA_LEGACY_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Prussia_1080p.webm" Audio="play_wilco_civ_economic_prussia" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_prussia_legacy_economic.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_QING_LEGACY_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Qing_720p.webm" Audio="play_wilco_civ_economic_qing" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_qing_legacy_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_QING_LEGACY_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Qing_1080p.webm" Audio="play_wilco_civ_economic_qing" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_qing_legacy_economic.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_RUSSIA_LEGACY_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Russia_720p.webm" Audio="play_wilco_civ_economic_russia" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_russia_legacy_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_RUSSIA_LEGACY_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Russia_1080p.webm" Audio="play_wilco_civ_economic_russia" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_russia_legacy_economic.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_SIAM_LEGACY_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Siam_720p.webm" Audio="play_wilco_civ_economic_siam" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_siam_legacy_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_SIAM_LEGACY_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Siam_1080p.webm" Audio="play_wilco_civ_economic_siam" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_siam_legacy_economic.vtt" UseCoverFitMode="true" />
+
+		<!-- (Military) -->
+		<Row MovieType="MOVIE_CIVILIZATION_AMERICA_LEGACY_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_America_720p.webm" Audio="play_wilco_civ_military_america" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_america_legacy_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_AMERICA_LEGACY_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_America_1080p.webm" Audio="play_wilco_civ_military_america" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_america_legacy_military.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_BUGANDA_LEGACY_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Buganda_720p.webm" Audio="play_wilco_civ_military_buganda" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_buganda_legacy_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_BUGANDA_LEGACY_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Buganda_1080p.webm" Audio="play_wilco_civ_military_buganda" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_buganda_legacy_military.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_FRENCH_EMPIRE_LEGACY_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_FrenchEmpire_720p.webm" Audio="play_wilco_civ_military_french_empire" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_france_legacy_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_FRENCH_EMPIRE_LEGACY_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_FrenchEmpire_1080p.webm" Audio="play_wilco_civ_military_french_empire" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_france_legacy_military.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MEIJI_LEGACY_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Meiji_720p.webm" Audio="play_wilco_civ_military_meiji" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_meiji_legacy_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MEIJI_LEGACY_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Meiji_1080p.webm" Audio="play_wilco_civ_military_meiji" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_meiji_legacy_military.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MEXICO_LEGACY_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Mexico_720p.webm" Audio="play_wilco_civ_military_mexico" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_mexico_legacy_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MEXICO_LEGACY_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Mexico_1080p.webm" Audio="play_wilco_civ_military_mexico" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_mexico_legacy_military.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MUGHAL_LEGACY_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Mughal_720p.webm" Audio="play_wilco_civ_military_mughal" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_mughal_legacy_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MUGHAL_LEGACY_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Mughal_1080p.webm" Audio="play_wilco_civ_military_mughal" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_mughal_legacy_military.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_PRUSSIA_LEGACY_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Prussia_720p.webm" Audio="play_wilco_civ_military_prussia" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_prussia_legacy_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_PRUSSIA_LEGACY_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Prussia_1080p.webm" Audio="play_wilco_civ_military_prussia" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_prussia_legacy_military.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_QING_LEGACY_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Qing_720p.webm" Audio="play_wilco_civ_military_qing" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_qing_legacy_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_QING_LEGACY_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Qing_1080p.webm" Audio="play_wilco_civ_military_qing" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_qing_legacy_military.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_RUSSIA_LEGACY_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Russia_720p.webm" Audio="play_wilco_civ_military_russia" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_russia_legacy_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_RUSSIA_LEGACY_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Russia_1080p.webm" Audio="play_wilco_civ_military_russia" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_russia_legacy_military.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_SIAM_LEGACY_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Siam_720p.webm" Audio="play_wilco_civ_military_siam" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_siam_legacy_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_SIAM_LEGACY_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Siam_1080p.webm" Audio="play_wilco_civ_military_siam" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_siam_legacy_military.vtt" UseCoverFitMode="true" />
+
+		<!-- (Science)-->
+		<Row MovieType="MOVIE_CIVILIZATION_AMERICA_LEGACY_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_America_720p.webm" Audio="play_wilco_civ_science_america" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_america_legacy_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_AMERICA_LEGACY_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_America_1080p.webm" Audio="play_wilco_civ_science_america" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_america_legacy_science.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_BUGANDA_LEGACY_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Buganda_720p.webm" Audio="play_wilco_civ_science_buganda" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_buganda_legacy_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_BUGANDA_LEGACY_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Buganda_1080p.webm" Audio="play_wilco_civ_science_buganda" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_buganda_legacy_science.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_FRENCH_EMPIRE_LEGACY_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_FrenchEmpire_720p.webm" Audio="play_wilco_civ_science_french_empire" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_france_legacy_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_FRENCH_EMPIRE_LEGACY_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_FrenchEmpire_1080p.webm" Audio="play_wilco_civ_science_french_empire" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_france_legacy_science.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MEIJI_LEGACY_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Meiji_720p.webm" Audio="play_wilco_civ_science_meiji" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_meiji_legacy_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MEIJI_LEGACY_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Meiji_1080p.webm" Audio="play_wilco_civ_science_meiji" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_meiji_legacy_science.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MEXICO_LEGACY_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Mexico_720p.webm" Audio="play_wilco_civ_science_mexico" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_mexico_legacy_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MEXICO_LEGACY_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Mexico_1080p.webm" Audio="play_wilco_civ_science_mexico" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_mexico_legacy_science.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MUGHAL_LEGACY_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Mughal_720p.webm" Audio="play_wilco_civ_science_mughal" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_mughal_legacy_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MUGHAL_LEGACY_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Mughal_1080p.webm" Audio="play_wilco_civ_science_mughal" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_mughal_legacy_science.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_PRUSSIA_LEGACY_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Prussia_720p.webm" Audio="play_wilco_civ_science_prussia" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_prussia_legacy_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_PRUSSIA_LEGACY_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Prussia_1080p.webm" Audio="play_wilco_civ_science_prussia" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_prussia_legacy_science.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_QING_LEGACY_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Qing_720p.webm" Audio="play_wilco_civ_science_qing" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_qing_legacy_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_QING_LEGACY_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Qing_1080p.webm" Audio="play_wilco_civ_science_qing" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_qing_legacy_science.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_RUSSIA_LEGACY_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Russia_720p.webm" Audio="play_wilco_civ_science_russia" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_russia_legacy_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_RUSSIA_LEGACY_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Russia_1080p.webm" Audio="play_wilco_civ_science_russia" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_russia_legacy_science.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_SIAM_LEGACY_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Siam_720p.webm" Audio="play_wilco_civ_science_siam" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_siam_legacy_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_SIAM_LEGACY_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Siam_1080p.webm" Audio="play_wilco_civ_science_siam" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_siam_legacy_science.vtt" UseCoverFitMode="true" />
+
+		<!-- (Culture)-->
+		<Row MovieType="MOVIE_CIVILIZATION_AMERICA_LEGACY_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_America_720p.webm" Audio="play_wilco_civ_culture_america" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_america_legacy_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_AMERICA_LEGACY_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_America_1080p.webm" Audio="play_wilco_civ_culture_america" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_america_legacy_culture.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_BUGANDA_LEGACY_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Buganda_720p.webm" Audio="play_wilco_civ_culture_buganda" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_buganda_legacy_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_BUGANDA_LEGACY_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Buganda_1080p.webm" Audio="play_wilco_civ_culture_buganda" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_buganda_legacy_culture.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_FRENCH_EMPIRE_LEGACY_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_FrenchEmpire_720p.webm" Audio="play_wilco_civ_culture_french_empire" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_france_legacy_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_FRENCH_EMPIRE_LEGACY_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_FrenchEmpire_1080p.webm" Audio="play_wilco_civ_culture_french_empire" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_france_legacy_culture.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MEIJI_LEGACY_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Meiji_720p.webm" Audio="play_wilco_civ_culture_meiji" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_meiji_legacy_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MEIJI_LEGACY_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Meiji_1080p.webm" Audio="play_wilco_civ_culture_meiji" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_meiji_legacy_culture.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MEXICO_LEGACY_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Mexico_720p.webm" Audio="play_wilco_civ_culture_mexico" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_mexico_legacy_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MEXICO_LEGACY_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Mexico_1080p.webm" Audio="play_wilco_civ_culture_mexico" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_mexico_legacy_culture.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MUGHAL_LEGACY_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Mughal_720p.webm" Audio="play_wilco_civ_culture_mughal" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_mughal_legacy_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MUGHAL_LEGACY_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Mughal_1080p.webm" Audio="play_wilco_civ_culture_mughal" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_mughal_legacy_culture.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_PRUSSIA_LEGACY_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Prussia_720p.webm" Audio="play_wilco_civ_culture_prussia" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_prussia_legacy_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_PRUSSIA_LEGACY_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Prussia_1080p.webm" Audio="play_wilco_civ_culture_prussia" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_prussia_legacy_culture.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_QING_LEGACY_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Qing_720p.webm" Audio="play_wilco_civ_culture_qing" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_qing_legacy_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_QING_LEGACY_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Qing_1080p.webm" Audio="play_wilco_civ_culture_qing" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_qing_legacy_culture.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_RUSSIA_LEGACY_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Russia_720p.webm" Audio="play_wilco_civ_culture_russia" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_russia_legacy_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_RUSSIA_LEGACY_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Russia_1080p.webm" Audio="play_wilco_civ_culture_russia" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_russia_legacy_culture.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_SIAM_LEGACY_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-modern/movies/AT_Siam_720p.webm" Audio="play_wilco_civ_culture_siam" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_siam_legacy_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_SIAM_LEGACY_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-modern/movies/AT_Siam_1080p.webm" Audio="play_wilco_civ_culture_siam" StopAudio="stop_wilco" Subtitles="fs://game/age-modern/text/subtitles/wilco_civ_modern_siam_legacy_culture.vtt" UseCoverFitMode="true" />
+	</Movies>
+
+	<EndGameMovies>
+		<!-- Defeats (Civ Specific) -->
+		<Row DefeatType="DEFEAT_DEFAULT" CivilizationType="CIVILIZATION_AMERICA" Priority="450" MovieType="MOVIE_DEFEAT_AMERICA" />
+		<Row DefeatType="DEFEAT_DEFAULT" CivilizationType="CIVILIZATION_BUGANDA" Priority="450" MovieType="MOVIE_DEFEAT_BUGANDA" />
+		<Row DefeatType="DEFEAT_DEFAULT" CivilizationType="CIVILIZATION_FRENCH_EMPIRE" Priority="450" MovieType="MOVIE_DEFEAT_FRENCH_EMPIRE" />
+		<Row DefeatType="DEFEAT_DEFAULT" CivilizationType="CIVILIZATION_MEIJI" Priority="450" MovieType="MOVIE_DEFEAT_MEIJI" />
+		<Row DefeatType="DEFEAT_DEFAULT" CivilizationType="CIVILIZATION_MEXICO" Priority="450" MovieType="MOVIE_DEFEAT_MEXICO" />
+		<Row DefeatType="DEFEAT_DEFAULT" CivilizationType="CIVILIZATION_MUGHAL" Priority="450" MovieType="MOVIE_DEFEAT_MUGHAL" />
+		<Row DefeatType="DEFEAT_DEFAULT" CivilizationType="CIVILIZATION_PRUSSIA" Priority="450" MovieType="MOVIE_DEFEAT_PRUSSIA" />
+		<Row DefeatType="DEFEAT_DEFAULT" CivilizationType="CIVILIZATION_QING" Priority="450" MovieType="MOVIE_DEFEAT_QING" />
+		<Row DefeatType="DEFEAT_DEFAULT" CivilizationType="CIVILIZATION_RUSSIA" Priority="450" MovieType="MOVIE_DEFEAT_RUSSIA" />
+		<Row DefeatType="DEFEAT_DEFAULT" CivilizationType="CIVILIZATION_SIAM" Priority="450" MovieType="MOVIE_DEFEAT_SIAM" />
+
+		<Row DefeatType="DEFEAT_RETIRE" CivilizationType="CIVILIZATION_AMERICA" Priority="460" MovieType="MOVIE_DEFEAT_AMERICA" />
+		<Row DefeatType="DEFEAT_RETIRE" CivilizationType="CIVILIZATION_BUGANDA" Priority="460" MovieType="MOVIE_DEFEAT_BUGANDA" />
+		<Row DefeatType="DEFEAT_RETIRE" CivilizationType="CIVILIZATION_FRENCH_EMPIRE" Priority="460" MovieType="MOVIE_DEFEAT_FRENCH_EMPIRE" />
+		<Row DefeatType="DEFEAT_RETIRE" CivilizationType="CIVILIZATION_MEIJI" Priority="460" MovieType="MOVIE_DEFEAT_MEIJI" />
+		<Row DefeatType="DEFEAT_RETIRE" CivilizationType="CIVILIZATION_MEXICO" Priority="460" MovieType="MOVIE_DEFEAT_MEXICO" />
+		<Row DefeatType="DEFEAT_RETIRE" CivilizationType="CIVILIZATION_MUGHAL" Priority="460" MovieType="MOVIE_DEFEAT_MUGHAL" />
+		<Row DefeatType="DEFEAT_RETIRE" CivilizationType="CIVILIZATION_PRUSSIA" Priority="460" MovieType="MOVIE_DEFEAT_PRUSSIA" />
+		<Row DefeatType="DEFEAT_RETIRE" CivilizationType="CIVILIZATION_QING" Priority="460" MovieType="MOVIE_DEFEAT_QING" />
+		<Row DefeatType="DEFEAT_RETIRE" CivilizationType="CIVILIZATION_RUSSIA" Priority="460" MovieType="MOVIE_DEFEAT_RUSSIA" />
+		<Row DefeatType="DEFEAT_RETIRE" CivilizationType="CIVILIZATION_SIAM" Priority="460" MovieType="MOVIE_DEFEAT_SIAM" />
+
+		<!-- Defeats  -->
+		<Row DefeatType="DEFEAT_DEFAULT" Priority="400" MovieType="MOVIE_DEFEAT_MODERN" />
+		<Row DefeatType="DEFEAT_RETIRE" Priority="400" MovieType="MOVIE_DEFEAT_MODERN" />
+
+		<Row AgeType="AGE_MODERN" VictoryType="VICTORY_DOMINATION" Priority="300" MovieType="MOVIE_VICTORY_MODERN_MILITARY"/>
+		<Row VictoryType="VICTORY_MODERN_CULTURE" Priority="300" MovieType="MOVIE_VICTORY_MODERN_CULTURE"/>
+		<Row VictoryType="VICTORY_MODERN_ECONOMIC" Priority="300" MovieType="MOVIE_VICTORY_MODERN_ECONOMIC"/>
+		<Row VictoryType="VICTORY_MODERN_MILITARY" Priority="300" MovieType="MOVIE_VICTORY_MODERN_MILITARY"/>
+		<Row VictoryType="VICTORY_MODERN_SCIENCE" Priority="300" MovieType="MOVIE_VICTORY_MODERN_SCIENCE"/>
+
+		<!-- Age Transition/Legacy Points Victory -->
+		<Row CivilizationType="CIVILIZATION_AMERICA" LastCompletedLegacyPath="LEGACY_PATH_MODERN_ECONOMIC" Priority="200" MovieType="MOVIE_CIVILIZATION_AMERICA_LEGACY_ECONOMIC" />
+		<Row CivilizationType="CIVILIZATION_BUGANDA" LastCompletedLegacyPath="LEGACY_PATH_MODERN_ECONOMIC" Priority="200" MovieType="MOVIE_CIVILIZATION_BUGANDA_LEGACY_ECONOMIC" />
+		<Row CivilizationType="CIVILIZATION_FRENCH_EMPIRE" LastCompletedLegacyPath="LEGACY_PATH_MODERN_ECONOMIC" Priority="200" MovieType="MOVIE_CIVILIZATION_FRENCH_EMPIRE_LEGACY_ECONOMIC" />
+		<Row CivilizationType="CIVILIZATION_MEIJI" LastCompletedLegacyPath="LEGACY_PATH_MODERN_ECONOMIC" Priority="200" MovieType="MOVIE_CIVILIZATION_MEIJI_LEGACY_ECONOMIC" />
+		<Row CivilizationType="CIVILIZATION_MEXICO" LastCompletedLegacyPath="LEGACY_PATH_MODERN_ECONOMIC" Priority="200" MovieType="MOVIE_CIVILIZATION_MEXICO_LEGACY_ECONOMIC" />
+		<Row CivilizationType="CIVILIZATION_MUGHAL" LastCompletedLegacyPath="LEGACY_PATH_MODERN_ECONOMIC" Priority="200" MovieType="MOVIE_CIVILIZATION_MUGHAL_LEGACY_ECONOMIC" />
+		<Row CivilizationType="CIVILIZATION_PRUSSIA" LastCompletedLegacyPath="LEGACY_PATH_MODERN_ECONOMIC" Priority="200" MovieType="MOVIE_CIVILIZATION_PRUSSIA_LEGACY_ECONOMIC" />
+		<Row CivilizationType="CIVILIZATION_QING" LastCompletedLegacyPath="LEGACY_PATH_MODERN_ECONOMIC" Priority="200" MovieType="MOVIE_CIVILIZATION_QING_LEGACY_ECONOMIC" />
+		<Row CivilizationType="CIVILIZATION_RUSSIA" LastCompletedLegacyPath="LEGACY_PATH_MODERN_ECONOMIC" Priority="200" MovieType="MOVIE_CIVILIZATION_RUSSIA_LEGACY_ECONOMIC" />
+		<Row CivilizationType="CIVILIZATION_SIAM" LastCompletedLegacyPath="LEGACY_PATH_MODERN_ECONOMIC" Priority="200" MovieType="MOVIE_CIVILIZATION_SIAM_LEGACY_ECONOMIC" />
+
+		<Row CivilizationType="CIVILIZATION_AMERICA" LastCompletedLegacyPath="LEGACY_PATH_MODERN_MILITARY" Priority="200" MovieType="MOVIE_CIVILIZATION_AMERICA_LEGACY_MILITARY" />
+		<Row CivilizationType="CIVILIZATION_BUGANDA" LastCompletedLegacyPath="LEGACY_PATH_MODERN_MILITARY" Priority="200" MovieType="MOVIE_CIVILIZATION_BUGANDA_LEGACY_MILITARY" />
+		<Row CivilizationType="CIVILIZATION_FRENCH_EMPIRE" LastCompletedLegacyPath="LEGACY_PATH_MODERN_MILITARY" Priority="200" MovieType="MOVIE_CIVILIZATION_FRENCH_EMPIRE_LEGACY_MILITARY" />
+		<Row CivilizationType="CIVILIZATION_MEIJI" LastCompletedLegacyPath="LEGACY_PATH_MODERN_MILITARY" Priority="200" MovieType="MOVIE_CIVILIZATION_MEIJI_LEGACY_MILITARY" />
+		<Row CivilizationType="CIVILIZATION_MEXICO" LastCompletedLegacyPath="LEGACY_PATH_MODERN_MILITARY" Priority="200" MovieType="MOVIE_CIVILIZATION_MEXICO_LEGACY_MILITARY" />
+		<Row CivilizationType="CIVILIZATION_MUGHAL" LastCompletedLegacyPath="LEGACY_PATH_MODERN_MILITARY" Priority="200" MovieType="MOVIE_CIVILIZATION_MUGHAL_LEGACY_MILITARY" />
+		<Row CivilizationType="CIVILIZATION_PRUSSIA" LastCompletedLegacyPath="LEGACY_PATH_MODERN_MILITARY" Priority="200" MovieType="MOVIE_CIVILIZATION_PRUSSIA_LEGACY_MILITARY" />
+		<Row CivilizationType="CIVILIZATION_QING" LastCompletedLegacyPath="LEGACY_PATH_MODERN_MILITARY" Priority="200" MovieType="MOVIE_CIVILIZATION_QING_LEGACY_MILITARY" />
+		<Row CivilizationType="CIVILIZATION_RUSSIA" LastCompletedLegacyPath="LEGACY_PATH_MODERN_MILITARY" Priority="200" MovieType="MOVIE_CIVILIZATION_RUSSIA_LEGACY_MILITARY" />
+		<Row CivilizationType="CIVILIZATION_SIAM" LastCompletedLegacyPath="LEGACY_PATH_MODERN_MILITARY" Priority="200" MovieType="MOVIE_CIVILIZATION_SIAM_LEGACY_MILITARY" />
+
+		<Row CivilizationType="CIVILIZATION_AMERICA" LastCompletedLegacyPath="LEGACY_PATH_MODERN_SCIENCE" Priority="200" MovieType="MOVIE_CIVILIZATION_AMERICA_LEGACY_SCIENCE" />
+		<Row CivilizationType="CIVILIZATION_BUGANDA" LastCompletedLegacyPath="LEGACY_PATH_MODERN_SCIENCE" Priority="200" MovieType="MOVIE_CIVILIZATION_BUGANDA_LEGACY_SCIENCE" />
+		<Row CivilizationType="CIVILIZATION_FRENCH_EMPIRE" LastCompletedLegacyPath="LEGACY_PATH_MODERN_SCIENCE" Priority="200" MovieType="MOVIE_CIVILIZATION_FRENCH_EMPIRE_LEGACY_SCIENCE" />
+		<Row CivilizationType="CIVILIZATION_MEIJI" LastCompletedLegacyPath="LEGACY_PATH_MODERN_SCIENCE" Priority="200" MovieType="MOVIE_CIVILIZATION_MEIJI_LEGACY_SCIENCE" />
+		<Row CivilizationType="CIVILIZATION_MEXICO" LastCompletedLegacyPath="LEGACY_PATH_MODERN_SCIENCE" Priority="200" MovieType="MOVIE_CIVILIZATION_MEXICO_LEGACY_SCIENCE" />
+		<Row CivilizationType="CIVILIZATION_MUGHAL" LastCompletedLegacyPath="LEGACY_PATH_MODERN_SCIENCE" Priority="200" MovieType="MOVIE_CIVILIZATION_MUGHAL_LEGACY_SCIENCE" />
+		<Row CivilizationType="CIVILIZATION_PRUSSIA" LastCompletedLegacyPath="LEGACY_PATH_MODERN_SCIENCE" Priority="200" MovieType="MOVIE_CIVILIZATION_PRUSSIA_LEGACY_SCIENCE" />
+		<Row CivilizationType="CIVILIZATION_QING" LastCompletedLegacyPath="LEGACY_PATH_MODERN_SCIENCE" Priority="200" MovieType="MOVIE_CIVILIZATION_QING_LEGACY_SCIENCE" />
+		<Row CivilizationType="CIVILIZATION_RUSSIA" LastCompletedLegacyPath="LEGACY_PATH_MODERN_SCIENCE" Priority="200" MovieType="MOVIE_CIVILIZATION_RUSSIA_LEGACY_SCIENCE" />
+		<Row CivilizationType="CIVILIZATION_SIAM" LastCompletedLegacyPath="LEGACY_PATH_MODERN_SCIENCE" Priority="200" MovieType="MOVIE_CIVILIZATION_SIAM_LEGACY_SCIENCE" />
+
+		<Row CivilizationType="CIVILIZATION_AMERICA" LastCompletedLegacyPath="LEGACY_PATH_MODERN_CULTURE" Priority="200" MovieType="MOVIE_CIVILIZATION_AMERICA_LEGACY_CULTURE" />
+		<Row CivilizationType="CIVILIZATION_BUGANDA" LastCompletedLegacyPath="LEGACY_PATH_MODERN_CULTURE" Priority="200" MovieType="MOVIE_CIVILIZATION_BUGANDA_LEGACY_CULTURE" />
+		<Row CivilizationType="CIVILIZATION_FRENCH_EMPIRE" LastCompletedLegacyPath="LEGACY_PATH_MODERN_CULTURE" Priority="200" MovieType="MOVIE_CIVILIZATION_FRENCH_EMPIRE_LEGACY_CULTURE" />
+		<Row CivilizationType="CIVILIZATION_MEIJI" LastCompletedLegacyPath="LEGACY_PATH_MODERN_CULTURE" Priority="200" MovieType="MOVIE_CIVILIZATION_MEIJI_LEGACY_CULTURE" />
+		<Row CivilizationType="CIVILIZATION_MEXICO" LastCompletedLegacyPath="LEGACY_PATH_MODERN_CULTURE" Priority="200" MovieType="MOVIE_CIVILIZATION_MEXICO_LEGACY_CULTURE" />
+		<Row CivilizationType="CIVILIZATION_MUGHAL" LastCompletedLegacyPath="LEGACY_PATH_MODERN_CULTURE" Priority="200" MovieType="MOVIE_CIVILIZATION_MUGHAL_LEGACY_CULTURE" />
+		<Row CivilizationType="CIVILIZATION_PRUSSIA" LastCompletedLegacyPath="LEGACY_PATH_MODERN_CULTURE" Priority="200" MovieType="MOVIE_CIVILIZATION_PRUSSIA_LEGACY_CULTURE" />
+		<Row CivilizationType="CIVILIZATION_QING" LastCompletedLegacyPath="LEGACY_PATH_MODERN_CULTURE" Priority="200" MovieType="MOVIE_CIVILIZATION_QING_LEGACY_CULTURE" />
+		<Row CivilizationType="CIVILIZATION_RUSSIA" LastCompletedLegacyPath="LEGACY_PATH_MODERN_CULTURE" Priority="200" MovieType="MOVIE_CIVILIZATION_RUSSIA_LEGACY_CULTURE" />
+		<Row CivilizationType="CIVILIZATION_SIAM" LastCompletedLegacyPath="LEGACY_PATH_MODERN_CULTURE" Priority="200" MovieType="MOVIE_CIVILIZATION_SIAM_LEGACY_CULTURE" />
+	</EndGameMovies>
+</Database>

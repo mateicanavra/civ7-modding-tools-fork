@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<!-- ==========================================================
+	Common Text
+	
+	Use this file to store all names, terms, and short phrases
+	common to many areas of gameplay. ===============================================================	-->
+	<EnglishText>
+		<Row Tag="LOC_TERM_AGE">
+			<Text>Age</Text>
+		</Row>
+		<Row Tag="LOC_TERM_BASE_COST">
+			<Text>Base Cost</Text>
+		</Row>
+		<Row Tag="LOC_TERM_NONE">
+			<Text>None</Text>
+		</Row>
+		<!--UI Side, Game Value strings-->
+		<Row Tag="LOC_ATTR_ADD_PERCENTAGE_OF_SOURCES">
+			<Text>Add Percentage of Sources</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_MULTIPLIED_BY_SOURCES">
+			<Text>Multiplied by Sources</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_MODIFIERS">
+			<Text>Modifiers of Sources</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_SOURCES">
+			<Text>Sources</Text>
+		</Row>
+		<!--Game Value strings-->
+		<Row Tag="LOC_YIELDS">
+			<Text>City Yields</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NATURAL_YIELDS">
+			<Text>Natural Yields</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_TOTAL_YIELD">
+			<Text>Total Yield</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_INCOME">
+			<Text>Income</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_MINUS_DEDUCTIONS">
+			<Text>Minus Deductions</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_DEDUCTIONS">
+			<Text>Deductions</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_HAPPINESS_UPKEEP">
+			<Text>Happiness Upkeep</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_COMMANDER_PRESENCE">
+			<Text>Commander Presence</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_RAZED_CITY_UNHAPPINESS">
+			<Text>Razing Settlement</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_SUPLUS_HAPPINESS">
+			<Text>Surplus Happiness</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_HAPPINESS_DEFICIT">
+			<Text>Happiness Deficit</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_POP_FOOD_MAINTENANCE">
+			<Text>Population Food Maintenance</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_FROM_PLOTS">
+			<Text>From Tiles</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_FROM_PLOT_MODIFIERS">
+			<Text>From Tile Modifiers</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_BUILDING_YIELDS">
+			<Text>From Buildings</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_IMPROVEMENT_YIELDS">
+			<Text>From Improvements</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_FROM_POPULATION">
+			<Text>From Population</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_FROM_RESOURCES">
+			<Text>From Resources</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_FROM_TRADE">
+			<Text>From Trade</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_PLOT_YIELD_CHANGES">
+			<Text>Plot Yield Changes</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_PLOT_PERCENT_YIELD_CHANGES">
+			<Text>Plot Yield Percent Change</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_CITY_YIELDS_FROM_ACTIVE_CIV_TRADITIONS">
+			<Text>For Slotted Traditions</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_CITY_YIELDS_FROM_ACTIVE_NON_CIV_TRADITIONS">
+			<Text>For Slotted Policies</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_CITY_YIELDS_FROM_ACTIVE_TRADITIONS">
+			<Text>For Slotted Policies and Traditions</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_FROM_WAREHOUSES">
+			<Text>Warehouse Bonus</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_FROM_NATURAL_WONDERS">
+			<Text>Natural Wonders</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_FROM_ADJACENCIES">
+			<Text>Adjacency Bonus</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_FROM_APPEAL">
+			<Text>Appeal Bonus</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_FROM_DISASTERS">
+			<Text>Environment Effects Bonus</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_FROM_GREAT_WORKS">
+			<Text>From Great Works</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_SLOTTED_GREAT_WORKS">
+			<Text>From Slotted Great Works</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_GREAT_WORK_BONUS_YIELD">
+			<Text>Great Works Bonus</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_GREAT_WORK_BONUS_YIELD_BASE">
+			<Text>Base Great Works Bonus</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_GREAT_WORK_BONUS_YIELD_MAX">
+			<Text>Great Works Bonus Max</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_GREAT_WORK_BONUS_YIELD_MODIFIER">
+			<Text>Capped Great Works Bonus</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_FROM_PROJECTS">
+			<Text>From Projects</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_RESOURCE_STOCKPILE_YIELD">
+			<Text>From Stockpiles</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_PRODUCTION_CONVERSION_PROJECT">
+			<Text>Converted From Production</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_PRODUCTION_CONVERSION_BASE">
+			<Text>Base</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_PRODUCTION_CONVERSION_EFFICIENCY">
+			<Text>Conversion Efficiency</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_PER_SETTLEMENT_OVER_CAP">
+			<Text>Over Settlement Limit Penalty</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_CLAMPED_HAPPINESS_DEFICIT">
+			<Text>Income Penalty from Unhappiness</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_SC_REDUCTION_MODIFIER">
+			<Text>Capped Penalty</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_SC_REDUCTION_MAX">
+			<Text>Penalty Cap</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_SC_REDUCTION_BASE">
+			<Text>Penalty</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NUM_ACTIVE_CIV_TRADITIONS">
+			<Text>Number of Slotted Traditions</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NUM_ACTIVE_NON_CIV_TRADITIONS">
+			<Text>Number of Slotted Policies</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NUM_ACTIVE_TRADITIONS">
+			<Text>Number of Slotted Policies and Traditions</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_PER_ACTIVE_CIV_TRADITION">
+			<Text>From Slotted Traditions</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NUM_CITIES">
+			<Text>Number of Cities</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NUM_TOWNS">
+			<Text>Number of Towns</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NUM_DISTANT_LAND_SETTLEMENTS">
+			<Text>Number of Distant Land Settlements</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_SETTLEMENT_CAP">
+			<Text>Settlement Limit</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_SETTLEMENTS_OVER_CAP">
+			<Text>Settlements Over Limit</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_SETTLEMENTS_MINUS_CAP">
+			<Text>Settlements Minus Limit</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_SETTLEMENTS_NEGATIVE_CAP">
+			<Text>Negative Settlement Limit</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_OVER_CAP_NOT_NEGATIVE">
+			<Text>Settlements Over Limit Not Negative</Text>
+		</Row>
+		<Row Tag="LOC_ZERO">
+			<Text>Zero</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_CONVERSION_FROM_PROJECTS">
+			<Text>Yield From Project</Text>
+		</Row>
+		<!--Attribute strings-->
+		<Row Tag="LOC_ATTR_CITY_YIELD">
+			<Text>City Yield</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_CITY_BASE_PRODUCTION_YIELD">
+			<Text>Base Production Yield</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_CITY_BASE_FOOD_YIELD">
+			<Text>Base Food Yield</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_GREAT_WORK_YIELD">
+			<Text>Great Works</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NATURAL_YIELD">
+			<Text>Natural Yield</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_TRADE_HUB_GOLD">
+			<Text>Trade Hub</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELDS_FROM_URBAN_POPULATION">
+			<Text>Urban Population</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELDS_FROM_RURAL_POPULATION">
+			<Text>Rural Population</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELDS_FROM_ALL_POPULATION">
+			<Text>Population</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_COMPARED_CITY_IDENTITIES_HAPPINESS">
+			<Text>City Identity</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_TRADE_YIELD">
+			<Text>Trade</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_TRADE_HUB_QUANTITY">
+			<Text>Trade Hub Quantity</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NUM_LOCAL_RESOURCES">
+			<Text>Local Resources</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NUM_ASSIGNED_RESOURCES">
+			<Text>Assigned Resources</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_ASSIGNED_RESOURCES_CAP">
+			<Text>Assigned Resource Cap</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NUM_UNIQUE_RESOURCE_TYPES">
+			<Text>Unique Resource Types</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_RURAL_POPULATION">
+			<Text>Rural Population</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_RURAL_POPULATION_HAPPINESS_UPKEEP">
+			<Text>Rural Population Happiness Upkeep</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_HAPPINESS_UPKEEP_PER_RURAL_POPULATION">
+			<Text>Happiness Upkeep per Rural Population</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_URBAN_POPULATION">
+			<Text>Urban Population</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_URBAN_POPULATION_HAPPINESS_UPKEEP">
+			<Text>Urban Population Happiness Upkeep</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_HAPPINESS_UPKEEP_PER_URBAN_POPULATION">
+			<Text>Happiness Upkeep per Urban Population</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_HAPPINESS_PER_UNIQUE_LOCAL_RESOURCE">
+			<Text>Happiness per unique local Resource</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_PER_URBAN_POP">
+			<Text>Yield per Urban Population</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_PER_RURAL_POP">
+			<Text>Yield per Rural Population</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_PER_ALL_POP">
+			<Text>Yield per Population</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_PER_NUM_CITIES">
+			<Text>Yield per City</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_PER_NUM_TOWNS">
+			<Text>Yield per Town</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_MOD_PER_NUM_CITIES">
+			<Text>Yield Modifier per City</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_MOD_PER_NUM_TOWNS">
+			<Text>Yield Modifier per Town</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_PER_DISTANT_LAND_SETTLEMENTS">
+			<Text>Yield per Distant Land Settlement</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_MOD_PER_NUM_DISTANT_LAND_SETTLEMENTS">
+			<Text>Yield Modifier per Distant Land Settlement</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_MOD_PER_NUM_TRADE_ROUTES">
+			<Text>Yield Modifier per Trade Route</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_PER_NUM_UNIQUE_LOCAL_RESOURCES">
+			<Text>Yield per unique local Resource</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_PER_NUM_LOCAL_RESOURCES">
+			<Text>Yield per local Resource</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_PER_NUM_IMPORTED_RESOURCES">
+			<Text>Yield per imported Resource</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_PER_NUM_EXPORTED_RESOURCES">
+			<Text>Yield per exported Resource</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_PER_UNLOCKED_TECH">
+			<Text>Yield per Tech</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_PER_UNLOCKED_CIVIC">
+			<Text>Yield per Civic</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_PER_SURPLUS_HAPPINESS">
+			<Text>Yield per Surplus Happiness</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_SURPLUS_HAPPINESS">
+			<Text>Surplus Happiness</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_ADJUST_CITY_YIELD_PER_CONNECTED_CITY">
+			<Text>Yield per Connected Settlement</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_UNIT_ADJUST_PLAYER_YIELD_PER_COMMANDER_LEVEL">
+			<Text>Yield per Commander Level</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_BIOME_WAREHOUSE">
+			<Text>From Biome Warehouses</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_CONSTRUCTIBLE_WAREHOUSE">
+			<Text>From Constructible Warehouses</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_FEATURE_WAREHOUSE">
+			<Text>From Feature Warehouses</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_FEATURE_CLASS_WAREHOUSE">
+			<Text>From Feature Warehouses</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_TERRAIN_WAREHOUSE">
+			<Text>From Terrain Warehouses</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_LAKE_WAREHOUSE">
+			<Text>From Lake Warehouses</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NATURAL_WONDER_WAREHOUSE">
+			<Text>From Natural Wonder Warehouses</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_ROUTE_WAREHOUSE">
+			<Text>From Trade Route Warehouses</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_RELIGION_YIELDS">
+			<Text>Yield from Religious Beliefs</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_BELIEF_YIELDS">
+			<Text>Yield from Beliefs</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NUM_CITIES_FOLLOWING_RELIGION">
+			<Text>Yield from Cities following your Religion</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NUM_FOREIGN_CITIES_FOLLOWING_RELIGION">
+			<Text>Yield from Foreign Cities following your Religion</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NUM_WONDERS_FOLLOWING_RELIGION">
+			<Text>Yield from Wonders in Cities following your Religion</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NUM_NATURAL_WONDERS_FOLLOWING_RELIGION">
+			<Text>Yield from Natural Wonders in Cities following your Religion</Text>
+		</Row>
+		<Row Tag="ATTR_NUM_BIOMES_FOLLOWING_RELIGION">
+			<Text>Yield from Biomes in Cities following your Religion</Text>
+		</Row>
+		<Row Tag="LOC_PRESTIGE_RESOURCE_NAME">
+			<Text>{1_CivAdjective} {2_ResourceName}</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELDS_FROM_CITY_STATES">
+			<Text>Yield from City-States</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELDS_FROM_GOLDEN_AGES">
+			<Text>Yield from Celebrations</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELDS_FROM_RIVERS">
+			<Text>Yield from Constructibles on Rivers</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NUM_DISASTER">
+			<Text>Yield from Disasters</Text>
+		</Row>
+		<Row Tag="ATTR_NUM_RECONQUERED_SETTLEMENTS">
+			<Text>Number of Reconquered Settlements</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELDS_FROM_SUZERAINS">
+			<Text>Yield from being Suzerain of City-States</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELDS_FROM_NUM_CITIES">
+			<Text>Number of Cities</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELDS_FROM_NUM_TOWNS">
+			<Text>Number of Towns</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NUM_TRIBUTARIES">
+			<Text>Yield from Number of Suzerained City-States</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_CITY_YIELD_PER_RELATIONSHIP_TOTAL">
+			<Text>Yield from Diplomatic Relationships</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NUM_ALLIANCES">
+			<Text>Yield from Diplomatic Alliances</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_TOTAL_RESOURCE_COUNT">
+			<Text>Resources in Pool</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELDS_FROM_SURPLUS_HAPPINESS">
+			<Text>Yield from Surplus Happiness</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELDS_FROM_NUM_DISTANTLANDS">
+			<Text>Yield from Settlements in Distant Lands</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_CITY_YIELD_ATTRIBUTES">
+			<Text>Number of Attributes</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_PLOT_YIELD_UNIQUE_NATURAL_WONDERS">
+			<Text>Yield from number of Unique Natural Wonders</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELDS_FROM_MEMENTOES">
+			<Text>Yield from Equipped Mementoes</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELDS_FROM_NUM_MASTERED_CIVICS">
+			<Text>Yield from Civics Mastered</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELDS_FROM_NUM_MASTERED_TECHS">
+			<Text>Yield from Technologies Mastered</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_BASE_UNIT_LEVEL_MOD">
+			<Text>Yield from unit levels</Text>
+		</Row>
+		<Row Tag="LOC_FROM_TOWN">
+			<Text>Yield from a Connected Town</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_UNIT_ADJUST_CITY_YIELD_PENALTY_PER_COMMANDER_APPLIED_PROMOTIONS">
+			<Text>Yield Penalty from Commander Promotions</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_UNIT_ADJUST_CITY_YIELD_PER_COMMANDER_LEVEL">
+			<Text>Yield from Commander Levels</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_UNIT_ADJUST_CITY_YIELD_PER_COMMANDER_APPLIED_PROMOTIONS">
+			<Text>Yield from Commander Promotions</Text>
+		</Row>
+		<!--Buffs from resources-->
+		<Row Tag="LOC_ATTR_CITY_YIELD_RESOURCE_ALLOCATED">
+			<Text>Resources Allocated</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_PLAYER_YIELD_PER_RESOURCE">
+			<Text>Resources in Supply</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_PLAYER_YIELD_PER_GREATWORK">
+			<Text>GreatWorks in Supply</Text>
+		</Row>
+		<!--War weariness-->
+		<Row Tag="LOC_ATTR_CITY_YIELD_WAR_WEARINESS">
+			<Text>War Weariness</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_CITY_YIELD_WAR_WEARINESS_WITH_ADJUSTMENTS">
+			<Text>Modified War Weariness</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_WAR_WEARINESS_POSITIVE">
+			<Text>Modified War Weariness not Negative</Text>
+		</Row>
+		<!--Maintenance-->
+		<Row Tag="LOC_ATTR_UNIT_TAG_PURCHASE_DISCOUNT">
+			<Text>Unit Tag Purchase Discount</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_PLAYER_TOTAL_MAINTENANCE">
+			<Text>Total Maintenance</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_PLAYER_UNIT_MAINTENANCE">
+			<Text>Unit Maintenance</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_ALL_UNIT_FLAT_MAINTENANCE_REDUCTION">
+			<Text>Flat Reduction</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_ALL_UNIT_MAINTENANCE_EFFICIENCY">
+			<Text>Maintenance Efficiency</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_UNIT_FLAT_MAINTENANCE_REDUCTION">
+			<Text>Flat Reduction</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_UNIT_MAINTENANCE_EFFICIENCY">
+			<Text>Maintenance Efficiency</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_UNIT_DISCOUNTED_COST">
+			<Text>Discounted Cost</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_UNIT_MAINTENANCE_BASE">
+			<Text>Base</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_MAKING_DISCOUNT_NEGATIVE">
+			<Text>Subtracting Maintenance</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NOT_NEGATIVE">
+			<Text>Cannot be negative</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_PLAYER_YIELD_GOLD_MAINTENANCE_FROM_UNIT">
+			<Text>From Units</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_PLAYER_YIELD_GOLD_MAINTENANCE_FROM_DISTRICTS">
+			<Text>From Districts</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_PLAYER_YIELD_GOLD_MAINTENANCE_FROM_DISTRICT">
+			<Text>From District</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_CONSTRUCTIBLE_MAINTENANCE_BASE">
+			<Text>Base</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_ALL_PURCHASES_DISCOUNT">
+			<Text>Global Purchase Discount</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_ALL_BUILDING_PURCHASES_DISCOUNT">
+			<Text>Global Building Purchase Discount</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_BUILDING_PURCHASE_DISCOUNT">
+			<Text>Specific Building Purchase Discount</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_ALL_UNIT_PURCHASES_DISCOUNT">
+			<Text>Global Unit Purchase Discount</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_BUILDING_MAINT">
+			<Text>Building Maintenance</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_CITY_BUILDING_PURCHASE_DISCOUNT">
+			<Text>City Building Purchase Discount</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_CITY_UNIT_PURCHASE_DISCOUNT">
+			<Text>City Unit Purchase Discount</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NUM_COMPLETED_CIVIC_MASTERIES">
+			<Text>Number of Completed Civic Masteries</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NUM_COMPLETED_TECH_MASTERIES">
+			<Text>Number of Completed Tech Masteries</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_BASE_COST">
+			<Text>Base</Text>
+		</Row>
+		<!--Workers-->
+		<Row Tag="LOC_ATTR_BASE_WORKER_YIELD">
+			<Text>Yield per Specialist</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_BASE_WORKER_MAINTENANCE">
+			<Text>Maintenance per Specialist</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_FROM_WORKERS">
+			<Text>From Specialists</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_MAINTENANCE_FROM_WORKERS">
+			<Text>From Specialists</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_NUM_WORKERS_ON_TILE">
+			<Text>Specialist Count</Text>
+		</Row>
+		<!--System Text-->
+		<Row Tag="LOC_TRADE_ROUTE_LAND_NAME">
+			<Text>Land Trade from {1_SourceCity}</Text>
+		</Row>
+		<Row Tag="LOC_TRADE_ROUTE_SEA_NAME">
+			<Text>Sea Trade from {1_SourceCity}</Text>
+		</Row>
+		<Row Tag="LOC_TRADE_YIELD_STRING">
+			<Text>{1_Amount} {2_YieldName}</Text>
+		</Row>
+		<Row Tag="LOC_TRADE_EXTEND_YIELD_STRING">
+			<Text>, {1_Amount} {2_YieldName}</Text>
+		</Row>
+		<!--Resource Allocation-->
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_TITLE">
+			<Text>Resources</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_RESOURCES">
+			<Text>Resources</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_ALLOCATE_RESOURCE_SETTLEMENT">
+			<Text>Allocate a Resource to a Settlement</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_EMPIRE_RESOURCES">
+			<Text>Empire and Treasure Resources</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_SETTLEMENTS">
+			<Text>Settlements</Text>
+		</Row>
+		<Row Tag="LOC_UI_VIEW_RESOURCE_ALLOCATION">
+			<Text>View Resource Allocation</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_CONFIRM">
+			<Text>Confirm</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_REVERT">
+			<Text>Revert</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_CLOSE">
+			<Text>Close</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_UNASSIGN">
+			<Text>Unassign Resource</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_ALLOCATE">
+			<Text>Allocate to {1_City}</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_QUESITONMARK">
+			<Text>?</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_FACTORY_RESOURCES_AVAILABLE_IN_MODERN_AGE">
+			<Text>Factory Resources will be available in the Modern Age!</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_CITY">
+			<Text>City</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_BONUS">
+			<Text>Bonus</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_FACTORY">
+			<Text>Factory</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_SELECT_SETTLEMENT">
+			<Text>Select a Settlement from the list</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_SHOW_YIELDS">
+			<Text>Show Yields</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_SHOW_TOWNS">
+			<Text>Show Towns</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_SHOW_FACTORIES">
+			<Text>Show Factories</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ORIGIN">
+			<Text>Origin: {1_Name}</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_TREASURE_TURNS_LEFT">
+			<Text>{1_Name} Turns Left for Treasure Convoy</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_SETTLEMENT_DISCONNECTED">
+			<Text>Settlement is not connected to your empire's trade network.</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_RESOURCE_IN_DISCONNECTED_SETTLEMENT">
+			<Text>Resource is in a Settlement that is not connected to your empire's trade network.</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_RESOURCE_ASSIGN_LOCALLY_ONLY">
+			<Text>Resource may only be assigned to its local Settlement of {1_CityName}.</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_NO_RESOURCES_AVAILABLE">
+			<Text>No Resources Available</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_RESOURCE_ALLOCATION_UNAVAILABLE">
+			<Text>Resource Allocation unavailable until new resources are acquired.</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_WAIT_TURN">
+			<Text>You must wait until a new Resource is acquired.</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_RESOURCE_SLOT_REQUIRED">
+			<Text>New slottable resource or additional slot required.</Text>
+		</Row>
+		<Row Tag="LOC_UI_RESOURCE_ALLOCATION_UNAVAILABLE">
+			<Text>Resource Allocation unavailable</Text>
+		</Row>
+		<!--Settlement Tab Bar-->
+		<Row Tag="LOC_UI_SETTLEMENT_TAB_BAR_CITIES">
+			<Text>Cities</Text>
+		</Row>
+		<Row Tag="LOC_UI_SETTLEMENT_TAB_BAR_TOWNS">
+			<Text>Towns</Text>
+		</Row>
+		<Row Tag="LOC_UI_SETTLEMENT_TAB_BAR_ALL">
+			<Text>All</Text>
+		</Row>
+		<!--Quick Save/Load-->
+		<Row Tag="LOC_QUICK_SAVE_NAME">
+			<Text>Quick Save</Text>
+		</Row>
+		<Row Tag="LOC_QUICK_SAVE_INDICATOR_TITLE">
+			<Text>Quick Save</Text>
+		</Row>
+		<Row Tag="LOC_QUICK_SAVE_INDICATOR_DESCRIPTION">
+			<Text>File name: {1_FileName}</Text>
+		</Row>
+		<!--Save Indicator-->
+		<Row Tag="LOC_SAVE_INDICATOR_TITLE">
+			<Text>Saving...</Text>
+		</Row>
+		<!--Player Unlocks-->
+		<Row Tag="LOC_UI_PLAYER_UNLOCKS_TITLE">
+			<Text>Player Unlocks</Text>
+		</Row>
+		<Row Tag="LOC_UI_PLAYER_UNLOCKS_CIVILIZATIONS">
+			<Text>Civilizations</Text>
+		</Row>
+		<Row Tag="LOC_UI_PLAYER_UNLOCKS_LEGACIES">
+			<Text>Legacies</Text>
+		</Row>
+		<Row Tag="LOC_UI_PLAYER_UNLOCKS_AGELESS">
+			<Text>Ageless</Text>
+		</Row>
+		<Row Tag="LOC_UI_PLAYER_UNLOCKS_COMPLETE_LISTED_REQUIREMENTS_CIVILIZATIONS">
+			<Text>Complete one of the listed requirements to unlock Civilizations to play in upcoming Ages</Text>
+		</Row>
+		<Row Tag="LOC_UI_PLAYER_UNLOCKS_SHOW_ALL_REQUIREMENTS">
+			<Text>Show All Requirements</Text>
+		</Row>
+		<Row Tag="LOC_UI_PLAYER_UNLOCKS_HIDE_ALL_REQUIREMENTS">
+			<Text>Hide All Requirements</Text>
+		</Row>
+		<Row Tag="LOC_UI_PLAYER_UNLOCKS_ACQUIRED_LEGACY_POINTS">
+			<Text>Acquired Legacy Points: </Text>
+		</Row>
+		<Row Tag="LOC_UI_PLAYER_UNLOCKS_COMPLETE_LISTED_REQUIREMENTS_LEGACIES">
+			<Text>Below is a list of Legacy Path rewards unlocked for the next Age</Text>
+		</Row>
+		<Row Tag="LOC_UI_PLAYER_UNLOCKS_VIEW_AGELESS_ITEMS">
+			<Text>View Ageless items you've earned from your Civilization and gameplay choices that will persist through all Ages.</Text>
+		</Row>
+		<Row Tag="LOC_UI_PLAYER_UNLOCKS_COMMANDER_HEADER">
+			<Text>Commander</Text>
+		</Row>
+		<Row Tag="LOC_UI_PLAYER_UNLOCKS_TRADITIONS_HEADER">
+			<Text>Traditions</Text>
+		</Row>
+		<Row Tag="LOC_UI_PLAYER_UNLOCKS_WONDERS_HEADER">
+			<Text>Wonders</Text>
+		</Row>
+		<Row Tag="LOC_UI_PLAYER_UNLOCKS_BUILDING_AND_IMPROVEMENTS">
+			<Text>Building and Improvements</Text>
+		</Row>
+	</EnglishText>
+</Database>

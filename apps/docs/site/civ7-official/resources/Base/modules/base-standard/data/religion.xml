@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_RELIGION"/>
+	</Kinds>
+	<Types>
+		<!--Religions-->
+		<Row Type="RELIGION_BUDDHISM" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_CATHOLICISM" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_CONFUCIANISM" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_HINDUISM" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_ISLAM" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_JUDAISM" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_ORTHODOXY" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_PROTESTANTISM" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_SHINTO" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_SIKHISM" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_TAOISM" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_ZOROASTRIANISM" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_CUSTOM_1" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_CUSTOM_2" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_CUSTOM_3" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_CUSTOM_4" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_CUSTOM_5" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_CUSTOM_6" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_CUSTOM_7" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_CUSTOM_8" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_CUSTOM_9" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_CUSTOM_10" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_CUSTOM_11" Kind="KIND_RELIGION"/>
+		<Row Type="RELIGION_CUSTOM_12" Kind="KIND_RELIGION"/>
+	</Types>
+	<Religions>
+		<Row>
+			<ReligionType>RELIGION_BUDDHISM</ReligionType>
+			<Name>LOC_RELIGION_BUDDHISM_NAME</Name>
+			<IconString>Bu</IconString>
+			<RequiresCustomName>false</RequiresCustomName>
+			<Color>COLOR_RELIGION_BUDDHISM</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_CATHOLICISM</ReligionType>
+			<Name>LOC_RELIGION_CATHOLICISM_NAME</Name>
+			<IconString>Ca</IconString>
+			<RequiresCustomName>false</RequiresCustomName>
+			<Color>COLOR_RELIGION_CATHOLICISM</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_CONFUCIANISM</ReligionType>
+			<Name>LOC_RELIGION_CONFUCIANISM_NAME</Name>
+			<IconString>Co</IconString>
+			<RequiresCustomName>false</RequiresCustomName>
+			<Color>COLOR_RELIGION_CONFUCIANISM</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_HINDUISM</ReligionType>
+			<Name>LOC_RELIGION_HINDUISM_NAME</Name>
+			<IconString>Hi</IconString>
+			<RequiresCustomName>false</RequiresCustomName>
+			<Color>COLOR_RELIGION_HINDUISM</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_ISLAM</ReligionType>
+			<Name>LOC_RELIGION_ISLAM_NAME</Name>
+			<IconString>Is</IconString>
+			<RequiresCustomName>false</RequiresCustomName>
+			<Color>COLOR_RELIGION_ISLAM</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_JUDAISM</ReligionType>
+			<Name>LOC_RELIGION_JUDAISM_NAME</Name>
+			<IconString>Ju</IconString>
+			<RequiresCustomName>false</RequiresCustomName>
+			<Color>COLOR_RELIGION_JUDAISM</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_ORTHODOXY</ReligionType>
+			<Name>LOC_RELIGION_ORTHODOXY_NAME</Name>
+			<IconString>Or</IconString>
+			<RequiresCustomName>false</RequiresCustomName>
+			<Color>COLOR_RELIGION_ORTHODOXY</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_PROTESTANTISM</ReligionType>
+			<Name>LOC_RELIGION_PROTESTANTISM_NAME</Name>
+			<IconString>Pr</IconString>
+			<RequiresCustomName>false</RequiresCustomName>
+			<Color>COLOR_RELIGION_PROTESTANTISM</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_SHINTO</ReligionType>
+			<Name>LOC_RELIGION_SHINTO_NAME</Name>
+			<IconString>Sh</IconString>
+			<RequiresCustomName>false</RequiresCustomName>
+			<Color>COLOR_RELIGION_SHINTO</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_SIKHISM</ReligionType>
+			<Name>LOC_RELIGION_SIKHISM_NAME</Name>
+			<IconString>Si</IconString>
+			<RequiresCustomName>false</RequiresCustomName>
+			<Color>COLOR_RELIGION_SIKHISM</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_TAOISM</ReligionType>
+			<Name>LOC_RELIGION_TAOISM_NAME</Name>
+			<IconString>Ta</IconString>
+			<RequiresCustomName>false</RequiresCustomName>
+			<Color>COLOR_RELIGION_TAOISM</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_ZOROASTRIANISM</ReligionType>
+			<Name>LOC_RELIGION_ZOROASTRIANISM_NAME</Name>
+			<IconString>Zo</IconString>
+			<RequiresCustomName>false</RequiresCustomName>
+			<Color>COLOR_RELIGION_ZOROASTRIANISM</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_CUSTOM_1</ReligionType>
+			<Name>LOC_RELIGION_CUSTOM_NAME</Name>
+			<IconString>01</IconString>
+			<RequiresCustomName>true</RequiresCustomName>
+			<Color>COLOR_RELIGION_CUSTOM_1</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_CUSTOM_2</ReligionType>
+			<Name>LOC_RELIGION_CUSTOM_NAME</Name>
+			<IconString>02</IconString>
+			<RequiresCustomName>true</RequiresCustomName>
+			<Color>COLOR_RELIGION_CUSTOM_2</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_CUSTOM_3</ReligionType>
+			<Name>LOC_RELIGION_CUSTOM_NAME</Name>
+			<IconString>03</IconString>
+			<RequiresCustomName>true</RequiresCustomName>
+			<Color>COLOR_RELIGION_CUSTOM_3</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_CUSTOM_4</ReligionType>
+			<Name>LOC_RELIGION_CUSTOM_NAME</Name>
+			<IconString>04</IconString>
+			<RequiresCustomName>true</RequiresCustomName>
+			<Color>COLOR_RELIGION_CUSTOM_4</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_CUSTOM_5</ReligionType>
+			<Name>LOC_RELIGION_CUSTOM_NAME</Name>
+			<IconString>05</IconString>
+			<RequiresCustomName>true</RequiresCustomName>
+			<Color>COLOR_RELIGION_CUSTOM_5</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_CUSTOM_6</ReligionType>
+			<Name>LOC_RELIGION_CUSTOM_NAME</Name>
+			<IconString>06</IconString>
+			<RequiresCustomName>true</RequiresCustomName>
+			<Color>COLOR_RELIGION_CUSTOM_6</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_CUSTOM_7</ReligionType>
+			<Name>LOC_RELIGION_CUSTOM_NAME</Name>
+			<IconString>07</IconString>
+			<RequiresCustomName>true</RequiresCustomName>
+			<Color>COLOR_RELIGION_CUSTOM_7</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_CUSTOM_8</ReligionType>
+			<Name>LOC_RELIGION_CUSTOM_NAME</Name>
+			<IconString>08</IconString>
+			<RequiresCustomName>true</RequiresCustomName>
+			<Color>COLOR_RELIGION_CUSTOM_8</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_CUSTOM_9</ReligionType>
+			<Name>LOC_RELIGION_CUSTOM_NAME</Name>
+			<IconString>09</IconString>
+			<RequiresCustomName>true</RequiresCustomName>
+			<Color>COLOR_RELIGION_CUSTOM_9</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_CUSTOM_10</ReligionType>
+			<Name>LOC_RELIGION_CUSTOM_NAME</Name>
+			<IconString>10</IconString>
+			<RequiresCustomName>true</RequiresCustomName>
+			<Color>COLOR_RELIGION_CUSTOM_10</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_CUSTOM_11</ReligionType>
+			<Name>LOC_RELIGION_CUSTOM_NAME</Name>
+			<IconString>11</IconString>
+			<RequiresCustomName>true</RequiresCustomName>
+			<Color>COLOR_RELIGION_CUSTOM_11</Color>
+		</Row>
+		<Row>
+			<ReligionType>RELIGION_CUSTOM_12</ReligionType>
+			<Name>LOC_RELIGION_CUSTOM_NAME</Name>
+			<IconString>12</IconString>
+			<RequiresCustomName>true</RequiresCustomName>
+			<Color>COLOR_RELIGION_CUSTOM_12</Color>
+		</Row>
+	</Religions>
+</Database>

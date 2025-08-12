@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="Definitions">
+	<definition name="TradeSystemParameterSet" table-name="TradeSystemParameterSets" cpp="true">
+		<field name="Type" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="LandRouteRange" type="Integer" value="10" not-null="true"/>
+		<field name="SeaRouteRange" type="Integer" value="10" not-null="true"/>
+		<field name="BaseResourceCapacity" type="Integer" value="2" not-null="true"/>
+		<field name="StartRoutesAtDistance" type="Bool" value="0" not-null="true"/>
+	</definition>
+	<definition name="TradeYield" table-name="TradeYields" cpp="true">
+		<field name="Domain" type="Text" not-null="true" hash="true" key="true" value="NO_DOMAIN"/>
+		<field name="ResourceCount" type="Integer" key="true" not-null="true"/>
+		<field name="YieldType" type="Text" not-null="true" hash="true"/>
+		<field name="Amount" type="Integer" not-null="true"/>
+		<reference source="YieldType" target="YieldType" sourceRoleName="YieldRef" targetRoleName="TradeYieldRef" to="Yield"/>
+		<property name="YieldReference" path="YieldRef"/>
+	</definition>
+</definitions>

@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+    <Modifier id="21A_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_HAPPINESS</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MINOR_EARLY</Argument>
+    </Modifier>
+    <Modifier id="22B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_UNIT" run-once="false" permanent="true">
+        <Argument name="UnitTag">UNIT_CLASS_MELEE</Argument>
+        <Argument name="Amount">2</Argument>
+        <Argument name="DomainType">DOMAIN_LAND</Argument>
+    </Modifier>
+    <Modifier id="22C_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" run-once="false" permanent="true">
+        <Argument name="AttributeType">ATTRIBUTE_MILITARISTIC</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="ATTRIBUTE_79B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" run-once="false" permanent="true">
+        <Argument name="AttributeType">ATTRIBUTE_WILDCARD</Argument>
+        <Argument name="Amount">2</Argument>
+    </Modifier>
+    <Modifier id="INDEPENDENT_GIFT_CULTURE_4A_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_CULTURE</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MINOR_EARLY</Argument>
+    </Modifier>
+    <Modifier id="INDEPENDENT_GIFT_SCIENCE_4A_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_SCIENCE</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MINOR_EARLY</Argument>
+    </Modifier>
+    <Modifier id="INDEPENDENT_GIFT_MILITARY_4A_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER_CITY_NEAREST_STORY" effect="EFFECT_CITY_GRANT_UNIT" run-once="true" permanent="true">
+        <Argument name="UnitTag">UNIT_CLASS_INFANTRY</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="INDEPENDENT_GIFT_ECONOMIC_4A_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_GOLD</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MINOR_EARLY</Argument>
+    </Modifier>
+    <Modifier id="1025B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_CULTURE</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MINOR_EARLY</Argument>
+    </Modifier>
+    <Modifier id="8081B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="8081C_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MINOR_EARLY</Argument>
+    </Modifier>
+    <Modifier id="8088B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MINOR_EARLY</Argument>
+    </Modifier>
+    <Modifier id="8088C_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_CULTURE</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MINOR_EARLY</Argument>
+    </Modifier>
+    <Modifier id="8089B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="8089C_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MINOR_EARLY</Argument>
+    </Modifier>
+    <Modifier id="8082B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MINOR_EARLY</Argument>
+    </Modifier>
+    <Modifier id="8082C_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_GOLD</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MINOR_EARLY</Argument>
+    </Modifier>
+    <Modifier id="8083B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_GOLD</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MINOR_EARLY</Argument>
+    </Modifier>
+    <Modifier id="8083C_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MINOR_EARLY</Argument>
+    </Modifier>
+    <Requirement id="REQ_STORY_LEADER_AMINA" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_AMINA</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_AMINA_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_AMINA</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_ASHOKA" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_ASHOKA</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_ASHOKA_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_ASHOKA</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_AUGUSTUS" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_AUGUSTUS</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_AUGUSTUS_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_AUGUSTUS</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_BENJAMIN_FRANKLIN" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_BENJAMIN_FRANKLIN</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_BENJAMIN_FRANKLIN_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_BENJAMIN_FRANKLIN</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_CATHERINE" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_CATHERINE</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_CATHERINE_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_CATHERINE</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_CHARLEMAGNE" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_CHARLEMAGNE</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_CHARLEMAGNE_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_CHARLEMAGNE</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_CONFUCIUS" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_CONFUCIUS</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_CONFUCIUS_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_CONFUCIUS</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_FRIEDRICH" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_FRIEDRICH</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_FRIEDRICH_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_FRIEDRICH</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_HARRIET_TUBMAN" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_HARRIET_TUBMAN</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_HARRIET_TUBMAN_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_HARRIET_TUBMAN</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_HATSHEPSUT" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_HATSHEPSUT</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_HATSHEPSUT_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_HATSHEPSUT</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_HIMIKO" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_HIMIKO</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_HIMIKO_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_HIMIKO</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_IBN_BATTUTA" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_IBN_BATTUTA</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_IBN_BATTUTA_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_IBN_BATTUTA</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_ISABELLA" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_ISABELLA</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_ISABELLA_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_ISABELLA</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_JOSE_RIZAL" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_JOSE_RIZAL</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_JOSE_RIZAL_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_JOSE_RIZAL</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_LAFAYETTE" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_LAFAYETTE</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_LAFAYETTE_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_LAFAYETTE</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_MACHIAVELLI" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_MACHIAVELLI</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_MACHIAVELLI_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_MACHIAVELLI</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_PACHACUTI" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_PACHACUTI</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_PACHACUTI_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_PACHACUTI</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_TRUNG_TRAC" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_TRUNG_TRAC</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_TRUNG_TRAC_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_TRUNG_TRAC</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_XERXES" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_XERXES</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_XERXES_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_XERXES</Argument>
+    </Requirement>
+    <RequirementSet id="REQSET_ATTRIBUTE_79A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_IBN_BATTUTA"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_21A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_LOST_WONDER_RACE01</Argument>
+            <Argument name="GOSSIP_LOST_WONDER_RACE01">Hash,OtherPlayer,Self,Numeric,PercentComplete,50,Hash,IsWinnerFavoredWonder,True</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_22A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_LOST_WONDER_RACE01</Argument>
+            <Argument name="GOSSIP_LOST_WONDER_RACE01">Hash,OtherPlayer,Other,Numeric,PercentComplete,75,Hash,IsLoserFavoredWonder,True</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_22C_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_CONQUERED_WONDER">
+            <Argument name="IsAssociatedWonder">True</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_ATTRIBUTE_79A_NARRATIVE">
+        <Requirement xref="REQ_STORY_LEADER_IBN_BATTUTA"/>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_X_PROGRESSION_TREE_NODES">
+            <Argument name="CultureOnly">True</Argument>
+            <Argument name="Amount">1</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_INDEPENDENT_GIFT_CULTURE_4A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_INDEPENDENT_RELATIONSHIP">
+            <Argument name="Amount">4</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_INDEPENDENT_GIFT_SCIENCE_4A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_INDEPENDENT_RELATIONSHIP">
+            <Argument name="Amount">4</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_INDEPENDENT_GIFT_MILITARY_4A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_INDEPENDENT_RELATIONSHIP">
+            <Argument name="Amount">4</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_INDEPENDENT_GIFT_ECONOMIC_4A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_INDEPENDENT_RELATIONSHIP">
+            <Argument name="Amount">4</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_1025A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_RANDOM_EVENT_UNIT_KILLED01</Argument>
+            <Argument name="GOSSIP_RANDOM_EVENT_UNIT_KILLED01">Hash,EffectOperatorType,STORM,Hash,BiomeType,BIOME_DESERT</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_8081A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_RELATIONSHIP_CHANGED01</Argument>
+            <Argument name="GOSSIP_RELATIONSHIP_CHANGED01">Hash,OtherPlayer,Self,Hash,RelationshipLevel,PLAYER_RELATIONSHIP_FRIENDLY,Hash,OldRelationshipLevel,PLAYER_RELATIONSHIP_NEUTRAL</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_8088A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_MAKE_PEACE01</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_8089A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_ALLIED01</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_8082A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_RELATIONSHIP_CHANGED01</Argument>
+            <Argument name="GOSSIP_RELATIONSHIP_CHANGED01">Hash,OtherPlayer,Self,Hash,RelationshipLevel,PLAYER_RELATIONSHIP_FRIENDLY,Hash,OldRelationshipLevel,PLAYER_RELATIONSHIP_HELPFUL</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_8083A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_RELATIONSHIP_CHANGED01,GOSSIP_RELATIONSHIP_CHANGED02</Argument>
+            <Argument name="GOSSIP_RELATIONSHIP_CHANGED01">Hash,OtherPlayer,Self,Hash,RelationshipLevel,PLAYER_RELATIONSHIP_NEUTRAL,Hash,OldRelationshipLevel,PLAYER_RELATIONSHIP_HOSTILE</Argument>
+            <Argument name="GOSSIP_RELATIONSHIP_CHANGED02">Hash,OtherPlayer,Self,Hash,RelationshipLevel,PLAYER_RELATIONSHIP_NEUTRAL,Hash,OldRelationshipLevel,PLAYER_RELATIONSHIP_UNFRIENDLY</Argument>
+            <Argument name="Amount">1</Argument>
+        </Requirement>
+    </RequirementSet>
+</GameEffects>

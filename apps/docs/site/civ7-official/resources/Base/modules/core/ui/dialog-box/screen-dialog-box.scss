@@ -1,0 +1,22 @@
+@use '../utilities/utility-layout' as *;
+
+.screen-dialog-box {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	.dialog-stepper {
+		align-items: center;
+		justify-content: center;
+	}
+
+	.multi-button-container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	fxs-header div {
+		max-width: 90%;
+	}
+}

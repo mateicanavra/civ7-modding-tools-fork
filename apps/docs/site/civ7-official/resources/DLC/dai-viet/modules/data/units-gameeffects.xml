@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==================================================	-->
+	<!--	Unique Abilities							-->
+	<!-- ==================================================	-->
+	<Modifier id="VOI_CHIEN_MOD_MOVE_AFTER_ATTACK" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_MOVE_AFTER_ATTACK">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="CAM_QUAN_UNIT_OWNER_TERRITORY" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_IN_OWNER_TERRITORY"/>
+		</SubjectRequirements>
+		<Argument name="Amount">6</Argument>
+		<String context="Preview">LOC_CAM_QUAN_PREVIEW</String>
+	</Modifier>
+	<Modifier id="CAM_QUAN_UNIT_NOT_OWNER_TERRITORY" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_IN_OWNER_TERRITORY" inverse="true"/>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_CAM_QUAN_PREVIEW</String>
+	</Modifier>
+</GameEffects>

@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_GRAND_BAZAAR_CHAPTER_HISTORY_PARA_1" Language="pl_PL">
+      <Text>Rozwój imperium osmańskiego w XV w. spowodował również ekspansję jego gospodarki, co znalazło odzwierciedlenie w budowie bedestanów, czyli zadaszonych bazarów. Pierwotnie służyły one do sprzedaży tekstyliów, ponieważ umożliwiały bezpieczne przechowywanie cennych towarów nocą, ale szybko poszerzyły oferowany asortyment o szeroką gamę dóbr luksusowych. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_GRAND_BAZAAR_CHAPTER_HISTORY_PARA_2" Language="pl_PL">
+      <Text>Stambuł będący stolicą imperium zyskał dwa bedestany w swoim sercu w dekadach następujących po przejęciu miasta od Bizancjum. Zbudowane obok siebie Iç Bedestan i Sandal Bedestan zostały szybko otoczone zewnętrznymi targowiskami, tworząc jedną rozległą przestrzeń handlową – Wielki Bazar. Ten znajdujący się w centralnym punkcie wielu szlaków handlowych bazar szczycił się niezwykłą i wyjątkowo zróżnicowaną ofertą towarów z całego świata sprzedawanych w tysiącach jego sklepów, przyćmiewając targowiska Europy i przyciągając turystów z najdalszych zakątków globu. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_GRAND_BAZAAR_CHAPTER_HISTORY_PARA_3" Language="pl_PL">
+      <Text>Wielki Bazar pozostaje aktywnym targowiskiem i jest jedną z najczęściej odwiedzanych atrakcji na świecie. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_MAUSOLEUM_AT_HALICARNASSUS_CHAPTER_HISTORY_PARA_1" Language="pl_PL">
+      <Text>Mauzoleum w Halikarnasie, jeden z siedmiu cudów starożytnego świata, było grobowcem zbudowanym w latach 353-351 p.n.e. dla Mauzolosa, władcy Karii w zachodniej Anatolii. Była to wspaniała budowla zaprojektowana i ozdobiona przez najbardziej utalentowanych greckich architektów i rzeźbiarzy tamtych czasów, zachwycająca misternymi płaskorzeźbami, setkami rzeźb i czterokonnym rydwanem na szczycie, w którym stały posągi Mauzolosa i jego żony (i siostry) Artemizji. To właśnie od Mauzolosa i jego grobowca pochodzi słowo „mauzoleum”. Konstrukcja przetrwała do średniowiecza, ale została zniszczona prawdopodobnie przez trzęsienie ziemi między XI a XV w. n.e. Do naszych czasów zachowały się jej fragmenty.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_UBUDIAH_MOSQUE_CHAPTER_HISTORY_PARA_1" Language="pl_PL">
+      <Text>Zasada ubudiah zawarta w Koranie nakazuje muzułmanom poddawanie się wyłącznie Bogu i to właśnie ta zasada przyświecała budowie meczetu Ubudiah. Islam przybył do Azji Południowo-Wschodniej w XII w. i stał się podstawą nowej, globalnie połączonej sieci sułtanatów w malajskim świecie. Spośród nich sułtanat Perak, obecnie w Malezji, zyskał duże znaczenie i bogactwo, nawet pod brytyjską kontrolą w XIX i na początku XX w. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_UBUDIAH_MOSQUE_CHAPTER_HISTORY_PARA_2" Language="pl_PL">
+      <Text>Właśnie w Peraku sułtan Idris Shah I zbudował meczet w podzięce za odzyskanie zdrowia po chorobie. Ukończony w 1917 r. meczet wykonany jest z włoskiego marmuru i zwieńczony złotymi kopułami w stylu południowoazjatyckim (choć został zaprojektowany przez brytyjskiego architekta). Wojna i walka między dwoma słoniami opóźniły budowę, ale do dziś pozostaje on symbolem Kuala Kangsar oraz Peraku i służy muzułmańskiej społeczności Peraku jako miejsce kultu.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_WAT_XIENG_THONG_CHAPTER_HISTORY_PARA_1" Language="pl_PL">
+      <Text>Podczas gdy niektóre świątynie buddystów therawada w Azji Południowo-Wschodniej służyły jako szkoły dla społeczności i miejsca spotkań, inne miały za zadanie uwydatniać majestat królewskiej władzy. Wat Xieng Thong znajduje się w Luang Phrabang, starej stolicy laotańskiego królestwa Lan Xang („milion słoni”). Świątynia została zbudowana około 1560 r. przez laotańskiego króla Setthathiratha u szczytu potęgi Lan Xang po obronie przed inwazją wojsk birmańskich i przed kolejnym zwycięstwem nad wojskami Ajutthai (Syjamu). Jej rozległy, teleskopowy dach nadaje jej wdzięku i elegancji, a rozciągający się z niej widok na rzeki Mekong i Nam Khan czyni ją wyjątkowym miejscem. Według legendy Wat Xieng Thong jest domem duchów naga, które błogosławią to miejsce.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_GRAND_BAZAAR_NAME" Language="pl_PL">
+      <Text>Wielki Bazar|Wielkiego Bazaru|Wielkiemu Bazarowi|Wielki Bazar|Wielkim Bazarem|Wielkim Bazarze|Wielki Bazar|Wielkiego Bazaru|Wielkiemu Bazarowi|Wielki Bazar|Wielkim Bazarem|Wielkim Bazarze</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_WONDER_MAUSOLEUM_AT_HALICARNASSUS_NAME" Language="pl_PL">
+      <Text>Mauzoleum w Halikarnasie</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_WONDER_UBUDIAH_MOSQUE_NAME" Language="pl_PL">
+      <Text>Meczet Ubudiah|Meczetu Ubudiah|Meczetowi Ubudiah|Meczet Ubudiah|Meczetem Ubudiah|Meczecie Ubudiah|Meczet Ubudiah|Meczetu Ubudiah|Meczetowi Ubudiah|Meczet Ubudiah|Meczetem Ubudiah|Meczecie Ubudiah</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_WONDER_WAT_XIENG_THONG_NAME" Language="pl_PL">
+      <Text>Wat Xieng Thong</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_GRAND_BAZAAR" Language="pl_PL">
+      <Text>James Elroy Flecker</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_MAUSOLEUM_AT_HALICARNASSUS" Language="pl_PL">
+      <Text>Lukian z Samosat</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_UBUDIAH_MOSQUE" Language="pl_PL">
+      <Text>Hamzah Fansuri</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_WAT_XIENG_THONG" Language="pl_PL">
+      <Text>Legenda o ropuszym królu</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_GRAND_BAZAAR" Language="pl_PL">
+      <Text>„Podążamy złotą drogą do Samarkandy”.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_MAUSOLEUM_AT_HALICARNASSUS" Language="pl_PL">
+      <Text>„W Halikarnasie ku mej czci wzniesiono grobowiec tak wielki i piękny, że żaden inny mierzyć się z nim nie może”.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_UBUDIAH_MOSQUE" Language="pl_PL">
+      <Text>„Pamiętaj, kupieckie dziecko, twoje pragnienia są wrogami wojny”.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_WAT_XIENG_THONG" Language="pl_PL">
+      <Text>„Niech deszcz pada zgodnie z porą roku, a żaby niech rechoczą na polach”.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_GRAND_BAZAAR_DESCRIPTION" Language="pl_PL">
+      <Text>+2 do [icon:YIELD_GOLD] złota. +2 do miejsc na zasoby. Pola z zasobami skarbowymi w ojczyźnie zyskują +3 do [icon:YIELD_GOLD] złota. Budowla niezwiązana z żadną epoką. Można umieścić wyłącznie w ojczyźnie w sąsiedztwie dystryktu.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_GRAND_BAZAAR_TOOLTIP" Language="pl_PL">
+      <Text>+2 do miejsc na zasoby. Pola z zasobami w ojczyźnie zyskują +3 do [icon:YIELD_GOLD] złota. Budowla niezwiązana z żadną epoką. Można umieścić wyłącznie w ojczyźnie w sąsiedztwie dystryktu.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_MAUSOLEUM_AT_HALICARNASSUS_DESCRIPTION" Language="pl_PL">
+      <Text>Gdy po raz pierwszy dojdzie do zniszczenia jednostki kawalerii, odradza się ona w najbliższym posiadanym przez ciebie osiedlu z 25% PŻ. Budowla niezwiązana z żadną epoką. Można umieścić wyłącznie na płaskim terenie w sąsiedztwie wybrzeża.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_MAUSOLEUM_AT_HALICARNASSUS_TOOLTIP" Language="pl_PL">
+      <Text>Gdy po raz pierwszy dojdzie do zniszczenia jednostki kawalerii, odradza się ona w najbliższym posiadanym przez ciebie osiedlu z 25% PŻ. Budowla niezwiązana z żadną epoką. Można umieścić wyłącznie na płaskim terenie w sąsiedztwie wybrzeża.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_UBUDIAH_MOSQUE_DESCRIPTION" Language="pl_PL">
+      <Text>+4 do [icon:YIELD_HAPPINESS] zadowolenia. Ulepszenia w tym osiedlu otrzymują +50% do dochodów. Budowla niezwiązana z żadną epoką. Można umieścić wyłącznie na tropikalnym polu.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_UBUDIAH_MOSQUE_TOOLTIP" Language="pl_PL">
+      <Text>Ulepszenia w tym osiedlu otrzymują +50% do dochodów. Budowla niezwiązana z żadną epoką. Można umieścić wyłącznie na tropikalnym polu.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_WAT_XIENG_THONG_DESCRIPTION" Language="pl_PL">
+      <Text>+2 do [icon:YIELD_CULTURE] kultury. +200 do [icon:YIELD_GOLD] złota (skalowane wraz ze zmianą prędkości gry) za każdym razem, gdy zyskujesz wielkie dzieło. Budowla niezwiązana z żadną epoką. Można umieścić wyłącznie w sąsiedztwie rzeki.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_WAT_XIENG_THONG_TOOLTIP" Language="pl_PL">
+      <Text>+200 do [icon:YIELD_GOLD] złota (skalowane wraz ze zmianą prędkości gry) za każdym razem, gdy zyskujesz wielkie dzieło. Budowla niezwiązana z żadną epoką. Można umieścić wyłącznie w sąsiedztwie rzeki.</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

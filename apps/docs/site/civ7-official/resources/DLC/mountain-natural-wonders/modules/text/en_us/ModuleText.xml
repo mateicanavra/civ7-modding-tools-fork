@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_NAME">
+			<Text>Collection 1: Natural Wonder Pack</Text>
+		</Row>
+		<Row Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_DESCRIPTION">
+			<Text>Contains 4 new Natural Wonders; Machapuchare, Mount Fuji, Vihren, and Vinicunca.</Text>
+		</Row>
+	</EnglishText>
+</Database>

@@ -1,0 +1,13 @@
+/* DO NOT EDIT */
+/* Generated from leaders-test.scss */
+leaders-test {
+	position: absolute;
+	bottom: 5.5555555556rem;
+	right: 5.5555555556rem;
+	width: 11.1111111111rem;
+	height: 11.1111111111rem;
+	background-color: grey;
+}
+leaders-test.leaders-test--animated {
+	background-color: green;
+}

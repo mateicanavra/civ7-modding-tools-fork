@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_SUB_SYSTEM_TECH_NO_RESEARCH">
+			<Text>You are not currently researching any Techs.</Text>
+		</Row>
+		<Row Tag="LOC_SUB_SYSTEM_TECH_CURRENT_RESEARCH">
+			<Text>Currently researching {1_techName} [N]{2_Turns} {2_Turns: plural 1?turn; other?turns;} until researching is complete.</Text>
+		</Row>
+		<Row Tag="LOC_SUB_SYSTEM_CULTURE_NO_RESEARCH">
+			<Text>You are not currently studying any Civics.</Text>
+		</Row>
+		<Row Tag="LOC_SUB_SYSTEM_CULTURE_CURRENT_RESEARCH">
+			<Text>Currently studying {1_civicName} [N]{2_Turns} {2_Turns: plural 1?turn; other?turns;} until studying is complete.</Text>
+		</Row>
+		<Row Tag="LOC_SUB_SYSTEM_TRADITIONS_DURING_CELEBRATION">
+			<Text>View Your Social Policies[N] [N][STYLE:font-title-base][STYLE:text-secondary][STYLE:uppercase]{1_name}[/S][/S][/S][N][B]{2_turns} {2_turns: plural 1?turn; other?turns;}[/b] left in [b]Celebration[/b][N] [N][STYLE:font-title-base][STYLE:text-secondary][STYLE:uppercase]Bonus[/S][/S][/S][N]{3_description}</Text>
+		</Row>
+		<Row Tag="LOC_SUB_SYSTEM_TRADITIONS_TURNS_UNTIL_CELEBRATION_START">
+			<Text>View Your Social Policies[n]{1_turns} {1_turns: plural 1?turn; other?turns;} until the next Celebration.</Text>
+		</Row>
+		<Row Tag="LOC_SUB_SYSTEM_TRADITIONS_TURNS_UNTIL_CELEBRATION_END">
+			<Text>View Your Social Policies[n]{1_turns} {1_turns: plural 1?turn; other?turns;} until the Celebration ends.</Text>
+		</Row>
+	</EnglishText>
+</Database>

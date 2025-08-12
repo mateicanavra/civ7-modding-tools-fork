@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==================================================	-->
+	<!--	EXPLORATION							-->
+	<!-- ==================================================	-->
+	<!-- Shawnee -->
+	<Modifier id="BREAD_DANCE_FARM_TOWNS_CULTURE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_PROJECT">
+				<Argument name="ProjectType">PROJECT_TOWN_GRANARY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">4</Argument>
+		<Argument name="Tooltip">LOC_TRADITION_BREAD_DANCE_NAME</Argument>
+		<String context="Description">LOC_TRADITION_BREAD_DANCE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="BREAD_DANCE_FISHING_TOWNS_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_PROJECT">
+				<Argument name="ProjectType">PROJECT_TOWN_FISHING</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Amount">4</Argument>
+		<Argument name="Tooltip">LOC_TRADITION_BREAD_DANCE_NAME</Argument>
+	</Modifier>
+	<Modifier id="HELIKHILENAWEWIPE_MOD_ADJUST_ENDEAVOR" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_DIPLOMATIC_ACTION_TYPE_EFFICIENCY">
+		<Argument name="Percent">50</Argument>
+		<Argument name="ActionType">DIPLOMACY_ACTION_GIVE_INFLUENCE_TOKEN</Argument>
+		<String context="Description">LOC_TRADITION_HELIKHILENAWEWIPE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="TAKESIYAKE_YEPEPOKI_MOD_WAREHOUSES" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ACTIVATE_CONSTRUCTIBLE_WAREHOUSE_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+		</SubjectRequirements>
+		<Argument name="ConstructibleWarehouseYield">TakesiyakeYepepokiCityHallTundraProduction, TakesiyakeYepepokiCityHallDesertProduction, TakesiyakeYepepokiCityHallPlainsProduction, TakesiyakeYepepokiPalaceTundraProduction, TakesiyakeYepepokiPalaceDesertProduction, TakesiyakeYepepokiPalacePlainsProduction</Argument>
+		<String context="Description">LOC_TRADITION_TAKESIYAKE_YEPEPOKI_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="KAKAWFE_PAFKOTAWETA_CULTURE_DISASTERS" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_FROM_DISTATERS">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_TRADITION_KAKAWFE_PAFKOTAWETA_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="KAKAWFE_PAFKOTAWETA_GOLD_DISASTERS" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_FROM_DISTATERS">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="KAKAWFE_PAFKOTAWETA_AVOID_STORMS" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_AVOID_RANDOM_EVENT">
+		<Argument name="RandomEventClass">CLASS_BLIZZARD, CLASS_DUSTSTORM, CLASS_TORNADO, CLASS_THUNDERSTORM, CLASS_HURRICANE</Argument>
+	</Modifier>
+</GameEffects>

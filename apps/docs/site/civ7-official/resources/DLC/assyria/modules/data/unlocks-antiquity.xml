@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_UNLOCK"/>
+	</Kinds>
+	<RequirementSets>
+		<Row RequirementSetId="REQSET_CIV_IS_ASSYRIA" RequirementSetType="REQUIREMENTSET_TEST_ALL"/>
+	</RequirementSets>
+	<Requirements>
+		<Row RequirementId="REQ_CIV_IS_ASSYRIA" RequirementType="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES"/>
+	</Requirements>
+	<RequirementArguments>
+		<Row RequirementId="REQ_CIV_IS_ASSYRIA" Name="CivilizationType" Value="CIVILIZATION_ASSYRIA"/>
+	</RequirementArguments>
+	<RequirementSetRequirements>
+		<Row RequirementSetId="REQSET_CIV_IS_ASSYRIA" RequirementId="REQ_CIV_IS_ASSYRIA"/>
+	</RequirementSetRequirements>
+	<UnlockRequirements>
+		<Row UnlockType="UNLOCK_CIVILIZATION_ABBASID" RequirementSetId="REQSET_CIV_IS_ASSYRIA" Description="LOC_UNLOCK_PLAY_AS_ASSYRIA_DESCRIPTION" Tooltip="LOC_UNLOCK_PLAY_AS_ASSYRIA_ABBASID_TOOLTIP"/>
+	</UnlockRequirements>
+</Database>

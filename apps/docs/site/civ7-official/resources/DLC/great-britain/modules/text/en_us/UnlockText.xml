@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_ROME_GREAT_BRITAIN_TOOLTIP">
+			<Text>[B]Rome [/B] was a precursor Civilization to [B]Great Britain[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_NORMAN_GREAT_BRITAIN_TOOLTIP">
+			<Text>The [B]Normans[/B] were a precursor Civilization to [B]Great Britain[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_FLEET_COMMANDERS_DESCRIPTION">
+			<Text>Have two [B]Fleet Commanders[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_FLEET_COMMANDERS_GREAT_BRITAIN_TOOLTIP">
+			<Text>[B]Fleet Commanders[/B] were an important part of [B]Great Britain's[/B] identity.</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_FLEET_COMMANDERS_GREAT_BRITAIN_NARRATIVE">
+			<Text>“A wooden wall,” the admiral promises, gesturing at ships in drydock. The new class of naval officers have proposed a new vision of rule, one that extends not only over the land, but the waves.</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_BENJAMIN_FRANKLIN_GREAT_BRITAIN_TOOLTIP">
+			<Text>[B]Great Britain[/B] strategically complements [B]Benjamin Franklin[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_GREAT_BRITAIN_TOOLTIP">
+			<Text>[B]Ada Lovelace[/B] was [B]British[/B].</Text>
+		</Row>
+	</EnglishText>
+</Database>

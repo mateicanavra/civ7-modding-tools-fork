@@ -1,0 +1,181 @@
+// @copyright 2020-2022, Firaxis Games
+
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+@use '../../../core/ui/utilities/utility-shapes' as shapes;
+@use '../../../core/ui/themes/default/baseColors';
+
+.tutorial-inspector {
+	pointer-events: none;
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	right: 0;
+	top: pixels(32);
+	z-index: 998;
+	min-width: 20vw;
+	min-height: 20vh;
+	width: auto;
+	height: 80vh;
+	width: 30vw;
+	overflow-y: auto;
+	font-size: pixels-font(12);
+
+
+
+	.minusplus-button {
+		width: pixels(32);
+		height: pixels(32);
+		position: absolute;
+		right: pixels(32);
+		pointer-events: auto;
+		background-size: pixels(54);
+	}
+
+	.minusplus-button__shadow {
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-size: pixels(54);
+	}
+
+	.minusplus-button__bg,
+	.minusplus-button__highlight,
+	.minusplus-button__icon,
+	.minusplus-button__overlay {
+		background-size: pixels(54);
+	}
+}
+
+
+.ti__item-id {
+	width: 35%;
+}
+
+.ti__item-status {
+	width: pixels(80);
+	text-align: center;
+}
+
+.ti__item-hidden {
+	flex: auto;
+	text-align: center;
+}
+
+.tutorial-inspector-item {
+	z-index: 1;
+	cursor: pointer;
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	pointer-events: auto;
+	padding: pixels(2) pixels(0);
+
+	>.caption {
+		pointer-events: none;
+		z-index: 1;
+		color: baseColors.$second-color;
+		margin: pixels(0) pixels(4) pixels(0) pixels(4);
+		font-size: pixels-font(16);
+		overflow-wrap: break-word;
+	}
+
+	>.fxs-switch {
+		z-index: 1;
+		margin: 0 1em 0 1em;
+	}
+
+	&:hover {
+
+		&.disabled {
+			>.caption {
+				color: baseColors.$base-lighter-color;
+			}
+
+			.bg-container {
+				//filter: fxs-color-mask(baseColors.$highlight-color);
+				background-color: rgba(baseColors.$base-light-color, 1);
+			}
+		}
+
+		>.caption {
+			color: baseColors.$base-dark-color;
+		}
+
+		>.button {
+			color: baseColors.$base-dark-color;
+		}
+
+		>.bg-container {
+			//filter: fxs-color-mask(baseColors.$highlight-color);
+			background-color: rgba(baseColors.$highlight-color, 1);
+		}
+	}
+
+	&:active {
+		.bg-container {
+			filter: baseColors.$highlight-color-matrix;
+		}
+	}
+
+	&.disabled {
+		>.caption {
+			color: baseColors.$base-lighter-color;
+		}
+
+		>.bg-container {
+			background-color: baseColors.$base-dark-color;
+		}
+
+		>.icon-container {
+			>.icon {
+				filter: fxs-color-mask(baseColors.$base-light-color);
+			}
+
+			>.bg {
+				filter: fxs-color-mask(baseColors.$base-dark-color);
+			}
+
+			>.outline {
+				filter: fxs-color-mask(baseColors.$base-light-color);
+			}
+		}
+	}
+
+	>.bg-container {
+		pointer-events: none;
+		width: 100%;
+		top: 0;
+		bottom: 0;
+		position: absolute;
+		display: flex;
+		background-color: baseColors.$base-color;
+		//filter: baseColors.$second-dark-color-matrix;
+
+	}
+}
+
+.ti__button {
+	pointer-events: auto;
+	position: relative;
+	font-size: pixels-font(16);
+	padding: pixels(2) pixels(4);
+	margin: pixels(4) pixels(8);
+	border: pixels(1) solid baseColors.$second-darker-color;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+
+	&:hover {
+		color: baseColors.$base-color;
+		background-color: baseColors.$accent-color;
+	}
+
+	&:active {
+		color: baseColors.$base-color;
+		background-color: baseColors.$third-color;
+	}
+}

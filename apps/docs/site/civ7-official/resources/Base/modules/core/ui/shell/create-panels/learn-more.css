@@ -1,0 +1,38 @@
+/* DO NOT EDIT */
+/* Generated from learn-more.scss */
+.learn-more-icon {
+	width: 6.6666666667rem;
+	height: 6.6666666667rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.learn-more-icon {
+		width: 4rem;
+		height: 4rem;
+	}
+}
+
+.learn-more-icon-frame {
+	top: -0.1111111111rem;
+	filter: fxs-color-tint(#888);
+}
+
+.learn-more-icon-bg {
+	filter: fxs-color-tint(#12151F);
+	background-size: 7.1111111111rem 7.1111111111rem;
+	background-position: -0.2222222222rem -0.2777777778rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.learn-more-icon-bg {
+		background-size: 4.2222222222rem 4.2222222222rem;
+		background-position: -0.1111111111rem -0.1111111111rem;
+	}
+}
+
+.learn-more-filigree {
+	margin-top: -3.3333333333rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.learn-more-filigree {
+		margin-top: -2rem;
+	}
+}

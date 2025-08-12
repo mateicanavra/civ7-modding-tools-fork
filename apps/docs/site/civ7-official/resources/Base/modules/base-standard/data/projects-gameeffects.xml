@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="GREAT_WORK_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_CITY_GRANT_GREAT_WORK" permanent="true">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="FORT_HEALING_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_ATTACH_MODIFIERS">
+		<Argument name="ModifierId">ATTACH_FORT_HEALING_FROM_PROJECT, ATTACH_FORT_HEALTH_FROM_PROJECT, ATTACH_FORT_WALLS_FROM_PROJECT</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_FORT_HEALING_FROM_PROJECT" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_HEAL_PER_TURN">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_NEAR_CITY_WITH_PROJECT">
+				<Argument name="ProjectType">PROJECT_TOWN_FORT</Argument>
+				<Argument name="FriendlyCity">true</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_FORT_HEALTH_FROM_PROJECT" collection="COLLECTION_CITY_DISTRICTS" effect="EFFECT_DISTRICT_ADJUST_TOTAL_HEALTH">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_HAS_CONSTRUCTIBLE">
+				<Argument name="Tag">FORTIFICATION</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">25</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_FORT_WALLS_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_TOWN_CAN_PURCHASE_TAGGED_CONSTRUCTIBLES">
+		<Argument name="ConstructibleTag">FORTIFICATION</Argument>
+	</Modifier>
+	<Modifier id="URBAN_YIELDS_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_ATTACH_MODIFIERS">
+		<Argument name="ModifierId">ATTACH_URBAN_MAINTENANCE_FROM_PROJECT, ATTACH_URBAN_BUILDINGS_FROM_PROJECT</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_URBAN_MAINTENANCE_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_BUILDING_MAINTENANCE_EFFICIENCY">
+		<Argument name="Gold">true</Argument>
+		<Argument name="Happiness">true</Argument>
+		<Argument name="Amount">100</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_URBAN_BUILDINGS_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_TOWN_CAN_PURCHASE_TAGGED_CONSTRUCTIBLES">
+		<Argument name="ConstructibleTag">URBANCENTER</Argument>
+	</Modifier>
+	<Modifier id="RESORT_BONUSES_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_ATTACH_MODIFIERS">
+		<Argument name="ModifierId">ATTACH_RESORT_HAPPINESS_GOLD_FROM_PROJECT, ATTACH_RESORT_NATURAL_WONDER_FROM_PROJECT</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_RESORT_HAPPINESS_GOLD_FROM_PROJECT" collection="COLLECTION_CITY_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_HAS_YIELD">
+				<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+				<Argument name="Amount">1</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_DISTRICT_CLASS">
+				<Argument name="DistrictClass">RURAL</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD, YIELD_HAPPINESS</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<Argument name="Tooltip">LOC_PROJECT_TOWN_RESORT_NAME</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_RESORT_NATURAL_WONDER_FROM_PROJECT" collection="COLLECTION_CITY_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IS_NATURAL_WONDER"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_FOOD, YIELD_PRODUCTION, YIELD_GOLD, YIELD_SCIENCE, YIELD_CULTURE, YIELD_HAPPINESS, YIELD_DIPLOMACY</Argument>
+		<Argument name="Apply">Rate</Argument>
+		<Argument name="Percent">50</Argument>
+		<Argument name="Tooltip">LOC_PROJECT_TOWN_RESORT_NAME</Argument>
+	</Modifier>
+</GameEffects>

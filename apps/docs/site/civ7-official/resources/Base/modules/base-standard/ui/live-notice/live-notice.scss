@@ -1,0 +1,112 @@
+@use '../../../core/ui/themes/default/baseColors';
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+
+
+@keyframes live-notice-animate-in {
+	0% {
+		transform: translateX(22vw);
+		opacity: 0;
+	}
+
+	100% {
+		transform: translateX(pixels(0));
+		opacity: 1;
+	}
+}
+
+@keyframes live-notice-animate-out {
+	0% {
+		transform: translateX(pixels(0));
+		opacity: 1;
+	}
+
+	100% {
+		transform: translateX(pixels(550));
+		opacity: 0;
+	}
+}
+
+.live-notice-panel {
+	max-width: pixels(550);
+	max-height: pixels(50);
+	top: pixels(190);
+}
+
+.live-notice-container-background {
+	display: flex;
+	width: pixels(550);
+	height: pixels(50);
+
+	font-size: pixels-font(18);
+
+	&.hidden {
+		visibility: hidden;
+	}
+
+	&.live-notice-off-screen {
+		display: none;
+		transform: translateX(pixels(550));
+	}
+
+	&.live-notice-animate-in {
+		animation-name: live-notice-animate-in;
+		animation-direction: normal;
+		animation-duration: 1s;
+		animation-timing-function: linear;
+		animation-iteration-count: 1;
+	}
+
+	&.live-notice-animate-out {
+		animation-name: live-notice-animate-out;
+		animation-direction: normal;
+		animation-duration: 1s;
+		animation-timing-function: linear;
+		animation-iteration-count: 1;
+	}
+}
+
+.live-notice-main-hslot {
+	background-image: url("fs://game/hud_challenge_bk");
+	width: pixels(550);
+	height: pixels(50);
+}
+
+.live-notice-main-container {
+	position: relative;
+	display: flex;
+	width: pixels(550);
+	height: pixels(45);
+	padding: pixels(8);
+}
+
+.live-notice-title {
+	text-align: right;
+	padding-top: pixels(1.5);
+}
+
+.live-notice-check {
+	width: pixels(28);
+	background-image: url("fs://game/chal_check");
+}
+
+.live-notice-filigree-right {
+	width: 10%;
+	background-image: url("fs://game/hud_chal_bk");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+
+.live-notice-title-bar {
+	width: pixels(335);
+}
+
+.live-notice-main-info {
+	width: pixels(208);
+	color: baseColors.$base-color;
+}
+
+.live-notice-challenge-score {
+	width: pixels(135);
+}

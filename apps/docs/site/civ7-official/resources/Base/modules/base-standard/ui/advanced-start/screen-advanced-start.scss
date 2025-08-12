@@ -1,0 +1,525 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+@use '../../../core/ui/utilities/utility-shapes' as shapes;
+@use '../../../core/ui/themes/default/baseColors.scss';
+
+screen-advanced-start {
+	width: 100vw;
+	height: 100vh;
+	position: relative;
+}
+
+.adv-start__content {
+	position: absolute;
+	top: 0;
+	align-self: center;
+	height: 100%;
+	width: 100%;
+	max-width: pixels(2520);
+}
+
+
+// ------------------------------------ //
+//   		#TOP-CONTAINER				//
+// ------------------------------------ //
+
+.adv-start__subheader-container {
+	position: relative;
+	width: auto;
+	height: auto;
+	min-width: pixels(432);
+	max-width: pixels(504);
+
+	&.deck-confirmed {
+		flex-direction: row;
+	}
+}
+
+.adv-start__glow {
+	background-image: url('fs://game/popup_icon_glow.png');
+	background-size: 100% 100%;
+	background-position: center;
+}
+
+.adv-start__card-frame {
+	border-image-source: url("fs://game/adv-start_item-frame.png");
+	border-image-slice: 0 fill;
+}
+
+.deck-confirmed {
+	.adv-start__header-info {
+		width: 100%;
+		justify-content: flex-end;
+	}
+}
+
+.adv-start__currency-container {
+	position: relative;
+	display: flex;
+	align-self: center;
+	min-height: pixels(48);
+}
+
+.adv-start__currency-list {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding: pixels(12) pixels(24) pixels(0) pixels(24);
+}
+
+.adv-start__currency-item {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	position: relative;
+	margin-right: pixels(8);
+
+	&.currency-highlight {
+		transform-origin: 50% 50%;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		opacity: 0;
+		animation-duration: .5s;
+		animation-timing-function: linear;
+		z-index: 2;
+
+		&.animate-currency {
+			animation-name: highlight-currency;
+			animation-direction: normal;
+		}
+
+		&.animate-currency-reverse {
+			animation-name: highlight-currency;
+			animation-direction: reverse;
+			animation-duration: .25s;
+		}
+
+		.adv-start__currency-icon {
+			background-image: url("fs://game/bonus_militaristic.png");
+			filter: fxs-color-mask(rgb(var(--clr-panel__overlay-light)));
+			pointer-events: auto;
+		}
+	}
+}
+
+@keyframes highlight-currency {
+	0% {
+		transform: scale(1);
+		opacity: 0;
+		animation-timing-function: linear;
+	}
+
+	25% {
+		transform: scale(1.25);
+		opacity: 1;
+		animation-timing-function: linear;
+	}
+
+	100% {
+		transform: scale(2);
+		opacity: 0;
+		animation-timing-function: linear;
+	}
+}
+
+.adv-start__scrollable {
+	--mask-padding: 3;
+	position: relative;
+	width: 100%;
+	height: 100%;
+
+	.fxs-scrollbar-container {
+		right: pixels(22);
+		left: initial;
+	}
+
+	.fxs-scrollbar__track--vertical {
+		@media (experience: mobile) {
+			left: pixels(-26);
+		}
+	}
+}
+
+.adv-start__button-container {
+	fxs-button {
+		@media (experience: mobile) {
+			margin-left: pixels(12);
+    		margin-right: pixels(12);
+		}
+	}
+}
+
+// ------------------------------------ //
+//   			#CARDS					//
+// ------------------------------------ //
+.adv-start__card-disabled {
+	opacity: 0;
+}
+
+.adv-start__card {
+	display: flex;
+	flex-direction: column;
+	width: pixels(475);
+	min-height: pixels(120);
+	margin-left: pixels(0);
+	pointer-events: auto;
+	position: relative;
+	transition-property: margin-bottom;
+	transition-duration: .25s;
+	transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+	animation-name: adv-start__selected-card-anim-in;
+	animation-duration: .25s;
+	animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+	animation-fill-mode: both;
+	animation-delay: .0625s;
+
+	&:hover,
+	&:focus {
+		.adv-start__card-highlight {
+			opacity: 1;
+		}
+	}
+
+	&.adv-start__card--selected {
+		&.hide-card {
+			display: none;
+		}
+	}
+
+	&.cannot-be-added {
+		.adv-start__card-disabled {
+			opacity: 0.375;
+		}
+
+		.card-cost-container {
+			.card-cost-name {
+				opacity: 0.5;
+			}
+		}
+	}
+
+	&.insufficent-funds {
+		.adv-start__card-cost-name {
+			color: rgba(176, 71, 71, 1);
+		}
+	}
+}
+
+.adv-start__card-content {
+	min-height: pixels(120);
+}
+
+.adv-start__card--remove {
+	animation-name: adv-start__selected-card-anim-out;
+	animation-duration: .25s;
+	animation-fill-mode: forwards;
+}
+
+@keyframes adv-start__selected-card-anim-in {
+	0% {
+		opacity: 0;
+		transform: translateX(pixels(-48));
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateX(pixels(0));
+	}
+}
+
+@keyframes adv-start__selected-card-anim-out {
+	100% {
+		opacity: 0;
+		transform: translateX(pixels(-48));
+	}
+}
+
+.dark {
+	.adv-start__card-content {
+		background: #101010;
+		border-color: #3b3b3b;
+	}
+
+	.adv-start__card-radial {
+		background: radial-gradient(50.09% 90.23% at 50% 100%, rgba(73, 73, 73, 0.5) 0%, rgba(51, 51, 51, 0.25) 50%, rgba(34, 34, 34, 0.1) 75%, rgba(8, 8, 8, 0) 100%);
+	}
+
+	.adv-start__card-overlay {
+		fxs-border-image-tint: #3b3b3b;
+	}
+
+	.adv-start__card-bg-icon {
+		display: none;
+	}
+}
+
+.wild {
+	.adv-start__card-content {
+		background: #101121;
+		border-color: #5B5E82;
+	}
+
+	.adv-start__card-radial {
+		background: radial-gradient(50.09% 90.23% at 50% 100%, rgba(99, 106, 181, 0.5) 0%, rgba(99, 106, 181, 0.25) 50%, rgba(99, 106, 181, 0.1) 75%, rgba(99, 106, 181, 0) 100%);
+	}
+
+	.adv-start__card-overlay {
+		fxs-border-image-tint: #5B5E82;
+	}
+
+	.adv-start__card-bg-icon {
+		display: none;
+	}
+}
+
+.mili {
+	.adv-start__card-content {
+		background: #1a0a0c;
+		border-color: #814c51;
+	}
+
+	.adv-start__card-radial {
+		background: radial-gradient(50.09% 90.23% at 50% 100%, rgba(187, 65, 86, 0.5) 0%, rgba(187, 65, 86, 0.25) 50%, rgba(187, 65, 86, 0.1) 75%, rgba(187, 65, 86, 0) 100%);
+	}
+
+	.adv-start__card-overlay {
+		fxs-border-image-tint: #814c51;
+	}
+
+	.adv-start__card-bg-icon {
+		background-image: url('fs://game/adv-start_mil-bg.png');
+	}
+}
+
+.cult {
+	.adv-start__card-content {
+		background: #18111f;
+		border-color: #5e4c81;
+	}
+
+	.adv-start__card-radial {
+		background: radial-gradient(50.09% 90.23% at 50% 100%, rgba(118, 52, 185, 0.5) 0%, rgba(118, 52, 185, 0.25) 50%, rgba(118, 52, 185, 0.1) 75%, rgba(118, 52, 185, 0) 100%);
+	}
+
+	.adv-start__card-overlay {
+		fxs-border-image-tint: #5e4c81;
+	}
+
+	.adv-start__card-bg-icon {
+		background-image: url('fs://game/adv-start_culture-bg.png');
+	}
+}
+
+.econ {
+	.adv-start__card-content {
+		background: #1a120e;
+		border-color: #82704d;
+	}
+
+	.adv-start__card-radial {
+		background: radial-gradient(50.09% 90.23% at 50% 100%, rgba(198, 149, 54, 0.5) 0%, rgba(198, 149, 54, 0.25) 50%, rgba(198, 149, 54, 0.1) 75%, rgba(198, 149, 54, 0) 100%);
+	}
+
+	.adv-start__card-overlay {
+		fxs-border-image-tint: #82704d;
+	}
+
+	.adv-start__card-bg-icon {
+		background-image: url('fs://game/adv-start_econ-bg.png');
+	}
+}
+
+.scie {
+	.adv-start__card-content {
+		background: #0e141a;
+		border-color: #456685;
+	}
+
+	.adv-start__card-radial {
+		background: radial-gradient(50.09% 90.23% at 50% 100%, rgba(44, 103, 157, 0.5) 0%, rgba(44, 103, 157, 0.25) 50%, rgba(44, 103, 157, 0.1) 75%, rgba(44, 103, 157, 0) 100%);
+	}
+
+	.adv-start__card-overlay {
+		fxs-border-image-tint: #456685;
+	}
+
+	.adv-start__card-bg-icon {
+		background-image: url('fs://game/adv-start_science-bg.png');
+	}
+}
+
+.adv-start__card-highlight--selected {
+	background-image: linear-gradient(195deg, rgba(var(--clr-panel__overlay-light), .375)0%, rgba(var(--clr-panel__overlay-light), 0)100%);
+	transition-property: opacity;
+	transition-duration: .25s;
+	transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.adv-start__card-highlight-frame {
+	border-image-source: url("fs://game/adv-start_item-focus.png");
+	border-image-slice: 0 fill;
+	border-image-outset: pixels(1) pixels(2) pixels(1) pixels(2);
+}
+
+// ------------------------------------ //
+//   		#AVAILABLE-CARDS			//
+// ------------------------------------ //
+
+.adv-start__available-legacy-container {
+	border-image-source: url("fs://game/shell_simple-square.png");
+	border-image-slice: 16 fill;
+	border-image-width: pixels(16);
+	background: rgba(18, 21, 31, .9);
+}
+
+.adv-start__available-cards-list {
+	display: flex;
+	padding: pixels(0) pixels(48);
+	padding-left: pixels(24);
+}
+
+.adv-start__available-cards-content {
+	@media (experience: mobile) {
+		padding-bottom: pixels(32);
+	}
+}
+
+// ------------------------------------ //
+//   		#SELECTED-CARDS				//
+// ------------------------------------ //
+
+.adv-start__selected-cards-content {
+	padding: pixels(0);
+	width: auto;
+	transition-property: opacity, transform;
+	transition-duration: .25s;
+	transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.adv-start__filter-text {
+	line-height: pixels(39);
+	padding-right: pixels(13);
+}
+
+.adv-start__filter-button {
+	display: flex;
+	opacity: 0.5;
+
+	&:hover,
+	&:focus,
+	&.selected {
+		opacity: 1;
+	}
+}
+
+.adv-start__left-arrow,
+.adv-start__right-arrow {
+	height: pixels(39);
+	width: pixels(35);
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+
+	&:focus,
+	&:hover {
+		filter: brightness(200%);
+	}
+}
+
+.adv-start__right-arrow {
+	transform: rotate(90deg);
+}
+
+.adv-start__card--selected {
+	&.adv-start__card {
+		min-height: pixels(58);
+		width: auto;
+	}
+
+	.adv-start__card-content {
+		min-height: pixels(50);
+		width: pixels(512);
+	}
+
+	.adv-start__card-type-icon {
+		background-size: pixels(38) pixels(38);
+		width: pixels(38);
+		height: pixels(38);
+		margin-left: pixels(5);
+	}
+
+	.adv-start__card-description {
+		display: none;
+	}
+
+	.adv-start__card-name {
+		font-size: pixels-font(16);
+		padding-left: pixels(10);
+	}
+
+	.adv-start__card-text {
+		padding-top: pixels(6);
+		padding-bottom: 0;
+		display: flex;
+		justify-content: center;
+	}
+
+	.adv-start__card-cost-list {
+		align-items: center;
+		justify-content: center;
+	}
+
+	.adv-start__card-limit.display {
+		right: pixels(-35);
+		justify-content: flex-end;
+		align-items: flex-start;
+		background: none;
+	}
+
+	.adv-start__card-highlight-frame {
+		border-image-outset: pixels(1) pixels(2) pixels(1) pixels(2);
+		border-image-slice: 0 7 0 7 fill;
+	}
+}
+
+.adv-start__preset-container {
+	background: linear-gradient(90deg, #12151F 0%, #23252B 50%, #12151F 100%);
+}
+
+.adv-start__card-limit {
+	display: none;
+}
+
+.adv-start__card-limit.display {
+	display: flex;
+	position: absolute;
+	bottom: pixels(16);
+	height: pixels(35);
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	background-color: rgba(18, 21, 31, 1);
+	font-size: pixels-font(22);
+
+}
+
+.adv-start__card.hide {
+	display: none;
+}
+
+.advanced-start-scrollable {
+	width: pixels(565);
+}
+
+
+.advanced-start-effect .adv-start__card-highlight-frame {
+	border-image-outset: pixels(1) pixels(2) pixels(1) pixels(9);
+	border-image-slice: 0 7 0 0 fill;
+}

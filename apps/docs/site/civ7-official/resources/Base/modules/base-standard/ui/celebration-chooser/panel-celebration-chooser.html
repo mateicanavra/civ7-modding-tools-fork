@@ -1,0 +1,26 @@
+<div class="size-full relative">
+	<fxs-subsystem-frame class="celebration-subsystem-frame absolute flex items-center left-1 bottom-2"
+						 box-style="b2">
+		<fxs-header class="celebrations__header mt-5 tracking-150 mb-8 w-80 text-center self-center font-title-xl text-secondary"
+					filigree-style="h2" data-slot="header"></fxs-header>
+		<div class="celebrations__government-container flex flex-col items-center mt-10">
+			<div class="flex w-full bg-primary-4 flex max-w-128 justify-center items-center mb-2">
+				<fxs-icon class="size-6 mr-1" data-icon-id="DEFAULT_TRADITION" data-icon-context="DEFAULT">
+				</fxs-icon>
+				<div data-l10n-id="LOC_UI_CELEBRATION_CHOOSER_SLOT_UNLOCKED" class="font-title-base ml-1 text-accent-2">
+				</div>
+			</div>
+			<div class="celebrations__government">
+				<div class="celebrations__government-title text-center mb-3 font-title-xl tracking-150"></div>
+				<div class="celebrations__government-desc-top font-body-base text-center self-center max-w-96"
+					 data-l10n-id="LOC_UI_CELEBRATION_DESC_1"></div>
+				<div class="celebrations__government-desc-bottom font-body-base text-center self-center max-w-96"></div>
+			</div>
+		</div>
+		<fxs-vslot class="celebrations__choices-container h-80 mx-11 flex flex-col w-96" tabIndex="-1">
+
+		</fxs-vslot>
+		<fxs-hero-button class="celebrations__confirm relative my-5 self-center" data-slot="footer"
+						 caption="LOC_UI_RESOURCE_ALLOCATION_CONFIRM" disabled="true"></fxs-hero-button>
+	</fxs-subsystem-frame>
+</div>

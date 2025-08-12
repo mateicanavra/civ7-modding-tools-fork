@@ -1,0 +1,29 @@
+/* DO NOT EDIT */
+/* Generated from screen-city-state-bonus-chooser.scss */
+.suzerain-bonus__frame-container {
+	width: 35rem;
+	margin-top: 10.6666666667rem;
+	margin-bottom: 0.4444444444rem;
+}
+@media (experience: mobile) {
+	.suzerain-bonus__frame-container {
+		width: 37.3333333333rem;
+		margin-top: 2.2222222222rem;
+	}
+}
+
+@media (experience: mobile) {
+	.suzerain-bonus-header {
+		width: 30rem;
+		margin-top: 0.8888888889rem;
+		margin-bottom: 0.6666666667rem;
+	}
+}
+
+@media (experience: mobile) {
+	.suzerain-bonus__choices-container {
+		width: 31.1111111111rem;
+		margin-left: 0rem;
+		margin-right: 0.4444444444rem;
+	}
+}

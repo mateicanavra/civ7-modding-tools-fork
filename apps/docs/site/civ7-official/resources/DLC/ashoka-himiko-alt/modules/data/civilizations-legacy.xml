@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LegacyLeaderCivPriorities>
+		<Row Leader="LEADER_ASHOKA_ALT" CivilizationType="CIVILIZATION_MAURYA"/>
+		<Row Leader="LEADER_ASHOKA_ALT" CivilizationType="CIVILIZATION_KHMER"/>
+		<Row Leader="LEADER_HIMIKO_ALT" CivilizationType="CIVILIZATION_MISSISSIPPIAN"/>
+		<Row Leader="LEADER_HIMIKO_ALT" CivilizationType="CIVILIZATION_KHMER"/>
+		<Row Leader="LEADER_ASHOKA_ALT" CivilizationType="CIVILIZATION_CHOLA"/>
+		<Row Leader="LEADER_ASHOKA_ALT" CivilizationType="CIVILIZATION_HAWAII"/>
+		<Row Leader="LEADER_HIMIKO_ALT" CivilizationType="CIVILIZATION_HAWAII"/>
+		<Row Leader="LEADER_HIMIKO_ALT" CivilizationType="CIVILIZATION_MAJAPAHIT"/>
+		<Row Leader="LEADER_ASHOKA_ALT" CivilizationType="CIVILIZATION_MUGHAL"/>
+		<Row Leader="LEADER_ASHOKA_ALT" CivilizationType="CIVILIZATION_SIAM"/>
+		<Row Leader="LEADER_HIMIKO_ALT" CivilizationType="CIVILIZATION_MEIJI"/>
+		<Row Leader="LEADER_HIMIKO_ALT" CivilizationType="CIVILIZATION_SIAM"/>
+	</LegacyLeaderCivPriorities>
+</Database>

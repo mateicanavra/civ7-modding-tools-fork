@@ -1,0 +1,32 @@
+<Database>
+	<NamedRivers>
+		<Row NamedRiverType="RIVER_KHABUR_RIVER" Name="LOC_RIVER_KHABUR_RIVER_NAME"/>
+		<Row NamedRiverType="RIVER_DIYALA_RIVER" Name="LOC_RIVER_DIYALA_RIVER_NAME"/>
+		<Row NamedRiverType="RIVER_BATMAN_RIVER" Name="LOC_RIVER_BATMAN_RIVER_NAME"/>
+		<Row NamedRiverType="RIVER_BALIKH_RIVER" Name="LOC_RIVER_BALIKH_RIVER_NAME"/>
+		<Row NamedRiverType="RIVER_SAJUR_RIVER" Name="LOC_RIVER_SAJUR_RIVER_NAME"/>
+	</NamedRivers>
+	<NamedVolcanoes>
+		<Row NamedVolcanoType="VOLCANO_MOUNT_ARARAT" Name="LOC_VOLCANO_MOUNT_ARARAT_NAME"/>
+		<Row NamedVolcanoType="VOLCANO_KAUKAB" Name="LOC_VOLCANO_KAUKAB_NAME"/>
+		<Row NamedVolcanoType="VOLCANO_GIREKOL" Name="LOC_VOLCANO_GIREKOL_NAME"/>
+		<Row NamedVolcanoType="VOLCANO_KARACA_DAG" Name="LOC_VOLCANO_KARACA_DAG_NAME"/>
+		<Row NamedVolcanoType="VOLCANO_HASANDAGI" Name="LOC_VOLCANO_HASANDAGI_NAME"/>
+	</NamedVolcanoes>
+	<NamedRiverCivilizations>
+		<Row NamedRiverType="RIVER_KHABUR_RIVER" CivilizationType="CIVILIZATION_ASSYRIA"/>
+		<Row NamedRiverType="RIVER_DIYALA_RIVER" CivilizationType="CIVILIZATION_ASSYRIA"/>
+		<Row NamedRiverType="RIVER_BATMAN_RIVER" CivilizationType="CIVILIZATION_ASSYRIA"/>
+		<Row NamedRiverType="RIVER_BALIKH_RIVER" CivilizationType="CIVILIZATION_ASSYRIA"/>
+		<Row NamedRiverType="RIVER_SAJUR_RIVER" CivilizationType="CIVILIZATION_ASSYRIA"/>
+		<Row NamedRiverType="EUPHRATES_RIVER" CivilizationType="CIVILIZATION_ASSYRIA"/>
+		<Row NamedRiverType="TIGRIS_RIVER" CivilizationType="CIVILIZATION_ASSYRIA"/>
+	</NamedRiverCivilizations>
+	<NamedVolcanoCivilizations>
+		<Row NamedVolcanoType="VOLCANO_MOUNT_ARARAT" CivilizationType="CIVILIZATION_ASSYRIA"/>
+		<Row NamedVolcanoType="VOLCANO_KAUKAB" CivilizationType="CIVILIZATION_ASSYRIA"/>
+		<Row NamedVolcanoType="VOLCANO_GIREKOL" CivilizationType="CIVILIZATION_ASSYRIA"/>
+		<Row NamedVolcanoType="VOLCANO_KARACA_DAG" CivilizationType="CIVILIZATION_ASSYRIA"/>
+		<Row NamedVolcanoType="VOLCANO_HASANDAGI" CivilizationType="CIVILIZATION_ASSYRIA"/>
+	</NamedVolcanoCivilizations>
+</Database>

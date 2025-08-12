@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<Row Kind="KIND_CAPABILITY"/>
+	</Kinds>
+	<Types>
+		<Row Type="CAPABILITY_GOLD" Kind="KIND_CAPABILITY"/>
+		<Row Type="CAPABILITY_RANDOM_EVENTS" Kind="KIND_CAPABILITY"/>
+		<Row Type="CAPABILITY_DIPLOMACY" Kind="KIND_CAPABILITY"/>
+		<Row Type="CAPABILITY_DIPLOMACY_DEALS" Kind="KIND_CAPABILITY"/>
+	</Types>
+	<GameCapabilities>	
+		<Row GameCapability="CAPABILITY_GOLD"/>
+		<Row GameCapability="CAPABILITY_RANDOM_EVENTS"/>
+		<Row GameCapability="CAPABILITY_DIPLOMACY"/>
+		<Row GameCapability="CAPABILITY_DIPLOMACY_DEALS"/>
+	</GameCapabilities>
+</Database>

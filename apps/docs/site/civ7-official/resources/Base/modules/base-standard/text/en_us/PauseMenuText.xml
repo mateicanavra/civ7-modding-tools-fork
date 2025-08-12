@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_UI_PAUSE_TITLE">
+			<Text>Pause Menu</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_GAME">
+			<Text>Game</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_OPTIONS">
+			<Text>Options</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_REMAP_KBM">
+			<Text>Keyboard and Mouse Controls</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_REMAP_CONTROLLER">
+			<Text>Controller Mapping</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_QUICK_SAVE">
+			<Text>Quick Save</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_SAVE">
+			<Text>Save Game</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_LOAD">
+			<Text>Load Game</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_RETIRE">
+			<Text>Retire</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_RESTART">
+			<Text>Restart</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_RESTART_DESCRIPTION">
+			<Text>Restart the game with new random seeds.</Text>
+		</Row>
+		<Row Tag="LOC_RESTART_DISABLED_REASON_START_AGE">
+			<Text>Can only be used in the starting age.</Text>
+		</Row>
+		<Row Tag="LOC_RESTART_DISABLED_REASON_WORLDBUILDER_MAP">
+			<Text>Can only be used with map scripts.</Text>
+		</Row>
+		<Row Tag="LOC_RESTART_DISABLED_REASON_NETWORK_MULTIPLAYER">
+			<Text>Cannot be used in Network Multiplayer games.</Text>
+		</Row>
+		<Row Tag="LOC_RESTART_DISABLED_REASON_SAVED_GAME">
+			<Text>Cannot be used after loading a saved game.</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_NOMORETURNS">
+			<Text>No More Turns</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_EVENT_RULES">
+			<Text>Event Rules</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_RANKINGS">
+			<Text>Rankings</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_QUIT_TO_DESKTOP">
+			<Text>Exit to Desktop</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_QUIT_TO_MENU">
+			<Text>Exit to Main Menu</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_CONFIRM_QUIT">
+			<Text>Are you sure you wish to exit? All unsaved progress will be lost!</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_CONFIRM_QUIT_TO_MENU">
+			<Text>Are you sure you wish to exit to main menu? All unsaved progress will be lost!</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_CONFIRM_QUIT_TO_DESKTOP">
+			<Text>Are you sure you wish to exit to desktop? All unsaved progress will be lost!</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_CONFIRM_RETIRE">
+			<Text>Are you sure you wish to retire?  This will be treated as if you were defeated.</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_CONFIRM_NOMORETURNS">
+			<Text>Are you sure you wish to end [B]Just One More Turn[/B]?</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_CONFIRM_RESTART_GAME">
+			<Text>Are you sure you wish to restart the game?[N]This will restart the game with new random seeds.  Any options, including Leaders and Civilizations, that were set to "RANDOM" will be re-rolled.</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_WELCOME_INSTRUCTIONS">
+			<Text>View Instructions</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_COPY_JOIN_CODE">
+			<Text>Join Code: {1_JoinCode}</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_BUILD_INFO">
+			<Text>Build: {1_Info}</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_RETIRE_DISABLED">
+			<Text>You cannot retire when it is not your turn.</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_SHOW_MORE">
+			<Text>Show More</Text>
+		</Row>
+		<Row Tag="LOC_PAUSE_MENU_SHOW_LESS">
+			<Text>Show Less</Text>
+		</Row>
+	</EnglishText>
+</Database>

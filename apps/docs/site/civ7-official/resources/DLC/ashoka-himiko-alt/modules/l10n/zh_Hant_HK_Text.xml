@@ -1,0 +1,1609 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ASHOKA_ALT_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>當亞歷山大大帝征服印度失敗之後，孔雀帝國便躍然崛起，成為古印度時期最大型的單一政體。在亞歷山大撤退後，旃陀羅笈多看準了這接踵而至的混亂局面，便征服了希臘留下的諸侯國。雖然統一程度不比後來的印度帝國，但孔雀王朝可謂學習和文化的燈塔，旃陀羅笈多甚至還追隨亞歷山大的腳步，向西方派遣使者和佛教傳教士。在國內，帝國繼續維持著貿易路線，於是這條貫穿次大陸，從東到西的商業命脈，便成為絲路相當關鍵的一環，後來也成為了他們功成名就的核心。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ASHOKA_ALT_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>宗教在孔雀王朝時期扮演著重要的角色。印度是世界上許多宗教的發源地——包括印度教、耆那教、佛教，以及一些更有異國風情的信仰流派，如希臘多神教等。早期的孔雀王朝統治者信奉耆那教，該宗教主張非暴力和個人純潔的修煉，這對於皇帝來說似乎是一個奇怪的選擇——直到我們意識到純淨反而會造就個人權力和個人魅力。值得注意的是，孔雀王朝的城市裡經常有來自中國和希臘的遊客相互接觸，展現出顯著的異質性和世界主義。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ASHOKA_ALT_CHAPTER_HISTORY_PARA_3" Language="zh_Hant_HK">
+      <Text>阿育王——這個名字代表「無悲」——一開始就是個不受歡迎的幺子。顯然，因為他的膚色不像兄弟們那樣光滑，父親就不待見他，並一再無視這個孩子即將成為征服者的種種跡象。當他的太子哥哥出征時，阿育王便宣稱眾神希望他成為國王，而且幾乎沒有人阻攔：當阿育王的父親抗議時，這位老人家立刻便去世了；而當阿育王的哥哥回來奪取王位時，也隨即被扔進了炭火中。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ASHOKA_ALT_CHAPTER_HISTORY_PARA_4" Language="zh_Hant_HK">
+      <Text>在掌握權力後，阿育王繼續傾向以血腥的方式統治。他立即將目光投向東方的羯陵伽帝國，並發動了一場魯莽的征戰。阿育王渴望勝利，他會騎馬出征並與軍隊並肩作戰——結果最後卻對這一切感到厭惡。那些在戰場目睹的流血和暴力，讓他放棄了暴力，投向佛教的懷抱，並努力在全國傳播弘揚佛法（佛教教義）真理，為此還在孔雀帝國各處豎立了頌揚佛法的石柱。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ASHOKA_ALT_CHAPTER_HISTORY_PARA_5" Language="zh_Hant_HK">
+      <Text>在石柱上，阿育王頒佈了詔書，除了列出刻著銘文的人之外，還詳述禁止不道德的行為——即對動物施加暴力（即吃肉），對人施加暴力，以及過度放縱的節日。此外，石柱還描述了皇帝在該地區建立的機制（如醫療），對全球釋出了長久不衰的善意。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ASHOKA_ALT_CHAPTER_HISTORY_PARA_6" Language="zh_Hant_HK">
+      <Text>阿育王本身就是一個轉型的故事。根據一位來訪的中國外交官推測，早期的阿育王曾親下地獄學習新的酷刑方法——而之後的阿育王則譴責任何對人類或動物所施加的暴力。這是一個講述悔改的故事，而阿育王也因此成為亞洲佛教徒的英雄，在許多斯里蘭卡人和東南亞人眼中，阿育王就是將佛教傳播到當地的傳道者，或許，這是他在世界範疇上最淵遠流長的功績。與此同時，印度人也無法抵擋阿育王的魅力，不僅曾讓他擔任寶萊塢劇情大片的主角，如今更是一部廣受歡迎的電視劇。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ASHOKA_ALT_TITLE" Language="zh_Hant_HK">
+      <Text>{LOC_LEADER_ASHOKA_ALT_NAME}</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>日本早期歷史分為三個不同的時期：繩文時代、彌生時代和大和時代。我們所認識的「日本」正是在最後一個時期形成的，但一直到後來的平安時代才產生了許多可辨識的藝術、文學和服飾——至於日本武士的黃金時代，則要等到直到西元第二個千年的中期才出現。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_CHAPTER_HISTORY_PARA_10" Language="zh_Hant_HK">
+      <Text>天照大神——古代日本的太陽女神，而在我們的呈現中，她也是卑彌呼的神聖繆斯女神——並不是一個保守的人物。她活潑又狡猾，還會參與比賽、把自己偽裝成男人，還會躲避其他神，諸如此類還有許多事蹟。在她最著名的神話中，她的弟弟，素戔嗚尊，是出了名的粗魯又麻煩。遭到父親放逐後，素戔嗚尊來找天照告別，天照決定可憐這個男孩。他們進行了一場咀嚼比賽，看誰能吐出最多的神，雖然天照贏了，但素戔嗚尊宣佈自己吐出了正確的神，然後又為此怒不可遏。在某個版本的傳說中，他氣到潛入天照的宮殿，還在她的寶座上放了糞便。她後來坐上去才發現。由於這樣的舉止實在太讓人心煩了，她逃進某個山洞躲了起來（而這造成了很大的問題，還記得吧，因為她是太陽的化身）。其他諸神醞釀了一個計畫，要把她引出來，他們聚集在她的洞穴外，製造了一場盛大的場面。這讓她很好奇，她向外張望，想看看是誰在那裡——她看到的是她自己的倒影。原來眾神在入口外掛了一面鏡子，天照為此驚得說不出話來。秩序於是就恢復了（順便說一句，鏡子也因此成了神道教的重要象徵）。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>繩文日本是最先存在的日本文化，此文化以當時陶器的風格命名，並非當時人民的自稱。繩文人在種族上也顯得與其他日本遺骨有些不同；這些遺跡象徵著日本與太平洋諸島間的連結——繩文人和沖繩、台灣和更南的東南亞的原住民族居民之間有文化上的相似性。繩文人似乎在西元前一千年間被彌生人所取代，然而原住民族阿伊努人很可能是他們的後代。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_CHAPTER_HISTORY_PARA_3" Language="zh_Hant_HK">
+      <Text>卑彌呼所統治的，正是這種彌生文化——來自大陸（這裡指的是韓國）的日語系移民。彌生文化跨越了新石器時代、青銅時代和鐵器時代，他們在製造青銅武器、工具方面變得相當熟練（特別是鏡子製作得特別精美）。古墳時代（西元300-538年）繼承了這一產業並將其發展壯大，從本州（日本的大島）拓展到九州（一個較小的島），再到朝鮮，發展出受到中國強烈影響的共同文化遺產。這個時代隨著大和氏族的崛起和日本民族勢力的鞏固而結束。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_CHAPTER_HISTORY_PARA_4" Language="zh_Hant_HK">
+      <Text>這些島嶼被漢朝稱為「倭」，代表著一群分散的民族——一群文化相似但政治上分裂的族群，在嚴酷的生態系統下困苦過活，具備好戰的人生觀。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_CHAPTER_HISTORY_PARA_5" Language="zh_Hant_HK">
+      <Text>卑彌呼本人既是宗教領袖，也是政治領袖。她的根據地叫「邪馬臺」（可能位於九州北部，或者在當代的京都附近），她的存在被主要記載在中國的文獻中。卑彌呼曾給中國北方的曹魏王朝送過禮物：那時正是西元3世紀，中國處於三國時代。在文獻記錄中，魏明帝曹叡封卑彌呼為「親魏倭王」。至於卑彌呼實際上的地位其實沒有明確答案——因為此時正處於日本歷史的最開端，資料來源不只分散也不算可靠。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_CHAPTER_HISTORY_PARA_6" Language="zh_Hant_HK">
+      <Text>卑彌呼的故事趣味之處在於指稱其事鬼道一事。漢文紀載中她以鬼道惑眾，讓倭國人民皆聽命之，以及她居住深宮，僕役與侍衛均為女性（除一男子給送飲食）。卑彌呼這一神秘作風在日文紀錄中更為錯綜，並使其身分和若干神靈存在糾結：如日本太陽女神「天照大神」的巫女，或是一隻神蛇的巫妻。在後者的敘事中，卑彌呼（被認為是倭迹迹日百襲姫命）滿懷欣喜嫁給了一位只在夜晚歸來的至高神靈，她懇求神靈留到天明，她才能在陽光下見其容顏，但神靈對此猶疑不決。最終神靈被說服了，他向卑彌呼說她將於其梳妝箱中看到他，但她得保證不可因其樣貌而受驚嚇。翌日早晨，當卑彌呼打開箱子，只見一條美麗的白蛇蜷曲其中，她發出警戒性的喘息，蛇神隨即轉換回人形。憤怒的神靈告知她，已有言她不可有此反應在先，而今神靈必須離她而去，卑彌呼則因悲痛而自刎。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_CHAPTER_HISTORY_PARA_7" Language="zh_Hant_HK">
+      <Text>在她死後，邪馬臺人就立起了一個墳堆。根據傳說，後來的統治者本來是個男王，但仍在悼念逝世女王的百姓們拒絕了他的統治，直到卑彌呼的親戚、13歲的少女壹與被奉為新統治者後，秩序才得以恢復。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_CHAPTER_HISTORY_PARA_8" Language="zh_Hant_HK">
+      <Text>如上所述，卑彌呼奠定了日本君主制和神道教理論的基礎之一，並將政治與超自然融合在一起，這種方式與亞洲其他地方受到儒家啟發的中國理想以及受印度啟發的婆羅門理想截然不同。通過卑彌呼和邪馬臺，我們也看到了日本首次向廣大東亞世界開放的狀況。她是流行文化中的一個常見人物，並經常根據不同敘事而改編成不同的性格。她可以是反派，也可以是英雄，可以是魔法人物，也可以只是女王。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_CHAPTER_HISTORY_PARA_9" Language="zh_Hant_HK">
+      <Text>在我們的呈現中，我們以該地區其他地方的類似靈媒為原型，將卑彌呼呈現成一名能充當天照女神媒介的人。她們的關係很親密，就像母女居住在同一個身體裡，我們的卑彌呼會在女王及女神兩者的嗓音間切換，並且本人對此似乎並不知情。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_TITLE" Language="zh_Hant_HK">
+      <Text>{LOC_LEADER_HIMIKO_ALT_NAME}</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_ASHOKA_ALT_ANY" Language="zh_Hant_HK">
+      <Text>我已發誓過不再走上暴力之道。結果卻還是走到這步田地。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_HIMIKO_ALT_ANY" Language="zh_Hant_HK">
+      <Text>儀式已經準備就緒。我們馬上開始吧。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_ASHOKA_ALT_ANY" Language="zh_Hant_HK">
+      <Text>暴力會迴盪好幾輩子、好幾個世界。終歸會回到你身上。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_HIMIKO_ALT_ANY" Language="zh_Hant_HK">
+      <Text>儘管來犯，化為塵土吧。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DEFEAT_AI_LEADER_ASHOKA_ALT_ANY" Language="zh_Hant_HK">
+      <Text>而現在呢，燃燒的法輪要輾過我了。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DEFEAT_AI_LEADER_HIMIKO_ALT_ANY" Language="zh_Hant_HK">
+      <Text>磐石都能漂浮、河水全都逆流。這下天下大亂了。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_ASHOKA_ALT_ANY" Language="zh_Hant_HK">
+      <Text>我是阿育王，位於世界中心的偉大君王，也是罪孽深重之人。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_HIMIKO_ALT_ANY" Language="zh_Hant_HK">
+      <Text>你的到來已有預示。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_ASHOKA_ALT_ANY" Language="zh_Hant_HK">
+      <Text>我是阿育王，位於世界中心的偉大君王，也是罪孽深重之人。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_HIMIKO_ALT_ANY" Language="zh_Hant_HK">
+      <Text>你的到來已有預示。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_ASHOKA_ALT_ANY" Language="zh_Hant_HK">
+      <Text>我是阿育王，位於世界中心的偉大君王，也是罪孽深重之人。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_HIMIKO_ALT_ANY" Language="zh_Hant_HK">
+      <Text>你的到來已有預示。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_ASHOKA_ALT" Language="zh_Hant_HK">
+      <Text>此為正道。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_HIMIKO_ALT" Language="zh_Hant_HK">
+      <Text>讓我們將此事帶到陽光下吧。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_ASHOKA_ALT" Language="zh_Hant_HK">
+      <Text>此為「不如法」，即是錯誤。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_HIMIKO_ALT" Language="zh_Hant_HK">
+      <Text>太陽被雲所遮蔽了。</Text>
+    </Replace>
+    <Replace Tag="LOC_MAIN_CHAR_SELECT_LEADER_ASHOKA_ALT_ANY" Language="zh_Hant_HK">
+      <Text>讓所有人聆聽，並讓他們願意聆聽他人的教誨。 </Text>
+    </Replace>
+    <Replace Tag="LOC_MAIN_CHAR_SELECT_LEADER_HIMIKO_ALT_ANY" Language="zh_Hant_HK">
+      <Text>身為太陽之女的我受陽光恩澤。但我的敵人卻只會受其燒灼。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_ASHOKA_ALT_NAME" Language="zh_Hant_HK">
+      <Text>阿育王（征服天下者）</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1010D_NAME" Language="zh_Hant_HK">
+      <Text>他將成為對這些佈道感到無聊的人！</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1010E_NAME" Language="zh_Hant_HK">
+      <Text>他將成為神王，神的化身。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1010F_NAME" Language="zh_Hant_HK">
+      <Text>他將成為菩薩，受啟發之人。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1011D_NAME" Language="zh_Hant_HK">
+      <Text>在阿育王的眼中有著戰火燃燒。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1011E_NAME" Language="zh_Hant_HK">
+      <Text>水能乘載諸王的力量。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1012D_NAME" Language="zh_Hant_HK">
+      <Text>穩定的帝國能在外交舞台上有更多籌碼。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1012E_NAME" Language="zh_Hant_HK">
+      <Text>世界與其財富很快會歸阿育王所有。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1013D_NAME" Language="zh_Hant_HK">
+      <Text>這是征服者的時代。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1013E_NAME" Language="zh_Hant_HK">
+      <Text>許多道路正等待著談判者。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1014D_NAME" Language="zh_Hant_HK">
+      <Text>不能再讓這些疑慮增長。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1014E_NAME" Language="zh_Hant_HK">
+      <Text>毫無疑問，必須交由僧侶們負責。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1015C_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1016D_NAME" Language="zh_Hant_HK">
+      <Text>冥想和隱居必須變成普遍的做法。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1016E_NAME" Language="zh_Hant_HK">
+      <Text>國家應向外學習，參考全世界。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1017C_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1018E_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1018F_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1018G_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1019E_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1019F_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1019G_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1100E_NAME" Language="zh_Hant_HK">
+      <Text>祂們居住在大地與石頭中。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1100F_NAME" Language="zh_Hant_HK">
+      <Text>祂們從天上俯瞰著城市。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1100G_NAME" Language="zh_Hant_HK">
+      <Text>這只不過是一座山而已。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1101D_NAME" Language="zh_Hant_HK">
+      <Text>那些在國境之外的人都是朋友。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1101E_NAME" Language="zh_Hant_HK">
+      <Text>外頭有許多必須擔憂的勢力。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1102D_NAME" Language="zh_Hant_HK">
+      <Text>工匠們有許多偉大的點子。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1102E_NAME" Language="zh_Hant_HK">
+      <Text>軍隊需要更多弓。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1103D_NAME" Language="zh_Hant_HK">
+      <Text>陽光會向來自各地的訪客微笑。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1103E_NAME" Language="zh_Hant_HK">
+      <Text>如此美景應該透過藝術來紀念。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1104D_NAME" Language="zh_Hant_HK">
+      <Text>他們熱切的故事將永垂不朽。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1104E_NAME" Language="zh_Hant_HK">
+      <Text>這樣的信徒能擔任不錯的傳教士。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1105C_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1106D_NAME" Language="zh_Hant_HK">
+      <Text>這鏡子的美麗，僅有卑彌呼本人能夠超越。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1106E_NAME" Language="zh_Hant_HK">
+      <Text>這些藝術作品能賣出不錯的價錢。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1107C_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1108E_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1108F_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1108G_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1109E_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1109F_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1109G_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_HIMIKO_ALT_NAME" Language="zh_Hant_HK">
+      <Text>卑彌呼（巫女王）</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1010D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1010D_STORYTITLE" Language="zh_Hant_HK">
+      <Text>轉輪王</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1010E_COMPLETION" Language="zh_Hant_HK">
+      <Text>阿育王的戰士彼此切磋，磨練武技，希望藉此展現自身力量。其裝備置於一旁，隨時可以取用上陣。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1010E_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>所有聚落{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1010E_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>訓練3名戰士。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1010E_STORYTITLE" Language="zh_Hant_HK">
+      <Text>轉輪王</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1010F_COMPLETION" Language="zh_Hant_HK">
+      <Text>阿育王踏在開悟與權力間的界線上。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1010F_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>此聚落{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1010F_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>創立一座聚落。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1010F_STORYTITLE" Language="zh_Hant_HK">
+      <Text>轉輪王</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1011D_COMPLETION" Language="zh_Hant_HK">
+      <Text>阿育王軍隊的旗幟在風中飄揚，而士兵們也在神靈面前低頭。他們的信仰將在即將到來的戰爭中支撐著他們。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1011D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1011D_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>擁有3座祭壇。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1011D_STORYTITLE" Language="zh_Hant_HK">
+      <Text>神王</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1011E_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1011E_STORYTITLE" Language="zh_Hant_HK">
+      <Text>神王</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1012D_COMPLETION" Language="zh_Hant_HK">
+      <Text>阿育王日益增長的人口讓全世界不禁開始關注，正如他也讓全世界對他肅然起敬一樣。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1012D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1012D_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>首都達到20人口。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1012D_STORYTITLE" Language="zh_Hant_HK">
+      <Text>法王</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1012E_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1012E_STORYTITLE" Language="zh_Hant_HK">
+      <Text>法王</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1013D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>故事繼續。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1013D_STORYTITLE" Language="zh_Hant_HK">
+      <Text>世界的命運</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1013E_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>故事繼續。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1013E_STORYTITLE" Language="zh_Hant_HK">
+      <Text>世界的命運</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1014D_COMPLETION" Language="zh_Hant_HK">
+      <Text>寺廟為人們提供指引，但人們從未忘記這些寺廟是阿育王賜予的禮物。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1014D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1014D_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>建造3座寺廟。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1014D_STORYTITLE" Language="zh_Hant_HK">
+      <Text>那羅延</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1014E_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1014E_STORYTITLE" Language="zh_Hant_HK">
+      <Text>那羅延</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1015C_COMPLETION" Language="zh_Hant_HK">
+      <Text>天下之財富皆流向阿育王的城市。當財富的流動越趨衰弱時，他便會親自動手去奪取。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1015C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1015C_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>收集糖、可可豆、茶葉和香料。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1015C_STORYTITLE" Language="zh_Hant_HK">
+      <Text>神聖榮光</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1016D_COMPLETION" Language="zh_Hant_HK">
+      <Text>在大學靜謐的走廊中，學生和老師們思考著存在與開悟等高深的問題。更多的人在阿育王的鼓勵下加入了這些人的行列。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1016D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1016D_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>建造一所大學。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1016D_STORYTITLE" Language="zh_Hant_HK">
+      <Text>菩提薩埵</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1016E_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1016E_STORYTITLE" Language="zh_Hant_HK">
+      <Text>菩提薩埵</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1017C_COMPLETION" Language="zh_Hant_HK">
+      <Text>香火味道在空中徘徊，而人們也聚集在阿育王面前。他領導他們開始誦唸，許多聲音就此融為一體。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1017C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1017C_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>擁有3個香。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1017C_STORYTITLE" Language="zh_Hant_HK">
+      <Text>寺廟鐘聲的呼喚</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1018E_COMPLETION" Language="zh_Hant_HK">
+      <Text>阿育王的城市雄偉壯麗。看過這些城市的人們都會仰慕他的雄心壯志，並在他的威勢前顫抖。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1018E_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1018E_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>建造1個奇觀。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1018E_STORYTITLE" Language="zh_Hant_HK">
+      <Text>征服天下者</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1018F_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1018F_STORYTITLE" Language="zh_Hant_HK">
+      <Text>征服天下者</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1018G_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}並進入慶典。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1018G_STORYTITLE" Language="zh_Hant_HK">
+      <Text>征服天下者</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1019E_COMPLETION" Language="zh_Hant_HK">
+      <Text>知識指引著阿育王帝國的發展方向。他的人民不斷探索發現著這個世界與己身。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1019E_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1019E_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>建造一座實驗室以及一座工廠。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1019E_STORYTITLE" Language="zh_Hant_HK">
+      <Text>潛心向佛者</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1019F_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1019F_STORYTITLE" Language="zh_Hant_HK">
+      <Text>潛心向佛者</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1019G_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}並進入慶典。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1019G_STORYTITLE" Language="zh_Hant_HK">
+      <Text>潛心向佛者</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1100E_COMPLETION" Language="zh_Hant_HK">
+      <Text>卑彌呼的帝國向外擴張。然而，她透過大地將所有的人民都聯繫在一起，在陽光下一同生活。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1100E_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1100E_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>擁有1座相鄰於山脈處的聚落。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1100E_STORYTITLE" Language="zh_Hant_HK">
+      <Text>山的呼喚</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1100F_COMPLETION" Language="zh_Hant_HK">
+      <Text>高山聳立於新的聚落之上，宛如守護大地與天穹的巨人，默默守護著卑彌呼的子民。他們從其峻峭的岩壁中汲取力量，以天照大神之名開始自己的工作。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1100F_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1100F_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>擁有一座有10人口的聚落。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1100F_STORYTITLE" Language="zh_Hant_HK">
+      <Text>山的呼喚</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1100G_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1100G_STORYTITLE" Language="zh_Hant_HK">
+      <Text>山的呼喚</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1101D_COMPLETION" Language="zh_Hant_HK">
+      <Text>卑彌呼的世界是一個與眾人共享的珍寶，而這珍寶是透過巧妙的外交手段和審慎的談判才能創造出來。但這終究是她的世界。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1101D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1101D_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>開始4個外交手段。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1101D_STORYTITLE" Language="zh_Hant_HK">
+      <Text>山的女兒</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1101E_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{2_capital}{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1101E_STORYTITLE" Language="zh_Hant_HK">
+      <Text>山的女兒</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1102D_COMPLETION" Language="zh_Hant_HK">
+      <Text>卑彌呼用來自各地的珍奇異寶賞賜工匠們。作為回報，他們用無與倫比的美麗來裝飾她的城市。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1102D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1102D_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>讓所有聚落有15資源放入槽位。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1102D_STORYTITLE" Language="zh_Hant_HK">
+      <Text>太陽的女兒</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1102E_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{2_capital}{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1102E_STORYTITLE" Language="zh_Hant_HK">
+      <Text>太陽的女兒</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1103D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>故事繼續。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1103D_STORYTITLE" Language="zh_Hant_HK">
+      <Text>太陽</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1103E_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>故事繼續。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1103E_STORYTITLE" Language="zh_Hant_HK">
+      <Text>太陽</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1104D_COMPLETION" Language="zh_Hant_HK">
+      <Text>天照大神的故事流傳到了卑彌呼的國境之外，為所有聽者帶來光明與慰藉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1104D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1104D_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>成為某個獨立軍勢力的宗主國。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1104D_STORYTITLE" Language="zh_Hant_HK">
+      <Text>日本之神</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1104E_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{2_capital}{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1104E_STORYTITLE" Language="zh_Hant_HK">
+      <Text>日本之神</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1105C_COMPLETION" Language="zh_Hant_HK">
+      <Text>皮草為卑彌呼的子民帶來溫暖，同時也是她贈予親密盟友的珍貴禮物。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1105C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1105C_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>擁有3份皮草資源。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1105C_STORYTITLE" Language="zh_Hant_HK">
+      <Text>毛皮</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1106D_COMPLETION" Language="zh_Hant_HK">
+      <Text>卑彌呼帝國當中的寺廟成功捕捉了她所體現的優雅和美麗。她的人民將這些教訓融入到他們的生活中。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1106D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1106D_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>建造3座寺廟。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1106D_STORYTITLE" Language="zh_Hant_HK">
+      <Text>神聖繁榮</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1106E_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{2_capital}{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1106E_STORYTITLE" Language="zh_Hant_HK">
+      <Text>神聖繁榮</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1107C_COMPLETION" Language="zh_Hant_HK">
+      <Text>無數玉石流入卑彌呼的國度。工匠們快速地雕琢這些玉石，確保世人得以見證它們的美麗，還有自己的技藝。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1107C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1107C_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>擁有3份玉石資源。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1107C_STORYTITLE" Language="zh_Hant_HK">
+      <Text>翡翠</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1108E_COMPLETION" Language="zh_Hant_HK">
+      <Text>旅客從世界各地蜂擁而至，只為一睹卑彌呼的文物風采。每件文物都訴說著故事，讓人們能從中瞭解自我。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1108E_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1108E_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>擁有5個文物。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1108E_STORYTITLE" Language="zh_Hant_HK">
+      <Text>卑彌呼的勝利</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1108F_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1108F_STORYTITLE" Language="zh_Hant_HK">
+      <Text>卑彌呼的勝利</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1108G_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}並進入慶典。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1108G_STORYTITLE" Language="zh_Hant_HK">
+      <Text>卑彌呼的勝利</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1109E_COMPLETION" Language="zh_Hant_HK">
+      <Text>生產速度開始加快。在卑彌呼的工廠中，新的創意途徑形塑出無數日常用品創作，也形塑出她的帝國。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1109E_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1109E_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>建造4座工廠。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1109E_STORYTITLE" Language="zh_Hant_HK">
+      <Text>天照大神的勝利</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1109F_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1109F_STORYTITLE" Language="zh_Hant_HK">
+      <Text>天照大神的勝利</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1109G_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}並進入慶典。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1109G_STORYTITLE" Language="zh_Hant_HK">
+      <Text>天照大神的勝利</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ASHOKA_CONQUEROR_L1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>展開或支持外交手段時+25%關係。展開制裁或拒絕外交手段時-25%關係。</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ASHOKA_CONQUEROR_L1_NAME" Language="zh_Hant_HK">
+      <Text>外交屬性節點</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ASHOKA_CONQUEROR_L2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>對抗區域時所有單位+5戰鬥力。</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ASHOKA_CONQUEROR_L2_NAME" Language="zh_Hant_HK">
+      <Text>軍事屬性節點</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_HIMIKO_SHAMAN_L1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>建造有巨作槽位的建築與奇觀時+15%生產力效益。</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_HIMIKO_SHAMAN_L1_NAME" Language="zh_Hant_HK">
+      <Text>文化屬性節點</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_HIMIKO_SHAMAN_L2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>展開或支持外交手段時+25%關係。展開制裁或拒絕外交手段時-25%關係。</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_HIMIKO_SHAMAN_L2_NAME" Language="zh_Hant_HK">
+      <Text>外交屬性節點</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_ASHOKA_CONQUEROR_NAME" Language="zh_Hant_HK">
+      <Text>阿育王（征服天下者）徽章1</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_ASHOKA_CONQUEROR_P_NAME" Language="zh_Hant_HK">
+      <Text>阿育王（征服天下者）徽章2</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_HIMIKO_HIGH_SHAMAN_NAME" Language="zh_Hant_HK">
+      <Text>卑彌呼（巫女王）徽章1</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_HIMIKO_SHAMAN_P_NAME" Language="zh_Hant_HK">
+      <Text>卑彌呼（巫女王）徽章2</Text>
+    </Replace>
+    <Replace Tag="LOC_BANNER_ASHOKA_CONQUEROR_NAME" Language="zh_Hant_HK">
+      <Text>阿育王（征服天下者）旗幟</Text>
+    </Replace>
+    <Replace Tag="LOC_BANNER_HIMIKO_HIGH_SHAMAN_NAME" Language="zh_Hant_HK">
+      <Text>卑彌呼（巫女王）旗幟</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ASHOKA_CONQUEROR_1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在此時代中，以所有海軍單位-2戰鬥力作為代價換取+15%影響力[icon:YIELD_DIPLOMACY]</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ASHOKA_CONQUEROR_1_NAME" Language="zh_Hant_HK">
+      <Text>阿育王的探索時代傳奇外交傳承</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ASHOKA_CONQUEROR_2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在此時代中，以-10%影響力[icon:YIELD_DIPLOMACY]作為代價換取你的所有海軍單位+3戰鬥力</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ASHOKA_CONQUEROR_2_NAME" Language="zh_Hant_HK">
+      <Text>阿育王的探索時代傳奇軍事傳承</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_HIMIKO_SHAMAN_1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在此時代中，以-10%科技值[icon:YIELD_Science]作為代價換取+15%文化值[icon:YIELD_CULTURE]</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_HIMIKO_SHAMAN_1_NAME" Language="zh_Hant_HK">
+      <Text>卑彌呼的探索時代傳奇文化傳承</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_HIMIKO_SHAMAN_2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在此時代中，以所有海軍單位-2戰鬥力作為代價換取+15%影響力[icon:YIELD_DIPLOMACY]</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_HIMIKO_SHAMAN_2_NAME" Language="zh_Hant_HK">
+      <Text>卑彌呼的探索時代傳奇外交傳承</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ASHOKA_CONQUEROR_1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在此時代中，以所有空中單位-2戰鬥力作為代價換取+15%影響力[icon:YIELD_DIPLOMACY]</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ASHOKA_CONQUEROR_1_NAME" Language="zh_Hant_HK">
+      <Text>阿育王的近代時代傳奇外交傳承</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ASHOKA_CONQUEROR_2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在此時代中，以-10%影響力[icon:YIELD_DIPLOMACY]作為代價換取你的所有空中單位+3戰鬥力</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ASHOKA_CONQUEROR_2_NAME" Language="zh_Hant_HK">
+      <Text>阿育王的近代時代傳奇軍事傳承</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_HIMIKO_SHAMAN_1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在此時代中，以-10%科技值[icon:YIELD_Science]作為代價換取+15%文化值[icon:YIELD_CULTURE]</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_HIMIKO_SHAMAN_1_NAME" Language="zh_Hant_HK">
+      <Text>卑彌呼的近代時代傳奇文化傳承</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_HIMIKO_SHAMAN_2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在此時代中，以所有空中單位-2戰鬥力作為代價換取+15%影響力[icon:YIELD_DIPLOMACY]</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_HIMIKO_SHAMAN_2_NAME" Language="zh_Hant_HK">
+      <Text>卑彌呼的近代時代傳奇外交傳承</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_ASHOKA_ALT_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>[icon:YIELD_CITIES]城市中每多出5[icon:YIELD_HAPPINESS]幸福感，便+1[icon:YIELD_PRODUCTION]生產力。非由你創立的聚落+10%[icon:YIELD_PRODUCTION]生產力。宣佈[icon:WAR]正式戰爭能賦予一次[icon:NOTIFICATION_CHOOSE_GOLDEN_AGE]慶典。在[icon:NOTIFICATION_CHOOSE_GOLDEN_AGE]慶典期間，所有單位對抗[icon:CITY_URBAN]區域時+5[icon:NAR_REW_COMBAT]戰鬥力。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_HIMIKO_ALT_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>[icon:YIELD_HAPPINESS]幸福感和[icon:YIELD_DIPLOMACY]影響力建築+2[icon:YIELD_HAPPINESS]幸福感，依照時代疊加；若一個建築兩類皆是，則效果加倍。建造[icon:YIELD_HAPPINESS]幸福感和[icon:YIELD_DIPLOMACY]影響力建築時+50%[icon:YIELD_PRODUCTION]生產力效益；若一個建築兩類皆是，則效果加倍。+20%[icon:YIELD_CULTURE]文化值但-10%[icon:YIELD_SCIENCE]科技值，而在[icon:NOTIFICATION_CHOOSE_GOLDEN_AGE]慶典期間這些效果加倍。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_LEADER_INTRO_TEXT_ASHOKA_ALT" Language="zh_Hant_HK">
+      <Text>轉輪聖王阿育王啊，戰爭的勝利反而讓你清楚看見背後的代價。你決心終結作為孔雀王朝皇帝期間那無休止的暴力與殺戮循環；為世人帶來了慈悲的智慧，而非冰冷的刀劍，弘揚了和平的佛法，而非毀滅的戰火，並將非暴力的訊息傳播給天下眾生。這世界此刻正需要你的大智慧。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_LEADER_INTRO_TEXT_HIMIKO_ALT" Language="zh_Hant_HK">
+      <Text>邪馬台國的巫女王卑彌呼啊，你立於陰陽兩界之間。引導土地的力量，你將森林化為神社、瀑布化為音樂，就連高山本身也成了你的盟友。神風即將吹起；偉大的女王，指引它的方向吧。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_CHANDA_MAHASENA_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>毘首羯磨的神聖造物。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_CHANDA_MAHASENA_FUNCTIONAL_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在慶典期間，所有單位對抗有防禦工事的區域時+5戰鬥力。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_CHANDA_MAHASENA_NAME" Language="zh_Hant_HK">
+      <Text>強賈瑪哈森</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_CHANDA_MAHASENA_UNLOCK_TITLE" Language="zh_Hant_HK">
+      <Text>於阿育王（征服天下者）等級2解鎖</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_LION_CAPITAL_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>咆嘯，然後開始轉動。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_LION_CAPITAL_FUNCTIONAL_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在慶典期間，指揮官獲得+50%經驗值。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_LION_CAPITAL_NAME" Language="zh_Hant_HK">
+      <Text>獅子柱頭</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_LION_CAPITAL_UNLOCK_TITLE" Language="zh_Hant_HK">
+      <Text>於阿育王（征服天下者）等級9解鎖</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_SILK_UTTARIYA_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>忠實地依樣製作。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_SILK_UTTARIYA_FUNCTIONAL_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>幸福感為正的城市中+2[icon:YIELD_PRODUCTION]生產力，依照時代疊加。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_SILK_UTTARIYA_NAME" Language="zh_Hant_HK">
+      <Text>絲綢搭帕</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_SILK_UTTARIYA_UNLOCK_TITLE" Language="zh_Hant_HK">
+      <Text>於阿育王（征服天下者）等級5解鎖</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_HIMIKO_SHAMAN_KUSANAGI_NO_TSURUGI_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>代表著武勇。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_HIMIKO_SHAMAN_KUSANAGI_NO_TSURUGI_FUNCTIONAL_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>幸福感建築+3[icon:YIELD_CULTURE]文化值，[n]但-1[icon:YIELD_SCIENCE]科技值，依照時代疊加。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_HIMIKO_SHAMAN_KUSANAGI_NO_TSURUGI_NAME" Language="zh_Hant_HK">
+      <Text>草薙劍</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_HIMIKO_SHAMAN_KUSANAGI_NO_TSURUGI_UNLOCK_TITLE" Language="zh_Hant_HK">
+      <Text>於卑彌呼（巫女王）等級9解鎖</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_HIMIKO_SHAMAN_SAKAKI_BRANCH_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>標示著神聖。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_HIMIKO_SHAMAN_SAKAKI_BRANCH_FUNCTIONAL_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>建造幸福感建築時+25%[icon:YIELD_PRODUCTION]生產力效益。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_HIMIKO_SHAMAN_SAKAKI_BRANCH_NAME" Language="zh_Hant_HK">
+      <Text>玉串</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_HIMIKO_SHAMAN_SAKAKI_BRANCH_UNLOCK_TITLE" Language="zh_Hant_HK">
+      <Text>於卑彌呼（巫女王）等級5解鎖</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_HIMIKO_SHAMAN_YATA_NO_KAGAMI_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>代表智慧。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_HIMIKO_SHAMAN_YATA_NO_KAGAMI_FUNCTIONAL_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>每次慶典開始時獲得20[icon:YIELD_CULTURE]文化值，依照時代疊加。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_HIMIKO_SHAMAN_YATA_NO_KAGAMI_NAME" Language="zh_Hant_HK">
+      <Text>八咫鏡</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_HIMIKO_SHAMAN_YATA_NO_KAGAMI_UNLOCK_TITLE" Language="zh_Hant_HK">
+      <Text>於卑彌呼（巫女王）等級2解鎖</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_AGE_COMPLETED_ANTIQUITY_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成古典時代兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_AGE_COMPLETED_ANTIQUITY_2_NAME" Language="zh_Hant_HK">
+      <Text>古典時代完成2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_AGE_COMPLETED_ANTIQUITY_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成古典時代三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_AGE_COMPLETED_ANTIQUITY_3_NAME" Language="zh_Hant_HK">
+      <Text>古典時代完成3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_AGE_COMPLETED_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成古典時代。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_AGE_COMPLETED_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>古典完成</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_AGE_COMPLETED_EXPLORATION_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成探索時代兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_AGE_COMPLETED_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>探索時代完成2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_AGE_COMPLETED_EXPLORATION_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成探索時代三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_AGE_COMPLETED_EXPLORATION_3_NAME" Language="zh_Hant_HK">
+      <Text>探索時代完成3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_AGE_COMPLETED_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成探索時代。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_AGE_COMPLETED_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>探索完成</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_AGE_COMPLETED_MODERN_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成近代兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_AGE_COMPLETED_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>近代完成2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_AGE_COMPLETED_MODERN_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成近代三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_AGE_COMPLETED_MODERN_3_NAME" Language="zh_Hant_HK">
+      <Text>近代完成3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_AGE_COMPLETED_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成近代。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_AGE_COMPLETED_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>近代完成</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_CULTURE_VICTORY_ANTIQUITY_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「遠古世界的奇觀」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_CULTURE_VICTORY_ANTIQUITY_2_NAME" Language="zh_Hant_HK">
+      <Text>遠古世界的奇觀2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_CULTURE_VICTORY_ANTIQUITY_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「遠古世界的奇觀」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_CULTURE_VICTORY_ANTIQUITY_3_NAME" Language="zh_Hant_HK">
+      <Text>遠古世界的奇觀3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_CULTURE_VICTORY_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「遠古世界的奇觀」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_CULTURE_VICTORY_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>遠古世界的奇觀</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_CULTURE_VICTORY_EXPLORATION_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「藏寶庫」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_CULTURE_VICTORY_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>藏寶庫2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_CULTURE_VICTORY_EXPLORATION_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「藏寶庫」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_CULTURE_VICTORY_EXPLORATION_3_NAME" Language="zh_Hant_HK">
+      <Text>藏寶庫3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_CULTURE_VICTORY_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「藏寶庫」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_CULTURE_VICTORY_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>藏寶庫</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_CULTURE_VICTORY_MODERN_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「地理學會」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_CULTURE_VICTORY_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>地理學會2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_CULTURE_VICTORY_MODERN_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「地理學會」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_CULTURE_VICTORY_MODERN_3_NAME" Language="zh_Hant_HK">
+      <Text>地理學會3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_CULTURE_VICTORY_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「地理學會」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_CULTURE_VICTORY_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>地理學會</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_ECONOMIC_VICTORY_ANTIQUITY_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「絲路」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_ECONOMIC_VICTORY_ANTIQUITY_2_NAME" Language="zh_Hant_HK">
+      <Text>絲路2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_ECONOMIC_VICTORY_ANTIQUITY_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「絲路」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_ECONOMIC_VICTORY_ANTIQUITY_3_NAME" Language="zh_Hant_HK">
+      <Text>絲路3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_ECONOMIC_VICTORY_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「絲路」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_ECONOMIC_VICTORY_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>絲路</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_ECONOMIC_VICTORY_EXPLORATION_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「寶藏艦隊」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_ECONOMIC_VICTORY_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>寶藏艦隊2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_ECONOMIC_VICTORY_EXPLORATION_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「寶藏艦隊」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_ECONOMIC_VICTORY_EXPLORATION_3_NAME" Language="zh_Hant_HK">
+      <Text>寶藏艦隊3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_ECONOMIC_VICTORY_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「寶藏艦隊」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_ECONOMIC_VICTORY_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>寶藏艦隊</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_ECONOMIC_VICTORY_MODERN_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「鐵路大亨」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_ECONOMIC_VICTORY_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>鐵路大亨2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_ECONOMIC_VICTORY_MODERN_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「鐵路大亨」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_ECONOMIC_VICTORY_MODERN_3_NAME" Language="zh_Hant_HK">
+      <Text>鐵路大亨3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_ECONOMIC_VICTORY_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「鐵路大亨」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_ECONOMIC_VICTORY_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>鐵路大亨</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_FLAWLESS_VICTORY_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），在一次古典時代中完成2項傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_FLAWLESS_VICTORY_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>雙重傳承，古典</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_FLAWLESS_VICTORY_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），在一次探索時代中完成2項傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_FLAWLESS_VICTORY_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>雙重傳承，探索</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_FLAWLESS_VICTORY_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），在一次近代中完成2項傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_FLAWLESS_VICTORY_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>雙重傳承，近代</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_MILITARY_VICTORY_ANTIQUITY_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「和平帝國」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_MILITARY_VICTORY_ANTIQUITY_2_NAME" Language="zh_Hant_HK">
+      <Text>和平帝國2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_MILITARY_VICTORY_ANTIQUITY_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「和平帝國」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_MILITARY_VICTORY_ANTIQUITY_3_NAME" Language="zh_Hant_HK">
+      <Text>和平帝國3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_MILITARY_VICTORY_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「和平帝國」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_MILITARY_VICTORY_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>和平帝國</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_MILITARY_VICTORY_EXPLORATION_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「世界不夠大」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_MILITARY_VICTORY_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>世界不夠大2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_MILITARY_VICTORY_EXPLORATION_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「世界不夠大」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_MILITARY_VICTORY_EXPLORATION_3_NAME" Language="zh_Hant_HK">
+      <Text>世界不夠大3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_MILITARY_VICTORY_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「世界不夠大」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_MILITARY_VICTORY_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>世界不夠大</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_MILITARY_VICTORY_MODERN_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「意識形態」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_MILITARY_VICTORY_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>意識形態2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_MILITARY_VICTORY_MODERN_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「意識形態」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_MILITARY_VICTORY_MODERN_3_NAME" Language="zh_Hant_HK">
+      <Text>意識形態3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_MILITARY_VICTORY_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「意識形態」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_MILITARY_VICTORY_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>意識形態</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_PLAY_GAMES_1_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），至少達成1項傳承路徑里程碑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_PLAY_GAMES_1_NAME" Language="zh_Hant_HK">
+      <Text>開始遊戲1</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_PLAY_GAMES_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），至少達成2項傳承路徑里程碑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_PLAY_GAMES_2_NAME" Language="zh_Hant_HK">
+      <Text>開始遊戲2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_PLAY_GAMES_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），至少達成3項傳承路徑里程碑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_PLAY_GAMES_3_NAME" Language="zh_Hant_HK">
+      <Text>開始遊戲3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_QUEST_A_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>在古典時代扮演阿育王（征服天下者），完成帶領士兵祈禱的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_QUEST_A_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>神王</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_QUEST_A_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>在探索時代扮演阿育王（征服天下者），完成提供精神指引的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_QUEST_A_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>那羅延</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_QUEST_A_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>在近代扮演阿育王（征服天下者），完成成為神王的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_QUEST_A_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>征服天下者</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_QUEST_B_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>在古典時代扮演阿育王（征服天下者），完成引起世界關注的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_QUEST_B_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>法王</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_QUEST_B_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>在探索時代扮演阿育王（征服天下者），完成啟迪人民的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_QUEST_B_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>菩提薩埵</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_QUEST_B_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>在近代扮演阿育王（征服天下者），完成讓知識指引未來的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_QUEST_B_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>潛心向佛者</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_SCIENCE_VICTORY_ANTIQUITY_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「大圖書館」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_SCIENCE_VICTORY_ANTIQUITY_2_NAME" Language="zh_Hant_HK">
+      <Text>大圖書館2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_SCIENCE_VICTORY_ANTIQUITY_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「大圖書館」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_SCIENCE_VICTORY_ANTIQUITY_3_NAME" Language="zh_Hant_HK">
+      <Text>大圖書館3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_SCIENCE_VICTORY_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「大圖書館」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_SCIENCE_VICTORY_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>大圖書館</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_SCIENCE_VICTORY_EXPLORATION_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「啟蒙」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_SCIENCE_VICTORY_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>啟蒙2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_SCIENCE_VICTORY_EXPLORATION_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「啟蒙」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_SCIENCE_VICTORY_EXPLORATION_3_NAME" Language="zh_Hant_HK">
+      <Text>啟蒙3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_SCIENCE_VICTORY_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「啟蒙」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_SCIENCE_VICTORY_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>啟發</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_SCIENCE_VICTORY_MODERN_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「太空競賽」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_SCIENCE_VICTORY_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>太空競賽2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_SCIENCE_VICTORY_MODERN_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「太空競賽」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_SCIENCE_VICTORY_MODERN_3_NAME" Language="zh_Hant_HK">
+      <Text>太空競賽3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_SCIENCE_VICTORY_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演阿育王（征服天下者），完成「太空競賽」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASHOKA_ALT_SCIENCE_VICTORY_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>太空競賽</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_AGE_COMPLETED_ANTIQUITY_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成古典時代兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_AGE_COMPLETED_ANTIQUITY_2_NAME" Language="zh_Hant_HK">
+      <Text>古典時代完成2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_AGE_COMPLETED_ANTIQUITY_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成古典時代三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_AGE_COMPLETED_ANTIQUITY_3_NAME" Language="zh_Hant_HK">
+      <Text>古典時代完成3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_AGE_COMPLETED_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成古典時代。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_AGE_COMPLETED_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>古典完成</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_AGE_COMPLETED_EXPLORATION_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成探索時代兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_AGE_COMPLETED_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>探索時代完成2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_AGE_COMPLETED_EXPLORATION_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成探索時代三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_AGE_COMPLETED_EXPLORATION_3_NAME" Language="zh_Hant_HK">
+      <Text>探索時代完成3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_AGE_COMPLETED_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成探索時代。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_AGE_COMPLETED_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>探索完成</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_AGE_COMPLETED_MODERN_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成近代兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_AGE_COMPLETED_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>近代完成2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_AGE_COMPLETED_MODERN_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成近代三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_AGE_COMPLETED_MODERN_3_NAME" Language="zh_Hant_HK">
+      <Text>近代完成3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_AGE_COMPLETED_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成近代。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_AGE_COMPLETED_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>近代完成</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_CULTURE_VICTORY_ANTIQUITY_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「遠古世界的奇觀」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_CULTURE_VICTORY_ANTIQUITY_2_NAME" Language="zh_Hant_HK">
+      <Text>遠古世界的奇觀2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_CULTURE_VICTORY_ANTIQUITY_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「遠古世界的奇觀」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_CULTURE_VICTORY_ANTIQUITY_3_NAME" Language="zh_Hant_HK">
+      <Text>遠古世界的奇觀3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_CULTURE_VICTORY_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「遠古世界的奇觀」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_CULTURE_VICTORY_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>遠古世界的奇觀</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_CULTURE_VICTORY_EXPLORATION_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「藏寶庫」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_CULTURE_VICTORY_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>藏寶庫2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_CULTURE_VICTORY_EXPLORATION_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「藏寶庫」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_CULTURE_VICTORY_EXPLORATION_3_NAME" Language="zh_Hant_HK">
+      <Text>藏寶庫3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_CULTURE_VICTORY_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「藏寶庫」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_CULTURE_VICTORY_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>藏寶庫</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_CULTURE_VICTORY_MODERN_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「地理學會」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_CULTURE_VICTORY_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>地理學會2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_CULTURE_VICTORY_MODERN_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「地理學會」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_CULTURE_VICTORY_MODERN_3_NAME" Language="zh_Hant_HK">
+      <Text>地理學會3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_CULTURE_VICTORY_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「地理學會」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_CULTURE_VICTORY_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>地理學會</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_ECONOMIC_VICTORY_ANTIQUITY_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「絲路」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_ECONOMIC_VICTORY_ANTIQUITY_2_NAME" Language="zh_Hant_HK">
+      <Text>絲路2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_ECONOMIC_VICTORY_ANTIQUITY_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「絲路」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_ECONOMIC_VICTORY_ANTIQUITY_3_NAME" Language="zh_Hant_HK">
+      <Text>絲路3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_ECONOMIC_VICTORY_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「絲路」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_ECONOMIC_VICTORY_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>絲路</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_ECONOMIC_VICTORY_EXPLORATION_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「寶藏艦隊」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_ECONOMIC_VICTORY_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>寶藏艦隊2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_ECONOMIC_VICTORY_EXPLORATION_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「寶藏艦隊」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_ECONOMIC_VICTORY_EXPLORATION_3_NAME" Language="zh_Hant_HK">
+      <Text>寶藏艦隊3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_ECONOMIC_VICTORY_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「寶藏艦隊」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_ECONOMIC_VICTORY_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>寶藏艦隊</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_ECONOMIC_VICTORY_MODERN_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「鐵路大亨」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_ECONOMIC_VICTORY_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>鐵路大亨2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_ECONOMIC_VICTORY_MODERN_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「鐵路大亨」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_ECONOMIC_VICTORY_MODERN_3_NAME" Language="zh_Hant_HK">
+      <Text>鐵路大亨3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_ECONOMIC_VICTORY_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「鐵路大亨」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_ECONOMIC_VICTORY_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>鐵路大亨</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_FLAWLESS_VICTORY_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），在一次古典時代中完成2項傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_FLAWLESS_VICTORY_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>雙重傳承，古典</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_FLAWLESS_VICTORY_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），在一次探索時代中完成2項傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_FLAWLESS_VICTORY_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>雙重傳承，探索</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_FLAWLESS_VICTORY_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），在一次近代中完成2項傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_FLAWLESS_VICTORY_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>雙重傳承，近代</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_MILITARY_VICTORY_ANTIQUITY_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「和平帝國」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_MILITARY_VICTORY_ANTIQUITY_2_NAME" Language="zh_Hant_HK">
+      <Text>和平帝國2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_MILITARY_VICTORY_ANTIQUITY_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「和平帝國」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_MILITARY_VICTORY_ANTIQUITY_3_NAME" Language="zh_Hant_HK">
+      <Text>和平帝國3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_MILITARY_VICTORY_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「和平帝國」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_MILITARY_VICTORY_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>和平帝國</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_MILITARY_VICTORY_EXPLORATION_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「世界不夠大」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_MILITARY_VICTORY_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>世界不夠大2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_MILITARY_VICTORY_EXPLORATION_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「世界不夠大」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_MILITARY_VICTORY_EXPLORATION_3_NAME" Language="zh_Hant_HK">
+      <Text>世界不夠大3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_MILITARY_VICTORY_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「世界不夠大」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_MILITARY_VICTORY_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>世界不夠大</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_MILITARY_VICTORY_MODERN_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「意識形態」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_MILITARY_VICTORY_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>意識形態2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_MILITARY_VICTORY_MODERN_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「意識形態」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_MILITARY_VICTORY_MODERN_3_NAME" Language="zh_Hant_HK">
+      <Text>意識形態3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_MILITARY_VICTORY_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「意識形態」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_MILITARY_VICTORY_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>意識形態</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_PLAY_GAMES_1_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），至少達成1項傳承路徑里程碑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_PLAY_GAMES_1_NAME" Language="zh_Hant_HK">
+      <Text>開始遊戲1</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_PLAY_GAMES_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），至少達成2項傳承路徑里程碑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_PLAY_GAMES_2_NAME" Language="zh_Hant_HK">
+      <Text>開始遊戲2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_PLAY_GAMES_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），至少達成3項傳承路徑里程碑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_PLAY_GAMES_3_NAME" Language="zh_Hant_HK">
+      <Text>開始遊戲3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_QUEST_A_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>在古典時代扮演卑彌呼（巫女王），完成影響世界的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_QUEST_A_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>山的女兒</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_QUEST_A_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>在探索時代扮演卑彌呼（巫女王），完成傳頌天照大神的故事的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_QUEST_A_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>日本之神</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_QUEST_A_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>在近代扮演卑彌呼（巫女王），完成蒐集過去的象徵的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_QUEST_A_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>卑彌呼的勝利</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_QUEST_B_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>在古典時代扮演卑彌呼（巫女王），完成進口珍寶的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_QUEST_B_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>太陽的女兒</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_QUEST_B_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>在探索時代扮演卑彌呼（巫女王），完成讚頌優雅與風采的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_QUEST_B_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>神聖繁榮</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_QUEST_B_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>在近代扮演卑彌呼（巫女王），完成強化生產的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_QUEST_B_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>天照大神的勝利</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_SCIENCE_VICTORY_ANTIQUITY_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「大圖書館」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_SCIENCE_VICTORY_ANTIQUITY_2_NAME" Language="zh_Hant_HK">
+      <Text>大圖書館2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_SCIENCE_VICTORY_ANTIQUITY_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「大圖書館」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_SCIENCE_VICTORY_ANTIQUITY_3_NAME" Language="zh_Hant_HK">
+      <Text>大圖書館3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_SCIENCE_VICTORY_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「大圖書館」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_SCIENCE_VICTORY_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>大圖書館</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_SCIENCE_VICTORY_EXPLORATION_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「啟蒙」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_SCIENCE_VICTORY_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>啟蒙2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_SCIENCE_VICTORY_EXPLORATION_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「啟蒙」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_SCIENCE_VICTORY_EXPLORATION_3_NAME" Language="zh_Hant_HK">
+      <Text>啟蒙3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_SCIENCE_VICTORY_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「啟蒙」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_SCIENCE_VICTORY_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>啟蒙</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_SCIENCE_VICTORY_MODERN_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「太空競賽」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_SCIENCE_VICTORY_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>太空競賽2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_SCIENCE_VICTORY_MODERN_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「太空競賽」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_SCIENCE_VICTORY_MODERN_3_NAME" Language="zh_Hant_HK">
+      <Text>太空競賽3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_SCIENCE_VICTORY_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼（巫女王），完成「太空競賽」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_HIMIKO_ALT_SCIENCE_VICTORY_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>太空競賽</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_CULTURAL_LEGEND_HIMIKO_ALT_L1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>傳奇解鎖。建造有巨作槽位的建築與奇觀時+15%[icon:YIELD_PRODUCTION]生產力效益。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_ASHOKA_ALT_L1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>傳奇解鎖。展開或支持外交手段時+25%關係。展開制裁或拒絕外交手段時-25%關係。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_HIMIKO_ALT_L2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>傳奇解鎖。展開或支持外交手段時+25%關係。展開制裁或拒絕外交手段時-25%關係。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_ASHOKA_ALT_L2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>傳奇解鎖。對抗區域時所有單位+5戰鬥力。</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_ASHOKA_CONQUEROR" Language="zh_Hant_HK">
+      <Text>征服天下者</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_HIMIKO_HIGH_SHAMAN" Language="zh_Hant_HK">
+      <Text>天照大神的化身</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ASHOKA_CONQUEROR_EXPLORATION_1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演阿育王，取用一張全新探索時代傳承卡牌：[n]
+				+15%影響力，海軍單位-2戰鬥力</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ASHOKA_CONQUEROR_EXPLORATION_1_NAME" Language="zh_Hant_HK">
+      <Text>探索時代外交傳承卡牌</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ASHOKA_CONQUEROR_EXPLORATION_2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演阿育王，取用一張全新探索時代傳承卡牌：[n]
+				海軍單位+3戰鬥力，-10%影響力</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ASHOKA_CONQUEROR_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>探索時代軍事傳承卡牌</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ASHOKA_CONQUEROR_MODERN_1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演阿育王，取用一張全新近代傳承卡牌：[n]
+				+15%影響力，空中單位-2戰鬥力</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ASHOKA_CONQUEROR_MODERN_1_NAME" Language="zh_Hant_HK">
+      <Text>近代外交傳承卡牌</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ASHOKA_CONQUEROR_MODERN_2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演阿育王，取用一張全新近代傳承卡牌：[n]
+				空中單位+3戰鬥力，-10%影響力</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ASHOKA_CONQUEROR_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>近代軍事傳承卡牌</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_HIMIKO_SHAMAN_EXPLORATION_1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼，取用一張全新探索時代傳承卡牌：[n]
+				+15%文化值，-10%科技值</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_HIMIKO_SHAMAN_EXPLORATION_1_NAME" Language="zh_Hant_HK">
+      <Text>探索時代文化傳承卡牌</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_HIMIKO_SHAMAN_EXPLORATION_2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼，取用一張全新探索時代傳承卡牌：[n]
+				+15%影響力，海軍單位-2戰鬥力</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_HIMIKO_SHAMAN_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>探索時代外交傳承卡牌</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_HIMIKO_SHAMAN_MODERN_1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼，取用一張全新近代傳承卡牌：[n]
+				+15%文化值，-10%科技值</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_HIMIKO_SHAMAN_MODERN_1_NAME" Language="zh_Hant_HK">
+      <Text>近代文化傳承卡牌</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_HIMIKO_SHAMAN_MODERN_2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演卑彌呼，取用一張全新近代傳承卡牌：[n]
+				+15%影響力，空中單位-2戰鬥力</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_HIMIKO_SHAMAN_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>近代外交傳承卡牌</Text>
+    </Replace>
+    <Replace Tag="LOC_TITLE_ASHOKA_CONQUEROR_NAME" Language="zh_Hant_HK">
+      <Text>征服天下者</Text>
+    </Replace>
+    <Replace Tag="LOC_TITLE_HIMIKO_HIGH_SHAMAN_NAME" Language="zh_Hant_HK">
+      <Text>天照大神的化身</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_ASHOKA_ALT_ABILITY_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>[BLIST][LI][icon:YIELD_CITIES][B]城市[/B]中每多出[B]5[/B][icon:YIELD_HAPPINESS][B]幸福感[/B]，便[B]+1[icon:YIELD_PRODUCTION]生產力[/B]。[LI]非由你創立的聚落[B]+10%[icon:YIELD_PRODUCTION]生產力[/B]。[LI]宣佈[icon:WAR][B]正式戰爭[/B]能賦予一次[icon:NOTIFICATION_CHOOSE_GOLDEN_AGE][B]慶典[/B]。[LI]在[icon:NOTIFICATION_CHOOSE_GOLDEN_AGE][B]慶典[/B]期間，所有單位對抗[icon:CITY_URBAN][B]區域[/B]時[B]+5[icon:NAR_REW_COMBAT]戰鬥力[/B]。[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_ASHOKA_ALT_ABILITY_NAME" Language="zh_Hant_HK">
+      <Text>神王</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_HIMIKO_ALT_ABILITY_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>[BLIST][LI][icon:YIELD_HAPPINESS][B]幸福感[/B]和[icon:YIELD_DIPLOMACY][B]影響力[/B]建築[B]+2[icon:YIELD_HAPPINESS]幸福感[/B]，依照時代疊加；若一個[B]建築[/B]兩類皆是，則效果加倍。[LI]建造[icon:YIELD_HAPPINESS][B]幸福感[/B]和[icon:YIELD_DIPLOMACY][B]影響力建築[/B]時[B]+50%[icon:YIELD_PRODUCTION]生產力效益[/B]；若一個[B]建築[/B]兩類皆是，則效果加倍。[LI][B]+20%[icon:YIELD_CULTURE]文化值[/B]但[B]-10%[icon:YIELD_SCIENCE]科技值[/B]，而在[icon:NOTIFICATION_CHOOSE_GOLDEN_AGE][B]慶典[/B]期間這些效果[B]加倍[/B]。[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_HIMIKO_ALT_ABILITY_NAME" Language="zh_Hant_HK">
+      <Text>天照的巫女</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ASHOKA_ALT_CHOLA_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]阿育王[/B]曾帶領[B]朱羅[/B]文明的前身。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ASHOKA_ALT_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演[B]於阿育王（征服天下者）[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ASHOKA_ALT_HAWAII_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]夏威夷[B/]和[B]阿育王[/B]在策略上互補。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ASHOKA_ALT_MUGHAL_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]阿育王[/B]曾統治與[B]蒙兀兒[/B]相同的地區。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ASHOKA_ALT_SIAM_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]阿育王[/B]影響了[B]暹羅[/B]文化。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_HIMIKO_ALT_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演[B]卑彌呼（巫女王）[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_HIMIKO_ALT_HAWAII_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]夏威夷[B/]和[B]卑彌呼[/B]在策略上互補。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_HIMIKO_ALT_MAJAPAHIT_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]卑彌呼[/B]源自與[B]滿者伯夷[/B]相同的大陸。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_HIMIKO_ALT_MEIJI_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]卑彌呼[/B]曾統治古代[B]日本[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_HIMIKO_ALT_SIAM_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]卑彌呼[/B]源自與[B]暹羅[/B]相同的大陸。</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_ASHOKA_CONQUEROR_COMBAT_PREVIEW" Language="zh_Hant_HK">
+      <Text>+{1_Amount}神王</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_ASHOKA_CONQUEROR_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在慶典期間，所有單位對抗區域時+{1_Value}戰鬥力。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_CHANDA_MAHASENA_COMBAT_PREVIEW" Language="zh_Hant_HK">
+      <Text>+{1_Amount}強賈瑪哈森紀念物</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_ASHOKA_ALT_L2_COMBAT_PREVIEW" Language="zh_Hant_HK">
+      <Text>+{1_Value}傳奇軍事屬性</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

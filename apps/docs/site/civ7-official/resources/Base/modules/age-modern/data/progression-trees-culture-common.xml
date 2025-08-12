@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<!--Main Culture Tree Nodes-->
+		<Row Type="NODE_CIVIC_MO_MAIN_MODERNIZATION" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_MO_MAIN_NATURAL_HISTORY" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_MO_MAIN_SOCIAL_QUESTION" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_MO_MAIN_POLITICAL_THEORY" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_MO_MAIN_GLOBALISM" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_MO_MAIN_NATIONALISM" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_MO_MAIN_CAPITALISM" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_MO_MAIN_MILITARISM" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_MO_MAIN_HEGEMONY" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_MO_MAIN_FUTURE_CIVIC" Kind="KIND_TREE_NODE"/>
+		<!--Branch Trees-->
+		<Row Type="TREE_CIVIC_MO_BRANCH_DEMOCRACY" Kind="KIND_TREE_NODE"/>
+		<Row Type="TREE_CIVIC_MO_BRANCH_FASCISM" Kind="KIND_TREE_NODE"/>
+		<Row Type="TREE_CIVIC_MO_BRANCH_COMMUNISM" Kind="KIND_TREE_NODE"/>
+		<!--Branch Tree Nodes-->
+		<Row Type="NODE_CIVIC_MO_BRANCH_DEMOCRACY" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_MO_BRANCH_LIBERALISM" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_MO_BRANCH_PROGRESSIVISM" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_MO_BRANCH_FASCISM" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_MO_BRANCH_RADICALISM" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_MO_BRANCH_AUTHORITARIANISM" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_MO_BRANCH_COMMUNISM" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_MO_BRANCH_CENTRALISM" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_MO_BRANCH_SOCIALISM" Kind="KIND_TREE_NODE"/>
+	</Types>
+	<TypeQuotes>
+		<Row Type="NODE_CIVIC_MO_MAIN_MODERNIZATION" Quote="LOC_CIVIC_MODERNIZATION_QUOTE" QuoteAuthor="LOC_CIVIC_MODERNIZATION_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Modernization"/>
+		<Row Type="NODE_CIVIC_MO_MAIN_NATURAL_HISTORY" Quote="LOC_CIVIC_NATURAL_HISTORY_QUOTE" QuoteAuthor="LOC_CIVIC_NATURAL_HISTORY_QUOTE_AUTHOR" QuoteAudio="VO_Quote_NaturalHistory"/>
+		<Row Type="NODE_CIVIC_MO_MAIN_SOCIAL_QUESTION" Quote="LOC_CIVIC_SOCIAL_QUESTION_QUOTE" QuoteAuthor="LOC_CIVIC_SOCIAL_QUESTION_QUOTE_AUTHOR" QuoteAudio="VO_Quote_SocialQuestion"/>
+		<Row Type="NODE_CIVIC_MO_MAIN_POLITICAL_THEORY" Quote="LOC_CIVIC_POLITICAL_THEORY_QUOTE" QuoteAuthor="LOC_CIVIC_POLITICAL_THEORY_QUOTE_AUTHOR" QuoteAudio="VO_Quote_PoliticalTheory"/>
+		<Row Type="NODE_CIVIC_MO_MAIN_GLOBALISM" Quote="LOC_CIVIC_GLOBALISM_QUOTE" QuoteAuthor="LOC_CIVIC_GLOBALISM_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Globalism"/>
+		<Row Type="NODE_CIVIC_MO_MAIN_NATIONALISM" Quote="LOC_CIVIC_NATIONALISM_QUOTE" QuoteAuthor="LOC_CIVIC_NATIONALISM_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Nationalism"/>
+		<Row Type="NODE_CIVIC_MO_MAIN_CAPITALISM" Quote="LOC_CIVIC_CAPITALISM_QUOTE" QuoteAuthor="LOC_CIVIC_CAPITALISM_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Capitalism"/>
+		<Row Type="NODE_CIVIC_MO_MAIN_MILITARISM" Quote="LOC_CIVIC_MILITARISM_QUOTE" QuoteAuthor="LOC_CIVIC_MILITARISM_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Militarism"/>
+		<Row Type="NODE_CIVIC_MO_MAIN_HEGEMONY" Quote="LOC_CIVIC_HEGEMONY_QUOTE" QuoteAuthor="LOC_CIVIC_HEGEMONY_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Hegemony"/>
+		<Row Type="NODE_CIVIC_MO_BRANCH_DEMOCRACY" Quote="LOC_CIVIC_DEMOCRACY_QUOTE" QuoteAuthor="LOC_CIVIC_DEMOCRACY_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Democracy"/>
+		<Row Type="NODE_CIVIC_MO_BRANCH_LIBERALISM" Quote="LOC_CIVIC_LIBERALISM_QUOTE" QuoteAuthor="LOC_CIVIC_LIBERALISM_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Liberalism"/>
+		<Row Type="NODE_CIVIC_MO_BRANCH_PROGRESSIVISM" Quote="LOC_CIVIC_PROGRESSIVISM_QUOTE" QuoteAuthor="LOC_CIVIC_PROGRESSIVISM_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Progressivism"/>
+		<Row Type="NODE_CIVIC_MO_BRANCH_FASCISM" Quote="LOC_CIVIC_FASCISM_QUOTE" QuoteAuthor="LOC_CIVIC_FASCISM_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Facism"/>
+		<Row Type="NODE_CIVIC_MO_BRANCH_RADICALISM" Quote="LOC_CIVIC_RADICALISM_QUOTE" QuoteAuthor="LOC_CIVIC_RADICALISM_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Radicalism"/>
+		<Row Type="NODE_CIVIC_MO_BRANCH_AUTHORITARIANISM" Quote="LOC_CIVIC_AUTHORITARIANISM_QUOTE" QuoteAuthor="LOC_CIVIC_AUTHORITARIANISM_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Authoritarianism"/>
+		<Row Type="NODE_CIVIC_MO_BRANCH_COMMUNISM" Quote="LOC_CIVIC_COMMUNISM_QUOTE" QuoteAuthor="LOC_CIVIC_COMMUNISM_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Communism"/>
+		<Row Type="NODE_CIVIC_MO_BRANCH_CENTRALISM" Quote="LOC_CIVIC_CENTRALISM_QUOTE" QuoteAuthor="LOC_CIVIC_CENTRALISM_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Centralism"/>
+		<Row Type="NODE_CIVIC_MO_BRANCH_SOCIALISM" Quote="LOC_CIVIC_SOCIALISM_QUOTE" QuoteAuthor="LOC_CIVIC_SOCIALISM_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Socialism"/>
+	</TypeQuotes>
+	<ProgressionTrees>
+		<!--Branch Trees-->
+		<Row ProgressionTreeType="TREE_CIVIC_MO_BRANCH_DEMOCRACY" AgeType="AGE_MODERN" SystemType="SYSTEM_CULTURE" Name="LOC_CIVIC_DEMOCRACY_NAME" MultipleUnlockName="LOC_CIVIC_IDEOLOGY_TREE_NAME" IconString="cult_democracy" RevealRequirementSetId="REQSET_RESEARCHED_POLITICAL_THEORY"/>
+		<Row ProgressionTreeType="TREE_CIVIC_MO_BRANCH_FASCISM" AgeType="AGE_MODERN" SystemType="SYSTEM_CULTURE" Name="LOC_CIVIC_FASCISM_NAME" MultipleUnlockName="LOC_CIVIC_IDEOLOGY_TREE_NAME" IconString="cult_populism" RevealRequirementSetId="REQSET_RESEARCHED_POLITICAL_THEORY"/>
+		<Row ProgressionTreeType="TREE_CIVIC_MO_BRANCH_COMMUNISM" AgeType="AGE_MODERN" SystemType="SYSTEM_CULTURE" Name="LOC_CIVIC_COMMUNISM_NAME" MultipleUnlockName="LOC_CIVIC_IDEOLOGY_TREE_NAME" IconString="cult_collectivization" RevealRequirementSetId="REQSET_RESEARCHED_POLITICAL_THEORY"/>
+	</ProgressionTrees>
+	<ProgressionTreeNodes>
+		<!--Main Culture Tree Nodes-->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_MODERNIZATION" ProgressionTree="TREE_CIVICS_MO_MAIN" Cost="1600" Name="LOC_CIVIC_MODERNIZATION_NAME" IconString="cult_modernization" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_NATURAL_HISTORY" ProgressionTree="TREE_CIVICS_MO_MAIN" Cost="1600" Name="LOC_CIVIC_NATURAL_HISTORY_NAME" IconString="cult_naturalhistory" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_SOCIAL_QUESTION" ProgressionTree="TREE_CIVICS_MO_MAIN" Cost="1600" Name="LOC_CIVIC_SOCIAL_QUESTION_NAME" IconString="cult_socialquestion" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_POLITICAL_THEORY" ProgressionTree="TREE_CIVICS_MO_MAIN" Cost="2750" Name="LOC_CIVIC_POLITICAL_THEORY_NAME" IconString="cult_politicaltheory" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_GLOBALISM" ProgressionTree="TREE_CIVICS_MO_MAIN" Cost="3750" Name="LOC_CIVIC_GLOBALISM_NAME" IconString="cult_globalism" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_NATIONALISM" ProgressionTree="TREE_CIVICS_MO_MAIN" Cost="3750" Name="LOC_CIVIC_NATIONALISM_NAME" IconString="cult_nationalism" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_CAPITALISM" ProgressionTree="TREE_CIVICS_MO_MAIN" Cost="7500" Name="LOC_CIVIC_CAPITALISM_NAME" IconString="cult_capitalism" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_MILITARISM" ProgressionTree="TREE_CIVICS_MO_MAIN" Cost="7500" Name="LOC_CIVIC_MILITARISM_NAME" IconString="cult_militarism" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_HEGEMONY" ProgressionTree="TREE_CIVICS_MO_MAIN" Cost="7500" Name="LOC_CIVIC_HEGEMONY_NAME" IconString="cult_hegemony" />
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_FUTURE_CIVIC" ProgressionTree="TREE_CIVICS_MO_MAIN" Cost="8000" Name="LOC_CIVIC_FUTURE_CIVIC_MO_NAME" IconString="cult_futurecivic" Repeatable="true" RepeatableCostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" RepeatableCostProgressionParam1="8000"/>
+		<!--Branch Tree Nodes-->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_DEMOCRACY" ProgressionTree="TREE_CIVIC_MO_BRANCH_DEMOCRACY" Cost="2750" Name="LOC_CIVIC_DEMOCRACY_NAME" IconString="cult_democracy" CanBoost="false" CanSteal="false"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_LIBERALISM" ProgressionTree="TREE_CIVIC_MO_BRANCH_DEMOCRACY" Cost="3250" Name="LOC_CIVIC_LIBERALISM_NAME" IconString="cult_liberalism" CanSteal="false"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_PROGRESSIVISM" ProgressionTree="TREE_CIVIC_MO_BRANCH_DEMOCRACY" Cost="4500" Name="LOC_CIVIC_PROGRESSIVISM_NAME" IconString="cult_representation" CanSteal="false"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_FASCISM" ProgressionTree="TREE_CIVIC_MO_BRANCH_FASCISM" Cost="2750" Name="LOC_CIVIC_FASCISM_NAME" IconString="cult_populism" CanBoost="false" CanSteal="false"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_RADICALISM" ProgressionTree="TREE_CIVIC_MO_BRANCH_FASCISM" Cost="3250" Name="LOC_CIVIC_RADICALISM_NAME" IconString="cult_radicalism" CanSteal="false"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_AUTHORITARIANISM" ProgressionTree="TREE_CIVIC_MO_BRANCH_FASCISM" Cost="4500" Name="LOC_CIVIC_AUTHORITARIANISM_NAME" IconString="cult_authoritarianism" CanSteal="false"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_COMMUNISM" ProgressionTree="TREE_CIVIC_MO_BRANCH_COMMUNISM" Cost="2750" Name="LOC_CIVIC_COMMUNISM_NAME" IconString="cult_collectivization" CanBoost="false" CanSteal="false"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_CENTRALISM" ProgressionTree="TREE_CIVIC_MO_BRANCH_COMMUNISM" Cost="3250" Name="LOC_CIVIC_CENTRALISM_NAME" IconString="cult_centralism" CanSteal="false"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_SOCIALISM" ProgressionTree="TREE_CIVIC_MO_BRANCH_COMMUNISM" Cost="4500" Name="LOC_CIVIC_SOCIALISM_NAME" IconString="cult_socialism" CanSteal="false"/>
+	</ProgressionTreeNodes>
+	<ProgressionTreeNodeUnlocks>
+		<!--Main Culture Tree Node Unlocks-->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_MODERNIZATION" TargetKind="KIND_TRADITION" TargetType="TRADITION_CIVIL_ENGINEERING" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_MODERNIZATION" TargetKind="KIND_TRADITION" TargetType="TRADITION_LIVING_STANDARDS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_MODERNIZATION" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_HERMITAGE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_NATURAL_HISTORY" TargetKind="KIND_TRADITION" TargetType="TRADITION_LAND_HERITAGE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_NATURAL_HISTORY" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_MUSEUM" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_NATURAL_HISTORY" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_MUZIBU_AZAALA_MPANGA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_NATURAL_HISTORY" TargetKind="KIND_UNIT" TargetType="UNIT_EXPLORER" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_NATURAL_HISTORY" TargetKind="KIND_MODIFIER" TargetType="MOD_MO_OPEN_EXPLORATION_ARCHAEOLOGY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_NATURAL_HISTORY" TargetKind="KIND_MODIFIER" TargetType="MOD_MO_NATURAL_WONDER_ARCHAEOLOGY" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_NATURAL_HISTORY" TargetKind="KIND_MODIFIER" TargetType="MOD_MO_EXPLORER_SIGHT" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_SOCIAL_QUESTION" TargetKind="KIND_TRADITION" TargetType="TRADITION_HUMANISM" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_SOCIAL_QUESTION" TargetKind="KIND_TRADITION" TargetType="TRADITION_SOCIAL_SCIENCE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_SOCIAL_QUESTION" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_DOGO_ONSEN" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_POLITICAL_THEORY" TargetKind="KIND_TRADITION" TargetType="TRADITION_FREE_SPEECH" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_POLITICAL_THEORY" TargetKind="KIND_MODIFIER" TargetType="MOD_MO_TRADITION_SLOT" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_POLITICAL_THEORY" TargetKind="KIND_MODIFIER" TargetType="MOD_MO_UNLOCK_IDEOLOGIES" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_POLITICAL_THEORY" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_DOI_SUTHEP" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_GLOBALISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_AMBASSADORS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_GLOBALISM" TargetKind="KIND_MODIFIER" TargetType="MOD_MO_SETTLEMENT_CAP_INCREASE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_GLOBALISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_PRESERVATION_SOCIETIES" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_GLOBALISM" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_PALACIO_DE_BELLAS_ARTES" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_GLOBALISM" TargetKind="KIND_DIPLOMATIC_ACTION" TargetType="DIPLOMACY_ACTION_ESPIONAGE_FAKE_ARTIFACTS" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_NATIONALISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_DEMAGOGY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_NATIONALISM" TargetKind="KIND_MODIFIER" TargetType="MOD_MO_SETTLEMENT_CAP_INCREASE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_NATIONALISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_PEOPLES_ARMY" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_NATIONALISM" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_TAJ_MAHAL" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_NATIONALISM" TargetKind="KIND_DIPLOMATIC_ACTION" TargetType="DIPLOMACY_ACTION_ESPIONAGE_INFILTRATE_ENEMY_POSITIONS" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_CAPITALISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_LAISSEZ_FAIRE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_CAPITALISM" TargetKind="KIND_MODIFIER" TargetType="MOD_MO_SPECIALIST_CAP_INCREASE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_CAPITALISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_MONOPOLIES" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_CAPITALISM" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_STATUE_OF_LIBERTY" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_MILITARISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_MATERIEL" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_MILITARISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_TRENCHWORKS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_MILITARISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_DRAFT" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_MILITARISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_PROJECTION_OF_FORCE" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_MILITARISM" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_BRANDENBURG_GATE" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_HEGEMONY" TargetKind="KIND_MODIFIER" TargetType="MOD_MO_OPEN_ANTIQUITY_ARCHAEOLOGY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_HEGEMONY" TargetKind="KIND_TRADITION" TargetType="TRADITION_CULTURAL_IMPERIALISM" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_HEGEMONY" TargetKind="KIND_MODIFIER" TargetType="MOD_MO_SETTLEMENT_CAP_INCREASE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_HEGEMONY" TargetKind="KIND_TRADITION" TargetType="TRADITION_SPHERE_OF_INFLUENCE" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_HEGEMONY" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_CHENGDE_MOUNTAIN_RESORT" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_FUTURE_CIVIC" TargetKind="KIND_MODIFIER" TargetType="MOD_FUTURE_CIVIC_ATTRIBUTE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_FUTURE_CIVIC" TargetKind="KIND_MODIFIER" TargetType="MOD_FUTURE_CIVIC_AGE_PROGRESS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_FUTURE_CIVIC" TargetKind="KIND_MODIFIER" TargetType="MOD_MO_ARTIFACT" UnlockDepth="1"/>
+		<!--Branch Culture Tree Node Unlocks-->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_DEMOCRACY" TargetKind="KIND_TRADITION" TargetType="TRADITION_FIRESIDE_CHATS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_DEMOCRACY" TargetKind="KIND_TRADITION" TargetType="TRADITION_SUFFRAGE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_DEMOCRACY" TargetKind="KIND_MODIFIER" TargetType="MOD_DEMOCRACY_RIFLEMEN" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_DEMOCRACY" TargetKind="KIND_MODIFIER" TargetType="MOD_DEMOCRACY_CULTURAL_ATTRIBUTE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_DEMOCRACY" TargetKind="KIND_MODIFIER" TargetType="MOD_DEMOCRACY_POLITICAL_ATTRIBUTE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_LIBERALISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_FREE_PRESS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_LIBERALISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_WELFARE_STATE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_PROGRESSIVISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_AVANT_GARDE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_PROGRESSIVISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_NEW_DEAL" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_PROGRESSIVISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_THEIR_FINEST_HOUR" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_FASCISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_ASSEMBLY_LINE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_FASCISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_DIRIGISME" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_FASCISM" TargetKind="KIND_MODIFIER" TargetType="MOD_FASCISM_LANDSHIP" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_FASCISM" TargetKind="KIND_MODIFIER" TargetType="MOD_FASCISM_ECONOMIC_ATTRIBUTE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_FASCISM" TargetKind="KIND_MODIFIER" TargetType="MOD_FASCISM_MILITARISTIC_ATTRIBUTE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_RADICALISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_MARTIAL_LAW" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_RADICALISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_PROPAGANDA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_AUTHORITARIANISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_MILITARY_INDUSTRIAL_COMPLEX" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_AUTHORITARIANISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_STRATEGIC_RAILWAYS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_AUTHORITARIANISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_SCORCHED_EARTH" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_COMMUNISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_PRODUCTIVE_FORCES_DETERMINISM" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_COMMUNISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_PROLETARIAT" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_COMMUNISM" TargetKind="KIND_MODIFIER" TargetType="MOD_COMMUNISM_AT_GUNS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_COMMUNISM" TargetKind="KIND_MODIFIER" TargetType="MOD_COMMUNISM_EXPANSIONIST_ATTRIBUTE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_COMMUNISM" TargetKind="KIND_MODIFIER" TargetType="MOD_COMMUNISM_SCIENTIFIC_ATTRIBUTE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_CENTRALISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_COLLECTIVIZATION" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_CENTRALISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_NAUKOGRAD" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_SOCIALISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_DEFENSE_OF_THE_MOTHERLAND" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_SOCIALISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_POLICE_STATE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_SOCIALISM" TargetKind="KIND_TRADITION" TargetType="TRADITION_PUBLIC_WORKS" UnlockDepth="1"/>
+	</ProgressionTreeNodeUnlocks>
+	<ProgressionTreePrereqs>
+		<!--Main Culture Tree Organization-->
+		<Row Node="NODE_CIVIC_MO_MAIN_POLITICAL_THEORY" PrereqNode="NODE_CIVIC_MO_MAIN_MODERNIZATION"/>
+		<Row Node="NODE_CIVIC_MO_MAIN_POLITICAL_THEORY" PrereqNode="NODE_CIVIC_MO_MAIN_NATURAL_HISTORY"/>
+		<Row Node="NODE_CIVIC_MO_MAIN_POLITICAL_THEORY" PrereqNode="NODE_CIVIC_MO_MAIN_SOCIAL_QUESTION"/>
+		<Row Node="NODE_CIVIC_MO_MAIN_GLOBALISM" PrereqNode="NODE_CIVIC_MO_MAIN_POLITICAL_THEORY"/>
+		<Row Node="NODE_CIVIC_MO_MAIN_NATIONALISM" PrereqNode="NODE_CIVIC_MO_MAIN_POLITICAL_THEORY"/>
+		<Row Node="NODE_CIVIC_MO_MAIN_CAPITALISM" PrereqNode="NODE_CIVIC_MO_MAIN_GLOBALISM"/>
+		<Row Node="NODE_CIVIC_MO_MAIN_MILITARISM" PrereqNode="NODE_CIVIC_MO_MAIN_NATIONALISM"/>
+		<Row Node="NODE_CIVIC_MO_MAIN_HEGEMONY" PrereqNode="NODE_CIVIC_MO_MAIN_GLOBALISM"/>
+		<Row Node="NODE_CIVIC_MO_MAIN_HEGEMONY" PrereqNode="NODE_CIVIC_MO_MAIN_NATIONALISM"/>
+		<Row Node="NODE_CIVIC_MO_MAIN_FUTURE_CIVIC" PrereqNode="NODE_CIVIC_MO_MAIN_HEGEMONY"/>
+		<Row Node="NODE_CIVIC_MO_MAIN_FUTURE_CIVIC" PrereqNode="NODE_CIVIC_MO_MAIN_MILITARISM"/>
+		<Row Node="NODE_CIVIC_MO_MAIN_FUTURE_CIVIC" PrereqNode="NODE_CIVIC_MO_MAIN_CAPITALISM"/>
+		<!--Branch Trees Organization-->
+		<Row Node="NODE_CIVIC_MO_BRANCH_LIBERALISM" PrereqNode="NODE_CIVIC_MO_BRANCH_DEMOCRACY"/>
+		<Row Node="NODE_CIVIC_MO_BRANCH_PROGRESSIVISM" PrereqNode="NODE_CIVIC_MO_BRANCH_LIBERALISM"/>
+		<Row Node="NODE_CIVIC_MO_BRANCH_RADICALISM" PrereqNode="NODE_CIVIC_MO_BRANCH_FASCISM"/>
+		<Row Node="NODE_CIVIC_MO_BRANCH_AUTHORITARIANISM" PrereqNode="NODE_CIVIC_MO_BRANCH_RADICALISM"/>
+		<Row Node="NODE_CIVIC_MO_BRANCH_CENTRALISM" PrereqNode="NODE_CIVIC_MO_BRANCH_COMMUNISM"/>
+		<Row Node="NODE_CIVIC_MO_BRANCH_SOCIALISM" PrereqNode="NODE_CIVIC_MO_BRANCH_CENTRALISM"/>
+	</ProgressionTreePrereqs>
+	<Ideologies>
+		<Row IdeologyType="IDEOLOGY_COMMUNISM" ProgressionTreeType="TREE_CIVIC_MO_BRANCH_COMMUNISM" Name="LOC_IDEOLOGY_COMMUNISM_NAME" FirstTreeNode="NODE_CIVIC_MO_BRANCH_COMMUNISM" RivalIdeology="IDEOLOGY_DEMOCRACY"/>
+		<Row IdeologyType="IDEOLOGY_DEMOCRACY" ProgressionTreeType="TREE_CIVIC_MO_BRANCH_DEMOCRACY" Name="LOC_IDEOLOGY_DEMOCRACY_NAME" FirstTreeNode="NODE_CIVIC_MO_BRANCH_DEMOCRACY" RivalIdeology="IDEOLOGY_FASCISM"/>
+		<Row IdeologyType="IDEOLOGY_FASCISM" ProgressionTreeType="TREE_CIVIC_MO_BRANCH_FASCISM" Name="LOC_IDEOLOGY_FASCISM_NAME" FirstTreeNode="NODE_CIVIC_MO_BRANCH_FASCISM" RivalIdeology="IDEOLOGY_COMMUNISM"/>
+	</Ideologies>
+	<IdeologyAdoptionModifiers>
+		<Row IdeologyType="IDEOLOGY_COMMUNISM" AdoptionOrder="1" ModifierID="MOD_IDEOLOGY_FIRST_ADOPTER_SLOTS"/>
+		<Row IdeologyType="IDEOLOGY_COMMUNISM" AdoptionOrder="2" ModifierID="MOD_IDEOLOGY_SECOND_ADOPTER_SLOTS"/>
+		<Row IdeologyType="IDEOLOGY_DEMOCRACY" AdoptionOrder="1" ModifierID="MOD_IDEOLOGY_FIRST_ADOPTER_SLOTS"/>
+		<Row IdeologyType="IDEOLOGY_DEMOCRACY" AdoptionOrder="2" ModifierID="MOD_IDEOLOGY_SECOND_ADOPTER_SLOTS"/>
+		<Row IdeologyType="IDEOLOGY_FASCISM" AdoptionOrder="1" ModifierID="MOD_IDEOLOGY_FIRST_ADOPTER_SLOTS"/>
+		<Row IdeologyType="IDEOLOGY_FASCISM" AdoptionOrder="2" ModifierID="MOD_IDEOLOGY_SECOND_ADOPTER_SLOTS"/>
+	</IdeologyAdoptionModifiers>
+	<ProgressionTree_Advisories>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_MODERNIZATION" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_NATURAL_HISTORY" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_SOCIAL_QUESTION" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_SOCIAL_QUESTION" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_POLITICAL_THEORY" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_POLITICAL_THEORY" AdvisoryClassType="ADVISORY_CLASS_HAPPINESS"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_GLOBALISM" AdvisoryClassType="ADVISORY_CLASS_DIPLOMACY"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_NATIONALISM" AdvisoryClassType="ADVISORY_CLASS_HAPPINESS"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_NATIONALISM" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_CAPITALISM" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_MILITARISM" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_HEGEMONY" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_HEGEMONY" AdvisoryClassType="ADVISORY_CLASS_DIPLOMACY"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_FUTURE_CIVIC" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<!-- Ideologies -->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_DEMOCRACY" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_DEMOCRACY" AdvisoryClassType="ADVISORY_CLASS_HAPPINESS"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_LIBERALISM" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_LIBERALISM" AdvisoryClassType="ADVISORY_CLASS_HAPPINESS"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_PROGRESSIVISM" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_PROGRESSIVISM" AdvisoryClassType="ADVISORY_CLASS_HAPPINESS"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_FASCISM" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_FASCISM" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_RADICALISM" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_RADICALISM" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_AUTHORITARIANISM" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_AUTHORITARIANISM" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_COMMUNISM" AdvisoryClassType="ADVISORY_CLASS_FOOD"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_COMMUNISM" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_CENTRALISM" AdvisoryClassType="ADVISORY_CLASS_FOOD"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_CENTRALISM" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_SOCIALISM" AdvisoryClassType="ADVISORY_CLASS_FOOD"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_BRANCH_SOCIALISM" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+	</ProgressionTree_Advisories>
+	<RequirementSets>
+		<Row RequirementSetId="REQSET_RESEARCHED_POLITICAL_THEORY" RequirementSetType="REQUIREMENTSET_TEST_ALL"/>
+	</RequirementSets>
+	<RequirementSetRequirements>
+		<Row RequirementSetId="REQSET_RESEARCHED_POLITICAL_THEORY" RequirementId="REQ_PLAYER_HAS_POLITICAL_THEORY"/>
+	</RequirementSetRequirements>
+	<Requirements>
+		<Row RequirementId="REQ_PLAYER_HAS_POLITICAL_THEORY" RequirementType="REQUIREMENT_PLAYER_HAS_COMPLETED_PROGRESSION_TREE_NODE"/>
+	</Requirements>
+	<RequirementArguments>
+		<Row RequirementId="REQ_PLAYER_HAS_POLITICAL_THEORY" Name="ProgressionTreeNodeType" Value="NODE_CIVIC_MO_MAIN_POLITICAL_THEORY"/>
+		<Row RequirementId="REQ_PLAYER_HAS_POLITICAL_THEORY" Name="MinDepth" Value="1"/>
+	</RequirementArguments>
+	<RequirementStrings>
+		<Row RequirementId="REQ_PLAYER_HAS_POLITICAL_THEORY" Context="RevealProgress" Text="LOC_REQ_PLAYER_HAS_POLITICAL_THEORY_REVEAL_STATUS"/>
+	</RequirementStrings>
+</Database>

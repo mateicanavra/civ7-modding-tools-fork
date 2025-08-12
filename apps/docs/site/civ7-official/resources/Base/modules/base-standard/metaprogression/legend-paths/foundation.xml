@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metaprogression xmlns="Metaprogression">
+	<legendPath id="LEGEND_PATH_FOUNDATION" type="CHALLENGE_CLASS_FOUNDATION">
+		<sortIndex>1</sortIndex>
+		<level level="2">
+			<reward reward="MEMENTO_FOUNDATION_SLING_BULLET"/>
+			<reward reward="MEMENTO_FOUNDATION_EA_NASIR"/>
+			<reward reward="MEMENTO_SLOT_1"/>
+		</level>
+		<level level="3">
+			<reward reward="MEMENTO_FOUNDATION_TREATY_OF_KADESH"/>
+			<reward reward="MEMENTO_FOUNDATION_GROMA"/>
+			<reward reward="TITLE_FOUNDATION_1"/>
+		</level>
+		<level level="4">
+			<reward reward="MEMENTO_FOUNDATION_SHAKOKIDOGU"/>
+			<reward reward="MEMENTO_FOUNDATION_ANTIKYTHERA_MECHANISM"/>
+			<reward reward="BANNER_FOUNDATION_1"/>
+		</level>
+		<level level="5">
+			<reward reward="MEMENTO_FOUNDATION_SWORD_BRENNUS"/>
+			<reward reward="MEMENTO_SLOT_2"/>
+			<reward reward="BADGE_FOUNDATION_PATH_1_BADGE"/>
+		</level>
+		<level level="6">
+			<reward reward="MEMENTO_FOUNDATION_LYDIAN_LION"/>
+			<reward reward="COLOR_BACKGROUND_1"/>
+		</level>
+		<level level="7">
+			<reward reward="MEMENTO_FOUNDATION_IMAGO_MUNDI"/>
+			<reward reward="BORDER_STARTING"/>
+		</level>
+		<level level="8">
+			<reward reward="MEMENTO_FOUNDATION_CORPUS_JURIS_CIVILIS"/>
+			<reward reward="TITLE_FOUNDATION_2"/>
+		</level>
+		<level level="9">
+			<reward reward="MEMENTO_FOUNDATION_TRAVELS_MARCO_POLO"/>
+			<reward reward="BANNER_FOUNDATION_2"/>
+		</level>
+		<level level="10">
+			<reward reward="BADGE_FOUNDATION_PATH_2_BADGE"/>
+		</level>
+		<level level="11">
+			<reward reward="TITLE_FOUNDATION_3"/>
+		</level>
+		<level level="12">
+			<reward reward="BORDER_INTERMEDIATE"/>
+		</level>
+		<level level="13">
+			<reward reward="COLOR_BACKGROUND_2"/>
+		</level>
+		<level level="14">
+			<reward reward="MEMENTO_FOUNDATION_EQUESTRIAN_FIGURE"/>
+		</level>
+		<level level="15">
+			<reward reward="BADGE_FOUNDATION_PATH_3_BADGE"/>
+		</level>
+		<level level="16">
+			<reward reward="TITLE_FOUNDATION_4"/>
+		</level>
+		<level level="17">
+			<reward reward="BANNER_FOUNDATION_3"/>
+		</level>
+		<level level="18">
+			<reward reward="COLOR_BACKGROUND_3"/>
+		</level>
+		<level level="19">
+			<reward reward="MEMENTO_FOUNDATION_POCHTECA_BACKPACK"/>
+		</level>
+		<level level="20">
+			<reward reward="BADGE_FOUNDATION_PATH_4_BADGE"/>
+		</level>
+		<level level="21">
+			<reward reward="TITLE_FOUNDATION_5"/>
+		</level>
+		<level level="22">
+			<reward reward="BORDER_ADVANCED"/>
+		</level>
+		<level level="23">
+			<reward reward="COLOR_BACKGROUND_4"/>
+		</level>
+		<level level="24">
+			<reward reward="MEMENTO_FOUNDATION_COLADA_TIZONA"/>
+		</level>
+		<level level="25">
+			<reward reward="BADGE_FOUNDATION_PATH_5_BADGE"/>
+		</level>
+		<level level="26">
+			<reward reward="TITLE_FOUNDATION_6"/>
+		</level>
+		<level level="27">
+			<reward reward="BANNER_FOUNDATION_4"/>
+		</level>
+		<level level="28">
+			<reward reward="COLOR_BACKGROUND_5"/>
+		</level>
+		<level level="29">
+			<reward reward="MEMENTO_FOUNDATION_SHISA_NECKLACE"/>
+		</level>
+		<level level="30">
+			<reward reward="BADGE_FOUNDATION_PATH_6_BADGE"/>
+		</level>
+		<level level="31">
+			<reward reward="TITLE_FOUNDATION_7"/>
+		</level>
+		<level level="32">
+			<reward reward="BORDER_4"/>
+		</level>
+		<level level="33">
+			<reward reward="COLOR_BACKGROUND_6"/>
+		</level>
+		<level level="34">
+			<reward reward="MEMENTO_FOUNDATION_AGINCOURT_ARROWHEAD"/>
+		</level>
+		<level level="35">
+			<reward reward="BADGE_FOUNDATION_PATH_7_BADGE"/>
+		</level>
+		<level level="36">
+			<reward reward="TITLE_FOUNDATION_8"/>
+		</level>
+		<level level="37">
+			<reward reward="BANNER_FOUNDATION_5"/>
+		</level>
+		<level level="38">
+			<reward reward="COLOR_BACKGROUND_7"/>
+		</level>
+		<level level="39">
+			<reward reward="MEMENTO_FOUNDATION_GARUDA_STATUE"/>
+		</level>
+		<level level="40">
+			<reward reward="BADGE_FOUNDATION_PATH_8_BADGE"/>
+		</level>
+		<level level="41">
+			<reward reward="TITLE_FOUNDATION_9"/>
+		</level>
+		<level level="42">
+			<reward reward="BORDER_5"/>
+		</level>
+		<level level="43">
+			<reward reward="COLOR_BACKGROUND_8"/>
+		</level>
+		<level level="44">
+			<reward reward="MEMENTO_FOUNDATION_ART_OF_WAR"/>
+		</level>
+		<level level="45">
+			<reward reward="BADGE_FOUNDATION_PATH_9_BADGE"/>
+		</level>
+		<level level="46">
+			<reward reward="TITLE_FOUNDATION_10"/>
+		</level>
+		<level level="47">
+			<reward reward="BANNER_FOUNDATION_6"/>
+		</level>
+		<level level="48">
+			<reward reward="COLOR_BACKGROUND_9"/>
+		</level>
+		<level level="49">
+			<reward reward="MEMENTO_FOUNDATION_GAME_OF_UR"/>
+		</level>
+		<level level="50">
+			<reward reward="BADGE_FOUNDATION_PATH_10_BADGE"/>
+		</level>
+	</legendPath>
+</metaprogression>

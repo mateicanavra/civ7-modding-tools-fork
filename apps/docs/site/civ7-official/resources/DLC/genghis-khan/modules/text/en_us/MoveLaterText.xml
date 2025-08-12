@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_UNITOPERATION_CONVERT_INDEPENDENTS_NAME">
+			<Text>Convert Independents</Text>
+		</Row>
+		<Row Tag="LOC_UNITOPERATION_CONVERT_INDEPENDENTS_DESCRIPTION">
+			<Text>Activate adjacent to at least 1 Independent unit, to make all adjacent Independent Military Units under your control.</Text>
+		</Row>
+	</EnglishText>
+</Database>

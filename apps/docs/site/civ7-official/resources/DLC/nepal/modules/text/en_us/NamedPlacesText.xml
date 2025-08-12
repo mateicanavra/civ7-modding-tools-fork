@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_RIVER_KOSI_NAME">
+			<Text>Kosi River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_GHAGHARA_NAME">
+			<Text>Ghaghara River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_GANDAKI_NAME">
+			<Text>Gandaki River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_BAGMATI_NAME">
+			<Text>Bagmati River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_BHERI_NAME">
+			<Text>Bheri River</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_POPA_NAME">
+			<Text>Popa</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_KA_ER_DAXI_NAME">
+			<Text>Ka-er-daxi</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_DAHEI_SHAN_NAME">
+			<Text>Dahei Shan</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_TOSHAM_HILL_NAME">
+			<Text>Tosham Hill</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_DHOSI_HILL_NAME">
+			<Text>Dhosi Hill</Text>
+		</Row>
+	</EnglishText>
+</Database>

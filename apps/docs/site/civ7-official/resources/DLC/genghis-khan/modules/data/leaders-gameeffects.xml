@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="GENGHIS_KHAN_ARMY_COMMANDER_ABILITY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_GENGHIS_KHAN_ARMY_COMMANDER</Argument>
+	</Modifier>
+	<Modifier id="GENGHIS_KHAN_CAVALRY_COMBAT_STRENGTH" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_CAVALRY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_GENGHIS_KHAN_NO_COMMAND_RADIUS_COMBAT</Argument>
+	</Modifier>
+	<Modifier id="GENGHIS_KHAN_ARMY_COMMANDER_CONVERT_INDEPENDENT_CHARGE" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_CONVERT_INDEPENDENT_CHARGES">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="GENGHIS_KHAN_ARMY_COMMANDER_FULL_MOVEMENT" collection="COLLECTION_OWNER" effect="EFFECT_ARMY_ADJUST_ALWAYS_FULL_MOVE"/>
+	<Modifier id="GENGHIS_KHAN_ARMY_COMMANDER_COMMAND_RADIUS" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_CAVALRY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_GENGHIS_KHAN_COMMAND_RADIUS_COMBAT</Argument>
+	</Modifier>
+	<Modifier id="GENGHIS_KHAN_COMMAND_RADIUS_COMBAT" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_GENGHIS_KHAN_COMMAND_RADIUS_COMBAT_PREVIEW</String>
+	</Modifier>
+	<Modifier id="GENGHIS_KHAN_ARMY_COMMANDER_NO_COMMAND_RADIUS" collection="COLLECTION_OWNER" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_HAS_ABILITY" inverse="true">
+				<Argument name="UnitAbilityType">ABILITY_GENGHIS_KHAN_COMMAND_RADIUS_COMBAT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ModifierId">GENGHIS_KHAN_NO_COMMAND_RADIUS_COMBAT_ATTACH</Argument>
+	</Modifier>
+	<Modifier id="GENGHIS_KHAN_NO_COMMAND_RADIUS_COMBAT_ATTACH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_GENGHIS_KHAN_NO_COMMAND_RADIUS_COMBAT_PREVIEW</String>
+	</Modifier>
+	<Modifier id="GENGHIS_KHAN_MOD_AGENDA_TUMEN" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_TUMEN_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_TUMEN_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_TUMEN_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_NUM_UNIT_TAGS</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_LOWEST</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_AMT_MEDIUM</Argument>
+		<Argument name="Arg1">UNIT_CLASS_CAVALRY</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_HIGHEST</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_NEG_AMT_SMALL</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+</GameEffects>

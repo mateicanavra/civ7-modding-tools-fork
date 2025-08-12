@@ -1,0 +1,502 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_UNIT_LINE_INFANTRY_NAME">
+			<Text>Line Infantry</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_LINE_INFANTRY_DESCRIPTION">
+			<Text>Tier 1 Modern Infantry Unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_FIELD_CANNON_NAME">
+			<Text>Field Cannon</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_FIELD_CANNON_DESCRIPTION">
+			<Text>Tier 1 Modern Ranged Unit. Stronger on attack than defense.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_CUIRASSIER_NAME">
+			<Text>Cuirassier</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_CUIRASSIER_DESCRIPTION">
+			<Text>Tier 1 Modern Cavalry Unit. Ignores Zone of Control.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_MORTAR_NAME">
+			<Text>Mortar</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_MORTAR_DESCRIPTION">
+			<Text>Tier 1 Modern Siege Unit. High Bombard strength for attacking Fortified Districts.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_IRONCLAD_NAME">
+			<Text>Ironclad</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_UNIT_IRONCLAD_DESCRIPTION">
+			<Text>Tier 1 Modern Light Naval Unit. Has the Skirmish ability, +50% Combat Strength from Flanking.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_FRIGATE_NAME">
+			<Text>Ship of the Line</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_FRIGATE_DESCRIPTION">
+			<Text>Tier 1 Modern Heavy Naval Unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_FRIGATE_ALT_DESCRIPTION">
+			<Text>Tier 1 Modern Heavy Naval Unit. Cannot enter Navigable Rivers.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_RIFLEMAN_NAME">
+			<Text>Rifle Infantry</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_RIFLEMAN_DESCRIPTION">
+			<Text>Tier 2 Modern Infantry Unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_FIELD_GUN_NAME">
+			<Text>Field Gun</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_FIELD_GUN_DESCRIPTION">
+			<Text>Tier 2 Modern Ranged Unit. Stronger on attack than defense.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_LANDSHIP_NAME">
+			<Text>Landship</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_LANDSHIP_DESCRIPTION">
+			<Text>Tier 2 Modern Cavalry Unit. Ignores Zone of Control.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HEAVY_ARTILLERY_NAME">
+			<Text>Howitzer</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HEAVY_ARTILLERY_DESCRIPTION">
+			<Text>Tier 2 Modern Siege Unit. High Bombard strength for attacking Fortified Districts.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_CRUISER_NAME">
+			<Text>Cruiser</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_CRUISER_DESCRIPTION">
+			<Text>Tier 2 Modern Light Naval Unit. Has the Skirmish ability, +50% Combat Strength from Flanking.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_DREADNOUGHT_NAME">
+			<Text>Dreadnought</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_DREADNOUGHT_DESCRIPTION">
+			<Text>Tier 2 Modern Heavy Naval Unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_DREADNOUGHT_ALT_DESCRIPTION">
+			<Text>Tier 2 Modern Heavy Naval Unit. Cannot enter Navigable Rivers.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_BIPLANE_NAME">
+			<Text>Biplane</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_BIPLANE_DESCRIPTION">
+			<Text>Tier 2 Modern Fighter Air Unit. Can intercept enemy Air Units. Not very effective against Land or Naval Units.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_TRENCH_FIGHTER_NAME">
+			<Text>Trench Fighter</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_TRENCH_FIGHTER_DESCRIPTION">
+			<Text>Tier 2 Modern Ground Attack Air Unit. Strong against Land and Naval Units. Not very effective against Aircraft.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_BOMBER_NAME">
+			<Text>Bomber</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_BOMBER_DESCRIPTION">
+			<Text>Tier 2 Modern Siege Air Unit. High Bombard strength for attacking Fortified Districts at long range.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_INFANTRY_COMPANY_NAME">
+			<Text>Infantry Company</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_INFANTRY_COMPANY_DESCRIPTION">
+			<Text>Tier 3 Modern Infantry Unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_AT_GUN_NAME">
+			<Text>AT Gun</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_UNIT_AT_GUN_DESCRIPTION">
+			<Text>Tier 3 Modern Ranged Unit. Stronger on attack than defense.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_TANK_NAME">
+			<Text>Tank</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_TANK_DESCRIPTION">
+			<Text>Tier 3 Modern Cavalry Unit. Ignores Zone of Control.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_ASSAULT_GUN_NAME">
+			<Text>Assault Gun</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_ASSAULT_GUN_DESCRIPTION">
+			<Text>Tier 3 Modern Siege Unit. High Bombard strength for attacking Fortified Districts.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_DESTROYER_NAME">
+			<Text>Destroyer</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_DESTROYER_DESCRIPTION">
+			<Text>Tier 3 Modern Light Naval Unit. Has the Skirmish ability, +50% Combat Strength from Flanking.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_BATTLESHIP_NAME">
+			<Text>Battleship</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_BATTLESHIP_DESCRIPTION">
+			<Text>Tier 3 Modern Heavy Naval Unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_BATTLESHIP_ALT_DESCRIPTION">
+			<Text>Tier 3 Modern Heavy Naval Unit. Cannot enter Navigable Rivers.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_SUBMARINE_NAME">
+			<Text>Submarine</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_SUBMARINE_DESCRIPTION">
+			<Text>Tier 3 Modern Stealth Naval Unit. Can only be seen by adjacent Units.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_FIGHTER_NAME">
+			<Text>Fighter</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_FIGHTER_DESCRIPTION">
+			<Text>Tier 3 Modern Fighter Air Unit. Can intercept enemy Air Units. Not very effective against Land or Naval Units.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_DIVEBOMBER_NAME">
+			<Text>Dive bomber</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_DIVEBOMBER_DESCRIPTION">
+			<Text>Tier 3 Modern Ground Attack Air Unit. Strong against Land and Naval Units. Not very effective against Aircraft.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HEAVY_BOMBER_NAME">
+			<Text>Heavy Bomber</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HEAVY_BOMBER_DESCRIPTION">
+			<Text>Tier 3 Modern Siege Air Unit. High Bombard strength for attacking Fortified Districts at long range.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_EXPLORER_NAME">
+			<Text>Explorer</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_UNIT_EXPLORER_DESCRIPTION">
+			<Text>Support Unit that finds and extracts Artifacts buried in an earlier Age.</Text>
+		</Row>
+		<Row Tag="LOC_WMD_NUCLEAR_DEVICE_NAME">
+			<Text>Atomic Bomb</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<!-- Unit Abilities -->
+		<Row Tag="LOC_ABILITY_AUTHORITARIANISM">
+			<Text>Authoritarianism</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_AUTHORITARIANISM_DESCRIPTION">
+			<Text>+{1_Amount} Combat Strength on all Units.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_AUTHORITARIANISM_PREVIEW">
+			<Text>+{1_Amount} Authoritarianism</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_MO_TECH_CAVALRY_PREVIEW">
+			<Text>+{1_Amount} Combustion</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_MO_TECH_INFANTRY_PREVIEW">
+			<Text>+{1_Amount} Industrialization</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_MO_TECH_NAVAL_PREVIEW">
+			<Text>+{1_Amount} Mobilization</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_MO_TECH_RANGED_PREVIEW">
+			<Text>+{1_Amount} Armor</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_MO_TECH_SIEGE_PREVIEW">
+			<Text>+{1_Amount} Armor</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_MO_TECH_AIRCRAFT_PREVIEW">
+			<Text>+{1_Amount} Aerodynamics</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SHORE_BATTERY_RANGED_PREVIEW">
+			<Text>+{1_Amount} Shore Battery</Text>
+		</Row>
+		<!-- Space Race -->
+		<Row Tag="LOC_ABILITY_BREAK_SOUND_BARRIER_NAME">
+			<Text>Break the Sound Barrier</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_BREAK_SOUND_BARRIER_DESCRIPTION">
+			<Text>Sound Barrier Broken</Text>
+		</Row>
+		<Row Tag="LOC_BREAK_SOUND_BARRIER_PREVIEW">
+			<Text>+{1_Amount} Sound Barrier Broken</Text>
+		</Row>
+		<!-- America Unique Units -->
+		<Row Tag="LOC_UNIT_MARINE_NAME">
+			<Text>Marine</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_MARINE_BASE_DESCRIPTION">
+			<Text>American Unique Infantry Unit. Has the Amphibious ability. Cheaper to train.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_MARINE_DESCRIPTION">
+			<Text>Tier 2 American Unique Infantry Unit. Has the Amphibious ability. Cheaper to train.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_MARINE_2_DESCRIPTION">
+			<Text>Tier 3 American Unique Infantry Unit. Has the Amphibious ability. Cheaper to train.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_PROSPECTOR_NAME">
+			<Text>Prospector</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_PROSPECTOR_DESCRIPTION">
+			<Text>American Unique Civilian Unit. Claims a Land Resource outside of your regular Settlement radius.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_CLAIM_RESOURCE_NAME">
+			<Text>Claim Resource</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_CLAIM_RESOURCE_DESCRIPTION">
+			<Text>Activate on an unowned Resource tile within 5 tiles of one of your Settlements' Palace or City Hall. A path of tiles is claimed back to the Settlement and the Resource is improved immediately.</Text>
+		</Row>
+		<!-- Buganda Unique Units -->
+		<Row Tag="LOC_UNIT_ABAMBOWA_NAME">
+			<Text>Abambowa</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_UNIT_ABAMBOWA_BASE_DESCRIPTION">
+			<Text>Bugandan Unique Infantry Unit. Heals +10 HP from pillaging any tile.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_ABAMBOWA_DESCRIPTION">
+			<Text>Tier 1 Bugandan Unique Infantry Unit. Heals +10 HP from pillaging any tile.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_ABAMBOWA_2_DESCRIPTION">
+			<Text>Tier 2 Bugandan Unique Infantry Unit. Heals +10 HP from pillaging any tile.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_ABAMBOWA_3_DESCRIPTION">
+			<Text>Tier 3 Bugandan Unique Infantry Unit. Heals +10 HP from pillaging any tile.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_MWAMI_NAME">
+			<Text>Mwami</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_MWAMI_DESCRIPTION">
+			<Text>Bugandan Unique Army Commander. +50% yield from pillaging within the Command Radius.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_RIVER_RAIDS_NAME">
+			<Text>River Raids</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_RIVER_RAIDS_DESCRIPTION">
+			<Text>Pillaging gives[icon:YIELD_CULTURE] Culture equal to the yield or healing.</Text>
+		</Row>
+		<!-- French Empire Unique Units -->
+		<Row Tag="LOC_UNIT_GARDE_IMPERIALE_NAME">
+			<Text>Garde Impériale</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_GARDE_IMPERIALE_BASE_DESCRIPTION">
+			<Text>French Imperial Unique Infantry Unit. Can make a Ranged attack. +2 Combat Strength when adjacent to a friendly Army Commander. More expensive to train.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_GARDE_IMPERIALE_DESCRIPTION">
+			<Text>Tier 1 French Imperial Unique Infantry Unit. Can make a Ranged attack. +2 Combat Strength when adjacent to a friendly Army Commander. More expensive to train.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_GARDE_IMPERIALE_2_DESCRIPTION">
+			<Text>Tier 2 French Imperial Unique Infantry Unit. Can make a Ranged attack. +2 Combat Strength when adjacent to a friendly Army Commander. More expensive to train.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_GARDE_IMPERIALE_3_DESCRIPTION">
+			<Text>Tier 3 French Imperial Unique Infantry Unit. Can make a Ranged attack. +2 Combat Strength when adjacent to a friendly Army Commander. More expensive to train.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_GARDE_IMPERIALE_PREVIEW">
+			<Text>+{1_Amount} Garde Impériale</Text>
+		</Row>
+		<!-- Meiji Unique Units -->
+		<Row Tag="LOC_UNIT_MIKASA_NAME">
+			<Text>Mikasa</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_MIKASA_BASE_DESCRIPTION">
+			<Text>Meiji Japanese Unique Heavy Naval Unit. The first time this Unit is destroyed, it respawns in the closest Settlement you own at 50% HP.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_MIKASA_DESCRIPTION">
+			<Text>Tier 2 Meiji Japanese Unique Heavy Naval Unit. The first time this Unit is destroyed, it respawns in the closest Settlement you own at 50% HP.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_MIKASA_2_DESCRIPTION">
+			<Text>Tier 3 Meiji Japanese Unique Heavy Naval Unit. The first time this Unit is destroyed, it respawns in the closest Settlement you own at 50% HP.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_ZERO_NAME">
+			<Text>Zero</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_ZERO_BASE_DESCRIPTION">
+			<Text>Meiji Japanese Unique Fighter Air Unit. Increased range. +4 Combat Strength against other Fighter Air Units. Can intercept enemy Air Units.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_ZERO_DESCRIPTION">
+			<Text>Tier 2 Meiji Japanese Unique Fighter Air Unit. Increased range. +4 Combat Strength against other Fighter Air Units. Can intercept enemy Air Units.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_ZERO_2_DESCRIPTION">
+			<Text>Tier 3 Meiji Japanese Unique Fighter Air Unit. Increased range. +4 Combat Strength against other Fighter Air Units. Can intercept enemy Air Units.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ZERO_PREVIEW">
+			<Text>+{1_Amount} agianst Fighters</Text>
+		</Row>
+		<!-- Mexico Unique Units -->
+		<Row Tag="LOC_UNIT_SOLDADERAS_NAME">
+			<Text>Soldaderas</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_SOLDADERAS_BASE_DESCRIPTION">
+			<Text>Mexican Unique Infantry Unit. Adjacent Units heal +10 HP. Does not stack.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_SOLDADERAS_DESCRIPTION">
+			<Text>Tier 1 Mexican Unique Infantry Unit. Adjacent Units heal +10 HP. Does not stack.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_SOLDADERAS_2_DESCRIPTION">
+			<Text>Tier 2 Mexican Unique Infantry Unit. Adjacent Units heal +10 HP. Does not stack.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_SOLDADERAS_3_DESCRIPTION">
+			<Text>Tier 3 Mexican Unique Infantry Unit. Adjacent Units heal +10 HP. Does not stack.</Text>
+		</Row>
+		<!-- Mughal Unique Units -->
+		<Row Tag="LOC_UNIT_SEPOY_NAME">
+			<Text>Sepoy</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_SEPOY_BASE_DESCRIPTION">
+			<Text>Mughal Unique Infantry Unit. Can make a Bombard Ranged attack.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_SEPOY_DESCRIPTION">
+			<Text>Tier 1 Mughal Unique Infantry Unit. Can make a Bombard Ranged attack.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_SEPOY_2_DESCRIPTION">
+			<Text>Tier 2 Mughal Unique Infantry Unit. Can make a Bombard Ranged attack.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_SEPOY_3_DESCRIPTION">
+			<Text>Tier 3 Mughal Unique Infantry Unit. Can make a Bombard Ranged attack.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SEPOY">
+			<Text>Rocket Barrage</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SEPOY_DESCRIPTION">
+			<Text>Ranged attack with +20 Combat Strength against Fortified Districts.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_ZAMINDAR_NAME">
+			<Text>Zamindar</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_ZAMINDAR_DESCRIPTION">
+			<Text>Mughal Unique Settler. Civilian Unit capable of founding new Towns. +1 Population on new Settlements.</Text>
+		</Row>
+		<!-- Prussia Unique Units -->
+		<Row Tag="LOC_UNIT_HUSSAR_NAME">
+			<Text>Hussar</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HUSSAR_BASE_DESCRIPTION">
+			<Text>Prussian Unique Additional Cavalry Unit. Has +1 Movement. +1 Combat Strength for every Movement it has remaining.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HUSSAR_DESCRIPTION">
+			<Text>Tier 1 Prussian Unique Additional Cavalry Unit. Has +1 Movement. +1 Combat Strength for every Movement it has remaining.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HUSSAR_2_DESCRIPTION">
+			<Text>Tier 2 Prussian Unique Additional Cavalry Unit. Has +1 Movement. +1 Combat Strength for every Movement it has remaining.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HUSSAR_3_DESCRIPTION">
+			<Text>Tier 3 Prussian Unique Additional Cavalry Unit. Has +1 Movement. +1 Combat Strength for every Movement it has remaining.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_STUKA_NAME">
+			<Text>Stuka</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_STUKA_BASE_DESCRIPTION">
+			<Text>Prussian Ground Attack Air Unit. +3 Combat Strength against Land Units.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_STUKA_DESCRIPTION">
+			<Text>Tier 2 Prussian Ground Attack Air Unit. +3 Combat Strength against Land Units.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_STUKA_2_DESCRIPTION">
+			<Text>Tier 3 Prussian Ground Attack Air Unit. +3 Combat Strength against Land Units.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_STUKA_PREVIEW">
+			<Text>+{1_Amount} against Land Units</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_IRON_CROSS_NAME">
+			<Text>Iron Cross</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_IRON_CROSS_DESCRIPTION">
+			<Text>+3 Combat Strength for Units within the Command Radius of a Commander that has earned at least 1 Commendation.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_IRON_CROSS_PREVIEW">
+			<Text>+{1_Amount} Iron Cross</Text>
+		</Row>
+		<!-- Qing Unique Units -->
+		<Row Tag="LOC_UNIT_GUSA_NAME">
+			<Text>Gusa</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_GUSA_BASE_DESCRIPTION">
+			<Text>Qing Unique Infantry Unit. +4 Combat Strength if adjacent to another Gusa.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_GUSA_DESCRIPTION">
+			<Text>Tier 1 Qing Unique Infantry Unit. +4 Combat Strength if adjacent to another Gusa.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_GUSA_2_DESCRIPTION">
+			<Text>Tier 2 Qing Unique Infantry Unit. +4 Combat Strength if adjacent to another Gusa.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_GUSA_3_DESCRIPTION">
+			<Text>Tier 3 Qing Unique Infantry Unit. +4 Combat Strength if adjacent to another Gusa.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_GUSA_PREVIEW">
+			<Text>+{1_Amount} Adjacent Gusa</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HANGSHANG_NAME">
+			<Text>Hangshang</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HANGSHANG_DESCRIPTION">
+			<Text>Qing Unique Merchant. Civilian who can establish a Trade Route to import Resources from a foreign Settlement. Gain 50[icon:YIELD_GOLD] Gold for every Resource acquired when creating a naval Trade Route.</Text>
+		</Row>
+		<!-- Russia Unique Units -->
+		<Row Tag="LOC_UNIT_COSSACK_NAME">
+			<Text>Cossack</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_COSSACK_BASE_DESCRIPTION">
+			<Text>Russian Unique Additional Cavalry Unit. +4 Combat Strength in friendly territory.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_COSSACK_DESCRIPTION">
+			<Text>Tier 1 Russian Unique Additional Cavalry Unit. +4 Combat Strength in friendly territory.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_COSSACK_2_DESCRIPTION">
+			<Text>Tier 2 Russian Unique Additional Cavalry Unit. +4 Combat Strength in friendly territory.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_COSSACK_3_DESCRIPTION">
+			<Text>Tier 3 Russian Unique Additional Cavalry Unit. +4 Combat Strength in friendly territory.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_COSSACK_PREVIEW">
+			<Text>+{1_Value} in friendly territory</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_KATYUSHA_NAME">
+			<Text>Katyusha Rocket Launcher</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_KATYUSHA_BASE_DESCRIPTION">
+			<Text>Russian Unique Siege Unit. Has +1 Movement. Lower base Combat Strength but has the Splash ability, dealing damage to enemy Units adjacent to the target Unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_KATYUSHA_DESCRIPTION">
+			<Text>Tier 2 Russian Unique Siege Unit. Has +1 Movement. Lower base Combat Strength but has the Splash ability, dealing damage to enemy Units adjacent to the target Unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_KATYUSHA_2_DESCRIPTION">
+			<Text>Tier 3 Russian Unique Siege Unit. Has +1 Movement. Lower base Combat Strength but has the Splash ability, dealing damage to enemy Units adjacent to the target Unit.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_GENERAL_MOROZ_NAME">
+			<Text>General Moroz</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_GENERAL_MOROZ_DESCRIPTION">
+			<Text>+{1_Amount} Combat Strength in Tundra</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_GENERAL_MOROZ_PREVIEW">
+			<Text>+{1_Amount} General Moroz</Text>
+		</Row>
+		<!-- Siam Unique Units -->
+		<Row Tag="LOC_UNIT_CHANG_BEUN_NAME">
+			<Text>Chang Beun</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_CHANG_BEUN_BASE_DESCRIPTION">
+			<Text>Siamese Unique Ranged Unit. Has increased Ranged Strength and +1 Movement. Can move after attacking.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_CHANG_BEUN_DESCRIPTION">
+			<Text>Tier 1 Siamese Unique Ranged Unit. Has increased Ranged Strength and +1 Movement. Can move after attacking.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_CHANG_BEUN_2_DESCRIPTION">
+			<Text>Tier 2 Siamese Unique Ranged Unit. Has increased Ranged Strength and +1 Movement. Can move after attacking.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_CHANG_BEUN_3_DESCRIPTION">
+			<Text>Tier 3 Siamese Unique Ranged Unit. Has increased Ranged Strength and +1 Movement. Can move after attacking.</Text>
+		</Row>
+		<!-- City-State Unique Units -->
+		<Row Tag="LOC_UNIT_PARTISAN_NAME">
+			<Text>Partisan</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_PARTISAN_2_NAME">
+			<Text>Advanced Partisan</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_UNIT_PARTISAN_3_NAME">
+			<Text>Elite Partisan</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_UNIT_PARTISAN_DESCRIPTION">
+			<Text>City State Unique Infantry Unit. Each one is slightly more expensive than the last. +5 Combat Strength against Civilizations with a different Ideology. +10 healing in owned territory.</Text>
+		</Row>
+		<Row Tag="LOC_PARTISAN_MOD_IDEOLOGY_DESCRIPTION">
+			<Text>+{1_Amount} against differrent Ideologies</Text>
+		</Row>
+	</EnglishText>
+</Database>

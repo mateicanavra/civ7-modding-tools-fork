@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="Definitions">
+	<definition name="DynamicModifier" table-name="DynamicModifiers" cpp="false">
+		<field name="ModifierType" type="Text" key="true" not-null="true"/>
+		<field name="CollectionType" type="Text" not-null="true"/>
+		<field name="EffectType" type="Text" not-null="true"/>
+		<reference source="CollectionType" target="Type" to="Type"/>
+		<reference source="ModifierType" target="Type" to="Type"/>
+		<reference source="EffectType" target="Type" to="Type"/>
+	</definition>
+	<definition name="Modifier" table-name="Modifiers" cpp="false">
+		<field name="ModifierId" type="Text" key="true" not-null="true"/>
+		<field name="ModifierType" type="Text" not-null="true"/>
+		<field name="RunOnce" description="RunOnce means that the modifier will only apply its effect to the existing items in the collection and only those items.  After which it will deactivate.  NOTE:  This is usually enabled with the Permanent flag." type="Bool" value="0" not-null="true"/>
+		<field name="NewOnly" description="NewOnly implies that the modifier will ignore existing items in the collection and then only apply its affect to new items in the collection.  NOTE: If an item shows up twice in a collection but was previously ignored it will remain ignored." type="Bool" value="0" not-null="true"/>
+		<field name="Permanent" description="Permanent implies that the modifier will no call the effect's Remove when the subject is no longer relevent (either by not existing in the collection or not having requirements met.)" type="Bool" value="0" not-null="true"/>
+		<field name="OwnerRequirementSetId" type="Text"/>
+		<field name="SubjectRequirementSetId" type="Text"/>
+		<field name="OwnerStackLimit" type="Integer" description="Must be &gt;0.  The number of times this modifier can be attached to objects.  If the limit is reached, the attach modifier command will fail."/>
+		<field name="SubjectStackLimit" type="Integer" description="Must be &gt;0.  The number of times this modifier (across any number of instances) can apply its effect to a subject.  If the limit has been reached, the apply call will be skipped but no error/warning will occur."/>
+		<reference source="OwnerRequirementSetId" target="RequirementSetId" to="RequirementSets"/>
+		<reference source="SubjectRequirementSetId" target="RequirementSetId" to="RequirementSets"/>
+	</definition>
+	<definition name="ModifierArgument" table-name="ModifierArguments" cpp="false">
+		<field name="ModifierId" type="Text" key="true" not-null="true"/>
+		<field name="Name" type="Text" key="true" not-null="true"/>
+		<field name="Value" type="Text" not-null="true"/>
+		<field name="Type" type="Text"/>
+		<field name="Extra" type="Text"/>
+		<field name="SecondExtra" type="Text"/>
+		<reference source="ModifierId" target="ModifierId" sourceRoleName="Modifier" targetRoleName="Arguments" to="Modifier"/>
+	</definition>
+	<definition name="ModifierString" table-name="ModifierStrings" cpp="false">
+		<field name="ModifierId" type="Text" key="true" not-null="true"/>
+		<field name="Context" type="Text" key="true" not-null="true"/>
+		<field name="Text" type="Text" not-null="true"/>
+		<reference source="ModifierId" target="ModifierId" sourceRoleName="Modifier" targetRoleName="Strings" to="Modifier"/>
+	</definition>
+	<definition name="ModifierMetadata" table-name="ModifierMetadatas" cpp="false">
+		<field name="ModifierID" type="Text" key="true" not-null="true"/>
+		<field name="FieldName" type="Text" key="true" not-null="true"/>
+		<field name="Value" type="Real"/>
+		<field name="String" type="Text"/>
+	</definition>
+	<definition name="Requirement" table-name="Requirements" cpp="false">
+		<field name="RequirementId" type="Text" key="true" not-null="true"/>
+		<field name="RequirementType" type="Text" not-null="true"/>
+		<field name="Likeliness" type="Integer" description="Represents the likeliness that this requirement will be met.  This can be used by certain sets to optimize which requirements should be tested first." value="0" not-null="true"/>
+		<field name="Impact" type="Integer" description="Represents the amount of additional work relative to other requirements in the set.  Some sets may test the most likely, least impactful requirement first." value="0" not-null="true"/>
+		<field name="Inverse" type="Bool" value="0" not-null="true"/>
+		<field name="Reverse" description="If true, the subject and context are reversed." type="Bool" value="0" not-null="true"/>
+		<field name="Persistent" description="Represents that even when always or never met, the requirement instance will remain.  This is useful if needed for progress reporting." type="Bool" value="0" not-null="true"/>
+		<field name="ProgressWeight" type="Integer" description="Represents how much sway this requirement has when calculating total requirement set progress.  A value of 0 means this is ignored." value="1" not-null="true"/>
+		<field name="Triggered" description="If true, will reapply the effect each time this is triggered" type="Bool" value="false" not-null="true"/>
+		<field name="BehaviorTree" description="A behavior tree the AI player can run to try to meet this requirement" type="Text"/>
+		<field name="AiWeighting" description="For AI consideration, the relative weight to give to a false result (0 by default)" type="Real" value="0" not-null="true"/>
+	</definition>
+	<definition name="RequirementArgument" table-name="RequirementArguments" cpp="false">
+		<field name="RequirementId" type="Text" key="true" not-null="true"/>
+		<field name="Name" type="Text" key="true" not-null="true"/>
+		<field name="Value" type="Text" not-null="true"/>
+		<field name="Type" type="Text"/>
+		<field name="Extra" type="Text"/>
+		<field name="SecondExtra" type="Text"/>
+		<reference source="RequirementId" target="RequirementId" sourceRoleName="Requirement" targetRoleName="Arguments" to="Requirement"/>
+	</definition>
+	<definition name="RequirementString" table-name="RequirementStrings" cpp="false">
+		<field name="RequirementId" type="Text" key="true" not-null="true"/>
+		<field name="Context" type="Text" key="true" not-null="true"/>
+		<field name="Text" type="Text" not-null="true"/>
+		<reference source="RequirementId" target="RequirementId" sourceRoleName="Requirement" targetRoleName="Strings" to="Requirement"/>
+	</definition>
+	<definition name="RequirementSets" table-name="RequirementSets" cpp="false">
+		<field name="RequirementSetId" type="Text" key="true" not-null="true"/>
+		<field name="RequirementSetType" type="Text" not-null="true" value="REQUIREMENTSET_TEST_ALL"/>
+	</definition>
+	<definition name="RequirementSetString" table-name="RequirementSetStrings" cpp="false">
+		<field name="RequirementSetId" type="Text" key="true" not-null="true"/>
+		<field name="Context" type="Text" key="true" not-null="true"/>
+		<field name="Text" type="Text" not-null="true"/>
+	</definition>
+	<definition name="RequirementSetRequirement" table-name="RequirementSetRequirements" cpp="false">
+		<field name="RequirementSetId" type="Text" key="true" not-null="true"/>
+		<field name="RequirementId" type="Text" key="true" not-null="true"/>
+		<reference source="RequirementId" target="RequirementId" to="Requirement"/>
+		<reference source="RequirementSetId" target="RequirementSetId" to="RequirementSets"/>
+	</definition>
+	<definition name="GameEffect" table-name="GameEffects" cpp="false">
+		<field name="Type" type="Text" key="true"/>
+		<field name="Description" type="Text"/>
+		<field name="GameCapabilities" type="Text"/>
+		<field name="ContextInterfaces" type="Text"/>
+		<field name="SubjectInterfaces" type="Text"/>
+		<field name="SupportsRemove" type="Bool"/>
+		<reference source="Type" target="Type" to="Type"/>
+	</definition>
+	<definition name="GameEffectArgument" table-name="GameEffectArguments" cpp="false">
+		<field name="Type" type="Text" key="true"/>
+		<field name="Name" type="Text" key="true" not-null="true"/>
+		<field name="Description" type="Text"/>
+		<field name="ArgumentType" type="Text"/>
+		<field name="DefaultValue" type="Text"/>
+		<field name="Required" type="Bool" value="0" not-null="true"/>
+		<field name="MinValue" type="Text"/>
+		<field name="MaxValue" type="Text"/>
+		<field name="DatabaseKind" type="Text"/>
+		<reference source="Type" target="Type" to="GameEffect"/>
+	</definition>
+</definitions>

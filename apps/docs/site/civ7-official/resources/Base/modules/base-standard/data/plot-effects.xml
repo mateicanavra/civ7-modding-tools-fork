@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<Row Kind="KIND_PLOTEFFECT"/>
+	</Kinds>
+	<Types>
+		<Row Type="PLOTEFFECT_RADIOACTIVE_FALLOUT" Kind="KIND_PLOTEFFECT"/>
+		<Row Type="PLOTEFFECT_UNIT_FORTIFICATIONS" Kind="KIND_PLOTEFFECT"/>
+		<!-- Snow -->
+		<Row Type="PLOTEFFECT_SNOW_LIGHT_TRANSIENT" Kind="KIND_PLOTEFFECT"/>
+		<Row Type="PLOTEFFECT_SNOW_MEDIUM_TRANSIENT" Kind="KIND_PLOTEFFECT"/>
+		<Row Type="PLOTEFFECT_SNOW_HEAVY_TRANSIENT" Kind="KIND_PLOTEFFECT"/>
+		<Row Type="PLOTEFFECT_SNOW_LIGHT_PERMANENT" Kind="KIND_PLOTEFFECT"/>
+		<Row Type="PLOTEFFECT_SNOW_MEDIUM_PERMANENT" Kind="KIND_PLOTEFFECT"/>
+		<Row Type="PLOTEFFECT_SNOW_HEAVY_PERMANENT" Kind="KIND_PLOTEFFECT"/>
+		<!-- Sand -->
+		<Row Type="PLOTEFFECT_SAND" Kind="KIND_PLOTEFFECT"/>
+		<!-- Burned -->
+		<Row Type="PLOTEFFECT_BURNED" Kind="KIND_PLOTEFFECT"/>
+		<!-- Plagues -->
+		<Row Type="PLOTEFFECT_PLAGUE" Kind="KIND_PLOTEFFECT"/>
+	</Types>
+	<PlotEffects>
+		<Row PlotEffectType="PLOTEFFECT_RADIOACTIVE_FALLOUT" Name="LOC_PLOTEFFECT_RADIOACTIVE_FALLOUT_NAME" TimeDecay="true" UnoccupiedDecay="false" TimeValue="10" Damage="50" Defense="0" AllowConstructWhileDamaged="false"/>
+		<Row PlotEffectType="PLOTEFFECT_UNIT_FORTIFICATIONS" Name="LOC_PLOTEFFECT_UNIT_FORTIFICATIONS" TimeDecay="false" UnoccupiedDecay="true" TimeValue="1" Damage="0" Defense="3"/>
+		<!-- Note, the flooded effect state is controlled by the RiverManager, it does not have an automatic time decay-->
+		<Row PlotEffectType="PLOTEFFECT_FLOODED" Name="LOC_PLOTEFFECT_FLOODED" TimeDecay="false" UnoccupiedDecay="false" TimeValue="1" Damage="0" Defense="0"/>
+		<!-- For weather effects, we do specify that they auto-decay, however, the weather system will set the duration.-->
+		<Row PlotEffectType="PLOTEFFECT_SNOW_LIGHT_TRANSIENT" Name="LOC_PLOTEFFECT_SNOW_LIGHT" TimeDecay="true" UnoccupiedDecay="true" TimeValue="1" Damage="0" Defense="0"/>
+		<Row PlotEffectType="PLOTEFFECT_SNOW_MEDIUM_TRANSIENT" Name="LOC_PLOTEFFECT_SNOW_MEDIUM" TimeDecay="true" UnoccupiedDecay="true" TimeValue="1" Damage="0" Defense="0"/>
+		<Row PlotEffectType="PLOTEFFECT_SNOW_HEAVY_TRANSIENT" Name="LOC_PLOTEFFECT_SNOW_HEAVY" TimeDecay="true" UnoccupiedDecay="true" TimeValue="1" Damage="0" Defense="0"/>
+		<!-- Permanent snow.  These don't auto-decay, however, the TimeValue must be > 0, for them to stay active -->
+		<Row PlotEffectType="PLOTEFFECT_SNOW_LIGHT_PERMANENT" Name="LOC_PLOTEFFECT_SNOW_LIGHT" TimeDecay="false" UnoccupiedDecay="false" TimeValue="1" Damage="0" Defense="0"/>
+		<Row PlotEffectType="PLOTEFFECT_SNOW_MEDIUM_PERMANENT" Name="LOC_PLOTEFFECT_SNOW_MEDIUM" TimeDecay="false" UnoccupiedDecay="false" TimeValue="1" Damage="0" Defense="0"/>
+		<Row PlotEffectType="PLOTEFFECT_SNOW_HEAVY_PERMANENT" Name="LOC_PLOTEFFECT_SNOW_HEAVY" TimeDecay="false" UnoccupiedDecay="false" TimeValue="1" Damage="0" Defense="0"/>
+		<!-- Sand and Burned -->
+		<Row PlotEffectType="PLOTEFFECT_SAND" Name="LOC_PLOTEFFECT_SAND" TimeDecay="true" UnoccupiedDecay="true" TimeValue="1" Damage="0" Defense="0"/>
+		<Row PlotEffectType="PLOTEFFECT_BURNED" Name="LOC_PLOTEFFECT_BURNED" TimeDecay="true" UnoccupiedDecay="true" TimeValue="1" Damage="0" Defense="0"/>
+		<Row PlotEffectType="PLOTEFFECT_IS_BURNING" Name="LOC_PLOTEFFECT_IS_BURNING_NAME" TimeDecay="true" UnoccupiedDecay="false" TimeValue="2" Damage="15" Defense="0" AllowOnWater="false"/>
+		<Row PlotEffectType="PLOTEFFECT_STONE_TRAP" Name="LOC_PLOTEFFECT_STONE_TRAP_NAME" TimeDecay="false" UnoccupiedDecay="false" TimeValue="1" Damage="25" Defense="0" TriggerOnEnter="true" RemoveOnEnter="true" OnlyVisibleToOwner="true"/>
+		<Row PlotEffectType="PLOTEFFECT_DIGSITE" Name="LOC_PLOTEFFECT_DIGSITE_NAME" TimeDecay="false" UnoccupiedDecay="false" TimeValue="1" Damage="25" Defense="0" TriggerOnEnter="true" RemoveOnEnter="true" OnlyVisibleToOwner="true"/>
+		<!-- Plagues -->
+		<Row PlotEffectType="PLOTEFFECT_PLAGUE" Name="LOC_PLOTEFFECT_PLAGUE_NAME" TimeDecay="true" UnoccupiedDecay="false" TimeValue="1" Damage="25" Defense="0"/>
+	</PlotEffects>
+	<VisArt_PlotEffectModifiers>
+		<Row PlotEffectType="PLOTEFFECT_RADIOACTIVE_FALLOUT" PlotEffectSource="WMD_NUCLEAR_DEVICE" AddDelay="14"/>
+		<Row PlotEffectType="PLOTEFFECT_RADIOACTIVE_FALLOUT" PlotEffectSource="WMD_THERMONUCLEAR_DEVICE" AddDelay="14"/>
+	</VisArt_PlotEffectModifiers>
+	<!-- Tags to help identify effects -->
+	<TagCategories>
+		<Row Category="PLOTEFFECT_ATTRIBUTE"/>
+	</TagCategories>
+	<Tags>
+		<!-- Visual types-->
+		<Row Tag="SAND" Category="PLOTEFFECT_ATTRIBUTE"/>
+		<Row Tag="SNOW" Category="PLOTEFFECT_ATTRIBUTE"/>
+		<Row Tag="BURNED" Category="PLOTEFFECT_ATTRIBUTE"/>
+		<!-- Weighting types-->
+		<Row Tag="LIGHT" Category="PLOTEFFECT_ATTRIBUTE"/>
+		<Row Tag="MEDIUM" Category="PLOTEFFECT_ATTRIBUTE"/>
+		<Row Tag="HEAVY" Category="PLOTEFFECT_ATTRIBUTE"/>
+		<!-- Time Attributes-->
+		<Row Tag="TRANSIENT" Category="PLOTEFFECT_ATTRIBUTE"/>
+		<Row Tag="PERMANENT" Category="PLOTEFFECT_ATTRIBUTE"/>
+	</Tags>
+	<TypeTags>
+		<!-- Tags for snow -->
+		<!-- Transient -->
+		<Row Type="PLOTEFFECT_SNOW_LIGHT_TRANSIENT" Tag="SNOW"/>
+		<Row Type="PLOTEFFECT_SNOW_LIGHT_TRANSIENT" Tag="LIGHT"/>
+		<Row Type="PLOTEFFECT_SNOW_LIGHT_TRANSIENT" Tag="TRANSIENT"/>
+		<Row Type="PLOTEFFECT_SNOW_MEDIUM_TRANSIENT" Tag="SNOW"/>
+		<Row Type="PLOTEFFECT_SNOW_MEDIUM_TRANSIENT" Tag="MEDIUM"/>
+		<Row Type="PLOTEFFECT_SNOW_MEDIUM_TRANSIENT" Tag="TRANSIENT"/>
+		<Row Type="PLOTEFFECT_SNOW_HEAVY_TRANSIENT" Tag="SNOW"/>
+		<Row Type="PLOTEFFECT_SNOW_HEAVY_TRANSIENT" Tag="HEAVY"/>
+		<Row Type="PLOTEFFECT_SNOW_HEAVY_TRANSIENT" Tag="TRANSIENT"/>
+		<!-- Permanent -->
+		<Row Type="PLOTEFFECT_SNOW_LIGHT_PERMANENT" Tag="SNOW"/>
+		<Row Type="PLOTEFFECT_SNOW_LIGHT_PERMANENT" Tag="LIGHT"/>
+		<Row Type="PLOTEFFECT_SNOW_LIGHT_PERMANENT" Tag="PERMANENT"/>
+		<Row Type="PLOTEFFECT_SNOW_MEDIUM_PERMANENT" Tag="SNOW"/>
+		<Row Type="PLOTEFFECT_SNOW_MEDIUM_PERMANENT" Tag="MEDIUM"/>
+		<Row Type="PLOTEFFECT_SNOW_MEDIUM_PERMANENT" Tag="PERMANENT"/>
+		<Row Type="PLOTEFFECT_SNOW_HEAVY_PERMANENT" Tag="SNOW"/>
+		<Row Type="PLOTEFFECT_SNOW_HEAVY_PERMANENT" Tag="HEAVY"/>
+		<Row Type="PLOTEFFECT_SNOW_HEAVY_PERMANENT" Tag="PERMANENT"/>
+	</TypeTags>
+
+</Database>

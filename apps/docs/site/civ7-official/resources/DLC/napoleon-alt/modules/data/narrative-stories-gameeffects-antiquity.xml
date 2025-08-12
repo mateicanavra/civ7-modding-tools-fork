@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+    <Modifier id="LEADER_CHAIN_1190E_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_CULTURE</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MEDIUM_EARLY</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1190F_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_SCIENCE</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MEDIUM_EARLY</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1190G_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_CULTURE</Argument>
+        <Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1191D_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" run-once="false" permanent="true">
+        <Argument name="AttributeType">ATTRIBUTE_CULTURAL</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1191E_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_SCIENCE</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MINOR_EARLY</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1192D_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" run-once="false" permanent="true">
+        <Argument name="AttributeType">ATTRIBUTE_MILITARISTIC</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1192E_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_UNIT" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="UnitType">UNIT_MERCHANT</Argument>
+    </Modifier>
+    <Modifier id="3703_ALTB_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION" run-once="false" permanent="true">
+        <Argument name="Percent">25</Argument>
+        <Argument name="UnitType">UNIT_ARCHER</Argument>
+    </Modifier>
+    <Modifier id="3703_ALTC_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION" run-once="false" permanent="true">
+        <Argument name="Percent">25</Argument>
+        <Argument name="UnitType">UNIT_SETTLER</Argument>
+    </Modifier>
+    <Modifier id="3704_ALTB_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER_CITY_NEAREST_STORY" effect="EFFECT_CITY_GRANT_UNIT" run-once="true" permanent="true">
+        <Argument name="UnitType">UNIT_LEGION</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="3704_ALTC_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MEDIUM_EARLY</Argument>
+    </Modifier>
+    <Modifier id="3705_ALTB_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION" run-once="false" permanent="true">
+        <Argument name="Percent">25</Argument>
+        <Argument name="UnitType">UNIT_GALLEY</Argument>
+    </Modifier>
+    <Modifier id="3705_ALTC_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_GOLD</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MAJOR_EARLY</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1190E_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_NARRATIVE_TAG" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_LEADER_CHAIN_A</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1190F_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_NARRATIVE_TAG" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_LEADER_CHAIN_B</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1191D_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_NARRATIVE_TAG" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_LEADER_CHAIN_A</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1192D_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_NARRATIVE_TAG" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_LEADER_CHAIN_B</Argument>
+    </Modifier>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1190H_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_NAPOLEON_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1191F_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_NAPOLEON_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1192F_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_NAPOLEON_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_3703_ALTA_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_NAPOLEON_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_3704_ALTA_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_ROME"/>
+        <Requirement xref="REQ_STORY_LEADER_NAPOLEON_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_3705_ALTA_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_NAPOLEON_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1190H_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_COMPLETED_PROGRESSION_TREE_NODE01</Argument>
+            <Argument name="GOSSIP_COMPLETED_PROGRESSION_TREE_NODE01">Hash,ProgressionTreeNodeType,NODE_CIVIC_AQ_MAIN_DISCIPLINE</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1190E_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_MET_NUM_CIVS">
+            <Argument name="HomeHemisphere">True</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1190F_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_TRAIN_UNIT01</Argument>
+            <Argument name="GOSSIP_TRAIN_UNIT01">Hash,UnitTypeReplaces,UNIT_ARMY_COMMANDER,Numeric,PlayerCount,2</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1191F_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_COMPLETED_PROGRESSION_TREE_NODE01</Argument>
+            <Argument name="GOSSIP_COMPLETED_PROGRESSION_TREE_NODE01">Hash,ProgressionTreeNodeType,NODE_CIVIC_AQ_MAIN_CITIZENSHIP</Argument>
+        </Requirement>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_NARRATIVE_TAGS">
+            <Argument name="NarrativeTagType">NARRATIVE_TAG_LEADER_CHAIN_A</Argument>
+            <Argument name="Amount">1</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1191D_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_TOTAL_POPULATION">
+            <Argument name="Amount">25</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1192F_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_MET_NUM_CIVS">
+            <Argument name="HomeHemisphere">True</Argument>
+        </Requirement>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_NARRATIVE_TAGS">
+            <Argument name="NarrativeTagType">NARRATIVE_TAG_LEADER_CHAIN_B</Argument>
+            <Argument name="Amount">1</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1192D_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_CONQUER_CITY01</Argument>
+            <Argument name="GOSSIP_CONQUER_CITY01">Hash,OtherPlayer,Other</Argument>
+            <Argument name="AfterInit">True</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_3703_ALTA_NARRATIVE">
+        <Requirement xref="REQ_STORY_LEADER_NAPOLEON_ALT_ONLY"/>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_CONSTRUCT_BUILDING01</Argument>
+            <Argument name="GOSSIP_CONSTRUCT_BUILDING01">Hash,ConstructibleType,WONDER_PYRAMIDS</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_3704_ALTA_NARRATIVE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_ROME"/>
+        <Requirement xref="REQ_STORY_LEADER_NAPOLEON_ALT_ONLY"/>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_X_SETTLEMENTS">
+            <Argument name="RequiredCount">1</Argument>
+            <Argument name="CountPerConqueredSettlement">1</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_3705_ALTA_NARRATIVE">
+        <Requirement xref="REQ_STORY_LEADER_NAPOLEON_ALT_ONLY"/>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_UNIT_COMBAT_DEATH01</Argument>
+            <Argument name="GOSSIP_UNIT_COMBAT_DEATH01">Hash,OtherPlayer,Other,Hash,DomainType,DOMAIN_SEA</Argument>
+            <Argument name="AfterInit">True</Argument>
+            <Argument name="DuplicateCount">3</Argument>
+        </Requirement>
+    </RequirementSet>
+</GameEffects>

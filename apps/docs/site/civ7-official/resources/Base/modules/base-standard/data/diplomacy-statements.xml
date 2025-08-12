@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<Row Kind="KIND_DIPLOMACY_STATEMENT"/>
+	</Kinds>
+	<!-- Helper table to map Game types to statements -->
+	<TypeToDiplomacyStatements>
+		<Row Type="SURPRISE_WAR" DiplomacyStatementType="DECLARE_SURPRISE_WAR"/>
+	</TypeToDiplomacyStatements>
+	
+	<DiplomacyStatements>
+		<!-- General information about statement types. -->
+		<Row DiplomacyStatementType="FIRST_MEET_NEAR_RECIPIENT" GroupType="MEET" AutoActivate="INITIAL"/>
+		<Row DiplomacyStatementType="FIRST_MEET_NEAR_INITIATOR" GroupType="MEET" AutoActivate="INITIAL"/>
+		<Row DiplomacyStatementType="FIRST_MEET_NO_MANS" GroupType="MEET" AutoActivate="INITIAL"/>
+		<Row DiplomacyStatementType="MAKE_DEAL" GroupType="DEAL" AutoActivate="INITIAL"/>
+		<Row DiplomacyStatementType="DECLARE_SURPRISE_WAR" GroupType="WAR" AutoActivate="INITIAL"/>
+		<Row DiplomacyStatementType="DEFEAT" GroupType="DEFEAT" AutoActivate="INITIAL"/>		
+	</DiplomacyStatements>
+
+
+	<!--	Statement Frames provide meta data for a statement type and its frame, within a session.
+				A frame is usually defined by what current 'response' the statement has been given
+				by the session.  The first statement sent in a session flow has a 
+				frame/response of INITIAL -->
+	<DiplomacyStatementFrames>
+		<Row Type="FIRST_MEET_NEAR_INITIATOR" Frame="INITIAL" Initiator="AI" Text="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR" Selections="CHOICES_FIRST_MEET_NEAR_INITIATOR"/>
+		<Row Type="FIRST_MEET_NEAR_RECIPIENT" Frame="INITIAL" Initiator="AI" Text="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT" Selections="CHOICES_FIRST_MEET_NEAR_RECIPIENT"/>
+    <Row Type="FIRST_MEET_NO_MANS" Frame="INITIAL" Initiator="AI" Text="LOC_DIPLO_FIRST_MEET_NO_MANS" Selections="CHOICES_FIRST_MEET_NO_MANS"/>
+		<!-- Declare War -->
+		<Row Type="DECLARE_SURPRISE_WAR" Frame="INITIAL" Initiator="AI" Text="LOC_DIPLO_DECLARE_WAR_INITIATOR" Selections="CHOICES_DECLARE_WAR"/>
+		<Row Type="DECLARE_SURPRISE_WAR" Frame="INITIAL" Initiator="HUMAN" Text="LOC_DIPLO_DECLARE_WAR_RECIPIENT" Selections="CHOICES_DECLARE_WAR"/>
+		<Row Type="DECLARE_SURPRISE_WAR" Frame="NEGATIVE" Initiator="HUMAN" Text="LOC_DIPLO_DECLARE_WAR_RECIPIENT" Selections="CHOICES_DECLARE_WAR"/>
+		<!-- Defeat -->
+		<Row Type="DEFEAT" Frame="INITIAL" Initiator="AI" Text="LOC_DIPLO_DEFEAT_AI" Selections="CHOICES_DEFEAT"/>
+		<Row Type="DEFEAT" Frame="INITIAL" Initiator="HUMAN" Text="LOC_DIPLO_DEFEAT_HUMAN" Selections="CHOICES_DEFEAT"/>
+		<Row Type="DEFEAT" Frame="NEGATIVE" Initiator="HUMAN" Text="LOC_DIPLO_DEFEAT_HUMAN" Selections="CHOICES_DEFEAT"/>
+	</DiplomacyStatementFrames>
+
+	<DiplomacyStatementSelections>
+		<Row Type="CHOICES_FIRST_MEET_NEAR_INITIATOR" Sort="0" Key="CHOICE_ACKNOWLEDGE" Text="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_CHOICE_ACKNOWLEDGE"/>
+
+		<Row Type="CHOICES_FIRST_MEET_NEAR_RECIPIENT" Sort="0" Key="CHOICE_ACKNOWLEDGE" Text="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_CHOICE_ACKNOWLEDGE"/>
+
+    <Row Type="CHOICES_FIRST_MEET_NO_MANS" Sort="0" Key="CHOICE_ACKNOWLEDGE" Text="LOC_DIPLO_FIRST_MEET_NO_MANS_CHOICE_ACKNOWLEDGE"/>
+
+		<Row Type="CHOICES_DECLARE_WAR" Sort="0" Key="CHOICE_EXIT" Text="LOC_DIPLO_DECLARE_WAR_CHOICE_EXIT"/>
+
+		<Row Type="CHOICES_DEFEAT" Sort="0" Key="CHOICE_EXIT" Text="LOC_DIPLO_DECLARE_WAR_CHOICE_EXIT"/>
+	</DiplomacyStatementSelections>
+</Database>

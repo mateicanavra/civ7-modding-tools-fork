@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Antiquity Civics -->
+		<!--Main Culture Tree Nodes-->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_FUTURE_CIVIC_CHAPTER_HISTORY_PARA_1">
+			<Text>“The future is unwritten” proclaimed the punk rocker Joe Strummer, but this has not stopped generations of people seeking to create a new model for society. From Communist republics to millenarian movements, people have long sought to reshape society into forms never before seen, all in a quest to further perfect human belonging. The task remains incomplete, the revolution unfinished, the utopian world unrealized, but this does not prevent us from imagining what could be, just around the corner. Or, perhaps, on the next turn.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_CHIEFDOM_CHAPTER_HISTORY_PARA_1">
+			<Text>Around eight thousand years ago, humans began to change how they related to each other. The first cities were relatively egalitarian, but evidence of stratification rapidly appeared: e.g. certain houses larger than others, certain graves finer than most. In short, the emergence of nobility, an elevation of some people over others – a chiefdom.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_CHIEFDOM_CHAPTER_HISTORY_PARA_2">
+			<Text>What compels people to move to a stratified society with kings and slaves, increased epidemics, and large-scale warfare? This has been a point of discussion amongst scholars for centuries. Forced labor certainly played a role, as did the desire to belong to a collective dream. Stratified societies were by no means permanent; many early civilizations moved back and forth between hierarchy and egalitarianism. But by the beginning of the historical record, a world where some are seen as greater than others became a fixture in society – one that would spread and shape the world today.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_MYSTICISM_CHAPTER_HISTORY_PARA_1">
+			<Text>Defining and categorizing religion – especially early religious beliefs – is difficult. How do we separate religion from culture, from politics, from ways of life? Many religious beliefs, including earlier versions of modern-day global religions, dealt with supernatural forces, be they spirits, gods, or simply a vital essence or way of being that ran through the cosmos. Spirits could appear as the heart of a neighborhood, offering positions from which to comment on present-day situations, or providing a means of distinguishing one group of people from another. The reverent reserve that many feel in the presence of the divine is absent from smaller-scale societies, and visitors may feel off-put by the familiarity, or even irreverence, with which divine figures are greeted.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_MYSTICISM_CHAPTER_HISTORY_PARA_2">
+			<Text>“Mysticism” in its formal definition implies a transcendent state of communion with the divine – one imagines states of trance, possession, or religious contemplation. It is the first step in positing a removal of the divine from the world – a move from immanence to transcendence. No longer do gods visit on Tuesdays to consult with interested believers; instead a deity (or dharma) requires personal privation and contemplation to access.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_DISCIPLINE_CHAPTER_HISTORY_PARA_1">
+			<Text>A vast gulf exists between a band of skilled warriors and an army. Warriors often compete for personal prestige and honor – combat being a quest to complete the most daring deeds and gain the most personal glory. But military discipline requires one to become part of a unit, sharing that unit’s successes and failures. The principal enemy of combat units was morale more than any one weapon of the enemy. From the Romans against the Gauls to the Qin against the Hsung-Nu, disciplined units proved time and again their ability to take on more numerous, skilled, or physically powerful enemies. The Roman legion was a quintessential example of this – a heavily armored force that maintained its cohesion even under duress, so attacking Gauls and Germans would face a wall of shields pierced only by Roman blades.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_CITIZENSHIP_CHAPTER_HISTORY_PARA_1">
+			<Text>What does it mean to be a member of a state? The promise of citizenship is the promise that one is not only the subject of a governing body but an active part of it – one of the living cells that compose the state organism. In ancient Greece, citizenship was distinguished from tyranny – a tyrant was one who placed himself above the notion of collective rule. Models of citizenship varied, however, with military participation being central to Spartan notions, and the more democratic Athens being more liberal with its conceptions. In the medieval period, this notion of citizenship waned, until measures such as the Magna Carta again recognized the would-be serf as another participant in political affairs – as the relationship between lord and subject placed under law. Today, ideas of citizenship are nearly universal, and the notion of a nation made up of citizens is core to states that otherwise seem radically different.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_PHILOSOPHY_CHAPTER_HISTORY_PARA_1">
+			<Text>Philosophy is musing about the nature of things. In the past, the lines between experimental science and philosophy were more blurred, and so philosophers at times would appear to be engineers or scientists, following the notion that the nature of things was open to practical as well as logical analysis. Religious thought and philosophical thought were less distinct than they are today: debates at the university in Nalanda were done by Buddhist monks, though the conclusions were no less philosophical than putatively secular academics. Babylonian philosophy and Chinese philosophy often revolved around statecraft – what is the proper role of the subject, and of the lord, and how does law intercede between the two? Indian philosophy, best embodied in ancient times in the Upanishads, considered the nature of existence and of the individual’s relationship to the dharma – that quality that controls, orders, and upholds life. Mediterranean philosophy, often termed “Western” (though its links were stronger to Syria than places like England at the time) or “Classical” (though the category excludes Classical Chinese and Sanskrit thinking) includes Pythagoras, Aristotle, Plato, and the like, who developed a method based upon argument and counter-argument that persists to this day.</Text>
+		</Row>
+
+		<!--Branch Tree Nodes-->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_CODE_OF_LAWS_CHAPTER_HISTORY_PARA_1">
+			<Text>Think, for a moment, what laws imply. A universal code determines justice (for those who count, since certain social classes were often excluded). As societies grew beyond intimate, familial groups, they began to rely on formal statutes that set boundaries around undesirable social behavior – creating systems of rules for how to respond when individuals inevitably harmed each other.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_CODE_OF_LAWS_CHAPTER_HISTORY_PARA_2">
+			<Text>The first code of laws is often attributed to Hammurabi’s 1760 BC “eye for an eye” code, which mandated certain measures for interpersonal recompense and offenses against the state. This is predated by the Urukagina code, from 2380, and it itself is undoubtedly not the absolute first set of laws, as societies without writing still had elaborate codes of conduct and senses of justice. Hammurabi’s code appears harsh – death appears as a punishment for a great deal of crimes, including breaking and entering and perjury. However, the Code was intended to apply (or serve as jurisprudence) to men of free status – it is not a universal declaration of rights and was both inspired by earlier works and inspired later codes.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_LITERACY_CHAPTER_HISTORY_PARA_1">
+			<Text>Writing was invented independently at least five times in human history: in Mesopotamia, Egypt, China, the Indus River valley, and in Mesoamerica. But to what extent was the average person literate? Certainly, Roman citizens and (many) slaves had to navigate a world of registers, ledgers, and books, implying some level of literacy. Buddhist temples even made a core point of teaching literacy to young novices. Over time, especially in Buddhist and Muslim civilizations, literacy became a marker of a pious, full person – how can one understand the mind of God or the workings of the dharma if one cannot read the sacred text? In some places – medieval Europe or Mesoamerica – access to the written word was the purview of kings and priests, as serfs and subjects were not expected to have need of written words. In such societies, writing contained mystical importance, and access to it by those outside of spheres of power could prove dangerous.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_ORG_MILITARY_CHAPTER_HISTORY_PARA_1">
+			<Text>Calling people to go forth and kill is a serious matter. The foundation of military discipline was one key principle of this process, but this was a simple matter of training recruits correctly. To maintain a standing, professional army – soldiers who never stood down, who remained soldiers for life – was quite another thing. This led to a class of professional soldiers, unmatched by neighboring countries whose troops believed they were farmers or artisans first, and warriors second. This shift was transformative in Rome, especially, as these soldiers who had little academic training became powerful political players in their own right. Julius Caesar made a bet on the army over the Senate and won. Later Roman generals would make a similar gamble, at times successfully seizing power from the increasingly weak legislature in what would become the template for every successive military coup d’état.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_TACTICS_CHAPTER_HISTORY_PARA_1">
+			<Text>Tactics, from the Greek meaning “to move, to order,” refers to the deployment of military units close to the battlefield. It differs from strategy, which involves the waging of war as a whole. While strategists are interested in supply lines, logistics, and large-scale movements, tacticians want to direct the action on a single battlefield. In military science, tactics involve certain traits: kinetic power, speed, shock, and protection. Most of these are self-evident. Kinetic power involves the damaging effects of weapons while protection focuses on the mitigating influence of armor. Shock measures psychological impact – a unit of charging elephants has a great deal of psychological leverage.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_TACTICS_CHAPTER_HISTORY_PARA_2">
+			<Text>The British at Agincourt displayed tactical deftness when their incessant volley of arrows caused both morale and personal damage to the French. Similarly, the Mongol hordes displayed a classical tactical maneuver when they pretended to flee, tempting a counter-charge that was soon ambushed on multiple sides by concealed Mongol horse archers. Tactical thinking involves waiting for opportunities to strike, anticipating opponent reactions, and adjusting accordingly. Tactics win battles; strategy wins wars.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_COMMERCE_CHAPTER_HISTORY_PARA_1">
+			<Text>Consider the life of an ancient merchant, selling goods to fulfill a need at one end and making a profit on the other while often moving goods from areas that pay less toward areas that will pay more. This was an important part of life since before recorded history. Indeed, one of the first written texts is a complaint from a man, Nanni, about a merchant named Ea-Nasir who sold poor-quality copper and treated his customers rudely when they complained (in a testament to Ea-Nasir’s awful personality, this record was found in the ruins of his own home, meaning that he saved the complaint for some reason).</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_COMMERCE_CHAPTER_HISTORY_PARA_2">
+			<Text>This is trade. But commerce requires infrastructure – roads, warehouses, safehouses, logistics, et cetera. The caravanserai, for instance, was a wayside inn in the Middle East, North Africa, and Central Asia where merchants could rest, with their cargo secure, during a long journey. The Mongol Empire granted passports to merchants traveling through its lands, as a means of verification, protection, and regulation. Commerce involves thinking systematically about trade – not as something that people habitually do, but as an institution.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_SKILLED_TRADES_CHAPTER_HISTORY_PARA_1">
+			<Text>As societies increase in size and complexity, specialized trades develop. While smaller societies had some degree of division of labor, in time people became specialists. For example, imagine a small family unit that must hunt deer, skin the animal, stretch and tan its hides, and finally use that leather to stitch clothing. Compare them with an ancient city, where hunters sell their quarry to leatherworkers who in turn give their hides to clothiers.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_SKILLED_TRADES_CHAPTER_HISTORY_PARA_2">
+			<Text>Skilled trades often depended upon apprenticeships – an apprentice learned their trade (often by being a part of a family) through working closely with a master craftsman and presumably took over the trade down the line. As these economies developed, they grew into guilds (an institutionalization of the apprenticeship system) or castes (where whole populations devoted themselves – or were assigned – to a particular trade).</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_PUBLIC_LIFE_CHAPTER_HISTORY_PARA_1">
+			<Text>The term “the public” implies certain things: namely, the existence of a body of people with status and importance. It implies a community that is invested in the general affairs of society – not “the clan” or “the soldiers” or “the serfs,” but a category of undifferentiated people who matter.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_PUBLIC_LIFE_CHAPTER_HISTORY_PARA_2">
+			<Text>This may seem like a small matter. It is not. The concept of a public invests “ordinary people” (however defined) with a stake in society and some degree of shared participation – against tyranny, for example, where one person stands outside of the law and defines what is and is not permissible. The invention of a public, in other words, is the first step towards a democracy.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_ENTERTAINMENT_CHAPTER_HISTORY_PARA_1">
+			<Text>Roman poet Juvenal wrote, “the people who once upon a time handed out military command, high civil office, legions – everything, now restrains itself and anxiously hopes for just two things: bread and circuses.” In Juvenal’s estimation, the once-ambitious Romans of Augustus’s time had withered to a crowd that simply sought mindless entertainment. But public entertainment was not limited to the Roman Colosseum – the Mayan ball game and the Mississippian chunkey game were likewise sports arranged for spectacle (at times, debatably involving sacrifice and other religious features, at least in the Maya case).</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAIN_ENTERTAINMENT_CHAPTER_HISTORY_PARA_2">
+			<Text>Nonetheless, as Juvenal’s emperor surely knew, a bored empire is a dangerous one – as French philosopher Georges Bataille describes in the case of Mesoamerica, excess energy can just as easily spill into war as it can into games of sport and sacrifice. Entertainments such as public executions, gladiatorial contests, and the hunting of rare beasts may rankle present-day sensibilities, but they were common in many parts of the world in the course of history.</Text>
+		</Row>
+
+		<!-- Unique Civics -->
+		<!--Aksum-->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_AKSUM_PERIPLUS_OF_THE_ERYTHRAEAN_SEA_CHAPTER_HISTORY_PARA_1">
+			<Text>A periplus is a logbook of places and ports and peoples. The Erythraean Sea refers to the seas east of Africa. Accordingly, the Periplus of the Erythraean Sea is an account by a first-century Greek-speaking Roman subject living in Egypt who described Aksum, Himyar (Yemen), India, and other ports and places of interest. They provided a guide to merchants: frankincense from the Indian Ocean coast of Arabia, ivory from Aksum, cloth and wheat from India, etc. This is not merely a gazetteer for the curious, but a guide for potential merchants. In a world without stock exchanges, understanding production chains and trade routes was vital. For us, the Periplus remains a testimony to the rich web of interconnection, describing trade between Aksum and the Chola, the remains of the Greek Indian kingdoms (remnants of Alexander’s conquests), and areas as far east as China.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_AKSUM_MONUMENTUM_ADULITANUM_CHAPTER_HISTORY_PARA_1">
+			<Text>The city of Adulis once rested on the Red Sea coast, in what is now the nation of Eritrea. When Adulis was absorbed into Aksum, it became a vital port city for trade across the sea. Pliny the Elder claims it was the place where the “Troglodytae,” or the cave-dwellers, sold their ivory, hides, and enslaved people to powers in Arabia, India, and the Mediterranean. It was also the place from where Aksumite warships left to conquer Himyar, or Yemen.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_AKSUM_MONUMENTUM_ADULITANUM_CHAPTER_HISTORY_PARA_2">
+			<Text>The monument recorded there – the Monumentum Adulitanum – reads in Ge’ez and Greek as a list of people conquered by an unknown king: the Gaze, Agame, Siguene, the Aua and Kalaa and Samene, the people of the Nile, and the people of lands where “the snow is so deep that a man sinks up to the knees.”</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_AKSUM_BOOK_OF_THE_HIMYARITES_CHAPTER_HISTORY_PARA_1">
+			<Text>In the sixth century CE, a Syrian priest (likely) wrote an account of the persecution of Christians in the Kingdom of Himyar, in present-day Yemen, which was a Jewish state at that time. This appeal went out to other kingdoms in the region, many of which had since converted to Christianity. Aksum responded, invading Himyar in 518 and absorbing the lower part of Arabia into its empire. This move solidified an Aksumite-Byzantine alliance that sought to outmaneuver the growing Sassanid Persian power in the region. It was a short-lived victory as the province, separated from the rest of Aksum by the Red Sea, revolted in 535, leading to an independent Christian Himyar.</Text>
+		</Row>
+		<!--Egypt-->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_EGYPT_ARRIVAL_OF_HAPI_CHAPTER_HISTORY_PARA_1">
+			<Text>The Egyptians called their land Kemet, the black land, the land of fertile soils, washed by the Nile flood and replenished. While we often associate floods with destruction, they are vital for many agricultural systems: as flooding rivers recede, they leave behind layer upon layer of fertile soil. The Nile's flooding is especially significant. As Ibn Battuta remarked, it rises when other rivers fall, and falls when other rivers rise. The androgynous deity Hapi – a god/dess with drooping breasts and a sizeable paunch who was both male and female – was responsible for this yearly gift. Hapi’s priests were thus entrusted with keeping the Nile’s floods nourishing, and not destructive. As such, they operated as soothsayers and ancient hydrologists.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_EGYPT_SCALES_OF_ANUBIS_CHAPTER_HISTORY_PARA_1">
+			<Text>According to the Egyptians, the dead were judged by the god Anubis, the black jackal-headed magistrate of the afterlife. He protected cemeteries and the dead, keeping out the twin menaces of his kin, the jackals and putrefaction, and making evident the promises of eternal life. But first, the dead hearts were weighed against the feather of Ma’at, the goddess of harmony, justice, and morality. Should a heart be too heavy, the dead person was cast down to be devoured by the corpse-eater, Ammit (and, later, Khonsu, the god of the moon). Should the heart be light, the dead person continued to Osiris and the immortal land of Sekhet-Aaru.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_EGYPT_SCALES_OF_ANUBIS_CHAPTER_HISTORY_PARA_2">
+			<Text>The scales of Anubis are a key symbol in renderings of Egyptian afterlife, portraying the dead’s successful transition to immortality. At least, one hopes.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_EGYPT_LIGHT_OF_AMUN_RA_CHAPTER_HISTORY_PARA_1">
+			<Text>To characterize Egyptian religion is to gloss over thousands of years of cultural change and development. Ra, the sun-god, is sometimes fused with other deities, such as Horus, the falcon-headed god of kingship, or Amun, the creator deity. In his most popular depictions, Ra emerges as an august lord, the carrier of the sun on its daily travel. Transcending the conflict between Horus and Set, Ra shepherds the solar disk as it crosses the sky before embarking on a dangerous voyage at night, as the sun-ship sails through the underworld and is attacked by Apep, the giant snake. Ra is often defended by Set – a god usually associated with evil and the desert who is a much more complicated figure in Egyptian mythology. According to priests’ guides, Apep is defeated when he is spit on, then kicked, then smitten with a lance, then bound, then cut with a knife, then set on fire (those who think this is extreme should note that Apep is quite long).</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_EGYPT_LIGHT_OF_AMUN_RA_CHAPTER_HISTORY_PARA_2">
+			<Text>Still, the light of Amun-Ra returns each morning, proving the victory of the sun over darkness. At least for one more day.  </Text>
+		</Row>
+		<!--Greece-->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_GREECE_AGOGE_CHAPTER_HISTORY_PARA_1">
+			<Text>Spartan society has been exalted as a paragon of warrior culture, where all aspects of social life serve the military machine, and this was especially true of the Spartans after the 3rd century BCE. Through the agoge, the system of Spartan training and education, boys were segregated from the rest of society and divided into age groups. Each group focused on discipline, athletics, and choral performance, and the boys socialized exclusively with others in their cohort – they lived together and were forbidden from receiving food from other groups.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_GREECE_AGOGE_CHAPTER_HISTORY_PARA_2">
+			<Text>Warrior societies are not uncommon in history; Qin China is another example, and later totalitarian/militarized states often used Sparta as an inspiration. While Spartan warriors were legendary, whether or not modern people would actually like to have lived in such a society remains an open question.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_GREECE_EKKLESIA_CHAPTER_HISTORY_PARA_1">
+			<Text>Athens – rightly or wrongly – lays claim to some of the oldest democratic institutions in the world. The ekklesia, the assembly of citizens, was the means through which the city-state reflected democratically on its policies. The assembly was a gathering of all male citizens 18 years of age and older, and it allowed these members to vote on appeals, elections, and other matters of public concern. The ekklesia had been established by 600 BCE and functioned (as in many city-states) until the Roman period.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_GREECE_SYMMACHIA_CHAPTER_HISTORY_PARA_1">
+			<Text>Symmachia is “alliance” in Greek. The Leagues of ancient Greece were short-lived alliances between otherwise independent city-states. But the most notable alliance was the Delian League, particularly after the defeat of Persia in its attempted conquest of Greece. This was an alliance of states that pushed the war deeper into Anatolia, but it broke down after Athens gained increasing power, establishing semi-colonies and collecting tribute. The Delian League even moved its center of operations from the island of Delos to Athens. Over time, smaller city-states (notably Sparta) resisted and ended the League…with its own, the Peloponnesian League.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_GREECE_SYMMACHIA_CHAPTER_HISTORY_PARA_2">
+			<Text>The later Macedonian League of Corinth, organized by Alexander the Great’s father, Philip II, called its members together for mutual peace and collective punishment of violators.</Text>
+		</Row>
+		<!--Han-->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_HAN_ZHI_CHAPTER_HISTORY_PARA_1">
+			<Text>Zhi (“wisdom”) is one of the Five Constant Virtues of Confucianism – along with benevolence (ren), righteousness (yi), propriety (li), and trustworthiness (xin). Zhi involves an accurate understanding of the other Confucian terms, the ability to discern another’s character, and the knowledge of the correct path toward the fulfillment of the rest of the virtues. The key to this system is that one can only advance toward the virtues’ full purpose through possession, and guidance, of proper knowledge.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_HAN_LI_CHAPTER_HISTORY_PARA_1">
+			<Text>If zhi refers to the correct knowledge of things, li refers to the correct orientation towards them. Translated as “rites,” li refers not only to ritual but to the proper conduct between the things of the world. Accordingly, one should laugh at the right things, perform the proper mourning ceremonies, eat and drink in the right way, and so on.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_HAN_LI_CHAPTER_HISTORY_PARA_2">
+			<Text>Therefore, li is more than a series of customs; it is a way of life, a proper life, oriented towards things as they should be.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_HAN_YI_CHAPTER_HISTORY_PARA_1">
+			<Text>What does it mean to do good? Philosophers have struggled with this question for centuries. One thought experiment often invoked to explore the issue is the “trolley problem” (should one divert a train from its tracks and kill one bystander or let it continue and kill multiple people). However, the real world is more complex and requires insight to understand the effects of one's actions, the knowledge of proper virtues, and why it might be desirable to pursue those virtues. Yi is ultimately the Chinese philosophy that explores these issues of righteousness, justice, morality, and meaning.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_HAN_JUNZI_CHAPTER_HISTORY_PARA_1">
+			<Text>“Junzi” simply means “lord’s son,” but Confucius expanded this idea to include those who sought nobility in spirit, if not in blood. In accordance with Confucian principles, seeking to advance the good of society – and not just one's family – is the marker of the junzi. As such, it is an ideal to which everyone can aspire. A junzi is not determined by birth but by action.</Text>
+		</Row>
+		<!--Khmer-->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_KHMER_MOUSONG_CHAPTER_HISTORY_PARA_1">
+			<Text>The monsoon is a vital piece of Khmer life and culture. The rains form when warm air from the Indian Ocean sweeps toward the Himalayas. Bunched against the massive mountains, the air rises, water condenses, and rivers flood. We associate the monsoon with South Asia, but Southeast Asia is fed by these seasonal winds. The Mekong River, which forms the heart of Cambodia, originates in the Tibetan plateau. Floods on the Mekong can raise the water 30 feet or more. Near present-day Phnom Penh, this causes the great river to flow backward, filling the Tonle Sap lake and the massive baray reservoirs built near Angkor Wat.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_KHMER_MOUSONG_CHAPTER_HISTORY_PARA_2">
+			<Text>The regular arrival of rain and floods was a sign of the continuance of life, and the Khmer saw the constant renewal of the land as the purview of Khmer kings.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_KHMER_AMNACH_CHAPTER_HISTORY_PARA_1">
+			<Text>Southeast Asian concepts of power come in two forms – there is worldly power, the ability to force or compel someone to do something; and there is charismatic power, the ability to win love and support from others and the universe itself. The former, known as amnach in Khmer, is seen as amoral: villainous bandits and righteous kings may both wield it. The latter, parami, comes from righteous actions, good karma, and favors from blessed things.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_KHMER_AMNACH_CHAPTER_HISTORY_PARA_2">
+			<Text>Southeast Asian politics has often been characterized as revolving around “men of prowess” – people with the strength and prestige to draw others to them and make things happen. This power was not necessarily linked to lineage or precedent but came through the cultivation of authority across multiple fields: magical power, political influence, and military might. Righteousness, inasmuch as it built parami, was also a tool towards a softer, but no less compelling, form of power.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_KHMER_CHAKRAVARTI_CHAPTER_HISTORY_PARA_1">
+			<Text>The wheel-turning king, the chakravarti, is the idealized ruler in the Sanskrit world. The wheel in question is the Wheel of Dharma, the rolling of the universe down its inevitable path towards enlightenment. The Buddha set the wheel in motion, but the righteousness and wisdom of others cause it to continue turning.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_KHMER_CHAKRAVARTI_CHAPTER_HISTORY_PARA_2">
+			<Text>The chakravarti is understood by his sacred elements: the wheel, a royal elephant, a royal horse, a magical gem, an ideal queen, and ideal advisors. Many rulers, especially Ashoka of the Maurya, were identified with the chakravarti at various points in time. The notion of the king as chakravarti is especially important in Southeast Asia, where Theravada monarchs use this ideal to undergird notions of power and prestige in kingship.</Text>
+		</Row>
+		<!--Maurya-->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAURYA_ACHARYA_CHAPTER_HISTORY_PARA_1">
+			<Text>In the Sanskrit world, a learned scholar is called an acharya, often meaning someone who has achieved a high degree of knowledge in a particular field. The term can apply to Hindu scholars, Buddhist monks, university professors (in Southeast Asia), and the like. For Jains, acharya refers specifically to Jain saints, those who have come closest to the energy that runs throughout the cosmos. Here, the term is a valorization of specialized knowledge, and it represents the idea that knowledge, being, and harmony with the universe are linked. Note the difference between this focus on learning and questioning and those religions that emphasize feeling or devotion to the will of a larger entity.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAURYA_VYUHAM_CHAPTER_HISTORY_PARA_1">
+			<Text>A vyuham is a military formation, one designed to achieve maximum effect for minimum risk. This practice emerged out of Indian military science and a way of thinking strategically about the impact of particular units upon the minds of the enemy (e.g. an elephant charge). For instance, in a lotus vyuham, military units unfurl outward, then close in on the enemy, increasing waves of shock and damage while encircling the foe. The focus is on tactics and not on abstractions like inspiration or bravery – those elements are important but secondary to winning the larger war.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAURYA_VYUHAM_CHAPTER_HISTORY_PARA_2">
+			<Text>Studies of the vyuham are important in that they emphasize how strategic thinking was not limited to Rome and China, but generals in many empires were approaching tactics in systematic and scientific ways.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAURYA_AYURVEDA_CHAPTER_HISTORY_PARA_1">
+			<Text>The knowledge (veda) of life (ayur), ayurveda is a South Asian system of medicine that expanded across the subcontinent and beyond. It emphasizes a holistic approach, one that uses diet, lifestyle, and specific chemical interventions to deal with disease. Treatment might include mental health practices (e.g. relief from stress), yoga, the use of oils, and the ingestion of particular supplements or spices. Sub-branches include postnatal care, surgery, exorcism, and the curing of epidemics.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAURYA_AYURVEDA_CHAPTER_HISTORY_PARA_2">
+			<Text>Ayurveda remains popular in India and has an increasing (albeit unregulated) presence elsewhere.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAURYA_MANTRIPARISHAD_CHAPTER_HISTORY_PARA_1">
+			<Text>Mauryan society was heavily administered. All property technically belonged to the king, who oversaw its distribution. Therefore, the king was considered responsible for all successes and all failures. This was a terrible burden as a flood or epidemic could doom a dynasty. Fortunately, Mauryan kings, such as Ashoka, had the mantriparishad, the council of advisors (mantri). This was an informal but constantly-present group of experts who could aid the divine king in decisions (in case his divinity was on the wane that particular day), and this system was replicated down the hierarchy to the city level. As advisors, the mantriparishad could allow for some degree of civilian control over the government, without diminishing the glory of the god-king.</Text>
+		</Row>
+		<!--Maya-->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAYA_RAIN_OF_CHAAC_CHAPTER_HISTORY_PARA_1">
+			<Text>For a moment, set aside the idea of “gods of” – gods of the sky, gods of the sea, gods of the earth. Instead, consider what it means to hold the sky or earth as divine. Chaac (or the Chaacs, as Chaac is simultaneously singular and multiple) is the “god of the sky,” but a red Chaac also exists in the east, a black Chaac in the west, a white Chaac in the north, a yellow Chaac in the south, and a green Chaac in the center. Ceremonies to honor Chaac called for his (their) blessing and were held at cenotes (spring-fed lakes) in the Maya jungles. Devotees would cast their most treasured possessions (including other people) into the well, and Chaac would respond with his own treasure: rain.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAYA_LORDS_OF_XIBALBA_CHAPTER_HISTORY_PARA_1">
+			<Text>The underworld, the “place of fear,” was where the most fearsome Maya gods lived, gods with names such as “Flying Scab” and “Jaundice Demon.” This was the roosting place of the bat-god Camazotz, the massive beast that decapitated its victims and drank their blood. According to Maya myth, these gods commanded the worship of humans in ancient times, demanding increasingly brutal sacrifices until the Hero Twins descended into the underworld to avenge the death of their father, Hun Hunahpu. The twins were forced into a series of deadly challenges and ball games, which they won, until one of them lost his head to a bat. Thanks to their power of resurrection, the Hero Twins managed to eventually triumph, and the lords of Xibalba receded into darkness.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAYA_CALENDAR_ROUND_CHAPTER_HISTORY_PARA_1">
+			<Text>The Maya tzolk’in calendar is a 260-day system involving two separate cycles – thirteen numbers and twenty days. It is not terribly clear why the calendar consists of 260 days, but it may have sprung from mathematical equations involving two important numbers (thirteen and twenty), the standard length of a pregnancy, the appearance of Venus, or variations in the movement of the sun. The 260-day cycle existed simultaneously with the haab’, a 365-day calendar, creating two calendrical systems that fit into a 52-year cycle. This confluence of systems is the Maya calendar round, but the calendar round consists of wheels within wheels, potentially marking off epochs of over 60 million years.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MAYA_CALENDAR_ROUND_CHAPTER_HISTORY_PARA_2">
+			<Text>New Age adherents ascribe cosmic significance to these dates, though they are no more than extremely rare New Year’s Days. The last b’ak’tun cycle of 394 years ended in December of 2012, kicking off a new b’ak’tun.</Text>
+		</Row>
+		<!--Mississippian-->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MISSISSIPPIAN_EARTHWORKS_CHAPTER_HISTORY_PARA_1">
+			<Text>Pre-Columbian North American earthworks were typically constructed with massive amounts of soil and clay, all carried by hand. They remained a feature across the region for millennia. The labor took decades, and often occurred in phases – larger mounds developed from smaller ones that had been built over and expanded. These features created an artificial landscape of massive flat-topped mounds that served as ritual centers where important structures, such as noble houses, mortuary sites, and charnel houses were raised above the horizon and in view for all.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MISSISSIPPIAN_CAH_NAH_HA_CHAPTER_HISTORY_PARA_1">
+			<Text>Mississippian society was a paramount chiefdomship, meaning different communities vied for rule of what was, at times (but not always), a state. Communal heads were vital, as they might rotate from the head of a community to the principal tribute-taker of the empire. While social stratification was a feature of Mississippian society, local communities often acted communally, a vital social dynamic when the efforts of hunters sustain the population while crops grow.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MISSISSIPPIAN_CAH_NAH_HA_CHAPTER_HISTORY_PARA_2">
+			<Text>Mississippian language is lost to time, but the descendants of core Mississippian states are the Osage, and splinter groups grew into the Caddo and other present-day tribes. Southeastern groups such as the Natchez carried Mississippian traditions into recorded history. Mississippian terms are derived largely from Siouan Osage, and occasionally from Caddo or the unrelated Natchez – “cah-nah-ha” specifically refers to a communal head in Caddo.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MISSISSIPPIAN_WAAHIH_CHAPTER_HISTORY_PARA_1">
+			<Text>Warfare was a part of Mississippian society. With a system of decentralized power, where city-states vied for control over the center, this is unsurprising. For the most part, intensive earthworks and palisades dissuaded outright warfare, but skirmishes, ambushes and raids were a way to intimidate and sap the morale of potential rivals. In addition to warfare focused on lethality and fear, ritualized combat, focused on spectacle and morale, also played a part in Mississippian society, depending on the particular relationship between cities. As cities like Cahokia grew more and more complex, warfare shifted to these latter models, as the real prize being fought over was nothing material, but rather prestige and fame.Warfare was a part of Mississippian society. This is unsurprising, given its system of decentralized power, where city-states vied for control over the center. For the most part, intensive earthworks and palisades dissuaded outright warfare, but skirmishes, ambushes, and raids were methods that intimidated and sapped the morale of potential rivals. In addition to warfare focused on lethality and fear, the spectacle of ritualized combat played a part in Mississippian society, dependent on particular relationships between urban centers. As cities like Cahokia grew in complexity, warfare shifted towards ritual, as the real prize being became prestige and fame.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_MISSISSIPPIAN_WAAHIH_CHAPTER_HISTORY_PARA_2">
+			<Text>As with all Mississippian terms, “waahih” is a Caddo word meaning “war party.” The Caddo’s ancestors adopted some Mississippian cultural features, although they are likely not linguistic descendants of the Mississippians – the word is unlikely to be that used by the Mississippians.</Text>
+		</Row>
+		<!--Persia-->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_PERSIA_SPADA_CHAPTER_HISTORY_PARA_1">
+			<Text>A professional army is a luxury few ancient empires could afford. Persia could. This body of warriors was the spada. Greek accounts often over-exaggerated Persia's might to frame Greek victories as epic affairs; Greek reports claim that Xerxes' army was composed of three million warriors, but it was likely a tenth of that size. Regardless, the spada was comprised of infantry, cavalry (horse or camel), chariots (largely obsolete by Persian times), and often included Greek mercenaries, though the core of the spada was Iranian.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_PERSIA_SPADA_CHAPTER_HISTORY_PARA_2">
+			<Text>The spada was divided in a decimal system – ten men in a company, ten companies in a battalion, ten battalions in a division, and ten divisions in a corps, all under the King of Kings.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_PERSIA_SATRAPIES_CHAPTER_HISTORY_PARA_1">
+			<Text>How does one govern a conquered kingdom? In many conquests, forcing an enemy king to show allegiance had the softest impact on ordinary citizens as day-to-day life would continue as normal. However, the Persian Empire was built on the concept of divine rule, where all power revolved around the throne.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_PERSIA_SATRAPIES_CHAPTER_HISTORY_PARA_2">
+			<Text>The system of satrapies, set by Cyrus the Great in 530 BCE, was meant to govern conquests and manage tribute (core Persian lands were exempt). These satrapies were Persian viceroys, responsible for collecting taxes, managing locals, and keeping order. Maintaining the road system was especially important to the highly mobile and responsive Persian Empire. In later years, Alexander the Great adopted the satrap system (indeed, Alexander’s satraps formed splinter kingdoms – e.g. the Ptolemaic Egyptians).</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_PERSIA_ACHAEMENID_EMPIRE_CHAPTER_HISTORY_PARA_1">
+			<Text>In 550 BCE, the Achaemenid Empire arose in Iran, where it became the largest empire the world had seen to that point. While the specific history of the realm is described in another entry, the Achaemenids shone in their administrative innovations. Managing a far-flung empire required a particular balance of centralization and decentralization. If one was too heavy-handed in centralizing power, the wider system could not be properly administered. Alternatively, too light of a touch could allow distant satrapies to spiral off in independence. The Persian emperors carefully accounted for the goods and resources of each region – Egypt for grain, India for gold – and levied taxes designed for each territory. Roads and communications were also vital; ancient observers estimated that a message could reach the furthest outposts in just fifteen days.</Text>
+		</Row>
+		<!--Rome-->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_ROME_EXERCITUS_ROMANUS_CHAPTER_HISTORY_PARA_1">
+			<Text>The Roman army was a vast, dynamic, and often influential entity throughout most of Roman history. By the Republic’s end, its military was composed of a large number of Roman legions: heavy infantry levied from the ranks of citizens, supplemented by recruits and mercenaries who could fill out the other necessary tactical roles. Under Augustus, this military body was reconstituted into a professional army whose volunteer members served for extended periods. The composition of armies evolved further as horses were added, and new auxiliary troops taken from Rome’s non-citizen subjects replaced the ad-hoc insertion of foreign auxiliaries. These auxiliary troops were numerous – a Roman army might be composed of nine-tenths non-Roman troops, containing a fraction of the heavy infantry iconic to the legions.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_ROME_CIVIS_ROMANUS_CHAPTER_HISTORY_PARA_1">
+			<Text>What does it mean to be a citizen of a state? Multiple societies have struggled with that question through the ages; the possessions of Mauryan subjects technically belonged to the king who redistributed them however he saw fit, and Confucians strive for a harmonious society in which all serve their required function. However, citizenship implies a degree of control – some voice in the governance of the state. Even in nations founded on the ideal of citizenship, this concept can be fraught. For example, residents of Puerto Rico and Washington D.C. do not share the representation and voting rights of residents in places like Wyoming or Colorado.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_ROME_CIVIS_ROMANUS_CHAPTER_HISTORY_PARA_2">
+			<Text>Roman citizenship, which permitted voting and office-holding, was a complicated affair. At its most restrictive, Roman citizens were children of free citizens of Rome (the city, not the empire). However, others could achieve citizenship – or at least some degree of citizenship – via serving in public office or completing public duty. Over time, wider spheres of Roman life were granted some degree of legal rights: one might hold ius commercii (property rights) but not ius connubi (marriage rights).</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_ROME_CIVIS_ROMANUS_CHAPTER_HISTORY_PARA_3">
+			<Text>In 90 BCE, most of these distinctions were erased by the Lex Julia de civitate, which extended Roman citizenship to loyal states. Later, the Edict of Caracalla in 212 CE extended it further to all free men in the Empire.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_ROME_LEGATUS_PRO_PRAETORE_CHAPTER_HISTORY_PARA_1">
+			<Text>As with most empires, Rome was constantly concerned over its control over distant spheres of power. While core provinces were administered by elected governors, more distant provinces, such as Britannia, Syria, Lusitania, etc., were directly controlled by the emperor. Governors were always senators of relatively high rank and headed the provincial administration and military forces of that region – excluding taxation.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_ROME_LEGATUS_PRO_PRAETORE_CHAPTER_HISTORY_PARA_2">
+			<Text>These systems consolidated the personal power of the emperor. Augustus deliberately engineered the system in this way, ensuring the legatus pro praetore of Egypt, Rome’s most powerful province, was the lowest in rank.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_ROME_SENATUS_POPULUSQUE_ROMANUS_CHAPTER_HISTORY_PARA_1">
+			<Text>SPQR – Senatus Populusque Romanus – stands for the “Senate and People of Rome,” the whole of the government of the Roman Republic. Note here the word “Rome” – this refers not to a political entity, e.g. the Roman Empire, but rather the city of Rome. Men born in the city itself had particular rights not immediately granted (at least in the Republic and early Empire) to those born in the rest of Italy, much less in far-flung provinces. The label SPQR appears from 80 BCE, in the late Republic, to the reign of Constantine in the mid-300s. During the Empire, too, the slogan is notable for its meaninglessness – in an imperial system, both senate and people are spoken for by the emperor. What is notable here, though, is a reversal of a notion of divine kingship: in the latter, power flowed downward from the heavens to the king to the people, whereas in Rome, power derived from the people. Well, the people of the city of Rome, at least.</Text>
+		</Row>
+	</EnglishText>
+</Database>

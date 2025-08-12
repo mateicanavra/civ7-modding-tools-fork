@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_UNLOCK_CULTURAL_01" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_GRANT_DIPLOMATIC_ACTION">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_IS_STARTED"/>
+		</OwnerRequirements>
+		<Argument name="ActionType">DIPLOMACY_ACTION_CULTURAL_EXCHANGE</Argument>
+	</Modifier>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_UNLOCK_CULTURAL_02" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_GRANT_DIPLOMATIC_ACTION">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_IS_STARTED"/>
+		</OwnerRequirements>
+		<Argument name="ActionType">DIPLOMACY_ACTION_SABOTAGE_CIVIC_STUDY</Argument>
+	</Modifier>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_UNLOCK_POLITICAL_01" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_GRANT_DIPLOMATIC_ACTION">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_IS_STARTED"/>
+		</OwnerRequirements>
+		<Argument name="ActionType">DIPLOMACY_ACTION_LOCAL_FESTIVALS</Argument>
+	</Modifier>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_UNLOCK_POLITICAL_02" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_GRANT_DIPLOMATIC_ACTION">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_IS_STARTED"/>
+		</OwnerRequirements>
+		<Argument name="ActionType">DIPLOMACY_ACTION_SABOTAGE_MORALE</Argument>
+	</Modifier>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_UNLOCK_ECONOMIC_01" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_GRANT_DIPLOMATIC_ACTION">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_IS_STARTED"/>
+		</OwnerRequirements>
+		<Argument name="ActionType">DIPLOMACY_ACTION_MINOR_TRADE</Argument>
+	</Modifier>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_UNLOCK_ECONOMIC_02" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_GRANT_DIPLOMATIC_ACTION">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_IS_STARTED"/>
+		</OwnerRequirements>
+		<Argument name="ActionType">DIPLOMACY_ACTION_SABOTAGE_TREASURY</Argument>
+	</Modifier>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_UNLOCK_EXPANSIONIST_01" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_GRANT_DIPLOMATIC_ACTION">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_IS_STARTED"/>
+		</OwnerRequirements>
+		<Argument name="ActionType">DIPLOMACY_ACTION_FARMERS_MARKET</Argument>
+	</Modifier>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_UNLOCK_EXPANSIONIST_02" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_GRANT_DIPLOMATIC_ACTION">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_IS_STARTED"/>
+		</OwnerRequirements>
+		<Argument name="ActionType">DIPLOMACY_ACTION_SABOTAGE_FOOD_PRODUCTION</Argument>
+	</Modifier>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_UNLOCK_MILITARISTIC_01" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_GRANT_DIPLOMATIC_ACTION">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_IS_STARTED"/>
+		</OwnerRequirements>
+		<Argument name="ActionType">DIPLOMACY_ACTION_MILITARY_AID</Argument>
+	</Modifier>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_UNLOCK_MILITARISTIC_02" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_GRANT_DIPLOMATIC_ACTION">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_IS_STARTED"/>
+		</OwnerRequirements>
+		<Argument name="ActionType">DIPLOMACY_ACTION_SABOTAGE_MILITARY_PRODUCTION</Argument>
+	</Modifier>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_UNLOCK_SCIENTIFIC_01" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_GRANT_DIPLOMATIC_ACTION">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_IS_STARTED"/>
+		</OwnerRequirements>
+		<Argument name="ActionType">DIPLOMACY_ACTION_RESEARCH_COLLABORATION</Argument>
+	</Modifier>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_UNLOCK_SCIENTIFIC_02" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_GRANT_DIPLOMATIC_ACTION">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_IS_STARTED"/>
+		</OwnerRequirements>
+		<Argument name="ActionType">DIPLOMACY_ACTION_SABOTAGE_RESEARCH</Argument>
+	</Modifier>
+</GameEffects>

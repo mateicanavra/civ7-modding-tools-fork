@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Shawnee Unique Units -->
+		<Row Tag="LOC_UNIT_KISPOKO_NENA_TO_NAME">
+			<Text>Kispoko Nena’to</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_KISPOKO_NENA_TO_BASE_DESCRIPTION">
+			<Text>Shawnee Unique Infantry Unit. +1 Combat Strength for every unique Empire Resource.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_KISPOKO_NENA_TO_DESCRIPTION">
+			<Text>Tier 1 Shawnee Unique Infantry Unit. +1 Combat Strength for every unique Empire Resource.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_KISPOKO_NENA_TO_2_DESCRIPTION">
+			<Text>Tier 2 Shawnee Unique Infantry Unit. +1 Combat Strength for every unique Empire Resource.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_KISPOKO_NENA_TO_3_DESCRIPTION">
+			<Text>Tier 3 Shawnee Unique Infantry Unit. +1 Combat Strength for every unique Empire Resource.</Text>
+		</Row>
+		<Row Tag="LOC_KISPOKO_NENA_TO_RESOURCE_COMBAT_DESCRIPTION">
+			<Text>+{1_Value} Combat Strength for every unique Empire Resource.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HOCEEPKILENI_NAME">
+			<Text>Hoceepkileni </Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HOCEEPKILENI_DESCRIPTION">
+			<Text>Shawnee Unique Missionary. +1 Movement and Rivers do not end movement.</Text>
+		</Row>
+	</EnglishText>
+</Database>

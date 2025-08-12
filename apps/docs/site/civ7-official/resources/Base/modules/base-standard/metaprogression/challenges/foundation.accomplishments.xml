@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metaprogression xmlns="Metaprogression">
+	<challenges class="CHALLENGE_CLASS_FOUNDATION" category="CHALLENGE_CATEGORY_FOUNDATION_ACCOMPLISHMENTS" legendPath="LEGEND_PATH_FOUNDATION">
+		<!-- Military -->
+		<challenge id="CHALLENGE_MILITARY_BASTION_DISCIPLINE_MAXED" scope="Campaign" difficulty="1">
+			<l10n>
+				<name>Fortress</name>
+				<description>Max out the Bastion tree with a Commander.</description>
+			</l10n>
+			<sortIndex>15100</sortIndex>
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_MILITARY_ASSAULT_DISCIPLINE_MAXED" scope="Campaign" difficulty="1">
+			<l10n>
+				<name>Elan!</name>
+				<description>Max out the Assault tree with a Commander.</description>
+			</l10n>
+			<sortIndex>15200</sortIndex>
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_MILITARY_LOGISTICS_DISCIPLINE_MAXED" scope="Campaign" difficulty="1">
+			<l10n>
+				<name>Unbroken Chain</name>
+				<description>Max out the Logistics tree with a Commander.</description>
+			</l10n>
+			<sortIndex>15300</sortIndex>
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_MILITARY_MANEUVER_DISCIPLINE_MAXED" scope="Campaign" difficulty="1">
+			<l10n>
+				<name>Fancy Footwork</name>
+				<description>Max out the Maneuver tree with a Commander.</description>
+			</l10n>
+			<sortIndex>15400</sortIndex>
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_MILITARY_LEADERSHIP_DISCIPLINE_MAXED" scope="Campaign" difficulty="1">
+			<l10n>
+				<name>By Example</name>
+				<description>Max out the Leadership tree with a Commander.</description>
+			</l10n>
+			<sortIndex>15500</sortIndex>
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_MILITARY_THREE_DISCIPLINES_MAXED" scope="Campaign" difficulty="1">
+			<l10n>
+				<name>Artist of War</name>
+				<description>Max out any 3 trees with a single Commander.</description>
+			</l10n>
+			<sortIndex>15600</sortIndex>
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_FOUNDATION_MILITARY_DREAM_TEAM" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Dream Team</name>
+				<description>Load a Commander with 1 Infantry, 1 Ranged, 1 Cavalry, 1 Siege, and 1 Non-Combat Unit.</description>
+			</l10n>
+			<sortIndex>14900</sortIndex>
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_MILITARY_FOCUSED_ATTACK_MELEE" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Finely Minced</name>
+				<description>Order a Coordinated Melee attack with 3 or more units on a single target.</description>
+			</l10n>
+			<sortIndex>15800</sortIndex>
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_MILITARY_FOCUSED_ATTACK_RANGE" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Pincushion</name>
+				<description>Order a Coordinated Ranged attack with 5 or more units on a single target.</description>
+			</l10n>
+			<sortIndex>15900</sortIndex>
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_FOUNDATION_MILITARY_FEED_THE_GRINDER" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Feed the Grinder</name>
+				<description>Reinforce the same Commander 3 or more times over the course of a single war.</description>
+			</l10n>
+			<sortIndex>16100</sortIndex>
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_FOUNDATION_MILITARY_THREE_COMMANDERS_TWO_DISCIPLINES_MAXED" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Veteran Command</name>
+				<description>Have 3 Commanders with 2 maxed out tree.</description>
+			</l10n>
+			<sortIndex>15700</sortIndex>
+			<reward type="XP" reward="25" />
+		</challenge>
+
+		<!-- Expansion -->
+		<challenge id="CHALLENGE_EXPANSION_POPULATION_OVER_100" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Be Fruitful</name>
+				<description>Have over 100 population in your empire.</description>
+			</l10n>
+			<sortIndex>16600</sortIndex>
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_EXPANSION_URBAN_DISTRICTS_37" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>The Absolute</name>
+				<description>Have a City with 37 Urban Districts.</description>
+			</l10n>
+			<sortIndex>16400</sortIndex>
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_EXPANSION_VOLCANO_SETTLE_POPULATION_10" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>This Is Fine</name>
+				<description>Settle a town directly next to a Volcano, and have it reach 10 Population.</description>
+			</l10n>
+			<sortIndex>16300</sortIndex>
+			<reward type="XP" reward="25" />
+		</challenge>
+
+		<!-- Diplomacy -->
+		<challenge id="CHALLENGE_DIPLOMACY_SUZERAIN_TYPES" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Say Hello to My Little Friends</name>
+				<description>Suzerain a City State of each type in a single Age</description>
+			</l10n>
+			<sortIndex>16700</sortIndex>
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_DIPLOMACY_INFLUENTIAL" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Influential</name>
+				<description>Suzerain 5 or more City States in a single Age</description>
+			</l10n>
+			<sortIndex>16800</sortIndex>
+			<reward type="XP" reward="25" />
+		</challenge>
+
+		<!-- Economic -->
+		<challenge id="CHALLENGE_ECONOMIC_TRADE_ROUTE_RESOURCES" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Lucrative Trade</name>
+				<description>Gain access to 5 or more Resources via a single trade route</description>
+			</l10n>
+			<sortIndex>17000</sortIndex>
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_ECONOMIC_SINGLE_RESOURCE_5" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Stocked Up</name>
+				<description>Have 5 or more of a single type of Resource</description>
+			</l10n>
+			<sortIndex>17100</sortIndex>
+			<reward type="XP" reward="25" />
+		</challenge>
+
+		<!-- Attributes -->
+		<challenge id="CHALLENGE_FOUNDATION_ATTRIBUTES_CULTURE_MAXED" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Capably Cultured</name>
+				<description>Max out your Leader's Culture Attribute Tree.</description>
+			</l10n>
+			<sortIndex>17500</sortIndex>
+			<reward type="XP" reward="25"/>
+		</challenge>
+		<challenge id="CHALLENGE_FOUNDATION_ATTRIBUTES_DIPLOMATIC_MAXED" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Deft Diplomat</name>
+				<description>Max out your Leader's Diplomatic Attribute Tree.</description>
+			</l10n>
+			<sortIndex>17600</sortIndex>
+			<reward type="XP" reward="25"/>
+		</challenge>
+		<challenge id="CHALLENGE_FOUNDATION_ATTRIBUTES_ECONOMIC_MAXED" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Efficient Economist</name>
+				<description>Max out your Leader's Economic Attribute Tree.</description>
+			</l10n>
+			<sortIndex>17700</sortIndex>
+			<reward type="XP" reward="25"/>
+		</challenge>
+		<challenge id="CHALLENGE_FOUNDATION_ATTRIBUTES_EXPANSIONIST_MAXED" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Exponential Expansionist</name>
+				<description>Max out your Leader's Expansionist Attribute Tree.</description>
+			</l10n>
+			<sortIndex>17800</sortIndex>
+			<reward type="XP" reward="25"/>
+		</challenge>
+		<challenge id="CHALLENGE_FOUNDATION_ATTRIBUTES_MILITARISTIC_MAXED" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Master Militarist</name>
+				<description>Max out your Leader's Militaristic Attribute Tree.</description>
+			</l10n>
+			<sortIndex>17900</sortIndex>
+			<reward type="XP" reward="25"/>
+		</challenge>
+		<challenge id="CHALLENGE_FOUNDATION_ATTRIBUTES_SCIENTIFIC_MAXED" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Significant Scientist</name>
+				<description>Max out your Leader's Scientific Attribute Tree.</description>
+			</l10n>
+			<sortIndex>18000</sortIndex>
+			<reward type="XP" reward="25"/>
+		</challenge>
+		<challenge id="CHALLENGE_FOUNDATION_ATTRIBUTES_BEAUTIFUL_BINARY" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Beautiful Binary</name>
+				<description>Max out 2 Attribute Trees in one campaign.</description>
+			</l10n>
+			<sortIndex>18200</sortIndex>
+			<reward type="XP" reward="25"/>
+		</challenge>
+		<challenge id="CHALLENGE_FOUNDATION_ATTRIBUTES_DELIBERATE_DIVERGENCE" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Deliberate Divergence</name>
+				<description>Have 1 Attribute in 6 different Attribute Trees.</description>
+			</l10n>
+			<sortIndex>18100</sortIndex>
+			<reward type="XP" reward="25"/>
+		</challenge>
+
+		<!-- Completion -->
+		<challenge id="CHALLENGE_FOUNDATION_COMPLETION_LEADER_COMPLETIONIST" scope="Campaign" difficulty="5">
+			<l10n>
+				<name>Leader Completionist</name>
+				<description>Complete a game with every base game Leader.</description>
+			</l10n>
+			<sortIndex>18700</sortIndex>
+			<reward type="XP" reward="100"/>
+		</challenge>
+		<challenge id="CHALLENGE_FOUNDATION_COMPLETION_FLAWLESS_CAMPAIGN" scope="Campaign" difficulty="5">
+			<l10n>
+				<name>Flawless Campaign</name>
+				<description>Complete a full game spanning three Ages, completing at least 2 Legacy Paths in every Age.</description>
+			</l10n>
+			<sortIndex>18950</sortIndex>
+			<reward type="XP" reward="100"/>
+			<reward type="UnlockableReward" reward="BADGE_FLAWLESS_CAMPAIGN_BADGE"/>
+		</challenge>
+		<challenge id="CHALLENGE_FOUNDATION_COMPLETION_ONE_LEADER_LEVEL_10" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Who Do You Main?</name>
+				<description>Reach Level 10 on any base game Leader Path.</description>
+			</l10n>
+			<sortIndex>19000</sortIndex>
+			<reward type="XP" reward="100"/>
+		</challenge>
+		<challenge id="CHALLENGE_FOUNDATION_COMPLETION_FIVE_LEADERS_LEVEL_10" scope="Campaign" difficulty="3">
+			<l10n>
+				<name>Filling the Roster</name>
+				<description>Reach Level 10 on 5 Leader Paths.</description>
+			</l10n>
+			<sortIndex>19300</sortIndex>
+			<reward type="XP" reward="50"/>
+		</challenge>
+		<challenge id="CHALLENGE_FOUNDATION_COMPLETION_ANTIQUITY_LEGACY_PATH_MAX_DIFFICULTY" scope="Campaign" difficulty="3">
+			<l10n>
+				<name>Antiquity Afficionado</name>
+				<description>Complete a Legacy Path in Antiquity on Deity.</description>
+			</l10n>
+			<sortIndex>19560</sortIndex>
+			<reward type="XP" reward="50"/>
+			<reward type="UnlockableReward" reward="BADGE_ANTIQUITY_BADGE"/>
+		</challenge>
+		<challenge id="CHALLENGE_FOUNDATION_COMPLETION_EXPLORATION_LEGACY_PATH_MAX_DIFFICULTY" scope="Campaign" difficulty="3">
+			<l10n>
+				<name>Exploration Expert</name>
+				<description>Complete a Legacy Path in Exploration on Deity.</description>
+			</l10n>
+			<sortIndex>19570</sortIndex>
+			<reward type="XP" reward="50"/>
+			<reward type="UnlockableReward" reward="BADGE_EXPLORATION_BADGE"/>
+		</challenge>
+		<challenge id="CHALLENGE_FOUNDATION_COMPLETION_MODERN_LEGACY_PATH_MAX_DIFFICULTY" scope="Campaign" difficulty="3">
+			<l10n>
+				<name>Modern Master</name>
+				<description>Complete a Legacy Path in Modern on Deity.</description>
+			</l10n>
+			<sortIndex>19580</sortIndex>
+			<reward type="XP" reward="50"/>
+			<reward type="UnlockableReward" reward="BADGE_MODERN_BADGE"/>
+		</challenge>
+		<challenge id="CHALLENGE_FOUNDATION_COMPLETION_ALL_CHALLENGES_COMPLETE" scope="Campaign" difficulty="5">
+			<l10n>
+				<name>Incredible Completionist</name>
+				<description>Complete every other base game Challenge in the Foundation Path.</description>
+			</l10n>
+			<sortIndex>19600</sortIndex>
+			<reward type="XP" reward="100"/>
+		</challenge>
+	</challenges>
+</metaprogression>

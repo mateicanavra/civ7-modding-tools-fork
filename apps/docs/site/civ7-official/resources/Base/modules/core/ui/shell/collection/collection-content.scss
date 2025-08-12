@@ -1,0 +1,29 @@
+@use '../../utilities/utility-layout' as *;
+@use '../../utilities/utility-text' as *;
+@use '../../themes/default/_baseColors.scss';
+
+
+.store-launcher__card-activatable {
+	width: pixels(480);
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+// 720p
+.store-launcher__card-activatable {
+	@media (max-height: pixels(1000)) {
+		width: pixels(300);
+		min-width: pixels(0);
+	}
+}
+
+.filigree-panel-top-special {
+	@media (max-height: pixels(1000)) {
+		width: pixels(308);
+		min-width: pixels(0);
+		background-size: contain;
+		position: absolute;
+		top: pixels(-23);
+	}
+}

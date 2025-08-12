@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="Definitions">
+	<definition name="Boost" table-name="Boosts" cpp="true">
+		<field name="BoostID" type="Integer" key="true" not-null="true"/>
+		<field name="Boost" type="Integer" not-null="true"/>
+		<field name="TriggerId" type="Integer" value="0" not-null="true"/>
+		<field name="TriggerDescription" type="Text" not-null="true"/>
+		<field name="TriggerLongDescription" type="Text" not-null="true"/>
+		<field name="Unit1Type" type="Text"/>
+		<field name="BoostClass" type="Text" not-null="true"/>
+		<field name="Unit2Type" type="Text"/>
+		<field name="ConstructibleType" type="Text"/>
+		<field name="ResourceType" type="Text"/>
+		<field name="NumItems" type="Integer" value="0" not-null="true"/>
+		<field name="DistrictType" type="Text"/>
+		<field name="RequiresResource" type="Bool" value="0" not-null="true"/>
+		<field name="RequirementSetId" type="Text"/>
+		<reference source="Unit1Type" target="UnitType" sourceRoleName="Unit1Ref" to="Unit"/>
+		<reference source="Unit2Type" target="UnitType" sourceRoleName="Unit2Ref" to="Unit"/>
+		<reference source="BoostClass" target="BoostType" sourceRoleName="BoostRef" to="BoostName"/>
+		<reference source="ConstructibleType" target="ConstructibleType" sourceRoleName="ConstructibleRef" to="Constructible"/>
+		<reference source="DistrictType" target="DistrictType" sourceRoleName="DistrictRef" to="District"/>
+		<reference source="ResourceType" target="ResourceType" sourceRoleName="ResourceRef" to="Resource"/>
+		<property name="Unit1Reference" path="Unit1Ref"/>
+		<property name="Unit2Reference" path="Unit2Ref"/>
+		<property name="BoostReference" path="BoostRef"/>
+		<property name="ConstructibleReference" path="ConstructibleRef"/>
+		<property name="DistrictReference" path="DistrictRef"/>
+		<property name="ResourceReference" path="ResourceRef"/>
+	</definition>
+	<definition name="BoostName" table-name="BoostNames" cpp="true">
+		<field name="BoostType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="BoostValue" type="Integer" unique="true" not-null="true"/>
+	</definition>
+	<definition name="BoostHandler" table-name="BoostHandlers" cpp="true">
+		<field name="HandlerId" type="Text" key="true"/>
+		<field name="BehaviorTree" type="Text"/>
+		<field name="OperationName" type="Text" hash="true"/>
+		<field name="Script" type="Text"/>
+		<field name="UniquenessTag" description="Note a unique value. AI will not run two boosts with same tag at same time" type="Text" hash="true"/>
+		<field name="WinnowFunction" description="A function returning a bool saying not to go after this boost" type="Text" hash="true"/>
+		<reference source="BehaviorTree" target="TreeName" to="BehaviorTree"/>
+		<reference source="OperationName" target="OperationName" to="AiOperationDef"/>
+	</definition>
+</definitions>

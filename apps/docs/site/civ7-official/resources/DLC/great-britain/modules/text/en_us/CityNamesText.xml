@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--GREAT_BRITAIN-->
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN1">
+			<Text>London</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN2">
+			<Text>Liverpool</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN3">
+			<Text>Birmingham</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN4">
+			<Text>Manchester</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN5">
+			<Text>Leeds</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN6">
+			<Text>Sheffield</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN7">
+			<Text>Bristol</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN8">
+			<Text>Bradford</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN9">
+			<Text>Hull</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN10">
+			<Text>Stoke-upon-Trent</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN11">
+			<Text>Newcastle</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN12">
+			<Text>Plymouth</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN13">
+			<Text>Portsmouth</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN14">
+			<Text>Leicester</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN15">
+			<Text>Sunderland</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN16">
+			<Text>Nottingham</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN17">
+			<Text>Oldham</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN18">
+			<Text>Brighton</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN19">
+			<Text>Bolton</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN20">
+			<Text>Blackburn</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN21">
+			<Text>Preston</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN22">
+			<Text>Norwich</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN23">
+			<Text>Birkenhead</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN24">
+			<Text>Huddersfield</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN25">
+			<Text>Derby</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN26">
+			<Text>Wolverhampton</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN27">
+			<Text>Halifax</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN28">
+			<Text>Rochdale</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN29">
+			<Text>Gateshead</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_GREAT_BRITAIN30">
+			<Text>Southampton</Text>
+		</Row>
+	</EnglishText>
+</Database>

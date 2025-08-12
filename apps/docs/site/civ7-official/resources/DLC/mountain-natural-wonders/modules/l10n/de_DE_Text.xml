@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_MACHAPUCHARE_CHAPTER_HISTORY_PARA_1" Language="de_DE">
+      <Text>Der Machapucharé ist eine nahezu vertikale Felsebene, die vom Annapurna-Massiv des Himalaya in Nepal aus nach oben ragt; sein Gipfel ist niemals erklommen worden. Mit seinen 6997 Metern Höhe ist er zwar nicht so hoch wie der Mount Everest, sein charakteristisches Profil ist jedoch dennoch gut zu erkennen, da er sich in einer relativ flachen Umgebung erhebt. Vielleicht wird der Machapucharé aus diesem Grund auch von den dort lebenden Volksgruppen als heilig angesehen - sowohl von den Tibetern als auch von den Nepalesen, deren Glauben zufolge dort der Gott Shiva lebt. Die nepalesische Regierung erteilt auch nur sehr ungern Kletterrechte für den Berg.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_MOUNT_FUJI_CHAPTER_HISTORY_PARA_1" Language="de_DE">
+      <Text>Der Fuji ist großer aktiver Vulkan im Zentrum von Japans Hauptinsel Honshū. Sein Gipfel mit dem sanften Gefälle ist das meiste Jahr über schneebedeckt. Aufgrund seiner Schönheit ist er schon seit Jahrtausenden ein Symbol der Inseln und wurde in den Holzschnitten von Hokusai ebenso wie in den Gedichten von Basho verewigt. Er ist ebenfalls eine wichtige Anbetungsstätte im Shintō. Auf seinem Gipfel befindet sich ein Schrein und die Wanderwege auf seinen Hängen werden von Pilgern und Erholungssuchenden genutzt.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_MOUNT_FUJI_CHAPTER_HISTORY_PARA_2" Language="de_DE">
+      <Text>2013 wurde der Fuji als Weltkulturerbe anerkannt.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_VIHREN_CHAPTER_HISTORY_PARA_1" Language="de_DE">
+      <Text>Das Pirin-Gebirge im Südwesten Bulgariens hebt sich markant von den darunterliegenden Tälern ab. In seiner Mitte steht der Wichren, der höchste Gipfel des Gebirges und dritthöchste Berg im Balkan. Mit 2.914 Metern Höhe ist der pyramidengleiche Gipfel ein eindrucksvolles Beispiel für Karst-Topografie. An seinem Fuß liegt der südlichste Gletscher Europas, der Snezhnika. Der Name Wichren bedeutet übersetzt "Wirbelwind", vermutlich weil das Pirin-Gebirge lange Zeit mit Perun, dem slawischen Gott der Gewitterstürme in Verbindung gebracht wurde. Er ist ein beliebtes Ziel für Bergsteiger. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_VINICUNCA_CHAPTER_HISTORY_PARA_1" Language="de_DE">
+      <Text>Tief in den peruanischen Anden liegt der Vinicunca, der Berg der sieben Farben. Seine an einen Regenbogen erinnernde Farbgebung entsteht durch die Überlagerung verschiedener Mineralien: pink durch roten Ton, weiß durch Quarz und Mergel, violett durch Limonit und Goethit, rot durch Eisenoxid, grün durch Chlorit, braun durch Magnesium und gelb durch Kalksandstein. Der Vinicunca wurde erst im Jahr 2013 entdeckt. Er war zuvor durch einen Gletscher verdeckt, aber durch die Klimaerwärmung ist der Schnee nun abgeschmolzen. Seither ist der Berg eine der Haupttouristenattraktionen von Peru.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MACHAPUCHARE_NAME" Language="de_DE">
+      <Text>Machapucharé|Machapucharé|Machapucharé|Machapucharé|Machapucharé</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MOUNT_FUJI_NAME" Language="de_DE">
+      <Text>Fuji|Fuji|Fuji|Fuji|Fuji</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VIHREN_NAME" Language="de_DE">
+      <Text>Wichren|Wichren|Wichren|Wichren|Wichren</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VINICUNCA_NAME" Language="de_DE">
+      <Text>Vinicunca|Vinicunca|Vinicunca|Vinicunca|Vinicunca</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_MOUNT_VINSON_NAME" Language="de_DE">
+      <Text>Mount Vinson|Mount Vinson|Mount Vinson|Mount Vinson|Mount Vinson</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MACHAPUCHARE_DESCRIPTION" Language="de_DE">
+      <Text>+2 [icon:YIELD_CULTURE] Kultur und +4 [icon:YIELD_PRODUCTION] Produktion pro Zeitalter. +1 [icon:YIELD_HAPPINESS] Zufriedenheit für unwegsames Gelände und Berge in dieser Siedlung.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MACHAPUCHARE_TOOLTIP" Language="de_DE">
+      <Text>+1 [icon:YIELD_HAPPINESS] Zufriedenheit für unwegsames Gelände und Berge in dieser Siedlung.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MOUNT_FUJI_DESCRIPTION" Language="de_DE">
+      <Text>+2 [icon:YIELD_GOLD] Gold, [icon:YIELD_CULTURE] Kultur und [icon:YIELD_HAPPINESS] Zufriedenheit pro Zeitalter. Vulkan-Geländefelder.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MOUNT_FUJI_TOOLTIP" Language="de_DE">
+      <Text>Vulkan-Geländefelder.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VIHREN_DESCRIPTION" Language="de_DE">
+      <Text>+4 [icon:YIELD_FOOD] Nahrung und +2 [icon:YIELD_PRODUCTION] Produktion pro Zeitalter. +1 [icon:YIELD_HAPPINESS] Zufriedenheit und [icon:YIELD_CULTURE] Kultur pro Zeitalter für jedes Mal, wenn eine Naturkatastrophe Euch in diesem Zeitalter Fruchtbarkeit gewährt hat.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VIHREN_TOOLTIP" Language="de_DE">
+      <Text>+1 [icon:YIELD_HAPPINESS] Zufriedenheit und [icon:YIELD_CULTURE] Kultur pro Zeitalter für jedes Mal, wenn eine Naturkatastrophe Euch in diesem Zeitalter Fruchtbarkeit gewährt hat.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VINICUNCA_DESCRIPTION" Language="de_DE">
+      <Text>+2 [icon:YIELD_PRODUCTION] Produktion, [icon:YIELD_HAPPINESS] Zufriedenheit und [icon:YIELD_SCIENCE] Wissenschaft pro Zeitalter. +2 [icon:YIELD_CULTURE] Kultur für angrenzende Land-Geländefelder.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VINICUNCA_TOOLTIP" Language="de_DE">
+      <Text>+2 [icon:YIELD_CULTURE] Kultur für angrenzende Land-Geländefelder.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_MACHAPUCHARE" Language="de_DE">
+      <Text>Das Linga Purana</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_MOUNT_FUJI" Language="de_DE">
+      <Text>Matsuo Bashō</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_VIHREN" Language="de_DE">
+      <Text>Ivanov-Razumnik</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_VINICUNCA" Language="de_DE">
+      <Text>Pachacútec</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_MACHAPUCHARE" Language="de_DE">
+      <Text>Shiva ist ohne Zeichen, ohne Farbe, Geschmack, Geruch, jenseits von Wort und Berührung, ohne Eigenschaften, unbeweglich und unveränderlich.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_MOUNT_FUJI" Language="de_DE">
+      <Text>In einer verzauberten Welt / Stößt die Sonne ihren Kopf / Am Gipfel des Fuji.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_VIHREN" Language="de_DE">
+      <Text>Die Erde wird von den Bergen gehalten, damit sie nicht auf den Wassern schwankt.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_VINICUNCA" Language="de_DE">
+      <Text>Oh Pachacamac! Bist du im Himmel oder auf der Erde? In den Wolken oder in den Tiefen?</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

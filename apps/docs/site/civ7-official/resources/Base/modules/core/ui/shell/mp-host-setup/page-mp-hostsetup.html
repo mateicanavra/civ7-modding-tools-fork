@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Multiplayer Host Setup</title>
+	<link rel="stylesheet" href="fs://game/core/ui/themes/default/default.css">
+	<link rel="stylesheet" href="fs://game/core/ui/shell/mp-host-setup/mp-hostsetup.css">
+
+	<!-- Required content for Coherent Gameface -->
+	<script src="fs://game/core/ui/cohtml.js"></script>
+	<script src="fs://game/core/ui/accessibility/cohtml-speech-api.js"></script>
+	<script src="fs://game/core/ui/component-support.js"></script>
+	<script src="fs://game/core/ui/input/focus-manager.js"></script>
+	<script src="fs://game/core/ui/input/action-handler.js"></script>
+	<script src="fs://game/core/ui/input/cursor.js"></script>
+	<script src="fs://game/core/ui/tooltips/tooltip-manager.js"></script>
+	<script src="fs://game/core/ui/tooltips/default-tooltip.js"></script>
+	<script src="fs://game/core/ui/shell/root-shell.js"></script>
+	<script src="mp-hostsetup.js"></script>
+</head>
+
+<body>
+	<div id="action-zone-container">
+		<div id="title-zone-container" class="flex flex-col fadeIn">
+			<fxs-frame id="main-menu-frame" class="flex flex-col" title="LOC_UI_MP_SETUP_TITLE"
+					   subtitle="LOC_UI_MP_MULTIPLAYER">
+				<div id="MpButtonBox" class="flex flex-col"></div>
+			</fxs-frame>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Rizal Main Menu Char Select Text-->
+		<Row Tag="LOC_MAIN_CHAR_SELECT_LEADER_JOSE_RIZAL_ANY">
+			<Text>Genius has no country. It blossoms everywhere. Genius is light, is air. It is all of our heritage.</Text>
+		</Row>
+
+		<!--Rizal Statement Text-->
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_JOSE_RIZAL_ANY">
+			<Text>I am Jose Rizal, poet, painter, revolutionary. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_JOSE_RIZAL_ANY">
+			<Text>I am Jose Rizal, poet, painter, revolutionary. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_JOSE_RIZAL_ANY">
+			<Text>I am Jose Rizal, poet, painter, revolutionary. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_JOSE_RIZAL_ANY">
+			<Text>You must shatter the vase to spread its perfume, and smite the rock to get the spark.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_JOSE_RIZAL_ANY">
+			<Text>We do not sleep; we wait for you with fire in our hearts and weapons in our hands.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DEFEAT_AI_LEADER_JOSE_RIZAL_ANY">
+			<Text>"Consummatum est" — it is finished.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_JOSE_RIZAL">
+			<Text>A beautiful proposition.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_JOSE_RIZAL">
+			<Text>We say no because we must</Text>
+		</Row>
+	</EnglishText>
+</Database>

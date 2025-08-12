@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+    <Modifier id="DISCOVERY_BASE_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLOT_DESTROY_DISCOVERY" run-once="true" permanent="true">
+    </Modifier>
+    <Modifier id="DISCOVERY_BASE_BASIC_EXPLORATION_OCEAN_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLOT_DESTROY_DISCOVERY" run-once="true" permanent="true">
+    </Modifier>
+    <Modifier id="DISCOVERY_BASE_BASIC_EXPLORATION_OCEAN_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER_UNIT_NEAREST_STORY" effect="EFFECT_UNIT_ADJUST_DAMAGE" run-once="true" permanent="true">
+        <Argument name="Amount">-10000</Argument>
+    </Modifier>
+    <Modifier id="DISCOVERY_BASE_MYTHIC_EXPLORATION_OCEAN_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER_UNIT_NEAREST_STORY" effect="EFFECT_UNIT_ADJUST_DAMAGE" run-once="true" permanent="true">
+        <Argument name="Amount">-10000</Argument>
+    </Modifier>
+    <RequirementSet id="REQSET_DISCOVERY_BASE_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_TRIGGERED_DISCOVERY">
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_DISCOVERY_BASE_BASIC_EXPLORATION_OCEAN_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_TRIGGERED_DISCOVERY">
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_DISCOVERY_BASE_MYTHIC_EXPLORATION_OCEAN_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_TRIGGERED_DISCOVERY">
+        </Requirement>
+    </RequirementSet>
+</GameEffects>

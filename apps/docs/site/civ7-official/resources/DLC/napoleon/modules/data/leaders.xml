@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_TRAIT"/>
+	</Kinds>
+	<Types>
+		<Row Type="LEADER_NAPOLEON" Kind="KIND_LEADER"/>
+		<Row Type="TRAIT_LEADER_NAPOLEON_ABILITY" Kind="KIND_TRAIT"/>
+	</Types>
+	<Leaders>
+		<Row LeaderType="LEADER_NAPOLEON" Name="LOC_LEADER_NAPOLEON_NAME" IsMajorLeader="true" InheritFrom="LEADER_DEFAULT" />
+	</Leaders>
+	<!--NEEDS TO BE MOVED INTO ANTIQUITY, EXPLORATION, AND MODERN FILES
+	<LeaderCivPriorities>
+		<Row Leader="LEADER_NAPOLEON" Civilization="CIVILIZATION_EGYPT" Priority="2"/>
+		<Row Leader="LEADER_NAPOLEON" Civilization="CIVILIZATION_ROME" Priority="2"/>
+		<Row Leader="LEADER_NAPOLEON" Civilization="CIVILIZATION_NORMAN" Priority="1"/>
+		<Row Leader="LEADER_NAPOLEON" Civilization="CIVILIZATION_SPAIN" Priority="2"/>
+		<Row Leader="LEADER_NAPOLEON" Civilization="CIVILIZATION_FRENCH_EMPIRE" Priority="4"/>
+		<Row Leader="LEADER_NAPOLEON" Civilization="CIVILIZATION_RUSSIA" Priority="2"/>
+	</LeaderCivPriorities>-->
+	<LeaderQuotes>
+	</LeaderQuotes>
+	<AiFavoredItems>
+	</AiFavoredItems>
+	<Traits>
+		<Row TraitType="TRAIT_LEADER_NAPOLEON_ABILITY" InternalOnly="true" Name="LOC_TRAIT_LEADER_NAPOLEON_ABILITY_NAME" Description="LOC_TRAIT_LEADER_NAPOLEON_ABILITY_DESCRIPTION"/>
+	</Traits>
+	<LeaderTraits>
+		<Row LeaderType="LEADER_NAPOLEON" TraitType="TRAIT_LEADER_NAPOLEON_ABILITY"/>
+		<Row LeaderType="LEADER_NAPOLEON" TraitType="TRAIT_LEADER_ATTRIBUTE_POLITICAL"/>
+		<Row LeaderType="LEADER_NAPOLEON" TraitType="TRAIT_LEADER_ATTRIBUTE_ECONOMIC"/>
+		<Row LeaderType="LEADER_NAPOLEON" TraitType="TRAIT_AQ_MILITARY_VICTORY"/>
+		<Row LeaderType="LEADER_NAPOLEON" TraitType="TRAIT_EX_SCIENCE_VICTORY"/>
+		<Row LeaderType="LEADER_NAPOLEON" TraitType="TRAIT_MO_ECONOMIC_VICTORY"/>
+	</LeaderTraits>
+	<TraitModifiers>
+		<Row TraitType="TRAIT_LEADER_NAPOLEON_ABILITY" ModifierId="NAPOLEON_MOD_CONTINENTAL_SYSTEM"/>
+		<Row TraitType="TRAIT_LEADER_NAPOLEON_ABILITY" ModifierId="NAPOLEON_MOD_GOLD_BONUS_UNFRIENDLY"/>
+		<Row TraitType="TRAIT_LEADER_NAPOLEON_ABILITY" ModifierId="NAPOLEON_MOD_GOLD_BONUS_HOSTILE"/>
+		<Row TraitType="TRAIT_LEADER_NAPOLEON_ABILITY" ModifierId="NAPOLEON_MOD_NO_COST_ENDEAVOR_REJECT"/>
+		<Row TraitType="TRAIT_LEADER_NAPOLEON_ABILITY" ModifierId="NAPOLEON_MOD_AGENDA_NAPOLEONIC_CODE"/>
+	</TraitModifiers>
+	<TypeQuotes>
+		<Row Type="LEADER_NAPOLEON" Quote="LOC_MAIN_CHAR_SELECT_LEADER_NAPOLEON_ANY"/>
+	</TypeQuotes>
+</Database>

@@ -1,0 +1,102 @@
+@use 'theme';
+@use '../../utilities/utility-layout' as *;
+@use '../../utilities/utility-text' as *;
+
+// ----- Font Weight -----
+@each $weight-suffix, $weight-value in theme.$font-weight {
+	.font-#{$weight-suffix} {
+		font-weight: $weight-value;
+	}
+}
+
+// ----- Leading -----
+@each $space-suffix, $space-value in theme.$line-heights {
+	.leading-#{$space_suffix} {
+		line-height: #{$space-value};
+	}
+}
+
+// ----- Letter Spacing -----
+@each $space-suffix, $space-value in theme.$letter-spacing {
+	.tracking-#{$space_suffix} {
+		letter-spacing: $space-value;
+	}
+}
+
+// ----- Font Weight -----
+@each $weight-suffix, $weight-value in theme.$font-weight {
+	.font-#{$weight-suffix} {
+		font-weight: $weight-value;
+	}
+}
+
+// ----- Text Shadow -----
+// TODO: placeholder
+.text-shadow {
+	text-shadow: pixels(-2) pixels(3) pixels(0) rgb(0 0 0), pixels(-1) pixels(2) pixels(0) rgb(0 0 0);
+}
+
+.text-shadow-br {
+	text-shadow: pixels(1) pixels(1) pixels(0) rgb(0 0 0), pixels(2) pixels(2) pixels(0) rgb(0 0 0);
+}
+
+
+// ----- Text Alignment -----
+.text-left {
+	text-align: left;
+}
+
+.text-center {
+	text-align: center;
+}
+
+.text-right {
+	text-align: right;
+}
+
+// ----- Text Transform -----
+.uppercase {
+	text-transform: uppercase;
+}
+
+.lowercase {
+	text-transform: lowercase;
+}
+
+.capitalize {
+	text-transform: capitalize;
+}
+
+.normal-case {
+	text-transform: none;
+}
+
+.text-ellipsis {
+	text-overflow: ellipsis;
+}
+
+.text-clip {
+	text-overflow: clip;
+}
+
+.truncate {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.font-fit-shrink {
+	coh-font-fit-mode: shrink;
+}
+
+.font-fit {
+	coh-font-fit-mode: fit;
+}
+
+.font-fit-none {
+	coh-font-fit-mode: none;
+}
+
+.break-words {
+	overflow-wrap: break-word;
+}

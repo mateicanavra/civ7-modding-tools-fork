@@ -1,0 +1,972 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE1" Language="pl_PL">
+      <Text>Kartagina|Kartaginy|Kartaginie|Kartaginę|Kartaginą|Kartaginie</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE10" Language="pl_PL">
+      <Text>Rusicade</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE11" Language="pl_PL">
+      <Text>Thysdrus|Thysdrusu|Thysdrusowi|Thysdrus|Thysdrusem|Thysdrusie</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE12" Language="pl_PL">
+      <Text>Rusguniae</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE13" Language="pl_PL">
+      <Text>Tinga|Tingi|Tindze|Tingę|Tingą|Tindze</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE14" Language="pl_PL">
+      <Text>Gadir|Gadiru|Gadirowi|Gadir|Gadirem|Gadirze</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE15" Language="pl_PL">
+      <Text>Oyat|Oyatu|Oyatowi|Oyat|Oyatem|Oyacie</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE16" Language="pl_PL">
+      <Text>Kition|Kitionu|Kitionowi|Kition|Kitionem|Kitionie</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE17" Language="pl_PL">
+      <Text>Lapathus|Lapathusu|Lapathusowi|Lapathus|Lapathusem|Lapathusie</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE18" Language="pl_PL">
+      <Text>Idalion|Idalionu|Idalionowi|Idalion|Idalionem|Idalionie</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE19" Language="pl_PL">
+      <Text>Ruspina|Ruspiny|Ruspinie|Ruspinę|Ruspiną|Ruspinie</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE2" Language="pl_PL">
+      <Text>Utyka|Utyki|Utyce|Utykę|Utyką|Utyce</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE20" Language="pl_PL">
+      <Text>Ziz|Zizu|Zizowi|Ziz|Zizem|Zizie</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE21" Language="pl_PL">
+      <Text>Karaly</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE22" Language="pl_PL">
+      <Text>Sexi </Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE23" Language="pl_PL">
+      <Text>Kapara|Kapary|Kaparze|Kaparę|Kaparą|Kaparze</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE24" Language="pl_PL">
+      <Text>Rusadir|Rusadiru|Rusadirowi|Rusadir|Rusadirem|Rusadirze</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE25" Language="pl_PL">
+      <Text>Abdera|Abdery|Abderze|Abderę|Abderą|Abderze</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE26" Language="pl_PL">
+      <Text>Malake</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE27" Language="pl_PL">
+      <Text>Lilibeum</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE28" Language="pl_PL">
+      <Text>Chullu</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE29" Language="pl_PL">
+      <Text>Arambys|Arambysu|Arambysowi|Arambys|Arambysem|Arambysie</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE3" Language="pl_PL">
+      <Text>Hadrumetum</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE30" Language="pl_PL">
+      <Text>Meninx</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE4" Language="pl_PL">
+      <Text>Hippo</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE5" Language="pl_PL">
+      <Text>Motja|Motji|Motji|Motję|Motją|Motji</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE6" Language="pl_PL">
+      <Text>Thenae</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE7" Language="pl_PL">
+      <Text>Leptis</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE8" Language="pl_PL">
+      <Text>Tsabratan|Tsabratanu|Tsabratanowi|Tsabratan|Tsabratanem|Tsabratanie</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE9" Language="pl_PL">
+      <Text>Maleth</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_1" Language="pl_PL">
+      <Text>Arishat</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_10" Language="pl_PL">
+      <Text>Zyabqot</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_2" Language="pl_PL">
+      <Text>Siphonbaal</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_3" Language="pl_PL">
+      <Text>Batbaal</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_4" Language="pl_PL">
+      <Text>Batnoam</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_5" Language="pl_PL">
+      <Text>Muttunbaal</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_6" Language="pl_PL">
+      <Text>Ummashtart</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_7" Language="pl_PL">
+      <Text>Hanbi</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_8" Language="pl_PL">
+      <Text>Amoashtart</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_9" Language="pl_PL">
+      <Text>Yzebel</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_1" Language="pl_PL">
+      <Text>Hamilkar|Hamilkara|Hamilkarowi|Hamilkara|Hamilkarem|Hamilkarze</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_10" Language="pl_PL">
+      <Text>Bomilcar|Bomilcara|Bomilcarowi|Bomilcara|Bomilcarem|Bomilcarze</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_2" Language="pl_PL">
+      <Text>Hanno|Hanna|Hannowi|Hanna|Hannem|Hannie</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_3" Language="pl_PL">
+      <Text>Mago</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_4" Language="pl_PL">
+      <Text>Hasdrubal|Hasdrubala|Hasdrubalowi|Hasdrubala|Hasdrubalem|Hasdrubalu</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_5" Language="pl_PL">
+      <Text>Gisgo|Gisga|Gisgowi|Gisga|Gisgiem|Gisgu</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_6" Language="pl_PL">
+      <Text>Bodo|Boda|Bodowi|Boda|Bodem|Bodzie</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_7" Language="pl_PL">
+      <Text>Azarbaal|Azarbaala|Azarbaalowi|Azarbaala|Azarbaalem|Azarbaalu</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_8" Language="pl_PL">
+      <Text>Bostar|Bostara|Bostarowi|Bostara|Bostarem|Bostarze</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_9" Language="pl_PL">
+      <Text>Mattanbaal|Mattanbaala|Mattanbaalowi|Mattanbaala|Mattanbaalem|Mattanbaalu</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_CARTHAGE_ADJECTIVE" Language="pl_PL">
+      <Text>Kartagiński|Kartagińska|Kartagińscy|Kartagińskie|Kartagińsk|kartagiński|kartagińska|kartagińscy|kartagińskie|kartagińsk|kartagińskich</Text>
+      <Gender>masculine|feminine|masculine|feminine|neuter|masculine|feminine|masculine|feminine|neuter|masculine</Gender>
+      <Plurality>1|1|2|2|1|1|1|2|2|1|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_CARTHAGE_FULLNAME" Language="pl_PL">
+      <Text>Imperium Kartagińskie|Imperium Kartagińskiego|Imperium Kartagińskiemu|Imperium Kartagińskie|Imperium Kartagińskim|Imperium Kartagińskim|Imperium Kartagińskie|Imperium Kartagińskiego|Imperium Kartagińskiemu|Imperium Kartagińskie|Imperium Kartagińskim|Imperium Kartagińskim</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_CARTHAGE_NAME" Language="pl_PL">
+      <Text>Kartagina|Kartaginy|Kartaginie|Kartaginę|Kartaginą|Kartaginie|Kartagina|Kartaginy|Kartaginie|Kartaginę|Kartaginą|Kartaginie</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_ANTIQUITY_4_MAJOR_CARTHAGE_NAME" Language="pl_PL">
+      <Text>Fajstos</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_ANTIQUITY_4_MINOR_CARTHAGE_NAME" Language="pl_PL">
+      <Text>Minojczycy|Minojczyków|Minojczykom|Minojczyków|Minojczykami|Minojczykach</Text>
+      <Gender>masculine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_COTHON_CHAPTER_HISTORY_PARA_1" Language="pl_PL">
+      <Text>Kothon był wewnętrzną przystanią kartagińskiego portu, w której stacjonowała flota wojenna miasta. Jego nazwa pochodzi od greckiego naczynia do picia o podobnym kształcie – był okrągły, na jego środku znajdowała się wyspa i został w całości zbudowany przez człowieka. Zarówno wzdłuż wewnętrznego, jak i zewnętrznego nabrzeża wznosiły się hangary na łodzie, nad którymi znajdowały się magazyny pełne zapasów. Klasyczne źródła podają, że kothon mógł pomieścić do 220 statków, choć z badań archeologicznych wynika, że liczba ta była prawdopodobnie bliższa 170. Choć charakterystyczny kształt kothonu stał się znakiem rozpoznawczym starożytnej Kartaginy, to powstał on bardzo późno w jej historii – wkrótce po II wojnie punickiej i mniej niż 50 lat przed zniszczeniem miasta.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_DOCKYARD_CHAPTER_HISTORY_PARA_1" Language="pl_PL">
+      <Text>Port Kartaginy składał się z dwóch basenów – jednego przeznaczonego dla wojska i jednego dla ludności cywilnej – i to właśnie ten drugi, port handlowy, stanowił ekonomiczną bramę, która wzbogaciła Kartaginę. W tym stworzonym przez człowieka prostokątnym akwenie rozładowywano statki handlowe i uzupełniano ich zapasy, a także pobierano podatki i dostarczano daniny z bliskich i dalekich kolonii. Jego znaczenie przewyższało jego rozmiar – pomimo szeroko zakrojonej przebudowy przeprowadzonej po II wojnie punickiej port miał powierzchnię zaledwie siedmiu hektarów. Problem miejsca próbowano rozwiązać, budując na zewnątrz murów portu drewnianą keję, która wychodziła w morze.  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_1" Language="pl_PL">
+      <Text>Upadek epoki brązu w XII w. p.n.e. rzucił na kolana wiele cywilizacji Bliskiego Wschodu i basenu Morza Śródziemnego. Splot zmian klimatycznych, nierównowagi technologicznej, inwazji i innych czynników doprowadził do upadku scentralizowanych rządów, co skutkowało załamaniem się imperiów i rozproszeniem ludności z ośrodków miejskich do mniejszych osad wiejskich.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_10" Language="pl_PL">
+      <Text>W III w. p.n.e. Rzym zastąpił Grecję jako główny rywal Kartaginy. Po raz kolejny Sycylia była beczką prochu, która zapoczątkowała I wojnę punicką w 264 r. p.n.e. Po ponad dwóch dekadach Rzymianie odnieśli zwycięstwo, a Kartagina straciła wszystkie posiadłości na Sycylii, jednocześnie mierząc się z nową wewnętrzną rewoltą sił najemnych. W 218 r. p.n.e. wojna wybuchła ponownie. Podczas II wojny punickiej słynny kartagiński generał, Hannibal, poprowadził swoją armię lądem przez Galię i Alpy, aby zaatakować Rzymian od północy. Pokonał potężną rzymską armię pod Kannami, ale z powodu braku posiłków nie był w stanie dokończyć podboju. Rzymianie z powodzeniem wyparli Kartagińczyków z Italii oraz Hiszpanii i ponownie odnieśli zwycięstwo, stając się dominującą potęgą w zachodniej części basenu Morza Śródziemnego. Kartagina straciła wszystkie zamorskie posiadłości, a jej flota została zredukowana do zaledwie dziesięciu okrętów wojennych – z politycznego punktu widzenia stała się państwem podległym Rzymowi.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_11" Language="pl_PL">
+      <Text>Miastu zabroniono również prowadzenia wojen. 50 lat później Kartagina złamała tę zasadę, mobilizując armię do wzięcia odwetu na Numidyjczykach, którzy wtargnęli na jej terytorium. Rzymianie nie mieli żadnego interesu w konflikcie między Kartaginą a Numidią, ale blizny po II wojnie punickiej były dotkliwe. Pomimo przewagi w relacjach politycznych, Rzym był nieustannie podejrzliwy wobec Kartaginy, która zaczęła odbudowywać swoją potęgę gospodarczą dzięki tradycyjnym metodom handlu i rolnictwa. Katon Starszy słynął z tego, że każde przemówienie w Senacie kończył słowami: „Ceterum autem censeo Carthaginem esse delendam” („Co więcej, uważam, że Kartaginę należy zniszczyć”). Mobilizacja Kartaginy przeciwko Numidii zapewniła Rzymowi casus belli, na który czekał. Wypowiedziano wojnę, przystąpiono do oblężenia miasta, po czym Kartagina została zrównana z ziemią.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_2" Language="pl_PL">
+      <Text>Jednak nie wszystkie cywilizacje pogrążyły się w mroku. Fenickie miasta-państwa rozwijały się przez co najmniej dwa stulecia, a pierwsze wzmianki o nich pojawiły się w egipskich przekazach dotyczących podboju ich nadmorskich osad w Lewancie. Stały się one ośrodkami handlu, ułatwiając kontakt między Europą, Afryką Północną i Azją, ale zmagały się z imperiami starającymi się kontrolować ich siłę gospodarczą w regionie. Po upadku epoki brązu potęgi te zachwiały się lub upadły, a ich wpływ na Fenicjan osłabł. Po osiągnięciu prawdziwej niezależności Fenicjanie zaczęli się intensywnie rozwijać i – wypełniając pustkę po upadłych potęgach – wkrótce kontrolowali handel na obszarze Morza Śródziemnego. Zaczęli zakładać kolonie w basenie Morza Śródziemnego, wzdłuż wybrzeży Europy i Afryki Północnej, aż do Maroka i Hiszpanii, szukając dogodnych naturalnych portów i dostępu do lokalnych rynków oraz dążąc do przejęcia kontroli nad pobliskimi zasobami.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_3" Language="pl_PL">
+      <Text>Około 814 r. p.n.e. grupa kolonistów z Tyru przybyła do Zatoki Tuniskiej we współczesnej Tunezji. Miejsce to było idealne do założenia nowej osady. Łatwe do obrony wzgórze wychodziło na port, który zapewniał ochronę przed sztormami i jednocześnie znajdował się w pobliżu Cieśniny Sycylijskiej będącej wąskim gardłem dla handlu śródziemnomorskiego. Tyryjczycy szybko zaczęli budować swoją kolonię, którą nazwali „qrt-ḥdšt” („nowe miasto”). Dziś nazywamy ją Kartaginą.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_4" Language="pl_PL">
+      <Text>Ta dość przyziemna historia założenia Kartaginy znacznie odbiega od legendy, którą podają późniejsze źródła. Bardziej ekscytująca wersja opowiada o Dydonie (Elissie), królowej Tyru, która uciekła ze swojego miasta po tym, jak jej brat Pigmalion ukradł jej spadek i zamordował jej męża. Przybywając do Afryki Północnej, zawarła umowę z lokalnym wodzem berberyjskim – mogła zająć tyle ziemi, ile dało się pokryć skórą jednego wołu. Dydona pocięła skórę na paski i użyła ich do otoczenia całego wzgórza swojego przyszłego miasta.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_5" Language="pl_PL">
+      <Text>Kartagina istniała jako niewielka kolonia przez kilka stuleci, dopóki w IV w. p.n.e. Aleksander Wielki nie wdarł się do Lewantu. W 332 r. p.n.e. splądrował Tyr, niszcząc centrum fenickiej potęgi i zmuszając Tyryjczyków do ucieczki. Wielu z nich trafiło do Kartaginy, a gwałtowny wzrost populacji w połączeniu z upadkiem Tyru pozwolił miastu na szybkie osiągnięcie pozycji nowego centrum władzy i bogactwa w basenie Morza Śródziemnego.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_6" Language="pl_PL">
+      <Text>Bogactwo Kartaginy pochodziło głównie z handlu, danin i podatków. W przeciwieństwie do innych fenickich miast-państw, które skupiały swoją władzę w obrębie własnych murów, Kartagińczycy realizowali politykę podboju terytorialnego w celu poszerzania swoich granic. Polegając na potężnej flocie i łącząc własne armie z armiami sąsiedniego królestwa Numidii, podporządkowali sobie inne fenickie kolonie i podbili nowe terytoria po obu stronach Morza Śródziemnego. Istnieje kilka teorii na temat tego, dlaczego Kartagina dążyła do ekspansji – od potrzeby zapewnienia sobie dominacji w obliczu konkurencji ze strony greckiego i rzymskiego handlu, po umocnienie się pozycji przywódców wojskowych w kartagińskim rządzie. Niezależnie od przyczyny, Kartagina zazwyczaj nie sprawowała bezpośredniej kontroli nad swoimi nowymi zdobyczami, lecz preferowała podejście hegemoniczne, pobierając daniny od swoich osad i kolonii oraz wykorzystując je jako ośrodki handlowe.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_7" Language="pl_PL">
+      <Text>W IV w. p.n.e. rządy Kartaginy ewoluowały z monarchii w republikę. Na czele państwa stało dwóch sufetów (sędziów) wybieranych z najpotężniejszych rodów. Rządzili oni wraz z senatem składającym się z 200-300 członków. Zgromadzenie obywatelskie głosowało nad prawami i działaniami proponowanymi przez sufetów i senat. Władza cywilna i wojskowa były rozdzielone – generałowie byli wybierani lub mianowani i nie mieli wpływu na kwestie polityczne, podobnie jak sufeci nie mieli wpływu na armie.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_8" Language="pl_PL">
+      <Text>Samo miasto było zdominowane przez Byrsę, cytadelę wznoszącą się na szczycie wzgórza, z którego roztaczał się widok na morze. Na zboczach poniżej znajdowały się cztery dzielnice mieszkalne i duży port. Poza centrum miasta znajdowały się pola uprawne – Kartagina miała dobrze rozwinięte rolnictwo i z powodzeniem uprawiała wiele różnych roślin, które zaspokajały potrzeby żywnościowe miasta oraz stanowiły towar eksportowy. Kartagińska wiedza rolnicza była tak ceniona, że jedynym dziełem, które przetrwało zniszczenie miasta, był traktat rolniczy autorstwa agronoma Mago. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_9" Language="pl_PL">
+      <Text>Ekspansja Kartaginy nie obyła się bez reperkusji. Pierwszym dużym starciem był konflikt z Grecją. Jeszcze zanim Kartagina przekształciła się z małej kolonii w znaczące miasto, Grecy byli głównym konkurentem Fenicjan, stopniowo odbierając im monopol na handel śródziemnomorski. Rozkwit Kartaginy przeniósł te tarcia do Nowego Miasta i wkrótce oba imperia rzuciły się sobie do gardeł. Począwszy od 480 r. p.n.e. Kartagina toczyła serię wojen z Grecją o kontrolę nad Sycylią. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_CARTHAGE_RED_SLIP_CHAPTER_HISTORY_PARA_1" Language="pl_PL">
+      <Text>Chociaż pełny obraz religii Kartaginy, jej bóstw i praktyk przesłaniają nam zaginione i niewiarygodne źródła, wiedza o bogini Tanit zachowała się dzięki jej wszechobecności w mieście i jego koloniach. Bogini mądrości, płodności i macierzyństwa była – obok jej małżonka, Baal Hammona – jednym z głównych bóstw Kartaginy. Tanit dołączyła do punickiego panteonu późno, podczas gdy korzenie Baal Hammona sięgają Fenicji i późniejszych czasów. Tanit pojawiła się około V w. p.n.e. prawdopodobnie za sprawą lokalnych wierzeń berberyjskich i wkrótce przerosła swego towarzysza w Kartaginie pod względem znaczenia i czci. Wydaje się, że kult Tanit obejmował składanie ofiar z ludzi w świętym sanktuarium zwanym tofetem, choć to, w jakim stopniu rytuały te były praktykowane przez Kartagińczyków, pozostaje przedmiotem dyskusji. Jej symbol – ten sam, który w tej grze reprezentuje Kartaginę – jest powszechnie spotykany na kamiennych rzeźbach i mozaikach. Późniejsze wizerunki przedstawiają ją ze skrzydłami i głową lwa.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_CARTHAGE_SHIPSHEDS_CHAPTER_HISTORY_PARA_1" Language="pl_PL">
+      <Text>Potęga gospodarcza i militarna Kartaginy opierała się na statkach, a ich utrzymanie miało kluczowe znaczenie dla jej sukcesu. Rejsy po Morzu Śródziemnym i poza nim prowadziły do znacznego zużycia drewnianych okrętów wskutek uszkodzeń powodowanych sztormami, rozmakaniem drewna zmniejszającym prędkość i przyczyniającym się do jego gnicia oraz działalnością żarłocznego życia morskiego żywiącego się drewnem. Jednak wyciąganie tak dużych i ciężkich statków na ląd w celu przechowywania ich w suchym miejscu i dokonywania napraw było trudne i czasochłonne, a także narażało je na nieustające zagrożenia pogodowe.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_CARTHAGE_SHIPSHEDS_CHAPTER_HISTORY_PARA_2" Language="pl_PL">
+      <Text>Aby sprostać tym wyzwaniom, Kartagina zbudowała dla swojej floty hangary. Były to zadaszone pochylnie zbudowane przy brzegu umożliwiające szybkie i łatwe przenoszenie statków do suchego doku osłoniętego przed czynnikami atmosferycznymi. W takich hangarach można było dokonywać szybkich napraw między rejsami, co skracało czas przestoju i zwiększało częstotliwość prac konserwacyjnych, dzięki czemu flota wojenna i handlowa Kartaginy pozostawała w doskonałym stanie. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_CARTHAGE_SICILIAN_WARS_CHAPTER_HISTORY_PARA_1" Language="pl_PL">
+      <Text>Kartagińczycy poszli w ślady Fenicjan, stając się panami śródziemnomorskich szlaków handlowych. Rzadko jednak ich pozycja pozostawała niezagrożona. Ich pierwszym poważnym rywalem były greckie miasta-państwa – inna silna potęga morska, która kwestionowała dominację Kartaginy w regionie. Głównym punktem spornym była wyspa Sycylia, która praktycznie dzieliła Morze Śródziemne na dwie części i była kluczem do panowania nad nim w czasach starożytnych. Kartagińczycy i Grecy stoczyli serię wojen w latach 480-306 p.n.e. o kontrolę nad wyspą, podczas których sporne terytoria wielokrotnie przechodziły z rąk do rąk. Wojny sycylijskie zakończyły się, gdy Rzym zdominował Grecję, przejmując greckie posiadłości na Sycylii. Jednak pojawienie się nowego konkurenta Kartaginy wywołało również nową serię konfliktów zwanych wojnami punickimi, które ponownie toczono z powodu Sycylii. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_QUARTER_PUNIC_PORT_CHAPTER_HISTORY_PARA_1" Language="pl_PL">
+      <Text>Sukces i przetrwanie Kartaginy jako morskiej potęgi gospodarczej zależały od jej portu. Niezwykła konstrukcja składała się z zewnętrznego portu handlowego i wewnętrznego kothonu dla okrętów wojennych. Cały kompleks został zbudowany na bagnach około 200 r. p.n.e., co wymagało wydobycia około 235 tysięcy metrów sześciennych ziemi. Baseny portowe zbudowano z ciosanych bloków piaskowca i były one w dużej mierze chronione przed atakami z zewnątrz ogromnymi murami; wąskie wejścia do zewnętrznego i wewnętrznego portu można było zamknąć za pomocą ogromnych żelaznych łańcuchów. Kiedy Rzymianie podbili Kartaginę podczas III wojny punickiej, port był pierwszą częścią miasta, która została zniszczona. Jednak jego ślad wciąż jest widoczny na tunezyjskim wybrzeżu i stanowi jedne z niewielu pozostałości po kartagińskiej chwale. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_COLONIST_CHAPTER_HISTORY_PARA_1" Language="pl_PL">
+      <Text>Kartagina powstała jako fenicka kolonia – mała nadmorska osada założona w celu ułatwienia i kontrolowania handlu w basenie Morza Śródziemnego. Gdy Kartagina stała się miastem i niezależnym ośrodkiem władzy, wykorzystała tę samą metodę do powiększania swoich wpływów i potęgi, opierając się na koloniach, a nie na rozbudowie miasta, aby zasilać swoje imperium. Chociaż historycznie ekspansja ta była określana jako agresywna i imperialistyczna (w dużej mierze z powodu wrogich rzymskich przekazów dotyczących historii Kartaginy), nowsze badania wykazały, że początkowy okres konsolidacji władzy koncentrował się na przejmowaniu kontroli i wzmacnianiu istniejących fenickich osad położonych na zachodnich wybrzeżach, podczas gdy bezpośrednie przejmowanie obcego terytorium nastąpiło później. Podczas tej późniejszej fazy koloniści byli wysyłani do zakładania osad wzdłuż wybrzeży Morza Śródziemnego i poza nim, aby pełniły funkcję ośrodków handlowych, magazynów i bezpiecznych portów dla kartagińskiej floty.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_NUMIDIAN_CAVALRY_CHAPTER_HISTORY_PARA_1" Language="pl_PL">
+      <Text>Źródłem potęgi Kartaginy były szlaki handlowe i małe nadmorskie kolonie; w związku z tym samo miasto i jego imperium gospodarcze nie miały dużej populacji. Aby wzmocnić swoją armię w czasach wojny, Kartagina korzystała z usług najemników z sąsiedniej Numidii. Ci berberyjscy wojownicy byli lekko uzbrojeni, posługiwali się oszczepami i jeździli na małych, szybkich koniach; ich szybkość i zwrotność umożliwiały bezlitosne nękanie przeciwników. Kawaleria numidyjska była intensywnie wykorzystywana przez Kartaginę podczas II wojny punickiej, gdy została z powodzeniem użyta przez Hannibala w trakcie inwazji na Italię i przeciwko rzymskim najazdom w Afryce Północnej. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_BYRSA_CHAPTER_HISTORY_PARA_1" Language="pl_PL">
+      <Text>Na szczycie wzgórza w centrum Kartaginy wznosiła się cytadela Byrsa. Pochodzenie nazwy jest nieznane – legenda o Dydonie wykreowała jej wątpliwy związek z greckim słowem „byrsa” (wół) w odniesieniu do sposobu, w jaki założycielka miasta zdobyła pod nie ziemię. Jednak bardziej prawdopodobnym źródłem wydaje się fenickie słowo „barat” (twierdza). Byrsa była wojskowym sercem Kartaginy i współdzieliła wzgórze (zwane także Byrsą) z najważniejszymi instytucjami politycznymi i religijnymi. Po upadku Kartaginy otoczona murem cytadela była wykorzystywana przez Rzymian, Wandalów, Bizantyjczyków i innych. Obecnie jest to ważne stanowisko archeologiczne.  </Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_COTHON_NAME" Language="pl_PL">
+      <Text>Kothon|Kothonu|Kothonowi|Kothon|Kothonem|Kothonie|kothon|kothonu|kothonowi|kothon|kothonem|kothonie</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_DOCKYARD_NAME" Language="pl_PL">
+      <Text>Stocznia|Stoczni|Stoczni|Stocznię|Stocznią|Stoczni|stocznia|stoczni|stoczni|stocznię|stocznią|stoczni</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_PUNIC_PORT_NAME" Language="pl_PL">
+      <Text>Punicki port|Punickiego portu|Punickiemu portowi|Punicki port|Punickim portem|Punickim porcie|punicki port|punickiego portu|punickiemu portowi|punicki port|punickim portem|punickim porcie</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BYRSA_NAME" Language="pl_PL">
+      <Text>Byrsa|Byrsy|Byrsie|Byrsę|Byrsą|Byrsie|Byrsa|Byrsy|Byrsie|Byrsę|Byrsą|Byrsie</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_MEDJERDA_NAME" Language="pl_PL">
+      <Text>Madżarda|Madżardy|Madżardzie|Madżardę|Madżardą|Madżardzie</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_MILIANE_NAME" Language="pl_PL">
+      <Text>Miljan|Miljanu|Miljanowi|Miljan|Miljanem|Miljanie</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SEJENANE_NAME" Language="pl_PL">
+      <Text>Sejenane</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SILIANA_NAME" Language="pl_PL">
+      <Text>Siljana|Siljany|Siljanie|Siljanę|Siljaną|Siljanie</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_TESSA_NAME" Language="pl_PL">
+      <Text>Tessa|Tessy|Tessie|Tessę|Tessą|Tessie</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_EMI_KOUSSI_NAME" Language="pl_PL">
+      <Text>Emi Koussi</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_HARUJ_NAME" Language="pl_PL">
+      <Text>Haruj</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_JEBEL_TOUBKAL_NAME" Language="pl_PL">
+      <Text>Tubkal|Tubkala|Tubkalowi|Tubkal|Tubkalem|Tubkalu</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_PANTELLERIA_NAME" Language="pl_PL">
+      <Text>Pantelleria|Pantellerii|Pantellerii|Pantellerię|Pantellerią|Pantellerii</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_WAW_AN_NAMUS_NAME" Language="pl_PL">
+      <Text>Waw an Namus</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_RED_SLIP_NAME" Language="pl_PL">
+      <Text>Mądrość Tanit|Mądrości Tanit|Mądrości Tanit|Mądrość Tanit|Mądrością Tanit|Mądrości Tanit|mądrość Tanit|mądrości Tanit|mądrości Tanit|mądrość Tanit|mądrością Tanit|mądrości Tanit</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SHIPSHEDS_NAME" Language="pl_PL">
+      <Text>Hangary na łodzie|Hangarów na łodzie|Hangarom na łodzie|Hangary na łodzie|Hangarami na łodzie|Hangarach na łodzie|hangary na łodzie|hangarów na łodzie|hangarom na łodzie|hangary na łodzie|hangarami na łodzie|hangarach na łodzie</Text>
+      <Gender>feminine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SICILIAN_WARS_NAME" Language="pl_PL">
+      <Text>Wojny sycylijskie|Wojen sycylijskich|Wojnom sycylijskim|Wojny sycylijskie|Wojnami sycylijskimi|Wojnach sycylijskich|wojny sycylijskie|wojen sycylijskich|wojnom sycylijskim|wojny sycylijskie|wojnami sycylijskimi|wojnach sycylijskich</Text>
+      <Gender>feminine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_11000A_COMPLETION" Language="pl_PL">
+      <Text>Nowe osiedle tętni życiem, rozszerzając zasięg Kartaginy poza mury miasta, a świat jest spragniony zapierającej dech w piersiach, luksusowej purpury.</Text>
+    </Replace>
+    <Replace Tag="LOC_11000A_STORYTITLE" Language="pl_PL">
+      <Text>Kolor dobrobytu</Text>
+    </Replace>
+    <Replace Tag="LOC_11000B_DESCRIPTION" Language="pl_PL">
+      <Text>Zwiadowcy: {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11000B_NAME" Language="pl_PL">
+      <Text>Przekonaj się, jak daleko mogą sięgnąć wpływy Kartaginy.</Text>
+    </Replace>
+    <Replace Tag="LOC_11000C_DESCRIPTION" Language="pl_PL">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11000C_NAME" Language="pl_PL">
+      <Text>Chroń to, co należy do Kartaginy.</Text>
+    </Replace>
+    <Replace Tag="LOC_11001A_COMPLETION" Language="pl_PL">
+      <Text>Żagle statków handlowych powiewają na wietrze, opuszczając porty Kartaginy niczym klucz ptaków poszukujących bogactw odległych krain.</Text>
+    </Replace>
+    <Replace Tag="LOC_11001A_STORYTITLE" Language="pl_PL">
+      <Text>Przychylne wiatry</Text>
+    </Replace>
+    <Replace Tag="LOC_11001B_DESCRIPTION" Language="pl_PL">
+      <Text>Kupcy: {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11001B_NAME" Language="pl_PL">
+      <Text>Przyspiesz wiatry handlu.</Text>
+    </Replace>
+    <Replace Tag="LOC_11001C_DESCRIPTION" Language="pl_PL">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11001C_NAME" Language="pl_PL">
+      <Text>Wyślij z nimi opowieści o wspaniałości Kartaginy.</Text>
+    </Replace>
+    <Replace Tag="LOC_11002A_COMPLETION" Language="pl_PL">
+      <Text>Niczym ogniwa żelaznego łańcucha porty Kartaginy łączą imperium mimo ogromnych odległości – bogactwo płynie do wewnątrz, a siła emanuje na zewnątrz.</Text>
+    </Replace>
+    <Replace Tag="LOC_11002A_STORYTITLE" Language="pl_PL">
+      <Text>Nierozerwalne więzi</Text>
+    </Replace>
+    <Replace Tag="LOC_11002B_DESCRIPTION" Language="pl_PL">
+      <Text>Rozpoczęcie obchodów.</Text>
+    </Replace>
+    <Replace Tag="LOC_11002B_NAME" Language="pl_PL">
+      <Text>Niech płynie wino.</Text>
+    </Replace>
+    <Replace Tag="LOC_11002C_DESCRIPTION" Language="pl_PL">
+      <Text>{1_capital}: +1 do populacji.</Text>
+    </Replace>
+    <Replace Tag="LOC_11002C_NAME" Language="pl_PL">
+      <Text>Rozpowszechniaj opowieści o urokach portów.</Text>
+    </Replace>
+    <Replace Tag="LOC_11003A_COMPLETION" Language="pl_PL">
+      <Text>Wszędzie, gdzie udają się Kartagińczycy, otaczają ich spektakularne widoki, ale oni sami narzekają na brak podstawowych udogodnień i infrastruktury. Na co komu niesamowite cuda, jeśli ludzie nie są w stanie w pełni ich docenić?</Text>
+    </Replace>
+    <Replace Tag="LOC_11003A_STORYTITLE" Language="pl_PL">
+      <Text>Przytłaczający splendor</Text>
+    </Replace>
+    <Replace Tag="LOC_11003B_DESCRIPTION" Language="pl_PL">
+      <Text>+3 do zasięgu szlaku handlowego.</Text>
+    </Replace>
+    <Replace Tag="LOC_11003B_NAME" Language="pl_PL">
+      <Text>Infrastruktura będzie musiała pochodzić z innych źródeł.</Text>
+    </Replace>
+    <Replace Tag="LOC_11003C_DESCRIPTION" Language="pl_PL">
+      <Text>Cuda: {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11003C_NAME" Language="pl_PL">
+      <Text>Cuda są infrastrukturą.</Text>
+    </Replace>
+    <Replace Tag="LOC_11004A_COMPLETION" Language="pl_PL">
+      <Text>W Rzymianach pozostał ślad pasterzy, od których niektórzy z nich się wywodzą, ale jest on ledwie zauważalny. Teraz ich ambicje sięgają poza granice ich pastwisk – i mogą naruszyć terytorium Kartaginy.</Text>
+    </Replace>
+    <Replace Tag="LOC_11004A_STORYTITLE" Language="pl_PL">
+      <Text>Półksiężyc i wilk</Text>
+    </Replace>
+    <Replace Tag="LOC_11004B_DESCRIPTION" Language="pl_PL">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11004B_NAME" Language="pl_PL">
+      <Text>Porozumienia zapewnią długotrwały pokój.</Text>
+    </Replace>
+    <Replace Tag="LOC_11004C_DESCRIPTION" Language="pl_PL">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11004C_NAME" Language="pl_PL">
+      <Text>Kartagina nie może dać się zaskoczyć.</Text>
+    </Replace>
+    <Replace Tag="LOC_11004D_DESCRIPTION" Language="pl_PL">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11004D_NAME" Language="pl_PL">
+      <Text>Kartaginę łączy z Rzymem więcej, niż wydaje się naszemu ludowi.</Text>
+    </Replace>
+    <Replace Tag="LOC_11005A_COMPLETION" Language="pl_PL">
+      <Text>Caput mundi – stolica świata – płonie. Dym unosi się zarówno z willi, jak i z insuli, a sadzą dławią się tak Rzymianie, jak i Kartagińczycy. Wielu obywateli uciekło, zabierając ze sobą tylko to, co udało im się unieść. Ci, którzy pozostali – starzy, chorzy, biedni i uparci – błagają kartagińskie siły, by przestały atakować.</Text>
+    </Replace>
+    <Replace Tag="LOC_11005A_STORYTITLE" Language="pl_PL">
+      <Text>Upadek</Text>
+    </Replace>
+    <Replace Tag="LOC_11005B_DESCRIPTION" Language="pl_PL">
+      <Text>+1 do wsparcia dla wszystkich wojen.</Text>
+    </Replace>
+    <Replace Tag="LOC_11005B_NAME" Language="pl_PL">
+      <Text>Spal wszystko, a ziemię posyp solą.</Text>
+    </Replace>
+    <Replace Tag="LOC_11005C_DESCRIPTION" Language="pl_PL">
+      <Text>Wszystkie osiedla: +1 do populacji.</Text>
+    </Replace>
+    <Replace Tag="LOC_11005C_NAME" Language="pl_PL">
+      <Text>Zabierz ich do prawdziwej stolicy świata.</Text>
+    </Replace>
+    <Replace Tag="LOC_11005D_DESCRIPTION" Language="pl_PL">
+      <Text>Dowódca o najwyższym poziomie otrzymuje awans „Nieugięcie”.</Text>
+    </Replace>
+    <Replace Tag="LOC_11005D_NAME" Language="pl_PL">
+      <Text>Zatrzymaj ich najdzielniejszego generała.</Text>
+    </Replace>
+    <Replace Tag="LOC_11006A_COMPLETION" Language="pl_PL">
+      <Text>Rzymscy i kartagińscy emisariusze obserwują się uważnie podczas podpisywania pergaminu. Rzymski senator mamrocze: „...delenda est”. Niemniej jednak traktat zostaje zawarty.</Text>
+    </Replace>
+    <Replace Tag="LOC_11006A_STORYTITLE" Language="pl_PL">
+      <Text>Niechętna zgoda</Text>
+    </Replace>
+    <Replace Tag="LOC_11006B_DESCRIPTION" Language="pl_PL">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11006B_NAME" Language="pl_PL">
+      <Text>Rzymskie i kartagińskie wody zaznają pokoju.</Text>
+    </Replace>
+    <Replace Tag="LOC_11006C_DESCRIPTION" Language="pl_PL">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11006C_NAME" Language="pl_PL">
+      <Text>Nowe sojusze rodzą nowe pomysły.</Text>
+    </Replace>
+    <Replace Tag="LOC_11006D_DESCRIPTION" Language="pl_PL">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11006D_NAME" Language="pl_PL">
+      <Text>Miasta witają wszystkich.</Text>
+    </Replace>
+    <Replace Tag="LOC_11007A_COMPLETION" Language="pl_PL">
+      <Text>Gdy tylko traktat zostaje zawarty, sędziwy senator zaczyna protestować. Na każdym spotkaniu – bez względu na temat – głosi, że Kartagina jest zbyt bogata, przez co będzie dusić handel i ucierpią na tym Rzymianie. Z tych powodów Kartagina musi zostać według niego zniszczona.</Text>
+    </Replace>
+    <Replace Tag="LOC_11007A_STORYTITLE" Language="pl_PL">
+      <Text>Delenda est</Text>
+    </Replace>
+    <Replace Tag="LOC_11007B_DESCRIPTION" Language="pl_PL">
+      <Text>Miasteczka: {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11007B_NAME" Language="pl_PL">
+      <Text>Mieszkańcy obszarów wiejskich na tym skorzystają, a nie ucierpią.</Text>
+    </Replace>
+    <Replace Tag="LOC_11007C_DESCRIPTION" Language="pl_PL">
+      <Text>+1 do limitu zasobów w {1_capital[6]}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11007C_NAME" Language="pl_PL">
+      <Text>Sojusz jest zbyt obiecujący, by narażać go na szwank.</Text>
+    </Replace>
+    <Replace Tag="LOC_11007D_DESCRIPTION" Language="pl_PL">
+      <Text>Miasteczka: {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11007D_NAME" Language="pl_PL">
+      <Text>Zdyskredytuj starego durnia i jego archaiczną instytucję.</Text>
+    </Replace>
+    <Replace Tag="LOC_11008A_COMPLETION" Language="pl_PL">
+      <Text>Od pałacu po port – nie ma ani centymetra Kartaginy, który byłby niezagospodarowany. Ulice tętnią życiem, gdy Kartagińczycy zajmują się swoimi sprawami w jednym z najlepiej prosperujących miast na świecie.</Text>
+    </Replace>
+    <Replace Tag="LOC_11008A_STORYTITLE" Language="pl_PL">
+      <Text>Prawdziwe bogactwo</Text>
+    </Replace>
+    <Replace Tag="LOC_11008B_DESCRIPTION" Language="pl_PL">
+      <Text>+1 do limitu specjalistów w {1_capital[6]}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11008B_NAME" Language="pl_PL">
+      <Text>Kartagina to miejsce, w którym rodzi się świetność.</Text>
+    </Replace>
+    <Replace Tag="LOC_11008C_DESCRIPTION" Language="pl_PL">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11008C_NAME" Language="pl_PL">
+      <Text>Pozostanie nietykalna.</Text>
+    </Replace>
+    <Replace Tag="LOC_11009A_COMPLETION" Language="pl_PL">
+      <Text>Numidyjczycy kiwają głowami zadowoleni z warunków umowy. Kawaleria może nie być lojalna wobec Kartaginy, ale dopóki jest zaopatrywana, pójdzie tam, gdzie jej każą.</Text>
+    </Replace>
+    <Replace Tag="LOC_11009A_STORYTITLE" Language="pl_PL">
+      <Text>Złoto za stal</Text>
+    </Replace>
+    <Replace Tag="LOC_11009B_DESCRIPTION" Language="pl_PL">
+      <Text>Kawaleria Numidyjczyków: {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11009B_NAME" Language="pl_PL">
+      <Text>Nie mogą okazywać litości.</Text>
+    </Replace>
+    <Replace Tag="LOC_11009C_DESCRIPTION" Language="pl_PL">
+      <Text>Kawaleria Numidyjczyków: {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11009C_NAME" Language="pl_PL">
+      <Text>Brak dyscypliny nie będzie tolerowany.</Text>
+    </Replace>
+    <Replace Tag="LOC_11009D_DESCRIPTION" Language="pl_PL">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11009D_NAME" Language="pl_PL">
+      <Text>Renegocjuj ich kontrakt.</Text>
+    </Replace>
+    <Replace Tag="LOC_11064A_COMPLETION" Language="pl_PL">
+      <Text>Nieopłacani Numidyjczycy narzekają. Nie walczą dla Kartaginy, lecz o to, by mieć pełne brzuchy. Jednak Kartagina była wcześniej hojna – być może będzie taka znowu.</Text>
+    </Replace>
+    <Replace Tag="LOC_11064A_STORYTITLE" Language="pl_PL">
+      <Text>Naruszone umowy</Text>
+    </Replace>
+    <Replace Tag="LOC_11064B_DESCRIPTION" Language="pl_PL">
+      <Text>Budowle związane z produkcją: {1_reward}. {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11064B_NAME" Language="pl_PL">
+      <Text>Podnieś podatki, aby wypełnić warunki kontraktów.</Text>
+    </Replace>
+    <Replace Tag="LOC_11064C_DESCRIPTION" Language="pl_PL">
+      <Text>Kawaleria numidyjska: {1_reward}. {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11064C_NAME" Language="pl_PL">
+      <Text>Kawaleria musi zadowolić się tym, co możemy jej zaoferować.</Text>
+    </Replace>
+    <Replace Tag="LOC_11065A_COMPLETION" Language="pl_PL">
+      <Text>Kadłub wrogiego statku rozpada się na tysiąc fragmentów, a jego załoga na próżno szuka bezpieczeństwa. Od dziś wody Kartaginy pozostaną bezpieczne dla jej obywateli.</Text>
+    </Replace>
+    <Replace Tag="LOC_11065A_STORYTITLE" Language="pl_PL">
+      <Text>Bezpieczna zatoka</Text>
+    </Replace>
+    <Replace Tag="LOC_11065B_DESCRIPTION" Language="pl_PL">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11065B_NAME" Language="pl_PL">
+      <Text>Rodziny, które czują się bezpiecznie, zapewnią Kartaginie rozwój.</Text>
+    </Replace>
+    <Replace Tag="LOC_11065C_DESCRIPTION" Language="pl_PL">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11065C_NAME" Language="pl_PL">
+      <Text>Pracownicy nie będą musieli martwić się o swoje bezpieczeństwo.</Text>
+    </Replace>
+    <Replace Tag="LOC_11066A_COMPLETION" Language="pl_PL">
+      <Text>Potężne kamienne mury otaczają miasto wzdłuż i wszerz – od wybrzeży aż po głębię lądu. Kartagina chroni swoich obywateli.</Text>
+    </Replace>
+    <Replace Tag="LOC_11066A_STORYTITLE" Language="pl_PL">
+      <Text>Ogród otoczony murem</Text>
+    </Replace>
+    <Replace Tag="LOC_11066B_DESCRIPTION" Language="pl_PL">
+      <Text>Zgarnizonowane jednostki: {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11066B_NAME" Language="pl_PL">
+      <Text>Dopilnuj, aby strażnicy mieli wszystko, czego potrzebują.</Text>
+    </Replace>
+    <Replace Tag="LOC_11066C_DESCRIPTION" Language="pl_PL">
+      <Text>Darmowe starożytne mury.</Text>
+    </Replace>
+    <Replace Tag="LOC_11066C_NAME" Language="pl_PL">
+      <Text>Zatrudnij murarzy do rozbudowania murów.</Text>
+    </Replace>
+    <Replace Tag="LOC_11067A_COMPLETION" Language="pl_PL">
+      <Text>Z każdym wzniesionym murem i podniesionym żaglem opowieści o Kartaginie zataczają coraz szersze kręgi, a jej chwała nie będzie kwestionowana.</Text>
+    </Replace>
+    <Replace Tag="LOC_11067A_STORYTITLE" Language="pl_PL">
+      <Text>Kartagińczycy</Text>
+    </Replace>
+    <Replace Tag="LOC_11067B_DESCRIPTION" Language="pl_PL">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11067B_NAME" Language="pl_PL">
+      <Text>Opowieści mówią o niekwestionowanej potędze.</Text>
+    </Replace>
+    <Replace Tag="LOC_11067C_DESCRIPTION" Language="pl_PL">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11067C_NAME" Language="pl_PL">
+      <Text>Opowieści mówią o oszałamiającym bogactwie.</Text>
+    </Replace>
+    <Replace Tag="LOC_12004A_COMPLETION" Language="pl_PL">
+      <Text>Spacerując ulicami Kartaginy, doktor Rizal widzi miasto w ciągłym ruchu. Najemnicy na koniach nie zwracają uwagi na przechodniów, a w porcie wielkie statki utrzymują przepływ towarów, dzięki któremu miasto tętni życiem.</Text>
+    </Replace>
+    <Replace Tag="LOC_12004A_STORYTITLE" Language="pl_PL">
+      <Text>Dobry doktor w Kartaginie</Text>
+    </Replace>
+    <Replace Tag="LOC_12004B_DESCRIPTION" Language="pl_PL">
+      <Text>Galery: {1_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_12004B_NAME" Language="pl_PL">
+      <Text>Przestudiuj statki.</Text>
+    </Replace>
+    <Replace Tag="LOC_12004C_DESCRIPTION" Language="pl_PL">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_12004C_NAME" Language="pl_PL">
+      <Text>Zachwyć się końmi.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1030_CARTHAGEB_IMPERATIVE" Language="pl_PL">
+      <Text>Posiadaj ogród.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1030_CARTHAGEC_IMPERATIVE" Language="pl_PL">
+      <Text>Posiadaj pomnik.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1031_CARTHAGEB_IMPERATIVE" Language="pl_PL">
+      <Text>Posiadaj akademię.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1040_CARTHAGEC_IMPERATIVE" Language="pl_PL">
+      <Text>Posiadaj bibliotekę i pomnik.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1041_CARTHAGEB_IMPERATIVE" Language="pl_PL">
+      <Text>Posiadaj amfiteatr.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1050_CARTHAGEC_IMPERATIVE" Language="pl_PL">
+      <Text>Posiadaj bibliotekę.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1052_CARTHAGEB_IMPERATIVE" Language="pl_PL">
+      <Text>Posiadaj 1 targowisko i 2 szlaki handlowe.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1060_CARTHAGEC_IMPERATIVE" Language="pl_PL">
+      <Text>Wypełnij bibliotekę kodeksami.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1062_CARTHAGEB_IMPERATIVE" Language="pl_PL">
+      <Text>Posiadaj akademię.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1070_CARTHAGEC_IMPERATIVE" Language="pl_PL">
+      <Text>Posiadaj ogród.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1070_CARTHAGEF_IMPERATIVE" Language="pl_PL">
+      <Text>Posiadaj ogród.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1072_CARTHAGEB_IMPERATIVE" Language="pl_PL">
+      <Text>Posiadaj akademię.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1072_CARTHAGED_IMPERATIVE" Language="pl_PL">
+      <Text>Posiadaj akademię.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1090_CARTHAGEC_IMPERATIVE" Language="pl_PL">
+      <Text>Zbuduj cud.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1130_CARTHAGEB_IMPERATIVE" Language="pl_PL">
+      <Text>Wypełnij bibliotekę kodeksami.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1140_CARTHAGEB_IMPERATIVE" Language="pl_PL">
+      <Text>Posiadaj ogród i targowisko.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1170_CARTHAGEC_IMPERATIVE" Language="pl_PL">
+      <Text>Posiadaj 1 pomnik i rozpocznij obchody.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1172_CARTHAGEB_IMPERATIVE" Language="pl_PL">
+      <Text>Posiadaj akademię.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1180_CARTHAGEB_IMPERATIVE" Language="pl_PL">
+      <Text>Posiadaj 1 pomnik i rozpocznij obchody.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1180_CARTHAGEE_IMPERATIVE" Language="pl_PL">
+      <Text>Posiadaj 1 pomnik i rozpocznij obchody.</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_COLONIST_DESCRIPTION" Language="pl_PL">
+      <Text>+1 do ruchu po zaokrętowaniu i +1 do populacji, jeśli osiedle znajduje się w sąsiedztwie zasobu.</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_NUMIDIAN_CAVALRY_DESCRIPTION" Language="pl_PL">
+      <Text>+1 do siły bojowej za każdy unikalny zasób miejski przypisany do twojej stolicy.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTR_TOTAL_TRADE_ROUTES" Language="pl_PL">
+      <Text>Wszystkie szlaki handlowe</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTR_YIELDS_FROM_NUM_TRADE_ROUTES" Language="pl_PL">
+      <Text>Liczba szlaków handlowych</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_COTHON_DESCRIPTION" Language="pl_PL">
+      <Text>+2 do [icon:YIELD_PRODUCTION] produkcji. +1 do [icon:YIELD_PRODUCTION] produkcji za sąsiedztwo wybrzeża, żeglownych rzek i cudów. Unikalna budowla Kartaginy związana z produkcją. Budowla niezwiązana z żadną epoką. Można nabyć w miasteczkach. Można umieścić wyłącznie na wybrzeżu.</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_COTHON_TOOLTIP" Language="pl_PL">
+      <Text>Unikalna budowla Kartaginy związana z produkcją. Budowla niezwiązana z żadną epoką. Można nabyć w miasteczkach. Można umieścić wyłącznie na wybrzeżu.</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_DOCKYARD_DESCRIPTION" Language="pl_PL">
+      <Text>+2 do [icon:YIELD_GOLD] złota. +1 do [icon:YIELD_FOOD] żywności za sąsiedztwo zasobów, dystryktów i cudów. Unikalna budowla Kartaginy związana ze złotem. Budowla niezwiązana z żadną epoką. Można nabyć w miasteczkach. Można umieścić wyłącznie na wybrzeżu.</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_DOCKYARD_TOOLTIP" Language="pl_PL">
+      <Text>Unikalna budowla Kartaginy związana ze złotem. Budowla niezwiązana z żadną epoką. Można nabyć w miasteczkach. Można umieścić wyłącznie na wybrzeżu.</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_RED_SLIP_AUTHOR" Language="pl_PL">
+      <Text>Mago</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_RED_SLIP_QUOTE" Language="pl_PL">
+      <Text>„Ten, kto znajduje więcej radości w miejskim domostwie, nie będzie potrzebował wiejskiej farmy”.</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SHIPSHEDS_AUTHOR" Language="pl_PL">
+      <Text>Hannon Żeglarz</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SHIPSHEDS_QUOTE" Language="pl_PL">
+      <Text>„Płynąc szybko przed siebie, minęliśmy gorejącą krainę, z której wypływały strumienie ognia wpadające do morza”.</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SICILIAN_WARS_AUTHOR" Language="pl_PL">
+      <Text>Diodor Sycylijski</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SICILIAN_WARS_QUOTE" Language="pl_PL">
+      <Text>„Prezentując przejętą flotę, Kartagińczycy upewnili się, że ludzie nie tylko usłyszeli o ich sukcesie, ale i zobaczyli go na własne oczy”.</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_CARTHAGE_DESCRIPTION" Language="pl_PL">
+      <Text>Może mieć tylko 1 miasto. Miasteczka nie mogą być zmieniane w miasta. Za każdym razem, gdy kupuje lub szkoli jednostkę kupca lub kolonisty, otrzymuje drugą za darmo.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_CARTHAGE" Language="pl_PL">
+      <Text>W zaciszu kothonu statki przygotowują się do wypraw. Niektóre są załadowane piękną ceramiką, zbożem i innymi towarami, które zostaną wymienione na złoto i kość słoniową. Inne przewożą żołnierzy, gotowych do przynoszenia zysków w inny sposób. Każdy z nich powróci do domu, do centrum świata – Kartaginy. Otwórz bramy kothonu i pozwól powracającym flotom obsypać miasto bogactwami.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_CARTHAGE" Language="pl_PL">
+      <Text>Unikalną dzielnicę punickiego portu można kupić w miasteczkach, zwiększając ich maksymalną liczbę zasobów. Efekt ten utrzymuje się w kolejnych epokach, zapewniając potężne korzyści w przyszłości!</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_INTRO_CARTHAGE" Language="pl_PL">
+      <Text>Dzieci Tyru przybywają z daleka, by wypełnić swoje przeznaczenie. Z centrum świata będą kierować imperium, które nie ma sobie równych.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_CARTHAGE_COMPLETE_BYRSA_DESC" Language="pl_PL">
+      <Text>Ukończ Byrsę, grając Kartaginą.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_CARTHAGE_COMPLETE_BYRSA_NAME" Language="pl_PL">
+      <Text>Byrsa</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_CARTHAGE_LEGACY_PATH_MILITARISTIC_DESC" Language="pl_PL">
+      <Text>Ukończ drogę spuścizny wojskowej, grając Kartaginą.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_CARTHAGE_LEGACY_PATH_MILITARISTIC_NAME" Language="pl_PL">
+      <Text>Droga spuścizny Kartaginy</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_CARTHAGE_DESCRIPTION" Language="pl_PL">
+      <Text>+30% do [icon:YIELD_PRODUCTION] produkcji dzięki byciu cudem związanym z Kartaginą.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_RED_SLIP_RESOURCE_CAP_DESCRIPTION" Language="pl_PL">
+      <Text>Zwiększa liczbę zasobów, które można przypisać do stolicy, o 3.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_RED_SLIP_TRADE_GOLD_DESCRIPTION" Language="pl_PL">
+      <Text>+15 do zasięgu morskich szlaków handlowych. +3 do [icon:YIELD_GOLD] złota w stolicy za każdy rozpoczynający się w niej szlak handlowy. </Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SHIPSHEDS_NAVAL_MOVEMENT_DESCRIPTION" Language="pl_PL">
+      <Text>+1 do ruchu jednostek pływających.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SHIPSHEDS_NAVAL_RANGE_DESCRIPTION" Language="pl_PL">
+      <Text>+1 do zasięgu jednostek pływających.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SICILIAN_WARS_MOVEMENT_NUMIDIAN_CAVALRY_DESCRIPTION" Language="pl_PL">
+      <Text>+1 do ruchu i zasięgu widzenia jednostek kawalerii numidyjskiej.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SICILIAN_WARS_SETTLEMENT_CAP_DESCRIPTION" Language="pl_PL">
+      <Text>+2 do limitu osiedli.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SICILIAN_WARS_TOWN_PROJECT_DESCRIPTION" Language="pl_PL">
+      <Text>+1 miejsce na kodeks w ratuszach w miasteczkach skupiających się na placówkach handlowych.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_PUNIC_PORT_DESCRIPTION" Language="pl_PL">
+      <Text>Unikalna dzielnica Kartaginy. Tworzona przez wzniesienie kothonu i stoczni w tym samym dystrykcie. Zwiększa liczbę [icon:NOTIFICATION_DISCOVER_RESOURCE]zasobów, które można przypisać do tego osiedla, o 2.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_PUNIC_PORT_TOOLTIP" Language="pl_PL">
+      <Text>Zwiększa liczbę [icon:NOTIFICATION_DISCOVER_RESOURCE] zasobów, które można przypisać do tego osiedla, o 2.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_BYRSA" Language="pl_PL">
+      <Text>Leo Africanus</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_BYRSA" Language="pl_PL">
+      <Text>Obecnie można zobaczyć ruiny murów miejskich.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_GAULOS_DESCRIPTION" Language="pl_PL">
+      <Text>+25% do [icon:YIELD_GOLD] złota wykorzystywanego do kupowania budowli na wybrzeżach i żeglownych rzekach.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_QUINQUEREME_DESCRIPTION" Language="pl_PL">
+      <Text>+25% do [icon:YIELD_GOLD] złota wykorzystywanego do kupowania jednostek pływających. Koszt utrzymania jednostek pływających zmniejszony o -1 [icon:YIELD_GOLD] złota.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_SUFFETES_DESCRIPTION" Language="pl_PL">
+      <Text>+20% do [icon:YIELD_GOLD] złota z górniczych miasteczek. +20% do [icon:YIELD_FOOD] żywności z miasteczek rybackich i rolniczych.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_CARTHAGE_ABILITY_DESCRIPTION" Language="pl_PL">
+      <Text>[BLIST][LI]Może mieć tylko 1 miasto. Miasteczka nie mogą być [B]zmieniane w miasta[/B].[LI]Za każdym razem, gdy kupuje lub szkoli jednostkę [B]kupca[/B] lub [B]kolonisty[/B], otrzymuje drugą za darmo.[LI]+30% do [icon:YIELD_PRODUCTION] produkcji przeznaczonej na wzniesienie [B]Byrsy[/B].[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_CARTHAGE_ABILITY_NAME" Language="pl_PL">
+      <Text>Fenickie dziedzictwo</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_AQ_CARTHAGE_NAME" Language="pl_PL">
+      <Text>Idee Kartaginy</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_COLONIST_DESCRIPTION" Language="pl_PL">
+      <Text>Unikalna jednostka osadnika Kartaginy. +1 do ruchu po zaokrętowaniu i +1 do populacji, jeśli osiedle znajduje się w sąsiedztwie zasobu.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_NUMIDIAN_CAVALRY_2_DESCRIPTION" Language="pl_PL">
+      <Text>Unikalna kartagińska jednostka kawalerii 3. poziomu. Można ją tylko kupić i jest droższa. +1 do siły bojowej za każdy unikalny zasób miejski przypisany do twojej stolicy. Ignoruje strefę kontroli.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_NUMIDIAN_CAVALRY_BASE_DESCRIPTION" Language="pl_PL">
+      <Text>Unikalna kartagińska jednostka kawalerii. Można ją tylko kupić i jest droższa. +1 do siły bojowej za każdy unikalny zasób miejski przypisany do twojej stolicy. Ignoruje strefę kontroli.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_NUMIDIAN_CAVALRY_DESCRIPTION" Language="pl_PL">
+      <Text>Unikalna kartagińska jednostka kawalerii 2. poziomu. Można ją tylko kupić i jest droższa. +1 do siły bojowej za każdy unikalny zasób miejski przypisany do twojej stolicy. Ignoruje strefę kontroli.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_AUGUSTUS_CARTHAGE_TOOLTIP" Language="pl_PL">
+      <Text>[B]Kartagina[/B] strategicznie współgra z [B]Oktawianem Augustem[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_CARTHAGE_DESCRIPTION" Language="pl_PL">
+      <Text>Graj [B]Kartaginą[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_CARTHAGE_SPAIN_TOOLTIP" Language="pl_PL">
+      <Text>[B]Kartagina[/B] i [B]Hiszpania[/B] były państwami basenu Morza Śródziemnego.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_HATSHEPSUT_CARTHAGE_TOOLTIP" Language="pl_PL">
+      <Text>[B]Hatszepsut[/B] pochodziła z tego samego kontynentu, na którym znajdowała się [B]Kartagina[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_IBN_BATTUTA_CARTHAGE_TOOLTIP" Language="pl_PL">
+      <Text>[B]Ibn Battuta[/B] podróżował po tym samym regionie, na którym znajdowała się [B]Kartagina[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ISABELLA_CARTHAGE_TOOLTIP" Language="pl_PL">
+      <Text>Hiszpania [B]Izabeli[/B] oraz [B]Kartagina[/B] znajdowały się w rejonie Morza Śródziemnego.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BYRSA_DESCRIPTION" Language="pl_PL">
+      <Text>+2 do [icon:YIELD_GOLD] złota. Szlaki handlowe nie mogą być plądrowane. Wszystkie pola w tym mieście, które sąsiadują z wybrzeżem i na których można wznieść mur, zyskują mur. Można umieścić wyłącznie w sąsiedztwie wybrzeża.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BYRSA_TOOLTIP" Language="pl_PL">
+      <Text>Szlaki handlowe nie mogą być plądrowane. Wszystkie pola w tym mieście, które sąsiadują z wybrzeżem i na których można wznieść mur, zyskują mur. Można umieścić wyłącznie w sąsiedztwie wybrzeża.</Text>
+    </Replace>
+    <Replace Tag="LOC_COMBAT_PREVIEW_NUMBER_RESOURCES_CAPITAL_BONUS_DESC" Language="pl_PL">
+      <Text>+{1_Value} do siły bojowej dzięki zasobom przypisanym do stolicy.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_GAULOS_NAME" Language="pl_PL">
+      <Text>Gaulos|Gaulosu|Gaulosowi|Gaulos|Gaulosem|Gaulosie|gaulos|gaulosu|gaulosowi|gaulos|gaulosem|gaulosie</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_QUINQUEREME_NAME" Language="pl_PL">
+      <Text>Kwinkwerema|Kwinkweremy|Kwinkweremie|Kwinkweremę|Kwinkweremą|Kwinkweremie|kwinkwerema|kwinkweremy|kwinkweremie|kwinkweremę|kwinkweremą|kwinkweremie</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_SUFFETES_NAME" Language="pl_PL">
+      <Text>Sufeci|Sufetów|Sufetom|Sufetów|Sufetami|Sufetach|sufeci|sufetów|sufetom|sufetów|sufetami|sufetach</Text>
+      <Gender>masculine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_UNIT_COLONIST_NAME" Language="pl_PL">
+      <Text>Kolonista|Kolonisty|Koloniście|Kolonistę|Kolonistą|Koloniście|kolonista|kolonisty|koloniście|kolonistę|kolonistą|koloniście</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_UNIT_NUMIDIAN_CAVALRY_NAME" Language="pl_PL">
+      <Text>Kawaleria numidyjska|Kawalerii numidyjskiej|Kawalerii numidyjskiej|Kawalerię numidyjską|Kawalerią numidyjską|Kawalerii numidyjskiej|kawaleria numidyjska|kawalerii numidyjskiej|kawalerii numidyjskiej|kawalerię numidyjską|kawalerią numidyjską|kawalerii numidyjskiej</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+  </LocalizedText>
+</Database>

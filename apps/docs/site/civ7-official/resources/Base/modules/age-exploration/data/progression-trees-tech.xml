@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<!--Tech Tree Nodes-->
+		<Row Type="NODE_TECH_EX_CARTOGRAPHY" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_EX_ASTRONOMY" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_EX_MACHINERY" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_EX_GUILDS" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_EX_FEUDALISM" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_EX_HERALDRY" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_EX_CASTLES" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_EX_EDUCATION" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_EX_SHIPBUILDING" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_EX_METALLURGY" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_EX_ARCHITECTURE" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_EX_METAL_CASTING" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_EX_URBAN_PLANNING" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_EX_GUNPOWDER" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_EX_FUTURE_TECH" Kind="KIND_TREE_NODE"/>
+	</Types>
+	<TypeQuotes>
+		<Row Type="NODE_TECH_EX_CARTOGRAPHY" Quote="LOC_TECH_CARTOGRAPHY_QUOTE" QuoteAuthor="LOC_TECH_CARTOGRAPHY_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Cartography"/>
+		<Row Type="NODE_TECH_EX_ASTRONOMY" Quote="LOC_TECH_ASTRONOMY_QUOTE" QuoteAuthor="LOC_TECH_ASTRONOMY_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Astronomy"/>
+		<Row Type="NODE_TECH_EX_MACHINERY" Quote="LOC_TECH_MACHINERY_QUOTE" QuoteAuthor="LOC_TECH_MACHINERY_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Machinery"/>
+		<Row Type="NODE_TECH_EX_GUILDS" Quote="LOC_TECH_GUILDS_QUOTE" QuoteAuthor="LOC_TECH_GUILDS_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Guilds"/>
+		<Row Type="NODE_TECH_EX_FEUDALISM" Quote="LOC_TECH_FEUDALISM_QUOTE" QuoteAuthor="LOC_TECH_FEUDALISM_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Feudalism"/>
+		<Row Type="NODE_TECH_EX_HERALDRY" Quote="LOC_TECH_HERALDRY_QUOTE" QuoteAuthor="LOC_TECH_HERALDRY_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Heraldry"/>
+		<Row Type="NODE_TECH_EX_CASTLES" Quote="LOC_TECH_CASTLES_QUOTE" QuoteAuthor="LOC_TECH_CASTLES_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Castles"/>
+		<Row Type="NODE_TECH_EX_EDUCATION" Quote="LOC_TECH_EDUCATION_QUOTE" QuoteAuthor="LOC_TECH_EDUCATION_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Education"/>
+		<Row Type="NODE_TECH_EX_SHIPBUILDING" Quote="LOC_TECH_SHIPBUILDING_QUOTE" QuoteAuthor="LOC_TECH_SHIPBUILDING_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Shipbuilding"/>
+		<Row Type="NODE_TECH_EX_METALLURGY" Quote="LOC_TECH_METALLURGY_QUOTE" QuoteAuthor="LOC_TECH_METALLURGY_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Metallurgy"/>
+		<Row Type="NODE_TECH_EX_ARCHITECTURE" Quote="LOC_TECH_ARCHITECTURE_QUOTE" QuoteAuthor="LOC_TECH_ARCHITECTURE_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Architecture"/>
+		<Row Type="NODE_TECH_EX_METAL_CASTING" Quote="LOC_TECH_METAL_CASTING_QUOTE" QuoteAuthor="LOC_TECH_METAL_CASTING_QUOTE_AUTHOR" QuoteAudio="VO_Quote_MetalCasting"/>
+		<Row Type="NODE_TECH_EX_URBAN_PLANNING" Quote="LOC_TECH_URBAN_PLANNING_QUOTE" QuoteAuthor="LOC_TECH_URBAN_PLANNING_QUOTE_AUTHOR" QuoteAudio="VO_Quote_UrbanPlanning"/>
+		<Row Type="NODE_TECH_EX_GUNPOWDER" Quote="LOC_TECH_GUNPOWDER_QUOTE" QuoteAuthor="LOC_TECH_GUNPOWDER_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Gunpowder"/>
+	</TypeQuotes>
+	<ProgressionTreeNodes>
+		<!--Tech Tree Nodes-->
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CARTOGRAPHY" ProgressionTree="TREE_TECHS_EX" Cost="500" Name="LOC_TECH_CARTOGRAPHY_NAME" Iconstring="tech_cartography" />
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_ASTRONOMY" ProgressionTree="TREE_TECHS_EX" Cost="500" Name="LOC_TECH_ASTRONOMY_NAME" Iconstring="tech_astronomy" />
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_MACHINERY" ProgressionTree="TREE_TECHS_EX" Cost="500" Name="LOC_TECH_MACHINERY_NAME" Iconstring="tech_machinery" />
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_GUILDS" ProgressionTree="TREE_TECHS_EX" Cost="650" Name="LOC_TECH_GUILDS_NAME" Iconstring="tech_guilds" />
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_FEUDALISM" ProgressionTree="TREE_TECHS_EX" Cost="650" Name="LOC_TECH_FEUDALISM_NAME" Iconstring="tech_feudalism"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_HERALDRY" ProgressionTree="TREE_TECHS_EX" Cost="650" Name="LOC_TECH_HERALDRY_NAME" Iconstring="tech_heraldry" />
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CASTLES" ProgressionTree="TREE_TECHS_EX" Cost="650" Name="LOC_TECH_CASTLES_NAME" Iconstring="tech_castles" />
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_EDUCATION" ProgressionTree="TREE_TECHS_EX" Cost="900" Name="LOC_TECH_EDUCATION_NAME" Iconstring="tech_education" />
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_SHIPBUILDING" ProgressionTree="TREE_TECHS_EX" Cost="900" Name="LOC_TECH_SHIPBUILDING_NAME" Iconstring="tech_shipbuilding" />
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_METALLURGY" ProgressionTree="TREE_TECHS_EX" Cost="900" Name="LOC_TECH_METALLURGY_NAME" Iconstring="tech_metallurgy" />
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_ARCHITECTURE" ProgressionTree="TREE_TECHS_EX" Cost="1200" Name="LOC_TECH_ARCHITECTURE_NAME" Iconstring="tech_architecture" />
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_METAL_CASTING" ProgressionTree="TREE_TECHS_EX" Cost="1200" Name="LOC_TECH_METAL_CASTING_NAME" Iconstring="tech_metalcasting" />
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_URBAN_PLANNING" ProgressionTree="TREE_TECHS_EX" Cost="2100" Name="LOC_TECH_URBAN_PLANNING_NAME" Iconstring="tech_urbanplanning" />
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_GUNPOWDER" ProgressionTree="TREE_TECHS_EX" Cost="2100" Name="LOC_TECH_GUNPOWDER_NAME" Iconstring="tech_gunpowder" />
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_FUTURE_TECH" ProgressionTree="TREE_TECHS_EX" Cost="2750" Name="LOC_TECH_FUTURE_TECH_NAME" IconString="tech_futuretech" Repeatable="true" RepeatableCostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" RepeatableCostProgressionParam1="2750"/>
+	</ProgressionTreeNodes>
+	<ProgressionTreeNodeUnlocks>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CARTOGRAPHY" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_WHARF" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CARTOGRAPHY" TargetKind="KIND_MODIFIER" TargetType="MOD_OCEAN_COMMAND" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CARTOGRAPHY" TargetKind="KIND_MODIFIER" TargetType="MOD_OCEAN_CIVILIAN" UnlockDepth="1" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CARTOGRAPHY" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_TECH_FOOD_BUILDING" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CARTOGRAPHY" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_FISHING_BOAT_FOOD" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CARTOGRAPHY" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_COAST_FOOD" UnlockDepth="2" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CARTOGRAPHY" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_REEF_FOOD" UnlockDepth="2" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CARTOGRAPHY" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_COLD_REEF_FOOD" UnlockDepth="2" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CARTOGRAPHY" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_NAVIGABLE_RIVER_FOOD" UnlockDepth="2" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_ASTRONOMY" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_OBSERVATORY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_ASTRONOMY" TargetKind="KIND_UNIT" TargetType="UNIT_FLEET_COMMANDER" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_ASTRONOMY" TargetKind="KIND_UNIT" TargetType="UNIT_OTTRU" UnlockDepth="1" RequiredTraitType="TRAIT_CHOLA"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_MACHINERY" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_GRISTMILL" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_MACHINERY" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_SAWMILL" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_MACHINERY" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_CAMP_PRODUCTION" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_MACHINERY" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_WOODCUTTER_PRODUCTION" UnlockDepth="2" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_MACHINERY" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_VEGETATED_PRODUCTION" UnlockDepth="2" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_GUILDS" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_GUILDHALL" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_GUILDS" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_KILN" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_GUILDS" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_TECH_GOLD_BUILDING" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_GUILDS" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_MINE_PRODUCTION" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_GUILDS" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_ROUGH_PRODUCTION" UnlockDepth="2" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_GUILDS" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_WET_PRODUCTION" UnlockDepth="2" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_FEUDALISM" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_TAVERN" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_FEUDALISM" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_SETTLEMENT_CAP_INCREASE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_FEUDALISM" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_MEDIEVAL_BRIDGE" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_FEUDALISM" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_PASTURE_FOOD" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_FEUDALISM" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_PLANTATION_FOOD" UnlockDepth="2" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_FEUDALISM" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_DESERT_FLOODPLAIN_FOOD" UnlockDepth="2" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_FEUDALISM" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_GRASSLAND_FLOODPLAIN_FOOD" UnlockDepth="2" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_FEUDALISM" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_PLAINS_FLOODPLAIN_FOOD" UnlockDepth="2" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_FEUDALISM" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_TROPICAL_FLOODPLAIN_FOOD" UnlockDepth="2" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_FEUDALISM" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_TUNDRA_FLOODPLAIN_FOOD" UnlockDepth="2" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_FEUDALISM" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_FLAT_FOOD" UnlockDepth="2" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_HERALDRY" TargetKind="KIND_UNIT" TargetType="UNIT_KNIGHT" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_HERALDRY" TargetKind="KIND_UNIT" TargetType="UNIT_MAN_AT_ARMS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_HERALDRY" TargetKind="KIND_UNIT" TargetType="UNIT_CHEVALER_2" UnlockDepth="1" RequiredTraitType="TRAIT_NORMAN"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_HERALDRY" TargetKind="KIND_UNIT" TargetType="UNIT_GOLD_BANGLES_2" UnlockDepth="1" RequiredTraitType="TRAIT_SONGHAI"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_HERALDRY" TargetKind="KIND_UNIT" TargetType="UNIT_LEIOMANO_2" UnlockDepth="1" RequiredTraitType="TRAIT_HAWAII"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_HERALDRY" TargetKind="KIND_UNIT" TargetType="UNIT_MAMLUK_2" UnlockDepth="1" RequiredTraitType="TRAIT_ABBASID"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_HERALDRY" TargetKind="KIND_UNIT" TargetType="UNIT_TERCIO_2" UnlockDepth="1" RequiredTraitType="TRAIT_SPAIN"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_HERALDRY" TargetKind="KIND_UNIT" TargetType="UNIT_XUNLEICHONG_2" UnlockDepth="1" RequiredTraitType="TRAIT_MING"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_HERALDRY" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_TECH_INFANTRY_STRENGTH" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_HERALDRY" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_TECH_HAPPINESS_BUILDING" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CASTLES" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_DUNGEON" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CASTLES" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_MEDIEVAL_WALLS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CASTLES" TargetKind="KIND_UNIT" TargetType="UNIT_CROSSBOWMAN" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CASTLES" TargetKind="KIND_UNIT" TargetType="UNIT_KESHIG_2" UnlockDepth="1" RequiredTraitType="TRAIT_MONGOLIA"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CASTLES" TargetKind="KIND_UNIT" TargetType="UNIT_WARAKAQ_2" UnlockDepth="1" RequiredTraitType="TRAIT_INCA"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CASTLES" TargetKind="KIND_DIPLOMATIC_ACTION" TargetType="DIPLOMACY_ACTION_ESPIONAGE_OPEN_THE_GATES" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CASTLES" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_QUARRY_PRODUCTION" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CASTLES" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_TECH_WALL_STRENGTH" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_EDUCATION" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_UNIVERSITY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_EDUCATION" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_SHWEDAGON_ZEDI_DAW" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_EDUCATION" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_SPECIALIST_CAP_INCREASE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_EDUCATION" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_TECH_SCIENCE_BUILDING" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_EDUCATION" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_RELIC" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_SHIPBUILDING" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_SHIPYARD" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_SHIPBUILDING" TargetKind="KIND_UNIT" TargetType="UNIT_CARRACK" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_SHIPBUILDING" TargetKind="KIND_UNIT" TargetType="UNIT_CORSAIR_2" UnlockDepth="1" RequiredTraitType="TRAIT_LEADER_MINOR_CIV"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_SHIPBUILDING" TargetKind="KIND_UNIT" TargetType="UNIT_CETBANG_2" UnlockDepth="1" RequiredTraitType="TRAIT_MAJAPAHIT"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_SHIPBUILDING" TargetKind="KIND_UNIT" TargetType="UNIT_KALAM_2" UnlockDepth="1" RequiredTraitType="TRAIT_CHOLA"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_SHIPBUILDING" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_NO_OCEAN_DAMAGE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_SHIPBUILDING" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_NO_OCEAN_OBSTACLE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_SHIPBUILDING" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_EX_NAVAL_AUTO_EXPLORE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_SHIPBUILDING" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_TECH_NAVAL_STRENGTH" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_SHIPBUILDING" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_OCEAN_TRAVEL_EMBARKED" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_METALLURGY" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_ARMORER" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_METALLURGY" TargetKind="KIND_UNIT" TargetType="UNIT_TREBUCHET" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_METALLURGY" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_TECH_RANGED_STRENGTH" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_METALLURGY" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_TECH_SIEGE_STRENGTH" UnlockDepth="2" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_METALLURGY" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_TECH_MILITARY_BUILDING" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_ARCHITECTURE" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_MENAGERIE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_ARCHITECTURE" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_PAVILION" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_ARCHITECTURE" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_TECH_CULTURE_BUILDING" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_ARCHITECTURE" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_RELIC" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_METAL_CASTING" TargetKind="KIND_UNIT" TargetType="UNIT_LANCER" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_METAL_CASTING" TargetKind="KIND_UNIT" TargetType="UNIT_PIKEMAN" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_METAL_CASTING" TargetKind="KIND_UNIT" TargetType="UNIT_CHEVALER_3" UnlockDepth="1" RequiredTraitType="TRAIT_NORMAN"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_METAL_CASTING" TargetKind="KIND_UNIT" TargetType="UNIT_GOLD_BANGLES_3" UnlockDepth="1" RequiredTraitType="TRAIT_SONGHAI"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_METAL_CASTING" TargetKind="KIND_UNIT" TargetType="UNIT_LEIOMANO_3" UnlockDepth="1" RequiredTraitType="TRAIT_HAWAII"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_METAL_CASTING" TargetKind="KIND_UNIT" TargetType="UNIT_MAMLUK_3" UnlockDepth="1" RequiredTraitType="TRAIT_ABBASID"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_METAL_CASTING" TargetKind="KIND_UNIT" TargetType="UNIT_TERCIO_3" UnlockDepth="1" RequiredTraitType="TRAIT_SPAIN"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_METAL_CASTING" TargetKind="KIND_UNIT" TargetType="UNIT_XUNLEICHONG_3" UnlockDepth="1" RequiredTraitType="TRAIT_MING"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_METAL_CASTING" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_TECH_CAVALRY_STRENGTH" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_METAL_CASTING" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_TECH_PRODUCTION_BUILDING" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_URBAN_PLANNING" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_BANK" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_URBAN_PLANNING" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_HOSPITAL" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_URBAN_PLANNING" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_MACHU_PIKCHU" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_URBAN_PLANNING" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_SPECIALIST_CAP_INCREASE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_GUNPOWDER" TargetKind="KIND_UNIT" TargetType="UNIT_ARQUEBUSIER" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_GUNPOWDER" TargetKind="KIND_UNIT" TargetType="UNIT_BOMBARD" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_GUNPOWDER" TargetKind="KIND_UNIT" TargetType="UNIT_GALLEON" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_GUNPOWDER" TargetKind="KIND_UNIT" TargetType="UNIT_KESHIG_3" UnlockDepth="1" RequiredTraitType="TRAIT_MONGOLIA"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_GUNPOWDER" TargetKind="KIND_UNIT" TargetType="UNIT_WARAKAQ_3" UnlockDepth="1" RequiredTraitType="TRAIT_INCA"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_GUNPOWDER" TargetKind="KIND_UNIT" TargetType="UNIT_CETBANG_3" UnlockDepth="1" RequiredTraitType="TRAIT_MAJAPAHIT"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_GUNPOWDER" TargetKind="KIND_UNIT" TargetType="UNIT_CORSAIR_3" UnlockDepth="1" RequiredTraitType="TRAIT_LEADER_MINOR_CIV"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_GUNPOWDER" TargetKind="KIND_UNIT" TargetType="UNIT_KALAM_3" UnlockDepth="1" RequiredTraitType="TRAIT_CHOLA"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_FUTURE_TECH" TargetKind="KIND_MODIFIER" TargetType="MOD_FUTURE_TECH_ATTRIBUTE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_FUTURE_TECH" TargetKind="KIND_MODIFIER" TargetType="MOD_FUTURE_TECH_BOOST" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_FUTURE_TECH" TargetKind="KIND_MODIFIER" TargetType="MOD_FUTURE_TECH_AGE_PROGRESS" UnlockDepth="1"/>
+	</ProgressionTreeNodeUnlocks>
+	<ProgressionTreePrereqs>
+		<!--Tech Tree Organization-->
+		<Row Node="NODE_TECH_EX_GUILDS" PrereqNode="NODE_TECH_EX_CARTOGRAPHY"/>
+		<Row Node="NODE_TECH_EX_FEUDALISM" PrereqNode="NODE_TECH_EX_CARTOGRAPHY"/>
+		<Row Node="NODE_TECH_EX_FEUDALISM" PrereqNode="NODE_TECH_EX_ASTRONOMY"/>
+		<Row Node="NODE_TECH_EX_HERALDRY" PrereqNode="NODE_TECH_EX_ASTRONOMY"/>
+		<Row Node="NODE_TECH_EX_HERALDRY" PrereqNode="NODE_TECH_EX_MACHINERY"/>
+		<Row Node="NODE_TECH_EX_CASTLES" PrereqNode="NODE_TECH_EX_MACHINERY"/>
+		<Row Node="NODE_TECH_EX_EDUCATION" PrereqNode="NODE_TECH_EX_GUILDS"/>
+		<Row Node="NODE_TECH_EX_EDUCATION" PrereqNode="NODE_TECH_EX_FEUDALISM"/>
+		<Row Node="NODE_TECH_EX_SHIPBUILDING" PrereqNode="NODE_TECH_EX_FEUDALISM"/>
+		<Row Node="NODE_TECH_EX_SHIPBUILDING" PrereqNode="NODE_TECH_EX_HERALDRY"/>
+		<Row Node="NODE_TECH_EX_METALLURGY" PrereqNode="NODE_TECH_EX_HERALDRY"/>
+		<Row Node="NODE_TECH_EX_METALLURGY" PrereqNode="NODE_TECH_EX_CASTLES"/>
+		<Row Node="NODE_TECH_EX_ARCHITECTURE" PrereqNode="NODE_TECH_EX_EDUCATION"/>
+		<Row Node="NODE_TECH_EX_ARCHITECTURE" PrereqNode="NODE_TECH_EX_SHIPBUILDING"/>
+		<Row Node="NODE_TECH_EX_METAL_CASTING" PrereqNode="NODE_TECH_EX_SHIPBUILDING"/>
+		<Row Node="NODE_TECH_EX_METAL_CASTING" PrereqNode="NODE_TECH_EX_METALLURGY"/>
+		<Row Node="NODE_TECH_EX_URBAN_PLANNING" PrereqNode="NODE_TECH_EX_ARCHITECTURE"/>
+		<Row Node="NODE_TECH_EX_GUNPOWDER" PrereqNode="NODE_TECH_EX_METAL_CASTING"/>
+		<Row Node="NODE_TECH_EX_FUTURE_TECH" PrereqNode="NODE_TECH_EX_URBAN_PLANNING"/>
+		<Row Node="NODE_TECH_EX_FUTURE_TECH" PrereqNode="NODE_TECH_EX_GUNPOWDER"/>
+	</ProgressionTreePrereqs>
+	<ProgressionTree_Advisories>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CARTOGRAPHY" AdvisoryClassType="ADVISORY_CLASS_FOOD"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_ASTRONOMY" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_MACHINERY" AdvisoryClassType="ADVISORY_CLASS_FOOD"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_MACHINERY" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_GUILDS" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_GUILDS" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_FEUDALISM" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_HERALDRY" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CASTLES" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_EDUCATION" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_SHIPBUILDING" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_SHIPBUILDING" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_METALLURGY" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_ARCHITECTURE" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_ARCHITECTURE" AdvisoryClassType="ADVISORY_CLASS_HAPPINESS"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_METAL_CASTING" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_URBAN_PLANNING" AdvisoryClassType="ADVISORY_CLASS_HAPPINESS"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_URBAN_PLANNING" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_GUNPOWDER" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_FUTURE_TECH" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+	</ProgressionTree_Advisories>
+</Database>

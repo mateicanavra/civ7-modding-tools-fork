@@ -1,0 +1,1421 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- General, non-tab specific -->
+		<Row Tag="LOC_UI_OPTIONS_TITLE">
+			<Text>Options</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CATEGORY_ACCESSIBILITY">
+			<Text>Accessibility</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CATEGORY_ACCESSIBILITY_DESCRIPTION">
+			<Text>Adjust the Screen, Subtitles and Input</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CATEGORY_AUDIO">
+			<Text>Audio</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CATEGORY_AUDIO_DESCRIPTION">
+			<Text>Adjust the Audio Settings</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CATEGORY_GAME">
+			<Text>Game</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CATEGORY_GAME_DESCRIPTION">
+			<Text>Adjust the HUD, Autosaves and Time of Day Settings</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CATEGORY_GRAPHICS">
+			<Text>Graphics</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CATEGORY_GRAPHICS_DESCRIPTION">
+			<Text>Adjust the Quality and Performance of Civilization.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CATEGORY_INPUT">
+			<Text>Input</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CATEGORY_INPUT_DESCRIPTION">
+			<Text>View and Configure Controls</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CATEGORY_INTERFACE">
+			<Text>Interface</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CATEGORY_INTERFACE_DESCRIPTION">
+			<Text>Adjust the Interface Settings</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CATEGORY_SYSTEM">
+			<Text>System</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CATEGORY_SYSTEM_DESCRIPTION">
+			<Text>Adjust the Interface, Camera and Touch Settings</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CANCEL">
+			<Text>Cancel</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CANCEL_CHANGES">
+			<Text>Cancel Changes</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_REVERT">
+			<Text>Revert</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_REVERT_DESCRIPTION">
+			<Text>Are you sure you want to revert any changes that were made?</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_DEFAULT">
+			<Text>Default</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_DEFAULTS">
+			<Text>Defaults</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_DEFAULTS_DESCRIPTION">
+			<Text>Revert all changes to the default settings.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_ARE_YOU_SURE">
+			<Text>Are you sure?</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_ARE_YOU_SURE_DEFAULT">
+			<Text>Are you sure you want to revert to the default settings?</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_YES">
+			<Text>Yes</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_NO">
+			<Text>No</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CONFIRM">
+			<Text>Confirm</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CONFIRM_CHANGES">
+			<Text>Confirm Changes</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_ACCEPT">
+			<Text>Accept</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_ACCEPT_CHANGES">
+			<Text>Accept Changes</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_RESET_TO_DEFAULTS">
+			<Text>Reset</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SEARCH">
+			<Text>Search</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_NONE_IN_CATEGORY">
+			<Text>No options populated in category.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_RELOAD_WARN_TITLE">
+			<Text>Reload?</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_RELOAD_WARN_BODY">
+			<Text>One or more changed options will cause the game to reload briefly to show the changes.  You will not lose your place, but you may need to restart any actions that are in progress.  Do you wish to proceed?</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_RELOAD_WARN_CONTINUE">
+			<Text>Continue</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_RELOAD_WARN_ABANDON_CHANGES">
+			<Text>Abandon Changes</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_RESTART_TITLE">
+			<Text>Restart Required</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_RESTART_BODY">
+			<Text>One or more changed options will not take effect until the game is restarted.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_MISC_OFF">
+			<Text>Off</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_MISC_NONE">
+			<Text>None</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_MISC_VERY_LOW">
+			<Text>Very Low</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_MISC_LOW">
+			<Text>Low</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_MISC_MEDIUM">
+			<Text>Medium</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_MISC_HIGH">
+			<Text>High</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_MISC_VERY_HIGH">
+			<Text>Very High</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_MISC_EXTREME">
+			<Text>Extreme</Text>
+		</Row>
+		<Row Tag="LOC_TEXT_R">
+			<Text>&#174;</Text>
+		</Row>
+		<!-- Accessibility -->
+		<Row Tag="LOC_OPTIONS_REMAP_CONTROLLER">
+			<Text>Controls</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_REMAP_CONTROLLER_DESCRIPTION">
+			<Text>Configure input mapping.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_REMAP_KBM_TEXT">
+			<Text>Configure</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_REMAP_CONTROLLER_TEXT">
+			<Text>Configure</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_INPUT_DEVICE">
+			<Text>Input Device</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_INPUT_DEVICE_DESCRIPTION">
+			<Text>Which input device(s) to support.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_INPUT_DEVICE_AUTO">
+			<Text>auto switch</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_INPUT_DEVICE_KBM">
+			<Text>keyboard and mouse</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_INPUT_DEVICE_GAMEPAD">
+			<Text>gamepad</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_INPUT_DEVICE_TOUCH">
+			<Text>touch</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_ACCESSIBILITY_COLORBLIND">
+			<Text>Colorblind Accessibility</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_ACCESSIBILITY_COLORBLIND_DESCRIPTION">
+			<Text>Changes some game colors to help players with one of the three common forms of colorblindness.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_ACCESSIBILITY_COLORBLIND_NONE">
+			<Text>Standard colors</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_ACCESSIBILITY_COLORBLIND_PROTANOPIA">
+			<Text>Red-blind Protanopia</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_ACCESSIBILITY_COLORBLIND_DEUTERANOPIA">
+			<Text>Green-blind Deuteranopia</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_ACCESSIBILITY_COLORBLIND_TRITANOPIA">
+			<Text>Blue-blind Tritanopia</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_BRIGHTNESS">
+			<Text>Brightness</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_BRIGHTNESS_DESCRIPTION">
+			<Text>Calibrate how bright the screen appears</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SCREEN_SIZE">
+			<Text>Screen Size</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SCREEN_SIZE_TEXT">
+			<Text>Configure</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SCREEN_SIZE_DESCRIPTION">
+			<Text>Configure what is to be considered the safe area for the screen to be drawn.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SCREEN_SIZE_INSTRUCTIONS_1">
+			<Text>Set the screen size for the safe area.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SCREEN_SIZE_INSTRUCTIONS_2">
+			<Text>Make sure the outline is visible.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SCREEN_SIZE_INSTRUCTIONS_3">
+			<Text>Everything inside of the lines will be shown for gameplay.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SCREEN_SIZE_ADJUST_VERTICALLY">
+			<Text>Adjust the screen vertically</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SCREEN_SIZE_ADJUST_HORIZONTALLY">
+			<Text>Adjust the screen horizontally</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_UI_SCALE">
+			<Text>Font Scale</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_UI_SCALE_DESCRIPTION">
+			<Text>Select at which size you want text to be displayed.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_UI_GLOBAL_SCALE">
+			<Text>UI Scale</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_UI_GLOBAL_SCALE_DESCRIPTION">
+			<Text>Adjust the size of user interface elements.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_UI_AUTO_SCALE">
+			<Text>Enable High Resolution UI Scaling</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_UI_AUTO_SCALE_DESCRIPTION">
+			<Text>Scale up the size of the user interface at high display resolutions.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_UI_SCALE_EXTRA_SMALL">
+			<Text>Extra Small</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_UI_SCALE_SMALL">
+			<Text>Small</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_UI_SCALE_MEDIUM">
+			<Text>Medium</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_UI_SCALE_LARGE">
+			<Text>Large</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_UI_SCALE_EXTRA_LARGE">
+			<Text>Extra Large</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SUBTITLES">
+			<Text>Display Subtitles</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_TEXT_TO_SPEECH">
+			<Text>Text To Speech</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_NARRATE_HOVER">
+			<Text>Narrate On Hover</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_NARRATE_HOVER_DESCRIPTION">
+			<Text>Automatically speak the text under the mouse cursor when hovered.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_NARRATE_HOVER_DELAY">
+			<Text>Narrate On Hover Delay</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_NARRATE_HOVER_DELAY_DESCRIPTION">
+			<Text>The amount of time in milliseconds before hovered text is spoken.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_NARRATE_CHAT">
+			<Text>Narrate Chat</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_NARRATE_CHAT_DESCRIPTION">
+			<Text>Automatically speak multiplayer chat messages when they are received.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_UI_EXPERIENCE">
+			<Text>Viewing Experience</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_UI_EXPERIENCE_DESCRIPTION">
+			<Text>Optimizes the viewing experience based on what you are using to display the game.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_UI_EXPERIENCE_HANDHELD">
+			<Text>Handheld</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_UI_EXPERIENCE_CONSOLE">
+			<Text>Television</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_UI_EXPERIENCE_DESKTOP">
+			<Text>Desktop or Laptop Computer</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SUBTITLES_DESCRIPTION">
+			<Text>Shows subtitles during voiced cinematic sequences.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SUBTITLES_TEXT_SIZE">
+			<Text>Text Size</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SUBTITLES_TEXT_SIZE_DESCRIPTION">
+			<Text>How large the text is for subtitles.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SUBTITLES_TEXT_SIZE_SMALL">
+			<Text>Small</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SUBTITLES_TEXT_SIZE_MEDIUM">
+			<Text>Medium</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SUBTITLES_TEXT_SIZE_LARGE">
+			<Text>Large</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SUBTITLES_TEXT_COLOR">
+			<Text>Text Color</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SUBTITLES_TEXT_COLOR_DESCRIPTION">
+			<Text>What color is used in the text for subtitles.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SUBTITLES_TEXT_BORDER">
+			<Text>Text Border</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SUBTITLES_TEXT_BORDER_DESCRIPTION">
+			<Text>How strong of a border is around the subtitle text.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SUBTITLES_BACKGROUND_OPACITY">
+			<Text>Background Opacity</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SUBTITLES_BACKGROUND_OPACITY_DESCRIPTION">
+			<Text>Select how transparent is the background for subtitle text.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_USE_SCREEN_READER">
+			<Text>Use Screen Reader</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_USE_SCREEN_READER_DESCRIPTION">
+			<Text>Use an external screen reader to read text out load.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_USE_NARRATOR">
+			<Text>Use Windows Narrator</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_USE_NARRATOR_DESCRIPTION">
+			<Text>Use the built in Windows Narrator to read text out load.</Text>
+		</Row>
+
+		<!-- Audio Options -->
+		<Row Tag="LOC_OPTIONS_AUDIO_LANGUAGE">
+			<Text>Audio Language</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_LANGUAGE_DESCRIPTION">
+			<Text>Specify the language used by the narrator.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_VOLUME_MASTER">
+			<Text>Master Volume</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_VOLUME_MASTER_DESCRIPTION">
+			<Text>Volume control for all sounds in the game.  All other volume values are relative to master volume.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_VOLUME_MUSIC">
+			<Text>Music Volume</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_VOLUME_MUSIC_DESCRIPTION">
+			<Text>Volume of the background music.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_VOLUME_VOICE">
+			<Text>Voice Volume</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_VOLUME_VOICE_DESCRIPTION">
+			<Text>Loudness of leaders and advisors in the game.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_VOLUME_UI">
+			<Text>Interface Volume</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_VOLUME_UI_DESCRIPTION">
+			<Text>The loudness of user interface elements such as using a button.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_VOLUME_SFX">
+			<Text>Sound Effects Volume</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_VOLUME_SFX_DESCRIPTION">
+			<Text>The loudness of sound effects such as ambient sounds and unit movements.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_VOLUME_CINEMATICS">
+			<Text>Cinematics Volume</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_VOLUME_CINEMATICS_DESCRIPTION">
+			<Text>The loudness of audio during cinematics.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE">
+			<Text>Dynamic Range</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE_DESCRIPTION">
+			<Text>Dynamic Range - the difference in volume between the loudest and quietest sounds.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_MUTEONFOCUSLOSS">
+			<Text>Mute On Focus Loss</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_MUTEONFOCUSLOSS_DESCRIPTION">
+			<Text>Mutes Civilization VII's audio when you click on another application's window.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE_WIDE">
+			<Text>Wide</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE_WIDE_DESCRIPTION">
+			<Text>Largest Dynamic Range - suggested for high-end sound systems or quiet environments.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE_STANDARD">
+			<Text>Standard</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE_STANDARD_DESCRIPTION">
+			<Text>Medium Dynamic Range - this is generally the best setting for most players.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE_NARROW">
+			<Text>Narrow</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE_NARROW_DESCRIPTION">
+			<Text>Smallest Dynamic Range - all sounds are heard at low volume, in noisy environments, or by speakers limited in range.</Text>
+		</Row>
+
+		<!-- Game Options -->
+		<Row Tag="LOC_OPTIONS_QUICK_COMBAT">
+			<Text>Quick Combat</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_QUICK_COMBAT_DESCRIPTION">
+			<Text>Toggle using quick animations to resolve combat.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_QUICK_MOVEMENT">
+			<Text>Quick Movement</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_QUICK_MOVEMENT_DESCRIPTION">
+			<Text>Toggle using quick movement for units moving across tiles.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CITY_RANGED_ATTACK_TURN_BLOCKING">
+			<Text>City Ranged Attack Turn Blocking</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CITY_RANGED_ATTACK_TURN_BLOCKING_DESCRIPTION">
+			<Text>Block ending a turn of a ranged attack from a city can be performed.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_TUNER">
+			<Text>Tuner (Disables Achievements)</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_TUNER_DESCRIPTION">
+			<Text>Turn on the modding tuner.  This will disable achievements.</Text>
+		</Row>
+
+		<!-- More Game Options -->
+		<Row Tag="LOC_OPTIONS_AUTOENDTURN">
+			<Text>Auto End Turn</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUTOENDTURN_DESCRIPTION">
+			<Text>Automatically end the game turn.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_UNITCYCLE_REMAININGMOVES">
+			<Text>Unit Cycle Remaining Movement</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_UNITCYCLE_REMAININGMOVES_DESCRIPTION">
+			<Text>After all other turn blocking actions have been taken, cycle through units with movement points remaining.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUTOUNITYCYCLE">
+			<Text>Auto Unit Cycle</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUTOUNITYCYCLE_DESCRIPTION">
+			<Text>After expending all movement points for the selected unit, cycle through units with movement points remaining.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PRODUCTIONPANEL_STAYSOPEN">
+			<Text>Production Panel Stays Open</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PRODUCTIONPANEL_STAYSOPEN_DESCRIPTION">
+			<Text>After placing a building to construct, you will be returned to the production panel.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_TUTORIALLEVEL">
+			<Text>Tutorial Level</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_TUTORIALLEVEL_DESCRIPTION">
+			<Text>How many levels of detailed, tutorial information you'd like to receive while playing the game.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GAME_TUTORIAL_0_DESCRIPTION">
+			<Text>Warnings and Tutorials are off.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GAME_TUTORIAL_1_DESCRIPTION">
+			<Text>No Tutorials. Advisors will inform you if something is at risk.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GAME_TUTORIAL_2_DESCRIPTION">
+			<Text>Learn as you play. Warnings are also enabled.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_FIRSTTIMETUTORIAL">
+			<Text>First Time Tutorial</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_FIRSTTIMETUTORIAL_DESCRIPTION">
+			<Text>Enables the first time tutorial when launching the game.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_INSTRUCTIONS">
+			<Text>Show Instructions</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_INSTRUCTIONS_DESCRIPTION">
+			<Text>Show the first time player instructions at the start of a game.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GAME_TUTORIAL_0">
+			<Text>Off</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GAME_TUTORIAL_1">
+			<Text>Only Warnings</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GAME_TUTORIAL_2">
+			<Text>Tutorials</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GAME_TUTORIAL_3">
+			<Text>New Gamer</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GAME_TUTORIAL_0_TOOLTIP">
+			<Text>Warnings and Tutorials are off.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GAME_TUTORIAL_1_TOOLTIP">
+			<Text>No Tutorials. Advisors will inform you if something is at risk.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GAME_TUTORIAL_2_TOOLTIP">
+			<Text>Learn as you play. Warnings are also enabled.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GAME_TUTORIAL_2_TOOLTIP_ALT">
+			<Text>Learn as you play. Warnings are also enabled. If changed, you will need to start a new game with this setting to see Tutorials.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_HELP_TYPES">
+			<Text>Display Help</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_HELP_TYPES_DESCRIPTION">
+			<Text>Which types of help to display during the gameplay.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_HELP_TYPES_0">
+			<Text>None</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_HELP_TYPES_1">
+			<Text>Warnings Only</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_HELP_TYPES_2">
+			<Text>All Help</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CROSSPLAY">
+			<Text>Crossplay</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CROSSPLAY_DESCRIPTION">
+			<Text>Play multiplayer with players on other platforms.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUTOSAVE_BETWEEN">
+			<Text>Turns Between Autosaves</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUTOSAVE_BETWEEN_DESCRIPTION">
+			<Text>The number of turns between which an autosave will be made.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUTOSAVE_KEEP_COUNT">
+			<Text>Autosaves Amount</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_AUTOSAVE_KEEP_COUNT_DESCRIPTION">
+			<Text>The number of autosaves which are retained for the current game.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PROMOTIONS">
+			<Text>Show Promotional Content</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PROMOTIONS_DESCRIPTION">
+			<Text>Shows promotional content from the Civilization team.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SHOW_UNOWNED_CONTENT">
+			<Text>Show Unowned Leaders and Civilizations</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SHOW_UNOWNED_CONTENT_DESCRIPTION">
+			<Text>Shows unowned leaders and civilizations</Text>
+		</Row>
+
+		<!-- Graphics Options -->
+		<Row Tag="LOC_OPTIONS_GFX_GPU_SELECTION">
+			<Text>GPU Selection</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_GPU_SELECTION_DESCRIPTION">
+			<Text>Select the graphics hardware used to render the game (requires restart).</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SCREEN_MODE">
+			<Text>Screen Mode</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SCREEN_MODE_DESCRIPTION">
+			<Text>Select windowed or full screen display.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SCREEN_MODE_WINDOWED">
+			<Text>Windowed</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SCREEN_MODE_FULLSCREEN">
+			<Text>Fullscreen</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_RESOLUTION">
+			<Text>Game Resolution</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UNAVAILABLE">
+			<Text>Unavailable</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_AUTO">
+			<Text>Auto</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_RESOLUTION_DESCRIPTION">
+			<Text>Selects the resolution of the game. In windowed mode this will determine the size of the window, while in fullscreen mode the game will be stretched to fill the entire screen.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_VSYNC">
+			<Text>Enable Vertical Sync</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_VSYNC_DESCRIPTION">
+			<Text>Enable vertical sync to avoid screen tearing.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_ENABLE_HDR">
+			<Text>Enable HDR</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_ENABLE_HDR_DESCRIPTION">
+			<Text>Enable High Dynamic Range display (requires restart).</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_CALIBRATE_HDR">
+			<Text>Calibrate HDR</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_CALIBRATE_HDR_DESCRIPTION">
+			<Text>Calibrate High Dynamic Range display.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_UI_HDR">
+			<Text>Calibrate UI Brightness</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_UI_HDR_DESCRIPTION">
+			<Text>This container is an example of how the UI will look in game. Use this as a reference on how the UI will be affected by the UI Brightness levels.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_EMBLEM_BRIGHTNESS">
+			<Text>Adjust the settings to the top emblem is not visible and the middle square is barely visible.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_PROFILE">
+			<Text>Graphics Profile</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_PROFILE_DESCRIPTION">
+			<Text>Selects advanced graphics options based on target quality level. Using these profile options is recommended for users not familiar with advanced graphics options.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_PROFILE_LOW">
+			<Text>Low</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_PROFILE_MEDIUM">
+			<Text>Medium</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_PROFILE_HIGH">
+			<Text>High</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_PROFILE_ULTRA">
+			<Text>Ultra</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_PROFILE_CUSTOM">
+			<Text>Custom</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_FRAME_RATE_LIMIT">
+			<Text>Frame Rate Limit</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_FRAME_RATE_LIMIT_DESCRIPTION">
+			<Text>Caps the maximum frame rate</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SYMBOL_INFINITY">
+			<Text>∞</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA">
+			<Text>Upscale/Anti-aliasing Mode</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA_DESCRIPTION">
+			<Text>Selects upscaling and/or anti-aliasing mode. Upscaling allows 3D rendering at a lower resolution, increasing performance. Anti-aliasing reduces flickering and produces a smoother image.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA_MSAA">
+			<Text>MSAA (Anti-aliasing)</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA_MSAA_DESCRIPTION">
+			<Text>Enable Multisample Anti-aliasing</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA_FSR1">
+			<Text>MSAA + AMD FidelityFX Super Resolution 1 (Anti-aliasing and Upscaling)</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA_FSR1_DESCRIPTION">
+			<Text>Enable AMD FidelityFX Super Resolution 1 and MSAA</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA_FSR3">
+			<Text>AMD FidelityFX Super Resolution 3 (Anti-aliasing and Upscaling)</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA_FSR3_DESCRIPTION">
+			<Text>Enable AMD FidelityFX Super Resolution 3</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA_FSR3_DESCRIPTION_LONG">
+			<Text>AMD FidelityFX Super Resolution 3 uses high-quality image upscaling to generate high resolution frames at fast frame rates.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA_METALFX_SPATIAL">
+			<Text>MSAA + MetalFX Spatial</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA_METALFX_SPATIAL_DESCRIPTION">
+			<Text>Enable MSAA + MetalFX Spatial</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA_METALFX_TEMPORAL">
+			<Text>MetalFX Temporal</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA_METALFX_TEMPORAL_DESCRIPTION">
+			<Text>Enable MetalFX Temporal</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA_XESS">
+			<Text>Intel XeSS (Anti-aliasing and Upscaling)</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA_XESS_DESCRIPTION">
+			<Text>Enable Intel XeSS</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA_XESS_DESCRIPTION_SHORT">
+			<Text>Intel Xe Super Sampling (XeSS) technology uses machine learning to deliver higher performance with exceptional image quality. Hardware accelerated XeSS is optimized for Xe-HPG microarchitecture-based GPUs.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA_XESS_DESCRIPTION_MINIMUM">
+			<Text>Intel Xe Super Sampling (XeSS) technology uses machine learning to deliver higher performance with exceptional image quality.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XELL">
+			<Text>Intel Xe Low Latency</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XELL_DESCRIPTION">
+			<Text>Reduces lag and input delays</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XELL_FRAME_RATE">
+			<Text>Intel Xe Low Latency Frame Rate Control</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XELL_FRAME_RATE_DESCRIPTION">
+			<Text>Cap the maximum frame rate</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XELL_FRAME_RATE_UNLIMITED">
+			<Text>Unlimited</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XEFG">
+			<Text>Intel XeSS Frame Generation</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XEFG_DESCRIPTION">
+			<Text>AI-generated frames are interlaced between existing graphics output to significantly increase the number of frames per second (FPS) and boost performance.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA_DLSS">
+			<Text>NVidia DLSS (Anti-aliasing and Upscaling)</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA_DLSS_DESCRIPTION">
+			<Text>Enable NVidia DLSS</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA_DLSS_DESCRIPTION_LONG">
+			<Text>NVIDIA DLSS uses AI to boost frame rates while maintaining great image quality and responsiveness. This feature requires a GeForce RTX graphics card.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA_DLSS_SUPER_RESOLUTION_DESCRIPTION">
+			<Text>Super Resolution boosts frame rates by rendering fewer pixels and using AI to output high resolution frames.This feature requires a GeForce RTX graphics card.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_UPSCALE_AA_DLSS_DLAA_DESCRIPTION">
+			<Text>NVIDIA DLAA is an AI-based anti-aliasing mode to improve image quality. This feature requires a GeForce RTX graphics card.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_MSAA_QUALITY">
+			<Text>MSAA Quality</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_MSAA_QUALITY_DESCRIPTION">
+			<Text>Make edges appear smoother. Higher sample counts look better while lower ones run faster and use less memory.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_MSAA_QUALITY_1X">
+			<Text>1x</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_MSAA_QUALITY_2X">
+			<Text>2x</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_MSAA_QUALITY_4X">
+			<Text>4x</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_MSAA_QUALITY_8X">
+			<Text>8x</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_FSR1_QUALITY_SETTING">
+			<Text>AMD FSR1 Upscaling Quality Level</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_FSR1_QUALITY_SETTING_DESCRIPTION">
+			<Text>Set the quality level for AMD FSR1. Higher quality levels look better, while lower ones run faster.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_FSR1_QUALITY_PERFORMANCE">
+			<Text>Performance</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_FSR1_QUALITY_BALANCED">
+			<Text>Balanced</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_FSR1_QUALITY_QUALITY">
+			<Text>Quality</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_FSR1_QUALITY_ULTRA_QUALITY">
+			<Text>Ultra Quality</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_SETTING">
+			<Text>AMD FSR3 Quality Level</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_SETTING_DESCRIPTION">
+			<Text>Set the quality level for AMD FSR3. Higher quality levels look better, while lower ones run faster.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_ULTRA_PERFORMANCE">
+			<Text>Ultra Performance</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_PERFORMANCE">
+			<Text>Performance</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_BALANCED">
+			<Text>Balanced</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_QUALITY">
+			<Text>Quality</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_NATIVE">
+			<Text>Native</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_ULTRA_PERFORMANCE_DESCRIPTION">
+			<Text>Ultra Performance mode provides the highest performance gain while still maintaining an image quality representative of native rendering.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_PERFORMANCE_DESCRIPTION">
+			<Text>Performance mode provides an image quality similar to native rendering with a major performance gain.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_BALANCED_DESCRIPTION">
+			<Text>Balanced mode offers an ideal compromise between image quality and performance gains.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_QUALITY_DESCRIPTION">
+			<Text>Quality mode provides an image quality equal or superior to native rendering with a significant performance gain.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_NATIVE_DESCRIPTION">
+			<Text>Native AA mode provides an image quality superior to native rendering with a modest performance cost.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XESS_QUALITY_SETTING">
+			<Text>Intel XeSS Quality Level</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XESS_QUALITY_SETTING_DESCRIPTION">
+			<Text>Set the quality level for Intel XeSS. Higher quality levels look better, while lower ones run faster.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XESS_QUALITY_ULTRA_PERFORMANCE">
+			<Text>Ultra Performance</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XESS_QUALITY_PERFORMANCE">
+			<Text>Performance</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XESS_QUALITY_BALANCED">
+			<Text>Balanced</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XESS_QUALITY_QUALITY">
+			<Text>Quality</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XESS_QUALITY_ULTRA_QUALITY">
+			<Text>Ultra Quality</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XESS_QUALITY_ULTRA_QUALITY_PLUS">
+			<Text>Ultra Quality Plus</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XESS_QUALITY_NATIVE">
+			<Text>Native</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XESS_QUALITY_ULTRA_PERFORMANCE_DESCRIPTION">
+			<Text>Improves overall gaming performance the most.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XESS_QUALITY_PERFORMANCE_DESCRIPTION">
+			<Text>Improves overall gaming performance.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XESS_QUALITY_BALANCED_DESCRIPTION">
+			<Text>Delivers optimal performance and image quality.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XESS_QUALITY_QUALITY_DESCRIPTION">
+			<Text>Delivers high quality visual upscale.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XESS_QUALITY_ULTRA_QUALITY_DESCRIPTION">
+			<Text>Delivers very high quality visual upscale.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XESS_QUALITY_ULTRA_QUALITY_PLUS_DESCRIPTION">
+			<Text>Delivers the highest quality visual upscale.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_XESS_QUALITY_NATIVE_DESCRIPTION">
+			<Text>Delivers the highest quality anti-aliasing.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_SETTING">
+			<Text>NVidia DLSS Quality Levels</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_SETTING_DESCRIPTION">
+			<Text>Set the quality level for NVidia DLSS. Higher quality levels look better, while lower ones run faster.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_AUTO">
+			<Text>Auto</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_ULTRA_PERFORMANCE">
+			<Text>Ultra Performance</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_PERFORMANCE">
+			<Text>Performance</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_BALANCED">
+			<Text>Balanced</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_QUALITY">
+			<Text>Quality</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_DLAA">
+			<Text>DLAA</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_AUTO_DESCRIPTION">
+			<Text>Selects the best DLSS Mode for the current output resolution.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_ULTRA_PERFORMANCE_DESCRIPTION">
+			<Text>Offers the highest performance boost. Recommended for 8K gameplay only.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_PERFORMANCE_DESCRIPTION">
+			<Text>Offers a higher performance boost than balanced mode.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_BALANCED_DESCRIPTION">
+			<Text>Offers both optimized performance and image quality.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_QUALITY_DESCRIPTION">
+			<Text>Offers higher image quality than balanced mode.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_DLAA_DESCRIPTION">
+			<Text>Provides higher image quality with an AI-based anti-aliasing technique. DLAA uses the same Super Resolution technology developed for DLSS, reconstructing a native resolution image to maximize image quality.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_SETTING">
+			<Text>MetalFX Spatial Upscaling Quality Level</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_SETTING_DESCRIPTION">
+			<Text>Set the quality level for MetalFX Spatial. Higher quality levels look better, while lower ones run faster.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_PERFORMANCE">
+			<Text>Performance</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_BALANCED">
+			<Text>Balanced</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_QUALITY">
+			<Text>Quality</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_ULTRA_QUALITY">
+			<Text>Ultra Quality</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_PERFORMANCE_DESCRIPTION">
+			<Text>Improves overall gaming performance.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_BALANCED_DESCRIPTION">
+			<Text>Delivers optimal performance and image quality.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_QUALITY_DESCRIPTION">
+			<Text>Delivers high quality visual upscale.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_ULTRA_QUALITY_DESCRIPTION">
+			<Text>Delivers very high quality visual upscale.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_SETTING">
+			<Text>MetalFX Temporal Upscaling Quality Level</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_SETTING_DESCRIPTION">
+			<Text>Set the quality level for MetalFX Temporal. Higher quality levels look better, while lower ones run faster.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_PERFORMANCE">
+			<Text>Performance</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_BALANCED">
+			<Text>Balanced</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_QUALITY">
+			<Text>Quality</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_ULTRA_QUALITY">
+			<Text>Ultra Quality</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_NATIVE">
+			<Text>Native Quality</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_PERFORMANCE_DESCRIPTION">
+			<Text>Improves overall gaming performance.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_BALANCED_DESCRIPTION">
+			<Text>Delivers optimal performance and image quality.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_QUALITY_DESCRIPTION">
+			<Text>Delivers high quality visual upscale.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_ULTRA_QUALITY_DESCRIPTION">
+			<Text>Delivers very high quality visual upscale.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_NATIVE_DESCRIPTION">
+			<Text>Delivers the highest quality anti-aliasing.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SHARPENING">
+			<Text>Image Sharpness</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SHARPENING_DESCRIPTION">
+			<Text>Set the desired level of sharpening on the image.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SSAO_QUALITY">
+			<Text>AMD FidelityFX Ambient Occlusion</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SSAO_QUALITY_DESCRIPTION">
+			<Text>Set the quality level for AMD FidelityFX Ambient Occlusion.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SSAO_QUALITY_OFF">
+			<Text>Off</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SSAO_QUALITY_LOW">
+			<Text>Low</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SSAO_QUALITY_MEDIUM">
+			<Text>Medium</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SSAO_QUALITY_HIGH">
+			<Text>High</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_ASSET_QUALITY">
+			<Text>Asset Quality</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_ASSET_QUALITY_DESCRIPTION">
+			<Text>Selects the detail level for 3D objects in the game. High will use more detailed objects, while low will use simpler, less detailed objects.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_ASSET_QUALITY_LOW">
+			<Text>Low</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_ASSET_QUALITY_HIGH">
+			<Text>High</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_PARTICLE_QUALITY">
+			<Text>Particle Quality</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_PARTICLE_QUALITY_DESCRIPTION">
+			<Text>Selects the quality level for Particle Effects like fires and smokes. High means more particles with more detailed motions, while low means less particles and runs faster.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_PARTICLE_QUALITY_LOW">
+			<Text>Low</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_PARTICLE_QUALITY_HIGH">
+			<Text>High</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SSR">
+			<Text>AMD FidelityFX Screen Space Reflections</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SSR_DESCRIPTION">
+			<Text>Enable reflections of 3D objects in the game.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SSSHADOWS">
+			<Text>Screen Space Shadows</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SSSHADOWS_DESCRIPTION">
+			<Text>Enables screen space shadows. This provides an extra level of detail for shadows.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SSOVERLAY">
+			<Text>Screen Space Overlay</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SSOVERLAY_DESCRIPTION">
+			<Text>Enables screen-space overlay. Increases detail for 3D overlays such as culture and movement borders.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_BLOOM">
+			<Text>Bloom</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_BLOOM_DESCRIPTION">
+			<Text>Enables bloom. Mimics the way some camera sensors work by causing bright areas on the screen to bleed into their surrounding area.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_TEXTURE_DETAIL">
+			<Text>Texture Detail</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_TEXTURE_DETAIL_DESCRIPTION">
+			<Text>Selects texture detail level. Higher levels have more detail on objects, while lower levels use much less memory.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_TEXTURE_DETAIL_LOW">
+			<Text>Low</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_TEXTURE_DETAIL_MEDIUM">
+			<Text>Medium</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_TEXTURE_DETAIL_HIGH">
+			<Text>High</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SHADOW_QUALITY">
+			<Text>Shadow Quality</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SHADOW_QUALITY_DESCRIPTION">
+			<Text>Selects shadow quality. Higher levels provide more detailed shadows, while lower levels are faster and use less memory.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SHADOW_QUALITY_LOW">
+			<Text>Low</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SHADOW_QUALITY_MEDIUM">
+			<Text>Medium</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SHADOW_QUALITY_HIGH">
+			<Text>High</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SHADOW_QUALITY_ULTRA">
+			<Text>Ultra</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOWS">
+			<Text>Point Light Shadows</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_DESCRIPTION">
+			<Text>Enables point light shadows in the foreground.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_QUALITY">
+			<Text>Point Light Shadow Quality</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_QUALITY_DESCRIPTION">
+			<Text>Selects shadow quality for foreground point lights. Higher levels provide more detailed shadows, while lower levels are faster and use less memory.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_QUALITY_OFF">
+			<Text>Off</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_QUALITY_LOW">
+			<Text>Low</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_QUALITY_MEDIUM">
+			<Text>Medium</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_QUALITY_HIGH">
+			<Text>High</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_QUALITY_ULTRA">
+			<Text>Ultra</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_WATER_QUALITY">
+			<Text>Water Quality</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_WATER_QUALITY_DESCRIPTION">
+			<Text>Select water rendering quality. High has more waves and enables refraction, while low runs faster.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_WATER_QUALITY_LOW">
+			<Text>Low</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_WATER_QUALITY_HIGH">
+			<Text>High</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_CLOUD_SHADOWS">
+			<Text>Enable Cloud Shadows</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_CLOUD_SHADOWS_DESCRIPTION">
+			<Text>Enables shadows from clouds.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_FGX_APPLY_CHANGES">
+			<Text>Apply Changes</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_FXS_CLEAR_CHANGES">
+			<Text>Clear Changes</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_GRAPHICS_OPTIONS">
+			<Text>Graphics Options</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_GRAPHICS_OPTIONS_RESTART">
+			<Text>Graphics Options (Restart Required)</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SHOW_ADVANCED_GRAPHICS_OPTIONS">
+			<Text>Show Advanced Graphics Options</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_RESTART_WARNING">
+			<Text>Some applied changes require an application restart to take effect.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_HDR_NOT_AVAILABLE">
+			<Text>HDR is not available on this device.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_NOT_AVAILABLE_IN_GAME">
+			<Text>This options is only available in the main menu.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_GENERAL_RESTRICTION">
+			<Text>Cannot be set with the current configured graphic options.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_SCREEN_MODE_RESTRICTION">
+			<Text>Cannot be set with the current screen mode.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_RESOLUTION_RESTRICTION">
+			<Text>Cannot be set with the current game resolution.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_GPU_RESTRICTION">
+			<Text>Cannot be set with the current GPU selected.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_DISABLED_IN_GAME">
+			<Text>This option cannot be modified while in game.</Text>
+		</Row>
+
+		<!-- System Options -->
+		<Row Tag="LOC_OPTIONS_DISPLAY_LANGUAGE">
+			<Text>Display Language</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_LANGUAGE">
+			<Text>Language</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_LANGUAGE_TEXT">
+			<Text>Change Language</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_LANGUAGE_DESCRIPTION">
+			<Text>Choose which language is used for audio and text.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_LANGUAGE_AUDIO">
+			<Text>Spoken:</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_LANGUAGE_DISPLAY">
+			<Text>Display:</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SHOW_INTRO_VIDEO">
+			<Text>Show Intro Video</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SHOW_INTRO_VIDEO_DESCRIPTION">
+			<Text>Show the introduction video at startup.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CLOCK_FORMAT">
+			<Text>Clock Format</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CLOCK_FORMAT_DESCRIPTION">
+			<Text>How real-world time is formatted in the game's system panel.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CLOCK_FORMAT_AMPM">
+			<Text>AM / PM</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CLOCK_FORMAT_24HR">
+			<Text>24 Hours</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SCALE_UI">
+			<Text>Scale UI</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SCALE_UI_DESCRIPTION">
+			<Text>Scale up the entire user interface.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SCALE_UI_AUTO">
+			<Text>auto</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SCALE_UI_1">
+			<Text>1x</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SCALE_UI_2">
+			<Text>2x</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_SCALE_UI_4">
+			<Text>4x</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_MINIMAP_SIZE">
+			<Text>Minimap Size</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_MINIMAP_SIZE_DESCRIPTION">
+			<Text>What size mini-map do you want in your HUD?</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_MINIMAP_SIZE_SMALL">
+			<Text>small</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_MINIMAP_SIZE_MEDIUM">
+			<Text>medium</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_MINIMAP_SIZE_LARGE">
+			<Text>large</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_TOOLTIP_DELAY">
+			<Text>Tooltip delay</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_TOOLTIP_DELAY_DESCRIPTION">
+			<Text>How many seconds to wait before showing a tooltip on the user interface.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_TOOLTIP_DELAY_VALUE">
+			<Text>{1: number 0.0}s</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PLOT_TOOLTIP_DELAY">
+			<Text>World Tooltip delay</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PLOT_TOOLTIP_DELAY_DESCRIPTION">
+			<Text>How many seconds to wait before showing a tooltip on the world tiles.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PLOT_TOOLTIP_DELAY_VALUE">
+			<Text>{1: number 0.0}s</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_TEXT_SCROLLING_SPEED">
+			<Text>Text Scrolling Speed</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_TEXT_SCROLLING_SPEED_DESCRIPTION">
+			<Text>How fast to auto-scroll text.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_WARN_MOD">
+			<Text>Warn about MOD compatibility</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_WARN_MOD_DESCRIPTION">
+			<Text>Warn about compatibility issues when loading MODs.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_USE_RGB">
+			<Text>Use RGB Lighting</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_USE_RGB_DESCRIPTION">
+			<Text>Use compatible 3rd party RGB lighting with game.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_RIBBON_DISPLAY">
+			<Text>Always Show Ribbon Yields</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_RIBBON_DEFAULT_DISPLAY">
+			<Text>Show Ribbon Yields by Default</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_RIBBON_DISPLAY_DESCRIPTION">
+			<Text>Always show the players yields in the HUD ribbon.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_LOCK_MOUSE">
+			<Text>Lock Mouse To Window</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_LOCK_MOUSE_DESCRIPTION">
+			<Text>Keep the mouse within the game's window region.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_MOUSE_WHEEL_SPEED">
+			<Text>Mouse Wheel Speed</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_MOUSE_WHEEL_SPEED_DESCRIPTION">
+			<Text>Set the speed of the mouse wheel.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_REPLACE_HOLD_TO_DRAG">
+			<Text>Replace draggable with click</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_REPLACE_HOLD_TO_DRAG_DESCRIPTION">
+			<Text>Replace the drag-and-hold functionality with click, drag and dropping.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CAMERA_PANNING_SPEED">
+			<Text>Camera pan speed</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CAMERA_PANNING_SPEED_DESCRIPTION">
+			<Text>How fast the camera moves when panning.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_NOTIFICATION_CAMERA_PAN">
+			<Text>Auto pan to notifications</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_NOTIFICATION_CAMERA_PAN_DESCRIPTION">
+			<Text>Automatically pan the camera to the next turn blocking notification.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CAMERA_MOVEMENT_FRICTION">
+			<Text>Camera Movement Friction</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_CAMERA_MOVEMENT_FRICTION_DESCRIPTION">
+			<Text>How much friction to apply to the camera when panning it with the analog stick.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_ZOOM_SPEED">
+			<Text>Zoom Speed</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_ZOOM_SPEED_DESCRIPTION">
+			<Text>How fast the camera zooms.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_TOUCH_INPUT_ENABLE">
+			<Text>Touch Input Enabled</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_TOUCH_INPUT_ENABLE_DESCRIPTION">
+			<Text>Should input from touch be enabled in the game.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_TOUCH_INPUT_NOT_AVAILABLE">
+			<Text>This device is not configured to accept touch input.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_TOUCH_INPUT_TOOLTIP_DELAY">
+			<Text>Touch Tooltip Delay</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_TOUCH_INPUT_TOOLTIP_DESCRIPTION">
+			<Text>Affect the delay in tooltip when using touch.</Text>
+		</Row>
+
+		<!-- GROUP -->
+		<Row Tag="LOC_OPTIONS_GROUP_ADVISORS">
+			<Text>Advisors</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GROUP_ADVANCED">
+			<Text>Advanced</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GROUP_AUTOSAVES">
+			<Text>Autosaves</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GROUP_CAMERA">
+			<Text>Camera</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GROUP_CONTROLS">
+			<Text>Controls</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GROUP_GAMEPAD">
+			<Text>Controller</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GROUP_GENERAL">
+			<Text>General</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GROUP_SUBTITLES">
+			<Text>Subtitles</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GROUP_TIMEOFDAY">
+			<Text>Time of Day</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GROUP_TOUCH">
+			<Text>Touch</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GROUP_TUTORIAL">
+			<Text>Tutorial</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GROUP_VOLUME">
+			<Text>Volume</Text>
+		</Row>
+		<!-- Input -->
+		<Row Tag="LOC_OPTIONS_REMAP_KBM">
+			<Text>Keyboard + Mouse</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_REMAP_KBM_DESCRIPTION">
+			<Text>Configure keyboard and mouse controls.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_ADAPTIVE_TRIGGERS_ENABLED">
+			<Text>Adaptive Triggers enabled</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_ADAPTIVE_TRIGGERS_ENABLED_DESCRIPTION">
+			<Text>If the trigger effect function is enabled in game.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_RUMBLE">
+			<Text>Controller Rumble</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_RUMBLE_DESCRIPTION">
+			<Text>Enable or disable the controller's rumble feature.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_HDR_EMBLEM_VISIBILITY">
+			<Text>Adjust the settings to the top emblem is not visible and the middle square is barely visible.</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_HDR_CONFIRM">
+			<Text>Confirm Changes</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_HDR_DISCARD">
+			<Text>Discard Changes</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_HDR_CONSTRAST">
+			<Text>Contrast</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_HDR_3D_BRIGHTNESS">
+			<Text>3D Brightness</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_HDR_UI_BRIGHTNESS">
+			<Text>UI Brightness</Text>
+		</Row>
+		<Row Tag="LOC_REMAP_SCOUT_FOUNDER">
+			<Text>Deluxe Edition Scout Skin</Text>
+		</Row>
+		<Row Tag="LOC_REMAP_PALACE_FOUNDER">
+			<Text>Founders Edition Palace</Text>
+		</Row>
+		<Row Tag="LOC_REMAP_FOW_FOUNDER">
+			<Text>Founders Edition Fog of War Tiles</Text>
+		</Row>
+	</EnglishText>
+</Database>

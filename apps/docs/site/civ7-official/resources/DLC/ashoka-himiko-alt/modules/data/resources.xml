@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<Database>
+	<Resource_RequiredLeaders>
+		<Row ResourceType="RESOURCE_COCOA" LeaderType="LEADER_ASHOKA_ALT"/>
+		<Row ResourceType="RESOURCE_SUGAR" LeaderType="LEADER_ASHOKA_ALT"/>
+		<Row ResourceType="RESOURCE_TEA" LeaderType="LEADER_ASHOKA_ALT"/>
+		<Row ResourceType="RESOURCE_SPICES" LeaderType="LEADER_ASHOKA_ALT"/>
+		<Row ResourceType="RESOURCE_INCENSE" LeaderType="LEADER_ASHOKA_ALT"/>
+        <Row ResourceType="RESOURCE_FURS" LeaderType="LEADER_HIMIKO_ALT"/>
+		<Row ResourceType="RESOURCE_JADE" LeaderType="LEADER_HIMIKO_ALT"/>
+	</Resource_RequiredLeaders>
+</Database>

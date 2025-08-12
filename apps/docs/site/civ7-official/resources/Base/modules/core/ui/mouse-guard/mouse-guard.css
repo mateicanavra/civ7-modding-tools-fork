@@ -1,0 +1,8 @@
+/* DO NOT EDIT */
+/* Generated from mouse-guard.scss */
+.mouse-guard {
+	background-image: radial-gradient(100% 100% at 50% 50%, rgba(10, 2, 13, 0.125) 0%, #0a020d 100%), linear-gradient(150deg, rgba(10, 2, 13, 0.5) 0%, transparent 45%, transparent 55%, rgba(10, 2, 13, 0.5) 100%);
+}
+.mouse-guard.invisible {
+	background-image: none;
+}

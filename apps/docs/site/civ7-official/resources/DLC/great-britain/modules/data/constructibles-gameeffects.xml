@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+
+	<!-- ==================================================	-->
+	<!--					Building					-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_GREAT_BRITAIN_FINANCIAL_CENTRE_GOLD" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_CONNECTED_CITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_UNIQUE_QUARTER">
+				<Argument name="UniqueQuarterType">QUARTER_FINANCIAL_CENTRE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MOD_GREAT_BRITAIN_FINANCIAL_CENTRE_SCIENCE" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_CONNECTED_CITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_UNIQUE_QUARTER">
+				<Argument name="UniqueQuarterType">QUARTER_FINANCIAL_CENTRE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--					Wonders							-->
+	<!-- ==================================================	-->
+	<!-- Sea power -->
+	<Modifier id="MOD_BATTERSEA_POWER_STATION_TRAIN_TWO_NAVAL_UNITS" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_UNIT_EXTRA_COPY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_BATTERSEA_POWER_STATION</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Tag">UNIT_CLASS_NAVAL</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+
+</GameEffects>

@@ -1,0 +1,710 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN1" Language="zh_Hant_HK">
+      <Text>倫敦</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN10" Language="zh_Hant_HK">
+      <Text>特倫特河畔斯托克</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN11" Language="zh_Hant_HK">
+      <Text>紐卡斯爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN12" Language="zh_Hant_HK">
+      <Text>普利茅斯</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN13" Language="zh_Hant_HK">
+      <Text>樸茨茅斯</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN14" Language="zh_Hant_HK">
+      <Text>萊斯特</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN15" Language="zh_Hant_HK">
+      <Text>桑德蘭</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN16" Language="zh_Hant_HK">
+      <Text>諾丁漢</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN17" Language="zh_Hant_HK">
+      <Text>歐登</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN18" Language="zh_Hant_HK">
+      <Text>布萊頓</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN19" Language="zh_Hant_HK">
+      <Text>博爾頓</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN2" Language="zh_Hant_HK">
+      <Text>利物浦</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN20" Language="zh_Hant_HK">
+      <Text>布萊克本</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN21" Language="zh_Hant_HK">
+      <Text>普雷斯頓</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN22" Language="zh_Hant_HK">
+      <Text>諾里奇</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN23" Language="zh_Hant_HK">
+      <Text>伯肯黑德</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN24" Language="zh_Hant_HK">
+      <Text>哈德斯菲爾德</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN25" Language="zh_Hant_HK">
+      <Text>德比</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN26" Language="zh_Hant_HK">
+      <Text>伍爾弗漢普頓</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN27" Language="zh_Hant_HK">
+      <Text>哈利法克斯</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN28" Language="zh_Hant_HK">
+      <Text>羅奇代爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN29" Language="zh_Hant_HK">
+      <Text>蓋茨黑德</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN3" Language="zh_Hant_HK">
+      <Text>伯明罕</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN30" Language="zh_Hant_HK">
+      <Text>南安普敦</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN4" Language="zh_Hant_HK">
+      <Text>曼徹斯特</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN5" Language="zh_Hant_HK">
+      <Text>里茲</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN6" Language="zh_Hant_HK">
+      <Text>雪菲爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN7" Language="zh_Hant_HK">
+      <Text>布里斯托</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN8" Language="zh_Hant_HK">
+      <Text>布拉德福德</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN9" Language="zh_Hant_HK">
+      <Text>赫爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_1" Language="zh_Hant_HK">
+      <Text>瑪麗</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_10" Language="zh_Hant_HK">
+      <Text>漢娜</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_2" Language="zh_Hant_HK">
+      <Text>伊莉莎白</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_3" Language="zh_Hant_HK">
+      <Text>莎拉</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_4" Language="zh_Hant_HK">
+      <Text>瑪格麗特</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_5" Language="zh_Hant_HK">
+      <Text>伊萊莎</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_6" Language="zh_Hant_HK">
+      <Text>安</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_7" Language="zh_Hant_HK">
+      <Text>艾倫</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_8" Language="zh_Hant_HK">
+      <Text>珍</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_9" Language="zh_Hant_HK">
+      <Text>艾瑪</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_1" Language="zh_Hant_HK">
+      <Text>威廉</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_10" Language="zh_Hant_HK">
+      <Text>約瑟夫</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_2" Language="zh_Hant_HK">
+      <Text>約翰</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_3" Language="zh_Hant_HK">
+      <Text>喬治</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_4" Language="zh_Hant_HK">
+      <Text>湯瑪斯</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_5" Language="zh_Hant_HK">
+      <Text>詹姆士</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_6" Language="zh_Hant_HK">
+      <Text>羅伯特</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_7" Language="zh_Hant_HK">
+      <Text>亨利</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_8" Language="zh_Hant_HK">
+      <Text>愛德華</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_9" Language="zh_Hant_HK">
+      <Text>查爾斯</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_GREAT_BRITAIN_ADJECTIVE" Language="zh_Hant_HK">
+      <Text>英國</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_GREAT_BRITAIN_FULLNAME" Language="zh_Hant_HK">
+      <Text>大英帝國</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_GREAT_BRITAIN_NAME" Language="zh_Hant_HK">
+      <Text>大不列顛</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_MANUFACTORY_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>工業革命對19世紀英國社會的徹底改造可說是非同小可。在工業革命前的好幾個世紀裡，像紡織這樣的活動都必須在農村的大家庭宅院中進行，但現在，只要某位富有的投資者購買了紡紗和加捻機器，他就可以迅速獲得超越任何家庭手工業的產量。而由於這些機器需要鋼鐵和煤炭，因此這些產業也開始興起。機器的運作還需要勞動力，最好是低工資和非熟練勞動力，這導致人們成群結隊地從農村遷往城市。由於這些工人領取工資，同時也沒有土地可以耕種，因此他們需要更多的商品，而這些商品正是由他們工作的工廠生產的。而因為這些機器需要越來越多的原物料，這些原物料又主要來自英國的殖民地，因此對殖民地的控制也越趨嚴格。這是一個盡可能壓榨工人、殖民地臣民和土地本身，並產生出大量的產品和利潤的體制。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_MANUFACTORY_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>查爾斯‧狄更斯曾描繪過生活在這個體制下的英國平民的日常生活，並指出了儘管身處困境，人性中仍然存留的光輝。弗里德里希‧恩格斯則記錄了這個體制過度的殘酷之處，他指出工廠城鎮的健康和幸福程度遠遠低於農村——但當然，與此同時，農村正在迅速消失。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_MANUFACTORY_CHAPTER_HISTORY_PARA_3" Language="zh_Hant_HK">
+      <Text>但話說回來，這就是製造廠：威廉‧布萊克想像中的「黑暗撒旦磨坊」。它噴出濃煙和蒸汽，重塑著大地，但你看看，它能創造多少財富啊！</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_ROYAL_EXCHANGE_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>大英帝國可說是建立在股票交易所之上，因為英國的權力正是透過商業網路才能向外輻射。皇家交易所由伊莉莎白一世女王於1571年啟用，也是她後來授予了東印度公司皇家特許狀。到了維多利亞時代，英國的貿易網路將茶葉、香料、瓷器和精美的布料從世界的一個角落運送到另一個角落，不僅重塑了殖民地，也重塑了英國中產階級的生活。而皇家交易所正是這個網路的神經中樞——在交易所前向大眾宣布新君主登基等公告之傳統，而這並非巧合。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_ROYAL_EXCHANGE_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>如今的交易所本身已非伊莉莎白女王時期的原貌。皇家交易所曾兩度遭到焚毀，目前的建築是由維多利亞女王於1844年啟用的。然而，如今它已不再是股票交易所，而是一座購物中心——這或許也反映著世間萬物如何在變局之中保持恆常。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>1800年的《聯合法令》將愛爾蘭王國和大不列顛王國（其本身已是蘇格蘭、威爾斯和英格蘭的聯合王國）的王權結合，組成了大不列顛及愛爾蘭聯合王國。這是第二大英帝國的核心，它作為一個工業強權於世界舞台上崛起，鞏固了對印度和非洲殖民地的統治，並在歐洲政治中保持著強大的影響力。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>與法國的戰爭是聯合王國早期歷史的關鍵。這些戰爭最初是對法國大革命的反抗，因為英國的君主政體將法國視為生死存亡之威脅。隨著拿破崙‧波拿巴掌控了法蘭西共和國並建立了法蘭西第一帝國，這個威脅逐漸演變，並開始了一連串的歐洲征服行動。拿破崙戰敗後，英國開始崛起。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_3" Language="zh_Hant_HK">
+      <Text>當時的歐洲滿目瘡痍，但英國卻毫髮無損（並且是無可爭議的海上霸主），因此成為了殖民主義後期時代的關鍵參與者之一。此時，英國王室接管了多家貿易公司，這些公司因腐敗而陷入困境，虧損連連，並因挑起當地衝突而臭名昭著。雖然英國在其殖民地廢除了奴隸制，並遏制了貿易公司最惡劣的衝動，但帝國主義的浪潮仍在升高。在亞洲，英國在馬來亞的柔佛州發動政變，使英國得以控制新加坡。在印度，儘管當時不同地區接連不斷發生叛亂（其中蒂普蘇丹的叛亂最為著名），東印度公司還是被英國的直接統治所取代。這兩個殖民地後來充當通往中國的鴉片管道——這是英國的蓄意策略，目的是尋找一種中國人會購買的商品，因為迄今為止中國人一直不屑於英國商品，而只想要白銀。這導致了之後的兩次鴉片戰爭（英國因此獲得了香港），迫使中國開放市場。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_4" Language="zh_Hant_HK">
+      <Text>簡而言之，為了倫敦的利益，英國人建立了一個全球體系。世界上幾乎每個大洲都有英國的影響力（南美洲大致上是例外）。與更傾向於戰爭的法國人不同，英國人使用了各種統治手段。舉例而言，債務就成為了一種關鍵的工具，利用統治者對製成品的需求，英國商人敦促他們累積起巨額債務，然後這些債務可以通過允許英國人「管理」財政來「償還」。馬來亞和埃及就是這樣落入英國手中的。與此同時，英俄雙方在中亞展開「大博弈」，為了爭奪該地區控制權而開始多方戰略對抗。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_5" Language="zh_Hant_HK">
+      <Text>有趣的是，英國曾就是否涉入與美國的另一場戰爭——南北戰爭進行過辯論。英國在經濟上與南方更為接近，不僅依賴南方的棉花，並且比起和東北方那些頑固的清教徒後裔，更願意與南方的貴族打交道。然而，《解放奴隸宣言》強調支持南方就意味著支持奴隸制，即使是英國人也不會越過這條底線。至少，在19世紀60年代的他們不會。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_6" Language="zh_Hant_HK">
+      <Text>在國內，英國是自由經濟的典範，專注於自由貿易和產權的發展。法國大革命的陰影一直籠罩著英國，因此各個政黨都試圖通過採取安撫路線（輝格黨）或敵對路線（托利黨）來平息民粹主義。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_7" Language="zh_Hant_HK">
+      <Text>19世紀後期是英國的維多利亞時代。這是一個工業化、文學、科學和哲學並起的時代，一個典型的英國時代。隨著工業化進程（也就是威廉‧布萊克所說的「黑暗的撒旦磨坊」）的推展，英國的工業階級也隨之演變。一方面，受時鐘約束的工廠讓家庭生活逐漸與工作生活分離，同時還伴隨著相應的性別角色。另一個變化是心理學和其他社會科學的擴張，20世紀諸多關於種族和性別的概念就深受這個時代的影響。這是一個蒸汽動力的世界，一個狄更斯和福爾摩斯、勃朗特姐妹和德古拉、《萬能管家》以及弗里德里希‧恩格斯並存的世界，在這個世界裡，中產階級的體面被編纂成形並得到提升。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_8" Language="zh_Hant_HK">
+      <Text>簡而言之，大英帝國有多個面向——國內的工業和政治，以及國外赤裸裸的帝國主義。這是一個英國藉由海軍銳不可當的船堅炮利保障著世界秩序的時期，也是處處充滿社會動盪威脅的時期。衝突似乎總是潛伏在背景中，但人們明白，在這個美麗新世界中，戰爭將會截然不同。事實也確實如此。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_GREAT_BRITAIN_CHARTERED_COMPANIES_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>當我們談論殖民主義時，我們經常將殖民時期描述為某個地區被另一個帶有優越性的意識形態，並以掠奪為目的的強權征服之過程。但這只有部分正確，殖民事業在很大程度上是半私人的商業活動，並且是由正式註冊成立並獲得皇室特許的公司所建立。對貿易和利潤的注重正突顯出這些機構的目的——與直接的帝國征服相反，這些企業的建立是為了賺錢。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_GREAT_BRITAIN_CHARTERED_COMPANIES_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>東印度公司或許是英國特許公司中最著名的一家，它早在現代時期之前就已成立。但隨著東印度公司和其他公司的持續經營，他們的壟斷立場和掠奪行為（以及由此引發的抵抗）導致了王室的介入，現代時期的特許公司在範圍上更加有限，並受到更多來自國家的干預。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_GREAT_BRITAIN_PAX_BRITANNICA_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>隨著拿破崙的垮台，英國統治了海洋。在接下來的一個世紀裡，沒有其他國家在海上航線方面能取得能與英國相比的顯著優勢。而且隨著殖民主義全盛時期的到來，也代表著所有潛在的洲際帝國都受制於英國的海上力量。這個時代被稱為「不列顛治世」（Pax Britannica），這也反映了其他地方的類似情況，即單一帝國負責控制貿易和通訊網路，促進和平……儘管是在單一有序的統治之下。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_GREAT_BRITAIN_PAX_BRITANNICA_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>這種統治地位一直持續到19世紀末，隨著美國、日本和德國的崛起，英國開始出現了新的挑戰者，並最終在20世紀瓦解。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_GREAT_BRITAIN_SOCIETY_OF_ANTIQUARIES_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>隨著現代化的腳步，各帝國逐漸對歷史產生濃厚興趣。英國於1707年成立了古物學會，讓新興的考古學家與其他學者齊聚一堂，探討歷史議題，特別是英國史。這個學會的重要性和創新之處，或許不易察覺；畢竟在英國和世界許多地方，對過去的重視，以及將歷史視為值得探索的課題，都並非早已存在的觀念。而這個學會的成立，正反映了人們逐漸意識到那些改變英國歷史的力量和故事非同小可。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_GREAT_BRITAIN_SOCIETY_OF_ANTIQUARIES_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>該學會如今仍然存在，並出版各種期刊，包括普羅大眾和學術性的刊物。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_GREAT_BRITAIN_SPLENDID_ISOLATION_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>在拿破崙戰爭和20世紀之間的那段時期，英國的政策是避免與其他列強結成永久性的聯盟。從英國的角度來看，這種做法非常合理：他們的海上力量無可質疑，但歐洲潛在而言仍然是個由各種聯盟和敵對關係組成的混亂之地，而英吉利海峽則為任何直接攻擊提供了一道天然屏障。因此，英國可以憑藉其強大的實力，以光榮孤立的姿態俯瞰歐洲，儘管最終缺乏親密盟友的事實還是將英國的利益拉回標準的外交軌道上。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_QUARTER_FINANCIAL_CENTRE_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>大英帝國的統治地位主要建立在經濟和貿易之上，而反言之，這也需要在其本土的大都市內建立重要的金融基礎設施才能維持。到了19世紀中葉，倫敦已成為世界的金融中心，全球超過一半的貿易都以英鎊進行。生產和金融齊頭並進：英國的工廠將殖民地的資源轉化為成品，這些工廠既是皇家交易所推動的貿易路線的供應者，也受其驅動。在其鼎盛時期，該體系使英國人能夠通過債務槓桿直接控制各個殖民地的財政。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_ANTIQUARIAN_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>將過去理解為一個既不同於現在但又與現在有某種聯繫的地方，並對收集有關過去的資訊和物品產生興趣，這種觀念曾同時出現在從古埃及到宋朝中國等截然不同的地方。但歐洲的啟蒙運動及之後的時代為此想法提供了一片特別肥沃的土壤——歐洲人首先深入研究古典歷史。然後，在18世紀特別癡迷民族主義和民族起源的期間，投入研究歐洲的史前史。最後，在殖民時代的高峰期，歐洲人開始沉迷於他們新「屬地」的過去。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_ANTIQUARIAN_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>在這裡，人們會想到像海因里希‧施里曼（Heinrich Schliemann，挖掘了特洛伊遺址）、弗林德斯‧皮特里（Flinders Petrie，考察了大金字塔）、霍華德‧卡特（Howard Carter，打開了圖坦卡門陵墓）等人的名字。這些發現在19世紀末和20世紀初的英國引發了一股對古代世界各種事物的熱潮。而這就是古物學家的形象，對於過往事物的收藏家，以及對過去充滿興趣的策展人。  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_REVENGE_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>20世紀初，隨著各國軍隊開始擁抱機械化戰爭的破壞性潛力，無畏艦下水服役。這種戰艦依靠大型遠程火砲，它們既主導了二次大戰的海戰，又在同一場衝突中見證了它們的威力被飛機所取代。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_REVENGE_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>英國復仇級戰艦在四個砲塔上安裝了八門15吋火砲，並在艦身側面配備了副砲，並設有可供早期戰鬥機和偵察機起降的平台。它們在一次大戰中短暫參戰，但主要在兩次大戰之間的幾年服役；最後到了二次大戰時，它們還是被更現代化的艦艇所取代。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_BATTERSEA_POWER_STATION_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>1929年，位於倫敦泰晤士河北岸的巴特西發電廠開始動工。這座裝飾藝術風格的建築由西奧‧J‧哈利迪（Theo J. Halliday）和賈爾斯‧吉伯特‧史考特（Giles Gilbert Scott）設計（後者也負責設計了英國著名的紅色電話亭），其設計目的是將兩個發電站容納在同一棟建築中。到1955年竣工時，巴特西發電站已成為世界上最大的磚砌建築之一。從其101公尺高的煙囪排出的煙霧在二戰期間為飛行員提供了方向指引，這棟建築還出現在平克‧弗洛伊德（Pink Floyd）1977年專輯《動物》（Animals）的封面上。巴特西發電站並沒有運轉太久——它的兩座發電廠分別於1975年和1983年退役。在閒置了30多年後，這座地標性建築近期被改造為購物和住宅中心，重獲新生。 </Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_MANUFACTORY_NAME" Language="zh_Hant_HK">
+      <Text>製造廠</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_ROYAL_EXCHANGE_NAME" Language="zh_Hant_HK">
+      <Text>皇家交易所</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_FINANCIAL_CENTRE_NAME" Language="zh_Hant_HK">
+      <Text>金融中心</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BATTERSEA_POWER_STATION_NAME" Language="zh_Hant_HK">
+      <Text>巴特西發電廠</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_TAY_NAME" Language="zh_Hant_HK">
+      <Text>泰河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_THAMES_NAME" Language="zh_Hant_HK">
+      <Text>泰晤士河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_WYE_NAME" Language="zh_Hant_HK">
+      <Text>懷伊河</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_ARTHUR_S_SEAT_NAME" Language="zh_Hant_HK">
+      <Text>亞瑟王座山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_BARROW_HILL_NAME" Language="zh_Hant_HK">
+      <Text>巴羅山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_BEN_NEVIS_NAME" Language="zh_Hant_HK">
+      <Text>本尼維斯山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_HELVELLYN_NAME" Language="zh_Hant_HK">
+      <Text>赫爾維林峰</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_MYNYDD_Y_DREF_NAME" Language="zh_Hant_HK">
+      <Text>塔山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_THE_CHEVIOT_NAME" Language="zh_Hant_HK">
+      <Text>切維厄特山</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_CHARTERED_COMPANIES_NAME" Language="zh_Hant_HK">
+      <Text>特許公司</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_PAX_BRITANNICA_NAME" Language="zh_Hant_HK">
+      <Text>不列顛治世</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SOCIETY_OF_ANTIQUARIES_NAME" Language="zh_Hant_HK">
+      <Text>古物學會</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SPLENDID_ISOLATION_NAME" Language="zh_Hant_HK">
+      <Text>光榮孤立</Text>
+    </Replace>
+    <Replace Tag="LOC_GREATWORK_ARTIFACT_CONTESTED_STATUE_NAME" Language="zh_Hant_HK">
+      <Text>爭議雕像</Text>
+    </Replace>
+    <Replace Tag="LOC_GREATWORK_ARTIFACT_KOH_I_NOOR_NAME" Language="zh_Hant_HK">
+      <Text>光之山</Text>
+    </Replace>
+    <Replace Tag="LOC_11010A_COMPLETION" Language="zh_Hant_HK">
+      <Text>某位皇家空軍的學員正睜大眼睛，聆聽著另一位資深飛行員講授魯莽飛行的風險。他們很努力想集中注意力，卻還是忍不住要偷瞄這位飛行員飽經風霜的布里斯托F.2戰鬥機，及其機身上眾多的勝利標誌。</Text>
+    </Replace>
+    <Replace Tag="LOC_11010A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>制空權</Text>
+    </Replace>
+    <Replace Tag="LOC_11010B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>空中單位{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11010B_NAME" Language="zh_Hant_HK">
+      <Text>刷掉潛在的膽大之人。</Text>
+    </Replace>
+    <Replace Tag="LOC_11010C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>空中單位{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11010C_NAME" Language="zh_Hant_HK">
+      <Text>鼓勵膽大之人加入。</Text>
+    </Replace>
+    <Replace Tag="LOC_11011A_COMPLETION" Language="zh_Hant_HK">
+      <Text>在日益延長的輪班工時下，工人秘密合作並簽署了請願書。他們在生鏽齒輪的尖嘯聲中大聲呼喊，夢想著能組成一個得以改善工廠安全措施的工會。</Text>
+    </Replace>
+    <Replace Tag="LOC_11011A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>不平的低語</Text>
+    </Replace>
+    <Replace Tag="LOC_11011B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11011B_NAME" Language="zh_Hant_HK">
+      <Text>讓他們組成工會。</Text>
+    </Replace>
+    <Replace Tag="LOC_11011C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>免費購買工廠。</Text>
+    </Replace>
+    <Replace Tag="LOC_11011C_NAME" Language="zh_Hant_HK">
+      <Text>以基礎設施為優先。</Text>
+    </Replace>
+    <Replace Tag="LOC_11012A_COMPLETION" Language="zh_Hant_HK">
+      <Text>在燭光搖曳的角落裡，身處遙遠殖民地的本土公民激昂抨擊著英國總督的高壓統治。這股不滿之情暗潮洶湧，隨時可點燃一場叛亂。</Text>
+    </Replace>
+    <Replace Tag="LOC_11012A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>革命之火</Text>
+    </Replace>
+    <Replace Tag="LOC_11012B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11012B_NAME" Language="zh_Hant_HK">
+      <Text>用精準控制的訊息讓反對勢力噤聲</Text>
+    </Replace>
+    <Replace Tag="LOC_11012C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11012C_NAME" Language="zh_Hant_HK">
+      <Text>用軍事力量擊破反抗勢力。</Text>
+    </Replace>
+    <Replace Tag="LOC_11012D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11012D_NAME" Language="zh_Hant_HK">
+      <Text>允許該城市指派其總督。</Text>
+    </Replace>
+    <Replace Tag="LOC_11013A_COMPLETION" Language="zh_Hant_HK">
+      <Text>徵兵隊穿著剛塗抹過油的靴子，重重踏上一艘商業捕鯨船的甲板，揮舞著要求強制徵兵的命令，抗議聲立刻開始在甲板間回蕩。</Text>
+    </Replace>
+    <Replace Tag="LOC_11013A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>強制徵兵隊</Text>
+    </Replace>
+    <Replace Tag="LOC_11013B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>海軍單位{1_reward}，但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11013B_NAME" Language="zh_Hant_HK">
+      <Text>人民必須服從命令。</Text>
+    </Replace>
+    <Replace Tag="LOC_11013C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}，但海軍單位{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11013C_NAME" Language="zh_Hant_HK">
+      <Text>船隻的主人將會獲得補償。</Text>
+    </Replace>
+    <Replace Tag="LOC_11014A_COMPLETION" Language="zh_Hant_HK">
+      <Text>店主們受夠大量湧入的海外進口商品導致滯銷的英製商品堆滿倉庫，他們抱怨英國已經迷失了方向——而人民也早已失去了那股自豪感。</Text>
+    </Replace>
+    <Replace Tag="LOC_11014A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>開放港口</Text>
+    </Replace>
+    <Replace Tag="LOC_11014B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11014B_NAME" Language="zh_Hant_HK">
+      <Text>對進口品實施關稅。</Text>
+    </Replace>
+    <Replace Tag="LOC_11014C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11014C_NAME" Language="zh_Hant_HK">
+      <Text>向外國市場強賣英國商品。</Text>
+    </Replace>
+    <Replace Tag="LOC_11015A_COMPLETION" Language="zh_Hant_HK">
+      <Text>隨著英國發展繁榮，有越來越多年輕男女爭相進入其神聖的學術殿堂。但精英們卻不禁擔心起來，如果國家未來領導人需被迫與普通民眾相處，那牛津的教育很快就會失去原有意義。</Text>
+    </Replace>
+    <Replace Tag="LOC_11015A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>牛津人</Text>
+    </Replace>
+    <Replace Tag="LOC_11015B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>所有的聚落{1_reward}，但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11015B_NAME" Language="zh_Hant_HK">
+      <Text>傳統何在？</Text>
+    </Replace>
+    <Replace Tag="LOC_11015C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11015C_NAME" Language="zh_Hant_HK">
+      <Text>英國未來的領導人可能來自各個階層。</Text>
+    </Replace>
+    <Replace Tag="LOC_11016A_COMPLETION" Language="zh_Hant_HK">
+      <Text>高聳的黑色熔爐來回傾倒，噴湧出滾燙的金屬洪流——英國新的貝塞麥轉爐煉鋼法徹底改革了製鋼產業。</Text>
+    </Replace>
+    <Replace Tag="LOC_11016A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>鋼鐵之力</Text>
+    </Replace>
+    <Replace Tag="LOC_11016B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>復仇級戰艦{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11016B_NAME" Language="zh_Hant_HK">
+      <Text>提高船艦產量。</Text>
+    </Replace>
+    <Replace Tag="LOC_11016C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>復仇級戰艦{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11016C_NAME" Language="zh_Hant_HK">
+      <Text>最佳化大砲的建造。</Text>
+    </Replace>
+    <Replace Tag="LOC_11017A_COMPLETION" Language="zh_Hant_HK">
+      <Text>火車停在一家罐頭廠外，幾名工人開始將木箱搬上車廂，箱子裡頭裝滿了用木屑防撞的肉罐頭——所謂的英式奢華與過度浪費在此處表露無疑。</Text>
+    </Replace>
+    <Replace Tag="LOC_11017A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>食物鏈的頂端</Text>
+    </Replace>
+    <Replace Tag="LOC_11017B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11017B_NAME" Language="zh_Hant_HK">
+      <Text>囤積緊急食糧。</Text>
+    </Replace>
+    <Replace Tag="LOC_11017C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11017C_NAME" Language="zh_Hant_HK">
+      <Text>出口過剩的食品。</Text>
+    </Replace>
+    <Replace Tag="LOC_11018A_COMPLETION" Language="zh_Hant_HK">
+      <Text>某位社會改革家站在工廠前，一邊強行將傳單塞到路人手中，一邊宣揚年輕生命正成為利益祭壇上的祭品。</Text>
+    </Replace>
+    <Replace Tag="LOC_11018A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>勞苦的年輕人</Text>
+    </Replace>
+    <Replace Tag="LOC_11018B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11018B_NAME" Language="zh_Hant_HK">
+      <Text>兒童理應受到妥善教育。</Text>
+    </Replace>
+    <Replace Tag="LOC_11018C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11018C_NAME" Language="zh_Hant_HK">
+      <Text>小時候努力工作，長大才會是有紀律的成人。</Text>
+    </Replace>
+    <Replace Tag="LOC_11019_ALT2A_COMPLETION" Language="zh_Hant_HK">
+      <Text>某位英國古物學者在蒙兀兒領土上發現了一顆據傳早已失落的鑽石。這顆鑽石無論是大小和美麗都無與倫比，蒙兀兒當局要求他物歸原主。</Text>
+    </Replace>
+    <Replace Tag="LOC_11019_ALT2A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>光之山</Text>
+    </Replace>
+    <Replace Tag="LOC_11019_ALT2B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}，但與其開戰。</Text>
+    </Replace>
+    <Replace Tag="LOC_11019_ALT2B_NAME" Language="zh_Hant_HK">
+      <Text>這應該放在英國的皇冠上。</Text>
+    </Replace>
+    <Replace Tag="LOC_11019_ALT2C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}，但返還文物。</Text>
+    </Replace>
+    <Replace Tag="LOC_11019_ALT2C_NAME" Language="zh_Hant_HK">
+      <Text>這屬於蒙兀兒人。</Text>
+    </Replace>
+    <Replace Tag="LOC_11019A_COMPLETION" Language="zh_Hant_HK">
+      <Text>一支進入{1_OPPONENT_CIVILIZATION_ADJ}領土的探險隊帶著秘密貨物踏上歸途——那是一座在{2_OWNER_EXPLORATION_CIVILIZATION_ADJ}史上據稱早已失落的絕美塑像。隊中的古物學家者聲稱此物應歸屬於博物館，但{3_OPPONENT_CIVILIZATION_ADJ}使節卻要求他立即歸還，並不惜出言要脅。</Text>
+    </Replace>
+    <Replace Tag="LOC_11019A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>過往的守護者</Text>
+    </Replace>
+    <Replace Tag="LOC_11019B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}，但與其開戰。</Text>
+    </Replace>
+    <Replace Tag="LOC_11019B_NAME" Language="zh_Hant_HK">
+      <Text>大不列顛會負責守護世界的遺產，無論這世界想不想要都一樣。</Text>
+    </Replace>
+    <Replace Tag="LOC_11019C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}，但返還文物。</Text>
+    </Replace>
+    <Replace Tag="LOC_11019C_NAME" Language="zh_Hant_HK">
+      <Text>歸還文物並且道歉。</Text>
+    </Replace>
+    <Replace Tag="LOC_11019D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>文物遺失。</Text>
+    </Replace>
+    <Replace Tag="LOC_11019D_NAME" Language="zh_Hant_HK">
+      <Text>摧毀文物。</Text>
+    </Replace>
+    <Replace Tag="LOC_11068A_COMPLETION" Language="zh_Hant_HK">
+      <Text>世界變得越來越複雜，然而英國政治家卻越來越不願與其他大國聯盟。他們宣稱大不列顛應和各國保持安全距離來避免捲入外交糾紛，不過某些人也擔心缺乏盟友最終將會自食惡果。</Text>
+    </Replace>
+    <Replace Tag="LOC_11068A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>船鉤外交</Text>
+    </Replace>
+    <Replace Tag="LOC_11068B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11068B_NAME" Language="zh_Hant_HK">
+      <Text>大不列顛王國是由內部的力量驅動。</Text>
+    </Replace>
+    <Replace Tag="LOC_11068C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11068C_NAME" Language="zh_Hant_HK">
+      <Text>為了成功，有必要稍微向外交流。</Text>
+    </Replace>
+    <Replace Tag="LOC_12005A_COMPLETION" Language="zh_Hant_HK">
+      <Text>工業產生的煙霧如面紗般籠罩在英國首都的上空。然而最讓黎剎感到震撼的，卻是此地人民的多樣性。</Text>
+    </Replace>
+    <Replace Tag="LOC_12005A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>好醫生在大不列顛帝國</Text>
+    </Replace>
+    <Replace Tag="LOC_12005B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_12005B_NAME" Language="zh_Hant_HK">
+      <Text>他們似乎遵循著某種嚴格的階級結構。</Text>
+    </Replace>
+    <Replace Tag="LOC_12005C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>所有聚落{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_12005C_NAME" Language="zh_Hant_HK">
+      <Text>他們似乎來自帝國的各個角落。</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_MANUFACTORY_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>+5[icon:YIELD_PRODUCTION]生產力。從資源與奇觀獲得+1[icon:YIELD_PRODUCTION]生產力相鄰加成。從可航行河流獲得+1[icon:YIELD_GOLD]金幣相鄰加成，大不列顛特色生產力建築。不分時代。</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_MANUFACTORY_TOOLTIP" Language="zh_Hant_HK">
+      <Text>大不列顛特色生產力建築。不分時代。</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_ROYAL_EXCHANGE_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>+5[icon:YIELD_GOLD]金幣。從城區與奇觀獲得+1[icon:YIELD_GOLD]金幣相鄰加成。大不列顛特色金幣建築。不分時代。</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_ROYAL_EXCHANGE_TOOLTIP" Language="zh_Hant_HK">
+      <Text>大不列顛特色金幣建築。不分時代。</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_CHARTERED_COMPANIES_AUTHOR" Language="zh_Hant_HK">
+      <Text>拜倫勳爵</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_CHARTERED_COMPANIES_QUOTE" Language="zh_Hant_HK">
+      <Text>「人們總說『知識就是力量』。我以前也這麼想，但現在我終於知道他們要說的其實是『金錢就是力量』。」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_PAX_BRITANNICA_AUTHOR" Language="zh_Hant_HK">
+      <Text>班傑明·迪斯雷利</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_PAX_BRITANNICA_QUOTE" Language="zh_Hant_HK">
+      <Text>「財富和閒暇時間的增加是促進人類文明開化的兩大因素。」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SOCIETY_OF_ANTIQUARIES_AUTHOR" Language="zh_Hant_HK">
+      <Text>霍華德·卡特</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SOCIETY_OF_ANTIQUARIES_QUOTE" Language="zh_Hant_HK">
+      <Text>「待我的眼睛習慣這光線後，房間的細節逐漸浮現。奇特的動物、雕像和黃金——到處都閃爍著金色的光輝。」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SPLENDID_ISOLATION_AUTHOR" Language="zh_Hant_HK">
+      <Text>索爾斯伯利侯爵</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SPLENDID_ISOLATION_QUOTE" Language="zh_Hant_HK">
+      <Text>「戰爭的正當與否取決於其是否符合時宜。」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_GREAT_BRITAIN_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>購買建築時+25%[icon:YIELD_GOLD]金幣效益，建造建築時+25%[icon:YIELD_PRODUCTION]生產力效益。將城鎮轉化為城市的花費多50%。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_GREAT_BRITAIN" Language="zh_Hant_HK">
+      <Text>統治吧，不列顛尼亞！在倫敦煙霧瀰漫的天空之外、在曼徹斯特工廠的轟鳴聲之外，尚有更為輝煌的榮耀——那便是日不落的帝國。永不滿足的工廠渴求著原料，而倉庫中堆積如山的存貨期盼著市場。回應這些呼喚，願太陽在你的廣闊疆域內永不落下！</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_GREAT_BRITAIN" Language="zh_Hant_HK">
+      <Text>大不列顛偏愛擁有大量城鎮，並從「東印度公司」傳統及「金融中心」特色城區獲得豐厚金幣。利用這些城鎮來為你的城市收集工廠資源！</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_INTRO_GREAT_BRITAIN" Language="zh_Hant_HK">
+      <Text>混亂代表缺乏秩序，也代表世界需要穩定的結構。大不列顛就此崛起。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GREAT_BRITAIN_COMPLETE_BATTERSEA_POWER_STATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演大不列顛，建成巴特西發電廠</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GREAT_BRITAIN_COMPLETE_BATTERSEA_POWER_STATION_NAME" Language="zh_Hant_HK">
+      <Text>巴特西發電廠</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GREAT_BRITAIN_LEGACY_PATH_ECONOMIC_DESC" Language="zh_Hant_HK">
+      <Text>扮演大不列顛，完成一條經濟傳承路徑</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GREAT_BRITAIN_LEGACY_PATH_ECONOMIC_NAME" Language="zh_Hant_HK">
+      <Text>大不列顛傳承路徑</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CHARTERED_COMPANIES_PORT_RESOURCE_CAP_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>擁有港口的聚落+1資源容量。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_GREAT_BRITAIN_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>+30%[icon:YIELD_PRODUCTION]生產力來自身為與大不列顛相關的奇觀。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_PAX_BRITANNICA_PRODUCTION_FACTORY_RESOURCES_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>每有一個工廠資源指派至聚落，該聚落獲得+3[icon:YIELD_PRODUCTION]生產力。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SOCIETY_OF_ANTIQUARIES_ENTER_FOREIGN_LANDS_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>古物學家可以無須開放邊境便進入其他文明之邊境。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SOCIETY_OF_ANTIQUARIES_MOVEMENT_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>平民+1移動力。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SPLENDID_ISOLATION_POSITIVE_GOLD_CS_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在回合開始時，若你每回合擁有正數或0的[icon:YIELD_GOLD]金幣，各單位獲得+3戰鬥力。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SPLENDID_ISOLATION_POSITIVE_GOLD_CS_PREVIEW" Language="zh_Hant_HK">
+      <Text>從「光榮孤立」市政獲得+3戰鬥力。</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_FINANCIAL_CENTRE_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>大不列顛特色城區。透過在同一個區域建造製造廠和皇家交易所來創造。每有一個相連接的聚落，便+2[icon:YIELD_GOLD]金幣和[icon:YIELD_SCIENCE]科技值。</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_FINANCIAL_CENTRE_TOOLTIP" Language="zh_Hant_HK">
+      <Text>每有一個相連接的聚落，便+2[icon:YIELD_GOLD]金幣和[icon:YIELD_SCIENCE]科技值。</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_BATTERSEA_POWER_STATION" Language="zh_Hant_HK">
+      <Text>蘇珊娜‧克拉克</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_BATTERSEA_POWER_STATION" Language="zh_Hant_HK">
+      <Text>「你曾經問過我是否記得巴特西。現在我記得了。」</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_EAST_INDIA_COMPANY_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>城鎮各建築+3[icon:YIELD_GOLD]金幣。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_NO_ETERNAL_ALLIES_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>各城鎮+10%[icon:YIELD_FOOD]食物與[icon:YIELD_GOLD]金幣，但每擁有一個同盟關係，首都-5%[icon:YIELD_GOLD]金幣。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_PROCEEDINGS_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>同時有巨作和資源放入槽位的城市獲得+4[icon:YIELD_CULTURE]文化值和[icon:YIELD_SCIENCE]科技值。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_GREAT_BRITAIN_ABILITY_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>[BLIST][LI]購買建築時+25%[icon:YIELD_GOLD]金幣效益，且建造建築時+25%[icon:YIELD_PRODUCTION]生產力效益。[LI]將城鎮轉化為城市的花費多50%。[LI]建造[B]巴特西發電廠[/B]時[B]+30%[icon:YIELD_PRODUCTION]生產力效益[/B]。[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_GREAT_BRITAIN_ABILITY_NAME" Language="zh_Hant_HK">
+      <Text>世界的工坊</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_MO_GREAT_BRITAIN_NAME" Language="zh_Hant_HK">
+      <Text>大不列顛王國市政</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_ANTIQUARIAN_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>大不列顛特色探索者。當你使用「挖掘文物」時，距離首都每有一格距離，便+20[icon:YIELD_CULTURE]文化值。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_REVENGE_2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>3階英國特色重型海軍單位，位於與攻擊目標相鄰格位之敵方單位，需承受目標25%的傷害。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_REVENGE_BASE_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>英國特色重型海軍單位，位於與攻擊目標相鄰格位之敵方單位，需承受目標25%的傷害。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_REVENGE_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>2階英國特色重型海軍單位，位於與攻擊目標相鄰格位之敵方單位，需承受目標25%的傷害。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_FLEET_COMMANDERS_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>擁有兩名[B]艦隊指揮官[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_FLEET_COMMANDERS_GREAT_BRITAIN_NARRATIVE" Language="zh_Hant_HK">
+      <Text>「這就是一道木牆，」海軍統帥指著乾船塢中的戰艦，信心滿滿地說道。新一代的海軍軍官們提出了嶄新的統治藍圖，他們的野心不只要掌控陸地，更要征服海洋。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_FLEET_COMMANDERS_GREAT_BRITAIN_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]艦隊指揮官[/B]曾是[B]大不列顛[/B]國家認同的重要組成。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_GREAT_BRITAIN_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]愛達‧勒芙蕾絲[/B]是[B]英國人[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BENJAMIN_FRANKLIN_GREAT_BRITAIN_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]大不列顛[/B]和[B]班傑明‧富蘭克林[/B]在策略上互補。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_NORMAN_GREAT_BRITAIN_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]諾曼人[/B]曾是[B]大不列顛[/B]在文明方面的其中一個前身。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ROME_GREAT_BRITAIN_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]羅馬[/B]曾是[B]大不列顛[/B]在文明方面的其中一個前身。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BATTERSEA_POWER_STATION_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>+4[icon:YIELD_PRODUCTION]生產力。每次你訓練海軍單位時多獲得一個（但購買不算）。不分時代。必須放置在相鄰於海岸處。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BATTERSEA_POWER_STATION_TOOLTIP" Language="zh_Hant_HK">
+      <Text>每次你訓練海軍單位時多獲得一個。不分時代。必須放置在相鄰於海岸處。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_EAST_INDIA_COMPANY_NAME" Language="zh_Hant_HK">
+      <Text>東印度公司</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_NO_ETERNAL_ALLIES_NAME" Language="zh_Hant_HK">
+      <Text>盟友無恆常</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_PROCEEDINGS_NAME" Language="zh_Hant_HK">
+      <Text>論文集</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_ANTIQUARIAN_NAME" Language="zh_Hant_HK">
+      <Text>古物學家</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_REVENGE_NAME" Language="zh_Hant_HK">
+      <Text>復仇級戰艦</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

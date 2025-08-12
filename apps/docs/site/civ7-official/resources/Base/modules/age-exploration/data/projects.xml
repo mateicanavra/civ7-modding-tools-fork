@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_PROJECT"/>
+	</Kinds>
+	<Types>
+		<!-- Warehouse Projects -->
+		<Row Type="PROJECT_TOWN_GRANARY" Kind="KIND_PROJECT"/>
+		<Row Type="PROJECT_TOWN_FISHING" Kind="KIND_PROJECT"/>
+		<Row Type="PROJECT_TOWN_PRODUCTION" Kind="KIND_PROJECT"/>
+		<!-- Common Projects -->
+		<Row Type="PROJECT_TOWN_TRADE" Kind="KIND_PROJECT"/>
+		<Row Type="PROJECT_TOWN_TEMPLE" Kind="KIND_PROJECT"/>
+		<Row Type="PROJECT_TOWN_INN" Kind="KIND_PROJECT"/>
+		<!-- Unique Projects -->
+		<Row Type="PROJECT_CITY_SCIENCE_PROJECT" Kind="KIND_PROJECT"/>
+		<Row Type="PROJECT_CITY_CULTURE_PROJECT" Kind="KIND_PROJECT"/>
+	</Types>
+	<Projects>
+		<!-- Warehouse Projects -->
+		<Row ProjectType="PROJECT_TOWN_GRANARY" Name="LOC_PROJECT_TOWN_GRANARY_NAME" ShortName="LOC_PROJECT_TOWN_GRANARY_SHORT_NAME" Description="LOC_PROJECT_TOWN_GRANARY_DESCRIPTION" Food="true" ExclusiveSpecialization="true" TownOnly="true" PrereqPopulation="7" RequiresUnlock="true"/>
+		<Row ProjectType="PROJECT_TOWN_FISHING" Name="LOC_PROJECT_TOWN_FISHING_NAME" ShortName="LOC_PROJECT_TOWN_FISHING_SHORT_NAME" Description="LOC_PROJECT_TOWN_FISHING_DESCRIPTION" Food="true" ExclusiveSpecialization="true" TownOnly="true" PrereqPopulation="7" RequiresUnlock="true"/>
+		<Row ProjectType="PROJECT_TOWN_PRODUCTION" Name="LOC_PROJECT_TOWN_PRODUCTION_NAME" ShortName="LOC_PROJECT_TOWN_PRODUCTION_SHORT_NAME" Description="LOC_PROJECT_TOWN_PRODUCTION_DESCRIPTION" Food="true" ExclusiveSpecialization="true" TownOnly="true" PrereqPopulation="7"/>
+		<!-- Common Projects -->
+		<Row ProjectType="PROJECT_TOWN_TRADE" Name="LOC_PROJECT_TOWN_TRADE_NAME" ShortName="LOC_PROJECT_TOWN_TRADE_SHORT_NAME" Description="LOC_PROJECT_TOWN_TRADE_DESCRIPTION" Food="true" ExclusiveSpecialization="true" TownOnly="true" PrereqPopulation="7" RequiresUnlock="true"/>
+		<Row ProjectType="PROJECT_TOWN_TEMPLE" Name="LOC_PROJECT_TOWN_TEMPLE_NAME" ShortName="LOC_PROJECT_TOWN_TEMPLE_SHORT_NAME" Description="LOC_PROJECT_TOWN_TEMPLE_DESCRIPTION" Food="true" ExclusiveSpecialization="true" TownOnly="true" PrereqPopulation="7"/>
+		<Row ProjectType="PROJECT_TOWN_INN" Name="LOC_PROJECT_TOWN_INN_NAME" ShortName="LOC_PROJECT_TOWN_INN_SHORT_NAME" Description="LOC_PROJECT_TOWN_INN_DESCRIPTION" Food="true" ExclusiveSpecialization="true" TownOnly="true" PrereqPopulation="7"/>
+		<!-- Unique Projects -->
+		<Row ProjectType="PROJECT_CITY_SCIENCE_PROJECT" Name="LOC_PROJECT_CITY_SCIENCE_PROJECT_NAME" ShortName="LOC_PROJECT_CITY_SCIENCE_PROJECT_SHORT_NAME" Description="LOC_PROJECT_CITY_SCIENCE_PROJECT_DESCRIPTION" Cost="300" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="200" Food="false" CityOnly="true" RequiresUnlock="false"/>
+		<Row ProjectType="PROJECT_CITY_CULTURE_PROJECT" Name="LOC_PROJECT_CITY_CULTURE_PROJECT_NAME" ShortName="LOC_PROJECT_CITY_CULTURE_PROJECT_SHORT_NAME" Description="LOC_PROJECT_CITY_CULTURE_PROJECT_DESCRIPTION" Cost="300" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="200" Food="false" CityOnly="true" RequiresUnlock="false"/>
+	</Projects>
+	<ProjectModifiers>
+		<!-- Warehouse Modifiers -->
+		<Row ProjectType="PROJECT_TOWN_GRANARY" ModifierId="GRANARY_WAREHOUSE_FROM_PROJECT"/>
+		<Row ProjectType="PROJECT_TOWN_FISHING" ModifierId="FISHING_WAREHOUSE_FROM_PROJECT"/>
+		<Row ProjectType="PROJECT_TOWN_PRODUCTION" ModifierId="PRODUCTION_WAREHOUSE_FROM_PROJECT"/>
+		<!-- Common Project Modifiers -->
+		<Row ProjectType="PROJECT_TOWN_TRADE" ModifierId="HAPPINESS_WAREHOUSE_IN_CITY_FROM_PROJECT"/>
+		<Row ProjectType="PROJECT_TOWN_TEMPLE" ModifierId="ATTACH_TEMPLES_IN_CITY_FROM_PROJECT"/>
+		<Row ProjectType="PROJECT_TOWN_INN" ModifierId="INFLUENCE_ON_INNS_IN_CITY_FROM_PROJECT"/>
+	</ProjectModifiers>
+	<Project_YieldConversions>
+		<!-- Unique Projects -->
+		<Row ProjectType="PROJECT_CITY_SCIENCE_PROJECT" YieldType="YIELD_SCIENCE" PercentOfProductionRate="25"/>
+		<Row ProjectType="PROJECT_CITY_CULTURE_PROJECT" YieldType="YIELD_CULTURE" PercentOfProductionRate="25"/>
+	</Project_YieldConversions>
+</Database>

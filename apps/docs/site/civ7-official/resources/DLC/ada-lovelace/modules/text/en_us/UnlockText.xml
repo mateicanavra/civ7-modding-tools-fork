@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_DESCRIPTION">
+			<Text>Play as [B]Ada Lovelace[/B].</Text>
+		</Row>
+
+		<Row Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_GREECE_TOOLTIP">
+			<Text>[B]Ada Lovelace[/B] was from the same continent as [B]Greece[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_ROME_TOOLTIP">
+			<Text>[B]Ada Lovelace[/B] was from the same continent as [B]Rome[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_ABBASID_TOOLTIP">
+			<Text>[B]The Abbasids[/B] strategically complement [B]Ada Lovelace[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_NORMAN_TOOLTIP">
+			<Text>[B]Ada Lovelace's[/B] Britain was once ruled by [B]the Normans[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_RUSSIA_TOOLTIP">
+			<Text>[B]Ada Lovelace[/B] was from the same continent as [B]Russia[/B].</Text>
+		</Row>
+	</EnglishText>
+</Database>

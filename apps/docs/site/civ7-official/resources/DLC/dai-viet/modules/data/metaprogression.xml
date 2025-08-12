@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<MetaprogressionModifiers>
+		<Row ModifierId="METAPROGRESSION_CHALLENGE_DAI_VIET_LEGACY_PATH_CULTURAL_ACHIEVED" RequiredCivilizationType="CIVILIZATION_DAI_VIET" />
+		<Row ModifierId="METAPROGRESSION_CHALLENGE_DAI_VIET_LEGACY_PATH_MILESTONE_COMPLETED" RequiredCivilizationType="CIVILIZATION_DAI_VIET" />
+		<Row ModifierId="METAPROGRESSION_CHALLENGE_DAI_VIET_COMPLETE_THANH_HUE_ACHIEVED" RequiredCivilizationType="CIVILIZATION_DAI_VIET" />
+	</MetaprogressionModifiers>
+</Database>

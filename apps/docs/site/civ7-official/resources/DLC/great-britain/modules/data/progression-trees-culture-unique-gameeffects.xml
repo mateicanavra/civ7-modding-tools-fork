@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!--Great Britain-->
+	<Modifier id="MOD_PAX_BRITANNICA_PRODUCTION_FACTORY_RESOURCES" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_RESOURCE_CLASS">
+		<Argument name="ResourceClassType">RESOURCECLASS_FACTORY</Argument>
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Amount">3</Argument>
+		<Argument name="Tooltip">LOC_CIVIC_PAX_BRITANNICA_NAME</Argument>
+		<String context="Description">LOC_MOD_PAX_BRITANNICA_PRODUCTION_FACTORY_RESOURCES_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SOCIETY_OF_ANTIQUARIES_ENTER_FOREIGN_LANDS" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_ANTIQUARIAN</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ENTER_FOREIGN_MOD_ADJUST_UNIT_ENTER_FOREIGN_LANDS</Argument>
+		<String context="Description">LOC_MOD_SOCIETY_OF_ANTIQUARIES_ENTER_FOREIGN_LANDS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SOCIETY_OF_ANTIQUARIES_MOVEMENT" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_NON_COMBAT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_SOCIETY_OF_ANTIQUARIES_MOVEMENT_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SPLENDID_ISOLATION_POSITIVE_GOLD_CS" collection="COLLECTION_PLAYER_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_NEGATIVE_YIELD_PER_TURN" inverse="true">
+				<Argument name="YieldType">YIELD_GOLD</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_COMBAT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_MOD_SPLENDID_ISOLATION_POSITIVE_GOLD_CS_PREVIEW</String>
+		<String context="Description">LOC_MOD_SPLENDID_ISOLATION_POSITIVE_GOLD_CS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_CHARTERED_COMPANIES_PORT_RESOURCE_CAP" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_RESOURCE_CAP">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILDING">
+				<Argument name="BuildingType">BUILDING_PORT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_CHARTERED_COMPANIES_PORT_RESOURCE_CAP_DESCRIPTION</String>
+	</Modifier>
+</GameEffects>

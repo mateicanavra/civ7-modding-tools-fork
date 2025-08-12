@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<Row Kind="KIND_GOODY_HUT"/>
+	</Kinds>
+	<Types>
+		<Row Type="GOODYHUT_CULTURE" Kind="KIND_GOODY_HUT"/>
+		<Row Type="GOODYHUT_GOLD" Kind="KIND_GOODY_HUT"/>
+		<Row Type="GOODYHUT_HAPPINESS" Kind="KIND_GOODY_HUT"/>
+		<Row Type="GOODYHUT_MILITARY" Kind="KIND_GOODY_HUT"/>
+		<Row Type="GOODYHUT_SCIENCE" Kind="KIND_GOODY_HUT"/>
+		<Row Type="GOODYHUT_SURVIVORS" Kind="KIND_GOODY_HUT"/>
+	</Types>
+	<GoodyHuts>
+		<Row GoodyHutType="GOODYHUT_CULTURE" Weight="100"/>
+		<Row GoodyHutType="GOODYHUT_GOLD" Weight="100"/>
+		<Row GoodyHutType="GOODYHUT_HAPPINESS" Weight="100"/>
+		<Row GoodyHutType="GOODYHUT_MILITARY" Weight="100"/>
+		<Row GoodyHutType="GOODYHUT_SCIENCE" Weight="100"/>
+		<Row GoodyHutType="GOODYHUT_SURVIVORS" Weight="100"/>
+	</GoodyHuts>
+	<GoodyHutSubTypes>
+		<!-- Culture-->
+		<Row GoodyHut="GOODYHUT_CULTURE" SubTypeGoodyHut="GOODYHUT_FULL_CIVIC" Description="LOC_GOODYHUT_CULTURE_GRANT_CIVIC" Weight="30" Turn="30" ModifierID="GOODY_CULTURE_GRANT_FULL_CIVIC"/>
+		<Row GoodyHut="GOODYHUT_CULTURE" SubTypeGoodyHut="GOODYHUT_ONE_CIVIC_BOOST" Description="LOC_GOODYHUT_CULTURE_GRANT_BOOST" Weight="50" ModifierID="GOODY_CULTURE_GRANT_ONE_CIVIC_BOOST"/>
+		<!-- Gold-->
+		<Row GoodyHut="GOODYHUT_GOLD" SubTypeGoodyHut="GOODYHUT_LARGE_GOLD" Description="LOC_GOODYHUT_LARGE_GOLD_DESCRIPTION" Weight="15" Turn="40" MinOneCity="true" ModifierID="GOODY_GOLD_LARGE_MODIFIER"/>
+		<Row GoodyHut="GOODYHUT_GOLD" SubTypeGoodyHut="GOODYHUT_MEDIUM_GOLD" Description="LOC_GOODYHUT_MEDIUM_GOLD_DESCRIPTION" Weight="30" Turn="20" MinOneCity="true" ModifierID="GOODY_GOLD_MEDIUM_MODIFIER"/>
+		<Row GoodyHut="GOODYHUT_GOLD" SubTypeGoodyHut="GOODYHUT_SMALL_GOLD" Description="LOC_GOODYHUT_SMALL_GOLD_DESCRIPTION" Weight="55" MinOneCity="true" ModifierID="GOODY_GOLD_SMALL_MODIFIER"/>
+		<!-- Happiness-->
+		<Row GoodyHut="GOODYHUT_HAPPINESS" SubTypeGoodyHut="GOODYHUT_LARGE_HAPPINESS" Description="LOC_GOODYHUT_LARGE_HAPPINESS_DESCRIPTION" Weight="15" Turn="40" MinOneCity="true" ModifierID="GOODY_HAPPINESS_LARGE_MODIFIER"/>
+		<Row GoodyHut="GOODYHUT_HAPPINESS" SubTypeGoodyHut="GOODYHUT_MEDIUM_HAPPINESS" Description="LOC_GOODYHUT_MEDIUM_HAPPINESS_DESCRIPTION" Weight="30" Turn="20" MinOneCity="true" ModifierID="GOODY_HAPPINESS_MEDIUM_MODIFIER"/>
+		<Row GoodyHut="GOODYHUT_HAPPINESS" SubTypeGoodyHut="GOODYHUT_SMALL_HAPPINESS" Description="LOC_GOODYHUT_SMALL_HAPPINESS_DESCRIPTION" Weight="55" MinOneCity="true" ModifierID="GOODY_HAPPINESS_SMALL_MODIFIER"/>
+		<!-- Military-->
+		<Row GoodyHut="GOODYHUT_MILITARY" SubTypeGoodyHut="GOODYHUT_GRANT_LAND_UNIT" Description="LOC_GOODYHUT_MILITARY_GRANT_LAND_UNIT_DESCRIPTION" Weight="50" MinOneCity="true" ModifierID="GOODY_MILITARY_GRANT_LAND_UNIT"/>
+		<Row GoodyHut="GOODYHUT_MILITARY" SubTypeGoodyHut="GOODYHUT_GRANT_NAVAL_UNIT" Description="LOC_GOODYHUT_MILITARY_GRANT_NAVAL_UNIT_DESCRIPTION" Weight="30" MinOneCity="true" NearestCityNaval="true" ModifierID="GOODY_MILITARY_GRANT_NAVAL_UNIT"/>
+		<!-- Science-->
+		<Row GoodyHut="GOODYHUT_SCIENCE" SubTypeGoodyHut="GOODYHUT_FULL_TECH" Description="LOC_GOODYHUT_SCIENCE_GRANT_TECH" Weight="30" Turn="30" ModifierID="GOODY_SCIENCE_GRANT_FULL_TECH"/>
+		<Row GoodyHut="GOODYHUT_SCIENCE" SubTypeGoodyHut="GOODYHUT_ONE_TECH_BOOST" Description="LOC_GOODYHUT_SCIENCE_GRANT_BOOST" Weight="50" ModifierID="GOODY_SCIENCE_GRANT_ONE_TECH_BOOST"/>
+		<Row GoodyHut="GOODYHUT_SCIENCE" SubTypeGoodyHut="GOODY_SCIENCE_GRANT_ONE_CODEX" Description="LOC_GOODYHUT_SCIENCE_GRANT_ONE_CODEX_DESCRIPTION" Weight="20" RequiresCityGreatWorkObjectType="GREATWORKOBJECT_WRITING" ModifierID="GOODY_SCIENCE_GRANT_ONE_CODEX"/>
+		<!--Survivors-->
+		<Row GoodyHut="GOODYHUT_SURVIVORS" SubTypeGoodyHut="GOODYHUT_GRANT_MIGRANT" Description="LOC_GOODYHUT_SURVIVORS_GRANT_MIGRANT_DESCRIPTION" Weight="0" MinOneCity="true" ModifierID="GOODY_SURVIVORS_GRANT_MIGRANT"/>
+		<Row GoodyHut="GOODYHUT_SURVIVORS" SubTypeGoodyHut="GOODYHUT_GRANT_COMMANDER" Description="LOC_GOODYHUT_SURVIVORS_GRANT_COMMANDER_DESCRIPTION" Weight="40" MinOneCity="true" Turn="15" ModifierID="GOODY_SURVIVORS_GRANT_COMMANDER"/>
+		<Row GoodyHut="GOODYHUT_SURVIVORS" SubTypeGoodyHut="GOODYHUT_GRANT_SCOUT" Description="LOC_GOODYHUT_SURVIVORS_GRANT_SCOUT_DESCRIPTION" Weight="60" MinOneCity="true" ModifierID="GOODY_SURVIVORS_GRANT_SCOUT"/>
+	</GoodyHutSubTypes>
+	<Modifiers>
+		<!-- Culture-->
+		<Row>
+			<ModifierId>GOODY_CULTURE_GRANT_FULL_CIVIC</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_GRANT_PROGRESSION</ModifierType>
+			<RunOnce>true</RunOnce>
+			<Permanent>true</Permanent>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_CULTURE_GRANT_ONE_CIVIC_BOOST</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_GRANT_PROGRESSION</ModifierType>
+			<RunOnce>true</RunOnce>
+			<Permanent>true</Permanent>
+		</Row>
+		<!-- Gold-->
+		<Row>
+			<ModifierId>GOODY_GOLD_LARGE_MODIFIER</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_GRANT_YIELD</ModifierType>
+			<RunOnce>true</RunOnce>
+			<Permanent>true</Permanent>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_GOLD_MEDIUM_MODIFIER</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_GRANT_YIELD</ModifierType>
+			<RunOnce>true</RunOnce>
+			<Permanent>true</Permanent>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_GOLD_SMALL_MODIFIER</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_GRANT_YIELD</ModifierType>
+			<RunOnce>true</RunOnce>
+			<Permanent>true</Permanent>
+		</Row>
+		<!-- Happiness-->
+		<Row>
+			<ModifierId>GOODY_HAPPINESS_LARGE_MODIFIER</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_GRANT_YIELD</ModifierType>
+			<RunOnce>true</RunOnce>
+			<Permanent>true</Permanent>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_HAPPINESS_MEDIUM_MODIFIER</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_GRANT_YIELD</ModifierType>
+			<RunOnce>true</RunOnce>
+			<Permanent>true</Permanent>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_HAPPINESS_SMALL_MODIFIER</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_GRANT_YIELD</ModifierType>
+			<RunOnce>true</RunOnce>
+			<Permanent>true</Permanent>
+		</Row>
+		<!-- Military-->
+		<Row>
+			<ModifierId>GOODY_MILITARY_GRANT_LAND_UNIT</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_NEAREST_CITY_GRANT_UNIT</ModifierType>
+			<RunOnce>true</RunOnce>
+			<Permanent>true</Permanent>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_MILITARY_GRANT_NAVAL_UNIT</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_NEAREST_CITY_GRANT_UNIT</ModifierType>
+			<RunOnce>true</RunOnce>
+			<Permanent>true</Permanent>
+		</Row>
+		<!-- Science-->
+		<Row>
+			<ModifierId>GOODY_SCIENCE_GRANT_FULL_TECH</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_GRANT_PROGRESSION</ModifierType>
+			<RunOnce>true</RunOnce>
+			<Permanent>true</Permanent>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_SCIENCE_GRANT_ONE_CODEX</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_GRANT_GREAT_WORK</ModifierType>
+			<RunOnce>true</RunOnce>
+			<Permanent>true</Permanent>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_SCIENCE_GRANT_ONE_TECH_BOOST</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_GRANT_PROGRESSION</ModifierType>
+			<RunOnce>true</RunOnce>
+			<Permanent>true</Permanent>
+		</Row>
+		<!-- Survivors-->
+		<Row>
+			<ModifierId>GOODY_SURVIVORS_GRANT_MIGRANT</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_NEAREST_CITY_GRANT_UNIT</ModifierType>
+			<RunOnce>true</RunOnce>
+			<Permanent>true</Permanent>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_SURVIVORS_GRANT_COMMANDER</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_NEAREST_CITY_GRANT_UNIT</ModifierType>
+			<RunOnce>true</RunOnce>
+			<Permanent>true</Permanent>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_SURVIVORS_GRANT_SCOUT</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_NEAREST_CITY_GRANT_UNIT</ModifierType>
+			<RunOnce>true</RunOnce>
+			<Permanent>true</Permanent>
+		</Row>
+	</Modifiers>
+	<ModifierArguments>
+		<!-- Culture-->
+		<Row>
+			<ModifierId>GOODY_CULTURE_GRANT_FULL_CIVIC</ModifierId>
+			<Name>SystemType</Name>
+			<Value>SYSTEM_CULTURE</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_CULTURE_GRANT_FULL_CIVIC</ModifierId>
+			<Name>FreeProgressionType</Name>
+			<Value>FREE_PROGRESSION_NODE_ANY_UNLOCKED</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_CULTURE_GRANT_FULL_CIVIC</ModifierId>
+			<Name>Amount</Name>
+			<Value>1</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_CULTURE_GRANT_ONE_CIVIC_BOOST</ModifierId>
+			<Name>SystemType</Name>
+			<Value>SYSTEM_CULTURE</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_CULTURE_GRANT_ONE_CIVIC_BOOST</ModifierId>
+			<Name>FreeProgressionType</Name>
+			<Value>FREE_PROGRESSION_BOOST_ANY_UNLOCKED</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_CULTURE_GRANT_ONE_CIVIC_BOOST</ModifierId>
+			<Name>Amount</Name>
+			<Value>1</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_CULTURE_GRANT_ONE_CIVIC_BOOST</ModifierId>
+			<Name>BoostPercentage</Name>
+			<Value>50</Value>
+		</Row>
+		<!-- Gold-->
+		<Row>
+			<ModifierId>GOODY_GOLD_LARGE_MODIFIER</ModifierId>
+			<Name>Amount</Name>
+			<Value>300</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_GOLD_LARGE_MODIFIER</ModifierId>
+			<Name>YieldType</Name>
+			<Value>YIELD_GOLD</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_GOLD_LARGE_MODIFIER</ModifierId>
+			<Name>Scale</Name>
+			<Value>true</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_GOLD_MEDIUM_MODIFIER</ModifierId>
+			<Name>Amount</Name>
+			<Value>200</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_GOLD_MEDIUM_MODIFIER</ModifierId>
+			<Name>YieldType</Name>
+			<Value>YIELD_GOLD</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_GOLD_MEDIUM_MODIFIER</ModifierId>
+			<Name>Scale</Name>
+			<Value>true</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_GOLD_SMALL_MODIFIER</ModifierId>
+			<Name>Amount</Name>
+			<Value>100</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_GOLD_SMALL_MODIFIER</ModifierId>
+			<Name>YieldType</Name>
+			<Value>YIELD_GOLD</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_GOLD_SMALL_MODIFIER</ModifierId>
+			<Name>Scale</Name>
+			<Value>true</Value>
+		</Row>
+		<!-- Happiness-->
+		<Row>
+			<ModifierId>GOODY_HAPPINESS_LARGE_MODIFIER</ModifierId>
+			<Name>Amount</Name>
+			<Value>150</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_HAPPINESS_LARGE_MODIFIER</ModifierId>
+			<Name>YieldType</Name>
+			<Value>YIELD_HAPPINESS</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_HAPPINESS_LARGE_MODIFIER</ModifierId>
+			<Name>Scale</Name>
+			<Value>true</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_HAPPINESS_MEDIUM_MODIFIER</ModifierId>
+			<Name>Amount</Name>
+			<Value>100</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_HAPPINESS_MEDIUM_MODIFIER</ModifierId>
+			<Name>YieldType</Name>
+			<Value>YIELD_HAPPINESS</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_HAPPINESS_MEDIUM_MODIFIER</ModifierId>
+			<Name>Scale</Name>
+			<Value>true</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_HAPPINESS_SMALL_MODIFIER</ModifierId>
+			<Name>Amount</Name>
+			<Value>50</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_HAPPINESS_SMALL_MODIFIER</ModifierId>
+			<Name>YieldType</Name>
+			<Value>YIELD_HAPPINESS</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_HAPPINESS_SMALL_MODIFIER</ModifierId>
+			<Name>Scale</Name>
+			<Value>true</Value>
+		</Row>
+		<!-- Military-->
+		<Row>
+			<ModifierId>GOODY_MILITARY_GRANT_LAND_UNIT</ModifierId>
+			<Name>UnitTag</Name>
+			<Value>UNIT_CLASS_MELEE</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_MILITARY_GRANT_LAND_UNIT</ModifierId>
+			<Name>DomainType</Name>
+			<Value>DOMAIN_LAND</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_MILITARY_GRANT_LAND_UNIT</ModifierId>
+			<Name>Amount</Name>
+			<Value>1</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_MILITARY_GRANT_NAVAL_UNIT</ModifierId>
+			<Name>UnitTag</Name>
+			<Value>UNIT_CLASS_NAVAL</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_MILITARY_GRANT_NAVAL_UNIT</ModifierId>
+			<Name>DomainType</Name>
+			<Value>DOMAIN_SEA</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_MILITARY_GRANT_NAVAL_UNIT</ModifierId>
+			<Name>Amount</Name>
+			<Value>1</Value>
+		</Row>
+		<!-- Science-->
+		<Row>
+			<ModifierId>GOODY_SCIENCE_GRANT_FULL_TECH</ModifierId>
+			<Name>Amount</Name>
+			<Value>1</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_SCIENCE_GRANT_FULL_TECH</ModifierId>
+			<Name>SystemType</Name>
+			<Value>SYSTEM_TECH</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_SCIENCE_GRANT_FULL_TECH</ModifierId>
+			<Name>FreeProgressionType</Name>
+			<Value>FREE_PROGRESSION_NODE_ANY_UNLOCKED</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_SCIENCE_GRANT_ONE_CODEX</ModifierId>
+			<Name>Amount</Name>
+			<Value>1</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_SCIENCE_GRANT_ONE_CODEX</ModifierId>
+			<Name>ObjectType</Name>
+			<Value>GREATWORKOBJECT_WRITING</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_SCIENCE_GRANT_ONE_TECH_BOOST</ModifierId>
+			<Name>Amount</Name>
+			<Value>1</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_SCIENCE_GRANT_ONE_TECH_BOOST</ModifierId>
+			<Name>SystemType</Name>
+			<Value>SYSTEM_TECH</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_SCIENCE_GRANT_ONE_TECH_BOOST</ModifierId>
+			<Name>FreeProgressionType</Name>
+			<Value>FREE_PROGRESSION_BOOST_ANY_UNLOCKED</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_SCIENCE_GRANT_ONE_TECH_BOOST</ModifierId>
+			<Name>BoostPercentage</Name>
+			<Value>50</Value>
+		</Row>
+		<!-- Survivors-->
+		<Row>
+			<ModifierId>GOODY_SURVIVORS_GRANT_MIGRANT</ModifierId>
+			<Name>UnitType</Name>
+			<Value>UNIT_MIGRANT</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_SURVIVORS_GRANT_MIGRANT</ModifierId>
+			<Name>Amount</Name>
+			<Value>1</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_SURVIVORS_GRANT_COMMANDER</ModifierId>
+			<Name>UnitType</Name>
+			<Value>UNIT_ARMY_COMMANDER</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_SURVIVORS_GRANT_COMMANDER</ModifierId>
+			<Name>Amount</Name>
+			<Value>1</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_SURVIVORS_GRANT_SCOUT</ModifierId>
+			<Name>UnitType</Name>
+			<Value>UNIT_SCOUT</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOODY_SURVIVORS_GRANT_SCOUT</ModifierId>
+			<Name>Amount</Name>
+			<Value>1</Value>
+		</Row>
+	</ModifierArguments>
+</Database>

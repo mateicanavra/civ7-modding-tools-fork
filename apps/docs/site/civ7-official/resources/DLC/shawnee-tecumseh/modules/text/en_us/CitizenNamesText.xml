@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Shawnee-->
+		<Row Tag="LOC_CITIZEN_SHAWNEE_MALE_1">
+			<Text>Kinwisiimo</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_SHAWNEE_MALE_2">
+			<Text>Peecfepto</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_SHAWNEE_MALE_3">
+			<Text>Napiyehaska</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_SHAWNEE_MALE_4">
+			<Text>Natopeskata</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_SHAWNEE_MALE_5">
+			<Text>Piyecikapowi</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_SHAWNEE_MALE_6">
+			<Text>Hatakeepi</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_SHAWNEE_MALE_7">
+			<Text>Kokwetekwisiimo</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_SHAWNEE_MALE_8">
+			<Text>Ciipikweskaka</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_SHAWNEE_MALE_9">
+			<Text>Haalakotaaka</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_SHAWNEE_MALE_10">
+			<Text>Paksinwa</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_SHAWNEE_FEMALE_1">
+			<Text>Pelowikaposi</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_SHAWNEE_FEMALE_2">
+			<Text>Napiwesi</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_SHAWNEE_FEMALE_3">
+			<Text>Wikekakamsi</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_SHAWNEE_FEMALE_4">
+			<Text>Natopesi</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_SHAWNEE_FEMALE_5">
+			<Text>Wiicipiyesi</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_SHAWNEE_FEMALE_6">
+			<Text>Kitakimiyesi</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_SHAWNEE_FEMALE_7">
+			<Text>Pelowapama</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_SHAWNEE_FEMALE_8">
+			<Text>Hakowesi</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_SHAWNEE_FEMALE_9">
+			<Text>Nikaanipiyeesi</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_SHAWNEE_FEMALE_10">
+			<Text>Hacipiwasi </Text>
+		</Row>
+	</EnglishText>
+</Database>

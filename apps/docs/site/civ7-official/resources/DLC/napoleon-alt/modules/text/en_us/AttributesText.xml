@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- ==============================================================	-->
+		<!--	Legend Unlocks												-->
+		<!-- ==============================================================	-->
+		<!-- Cultural Attribute -->
+		<Row Tag="LOC_MOD_ATTRIBUTE_CULTURAL_LEGEND_NAPOLEON_ALT_L1_DESCRIPTION">
+			<Text>Legend Unlock. +15% [icon:YIELD_PRODUCTION]Production towards constructing Buildings and Wonders with Great Works slots.</Text>
+		</Row>
+		<!-- Diplomatic Attribute -->
+
+		<!-- Economic Attribute -->
+
+		<!-- Expansionist Attribute -->
+
+		<!-- Militaristic Attribute -->
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_NAPOLEON_ALT_L2_DESCRIPTION">
+			<Text>Legend Unlock. +5 Combat Strength for all Units against Districts.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_NAPOLEON_ALT_L2_COMBAT_PREVIEW">
+			<Text>+{1_Value} Legend Militaristic Attribute</Text>
+		</Row>
+		<!-- Scientific Attribute -->
+
+	</EnglishText>
+</Database>

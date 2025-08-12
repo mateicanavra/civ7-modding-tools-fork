@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="Definitions">
+	<definition name="GreatPersonClass" table-name="GreatPersonClasses" cpp="true">
+		<field name="GreatPersonClassType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="UnitType" type="Text" not-null="true" hash="true"/>
+		<field name="MaxPlayerInstances" type="Integer"/>
+		<field name="ConstructibleType" type="Text" hash="true"/>
+		<field name="UniqueQuarterType" type="Text" hash="true"/>
+		<field name="CityStatesSuzerained" type="Integer" value="0" not-null="true"/>
+		<field name="PopulationRequired" type="Integer" value="0" not-null="true"/>
+		<field name="PseudoYieldType" description="For AI use, mostly, the psuedo-yield that is used to purchase this great person type" type="Text"/>
+		<field name="IconString" description="The font icon associated with this class, for use inline with text" type="Text" not-null="true"/>
+		<field name="ActionIcon" description="The icon name associated with this class's action, for lookup in a texture atlas" type="Text" not-null="true"/>
+		<field name="AvailableInTimeline" description="Is this class available to earn from points, gold, etc.? Otherwise it can only be granted by special game effects." type="Bool" value="true" not-null="true"/>
+		<field name="GenerateDuplicateIndividuals" description="Does this class allow the game to have more than one copy of an individual?" type="Bool" value="false" not-null="true"/>
+		<reference source="UnitType" target="UnitType" sourceRoleName="UnitRef" to="Unit"/>
+		<reference source="UniqueQuarterType" target="UniqueQuarterType" sourceRoleName="UniqueQuarterRef" to="UniqueQuarter"/>
+		<reference source="ConstructibleType" target="ConstructibleType" sourceRoleName="ConstructibleRef" to="Constructible"/>
+		<reference source="PseudoYieldType" target="PseudoYieldType" sourceRoleName="PseudoYieldRef" to="PseudoYield"/>
+		<reference source="GreatPersonClassType" target="Type" to="Type"/>
+		<property name="UnitReference" path="UnitRef"/>
+		<property name="UniqueQuarterReference" path="UniqueQuarterRef"/>
+		<property name="ConstructibleReference" path="ConstructibleRef"/>
+		<property name="PseudoYieldReference" path="PseudoYieldRef"/>
+		<property name="ExclusionReference" path="ExclusionRef"/>
+	</definition>
+	<definition name="GreatPersonIndividual" table-name="GreatPersonIndividuals" cpp="true">
+		<field name="GreatPersonIndividualType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="GreatPersonClassType" type="Text" not-null="true"/>
+		<field name="UnitType" type="Text" not-null="false" hash="true"/>
+		<field name="AgeType" type="Text" not-null="true"/>
+		<field name="ActionCharges" type="Integer" not-null="true"/>
+		<field name="Settler" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresOwnedTile" type="Bool" value="true" not-null="true"/>
+		<field name="ActionRequiresForeignTile" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresUnownedTile" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresIndependentOwnedTile" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresAlliedCityStateOwnedTile" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresValidSettlementLocation" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresAdjacentMountain" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresAdjacentOwnedTile" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresAdjacentBarbarianUnit" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresOnOrAdjacentNaturalWonder" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresOnOrAdjacentFeatureType" type="Text" hash="true"/>
+		<field name="ActionRequiresOnUnitType" type="Text" hash="true"/>
+		<field name="ActionRequiresOnBiomeType" type="Text" hash="true"/>
+		<field name="ActionRequiresCapital" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresForeignCapital" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresCity" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresSpecialistCap" type="Integer"/>
+		<field name="ActionRequiresTown" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresForeignHemisphere" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresNavigableRiver" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresIncompleteWonder" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresIncompleteSpaceRaceProject" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresNoMilitaryUnit" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresPlayerRelicSlot" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresMilitaryUnitDomain" type="Text" hash="true"/>
+		<field name="ActionRequiresMilitaryUnitAnyDomain" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresCityGreatWorkObjectType" type="Text" hash="true"/>
+		<field name="ActionRequiresCompletedConstructibleTag" type="Text"/>
+		<field name="ActionRequiresCompletedConstructibleType" type="Text" hash="true"/>
+		<field name="ActionRequiresConstructionTypePermission" type="Text" hash="true"/>
+		<field name="ActionRequiresResource" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresResourceType" type="Text" hash="true"/>
+		<field name="ActionRequiresNoConstructibleTypeInCity" type="Text" hash="true"/>
+		<field name="ActionRequiresCompletedQuarterType" type="Text" hash="true"/>
+		<field name="ActionRequiresCompletedDistrictType" type="Text" hash="true"/>
+		<field name="ActionRequiresGoldCost" type="Integer"/>
+		<field name="ScaleGoldCostByRelationship" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresInfluenceCost" type="Integer"/>
+		<field name="ActionRequiresLessThanXBuildings" type="Integer"/>
+		<field name="ScaleCostsByLegacyPointCardType" type="Text" hash="true"/>
+		<field name="PercentCostReductionPerLegacyPoint" type="Integer" value="0" not-null="true"/>
+		<field name="ScaleInfluenceCostByRelationship" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresArmyCommanderEmptySlots" type="Integer"/>
+		<field name="ActionRequiresPillagedTile" type="Bool" value="false" not-null="true"/>
+		<field name="ActionRequiresCommander" type="Bool" value="false" not-null="true"/>
+		<field name="ActionNameTextOverride" description="Specified non-generic name for the individual's action effects" type="Text" hash="true"/>
+		<field name="ActionEffectTextOverride" description="Text which will be shown instead of the text from the individual action modifiers" type="Text" hash="true"/>
+		<field name="ActionEffectTileHighlighting" description="Whether the UI should show valid activation tiles when the unit is selected" type="Bool" value="true" not-null="true"/>
+		<field name="BirthNameTextOverride" description="Specified non-generic name for the individual's birth effects" type="Text" hash="true"/>
+		<field name="BirthEffectTextOverride" description="Text which will be shown instead of the text from the individual birth modifiers" type="Text" hash="true"/>
+		<field name="AreaHighlightRadius" type="Integer" description="Radius of tiles to highlight around the unit when it is selected"/>
+		<field name="Gender" type="Text" not-null="true" hash="true"/>
+		<reference source="GreatPersonClassType" target="GreatPersonClassType" sourceRoleName="GreatPersonClassRef" to="GreatPersonClass"/>
+		<reference source="AgeType" target="AgeType" sourceRoleName="AgeRef" to="Age"/>
+		<reference source="ActionRequiresCompletedConstructibleType" target="ConstructibleType" sourceRoleName="ActionRequiresCompletedConstructibleRef" to="Constructible"/>
+		<reference source="ActionRequiresNoConstructibleTypeInCity" target="ConstructibleType" sourceRoleName="ActionRequiresNoConstructibleTypeInCityRef" to="Constructible"/>
+		<reference source="ActionRequiresCompletedDistrictType" target="DistrictType" sourceRoleName="ActionRequiresCompletedDistrictRef" to="District"/>
+		<reference source="ActionRequiresOnOrAdjacentFeatureType" target="FeatureType" sourceRoleName="ActionRequiresOnOrAdjacentFeatureTypeRef" to="Feature"/>
+		<reference source="ActionRequiresOnBiomeType" target="BiomeType" sourceRoleName="ActionRequiresOnBiomeTypeRef" to="Biome"/>
+		<reference source="ActionRequiresCompletedQuarterType" target="UniqueQuarterType" sourceRoleName="ActionRequiresCompletedQuarterTypeRef" to="UniqueQuarter"/>
+		<reference source="ActionRequiresOnUnitType" target="UnitType" sourceRoleName="ActionRequiresOnUnitTypeRef" to="Unit"/>
+		<reference source="ActionRequiresCityGreatWorkObjectType" target="GreatWorkObjectType" sourceRoleName="ActionRequiresCityGreatWorkObjectTypeRef" to="GreatWorkObjectType"/>
+		<reference source="ActionRequiresConstructionTypePermission" target="ConstructibleType" sourceRoleName="ActionRequiresConstructionTypePermissionRef" to="Constructible"/>
+		<reference source="ActionRequiresResourceType" target="ResourceType" sourceRoleName="ActionRequiresResourceTypeRef" to="Resource"/>
+		<reference source="GreatPersonIndividualType" target="Type" to="Type"/>
+		<reference source="UnitType" target="UnitType" sourceRoleName="UnitRef" to="Unit"/>
+		<property name="GreatPersonClassReference" path="GreatPersonClassRef"/>
+		<property name="AgeReference" path="AgeRef"/>
+		<property name="ActionRequiresCompletedConstructibleReference" path="ActionRequiresCompletedConstructibleRef"/>
+		<property name="ActionRequiresNoConstructibleTypeInCityReference" path="ActionRequiresNoConstructibleTypeInCityRef"/>
+		<property name="ActionRequiresCompletedDistrictReference" path="ActionRequiresCompletedDistrictRef"/>
+		<property name="ActionRequiresOnOrAdjacentFeatureTypeReference" path="ActionRequiresOnOrAdjacentFeatureTypeRef"/>
+		<property name="ActionRequiresOnBiomeTypeReference" path="ActionRequiresOnBiomeTypeRef"/>
+		<property name="ActionRequiresOnUnitTypeReference" path="ActionRequiresOnUnitTypeRef"/>
+		<property name="ActionRequiresCompletedQuarterTypeReference" path="ActionRequiresCompletedQuarterTypeRef"/>
+		<property name="ActionRequiresCityGreatWorkObjectTypeReference" path="ActionRequiresCityGreatWorkObjectTypeRef"/>
+		<property name="ActionRequiresConstructionTypePermissionReference" path="ActionRequiresConstructionTypePermissionRef"/>
+		<property name="ActionRequiresResourceTypeReference" path="ActionRequiresResourceTypeRef"/>
+		<property name="GreatWorkCollection" path="GreatWorkCollection"/>
+		<property name="UnitReference" path="UnitRef"/>
+	</definition>
+	<definition name="GreatPersonVictoryTypeEntry" table-name="GreatPersonVictoryTypeEntries" cpp="true">
+		<field name="GreatPersonIndividualType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="VictoryType" type="Text" value="NO_GREAT_PERSON_VICTORY_SOURCE" not-null="true" hash="true"/>
+		<field name="GreatPersonVictorySource" type="Text" value="NO_VICTORY" not-null="true" hash="true"/>
+		<field name="Points" type="Integer" value="0" not-null="true"/>
+		<field name="MaxPointsPerUse" type="Integer" value="0" not-null="true"/>
+		<reference source="GreatPersonIndividualType" target="GreatPersonIndividualType" to="GreatPersonIndividual"/>
+	</definition>
+	<definition name="GreatPersonIndividualBirthModifier" table-name="GreatPersonIndividualBirthModifiers" cpp="false">
+		<field name="GreatPersonIndividualType" type="Text" key="true" not-null="true"/>
+		<field name="ModifierId" type="Text" key="true" not-null="true"/>
+		<reference source="GreatPersonIndividualType" target="GreatPersonIndividualType" to="GreatPersonIndividual"/>
+	</definition>
+	<definition name="GreatPersonIndividualActionModifier" table-name="GreatPersonIndividualActionModifiers" cpp="false">
+		<field name="GreatPersonIndividualType" type="Text" key="true" not-null="true"/>
+		<field name="ModifierId" type="Text" key="true" not-null="true"/>
+		<field name="AttachmentTargetType" description="What target in game does this modifier attach to?" type="Text" value="GREAT_PERSON_ACTION_ATTACHMENT_TARGET_PLAYER" not-null="true"/>
+		<reference source="GreatPersonIndividualType" target="GreatPersonIndividualType" to="GreatPersonIndividual"/>
+	</definition>
+	<definition name="GreatPersonIndividualIconModifier" table-name="GreatPersonIndividualIconModifiers" cpp="false">
+		<field name="GreatPersonIndividualType" type="Text" key="true" unique="true" not-null="true"/>
+		<field name="OverrideUnitIcon" type="Text" not-null="true"/>
+	</definition>
+</definitions>

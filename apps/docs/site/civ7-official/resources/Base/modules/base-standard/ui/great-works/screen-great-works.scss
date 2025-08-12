@@ -1,0 +1,119 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+@use '../../../core/ui/themes/default/theme';
+
+.great-work-selected {
+	border-image-source: url("fs://game/hud_list-focus_frame");
+	border-image-slice: 20 32 20 32;
+	border-image-width: pixels(20);
+	border-image-outset: pixels(5);
+	background: linear-gradient(90deg, theme.color('secondary-3') 0%, theme.color('accent-6', .5) 100%);
+}
+
+.great-works-inner-frame {
+	border-image-source: url("fs://game/base_bigframe-bg");
+	border-image-slice: 28 28 28 28 fill;
+	border-image-width: 0;
+	border-image-outset: 0;
+}
+
+.great-work-frame {
+	border-image-source: url("fs://game/hud_sidepanel_list-bg.png");
+	border-image-outset: 0 0 0 0;
+	border-image-repeat: stretch stretch;
+	border-image-slice: 8 8 8 8 fill;
+	border-image-width: pixels(8) pixels(8) pixels(8) pixels(8);
+}
+
+.great-work-container {
+	border-image-source: url("fs://game/base_empty-slot");
+	border-image-outset: 0 0 0 0;
+	border-image-repeat: stretch stretch;
+	border-image-slice: 8 8 8 8 fill;
+	border-image-width: pixels(8) pixels(8) pixels(8) pixels(8);
+}
+
+.more-info-toggle {
+	background-image: url("fs://game/chooser_showcity");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+// 720p
+.great-works-parent-slot {
+	@media (max-height: pixels(1000)) {
+		margin-top: pixels(64);
+		margin-bottom: pixels(48);
+	}
+
+	@media (experience: mobile) {
+		height: 100%;
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+}
+
+.great-works-inner-frame {
+	@media (max-height: pixels(1000)) {
+		padding-top: pixels(24);
+		padding-bottom: pixels(24);
+		padding-left: pixels(4);
+		padding-left: pixels(4);
+	}
+
+	@media (experience: mobile) {
+		padding: 0;
+	}
+}
+
+.showcase-column {
+	@media (max-height: pixels(1000)), (experience: mobile) {
+		margin: 0;
+	}
+}
+
+.showcase-scrollable {
+	@media (max-height: pixels(1000)) {
+		padding: 0 pixels(14);
+	}
+}
+
+.archive-column {
+	@media (max-height: pixels(1000)) {
+		margin: 0;
+		margin-left: pixels(16);
+	}
+}
+
+.city-column {
+	@media (max-height: pixels(1000)) {
+		margin-left: pixels(16);
+		margin-right: pixels(16);
+	}
+}
+
+.city-entry-container {
+	@media (max-height: pixels(1000)), (experience: mobile) {
+		width: 99%;
+	}
+}
+
+.great-work-container-entry {
+	@media (max-height: pixels(1000)), (experience: mobile) {
+		width: 100%;
+		padding: pixels(4);
+	}
+}
+
+.showcase-scrollable {
+	@media (max-height: pixels(1000)) {
+		width: pixels(224);
+	}
+}
+
+.great-works-header {
+	@media (experience: mobile) {
+		max-width: 90%;
+		align-self: center;
+	}
+}

@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- Enhancer Beliefs -->
+	<Modifier id="BONUS_1_AUTO_SPREAD_FOREIGN_HEMISPHERE" collection="COLLECTION_OWNER" effect="EFFECT_ENABLE_RELIGION_AUTO_SPREAD_FOREIGN_HEMISPHERE">
+		<Argument name="Enable">true</Argument>
+	</Modifier>
+	<Modifier id="BONUS_2_MISSIONARY_MOVEMENT" collection="COLLECTION_ALL_UNITS" effect="EFFECT_ADJUST_UNIT_EMBARKED_MOVEMENT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_RELIGIOUS</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="BONUS_2_NAVAL_MOVEMENT" collection="COLLECTION_ALL_UNITS" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_NAVAL</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="BONUS_2_EMBARKED_MOVEMENT" collection="COLLECTION_ALL_UNITS" effect="EFFECT_ADJUST_UNIT_EMBARKED_MOVEMENT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES" inverse="true">
+				<Argument name="Tag">UNIT_CLASS_RELIGIOUS</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="BONUS_3_COMBAT_STRENGTH_FRIENDLY_RELIGIOUS_CITY" collection="COLLECTION_ALL_UNITS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+			<Requirement type="REQUIREMENT_NEAR_RELIGIOUS_CITY">
+				<Argument name="FriendlyCity">true</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_COMBAT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_COMBAT_STRENGTH_FRIENDLY_RELIGIOUS_CITY</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_COMBAT_STRENGTH_FRIENDLY_RELIGIOUS_CITY" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_BELIEF_3_COMBAT_PREVIEW</String>
+	</Modifier>
+	<Modifier id="BONUS_4_AUTO_SPREAD_CONQUERED" collection="COLLECTION_OWNER" effect="EFFECT_ENABLE_RELIGION_AUTO_SPREAD_CONQUERED">
+		<Argument name="Enable">true</Argument>
+	</Modifier>
+	<Modifier id="BONUS_5_AUTO_SPREAD_TRADE_ROUTE" collection="COLLECTION_OWNER" effect="EFFECT_ENABLE_RELIGION_AUTO_SPREAD_TRADE_ROUTE">
+		<Argument name="Enable">true</Argument>
+	</Modifier>
+	<Modifier id="BONUS_6_ADDITIONAL_CHARGE" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_ADDITIONAL_CHARGE</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_ADDITIONAL_CHARGE" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ADJUST_UNIT_SPREAD_CHARGES">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="BONUS_7_RELIC_MISSIONARY_PRODUCTION" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_RELIC_MISSIONARY_PRODUCTION</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_RELIC_MISSIONARY_PRODUCTION" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_UNIT_PRODUCTION_PER_GREAT_WORK">
+		<Argument name="UnitTag">UNIT_CLASS_RELIGIOUS</Argument>
+		<Argument name="GreatWorkObjectType">GREATWORKOBJECT_RELIC</Argument>
+		<Argument name="Percent">10</Argument>
+	</Modifier>
+	<Modifier id="BONUS_8_RELIC_SLOT_TEMPLE" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_GREAT_WORK_SLOTS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+		</SubjectRequirements>
+		<Argument name="ConstructibleType">BUILDING_TEMPLE</Argument>
+		<Argument name="SlotType">GREATWORKSLOT_RELIC</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="BONUS_31_FREE_MISSIONARIES_ON_WONDERS" collection="COLLECTION_ALL_DISTRICTS" effect="EFFECT_PLAYER_GRANT_UNIT_AT_PLOT" new-only="true" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+			<Requirement type="REQUIREMENT_PLOT_DISTRICT_CLASS">
+				<Argument name="DistrictClass">WONDER</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="UnitType">UNIT_MISSIONARY</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="BONUS_32_WAR_SUPPORT" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_BONUS_32_WAR_SUPPORT_ATTACKER, ATTACH_BONUS_32_WAR_SUPPORT_DEFENDER</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_BONUS_32_WAR_SUPPORT_ATTACKER" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_WAR_SUPPORT_BONUS">
+		<Argument name="RequireReligion">true</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="IsAggressor">false</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_BONUS_32_WAR_SUPPORT_DEFENDER" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_WAR_SUPPORT_BONUS">
+		<Argument name="RequireReligion">true</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="IsAggressor">true</Argument>
+	</Modifier>
+
+	<!-- 1.2.2+ Enhancer Beliefs -->
+	<Modifier id="MOD_ENHANCER_BELIEF_RELIC_SLOTS_ON_SCIENCE_BUILDINGS" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_ENHANCER_BELIEF_RELIC_SLOTS_ON_SCIENCE_BUILDINGS</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_ENHANCER_BELIEF_RELIC_SLOTS_ON_SCIENCE_BUILDINGS" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_GREAT_WORK_SLOTS">
+		<Argument name="Tag">SCIENCE</Argument>
+		<Argument name="SlotType">GREATWORKSLOT_RELIC</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="MOD_ENHANCER_BELIEF_TREASURE_MOVEMENT_AND_COMBAT_STRENGTH" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_ENHANCER_BELIEF_TREASURE_MOVEMENT, ATTACH_ENHANCER_BELIEF_TREASURE_DEFENSE_COMBAT_BONUS_LAND, ATTACH_ENHANCER_BELIEF_TREASURE_DEFENSE_COMBAT_BONUS_EMBARKED</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_ENHANCER_BELIEF_TREASURE_MOVEMENT" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_NAVAL_TREASURE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_ENHANCER_BELIEF_TREASURE_DEFENSE_COMBAT_BONUS_EMBARKED" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_NAVAL_TREASURE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_TREASURE_CONVOY_EMBARK_BONUS</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_ENHANCER_BELIEF_TREASURE_DEFENSE_COMBAT_BONUS_LAND" collection="COLLECTION_PLAYER_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_NAVAL_TREASURE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING" inverse="true"/>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_ENHANCER_BELIEF_TREASURE_DEFENSE_PREVIEW</String>
+	</Modifier>
+
+	<!-- Reliquary Beliefs -->
+	<Modifier id="BONUS_9_RELIC_CITY_STATE" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_RELIC_CITY_STATE</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_RELIC_CITY_STATE" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_RELIC_CONVERTING_CITY_STATE">
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="BONUS_10_RELIC_CAPITAL" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_RELIC_CAPITAL</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_RELIC_CAPITAL" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_RELIC_CONVERTING_CAPITAL">
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="BONUS_11_RELIC_CONVERTING_RELIGIOUS_BUILDING" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_RELIC_CONVERTING_RELIGIOUS_BUILDING</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_RELIC_CONVERTING_RELIGIOUS_BUILDING" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_RELIC_CONVERTING_RELIGIOUS_BUILDING">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="BONUS_12_RELIC_WONDER" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_RELIC_WONDER</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_RELIC_WONDER" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_RELIC_CONVERTING_WONDER">
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="BONUS_13_RELIC_NEW_WORLD" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_RELIC_NEW_WORLD</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_RELIC_NEW_WORLD" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_RELIC_NEW_WORLD">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="BONUS_14_RELIC_TREASURE_FLEETS" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_RELIC_TREASURE_FLEETS</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_RELIC_TREASURE_FLEETS" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_RELIC_CONVERTING_TREASURE_FLEETS">
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="BONUS_15_RELIC_RURAL_POP" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_RELIC_RURAL_POP</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_RELIC_RURAL_POP" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_RELIC_CONVERTING_RURAL_POP">
+		<Argument name="Amount">1</Argument>
+		<Argument name="Population">10</Argument>
+	</Modifier>
+	<Modifier id="BONUS_16_RELIC_URBAN_POP" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_RELIC_URBAN_POP</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_RELIC_URBAN_POP" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_RELIC_CONVERTING_URBAN_POP">
+		<Argument name="Amount">1</Argument>
+		<Argument name="Population">10</Argument>
+	</Modifier>
+	<!-- Founder Beliefs -->
+	<Modifier id="BONUS_17_CITIES_FOLLOWING_SCIENCE" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_CITIES_FOLLOWING_SCIENCE,ATTACH_DOMESTIC_CITIES_FOLLOWING_SCIENCE</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_CITIES_FOLLOWING_SCIENCE" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">4</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_FOREIGN_CITY</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_DOMESTIC_CITIES_FOLLOWING_SCIENCE" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">1</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_DOMESTIC_CITY</Argument>
+	</Modifier>
+	<Modifier id="BONUS_18_NATURAL_WONDER_SCIENCE" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_NATURAL_WONDER_SCIENCE</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_NATURAL_WONDER_SCIENCE" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">8</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_NATURAL_WONDER</Argument>
+	</Modifier>
+	<Modifier id="BONUS_18_NATURAL_WONDER_CULTURE" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_NATURAL_WONDER_CULTURE</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_NATURAL_WONDER_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">8</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_NATURAL_WONDER</Argument>
+	</Modifier>
+	<Modifier id="BONUS_18_NATURAL_WONDER_GOLD" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_NATURAL_WONDER_GOLD</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_NATURAL_WONDER_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">8</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_NATURAL_WONDER</Argument>
+	</Modifier>
+	<Modifier id="BONUS_19_WONDERS_SCIENCE" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_WONDERS_SCIENCE</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_WONDERS_SCIENCE" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">4</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_WONDER</Argument>
+	</Modifier>
+	<Modifier id="BONUS_19_WONDERS_CULTURE" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_WONDERS_CULTURE</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_WONDERS_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">4</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_WONDER</Argument>
+	</Modifier>
+	<Modifier id="BONUS_19_WONDERS_GOLD" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_WONDERS_GOLD</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_WONDERS_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">4</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_WONDER</Argument>
+	</Modifier>
+	<Modifier id="BONUS_20_CITIES_FOLLOWING_GOLD" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_CITIES_FOLLOWING_GOLD,ATTACH_DOMESTIC_CITIES_FOLLOWING_GOLD</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_CITIES_FOLLOWING_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">4</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_FOREIGN_CITY</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_DOMESTIC_CITIES_FOLLOWING_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">1</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_DOMESTIC_CITY</Argument>
+	</Modifier>
+	<Modifier id="BONUS_21_CITIES_FOLLOWING_CULTURE" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_CITIES_FOLLOWING_CULTURE,ATTACH_DOMESTIC_CITIES_FOLLOWING_CULTURE</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_CITIES_FOLLOWING_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">4</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_FOREIGN_CITY</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_DOMESTIC_CITIES_FOLLOWING_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">1</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_DOMESTIC_CITY</Argument>
+	</Modifier>
+	<Modifier id="BONUS_22_TROPICAL_CITIES_FOLLOWING_SCIENCE" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_TROPICAL_CITIES_FOLLOWING_SCIENCE</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_TROPICAL_CITIES_FOLLOWING_SCIENCE" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">2</Argument>
+		<Argument name="BiomeType">BIOME_TROPICAL</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_BIOME</Argument>
+	</Modifier>
+	<Modifier id="BONUS_23_TUNDRA_CITIES_FOLLOWING_CULTURE" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_TUNDRA_CITIES_FOLLOWING_CULTURE</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_TUNDRA_CITIES_FOLLOWING_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">2</Argument>
+		<Argument name="BiomeType">BIOME_TUNDRA</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_BIOME</Argument>
+	</Modifier>
+	<Modifier id="BONUS_24_DESERT_CITIES_FOLLOWING_GOLD" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_DESERT_CITIES_FOLLOWING_GOLD</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_DESERT_CITIES_FOLLOWING_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">2</Argument>
+		<Argument name="BiomeType">BIOME_DESERT</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_BIOME</Argument>
+	</Modifier>
+	<Modifier id="BONUS_25_CITIES_FOLLOWING_HAPPINESS" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_CITIES_FOLLOWING_HAPPINESS,ATTACH_DOMESTIC_CITIES_FOLLOWING_HAPPINESS</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_CITIES_FOLLOWING_HAPPINESS" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">4</Argument>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_FOREIGN_CITY</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_DOMESTIC_CITIES_FOLLOWING_HAPPINESS" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">1</Argument>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_DOMESTIC_CITY</Argument>
+	</Modifier>
+	<Modifier id="BONUS_26_MARINE_CITIES_FOLLOWING_HAPPINESS" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_MARINE_CITIES_FOLLOWING_HAPPINESS</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_MARINE_CITIES_FOLLOWING_HAPPINESS" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">1</Argument>
+		<Argument name="BiomeType">BIOME_MARINE</Argument>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_BIOME</Argument>
+	</Modifier>
+	<Modifier id="BONUS_27_GRASSLAND_CITIES_FOLLOWING_SCIENCE" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_GRASSLAND_CITIES_FOLLOWING_SCIENCE</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_GRASSLAND_CITIES_FOLLOWING_SCIENCE" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">1</Argument>
+		<Argument name="BiomeType">BIOME_GRASSLAND</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_BIOME</Argument>
+	</Modifier>
+	<Modifier id="BONUS_28_PLAINS_CITIES_FOLLOWING_SCIENCE" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_PLAINS_CITIES_FOLLOWING_SCIENCE</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_PLAINS_CITIES_FOLLOWING_SCIENCE" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">1</Argument>
+		<Argument name="BiomeType">BIOME_PLAINS</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_BIOME</Argument>
+	</Modifier>
+	<Modifier id="BONUS_29_RELIC_HOLY_CITY" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_RELIC_HOLY_CITY</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_RELIC_HOLY_CITY" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_RELIC_CONVERTING_HOLY_CITY" subject-stack-limit="1">
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="BONUS_30_HOLY_CITY_TEMPLE_YIELDS" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_HOLY_CITY_TEMPLE_YIELDS</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_HOLY_CITY_TEMPLE_YIELDS" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD" subject-stack-limit="1">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_ORIGINAL_OWNER"/>
+			<Requirement type="REQUIREMENT_CITY_IS_HOLY_CITY"/>
+		</SubjectRequirements>
+		<Argument name="WarehouseYieldChange">EXFounderBeliefHolyCityTempleProduction, EXFounderBeliefHolyCityTempleHappiness, EXFounderBeliefHolyCityTempleGold, EXFounderBeliefHolyCityTempleScience, EXFounderBeliefHolyCityTempleCulture, EXFounderBeliefHolyCityTempleInfluence</Argument>
+	</Modifier>
+	<Modifier id="BONUS_31_RELIC_FIRST_TIME_CITY_OWNED_CONVERSION" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_RELIC_FIRST_TIME_OWNED_CITY</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_RELIC_FIRST_TIME_OWNED_CITY" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_RELIC_CONVERTING_OWNED_CITY_FIRST_TIME">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="BONUS_34_RELIC_CITY_WITH_X_SPECIALISTS" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_RELIC_CITY_WITH_X_SPECIALITS</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_RELIC_CITY_WITH_X_SPECIALITS" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_RELIC_CONVERTING_CITY_WITH_X_SPECIALISTS">
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="BONUS_35_RELIC_NATURAL_WONDER" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_RELIC_NATURAL_WONDER</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_RELIC_NATURAL_WONDER" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_RELIC_CONVERTING_CITY_WITH_NATURAL_WONDER">
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+
+	<!-- 1.2.2+ Founder Beliefs -->
+	<Modifier id="MOD_FOUNDER_BELIEF_CITIES_FOLLOWING_INFLUENCE" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_FOUNDER_BELIEF_FOREIGN_CITIES_FOLLOWING_INFLUENCE, ATTACH_FOUNDER_BELIEF_DOMESTIC_CITIES_FOLLOWING_INFLUENCE</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_FOUNDER_BELIEF_FOREIGN_CITIES_FOLLOWING_INFLUENCE" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">2</Argument>
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_FOREIGN_CITY</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_FOUNDER_BELIEF_DOMESTIC_CITIES_FOLLOWING_INFLUENCE" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">1</Argument>
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_DOMESTIC_CITY</Argument>
+	</Modifier>
+
+	<Modifier id="MOD_FOUNDER_BELIEF_RIVER_CITIES_FOLLOWING_INFLUENCE" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_FOUNDER_BELIEF_RIVER_CITIES_FOLLOWING_INFLUENCE</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_FOUNDER_BELIEF_RIVER_CITIES_FOLLOWING_INFLUENCE" collection="COLLECTION_OWNER" effect="EFFECT_ADD_RELIGIOUS_BELIEF_YIELD">
+		<Argument name="Amount">1</Argument>
+		<Argument name="TerrainType">TERRAIN_NAVIGABLE_RIVER</Argument>
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="BeliefYieldType">BELIEF_YIELD_PER_TERRAIN_TYPE</Argument>
+	</Modifier>
+
+	<Modifier id="MOD_FOUNDER_BELIEF_DOMESTIC_FOOD" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_FOUNDER_BELIEF_DOMESTIC_FOOD</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_FOUNDER_BELIEF_DOMESTIC_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_FOLLOWS_RELIGION"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Amount">6</Argument>
+	</Modifier>
+
+	<Modifier id="MOD_FOUNDER_BELIEF_DOMESTIC_PRODUCTION" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_FOUNDER_BELIEF_DOMESTIC_PRODUCTION</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_FOUNDER_BELIEF_DOMESTIC_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_FOLLOWS_RELIGION"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Amount">4</Argument>
+	</Modifier>
+
+	<Modifier id="MOD_FOUNDER_BELIEF_TEMPLE_PROVIDE_HAPPINESS_ADJACENCY" collection="COLLECTION_MAJOR_PLAYERS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_FOUNDER_BELIEF_TEMPLE_PROVIDE_HAPPINESS_ADJACENCY</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_FOUNDER_BELIEF_TEMPLE_PROVIDE_HAPPINESS_ADJACENCY" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ACTIVATE_CONSTRUCTIBLE_ADJACENCY">
+		<Argument name="ConstructibleAdjacency">TemplesWildcardHappinesBuildingsUrban</Argument>
+	</Modifier>
+</GameEffects>

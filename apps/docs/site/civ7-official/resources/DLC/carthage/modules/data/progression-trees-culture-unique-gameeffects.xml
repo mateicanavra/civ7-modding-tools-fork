@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!--Carthage-->
+	<Modifier id="MOD_SHIPSHEDS_NAVAL_MOVEMENT" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_NAVAL</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_SHIPSHEDS_NAVAL_MOVEMENT_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SHIPSHEDS_NAVAL_RANGE" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ADJUST_UNIT_ATTACK_RANGE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_NAVAL</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_SHIPSHEDS_NAVAL_RANGE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_RED_SLIP_TRADE_GOLD" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_ADJUST_YIELD_PER_NUM_TRADE_ROUTES">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">3</Argument>
+		<Argument name="Tooltip">LOC_CIVIC_RED_SLIP_NAME</Argument>
+		<String context="Description">LOC_MOD_RED_SLIP_TRADE_GOLD_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_RED_SLIP_TRADE_RANGE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_TRADE_ROUTE_RANGE">
+		<Argument name="Amount">15</Argument>
+		<Argument name="DomainType">DOMAIN_SEA</Argument>
+		<Argument name="Tooltip">LOC_CIVIC_RED_SLIP_NAME</Argument>
+	</Modifier>
+	<Modifier id="MOD_RED_SLIP_RESOURCE_CAP" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_ADJUST_RESOURCE_CAP">
+		<Argument name="Amount">3</Argument>
+		<String context="Description">LOC_MOD_RED_SLIP_RESOURCE_CAP_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SICILIAN_WARS_SETTLEMENT_CAP" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_SETTLEMENT_CAP" permanent="true">
+		<Argument name="Amount">2</Argument>
+		<String context="Description">LOC_MOD_SICILIAN_WARS_SETTLEMENT_CAP_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SICILIAN_WARS_MOVEMENT_NUMIDIAN_CAVALRY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_NUMIDIAN_CAVALRY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_SICILIAN_WARS_MOVEMENT_NUMIDIAN_CAVALRY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SICILIAN_WARS_SIGHT_NUMIDIAN_CAVALRY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ADJUST_UNIT_SIGHT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_NUMIDIAN_CAVALRY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="MOD_SICILIAN_WARS_TOWN_PROJECT" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_GREAT_WORK_SLOTS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_PROJECT">
+				<Argument name="ProjectType">PROJECT_TOWN_TRADE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ConstructibleType">BUILDING_CITY_HALL</Argument>
+		<Argument name="SlotType">GREATWORKSLOT_WRITING</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_SICILIAN_WARS_TOWN_PROJECT_DESCRIPTION</String>
+	</Modifier>
+</GameEffects>

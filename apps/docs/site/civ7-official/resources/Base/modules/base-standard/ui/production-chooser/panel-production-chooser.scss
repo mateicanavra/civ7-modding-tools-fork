@@ -1,0 +1,130 @@
+// @copyright 2020-2024, Firaxis Games
+
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+@use '../../../core/ui/utilities/utility-shapes' as shapes;
+@use '../../../core/ui/themes/default/theme';
+@use '../../../core/ui/themes/default/animations';
+
+
+$hover-timing: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+.panel-production__frame {
+	min-width: pixels(672);
+	max-width: pixels(672);
+}
+
+.panel-city-details {
+	min-width: pixels(512);
+	max-width: pixels(512);
+	@media (experience: mobile) {
+		min-width: pixels(704);
+		max-width: pixels(704);
+	}
+}
+
+// TODO: remove this when the scrollbar positioning shenanigans are resolved
+panel-production-chooser .subsystem-frame__content {
+	padding: pixels(12);
+}
+
+town-focus-chooser-item {
+	width: pixels(443);
+}
+
+town-focus-chooser-item,
+production-chooser-item {
+	margin-bottom: pixels(8);
+
+	&:last-child {
+		margin-bottom: pixels(0);
+	}
+}
+
+.production-chooser__unique-quarter {
+	padding-bottom: pixels(28);
+}
+
+.production-chooser__unique-quarter-divider {
+	position: absolute;
+	bottom: pixels(13);
+	width: 100%;
+	height: pixels(2);
+	background: linear-gradient(to right, theme.color('primary-2', 0), theme.color('primary-2', .7), theme.color('primary-2', 0));
+}
+
+.town-unrest-fill {
+	background-color: #E00505; // TODO: theme
+}
+
+.town-unrest-bg {
+	background-color: #252525; // TODO: theme
+}
+
+.production-chooser__city-details-button {
+	background: linear-gradient(to bottom, theme.color('primary-2'), theme.color('primary-3'));
+	border-image-source: url('fs://game/shell_simple-square');
+	border-image-slice: 16 fill;
+	border-image-width: pixels(16);
+
+	&:focus,
+	&:hover {
+		.city-details-highlight {
+			background: linear-gradient(90deg, #595243 0%, rgba(41, 43, 51, 0.5) 100%);
+			animation: city-details-highlight-glow;
+			animation-duration: 1.3333s;
+			animation-direction: alternate;
+			animation-timing-function: animations.$easeInOut;
+			animation-iteration-count: infinite;
+		}
+	}
+}
+
+@keyframes city-details-highlight-glow {
+	0% {
+		opacity: 0.3333;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+.production-chooser-tooltip__subtext-bg {
+	background-color: theme.color('black', 0.2);
+}
+
+town-unrest-section,
+.production-chooser__town-focus-gradient {
+	background-image: linear-gradient(to bottom,
+			theme.color('accent-6', 0.4),
+			theme.color('accent-6', 0.2),
+			theme.color('accent-6', 0.35),
+		);
+	background-repeat: no-repeat;
+}
+
+panel-production-chooser {
+
+	@media (max-height: pixels(720)) {
+		max-height: pixels(720);
+	}
+
+	position: relative;
+	flex-direction: column;
+}
+
+// this is to fix the shifting text when changing focus or mouseover
+panel-town-focus {
+	width: pixels(620);
+}
+
+last-production-section {
+
+	&:focus,
+	&:hover {
+		.last-production-frame {
+			background: linear-gradient(to bottom, theme.color('primary-4', 1), theme.color('primary-5', 1));
+		}
+	}
+}

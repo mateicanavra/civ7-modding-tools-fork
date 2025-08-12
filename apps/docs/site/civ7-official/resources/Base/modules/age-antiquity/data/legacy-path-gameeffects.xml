@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="MOD_AGE_REWARD_GOLDEN_AGE_SCIENCE_1" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_UNLOCK" permanent="true">
+		<Argument name="Unlock">UNLOCK_WON_SCIENTIFIC_VICTORY_1</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_GOLDEN_AGE_CULTURE_1" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_UNLOCK" permanent="true">
+		<Argument name="Unlock">UNLOCK_WON_CULTURAL_VICTORY_1</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_GOLDEN_AGE_ECONOMIC_1" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_UNLOCK" permanent="true">
+		<Argument name="Unlock">UNLOCK_WON_ECONOMIC_VICTORY_1</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_GOLDEN_AGE_MILITARY_1" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_UNLOCK" permanent="true">
+		<Argument name="Unlock">UNLOCK_WON_MILITARISTIC_VICTORY_1</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_MILESTONE2_SCIENCE_1" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_UNLOCK" permanent="true">
+		<Argument name="Unlock">UNLOCK_AT_LEAST_SECOND_SCIENTIFIC_VICTORY_1</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_MILESTONE2_CULTURE_1" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_UNLOCK" permanent="true">
+		<Argument name="Unlock">UNLOCK_AT_LEAST_SECOND_CULTURAL_VICTORY_1</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_MILESTONE2_ECONOMIC_1" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_UNLOCK" permanent="true">
+		<Argument name="Unlock">UNLOCK_AT_LEAST_SECOND_ECONOMIC_VICTORY_1</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_MILESTONE2_MILITARY_1" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_UNLOCK" permanent="true">
+		<Argument name="Unlock">UNLOCK_AT_LEAST_SECOND_MILITARISTIC_VICTORY_1</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_MILESTONE1_SCIENCE_1" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_UNLOCK" permanent="true">
+		<Argument name="Unlock">UNLOCK_AT_LEAST_THIRD_SCIENTIFIC_VICTORY_1</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_MILESTONE1_CULTURE_1" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_UNLOCK" permanent="true">
+		<Argument name="Unlock">UNLOCK_AT_LEAST_THIRD_CULTURAL_VICTORY_1</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_MILESTONE1_ECONOMIC_1" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_UNLOCK" permanent="true">
+		<Argument name="Unlock">UNLOCK_AT_LEAST_THIRD_ECONOMIC_VICTORY_1</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_MILESTONE1_MILITARY_1" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_UNLOCK" permanent="true">
+		<Argument name="Unlock">UNLOCK_AT_LEAST_THIRD_MILITARISTIC_VICTORY_1</Argument>
+	</Modifier>
+</GameEffects>

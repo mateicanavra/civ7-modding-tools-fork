@@ -1,0 +1,926 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_CONSTRUCTIBLE"/>
+	</Kinds>
+	<Types>
+		<Row Type="BUILDING_ARMORER" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_BANK" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_BAZAAR" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_DUNGEON" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_GRISTMILL" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_GUILDHALL" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_HOSPITAL" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_KILN" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_MEDIEVAL_BRIDGE" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_MEDIEVAL_WALLS" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_MENAGERIE" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_OBSERVATORY" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_PAVILION" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_SAWMILL" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_SHIPYARD" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_STONECUTTER" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_TAVERN" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_TEMPLE" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_UNIVERSITY" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_WHARF" Kind="KIND_CONSTRUCTIBLE"/>
+		<!-- Civ Unique Buildings -->
+		<Row Type="BUILDING_MADRASA" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_MOSQUE" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_ANJUVANNAM" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_MANIGRAMAM" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_CANDI_BENTAR" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_MERU" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_BAILEY" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_MOTTE" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_CASA_CONSISTORIAL" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_CASA_DE_CONTRATACION" Kind="KIND_CONSTRUCTIBLE"/>
+		<!-- Civ Unique Improvements -->
+		<Row Type="IMPROVEMENT_CARAVANSERAI" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="IMPROVEMENT_LO_I_KALO" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="IMPROVEMENT_MING_GREAT_WALL" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="IMPROVEMENT_INCA_MOUNTAIN" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="IMPROVEMENT_ORTOO" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="IMPROVEMENT_TERRACE_FARM" Kind="KIND_CONSTRUCTIBLE"/>
+		<!-- City-State Improvements -->
+		<Row Type="IMPROVEMENT_KASBAH" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="IMPROVEMENT_STONE_HEAD" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="IMPROVEMENT_TRADING_FACTORY" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="IMPROVEMENT_MONASTERY" Kind="KIND_CONSTRUCTIBLE"/>
+		<!-- Civ Unique Quarters -->
+		<Row Type="QUARTER_DONJON" Kind="KIND_QUARTER"/>
+		<Row Type="QUARTER_FIVE_HUNDRED_LORDS" Kind="KIND_QUARTER"/>
+		<Row Type="QUARTER_ULEMA" Kind="KIND_QUARTER"/>
+		<Row Type="QUARTER_PLAZA" Kind="KIND_QUARTER"/>
+		<Row Type="QUARTER_PURA" Kind="KIND_QUARTER"/>
+		<!-- Wonders -->
+		<Row Type="WONDER_BOROBUDUR" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="WONDER_BRIHADEESWARAR_TEMPLE" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="WONDER_EL_ESCORIAL" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="WONDER_ERDENE_ZUU" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="WONDER_FORBIDDEN_CITY" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="WONDER_HALE_O_KEAWE" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="WONDER_HOUSE_OF_WISDOM" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="WONDER_MACHU_PIKCHU" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="WONDER_NOTRE_DAME" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="WONDER_SHWEDAGON_ZEDI_DAW" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="WONDER_TOMB_OF_ASKIA" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="WONDER_WHITE_TOWER" Kind="KIND_CONSTRUCTIBLE"/>
+		<!-- Antique Revived Buildings -->
+		<Row Type="BUILDING_ACADEMY_EX" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="BUILDING_AMPHITHEATER_EX" Kind="KIND_CONSTRUCTIBLE"/>
+	</Types>
+	<TypeQuotes>
+		<Row Type="WONDER_BOROBUDUR" Quote="LOC_QUOTE_WONDER_BOROBUDUR" QuoteAuthor="LOC_QUOTE_AUTHOR_WONDER_BOROBUDUR" QuoteAudio="VO_Quote_BoroBudur"/>
+		<Row Type="WONDER_BRIHADEESWARAR_TEMPLE" Quote="LOC_QUOTE_WONDER_BRIHADEESWARAR_TEMPLE" QuoteAuthor="LOC_QUOTE_AUTHOR_WONDER_BRIHADEESWARAR_TEMPLE" QuoteAudio="VO_Quote_BrihadeeswararTemple"/>
+		<Row Type="WONDER_EL_ESCORIAL" Quote="LOC_QUOTE_WONDER_EL_ESCORIAL" QuoteAuthor="LOC_QUOTE_AUTHOR_WONDER_EL_ESCORIAL" QuoteAudio="VO_Quote_ElEscorial"/>
+		<Row Type="WONDER_ERDENE_ZUU" Quote="LOC_QUOTE_WONDER_ERDENE_ZUU" QuoteAuthor="LOC_QUOTE_AUTHOR_WONDER_ERDENE_ZUU" QuoteAudio="VO_Quote_ErdeneZuu"/>
+		<Row Type="WONDER_FORBIDDEN_CITY" Quote="LOC_QUOTE_WONDER_FORBIDDEN_CITY" QuoteAuthor="LOC_QUOTE_AUTHOR_WONDER_FORBIDDEN_CITY" QuoteAudio="VO_Quote_ForbiddenCity"/>
+		<Row Type="WONDER_HALE_O_KEAWE" Quote="LOC_QUOTE_WONDER_HALE_O_KEAWE" QuoteAuthor="LOC_QUOTE_AUTHOR_WONDER_HALE_O_KEAWE" QuoteAudio="VO_Quote_HaleoKeawe"/>
+		<Row Type="WONDER_HOUSE_OF_WISDOM" Quote="LOC_QUOTE_WONDER_HOUSE_OF_WISDOM" QuoteAuthor="LOC_QUOTE_AUTHOR_WONDER_HOUSE_OF_WISDOM" QuoteAudio="VO_Quote_HouseWisdom"/>
+		<Row Type="WONDER_MACHU_PIKCHU" Quote="LOC_QUOTE_WONDER_MACHU_PIKCHU" QuoteAuthor="LOC_QUOTE_AUTHOR_WONDER_MACHU_PIKCHU" QuoteAudio="VO_Quote_MachuPicchu"/>
+		<Row Type="WONDER_NOTRE_DAME" Quote="LOC_QUOTE_WONDER_NOTRE_DAME" QuoteAuthor="LOC_QUOTE_AUTHOR_WONDER_NOTRE_DAME" QuoteAudio="VO_Quote_NotreDame"/>
+		<Row Type="WONDER_SHWEDAGON_ZEDI_DAW" Quote="LOC_QUOTE_WONDER_SHWEDAGON_ZEDI_DAW" QuoteAuthor="LOC_QUOTE_AUTHOR_WONDER_SHWEDAGON_ZEDI_DAW" QuoteAudio="VO_Quote_ShwedagonZediDaw"/>
+		<Row Type="WONDER_TOMB_OF_ASKIA" Quote="LOC_QUOTE_WONDER_TOMB_OF_ASKIA" QuoteAuthor="LOC_QUOTE_AUTHOR_WONDER_TOMB_OF_ASKIA" QuoteAudio="VO_Quote_TombAskia"/>
+		<Row Type="WONDER_WHITE_TOWER" Quote="LOC_QUOTE_WONDER_WHITE_TOWER" QuoteAuthor="LOC_QUOTE_AUTHOR_WONDER_WHITE_TOWER" QuoteAudio="VO_Quote_WhiteTower"/>
+	</TypeQuotes>
+	<AgeGrowthBalances>
+		<!-- Exponent here is actually the QuadraticCoefficient in the formula of Threshold = Flat + (Scalar × iPopulation) + (QuadraticCoefficient × iPopulation²)-->
+		<Row Age="AGE_EXPLORATION" Flat="30" Scalar="50" Exponent="500"/>
+	</AgeGrowthBalances>
+	<Constructibles>
+		<!-- Exploration Buildings -->
+		<Row ConstructibleType="BUILDING_ARMORER" Name="LOC_BUILDING_ARMORER_NAME" Description="LOC_BUILDING_ARMORER_DESCRIPTION" Tooltip="LOC_BUILDING_ARMORER_TOOLTIP" ConstructibleClass="BUILDING" Cost="200" Population="1" Age="AGE_EXPLORATION" MilitaryDomain="DOMAIN_LAND"/>
+		<Row ConstructibleType="BUILDING_BANK" Name="LOC_BUILDING_BANK_NAME" Description="LOC_BUILDING_BANK_DESCRIPTION" Tooltip="LOC_BUILDING_BANK_TOOLTIP" ConstructibleClass="BUILDING" Cost="250" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="BUILDING_BAZAAR" Name="LOC_BUILDING_BAZAAR_NAME" Description="LOC_BUILDING_BAZAAR_DESCRIPTION" Tooltip="LOC_BUILDING_BAZAAR_TOOLTIP" ConstructibleClass="BUILDING" Cost="175" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="BUILDING_DUNGEON" Name="LOC_BUILDING_DUNGEON_NAME" Description="LOC_BUILDING_DUNGEON_DESCRIPTION" Tooltip="LOC_BUILDING_DUNGEON_TOOLTIP" ConstructibleClass="BUILDING" Cost="200" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="BUILDING_GRISTMILL" Name="LOC_BUILDING_GRISTMILL_NAME" Description="LOC_BUILDING_GRISTMILL_DESCRIPTION" Tooltip="LOC_BUILDING_GRISTMILL_TOOLTIP" ConstructibleClass="BUILDING" RiverPlacement="RIVER" Cost="175" Population="1"/>
+		<Row ConstructibleType="BUILDING_GUILDHALL" Name="LOC_BUILDING_GUILDHALL_NAME" Description="LOC_BUILDING_GUILDHALL_DESCRIPTION" Tooltip="LOC_BUILDING_GUILDHALL_TOOLTIP" ConstructibleClass="BUILDING" Cost="200" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="BUILDING_HOSPITAL" Name="LOC_BUILDING_HOSPITAL_NAME" Description="LOC_BUILDING_HOSPITAL_DESCRIPTION" Tooltip="LOC_BUILDING_HOSPITAL_TOOLTIP" ConstructibleClass="BUILDING" Cost="250" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="BUILDING_KILN" Name="LOC_BUILDING_KILN_NAME" Description="LOC_BUILDING_KILN_DESCRIPTION" Tooltip="LOC_BUILDING_KILN_TOOLTIP" ConstructibleClass="BUILDING" Cost="200" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="BUILDING_MEDIEVAL_BRIDGE" Name="LOC_BUILDING_MEDIEVAL_BRIDGE_NAME" Description="LOC_BUILDING_MEDIEVAL_BRIDGE_DESCRIPTION" Tooltip="LOC_BUILDING_MEDIEVAL_BRIDGE_TOOLTIP" ConstructibleClass="BUILDING" RiverPlacement="RIVER" Cost="200" Population="1" Age="AGE_EXPLORATION" ProductionBoostOverRoute="100"/>
+		<Row ConstructibleType="BUILDING_MEDIEVAL_WALLS" Name="LOC_BUILDING_MEDIEVAL_WALLS_NAME" Description="LOC_BUILDING_MEDIEVAL_WALLS_DESCRIPTION" Tooltip="LOC_BUILDING_MEDIEVAL_WALLS_TOOLTIP" ConstructibleClass="BUILDING" Cost="150" Population="0" Age="AGE_EXPLORATION" Defense="1" ExistingDistrictOnly="true" Repairable="false" DistrictDefense="true" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES_CITY" CostProgressionParam1="20"/>
+		<Row ConstructibleType="BUILDING_MENAGERIE" Name="LOC_BUILDING_MENAGERIE_NAME" Description="LOC_BUILDING_MENAGERIE_DESCRIPTION" Tooltip="LOC_BUILDING_MENAGERIE_TOOLTIP" ConstructibleClass="BUILDING" Cost="250" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="BUILDING_OBSERVATORY" Name="LOC_BUILDING_OBSERVATORY_NAME" Description="LOC_BUILDING_OBSERVATORY_DESCRIPTION" Tooltip="LOC_BUILDING_OBSERVATORY_TOOLTIP" ConstructibleClass="BUILDING" Cost="200" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="BUILDING_PAVILION" Name="LOC_BUILDING_PAVILION_NAME" Description="LOC_BUILDING_PAVILION_DESCRIPTION" Tooltip="LOC_BUILDING_PAVILION_TOOLTIP" ConstructibleClass="BUILDING" Cost="250" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="BUILDING_SAWMILL" Name="LOC_BUILDING_SAWMILL_NAME" Description="LOC_BUILDING_SAWMILL_DESCRIPTION" Tooltip="LOC_BUILDING_SAWMILL_TOOLTIP" ConstructibleClass="BUILDING" RiverPlacement="RIVER" Cost="175" Population="1"/>
+		<Row ConstructibleType="BUILDING_SHIPYARD" Name="LOC_BUILDING_SHIPYARD_NAME" Description="LOC_BUILDING_SHIPYARD_DESCRIPTION" Tooltip="LOC_BUILDING_SHIPYARD_TOOLTIP" ConstructibleClass="BUILDING" RiverPlacement="ANCHORED" Cost="200" Population="1" Age="AGE_EXPLORATION" MilitaryDomain="DOMAIN_SEA"/>
+		<Row ConstructibleType="BUILDING_STONECUTTER" Name="LOC_BUILDING_STONECUTTER_NAME" Description="LOC_BUILDING_STONECUTTER_DESCRIPTION" Tooltip="LOC_BUILDING_STONECUTTER_TOOLTIP" ConstructibleClass="BUILDING" Cost="175" Population="1"/>
+		<Row ConstructibleType="BUILDING_TAVERN" Name="LOC_BUILDING_TAVERN_NAME" Description="LOC_BUILDING_TAVERN_DESCRIPTION" Tooltip="LOC_BUILDING_TAVERN_TOOLTIP" ConstructibleClass="BUILDING" Cost="200" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="BUILDING_TEMPLE" Name="LOC_BUILDING_TEMPLE_NAME" Description="LOC_BUILDING_TEMPLE_DESCRIPTION" Tooltip="LOC_BUILDING_TEMPLE_TOOLTIP" ConstructibleClass="BUILDING" Cost="200" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="BUILDING_UNIVERSITY" Name="LOC_BUILDING_UNIVERSITY_NAME" Description="LOC_BUILDING_UNIVERSITY_DESCRIPTION" Tooltip="LOC_BUILDING_UNIVERSITY_TOOLTIP" ConstructibleClass="BUILDING" Cost="200" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="BUILDING_WHARF" Name="LOC_BUILDING_WHARF_NAME" Description="LOC_BUILDING_WHARF_DESCRIPTION" Tooltip="LOC_BUILDING_WHARF_TOOLTIP" ConstructibleClass="BUILDING" RiverPlacement="ANCHORED" Cost="175" Population="1" Age="AGE_EXPLORATION"/>
+		<!-- Civ Unique Buildings -->
+		<Row ConstructibleType="BUILDING_MADRASA" Name="LOC_BUILDING_MADRASA_NAME" Description="LOC_BUILDING_MADRASA_DESCRIPTION" Tooltip="LOC_BUILDING_MADRASA_TOOLTIP" ConstructibleClass="BUILDING" Cost="240" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="BUILDING_MOSQUE" Name="LOC_BUILDING_MOSQUE_NAME" Description="LOC_BUILDING_MOSQUE_DESCRIPTION" Tooltip="LOC_BUILDING_MOSQUE_TOOLTIP" ConstructibleClass="BUILDING" Cost="240" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="BUILDING_ANJUVANNAM" Name="LOC_BUILDING_ANJUVANNAM_NAME" Description="LOC_BUILDING_ANJUVANNAM_DESCRIPTION" Tooltip="LOC_BUILDING_ANJUVANNAM_TOOLTIP" ConstructibleClass="BUILDING" Cost="280" Population="1" Age="AGE_EXPLORATION" AdjacentTerrain="TERRAIN_COAST"/>
+		<Row ConstructibleType="BUILDING_MANIGRAMAM" Name="LOC_BUILDING_MANIGRAMAM_NAME" Description="LOC_BUILDING_MANIGRAMAM_DESCRIPTION" Tooltip="LOC_BUILDING_MANIGRAMAM_TOOLTIP" ConstructibleClass="BUILDING" Cost="240" Population="1" Age="AGE_EXPLORATION" AdjacentTerrain="TERRAIN_COAST"/>
+		<Row ConstructibleType="BUILDING_CANDI_BENTAR" Name="LOC_BUILDING_CANDI_BENTAR_NAME" Description="LOC_BUILDING_CANDI_BENTAR_DESCRIPTION" Tooltip="LOC_BUILDING_CANDI_BENTAR_TOOLTIP" ConstructibleClass="BUILDING" Cost="280" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="BUILDING_MERU" Name="LOC_BUILDING_MERU_NAME" Description="LOC_BUILDING_MERU_DESCRIPTION" Tooltip="LOC_BUILDING_MERU_TOOLTIP" ConstructibleClass="BUILDING" Cost="200" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="BUILDING_BAILEY" Name="LOC_BUILDING_BAILEY_NAME" Description="LOC_BUILDING_BAILEY_DESCRIPTION" Tooltip="LOC_BUILDING_BAILEY_TOOLTIP" ConstructibleClass="BUILDING" Cost="200" Population="1" Age="AGE_EXPLORATION" DistrictDefense="true"/>
+		<Row ConstructibleType="BUILDING_MOTTE" Name="LOC_BUILDING_MOTTE_NAME" Description="LOC_BUILDING_MOTTE_DESCRIPTION" Tooltip="LOC_BUILDING_MOTTE_TOOLTIP" ConstructibleClass="BUILDING" Cost="200" Population="1" Age="AGE_EXPLORATION" DistrictDefense="true"/>
+		<Row ConstructibleType="BUILDING_CASA_CONSISTORIAL" Name="LOC_BUILDING_CASA_CONSISTORIAL_NAME" Description="LOC_BUILDING_CASA_CONSISTORIAL_DESCRIPTION" Tooltip="LOC_BUILDING_CASA_CONSISTORIAL_TOOLTIP" ConstructibleClass="BUILDING" RequiresHomeland="true" AdjacentTerrain="TERRAIN_COAST" Cost="240" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="BUILDING_CASA_DE_CONTRATACION" Name="LOC_BUILDING_CASA_DE_CONTRATACION_NAME" Description="LOC_BUILDING_CASA_DE_CONTRATACION_DESCRIPTION" Tooltip="LOC_BUILDING_CASA_DE_CONTRATACION_TOOLTIP" ConstructibleClass="BUILDING" RequiresHomeland="true" AdjacentTerrain="TERRAIN_COAST" Cost="240" Population="1" Age="AGE_EXPLORATION"/>
+		<!-- Civ Unique Improvements -->
+		<Row ConstructibleType="IMPROVEMENT_CARAVANSERAI" Name="LOC_IMPROVEMENT_CARAVANSERAI_NAME" Description="LOC_IMPROVEMENT_CARAVANSERAI_DESCRIPTION" Tooltip="LOC_IMPROVEMENT_CARAVANSERAI_TOOLTIP" ConstructibleClass="IMPROVEMENT" Cost="90" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="IMPROVEMENT_LO_I_KALO" Name="LOC_IMPROVEMENT_LO_I_KALO_NAME" Description="LOC_IMPROVEMENT_LO_I_KALO_DESCRIPTION" Tooltip="LOC_IMPROVEMENT_LO_I_KALO_TOOLTIP" ConstructibleClass="IMPROVEMENT" Cost="90" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="IMPROVEMENT_MING_GREAT_WALL" Name="LOC_IMPROVEMENT_MING_GREAT_WALL_NAME" Description="LOC_IMPROVEMENT_MING_GREAT_WALL_DESCRIPTION" Tooltip="LOC_IMPROVEMENT_MING_GREAT_WALL_TOOLTIP" ConstructibleClass="IMPROVEMENT" Cost="90" Population="0" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="IMPROVEMENT_INCA_MOUNTAIN" Name="LOC_IMPROVEMENT_INCA_MOUNTAIN_NAME" ConstructibleClass="IMPROVEMENT" Cost="90" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="IMPROVEMENT_ORTOO" Name="LOC_IMPROVEMENT_ORTOO_NAME" Description="LOC_IMPROVEMENT_ORTOO_DESCRIPTION" Tooltip="LOC_IMPROVEMENT_ORTOO_TOOLTIP" ConstructibleClass="IMPROVEMENT" Cost="90" Population="1" NoFeature="true" NoRiver="true" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="IMPROVEMENT_TERRACE_FARM" Name="LOC_IMPROVEMENT_TERRACE_FARM_NAME" Description="LOC_IMPROVEMENT_TERRACE_FARM_DESCRIPTION" Tooltip="LOC_IMPROVEMENT_TERRACE_FARM_TOOLTIP" ConstructibleClass="IMPROVEMENT" Cost="90" Population="1" NoFeature="true" NoRiver="true" Age="AGE_EXPLORATION"/>
+		<!-- City-State Improvements -->
+		<Row ConstructibleType="IMPROVEMENT_KASBAH" Name="LOC_IMPROVEMENT_KASBAH_NAME" Description="LOC_IMPROVEMENT_KASBAH_DESCRIPTION" Tooltip="LOC_IMPROVEMENT_KASBAH_TOOLTIP" ConstructibleClass="IMPROVEMENT" Cost="90" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="IMPROVEMENT_STONE_HEAD" Name="LOC_IMPROVEMENT_STONE_HEAD_NAME" Description="LOC_IMPROVEMENT_STONE_HEAD_DESCRIPTION" Tooltip="LOC_IMPROVEMENT_STONE_HEAD_TOOLTIP" ConstructibleClass="IMPROVEMENT" Cost="180" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="IMPROVEMENT_TRADING_FACTORY" Name="LOC_IMPROVEMENT_TRADING_FACTORY_NAME" Description="LOC_IMPROVEMENT_TRADING_FACTORY_DESCRIPTION" Tooltip="LOC_IMPROVEMENT_TRADING_FACTORY_TOOLTIP" ConstructibleClass="IMPROVEMENT" Cost="90" Population="1" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="IMPROVEMENT_MONASTERY" Name="LOC_IMPROVEMENT_MONASTERY_NAME" Description="LOC_IMPROVEMENT_MONASTERY_DESCRIPTION" Tooltip="LOC_IMPROVEMENT_MONASTERY_TOOLTIP" ConstructibleClass="IMPROVEMENT" Cost="90" Population="1" Age="AGE_EXPLORATION"/>
+		<!-- Wonders -->
+		<Row ConstructibleType="WONDER_BOROBUDUR" Name="LOC_WONDER_BOROBUDUR_NAME" Description="LOC_WONDER_BOROBUDUR_DESCRIPTION" Tooltip="LOC_WONDER_BOROBUDUR_TOOLTIP" ConstructibleClass="WONDER" Cost="475" Population="0" ImmuneDamage="true" Age="AGE_EXPLORATION" AdjacentTerrain="TERRAIN_COAST" RequiresUnlock="true" />
+		<Row ConstructibleType="WONDER_BRIHADEESWARAR_TEMPLE" Name="LOC_WONDER_BRIHADEESWARAR_TEMPLE_NAME" Description="LOC_WONDER_BRIHADEESWARAR_TEMPLE_DESCRIPTION" Tooltip="LOC_WONDER_BRIHADEESWARAR_TEMPLE_TOOLTIP" ConstructibleClass="WONDER" Cost="475" Population="0" AdjacentRiver="true" ImmuneDamage="true" Age="AGE_EXPLORATION" RequiresUnlock="true" />
+		<Row ConstructibleType="WONDER_EL_ESCORIAL" Name="LOC_WONDER_EL_ESCORIAL_NAME" Description="LOC_WONDER_EL_ESCORIAL_DESCRIPTION" Tooltip="LOC_WONDER_EL_ESCORIAL_TOOLTIP" ConstructibleClass="WONDER" Cost="475" Population="0" ImmuneDamage="true" Age="AGE_EXPLORATION" RequiresUnlock="true" />
+		<Row ConstructibleType="WONDER_ERDENE_ZUU" Name="LOC_WONDER_ERDENE_ZUU_NAME" Description="LOC_WONDER_ERDENE_ZUU_DESCRIPTION" Tooltip="LOC_WONDER_ERDENE_ZUU_TOOLTIP" ConstructibleClass="WONDER" Cost="550" Population="0" ImmuneDamage="true" Age="AGE_EXPLORATION" RequiresUnlock="true" />
+		<Row ConstructibleType="WONDER_FORBIDDEN_CITY" Name="LOC_WONDER_FORBIDDEN_CITY_NAME" Description="LOC_WONDER_FORBIDDEN_CITY_DESCRIPTION" Tooltip="LOC_WONDER_FORBIDDEN_CITY_TOOLTIP" ConstructibleClass="WONDER" Cost="400" Population="0" ImmuneDamage="true" Age="AGE_EXPLORATION" AdjacentDistrict="DISTRICT_URBAN" RequiresUnlock="true" />
+		<Row ConstructibleType="WONDER_HALE_O_KEAWE" Name="LOC_WONDER_HALE_O_KEAWE_NAME" Description="LOC_WONDER_HALE_O_KEAWE_DESCRIPTION" Tooltip="LOC_WONDER_HALE_O_KEAWE_TOOLTIP" ConstructibleClass="WONDER" Cost="400" Population="0" ImmuneDamage="true" Age="AGE_EXPLORATION" RequiresUnlock="true" />
+		<Row ConstructibleType="WONDER_HOUSE_OF_WISDOM" Name="LOC_WONDER_HOUSE_OF_WISDOM_NAME" Description="LOC_WONDER_HOUSE_OF_WISDOM_DESCRIPTION" Tooltip="LOC_WONDER_HOUSE_OF_WISDOM_TOOLTIP" ConstructibleClass="WONDER" Cost="475" Population="0" AdjacentDistrict="DISTRICT_URBAN" ImmuneDamage="true" Age="AGE_EXPLORATION" RequiresUnlock="true" />
+		<Row ConstructibleType="WONDER_MACHU_PIKCHU" Name="LOC_WONDER_MACHU_PIKCHU_NAME" Description="LOC_WONDER_MACHU_PIKCHU_DESCRIPTION" Tooltip="LOC_WONDER_MACHU_PIKCHU_TOOLTIP" ConstructibleClass="WONDER" Cost="550" Population="0" ImmuneDamage="true" Age="AGE_EXPLORATION" RequiresUnlock="true" />
+		<Row ConstructibleType="WONDER_NOTRE_DAME" Name="LOC_WONDER_NOTRE_DAME_NAME" Description="LOC_WONDER_NOTRE_DAME_DESCRIPTION" Tooltip="LOC_WONDER_NOTRE_DAME_TOOLTIP" ConstructibleClass="WONDER" Cost="550" Population="0" ImmuneDamage="true" Age="AGE_EXPLORATION" AdjacentRiver="true" AdjacentDistrict="DISTRICT_URBAN" RequiresUnlock="true" />
+		<Row ConstructibleType="WONDER_SHWEDAGON_ZEDI_DAW" Name="LOC_WONDER_SHWEDAGON_ZEDI_DAW_NAME" Description="LOC_WONDER_SHWEDAGON_ZEDI_DAW_DESCRIPTION" Tooltip="LOC_WONDER_SHWEDAGON_ZEDI_DAW_TOOLTIP" ConstructibleClass="WONDER" Cost="550" Population="0" ImmuneDamage="true" Age="AGE_EXPLORATION" AdjacentLake="true" RequiresUnlock="true" />
+		<Row ConstructibleType="WONDER_TOMB_OF_ASKIA" Name="LOC_WONDER_TOMB_OF_ASKIA_NAME" Description="LOC_WONDER_TOMB_OF_ASKIA_DESCRIPTION" Tooltip="LOC_WONDER_TOMB_OF_ASKIA_TOOLTIP" ConstructibleClass="WONDER" Cost="400" Population="0" ImmuneDamage="true" Age="AGE_EXPLORATION" RequiresUnlock="true" />
+		<Row ConstructibleType="WONDER_WHITE_TOWER" Name="LOC_WONDER_WHITE_TOWER_NAME" Description="LOC_WONDER_WHITE_TOWER_DESCRIPTION" Tooltip="LOC_WONDER_WHITE_TOWER_TOOLTIP" ConstructibleClass="WONDER" Cost="550" Population="0" ImmuneDamage="true" Age="AGE_EXPLORATION" RequiresUnlock="true" />
+		<!-- Antique Revived Buildings -->
+		<Row ConstructibleType="BUILDING_ACADEMY_EX" Name="LOC_BUILDING_ACADEMY_EX_NAME" Description="LOC_BUILDING_ACADEMY_DESCRIPTION" Tooltip="LOC_BUILDING_ACADEMY_TOOLTIP" ConstructibleClass="BUILDING" Cost="195" Population="1" Age="AGE_EXPLORATION" RequiresUnlock="true"/>
+		<Row ConstructibleType="BUILDING_AMPHITHEATER_EX" Name="LOC_BUILDING_AMPHITHEATER_EX_NAME" Description="LOC_BUILDING_AMPHITHEATER_DESCRIPTION" Tooltip="LOC_BUILDING_AMPHITHEATER_TOOLTIP" ConstructibleClass="BUILDING" Cost="195" Population="1" Age="AGE_EXPLORATION" RequiresUnlock="true"/>
+	</Constructibles>
+	<Buildings>
+		<Row ConstructibleType="BUILDING_ARMORER" Movable="false"/>
+		<Row ConstructibleType="BUILDING_BANK" Movable="false"/>
+		<Row ConstructibleType="BUILDING_BAZAAR" Movable="false"/>
+		<Row ConstructibleType="BUILDING_DUNGEON" Movable="false"/>
+		<Row ConstructibleType="BUILDING_GRISTMILL" Movable="false" Town="true"/>
+		<Row ConstructibleType="BUILDING_GUILDHALL" Movable="false"/>
+		<Row ConstructibleType="BUILDING_HOSPITAL" Movable="false"/>
+		<Row ConstructibleType="BUILDING_KILN" Movable="false"/>
+		<Row ConstructibleType="BUILDING_MEDIEVAL_BRIDGE" Movable="false" MultiplePerCity="true" Town="true"/>
+		<Row ConstructibleType="BUILDING_MEDIEVAL_WALLS" Movable="false" MultiplePerCity="true" Purchasable="false" Town="true"/>
+		<Row ConstructibleType="BUILDING_MENAGERIE" Movable="false"/>
+		<Row ConstructibleType="BUILDING_OBSERVATORY" Movable="false"/>
+		<Row ConstructibleType="BUILDING_PAVILION" Movable="false"/>
+		<Row ConstructibleType="BUILDING_SAWMILL" Movable="false" Town="true"/>
+		<Row ConstructibleType="BUILDING_SHIPYARD" Movable="false"/>
+		<Row ConstructibleType="BUILDING_STONECUTTER" Movable="false" Town="true"/>
+		<Row ConstructibleType="BUILDING_TAVERN" Movable="false"/>
+		<Row ConstructibleType="BUILDING_TEMPLE" Movable="false" AllowsHolyCity="True" Town="True"/>
+		<Row ConstructibleType="BUILDING_UNIVERSITY" Movable="false" ArchaeologyResearch="True"/>
+		<Row ConstructibleType="BUILDING_WHARF" Movable="false"/>
+		<!-- Civ Unique Buildings -->
+		<Row ConstructibleType="BUILDING_MADRASA" Movable="false" TraitType="TRAIT_ABBASID"/>
+		<Row ConstructibleType="BUILDING_MOSQUE" Movable="false" AllowsHolyCity="True" TraitType="TRAIT_ABBASID"/>
+		<Row ConstructibleType="BUILDING_ANJUVANNAM" Movable="false" TraitType="TRAIT_CHOLA"/>
+		<Row ConstructibleType="BUILDING_MANIGRAMAM" Movable="false" TraitType="TRAIT_CHOLA"/>
+		<Row ConstructibleType="BUILDING_CANDI_BENTAR" Movable="false" TraitType="TRAIT_MAJAPAHIT"/>
+		<Row ConstructibleType="BUILDING_MERU" Movable="false" TraitType="TRAIT_MAJAPAHIT"/>
+		<Row ConstructibleType="BUILDING_BAILEY" Movable="false" TraitType="TRAIT_NORMAN"/>
+		<Row ConstructibleType="BUILDING_MOTTE" Movable="false" TraitType="TRAIT_NORMAN"/>
+		<Row ConstructibleType="BUILDING_CASA_CONSISTORIAL" Movable="false" TraitType="TRAIT_SPAIN"/>
+		<Row ConstructibleType="BUILDING_CASA_DE_CONTRATACION" Movable="false" TraitType="TRAIT_SPAIN"/>
+		<!-- Antique Revived Buildings -->
+		<Row ConstructibleType="BUILDING_ACADEMY_EX" Movable="false"/>
+		<Row ConstructibleType="BUILDING_AMPHITHEATER_EX" Movable="false"/>
+	</Buildings>
+	<Improvements>
+		<!-- Civ Unique Improvements -->
+		<Row ConstructibleType="IMPROVEMENT_CARAVANSERAI" ResourceTier="0" CityBuildable="true" TraitType="TRAIT_SONGHAI"/>
+		<Row ConstructibleType="IMPROVEMENT_LO_I_KALO" ResourceTier="0" CityBuildable="true" TraitType="TRAIT_HAWAII"/>
+		<Row ConstructibleType="IMPROVEMENT_MING_GREAT_WALL" ResourceTier="0" CityBuildable="true" BuildInLine="true" TraitType="TRAIT_MING"/>
+		<Row ConstructibleType="IMPROVEMENT_INCA_MOUNTAIN" TraitType="TRAIT_INCA_2"/>
+		<Row ConstructibleType="IMPROVEMENT_ORTOO" ResourceTier="0" CityBuildable="true" TraitType="TRAIT_MONGOLIA"/>
+		<Row ConstructibleType="IMPROVEMENT_TERRACE_FARM" ResourceTier="0" CityBuildable="true" TraitType="TRAIT_INCA"/>
+		<!-- City-State Improvements -->
+		<Row ConstructibleType="IMPROVEMENT_KASBAH" ResourceTier="0" CityBuildable="true" TraitType="TRAIT_LEADER_MINOR_CIV"/>
+		<Row ConstructibleType="IMPROVEMENT_STONE_HEAD" ResourceTier="0" CityBuildable="true" TraitType="TRAIT_LEADER_MINOR_CIV" MustBeAppealing="true"/>
+		<Row ConstructibleType="IMPROVEMENT_TRADING_FACTORY" ResourceTier="0" CityBuildable="true" TraitType="TRAIT_LEADER_MINOR_CIV" SameAdjacentValid="false"/>
+		<Row ConstructibleType="IMPROVEMENT_MONASTERY" ResourceTier="0" CityBuildable="true" TraitType="TRAIT_LEADER_MINOR_CIV" BuildOnFrontier="true"/>
+	</Improvements>
+	<Wonders>
+		<Row ConstructibleType="WONDER_BOROBUDUR" MaxWorldInstances="1" />
+		<Row ConstructibleType="WONDER_BRIHADEESWARAR_TEMPLE" MaxWorldInstances="1" />
+		<Row ConstructibleType="WONDER_EL_ESCORIAL" MaxWorldInstances="1" />
+		<Row ConstructibleType="WONDER_ERDENE_ZUU" MaxWorldInstances="1" />
+		<Row ConstructibleType="WONDER_FORBIDDEN_CITY" MaxWorldInstances="1" />
+		<Row ConstructibleType="WONDER_HALE_O_KEAWE" MaxWorldInstances="1" AdjacentToLand="true" />
+		<Row ConstructibleType="WONDER_HOUSE_OF_WISDOM" MaxWorldInstances="1" />
+		<Row ConstructibleType="WONDER_MACHU_PIKCHU" MaxWorldInstances="1" />
+		<Row ConstructibleType="WONDER_NOTRE_DAME" MaxWorldInstances="1" />
+		<Row ConstructibleType="WONDER_SHWEDAGON_ZEDI_DAW" MaxWorldInstances="1" />
+		<Row ConstructibleType="WONDER_TOMB_OF_ASKIA" MaxWorldInstances="1" />
+		<Row ConstructibleType="WONDER_WHITE_TOWER" MaxWorldInstances="1" AdjacentConstructible="BUILDING_CITY_HALL" />
+	</Wonders>
+	<TypeTags>
+		<Row Type="BUILDING_GRISTMILL" Tag="FOOD"/>
+		<Row Type="BUILDING_GRISTMILL" Tag="WAREHOUSE"/>
+		<Row Type="BUILDING_GRISTMILL" Tag="AGELESS"/>
+		<Row Type="BUILDING_GRISTMILL" Tag="PERSISTENT"/>
+		<Row Type="BUILDING_GRISTMILL" Tag="WATER"/>
+		<Row Type="BUILDING_GRISTMILL" Tag="MILL"/>
+		<Row Type="BUILDING_MEDIEVAL_WALLS" Tag="IGNORE_DISTRICT_PLACEMENT_CAP"/>
+		<Row Type="BUILDING_MEDIEVAL_WALLS" Tag="LINK_ADJACENT"/>
+		<Row Type="BUILDING_MEDIEVAL_WALLS" Tag="DISTRICT_WALL"/>
+		<Row Type="BUILDING_SAWMILL" Tag="PRODUCTION"/>
+		<Row Type="BUILDING_SAWMILL" Tag="WAREHOUSE"/>
+		<Row Type="BUILDING_SAWMILL" Tag="AGELESS"/>
+		<Row Type="BUILDING_SAWMILL" Tag="PERSISTENT"/>
+		<Row Type="BUILDING_SAWMILL" Tag="WATER"/>
+		<Row Type="BUILDING_SAWMILL" Tag="MILL"/>
+		<Row Type="BUILDING_STONECUTTER" Tag="PRODUCTION"/>
+		<Row Type="BUILDING_STONECUTTER" Tag="WAREHOUSE"/>
+		<Row Type="BUILDING_STONECUTTER" Tag="AGELESS"/>
+		<Row Type="BUILDING_STONECUTTER" Tag="PERSISTENT"/>
+		<!-- Civ Unique Buildings -->
+		<Row Type="BUILDING_MADRASA" Tag="SCIENCE"/>
+		<Row Type="BUILDING_MADRASA" Tag="UNIQUE"/>
+		<Row Type="BUILDING_MADRASA" Tag="AGELESS"/>
+		<Row Type="BUILDING_MOSQUE" Tag="HAPPINESS"/>
+		<Row Type="BUILDING_MOSQUE" Tag="UNIQUE"/>
+		<Row Type="BUILDING_MOSQUE" Tag="AGELESS"/>
+		<Row Type="BUILDING_ANJUVANNAM" Tag="GOLD"/>
+		<Row Type="BUILDING_ANJUVANNAM" Tag="MILITARY"/>
+		<Row Type="BUILDING_ANJUVANNAM" Tag="UNIQUE"/>
+		<Row Type="BUILDING_ANJUVANNAM" Tag="AGELESS"/>
+		<Row Type="BUILDING_MANIGRAMAM" Tag="HAPPINESS"/>
+		<Row Type="BUILDING_MANIGRAMAM" Tag="UNIQUE"/>
+		<Row Type="BUILDING_MANIGRAMAM" Tag="AGELESS"/>
+		<Row Type="BUILDING_CANDI_BENTAR" Tag="CULTURE"/>
+		<Row Type="BUILDING_CANDI_BENTAR" Tag="UNIQUE"/>
+		<Row Type="BUILDING_CANDI_BENTAR" Tag="AGELESS"/>
+		<Row Type="BUILDING_MERU" Tag="HAPPINESS"/>
+		<Row Type="BUILDING_MERU" Tag="UNIQUE"/>
+		<Row Type="BUILDING_MERU" Tag="AGELESS"/>
+		<Row Type="BUILDING_BAILEY" Tag="CULTURE"/>
+		<Row Type="BUILDING_BAILEY" Tag="UNIQUE"/>
+		<Row Type="BUILDING_BAILEY" Tag="AGELESS"/>
+		<Row Type="BUILDING_BAILEY" Tag="FORTIFICATION"/>
+		<Row Type="BUILDING_MOTTE" Tag="HAPPINESS"/>
+		<Row Type="BUILDING_MOTTE" Tag="UNIQUE"/>
+		<Row Type="BUILDING_MOTTE" Tag="AGELESS"/>
+		<Row Type="BUILDING_MOTTE" Tag="FORTIFICATION"/>
+		<Row Type="BUILDING_CASA_CONSISTORIAL" Tag="CULTURE"/>
+		<Row Type="BUILDING_CASA_CONSISTORIAL" Tag="UNIQUE"/>
+		<Row Type="BUILDING_CASA_CONSISTORIAL" Tag="AGELESS"/>
+		<Row Type="BUILDING_CASA_DE_CONTRATACION" Tag="GOLD"/>
+		<Row Type="BUILDING_CASA_DE_CONTRATACION" Tag="UNIQUE"/>
+		<Row Type="BUILDING_CASA_DE_CONTRATACION" Tag="AGELESS"/>
+		<!-- Civ Unique Improvements -->
+		<Row Type="IMPROVEMENT_CARAVANSERAI" Tag="UNIQUE_IMPROVEMENT"/>
+		<Row Type="IMPROVEMENT_CARAVANSERAI" Tag="AGELESS"/>
+		<Row Type="IMPROVEMENT_MING_GREAT_WALL" Tag="FORTIFICATION"/>
+		<Row Type="IMPROVEMENT_MING_GREAT_WALL" Tag="LINK_ADJACENT"/>
+		<Row Type="IMPROVEMENT_MING_GREAT_WALL" Tag="UNIQUE_IMPROVEMENT"/>
+		<Row Type="IMPROVEMENT_MING_GREAT_WALL" Tag="AGELESS"/>
+		<Row Type="IMPROVEMENT_ORTOO" Tag="UNIQUE_IMPROVEMENT"/>
+		<Row Type="IMPROVEMENT_ORTOO" Tag="AGELESS"/>
+		<Row Type="IMPROVEMENT_TERRACE_FARM" Tag="UNIQUE_IMPROVEMENT"/>
+		<Row Type="IMPROVEMENT_TERRACE_FARM" Tag="AGELESS"/>
+		<Row Type="IMPROVEMENT_LO_I_KALO" Tag="UNIQUE_IMPROVEMENT"/>
+		<Row Type="IMPROVEMENT_LO_I_KALO" Tag="AGELESS"/>
+		<!-- City-State Improvements -->
+		<Row Type="IMPROVEMENT_KASBAH" Tag="FORTIFICATION"/>
+		<Row Type="IMPROVEMENT_KASBAH" Tag="UNIQUE_IMPROVEMENT"/>
+		<Row Type="IMPROVEMENT_KASBAH" Tag="AGELESS"/>
+		<Row Type="IMPROVEMENT_STONE_HEAD" Tag="UNIQUE_IMPROVEMENT"/>
+		<Row Type="IMPROVEMENT_STONE_HEAD" Tag="AGELESS"/>
+		<Row Type="IMPROVEMENT_TRADING_FACTORY" Tag="UNIQUE_IMPROVEMENT"/>
+		<Row Type="IMPROVEMENT_TRADING_FACTORY" Tag="AGELESS"/>
+		<Row Type="IMPROVEMENT_MONASTERY" Tag="UNIQUE_IMPROVEMENT"/>
+		<Row Type="IMPROVEMENT_MONASTERY" Tag="AGELESS"/>
+		<!-- Wonders -->
+		<Row Type="WONDER_EL_ESCORIAL" Tag="GREATWORK"/>
+		<Row Type="WONDER_HALE_O_KEAWE" Tag="GREATWORK"/>
+		<Row Type="WONDER_HOUSE_OF_WISDOM" Tag="GREATWORK"/>
+	</TypeTags>
+	<Constructible_ValidDistricts>
+		<Row ConstructibleType="BUILDING_ARMORER" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_ARMORER" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_BANK" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_BANK" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_BAZAAR" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_BAZAAR" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_DUNGEON" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_DUNGEON" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_GRISTMILL" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_GRISTMILL" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_GUILDHALL" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_GUILDHALL" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_HOSPITAL" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_HOSPITAL" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_KILN" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_KILN" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_MEDIEVAL_BRIDGE" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_MEDIEVAL_WALLS" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_MEDIEVAL_WALLS" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_MENAGERIE" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_MENAGERIE" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_OBSERVATORY" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_OBSERVATORY" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_PAVILION" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_PAVILION" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_SAWMILL" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_SAWMILL" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_SHIPYARD" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_SHIPYARD" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_STONECUTTER" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_STONECUTTER" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_TAVERN" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_TAVERN" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_TEMPLE" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_TEMPLE" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_UNIVERSITY" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_UNIVERSITY" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_WHARF" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_WHARF" DistrictType="DISTRICT_CITY_CENTER"/>
+		<!-- Civ Unique Buildings -->
+		<Row ConstructibleType="BUILDING_MADRASA" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_MADRASA" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_MOSQUE" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_MOSQUE" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_ANJUVANNAM" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_ANJUVANNAM" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_MANIGRAMAM" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_MANIGRAMAM" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_CANDI_BENTAR" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_CANDI_BENTAR" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_MERU" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_MERU" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_BAILEY" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_BAILEY" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_MOTTE" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_MOTTE" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_CASA_CONSISTORIAL" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_CASA_CONSISTORIAL" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_CASA_DE_CONTRATACION" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_CASA_DE_CONTRATACION" DistrictType="DISTRICT_URBAN"/>
+		<!-- Civ Unique Improvements -->
+		<Row ConstructibleType="IMPROVEMENT_CARAVANSERAI" DistrictType="DISTRICT_RURAL"/>
+		<Row ConstructibleType="IMPROVEMENT_LO_I_KALO" DistrictType="DISTRICT_RURAL"/>
+		<Row ConstructibleType="IMPROVEMENT_MING_GREAT_WALL" DistrictType="DISTRICT_RURAL"/>
+		<Row ConstructibleType="IMPROVEMENT_INCA_MOUNTAIN" DistrictType="DISTRICT_RURAL"/>
+		<Row ConstructibleType="IMPROVEMENT_ORTOO" DistrictType="DISTRICT_RURAL"/>
+		<Row ConstructibleType="IMPROVEMENT_TERRACE_FARM" DistrictType="DISTRICT_RURAL"/>
+		<!-- City-State Improvements -->
+		<Row ConstructibleType="IMPROVEMENT_KASBAH" DistrictType="DISTRICT_RURAL"/>
+		<Row ConstructibleType="IMPROVEMENT_STONE_HEAD" DistrictType="DISTRICT_RURAL"/>
+		<Row ConstructibleType="IMPROVEMENT_TRADING_FACTORY" DistrictType="DISTRICT_RURAL"/>
+		<Row ConstructibleType="IMPROVEMENT_MONASTERY" DistrictType="DISTRICT_RURAL"/>
+		<!-- Wonders -->
+		<Row ConstructibleType="WONDER_BOROBUDUR" DistrictType="DISTRICT_WONDER"/>
+		<Row ConstructibleType="WONDER_BRIHADEESWARAR_TEMPLE" DistrictType="DISTRICT_WONDER"/>
+		<Row ConstructibleType="WONDER_EL_ESCORIAL" DistrictType="DISTRICT_WONDER"/>
+		<Row ConstructibleType="WONDER_ERDENE_ZUU" DistrictType="DISTRICT_WONDER"/>
+		<Row ConstructibleType="WONDER_FORBIDDEN_CITY" DistrictType="DISTRICT_WONDER"/>
+		<Row ConstructibleType="WONDER_HALE_O_KEAWE" DistrictType="DISTRICT_WONDER"/>
+		<Row ConstructibleType="WONDER_HOUSE_OF_WISDOM" DistrictType="DISTRICT_WONDER"/>
+		<Row ConstructibleType="WONDER_MACHU_PIKCHU" DistrictType="DISTRICT_WONDER"/>
+		<Row ConstructibleType="WONDER_NOTRE_DAME" DistrictType="DISTRICT_WONDER"/>
+		<Row ConstructibleType="WONDER_SHWEDAGON_ZEDI_DAW" DistrictType="DISTRICT_WONDER"/>
+		<Row ConstructibleType="WONDER_TOMB_OF_ASKIA" DistrictType="DISTRICT_WONDER"/>
+		<Row ConstructibleType="WONDER_WHITE_TOWER" DistrictType="DISTRICT_WONDER"/>
+		<!-- Antique Revived Buildings -->
+		<Row ConstructibleType="BUILDING_ACADEMY_EX" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_ACADEMY_EX" DistrictType="DISTRICT_URBAN"/>
+		<Row ConstructibleType="BUILDING_AMPHITHEATER_EX" DistrictType="DISTRICT_CITY_CENTER"/>
+		<Row ConstructibleType="BUILDING_AMPHITHEATER_EX" DistrictType="DISTRICT_URBAN"/>
+	</Constructible_ValidDistricts>
+	<District_FreeConstructibles>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_INCA_MOUNTAIN" TerrainType="TERRAIN_MOUNTAIN" Priority="5"/>
+	</District_FreeConstructibles>
+	<Constructible_ValidBiomes>
+		<!-- Civ Unique Improvements -->
+		<Row ConstructibleType="IMPROVEMENT_CARAVANSERAI" BiomeType="BIOME_DESERT"/>
+		<Row ConstructibleType="IMPROVEMENT_CARAVANSERAI" BiomeType="BIOME_PLAINS"/>
+		<Row ConstructibleType="IMPROVEMENT_LO_I_KALO" BiomeType="BIOME_GRASSLAND"/>
+		<Row ConstructibleType="IMPROVEMENT_LO_I_KALO" BiomeType="BIOME_TROPICAL"/>
+		<Row ConstructibleType="IMPROVEMENT_KASBAH" BiomeType="BIOME_DESERT"/>
+		<!-- Wonders -->
+		<Row ConstructibleType="WONDER_ERDENE_ZUU" BiomeType="BIOME_PLAINS"/>
+		<Row ConstructibleType="WONDER_ERDENE_ZUU" BiomeType="BIOME_TUNDRA"/>
+		<Row ConstructibleType="WONDER_ERDENE_ZUU" BiomeType="BIOME_DESERT"/>
+		<Row ConstructibleType="WONDER_MACHU_PIKCHU" BiomeType="BIOME_TROPICAL"/>
+		<Row ConstructibleType="WONDER_TOMB_OF_ASKIA" BiomeType="BIOME_DESERT"/>
+	</Constructible_ValidBiomes>
+	<Constructible_InvalidAdjacentBiomes>
+		<!-- Wonders -->
+		<Row ConstructibleType="WONDER_HALE_O_KEAWE" BiomeType="BIOME_TUNDRA"/>
+	</Constructible_InvalidAdjacentBiomes>
+	<Constructible_ValidTerrains>
+		<Row ConstructibleType="BUILDING_SHIPYARD" TerrainType="TERRAIN_COAST"/>
+		<Row ConstructibleType="BUILDING_SHIPYARD" TerrainType="TERRAIN_NAVIGABLE_RIVER"/>
+		<Row ConstructibleType="BUILDING_WHARF" TerrainType="TERRAIN_COAST"/>
+		<Row ConstructibleType="BUILDING_WHARF" TerrainType="TERRAIN_NAVIGABLE_RIVER"/>
+		<Row ConstructibleType="BUILDING_MEDIEVAL_BRIDGE" TerrainType="TERRAIN_NAVIGABLE_RIVER"/>
+		<Row ConstructibleType="BUILDING_MEDIEVAL_WALLS" TerrainType="TERRAIN_FLAT"/>
+		<Row ConstructibleType="BUILDING_MEDIEVAL_WALLS" TerrainType="TERRAIN_HILL"/>
+		<Row ConstructibleType="BUILDING_MEDIEVAL_WALLS" TerrainType="TERRAIN_COAST"/>
+		<!-- Civ Unique Improvements -->
+		<Row ConstructibleType="IMPROVEMENT_ORTOO" TerrainType="TERRAIN_FLAT"/>
+		<Row ConstructibleType="IMPROVEMENT_TERRACE_FARM" TerrainType="TERRAIN_HILL"/>
+		<!-- Wonders -->
+		<Row ConstructibleType="WONDER_HALE_O_KEAWE" TerrainType="TERRAIN_COAST"/>
+		<Row ConstructibleType="WONDER_EL_ESCORIAL" TerrainType="TERRAIN_HILL"/>
+		<Row ConstructibleType="WONDER_ERDENE_ZUU" TerrainType="TERRAIN_FLAT"/>
+		<Row ConstructibleType="WONDER_MACHU_PIKCHU" TerrainType="TERRAIN_MOUNTAIN"/>
+	</Constructible_ValidTerrains>
+	<AgeConstructibleDefaultYields>
+		<Row Age="AGE_EXPLORATION" YieldChange="2"/>
+	</AgeConstructibleDefaultYields>
+	<AgeConstructibleDefaultMaintenances>
+		<Row Age="AGE_EXPLORATION" YieldChange="2"/>
+	</AgeConstructibleDefaultMaintenances>
+	<Constructible_YieldChanges>
+		<Row ConstructibleType="BUILDING_ARMORER" YieldType="YIELD_PRODUCTION" YieldChange="4"/>
+		<Row ConstructibleType="BUILDING_BANK" YieldType="YIELD_GOLD" YieldChange="5"/>
+		<Row ConstructibleType="BUILDING_BAZAAR" YieldType="YIELD_GOLD" YieldChange="3"/>
+		<Row ConstructibleType="BUILDING_DUNGEON" YieldType="YIELD_DIPLOMACY" YieldChange="2"/>
+		<Row ConstructibleType="BUILDING_DUNGEON" YieldType="YIELD_PRODUCTION" YieldChange="3"/>
+		<Row ConstructibleType="BUILDING_GRISTMILL" YieldType="YIELD_FOOD" YieldChange="4"/>
+		<Row ConstructibleType="BUILDING_GUILDHALL" YieldType="YIELD_DIPLOMACY" YieldChange="2"/>
+		<Row ConstructibleType="BUILDING_GUILDHALL" YieldType="YIELD_GOLD" YieldChange="4"/>
+		<Row ConstructibleType="BUILDING_HOSPITAL" YieldType="YIELD_FOOD" YieldChange="5"/>
+		<Row ConstructibleType="BUILDING_KILN" YieldType="YIELD_CULTURE" YieldChange="4"/>
+		<Row ConstructibleType="BUILDING_MEDIEVAL_BRIDGE" YieldType="YIELD_GOLD" YieldChange="4"/>
+		<Row ConstructibleType="BUILDING_MENAGERIE" YieldType="YIELD_HAPPINESS" YieldChange="5"/>
+		<Row ConstructibleType="BUILDING_OBSERVATORY" YieldType="YIELD_SCIENCE" YieldChange="4"/>
+		<Row ConstructibleType="BUILDING_PAVILION" YieldType="YIELD_CULTURE" YieldChange="5"/>
+		<Row ConstructibleType="BUILDING_SAWMILL" YieldType="YIELD_PRODUCTION" YieldChange="3"/>
+		<Row ConstructibleType="BUILDING_SHIPYARD" YieldType="YIELD_PRODUCTION" YieldChange="5"/>
+		<Row ConstructibleType="BUILDING_STONECUTTER" YieldType="YIELD_PRODUCTION" YieldChange="3"/>
+		<Row ConstructibleType="BUILDING_TAVERN" YieldType="YIELD_FOOD" YieldChange="3"/>
+		<Row ConstructibleType="BUILDING_TAVERN" YieldType="YIELD_HAPPINESS" YieldChange="2"/>
+		<Row ConstructibleType="BUILDING_TEMPLE" YieldType="YIELD_HAPPINESS" YieldChange="4"/>
+		<Row ConstructibleType="BUILDING_UNIVERSITY" YieldType="YIELD_SCIENCE" YieldChange="5"/>
+		<Row ConstructibleType="BUILDING_WHARF" YieldType="YIELD_FOOD" YieldChange="4"/>
+		<!-- Civ Unique Buildings -->
+		<Row ConstructibleType="BUILDING_MADRASA" YieldType="YIELD_SCIENCE" YieldChange="5"/>
+		<Row ConstructibleType="BUILDING_MOSQUE" YieldType="YIELD_HAPPINESS" YieldChange="4"/>
+		<Row ConstructibleType="BUILDING_ANJUVANNAM" YieldType="YIELD_GOLD" YieldChange="5"/>
+		<Row ConstructibleType="BUILDING_MANIGRAMAM" YieldType="YIELD_HAPPINESS" YieldChange="4"/>
+		<Row ConstructibleType="BUILDING_CANDI_BENTAR" YieldType="YIELD_CULTURE" YieldChange="5"/>
+		<Row ConstructibleType="BUILDING_MERU" YieldType="YIELD_HAPPINESS" YieldChange="5"/>
+		<Row ConstructibleType="BUILDING_BAILEY" YieldType="YIELD_CULTURE" YieldChange="4"/>
+		<Row ConstructibleType="BUILDING_MOTTE" YieldType="YIELD_HAPPINESS" YieldChange="4"/>
+		<Row ConstructibleType="BUILDING_CASA_CONSISTORIAL" YieldType="YIELD_CULTURE" YieldChange="5"/>
+		<Row ConstructibleType="BUILDING_CASA_DE_CONTRATACION" YieldType="YIELD_GOLD" YieldChange="5"/>
+		<!-- Civ Unique Improvements -->
+		<Row ConstructibleType="IMPROVEMENT_CARAVANSERAI" YieldType="YIELD_GOLD" YieldChange="5"/>
+		<Row ConstructibleType="IMPROVEMENT_LO_I_KALO" YieldType="YIELD_FOOD" YieldChange="3"/>
+		<Row ConstructibleType="IMPROVEMENT_LO_I_KALO" YieldType="YIELD_PRODUCTION" YieldChange="2"/>
+		<Row ConstructibleType="IMPROVEMENT_MING_GREAT_WALL" YieldType="YIELD_CULTURE" YieldChange="5"/>
+		<Row ConstructibleType="IMPROVEMENT_ORTOO" YieldType="YIELD_GOLD" YieldChange="5"/>
+		<Row ConstructibleType="IMPROVEMENT_TERRACE_FARM" YieldType="YIELD_FOOD" YieldChange="4"/>
+		<!-- City-State Improvements -->
+		<Row ConstructibleType="IMPROVEMENT_KASBAH" YieldType="YIELD_CULTURE" YieldChange="1"/>
+		<Row ConstructibleType="IMPROVEMENT_KASBAH" YieldType="YIELD_GOLD" YieldChange="1"/>
+		<Row ConstructibleType="IMPROVEMENT_KASBAH" YieldType="YIELD_SCIENCE" YieldChange="1"/>
+		<Row ConstructibleType="IMPROVEMENT_STONE_HEAD" YieldType="YIELD_CULTURE" YieldChange="4"/>
+		<Row ConstructibleType="IMPROVEMENT_TRADING_FACTORY" YieldType="YIELD_GOLD" YieldChange="4"/>
+		<Row ConstructibleType="IMPROVEMENT_MONASTERY" YieldType="YIELD_SCIENCE" YieldChange="4"/>
+		<!-- Wonders -->
+		<Row ConstructibleType="WONDER_BOROBUDUR" YieldType="YIELD_HAPPINESS" YieldChange="3"/>
+		<Row ConstructibleType="WONDER_BRIHADEESWARAR_TEMPLE" YieldType="YIELD_DIPLOMACY" YieldChange="3"/>
+		<Row ConstructibleType="WONDER_EL_ESCORIAL" YieldType="YIELD_HAPPINESS" YieldChange="3"/>
+		<Row ConstructibleType="WONDER_ERDENE_ZUU" YieldType="YIELD_CULTURE" YieldChange="4"/>
+		<Row ConstructibleType="WONDER_FORBIDDEN_CITY" YieldType="YIELD_CULTURE" YieldChange="2"/>
+		<Row ConstructibleType="WONDER_HALE_O_KEAWE" YieldType="YIELD_CULTURE" YieldChange="2"/>
+		<Row ConstructibleType="WONDER_HOUSE_OF_WISDOM" YieldType="YIELD_SCIENCE" YieldChange="3"/>
+		<Row ConstructibleType="WONDER_MACHU_PIKCHU" YieldType="YIELD_GOLD" YieldChange="4"/>
+		<Row ConstructibleType="WONDER_NOTRE_DAME" YieldType="YIELD_HAPPINESS" YieldChange="4"/>
+		<Row ConstructibleType="WONDER_SHWEDAGON_ZEDI_DAW" YieldType="YIELD_SCIENCE" YieldChange="4"/>
+		<Row ConstructibleType="WONDER_TOMB_OF_ASKIA" YieldType="YIELD_GOLD" YieldChange="2"/>
+		<Row ConstructibleType="WONDER_WHITE_TOWER" YieldType="YIELD_HAPPINESS" YieldChange="4"/>
+		<!-- Antique Revived Buildings -->
+		<Row ConstructibleType="BUILDING_ACADEMY_EX" YieldType="YIELD_SCIENCE" YieldChange="4"/>
+		<Row ConstructibleType="BUILDING_AMPHITHEATER_EX" YieldType="YIELD_CULTURE" YieldChange="4"/>
+	</Constructible_YieldChanges>
+	<Constructible_Maintenances>
+		<Row ConstructibleType="BUILDING_ARMORER" YieldType="YIELD_GOLD" Amount="3"/>
+		<Row ConstructibleType="BUILDING_ARMORER" YieldType="YIELD_HAPPINESS" Amount="3"/>
+		<Row ConstructibleType="BUILDING_BANK" YieldType="YIELD_HAPPINESS" Amount="3"/>
+		<Row ConstructibleType="BUILDING_BAZAAR" YieldType="YIELD_HAPPINESS" Amount="3"/>
+		<Row ConstructibleType="BUILDING_DUNGEON" YieldType="YIELD_GOLD" Amount="3"/>
+		<Row ConstructibleType="BUILDING_DUNGEON" YieldType="YIELD_HAPPINESS" Amount="3"/>
+		<Row ConstructibleType="BUILDING_GRISTMILL" YieldType="YIELD_GOLD" Amount="0"/>
+		<Row ConstructibleType="BUILDING_GRISTMILL" YieldType="YIELD_HAPPINESS" Amount="0"/>
+		<Row ConstructibleType="BUILDING_GUILDHALL" YieldType="YIELD_HAPPINESS" Amount="3"/>
+		<Row ConstructibleType="BUILDING_HOSPITAL" YieldType="YIELD_GOLD" Amount="3"/>
+		<Row ConstructibleType="BUILDING_HOSPITAL" YieldType="YIELD_HAPPINESS" Amount="3"/>
+		<Row ConstructibleType="BUILDING_KILN" YieldType="YIELD_GOLD" Amount="3"/>
+		<Row ConstructibleType="BUILDING_KILN" YieldType="YIELD_HAPPINESS" Amount="3"/>
+		<Row ConstructibleType="BUILDING_MEDIEVAL_BRIDGE" YieldType="YIELD_HAPPINESS" Amount="3"/>
+		<Row ConstructibleType="BUILDING_MENAGERIE" YieldType="YIELD_GOLD" Amount="3"/>
+		<Row ConstructibleType="BUILDING_OBSERVATORY" YieldType="YIELD_GOLD" Amount="3"/>
+		<Row ConstructibleType="BUILDING_OBSERVATORY" YieldType="YIELD_HAPPINESS" Amount="3"/>
+		<Row ConstructibleType="BUILDING_PAVILION" YieldType="YIELD_GOLD" Amount="3"/>
+		<Row ConstructibleType="BUILDING_PAVILION" YieldType="YIELD_HAPPINESS" Amount="3"/>
+		<Row ConstructibleType="BUILDING_SAWMILL" YieldType="YIELD_GOLD" Amount="0"/>
+		<Row ConstructibleType="BUILDING_SAWMILL" YieldType="YIELD_HAPPINESS" Amount="0"/>
+		<Row ConstructibleType="BUILDING_SHIPYARD" YieldType="YIELD_GOLD" Amount="3"/>
+		<Row ConstructibleType="BUILDING_SHIPYARD" YieldType="YIELD_HAPPINESS" Amount="3"/>
+		<Row ConstructibleType="BUILDING_STONECUTTER" YieldType="YIELD_GOLD" Amount="0"/>
+		<Row ConstructibleType="BUILDING_STONECUTTER" YieldType="YIELD_HAPPINESS" Amount="0"/>
+		<Row ConstructibleType="BUILDING_TAVERN" YieldType="YIELD_GOLD" Amount="3"/>
+		<Row ConstructibleType="BUILDING_TEMPLE" YieldType="YIELD_GOLD" Amount="3"/>
+		<Row ConstructibleType="BUILDING_UNIVERSITY" YieldType="YIELD_GOLD" Amount="3"/>
+		<Row ConstructibleType="BUILDING_UNIVERSITY" YieldType="YIELD_HAPPINESS" Amount="3"/>
+		<Row ConstructibleType="BUILDING_WHARF" YieldType="YIELD_GOLD" Amount="3"/>
+		<Row ConstructibleType="BUILDING_WHARF" YieldType="YIELD_HAPPINESS" Amount="3"/>
+		<!-- Civ Unique Buildings -->
+		<Row ConstructibleType="BUILDING_MADRASA" YieldType="YIELD_GOLD" Amount="3"/>
+		<Row ConstructibleType="BUILDING_MADRASA" YieldType="YIELD_HAPPINESS" Amount="3"/>
+		<Row ConstructibleType="BUILDING_MOSQUE" YieldType="YIELD_GOLD" Amount="3"/>
+		<Row ConstructibleType="BUILDING_ANJUVANNAM" YieldType="YIELD_GOLD" Amount="0"/>
+		<Row ConstructibleType="BUILDING_ANJUVANNAM" YieldType="YIELD_HAPPINESS" Amount="3"/>
+		<Row ConstructibleType="BUILDING_MANIGRAMAM" YieldType="YIELD_GOLD" Amount="0"/>
+		<Row ConstructibleType="BUILDING_MANIGRAMAM" YieldType="YIELD_HAPPINESS" Amount="0"/>
+		<Row ConstructibleType="BUILDING_CANDI_BENTAR" YieldType="YIELD_GOLD" Amount="3"/>
+		<Row ConstructibleType="BUILDING_CANDI_BENTAR" YieldType="YIELD_HAPPINESS" Amount="3"/>
+		<Row ConstructibleType="BUILDING_MERU" YieldType="YIELD_GOLD" Amount="3"/>
+		<Row ConstructibleType="BUILDING_BAILEY" YieldType="YIELD_GOLD" Amount="3"/>
+		<Row ConstructibleType="BUILDING_BAILEY" YieldType="YIELD_HAPPINESS" Amount="3"/>
+		<Row ConstructibleType="BUILDING_MOTTE" YieldType="YIELD_GOLD" Amount="3"/>
+		<Row ConstructibleType="BUILDING_CASA_CONSISTORIAL" YieldType="YIELD_GOLD" Amount="3"/>
+		<Row ConstructibleType="BUILDING_CASA_CONSISTORIAL" YieldType="YIELD_HAPPINESS" Amount="3"/>
+		<Row ConstructibleType="BUILDING_CASA_DE_CONTRATACION" YieldType="YIELD_HAPPINESS" Amount="3"/>
+		<Row ConstructibleType="BUILDING_ACADEMY_EX" YieldType="YIELD_GOLD" Amount="2"/>
+		<Row ConstructibleType="BUILDING_ACADEMY_EX" YieldType="YIELD_HAPPINESS" Amount="2"/>
+		<Row ConstructibleType="BUILDING_AMPHITHEATER_EX" YieldType="YIELD_GOLD" Amount="2"/>
+		<Row ConstructibleType="BUILDING_AMPHITHEATER_EX" YieldType="YIELD_HAPPINESS" Amount="2"/>
+	</Constructible_Maintenances>
+	<Constructible_Adjacencies>
+		<Row ConstructibleType="BUILDING_ARMORER" YieldChangeId="ResourceProduction"/>
+		<Row ConstructibleType="BUILDING_ARMORER" YieldChangeId="WonderProduction"/>
+		<Row ConstructibleType="BUILDING_BANK" YieldChangeId="RiverGold"/>
+		<Row ConstructibleType="BUILDING_BANK" YieldChangeId="CoastGold"/>
+		<Row ConstructibleType="BUILDING_BANK" YieldChangeId="WonderGold"/>
+		<Row ConstructibleType="BUILDING_BAZAAR" YieldChangeId="RiverGold"/>
+		<Row ConstructibleType="BUILDING_BAZAAR" YieldChangeId="CoastGold"/>
+		<Row ConstructibleType="BUILDING_BAZAAR" YieldChangeId="WonderGold"/>
+		<Row ConstructibleType="BUILDING_DUNGEON" YieldChangeId="ResourceProduction"/>
+		<Row ConstructibleType="BUILDING_DUNGEON" YieldChangeId="WonderProduction"/>
+		<Row ConstructibleType="BUILDING_GUILDHALL" YieldChangeId="RiverGold"/>
+		<Row ConstructibleType="BUILDING_GUILDHALL" YieldChangeId="CoastGold"/>
+		<Row ConstructibleType="BUILDING_GUILDHALL" YieldChangeId="WonderGold"/>
+		<Row ConstructibleType="BUILDING_HOSPITAL" YieldChangeId="CoastFood"/>
+		<Row ConstructibleType="BUILDING_HOSPITAL" YieldChangeId="RiverFood"/>
+		<Row ConstructibleType="BUILDING_HOSPITAL" YieldChangeId="WonderFood"/>
+		<Row ConstructibleType="BUILDING_KILN" YieldChangeId="MountainCulture"/>
+		<Row ConstructibleType="BUILDING_KILN" YieldChangeId="NaturalWonderCulture"/>
+		<Row ConstructibleType="BUILDING_KILN" YieldChangeId="WonderCulture"/>
+		<Row ConstructibleType="BUILDING_MENAGERIE" YieldChangeId="MountainHappiness"/>
+		<Row ConstructibleType="BUILDING_MENAGERIE" YieldChangeId="NaturalWonderHappiness"/>
+		<Row ConstructibleType="BUILDING_MENAGERIE" YieldChangeId="WonderHappiness"/>
+		<Row ConstructibleType="BUILDING_OBSERVATORY" YieldChangeId="ResourceScience"/>
+		<Row ConstructibleType="BUILDING_OBSERVATORY" YieldChangeId="WonderScience"/>
+		<Row ConstructibleType="BUILDING_PAVILION" YieldChangeId="MountainCulture"/>
+		<Row ConstructibleType="BUILDING_PAVILION" YieldChangeId="NaturalWonderCulture"/>
+		<Row ConstructibleType="BUILDING_PAVILION" YieldChangeId="WonderCulture"/>
+		<Row ConstructibleType="BUILDING_SHIPYARD" YieldChangeId="ResourceProduction"/>
+		<Row ConstructibleType="BUILDING_SHIPYARD" YieldChangeId="WonderProduction"/>
+		<Row ConstructibleType="BUILDING_TAVERN" YieldChangeId="CoastFood"/>
+		<Row ConstructibleType="BUILDING_TAVERN" YieldChangeId="RiverFood"/>
+		<Row ConstructibleType="BUILDING_TAVERN" YieldChangeId="WonderFood"/>
+		<Row ConstructibleType="BUILDING_TEMPLE" YieldChangeId="MountainHappiness"/>
+		<Row ConstructibleType="BUILDING_TEMPLE" YieldChangeId="NaturalWonderHappiness"/>
+		<Row ConstructibleType="BUILDING_TEMPLE" YieldChangeId="WonderHappiness"/>
+		<Row ConstructibleType="BUILDING_UNIVERSITY" YieldChangeId="ResourceScience"/>
+		<Row ConstructibleType="BUILDING_UNIVERSITY" YieldChangeId="WonderScience"/>
+		<Row ConstructibleType="BUILDING_WHARF" YieldChangeId="CoastFood"/>
+		<Row ConstructibleType="BUILDING_WHARF" YieldChangeId="RiverFood"/>
+		<Row ConstructibleType="BUILDING_WHARF" YieldChangeId="WonderFood"/>
+		<!-- Civ Uniques -->
+		<Row ConstructibleType="BUILDING_MADRASA" YieldChangeId="MadrasaUrbanScience"/>
+		<Row ConstructibleType="BUILDING_MADRASA" YieldChangeId="MadrasaScienceScience"/>
+		<Row ConstructibleType="BUILDING_MADRASA" YieldChangeId="WonderScience"/>
+		<Row ConstructibleType="BUILDING_MOSQUE" YieldChangeId="MosqueCultureHappiness"/>
+		<Row ConstructibleType="BUILDING_MOSQUE" YieldChangeId="WonderHappiness"/>
+		<Row ConstructibleType="BUILDING_MOSQUE" YieldChangeId="MosqueHappinessCulture"/>
+		<Row ConstructibleType="BUILDING_MOSQUE" YieldChangeId="WonderCulture"/>
+		<Row ConstructibleType="BUILDING_ANJUVANNAM" YieldChangeId="AnjuvannamCoastGold"/>
+		<Row ConstructibleType="BUILDING_ANJUVANNAM" YieldChangeId="AnjuvannamRiverGold"/>
+		<Row ConstructibleType="BUILDING_ANJUVANNAM" YieldChangeId="WonderGold"/>
+		<Row ConstructibleType="BUILDING_MANIGRAMAM" YieldChangeId="ManigramamTradeHappiness"/>
+		<Row ConstructibleType="BUILDING_MANIGRAMAM" YieldChangeId="WonderHappiness"/>
+		<Row ConstructibleType="BUILDING_MANIGRAMAM" YieldChangeId="ManigramamUrbanGold"/>
+		<Row ConstructibleType="BUILDING_MANIGRAMAM" YieldChangeId="WonderGold"/>
+		<Row ConstructibleType="BUILDING_CANDI_BENTAR" YieldChangeId="CandiBentarRiverCulture"/>
+		<Row ConstructibleType="BUILDING_CANDI_BENTAR" YieldChangeId="CandiBentarCoastCulture"/>
+		<Row ConstructibleType="BUILDING_CANDI_BENTAR" YieldChangeId="WonderCulture"/>
+		<Row ConstructibleType="BUILDING_MERU" YieldChangeId="MeruMountainHappiness"/>
+		<Row ConstructibleType="BUILDING_MERU" YieldChangeId="WonderHappiness"/>
+		<Row ConstructibleType="BUILDING_BAILEY" YieldChangeId="BaileyWallCulture"/>
+		<Row ConstructibleType="BUILDING_BAILEY" YieldChangeId="WonderCulture"/>
+		<Row ConstructibleType="BUILDING_MOTTE" YieldChangeId="WonderHappiness"/>
+		<Row ConstructibleType="BUILDING_CASA_DE_CONTRATACION" YieldChangeId="CasadeContratacionRiverGold"/>
+		<Row ConstructibleType="BUILDING_CASA_DE_CONTRATACION" YieldChangeId="CasadeContratacionResourceGold"/>
+		<Row ConstructibleType="BUILDING_CASA_DE_CONTRATACION" YieldChangeId="WonderGold"/>
+		<Row ConstructibleType="BUILDING_CASA_CONSISTORIAL" YieldChangeId="CasaConsistorialUrbanCulture"/>
+		<Row ConstructibleType="BUILDING_CASA_CONSISTORIAL" YieldChangeId="WonderCulture"/>
+		<Row ConstructibleType="IMPROVEMENT_LO_I_KALO" YieldChangeId="LoiKaloFarmCulture"/>
+		<Row ConstructibleType="IMPROVEMENT_MING_GREAT_WALL" YieldChangeId="MingGreatWallChainGold"/>
+		<Row ConstructibleType="IMPROVEMENT_CARAVANSERAI" YieldChangeId="CaravansariResourceGold"/>
+		<Row ConstructibleType="IMPROVEMENT_CARAVANSERAI" YieldChangeId="CaravansariRiverGold"/>
+		<!-- Antique Revived Buildings -->
+		<Row ConstructibleType="BUILDING_ACADEMY_EX" YieldChangeId="ResourceScience"/>
+		<Row ConstructibleType="BUILDING_ACADEMY_EX" YieldChangeId="WonderScience"/>
+		<Row ConstructibleType="BUILDING_AMPHITHEATER_EX" YieldChangeId="MountainCulture"/>
+		<Row ConstructibleType="BUILDING_AMPHITHEATER_EX" YieldChangeId="NaturalWonderCulture"/>
+		<Row ConstructibleType="BUILDING_AMPHITHEATER_EX" YieldChangeId="WonderCulture"/>
+	</Constructible_Adjacencies>
+	<Adjacency_YieldChanges>
+		<!-- Civ Uniques -->
+		<Row ID="MadrasaUrbanScience" YieldType="YIELD_SCIENCE" YieldChange="1" TilesRequired="1" AdjacentQuarter="true"/>
+		<Row ID="MadrasaScienceScience" YieldType="YIELD_SCIENCE" YieldChange="1" TilesRequired="1" AdjacentConstructibleTag="SCIENCE"/>
+		<Row ID="MosqueCultureHappiness" YieldType="YIELD_HAPPINESS" YieldChange="1" TilesRequired="1" AdjacentConstructibleTag="CULTURE"/>
+		<Row ID="MosqueHappinessCulture" YieldType="YIELD_CULTURE" YieldChange="1" TilesRequired="1" AdjacentConstructibleTag="HAPPINESS"/>
+		<Row ID="AnjuvannamCoastGold" YieldType="YIELD_GOLD" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentTerrain="TERRAIN_COAST"/>
+		<Row ID="AnjuvannamRiverGold" YieldType="YIELD_GOLD" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentTerrain="TERRAIN_NAVIGABLE_RIVER"/>
+		<Row ID="ManigramamTradeHappiness" YieldType="YIELD_HAPPINESS" YieldChange="1" TilesRequired="1" AdjacentConstructibleTag="GOLD"/>
+		<Row ID="ManigramamUrbanGold" YieldType="YIELD_GOLD" YieldChange="1" TilesRequired="1" AdjacentQuarter="true"/>
+		<Row ID="CandiBentarRiverCulture" YieldType="YIELD_CULTURE" YieldChange="1" TilesRequired="1" AdjacentTerrain="TERRAIN_NAVIGABLE_RIVER"/>
+		<Row ID="CandiBentarCoastCulture" YieldType="YIELD_CULTURE" YieldChange="1" TilesRequired="1" AdjacentTerrain="TERRAIN_COAST"/>
+		<Row ID="MeruMountainHappiness" YieldType="YIELD_HAPPINESS" YieldChange="1" TilesRequired="1" AdjacentTerrain="TERRAIN_MOUNTAIN"/>
+		<Row ID="BaileyWallCulture" YieldType="YIELD_CULTURE" YieldChange="1" TilesRequired="1" AdjacentConstructible="BUILDING_MEDIEVAL_WALLS"/>
+		<Row ID="CasadeContratacionRiverGold" YieldType="YIELD_GOLD" YieldChange="1" TilesRequired="1" AdjacentNavigableRiver="true"/>
+		<Row ID="CasadeContratacionResourceGold" YieldType="YIELD_GOLD" YieldChange="1" TilesRequired="1" AdjacentResource="true"/>
+		<Row ID="CasaConsistorialUrbanCulture" YieldType="YIELD_CULTURE" YieldChange="1" TilesRequired="1" AdjacentQuarter="true"/>
+		<Row ID="LoiKaloFarmCulture" YieldType="YIELD_CULTURE" YieldChange="1" TilesRequired="1" AdjacentConstructible="IMPROVEMENT_FARM"/>
+		<Row ID="MingGreatWallChainGold" YieldType="YIELD_GOLD" YieldChange="1" TilesRequired="1" AdjacentConstructibleTag="FORTIFICATION"/>
+		<Row ID="CaravansariRiverGold" YieldType="YIELD_GOLD" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentNavigableRiver="true"/>
+		<Row ID="CaravansariResourceGold" YieldType="YIELD_GOLD" YieldChange="1" TilesRequired="1" AdjacentResource="true"/>
+		<!-- Wildcard Adjacency Yields Changes -->
+		<Row ID="BrihadeeswararTempleWildcardNavigableHappiness" Age="AGE_EXPLORATION" YieldType="YIELD_HAPPINESS" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentNavigableRiver="true"/>
+		<Row ID="MachuPikchuWildcardCulture" Age="AGE_EXPLORATION" YieldType="YIELD_CULTURE" YieldChange="4" TilesRequired="1" ProjectMaxYield="true" AdjacentConstructible="WONDER_MACHU_PIKCHU"/>
+		<Row ID="MachuPikchuWildcardGold" Age="AGE_EXPLORATION" YieldType="YIELD_GOLD" YieldChange="4" TilesRequired="1" ProjectMaxYield="true" AdjacentConstructible="WONDER_MACHU_PIKCHU"/>
+		<Row ID="CityOfPeaceWildcardScienceCityCenter" Age="AGE_EXPLORATION" YieldType="YIELD_SCIENCE" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentDistrict="DISTRICT_CITY_CENTER"/>
+		<Row ID="NusuntaraCoastHappiness" Age="AGE_EXPLORATION" YieldType="YIELD_HAPPINESS" YieldChange="1" TilesRequired="1" AdjacentTerrain="TERRAIN_COAST"/>
+		<Row ID="TerraceFarmWildcardGoldBuildingsUrban" Age="AGE_EXPLORATION" YieldType="YIELD_GOLD" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentConstructible="IMPROVEMENT_TERRACE_FARM"/>
+		<Row ID="TemplesWildcardHappinesBuildingsUrban" Age="AGE_EXPLORATION" YieldType="YIELD_HAPPINESS" YieldChange="1" TilesRequired="1" AdjacentConstructible="BUILDING_TEMPLE"/>
+	</Adjacency_YieldChanges>
+	<Constructible_WarehouseYields>
+		<!-- Warehouse Buildings -->
+		<Row ConstructibleType="BUILDING_GRISTMILL" YieldChangeId="GristmillPastureFood"/>
+		<Row ConstructibleType="BUILDING_GRISTMILL" YieldChangeId="GristmillPlantationFood"/>
+		<Row ConstructibleType="BUILDING_GRISTMILL" YieldChangeId="GristmillDesertFloodplainFeatureFood"/>
+		<Row ConstructibleType="BUILDING_GRISTMILL" YieldChangeId="GristmillGrasslandFloodplainFeatureFood"/>
+		<Row ConstructibleType="BUILDING_GRISTMILL" YieldChangeId="GristmillPlainsFloodplainFeatureFood"/>
+		<Row ConstructibleType="BUILDING_GRISTMILL" YieldChangeId="GristmillTropicalFloodplainFeatureFood"/>
+		<Row ConstructibleType="BUILDING_GRISTMILL" YieldChangeId="GristmillTundraFloodplainFeatureFood"/>
+		<Row ConstructibleType="BUILDING_GRISTMILL" YieldChangeId="GristmillFlatTerrainFood"/>
+		<Row ConstructibleType="BUILDING_SAWMILL" YieldChangeId="SawmillWoodcutterResourceProduction"/>
+		<Row ConstructibleType="BUILDING_SAWMILL" YieldChangeId="SawmillCampProduction"/>
+		<Row ConstructibleType="BUILDING_SAWMILL" YieldChangeId="SawmillVegetatedFeatureProduction"/>
+		<Row ConstructibleType="BUILDING_STONECUTTER" YieldChangeId="StonecutterMineResourceProduction"/>
+		<Row ConstructibleType="BUILDING_STONECUTTER" YieldChangeId="StonecutterQuarryProduction"/>
+		<Row ConstructibleType="BUILDING_STONECUTTER" YieldChangeId="StonecutterRoughTerrainProduction"/>
+		<!-- Civ Uniques -->
+		<Row ConstructibleType="BUILDING_BANK" YieldChangeId="BankGreatWallGold" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_BAZAAR" YieldChangeId="BazaarCaravansariGold" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_GRANARY" YieldChangeId="AylluGranaryTerraceFarmFood" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_MERU" YieldChangeId="MeruNaturalWonderHappiness"/>
+		<Row ConstructibleType="BUILDING_PAVILION" YieldChangeId="OhanaPavilionLolKaloCulture" RequiresActivation="true"/>
+		<Row ConstructibleType="BUILDING_TEMPLE" YieldChangeId="MawlaTempleResourceHappiness" RequiresActivation="true"/>
+	</Constructible_WarehouseYields>
+	<Warehouse_YieldChanges>
+		<!-- Warehouse Buildings -->
+		<Row ID="GristmillPastureFood" Age="AGE_EXPLORATION" YieldType="YIELD_FOOD" YieldChange="1" ConstructibleInCity="IMPROVEMENT_PASTURE"/>
+		<Row ID="GristmillPlantationFood" Age="AGE_EXPLORATION" YieldType="YIELD_FOOD" YieldChange="1" ConstructibleInCity="IMPROVEMENT_PLANTATION"/>
+		<Row ID="GristmillDesertFloodplainFeatureFood" Age="AGE_EXPLORATION" YieldType="YIELD_FOOD" YieldChange="1" FeatureInCity="FEATURE_DESERT_FLOODPLAIN_MINOR"/>
+		<Row ID="GristmillGrasslandFloodplainFeatureFood" Age="AGE_EXPLORATION" YieldType="YIELD_FOOD" YieldChange="1" FeatureInCity="FEATURE_GRASSLAND_FLOODPLAIN_MINOR"/>
+		<Row ID="GristmillPlainsFloodplainFeatureFood" Age="AGE_EXPLORATION" YieldType="YIELD_FOOD" YieldChange="1" FeatureInCity="FEATURE_PLAINS_FLOODPLAIN_MINOR"/>
+		<Row ID="GristmillTropicalFloodplainFeatureFood" Age="AGE_EXPLORATION" YieldType="YIELD_FOOD" YieldChange="1" FeatureInCity="FEATURE_TROPICAL_FLOODPLAIN_MINOR"/>
+		<Row ID="GristmillTundraFloodplainFeatureFood" Age="AGE_EXPLORATION" YieldType="YIELD_FOOD" YieldChange="1" FeatureInCity="FEATURE_TUNDRA_FLOODPLAIN_MINOR"/>
+		<Row ID="GristmillFlatTerrainFood" Age="AGE_EXPLORATION" YieldType="YIELD_FOOD" YieldChange="1" TerrainInCity="TERRAIN_FLAT"/>
+		<Row ID="SawmillWoodcutterResourceProduction" Age="AGE_EXPLORATION" YieldType="YIELD_PRODUCTION" YieldChange="1" ConstructibleInCity="IMPROVEMENT_WOODCUTTER_RESOURCE"/>
+		<Row ID="SawmillCampProduction" Age="AGE_EXPLORATION" YieldType="YIELD_PRODUCTION" YieldChange="1" ConstructibleInCity="IMPROVEMENT_CAMP"/>
+		<Row ID="SawmillVegetatedFeatureProduction" Age="AGE_EXPLORATION" YieldType="YIELD_PRODUCTION" YieldChange="1" FeatureClassInCity="FEATURE_CLASS_VEGETATED"/>
+		<Row ID="StonecutterMineResourceProduction" Age="AGE_EXPLORATION" YieldType="YIELD_PRODUCTION" YieldChange="1" ConstructibleInCity="IMPROVEMENT_MINE_RESOURCE"/>
+		<Row ID="StonecutterQuarryProduction" Age="AGE_EXPLORATION" YieldType="YIELD_PRODUCTION" YieldChange="1" ConstructibleInCity="IMPROVEMENT_QUARRY"/>
+		<Row ID="StonecutterRoughTerrainProduction" Age="AGE_EXPLORATION" YieldType="YIELD_PRODUCTION" YieldChange="1" TerrainInCity="TERRAIN_HILL"/>
+		<!-- Civ Uniques -->
+		<Row ID="HawaiiRiverHappiness" Age="AGE_EXPLORATION" YieldType="YIELD_HAPPINESS" YieldChange="1" TerrainInCity="TERRAIN_NAVIGABLE_RIVER"/>
+		<Row ID="HawaiiCoastHappiness" Age="AGE_EXPLORATION" YieldType="YIELD_HAPPINESS" YieldChange="1" TerrainInCity="TERRAIN_COAST"/>
+		<Row ID="HawaiiFishingBoatResourceHappiness" Age="AGE_EXPLORATION" YieldType="YIELD_HAPPINESS" YieldChange="1" ConstructibleInCity="IMPROVEMENT_FISHING_BOAT_RESOURCE"/>
+		<Row ID="HawaiiReefFeatureHappiness" Age="AGE_EXPLORATION" YieldType="YIELD_HAPPINESS" YieldChange="1" FeatureInCity="FEATURE_REEF"/>
+		<Row ID="HawaiiColdReefFeatureHappiness" Age="AGE_EXPLORATION" YieldType="YIELD_HAPPINESS" YieldChange="1" FeatureInCity="FEATURE_COLD_REEF"/>
+		<Row ID="AnjuvannamFishingBoatGold" Age="AGE_EXPLORATION" YieldType="YIELD_GOLD" YieldChange="2" ConstructibleInCity="IMPROVEMENT_FISHING_BOAT"/>
+		<Row ID="ApusMountainFood" Age="AGE_EXPLORATION" YieldType="YIELD_FOOD" YieldChange="2" TerrainInCity="TERRAIN_MOUNTAIN"/>
+		<Row ID="ApusMountainProduction" Age="AGE_EXPLORATION" YieldType="YIELD_PRODUCTION" YieldChange="1" TerrainInCity="TERRAIN_MOUNTAIN"/>
+		<Row ID="MitaMountainHappiness" Age="AGE_EXPLORATION" YieldType="YIELD_HAPPINESS" YieldChange="1" TerrainInCity="TERRAIN_MOUNTAIN"/>
+		<Row ID="AylluGranaryTerraceFarmFood" Age="AGE_EXPLORATION" YieldType="YIELD_FOOD" YieldChange="2" ConstructibleInCity="IMPROVEMENT_TERRACE_FARM"/>
+		<Row ID="BankGreatWallGold" Age="AGE_EXPLORATION" YieldType="YIELD_GOLD" YieldChange="2" ConstructibleInCity="IMPROVEMENT_MING_GREAT_WALL"/>
+		<Row ID="BazaarCaravansariGold" Age="AGE_EXPLORATION" YieldType="YIELD_GOLD" YieldChange="2" ConstructibleInCity="IMPROVEMENT_CARAVANSERAI"/>
+		<Row ID="HookupuMarineCulture" Age="AGE_EXPLORATION" YieldType="YIELD_CULTURE" YieldChange="1" BiomeInCity="BIOME_MARINE"/>
+		<Row ID="OhanaPavilionLolKaloCulture" Age="AGE_EXPLORATION" YieldType="YIELD_CULTURE" YieldChange="2" ConstructibleInCity="IMPROVEMENT_LO_I_KALO"/>
+		<Row ID="HeeNaluMarineHappinessTown" Age="AGE_EXPLORATION" YieldType="YIELD_HAPPINESS" YieldChange="1" BiomeInCity="BIOME_MARINE"/>
+		<Row ID="HeeNaluMarineHappinessCity" Age="AGE_EXPLORATION" YieldType="YIELD_HAPPINESS" YieldChange="2" BiomeInCity="BIOME_MARINE"/>
+		<Row ID="TimbuktuTradeBuildingWildcardGoldMines" Age="AGE_EXPLORATION" YieldType="YIELD_GOLD" YieldChange="2" ConstructibleInCity="IMPROVEMENT_MINE_RESOURCE"/>
+		<Row ID="TimbuktuTradeBuildingWildcardGoldRough" Age="AGE_EXPLORATION" YieldType="YIELD_GOLD" YieldChange="2" TerrainInCity="TERRAIN_HILL"/>
+		<Row ID="MeruNaturalWonderHappiness" Age="AGE_EXPLORATION" YieldType="YIELD_HAPPINESS" YieldChange="2" NaturalWonderInCity="true"/>
+		<Row ID="MawlaTempleResourceHappiness" Age="AGE_EXPLORATION" YieldType="YIELD_HAPPINESS" YieldChange="2" ResourceInCity="true"/>
+		<Row ID="SubakMarineCulture" Age="AGE_EXPLORATION" YieldType="YIELD_CULTURE" YieldChange="1" BiomeInCity="BIOME_MARINE"/>
+		<Row ID="SubakMarineProduction" Age="AGE_EXPLORATION" YieldType="YIELD_PRODUCTION" YieldChange="1" BiomeInCity="BIOME_MARINE"/>
+		<Row ID="DomesdayBookGoldFarms" Age="AGE_EXPLORATION" YieldType="YIELD_GOLD" YieldChange="2" TerrainInCity="TERRAIN_FLAT"/>
+		<Row ID="DomesdayBookGoldFarmsGoldenAge" Age="AGE_EXPLORATION" YieldType="YIELD_GOLD" YieldChange="4" TerrainInCity="TERRAIN_FLAT"/>
+	</Warehouse_YieldChanges>
+	<Constructible_WildcardAdjacencies>
+		<Row YieldChangeId="BrihadeeswararTempleWildcardNavigableHappiness" RequiresActivation="true"/>
+		<Row YieldChangeId="MachuPikchuWildcardCulture" RequiresActivation="true"/>
+		<Row YieldChangeId="MachuPikchuWildcardGold" RequiresActivation="true"/>
+		<Row YieldChangeId="CityOfPeaceWildcardScienceCityCenter" RequiresActivation="true"/>
+		<Row YieldChangeId="NusuntaraCoastHappiness" RequiresActivation="true" ConstructibleTag="CULTURE"/>
+		<Row YieldChangeId="TerraceFarmWildcardGoldBuildingsUrban" RequiresActivation="true"/>
+		<Row YieldChangeId="TemplesWildcardHappinesBuildingsUrban" RequiresActivation="true"/>
+	</Constructible_WildcardAdjacencies>
+	<Constructible_Logistics>
+		<Row ConstructibleType="IMPROVEMENT_KASBAH" MaxHealPerTurn="0" CombatStrength="3"/>
+	</Constructible_Logistics>
+	<Constructible_Plunders>
+		<Row ConstructibleType="BUILDING_ARMORER" PlunderType="PLUNDER_SCIENCE" Amount="80"/>
+		<Row ConstructibleType="BUILDING_BANK" PlunderType="PLUNDER_GOLD" Amount="120"/>
+		<Row ConstructibleType="BUILDING_BAZAAR" PlunderType="PLUNDER_GOLD" Amount="120"/>
+		<Row ConstructibleType="BUILDING_DUNGEON" PlunderType="PLUNDER_SCIENCE" Amount="80"/>
+		<Row ConstructibleType="BUILDING_GRISTMILL" PlunderType="PLUNDER_GOLD" Amount="120"/>
+		<Row ConstructibleType="BUILDING_GUILDHALL" PlunderType="PLUNDER_GOLD" Amount="120"/>
+		<Row ConstructibleType="BUILDING_HOSPITAL" PlunderType="PLUNDER_GOLD" Amount="120"/>
+		<Row ConstructibleType="BUILDING_KILN" PlunderType="PLUNDER_CULTURE" Amount="80"/>
+		<Row ConstructibleType="BUILDING_MEDIEVAL_BRIDGE" PlunderType="PLUNDER_GOLD" Amount="120"/>
+		<Row ConstructibleType="BUILDING_MENAGERIE" PlunderType="PLUNDER_CULTURE" Amount="80"/>
+		<Row ConstructibleType="BUILDING_OBSERVATORY" PlunderType="PLUNDER_SCIENCE" Amount="80"/>
+		<Row ConstructibleType="BUILDING_PAVILION" PlunderType="PLUNDER_CULTURE" Amount="80"/>
+		<Row ConstructibleType="BUILDING_SAWMILL" PlunderType="PLUNDER_SCIENCE" Amount="80"/>
+		<Row ConstructibleType="BUILDING_SHIPYARD" PlunderType="PLUNDER_SCIENCE" Amount="80"/>
+		<Row ConstructibleType="BUILDING_STONECUTTER" PlunderType="PLUNDER_SCIENCE" Amount="80"/>
+		<Row ConstructibleType="BUILDING_TAVERN" PlunderType="PLUNDER_GOLD" Amount="120"/>
+		<Row ConstructibleType="BUILDING_TEMPLE" PlunderType="PLUNDER_CULTURE" Amount="80"/>
+		<Row ConstructibleType="BUILDING_UNIVERSITY" PlunderType="PLUNDER_SCIENCE" Amount="80"/>
+		<Row ConstructibleType="BUILDING_WHARF" PlunderType="PLUNDER_GOLD" Amount="120"/>
+		<!-- Civ Unique Buildings -->
+		<Row ConstructibleType="BUILDING_MADRASA" PlunderType="PLUNDER_SCIENCE" Amount="80"/>
+		<Row ConstructibleType="BUILDING_MOSQUE" PlunderType="PLUNDER_CULTURE" Amount="80"/>
+		<Row ConstructibleType="BUILDING_ANJUVANNAM" PlunderType="PLUNDER_GOLD" Amount="120"/>
+		<Row ConstructibleType="BUILDING_MANIGRAMAM" PlunderType="PLUNDER_CULTURE" Amount="80"/>
+		<Row ConstructibleType="BUILDING_CANDI_BENTAR" PlunderType="PLUNDER_CULTURE" Amount="80"/>
+		<Row ConstructibleType="BUILDING_MERU" PlunderType="PLUNDER_CULTURE" Amount="80"/>
+		<Row ConstructibleType="BUILDING_BAILEY" PlunderType="PLUNDER_CULTURE" Amount="80"/>
+		<Row ConstructibleType="BUILDING_MOTTE" PlunderType="PLUNDER_CULTURE" Amount="80"/>
+		<Row ConstructibleType="BUILDING_CASA_CONSISTORIAL" PlunderType="PLUNDER_CULTURE" Amount="80"/>
+		<Row ConstructibleType="BUILDING_CASA_DE_CONTRATACION" PlunderType="PLUNDER_GOLD" Amount="120"/>
+		<!-- Civ Unique Improvements -->
+		<Row ConstructibleType="IMPROVEMENT_CARAVANSERAI" PlunderType="PLUNDER_HEAL" Amount="30"/>
+		<Row ConstructibleType="IMPROVEMENT_LO_I_KALO" PlunderType="PLUNDER_HEAL" Amount="30"/>
+		<Row ConstructibleType="IMPROVEMENT_MING_GREAT_WALL" PlunderType="PLUNDER_HEAL" Amount="30"/>
+		<Row ConstructibleType="IMPROVEMENT_ORTOO" PlunderType="PLUNDER_HEAL" Amount="30"/>
+		<Row ConstructibleType="IMPROVEMENT_TERRACE_FARM" PlunderType="PLUNDER_HEAL" Amount="30"/>
+		<!-- City-State Improvements -->
+		<Row ConstructibleType="IMPROVEMENT_KASBAH" PlunderType="PLUNDER_HEAL" Amount="30"/>
+		<Row ConstructibleType="IMPROVEMENT_STONE_HEAD" PlunderType="PLUNDER_HEAL" Amount="30"/>
+		<Row ConstructibleType="IMPROVEMENT_TRADING_FACTORY" PlunderType="PLUNDER_HEAL" Amount="30"/>
+		<Row ConstructibleType="IMPROVEMENT_MONASTERY" PlunderType="PLUNDER_HEAL" Amount="30"/>
+		<!-- Antique Revived Buildings -->
+		<Row ConstructibleType="BUILDING_ACADEMY_EX" PlunderType="PLUNDER_SCIENCE" Amount="40"/>
+		<Row ConstructibleType="BUILDING_AMPHITHEATER_EX" PlunderType="PLUNDER_CULTURE" Amount="50"/>
+	</Constructible_Plunders>
+	<ConstructibleModifiers>
+		<!-- Modifiers for generic buildings do NOT carry into next Age.  Place them in constructible-modifiers.xml -->
+		<!-- Civ Uniques -->
+		<Row ConstructibleType="BUILDING_ANJUVANNAM" ModifierId="MOD_ANJUVANNAM_SEA_UNIT_RATE"/>
+		<Row ConstructibleType="BUILDING_MOTTE" ModifierId="MOD_MOTTE_ROUGH_HAPPINESS"/>
+		<!-- Wonders -->
+		<Row ConstructibleType="WONDER_BOROBUDUR" ModifierId="MOD_BOROBUDUR_TWO_BUILDING_FOOD"/>
+		<Row ConstructibleType="WONDER_BOROBUDUR" ModifierId="MOD_BOROBUDUR_TWO_BUILDING_HAPPINESS"/>
+		<Row ConstructibleType="WONDER_BRIHADEESWARAR_TEMPLE" ModifierId="MOD_BRIHADEESWARAR_TEMPLE_ADJACENCT_NAVIGABLE_HAPPINESS"/>
+		<Row ConstructibleType="WONDER_EL_ESCORIAL" ModifierId="MOD_EL_ESCORIAL_SETTLEMENT_CAP"/>
+		<Row ConstructibleType="WONDER_EL_ESCORIAL" ModifierId="MOD_EL_ESCORIAL_HAPPINESS_NEARBY"/>
+		<Row ConstructibleType="WONDER_ERDENE_ZUU" ModifierId="MOD_ERDENE_ZUU_CAVALRY_CULTURE"/>
+		<Row ConstructibleType="WONDER_FORBIDDEN_CITY" ModifierId="MOD_FORBIDDEN_CITY_FORTIFICATION_CULTURE"/>
+		<Row ConstructibleType="WONDER_HALE_O_KEAWE" ModifierId="MOD_HALE_O_KEAWE_MARINE_CULTURE"/>
+		<Row ConstructibleType="WONDER_HOUSE_OF_WISDOM" ModifierId="MOD_HOUSE_OF_WISDOM_GREATWORKS_SCIENCE"/>
+		<Row ConstructibleType="WONDER_MACHU_PIKCHU" ModifierId="MOD_MACHU_PIKCHU_ADJACENCT_CULTURE"/>
+		<Row ConstructibleType="WONDER_MACHU_PIKCHU" ModifierId="MOD_MACHU_PIKCHU_ADJACENCT_GOLD"/>
+		<Row ConstructibleType="WONDER_MACHU_PIKCHU" ModifierId="MOD_MACHU_PIKCHU_RESOURCE_CAP"/>
+		<Row ConstructibleType="WONDER_SHWEDAGON_ZEDI_DAW" ModifierId="MOD_SHWEDAGON_ZEDI_DAW_TILE_APPEAL_SCIENCE"/>
+		<Row ConstructibleType="WONDER_SHWEDAGON_ZEDI_DAW" ModifierId="MOD_SHWEDAGON_ZEDI_DAW_WILDCARD_ATTRIBUTE"/>
+		<Row ConstructibleType="WONDER_TOMB_OF_ASKIA" ModifierId="MOD_TOMB_OF_ASKIA_RESOURCE_CAP"/>
+		<Row ConstructibleType="WONDER_TOMB_OF_ASKIA" ModifierId="MOD_TOMB_OF_ASKIA_RESOURCE_GOLD"/>
+		<Row ConstructibleType="WONDER_TOMB_OF_ASKIA" ModifierId="MOD_TOMB_OF_ASKIA_RESOURCE_PRODUCTION"/>
+		<Row ConstructibleType="WONDER_WHITE_TOWER" ModifierId="MOD_WHITE_TOWER_CIV_TRADITION_HAPPINESS"/>
+		<Row ConstructibleType="WONDER_NOTRE_DAME" ModifierId="MOD_NOTRE_DAME_GOLDEN_AGE_SPECIALIST"/>
+	</ConstructibleModifiers>
+	<UniqueQuarters>
+		<Row UniqueQuarterType="QUARTER_DONJON" BuildingType1="BUILDING_BAILEY" BuildingType2="BUILDING_MOTTE" Name="LOC_QUARTER_DONJON_NAME" Description="LOC_QUARTER_DONJON_DESCRIPTION" Tooltip="LOC_QUARTER_DONJON_TOOLTIP" TraitType="TRAIT_NORMAN"/>
+		<Row UniqueQuarterType="QUARTER_ULEMA" BuildingType1="BUILDING_MADRASA" BuildingType2="BUILDING_MOSQUE" Name="LOC_QUARTER_ULEMA_NAME" Description="LOC_QUARTER_ULEMA_DESCRIPTION" Tooltip="LOC_QUARTER_ULEMA_TOOLTIP" TraitType="TRAIT_ABBASID"/>
+		<Row UniqueQuarterType="QUARTER_PLAZA" BuildingType1="BUILDING_CASA_CONSISTORIAL" BuildingType2="BUILDING_CASA_DE_CONTRATACION" Name="LOC_QUARTER_PLAZA_NAME" Description="LOC_QUARTER_PLAZA_DESCRIPTION" Tooltip="LOC_QUARTER_PLAZA_TOOLTIP" TraitType="TRAIT_SPAIN"/>
+		<Row UniqueQuarterType="QUARTER_PURA" BuildingType1="BUILDING_CANDI_BENTAR" BuildingType2="BUILDING_MERU" Name="LOC_QUARTER_PURA_NAME" Description="LOC_QUARTER_PURA_DESCRIPTION" Tooltip="LOC_QUARTER_PURA_TOOLTIP" TraitType="TRAIT_MAJAPAHIT"/>
+		<Row UniqueQuarterType="QUARTER_FIVE_HUNDRED_LORDS" BuildingType1="BUILDING_MANIGRAMAM" BuildingType2="BUILDING_ANJUVANNAM" Name="LOC_QUARTER_FIVE_HUNDRED_LORDS_NAME" Description="LOC_QUARTER_FIVE_HUNDRED_LORDS_DESCRIPTION" Tooltip="LOC_QUARTER_FIVE_HUNDRED_LORDS_TOOLTIP" TraitType="TRAIT_CHOLA"/>
+	</UniqueQuarters>
+	<GameModifiers>
+		<!-- Unique Quarter modifiers are game-wide -->
+		<Row ModifierId="MOD_ABBASID_ULEMA_WORKERS_SCIENCE"/>
+		<Row ModifierId="MOD_SPAIN_PLAZA_GOLD_DISTANT_LANDS"/>
+		<Row ModifierId="MOD_CHOLA_FIVE_HUNDRED_LORDS_TRADE_ROUTE_RANGE_LAND"/>
+		<Row ModifierId="MOD_CHOLA_FIVE_HUNDRED_LORDS_TRADE_ROUTE_RANGE_WATER"/>
+		<Row ModifierId="MOD_MAJAPAHIT_TOWN_UPGRADE_DISCOUNT"/>
+		<Row ModifierId="MOD_NORMAN_DONJON_CAVALRY_PRODUCTION_BONUS"/>
+	</GameModifiers>
+	<!-- These are listed here so the AI can evalutate Unique Quarters. They do not have any effects on the game for human players. -->
+	<UniqueQuarterModifiers>
+		<Row UniqueQuarterType="QUARTER_ULEMA" ModifierId="MOD_ABBASID_ULEMA_WORKERS_SCIENCE"/>
+		<Row UniqueQuarterType="QUARTER_PLAZA" ModifierId="MOD_SPAIN_PLAZA_GOLD_DISTANT_LANDS"/>
+		<Row UniqueQuarterType="QUARTER_FIVE_HUNDRED_LORDS" ModifierId="MOD_CHOLA_FIVE_HUNDRED_LORDS_TRADE_ROUTE_RANGE_LAND"/>
+		<Row UniqueQuarterType="QUARTER_FIVE_HUNDRED_LORDS" ModifierId="MOD_CHOLA_FIVE_HUNDRED_LORDS_TRADE_ROUTE_RANGE_WATER"/>
+		<Row UniqueQuarterType="QUARTER_PURA" ModifierId="MOD_MAJAPAHIT_TOWN_UPGRADE_DISCOUNT"/>
+		<Row UniqueQuarterType="QUARTER_DONJON" ModifierId="MOD_NORMAN_DONJON_CAVALRY_PRODUCTION_BONUS"/>
+	</UniqueQuarterModifiers>
+	<Constructible_Advisories>
+		<Row ConstructibleType="BUILDING_ARMORER" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ConstructibleType="BUILDING_BANK" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ConstructibleType="BUILDING_BANK" AdvisoryClassType="ADVISORY_CLASS_TRADE"/>
+		<Row ConstructibleType="BUILDING_BAZAAR" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ConstructibleType="BUILDING_BAZAAR" AdvisoryClassType="ADVISORY_CLASS_TRADE"/>
+		<Row ConstructibleType="BUILDING_DUNGEON" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ConstructibleType="BUILDING_DUNGEON" AdvisoryClassType="ADVISORY_CLASS_DIPLOMACY"/>
+		<Row ConstructibleType="BUILDING_GRISTMILL" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ConstructibleType="BUILDING_GRISTMILL" AdvisoryClassType="ADVISORY_CLASS_FOOD"/>
+		<Row ConstructibleType="BUILDING_GUILDHALL" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ConstructibleType="BUILDING_GUILDHALL" AdvisoryClassType="ADVISORY_CLASS_TRADE"/>
+		<Row ConstructibleType="BUILDING_GUILDHALL" AdvisoryClassType="ADVISORY_CLASS_DIPLOMACY"/>
+		<Row ConstructibleType="BUILDING_HOSPITAL" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ConstructibleType="BUILDING_HOSPITAL" AdvisoryClassType="ADVISORY_CLASS_FOOD"/>
+		<Row ConstructibleType="BUILDING_KILN" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ConstructibleType="BUILDING_MEDIEVAL_BRIDGE" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ConstructibleType="BUILDING_MEDIEVAL_BRIDGE" AdvisoryClassType="ADVISORY_CLASS_INFRASTRUCTURE"/>
+		<Row ConstructibleType="BUILDING_MEDIEVAL_WALLS" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ConstructibleType="BUILDING_MEDIEVAL_WALLS" AdvisoryClassType="ADVISORY_CLASS_DEFENSE"/>
+		<Row ConstructibleType="BUILDING_MENAGERIE" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ConstructibleType="BUILDING_MENAGERIE" AdvisoryClassType="ADVISORY_CLASS_HAPPINESS"/>
+		<Row ConstructibleType="BUILDING_OBSERVATORY" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ConstructibleType="BUILDING_PAVILION" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ConstructibleType="BUILDING_SAWMILL" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ConstructibleType="BUILDING_SHIPYARD" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ConstructibleType="BUILDING_SHIPYARD" AdvisoryClassType="ADVISORY_CLASS_SEA"/>
+		<Row ConstructibleType="BUILDING_STONECUTTER" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ConstructibleType="BUILDING_TAVERN" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ConstructibleType="BUILDING_TAVERN" AdvisoryClassType="ADVISORY_CLASS_FOOD"/>
+		<Row ConstructibleType="BUILDING_TAVERN" AdvisoryClassType="ADVISORY_CLASS_HAPPINESS"/>
+		<Row ConstructibleType="BUILDING_TEMPLE" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ConstructibleType="BUILDING_TEMPLE" AdvisoryClassType="ADVISORY_CLASS_HAPPINESS"/>
+		<Row ConstructibleType="BUILDING_TEMPLE" AdvisoryClassType="ADVISORY_CLASS_RELIGION"/>
+		<Row ConstructibleType="BUILDING_UNIVERSITY" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ConstructibleType="BUILDING_WHARF" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ConstructibleType="BUILDING_WHARF" AdvisoryClassType="ADVISORY_CLASS_FOOD"/>
+		<Row ConstructibleType="BUILDING_WHARF" AdvisoryClassType="ADVISORY_CLASS_SEA"/>
+		<Row ConstructibleType="BUILDING_MADRASA" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ConstructibleType="BUILDING_MOSQUE" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ConstructibleType="BUILDING_MOSQUE" AdvisoryClassType="ADVISORY_CLASS_HAPPINESS"/>
+		<Row ConstructibleType="BUILDING_ANJUVANNAM" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ConstructibleType="BUILDING_ANJUVANNAM" AdvisoryClassType="ADVISORY_CLASS_TRADE"/>
+		<Row ConstructibleType="BUILDING_MANIGRAMAM" AdvisoryClassType="ADVISORY_CLASS_HAPPINESS"/>
+		<Row ConstructibleType="BUILDING_MANIGRAMAM" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ConstructibleType="BUILDING_CANDI_BENTAR" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ConstructibleType="BUILDING_MERU" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ConstructibleType="BUILDING_MERU" AdvisoryClassType="ADVISORY_CLASS_HAPPINESS"/>
+		<Row ConstructibleType="BUILDING_BAILEY" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ConstructibleType="BUILDING_MOTTE" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ConstructibleType="BUILDING_MOTTE" AdvisoryClassType="ADVISORY_CLASS_HAPPINESS"/>
+		<Row ConstructibleType="BUILDING_CASA_CONSISTORIAL" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ConstructibleType="BUILDING_CASA_DE_CONTRATACION" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ConstructibleType="BUILDING_CASA_DE_CONTRATACION" AdvisoryClassType="ADVISORY_CLASS_TRADE"/>
+		<Row ConstructibleType="IMPROVEMENT_CARAVANSERAI" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ConstructibleType="IMPROVEMENT_LO_I_KALO" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ConstructibleType="IMPROVEMENT_MING_GREAT_WALL" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ConstructibleType="IMPROVEMENT_MING_GREAT_WALL" AdvisoryClassType="ADVISORY_CLASS_DEFENSE"/>
+		<Row ConstructibleType="IMPROVEMENT_ORTOO" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ConstructibleType="IMPROVEMENT_KASBAH" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ConstructibleType="IMPROVEMENT_KASBAH" AdvisoryClassType="ADVISORY_CLASS_DEFENSE"/>
+		<Row ConstructibleType="IMPROVEMENT_STONE_HEAD" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ConstructibleType="IMPROVEMENT_TRADING_FACTORY" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ConstructibleType="IMPROVEMENT_MONASTERY" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ConstructibleType="WONDER_BOROBUDUR" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ConstructibleType="WONDER_BRIHADEESWARAR_TEMPLE" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ConstructibleType="WONDER_BRIHADEESWARAR_TEMPLE" AdvisoryClassType="ADVISORY_CLASS_DIPLOMACY"/>
+		<Row ConstructibleType="WONDER_EL_ESCORIAL" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ConstructibleType="WONDER_EL_ESCORIAL" AdvisoryClassType="ADVISORY_CLASS_HAPPINESS"/>
+		<Row ConstructibleType="WONDER_ERDENE_ZUU" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ConstructibleType="WONDER_FORBIDDEN_CITY" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ConstructibleType="WONDER_FORBIDDEN_CITY" AdvisoryClassType="ADVISORY_CLASS_DEFENSE"/>
+		<Row ConstructibleType="WONDER_HALE_O_KEAWE" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ConstructibleType="WONDER_HALE_O_KEAWE" AdvisoryClassType="ADVISORY_CLASS_SEA"/>
+		<Row ConstructibleType="WONDER_HOUSE_OF_WISDOM" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ConstructibleType="WONDER_MACHU_PIKCHU" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ConstructibleType="WONDER_NOTRE_DAME" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ConstructibleType="WONDER_NOTRE_DAME" AdvisoryClassType="ADVISORY_CLASS_HAPPINESS"/>
+		<Row ConstructibleType="WONDER_SHWEDAGON_ZEDI_DAW" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ConstructibleType="WONDER_TOMB_OF_ASKIA" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ConstructibleType="WONDER_WHITE_TOWER" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ConstructibleType="WONDER_WHITE_TOWER" AdvisoryClassType="ADVISORY_CLASS_HAPPINESS"/>
+		<!-- Antique Revived Buildings -->
+		<Row ConstructibleType="BUILDING_ACADEMY_EX" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ConstructibleType="BUILDING_AMPHITHEATER_EX" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+	</Constructible_Advisories>
+</Database>

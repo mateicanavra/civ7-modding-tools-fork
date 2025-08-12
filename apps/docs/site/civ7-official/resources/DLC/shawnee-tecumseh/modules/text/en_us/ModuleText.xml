@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MODULE_SHAWNEE_TECUMSEH_NAME">
+			<Text>Shawnee/Tecumseh</Text>
+		</Row>
+		<Row Tag="LOC_MODULE_SHAWNEE_TECUMSEH_DESCRIPTION">
+			<Text>Contains a new leader, Tecumseh, and a new exploration age Civilization, the Shawnee.</Text>
+		</Row>
+	</EnglishText>
+</Database>

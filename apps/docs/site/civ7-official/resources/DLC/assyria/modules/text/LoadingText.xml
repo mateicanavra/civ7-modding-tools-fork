@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_LOADING_CIV_INTRO_TEXT_ASSYRIA">
+			<Text>Siege-towers rumble, and iron swords are sharpened as the Assyrian war machine shudders into motion. Under Ashur’s watchful eye, a new order unfolds upon the sun-baked clay: planned cities, skilled engineers, and the implacable march of boots. Set out upon the world, and tolerate no competition.</Text>
+		</Row>
+		<Row Tag="LOC_INTRO_ASSYRIA">
+			<Text>The people are summoned here, to the heartlands, where they will labor and thrive. And by the providence of Ashur their name will be Assyria.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIPS_TEXT_ASSYRIA">
+			<Text>Technology Masteries may not grant Assyria Codices, but they will grant Culture with the Birtūtu Civic. Unlock the Tupšarrūtu Civic quickly to get Codices from conquering Settlements instead!</Text>
+		</Row>
+	</EnglishText>
+</Database>

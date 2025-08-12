@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Himiko Main Menu Char Select Text-->
+		<Row Tag="LOC_MAIN_CHAR_SELECT_LEADER_HIMIKO_ANY">
+			<Text>The sun shines upon me, her daughter. Upon my enemies, it will burn.</Text>
+		</Row>
+
+		<!--Himiko Statement Text-->
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_HIMIKO_ANY">
+			<Text>Your coming was foretold. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_HIMIKO_ANY">
+			<Text>Your coming was foretold. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_HIMIKO_ANY">
+			<Text>Your coming was foretold. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_HIMIKO_ANY">
+			<Text>Preparations for the ritual are complete. Let us begin at once. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_HIMIKO_ANY">
+			<Text>Come to us and become ash. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DEFEAT_AI_LEADER_HIMIKO_ANY">
+			<Text>The heavy stone floats, and the streams run backwards. All is disorder.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_HIMIKO">
+			<Text>Let us bring this matter into the light.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_HIMIKO">
+			<Text>The sun is obscured by clouds.</Text>
+		</Row>
+	</EnglishText>
+</Database>

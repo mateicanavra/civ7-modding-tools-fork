@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_CHANDA_MAHASENA_UNLOCK_TITLE">
+			<Text>Unlock at Ashoka, World Conqueror level 2</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_SILK_UTTARIYA_UNLOCK_TITLE">
+			<Text>Unlock at Ashoka, World Conqueror level 5</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_LION_CAPITAL_UNLOCK_TITLE">
+			<Text>Unlock at Ashoka, World Conqueror level 9</Text>
+		</Row>
+
+		<Row Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_CHANDA_MAHASENA_NAME">
+			<Text>Chanda-mahasena</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_CHANDA_MAHASENA_DESCRIPTION">
+			<Text>Vishwakarma's divine creation.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_CHANDA_MAHASENA_FUNCTIONAL_DESCRIPTION">
+			<Text>+5 Combat Strength against Fortified Districts for all Units during a Celebration.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_CHANDA_MAHASENA_COMBAT_PREVIEW">
+			<Text>+{1_Amount} Chanda-mahasena Memento</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_SILK_UTTARIYA_NAME">
+			<Text>Silk Uttariya</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_SILK_UTTARIYA_DESCRIPTION">
+			<Text>Faithfully fashioned.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_SILK_UTTARIYA_FUNCTIONAL_DESCRIPTION">
+			<Text>+2 [icon:YIELD_PRODUCTION]Production per Age in Cities with positive Happiness.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_LION_CAPITAL_NAME">
+			<Text>Lion Capital</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_LION_CAPITAL_DESCRIPTION">
+			<Text>Roar, and set rolling.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_ASHOKA_CONQUEROR_LION_CAPITAL_FUNCTIONAL_DESCRIPTION">
+			<Text>Commanders receive +50% XP during a Celebration.</Text>
+		</Row>
+
+		<Row Tag="LOC_MEMENTO_HIMIKO_SHAMAN_YATA_NO_KAGAMI_UNLOCK_TITLE">
+			<Text>Unlock at Himiko, High Shaman level 2</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_HIMIKO_SHAMAN_SAKAKI_BRANCH_UNLOCK_TITLE">
+			<Text>Unlock at Himiko, High Shaman level 5</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_HIMIKO_SHAMAN_KUSANAGI_NO_TSURUGI_UNLOCK_TITLE">
+			<Text>Unlock at Himiko, High Shaman level 9</Text>
+		</Row>
+
+		<Row Tag="LOC_MEMENTO_HIMIKO_SHAMAN_SAKAKI_BRANCH_NAME">
+			<Text>Sakaki Branch</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_HIMIKO_SHAMAN_SAKAKI_BRANCH_DESCRIPTION">
+			<Text>Marks the sacred.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_HIMIKO_SHAMAN_SAKAKI_BRANCH_FUNCTIONAL_DESCRIPTION">
+			<Text>+25% [icon:YIELD_PRODUCTION]Production towards constructing Happiness Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_HIMIKO_SHAMAN_YATA_NO_KAGAMI_NAME">
+			<Text>Yata no Kagami</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_HIMIKO_SHAMAN_YATA_NO_KAGAMI_DESCRIPTION">
+			<Text>Represents wisdom.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_HIMIKO_SHAMAN_YATA_NO_KAGAMI_FUNCTIONAL_DESCRIPTION">
+			<Text>Gain 20 [icon:YIELD_CULTURE]Culture per Age at the start of every Celebration.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_HIMIKO_SHAMAN_KUSANAGI_NO_TSURUGI_NAME">
+			<Text>Kusanagi no Tsurugi</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_HIMIKO_SHAMAN_KUSANAGI_NO_TSURUGI_DESCRIPTION">
+			<Text>Represents valor.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_HIMIKO_SHAMAN_KUSANAGI_NO_TSURUGI_FUNCTIONAL_DESCRIPTION">
+			<Text>+3 [icon:YIELD_CULTURE]Culture per Age on Happiness Buildings[n]BUT -1 [icon:YIELD_SCIENCE]Science per Age on Happiness Buildings.</Text>
+		</Row>
+
+	</EnglishText>
+</Database>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MODULE_NAPOLEON_ALT_NAME">
+			<Text>Persona Pack - Napoleon</Text>
+		</Row>
+		<Row Tag="LOC_MODULE_NAPOLEON_ALT_DESCRIPTION">
+			<Text>Contains a new persona for Napoleon.</Text>
+		</Row>
+	</EnglishText>
+</Database>

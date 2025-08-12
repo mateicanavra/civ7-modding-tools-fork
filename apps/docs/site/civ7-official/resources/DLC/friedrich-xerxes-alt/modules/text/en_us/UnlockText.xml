@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_FRIEDRICH_ALT_DESCRIPTION">
+			<Text>Play as [B]Friedrich, Baroque[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_FRIEDRICH_ALT_NORMAN_TOOLTIP">
+			<Text>[B]Friedrich[/B] was from the same continent as the [B]Normans[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_FRIEDRICH_ALT_SPAIN_TOOLTIP">
+			<Text>[B]Friedrich[/B] was from the same continent as [B]Spain[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_FRIEDRICH_ALT_FRENCH_EMPIRE_TOOLTIP">
+			<Text>[B]Friedrich[/B] was influenced by [B]French[/B] culture.</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_FRIEDRICH_ALT_PRUSSIA_TOOLTIP">
+			<Text>[B]Friedrich[/B] led [B]Prussia[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_XERXES_ALT_DESCRIPTION">
+			<Text>Play as [B]Xerxes, the Achaemenid[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_XERXES_ALT_ABBASID_TOOLTIP">
+			<Text>[B]Xerxes[/B] influenced the [B]Abbasids[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_XERXES_ALT_MONGOLIA_TOOLTIP">
+			<Text>[B]Mongols[/B] later captured [B]Xerxes'[/B] Persia.</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_XERXES_ALT_MUGHAL_TOOLTIP">
+			<Text>[B]Xerxes'[/B] Persia had an influence on the [B]Mughal[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_XERXES_ALT_RUSSIA_TOOLTIP">
+			<Text>[B]Xerxes[/B] was from a nearby region to [B]Russia[/B].</Text>
+		</Row>
+	</EnglishText>
+</Database>

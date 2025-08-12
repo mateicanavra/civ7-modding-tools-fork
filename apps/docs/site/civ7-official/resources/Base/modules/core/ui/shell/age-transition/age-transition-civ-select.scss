@@ -1,0 +1,59 @@
+@use '../../utilities/utility-layout' as *;
+@use '../../utilities/utility-text' as *;
+@use '../../themes/default/theme';
+
+.age-transition-civ-select {
+	background-image: url("fs://game/BG_CYC_4K_graded.png");
+	background-size: cover;
+
+	@media (max-height: pixels(1000)) {
+		.age-transition-civ-select-cards {
+			left: pixels(0);
+		}
+
+		.age-transition-civ-details-section {
+			width: pixels(455);
+		}
+
+		.age-transition-stepper-pip {
+			width: pixels(16);
+			height: pixels(16);
+			margin: pixels(3);
+		}
+
+		.age-transition-details-spacer {
+			display: block;
+		}
+
+		.age-transition-layout-panel {
+			flex-direction: column-reverse;
+			align-items: flex-end;
+		}
+
+		.age-transition-filigree {
+			width: pixels(500);
+			height: pixels(500);
+		}
+	}
+
+	.age-transition-civ-select-cards {
+		height: 80%;
+		width: 94%;
+	}
+
+	.age-transition-civ-select-scrollable {
+		height: 86%;
+	}
+}
+
+.age-transition-civ-details-section {
+	width: pixels(598);
+}
+
+.age-transition-civ-details-name {
+	font-size: pixels-font(44);
+}
+
+.age-transition-unlock-panel {
+	background-color: #00000080;
+}

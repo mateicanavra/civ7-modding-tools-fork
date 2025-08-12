@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Icon Reference</title>
+    <link rel="stylesheet" href="fs://game/core/ui/themes/default/fonts.css">
+    <link rel="stylesheet" href="fs://game/core/ui/themes/default/default.css">
+    <link rel="stylesheet" href="reference.css">
+    <script src="fs://game/game/cohtml.js"></script>
+    <script src="fs://game/game/component-support.js"></script>
+
+    <style>
+        fxs-icon {
+            width: 32px;
+            height: 32px;
+            margin-bottom: 5px;
+            margin-top: 5px;
+            margin-left: 5px;
+            margin-right: 5px;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="panel" style="width:80%;height:80%">
+        <fxs-scrollable class="panel-content">
+            <div id="icon-parent" class="flow-column" style="display: flex;margin:5px;padding:5px;">
+
+            </div>
+        </fxs-scrollable>
+    </div>
+    <div id="tooltip-root" class="new-tooltip--root absolute pointer-events-none" style="visibility:hidden">
+        <div class="new-tooltip--shadow absolute inset-0"></div>
+        <div class="new-tooltip--bg absolute inset-0"></div>
+        <div id="tooltip-root-content" class="new-tooltip--content relative font-body-base">
+        </div>
+        <div class="new-tooltip--frame absolute"></div>
+    </div>
+
+    <script type="text/javascript">
+
+        function populateIcons(title, def, field, context) {
+
+            const group = document.createElement('div');
+            group.classList.add('flow-column');
+
+            const label = document.createElement('div');
+            label.classList.add('font-body-base');
+            label.innerHTML = title;
+
+            const icons = document.createElement('div');
+            icons.classList.add('flow-row');
+            icons.style.flexWrap = 'wrap';
+
+            for (const y of def) {
+                const el = document.createElement('fxs-icon');
+                el.setAttribute('data-icon-id', `${y[field]}`);
+                el.setAttribute('data-icon-context', context);
+                el.setAttribute('data-tooltip-content', `${y[field]}`);
+                icons.appendChild(el);
+            }
+
+            group.appendChild(label);
+            group.appendChild(icons);
+            return group;
+        }
+
+        Loading.runWhenLoaded(() => {
+            const parent = document.getElementById('icon-parent');
+            if (parent) {
+                const frag = document.createDocumentFragment();
+                frag.appendChild(populateIcons("Yields", GameInfo.Yields, 'YieldType', 'YIELD'));
+                frag.appendChild(populateIcons("Resources", GameInfo.Resources, 'ResourceType', 'RESOURCE'));
+                frag.appendChild(populateIcons("Leaders", GameInfo.Leaders, 'LeaderType', 'LEADER'));
+                frag.appendChild(populateIcons("Units", GameInfo.Units, 'UnitType', 'UNIT_FLAG'));
+
+                frag.appendChild(populateIcons("Buildings", GameInfo.Constructibles.filter((c) => c.ConstructibleClass == 'BUILDING'), "ConstructibleType", "BUILDING"));
+                frag.appendChild(populateIcons("Improvements", GameInfo.Constructibles.filter((c) => c.ConstructibleClass == 'IMPROVEMENT'), "ConstructibleType", "IMPROVEMENT"));
+                frag.appendChild(populateIcons("Wonders", GameInfo.Constructibles.filter((c) => c.ConstructibleClass == 'WONDER'), "ConstructibleType", "WONDER"));
+                frag.appendChild(populateIcons("Projects", GameInfo.Projects, 'ProjectType', 'PROJECT'));
+                parent.appendChild(frag);
+            }
+        });
+    </script>
+</body>
+
+</html>

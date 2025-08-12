@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+    <Requirement id="REQ_STORY_LEADER_ASHOKA_ALT" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_ASHOKA_ALT</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_ASHOKA_ALT_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_ASHOKA_ALT</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_HIMIKO_ALT" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_HIMIKO_ALT</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_HIMIKO_ALT_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_HIMIKO_ALT</Argument>
+    </Requirement>
+</GameEffects>

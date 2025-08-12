@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<GlobalParameters>
+		<Replace name="MOVEMENT_WHILE_EMBARKED_BASE" value="2"/>
+		<Replace name="APPEAL_FOR_MOUNTAINS" value="false"/>
+	</GlobalParameters>
+</Database>

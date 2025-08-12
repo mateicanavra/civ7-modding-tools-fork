@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- Advanced Start -->
+	<Modifier id="CARD_GRANT_WALLS" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_GRANT_WALLS" permanent="true" run-once="true">
+		<Argument name="Amount">3</Argument>
+		<Argument name="BuildingType">BUILDING_MEDIEVAL_WALLS</Argument>
+	</Modifier>
+	<Modifier id="CARD_CAPITAL_ADJUST_POPULATION" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_ADJUST_POPULATION" permanent="true" run-once="true">
+		<Argument name="Amount">3</Argument>
+	</Modifier>
+	<Modifier id="CARD_ADD_ARMY_INFANTRY" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_ADVANCED_START_ADD_ARMY" permanent="true" run-once="true">
+		<Argument name="ArmyID">2</Argument>
+	</Modifier>
+	<Modifier id="CARD_ADD_ARMY_RANGED" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_ADVANCED_START_ADD_ARMY" permanent="true" run-once="true">
+		<Argument name="ArmyID">3</Argument>
+	</Modifier>
+	<Modifier id="CARD_ADD_ARMY_CAVALRY" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_ADVANCED_START_ADD_ARMY" permanent="true" run-once="true">
+		<Argument name="ArmyID">4</Argument>
+	</Modifier>
+	<Modifier id="CARD_GRANT_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD" permanent="true" run-once="true">
+		<Argument name="Amount">1000</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Scale">true</Argument>
+	</Modifier>
+	<Modifier id="CARD_GRANT_ATTRIBUTE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="AttributeType">ATTRIBUTE_WILDCARD</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<!-- Civic Boosts -->
+	<Modifier id="CARD_GRANT_CIVIC_MODERNIZATION" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_PROGRESSION" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="SystemType">SYSTEM_CULTURE</Argument>
+		<Argument name="FreeProgressionType">FREE_PROGRESSION_NODE_SPECIFIC</Argument>
+		<Argument name="NodeType">NODE_CIVIC_MO_MAIN_MODERNIZATION</Argument>
+	</Modifier>
+	<Modifier id="CARD_GRANT_CIVIC_NATURAL_HISTORY" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_PROGRESSION" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="SystemType">SYSTEM_CULTURE</Argument>
+		<Argument name="FreeProgressionType">FREE_PROGRESSION_NODE_SPECIFIC</Argument>
+		<Argument name="NodeType">NODE_CIVIC_MO_MAIN_NATURAL_HISTORY</Argument>
+	</Modifier>
+	<Modifier id="CARD_GRANT_CIVIC_SOCIAL_QUESTION" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_PROGRESSION" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="SystemType">SYSTEM_CULTURE</Argument>
+		<Argument name="FreeProgressionType">FREE_PROGRESSION_NODE_SPECIFIC</Argument>
+		<Argument name="NodeType">NODE_CIVIC_MO_MAIN_SOCIAL_QUESTION</Argument>
+	</Modifier>
+	<!-- Tech Boosts -->
+	<Modifier id="CARD_GRANT_TECH_ACADEMICS" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_PROGRESSION" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="SystemType">SYSTEM_TECH</Argument>
+		<Argument name="FreeProgressionType">FREE_PROGRESSION_NODE_SPECIFIC</Argument>
+		<Argument name="NodeType">NODE_TECH_MO_ACADEMICS</Argument>
+	</Modifier>
+	<Modifier id="CARD_GRANT_TECH_STEAM_ENGINE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_PROGRESSION" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="SystemType">SYSTEM_TECH</Argument>
+		<Argument name="FreeProgressionType">FREE_PROGRESSION_NODE_SPECIFIC</Argument>
+		<Argument name="NodeType">NODE_TECH_MO_STEAM_ENGINE</Argument>
+	</Modifier>
+	<Modifier id="CARD_GRANT_TECH_MILITARY_SCIENCE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_PROGRESSION" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="SystemType">SYSTEM_TECH</Argument>
+		<Argument name="FreeProgressionType">FREE_PROGRESSION_NODE_SPECIFIC</Argument>
+		<Argument name="NodeType">NODE_TECH_MO_MILITARY_SCIENCE</Argument>
+	</Modifier>
+
+	<!-- Legend Cards -->
+	<Modifier id="LEADER_CARD_FOOD_BOON" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD" permanent="true">
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Percent">15</Argument>
+	</Modifier>
+	<Modifier id="LEADER_CARD_GOLD_BOON" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD" permanent="true">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Percent">15</Argument>
+	</Modifier>
+	<Modifier id="LEADER_CARD_INFLUENCE_BOON" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD" permanent="true">
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="Percent">15</Argument>
+	</Modifier>
+	<Modifier id="LEADER_CARD_SCIENCE_BOON" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD" permanent="true">
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Percent">15</Argument>
+	</Modifier>
+	<Modifier id="LEADER_CARD_CULTURE_BOON" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD" permanent="true">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Percent">15</Argument>
+	</Modifier>
+	<Modifier id="LEADER_CARD_MOD_COMBAT_BOON" collection="COLLECTION_ALL_UNITS" effect="EFFECT_ADJUST_UNIT_BASE_COMBAT_STRENGTH" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_AIRCRAFT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<Argument name="Type">ALL</Argument>
+	</Modifier>
+
+	<Modifier id="LEADER_CARD_FOOD_BANE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD" permanent="true">
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Percent">-10</Argument>
+	</Modifier>
+	<Modifier id="LEADER_CARD_GOLD_BANE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD" permanent="true">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Percent">-10</Argument>
+	</Modifier>
+	<Modifier id="LEADER_CARD_INFLUENCE_BANE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD" permanent="true">
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="Percent">-10</Argument>
+	</Modifier>
+	<Modifier id="LEADER_CARD_SCIENCE_BANE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD" permanent="true">
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Percent">-10</Argument>
+	</Modifier>
+	<Modifier id="LEADER_CARD_CULTURE_BANE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD" permanent="true">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Percent">-10</Argument>
+	</Modifier>
+	<Modifier id="LEADER_CARD_MOD_COMBAT_BANE" collection="COLLECTION_ALL_UNITS" effect="EFFECT_ADJUST_UNIT_BASE_COMBAT_STRENGTH" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_AIRCRAFT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">-2</Argument>
+		<Argument name="Type">ALL</Argument>
+	</Modifier>
+</GameEffects>

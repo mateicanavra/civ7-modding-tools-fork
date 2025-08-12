@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="Definitions">
+
+	<!-- Loading Screen Data -->
+	<definition name="LoadingInfo_Age" description="Age-specific information that is stored in the loading screen." table-name="LoadingInfo_Ages" cpp="false">
+		<field name="AgeType" type="Text" key="true" not-null="true"/>
+		<field name="LeaderTypeOverride" type="Text" />
+		<field name="CivilizationTypeOverride" type="Text" />
+		<field name="AgeHeaderTextOverride" type="LocalizedText"/>
+		<field name="AgeNameTextOverride" type="LocalizedText" />
+		<field name="AgeIntroText" type="LocalizedText"/>
+		<field name="AgeOutroText" type="LocalizedText"/>
+		<reference source="AgeType" target="AgeType" to="Age"/>
+	</definition>
+
+	<definition name="LoadingInfo_Civilization" description="Civilization-specific information that is stored in the loading screen." table-name="LoadingInfo_Civilizations" cpp="false">
+		<field name="CivilizationType" type="Text" key="true" not-null="true"/>
+		<field name="AgeTypeOverride" type="Text" />
+		<field name="LeaderTypeOverride" type="Text" />
+		<field name="CivilizationNameTextOverride" type="LocalizedText" />
+		<field name="CivilizationText" type="LocalizedText" />
+		<field name="ForegroundImage" type="Text"/>
+		<field name="MidgroundImage" type="Text"/>
+		<field name="BackgroundImageHigh" type="Text"/>
+		<field name="BackgroundImageLow" type="Text"/>
+		<field name="Audio" type="Text"/>
+		<field name="Subtitle" type="Text"/>
+		<field name="Tip" type="LocalizedText" />
+		<reference source="CivilizationType" target="CivilizationType" to="Civilization"/>
+	</definition>
+
+	<definition name="LoadingInfo_Leader" description="Leader-specific information that is stored in the loading screen." table-name="LoadingInfo_Leaders" cpp="false">
+		<field name="LeaderType" type="Text" key="true" not-null="true"/>
+		<field name="AgeTypeOverride" type="Text" />
+		<field name="CivilizationTypeOverride" type="Text" />
+		<field name="LeaderNameTextOverride" type="LocalizedText"/>
+		<field name="LeaderText" type="LocalizedText"/>
+		<field name="LeaderImage" type="Text" />
+		<field name="Audio" type="Text"/>
+		<reference source="LeaderType" target="LeaderType" to="Leader"/>
+	</definition>
+
+	<!-- Movies (in-game) -->
+	<definition name="Movie" table-name="Movies" cpp="false">
+		<field name="MovieType" type="Text" key="true" not-null="true" />
+		<field name="Resolution" type="Integer" key="true" not-null="true"/>
+		<field name="Locale" type="Text" key="true" not-null="true"/>
+		<field name="Url" type="Text" not-null="true"/>
+		<field name="Audio" type="Text" not-null="false"/>
+		<field name="StopAudio" type="Text" not-null="false"/>
+		<field name="Subtitles" type="Text" not-null="false"/>
+		<field name="UseCoverFitMode" type="Bool" not-null="true" value="0" />
+	</definition>
+
+	<!-- WILCO Movies -->
+	<definition name="EndGameMovie" table-name="EndGameMovies" cpp="false">
+		<field name="MovieType" type="Text" not-null="true" />
+		<field name="Priority" type="Integer" not-null="true" value="0" />
+		<field name="AgeType" type="Text" not-null="false" />
+		<field name="IsFinalAge" type="Bool" not-null="false" />
+		<field name="LeaderType" type="Text" not-null="false" />
+		<field name="CivilizationType" type="Text" not-null="false" />
+		<field name="VictoryType" type="Text" not-null="false" />
+		<field name="DefeatType" type="Text" not-null="false" />
+		<field name="UnlockType" type="Text" not-null="false" />
+		<field name="CompletedLegacyPath" type="Text" not-null="false"/>
+		<field name="LastCompletedLegacyPath" type="Text" not-null="false"/>
+
+		<reference source="AgeType" target="AgeType" to="Age"/>
+		<reference source="LeaderType" target="LeaderType" to="Leader"/>
+		<reference source="CivilizationType" target="CivilizationType" to="Civilization"/>
+		<reference source="CivilizationType" target="CivilizationType" to="Civilization"/>
+		<reference source="VictoryType" target="VictoryType" to="Victory"/>
+		<reference source="DefeatType" target="DefeatType" to="Defeat"/>
+		<reference source="CompletedLegacyPath" target="LegacyPathType" to="LegacyPath"/>
+		<reference source="LastCompletedLegacyPath" target="LegacyPathType" to="LegacyPath"/>
+	</definition>
+
+	<!-- Display Queue Priorities -->
+	<definition name="DisplayQueuePriority" table-name="DisplayQueuePriorities" cpp="false">
+		<field name="Category" type="Text" key="true" not-null="true" />
+		<field name="Priority" type="Integer" not-null="true" value="0" />
+	</definition>
+</definitions>

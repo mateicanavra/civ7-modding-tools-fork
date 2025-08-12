@@ -1,0 +1,40 @@
+/* DO NOT EDIT */
+/* Generated from screen-pantheon-chooser.scss */
+.pantheon-chooser-window_bg {
+	width: 22.2222222222rem;
+	height: 54.5555555556rem;
+}
+
+.pantheon-list-container_icon {
+	width: 4.2222222222rem;
+	height: 4.2222222222rem;
+	background-image: url("fs://game/hud_civics-icon_frame.png");
+	background-size: cover;
+}
+
+.pantheon-list-container_icon-image {
+	height: 3.1111111111rem;
+	width: 3.1111111111rem;
+	background-image: url("fs://game/base-standard/ui/icons/chooser_icons/chooser_animalhusbandry.png");
+	background-size: 120% 120%;
+	border-radius: 100%;
+}
+
+@media (experience: mobile) {
+	.screen-pantheon-chooser .pantheon-frame {
+		margin-top: 3.8888888889rem;
+		margin-bottom: 0.6666666667rem;
+		max-width: 38.8888888889rem;
+	}
+}
+@media (experience: mobile) {
+	.screen-pantheon-chooser .pantheon-chooser_choose-x-pantheons {
+		width: auto;
+		margin-top: 0.6666666667rem;
+	}
+}
+@media (experience: mobile) {
+	.screen-pantheon-chooser .pantheon-chooser_pantheon-container {
+		width: auto;
+	}
+}

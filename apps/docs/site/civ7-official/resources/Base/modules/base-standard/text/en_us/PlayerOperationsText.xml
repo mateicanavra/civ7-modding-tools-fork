@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--Operation Results Text-->
+		<Row Tag="LOC_PLAYEROPERATION_ASSIGN_RESOURCE_INVALID_PARAMS">
+			<Text>Invalid parameters for Assign Resource operation.</Text>
+		</Row>
+	</EnglishText>
+</Database>

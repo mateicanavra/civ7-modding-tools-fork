@@ -1,0 +1,19 @@
+<fxs-vslot class="diplomacy-action-details-root-vslot min-w-200">
+	<fxs-frame class="title-progress-bar-frame" frame-style="f2"
+			   override-styling="relative flex max-w-full max-h-full p-8" filigree-class="hidden">
+		<fxs-vslot class="title-progress-bar-container items-center"></fxs-vslot>
+	</fxs-frame>
+	<fxs-frame class="action-content-frame" frame-style="f2"
+			   override-styling="relative flex max-w-full max-h-full p-8 -mt-6" filigree-class=" hidden">
+		<fxs-header class="uppercase" title="LOC_DIPLOMACY_ACTIONS" filigree-style="h4"></fxs-header>
+		<fxs-hslot class="diplomacy-yield-container justify-center mb-2">
+			<img src="fs://game/yield_influence" class="relative size-8">
+			<div
+				 class="screen-diplomacy-action-details__accumulated-influence relative flex items-center font-title text-base">
+			</div>
+		</fxs-hslot>
+		<fxs-hslot class="your-war-content-container"></fxs-hslot>
+		<fxs-hslot class="support-war-content-container hidden justify-between"></fxs-hslot>
+	</fxs-frame>
+	<fxs-close-button class="absolute right-0 top-0"></fxs-close-button>
+</fxs-vslot>

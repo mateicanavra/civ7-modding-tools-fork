@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<Database>
+    <EnglishText>
+		<!--Lafayette Main Menu Char Select Text-->
+		<Row Tag="LOC_MAIN_CHAR_SELECT_LEADER_LAFAYETTE_ANY">
+			<Text>We walk always between two abysses. Care and moderation is our path forward. </Text>
+		</Row>
+
+		<!--Lafayette Statement Text-->
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_LAFAYETTE_ANY">
+			<Text>Just Citizen Lafayette, s'il vous plait. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_LAFAYETTE_ANY">
+			<Text>Just Citizen Lafayette, s'il vous plait. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_LAFAYETTE_ANY">
+			<Text>Just Citizen Lafayette, s'il vous plait. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_LAFAYETTE_ANY">
+			<Text>Sic semper tyrannis.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_LAFAYETTE_ANY">
+			<Text>Tyranny is strong. Liberty is stronger.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DEFEAT_AI_LEADER_LAFAYETTE_ANY">
+			<Text>To go with so much left undone! To depart with a dream yet unfulfilled?</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_LAFAYETTE">
+			<Text>Yes, yes, this is sensible.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_LAFAYETTE">
+			<Text>Please, this is unreasonable.</Text>
+		</Row>
+    </EnglishText>
+</Database>

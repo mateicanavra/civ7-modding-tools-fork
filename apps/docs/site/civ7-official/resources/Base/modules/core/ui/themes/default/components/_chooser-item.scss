@@ -1,0 +1,85 @@
+@use '../theme';
+@use "../animations";
+@use '../../../utilities/utility-layout' as *;
+@use '../../../utilities/utility-text' as *;
+
+.fxs-chooser-item-selected {
+	opacity: 0;
+	transition-property: opacity;
+	transition-duration: .5s;
+	transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+	&.selected {
+		opacity: 1;
+	}
+}
+
+.fxs-chooser-item {
+	&.disabled {
+		opacity: 0.8;
+	}
+
+	&:focus,
+	&:hover {
+		.fxs-chooser-item-highlight {
+			background: linear-gradient(90deg, #595243 0%, rgba(41, 43, 51, 0.5) 100%);
+			animation: fxs-chooser-item-focus-glow;
+			animation-duration: 1.3333s;
+			animation-direction: alternate;
+			animation-timing-function: animations.$easeInOut;
+			animation-iteration-count: infinite;
+		}
+
+		.fxs-chooser-item-selected {
+			&.show-on-hover {
+				opacity: 1;
+			}
+
+		}
+	}
+}
+
+.fxs-chooser-item-disabled {
+	background-color: theme.color('primary-5');
+}
+
+.fxs-chooser-item-icon-bg {
+	width: pixels(76);
+	height: pixels(76);
+
+	background-image: url("fs://game/hud_civics-icon_frame.png");
+	background-size: cover;
+}
+
+.fxs-chooser-item-icon-image {
+	height: pixels(56);
+	width: pixels(56);
+
+	background-size: 120% 120%;
+	background-position-x: 50%;
+	background-position-y: 50%;
+	border-radius: 100%;
+}
+
+.fxs-chooser-item-lock-image {
+	height: pixels(32);
+	width: pixels(32);
+	background-image: url("fs://game/hud_lock-icon.png");
+	background-size: cover;
+	bottom: pixels(-10);
+}
+
+.fxs-chooser-item-lock-bg {
+	background-image: radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0) 81%, rgba(0, 0, 0, 0.5) 100%);
+	border-radius: 100%;
+}
+
+@keyframes fxs-chooser-item-focus-glow {
+	0% {
+		opacity: 0.3333;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}

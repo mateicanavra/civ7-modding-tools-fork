@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<!-- Delete existing strings/translations for the given keys.-->
+	<LocalizedText>
+		<Delete Tag="LOC_UI_CONTENT_MGR_SUBTITLE_DESCRIPTION" />
+	</LocalizedText>
+
+	<!-- Define platform-specific overrides. -->
+	<EnglishText>
+		<Row Tag="LOC_UI_CONTENT_RESTRICTED_MGR_SUBTITLE_DESCRIPTION">
+			<Text>Manage add-ons for the game</Text>
+		</Row>
+
+		<Replace Tag="LOC_UI_CONTENT_MGR_SUBTITLE_DESCRIPTION">
+			<Text>{LOC_UI_CONTENT_RESTRICTED_MGR_SUBTITLE_DESCRIPTION}</Text>
+		</Replace>
+	</EnglishText>
+</Database>

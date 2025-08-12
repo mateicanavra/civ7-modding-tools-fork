@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+
+		<!-- Governments-->
+		<!-- GOVERNMENT_CLASSICAL_REPUBLIC -->
+		<Row Tag="LOC_PEDIA_PAGE_GOVERNMENT_CLASSICAL_REPUBLIC_CHAPTER_HISTORY_PARA_1">
+			<Text>Not all governments in the ancient world were absolutist states – far from it. Areas from India to the Middle East to the Mediterranean experimented with various forms of elective government. It would be incorrect to see these as “advanced” – many systems built off more egalitarian societies as they were incorporated into major states. What constituted a republic was the public's recourse to its rulers – though “the public” was often limited to men, or propertied men, or tribal leaders, et cetera. In ancient Athens, for instance, voting citizens comprised as little as ten to twenty percent of the total population.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_GOVERNMENT_CLASSICAL_REPUBLIC_CHAPTER_HISTORY_PARA_2">
+			<Text>Early republics included the Vajjika League of northern India in the sixth century BCE, where tribes sent their delegates to a common council to decide policies. The Roman Republic had a complicated system of elections, where citizens would select administrators of their tribe, but the nation was ruled by a deliberative senate appointed by censors, themselves elected by groups of citizens. Republics were vulnerable at times, as popular leaders could rally the support of a populace that might feel left out, as Rome discovered when the Senate challenged the authority of a famous military general: Julius Caesar.</Text>
+		</Row>
+		<!-- GOVERNMENT_DESPOTISM -->
+		<Row Tag="LOC_PEDIA_PAGE_GOVERNMENT_DESPOTISM_CHAPTER_HISTORY_PARA_1">
+			<Text>Why should a single individual be beholden to laws created by the masses? Who are we to question genius? The ideologies behind these questions are the principles of despotism – a term that simply means rule by an individual without constraints of custom or law. A monarchy might have a poorly-qualified heir, the leader of a democracy might have been elected by a deluded mass, an oligarchy or single-party state might have a regime with entrenched interests that are contrary to what is best for the nation. The laws of any nation could hamper the wisdom of an individual. Champions of despotism claim that individual genius – or strength – should be allowed to shine.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_GOVERNMENT_DESPOTISM_CHAPTER_HISTORY_PARA_2">
+			<Text>The ancient Greeks characterized the Persians as despots – indeed, Achaemenid succession was rarely peaceful, but Aristotle used this to say something quintessentially about everyday Persians. Despotism could be more stable than at first glance – the title of heir apparent could be granted to whomever the current despot favored. We might compare ancient Egypt, Qin China, and the reign of individuals like Nader Shah as despotic. In the present, we might use the term “dictatorship” instead of “despotism,” reserving the latter as a pejorative for a cruel and arbitrary form of rule.</Text>
+		</Row>
+		<!-- GOVERNMENT_OLIGARCHY -->
+		<Row Tag="LOC_PEDIA_PAGE_GOVERNMENT_OLIGARCHY_CHAPTER_HISTORY_PARA_1">
+			<Text>If despotism is rule by a single individual, and a republic seeks inclusivity, oligarchy treads the middle ground – though, in truth, no despot truly governs alone, and in a republic, a few often wield disproportionate power. In an oligarchy, a group of elites takes on the task of government, though they might couch their rule in other terms. For Herodotus, oligarchies were always susceptible to the kinds of everyday rivalries noble families might have, and would therefore always break down. China, however, shows the resilience of a particular kind of oligarchy: a rule by those who have achieved the credentials of the civil service, allowing anyone to join this elite, but keeping a barrier high (and retaining the figure of the emperor as a symbol of unity – that is, if the emperor could remain quiet and let the civil service run itself).</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_GOVERNMENT_OLIGARCHY_CHAPTER_HISTORY_PARA_2">
+			<Text>At present, many democratic states are called oligarchies by their critics, as powerful individuals exert influence beyond the means of the regular voting public. As with “despotism,” referring to a nation as oligarchic is often a point of critique.</Text>
+		</Row>
+
+
+	</EnglishText>
+</Database>

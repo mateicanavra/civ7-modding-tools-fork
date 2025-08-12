@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_EMPEROR_PORTRAIT_JOSEPHINE_UNLOCK_TITLE">
+			<Text>Unlock at Napoleon Emperor level 2</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_EMPEROR_GREEN_COLONEL_JACKET_UNLOCK_TITLE">
+			<Text>Unlock at Napoleon Emperor level 5</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_EMPEROR_CROWN_OF_NAPOLEON_UNLOCK_TITLE">
+			<Text>Unlock at Napoleon Emperor level 9</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_EMPEROR_PORTRAIT_JOSEPHINE_NAME">
+			<Text>Portrait of Josephine</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_EMPEROR_PORTRAIT_JOSEPHINE_DESCRIPTION">
+			<Text>You alone rule my heart.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_EMPEROR_PORTRAIT_JOSEPHINE_FUNCTIONAL_DESCRIPTION">
+			<Text>+2 [icon:YIELD_GOLD]Gold per Age for every Leader you are Unfriendly or Hostile with.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_EMPEROR_GREEN_COLONEL_JACKET_NAME">
+			<Text>Green Colonel's Jacket</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_EMPEROR_GREEN_COLONEL_JACKET_DESCRIPTION">
+			<Text>Like the Chasseurs à Cheval.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_EMPEROR_GREEN_COLONEL_JACKET_FUNCTIONAL_DESCRIPTION">
+			<Text>+1 [icon:YIELD_GOLD]Gold per Age per Trade Route, doubled if you have the highest number of Trade Routes.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_EMPEROR_CROWN_OF_NAPOLEON_NAME">
+			<Text>Crown of Napoleon</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_EMPEROR_CROWN_OF_NAPOLEON_DESCRIPTION">
+			<Text>Coronation of the Emperor.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_EMPEROR_CROWN_OF_NAPOLEON_FUNCTIONAL_DESCRIPTION">
+			<Text>Gain 200 [icon:YIELD_GOLD]Gold per Age when a Formal War is declared against you.</Text>
+		</Row>
+	</EnglishText>
+</Database>

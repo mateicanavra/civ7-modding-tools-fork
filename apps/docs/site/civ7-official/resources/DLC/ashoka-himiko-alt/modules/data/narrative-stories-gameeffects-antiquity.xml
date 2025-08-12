@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+    <Modifier id="LEADER_CHAIN_1010D_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_SCIENCE</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MINOR_EARLY</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1011D_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" run-once="false" permanent="true">
+        <Argument name="AttributeType">ATTRIBUTE_MILITARISTIC</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1012D_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" run-once="false" permanent="true">
+        <Argument name="AttributeType">ATTRIBUTE_EXPANSIONIST</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1102D_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" run-once="false" permanent="true">
+        <Argument name="AttributeType">ATTRIBUTE_CULTURAL</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1011D_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_NARRATIVE_TAG" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_LEADER_CHAIN_A</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1012D_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_NARRATIVE_TAG" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_LEADER_CHAIN_B</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1102D_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_NARRATIVE_TAG" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_LEADER_CHAIN_B</Argument>
+    </Modifier>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1010E_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_ASHOKA_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1010F_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_ASHOKA_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1011D_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_ASHOKA_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1011E_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_ASHOKA_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1012D_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_ASHOKA_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1012E_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_ASHOKA_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1100E_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_HIMIKO_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1100F_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_HIMIKO_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1100G_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_HIMIKO_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1101D_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_HIMIKO_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1101E_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_HIMIKO_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1102D_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_HIMIKO_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1102E_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_HIMIKO_ALT_ONLY"/>
+    </RequirementSet>
+</GameEffects>

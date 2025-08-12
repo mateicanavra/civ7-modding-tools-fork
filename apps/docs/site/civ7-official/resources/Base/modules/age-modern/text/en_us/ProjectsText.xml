@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--Space Race Legacy Path-->
+		<Row Tag="LOC_PROJECT_TRANS_OCEANIC_FLIGHT_NAME">
+			<Text>Trans-Oceanic Flight</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TRANS_OCEANIC_FLIGHT_SHORT_NAME">
+			<Text>Trans-Oceanic Flight</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TRANS_OCEANIC_FLIGHT_DESCRIPTION">
+			<Text>Complete for a Squadron Commander and 1 Legacy Point towards the Science Legacy Path.</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_BREAK_SOUND_BARRIER_NAME">
+			<Text>Break The Sound Barrier</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_BREAK_SOUND_BARRIER_SHORT_NAME">
+			<Text>Break The Sound Barrier</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_BREAK_SOUND_BARRIER_DESCRIPTION">
+			<Text>Complete for +1 Combat Strength to Air Units and 1 Legacy Point towards the Science Legacy Path.</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_LAUNCH_SATELLITE_NAME">
+			<Text>Launch Satellite</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_LAUNCH_SATELLITE_SHORT_NAME">
+			<Text>Launch Satellite</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_LAUNCH_SATELLITE_DESCRIPTION">
+			<Text>Complete for total map reveal and 1 Legacy Point towards the Science Legacy Path.</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_LAUNCH_ROCKET_NAME">
+			<Text>Crewed Space Flight</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_LAUNCH_ROCKET_SHORT_NAME">
+			<Text>Crewed Space Flight</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_LAUNCH_ROCKET_DESCRIPTION">
+			<Text>Complete this Project to launch the first person into space and win a Scientific Victory.</Text>
+		</Row>
+		<!-- Military Victory -->
+		<Row Tag="LOC_PROJECT_PRODUCE_WMD_NAME">
+			<Text>Produce Nuclear Weapon</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_PRODUCE_WMD_SHORT_NAME">
+			<Text>Produce Nuclear Weapon</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_PRODUCE_WMD_DESCRIPTION">
+			<Text>Complete this Project to add a Nuclear Weapon to your arsenal, allowing you to use the WMD Strike action with a Bomber based in an Aerodrome, Squadron or Carrier Commander.</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_OPERATION_IVY_NAME">
+			<Text>Operation Ivy</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_OPERATION_IVY_SHORT_NAME">
+			<Text>Operation Ivy</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_OPERATION_IVY_DESCRIPTION">
+			<Text>Complete this Project to demonstrate the world's first thermonuclear weapon and win a Militaristic Victory.</Text>
+		</Row>
+		<!-- Town Warehouse Projects -->
+		<Row Tag="LOC_PROJECT_TOWN_GRANARY_SHORT_NAME">
+			<Text>Warehouse Project</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_FISHING_SHORT_NAME">
+			<Text>Warehouse Project</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_PRODUCTION_SHORT_NAME">
+			<Text>Warehouse Project</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_GRANARY_NAME">
+			<Text>Farming Town</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_FISHING_NAME">
+			<Text>Fishing Town</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_PRODUCTION_NAME">
+			<Text>Mining Town</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_GRANARY_DESCRIPTION">
+			<Text>+3[icon:YIELD_FOOD] Food on Farms, Pastures, Plantations and Fishing Boats.</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_FISHING_DESCRIPTION">
+			<Text>+3[icon:YIELD_FOOD] Food on Farms, Pastures, Plantations and Fishing Boats.</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_PRODUCTION_DESCRIPTION">
+			<Text>+4[icon:YIELD_PRODUCTION] Production on Camps, Woodcutters, Clay Pits, Mines, and Quarries.</Text>
+		</Row>
+		<!-- Town Common Projects -->
+		<Row Tag="LOC_PROJECT_TOWN_FACTORY_SHORT_NAME">
+			<Text>Warehouse Project</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_FACTORY_NAME">
+			<Text>Factory Town</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_FACTORY_DESCRIPTION">
+			<Text>+100%[icon:YIELD_GOLD] Gold towards purchasing a Factory in this town. +1 Resource Slot. +5 Trade Range. Must have an improved factory resource in this settlement.</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_INN_NAME">
+			<Text>Hub Town</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_INN_DESCRIPTION">
+			<Text>+1[icon:YIELD_DIPLOMACY] Influence per Settlement Connected to this Town.</Text>
+		</Row>
+	</EnglishText>
+</Database>

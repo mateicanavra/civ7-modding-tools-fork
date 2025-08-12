@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_NAME">
+			<Text>Persona Pack - Ashoka and Himiko</Text>
+		</Row>
+		<Row Tag="LOC_MODULE_ASHOKA_HIMIKO_ALT_DESCRIPTION">
+			<Text>Contains new personas for Ashoka and Himiko.</Text>
+		</Row>
+	</EnglishText>
+</Database>

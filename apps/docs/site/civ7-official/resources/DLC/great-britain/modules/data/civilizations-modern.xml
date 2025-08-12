@@ -1,0 +1,125 @@
+<Database>
+	<Types>
+		<!-- Major Civs -->
+		<Row Type="TRAIT_GREAT_BRITAIN_ABILITY" Kind="KIND_TRAIT"/>
+	</Types>
+	<Kinds>
+		<InsertOrIgnore KIND="KIND_TRAIT"/>
+	</Kinds>
+	<Civilizations>
+		<!-- Full Civs -->
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" Name="LOC_CIVILIZATION_GREAT_BRITAIN_NAME" FullName="LOC_CIVILIZATION_GREAT_BRITAIN_FULLNAME" Description="LOC_CIVILIZATION_GREAT_BRITAIN_DESCRIPTION" Adjective="LOC_CIVILIZATION_GREAT_BRITAIN_ADJECTIVE" StartingCivilizationLevelType="CIVILIZATION_LEVEL_FULL_CIV" AITargetCityPercentage="25"  UniqueCultureProgressionTree="TREE_CIVICS_MO_GREAT_BRITAIN" CapitalName="LOC_CITY_NAME_GREAT_BRITAIN1" RandomCityNameDepth="10"/>
+	</Civilizations>
+	<CivilizationFavoredWonders>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" FavoredWonderType="WONDER_BATTERSEA_POWER_STATION" FavoredWonderName="LOC_WONDER_BATTERSEA_POWER_STATION_NAME"/>
+	</CivilizationFavoredWonders>
+	<Traits>
+		<!--Civ Traits-->
+		<Row TraitType="TRAIT_GREAT_BRITAIN_ABILITY" Name="LOC_TRAIT_GREAT_BRITAIN_ABILITY_NAME" Description="LOC_TRAIT_GREAT_BRITAIN_ABILITY_DESCRIPTION" InternalOnly="true"/>
+	</Traits>
+	<TraitModifiers>
+		<Row TraitType="TRAIT_GREAT_BRITAIN_ABILITY" ModifierId="MOD_REVEAL_CIV_CULTURE_TREE_GREAT_BRITAIN"/>
+		<Row TraitType="TRAIT_GREAT_BRITAIN_ABILITY" ModifierId="MOD_CIV_WONDER_PRODUCTION_GREAT_BRITAIN"/>
+		<Row TraitType="TRAIT_GREAT_BRITAIN_ABILITY" ModifierId="TRAIT_MOD_CITY_PROJECT_MORE_EXPENSIVE"/>
+		<Row TraitType="TRAIT_GREAT_BRITAIN_ABILITY" ModifierId="TRAIT_GB_MOD_BUILDING_CHEAPER_PURCHASE"/>
+		<Row TraitType="TRAIT_GREAT_BRITAIN_ABILITY" ModifierId="TRAIT_GB_MOD_BUILDING_PRODUCTION"/>
+	</TraitModifiers>
+	<CivilizationTraits>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" TraitType="TRAIT_MODERN_CIV"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" TraitType="TRAIT_GREAT_BRITAIN"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" TraitType="TRAIT_GREAT_BRITAIN_ABILITY"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" TraitType="TRAIT_ATTRIBUTE_ECONOMIC"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" TraitType="TRAIT_ATTRIBUTE_EXPANSIONIST"/>
+	</CivilizationTraits>
+	<RequirementSets>
+		<Row RequirementSetId="REQSET_PLAYER_IS_GREAT_BRITAIN" RequirementSetType="REQUIREMENTSET_TEST_ALL"/>
+	</RequirementSets>
+	<RequirementSetRequirements>
+		<Row RequirementSetId="REQSET_PLAYER_IS_GREAT_BRITAIN" RequirementId="REQ_PLAYER_HAS_TRAIT_GREAT_BRITAIN"/>
+	</RequirementSetRequirements>
+	<Requirements>
+		<Row RequirementId="REQ_PLAYER_HAS_TRAIT_GREAT_BRITAIN" RequirementType="REQUIREMENT_PLAYER_HAS_CIVILIZATION_OR_LEADER_TRAIT"/>
+	</Requirements>
+	<RequirementArguments>
+		<Row RequirementId="REQ_PLAYER_HAS_TRAIT_GREAT_BRITAIN" Name="TraitType" Value="TRAIT_GREAT_BRITAIN"/>
+	</RequirementArguments>
+	<AiListTypes>
+		<Row ListType="Britain Unit Biases"/>
+		<Row ListType="Britain Government Bias"/>
+		<Row ListType="Britain Constructibles Biases" />
+		<Row ListType="Britain Settlement Plot Evaluations" />
+		<Row ListType="Britain PseudoYield Biases"/>
+		<Row ListType="Britain Tag Biases" />
+	</AiListTypes>
+	 <AiLists>
+		<Row ListType="Britain Unit Biases" LeaderType="TRAIT_GREAT_BRITAIN" System="UnitBiases"/>
+		<Row ListType="Britain Government Bias" LeaderType="TRAIT_GREAT_BRITAIN" System="GovernmentBiases"/>
+		<Row ListType="Britain Constructibles Biases" LeaderType="TRAIT_GREAT_BRITAIN" System="ConstructibleBiases" />
+		<Row ListType="Britain Settlement Plot Evaluations" LeaderType="TRAIT_GREAT_BRITAIN" System="SettlementPlotEvaluations"/>
+		<Row ListType="Britain PseudoYield Biases" LeaderType="TRAIT_GREAT_BRITAIN" System="PseudoYieldBiases"/>
+		<Row ListType="Britain Tag Biases" LeaderType="TRAIT_GREAT_BRITAIN" System="TagBiases"/>
+	 </AiLists>
+	 <AiFavoredItems>
+		<Row ListType="Britain Unit Biases" Item="UNIT_REVENGE" Value="50"/>
+		<Row ListType="Britain Unit Biases" Item="UNIT_REVENGE_2" Value="50"/>
+		<Row ListType="Britain Unit Biases" Item="UNIT_ANTIQUARIAN" Value="50"/>
+		<Row ListType="Britain Unit Biases" Item="UNIT_IRONCLAD" Value="25"/>
+		<Row ListType="Britain Unit Biases" Item="UNIT_FRIGATE" Value="25"/>
+		<Row ListType="Britain Unit Biases" Item="UNIT_CRUISER" Value="25"/>
+		<Row ListType="Britain Unit Biases" Item="UNIT_DESTROYER" Value="25"/>
+		<Row ListType="Britain Unit Biases" Item="UNIT_SUBMARINE" Value="25"/>
+		<Row ListType="Britain Government Bias" Item="GOVERNMENT_BUREAUCRATIC_MONARCHY" Value="50"/>
+		<Row ListType="Britain Constructibles Biases" Item="BUILDING_PORT" Value="50" />
+		<Row ListType="Britain Constructibles Biases" Item="BUILDING_ROYAL_EXCHANGE" Value="200" />
+		<Row ListType="Britain Constructibles Biases" Item="BUILDING_MANUFACTORY" Value="200" />
+		<Row ListType="Britain Constructibles Biases" Item="WONDER_BATTERSEA_POWER_STATION" Value="50" />
+		<Row ListType="Britain Settlement Plot Evaluations" Item="Resource Class" Value="5" StringVal="RESOURCECLASS_FACTORY" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_STRATEGIC_RESOURCES"/>
+		<Row ListType="Britain Tag Biases" Item="GREATWORK" Value="50"/>
+		<Row ListType="Britain PseudoYield Biases" Item="PSEUDOYIELD_RESOURCE" Value="50"/>
+		<Row ListType="Britain PseudoYield Biases" Item="PSEUDOYIELD_BUILD_QUEUE_IN_CITY" Value="-15"/>
+	</AiFavoredItems>
+	<LeaderCivPriorities>
+		<Row Leader="LEADER_BENJAMIN_FRANKLIN" Civilization="CIVILIZATION_GREAT_BRITAIN" Priority="1"/>
+	</LeaderCivPriorities>
+	<CityNames>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN1"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN2"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN3"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN4"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN5"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN6"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN7"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN8"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN9"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN10"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN11"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN12"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN13"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN14"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN15"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN16"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN17"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN18"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN19"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN20"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN21"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN22"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN23"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN24"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN25"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN26"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN27"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN28"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN29"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CityName="LOC_CITY_NAME_GREAT_BRITAIN30"/>
+	</CityNames>
+	<VisArt_CivilizationBuildingCultures>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" BuildingCulture="BUILDING_CULTURE_EEU"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" BuildingCulture="ANT_STONE"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" BuildingCulture="EXP_STONE"/>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" BuildingCulture="MOD_STONE"/>
+	</VisArt_CivilizationBuildingCultures>
+	<VisArt_CivilizationUnitCultures>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" UnitCulture="Euro"/>
+	</VisArt_CivilizationUnitCultures>
+</Database>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_ROUTE"/>
+	</Kinds>
+	<Types>
+		<Row Type="ROUTE_RAILROAD" Kind="KIND_ROUTE"/>
+		<Row Type="ROUTE_STAATSEISENBAHN" Kind="KIND_ROUTE"/>
+	</Types>
+	<Routes>
+		<Row RouteType="ROUTE_RAILROAD" Name="LOC_ROUTE_RAILROAD_NAME" Description="LOC_ROUTE_RAILROAD_DESCRIPTION" MovementCost="1" PlacementValue="2" PlacementRequiresRoutePresent="true" PlacementRequiresOwnedTile="false" RequiredConstructible="BUILDING_RAIL_STATION"/>
+		<Row RouteType="ROUTE_STAATSEISENBAHN" Name="LOC_ROUTE_STAATSEISENBAHN_NAME" Description="LOC_ROUTE_STAATSEISENBAHN_DESCRIPTION" MovementCost="1" PlacementValue="3" PlacementRequiresRoutePresent="true" PlacementRequiresOwnedTile="false" RequiredConstructible="BUILDING_RAIL_STATION" TraitType="TRAIT_PRUSSIA"/>
+	</Routes>
+	<Route_ValidBuildUnits>
+	</Route_ValidBuildUnits>
+</Database>

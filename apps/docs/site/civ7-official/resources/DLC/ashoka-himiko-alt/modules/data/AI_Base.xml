@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<AiListTypes>
+
+		<!-- Leader Yield biases -->
+		<Row ListType="Ashoka Conqueror Yield Biases"/>
+		<Row ListType="Himiko Shaman Yield Biases"/>
+
+		<!-- Leader AI Budget Biases -->
+		<Row ListType="Ashoka Conqueror Budget Biases"/>
+
+		<!-- Leader Tag Biases -->
+		<Row ListType="Himiko Shaman Tag Biases"/>
+
+	</AiListTypes>
+	<AiLists>
+
+		<!-- Leader Yield Biases -->
+		<Row ListType="Ashoka Conqueror Yield Biases" LeaderType="TRAIT_LEADER_ASHOKA_ALT_ABILITY" System="YieldBiases"/>
+		<Row ListType="Himiko Shaman Yield Biases" LeaderType="TRAIT_LEADER_HIMIKO_ALT_ABILITY" System="YieldBiases"/>
+
+		<!-- Leader AI Budget Biases -->
+		<Row ListType="Ashoka Conqueror Budget Biases" LeaderType="TRAIT_LEADER_ASHOKA_ALT_ABILITY" System="AiBudgetBiases"/>
+
+		<!-- Leader Tag Biases -->
+		<Row ListType="Himiko Shaman Tag Biases" LeaderType="TRAIT_LEADER_HIMIKO_ALT_ABILITY" System="TagBiases"/>
+
+	</AiLists>
+	<AiFavoredItems>
+
+		<!-- Leader Yield Biases -->
+		<Row ListType="Ashoka Conqueror Yield Biases" Item="YIELD_HAPPINESS" Value="50"/>
+		<Row ListType="Ashoka Conqueror Yield Biases" Item="YIELD_PRODUCTION" Value="25"/>
+		<Row ListType="Himiko Shaman Yield Biases" Item="YIELD_HAPPINESS" Value="50"/>
+		<Row ListType="Himiko Shaman Yield Biases" Item="YIELD_CULTURE" Value="25"/>
+
+		<!-- Leader AI Budget Biases -->
+		<Row ListType="Ashoka Conqueror Budget Biases" Item="AI_BUDGET_STANDING_ARMY" Value="50"/>
+
+		<!-- Leader Tag Biases -->
+		<Row ListType="Himiko Shaman Tag Biases" Item="HAPPINESS" Value="100"/>
+
+	</AiFavoredItems>
+</Database>

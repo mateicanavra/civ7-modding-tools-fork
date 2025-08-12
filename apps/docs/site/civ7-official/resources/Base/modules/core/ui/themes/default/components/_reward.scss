@@ -1,0 +1,61 @@
+@use 'sass:string';
+@use '../theme';
+@use '../../../utilities/utility-layout' as *;
+@use '../../../utilities/utility-text' as *;
+
+/** Reward Icon Button *********************************************************************/
+fxs-reward-button {
+	border-image: url("fs://game/hud_sidepanel_list-bg.png");
+	border-image-slice: 8 8 8 8 fill;
+	border-image-width: pixels(8);
+
+	&:hover,
+	&:focus {
+		border-image: url("fs://game/hud_list-focus_frame.png");
+		border-image-slice: 20 32 20 32;
+		border-image-width: pixels(20) pixels(32);
+		border-image-outset: pixels(6) pixels(5);
+		background: linear-gradient(90deg, theme.color('secondary-3') 0%, theme.color('accent-6', .5) 100%);
+	}
+
+	.fxs-reward-button__action {
+		border-top: theme.color('primary-2', .5) pixels(1) solid;
+	}
+
+	.reward-warning {
+		background-image: url("fs://game/nar_reg_negative.png");
+		background-position: 50%;
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+	.fxs-reward-button__reward-holder {
+		background-image: url("fs://game/hud_civics-icon_frame");
+		background-position: 50%;
+		background-size: cover;
+	}
+
+	.fxs-reward-button__icon {
+		background-image: none;
+		background-size: 100% 100%;
+		background-repeat: no-repeat;
+		background-position: 50% 50%;
+	}
+
+	.fxs-reward__civ-leader-option {
+		background-image: url("fs://game/popup_silver_laurels");
+		background-position: 50% 50%;
+		background-repeat: no-repeat;
+		background-size: contain;
+		pointer-events: none;
+	}
+
+	.fxs-reward__quest-icon {
+		width: pixels(30);
+		height: pixels(30);
+		background-image: url("fs://game/nar_quest_indicator.png");
+		background-position: 50%;
+		background-size: contain;
+	}
+
+}

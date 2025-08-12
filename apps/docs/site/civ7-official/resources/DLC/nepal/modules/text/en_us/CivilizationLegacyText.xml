@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <EnglishText>
+	<Row Tag="LOC_INDEPENDENT_MODERN_23_MINOR_NEPAL_NAME">
+		<Text>Bhutanese</Text>
+	</Row>
+	 <Row Tag="LOC_INDEPENDENT_MODERN_23_MAJOR_NEPAL_NAME">
+      <Text>Punakha</Text>
+    </Row>
+    <!--Civilization Names-->
+    <Row Tag="LOC_CIVILIZATION_NEPAL_NAME">
+      <Text>Nepal</Text>
+    </Row>
+    <!--Civilization Full Names-->
+    <Row Tag="LOC_CIVILIZATION_NEPAL_FULLNAME">
+      <Text>Nepalese Empire</Text>
+    </Row>
+    <!--Civilization Adjectives-->
+    <Row Tag="LOC_CIVILIZATION_NEPAL_ADJECTIVE">
+      <Text>Nepalese</Text>
+    </Row>
+  </EnglishText>
+</Database>
