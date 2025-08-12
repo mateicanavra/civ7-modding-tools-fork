@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_1">
+			<Text>William</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_2">
+			<Text>John</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_3">
+			<Text>George</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_4">
+			<Text>Thomas</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_5">
+			<Text>James</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_6">
+			<Text>Robert</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_7">
+			<Text>Henry</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_8">
+			<Text>Edward</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_9">
+			<Text>Charles</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_10">
+			<Text>Joseph</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_1">
+			<Text>Mary</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_2">
+			<Text>Elizabeth</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_3">
+			<Text>Sarah</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_4">
+			<Text>Margaret</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_5">
+			<Text>Eliza</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_6">
+			<Text>Ann</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_7">
+			<Text>Ellen</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_8">
+			<Text>Jane</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_9">
+			<Text>Emma</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_10">
+			<Text>Hannah</Text>
+		</Row>
+	</EnglishText>
+</Database>

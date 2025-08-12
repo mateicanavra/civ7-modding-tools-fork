@@ -1,0 +1,382 @@
+@use 'sass:math';
+@use 'sass:color';
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/themes/default/animations';
+@use '../../../core/ui/themes/default/theme';
+
+@keyframes lastPlayerMessageHide {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes lastPlayerMessageShow {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+.radial-menu-mode {
+	.fxs-nav-help {
+		display: none;
+	}
+}
+
+.action-panel {
+	position: relative;
+
+	&.new-notification {
+		.action-button {
+			animation: glow 1000ms infinite;
+		}
+	}
+}
+
+.action-panel--disabled {
+
+	.action-panel__button,
+	.action-panel__button:hover,
+	.action-panel__button:focus,
+	.action-panel__button--activate,
+	.action-panel__button--activate:hover,
+	.action-panel__button--activate:focus {
+		transition-duration: .25s;
+	}
+}
+
+.action-panel__button {
+	width: pixels(256);
+	height: pixels(256);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	pointer-events: auto;
+	transition-property: transform;
+	transition-duration: .25s;
+	transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.action-panel__button--activate,
+.action-panel__button--activate:hover,
+.action-panel__button--activate:focus {
+	transform-origin: 50% 50%;
+	transition-duration: .125s;
+}
+
+
+@mixin action-button-icon-bg($url: null, $bgposition: center, $width: 100%, $height: 100%, $bgsize: contain) {
+	width: $width;
+	height: $height;
+
+	@if $url {
+		background-image: url($url);
+	}
+
+	background-position: $bgposition;
+	position: absolute;
+	background-size: $bgsize;
+	background-repeat: no-repeat;
+	pointer-events: none;
+}
+
+.action-panel__button-main {
+	@include action-button-icon-bg("fs://game/hud_turn_main.png");
+}
+
+@keyframes gear-spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.action-panel__button-gear {
+	width: pixels(135);
+	height: pixels(135);
+	background-image: url("fs://game/hud_turn_gear.png");
+	background-position: center;
+	background-size: 194% 194%;
+	background-repeat: no-repeat;
+	animation: gear-spin 90s linear infinite;
+}
+
+.action-panel__button-bk {
+	@include action-button-icon-bg("fs://game/hud_turn_bk.png");
+}
+
+.action-panel__button-decor {
+	@include action-button-icon-bg("fs://game/hud_turn_decor.png", right, $width: 50%);
+	right: pixels(13);
+	bottom: pixels(11);
+}
+
+
+$txt-plate-height: 22; // size of the text plate not counting shadows
+$txt-plate-width: 256;
+
+$txt-plate-top-offset: 22;
+$txt-plate-right-offset: 32;
+
+$text-padding-y: math.percentage(math.div($txt-plate-top-offset, $txt-plate-width));
+
+// Display nav help container only on gamepad and when an action is available
+.trigger-nav-help .action-panel__nav-help-container.gamepad-active.action-available {
+	display: flex;
+}
+
+.action-panel__button-txt-plate-container {
+	right: pixels(104);
+	top: pixels(20);
+	transform: translateY(-100%);
+}
+
+.action-panel__button-txt-plate {
+	display: flex;
+	width: pixels($txt-plate-width);
+	min-height: pixels($txt-plate-height);
+	align-items: center;
+	justify-content: flex-end;
+	border-image-source: url("fs://game/hud_turn_txt_plate.png");
+	border-image-slice: $txt-plate-top-offset $txt-plate-right-offset $txt-plate-top-offset 1 fill;
+	border-image-width: pixels($txt-plate-top-offset) pixels($txt-plate-right-offset) pixels($txt-plate-top-offset) pixels(1);
+	border-image-outset: pixels($txt-plate-top-offset) pixels($txt-plate-right-offset) pixels($txt-plate-top-offset) pixels(1);
+	border-image-repeat: stretch;
+
+}
+
+.action-panel__nav-help-container {
+	flex-direction: row;
+	height: pixels(1);
+	align-items: center;
+	transform: translateY(pixels(-2)) translateX(pixels(10));
+	align-self: flex-start;
+	display: none;
+}
+
+.action-panel__nav-help-ext {
+	background-image: url("fs://game/core/hud_quest_ext.png");
+	width: pixels(16);
+	height: pixels(64);
+	background-size: cover;
+	transform: rotate(90deg) translateY(pixels(4));
+	margin-left: pixels(4);
+}
+
+.action-panel__button-txt-plate__bk {
+	height: 100%;
+	width: 100%;
+	position: absolute;
+	background-image: linear-gradient(to left, transparent, theme.color('primary-5', 0.9) 75%, theme.color('primary-4', 0));
+}
+
+.action-panel__button-txt-plate__text {
+	line-height: pixels($txt-plate-height);
+	max-height: pixels($txt-plate-height * 2);
+}
+
+
+.action-panel__unit-bracket {
+	position: absolute;
+	left: 0;
+	width: pixels(64);
+	height: 100%;
+	background-image: url('fs://game/hud_unit-panel_bracket.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+$icon-notification-count: 8;
+
+.action-panel__button-notification {
+	position: absolute;
+	width: pixels(64);
+	height: pixels(64);
+
+	@for $i from 1 through $icon-notification-count {
+
+		$dist: 96;
+		$hover-dist: 12;
+		$slide-in-speed: 0.25;
+		$angle: math.div($i, $icon-notification-count) * 360deg;
+
+		// polar to cartesian
+		$x: $dist - math.round(math.cos($angle) * ($dist - $hover-dist));
+		$y: $dist - math.round(math.sin($angle) * ($dist - $hover-dist));
+
+		transition: transform 0.1s cubic-bezier(0.215, 0.61, 0.355, 1),
+			opacity 0.25s cubic-bezier(0.215, 0.61, 0.355, 1);
+
+		&:nth-child(#{$i}) {
+			top: pixels($x);
+			right: pixels($y);
+			transform: rotate($angle);
+
+			&:hover {
+				transform: rotate($angle) translateY(pixels(-$hover-dist));
+			}
+
+			.action-panel__button-notification__bk {
+				@include action-button-icon-bg($url: "fs://game/hud_turn_blkpiece_#{$i}.png",
+					$width: pixels(128),
+					$height: pixels(128));
+				left: -50%;
+				top: -50%;
+				pointer-events: none;
+
+				display: flex;
+				justify-content: center;
+				align-items: center;
+
+				animation-duration: #{$slide-in-speed}s;
+				animation-fill-mode: forwards;
+
+				&.animate-in {
+					opacity: 0;
+					animation-direction: normal;
+					animation-delay: #{calc(($slide-in-speed / 2) * $i)}s;
+					animation-name: turnActionSlideIn;
+				}
+
+				&.animate-out {
+					opacity: 1;
+					animation-delay: 0;
+					animation-direction: reverse;
+					animation-name: turnActionSlideInVertical;
+				}
+			}
+
+			.action-panel__button-notification__icon {
+				width: pixels(48);
+				height: pixels(48);
+				background-position: center;
+				background-size: contain;
+				background-repeat: no-repeat;
+				pointer-events: none;
+				transform: rotate(-$angle);
+			}
+		}
+	}
+}
+
+@keyframes turnActionSlideIn {
+	0% {
+		transform: translateX(pixels(-24)) scaleX(.75);
+		opacity: 0;
+	}
+
+	50% {
+		opacity: 1;
+	}
+
+	80% {
+		transform: translateX(pixels(4)) scaleX(1);
+	}
+
+	100% {
+		transform: translateX(pixels(0)) scaleX(1);
+		opacity: 1;
+	}
+}
+
+@keyframes turnActionSlideInVertical {
+	0% {
+		transform: translateY(pixels(24)) scaleX(.75);
+		opacity: 0;
+	}
+
+	50% {
+		opacity: 1;
+	}
+
+	80% {
+		transform: translateY(pixels(4)) scaleX(1);
+	}
+
+	100% {
+		transform: translateY(pixels(0)) scaleX(1);
+		opacity: 1;
+	}
+}
+
+@keyframes turnActionScale {
+	0% {
+		transform: scale(0);
+		opacity: 0;
+	}
+
+	50% {
+		transform: scale(0);
+		opacity: 0;
+	}
+
+	70% {
+		opacity: 0;
+	}
+
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+.action-panel__button-next-action {
+	border-radius: 50%;
+	position: absolute;
+	top: pixels(72);
+	left: pixels(72);
+	right: pixels(72);
+	bottom: pixels(72);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	&:hover .action-panel__button-next-action__icon--hover {
+		opacity: 1;
+	}
+
+	&:active,
+	.action-panel__button--activate {
+		.action-panel__button-next-action__icon--active {
+			opacity: 1;
+		}
+	}
+}
+
+.action-panel__button-next-action__icon {
+	@include action-button-icon-bg("fs://game/ntf_next_turn.png", $bgsize: contain, $width: 100%, $height: 100%);
+
+	&.animate-in {
+		animation-direction: normal;
+		animation-duration: 0.25s;
+		animation-name: turnActionScale;
+		animation-timing-function: ease-out;
+	}
+}
+
+.action-panel__button-next-action__icon--hover {
+	opacity: 0;
+	background-image: url("fs://game/ntf_block_hov.png");
+	background-size: cover;
+}
+
+.action-panel__button-next-action__icon--active {
+	opacity: 0;
+	background-image: url("fs://game/ntf_block_prs.png");
+	background-size: cover;
+}
+
+.action-panel__last-player-message {
+	background-image: linear-gradient(to right, transparent, theme.color('primary-5', 0.3) 20%, theme.color('primary-5', 0.7) 50%, theme.color('primary-4', 0.4));
+}

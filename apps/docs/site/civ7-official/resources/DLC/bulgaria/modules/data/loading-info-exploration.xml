@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LoadingInfo_Civilizations>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CivilizationText="LOC_LOADING_CIV_INTRO_TEXT_BULGARIA" Audio="VO_Loading_Bulgaria" Subtitle="LOC_LOADING_INTRO_BULGARIA" BackgroundImageHigh="fs://game/lsbg_bulgaria_1080.png" BackgroundImageLow="fs://game/lsbg_bulgaria_720.png" ForegroundImage="fs://game/civ_line_bulgaria.png" Tip="LOC_LOADING_CIV_TIPS_TEXT_BULGARIA"/>
+	</LoadingInfo_Civilizations>
+</Database>

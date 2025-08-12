@@ -1,0 +1,1177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_GENGHIS_KHAN_CHAPTER_HISTORY_PARA_1" Language="fr_FR">
+      <Text>Les Mongols étaient un peuple habitué à envahir les terres bordant leurs steppes natales. Leur mode de vie nomade les conduisait à parcourir de très longues distances, et leur expertise de la guerre inspirait la terreur à quiconque avait le malheur de croiser leur route. Cependant, un khan en particulier est parvenu à unifier les tribus comme nul autre avant lui, et s'est taillé un territoire si vaste qu'il demeure l'un des plus grands empires de l'Histoire. La dévastation qu'il a causée au cours de ses campagnes est telle qu'aujourd'hui encore, son nom est synonyme de conquête. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_GENGHIS_KHAN_CHAPTER_HISTORY_PARA_10" Language="fr_FR">
+      <Text>Après la chute du Khwarezm, Gengis Khan rentre en Mongolie et prépare une nouvelle invasion de la Chine, quand les Xia occidentaux, précédemment soumis, commencent à se rebeller. Une fois de plus, l'armée mongole déferle sur la région et écrase promptement toute forme d'opposition. Peu après, en 1227, Gengis Khan est emporté par la maladie. La nature de sa mort demeure incertaine et de nombreuses théories sont formulées, allant d'une vieille blessure due à une chute de cheval à un cas de peste bubonique. L'emplacement de sa sépulture est inconnu, et constitue l'un des plus grands mystères de l'Histoire. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_GENGHIS_KHAN_CHAPTER_HISTORY_PARA_2" Language="fr_FR">
+      <Text>On pourrait arguer qu'il est superflu de présenter Gengis Khan. Pourtant, en dépit de sa notoriété, les sources fiables sur le personnage sont très peu nombreuses. La plus importante et détaillée de ces sources est de nature posthume : l'Histoire secrète des Mongols, le plus ancien texte écrit en langue mongole, qui raconte la vie de Gengis Khan, de ses origines mythiques jusqu'à sa mort. Mis à part cet ouvrage, les Mongols n'ont produit que très peu d'œuvres littéraires, tandis que de très nombreux écrits à leur propos ont été signés par leurs victimes, et adoptent donc un point de vue biaisé face à leurs violentes exactions.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_GENGHIS_KHAN_CHAPTER_HISTORY_PARA_3" Language="fr_FR">
+      <Text>Ce que nous savons sur Gengis Khan, c'est qu'il vient au monde sous le nom de Temüjin en 1155… ou en 1162… ou en 1167. Il est le fils du chef de clan Yesügei. Des légendes ultérieures prétendent que Temüjin est né avec un caillot de sang dans les mains, présage de son illustre destinée. Toutefois, son enfance n'est pas de tout repos. Alors qu'il n'a que neuf ans, son père meurt, empoisonné par des Tatars. Le clan est alors promptement dispersé, et Temüjin se retrouve seul avec ses frères et sœurs et sa mère Hö'elün.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_GENGHIS_KHAN_CHAPTER_HISTORY_PARA_4" Language="fr_FR">
+      <Text>Plusieurs récits apocryphes évoquent les premières démonstrations de l'autorité et du charisme naturels du jeune Temüjin, mais c'est lorsqu'il noue une alliance avec le khan d'une autre tribu que son histoire s'accélère. En effet, ce dernier, Toghril, lui fournit une armée de 20 000 hommes, avec laquelle il reconquiert sa tribu. Temüjin entreprend alors d'éliminer ses rivaux un clan après l'autre, tuant les nobles et incorporant les survivants à sa propre tribu. Quand il estime avoir acquis un pouvoir suffisant, il s'attaque aux Tatars qui ont tué son père. Victorieux, il fait mettre à mort toute personne dont la taille dépasse celle d'un essieu de chariot. Là aussi, les survivants rejoignent son peuple.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_GENGHIS_KHAN_CHAPTER_HISTORY_PARA_5" Language="fr_FR">
+      <Text>Ces premières victoires dans les steppes forment les bases de la méthode de conquête de Temüjin, qui s'articule autour de deux axes. Premièrement, il ne laisse jamais d'ennemi derrière lui ; seule l'annihilation totale de l'élite permet de se prémunir de toute velléité de vengeance. Deuxièmement, l'incorporation des populations vaincues ne fait pas seulement grossir ses propres rangs : c'est un moyen de dissoudre les allégeances et les barrières culturelles en unissant le peuple sous une seule et unique bannière. La sienne, naturellement.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_GENGHIS_KHAN_CHAPTER_HISTORY_PARA_6" Language="fr_FR">
+      <Text>Or, malgré cette ascension fulgurante, un problème finit par se poser. Des tensions apparaissent entre Temüjin et son allié et ami d'enfance Djamuqa, une rivalité quelque peu exagérée par l'Histoire secrète des Mongols et d'autres sources. Le conflit est toutefois assez important pour diviser les Mongols, qui prennent parti pour le chef qu'ils jugent le plus puissant. Même le premier allié de Temüjin, Toghril, choisit de soutenir Djamuqa. Cette décision le mènera à sa perte, car Temüjin lui inflige une défaite cuisante, exécute les membres de son élite et absorbe sa population, comme il le fait avec tous ses adversaires. D'autres essaient de lui mettre des bâtons dans les roues, en vain.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_GENGHIS_KHAN_CHAPTER_HISTORY_PARA_7" Language="fr_FR">
+      <Text>Au terme de plusieurs années de conflits sanglants, Djamuqa est capturé et mis à mort. En 1206, comme plus personne n'est en mesure de contester son autorité, Temüjin est proclamé souverain des steppes et adopte le titre "Gengis Khan". Il s'agit d'un nom délicat à traduire, mais une interprétation communément acceptée lui attribue la signification de "souverain universel". Avant toute chose, Gengis Khan s'attelle à réorganiser ses innombrables sujets. Pour cela, il remplace les anciens chefs de tribu par des membres de sa propre famille et des hommes de confiance, afin de renforcer son autorité sur la population.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_GENGHIS_KHAN_CHAPTER_HISTORY_PARA_8" Language="fr_FR">
+      <Text>Il se consacre tout particulièrement à l'administration de l'armée, divisée selon le système décimal (en unités de 10, 100, 1000 et 10 000 soldats) et placée sous les ordres de ses fils et ses plus fidèles alliés. Auparavant, ses forces étaient intégralement constituées de cavalerie rapide et agile, très efficace contre d'autres tribus nomades des steppes. Mais Gengis Khan nourrit de grandes ambitions. Il saisit désormais l'intérêt qu'il y a à installer durablement dans un endroit : des centres de populations sédentaires, avec leurs marchands, leurs artisans et leur agriculture, permettent d'acquérir bien des richesses et du pouvoir. Et pour conquérir de telles cités, l'armée mongole doit évoluer. Ce qu'elle fait très rapidement, en développant des armes de siège et des tactiques à même de faire tomber les villes les mieux défendues.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_GENGHIS_KHAN_CHAPTER_HISTORY_PARA_9" Language="fr_FR">
+      <Text>À présent que la consolidation du pouvoir au sein de l'Empire mongol est achevée, il est temps de se tourner vers le monde extérieur. La première cible de Gengis Khan sera la Chine, contre qui ses nouvelles stratégies militaires se révèlent extrêmement efficaces : la dynastie Jin, au nord du pays, est soumise en quatre années à peine. Ensuite, en réaction au massacre d'une caravane marchande placée sous sa protection, Gengis Khan lance l'invasion du Khwarezm, situé au sud de la mer d'Aral. Cette campagne s'étend de 1219 à 1221, et est à l'origine de la réputation de cruauté des Mongols. Les morts se comptent en centaines de milliers, et les prisonniers sont contraints de servir dans l'avant-garde de l'armée mongole, et donc d'affronter leurs propres compatriotes. En plus de la mise à sac des villes vaincues, l'envahisseur détruit également les infrastructures, urbaines comme agricoles. L'Empire khwarezmien, autrefois puissant et glorieux, est anéanti en deux petites années.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_GENGHIS_KHAN_ANY" Language="fr_FR">
+      <Text>Mon ennemi, je ne vous vaincrai pas. J'annihilerai votre lignée tout entière. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_GENGHIS_KHAN_ANY" Language="fr_FR">
+      <Text>Vous m'attaquez ? Ha ! Vous provoquez votre propre chute. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DEFEAT_AI_LEADER_GENGHIS_KHAN_ANY" Language="fr_FR">
+      <Text>Tengri, m'as-tu abandonné ? Mon destin m'échappe-t-il ? </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_GENGHIS_KHAN_ANY" Language="fr_FR">
+      <Text>Je suis Gengis Khan. Vous comptez-vous parmi mes alliés ou mes ennemis ? J'espère voir en vous un visage amical, pour votre bien… </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_GENGHIS_KHAN_ANY" Language="fr_FR">
+      <Text>Je suis Gengis Khan. Vous comptez-vous parmi mes alliés ou mes ennemis ? J'espère voir en vous un visage amical, pour votre bien… </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_GENGHIS_KHAN_ANY" Language="fr_FR">
+      <Text>Je suis Gengis Khan. Vous comptez-vous parmi mes alliés ou mes ennemis ? J'espère voir en vous un visage amical, pour votre bien… </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_GENGHIS_KHAN" Language="fr_FR">
+      <Text>Vos paroles renferment la sagesse du divin. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_GENGHIS_KHAN" Language="fr_FR">
+      <Text>Votre vision entrave la mienne. </Text>
+    </Replace>
+    <Replace Tag="LOC_MAIN_CHAR_SELECT_LEADER_GENGHIS_KHAN_ANY" Language="fr_FR">
+      <Text>Le ciel bleu éternel nous commande à tous. Qui osera l'écouter ? </Text>
+    </Replace>
+    <Replace Tag="LOC_GREATWORK_ARTIFACT_SECRET_HISTORY_NAME" Language="fr_FR">
+      <Text>Histoire secrète des Mongols</Text>
+      <Gender>feminine:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1230B_NAME" Language="fr_FR">
+      <Text>Occupons-nous du troupeau.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1230C_NAME" Language="fr_FR">
+      <Text>Faisons chauffer la forge.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1230D_NAME" Language="fr_FR">
+      <Text>Observons le feu un moment.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1231B_NAME" Language="fr_FR">
+      <Text>Ils méritent de festoyer.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1231C_NAME" Language="fr_FR">
+      <Text>Tel est l'ordre des choses.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1232B_NAME" Language="fr_FR">
+      <Text>Passons à la lame suivante.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1232C_NAME" Language="fr_FR">
+      <Text>Il est temps de se regrouper.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1233B_NAME" Language="fr_FR">
+      <Text>Conduisons-les vers de nouvelles frontières.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1233C_NAME" Language="fr_FR">
+      <Text>Poussons-les vers la victoire.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1234B_NAME" Language="fr_FR">
+      <Text>Cherchons de lointains pâturages.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1234C_NAME" Language="fr_FR">
+      <Text>Occupons-nous des pâturages environnants.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1235B_NAME" Language="fr_FR">
+      <Text>Même ses sujets les plus éloignés.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1236B_NAME" Language="fr_FR">
+      <Text>Ces terres aussi sont nos demeures.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1236C_NAME" Language="fr_FR">
+      <Text>Il y a d'autres raisons de se battre.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1237B_NAME" Language="fr_FR">
+      <Text>Ne faisons preuve d'aucune pitié.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1238B_NAME" Language="fr_FR">
+      <Text>Apprivoisons cet animal.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1238C_NAME" Language="fr_FR">
+      <Text>Fermer.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1238D_NAME" Language="fr_FR">
+      <Text>Fermer.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1239B_NAME" Language="fr_FR">
+      <Text>Relevons le défi.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1239C_NAME" Language="fr_FR">
+      <Text>Fermer.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1239D_NAME" Language="fr_FR">
+      <Text>Fermer.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_GENGHIS_KHAN_NAME" Language="fr_FR">
+      <Text>Gengis Khan</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_10051A_COMPLETION" Language="fr_FR">
+      <Text>Les lieutenants de Gengis Khan reviennent du champ de bataille et jouissent de sa faveur, car ils l'ont bien servi. Mais il ne leur suffit pas d'être forts et d'avoir un esprit bien aiguisé. Pour toucher réellement à la grandeur, ils doivent être au service d'un idéal qui les transcende.</Text>
+    </Replace>
+    <Replace Tag="LOC_10051A_STORYTITLE" Language="fr_FR">
+      <Text>De la nécessité d'avoir un code</Text>
+    </Replace>
+    <Replace Tag="LOC_10051B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10051B_NAME" Language="fr_FR">
+      <Text>Montrons aux ennemis de Gengis Khan la ligne à ne pas dépasser.</Text>
+    </Replace>
+    <Replace Tag="LOC_10051C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10051C_NAME" Language="fr_FR">
+      <Text>Montrons à son peuple ce qu'est une vie agréable.</Text>
+    </Replace>
+    <Replace Tag="LOC_10052A_COMPLETION" Language="fr_FR">
+      <Text>Avec l'approbation de leurs commandants, les soldats répandent le chaos dans les territoires ennemis. Tous les champs sont incendiés, toutes les cachettes pillées. Quand ils s'en vont, les cendres et le sang demeurent, comme autant de traces de leur passage.</Text>
+    </Replace>
+    <Replace Tag="LOC_10052A_STORYTITLE" Language="fr_FR">
+      <Text>Les vents du chaos</Text>
+    </Replace>
+    <Replace Tag="LOC_10052B_DESCRIPTION" Language="fr_FR">
+      <Text>Soutien à la guerre +1 pour toutes les guerres.</Text>
+    </Replace>
+    <Replace Tag="LOC_10052B_NAME" Language="fr_FR">
+      <Text>Le peuple de Gengis Khan applaudit.</Text>
+    </Replace>
+    <Replace Tag="LOC_10052C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10052C_NAME" Language="fr_FR">
+      <Text>Les citoyens sont toujours plus nombreux à prendre les armes.</Text>
+    </Replace>
+    <Replace Tag="LOC_10053A_COMPLETION" Language="fr_FR">
+      <Text>Rien ne peut barrer la route à Gengis Khan. Le ciel lui-même préside à sa destinée.</Text>
+    </Replace>
+    <Replace Tag="LOC_10053A_STORYTITLE" Language="fr_FR">
+      <Text>La destinée</Text>
+    </Replace>
+    <Replace Tag="LOC_10053B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10053B_NAME" Language="fr_FR">
+      <Text>Il n'y a aucune limite à son pouvoir.</Text>
+    </Replace>
+    <Replace Tag="LOC_10053C_DESCRIPTION" Language="fr_FR">
+      <Text>Achat gratuit d'un monument.</Text>
+    </Replace>
+    <Replace Tag="LOC_10053C_NAME" Language="fr_FR">
+      <Text>Il n'y a aucune limite à son influence.</Text>
+    </Replace>
+    <Replace Tag="LOC_10054A_COMPLETION" Language="fr_FR">
+      <Text>L'inconnu qui croise la route de Gengis Khan n'est pas nécessairement voué à périr. Tout comme les arbres et les rivières, chacun possède sa propre destinée.</Text>
+    </Replace>
+    <Replace Tag="LOC_10054A_STORYTITLE" Language="fr_FR">
+      <Text>Les étrangers</Text>
+    </Replace>
+    <Replace Tag="LOC_10054B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10054B_NAME" Language="fr_FR">
+      <Text>La destinée de certains attend dans les contrées lointaines.</Text>
+    </Replace>
+    <Replace Tag="LOC_10054C_DESCRIPTION" Language="fr_FR">
+      <Text>Achat gratuit d'une briqueterie.</Text>
+    </Replace>
+    <Replace Tag="LOC_10054C_NAME" Language="fr_FR">
+      <Text>Pour d'autres, elle se trouve dans la satisfaction d'une journée de labeur honnête.</Text>
+    </Replace>
+    <Replace Tag="LOC_10055A_COMPLETION" Language="fr_FR">
+      <Text>Gengis Khan appelle à la guerre contre l'avis de ses généraux, qui estiment qu'il n'y a aucune gloire à combattre un ennemi qui ne sait même qu'il est l'ennemi. Quel qu'en soit le coût, il faudra le payer.</Text>
+    </Replace>
+    <Replace Tag="LOC_10055A_STORYTITLE" Language="fr_FR">
+      <Text>Le dernier mot</Text>
+    </Replace>
+    <Replace Tag="LOC_10055B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}, mais {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10055B_NAME" Language="fr_FR">
+      <Text>Leur jugement n'est qu'un moteur.</Text>
+    </Replace>
+    <Replace Tag="LOC_10055C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}, mais {2_reward} pour toutes les unités.</Text>
+    </Replace>
+    <Replace Tag="LOC_10055C_NAME" Language="fr_FR">
+      <Text>Cela est imputable à l'impatience des troupes.</Text>
+    </Replace>
+    <Replace Tag="LOC_10055D_DESCRIPTION" Language="fr_FR">
+      <Text>Soutien à la guerre +1 pour toutes les guerres.</Text>
+    </Replace>
+    <Replace Tag="LOC_10055D_NAME" Language="fr_FR">
+      <Text>Le dernier mot reviendra aux vainqueurs.</Text>
+    </Replace>
+    <Replace Tag="LOC_10056A_COMPLETION" Language="fr_FR">
+      <Text>Si certains condamnent la présence d'autres religions, Gengis Khan laisse faire. Il n'y a pas de vraie liberté sans liberté de culte.</Text>
+    </Replace>
+    <Replace Tag="LOC_10056A_STORYTITLE" Language="fr_FR">
+      <Text>Tolérance</Text>
+    </Replace>
+    <Replace Tag="LOC_10056B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10056B_NAME" Language="fr_FR">
+      <Text>Cette attitude est source d'inspiration.</Text>
+    </Replace>
+    <Replace Tag="LOC_10056C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10056C_NAME" Language="fr_FR">
+      <Text>Une attitude accueillante.</Text>
+    </Replace>
+    <Replace Tag="LOC_10056D_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour les missionnaires.</Text>
+    </Replace>
+    <Replace Tag="LOC_10056D_NAME" Language="fr_FR">
+      <Text>C'est fort vivifiant.</Text>
+    </Replace>
+    <Replace Tag="LOC_10057A_COMPLETION" Language="fr_FR">
+      <Text>Assailli de toutes parts, Gengis Khan affronte ses ennemis dans tout le monde connu. Il n'a jamais reculé devant une bataille, mais ses généraux craignent qu'il ne soit allé trop loin.</Text>
+    </Replace>
+    <Replace Tag="LOC_10057A_STORYTITLE" Language="fr_FR">
+      <Text>Infériorité numérique</Text>
+    </Replace>
+    <Replace Tag="LOC_10057B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour toutes les unités.</Text>
+    </Replace>
+    <Replace Tag="LOC_10057B_NAME" Language="fr_FR">
+      <Text>Il n'y a qu'une seule façon de le savoir.</Text>
+    </Replace>
+    <Replace Tag="LOC_10057C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour toutes les unités.</Text>
+    </Replace>
+    <Replace Tag="LOC_10057C_NAME" Language="fr_FR">
+      <Text>Non, il y a une autre solution.</Text>
+    </Replace>
+    <Replace Tag="LOC_10057D_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour tous les commandants.</Text>
+    </Replace>
+    <Replace Tag="LOC_10057D_NAME" Language="fr_FR">
+      <Text>Assez de palabres.</Text>
+    </Replace>
+    <Replace Tag="LOC_10058A_COMPLETION" Language="fr_FR">
+      <Text>Un messager vient se reposer à l'örtöö, soulagé de pouvoir enfin confier son fardeau à quelqu'un d'autre. Le grand Khan mérite bien des louanges pour ce système ingénieux, mais certains auraient des suggestions pour l'améliorer.</Text>
+    </Replace>
+    <Replace Tag="LOC_10058A_STORYTITLE" Language="fr_FR">
+      <Text>Une tâche rondement menée</Text>
+    </Replace>
+    <Replace Tag="LOC_10058B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10058B_NAME" Language="fr_FR">
+      <Text>Accordons des privilèges aux marchands étrangers.</Text>
+    </Replace>
+    <Replace Tag="LOC_10058C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10058C_NAME" Language="fr_FR">
+      <Text>Agrandissons le réseau.</Text>
+    </Replace>
+    <Replace Tag="LOC_10059A_COMPLETION" Language="fr_FR">
+      <Text>L'un après l'autre, les corps s'affaissent et glissent de leurs montures, pour ne plus jamais se relever. Les keshik comptent parmi les plus fidèles partisans de Gengis Khan ; si l'un d'eux devait périr, nul doute que ce serait au service d'une noble cause.</Text>
+    </Replace>
+    <Replace Tag="LOC_10059A_STORYTITLE" Language="fr_FR">
+      <Text>Jusqu'au bout</Text>
+    </Replace>
+    <Replace Tag="LOC_10059B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour les keshik.</Text>
+    </Replace>
+    <Replace Tag="LOC_10059B_NAME" Language="fr_FR">
+      <Text>Que leur bravoure serve d'exemple.</Text>
+    </Replace>
+    <Replace Tag="LOC_10059C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} keshik.</Text>
+    </Replace>
+    <Replace Tag="LOC_10059C_NAME" Language="fr_FR">
+      <Text>Que leur loyauté nous inspire tous.</Text>
+    </Replace>
+    <Replace Tag="LOC_10060A_COMPLETION" Language="fr_FR">
+      <Text>Les flammes s'abattent avec fureur sur les remparts ennemis, tel le jugement de Tengri. Un gigantesque engin de siège fait pleuvoir la destruction, et Gengis Khan est à ses commandes.</Text>
+    </Replace>
+    <Replace Tag="LOC_10060A_STORYTITLE" Language="fr_FR">
+      <Text>Précision mortelle</Text>
+    </Replace>
+    <Replace Tag="LOC_10060B_DESCRIPTION" Language="fr_FR">
+      <Text>Les pillages rapportent un montant de [icon:YIELD_SCIENCE] Science égal à 25 % du rendement ou des soins rapportés par la case.</Text>
+    </Replace>
+    <Replace Tag="LOC_10060B_NAME" Language="fr_FR">
+      <Text>Ne laissons aucun objet de valeur derrière nous.</Text>
+    </Replace>
+    <Replace Tag="LOC_10060C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour les unités de siège.</Text>
+    </Replace>
+    <Replace Tag="LOC_10060C_NAME" Language="fr_FR">
+      <Text>Préparons-nous aux représailles.</Text>
+    </Replace>
+    <Replace Tag="LOC_10060D_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour les unités de siège.</Text>
+    </Replace>
+    <Replace Tag="LOC_10060D_NAME" Language="fr_FR">
+      <Text>Soyons vifs comme l'éclair.</Text>
+    </Replace>
+    <Replace Tag="LOC_10061A_COMPLETION" Language="fr_FR">
+      <Text>Chaque homme a un rôle à jouer, même s'il se limite à ramasser des bouses de vache séchées dans le désert de Gobi pour faire du feu.[n]Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_10061A_STORYTITLE" Language="fr_FR">
+      <Text>Un empire, un clan</Text>
+    </Replace>
+    <Replace Tag="LOC_10061B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour les bâtiments scientifiques.</Text>
+    </Replace>
+    <Replace Tag="LOC_10061B_NAME" Language="fr_FR">
+      <Text>Nous avons besoin de philosophes.</Text>
+    </Replace>
+    <Replace Tag="LOC_10061C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10061C_NAME" Language="fr_FR">
+      <Text>Des soldats ne sont jamais de trop.</Text>
+    </Replace>
+    <Replace Tag="LOC_10061D_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour les bâtiments générant de la Nourriture.</Text>
+    </Replace>
+    <Replace Tag="LOC_10061D_NAME" Language="fr_FR">
+      <Text>Tout le monde est bienvenu.</Text>
+    </Replace>
+    <Replace Tag="LOC_10062A_COMPLETION" Language="fr_FR">
+      <Text>Un peuple indépendant ({1_INDEPENDENT}) met ses griefs de côté et s'incline devant le grand Khan. Comme tant d'autres avant eux, ils embrassent le mode de vie qu'il leur offre.</Text>
+    </Replace>
+    <Replace Tag="LOC_10062A_STORYTITLE" Language="fr_FR">
+      <Text>Une influence de fer</Text>
+    </Replace>
+    <Replace Tag="LOC_10062B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10062B_NAME" Language="fr_FR">
+      <Text>Ils travailleront la terre.</Text>
+    </Replace>
+    <Replace Tag="LOC_10062C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10062C_NAME" Language="fr_FR">
+      <Text>Ils mettront leurs vies à notre service.</Text>
+    </Replace>
+    <Replace Tag="LOC_10062D_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} dans toutes les colonies.</Text>
+    </Replace>
+    <Replace Tag="LOC_10062D_NAME" Language="fr_FR">
+      <Text>Ils se consacreront au bien commun.</Text>
+    </Replace>
+    <Replace Tag="LOC_10063A_COMPLETION" Language="fr_FR">
+      <Text>Les savants du musée font une découverte remarquable : une histoire perdue des ancêtres de la civilisation {1_CIVILIZATION_ADJ[2]} et de son illustre fondateur. Amalgame de faits et de fictions, historiques et épiques, entre traduction et adaptation, son contenu semble tout à la fois étranger et très familier.</Text>
+    </Replace>
+    <Replace Tag="LOC_10063A_STORYTITLE" Language="fr_FR">
+      <Text>Une histoire secrète</Text>
+    </Replace>
+    <Replace Tag="LOC_10063B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10063B_NAME" Language="fr_FR">
+      <Text>Cette découverte était destinée.</Text>
+    </Replace>
+    <Replace Tag="LOC_10063C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10063C_NAME" Language="fr_FR">
+      <Text>Le passé est derrière nous.</Text>
+    </Replace>
+    <Replace Tag="LOC_10064A_COMPLETION" Language="fr_FR">
+      <Text>Avec des ailes d'acier et des moteurs hurlant tel le tonnerre, les forces de Gengis Khan partent enfin à l'assaut des cieux et rejoignent Tengri.</Text>
+    </Replace>
+    <Replace Tag="LOC_10064A_STORYTITLE" Language="fr_FR">
+      <Text>Fusion céleste</Text>
+    </Replace>
+    <Replace Tag="LOC_10064B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10064B_NAME" Language="fr_FR">
+      <Text>Écoutons la sagesse de Tengri.</Text>
+    </Replace>
+    <Replace Tag="LOC_10064C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour les commandants d'escadron, les commandants d'aérodrome et les porte-avions.</Text>
+    </Replace>
+    <Replace Tag="LOC_10064C_NAME" Language="fr_FR">
+      <Text>Suivons la voie de Tengri.</Text>
+    </Replace>
+    <Replace Tag="LOC_10065A_COMPLETION" Language="fr_FR">
+      <Text>Lui-même adepte de l'éternel ciel bleu, Gengis Khan fait montre de tolérance envers les traditions d'autrui. Mais si ces traditions en viennent à menacer son peuple, il ne restera pas de marbre.</Text>
+    </Replace>
+    <Replace Tag="LOC_10065A_STORYTITLE" Language="fr_FR">
+      <Text>Connaître son ennemi</Text>
+    </Replace>
+    <Replace Tag="LOC_10065B_DESCRIPTION" Language="fr_FR">
+      <Text>Lance une célébration.</Text>
+    </Replace>
+    <Replace Tag="LOC_10065B_NAME" Language="fr_FR">
+      <Text>Buvons en l'honneur de Tengri !</Text>
+    </Replace>
+    <Replace Tag="LOC_10065C_DESCRIPTION" Language="fr_FR">
+      <Text>Soutien à la guerre +1 pour toutes les guerres.</Text>
+    </Replace>
+    <Replace Tag="LOC_10065C_NAME" Language="fr_FR">
+      <Text>Aux armes, une fois de plus !</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1230A_COMPLETION" Language="fr_FR">
+      <Text>En contemplant son peuple rassemblé autour du feu, Gengis Khan se rappelle qu'il devra toujours être deux hommes à la fois : un berger qui protège la vie, et un forgeron qui crée des instruments de mort.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1230A_STORYTITLE" Language="fr_FR">
+      <Text>La dualité de l'homme</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1230B_COMPLETION" Language="fr_FR">
+      <Text>La vie prospère au sein du troupeau de Gengis Khan.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1230B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1230B_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez 4 camps.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1230B_STORYTITLE" Language="fr_FR">
+      <Text>La dualité de l'homme</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1230C_COMPLETION" Language="fr_FR">
+      <Text>Les troupes de Gengis Khan poursuivent leur avancée, forgées dans le creuset des batailles.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1230C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1230C_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez un commandant avec 3 promotions.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1230C_STORYTITLE" Language="fr_FR">
+      <Text>La dualité de l'homme</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1230D_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1231A_COMPLETION" Language="fr_FR">
+      <Text>Toutes les rues et venelles de la capitale de Gengis Khan, {1_CAPITAL}, fourmillent de vie. Des fermiers commercent avec des négociants sur les marchés. Des enfants jouent dans les champs. Des ouvriers transpirent sous le soleil.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1231A_STORYTITLE" Language="fr_FR">
+      <Text>Une vie digne d'être vécue</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1231B_COMPLETION" Language="fr_FR">
+      <Text>Dans toutes les rues et venelles qu'arpente Gengis Khan, il voit des gens festoyer, la mine réjouie et le cœur en liesse. Voilà des vies dignes d'être vécues.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1231B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1231B_IMPERATIVE" Language="fr_FR">
+      <Text>Lancez 2 célébrations supplémentaires.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1231B_STORYTITLE" Language="fr_FR">
+      <Text>Une vie digne d'être vécue</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1231C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1232A_COMPLETION" Language="fr_FR">
+      <Text>Les soldats à la traîne rejoignent promptement la formation lorsque Gengis Khan s'avance dans l'air immobile après une bataille. Il n'y a que silence dans son sillage.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1232A_STORYTITLE" Language="fr_FR">
+      <Text>Discipline</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1232B_COMPLETION" Language="fr_FR">
+      <Text>Sous les coups de marteau, les blocs de fer prennent la forme de lames.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1232B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1232B_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez 3 colonies conquises.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1232B_STORYTITLE" Language="fr_FR">
+      <Text>Discipline</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1232C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1233A_COMPLETION" Language="fr_FR">
+      <Text>Entouré de sa suite loyale, Gengis Khan sent le vent dans son dos, telle la main de Tengri qui le guide. Ce moment est à lui, et rien qu'à lui.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1233A_STORYTITLE" Language="fr_FR">
+      <Text>La voie de l'avenir</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1233B_DESCRIPTION" Language="fr_FR">
+      <Text>L'histoire se poursuit.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1233C_DESCRIPTION" Language="fr_FR">
+      <Text>L'histoire se poursuit.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1234A_COMPLETION" Language="fr_FR">
+      <Text>Jusqu'à ce jour, les horizons de Gengis Khan étaient limités par la mer, mais les changements dans la brise lui soufflent que la Terre est plus vaste que cela sous les grands cieux.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1234A_STORYTITLE" Language="fr_FR">
+      <Text>Le vent tourne</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1234B_COMPLETION" Language="fr_FR">
+      <Text>Même s'il est scindé par un océan, l'empire du grand Khan repose sous un seul et même ciel.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1234B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1234B_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez 3 ports de pêche dans les contrées lointaines.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1234B_STORYTITLE" Language="fr_FR">
+      <Text>Le vent tourne</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1234C_DESCRIPTION" Language="fr_FR">
+      <Text>+1 emplacement de ressource à {1_capital}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1235A_COMPLETION" Language="fr_FR">
+      <Text>Plus l'empire de Gengis Khan s'étend, plus il devient nécessaire de collecter des tributs. Sa bienveillance dépend de la contribution du peuple.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1235A_STORYTITLE" Language="fr_FR">
+      <Text>Le versement du tribut</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1235B_COMPLETION" Language="fr_FR">
+      <Text>Poussés par les vents de Tengri, les convois se succèdent pour apporter le tribut dû sur les terres de Gengis Khan.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1235B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour les Convois de trésors.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1235B_IMPERATIVE" Language="fr_FR">
+      <Text>Déchargez 3 Convois de trésors.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1235B_STORYTITLE" Language="fr_FR">
+      <Text>Le versement du tribut</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1236A_COMPLETION" Language="fr_FR">
+      <Text>S'approprier les terres d'autrui, s'établir dans le foyer d'un autre peuple, n'est pas sans risque. Fort heureusement pour Gengis Khan et ses citoyens, les grands cieux ne connaissent aucune frontière.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1236A_STORYTITLE" Language="fr_FR">
+      <Text>Tout ce qui repose sous le ciel</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1236B_COMPLETION" Language="fr_FR">
+      <Text>Les étendards ennemis sont réduits en cendres. À leur place sont levées les couleurs du grand Khan, clamant haut et fort à qui appartiennent ces terres.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1236B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1236B_IMPERATIVE" Language="fr_FR">
+      <Text>Capturez une capitale.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1236B_STORYTITLE" Language="fr_FR">
+      <Text>Tout ce qui repose sous le ciel</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1236C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour l'infanterie.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1237A_COMPLETION" Language="fr_FR">
+      <Text>Gengis Khan claque la porte des négociations, flanqué par ses keshik, tandis que les émissaires tentent de sauver ce qui peut l'être des pourparlers de paix. Ce conflit est le fruit de violences, et il s'achèvera dans la violence.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1237A_STORYTITLE" Language="fr_FR">
+      <Text>De futiles palabres</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1237B_COMPLETION" Language="fr_FR">
+      <Text>Là où passent les hordes de Gengis Khan, tout n'est que destruction. Ainsi signe-t-il son nom sur la terre.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1237B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} et {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1237B_IMPERATIVE" Language="fr_FR">
+      <Text>Capturez une colonie.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1237B_STORYTITLE" Language="fr_FR">
+      <Text>De futiles palabres</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1238A_COMPLETION" Language="fr_FR">
+      <Text>Tengri a fait don au grand Khan d'un regard attentif et calculateur, mais le monde moderne est fait de lueurs éblouissantes. L'avenir approche à toute vitesse, avec la fougue d'un cheval sauvage.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1238A_STORYTITLE" Language="fr_FR">
+      <Text>Un élan débridé</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1238B_COMPLETION" Language="fr_FR">
+      <Text>Le présent comme l'avenir appartiennent à Gengis Khan.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1238B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1238B_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez 5 usines.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1238B_STORYTITLE" Language="fr_FR">
+      <Text>Un élan débridé</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1238C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1238D_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} et lance une célébration.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1239A_COMPLETION" Language="fr_FR">
+      <Text>Parmi le chaos incessant de l'ère moderne, de nouvelles menaces nécessitent de nouvelles tactiques. Gengis Khan est rompu à cet exercice.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1239A_STORYTITLE" Language="fr_FR">
+      <Text>Des ailes d'acier</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1239B_COMPLETION" Language="fr_FR">
+      <Text>Les cieux appartiennent à Gengis Khan.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1239B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1239B_IMPERATIVE" Language="fr_FR">
+      <Text>Éliminez 3 fois une unité aérienne avec une unité aérienne.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1239B_STORYTITLE" Language="fr_FR">
+      <Text>Des ailes d'acier</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1239C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1239D_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} et lance une célébration.</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_GENGHIS_KHAN_ARMY_COMMANDER_DESCRIPTION" Language="fr_FR">
+      <Text>Puissance de combat +3 pour les unités de cavalerie, et +5 lorsqu'elles se trouvent dans le rayon de commandement. PM +1 pour les commandants d'armée même lorsqu'ils n'ont groupé aucune unité. Une fois par âge, les commandants d'armée peuvent utiliser l'action Convertir des indépendants pour prendre le contrôle d'unités militaires indépendantes adjacentes.</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_GENGHIS_KHAN_COMMAND_RADIUS_COMBAT_DESCRIPTION" Language="fr_FR">
+      <Text>Puissance de combat +5 pour les unités de cavalerie.</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_GENGHIS_KHAN_NO_COMMAND_RADIUS_COMBAT_DESCRIPTION" Language="fr_FR">
+      <Text>Puissance de combat +3 pour les unités de cavalerie.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_GENGHIS_KHAN_L1_DESCRIPTION" Language="fr_FR">
+      <Text>Augmente de 50 % l'Or alloué à la conversion d'une commune en ville.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_GENGHIS_KHAN_L1_NAME" Language="fr_FR">
+      <Text>Dogme d'attribut expansionniste</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_GENGHIS_KHAN_L2_DESCRIPTION" Language="fr_FR">
+      <Text>Puissance de combat +5 pour toutes les unités contre les districts.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_GENGHIS_KHAN_L2_NAME" Language="fr_FR">
+      <Text>Dogme d'attribut militariste</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_GENGHIS_KHAN_NAME" Language="fr_FR">
+      <Text>Badge de Gengis Khan 1</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_GENGHIS_KHAN_P_NAME" Language="fr_FR">
+      <Text>Badge de Gengis Khan 2</Text>
+    </Replace>
+    <Replace Tag="LOC_BANNER_GENGHIS_KHAN_NAME" Language="fr_FR">
+      <Text>Bannière de Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_GENGHIS_KHAN_1_DESCRIPTION" Language="fr_FR">
+      <Text>Pendant cet âge, [icon:YIELD_FOOD] Nourriture +15 %, mais [icon:YIELD_GOLD] Or -10 %.</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_GENGHIS_KHAN_1_NAME" Language="fr_FR">
+      <Text>Légende expansionniste de Gengis Khan pour l'Âge de l'exploration</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_GENGHIS_KHAN_2_DESCRIPTION" Language="fr_FR">
+      <Text>Pendant cet âge, Puissance de combat +3 pour les unités navales, mais [icon:YIELD_DIPLOMACY] Influence -10 %.</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_GENGHIS_KHAN_2_NAME" Language="fr_FR">
+      <Text>Légende militaire de Gengis Khan pour l'Âge de l'exploration</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_GENGHIS_KHAN_1_DESCRIPTION" Language="fr_FR">
+      <Text>Pendant cet âge, [icon:YIELD_FOOD] Nourriture +15 %, mais [icon:YIELD_GOLD] Or -10 %.</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_GENGHIS_KHAN_1_NAME" Language="fr_FR">
+      <Text>Légende expansionniste de Gengis Khan pour l'Âge moderne</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_GENGHIS_KHAN_2_DESCRIPTION" Language="fr_FR">
+      <Text>Pendant cet âge, Puissance de combat +3 pour les unités aériennes, mais [icon:YIELD_DIPLOMACY] Influence -10 %.</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_GENGHIS_KHAN_2_NAME" Language="fr_FR">
+      <Text>Légende militaire de Gengis Khan pour l'Âge moderne</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_AGENDA_TUMEN_DESC" Language="fr_FR">
+      <Text>Apprécie la civilisation qui possède le moins d'unités de cavalerie. N'apprécie pas celle qui possède le plus d'unités de cavalerie.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_AGENDA_TUMEN_NAME" Language="fr_FR">
+      <Text>Tümen</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_GENGHIS_KHAN_DESCRIPTION" Language="fr_FR">
+      <Text>[icon:NAR_REW_COMBAT] Puissance de combat +3 pour les unités de cavalerie, et +5 lorsqu'elles se trouvent dans un [icon:COMMANDER_RADIUS] rayon de commandement. [icon:Action_Move] PM +1 pour les [icon:UNIT_ARMY_COMMANDER] commandants d'armée même lorsqu'ils n'ont groupé aucune unité. Une fois par âge, les [icon:UNIT_ARMY_COMMANDER] commandants d'armée peuvent utiliser l'action Convertir des indépendants pour prendre le contrôle d'unités militaires indépendantes adjacentes.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_LEADER_INTRO_TEXT_GENGHIS_KHAN" Language="fr_FR">
+      <Text>À la naissance, vous avez reçu le nom de Temüjin, mais le monde vous connaît sous celui de Gengis Khan, souverain universel et terreur de la steppe. D'un mot de vous, les hordes s'élancent, les armées adverses fuient, les murailles s'écroulent et tout espoir disparaît. Prenez votre arc, Khagan, le monde s'est affaibli, il va connaître la peur.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_GENGHIS_KHAN_LETTER_TO_JAMAICA_UNLOCK_TITLE" Language="fr_FR">
+      <Text>Déblocage au niveau 9 de Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_GENGHIS_KHAN_PAIZA_DESCRIPTION" Language="fr_FR">
+      <Text>Pour une exemption de taxe en tout lieu.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_GENGHIS_KHAN_PAIZA_FUNCTIONAL_DESCRIPTION" Language="fr_FR">
+      <Text>Coût d'entretien en [icon:YIELD_GOLD] Or -1 pour les unités de cavalerie.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_GENGHIS_KHAN_PAIZA_NAME" Language="fr_FR">
+      <Text>Païza</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_GENGHIS_KHAN_PAIZA_UNLOCK_TITLE" Language="fr_FR">
+      <Text>Déblocage au niveau 2 de Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_GENGHIS_KHAN_SADDLE_DESCRIPTION" Language="fr_FR">
+      <Text>L'union du cheval et du guerrier.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_GENGHIS_KHAN_SADDLE_FUNCTIONAL_DESCRIPTION" Language="fr_FR">
+      <Text>[icon:YIELD_FOOD] Nourriture +1 par âge et par unité de cavalerie stationnée dans un centre-ville.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_GENGHIS_KHAN_SADDLE_NAME" Language="fr_FR">
+      <Text>Selle</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_GENGHIS_KHAN_SADDLE_UNLOCK_TITLE" Language="fr_FR">
+      <Text>Déblocage au niveau 5 de Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_GENGHIS_KHAN_SULDE_DESCRIPTION" Language="fr_FR">
+      <Text>Un véritable étendard de guerre.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_GENGHIS_KHAN_SULDE_FUNCTIONAL_DESCRIPTION" Language="fr_FR">
+      <Text>[icon:YIELD_CULTURE] Culture +1 par âge et par promotion de commandant.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_GENGHIS_KHAN_SULDE_NAME" Language="fr_FR">
+      <Text>Sülde</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_AGE_COMPLETED_ANTIQUITY_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'Antiquité avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_AGE_COMPLETED_ANTIQUITY_2_NAME" Language="fr_FR">
+      <Text>Antiquité terminée 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_AGE_COMPLETED_ANTIQUITY_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'Antiquité avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_AGE_COMPLETED_ANTIQUITY_3_NAME" Language="fr_FR">
+      <Text>Antiquité terminée 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_AGE_COMPLETED_ANTIQUITY_DESC" Language="fr_FR">
+      <Text>Terminer l'Antiquité avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_AGE_COMPLETED_ANTIQUITY_NAME" Language="fr_FR">
+      <Text>Antiquité terminée</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_AGE_COMPLETED_EXPLORATION_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'Âge de l'exploration avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_AGE_COMPLETED_EXPLORATION_2_NAME" Language="fr_FR">
+      <Text>Âge de l'exploration terminé 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_AGE_COMPLETED_EXPLORATION_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'Âge de l'exploration avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_AGE_COMPLETED_EXPLORATION_3_NAME" Language="fr_FR">
+      <Text>Âge de l'exploration terminé 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_AGE_COMPLETED_EXPLORATION_DESC" Language="fr_FR">
+      <Text>Terminer l'Âge de l'exploration avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_AGE_COMPLETED_EXPLORATION_NAME" Language="fr_FR">
+      <Text>Âge de l'exploration terminé</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_AGE_COMPLETED_MODERN_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'Âge moderne avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_AGE_COMPLETED_MODERN_2_NAME" Language="fr_FR">
+      <Text>Âge moderne terminé 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_AGE_COMPLETED_MODERN_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'Âge moderne avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_AGE_COMPLETED_MODERN_3_NAME" Language="fr_FR">
+      <Text>Âge moderne terminé 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_AGE_COMPLETED_MODERN_DESC" Language="fr_FR">
+      <Text>Terminer l'Âge moderne avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_AGE_COMPLETED_MODERN_NAME" Language="fr_FR">
+      <Text>Âge moderne terminé</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_CULTURE_VICTORY_ANTIQUITY_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Merveilles du monde antique avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_CULTURE_VICTORY_ANTIQUITY_2_NAME" Language="fr_FR">
+      <Text>Merveilles du monde antique 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_CULTURE_VICTORY_ANTIQUITY_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Merveilles du monde antique avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_CULTURE_VICTORY_ANTIQUITY_3_NAME" Language="fr_FR">
+      <Text>Merveilles du monde antique 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_CULTURE_VICTORY_ANTIQUITY_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Merveilles du monde antique avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_CULTURE_VICTORY_ANTIQUITY_NAME" Language="fr_FR">
+      <Text>Merveilles du monde antique</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_CULTURE_VICTORY_EXPLORATION_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Toshakhana avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_CULTURE_VICTORY_EXPLORATION_2_NAME" Language="fr_FR">
+      <Text>Toshakhana 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_CULTURE_VICTORY_EXPLORATION_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Toshakhana avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_CULTURE_VICTORY_EXPLORATION_3_NAME" Language="fr_FR">
+      <Text>Toshakhana 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_CULTURE_VICTORY_EXPLORATION_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Toshakhana avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_CULTURE_VICTORY_EXPLORATION_NAME" Language="fr_FR">
+      <Text>Toshakhana</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_CULTURE_VICTORY_MODERN_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Société géographique avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_CULTURE_VICTORY_MODERN_2_NAME" Language="fr_FR">
+      <Text>Société géographique 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_CULTURE_VICTORY_MODERN_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Société géographique avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_CULTURE_VICTORY_MODERN_3_NAME" Language="fr_FR">
+      <Text>Société géographique 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_CULTURE_VICTORY_MODERN_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Société géographique avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_CULTURE_VICTORY_MODERN_NAME" Language="fr_FR">
+      <Text>Société géographique</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_ECONOMIC_VICTORY_ANTIQUITY_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Routes de la soie avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_ECONOMIC_VICTORY_ANTIQUITY_2_NAME" Language="fr_FR">
+      <Text>Routes de la soie 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_ECONOMIC_VICTORY_ANTIQUITY_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Routes de la soie avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_ECONOMIC_VICTORY_ANTIQUITY_3_NAME" Language="fr_FR">
+      <Text>Routes de la soie 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_ECONOMIC_VICTORY_ANTIQUITY_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Routes de la soie avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_ECONOMIC_VICTORY_ANTIQUITY_NAME" Language="fr_FR">
+      <Text>Routes de la soie</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_ECONOMIC_VICTORY_EXPLORATION_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Flotte des Indes avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_ECONOMIC_VICTORY_EXPLORATION_2_NAME" Language="fr_FR">
+      <Text>Flotte des Indes 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_ECONOMIC_VICTORY_EXPLORATION_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Flotte des Indes avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_ECONOMIC_VICTORY_EXPLORATION_3_NAME" Language="fr_FR">
+      <Text>Flotte des Indes 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_ECONOMIC_VICTORY_EXPLORATION_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Flotte des Indes avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_ECONOMIC_VICTORY_EXPLORATION_NAME" Language="fr_FR">
+      <Text>Flotte des Indes</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_ECONOMIC_VICTORY_MODERN_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Magnat du rail avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_ECONOMIC_VICTORY_MODERN_2_NAME" Language="fr_FR">
+      <Text>Magnat du rail 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_ECONOMIC_VICTORY_MODERN_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Magnat du rail avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_ECONOMIC_VICTORY_MODERN_3_NAME" Language="fr_FR">
+      <Text>Magnat du rail 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_ECONOMIC_VICTORY_MODERN_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Magnat du rail avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_ECONOMIC_VICTORY_MODERN_NAME" Language="fr_FR">
+      <Text>Magnat du rail</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_FLAWLESS_VICTORY_ANTIQUITY_DESC" Language="fr_FR">
+      <Text>Terminer 2 orientations d'héritage durant une même Antiquité avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_FLAWLESS_VICTORY_ANTIQUITY_NAME" Language="fr_FR">
+      <Text>Double héritage - Antiquité</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_FLAWLESS_VICTORY_EXPLORATION_DESC" Language="fr_FR">
+      <Text>Terminer 2 orientations d'héritage durant un même Âge de l'exploration avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_FLAWLESS_VICTORY_EXPLORATION_NAME" Language="fr_FR">
+      <Text>Double héritage - Âge de l'exploration</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_FLAWLESS_VICTORY_MODERN_DESC" Language="fr_FR">
+      <Text>Terminer 2 orientations d'héritage durant un même Âge moderne avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_FLAWLESS_VICTORY_MODERN_NAME" Language="fr_FR">
+      <Text>Double héritage - Âge moderne</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_MILITARY_VICTORY_ANTIQUITY_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Pax imperatoria avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_MILITARY_VICTORY_ANTIQUITY_2_NAME" Language="fr_FR">
+      <Text>Pax imperatoria 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_MILITARY_VICTORY_ANTIQUITY_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Pax imperatoria avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_MILITARY_VICTORY_ANTIQUITY_3_NAME" Language="fr_FR">
+      <Text>Pax imperatoria 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_MILITARY_VICTORY_ANTIQUITY_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Pax imperatoria avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_MILITARY_VICTORY_ANTIQUITY_NAME" Language="fr_FR">
+      <Text>Pax imperatoria</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_MILITARY_VICTORY_EXPLORATION_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Non sufficit orbis avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_MILITARY_VICTORY_EXPLORATION_2_NAME" Language="fr_FR">
+      <Text>Non sufficit orbis 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_MILITARY_VICTORY_EXPLORATION_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Non sufficit orbis avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_MILITARY_VICTORY_EXPLORATION_3_NAME" Language="fr_FR">
+      <Text>Non sufficit orbis 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_MILITARY_VICTORY_EXPLORATION_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Non sufficit orbis avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_MILITARY_VICTORY_EXPLORATION_NAME" Language="fr_FR">
+      <Text>Non sufficit orbis</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_MILITARY_VICTORY_MODERN_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Idéologie avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_MILITARY_VICTORY_MODERN_2_NAME" Language="fr_FR">
+      <Text>Idéologie 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_MILITARY_VICTORY_MODERN_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Idéologie avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_MILITARY_VICTORY_MODERN_3_NAME" Language="fr_FR">
+      <Text>Idéologie 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_MILITARY_VICTORY_MODERN_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Idéologie avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_MILITARY_VICTORY_MODERN_NAME" Language="fr_FR">
+      <Text>Idéologie</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_PLAY_GAMES_1_DESC" Language="fr_FR">
+      <Text>Valider au moins 1 étape d'orientation d'héritage avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_PLAY_GAMES_1_NAME" Language="fr_FR">
+      <Text>Jouer le jeu 1</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_PLAY_GAMES_2_DESC" Language="fr_FR">
+      <Text>Valider au moins 2 étapes d'orientation d'héritage avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_PLAY_GAMES_2_NAME" Language="fr_FR">
+      <Text>Jouer le jeu 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_PLAY_GAMES_3_DESC" Language="fr_FR">
+      <Text>Valider au moins 3 étapes d'orientation d'héritage avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_PLAY_GAMES_3_NAME" Language="fr_FR">
+      <Text>Jouer le jeu 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_QUEST_A_ANTIQUITY_DESC" Language="fr_FR">
+      <Text>Pendant l'Antiquité, avec Gengis Khan, accomplir une quête permettant de rendre hommage à vos citoyens</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_QUEST_A_ANTIQUITY_NAME" Language="fr_FR">
+      <Text>Une vie digne d'être vécue</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_QUEST_A_EXPLORATION_DESC" Language="fr_FR">
+      <Text>Pendant l'Âge de l'exploration, avec Gengis Khan, accomplir une quête permettant de chercher de lointains pâturages</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_QUEST_A_EXPLORATION_NAME" Language="fr_FR">
+      <Text>Le vent tourne</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_QUEST_A_MODERN_DESC" Language="fr_FR">
+      <Text>Pendant l'Âge moderne, avec Gengis Khan, accomplir une quête permettant de fabriquer l'avenir</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_QUEST_A_MODERN_NAME" Language="fr_FR">
+      <Text>Un élan débridé</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_QUEST_B_ANTIQUITY_DESC" Language="fr_FR">
+      <Text>Pendant l'Antiquité, avec Gengis Khan, accomplir une quête permettant de remporter des batailles</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_QUEST_B_ANTIQUITY_NAME" Language="fr_FR">
+      <Text>Discipline</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_QUEST_B_EXPLORATION_DESC" Language="fr_FR">
+      <Text>Pendant l'Âge de l'exploration, avec Gengis Khan, accomplir une quête permettant de réduire en cendres les bannières ennemies</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_QUEST_B_EXPLORATION_NAME" Language="fr_FR">
+      <Text>Tout ce qui repose sous le ciel</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_QUEST_B_MODERN_DESC" Language="fr_FR">
+      <Text>Pendant l'Âge moderne, avec Gengis Khan, accomplir une quête permettant de s'élever vers la victoire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_QUEST_B_MODERN_NAME" Language="fr_FR">
+      <Text>Des ailes d'acier</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_SCIENCE_VICTORY_ANTIQUITY_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Grande bibliothèque avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_SCIENCE_VICTORY_ANTIQUITY_2_NAME" Language="fr_FR">
+      <Text>Grande bibliothèque 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_SCIENCE_VICTORY_ANTIQUITY_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Grande bibliothèque avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_SCIENCE_VICTORY_ANTIQUITY_3_NAME" Language="fr_FR">
+      <Text>Grande bibliothèque 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_SCIENCE_VICTORY_ANTIQUITY_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Grande bibliothèque avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_SCIENCE_VICTORY_ANTIQUITY_NAME" Language="fr_FR">
+      <Text>Grande bibliothèque</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_SCIENCE_VICTORY_EXPLORATION_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Lumières avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_SCIENCE_VICTORY_EXPLORATION_2_NAME" Language="fr_FR">
+      <Text>Lumières 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_SCIENCE_VICTORY_EXPLORATION_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Lumières avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_SCIENCE_VICTORY_EXPLORATION_3_NAME" Language="fr_FR">
+      <Text>Lumières 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_SCIENCE_VICTORY_EXPLORATION_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Lumières avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_SCIENCE_VICTORY_EXPLORATION_NAME" Language="fr_FR">
+      <Text>Lumières</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_SCIENCE_VICTORY_MODERN_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Course à l'espace avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_SCIENCE_VICTORY_MODERN_2_NAME" Language="fr_FR">
+      <Text>Course à l'espace 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_SCIENCE_VICTORY_MODERN_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Course à l'espace avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_SCIENCE_VICTORY_MODERN_3_NAME" Language="fr_FR">
+      <Text>Course à l'espace 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_SCIENCE_VICTORY_MODERN_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Course à l'espace avec Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GENGHIS_KHAN_SCIENCE_VICTORY_MODERN_NAME" Language="fr_FR">
+      <Text>Course à l'espace</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_EXPANSIONIST_LEGEND_GENGHIS_KHAN_L1_DESCRIPTION" Language="fr_FR">
+      <Text>Déblocable via la légende. Réduit de 50 % le coût en [icon:YIELD_GOLD] Or de la conversion d'une commune en ville.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_GENGHIS_KHAN_L2_DESCRIPTION" Language="fr_FR">
+      <Text>Déblocable via la légende. Puissance de combat +5 contre les districts pour toutes les unités.</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_GENGHIS_KHAN" Language="fr_FR">
+      <Text>Élu de Tengri</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_GENGHIS_KHAN_EXPLORATION_1_DESCRIPTION" Language="fr_FR">
+      <Text>Avec Gengis Khan, vous avez accès à une nouvelle carte d'héritage de l'Âge de l'exploration :[n]
+				Nourriture +15 %, Or -10 %.</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_GENGHIS_KHAN_EXPLORATION_1_NAME" Language="fr_FR">
+      <Text>Carte d'héritage expansionniste de l'Âge de l'exploration</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_GENGHIS_KHAN_EXPLORATION_2_DESCRIPTION" Language="fr_FR">
+      <Text>Avec Gengis Khan, vous avez accès à une nouvelle carte d'héritage de l'Âge de l'exploration :[n]
+				Puissance de combat +3 pour les unités navales, Influence -10 %.</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_GENGHIS_KHAN_EXPLORATION_2_NAME" Language="fr_FR">
+      <Text>Carte d'héritage militariste de l'Âge de l'exploration</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_GENGHIS_KHAN_MODERN_1_DESCRIPTION" Language="fr_FR">
+      <Text>Avec Gengis Khan, vous avez accès à une nouvelle carte d'héritage de l'Âge moderne :[n]
+				Nourriture +15 %, Or -10 %.</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_GENGHIS_KHAN_MODERN_1_NAME" Language="fr_FR">
+      <Text>Carte d'héritage expansionniste de l'Âge moderne</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_GENGHIS_KHAN_MODERN_2_DESCRIPTION" Language="fr_FR">
+      <Text>Avec Gengis Khan, vous avez accès à une nouvelle carte d'héritage de l'Âge moderne :[n]
+				Puissance de combat +3 pour les unités aériennes, Influence -10 %.</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_GENGHIS_KHAN_MODERN_2_NAME" Language="fr_FR">
+      <Text>Carte d'héritage militariste de l'Âge moderne</Text>
+    </Replace>
+    <Replace Tag="LOC_TITLE_GENGHIS_KHAN_NAME" Language="fr_FR">
+      <Text>Élu de Tengri</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_GENGHIS_KHAN_ABILITY_DESCRIPTION" Language="fr_FR">
+      <Text>[BLIST][LI][B][icon:NAR_REW_COMBAT] Puissance de combat +3[/B] pour les [B]unités de cavalerie[/B], et [B]+5[/B] lorsqu'elles se trouvent dans un [icon:COMMANDER_RADIUS][B] rayon de commandement[/B].[LI][icon:Action_Move] PM +1[/B] pour les [icon:UNIT_ARMY_COMMANDER][B] commandants d'armée[/B] même lorsqu'ils n'ont groupé aucune unité.[LI]Une fois par âge, les [icon:UNIT_ARMY_COMMANDER][B] commandants d'armée[/B] peuvent utiliser l'action [B]Convertir des indépendants[/B] pour prendre le contrôle [B]d'unités militaires indépendantes[/B] adjacentes.[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_GENGHIS_KHAN_ABILITY_NAME" Language="fr_FR">
+      <Text>Élu de Tengri</Text>
+    </Replace>
+    <Replace Tag="LOC_UNITOPERATION_CONVERT_INDEPENDENTS_DESCRIPTION" Language="fr_FR">
+      <Text>À activer en étant proche d'au moins 1 unité indépendante pour prendre le contrôle de toutes les unités militaires indépendantes adjacentes.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNITOPERATION_CONVERT_INDEPENDENTS_NAME" Language="fr_FR">
+      <Text>Convertir des indépendants</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_GENGHIS_KHAN_BULGARIA_TOOLTIP" Language="fr_FR">
+      <Text>La [B]Bulgarie[/B] présente des synergies stratégiques avec [B]Gengis Khan[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_GENGHIS_KHAN_DESCRIPTION" Language="fr_FR">
+      <Text>Jouer avec [B]Gengis Khan[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_GENGHIS_KHAN_MONGOLIA_TOOLTIP" Language="fr_FR">
+      <Text>[B]Gengis Khan[/B] régnait sur les [B]Mongols[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_GENGHIS_KHAN_MUGHAL_TOOLTIP" Language="fr_FR">
+      <Text>[B]Gengis Khan[/B] venait du même continent que les [B]Moghols[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_GENGHIS_KHAN_PERSIA_TOOLTIP" Language="fr_FR">
+      <Text>[B]Gengis Khan[/B] présente des synergies stratégiques avec la [B]Perse[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_GENGHIS_KHAN_PRUSSIA_TOOLTIP" Language="fr_FR">
+      <Text>La [B]Prusse[/B] présente des synergies stratégiques avec [B]Gengis Khan[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_GENGHIS_KHAN_COMMAND_RADIUS_COMBAT_PREVIEW" Language="fr_FR">
+      <Text>+{1_Amount} grâce à Élu de Tengri.</Text>
+    </Replace>
+    <Replace Tag="LOC_GENGHIS_KHAN_NO_COMMAND_RADIUS_COMBAT_PREVIEW" Language="fr_FR">
+      <Text>+{1_Amount} grâce à Élu de Tengri.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_GENGHIS_KHAN_L2_COMBAT_PREVIEW" Language="fr_FR">
+      <Text>+{1_Value} attribut militariste de légende</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!--Bulgaria-->
+	<Modifier id="MOD_SEVEN_TRIBES_GREATWORKS_COMBAT" collection="COLLECTION_PLAYER_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_X_GREAT_WORKS">
+				<Argument name="Count">5</Argument>
+				<Argument name="IncludeArchived">false</Argument>
+				<Argument name="ObjectType">GREATWORKOBJECT_RELIC</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+		<String context="Description">LOC_MOD_SEVEN_TRIBES_GREATWORKS_COMBAT_DESCRIPTION</String>
+		<String context="Preview">LOC_SEVEN_TRIBES_GREATWORKS_COMBAT_PREVIEW</String>
+	</Modifier>
+	<Modifier id="MOD_TARNOVO_SCHOOLS_TEMPLE_HAPPINESS_HIDDEN_FORTRESS" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILDING">
+				<Argument name="BuildingType">BUILDING_TEMPLE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ConstructibleType">IMPROVEMENT_HIDDEN_FORTRESS</Argument>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Description">LOC_MOD_TARNOVO_SCHOOLS_TEMPLE_HAPPINESS_HIDDEN_FORTRESS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_TSARSTVIE_TWO_MIGRANTS" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_UNIT" permanent="true">
+		<Argument name="Amount">2</Argument>
+		<Argument name="UnitType">UNIT_MIGRANT</Argument>
+		<String context="Description">LOC_MOD_TSARSTVIE_TWO_MIGRANTS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_TSARSTVIE_CULTURE_MOUNTAIN_HIDDEN_FORTRESS" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ACTIVATE_CONSTRUCTIBLE_ADJACENCY">
+		<Argument name="ConstructibleAdjacency">TsartvieHiddenFortressMountainCulture</Argument>
+		<String context="Description">LOC_MOD_TSARSTVIE_CULTURE_MOUNTAIN_HIDDEN_FORTRESS_DESCRIPTION</String>
+	</Modifier>
+</GameEffects>

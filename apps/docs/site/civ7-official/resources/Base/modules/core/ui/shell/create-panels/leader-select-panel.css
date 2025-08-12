@@ -1,0 +1,22 @@
+/* DO NOT EDIT */
+/* Generated from leader-select-panel.scss */
+/**
+Based on Robert Penner's easing equations
+@url http://robertpenner.com/easing/
+**/
+.leader-select-panel-leader-name {
+	font-size: 3rem;
+}
+@media (max-width: 56.8888888889rem) {
+	.leader-select-panel-leader-name {
+		font-size: 2rem;
+	}
+}
+
+.leader-select-panel-section {
+	margin-right: 1.5rem;
+}
+
+.leader-select-panel-next-level-unlock {
+	margin-right: 4.1rem;
+}

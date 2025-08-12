@@ -1,0 +1,30 @@
+<Database>
+	<NamedRivers>
+		<Row NamedRiverType="KOSI_RIVER" Name="LOC_RIVER_KOSI_NAME"/>
+		<Row NamedRiverType="GHAGHARA_RIVER" Name="LOC_RIVER_GHAGHARA_NAME"/>
+		<Row NamedRiverType="GANDAKI_RIVER" Name="LOC_RIVER_GANDAKI_NAME"/>
+		<Row NamedRiverType="BAGMATI_RIVER" Name="LOC_RIVER_BAGMATI_NAME"/>
+		<Row NamedRiverType="BHERI_RIVER" Name="LOC_RIVER_BHERI_NAME"/>
+	</NamedRivers>
+	<NamedVolcanoes>
+		<Row NamedVolcanoType="VOLCANO_POPA" Name="LOC_VOLCANO_POPA_NAME"/>
+		<Row NamedVolcanoType="VOLCANO_KA_ER_DAXI" Name="LOC_VOLCANO_KA_ER_DAXI_NAME"/>
+		<Row NamedVolcanoType="VOLCANO_DAHEI_SHAN" Name="LOC_VOLCANO_DAHEI_SHAN_NAME"/>
+		<Row NamedVolcanoType="VOLCANO_TOSHAM_HILL" Name="LOC_VOLCANO_TOSHAM_HILL_NAME"/>
+		<Row NamedVolcanoType="VOLCANO_DHOSI_HILL" Name="LOC_VOLCANO_DHOSI_HILL_NAME"/>
+	</NamedVolcanoes>
+	<NamedRiverCivilizations>
+		<Row NamedRiverType="KOSI_RIVER" CivilizationType="CIVILIZATION_NEPAL"/>
+		<Row NamedRiverType="GHAGHARA_RIVER" CivilizationType="CIVILIZATION_NEPAL"/>
+		<Row NamedRiverType="GANDAKI_RIVER" CivilizationType="CIVILIZATION_NEPAL"/>
+		<Row NamedRiverType="BAGMATI_RIVER" CivilizationType="CIVILIZATION_NEPAL"/>
+		<Row NamedRiverType="BHERI_RIVER" CivilizationType="CIVILIZATION_NEPAL"/>
+	</NamedRiverCivilizations>
+	<NamedVolcanoCivilizations>
+		<Row NamedVolcanoType="VOLCANO_POPA" CivilizationType="CIVILIZATION_NEPAL"/>
+		<Row NamedVolcanoType="VOLCANO_KA_ER_DAXI" CivilizationType="CIVILIZATION_NEPAL"/>
+		<Row NamedVolcanoType="VOLCANO_DAHEI_SHAN" CivilizationType="CIVILIZATION_NEPAL"/>
+		<Row NamedVolcanoType="VOLCANO_TOSHAM_HILL" CivilizationType="CIVILIZATION_NEPAL"/>
+		<Row NamedVolcanoType="VOLCANO_DHOSI_HILL" CivilizationType="CIVILIZATION_NEPAL"/>
+	</NamedVolcanoCivilizations>
+</Database>

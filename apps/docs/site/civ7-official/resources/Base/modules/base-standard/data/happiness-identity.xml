@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<UnhappinessEffects>
+		<!--Low Severity Effects-->
+		<!-- <Row ID="StandardCityOvercrowded" Condition="CityOvercrowded" Amount="3" Duration="10" CategoryText="LOC_UNHAPPINESS_EFFECT_CITY_OVERCROWDED_CATEGORY" Description="LOC_UNHAPPINESS_EFFECT_CITY_OVERCROWDED_DESC"/> -->
+		<Row ID="StandardCityStarving" Condition="CityStarving" Amount="5" Ongoing="true" CategoryText="LOC_UNHAPPINESS_EFFECT_CITY_STARVING_CATEGORY" Description="LOC_UNHAPPINESS_EFFECT_CITY_STARVING_DESC"/>
+		<!-- <Row ID="StandardCityLostLocalResource" Condition="CityLostLocalResource" Amount="10" Duration="5" CategoryText="LOC_UNHAPPINESS_EFFECT_CITY_LOST_RESOURCE_CATEGORY" Description="LOC_UNHAPPINESS_EFFECT_CITY_LOST_RESOURCE_LOCAL_DESC" /> -->
+		<!-- <Row ID="StandardCityLostTradeResource" Condition="CityLostTradeResource" Amount="10" Duration="5" CategoryText="LOC_UNHAPPINESS_EFFECT_CITY_LOST_RESOURCE_CATEGORY" Description="LOC_UNHAPPINESS_EFFECT_CITY_LOST_RESOURCE_TRADE_DESC" /> -->
+		<!--<Row ID="StandardCityLostTradeRoute" Condition="CityLostTradeRoute" Amount="5" Duration="10" CategoryText="LOC_UNHAPPINESS_EFFECT_CITY_LOST_TRADE_ROUTE_CATEGORY" Description="LOC_UNHAPPINESS_EFFECT_CITY_LOST_TRADE_ROUTE_DESC"/> -->
+		<!-- <Row ID="StandardRefugeeJoinedCity" Condition="RefugeeJoinedCity" Amount="3" Duration="10" CategoryText="LOC_UNHAPPINESS_EFFECT_REFUGEE_JOINED_CITY_CATEGORY" Description="LOC_UNHAPPINESS_EFFECT_REFUGEE_JOINED_CITY_DESC"/> -->
+		<!-- <Row ID="StandardTraditionDeactivated" Condition="PlayerDeactivatedTradition" Amount="2" Duration="5" CategoryText="LOC_UNHAPPINESS_EFFECT_TRADITION_DEACTIVATED_CATEGORY" Description="LOC_UNHAPPINESS_EFFECT_TRADITION_DEACTIVATED_DESC"/> -->
+		<Row ID="StandardCityNoFreshWater" Condition="CityNoFreshWater" Amount="5" Ongoing="true" CategoryText="LOC_UNHAPPINESS_EFFECT_CITY_NO_FRESH_WATER_CATEGORY" Description="LOC_UNHAPPINESS_EFFECT_CITY_NO_FRESH_WATER_DESC"/>
+		<!--High Severity Effects-->
+		<!-- <Row ID="StandardTradeRoutePlundered" Condition="TradeRoutePlundered" Amount="8" CategoryText="LOC_UNHAPPINESS_EFFECT_TRADE_ROUTE_PLUNDERED_CATEGORY" Description="LOC_UNHAPPINESS_EFFECT_TRADE_ROUTE_PLUNDERED_DESC"/> -->
+		<!--<Row ID="StandardCitySiegeStarted" Condition="CitySiegeStarted" Amount="10" Ongoing="true" CategoryText="LOC_UNHAPPINESS_EFFECT_CITY_SIEGE_CATEGORY" Description="LOC_UNHAPPINESS_EFFECT_CITY_SIEGE_DESC"/> -->
+		<!--<Row ID="StandardGovernmentChanged" Condition="PlayerChangedGovernment" Amount="5" Duration="5" CategoryText="LOC_UNHAPPINESS_EFFECT_PLAYER_CHANGED_GOVERNMENT_CATEGORY" Description="LOC_UNHAPPINESS_EFFECT_PLAYER_CHANGED_GOVERNMENT_DESC"/> -->
+		<!--<Row ID="StandardPlayerEnteredWar" Condition="PlayerEnteredWar" Amount="2" Duration="10" CategoryText="LOC_UNHAPPINESS_EFFECT_PLAYER_ENTERED_WAR_CATEGORY" Description="LOC_UNHAPPINESS_EFFECT_PLAYER_ENTERED_WAR_DESC"/> -->
+		<Row ID="StandardCityTransferUnrest" Condition="CityTransferUnrest" Amount="15" Duration="10" ScaleBySpeed="true" CategoryText="LOC_UNHAPPINESS_EFFECT_CITY_TRANSFER_UNREST_CATEGORY" Description="LOC_UNHAPPINESS_EFFECT_CITY_TRANSFER_UNREST_DESC"/>
+		<Row ID="StandardCityRevolt" Condition="CityRevolt" Amount="0" Duration="10" Ongoing="true" CategoryText="LOC_UNHAPPINESS_EFFECT_CITY_REVOLT_CATEGORY" Description="LOC_UNHAPPINESS_EFFECT_CITY_REVOLT_DESC"/>
+		<Row ID="ReligiousCityRevolt" Condition="ReligiousRevolt" Amount="0" Duration="10" Ongoing="true" CategoryText="LOC_UNHAPPINESS_EFFECT_RELIGIOUS_REVOLT_CATEGORY" Description="LOC_UNHAPPINESS_EFFECT_RELIGIOUS_REVOLT_DESC"/>
+		<Row ID="StandardCityRioting" Condition="CityRioting" Amount="0" Ongoing="true" CategoryText="LOC_UNHAPPINESS_EFFECT_CITY_REVOLT_CATEGORY" Description="LOC_UNHAPPINESS_EFFECT_CITY_REVOLT_DESC"/>
+		<Row ID="PlagueCityUnrest" Condition="PlagueUnrest" Amount="10" Duration="6" ScaleBySpeed="true" Ongoing="true" CategoryText="LOC_UNHAPPINESS_EFFECT_CITY_STARVING_CATEGORY" Description="LOC_UNHAPPINESS_EFFECT_CITY_STARVING_DESC"/>
+	</UnhappinessEffects>
+	<WarWearinessEffects>
+		<Row WarWearinessType="WAR_WEARINESS_FOUNDED_SELF" YieldReductionPerLevel="3" MaxYieldReduction="60"/>
+		<Row WarWearinessType="WAR_WEARINESS_FOUNDED_OTHER" YieldReductionPerLevel="5" MaxYieldReduction="80"/>
+		<Row WarWearinessType="WAR_WEARINESS_FOUNDED_WAR_OPPONENT" YieldReductionPerLevel="7" MaxYieldReduction="100"/>
+	</WarWearinessEffects>
+	<AttributeHappinessDemands/>
+</Database>

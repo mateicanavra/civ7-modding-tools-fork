@@ -1,0 +1,351 @@
+@use '../../../utilities/utility-layout' as *;
+@use '../../../utilities/utility-text' as *;
+@use '../theme';
+
+.fxs-button__bg {
+	border-image-slice: 24 50 fill;
+	border-image-width: pixels(24) pixels(50);
+	border-image-outset: pixels(10) pixels(8);
+	pointer-events: none;
+}
+
+.fxs-button__bg--base {
+	border-image-source: url('fs://game/base_button-bg.png');
+}
+
+.fxs-button__bg--focus {
+	border-image-source: url('fs://game/base_button-bg-focus.png');
+}
+
+.fxs-button__bg--active {
+	border-image-source: url('fs://game/base_button-bg-press.png');
+}
+
+.fxs-button__bg--disabled {
+	border-image-source: url('fs://game/base_button-bg-dis.png');
+}
+
+.fxs-button__bg--focus,
+.fxs-button__bg--active,
+.fxs-button__bg--disabled {
+	transition: opacity .25s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.fxs-button {
+	min-height: pixels(48);
+	min-width: pixels(240);
+}
+
+
+.fxs-button:focus,
+.fxs-button:hover {
+	.fxs-button__bg--focus {
+		opacity: 1;
+	}
+}
+
+.fxs-button:active,
+.fxs-button.pressed {
+	.fxs-button__bg--active {
+		opacity: 1;
+	}
+}
+
+.fxs-button.disabled,
+.fxs-button.disabled-focusable {
+
+	.fxs-button__bg--active,
+	.fxs-button__bg--focus {
+		opacity: 0;
+	}
+
+	.fxs-button__bg--disabled {
+		opacity: 1;
+	}
+}
+
+// Minus Plus Buttons
+.minusplus-button {
+	position: relative;
+	width: 5em;
+	height: 5em;
+	margin: -.25em;
+	pointer-events: auto;
+	font-size: pixels-font(17);
+
+	&.minusplus-button--minus {
+		>.minusplus-button__icon {
+			background-image: url('fs://game/icon_minus-button.png');
+		}
+
+		>.minusplus-button__overlay {
+			background-image: url('fs://game/overlay_minus-button.png');
+		}
+
+		>.minusplus-button__nav {
+			left: -1.25em;
+			top: -1em;
+		}
+	}
+
+	&.minusplus-button--delete {
+		>.minusplus-button__icon {
+			background-image: url('fs://game/icon_delete-button.png');
+		}
+
+		>.minusplus-button__overlay {
+			background-image: url('fs://game/overlay_delete-button.png');
+		}
+
+		>.minusplus-button__nav {
+			left: -1.25em;
+			top: -1em;
+		}
+	}
+
+	>.minusplus-button__nav {
+		position: absolute;
+		left: auto;
+		right: -2em;
+		top: -1em;
+	}
+
+
+
+	&:hover,
+	&:focus {
+
+		>.minusplus-button__highlight,
+		>.minusplus-button__icon--highlight {
+			opacity: .875;
+		}
+	}
+
+
+
+	&.disabled {
+		opacity: .3;
+	}
+}
+
+.minusplus-button__shadow {
+	position: absolute;
+	top: -1.5em;
+	bottom: -1.5em;
+	left: -1.5em;
+	right: -1.5em;
+	background-image: url('fs://game/shadow_minusplus-button.png');
+	background-size: 8em;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.minusplus-button__bg {
+	background-image: url('fs://game/bg_minusplus-button.png');
+	background-size: 8em;
+	background-position: center;
+	background-repeat: no-repeat;
+	filter: fxs-color-tint(var(--player-color-secondary));
+}
+
+.minusplus-button__highlight {
+	background-image: url('fs://game/bg_minusplus-button.png');
+	background-size: 8em;
+	background-position: center;
+	background-repeat: no-repeat;
+	filter: fxs-color-tint(theme.color('accent-1'));
+	opacity: 0;
+	transition-property: opacity;
+	transition-duration: .25s;
+	transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.minusplus-button__icon {
+	background-image: url('fs://game/icon_plus-button.png');
+	background-size: 8em;
+	background-position: center;
+	background-repeat: no-repeat;
+	filter: fxs-color-tint(var(--player-color-primary));
+
+	&.minusplus-button__icon--highlight {
+		opacity: 0;
+		transition-property: opacity;
+		transition-duration: .25s;
+		transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+		filter: fxs-color-tint(var(--player-color-primary-text));
+	}
+}
+
+.minusplus-button__overlay {
+	background-image: url('fs://game/overlay_plus-button.png');
+	background-size: 8em 8em;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+#tooltip-root-content .failure-reason {
+	color: red;
+}
+
+/** minmax *************************************************************************/
+
+.fxs-minmax-button {
+	position: relative;
+	width: 5em;
+	height: 2em;
+	margin: -.25em;
+
+	&.minmax-button--up {
+		>.minmax-button__arrow {
+			background-image: url('fs://game/arrow_minmax-up.png');
+		}
+
+		>.minmax-button__overlay {
+			background-image: url('fs://game/overlay_minmax-up.png');
+		}
+	}
+
+	&:hover,
+	&:focus {
+
+		>.minmax-button__highlight,
+		>.minmax-button__arrow--highlight {
+			opacity: .875;
+		}
+	}
+}
+
+.minmax-button__shadow {
+	position: absolute;
+	top: -1em;
+	bottom: -1em;
+	left: -1em;
+	right: -1em;
+	background-image: url('fs://game/shadow_minmax-button.png');
+	background-size: 8em 4em;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.minmax-button__bg {
+	background-image: url('fs://game/bg_minmax-button.png');
+	background-size: 8em 4em;
+	background-position: center;
+	background-repeat: no-repeat;
+	filter: fxs-color-tint(var(--player-color-secondary));
+}
+
+.minmax-button__highlight {
+	background-image: url('fs://game/bg_minmax-button.png');
+	background-size: 8em 4em;
+	background-position: center;
+	background-repeat: no-repeat;
+	filter: fxs-color-tint(theme.color('accent-1'));
+	opacity: 0;
+	transition-property: opacity;
+	transition-duration: .25s;
+	transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.minmax-button__arrow {
+	position: absolute;
+	width: 4em;
+	height: 2em;
+	top: 0;
+	left: .5em;
+	background-image: url('fs://game/arrow_minmax-down.png');
+	background-size: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	filter: fxs-color-tint(var(--player-color-primary-less));
+
+	&.minmax-button__arrow--highlight {
+		opacity: 0;
+		transition-property: opacity;
+		transition-duration: .25s;
+		transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+		filter: fxs-color-tint(var(--player-color-secondary));
+	}
+}
+
+.minmax-button__overlay {
+	background-image: url('fs://game/overlay_minmax-down.png');
+	background-size: 8em 4em;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+
+/** Minimize Button *******************************************************************/
+.fxs-minimize-button {
+	cursor: pointer;
+	position: absolute;
+	right: pixels(32);
+	top: 0;
+	width: pixels(32);
+	height: pixels(32);
+	background-image: url('');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: right top;
+	pointer-events: auto;
+}
+
+.minimized-content {
+	display: none !important;
+}
+
+.minimized-frame {
+	height: auto !important;
+}
+
+.maximized-frame {
+	height: initial;
+}
+
+
+/** Close Button *******************************************************************/
+
+.fxs-close-button {
+	width: pixels(32);
+	height: pixels(32);
+	position: absolute;
+	top: 0;
+	right: 0;
+	pointer-events: auto;
+
+	&.touch-enabled {
+		width: pixels(64);
+		height: pixels(64);
+	}
+
+	.fxs-touch-enabled-close-button {
+		display: none;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: pixels(48);
+		height: pixels(48);
+		align-items: center;
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+}
+
+.close-button__bg {
+	// TEMP until overwrite actual class
+	width: initial;
+	height: initial;
+	margin: 0;
+	// END TEMP
+	background-image: url('fs://game/hud_closebutton.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.close-button__bg-hover {
+	background-image: url('fs://game/hud_closebutton_hover.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+}

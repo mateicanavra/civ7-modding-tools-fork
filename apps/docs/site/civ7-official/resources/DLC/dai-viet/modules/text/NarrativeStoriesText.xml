@@ -1,0 +1,245 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <EnglishText>
+        <Row Tag="LOC_11042A_STORYTITLE">
+            <Text>The Taming of the Forest</Text>
+        </Row>
+        <Row Tag="LOC_11042A_COMPLETION">
+            <Text>A white mouse leads the settlers onwards, then scurries off. The settlers follow it for days through the dense terrain. When it vanishes — here is a spring, and glass-clear water pouring from the earth. This will make a good city.</Text>
+        </Row>
+        <Row Tag="LOC_11042B_NAME">
+            <Text>The lust for new lands drives new migrants on.</Text>
+        </Row>
+        <Row Tag="LOC_11042B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11042C_NAME">
+            <Text>New lands carry new dangers.</Text>
+        </Row>
+        <Row Tag="LOC_11042C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11043A_STORYTITLE">
+            <Text>Khmer Krom</Text>
+        </Row>
+        <Row Tag="LOC_11043A_COMPLETION">
+            <Text>The Khmer baray have long fed the people. But in the years since the Việt took power, the sacred task of their maintenance has waned. Silt has crept in, and flat stretches of bare mud lie exposed during the dry season.</Text>
+        </Row>
+        <Row Tag="LOC_11043B_NAME">
+            <Text>Redesign their drainage along new Việt standards.</Text>
+        </Row>
+        <Row Tag="LOC_11043B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11043C_NAME">
+            <Text>Have Khmer priests carry out the old ritual.</Text>
+        </Row>
+        <Row Tag="LOC_11043C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11044A_STORYTITLE">
+            <Text>The Endless Palace</Text>
+        </Row>
+        <Row Tag="LOC_11044A_COMPLETION">
+            <Text>The gates of Weiyang Palace lie open, its endless halls now a labyrinth. But it is not empty. Now, migrants from the countryside raise their children where princes once laid their heads, and market vendors shout their wares where courtiers once whispered. But is this correct?</Text>
+        </Row>
+        <Row Tag="LOC_11044B_NAME">
+            <Text>Yes. It shall be a city in itself.</Text>
+        </Row>
+        <Row Tag="LOC_11044B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11044C_NAME">
+            <Text>No. It shall be cleared and refurbished.</Text>
+        </Row>
+        <Row Tag="LOC_11044C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11045A_STORYTITLE">
+            <Text>The Guerilla</Text>
+        </Row>
+        <Row Tag="LOC_11045A_COMPLETION">
+            <Text>The newly-promoted commander lacks social graces. His áo giao lĩnh is torn at the chest, revealing skin latticed with scars. But none points this out, even when he is not present. Rumored by Đại Việt’s enemies to be everywhere and nowhere at once, none dare.</Text>
+        </Row>
+        <Row Tag="LOC_11045B_NAME">
+            <Text>His star will rise higher still.</Text>
+        </Row>
+        <Row Tag="LOC_11045B_DESCRIPTION">
+            <Text>{1_reward} to all Commanders.</Text>
+        </Row>
+        <Row Tag="LOC_11045C_NAME">
+            <Text>He will advise the war effort from above.</Text>
+        </Row>
+        <Row Tag="LOC_11045C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11046A_STORYTITLE">
+            <Text>The Lake of the Returned Sword</Text>
+        </Row>
+        <Row Tag="LOC_11046A_COMPLETION">
+            <Text>At the war’s end, the Việt commander is rowing in the lake, by the capital. A turtle, he recounts, surfaced and asked for the commander’s sword — it was not of the human realm, but divine.</Text>
+        </Row>
+        <Row Tag="LOC_11046B_NAME">
+            <Text>Nature itself recognizes Việt majesty.</Text>
+        </Row>
+        <Row Tag="LOC_11046B_DESCRIPTION">
+            <Text>{1_reward} on Lake Tiles in {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_11046C_NAME">
+            <Text>War is at an end.</Text>
+        </Row>
+        <Row Tag="LOC_11046C_DESCRIPTION">
+            <Text>{1_reward} on Lake Tiles in {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_11047A_STORYTITLE">
+            <Text>Chữ Nôm</Text>
+        </Row>
+        <Row Tag="LOC_11047A_COMPLETION">
+            <Text>When scholars write, they use a script that, while beautiful, does not match the Vietnamese language. Inspired, they turn towards their neighbors. Surely they could learn something there.</Text>
+        </Row>
+        <Row Tag="LOC_11047B_NAME">
+            <Text>Scholars design a script based on the writing of others.</Text>
+        </Row>
+        <Row Tag="LOC_11047B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11047C_NAME">
+            <Text>Scholars continue their own way of writing.</Text>
+        </Row>
+        <Row Tag="LOC_11047C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11048A_STORYTITLE">
+            <Text>Văn Minh</Text>
+        </Row>
+        <Row Tag="LOC_11048A_COMPLETION">
+            <Text>Diplomats congregate in the Forbidden City; believers in {1_Religion} worship in Notre Dame, and the citadel of Hue guards all. The poets ask — what did Đại Việt do, to so merit the blessings of the gods?</Text>
+        </Row>
+        <Row Tag="LOC_11048B_NAME">
+            <Text>It is a long chain of coincidence that has led them here.</Text>
+        </Row>
+        <Row Tag="LOC_11048B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11048C_NAME">
+            <Text>It is destiny.</Text>
+        </Row>
+        <Row Tag="LOC_11048C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11049A_STORYTITLE">
+            <Text>New Lands</Text>
+        </Row>
+        <Row Tag="LOC_11049A_COMPLETION">
+            <Text>As the smoke rises above the conquered city, soldiers already begin to debate — will they gain a piece of the spoils? At the same time, the scions of noble families desperate for lands of their own begin to entreat the palace.</Text>
+        </Row>
+        <Row Tag="LOC_11049B_NAME">
+            <Text>Land goes to those who fought for it.</Text>
+        </Row>
+        <Row Tag="LOC_11049B_DESCRIPTION">
+            <Text>{1_reward} on Improvements in {2_story_city}.</Text>
+        </Row>
+        <Row Tag="LOC_11049C_NAME">
+            <Text>Land goes to the noble families.</Text>
+        </Row>
+        <Row Tag="LOC_11049C_DESCRIPTION">
+            <Text>{1_reward} on Improvements in {2_story_city}.</Text>
+        </Row>
+        <Row Tag="LOC_11049D_NAME">
+            <Text>Land remains in the hands of the original citizens of {1_STORY_CITY}.</Text>
+        </Row>
+        <Row Tag="LOC_11049D_DESCRIPTION">
+            <Text>{1_reward} on Improvements in {2_story_city}, but {3_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11050A_STORYTITLE">
+            <Text>The Tiger</Text>
+        </Row>
+        <Row Tag="LOC_11050A_COMPLETION">
+            <Text>A noble is fishing in the lake near the capital when a fog arises. The shadow of a boat emerges… and the silhouette of a tiger! Thinking quickly, an attendant captures the beast in a net, whereupon it becomes a court mandarin.</Text>
+        </Row>
+        <Row Tag="LOC_11050B_NAME">
+            <Text>Try the mandarin for witchcraft.</Text>
+        </Row>
+        <Row Tag="LOC_11050B_DESCRIPTION">
+            <Text>{1_reward} on Lake Tiles in {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_11050C_NAME">
+            <Text>Release him to his teaching duties.</Text>
+        </Row>
+        <Row Tag="LOC_11050C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11051A_STORYTITLE">
+            <Text>Chiêu Quốc Vương</Text>
+        </Row>
+        <Row Tag="LOC_11051A_COMPLETION">
+            <Text>The Mongol occupying forces march into the conquered city, and Việt townspeople eye them warily from doorways and windows. How deep will this occupation go? How long will it last? In {1_Capital}, the Việt leaders consider their grudges.</Text>
+        </Row>
+        <Row Tag="LOC_11051B_NAME">
+            <Text>The people have suffered enough.</Text>
+        </Row>
+        <Row Tag="LOC_11051B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11051C_NAME">
+            <Text>Never forget.</Text>
+        </Row>
+        <Row Tag="LOC_11051C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11052A_STORYTITLE">
+            <Text>Lên Đồng</Text>
+        </Row>
+        <Row Tag="LOC_11052A_COMPLETION">
+            <Text>Trung Trac’s figure cuts through the marketplace, her fierce expression fixing onlookers in place, as her sword whirls around her body. Her face, though, is that of an old woman — this is a medium, who claims that her spirit has been replaced by Trung’s.</Text>
+        </Row>
+        <Row Tag="LOC_11052B_NAME">
+            <Text>This is sedition. Ban the practice.</Text>
+        </Row>
+        <Row Tag="LOC_11052B_DESCRIPTION">
+            <Text>{1_reward} in {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_11052C_NAME">
+            <Text>This is an honor. Find a place for it.</Text>
+        </Row>
+        <Row Tag="LOC_11052C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11053A_STORYTITLE">
+            <Text>Định Mệnh</Text>
+        </Row>
+        <Row Tag="LOC_11053A_COMPLETION">
+            <Text>A small boat’s departure seems minor, but it will raise winds and storm when it reaches the world.[n] The Tale of Kiều</Text>
+        </Row>
+        <Row Tag="LOC_11053B_NAME">
+            <Text>The ship carries soldiers.</Text>
+        </Row>
+        <Row Tag="LOC_11053B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11053C_NAME">
+            <Text>The ship carries scholars.</Text>
+        </Row>
+        <Row Tag="LOC_11053C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_12008A_STORYTITLE">
+            <Text>The Good Doctor and the Water Puppets</Text>
+        </Row>
+        <Row Tag="LOC_12008A_COMPLETION">
+            <Text>Standing at the edge of a flooded rice field, Dr Rizal watches a water puppet troupe rehearse a challenging sequence. Soon enough, entire flocks of birds have come to life at the ends of bamboo sticks.</Text>
+        </Row>
+        <Row Tag="LOC_12008B_NAME">
+            <Text>Speak with the farmers about their practices.</Text>
+        </Row>
+        <Row Tag="LOC_12008B_DESCRIPTION">
+            <Text>{1_reward} in all Settlements.</Text>
+        </Row>
+        <Row Tag="LOC_12008C_NAME">
+            <Text>Speak with the performers about their training.</Text>
+        </Row>
+        <Row Tag="LOC_12008C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+    </EnglishText>
+</Database>

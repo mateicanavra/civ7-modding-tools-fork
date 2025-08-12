@@ -1,0 +1,8 @@
+@use '../../utilities/utility-layout' as *;
+@use '../../../../core/ui/themes/default/baseColors.scss';
+
+.mp-landing {
+	fxs-chooser-item {
+		height: pixels(360);
+	}
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<!-- Delete existing strings/translations for the given keys.-->
+	<LocalizedText>
+		<Delete Tag="LOC_OPTIONS_RUMBLE" />
+		<Delete Tag="LOC_OPTIONS_RUMBLE_DESCRIPTION" />
+	</LocalizedText>
+
+	<!-- Define platform-specific overrides. -->
+	<EnglishText>
+		<Row Tag="LOC_OPTIONS_RUMBLE_FEATURE">
+			<Text>Rumble Feature</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_RUMBLE_FEATURE_DESCRIPTION">
+			<Text>Rumble Feature - enable or disable rumble feature.</Text>
+		</Row>
+
+		<Replace Tag="LOC_OPTIONS_RUMBLE">
+			<Text>{LOC_OPTIONS_RUMBLE_FEATURE}</Text>
+		</Replace>
+		<Replace Tag="LOC_OPTIONS_RUMBLE_DESCRIPTION">
+			<Text>{LOC_OPTIONS_RUMBLE_FEATURE_DESCRIPTION}</Text>
+		</Replace>
+	</EnglishText>
+</Database>

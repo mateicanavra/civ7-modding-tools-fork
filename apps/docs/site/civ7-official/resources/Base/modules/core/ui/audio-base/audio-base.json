@@ -1,0 +1,982 @@
+{
+    "audio-base": {
+        "data-audio-activate": "generic-button-activate",
+        "data-audio-back-activate": "generic-back-activate",
+        "data-audio-back-press": "generic-back-press",
+        "data-audio-blur": "generic-button-blur",
+        "data-audio-checkbox-disable": "generic-checkbox-disable",
+        "data-audio-checkbox-enable": "generic-checkbox-enable",
+        "data-audio-checkbox-press": "generic-checkbox-press",
+        "data-audio-close-selected": "generic-window-close",
+        "data-audio-dropdown-close": "generic-dropdown-close",
+        "data-audio-dropdown-open": "generic-dropdown-open",
+        "data-audio-dropdown-select": "generic-dropdown-select",
+        "data-audio-focus": "select-focus",
+        "data-audio-hero-activate": "generic-hero-activate",
+        "data-audio-hero-focus": "hero-focus",
+        "data-audio-hero-press": "hero-press",
+        "data-audio-press": "hero-press",
+        "data-audio-hidden": "generic-panel-hidden",
+        "data-audio-hiding": "generic-panel-hiding",
+        "data-audio-negative": "generic-button-negative",
+        "data-audio-select-press": "select-press",
+        "data-audio-showing": "generic-panel-showing",
+        "data-audio-shown": "generic-panel-shown",
+        "data-audio-slider-changed": "generic-slider-move",
+        "data-audio-tab-selected": "generic-tab-navigate",
+        "data-audio-turn-action-selected": "generic-turn-action-activate",
+        "data-audio-turn-button-selected": "generic-turn-button-activate",
+        "data-audio-close-press": "generic-close-button-press",
+        "data-audio-primary-button-press": "primary-button-press",
+        "data-audio-primary-button-focus": "primary-button-focus",
+        "data-audio-error-press": "error-press",
+        "data-audio-popup-close": "popup-close-generic",
+        "data-audio-popup-open": "popup-open-generic",
+        "data-audio-window-overlay-open": "overlay-window-open",
+        "data-audio-window-overlay-close": "overlay-window-close",
+        "data-audio-ring-animate-start": "ring-animate-start",
+        "data-audio-ring-animate-stop": "ring-animate-stop"
+    },
+    "radio-button": {
+        "data-audio-focus": "generic-radio-focus",
+        "data-audio-press": "generic-radio-press",
+        "data-audio-pager-release": "generic-pager-navigate"
+    },
+    "audio-advanced-options": {
+        "data-audio-hiding": "overlay-window-close"
+    },
+    "audio-pager": {
+        "data-audio-activate": "generic-pager-navigate",
+        "data-audio-focus": "generic-pager-focus",
+        "data-audio-press": "generic-pager-press",
+        "data-audio-arrow-focus": "select-focus"
+    },
+    "additional-content-audio": {
+        "data-audio-hiding": "additional-content-back",
+        "data-audio-clicked-credits": "additional-content-credits",
+        "data-audio-showing": "main-menu-additional-content"
+    },
+    "age-select": {
+        "data-audio-age-select": "age-select-selected",
+        "data-audio-focus": "age-select-focus"
+    },
+    "audio-advanced-start": {
+        "data-audio-advanced-start-activate": "advanced-start-activate",
+        "data-audio-advanced-start-autofill": "advanced-start-auto-fill",
+        "data-audio-advanced-start-back": "advanced-start-back",
+        "data-audio-advanced-start-card-activate": "advanced-start-card-activate",
+        "data-audio-advanced-start-card-deactivate": "advanced-start-card-deactivate",
+        "data-audio-advanced-start-card-focus": "advanced-start-card-focus",
+        "data-audio-advanced-start-confirm-activate": "advanced-start-confirm-activate",
+        "data-audio-advanced-start-enter": "advanced-start-enter",
+        "data-audio-advanced-start-exit": "advanced-start-exit",
+        "data-audio-advanced-start-finish-activate": "advanced-start-finish-activate",
+        "data-audio-advanced-start-focus": "advanced-start-focus",
+        "data-audio-advanced-start-map": "advanced-start-view-map",
+        "data-audio-advanced-start-paginate": "advanced-start-paginate",
+        "data-audio-advanced-start-paginate-press": "generic-pager-press",
+        "data-audio-add-press": "advanced-start-card-press",
+        "data-audio-remove-press": "advanced-start-card-remove-press",
+        "data-audio-effect-card-press": "advanced-start-effect-press",
+        "data-audio-effect-card-activate": "advanced-start-effect-release",
+        "data-audio-place-effects-confirm-cancel": "place-effects-confirm-cancel",
+        "data-audio-place-effects-confirm": "place-effects-confirm"
+    },
+    "audio-city": {
+        "data-audio-activate": "city-activate",
+        "data-audio-blur": "city-blur",
+        "data-audio-focus": "city-focus"
+    },
+    "audio-diplo-project-reaction": {
+        "data-audio-showing": "leader-attributes-activate",
+        "data-audio-hiding": "leader-attrcard-close",
+        "data-audio-focus": "leader-focus",
+        "data-audio-leader-declare-war": "leader-war-declare",
+        "data-audio-leader-endeavor-select": "leader-endeavor-activate",
+        "data-audio-leader-espionage-select": "leader-espionage-activate",
+        "data-audio-leader-form-alliance": "leader-form-alliance",
+        "data-audio-leader-project-select": "leader-activate",
+        "data-audio-leader-propose-peace": "leader-peace-propose",
+        "data-audio-leader-recent-select": "leader-select",
+        "data-audio-leader-response-positive": "leader-activate-positive",
+        "data-audio-leader-response-neutral": "leader-activate-neutral",
+        "data-audio-leader-response-negative": "leader-activate-negative",
+        "data-audio-leader-response": "leader-activate",
+        "data-audio-leader-sanction-select": "leader-sanction-activate",
+        "data-audio-leader-tab-selected": "leader-attribute-tab-activate",
+        "data-audio-leader-treaty-select": "leader-treaty-activate",
+        "data-audio-tab-selected": "leader-tab-activate",
+        "data-audio-propose-peace-release": "propose-peace-release",
+        "data-audio-befriend": "befriend-independent",
+        "data-audio-incite-raid": "incite-raid",
+        "data-audio-suzerain": "suzerain-independent",
+        "data-audio-independent-promote-growth": "independent-promote-growth",
+        "data-audio-bolster-military": "bolster-military",
+        "data-audio-levy-unit": "levy-unit",
+        "data-audio-citystate-incorporate": "citystate-incorporate"
+    },
+    "attribute-card-generic": {
+        "data-audio-focus": "leader-attrcard-focus",
+        "data-audio-attr-card-locked": "leader-attrcard-locked",
+        "data-audio-activate": "leader-attrcard-activate"
+    },
+    "attribute-card-cultural": {
+        "data-audio-focus": "leader-attrcard-focus",
+        "data-audio-attr-card-locked": "leader-attrcard-locked",
+        "data-audio-activate": "leader-attrcard-activate-cultural"
+    },
+    "attribute-card-diplomatic": {
+        "data-audio-focus": "leader-attrcard-focus",
+        "data-audio-attr-card-locked": "leader-attrcard-locked",
+        "data-audio-activate": "leader-attrcard-activate-diplomatic"
+    },
+    "attribute-card-economic": {
+        "data-audio-focus": "leader-attrcard-focus",
+        "data-audio-attr-card-locked": "leader-attrcard-locked",
+        "data-audio-activate": "leader-attrcard-activate-economic"
+    },
+    "attribute-card-expansionist": {
+        "data-audio-focus": "leader-attrcard-focus",
+        "data-audio-attr-card-locked": "leader-attrcard-locked",
+        "data-audio-activate": "leader-attrcard-activate-expansionist"
+    },
+    "attribute-card-militaristic": {
+        "data-audio-focus": "leader-attrcard-focus",
+        "data-audio-attr-card-locked": "leader-attrcard-locked",
+        "data-audio-activate": "leader-attrcard-activate-militaristic"
+    },
+    "attribute-card-scientific": {
+        "data-audio-focus": "leader-attrcard-focus",
+        "data-audio-attr-card-locked": "leader-attrcard-locked",
+        "data-audio-activate": "leader-attrcard-activate-scientific"
+    },
+    "audio-fxs-hero-button": {
+        "data-audio-activate": "generic-primary-activate"
+    },
+    "audio-lens": {
+        "data-audio-activate": "lens-activate"
+    },
+    "audio-mp-browser": {
+        "data-audio-focus": "mp-browser-focus",
+        "data-audio-mp-join": "mp-browser-join",
+        "data-audio-refresh-activate": "mp-browser-refresh",
+        "data-audio-spare2": "mp-browser-create-game",
+        "data-audio-spare3": "mp-browser-load",
+        "data-audio-spare4": "mp-browser-back",
+        "data-audio-start-query": "mp-browser-start-query"
+    },
+    "audio-mp-friends": {
+        "data-audio-hiding": "friends-close-selected",
+        "data-audio-showing": "friends-enter",
+        "data-audio-tab-selected": "friends-tab-select",
+        "data-audio-focus": "friends-focus",
+        "data-audio-activate": "friends-release"
+    },
+    "audio-mp-friends-popups": {
+        "data-audio-hiding": "friends-popups-close"
+    },
+    "audio-mp-landing": {
+        "data-audio-focus": "mp-landing-focus",
+        "data-audio-mp-internet": "mp-landing-internet-selected",
+        "data-audio-mp-lan": "mp-landing-lan-selected",
+        "data-audio-mp-wlan": "mp-landing-wlan-selected",
+        "data-audio-press": "primary-button-press",
+        "data-audio-showing": "main-menu-multiplayer",
+        "data-audio-hiding": "mp-browser-back"
+    },
+    "audio-notifications": {
+        "data-audio-notif-00": "notif-Default",
+        "data-audio-notif-01": "notif-Advisor_Warning_Culture",
+        "data-audio-notif-02": "notif-Advisor_Warning_Economic",
+        "data-audio-notif-03": "notif-Advisor_Warning_Military",
+        "data-audio-notif-04": "notif-Advisor_Warning_Science",
+        "data-audio-notif-05": "notif-Bankrupt_End",
+        "data-audio-notif-06": "notif-Bankrupt_Start",
+        "data-audio-notif-07": "notif-Can_Buy_Attribute_Skill",
+        "data-audio-notif-08": "notif-City_District_Control_Lost",
+        "data-audio-notif-09": "notif-City_Near_Starvation_Loss",
+        "data-audio-notif-10": "notif-City_Near_Unhappiness_Loss",
+        "data-audio-notif-11": "notif-City_Now_Starving",
+        "data-audio-notif-12": "notif-City_Now_Unhappy",
+        "data-audio-notif-13": "notif-Capital_Lost",
+        "data-audio-notif-14": "notif-Consider_Raze_City",
+        "data-audio-notif-15": "notif-Starvation_Lost_Constructible",
+        "data-audio-notif-16": "notif-Tile_Pillaged",
+        "data-audio-notif-17": "notif-Unhappiness_Lost_Constructible",
+        "data-audio-notif-18": "notif-Choose_Auto_Narrative_Story_Direction",
+        "data-audio-notif-19": "notif-Civic_Boost_Awarded",
+        "data-audio-notif-20": "notif-Tech_Boost_Awarded",
+        "data-audio-notif-21": "notif-New_Barbarian_Camp",
+        "data-audio-notif-22": "notif-Discover_Continent",
+        "data-audio-notif-23": "notif-Discover_Goody_Hut",
+        "data-audio-notif-24": "notif-GoldenAge_Ready",
+        "data-audio-notif-25": "notif-Entered_Enemy_Army_Zoc",
+        "data-audio-notif-26": "notif-Unit_Attacked",
+        "data-audio-notif-27": "notif-Unit_Captured",
+        "data-audio-notif-28": "notif-Unit_Disbanded",
+        "data-audio-notif-29": "notif-Unit_Lost",
+        "data-audio-notif-30": "notif-Unit_Ocean_Damage",
+        "data-audio-notif-31": "notif-Unit_Ocean_Damage",
+        "data-audio-notif-32": "notif-Unit_Promotion_Available",
+        "data-audio-notif-33": "notif-GenericPositive",
+        "data-audio-notif-34": "notif-GenericNegative",
+        "data-audio-notif-35": "notif-Invalid_Assigned_Resource",
+        "data-audio-notif-36": "notif-Player_Unlock_Changed",
+        "data-audio-notif-37": "notif-Team_Victorious",
+        "data-audio-notif-38": "notif-Trade_Resources_Gained",
+        "data-audio-notif-39": "notif-Trade_Resources_Lost",
+        "data-audio-notif-40": "notif-Trade_Route_Plundered",
+        "data-audio-notif-41": "notif-Trade_Route_To_You",
+        "data-audio-notif-42": "notif-Make_Peace",
+        "data-audio-notif-43": "notif-GenericNeutral",
+        "data-audio-notif-44": "notif-Declare_War_On_You",
+        "data-audio-notif-45": "notif-GenericNeutral",
+        "data-audio-notif-46": "notif-Player_Defeated",
+        "data-audio-notif-47": "notif-Host_Changed",
+        "data-audio-notif-48": "notif-Host_Migration",
+        "data-audio-notif-49": "notif-Player_Connected",
+        "data-audio-notif-50": "notif-Player_Connecting",
+        "data-audio-notif-51": "notif-Player_Desynced",
+        "data-audio-notif-52": "notif-Player_Disconnect",
+        "data-audio-notif-53": "notif-Capital_Captured",
+        "data-audio-notif-54": "notif-Game_Invite",
+        "data-audio-notif-55": "notif-Discover_Natural_Wonder",
+        "data-audio-notif-56": "notif-Traditions_Available",
+        "data-audio-notif-57": "notif-Wonder_Completed",
+        "data-audio-notif-59": "notif-Tech_Discovered",
+        "data-audio-notif-60": "notif-GenericPositive",
+        "data-audio-notif-61": "notif-Choose_Narrative_Story_Direction",
+        "data-audio-notif-62": "notif-Choose_Belief",
+        "data-audio-notif-63": "notif-Choose_Government",
+        "data-audio-notif-64": "notif-Choose_Pantheon",
+        "data-audio-notif-65": "notif-Choose_Religion",
+        "data-audio-notif-66": "notif-Choose_Discovery_Story_Direction",
+        "data-audio-notif-67": "notif-NaturalDisaster_RiverFloods",
+        "data-audio-notif-68": "notif-NaturalDisaster_Storm",
+        "data-audio-notif-69": "notif-Volcano_Active",
+        "data-audio-notif-70": "notif-Volcano_Inactive",
+        "data-audio-notif-71": "notif-NaturalDisaster_Volcano",
+        "data-audio-notif-72": "notif-Wonder_Failed",
+        "data-audio-notif-73": "notif-Religion_Created",
+        "data-audio-notif-74": "notif-Diplomatic_Alliance_Ended",
+        "data-audio-notif-75": "notif-Diplomatic_Action_Espionage",
+        "data-audio-notif-76": "notif-Player_Met",
+        "data-audio-notif-77": "notif-Diplomatic_Action_Award",
+        "data-audio-notif-78": "notif-Plague_Major_Outbreak",
+        "data-audio-notif-79": "notif-Plague_Minor_Outbreak",
+        "data-audio-notif-80": "notif-Plague_Spreads",
+        "data-audio-notif-81": "notif-Plague_Dissipates",
+        "data-audio-notif-82": "notif-Crisis",
+        "data-audio-notif-83": "notif-Revolt",
+        "data-audio-notif-84": "notif-Ideology_Chosen",
+        "data-audio-notif-85": "notif-Ideology_Chosen_Enemy",
+        "data-audio-notif-86": "notif-Commander_Respawned",
+        "data-audio-notif-87": "notif-Grievances_Against_You",
+        "data-audio-notif-88": "notif-Choose_City_State_Bonus",
+        "data-audio-notif-89": "notif-District_Attacked",
+        "data-audio-notif-90": "notif-Relationship_Changed"
+    },
+    "audio-oob-experience": {
+        "data-audio-ft-setup": "oob-first-time-setup-begin"
+    },
+    "audio-panel-belief-picker": {
+        "data-audio-activate": "add-belief-release",
+        "data-audio-choose-belief": "choose-belief-release",
+        "data-audio-confirm": "confirm-belief-release"
+    },
+    "audio-panel-build-queue": {
+        "data-audio-activate": "build-queue-panel-activate",
+        "data-audio-blur": "build-queue-panel-blur",
+        "data-audio-focus": "build-queue-panel-focus",
+        "data-audio-hidden": "build-queue-panel-hidden",
+        "data-audio-hiding": "build-queue-panel-hiding",
+        "data-audio-negative": "build-queue-panel-negative",
+        "data-audio-showing": "build-queue-panel-showing",
+        "data-audio-shown": "build-queue-panel-shown"
+    },
+    "audio-panel-diplo-ribbon": {
+        "data-audio-blur": "diplo-ribbon-panel-blur",
+        "data-audio-clicked-diplo-leader": "diplo-ribbon-leader-clicked",
+        "data-audio-focus": "diplo-ribbon-leader-focus",
+        "data-audio-hidden": "diplo-ribbon-panel-hidden",
+        "data-audio-hiding": "diplo-ribbon-panel-hiding",
+        "data-audio-negative": "diplo-ribbon-panel-negative",
+        "data-audio-showing": "diplo-ribbon-panel-showing",
+        "data-audio-shown": "diplo-ribbon-panel-shown",
+        "data-audio-press": "select-press"
+    },
+    "audio-panel-mini-map": {
+        "data-audio-blur": "minimap-blur",
+        "data-audio-checkbox-disable": "minimap-decoration-toggle",
+        "data-audio-checkbox-enable": "minimap-decoration-toggle",
+        "data-audio-decoration-toggle": "minimap-decoration-toggle",
+        "data-audio-focus": "minimap-focus",
+        "data-audio-hidden": "minimap-collapsed",
+        "data-audio-hiding": "minimap-collapsing",
+        "data-audio-lens-toggle": "minimap-lens-toggle",
+        "data-audio-minimap-clicked-map": "minimap-map-navigation",
+        "data-audio-minimap-scrubbed-map": "minimap-map-scrub",
+        "data-audio-minimap-focus": "minimap-map-focus",
+        "data-audio-minimap-panel-open-press": "minimap-panel-toggle-press",
+        "data-audio-minimap-panel-open-release": "minimap-panel-toggle-release",
+        "data-audio-minimap-panel-close-press": "minimap-panel-close-press",
+        "data-audio-minimap-panel-close-release": "minimap-panel-close-release",
+        "data-audio-negative": "lens-negative",
+        "data-audio-showing": "minimap-expand-showing",
+        "data-audio-shown": "minimap-expanded",
+        "data-audio-checkbox-focus": "minimap-checkbox-focus"
+    },
+    "minimap-radio-button": {
+        "data-audio-focus": "minimap-radio-button-focus",
+        "data-audio-activate": "minimap-lens-toggle",
+        "data-audio-press": "generic-radio-press"
+    },
+    "audio-panel-notification-train": {
+        "data-audio-activate": "notification-activate",
+        "data-audio-focus": "notification-focus",
+        "data-audio-notif-pop": "notification-start-slide",
+        "data-audio-notif-close": "notification-close",
+        "data-audio-press": "notification-press"
+    },
+    "audio-panel-notification-mobile": {
+        "data-audio-notif-start-turn": "notification-mobile-start-turn",
+        "data-audio-notif-additional": "notification-mobile-additional"
+    },
+    "audio-panel-pantheon-picker": {
+        "data-audio-focus": "pantheon-picker-focus",
+        "data-audio-pantheon-confirm": "pantheon-confirm-release"
+    },
+    "audio-panel-religion-picker": {
+        "data-audio-focus": "religion-picker-focus",
+        "data-audio-press": "select-press"
+    },
+    "audio-panel-sub-system-dock": {
+        "data-audio-blur": "sub-system-dock-blur",
+        "data-audio-clicked-advanced-start": "sub-system-dock-advanced-start",
+        "data-audio-clicked-age-progress": "sub-system-dock-age-progress",
+        "data-audio-clicked-culture-tree": "sub-system-dock-culture-tree",
+        "data-audio-clicked-government": "sub-system-dock-government",
+        "data-audio-clicked-great-works": "sub-system-dock-great-works",
+        "data-audio-clicked-identity-hub": "sub-system-dock-identity-hub",
+        "data-audio-clicked-rankings": "sub-system-dock-rankings",
+        "data-audio-focus": "sub-system-dock-focus",
+        "data-audio-hidden": "sub-system-dock-hidden",
+        "data-audio-hiding": "sub-system-dock-hiding",
+        "data-audio-negative": "sub-system-dock-negative",
+        "data-audio-showing": "sub-system-dock-showing",
+        "data-audio-shown": "sub-system-dock-shown",
+        "data-audio-focus-large": "sub-system-dock-focus-large",
+        "data-audio-focus-small": "sub-system-dock-focus-small",
+        "data-audio-press-large": "sub-system-dock-press-large",
+        "data-audio-press-small": "sub-system-dock-press-small"
+    },
+    "audio-placement": {
+        "data-audio-activate": "building-placement-activate",
+        "data-audio-negative": "building-placement-negative"
+    },
+    "audio-policy-chooser": {
+        "data-audio-focus": "social-policy-focus",
+        "data-audio-government-confirmed": "social-policy-government-activate",
+        "data-audio-government-clicked": "government-card-activate",
+        "data-audio-social-policy-activate": "social-policy-activate",
+        "data-audio-social-policy-enter": "social-policy-enter",
+        "data-audio-social-policy-exit": "social-policy-exit",
+        "data-audio-social-policy-remove": "social-policy-remove",
+        "data-audio-showing": "overlay-window-open",
+        "data-audio-hiding": "overlay-window-close",
+        "data-audio-policy-press": "policy-card-press",
+        "data-audio-policy-confirmed": "social-policy-confim-release"
+    },
+    "victory-progress": {
+        "data-audio-showing": "overlay-window-open",
+        "data-audio-hiding": "overlay-window-close"
+    },
+    "audio-production-chooser": {
+        "data-audio-activate": "production-button-activate",
+        "data-audio-blur": "production-button-blur",
+        "data-audio-focus": "production-button-focus",
+        "data-audio-hidden": "production-chooser-hidden",
+        "data-audio-hiding": "production-chooser-hiding",
+        "data-audio-negative": "production-button-negative",
+        "data-audio-showing": "production-chooser-showing",
+        "data-audio-shown": "production-chooser-shown",
+        "data-audio-close-selected": "generic-panel-hiding",
+        "data-audio-queue-item": "production-chooser-queue",
+        "data-audio-dequeue-item": "production-chooser-dequeue"
+    },
+    "audio-screen-credits": {
+        "data-audio-credits-begin": "credits-begin"
+    },
+    "audio-screen-culture-tree-chooser": {
+        "data-audio-civic-tree-activate": "civic-tree-chooser-activate",
+        "data-audio-civic-tree-info-activate": "civic-tree-info-activate",
+        "data-audio-civic-tree-unlocked": "civic-tree-unlocked",
+        "data-audio-culture-tree-chooser-ready": "culture-tree-chooser-ready",
+        "data-audio-hidden": "culture-tree-chooser-panel-hidden",
+        "data-audio-shown": "culture-tree-chooser-panel-shown",
+        "data-audio-tab-selected": "civic-tree-tab-select",
+        "data-audio-focus": "civic-tree-chooser-focus",
+        "data-audio-chooser-focus": "civic-chooser-focus"
+    },
+    "audio-screen-culture-tree-progression": {
+        "data-audio-showing": "overlay-window-open",
+        "data-audio-hiding": "overlay-window-close",
+        "data-audio-focus": "civic-tree-chooser-focus",
+        "data-audio-queue-hover": "civic-tree-queue-hover"
+    },
+    "audio-screen-endgame": {
+        "data-audio-age-end-closed": "age-end-closed",
+        "data-audio-age-end-wilco-replay": "age-end-wilco-replay",
+        "data-audio-win": "endgame-win-audio"
+    },
+    "audio-screen-resource-allocation": {
+        "data-audio-hiding": "overlay-window-close",
+        "data-audio-showing": "overlay-window-open",
+        "data-audio-tab-selected": "resource-alloc-tab-selected",
+        "data-audio-resource-assign": "resource-assign"
+    },
+    "audio-screen-tech-tree-chooser": {
+        "data-audio-hidden": "tech-tree-chooser-panel-hidden",
+        "data-audio-shown": "tech-tree-chooser-panel-shown",
+        "data-audio-tech-tree-activate": "tech-tree-chooser-activate",
+        "data-audio-focus": "tech-tree-chooser-focus",
+        "data-audio-chooser-focus": "tech-chooser-focus",
+        "data-audio-tech-tree-info-activate": "tech-tree-info-activate",
+        "data-audio-tech-tree-progression-activate": "tech-tree-progression-activate",
+        "data-audio-tech-tree-ready": "tech-tree-ready",
+        "data-audio-tech-tree-unlocked": "tech-tree-unlocked",
+        "data-audio-hiding": "generic-panel-hiding"
+    },
+    "audio-screen-tech-tree": {
+        "data-audio-showing": "overlay-window-open",
+        "data-audio-hiding": "overlay-window-close",
+        "data-audio-queue-hover": "tech-tree-queue-hover"
+    },
+    "audio-screen-unlocks": {
+        "data-audio-press": "error-press",
+        "data-audio-enter-unlocks": "unlocks-enter",
+        "data-audio-focus": "options-focus",
+        "data-audio-tab-selected": "unlocks-tab-select",
+        "data-audio-showing": "overlay-window-open",
+        "data-audio-hiding": "overlay-window-close"
+    },
+    "audio-screen-victory-achieved": {
+        "data-audio-science-milestone": "science-milestone",
+        "data-audio-culture-milestone": "culture-milestone",
+        "data-audio-military-milestone": "military-milestone",
+        "data-audio-economic-milestone": "economic-milestone"
+    },
+    "audio-tech-civic-complete": {
+        "data-audio-hiding-civic": "civic-complete-hide",
+        "data-audio-hiding-tech": "tech-complete-hide",
+        "data-audio-showing-civic": "civic-complete-show",
+        "data-audio-showing-tech": "tech-complete-show"
+    },
+    "audio-trade-route-chooser": {
+        "data-audio-paginate": "trade-route-paginate",
+        "data-audio-trade-route-activate": "trade-route-activate",
+        "data-audio-trade-route-focus": "trade-route-focus"
+    },
+    "audio-unit": {
+        "data-audio-activate": "unit-action-activate",
+        "data-audio-focus": "unit-focus",
+        "data-audio-negative": "unit-action-disabled",
+        "data-audio-unit-drawer-close": "unit-info-drawer-close",
+        "data-audio-unit-drawer-open": "unit-info-drawer-open",
+        "data-audio-unit-drawer-toggle": "unit-info-drawer-toggle",
+        "data-audio-unit-panel-appear": "unit-panel-appear",
+        "data-audio-unit-drawer-press": "unit-action-clicked",
+        "data-audio-unit-bermuda-teleported-reappear": "unit-bermuda-teleported-reappear"
+    },
+    "audio-world": {
+        "data-audio-activate": "plot-activate",
+        "data-audio-focus": "plot-focus"
+    },
+    "audio-yield-panel": {
+        "data-audio-focus": "yields-focus",
+        "data-audio-press": "sub-system-dock-press-small"
+    },
+    "audio-yields-report": {
+        "data-audio-activate": "yields-report-selected",
+        "data-audio-focus": "yields-report-focus",
+        "data-audio-press": "select-press",
+        "data-audio-showing": "yields-selected",
+        "data-audio-hiding": "overlay-window-close"
+    },
+    "city-actions": {
+        "data-audio-city-details-enter": "city-details-enter",
+        "data-audio-city-details-exit": "city-details-exit",
+        "data-audio-city-production-activate": "city-production-activate",
+        "data-audio-city-production-back-to-production": "city-back-to-production",
+        "data-audio-city-production-exit": "city-production-exit",
+        "data-audio-city-production-filter-activate": "city-production-filter-activate",
+        "data-audio-city-production-focus": "city-production-focus",
+        "data-audio-city-production-placement-activate": "city-production-placement-activate",
+        "data-audio-city-production-placement-focus": "city-production-placement-focus",
+        "data-audio-city-production-purchase-mode": "city-production-purchase-mode",
+        "data-audio-city-production-ready": "city-production-ready",
+        "data-audio-city-production-upgrade": "city-production-upgrade",
+        "data-audio-tab-selected": "city-production-tabs",
+        "data-audio-city-upgrade-confirm": "city-upgrade-confirm",
+        "data-audio-city-purchase-activate": "city-purchase-activate"
+    },
+    "city-growth": {
+        "data-audio-city-growth-activate": "city-growth-activate",
+        "data-audio-city-growth-enter": "city-growth-enter",
+        "data-audio-city-growth-exit": "city-growth-exit",
+        "data-audio-city-growth-focus": "city-growth-focus",
+        "data-audio-city-growth-ready": "city-growth-ready",
+        "data-audio-worker-activate": "place-citizen-activate"
+    },
+    "civ-select": {
+        "data-audio-civ-select": "civ-select-selected",
+        "data-audio-focus": "civ-select-focus",
+        "data-audio-press": "select-press"
+    },
+    "controller-mapping": {
+        "data-audio-close-selected": "options-controller-close",
+        "data-audio-dropdown-close": "options-dropdown-deactivate",
+        "data-audio-dropdown-open": "options-dropdown-activate",
+        "data-audio-dropdown-select": "options-controller-tab-select",
+        "data-audio-focus": "options-focus"
+    },
+    "game-creator": {
+        "data-audio-activate": "create-top-selected",
+        "data-audio-focus": "create-top-focus",
+        "data-audio-press": "primary-button-press"
+    },
+    "game-creator-2": {
+        "data-audio-create-continue": "create-continue-selected",
+        "data-audio-focus": "create-continue-focus"
+    },
+    "game-creator-3": {
+        "data-audio-create-continue": "create-start-game-selected",
+        "data-audio-focus": "create-start-game-focus"
+    },
+    "game-setup": {
+        "data-audio-start-game-hover": "start-game-focus",
+        "data-audio-start-game-select": "start-game-selected"
+    },
+    "golden-age-chooser": {
+        "data-audio-golden-age-chooser-activate": "golden-age-chooser-activate",
+        "data-audio-golden-age-chooser-enter": "golden-age-chooser-enter",
+        "data-audio-golden-age-chooser-exit": "golden-age-chooser-exit",
+        "data-audio-golden-age-chooser-focus": "golden-age-chooser-focus",
+        "data-audio-golden-age-chooser-ready": "golden-age-chooser-ready",
+        "data-audio-golden-age-chooser-unlock": "golden-age-chooser-unlock"
+    },
+    "interact-unit": {
+        "data-audio-ability-alert": "ability-alert",
+        "data-audio-ability-defensive-perimeter": "ability-defensive-perimeter",
+        "data-audio-ability-deploy-army": "ability-deploy-army",
+        "data-audio-ability-disperse-independent": "ability-disperse-independent",
+        "data-audio-ability-embark": "ability-embark",
+        "data-audio-ability-embed-lookout": "ability-embed-lookout",
+        "data-audio-ability-fortify": "ability-fortify",
+        "data-audio-ability-leave-army": "ability-leave-army",
+        "data-audio-ability-leave-army-select-plot": "ability-leave-army-select-plot",
+        "data-audio-ability-pack-army": "ability-pack-army",
+        "data-audio-ability-reinforce-army": "ability-reinforce-army",
+        "data-audio-ability-reinforce-army-select-plot": "ability-reinforce-army-select-plot",
+        "data-audio-ability-rest-until-healed": "ability-rest-until-healed",
+        "data-audio-ability-scorched-earth": "ability-scorched-earth",
+        "data-audio-ability-sleep": "ability-sleep",
+        "data-audio-ability-spread-religion": "ability-spread-religion",
+        "data-audio-ability-upgrade": "ability-upgrade",
+        "data-audio-unit-action-activated": "unit-action-activated",
+        "data-audio-unit-action-clicked": "unit-action-clicked",
+        "data-audio-unit-action-settler-activated": "unit-action-settler-activated",
+        "data-audio-unit-action-settler-hovered": "unit-action-settler-hovered",
+        "data-audio-unit-combat-activated": "unit-action-combat-activated",
+        "data-audio-unit-combat-confirmed": "unit-action-combat-confirmed",
+        "data-audio-unit-combat-hovered": "unit-action-combat-hovered",
+        "data-audio-unit-commander-promotion-selected": "unit-action-commander-promotion-selected",
+        "data-audio-unit-commander-promotion-clicked": "unit-action-clicked",
+        "data-audio-unit-commander-promotion-confirmed": "unit-action-commander-promotion-confirmed",
+        "data-audio-unit-commander-promotion-hovered": "unit-action-commander-promotion-hovered",
+        "data-audio-unit-exited": "unit-action-exited",
+        "data-audio-unit-expanded": "unit-info-expanded",
+        "data-audio-unit-hovered": "unit-info-hovered",
+        "data-audio-unit-merchant-activate": "unit-merchant-activated",
+        "data-audio-unit-move-activated": "unit-action-move-activated",
+        "data-audio-unit-move-confirmed": "unit-action-move-confirmed",
+        "data-audio-unit-move-hovered": "unit-action-move-hovered",
+        "data-audio-unit-packed": "unit-action-commander-packed",
+        "data-audio-unit-selected": "unit-selected",
+        "data-audio-unit-unpacked": "unit-action-commander-unpacked",
+        "data-audio-unit-upgraded": "unit-action-upgrade-confirmed",
+        "data-audio-plot-select-overlay": "unit-action-plot-selection-overlay",
+        "data-audio-cancel-action": "unit-action-cancel",
+        "data-audio-delete-unit-confirm-release": "unit-action-delete-confirm-release",
+        "data-audio-unit-pillage-release": "unit-action-pillage-release",
+        "data-audio-ability-excavate": "ability-excavate",
+        "data-audio-ability-research-artifacts": "ability-research-artifacts",
+        "data-audio-ability-search": "ability-search",
+        "data-audio-ability-teleport": "ability-travel-to-city",
+        "data-audio-move-by-rail": "move-by-rail",
+        "data-audio-drop-nuke-confirm-release": "ability-nuke-confirm",
+        "data-audio-unit-great-person-activate": "ability-great-person-activate",
+        "data-audio-unit-ability-claim-mountain": "ability-claim-mountain",
+        "data-audio-unit-convert-independent": "ability-convert-independent",
+        "data-audio-unit-set-jaguar-trap": "ability-set-stone-trap",
+        "data-audio-treasure-unload": "ability-treasure-unload",
+        "data-audio-commander-upgrade-all": "commander-upgrade-all"
+    },
+    "leader-discovered": {
+        "data-audio-leader-discovered-activate": "leader-discovered-activate",
+        "data-audio-leader-discovered-enter": "leader-discovered-enter",
+        "data-audio-leader-discovered-exit": "leader-discovered-exit",
+        "data-audio-leader-discovered-focus": "leader-discovered-focus"
+    },
+    "leader-panel": {
+        "data-audio-leader-activate": "leader-activate",
+        "data-audio-leader-attribute-activate": "leader-attribute-activate",
+        "data-audio-showing": "leader-enter",
+        "data-audio-hiding": "leader-exit",
+        "data-audio-leader-envoy-unlocked": "leader-envoy-unlocked",
+        "data-audio-leader-envoy-used": "leader-envoy-used",
+        "data-audio-leader-exit": "leader-exit",
+        "data-audio-leader-focus": "leader-focus",
+        "data-audio-leader-peace-proposed": "leader-peace-proposed",
+        "data-audio-leader-war-declared": "leader-war-declared",
+        "data-audio-close-selected": "leader-exit"
+    },
+    "leader-select": {
+        "data-audio-focus": "leader-select-focus",
+        "data-audio-leader-select": "leader-select-selected",
+        "data-audio-leader-shuffle-select": "leader-select-shuffle-selected",
+        "data-audio-press": "leader-select-press"
+    },
+    "main-menu-audio": {
+        "data-audio-clicked-age-transition": "main-menu-age-transition",
+        "data-audio-clicked-back": "main-menu-back-activate",
+        "data-audio-clicked-continue": "main-menu-continue",
+        "data-audio-clicked-create-game": "main-menu-create-game",
+        "data-audio-clicked-credits": "main-menu-credits",
+        "data-audio-clicked-exit": "main-menu-exit",
+        "data-audio-clicked-options": "main-menu-options",
+        "data-audio-clicked-play-now": "main-menu-play-now",
+        "data-audio-controller-editor": "options-configure-controller",
+        "data-audio-focused-back": "main-menu-back-focus",
+        "data-audio-focused-menu-item": "main-menu-focus",
+        "data-audio-language-editor": "options-select-language",
+        "data-audio-link-account": "main-menu-link-account",
+        "data-audio-main-menu-activated": "main-menu-activate",
+        "data-audio-progress": "main-menu-progress",
+        "data-audio-load-ready": "main-menu-load-ready",
+        "data-audio-begin-game": "main-menu-begin-game",
+        "data-audio-begin-game-press": "turn-action-press",
+        "data-audio-continue-game": "main-menu-continue-game",
+        "data-audio-continue-game-press": "select-press",
+        "data-audio-advanced-options-activate": "advanced-options-button-release"
+    },
+    "memento-item": {
+        "data-audio-focus": "memento-item-focus",
+        "data-audio-memento-selected": "memento-selected"
+    },
+    "memento-slot": {
+        "data-audio-focus": "memento-slot-focus",
+        "data-audio-memento-slot-selected": "memento-slot-selected",
+        "data-audio-press": "memento-slot-press"
+    },
+    "memento-editor": {
+        "data-audio-showing": "memento-slot-selected",
+        "data-audio-hiding": "overlay-window-close"
+    },
+    "options": {
+        "data-audio-checkbox-disable": "options-checkbox-activate",
+        "data-audio-checkbox-enable": "options-checkbox-activate",
+        "data-audio-dropdown-close": "options-dropdown-deactivate",
+        "data-audio-dropdown-open": "options-dropdown-activate",
+        "data-audio-dropdown-select": "options-dropdown-select",
+        "data-audio-focus": "options-focus",
+        "data-audio-language-radiobutton": "options-language-selected",
+        "data-audio-options-cancel": "options-cancel-selected",
+        "data-audio-options-confirm": "options-confirm-selected",
+        "data-audio-options-default": "options-default-selected",
+        "data-audio-options-focus": "options-focus",
+        "data-audio-slider-changed": "options-slider-changed",
+        "data-audio-spare1": "options-language-cancel",
+        "data-audio-spare2": "options-language-cancel",
+        "data-audio-spare3": "options-cancel-selected",
+        "data-audio-spare4": "options-default-selected",
+        "data-audio-tab-selected": "options-tab-activate",
+        "data-audio-hiding": "overlay-window-close"
+    },
+    "panel-notification-train": {
+        "data-audio-notification-can-buy-attribute-skill": "notification-can-buy-attribute-skill",
+        "data-audio-notification-choose-belief": "notification-choose-belief",
+        "data-audio-notification-choose-city-production": "notification-choose-city-production",
+        "data-audio-notification-choose-city-state-bonus": "notification-choose-city-state-bonus",
+        "data-audio-notification-choose-culture-node": "notification-choose-culture-node",
+        "data-audio-notification-choose-golden-age": "notification-choose-golden-age",
+        "data-audio-notification-choose-government": "notification-choose-government",
+        "data-audio-notification-choose-narrative-story-direction": "notification-choose-narrative-story-direction",
+        "data-audio-notification-choose-pantheon": "notification-choose-pantheon",
+        "data-audio-notification-choose-tech": "notification-choose-tech",
+        "data-audio-notification-command-units": "notification-command-units",
+        "data-audio-notification-culture-tree-revealed": "notification-culture-tree-revealed",
+        "data-audio-notification-diplomatic-action": "notification-diplomatic-action",
+        "data-audio-notification-new-population": "notification-new-population",
+        "data-audio-notification-player-defeated": "notification-player-defeated",
+        "data-audio-notification-select-capital": "notification-select-capital",
+        "data-audio-notification-team-victorious": "notification-team-victorious",
+        "data-audio-notification-traditions-available": "notification-traditions-available"
+    },
+    "pause-menu": {
+        "data-audio-pause-menu-activate": "pause-menu-activate",
+        "data-audio-showing": "pause-menu-enter",
+        "data-audio-hiding": "pause-menu-exit",
+        "data-audio-pause-menu-focus": "pause-menu-focus",
+        "data-audio-save-activate": "pause-save-release",
+        "data-audio-load-activate": "pause-load-release",
+        "data-audio-options-activate": "pause-options-release",
+        "data-audio-social-activate": "pause-social-release"
+    },
+    "save-load": {
+        "data-audio-hiding": "save-load-back-selected",
+        "data-audio-delete-activated": "save-load-delete-selected",
+        "data-audio-popup-delete-activated": "save-load-delete-confirm",
+        "data-audio-load-activated": "save-load-load-selected",
+        "data-audio-overwrite-activated": "save-load-overwrite-selected",
+        "data-audio-save-activated": "save-load-save-selected",
+        "data-audio-showing": "main-menu-load-game"
+    },
+    "store-launcher": {
+        "data-audio-clicked-addcontent": "addcontent-activate",
+        "data-audio-focus-addcontent": "addcontent-focus",
+        "data-audio-press-addcontent": "select-press"
+    },
+    "turn-action": {
+        "data-audio-activate": "generic-turn-button-activate",
+        "data-audio-focus": "generic-turn-action-focus",
+        "data-audio-turn-action-appear": "generic-turn-action-appear",
+        "data-audio-turn-action-complete": "turn-action-complete",
+        "data-audio-press": "turn-action-press",
+        "data-audio-notif-press": "turn-action-notif-press",
+        "data-audio-notif-release": "turn-action-notif-release",
+        "data-audio-notif-focus": "turn-action-notif-hover",
+        "data-audio-notif-1": "turn-action-notif-1",
+        "data-audio-notif-2": "turn-action-notif-2",
+        "data-audio-notif-3": "turn-action-notif-3",
+        "data-audio-notif-4": "turn-action-notif-4",
+        "data-audio-notif-5": "turn-action-notif-5",
+        "data-audio-notif-6": "turn-action-notif-6",
+        "data-audio-notif-7": "turn-action-notif-7",
+        "data-audio-notif-8": "turn-action-notif-8",
+        "data-audio-mp-waiting-on-you": "mp-waiting-on-you"
+    },
+    "collections": {
+        "data-audio-cancel-activate": "collection-cancel-activate",
+        "data-audio-showing": "collection-showing",
+        "data-audio-hiding": "overlay-window-close",
+        "data-audio-popup-redeem-activate": "popup-redeem-activate",
+        "data-audio-popup-cancel-activate": "popup-collection-cancel-activate"
+    },
+    "redeem-popup": {
+        "data-audio-showing": "redeem-activate",
+        "data-audio-hiding": "popup-collection-cancel-activate"
+    },
+    "new-civ-select": {
+        "data-audio-press": "primary-button-press",
+        "data-audio-details-update": "civ-details-release",
+        "data-audio-choose-civ-activate": "choose-civ-button-release"
+    },
+    "age-transition": {
+        "data-audio-age-end-banner": "age-end-banner",
+        "data-audio-age-begin-banner": "age-begin-banner",
+        "data-audio-stop-banner-sound": "stop-age-banner-sounds"
+    },
+    "tutorial-intro": {
+        "data-audio-showing": "tutorial-intro-enter",
+        "data-audio-activate": "tutorial-button-release",
+        "data-audio-hiding": "overlay-window-close"
+    },
+    "tutorial-popup": {
+        "data-audio-popup-open": "tutorial-popup-open",
+        "data-audio-close-selected": "tutorial-popup-closed",
+        "data-audio-minus-press": "journal-press"
+    },
+    "civilopedia": {
+        "data-audio-showing": "overlay-window-open",
+        "data-audio-hiding": "overlay-window-close",
+        "data-audio-close-selected": "none",
+        "data-audio-focus": "civilopedia-focus",
+        "data-audio-turn-page": "civilopedia-turn-page",
+        "data-audio-group-expand": "options-dropdown-activate",
+        "data-audio-group-collapse": "options-dropdown-deactivate"
+    },
+    "narrative-event": {
+        "data-audio-focus": "narrative-focus",
+        "data-audio-activate": "narrative-release",
+        "data-audio-showing": "narrative-event-opening"
+    },
+    "small-narrative-event": {
+        "data-audio-showing": "small-narrative-event-opening",
+        "data-audio-close-selected": "small-narrative-event-release",
+        "data-audio-activate": "small-narrative-event-release",
+        "data-audio-choice-focus": "narrative-focus"
+    },
+    "profile-screen": {
+        "data-audio-showing": "profile-screen-showing",
+        "data-audio-hiding": "profile-screen-hiding",
+        "data-audio-activate": "profile-scroller-release"
+    },
+    "multiplayer-create-game": {
+        "data-audio-showing": "create-mp-game-showing",
+        "data-audio-hiding": "create-game-mp-hiding",
+        "data-audio-save-config-activate": "save-config-release",
+        "data-audio-load-config-activate": "load-config-release",
+        "data-audio-host-lobby-activate": "host-lobby-release"
+    },
+    "multiplayer-lobby": {
+        "data-audio-showing": "mp-lobby-showing",
+        "data-audio-hiding": "mp-lobby-hiding",
+        "data-audio-show-code-activate": "show-code-release",
+        "data-audio-ready-button-press": "ready-button-press",
+        "data-audio-ready-button-activate": "ready-button-release",
+        "data-audio-timer-tick": "lobby-timer-tick",
+        "data-audio-timer-final-tick": "lobby-timer-final-tick"
+    },
+    "multiplayer-timer": {
+        "data-audio-turn-timer-warning": "turn-timer-warning",
+        "data-audio-turn-timer-countdown": "turn-timer-countdown"
+    },
+    "chat": {
+        "data-audio-press": "chat-press",
+        "data-audio-chat-received": "message-alert",
+        "data-audio-showing": "minimap-panel-toggle-release",
+        "data-audio-hiding": "minimap-panel-close-release",
+        "data-audio-send-message-activate": "send-message-release"
+    },
+    "journal": {
+        "data-audio-press": "journal-press",
+        "data-audio-journal-open": "journal-open",
+        "data-audio-journal-close": "journal-close",
+        "data-audio-focus": "journal-focus"
+    },
+    "controller-radial": {
+        "data-audio-showing": "controller-radial-open",
+        "data-audio-hiding": "controller-radial-close",
+        "data-audio-focus": "controller-radial-focus",
+        "data-audio-press": "controller-radial-press"
+    },
+    "tutorial-quest-panel": {
+        "data-audio-showing": "quest-panel-open",
+        "data-audio-hiding": "quest-panel-close"
+    },
+    "great-works": {
+        "data-audio-showing": "overlay-window-open",
+        "data-audio-hiding": "overlay-window-close",
+        "data-audio-assign": "great-work-assign"
+    },
+    "emoji-panel": {
+        "data-audio-showing": "emoji-release",
+        "data-audio-hiding": "emoji-release"
+    },
+    "chat-target-panel": {
+        "data-audio-showing": "chat-target-release",
+        "data-audio-hiding": "chat-target-release"
+    },
+    "journal-quest-popup": {
+        "data-audio-showing": "narrative-journal-quest-open",
+        "data-audio-hiding": "narrative-journal-quest-close"
+    },
+    "audio-legend-report": {
+        "data-audio-hiding": "age-end-closed"
+    },
+    "audio-final-victory-defeat": {
+        "data-audio-final-victory": "final-victory-screen-showing",
+        "data-audio-final-defeat": "final-defeat-screen-showing"
+    },
+    "audio-reward-unlocked": {
+        "data-audio-showing": "reward-unlocked"
+    },
+    "audio-fow": {
+        "data-audio-tile-reveal": "tile-reveal",
+        "data-audio-tile-dissolve": "tile-dissolve"
+    },
+    "gift-box": {
+        "data-audio-showing": "gift-box-open",
+        "data-audio-hiding": "gift-box-close"
+    },
+    "notification-train-mobile": {
+        "data-audio-showing": "overlay-window-open",
+        "data-audio-hiding": "overlay-window-close",
+        "data-audio-focus": "notification-train-popup-focus",
+        "data-audio-dismiss-notification": "dismiss-notification"
+    },
+    "army-panel": {
+        "data-audio-showing": "open-army-panel",
+        "data-audio-hiding": "close-army-panel"
+    },
+    "befriend-independent-details": {
+        "data-audio-activate": "add-befriend-support"
+    },
+    "diplomacy-target-select-panel": {
+        "data-audio-showing": "open-target-panel",
+        "data-audio-hiding": "close-target-panel"
+    },
+    "leader-target-button": {
+        "data-audio-activate": "leader-target-selected"
+    },
+    "gold-target-button": {
+        "data-audio-activate": "give-gold-amount-selected"
+    },
+    "unit-target-button": {
+        "data-audio-activate": "unit-to-levy-selected"
+    },
+    "city-target-button": {
+        "data-audio-activate": "city-target-selected"
+    },
+    "town-specialization-panel": {
+        "data-audio-showing": "town-specialization-panel-showing",
+        "data-audio-hiding": "town-specialization-panel-hiding"
+    },
+    "support-your-war-button": {
+        "data-audio-activate": "self-war-support"
+    },
+    "support-other-war-button": {
+        "data-audio-activate": "other-war-support"
+    },
+    "peace-deal-item": {
+        "data-audio-activate": "peace-item-selected"
+    },
+    "-1": {
+        "data-audio-activate": "growth-town-confirm"
+    },
+    "-831062594": {
+        "data-audio-activate": "fort-town-confirm"
+    },
+    "2060899196": {
+        "data-audio-activate": "urban-town-confirm"
+    },
+    "-548685232": {
+        "data-audio-activate": "fishing-town-confirm"
+    },
+    "753919076": {
+        "data-audio-activate": "mining-town-confirm"
+    },
+    "291441424": {
+        "data-audio-activate": "hub-town-confirm"
+    },
+    "1371691796": {
+        "data-audio-activate": "factory-town-confirm"
+    },
+    "1024321796": {
+        "data-audio-activate": "farming-town-confirm"
+    },
+    "-967829071": {
+        "data-audio-activate": "trade-town-confirm"
+    },
+    "-387112237": {
+        "data-audio-activate": "religous-town-confirm"
+    },
+    "670636546": {
+        "data-audio-activate": "resort-town-confirm"
+    },
+    "age-progression-warning": {
+        "data-audio-showing": "progression-warning-popup-showing",
+        "data-audio-hiding": "progression-warning-popup-hiding"        
+    }
+}

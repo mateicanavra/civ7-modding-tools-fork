@@ -1,0 +1,289 @@
+/* DO NOT EDIT */
+/* Generated from root-game.scss */
+:root {
+	--safezone-top: 0rem;
+	--safezone-bottom: 0rem;
+	--safezone-left: 0rem;
+	--safezone-right: 0rem;
+}
+
+body {
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
+	pointer-events: none;
+	/* Default font */
+	font-size: calc(1rem + 0.2222222222rem);
+}
+
+.img-hud-gradients {
+	background-image: url("fs://game/hud_corner_top_left.png"), url("fs://game/hud_quest_grad.png"), url("fs://game/hud_corner_bot_right.png");
+	background-repeat: no-repeat, no-repeat, no-repeat;
+	background-position: top left, top left, bottom right;
+}
+
+.fxs-popups {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	pointer-events: none;
+	position: absolute;
+	top: 0rem;
+	right: 0rem;
+	bottom: 0rem;
+	left: 0rem;
+}
+
+#safemargins {
+	border-left-width: var(--safezone-h);
+	border-top-width: var(--safezone-v);
+	border-right-width: var(--safezone-h);
+	border-bottom-width: var(--safezone-v);
+}
+
+.fullscreen-outside-safezone {
+	top: -var(--safezone-top);
+	bottom: -var(--safezone-bottom);
+	left: -var(--safezone-left);
+	right: -var(--safezone-right);
+}
+
+.fullscreen-top-outside-safezone {
+	top: -var(--safezone-top);
+	left: -var(--safezone-left);
+	right: -var(--safezone-right);
+}
+
+.fullscreen-bottom-outside-safezone {
+	bottom: -var(--safezone-bottom);
+	left: -var(--safezone-left);
+	right: -var(--safezone-right);
+}
+
+.fullscreen-left-outside-safezone {
+	top: -var(--safezone-top);
+	bottom: -var(--safezone-bottom);
+	left: -var(--safezone-left);
+}
+
+.container {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+}
+
+/* .container > .frame { */
+.frame {
+	position: absolute;
+	width: 95%;
+	height: 95%;
+	border-left-color: #977851;
+	border-right-color: #977851;
+	border-top-color: #977851;
+	border-bottom-color: #977851;
+	border-image-width: 2.6666666667rem;
+	border-style: solid;
+	border-image-slice: 43.75% fill;
+	border-image-repeat: stretch;
+	filter: brightness(25%) sepia(100%);
+}
+
+.safe_zone_margins {
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	border-top: 2.6666666667rem solid rgba(255, 0, 0, 0.5);
+	border-bottom: 2.6666666667rem solid rgba(255, 0, 0, 0.5);
+	border-left: 4rem solid rgba(0, 255, 255, 0.5);
+	border-right: 4rem solid rgba(0, 255, 255, 0.5);
+}
+
+.safe_zone_margins.hidden {
+	display: none;
+}
+
+.view_container {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
+	pointer-events: none;
+}
+
+.action_dock {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 66.6666666667rem;
+	height: 13.3333333333rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: flex-end;
+	background-color: transparent;
+	transform: translateX(-50%);
+}
+
+.action_dock_middle {
+	position: relative;
+	width: 8.8888888889rem;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	background-color: transparent;
+	margin-left: 0.8888888889rem;
+	margin-right: 0.8888888889rem;
+}
+
+.subsystem_dock_container {
+	flex: 1;
+	width: 13.3333333333rem;
+	height: 4.4444444444rem;
+}
+
+.notification_dock {
+	flex: 1;
+	height: 4.4444444444rem;
+	background-color: var(--player-color-primary);
+}
+
+.action_button {
+	width: 100%;
+	height: 5.3333333333rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	background-color: var(--player-color-primary);
+	font-size: calc(1rem + 0.7777777778rem);
+	text-align: center;
+}
+
+.turninfo_container {
+	width: 100%;
+	height: 1.3333333333rem;
+	position: relative;
+	background-color: var(--player-color-primary);
+	font-size: calc(1rem + -0.1111111111rem);
+	font-weight: bold;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+	margin-top: 0.6666666667rem;
+	margin-bottom: 0.6666666667rem;
+}
+
+.researchitem_container {
+	height: 4.4444444444rem;
+	background-color: var(--player-color-primary);
+	font-size: 1rem;
+	font-weight: bold;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+}
+
+.system_menu_anchor {
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: auto;
+}
+
+.system_menu_container {
+	display: flex;
+	flex-direction: row;
+	pointer-events: auto;
+}
+
+.system_menu_item {
+	margin-left: 0.2222222222rem;
+	margin-right: 0.2222222222rem;
+	padding-left: 0.2222222222rem;
+	padding-right: 0.2222222222rem;
+	background-color: var(--player-color-primary);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.clock_label {
+	font-size: calc(1rem + -0.1111111111rem);
+	font-weight: bold;
+}
+
+.pause_menu_button {
+	width: auto;
+	top: 0;
+	right: 0;
+	padding-left: 0.8888888889rem;
+	padding-right: 0.8888888889rem;
+	height: 2.2222222222rem;
+	color: white;
+	font-size: calc(1rem + 0.7777777778rem);
+	font-weight: bold;
+	justify-content: center;
+	align-items: center;
+}
+
+.lens_row {
+	position: absolute;
+	bottom: 0rem;
+	width: 20rem;
+	height: 2.2222222222rem;
+	text-align: center;
+	background-color: var(--player-color-primary);
+}
+
+.unit_city_list_anchor {
+	position: absolute;
+	top: 17.7777777778rem;
+	right: 0;
+	display: flex;
+	height: 41.3333333333rem;
+}
+
+/* TODO: Move to specific panel implementation */
+.unit_city_list_container {
+	width: 4.4444444444rem;
+	justify-content: center;
+	display: flex;
+	align-items: center;
+	background-color: var(--player-color-primary);
+}
+
+.screen-aligned {
+	position: absolute;
+	left: 0rem;
+	top: 0rem;
+}
+
+.loading-curtain {
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: black;
+	opacity: 100;
+	z-index: 10000;
+	padding-top: var(--safezone-top);
+	padding-bottom: var(--safezone-bottom);
+	padding-left: var(--safezone-left);
+	padding-right: var(--safezone-right);
+	display: flex;
+	position: absolute;
+}
+
+/*# sourceMappingURL=hud.css.map */

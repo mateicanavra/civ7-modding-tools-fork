@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_RIVER_MORAVA_NAME">
+			<Text>Morava River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_YANTRA_NAME">
+			<Text>Yantra River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_DRINA_NAME">
+			<Text>Drina River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_ISKAR_NAME">
+			<Text>Iskar River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_PRUT_NAME">
+			<Text>Prut River</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_ADATEPE_NAME">
+			<Text>Adatepe</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_CIOMADUL_NAME">
+			<Text>Ciomadul</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_CSOVANYOS_NAME">
+			<Text>Csóványos</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_KERKIS_NAME">
+			<Text>Kerkis</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_KARADAG_NAME">
+			<Text>Mount Karadağ</Text>
+		</Row>
+	</EnglishText>
+</Database>

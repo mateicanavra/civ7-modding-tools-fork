@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<CivilopediaPageLayouts>
+	</CivilopediaPageLayouts>
+
+	<CivilopediaPageLayoutChapters>
+	</CivilopediaPageLayoutChapters>
+
+	<CivilopediaPageGroups>
+	</CivilopediaPageGroups>
+
+	<CivilopediaPages>
+		<Row SectionID="AGES" PageID="AGES_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_1_TITLE" SortIndex="10" />
+		<Row SectionID="AGES" PageID="AGES_2" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_2_TITLE" SortIndex="20" />
+		<Row SectionID="AGES" PageID="AGES_39" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_39_TITLE" SortIndex="21" />
+		<Row SectionID="AGES" PageID="AGES_40" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_40_TITLE" SortIndex="22" />
+		<Row SectionID="AGES" PageID="AGES_3" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_3_TITLE" SortIndex="30" />
+		<Row SectionID="AGES" PageID="AGES_4" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_4_TITLE" SortIndex="40" />
+		<Row SectionID="AGES" PageID="AGES_5" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_5_TITLE" SortIndex="50" />
+		<Row SectionID="AGES" PageID="AGES_6" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_6_TITLE" SortIndex="60" />
+		<Row SectionID="AGES" PageID="AGES_7" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_7_TITLE" SortIndex="70" />
+		<Row SectionID="AGES" PageID="AGES_8" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_8_TITLE" SortIndex="80" />
+		<Row SectionID="AGES" PageID="AGES_9" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_9_TITLE" SortIndex="90" />
+		<Row SectionID="AGES" PageID="AGES_10" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_10_TITLE" SortIndex="100" />
+		<Row SectionID="AGES" PageID="AGES_11" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_11_TITLE" SortIndex="110" />
+		<Row SectionID="AGES" PageID="AGES_12" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_12_TITLE" SortIndex="120" />
+		<Row SectionID="AGES" PageID="AGES_13" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_13_TITLE" SortIndex="130" />
+		<Row SectionID="AGES" PageID="AGES_14" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_14_TITLE" SortIndex="140" />
+		<Row SectionID="AGES" PageID="AGES_15" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_15_TITLE" SortIndex="150" />
+		<Row SectionID="AGES" PageID="AGES_16" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_16_TITLE" SortIndex="160" />
+		<Row SectionID="AGES" PageID="AGES_17" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_17_TITLE" SortIndex="170" />
+		<Row SectionID="AGES" PageID="AGES_18" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_18_TITLE" SortIndex="180" />
+		<Row SectionID="AGES" PageID="AGES_19" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_19_TITLE" SortIndex="190" />
+		<Row SectionID="AGES" PageID="AGES_20" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_20_TITLE" SortIndex="200" />
+		<Row SectionID="AGES" PageID="AGES_21" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_21_TITLE" SortIndex="210" />
+		<Row SectionID="AGES" PageID="AGES_22" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_22_TITLE" SortIndex="220" />
+		<Row SectionID="AGES" PageID="AGES_23" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_23_TITLE" SortIndex="230" />
+		<Row SectionID="AGES" PageID="AGES_24" PageGroupID="LEGACY" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_24_TITLE" SortIndex="240" />
+		<Row SectionID="AGES" PageID="AGES_25" PageGroupID="LEGACY" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_25_TITLE" SortIndex="250" />
+		<Row SectionID="AGES" PageID="AGES_26" PageGroupID="LEGACY" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_26_TITLE" SortIndex="260" />
+		<Row SectionID="AGES" PageID="AGES_27" PageGroupID="LEGACY" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_27_TITLE" SortIndex="270" />
+		<Row SectionID="AGES" PageID="AGES_28" PageGroupID="LEGACY" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_28_TITLE" SortIndex="280" />
+		<Row SectionID="AGES" PageID="AGES_29" PageGroupID="LEGACY" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_29_TITLE" SortIndex="290" />
+		<Row SectionID="AGES" PageID="AGES_30" PageGroupID="LEGACY" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_30_TITLE" SortIndex="300" />
+		<Row SectionID="AGES" PageID="AGES_31" PageGroupID="LEGACY" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_31_TITLE" SortIndex="310" />
+		<Row SectionID="AGES" PageID="AGES_32" PageGroupID="LEGACY" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_32_TITLE" SortIndex="320" />
+		<Row SectionID="AGES" PageID="AGES_33" PageGroupID="LEGACY" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_33_TITLE" SortIndex="330" />
+		<Row SectionID="AGES" PageID="AGES_34" PageGroupID="LEGACY" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_34_TITLE" SortIndex="340" />
+		<Row SectionID="AGES" PageID="AGES_35" PageGroupID="LEGACY" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_35_TITLE" SortIndex="350" />
+		<Row SectionID="AGES" PageID="AGES_36" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_36_TITLE" SortIndex="360" />
+		<Row SectionID="AGES" PageID="AGES_37" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_37_TITLE" SortIndex="370" />
+		<Row SectionID="AGES" PageID="AGES_38" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_PAGE_AGES_38_TITLE" SortIndex="380" />
+	</CivilopediaPages>
+</Database>
+	

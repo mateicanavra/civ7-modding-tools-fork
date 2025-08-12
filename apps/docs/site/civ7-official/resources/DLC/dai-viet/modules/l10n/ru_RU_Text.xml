@@ -1,0 +1,822 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET1" Language="ru_RU">
+      <Text>Тханглонг|Тханглонга|Тханглонгу|Тханглонг|Тханглонгом|Тханглонге</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET10" Language="ru_RU">
+      <Text>Тхайнгуен|Тхайнгуена|Тхайнгуену|Тхайнгуен|Тхайнгуеном|Тхайнгуене</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET11" Language="ru_RU">
+      <Text>Бакнинь|Бакниня|Бакниню|Бакнинь|Бакнинем|Бакнине</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET12" Language="ru_RU">
+      <Text>Дыонглам|Дыонглама|Дыонгламу|Дыонглам|Дыонгламом|Дыонгламе</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET13" Language="ru_RU">
+      <Text>Тилинь|Тилиня|Тилиню|Тилинь|Тилинем|Тилине</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET14" Language="ru_RU">
+      <Text>Сыдонг|Сыдонга|Сыдонгу|Сыдонг|Сыдонге|Сыдонгом</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET15" Language="ru_RU">
+      <Text>Куокоай|Куокоая|Куокоаю|Куокоай|Куокоаем|Куокоае</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET16" Language="ru_RU">
+      <Text>Тышон|Тышона|Тышону|Тышон|Тышоном|Тышоне</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET17" Language="ru_RU">
+      <Text>Каобанг|Каобанга|Каобангу|Каобанг|Каобангом|Каобанге</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET18" Language="ru_RU">
+      <Text>Нгхеан|Нгхеана|Нгхеану|Нгхеан|Нгхеаном|Нгхеане</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET19" Language="ru_RU">
+      <Text>Сыдоай|Сыдоая|Сыдоаю|Сыдоай|Сыдоаем|Сыдоае</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET2" Language="ru_RU">
+      <Text>Тхайбинь|Тхайбиня|Тхайбиню|Тхайбинь|Тхайбинем|Тхайбине</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET20" Language="ru_RU">
+      <Text>Вьетчи|Вьетчи|Вьетчи|Вьетчи|Вьетчи|Вьетчи</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET21" Language="ru_RU">
+      <Text>Тамдай|Тамдая|Тамдаю|Тамдай|Тамдаем|Тамдае</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET22" Language="ru_RU">
+      <Text>Тауланг|Тауланга|Таулангу|Тауланг|Таулангом|Тауланге</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET23" Language="ru_RU">
+      <Text>Туенкуанг|Туенкуанга|Туенкуангу|Туенкуанг|Туенкуангом|Туенкуанге</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET24" Language="ru_RU">
+      <Text>Хынгйен|Хынгйена|Хынгйену|Хынгйен|Хынгйеном|Хынгйене</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET25" Language="ru_RU">
+      <Text>Йенбай|Йенбая|Йенбаю|Йенбай|Йенбаем|Йенбае</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET26" Language="ru_RU">
+      <Text>Баотханг|Баотханга|Баотхангу|Баотханг|Баотхангом|Баотханге</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET27" Language="ru_RU">
+      <Text>Куангтри|Куангтри|Куангтри|Куангтри|Куангтри|Куангтри</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET28" Language="ru_RU">
+      <Text>Хонглинь|Хонглиня|Хонглиню|Хонглинь|Хонглинем|Хонглине</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET29" Language="ru_RU">
+      <Text>Тяули|Тяули|Тяули|Тяули|Тяули|Тяули</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET3" Language="ru_RU">
+      <Text>Тханьхоа|Тханьхоа|Тханьхоа|Тханьхоа|Тханьхоа|Тханьхоа</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET30" Language="ru_RU">
+      <Text>Додонгзанг|Додонгзанга|Додонгзангу|Додонгзанг|Додонгзангом|Додонгзанге</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET4" Language="ru_RU">
+      <Text>Бакзанг|Бакзанга|Бакзангу|Бакзанг|Бакзангом|Бакзанге</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET5" Language="ru_RU">
+      <Text>Донгхой|Донгхоя|Донгхою|Донгхой|Донгхоем|Донгхое</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET6" Language="ru_RU">
+      <Text>Хатинь|Хатиня|Хатиню|Хатинь|Хатинем|Хатине</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET7" Language="ru_RU">
+      <Text>Хайфон|Хайфона|Хайфону|Хайфон|Хайфоном|Хайфоне</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET8" Language="ru_RU">
+      <Text>Хойян|Хойяна|Хойяну|Хойян|Хойяном|Хойяне</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_DAI_VIET9" Language="ru_RU">
+      <Text>Хоалы|Хоалы|Хоалы|Хоалы|Хоалы</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_FEMALE_1" Language="ru_RU">
+      <Text>Нга|Нга|Нга|Нга|Нга|Нга</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_FEMALE_10" Language="ru_RU">
+      <Text>Фыонг|Фыонг|Фыонг|Фыонг|Фыонг|Фыонг</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_FEMALE_2" Language="ru_RU">
+      <Text>Минь|Минь|Минь|Минь|Минь|Минь</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_FEMALE_3" Language="ru_RU">
+      <Text>Май|Май|Май|Май|Май</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_FEMALE_4" Language="ru_RU">
+      <Text>Ань|Ань|Ань|Ань|Ань|Ань</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_FEMALE_5" Language="ru_RU">
+      <Text>Занг|Занг|Занг|Занг|Занг|Занг</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_FEMALE_6" Language="ru_RU">
+      <Text>Хань|Хань|Хань|Хань|Хань|Хань</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_FEMALE_7" Language="ru_RU">
+      <Text>Хоа|Хоа|Хоа|Хоа|Хоа|Хоа</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_FEMALE_8" Language="ru_RU">
+      <Text>Тхюи|Тхюи|Тхюи|Тхюи|Тхюи|Тхюи</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_FEMALE_9" Language="ru_RU">
+      <Text>Тюиен|Тюиен|Тюиен|Тюиен|Тюиен|Тюиен</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_MALE_1" Language="ru_RU">
+      <Text>Линь|Линь|Линь|Линь|Линь|Линь</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_MALE_10" Language="ru_RU">
+      <Text>Куанг|Куанга|Куангу|Куанг|Куангом|Куанге</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_MALE_2" Language="ru_RU">
+      <Text>Лиен|Лиена|Лиену|Лиена|Лиеном|Лиене</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_MALE_3" Language="ru_RU">
+      <Text>Хоан|Хоана|Хоану|Хоана|Хоаном|Хоане</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_MALE_4" Language="ru_RU">
+      <Text>Тхань|Тханя|Тханю|Тханя|Тханем|Тхане</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_MALE_5" Language="ru_RU">
+      <Text>Фат Ма|Фат Ма|Фат Ма|Фат Ма|Фат Ма|Фат Ма</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_MALE_6" Language="ru_RU">
+      <Text>Зыонг|Зыонга|Зыонгу|Зыонга|Зыонгом|Зыонге</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_MALE_7" Language="ru_RU">
+      <Text>Хиеу|Хиеу|Хиеу|Хиеу|Хиеу|Хиеу</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_MALE_8" Language="ru_RU">
+      <Text>Кыонг|Кыонга|Кыонгу|Кыонга|Кыонгом|Кыонге</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_DAI_VIET_MALE_9" Language="ru_RU">
+      <Text>Динь|Диня|Диню|Диня|Динем|Дине</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_DAI_VIET_ADJECTIVE" Language="ru_RU">
+      <Text>Вьетнамский|вьетнамск|вьетнамск</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_DAI_VIET_FULLNAME" Language="ru_RU">
+      <Text>Империя Дайвьет|Империи Дайвьет|Империи Дайвьет|Империю Дайвьет|Империей Дайвьет|Империи Дайвьет</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_DAI_VIET_NAME" Language="ru_RU">
+      <Text>Дайвьет|Дайвьета|Дайвьету|Дайвьет|Дайвьетом|Дайвьете</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_EXPLORATION_10_MAJOR_DAI_VIET_NAME" Language="ru_RU">
+      <Text>Тидоре|Тидоре|Тидоре|Тидоре|Тидоре|Тидоре</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_EXPLORATION_10_MINOR_DAI_VIET_NAME" Language="ru_RU">
+      <Text>Тидорцы|тидорцев|тидорцам|тидорцев|тидорцами|тидорцах</Text>
+      <Gender>masculine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_DAI_VIET_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>История Вьетнама, зажатого между Юго-Восточной и Восточной Азией, пронизана конфликтами и взаимосвязями. На раннем этапе она отмечена наличием коренных государств и господством династии Хань, но в 939 году н. э. Нго Куен, восставший против Южной Хань, провозгласил новую эпоху. Хотя собственная семья Нго Куена не правила Дайвьетом и прошли десятилетия, прежде чем это название вошло в употребление, были заложены основы данного государства. В течение почти тысячи лет после этого, имея столицу недалеко от современного Ханоя на реке Хонгха, Дайвьет переживал периоды агрессивной экспансии, а также порабощения и потерь. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_DAI_VIET_CHAPTER_HISTORY_PARA_2" Language="ru_RU">
+      <Text>В 1010 году н. э. Ли Тхай-то, стремясь утвердить славу нового государства, переименовал столицу в Тханглонг, что означает «взлетающий дракон». Поднявшись на этих крыльях, Дайвьет расширил бюрократическую власть в пределах своих границ, а также продвинулся за них — на север в китайские города, на юг в города, удерживаемые тямами, и на запад в земли лао и кхмеров. По своей сути двор Дайвьета представлял собой сложную смесь, сформированную политическими интригами между евнухами и знатными семьями: это был режим, ставивший во главу угла бюрократическую и меритократическую власть, причем обе включали представителей других этнических групп и осуществляли имперский контроль. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_DAI_VIET_CHAPTER_HISTORY_PARA_3" Language="ru_RU">
+      <Text>Однако двести лет спустя Монголия, другая держава на противоположной стороне континента, бросила вызов взлетевшему дракону. Хан Мункэ, замышлявший завоевание династии Сун в Китае, потребовал от Дайвьета дань. Когда вьетнамцы отказались, он разграбил Тханглонг и казнил его население. Хотя позже вьетнамцы вытеснили захватчиков, ослабленный Дайвьет принял чужое верховенство: так начался период пребывания государства Дайвьет в статусе данника своего северного соседа. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_DAI_VIET_CHAPTER_HISTORY_PARA_4" Language="ru_RU">
+      <Text>В этот промежуточный период вьетнамское общество начало меняться. Ключевым моментом в китайских стратегиях ассимиляции было «цивилизаторство» вьетнамцев, т. е. отвлечение местного населения от традиций — как поверхностных (например, татуировки), так и фундаментальных (например, переход от буддизма к конфуцианству). </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_DAI_VIET_CHAPTER_HISTORY_PARA_5" Language="ru_RU">
+      <Text>Китайское господство продолжалась около двухсот лет, и в результате восстания Ле Лоя в 1418 году н. э. Дайвьет наконец освободился от него. Забрав власть у династии Мин с помощью партизанской войны, новый режим принес слияние более ранних обычаев и китайских норм, а также традиций и новых технологий, таких как огнестрельное оружие. Впоследствии оно ему понадобилось. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_DAI_VIET_CHAPTER_HISTORY_PARA_6" Language="ru_RU">
+      <Text>В последующие годы Дайвьет стал одним из самых образованных обществ в Азии, ведь бюрократия расширялась, а государство укреплялось. Профессии часто регулировались и контролировались государством, и рабочие Дайвьета преуспели в создании сложных систем орошения — весьма полезных, если учесть климат Вьетнама и его зависимость от поливного рисоводства. Однако, в отличие от своих соперников в Чампе и Китае, зависимость Вьетнама от государственной промышленности и сельского хозяйства привела к тому, что он был практически исключен из маршрутов Шелкового пути, а большинство предметов роскоши (таких как золото и серебро, а также слоновая кость и рог носорога) продавались на местном уровне. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_DAI_VIET_CHAPTER_HISTORY_PARA_7" Language="ru_RU">
+      <Text>Все империи рушатся. И хотя Дайвьет просуществовал большую часть тысячелетия, в начале XIX века он пал из-за внутренних распрей. Его сменила Вьетнамская империя или, как ее чаще называют, династия Нгуен, хотя Нгуенам суждено было просуществовать всего несколько десятилетий, прежде чем далеко за границей, в Париже, они были выбраны целью очередного вторжения. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_IMPROVEMENT_WATER_PUPPET_THEATER_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>История Вьетнама – это не только череда династий и дворцовых интриг. Здесь есть как аристократические, так и народные традиции, и водный театр кукол является одной из самых характерных народных форм искусства. Используя в качестве сцены затопленное рисовое поле, актеры водного театра кукол («муа зой ныуок») управляли лакированными куклами с помощью длинных палок из-за ширм. Такие представления часто рассказывали комические истории о народных героях (и дураках) и позволяли простому народу высказывать свое мнение о деяниях аристократов.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_DAI_VIET_CAM_QUAN_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Армия Дайвьета представляла собой нечто среднее между профессиональной армией и обычным ополчением. Профессиональные солдаты в мирное время могли стать обузой для казны, а что еще хуже — от скуки у них могу могли появиться амбиции. С другой стороны, у ополченцев было мало качественного снаряжения и еще меньше мотивации сражаться, когда война отрывала их от хозяйства. Поэтому воины «кам куан» получали земельный надел и освобождались от налогов при условии, что они будут всегда готовы к бою в случае войны.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_DAI_VIET_CHU_NOM_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>У Дайвьета было множество вариантов письменности для записи вьетнамского языка, ведь рядом были палийский, кхмерский, санскрит и другие языки. Однако после многих лет ассимиляционной политики во время китайского правления вьетнамские писцы создали по образу китайских иероглифов систему письма, известную как «тьы-ном». Эта система сосуществовала с классическим китайским и использовалась для записи поэзии и прозы, когда важно было передать особенности разговорной вьетнамской речи. Система «тьы-ном» была в употреблении с XIII века н. э. до начала французского колониального правления в XX веке. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_DAI_VIET_THANH_HOANG_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Религия в Дайвьете представляла собой синтез различных верований и объединяла в себе буддизм, даосизм, культ предков и анимистическое поклонение местным духам и историческим личностям, таким как Чынг Чак. Эти божества-защитники называются «тхань хоанг», и этот термин также обозначает городские стены, которые, подобно духам, охраняют город. Церемонии в честь этих духов для защиты городов и деревень, проводятся во Вьетнаме и по сей день. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_DAI_VIET_TU_DAN_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Одной из китайских традиций, которую перенял и адаптировал под себя Дайвьет, стала меритократическая система рангов «ты зан», согласно которой население было разделено на категории по способностям и талантам. Эта система имела особое значение в конфуцианской модели управления, где правильное правление означает, что каждый человек занимает наиболее подходящую ему роль. Однако она не всегда гармонично сочеталась с устоявшимся делением общества на кланы и знатные семьи, характерным для того времени. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_VIET_KIEU_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>В Юго-Восточной Азии, как правило, считалось, что поселения основывали принцы в поисках нового царства. Это соответствовало политике мандалы в индийских землях, где каждый новый город должен был олицетворять небеса на земле. Во Вьетнаме также считалось, что новые поселения появляются благодаря деяниям великих людей. Термин «Куан Выонг» обозначает такого аристократа, а основанные им поселения должны отражать стремление создать центр красоты, утонченности и культуры. Мы можем спорить о том, насколько эти мифические истории происхождения городов и деревень соответствуют реальности. Однако важнее здесь не то, как люди пришли в это место и присвоили его, а то, как они добились признания со стороны центральной власти и легитимности. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_VOI_CHIEN_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Вьетнамские боевые слоны были характерным элементом в армиях Юго-Восточной Азии. Благодаря своей способности передвигаться с удивительной легкостью даже с тяжелым грузом на спине, слоны играли ключевую роль в логистике. В бою же они наводили ужас на противника. С высоты этой живой башни вооруженные копьями, пиками или луками воины могли атаковать тыл противника в обход линии обороны, а сам зверь в боевом безумии мог растоптать даже опытных солдат. Кавалерия оказалась здесь особенно уязвима — только самые дисциплинированные лошади не бросались в бегство при виде атакующих слонов. Можно сказать, что слоны были танками своего времени. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_VOI_CHIEN_CHAPTER_HISTORY_PARA_2" Language="ru_RU">
+      <Text>Но слон все же не машина, а живое существо. В войнах с династией Сун войска Ли Туонг Киета, окрыленные победами над чамами на юге, использовали боевых слонов против китайской армии. Однако китайцы научились наносить удары по чувствительным хоботам слонов — звери приходили в ярость и топтали свои же войска.  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_VOI_CHIEN_CHAPTER_HISTORY_PARA_3" Language="ru_RU">
+      <Text>Слонов продолжали использовать как вьючных животных, умеющих к тому же относительно скрытно передвигаться, даже в ходе Вьетнамской войны.  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_THANH_HUE_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Императорская цитадель в Хюэ, строительство которой началось в 1803 году после падения Дайвьета, стала жемчужиной в короне династии Нгуен и до сих пор остается впечатляющим символом великолепия вьетнамского императорского двора. В цитадели располагались жилые помещения и залы не только для придворных, но и для бюрократов (мандаринов), окружавших двор: средоточие роскоши, искусства и государственной власти. Дворец, как и значительная часть вьетнамской бюрократии, был создан по китайскому образцу, но со своими особенностями. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_THANH_HUE_CHAPTER_HISTORY_PARA_2" Language="ru_RU">
+      <Text>Кроме того, цитадель, как и весь Вьетнам, изрядно потрепали войны. Дважды в ходе европейской, а затем американской оккупации она становилась ареной ожесточённых сражений: в 1947 году, когда Вьетминь защищал дворец от французов, а затем в 1968 году, когда армия Северного Вьетнама и Вьетконг обороняли его от американцев. </Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_WATER_PUPPET_THEATER_NAME" Language="ru_RU">
+      <Text>Театр кукол на воде|Театра кукол на воде|Театру кукол на воде|Театр кукол на воде| Театром кукол на воде|Театре кукол на воде|</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_WONDER_THANH_HUE_NAME" Language="ru_RU">
+      <Text>Тхань Хюэ|Тхань Хюэ|Тхань Хюэ|Тхань Хюэ|Тхань Хюэ|Тхань Хюэ</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SONG_CHU_NAME" Language="ru_RU">
+      <Text>Шонгту|Шонгту|Шонгту|Шонгту|Шонгту|Шонгту</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SONG_DUONG_NAME" Language="ru_RU">
+      <Text>Шонгдуонг|Шонгдуонга|Шонгдуонгу|Шонгдуонг|Шонгдуонгом|Шонгдуонге</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SONG_GAM_NAME" Language="ru_RU">
+      <Text>Гам|Гам|Гам|Гам|Гам|Гам</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SONG_HONG_NAME" Language="ru_RU">
+      <Text>Хонгха|Хонгха|Хонгха|Хонгха|Хонгха|Хонгха</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SONG_LAM_NAME" Language="ru_RU">
+      <Text>Лам|Лам|Лам|Лам|Лам|Лам</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_BANG_MO_NAME" Language="ru_RU">
+      <Text>Бангмо|Бангмо|Бангмо|Бангмо|Бангмо|Бангмо</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_CHU_DANG_YA_NAME" Language="ru_RU">
+      <Text>Ту Данг Я|Ту Данг Я|Ту Данг Я|Ту Данг Я|Ту Данг Я|Ту Данг Я</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_CU_LAO_RE_NAME" Language="ru_RU">
+      <Text>Кулаоре|Кулаоре|Кулаоре|Кулаоре|Кулаоре|Кулаоре</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_DONG_NAI_NAME" Language="ru_RU">
+      <Text>Донгнай|Донгная|Донгнаю|Донгнай|Донгнаем|Донгнае</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_NAM_DONG_NAME" Language="ru_RU">
+      <Text>Намдонг|Намдонга|Намдонгу|Намдонг|Намдонгом|Намдонге</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_CAM_QUAN_NAME" Language="ru_RU">
+      <Text>Камкуан|Камкуан|Камкуан|Камкуан|Камкуан|Камкуан</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_CHU_NOM_NAME" Language="ru_RU">
+      <Text>Тьы-ном|Тьы-ном|Тьы-ном|Тьы-ном|Тьы-ном|Тьы-ном</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_THANH_HOANG_NAME" Language="ru_RU">
+      <Text>Тхань хоанг|тхань хоанга|тхань хоангу|тхань хоанга|тхань хоангом|тхань хоанге</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TU_DAN_NAME" Language="ru_RU">
+      <Text>Ты зан|Ты зан|Ты зан|Ты зан|Ты зан|Ты зан</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_11042A_COMPLETION" Language="ru_RU">
+      <Text>Белая мышь ведет поселенцев вперед и затем убегает. Поселенцы следуют за ней в течение нескольких дней по труднопроходимой местности. Когда она исчезает, они видят источник — чистая как стекло вода бьет из-под земли. Здесь будет хороший город.</Text>
+    </Replace>
+    <Replace Tag="LOC_11042A_STORYTITLE" Language="ru_RU">
+      <Text>Укрощение леса</Text>
+    </Replace>
+    <Replace Tag="LOC_11042B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11042B_NAME" Language="ru_RU">
+      <Text>Жажда новых земель гонит новых переселенцев вперед.</Text>
+    </Replace>
+    <Replace Tag="LOC_11042C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11042C_NAME" Language="ru_RU">
+      <Text>Новые земли несут в себе новые опасности.</Text>
+    </Replace>
+    <Replace Tag="LOC_11043A_COMPLETION" Language="ru_RU">
+      <Text>Кхмерские бараи давно кормили людей. Но с тех пор, как к власти пришли вьеты, священная задача их содержания сошла на нет. Сюда проник ил, и в сухое время года обнажаются плоские участки голой грязи.</Text>
+    </Replace>
+    <Replace Tag="LOC_11043A_STORYTITLE" Language="ru_RU">
+      <Text>Кхмер-кром</Text>
+    </Replace>
+    <Replace Tag="LOC_11043B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11043B_NAME" Language="ru_RU">
+      <Text>Переделать дренажную систему в соответствии с новыми стандартами вьетов.</Text>
+    </Replace>
+    <Replace Tag="LOC_11043C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11043C_NAME" Language="ru_RU">
+      <Text>Дать кхмерским священникам провести старый ритуал.</Text>
+    </Replace>
+    <Replace Tag="LOC_11044A_COMPLETION" Language="ru_RU">
+      <Text>Ворота дворца Вэйян открыты, а его бесконечные залы теперь стали лабиринтом. Однако он не пустует. Теперь переселенцы из сел растят своих детей там, где когда-то принцы преклоняли головы, а рыночные торговцы кричат о своих товарах там, где когда-то шептались придворные. Но правильно ли это?</Text>
+    </Replace>
+    <Replace Tag="LOC_11044A_STORYTITLE" Language="ru_RU">
+      <Text>Бескрайний дворец</Text>
+    </Replace>
+    <Replace Tag="LOC_11044B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} и {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11044B_NAME" Language="ru_RU">
+      <Text>Да. Это будет город сам по себе.</Text>
+    </Replace>
+    <Replace Tag="LOC_11044C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11044C_NAME" Language="ru_RU">
+      <Text>Нет. Его нужно расчистить и восстановить.</Text>
+    </Replace>
+    <Replace Tag="LOC_11045A_COMPLETION" Language="ru_RU">
+      <Text>Недавно назначенному командиру не хватает светских манер. Его ао зяо линь разорвано на груди, обнажая кожу, испещренную шрамами. Но никто не делает насчет этого замечаний даже в его отсутствие. По слухам врагов Дайвьета, он везде и нигде одновременно, поэтому никто не осмеливается подать голос.</Text>
+    </Replace>
+    <Replace Tag="LOC_11045A_STORYTITLE" Language="ru_RU">
+      <Text>Партизан</Text>
+    </Replace>
+    <Replace Tag="LOC_11045B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} всем командирам.</Text>
+    </Replace>
+    <Replace Tag="LOC_11045B_NAME" Language="ru_RU">
+      <Text>Его звезда взойдет еще выше.</Text>
+    </Replace>
+    <Replace Tag="LOC_11045C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11045C_NAME" Language="ru_RU">
+      <Text>Он будет консультировать по поводу военных действий сверху.</Text>
+    </Replace>
+    <Replace Tag="LOC_11046A_COMPLETION" Language="ru_RU">
+      <Text>В конце войны командир вьетов греб на лодке по озеру недалеко от столицы. И вот, как он рассказывает, из воды вынырнула черепаха и попросила у командира его меч — ибо он был не человеческим, а божественным.</Text>
+    </Replace>
+    <Replace Tag="LOC_11046A_STORYTITLE" Language="ru_RU">
+      <Text>Озеро возвращенного меча</Text>
+    </Replace>
+    <Replace Tag="LOC_11046B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} на клетках озер в {2_capital[6]}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11046B_NAME" Language="ru_RU">
+      <Text>Сама природа признает величие вьетов.</Text>
+    </Replace>
+    <Replace Tag="LOC_11046C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} на клетках озер в {2_capital[6]}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11046C_NAME" Language="ru_RU">
+      <Text>Война окончена.</Text>
+    </Replace>
+    <Replace Tag="LOC_11047A_COMPLETION" Language="ru_RU">
+      <Text>Ученые используют письменность, которая, хотя и прекрасна, не подходит для вьетнамского языка. Вдохновленные, они обращаются к своим соседям. Конечно же, они могли бы чему-то у них научиться.</Text>
+    </Replace>
+    <Replace Tag="LOC_11047A_STORYTITLE" Language="ru_RU">
+      <Text>Тьы-ном</Text>
+    </Replace>
+    <Replace Tag="LOC_11047B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11047B_NAME" Language="ru_RU">
+      <Text>Ученые разрабатывают письменность на основе чужих трудов.</Text>
+    </Replace>
+    <Replace Tag="LOC_11047C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11047C_NAME" Language="ru_RU">
+      <Text>Ученые продолжают писать по-своему.</Text>
+    </Replace>
+    <Replace Tag="LOC_11048A_COMPLETION" Language="ru_RU">
+      <Text>Дипломаты собираются в Запретном городе; верующие, которые исповедуют {1_Religion[4]}, молятся в соборе Богоматери, а цитадель Хюэ защищает всех. Поэты спрашивают: «Что совершил Дайвьет, чтобы так заслужить благословение богов?»</Text>
+    </Replace>
+    <Replace Tag="LOC_11048A_STORYTITLE" Language="ru_RU">
+      <Text>Ван Минь</Text>
+    </Replace>
+    <Replace Tag="LOC_11048B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11048B_NAME" Language="ru_RU">
+      <Text>Это стало результатом длинной цепи совпадений.</Text>
+    </Replace>
+    <Replace Tag="LOC_11048C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11048C_NAME" Language="ru_RU">
+      <Text>Это судьба.</Text>
+    </Replace>
+    <Replace Tag="LOC_11049A_COMPLETION" Language="ru_RU">
+      <Text>Когда дым поднимается над покоренным городом, солдаты начинают спорить, получат ли они часть добычи. В то же время отпрыски знатных семей, отчаянно желающие вернуть собственные земли, обращаются во дворец с мольбами.</Text>
+    </Replace>
+    <Replace Tag="LOC_11049A_STORYTITLE" Language="ru_RU">
+      <Text>Новые земли</Text>
+    </Replace>
+    <Replace Tag="LOC_11049B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} на улучшениях в {2_story_city[6]}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11049B_NAME" Language="ru_RU">
+      <Text>Земля достается тем, кто за нее боролся.</Text>
+    </Replace>
+    <Replace Tag="LOC_11049C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} на улучшениях в {2_story_city[6]}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11049C_NAME" Language="ru_RU">
+      <Text>Земля переходит к знатным семьям.</Text>
+    </Replace>
+    <Replace Tag="LOC_11049D_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} на улучшениях в {2_story_city[6]}, но {3_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11049D_NAME" Language="ru_RU">
+      <Text>Земля остается в руках коренных граждан {1_STORY_CITY[2]}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11050A_COMPLETION" Language="ru_RU">
+      <Text>Знатный мужчина ловил рыбу в озере недалеко от столицы, когда над водой поднялся туман. Оттуда появилась лодка... а в ней — силуэт тигра! Быстро сообразив, вельможа поймал зверя сетью, после чего тот стал придворным мандарином.</Text>
+    </Replace>
+    <Replace Tag="LOC_11050A_STORYTITLE" Language="ru_RU">
+      <Text>Тигр</Text>
+    </Replace>
+    <Replace Tag="LOC_11050B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} на клетках озер в {2_capital[6]}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11050B_NAME" Language="ru_RU">
+      <Text>Судить мандарина за колдовство.</Text>
+    </Replace>
+    <Replace Tag="LOC_11050C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11050C_NAME" Language="ru_RU">
+      <Text>Освободить его, пусть учит других.</Text>
+    </Replace>
+    <Replace Tag="LOC_11051A_COMPLETION" Language="ru_RU">
+      <Text>Монгольские оккупационные войска входят в завоеванный город, а живущие в нем вьеты с опаской смотрят на них из дверей и окон. Как глубоко зайдет эта оккупация? Как долго она продлится? В {1_Capital[6]} лидеры вьетов обдумывают причины недовольства.</Text>
+    </Replace>
+    <Replace Tag="LOC_11051A_STORYTITLE" Language="ru_RU">
+      <Text>Принц Тьеу Куок</Text>
+    </Replace>
+    <Replace Tag="LOC_11051B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11051B_NAME" Language="ru_RU">
+      <Text>Люди достаточно настрадались.</Text>
+    </Replace>
+    <Replace Tag="LOC_11051C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11051C_NAME" Language="ru_RU">
+      <Text>Есть вещи, которые нельзя забывать.</Text>
+    </Replace>
+    <Replace Tag="LOC_11052A_COMPLETION" Language="ru_RU">
+      <Text>Фигура, похожая на Чынг Чак, мчится через рыночную площадь, размахивая мечом. Видя свирепое выражение на ее лице, люди застывают на месте. Однако лицо это старушечье — это медиум, которая утверждает, что в нее вселился дух Чынг.</Text>
+    </Replace>
+    <Replace Tag="LOC_11052A_STORYTITLE" Language="ru_RU">
+      <Text>Лен донг</Text>
+    </Replace>
+    <Replace Tag="LOC_11052B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} в столице {2_capital}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11052B_NAME" Language="ru_RU">
+      <Text>Это бунт. Запретить подобное.</Text>
+    </Replace>
+    <Replace Tag="LOC_11052C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11052C_NAME" Language="ru_RU">
+      <Text>Это честь. Найти ей подходящее место.</Text>
+    </Replace>
+    <Replace Tag="LOC_11053A_COMPLETION" Language="ru_RU">
+      <Text>Отправление маленькой лодки кажется незначительным, но она поднимает ветра и бури, когда достигает мира.[n] «Поэма о Кьеу»</Text>
+    </Replace>
+    <Replace Tag="LOC_11053A_STORYTITLE" Language="ru_RU">
+      <Text>Динь мень</Text>
+    </Replace>
+    <Replace Tag="LOC_11053B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11053B_NAME" Language="ru_RU">
+      <Text>На борту корабля находятся солдаты.</Text>
+    </Replace>
+    <Replace Tag="LOC_11053C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11053C_NAME" Language="ru_RU">
+      <Text>На борту корабля находятся ученые.</Text>
+    </Replace>
+    <Replace Tag="LOC_12008A_COMPLETION" Language="ru_RU">
+      <Text>Стоя на краю затопленного рисового поля, доктор Рисаль наблюдает за репетицией сложной сцены в кукольном театре на воде. Вскоре на концах бамбуковых палок оживают целые стаи птиц.</Text>
+    </Replace>
+    <Replace Tag="LOC_12008A_STORYTITLE" Language="ru_RU">
+      <Text>Добрый доктор и кукольный театр на воде</Text>
+    </Replace>
+    <Replace Tag="LOC_12008B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} во всех поселениях.</Text>
+    </Replace>
+    <Replace Tag="LOC_12008B_NAME" Language="ru_RU">
+      <Text>Поговорить с фермерами об их методах работы.</Text>
+    </Replace>
+    <Replace Tag="LOC_12008C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_12008C_NAME" Language="ru_RU">
+      <Text>Поговорить с исполнителями об их подготовке.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTR_YIELDS_FROM_RANDOM_EVENT" Language="ru_RU">
+      <Text>Прибыль от наводнений, бурь и вулканов</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_CAM_QUAN_AUTHOR" Language="ru_RU">
+      <Text>Нам Куок Сон Ха</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_CAM_QUAN_QUOTE" Language="ru_RU">
+      <Text>«Сверкающие клинки изрубят тебя в бамбуковую щепу!»</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_CHU_NOM_AUTHOR" Language="ru_RU">
+      <Text>Нгуен Бинь Кхьем</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_CHU_NOM_QUOTE" Language="ru_RU">
+      <Text>«Какая дверь ведет к богатству, а какая — к разорению? Это решает народ».</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_THANH_HOANG_AUTHOR" Language="ru_RU">
+      <Text>Повесть о Киеу</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_THANH_HOANG_QUOTE" Language="ru_RU">
+      <Text>«Увядает лотос, но оживают хризантемы. Долгая печаль, короткие дни — а потом зима уступает весне».</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TU_DAN_AUTHOR" Language="ru_RU">
+      <Text>Данг Чан Кон</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TU_DAN_QUOTE" Language="ru_RU">
+      <Text>«Единственный путь к славе спрятан среди сотни дорог к поражению».</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_DAI_VIET_DESCRIPTION" Language="ru_RU">
+      <Text>Получайте 5 [icon:YIELD_CULTURE] к культуре за каждую ед. городского населения вашего поселения, когда строите конструкцию типа «Укрепление» на стандартной скорости.</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_WATER_PUPPET_THEATER_DESCRIPTION" Language="ru_RU">
+      <Text>+4 к [icon:YIELD_FOOD] пище. +2 к [icon:YIELD_HAPPINESS] довольству при постройке в речных поймах. +1 к [icon:YIELD_CULTURE] культуре при каждом получении этим поселением плодородия от наводнения, бури или извержения вулкана. Улучшения, здания и районы в этом поселении не получают урон от наводнений. Уникальное улучшение Дайвьета. Не устаревает. Не убирает бонусы от складов с клетки. Можно разместить только на существующем улучшении рядом с рекой, если рядом нет другого театра кукол на воде.</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_WATER_PUPPET_THEATER_TOOLTIP" Language="ru_RU">
+      <Text>+2 к [icon:YIELD_HAPPINESS] довольству при постройке в речных поймах. +1 к [icon:YIELD_CULTURE] культуре при каждом получении этим поселением плодородия от наводнения, бури или извержения вулкана. Улучшения, здания и районы в этом поселении не получают урон от наводнений. Уникальное улучшение Дайвьета. Не устаревает. Не убирает бонусы от складов с клетки. Можно разместить только на существующем улучшении рядом с рекой, если рядом нет другого театра кукол на воде.</Text>
+    </Replace>
+    <Replace Tag="LOC_INTRO_DAI_VIET" Language="ru_RU">
+      <Text>Вскоре духи этой земли воочию увидят могущество и процветание легендарного царства Дайвьет. </Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_DAI_VIET" Language="ru_RU">
+      <Text>Несмотря на войны и притеснения народ Дайвьета остается таким же сильным. Вьетнамцы борются за право решать свою судьбу как на рисовых полях, так и на спинах слонов. Они дают отпор несостоявшимся завоевателям и сами завоевывают земли. Чонг ком грохочет, слоны трубят — Дайвьет заявляет о своих правах.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_DAI_VIET" Language="ru_RU">
+      <Text>Захватите территории с речными поймами и в тропическом биоме, чтобы получить максимальную выгоду от ваших социальных институтов, и постройте стены во всех ваших районах!</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_DAI_VIET_COMPLETE_THANH_HUE_DESC" Language="ru_RU">
+      <Text>Завершите Тхань Хюэ, играя за Дайвьет</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_DAI_VIET_COMPLETE_THANH_HUE_NAME" Language="ru_RU">
+      <Text>Тхань Хюэ</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_DAI_VIET_LEGACY_PATH_CULTURAL_DESC" Language="ru_RU">
+      <Text>Завершите культурную тропу наследия, играя за Дайвьет</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_DAI_VIET_LEGACY_PATH_CULTURAL_NAME" Language="ru_RU">
+      <Text>Тропа наследия Дайвьета</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CAM_QUAN_FORMAL_WAR_COMBAT_ABILITY_DESCRIPTION" Language="ru_RU">
+      <Text>Боевые юниты получают +3 к боевой мощи во время официальных войн, на вашей территории это значение удваивается.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CAM_QUAN_FORTIFICATION_CONSTRUCTIBLES_DESCRIPTION" Language="ru_RU">
+      <Text>+50% к [icon:YIELD_PRODUCTION] производству при строительстве конструкций типа «Укрепления».</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CHU_NOM_CULTURE_TROPICAL_DESCRIPTION" Language="ru_RU">
+      <Text>Культурные здания получают бонус за соседство +1 к [icon:YIELD_CULTURE] культуре от тропиков.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CHU_NOM_FLOOD_PLAINS_CULTURE_DESCRIPTION" Language="ru_RU">
+      <Text>+2 к [icon:YIELD_CULTURE] культуре для клеток в речных поймах.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_DAI_VIET_DESCRIPTION" Language="ru_RU">
+      <Text>+30% производства за уникальное чудо света Дайвьета.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_THANH_HOANG_GRISTMILL_WATER_PUPPET_THEATER_DESCRIPTION" Language="ru_RU">
+      <Text>+2 к [icon:YIELD_FOOD] пище для кукольных театров на воде в поселениях, где есть мукомольная мельница.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TU_DAN_WALL_COMBAT_STRENGTH_DESCRIPTION" Language="ru_RU">
+      <Text>+5 к боевой мощи во время обороны укрепленных районов в тропиках.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_THANH_HUE" Language="ru_RU">
+      <Text>Чан Хынг Дао</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_THANH_HUE" Language="ru_RU">
+      <Text>Если бы герои оставались дома и умирали спокойно у очага, были бы их имена вписаны в вечность на бамбуке и шелке?</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_CAM_BINH_DESCRIPTION" Language="ru_RU">
+      <Text>+2[icon:YIELD_GOLD] к золоту от укреплений в поселениях с хотя бы 1 юнитом в гарнизоне.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_CON_KENH_DESCRIPTION" Language="ru_RU">
+      <Text>+2 к [icon:YIELD_CULTURE] культуре для продуктовых зданий и +2 к [icon:YIELD_FOOD] пище для культурных зданий.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_RUONG_LANG_XA_DESCRIPTION" Language="ru_RU">
+      <Text>+10% роста в городках.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_DAI_VIET_ABILITY_DESCRIPTION" Language="ru_RU">
+      <Text>[BLIST][LI]Получайте [B]5 к [icon:YIELD_CULTURE] культуре [/B]за каждую ед. [B]городского населения [/B]вашего поселения, когда строите конструкцию типа [B]«Укрепление»[/B] на стандартной скорости.[LI][B]+30% [icon:YIELD_PRODUCTION] производства[/B] при строительстве [B]Тхань Хюэ[/B].[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_DAI_VIET_ABILITY_NAME" Language="ru_RU">
+      <Text>Воззвание к военачальникам</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_EX_DAI_VIET_NAME" Language="ru_RU">
+      <Text>Социальные институты Дайвьета</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_VIET_KIEU_DESCRIPTION" Language="ru_RU">
+      <Text>Уникальный поселенец Дайвьета. Когда этот юнит строит поселение, вы получаете 5 к [icon:YIELD_CULTURE] культуре за каждую тропическую клетку в пределах 3 клеток от центра города (масштабируется под скорость игры).</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_VOI_CHIEN_2_DESCRIPTION" Language="ru_RU">
+      <Text>Уникальный дальнобойный юнит Дайвьета 2 уровня. Имеет повышенную боевую мощь и стоимость, а также +1 к обзору и +1 к перемещению. Может перемещаться после атаки.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_VOI_CHIEN_3_DESCRIPTION" Language="ru_RU">
+      <Text>Уникальный дальнобойный юнит Дайвьета 3 уровня. Имеет повышенную боевую мощь и стоимость, а также +1 к обзору и +1 к перемещению. Может перемещаться после атаки.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_VOI_CHIEN_BASE_DESCRIPTION" Language="ru_RU">
+      <Text>Уникальный дальнобойный юнит Дайвьета. Имеет повышенную боевую мощь и стоимость, а также +1 к обзору и +1 к перемещению. Может перемещаться после атаки.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_VOI_CHIEN_DESCRIPTION" Language="ru_RU">
+      <Text>Уникальный дальнобойный юнит Дайвьета 1 уровня. Имеет повышенную боевую мощь и стоимость, а также +1 к обзору и +1 к перемещению. Может перемещаться после атаки.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_DAI_VIET_DESCRIPTION" Language="ru_RU">
+      <Text>Игра за [B]Дайвьет[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_LAKSHMIBAI_DAI_VIET_TOOLTIP" Language="ru_RU">
+      <Text>[B]Лакшми Баи[/B] была родом с того же континента, где находился [B]Дайвьет[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_TRUNG_TRAC_DAI_VIET_TOOLTIP" Language="ru_RU">
+      <Text>[B]Чынг Чак[/B] правила в древнем Вьетнаме.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_TROPICAL_DAI_VIET_DESCRIPTION" Language="ru_RU">
+      <Text>Владейте тремя поселениями в [B]тропиках[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_TROPICAL_DAI_VIET_TOOLTIP" Language="ru_RU">
+      <Text>[B]Поселения в тропиках[/B] были важной частью идентичности [B]Дайвьета[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_TROPICAL_DESCRIPTION" Language="ru_RU">
+      <Text>Владейте тремя поселениями в [B]тропиках[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_THANH_HUE_DESCRIPTION" Language="ru_RU">
+      <Text>+4 к [icon:YIELD_CULTURE] культуре. +1 к лимиту специалистов в городах с 7 стенами текущей эпохи. Играет роль укрепленного района, который нужно завоевать. Можно построить только по соседству с средневековыми стенами в городе, где есть 7 средневековых стен.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_THANH_HUE_TOOLTIP" Language="ru_RU">
+      <Text>+1 к лимиту специалистов в городах с 7 стенами текущей эпохи. Играет роль укрепленного района, который нужно завоевать. Можно построить только по соседству с средневековыми стенами в городе, где есть 7 средневековых стен.</Text>
+    </Replace>
+    <Replace Tag="LOC_CAM_QUAN_PREVIEW" Language="ru_RU">
+      <Text>+{1_Amount} от Кам Куан</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_TROPICAL_DAI_VIET_NARRATIVE" Language="ru_RU">
+      <Text>Чтобы вырезать города и городки из сердца джунглей, где буйствует жизнь, требуется постоянная бдительность. Строя свои тропические города, {1_Civilization_Adj} поселенцы следуют примеру местных обитателей — расчищают землю для себя и обороняют ее от всех потенциальных захватчиков. </Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_CAM_BINH_NAME" Language="ru_RU">
+      <Text>Камбинь|Камбинь|Камбинь|Камбинь|Камбинь|Камбинь</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_CON_KENH_NAME" Language="ru_RU">
+      <Text>Кон Кен|Кон Кен|Кон Кен|Кон Кен|Кон Кен|Кон Кен</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_RUONG_LANG_XA_NAME" Language="ru_RU">
+      <Text>Руонг ланг са|Руонг ланг са|Руонг ланг са|Руонг ланг са|Руонг ланг са|Руонг ланг са</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_VIET_KIEU_NAME" Language="ru_RU">
+      <Text>Куан Выонг|Куан Выонг|Куан Выонг|Куан Выонг|Куан Выонг|Куан Выонг</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_UNIT_VOI_CHIEN_NAME" Language="ru_RU">
+      <Text>Вьетнамские боевые слоны|вьетнамских боевых слонов|вьетнамским боевым слонам|вьетнамских боевых слонов|вьетнамскими боевыми слонами|вьетнамских боевых слонах</Text>
+      <Gender>masculine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+  </LocalizedText>
+</Database>

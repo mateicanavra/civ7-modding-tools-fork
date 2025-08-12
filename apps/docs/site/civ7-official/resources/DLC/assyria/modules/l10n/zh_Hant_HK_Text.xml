@@ -1,0 +1,722 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA1" Language="zh_Hant_HK">
+      <Text>尼尼微</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA10" Language="zh_Hant_HK">
+      <Text>努哈德拉</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA11" Language="zh_Hant_HK">
+      <Text>阿比-伊魯</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA12" Language="zh_Hant_HK">
+      <Text>基拉庫</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA13" Language="zh_Hant_HK">
+      <Text>胡齊里納</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA14" Language="zh_Hant_HK">
+      <Text>卡內什</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA15" Language="zh_Hant_HK">
+      <Text>馬爾達馬</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA16" Language="zh_Hant_HK">
+      <Text>希納胡圖姆</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA17" Language="zh_Hant_HK">
+      <Text>曼蘇亞特</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA18" Language="zh_Hant_HK">
+      <Text>拉皮庫</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA19" Language="zh_Hant_HK">
+      <Text>沙雷沙</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA2" Language="zh_Hant_HK">
+      <Text>卡拉赫</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA20" Language="zh_Hant_HK">
+      <Text>卡哈特</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA21" Language="zh_Hant_HK">
+      <Text>西塔克</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA22" Language="zh_Hant_HK">
+      <Text>卡爾-舒瑪努-阿沙雷杜</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA23" Language="zh_Hant_HK">
+      <Text>哈達圖</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA24" Language="zh_Hant_HK">
+      <Text>圖申</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA25" Language="zh_Hant_HK">
+      <Text>卡爾-西帕爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA26" Language="zh_Hant_HK">
+      <Text>哈納</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA27" Language="zh_Hant_HK">
+      <Text>馬里</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA28" Language="zh_Hant_HK">
+      <Text>基沙舒</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA29" Language="zh_Hant_HK">
+      <Text>阿林努</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA3" Language="zh_Hant_HK">
+      <Text>阿舒爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA30" Language="zh_Hant_HK">
+      <Text>薩姆阿爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA4" Language="zh_Hant_HK">
+      <Text>阿拉普哈</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA5" Language="zh_Hant_HK">
+      <Text>卡爾凱美什</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA6" Language="zh_Hant_HK">
+      <Text>杜爾-卡特利姆</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA7" Language="zh_Hant_HK">
+      <Text>卡爾-圖庫爾蒂-尼努爾塔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA8" Language="zh_Hant_HK">
+      <Text>伊姆古爾-恩利爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA9" Language="zh_Hant_HK">
+      <Text>阿米達</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_1" Language="zh_Hant_HK">
+      <Text>薩迪圖</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_10" Language="zh_Hant_HK">
+      <Text>穆巴利塔特-舍魯阿</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_2" Language="zh_Hant_HK">
+      <Text>利巴利-沙拉特</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_3" Language="zh_Hant_HK">
+      <Text>塔什美圖-沙拉特</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_4" Language="zh_Hant_HK">
+      <Text>薩穆-拉瑪特</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_5" Language="zh_Hant_HK">
+      <Text>阿哈特-阿碧莎</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_6" Language="zh_Hant_HK">
+      <Text>扎庫圖</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_7" Language="zh_Hant_HK">
+      <Text>舍魯阿-埃提拉特</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_8" Language="zh_Hant_HK">
+      <Text>埃薩拉-哈瑪特</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_9" Language="zh_Hant_HK">
+      <Text>拉伊瑪</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_1" Language="zh_Hant_HK">
+      <Text>阿爾達-穆利希</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_10" Language="zh_Hant_HK">
+      <Text>亞述-埃提爾-伊蘭尼</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_2" Language="zh_Hant_HK">
+      <Text>辛-阿胡-烏蘇爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_3" Language="zh_Hant_HK">
+      <Text>姆塔基爾努斯庫</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_4" Language="zh_Hant_HK">
+      <Text>圖庫爾蒂-尼努爾塔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_5" Language="zh_Hant_HK">
+      <Text>亞述拉比</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_6" Language="zh_Hant_HK">
+      <Text>沙姆希-伊路</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_7" Language="zh_Hant_HK">
+      <Text>阿達德尼拉里</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_8" Language="zh_Hant_HK">
+      <Text>辛納迪納普利</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_9" Language="zh_Hant_HK">
+      <Text>亞述-丹</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_ASSYRIA_ADJECTIVE" Language="zh_Hant_HK">
+      <Text>亞述</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_ASSYRIA_FULLNAME" Language="zh_Hant_HK">
+      <Text>亞述帝國</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_ASSYRIA_NAME" Language="zh_Hant_HK">
+      <Text>亞述</Text>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_ANTIQUITY_35_MAJOR_ASSYRIA_NAME" Language="zh_Hant_HK">
+      <Text>瓦舒坎尼</Text>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_ANTIQUITY_35_MINOR_ASSYRIA_NAME" Language="zh_Hant_HK">
+      <Text>米坦尼</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_CITADEL_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>亞述帝國的權力源自其中央集權，而其規模也達到了歷史上前所未有的程度。治理體系的核心就只有名言出法隨的國王一人——王室下達給總督的命令中以死亡威脅作結的情形並不鮮見（就算是最權勢滔天的總督，若未能在指定日期前達成要求，也甚至可能禍及家人）。這種嚴密的控制需要透過好幾個組織因素才能實現，包括通訊基礎設施、訓練有素的常備軍、透過重新安置人口來分散反對勢力，以及地方權力的分配等。但這一切都自核心向外發展，由位於首都中心的國王堡壘所運作。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_ROYAL_LIBRARY_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>新亞述國王亞述巴尼拔以其在戰爭中的殘酷而聞名；但他也熱衷於文獻的收集與保存。古代美索不達米亞的語言是以楔形文字書寫，而該文字則需藉由蘆葦筆壓印在泥板上寫成。亞述巴尼拔（流傳後世的浮雕常常描繪他手持尖筆）將這些泥板收藏在宮殿中，並持續向附近的王國索取供更多泥板。倖存的作品包括最著名的《吉爾伽美什史詩》（Epic of Gilgamesh），還有各式書信、政治文獻、醫學手冊、宗教儀式指南等等，這些讓我們得以透過亞述人自身的聲音，深入了解亞述的內部運作。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_ROYAL_LIBRARY_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>這個超過30000塊泥板的收藏，如今被稱為「亞述巴尼拔皇家圖書館」（Royal Library of Ashurbanipal），其最早是在19世紀被發現的。之後在其他宮殿也發現了泥板，表明當時還有其他的皇家圖書館，只是或許數量不如在尼尼微出土的那麼多。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>阿舒爾（Ashur，也稱亞述）既是一位神祇、一片土地，也是一座城市——「亞述」（Assyria）這個名稱即為希臘語形式的「mat Ashur」，意指「阿舒爾（的聖城所在）的土地」。它是古代世界最重要且最具前瞻性的帝國之一。其版圖橫跨美索不達米亞，還包含短暫征服而來的（後來的）波斯和（當時已存在的）埃及。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_10" Language="zh_Hant_HK">
+      <Text>重新安置人民對於亞述的征服也至關重要，為之後播下了文化轉變的種子。隨著說亞蘭語（Aramaic）的人們被遷移到帝國各地，亞蘭語儼然成為一種新的通用語，讓這種語言在帝國滅亡後得以倖存。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_11" Language="zh_Hant_HK">
+      <Text>亞述在亞述巴尼拔統治後不久便滅亡了，儘管具體原因尚不清楚——有許多跡象指向是因為環境和社會崩潰，而新的巴比倫在其廢墟上崛起。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>首先，我們必須回顧蘇美人的歷史。蘇美人是一個相當神祕的民族，他們出現在城市文明才剛萌芽的時期，並且可能源自印度次大陸。他們在今日的伊拉克境內建造了一些最早的城市。隨著時間推移，薩爾貢（Sargon）領導阿卡德人起兵反抗，在前蘇美人的土地上建立了一個帝國，但該帝國最終在西元前2150年左右衰落並崩潰。這次崩潰之後的幾個世紀是黑暗時期，各個城邦（包括阿舒爾城）相互為了爭奪霸權而戰。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_3" Language="zh_Hant_HK">
+      <Text>亞述帝國經歷過兩次崛起：第一次是在西元前1300年代中期，第二次是在西元前900年左右（作為參考，這比埃及晚，但遠早於希臘；大致相當於中國商朝末年和周朝興起之時）。在遊戲中，我們聚焦在後面的「新亞述帝國」（Neo-Assyrian Empire）。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_4" Language="zh_Hant_HK">
+      <Text>薩爾貢二世（Sargon II）、辛那赫里布（Sennacherib）、亞述巴尼拔（Ashurbanipal）等亞述國王的名字之所以成為傳奇不是沒有理由的——這些統治者拓展了權力一詞在整個區域的涵義。這項成功部分歸功於一些新穎的經濟實驗——亞述早期採用某種形式的自由貿易（與此相比，蘇美的貿易是透過神廟在管理），但最重要的還是因為常備軍的發展。想想看——士兵們不再需要在收穫季節考慮是否要回家照料田地……這就代表著他們可以駐紮在敵人的田地外，等待對手筋疲力盡。此外，亞述人也是土木工程好手，軍隊中擁有一支專門的工程兵團，能夠建造攻城武器、巨大的坡道或其他能迅速攻破遠古城牆的器械。最後，亞述是一個鐵器時代的帝國——鐵器比青銅器更弱（但要取決於其含鋼量），但可以大規模生產（且不易受貿易波動影響；較早的亞述帝國就曾因青銅時代晚期崩潰所造成的部分動盪而受害）。甚至像軍靴這樣的小創新也源自亞述——簡單來說，亞述軍隊就是一台戰爭機器。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_5" Language="zh_Hant_HK">
+      <Text>而且這台機器非常可怕。亞述的文獻特別樂於描述他們施加給那些阻礙之人的恐怖——剝皮、屠殺，以及徹底毀滅膽敢反抗的城市。辛那赫里布征服猶大王國的事蹟被載入《舊約聖經》——當猶大在埃及支持下叛亂時，辛那赫里布殘酷地回應，將全部人口遷移，並將領袖們折磨至死。據記載，當俘虜被押往巴比倫接受奴役時，亞述軍隊強迫他們唱歡樂的歌曲。聖經記載認為，在隨後的耶路撒冷圍城戰中，入侵的亞述人遭受了神聖的報應，儘管入侵者撤退的原因可能僅僅是有報告稱巴比倫發生了叛亂。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_6" Language="zh_Hant_HK">
+      <Text>在國內，辛那赫里布的花園非常有名，不僅是水利工程的奇蹟，也很可能就是「空中花園」傳說的靈感來源。而這同樣也關乎權力——亞述的花園是每次征服的模型，當中景觀雕塑和動植物選擇反映著被征服土地的樣貌。人們在「自家」就可以漫步於黎巴嫩的雪松林中，沉醉於征服那片土地的記憶。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_7" Language="zh_Hant_HK">
+      <Text>亞述巴尼拔是終極的亞述國王——代表他是「最偉大的」（這點尚有爭議），但（幾乎）也是最後一位。他的父親將王國分給他的兩個兒子，分別統治亞述和巴比倫，但亞述巴尼拔的兄弟（分得巴比倫部分的那個）卻試圖與埃蘭人結盟，意圖奪取整個帝國。這並未成功——亞述巴尼拔摧毀了他的兄弟和埃蘭（同時也征服了埃及）。他的征服事蹟被描繪在浮雕上，其中不乏漂浮屍體的畫面。他的殘酷也體現在獵獅的浮雕中，這一功績殘忍到藝術家必須刻畫動物們極度痛苦的樣子，才能反襯出那位驕傲的征服者國王的形象。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_8" Language="zh_Hant_HK">
+      <Text>不過，亞述巴尼拔不僅僅是一位征服者——他識字，並且以他的圖書館藏為傲。他盡其所能蒐羅了各種種類和體裁的文本，藉以保存他那個時代的知識。他收藏的數萬塊泥板在尼尼微的廢墟中倖存下來。實際上，我們正是從他的圖書館中發現了《吉爾伽美什史詩》。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_9" Language="zh_Hant_HK">
+      <Text>亞述社會還是個多語言社會，阿卡德語和蘇美語都以各種形式存在。每座城市都有自己的守護神，戰爭被認為不僅僅是國王之間的較量，也是這些特定神祇之間的較量。城市被佔領後，會交出其守護神（例如巴比倫的馬爾杜克），征服者的神祇可能會對被征服的神祇進行某種儀式性的羞辱，或者僅僅將其納入萬神殿擔任地位較低的成員。附庸的主權也可能得以保留，或者發現自己被亞述貴族所取代——這在被征服的民族中滋長出怨恨。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_ASSYRIA_BIRTUTU_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>亞述軍隊是當時世界上最有效率的軍事力量，並且極其擅長圍城戰。他們的征服是透過使用攻城武器、攻城坡道和心理戰，再加上訓練有素的部隊和高效率的戰術來實現。因此，亞述人在建造自己的要塞城市（壁爾圖）方面經驗豐富。塔樓外加帶垛口的厚實城牆能為城內的人們提供保護，就能從上方有效地防禦住護城河和坡道。通常是要塞最薄弱處的城門則不僅本身堅固，還裝飾著華麗的神話生物和軍事主題浮雕，用以威懾入侵者和訪客。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_ASSYRIA_KIBRAT_ARBA_I_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>古代美索不達米亞統治者的王室銘文通常以一連串頭銜開頭，而在新亞述國王中，最具威力的頭銜之一是「四方之王」。「四方」指的是與基本方位一致的古代地理位置（蘇美、馬爾圖、埃蘭和蘇巴爾圖），但其意涵其實代表「全世界」（或天下）。並非所有國王都會使用此頭銜——在缺乏軍事征伐的時期，其使用頻率會降低，因此，可能需要達成特定的軍事成就才能宣稱擁有此頭銜。這個頭銜的影響力流傳得比亞述人本身還長久，最後一位使用此頭銜的統治者是居魯士大帝。  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_ASSYRIA_TUPSARRUTU_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>在亞述帝國，對於打算成為書吏的孩子來說，教育很早就開始了。在12年的學習過程中，男女學童皆接受嚴格的楔形文字訓練；他們也會學習各種科目，範圍從歷史、宗教到醫學和農業不一而足。這種形式的書吏教育體系——「圖普薩魯圖」——對學生而言既密集又充滿挑戰。但一旦他們畢業，他們的技能就變得非常搶手，有資格擔任任何需要讀寫能力和教育背景的職位，包括書吏、醫生、天文學家、音樂家和建築師等。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_QUARTER_EKALLU_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>亞述的「埃卡魯」（ekallu，意為宮殿），是兼具王室住所和政治機能的複合建築群。它們平衡了公共與私人空間，構築出氣勢恢宏的中心——裡面包括供訪客晉見的接待廳和王座廳、供官員使用的行政辦公室，以及供國王及其家人使用的花園和住所。建築根據每個空間的目標受眾進行華麗裝飾。如獅子和人獸混合體等生物雕像立於大門和入口兩側，各種彩繪浮雕裝飾著牆壁。在有外交場合的空間，其主題會與王室相關，如宮廷場景和獵獅等；而私人空間則側重於神話或宗教連續場景。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_MAGARRU_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>「馬軋轤」（Magarru）意為馬戰車，是新亞述軍隊的一種關鍵武器。儘管至少從阿卡德帝國時期起，在美索不達米亞地區就有使用過馬匹的跡象，但缺乏馬鞍、馬鐙和其他馬具使得馬匹難以在戰爭中成為有效的坐騎。然而，用韁繩綁在馬戰車上時，馬匹就變得較易管理。這些戰車小且輕盈，裝有兩個輪子，能搭載兩名乘客：一名駕駛和一名弓箭手。由於馬匹天生不願往士兵的陣線衝去，因此馬戰車通常被保留到敵人即將或已經開始逃跑時才派出——然後迅速將弓箭手送到其攻擊目標面前。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_MAGARRU_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>馬戰車的缺點在於生產成本高昂，因此在戰場上運用它們會帶來財務風險。但到了西元前八世紀薩爾貢二世統治時期，馬具和馬術有了改良，很快騎兵就取代馬戰車成為軍隊的主要機動部隊。  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_TURTANU_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>「他珥探」是一種高級軍事官員，在戰爭時期代替國王領導亞述軍隊。這是一個權力極大的職位，僅次於統治者。在西元前八世紀的某個時候，這個職位似乎曾被一分為二，分為「右」他珥探和「左」他珥探，這可能是為了削弱國王之外單個人所能掌握的權力。隨著時間的推移，他們的職責從純粹的軍事事務開始轉變，擴展到包括對地方領土的民政治理。 </Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_CITADEL_NAME" Language="zh_Hant_HK">
+      <Text>城塞</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_ROYAL_LIBRARY_NAME" Language="zh_Hant_HK">
+      <Text>皇家圖書館</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_EKALLU_NAME" Language="zh_Hant_HK">
+      <Text>埃卡魯</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_BALIKH_RIVER_NAME" Language="zh_Hant_HK">
+      <Text>拜利赫河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_BATMAN_RIVER_NAME" Language="zh_Hant_HK">
+      <Text>巴特曼河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_DIYALA_RIVER_NAME" Language="zh_Hant_HK">
+      <Text>迪亞拉河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_KHABUR_RIVER_NAME" Language="zh_Hant_HK">
+      <Text>哈布爾河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SAJUR_RIVER_NAME" Language="zh_Hant_HK">
+      <Text>薩朱爾河</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_GIREKOL_NAME" Language="zh_Hant_HK">
+      <Text>吉雷科爾火山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_HASANDAGI_NAME" Language="zh_Hant_HK">
+      <Text>哈桑山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_KARACA_DAG_NAME" Language="zh_Hant_HK">
+      <Text>卡拉卡火山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_KAUKAB_NAME" Language="zh_Hant_HK">
+      <Text>考卡布火山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_MOUNT_ARARAT_NAME" Language="zh_Hant_HK">
+      <Text>亞拉拉特山</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_BIRTUTU_NAME" Language="zh_Hant_HK">
+      <Text>壁爾圖</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_KIBRAT_ARBA_I_NAME" Language="zh_Hant_HK">
+      <Text>四方之王</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TUPSARRUTU_NAME" Language="zh_Hant_HK">
+      <Text>圖普薩魯圖</Text>
+    </Replace>
+    <Replace Tag="LOC_11071A_COMPLETION" Language="zh_Hant_HK">
+      <Text>亞述傳令官宣達他們作為世界四方之主的統治權。但其含義有待解釋。</Text>
+    </Replace>
+    <Replace Tag="LOC_11071A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>四方</Text>
+    </Replace>
+    <Replace Tag="LOC_11071B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11071B_NAME" Language="zh_Hant_HK">
+      <Text>就是字面上的涵義。努力尋求征服。</Text>
+    </Replace>
+    <Replace Tag="LOC_11071C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11071C_NAME" Language="zh_Hant_HK">
+      <Text>只是種比喻。代表努力尋求知識。</Text>
+    </Replace>
+    <Replace Tag="LOC_11072A_COMPLETION" Language="zh_Hant_HK">
+      <Text>某位店主擠過神廟的人群，朝著她安然存放在祭司看管下的貨物走去。她周圍的其他商人將錢幣塞入侍從手中，每個人都急著先記錄好自己的交易。在這裡，人們可以同一處一次解決精神和財務問題。</Text>
+    </Replace>
+    <Replace Tag="LOC_11072A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>貿易神廟</Text>
+    </Replace>
+    <Replace Tag="LOC_11072B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11072B_NAME" Language="zh_Hant_HK">
+      <Text>增建祭壇的倉庫。</Text>
+    </Replace>
+    <Replace Tag="LOC_11072C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11072C_NAME" Language="zh_Hant_HK">
+      <Text>祭司應該自行資助自己的經商活動。</Text>
+    </Replace>
+    <Replace Tag="LOC_11073A_COMPLETION" Language="zh_Hant_HK">
+      <Text>亞述工兵協助攻城器械，用錘子和鎬從牆上撬下鬆動的磚塊。等到塵埃落定後，器械操作人員和他們的指揮官都認為城牆倒塌的功勞應該歸於自己。</Text>
+    </Replace>
+    <Replace Tag="LOC_11073A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>圍而征服</Text>
+    </Replace>
+    <Replace Tag="LOC_11073B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>攻城單位{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11073B_NAME" Language="zh_Hant_HK">
+      <Text>這是亞述工程的成果。</Text>
+    </Replace>
+    <Replace Tag="LOC_11073C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>目前的指揮官{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11073C_NAME" Language="zh_Hant_HK">
+      <Text>讓這成為亞述指揮官們的教訓。</Text>
+    </Replace>
+    <Replace Tag="LOC_11074A_COMPLETION" Language="zh_Hant_HK">
+      <Text>在新征服的城市裡，展開了對阿舒爾神的供奉，人們垂頭喪氣地排起了長龍，帶著牛和穀物作為祭品走向祭壇。某位舊信仰的祭司退到最後，拒絕承認這個新的神聖秩序，而一位亞述指揮官就在一旁看著。</Text>
+    </Replace>
+    <Replace Tag="LOC_11074A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>阿舒爾神的供奉</Text>
+    </Replace>
+    <Replace Tag="LOC_11074B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>多選擇一個萬神殿，但所有聚落{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11074B_NAME" Language="zh_Hant_HK">
+      <Text>不管那位祭司。展現慈悲的時候到了。</Text>
+    </Replace>
+    <Replace Tag="LOC_11074C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>所有聚落{1_reward}，但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11074C_NAME" Language="zh_Hant_HK">
+      <Text>拔出兵器。降伏對手要徹底。</Text>
+    </Replace>
+    <Replace Tag="LOC_11075A_COMPLETION" Language="zh_Hant_HK">
+      <Text>軍隊的新兵睡在馬廄裡，而指揮官只能露天開會。兵員實在太多，但容身之處又太少。</Text>
+    </Replace>
+    <Replace Tag="LOC_11075A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>阿舒爾的軍隊</Text>
+    </Replace>
+    <Replace Tag="LOC_11075B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11075B_NAME" Language="zh_Hant_HK">
+      <Text>拓展現有的城塞。</Text>
+    </Replace>
+    <Replace Tag="LOC_11075C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11075C_NAME" Language="zh_Hant_HK">
+      <Text>士兵的生活本來就艱苦，他們要學會適應。</Text>
+    </Replace>
+    <Replace Tag="LOC_11076A_COMPLETION" Language="zh_Hant_HK">
+      <Text>指揮官離開時，無人作聲。有一股高漲的浪潮似乎準備淹沒阿舒爾及其所有榮光時，言語已經沒什麼意義。近期戰敗的消息很快就會傳到其他亞述人民耳中。</Text>
+    </Replace>
+    <Replace Tag="LOC_11076A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>衰亡</Text>
+    </Replace>
+    <Replace Tag="LOC_11076B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>進入慶典。</Text>
+    </Replace>
+    <Replace Tag="LOC_11076B_NAME" Language="zh_Hant_HK">
+      <Text>重新燃起希望。浪潮可能還會改變。</Text>
+    </Replace>
+    <Replace Tag="LOC_11076C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>軍事單位{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11076C_NAME" Language="zh_Hant_HK">
+      <Text>訓練更多士兵。浪潮可能還會改變。</Text>
+    </Replace>
+    <Replace Tag="LOC_11077A_COMPLETION" Language="zh_Hant_HK">
+      <Text>某位年輕女子正練習將自己的名字刻寫在軟泥上。雖然幾乎難以辨認，但這簽名將作為印鑑，將她束縛在一份為奴的臨時契約中，她委身為奴只為尋求更好的生活——一個有充足食物、衣物和溫暖的生活。</Text>
+    </Replace>
+    <Replace Tag="LOC_11077A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>將身體當工具</Text>
+    </Replace>
+    <Replace Tag="LOC_11077B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>貿易建築{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11077B_NAME" Language="zh_Hant_HK">
+      <Text>在軍中尋求效力機會。</Text>
+    </Replace>
+    <Replace Tag="LOC_11077C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11077C_NAME" Language="zh_Hant_HK">
+      <Text>去神廟中工作。</Text>
+    </Replace>
+    <Replace Tag="LOC_11077D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>食物建築{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11077D_NAME" Language="zh_Hant_HK">
+      <Text>摧毀泥板然後回家。為奴可不是種選擇。</Text>
+    </Replace>
+    <Replace Tag="LOC_11078A_COMPLETION" Language="zh_Hant_HK">
+      <Text>圖書館拔地而起，但其宏偉壯觀卻遠不及內部藏書所包含的大千世界。只是館中有太多空置的書架，又有太多空間等待著更多刻在泥板上的夢想。</Text>
+    </Replace>
+    <Replace Tag="LOC_11078A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>皇家圖書館</Text>
+    </Replace>
+    <Replace Tag="LOC_11078B_COMPLETION" Language="zh_Hant_HK">
+      <Text>圖書管理員將作品放在屬於它的榮耀位置上。她拿起一小塊布，擦去了污漬。也許只是墨水漬。</Text>
+    </Replace>
+    <Replace Tag="LOC_11078B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>+1額外抄本。</Text>
+    </Replace>
+    <Replace Tag="LOC_11078B_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>佔領一個聚落。</Text>
+    </Replace>
+    <Replace Tag="LOC_11078B_NAME" Language="zh_Hant_HK">
+      <Text>所有文字，無論在何處，都歸亞述所有。</Text>
+    </Replace>
+    <Replace Tag="LOC_11078B_STORYTITLE" Language="zh_Hant_HK">
+      <Text>皇家圖書館</Text>
+    </Replace>
+    <Replace Tag="LOC_11078C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11078C_NAME" Language="zh_Hant_HK">
+      <Text>將當中的一些空置空間讓給當地商人使用。</Text>
+    </Replace>
+    <Replace Tag="LOC_11079A_COMPLETION" Language="zh_Hant_HK">
+      <Text>競技場裝飾著獵獅的圖像，而人們正是為看獅子而來。當獅子被放出時，人群歡聲雷動。但當結束時，野獸受傷的哀嚎又引起了同情的低語。</Text>
+    </Replace>
+    <Replace Tag="LOC_11079A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>正「鬃」表演</Text>
+    </Replace>
+    <Replace Tag="LOC_11079B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11079B_NAME" Language="zh_Hant_HK">
+      <Text>饒了獅子吧，叫士兵們上場打。</Text>
+    </Replace>
+    <Replace Tag="LOC_11079C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11079C_NAME" Language="zh_Hant_HK">
+      <Text>殺了那些惡獸！</Text>
+    </Replace>
+    <Replace Tag="LOC_11080A_COMPLETION" Language="zh_Hant_HK">
+      <Text>被俘的敵軍指揮官被迫跪下，而亞述士兵們則帶來一輛戰車。在戰場上折辱對方之後，還需要進一步示威才行。</Text>
+    </Replace>
+    <Replace Tag="LOC_11080A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>最大的侮辱</Text>
+    </Replace>
+    <Replace Tag="LOC_11080B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11080B_NAME" Language="zh_Hant_HK">
+      <Text>俘虜要推著馬戰車穿過市區！</Text>
+    </Replace>
+    <Replace Tag="LOC_11080C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11080C_NAME" Language="zh_Hant_HK">
+      <Text>俘虜要像是真正的馬一樣發出馬嘶聲。</Text>
+    </Replace>
+    <Replace Tag="LOC_12010A_COMPLETION" Language="zh_Hant_HK">
+      <Text>黎剎醫生凝視著那座龐然攻城塔，其高聳塔頂在亞述駐防城牆後方若隱若現，一道寒意悄然爬過他的脊背。</Text>
+    </Replace>
+    <Replace Tag="LOC_12010A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>好醫生在諸王之地</Text>
+    </Replace>
+    <Replace Tag="LOC_12010B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>戰士{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_12010B_NAME" Language="zh_Hant_HK">
+      <Text>那座塔經歷過無數戰火……</Text>
+    </Replace>
+    <Replace Tag="LOC_12010C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_12010C_NAME" Language="zh_Hant_HK">
+      <Text>它的樣貌殘酷卻優雅……</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_MAGARRU_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>攻擊後可以移動，並且能忽視控制區。</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_TURTANU_COMBAT_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>對抗區域時+5戰鬥力。</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_TURTANU_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在指揮範圍內的步兵與騎兵單位對抗區域時+5戰鬥力。</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_CITADEL_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>+3[icon:YIELD_PRODUCTION]生產力。放置在平坦地形上則+2[icon:YIELD_HAPPINESS]幸福感。從奇觀獲得+1[icon:YIELD_PRODUCTION]生產力相鄰加成。亞述特色生產力建築與防禦工事。不分時代。必須征服所有有防禦工事的區域才能佔領該聚落。</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_CITADEL_TOOLTIP" Language="zh_Hant_HK">
+      <Text>若放置在平坦地形上，+2[icon:YIELD_HAPPINESS]幸福感。亞述特色生產力建築與防禦工事。不分時代。必須征服所有有防禦工事的區域才能佔領該聚落。</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_ROYAL_LIBRARY_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>+3[icon:YIELD_SCIENCE]科技值。擁有2個抄本槽位。從河流與奇觀獲得+1[icon:YIELD_SCIENCE]科技值相鄰加成。亞述特色科技值建築。不分時代。</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_ROYAL_LIBRARY_TOOLTIP" Language="zh_Hant_HK">
+      <Text>擁有2個抄本槽位。亞述特色科技值建築。不分時代。</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_BIRTUTU_AUTHOR" Language="zh_Hant_HK">
+      <Text>薩爾貢二世</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_BIRTUTU_QUOTE" Language="zh_Hant_HK">
+      <Text>「我造起的城牆堅若山嶺，而我親手征服之地的人民，則被安置於此。」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_KIBRAT_ARBA_I_AUTHOR" Language="zh_Hant_HK">
+      <Text>辛那赫里布</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_KIBRAT_ARBA_I_QUOTE" Language="zh_Hant_HK">
+      <Text>「我率領大軍征討大江南北，讓四方王侯盡皆臣服。」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TUPSARRUTU_AUTHOR" Language="zh_Hant_HK">
+      <Text>亞述巴尼拔</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TUPSARRUTU_QUOTE" Language="zh_Hant_HK">
+      <Text>「亞述城啊，你存放著從遠古到未來的所有知識。」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_ASSYRIA_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>首次佔領一座聚落時獲得一項科技。科技不會獎勵抄本。完成「圖普薩魯圖」市政後，可以透過征服來產生抄本。</Text>
+    </Replace>
+    <Replace Tag="LOC_INTRO_ASSYRIA" Language="zh_Hant_HK">
+      <Text>人民被召集到了帝國中心，並在此勞動並成長茁壯。而在亞述神的恩澤之下，他們也將承襲亞述之名。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_ASSYRIA" Language="zh_Hant_HK">
+      <Text>攻城塔發出隆隆巨響，鋒利的鐵劍閃爍著寒光，亞述帝國龐大的戰爭機器在顫動下開始運轉。在主神阿舒爾的注視之下，一種全新的秩序，正在烈日炙烤過的黏土地上揭開序幕：規劃得井然有序的城市，技藝精湛的能工巧匠，以及永不停歇、冷酷無情的行軍步伐。向世界進軍吧，並剷除一切膽敢與你爭雄的對手。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_ASSYRIA" Language="zh_Hant_HK">
+      <Text>科技精通雖然無法讓亞述獲得抄本，但他們可以透過「壁爾圖」市政獲得文化值。快速解鎖「圖普薩魯圖」市政，即可透過征服聚落來獲得抄本！</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASSYRIA_COMPLETE_DUR_SHARRUKIN_DESC" Language="zh_Hant_HK">
+      <Text>扮演亞述，建成杜爾沙魯金</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASSYRIA_COMPLETE_DUR_SHARRUKIN_NAME" Language="zh_Hant_HK">
+      <Text>杜爾沙魯金</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASSYRIA_LEGACY_PATH_SCIENTIFIC_DESC" Language="zh_Hant_HK">
+      <Text>扮演亞述，完成一條科技傳承路徑</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASSYRIA_LEGACY_PATH_SCIENTIFIC_NAME" Language="zh_Hant_HK">
+      <Text>亞述傳承路徑</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_BIRTUTU_COMBAT_DEFENDING_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>防禦遠程單位時，戰鬥單位獲得+5戰鬥力。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_BIRTUTU_TECH_MASTERY_CULTURE_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>每擁有一項科技精通，首都便獲得2[icon:YIELD_CULTURE]文化值。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_ASSYRIA_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>+30%[icon:YIELD_PRODUCTION]生產力，來自身為與亞述相關的奇觀。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_KIBRAT_ARBA_I_CAPTURE_SCIENCE_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>非由你創立的城市+20%[icon:YIELD_SCIENCE]科技值。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_KIBRAT_ARBA_I_COMBAT_MAGARRU_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>位於指揮範圍中的馬軋轤+5戰鬥力。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TUPSARRUTU_GREATWORK_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>當你首次佔領某個聚落時，獲得一本抄本。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TUPSARRUTU_HAPPINNESS_SCIENCE_BUILDING_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>科技值建築+2[icon:YIELD_HAPPINESS]幸福感。</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_EKALLU_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>亞述特色城區。透過在同一個區域建造皇家圖書館和城塞來創造。此聚落中每有一部[icon:NAR_REW_GREATWORK]巨作，便+2[icon:YIELD_PRODUCTION]生產力。</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_EKALLU_TOOLTIP" Language="zh_Hant_HK">
+      <Text>此聚落中每有一部[icon:NAR_REW_GREATWORK]巨作，便+2[icon:YIELD_PRODUCTION]生產力。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_DURANI_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>防禦工事建築+1[icon:YIELD_SCIENCE]科技值。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_GIRRU_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>非由你創立的聚落+3[icon:YIELD_PRODUCTION]生產力和[icon:YIELD_FOOD]食物。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_MIHISTU_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>建造有巨作槽位的建築與奇觀時+25%[icon:YIELD_PRODUCTION]生產力效益。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_ASSYRIA_ABILITY_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>[BLIST][LI]首次佔領一座聚落時獲得一項[B]科技[/B]。[LI]科技不會獎勵[B]抄本[/B]。[LI]完成「圖普薩魯圖」市政後，可以透過征服來產生抄本。[LI]建造[B]杜爾沙魯金[/B]時[B]+30%[icon:YIELD_PRODUCTION]生產力效益[/B]。[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_ASSYRIA_ABILITY_NAME" Language="zh_Hant_HK">
+      <Text>尼尼微的寶藏</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_AQ_ASSYRIA_NAME" Language="zh_Hant_HK">
+      <Text>亞述市政</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_MAGARRU_2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>3階亞述特色騎兵單位。移動方式像是有車輪的單位，並且有額外移動力。攻擊後可以移動，並且能忽視控制區。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_MAGARRU_BASE_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>亞述特色騎兵單位。移動方式像是有車輪的單位，並且有額外移動力。攻擊後可以移動，並且能忽視控制區。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_MAGARRU_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>2階亞述特色騎兵單位。移動方式像是有車輪的單位，並且有額外移動力。攻擊後可以移動，並且能忽視控制區。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_TURTANU_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>亞述特色軍隊指揮官。在指揮範圍內的步兵與騎兵單位對抗區域時+5戰鬥力。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ASSYRIA_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演[B]亞述[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_GENGHIS_KHAN_ASSYRIA_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]亞述[/B]和[B]成吉思汗[/B]在策略上互補。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_LAKSHMIBAI_ASSYRIA_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]拉克什米芭伊[/B]源自與[B]亞述[/B]相同的大陸。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_XERXES_ASSYRIA_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]薛西斯[/B]統治過曾是[B]亞述[/B]的地區。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_BIRTUTU_COMBAT_DEFENDING_PREVIEW" Language="zh_Hant_HK">
+      <Text>+{1_Amount}壁爾圖</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_KIBRAT_ARBA_I_COMBAT_MAGARRU_PREVIEW" Language="zh_Hant_HK">
+      <Text>+{1_Amount}四方之王</Text>
+    </Replace>
+    <Replace Tag="LOC_TURTANU_COMMAND_RADIUS_COMBAT_PREVIEW" Language="zh_Hant_HK">
+      <Text>+{1_Amount}他珥探</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_DURANI_NAME" Language="zh_Hant_HK">
+      <Text>天國之墻</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_GIRRU_NAME" Language="zh_Hant_HK">
+      <Text>火之神</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_MIHISTU_NAME" Language="zh_Hant_HK">
+      <Text>神聖捶打</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_1_ACCEPTED_ADVISOR_BODY_ASSYRIA" Language="zh_Hant_HK">
+      <Text>世上蘊藏著無數等待被發現的奧祕，但當中有許多卻被亞述的敵人自私地囤積著。作為您謙卑的科技大臣，我相信為了追求知識，無論要花費什麼代價都在所不惜。就讓我們先從瞭解自身的實力開始吧。</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_1_ACCEPTED_BODY_ASSYRIA" Language="zh_Hant_HK">
+      <Text>目標：[icon:NOTIFICATION_CULTURE_TREE_REVEALED][b]研究{LOC_CIVIC_BIRTUTU_NAME}以及{LOC_CIVIC_DISCIPLINE_NAME}[/b]，這是建立古典時代[b][icon:NOTIFICATION_TEAM_VICTORIOUS]{LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME}[/b][icon:YIELD_SCIENCE]科技傳承的第一步。
+			[n][n]請記住：[icon:NOTIFICATION_TEAM_VICTORIOUS][b]傳承[/b]能提升你在之後各時代的表現，但[b]你可以選擇要追求其中一個、多個，或是完全不去追求[/b]。</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_1_TRACKING_BODY_ASSYRIA" Language="zh_Hant_HK">
+      <Text>研究：[icon:NOTIFICATION_CULTURE_TREE_REVEALED]{LOC_CIVIC_BIRTUTU_NAME}{1_itemComplete}
+			[n]研究：[icon:NOTIFICATION_CULTURE_TREE_REVEALED]{LOC_CIVIC_DISCIPLINE_NAME}{2_itemComplete}</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_2_ADVISOR_BODY_ASSYRIA" Language="zh_Hant_HK">
+      <Text>我並非戰士，但顯然亞述之師如獅群般兇猛。我們將需要最精銳的部隊，才能從他人貪婪的手中奪取世界的奧祕。集結您的部隊，並準備戰鬥。</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_2_BODY_ASSYRIA" Language="zh_Hant_HK">
+      <Text>身為[b]亞述[/b]，你僅能夠透過[b]佔領聚落[/b]和[b]亞述的[icon:NOTIFICATION_CULTURE_TREE_REVEALED]市政樹[/b]來獲取抄本。和其他文明不同，你將會需要建立一支強大的軍隊才能在此傳承路徑上取得進度。
+			[n]下一個目標：研究[icon:NOTIFICATION_CULTURE_TREE_REVEALED][b]{LOC_CIVIC_TUPSARRUTU_NAME}[/b]，這會讓你在佔領聚落時得以獲得一本[b]抄本[/b]。然後，集結一個{1_ArmyCommanderIcon}[b]{2_ArmyCommanderName}和單位[/b]來創造一支軍隊。</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_2_TRACKING_BODY_ASSYRIA" Language="zh_Hant_HK">
+      <Text>研究：[icon:NOTIFICATION_CULTURE_TREE_REVEALED]{LOC_CIVIC_TUPSARRUTU_NAME}{1_itemComplete}
+			[n]訓練：{2_UnitsTarget}個軍事單位：{3_UnitsCurrent}/{2_UnitsTarget}
+			[n]組成一支完整的軍隊：{4_PackedCurrent}/{2_UnitsTarget}</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_3_ADVISOR_BODY_ASSYRIA" Language="zh_Hant_HK">
+      <Text>確實如獅群般兇猛。現在呢，記住我當初所說的——為了追求知識，無論要花費什麼代價都在所不惜。前去討伐我們的敵人，並將屬於我們的戰利品帶回來吧。</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_3_BODY_ASSYRIA" Language="zh_Hant_HK">
+      <Text>下一個目標：[b]佔領任何聚落[/b]，創造出一本[b]抄本[/b]，也就是古典時代的巨作。</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_3_TRACKING_BODY_ASSYRIA" Language="zh_Hant_HK">
+      <Text>佔領任何聚落：{1_CapturedCurrent}/{2_CapturedTarget}</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_4_ADVISOR_BODY_ASSYRIA" Language="zh_Hant_HK">
+      <Text>戰火帶來了指引我們人民前進的光芒。
+			[n]但我相信這只是個開始。繼續這場追求知識的聖戰，然後準備好能供奉知識的聖壇。</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_4_BODY_ASSYRIA" Language="zh_Hant_HK">
+      <Text>抄本必須要[b]展示過後[/b]才能算做達成[icon:NOTIFICATION_TEAM_VICTORIOUS][b]{LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME}[/b][icon:YIELD_SCIENCE]科技傳承路徑的進度，亞述的[icon:BUILDING_ROYAL_LIBRARY][b]{LOC_BUILDING_ROYAL_LIBRARY_NAME}[/b]能建造在任何城市當中，並且有槽位能[b]展示[/b]你的抄本。
+			[n]下一個目標：建造一座[icon:BUILDING_ROYAL_LIBRARY][b]{LOC_BUILDING_ROYAL_LIBRARY_NAME}[/b]，然後獲得並展示[b]{1_CodexGoalNum}本抄本[/b]。</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_4_TRACKING_BODY_ASSYRIA" Language="zh_Hant_HK">
+      <Text>建造：[icon:BUILDING_ROYAL_LIBRARY]{LOC_BUILDING_ROYAL_LIBRARY_NAME}{1_itemComplete}
+			[n]收集並展示抄本：{2_CodexCurrent}/{3_CodexTarget}</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_5_ADVISOR_BODY_ASSYRIA" Language="zh_Hant_HK">
+      <Text>如今已有{1_CodexCount}本抄本成為學術殿堂的珍藏，當中蘊含著亞述人民的知識結晶。還有哪些祕密等待我們發覺呢？</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_5_BODY_ASSYRIA" Language="zh_Hant_HK">
+      <Text>你已經達成了[b]{LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME}傳承路徑[/b]中的第一個[b]里程碑[/b]！
+			[n]下一個目標：建造第二座[icon:BUILDING_ROYAL_LIBRARY][b]{LOC_BUILDING_ROYAL_LIBRARY_NAME}[/b]來安置更多抄本，然後[b]展示{1_CodexGoalNum}本抄本[/b]，就能達成此傳承路徑的第二個里程碑。</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_5_TRACKING_BODY_ASSYRIA" Language="zh_Hant_HK">
+      <Text>建造：第二座[icon:BUILDING_ROYAL_LIBRARY]{LOC_BUILDING_ROYAL_LIBRARY_NAME}{1_itemComplete}
+			[n]收集並展示抄本：{2_CodexCurrent}/{3_CodexTarget}</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_6_ADVISOR_BODY_ASSYRIA" Language="zh_Hant_HK">
+      <Text>我們如今已擁有{1_CodexCount}本抄本。亞述的智慧與日俱增，而愚昧的黑暗也越來越消退。</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_6_BODY_ASSYRIA" Language="zh_Hant_HK">
+      <Text>你已經達成了[b]{LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME}傳承路徑[/b]中的第二個偉大[b]里程碑[/b]！持續收集[b]抄本[/b]來獲得最後一組獎勵。
+			[n]下一個目標：[b]展示{1_CodexGoalNum}本抄本[/b]，達成{LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME}傳承路徑的第三個，也是[b]最後[/b]的里程碑。
+			</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_6_TRACKING_BODY_ASSYRIA" Language="zh_Hant_HK">
+      <Text>收集並展示抄本：{1_CodexCurrent}/{2_CodexTarget}</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_LINE_COMPLETED_ADVISOR_BODY_ASSYRIA" Language="zh_Hant_HK">
+      <Text>我們的抄本收藏令全世界稱羨，這座名符其實的知識花園將在之後的世世代代結出果實。宇宙中的奧祕無窮無盡，但我們應該為自己的所作所為感到驕傲。</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_LINE_COMPLETED_BODY_ASSYRIA" Language="zh_Hant_HK">
+      <Text>恭喜你！你[b]展示了{1_CodexCount}本抄本[/b]，並且成功完成了古典時代的[b][icon:NOTIFICATION_TEAM_VICTORIOUS]{LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME}[/b][icon:YIELD_SCIENCE]科技傳承路徑。[n]你可以前往[b]傳承路徑畫面[/b]來查看更多可以追蹤的傳承路徑，或者你也可以走出屬於自己的路。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_MAGARRU_NAME" Language="zh_Hant_HK">
+      <Text>馬軋轤</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_TURTANU_NAME" Language="zh_Hant_HK">
+      <Text>他珥探</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

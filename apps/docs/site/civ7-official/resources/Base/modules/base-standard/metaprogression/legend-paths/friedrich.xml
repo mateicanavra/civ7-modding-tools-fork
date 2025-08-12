@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metaprogression xmlns="Metaprogression">
+	<legendPath id="LEGEND_PATH_FRIEDRICH" type="CHALLENGE_CLASS_LEADER">
+		<sortIndex>40</sortIndex>
+		<level level="2">
+			<reward reward="MEMENTO_FRIEDRICH_OBLIQUE_WALKING_STICK"/>
+		</level>
+		<level level="3">
+			<reward reward="NODE_ATTRIBUTE_MILITARISTIC_LEGEND_FRIEDRICH_L1"/>
+		</level>
+		<level level="4">
+			<reward reward="STRATEGYCARD_FRIEDRICH_OBLIQUE_EXPLORATION_1"/>
+			<reward reward="STRATEGYCARD_FRIEDRICH_OBLIQUE_EXPLORATION_2"/>
+		</level>
+		<level level="5">
+			<reward reward="MEMENTO_FRIEDRICH_OBLIQUE_ORDER_BLACK_EAGLE"/>
+		</level>
+		<level level="6">
+			<reward reward="BANNER_FRIEDRICH_OBLIQUE"/>
+			<reward reward="BADGE_FRIEDRICH_OBLIQUE"/>
+		</level>
+		<level level="7">
+			<reward reward="NODE_ATTRIBUTE_SCIENTIFIC_LEGEND_FRIEDRICH_L2"/>
+		</level>
+		<level level="8">
+			<reward reward="STRATEGYCARD_FRIEDRICH_OBLIQUE_MODERN_1"/>
+			<reward reward="STRATEGYCARD_FRIEDRICH_OBLIQUE_MODERN_2"/>
+		</level>
+		<level level="9">
+			<reward reward="MEMENTO_FRIEDRICH_OBLIQUE_KRONE_VON_FRIEDRICH"/>
+		</level>
+		<level level="10">
+			<reward reward="TITLE_FRIEDRICH_OBLIQUE"/>
+			<reward reward="BADGE_FRIEDRICH_OBLIQUE_P"/>
+		</level>
+	</legendPath>
+</metaprogression>

@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_UI_TOWN_FOCUS">
+			<Text>Town Focus</Text>
+		</Row>
+		<Row Tag="LOC_UI_TOWN_FOCUS_CTA">
+			<Text>Choose a Town Focus:[n]Towns without a Growing Town Focus[n]send all their [icon:YIELD_FOOD] Food to Connected Cities.</Text>
+		</Row>
+		<Row Tag="LOC_UI_TOWN_FOCUS_DEFAULT_LABEL">
+			<Text>"Growing Town" is the default focus. Choose a new focus by selecting above.</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_CATEGORY_BUILDINGS">
+			<Text>Buildings</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_CATEGORY_PROJECTS">
+			<Text>Projects</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_CATEGORY_IMPROVEMENTS">
+			<Text>Improvements</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_CATEGORY_UNITS">
+			<Text>Units</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_CATEGORY_WONDERS">
+			<Text>Wonders</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_TAB">
+			<Text>Production</Text>
+		</Row>
+		<Row Tag="LOC_UI_PURCHASE_TAB">
+			<Text>Purchase</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_NAME">
+			<Text>{1_Name}</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_LOCATIONS">
+			<Text>Locations: {1_Locations}</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_NO_SUITABLE_LOCATIONS">
+			<Text>No suitable locations available.</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_ALREADY_IN_QUEUE">
+			<Text>Already in build queue.</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_AGELESS">
+			<Text>Ageless</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_VIEW_HIDDEN">
+			<Text>View Hidden</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_HIDE_HIDDEN">
+			<Text>Hide Hidden</Text>
+		</Row>
+		<Row Tag="LOC_UI_MODE_PURCHASE">
+			<Text>Purchase Mode</Text>
+		</Row>
+		<Row Tag="LOC_UI_MODE_PRODUCTION">
+			<Text>Production Mode</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_REQUIRES">
+			<Text>Requires: {1_NodeName}</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_MOVE_NAME">
+			<Text>MOVE: {1_ConstructibleName}</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_REPAIR_NAME">
+			<Text>REPAIR: {1_ConstructibleName}</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_FAILED_RESOURCE_REQUIREMENT">
+			<Text>Project requires the {1_Resource} Resource.</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_FAILED_CONSTRUCTIBLE_REQUIREMENT">
+			<Text>Project requires a {1_Constructible} in the City.</Text>
+		</Row>
+		<Row Tag="LOC_UI_QUEUE_FILTER">
+			<Text>Filter by {1_CategoryName}</Text>
+		</Row>
+		<Row Tag="LOC_UI_QUEUE_FILTER_SHOW_ALL">
+			<Text>Show All</Text>
+		</Row>
+		<Row Tag="LOC_UI_QUEUE_SHOW_LOCKED_ITEMS">
+			<Text>Show locked items</Text>
+		</Row>
+		<Row Tag="LOC_UI_QUEUE_HIDE_LOCKED_ITEMS">
+			<Text>Hide locked items</Text>
+		</Row>
+		<Row Tag="LOC_UI_CITY_PURCHASE_ENTER">
+			<Text>Enter Purchase Mode</Text>
+		</Row>
+		<Row Tag="LOC_UI_CITY_PURCHASE_EXIT">
+			<Text>Exit Purchase Mode</Text>
+		</Row>
+		<Row Tag="LOC_UI_CITY_BACK_TO_PRODUCTION">
+			<Text>Back to Production</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_UPGRADE_DIALOG_TITLE">
+			<Text>Upgrade to City</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_UPGRADE_DIALOG_BODY">
+			<Text>This Project will permanently upgrade your Town to a City. Are you sure?</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PLACEMENT_ADJACENCY_YIELDS_HEADER">
+			<Text>Adjacency Bonuses</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PLACEMENT_INCOMING_ADJACENCY_DIRECTION">
+			<Text>+{1_yieldDelta} {2_yieldType} from the {3_direction}</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PLACEMENT_OUTGOIN_ADJACENCY_DIRECTION">
+			<Text>+{1_yieldDelta} {2_yieldType} to the {3_direction}</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PLACEMENT_GENERIC_YIELD">
+			<Text>+{1_yieldDelta} {2_yieldType}</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PLACEMENT_WAREHOUSE_YIELDS_HEADER">
+			<Text>Warehouse Bonuses</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PLACEMENT_WAREHOUSE_BONUS">
+			<Text>Warehouse bonus for {2_yieldType}</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PLACEMENT_YIELD_WITH_ICON">
+			<Text>{1_Amount: number +#.##;-#.##} [icon:{2_Icon}] {3_Text}</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PLACEMENT_YIELD">
+			<Text>{1_Amount: number +#.##;-#.##} {2_Text}</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PLACEMENT_YIELD_NAME_FROM_DIRECTION">
+			<Text>{1_Name} (From the {2_Direction})</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PLACEMENT_YIELD_NAME_TO_OTHER_BUILDINGS">
+			<Text>{1_Name} (To Other Buildings)</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PLACEMENT_YIELD_NAME_FROM_WORKERS">
+			<Text>{1_Name} (From Specialists)</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PLACEMENT_YIELD_NAME_TO_TILE_FROM_WAREHOUSE">
+			<Text>{1_Name} to other Tiles (From Warehouse)</Text>
+		</Row>
+		<Row Tag="LOC_CITY_PURCHASE_INSUFFICIENT_FUNDS">
+			<Text>Not enough Gold in Treasury</Text>
+		</Row>
+		<Row Tag="LOC_CITY_UNREST">
+			<Text>Unrest</Text>
+		</Row>
+		<Row Tag="LOC_CITY_PURCHASE_DISABLED_DURING_UNREST">
+			<Text>Settlement has Unrest</Text>
+		</Row>
+		<Row Tag="LOC_CITY_PURCHASE_LIMIT_MET">
+			<Text>Purchase already made this turn</Text>
+		</Row>
+		<Row Tag="LOC_TOWN_SET_FOCUS_DIALOG_TITLE">
+			<Text>Are you sure?</Text>
+		</Row>
+		<Row Tag="LOC_TOWN_SET_FOCUS_DIALOG_BODY">
+			<Text>[STYLE:text-negative]This Town Focus is Exclusive[/STYLE][N][STYLE:text-accent-2]You will only be able to choose this Focus or Growing Town until the next Age[/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_UI_PURCHASE_NOTHING_AVAILABLE">
+			<Text>Nothing available to purchase.</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_UNREST">
+			<Text>Settlement is in unrest!</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_UNREST_TURNS_REMAINING">
+			<Text>{1_Turns} turns until you can purchase or change focus.</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_BUILDING_MAINTENANCE">
+			<Text>Building Maintenance:</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_MAINTENANCE">
+			<Text>Maintenance:</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_BUILDINGS">
+			<Text>Buildings</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_UNITS">
+			<Text>Units</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_PROJECTS">
+			<Text>Projects</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_WONDERS">
+			<Text>Wonders</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_UNIQUE_QUARTER">
+			<Text>Unique Quarter</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_QUARTER_BUILDINGS_COMPLETED">
+			<Text>{1_Completed}/2 Buildings Completed</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_COST">
+			<Text>Production Cost: [icon:YIELD_PRODUCTION] {1_Cost}</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_BASE_YIELD">
+			<Text>Base Yield: {1_Yields}</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_TOOLTIP_BASE_YIELD">
+			<Text>Base Yield:</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_TOOLTIP_BEST_ADJACENCY">
+			<Text>Base Current Adjacency:</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_ALREADY_EXISTS">
+			<Text>Building already exists</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_REQUIRES_POPULATION">
+			<Text>Requires a population of {1_population} or more</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_REQUIRES_CONSTRUCTIBLE">
+			<Text>Requires building {1_building}</Text>
+		</Row>
+		<Row Tag="LOC_UI_JUST_COMPLETED">
+			<Text>Just Completed</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRODUCTION_REPAIR_ALL">
+			<Text>Repair: All</Text>
+		</Row>
+	</EnglishText>
+</Database>

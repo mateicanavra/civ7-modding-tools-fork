@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<ConstructibleModifiers>
+		<Row ConstructibleType="IMPROVEMENT_MONASTERY" ModifierId="MOD_MONASTERY_YIELD"/>
+		<Row ConstructibleType="IMPROVEMENT_TRADING_FACTORY" ModifierId="MOD_TRADING_FACTORY_GOLD"/>
+		<Row ConstructibleType="IMPROVEMENT_TRADING_FACTORY" ModifierId="MOD_TRADING_FACTORY_YIELDS"/>
+	</ConstructibleModifiers>
+	<RequirementSets>
+		<Row RequirementSetId="REQSET_MONASTERY_FOLLOWS_RELIGION" RequirementSetType="REQUIREMENTSET_TEST_ALL"/>
+	</RequirementSets>
+	<RequirementSetRequirements>
+		<Row RequirementSetId="REQSET_MONASTERY_FOLLOWS_RELIGION" RequirementId="REQUIRES_PLOT_HAS_MONASTERY"/>
+		<Row RequirementSetId="REQSET_MONASTERY_FOLLOWS_RELIGION" RequirementId="REQ_CITY_HAS_RELIGION"/>
+	</RequirementSetRequirements>
+	<Requirements>
+		<Row>
+			<RequirementId>REQUIRES_PLOT_HAS_MONASTERY</RequirementId>
+			<RequirementType>REQUIREMENT_PLOT_HAS_CONSTRUCTIBLE</RequirementType>
+		</Row>
+	</Requirements>
+	<RequirementArguments>
+		<Row>
+			<RequirementId>REQUIRES_PLOT_HAS_MONASTERY</RequirementId>
+			<Name>ConstructibleType</Name>
+			<Value>IMPROVEMENT_MONASTERY</Value>
+		</Row>
+	</RequirementArguments>
+	<!-- Stuff we put in here so that the data doesn't exist in modern-->
+	<Constructible_Adjacencies>
+		<Row ConstructibleType="IMPROVEMENT_STONE_HEAD" YieldChangeId="StoneheadCulture"/>
+	</Constructible_Adjacencies>
+	<Adjacency_YieldChanges>
+		<Row ID="StoneheadCulture" Age="AGE_EXPLORATION" YieldType="YIELD_CULTURE" YieldChange="1" TilesRequired="1" AdjacentConstructible="IMPROVEMENT_STONE_HEAD"/>
+	</Adjacency_YieldChanges>
+</Database>

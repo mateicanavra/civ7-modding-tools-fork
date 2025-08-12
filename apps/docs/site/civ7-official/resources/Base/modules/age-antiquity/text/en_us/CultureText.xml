@@ -1,0 +1,937 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- ==================================================	-->
+		<!--	MAIN TREE							-->
+		<!-- ==================================================	-->
+		<Row Tag="LOC_CIVIC_CHIEFDOM_NAME">
+			<Text>Chiefdom</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CHIEFDOM_QUOTE">
+			<Text>"I protect thee with this flame, and I drive away the foe and the sand from thy feet."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CHIEFDOM_QUOTE_AUTHOR">
+			<Text>The Book of the Dead</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_MYSTICISM_NAME">
+			<Text>Mysticism</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_MYSTICISM_QUOTE">
+			<Text>"There is another world, but it is in this one."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_MYSTICISM_QUOTE_AUTHOR">
+			<Text>Paul Éluard</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_DISCIPLINE_NAME">
+			<Text>Discipline</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_DISCIPLINE_QUOTE">
+			<Text>"Do nothing which is of no use."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_DISCIPLINE_QUOTE_AUTHOR">
+			<Text>Miyamoto Musashi</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CITIZENSHIP_NAME">
+			<Text>Citizenship</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CITIZENSHIP_QUOTE">
+			<Text>"After the assembly gathered, the elders gave their answer."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CITIZENSHIP_QUOTE_AUTHOR">
+			<Text>The Epic of Gilgamesh</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_PHILOSOPHY_NAME">
+			<Text>Philosophy</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_PHILOSOPHY_QUOTE">
+			<Text>"The unexamined life is not worth living."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_PHILOSOPHY_QUOTE_AUTHOR">
+			<Text>Socrates</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CODE_OF_LAWS_NAME">
+			<Text>Code of Laws</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CODE_OF_LAWS_QUOTE">
+			<Text>"An eye for an eye, a tooth for a tooth."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CODE_OF_LAWS_QUOTE_AUTHOR">
+			<Text>Exodus 21:24</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_LITERACY_NAME">
+			<Text>Literacy</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_LITERACY_QUOTE">
+			<Text>"God, with such splendid irony, granted me books and night at one touch."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_LITERACY_QUOTE_AUTHOR">
+			<Text>Jorge Luis Borges</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_BANNERS_NAME">
+			<Text>Tactics</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_BANNERS_QUOTE">
+			<Text>"Those who delight to attack and to display their valour and fealty should be formed in companies."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_BANNERS_QUOTE_AUTHOR">
+			<Text>Sun Tzu</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_ORG_MILITARY_NAME">
+			<Text>Organized Military</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_ORG_MILITARY_QUOTE">
+			<Text>"An army is a miniature of the society which produces it."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_ORG_MILITARY_QUOTE_AUTHOR">
+			<Text>C. L. R. James</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_COMMERCE_NAME">
+			<Text>Commerce</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_COMMERCE_QUOTE">
+			<Text>"The dogs bark, but the caravan moves on."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_COMMERCE_QUOTE_AUTHOR">
+			<Text>Turkish Proverb</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SKILLED_TRADES_NAME">
+			<Text>Skilled Trades</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SKILLED_TRADES_QUOTE">
+			<Text>"Skill is handed down to me from my ancestors in a perpetual line of accumulated wisdom."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SKILLED_TRADES_QUOTE_AUTHOR">
+			<Text>Shuji Nakagawa</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_PUBLIC_LIFE_NAME">
+			<Text>Public Life</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_PUBLIC_LIFE_QUOTE">
+			<Text>"Remain less interested in who we imagine ourselves to be than in what we can do for one another."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_PUBLIC_LIFE_QUOTE_AUTHOR">
+			<Text>Paul Gilroy</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_ENTERTAINMENT_NAME">
+			<Text>Entertainment</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_ENTERTAINMENT_QUOTE">
+			<Text>"All the world's a stage, and all the men and women merely players."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_ENTERTAINMENT_QUOTE_AUTHOR">
+			<Text>William Shakespeare</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_FUTURE_CIVIC_AQ_NAME">
+			<Text>Future Civic</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_FUTURE_CIVIC_AQ_QUOTE">
+			<Text></Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_FUTURE_CIVIC_AQ_AUTHOR">
+			<Text></Text>
+		</Row>
+		<Row Tag="LOC_MOD_AQ_FUTURE_CIVIC_ATTRIBUTE_DESCRIPTION">
+			<Text>+1 Random Attribute Point.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_FUTURE_CIVIC_BOOST_DESCRIPTION">
+			<Text>A boost for a non-Civilization-unique starting Civic in the next age.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_AQ_FUTURE_CIVIC_AGE_PROGRESS_DESCRIPTION">
+			<Text>+10 Age Progress.</Text>
+		</Row>
+		<!-- Aksum Unique Tree -->
+		<Row Tag="LOC_TREE_CIVICS_AQ_AKSUM_NAME">
+			<Text>Aksumite Civics</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_PERIPLUS_OF_THE_ERYTHRAEAN_SEA_NAME">
+			<Text>Periplus of the Erythraean Sea</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_PERIPLUS_OF_THE_ERYTHRAEAN_SEA_QUOTE">
+			<Text>"To that place all the ivory is brought."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_PERIPLUS_OF_THE_ERYTHRAEAN_SEA_QUOTE_AUTHOR">
+			<Text>The Periplus of the Erythraean Sea</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_MONUMENTUM_ADULITANUM_NAME">
+			<Text>Monumentum Adulitanum</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_MONUMENTUM_ADULITANUM_QUOTE">
+			<Text>"I set up here this throne and consecrated it to Ares."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_MONUMENTUM_ADULITANUM_QUOTE_AUTHOR">
+			<Text>Monumentum Adulitanum</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_BOOK_OF_THE_HIMYARITES_NAME">
+			<Text>Book of the Himyarites</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_BOOK_OF_THE_HIMYARITES_QUOTE">
+			<Text>"Africa will write its own history, and in both north and south it will be a history of glory and dignity."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_BOOK_OF_THE_HIMYARITES_QUOTE_AUTHOR">
+			<Text>Patrice Lumumba</Text>
+		</Row>
+		<!-- Egypt Unique Tree -->
+		<Row Tag="LOC_TREE_CIVICS_AQ_EGYPT_NAME">
+			<Text>Egyptian Civics</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_ARRIVAL_OF_HAPI_NAME">
+			<Text>Arrival of Hapi</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_ARRIVAL_OF_HAPI_QUOTE">
+			<Text>"The river begins to rise when other rivers diminish and begins to subside just when other rivers increase."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_ARRIVAL_OF_HAPI_QUOTE_AUTHOR">
+			<Text>Ibn Battuta</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SCALES_OF_ANUBIS_NAME">
+			<Text>Scales of Anubis</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SCALES_OF_ANUBIS_QUOTE">
+			<Text>"The god Anubis said: Pass, thou, for thou knowest the names."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SCALES_OF_ANUBIS_QUOTE_AUTHOR">
+			<Text>The Book of the Dead</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_LIGHT_OF_AMUN_RA_NAME">
+			<Text>Light of Amun-Ra</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_LIGHT_OF_AMUN_RA_QUOTE">
+			<Text>"Behold, thou image of gold, thou lord of terror; thou rollest along and art renewed day by day."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_LIGHT_OF_AMUN_RA_QUOTE_AUTHOR">
+			<Text>The Book of the Dead</Text>
+		</Row>
+		<!-- Greece Unique Tree -->
+		<Row Tag="LOC_TREE_CIVICS_AQ_GREECE_NAME">
+			<Text>Greek Civics</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CLASSICAL_ORDERS_NAME">
+			<Text>Classical Orders</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CLASSICAL_ORDERS_QUOTE">
+			<Text>"The architect must not only understand drawing, but music."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CLASSICAL_ORDERS_QUOTE_AUTHOR">
+			<Text>Vitruvius</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_AGOGE_NAME">
+			<Text>Agoge</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_AGOGE_QUOTE">
+			<Text>"If you think that I rely on numbers, then all Greece is not sufficient. If on men's valor, then this number will do."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_AGOGE_QUOTE_AUTHOR">
+			<Text>Leonidas</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_EKKLESIA_NAME">
+			<Text>Ekklesia</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_EKKLESIA_QUOTE">
+			<Text>"The administration is in the hands of the many and not of the few."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_EKKLESIA_QUOTE_AUTHOR">
+			<Text>Pericles</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_THALASSOCRACY_NAME">
+			<Text>Thalassocracy</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_THALASSOCRACY_QUOTE">
+			<Text>"Through the music of the languid hours, they hear like Ocean on a western beach the surge and thunder of the Odyssey."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_THALASSOCRACY_QUOTE_AUTHOR">
+			<Text>Andrew Lang</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SYMMACHIA_NAME">
+			<Text>Symmachia</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SYMMACHIA_QUOTE">
+			<Text>"Right, as the world goes, is only in question between equals in power, while the strong do what they can and the weak suffer what they must."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SYMMACHIA_QUOTE_AUTHOR">
+			<Text>Thucydides</Text>
+		</Row>
+		<!-- Han Unique Tree -->
+		<Row Tag="LOC_TREE_CIVICS_AQ_HAN_NAME">
+			<Text>Han Civics</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_ZHI_NAME">
+			<Text>Zhi</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_ZHI_QUOTE">
+			<Text>"I do not open up the truth to one who is not eager to get knowledge."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_ZHI_QUOTE_AUTHOR">
+			<Text>Confucius</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_LI_NAME">
+			<Text>Li</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_LI_QUOTE">
+			<Text>"Name now our names, praise us. We are your mother, we are your father. Speak now."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_LI_QUOTE_AUTHOR">
+			<Text>Popol Vuh</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_YI_NAME">
+			<Text>Yi</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_YI_QUOTE">
+			<Text>"Riches and honors acquired by unrighteousness are to me as a floating cloud."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_YI_QUOTE_AUTHOR">
+			<Text>Confucius</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_JUNZI_NAME">
+			<Text>Junzi</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_JUNZI_QUOTE">
+			<Text>"Looked at from a distance, the scholar appears stern; when approached, he is mild; when he is heard to speak, his language is firm."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_JUNZI_QUOTE_AUTHOR">
+			<Text>Confucius</Text>
+		</Row>
+		<!-- Khmer Unique Tree -->
+		<Row Tag="LOC_TREE_CIVICS_AQ_KHMER_NAME">
+			<Text>Khmer Civics</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_MOUSONG_NAME">
+			<Text>Mousong</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_MOUSONG_QUOTE">
+			<Text>"Whose eye controls this world in highest heaven, he verily knows it, or perhaps he knows not."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_MOUSONG_QUOTE_AUTHOR">
+			<Text>The Rig Veda</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_AMNACH_NAME">
+			<Text>Amnach</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_AMNACH_QUOTE">
+			<Text>"The king's fire was like the moon, and his enemies drooped to the ground like lotuses at night."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_AMNACH_QUOTE_AUTHOR">
+			<Text>Preah Khan Inscription</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CHAKRAVARTI_NAME">
+			<Text>Chakravarti</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CHAKRAVARTI_QUOTE">
+			<Text>"Live with the Dhamma as your island, the Dhamma as your refuge, with nothing else as your refuge."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CHAKRAVARTI_QUOTE_AUTHOR">
+			<Text>The Cakkavatti Sutta</Text>
+		</Row>
+		<!-- Maurya Unique Tree -->
+		<Row Tag="LOC_TREE_CIVICS_AQ_MAURYA_NAME">
+			<Text>Mauryan Civics</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_ACHARYA_NAME">
+			<Text>Acharya</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_ACHARYA_QUOTE">
+			<Text>"Those who know true wisdom are one with Thee, O God."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_ACHARYA_QUOTE_AUTHOR">
+			<Text>Vishnu Purana</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_VYUHAM_NAME">
+			<Text>Vyuham</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_VYUHAM_QUOTE">
+			<Text>"For those who are born, death is certain, and for those who are dead, birth is certain."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_VYUHAM_QUOTE_AUTHOR">
+			<Text>The Mahābhārata</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_AYURVEDA_NAME">
+			<Text>Ayurveda</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_AYURVEDA_QUOTE">
+			<Text>"Preserve the health of the healthy, and break the cause of disease."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_AYURVEDA_QUOTE_AUTHOR">
+			<Text>Ayurveda Motto</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_MANTRIPARISHAD_NAME">
+			<Text>Mantriparishad</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_MANTRIPARISHAD_QUOTE">
+			<Text>"Test a servant in duty, a relative in difficulty, a friend in adversity, and a wife in misfortune."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_MANTRIPARISHAD_QUOTE_AUTHOR">
+			<Text>Chanakya</Text>
+		</Row>
+		<!-- Maya Unique Tree -->
+		<Row Tag="LOC_TREE_CIVICS_AQ_MAYA_NAME">
+			<Text>Mayan Civics</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_RAIN_OF_CHAAC_NAME">
+			<Text>Rain of Chaac</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_RAIN_OF_CHAAC_QUOTE">
+			<Text>"All alone the sky exists. The face of the earth has not yet appeared."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_RAIN_OF_CHAAC_QUOTE_AUTHOR">
+			<Text>Popol Vuh</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_LORDS_OF_XIBALBA_NAME">
+			<Text>Lords of Xibalba</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_LORDS_OF_XIBALBA_QUOTE">
+			<Text>"The monarchs of Xibalba requested to be slain and resuscitated. They were killed, but the brothers refrained from resuscitating."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_LORDS_OF_XIBALBA_QUOTE_AUTHOR">
+			<Text>Popol Vuh</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CALENDAR_ROUND_NAME">
+			<Text>Calendar Round</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CALENDAR_ROUND_QUOTE">
+			<Text>"It is 12 Ahau 8 Pax. The Holy Lord of Ixtutz drives the stone into the ground."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CALENDAR_ROUND_QUOTE_AUTHOR">
+			<Text>The Geneva Stela</Text>
+		</Row>
+		<!-- Mississippian Unique Tree -->
+		<Row Tag="LOC_TREE_CIVICS_AQ_MISSISSIPPIAN_NAME">
+			<Text>Mississippian Civics</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_EARTHWORKS_NAME">
+			<Text>Earthworks</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_EARTHWORKS_QUOTE">
+			<Text>"The king's cup was placed on a tumulus, with many arrows set about it."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_EARTHWORKS_QUOTE_AUTHOR">
+			<Text>Jacques le Moyne</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CAH_NAH_HA_NAME">
+			<Text>Cah-nah-ha</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CAH_NAH_HA_QUOTE">
+			<Text>"The things the worshipper gives to his gods are not the food he places on the altar, or the blood in his veins. It is his thought."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CAH_NAH_HA_QUOTE_AUTHOR">
+			<Text>Émile Durkheim</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_WAAHIH_NAME">
+			<Text>Waahih</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_WAAHIH_QUOTE">
+			<Text>"This is a good day to die!"</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_WAAHIH_QUOTE_AUTHOR">
+			<Text>Sitting Bull</Text>
+		</Row>
+		<!-- Persia Unique Tree -->
+		<Row Tag="LOC_TREE_CIVICS_AQ_PERSIA_NAME">
+			<Text>Persian Civics</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SPADA_NAME">
+			<Text>Spada</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SPADA_QUOTE">
+			<Text>"Be eager in the face of danger."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SPADA_QUOTE_AUTHOR">
+			<Text>Xenophon</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SATRAPIES_NAME">
+			<Text>Satrapies</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SATRAPIES_QUOTE">
+			<Text>"Better to live in a rugged land and rule than to cultivate rich plains and serve."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SATRAPIES_QUOTE_AUTHOR">
+			<Text>Cyrus the Great</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_HAZARABAM_NAME">
+			<Text>Hazarabam</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_HAZARABAM_QUOTE">
+			<Text>"Kings that, to the power of the emperor obedient, march."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_HAZARABAM_QUOTE_AUTHOR">
+			<Text>Aeschylus</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_ROYAL_ROAD_NAME">
+			<Text>Royal Road</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_ROYAL_ROAD_QUOTE">
+			<Text>"A Persian has delivered battle far indeed from Persia."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_ROYAL_ROAD_QUOTE_AUTHOR">
+			<Text>Darius I</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_ACHAEMENID_EMPIRE_NAME">
+			<Text>Achaemenid Empire</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_ACHAEMENID_EMPIRE_QUOTE">
+			<Text>"Should I pass you by and leave you lying there because of your war against us, or should I set you up again because of your virtues?"</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_ACHAEMENID_EMPIRE_QUOTE_AUTHOR">
+			<Text>Plutarch</Text>
+		</Row>
+		<!-- Rome Unique Tree -->
+		<Row Tag="LOC_TREE_CIVICS_AQ_ROME_NAME">
+			<Text>Roman Civics</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_EXERCITUS_ROMANUS_NAME">
+			<Text>Exercitus Romanus</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_EXERCITUS_ROMANUS_QUOTE">
+			<Text>"It is easier to find men who will volunteer to die, than to find those who are willing to endure pain with patience."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_EXERCITUS_ROMANUS_QUOTE_AUTHOR">
+			<Text>Julius Caesar</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CIVIS_ROMANUS_NAME">
+			<Text>Civis Romanus</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CIVIS_ROMANUS_QUOTE">
+			<Text>"Avoid any specific discussion of public policy at public meetings."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CIVIS_ROMANUS_QUOTE_AUTHOR">
+			<Text>Cicero</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_LEGATUS_PRO_PRAETORE_NAME">
+			<Text>Legatus Pro Praetore</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_LEGATUS_PRO_PRAETORE_QUOTE">
+			<Text>"Those who steal from one person spend their lives in shackles and chains - those who steal from all people, in purple and gold."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_LEGATUS_PRO_PRAETORE_QUOTE_AUTHOR">
+			<Text>Cato</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SENATUS_POPULUSQUE_ROMANUS_NAME">
+			<Text>Senatus Populusque Romanus</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SENATUS_POPULUSQUE_ROMANUS_QUOTE">
+			<Text>"Let arms yield to the toga."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SENATUS_POPULUSQUE_ROMANUS_QUOTE_AUTHOR">
+			<Text>Cicero</Text>
+		</Row>
+		<!-- ==================================================	-->
+		<!--	MODIFIER STRINGS							-->
+		<!-- ==================================================	-->
+		<Row Tag="LOC_MOD_PANTHEON_UNLOCK_DESCRIPTION">
+			<Text>Unlocks founding a Pantheon.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_DISCIPLINE_FREE_COMMANDER_DESCRIPTION">
+			<Text>Gain a free Army Commander.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_AQ_FREE_MERCHANT_DESCRIPTION">
+			<Text>Gain a free Merchant.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_AQ_TRADITION_SLOT_DESCRIPTION">
+			<Text>+1 Social Policy slot.</Text>
+		</Row>
+		<!-- Aksum Modifier Strings -->
+		<Row Tag="LOC_MOD_PERIPLUS_OF_THE_ERYTHRAEAN_SEA_RESOURCE_CAP_DESCRIPTION">
+			<Text>+1 Resource Capacity in Settlements on Coast or Navigable Rivers.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_PERIPLUS_OF_THE_ERYTHRAEAN_SEA_COASTAL_URBAN_GOLD_DESCRIPTION">
+			<Text>+1[icon:YIELD_GOLD] Gold on Quarters adjacent to Coast.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_MONUMENTUM_ADULITANUM_ALTAR_HAWELT_DESCRIPTION">
+			<Text>The Altar and Monument gain a +1[icon:YIELD_CULTURE] Culture adjacency with Hawilti.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_HIMYARITES_DHOW_SWIFT_DESCRIPTION">
+			<Text>The Dhow ignores Zone of Control.</Text>
+		</Row>
+		<!-- Egypt Modifier Strings -->
+		<Row Tag="LOC_MOD_HAPI_UNITS_IGNORE_MINOR_RIVER_DESCRIPTION">
+			<Text>Minor Rivers do not end Unit movement.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ANUBIS_MEDJAY_GENERATE_GOLD_DESCRIPTION">
+			<Text>Medjay generate +1[icon:YIELD_GOLD] Gold when stationed in a Settlement you own.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_AMUN_RA_PALACE_GOLD_DESCRIPTION">
+			<Text>+5[icon:YIELD_GOLD] Gold on the Palace.</Text>
+		</Row>
+		<!-- Greece Modifier Strings -->
+		<Row Tag="LOC_MOD_EKKLESIA_CULTURE_DESCRIPTION">
+			<Text>+2[icon:YIELD_CULTURE] Culture for active Endeavors, Sanctions, and Projects you started or supported.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_AGOGE_HOPLITE_ABILITY_FRIENDLY_INDEPENDENT_DESCRIPTION">
+			<Text>Hoplites gain +1 Combat Strength for each City-State you are Suzerain of.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_SYMMACHIA_CULTURE_PER_FRIENDLY_INDEPENDENT_DESCRIPTION">
+			<Text>+2[icon:YIELD_CULTURE] Culture for each City-State you are Suzerain of.</Text>
+		</Row>
+		<!-- Han Modifier Strings -->
+		<Row Tag="LOC_MOD_ZHI_SCIENCE_BUILDING_URBAN_ADJACENCY_DESCRIPTION">
+			<Text>Science Buildings gain a +1[icon:YIELD_SCIENCE] Science Adjacency for Quarters.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_LI_DIPLOMACY_YIELD_DESCRIPTION">
+			<Text>+2[icon:YIELD_DIPLOMACY] Influence on the Palace.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_YI_ABILITY_DESCRIPTION">
+			<Text>The Chu-Ko-Nu gains +5 Combat Strength when defending.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_JUNZI_CAPITAL_SCIENCE_DESCRIPTION">
+			<Text>+10%[icon:YIELD_SCIENCE] Science in the Capital.</Text>
+		</Row>
+		<!-- Khmer Modifier Strings -->
+		<Row Tag="LOC_MOD_AMNACH_DANTINAS_TATHA_MOVEMENT_BONUS_DESCRIPTION">
+			<Text>The Yuthahathi gets +1 Movement.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_CHAKRAVARTI_CAPITAL_GROWTH_DESCRIPTION">
+			<Text>+50% Growth Rate in the Capital. -5[icon:YIELD_HAPPINESS] Happiness in every other City.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_CHAKRAVARTI_GREAT_WORKS_SLOTS_DESCRIPTION">
+			<Text>+3 Codex slots in the Palace.</Text>
+		</Row>
+		<!-- Maurya Modifier Strings -->
+		<Row Tag="LOC_MOD_VYUHAM_CAVALRY_ABILITY_DESCRIPTION">
+			<Text>Infantry and Cavalry Units gain +3 Combat Strength when adjacent to each other.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_KSHATRIYA_BARRACKS_HAPPINESS_DESCRIPTION">
+			<Text>+2[icon:YIELD_HAPPINESS] Happiness on Military Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_AYURVEDA_PURABHETTARAH_HEAL_ABILITY_DESCRIPTION">
+			<Text>Units adjacent to the Purabhettarah heal +5 HP per turn.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_MANTRIPARISHAD_OCCUPIED_CITY_YIELD_DESCRIPTION">
+			<Text>+10% to all yields in Settlements not founded by you.</Text>
+		</Row>
+		<!-- Maya Modifier Strings -->
+		<Row Tag="LOC_MOD_CHAAC_ALTAR_VEGETATION_ADJACENCY_DESCRIPTION">
+			<Text>The Altar gains a +1[icon:YIELD_SCIENCE] Science Adjacency from Vegetated Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_XIBALBA_HULCHE_STEALTH_DESCRIPTION">
+			<Text>Hul'che and Jaguar Slayers gain Stealth in Vegetated Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_CALENDAR_ROUND_CULTURE_FOR_TECH_DESCRIPTION">
+			<Text>After researching a Technology, gain[icon:YIELD_CULTURE] Culture equal to 10% of its cost.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_CALENDAR_ROUND_SCIENCE_FOR_CIVIC_DESCRIPTION">
+			<Text>After studying a Civic, gain[icon:YIELD_SCIENCE] Science equal to 10% of its cost.</Text>
+		</Row>
+		<!-- Mississippian Modifier Strings -->
+		<Row Tag="LOC_MOD_EARTHWORKS_BUILDING_PRODUCTION_MODIFIER_DESCRIPTION">
+			<Text>+10%[icon:YIELD_PRODUCTION] Production towards constructing Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_CAH_NAH_HA_RESOURCE_CAP_DESCRIPTION">
+			<Text>+2 Resource Capacity in the Capital.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_WAAHIH_BURNING_ARROW_PILLAGE_ABILITY_DESCRIPTION">
+			<Text>Burning Arrows can pillage within 2 tiles for 1 Movement.</Text>
+		</Row>
+		<!-- Persia Modifier Strings -->
+		<Row Tag="LOC_MOD_SPADA_UNIT_MAINTENANCE_DESCRIPTION">
+			<Text>-1[icon:YIELD_GOLD] maintenance for Units.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_SATRAPIES_PAIRIDAEZA_URBAN_ADJACENCY_DESCRIPTION">
+			<Text>The Pairidaeza gains +1[icon:YIELD_HAPPINESS] Happiness from adjacent Quarters.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ACHAEMENID_EMPIRE_CAPTURED_CITY_GOLD_DESCRIPTION">
+			<Text>+5[icon:YIELD_GOLD] Gold for every different Civilization you have captured a Settlement from.</Text>
+		</Row>
+		<!-- Rome Modifier Strings -->
+		<Row Tag="LOC_MOD_EXERCITUS_ROMANUS_LEGATUS_PROMOTION_DESCRIPTION">
+			<Text>The Legatus gains the Bulwark Promotion for free.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_CIVIS_ROMANUS_CAPITAL_GOLD_PER_TOWN_DESCRIPTION">
+			<Text>+2[icon:YIELD_GOLD] Gold in the Capital for every Town you own.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_LEGATUS_PRO_PRAETORE_INFANTRY_DESCRIPTION">
+			<Text>Gain a free Infantry Unit in new Settlements that you found.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_SENATUS_POPULUSQUE_ROMANUS_TRADITION_SLOTS_DESCRIPTION">
+			<Text>+1 Social Policy slot.</Text>
+		</Row>
+		<!-- ==================================================	-->
+		<!--	TRADITIONS							-->
+		<!-- ==================================================	-->
+		<Row Tag="LOC_TRADITION_DIPLOMACY_FAVOR_ACCRUE_DESCRIPTION">
+			<Text>Increased the Relationship gained for supporting Diplomatic Actions by 25%.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_CASTES_NAME">
+			<Text>Castes</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_CASTES_DESCRIPTION">
+			<Text>+25%[icon:YIELD_FOOD] Food in Towns.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_CHARISMATIC_LEADER_NAME">
+			<Text>Charismatic Leader</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_CHARISMATIC_LEADER_DESCRIPTION">
+			<Text>+2[icon:YIELD_CULTURE] Culture on the Palace.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_CITY_GUARD_NAME">
+			<Text>City Guard</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_CITY_GUARD_DESCRIPTION">
+			<Text>+3 Combat Strength for Fortified Districts.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_CLAN_NETWORKS_NAME">
+			<Text>Clan Networks</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_CLAN_NETWORKS_DESCRIPTION">
+			<Text>+2[icon:YIELD_FOOD] Food in all Settlements.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_COINAGE_NAME">
+			<Text>Coinage</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_COINAGE_DESCRIPTION">
+			<Text>+1[icon:YIELD_GOLD] Gold for each imported Resource.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_COMMODITIES_NAME">
+			<Text>Commodities</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_COMMODITIES_DESCRIPTION">
+			<Text>+1 Resource Capacity in Cities.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_CONSCRIPTION_NAME">
+			<Text>Conscription</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_CONSCRIPTION_DESCRIPTION">
+			<Text>-1[icon:YIELD_GOLD] maintenance for Units.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_DRAMA_AND_POETRY_NAME">
+			<Text>Drama and Poetry</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_DRAMA_AND_POETRY_DESCRIPTION">
+			<Text>+50%[icon:YIELD_PRODUCTION] Production towards constructing Culture Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_DRILLS_NAME">
+			<Text>Drills</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_DRILLS_DESCRIPTION">
+			<Text>+30%[icon:YIELD_PRODUCTION] Production towards training Infantry and Ranged Units.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_ETHICS_NAME">
+			<Text>Ethics</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_ETHICS_DESCRIPTION">
+			<Text>+1[icon:YIELD_CULTURE] Culture from Specialists.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_HONOR_NAME">
+			<Text>Honor</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_HONOR_DESCRIPTION">
+			<Text>+3 Combat Strength against Independent Powers.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_HOSPITALITY_NAME">
+			<Text>Hospitality</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_HOSPITALITY_DESCRIPTION">
+			<Text>+3[icon:YIELD_CULTURE] Culture for every City-State you are Suzerain of.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_LITERATURE_NAME">
+			<Text>Literature</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_LITERATURE_DESCRIPTION">
+			<Text>+50%[icon:YIELD_PRODUCTION] Production towards constructing Science Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_MEDICINE_NAME">
+			<Text>Medicine</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_MEDICINE_DESCRIPTION">
+			<Text>Units heal +5 HP.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_ORATORY_NAME">
+			<Text>Oratory</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_ORATORY_DESCRIPTION">
+			<Text>+2[icon:YIELD_DIPLOMACY] Influence per turn.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_PRIESTHOOD_NAME">
+			<Text>Priesthood</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_PRIESTHOOD_DESCRIPTION">
+			<Text>+2[icon:YIELD_GOLD] Gold in all Settlements.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_RITES_AND_RITUALS_NAME">
+			<Text>Rites and Rituals</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_RITES_AND_RITUALS_DESCRIPTION">
+			<Text>+2[icon:YIELD_HAPPINESS] Happiness in all Settlements.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_SCHOLARS_NAME">
+			<Text>Scholars</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_SCHOLARS_DESCRIPTION">
+			<Text>+1[icon:YIELD_SCIENCE] Science from Specialists.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_SURVEY_NAME">
+			<Text>Survey</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_SURVEY_DESCRIPTION">
+			<Text>+1 Scout movement and sight.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_TOOL_MAKING_NAME">
+			<Text>Tool Making</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_TOOL_MAKING_DESCRIPTION">
+			<Text>+1[icon:YIELD_PRODUCTION] Production and[icon:YIELD_SCIENCE] Science on the Palace.</Text>
+		</Row>
+		<!-- ==================================================	-->
+		<!--	CRISIS POLICIES					-->
+		<!-- ==================================================	-->
+		<!-- Invasion Crisis -->
+		<Row Tag="LOC_TRADITION_BANDITRY_NAME">
+			<Text>Banditry</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_BANDITRY_DESCRIPTION">
+			<Text>-5[icon:YIELD_GOLD] Gold for each imported Resource.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_BARBARIAN_MERCENARIES_NAME">
+			<Text>Barbarian Mercenaries</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_BARBARIAN_MERCENARIES_DESCRIPTION">
+			<Text>+100%[icon:YIELD_GOLD] Gold to maintain Military Units.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_DECENTRALIZATION_NAME">
+			<Text>Decentralization</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_DECENTRALIZATION_DESCRIPTION">
+			<Text>-75%[icon:YIELD_GOLD] Gold and [icon:YIELD_FOOD] Food in Towns with a Specialization.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_INFERIOR_TACTICS_NAME">
+			<Text>Inferior Tactics</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_INFERIOR_TACTICS_DESCRIPTION">
+			<Text>-6 Combat Strength against Independent Powers.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_REBELLIOUS_COMMANDERS_NAME">
+			<Text>Rebellious Commanders</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_REBELLIOUS_COMMANDERS_DESCRIPTION">
+			<Text>-1[icon:YIELD_HAPPINESS] Happiness in all Cities for each Commander Level.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_TRIBUTE_NAME">
+			<Text>Tribute</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_TRIBUTE_DESCRIPTION">
+			<Text>-10[icon:YIELD_GOLD] Gold for each City-State you are Suzerain of.</Text>
+		</Row>
+		<!-- Plague Crisis -->
+		<Row Tag="LOC_TRADITION_HEALING_CULTS_NAME">
+			<Text>Healing Cults</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_HEALING_CULTS_DESCRIPTION">
+			<Text>+5[icon:YIELD_HAPPINESS] Happiness on Altars in infected settlements but -10[icon:YIELD_GOLD] Gold on Altars.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_PROGNOSIS_NAME">
+			<Text>Prognosis</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_PROGNOSIS_DESCRIPTION">
+			<Text>+2[icon:YIELD_SCIENCE] Science on Science buildings in infected settlements but -4[icon:YIELD_GOLD] Gold on Science Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_MIASMA_NAME">
+			<Text>Miasma</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_MIASMA_DESCRIPTION">
+			<Text>Gain 1 Migrant when a City is infected but -25% Growth in Cities.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_PROSECUTE_APOSTATES_NAME">
+			<Text>Prosecute Apostates</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_PROSECUTE_APOSTATES_DESCRIPTION">
+			<Text>+5[icon:YIELD_HAPPINESS] Happiness in infected settlements with a Commander Stationed but -5[icon:YIELD_HAPPINESS] Happiness in settlements with no Altar.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_RECRUITMENT_SHORTFALLS_NAME">
+			<Text>Recruitment Shortfalls</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_RECRUITMENT_SHORTFALLS_DESCRIPTION">
+			<Text>+2[icon:YIELD_FOOD] Food in Towns but -15 Healing on all units.</Text>
+		</Row>
+		<!-- Loyalty Crisis -->
+		<Row Tag="LOC_TRADITION_REPUBLIC_UNHAPPINESS_NAME">
+			<Text>Poleis</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_REPUBLIC_UNHAPPINESS_DESCRIPTION">
+			<Text>-6[icon:YIELD_HAPPINESS] Happiness in settlements more than 9 tiles away from your Palace.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_DESPOTISM_UNHAPPINESS_NAME">
+			<Text>Zhuhou</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_DESPOTISM_UNHAPPINESS_DESCRIPTION">
+			<Text>-6[icon:YIELD_HAPPINESS] Happiness in settlements without Walls.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_OLIGARCHY_UNHAPPINESS_NAME">
+			<Text>Decadence</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_OLIGARCHY_UNHAPPINESS_DESCRIPTION">
+			<Text>-6[icon:YIELD_HAPPINESS] Happiness in settlements with unfilled Resource Slots.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_INCOMPETENT_MINISTERS_NAME">
+			<Text>Incompetent Ministers</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_INCOMPETENT_MINISTERS_DESCRIPTION">
+			<Text>-1[icon:YIELD_DIPLOMACY] Influence in settlements you Founded.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_SUPPRESS_LOCAL_TRADITIONS_NAME">
+			<Text>Suppress Local Traditions</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_SUPPRESS_LOCAL_TRADITIONS_DESCRIPTION">
+			<Text>-3[icon:YIELD_HAPPINESS] Happiness in settlements you did not Found.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_AMBITIOUS_GOVERNORS_NAME">
+			<Text>Ambitious Governors</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_AMBITIOUS_GOVERNORS_DESCRIPTION">
+			<Text>-6[icon:YIELD_HAPPINESS] Happiness in Cities.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_PROVINCIAL_SCORN_NAME">
+			<Text>Provincial Scorn</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_PROVINCIAL_SCORN_DESCRIPTION">
+			<Text>-6[icon:YIELD_HAPPINESS] Happiness in Towns.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_CAPITAL_UNHAPPINESS_NAME">
+			<Text>Independent Nobility</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_CAPITAL_UNHAPPINESS_DESCRIPTION">
+			<Text>-10[icon:YIELD_HAPPINESS] Happiness in your Capital.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_LOYALTY_SETTLEMENT_CAP_NAME">
+			<Text>Stagnation</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_LOYALTY_SETTLEMENT_CAP_DESCRIPTION">
+			<Text>-1 Settlement Cap.</Text>
+		</Row>
+		<!-- ==================================================	-->
+		<!--	GOVERNMENTS							-->
+		<!-- ==================================================	-->
+		<Row Tag="LOC_GOVERNMENT_CLASSICAL_REPUBLIC_NAME">
+			<Text>Classical Republic</Text>
+		</Row>
+		<Row Tag="LOC_GOVERNMENT_CLASSICAL_REPUBLIC_DESCRIPTION">
+			<Text>This Government grants you a choice between these effects during a Celebration.</Text>
+		</Row>
+		<Row Tag="LOC_GOVERNMENT_CLASSICAL_REPUBLIC_PASSIVE_DESCRIPTION">
+			<Text>When you complete a Wonder, gain[icon:YIELD_CULTURE] Culture equal to 20% of the Wonder's cost.</Text>
+		</Row>
+		<Row Tag="LOC_GOVERNMENT_CLASSICAL_REPUBLIC_CELEBRATION_NAME">
+			<Text>We Love The Assembly Day!</Text>
+		</Row>
+		<Row Tag="LOC_GOVERNMENT_DESPOTISM_NAME">
+			<Text>Despotism</Text>
+		</Row>
+		<Row Tag="LOC_GOVERNMENT_DESPOTISM_DESCRIPTION">
+			<Text>This Government grants you a choice between these effects during a Celebration.</Text>
+		</Row>
+		<Row Tag="LOC_GOVERNMENT_DESPOTISM_PASSIVE_DESCRIPTION">
+			<Text>Gain an Infantry Unit in new Settlements that you found.</Text>
+		</Row>
+		<Row Tag="LOC_GOVERNMENT_DESPOTISM_CELEBRATION_NAME">
+			<Text>We Love The Tyrant Day!</Text>
+		</Row>
+		<Row Tag="LOC_GOVERNMENT_OLIGARCHY_NAME">
+			<Text>Oligarchy</Text>
+		</Row>
+		<Row Tag="LOC_GOVERNMENT_OLIGARCHY_DESCRIPTION">
+			<Text>This Government grants you a choice between these effects during a Celebration.</Text>
+		</Row>
+		<Row Tag="LOC_GOVERNMENT_OLIGARCHY_PASSIVE_DESCRIPTION">
+			<Text>+1 Resource Capacity in Cities.</Text>
+		</Row>
+		<Row Tag="LOC_GOVERNMENT_OLIGARCHY_CELEBRATION_NAME">
+			<Text>We Love The Council Day!</Text>
+		</Row>
+	</EnglishText>
+</Database>

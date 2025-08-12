@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_MACHAPUCHARE_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Мачапучаре, практически вертикальная гора, возвышающаяся над массивом Аннапурна в Непале, по сей день остается непокоренной. Хотя по высоте (6993 метра) она уступает Эвересту, резкий подъем из относительно низких долин открывает поистине впечатляющие зрелище. Возможно, поэтому для местных жителей эта гора священна — как для горцев Тибета, так и для народов Непала. Последние верят, что здесь находится обитель бога Шивы. По этой причине непальское правительство крайне неохотно выдает разрешения на восхождение по ее отвесным склонам. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_MOUNT_FUJI_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>В центре японского острова Хонсю возвышается огромный идеально симметричный конус, покрытый снегом большую часть года. Это активный вулкан, известный как гора Фудзи. Благодаря своей красоте она уже не одно тысячелетие является символом островов Японии. Она изображена на гравюрах Хокусая, ее восхвалял в стихах Басе, и она по сей день играет важную роль в синтоизме. На вершине горы расположено святилище, к которому можно совершить религиозное (или совершенно светское) восхождение.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_MOUNT_FUJI_CHAPTER_HISTORY_PARA_2" Language="ru_RU">
+      <Text>В 2013 году гора Фудзи была внесена в список Всемирного наследия ЮНЕСКО за ее культурное значение.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_VIHREN_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>На юго-западе Болгарии расположен горный массив Пирин, возвышающийся над долинами. Его самая высокая вершина — Вихрен, высотой 2914 метров, является третьей по высоте в Балканском регионе. Этот пирамидальный пик представляет собой характерный пример карстового рельефа. У его подножия лежит ледник Снежника, самый южный в Европе. Название массива Пирин традиционно ассоциируется с Перуном, славянским богом грозы, а Вихрен закономерно переводится как «вихрь». Сегодня эта вершина продолжает притягивать альпинистов со всего мира. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_VINICUNCA_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Глубоко в Перуанских Андах расположилась Виникунка, известная как Радужная гора. Ее красочность обусловлена наличием различных минералов: розовый оттенок дает красная глина, белый — кварц и мергель, пурпурный — лимонит и гетит, красный — железо, зеленый — хлорит, коричневый — магний, а желтый — известковый песчаник. До недавнего времени Виникунка была скрыта подо льдом, но таяние ледников в результате потепления климата в 2013 году открыло ее миру. Сегодня она является одной из главных туристических достопримечательностей Перу.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MACHAPUCHARE_NAME" Language="ru_RU">
+      <Text>Мачапучаре|Мачапучаре|Мачапучаре|Мачапучаре|Мачапучаре|Мачапучаре</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MOUNT_FUJI_NAME" Language="ru_RU">
+      <Text>Фудзи|Фудзи|Фудзи|Фудзи|Фудзи|Фудзи</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VIHREN_NAME" Language="ru_RU">
+      <Text>Вихрен|Вихрена|Вихрену|Вихрен|Вихреном|Вихрене</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VINICUNCA_NAME" Language="ru_RU">
+      <Text>Виникунка|Виникунки|Виникунке|Виникунку|Виникункой|Виникунке</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_MOUNT_VINSON_NAME" Language="ru_RU">
+      <Text>Винсон|Винсона|Винсону|Винсон|Винсоном|Винсоне</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MACHAPUCHARE_DESCRIPTION" Language="ru_RU">
+      <Text>+2 к [icon:YIELD_CULTURE] культуре и +4 к [icon:YIELD_PRODUCTION] производству за каждую эпоху. +1 к [icon:YIELD_HAPPINESS] довольству на пересеченной местности и в горах в этом поселении.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MACHAPUCHARE_TOOLTIP" Language="ru_RU">
+      <Text>+1 к[icon:YIELD_HAPPINESS] довольству на пересеченной местности и в горах в этом поселении.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MOUNT_FUJI_DESCRIPTION" Language="ru_RU">
+      <Text>+2 к [icon:YIELD_GOLD] золоту, [icon:YIELD_CULTURE] культуре и [icon:YIELD_HAPPINESS] довольству за каждую эпоху. Вулканические клетки.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MOUNT_FUJI_TOOLTIP" Language="ru_RU">
+      <Text>Вулканические клетки.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VIHREN_DESCRIPTION" Language="ru_RU">
+      <Text>+4 к [icon:YIELD_FOOD] пище и +2 к [icon:YIELD_PRODUCTION] производству за эпоху. +1 к [icon:YIELD_HAPPINESS] довольству и [icon:YIELD_CULTURE] к культуре за эпоху при каждом обеспечении стихийным бедствием вам плодородия в эту эпоху. </Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VIHREN_TOOLTIP" Language="ru_RU">
+      <Text>+1 к [icon:YIELD_HAPPINESS] довольству и [icon:YIELD_CULTURE] к культуре за эпоху при каждом обеспечении стихийным бедствием вам плодородия в эту эпоху. </Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VINICUNCA_DESCRIPTION" Language="ru_RU">
+      <Text>+2 к [icon:YIELD_PRODUCTION] производству, [icon:YIELD_HAPPINESS] довольству и [icon:YIELD_SCIENCE] науке за каждую эпоху. Соседние деревенские клетки получают +2 к [icon:YIELD_CULTURE] культуре.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VINICUNCA_TOOLTIP" Language="ru_RU">
+      <Text>Соседние деревенские клетки получают +2 к [icon:YIELD_CULTURE] культуре.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_MACHAPUCHARE" Language="ru_RU">
+      <Text>Линга-пурана</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_MOUNT_FUJI" Language="ru_RU">
+      <Text>Мацую Басе</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_VIHREN" Language="ru_RU">
+      <Text>Разумник</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_VINICUNCA" Language="ru_RU">
+      <Text>Пачакутек</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_MACHAPUCHARE" Language="ru_RU">
+      <Text>Шива без знаков, без цвета, вкуса, запаха, вне слов или прикосновений, без качества, неподвижен и неизменен.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_MOUNT_FUJI" Language="ru_RU">
+      <Text>В волшебном мире солнце бьется головой о вершину Фудзи.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_VIHREN" Language="ru_RU">
+      <Text>Крепкая хватка гор не дает земле качаться на волнах.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_VINICUNCA" Language="ru_RU">
+      <Text>О, Пачакамак! Небо ли ты над землей? В облаках ты или в глубинах?</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

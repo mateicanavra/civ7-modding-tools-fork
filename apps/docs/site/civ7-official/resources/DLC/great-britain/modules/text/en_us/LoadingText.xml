@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_LOADING_CIV_INTRO_TEXT_GREAT_BRITAIN">
+			<Text>Rule, Britannia! Beyond the smoky London skies, beyond the churn of Manchester’s mills, there is a greater glory - the Empire. Ever-hungry mills demand feeding, and ever-full warehouses demand markets. Heed their call, and may the sun never set upon your dominion.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_INTRO_GREAT_BRITAIN">
+			<Text>Chaos is the absence of order, and the world needs structure. Great Britain ascends.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIPS_TEXT_GREAT_BRITAIN">
+			<Text>Great Britain loves to have lots of Towns, getting plenty of Gold from the East India Company Tradition and Financial Centre Unique Quarter. Use these Towns to collect Factory Resources for your Cities!</Text>
+		</Row>
+	</EnglishText>
+</Database>

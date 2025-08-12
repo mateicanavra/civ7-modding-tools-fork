@@ -1,0 +1,12 @@
+<Database>
+	<Kinds>
+		<Row Kind="KIND_CIVILIZATION"/>
+		<InsertOrIgnore KIND="KIND_TRAIT"/>
+	</Kinds>
+	<Types>
+		<Row Type="TRAIT_DAI_VIET" Kind="KIND_TRAIT"/>
+	</Types>
+	<Traits>
+		<Row TraitType="TRAIT_DAI_VIET" InternalOnly="true"/>
+	</Traits>
+</Database>

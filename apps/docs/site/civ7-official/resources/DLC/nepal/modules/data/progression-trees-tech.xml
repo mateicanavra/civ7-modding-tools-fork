@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<ProgressionTreeNodeUnlocks>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_NATIONALISM" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_BOUDHANATH" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_MO_INDUSTRIALIZATION" TargetKind="KIND_UNIT" TargetType="UNIT_GURKHA_2" UnlockDepth="1" RequiredTraitType="TRAIT_NEPAL"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_MO_ARMOR" TargetKind="KIND_UNIT" TargetType="UNIT_GURKHA_3" UnlockDepth="1" RequiredTraitType="TRAIT_NEPAL"/>
+	</ProgressionTreeNodeUnlocks>
+</Database>

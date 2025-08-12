@@ -1,0 +1,343 @@
+@use '../../themes/default/theme' as *;
+@use '../../utilities/utility-layout' as *;
+@use '../../utilities/utility-text' as *;
+
+.main-menu-button-container {
+	width: pixels(950);
+	top: pixels(160);
+}
+
+.logo-box {
+	@media (max-height: pixels(1000)) {
+		width: pixels(256);
+		height: pixels(32);
+	}
+
+	background-image: url("fs://game/shell_logo-full.png");
+}
+
+.filigree-menu-top {
+	@media (max-height: pixels(1000)) {
+		width: pixels(300);
+		height: pixels(32);
+	}
+
+	border-image-source: url("fs://game/header_filigree.png");
+	border-image-slice: 62 238 1 238 fill;
+	border-image-width: pixels(62) pixels(238) pixels(2) pixels(238);
+	min-width: pixels(512);
+	min-height: pixels(64);
+}
+
+.main-menu-title-divider {
+	@media (max-height: pixels(1000)) {
+		min-width: pixels(300);
+		min-height: pixels(24);
+		width: pixels(300);
+		height: pixels(24);
+	}
+
+	background-image: url("fs://game/shell_top-filigree.png");
+}
+
+.main-menu-selection-container {
+	@media (max-height: pixels(1000)) {
+		top: pixels(-130);
+	}
+
+	left: pixels(-768);
+	width: pixels(512);
+}
+
+.main-menu-filigree-divider {
+	background-image: url("fs://game/shell_simple-div.png");
+}
+
+.main-menu-build-info {
+	@media (max-height: pixels(1000)) {
+		left: pixels(170);
+	}
+
+	bottom: pixels(32);
+	left: pixels(200);
+}
+
+.carousel {
+
+	// maintain alignment with the "bonus" box - keep this "right" value the same as main-menu__profile-header
+	@media (max-height: pixels(1000)) {
+		right: pixels(50);
+	}
+
+	width: pixels(450);
+	height: pixels(242);
+	bottom: pixels(92);
+	right: pixels(80);
+
+	&.hidden {
+		visibility: hidden;
+	}
+}
+
+.carousel-thumb-title {
+	height: pixels(40);
+}
+
+.carousel-inner-vslot {
+	max-width: 90%;
+}
+
+.carousel-outer {
+	background: linear-gradient(color('primary-4'), color('primary-5'));
+
+	border-style: solid;
+	border-width: pixels(3);
+	border-image: linear-gradient(to bottom, color('secondary-2'), color('secondary-3')) 1;
+}
+
+.carousel-expanded {
+
+	// If a @media tag sets a property in the original version of the element, an
+	// override class that gets added must also use @media to override that property.
+	@media (max-height: pixels(1000)) {
+		width: 90%;
+		height: 90%;
+		left: 4%;
+		top: 4%;
+	}
+
+	position: absolute;
+	top: 18%;
+	left: 18%;
+	width: 64%;
+	height: 70%;
+
+	.carousel-main-hslot {
+		height: 91%;
+	}
+
+	.carousel-content-help {
+		display: none;
+	}
+
+	.carousel-image-container {
+		width: 100%;
+		height: 80%;
+	}
+
+	.carousel-thumb-bg {
+		display: none;
+	}
+}
+
+.carousel-image {
+	width: 100%;
+	height: 100%;
+}
+
+.carousel-bumper {
+	background-image: url('fs://game/base_component-arrow.png');
+
+	&:hover {
+		filter: brightness(200%);
+	}
+}
+
+.carousel-bumper-disabled {
+	pointer-events: none;
+	filter: brightness(50%);
+
+	&:hover {
+		filter: brightness(50%);
+	}
+}
+
+.carousel-content {
+	width: 100%;
+	height: 100%;
+}
+
+.carousel-image-container {
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.carousel-content-large {
+	width: 98%;
+	height: 100%;
+
+	.carousel-image-container {
+		.carousel-image {
+			max-width: 70%;
+
+			&:hover {
+				transform: none;
+			}
+		}
+	}
+
+}
+
+.carousel-text-only {
+	margin-left: 1.25vw;
+	position: relative;
+	display: flex;
+	width: 90%;
+	height: 8vh;
+}
+
+.carousel-text {
+	font-size: 22px;
+	line-height: 25.78px;
+	letter-spacing: 0.1em;
+}
+
+.carousel-text-only-scrollable {
+	height: 80%;
+}
+
+.carousel-standard-layout {
+	width: 100%;
+	height: 100%;
+}
+
+.carousel-standard-layout-text {
+	width: 80%;
+	height: 80%;
+}
+
+.carousel-standard-layout-image {
+	width: 100%;
+	height: 75%;
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.carousel-filigree-top {
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
+.carousel-breadcrumb-bar {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	left: 0;
+	right: 0;
+}
+
+.motd-box {
+	coh-font-fit-mode: shrink;
+	background-color: color('primary-3');
+	height: pixels(28);
+}
+
+.connection-status {
+	@media (max-height: pixels(1000)) {
+		left: pixels(96);
+	}
+
+	left: pixels(126);
+	bottom: pixels(24);
+
+	&.hidden {
+		visibility: hidden;
+	}
+
+	&.no-mouse {
+		pointer-events: none;
+	}
+}
+
+.connection-anim-container {
+	top: pixels(-7);
+	left: pixels(-8);
+}
+
+.account-status {
+	@media (max-height: pixels(1000)) {
+		bottom: pixels(12);
+		left: pixels(8);
+	}
+
+	.account-icon-img {
+
+		&:hover,
+		&:focus {
+			transform: scale(1.1);
+		}
+
+		.fxs-nav-help {
+			position: absolute;
+			bottom: pixels(8);
+			right: pixels(0);
+		}
+	}
+
+	&.hidden {
+		visibility: hidden;
+	}
+}
+
+.main-menu__button-bg-container {
+	background-color: rgb(90, 90, 90);
+}
+
+.main-menu__social-button-icon {
+	background-image: url("fs://game/soc_social");
+}
+
+.menu-shroud {
+	background-color: black;
+}
+
+.menu-border {
+	@media (max-height: pixels(1000)) {
+		top: pixels(16);
+		width: 100%;
+	}
+
+	width: 96%;
+	height: 98%;
+	border-image-source: url("fs://game/base_frame-filigree.png");
+	border-image-slice: 142 0 0 142 fill;
+	border-image-width: pixels(142) 0 0 pixels(142);
+	fxs-border-image-tint: rgba(254, 254, 254, 0.35);
+}
+
+.menu-border-left {
+	@media (max-height: pixels(1000)) {
+		left: pixels(16);
+	}
+}
+
+.menu-border-right {
+	@media (max-height: pixels(1000)) {
+		right: pixels(16);
+	}
+}
+
+.main-menu__notification-badge {
+	background-image: radial-gradient(circle at 50% 50%,
+			rgb(192, 0, 0) pixels(0),
+			rgb(192, 0, 0) pixels(10),
+			rgb(240, 188, 120) pixels(11),
+			rgb(240, 188, 120) pixels(12),
+			transparent pixels(13),
+			transparent pixels(16)),
+		url("fs://game/fxt_very_soft_circle_Red.png");
+}
+
+.main-menu__profile-header-container {
+	top: pixels(60);
+	right: pixels(60);
+	@media (max-height: pixels(1000)) {
+		top: pixels(30);
+		right: pixels(50);
+	}
+}

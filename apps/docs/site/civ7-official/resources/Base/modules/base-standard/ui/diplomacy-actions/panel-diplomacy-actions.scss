@@ -1,0 +1,317 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+@use '../../../core/ui/themes/default/baseColors.scss';
+
+@keyframes player-panel-animate-in {
+	0% {
+		opacity: 0;
+		transform: translateX(0%) translateY(-100vh) scale(1);
+	}
+
+	5% {
+		opacity: 1;
+	}
+
+	100% {
+		transform: translateX(0%) translateY(0vh) scale(1);
+	}
+}
+
+
+@keyframes other-player-panel-animate-in {
+	0% {
+		opacity: 0;
+		transform: translateX(0%) translateY(-100vh) scale(1);
+	}
+
+	5% {
+		opacity: 1;
+	}
+
+	100% {
+		transform: translateX(0%) translateY(0vh) scale(1);
+	}
+}
+
+.panel-diplomacy__leader-name-header {
+	text-shadow: pixels(1) pixels(1) rgba(0, 0, 0, 0.87), pixels(2) pixels(2) rgba(0, 0, 0, 0.8), pixels(2.5) pixels(2.5) rgba(0, 0, 0, 0.5);
+}
+
+.panel-diplomacy__civ-name-header {
+	text-shadow: pixels(1) pixels(1) rgba(0, 0, 0, 0.87), pixels(1.5) pixels(1.5) rgba(0, 0, 0, 0.8), pixels(2) pixels(2) rgba(0, 0, 0, 0.5);
+}
+
+.panel-diplomacy-actions {
+	position: relative;
+	pointer-events: auto;
+	display: flex;
+	transform-origin: 50% 100%;
+
+	animation-name: player-panel-animate-in;
+	animation-duration: .375s;
+	animation-delay: .0625s;
+	animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+	animation-fill-mode: both;
+
+	&.independent {
+		.actions-horizontal-container {
+			bottom: pixels(300);
+
+			@media (max-height: pixels(1000)) {
+				bottom: pixels(-32);
+			}
+
+			@media (experience: mobile) {
+				top: pixels(6);
+				bottom: pixels(-20);
+			}
+		}
+
+		.subsystem-frame__diplo-tint {
+			visibility: hidden;
+		}
+	}
+
+	&.other-player-panel {
+		.actions-horizontal-container {
+			@media (experience: mobile) {
+				top: pixels(6);
+				bottom: pixels(-20);
+			}
+		}
+
+		.fxs-scrollbar-container {
+			right: 0;
+		}
+
+		.panel-diplomacy-actions__header-button-container {
+			display: flex;
+		}
+
+		.panel-diplomacy-actions__ongoing-actions-container {
+			right: pixels(-120);
+		}
+
+		.panel-diplomacy-actions__ongoing-action-item {
+			flex-direction: row-reverse;
+		}
+
+		&.independent {
+			.panel-diplomacy-actions__header-button-container {
+				display: none;
+			}
+
+			fxs-tab-bar {
+				visibility: hidden;
+			}
+
+			fxs-scrollable.subsystem-frame__content {
+				top: pixels(-70);
+
+				@media (experience: mobile) {
+					margin-bottom: pixels(-50);	
+				}
+			}
+		}
+	}
+
+	&.player-panel {
+		.actions-horizontal-container {
+			@media (experience: mobile) {
+				top: pixels(6);
+				bottom: pixels(-20);
+			}
+		}
+		
+		.panel-diplomacy-actions__ongoing-actions-container {
+			left: pixels(-134);
+
+		}
+
+		.panel-diplomacy-actions__next-page-button,
+		.panel-diplomacy-actions__previous-page-button {
+			left: pixels(-134);
+		}
+
+		.panel-diplomacy-actions__ongoing-action-turn-container {
+			flex-direction: row-reverse;
+		}
+
+		.fxs-scrollbar-container {
+			left: 0;
+		}
+	}
+
+	&.hidden {
+		display: none;
+	}
+}
+
+// ------------------------------------ //
+//   			#ITEM					//
+// ------------------------------------ //
+
+.panel-diplomacy-actions__influence-container {
+	fxs-nav-help {
+		display: none;
+	}
+}
+
+.panel-diplomacy-actions__ongoing-actions-container {
+	position: absolute;
+	height: auto;
+	width: pixels(120);
+	top: pixels(248);
+}
+
+.panel-diplomacy-actions__ongoing-action-portrait {
+	width: pixels(72);
+	height: pixels(72);
+	position: relative;
+}
+
+.panel-diplomacy-actions__action-type-header {
+	width: pixels(144);
+	height: pixels(20);
+	background-color: var(--player-color-primary);
+	color: var(--player-color-secondary-text);
+	margin-top: pixels(8);
+	margin-bottom: pixels(8);
+	display: flex;
+	justify-content: center;
+}
+
+.panel-diplomacy-actions__ongoing-actions-portrait-bg {
+	width: pixels(72);
+	height: pixels(72);
+	position: absolute;
+	background-image: url("fs://game/hud_diplo_hex");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	filter: fxs-color-tint(var(--player-color-secondary));
+	pointer-events: none;
+}
+
+.panel-diplomacy-actions__ongoing-actions-portrait-bg-inner {
+	width: pixels(72);
+	height: pixels(72);
+	position: absolute;
+	background-image: url("fs://game/hud_diplo_hex-frame");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	filter: fxs-color-tint(var(--player-color-primary));
+	pointer-events: none;
+}
+
+.panel-diplomacy-actions__ongoing-actions-portrait-image {
+	width: pixels(72);
+	height: pixels(72);
+	position: absolute;
+	top: -7.5%;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: 50% 0%;
+	mask-image: url("fs://game/core/mask_hex-icon.png");
+	mask-size: cover;
+	mask-repeat: no-repeat;
+	mask-position: 50% 100%;
+	filter: brightness(100%);
+	transition-property: top, filter;
+	transition-duration: .25s;
+	transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.panel-diplomacy-actions__ongoing-action-details-container {
+	width: pixels(80);
+	height: pixels(72);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.panel-diplomacy-actions__ongoing-action-icon {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-image: url("fs://game/yield_influence");
+	width: pixels(32);
+	height: pixels(32);
+	margin-bottom: pixels(4);
+}
+
+.panel-diplomacy-actions__ongoing-action-turn-timer {
+	background-image: url('fs://game/turn_icon.png');
+	width: pixels(24);
+	height: pixels(24);
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+}
+
+.panel-diplomacy-actions__civ-icon {
+	top: pixels(102);
+}
+
+.panel-diplomacy-actions__ongoing-actions-scrollable {
+	@media (max-height: pixels(1000)) {
+		height: pixels(440);
+	}
+}
+
+.panel-diplomacy-actions__attribute-button {
+	&:hover {
+		.panel-diplomacy-actions__attribute-button-icon {
+			border-image-source: url("hud_att_arrow_highlight");
+		}
+	}
+}
+
+.panel-diplomacy-actions__attribute-button-icon {
+	border-image-source: url("hud_att_arrow");
+	border-image-slice: 1 1 2 2 fill;
+	border-image-width: pixels(1) pixels(1) pixels(2) pixels(2);
+
+	animation-name: panel-diplomacy-action__attention-anim;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+	animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+@keyframes panel-diplomacy-action__attention-anim {
+	0% {
+		transform: translateY(pixels(0));
+	}
+
+	60% {
+		transform: translateY(pixels(-4));
+	}
+
+	90% {
+		transform: translateY(pixels(-4));
+	}
+
+	100% {
+		transform: translateY(pixels(0));
+	}
+}
+
+.panel-diplomacy-actions__ribbons-not-showing {
+	height: pixels(700);
+	top: pixels(240);
+
+	@media (max-height: pixels(1000)) {
+		height: pixels(450);
+	}
+}
+
+.panel-diplomacy-actions__ribbons-showing {
+	height: pixels(500);
+	top: pixels(375);
+
+	@media (max-height: pixels(1000)) {
+		height: pixels(300);
+		top: pixels(385);
+	}
+}

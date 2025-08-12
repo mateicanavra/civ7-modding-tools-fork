@@ -1,0 +1,9 @@
+/* DO NOT EDIT */
+/* Generated from emoticon-panel.scss */
+emoticon-panel fxs-nav-help {
+	z-index: 1;
+}
+emoticon-panel .emoticon-panel__tab-item .emoticon-panel__tab-icon > img {
+	width: 1.3333333333rem;
+	height: 1.3333333333rem;
+}

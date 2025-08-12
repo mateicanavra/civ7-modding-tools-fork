@@ -1,0 +1,66 @@
+<div class="panel-belief-picker-content mt-36 flex flex-row-reverse shrink">
+	<fxs-frame frame-style="f2" class="belief-choice-menu hidden relative -ml-9 mr-4 mt-4 mb-1 flex-auto" override-styling="fxs-frame z-0 pointer-events-auto flex max-w-96 max-h-full px-0 pb-6">
+		<fxs-close-button class="belief-choice-menu_close absolute"></fxs-close-button>
+		<div class="p-6 flex flex-col items-center size-full">
+			<fxs-header class="belief-choice-menu_title font-title-base text-secondary mr-7"
+						filigree-style="none"></fxs-header>
+			<div class="belief-choice-menu_subtitle text-accent-4 font-body-base text-center"></div>
+			<fxs-scrollable class="flex-auto" handle-gamepad-pan="true">
+				<fxs-vslot class="belief-choice-menu_list pr-4"></fxs-vslot>
+			</fxs-scrollable>
+		</div>
+	</fxs-frame>
+	<fxs-subsystem-frame class="belief-picker_subsystem-frame relative flex items-center flex-col"
+						 backDrop="fs://game/rel_starrybg.png">
+		<fxs-header class="mt-3 tracking-150" title="LOC_UI_RADIAL_MENU_DETAILS_RELIGION_TITLE"
+					data-slot="header"></fxs-header>
+		<fxs-tab-bar class="belief-picker_belief-tabs mx-3\.5 mb-6" tab-item-class="py-4" data-slot="header"
+					 rect-render="true" tab-for="panel-belief-picker"></fxs-tab-bar>
+		<div class="relative flex mr-2 items-center justify-center" data-slot="header">
+			<div class="relative flex mr-4 items-center justify-center">
+				<div class="belief-picker_religion-info-icon-container_holder absolute bg-contain bg-no-repeat size-32">
+				</div>
+				<div class="belief-picker_belief-info-icon-image relative mb-3 bg-contain bg-no-repeat size-24">
+				</div>
+				<div
+					 class="belief-picker_religion-info-icon-container_glow absolute size-full bg-contain bg-no-repeat hidden">
+				</div>
+			</div>
+			<div class="flex flex-col ml-4 mb-5">
+				<div class="flex items-end">
+					<div class="belief-picker_belief-info-religion-name font-title-xl font-fit-shrink"></div>
+					<div class="belief-picker_belief-info-percent-following font-body-base ml-5 text-accent-3"></div>
+				</div>
+				<div class="belief-picker_belief-info-founder-name font-body-sm text-accent-2"></div>
+				<div class="belief-picker_belief-info-city-name font-body-sm text-accent-2"></div>
+			</div>
+		</div>
+		<fxs-vslot class="belief-picker_belief-choices flex flex-col items-center w-192 h-128 self-center px-4 py-1">
+			<fxs-header class="font-title-lg text-secondary" title="LOC_UI_ESTABLISH_BELIEFS_RELIQUARY_BELIEFS"
+						filigree-style="h4"></fxs-header>
+			<div
+				 class="belief-picker_belief-relic-container belief-container flex flex-col items-center m-3 justify-center w-full">
+
+			</div>
+			<fxs-header class="font-title-lg text-secondary" title="LOC_UI_ESTABLISH_BELIEFS_FOUNDER_BELIEFS"
+						filigree-style="h4"></fxs-header>
+			<div
+				 class="belief-picker_belief-founder-container belief-container flex flex-col items-center m-3 justify-center w-full">
+
+			</div>
+			<fxs-header class="font-title-lg text-secondary" title="LOC_UI_ESTABLISH_BELIEFS_ENHANCER_BELIEF"
+						filigree-style="h4"></fxs-header>
+			<div
+				 class="belief-picker_belief-enhancer-container belief-container flex flex-col items-center m-3 justify-center w-full">
+
+			</div>
+		</fxs-vslot>
+		<div class="belief-picker_bottom-container relative mt-4" data-slot="footer">
+			<fxs-activatable
+							 class="belief-picker_back absolute bg-contain bg-no-repeat size-12 self-left left-20 top-6"></fxs-activatable>
+			<fxs-hero-button class="belief-picker_confirm relative mt-3 mb-3 self-center"
+							 caption="LOC_UI_RESOURCE_ALLOCATION_CONFIRM" disabled="true"
+							 data-slot="footer"></fxs-hero-button>
+		</div>
+	</fxs-subsystem-frame>
+</div>

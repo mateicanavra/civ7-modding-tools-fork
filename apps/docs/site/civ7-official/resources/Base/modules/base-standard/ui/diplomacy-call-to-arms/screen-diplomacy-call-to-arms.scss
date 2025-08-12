@@ -1,0 +1,193 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+@use '../../../core/ui/themes/default/baseColors.scss';
+
+.screen-diplomacy-call-to-arms {
+	height: auto;
+	width: 40em;
+	display: flex;
+	flex-direction: column;
+	background-color: baseColors.$accent-deep-color;
+	position: relative;
+	padding-top: pixels(16);
+	margin-bottom: pixels(24);
+
+	&.pick-side {
+		.call-to-arms__pick-side-button-container {
+			visibility: visible;
+		}
+	}
+
+	&.hidden {
+		display: none;
+	}
+}
+
+.call-to-arms__title-text {
+	width: 100%;
+	height: auto;
+	font-size: pixels-font(40);
+	text-align: center;
+	margin-bottom: pixels(16);
+}
+
+.call-to-arms__body-text {
+	width: 80%;
+	height: auto;
+	font-size: pixels-font(20);
+	align-self: center;
+	margin-bottom: pixels(16);
+}
+
+.call-to-arms__portrait-container {
+	width: 100%;
+	height: 5em;
+	justify-content: space-around;
+	display: flex;
+	flex-direction: row;
+	margin-bottom: pixels(16);
+}
+
+.call-to-arms__portrait {
+	position: relative;
+	width: 6em;
+	height: 6em;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	pointer-events: none;
+}
+
+.call-to-arms__portrait-shadow {
+	position: absolute;
+	top: pixels(-4);
+	right: pixels(-4);
+	left: pixels(-14);
+	bottom: pixels(-15);
+	filter: fxs-color-mask(black);
+	background-image: url("fs://game/Hex_shadow.png");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	opacity: .75;
+	pointer-events: none;
+}
+
+.call-to-arms__portrait-bg {
+	position: absolute;
+	top: pixels(-8);
+	left: pixels(-8);
+	right: pixels(-8);
+	bottom: pixels(-8);
+	mask-image: url("fs://game/Rounded-Hex_48px.png");
+	mask-size: contain;
+	mask-position: center;
+	mask-repeat: no-repeat;
+	background-color: var(--player-color-secondary);
+	pointer-events: none;
+}
+
+.call-to-arms__portrait-big--inner {
+	position: absolute;
+	top: pixels(-5);
+	left: pixels(-5);
+	right: pixels(-5);
+	bottom: pixels(-5);
+	mask-image: url("fs://game/Rounded-Hex_48px.png");
+	mask-size: contain;
+	mask-position: center;
+	mask-repeat: no-repeat;
+	background-color: var(--player-color-primary);
+	background-image: linear-gradient(210deg, rgba(var(--clr-page__overlay-dark), 0) 0%, rgba(var(--clr-page__overlay-dark), .5) 100%);
+	pointer-events: none;
+}
+
+.call-to-arms__portrait-icon {
+	position: absolute;
+	align-self: center;
+	width: 6em;
+	height: 6em;
+	background-size: 95% 95%;
+	background-repeat: no-repeat;
+	background-position: 50% 0%;
+	mask-image: url("fs://game/mask_hex_icon_64px.png");
+	mask-size: contain;
+	mask-repeat: no-repeat;
+	mask-position: 50% 100%;
+	pointer-events: none;
+}
+
+.call-to-arms__war-icon {
+	width: 7em;
+	height: 5em;
+	background-image: url("fs://game/icon_war.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
+.call-to-arms__button-container {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	margin-bottom: pixels(16);
+	height: 3em;
+
+	&.pick-side {
+		justify-content: space-around;
+		display: none;
+	}
+
+	.fxs-button {
+		width: 30%;
+		height: 80%;
+		margin-right: pixels(12);
+		margin-left: pixels(12);
+	}
+}
+
+.call-to-arms__pick-side-button-container {
+	width: 100%;
+	margin-bottom: pixels(16);
+	margin-top: pixels(12);
+	height: 3em;
+	justify-content: space-around;
+	visibility: hidden;
+
+	.fxs-button {
+		width: 30%;
+		height: 80%;
+		margin-right: pixels(12);
+		margin-left: pixels(12);
+
+		&.side-button {
+			.fxs-nav-help {
+				visibility: hidden;
+			}
+
+			&:focus {
+				.fxs-nav-help {
+					visibility: visible;
+				}
+			}
+		}
+	}
+}
+
+.call-to-arms__relationship-icon {
+	position: absolute;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: pixels(36);
+	height: pixels(36);
+	bottom: pixels(-16);
+	pointer-events: none;
+	align-self: center;
+	filter: drop-shadow(pixels(-2) pixels(2) rgba(0, 0, 0, 1));
+
+	&.hidden {
+		visibility: hidden;
+	}
+}

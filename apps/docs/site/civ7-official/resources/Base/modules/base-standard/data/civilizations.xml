@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<Row Kind="KIND_CIVILIZATION"/>
+		<InsertOrIgnore KIND="KIND_TRAIT"/>
+	</Kinds>
+	<Types>
+		<Row Type="CIVILIZATION_PLACEHOLDER_CITYSTATE" Kind="KIND_CIVILIZATION"/>
+		<!--Civ Antiquity Traits-->
+		<Row Type="TRAIT_AKSUM" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_MISSISSIPPIAN" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_EGYPT" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_GREECE" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_HAN" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_KHMER" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_MAURYA" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_MAYA" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_PERSIA" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_ROME" Kind="KIND_TRAIT"/>
+		<!--Civ Exploration Traits-->
+		<Row Type="TRAIT_ABBASID" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_CHOLA" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_HAWAII" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_INCA" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_INCA_2" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_MAJAPAHIT" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_MING" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_MONGOLIA" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_NORMAN" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_SONGHAI" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_SPAIN" Kind="KIND_TRAIT"/>
+		<!--Civ Modern Traits-->
+		<Row Type="TRAIT_AMERICA" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_BUGANDA" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_MEIJI" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_FRENCH_EMPIRE" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_MEXICO" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_MUGHAL" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_PRUSSIA" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_QING" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_RUSSIA" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_SIAM" Kind="KIND_TRAIT"/>
+	</Types>
+	<CivilizationLevels>
+		<Row CivilizationLevelType="CIVILIZATION_LEVEL_NONE" CanFoundCities="false" CanEarnGreatPeople="false" CanGiveInfluence="false" CanReceiveInfluence="false" CanBuildWonders="false" IgnoresUnitStrategicResourceRequirements="true"/>
+		<Row CivilizationLevelType="CIVILIZATION_LEVEL_INDEPENDENT" CanFoundCities="false" CanEarnGreatPeople="false" CanGiveInfluence="false" CanReceiveInfluence="true" CanBuildWonders="false" IgnoresUnitStrategicResourceRequirements="true"/>
+		<Row CivilizationLevelType="CIVILIZATION_LEVEL_CITY_STATE" CanFoundCities="false" CanEarnGreatPeople="false" CanGiveInfluence="false" CanReceiveInfluence="true" CanBuildWonders="false" IgnoresUnitStrategicResourceRequirements="true"/>
+		<Row CivilizationLevelType="CIVILIZATION_LEVEL_FULL_CIV" CanFoundCities="true" CanEarnGreatPeople="true" CanGiveInfluence="true" CanReceiveInfluence="false" CanBuildWonders="true" IgnoresUnitStrategicResourceRequirements="false"/>
+	</CivilizationLevels>
+	<Civilizations>
+		<!-- Define a placeholder city state to reserve slots for minor independents to move into -->
+		<Row CivilizationType="CIVILIZATION_PLACEHOLDER_CITYSTATE" Name="LOC_CIVILIZATION_CITY_STATE_NAME" FullName="LOC_CIVILIZATION_CITY_STATE_DESCRIPTION" Adjective="LOC_CIVILIZATION_CITY_STATE_ADJECTIVE" StartingCivilizationLevelType="CIVILIZATION_LEVEL_CITY_STATE" CapitalName="LOC_PLACEHOLDER" RandomCityNameDepth="1"/>
+	</Civilizations>
+	<Traits>
+		<Row TraitType="TRAIT_AKSUM" InternalOnly="true"/>
+		<Row TraitType="TRAIT_MISSISSIPPIAN" InternalOnly="true"/>
+		<Row TraitType="TRAIT_EGYPT" InternalOnly="true"/>
+		<Row TraitType="TRAIT_GREECE" InternalOnly="true"/>
+		<Row TraitType="TRAIT_HAN" InternalOnly="true"/>
+		<Row TraitType="TRAIT_KHMER" InternalOnly="true"/>
+		<Row TraitType="TRAIT_MAURYA" InternalOnly="true"/>
+		<Row TraitType="TRAIT_MAYA" InternalOnly="true"/>
+		<Row TraitType="TRAIT_PERSIA" InternalOnly="true"/>
+		<Row TraitType="TRAIT_ROME" InternalOnly="true"/>
+		<Row TraitType="TRAIT_ABBASID" InternalOnly="true"/>
+		<Row TraitType="TRAIT_CHOLA" InternalOnly="true"/>
+		<Row TraitType="TRAIT_HAWAII" InternalOnly="true"/>
+		<Row TraitType="TRAIT_INCA" InternalOnly="true"/>
+		<Row TraitType="TRAIT_INCA_2" InternalOnly="true"/>
+		<Row TraitType="TRAIT_MAJAPAHIT" InternalOnly="true"/>
+		<Row TraitType="TRAIT_MING" InternalOnly="true"/>
+		<Row TraitType="TRAIT_MONGOLIA" InternalOnly="true"/>
+		<Row TraitType="TRAIT_NORMAN" InternalOnly="true"/>
+		<Row TraitType="TRAIT_SONGHAI" InternalOnly="true"/>
+		<Row TraitType="TRAIT_SPAIN" InternalOnly="true"/>
+		<Row TraitType="TRAIT_AMERICA" InternalOnly="true"/>
+		<Row TraitType="TRAIT_BUGANDA" InternalOnly="true"/>
+		<Row TraitType="TRAIT_MEIJI" InternalOnly="true"/>
+		<Row TraitType="TRAIT_FRENCH_EMPIRE" InternalOnly="true"/>
+		<Row TraitType="TRAIT_MEXICO" InternalOnly="true"/>
+		<Row TraitType="TRAIT_MUGHAL" InternalOnly="true"/>
+		<Row TraitType="TRAIT_PRUSSIA" InternalOnly="true"/>
+		<Row TraitType="TRAIT_QING" InternalOnly="true"/>
+		<Row TraitType="TRAIT_RUSSIA" InternalOnly="true"/>
+		<Row TraitType="TRAIT_SIAM" InternalOnly="true"/>
+	</Traits>
+</Database>

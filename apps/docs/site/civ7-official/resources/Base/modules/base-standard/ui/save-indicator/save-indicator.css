@@ -1,0 +1,39 @@
+/* DO NOT EDIT */
+/* Generated from save-indicator.scss */
+save-indicator {
+	margin-bottom: 0.8888888889rem;
+	margin-left: 1em;
+}
+save-indicator .no-pad-margin {
+	margin: 0;
+	padding: 0;
+}
+save-indicator .no-pad-margin p {
+	margin: 0;
+	padding: 0;
+}
+save-indicator .background-container {
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+save-indicator .save-indicator__icon {
+	background-image: url("fs://game/ba_default.png");
+	width: 4em;
+	height: 4em;
+	margin-left: 1.5em;
+	background-size: cover;
+}
+
+@keyframes save-indicator-hide__anim {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+.save-indicator-hide {
+	animation-name: save-indicator-hide__anim;
+	animation-duration: 2s;
+}

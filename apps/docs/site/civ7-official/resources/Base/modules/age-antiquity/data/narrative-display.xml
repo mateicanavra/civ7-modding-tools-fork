@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<NarrativeDisplay_Civilizations>
+		<Row CivilizationType="CIVILIZATION_AKSUM" CivilizationImage="bg-panel-aksum.png"/>
+		<Row CivilizationType="CIVILIZATION_EGYPT" CivilizationImage="bg-panel-egypt.png"/>
+		<Row CivilizationType="CIVILIZATION_GREECE" CivilizationImage="bg-panel-greece.png"/>
+		<Row CivilizationType="CIVILIZATION_HAN" CivilizationImage="bg-panel-han.png"/>
+		<Row CivilizationType="CIVILIZATION_KHMER" CivilizationImage="bg-panel-khmer.png"/>
+		<Row CivilizationType="CIVILIZATION_MAURYA" CivilizationImage="bg-panel-maurya.png"/>
+		<Row CivilizationType="CIVILIZATION_MAYA" CivilizationImage="bg-panel-maya.png"/>
+		<Row CivilizationType="CIVILIZATION_MISSISSIPPIAN" CivilizationImage="bg-panel-mississippian.png"/>
+		<Row CivilizationType="CIVILIZATION_PERSIA" CivilizationImage="bg-panel-persia.png"/>
+		<Row CivilizationType="CIVILIZATION_ROME" CivilizationImage="bg-panel-rome.png"/>
+	</NarrativeDisplay_Civilizations>
+</Database>

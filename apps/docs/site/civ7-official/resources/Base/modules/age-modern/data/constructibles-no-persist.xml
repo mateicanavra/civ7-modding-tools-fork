@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<TypeTags>
+		<Row Type="BUILDING_AIRFIELD" Tag="MILITARY"/>
+		<Row Type="BUILDING_CANNERY" Tag="FOOD"/>
+		<Row Type="BUILDING_CITY_PARK" Tag="HAPPINESS"/>
+		<Row Type="BUILDING_CITY_PARK" Tag="URBANCENTER"/>
+		<Row Type="BUILDING_DEPARTMENT_STORE" Tag="HAPPINESS"/>
+		<Row Type="BUILDING_DEPARTMENT_STORE" Tag="TRADE"/>
+		<Row Type="BUILDING_FACTORY" Tag="PRODUCTION"/>
+		<Row Type="BUILDING_LABORATORY" Tag="SCIENCE"/>
+		<Row Type="BUILDING_LAUNCH_PAD" Tag="SCIENCE"/>
+		<Row Type="BUILDING_MILITARY_ACADEMY" Tag="MILITARY"/>
+		<Row Type="BUILDING_MILITARY_ACADEMY" Tag="URBANCENTER"/>
+		<Row Type="BUILDING_MODERN_BRIDGE" Tag="WATER"/>
+		<Row Type="BUILDING_MODERN_BRIDGE" Tag="BRIDGE"/>
+		<Row Type="BUILDING_MUSEUM" Tag="CULTURE"/>
+		<Row Type="BUILDING_MUSEUM" Tag="GREATWORK"/>
+		<Row Type="BUILDING_MUSEUM" Tag="URBANCENTER"/>
+		<Row Type="BUILDING_OPERA_HOUSE" Tag="CULTURE"/>
+		<Row Type="BUILDING_PORT" Tag="GOLD"/>
+		<Row Type="BUILDING_PORT" Tag="WATER"/>
+		<Row Type="BUILDING_PORT" Tag="RAIL_CONNECTION"/>
+		<Row Type="BUILDING_PORT" Tag="URBANCENTER"/>
+		<Row Type="BUILDING_RADIO_STATION" Tag="DIPLOMACY"/>
+		<Row Type="BUILDING_RADIO_STATION" Tag="HAPPINESS"/>
+		<Row Type="BUILDING_RAIL_STATION" Tag="GOLD"/>
+		<Row Type="BUILDING_RAIL_STATION" Tag="RAIL_CONNECTION"/>
+		<Row Type="BUILDING_SCHOOLHOUSE" Tag="SCIENCE"/>
+		<Row Type="BUILDING_SCHOOLHOUSE" Tag="URBANCENTER"/>
+		<Row Type="BUILDING_IRONWORKS" Tag="PRODUCTION"/>
+		<Row Type="BUILDING_STOCK_EXCHANGE" Tag="GOLD"/>
+		<Row Type="BUILDING_TENEMENT" Tag="FOOD"/>
+		<!-- Exploration Revived Buildings -->
+		<Row Type="BUILDING_UNIVERSITY_MO" Tag="SCIENCE"/>
+	</TypeTags>
+	<Constructible_WarehouseYields>
+	</Constructible_WarehouseYields>
+	<Warehouse_YieldChanges>
+		<!-- Tech Unlocks -->
+		<Row ID="MOMineResourceProduction" Age="AGE_MODERN" YieldType="YIELD_PRODUCTION" YieldChange="1" ConstructibleInCity="IMPROVEMENT_MINE_RESOURCE"/>
+		<Row ID="MOQuarryProduction" Age="AGE_MODERN" YieldType="YIELD_PRODUCTION" YieldChange="1" ConstructibleInCity="IMPROVEMENT_QUARRY"/>
+		<Row ID="MORoughTerrainProduction" Age="AGE_MODERN" YieldType="YIELD_PRODUCTION" YieldChange="1" TerrainInCity="TERRAIN_HILL"/>
+		<Row ID="MOWetFeatureProduction" Age="AGE_MODERN" YieldType="YIELD_PRODUCTION" YieldChange="1" FeatureClassInCity="FEATURE_CLASS_WET"/>
+		<Row ID="MOFishingBoatResourceFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="1" ConstructibleInCity="IMPROVEMENT_FISHING_BOAT_RESOURCE"/>
+		<Row ID="MOReefFeatureFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="1" FeatureInCity="FEATURE_REEF"/>
+		<Row ID="MOColdReefFeatureFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="1" FeatureInCity="FEATURE_COLD_REEF"/>
+		<Row ID="MOCoastTerrainFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="1" TerrainInCity="TERRAIN_COAST"/>
+		<Row ID="MONavigableRiverFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="1" NavigableRiverInCity="true"/>
+		<Row ID="MOPastureFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="1" ConstructibleInCity="IMPROVEMENT_PASTURE"/>
+		<Row ID="MOPlantationFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="1" ConstructibleInCity="IMPROVEMENT_PLANTATION"/>
+		<Row ID="MODesertFloodplainFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="1" FeatureInCity="FEATURE_DESERT_FLOODPLAIN_MINOR"/>
+		<Row ID="MOGrasslandFloodplainFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="1" FeatureInCity="FEATURE_GRASSLAND_FLOODPLAIN_MINOR"/>
+		<Row ID="MOPlainsFloodplainFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="1" FeatureInCity="FEATURE_PLAINS_FLOODPLAIN_MINOR"/>
+		<Row ID="MOTropicalFloodplainFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="1" FeatureInCity="FEATURE_TROPICAL_FLOODPLAIN_MINOR"/>
+		<Row ID="MOTundraFloodplainFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="1" FeatureInCity="FEATURE_TUNDRA_FLOODPLAIN_MINOR"/>
+		<Row ID="MOFlatTerrainFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="1" TerrainInCity="TERRAIN_FLAT"/>
+		<Row ID="MOWoodcutterResourceProduction" Age="AGE_MODERN" YieldType="YIELD_PRODUCTION" YieldChange="1" ConstructibleInCity="IMPROVEMENT_WOODCUTTER_RESOURCE"/>
+		<Row ID="MOCampProduction" Age="AGE_MODERN" YieldType="YIELD_PRODUCTION" YieldChange="1" ConstructibleInCity="IMPROVEMENT_CAMP"/>
+		<Row ID="MOVegetatedFeatureProduction" Age="AGE_MODERN" YieldType="YIELD_PRODUCTION" YieldChange="1" FeatureClassInCity="FEATURE_CLASS_VEGETATED"/>
+		<Row ID="MOMountainTerrainHappiness" Age="AGE_MODERN" YieldType="YIELD_HAPPINESS" YieldChange="1" TerrainInCity="TERRAIN_MOUNTAIN"/>
+		<Row ID="MOOilResourceProduction" Age="AGE_MODERN" YieldType="YIELD_PRODUCTION" YieldChange="1" ConstructibleInCity="IMPROVEMENT_OIL_RIG"/>
+		<!-- Town Specializations -->
+		<Row ID="MOTownMineResourceProduction" Age="AGE_MODERN" YieldType="YIELD_PRODUCTION" YieldChange="4" ConstructibleInCity="IMPROVEMENT_MINE_RESOURCE"/>
+		<Row ID="MOTownQuarryProduction" Age="AGE_MODERN" YieldType="YIELD_PRODUCTION" YieldChange="4" ConstructibleInCity="IMPROVEMENT_QUARRY"/>
+		<Row ID="MOTownRoughTerrainProduction" Age="AGE_MODERN" YieldType="YIELD_PRODUCTION" YieldChange="4" TerrainInCity="TERRAIN_HILL"/>
+		<Row ID="MOTownWetFeatureProduction" Age="AGE_MODERN" YieldType="YIELD_PRODUCTION" YieldChange="4" FeatureClassInCity="FEATURE_CLASS_WET"/>
+		<Row ID="MOTownFishingBoatResourceFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="3" ConstructibleInCity="IMPROVEMENT_FISHING_BOAT_RESOURCE"/>
+		<Row ID="MOTownReefFeatureFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="3" FeatureInCity="FEATURE_REEF"/>
+		<Row ID="MOTownColdReefFeatureFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="3" FeatureInCity="FEATURE_COLD_REEF"/>
+		<Row ID="MOTownCoastTerrainFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="3" TerrainInCity="TERRAIN_COAST"/>
+		<Row ID="MOTownNavigableRiverFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="3" NavigableRiverInCity="true"/>
+		<Row ID="MOTownPastureFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="3" ConstructibleInCity="IMPROVEMENT_PASTURE"/>
+		<Row ID="MOTownPlantationFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="3" ConstructibleInCity="IMPROVEMENT_PLANTATION"/>
+		<Row ID="MOTownDesertFloodplainFeatureFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="3" FeatureInCity="FEATURE_DESERT_FLOODPLAIN_MINOR"/>
+		<Row ID="MOTownGrasslandFloodplainFeatureFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="3" FeatureInCity="FEATURE_GRASSLAND_FLOODPLAIN_MINOR"/>
+		<Row ID="MOTownPlainsFloodplainFeatureFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="3" FeatureInCity="FEATURE_PLAINS_FLOODPLAIN_MINOR"/>
+		<Row ID="MOTownTropicalFloodplainFeatureFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="3" FeatureInCity="FEATURE_TROPICAL_FLOODPLAIN_MINOR"/>
+		<Row ID="MOTownTundraFloodplainFeatureFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="3" FeatureInCity="FEATURE_TUNDRA_FLOODPLAIN_MINOR"/>
+		<Row ID="MOTownFlatTerrainFood" Age="AGE_MODERN" YieldType="YIELD_FOOD" YieldChange="3" TerrainInCity="TERRAIN_FLAT"/>
+		<Row ID="MOTownWoodcutterResourceProduction" Age="AGE_MODERN" YieldType="YIELD_PRODUCTION" YieldChange="4" ConstructibleInCity="IMPROVEMENT_WOODCUTTER_RESOURCE"/>
+		<Row ID="MOTownCampProduction" Age="AGE_MODERN" YieldType="YIELD_PRODUCTION" YieldChange="4" ConstructibleInCity="IMPROVEMENT_CAMP"/>
+		<Row ID="MOTownVegetatedFeatureProduction" Age="AGE_MODERN" YieldType="YIELD_PRODUCTION" YieldChange="4" FeatureClassInCity="FEATURE_CLASS_VEGETATED"/>
+		<Row ID="MOHappinessProjectResourceHappiness" Age="AGE_MODERN" YieldType="YIELD_HAPPINESS" YieldChange="3" ResourceInCity="true"/>
+		<!-- Social Policies -->
+		<Row ID="LandHeritageMountainHappiness" Age="AGE_MODERN" YieldType="YIELD_HAPPINESS" YieldChange="2" TerrainInCity="TERRAIN_MOUNTAIN"/>
+		<Row ID="LandHeritageNaturalWonderCulture" Age="AGE_MODERN" YieldType="YIELD_CULTURE" YieldChange="6" NaturalWonderInCity="true"/>
+	</Warehouse_YieldChanges>
+	<Constructible_YieldChanges>
+		<Update>
+			<Where ConstructibleType="BUILDING_PALACE" YieldType="YIELD_FOOD"/>
+			<Set YieldChange="15"/>
+		</Update>
+		<Update>
+			<Where ConstructibleType="BUILDING_PALACE" YieldType="YIELD_PRODUCTION"/>
+			<Set YieldChange="15"/>
+		</Update>
+		<Update>
+			<Where ConstructibleType="BUILDING_PALACE" YieldType="YIELD_HAPPINESS"/>
+			<Set YieldChange="15"/>
+		</Update>
+		<Update>
+			<Where ConstructibleType="BUILDING_CITY_HALL" YieldType="YIELD_FOOD"/>
+			<Set YieldChange="9"/>
+		</Update>
+		<Update>
+			<Where ConstructibleType="BUILDING_CITY_HALL" YieldType="YIELD_PRODUCTION"/>
+			<Set YieldChange="9"/>
+		</Update>
+		<Update>
+			<Where ConstructibleType="BUILDING_CITY_HALL" YieldType="YIELD_HAPPINESS"/>
+			<Set YieldChange="9"/>
+		</Update>
+	</Constructible_YieldChanges>
+	<ConstructibleModifiers>
+		<Row ConstructibleType="BUILDING_UNIVERSITY_MO" ModifierId="MOD_UNIVERSITY_SCIENCE_MO_ON_URBAN_PLOTS"/>
+	</ConstructibleModifiers>
+	<WorkerYields>
+		<Row YieldType="YIELD_FOOD" Amount="-2"/>
+		<Row YieldType="YIELD_HAPPINESS" Amount="-2"/>
+		<Row YieldType="YIELD_SCIENCE" Amount="2"/>
+		<Row YieldType="YIELD_CULTURE" Amount="2"/>
+	</WorkerYields>
+</Database>

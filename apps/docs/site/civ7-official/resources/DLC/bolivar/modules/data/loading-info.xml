@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LoadingInfo_Leaders>
+		<Row LeaderType="LEADER_BOLIVAR" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_BOLIVAR" LeaderImage="blp:lsl_bolivar.png" Audio="VO_Loading2_DLC01_SimonBolivar"/>
+	</LoadingInfo_Leaders>
+</Database>

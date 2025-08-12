@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<TwoKTelemetryEvents>
+		<InsertOrIgnore EventName="AccomplishmentStatus" />
+		<InsertOrIgnore EventName="AntiquityStatus" />
+		<InsertOrIgnore EventName="ApplicationSessionStatus" />
+		<InsertOrIgnore EventName="AssetKeys" />
+		<InsertOrIgnore EventName="AssetUsage" />
+		<InsertOrIgnore EventName="CampaignSetupStatus" />
+		<InsertOrIgnore EventName="CampaignStatus" />
+		<InsertOrIgnore EventName="CivicTreeStatus" />
+		<InsertOrIgnore EventName="CommanderStatus" />
+		<InsertOrIgnore EventName="CPU" />
+		<InsertOrIgnore EventName="CrisisStatus" />
+		<InsertOrIgnore EventName="CustomizationStatus" />
+		<InsertOrIgnore EventName="DiplomacyActionStatus" />
+		<InsertOrIgnore EventName="DiplomacyRelationshipStatus" />
+		<InsertOrIgnore EventName="ExplorationStatus" />
+		<InsertOrIgnore EventName="FTUEStatus" />
+		<InsertOrIgnore EventName="GreatWorksStatus" />
+		<InsertOrIgnore EventName="HeartbeatStatus" />
+		<InsertOrIgnore EventName="IGMStatus" />
+		<InsertOrIgnore EventName="IndependentStatus" />
+		<InsertOrIgnore EventName="LeaderAttributeStatus" />
+		<InsertOrIgnore EventName="LobbyStatus" />
+		<InsertOrIgnore EventName="Login" />
+		<InsertOrIgnore EventName="Logout" />
+		<InsertOrIgnore EventName="MenuStatus" />
+		<InsertOrIgnore EventName="MilitaryStatus" />
+		<InsertOrIgnore EventName="NarrativeStatus" />
+		<InsertOrIgnore EventName="PlayerEconomySnapshot2" />
+		<InsertOrIgnore EventName="PlayerProgressionStatus" />
+		<InsertOrIgnore EventName="PolicyStatus" />
+		<InsertOrIgnore EventName="ResourceStatus" />
+		<InsertOrIgnore EventName="SettingsStatus" />
+		<InsertOrIgnore EventName="SettlementStatus" />
+		<InsertOrIgnore EventName="SlowTick" />
+		<InsertOrIgnore EventName="StrategyCardStatus" />
+		<InsertOrIgnore EventName="SysInfo" />
+		<InsertOrIgnore EventName="TechTreeStatus" />
+		<InsertOrIgnore EventName="TickTimings2" />
+		<InsertOrIgnore EventName="Timings" />
+		<InsertOrIgnore EventName="UnitStatus" />
+		<InsertOrIgnore EventName="VictoryStatus" />
+		<InsertOrIgnore EventName="WindowsVersion" />
+		<InsertOrIgnore EventName="WorldStatus" />
+		<InsertOrIgnore EventName="YieldGain" />
+		<InsertOrIgnore EventName="ZoomBuckets" />
+	</TwoKTelemetryEvents>
+</Database>

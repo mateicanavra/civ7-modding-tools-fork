@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LegacyLeaderCivPriorities>
+		<Row Leader="LEADER_FRIEDRICH_ALT" CivilizationType="CIVILIZATION_ROME"/>
+		<Row Leader="LEADER_FRIEDRICH_ALT" CivilizationType="CIVILIZATION_EGYPT"/>
+		<Row Leader="LEADER_XERXES_ALT" CivilizationType="CIVILIZATION_PERSIA"/>
+		<Row Leader="LEADER_XERXES_ALT" CivilizationType="CIVILIZATION_MAURYA"/>
+		<Row Leader="LEADER_FRIEDRICH_ALT" CivilizationType="CIVILIZATION_NORMAN"/>
+		<Row Leader="LEADER_FRIEDRICH_ALT" CivilizationType="CIVILIZATION_SPAIN"/>
+		<Row Leader="LEADER_XERXES_ALT" CivilizationType="CIVILIZATION_ABBASID"/>
+		<Row Leader="LEADER_XERXES_ALT" CivilizationType="CIVILIZATION_MONGOLIA"/>
+		<Row Leader="LEADER_FRIEDRICH_ALT" CivilizationType="CIVILIZATION_PRUSSIA"/>
+		<Row Leader="LEADER_FRIEDRICH_ALT" CivilizationType="CIVILIZATION_FRENCH_EMPIRE"/>
+		<Row Leader="LEADER_XERXES_ALT" CivilizationType="CIVILIZATION_MUGHAL"/>
+		<Row Leader="LEADER_XERXES_ALT" CivilizationType="CIVILIZATION_RUSSIA"/>
+	</LegacyLeaderCivPriorities>
+</Database>

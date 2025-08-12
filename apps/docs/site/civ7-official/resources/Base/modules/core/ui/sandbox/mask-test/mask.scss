@@ -1,0 +1,246 @@
+@use '../../utilities/utility-layout' as *;
+@use '../../utilities/utility-text' as *;
+
+html {
+	font-size: 0.7407407407vh;
+}
+
+@media (max-width: 177.778vh) {
+	html {
+		font-size: 0.4166666667vw;
+	}
+}
+
+body {
+	overflow: hidden;
+	font-family: "BodyFont";
+
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	font-size: pixels-font(16);
+	background-color: darkgrey;
+}
+
+.mask-title {
+	display: flex;
+	height: pixels(32);
+	font-size: pixels-font(16);
+	line-height: pixels(32);
+	color: black;
+	font-family: BodyFont;
+	flex-direction: column;
+	align-items: center;
+
+	&.main-title {
+		font-size: pixels-font(32);
+		width: pixels(320);
+	}
+}
+
+
+.mask-item {
+	width: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	margin: pixels(0) pixels(16);
+}
+
+.mask-container {
+	width: auto;
+	height: auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	margin: pixels(32) pixels(0);
+}
+
+.image {
+	position: relative;
+	width: pixels(160);
+	height: pixels(160);
+	background-image: url('./img/Shell_Exploration_Hex_BG.png');
+	background-size: 200%;
+	background-position: center;
+}
+
+.mask {
+	width: pixels(160);
+	height: pixels(160);
+	background-color: black;
+}
+
+.mask-2 {
+	width: pixels(160);
+	height: pixels(160);
+	background-color: black;
+}
+
+.example-container {
+	display: flex;
+	flex-wrap: nowrap;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: flex-start;
+}
+
+.grad-expected {
+	background-image: url('./img/grad-expected.png');
+	background-size: 100%;
+}
+
+.grad-mask {
+	mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+}
+
+.img-grad-mask {
+	mask-image: url('./img/gradient-mask.png');
+}
+
+.bin-expected {
+	background-image: url('./img/linear-expected.png');
+	background-size: 100%;
+}
+
+.bin-mask {
+	mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 25%,
+			rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 0) 50%,
+			rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 1) 75%,
+			rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0) 100%);
+}
+
+.img-bin-mask {
+	mask-image: url('./img/linear-mask.png');
+}
+
+.img-bin-mask-2 {
+	mask-image: url('./img/linear-mask-2.png');
+}
+
+.clip-mask {
+	clip-path: polygon(0% 0%, 75% 0%, 75% 100%, 50% 100%, 50% 0%, 25% 0%, 25% 100%, 0% 100%, 0% 0%);
+}
+
+svg {
+	polygon {
+		fill: rgb(44, 42, 43);
+	}
+}
+
+.shape-expected {
+	background-image: url('./img/shape-expected.png');
+	background-size: 100%;
+}
+
+.shape-png {
+	background-image: url('./img/shape-icon.png');
+	background-size: contain;
+	background-position: center;
+	background-color: transparent;
+	filter: fxs-color-mask(rgb(44, 42, 43));
+}
+
+.shape-clip {
+	background-color: rgb(44, 42, 43);
+	background-image: none;
+	clip-path: polygon(50% 0%, 93.3% 25%, 93.3% 75%, 50% 100%, 6.7% 75%, 6.7% 25%, 50% 0%);
+}
+
+.example-svg {
+	width: pixels(160);
+	height: pixels(160);
+}
+
+.outline-expected {
+	background-image: url('./img/outline-expected.png');
+	background-size: 100%;
+}
+
+.outline-png {
+	background-image: url('./img/outline-icon.png');
+	background-size: contain;
+	background-position: center;
+	background-color: transparent;
+	filter: fxs-color-mask(rgb(120, 98, 74));
+	padding: pixels(12);
+
+	&.outline-inset {
+		width: 100%;
+		height: 100%;
+		filter: none;
+	}
+}
+
+.outline-svg {
+	width: pixels(160);
+	height: pixels(160);
+
+
+	&.outline-inset {
+		width: 100%;
+		height: 100%;
+		padding: pixels(12);
+		transform: translateY(-100%);
+	}
+
+	svg {
+		fill-opacity: 0;
+		stroke-width: pixels(1);
+		stroke: rgb(120, 98, 74);
+		stroke-linecap: square;
+	}
+}
+
+.outline-border {
+	width: pixels(160);
+	height: pixels(160);
+	position: relative;
+
+	&.outline-inset {
+		width: 100%;
+		height: 100%;
+		padding: pixels(12);
+
+		&.initial {
+			margin: pixels(12);
+		}
+	}
+}
+
+.hex-bord-container {
+	position: absolute;
+	left: 2.55%;
+	top: 2.55%;
+	width: 95%;
+	height: 95%;
+	filter: none;
+
+	.hex-bord {
+		position: absolute;
+		height: 50%;
+		width: 86.52%;
+		left: 6.74%;
+		top: 25%;
+		background-color: transparent;
+		transform-origin: center;
+		transform: rotate(0deg);
+		border-width: pixels(0);
+		border-left-width: pixels(1);
+		border-right-width: pixels(1);
+		border-style: solid;
+		border-color: rgb(120, 98, 74);
+		filter: none;
+
+		&.hex-2 {
+			transform: rotate(-60deg);
+		}
+
+		&.hex-3 {
+			transform: rotate(60deg);
+		}
+	}
+}

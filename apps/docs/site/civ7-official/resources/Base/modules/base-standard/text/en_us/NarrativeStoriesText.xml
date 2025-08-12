@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+        <Row Tag="LOC_21A_STORYTITLE">
+            <Text>A Wonder It Happened at All</Text>
+        </Row>
+        <Row Tag="LOC_21A_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_21A_COMPLETION">
+            <Text>When the news came that another {1_associated_wonder} was nearing completion in foreign lands, {2_Civilization_Adj} builders worked night and day to ensure that theirs would stand the test of time. Now on this momentous day, the defeated begin to salvage their unfinished masterpiece, but the {3_Civilization_Adj} people are too busy celebrating their own to hear it.</Text>
+        </Row>
+        <Row Tag="LOC_22A_STORYTITLE">
+            <Text>Wonder What Went Wrong</Text>
+        </Row>
+        <Row Tag="LOC_22A_COMPLETION">
+            <Text>As {1_Civilization_Adj} builders assess the progress they are making on the great {2_associated_Wonder}, word arrives that another has just been built in another land — an exact replica, in fact! But what good is the second of a one-of-a-kind?</Text>
+        </Row>
+        <Row Tag="LOC_22B_NAME">
+            <Text>Hammers aren’t just for building.</Text>
+        </Row>
+        <Row Tag="LOC_22B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_22C_STORYTITLE">
+            <Text>Wonder What Went Wrong</Text>
+        </Row>
+        <Row Tag="LOC_22C_NAME">
+            <Text>If there is only one, it will be {1_Civilization_Adj}.</Text>
+        </Row>
+        <Row Tag="LOC_22C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_22C_COMPLETION">
+            <Text>The great {1_associated_Wonder} is at last in {2_Civilization_Adj} hands — paid for not with sweat, but with blood.</Text>
+        </Row>
+        <Row Tag="LOC_22C_IMPERATIVE">
+            <Text>Capture the City with your associated wonder ({1_associated_Wonder}).</Text>
+        </Row>
+        <Row Tag="LOC_ATTRIBUTE_79A_STORYTITLE">
+            <Text>The Marvels of Traveling</Text>
+        </Row>
+        <Row Tag="LOC_ATTRIBUTE_79A_COMPLETION">
+            <Text>The journey of life may go down many roads. Best be prepared for anything.</Text>
+        </Row>
+        <Row Tag="LOC_ATTRIBUTE_79B_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_ATTRIBUTE_79B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_INDEPENDENT_GIFT_CULTURE_4A_STORYTITLE">
+            <Text>Foreign Gifts</Text>
+        </Row>
+        <Row Tag="LOC_INDEPENDENT_GIFT_CULTURE_4A_NAME">
+            <Text>Graciously accept the gifts.</Text>
+        </Row>
+        <Row Tag="LOC_INDEPENDENT_GIFT_CULTURE_4A_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_INDEPENDENT_GIFT_CULTURE_4A_COMPLETION">
+            <Text>Emissaries from {1_Independent} have arrived and pronounced that {2_civilization} deserves all glory and respect. To honor the friendship between two peoples, they present a generous gift.</Text>
+        </Row>
+        <Row Tag="LOC_INDEPENDENT_GIFT_SCIENCE_4A_STORYTITLE">
+            <Text>Foreign Gifts</Text>
+        </Row>
+        <Row Tag="LOC_INDEPENDENT_GIFT_SCIENCE_4A_NAME">
+            <Text>Graciously accept the gifts.</Text>
+        </Row>
+        <Row Tag="LOC_INDEPENDENT_GIFT_SCIENCE_4A_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_INDEPENDENT_GIFT_SCIENCE_4A_COMPLETION">
+            <Text>Emissaries from {1_Independent} have arrived and pronounced that {2_civilization} deserves all glory and respect. To honor the friendship between two peoples, they present a generous gift.</Text>
+        </Row>
+        <Row Tag="LOC_INDEPENDENT_GIFT_MILITARY_4A_STORYTITLE">
+            <Text>Foreign Gifts</Text>
+        </Row>
+        <Row Tag="LOC_INDEPENDENT_GIFT_MILITARY_4A_NAME">
+            <Text>Graciously accept the gifts.</Text>
+        </Row>
+        <Row Tag="LOC_INDEPENDENT_GIFT_MILITARY_4A_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_INDEPENDENT_GIFT_MILITARY_4A_COMPLETION">
+            <Text>Emissaries from {1_Independent} have arrived and pronounced that {2_civilization} deserves all glory and respect. To honor the friendship between two peoples, they present a generous gift.</Text>
+        </Row>
+        <Row Tag="LOC_INDEPENDENT_GIFT_ECONOMIC_4A_STORYTITLE">
+            <Text>Foreign Gifts</Text>
+        </Row>
+        <Row Tag="LOC_INDEPENDENT_GIFT_ECONOMIC_4A_NAME">
+            <Text>Graciously accept the gifts.</Text>
+        </Row>
+        <Row Tag="LOC_INDEPENDENT_GIFT_ECONOMIC_4A_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_INDEPENDENT_GIFT_ECONOMIC_4A_COMPLETION">
+            <Text>Emissaries from {1_Independent} have arrived and pronounced that {2_civilization} deserves all glory and respect. To honor the friendship between two peoples, they present a generous gift.</Text>
+        </Row>
+        <Row Tag="LOC_1025A_STORYTITLE">
+            <Text>The Moving Lake</Text>
+        </Row>
+        <Row Tag="LOC_1025A_COMPLETION">
+            <Text>A soldier returns with a harrowing tale: a unit wandering the sands, ever chasing a sparkle of lake seen just over the next hill. Then the next, and the next.</Text>
+        </Row>
+        <Row Tag="LOC_1025B_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_1025B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_8081A_STORYTITLE">
+            <Text>A Budding Friendship</Text>
+        </Row>
+        <Row Tag="LOC_8081A_COMPLETION">
+            <Text>Getting to know an ally creates a monumental shift in the people's understanding of themselves. The larger effects on empire remain to be seen, but change will be a constant.</Text>
+        </Row>
+        <Row Tag="LOC_8081B_NAME">
+            <Text>Formalize diplomatic procedures.</Text>
+        </Row>
+        <Row Tag="LOC_8081B_DESCRIPTION">
+            <Text>{1_reward} in all Settlements.</Text>
+        </Row>
+        <Row Tag="LOC_8081C_NAME">
+            <Text>Resist unwelcome change.</Text>
+        </Row>
+        <Row Tag="LOC_8081C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_8082A_STORYTITLE">
+            <Text>Growing Pains</Text>
+        </Row>
+        <Row Tag="LOC_8082A_COMPLETION">
+            <Text>Loss is a universal experience, and every facet of life can reflect its sorrowful face. What was once an intimate alliance has crumbled, with nothing but memories for rubble.</Text>
+        </Row>
+        <Row Tag="LOC_8082B_NAME">
+            <Text>Mourn the shift.</Text>
+        </Row>
+        <Row Tag="LOC_8082B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_8082C_NAME">
+            <Text>Accept the necessary consequences.</Text>
+        </Row>
+        <Row Tag="LOC_8082C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_8083A_STORYTITLE">
+            <Text>Neither Friend Nor Foe</Text>
+        </Row>
+        <Row Tag="LOC_8083A_COMPLETION">
+            <Text>On the surface, the adjustment is subtle: a friend is not made simply where opposition ends, but the people seem to breathe easier in the absence of threat.</Text>
+        </Row>
+        <Row Tag="LOC_8083B_NAME">
+            <Text>Take a hands-off approach.</Text>
+        </Row>
+        <Row Tag="LOC_8083B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_8083C_NAME">
+            <Text>Look for advantages within the shift.</Text>
+        </Row>
+        <Row Tag="LOC_8083C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_8088A_STORYTITLE">
+            <Text>It Never Changes</Text>
+        </Row>
+        <Row Tag="LOC_8088A_COMPLETION">
+            <Text>As the dust settles, soldiers lay down their weapons in defeat. It is hard to see a clear victor in the wake of war's carnage.</Text>
+        </Row>
+        <Row Tag="LOC_8088B_NAME">
+            <Text>Alliances will persist past wartime.</Text>
+        </Row>
+        <Row Tag="LOC_8088B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_8088C_NAME">
+            <Text>The end of the war means the end of relationships.</Text>
+        </Row>
+        <Row Tag="LOC_8088C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_8089A_STORYTITLE">
+            <Text>To New Beginnings</Text>
+        </Row>
+        <Row Tag="LOC_8089A_COMPLETION">
+            <Text>The hand of allyship is one of the most intimate touches one can offer. It requires an honest accounting of both the best and the worst.</Text>
+        </Row>
+        <Row Tag="LOC_8089B_NAME">
+            <Text>To new beginnings.</Text>
+        </Row>
+        <Row Tag="LOC_8089B_DESCRIPTION">
+            <Text>{1_reward} in all Settlements.</Text>
+        </Row>
+        <Row Tag="LOC_8089C_NAME">
+            <Text>Tactics are not personal.</Text>
+        </Row>
+        <Row Tag="LOC_8089C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+    </EnglishText>
+</Database>

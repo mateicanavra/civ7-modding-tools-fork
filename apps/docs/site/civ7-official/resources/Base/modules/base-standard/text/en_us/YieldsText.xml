@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_YIELD_FOOD">
+			<Text>[icon:YIELD_FOOD] Food</Text>
+		</Row>
+		<Row Tag="LOC_YIELD_PRODUCTION">
+			<Text>[icon:YIELD_PRODUCTION] Production</Text>
+		</Row>
+		<Row Tag="LOC_YIELD_GOLD">
+			<Text>[icon:YIELD_GOLD] Gold</Text>
+		</Row>
+		<Row Tag="LOC_YIELD_GOLD_TREASURY">
+			<Text>[icon:YIELD_GOLD] Gold Treasury</Text>
+		</Row>
+		<Row Tag="LOC_YIELD_SCIENCE">
+			<Text>[icon:YIELD_SCIENCE] Science</Text>
+		</Row>
+		<Row Tag="LOC_YIELD_CULTURE">
+			<Text>[icon:YIELD_CULTURE] Culture</Text>
+		</Row>
+		<Row Tag="LOC_YIELD_HAPPINESS">
+			<Text>[icon:YIELD_HAPPINESS] Happiness</Text>
+		</Row>
+		<Row Tag="LOC_YIELD_UNHAPPINESS">
+			<Text>Unhappiness</Text>
+		</Row>
+		<Row Tag="LOC_YIELD_DIPLOMACY">
+			<Text>[icon:YIELD_DIPLOMACY] Influence</Text>
+		</Row>
+		<Row Tag="LOC_YIELD_DIPLOMACY_TREASURY">
+			<Text>[icon:YIELD_DIPLOMACY] Accumulated Influence</Text>
+		</Row>
+		<Row Tag="LOC_YIELD_ENVOYS">
+			<Text>Envoys</Text>
+		</Row>
+		<Row Tag="LOC_YIELD_MAX_CITIES">
+			<Text>Settlement Limit. -5 [icon:YIELD_HAPPINESS] Happiness in all Settlements per Settlement over the limit (to a maximum of -35 [icon:YIELD_HAPPINESS] Happiness).</Text>
+		</Row>
+		<Row Tag="LOC_YIELD_MAX_TRADE">
+			<Text>Trade Route Limit: Use the Improve Trade Relations diplomacy action to increase the number of trade routes you can have with this Leader.</Text>
+		</Row>
+		<Row Tag="LOC_PLUNDER_HEAL_NAME">
+			<Text>Healing</Text>
+		</Row>
+		<Row Tag="LOC_PLUNDER_GOLD_NAME">
+			<Text>Gold</Text>
+		</Row>
+		<Row Tag="LOC_PLUNDER_SCIENCE_NAME">
+			<Text>Science</Text>
+		</Row>
+		<Row Tag="LOC_PLUNDER_CULTURE_NAME">
+			<Text>Culture</Text>
+		</Row>
+		<Row Tag="LOC_PLUNDER_FOOD_TOWN_NAME">
+			<Text>Food</Text>
+		</Row>
+		<Row Tag="LOC_PLUNDER_PRODUCTION_CITY_NAME">
+			<Text>Production</Text>
+		</Row>
+		<Row Tag="LOC_PLUNDER_DIPLOMACY_NAME">
+			<Text>Influence</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_GOLD_INCREASE_FLOATER">
+			<Text>[STYLE:yield-gold]+{1_Value} Gold[/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_CULTURE_INCREASE_FLOATER">
+			<Text>[STYLE:yield-culture]+{1_Value} Culture[/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_HAPPINESS_INCREASE_FLOATER">
+			<Text>[STYLE:yield-happiness]+{1_Value} Happiness[/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_FOOD_INCREASE_FLOATER">
+			<Text>[STYLE:yield-food]+{1_Value} Food[/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_HEAL_INCREASE_FLOATER">
+			<Text>+{1_Value} HP</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_PRODUCTION_INCREASE_FLOATER">
+			<Text>[STYLE:yield-production]+{1_Value} Production[/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_DIPLOMACY_INCREASE_FLOATER">
+			<Text>[STYLE:yield-diplomacy]+{1_Value} Influence[/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_DIPLOMACY_DECREASE_FLOATER">
+			<Text>[STYLE:yield-diplomacy]{1_Value} Influence[/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_SCIENCE_INCREASE_FLOATER">
+			<Text>[STYLE:yield-science]+{1_Value} Science[/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_CULTURE_DECREASE_FLOATER">
+			<Text>[STYLE:yield-culture]-{1_Value} Culture[/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_HAPPINESS_DECREASE_FLOATER">
+			<Text>[STYLE:yield-happiness]-{1_Value} Happiness[/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_FOOD_DECREASE_FLOATER">
+			<Text>[STYLE:yield-food]-{1_Value} Food[/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_GOLD_DECREASE_FLOATER">
+			<Text>[STYLE:yield-gold]-{1_Value} Gold[/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_PRODUCTION_DECREASE_FLOATER">
+			<Text>[STYLE:yield-production]-{1_Value} Production[/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_SCIENCE_DECREASE_FLOATER">
+			<Text>[STYLE:yield-science]-{1_Value} Science[/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_VP_FLOATER">
+			<Text>+{1_Value} Treasure Fleet {1_Value: plural 1?Point;other?Points;}</Text>
+		</Row>
+		<Row Tag="LOC_GLOBAL_YIELDS_TITLE">
+			<Text>Global Yields Breakdown</Text>
+		</Row>
+		<Row Tag="LOC_GLOBAL_YIELDS_SUBTITLE">
+			<Text>Yields Breakdown across all Settlements in your Empire</Text>
+		</Row>
+		<Row Tag="LOC_GLOBAL_YIELDS_SUMMARY_TITLE">
+			<Text>Yield Summary</Text>
+		</Row>
+		<Row Tag="LOC_GLOBAL_YIELDS_SUMMARY_TOTAL_INCOME">
+			<Text>Total Income</Text>
+		</Row>
+		<Row Tag="LOC_GLOBAL_YIELDS_SUMMARY_TOTAL_INCOME_PER_TURN">
+			<Text>Total Income per Turn</Text>
+		</Row>
+		<Row Tag="LOC_GLOBAL_YIELDS_SUMMARY_TOTAL_MAINTENANCE_PER_TURN">
+			<Text>Total Maintenance per Turn</Text>
+		</Row>
+		<Row Tag="LOC_GLOBAL_YIELDS_SUMMARY_NET_PER_TURN">
+			<Text>Net per Turn</Text>
+		</Row>
+		<Row Tag="LOC_GLOBAL_YIELDS_SUMMARY_TREASURY">
+			<Text>Treasury</Text>
+		</Row>
+		<Row Tag="LOC_GLOBAL_YIELDS_SUMMARY_SURPLUS">
+			<Text>Surplus</Text>
+		</Row>
+		<Row Tag="LOC_GLOBAL_YIELDS_SETTLEMENT_INCOME">
+			<Text>Settlement Income</Text>
+		</Row>
+		<Row Tag="LOC_GLOBAL_YIELDS_UNIT_EXPENSE">
+			<Text>Unit Expenses</Text>
+		</Row>
+		<Row Tag="LOC_GLOBAL_YIELDS_DIPLO_ACTIONS">
+			<Text>Diplomatic Actions</Text>
+		</Row>
+		<Row Tag="LOC_GLOBAL_YIELDS_TOTAL_FROM_CITIES">
+			<Text>Total from Settlements</Text>
+		</Row>
+		<Row Tag="LOC_GLOBAL_YIELDS_URBAN_DISTRICTS">
+			<Text>Urban Districts</Text>
+		</Row>
+		<Row Tag="LOC_GLOBAL_YIELDS_RURAL_DISTRICTS">
+			<Text>Rural Districts</Text>
+		</Row>
+		<Row Tag="LOC_GLOBAL_YIELDS_UNIT_NAME">
+			<Text>Unit Name</Text>
+		</Row>
+		<Row Tag="LOC_GLOBAL_YIELDS_NUMBER_OF_UNITS">
+			<Text>Number of Units</Text>
+		</Row>
+		<Row Tag="LOC_GLOBAL_YIELDS_COLLAPSE_ALL">
+			<Text>Collapse All</Text>
+		</Row>
+		<Row Tag="LOC_GLOBAL_YIELDS_OTHER_INCOME">
+			<Text>Other Yield Income</Text>
+		</Row>
+		<Row Tag="LOC_GLOBAL_YIELDS_OTHER">
+			<Text>Other</Text>
+		</Row>
+	</EnglishText>
+</Database>

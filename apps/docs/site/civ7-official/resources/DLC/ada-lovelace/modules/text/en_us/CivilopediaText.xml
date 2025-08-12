@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_1">
+			<Text>Augusta Ada King, Countess of Lovelace, (1815-1852) was born into a family of contrasts. She was the only legitimate child of the Romantic poet Lord Byron, who left England shortly after her birth and never saw her again. His dramatic, chaotic, and excessively creative persona was countered by that of his wife, Lady Byron, who was also an intellectual, but more inclined towards mathematics and the sciences. While he was wild and impulsive, she was rigid, strict, deeply religious, and heavily involved in education reform and abolitionism.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_2">
+			<Text>Ada was raised primarily by her maternal grandmother. Although her mother was not often present, she kept a sharp eye on her daughter and encouraged her interest in math and science – she feared that if Ada indulged in creativity like her father, she would follow in his destructive footsteps. Ada did share her mother’s academic nature, but she also inherited her father’s imagination. In one story often told about her childhood, Ada became fascinated with birds and determined to learn how to fly, a project that combined creative thinking with rigorous research on how wings work and what materials were best suited for human operation. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_3">
+			<Text>Thanks to her mother’s investment in her education, Ada was tutored by several prominent scholars of the day, including mathematician Augustus De Morgan and astronomer Mary Somerville. When Ada was 18, Somerville introduced her to Charles Babbage, whose work as an engineer and inventor led him to create the Difference Engine, now considered to be the first mechanical computer. She was immediately captivated by his invention and began to work closely with him. Between 1842 and 1843, she translated an article by Luigi Menabrea from Italian into English that examined Babbage’s next creation, the Analytical Engine. This machine was designed to solve mathematical problems fed through punch cards, but it was never fully built due to funding issues.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_4">
+			<Text>In her translation of Menabrea’s article, Ada included copious notes about the nature of the Analytical Engine and the possibilities its mechanics held. In particular, she speculated that the mathematical variables it processed could be treated as substitutes for more abstract concepts. The culmination of her additions is Note G, which presented a theoretical algorithm often considered to be the first computer program. Her contributions far outweighed both the length and insights of the original article, demonstrating not only her thorough understanding of how the machine worked, but also the breadth of her vision regarding what it could accomplish.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_5">
+			<Text>In 1835, at the age of 20, she married William, 8th Baron King, and they had three children. Along with mathematics, she maintained a strong interest in religion, mesmerism, and music, and kept herself up to date with the most recent scientific breakthroughs. She died of cancer at age 36. </Text>
+		</Row>
+	</EnglishText>
+</Database>
+				

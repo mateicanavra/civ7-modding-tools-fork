@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<MetaprogressionModifiers>
+		<Row ModifierId="METAPROGRESSION_CHALLENGE_SHAWNEE_COMPLETE_SERPENT_MOUND_ACHIEVED" RequiredCivilizationType="CIVILIZATION_SHAWNEE" />
+		<Row ModifierId="METAPROGRESSION_CHALLENGE_SHAWNEE_LEGACY_PATH_ECONOMIC_ACHIEVED" RequiredCivilizationType="CIVILIZATION_SHAWNEE" />
+		<Row ModifierId="METAPROGRESSION_CHALLENGE_SHAWNEE_LEGACY_PATH_MILESTONE_COMPLETED" RequiredCivilizationType="CIVILIZATION_SHAWNEE" />
+	</MetaprogressionModifiers>
+</Database>

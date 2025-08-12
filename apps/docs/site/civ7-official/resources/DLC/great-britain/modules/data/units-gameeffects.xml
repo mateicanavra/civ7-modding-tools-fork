@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==================================================	-->
+	<!--	Unique Abilities							-->
+	<!-- ==================================================	-->
+	<!--Great Britain-->
+	<Modifier id="ANTIQUARIAN_EXCAVATE_CULTURE_DISTANCETOCAPITAL" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_OPERATION_AWARD">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount" type="ScaleByGameSpeed">20</Argument>
+		<Argument name="DistanceToCapital">true</Argument>
+		<Argument name="OperationType">UNITOPERATION_EXCAVATE</Argument>
+	</Modifier>
+	<Modifier id="REVENGE_MOD_SPLASH_ABILITY" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_SPLASH_DAMAGE">
+		<Argument name="Percent">25</Argument>
+	</Modifier>
+</GameEffects>

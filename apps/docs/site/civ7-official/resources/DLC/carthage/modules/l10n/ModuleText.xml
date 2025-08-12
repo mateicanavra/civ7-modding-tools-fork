@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_MODULE_CARTHAGE_DESCRIPTION" Language="pt_BR">
+      <Text>Contém uma nova Civilização da Era da Antiguidade: Cartago.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_CARTHAGE_NAME" Language="pt_BR">
+      <Text>Cartago</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_CARTHAGE_DESCRIPTION" Language="fr_FR">
+      <Text>Contient une nouvelle civilisation de l'Antiquité : Carthage.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_CARTHAGE_NAME" Language="fr_FR">
+      <Text>Carthage</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_CARTHAGE_DESCRIPTION" Language="de_DE">
+      <Text>Enthält eine neue Zivilisation des Zeitalters der Antike: Karthago.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_CARTHAGE_NAME" Language="de_DE">
+      <Text>Karthago</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_CARTHAGE_DESCRIPTION" Language="it_IT">
+      <Text>Contiene una nuova civiltà di epoca antica, Cartagine.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_CARTHAGE_NAME" Language="it_IT">
+      <Text>Cartagine</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_CARTHAGE_DESCRIPTION" Language="ja_JP">
+      <Text>新たな古代の文明「カルタゴ」を含みます。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_CARTHAGE_NAME" Language="ja_JP">
+      <Text>カルタゴ</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_CARTHAGE_DESCRIPTION" Language="ko_KR">
+      <Text>새로운 고대 시대 문명 카르타고가 포함되어 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_CARTHAGE_NAME" Language="ko_KR">
+      <Text>카르타고</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_CARTHAGE_DESCRIPTION" Language="pl_PL">
+      <Text>Zawiera nową cywilizację epoki antyku – Kartaginę.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_CARTHAGE_NAME" Language="pl_PL">
+      <Text>Kartagina</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_CARTHAGE_DESCRIPTION" Language="ru_RU">
+      <Text>Содержит новую цивилизацию эпохи античности — Карфаген.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_CARTHAGE_NAME" Language="ru_RU">
+      <Text>Карфаген</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_CARTHAGE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>包含1个新古典时代文明：迦太基。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_CARTHAGE_NAME" Language="zh_Hans_CN">
+      <Text>迦太基</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_CARTHAGE_DESCRIPTION" Language="es_ES">
+      <Text>Contiene una nueva civilización de la Antigüedad: Cartago.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_CARTHAGE_NAME" Language="es_ES">
+      <Text>Cartago</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_CARTHAGE_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>包含一個新的古典時代文明——迦太基。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_CARTHAGE_NAME" Language="zh_Hant_HK">
+      <Text>迦太基</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

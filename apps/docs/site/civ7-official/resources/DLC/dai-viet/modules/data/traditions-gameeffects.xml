@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==================================================	-->
+	<!--	EXPLORATION							-->
+	<!-- ==================================================	-->
+	<Modifier id="CAM_BINH_MOD_GARRISONED_GOLD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_GARRISON_UNIT"/>
+		</SubjectRequirements>
+		<Argument name="Tag">FORTIFICATION</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Tooltip">LOC_TRADITION_CAM_BINH_NAME</String>
+		<String context="Description">LOC_TRADITION_CAM_BINH_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="CON_KENH_MOD_FOOD_BUILDING_CULTURE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Tag">FOOD</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">2</Argument>
+		<Argument name="Tooltip">LOC_TRADITION_CON_KENH_NAME</Argument>
+		<String context="Description">LOC_TRADITION_CON_KENH_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="CON_KENH_MOD_CULTURE_BUILDING_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Tag">CULTURE</Argument>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Amount">2</Argument>
+		<Argument name="Tooltip">LOC_TRADITION_CON_KENH_NAME</Argument>
+	</Modifier>
+	<Modifier id="RUONG_LANG_XA_MOD_TOWN_GROWTH" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_GROWTH">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_TOWN"></Requirement>
+		</SubjectRequirements>
+		<Argument name="Percent">10</Argument>
+		<String context="Description">LOC_TRADITION_RUONG_LANG_XA_DESCRIPTION</String>
+	</Modifier>
+</GameEffects>

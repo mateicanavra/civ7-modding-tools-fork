@@ -1,0 +1,47 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+@use '../../../core/ui/themes/default/baseColors.scss';
+
+.war-chooser-item {
+	border-image: url("fs://game/hud_sidepanel_list-bg.png");
+	border-image-slice: 8 8 8 8 fill;
+	border-image-width: pixels(8);
+
+	&:hover,
+	&:focus {
+		.war-chooser-item_border {
+			visibility: visible;
+		}
+	}
+}
+
+.war-chooser-item_bg {
+	border-image-source: url("fs://game/dip_war_card.png");
+	border-image-slice: 8 8 fill;
+	border-image-width: pixels(8) pixels(8);
+}
+
+.war-chooser-item_border {
+	visibility: hidden;
+	border-image-source: url("fs://game/dip_war_card_border.png");
+	border-image-slice: 1 1 fill;
+	border-image-width: pixels(1) pixels(1);
+}
+
+.war-chooser-item_support-bar-bg {
+	border-image-source: url("fs://game/dip_war_tracker_progress.png");
+	border-image-slice: 2 2 fill;
+
+}
+
+.war-chooser-item_support-tracker {
+	border-image-source: url("fs://game/dip_war_track.png");
+	border-image-slice: 5 24 fill;
+	border-image-width: pixels(5) pixels(24);
+}
+
+.war-chooser-item_war-support-bar-border {
+	border-image-source: url("dip_war_tracker_progress_border");
+	border-image-slice: 1 1 fill;
+	border-image-width: pixels(1) pixels(1);
+}

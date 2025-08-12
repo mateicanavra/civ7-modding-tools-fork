@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<TraitModifiers>
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="EX_HANDICAP_CULTURE_SCALING" />
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="EX_HANDICAP_GOLD_SCALING" />
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="EX_HANDICAP_HAPPINESS_SCALING" />
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="EX_HANDICAP_SCIENCE_SCALING" />
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="EX_HANDICAP_CONSTRUCTIBLE_PRODUCTION_SCALING" />
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="EX_HANDICAP_UNITS_PRODUCTION_SCALING" />
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="EX_HANDICAP_CITY_WALLS" />
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="EX_HANDICAP_TOWN_WALLS" />
+	</TraitModifiers>
+	<Modifiers>
+		<Row ModifierId="EX_HANDICAP_CULTURE_SCALING" ModifierType="MODIFIER_PLAYER_ADJUST_YIELD" OwnerRequirementSetId="REQSET_PLAYER_IS_AI" />
+		<Row ModifierId="EX_HANDICAP_GOLD_SCALING" ModifierType="MODIFIER_PLAYER_ADJUST_YIELD" OwnerRequirementSetId="REQSET_PLAYER_IS_AI" />
+		<Row ModifierId="EX_HANDICAP_HAPPINESS_SCALING" ModifierType="MODIFIER_PLAYER_ADJUST_YIELD" OwnerRequirementSetId="REQSET_PLAYER_IS_AI" />
+		<Row ModifierId="EX_HANDICAP_SCIENCE_SCALING" ModifierType="MODIFIER_PLAYER_ADJUST_YIELD" OwnerRequirementSetId="REQSET_PLAYER_IS_AI" />
+		<Row ModifierId="EX_HANDICAP_CONSTRUCTIBLE_PRODUCTION_SCALING" ModifierType="MODIFIER_PLAYER_ADJUST_CONSTRUCTIBLE_PRODUCTION" OwnerRequirementSetId="REQSET_PLAYER_IS_AI" />
+		<Row ModifierId="EX_HANDICAP_UNITS_PRODUCTION_SCALING" ModifierType="MODIFIER_PLAYER_ADJUST_UNIT_PRODUCTION" OwnerRequirementSetId="REQSET_PLAYER_IS_AI" />
+		<Row ModifierId="EX_HANDICAP_CITY_WALLS" ModifierType="MODIFIER_PLAYER_GRANT_CITY_WALLS" OwnerRequirementSetId="REQSET_AI_EX_WALLS" SubjectRequirementSetID="REQSET_ONLY_CITIES" Permanent="1" />
+		<Row ModifierId="EX_HANDICAP_TOWN_WALLS" ModifierType="MODIFIER_PLAYER_GRANT_TOWN_WALLS" OwnerRequirementSetId="REQSET_AI_EX_WALLS" SubjectRequirementSetID="REQSET_ONLY_TOWNS" Permanent="1" />
+	</Modifiers>
+	<ModifierArguments>
+		<Row ModifierId="EX_HANDICAP_CULTURE_SCALING" Name="YieldType" Value="YIELD_CULTURE" />
+		<Row ModifierId="EX_HANDICAP_CULTURE_SCALING" Name="Percent" Value="10" />
+		<Row ModifierId="EX_HANDICAP_GOLD_SCALING" Name="YieldType" Value="YIELD_GOLD" />
+		<Row ModifierId="EX_HANDICAP_GOLD_SCALING" Name="Percent" Value="10" />
+		<Row ModifierId="EX_HANDICAP_HAPPINESS_SCALING" Name="YieldType" Value="YIELD_HAPPINESS" />
+		<Row ModifierId="EX_HANDICAP_HAPPINESS_SCALING" Name="Percent" Value="10" />
+		<Row ModifierId="EX_HANDICAP_SCIENCE_SCALING" Name="YieldType" Value="YIELD_SCIENCE" />
+		<Row ModifierId="EX_HANDICAP_SCIENCE_SCALING" Name="Percent" Value="10" />
+		<Row ModifierId="EX_HANDICAP_CONSTRUCTIBLE_PRODUCTION_SCALING" Name="Percent" Value="10" />
+		<Row ModifierId="EX_HANDICAP_UNITS_PRODUCTION_SCALING" Name="Percent" Value="10" />
+		<Row ModifierId="EX_HANDICAP_CITY_WALLS" Name="BuildingType" Value="BUILDING_MEDIEVAL_WALLS" />
+		<Row ModifierId="EX_HANDICAP_CITY_WALLS" Name="Amount" Type="NextLowestHandicapValue" Value="0" Extra="1" SecondExtra="EX_HANDICAP_CITY_WALLS" />
+		<Row ModifierId="EX_HANDICAP_TOWN_WALLS" Name="BuildingType" Value="BUILDING_MEDIEVAL_WALLS" />
+		<Row ModifierId="EX_HANDICAP_TOWN_WALLS" Name="Amount" Type="NextLowestHandicapValue" Value="0" Extra="1" SecondExtra="EX_HANDICAP_TOWN_WALLS" />
+	</ModifierArguments>
+	<ModifierStrings>
+		<Row ModifierId="EX_HANDICAP_CULTURE_SCALING" Context="Preview" Text="LOC_DIFFICULTY_CULTURE_NAME"/>
+		<Row ModifierId="EX_HANDICAP_GOLD_SCALING" Context="Preview" Text="LOC_DIFFICULTY_GOLD_NAME"/>
+		<Row ModifierId="EX_HANDICAP_HAPPINESS_SCALING" Context="Preview" Text="LOC_DIFFICULTY_HAPPINESS_NAME"/>
+		<Row ModifierId="EX_HANDICAP_SCIENCE_SCALING" Context="Preview" Text="LOC_DIFFICULTY_SCIENCE_NAME"/>
+		<Row ModifierId="EX_HANDICAP_CONSTRUCTIBLE_PRODUCTION_SCALING" Context="Preview" Text="LOC_DIFFICULTY_BUILDINGS_NAME"/>
+		<Row ModifierId="EX_HANDICAP_UNITS_PRODUCTION_SCALING" Context="Preview" Text="LOC_DIFFICULTY_UNITS_NAME"/>
+	</ModifierStrings>
+	<HandicapSystems>
+		<Row HandicapSystemType="EX_HANDICAP_CITY_WALLS" Name="LOC_DIFFICULTY_CITY_WALLS_NAME" NumLevels="4" />
+		<Row HandicapSystemType="EX_HANDICAP_TOWN_WALLS" Name="LOC_DIFFICULTY_TOWN_WALLS_NAME" NumLevels="2" />
+	</HandicapSystems>
+	<StandardHandicaps>
+		<Row DifficultyType="DIFFICULTY_SETTLER" HandicapSystemType="EX_HANDICAP_CITY_WALLS" HandicapLevel="0" />
+		<Row DifficultyType="DIFFICULTY_PRINCE" HandicapSystemType="EX_HANDICAP_CITY_WALLS" HandicapLevel="0" />
+		<Row DifficultyType="DIFFICULTY_KING" HandicapSystemType="EX_HANDICAP_CITY_WALLS" HandicapLevel="1" />
+		<Row DifficultyType="DIFFICULTY_EMPEROR" HandicapSystemType="EX_HANDICAP_CITY_WALLS" HandicapLevel="2" />
+		<Row DifficultyType="DIFFICULTY_IMMORTAL" HandicapSystemType="EX_HANDICAP_CITY_WALLS" HandicapLevel="3" />
+		<Row DifficultyType="DIFFICULTY_DEITY" HandicapSystemType="EX_HANDICAP_CITY_WALLS" HandicapLevel="4" />
+		<Row DifficultyType="DIFFICULTY_SETTLER" HandicapSystemType="EX_HANDICAP_TOWN_WALLS" HandicapLevel="0" />
+		<Row DifficultyType="DIFFICULTY_PRINCE" HandicapSystemType="EX_HANDICAP_TOWN_WALLS" HandicapLevel="0" />
+		<Row DifficultyType="DIFFICULTY_KING" HandicapSystemType="EX_HANDICAP_TOWN_WALLS" HandicapLevel="0" />
+		<Row DifficultyType="DIFFICULTY_EMPEROR" HandicapSystemType="EX_HANDICAP_TOWN_WALLS" HandicapLevel="0" />
+		<Row DifficultyType="DIFFICULTY_IMMORTAL" HandicapSystemType="EX_HANDICAP_TOWN_WALLS" HandicapLevel="1" />
+		<Row DifficultyType="DIFFICULTY_DEITY" HandicapSystemType="EX_HANDICAP_TOWN_WALLS" HandicapLevel="1" />
+	</StandardHandicaps>
+</Database>

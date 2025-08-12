@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_MODULE_NEPAL_DESCRIPTION" Language="pt_BR">
+      <Text>Contém uma nova Civilização da Era Moderna: Nepal.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NEPAL_NAME" Language="pt_BR">
+      <Text>Nepal</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NEPAL_DESCRIPTION" Language="fr_FR">
+      <Text>Contient une nouvelle civilisation de l'Âge moderne : le Népal.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NEPAL_NAME" Language="fr_FR">
+      <Text>Népal</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NEPAL_DESCRIPTION" Language="de_DE">
+      <Text>Enthält eine neue Zivilisation des Zeitalters der Moderne: Nepal.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NEPAL_NAME" Language="de_DE">
+      <Text>Nepal</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NEPAL_DESCRIPTION" Language="it_IT">
+      <Text>Contiene una nuova civiltà di epoca moderna, il Nepal.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NEPAL_NAME" Language="it_IT">
+      <Text>Nepal</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NEPAL_DESCRIPTION" Language="ja_JP">
+      <Text>新たな近代の文明「ネパール」を含みます。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NEPAL_NAME" Language="ja_JP">
+      <Text>ネパール</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NEPAL_DESCRIPTION" Language="ko_KR">
+      <Text>새로운 근대 시대 문명 네팔이 포함되어 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NEPAL_NAME" Language="ko_KR">
+      <Text>네팔</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NEPAL_DESCRIPTION" Language="pl_PL">
+      <Text>Zawiera nową cywilizację epoki nowożytnej – Nepal.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NEPAL_NAME" Language="pl_PL">
+      <Text>Nepal</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NEPAL_DESCRIPTION" Language="ru_RU">
+      <Text>Содержит новую цивилизацию современной эпохи — Непал.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NEPAL_NAME" Language="ru_RU">
+      <Text>Непал</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NEPAL_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>包含1个新近世时代文明：尼泊尔。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NEPAL_NAME" Language="zh_Hans_CN">
+      <Text>尼泊尔</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NEPAL_DESCRIPTION" Language="es_ES">
+      <Text>Contiene una nueva civilización de la Edad Moderna: Nepal.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NEPAL_NAME" Language="es_ES">
+      <Text>Nepal</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NEPAL_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>包含一個新的近代文明——尼泊爾。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NEPAL_NAME" Language="zh_Hant_HK">
+      <Text>尼泊爾</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

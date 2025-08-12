@@ -1,0 +1,80 @@
+<Database>
+	<NamedRiverCivilizations>
+		<Row NamedRiverType="ACHELOUS_RIVER" CivilizationType="CIVILIZATION_GREECE"/>
+		<Row NamedRiverType="ALIGIDE_RIVER" CivilizationType="CIVILIZATION_AKSUM"/>
+		<Row NamedRiverType="ARNO_RIVER" CivilizationType="CIVILIZATION_ROME"/>
+		<Row NamedRiverType="ATBARAH_RIVER" CivilizationType="CIVILIZATION_AKSUM"/>
+		<Row NamedRiverType="AWASH_RIVER" CivilizationType="CIVILIZATION_AKSUM"/>
+		<Row NamedRiverType="BAHR_YUSSEF" CivilizationType="CIVILIZATION_EGYPT"/>
+		<Row NamedRiverType="BARKA_RIVER" CivilizationType="CIVILIZATION_AKSUM"/>
+		<Row NamedRiverType="BELIZE_RIVER" CivilizationType="CIVILIZATION_MAYA"/>
+		<Row NamedRiverType="BLUE_NILE_RIVER" CivilizationType="CIVILIZATION_AKSUM"/>
+		<Row NamedRiverType="BRAHMAPUTRA_RIVER" CivilizationType="CIVILIZATION_MAURYA"/>
+		<Row NamedRiverType="CHIXOY_RIVER" CivilizationType="CIVILIZATION_MAYA"/>
+		<Row NamedRiverType="DAMAS_RIVER" CivilizationType="CIVILIZATION_AKSUM"/>
+		<Row NamedRiverType="DAMIETTA_RIVER" CivilizationType="CIVILIZATION_EGYPT"/>
+		<Row NamedRiverType="EUROTAS_RIVER" CivilizationType="CIVILIZATION_GREECE"/>
+		<Row NamedRiverType="GANGES_RIVER" CivilizationType="CIVILIZATION_MAURYA"/>
+		<Row NamedRiverType="GRIJALVA_RIVER" CivilizationType="CIVILIZATION_MAYA"/>
+		<Row NamedRiverType="HADDAS_RIVER" CivilizationType="CIVILIZATION_AKSUM"/>
+		<Row NamedRiverType="HALIACMON_RIVER" CivilizationType="CIVILIZATION_GREECE"/>
+		<Row NamedRiverType="HONDO_RIVER" CivilizationType="CIVILIZATION_MAYA"/>
+		<Row NamedRiverType="INDUS_RIVER" CivilizationType="CIVILIZATION_MAURYA"/>
+		<Row NamedRiverType="JAJRUD_RIVER" CivilizationType="CIVILIZATION_PERSIA"/>
+		<Row NamedRiverType="KARKHEH_RIVER" CivilizationType="CIVILIZATION_PERSIA"/>
+		<Row NamedRiverType="KARUN_RIVER" CivilizationType="CIVILIZATION_PERSIA"/>
+		<Row NamedRiverType="KSHIPRA_RIVER" CivilizationType="CIVILIZATION_MAURYA"/>
+		<Row NamedRiverType="MARITSA_RIVER" CivilizationType="CIVILIZATION_GREECE"/>
+		<Row NamedRiverType="MOTAGUA_RIVER" CivilizationType="CIVILIZATION_MAYA"/>
+		<Row NamedRiverType="NARMADA_RIVER" CivilizationType="CIVILIZATION_MAURYA"/>
+		<Row NamedRiverType="NESTOS_RIVER" CivilizationType="CIVILIZATION_GREECE"/>
+		<Row NamedRiverType="NILE_RIVER" CivilizationType="CIVILIZATION_EGYPT"/>
+		<Row NamedRiverType="OFANTO_RIVER" CivilizationType="CIVILIZATION_ROME"/>
+		<Row NamedRiverType="PO_RIVER" CivilizationType="CIVILIZATION_ROME"/>
+		<Row NamedRiverType="ROSETTA_RIVER" CivilizationType="CIVILIZATION_EGYPT"/>
+		<Row NamedRiverType="RUBICON_RIVER" CivilizationType="CIVILIZATION_ROME"/>
+		<Row NamedRiverType="SAMALA_RIVER" CivilizationType="CIVILIZATION_MAYA"/>
+		<Row NamedRiverType="SARASWATI_RIVER" CivilizationType="CIVILIZATION_MAURYA"/>
+		<Row NamedRiverType="SEFID_RIVER" CivilizationType="CIVILIZATION_PERSIA"/>
+		<Row NamedRiverType="STRUMA_RIVER" CivilizationType="CIVILIZATION_GREECE"/>
+		<Row NamedRiverType="TIBER_RIVER" CivilizationType="CIVILIZATION_ROME"/>
+		<Row NamedRiverType="USUMACINTA_RIVER" CivilizationType="CIVILIZATION_MAYA"/>
+		<Row NamedRiverType="VARDAR_RIVER" CivilizationType="CIVILIZATION_GREECE"/>
+		<Row NamedRiverType="WADI_FEIRAN" CivilizationType="CIVILIZATION_EGYPT"/>
+		<Row NamedRiverType="YAMUNA_RIVER" CivilizationType="CIVILIZATION_MAURYA"/>
+		<Row NamedRiverType="ZAYANDE_RIVER" CivilizationType="CIVILIZATION_PERSIA"/>
+		<!--Han-->
+		<Row NamedRiverType="HAI_RIVER" CivilizationType="CIVILIZATION_HAN"/>
+		<Row NamedRiverType="PEARL_RIVER" CivilizationType="CIVILIZATION_HAN"/>
+		<Row NamedRiverType="TARIM_RIVER" CivilizationType="CIVILIZATION_HAN"/>
+		<Row NamedRiverType="WEI_RIVER" CivilizationType="CIVILIZATION_HAN"/>
+		<Row NamedRiverType="YANGTZE_RIVER" CivilizationType="CIVILIZATION_HAN"/>
+		<Row NamedRiverType="YELLOW_RIVER" CivilizationType="CIVILIZATION_HAN"/>
+	</NamedRiverCivilizations>
+	<NamedVolcanoCivilizations>
+		<Row NamedVolcanoType="VOLCANO_ALU_DALAFILLA" CivilizationType="CIVILIZATION_AKSUM"/>
+		<Row NamedVolcanoType="VOLCANO_CHI_Q_AQ" CivilizationType="CIVILIZATION_MAYA"/>
+		<Row NamedVolcanoType="VOLCANO_DABBAHU_VOLCANO" CivilizationType="CIVILIZATION_AKSUM"/>
+		<Row NamedVolcanoType="VOLCANO_DALLOL_VOLCANO" CivilizationType="CIVILIZATION_AKSUM"/>
+		<Row NamedVolcanoType="VOLCANO_DAMAVAND" CivilizationType="CIVILIZATION_PERSIA"/>
+		<Row NamedVolcanoType="VOLCANO_ERTA_ALE" CivilizationType="CIVILIZATION_AKSUM"/>
+		<Row NamedVolcanoType="VOLCANO_GAGXANUL" CivilizationType="CIVILIZATION_MAYA"/>
+		<Row NamedVolcanoType="VOLCANO_HUNAHPU" CivilizationType="CIVILIZATION_MAYA"/>
+		<Row NamedVolcanoType="VOLCANO_MANDA_HARARO" CivilizationType="CIVILIZATION_AKSUM"/>
+		<Row NamedVolcanoType="VOLCANO_METHANA_VOLCANO" CivilizationType="CIVILIZATION_GREECE"/>
+		<Row NamedVolcanoType="VOLCANO_MOUNT_ALAYTA" CivilizationType="CIVILIZATION_AKSUM"/>
+		<Row NamedVolcanoType="VOLCANO_MOUNT_ETNA" CivilizationType="CIVILIZATION_ROME"/>
+		<Row NamedVolcanoType="VOLCANO_MOUNT_SABALAN" CivilizationType="CIVILIZATION_PERSIA"/>
+		<Row NamedVolcanoType="VOLCANO_MOUNT_VESUVIUS" CivilizationType="CIVILIZATION_ROME"/>
+		<Row NamedVolcanoType="VOLCANO_NISYROS" CivilizationType="CIVILIZATION_GREECE"/>
+		<Row NamedVolcanoType="VOLCANO_PACAYA" CivilizationType="CIVILIZATION_MAYA"/>
+		<Row NamedVolcanoType="VOLCANO_PHLEGRAEAN_FIELDS" CivilizationType="CIVILIZATION_ROME"/>
+		<Row NamedVolcanoType="VOLCANO_SAHAND" CivilizationType="CIVILIZATION_PERSIA"/>
+		<Row NamedVolcanoType="VOLCANO_STROMBOLI" CivilizationType="CIVILIZATION_ROME"/>
+		<Row NamedVolcanoType="VOLCANO_VOLCAN_ATITLAN" CivilizationType="CIVILIZATION_MAYA"/>
+		<Row NamedVolcanoType="VOLCANO_VOLCAN_TOLIMAN" CivilizationType="CIVILIZATION_MAYA"/>
+		<Row NamedVolcanoType="VOLCANO_VULSINI" CivilizationType="CIVILIZATION_ROME"/>
+		<!--Han-->
+		<Row NamedVolcanoType="VOLCANO_MOUNT_PAEKTU" CivilizationType="CIVILIZATION_HAN"/>
+	</NamedVolcanoCivilizations>
+</Database>

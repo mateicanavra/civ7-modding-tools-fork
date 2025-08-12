@@ -1,0 +1,157 @@
+@use '../utilities/utility-layout' as *;
+@use '../utilities/utility-text' as *;
+
+panel-radial-menu {
+	.radial-menu__donut {
+		background-image: url("fs://game/radial_donut");
+		background-size: cover;
+		background-repeat: no-repeat;
+		width: pixels(654);
+		height: pixels(654);
+
+		@media (max-height: pixels(820)) {
+			background-image: url("fs://game/radial_donut_sm");
+			width: pixels(543);
+			height: pixels(543);
+		}
+	}
+
+	.radial-menu__circle {
+		background-image: url("fs://game/radial_middle_circle");
+		background-size: cover;
+		background-repeat: no-repeat;
+		bottom: pixels(94);
+		top: pixels(106);
+		left: pixels(100);
+		right: pixels(100);
+
+		@media (max-height: pixels(820)) {
+			background-image: url("fs://game/radial_middle_circle_sm");
+			bottom: pixels(82);
+			top: pixels(78);
+			left: pixels(80);
+			right: pixels(80);
+		}
+	}
+
+	.radial-menu__line-container {
+		@media (max-height: pixels(820)) {
+			bottom: pixels(8);
+			top: pixels(8);
+			left: pixels(8);
+			right: pixels(8);
+		}
+	}
+
+	.radial-menu__line {
+		background-image: url("fs://game/radial_line");
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
+		width: pixels(106);
+		height: pixels(106);
+
+		@media (max-height: pixels(820)) {
+			background-image: url("fs://game/radial_line_sm");
+			width: pixels(86);
+			height: pixels(86);
+		}
+	}
+
+	.radial-menu__item {
+		@media (max-height: pixels(820)) {
+			bottom: pixels(8);
+			top: pixels(8);
+			left: pixels(8);
+			right: pixels(8);
+		}
+	}
+
+	.radial-menu__directional {
+		background-image: url("fs://game/radial_directional");
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
+		width: pixels(180);
+		height: pixels(180);
+
+		@media (max-height: pixels(820)) {
+			background-image: url("fs://game/radial_directional_sm");
+			width: pixels(140);
+			height: pixels(140);
+		}
+	}
+
+	.radial-menu__highlight {
+		background-image: url("fs://game/radial_highlight");
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
+		top: pixels(-117);
+		bottom: pixels(-117);
+		left: pixels(-119);
+		right: pixels(-119);
+
+		@media (max-height: pixels(820)) {
+			background-image: url("fs://game/radial_highlight_sm");
+			top: pixels(-91);
+			bottom: pixels(-91);
+			left: pixels(-92);
+			right: pixels(-92);
+		}
+	}
+
+	.img-tab-bar {
+		border-image-source: url("fs://game/radial_tabbar-bg");
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+
+	.menu-items-arrow-container {
+		@media (max-height: pixels(820)) {
+			bottom: pixels(0);
+		}
+	}
+
+	.radial-menu-item {
+		.radial-menu__highlight {
+			opacity: 0;
+		}
+
+		&:focus {
+			.radial-menu__highlight {
+				opacity: 1;
+			}
+		}
+	}
+
+	.radial-menu__item-description__container {
+		width: pixels(230);
+		height: pixels(230);
+
+		@media (max-height: pixels(820)) {
+			width: pixels(190);
+			height: pixels(190);
+		}
+	}
+
+	.radial-menu__name-filigree-right {
+		display: flex;
+		width: pixels(128);
+		height: pixels(16);
+		background-image: url("fs://game/hud_unit-panel_divider-line");
+		transform: scaleX(-1) scaleY(-1);
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+
+	.radial-menu__name-filigree-left {
+		display: flex;
+		width: pixels(128);
+		height: pixels(16);
+		background-image: url("fs://game/hud_unit-panel_divider-line");
+		transform: scaleY(-1);
+		background-size: cover;
+		background-repeat: no-repeat;
+	}
+}

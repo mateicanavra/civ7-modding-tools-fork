@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_DESCRIPTION" Language="pt_BR">
+      <Text>Contém uma nova Líder: Ada Lovelace.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_NAME" Language="pt_BR">
+      <Text>Ada Lovelace</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_DESCRIPTION" Language="fr_FR">
+      <Text>Contient une nouvelle dirigeante : Ada Lovelace.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_NAME" Language="fr_FR">
+      <Text>Ada Lovelace</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_DESCRIPTION" Language="de_DE">
+      <Text>Enthält einen neuen Anführer: Ada Lovelace.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_NAME" Language="de_DE">
+      <Text>Ada Lovelace</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_DESCRIPTION" Language="it_IT">
+      <Text>Contiene un nuovo leader, Ada Lovelace.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_NAME" Language="it_IT">
+      <Text>Ada Lovelace</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_DESCRIPTION" Language="ja_JP">
+      <Text>新たな指導者「エイダ・ラブレス」を含みます。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_NAME" Language="ja_JP">
+      <Text>エイダ・ラブレス</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_DESCRIPTION" Language="ko_KR">
+      <Text>새로운 지도자 에이다 러브레이스가 포함되어 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_NAME" Language="ko_KR">
+      <Text>에이다 러브레이스</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_DESCRIPTION" Language="pl_PL">
+      <Text>Zawiera nowego przywódcę – Adę Lovelace.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_NAME" Language="pl_PL">
+      <Text>Ada Lovelace</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_DESCRIPTION" Language="ru_RU">
+      <Text>Содержит нового лидера — Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_NAME" Language="ru_RU">
+      <Text>Ада Лавлейс</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>包含1位新领袖：埃达·洛夫莱斯。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_NAME" Language="zh_Hans_CN">
+      <Text>埃达·洛夫莱斯</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_DESCRIPTION" Language="es_ES">
+      <Text>Contiene una nueva líder: Ada Lovelace.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_NAME" Language="es_ES">
+      <Text>Ada Lovelace</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>包含一位新的領袖——愛達‧勒芙蕾絲。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_ADA_LOVELACE_NAME" Language="zh_Hant_HK">
+      <Text>愛達‧勒芙蕾絲</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

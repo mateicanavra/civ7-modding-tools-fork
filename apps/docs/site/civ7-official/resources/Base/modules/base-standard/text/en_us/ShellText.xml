@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MAIN_MENU_VERTICAL_SLICE">
+			<Text>Vertical Slice</Text>
+		</Row>
+		<Row Tag="LOC_CONTINUE_AGE_TRANSITION">
+			<Text>Continue Age Transition</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_PLAY_NOW">
+			<Text>Play Now</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_CONTINUE">
+			<Text>continue</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_CONTINUE_INFO">
+			<Text>[B]{1_GameName}[/B][N]{2_LeaderName} of {3_CivilizationName}[N]Turn {4_Turn} of the {5_Age} Age[N]Saved at {6_SaveTimeDate}</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_CREATE_GAME">
+			<Text>create Game</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_NEW_GAME">
+			<Text>new Game</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_MULTIPLAYER">
+			<Text>multiplayer</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_LOAD_GAME">
+			<Text>load Game</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_OPTIONS">
+			<Text>options</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_CREDITS">
+			<Text>Credits</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_CREDITS_DESCRIPTION">
+			<Text>View everyone who brought you Sid Meier's Civilization VII</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_BENCHMARK_GRAPHICS">
+			<Text>Graphics Benchmark</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_BENCHMARK_GRAPHICS_DESCRIPTION">
+			<Text>Measure graphics performance of your machine. Uses current graphics settings.</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_BENCHMARK_AI">
+			<Text>AI Benchmark</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_BENCHMARK_AI_DESCRIPTION">
+			<Text>Measure turn-processing and AI performance of your machine.</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_EVENTS">
+			<Text>events</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_EXTRAS">
+			<Text>Extras</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_ADDITIONAL_CONTENT">
+			<Text>Additional Content</Text>
+		</Row>
+		<Row Tag="LOC_EXTRAS_EXIT_TO_MAIN">
+			<Text>Back to Main Menu</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_META_PROGRESSION">
+			<Text>Your Progress</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_PREMIUM_SERVICES_RETRIEVING_DATA_TITLE">
+			<Text>Retrieving Data</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_PREMIUM_SERVICES_RETRIEVING_DATA">
+			<Text>Retrieving data from server. Please wait...</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_PREMIUM_SERVICES_ERROR_INTERNET_CONNECTION">
+			<Text>Internet connection error. Please try again...</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_PREMIUM_SERVICES_ERROR_NO_PREMIUM_SERVICES">
+			<Text>Missing Online Subscription</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_PREMIUM_SERVICES_ERROR_NO_PREMIUM_SERVICES_XBOX">
+			<Text>Missing Xbox Game Pass Core</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_PREMIUM_SERVICES_ERROR_TIME_OUT">
+			<Text>The server answer has timed out</Text>
+		</Row>
+		<Row Tag="LOC_CREDITS_PLAY">
+			<Text>Play</Text>
+		</Row>
+		<Row Tag="LOC_CREDITS_PAUSE">
+			<Text>Pause</Text>
+		</Row>
+		<Row Tag="LOC_CREDITS_FAST_FORWARD">
+			<Text>Fast Forward</Text>
+		</Row>
+		<Row Tag="LOC_CREDITS_SLOW_DOWN">
+			<Text>Slow Down</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_CONTROLLER_MAPPING">
+			<Text>Controller Mapping</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_EXIT">
+			<Text>Exit</Text>
+		</Row>
+		<Row Tag="LOC_MAIN_MENU_EXIT_DESKTOP">
+			<Text>Exit to Desktop</Text>
+		</Row>
+		<Row Tag="LOC_AGE_CIV_SELECT_TITLE">
+			<Text>Choose Age &amp; Civilization</Text>
+		</Row>
+		<Row Tag="LOC_AGE_SELECT_TITLE">
+			<Text>Choose a Starting Age</Text>
+		</Row>
+		<Row Tag="LOC_AGE_SELECT_SUBTITLE">
+			<Text>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at quam eget orci ullamcorper scelerisque. Cras sed auctor dui, id scelerisque lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</Text>
+		</Row>
+		<Row Tag="LOC_LEADER_SELECT_TITLE">
+			<Text>Choose Leader</Text>
+		</Row>
+		<Row Tag="LOC_LEADER_SELECT_INFO_1">
+			<Text>The Leader you choose will represent you throughout your campaign.</Text>
+		</Row>
+		<Row Tag="LOC_LEADER_SELECT_INFO_2">
+			<Text>Leaders’ unique abilities work best for certain playstyles and victory types.</Text>
+		</Row>
+		<Row Tag="LOC_LEADER_MEMENTOS_TITLE">
+			<Text>Mementos</Text>
+		</Row>
+		<Row Tag="LOC_CIV_SELECT_TITLE">
+			<Text>Choose Your Civilization</Text>
+		</Row>
+		<Row Tag="LOC_CIV_SELECT_INFO_1">
+			<Text>You will need to choose a different Civilization for each age, however.</Text>
+		</Row>
+		<Row Tag="LOC_CIV_SELECT_INFO_2">
+			<Text>Experiment with different combinations of Leader and Civilization to best fit your playstyle.</Text>
+		</Row>
+		<Row Tag="LOC_GAME_SETUP_TITLE">
+			<Text>Settings</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_MULTIPLAYER">
+			<Text>Multiplayer</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_INTERNET">
+			<Text>Internet</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS">
+			<Text>Friends</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LAN">
+			<Text>LAN</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_SETUP_TITLE">
+			<Text>Host Setup</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_TITLE">
+			<Text>Lobby</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_MAIN_TITLE">
+			<Text>Main Menu</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_HOST">
+			<Text>Host</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOCAL_PLAYER">
+			<Text>Local Player</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOCKED_PLAYER">
+			<Text>Locked Player</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_CANT_BE_HUMAN">
+			<Text>This slot is for AI players only.</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_READY">
+			<Text>Ready</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_NOT_READY">
+			<Text>Not Ready</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_KICKPLAYER_TT">
+			<Text>Kick player from game.</Text>
+		</Row>
+		<Row Tag="LOC_ONLINE_REDEEM_ERROR_TITLE">
+			<Text>Redeem error</Text>
+		</Row>
+		<Row Tag="LOC_ONLINE_REDEEM_ERROR_BODY">
+			<Text>Unable to redeem the entitlement. Please try later.</Text>
+		</Row>
+		<Row Tag="LOC_UI_MANAGE_MODS">
+			<Text>Manage Mods</Text>
+		</Row>
+		<Row Tag="LOC_UI_CONTENT_MGR_TITLE">
+			<Text>add-ons</Text>
+		</Row>
+		<Row Tag="LOC_UI_CONTENT_MGR_SUBTITLE">
+			<Text>Add-ons</Text>
+		</Row>
+		<Row Tag="LOC_UI_CONTENT_MGR_SUBTITLE_DESCRIPTION">
+			<Text>Manage add-ons for the game, including both player-created mods and official Firaxis add-ons</Text>
+		</Row>
+		<Row Tag="LOC_UI_CONTENT_MGR_DETAILS_TITLE">
+			<Text>Details</Text>
+		</Row>
+		<Row Tag="LOC_UI_CONTENT_MGR_OPEN_UGC_OVERLAY">
+			<Text>Open [icon:steam-workshop] Steam Workshop</Text>
+		</Row>
+		<Row Tag="LOC_UI_CIV_SELECT_TITLE">
+			<Text>Choose Civilization</Text>
+		</Row>
+		<Row Tag="LOC_UI_CIV_SELECT_SUBTITLE">
+			<Text>New Age</Text>
+		</Row>
+		<Row Tag="LOC_UI_SETUP_START_GAME">
+			<Text>Launch Game</Text>
+		</Row>
+		<Row Tag="LOC_UI_SETUP_BACK">
+			<Text>Back</Text>
+		</Row>
+		<Row Tag="LOC_UI_CONNECTION_OK">
+			<Text>You are connected to online services</Text>
+		</Row>
+		<Row Tag="LOC_UI_CONNECTION_FAILED">
+			<Text>You are not connected to online services</Text>
+		</Row>
+		<Row Tag="LOC_UI_NETWORK_CONNECTION_OK">
+			<Text>You have a network connection</Text>
+		</Row>
+		<Row Tag="LOC_UI_NETWORK_CONNECTION_FAILED">
+			<Text>You do not have a network connection</Text>
+		</Row>
+		<Row Tag="LOC_UI_ACCOUNT_OK">
+			<Text>Manage 2K Account</Text>
+		</Row>
+		<Row Tag="LOC_UI_WAITING_SPOP_HEARTBEAT_OK">
+			<Text>Waiting for 2K Servers...</Text>
+		</Row>
+		<Row Tag="LOC_UI_ACCOUNT_LINKED_PROMPT">
+			<Text>2K Account required before opening this page</Text>
+		</Row>
+		<Row Tag="LOC_UI_ACCOUNT_LOGIN_PROMPT">
+			<Text>Login required before opening this page</Text>
+		</Row>
+		<Row Tag="LOC_UI_ACCOUNT_LOGGEDIN_INCOMPLETE">
+			<Text>Log in to complete your 2K Account</Text>
+		</Row>
+		<Row Tag="LOC_UI_ACCOUNT_LINKED_FAILED">
+			<Text>Create, or Link to, your 2K Account</Text>
+		</Row>
+		<Row Tag="LOC_UI_ACCOUNT_LOGGEDIN_FAILED">
+			<Text>Create, or Log in to, your 2K Account</Text>
+		</Row>
+		<Row Tag="LOC_UI_LINK_ACCOUNT_TITLE">
+			<Text>Link or Create 2K Account</Text>
+		</Row>
+		<Row Tag="LOC_UI_LOGIN_ACCOUNT_TITLE">
+			<Text>Log in to your 2K Account</Text>
+		</Row>
+		<Row Tag="LOC_UI_ACCOUNT_BANNED">
+			<Text>Your 2K Account is Banned. Please reach out to 2K support for more information.</Text>
+		</Row>
+		<Row Tag="LOC_UI_LOGOUT_ACCOUNT_TITLE">
+			<Text>2K Account Logout</Text>
+		</Row>
+		<Row Tag="LOC_UI_ACCOUNT_TITLE">
+			<Text>2K Account</Text>
+		</Row>
+		<Row Tag="LOC_REWARDS_TITLE">
+			<Text>Rewards</Text>
+		</Row>
+		<Row Tag="LOC_NO_REWARDS_AVAIALBE">
+			<Text>No New Rewards</Text>
+		</Row>
+		<Row Tag="LOC_UI_RELAY_FAILURE_TITLE">
+			<Text>Lost server connection</Text>
+		</Row>
+		<Row Tag="LOC_UI_LINK_ACCOUNT_SUBTITLE">
+			<Text>2K Account</Text>
+		</Row>
+		<Row Tag="LOC_UI_LINK_ACCOUNT_CLOSE">
+			<Text>Close</Text>
+		</Row>
+		<Row Tag="LOC_UI_LINK_ACCOUNT_LINK">
+			<Text>Link your 2K Account</Text>
+		</Row>
+		<Row Tag="LOC_UI_LINK_ACCOUNT_CREATE">
+			<Text>Create a 2K Account</Text>
+		</Row>
+		<Row Tag="LOC_UI_LINK_ACCOUNT_CREATE_SUCCESS">
+			<Text>Your 2K Account has been created and linked.  Check your email for details.</Text>
+		</Row>
+		<Row Tag="LOC_UI_LINK_ACCOUNT_INCOMPLETE">
+			<Text>Please complete your 2K Account</Text>
+		</Row>
+		<Row Tag="LOC_UI_LINK_ACCOUNT_REQUIRED">
+			<Text>A 2K Account must be linked</Text>
+		</Row>
+		<Row Tag="LOC_UI_GAME_CENTER_TITLE">
+			<Text>Connect to Game Center</Text>
+		</Row>
+		<Row Tag="LOC_UI_GAME_CENTER_REQUIRED">
+			<Text>You must be connected to Game Center to use multiplayer functionality</Text>
+		</Row>
+		<Row Tag="LOC_UI_PARENT_PERMISSION_REQUIRED">
+			<Text>Parental/Guardian permission is required</Text>
+		</Row>
+		<Row Tag="LOC_UI_LINK_ACCOUNT_QR_CODE_FETCH">
+			<Text>Fetching account linking info from online services.</Text>
+		</Row>
+		<Row Tag="LOC_UI_LINK_ACCOUNT_QR_CODE">
+			<Text>Sign up (or sign in) for a 2K Account to unlock the potential for exclusive rewards and special offers.  Scan the displayed QR code with your mobile phone or visit: {1_Url} to sign up for an account, sign in or manage your account, or review the legal and privacy policies. This QR code and link will only be valid for the next 15 minutes.</Text>
+		</Row>
+		<Row Tag="LOC_UI_ACCOUNT_INCOMPLETE">
+			<Text>Your 2K account is missing details or unverified. Finish setting up your 2K account by scanning the displayed QR code with your mobile phone or visit:{1_Url} This QR code and link will only be valid for the next 15 minutes.</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRIMARY_ACCOUNT_SELECT_TITLE">
+			<Text>Select Primary Platform Account</Text>
+		</Row>
+		<Row Tag="LOC_UI_CURRENT_PRIMARY_ACCOUNT">
+			<Text>Current Primary Platform Account</Text>
+		</Row>
+		<Row Tag="LOC_UI_CURRENT_PLATFORM_ACCOUNT">
+			<Text>Current Local Platform Account</Text>
+		</Row>
+		<Row Tag="LOC_UI_PRIMARY_ACCOUNT_SELECT_WARNING">
+			<Text>Changing primary account will replace your progress. Please confirm.</Text>
+		</Row>
+		<Row Tag="LOC_UI_GO_TO_PORTAL">
+			<Text>To make changes to your 2K account please visit {1_Url}</Text>
+		</Row>
+		<Row Tag="LOC_UI_LINK_ACCOUNT_QR_CODE_FETCH_FAILURE">
+			<Text>(Server error: unable to get 2K Account QR code and URL)</Text>
+		</Row>
+		<Row Tag="LOC_UI_LINK_ACCOUNT_QR_LINK">
+			<Text>The 2K Account exists and is already linked.  Now unlinking your account.</Text>
+		</Row>
+		<Row Tag="LOC_UI_LOGIN_ACCOUNT">
+			<Text>Now logging into your 2K account</Text>
+		</Row>
+		<Row Tag="LOC_UI_OFFLINE_ACCOUNT_TITLE">
+			<Text>Offline Account Detected</Text>
+		</Row>
+		<Row Tag="LOC_UI_FORCE_OFFLINE_ACCOUNT_BODY">
+			<Text>Your system settings may be preventing connection to 2K services. Please check system settings such as system time.</Text>
+		</Row>
+		<Row Tag="LOC_UI_OFFLINE_ACCOUNT_BODY">
+			<Text>Login with an online account to continue</Text>
+		</Row>
+		<Row Tag="LOC_UI_LOCKED_NAPOLEON_NAVIGATE_TO_MAIN_MENU">
+			<Text>You do not have this Leader.  
+				  [n]Sign up (or sign in) and link your 2K Account to unlock {1_Value} for free!  
+				  [n]Would you like to go back to the Main Menu to unlock this Leader?</Text>
+		</Row>
+		<Row Tag="LOC_UI_LEADER_NAPOLEON_ALT_LOCKED">
+			<Text>Own Civilization 6 with an associated 2K account to unlock.</Text>
+		</Row>
+		<Row Tag="LOC_UI_LEADER_REMAINS_LOCKED">
+			<Text>This account does not have access to {1_Leader}</Text>
+		</Row>
+		<Row Tag="LOC_UI_LEADER_UNLOCKED">
+			<Text>Leader Unlocked</Text>
+		</Row>
+		<Row Tag="LOC_UI_HIGH_END_DOWNLOAD_TITLE">
+			<Text>Download High Quality Assets</Text>
+		</Row>
+		<Row Tag="LOC_UI_HIGH_END_DOWNLOAD_BODY">
+			<Text>This game uses high quality assets. Please download them for the greatest experience.</Text>
+		</Row>
+		<Row Tag="LOC_UI_SPOP_LOGOUT_ACCOUNT">
+			<Text>You have been logged out by another session</Text>
+		</Row>
+		<Row Tag="LOC_UI_USER_LOGOUT_ACCOUNT">
+			<Text>You have been logged out</Text>
+		</Row>
+		<Row Tag="LOC_UI_KICK_MP_UNLINK">
+			<Text>2K Account required for multiplayer</Text>
+		</Row>
+		<Row Tag="LOC_UI_PARENTAL_PERMISSION_REVOKED">
+			<Text>Your online permissions have been revoked. Please ask your parent/guardian to enable permissions to continue online.</Text>
+		</Row>
+		<Row Tag="LOC_UI_SPOP_CONFIRM_LOGOUT">
+			<Text>Would you like to log out or manage your 2K Account?</Text>
+		</Row>
+		<Row Tag="LOC_UI_RELAY_FAILURE">
+			<Text>Lost server connection. Check your network connection and restart or rejoin your multiplayer game.</Text>
+		</Row>
+		<Row Tag="LOC_UI_SSO_CONNECTING_SUBTITLE">
+			<Text>CONNECTING TO NETWORK</Text>
+		</Row>
+		<Row Tag="LOC_UI_SSO_PLAY_OFFLINE">
+			<Text>PLAY OFFLINE?</Text>
+		</Row>
+		<Row Tag="LOC_UI_SSO_PLAY_OFFLINE_BODY">
+			<Text>You are not connected to the network. You can play offline, but progress towards challenges will not be recorded. Continue to play offline?
+			</Text>
+		</Row>
+		<Row Tag="LOC_UI_SSO_RETRY">
+			<Text>RETRY</Text>
+		</Row>
+		<Row Tag="LOC_UI_LEGAL_TITLE">
+			<Text>Legal</Text>
+		</Row>
+		<Row Tag="LOC_UI_LEGAL_TITLE_DESCRIPTION">
+			<Text>Review legal documents you've agreed to</Text>
+		</Row>
+		<Row Tag="LOC_UI_LEGAL_SUBTITLE">
+			<Text>Review Documents</Text>
+		</Row>
+		<Row Tag="LOC_UI_LEGAL_ACCEPT">
+			<Text>Accept Document</Text>
+		</Row>
+		<Row Tag="LOC_UI_LEGAL_DECLINE">
+			<Text>Decline Document</Text>
+		</Row>
+		<Row Tag="LOC_UI_LEGAL_ERROR">
+			<Text>Error {1_Value} occurred trying to accept this document.</Text>
+		</Row>
+		<Row Tag="LOC_UI_LEGAL_DECLINED_TITLE">
+			<Text>Document Declined</Text>
+		</Row>
+		<Row Tag="LOC_UI_LEGAL_DECLINED_BODY">
+			<Text>If you do not accept these documents, you will be unable to play and the game will exit.</Text>
+		</Row>
+		<Row Tag="LOC_UI_LEGAL_DECLINED_BODY_CONSOLE">
+			<Text>If you do not accept these documents, you will be unable to play and must exit the game.</Text>
+		</Row>
+		<Row Tag="LOC_UI_LEGAL_PRIVACY_NOTICE">
+			<Text>By selecting Next, you acknowledge that you have read and understand the Privacy Policy.</Text>
+		</Row>
+		<Row Tag="LOC_UI_STORE_LAUNCHER_TITLE">
+			<Text>Collection</Text>
+		</Row>
+		<Row Tag="LOC_UI_STORE_ADDITIONAL_CONTENT">
+			<Text>Add-ons</Text>
+		</Row>
+		<Row Tag="LOC_UI_KICK_SESSION_BODY">
+			<Text>Another instance was detected running. Do you wish to terminate the other session to continue? Declining will logout the current session.</Text>
+		</Row>
+		<Row Tag="LOC_UI_KICK_SESSION_TITTLE">
+			<Text>Multiple sessions detected</Text>
+		</Row>
+		<Row Tag="LOC_UI_STORE_PURCHASED">
+			<Text>Purchased</Text>
+		</Row>
+		<Row Tag="LOC_UI_STORE_BUY">
+			<Text>Buy</Text>
+		</Row>
+		<Row Tag="LOC_UI_STORE_AVAILABLE_NOW">
+			<Text>Available Now</Text>
+		</Row>
+		<Row Tag="LOC_SOCIAL_PRESENCE_MAINMENU">
+			<Text>MainMenu</Text>
+		</Row>
+		<Row Tag="LOC_SOCIAL_PRESENCE_MULTIPLAYER">
+			<Text>Multiplayer</Text>
+		</Row>
+		<Row Tag="LOC_SOCIAL_PRESENCE_SINGLEPLAYER">
+			<Text>Singleplayer</Text>
+		</Row>
+		<Row Tag="LOC_SOCIAL_NOTIFICATION_GAME_INVITE_RECEIVED">
+			<Text>Game Invite</Text>
+		</Row>
+		<Row Tag="LOC_SOCIAL_NOTIFICATION_FRIEND_INVITE_RECEIVED">
+			<Text>Wants To Be Your Friend</Text>
+		</Row>
+		<Row Tag="LOC_SOCIAL_NOTIFICATION_FRIEND_INVITE_SENT">
+			<Text>Friend Pending</Text>
+		</Row>
+		<Row Tag="LOC_TEAMS_TOO_MANY_PLAYERS">
+			<Text>There are too many players on one team</Text>
+		</Row>
+		<!-- Staging Room Text BEGIN -->
+		<Row Tag="LOC_SLOT_ACTION_OPEN">
+			<Text>Open Slot</Text>
+		</Row>
+		<Row Tag="LOC_SLOT_ACTION_CLOSE">
+			<Text>Close Slot</Text>
+		</Row>
+		<Row Tag="LOC_SLOT_ACTION_AI">
+			<Text>AI Player</Text>
+		</Row>
+		<Row Tag="LOC_SLOT_ACTION_SWAP_REQUEST">
+			<Text>Swap to Slot</Text>
+		</Row>
+		<Row Tag="LOC_SLOT_ACTION_KICK_PLAYER">
+			<Text>Kick Player</Text>
+		</Row>
+		<Row Tag="LOC_SLOT_ACTION_KICK_PLAYER_DISABLED">
+			<Text>Kick Player. Unavailable for now.</Text>
+		</Row>
+		<Row Tag="LOC_SLOT_ACTION_MUTE">
+			<Text>Mute</Text>
+		</Row>
+		<Row Tag="LOC_SLOT_ACTION_UNMUTE">
+			<Text>Unmute</Text>
+		</Row>
+		<!-- Staging Room Text END -->
+	</EnglishText>
+</Database>

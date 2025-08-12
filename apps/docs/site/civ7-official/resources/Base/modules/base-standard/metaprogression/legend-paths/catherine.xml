@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metaprogression xmlns="Metaprogression">
+	<legendPath id="LEGEND_PATH_CATHERINE" type="CHALLENGE_CLASS_LEADER">
+		<sortIndex>40</sortIndex>
+		<level level="2">
+			<reward reward="MEMENTO_CATHERINE_EAGLE_BANNER"/>
+		</level>
+		<level level="3">
+			<reward reward="NODE_ATTRIBUTE_CULTURAL_LEGEND_CATHERINE_L1"/>
+		</level>
+		<level level="4">
+			<reward reward="STRATEGYCARD_CATHERINE_EXPLORATION_1"/>
+			<reward reward="STRATEGYCARD_CATHERINE_EXPLORATION_2"/>
+		</level>
+		<level level="5">
+			<reward reward="MEMENTO_CATHERINE_POTEMKINS_SWORD_KNOT"/>
+		</level>
+		<level level="6">
+			<reward reward="BANNER_CATHERINE"/>
+			<reward reward="BADGE_CATHERINE"/>
+		</level>
+		<level level="7">
+			<reward reward="NODE_ATTRIBUTE_SCIENTIFIC_LEGEND_CATHERINE_L2"/>
+		</level>
+		<level level="8">
+			<reward reward="STRATEGYCARD_CATHERINE_MODERN_1"/>
+			<reward reward="STRATEGYCARD_CATHERINE_MODERN_2"/>
+		</level>
+		<level level="9">
+			<reward reward="MEMENTO_CATHERINE_GREAT_IMPERIAL_CROWN"/>
+		</level>
+		<level level="10">
+			<reward reward="TITLE_CATHERINE"/>
+			<reward reward="BADGE_CATHERINE_P"/>
+		</level>
+	</legendPath>
+</metaprogression>

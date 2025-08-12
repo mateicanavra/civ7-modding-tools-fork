@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="Definitions">
+	<definition name="VictoryClass" table-name="VictoryClasses" cpp="true">
+		<field name="VictoryClassType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+	</definition>
+	<definition name="Victory" table-name="Victories" cpp="true">
+		<field name="VictoryType" type="Text" key="true" not-null="true"/>
+		<field name="VictoryClassType" type="Text" not-null="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="Description" type="Text"/>
+		<field name="RequirementSetId" type="Text" not-null="true"/>
+		<field name="EnabledByDefault" type="Bool" value="1" not-null="true"/>
+		<field name="RequiresMultipleTeams" type="Bool" value="false" not-null="true"/>
+		<field name="LegacyPathClassType" type="Text" value="NO_LEGACY_PATH_CLASS" not-null="true" hash="true"/>
+		<reference source="VictoryClassType" target="VictoryClassType" to="VictoryClass"/>
+		<reference source="RequirementSetId" target="RequirementSetId" sourceRoleName="RequirementSetRef" to="RequirementSets"/>
+		<property name="RequirementSetReference" path="RequirementSetRef"/>
+	</definition>
+	<definition name="VictoryCinematic" table-name="VictoryCinematics" cpp="true">
+		<field name="VictoryType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="VictoryCinematicType" type="Text" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<reference source="VictoryType" target="VictoryType" sourceRoleName="VictoryRef" targetRoleName="VictoriesNotificationRef" to="Victory"/>
+	</definition>
+	<definition name="Defeat" table-name="Defeats" cpp="true">
+		<field name="DefeatType" type="Text" key="true" not-null="true"/>
+		<field name="Name" type="LocalizedText" not-null="true"/>
+		<field name="Blurb" type="LocalizedText" not-null="true"/>
+		<field name="RequirementSetId" type="Text"/>
+		<field name="EnabledByDefault" type="Bool" value="1" not-null="true"/>
+		<field name="Global" description="A global defeat is attached to the game itself.  If triggered, everyone loses." type="Bool" value="0" not-null="true"/>
+		<field name="AllowOneMoreTurn" description="Whether or not the defeat allows one more turn." type="Bool" value="0" not-null="true"/>
+		<field name="AllowAgeTransition" description="Whether or not the defeat allows age transitioning." type="Bool" value="0" not-null="true"/>
+		<reference source="DefeatType" target="Type" to="Type"/>
+		<reference source="RequirementSetId" target="RequirementSetId" to="RequirementSets"/>
+	</definition>
+</definitions>

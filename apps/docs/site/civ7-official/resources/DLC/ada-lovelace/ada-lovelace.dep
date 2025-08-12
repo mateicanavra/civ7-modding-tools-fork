@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<AssetObjects..GameDependencyData>
+	<ID>
+		<name text="ada-lovelace"/>
+		<id text="580e04ba-6bfd-4ffd-b5e6-9bb68e70d371"/>
+	</ID>
+	<RequiredGameArtIDs>
+		<Element>
+			<name text="Civ7"/>
+			<id text="F5D94984-9531-46FF-92D9-3B65894F212B"/>
+		</Element>
+		<Element>
+			<name text="ada-lovelace-shell"/>
+			<id text="92CF7DC7-656C-4CAD-9CEC-49874AC728DE"/>
+		</Element>
+	</RequiredGameArtIDs>
+	<LibraryDependencies>
+		<Element>
+			<LibraryName text="TiledMaterialLibrary"/>
+			<LibraryHash>3419754368</LibraryHash>
+			<PackageNames>
+				<Element text="Material"/>
+			</PackageNames>
+		</Element>
+		<Element>
+			<LibraryName text="StandardAsset"/>
+			<LibraryHash>3471015496</LibraryHash>
+			<PackageNames>
+				<Element text="StandardAsset"/>
+			</PackageNames>
+		</Element>
+		<Element>
+			<LibraryName text="ScriptLibrary"/>
+			<LibraryHash>219262143</LibraryHash>
+			<PackageNames>
+				<Element text="VFX"/>
+				<Element text="Script"/>
+			</PackageNames>
+		</Element>
+		<Element>
+			<LibraryName text="UI"/>
+			<LibraryHash>2079568635</LibraryHash>
+			<PackageNames>
+				<Element text="UI"/>
+				<Element text="icons_standard"/>
+				<Element text="icons_antiquity"/>
+				<Element text="icons_exploration"/>
+				<Element text="UISlugs"/>
+			</PackageNames>
+		</Element>
+	</LibraryDependencies>
+</AssetObjects..GameDependencyData>
+

@@ -1,0 +1,7 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use "sass:math";
+@use '../../../core/ui/themes/default/baseColors';
+
+screen-tech-civic-complete {
+	width: pixels(479); // must be this width or things will stretch/not fit correctly
+}

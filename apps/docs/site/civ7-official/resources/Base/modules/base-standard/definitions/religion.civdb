@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="Definitions">
+	<definition name="Religion" table-name="Religions" cpp="true">
+		<field name="ReligionType" type="Text" key="true" unique="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="IconString" type="Text" not-null="true"/>
+		<field name="Pantheon" type="Bool" value="0" not-null="true"/>
+		<field name="RequiresCustomName" type="Bool" value="false" not-null="true"/>
+		<field name="Color" description="Maps to the &quot;Type&quot; column in the &quot;Colors&quot; table. " type="Text" not-null="true"/>
+		<reference source="ReligionType" target="Type" to="Type"/>
+	</definition>
+	<definition name="BeliefClass" table-name="BeliefClasses" cpp="true">
+		<field name="BeliefClassType" type="Text" key="true" unique="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="MaxInReligion" type="Integer" value="1" not-null="true"/>
+		<field name="AdoptionOrder" type="Integer" value="1" not-null="true"/>
+	</definition>
+	<definition name="Belief" table-name="Beliefs" cpp="true">
+		<field name="BeliefType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="Description" type="Text" not-null="true"/>
+		<field name="BeliefClassType" type="Text" not-null="true" hash="true"/>
+		<field name="Shareable" type="Bool" value="false" not-null="true"/>
+		<reference source="BeliefClassType" target="BeliefClassType" sourceRoleName="BeliefClassTypeRef" to="BeliefClass"/>
+		<reference source="BeliefType" target="Type" to="Type"/>
+		<property name="BeliefClassTypeReference" path="BeliefClassTypeRef"/>
+		<property name="PriorityCollection" path="ListCollectionRef"/>
+	</definition>
+	<definition name="BeliefModifier" table-name="BeliefModifiers" cpp="false">
+		<field name="BeliefType" type="Text" key="true" not-null="true"/>
+		<field name="ModifierID" type="Text" key="true" not-null="true"/>
+		<reference source="BeliefType" target="BeliefType" to="Belief"/>
+	</definition>
+	<definition name="Ideology" table-name="Ideologies" cpp="true">
+		<field name="IdeologyType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="ProgressionTreeType" type="Text" unique="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text" unique="true" not-null="true"/>
+		<field name="FirstTreeNode" type="Text" not-null="true" hash="true"/>
+		<field name="RivalIdeology" type="Text" hash="true"/>
+		<reference source="ProgressionTreeType" target="ProgressionTreeType" sourceRoleName="ProgressionTreeRef" on-delete="SetNULL" to="ProgressionTree"/>
+		<reference source="FirstTreeNode" target="ProgressionTreeNodeType" sourceRoleName="ProgressionTreeNodeRef" to="ProgressionTreeNode"/>
+		<reference source="RivalIdeology" target="IdeologyType" sourceRoleName="RivalIdeologyRef" to="Ideology"/>
+		<property name="ProgressionTreeReference" path="ProgressionTreeRef"/>
+		<property name="ProgressionTreeNodeReference" path="ProgressionTreeNodeRef"/>
+		<property name="IdeologyAdoptionCollection" path="IdeologyAdoptionCollection"/>
+		<property name="IdeologyPriorityCollection" path="IdeologyPriorityCollection"/>
+		<property name="RivalIdeologyReference" path="RivalIdeologyRef"/>
+	</definition>
+	<definition name="IdeologyAdoptionModifier" table-name="IdeologyAdoptionModifiers" cpp="true">
+		<field name="IdeologyType" type="Text" key="true" not-null="true"/>
+		<field name="AdoptionOrder" type="Integer" key="true" not-null="true"/>
+		<field name="ModifierId" type="Text" not-null="true"/>
+		<reference source="IdeologyType" target="IdeologyType" targetRoleName="IdeologyAdoptionCollection" to="Ideology"/>
+	</definition>
+	<definition name="IdeologyPriority" table-name="IdeologyPriorities" cpp="true">
+		<field name="IdeologyType" type="Text" key="true" not-null="true"/>
+		<field name="AiListType" type="Text" key="true" not-null="true"/>
+		<reference source="IdeologyType" target="IdeologyType" targetRoleName="IdeologyPriorityCollection" to="Ideology"/>
+	</definition>
+	<definition name="FavoredReligion" description="Table of suggested religions. Will try to match leader first, then civ, then random pick" table-name="FavoredReligions" cpp="true">
+		<field name="LeaderType" type="Text" key="true"/>
+		<field name="CivilizationType" type="Text" key="true"/>
+		<field name="ReligionType" type="Text" key="true" not-null="true"/>
+		<reference source="ReligionType" target="ReligionType" sourceRoleName="ReligionRef" to="Religion"/>
+		<reference source="LeaderType" target="LeaderType" targetRoleName="ReligionCollection" to="Leader"/>
+		<reference source="CivilizationType" target="CivilizationType" targetRoleName="ReligionCollection" to="Civilization"/>
+	</definition>
+</definitions>

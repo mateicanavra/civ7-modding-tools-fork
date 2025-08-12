@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- CIVILIZATION_NEPAL -->
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_1">
+			<Text>Nepal exists at both the edge and the center of the world: nestled in the valleys of some of the highest places on Earth, and at the same time caught between two of the world’s largest nations: geopolitical proximity has allowed it to be a source of trade and resources, while geographical precarity has allowed it to survive. Internally, Nepal is a mixture of largely Buddhist highland peoples, and a largely Hindu lowland majority. In this latter, states arose with varying degrees of interaction with the highlands, creating a balance of power that was as much about coexistence as control: the Hindu Newars and Chhatri of the lowlands formed the core of states, but relied upon the transportation and resource networks of Tamang and Sherpa highlanders.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_2">
+			<Text>On the northern frontier of India, and in amongst the high mountain valleys, Nepalese kingdoms existed as tributary states since the fist millennium CE, where the name “Nepala” flickers in an out of the inscriptions of states such as the Guptas. They emerge in force in the 10th century CE, with the founding of Kathmandu, but it is not until the 18th century that a significant power arises – the Gorkha Dynasty, and its founder, Prithvi Narayan Shah.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_3">
+			<Text>This was a time of the Muslim-dominated Mughal rule in India, but Mughal troops, reliant upon horse, camel or elephant cavalry, found the steep and cold valleys difficult to control, and highland supply lines to China impossible to encircle. Thus, Nepal became a Hindu holdout as Muslim sultanates and empires warred to their south. When the British entered the scene in India, they, too, found they could not hold the region, though in the Anglo-Nepalese War (1814-1816) they extracted territorial concessions from the more poorly-armed Nepalis and set Nepal up as a protectorate.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_4">
+			<Text>This protection led to isolationism under the subsequent Rana dynasty, who allied closely with the British in conflicts ranging from the Indian Rebellion to World War II. Rana-era Nepal was an autocratic and isolationist kingdom that retained its independence owing to its skillful alliances, harsh geography, and strategic geopolitical positioning.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_5">
+			<Text>The Rana rose to power on the basis of coups d’etat and assassination, controlling the monarchy via the office of Prime Minister and, at times, enforcing this power via targeted palace murders. Rana loyalty to England, too, was a strategic positioning – its founder, Jung Bahadur, toured British military installations in England and determined that the British were far too powerful to take on. Instead, the Rana gave the British support during the Indian Rebellion of 1857, as well as the elite Gurkha corps that fought with the British in Afghanistan and the two World Wars.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_6">
+			<Text>This regime was eventually to fall in the late 1950s, as the Ranas gave way to a period of instability, where constitutional monarchy and monarchical dictatorship vied with each other, just as frustration gave rise to a Communist insurgency. The monarchy then ended after a dramatic massacre in the royal palace in 2001; in 2008, Nepal’s monarchy was officially disbanded.</Text>
+		</Row>
+		<!-- WONDER_BOUDHANATH -->
+		<Row Tag="LOC_PEDIA_PAGE_WONDER_BOUDHANATH_CHAPTER_HISTORY_PARA_1">
+			<Text>Boudhanath refers to the district surrounding the Boudha Stupa, the central Buddhist monument of Nepal (an otherwise predominately Hindu country). It is a Buddhist enclave in the city, home to a community of monasteries and worship sites, and its central stupa with its white dome and twin eyes is a symbol of the city and of Nepal in general.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_WONDER_BOUDHANATH_CHAPTER_HISTORY_PARA_2">
+			<Text>According to legend, the stupa was built by a daughter of Indra, who, cast out of the heavens, sought to build a monument to replenish her own store of merit. From here, the legend has it that Buddhist missionaries set out to teach the dharma northwards and upwards, into the icy peaks and Tibetan plateau where, indeed, most of Nepal’s Buddhists now live.</Text>
+		</Row>
+		<!-- IMPROVEMENT_HIGHLAND_POWER_STATION-->
+		<Row Tag="LOC_PEDIA_PAGE_IMPROVEMENT_HIGHLAND_POWER_STATION_CHAPTER_HISTORY_PARA_1">
+			<Text>In 1911, Nepal opened its first hydroelectric power station – only shortly after hydropower had appeared in the United States and India. The country seems suited for it, with dramatic elevation differences and plentiful water streaming down the Himalayan slopes, although since this first project new ones have been slow to appear. </Text>
+		</Row>
+		<!-- CIVICS_SHAWNEE-->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_SAGARMATHA_CHAPTER_HISTORY_PARA_1">
+			<Text>The Nepali name for Chomolungma, Tibetan for “Mother of the World,” is Sagarmatha, “Goddess of the Sky”. The English, and perhaps more familiar, name is Mount Everest.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_SAGARMATHA_CHAPTER_HISTORY_PARA_2">
+			<Text>Nepal exists in the shadow of the great mountains, peaks that scrape moisture from the skies and in so doing shape the ecology and geology of the planet. The winds that blow hot and moist across the Indian subcontinent drop their moisture here, creating dense and fertile valleys on the southern side of the peaks, and the dry highlands of Tibet on the northern side. It is a division that shapes society as well – lowland and highland, rivers and upland desert, Hindu Nepalis and Buddhist Tibetans. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_JYUMDO_BAGHA_CHAPTER_HISTORY_PARA_1">
+			<Text>Amar Singh Thapa, dubbed the “Living Tiger” (Jyumdo Bagha) of Nepal, was the commander of the Nepali Army against the forces of the British during the Anglo-Nepalese War. This was a conflict in the early 1800s where the British East India Company sought to control Nepal as a center for wealth and resources. The war raged on, with the better-equipped British nonetheless stymied by the terrain and persistent concerns over malaria. While the British were victorious, their rule in Nepal was limited and under strict control. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_SINGHA_DURBAR_CHAPTER_HISTORY_PARA_1">
+			<Text>Nepal during the modern period is one that rests upon firm control of the state – a paradox, as Nepal’s territory is ethnically and geographically fractured enough to challenge any state. The Singha Durbar – the lion’s palace – was opened in 1908 and signified the iron grip of the Rana Dynasty. These were a series of prime ministers and high officials who effectively controlled the monarchy and ruled with a tight grip both internally and externally. From the Singha Durbar came some of the most significant developments in modern Nepali life – the abolition of slavery, and the recognition of Nepali independence. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_GORKHAPATRA_CHAPTER_HISTORY_PARA_1">
+			<Text>Key to the formation of a national consciousness is the media. The Gorkhapatra, the “Nepali mail”, was run largely by the Prime Minister’s office and thus served as a government outlet, heavily censored, for much of its run. Today, it is still running and, though allegations of being too cozy to the government persist, it has managed to outlive its founding regime. </Text>
+		</Row>
+		<!-- UNIQUE_UNIT-->
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_SHERPA_CHAPTER_HISTORY_PARA_1">
+			<Text>The Sherpa are a Buddhist and Tibetan ethnic minority native to highland areas of Nepal, India and Bhutan. Here, they have historically been able to survive at the highest elevations. They quickly achieved a reputation for being able to brave the land’s highest peaks, and the name became synonymous with intrepid highland explorers, one of the most famous of which is Tenzing Norgay, one of the pair of people to first reach the summit of Mount Everest. Today, Sherpa are deeply involved in Nepal’s tourist industry, especially in guiding hikers around the country’s highest peaks. </Text>
+		</Row>
+		<!-- UNIQUE_UNIT-->
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_GURKHA_CHAPTER_HISTORY_PARA_1">
+			<Text>The name “Gurkha” in its origin simply refers to the Gorkha Kingdom, one of the progenitors of the modern-day Nepalese state, but in the later 19th and early 20th centuries, the term has come to refer to Nepalese fighters contracted out to fight for other states. Most notably, this was the British – after the Anglo-Nepalese war, the British noted the loyalty and ferocity of Nepali fighters, and formed battalions of Gurkha who were willing to fight for the British. And fight they did – the Gurkhas fought for the British in the Indian Rebellion of 1857, World War I, and World War II. After Indian independence, Gurkhas continued to fight for the British, but many of them entered Indian service.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_GURKHA_CHAPTER_HISTORY_PARA_2">
+			<Text>The most iconic symbol of the Gurkha is their kukri knife – a heavy, forward-curving blade that serves as a machete as well as a weapon.</Text>
+		</Row>
+	</EnglishText>
+</Database>
+				

@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--Cards-->
+		<Row Tag="LOC_CARD_MOD_CITY_NAME">
+			<Text>City</Text>
+		</Row>
+		<Row Tag="LOC_CARD_MOD_CITY_DESCRIPTION">
+			<Text>Gain 1 City to place</Text>
+		</Row>
+		<Row Tag="LOC_CARD_MOD_TOWN_NAME">
+			<Text>Town</Text>
+		</Row>
+		<Row Tag="LOC_CARD_MOD_TOWN_DESCRIPTION">
+			<Text>Gain 1 Town to place</Text>
+		</Row>
+		<Row Tag="LOC_CARD_MOD_CAPITAL_UPGRADE_NAME">
+			<Text>Capital Upgrade</Text>
+		</Row>
+		<Row Tag="LOC_CARD_MOD_CAPITAL_UPGRADE_DESCRIPTION">
+			<Text>Gain 3 Population in your Capital</Text>
+		</Row>
+		<Row Tag="LOC_CARD_MOD_WALLS_NAME">
+			<Text>Walls</Text>
+		</Row>
+		<Row Tag="LOC_CARD_MOD_WALLS_DESCRIPTION">
+			<Text>Gain 3 Medieval Walls in all Cities and 1 Medieval Wall in all Towns.</Text>
+		</Row>
+		<Row Tag="LOC_CARD_MOD_ARMY_INFANTRY_NAME">
+			<Text>Infantry Army</Text>
+		</Row>
+		<Row Tag="LOC_CARD_MOD_ARMY_INFANTRY_DESCRIPTION">
+			<Text>Gain an Army consisting of 2 Infantry Units</Text>
+		</Row>
+		<Row Tag="LOC_CARD_MOD_ARMY_RANGED_NAME">
+			<Text>Ranged Army</Text>
+		</Row>
+		<Row Tag="LOC_CARD_MOD_ARMY_RANGED_DESCRIPTION">
+			<Text>Gain an Army consisting of 2 Ranged Units</Text>
+		</Row>
+		<Row Tag="LOC_CARD_MOD_ARMY_CAVALRY_NAME">
+			<Text>Cavalry Army</Text>
+		</Row>
+		<Row Tag="LOC_CARD_MOD_ARMY_CAVALRY_DESCRIPTION">
+			<Text>Gain an Army consisting of 4 Cavalry Units</Text>
+		</Row>
+		<Row Tag="LOC_CARD_MOD_GOLD_NAME">
+			<Text>Gold</Text>
+		</Row>
+		<Row Tag="LOC_CARD_MOD_GOLD_DESCRIPTION">
+			<Text>Gain 1000[icon:YIELD_GOLD] Gold (On standard speed)</Text>
+		</Row>
+		<Row Tag="LOC_CARD_MOD_ATTRIBUTE_NAME">
+			<Text>Attributes</Text>
+		</Row>
+		<Row Tag="LOC_CARD_MOD_ATTRIBUTE_DESCRIPTION">
+			<Text>Gain 2 Wildcard Attribute Points</Text>
+		</Row>
+		<Row Tag="LOC_CARD_GRANT_TECH_ACADEMICS_NAME">
+			<Text>Academics Technology</Text>
+		</Row>
+		<Row Tag="LOC_CARD_GRANT_TECH_ACADEMICS_DESCRIPTION">
+			<Text>Gain the Academics Technology for free</Text>
+		</Row>
+		<Row Tag="LOC_CARD_GRANT_TECH_STEAM_ENGINE_NAME">
+			<Text>Steam Engine Technology</Text>
+		</Row>
+		<Row Tag="LOC_CARD_GRANT_TECH_STEAM_ENGINE_DESCRIPTION">
+			<Text>Gain the Steam Engine Technology for free</Text>
+		</Row>
+		<Row Tag="LOC_CARD_GRANT_TECH_MILITARY_SCIENCE_NAME">
+			<Text>Military Science Technology</Text>
+		</Row>
+		<Row Tag="LOC_CARD_GRANT_TECH_MILITARY_SCIENCE_DESCRIPTION">
+			<Text>Gain the Military Science Technology for free</Text>
+		</Row>
+		<Row Tag="LOC_CARD_GRANT_CIVIC_MODERNIZATION_NAME">
+			<Text>Modernization Civic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_GRANT_CIVIC_MODERNIZATION_DESCRIPTION">
+			<Text>Gain the Modernization Civic for free</Text>
+		</Row>
+		<Row Tag="LOC_CARD_GRANT_CIVIC_NATURAL_HISTORY_NAME">
+			<Text>Natural History Civic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_GRANT_CIVIC_NATURAL_HISTORY_DESCRIPTION">
+			<Text>Gain the Natural History Civic for free</Text>
+		</Row>
+		<Row Tag="LOC_CARD_GRANT_CIVIC_SOCIAL_QUESTION_NAME">
+			<Text>Social Question Civic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_GRANT_CIVIC_SOCIAL_QUESTION_DESCRIPTION">
+			<Text>Gain the Social Question Civic for free</Text>
+		</Row>
+		<!-- Effects -->
+		<Row Tag="LOC_CARD_EFFECT_MOD_CITY_NAME">
+			<Text>City</Text>
+		</Row>
+		<Row Tag="LOC_CARD_EFFECT_MOD_CITY_DESCRIPTION">
+			<Text>Place a City</Text>
+		</Row>
+		<Row Tag="LOC_CARD_EFFECT_MOD_TOWN_NAME">
+			<Text>Town</Text>
+		</Row>
+		<Row Tag="LOC_CARD_EFFECT_MOD_TOWN_DESCRIPTION">
+			<Text>Place a Town</Text>
+		</Row>
+
+		<!-- Legend Cards -->
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_AMINA_1_NAME">
+			<Text>Amina Modern Legend Economic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_AMINA_1_DESCRIPTION">
+			<Text>For this Age, gain +15% Gold[icon:YIELD_GOLD] at the cost of -10% Food[icon:YIELD_FOOD]</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_AMINA_2_NAME">
+			<Text>Amina Modern Legend Militaristic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_AMINA_2_DESCRIPTION">
+			<Text>For this Age, +3 Combat Strength for your Air Units at the cost of -10% Influence[icon:YIELD_DIPLOMACY]</Text>
+		</Row>
+		<!-- ================================================================================================ -->
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_ASHOKA_RENOUNCER_1_NAME">
+			<Text>Ashoka Modern Legend Diplomatic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_ASHOKA_RENOUNCER_1_DESCRIPTION">
+			<Text>For this Age, gain +15% Influence[icon:YIELD_DIPLOMACY] at the cost of -2 Combat Strength for your Air Units</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_ASHOKA_RENOUNCER_2_NAME">
+			<Text>Ashoka Modern Legend Expansionist</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_ASHOKA_RENOUNCER_2_DESCRIPTION">
+			<Text>For this Age, gain +15% Food[icon:YIELD_FOOD] at the cost of -10% Gold[icon:YIELD_GOLD]</Text>
+		</Row>
+		<!-- ================================================================================================ -->
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_AUGUSTUS_1_NAME">
+			<Text>Augustus Modern Legend Cultural</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_AUGUSTUS_1_DESCRIPTION">
+			<Text>For this Age, gain +15% CULTURE[icon:YIELD_CULTURE] at the cost of -10% Science[icon:YIELD_Science]</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_AUGUSTUS_2_NAME">
+			<Text>Augustus Modern Legend Expansionist</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_AUGUSTUS_2_DESCRIPTION">
+			<Text>For this Age, gain +15% Food[icon:YIELD_FOOD] at the cost of -10% Gold[icon:YIELD_GOLD]</Text>
+		</Row>
+		<!-- ================================================================================================ -->
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_FRANKLIN_1_NAME">
+			<Text>Ben Franklin Modern Legend Diplomatic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_FRANKLIN_1_DESCRIPTION">
+			<Text>For this Age, gain +15% Influence[icon:YIELD_DIPLOMACY] at the cost of -2 Combat Strength for your Air Units</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_FRANKLIN_2_NAME">
+			<Text>Ben Franklin Modern Legend Scientific</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_FRANKLIN_2_DESCRIPTION">
+			<Text>For this Age, gain +15% Science[icon:YIELD_SCIENCE] at the cost of -10% Culture[icon:YIELD_CULTURE]</Text>
+		</Row>
+		<!-- ================================================================================================ -->
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_CATHERINE_1_NAME">
+			<Text>Catherine Modern Legend Cultural</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_CATHERINE_1_DESCRIPTION">
+			<Text>For this Age, gain +15% CULTURE[icon:YIELD_CULTURE] at the cost of -10% Science[icon:YIELD_Science]</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_CATHERINE_2_NAME">
+			<Text>Catherine Modern Legend Scientific</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_CATHERINE_2_DESCRIPTION">
+			<Text>For this Age, gain +15% Science[icon:YIELD_SCIENCE] at the cost of -10% Culture[icon:YIELD_CULTURE]</Text>
+		</Row>
+		<!-- ================================================================================================ -->
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_CHARLEMAGNE_1_NAME">
+			<Text>Charlemagne Modern Legend Militaristic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_CHARLEMAGNE_1_DESCRIPTION">
+			<Text>For this Age, +3 Combat Strength for your Air Units at the cost of -10% Influence[icon:YIELD_DIPLOMACY]</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_CHARLEMAGNE_2_NAME">
+			<Text>Charlemagne Modern Legend Scientific</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_CHARLEMAGNE_2_DESCRIPTION">
+			<Text>For this Age, gain +15% Science[icon:YIELD_SCIENCE] at the cost of -10% Culture[icon:YIELD_CULTURE]</Text>
+		</Row>
+		<!-- ================================================================================================ -->
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_CONFUCIUS_1_NAME">
+			<Text>Confucius Modern Legend Expansionist</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_CONFUCIUS_1_DESCRIPTION">
+			<Text>For this Age, gain +15% Food[icon:YIELD_FOOD] at the cost of -10% Gold[icon:YIELD_GOLD]</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_CONFUCIUS_2_NAME">
+			<Text>Confucius Modern Legend Scientific</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_CONFUCIUS_2_DESCRIPTION">
+			<Text>For this Age, gain +15% Science[icon:YIELD_SCIENCE] at the cost of -10% Culture[icon:YIELD_CULTURE]</Text>
+		</Row>
+		<!-- ================================================================================================ -->
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_FRIEDRICH_OBLIQUE_1_NAME">
+			<Text>Friedrich Modern Legend Militaristic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_FRIEDRICH_OBLIQUE_1_DESCRIPTION">
+			<Text>For this Age, +3 Combat Strength for your Air Units at the cost of -10% Influence[icon:YIELD_DIPLOMACY]</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_FRIEDRICH_OBLIQUE_2_NAME">
+			<Text>Friedrich Modern Legend Scientific</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_FRIEDRICH_OBLIQUE_2_DESCRIPTION">
+			<Text>For this Age, gain +15% Science[icon:YIELD_SCIENCE] at the cost of -10% Culture[icon:YIELD_CULTURE]</Text>
+		</Row>
+		<!-- ================================================================================================ -->
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_TUBMAN_1_NAME">
+			<Text>Harriet Tubman Modern Legend Diplomatic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_TUBMAN_1_DESCRIPTION">
+			<Text>For this Age, gain +15% Influence[icon:YIELD_DIPLOMACY] at the cost of -2 Combat Strength for your Air Units</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_TUBMAN_2_NAME">
+			<Text>Harriet Tubman Modern Legend Militaristic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_TUBMAN_2_DESCRIPTION">
+			<Text>For this Age, +3 Combat Strength for your Air Units at the cost of -10% Influence[icon:YIELD_DIPLOMACY]</Text>
+		</Row>
+		<!-- ================================================================================================ -->
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_HATSHEPSUT_1_NAME">
+			<Text>Hatshepsut Modern Legend Cultural</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_HATSHEPSUT_1_DESCRIPTION">
+			<Text>For this Age, gain +15% CULTURE[icon:YIELD_CULTURE] at the cost of -10% Science[icon:YIELD_Science]</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_HATSHEPSUT_2_NAME">
+			<Text>Hatshepsut Modern Legend Economic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_HATSHEPSUT_2_DESCRIPTION">
+			<Text>For this Age, gain +15% Gold[icon:YIELD_GOLD] at the cost of -10% Food[icon:YIELD_FOOD]</Text>
+		</Row>
+		<!-- ================================================================================================ -->
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_HIMIKO_QUEEN_1_NAME">
+			<Text>Himiko Modern Legend Diplomatic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_HIMIKO_QUEEN_1_DESCRIPTION">
+			<Text>For this Age, gain +15% Influence[icon:YIELD_DIPLOMACY] at the cost of -2 Combat Strength for your Air Units</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_HIMIKO_QUEEN_2_NAME">
+			<Text>Himiko Modern Legend Scientific</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_HIMIKO_QUEEN_2_DESCRIPTION">
+			<Text>For this Age, gain +15% Science[icon:YIELD_SCIENCE] at the cost of -10% Culture[icon:YIELD_CULTURE]</Text>
+		</Row>
+		<!-- ================================================================================================ -->
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_BATTUTA_1_NAME">
+			<Text>Ibn Battuta Modern Legend Economic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_BATTUTA_1_DESCRIPTION">
+			<Text>For this Age, gain +15% Gold[icon:YIELD_GOLD] at the cost of -10% Food[icon:YIELD_FOOD]</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_BATTUTA_2_NAME">
+			<Text>Ibn Battuta Modern Legend Cultural</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_BATTUTA_2_DESCRIPTION">
+			<Text>For this Age, gain +15% CULTURE[icon:YIELD_CULTURE] at the cost of -10% Science[icon:YIELD_Science]</Text>
+		</Row>
+		<!-- ================================================================================================ -->
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_ISABELLA_1_NAME">
+			<Text>Isabella Modern Legend Economic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_ISABELLA_1_DESCRIPTION">
+			<Text>For this Age, gain +15% Gold[icon:YIELD_GOLD] at the cost of -10% Food[icon:YIELD_FOOD]</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_ISABELLA_2_NAME">
+			<Text>Isabella Modern Legend Expansionist</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_ISABELLA_2_DESCRIPTION">
+			<Text>For this Age, gain +15% Food[icon:YIELD_FOOD] at the cost of -10% Gold[icon:YIELD_GOLD]</Text>
+		</Row>
+		<!-- ================================================================================================ -->
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_RIZAL_1_NAME">
+			<Text>Jose Rizal Modern Legend Cultural</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_RIZAL_1_DESCRIPTION">
+			<Text>For this Age, gain +15% CULTURE[icon:YIELD_CULTURE] at the cost of -10% Science[icon:YIELD_Science]</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_RIZAL_2_NAME">
+			<Text>Jose Rizal Modern Legend Diplomatic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_RIZAL_2_DESCRIPTION">
+			<Text>For this Age, gain +15% Influence[icon:YIELD_DIPLOMACY] at the cost of -2 Combat Strength for your Air Units</Text>
+		</Row>
+		<!-- ================================================================================================ -->
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_LAFAYETTE_1_NAME">
+			<Text>Lafayette Modern Legend Cultural</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_LAFAYETTE_1_DESCRIPTION">
+			<Text>For this Age, gain +15% CULTURE[icon:YIELD_CULTURE] at the cost of -10% Science[icon:YIELD_Science]</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_LAFAYETTE_2_NAME">
+			<Text>Lafayette Modern Legend Diplomatic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_LAFAYETTE_2_DESCRIPTION">
+			<Text>For this Age, gain +15% Influence[icon:YIELD_DIPLOMACY] at the cost of -2 Combat Strength for your Air Units</Text>
+		</Row>
+		<!-- ================================================================================================ -->
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_MACHIAVELLI_1_NAME">
+			<Text>Lafayette Modern Legend Diplomatic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_MACHIAVELLI_1_DESCRIPTION">
+			<Text>For this Age, gain +15% Influence[icon:YIELD_DIPLOMACY] at the cost of -2 Combat Strength for your Air Units</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_MACHIAVELLI_2_NAME">
+			<Text>Lafayette Modern Legend Economic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_MACHIAVELLI_2_DESCRIPTION">
+			<Text>For this Age, gain +15% Gold[icon:YIELD_GOLD] at the cost of -10% Food[icon:YIELD_FOOD]</Text>
+		</Row>
+		<!-- ================================================================================================ -->
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_PACHACUTI_1_NAME">
+			<Text>Pachacuti Modern Legend Economic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_PACHACUTI_1_DESCRIPTION">
+			<Text>For this Age, gain +15% Gold[icon:YIELD_GOLD] at the cost of -10% Food[icon:YIELD_FOOD]</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_PACHACUTI_2_NAME">
+			<Text>Pachacuti Modern Legend Expansionist</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_PACHACUTI_2_DESCRIPTION">
+			<Text>For this Age, gain +15% Food[icon:YIELD_FOOD] at the cost of -10% Gold[icon:YIELD_GOLD]</Text>
+		</Row>
+		<!-- ================================================================================================ -->
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_TRUNG_1_NAME">
+			<Text>Trung Trac Modern Legend Militaristic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_TRUNG_1_DESCRIPTION">
+			<Text>For this Age, +3 Combat Strength for your Air Units at the cost of -10% Influence[icon:YIELD_DIPLOMACY]</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_TRUNG_2_NAME">
+			<Text>Trung Trac Modern Legend Scientific</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_TRUNG_2_DESCRIPTION">
+			<Text>For this Age, gain +15% Science[icon:YIELD_SCIENCE] at the cost of -10% Culture[icon:YIELD_CULTURE]</Text>
+		</Row>
+		<!-- ================================================================================================ -->
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_XERXES_KING_1_NAME">
+			<Text>Xerxes Modern Legend Economic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_XERXES_KING_1_DESCRIPTION">
+			<Text>For this Age, gain +15% Gold[icon:YIELD_GOLD] at the cost of -10% Food[icon:YIELD_FOOD]</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_XERXES_KING_2_NAME">
+			<Text>Xerxes Modern Legend Militaristic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_XERXES_KING_2_DESCRIPTION">
+			<Text>For this Age, +3 Combat Strength for your Air Units at the cost of -10% Influence[icon:YIELD_DIPLOMACY]</Text>
+		</Row>
+	</EnglishText>
+</Database>

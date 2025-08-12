@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Features -->
+
+		<!-- Natural Wonders -->
+		<!-- NATURAL_REDWOOD_FOREST -->
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_REDWOOD_FOREST_CHAPTER_HISTORY_PARA_1">
+			<Text>Woody Guthrie’s famous ballad “This Land is Your Land” describes an America that stretches “from the redwood forest to the Gulf Stream waters.” Indeed, the cloud forests that grow in the southern stretches of the Pacific Northwest are some of the most impressive and iconic places in the world, though they predate the United States of Guthrie’s song, and had previous owners before colonial Americans arrived. The Redwood National and State Parks, in the very northern stretch of coastal California, house the most impressive trees. These sequoias are the tallest trees in the world, rising nearly 400 feet upwards; they are also some of the oldest, some approaching two thousand years on Earth.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_REDWOOD_FOREST_CHAPTER_HISTORY_PARA_2">
+			<Text>These forests were home to the Yurok and other peoples – salmon hunters and woodworkers who revered the forests and their ecologies, and who still work to maintain and restore the great forests today. The redwoods were designated as parks by the United States in 1968.</Text>
+		</Row>
+		<!-- NATURAL_GRAND_CANYON -->
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_GRAND_CANYON_CHAPTER_HISTORY_PARA_1">
+			<Text>From the North Rim of the Grand Canyon, one can see two billion years of the Earth’s history. Coniferous forests give way to desert, dropping down through the strata of rock that the Colorado River has been carving over the past 70 million years. This mile deep gash reveals a story of shallow seas, of constant sedimentation, and of open channels to underground aquifers that have spilled into its course. This is also a human story as the ancestors of the Pueblo, Hopi, Paiute, Navajo, Apache, Yavapai, Havasupai, and Hualapai peoples made their livelihoods around its great gulf.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_GRAND_CANYON_CHAPTER_HISTORY_PARA_2">
+			<Text>The Canyon was a favorite of Theodore Rockefeller, and was enshrined as a national park in 1919, but it made an impact on early Spanish explorers as well. It remains a testament to the union – or conflict between – rock and water, between decay (i.e. erosion) and permanence.</Text>
+		</Row>
+		<!-- NATURAL_TORRES_DEL_PAINE -->
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_TORRES_DEL_PAINE_CHAPTER_HISTORY_PARA_1">
+			<Text>Like crocodile teeth, the unearthly peaks of the Torres del Paine jut up from the very southern tip of the Andes. They rise over eight thousand feet and are surrounded by a subpolar ecology and cutting winds, contributing to the alien feel of the landscape. The peaks' name is a mixture of indigenous and Spanish terms, with the former including the Tehuelche, Selk’nam, Yaghan, and Kawésqar people, though locals would have shunned the inhospitable peaks. Torres del Paine was established as a national park by Chile in 1959 and remains a popular tourist attraction on account of its unearthly beauty.</Text>
+		</Row>
+		<!-- NATURAL_IGUAZU_FALLS -->
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_IGUAZU_FALLS_CHAPTER_HISTORY_PARA_1">
+			<Text>Once there was a woman named Naipí. She and her lover Tarobá lived in the southern part of South America, below the belt of the Amazon Rainforest. Naipí’s beauty was legendary throughout the land – but a local god decided to steal her away. As the two humans fled by canoe down the Iguazú River, the god sliced the waters, creating the Iguazú Falls. The falls are on the border between Brazil and Argentina, and form one of the largest waterfalls in the world – taller than Victoria and Niagara Falls. At times, Iguazú experiences the highest flow rate in the world, understandable given the precipitation level of its subtropical climate.</Text>
+		</Row>
+		<!-- NATURAL_GULLFOSS -->
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_GULLFOSS_CHAPTER_HISTORY_PARA_1">
+			<Text>Across a still landscape comes a muffled roar, like restless giants shifting under the earth. This is Gullfoss, the “golden falls,” a waterfall on the Hvítá River in Iceland. The reason its roar seems to come from under the earth is that the falls are nearly invisible until one is right upon them. The waves rush over 100 feet down two stages into a hidden crevasse, hurling water from glacier to sea.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_GULLFOSS_CHAPTER_HISTORY_PARA_2">
+			<Text>At the start of the 20th century, Gullfoss faced the threat of industrialization when an English businessman endeavored to capture its energy into a hydroelectric plant. But Sigríður Tómasdóttir, daughter of the farmer who owned the land, fought for years to combat these plans. Her success marked her as the first environmentalist in Iceland, and allowed for the preservation of one of the country’s most astounding sights.</Text>
+		</Row>
+		<!-- NATURAL_THERA -->
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_THERA_CHAPTER_HISTORY_PARA_1">
+			<Text>The destruction of the mythical island Atlantis features prominently in Plato’s Timaeus, a story about the hubris of a powerful empire that took on a Greek state organized around an ideal republic. Plato’s story doesn’t need to be based on real history to be effective; he was so devoted to arguments about ideal, theoretical societies that the very concept of an idealized state has been termed “platonic.” Still, some have asserted that his story about Atlantis is an account of Thera, the volcano that, in one night, destroyed a city.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_THERA_CHAPTER_HISTORY_PARA_2">
+			<Text>The island of Thera was home to a community of Minoans, but the volcano erupted and erased their presence. This happened over a thousand years before Plato. In Athens's heyday, Thera was a port city that was integrated into Greek culture, and later Roman polities. Now called Santorini, it is one of the most iconic Greek islands, with white-walled, blue-topped structures, and is at home on many tourists’ social media profiles.</Text>
+		</Row>
+		<!-- NATURAL_HOERIKWAGGO -->
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_HOERIKWAGGO_CHAPTER_HISTORY_PARA_1">
+			<Text>Nelson Mandela recalled seeing the top of Hoerikwaggo (Table Mountain) from his prison in apartheid-era South Africa. He claimed the view lent him and his fellow prisoners hope. The mesa extends two miles from side to side, rising above Cape Town. It is formerly the land of the cattle-herding Khoe people and the hunters of the Khoekhoe people, later taken by Dutch settlers and then the British. The mesa was used as a fortification site and reservoir before being declared a national park in 1991, by Nelson Mandela himself.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_HOERIKWAGGO_CHAPTER_HISTORY_PARA_2">
+			<Text>It is currently a popular place for hiking and provides stunning views over Cape Town.</Text>
+		</Row>
+		<!-- NATURAL_KILIMANJARO -->
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_KILIMANJARO_CHAPTER_HISTORY_PARA_1">
+			<Text>An odd sight looms over the African savannah: glaciers. Kilimanjaro, the continent’s tallest mountain located in Tanzania, is one of the most topographically prominent peaks in the world. The snow that collects at its crown was known to ancient geographers – Herodotus wrote about the snow-fed Nile, and Ptolemy about the “mountain of the moon” (though it is difficult to distinguish between Kilimanjaro, Mount Kenya, speculation, and complete fantasy in these writings). In local folklore, the site is also the subject of tales of deities and divine animals, a place where only the brave go.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_KILIMANJARO_CHAPTER_HISTORY_PARA_2">
+			<Text>The mountain is a volcano that still has active fumaroles on its peak. Nonetheless, glaciers and ice dominate the very top of the mountain, aided by the fact that its flattened peak does not readily permit ice to slide downward. Still, this ice is fast disappearing; Kilimanjaro will be bare at its top within just a few decades, a testament to our alteration of the atmosphere.</Text>
+		</Row>
+		<!-- NATURAL_LAKE_BAIKAL -->
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_LAKE_BAIKAL_CHAPTER_HISTORY_PARA_1">
+			<Text>Within the Siberian steppe is a lake of wonders – a place where seals dive into the deep and large isopods, like creatures from a horror film, wander over submerged rocks. This source of fresh water was formed by a geologic rift that is still expanding. It is also the largest freshwater lake on the planet by volume – while Lake Superior extends across a larger surface area, Baikal is the deepest, plunging nearly a thousand fathoms into a lightless abyss. Impressively, it contains over twenty percent of all surface fresh water on the planet.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_LAKE_BAIKAL_CHAPTER_HISTORY_PARA_2">
+			<Text>Baikal is significant for many Siberian peoples; it is a place for shamans to converse with the spirits of the land. The draw of its crystal-clear water has invited a variety of threats, as mineral and water extraction concerns constantly run against indigenous and environmental interests.</Text>
+		</Row>
+		<!-- NATURAL_ZHANGJIAJIE -->
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_ZHANGJIAJIE_CHAPTER_HISTORY_PARA_1">
+			<Text>Many traditional Chinese paintings depict a strange landscape: pillars of vertical rock covered with hanging greenery and rising into the sky. The scene looks utterly fanciful, but only to those who have not seen the forests around Zhangjiajie, in the Hunan region of China. These sandstone cliffs with precarious peaks towering amid lush greenery are not the windswept orange pillars of the American Southwest, nor the jagged karst of Southeast Asia, but rather blocks that have remained standing in a constant cycle of frost, thaw, and the gnaw of tree roots. As natural forces break and split the rocks, only the hardest areas of the mountain remain. The rock formations have proved a consistent inspiration to Chinese artists and poets, and the area was enshrined as a national park by the People’s Republic of China in 1982.</Text>
+		</Row>
+		<!-- NATURAL_ULURU -->
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_ULURU_CHAPTER_HISTORY_PARA_1">
+			<Text>Uluru is a massive mound of sandstone rising out of the Australian plain. According to Aboriginal belief, its creation occurred during the Dreaming (the period before Earth's existence) – many legends remain to explain its existence. Modern science has an alternate take. 400 million years ago, a long fan of sand was compacted into hard stone. Over millennia, the granite surrounding this stone eroded, leaving the unusually steep core exposed.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_ULURU_CHAPTER_HISTORY_PARA_2">
+			<Text>The area around Uluru was declared a national park by Australia in 1950, and became a favorite hiking spot, given the distinctive flora and fauna around it. Conflict arose as this central piece of Aboriginal culture was being trod upon by the boots of settlers who took no notice of its sacrality. Climbing has since been banned on the rock (but even now a few hikers still make the trek). It remains a potent symbol of the land, its red sides evoking the Dreaming and the Aboriginal origins of the landscape.</Text>
+		</Row>
+		<!-- NATURAL_GREAT_BARRIER_REEF -->
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_BARRIER_REEF_CHAPTER_HISTORY_PARA_1">
+			<Text>The Great Barrier Reef differs from many Natural Wonders in Civilization because it is largely alive. For nearly 1,500 miles, a chain of small organisms related to jellyfish, called coral, have steadily built structures off the coast of Queensland, Australia. Such structures support a vast ecosystem, more than just coral – it is home to attendant fish and other marine animals. Long known, used, and revered by Aboriginal peoples, the reef was discovered by a French explorer in 1768. Two years later, the reef discovered James Cook by smashing the hull of his ship. In the years since, it has been a symbol of the diversity – and fragility – of the earth’s seas.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_BARRIER_REEF_CHAPTER_HISTORY_PARA_2">
+			<Text>This fragility comes in many forms. Climate change has led to the widespread bleaching of the coral, a process through which coral ejects photosynthetic symbiotic organisms, leading to a massive die-off. Overfishing depletes the natural predators for creatures like the crown of thorns starfish, which have left them free to prey upon coral. As the reef rapidly depletes, one wonders what else may be lost before it is even discovered.</Text>
+		</Row>
+		<!-- NATURAL_VALLEY_OF_FLOWERS -->
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_VALLEY_OF_FLOWERS_CHAPTER_HISTORY_PARA_1">
+			<Text>On the northern border of India, as the land climbs into the Himalayas, it fragments into a stunning array of mountain valleys, lakes, and forests - here is where snow leopards and bharal roam, and where glacial mountaintops compete with tropical sun. In the Pushpawati River valley, this combination has given rise to a field of alpine flowers – fireweed, blue poppy, cobra lily and others. In total, the valley has over 500 plants that are exclusive to its remote – and fragile – borders.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_VALLEY_OF_FLOWERS_CHAPTER_HISTORY_PARA_2">
+			<Text>The valley is an island of calm in a hostile and inaccessible region – its discovery is credited to three British mountaineers in 1931, though Sikh accounts cite the guru Gobind Singh has having meditated nearby amidst the mountains upon his previous lives. In his honor, a Sikh gurudwara was constructed in the area, and remains a site of pilgrimage.</Text>
+		</Row>
+		<!-- NATURAL_BERMUDA_TRIANGLE -->
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_BERMUDA_TRIANGLE_CHAPTER_HISTORY_PARA_1">
+			<Text>Between Bermuda, Puerto Rico, and Florida lies a swath of ocean that swallows ships and planes whole…or so the legend goes. Stories of missing and abandoned vessels in this region of the Atlantic Ocean began circulating as early as the 19th century. Since then, over 50 ships and 20 airplanes, both civilian and military crafts, have vanished while crossing the Bermuda Triangle. Both natural and supernatural rationales have been suggested to explain the disappearances, ranging from cyclones and rogue waves to time warps and UFOs.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_BERMUDA_TRIANGLE_CHAPTER_HISTORY_PARA_2">
+			<Text>Despite the Bermuda Triangle’s dramatic reputation, however, there is no evidence that more vessels go missing there than anywhere else in the ocean.</Text>
+		</Row>
+		<!-- NATURAL_MOUNT_EVEREST -->
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_MOUNT_EVEREST_CHAPTER_HISTORY_PARA_1">
+			<Text>Situated at the heart of the Himalayas, Mount Everest is the tallest mountain in the world. Called Sagarmatha in Nepali and Chomolungma in Tibetan, the mountain has been long held as sacred among local populations. “Everest” comes from Sir George Everest, whose name, contrary to popular pronunciation, was pronounced “EEV-rest.”</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_FEATURE_MOUNT_EVEREST_CHAPTER_HISTORY_PARA_2">
+			<Text>Mount Everest was measured as the world’s tallest peak in 1852, and was first summitted in 1953 by Edmund Hillary and Tenzing Norgay; the possible success of the 1924 attempt by George Mallory and Andrew Irvine remains famously unsolved. Today the mountain is a popular destination for climbers and tourists alike, leading to problems of waste and dangerous overcrowding at the summit. </Text>
+		</Row>
+
+	</EnglishText>
+</Database>

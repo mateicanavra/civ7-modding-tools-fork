@@ -1,0 +1,686 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_NEPAL1" Language="zh_Hant_HK">
+      <Text>加德滿都</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL10" Language="zh_Hant_HK">
+      <Text>賈納克布爾達姆</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL11" Language="zh_Hant_HK">
+      <Text>久姆拉</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL12" Language="zh_Hant_HK">
+      <Text>比拉德納加爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL13" Language="zh_Hant_HK">
+      <Text>圖爾西布爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL14" Language="zh_Hant_HK">
+      <Text>布德沃爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL15" Language="zh_Hant_HK">
+      <Text>戈達瓦里</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL16" Language="zh_Hant_HK">
+      <Text>尼泊爾根傑</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL17" Language="zh_Hant_HK">
+      <Text>戈拉希</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL18" Language="zh_Hant_HK">
+      <Text>藍毗尼</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL19" Language="zh_Hant_HK">
+      <Text>納加闊特</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL2" Language="zh_Hant_HK">
+      <Text>波卡拉</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL20" Language="zh_Hant_HK">
+      <Text>杜利克爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL21" Language="zh_Hant_HK">
+      <Text>格勒希亞</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL22" Language="zh_Hant_HK">
+      <Text>達馬克</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL23" Language="zh_Hant_HK">
+      <Text>木斯塘</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL24" Language="zh_Hant_HK">
+      <Text>蓋加特</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL25" Language="zh_Hant_HK">
+      <Text>比爾根傑</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL26" Language="zh_Hant_HK">
+      <Text>桑庫</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL27" Language="zh_Hant_HK">
+      <Text>丹加地</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL28" Language="zh_Hant_HK">
+      <Text>伊納瓦西拉</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL29" Language="zh_Hant_HK">
+      <Text>阿姆萊克根傑</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL3" Language="zh_Hant_HK">
+      <Text>勒利德布爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL30" Language="zh_Hant_HK">
+      <Text>塔拉克甚瓦</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL4" Language="zh_Hant_HK">
+      <Text>珀勒德布爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL5" Language="zh_Hant_HK">
+      <Text>加哈瓦</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL6" Language="zh_Hant_HK">
+      <Text>達蘭</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL7" Language="zh_Hant_HK">
+      <Text>黑桃達</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL8" Language="zh_Hant_HK">
+      <Text>比蘭德拉訥格爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL9" Language="zh_Hant_HK">
+      <Text>伊塔哈里</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_1" Language="zh_Hant_HK">
+      <Text>尚巴夫</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_10" Language="zh_Hant_HK">
+      <Text>阿努斯卡</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_2" Language="zh_Hant_HK">
+      <Text>絲妮哈</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_3" Language="zh_Hant_HK">
+      <Text>薩麗塔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_4" Language="zh_Hant_HK">
+      <Text>阿米塔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_5" Language="zh_Hant_HK">
+      <Text>阿麗娜</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_6" Language="zh_Hant_HK">
+      <Text>塔尼莎</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_7" Language="zh_Hant_HK">
+      <Text>瑞詩瑪</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_8" Language="zh_Hant_HK">
+      <Text>詩瑞嘉</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_9" Language="zh_Hant_HK">
+      <Text>索妮雅</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_1" Language="zh_Hant_HK">
+      <Text>畢貝克</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_10" Language="zh_Hant_HK">
+      <Text>烏德加姆</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_2" Language="zh_Hant_HK">
+      <Text>克里希納</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_3" Language="zh_Hant_HK">
+      <Text>卡邁勒</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_4" Language="zh_Hant_HK">
+      <Text>普拉薩德</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_5" Language="zh_Hant_HK">
+      <Text>加甘</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_6" Language="zh_Hant_HK">
+      <Text>拉姆</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_7" Language="zh_Hant_HK">
+      <Text>比沙爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_8" Language="zh_Hant_HK">
+      <Text>阿米爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_9" Language="zh_Hant_HK">
+      <Text>羅山</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_NEPAL_ADJECTIVE" Language="zh_Hant_HK">
+      <Text>尼泊爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_NEPAL_FULLNAME" Language="zh_Hant_HK">
+      <Text>尼泊爾帝國</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_NEPAL_NAME" Language="zh_Hant_HK">
+      <Text>尼泊爾</Text>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_MODERN_23_MAJOR_NEPAL_NAME" Language="zh_Hant_HK">
+      <Text>普那卡</Text>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_MODERN_23_MINOR_NEPAL_NAME" Language="zh_Hant_HK">
+      <Text>不丹</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>尼泊爾地處世界邊陲，卻又深居世界中心：坐落於地球上一些最高山脈的山谷中，同時也是世界兩大兩國家的地理交匯處。受惠於地緣政治，尼泊爾成為貿易和資源的來源，地理上的脆弱性使其得以生存。尼泊爾主要由佛教高地民族及印度教低地民族組成。在後者所在區域中，各國仍然會與高地民族有不同程度的互動，創造出一種共存又控制的權力平衡：尼泊爾核心組成為低地的印度教尼瓦爾人和切特里人，但各種運輸和資源網路卻需要依賴塔芒人和雪巴高地人。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>尼泊爾王國建立於印度北部邊境以及高聳的山谷中，是自西元一千年便存在的朝貢國，在笈多王朝等國家的銘文中，「尼泊拉」這個名字便曾經反覆出現過。西元10世紀，尼泊爾隨著加德滿都的建立而強勢崛起，但直到18世紀才出現了重要的政權：廓爾喀王朝，及其開創者普利特維‧納拉揚‧沙阿。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_3" Language="zh_Hant_HK">
+      <Text>當時是穆斯林蒙兀兒帝國統治印度的時期，但蒙兀兒軍隊發現，他們高度依賴馬、駱駝或大象騎兵的戰鬥方式不僅難以控制陡峭而寒冷的山谷，也難以包圍高地通往中國的補給線。因此，當穆斯林蘇丹國和帝國在南方交戰時，尼泊爾儼然成為印度教的堡壘。當英國人進入印度時，他們發現自己也一樣無力控制這個地區。在英尼戰爭（1814-1816年）英國憑藉裝備優勢，取得了尼泊爾在領土上的讓步，並將其設為保護國。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_4" Language="zh_Hant_HK">
+      <Text>這種保護機制導致了隨後拉納王朝的孤立主義政策，從印度民族起義到第二次世界大戰的衝突中，該王朝都與英國緊密結盟。拉納時期的尼泊爾，就是一個專制和孤立主義的王國，並透過巧妙的外交聯盟、險惡的地理環境和戰略性地緣政治定位而保住了獨立性。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_5" Language="zh_Hant_HK">
+      <Text>拉納王朝通過政變和暗殺而崛起，並利用首相辦公室來控制君主制，有時還會發動宮廷謀殺以鞏固權力。拉納對英國的忠誠也是一種戰略定位，建立者江格‧巴哈杜爾曾經參觀過英國在英格蘭的軍事設施，認為英國實力過於強大，無法與之抗衡。因此拉納王朝在1857年的印度民族起義中支持英軍，並提供精銳廓爾喀軍隊，並在之後的阿富汗和兩次世界大戰中與英國人並肩作戰。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_6" Language="zh_Hant_HK">
+      <Text>隨著憲政君主制和君主獨裁政權相互競爭，社會的挫敗感引發了共產主義的叛亂，讓拉納王朝陷入動盪，最終在1950年代後期垮台。2001年一場戲劇性宮廷屠殺事件，讓君主制進一步走向終結；2008年，尼泊爾正式廢除君主制。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_IMPROVEMENT_HIGHLAND_POWER_STATION_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>1911年，緊跟在美國和印度之後，尼泊爾啟用了第一個水力發電站。受惠於喜馬拉雅山巨大的海拔差異和豐富的水流，尼泊爾相當適合發展水力發電，然而首個項目完成後，後續項目進展卻相當緩慢。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_GORKHAPATRA_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>媒體在民族意識的形成中扮演了重要關鍵。《廓爾喀日報》，即「尼泊爾郵報」，主要由首相辦公室負責營運，很長一段時間都為政府喉舌，並受到嚴格的審查。雖然該報一直為人詬病過於親近政府，但它成功超越創始政權的滅亡，並持續發行至今。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_JYUMDO_BAGHA_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>阿瑪爾‧辛格‧塔帕，人稱尼泊爾的「人間之虎」，是尼泊爾軍隊在英尼戰爭期間對抗英軍的指揮官。這場衝突發生於19世紀初，當時英國東印度公司企圖控制尼泊爾，並將其作為財富和資源的中心。隨著戰爭的進行，英軍雖然裝備精良，但受制於地形的挑戰及對瘧疾的擔憂。儘管英軍取得了勝利，但僅能有限統治尼泊爾，並受到嚴格的約束。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_SAGARMATHA_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>「珠穆朗瑪」來自藏語，意為世界之母，尼泊爾語則為「薩加瑪塔」，意為天空女神。在中文世界中，「聖母峰」這個稱呼則更為人所熟知。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_SAGARMATHA_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>尼泊爾存在於雄偉山脈的陰影下，山峰從天空中攫取水分，進而塑造了地球的生態和地貌。橫跨印度次大陸的濕熱季風在此處落下雨水，並在山峰南側形成茂密肥沃的山谷，而北側則形成了西藏的乾旱高原。這同時也形成了社會的分界線——低地和高原，河流和高地沙漠，信奉印度教的尼泊爾人和信奉佛教的藏人。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_SINGHA_DURBAR_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>現代尼泊爾是建立在國家的強勢統治之下的矛盾存在，其種族和領土的高度分裂，足以挑戰任何國家的統治。辛哈杜巴宮，這座「雄獅的宮殿」象徵著拉納王朝鐵腕統治，直到1908年才對外開放；在這時期，首相和高級官員才是尼泊爾君主制實際控制者，並在內政外交上都實行嚴格的統治。許多對現代尼泊爾生活影響重大的發展，都來自在辛哈杜巴宮，包括廢除奴隸制，以及承認尼泊爾的獨立。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_GURKHA_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>「廓爾喀」最初是指廓爾喀王國，也就是現代尼泊爾的前身之一，但在19世紀末和20世紀初，這個詞開始用於指稱為其他國家效力的尼泊爾戰士，有一點要特別注意，這裡指的是為英國作戰。在英尼戰爭之後，英國人注意到了尼泊爾戰士的忠誠和勇猛，並組建了願意為英國作戰的廓爾喀部隊。他們確實參與了戰爭，1857年的印度民族起義、第一次和第二次世界大戰中，廓爾喀軍都為英國作戰。在印度獨立後，廓爾喀軍仍持續效力英國，但其中也有許多人加入了印度軍隊。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_GURKHA_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>廓爾喀軍最具代表性的武器就是廓爾喀刀，一種厚重且向前彎曲的刀刃，既可以用作開山刀，也可以用作武器。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_SHERPA_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>雪巴人是信奉佛教的藏族少數民族，原本居住於尼泊爾、印度和不丹的高海拔地區。他們自古就能夠在高海拔地區生存，並很快就以攀登該地區最高峰而聞名，「雪巴」這個名字也逐漸成為了無畏高地探險家的代名詞，其中最著名的人便是丹增諾蓋，他是人類首次登頂聖母峰的兩人之一。如今，雪巴人會在該地區最高峰周圍引導健行者，這項特別的服務讓他們跟尼泊爾的旅遊業密不可分。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_BOUDHANATH_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>「布達納特」是指滿願塔——尼泊爾（其實是以印度教為主的國家）中心的佛教紀念碑——周圍的地區。它是這座城市中的一塊佛教飛地，擁有一系列寺院和祭拜場所，中心佛塔及其白色圓頂和雙眼象徵了這座城市，甚至也可說象徵了整個尼泊爾。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_BOUDHANATH_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>根據傳說，這座佛塔是由因陀羅的女兒所建，她被逐出天庭後，試圖建造一座紀念碑以重新累積功德。傳聞中，佛教傳教士都是從這裡出發，向北方及山上傳播佛法，進入冰冷的雪峰和西藏高原，那正是現今尼泊爾多數佛教徒所居住的地方。</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIGHLAND_POWER_STATION_NAME" Language="zh_Hant_HK">
+      <Text>高地發電廠</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BOUDHANATH_NAME" Language="zh_Hant_HK">
+      <Text>滿願塔</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_BAGMATI_NAME" Language="zh_Hant_HK">
+      <Text>巴格馬蒂河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_BHERI_NAME" Language="zh_Hant_HK">
+      <Text>貝里河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_GANDAKI_NAME" Language="zh_Hant_HK">
+      <Text>甘達基河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_GHAGHARA_NAME" Language="zh_Hant_HK">
+      <Text>加格拉河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_KOSI_NAME" Language="zh_Hant_HK">
+      <Text>戈西河</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_DAHEI_SHAN_NAME" Language="zh_Hant_HK">
+      <Text>大黑山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_DHOSI_HILL_NAME" Language="zh_Hant_HK">
+      <Text>多西山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_KA_ER_DAXI_NAME" Language="zh_Hant_HK">
+      <Text>卡爾達西峰</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_POPA_NAME" Language="zh_Hant_HK">
+      <Text>波巴山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_TOSHAM_HILL_NAME" Language="zh_Hant_HK">
+      <Text>托沙姆山</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_GORKHAPATRA_NAME" Language="zh_Hant_HK">
+      <Text>廓爾喀日報</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_JYUMDO_BAGHA_NAME" Language="zh_Hant_HK">
+      <Text>人間之虎</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SAGARMATHA_NAME" Language="zh_Hant_HK">
+      <Text>薩加瑪塔峰</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SINGHA_DURBAR_NAME" Language="zh_Hant_HK">
+      <Text>辛哈杜巴宮</Text>
+    </Replace>
+    <Replace Tag="LOC_11030A_COMPLETION" Language="zh_Hant_HK">
+      <Text>高山地區的人民肩上堆滿貨物，艱難跋涉地進入了尼泊爾山谷。雖然群山為尼泊爾提供了庇護，但這些前印加人才是真正的高山之子。</Text>
+    </Replace>
+    <Replace Tag="LOC_11030A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>天空的子民</Text>
+    </Replace>
+    <Replace Tag="LOC_11030B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>山脈{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11030B_NAME" Language="zh_Hant_HK">
+      <Text>讓他們延續其傳統。</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_COMPLETION" Language="zh_Hant_HK">
+      <Text>慢慢地，尼泊爾語逐漸取代了印加語，那些古老的習俗也逐漸消失。</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>擁有3座相鄰於山脈的校舍。</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_NAME" Language="zh_Hant_HK">
+      <Text>他們需要學校，才會成為尼泊爾人。</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>天空的子民</Text>
+    </Replace>
+    <Replace Tag="LOC_11032A_COMPLETION" Language="zh_Hant_HK">
+      <Text>山脈劇震，冰雪在嘶嘶作響的流淌火焰中逐漸消融。雪巴人奮力地想在山上找到立足點，但一切都已陷入火海。</Text>
+    </Replace>
+    <Replace Tag="LOC_11032A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>賈瓦拉穆基之怒</Text>
+    </Replace>
+    <Replace Tag="LOC_11032B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11032B_NAME" Language="zh_Hant_HK">
+      <Text>待在原地，看著大地之血露出面貌。</Text>
+    </Replace>
+    <Replace Tag="LOC_11032C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}與{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11032C_NAME" Language="zh_Hant_HK">
+      <Text>快逃啊！</Text>
+    </Replace>
+    <Replace Tag="LOC_11033A_COMPLETION" Language="zh_Hant_HK">
+      <Text>這座被白雪覆蓋的雙峰聳立在群山之上，似乎在宣告自己擁有天空的統治權。</Text>
+    </Replace>
+    <Replace Tag="LOC_11033A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>魚尾峰</Text>
+    </Replace>
+    <Replace Tag="LOC_11033B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11033B_NAME" Language="zh_Hant_HK">
+      <Text>讓其保留輝煌壯麗。</Text>
+    </Replace>
+    <Replace Tag="LOC_11034A_COMPLETION" Language="zh_Hant_HK">
+      <Text>探險之行變為一場災難，並以失敗——甚至死亡告終。登山嚮導警告道，此處是眾神的家園，任何人都不應試圖挑戰。</Text>
+    </Replace>
+    <Replace Tag="LOC_11034A_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}且故事繼續。</Text>
+    </Replace>
+    <Replace Tag="LOC_11034A_NAME" Language="zh_Hant_HK">
+      <Text>安排攀登的探險隊。</Text>
+    </Replace>
+    <Replace Tag="LOC_11034A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>魚尾峰</Text>
+    </Replace>
+    <Replace Tag="LOC_11034B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11034B_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_11035A_COMPLETION" Language="zh_Hant_HK">
+      <Text>在戰場上，廓爾喀人彼此兵戎相見。戰後，敵人的屍體中赫然發現了尼泊爾人的面孔。</Text>
+    </Replace>
+    <Replace Tag="LOC_11035A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>兄弟相殘</Text>
+    </Replace>
+    <Replace Tag="LOC_11035B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>文化值建築{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11035B_NAME" Language="zh_Hant_HK">
+      <Text>他們依然是尼泊爾子弟，將他們風光大葬。</Text>
+    </Replace>
+    <Replace Tag="LOC_11035C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>貿易建築{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11035C_NAME" Language="zh_Hant_HK">
+      <Text>他們和尼泊爾為敵的那一刻就已成為外邦之人。</Text>
+    </Replace>
+    <Replace Tag="LOC_11036A_COMPLETION" Language="zh_Hant_HK">
+      <Text>尼泊爾保有其獨立，並在他國交戰時充當調解的勢力。畢竟即便是一個戰火紛飛的世界，人們仍然需要購物。</Text>
+    </Replace>
+    <Replace Tag="LOC_11036A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>兩塊巨石間的山藥</Text>
+    </Replace>
+    <Replace Tag="LOC_11036B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>貿易路線+2[icon:YIELD_DIPLOMACY]影響力。</Text>
+    </Replace>
+    <Replace Tag="LOC_11036B_NAME" Language="zh_Hant_HK">
+      <Text>保持冷靜。</Text>
+    </Replace>
+    <Replace Tag="LOC_11036C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}，但和所有文明間的關係-15。</Text>
+    </Replace>
+    <Replace Tag="LOC_11036C_NAME" Language="zh_Hant_HK">
+      <Text>加入軍火貿易。</Text>
+    </Replace>
+    <Replace Tag="LOC_11037A_COMPLETION" Language="zh_Hant_HK">
+      <Text>各文明都爭相奪取資源來助燃那股進步之火。城鎮到處林立、鐵路不斷拓展。但在尼泊爾邊境，一名孤身行進的雪巴人將木樁往地上一插，繼續前行。</Text>
+    </Replace>
+    <Replace Tag="LOC_11037A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>高地國家的探礦者</Text>
+    </Replace>
+    <Replace Tag="LOC_11037B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11037B_NAME" Language="zh_Hant_HK">
+      <Text>尼泊爾的擴張秉承著謙遜的原則，卻從未止步。</Text>
+    </Replace>
+    <Replace Tag="LOC_11038A_COMPLETION" Language="zh_Hant_HK">
+      <Text>尼泊爾人的公平公正和冷靜建言舉世聞名，這也讓尼泊爾的談判代表幾乎成為國際爭端中不可或缺的存在。</Text>
+    </Replace>
+    <Replace Tag="LOC_11038A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>代議員</Text>
+    </Replace>
+    <Replace Tag="LOC_11038B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11038B_NAME" Language="zh_Hant_HK">
+      <Text>此為應做之事。</Text>
+    </Replace>
+    <Replace Tag="LOC_11038C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11038C_NAME" Language="zh_Hant_HK">
+      <Text>想當然耳，人們必須為此服務支付一點代價。</Text>
+    </Replace>
+    <Replace Tag="LOC_11039A_COMPLETION" Language="zh_Hant_HK">
+      <Text>冰川河流早已在尼泊爾山谷流淌無數歲月，但現在，電力和清澈的河水一起從山頂傾瀉而下。山中烏托邦的願景展露無遺——乾淨、清澈、現代化的平面，與崎嶇山峰和諧地融為一體。</Text>
+    </Replace>
+    <Replace Tag="LOC_11039A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>山中稜堡</Text>
+    </Replace>
+    <Replace Tag="LOC_11039B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11039B_NAME" Language="zh_Hant_HK">
+      <Text>山脈是種資源，山谷則是家園。</Text>
+    </Replace>
+    <Replace Tag="LOC_11039C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>單位相鄰於山脈防守時+2戰鬥力。</Text>
+    </Replace>
+    <Replace Tag="LOC_11039C_NAME" Language="zh_Hant_HK">
+      <Text>山脈即是我們的壁壘。</Text>
+    </Replace>
+    <Replace Tag="LOC_11040A_COMPLETION" Language="zh_Hant_HK">
+      <Text>無論是尼泊爾人還是其他國家的人，都將能在英國軍隊服役視為一種榮耀。在外國人的注視下，新兵自豪地向著遙遠的海岸進發。</Text>
+    </Replace>
+    <Replace Tag="LOC_11040A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>廓爾喀軍團</Text>
+    </Replace>
+    <Replace Tag="LOC_11040B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>軍事建築{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11040B_NAME" Language="zh_Hant_HK">
+      <Text>他們的名號在家鄉也會受到銘記。</Text>
+    </Replace>
+    <Replace Tag="LOC_11040C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>發動「贈送廓爾喀兵」行動時+15%[icon:YIELD_DIPLOMACY]影響力效益。</Text>
+    </Replace>
+    <Replace Tag="LOC_11040C_NAME" Language="zh_Hant_HK">
+      <Text>他們會將薪水匯回家鄉。</Text>
+    </Replace>
+    <Replace Tag="LOC_11041A_COMPLETION" Language="zh_Hant_HK">
+      <Text>辛哈杜巴宮，也就是所謂的「雄獅的宮殿」，將權力投射到了整個尼泊爾。但首都卻流言四起：古老家族察覺到傳統的領地正在遭到蠶食。政府官員收到了許多敲詐和恐嚇事件的報告。</Text>
+    </Replace>
+    <Replace Tag="LOC_11041A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>古老家族</Text>
+    </Replace>
+    <Replace Tag="LOC_11041B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>各城市{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11041B_NAME" Language="zh_Hant_HK">
+      <Text>允許家族保有其權力。</Text>
+    </Replace>
+    <Replace Tag="LOC_11041C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>各城鎮{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11041C_NAME" Language="zh_Hant_HK">
+      <Text>雄獅殿才是統治者。</Text>
+    </Replace>
+    <Replace Tag="LOC_11069A_COMPLETION" Language="zh_Hant_HK">
+      <Text>晨曦初現於辛哈杜巴宮之時，尼泊爾官員的隊伍便開始蜿蜒穿過城市。此地正在逐漸形成新的尼泊爾秩序，並將在世界上留下尼泊爾的印記。</Text>
+    </Replace>
+    <Replace Tag="LOC_11069A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>團結象徵</Text>
+    </Replace>
+    <Replace Tag="LOC_11069B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11069B_NAME" Language="zh_Hant_HK">
+      <Text>在世界的事務方面，尼泊爾也有要盡的心力。</Text>
+    </Replace>
+    <Replace Tag="LOC_11069C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11069C_NAME" Language="zh_Hant_HK">
+      <Text>尼泊爾首先該追求內部的完滿。</Text>
+    </Replace>
+    <Replace Tag="LOC_12007A_COMPLETION" Language="zh_Hant_HK">
+      <Text>黎剎博士跟隨著雪巴人攀登陡峭的斜坡，他回頭望去，將尼泊爾高地和低地的壯麗景色盡收眼底。</Text>
+    </Replace>
+    <Replace Tag="LOC_12007A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>爬高望低的好醫生</Text>
+    </Replace>
+    <Replace Tag="LOC_12007B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_12007B_NAME" Language="zh_Hant_HK">
+      <Text>高地居民無畏且獨立。</Text>
+    </Replace>
+    <Replace Tag="LOC_12007C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_12007C_NAME" Language="zh_Hant_HK">
+      <Text>低地居民溫暖且好客。</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_SHERPA_UNLOCK_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在距離其中一個聚落市中心5個格位內的山脈格位上發動。山脈會立刻改良為高地發電廠。若該山脈位於你的邊境外，則會獲得連接至該聚落的道路格位。</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_SHERPA_UNLOCK_NAME" Language="zh_Hant_HK">
+      <Text>佔據山脈</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_GORKHAPATRA_AUTHOR" Language="zh_Hant_HK">
+      <Text>畢蘭德拉國王</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_GORKHAPATRA_QUOTE" Language="zh_Hant_HK">
+      <Text>「一個國家的文化與其所追隨的意識形態間有著密不可分的關係。」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_JYUMDO_BAGHA_AUTHOR" Language="zh_Hant_HK">
+      <Text>廓爾喀格言</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_JYUMDO_BAGHA_QUOTE" Language="zh_Hant_HK">
+      <Text>「寧死也不做懦夫。」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SAGARMATHA_AUTHOR" Language="zh_Hant_HK">
+      <Text>魯德亞德‧吉卜林</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SAGARMATHA_QUOTE" Language="zh_Hant_HK">
+      <Text>「逃入山中，一勞永逸，躲進靜冷雨水與飄渺霧氣。」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SINGHA_DURBAR_AUTHOR" Language="zh_Hant_HK">
+      <Text>廓爾喀戰吼</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SINGHA_DURBAR_QUOTE" Language="zh_Hant_HK">
+      <Text>「啊唷，廓爾喀！廓爾喀人殺到了！」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_NEPAL_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>所有倉庫建築都套用至山脈地形格位，但如此一來該建築會花費+1[icon:YIELD_GOLD]金幣和[icon:YIELD_HAPPINESS]幸福感的維護費用。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_ACTION_GIFT_GURKHA_NAME" Language="zh_Hant_HK">
+      <Text>贈送廓爾喀兵</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_ACCEPT" Language="zh_Hant_HK">
+      <Text>你將在首都中獲得1個廓爾喀兵單位。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>贈予對方一名廓爾喀兵。[n]對方接受：你和對方間的關係+10，且可依你目前和對方之關係等級獲得5[icon:YIELD_CULTURE]文化值（標準遊戲速度下）。對方領袖在自己的首都獲得一名廓爾喀兵。僅能對「友好」或「有幫助」的文明使用。</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIGHLAND_POWER_STATION_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>+3[icon:YIELD_PRODUCTION]生產力且+3[icon:YIELD_CULTURE]文化值。尼泊爾特色改良設施。不分時代。不會移除格位上的倉庫加成。必須放置在無地貌山脈格位上，且在擁有「薩加瑪塔」精通後由雪巴人建造。</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIGHLAND_POWER_STATION_TOOLTIP" Language="zh_Hant_HK">
+      <Text>尼泊爾特色改良設施。不分時代。不會移除格位上的倉庫加成。必須放置在無地貌山脈格位上，且在擁有「薩加瑪塔」精通後由雪巴人建造。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_NEPAL" Language="zh_Hant_HK">
+      <Text>尼泊爾從不卑躬屈膝。從高聳的堡壘上，廓爾喀兵警惕地俯瞰著周遭動靜，而在王宮廣場中，王公大臣們正運籌帷幄、共謀國策。在尼泊爾的旗幟之下，就算是最高的山峰亦能化為繁榮的基石，而磚造的佛塔與高塔旁更是讓高山相形失色。若有敵人膽敢來犯，那就讓他們在險峻的山坡上筋疲力盡。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_NEPAL" Language="zh_Hant_HK">
+      <Text>雪巴人可以在你的山脈上，甚至是在距離你市中心5格範圍內的無主山脈格位上，建造高地發電廠。務必妥善規劃好跋涉路線！</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_INTRO_NEPAL" Language="zh_Hant_HK">
+      <Text>尼泊爾從鄰國間崛起，期望成為世界強權。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NEPAL_COMPLETE_BOUDHANATH_DESC" Language="zh_Hant_HK">
+      <Text>扮演尼泊爾，建成滿願塔</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NEPAL_COMPLETE_BOUDHANATH_NAME" Language="zh_Hant_HK">
+      <Text>滿願塔</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NEPAL_LEGACY_PATH_CULTURAL_DESC" Language="zh_Hant_HK">
+      <Text>扮演尼泊爾，完成一條文化傳承路徑</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NEPAL_LEGACY_PATH_CULTURAL_NAME" Language="zh_Hant_HK">
+      <Text>尼泊爾傳承路徑</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_NEPAL_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>+30%生產力來自身為尼泊爾的特色奇觀。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_GIFT_GURKHA_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>解鎖「贈送廓爾喀兵」行動，這能賦予另一文明一名廓爾喀兵。尼泊爾獲得與對方關係+10，且隨目前雙方關係等級，每有一級即可獲得5[icon:YIELD_CULTURE]文化值（隨遊戲速度調整）。僅能對「友好」或「有幫助」的文明使用。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_GORKHAPATRA_MUSEUM_SLOTS_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>博物館有2個額外的巨作槽位。 </Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_JYUMDO_BAGHA_FORTIFICATION_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>若相鄰於山脈，單位可在1回合內完成防禦工事。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_JYUMDO_BAGHA_MOUNTAIN_WALLS_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>所有相鄰於山脈的區域獲得防禦強化工事，此效果僅有一次。遵循正常城牆放置規則。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SAGARMATHA_BUILDINGS_MOUNTAIN_ADJACENCY_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>食物和科技值建築從山脈獲得相鄰加成。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SHERPA_MOUNTAIN_CLAIM_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>雪巴人能發動於距離你某個聚落之宮殿或市政廳的5個格位範圍內的山脈格位上，5回合內限一次。發動後會立即獲得連接至該聚落的道路格位，且該山脈格位會立即改良完畢並建立高地發電廠。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SINGHA_DURBAR_INFLUENCE_CULTURE_BUILDING_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>各文化值建築+3[icon:YIELD_DIPLOMACY]影響力。 </Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_BOUDHANATH" Language="zh_Hant_HK">
+      <Text>《賢劫經》</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_BOUDHANATH" Language="zh_Hant_HK">
+      <Text>「習是慧，猶如海。消吾我，塵勞厄，說佛道，諸滅度。」</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_HIMAL_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在你首都中的山脈格位獲得+4[icon:YIELD_CULTURE]文化值。在其他聚落中的山脈獲得+2[icon:YIELD_CULTURE]文化值。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_MAITRI_SANADHI_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>若你擁有的聚落數量最少，則發動外交手段時+50%[icon:YIELD_DIPLOMACY]影響力效益，若非如此則+20%。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_TUNDIKHEL_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>所有單位相鄰於山脈地形時+3戰鬥力。若該單位同時位於你的領土內則再加倍。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_NEPAL_ABILITY_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>[BLIST][LI][B]所有倉庫建築[/B]對[B]山脈[/B]格位生效，但如此一來該建築會花費+1[icon:YIELD_GOLD]金幣和[icon:YIELD_HAPPINESS]幸福感的維護費用。[LI]建造[B]滿願塔[/B]時[B]+30%[icon:YIELD_PRODUCTION]生產力效益[/B]。[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_NEPAL_ABILITY_NAME" Language="zh_Hant_HK">
+      <Text>世界屋脊</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_MO_NEPAL_NAME" Language="zh_Hant_HK">
+      <Text>尼泊爾市政</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>2階尼泊爾特色步兵單位。+1移動力。+5戰鬥力。比步槍步兵更昂貴。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_3_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>3階尼泊爾特色步兵單位。+1移動力。+5戰鬥力。比步兵連隊更昂貴。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_BASE_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>尼泊爾特色步兵單位。更強、更快且更昂貴。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>1階尼泊爾特色步兵單位。+1移動力。+5戰鬥力。比戰列步兵更昂貴。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_SHERPA_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>尼泊爾特色偵察單位。視野能忽視山脈與崎嶇地形。忽視無地貌山脈對移動力的減益。能夠在珠穆朗瑪峰上移動。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNITCOMMAND_CLAIM_MOUNTAIN_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在距離其中一個聚落市中心5個格位內的山脈格位上發動。山脈會立刻改良為高地發電廠。若該山脈位於你的邊境外，則會獲得連接至該聚落的道路格位。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNITCOMMAND_CLAIM_MOUNTAIN_NAME" Language="zh_Hant_HK">
+      <Text>佔據山脈</Text>
+    </Replace>
+    <Replace Tag="LOC_UNITCOMMAND_CLAIM_MOUNTAIN_REQUIRES_UNOWNED_MOUNTAIN" Language="zh_Hant_HK">
+      <Text>需要在你其中一個聚落之宮殿或市政廳的5格範圍內有一個山脈格位。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_MOUNTAIN_5_SETTLEMENTS_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>擁有三座至少有五個[B]山脈[/B]的聚落。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_MOUNTAIN_SETTLEMENTS_NEPAL_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]山脈[/B]曾是[B]尼泊爾[/B]國家認同的重要組成。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ASHOKA_NEPAL_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]阿育王[/B]源自與[B]尼泊爾[/B]相同的大陸。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_LAKSHMIBAI_NEPAL_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]拉克什米芭伊[/B]源自與[B]尼泊爾[/B]相同的大陸。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_PACHACUTI_NEPAL_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]尼泊爾[/B]和[B]帕查庫特克[/B]在策略上互補。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BOUDHANATH_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>+4[icon:YIELD_DIPLOMACY]影響力。你和其他所有領袖間的關係提升20。必須建造在相鄰於山脈的熱帶格位中。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BOUDHANATH_TOOLTIP" Language="zh_Hant_HK">
+      <Text>你和其他所有領袖間的關係提升20。必須建造在相鄰於山脈的熱帶格位中。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_REJECT" Language="zh_Hant_HK">
+      <Text>取消該外交行動。[n]{1_initialName}的[icon:YIELD_DIPLOMACY]影響力已退還。[n]雙方領袖接下來{2_cooldown}回合不得進行新外交手段。[n]關係惡化。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_REQUEST" Language="zh_Hant_HK">
+      <Text>{1_leaderName}正在為你提供一名廓爾喀兵單位。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_MOUNTAIN_SETTLEMENTS_NEPAL_NARRATIVE" Language="zh_Hant_HK">
+      <Text>在這片{1_Civilization_Adj}土地的屋脊，縱橫交錯的峽谷與山谷之中，{1_Civilization_Adj}政權的觸角難以延伸。稅吏與戶籍官在此迷失方向，而這裡的居民得以保持自由與驕傲。 </Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_HIMAL_NAME" Language="zh_Hant_HK">
+      <Text>雪域</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_MAITRI_SANADHI_NAME" Language="zh_Hant_HK">
+      <Text>慈悲庇護</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_TUNDIKHEL_NAME" Language="zh_Hant_HK">
+      <Text>軍操場</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_NAME" Language="zh_Hant_HK">
+      <Text>廓爾喀兵</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_SHERPA_NAME" Language="zh_Hant_HK">
+      <Text>雪巴人</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

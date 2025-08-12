@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <EnglishText>
+        <Row Tag="LOC_ACTION_PANEL_TAKE_THE_NEXT_ACTION">
+            <Text>Take the Next Action</Text>
+        </Row>
+        <Row Tag="LOC_ACTION_PANEL_PLEASE_WAIT">
+            <Text>Please Wait...</Text>
+        </Row>
+        <Row Tag="LOC_ACTION_PANEL_WAITING_FOR_PLAYERS">
+            <Text>Waiting for Players</Text>
+        </Row>
+        <Row Tag="LOC_ACTION_PANEL_WAITING_FOR_PLAYERS_TT">
+            <Text>The game is waiting for the following players to take their turn...</Text>
+        </Row>
+        <Row Tag="LOC_ACTION_PANEL_NEXT_TURN">
+            <Text>Next Turn</Text>
+        </Row>
+        <Row Tag="LOC_ACTION_PANEL_AUTO_PLAYING">
+            <Text>Auto Playing...</Text>
+        </Row>
+        <Row Tag="LOC_ACTION_PANEL_CURRENT_AGE_PROGRESS">
+            <Text>Age Progress: {2_AgeProgress}. The {1_Age} Age will end at {3_MaxAgeProgress} Age Progress.</Text>
+        </Row>
+        <Row Tag="LOC_ACTION_PANEL_CURRENT_TURN">
+            <Text>Turn: {1_TurnNumber}</Text>
+        </Row>
+        <Row Tag="LOC_ACTION_PANEL_CURRENT_TURN_OVER_MAX_TURNS">
+            <Text>Turn: {1_TurnNumber}/{2_MaxTurns}</Text>
+        </Row>
+        <Row Tag="LOC_ACTION_PANEL_UNIT_MOVES_REMAINING">
+            <Text>Unit Has Moves</Text>
+        </Row>
+        <Row Tag="LOC_ACTION_PANEL_UNIT_MOVES_REMAINING_TT">
+            <Text>A unit has moves remaining.</Text>
+        </Row>
+        <Row Tag="LOC_ACTION_PANEL_LAST_PLAYER_MESSAGE">
+            <Text>The game is waiting for you.</Text>
+        </Row>
+		<Row Tag="LOC_ACTION_PANEL_TIME_AMPM_AM">
+			<Text>{1_Hours}:{2_Minutes} AM</Text>
+		</Row>
+		<Row Tag="LOC_ACTION_PANEL_TIME_AMPM_PM">
+			<Text>{1_Hours}:{2_Minutes} PM</Text>
+		</Row>
+    </EnglishText>
+</Database>

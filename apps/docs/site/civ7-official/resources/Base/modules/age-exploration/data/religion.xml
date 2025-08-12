@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_BELIEF"/>
+		<InsertOrIgnore Kind="KIND_BELIEF_CLASS"/>
+		<InsertOrIgnore Kind="KIND_RELIGION"/>
+	</Kinds>
+	<Types>
+
+		<!--Belief Classes-->
+		<Row Type="BELIEF_CLASS_ENHANCER" Kind="KIND_BELIEF_CLASS"/>
+		<Row Type="BELIEF_CLASS_FOUNDER" Kind="KIND_BELIEF_CLASS"/>
+		<Row Type="BELIEF_CLASS_RELIQUARY" Kind="KIND_BELIEF_CLASS"/>
+		<!--Beliefs-->
+		<Row Type="BELIEF_BONUS_1" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_2" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_3" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_4" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_5" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_6" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_7" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_8" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_9" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_10" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_11" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_12" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_13" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_14" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_15" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_16" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_17" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_18" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_19" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_20" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_21" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_22" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_23" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_24" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_25" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_26" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_27" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_28" Kind="KIND_BELIEF"/>
+
+		<!-- 1.2.2+ Enhancer Beliefs -->
+		<Row Type="BELIEF_BONUS_31" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_32" Kind="KIND_BELIEF"/>
+		<Row Type="ENHANCER_BELIEF_BONUS_9" Kind="KIND_BELIEF"/>
+		<Row Type="ENHANCER_BELIEF_BONUS_10" Kind="KIND_BELIEF"/>
+
+		<!-- 1.2.2+ Reliquary Beliefs -->
+		<Row Type="BELIEF_BONUS_29" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_33" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_34" Kind="KIND_BELIEF"/>
+		<Row Type="BELIEF_BONUS_35" Kind="KIND_BELIEF"/>
+
+		<!-- 1.2.2+ Founder Beliefs -->
+		<Row Type="BELIEF_BONUS_30" Kind="KIND_BELIEF"/>
+		<Row Type="FOUNDER_BELIEF_BONUS_13" Kind="KIND_BELIEF"/>
+		<Row Type="FOUNDER_BELIEF_BONUS_14" Kind="KIND_BELIEF"/>
+		<Row Type="FOUNDER_BELIEF_BONUS_15" Kind="KIND_BELIEF"/>
+		<Row Type="FOUNDER_BELIEF_BONUS_16" Kind="KIND_BELIEF"/>
+		<Row Type="FOUNDER_BELIEF_BONUS_17" Kind="KIND_BELIEF"/>
+
+		<Row Type="ABILITY_TREASURE_CONVOY_EMBARK_BONUS" Kind="KIND_ABILITY"/>
+
+	</Types>
+	<UnitAbilities>
+		<Row UnitAbilityType="ABILITY_TREASURE_CONVOY_EMBARK_BONUS" Name="LOC_ENHANCER_BELIEF_BONUS_10_NAME" Inactive="true" Description="LOC_ENHANCER_BELIEF_TREASURE_DEFENSE_PREVIEW"/>
+	</UnitAbilities>
+	<BeliefClasses>
+		<Row BeliefClassType="BELIEF_CLASS_ENHANCER" Name="LOC_BELIEF_CLASS_ENHANCER_NAME" MaxInReligion="1" AdoptionOrder="3"/>
+		<Row BeliefClassType="BELIEF_CLASS_RELIQUARY" Name="LOC_BELIEF_CLASS_RELIQUARY_NAME" MaxInReligion="1" AdoptionOrder="1"/>
+		<Row BeliefClassType="BELIEF_CLASS_FOUNDER" Name="LOC_BELIEF_CLASS_FOUNDER_NAME" MaxInReligion="3" AdoptionOrder="2"/>
+	</BeliefClasses>
+	<Beliefs>
+		<!--Enhancer-->
+		<Row BeliefType="BELIEF_BONUS_1" Name="LOC_BELIEF_BONUS_1_NAME" Description="LOC_BELIEF_BONUS_1_DESCRIPTION" BeliefClassType="BELIEF_CLASS_ENHANCER"/>
+		<Row BeliefType="BELIEF_BONUS_2" Name="LOC_BELIEF_BONUS_2_NAME" Description="LOC_BELIEF_BONUS_2_DESCRIPTION" BeliefClassType="BELIEF_CLASS_ENHANCER"/>
+		<Row BeliefType="BELIEF_BONUS_3" Name="LOC_BELIEF_BONUS_3_NAME" Description="LOC_BELIEF_BONUS_3_DESCRIPTION" BeliefClassType="BELIEF_CLASS_ENHANCER"/>
+		<Row BeliefType="BELIEF_BONUS_4" Name="LOC_BELIEF_BONUS_4_NAME" Description="LOC_BELIEF_BONUS_4_DESCRIPTION" BeliefClassType="BELIEF_CLASS_ENHANCER"/>
+		<Row BeliefType="BELIEF_BONUS_5" Name="LOC_BELIEF_BONUS_5_NAME" Description="LOC_BELIEF_BONUS_5_DESCRIPTION" BeliefClassType="BELIEF_CLASS_ENHANCER"/>
+		<Row BeliefType="BELIEF_BONUS_6" Name="LOC_BELIEF_BONUS_6_NAME" Description="LOC_BELIEF_BONUS_6_DESCRIPTION" BeliefClassType="BELIEF_CLASS_ENHANCER"/>
+		<Row BeliefType="BELIEF_BONUS_7" Name="LOC_BELIEF_BONUS_7_NAME" Description="LOC_BELIEF_BONUS_7_DESCRIPTION" BeliefClassType="BELIEF_CLASS_ENHANCER"/>
+		<Row BeliefType="BELIEF_BONUS_8" Name="LOC_BELIEF_BONUS_8_NAME" Description="LOC_BELIEF_BONUS_8_DESCRIPTION" BeliefClassType="BELIEF_CLASS_ENHANCER"/>
+		<Row BeliefType="BELIEF_BONUS_31" Name="LOC_BELIEF_BONUS_31_NAME" Description="LOC_BELIEF_BONUS_31_DESCRIPTION" BeliefClassType="BELIEF_CLASS_ENHANCER" Shareable="true"/>
+		<Row BeliefType="BELIEF_BONUS_32" Name="LOC_BELIEF_BONUS_32_NAME" Description="LOC_BELIEF_BONUS_32_DESCRIPTION" BeliefClassType="BELIEF_CLASS_ENHANCER"/>
+		<Row BeliefType="ENHANCER_BELIEF_BONUS_9" Name="LOC_ENHANCER_BELIEF_BONUS_9_NAME" Description="LOC_ENHANCER_BELIEF_BONUS_9_DESCRIPTION" BeliefClassType="BELIEF_CLASS_ENHANCER"/>
+		<Row BeliefType="ENHANCER_BELIEF_BONUS_10" Name="LOC_ENHANCER_BELIEF_BONUS_10_NAME" Description="LOC_ENHANCER_BELIEF_BONUS_10_DESCRIPTION" BeliefClassType="BELIEF_CLASS_ENHANCER"/>
+		<!--Reliquary-->
+		<Row BeliefType="BELIEF_BONUS_9" Name="LOC_BELIEF_BONUS_9_NAME" Description="LOC_BELIEF_BONUS_9_DESCRIPTION" BeliefClassType="BELIEF_CLASS_RELIQUARY"/>
+		<Row BeliefType="BELIEF_BONUS_10" Name="LOC_BELIEF_BONUS_10_NAME" Description="LOC_BELIEF_BONUS_10_DESCRIPTION" BeliefClassType="BELIEF_CLASS_RELIQUARY"/>
+		<Row BeliefType="BELIEF_BONUS_11" Name="LOC_BELIEF_BONUS_11_NAME" Description="LOC_BELIEF_BONUS_11_DESCRIPTION" BeliefClassType="BELIEF_CLASS_RELIQUARY"/>
+		<Row BeliefType="BELIEF_BONUS_12" Name="LOC_BELIEF_BONUS_12_NAME" Description="LOC_BELIEF_BONUS_12_DESCRIPTION" BeliefClassType="BELIEF_CLASS_RELIQUARY"/>
+		<Row BeliefType="BELIEF_BONUS_13" Name="LOC_BELIEF_BONUS_13_NAME" Description="LOC_BELIEF_BONUS_13_DESCRIPTION" BeliefClassType="BELIEF_CLASS_RELIQUARY"/>
+		<Row BeliefType="BELIEF_BONUS_14" Name="LOC_BELIEF_BONUS_14_NAME" Description="LOC_BELIEF_BONUS_14_DESCRIPTION" BeliefClassType="BELIEF_CLASS_RELIQUARY"/>
+		<Row BeliefType="BELIEF_BONUS_15" Name="LOC_BELIEF_BONUS_15_NAME" Description="LOC_BELIEF_BONUS_15_DESCRIPTION" BeliefClassType="BELIEF_CLASS_RELIQUARY"/>
+		<Row BeliefType="BELIEF_BONUS_16" Name="LOC_BELIEF_BONUS_16_NAME" Description="LOC_BELIEF_BONUS_16_DESCRIPTION" BeliefClassType="BELIEF_CLASS_RELIQUARY"/>
+		<Row BeliefType="BELIEF_BONUS_33" Name="LOC_BELIEF_BONUS_33_NAME" Description="LOC_BELIEF_BONUS_33_DESCRIPTION" BeliefClassType="BELIEF_CLASS_RELIQUARY"/>
+		<Row BeliefType="BELIEF_BONUS_34" Name="LOC_BELIEF_BONUS_34_NAME" Description="LOC_BELIEF_BONUS_34_DESCRIPTION" BeliefClassType="BELIEF_CLASS_RELIQUARY"/>
+		<Row BeliefType="BELIEF_BONUS_35" Name="LOC_BELIEF_BONUS_35_NAME" Description="LOC_BELIEF_BONUS_35_DESCRIPTION" BeliefClassType="BELIEF_CLASS_RELIQUARY"/>
+		<!--Founder-->
+		<Row BeliefType="BELIEF_BONUS_17" Name="LOC_BELIEF_BONUS_17_NAME" Description="LOC_BELIEF_BONUS_17_DESCRIPTION" BeliefClassType="BELIEF_CLASS_FOUNDER"/>
+		<Row BeliefType="BELIEF_BONUS_18" Name="LOC_BELIEF_BONUS_18_NAME" Description="LOC_BELIEF_BONUS_18_DESCRIPTION" BeliefClassType="BELIEF_CLASS_FOUNDER"/>
+		<Row BeliefType="BELIEF_BONUS_19" Name="LOC_BELIEF_BONUS_19_NAME" Description="LOC_BELIEF_BONUS_19_DESCRIPTION" BeliefClassType="BELIEF_CLASS_FOUNDER"/>
+		<Row BeliefType="BELIEF_BONUS_20" Name="LOC_BELIEF_BONUS_20_NAME" Description="LOC_BELIEF_BONUS_20_DESCRIPTION" BeliefClassType="BELIEF_CLASS_FOUNDER"/>
+		<Row BeliefType="BELIEF_BONUS_21" Name="LOC_BELIEF_BONUS_21_NAME" Description="LOC_BELIEF_BONUS_21_DESCRIPTION" BeliefClassType="BELIEF_CLASS_FOUNDER"/>
+		<Row BeliefType="BELIEF_BONUS_22" Name="LOC_BELIEF_BONUS_22_NAME" Description="LOC_BELIEF_BONUS_22_DESCRIPTION" BeliefClassType="BELIEF_CLASS_FOUNDER"/>
+		<Row BeliefType="BELIEF_BONUS_23" Name="LOC_BELIEF_BONUS_23_NAME" Description="LOC_BELIEF_BONUS_23_DESCRIPTION" BeliefClassType="BELIEF_CLASS_FOUNDER"/>
+		<Row BeliefType="BELIEF_BONUS_24" Name="LOC_BELIEF_BONUS_24_NAME" Description="LOC_BELIEF_BONUS_24_DESCRIPTION" BeliefClassType="BELIEF_CLASS_FOUNDER"/>
+		<Row BeliefType="BELIEF_BONUS_25" Name="LOC_BELIEF_BONUS_25_NAME" Description="LOC_BELIEF_BONUS_25_DESCRIPTION" BeliefClassType="BELIEF_CLASS_FOUNDER"/>
+		<Row BeliefType="BELIEF_BONUS_26" Name="LOC_BELIEF_BONUS_26_NAME" Description="LOC_BELIEF_BONUS_26_DESCRIPTION" BeliefClassType="BELIEF_CLASS_FOUNDER"/>
+		<Row BeliefType="BELIEF_BONUS_27" Name="LOC_BELIEF_BONUS_27_NAME" Description="LOC_BELIEF_BONUS_27_DESCRIPTION" BeliefClassType="BELIEF_CLASS_FOUNDER"/>
+		<Row BeliefType="BELIEF_BONUS_28" Name="LOC_BELIEF_BONUS_28_NAME" Description="LOC_BELIEF_BONUS_28_DESCRIPTION" BeliefClassType="BELIEF_CLASS_FOUNDER"/>
+		<Row BeliefType="FOUNDER_BELIEF_BONUS_13" Name="LOC_FOUNDER_BELIEF_BONUS_13_NAME" Description="LOC_FOUNDER_BELIEF_BONUS_13_DESCRIPTION" BeliefClassType="BELIEF_CLASS_FOUNDER"/>
+		<Row BeliefType="FOUNDER_BELIEF_BONUS_14" Name="LOC_FOUNDER_BELIEF_BONUS_14_NAME" Description="LOC_FOUNDER_BELIEF_BONUS_14_DESCRIPTION" BeliefClassType="BELIEF_CLASS_FOUNDER"/>
+		<Row BeliefType="FOUNDER_BELIEF_BONUS_15" Name="LOC_FOUNDER_BELIEF_BONUS_15_NAME" Description="LOC_FOUNDER_BELIEF_BONUS_15_DESCRIPTION" BeliefClassType="BELIEF_CLASS_FOUNDER"/>
+		<Row BeliefType="FOUNDER_BELIEF_BONUS_16" Name="LOC_FOUNDER_BELIEF_BONUS_16_NAME" Description="LOC_FOUNDER_BELIEF_BONUS_16_DESCRIPTION" BeliefClassType="BELIEF_CLASS_FOUNDER"/>
+		<Row BeliefType="FOUNDER_BELIEF_BONUS_17" Name="LOC_FOUNDER_BELIEF_BONUS_17_NAME" Description="LOC_FOUNDER_BELIEF_BONUS_17_DESCRIPTION" BeliefClassType="BELIEF_CLASS_FOUNDER"/>
+		<!--Shared-->
+		<Row BeliefType="BELIEF_BONUS_29" Name="LOC_BELIEF_BONUS_29_NAME" Description="LOC_BELIEF_BONUS_29_DESCRIPTION" BeliefClassType="BELIEF_CLASS_RELIQUARY" Shareable="true"/>
+		<Row BeliefType="BELIEF_BONUS_30" Name="LOC_BELIEF_BONUS_30_NAME" Description="LOC_BELIEF_BONUS_30_DESCRIPTION" BeliefClassType="BELIEF_CLASS_FOUNDER" Shareable="true"/>
+
+	</Beliefs>
+	<BeliefModifiers>
+		<!--Enhancer-->
+		<Row BeliefType="BELIEF_BONUS_1" ModifierId="BONUS_1_AUTO_SPREAD_FOREIGN_HEMISPHERE"/>
+		<Row BeliefType="BELIEF_BONUS_2" ModifierId="BONUS_2_MISSIONARY_MOVEMENT"/>
+		<Row BeliefType="BELIEF_BONUS_2" ModifierId="BONUS_2_NAVAL_MOVEMENT"/>
+		<Row BeliefType="BELIEF_BONUS_2" ModifierId="BONUS_2_EMBARKED_MOVEMENT"/>
+		<Row BeliefType="BELIEF_BONUS_3" ModifierId="BONUS_3_COMBAT_STRENGTH_FRIENDLY_RELIGIOUS_CITY"/>
+		<Row BeliefType="BELIEF_BONUS_4" ModifierId="BONUS_4_AUTO_SPREAD_CONQUERED"/>
+		<Row BeliefType="BELIEF_BONUS_5" ModifierId="BONUS_5_AUTO_SPREAD_TRADE_ROUTE"/>
+		<Row BeliefType="BELIEF_BONUS_6" ModifierId="BONUS_6_ADDITIONAL_CHARGE"/>
+		<Row BeliefType="BELIEF_BONUS_7" ModifierId="BONUS_7_RELIC_MISSIONARY_PRODUCTION"/>
+		<Row BeliefType="BELIEF_BONUS_8" ModifierId="BONUS_8_RELIC_SLOT_TEMPLE"/>
+		<Row BeliefType="BELIEF_BONUS_31" ModifierId="BONUS_31_FREE_MISSIONARIES_ON_WONDERS"/>
+		<Row BeliefType="BELIEF_BONUS_32" ModifierId="BONUS_32_WAR_SUPPORT"/>
+		<Row BeliefType="ENHANCER_BELIEF_BONUS_9" ModifierId="MOD_ENHANCER_BELIEF_RELIC_SLOTS_ON_SCIENCE_BUILDINGS"/>
+		<Row BeliefType="ENHANCER_BELIEF_BONUS_10" ModifierId="MOD_ENHANCER_BELIEF_TREASURE_MOVEMENT_AND_COMBAT_STRENGTH"/>
+		<!--Reliquary-->
+		<Row BeliefType="BELIEF_BONUS_9" ModifierId="BONUS_9_RELIC_CITY_STATE"/>
+		<Row BeliefType="BELIEF_BONUS_10" ModifierId="BONUS_10_RELIC_CAPITAL"/>
+		<Row BeliefType="BELIEF_BONUS_11" ModifierId="BONUS_11_RELIC_CONVERTING_RELIGIOUS_BUILDING"/>
+		<Row BeliefType="BELIEF_BONUS_12" ModifierId="BONUS_12_RELIC_WONDER"/>
+		<Row BeliefType="BELIEF_BONUS_13" ModifierId="BONUS_13_RELIC_NEW_WORLD"/>
+		<Row BeliefType="BELIEF_BONUS_14" ModifierId="BONUS_14_RELIC_TREASURE_FLEETS"/>
+		<Row BeliefType="BELIEF_BONUS_15" ModifierId="BONUS_15_RELIC_RURAL_POP"/>
+		<Row BeliefType="BELIEF_BONUS_16" ModifierId="BONUS_16_RELIC_URBAN_POP"/>
+		<!--Founder-->
+		<Row BeliefType="BELIEF_BONUS_17" ModifierId="BONUS_17_CITIES_FOLLOWING_SCIENCE"/>
+		<Row BeliefType="BELIEF_BONUS_18" ModifierId="BONUS_18_NATURAL_WONDER_SCIENCE"/>
+		<Row BeliefType="BELIEF_BONUS_18" ModifierId="BONUS_18_NATURAL_WONDER_CULTURE"/>
+		<Row BeliefType="BELIEF_BONUS_18" ModifierId="BONUS_18_NATURAL_WONDER_GOLD"/>
+		<Row BeliefType="BELIEF_BONUS_19" ModifierId="BONUS_19_WONDERS_SCIENCE"/>
+		<Row BeliefType="BELIEF_BONUS_19" ModifierId="BONUS_19_WONDERS_CULTURE"/>
+		<Row BeliefType="BELIEF_BONUS_19" ModifierId="BONUS_19_WONDERS_GOLD"/>
+		<Row BeliefType="BELIEF_BONUS_20" ModifierId="BONUS_20_CITIES_FOLLOWING_GOLD"/>
+		<Row BeliefType="BELIEF_BONUS_21" ModifierId="BONUS_21_CITIES_FOLLOWING_CULTURE"/>
+		<Row BeliefType="BELIEF_BONUS_22" ModifierId="BONUS_22_TROPICAL_CITIES_FOLLOWING_SCIENCE"/>
+		<Row BeliefType="BELIEF_BONUS_23" ModifierId="BONUS_23_TUNDRA_CITIES_FOLLOWING_CULTURE"/>
+		<Row BeliefType="BELIEF_BONUS_24" ModifierId="BONUS_24_DESERT_CITIES_FOLLOWING_GOLD"/>
+		<Row BeliefType="BELIEF_BONUS_25" ModifierId="BONUS_25_CITIES_FOLLOWING_HAPPINESS"/>
+		<Row BeliefType="BELIEF_BONUS_26" ModifierId="BONUS_26_MARINE_CITIES_FOLLOWING_HAPPINESS"/>
+		<Row BeliefType="BELIEF_BONUS_27" ModifierId="BONUS_27_GRASSLAND_CITIES_FOLLOWING_SCIENCE"/>
+		<Row BeliefType="BELIEF_BONUS_28" ModifierId="BONUS_28_PLAINS_CITIES_FOLLOWING_SCIENCE"/>
+		<Row BeliefType="BELIEF_BONUS_29" ModifierId="BONUS_29_RELIC_HOLY_CITY"/>
+		<Row BeliefType="BELIEF_BONUS_30" ModifierId="BONUS_30_HOLY_CITY_TEMPLE_YIELDS"/>
+		<Row BeliefType="BELIEF_BONUS_33" ModifierId="BONUS_31_RELIC_FIRST_TIME_CITY_OWNED_CONVERSION"/>
+		<Row BeliefType="BELIEF_BONUS_34" ModifierId="BONUS_34_RELIC_CITY_WITH_X_SPECIALISTS"/>
+		<Row BeliefType="BELIEF_BONUS_35" ModifierId="BONUS_35_RELIC_NATURAL_WONDER"/>
+		<Row BeliefType="FOUNDER_BELIEF_BONUS_13" ModifierId="MOD_FOUNDER_BELIEF_CITIES_FOLLOWING_INFLUENCE"/>
+		<Row BeliefType="FOUNDER_BELIEF_BONUS_14" ModifierId="MOD_FOUNDER_BELIEF_RIVER_CITIES_FOLLOWING_INFLUENCE"/>
+		<Row BeliefType="FOUNDER_BELIEF_BONUS_15" ModifierId="MOD_FOUNDER_BELIEF_DOMESTIC_FOOD"/>
+		<Row BeliefType="FOUNDER_BELIEF_BONUS_16" ModifierId="MOD_FOUNDER_BELIEF_DOMESTIC_PRODUCTION"/>
+		<Row BeliefType="FOUNDER_BELIEF_BONUS_17" ModifierId="MOD_FOUNDER_BELIEF_TEMPLE_PROVIDE_HAPPINESS_ADJACENCY"/>
+	</BeliefModifiers>
+	<RequirementSets>
+		<Row RequirementSetId="PLAYER_ELIGIBLE_RELIGION_BONUS" RequirementSetType="REQUIREMENTSET_TEST_ALL"/>
+		<Row RequirementSetId="UNIT_IS_MISSIONARY" RequirementSetType="REQUIREMENTSET_TEST_ALL"/>
+		<Row RequirementSetId="CITY_HAS_TEMPLE_AND_RELIGION" RequirementSetType="REQUIREMENTSET_TEST_ALL"/>
+		<Row RequirementSetId="CITY_HAS_RELIGION" RequirementSetType="REQUIREMENTSET_TEST_ALL"/>
+	</RequirementSets>
+	<RequirementSetRequirements>
+		<Row RequirementSetId="PLAYER_ELIGIBLE_RELIGION_BONUS" RequirementId="REQ_PLAYER_ELIGIBLE_RELIGION_BONUS"/>
+		<Row RequirementSetId="UNIT_IS_MISSIONARY" RequirementId="REQ_UNIT_IS_MISSIONARY"/>
+		<Row RequirementSetId="CITY_HAS_TEMPLE_AND_RELIGION" RequirementId="REQ_CITY_HAS_BUILDING_TEMPLE"/>
+		<Row RequirementSetId="CITY_HAS_TEMPLE_AND_RELIGION" RequirementId="REQ_CITY_HAS_RELIGION"/>
+		<Row RequirementSetId="CITY_HAS_RELIGION" RequirementId="REQ_CITY_HAS_RELIGION"/>
+	</RequirementSetRequirements>
+	<Requirements>
+		<Row RequirementId="REQ_PLAYER_ELIGIBLE_RELIGION_BONUS" RequirementType="REQUIREMENT_PLAYER_IS_RELIGION_FOUNDER"/>
+		<Row RequirementId="REQ_UNIT_IS_MISSIONARY" RequirementType="REQUIREMENT_UNIT_TYPE_MATCHES"/>
+		<Row RequirementId="REQ_CITY_HAS_BUILDING_TEMPLE" RequirementType="REQUIREMENT_CITY_HAS_BUILDING"/>
+		<Row RequirementId="REQ_CITY_HAS_RELIGION" RequirementType="REQUIREMENT_CITY_FOLLOWS_RELIGION"/>
+	</Requirements>
+	<RequirementArguments>
+		<Row RequirementId="REQ_UNIT_IS_MISSIONARY" Name="UnitType" Value="UNIT_MISSIONARY"/>
+		<Row RequirementId="REQ_CITY_HAS_BUILDING_TEMPLE" Name="BuildingType" Value="BUILDING_TEMPLE"/>
+	</RequirementArguments>
+	<Warehouse_YieldChanges>
+		<Row ID="EXFounderBeliefHolyCityTempleProduction" Age="AGE_EXPLORATION" YieldType="YIELD_PRODUCTION" YieldChange="3" ConstructibleInCity="BUILDING_TEMPLE"/>
+		<Row ID="EXFounderBeliefHolyCityTempleHappiness" Age="AGE_EXPLORATION" YieldType="YIELD_HAPPINESS" YieldChange="3" ConstructibleInCity="BUILDING_TEMPLE"/>
+		<Row ID="EXFounderBeliefHolyCityTempleScience" Age="AGE_EXPLORATION" YieldType="YIELD_SCIENCE" YieldChange="3" ConstructibleInCity="BUILDING_TEMPLE"/>
+		<Row ID="EXFounderBeliefHolyCityTempleCulture" Age="AGE_EXPLORATION" YieldType="YIELD_CULTURE" YieldChange="3" ConstructibleInCity="BUILDING_TEMPLE"/>
+		<Row ID="EXFounderBeliefHolyCityTempleGold" Age="AGE_EXPLORATION" YieldType="YIELD_GOLD" YieldChange="3" ConstructibleInCity="BUILDING_TEMPLE"/>
+		<Row ID="EXFounderBeliefHolyCityTempleInfluence" Age="AGE_EXPLORATION" YieldType="YIELD_DIPLOMACY" YieldChange="3" ConstructibleInCity="BUILDING_TEMPLE"/>
+	</Warehouse_YieldChanges>
+
+	<!--AI-->
+	<Belief_Priorities>
+		<Row BeliefType="BELIEF_BONUS_9" ListType="ReligiousBelief9PseudoYieldBiases"/>
+		<Row BeliefType="BELIEF_BONUS_11" ListType="ReligiousBelief11ConstructibleClassBiases"/>
+		<Row BeliefType="BELIEF_BONUS_12" ListType="ReligiousBelief12YieldBiases"/>
+		<Row BeliefType="BELIEF_BONUS_13" ListType="ReligiousBelief13PseudoYieldBiases"/>
+		<Row BeliefType="BELIEF_BONUS_14" ListType="ReligiousBelief14PseudoYieldBiases"/>
+	</Belief_Priorities>
+	<AiListTypes>
+		<Row ListType="ReligiousBelief9PseudoYieldBiases"/>
+		<Row ListType="ReligiousBelief11ConstructibleClassBiases"/>
+		<Row ListType="ReligiousBelief12YieldBiases"/>
+		<Row ListType="ReligiousBelief13PseudoYieldBiases"/>
+		<Row ListType="ReligiousBelief14PseudoYieldBiases"/>
+	</AiListTypes>
+	<AiLists>
+		<Row ListType="ReligiousBelief9PseudoYieldBiases" System="PseudoYieldBiases"/>
+		<Row ListType="ReligiousBelief11ConstructibleClassBiases" System="ConstructibleClassBiases"/>
+		<Row ListType="ReligiousBelief12YieldBiases" System="YieldBiases"/>
+		<Row ListType="ReligiousBelief13PseudoYieldBiases" System="PseudoYieldBiases"/>
+		<Row ListType="ReligiousBelief14PseudoYieldBiases" System="PseudoYieldBiases"/>
+	</AiLists>
+	<AiFavoredItems>
+		<Row ListType="ReligiousBelief9PseudoYieldBiases" Item="PSEUDOYIELD_CONVERT_SETTLEMENT_WITH_TEMPLE" Value="30000"/>
+		<Row ListType="ReligiousBelief11ConstructibleClassBiases" Item="WONDER" Value="20"/>
+		<Row ListType="ReligiousBelief12YieldBiases" Item="YIELD_HAPPINESS" Value="30"/>
+		<Row ListType="ReligiousBelief13PseudoYieldBiases" Item="PSEUDOYIELD_CONVERT_SETTLEMENT_DISTANT_LANDS" Value="30000"/>
+		<Row ListType="ReligiousBelief14PseudoYieldBiases" Item="PSEUDOYIELD_IMPROVE_RESOURCE_DISTANT_LANDS" Value="30000"/>
+	</AiFavoredItems>
+</Database>

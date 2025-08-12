@@ -1,0 +1,75 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+@use '../../../core/ui/themes/default/baseColors';
+
+.save-container {
+	background-color: rgb(39, 37, 38, 0.8);
+	position: absolute;
+	bottom: pixels(-64);
+	left: pixels(8);
+}
+
+.save-animation {
+	animation-name: quickSaveIndicator;
+	animation-duration: 5s;
+}
+
+.save-item {
+	display: flex;
+	flex-direction: row;
+	width: pixels(320);
+	height: auto;
+	text-shadow: pixels(1) pixels(0) var(--base-dark-color);
+	margin-top: pixels(8);
+	margin-bottom: pixels(8);
+	margin-left: pixels(8);
+	pointer-events: auto;
+	background-color: rgb(var(--base-light-color));
+
+	>.save-icon {
+		width: pixels(40);
+		height: pixels(40);
+		background-size: contain;
+		margin-top: pixels(4);
+		background-image: url("fs://game/base-standard/ui/assets-temp/icons/nar_book_black.png");
+	}
+
+	>.save-info {
+		width: pixels(272);
+		height: auto;
+		display: flex;
+		flex-direction: column;
+		margin-left: pixels(8);
+
+		>.save-title {
+			margin-bottom: pixels(2);
+			font-size: pixels-font(20);
+		}
+
+		>.save-description {
+			font-size: pixels-font(16);
+			text-overflow: clip;
+			max-height: pixels(64);
+		}
+	}
+}
+
+@keyframes quickSaveIndicator {
+	0% {
+		bottom: pixels(-64);
+		;
+	}
+
+	10% {
+		bottom: pixels(8);
+	}
+
+	90% {
+		bottom: pixels(8);
+	}
+
+	100% {
+		bottom: pixels(-64);
+		;
+	}
+}

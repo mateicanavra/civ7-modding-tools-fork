@@ -1,0 +1,838 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_NEPAL1" Language="pt_BR">
+      <Text>Katmandu</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL10" Language="pt_BR">
+      <Text>Janakpurdham</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL11" Language="pt_BR">
+      <Text>Jumla</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL12" Language="pt_BR">
+      <Text>Biratnagar</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL13" Language="pt_BR">
+      <Text>Tulsipur</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL14" Language="pt_BR">
+      <Text>Butwal</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL15" Language="pt_BR">
+      <Text>Godawari</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL16" Language="pt_BR">
+      <Text>Nepalgunj</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL17" Language="pt_BR">
+      <Text>Gorahi</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL18" Language="pt_BR">
+      <Text>Lumbini</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL19" Language="pt_BR">
+      <Text>Nagarkot</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL2" Language="pt_BR">
+      <Text>Pokhara</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL20" Language="pt_BR">
+      <Text>Dhulikhel</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL21" Language="pt_BR">
+      <Text>Kalaiya</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL22" Language="pt_BR">
+      <Text>Damak</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL23" Language="pt_BR">
+      <Text>Mustang</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL24" Language="pt_BR">
+      <Text>Gaighat</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL25" Language="pt_BR">
+      <Text>Birganj</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL26" Language="pt_BR">
+      <Text>Sankhu</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL27" Language="pt_BR">
+      <Text>Dhangadhi</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL28" Language="pt_BR">
+      <Text>Inarwasira</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL29" Language="pt_BR">
+      <Text>Amlekhganj</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL3" Language="pt_BR">
+      <Text>Lalitpur</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL30" Language="pt_BR">
+      <Text>Tarakeshwar</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL4" Language="pt_BR">
+      <Text>Bharatpur</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL5" Language="pt_BR">
+      <Text>Gahawa</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL6" Language="pt_BR">
+      <Text>Dharan</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL7" Language="pt_BR">
+      <Text>Hetauda</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL8" Language="pt_BR">
+      <Text>Birendranagar</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL9" Language="pt_BR">
+      <Text>Itahari</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_1" Language="pt_BR">
+      <Text>Shambhav</Text>
+      <Gender>female</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_10" Language="pt_BR">
+      <Text>Anuska</Text>
+      <Gender>female</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_2" Language="pt_BR">
+      <Text>Sneha</Text>
+      <Gender>female</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_3" Language="pt_BR">
+      <Text>Sarita</Text>
+      <Gender>female</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_4" Language="pt_BR">
+      <Text>Amita</Text>
+      <Gender>female</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_5" Language="pt_BR">
+      <Text>Alina</Text>
+      <Gender>female</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_6" Language="pt_BR">
+      <Text>Tanisha</Text>
+      <Gender>female</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_7" Language="pt_BR">
+      <Text>Reshma</Text>
+      <Gender>female</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_8" Language="pt_BR">
+      <Text>Shreeja</Text>
+      <Gender>female</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_9" Language="pt_BR">
+      <Text>Soneeya</Text>
+      <Gender>female</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_1" Language="pt_BR">
+      <Text>Bibek</Text>
+      <Gender>male</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_10" Language="pt_BR">
+      <Text>Udgam</Text>
+      <Gender>male</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_2" Language="pt_BR">
+      <Text>Krishna</Text>
+      <Gender>male</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_3" Language="pt_BR">
+      <Text>Kamal</Text>
+      <Gender>male</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_4" Language="pt_BR">
+      <Text>Prasad</Text>
+      <Gender>male</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_5" Language="pt_BR">
+      <Text>Gagan</Text>
+      <Gender>male</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_6" Language="pt_BR">
+      <Text>Ram</Text>
+      <Gender>male</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_7" Language="pt_BR">
+      <Text>Bishal</Text>
+      <Gender>male</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_8" Language="pt_BR">
+      <Text>Amir</Text>
+      <Gender>male</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_9" Language="pt_BR">
+      <Text>Roshan</Text>
+      <Gender>male</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_NEPAL_ADJECTIVE" Language="pt_BR">
+      <Text>nepalês|nepalesa|nepaleses|nepalesas</Text>
+      <Gender>masculine|feminine|masculine|feminine</Gender>
+      <Plurality>1|1|2|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_NEPAL_FULLNAME" Language="pt_BR">
+      <Text>Império Nepalês</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_NEPAL_NAME" Language="pt_BR">
+      <Text>Nepal</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_MODERN_23_MAJOR_NEPAL_NAME" Language="pt_BR">
+      <Text>Punakha</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_MODERN_23_MINOR_NEPAL_NAME" Language="pt_BR">
+      <Text>Butanês</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_1" Language="pt_BR">
+      <Text>O Nepal está simultaneamente na borda e no centro do mundo: situado nos vales de uma das regiões mais altas da Terra, encontra-se também entre duas das maiores potências globais. Essa proximidade geopolítica permitiu que fosse uma fonte de comércio e recursos, enquanto sua geografia desafiadora assegurou sua sobrevivência. Internamente, o Nepal abriga uma mistura de povos budistas das terras altas e uma maioria hindu das terras baixas. Nessas últimas, estados emergiram com graus variados de interação com as terras altas, estabelecendo um equilíbrio de poder baseado tanto na coexistência quanto no controle. Os hindus neuaris e chhatris das terras baixas formaram o núcleo desses estados, mas dependiam das redes de transporte e recursos dos tamang e xerpas das terras altas.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_2" Language="pt_BR">
+      <Text>Na fronteira norte da Índia, e entre os vales das montanhas elevadas, os reinos nepaleses existiram como estados tributários desde o primeiro milênio EC, quando o nome "Nepala" aparece em inscrições de estados como os guptas. Esses reinos ganharam destaque no século X EC, com a fundação de Katmandu, mas foi apenas no século XVIII que uma potência significativa emergiu: o Reino de Gorkha, e seu fundador, Prithvi Narayan Shah.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_3" Language="pt_BR">
+      <Text>Essa foi uma época em que o governo mogol, dominado por muçulmanos, governava a Índia. No entanto, as tropas mogóis, dependentes de unidades montadas de cavalos, camelos ou elefantes, perceberam que os vales íngremes e gelados eram difíceis de controlar, e as linhas de abastecimento das terras altas para a China, impossíveis de cercar. Com isso, o Nepal tornou-se uma resistência hindu enquanto sultanatos e impérios muçulmanos guerreavam ao sul. Quando os britânicos chegaram à Índia, também descobriram que eram incapazes de manter o controle da região. Ainda assim, durante a Guerra Anglo-Nepalesa (1814-1816), extraíram concessões territoriais dos nepaleses mal armados e estabeleceram o Nepal como um protetorado.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_4" Language="pt_BR">
+      <Text>Essa proteção resultou em isolamento durante a subsequente dinastia Rana, que se aliou estreitamente aos britânicos em conflitos que iam desde a Rebelião Indiana até a Segunda Guerra Mundial. O Nepal da era Rana era um reino autocrático e isolacionista que manteve sua independência graças a alianças estratégicas, à geografia desafiadora e ao posicionamento geopolítico estratégico.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_5" Language="pt_BR">
+      <Text>Os Rana chegaram ao poder por meio de golpes de estado e assassinatos, controlando a monarquia através do gabinete do primeiro-ministro e, em certas ocasiões, impondo sua autoridade com assassinatos palacianos seletivos. A lealdade dos Rana à Inglaterra também foi uma estratégia calculada: seu fundador, Jung Bahadur, visitou instalações militares na Inglaterra e concluiu que os britânicos eram poderosos demais para enfrentar. Em vez disso, os Rana apoiaram os britânicos durante a Rebelião Indiana de 1857, além de manter um corpo de elite gurca que lutou ao lado dos britânicos no Afeganistão e nas duas Guerras Mundiais.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_6" Language="pt_BR">
+      <Text>Esse regime eventualmente caiu no final dos anos 1950, quando os Rana sucumbiram a um período de instabilidade em que a monarquia constitucional e a ditadura monárquica competiam entre si. As crescentes frustrações levaram ao surgimento de uma insurgência comunista. A monarquia chegou ao fim após um dramático massacre no palácio real em 2001, e, em 2008, foi oficialmente dissolvida.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_IMPROVEMENT_HIGHLAND_POWER_STATION_CHAPTER_HISTORY_PARA_1" Language="pt_BR">
+      <Text>Em 1911, o Nepal inaugurou sua primeira usina de energia elétrica, pouco depois de instalações semelhantes serem construídas nos Estados Unidos e na Índia. O país parecia ideal para essa tecnologia, com suas dramáticas variações de elevação e abundância de água descendo pelas encostas do Himalaia, embora novos projetos tenham demorado a surgir desde então. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_GORKHAPATRA_CHAPTER_HISTORY_PARA_1" Language="pt_BR">
+      <Text>A mídia é essencial na formação da consciência nacional. O Gorkhapatra, o "Correio do Nepal", foi amplamente administrado pelo gabinete do primeiro-ministro e, assim, serviu como um meio de comunicação governamental altamente censurado durante grande parte de sua existência. Hoje, ainda ativo, embora persista a alegação de ser excessivamente alinhado ao governo, o jornal conseguiu sobreviver ao regime que o fundou. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_JYUMDO_BAGHA_CHAPTER_HISTORY_PARA_1" Language="pt_BR">
+      <Text>Amar Singh Thapa, conhecido como "Tigre Vivo" (Jyumdo Bagha) do Nepal, foi o comandante do Exército Nepalês durante a Guerra Anglo-Nepalesa, travada no início dos anos 1800. Nesse conflito, a Companhia Britânica das Índias Orientais tentou controlar o Nepal, um centro de riquezas e recursos. A guerra continuou, com os britânicos, apesar de melhor equipados, sendo frustrados pelo terreno desafiador e pelas persistentes preocupações com a malária. Embora vitoriosos, os britânicos mantiveram um governo limitado e sob estrito controle no Nepal. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_SAGARMATHA_CHAPTER_HISTORY_PARA_1" Language="pt_BR">
+      <Text>O nome nepalês para Chomolungma, tibetano para "Mãe do Mundo", é Sagarmatha, "Deusa do Céu". O nome em inglês, e possivelmente mais conhecido, é Monte Everest.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_SAGARMATHA_CHAPTER_HISTORY_PARA_2" Language="pt_BR">
+      <Text>O Nepal existe à sombra das grandes montanhas, cujos picos absorvem a umidade dos céus, moldando assim a ecologia e a geologia do planeta. Os ventos que sopram calor e umidade pelo subcontinente indiano deixam sua umidade aqui, criando vales densos e férteis no lado sul dos picos, enquanto ao norte, no Tibete, as terras altas permanecem secas. Essa divisão também molda a sociedade: terras baixas e terras altas, rios e desertos do planalto, nepaleses hindus e tibetanos budistas. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_SINGHA_DURBAR_CHAPTER_HISTORY_PARA_1" Language="pt_BR">
+      <Text>O Nepal do período moderno é caracterizado pelo firme controle do Estado, um paradoxo, já que o território nepalês é etnicamente e geograficamente fragmentado o suficiente para desafiar qualquer governo. O Singha Durbar, o Palácio do Leão, foi inaugurado em 1908 e simbolizava a mão de ferro da Dinastia Rana. Esta dinastia era composta por primeiros-ministros e altos oficiais que efetivamente controlavam a monarquia, governando com firmeza tanto internamente quanto externamente. Do Singha Durbar surgiram alguns dos desenvolvimentos mais significativos na vida moderna nepalesa: a abolição da escravidão e o reconhecimento da independência do Nepal. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_GURKHA_CHAPTER_HISTORY_PARA_1" Language="pt_BR">
+      <Text>O nome "gurca", em sua origem, refere-se simplesmente ao Reino de Gorkha, um dos predecessores do estado nepalês moderno, mas no final do século XIX e início do século XX, o termo passou a se referir aos combatentes nepaleses contratados para lutar por outros estados. Mais notavelmente, pelos britânicos: após a Guerra Anglo-Nepalesa, os britânicos perceberam a lealdade e ferocidade dos soldados nepaleses e formaram batalhões de gurcas dispostos a lutar por eles. E lutaram: os gurcas combateram pelos britânicos na Rebelião Indiana de 1857, na Primeira Guerra Mundial e na Segunda Guerra Mundial. Após a independência da Índia, os gurcas continuaram a lutar pelos britânicos, mas muitos se alistaram no exército indiano.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_GURKHA_CHAPTER_HISTORY_PARA_2" Language="pt_BR">
+      <Text>O símbolo mais icônico dos gurcas é a faca kukri: uma lâmina pesada e curvada que serve tanto como facão quanto como arma.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_SHERPA_CHAPTER_HISTORY_PARA_1" Language="pt_BR">
+      <Text>Os xerpas são uma minoria étnica tibetana e budista das áreas montanhosas do Nepal, Índia e Butão. A história mostra que eles conseguiram sobreviver nas altitudes mais elevadas e rapidamente conquistaram a reputação de serem capazes de enfrentar os picos mais altos da terra. O nome deles virou sinônimo de exploradores destemidos das montanhas e Tenzing Norgay foi um dos mais famosos e um dos primeiros a alcançar o cume do Monte Everest. Hoje, os xerpas estão profundamente envolvidos na indústria turística do Nepal, particularmente como guias para os aventureiros que exploram os picos mais altos do país. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_BOUDHANATH_CHAPTER_HISTORY_PARA_1" Language="pt_BR">
+      <Text>Boudhanath faz referência ao distrito que envolve a Estupa de Boudha, o monumento budista central do Nepal (um país predominantemente hindu). Trata-se de um enclave budista na cidade, que abriga uma comunidade de monastérios e locais de adoração, além da sua estupa central, com cúpula branca e olhos duplos. É um símbolo tanto da cidade quanto do Nepal como um todo.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_BOUDHANATH_CHAPTER_HISTORY_PARA_2" Language="pt_BR">
+      <Text>Segundo a lenda, a estupa foi construída por uma das filhas de Indra, que ao ser expulsa dos céus procurou erguer um monumento para recuperar o seu próprio mérito. A partir daí, a tradição conta que os missionários budistas partiram para ensinar o dharma em direção ao norte e para locais mais altos, rumo aos picos gelados e ao planalto tibetano, onde, de fato, a maioria dos budistas do Nepal reside atualmente.</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIGHLAND_POWER_STATION_NAME" Language="pt_BR">
+      <Text>Usina Elétrica de Montanha|Usinas Elétricas de Montanha</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BOUDHANATH_NAME" Language="pt_BR">
+      <Text>Boudhanath</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_BAGMATI_NAME" Language="pt_BR">
+      <Text>Rio Bagmati</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_BHERI_NAME" Language="pt_BR">
+      <Text>Rio Bheri</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_GANDAKI_NAME" Language="pt_BR">
+      <Text>Rio Gandaki</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_GHAGHARA_NAME" Language="pt_BR">
+      <Text>Rio Gagara</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_KOSI_NAME" Language="pt_BR">
+      <Text>Rio Kosi</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_DAHEI_SHAN_NAME" Language="pt_BR">
+      <Text>Dahei Shan</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_DHOSI_HILL_NAME" Language="pt_BR">
+      <Text>Colina Dhosi</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_KA_ER_DAXI_NAME" Language="pt_BR">
+      <Text>Ka-er-daxi</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_POPA_NAME" Language="pt_BR">
+      <Text>Popa</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_TOSHAM_HILL_NAME" Language="pt_BR">
+      <Text>Colina Tosham</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_GORKHAPATRA_NAME" Language="pt_BR">
+      <Text>Gorkhapatra</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_JYUMDO_BAGHA_NAME" Language="pt_BR">
+      <Text>Jyumdo Bagha</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SAGARMATHA_NAME" Language="pt_BR">
+      <Text>Sagarmatha</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SINGHA_DURBAR_NAME" Language="pt_BR">
+      <Text>Singha Durbar</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_11030A_COMPLETION" Language="pt_BR">
+      <Text>As comunidades nas altas montanhas descem para os vales nepaleses na difícil jornada com mercadorias empilhadas em seus ombros. Enquanto as montanhas dão abrigo ao Nepal, esses antigos incas eram os verdadeiros filhos das alturas.</Text>
+    </Replace>
+    <Replace Tag="LOC_11030A_STORYTITLE" Language="pt_BR">
+      <Text>Filhos do Céu</Text>
+    </Replace>
+    <Replace Tag="LOC_11030B_DESCRIPTION" Language="pt_BR">
+      <Text>{1_reward} em Montanhas.</Text>
+    </Replace>
+    <Replace Tag="LOC_11030B_NAME" Language="pt_BR">
+      <Text>Permitir que continuem suas tradições.</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_COMPLETION" Language="pt_BR">
+      <Text>Lentamente, a língua inca dá lugar ao nepalês, e os antigos costumes desaparecem.</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_DESCRIPTION" Language="pt_BR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_IMPERATIVE" Language="pt_BR">
+      <Text>Tenha 3 Escolas adjacentes a Montanhas.</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_NAME" Language="pt_BR">
+      <Text>Eles precisam de escolas para que possam se tornar nepaleses.</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_STORYTITLE" Language="pt_BR">
+      <Text>Filhos do Céu</Text>
+    </Replace>
+    <Replace Tag="LOC_11032A_COMPLETION" Language="pt_BR">
+      <Text>A montanha treme, e a neve e o gelo dão lugar ao vapor sibilante do fogo. Com dificuldade, o xerpa tenta segurar alguma posição na montanha, enquanto tudo desaba em chamas.</Text>
+    </Replace>
+    <Replace Tag="LOC_11032A_STORYTITLE" Language="pt_BR">
+      <Text>A Fúria de Jwalamukhi</Text>
+    </Replace>
+    <Replace Tag="LOC_11032B_DESCRIPTION" Language="pt_BR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11032B_NAME" Language="pt_BR">
+      <Text>Permanecer para ver o sangue da terra sendo expelido.</Text>
+    </Replace>
+    <Replace Tag="LOC_11032C_DESCRIPTION" Language="pt_BR">
+      <Text>{1_reward} e {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11032C_NAME" Language="pt_BR">
+      <Text>Fugir!</Text>
+    </Replace>
+    <Replace Tag="LOC_11033A_COMPLETION" Language="pt_BR">
+      <Text>A grande camada de neve com dois picos se eleva acima das cadeias de montanhas e parece estar declarando o seu domínio sobre o céu.</Text>
+    </Replace>
+    <Replace Tag="LOC_11033A_STORYTITLE" Language="pt_BR">
+      <Text>Machapuchare</Text>
+    </Replace>
+    <Replace Tag="LOC_11033B_DESCRIPTION" Language="pt_BR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11033B_NAME" Language="pt_BR">
+      <Text>Que permaneça em esplendor.</Text>
+    </Replace>
+    <Replace Tag="LOC_11034A_COMPLETION" Language="pt_BR">
+      <Text>A expedição acaba em desastre e fracasso... e morte. Os guias da montanha avisam que este é o lar dos deuses, e ninguém deve desafiá-los.</Text>
+    </Replace>
+    <Replace Tag="LOC_11034A_DESCRIPTION" Language="pt_BR">
+      <Text>{1_reward} e a história continua.</Text>
+    </Replace>
+    <Replace Tag="LOC_11034A_NAME" Language="pt_BR">
+      <Text>Organizar uma expedição para escalá-lo.</Text>
+    </Replace>
+    <Replace Tag="LOC_11034A_STORYTITLE" Language="pt_BR">
+      <Text>Machapuchare</Text>
+    </Replace>
+    <Replace Tag="LOC_11034B_DESCRIPTION" Language="pt_BR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11034B_NAME" Language="pt_BR">
+      <Text>Fechar.</Text>
+    </Replace>
+    <Replace Tag="LOC_11035A_COMPLETION" Language="pt_BR">
+      <Text>Gurca enfrenta gurca no campo de batalha. Logo depois, rostos nepaleses estão entre os inimigos mortos.</Text>
+    </Replace>
+    <Replace Tag="LOC_11035A_STORYTITLE" Language="pt_BR">
+      <Text>Irmão Contra Irmão</Text>
+    </Replace>
+    <Replace Tag="LOC_11035B_DESCRIPTION" Language="pt_BR">
+      <Text>{1_reward} em Edificações de Cultura.</Text>
+    </Replace>
+    <Replace Tag="LOC_11035B_NAME" Language="pt_BR">
+      <Text>Eles ainda são nepaleses. Dê a eles um funeral apropriado.</Text>
+    </Replace>
+    <Replace Tag="LOC_11035C_DESCRIPTION" Language="pt_BR">
+      <Text>{1_reward} em Edificações de Produção.</Text>
+    </Replace>
+    <Replace Tag="LOC_11035C_NAME" Language="pt_BR">
+      <Text>Ao lutar contra os nepaleses, eles se tornam estrangeiros.</Text>
+    </Replace>
+    <Replace Tag="LOC_11036A_COMPLETION" Language="pt_BR">
+      <Text>O Nepal continua independente, como uma força mediadora enquanto os outros lutam. Mesmo com um mundo em guerra, as pessoas ainda fazem compras.</Text>
+    </Replace>
+    <Replace Tag="LOC_11036A_STORYTITLE" Language="pt_BR">
+      <Text>Inhame Entre Duas Pedras</Text>
+    </Replace>
+    <Replace Tag="LOC_11036B_DESCRIPTION" Language="pt_BR">
+      <Text>+2 de [icon:YIELD_DIPLOMACY] Influência em Rotas Comerciais.</Text>
+    </Replace>
+    <Replace Tag="LOC_11036B_NAME" Language="pt_BR">
+      <Text>Continuar sendo uma força de calma.</Text>
+    </Replace>
+    <Replace Tag="LOC_11036C_DESCRIPTION" Language="pt_BR">
+      <Text>{1_reward}, porém -15 de Relação com todas as Civilizações.</Text>
+    </Replace>
+    <Replace Tag="LOC_11036C_NAME" Language="pt_BR">
+      <Text>Entrar no comércio de armas.</Text>
+    </Replace>
+    <Replace Tag="LOC_11037A_COMPLETION" Language="pt_BR">
+      <Text>Civilizações correm para reivindicar recursos para alimentar a chama do progresso. Cidades Pequenas são fundadas, ferrovias são construídas. Mas na fronteira nepalesa, um xerpa solitário finca uma estaca no chão e segue em frente.</Text>
+    </Replace>
+    <Replace Tag="LOC_11037A_STORYTITLE" Language="pt_BR">
+      <Text>Desbravadores do País Alto</Text>
+    </Replace>
+    <Replace Tag="LOC_11037B_DESCRIPTION" Language="pt_BR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11037B_NAME" Language="pt_BR">
+      <Text>O Nepal se expande com humildade, mas ainda se expande.</Text>
+    </Replace>
+    <Replace Tag="LOC_11038A_COMPLETION" Language="pt_BR">
+      <Text>A reputação nepalesa de imparcialidade e aconselhamento sensato faz dos negociadores nepaleses uma necessidade em quase todas as disputas internacionais.</Text>
+    </Replace>
+    <Replace Tag="LOC_11038A_STORYTITLE" Language="pt_BR">
+      <Text>Os Conselheiros</Text>
+    </Replace>
+    <Replace Tag="LOC_11038B_DESCRIPTION" Language="pt_BR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11038B_NAME" Language="pt_BR">
+      <Text>É assim que deve ser.</Text>
+    </Replace>
+    <Replace Tag="LOC_11038C_DESCRIPTION" Language="pt_BR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11038C_NAME" Language="pt_BR">
+      <Text>Certamente podem pagar um pouco por este serviço.</Text>
+    </Replace>
+    <Replace Tag="LOC_11039A_COMPLETION" Language="pt_BR">
+      <Text>Rios glaciais há muito tempo fluem pelos vales do Nepal, mas agora eletricidade e água limpa fluem do topo das montanhas. Esta é a visão de uma utopia nas montanhas: superfícies limpas, claras e modernas e picos escarpados se misturando em harmonia.</Text>
+    </Replace>
+    <Replace Tag="LOC_11039A_STORYTITLE" Language="pt_BR">
+      <Text>O Baluarte da Montanha</Text>
+    </Replace>
+    <Replace Tag="LOC_11039B_DESCRIPTION" Language="pt_BR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11039B_NAME" Language="pt_BR">
+      <Text>As montanhas são um recurso; os vales são o lar.</Text>
+    </Replace>
+    <Replace Tag="LOC_11039C_DESCRIPTION" Language="pt_BR">
+      <Text>+2 de Força de Combate ao defender adjacente a Montanhas.</Text>
+    </Replace>
+    <Replace Tag="LOC_11039C_NAME" Language="pt_BR">
+      <Text>As montanhas são nosso bastião.</Text>
+    </Replace>
+    <Replace Tag="LOC_11040A_COMPLETION" Language="pt_BR">
+      <Text>Servir no Exército Britânico é uma honra respeitada tanto pelos nepaleses quanto pelos estrangeiros. Os novos soldados marcham com orgulho, sob olhares estrangeiros, em direção a margens distantes.</Text>
+    </Replace>
+    <Replace Tag="LOC_11040A_STORYTITLE" Language="pt_BR">
+      <Text>A Brigada de Gurcas</Text>
+    </Replace>
+    <Replace Tag="LOC_11040B_DESCRIPTION" Language="pt_BR">
+      <Text>{1_reward} em Edificações Militares.</Text>
+    </Replace>
+    <Replace Tag="LOC_11040B_NAME" Language="pt_BR">
+      <Text>Seus nomes também são registrados em casa.</Text>
+    </Replace>
+    <Replace Tag="LOC_11040C_DESCRIPTION" Language="pt_BR">
+      <Text>+15% de [icon:YIELD_DIPLOMACY] Influência para começar a Ação Presentear com Gurca.</Text>
+    </Replace>
+    <Replace Tag="LOC_11040C_NAME" Language="pt_BR">
+      <Text>Eles mandam suas remessas para casa.</Text>
+    </Replace>
+    <Replace Tag="LOC_11041A_COMPLETION" Language="pt_BR">
+      <Text>O Singha Durbar, o Palácio do Leão, projeta seu poder por todo o Nepal. Mas murmúrios agitam a capital: as famílias antigas sentem que seu domínio tradicional está sendo ofuscado. Autoridades do governo relatam extorsões e intimidações.</Text>
+    </Replace>
+    <Replace Tag="LOC_11041A_STORYTITLE" Language="pt_BR">
+      <Text>As Famílias Antigas</Text>
+    </Replace>
+    <Replace Tag="LOC_11041B_DESCRIPTION" Language="pt_BR">
+      <Text>{1_reward} nas Cidades.</Text>
+    </Replace>
+    <Replace Tag="LOC_11041B_NAME" Language="pt_BR">
+      <Text>Permitir que as famílias tenham esse direito.</Text>
+    </Replace>
+    <Replace Tag="LOC_11041C_DESCRIPTION" Language="pt_BR">
+      <Text>{1_reward} nas Cidades Pequenas.</Text>
+    </Replace>
+    <Replace Tag="LOC_11041C_NAME" Language="pt_BR">
+      <Text>O Palácio do Leão governa.</Text>
+    </Replace>
+    <Replace Tag="LOC_11069A_COMPLETION" Language="pt_BR">
+      <Text>Conforme amanhece sobre o Singha Durbar, a fila de oficiais nepaleses serpenteia pela cidade. Aqui, uma nova ordem nepalesa é redigida, uma que carimbará o mundo com uma marca nepalesa.</Text>
+    </Replace>
+    <Replace Tag="LOC_11069A_STORYTITLE" Language="pt_BR">
+      <Text>Ekata Ka Prateek</Text>
+    </Replace>
+    <Replace Tag="LOC_11069B_DESCRIPTION" Language="pt_BR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11069B_NAME" Language="pt_BR">
+      <Text>O Nepal tem um papel a desempenhar nos assuntos mundiais.</Text>
+    </Replace>
+    <Replace Tag="LOC_11069C_DESCRIPTION" Language="pt_BR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11069C_NAME" Language="pt_BR">
+      <Text>O Nepal busca principalmente a perfeição interna.</Text>
+    </Replace>
+    <Replace Tag="LOC_12007A_COMPLETION" Language="pt_BR">
+      <Text>Seguindo o xerpa por uma ladeira íngreme, o Dr. Rizal olha para trás, para a grandiosidade das terras altas e baixas do Nepal.</Text>
+    </Replace>
+    <Replace Tag="LOC_12007A_STORYTITLE" Language="pt_BR">
+      <Text>O Bom Doutor nas Alturas e no Vale</Text>
+    </Replace>
+    <Replace Tag="LOC_12007B_DESCRIPTION" Language="pt_BR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_12007B_NAME" Language="pt_BR">
+      <Text>O povo das terras altas é extremamente independente.</Text>
+    </Replace>
+    <Replace Tag="LOC_12007C_DESCRIPTION" Language="pt_BR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_12007C_NAME" Language="pt_BR">
+      <Text>Os habitantes das terras baixas são calorosos e acolhedores.</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_SHERPA_UNLOCK_DESCRIPTION" Language="pt_BR">
+      <Text>Ative em um painel de Montanha dentro de 5 painéis do Centro da Cidade de um dos seus Assentamentos. A Montanha é melhorada imediatamente com uma Usina Elétrica de Montanha. Se a Montanha estiver fora das suas fronteiras, um caminho de painéis é reivindicado até o Assentamento.</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_SHERPA_UNLOCK_NAME" Language="pt_BR">
+      <Text>Conquiste a Montanha</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_GORKHAPATRA_AUTHOR" Language="pt_BR">
+      <Text>Rei Birendra</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_GORKHAPATRA_QUOTE" Language="pt_BR">
+      <Text>"Há uma relação indissociável entre a cultura de um país e a ideologia que ele segue."</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_JYUMDO_BAGHA_AUTHOR" Language="pt_BR">
+      <Text>Lema Gurca</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_JYUMDO_BAGHA_QUOTE" Language="pt_BR">
+      <Text>"É melhor morrer do que ser covarde."</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SAGARMATHA_AUTHOR" Language="pt_BR">
+      <Text>Rudyard Kipling</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SAGARMATHA_QUOTE" Language="pt_BR">
+      <Text>"Fujam para as montanhas, de uma vez por todas — para a calma, as chuvas refrescantes e a neblina nebulosa."</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SINGHA_DURBAR_AUTHOR" Language="pt_BR">
+      <Text>Grito de Guerra Gurca</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SINGHA_DURBAR_QUOTE" Language="pt_BR">
+      <Text>"Ayo gorkhali! Os gurcas chegaram!"</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_NEPAL_DESCRIPTION" Language="pt_BR">
+      <Text>Todos os Armazéns se aplicam aos painéis de terreno de Montanha, mas custam +1 de [icon:YIELD_GOLD] Ouro e de manutenção de [icon:YIELD_HAPPINESS] Felicidade.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_ACTION_GIFT_GURKHA_NAME" Language="pt_BR">
+      <Text>Presentear com Gurca</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_ACCEPT" Language="pt_BR">
+      <Text>Você receberá uma Unidade de Gurca na sua Capital.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_DESCRIPTION" Language="pt_BR">
+      <Text>Concede um gurca.[n]Se aceito: você recebe +10 de Relação com eles e 5 de [icon:YIELD_CULTURE] Cultura, na velocidade padrão, para o nível de Relação atual com eles. Outro Líder recebe uma Unidade Gurca na Capital dele. Só pode ser feito com Civilizações Amigáveis ou Prestativas.</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIGHLAND_POWER_STATION_DESCRIPTION" Language="pt_BR">
+      <Text>+3 de [icon:YIELD_PRODUCTION] Produção e +3 de [icon:YIELD_CULTURE] Cultura. Melhoria exclusiva dos nepaleses. Atemporal. Não remove bônus de Armazém em um painel. Deve-se construir em um painel de Montanha Sem Característica Especial e é construído pelo Xerpa assim que tiver a Maestria de Sagarmatha.</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIGHLAND_POWER_STATION_TOOLTIP" Language="pt_BR">
+      <Text>Melhoria exclusiva dos nepaleses. Atemporal. Não remove bônus de Armazém em um painel. Deve-se construir em um painel de Montanha Sem Característica Especial e é construído pelo Xerpa assim que tiver a Maestria de Sagarmatha.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_NEPAL" Language="pt_BR">
+      <Text>O Nepal nunca se rende. Das suas fortalezas nas alturas, os gurcas vigiam com atenção, e na Praça Durbar os ministros planejam e tramam. Sob a bandeira nepalesa, os picos mais altos se tornam prósperos, e muito abaixo das estupas e torres de tijolos, os inimigos do Nepal se cansam nas encostas.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_NEPAL" Language="pt_BR">
+      <Text>Xerpas podem criar Usinas Elétricas de Montanha nas suas Montanhas, ou até mesmo em painéis de Montanha sem titular dentro de 5 painéis de um de seus Centros da Cidade. Planeje suas jornadas com sabedoria!</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_INTRO_NEPAL" Language="pt_BR">
+      <Text>O Nepal se ergue sobre os vizinhos, querendo ser uma potência mundial.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NEPAL_COMPLETE_BOUDHANATH_DESC" Language="pt_BR">
+      <Text>Como Nepal, conclua o Boudhanath</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NEPAL_COMPLETE_BOUDHANATH_NAME" Language="pt_BR">
+      <Text>Boudhanath</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NEPAL_LEGACY_PATH_CULTURAL_DESC" Language="pt_BR">
+      <Text>Como Nepal, conclua um Caminho de Legado Cultural</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NEPAL_LEGACY_PATH_CULTURAL_NAME" Language="pt_BR">
+      <Text>Caminho de Legado do Nepal</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_NEPAL_DESCRIPTION" Language="pt_BR">
+      <Text>+30% de Produção por ser a Maravilha exclusiva do Nepal.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_GIFT_GURKHA_DESCRIPTION" Language="pt_BR">
+      <Text>Desbloqueia a ação Presentear com Gurca, que concede um gurca a outra Civilização. Nepal recebe +10 de Relação com eles e 5 de [icon:YIELD_CULTURE] Cultura (aumenta com a velocidade da partida) para o Nível de Relação atual com eles. Só pode ser feito com Civilizações Amigáveis ou Prestativas.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_GORKHAPATRA_MUSEUM_SLOTS_DESCRIPTION" Language="pt_BR">
+      <Text>Museus possuem 2 espaços de Grande Obra adicionais. </Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_JYUMDO_BAGHA_FORTIFICATION_DESCRIPTION" Language="pt_BR">
+      <Text>Unidades concluem Fortificações em 1 turno quando adjacentes a uma Montanha.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_JYUMDO_BAGHA_MOUNTAIN_WALLS_DESCRIPTION" Language="pt_BR">
+      <Text>Todos os Distritos adjacentes a Montanhas recebem Fortificações Defensivas, efeito ativado uma única vez. Segue as regras normais de posicionamento das Muralhas.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SAGARMATHA_BUILDINGS_MOUNTAIN_ADJACENCY_DESCRIPTION" Language="pt_BR">
+      <Text>Alimento e Edificações de Ciência recebem bônus de adjacência a Montanhas.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SHERPA_MOUNTAIN_CLAIM_DESCRIPTION" Language="pt_BR">
+      <Text>Xerpas podem ser ativados em um painel de Montanha dentro de 5 painéis de um Palácio ou Prefeitura de um dos seus Assentamentos uma vez a cada 5 turnos. Um caminho de painéis é reivindicado até o Assentamento e o painel de Montanha é melhorado imediatamente com uma Usina Elétrica de Montanha.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SINGHA_DURBAR_INFLUENCE_CULTURE_BUILDING_DESCRIPTION" Language="pt_BR">
+      <Text>+3 de [icon:YIELD_DIPLOMACY] Influência em Edificações de Cultura. </Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_BOUDHANATH" Language="pt_BR">
+      <Text>O Bhadrakalpika Sūtra</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_BOUDHANATH" Language="pt_BR">
+      <Text>Aqueles que ensinam esse oceano de sabedoria percebem a natureza momentânea das coisas.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_HIMAL_DESCRIPTION" Language="pt_BR">
+      <Text>Painéis de Montanha recebem +4 de [icon:YIELD_CULTURE] Cultura na sua Capital. Montanhas recebem +2 de [icon:YIELD_CULTURE] Cultura em outros Assentamentos.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_MAITRI_SANADHI_DESCRIPTION" Language="pt_BR">
+      <Text>+50% de [icon:YIELD_DIPLOMACY] Influência para começar Iniciativas se você tiver a menor quantidade de Assentamentos, ou +20% se não for o caso.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_TUNDIKHEL_DESCRIPTION" Language="pt_BR">
+      <Text>+3 de Força de Combate para todas as Unidades adjacentes a terreno de Montanha, o dobro se a Unidade também estiver no seu território.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_NEPAL_ABILITY_DESCRIPTION" Language="pt_BR">
+      <Text>[BLIST][LI][B]Todos os Armazéns[/B] se aplicam a painéis de [B]terreno de Montanha[/B], mas custam +1 de [icon:YIELD_GOLD] Ouro e de manutenção de [icon:YIELD_HAPPINESS] Felicidade. [LI][B]+30% de [icon:YIELD_PRODUCTION] Produção[/B] para a construção de [B]Boudhanath[/B].[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_NEPAL_ABILITY_NAME" Language="pt_BR">
+      <Text>Abóbada do Mundo</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_MO_NEPAL_NAME" Language="pt_BR">
+      <Text>Cívicos do Nepal</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_2_DESCRIPTION" Language="pt_BR">
+      <Text>Unidade de Infantaria Exclusiva Nepalesa Nível 2. +1 de Movimento. +5 de Força de Combate. Mais cara do que Infantaria de Fuzil.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_3_DESCRIPTION" Language="pt_BR">
+      <Text>Unidade de Infantaria Exclusiva Nepalesa Nível 3. +1 de Movimento. +5 de Força de Combate. Mais cara do que Companhia de Infantaria.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_BASE_DESCRIPTION" Language="pt_BR">
+      <Text>Unidade de Infantaria Exclusiva Nepalesa. Mais forte, mais rápida e mais cara.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_DESCRIPTION" Language="pt_BR">
+      <Text>Unidade de Infantaria Exclusiva Nepalesa Nível 1. +1 de Movimento. +5 de Força de Combate. Mais cara do que Infantaria de Linha.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_SHERPA_DESCRIPTION" Language="pt_BR">
+      <Text>Batedor Exclusivo Nepalês. Ignora Montanhas e terrenos Acidentados para Visão. Ignora Montanhas Sem Característica Especial para Movimento. Pode se mover pelo Monte Everest.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNITCOMMAND_CLAIM_MOUNTAIN_DESCRIPTION" Language="pt_BR">
+      <Text>Ative em um painel de Montanha dentro de 5 painéis do Centro da Cidade de um dos seus Assentamentos. A Montanha é melhorada imediatamente com uma Usina Elétrica de Montanha. Se a Montanha estiver fora das suas fronteiras, um caminho de painéis é reivindicado até o Assentamento.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNITCOMMAND_CLAIM_MOUNTAIN_NAME" Language="pt_BR">
+      <Text>Conquiste a Montanha</Text>
+    </Replace>
+    <Replace Tag="LOC_UNITCOMMAND_CLAIM_MOUNTAIN_REQUIRES_UNOWNED_MOUNTAIN" Language="pt_BR">
+      <Text>Requer um painel de Montanha dentro de 5 painéis de um Palácio ou Prefeitura de um dos seus Assentamentos.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_MOUNTAIN_5_SETTLEMENTS_DESCRIPTION" Language="pt_BR">
+      <Text>Tenha três Assentamentos com pelo menos cinco [B]Montanhas[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_MOUNTAIN_SETTLEMENTS_NEPAL_TOOLTIP" Language="pt_BR">
+      <Text>As [B]Montanhas[/B] eram parte importante da identidade do [B]Nepal[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ASHOKA_NEPAL_TOOLTIP" Language="pt_BR">
+      <Text>[B]Asoka[/B] era do mesmo continente que o [B]Nepal[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_LAKSHMIBAI_NEPAL_TOOLTIP" Language="pt_BR">
+      <Text>[B]Lakshmibai[/B] era do mesmo continente que o [B]Nepal[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_PACHACUTI_NEPAL_TOOLTIP" Language="pt_BR">
+      <Text>O [B]Nepal[/B] complementa [B]Pachacuti[/B] estrategicamente.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BOUDHANATH_DESCRIPTION" Language="pt_BR">
+      <Text>+4 de [icon:YIELD_DIPLOMACY] Influência. Aumenta em 20 a sua Relação com todos os outros Líderes. Deve-se construir em painel Tropical adjacente a uma Montanha.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BOUDHANATH_TOOLTIP" Language="pt_BR">
+      <Text>Aumenta em 20 a sua Relação com todos os outros Líderes. Deve-se construir em painel Tropical adjacente a uma Montanha.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_REJECT" Language="pt_BR">
+      <Text>Cancela a Ação Diplomática.[n]A [icon:YIELD_DIPLOMACY] Influência {1: plural 1?{1: gender m?do; f?da;}; other?{1: gender m?dos; f?das;};} {1_initialName} é reembolsada.[n]Nenhuma Iniciativa nova entre os Líderes por {2_cooldown} turnos.[n]A Relação piora.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_REQUEST" Language="pt_BR">
+      <Text>{1_leaderName} está oferecendo uma Unidade Gurca para você.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_MOUNTAIN_SETTLEMENTS_NEPAL_NARRATIVE" Language="pt_BR">
+      <Text>No labirinto de cânions e vales que marcam o país alto, o topo das terras do povo {1_Civilization_Adj}, o alcance do estado {1_Civilization_Adj} vacila. Cobradores de impostos e oficiais do censo se perdem, e o povo dali segue livre e orgulhoso. </Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_HIMAL_NAME" Language="pt_BR">
+      <Text>Himāl</Text>
+      <Gender>neutral</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_MAITRI_SANADHI_NAME" Language="pt_BR">
+      <Text>Maitri Samadhi</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_TUNDIKHEL_NAME" Language="pt_BR">
+      <Text>Tundikhel</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_NAME" Language="pt_BR">
+      <Text>Gurca|Gurcas</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_UNIT_SHERPA_NAME" Language="pt_BR">
+      <Text>Xerpa|Xerpas</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+  </LocalizedText>
+</Database>

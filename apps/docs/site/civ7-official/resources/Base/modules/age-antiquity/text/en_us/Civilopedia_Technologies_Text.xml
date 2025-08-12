@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+
+		<!-- Antiquity Technologies -->
+		<!-- TECHNOLOGY_AGRICULTURE -->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_AGRICULTURE_CHAPTER_HISTORY_PARA_1">
+			<Text>Early on, people noticed that the areas where they tossed fruit scraps often bore fruit trees. Indeed, wide stretches of the Amazon could be considered gardens cultivated over millennia by indigenous peoples, rather than untouched jungles. However, organized agriculture was key to the rise of states (early cities such as Catal Huyuk notwithstanding). Grains planted together often ripened all at once, meaning that some degree of planning (and coercive control) was needed to cultivate them. After the harvest yielded a surplus to be managed, a large population of idle hands remained.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_AGRICULTURE_CHAPTER_HISTORY_PARA_2">
+			<Text>The extent to which a stratified, unequal society is linked to agriculture is debated. For instance, James Scott and David Graeber offer contrary views on the link (or lack thereof) between coercion and agriculture. Still, by the time of Sumeria, that link was firmly established – agriculture meant expansion, exploitation… and domination..</Text>
+		</Row>
+		<!-- TECHNOLOGY_POTTERY -->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_POTTERY_CHAPTER_HISTORY_PARA_1">
+			<Text>The earliest known pottery, dating back 20,000 years to the Paleolithic period, is from China. Other scattered artifacts found from that time include votive figures from Europe and pottery in Jomon Japan and sub-Saharan Africa. The mass production of clay pots was a key moment in the Neolithic period, the era between 7000 BCE and 4500 BCE just before recorded history and metallurgy, where the fundamentals of ancient society were taking shape. Pottery developed in Mesopotamia spread into Europe in the early parts of the age, though pottery probably arose independently elsewhere in the world around the same time – such as in the Harappan civilization, the Ban Chiang settlements, and South America.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_POTTERY_CHAPTER_HISTORY_PARA_2">
+			<Text>Chemically, pottery is created when silicate clay melts, hardening into a glass-like form. The temperatures needed to melt clay are extreme, requiring specialized ovens that concentrate fire: kilns. Clay pots are heat-resistant (no cooking fire can compete with a kiln), relatively durable, retain their shape, and can be decorated in a variety of ways.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_POTTERY_CHAPTER_HISTORY_PARA_3">
+			<Text>Pottery signaled a few key innovations. First of all, it indicates that people have begun concentrating heat, using fire for more than cooking and warmth, to fashion and re-fashion materials – in other words, the beginnings of chemistry. Pottery also allows for the creation of things that cannot be held, from simple soups and stews to significant products like glass and metal. Fermentation – mainly wine and beer – requires storage vessels, such as pots. The creation of pottery also requires the production of fired bricks (which are in essence rough, solid pots).</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_POTTERY_CHAPTER_HISTORY_PARA_4">
+			<Text>Pottery is a great medium for artistic expression. The swirls and spirals of Ban Chiang pots capture a worldview that existed before writing, and the most evocative depictions of Homeric epics exist on pots. Given its insight into lifeworlds, production, time period, and imagination, pottery remains one of the most significant findings in any archaeological site.</Text>
+		</Row>
+		<!-- TECHNOLOGY_ANIMAL_HUSBANDRY -->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_ANIMAL_HUSBANDRY_CHAPTER_HISTORY_PARA_1">
+			<Text>As animals, humans are severely lacking in many respects – our two legs are relatively slow and awkward, our noses and ears seem inadequate compared to other creatures, and our skins are soft and fragile. However, via the domestication of animals, we acquire supplementary strength – we gain the speed of horses by riding on their backs, we gain the senses of wolves by domesticating them as hunting dogs, and we gain the protection of thick-hided animals by using their skins for clothing. Furthermore, the intensification of animal agriculture (the domestication of large, mobile herds of animals for milk or meat) allowed for new forms of human activity, especially in arid climates that resisted crop cultivation.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_ANIMAL_HUSBANDRY_CHAPTER_HISTORY_PARA_2">
+			<Text>Dogs are our first domesticates, entering our lives 30,000 years ago, long predating the time scale of this game. But husbandry proper – the cultivation of animals for their biological products – began around 11,000 years ago in the Near East with the domestication of aurochs (cattle), boars (pigs), sheep, and goats. Elsewhere, humans domesticated llamas (South America), guinea pigs (also South America), bees (Egypt), water buffalo (India), and reindeer (the Siberian north).</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_ANIMAL_HUSBANDRY_CHAPTER_HISTORY_PARA_3">
+			<Text>The cultivation of livestock has yielded many benefits to human lives, but it has also come at a cost. Zoonotic diseases such as smallpox and avian flu are the result of animal epidemics leaping from an animal host (where they may be trivial) to a human one (where they may be devastating). Intensified ranching destroys ecologies, and animal waste leads to algae blooms that in turn destroy life in bodies of water (e.g. the rolling “dead zones” of the Chesapeake Bay).</Text>
+		</Row>
+		<!-- TECHNOLOGY_SAILING -->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_SAILING_CHAPTER_HISTORY_PARA_1">
+			<Text>For most of human history, sailing was the easiest way to move a large number of goods from one place to another; in the age of sail, one could cross the Atlantic with a full load of cargo in a month. And while sailors might encounter pirates or blockades at sea, land routes also had checkpoints and bandits. Where storms or calm winds could disrupt a sailing ship, muddy roads and poor weather posed an equal (or greater) risk to land-based travelers. Not to mention that sailing ships had a greater cargo capacity.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_SAILING_CHAPTER_HISTORY_PARA_2">
+			<Text>Humans first began to sail before recorded history. The ancestors of the Aboriginal Australians surely reached their southern continent in some sort of sea vessel 65,000 years ago – whether this was by sail or other means remains unclear. But the quintessential sailors of the distant past were the Polynesians – from their home in present-day Taiwan, sailing ships headed east across the Pacific as far as Rapa Nui (Easter Island) and traveled west as far as Madagascar, carrying livestock, languages, stories, and cultures.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_SAILING_CHAPTER_HISTORY_PARA_3">
+			<Text>In the Mediterranean, square-rigged galleys moved grain between North Africa, the Middle East, and Europe. Though we may think of these areas as distinct regions today, in antiquity, the sea was not a barrier. It was a highway.</Text>
+		</Row>
+		<!-- TECHNOLOGY_WRITING -->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_WRITING_CHAPTER_HISTORY_PARA_1">
+			<Text>Writing holds power. Transmitting words from the mind of an unseen author to another is an act of magic – at least to those who do not understand writing’s secrets. Words link two people across time. Currently, I am a game writer in a studio putting these words down, but to you, now playing the game, that may have been years ago. Hello! For a moment, we are in conversation.  </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_WRITING_CHAPTER_HISTORY_PARA_2">
+			<Text>Writing can consist of symbols that represent distinct sounds, or they may be images that depict whole ideas. Different forms of writing developed independently at several points in human history, often building on the available materials commonly used at the time. Writing may be carved in stone, pressed into clay, or painted onto paper – using any materials that survive long enough to convey the information.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_WRITING_CHAPTER_HISTORY_PARA_3">
+			<Text>The very earliest possible writings were a series of dots on images of animals found in cave paintings, which may indicate the seasons they were hunted or act as a system of counting. Elsewhere, systems of symbols used to convey particular information (not fully linked to a full language) emerged in China in the seventh millennium BCE and in Europe and the Indus River valley in the sixth. The earliest true writing came about in Sumeria during the fourth millennium BCE, where the habit of pressing reeds into clay brought about cuneiform, used by Babylonians and Akkadians in later years. Cuneiform may also have influenced Egyptian hieroglyphs, which arose shortly afterward.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_WRITING_CHAPTER_HISTORY_PARA_4">
+			<Text>Whereas Mesopotamian writing originated in ledgers and merchants’ accounting books (or in this case, tablets), Chinese writing was linked to divination – markers on oracle bones in the Shang dynasty (circa 1200 BCE). In the Americas, writing developed independently in the last few centuries BCE, and grew into the complicated Mayan script.</Text>
+		</Row>
+		<!-- TECHNOLOGY_IRRIGATION -->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_IRRIGATION_CHAPTER_HISTORY_PARA_1">
+			<Text>Farming involves a deliberate transformation of the landscape. It begins when humans replace plants that normally flourish with plants that have a greater utility for the population. In some areas, such as a floodplain, agriculture is possible without irrigation, but in most places, the natural flow of water must be manipulated.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_IRRIGATION_CHAPTER_HISTORY_PARA_2">
+			<Text>Along the Nile, the river’s flood waters only extend so far, but the demands of empire required more farmland than what is naturally saturated. To solve this, the Egyptians created a system of canals and lever-operated buckets to move water up, making land arable even when it was not in direct contact with the river. On a grander scale, Mesopotamian royal gardens often made use of elaborate water-screws to push water uphill and irrigate their gardens (including the legendary Hanging Gardens of Babylon). Later irrigation systems in North Africa had channels with radial patterns, where controllers could decide which field to irrigate by simply adding or removing a small dam.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_IRRIGATION_CHAPTER_HISTORY_PARA_3">
+			<Text>Across South and Southeast Asia, irrigation reached more elaborate forms. Sri Lankan kings constructed reservoirs and underground channels to wash the central regions of the island. Balinese priests managed a system of temples with associate sluicegates (something also present in upland Maya irrigation). Not to mention the vast baray system of ancient Cambodia. Water is life – and control over water is control over life.</Text>
+		</Row>
+		<!-- TECHNOLOGY_MASONRY -->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_MASONRY_CHAPTER_HISTORY_PARA_1">
+			<Text>In our conception of ancient ruins, we tend to over-emphasize stone construction, simply because stone survives. The bamboo weapons and teak palaces of ancient Southeast Asia, England’s prehistoric “woodhenge” – all of these are lost to time or exist merely as traces in the ground. Stone’s durability has never been a secret. While stonework is laborious and requires a large number of skilled craftsmen to cut and haul, it also lasts.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_MASONRY_CHAPTER_HISTORY_PARA_2">
+			<Text>Stonemasonry often involved quarrying stones from distant sites and transporting massive slabs across the land on sledges. Many tricks and techniques helped make this feat possible, such as sprinkling water on the sand (in the case of the pyramids) or using wooden rollers to move large stones. In the case of the Inca, masonry became an art form, as masons shaved and chiseled stones into perfect shapes to fit into their masterfully-constructed walls. Masons even allowed water to freeze between cracks to expand gaps in stones along carefully planned faults, forming perfect shapes that fit the right spots.</Text>
+		</Row>
+		<!-- TECHNOLOGY_CURRENCY -->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_CURRENCY_CHAPTER_HISTORY_PARA_1">
+			<Text>Metals considered valuable by today's standards, such as gold and silver, often have little inherent worth outside our desire to exchange them. Fortunately, this "desire to exchange" is a very powerful social tool. For example, the "value" of a coat may be listed on its tag in the store, but it could be virtually worthless to those who already have a coat. Conversely, on a cold day, the value of that same coat might be much higher to those without proper attire. Even after the coat's value is determined, how does its owner extract that value from the product? One solution is to have a higher authority impart value to otherwise useless objects. For example, if I exchange a coat for several pieces of otherwise useless paper, I would need assurance that other people will take those pieces of paper in exchange for other goods and services. Currency, in other words, requires a kind of bank or outside authority that guarantees the value of its money.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_CURRENCY_CHAPTER_HISTORY_PARA_2">
+			<Text>In Mesopotamia, this bank was the temple, and the currency was a system of receipts that represented a particular amount of grain in storage. In China, paper money occupied a similar role. In these cases, political strife posed a risk – if temples were raided, then the currency became worthless. Over time, governments agreed that gold was a good medium of exchange, so currencies often referred to a quantity of that internationally-held (and rat-proof) gold in a central bank. Once this gold standard was abandoned, currency came to be defined as a share in the national project, with a value that did not relate to any material good but floated on the fortunes of the central industry.</Text>
+		</Row>
+		<!-- TECHNOLOGY_BRONZE_WORKING -->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_BRONZE_WORKING_CHAPTER_HISTORY_PARA_1">
+			<Text>Like gold, copper's elemental form is found in nature, making it an early material used during many societies' transitions into metalworking – preceded only by gold and the extremely rare but hard meteoric iron. The demand for copper for ornamentation and basic tools led many to smelt it, which led to the discovery of bronze, an alloy of copper and another material, usually tin, with the occasional addition of arsenic or other material. The first transition from stone to copper occurred in the Near East around 11,000 years ago, and the transition from copper to bronze in the same region around 4,000 years ago, though various sites had “bronze ages” at different times.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_BRONZE_WORKING_CHAPTER_HISTORY_PARA_2">
+			<Text>Bronze age cultures include Babylon, Sumeria, and Assyria in Mesopotamia. In the Mediterranean, the classic Aegean culture of Homer (as well as ancient Egypt) fought battles with bronze. The Yayoi settlers of Japan, and the Shang and Zhou dynasties of China constitute the Bronze Age there, and in South and Southeast Asia, the Harappans of the Indus River region and Ban Chiang and Dong Son cultures in the Mekong region all used the metal. This latter group, the Dong Son, constructed elaborate bronze drums weighing nearly 220 pounds each.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_BRONZE_WORKING_CHAPTER_HISTORY_PARA_3">
+			<Text>Bronze is harder than iron but requires sources of copper and tin to make. Securing these two resources was difficult, especially during the collapse of the late second millennium BCE, when the Sea Peoples wrought devastation upon the region. As a result, iron became an easier and cheaper source of tools, and the era of the bronze-clad warrior was gone.</Text>
+		</Row>
+		<!-- TECHNOLOGY_WHEEL -->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_WHEEL_CHAPTER_HISTORY_PARA_1">
+			<Text>The wheel is a simple invention: a disk featuring a central axis to spin around. Carrying goods on one's back is burdensome, and dragging objects on the ground is destructive. The wheel alleviates both issues, conveying objects with relative ease. The invention is so simple that it was, quite possibly, invented independently by multiple civilizations. While the earliest depictions of the wheel come from Syria around 5000-4000 BCE, evidence of wheels in Poland in the 3000s BCE and in China from around 2200 BCE have also been discovered. The introduction of spokes created wheels that were lighter than the solid disks, allowing for more efficient vehicles and enabling chariots. The spoked wheel was so important to ancient peoples that it was the symbol of the Vedic civilization, a people who swept into India around the 1200s BCE – the wheel was later incorporated into Ashoka’s wheel of dharma.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_WHEEL_CHAPTER_HISTORY_PARA_2">
+			<Text>Perhaps surprisingly, Mesoamerica also invented the wheel, though its only use appears to have been for toys. Terrain may play a factor here as the steppe and arid lands of the Near East gave wheeled vehicles a decided advantage, but the broken terrain, dense forest, and high peaks (in Andean South America) may have hindered its widespread adoption in Mesoamerica.</Text>
+		</Row>
+		<!-- TECHNOLOGY_NAVIGATION -->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_NAVIGATION_CHAPTER_HISTORY_PARA_1">
+			<Text>The only constant in the world is change. Rivers ebb and flood, the winds move, and mountains vanish over the horizon as we travel. Seafarers are left with no stable markers to gain their bearings – other than the stars. While not fixed, the night sky moves in a particular pattern. Ancient navigators paid close attention to this pattern and were able to plot their courses across tremendous distances.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_NAVIGATION_CHAPTER_HISTORY_PARA_2">
+			<Text>In the ancient era, none surpassed the Austronesians – the ancestors of the Malay, the Malagasy, the Tongans, the Hawaiians, and the Tagalog. Using nothing other than the stars as guides, these seafarers crossed vast stretches of the Pacific, an impressive feat given the immensity of the open sea and the relative smallness of the islands.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_NAVIGATION_CHAPTER_HISTORY_PARA_3">
+			<Text>Mediterranean voyages were less risky – one could stay within sight of land, and even when one went dramatically off-course, land would eventually reappear. In monsoon Asia, navigators could determine a relative direction as wind flows remain largely consistent throughout the year.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_NAVIGATION_CHAPTER_HISTORY_PARA_4">
+			<Text>The insights of the Arab astronomers dramatically shaped navigation, and that knowledge gave rise to a new era of exploration and travel – but that is a story for another age.</Text>
+		</Row>
+		<!-- TECHNOLOGY_ENGINEERING -->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_ENGINEERING_CHAPTER_HISTORY_PARA_1">
+			<Text>Engineering is an artful manipulation of machines, tools, and physics. Understanding how one can lift more weight using levers is the first step toward raising massive blocks for large-scale projects. A wedge can split blocks a hammer cannot. A wheel allows heavy objects to be more easily moved, while a pulley harnesses that wheel to turn downward force into upward force. Wheels also allowed constant natural forces, such as water, to be converted to motion, which could then be used for other means, such as grinding grain. These processes were stepping stones toward understanding physics and the development of larger and more elaborate public works – and wonders.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_ENGINEERING_CHAPTER_HISTORY_PARA_2">
+			<Text>Egypt, Kush, Iran, Han China, and Greece all excelled at engineering and laid the foundation for later discoveries in the Middle and Near East.</Text>
+		</Row>
+		<!-- TECHNOLOGY_MILITARY_TRAINING -->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_MILITARY_TRAINING_CHAPTER_HISTORY_PARA_1">
+			<Text>Like a blacksmith’s forge, military training transforms raw material (in this case civilians) into something new (soldiers). In small-scale societies, war feels personal. A family, clan, or other small group declares that violence must be enacted, whether by raiding livestock, settling a feud with a rival group, or responding to a threat. Hunters and farmers put down their tools and take up specialized arms, if available, then follow a leader for a short time. When the conflict is over, these combatants return to their civilian tasks. An organized military is something different: people trained in organized violence. Citizens rallying behind the charisma of individuals is replaced with military discipline and morale.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_MILITARY_TRAINING_CHAPTER_HISTORY_PARA_2">
+			<Text>This is a strange state of affairs. We are not inclined to see individuals as units in a strategy game, those to be moved about the board, to advance, to retreat, to be sacrificed. Large-scale conflicts involve abstraction, an abstraction that is only possible when settlements grow to cities, and face-to-face networks expand into larger populations.</Text>
+		</Row>
+		<!-- TECHNOLOGY_MATHEMATICS -->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_MATHEMATICS_CHAPTER_HISTORY_PARA_1">
+			<Text>No two things are alike. Two trees of the same species may differ in height, twin cows may differ in size, and two like-minded people may differ in age. However, mathematics is a lesson in abstraction. If we abstract cows into units, then we can treat them as equals as we add, multiply, subtract, divide, etc. We can conceive of zero cows or estimate exponential cattle growth. Early forms of math were a dramatic leap forward in many societies, and people such as the Greeks, Mesopotamians, Maya, and Chinese developed sophisticated systems for calculation. Entering further abstraction, the Arabic philosophers established the foundation for higher forms of math, vital in navigation and practical technologies as well as philosophical reasoning. Math could also appear theological – math's uncanny resonance to natural processes led mathematicians from the Yucatan to Arabia to conclude that to know math was to know the mind of God. It is little wonder that astronomers use the language of math to search for alien intelligence – if there is anything like a universal language, it is mathematics.</Text>
+		</Row>
+		<!-- TECHNOLOGY_IRON_WORKING -->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_IRON_WORKING_CHAPTER_HISTORY_PARA_1">
+			<Text>In the Finnish epic Kalevala, the immortal smith Ilmarinen strives to create a metal to aid humans in their efforts to cultivate and tame the land. He believes that adding a drop of honey will sweeten the final product, but he grabs a hornet by mistake, creating iron – a material capable of death as much as service. Iron emerged from trade route disruptions during the late Bronze Age. It was not as strong or as sharp as bronze, but it did not need to be smelted with other metals (bronze is composed of both tin and copper), so it required less complicated trade routes and could tie more people together in commerce, or war. This Iron Age classically extends from the widespread adoption of iron tools until the beginning of written history – from the 11th century BCE in the Near East until the reign of Ashoka in South Asia (in China, where writing preceded iron, or in Mesoamerica, where iron was not used, the term is irrelevant).</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_IRON_WORKING_CHAPTER_HISTORY_PARA_2">
+			<Text>Steel (an alloy of iron and carbon) surpasses the hardness and durability of bronze, but this technology was only occasionally available, although skilled smiths could produce iron with a certain amount of steel as early as antiquity.</Text>
+		</Row>
+		<!-- TECHNOLOGY_FUTURE_TECH -->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_TECH_AQ_FUTURE_TECH_CHAPTER_HISTORY_PARA_1">
+			<Text>Ernst Bloch, in writing on hope, describes what he calls the “Not-Yet.” It is a thing which is felt, but not realized; imagined, but not seen. Strides in technology and political life rely upon this horizon of hope, and an ability to reach for and imagine the possibilities of what lies just beyond. This is the hope – and perhaps also fear – in imagining the unknown, but it is a hope that has allowed humanity to leave the confines of the Earth’s orbit, to unlock the secrets of our genetic code, and to seek to (perhaps so far unsuccessfully) create societies in which we can all flourish. Here is your future tech – now go study another.</Text>
+		</Row> 
+	</EnglishText>
+</Database>

@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <NarrativeStory_Queues>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_GROVE_BASIC" StartAll="FALSE" ActivationCount="0" />
+        <Row QueueType="NARRATIVE_GROUP_DISCOVERY_CAVE_BASIC" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_RUINS_BASIC" StartAll="FALSE" ActivationCount="0" />
+        <Row QueueType="NARRATIVE_GROUP_DISCOVERY_CAMPFIRE_BASIC" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_TENTS_BASIC" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_PLAZA_BASIC" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_CAIRN_BASIC" StartAll="FALSE" ActivationCount="0" />
+        <Row QueueType="NARRATIVE_GROUP_DISCOVERY_RICH_BASIC" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_WRECKAGE_BASIC" StartAll="FALSE" ActivationCount="0" />
+        <Row QueueType="NARRATIVE_GROUP_DISCOVERY_COAST_BASIC" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_SHIPWRECK_BASIC" StartAll="FALSE" ActivationCount="0" />
+        
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_GROVE_INVESTIGATION" StartAll="FALSE" ActivationCount="0" />
+        <Row QueueType="NARRATIVE_GROUP_DISCOVERY_CAVE_INVESTIGATION" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_RUINS_INVESTIGATION" StartAll="FALSE" ActivationCount="0" />
+        <Row QueueType="NARRATIVE_GROUP_DISCOVERY_CAMPFIRE_INVESTIGATION" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_TENTS_INVESTIGATION" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_PLAZA_INVESTIGATION" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_CAIRN_INVESTIGATION" StartAll="FALSE" ActivationCount="0" />
+        <Row QueueType="NARRATIVE_GROUP_DISCOVERY_RICH_INVESTIGATION" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_WRECKAGE_INVESTIGATION" StartAll="FALSE" ActivationCount="0" />
+        <Row QueueType="NARRATIVE_GROUP_DISCOVERY_COAST_INVESTIGATION" StartAll="FALSE" ActivationCount="0" />
+        <Row QueueType="NARRATIVE_GROUP_DISCOVERY_SHIPWRECK_INVESTIGATION" StartAll="FALSE" ActivationCount="0" />
+
+        <Row QueueType="NARRATIVE_GROUP_DISCOVERY_GROVE_MYTHIC" StartAll="FALSE" ActivationCount="0" />
+        <Row QueueType="NARRATIVE_GROUP_DISCOVERY_CAVE_MYTHIC" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_RUINS_MYTHIC" StartAll="FALSE" ActivationCount="0" />
+        <Row QueueType="NARRATIVE_GROUP_DISCOVERY_CAMPFIRE_MYTHIC" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_TENTS_MYTHIC" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_PLAZA_MYTHIC" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_CAIRN_MYTHIC" StartAll="FALSE" ActivationCount="0" />
+        <Row QueueType="NARRATIVE_GROUP_DISCOVERY_RICH_MYTHIC" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_WRECKAGE_MYTHIC" StartAll="FALSE" ActivationCount="0" />
+        <Row QueueType="NARRATIVE_GROUP_DISCOVERY_COAST_MYTHIC" StartAll="FALSE" ActivationCount="0" />
+        <Row QueueType="NARRATIVE_GROUP_DISCOVERY_SHIPWRECK_MYTHIC" StartAll="FALSE" ActivationCount="0" />
+
+        <Row QueueType="NARRATIVE_GROUP_EXCLUDE" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_INDEPENDENT_GIFT_CULTURE" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_INDEPENDENT_GIFT_SCIENCE" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_INDEPENDENT_GIFT_MILITARY" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_INDEPENDENT_GIFT_ECONOMIC" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_ARCHAEOLOGY" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_ARCHAEOLOGY_URBAN_INDEPENDENT_DISPERSED" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_ARCHAEOLOGY_URBAN_UNIT_KILLED" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_ARCHAEOLOGY_URBAN_UNFINISHED_WONDER" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_ARCHAEOLOGY_URBAN_VOLCANO_ERUPTION" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_ARCHAEOLOGY_URBAN_RIVER_FLOODED" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_ARCHAEOLOGY_URBAN_OVERBUILDING" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_ARCHAEOLOGY_INDEPENDENT_DISPERSED" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_ARCHAEOLOGY_UNIT_KILLED" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_ARCHAEOLOGY_UNFINISHED_WONDER" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_ARCHAEOLOGY_VOLCANO_ERUPTION" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_ARCHAEOLOGY_RIVER_FLOODED" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_ARCHAEOLOGY_OVERBUILDING" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_ARCHAEOLOGY_NATURAL_WONDERS" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_ARCHAEOLOGY_RESEARCH_ANTIQUITY" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_ARCHAEOLOGY_RESEARCH_EXPLORATION" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_ATTRIBUTE" StartAll="FALSE" ActivationCount="2" />
+        <Row QueueType="NARRATIVE_GROUP_BUILD" StartAll="FALSE" ActivationCount="2" />
+        <Row QueueType="NARRATIVE_GROUP_CIVIC" StartAll="FALSE" ActivationCount="2" />
+        <Row QueueType="NARRATIVE_GROUP_DEATH" StartAll="FALSE" ActivationCount="2" />
+		<Row QueueType="NARRATIVE_GROUP_DIPLOMACY" StartAll="FALSE" ActivationCount="1" />
+        <Row QueueType="NARRATIVE_GROUP_EVENT" StartAll="FALSE" ActivationCount="2" />
+        <Row QueueType="NARRATIVE_GROUP_EXPLORE" StartAll="FALSE" ActivationCount="2" />
+        <Row QueueType="NARRATIVE_GROUP_FIGHT" StartAll="FALSE" ActivationCount="2" />
+        <Row QueueType="NARRATIVE_GROUP_GOVERNMENT" StartAll="FALSE" ActivationCount="2" />
+        <Row QueueType="NARRATIVE_GROUP_GREAT_WORK" StartAll="FALSE" ActivationCount="3" />
+        <Row QueueType="NARRATIVE_GROUP_INDEPENDENT" StartAll="FALSE" ActivationCount="2" />
+        <Row QueueType="NARRATIVE_GROUP_NATURAL_WONDER" StartAll="FALSE" ActivationCount="2" />
+        <Row QueueType="NARRATIVE_GROUP_RACE" StartAll="TRUE" ActivationCount="1" />
+        <Row QueueType="NARRATIVE_GROUP_RANDOM" StartAll="FALSE" ActivationCount="2" />
+        <Row QueueType="NARRATIVE_GROUP_RELIGION" StartAll="FALSE" ActivationCount="2" />
+        <Row QueueType="NARRATIVE_GROUP_RESOURCE" StartAll="FALSE" ActivationCount="2" />
+        <Row QueueType="NARRATIVE_GROUP_SETTLE" StartAll="FALSE" ActivationCount="2" />
+        <Row QueueType="NARRATIVE_GROUP_SUZERAIN" StartAll="FALSE" ActivationCount="2" />
+        <Row QueueType="NARRATIVE_GROUP_TECH" StartAll="FALSE" ActivationCount="2" />
+        <Row QueueType="NARRATIVE_GROUP_TRADE" StartAll="FALSE" ActivationCount="2" />
+        <Row QueueType="NARRATIVE_GROUP_TRADITION" StartAll="FALSE" ActivationCount="2" />
+        <Row QueueType="NARRATIVE_GROUP_TRAIN" StartAll="FALSE" ActivationCount="2" />
+        <Row QueueType="NARRATIVE_GROUP_VARIETY" StartAll="FALSE" ActivationCount="2" />
+        <Row QueueType="NARRATIVE_GROUP_VARIATION" StartAll="FALSE" ActivationCount="0" />
+        <Row QueueType="NARRATIVE_GROUP_WONDER" StartAll="FALSE" ActivationCount="2" />
+		<Row QueueType="NARRATIVE_GROUP_GREAT_PERSON_LOGIOS" StartAll="FALSE" ActivationCount="1" />
+		<Row QueueType="NARRATIVE_GROUP_GREAT_PERSON_SHI_DAFU" StartAll="FALSE" ActivationCount="1" />
+		<Row QueueType="NARRATIVE_GROUP_GREAT_PERSON_TJATY" StartAll="FALSE" ActivationCount="1" />
+		<Row QueueType="NARRATIVE_GROUP_GREAT_PERSON_ALIM" StartAll="FALSE" ActivationCount="1" />
+		<Row QueueType="NARRATIVE_GROUP_GREAT_PERSON_CONQUISTADOR" StartAll="FALSE" ActivationCount="1" />
+		<Row QueueType="NARRATIVE_GROUP_GREAT_PERSON_JACOBIN" StartAll="FALSE" ActivationCount="1" />
+		<Row QueueType="NARRATIVE_GROUP_GREAT_PERSON_REVOLUCIONARIO" StartAll="FALSE" ActivationCount="1" />
+		<Row QueueType="NARRATIVE_GROUP_GREAT_PERSON_UPARAT" StartAll="FALSE" ActivationCount="1" />
+		<Row QueueType="NARRATIVE_GROUP_CRISIS" StartAll="FALSE" ActivationCount="0" />
+		<Row QueueType="NARRATIVE_GROUP_CRISIS_LOYALTY" StartAll="FALSE" ActivationCount="0" />
+	</NarrativeStory_Queues>
+	<DiscoverySiftingImprovements>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_CAVE_BASIC" ConstructibleType="IMPROVEMENT_CAVE" Activation="BASIC"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_RUINS_BASIC" ConstructibleType="IMPROVEMENT_RUINS" Activation="BASIC"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_CAMPFIRE_BASIC" ConstructibleType="IMPROVEMENT_CAMPFIRE" Activation="BASIC"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_TENTS_BASIC" ConstructibleType="IMPROVEMENT_TENTS" Activation="BASIC"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_PLAZA_BASIC" ConstructibleType="IMPROVEMENT_PLAZA" Activation="BASIC"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_CAIRN_BASIC" ConstructibleType="IMPROVEMENT_CAIRN" Activation="BASIC"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_RICH_BASIC" ConstructibleType="IMPROVEMENT_RICH" Activation="BASIC"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_WRECKAGE_BASIC" ConstructibleType="IMPROVEMENT_WRECKAGE" Activation="BASIC"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_COAST_BASIC" ConstructibleType="IMPROVEMENT_COAST" Activation="BASIC"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_SHIPWRECK_BASIC" ConstructibleType="IMPROVEMENT_SHIPWRECK" Activation="BASIC"/>
+
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_CAVE_INVESTIGATION" ConstructibleType="IMPROVEMENT_CAVE" Activation="INVESTIGATION"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_RUINS_INVESTIGATION" ConstructibleType="IMPROVEMENT_RUINS" Activation="INVESTIGATION"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_CAMPFIRE_INVESTIGATION" ConstructibleType="IMPROVEMENT_CAMPFIRE" Activation="INVESTIGATION"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_TENTS_INVESTIGATION" ConstructibleType="IMPROVEMENT_TENTS" Activation="INVESTIGATION"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_PLAZA_INVESTIGATION" ConstructibleType="IMPROVEMENT_PLAZA" Activation="INVESTIGATION"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_CAIRN_INVESTIGATION" ConstructibleType="IMPROVEMENT_CAIRN" Activation="INVESTIGATION"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_RICH_INVESTIGATION" ConstructibleType="IMPROVEMENT_RICH" Activation="INVESTIGATION"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_WRECKAGE_INVESTIGATION" ConstructibleType="IMPROVEMENT_WRECKAGE" Activation="INVESTIGATION"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_COAST_INVESTIGATION" ConstructibleType="IMPROVEMENT_COAST" Activation="INVESTIGATION"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_SHIPWRECK_INVESTIGATION" ConstructibleType="IMPROVEMENT_SHIPWRECK" Activation="INVESTIGATION"/>
+
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_CAVE_MYTHIC" ConstructibleType="IMPROVEMENT_CAVE" Activation="MYTHIC"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_RUINS_MYTHIC" ConstructibleType="IMPROVEMENT_RUINS" Activation="MYTHIC"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_CAMPFIRE_MYTHIC" ConstructibleType="IMPROVEMENT_CAMPFIRE" Activation="MYTHIC"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_TENTS_MYTHIC" ConstructibleType="IMPROVEMENT_TENTS" Activation="MYTHIC"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_PLAZA_MYTHIC" ConstructibleType="IMPROVEMENT_PLAZA" Activation="MYTHIC"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_CAIRN_MYTHIC" ConstructibleType="IMPROVEMENT_CAIRN" Activation="MYTHIC"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_RICH_MYTHIC" ConstructibleType="IMPROVEMENT_RICH" Activation="MYTHIC"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_WRECKAGE_MYTHIC" ConstructibleType="IMPROVEMENT_WRECKAGE" Activation="MYTHIC"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_COAST_MYTHIC" ConstructibleType="IMPROVEMENT_COAST" Activation="MYTHIC"/>
+		<Row QueueType="NARRATIVE_GROUP_DISCOVERY_SHIPWRECK_MYTHIC" ConstructibleType="IMPROVEMENT_SHIPWRECK" Activation="MYTHIC"/>
+	</DiscoverySiftingImprovements>
+</Database>

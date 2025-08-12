@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LoadingInfo_Leaders>
+		<Row LeaderType="LEADER_FRIEDRICH_ALT" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_FRIEDRICH_ALT" LeaderImage="blp:lsl_friedrich_alt.png" Audio="VO_Loading2_FRIEDRICH" />
+		<Row LeaderType="LEADER_XERXES_ALT" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_XERXES_ALT" LeaderImage="blp:lsl_xerxes_alt.png" Audio="VO_Loading2_XERXES" />
+	</LoadingInfo_Leaders>
+</Database>

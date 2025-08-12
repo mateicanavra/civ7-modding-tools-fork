@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--Cards-->
+
+		<!--Attributes-->
+		<Row Tag="LOC_CARD_AT_MOD_WILD_CARD_ATTRIBUTE_NAME">
+			<Text>Wild Card Attribute</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_WILD_CARD_ATTRIBUTE_DESCRIPTION">
+			<Text>Gain 1 Wildcard Attribute Point</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_SCIENTIFIC_ATTRIBUTE_NAME">
+			<Text>Scientific Attribute</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_SCIENTIFIC_ATTRIBUTE_DESCRIPTION">
+			<Text>Gain 1 Scientific Attribute Point</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_MILITARISTIC_ATTRIBUTE_NAME">
+			<Text>Militaristic Attribute</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_MILITARISTIC_ATTRIBUTE_DESCRIPTION">
+			<Text>Gain 1 Militaristic Attribute Point</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_EXPANSIONIST_ATTRIBUTE_NAME">
+			<Text>Expansionist Attribute</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_EXPANSIONIST_ATTRIBUTE_DESCRIPTION">
+			<Text>Gain 1 Expansionist Attribute Point</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_ECONOMIC_ATTRIBUTE_NAME">
+			<Text>Economic Attribute</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_ECONOMIC_ATTRIBUTE_DESCRIPTION">
+			<Text>Gain 1 Economic Attribute Point</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_POLITICAL_ATTRIBUTE_NAME">
+			<Text>Diplomatic Attribute</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_POLITICAL_ATTRIBUTE_DESCRIPTION">
+			<Text>Gain 1 Diplomatic Attribute Point</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_CULTURAL_ATTRIBUTE_NAME">
+			<Text>Cultural Attribute</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_CULTURAL_ATTRIBUTE_DESCRIPTION">
+			<Text>Gain 1 Cultural Attribute Point</Text>
+		</Row>
+		<!--Tech Boosts-->
+		<Row Tag="LOC_CARD_AT_MOD_BOOST_TECH_ACADEMICS_NAME">
+			<Text>Academics Technology Boost</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_BOOST_TECH_ACADEMICS_DESCRIPTION">
+			<Text>Gain a 50% boost towards the Academics Technology</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_BOOST_TECH_STEAM_ENGINE_NAME">
+			<Text>Steam Engine Technology Boost</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_BOOST_TECH_STEAM_ENGINE_DESCRIPTION">
+			<Text>Gain a 50% boost towards the Steam Engine Technology</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_BOOST_TECH_MILITARY_SCIENCE_NAME">
+			<Text>Military Science Technology Boost</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_BOOST_TECH_MILITARY_SCIENCE_DESCRIPTION">
+			<Text>Gain a 50% boost towards the Military Science Technology</Text>
+		</Row>
+		<!--Civic Boosts-->
+		<Row Tag="LOC_CARD_AT_MOD_BOOST_CIVIC_NATIONALISM_NAME">
+			<Text>Nationalism Civic Boost</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_BOOST_CIVIC_NATIONALISM_DESCRIPTION">
+			<Text>Gain a 50% boost towards the Nationalism Civic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_BOOST_CIVIC_GLOBALISM_NAME">
+			<Text>Globalism Civic Boost</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_BOOST_CIVIC_GLOBALISM_DESCRIPTION">
+			<Text>Gain a 50% boost towards the Globalism Civic</Text>
+		</Row>
+		<!--Units-->
+		<Row Tag="LOC_CARD_AT_MOD_GRANT_MERCHANT_NAME">
+			<Text>Grant Merchant</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_GRANT_MERCHANT_DESCRIPTION">
+			<Text>Create a Merchant Unit in your Capital</Text>
+		</Row>
+		<!--Dark Age-->
+		<Row Tag="LOC_CARD_AT_MOD_DARK_AGE_MILITARY">
+			<Text>Rearmament</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_DARK_AGE_MILITARY_DESCRIPTION">
+			<Text>-50%[icon:YIELD_CULTURE] Culture and[icon:YIELD_SCIENCE] Science BUT +50%[icon:YIELD_PRODUCTION] Production</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_DARK_AGE_HAPPINESS">
+			<Text>Isolationism</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_DARK_AGE_HAPPINESS_DESCRIPTION">
+			<Text>-5 Combat Strength for all Units BUT double your[icon:YIELD_HAPPINESS] Happiness and gain a unique Celebration effect of +15%[icon:YIELD_CULTURE] Culture and[icon:YIELD_SCIENCE] Science</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_DARK_AGE_HAPPINESS_DESCRIPTION">
+			<Text>{Amount}: Isolationism</Text>
+		</Row>
+		<!-- Revolutions Crisis -->
+		<Row Tag="LOC_AT_MOD_COMBAT_FRIENDLY_TERRITORY_PREVIEW">
+			<Text>+{1_Value} National Guard</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_CRISIS_SPECIALISTS">
+			<Text>Reactionary Absolutism</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_CRISIS_SPECIALISTS_DESCRIPTION">
+			<Text>-2 Specialist Cap. +2 [icon:YIELD_HAPPINESS] Happiness in Towns but -6 [icon:YIELD_HAPPINESS] in Cities. +3 [icon:YIELD_FOOD] Food and [icon:YIELD_PRODUCTION] Production on Rural tiles.</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_CRISIS_MILITARY">
+			<Text>National Guard</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_CRISIS_MILITARY_DESCRIPTION">
+			<Text>Reduce the Happiness penalty from War Weariness by 50%. +3 Combat Strength to Units in friendly territory.</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_CRISIS_DIPLOMACY">
+			<Text>The Stately Quadrille</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_CRISIS_DIPLOMACY_DESCRIPTION">
+			<Text>Reduce the Relationship penalty from breaking an Alliance by 50%. Increase positive Relationship gains from Diplomatic Actions by 50%.</Text>
+		</Row>
+		<!-- Plague Crisis -->
+		<Row Tag="LOC_CARD_AT_MOD_CRISIS_PLAGUE_HOSPITALS">
+			<Text>Contagion Theory</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_CRISIS_PLAGUE_HOSPITALS_DESCRIPTION">
+			<Text>Hospitals become Plague Hospitals (They retain their base yields, adjacency bonuses, and effects in the next age).</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_CRISIS_EARLY_INDUSTRIALIZATION">
+			<Text>Early Industrialization</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_CRISIS_EARLY_INDUSTRIALIZATION_DESCRIPTION">
+			<Text>+2[icon:YIELD_SCIENCE] Science on Sawmills and Gristmills.</Text>
+		</Row>
+		<!-- Wars of Religion Crisis -->
+		<Row Tag="LOC_CARD_AT_MOD_CRISIS_RELIGIOUS_TOLERANCE">
+			<Text>Religious Tolerance</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_CRISIS_RELIGIOUS_TOLERANCE_DESCRIPTION">
+			<Text>+4 Happiness in Settlements not following your Religion.</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_CRISIS_WESTPHALIAN_SOVEREIGNTY">
+			<Text>Westphalian Sovereignty</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_CRISIS_WESTPHALIAN_SOVEREIGNTY_DESCRIPTION">
+			<Text>+3 War Support in all wars declared against you.</Text>
+		</Row>
+		<!-- Legend Cards -->
+		<!-- shared text found in AdvancedStartText.xml for modern-->
+
+	</EnglishText>
+</Database>

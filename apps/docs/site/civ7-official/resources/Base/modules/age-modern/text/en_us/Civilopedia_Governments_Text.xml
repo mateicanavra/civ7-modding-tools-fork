@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+
+		<!-- Governments-->
+		<!-- GOVERNMENT_AUTHORITARIANISM -->
+		<Row Tag="LOC_PEDIA_PAGE_GOVERNMENT_AUTHORITARIANISM_CHAPTER_HISTORY_PARA_1">
+			<Text>Napoleon Bonaparte dropped like a cannon shell on the political world of the 19th century. Emerging from the anti-monarchical movements of the French Revolution, Napoleon turned what was a democratic, if anarchic, action back toward centralized authority. What made Napoleonic politics different were not appeals to medieval tradition but those to a future-oriented society built around the vision of one person. In the years since, Napoleon’s legacy has been a re-emergence of despotism – military leaders, fascists, and other individuals with a grand vision to implement, the gun and the sword the means of their implementation.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_GOVERNMENT_AUTHORITARIANISM_CHAPTER_HISTORY_PARA_2">
+			<Text>Charisma and vision became the driving forces of authoritarian governments, which typically arise out of other forms of government, often without the populace noting a change. At times, authoritarian leaders are elected, but quickly move to invalidate or de-legitimize electoral politics in the name of order. Simón Bolívar, Joseph Stalin, Benito Mussolini, and others fit this model, as do a number of present-day states in which centralized authority and a dream of a glorious future become the goal (and the will of the people becomes secondary).</Text>
+		</Row>
+		<!-- GOVERNMENT_BUREAUCRATIC_MONARCHY -->
+		<Row Tag="LOC_PEDIA_PAGE_GOVERNMENT_BUREAUCRATIC_MONARCHY_CHAPTER_HISTORY_PARA_1">
+			<Text>An absolutist government is a monarchy unrestrained by outside forces – parliament, church, voters, or otherwise. There is a perception that government has slowly evolved toward more democratic regimes, but the growth of absolute monarchies over the 17th-19th centuries belies this movement. Just as democratic republics arose from the principles of the Enlightenment, so too did absolutism, in which a single enlightened despot could claim to be the sole source of reason amidst an unenlightened populace.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_GOVERNMENT_BUREAUCRATIC_MONARCHY_CHAPTER_HISTORY_PARA_2">
+			<Text>The institution of the royal bureaucracy was key to this trend. While feudal monarchies were fractal in nature – a baron ruled a barony, a count ruled his barons, a duke ruled his counts, and a king ruled his dukes – an absolute monarch ruled all via various ministries and other bureaucratic offices. These bureaucracies were far more invasive and transformative than earlier monarchies and ultimately employed a vast number of people, drawing them to the capital city. Pre-revolutionary France, Siam, Meiji Japan, and imperial Austria and Germany are classic absolutist states. States do not claim to be absolutist in the same way these days, although elements of absolutism exist in nations where the capital and central government administer the provinces by appointing governors from the capital rather than electing them, for example.</Text>
+		</Row>
+		<!-- GOVERNMENT_ELECTIVE_REPUBLIC -->
+		<Row Tag="LOC_PEDIA_PAGE_GOVERNMENT_ELECTIVE_REPUBLIC_CHAPTER_HISTORY_PARA_1">
+			<Text>What is the relation of the state to its people? Is the ruler the people’s guardian or a father figure? Does a leader move the nation forward? Or is the ruler simply the representative of the people? That latter idea holds sway in an elective republic. Citizens (recall that many republics withheld citizenship from women, ethnic minorities, and those without property) elect representatives that are – in theory – beholden to their interests. At times, a representative democracy was limited by a judiciary, an upper house, or a constitutional monarch (in which case the word republic does not quite apply). At other times, limitations might be more subtle – for instance, those who have the ears of those in power can direct that power, while money and the threat of military force could also influence policy. While the name could stay, the government might be a “republic” only in name. The constant is a focus on people-driven politics, freedom, and inclusion, rather than honor, prestige, or tradition.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_GOVERNMENT_ELECTIVE_REPUBLIC_CHAPTER_HISTORY_PARA_2">
+			<Text>Present-day republics include the United States, India, South Korea, France, and much of Latin America. Each is imperfect in its own way – money, access to power, racial and caste hierarchies all skew the ideal of perfect representation, but each strives toward a government that works not for, but by the people. The name “republic” is not technically applicable to the United Kingdom, Denmark, Japan, or other countries with a monarch as the head of state, but those countries operate in much the same manner as a republic.</Text>
+		</Row>
+	</EnglishText>
+</Database>

@@ -1,0 +1,1163 @@
+@use '../../utilities/utility-layout' as *;
+@use '../default/theme';
+
+// image classes
+.img-arrow {
+	background-image: url("fs://game/base_component-arrow.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	width: pixels(32);
+	height: pixels(48);
+}
+
+.img-arrow-hover {
+	background-image: url("fs://game/base_component-arrow.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	width: pixels(32);
+	height: pixels(48);
+
+	&:hover {
+		filter: brightness(200%);
+	}
+}
+
+.img-arrow-disabled {
+	background-image: url("fs://game/base_component-arrow_dis.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	width: pixels(32);
+	height: pixels(48);
+}
+
+.img-lsgb-egypt-720 {
+	background-image: url("fs://game/lsbg_egypt_720.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+	filter: brightness(0.5); // This does not require an extra render pass
+}
+
+.img-questopen {
+	background-image: url("fs://game/hud_quest_open.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-questopen-highlight {
+	background-image: url("fs://game/hud_quest_open_hov.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-questclose {
+	background-image: url("fs://game/hud_quest_close.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-questclose-highlight {
+	background-image: url("fs://game/hud_quest_close_hov.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-navhelp-bk {
+	background-image: url("fs://game/hud_navhelp_bk.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-questext {
+	background-image: url("fs://game/hud_quest_ext.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-quest-bullet {
+	background-image: url("fs://game/hud_quest_bullet.png");
+	width: pixels(32);
+	height: pixels(32);
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-hud-top-left-gradient {
+	background-image: url("fs://game/hud_top_left_gradient.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-hud-bottom-right-gradient {
+	background-image: url("fs://game/hud_bottom_right_gradient.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-hud-turn-circle {
+	background-image: url("fs://game/hud_turn_circle.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-dropdown-focus {
+	background-image: url("fs://game/base_dropdown-option-focus.png");
+	background-size: 100% 100%;
+	background-position: left;
+	background-repeat: no-repeat;
+}
+
+.img-selection-arrow {
+	background-image: url("fs://game/hud_unit-panel_drawer-arrow.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: pixels(2) 50%;
+	width: pixels(16);
+	height: pixels(28);
+}
+
+.img-dropdown-box {
+	border-image-source: url("fs://game/base_dropdown-box.png");
+	border-image-slice: 16 32 32 32 fill;
+	border-image-width: pixels(16) pixels(32) pixels(32) pixels(32);
+	border-image-outset: pixels(0) pixels(12) pixels(18) pixels(12);
+}
+
+.img-dropdown-box-focus {
+	border-image-source: url("fs://game/base_dropdown-focus.png");
+	border-image-slice: 6 fill;
+	border-image-width: pixels(6) pixels(6) pixels(6) pixels(6);
+}
+
+.img-tab-bar {
+	border-image-source: url("fs://game/base_tabbar-bg.png");
+	border-image-slice: 12 32 40 32 fill;
+	border-image-width: pixels(12) pixels(32) pixels(40) pixels(32);
+	background-repeat: no-repeat;
+}
+
+.img-tab-end-cap {
+	background-image: url("fs://game/base_tabbar-endcap.png");
+	background-size: 100% 100%;
+	background-size: contain;
+	background-repeat: no-repeat;
+	min-width: pixels(32);
+	top: pixels(-7);
+	bottom: pixels(-8);
+}
+
+.img-tab-bar-flat {
+	border-image-source: url("fs://game/base_tabbar-bg.png");
+	border-image-slice: 12 32 40 32 fill;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-tab-flat-end-cap {
+	background-image: url("fs://game/prof_tab_end_left.png");
+	background-size: 100% 100%;
+	background-size: contain;
+	background-repeat: no-repeat;
+	min-width: pixels(18);
+	top: pixels(-7);
+	bottom: pixels(-8);
+}
+
+.img-tab-selection-indicator {
+	border-image-source: url('fs://game/base_tabbar-selector.png');
+	border-image-slice: 9 8 fill;
+	border-image-width: pixels(9) pixels(8);
+	transform: translateY(pixels(-1)) translateY(50%);
+}
+
+.img-card-button {
+	border-image-source: url('fs://game/base_card-button-frame.png');
+	border-image-slice: 16 24 36 24 fill;
+	border-image-width: pixels(16) pixels(24) pixels(36) pixels(24);
+	border-image-outset: pixels(4) pixels(14) pixels(24) pixels(14);
+}
+
+.img-card-button-focus {
+	border-image-source: url("fs://game/base_dropdown-focus.png");
+	border-image-slice: 6 fill;
+	border-image-width: pixels(6) pixels(6) pixels(6) pixels(6);
+	border-image-outset: pixels(0) pixels(4) pixels(4) pixels(0);
+}
+
+.img-thick-square {
+	border-image-source: url("fs://game/shell_thick-square.png");
+	border-image-slice: 16 fill;
+	border-image-width: pixels(16);
+}
+
+.img-simple-square {
+	border-image-source: url("fs://game/shell_simple-square.png");
+	border-image-slice: 16 fill;
+	border-image-width: pixels(16);
+	background-image: linear-gradient(180deg, theme.color('primary-3') 0%, theme.color('primary-5') 100%);
+}
+
+.img-checkbox-on {
+	background-image: url("fs://game/base_checkbox-on.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-checkbox-off {
+	background-image: url("fs://game/base_checkbox-off.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-checkbox-on-pressed {
+	background-image: url("fs://game/base_checkbox-on-pressed.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-checkbox-off-pressed {
+	background-image: url("fs://game/base_checkbox-off-pressed.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-checkbox-on-highlight {
+	background-image: url("fs://game/base_checkbox-on-highlight.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-checkbox-off-highlight {
+	background-image: url("fs://game/base_checkbox-off-highlight.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-radio-button {
+	background-image: url("fs://game/base_radio-bg.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-radio-button-ball {
+	background-image: url("fs://game/base_radio-ball.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	width: pixels(18);
+	height: pixels(18);
+}
+
+.img-radio-button-ball2 {
+	background-image: url("blp:base_radio-ball2");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-radio-button-ball-lg {
+	background-image: url("fs://game/base_radio-ball.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	width: pixels(28);
+	height: pixels(28);
+}
+
+.img-radio-button-focus {
+	background-image: url("fs://game/base_radio-bg-focus.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-radio-button-on-focus {
+	background-image: url("fs://game/base_radio-bg-on-focus.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-frame-f1 {
+	border-image-source: url('fs://game/base_frame-bg.png');
+	border-image-slice: 28 fill;
+	border-image-width: pixels(28);
+	border-image-outset: pixels(0) pixels(24);
+}
+
+.img-frame-f2 {
+	border-image-source: url("hud_squarepanel-bg");
+	border-image-slice: 30 28 30 28 fill;
+	border-image-width: pixels(30) pixels(28) pixels(30) pixels(28);
+	border-image-outset: pixels(12) pixels(24) pixels(12) pixels(24);
+}
+
+.img-modal-frame {
+	border-image-source: url('fs://game/modal_bg.png');
+	border-image-slice: 32 100 64 100 fill;
+	border-image-width: pixels(32) pixels(100) pixels(64) pixels(100);
+	border-image-outset: pixels(5) pixels(16) pixels(26) pixels(16);
+}
+
+.img-frame-filigree {
+	border-image-source: url("fs://game/base_frame-filigree.png");
+	border-image-slice: 142 0 0 142 fill;
+	border-image-width: pixels(142) 0 0 pixels(142);
+	fxs-border-image-tint: rgba(254, 254, 254, 0.08);
+}
+
+.img-square-frame {
+	border-image-source: url("fs://game/hud_squarepanel-bg.png");
+	border-image-slice: 30 28 30 28 fill;
+	border-image-width: pixels(30) pixels(28) pixels(30) pixels(28);
+	border-image-outset: pixels(13) pixels(8) pixels(24) pixels(8);
+}
+
+.img-list-focus-frame {
+	border-image-source: url('fs://game/hud_list-focus_frame.png');
+	border-image-slice: 28 32 28 32;
+	border-image-width: pixels(28) pixels(32);
+	border-image-outset: pixels(6) pixels(5);
+}
+
+.img-list-focus-frame_highlight {
+	border-image-source: url('fs://game/hud_list-focus_frame.png');
+	border-image-slice: 28 32 28 32;
+	border-image-width: pixels(28) pixels(32);
+	border-image-outset: pixels(6) pixels(5);
+	background: linear-gradient(90deg, theme.color('secondary-3') 0%, theme.color('accent-6', .5) 100%);
+}
+
+.img-list-focus-frame_no-border {
+	border-image-source: url('fs://game/hud_list-focus_frame.png');
+	border-image-slice: 28 32 28 32;
+	border-image-width: 0;
+	border-image-outset: pixels(6) pixels(5);
+}
+
+.img-list-focus-frame_highlight_no-border {
+	border-image-source: url('fs://game/hud_list-focus_frame.png');
+	border-image-slice: 28 32 28 32;
+	border-image-width: 0;
+	border-image-outset: pixels(6) pixels(5);
+	background: linear-gradient(90deg, theme.color('secondary-3') 0%, theme.color('accent-6', .5) 100%);
+}
+
+.img-sub-circle {
+	background-image: url('fs://game/hud_sub_circle_bk.png');
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-sub-circle-disabled {
+	background-image: url('fs://game/hud_sub_circle_dis.png');
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-sub-circle-highlight {
+	background-image: url('fs://game/hud_sub_circle_hi.png');
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-sub-circle-hover {
+	background-image: url('fs://game/hud_sub_circle_hov.png');
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-circle-selected {
+	background-image: url('fs://game/shell_base-ring-selected.png');
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-sub-circle-active {
+	background-image: url('fs://game/hud_sub_circle_prs.png');
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-switch-frame-off {
+	background-image: url("fs://game/base_switch-frame-off.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-switch-frame-off-focus {
+	background-image: url("fs://game/base_switch-frame-off-highlight.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-switch-frame-off-active {
+	background-image: url("fs://game/base_switch-frame-off-pressed.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-switch-frame-on {
+	background-image: url("fs://game/base_switch-frame-on.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-switch-frame-on-focus {
+	background-image: url("fs://game/base_switch-frame-on-highlight.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-switch-frame-on-active {
+	background-image: url("fs://game/base_switch-frame-on-pressed.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-hex-shadow {
+	background-image: url("fs://game/core/hud_diplo_hex-shadow.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-hex-64 {
+	background-image: url("fs://game/core/Hex_64px.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-hex-overlay {
+	background-image: url("fs://game/core/overlay_hex-icon.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-hex-frame {
+	background-image: url("fs://game/core/hud_diplo_hex-frame.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-tooltip-border {
+	border-image-source: url("fs://game/base_tooltip-bg.png");
+	border-image-slice: 16 24 36 24 fill;
+	border-image-width: pixels(16) pixels(24) pixels(36) pixels(24);
+	border-image-outset: pixels(6) pixels(16) pixels(24) pixels(16);
+}
+
+.img-tooltip-bg {
+	background-image: linear-gradient(to bottom, theme.color('primary-4', .95) 0%, theme.color('primary-5', .95) 100%);
+}
+
+.img-hour-glass {
+	background-image: url("fs://game/base-standard/HourGlass.png");
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-turn-icon {
+	background-image: url("fs://game/hud_turn-timer.png");
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-plus-icon {
+	background-image: url("fs://game/base_plus-icon.png");
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	width: pixels(32);
+	height: pixels(32);
+}
+
+.img-minus-icon {
+	background-image: url("fs://game/base_minus-icon.png");
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	width: pixels(32);
+	height: pixels(32);
+}
+
+.img-top-filigree-left {
+	border-image-source: url("fs://game/base_top-filigree_left.png");
+	border-image-slice: 62 156 1 24 fill;
+	border-image-width: pixels(62) pixels(156) pixels(1) pixels(24);
+	border-image-outset: pixels(0) pixels(21) pixels(0) pixels(12);
+	height: pixels(64);
+}
+
+.img-top-filigree-right {
+	border-image-source: url("fs://game/base_top-filigree_right.png");
+	border-image-slice: 62 24 1 156 fill;
+	border-image-width: pixels(62) pixels(24) pixels(1) pixels(156);
+	border-image-outset: pixels(0) pixels(13) pixels(0) pixels(21);
+	height: pixels(64);
+}
+
+.img-top-filigree-center {
+	background-image: url("fs://game/base_top-filigree_center.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+
+	width: pixels(48);
+	height: pixels(64);
+}
+
+.img-civics-icon-frame {
+	background-image: url("fs://game/hud_civics-icon_frame.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.techtree-icon-empty {
+	background-image: url("fs://game/techtree-icon-empty.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.techtree-icon-empty-highlight {
+	background-image: url("fs://game/techtree-icon-empty-highlight.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.img-popup-header-bk {
+	border-image-source: url("fs://game/popup_header_bk.png");
+	border-image-slice: 1 0 0 0 fill;
+	border-image-width: pixels(1) 0 0 0;
+}
+
+.img-unit-panelbox {
+	border-image-source: url("fs://game/hud_unit-panel_box-bg");
+	border-image-slice: 30 20 fill;
+	border-image-width: pixels(30) pixels(20);
+	border-image-outset: pixels(15) pixels(13) pixels(15) pixels(13);
+}
+
+.img-unit-panel-divider {
+	background-image: url("fs://game/hud_unit-panel_divider-line.png");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: pixels(128);
+	height: pixels(24);
+}
+
+.img-ntf-dismiss {
+	background-image: url("fs://game/ntf_dismiss");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-popup-icon-decor {
+	background-image: url("fs://game/popup_icon_decor_left");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	width: pixels(186);
+	height: pixels(110);
+}
+
+.img-popup-icon-wood-bk {
+	background-image: url("fs://game/popup_icon_wood_bk");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.img-popup-middle-decor {
+	background-image: url("fs://game/popup_middle_decor");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	width: pixels(64);
+	height: pixels(16);
+}
+
+.img-popup-header-glow {
+	background-image: url("fs://game/popup_header_glow");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.img-hud-dock {
+	border-image-source: url("fs://game/hud_dock_bg.png");
+	border-image-slice: 0 30 0 90 fill;
+	border-image-width: 0 pixels(30) 0 pixels(90);
+}
+
+.img-hud-frontbanner {
+	background-image: url("fs://game/hud_frontbanner.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.img-hud-frontbanner-overlay {
+	background-image: url("fs://game/hud_frontbanner_overlay.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.img-hud-frontbanner-shadow {
+	background-image: url("fs://game/hud_frontbanner_shadow.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.img-emblem-military {
+	background-image: url("fs://game/victory_militaristic");
+	background-size: contain;
+	background-repeat: no-repeat;
+	width: pixels(128);
+	height: pixels(164);
+}
+
+.img-emblem-cultural {
+	background-image: url("fs://game/victory_cultural");
+	background-size: contain;
+	background-repeat: no-repeat;
+	width: pixels(128);
+	height: pixels(164);
+}
+
+.img-emblem-economic {
+	background-image: url("fs://game/victory_economic");
+	background-size: contain;
+	background-repeat: no-repeat;
+	width: pixels(128);
+	height: pixels(164);
+}
+
+.img-emblem-scientific {
+	background-image: url("fs://game/victory_scientific");
+	background-size: contain;
+	background-repeat: no-repeat;
+	width: pixels(128);
+	height: pixels(164);
+}
+
+.img-victory-filagree {
+	background-image: url("fs://game/popup_bronze_decor_left");
+	background-size: contain;
+	background-repeat: no-repeat;
+	width: pixels(183);
+	height: pixels(110);
+}
+
+.img-victory-laurels {
+	background-image: url("fs://game/popup_gold_laurels");
+	background-size: contain;
+	background-repeat: no-repeat;
+	width: pixels(205);
+	height: pixels(205);
+}
+
+.img-historical-choice {
+	background-image: url("fs://game/shell_leader-circle.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.hud_sidepanel_list-bg {
+	border-image: url("fs://game/hud_sidepanel_list-bg.png");
+	border-image-slice: 24 fill;
+	border-image-width: pixels(24);
+}
+
+.hud_sidepanel_list-bg-no-fill {
+	border-image: url("fs://game/hud_sidepanel_list-bg.png");
+	border-image-slice: 1;
+	border-image-width: pixels(1);
+}
+
+.hud_sidepanel_list-bg_no-border {
+	border-image: url("fs://game/hud_sidepanel_list-bg.png");
+	border-image-slice: 24 fill;
+	border-image-width: 0;
+}
+
+.img-dlc-icon {
+	background-image: url("fs://game/dlc_icon");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.img-action-upgrade {
+	background-image: url('fs://game/Action_Upgrade');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.img-prof-btn-bg {
+	border-image-source: url('fs://game/prof_btn_bk');
+	border-image-slice: 16 fill;
+	border-image-width: pixels(16);
+}
+
+.img-prof-tab-end {
+	border-image-source: url('fs://game/prof_tab_end_left');
+	border-image-slice: 4 4 fill;
+	border-image-width: pixels(4) pixels(4);
+}
+
+.img-giftbox-icon {
+	background-image: url('fs://game/mm_liveops_reward');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.img-social-icon {
+	background-image: url('fs://game/soc_social');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.img-notification-badge {
+	background-image: url("fs://game/mm_notification.png");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-radial-glow {
+	background-image: radial-gradient(closest-side, theme.color('glow'), transparent);
+	opacity: 0.6;
+}
+
+.img-ba-default {
+	background-image: url('fs://game/ba_default');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.img-city-details {
+	background-image: url('fs://game/city_details.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	width: pixels(50);
+	height: pixels(50);
+}
+
+.img-global-chat {
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url("fs://game/global_chat.png");
+}
+
+.img-team-chat {
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url("fs://game/team_chat.png");
+}
+
+.img-direct-chat {
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url("fs://game/dm_chat.png");
+}
+
+.img-emoticon-chat {
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url("fs://game/emoticon.png");
+}
+
+.img-notification {
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url("fs://game/ntf_default.png");
+}
+
+.img-lock {
+	background-image: url("fs://game/icon_locked.png");
+	background-size: cover;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-lock2 {
+	background-image: url("fs://game/icon_lock.png");
+	background-size: cover;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-circle {
+	background-image: url("blp:lp_circ_color_128");
+	background-size: cover;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-close-button {
+	background-image: url('fs://game/hud_closebutton');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center
+}
+
+.img-hud-civic-complete {
+	background-image: url('fs://game/hud_civic-complete');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center
+}
+
+.img-seperator-col-accent-5 {
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	background: linear-gradient(to right, transparent 0%, theme.color('accent-5') 50%, transparent 100%);
+	transform: rotate(90deg);
+}
+
+.img-narrative-frame-bg {
+	background-image: url("fs://game/bg_eypt_nile");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-narrative-frame-overlay {
+	border-image-source: url("fs://game/nar_reg_bg_overlay");
+	border-image-slice: 200 200 62 200 fill;
+	border-image-width: pixels(200) pixels(200) pixels(62) pixels(200);
+	border-image-outset: pixels(15) pixels(25) pixels(35) pixels(25);
+}
+
+.img-narrative-top-icon {
+	width: pixels(68);
+	height: pixels(68);
+	background-image: url("fs://game/nar_reg_gold_icon");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-narrative-reg-header {
+	border-image-source: url("fs://game/nar_reg_header");
+	border-image-slice: 80 175 28 200 fill;
+	border-image-width: pixels(80) pixels(175) pixels(28) pixels(200);
+	border-image-outset: pixels(0) pixels(0) pixels(0) pixels(11);
+}
+
+.img-small-narrative-frame {
+	border-image-source: url('fs://game/nar_small_frame');
+	border-image-slice: 115 140 115 140 fill;
+	border-image-width: pixels(115) pixels(140) pixels(115) pixels(140);
+	border-image-outset: pixels(17) pixels(27) pixels(104) pixels(27);
+}
+
+.img-small-narrative-top-icon {
+	background-image: url("fs://game/nar_reg_gold_icon");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-small-narrative-header {
+	border-image-source: url("fs://game/nar_small_header");
+	border-image-slice: 40 88 14 50 fill;
+	border-image-width: pixels(40) pixels(88) pixels(14) pixels(50);
+	border-image-outset: pixels(0) pixels(0) pixels(0) pixels(0);
+}
+
+.img-mp-lobby-ai-background {
+	background-image: linear-gradient(to right, theme.color('primary-5') 0%, theme.color('primary-4') 20%, theme.color('primary-3') 50%, theme.color('primary-4') 80%, theme.color('primary-5'));
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-popup-laurels {
+	background-image: url("fs://game/popup_laurels");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-popup_icon_wood_bk {
+	background-image: url("fs://game/popup_icon_wood_bk");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-popup_header_bk {
+	background-image: url("fs://game/popup_header_bk");
+	background-size: 100% 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-popup_len {
+	background-image: url("fs://game/popup_len");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-popup_len_selected {
+	background-image: url("fs://game/popup_len_selected");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-popup_checkmark {
+	background-image: url("fs://game/popup_checkmark");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-icon-checkmark {
+	background-image: url("fs://game/icon-checkmark");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-popup_icon_glow {
+	background-image: url("fs://game/popup_icon_glow");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-rel_glow_larger {
+	background-image: url("fs://game/rel_glow_larger");
+	background-size: 100% 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-report_port_glow {
+	background-image: url("fs://game/report_port_glow");
+	background-size: 100% 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-ntf_block_hov {
+	background-image: url("fs://game/ntf_block_hov.png");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-ntf_block_active {
+	background-image: url("fs://game/ntf_block_prs.png");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-shell_base-ring-focus {
+	background-image: url("fs://game/shell_base-ring-focus");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-shell_leader-xp-ring {
+	background-image: url("fs://game/shell_leader-xp-ring");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-cPromo_promo_available {
+	background-image: url("fs://game/cPromo_promo_available");
+	background-size: 115% auto;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.mp_mem_available {
+	background-image: url("fs://game/mp_mem_available");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-mem_maj_generic {
+	background-image: url("fs://game/mem_major_generic");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-mem_min_generic {
+	background-image: url("fs://game/mem_min_generic");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-city-tab-line-vert {
+	border-image-source: url("city_tab_line_vert.png");
+	border-image-slice: 6 5 fill;
+	border-image-width: pixels(6) pixels(5);
+	border-image-repeat: stretch;
+}
+
+.img-bg-card-buganda {
+	background-image: url("bg-card-buganda.png");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-bg-card-aksum {
+	background-image: url("bg-card-aksum.png");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-mp-lobby-crossplay {
+	background-image: url("mp_lobby_crossplay");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-rel-icon-select {
+	border-image: url("rel_icon_select.png");
+	border-image-slice: 25 27 28 27 fill;
+	border-image-width: pixels(25) pixels(27) pixels(28) pixels(27);
+	border-image-outset: pixels(28);
+}
+
+.img-add-slot {
+	background-image: url("fs://game/res_addslot");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-city-ageless {
+	background-image: url("fs://game/city_ageless");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+// TODO: figure out what to replace this with
+//.img-ornament-thin-center-hex {
+//	background-image: url("fs://game/core/ui/themes/default/img/Ornament_Thin_CenterHex.png");
+//	background-size: cover;
+//	background-position: center;
+//	filter: fxs-color-mask(theme.$default-color-secondary-accent);
+//}
+
+.img-mp-report {
+	background-image: url("mp_report.png");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-mod-hover-overlay {
+	border-image-source: url("fs://game/hud_list-focus_frame");
+	border-image-slice: 20 32 20 32;
+	border-image-width: pixels(20);
+	border-image-outset: pixels(5);
+	background-image: linear-gradient(90deg, theme.color('primary-5') 0%, theme.color('primary-5', 0.5) 100%);
+}
+
+.img-ba-default {
+	background-image: url("fs://game/ba_default.png");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-crisis-blk {
+	background-image: url("ntf_crisis_blk");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-car-rightarrow {
+	background-image: url("car_rightarrow");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-icon-pencil {
+	background-image: url('fs://game/icon_pencil.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-icon-pencil-hover {
+	background-image: url('fs://game/icon_pencil_hover.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-icon-pencil-check {
+	background-image: url('fs://game/icon_pencil_check.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-icon-pencil-check-hover {
+	background-image: url('fs://game/icon_pencil_check_hover.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.img-bg-panel-chola {
+	background-image: url('fs://game/bg-panel-chola');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+//lsl_loading
+.img-lsl_loading {
+	background-image: url('fs://game/lsl_loading.png');
+	background-size: auto 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.img-icon-download {
+	background-image: url('fs://game/icon_download.png');
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+}

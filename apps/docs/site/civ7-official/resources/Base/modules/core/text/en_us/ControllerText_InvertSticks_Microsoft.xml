@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<!-- Delete existing strings/translations for the given keys.-->
+	<LocalizedText>
+		<Delete Tag="LOC_UI_CONTROLLER_MAPPING_INVERT_STICK" />
+	</LocalizedText>
+
+	<!-- Define platform-specific overrides. -->
+	<EnglishText>
+		<Row Tag="LOC_UI_CONTROLLER_MAPPING_INVERT_STICK_MICROSOFT">
+			<Text>Swap Stick Functionality</Text>
+		</Row>
+
+		<Replace Tag="LOC_UI_CONTROLLER_MAPPING_INVERT_STICK">
+			<Text>{LOC_UI_CONTROLLER_MAPPING_INVERT_STICK_MICROSOFT}</Text>
+		</Replace>
+	</EnglishText>
+</Database>

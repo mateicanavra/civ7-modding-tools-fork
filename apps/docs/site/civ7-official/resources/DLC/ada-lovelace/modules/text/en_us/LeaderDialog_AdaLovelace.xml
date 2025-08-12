@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Ada Lovelace Main Menu Char Select Text-->
+		<Row Tag="LOC_MAIN_CHAR_SELECT_LEADER_ADA_LOVELACE_ANY">
+			<Text>To use and apply the language of science, we must fully appreciate, feel, seize the unseen. </Text>
+		</Row>
+
+		<!-- Ada Lovelace Statement Text-->
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_ADA_LOVELACE_ANY">
+			<Text>Ada - a pleasure. Tell me, what are your thoughts on calculus? </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_ADA_LOVELACE_ANY">
+			<Text>Ada - a pleasure. Tell me, what are your thoughts on calculus? </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_ADA_LOVELACE_ANY">
+			<Text>Ada - a pleasure. Tell me, what are your thoughts on calculus? </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_ADA_LOVELACE_ANY">
+			<Text>The life-blood of this universe is not yours to drain. Begone, scoundrel! </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_ADA_LOVELACE_ANY">
+			<Text>You have lost your mind, and your head will soon follow. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DEFEAT_AI_LEADER_ADA_LOVELACE_ANY">
+			<Text>In my fading footsteps, may mankind find a little of that brightness from Beyond. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_ADA_LOVELACE">
+			<Text>Your insight into this matter is most remarkable. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_ADA_LOVELACE">
+			<Text>Your variable has no place in my equations. </Text>
+		</Row>
+	</EnglishText>
+</Database>

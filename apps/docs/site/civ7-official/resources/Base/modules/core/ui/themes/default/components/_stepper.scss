@@ -1,0 +1,136 @@
+@use 'sass:math';
+@use 'sass:string';
+@use '../theme';
+@use '../../../utilities/utility-layout' as *;
+@use '../../../utilities/utility-text' as *;
+
+/** Stepper *********************************************************************/
+.fxs-stepper {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	pointer-events: auto;
+
+	&:focus {
+		background-color: theme.color('accent-1');
+		color: var(--player-color-secondary);
+	}
+}
+
+.fxs-stepper-right {
+	cursor: pointer;
+	margin-left: pixels(16);
+	position: relative;
+	width: 5em;
+	height: 5em;
+	pointer-events: auto;
+}
+
+.fxs-stepper-left {
+	cursor: pointer;
+	margin-right: 2em;
+	position: relative;
+	width: 5em;
+	height: 5em;
+	pointer-events: auto;
+}
+
+.fxs-stepper-center-container {
+	min-width: 25em;
+	height: 3em;
+}
+
+.fxs-stepper-step-container {
+	height: 1em;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex: 1 1 auto;
+	flex-direction: row;
+}
+
+.fxs-stepper-step {
+	height: 0.25em;
+	margin: 0.125em;
+	min-width: 1em;
+	background-color: #91745d;
+	pointer-events: auto;
+
+	&.selected {
+		height: 0.5em;
+		background-color: #eaddcb;
+	}
+}
+
+.fxs-stepper-caption {
+	display: flex;
+	justify-content: center;
+	font-size: pixels-font(16);
+	margin-bottom: 0.25em;
+	color: #eaddcb;
+}
+
+.fxs-stepper-arrow {
+	// override this locally
+	position: relative;
+	width: 5em;
+	height: 5em;
+	background-size: cover;
+
+	&.stepper-left-arrow-shadow {
+		background-repeat: no-repeat;
+		position: absolute;
+		background-image: url("fs://game/shadow_left-arrow");
+	}
+
+	&.stepper-left-arrow-shape {
+		position: absolute;
+		background-repeat: no-repeat;
+		filter: fxs-color-tint(var(--player-color-secondary));
+		background-image: url("fs://game/mask_left-arrow");
+
+		&:hover,
+		&:focus {
+			filter: fxs-color-tint(theme.color('accent-1'));
+		}
+	}
+
+	&.stepper-left-arrow-overlay {
+		position: absolute;
+		background-repeat: no-repeat;
+		background-image: url("fs://game/overlay_left-arrow");
+	}
+
+	&.stepper-right-arrow-shadow {
+		background-repeat: no-repeat;
+		position: absolute;
+		background-image: url("fs://game/shadow_right-arrow");
+	}
+
+	&.stepper-right-arrow-shape {
+		position: absolute;
+		background-repeat: no-repeat;
+		filter: fxs-color-tint(var(--player-color-secondary));
+		background-image: url("fs://game/mask_right-arrow");
+
+		&:hover,
+		&:focus {
+			filter: fxs-color-tint(theme.color('accent-1'));
+		}
+	}
+
+	&.stepper-right-arrow-overlay {
+		background-repeat: no-repeat;
+		position: absolute;
+		background-image: url("fs://game/overlay_right-arrow");
+	}
+
+	&:hover,
+	&:focus {
+
+		.arrow-highlight {
+			opacity: 1;
+		}
+	}
+}

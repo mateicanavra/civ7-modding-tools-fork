@@ -1,0 +1,19 @@
+language: node_js
+sudo: false
+
+cache:
+  directories:
+    - node_modules
+
+before_install:
+  - nvm install 7.5.0
+  - npm install -g npm@4 typescript@2.2.1 istanbul codecov && node -v && npm -v
+
+install:
+  - npm install
+
+script:
+  - npm run build && npm run test
+
+after_success:
+  - npm run coverage

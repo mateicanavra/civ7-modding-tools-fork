@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LoadingInfo_Civilizations>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CivilizationText="LOC_LOADING_CIV_INTRO_TEXT_GREAT_BRITAIN" Audio="VO_Loading_Great_Britain" Subtitle="LOC_LOADING_INTRO_GREAT_BRITAIN" BackgroundImageHigh="fs://game/lsbg_great_britain_1080.png" BackgroundImageLow="fs://game/lsbg_great_britain_720.png" ForegroundImage="fs://game/civ_line_great_britain.png" Tip="LOC_LOADING_CIV_TIPS_TEXT_GREAT_BRITAIN" />
+	</LoadingInfo_Civilizations>
+</Database>

@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_DESCRIPTION" Language="pt_BR">
+      <Text>Contém o Comandante exclusivo de Trung Trac, Trung Nhi.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_NAME" Language="pt_BR">
+      <Text>Unidade - Trung Nhi</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_DESCRIPTION" Language="fr_FR">
+      <Text>Contient Trưng Nhị, la commandante exclusive de Trưng Trắc.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_NAME" Language="fr_FR">
+      <Text>Unité : Trưng Nhị</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_DESCRIPTION" Language="de_DE">
+      <Text>Enthält Trung Tracs einzigartigen Kommandanten, Trung Nhi.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_NAME" Language="de_DE">
+      <Text>Einheit - Trung Nhi</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_DESCRIPTION" Language="it_IT">
+      <Text>Contiene il comandante esclusivo di Trung Trac, Trung Nhi.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_NAME" Language="it_IT">
+      <Text>Unità - Trung Nhi</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_DESCRIPTION" Language="ja_JP">
+      <Text>徴側の固有の司令官である「徴弐」を含みます。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_NAME" Language="ja_JP">
+      <Text>ユニット - 徴弐</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_DESCRIPTION" Language="ko_KR">
+      <Text>쯩짝의 특유 사령관 쯩니가 포함되어 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_NAME" Language="ko_KR">
+      <Text>유닛 - 쯩니</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_DESCRIPTION" Language="pl_PL">
+      <Text>Zawiera unikalną dowódczynię Trung Trac – Trung Nhi.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_NAME" Language="pl_PL">
+      <Text>Jednostka – Trung Nhi</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_DESCRIPTION" Language="ru_RU">
+      <Text>Включает в себя Чынг Ни, уникального командира Чынг Чак.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_NAME" Language="ru_RU">
+      <Text>Юнит — Чынг Ни</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>包含征侧的特色指挥官：征贰。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_NAME" Language="zh_Hans_CN">
+      <Text>单位 - 征贰</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_DESCRIPTION" Language="es_ES">
+      <Text>Contiene a Trưng Nhị, Comandante exclusiva de Trưng Trắc.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_NAME" Language="es_ES">
+      <Text>Unidad - Trưng Nhị</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>包含徵側的特色指揮官：徵貳。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_TRUNG_NHI_NAME" Language="zh_Hant_HK">
+      <Text>單位 - 徵貳</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

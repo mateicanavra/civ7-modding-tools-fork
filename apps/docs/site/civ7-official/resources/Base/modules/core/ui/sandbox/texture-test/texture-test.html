@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Test - Raw vs Cooked Textures</title>
+	<link rel="stylesheet" href="fs://game/core/ui/shell/utility.css">
+	<link rel="stylesheet" href="fs://game/core/ui/themes/default/default.css">
+	<link rel="stylesheet" href="fs://game/core/ui/sandbox/texture-test/texture-test.css">
+	<link rel="stylesheet" href="fs://game/core/ui/themes/default/theme-colors.css">
+	<script src="fs://game/core/ui/cohtml.js"></script>
+	<script src="fs://game/core/ui/component-support.js"></script>
+</head>
+
+<body>
+	<div class="test-texture__page">
+		<div class="test-texture__container">
+			<div class="test-texture__image-container">
+				<div class="test-texture__image-bg image-basic-bg--raw"></div>
+				<div class="test-texture__label">Basic Texture</div>
+			</div>
+			<div class="test-texture__image-container">
+				<div class="test-texture__image-bg image-bg--raw"></div>
+				<div class="test-texture__label">9-Sliced Texture</div>
+			</div>
+			<div class="test-texture__image-container">
+				<div class="test-texture__image-bg image-overlay--raw"></div>
+				<div class="test-texture__label">Overlay Texture</div>
+			</div>
+		</div>
+		<div class="test-texture__container">
+			<div class="test-texture__image-container">
+				<div class="test-texture__image-bg image-bg--plain"></div>
+				<div class="test-texture__image-bg image-overlay--raw"></div>
+				<div class="test-texture__label">Flat BG<br>Raw Overlay</div>
+			</div>
+			<div class="test-texture__image-container">
+				<div class="test-texture__image-bg image-bg--plain"></div>
+				<div class="test-texture__image-bg image-overlay--cooked"></div>
+				<div class="test-texture__label">Flat BG<br>Cooked Overlay</div>
+			</div>
+			<div class="test-texture__image-container">
+				<div class="test-texture__image-bg image-bg--raw"></div>
+				<div class="test-texture__image-bg image-overlay--raw"></div>
+				<div class="test-texture__label">Raw 9-Sliced BG<br>Raw Overlay</div>
+			</div>
+			<div class="test-texture__image-container">
+				<div class="test-texture__image-bg image-bg--raw"></div>
+				<div class="test-texture__image-bg image-overlay--cooked"></div>
+				<div class="test-texture__label">Raw 9-Sliced BG<br>Cooked Overlay</div>
+			</div>
+			<div class="test-texture__image-container">
+				<div class="test-texture__image-bg image-bg--cooked"></div>
+				<div class="test-texture__image-bg image-overlay--raw"></div>
+				<div class="test-texture__label">Cooked 9-Sliced BG<br>Raw Overlay</div>
+			</div>
+			<div class="test-texture__image-container">
+				<div class="test-texture__image-bg image-bg--cooked"></div>
+				<div class="test-texture__image-bg image-overlay--cooked"></div>
+				<div class="test-texture__label">Cooked 9-Sliced BG<br>Cooked Overlay</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

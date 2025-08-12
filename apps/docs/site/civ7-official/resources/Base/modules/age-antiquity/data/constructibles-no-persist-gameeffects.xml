@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- Nalanda -->
+	<Modifier id="MOD_NALANDA_FREE_CODEX" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_GREAT_WORK" run-once="true" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_NALANDA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ObjectType">GREATWORKOBJECT_WRITING</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<!-- Building -->
+	<Modifier id="MOD_AMPHITHEATER_WONDER_PRODUCTION" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_WONDER_PRODUCTION">
+		<Argument name="Percent">10</Argument>
+	</Modifier>
+	<Modifier id="MOD_ARENA_HAPPINESS_ON_URBAN_PLOTS" collection="COLLECTION_CITY_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IS_QUARTER">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Tooltip">LOC_BUILDING_ARENA_NAME</Argument>
+	</Modifier>
+	<Modifier id="MOD_BARRACKS_UNIT_PRODUCTION" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION">
+		<Argument name="Percent">10</Argument>
+		<Argument name="Domain">DOMAIN_LAND</Argument>
+	</Modifier>
+	<Modifier id="MOD_BATHS_GROWTH_RATE" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_GROWTH">
+		<Argument name="Percent">10</Argument>
+	</Modifier>
+	<Modifier id="MOD_BLACKSMITH_PRODUCTION_ON_URBAN_PLOTS" collection="COLLECTION_CITY_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IS_QUARTER">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Tooltip">LOC_BUILDING_BLACKSMITH_NAME</Argument>
+	</Modifier>
+</GameEffects>

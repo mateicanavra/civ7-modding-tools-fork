@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--SHAWNEE-->
+		<Row Tag="LOC_CITY_NAME_SHAWNEE1">
+			<Text>Cilakofa</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE2">
+			<Text>Pikawiiki</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE3">
+			<Text>Thuthy's Hotewe</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE4">
+			<Text>Penfekim'teko </Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE5">
+			<Text>White Oak</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE6">
+			<Text>Little Axe</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE7">
+			<Text>Prophet's Town</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE8">
+			<Text>Sekakwis</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE9">
+			<Text>Wakacaalli</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE10">
+			<Text>Yetakapewaki</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE11">
+			<Text>Ikan'hatki</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE12">
+			<Text>Wapa'konetta</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE13">
+			<Text>Cornstalk's Town</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE14">
+			<Text>Nonhelema's Town</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE15">
+			<Text>Nepipemi Hotaapata</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE16">
+			<Text>Saawanwa Hotewe</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE17">
+			<Text>Wapatomica</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE18">
+			<Text>Makacheki</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE19">
+			<Text>Mawaskawewiikiwa</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE20">
+			<Text>New Pekowiki</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE21">
+			<Text>Chillicothe Old Town</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE22">
+			<Text>Bluejacket's Town</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE23">
+			<Text>Wicita</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE24">
+			<Text>Eskalapia</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE25">
+			<Text> Manitou</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE26">
+			<Text>Chinodahichetha</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE27">
+			<Text>Skaalaappiye</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE28">
+			<Text>Hokima</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE29">
+			<Text>Nipiwasikwana</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_SHAWNEE30">
+			<Text>Kolawapani Hotekwi</Text>
+		</Row>
+	</EnglishText>
+</Database>

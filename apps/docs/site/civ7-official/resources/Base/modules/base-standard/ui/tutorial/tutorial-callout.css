@@ -1,0 +1,370 @@
+/* DO NOT EDIT */
+/* Generated from tutorial-callout.scss */
+tutorial-callout {
+	--title-display: none;
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+tutorial-callout.handheld.top-center .tutorial-callout-content {
+	max-width: 80vw;
+}
+tutorial-callout.top-center {
+	animation-name: tutorial-callout-anim-top;
+	animation-duration: 0.5s;
+	animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+	animation-fill-mode: both;
+}
+tutorial-callout.top-center .tutorial-callout-content {
+	max-width: 55vw;
+	margin-top: 0.8888888889rem;
+}
+tutorial-callout.top-left .tutorial-callout-content {
+	right: 100%;
+	transform: translate(100%, 2.6666666667rem);
+	margin-top: 0.8888888889rem;
+}
+tutorial-callout.top-right .tutorial-callout-content {
+	left: 100%;
+	transform: translate(-100%, 2.6666666667rem);
+	margin-top: 0.8888888889rem;
+}
+tutorial-callout.middle-left .tutorial-callout-content {
+	top: 50%;
+	right: 100%;
+	transform: translate(100%, -50%);
+}
+tutorial-callout.middle-center .tutorial-callout-content {
+	top: 50%;
+	right: 50%;
+	transform: translate(50%, -50%);
+}
+tutorial-callout.middle-right .tutorial-callout-content {
+	top: 50%;
+	left: 100%;
+	transform: translate(-100%, -50%);
+}
+tutorial-callout.bottom-left .tutorial-callout-content {
+	top: 100%;
+	right: 100%;
+	transform: translate(100%, -100%);
+}
+tutorial-callout.bottom-center .tutorial-callout-content {
+	top: 100%;
+	transform: translate(0rem, -100%);
+}
+tutorial-callout.bottom-right .tutorial-callout-content {
+	top: 100%;
+	left: 100%;
+	transform: translate(-100%, -100%);
+}
+tutorial-callout.top-left, tutorial-callout.middle-left, tutorial-callout.bottom-left {
+	animation-name: tutorial-callout-anim-left;
+}
+tutorial-callout.top-left .tutorial-callout-content, tutorial-callout.middle-left .tutorial-callout-content, tutorial-callout.bottom-left .tutorial-callout-content {
+	max-width: 30vw;
+}
+tutorial-callout.top-right, tutorial-callout.middle-right, tutorial-callout.bottom-right {
+	animation-name: tutorial-callout-anim-right;
+}
+tutorial-callout.top-right .tutorial-callout-content, tutorial-callout.middle-right .tutorial-callout-content, tutorial-callout.bottom-right .tutorial-callout-content {
+	max-width: 30vw;
+}
+@media (max-height: 55.5555555556rem) {
+	tutorial-callout.top-right .tutorial-callout-content, tutorial-callout.middle-right .tutorial-callout-content, tutorial-callout.bottom-right .tutorial-callout-content {
+		max-width: 35vw;
+	}
+}
+tutorial-callout.bottom-center, tutorial-callout.middle-center {
+	animation-name: tutorial-callout-anim-bottom;
+}
+tutorial-callout.bottom-center .tutorial-callout-content, tutorial-callout.middle-center .tutorial-callout-content {
+	max-width: 55vw;
+}
+@media (max-height: 55.5555555556rem) {
+	tutorial-callout.bottom-center .tutorial-callout-content .tutorial-callout-buttons fxs-button, tutorial-callout.middle-center .tutorial-callout-content .tutorial-callout-buttons fxs-button {
+		min-width: 8.3333333333rem;
+		max-width: 12.2222222222rem;
+		text-align: center;
+	}
+}
+tutorial-callout.show-title {
+	--title-display: flex;
+}
+tutorial-callout.tutorial-callout__anchor-position {
+	position: absolute;
+	pointer-events: none;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+}
+tutorial-callout.tutorial-callout__anchor-position .tutorial-callout-content {
+	max-width: 26.6666666667rem;
+	transform: translateY(0%);
+	margin: 0.8888888889rem;
+}
+tutorial-callout.tutorial-callout__anchor-position.anchor-position--left .tutorial-callout-content {
+	left: initial;
+	right: 105%;
+}
+tutorial-callout.tutorial-callout__anchor-position.anchor-position--right .tutorial-callout-content {
+	transform: translateX(0%);
+	left: 100%;
+	right: initial;
+}
+tutorial-callout.tutorial-callout__anchor-position.anchor-position--top .tutorial-callout-content {
+	transform: translateY(-115%);
+	top: 0%;
+}
+tutorial-callout.tutorial-callout__anchor-position.anchor-position--bottom .tutorial-callout-content {
+	top: 100%;
+}
+tutorial-callout.type--notification .tutorial-callout-content {
+	left: 95%;
+}
+tutorial-callout.type--notification .tutorial-callout-body-advisor-container {
+	flex-direction: column;
+	margin-top: 1.3333333333rem;
+	margin-bottom: 1.3333333333rem;
+}
+tutorial-callout.type--notification .tutorial-callout-body-advisor-image {
+	margin-bottom: 1.3333333333rem;
+}
+tutorial-callout.type--notification .advisor-text__tail {
+	top: -0.6666666667rem;
+	left: initial;
+	right: 33%;
+	transform: rotateZ(-30deg);
+}
+tutorial-callout.minimized .tutorial-callout-content {
+	visibility: hidden;
+}
+tutorial-callout.minimized .tutorial-callout-content fxs-minus-plus,
+tutorial-callout.minimized .tutorial-callout-content .tutorial-callout-title-container,
+tutorial-callout.minimized .tutorial-callout-content .tutorial-callout-body,
+tutorial-callout.minimized .tutorial-callout-content .callout-minimize__navhelp,
+tutorial-callout.minimized .tutorial-callout-content .tutorial-callout-buttons {
+	display: none;
+}
+tutorial-callout.minimized .tutorial-callout-content .tutorial-callout-minimized {
+	display: flex;
+	visibility: visible;
+}
+tutorial-callout.minimized.empty-advisor .tutorial-callout-content {
+	visibility: visible;
+}
+
+.tutorial-callout-content {
+	max-width: 26.6666666667rem;
+	align-items: center;
+	justify-content: flex-start;
+	align-self: center;
+	padding-top: 1.3333333333rem;
+	padding-left: 1.1111111111rem;
+	padding-right: 1.1111111111rem;
+	padding-bottom: 0.8888888889rem;
+	top: 0rem;
+	transform: translate(0rem, 2.6666666667rem);
+	margin: 0rem -1.3333333333rem;
+}
+
+.tutorial-callout-content .tutorial-callout-minimized {
+	display: none;
+}
+
+.tutorial-callout-content .tutorial-callout-bg {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	border-image-source: url("fs://game/hud_unit-panel_box-bg.png");
+	border-image-slice: 30 20 30 20 fill;
+	border-image-width: auto;
+	border-image-outset: 0.9444444444rem 0.7222222222rem;
+}
+
+.tutorial-callout-body-advisor-wrapper {
+	border-image-source: url("fs://game/hud_advisor-title_decoration.png");
+	border-image-slice: 126 208 1 24 fill;
+	border-image-width: auto;
+	height: 6.6666666667rem;
+}
+
+.tutorial-callout-body-advisor-bg {
+	background-image: url("fs://game/hud_advisor-gold-base.png");
+}
+
+.tutorial-callout-body-advisor-wrapper-right {
+	left: 15.4444444444rem;
+	right: 15.4444444444rem;
+}
+
+.tutorial-callout-content .tutorial-callout-title-container {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: auto;
+	display: var(--title-display);
+}
+
+.tutorial-callout-content .tutorial-callout-title {
+	position: relative;
+	margin-top: 0.3333333333rem;
+	padding-bottom: 0.4444444444rem;
+	letter-spacing: 0.1666666667rem;
+	margin-right: -0.1666666667rem;
+	justify-content: center;
+	text-align: center;
+	line-height: 1.5em;
+}
+.tutorial-callout-content .tutorial-callout-title p {
+	margin: 0;
+}
+
+.tutorial-callout-title-decoration {
+	background: url("fs://game/hud_fleur.png");
+}
+
+.tutorial-callout-content > .tutorial-callout-body {
+	position: relative;
+	display: flex;
+	justify-content: space-around;
+	flex-direction: column;
+}
+.tutorial-callout-content > .tutorial-callout-body fxs-font-icon {
+	margin-right: 0.3333333333rem;
+}
+.tutorial-callout-content > .tutorial-callout-body p {
+	margin-bottom: 0.6666666667rem;
+}
+
+.tutorial-callout-body-advisor-container {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	margin: 0rem 0.3333333333rem;
+	position: relative;
+}
+
+.tutorial-callout-body-advisor-topper {
+	top: -3.3333333333rem;
+}
+
+.tutorial-callout-body-advisor-image-container {
+	top: -0.9444444444rem;
+}
+
+.tutorial-callout-body-advisor-image {
+	width: 6.1111111111rem;
+	height: 6.1111111111rem;
+	left: 1.1666666667rem;
+	top: 1.1666666667rem;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+.tutorial-callout-body-advisor-image.no-advisor {
+	display: none;
+}
+
+.advisor-default {
+	background-color: white;
+	border-radius: 50%;
+}
+
+.advisor-text__shadow {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-image-source: url("fs://game/shadow_square.png");
+	border-image-slice: 18 fill;
+	border-image-width: 3.7777777778rem;
+	border-image-outset: 2.7777777778rem 3.1111111111rem;
+	opacity: 0.875;
+}
+
+.advisor-text__background {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	border-radius: 0.5555555556rem;
+	background-color: #E5D2AC;
+}
+
+.advisor-text__tail {
+	position: absolute;
+	left: -0.6666666667rem;
+	top: 0.4444444444rem;
+	width: 0rem;
+	height: 0rem;
+	border-left: 1.1111111111rem solid transparent;
+	border-right: 0rem solid transparent;
+	border-bottom: 1.1111111111rem solid #E5D2AC;
+	transform: rotateZ(4deg);
+}
+
+.tutorial-callout-advisor-text.empty {
+	display: none;
+}
+
+.advisor-text__content,
+.tutorial-callout-body-text {
+	line-height: 1.25em;
+}
+.advisor-text__content .indent-1,
+.tutorial-callout-body-text .indent-1 {
+	padding-right: 0.6666666667rem;
+}
+.advisor-text__content.empty,
+.tutorial-callout-body-text.empty {
+	display: none;
+}
+
+.tutorial-callout-content > .tutorial-callout-check-container {
+	margin-top: 0.4444444444rem;
+	margin-bottom: 0.4444444444rem;
+	align-self: flex-end;
+}
+
+.tutorial-callout-content > .tutorial-callout-frame {
+	position: absolute;
+	left: 0rem;
+	right: 0rem;
+	top: 0rem;
+	bottom: 0rem;
+	border-style: solid;
+	border-image-width: 1.3333333333rem;
+	border-image: linear-gradient(to bottom, #8C7E62, #4C473D) 1;
+}
+
+@keyframes tutorial-callout-anim-left {
+	from {
+		opacity: 0;
+		transform: translate(-0.6666666667rem, 0rem);
+	}
+}
+@keyframes tutorial-callout-anim-right {
+	from {
+		opacity: 0;
+		transform: translate(0.6666666667rem, 0rem);
+	}
+}
+@keyframes tutorial-callout-anim-top {
+	from {
+		opacity: 0;
+		transform: translate(0rem, -0.6666666667rem);
+	}
+}
+@keyframes tutorial-callout-anim-bottom {
+	from {
+		opacity: 0;
+		transform: translate(0rem, 0.6666666667rem);
+	}
+}

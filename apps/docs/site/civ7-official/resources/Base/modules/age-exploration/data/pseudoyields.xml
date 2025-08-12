@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<PseudoYields>
+		<Update>
+      <!-- TODO: If naval scouts are reintroduced, we will need to adjust this, and possibly decouple it from the land scouting value. -->
+			<Where PseudoYieldType="PSEUDOYIELD_SCOUTING_UNIT"/><Set DefaultValue="0"/>
+		</Update>
+	</PseudoYields>
+</Database>

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LoadingInfo_Leaders>
+		<Row LeaderType="LEADER_GENGHIS_KHAN" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_GENGHIS_KHAN" LeaderImage="blp:lsl_genghis_khan.png" Audio="VO_Loading2_DLC02_GenghisKhan"/>
+	</LoadingInfo_Leaders>
+</Database>

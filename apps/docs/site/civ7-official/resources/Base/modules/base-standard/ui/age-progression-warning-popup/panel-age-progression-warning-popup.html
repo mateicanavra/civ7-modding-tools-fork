@@ -1,0 +1,34 @@
+<fxs-modal-frame data-modal-style="special">
+	<fxs-header class="font-title-sm mx-4" title="LOC_AGE_END_WARNING_TITLE" filigree-style="small"></fxs-header>
+	<div class="relative flex items-center justify-center">
+		<div class="absolute inset-0 flex items-center justify-center">
+			<img src="fs://game/popup_icon_glow" />
+		</div>
+		<div class="absolute inset-x-0 flex justify-between">
+			<div class="img-popup-icon-decor"></div>
+			<div class="img-popup-icon-decor -scale-x-100"></div>
+		</div>
+		<div class="relative size-38">
+			<div class="absolute inset-0 size-38 img-popup-icon-wood-bk"></div>
+			<div class="progress-warning__icon absolute inset-3 mt-px">
+			</div>
+		</div>
+	</div>
+	<div class="img-popup-header-bk w-full">
+		<div class="mt-6 mb-7">
+			<div class="progress-warning_turns-remaining text-center font-body-2xl uppercase text-shadow"></div>
+			<div data-l10n-id="LOC_UI_GAME_UNTIL_END_OF_AGE" class="text-center"></div>
+		</div>
+	</div>
+	<fxs-inner-frame class="mx-4 my-2 p-6 text-primary-1 shrink">
+		<div class="absolute -top-1\.5 img-popup-middle-decor"></div>
+		<fxs-scrollable class="progress-warning__scrollable" attached-scrollbar="true" handle-gamepad-pan="true">
+			<span class="progress-warning_description text-accent-3 text-base"></span>
+		</fxs-scrollable>
+	</fxs-inner-frame>
+	<fxs-vslot class="progress-warning__button-container">
+		<fxs-button caption="LOC_LEGACY_PATH_VIEW_DETAILS"
+					class="progress-warning_details-button mx-4 mb-2"></fxs-button>
+		<fxs-button caption="LOC_GENERIC_CONTINUE" class="progress-warning_continue-button mx-4 mb-2"></fxs-button>
+	</fxs-vslot>
+</fxs-modal-frame>

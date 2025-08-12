@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="MOD_CITY_TRANSFER_UNREST_STAGE_ANARCHY" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_YIELD" run-once="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_TRANSFER_UNREST_STAGE">
+				<Argument name="CityTransferUnrestStageType">CITY_TRANSFER_UNREST_ANARCHY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_PRODUCTION, YIELD_SCIENCE, YIELD_FOOD, YIELD_GOLD, YIELD_CULTURE, YIELD_HAPPINESS</Argument>
+		<Argument name="Percent">-50</Argument>
+		<Argument name="Tooltip">LOC_UNHAPPINESS_EFFECT_ANARCHY_NAME</Argument>
+	</Modifier>
+	<Modifier id="MOD_CITY_TRANSFER_UNREST_STAGE_UNRULY" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_YIELD" run-once="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_TRANSFER_UNREST_STAGE">
+				<Argument name="CityTransferUnrestStageType">CITY_TRANSFER_UNREST_UNRULY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_PRODUCTION, YIELD_SCIENCE, YIELD_FOOD, YIELD_GOLD, YIELD_CULTURE, YIELD_HAPPINESS</Argument>
+		<Argument name="Percent">-30</Argument>
+		<Argument name="Tooltip">LOC_UNHAPPINESS_EFFECT_UNRULY_NAME</Argument>
+	</Modifier>
+	<Modifier id="MOD_CITY_TRANSFER_UNREST_STAGE_DISGRUNTLED" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_YIELD" run-once="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_TRANSFER_UNREST_STAGE">
+				<Argument name="CityTransferUnrestStageType">CITY_TRANSFER_UNREST_DISGRUNTLED</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_PRODUCTION, YIELD_SCIENCE, YIELD_FOOD, YIELD_GOLD, YIELD_CULTURE, YIELD_HAPPINESS</Argument>
+		<Argument name="Percent">-10</Argument>
+		<Argument name="Tooltip">LOC_UNHAPPINESS_EFFECT_DISGRUNTLED_NAME</Argument>
+	</Modifier>
+</GameEffects>

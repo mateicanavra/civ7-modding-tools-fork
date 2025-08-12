@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<Row Type="FEATURE_BERMUDA_TRIANGLE" Kind="KIND_FEATURE"/>
+	</Types>
+
+	<TypeTags>
+		<Row Type="FEATURE_BERMUDA_TRIANGLE" Tag="NOTADJACENTTOLAND"/>
+		<Row Type="FEATURE_BERMUDA_TRIANGLE" Tag="ADJACENTTOCOAST"/>
+	</TypeTags>
+
+	<TypeQuotes>
+		<Row Type="FEATURE_BERMUDA_TRIANGLE" Quote="LOC_QUOTE_FEATURE_BERMUDA_TRIANGLE" QuoteAuthor="LOC_QUOTE_AUTHOR_FEATURE_BERMUDA_TRIANGLE" QuoteAudio="VO_Quote_BermudaTriangle"/>
+	</TypeQuotes>
+
+	<Features>
+		<Row FeatureType="FEATURE_BERMUDA_TRIANGLE" Name="LOC_FEATURE_BERMUDA_TRIANGLE_NAME" Description="LOC_FEATURE_BERMUDA_TRIANGLE_DESCRIPTION" Tooltip="LOC_FEATURE_BERMUDA_TRIANGLE_TOOLTIP" PlacementClass="THREETRIANGLEDEEPOCEAN" NoLake="true" Appeal="1" Removable="false" PreventUnpack="true"/>
+	</Features>
+
+	<Feature_NaturalWonders>
+		<Row FeatureType="FEATURE_BERMUDA_TRIANGLE" Tiles="3" PlacementPercentage="100"/>
+	</Feature_NaturalWonders>
+
+	<Feature_ValidTerrains>
+		<Row FeatureType="FEATURE_BERMUDA_TRIANGLE" TerrainType="TERRAIN_OCEAN"/>
+	</Feature_ValidTerrains>
+
+	<Feature_ValidBiomes>
+		<Row FeatureType="FEATURE_BERMUDA_TRIANGLE" BiomeType="BIOME_MARINE"/>
+	</Feature_ValidBiomes>
+
+	<TerrainBiomeFeature_YieldChanges>
+		<Row TerrainType="TERRAIN_OCEAN" BiomeType="BIOME_MARINE" FeatureType="FEATURE_BERMUDA_TRIANGLE" YieldType="YIELD_SCIENCE" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_OCEAN" BiomeType="BIOME_MARINE" FeatureType="FEATURE_BERMUDA_TRIANGLE" YieldType="YIELD_CULTURE" YieldChange="2" ScaleByGameAge="50"/>
+	</TerrainBiomeFeature_YieldChanges>
+
+	<GameModifiers>
+		<Row ModifierId="BERMUDA_TRIANGLE_SEA_YIELDS"/>
+		<Row ModifierId="BERMUDA_TRIANGLE_UNIT_TELEPORT"/>
+	</GameModifiers>
+
+	<District_FreeConstructibles>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_EXPEDITION_BASE" FeatureType="FEATURE_BERMUDA_TRIANGLE" Priority="3"/>
+	</District_FreeConstructibles>
+</Database>

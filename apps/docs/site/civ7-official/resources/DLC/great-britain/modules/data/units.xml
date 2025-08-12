@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<!--Civ Unique Military-->
+		<Row Type="UNIT_REVENGE" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_REVENGE_2" Kind="KIND_UNIT"/>
+		<!--Civ Unique Civilian-->
+		<Row Type="UNIT_ANTIQUARIAN" Kind="KIND_UNIT"/>
+		<!--Civ Unique Abilities-->
+		<Row Type="ABILITY_REVENGE" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_ANTIQUARIAN" Kind="KIND_ABILITY"/>
+	</Types>
+	<Units>
+		<!--Civ Unique Military-->
+		<Row UnitType="UNIT_REVENGE" Name="LOC_UNIT_REVENGE_NAME" Description="LOC_UNIT_REVENGE_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="5" BaseSightRange="3" ZoneOfControl="true" Domain="DOMAIN_SEA" UnitMovementClass="UNIT_MOVEMENT_CLASS_NAVAL" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_NAVAL" TraitType="TRAIT_GREAT_BRITAIN"/>
+		<Row UnitType="UNIT_REVENGE_2" Name="LOC_UNIT_REVENGE_NAME" Description="LOC_UNIT_REVENGE_2_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="5" BaseSightRange="3" ZoneOfControl="true" Domain="DOMAIN_SEA" UnitMovementClass="UNIT_MOVEMENT_CLASS_NAVAL" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_NAVAL" TraitType="TRAIT_GREAT_BRITAIN"/>
+		<!--Civ Unique Civilian-->
+		<Row UnitType="UNIT_ANTIQUARIAN" Name="LOC_UNIT_ANTIQUARIAN_NAME" Description="LOC_UNIT_ANTIQUARIAN_DESCRIPTION" BaseSightRange="2" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" ExtractsArtifacts="true" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="400" TraitType="TRAIT_GREAT_BRITAIN"/>
+	</Units>
+	<Unit_Stats>
+		<!--Civ Unique Military-->
+		<Row UnitType="UNIT_REVENGE" Combat="55" RangedCombat="50" Bombard="40" Range="2"/>
+		<Row UnitType="UNIT_REVENGE_2" Combat="60" RangedCombat="55" Bombard="45" Range="2"/>
+		<!--Civ Unique Civilian-->
+		<Row UnitType="UNIT_ANTIQUARIAN"/>
+	</Unit_Stats>
+	<Unit_Costs>
+		<!--Civ Unique Military-->
+		<Row UnitType="UNIT_REVENGE" YieldType="YIELD_PRODUCTION" Cost="310"/>
+		<Row UnitType="UNIT_REVENGE_2" YieldType="YIELD_PRODUCTION" Cost="640"/>
+		<!--Civ Unique Civilian-->
+		<Row UnitType="UNIT_ANTIQUARIAN" YieldType="YIELD_PRODUCTION" Cost="400"/>
+	</Unit_Costs>
+	<UnitUpgrades>
+		<!--Civ Unique Military-->
+		<Row Unit="UNIT_REVENGE" UpgradeUnit="UNIT_REVENGE_2"/>
+	</UnitUpgrades>
+	<UnitReplaces>
+		<!--Civ Unique Military-->
+		<Row CivUniqueUnitType="UNIT_REVENGE" ReplacesUnitType="UNIT_DREADNOUGHT"/>
+		<Row CivUniqueUnitType="UNIT_REVENGE_2" ReplacesUnitType="UNIT_BATTLESHIP"/>
+		<!--Civ Unique Civilian-->
+		<Row CivUniqueUnitType="UNIT_ANTIQUARIAN" ReplacesUnitType="UNIT_EXPLORER"/>
+	</UnitReplaces>
+	<Tags>
+		<!--Civ Unique Military-->
+		<Row Tag="UNIT_CLASS_REVENGE" Category="UNIT_CLASS"/>
+		<!--Civ Unique Civilian-->
+		<Row Tag="UNIT_CLASS_ANTIQUARIAN" Category="UNIT_CLASS"/>
+	</Tags>
+	<TypeTags>
+		<!--Civ Unique Military-->
+		<Row Type="UNIT_REVENGE" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_REVENGE" Tag="UNIT_CLASS_SIEGE"/>
+		<Row Type="UNIT_REVENGE" Tag="UNIT_CLASS_NAVAL"/>
+		<Row Type="UNIT_REVENGE" Tag="UNIT_CLASS_HEAVY"/>
+		<Row Type="UNIT_REVENGE" Tag="UNIT_CLASS_AUTOEXPLORE"/>
+		<Row Type="UNIT_REVENGE" Tag="UNIT_CLASS_REVENGE"/>
+		<Row Type="UNIT_REVENGE_2" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_REVENGE_2" Tag="UNIT_CLASS_SIEGE"/>
+		<Row Type="UNIT_REVENGE_2" Tag="UNIT_CLASS_NAVAL"/>
+		<Row Type="UNIT_REVENGE_2" Tag="UNIT_CLASS_HEAVY"/>
+		<Row Type="UNIT_REVENGE_2" Tag="UNIT_CLASS_REVENGE"/>
+		<Row Type="UNIT_REVENGE_2" Tag="UNIT_CLASS_ELITE_NAVAL_HEAVY"/>
+		<Row Type="UNIT_REVENGE_2" Tag="UNIT_CLASS_AUTOEXPLORE"/>
+		<!--Civ Unique Civilian-->
+		<Row Type="UNIT_ANTIQUARIAN" Tag="UNIT_CLASS_ANTIQUARIAN"/>
+		<Row Type="UNIT_ANTIQUARIAN" Tag="UNIT_CLASS_NON_COMBAT"/>
+		<Row Type="UNIT_ANTIQUARIAN" Tag="UNIT_CLASS_EXPLORER"/>
+	</TypeTags>
+	<UnitClass_Abilities>
+		<Row UnitAbilityType="ABILITY_REVENGE" UnitClassType="UNIT_CLASS_REVENGE"/>
+		<Row UnitAbilityType="ABILITY_ANTIQUARIAN" UnitClassType="UNIT_CLASS_ANTIQUARIAN"/>
+	</UnitClass_Abilities>
+	<UnitAbilities>
+		<!--Unique-->
+		<Row UnitAbilityType="ABILITY_REVENGE" Name="LOC_UNIT_REVENGE_NAME" Description="LOC_ABILITY_REVENGE_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_ANTIQUARIAN" Name="LOC_UNIT_ANTIQUARIAN_NAME" Description="LOC_ABILITY_ANTIQUARIAN_DESCRIPTION"/>
+	</UnitAbilities>
+	<UnitAbilityModifiers>
+		<Row UnitAbilityType="ABILITY_ANTIQUARIAN" ModifierId="ANTIQUARIAN_EXCAVATE_CULTURE_DISTANCETOCAPITAL"/>
+		<Row UnitAbilityType="ABILITY_REVENGE" ModifierId="REVENGE_MOD_SPLASH_ABILITY"/>
+	</UnitAbilityModifiers>
+	<RequirementSets>
+	</RequirementSets>
+	<RequirementSetRequirements>
+	</RequirementSetRequirements>
+	<Requirements>
+	</Requirements>
+	<RequirementArguments>
+	</RequirementArguments>
+</Database>

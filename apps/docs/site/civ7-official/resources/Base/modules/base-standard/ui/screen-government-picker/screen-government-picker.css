@@ -1,0 +1,51 @@
+/* DO NOT EDIT */
+/* Generated from screen-government-picker.scss */
+/**
+Based on Robert Penner's easing equations
+@url http://robertpenner.com/easing/
+**/
+.screen-government-picker {
+	top: 8.3333333333rem;
+	bottom: 1.6666666667rem;
+	left: auto;
+	right: auto;
+	width: 40rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.screen-government-picker {
+		top: 0rem;
+		bottom: 0.2222222222rem;
+		left: 0.2222222222rem;
+		right: 0.2222222222rem;
+		width: auto;
+	}
+}
+@media (experience: mobile) {
+	.screen-government-picker {
+		top: 2.2222222222rem;
+		bottom: 1.3333333333rem;
+		left: auto;
+		right: auto;
+		width: 50rem;
+	}
+}
+
+@media (experience: mobile) {
+	.government-picker-header {
+		margin-top: 1.7777777778rem;
+	}
+}
+
+@media (experience: mobile) {
+	.government-picker-desc {
+		text-align: center;
+		margin-top: 0.2222222222rem;
+		margin-bottom: 0.4444444444rem;
+	}
+}
+
+@media (experience: mobile) {
+	.government-chooser-item {
+		margin-bottom: 0.8888888889rem;
+	}
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<!-- Major Civs -->
+		<Row Type="TRAIT_DAI_VIET" Kind="KIND_TRAIT"/>
+		<Row Type="CIVILIZATION_DAI_VIET" Kind="KIND_CIVILIZATION"/>
+	</Types>
+	<LegacyCivilizations>
+		<!-- Full Civs -->
+		<Row CivilizationType="CIVILIZATION_DAI_VIET" Name="LOC_CIVILIZATION_DAI_VIET_NAME" FullName="LOC_CIVILIZATION_DAI_VIET_FULLNAME" Adjective="LOC_CIVILIZATION_DAI_VIET_ADJECTIVE" Age="AGE_EXPLORATION"/>
+	</LegacyCivilizations>
+	<LegacyCivilizationTraits>
+		<Row CivilizationType="CIVILIZATION_DAI_VIET" TraitType="TRAIT_DAI_VIET"/>
+	</LegacyCivilizationTraits>
+	<Traits>
+		<Row TraitType="TRAIT_DAI_VIET" InternalOnly="true"/>
+	</Traits>
+	<LegacyLeaderCivPriorities>
+	</LegacyLeaderCivPriorities>
+	<LegacyIndependents>
+		<Update>
+			<Where IndependentType="INDEPENDENT_EXPLORATION_10"/>
+			<Set Name="LOC_INDEPENDENT_EXPLORATION_10_MAJOR_DAI_VIET_NAME"/>
+		</Update>
+	</LegacyIndependents>
+</Database>

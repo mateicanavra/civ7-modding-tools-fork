@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<ProgressionTreeNodeUnlocks>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_SAILING" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_BYRSA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WHEEL" TargetKind="KIND_UNIT" TargetType="UNIT_NUMIDIAN_CAVALRY" UnlockDepth="1" RequiredTraitType="TRAIT_CARTHAGE"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_IRON_WORKING" TargetKind="KIND_UNIT" TargetType="UNIT_NUMIDIAN_CAVALRY_2" UnlockDepth="1" RequiredTraitType="TRAIT_CARTHAGE"/>
+	</ProgressionTreeNodeUnlocks>
+</Database>

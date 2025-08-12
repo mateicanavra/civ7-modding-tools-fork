@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!--Shawnee-->
+	<Modifier id="MOD_WYEHI_SIMEKOFI_MAWASKAWE_SKOTE" collection="COLLECTION_PLAYER_CONSTRUCTIBLES" effect="EFFECT_CITY_ADJUST_SUZERAIN_OF_CONSTRUCTIBLE_YIELD">
+		<Argument name="ConstructibleType">IMPROVEMENT_MAWASKAWE_SKOTE</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Tooltip">LOC_CIVIC_WYEHI_SIMEKOFI_NAME</Argument>
+		<String context="Description">LOC_MOD_WYEHI_SIMEKOFI_MAWASKAWE_SKOTE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MALEKI_KINTAKE_WAREHOUSES" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ACTIVATE_CONSTRUCTIBLE_WAREHOUSE_YIELD">
+		<Argument name="ConstructibleWarehouseYield">MalekiKintakeCityHallFarmsFood, MalekiKintakeCityHallCampsFood, MalekiKintakePalaceFarmsFood, MalekiKintakePalaceCampsFood</Argument>
+		<String context="Description">LOC_MOD_MALEKI_KINTAKE_WAREHOUSES_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MIYASKA_LATOWEKI_CITY_STATE_RESOURCES" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_ADJUST_RESOURCE_CAP_PER_SUZERAIN">
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_MIYASKA_LATOWEKI_CITY_STATE_RESOURCES_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="_MOD_MIYASKA_LATOWEKI_ENDEAVOR_TRADE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_PER_NUM_TRADE_ROUTES">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_DIPLOMACY_IS_INVOLVED_WITH_X_ACTIONS">
+				<Argument name="Amount">3</Argument>
+				<Argument name="ActionGroup">DIPLOMACY_ACTION_GROUP_ENDEAVOR</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">2</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<String context="Description">LOC_MOD_MIYASKA_LATOWEKI_ENDEAVOR_TRADE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_TELWATIKI_THIRD_PARTY" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_DIPLOMACY_ADJUST_THIRD_PARTY_SUPPORT_MAX">
+		<Argument name="Amount">2</Argument>
+		<String context="Tooltip">LOC_CIVIC_TELWATIKI_NAME</String>
+		<String context="Description">LOC_MOD_MOD_TELWATIKI_THIRD_PARTY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_TELWATIKI_INFLUENCE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<Argument name="Amount">2</Argument>
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<String context="Tooltip">LOC_CIVIC_TELWATIKI_NAME</String>
+		<String context="Description">LOC_MOD_TELWATIKI_INFLUENCE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_KISPOKO_NENA_TO_SUPPORT" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ADJUST_UNIT_WAR_SUPPORT_COMBAT_STRENGTH">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_KISPOKO_NENA_TO</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_KISPOKO_NENA_TO_SUPPORT_DESCRIPTION</String>
+		<String context="Preview">LOC_KISPOKO_NENA_TO_SUPPORT_COMBAT_DESCRIPTION</String>
+	</Modifier>
+</GameEffects>

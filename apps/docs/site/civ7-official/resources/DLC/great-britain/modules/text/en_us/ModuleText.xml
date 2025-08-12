@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MODULE_GREAT_BRITAIN_NAME">
+			<Text>Great Britain</Text>
+		</Row>
+		<Row Tag="LOC_MODULE_GREAT_BRITAIN_DESCRIPTION">
+			<Text>Contains a new Modern Age Civilization, Great Britain.</Text>
+		</Row>
+	</EnglishText>
+</Database>

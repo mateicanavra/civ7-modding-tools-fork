@@ -1,0 +1,2349 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_DIPLOMACY_CIV_NAME">
+			<Text>Leader of the {1_civname} Civilization</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_INDEPENDENT_CIV_NAME">
+			<Text>of the {1_independent_name} People</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_TOKENS_FROM_SUCCESSFUL_ACTIONS">
+			<Text>Successful Actions</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_COST_GOLD">
+			<Text>{1_costGold} [icon:YIELD_GOLD].</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_LAND_CLAIM_NAME">
+			<Text>Land Claim</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_LAND_CLAIM_DESCRIPTION">
+			<Text>Broadcast your intent to settle this land to the world at large. If successful, places a Town under your control.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_GIVE_INFLUENCE_TOKEN_INITIAL">
+			<Text>Spend [icon:YIELD_DIPLOMACY] Influence to befriend an Independent Power. Becomes a City-State with you as its Suzerain once completed.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_BECOME_SUZERAIN_NAME">
+			<Text>Itsaraphab</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_BECOME_SUZERAIN_INITIAL">
+			<Text>Instantly turn this Independent Power into a City-State with you as its Suzerain.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_BECOME_SUZERAIN_DESCRIPTION">
+			<Text>Instantly turn this Independent Power into a City-State with you as its Suzerain.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_GIVE_INFLUENCE_TOKEN_NAME">
+			<Text>Befriending - {1_villageName}</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_GIVE_INFLUENCE_TOKEN_PROJECT_NAME">
+			<Text>Befriend Independent</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_GIVE_INFLUENCE_TOKEN_WINNING">
+			<Text>You are outpacing all other Civilizations</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_GIVE_INFLUENCE_TOKEN_TIED">
+			<Text>Tied with another Civilization</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_GIVE_INFLUENCE_TOKEN_LOSING">
+			<Text>You are being outpaced by another Civilization</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_GIVE_INFLUENCE_TOKEN_NEXT_MILESTONE_IN">
+			<Text>Next Milestone in {1_turnsToNextStage} turns</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_GIVE_INFLUENCE_TOKEN_DESCRIPTION">
+			<Text>{1_initiatorName} is currently improving their relationship with {2_villageName}.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_RECEIVE_GIFT_NAME">
+			<Text>Receive Gift</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_RECEIVE_GIFT_DESCRIPTION">
+			<Text>Send a Diplomatic Token to this Village to receive a gift in return.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_DECLARE_WAR_NAME">
+			<Text>Declare War</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_PROPOSE_PEACE_NAME">
+			<Text>Propose Peace</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FORM_ALLIANCE_NAME">
+			<Text>Form Alliance</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_ACKNOWLEDGE">
+			<Text>Acknowledge</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_FORM_ALLIANCE_ACCEPT">
+			<Text>You will ally yourself with {1_initialName}.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_FORM_ALLIANCE_REJECT">
+			<Text>You reject {1_initialName}'s Alliance offer.[n]No new Alliance between Leaders for {2_cooldown} turns.[n]Relationships worsen.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_OPEN_BORDERS_NAME">
+			<Text>Open Borders</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_OPEN_BORDERS_REQUEST">
+			<Text>{1_leaderName} is requesting that you open your borders to them.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_OPEN_BORDERS_REJECT">
+			<Text>Cancels the Diplomatic Action.[n]{1_initialName}'s[icon:YIELD_DIPLOMACY] Influence is refunded.[n]No new Endeavors between Leaders for {2_cooldown} turns.[n]Relationships worsen.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_OPEN_BORDERS_INITIAL">
+			<Text>The other player’s borders will open to you.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_OPEN_BORDERS">
+			<Text>{1_initiatorName} has requested that {2_targetName} open their borders for {3_numberTurns} turns.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_OPEN_BORDERS_MESSAGE">
+			<Text>Open Borders Endeavor has started.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_OPEN_BORDERS_SUMMARY">
+			<Text>Another Civilization wants you to open your borders for {1_numberTurns} turns.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CLOSE_BORDERS_NAME">
+			<Text>Close Borders</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CLOSE_BORDERS_INITIAL">
+			<Text>Close your borders to another Civilization.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CLOSE_BORDERS">
+			<Text>{1_initiatorName} has closed their borders to {2_targetName}.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CLOSE_BORDERS_MESSAGE">
+			<Text>Close Borders Sanction has started.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_DENOUNCE_MILITARY_PRESENCE_MESSAGE">
+			<Text>Denounce Military Presence Sanction has started.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_DENOUNCE_MILITARY_PRESENCE_SUMMARY">
+			<Text>Another Leader has denounced you for your military being too close to their Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_FREE_CAPTURED_COMMANDER_MESSAGE">
+			<Text>A Leader is negotiating to free their captured Commander.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_FREE_CAPTURED_COMMANDER_SUMMARY">
+			<Text>Another Leader has offered you ransom[icon:YIELD_GOLD] Gold for the return of their captured Commander.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_RESEARCH_COLLABORATION_NAME">
+			<Text>Research Collaboration</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_RESEARCH_COLLABORATION_REQUEST">
+			<Text>{1_leaderName} is inviting you to start a Research Collaboration.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_RESEARCH_COLLABORATION_NO_DATA">
+			<Text>Have a Research Collaboration with another Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_RESEARCH_COLLABORATION">
+			<Text>From your Research Collaboration with {5_OtherLeaderName}, you are receiving +{2_Amount}[icon:YIELD_SCIENCE] Science per turn.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_RESEARCH_COLLABORATION_REJECT">
+			<Text>Cancels the Diplomatic Action.[n]{1_initialName}'s[icon:YIELD_DIPLOMACY] Influence is refunded.[n]No new Endeavors between Leaders for {2_cooldown} turns.[n]Relationships worsen.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CULTURAL_EXCHANGE_NAME">
+			<Text>Cultural Exchange</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CULTURAL_EXCHANGE_REQUEST">
+			<Text>{1_leaderName} is inviting you to start a Cultural Exchange.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CULTURAL_EXCHANGE_NO_DATA">
+			<Text>Have a Cultural Exchange with another Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CULTURAL_EXCHANGE">
+			<Text>From your Cultural Exchange with {5_OtherLeaderName}, you are receiving +{2_Amount}[icon:YIELD_CULTURE] Culture per turn.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CULTURAL_EXCHANGE_REJECT">
+			<Text>Cancels the Diplomatic Action.[n]{1_initialName}'s[icon:YIELD_DIPLOMACY] Influence is refunded.[n]No new Endeavors between Leaders for {2_cooldown} turns.[n]Relationships worsen.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_MINOR_TRADE_NAME">
+			<Text>Open Markets</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_MINOR_TRADE_NO_DATA">
+			<Text>Have Open Markets to do some minor trading with another Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_MINOR_TRADE">
+			<Text>From your Cultural Exchange with {5_OtherLeaderName}, you are receiving +{2_Amount}[icon:YIELD_GOLD] Gold per turn.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_MINOR_TRADE_REQUEST">
+			<Text>{1_leaderName} is inviting you to Open Markets to each other.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_MINOR_TRADE_REJECT">
+			<Text>Cancels the Diplomatic Action.[n]{1_initialName}'s[icon:YIELD_DIPLOMACY] Influence is refunded.[n]No new Endeavors between Leaders for {2_cooldown} turns.[n]Relationships worsen.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SEND_GOLD_NAME">
+			<Text>Send Aid</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SEND_GOLD_NO_DATA">
+			<Text>Send [icon:YIELD_GOLD]Gold to an ally.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SEND_GOLD_REQUEST">
+			<Text>{1_leaderName} is sending you[icon:YIELD_GOLD] Gold.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SEND_GOLD_ACCEPT">
+			<Text>Accept {1_initialName}'s[icon:YIELD_GOLD] Gold aid.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_OPTION_ALL_GOLD">
+			<Text>All[icon:YIELD_GOLD] Gold</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_OPTION_GOLD_AMOUNT">
+			<Text>{1_amount}[icon:YIELD_GOLD] Gold</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_LOCAL_FESTIVALS_NAME">
+			<Text>Local Festival</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_LOCAL_FESTIVALS_NO_DATA">
+			<Text>Have a Local Festival with another Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_LOCAL_FESTIVALS">
+			<Text>From your Local Festival with {5_OtherLeaderName}, you are receiving +{2_Amount}[icon:YIELD_HAPPINESS] Happiness per turn.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_LOCAL_FESTIVALS_REQUEST">
+			<Text>{1_leaderName} is inviting you to start a Local Festival together.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_LOCAL_FESTIVALS_REJECT">
+			<Text>Blocked from future projects for {2_cooldown} turns.[n]Relationships worsen.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_TRADE_MAP_NAME">
+			<Text>Trade Map</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_TRADE_MAP_DESCRIPTION">
+			<Text>Reveals the other Leader's claimed territory over time.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_TRADE_MAP_REQUEST">
+			<Text>{1_leaderName} is inviting you to Trade Maps.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_TRADE_MAP_SUPPORT">
+			<Text>Both Leaders reveal each others claimed territory over time.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_FARMERS_MARKET_NAME">
+			<Text>Farmers Market</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_FARMERS_MARKET_NO_DATA">
+			<Text>Share agricultural goods with another Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_FARMERS_MARKET_DESCRIPTION">
+			<Text>Share agricultural goods with another Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_FARMERS_MARKET_REQUEST">
+			<Text>{1_leaderName} is inviting you to start a Farmers Market together.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_MILITARY_AID_NAME">
+			<Text>Military Aid</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_MILITARY_AID_REQUEST">
+			<Text>{1_leaderName} is inviting you to share Military Aid.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_MILITARY_AID_DESCRIPTION">
+			<Text>Gives a combat bonus to Military Units.[n]Accepted: Your Units get +2 Combat Strength. Other Leader receives +2[icon:YIELD_GOLD] Gold per turn.[n]Supported: Both Leaders' Units get +3 Combat Strength.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_MILITARY_AID_SUPPORT">
+			<Text>Both Leaders' Units receive +3 Combat Strength.</Text>
+		</Row>
+		<Row Tag="LOC_PLAYER_DIPLOMACY_MILITARY_AID_COMBAT_PREVIEW">
+			<Text>+{1_Value} Military Aid</Text>
+		</Row>
+		<Row Tag="LOC_PLAYER_DIPLOMACY_MILITARY_AID_TARGET_PLAYER_ACCEPT">
+			<Text>Military Aid</Text>
+		</Row>
+		<!-- <Row Tag="LOC_DIPLOMACY_PROJECT_SHARE_INNOVATIONS_NAME">
+			<Text>Shared Innovations</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SHARE_INNOVATIONS_NO_DATA">
+			<Text>Work on improved production methods with another player.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SHARE_INNOVATIONS_REQUEST">
+			<Text>{1_leaderName} is inviting you to share production methods together.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SHARE_INNOVATIONS_INITIAL">
+			<Text>Work on improved production methods with another player. Each player gains 2 production per turn for each of their envoys and 1 for envoys of other players.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SHARE_INNOVATIONS">
+			<Text>Work on improved production methods with another player. Each player gains 2 production per turn for each of their envoys and 1 for envoys of other players.  Currently you are getting {2_amount} prodution per turn.</Text>
+		</Row> 
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SUPPORT_LAND_CLAIMS_NAME">
+			<Text>Support Land Claim</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SUPPORT_LAND_CLAIMS_NO_DATA">
+			<Text>Increase the rate your land claims progress.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SUPPORT_LAND_CLAIMS_INITIAL">
+			<Text>Increase the progress of your land claim projects by 50% per envoy.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SUPPORT_LAND_CLAIMS">
+			<Text>{1_projectName} is increasing the progress of your land claim projects by {2_percent}% .</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_OPPOSE_LAND_CLAIMS_NAME">
+			<Text>Oppose Land Claim</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_OPPOSE_LAND_CLAIMS_NO_DATA">
+			<Text>Decrease the progress rate of other land claims around you.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_OPPOSE_LAND_CLAIMS_INITIAL">
+			<Text>Decrease the progress of other land claims within 10 tiles of your settlements by 25% per envoy</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_OPPOSE_LAND_CLAIMS">
+			<Text>{1_projectName} project progress of other Civs within {3_distance} tiles of your settlements decreased by {2_percent}% .</Text>
+		</Row> -->
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_TREASURY_NAME">
+			<Text>Hinder Finances</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_TREASURY_NO_DATA">
+			<Text>Hinder the finances of another Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_TREASURY_REQUEST">
+			<Text>{1_leaderName} is attempting to hinder your finances.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_TREASURY_INITIAL">
+			<Text>Hinder the finances of another Leader.  They lose 10% of their[icon:YIELD_GOLD] Gold per turn.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_TREASURY">
+			<Text>{4_otherName} loses {3_percent}%[icon:YIELD_GOLD] Gold per turn.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_TREASURY_ACCEPT">
+			<Text>You lose 10%[icon:YIELD_GOLD] Gold per turn.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_TREASURY_REJECT">
+			<Text>Cancels the Diplomatic Action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_PRODUCTIVITY_NAME">
+			<Text>Hinder Productivity</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_PRODUCTIVITY_REQUEST">
+			<Text>{1_leaderName} is attempting to hinder your productivity.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_PRODUCTIVITY_NO_DATA">
+			<Text>Hinder the productivity of another Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_PRODUCTIVITY_INITIAL">
+			<Text>Hinder the productivity of another Leader.  They lose 10% of their[icon:YIELD_PRODUCTION] Production per turn.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_PRODUCTIVITY">
+			<Text>{4_otherName} loses {3_percent}%[icon:YIELD_PRODUCTION] Production per turn.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_PRODUCTIVITY_ACCEPT">
+			<Text>You lose 10%[icon:YIELD_PRODUCTION] Production per turn.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_PRODUCTIVITY_REJECT">
+			<Text>Cancels the Diplomatic Action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_MORALE_NAME">
+			<Text>Hinder Public Morale</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_MORALE_NO_DATA">
+			<Text>Hinder the morale of another Leader's people.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_MORALE_REQUEST">
+			<Text>{1_leaderName} is attempting to hinder your people's morale.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_MORALE_INITIAL">
+			<Text>Hinder the morale of another Leader's people. They lose 10% of their[icon:YIELD_HAPPINESS] Happiness per turn.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_MORALE">
+			<Text>{4_otherName} loses {3_targetAmount}%[icon:YIELD_HAPPINESS] Happiness per turn.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_MORALE_ACCEPT">
+			<Text>You lose 10% [icon:YIELD_HAPPINESS] Happiness per turn.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_MORALE_REJECT">
+			<Text>Cancels the Diplomatic Action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_RESEARCH_NAME">
+			<Text>Hinder Research</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_RESEARCH_NO_DATA">
+			<Text>Hinder the research of another Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_RESEARCH_REQUEST">
+			<Text>{1_leaderName} is attempting to hinder your research.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_RESEARCH_INITIAL">
+			<Text>Hinder the research of another Leader.  They lose 10% of their[icon:YIELD_SCIENCE] Science per turn.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_RESEARCH">
+			<Text>{4_otherName} loses {3_targetAmount}%[icon:YIELD_SCIENCE] Science per turn.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_RESEARCH_ACCEPT">
+			<Text>You lose 10%[icon:YIELD_SCIENCE] Science per turn.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_RESEARCH_REJECT">
+			<Text>Cancels the Diplomatic Action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_CIVIC_STUDY_NAME">
+			<Text>Hinder Civic Study</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_CIVIC_STUDY_NO_DATA">
+			<Text>Hinder the Civic study of another Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_CIVIC_STUDY_REQUEST">
+			<Text>{1_leaderName} is attempting to hinder your Civic study.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_CIVIC_STUDY_INITIAL">
+			<Text>Hinder the Civic study of another Leader.  They lose 10% of their[icon:YIELD_CULTURE] Culture per turn.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_CIVIC_STUDY">
+			<Text>{4_otherName} loses {3_targetAmount}%[icon:YIELD_CULTURE] Culture per turn.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_CIVIC_STUDY_ACCEPT">
+			<Text>You lose 10%[icon:YIELD_CULTURE] Culture per turn.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_CIVIC_STUDY_REJECT">
+			<Text>Cancels the Diplomatic Action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_MILITARY_PRODUCTION_NAME">
+			<Text>Hinder Military Production</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_MILITARY_PRODUCTION_REQUEST">
+			<Text>{1_leaderName} is attempting to hinder your military production.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_MILITARY_PRODUCTION_NO_DATA">
+			<Text>Hinder the military production of another Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_MILITARY_PRODUCTION_INITIAL">
+			<Text>Hinder the military production of another Leader. Military Units cost 20% more[icon:YIELD_PRODUCTION] Production to train.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_MILITARY_PRODUCTION">
+			<Text>Military Units trained by {4_otherName} cost {3_targetAmount}% more[icon:YIELD_PRODUCTION] Production to train.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_MILITARY_PRODUCTION_ACCEPT">
+			<Text>Military Units cost you 20% more[icon:YIELD_PRODUCTION] Production to train.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_MILITARY_PRODUCTION_REJECT">
+			<Text>Cancels the Diplomatic Action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_TRADE_CAPACITY_NAME">
+			<Text>Continental System</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_TRADE_CAPACITY_REQUEST">
+			<Text>{1_leaderName} is attempting to reduce your Trade Route Limit with all other Civilizations.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_TRADE_CAPACITY_NO_DATA">
+			<Text>Reduce the Trade Route Limit of a Leader with all other Civilizations by 1.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_TRADE_CAPACITY_INITIAL">
+			<Text>Reduce the Trade Route Limit of a Leader with all other Civilizations. Trade Route Limit is reduced by 1.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_TRADE_CAPACITY">
+			<Text>Trade Route Limit with all other Civilizations is reduced by 1. Excess Trade Routes are destroyed.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_TRADE_CAPACITY_ACCEPT">
+			<Text>Your Trade Route Limit with all other Civilizations is reduced by 1 for the duration of the Diplomatic Action. Excess Trade Routes are destroyed.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_TRADE_CAPACITY_REJECT">
+			<Text>Cancels the Diplomatic Action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_FOOD_PRODUCTION_NAME">
+			<Text>Hinder Agriculture</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_FOOD_PRODUCTION_REQUEST">
+			<Text>{1_leaderName} is attempting to hinder your agriculture in a Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_FOOD_PRODUCTION_NO_DATA">
+			<Text>Hinder the agriculture in another Leader's Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_FOOD_PRODUCTION_INITIAL">
+			<Text>Hinder the agriculture in another Leader's Settlement. [icon:YIELD_FOOD] Food is reduced by 20%.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_FOOD_PRODUCTION">
+			<Text>[icon:YIELD_FOOD] Food is reduced in the target Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_FOOD_PRODUCTION_ACCEPT">
+			<Text>[icon:YIELD_FOOD] Food in the Settlement is reduced by 20%.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SABOTAGE_FOOD_PRODUCTION_REJECT">
+			<Text>Cancels the Diplomatic Action.</Text>
+		</Row>
+
+
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CANCEL_ACTION">
+			<Text>Cancels the Diplomatic Action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SEND_DELEGATION_NAME">
+			<Text>Reconciliation</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SEND_DELEGATION_NO_DATA">
+			<Text>Increase your Relationship with the other Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SEND_DELEGATION_INITIAL">
+			<Text>Increase your Relationship with the other Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SEND_DELEGATION_SUPPORT">
+			<Text>Your Relationship will increase by 60 over {3_duration} turns.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SEND_DELEGATION_ACCEPT">
+			<Text>Your Relationship will increase by 30 over {3_duration} turns.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_SEND_DELEGATION_REJECT">
+			<Text>Cancels the Diplomatic Action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_DENOUNCE_NAME">
+			<Text>Denounce</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_DENOUNCE_NO_DATA">
+			<Text>Decrease your Relationship with the other Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_DENOUNCE_INITIAL">
+			<Text>Decrease your Relationship with the other Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_DENOUNCE">
+			<Text>{4_otherName} adds {3_targetAmount} to your grievances.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_DENOUNCE_ACCEPT">
+			<Text>Your Relationship will decrease by 60 over {3_duration} turns.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_DENOUNCE_REJECT">
+			<Text>Cancels the Diplomatic Action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_DENOUNCE_MILITARY_PRESENCE_ACCEPT">
+			<Text>Agree to not attack the other Civilization for the duration of this Diplomatic Action. Doing so will result in War Weariness at the start of the war.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_DENOUNCE_MILITARY_PRESENCE_SUPPORT">
+			<Text>Both Civilizations agree to not attack each other. Doing so will result in War Weariness for the aggressor.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_DENOUNCE_MILITARY_PRESENCE_REJECT">
+			<Text>Start a war with the other Civilization.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_FREE_CAPTURED_COMMANDER_ACCEPT">
+			<Text>Accept the other Leader's ransom of {1_gold}[icon:YIELD_GOLD]Gold.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_FREE_CAPTURED_COMMANDER_REJECT">
+			<Text>Reject the ransom and block this Leader from negotiating again for 5 turns.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_INCITE_RAID_NAME">
+			<Text>Independent - Incite Raid</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_INCITE_RAID_NO_DATA">
+			<Text>Incite an Independent Power to raid another Civilization.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_INCITE_RAID_INITIAL">
+			<Text>Incite an Independent Power to raid another Civilization.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_INCITE_RAID">
+			<Text>Inciting {2_independent} to raid {3_target}.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_INCITE_RAID_STARTED_MESSAGE">
+			<Text>The village of {1_ipVillage} is preparing to raid {2_target}.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_INCITE_RAID_STARTED_SUMMARY">
+			<Text>The village of {1_ipVillage} is preparing to raid {2_target}.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_PROMOTE_GROWTH_NAME">
+			<Text>City-State - Promote Growth</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_PROMOTE_GROWTH_NO_DATA">
+			<Text>Promote the growth of a City-State by helping it generate[icon:YIELD_FOOD] Food.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_PROMOTE_GROWTH_INITIAL">
+			<Text>Promote the growth of a City-State by helping it generate[icon:YIELD_FOOD] Food. It generates an additional 15[icon:YIELD_FOOD] Food per turn while the Diplomatic Action is active.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_PROMOTE_GROWTH">
+			<Text>Promote the growth of a City-State by helping it generate[icon:YIELD_FOOD] Food. It generates an additional 15[icon:YIELD_FOOD] Food per turn while the Diplomatic Action is active.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_REVEAL_MAP_NAME">
+			<Text>City-State - Reveal Map</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_REVEAL_MAP_DESCRIPTION">
+			<Text>The City State reveals their explored map to you.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_LEVY_UNIT_NAME">
+			<Text>City-State - Levy Unit</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_LEVY_UNIT_NO_DATA">
+			<Text>Select a Unit from this City-State to permanently take control of.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_LEVY_UNIT_INITIAL">
+			<Text>Select a Unit from this City-State to permanently take control of. The[icon:YIELD_DIPLOMACY] Influence cost of the Unit is equal to its[icon:YIELD_PRODUCTION] Production cost.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_LEVY_UNIT">
+			<Text>Select a Unit from this City-State to permanently take control of.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_INCORPORATE_NAME">
+			<Text>City-State - Incorporate</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_INCORPORATE_NO_DATA">
+			<Text>Incorporate this City-State into your Civilization as a new Town when the Diplomatic Action completes.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_INCORPORATE_INITIAL">
+			<Text>Incorporate this City-State into your Civilization as a new Town when the Diplomatic Action completes.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_INCORPORATE">
+			<Text>Incorporate this City-State into your Civilization as a new Town when the Diplomatic Action completes.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_BOLSTER_MILITARY_NAME">
+			<Text>City-State Bolster Military</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_BOLSTER_MILITARY_NO_DATA">
+			<Text>Create a Military Unit for this City-State.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_BOLSTER_MILITARY_INITIAL">
+			<Text>Create a Military Unit for this City-State.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_BOLSTER_MILITARY">
+			<Text>Creating a new Military Unit for {4_otherName}.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_ORDER_ATTACK_NAME">
+			<Text>City-State - Order Attack</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_ORDER_ATTACK_NO_DATA">
+			<Text>Have a City-State attack another Civilization.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_ORDER_ATTACK_INITIAL">
+			<Text>Have a City-State attack another Civilization.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_CS_ORDER_ATTACK">
+			<Text>{4_otherName} is preparing to attack another Civilization.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_IMPROVE_TRADE_RELATIONS_NAME">
+			<Text>Improve Trade Relations</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_IMPROVE_TRADE_RELATIONS_NO_DATA">
+			<Text>If action accepted, permanently increase the number of Trade Routes you can establish with a Civilization.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_IMPROVE_TRADE_RELATIONS_REQUEST">
+			<Text>{1_leaderName} wants to increase the number of Trade Routes they can establish with you.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_DENOUNCE_MILITARY_PRESENCE_NAME">
+			<Text>Denounce Military Presence</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_DENOUNCE_MILITARY_PRESENCE_NO_DATA">
+			<Text>Force a Leader with Military Units close to your borders to make a decision to either promise not to attack, or declare a war. If the Leader promises not to attack, they will incur a War Weariness penalty for doing so before the Diplomatic Action ends.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_FREE_CAPTURED_COMMANDER_NAME">
+			<Text>Free Captured Commander</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_FREE_CAPTURED_COMMANDER_NO_DATA">
+			<Text>Offer a ransom to another Leader to free a Commander they have captured in battle.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_IMPROVE_TRADE_RELATIONS_INITIAL">
+			<Text>If action accepted, permanently increase the number of Trade Routes you can establish with the other Civilization by 1. [n]Accepted: The target receives [icon:YIELD_GOLD]Gold.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_IMPROVE_TRADE_RELATIONS">
+			<Text>Increase the number of Trade Routes you can establish with {2_otherName} by {3_increaseAmount}. [WIP] Takes effect next turn.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_COUNTER_SPY_NAME">
+			<Text>Counter Spy</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_COUNTER_SPY_NO_DATA">
+			<Text>Activate counter Espionage activities to hamper any covert actions you suspect another Leader is taking against you. Doubles the time to complete, increases failure chance by 30%, and increases reveal chance by 30% for espionage actions against you.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_COUNTER_SPY_INITIAL">
+			<Text>Activate counter Espionage activities to hamper any covert actions you suspect another Leader is taking against you. Doubles the time to complete, increases failure chance by 30%, and increases reveal chance by 30% for espionage actions against you.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_COUNTER_SPY">
+			<Text>Activate counter Espionage activities to hamper any covert actions you suspect another Leader is taking against you. Doubles the time to complete, increases failure chance by 30%, and increases reveal chance by 30% for espionage actions against you.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_COUNTER_SPY_DESCRIPTION">
+			<Text>Activate counter Espionage activities to hamper any covert actions you suspect another Leader is taking against you. Doubles the time to complete, increases failure chance by 30%, and increases reveal chance by 30% for espionage actions against you.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_ESPIONAGE_ACTIONS">
+			<Text>Espionage Actions</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_ESPIONAGE_ACTIONS_REVEALED">
+			<Text>Espionage Actions Revealed</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_REVEALED_ESPIONAGE_PENALTLY">
+			<Text>Discovered Espionage Penalty</Text>
+		</Row>
+		<Row Tag="LOC_GRIEVANCE_FROM_ESPIONAGE_DISCOVERY">
+			<Text>From Espionage discovery</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_GINSING_AGREEMENT_NAME">
+			<Text>Ginseng Agreement</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_GRANT_POLICY_SLOT_NAME">
+			<Text>Reform</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_GRANT_POLICY_SLOT_REQUEST">
+			<Text>{1_leaderName} is inviting you to participate in a Reform Endeavor.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_GRANT_POLICY_SLOT_NO_DATA">
+			<Text>Gain a Social Policy slot when the Diplomatic Action completes.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_GRANT_POLICY_SLOT_INITIAL">
+			<Text>Start the Reform Endeavor.[n]Accepted: You receive a Social Policy slot when the Diplomatic Action completes. Other player receives +4[icon:YIELD_GOLD] Gold per turn until the Diplomatic Action completes.[n]Supported: Both players receive a Social Policy slot when the Diplomatic Action completes.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_GRANT_POLICY_SLOT_ACCEPT">
+			<Text>{1_initialName} gains a Social Policy slot when the Diplomatic Action completes.[n] You gain +12[icon:YIELD_GOLD] Gold per turn for the duration of the Diplomatic Action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_GRANT_POLICY_SLOT_SUPPORT">
+			<Text>Both players gain a Social Policy slot when the Diplomatic Action completes.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_GRANT_POLICY_SLOT_REJECT">
+			<Text>Cancels the Diplomatic Action.[n]{1_initialName}'s[icon:YIELD_DIPLOMACY] Influence is refunded.[n]No new Endeavors between Leaders for {2_cooldown} turns.[n]Relationships worsen.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_GINSING_AGREEMENT_REQUEST">
+			<Text>{1_leaderName} is attempting to trade[icon:YIELD_FOOD] Food with you.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_GINSING_AGREEMENT_NO_DATA">
+			<Text>Have an agreement to trade[icon:YIELD_FOOD] Food with another Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_GINSING_AGREEMENT">
+			<Text>From your Ginseng Agreement with {5_OtherLeaderName}, you are receiving +{2_Amount}[icon:YIELD_FOOD] Food per turn in your Capital.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_GINSING_AGREEMENT_REJECT">
+			<Text>Cancels the Diplomatic Action.[n]{1_initialName}'s[icon:YIELD_DIPLOMACY] Influence is refunded.[n]No new Endeavors between Leaders for {2_cooldown} turns.[n]Relationships worsen.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_FRIEND_OF_WA_NAME">
+			<Text>Friend of Wei</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_FRIEND_OF_WA_NO_DATA">
+			<Text>Be a Friend of Wei for Science.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_FRIEND_OF_WA_REQUEST">
+			<Text>{1_leaderName} is inviting you to do[icon:YIELD_SCIENCE] Science research together.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_FRIEND_OF_WA_REJECT">
+			<Text>Cancels the Diplomatic Action.[n]{1_initialName}'s[icon:YIELD_DIPLOMACY] Influence is refunded.[n]No new Endeavors between Leaders for {2_cooldown} turns.[n]Relationships worsen.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_REJECT">
+			<Text>Blocked from future projects for {2_cooldown} turns.[n]Relationships worsen.</Text>
+		</Row>
+
+
+		<Row Tag="LOC_PLAYER_RELATIONSHIP_HOSTILE">
+			<Text>Hostile</Text>
+		</Row>
+		<Row Tag="LOC_PLAYER_RELATIONSHIP_UNFRIENDLY">
+			<Text>Unfriendly</Text>
+		</Row>
+		<Row Tag="LOC_PLAYER_RELATIONSHIP_NEUTRAL">
+			<Text>Neutral</Text>
+		</Row>
+		<Row Tag="LOC_PLAYER_RELATIONSHIP_FRIENDLY">
+			<Text>Friendly</Text>
+		</Row>
+		<Row Tag="LOC_PLAYER_RELATIONSHIP_HELPFUL">
+			<Text>Helpful</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_FAVOR">
+			<Text>Favor</Text>
+		</Row>
+		<Row Tag="DIPLOMACY_GRIEVANCE">
+			<Text>Grievance</Text>
+		</Row>
+		<Row Tag="DIPLOMACY_HISTORICAL_EVENT">
+			<Text>Historical Event</Text>
+		</Row>
+		<Row Tag="LOC_FAVOR_FROM_PROJECT">
+			<Text>From a Diplomatic Action</Text>
+		</Row>
+		<Row Tag="LOC_FAVOR_FROM_ENDEAVOR">
+			<Text>Endeavor with another Leader</Text>
+		</Row>
+		<Row Tag="LOC_FAVOR_FROM_SUPPORT">
+			<Text>Supported Endeavor with another Leader</Text>
+		</Row>
+		<Row Tag="LOC_FAVOR_FROM_DISPERSE_IP">
+			<Text>Dispersed a hostile Independent near another Leader</Text>
+		</Row>
+		<Row Tag="LOC_FAVOR_FROM_START_TRADE_ROUTE">
+			<Text>Started a Trade Route</Text>
+		</Row>
+		<Row Tag="LOC_FAVOR_FROM_TOWN_LIBERATED">
+			<Text>Liberated a Town</Text>
+		</Row>
+		<Row Tag="LOC_FAVOR_FROM_INDEPENDENT">
+			<Text>From an Independent Power</Text>
+		</Row>
+		<Row Tag="LOC_FAVOR_FROM_STORYLET">
+			<Text>From a Narrative Event</Text>
+		</Row>
+		<Row Tag="LOC_FAVOR_FROM_WAR_SUPPORT_3RD_PARTY">
+			<Text>From supporting a war</Text>
+		</Row>
+		<Row Tag="LOC_FAVOR_FROM_WONDER">
+			<Text>From a Wonder</Text>
+		</Row>
+		<Row Tag="LOC_GRIEVANCE_FROM_PROJECT">
+			<Text>From a Diplomatic Action</Text>
+		</Row>
+		<Row Tag="LOC_GRIEVANCE_FROM_SANCTION">
+			<Text>Sanctioned another Civilization</Text>
+		</Row>
+		<Row Tag="LOC_GRIEVANCE_FROM_CLOSE_LAND_CLAIM">
+			<Text>Settled too close to another Civilization's capital</Text>
+		</Row>
+		<Row Tag="LOC_GRIEVANCE_FROM_RAZING_SETTLEMENT">
+			<Text>Razed a Settlement</Text>
+		</Row>
+		<Row Tag="LOC_GRIEVANCE_FROM_CAPTURE_SETTLEMENT">
+			<Text>Captured a Settlement</Text>
+		</Row>
+		<Row Tag="LOC_GRIEVANCE_FROM_CLOSE_MILITARY">
+			<Text>Kept military near another Civilization</Text>
+		</Row>
+		<Row Tag="LOC_GRIEVANCE_FROM_ATTACK_CITY_STATE">
+			<Text>Attacked a City-State</Text>
+		</Row>
+		<Row Tag="LOC_GRIEVANCE_FROM_WINNING_SUZERAIN">
+			<Text>Won the race to become the Suzerain of a City-State</Text>
+		</Row>
+		<Row Tag="LOC_GRIEVANCE_FROM_DISPERSING_IP">
+			<Text>Dispersing an Independent Power that was being befriended</Text>
+		</Row>
+		<Row Tag="LOC_GRIEVANCE_FROM_END_ALLIANCE">
+			<Text>Ended an Alliance</Text>
+		</Row>
+		<Row Tag="LOC_GRIEVANCE_FROM_BREAK_ALLIANCE">
+			<Text>Broke an Alliance by declaring war</Text>
+		</Row>
+		<Row Tag="LOC_GRIEVANCE_FROM_OPPOSE">
+			<Text>Opposed a Diplomatic Action</Text>
+		</Row>
+		<Row Tag="LOC_GRIEVANCE_FROM_UNEVEN_PEACE_DEAL">
+			<Text>Uneven peace deal</Text>
+		</Row>
+		<Row Tag="LOC_GRIEVANCE_FROM_REJECTED_ENDEAVOR">
+			<Text>Rejected Endeavor</Text>
+		</Row>
+		<Row Tag="LOC_GRIEVANCE_FROM_REJECTED_ALLIANCE">
+			<Text>Rejected Alliance</Text>
+		</Row>
+		<Row Tag="LOC_GRIEVANCE_FROM_REVEALED_ESPIONAGE">
+			<Text>Revealed Espionage</Text>
+		</Row>
+		<Row Tag="LOC_GRIEVANCE_FROM_STORYLET">
+			<Text>From a Narrative Event</Text>
+		</Row>
+		<Row Tag="LOC_GRIEVANCE_FROM_REVEALED_TS_ESPIONAGE">
+			<Text>Revealed Top Secret Espionage</Text>
+		</Row>
+		<Row Tag="LOC_GRIEVANCE_FROM_WAR_OPPOSITION_3RD_PARTY">
+			<Text>From opposing a war</Text>
+		</Row>
+		<Row Tag="LOC_GRIEVANCE_FROM_WONDER">
+			<Text>From a Wonder</Text>
+		</Row>
+		<Row Tag="LOC_HISTORICAL_EVENT_DECLARING_WAR">
+			<Text>Declared War</Text>
+		</Row>
+		<Row Tag="LOC_HISTORICAL_EVENT_ELIMINATE_CIV">
+			<Text>Eliminated Other Civ</Text>
+		</Row>
+		<Row Tag="LOC_HISTORICAL_EVENT_MUTUAL_WAR">
+			<Text>War against mutual enemy</Text>
+		</Row>
+		<Row Tag="LOC_HISTORICAL_EVENT_BORDERS_TOUCH">
+			<Text>Borders touching</Text>
+		</Row>
+		<Row Tag="LOC_HISTORICAL_EVENT_MUTUAL_TRADE">
+			<Text>Mutual Trade</Text>
+		</Row>
+		<Row Tag="LOC_HISTORICAL_EVENT_DIFFERENT_VICTORIES">
+			<Text>Different Victories</Text>
+		</Row>
+		<Row Tag="LOC_HISTORICAL_EVENT_COMPETATAIVE_VICTORIES">
+			<Text>Same Victories</Text>
+		</Row>
+		<Row Tag="LOC_HISTORICAL_EVENT_SHARE_GOVERNMENT">
+			<Text>Shared Government</Text>
+		</Row>
+		<Row Tag="LOC_HISTORICAL_EVENT_SHARE_IDEOLOGY">
+			<Text>Shared Ideology</Text>
+		</Row>
+		<Row Tag="LOC_HISTORICAL_EVENT_OPPOSING_IDEOLOGIES">
+			<Text>Opposed Ideologies</Text>
+		</Row>
+		<Row Tag="LOC_HISTORICAL_EVENT_PREVIOUS_AGE">
+			<Text>Previous Age</Text>
+		</Row>
+		<Row Tag="LOC_HISTORICAL_EVENT_LEADER_AGENDA">
+			<Text>Leader Agenda</Text>
+		</Row>
+		<Row Tag="LOC_HISTORICAL_EVENT_FROM_FIRE_TUNER">
+			<Text>Fire Tuner</Text>
+		</Row>
+		<Row Tag="LOC_HISTORICAL_EVENT_FIRST_MEET">
+			<Text>First Meet</Text>
+		</Row>
+		<Row Tag="LOC_HISTORICAL_EVENT_TEAM">
+			<Text>Team Member</Text>
+		</Row>
+		<Row Tag="LOC_HISTORICAL_EVENT_FADE">
+			<Text>Relationship Decay Over Time</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_DECLARE_WAR_INITIAL">
+			<Text>Declare war on another Civilization.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_DECLARE_WAR_DESCRIPTION">
+			<Text>{1_initiatorName} has declared war on {2_targetName}.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_DENOUNCE_MILITARY_PRESENCE_INITIAL">
+			<Text>Denounce a Leader for their military being too close to your borders.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_DENOUNCE_MILITARY_PRESENCE_DESCRIPTION">
+			<Text>{1_initiatorName} has denounced the military presence of {2_targetName} on their borders.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_MILITARY_SABOTAGE_INITIAL">
+			<Text>The Target's Military Units get -3 to their Combat Strength.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_STEAL_TECH_INITIAL">
+			<Text>Steal a Technology another Civilization has researched that you have not.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_STEAL_CIVIC_INITIAL">
+			<Text>Steal a Civic another Civilization has studied that you have not.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMATIC_ESPIONAGE_STEAL_TECH_TREE_NODE_EFFECT">
+			<Text>We stole the {1_NodeName} Technology!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMATIC_ESPIONAGE_STEAL_TECH_TREE_NODE_EFFECT_TARGET">
+			<Text>They stole our {1_NodeName} Technology!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMATIC_ESPIONAGE_MILITARY_INFILTRATION_EFFECT">
+			<Text>We gained vision of their Commanders.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMATIC_ESPIONAGE_MILITARY_INFILTRATION_EFFECT_TARGET">
+			<Text>They gained vision of our Commanders.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMATIC_ESPIONAGE_STEAL_CIVIC_TREE_NODE_EFFECT">
+			<Text>We stole the {1_NodeName} Civic!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMATIC_ESPIONAGE_STEAL_CIVIC_TREE_NODE_EFFECT_TARGET">
+			<Text>They stole our {1_NodeName} Civic!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_DENOUNCE_MILITARY_PRESENCE_REQUEST">
+			<Text>{1_leaderName} has denounced your military presence on their borders!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_FREE_CAPTURED_COMMANDER_INITIAL">
+			<Text>Pay a ransom to a Leader to free a Commander they have captured.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FREE_CAPTURED_COMMANDER_DESCRIPTION">
+			<Text>{1_initiatorName} has attempted to pay a ransom to {2_targetName} for the safe return of their captured Commander.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_CHANGE_WAR_SUPPORT_MESSAGE">
+			<Text>Support of the war has changed.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_SUPPORT_WAR_SUMMARY">
+			<Text>Another Leader has supported your war.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_SUPPORT_REMOVED_WAR_SUMMARY">
+			<Text>A Leader has removed support from your war.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_OPPOSE_WAR_SUMMARY">
+			<Text>Another Leader has opposed your war.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_OPPOSE_REMOVED_WAR_SUMMARY">
+			<Text>A Leader has removed opposition from your war.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_WAR_SUPPORT_DESCRIPTION">
+			<Text>Better War Support causes War Weariness for the other side, which reduces[icon:YIELD_HAPPINESS] Happiness and Combat Strength.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_WAR_DETAILS_LIGHT_WW">
+			<Text>Better War Support causes War Weariness for the other side, which reduces[icon:YIELD_HAPPINESS] Happiness and Combat Strength.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_WAR_DETAILS_MODERATE_WW">
+			<Text>{1_leaderName} is suffering from Moderate War Weariness and has reduced Production and Combat Strength.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_WAR_DETAILS_SEVERE_WW">
+			<Text>{1_leaderName} is suffering from Heavy War Weariness and has greatly reduced Production and Combat Strength.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_CHANGE_LAND_CLAIM_SUPPORT_MESSAGE">
+			<Text>Support of a Land Claim has changed.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_SUPPORT_LAND_CLAIM_SUMMARY">
+			<Text>Another Leader has supported your Land Claim.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_SUPPORT_REMOVED_LAND_CLAIM_SUMMARY">
+			<Text>A Leader has removed support from your Land Claim.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_OPPOSE_LAND_CLAIM_SUMMARY">
+			<Text>Another Leader has opposed your Land Claim.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_OPPOSE_REMOVED_LAND_CLAIM_SUMMARY">
+			<Text>A Leader has removed opposition from your Land Claim.</Text>
+		</Row>
+
+
+		<Row Tag="LOC_DIPLOMACY_ACTION_CHANGE_INFLUENCE_IND_SUPPORT_MESSAGE">
+			<Text>Support of influencing an Independent Power has changed.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_SUPPORT_INFLUENCE_IND_SUMMARY">
+			<Text>Another Leader has supported your influencing an Independent Power.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_SUPPORT_REMOVED_INFLUENCE_IND_SUMMARY">
+			<Text>A Leader has removed support from your influencing an Independent Power.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_OPPOSE_INFLUENCE_IND_SUMMARY">
+			<Text>Another Leader has opposed your influencing an Independent Power.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_OPPOSE_REMOVED_INFLUENCE_IND_SUMMARY">
+			<Text>A Leader has removed opposition from your influencing an Independent Power.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FORM_ALLIANCE_DESCRIPTION">
+			<Text>Establishes an Alliance with another Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_STAGE_INDEPENDENT_CHANGE_MESSAGE">
+			<Text>Independent Relationship Changed</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_STAGE_INDEPENDENT_VERY_HOSTILE_SUMMARY">
+			<Text>{1_ipname} is hostile toward you.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_STAGE_INDEPENDENT_HOSTILE_SUMMARY">
+			<Text>{1_ipname} is hostile toward you.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_STAGE_INDEPENDENT_NEUTRAL_SUMMARY">
+			<Text>{1_ipname} is neutral with you.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_STAGE_INDEPENDENT_FRIENDLY_SUMMARY">
+			<Text>{1_ipname} is friendly with you.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_STAGE_INDEPENDENT_FRIENDLY_2_SUMMARY">
+			<Text>{1_ipname} is friendly enough they award you with a gift.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_STAGE_INDEPENDENT_CITY_STATEHOOD_MESSAGE">
+			<Text>Independent Relationship Notice</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_STAGE_INDEPENDENT_CITY_STATEHOOD_SUMMARY">
+			<Text>{1_ipname} will convert to a City-State soon, with you as its Suzerain. They have bestowed a gift.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_STAGE_INDEPENDENT_CITY_STATEHOOD_OTHER_PLAYER_SUMMARY">
+			<Text>Another Leader is about to become the Suzerain of this Independent Power.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_STAGE_INDEPENDENT_VERY_HOSTILE_TOOLTIP">
+			<Text>The Independent Power is hostile toward you.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_STAGE_INDEPENDENT_HOSTILE_TOOLTIP">
+			<Text>The Independent Power is hostile toward you.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_STAGE_INDEPENDENT_NEUTRAL_TOOLTIP">
+			<Text>The Independent Power is neutral with you and generally shouldn't attack.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_STAGE_INDEPENDENT_FRIENDLY_TOOLTIP">
+			<Text>The Independent Power is friendly with you.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_STAGE_INDEPENDENT_FRIENDLY_2_TOOLTIP">
+			<Text>The Independent Power is friendly enough they award you with a gift.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_STAGE_INDEPENDENT_CITY_STATEHOOD_TOOLTIP">
+			<Text>This Independent Power will convert to a City-State soon, with you as its Suzerain. They have bestowed another gift.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_FAILED_RAID_NOW_FRIENDS_MESSAGE">
+			<Text>An Independent raid failed. Now they want to be friends.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_FAILED_RAID_NOW_FRIENDS_SUMMARY">
+			<Text>The Independent Power {1_tribe} has gained a new respect for you after you defeated their raid. They are now friendly with you and your Relationship with them is improving.</Text>
+		</Row>
+		<Row Tag="LOC_INFLUENCE_INDEPENDENT_INVESTMENT_VERY_HOSTILE_MOD_DESCRIPTION">
+			<Text>Independent Power will be very hostile toward you.</Text>
+		</Row>
+		<Row Tag="LOC_INFLUENCE_INDEPENDENT_INVESTMENT_HOSTILE_MOD_DESCRIPTION">
+			<Text>Independent Power will be hostile toward you.</Text>
+		</Row>
+		<Row Tag="LOC_INFLUENCE_INDEPENDENT_INVESTMENT_NEUTRAL_MOD_DESCRIPTION">
+			<Text>Independent Power will be neutral with you.</Text>
+		</Row>
+		<Row Tag="LOC_INFLUENCE_INDEPENDENT_INVESTMENT_FRIENDLY_MOD_DESCRIPTION">
+			<Text>Independent Power will be friendly with you.</Text>
+		</Row>
+		<Row Tag="LOC_INFLUENCE_INDEPENDENT_INVESTMENT_SUZERAIN_MOD_DESCRIPTION">
+			<Text>Independent Power will become a City-State, with you as its Suzerain.</Text>
+		</Row>
+		<Row Tag="LOC_INFLUENCE_INDEPENDENT_GAIN_GIFT_MOD_DESCRIPTION">
+			<Text>Independent Power will give you a gift.</Text>
+		</Row>
+		<Row Tag="LOC_LAND_CLAIM_START_MOD_DESCRIPTION">
+			<Text>Plant a flag and gain visibility at the location.</Text>
+		</Row>
+		<Row Tag="LOC_LAND_CLAIM_COMPLETE_MOD_DESCRIPTION">
+			<Text>Establish a Town at this location.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_EXTRA_SINGLE_INSTANCE_NAME">
+			<Text>Extra single instance actions.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_EXTRA_SINGLE_INSTANCE_DESC">
+			<Text>Can run an extra instance of a single instance diplomatic action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_NO_COST_ENDEAVOR_SUPPORT_NAME">
+			<Text>Support Endeavors for free</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_NO_COST_ENDEAVOR_SUPPORT_DESC">
+			<Text>Can support Endeavors for free.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_NO_COST_ENDEAVOR_REJECT_NAME">
+			<Text>Reject Endeavors for free</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_NO_COST_ENDEAVOR_REJECT_DESC">
+			<Text>Can reject Endeavors for free.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_SKIP_DIALOG_INSTRUCTIONS">
+			<Text>Right-Click to skip dialog.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_RIBBON_TOKEN_REFRESH_TOOLTIP">
+			<Text>{1_turns} turns until Token is refreshed</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_DECLARE_WAR_WITH_NAME">
+			<Text>War With {1_leaderName}</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_DETAILS_DECLARE_WAR_TO_AND_FROM">
+			<Text>{1_initiator}'s War With {2_target}</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_DETAILS_DECLARE_WAR_FROM_YOU">
+			<Text>Your War With {1_target}</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_DETAILS_DECLARE_WAR_TO_YOU">
+			<Text>{1_initiator}'s War With You</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_DECLARE_WAR_WITH">
+			<Text>War With {1_leaderName}</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_DECLARE_WAR_WITH_YOU">
+			<Text>War With You</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_TURNS_UNTIL_COMPLETION">
+			<Text>{1_turns} turns until completion.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_ACTIVE_FOR_TURNS">
+			<Text>Active for {1_turns} more turns.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_LASTS_FOR_TURNS">
+			<Text>Lasts for {1_turns} turns.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_ESPIONAGE_TURNS_AND_DURATION">
+			<Text>Can take at least {1_minTurns} - {2_maxTurns} turns to execute. Once executed, the effect lasts for {3_turns} turns. Execution time, reveal chance, and failure chance are all increased if you are being counterspied by the target.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_ESPIONAGE_TURNS">
+			<Text>Can take at least {1_minTurns} - {2_maxTurns} turns to execute. Execution time, reveal chance, and failure chance are all increased if you are being counterspied by the target.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_ESPIONAGE_ONGOING">
+			<Text>Can take at least {1_minTurns} - {2_maxTurns} turns to execute. {3_actualTurns} have elapsed. Execution time, reveal chance, and failure chance are increased if you are counterspied by the target.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_TURNS_UNTIL_NEXT_STAGE">
+			<Text>{1_turns} turns until next Relationship level</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_RIBBON_HUMAN_PLAYER_UNMET_NAME">
+			<Text>{1_playerName}[N]Not met</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_RIBBON_HUMAN_PLAYER_MET_NAME">
+			<Text>{1_playerName}[N]Playing as {2_leaderName}</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_OPTIONS_YIELDS">
+			<Text>Yields</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_OPTIONS_SIZE">
+			<Text>Civ Size</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_OPTIONS_SCORES">
+			<Text>Scores</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_SKIP_DIALOG">
+			<Text>Skip Dialog</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS">
+			<Text>Actions</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_SEND_ENVOY">
+			<Text>Add War Support</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ADD_WAR_SUPPORT">
+			<Text>Add War Support</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_OPTION_LIMITED_BY_WAR">
+			<Text>Option limited by war</Text>
+		</Row>
+		<!--Independent Relationship status-->
+		<Row Tag="LOC_INDEPENDENT_RELATIONSHIP">
+			<Text>Relationship</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_TURNS_UNTIL_CANCELED">
+			<Text>{1_turns} turns until canceled</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_HAS_STALLED">
+			<Text>This action has stalled and needs more support.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_AT_RISK">
+			<Text>This action at risk of failing and needs more support.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_WILL_NOT_COMPLETE">
+			<Text>{1_progress} progress in {2_turns} turns.</Text>
+		</Row>
+		<!-- Agenda Names -->
+		<Row Tag="LOC_DIPLOMACY_AGENDA_LORD_OF_FIRE_NAME">
+			<Text>Lord of Fire</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_LORD_OF_FIRE_DESC">
+			<Text>Likes Leaders that are at war with others, besides him. Dislikes those that are not at war with others, besides him.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_LORD_OF_COIN_NAME">
+			<Text>Lord of Coin</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_LORD_OF_COIN_DESC">
+			<Text>Likes Civilizations with fewer Trade Routes than him. Dislikes those that have as many or more Trade Routes than him.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_WONDERS_OF_ITERU_NAME">
+			<Text>Wonders of Iteru</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_WONDERS_OF_ITERU_DESC">
+			<Text>Likes Civilizations with fewer Wonders than her. Dislikes those that have more Wonders than her.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_RESTITUTOR_ORBIS_NAME">
+			<Text>Restitutor Orbis</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_RESTITUTOR_ORBIS_DESC">
+			<Text>Likes Civilizations with Cities in their empire. Dislikes those with Towns in their empire. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_STORIED_LANDS_NAME">
+			<Text>Storied Lands</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_STORIED_LANDS_DESC">
+			<Text>Likes Leaders that complete fewer stories than him. Dislikes those that complete more stories than him.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_KAPWA_NAME">
+			<Text>Kapwa</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_KAPWA_DESC">
+			<Text>Likes the Leader doing the most Diplomatic Endeavors. Dislikes the one doing the most Sanctions.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_YAMATAI_NAME">
+			<Text>Yamatai</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_YAMATAI_DESC">
+			<Text>Likes Civilizations with both[icon:YIELD_SCIENCE] Science and[icon:YIELD_GOLD] Gold Buildings in their Settlements. Dislikes those with both[icon:YIELD_CULTURE] Culture and[icon:YIELD_HAPPINESS] Happiness Buildings in their Settlements.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_SHAMAN_QUEEN_NAME">
+			<Text>Miko of Amaterasu</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_SHAMAN_QUEEN_DESC">
+			<Text>Likes Civilizations with both[icon:YIELD_CULTURE] Culture and[icon:YIELD_HAPPINESS] Happiness Buildings in their Settlements. Dislikes those with both[icon:YIELD_SCIENCE] Science and[icon:YIELD_GOLD] Gold Buildings in their Settlements.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_VAN_MINH_NAME">
+			<Text>Van Minh</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_VAN_MINH_DESC">
+			<Text>Likes the Civilization with the fewest Commander Levels. Dislikes the one with the most Commander Levels.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_THE_GOLDEN_SHEPHERD_NAME">
+			<Text>The Golden Shepherd</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_THE_GOLDEN_SHEPHERD_DESC">
+			<Text>Likes the Civilization that has had the most Celebrations. Dislikes the one that has had the fewest Celebrations.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_WONDERLUST_NAME">
+			<Text>Wonderlust</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_WONDERLUST_DESC">
+			<Text>Likes Civilizations that don't have any Natural Wonders in their borders. Dislikes those that do have Natural Wonders in their borders.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_TO_ARMS_NAME">
+			<Text>To Arms!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_TO_ARMS_DESC">
+			<Text>Likes the Civilization with the greatest number of Military Units. Dislikes the one with the smallest number of Military Units.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_NAPOLEONIC_CODE_NAME">
+			<Text>Napoleonic Code</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_NAPOLEONIC_CODE_DESC">
+			<Text>Likes the Civilization with the smallest number of Land Units. Dislikes the one with the greatest number of Naval Units.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_CULTURE_FROM_CONQUEST_NAME">
+			<Text>Culture from Conquest</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_CULTURE_FROM_CONQUEST_DESC">
+			<Text>Likes the Civilization with the highest Culture Per Turn. Dislikes when other Civilizations form Alliances with each other.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_MOUNTAIN_KING_NAME">
+			<Text>Mountain King</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_MOUNTAIN_KING_DESC">
+			<Text>Likes Civilizations who have few Mountains in their borders. Dislikes the player with the most Mountains in their borders.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_THE_SPIDER_NAME">
+			<Text>The Spider</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_THE_SPIDER_DESC">
+			<Text>Likes Leaders at war with anyone but him.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_WITHOUT_SORROW_NAME">
+			<Text>Without Sorrow</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_WITHOUT_SORROW_DESC">
+			<Text>Likes the Civilization with the highest[icon:YIELD_HAPPINESS] Happiness. Dislikes the one with the lowest[icon:YIELD_HAPPINESS] Happiness.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_WITHOUT_REGRET_NAME">
+			<Text>Without Regret</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_WITHOUT_REGRET_DESC">
+			<Text>Likes the Civilization with least amount of land. Dislikes the one with the largest amount of land.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_FAR_AND_WIDE_NAME">
+			<Text>Far and Wide</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_FAR_AND_WIDE_DESC">
+			<Text>Likes the Civilization with the most revealed tiles. Dislikes the one with the least revealed tiles.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_DUSHA_NAME">
+			<Text>Dusha</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_DUSHA_DESC">
+			<Text>Dislikes the Civilization with the most Great Works. Likes the one with the least Great Works.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_CIVIC_VIRTUE_NAME">
+			<Text>Civic Virtue</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_CIVIC_VIRTUE_DESC">
+			<Text>Double Relationship gains with Leaders that share a Government type with him. Double the Relationship losses with those that don't share a Government type.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_VERACITY_NAME">
+			<Text>Veracity</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_VERACITY_DESC">
+			<Text>Likes leaders that start Formal Wars. Dislikes those that start Surprise Wars.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_FRENCH_QUARTERS_NAME">
+			<Text>French Quarters</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_FRENCH_QUARTERS_DESC">
+			<Text>Likes the Civilization with the most Quarters. Dislikes the one with the fewest Quarters.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_GUANXI_NAME">
+			<Text>Guanxi</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_GUANXI_DESC">
+			<Text>Likes the Civilization with the most Specialists. Dislikes the one with the fewest Specialists.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_DESERT_OF_THE_WARRIOR_QUEEN_NAME">
+			<Text>Desert of the Warrior Queen</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_DESERT_OF_THE_WARRIOR_QUEEN_DESC">
+			<Text>Likes Civilizations that don't have Settlements in Desert or Plains. Dislikes those with Settlements in Desert or Plains.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_SUZERAIN_OF_THE_WORLD_NAME">
+			<Text>Suzerain of the World</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_SUZERAIN_OF_THE_WORLD_DESC">
+			<Text>Likes Leaders that leave Independent Powers alone. Dislikes those that disperse Independent Powers.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_BAROQUE_NAME">
+			<Text>Baroque</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_BAROQUE_DESC">
+			<Text>Likes Leaders with Wonders in their Capital. Dislike those with Buildings in their Capital.</Text>
+		</Row>
+		<!--Independent Relationship status-->
+		<Row Tag="LOC_INDEPENDENT_RELATIONSHIP_FRIENDLY">
+			<Text>Friendly</Text>
+		</Row>
+		<Row Tag="LOC_INDEPENDENT_RELATIONSHIP_NEUTRAL">
+			<Text>Neutral</Text>
+		</Row>
+		<Row Tag="LOC_INDEPENDENT_RELATIONSHIP_HOSTILE">
+			<Text>Hostile</Text>
+		</Row>
+		<Row Tag="LOC_INDEPENDENT_RELATIONSHIP_UNKNOWN">
+			<Text>Unknown</Text>
+		</Row>
+		<!--In-world floating text-->
+		<Row Tag="LOC_WORLD_BEFRIEND_INDEPENDENT_NO_LONGER_HOSTILE">
+			<Text>No longer Hostile: {1_Independent}</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_BEFRIEND_INDEPENDENT_NOW_FRIEND">
+			<Text>Now Friendly: {1_Independent}</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_LANDCLAIM_INDEPENDENT_LESS_FRIENDLY">
+			<Text>Now less Friendly: {1_Independent}</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_LANDCLAIM_TOO_CLOSE_INDEPENDENT">
+			<Text>Settling here will anger {1_independent}</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_LANDCLAIM_TOO_CLOSE_MAJOR">
+			<Text>Settling here will hurt your Relationship with {1_leader}</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_LANDCLAIM_NOTIFY">
+			<Text>{1_Player} new Settlement</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_BEGAN_LAND_CLAIM">
+			<Text>Settlement Created</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_COOPERATIVE_PROJECT_NOTIFY">
+			<Text>{1_Player} has started a Diplomatic Action with {2_TargetPlayer}</Text>
+		</Row>
+		<!--Independent "Goody Hut" text-->
+		<Row Tag="LOC_GOODYHUT_CULTURE_GRANT_SPECIALISTS_DESCRIPTION">
+			<Text>3 Free Specialists</Text>
+		</Row>
+		<Row Tag="LOC_GOODYHUT_CULTURE_GRANT_CIVIC">
+			<Text>Free Civic</Text>
+		</Row>
+		<Row Tag="LOC_GOODYHUT_CULTURE_GRANT_BOOST">
+			<Text>Civic Boost</Text>
+		</Row>
+		<Row Tag="LOC_GOODYHUT_LARGE_GOLD_DESCRIPTION">
+			<Text>+{1_Num}[icon:YIELD_GOLD] Gold</Text>
+		</Row>
+		<Row Tag="LOC_GOODYHUT_MEDIUM_GOLD_DESCRIPTION">
+			<Text>+{1_Num}[icon:YIELD_GOLD] Gold</Text>
+		</Row>
+		<Row Tag="LOC_GOODYHUT_SMALL_GOLD_DESCRIPTION">
+			<Text>+{1_Num}[icon:YIELD_GOLD] Gold</Text>
+		</Row>
+		<Row Tag="LOC_GOODYHUT_LARGE_HAPPINESS_DESCRIPTION">
+			<Text>+{1_Num}[icon:YIELD_HAPPINESS] Happiness</Text>
+		</Row>
+		<Row Tag="LOC_GOODYHUT_MEDIUM_HAPPINESS_DESCRIPTION">
+			<Text>+{1_Num}[icon:YIELD_HAPPINESS] Happiness</Text>
+		</Row>
+		<Row Tag="LOC_GOODYHUT_SMALL_HAPPINESS_DESCRIPTION">
+			<Text>+{1_Num}[icon:YIELD_HAPPINESS] Happiness</Text>
+		</Row>
+		<Row Tag="LOC_GOODYHUT_SCIENCE_GRANT_TECH">
+			<Text>Free Tech</Text>
+		</Row>
+		<Row Tag="LOC_GOODYHUT_SCIENCE_GRANT_BOOST">
+			<Text>Tech Boost</Text>
+		</Row>
+		<Row Tag="LOC_GOODYHUT_SCIENCE_GRANT_ONE_CODEX_DESCRIPTION">
+			<Text>Gain 1 Codex</Text>
+		</Row>
+		<Row Tag="LOC_GOODYHUT_SURVIVORS_GRANT_MIGRANT_DESCRIPTION">
+			<Text>Free Migrant in nearest Settlement</Text>
+		</Row>
+		<Row Tag="LOC_GOODYHUT_SURVIVORS_GRANT_COMMANDER_DESCRIPTION">
+			<Text>Free Army Commander in nearest Settlement</Text>
+		</Row>
+		<Row Tag="LOC_GOODYHUT_SURVIVORS_GRANT_SCOUT_DESCRIPTION">
+			<Text>Free Scout in nearest Settlement</Text>
+		</Row>
+		<Row Tag="LOC_GOODYHUT_MILITARY_GRANT_LAND_UNIT_DESCRIPTION">
+			<Text>Free Land Unit in nearest Settlement</Text>
+		</Row>
+		<Row Tag="LOC_GOODYHUT_MILITARY_GRANT_NAVAL_UNIT_DESCRIPTION">
+			<Text>Free Naval Unit in nearest Settlement</Text>
+		</Row>
+		<Row Tag="LOC_GOODYHUT_MILITARY_HEAL_DESCRIPTION">
+			<Text>Scout healed</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECTS_BUTTON_DISABLED_TOOLTIP">
+			<Text>You must have at least one envoy available to start a Diplomatic Action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FORM_ALLIANCE_DISABLED">
+			<Text>Your Relationship is not good enough to form an Alliance.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_PERMANENT_ALLIANCE">
+			<Text>You cannot end an Alliance with a Team Member.</Text>
+		</Row>
+		<!--Diplomacy Action Failure Text-->
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_REASON_WAR_WITHOUT_END">
+			<Text>War will not end.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_REASON_WAR_TOO_RECENT">
+			<Text>Can't make peace too soon after declaring war. {1_turns} {1_turns: plural 1?turn; other?turns;} until peace is available.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_REASON_WAR_TOO_EARLY">
+			<Text>Too early to start war. {1_turns} {1_turns: plural 1?turn; other?turns;} until war is available.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_REASON_WAR_FORMAL_NEEDS_HOSTILE">
+			<Text>Cannot start Formal War without already having a Hostile Relationship.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_REASON_PEACE_TOO_RECENT">
+			<Text>Can't declare war too soon after making peace. {1_turns} {1_turns: plural 1?turn; other?turns;} until war is available.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_REASON_FRIENDLY_TEAM_MEMBERS">
+			<Text>Cannot declare war on team member.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_REASON_DEFENSIVE_PACT">
+			<Text>Cannot declare war due to Defensive Pact.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_REASON_CASUS_BELLI_NOT_MET">
+			<Text>Cannot declare war due to Casus Belli not being met.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_REASON_NO_PEACE_OPPOSING_IDEOLOGIES">
+			<Text>Opposing Ideologies cannot have peace.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_REASON_NO_WAR_SAME_IDEOLOGIES">
+			<Text>Civilizations with shared Ideologies cannot go to war with each other.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_ADDING_TOO_MANY_ENVOYS">
+			<Text>Trying to start a Diplomatic Action with too many envoys.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_NOT_ENOUGH_ENVOYS">
+			<Text>Not enough envoys to start Diplomatic Action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_REQUIRES_UNIT">
+			<Text>Diplomatic Action requires Unit to start.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_PROJECT_NOT_UNLOCKED">
+			<Text>This Diplomatic Action has not been unlocked.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_DUPLICATE_PROJECT">
+			<Text>Already running this Diplomatic Action with this Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_DUPLICATE_PROJECT_NON_MAJOR">
+			<Text>Already running this Diplomatic Action with them.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_DUPLICATE_ALLIANCE_REQUEST">
+			<Text>This Leader has already requested an Alliance.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_LEADER_DEFEATED">
+			<Text>Leader has been defeated.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_HAS_NOT_MET_TARGET_PLAYER">
+			<Text>You have not met the Diplomatic Action target Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_OVER_MAX_WITH_PLAYER_PROJECT">
+			<Text>Limit reached on times this project can be run with this Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_PREVIOUS_PROJECT_IN_COOLDOWN">
+			<Text>This Diplomatic Action type is still in cooldown with this Leader for {1_turns} more {1_turns: plural 1?turn; other?turns;}.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_OVER_MAX_WITH_PLAYER_PROJECT">
+			<Text>Limit reached on times this Diplomatic Action can be run with this Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_SINGLE_INSTANCE_RUNNING_PROJECT">
+			<Text>Already running an instance of this single instance Diplomatic Action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_MAX_INSTANCE_RUNNING_PROJECT">
+			<Text>Already running the maximum number of instances of this project.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_NO_BORDERS_TO_CLOSE">
+			<Text>No Open Borders agreement with {1_PlayerName} that can be canceled.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_NOT_ALLIES">
+			<Text>You need to be Allied to start this Diplomatic Action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_SUPPORT_FAILURE_AGAINST_ALLIES">
+			<Text>You cannot support actions against an Ally .</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_OPPOSE_FAILURE_AGAINST_ALLIES">
+			<Text>You cannot oppose actions started by an Ally .</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_NOT_AT_WAR">
+			<Text>You need to be at war to start this Diplomatic Action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_NO_TOWNS_INITIAL">
+			<Text>You need at least one town to start this action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_NO_TOWNS_TARGET">
+			<Text>The other player needs at least one town to start this action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_NO_SETTLEMENT_INITIAL">
+			<Text>You need at least one settlement to start this action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_NO_SETTLEMENT_TARGET">
+			<Text>The other player needs at least one settlement to start this action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_NO_ACTION_TYPE">
+			<Text>Missing Diplomatic Action type.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_MISSING_GAME_DIPLOMACY">
+			<Text>Missing game diplomacy data.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_MISSING_PLAYER_DIPLOMACY">
+			<Text>Missing player diplomacy data.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_VILLAGE_NO_BEFRIEND">
+			<Text>Encampments cannot be befriended and cannot become City-States.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_RELATIONSHIP_LEVEL">
+			<Text>You need at least a Relationship of {1_Relationship} to start this Diplomatic Action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_ALLIANCE">
+			<Text>You cannot start this Diplomatic Action due to being in an Alliance.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_WAR">
+			<Text>You cannot start this Diplomatic Action due to being at war.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_WAR_WITH_YOUR_ALLY">
+			<Text>You cannot start this Diplomatic Action due to their being at war with your ally {1_AllyName}.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_WAR_WITH_THEIR_ALLY">
+			<Text>You cannot start this Diplomatic Action due to you being at war with their ally {1_AllyName}.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_NO_UNITS_CLOSE">
+			<Text>You cannot start this Diplomatic Action since no Units close enough.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_HAS_OPEN_BORDERS">
+			<Text>You cannot start this Diplomatic Action since you have opened your borders to them.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_DENOUNCE_MILITARY_ALREADY_RUNNING">
+			<Text>There is already a Denounce Military action in progress.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_AT_MAX_SUPPORT">
+			<Text>You have given the maximum amount of support to this action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_TEAM_ESPIONAGE">
+			<Text>You cannot spy on a teammate.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_FAILURE_NOT_SUZERAIN">
+			<Text>You cannot do this action since you are not Suzerain of this City State.</Text>
+		</Row>
+		<!--Diplomacy Actions Text-->
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_NO_ACTIONS">
+			<Text>No Ongoing Actions</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_CANT_SUPPORT_WAR">
+			<Text>Unable to support a war declared against you.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_CANT_PARTICIPATE_NOT_MET">
+			<Text>Unable to participate in actions if you haven't met both Leaders.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_CANT_OPPOSE_OWN_ACTION">
+			<Text>Unable to oppose your own actions.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_OPPOSING_FAVORS">
+			<Text>{1_Num} favors in opposition of this action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_SUPPORTING_FAVORS">
+			<Text>{1_Num} favors in support of this action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_SUPPORT_CAPTION">
+			<Text>Support</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_OPPOSE_CAPTION">
+			<Text>Oppose</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_OPPOSED_CAPTION">
+			<Text>Opposed</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_REMOVE_SUPPORT">
+			<Text>Remove Support</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_SUPPORTING_TOKEN_FROM_PLAYER">
+			<Text>Token from {1_PlayerName}.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_SUPPORTING_TOKEN_FROM_UNMET_PLAYER">
+			<Text>Token from unmet Leader.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_CANT_SUPPORT_NO_TOKEN">
+			<Text>No applicable tokens to support with.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_CANT_OPPOSE_NO_TOKEN">
+			<Text>No applicable tokens to oppose with.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_CANT_OPPOSE_ACTION_NOT_ALLOW">
+			<Text>Action cannot be opposed during this Age.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_CANT_OPPOSE_SUPPORT_ACTION_AT_SAME_TIME">
+			<Text>You cannot both support and oppose a Diplomatic Action at the same time.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_MISSING_NAME">
+			<Text>Missing name.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_MISSING_DESCRIPTION">
+			<Text>Missing description.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_COST_YIELD_DIPLOMACY">
+			<Text>{1_cost}[icon:YIELD_DIPLOMACY] Influence</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_NOT_ENOUGH_YIELD_DIPLOMACY">
+			<Text>You need {1_cost} but have {2_influence}[icon:YIELD_DIPLOMACY] Influence.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_USE_GLOBAL_TOKEN">
+			<Text>Envoy</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_USE_FAVOR">
+			<Text>Favor from {1_leaderName}</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_USE_GRIEVANCE">
+			<Text>Grievance against {1_leaderName}</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_OPPOSE_TITLE">
+			<Text>Oppose Action</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_SUPPORT_TITLE">
+			<Text>Support Action</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_OPPOSE_BODY">
+			<Text>Choose a Token to oppose this Diplomatic Action with.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_SUPPORT_BODY">
+			<Text>Choose a Token to support this Diplomatic Action with.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_ALL_TAB_NAME">
+			<Text>A</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_LAND_CLAIM_TAB_NAME">
+			<Text>B</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_DECLARE_WAR_TAB_NAME">
+			<Text>C</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_GIVE_INFLUENCE_TOKEN_TAB_NAME">
+			<Text>D</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_VIEW_LEADER">
+			<Text>View Leader</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_VIEW_CIV">
+			<Text>View Civ</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_VIEW_ACTIONS">
+			<Text>View Actions</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_DEAL_PEACE_TITLE">
+			<Text>Peace Deal</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_DEAL_PROPOSE">
+			<Text>Propose</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_DEAL_ACCEPT">
+			<Text>Accept</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_DEAL_CANCEL">
+			<Text>Cancel</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_DEAL_REJECT">
+			<Text>Reject</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_RESPONSE_SUPPORT">
+			<Text>Support</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_RESPONSE_SUPPORTED">
+			<Text>Supported</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_RESPONSE_ACCEPT">
+			<Text>Accept</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_RESPONSE_ACCEPTED">
+			<Text>Accepted</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_RESPONSE_REJECT">
+			<Text>Reject</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_RESPONSE_REJECTED">
+			<Text>Rejected</Text>
+		</Row>
+		<Row Tag="LOC_PLAYER_REALATIONSHIP_FIRSTMEET_UNFRIENDLY">
+			<Text>Unfriendly</Text>
+		</Row>
+		<Row Tag="LOC_PLAYER_REALATIONSHIP_FIRSTMEET_NEUTRAL">
+			<Text>Neutral</Text>
+		</Row>
+		<Row Tag="LOC_PLAYER_REALATIONSHIP_FIRSTMEET_FRIENDLY">
+			<Text>Friendly</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_WAR_AGGRESSOR">
+			<Text>Aggressor</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_WAR_DEFENDER">
+			<Text>Defender</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ATTRIBUTES_BUTTON_NAME">
+			<Text>Attributes</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_START_PROJECT_BUTTON">
+			<Text>Start Project</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_START_ENDEAVOR_BUTTON">
+			<Text>Start Endeavor</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_START_SANCTION_BUTTON">
+			<Text>Start Sanction</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_NO_AVAILABLE_ENDEAVORS">
+			<Text>No available Endeavors.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_START_ENDEAVOR_TOOLTIP">
+			<Text>Start a mutually beneficial Diplomatic Endeavor.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_NO_AVAILABLE_SANCTIONS">
+			<Text>No available Sanctions.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_START_SANCTION_TOOLTIP">
+			<Text>Start a Diplomatic Sanction against another player.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_NO_AVAILABLE_PROJECTS">
+			<Text>No available Diplomatic Actions.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_START_PROJECT_TOOLTIP">
+			<Text>Start your own Diplomatic Action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_NO_AVAILABLE_ENDEAVORS_WITH_LEADER">
+			<Text>No available Endeavors with {1_leaderName}.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_START_ENDEAVOR_TOOLTIP_WITH_LEADER">
+			<Text>Start a mutually beneficial Diplomatic Endeavor with {1_leaderName}.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_NO_AVAILABLE_SANCTIONS_WITH_LEADER">
+			<Text>No available Sanctions with {1_leaderName}.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_START_SANCTIONS_TOOLTIP_WITH_LEADER">
+			<Text>Start a Diplomatic Sanction against {1_leaderName}.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_INFLUENCE">
+			<Text>Influence</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ONGOING_ACTIONS">
+			<Text>Active Projects</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECTS_SELECT_TARGET">
+			<Text>Select which target you would like for this Diplomatic Action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECTS_CHOOSE_TARGET">
+			<Text>Choose target</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_START_PENDING_PROJECTS_BODY">
+			<Text>You have made changes to pending actions. Would you like to apply those changes before continuing?</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_START_PENDING_PROJECTS_TITLE">
+			<Text>Pending Actions</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_SELECT_TARGET">
+			<Text>Target</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_SELECT_AMOUNT">
+			<Text>Select Amount</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_SELECT_UNIT">
+			<Text>Select Unit</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_QUICK_START_PROJECT">
+			<Text>Start</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AVAILABLE_ATTRIBUTE">
+			<Text>You have {1_numAttributes} {2_attributeType} Attribute Points available to spend!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AVAILABLE_ATTRIBUTES">
+			<Text>You have {1_numPoints} available Attribute Points!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECTS_TOOLTIP_DESCRIPTION">
+			<Text>Projects primarily benefit you, but other Leaders can contribute for lesser rewards.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ENDEAVORS_TOOLTIP_DESCRIPTION">
+			<Text>Projects benefit you and another target Leader, but other Leaders can contribute for lesser rewards.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_SANCTIONS_TOOLTIP_DESCRIPTION">
+			<Text>Sanctions impede other Leaders' progress by reducing certain yields or applying other negative effects.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_NAVTRAY_REJECT_CANCEL">
+			<Text>Cancel/Reject Deal</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_NAVTRAY_ACCEPT_PROPOSE">
+			<Text>Accept/Propose Deal</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_NAVTRAY_ADD_REMOVE">
+			<Text>Add/Remove City From Deal</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_INFO_NO_GOVERNMENT">
+			<Text>No Government</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_INFO_NO_RELIGION">
+			<Text>No Religion</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_CONFIRM_DECLARE_WAR_TITLE">
+			<Text>Declare War?</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_CONFIRM_DECLARE_WAR_BODY">
+			<Text>Are you sure you want to declare war against {1_targetName}?</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_CONFIRM_DECLARE_WAR_FROM_MAP_BODY">
+			<Text>This action will start a war with {1_targetName}. Are you sure?</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PICK_WAR_TYPE_FORMAL_BODY">
+			<Text>This will declare a Formal War since you have a Hostile Relationship.[N]Initial War Support - For you: {1_yourWarBonus}, For them: {2_theirWarBonus}.[N]The penalty for a Surprise War increases with friendlier relations.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PICK_WAR_TYPE_SURPRISE_BODY">
+			<Text>This will declare a Surprise War since you do not have a Hostile Relationship. They will gain {3_theirInfluenceBonus}[icon:YIELD_DIPLOMACY] Influence.[N]Initial War Support - For you: {1_yourWarBonus}, For them: {2_theirWarBonus}.[N]The penalty for a Surprise War increases with friendlier relations.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_FORMAL_WAR">
+			<Text>Formal War</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_SURPRISE_WAR">
+			<Text>Surprise War</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_WAR_COST">
+			<Text>0</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_BONUS_WAR_SUPPORT">
+			<Text>This War will create the following War Support[N] {1_yourWarBonus} for you, {2_theirWarBonus} and {3_theirInfluenceBonus}[icon:YIELD_DIPLOMACY] Influence for your opponent.[N]The penalty for a Surprise War increases with friendlier relations.[N]Being Hostile will create a Formal War.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_CONFIRM_DECLARE_WAR_ON_INDEPENDENT_TITLE">
+			<Text>Begin Hostilities?</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_CONFIRM_DECLARE_WAR_ON_INDEPENDENT_BODY">
+			<Text>This action will start hostilities with the Independent Power of {1_targetName}. Are you sure?</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_CONFIRM_DECLARE_WAR_FROM_MAP_SUZERAIN_BODY">
+			<Text>This action will start a war with the City-State {1_cityStateName} and their Suzerain {2_suzerainName}. Are you sure?</Text>
+		</Row>
+		<Row Tag="LOC_PLAYER_RELATIONSHIP_AT_WAR">
+			<Text>At War</Text>
+		</Row>
+		<Row Tag="LOC_PLAYER_RELATIONSHIP_ALLIANCE">
+			<Text>Allied</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_CANCEL_ALLIANCE_NAME">
+			<Text>End Alliance</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_GIVE_INFLUENCE_TOKEN_START_ACTION_NAME">
+			<Text>Befriend Independent</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_BONUS_ENVOYS">
+			<Text>You are receiving {1_numEmvoys} bonus envoys on this project because of your Relationship with involved Leaders.</Text>
+		</Row>
+		<!--  If you change the war weariness text below then see if LOC_WARNING_WAR_WEARINESS_MESSAGE needs to be updated as well.  -->
+		<Row Tag="LOC_WAR_TOOLTIP_RECEIVING_WAR_WEARINESS">
+			<Text>{1_playerName}'s support in this war is causing a penalty to[icon:YIELD_HAPPINESS] Happiness in your settlements, and a combat penalty when fighting their units!</Text>
+		</Row>
+		<Row Tag="LOC_WAR_TOOLTIP_NO_WAR_WEARINESS">
+			<Text>No War Weariness is being caused by this war.</Text>
+		</Row>
+		<Row Tag="LOC_WAR_TOOLTIP_GIVING_WAR_WEARINESS">
+			<Text>Your support in this war is causing a penalty to {1_leaderName}'s[icon:YIELD_HAPPINESS] Happiness in their settlements, and a combat penalty when fighting your units!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_WAR_WEARINESS">
+			<Text>War Weariness</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_SANCTIONS_TOOLTIP">
+			<Text>Your yields are being reduced by Sanctions from {1_playerName}!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_SANCTIONS_TOOLTIP_TITLE">
+			<Text>Sanctions</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_SELECT_SETTLEMENTS">
+			<Text>Select Settlements for leaders to trade</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_THEIR_SETTLEMENTS">
+			<Text>Their Settlements</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_YOUR_SETTLEMENTS">
+			<Text>Your Settlements</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_RETURNS_TO_YOU">
+			<Text>Returns to you</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_RETURNS_TO_THEM">
+			<Text>Returns to {1_leaderName}</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_NEW_OWNER">
+			<Text>New Owner</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_TO_END">
+			<Text>To End</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_OFFER">
+			<Text>Offer</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_RECEIVES">
+			<Text>Receives</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_LOSE_SETTLEMENTS">
+			<Text>You will lose Settlements!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_DEMAD_INDEPENDENCE">
+			<Text>These Settlements may demand independence in the future!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_SHOW_CITY">
+			<Text>Show City</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ALLY_WAR_BOTH_ALLIES">
+			<Text>Your ally {1_leaderName} has declared war on your other ally {2_otherLeaderName}. You must choose a side in this war or end both Alliances.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ALLY_WAR_BODY_TEXT">
+			<Text>{1_leaderName} asks you to honor your Alliance and join the war against {2_otherLeaderName}. Declining will end the Alliance.</Text>
+		</Row>
+		<Row Tag ="LOC_DIPLOMACY_ALLY_WAR_SUPPORT_ALLY">
+			<Text>Support {1_leaderName}</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ALLY_WAR_END_ALLIANCES">
+			<Text>End Alliances</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ALLY_WAR_TITLE">
+			<Text>Call To War</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ALLY_WAR_PICK_ALLEGIENCE_TITLE">
+			<Text>Picking Allegiance</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_SUZERAIN_YOU">
+			<Text>You are the Suzerain of this City-State</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_SUZERAIN_TEAM">
+			<Text>A teammate is the Suzerain of this City-State</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_SUZERAIN_OTHER">
+			<Text>{1_name} is the Suzerain of this City-State</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_NO_SUZERAIN">
+			<Text>No Suzerain</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_CHOSEN_BONUS_TITLE">
+			<Text>City-State Bonus</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_CHOSEN_CITY_STATE_BONUS">
+			<Text>Chosen City-State Bonus: {1_bonusName}</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_NO_CHOSEN_CITY_STATE_BONUS">
+			<Text>You have not chosen a bonus for this City-State yet!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ALLY_WAR_HIDE">
+			<Text>Hide</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ALLY_WAR_BACK_TO_MAP">
+			<Text>Back to Map</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_AVAILABLE_PROJECTS">
+			<Text>Projects</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_AVAILABLE_ENDEAVORS">
+			<Text>Endeavors</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_AVAILABLE_SANCTIONS">
+			<Text>Sanctions</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_AVAILABLE_ESPIONAGE">
+			<Text>Espionage</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_AVAILABLE_TREATIES">
+			<Text>Treaties</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_RECENTLY_ENDED">
+			<Text>Recently Ended</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_ONGOING">
+			<Text>Ongoing</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_MISSING_DATA">
+			<Text>[WIP] No description</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_PROJECT_NOT_UNLOCKED">
+			<Text>Action not unlocked</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_NO_TARGETS">
+			<Text>No Valid Targets</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_NOT_ENOUGHT_INFLUENCE">
+			<Text>Not Enough[icon:YIELD_DIPLOMACY] Influence</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AVAILABLE_INFLUENCE">
+			<Text>Available Influence:[icon:YIELD_DIPLOMACY] Influence {1_influenceAmount}</Text>
+		</Row>
+		<Row Tag="LOC_SUPPORT_WAR_BUTTON">
+			<Text>Add Support For {1_leaderName}</Text>
+		</Row>
+		<Row Tag="LOC_SUPPORT_WAR_SELF">
+			<Text>Support Yourself</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_ADD_SUPPORT">
+			<Text>ADD SUPPORT[N]{1_influenceConst}[icon:YIELD_DIPLOMACY]Influence</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_DETAILS_OTHERS_PROGRESS">
+			<Text>{1_leaderName}'s Progress</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_DETAILS_BEFRIEND_LOSING_RACE">
+			<Text>{1_leaderName}'s Progress</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_OPEN_DIPLOMACY">
+			<Text>Open Diplomacy</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_OPEN_WAR_DETAILS">
+			<Text>Open War Details</Text>
+		</Row>
+		<Row Tag="LOC_TRAIT_MOD_NEGATIVE_INFLUENCE_CONQUERED_SETTLEMENTS">
+			<Text>Conquered Settlement</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_RESPONSE_REJECT">
+			<Text>I reject your {1_actionName} action! [icon:YIELD_DIPLOMACY] Influence is spent to block endeavors for {2_cooldown} turns.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_RESPONSE_ACCEPT">
+			<Text>I accept your {1_actionName} action</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_RESPONSE_SUPPORT">
+			<Text>I support your {1_actionName} action! [N] [icon:YIELD_DIPLOMACY] Influence is spent to support.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_SANCTION_RESPONSE_REJECT">
+			<Text>I reject your {1_actionName} sanction! [N] [icon:YIELD_DIPLOMACY] Influence is spent to reject.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_SANCTION_RESPONSE_ACCEPT">
+			<Text>You will regret that sanction.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ALLIANCE_RESPONSE_REJECT">
+			<Text>I reject your {1_actionName} action! I will not consider another Alliance for at least {2_cooldown} turns.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_TREATY_RESPONSE_REJECT">
+			<Text>I reject your {1_actionName} action!  [icon:YIELD_DIPLOMACY] Influence is spent to block this action for {2_cooldown} turns.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_SPENT_TO_SUPPORT">
+			<Text>{1_leaderName} spends {2_influenceAmount}[icon:YIELD_DIPLOMACY] Influence to Support</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_SPENT_TO_REJECT">
+			<Text>{1_leaderName} spends {2_influenceAmount}[icon:YIELD_DIPLOMACY] Influence to Reject</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_DEAL_REFUSED">
+			<Text>{1_leaderName} has refused your proposal for peace, you must make it more favorable for them before they will accept it.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_TITLE">
+			<Text>Agenda</Text>
+		</Row>
+
+		<!-- Espionage -->
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_MILITARY_SABOTAGE_NAME">
+			<Text>Military Sabotage</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_MILITARY_SABOTAGE_DESCRIPTION">
+			<Text>-3 Combat Strength to their Military Units for {1_turns} {1_turns: plural 1?turn; other?turns;}.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_MILITARY_SABOTAGE_DESCRIPTION_TARGET">
+			<Text>-3 Combat Strength to your Military Units for {1_turns} {1_turns: plural 1?turn; other?turns;}.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_STEAL_TECH_NAME">
+			<Text>Steal Technological Advancement</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_STEAL_TECH_DESCRIPTION">
+			<Text>Gain a Technology from the target that you have not researched. If the Civilization has no eligible Technologies, gain[icon:YIELD_SCIENCE] Science instead.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_STEAL_CIVIC_NAME">
+			<Text>Steal Government Secrets</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_STEAL_CIVIC_DESCRIPTION">
+			<Text>Gain a Civic from the target that you have not studied. If the Civilization has no eligible Civics, gain[icon:YIELD_CULTURE] Culture instead.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_MILITARY_INFILTRATION_NAME">
+			<Text>Military Infiltration</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_MILITARY_INFILTRATION_DESCRIPTION">
+			<Text>Gain vision of all of the target's Commanders.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_MILITARY_INFILTRATION_DESCRIPTION_TARGET">
+			<Text>{1_leaderName} has vision of all of your Commanders.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_SUCCESS_REVEAL_CHANCE">
+			<Text>Success Chance: {1_successChance}% Reveal Chance: {2_revealChance}%</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_SUCCESS_CHANCE">
+			<Text>Success Chance: {1_successChance}%</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_REVEAL_CHANCE">
+			<Text>Reveal Chance: {1_revealChance}%</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_PENALTY">
+			<Text>Penalty if Revealed: {1_penalty}[icon:YIELD_DIPLOMACY] Influence per turn for {2_turns} turns</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_UNKNOWN_PLAYER">
+			<Text>An unknown player</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_WAR_NOT_YOUR_TURN">
+			<Text>You cannot declare war when it is not your turn!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_NOT_YOUR_TURN">
+			<Text>You cannot propose peace when it is not your turn!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_OPEN_THE_GATES_NAME">
+			<Text>Open The Gates</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_OPEN_THE_GATES_DESCRIPTION">
+			<Text>Destroy the defenses of a District in a target Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_SABOTAGE_SHIPPING_NAME">
+			<Text>Sabotage Shipping</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_SABOTAGE_SHIPPING_DESCRIPTION">
+			<Text>Destroy all Ports and Rail Stations in a target City.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_CONVERT_POPULATION_NAME">
+			<Text>Convert Population</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_CONVERT_POPULATION_DESCRIPTION">
+			<Text>Convert the target Settlement to your founded Religion.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_SABOTAGE_WORKERS_NAME">
+			<Text>Sabotage Specialist Morale</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_SABOTAGE_WORKERS_DESCRIPTION">
+			<Text>Disable Specialists in the target Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_FAKE_ARTIFACTS_NAME">
+			<Text>Spread Rumors of Fake Artifacts</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_FAKE_ARTIFACTS_DESCRIPTION">
+			<Text>Remove all yields from the target Civilization's displayed Artifacts.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_STEAL_RICHES_NAME">
+			<Text>Steal Riches</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_STEAL_RICHES_DESCRIPTION">
+			<Text>Pillage all treasure Resources in the target settlement, and then spawn a Treasure Convoy under your control.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESTABLISH_TREASURE_FLEET_NAME">
+			<Text>Establish Treasure Convoy</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESTABLISH_TREASURE_FLEET_DESCRIPTION">
+			<Text>Create a Treasure Convoy Unit in a Distant Lands Settlement of an ally that is capable of spawning a Treasure Convoy.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_ESTABLISH_TREASURE_FLEET_ACCEPT">
+			<Text>Create a Treasure Convoy Unit in for the initiator in your Settlement after {3_duration} turns. Gain +12[icon:YIELD_GOLD] Gold per turn while the Diplomatic Action is active.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_ESTABLISH_TREASURE_FLEET_REJECT">
+			<Text>Cancels the Diplomatic Action.[n]{1_initialName}'s[icon:YIELD_DIPLOMACY] Influence is refunded.[n]No new Endeavors between Leaders for {2_cooldown} turns.[n]Relationships worsen.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_INFILTRATE_ENEMY_POSITIONS_NAME">
+			<Text>Infiltrate Enemy Positions</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_INFILTRATE_ENEMY_POSITIONS_DESCRIPTION">
+			<Text>Your Siege units will use their Bombard Combat Strength against all units belonging to the target.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_SABOTAGE_SPACE_PROGRAM_NAME">
+			<Text>Sabotage Space Program</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_SABOTAGE_SPACE_PROGRAM_DESCRIPTION">
+			<Text>Increases the time it takes to construct Launch Pads and the time to complete the Launch Satellite Project.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_RELATIONSHIP_CHANGE_ACCEPTED">
+			<Text>Relationship change if accepted: {1_change}</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_RELATIONSHIP_CHANGE_SUPPORTED">
+			<Text>Relationship change if supported: {1_change}</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_WARS_HEADER">
+			<Text>Wars</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_WAR_HEADER">
+			<Text>War</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_MY_ACTIONS_HEADER">
+			<Text>My Actions</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_THEIR_ACTIONS_HEADER">
+			<Text>Their Actions</Text>
+		</Row>
+		<Row Tag="LOC_FIRST_MEET_TITLE">
+			<Text>You have met {1_leaderName} for the first time!</Text>
+		</Row>
+		<Row Tag="LOC_FIRST_MEET_FRIENDLY_GREETING_TITLE">
+			<Text>Friendly Greeting</Text>
+		</Row>
+		<Row Tag="LOC_FIRST_MEET_FRIENDLY_GREETING">
+			<Text>+{1_cost} [icon:YIELD_DIPLOMACY] Influence</Text>
+		</Row>
+		<Row Tag="LOC_FIRST_MEET_FRIENDLY_GREETING_DESCRIPTION">
+			<Text>Reveals the Capital of either leader if nearby. ({2_whatCapitalsRevealed})[N]+{1_relationShipDelta} relationship.</Text>
+		</Row>
+		<Row Tag="LOC_FIRST_MEET_FRIENDLY_YOUR_CAPITAL_REVEALED">
+			<Text>Your capital will be revealed.</Text>
+		</Row>
+		<Row Tag="LOC_FIRST_MEET_FRIENDLY_THEIR_CAPITAL_REVEALED">
+			<Text>{1_LeaderName}'s capital of {2_CapitalName} will be revealed.</Text>
+		</Row>
+		<Row Tag="LOC_FIRST_MEET_FRIENDLY_BOTH_CAPITALS_REVEALED">
+			<Text>Both your capital and {1_LeaderName}'s capital of {2_CapitalName} will be revealed.</Text>
+		</Row>
+		<Row Tag="LOC_FIRST_MEET_FRIENDLY_NEITHER_CAPITAL_REVEALED">
+			<Text>Neither capital will be revealed.</Text>
+		</Row>
+		<Row Tag="LOC_FIRST_MEET_FRIENDLY_ERROR_CAPITALS_REVEALED">
+			<Text>There is a problem determining which capital will be revealed.</Text>
+		</Row>
+		<Row Tag="LOC_FIRST_MEET_NEUTRAL_GREETING_TITLE">
+			<Text>Neutral Greeting</Text>
+		</Row>
+		<Row Tag="LOC_FIRST_MEET_NEUTRAL_GREETING">
+			<Text>{1_cost} [icon:YIELD_DIPLOMACY] Influence</Text>
+		</Row>
+		<Row Tag="LOC_FIRST_MEET_NEUTRAL_GREETING_DESCRIPTION">
+			<Text>No reputation change.</Text>
+		</Row>
+		<Row Tag="LOC_FIRST_MEET_HOSTILE_GREETING_TITLE">
+			<Text>Hostile Greeting</Text>
+		</Row>
+		<Row Tag="LOC_FIRST_MEET_HOSTILE_GREETING">
+			<Text>-{1_cost} [icon:YIELD_DIPLOMACY] Influence</Text>
+		</Row>
+		<Row Tag="LOC_FIRST_MEET_HOSTILE_GREETING_DESCRIPTION">
+			<Text>{1_relationShipDelta} relationship.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_FIRST_MEET_NOTIFICATION_MESSAGE_INITIAL">
+			<Text>You have met another civilization</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_FIRST_MEET_NOTIFICATION_SUMMARY_INITIAL">
+			<Text>You have met the {1_Civ}.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_SUBHEADER_ACTIONS">
+			<Text>Actions</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_SUBHEADER_INFORMATION">
+			<Text>Information and Bonuses</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_SUBHEADER_RELATIONSHIP">
+			<Text>Relationship</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_SUBHEADER_RELIGION">
+			<Text>Religion</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_SUBHEADER_GOVERNMENT">
+			<Text>Government</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_RELATIONHIP_NAME_AND_AMOUNT">
+			<Text>{1_relationshipName} ({2_relationshipAmount})</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_RELATIONSHIPS_HEADER">
+			<Text>Relationships</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_LEADER_ABILITIES_TITLE">
+			<Text>Leader Abilities</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_INDEPENDENTS_AND_CITY_STATES">
+			<Text>Independents and City-States</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTIONS_INDEPENDENTS_HEADER">
+			<Text>Independents</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_DETAILS_HEADER">
+			<Text>Espionage Report</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_DETAILS_SUCCESS">
+			<Text>Action Succeeded</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_DETAILS_FAILED">
+			<Text>Action Failed</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_DETAILS_REVEALED">
+			<Text>Spy Revealed</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_DETAILS_HIDDEN">
+			<Text>Spy Remained Hidden</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ESPIONAGE_DETAILS_ACKNOWLEDGE">
+			<Text>Acknowledge</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_ACTION_DETAILS_YOUR_PROGRESS">
+			<Text>Your Progress: </Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_BEFRIEND_INDEPENDENT_PROGRESS">
+			<Text>{1_progress}/{2_total} (+{3_amount} per turn)</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_CALL_TO_ARMS_SUPPORT_ALLY_DESCRIPTION">
+			<Text>You will end your alliance with {1_leaderName} and declare war against them.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_CALL_TO_ARMS_STAY_NEUTRAL_BOTH_ALLIES">
+			<Text>You will end your alliance with both parties and negatively impact your relationship with them.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_CALL_TO_ARMS_STAY_NEUTRAL_ONE_ALLY">
+			<Text>You will end your alliance with {1_leaderName} and not join the war.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_CALL_TO_ARMS_JOIN_WAR">
+			<Text>You will honor your alliance with {1_allyName} and declare war on {2_targetName}.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_CALL_TO_ARMS_STAY_NEUTRAL_TITLE">
+			<Text>Stay Neutral</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_SUPPORT_INDEPENDENT">
+			<Text>Add support to befriend action.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_CITY_WONDER_COUNT">
+			<Text>City has {1_wondercount}x World Wonders</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_CITY_OCCUPIED">
+			<Text>Occupied</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_CITY_NEW">
+			<Text>(New)</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_WILL_ACCEPT">
+			<Text>{1_leaderName} will accept this deal</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_WILL_REJECT">
+			<Text>{1_leaderName} will reject this deal</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_CLOSE_WILL_REJECT">
+			<Text>Closing will result in the proposed Peace Deal being Rejected. Press OK to confirm, or Cancel to go back.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_CLOSE_PEACE_DEAL">
+			<Text>Close Peace Deal Proposal?</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PEACE_DEAL_IS_PENDING">
+			<Text>There is a peace deal already pending</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PICK_ALLIANCE_BODY_1">
+			<Text>Forming an alliance with {1_selectedPlayer}, will put you at war with others.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PICK_ALLIANCE_BODY_2">
+			<Text>The penalty for a Surprise War increases with friendlier relations.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_FORM_ALLIANCE_TOOL_TIP">
+			<Text>Forming an Alliance will put you at war with others.[N][B]{1_leaders}[/B]</Text>
+		</Row>
+	</EnglishText>
+</Database>

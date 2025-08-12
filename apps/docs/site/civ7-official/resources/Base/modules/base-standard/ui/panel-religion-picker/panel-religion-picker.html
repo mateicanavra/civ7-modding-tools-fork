@@ -1,0 +1,40 @@
+<fxs-subsystem-frame class="religion-picker_religion-window items-center left-1" backDrop="fs://game/rel_starrybg.png">
+	<fxs-header class="religion-picker_header mt-3 tracking-150" title="LOC_UI_RADIAL_MENU_DETAILS_RELIGION_TITLE"
+				data-slot="header">
+	</fxs-header>
+	<div class="flex items-center my-4 self-center" data-slot="header">
+		<div class="relative flex mr-2 items-center justify-center">
+			<div class="religion-picker_religion-info-icon-container_holder absolute bg-contain bg-no-repeat size-32">
+			</div>
+			<div
+				 class="religion-picker_religion-info-icon-container_religion relative mb-3 bg-contain bg-no-repeat size-24">
+			</div>
+			<div
+				 class="religion-picker_religion-info-icon-container_glow absolute size-full bg-contain bg-no-repeat hidden">
+			</div>
+		</div>
+		<div class="flex flex-col ml-4 mb-6">
+			<p class="religion-picker_religion-name-regular font-title text-2xl"
+			   data-l10n-id="LOC_UI_ESTABLISH_RELIGION_TITLE"></p>
+			<div
+				 class="religion-picker_religion-info-name-edit-container border border-primary-2 hover\:border-secondary focus\:border-secondary bg-primary-5 flex h-10 mt-1\.25 pointer-events-auto hidden">
+				<fxs-textbox class="religion-picker_religion-info-name font-body pl-2 pr-1 text-base text-accent-2 w-80"
+							 has-border="false" max-length="16"></fxs-textbox>
+				<fxs-edit-button
+								 class="religion-picker_religion-info-name-edit hidden relative flex size-9 bg-contain bg-no-repeat bg-center mt-px"></fxs-edit-button>
+			</div>
+			<p class="religion-picker_religion-info-founder-name font-body-sm text-accent-2"></p>
+			<p class="religion-picker_religion-info-city-name font-body-sm text-accent-2"></p>
+		</div>
+	</div>
+	<div class="religion-picker_religion-choices relative ml-6 mr-5 h-128">
+		<div class="filigree-inner-frame-top absolute top-0 inset-x-0"></div>
+		<fxs-spatial-slot class="religion-picker_religions flex flex-wrap bg-primary-5">
+
+		</fxs-spatial-slot>
+	</div>
+	<div class="mt-5 mb-12 flex items-center justify-center religion-picker_confirm-container" data-slot="footer">
+		<fxs-hero-button class="religion-picker_confirm relative self-center"
+						 caption="LOC_UI_RESOURCE_ALLOCATION_CONFIRM" disabled="true"></fxs-hero-button>
+	</div>
+</fxs-subsystem-frame>

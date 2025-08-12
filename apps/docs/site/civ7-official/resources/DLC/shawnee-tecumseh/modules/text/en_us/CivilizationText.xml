@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--Civilization Traits-->
+		<Row Tag="LOC_TRAIT_SHAWNEE_ABILITY_NAME">
+			<Text>Nepekifaki</Text>
+		</Row>
+		<Row Tag="LOC_CIVILIZATION_SHAWNEE_DESCRIPTION">
+			<Text>Settlements built adjacent to Navigable Rivers gain +2[icon:YIELD_FOOD] Food on River Terrain, but Cities not built adjacent to a Navigable River receive -10%[icon:YIELD_FOOD] Food.</Text>
+		</Row>
+		<Row Tag="LOC_TRAIT_SHAWNEE_ABILITY_DESCRIPTION">
+			<Text>[BLIST][LI]Settlements built adjacent to [B]Navigable Rivers [/B]gain [B]+2[icon:YIELD_FOOD] Food [/B]on [B]River Terrain[/B], but Cities [B]not [/B]built adjacent to a [B]Navigable River [/B]receive [B]-10%[icon:YIELD_FOOD] Food[/B].[LI][B]+30%[icon:YIELD_PRODUCTION] Production [/B]towards constructing [B]Serpent Mound[/B].[/LIST]</Text>
+		</Row>
+		<Row Tag="LOC_MOD_CIV_WONDER_PRODUCTION_SHAWNEE_DESCRIPTION">
+			<Text>+30%[icon:YIELD_PRODUCTION] Production from being the Shawnee's associated Wonder.</Text>
+		</Row>
+	</EnglishText>
+</Database>

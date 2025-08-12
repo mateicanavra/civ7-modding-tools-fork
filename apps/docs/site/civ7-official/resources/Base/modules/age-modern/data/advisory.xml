@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<Database>
+	<Types>
+		<Row Type="ADVISOR_WARNING_FOREIGN_LAUNCH_PAD" Kind="KIND_ADVISOR_WARNING"/>
+		<Row Type="ADVISOR_WARNING_OPPONENT_FIRST_RRTYCOON" Kind="KIND_ADVISOR_WARNING"/>
+		<Row Type="ADVISOR_WARNING_UNUSED_WMD" Kind="KIND_ADVISOR_WARNING"/>
+	</Types>
+	<!-- Watch Out warnings issued by Advisors-->
+	<AdvisorWarnings>
+		<Row AdvisorWarningType="ADVISOR_WARNING_FOREIGN_LAUNCH_PAD" AdvisorType="ADVISOR_SCIENCE" NotificationType="NOTIFICATION_ADVISOR_WARNING_SCIENCE" Name="LOC_WARNING_FOREIGN_LAUNCH_PAD_SUMMARY" Description="LOC_WARNING_FOREIGN_LAUNCH_PAD_MESSAGE" NotificationLevel="0" Repeatable="false"/>
+		<Row AdvisorWarningType="ADVISOR_WARNING_OPPONENT_FIRST_RRTYCOON" AdvisorType="ADVISOR_ECONOMIC" NotificationType="NOTIFICATION_ADVISOR_WARNING_ECONOMIC" Name="LOC_WARNING_OPPONENT_FIRST_RRTYCOON_SUMMARY" Description="LOC_WARNING_OPPONENT_FIRST_RRTYCOON_MESSAGE" NotificationLevel="0" Repeatable="false"/>
+		<Row AdvisorWarningType="ADVISOR_WARNING_UNUSED_WMD" AdvisorType="ADVISOR_MILITARY" NotificationType="NOTIFICATION_ADVISOR_WARNING_MILITARY" Name="LOC_WARNING_UNUSED_WMD_SUMMARY" Description="LOC_WARNING_UNUSED_WMD_MESSAGE" NotificationLevel="0" Repeatable="false"/>
+	</AdvisorWarnings>
+</Database>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LoadingInfo_Civilizations>
+		<Row CivilizationType="CIVILIZATION_DAI_VIET" CivilizationText="LOC_LOADING_CIV_INTRO_TEXT_DAI_VIET" Audio="VO_Loading_Dai_Viet" Subtitle="LOC_INTRO_DAI_VIET" BackgroundImageHigh="fs://game/lsbg_dai_viet_1080.png" BackgroundImageLow="fs://game/lsbg_dai_viet_720.png" ForegroundImage="fs://game/civ_line_dai_viet.png" Tip="LOC_LOADING_CIV_TIPS_TEXT_DAI_VIET" />
+	</LoadingInfo_Civilizations>
+</Database>

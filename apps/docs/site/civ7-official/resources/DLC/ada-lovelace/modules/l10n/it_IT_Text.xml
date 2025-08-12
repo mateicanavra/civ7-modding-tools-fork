@@ -1,0 +1,1109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_1" Language="it_IT">
+      <Text>Augusta Ada King, contessa di Lovelace (1815-1852), nacque in una famiglia piena di contrasti. Era l'unica figlia legittima del poeta romantico Lord Byron, che poco dopo la sua nascita lasciò l'Inghilterra e non la vide mai più. La personalità drammatica, caotica e straordinariamente creativa di Byron era controbilanciata da quella della moglie: anche lei era un'intellettuale, ma più incline allo studio della matematica e delle scienze. Mentre lui era selvaggio e impulsivo, lei era severa, rigorosa, profondamente religiosa e molto coinvolta nella riforma dell'istruzione e nell'abolizionismo.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_2" Language="it_IT">
+      <Text>Ada fu educata principalmente dalla nonna materna. Anche se spesso non era presente, la madre seguì la sua istruzione e incoraggiò il suo interesse per la matematica e la scienza: probabilmente temeva che, se si fosse abbandonata alla creatività come il padre, avrebbe seguito le sue orme anche nelle tendenze autodistruttive. Così Ada condivise la natura accademica della madre, ma ereditò anche l'immaginazione di Byron. In un episodio sulla sua infanzia che si racconta spesso, Ada rimase affascinata dagli uccelli e decise di imparare a volare, un progetto che riuniva il pensiero creativo con la ricerca rigorosa su come funzionano le ali e quali materiali sarebbero stati più adatti per gli uomini. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_3" Language="it_IT">
+      <Text>Grazie agli investimenti della madre nella sua istruzione, Ada poté studiare con diversi scienziati di spicco del momento, tra cui il matematico Augustus De Morgan e l'astronomo Mary Somerville. Quando aveva 18 anni, Somerville la presentò a Charles Babbage, il cui lavoro di ingegnere e inventore lo aveva portato a creare la Macchina differenziale, considerata oggi il primo computer meccanico. Ada restò subito affascinata dall'invenzione e cominciò a lavorare a stretto contatto con Babbage. Tra il 1842 e il 1843 tradusse dall'italiano all'inglese un articolo di Luigi Menabrea che esaminava la successiva creazione di Babbage, la Macchina analitica. Questa macchina era progettata per risolvere problemi matematici espressi attraverso schede perforate, ma la sua costruzione non fu mai completata per l'esaurimento dei finanziamenti.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_4" Language="it_IT">
+      <Text>Nella sua traduzione dell'articolo di Menabrea, Ada incluse lunghe note sulla natura della Macchina analitica e sulle sue possibilità. In particolare, ipotizzò che le variabili matematiche elaborate avrebbero potuto essere considerate come sostituti di concetti più astratti, andando oltre il calcolo puramente numerico. Il culmine delle sue aggiunte è la Nota G, che presenta un algoritmo teorico che viene spesso considerato il primo programma per computer mai scritto. I contributi di Ada superarono di molto l'articolo originale in estensione e profondità, mostrando non solo la sua profonda comprensione del funzionamento della macchina, ma anche l'ampiezza della sua visione circa le sue potenzialità.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_5" Language="it_IT">
+      <Text>Nel 1835, all'età di 20 anni, sposò William, ottavo barone King, da cui ebbe tre figli. Oltre alla matematica mantenne un forte interesse verso la religione, il mesmerismo e la musica, restando al corrente delle più recenti scoperte scientifiche. Morì di cancro a 36 anni. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_ADA_LOVELACE_ANY" Language="it_IT">
+      <Text>Non puoi continuare a prosciugare il sangue vitale di questo universo. Vattene, canaglia! </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_ADA_LOVELACE_ANY" Language="it_IT">
+      <Text>Hai perso il senno, e presto la tua testa lo seguirà. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DEFEAT_AI_LEADER_ADA_LOVELACE_ANY" Language="it_IT">
+      <Text>Spero che, nei miei passi che svaniscono, l'umanità possa trovare un po' del chiarore dell'aldilà. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_ADA_LOVELACE_ANY" Language="it_IT">
+      <Text>Sono Ada, è un piacere. Dimmi, ti interessa il calcolo differenziale? </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_ADA_LOVELACE_ANY" Language="it_IT">
+      <Text>Sono Ada, è un piacere. Dimmi, ti interessa il calcolo differenziale? </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_ADA_LOVELACE_ANY" Language="it_IT">
+      <Text>Sono Ada, è un piacere. Dimmi, ti interessa il calcolo differenziale? </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_ADA_LOVELACE" Language="it_IT">
+      <Text>La tua conoscenza di questa materia è davvero notevole. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_ADA_LOVELACE" Language="it_IT">
+      <Text>La tua variabile non ha posto nelle mie equazioni. </Text>
+    </Replace>
+    <Replace Tag="LOC_MAIN_CHAR_SELECT_LEADER_ADA_LOVELACE_ANY" Language="it_IT">
+      <Text>Per sfruttare e applicare il linguaggio della scienza dobbiamo apprezzare pienamente, sentire, cogliere l'invisibile. </Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_ADA_LOVELACE_NAME" Language="it_IT">
+      <Text>Ada Lovelace|di Ada Lovelace|ad Ada Lovelace|Ada Lovelace|da Ada Lovelace</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_NAME" Language="it_IT">
+      <Text>Studia i misteri della natura.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_NAME" Language="it_IT">
+      <Text>Che la terra sia plasmata secondo il loro volere.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210D_NAME" Language="it_IT">
+      <Text>Lasciamole lo spazio per lavorare.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_NAME" Language="it_IT">
+      <Text>Un archivio organizzato ispira a organizzare la mente.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211C_NAME" Language="it_IT">
+      <Text>Non vale neanche la pena di mettere ordine in questo pasticcio.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_NAME" Language="it_IT">
+      <Text>Fornisci alla carovana doni e un emissario.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212C_NAME" Language="it_IT">
+      <Text>Che ripartano con quello che hanno.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213B_NAME" Language="it_IT">
+      <Text>Vede il Centauro: creativo, pragmatico e indimenticabile.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213C_NAME" Language="it_IT">
+      <Text>Vede lo Scalpello, che incide il suo nome nel cosmo per sempre.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_NAME" Language="it_IT">
+      <Text>Sarebbe uno spreco non sfruttare queste competenze specialistiche.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214C_NAME" Language="it_IT">
+      <Text>Lo sforzo necessario per trovar loro un lavoro supera i benefici.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_NAME" Language="it_IT">
+      <Text>Chiudi.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_NAME" Language="it_IT">
+      <Text>Incoraggia la gente ad avere una mente aperta.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216C_NAME" Language="it_IT">
+      <Text>Lascia che decidano da soli.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_NAME" Language="it_IT">
+      <Text>Chiudi.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_NAME" Language="it_IT">
+      <Text>Chiudi.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218C_NAME" Language="it_IT">
+      <Text>Chiudi.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218D_NAME" Language="it_IT">
+      <Text>Chiudi.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_NAME" Language="it_IT">
+      <Text>Chiudi.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219C_NAME" Language="it_IT">
+      <Text>Chiudi.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219D_NAME" Language="it_IT">
+      <Text>Chiudi.</Text>
+    </Replace>
+    <Replace Tag="LOC_10000A_COMPLETION" Language="it_IT">
+      <Text>Equazioni e schematiche illustrazioni documentano i pensieri di Ada, aprendo uno squarcio sul funzionamento caotico della sua mente. Sulla carta, è difficile dire se il modello funziona: la rapidità è essenziale, se vuole fare progressi.</Text>
+    </Replace>
+    <Replace Tag="LOC_10000A_STORYTITLE" Language="it_IT">
+      <Text>Probabilità di successo</Text>
+    </Replace>
+    <Replace Tag="LOC_10000B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10000B_NAME" Language="it_IT">
+      <Text>Continua l'iterazione; la soluzione si presenterà.</Text>
+    </Replace>
+    <Replace Tag="LOC_10000C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10000C_NAME" Language="it_IT">
+      <Text>Per prima cosa, ottieni il feedback dalla comunità.</Text>
+    </Replace>
+    <Replace Tag="LOC_10001A_COMPLETION" Language="it_IT">
+      <Text>I membri dell'alta società bisbigliano tra loro mentre Ada va a sedersi. Si dice che abbia creato un metodo per prevedere quale cavallo vincerà la gara. Altri si prendono gioco di queste voci, sostenendo che sia tutta fortuna.</Text>
+    </Replace>
+    <Replace Tag="LOC_10001A_STORYTITLE" Language="it_IT">
+      <Text>Scommetti sull'algoritmo</Text>
+    </Replace>
+    <Replace Tag="LOC_10001B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} dai Cavalli.</Text>
+    </Replace>
+    <Replace Tag="LOC_10001B_NAME" Language="it_IT">
+      <Text>Lasciamo che parlino! Le dicerie mantengono le gare interessanti.</Text>
+    </Replace>
+    <Replace Tag="LOC_10001C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} dai Cavalli.</Text>
+    </Replace>
+    <Replace Tag="LOC_10001C_NAME" Language="it_IT">
+      <Text>Smentisci le voci scommettendo su un cavallo lento.</Text>
+    </Replace>
+    <Replace Tag="LOC_10002A_COMPLETION" Language="it_IT">
+      <Text>I vicini discutono sul ruolo che la fede gioca nelle scienze. Non è tipico della natura umana, assegnare un ordine al caos? Cercare di capire come agiscono gli dèi?</Text>
+    </Replace>
+    <Replace Tag="LOC_10002A_STORYTITLE" Language="it_IT">
+      <Text>La scienza della fede</Text>
+    </Replace>
+    <Replace Tag="LOC_10002B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10002B_NAME" Language="it_IT">
+      <Text>La fede è uno strumento non diverso da una calcolatrice.</Text>
+    </Replace>
+    <Replace Tag="LOC_10002C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10002C_NAME" Language="it_IT">
+      <Text>La fede crea tante domande quante risposte.</Text>
+    </Replace>
+    <Replace Tag="LOC_10002D_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10002D_NAME" Language="it_IT">
+      <Text>C'è troppa casualità nel mondo perché sia accidentale.</Text>
+    </Replace>
+    <Replace Tag="LOC_10003A_COMPLETION" Language="it_IT">
+      <Text>Ada lega dei pesi ai fili in modo che restino ben aderenti all'ordito. Poi intreccia diversi colori, seguendo schemi complicati come se stesse scrivendo intricate formule. Collegando i due concetti, si chiede se sia possibile tracciare un parallelo tra i diversi ambiti.</Text>
+    </Replace>
+    <Replace Tag="LOC_10003A_STORYTITLE" Language="it_IT">
+      <Text>Misura due volte, taglia una sola</Text>
+    </Replace>
+    <Replace Tag="LOC_10003B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} dagli edifici culturali.</Text>
+    </Replace>
+    <Replace Tag="LOC_10003B_NAME" Language="it_IT">
+      <Text>Trasforma quest'intuizione in un progetto di studio.</Text>
+    </Replace>
+    <Replace Tag="LOC_10003C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} dagli edifici che producono Oro.</Text>
+    </Replace>
+    <Replace Tag="LOC_10003C_NAME" Language="it_IT">
+      <Text>Vendi il tessuto prodotto con il telaio.</Text>
+    </Replace>
+    <Replace Tag="LOC_10004A_COMPLETION" Language="it_IT">
+      <Text>Mentre la costruzione dell'università volge al termine, un architetto nota il tempio nelle vicinanze. Ha sentito dire che spesso i luoghi di culto ostacolano il lavoro degli accademici.</Text>
+    </Replace>
+    <Replace Tag="LOC_10004A_STORYTITLE" Language="it_IT">
+      <Text>Patrona dei numeri</Text>
+    </Replace>
+    <Replace Tag="LOC_10004B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10004B_NAME" Language="it_IT">
+      <Text>Che portino avanti la loro persecuzione... non funzionerà.</Text>
+    </Replace>
+    <Replace Tag="LOC_10004C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10004C_NAME" Language="it_IT">
+      <Text>L'idea è di colmare le distanze. Promuovere una comprensione reciproca.</Text>
+    </Replace>
+    <Replace Tag="LOC_10004D_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} dagli edifici scientifici e culturali.</Text>
+    </Replace>
+    <Replace Tag="LOC_10004D_NAME" Language="it_IT">
+      <Text>La natura binaria di una simile domanda è restrittiva. È meglio chiedersi perché.</Text>
+    </Replace>
+    <Replace Tag="LOC_10005A_COMPLETION" Language="it_IT">
+      <Text>Uno scolaro alza la mano. Non è d'accordo con un passaggio del suo libro di teologia e vuole leggere qualcos'altro. Ada sbircia sopra la sua spalla, esaminando il testo.</Text>
+    </Replace>
+    <Replace Tag="LOC_10005A_STORYTITLE" Language="it_IT">
+      <Text>Un pensiero originale</Text>
+    </Replace>
+    <Replace Tag="LOC_10005B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10005B_NAME" Language="it_IT">
+      <Text>Mostra al bambino come la religione fornisce un contesto alle nozioni.</Text>
+    </Replace>
+    <Replace Tag="LOC_10005C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} dagli edifici scientifici.</Text>
+    </Replace>
+    <Replace Tag="LOC_10005C_NAME" Language="it_IT">
+      <Text>Permetti al bambino di scegliere un'altra lettura educativa.</Text>
+    </Replace>
+    <Replace Tag="LOC_10006A_COMPLETION" Language="it_IT">
+      <Text>Ada liscia la coperta di un letto d'ospedale, facendo sparire l'ultima grinza. Le pieghe del tessuto assomigliano a un cervello e le ricordano i momenti in cui la sua mente è diventata prigioniera di se stessa.</Text>
+    </Replace>
+    <Replace Tag="LOC_10006A_STORYTITLE" Language="it_IT">
+      <Text>Separazione mente-corpo</Text>
+    </Replace>
+    <Replace Tag="LOC_10006B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10006B_NAME" Language="it_IT">
+      <Text>Il cervello è separato dal corpo; non si stanca così facilmente.</Text>
+    </Replace>
+    <Replace Tag="LOC_10006C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10006C_NAME" Language="it_IT">
+      <Text>Una mente forte può superare tutto.</Text>
+    </Replace>
+    <Replace Tag="LOC_10007A_COMPLETION" Language="it_IT">
+      <Text>Ada ascolta uno scienziato e un prete che discutono sulle forze nascoste che modellano il mondo, compresi gli dèi e il mistico. Visioni del mondo contrapposte si scontrano, la conversazione si fa tesa.</Text>
+    </Replace>
+    <Replace Tag="LOC_10007A_STORYTITLE" Language="it_IT">
+      <Text>Dev'esserci qualcosa di più</Text>
+    </Replace>
+    <Replace Tag="LOC_10007B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} ma {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10007B_NAME" Language="it_IT">
+      <Text>La fede può dare un significato e motivare il nostro lavoro.</Text>
+    </Replace>
+    <Replace Tag="LOC_10007C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} ma {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10007C_NAME" Language="it_IT">
+      <Text>È il mistico che ci spinge a trovare le risposte.</Text>
+    </Replace>
+    <Replace Tag="LOC_10008A_COMPLETION" Language="it_IT">
+      <Text>I consiglieri avvertono Ada che i suoi progetti sono troppo ambiziosi, impossibili da costruire. Il progresso è lento, senza lei al comando, ma le formule non si scrivono da sole.</Text>
+    </Replace>
+    <Replace Tag="LOC_10008A_STORYTITLE" Language="it_IT">
+      <Text>Restare indietro</Text>
+    </Replace>
+    <Replace Tag="LOC_10008B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} dagli edifici scientifici ma {2_reward} nei Paesi.</Text>
+    </Replace>
+    <Replace Tag="LOC_10008B_NAME" Language="it_IT">
+      <Text>Meglio restare indietro che essere fuori dalla corsa.</Text>
+    </Replace>
+    <Replace Tag="LOC_10008C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} nei Paesi ma {2_reward} dagli edifici scientifici.</Text>
+    </Replace>
+    <Replace Tag="LOC_10008C_NAME" Language="it_IT">
+      <Text>Affrettarsi troppo produce risultati distorti.</Text>
+    </Replace>
+    <Replace Tag="LOC_10009A_COMPLETION" Language="it_IT">
+      <Text>Ada si picchietta la penna contro la fronte, sforzandosi di trovare una soluzione alla sua impasse. L'elettricità alimenta le macchine e fornisce luce, ma deve esistere un modo più innovativo di utilizzarla.</Text>
+    </Replace>
+    <Replace Tag="LOC_10009A_STORYTITLE" Language="it_IT">
+      <Text>Sia fatta la luce</Text>
+    </Replace>
+    <Replace Tag="LOC_10009B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10009B_NAME" Language="it_IT">
+      <Text>Progetta un dispositivo per esaminare il cervello.</Text>
+    </Replace>
+    <Replace Tag="LOC_10009C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10009C_NAME" Language="it_IT">
+      <Text>Progetta un dispositivo in grado di immagazzinare l'elettricità per utilizzarla in seguito.</Text>
+    </Replace>
+    <Replace Tag="LOC_10010A_COMPLETION" Language="it_IT">
+      <Text>Essendo una matematica e una poetessa allo stesso tempo, Ada viene spesso considerata un paradosso vivente. Volendo mostrare ai colleghi il funzionamento interno della sua mente, escogita un piano.</Text>
+    </Replace>
+    <Replace Tag="LOC_10010A_STORYTITLE" Language="it_IT">
+      <Text>Un paradosso che cammina</Text>
+    </Replace>
+    <Replace Tag="LOC_10010B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} dagli edifici scientifici.</Text>
+    </Replace>
+    <Replace Tag="LOC_10010B_NAME" Language="it_IT">
+      <Text>Organizza un workshop di scrittura per altri matematici.</Text>
+    </Replace>
+    <Replace Tag="LOC_10010C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} dagli edifici scientifici.</Text>
+    </Replace>
+    <Replace Tag="LOC_10010C_NAME" Language="it_IT">
+      <Text>Sfida gli artisti a immaginare delle invenzioni.</Text>
+    </Replace>
+    <Replace Tag="LOC_10011A_COMPLETION" Language="it_IT">
+      <Text>Il fumo si alza dalle ceneri di quella che una volta era una fiorente comunità scientifica. I pochi sopravvissuti marciano verso {1_Capital} con le loro ultime forze e implorano l'aiuto di Ada Lovelace.</Text>
+    </Replace>
+    <Replace Tag="LOC_10011A_STORYTITLE" Language="it_IT">
+      <Text>Raddrizzare i torti</Text>
+    </Replace>
+    <Replace Tag="LOC_10011B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} dagli edifici culturali, ma {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10011B_NAME" Language="it_IT">
+      <Text>Che lavorino nelle sale da concerto.</Text>
+    </Replace>
+    <Replace Tag="LOC_10011C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} ma {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10011C_NAME" Language="it_IT">
+      <Text>Trova un posto per loro nelle fabbriche.</Text>
+    </Replace>
+    <Replace Tag="LOC_10012A_COMPLETION" Language="it_IT">
+      <Text>Dopo aver passato ore a tradurre complicate note tecniche, Ada confida di trovare uno sponsor per questo nuovo progetto. Ora che nuove idee allargano i suoi orizzonti, quanto può essere difficile costruire ciò che non è mai stato costruito?</Text>
+    </Replace>
+    <Replace Tag="LOC_10012A_STORYTITLE" Language="it_IT">
+      <Text>Il passaggio delle idee</Text>
+    </Replace>
+    <Replace Tag="LOC_10012B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10012B_NAME" Language="it_IT">
+      <Text>Gli ingegneri all'estero potrebbero contribuire al finanziamento.</Text>
+    </Replace>
+    <Replace Tag="LOC_10012C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10012C_NAME" Language="it_IT">
+      <Text>Una rete di studiosi conoscerà sicuramente qualcuno con i mezzi necessari.</Text>
+    </Replace>
+    <Replace Tag="LOC_10013A_COMPLETION" Language="it_IT">
+      <Text>Una nuova classe di donne dalla mente acuta, pronta a iniziare il semestre di studi, si rivolge ad Ada per un consiglio su cosa studiare.</Text>
+    </Replace>
+    <Replace Tag="LOC_10013A_STORYTITLE" Language="it_IT">
+      <Text>La formula di Oxford</Text>
+    </Replace>
+    <Replace Tag="LOC_10013B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10013B_NAME" Language="it_IT">
+      <Text>Raccomanda la matematica e le scienze.</Text>
+    </Replace>
+    <Replace Tag="LOC_10013C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10013C_NAME" Language="it_IT">
+      <Text>Suggerisci arte e letteratura.</Text>
+    </Replace>
+    <Replace Tag="LOC_10014A_COMPLETION" Language="it_IT">
+      <Text>Ada si è appena seduta per il tè quando alcuni rappresentanti della Società degli Antiquari irrompono nelle sue stanze, lamentando il ritmo rapido della modernizzazione e insistendo affinché si faccia di più per preservare il passato.</Text>
+    </Replace>
+    <Replace Tag="LOC_10014A_STORYTITLE" Language="it_IT">
+      <Text>Qualcuno vuole pensare agli Antiquari?</Text>
+    </Replace>
+    <Replace Tag="LOC_10014B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} dagli edifici culturali.</Text>
+    </Replace>
+    <Replace Tag="LOC_10014B_NAME" Language="it_IT">
+      <Text>Il tempo va avanti, non indietro.</Text>
+    </Replace>
+    <Replace Tag="LOC_10014C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} dagli edifici scientifici.</Text>
+    </Replace>
+    <Replace Tag="LOC_10014C_NAME" Language="it_IT">
+      <Text>Le lezioni impartite dalla storia sono inestimabili.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210A_COMPLETION" Language="it_IT">
+      <Text>Attratti dal suo genio, una comunità di scienziati e filosofi offre i propri servizi ad Ada Lovelace.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210A_STORYTITLE" Language="it_IT">
+      <Text>Gettare le fondamenta</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_COMPLETION" Language="it_IT">
+      <Text>Dopo aver passato alcuni giorni rinchiusi in una stanza a deliberare, i filosofi riemergono con nuove, intriganti teorie che mettono in discussione le idee di Ada.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_IMPERATIVE" Language="it_IT">
+      <Text>Inserisci 3 Codici in uno slot.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_STORYTITLE" Language="it_IT">
+      <Text>Gettare le fondamenta</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_COMPLETION" Language="it_IT">
+      <Text>Gli aiutanti di Ada Lovelace modellano e cuociono l'argilla per formare mattoni, pensando alle diverse persone che un giorno cammineranno sulla loro opera.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_IMPERATIVE" Language="it_IT">
+      <Text>Costruisci altri 2 Mattonifici</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_STORYTITLE" Language="it_IT">
+      <Text>Gettare le fondamenta</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210D_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211A_COMPLETION" Language="it_IT">
+      <Text>Uno studioso si imbatte in Ada nella biblioteca e si scusa per il disordine, indicando le varie opere sparse qua e là.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211A_STORYTITLE" Language="it_IT">
+      <Text>Caos organizzato</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_COMPLETION" Language="it_IT">
+      <Text>Lo studioso mette sugli scaffali i libri appena rilegati e osserva soddisfatto i dorsi ben allineati.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_IMPERATIVE" Language="it_IT">
+      <Text>Inserisci 6 Codici in uno slot.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_STORYTITLE" Language="it_IT">
+      <Text>Caos organizzato</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212A_COMPLETION" Language="it_IT">
+      <Text>La rapida crescita spinge molte persone a cercare una nuova casa. Gli esploratori sono entusiasti all'idea di scoprire nuovi luoghi e imparare cose nuove.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212A_STORYTITLE" Language="it_IT">
+      <Text>Mettere radici</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_COMPLETION" Language="it_IT">
+      <Text>Dopo giorni di viaggio, la carovana rivendica per sé un terreno ideale per costruire un nuovo insediamento.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_IMPERATIVE" Language="it_IT">
+      <Text>Fonda altri 3 Paesi.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_STORYTITLE" Language="it_IT">
+      <Text>Mettere radici</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} in tutti gli insediamenti.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213A_COMPLETION" Language="it_IT">
+      <Text>Il cielo notturno scintilla di stelle e costellazioni che Ada non vede l'ora di interpretare.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213A_STORYTITLE" Language="it_IT">
+      <Text>Algoritmo astrologico</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213B_DESCRIPTION" Language="it_IT">
+      <Text>La storia continua.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213C_DESCRIPTION" Language="it_IT">
+      <Text>La storia continua.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214A_COMPLETION" Language="it_IT">
+      <Text>Le menti più brillanti di ogni campo si danno da fare per conto di Ada, sostenendo i suoi valori ovunque vadano.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214A_STORYTITLE" Language="it_IT">
+      <Text>Una società di eruditi</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_COMPLETION" Language="it_IT">
+      <Text>Trovare lavoro agli specialisti è facile. Un settore di nicchia richiede degli esperti, e la città ne ha prodotti molti.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_IMPERATIVE" Language="it_IT">
+      <Text>Possiedi 10 specialisti.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_STORYTITLE" Language="it_IT">
+      <Text>Una società di eruditi</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215A_COMPLETION" Language="it_IT">
+      <Text>Gli edifici non sono costruiti solo per dare lustro a una persona. Come leader, Ada può essere descritta in molti modi... ma certamente "non istruita" non fa parte di essi.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215A_STORYTITLE" Language="it_IT">
+      <Text>Le città si sviluppano</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_COMPLETION" Language="it_IT">
+      <Text>Le città di Ada continueranno a crescere, guidate dalla sua mano ferma e sicura.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} in tutti gli insediamenti.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_IMPERATIVE" Language="it_IT">
+      <Text>Possiedi 5 distretti che non sono Centri cittadini e che totalizzano 40 rese ciascuno.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_STORYTITLE" Language="it_IT">
+      <Text>Le città si sviluppano</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216A_COMPLETION" Language="it_IT">
+      <Text>Il potere dell'invocazione può essere un potente rimedio per i disturbi del corpo e del cervello.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216A_STORYTITLE" Language="it_IT">
+      <Text>Prega e il dolore passerà</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_COMPLETION" Language="it_IT">
+      <Text>Dobbiamo ancora raccogliere tutti i dati, ma un risultato è certo: placebo o no, il popolo di Ada è più felice e più sano con la preghiera.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_IMPERATIVE" Language="it_IT">
+      <Text>Fai in modo che 5 insediamenti seguano la tua religione.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_STORYTITLE" Language="it_IT">
+      <Text>Prega e il dolore passerà</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} in tutti gli insediamenti.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217A_COMPLETION" Language="it_IT">
+      <Text>Un cambiamento si staglia all'orizzonte, un rovesciamento nello status quo. Voci di dissenso sugli insegnamenti religiosi si mescolano con la paura dell'ignoto.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217A_STORYTITLE" Language="it_IT">
+      <Text>Tutto in discussione</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_COMPLETION" Language="it_IT">
+      <Text>Per placare le paure e zittire i contestatori, vengono esposte alcune reliquie che ben presto diventano un'ancora di salvezza per la gente.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_DESCRIPTION" Language="it_IT">
+      <Text>+1 [icon:YIELD_HAPPINESS] Felicità da tutti i Capolavori.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_IMPERATIVE" Language="it_IT">
+      <Text>Inserisci 5 Reliquie in uno slot.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_STORYTITLE" Language="it_IT">
+      <Text>Tutto in discussione</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218A_COMPLETION" Language="it_IT">
+      <Text>L'ambizione è la forza che spinge avanti l'umanità: dove altro si può andare, se non verso l'alto? Questa è l'opportunità di costruire qualcosa di grande.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218A_STORYTITLE" Language="it_IT">
+      <Text>Una spinta verso l'alto</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_COMPLETION" Language="it_IT">
+      <Text>Il futuro del retaggio di Ada è in un razzo che la avvicina alla luna. Quello che verrà dopo rimane da scoprire.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_DESCRIPTION" Language="it_IT">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_IMPERATIVE" Language="it_IT">
+      <Text>Costruisci una Piattaforma di lancio.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_STORYTITLE" Language="it_IT">
+      <Text>Una spinta verso l'alto</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218D_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} e dai il via a una Celebrazione.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219A_COMPLETION" Language="it_IT">
+      <Text>Nel sottosuolo giacciono i resti di persone scomparse da tempo, le cui storie e i cui monili attendono solo di essere riscoperti e condivisi con il mondo.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219A_STORYTITLE" Language="it_IT">
+      <Text>Monili che insegnano</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_COMPLETION" Language="it_IT">
+      <Text>Ora che i manufatti sono stati riportati alla luce e conservati, possiamo studiarli e imparare tutto quello che possono insegnarci.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_DESCRIPTION" Language="it_IT">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_IMPERATIVE" Language="it_IT">
+      <Text>Inserisci 5 Manufatti in uno slot.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_STORYTITLE" Language="it_IT">
+      <Text>Monili che insegnano</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219D_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} e dai il via a una Celebrazione.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ADA_LOVELACE_L1_DESCRIPTION" Language="it_IT">
+      <Text>+1 ai bonus per la posizione degli edifici standard legati a Oro, Produzione e Scienza.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ADA_LOVELACE_L1_NAME" Language="it_IT">
+      <Text>Nodo Attributo Scientifico</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ADA_LOVELACE_L2_DESCRIPTION" Language="it_IT">
+      <Text>+15% Produzione per la costruzione di edifici e Meraviglie che contengono slot Capolavori.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ADA_LOVELACE_L2_NAME" Language="it_IT">
+      <Text>Nodo Attributo Culturale</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_ADA_LOVELACE_NAME" Language="it_IT">
+      <Text>Stemma Ada Lovelace 1</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_ADA_LOVELACE_P_NAME" Language="it_IT">
+      <Text>Stemma Ada Lovelace 2</Text>
+    </Replace>
+    <Replace Tag="LOC_BANNER_ADA_LOVELACE_NAME" Language="it_IT">
+      <Text>Bandiera Ada Lovelace</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ADA_LOVELACE_1_DESCRIPTION" Language="it_IT">
+      <Text>Per la durata di quest'epoca, ottieni +15% Scienza[icon:YIELD_SCIENCE] al costo di -10% Cultura[icon:YIELD_CULTURE]</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ADA_LOVELACE_1_NAME" Language="it_IT">
+      <Text>Ada Lovelace Esplorazione Leggenda Scientifica</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ADA_LOVELACE_2_DESCRIPTION" Language="it_IT">
+      <Text>Per la durata di quest'epoca, ottieni +15% Cultura[icon:YIELD_CULTURE] al costo di -10% Scienza[icon:YIELD_Science]</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ADA_LOVELACE_2_NAME" Language="it_IT">
+      <Text>Ada Lovelace Esplorazione Leggenda Culturale</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ADA_LOVELACE_1_DESCRIPTION" Language="it_IT">
+      <Text>Per la durata di quest'epoca, ottieni +15% Scienza[icon:YIELD_SCIENCE] al costo di -10% Cultura[icon:YIELD_CULTURE]</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ADA_LOVELACE_1_NAME" Language="it_IT">
+      <Text>Ada Lovelace Moderna Leggenda Scientifica</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ADA_LOVELACE_2_DESCRIPTION" Language="it_IT">
+      <Text>Per la durata di quest'epoca, ottieni +15% Cultura[icon:YIELD_CULTURE] al costo di -10% Scienza[icon:YIELD_Science]</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ADA_LOVELACE_2_NAME" Language="it_IT">
+      <Text>Ada Lovelace Moderna Leggenda Culturale</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_AGENDA_ANALYTICAL_ENGINE_DESC" Language="it_IT">
+      <Text>Apprezza il leader che ha il numero più alto di Maestrie. Disprezza il leader che ha meno Maestrie di tutti.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_AGENDA_ANALYTICAL_ENGINE_NAME" Language="it_IT">
+      <Text>Macchina Analitica</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_ADA_LOVELACE_DESCRIPTION" Language="it_IT">
+      <Text>Quando completi una [icon:RADIAL_CIVICS] Maestria civica le [icon:YIELD_CITIES] città ricevono +2 [icon:YIELD_SCIENCE] Scienza per epoca. Questo bonus si resetta all'inizio di ogni epoca. Quando completi una [icon:RADIAL_TECH] Maestria tecnologica ottieni [icon:YIELD_CULTURE] Cultura pari al 50% della tua [icon:YIELD_SCIENCE] Scienza totale per turno.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_LEADER_INTRO_TEXT_ADA_LOVELACE" Language="it_IT">
+      <Text>Con la logica e l'anima, Ada Lovelace, cerchi di capire il funzionamento del mondo. Lo spirito si può ritrovare nell'interazione tra ragione e calcolo. Liberalo, porta i tuoi motori analitici in un mondo che dev'essere guidato dalla ragione e scopri quali nuovi orizzonti potrai immaginare. </Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_NOTE_G_DESCRIPTION" Language="it_IT">
+      <Text>Una visione del futuro.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_NOTE_G_FUNCTIONAL_DESCRIPTION" Language="it_IT">
+      <Text>Ogni volta che finisci di ricercare una tecnologia o una Maestria tecnologica, la capitale ottiene [icon:YIELD_PRODUCTION] Produzione pari al 15% del suo costo.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_NOTE_G_NAME" Language="it_IT">
+      <Text>Nota G</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_NOTE_G_UNLOCK_TITLE" Language="it_IT">
+      <Text>Si sblocca con Ada Lovelace Livello 9</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PIANO_DESCRIPTION" Language="it_IT">
+      <Text>Unendo musica e matematica.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PIANO_FUNCTIONAL_DESCRIPTION" Language="it_IT">
+      <Text>+10% [icon:YIELD_CULTURE] Cultura per lo studio delle Maestrie civiche.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PIANO_NAME" Language="it_IT">
+      <Text>Piano</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PIANO_UNLOCK_TITLE" Language="it_IT">
+      <Text>Si sblocca con Ada Lovelace Livello 5</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PUNCH_CARDS_DESCRIPTION" Language="it_IT">
+      <Text>Dal telaio al computer.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PUNCH_CARDS_FUNCTIONAL_DESCRIPTION" Language="it_IT">
+      <Text>Ottiene 20 [icon:YIELD_SCIENCE] Scienza per epoca per ogni edificio scientifico costruito.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PUNCH_CARDS_NAME" Language="it_IT">
+      <Text>Schede perforate</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PUNCH_CARDS_UNLOCK_TITLE" Language="it_IT">
+      <Text>Si sblocca con Ada Lovelace Livello 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_2_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, arriva alla fine dell'epoca antica due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_2_NAME" Language="it_IT">
+      <Text>Epoca antica completata 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_3_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, arriva alla fine dell'epoca antica tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_3_NAME" Language="it_IT">
+      <Text>Epoca antica completata 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, arriva alla fine dell'epoca antica.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_NAME" Language="it_IT">
+      <Text>Epoca antica completata</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_2_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, arriva alla fine dell'epoca delle esplorazioni due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_2_NAME" Language="it_IT">
+      <Text>Epoca delle esplorazioni completata 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_3_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, arriva alla fine dell'epoca delle esplorazioni tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_3_NAME" Language="it_IT">
+      <Text>Epoca delle esplorazioni completata 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, arriva alla fine dell'epoca delle esplorazioni.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_NAME" Language="it_IT">
+      <Text>Epoca delle esplorazioni completata</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_2_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, arriva alla fine dell'epoca moderna due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_2_NAME" Language="it_IT">
+      <Text>Epoca moderna completata 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_3_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, arriva alla fine dell'epoca moderna tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_3_NAME" Language="it_IT">
+      <Text>Epoca moderna completata 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, arriva alla fine dell'epoca moderna.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_NAME" Language="it_IT">
+      <Text>Epoca moderna completata</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_2_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Meraviglie del mondo antico due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_2_NAME" Language="it_IT">
+      <Text>Meraviglie del mondo antico 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_3_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Meraviglie del mondo antico tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_3_NAME" Language="it_IT">
+      <Text>Meraviglie del mondo antico 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Meraviglie del mondo antico.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_NAME" Language="it_IT">
+      <Text>Meraviglie del mondo antico</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_2_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Toshakhana due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_2_NAME" Language="it_IT">
+      <Text>Toshakhana 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_3_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Toshakhana tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_3_NAME" Language="it_IT">
+      <Text>Toshakhana 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Toshakhana.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_NAME" Language="it_IT">
+      <Text>Toshakhana</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_2_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Società geografica due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_2_NAME" Language="it_IT">
+      <Text>Società geografica 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_3_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Società geografica tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_3_NAME" Language="it_IT">
+      <Text>Società geografica 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Società geografica tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_NAME" Language="it_IT">
+      <Text>Società geografica</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_2_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Vie della Seta due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_2_NAME" Language="it_IT">
+      <Text>Vie della Seta 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_3_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Vie della Seta tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_3_NAME" Language="it_IT">
+      <Text>Vie della Seta 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Vie della Seta.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_NAME" Language="it_IT">
+      <Text>Vie della Seta</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_2_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Flotta del tesoro due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_2_NAME" Language="it_IT">
+      <Text>Flotta del tesoro 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_3_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Flotta del tesoro tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_3_NAME" Language="it_IT">
+      <Text>Flotta del tesoro 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Flotta del tesoro.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_NAME" Language="it_IT">
+      <Text>Flotta del tesoro</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_2_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Magnate delle ferrovie due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_2_NAME" Language="it_IT">
+      <Text>Magnate delle ferrovie 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_3_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Magnate delle ferrovie tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_3_NAME" Language="it_IT">
+      <Text>Magnate delle ferrovie 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Magnate delle ferrovie.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_NAME" Language="it_IT">
+      <Text>Magnate delle ferrovie</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_ANTIQUITY_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa 2 Percorsi Retaggio in una singola epoca antica.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_ANTIQUITY_NAME" Language="it_IT">
+      <Text>Doppio Retaggio, epoca antica</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_EXPLORATION_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa 2 Percorsi Retaggio in una singola epoca delle esplorazioni.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_EXPLORATION_NAME" Language="it_IT">
+      <Text>Doppio Retaggio, epoca delle esplorazioni</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_MODERN_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa 2 Percorsi Retaggio in una singola epoca moderna.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_MODERN_NAME" Language="it_IT">
+      <Text>Doppio Retaggio, epoca moderna</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_2_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Pax Imperatoria due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_2_NAME" Language="it_IT">
+      <Text>Pax Imperatoria 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_3_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Pax Imperatoria tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_3_NAME" Language="it_IT">
+      <Text>Pax Imperatoria 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Pax Imperatoria.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_NAME" Language="it_IT">
+      <Text>Pax Imperatoria</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_2_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Non Sufficit Orbis due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_2_NAME" Language="it_IT">
+      <Text>Non Sufficit Orbis 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_3_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Non Sufficit Orbis tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_3_NAME" Language="it_IT">
+      <Text>Non Sufficit Orbis 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Non Sufficit Orbis.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_NAME" Language="it_IT">
+      <Text>Non Sufficit Orbis</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_2_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Ideologia due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_2_NAME" Language="it_IT">
+      <Text>Ideologia 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_3_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Ideologia tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_3_NAME" Language="it_IT">
+      <Text>Ideologia 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Ideologia.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_NAME" Language="it_IT">
+      <Text>Ideologia</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_1_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, raggiungi almeno 1 Impresa di un Percorso Retaggio.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_1_NAME" Language="it_IT">
+      <Text>Gioca la partita 1</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_2_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, raggiungi almeno 2 Imprese di un Percorso Retaggio.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_2_NAME" Language="it_IT">
+      <Text>Gioca la partita 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_3_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, raggiungi almeno 3 Imprese di un Percorso Retaggio.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_3_NAME" Language="it_IT">
+      <Text>Gioca la partita 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_ANTIQUITY_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace in epoca antica, completa una missione per organizzare la biblioteca.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_ANTIQUITY_NAME" Language="it_IT">
+      <Text>Caos organizzato</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_EXPLORATION_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace nell'epoca delle esplorazioni, completa una missione per promuovere le menti migliori e più brillanti.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_EXPLORATION_NAME" Language="it_IT">
+      <Text>Una società di eruditi</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_MODERN_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace in epoca moderna, completa una missione per viaggiare fra le stelle.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_MODERN_NAME" Language="it_IT">
+      <Text>Una spinta verso l'alto</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_ANTIQUITY_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace in epoca antica, completa una missione per trovare una nuova casa.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_ANTIQUITY_NAME" Language="it_IT">
+      <Text>Mettere radici</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_EXPLORATION_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace nell'epoca delle esplorazioni, completa una missione per sostenere il popolo attraverso la preghiera.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_EXPLORATION_NAME" Language="it_IT">
+      <Text>Prega e il dolore passerà</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_MODERN_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace in epoca moderna, completa una missione per cercare la conoscenza nel sottosuolo.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_MODERN_NAME" Language="it_IT">
+      <Text>Monili che insegnano</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_2_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Grande Biblioteca due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_2_NAME" Language="it_IT">
+      <Text>Grande Biblioteca 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_3_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Grande Biblioteca tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_3_NAME" Language="it_IT">
+      <Text>Grande Biblioteca 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Grande Biblioteca.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_NAME" Language="it_IT">
+      <Text>Grande Biblioteca</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_2_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Illuminismo due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_2_NAME" Language="it_IT">
+      <Text>Illuminismo 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_3_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Illuminismo tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_3_NAME" Language="it_IT">
+      <Text>Illuminismo 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Illuminismo.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_NAME" Language="it_IT">
+      <Text>Illuminismo</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_2_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Corsa allo spazio due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_2_NAME" Language="it_IT">
+      <Text>Corsa allo spazio 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_3_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Corsa allo Spazio tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_3_NAME" Language="it_IT">
+      <Text>Corsa allo spazio 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_DESC" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, completa il Percorso Retaggio Corsa allo Spazio.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_NAME" Language="it_IT">
+      <Text>Corsa allo spazio</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_CULTURAL_LEGEND_ADA_LOVELACE_L2_DESCRIPTION" Language="it_IT">
+      <Text>Sbloccato tramite la Leggenda. +15% [icon:YIELD_PRODUCTION] Produzione per la costruzione di edifici e Meraviglie che contengono slot Capolavori.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_LEGEND_ADA_LOVELACE_L1_DESCRIPTION" Language="it_IT">
+      <Text>Sbloccato tramite la Leggenda. +1 ai bonus per la posizione degli edifici standard legati a [icon:YIELD_GOLD] Oro, [icon:YIELD_PRODUCTION] Produzione e [icon:YIELD_SCIENCE] Scienza.</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_ADA_LOVELACE" Language="it_IT">
+      <Text>Incantatrice dei numeri</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_EXPLORATION_1_DESCRIPTION" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, ottieni una nuova carta Retaggio dell'epoca delle esplorazioni:[n]
+				+15% Scienza, -10% Cultura</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_EXPLORATION_1_NAME" Language="it_IT">
+      <Text>Carta Retaggio Scientifico Esplorazioni</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_EXPLORATION_2_DESCRIPTION" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, ottieni una nuova carta Retaggio dell'epoca delle esplorazioni:[n]
+				+15% Cultura, -10% Scienza</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_EXPLORATION_2_NAME" Language="it_IT">
+      <Text>Carta Retaggio Culturale Esplorazioni</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_MODERN_1_DESCRIPTION" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, ottieni una nuova carta Retaggio dell'epoca moderna:[n]
+				+15% Scienza, -10% Cultura</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_MODERN_1_NAME" Language="it_IT">
+      <Text>Carta Retaggio Scientifico Moderna</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_MODERN_2_DESCRIPTION" Language="it_IT">
+      <Text>Giocando con Ada Lovelace, ottieni una nuova carta Retaggio dell'epoca moderna:[n]
+				+15% Cultura, -10% Scienza</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_MODERN_2_NAME" Language="it_IT">
+      <Text>Carta Retaggio Culturale Moderna</Text>
+    </Replace>
+    <Replace Tag="LOC_TITLE_ADA_LOVELACE_NAME" Language="it_IT">
+      <Text>Incantatrice dei numeri</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_ADA_LOVELACE_ABILITY_DESCRIPTION" Language="it_IT">
+      <Text>[BLIST][LI]Quando completi una [icon:RADIAL_CIVICS] [B]Maestria civica[/B] le [icon:YIELD_CITIES] [B]città[/B]ricevono [B]+2[icon:YIELD_SCIENCE] Scienza[/B] per epoca. Questo bonus si resetta all'inizio di ogni epoca. [LI]Quando completi una [icon:RADIAL_TECH] [B]Maestria tecnologica[/B] ottieni [B][icon:YIELD_CULTURE] Cultura[/B] pari al 50% della tua [B][icon:YIELD_SCIENCE] Scienza[/B] totale per turno.[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_ADA_LOVELACE_ABILITY_NAME" Language="it_IT">
+      <Text>Incantatrice dei numeri</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_ABBASID_TOOLTIP" Language="it_IT">
+      <Text>Gli [B]Abbasidi[/B] si adattano bene alle strategie di [B]Ada Lovelace[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_DESCRIPTION" Language="it_IT">
+      <Text>Gioca con [B]Ada Lovelace[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_GREECE_TOOLTIP" Language="it_IT">
+      <Text>[B]Ada Lovelace[/B] proveniva dallo stesso continente della [B]Grecia[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_NORMAN_TOOLTIP" Language="it_IT">
+      <Text>La Gran Bretagna di [B]Ada Lovelace[/B] è stata a un certo punto governata dai [B]normanni[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_ROME_TOOLTIP" Language="it_IT">
+      <Text>[B]Ada Lovelace[/B] proveniva dallo stesso continente di [B]Roma[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_RUSSIA_TOOLTIP" Language="it_IT">
+      <Text>[B]Ada Lovelace[/B] proveniva dallo stesso continente della [B]Russia[/B].</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- WONDER_GRAND_BAZAAR -->
+		<Row Tag="LOC_PEDIA_PAGE_WONDER_GRAND_BAZAAR_CHAPTER_HISTORY_PARA_1">
+			<Text>The growth of the Ottoman Empire in the 15th century also saw the expansion of its economy, reflected in the construction of bedestens, or covered bazaars. Originally purposed for the sale of textiles, these indoor markets provided safe storage for valuable goods overnight, and they soon expanded their wares to include a wide variety of luxuries. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_WONDER_GRAND_BAZAAR_CHAPTER_HISTORY_PARA_2">
+			<Text>As the empire’s capital, Istanbul acquired two bedestens at its heart in the decades following the city’s capture from the Byzantines. Built next to one another, the Iç Bedesten and the Sandal Bedesten were soon surrounded by outdoor markets, forming one large commercial space – the Grand Bazaar. Sitting at the focal point of many trade routes, the bazaar boasted a remarkable and uniquely diverse array of global goods across thousands of shops, overshadowing the markets of Europe and drawing visitors from around the globe. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_WONDER_GRAND_BAZAAR_CHAPTER_HISTORY_PARA_3">
+			<Text>The Grand Bazaar remains an active market, and is one of the world’s most visited attractions. </Text>
+		</Row>
+		<!-- WONDER_WAT_XIENG_THONG -->
+		<Row Tag="LOC_PEDIA_PAGE_WONDER_WAT_XIENG_THONG_CHAPTER_HISTORY_PARA_1">
+			<Text>While some Theravada Buddhist temples in Southeast Asia served as community schools and gathering places, others were there to highlight the majesty of a royal reign. Located in Luang Phrabang, the old capital of the Laotian kingdom of Lan Xang (“one million elephants”), Wat Xieng Thong is one of these latter. It was built around 1560 by the Lao king Setthathirath at the height of Lan Xang’s power, in the wake of its defense against invading Burmese armies and before yet another victory over the armies of Ayutthaya (Siam). Its sweeping, telescopic roof gives it its sense of grace and elegance, and its perspective over the Mekong and Nam Khan rivers situate it in place – and, according to legend, are home to the naga spirits that bless the place.</Text>
+		</Row>
+
+	</EnglishText>
+</Database>
+	

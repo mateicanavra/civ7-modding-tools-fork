@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_UI_QUEST_TRACKER_PROGRESS_AND_GOAL">
+			<Text>{1_progressType} {2_currentProgress}/{3_goal}</Text>
+		</Row>
+		<Row Tag="LOC_UI_QUEST_TRACKER_PROGRESS_AND_GOAL_NO_TYPE">
+			<Text>{1_currentProgress}/{2_goal}</Text>
+		</Row>
+		<Row Tag="LOC_UI_QUEST_TRACKER_PROGRESS">
+			<Text>{1_progressType} {2_currentProgress}</Text>
+		</Row>
+		<Row Tag="LOC_UI_QUEST_TRACKER_PROGRESS_NO_TYPE">
+			<Text>{1_currentProgress}</Text>
+		</Row>
+		<Row Tag="LOC_UI_QUEST_TRACKER_PROGRESS_TYPE_TURNS_TEMP">
+			<Text>Turns: </Text>
+		</Row>
+		<Row Tag="LOC_UI_QUEST_TRACKER_PROGRESS_TYPE_UNITS">
+			<Text>Units trained: </Text>
+		</Row>
+		<Row Tag="LOC_UI_QUEST_TRACKER_PROGRESS_TYPE_CONSCTRUCTIBLES">
+			<Text>Constructibles built: </Text>
+		</Row>
+		<Row Tag="LOC_UI_QUEST_TRACKER_TURNS_REMAINING">
+			<Text>Turns remaining: {1_turns}</Text>
+		</Row>
+		<Row Tag="LOC_UI_QUEST_TRACKER_TITLE">
+			<Text>Journal</Text>
+		</Row>
+	</EnglishText>
+</Database>

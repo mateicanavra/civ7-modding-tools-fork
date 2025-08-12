@@ -1,0 +1,653 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA1" Language="zh_Hans_CN">
+      <Text>普雷斯拉夫</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA10" Language="zh_Hans_CN">
+      <Text>普罗夫迪夫</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA11" Language="zh_Hans_CN">
+      <Text>博瑞</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA12" Language="zh_Hans_CN">
+      <Text>斯科普里</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA13" Language="zh_Hans_CN">
+      <Text>贝洛格拉德 </Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA14" Language="zh_Hans_CN">
+      <Text>瓦尔那</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA15" Language="zh_Hans_CN">
+      <Text>布雷兹尼克</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA16" Language="zh_Hans_CN">
+      <Text>德维纳</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA17" Language="zh_Hans_CN">
+      <Text>佩尔尼克</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA18" Language="zh_Hans_CN">
+      <Text>利普连</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA19" Language="zh_Hans_CN">
+      <Text>德乌勒图姆</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA2" Language="zh_Hans_CN">
+      <Text>特尔诺沃</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA20" Language="zh_Hans_CN">
+      <Text>比托里亚</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA21" Language="zh_Hans_CN">
+      <Text>德雷姆比萨</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA22" Language="zh_Hans_CN">
+      <Text>普里莱普</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA23" Language="zh_Hans_CN">
+      <Text>科索沃</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA24" Language="zh_Hans_CN">
+      <Text>安奇亚洛</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA25" Language="zh_Hans_CN">
+      <Text>梅尔尼克</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA26" Language="zh_Hans_CN">
+      <Text>梅塞姆沃里亚</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA27" Language="zh_Hans_CN">
+      <Text>普里兹伦</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA28" Language="zh_Hans_CN">
+      <Text>扬博尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA29" Language="zh_Hans_CN">
+      <Text>阿尔萨</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA3" Language="zh_Hans_CN">
+      <Text>奥赫里德</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA30" Language="zh_Hans_CN">
+      <Text>德沃尔 </Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA31" Language="zh_Hans_CN">
+      <Text>帕扎尔吉克 </Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA4" Language="zh_Hans_CN">
+      <Text>普利斯卡</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA5" Language="zh_Hans_CN">
+      <Text>德拉斯塔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA6" Language="zh_Hans_CN">
+      <Text>普列文</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA7" Language="zh_Hans_CN">
+      <Text>巴丁</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA8" Language="zh_Hans_CN">
+      <Text>斯雷德茨</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA9" Language="zh_Hans_CN">
+      <Text>卡尔武纳</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_1" Language="zh_Hans_CN">
+      <Text>安娜</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_10" Language="zh_Hans_CN">
+      <Text>斯米尔特塞娜</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_2" Language="zh_Hans_CN">
+      <Text>德西斯拉娃</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_3" Language="zh_Hans_CN">
+      <Text>克拉莎</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_4" Language="zh_Hans_CN">
+      <Text>米利莎</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_5" Language="zh_Hans_CN">
+      <Text>里普西米娅</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_6" Language="zh_Hans_CN">
+      <Text>米罗斯拉娃</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_7" Language="zh_Hans_CN">
+      <Text>科萨拉</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_8" Language="zh_Hans_CN">
+      <Text>玛丽亚</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_9" Language="zh_Hans_CN">
+      <Text>别洛斯拉娃</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_1" Language="zh_Hans_CN">
+      <Text>鲍里斯</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_10" Language="zh_Hans_CN">
+      <Text>拉迪沃伊</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_2" Language="zh_Hans_CN">
+      <Text>阿斯巴鲁赫</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_3" Language="zh_Hans_CN">
+      <Text>拉迪斯拉夫</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_4" Language="zh_Hans_CN">
+      <Text>伊凡</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_5" Language="zh_Hans_CN">
+      <Text>贝兹梅尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_6" Language="zh_Hans_CN">
+      <Text>特尔维尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_7" Language="zh_Hans_CN">
+      <Text>卡洛扬</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_8" Language="zh_Hans_CN">
+      <Text>伊瓦伊洛</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_9" Language="zh_Hans_CN">
+      <Text>彼得</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_BULGARIA_ADJECTIVE" Language="zh_Hans_CN">
+      <Text>保加利亚</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_BULGARIA_FULLNAME" Language="zh_Hans_CN">
+      <Text>保加利亚帝国</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_BULGARIA_NAME" Language="zh_Hans_CN">
+      <Text>保加利亚</Text>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_EXPLORATION_9_MAJOR_BULGARIA_NAME" Language="zh_Hans_CN">
+      <Text>阿伯夫劳</Text>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_EXPLORATION_9_MINOR_BULGARIA_NAME" Language="zh_Hans_CN">
+      <Text>威尔士</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>公元670年代，在可汗阿斯巴鲁赫的统领下，一支实力雄厚的保加尔人部落进入多瑙河流域，欲在此处建立新的家园。彼时，这片土地名义上归属拜占庭帝国，但其统治根基岌岌可危：一方面是来自阿瓦尔汗国的疆域扩张，另一方面是当地斯拉夫部落的联合抗争。保加尔人原是来自伏尔加河-里海地区的突厥游牧民族。旧大保加利亚短暂的统一政权土崩瓦解后，他们追随阿瓦尔人的足迹，离开了广袤的欧亚草原。然而，与始终保持游牧生活的阿瓦尔人不同，阿斯巴鲁赫率领的保加尔人已经开始转向定居生活方式，因此急切寻找一片可以安身立命的永久领地。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_10" Language="zh_Hans_CN">
+      <Text>1185年，彼得和伊凡·阿森兄弟掀起了波澜壮阔的独立革命。历经两年浴血奋战，他们终于迫使拜占庭帝国承认保加利亚的独立地位，保加利亚第二帝国由此诞生。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_11" Language="zh_Hans_CN">
+      <Text>这段历史篇章见证了保加利亚在第一帝国奠定的基础上继续发展，同时也展现了它对地区日趋复杂政局的适应能力。昔日，保加利亚曾苦心经营与强大的南方邻邦——拜占庭帝国之间的关系，寻求其认可。但此时的拜占庭已日渐衰落，它的承认和赠礼已不再如往昔般珍贵与闪耀。彼得·阿森的继任者——其胞弟卡洛扬另辟蹊径，将目光投向了另一个罗马：西方的罗马教廷。君士坦丁堡陷落于第四次十字军东征之后不久，他和保加利亚教会便获得了教皇英诺森三世的承认，使保加利亚的皇权和教权同时得到确立。然而，保加利亚很快又在短命的拉丁帝国身上找到了新的劲敌。  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_12" Language="zh_Hans_CN">
+      <Text>保加利亚第二帝国在伊凡·阿森二世统治时期（1218-1241年）达到了最辉煌的巅峰。虽然与周边邻国的纷争不断，但战争不再是这个国家的经济支柱。随着帝国疆域的扩张，大片肥沃的土地被纳入版图，农业成为了社会发展的主要动力。与此同时，保加利亚也充分利用其位居东西方交汇点的地理优势，重新崛起为繁荣的贸易中心。经济的蓬勃发展催生了文化艺术的黄金时代。新都特尔诺沃的建立和特尔诺沃学院的兴建，掀起了一场波澜壮阔的文化创作运动。艺术家、建筑师和文人墨客纷纷施展才华，创造出无数宗教与世俗领域的艺术瑰宝和智慧结晶。在这一时期，城市快速扩张繁荣，而在远离尘嚣的群山之中，坚固的堡垒与静谧的修道院相映成趣，一展帝国盛世风采。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_13" Language="zh_Hans_CN">
+      <Text>伊凡·阿森二世驾崩后，保加利亚帝国风云突变。内忧外患接踵而至。国内贵族与农民间的矛盾日益尖锐，暴乱数度爆发，甚至出现了一位出身猪倌的篡位者暂登王位的局面。与此同时，动荡的国际局势让这个日渐式微的帝国四面楚歌——北有蒙古铁骑虎视眈眈，东有塞尔维亚虎口觊觎，最终更有奥斯曼帝国从南方压境而来。这最后一个威胁最终成为了压倒帝国的最后一根稻草。整个14世纪末，奥斯曼军队如潮水般在巴尔干半岛稳步推进，终于在1393年攻陷特尔诺沃。到1396年，随着最后一位君主的陨落和全境沦陷，这个曾经盛极一时的保加利亚第二帝国，终于在历史的长河中走到了尽头。  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_2" Language="zh_Hans_CN">
+      <Text>公元680年，阿斯巴鲁赫与实现团结的斯拉夫部落结成联盟，率军跨越多瑙河。皇帝君士坦丁四世闻讯立即出兵阻截，然而在翁加尔战役中，保加尔人大败拜占庭军队，取得决定性胜利。这场辉煌的战果迫使拜占庭帝国签订了一份对保加尔人极为有利的和平条约：不仅不得不承认保加利亚的建国，更要将巴尔干山脉以北的广袤领土尽数割让。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_3" Language="zh_Hans_CN">
+      <Text>保加利亚第一帝国的初创时期见证了这个民族从游牧到定居的重大转变，以及国家体制的逐步确立。他们以坚固的石材修建了都城普利斯卡，意在打造一座经得起岁月洗礼的永恒之都。在此基础上，农业经济逐渐蓬勃发展。然而，这个时期也是一个充满战火的扩张年代。帝国的统治架构仍保留着保加尔人游牧时期的军事等级制度。财富的主要来源依然是战争，尤其是对南方富庶的拜占庭领土的劫掠性进攻。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_4" Language="zh_Hans_CN">
+      <Text>保加尔人与拜占庭之间的关系错综复杂，这种微妙的互动在整个中世纪塑造了保加利亚的民族特性。一方面，保加尔人对拜占庭保持着强硬的进攻态势：掠夺行动为这个新兴国家提供了重要的经济来源，同时也是为了防范随时可能遭到对方吞并。然而另一方面，保加尔人又热切渴望得到这个东罗马帝国的认可，以此彰显自身的权力地位。这种认可或以条约的形式出现，或以头衔的赐予体现。例如阿斯巴鲁赫的继任者特尔瓦尔，他帮助被废黜的查士丁尼二世重返帝位，因而荣获“凯撒”称号，这个至高无上的荣誉让他欣喜若狂。随着时光流转，拜占庭这个强大邻邦的影响力逐渐渗透到保加利亚社会的各个方面，从政治体制到宗教信仰，从文学创作到艺术表现，无不打上了拜占庭的烙印。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_5" Language="zh_Hans_CN">
+      <Text>拜占庭人对这个盘踞在北方门户的威胁始终心怀芥蒂。偶尔他们也会利用保加尔人的力量，尤其是在内战时期将其当作对付政敌的利器，但在大多数时候，保加尔人都被视为帝国肋下的一根尖刺。事实上，拜占庭面临着更为严峻的挑战——在这一时期，他们的主要劲敌是实力强大的阿拔斯哈里发国，后者带来的威胁远甚于保加尔人。为避免两线作战的困境，拜占庭采取了务实的策略：在东线战事吃紧时，他们往往通过条约和金钱来安抚保加尔人。只有在东方战局趋缓时，或是被保加尔人挑衅的情况下，他们才会在巴尔干展开军事行动。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_6" Language="zh_Hans_CN">
+      <Text>保加尔人以骁勇善战闻名，善于利用巴尔干地区复杂的地形优势。他们对这片土地了如指掌，逐渐发展出一套独特的战术体系，尤其擅长伏击战，即便面对数倍于己的敌军，也往往能够出奇制胜。这些战斗特长不仅使他们成为令人闻风丧胆的掠袭者，在大规模会战中也屡建奇功。811年的普利斯卡战役就是最好的明证。在这场战斗中，可汗克鲁姆率军彻底击溃了尼基弗鲁斯一世统帅的拜占庭大军。拜占庭皇帝本人也在这场恶战中阵亡，而克鲁姆更是将这位皇帝的头骨制成酒杯以作纪念。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_7" Language="zh_Hans_CN">
+      <Text>普利斯卡战役的胜利为保加利亚带来了一段和平岁月，让这个新兴王国有了发展壮大的宝贵机遇。在这一时期，两位拜占庭传教士基里尔和美多德开始在巴尔干地区四处传教，向当地的保加尔人和斯拉夫居民传播基督教义。为了更有效地传播教义，他们创制了专门记录斯拉夫语的格拉哥里字母，让这门语言首次拥有了书面形式。随着东正教的广泛传播，保加尔贵族与斯拉夫民众之间的文化藩篱逐渐消融，保加尔人也日渐融入当地文化传统之中。这种民族认同的嬗变不仅增强了王国的凝聚力，更为保加利亚打开了一扇新的大门，使其得以在和平的基础上，与更广大的基督教欧洲展开政治和经济往来。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_8" Language="zh_Hans_CN">
+      <Text>保加利亚第一帝国在西美昂一世统治时期（893-927年）达到了空前的辉煌。这位在君士坦丁堡接受过教育的君主不仅扩张了帝国的版图，更推动了文化的蓬勃发展。在他的庇护下，艺术与文学创作蒸蒸日上，新都普雷斯拉夫也被打造成一座令人叹为观止的大都会。他领导的军事远征更是所向披靡，将保加利亚的疆域一路推进至爱琴海和亚得里亚海沿岸。然而这段辉煌并未长久。1014年，拜占庭皇帝巴西尔二世在克雷迪昂战役中彻底击溃了保加利亚大军，其残酷无情为他赢得了“保加利亚杀手”的骇人绰号。此役之后，保加利亚帝国轰然倒塌，失去了来之不易的独立地位，在此后的150年中被迫屈居于拜占庭的统治之下。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_9" Language="zh_Hans_CN">
+      <Text>在这段被统治的岁月里，保加尔人并未甘心沉沦。他们多次奋起反抗，试图重获独立，其中最为轰动的是1040年的起义。在这次起义中，彼得·德利扬一度占领了西巴尔干的广大区域，虽最终被米海尔四世击败。值得一提的是，后来成为挪威国王的年轻王子哈拉尔德·哈德拉达，当时正作为瓦兰吉卫队的一员参与了镇压行动，并因战功获得晋升。拜占庭虽然放弃了武力镇压，却采取了另一种强硬手段：从改组保加利亚教会入手，系统性地推行巴尔干地区的希腊化进程。然而，十字军东征带来的动荡和塞尔柱土耳其人的不断入侵，让拜占庭疲于应付其他省份的混乱局面，这场文化同化计划因此难以取得实质性进展。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_IMPROVEMENT_HIDDEN_FORTRESS_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>在巴尔干山脉深处，贝洛格拉奇克镇附近，矗立着一处神秘的岩石群。在这层峦叠嶂之中，一座古老的军事要塞曾以天然的山石为屏障，巧妙隐匿其间。这样的小型堡垒星罗棋布地分布在保加利亚帝国崎岖的山川大地上。这些堡垒的选址颇具匠心，总是依托天险而建：或倚着陡峭的悬崖，或藏于幽深的峡谷，或据守便于防御的岩石高地。建造者们在这些天然屏障的基础上以人工加固，并修建了驻军居所和储备仓库。较小的堡垒往往刻意隐蔽，不为过客所洞悉，既可暗中观察敌情，又能发动突袭。这种巧妙利用地形与敌周旋的战术，正是保加尔人众多军事智慧的一个缩影。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_IMPROVEMENT_HIDDEN_FORTRESS_CHAPTER_HISTORY_PARA_2" Language="zh_Hans_CN">
+      <Text>时至今日，这些古代暗堡大多已湮没于历史长河中，唯独贝洛格拉奇克要塞至今巍然屹立。这座要塞最早可追溯至罗马时期，此后历经拜占庭人、保加尔人，直至奥斯曼人的统治，几经加固扩建。它在以维丁为中心的保加利亚分支政权时期尤显重要，发挥着关键的军事作用。如今的要塞虽然已经远远超出原有的岩石界限，形成了更为宏伟的建筑群，但其最初的堡垒主体仍然巧妙地与周围自然景观融为一体。  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_SEVEN_TRIBES_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>当保加尔人从中亚草原迁徙至东欧时，他们发现这片沃土早有主人——斯拉夫各部族已在此繁衍生息。据拜占庭史学家狄奥法内斯记载，七世纪时，多瑙河流域的七个斯拉夫部落已结成联盟，共同抵御来自南方的拜占庭帝国和西面的阿瓦尔人的威胁。然而，面对这支从东方远道而来的保加尔人，斯拉夫部落却一反常态，没有采取抵抗态度。相反，他们选择与这些新来者结为同盟，并接受了保加尔可汗阿斯巴鲁赫的统领。这次民族联合很快显现出惊人的效果：联军不仅击溃了拜占庭军队，更越过多瑙河，缔造了保加利亚第一帝国。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_SEVEN_TRIBES_CHAPTER_HISTORY_PARA_2" Language="zh_Hans_CN">
+      <Text>在这片土地上，斯拉夫人始终是王国的重要人口基础。随着岁月流转，原本来自突厥的保加尔人逐渐融入当地的风俗、文化和语言之中。到了十世纪，这个民族已经完全蜕变，在文化上彻底斯拉夫化。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_TARNOVO_SCHOOLS_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>在保加利亚第二帝国时期，都城特尔诺沃成为了艺术、建筑与文学的璀璨之都。各路才俊云集于此，在不同艺术门类中迸发出惊人的创造力。建筑学院的匠人们精通繁复的砖石工艺，巧妙融合拜占庭风格的设计元素，营造出兼具宗教庄严与世俗优雅的建筑群落，最终形成了独树一帜的保加利亚建筑风格。艺术学院的画师们则为这些建筑锦上添花，以精美的壁画和马赛克装点墙壁与穹顶；他们的艺术才能还体现在手稿插画和圣像画等精巧的小型作品中。随着文化教育的普及，文学学院也迎来了空前的繁荣。各类文学作品如泉水般涌现：有记载圣徒生平的传记，有吟诵上帝的圣诗，有追溯往事的史书，也有民间传颂的故事。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_TARNOVO_SCHOOLS_CHAPTER_HISTORY_PARA_2" Language="zh_Hans_CN">
+      <Text>特尔诺沃学院蓬勃发展，让这座城市在文化之都的宝座上愈加稳固。艺术大才和文人骚客笔下的瑰丽作品，为人们开启了通往精神世界、知识殿堂和自我认知的崭新大门。这些学院还通过精美的手稿和圣像画，培养了一批艺术鉴赏家——当然，这类艺术藏品只是富贵人士的专属。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_TSARSTVIE_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>游牧民族的保加尔人蜕变为一个稳固的帝国（“沙皇国”），这堪称非凡壮举。这一转变既得益于其位处东西方交汇之地的优势，却也因这种地理位置而充满挑战。保加尔人与当地斯拉夫族群的逐步融合，加速了早期王国的发展进程，两个民族的特质交融碰撞，铸就了一个延续数世纪的崭新政权。然而，身处大国角力的十字路口，保加利亚的发展轨迹深深烙上了这些强权的印记。其中，与拜占庭的纽带最为紧密，这个东罗马帝国的影响力渗透到两代保加利亚帝国的方方面面。随着保加尔人逐渐摆脱君士坦丁堡的影响圈，西方世界日渐成为他们汲取权力、财富与灵感的新源泉。纵观其跌宕起伏的长久史册，保加利亚凭借着非凡的适应力与成长潜力，得以在历史长河中绵延不绝。更难能可贵的是，这个民族始终坚守着自己独特的文化特质。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_BALIK_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>“答剌罕”是一个源自突厥语的古老称号，用以表示高级军事将领或地方总督。这一称号在中亚古代和中世纪的诸多民族中广泛流传，保加尔人在西迁之前就将其纳入了自己的等级体系。保加利亚第一帝国建立后，虽然保加尔人迅速从游牧生活转向定居文明，但他们源自草原的政治军事体制，包括各种官职名称、职责划分和权力分配，却在这个时期得以保留。答剌罕制度的延续就是其中之一。这些官员内部还形成了细致的等级区分，通过不同的头衔加以标识，如诸班答剌罕、奥格鲁答剌罕、噶鲁答剌罕等。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_BALIK_CHAPTER_HISTORY_PARA_2" Language="zh_Hans_CN">
+      <Text>随着时代变迁，保加尔人的突厥特质逐渐褪色。这种改变源于多重因素的交织：与当地斯拉夫族群的深度融合，来自拜占庭帝国的强大文化影响，以及最终皈依基督教的信仰转变。然而，尽管答剌罕这一职位的实际职能逐渐消逝，但这个古老称号却顽强地保留了下来，甚至在12世纪的历史遗物中仍能觅得其踪迹。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_BOYAR_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>保加利亚第一帝国时期，贵族被称为“波依拉（boila）”，到了第二帝国时期则改称“波雅尔（bolyar）”。他们在王国中身兼双重要职：在承平之世执掌地方政务，战事一起则率部出征。作为军中高级将领，他们为保加利亚军队注入了取胜的关键要素——出神入化的骑术与对地形地貌的熟稔。骑兵在军中地位显赫，即便是太平盛世，任何怠慢战马的行为也会遭到严惩。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_BOYAR_CHAPTER_HISTORY_PARA_2" Language="zh_Hans_CN">
+      <Text>波雅尔的贵族身份世代相传，而在这个阶层内部还有着更为精细的等级划分：位居顶端的大波雅尔位列皇家议会，参与国家大政；地位稍逊的小波雅尔则主掌一方，负责地方治理。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_RILA_MONASTERY_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>公元10世纪，一位名叫伊凡（又称约翰）的修士选择远离尘嚣，隐居于里拉山的幽谷之中。很快，他因显现神迹而名声远播，虔诚的信徒络绎不绝地前往他栖居的山洞，只为聆听教诲、获得祝福。这些朝圣者起初在洞穴周围搭建简陋的临时住所，后来这些庇护所逐渐演变成永久性建筑，最终演变为著名的里拉修道院。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_RILA_MONASTERY_CHAPTER_HISTORY_PARA_2" Language="zh_Hans_CN">
+      <Text>历经数百年之久，里拉修道院几经沉浮。虽多次遭逢劫难，被毁又重建，但每次重建都让这座古老建筑焕发新生。今天的修道院建筑群宛如一部立体的保加利亚史册，融汇了不同时期的艺术、建筑与历史风貌，虽然其中处处都能寻得保加利亚第二帝国特尔诺沃艺术学院的深远影响。长期以来，里拉修道院始终是保加利亚民族精神、艺术成就和文化认同的一面明镜。即便在今天，这座历经风雨的修道院仍然传承着它的神圣使命。 </Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIDDEN_FORTRESS_NAME" Language="zh_Hans_CN">
+      <Text>暗堡</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_RILA_MONASTERY_NAME" Language="zh_Hans_CN">
+      <Text>里拉修道院</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_DRINA_NAME" Language="zh_Hans_CN">
+      <Text>德里纳河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_ISKAR_NAME" Language="zh_Hans_CN">
+      <Text>伊斯克尔河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_MORAVA_NAME" Language="zh_Hans_CN">
+      <Text>摩拉瓦河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_PRUT_NAME" Language="zh_Hans_CN">
+      <Text>普鲁特河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_YANTRA_NAME" Language="zh_Hans_CN">
+      <Text>扬特拉河</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_ADATEPE_NAME" Language="zh_Hans_CN">
+      <Text>阿达特佩山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_CIOMADUL_NAME" Language="zh_Hans_CN">
+      <Text>奇奥马杜尔山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_CSOVANYOS_NAME" Language="zh_Hans_CN">
+      <Text>乔索万约斯山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_KERKIS_NAME" Language="zh_Hans_CN">
+      <Text>克尔基斯山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_MOUNT_KARADAG_NAME" Language="zh_Hans_CN">
+      <Text>卡拉达格山</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SEVEN_TRIBES_NAME" Language="zh_Hans_CN">
+      <Text>七部落</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TARNOVO_SCHOOLS_NAME" Language="zh_Hans_CN">
+      <Text>特尔诺沃学院</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TSARSTVIE_NAME" Language="zh_Hans_CN">
+      <Text>沙皇国</Text>
+    </Replace>
+    <Replace Tag="LOC_11020A_COMPLETION" Language="zh_Hans_CN">
+      <Text>保加利亚的群山怀抱着无数秘密。巍峨的山脉历经沧桑，壮丽景色总能吸引过客驻足仰望那些沉默无言的峰顶。然而，当敌人踏足此地时，很快就发现群山也在回望着他们——而那目光，透着刺骨的寒意。</Text>
+    </Replace>
+    <Replace Tag="LOC_11020A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>山崖有灵</Text>
+    </Replace>
+    <Replace Tag="LOC_11020B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11020B_NAME" Language="zh_Hans_CN">
+      <Text>不动声色地观察他人，可以收获良多。</Text>
+    </Replace>
+    <Replace Tag="LOC_11020C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11020C_NAME" Language="zh_Hans_CN">
+      <Text>群山还能隐藏更多秘密。</Text>
+    </Replace>
+    <Replace Tag="LOC_11021A_COMPLETION" Language="zh_Hans_CN">
+      <Text>和平岁月里，保加利亚帝国欣欣向荣。虽然战鼓沉寂，这些答剌罕依然仪态非凡，在街头巷尾尽显风采。百姓们也渐渐习惯向这些昔日战将寻求日常事务的处理方法。</Text>
+    </Replace>
+    <Replace Tag="LOC_11021A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>和则治民</Text>
+    </Replace>
+    <Replace Tag="LOC_11021B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}但{2_reward}，持续{3_turn_timer}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11021B_NAME" Language="zh_Hans_CN">
+      <Text>答剌罕需要学习如何处理日常政务。</Text>
+    </Replace>
+    <Replace Tag="LOC_11021C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11021C_NAME" Language="zh_Hans_CN">
+      <Text>和平时期应当积极备战。</Text>
+    </Replace>
+    <Replace Tag="LOC_11022A_COMPLETION" Language="zh_Hans_CN">
+      <Text>群山之巅，一位得道圣人独居幽洞，时显神迹，庇佑山民。虔诚信众络绎不绝地前往这位圣者的栖居之所，只为一睹真颜，求得福祉。</Text>
+    </Replace>
+    <Replace Tag="LOC_11022A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>山中神迹</Text>
+    </Replace>
+    <Replace Tag="LOC_11022B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11022B_NAME" Language="zh_Hans_CN">
+      <Text>应当在此建立一座永久的修道院。</Text>
+    </Replace>
+    <Replace Tag="LOC_11022C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11022C_NAME" Language="zh_Hans_CN">
+      <Text>请勿打扰隐士清修！</Text>
+    </Replace>
+    <Replace Tag="LOC_11023A_COMPLETION" Language="zh_Hans_CN">
+      <Text>里拉修道院的僧侣们正在教堂内屏气凝神，沉浸在对神性的冥想之中。然而，他们虔诚的祷告却被一阵喧哗声打断——原来是外面的游人在为教堂精美绝伦的壁画发出由衷的赞叹。</Text>
+    </Replace>
+    <Replace Tag="LOC_11023A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>文化之旅</Text>
+    </Replace>
+    <Replace Tag="LOC_11023B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}、{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11023B_NAME" Language="zh_Hans_CN">
+      <Text>修道院对所有保加利亚人开放。</Text>
+    </Replace>
+    <Replace Tag="LOC_11023C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11023C_NAME" Language="zh_Hans_CN">
+      <Text>此地专用于灵修。</Text>
+    </Replace>
+    <Replace Tag="LOC_11024A_COMPLETION" Language="zh_Hans_CN">
+      <Text>敌军统帅正在集结部队，却不知四周荒野已在低吟着他们的丧歌。保加尔人犹如幽灵，无处不在，又踪影难觅。漫漫长夜中，盾牌的碰撞声不断回荡。敌军先是陷入困惑……继而滋生恐惧……最后精疲力竭……就在这时，保加尔人抓住黎明前的至暗时刻，发起了雷霆万钧的进攻。须臾之间便已分出胜负。</Text>
+    </Replace>
+    <Replace Tag="LOC_11024A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>沃尔比察的复仇</Text>
+    </Replace>
+    <Replace Tag="LOC_11024B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>骑兵{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11024B_NAME" Language="zh_Hans_CN">
+      <Text>将士们今夜将一醉方休。</Text>
+    </Replace>
+    <Replace Tag="LOC_11024C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11024C_NAME" Language="zh_Hans_CN">
+      <Text>还要继续作战，再派增援！</Text>
+    </Replace>
+    <Replace Tag="LOC_11025A_COMPLETION" Language="zh_Hans_CN">
+      <Text>一位以神迹显圣而闻名的神父创办了一所培养青年传教士的学堂。在这里，他不仅向弟子们传授新创的文字，更教导他们要以所学济世，将知识播撒给天下苍生。</Text>
+    </Replace>
+    <Replace Tag="LOC_11025A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>奥赫里德的神父</Text>
+    </Replace>
+    <Replace Tag="LOC_11025B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11025B_NAME" Language="zh_Hans_CN">
+      <Text>只有传播火种，才能照亮世界。</Text>
+    </Replace>
+    <Replace Tag="LOC_11025C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11025C_NAME" Language="zh_Hans_CN">
+      <Text>他们开辟的道路为商人们带来了新的机遇。</Text>
+    </Replace>
+    <Replace Tag="LOC_11026A_COMPLETION" Language="zh_Hans_CN">
+      <Text>借助船只和商队，传教士们将保加利亚的信仰之光洒向四方，所到之处，愿意倾听教诲者皆深受感化。越来越多的求道者渴求更深层的精神指引，希望获得保加利亚圣徒的亲授教诲与祝福。</Text>
+    </Replace>
+    <Replace Tag="LOC_11026A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>朝圣者自远方来</Text>
+    </Replace>
+    <Replace Tag="LOC_11026B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11026B_NAME" Language="zh_Hans_CN">
+      <Text>宗教场所应该对大众开放。</Text>
+    </Replace>
+    <Replace Tag="LOC_11026C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11026C_NAME" Language="zh_Hans_CN">
+      <Text>出售圣像想必收入颇丰……</Text>
+    </Replace>
+    <Replace Tag="LOC_11027A_COMPLETION" Language="zh_Hans_CN">
+      <Text>烽烟四起，残垣断壁间，波雅尔们正指挥士兵将掠夺来的财物装上战马。这次顺利的劫掠让他们意气风发，然而望着这片富庶之地的满目疮痍，他们心中不禁泛起疑问：这里究竟是如何积累起如此惊人的财富？</Text>
+    </Replace>
+    <Replace Tag="LOC_11027A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>突然袭击</Text>
+    </Replace>
+    <Replace Tag="LOC_11027B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}，但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11027B_NAME" Language="zh_Hans_CN">
+      <Text>富裕邻国就是保加利亚的福音。</Text>
+    </Replace>
+    <Replace Tag="LOC_11027C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11027C_NAME" Language="zh_Hans_CN">
+      <Text>也许我们能学习他们如何缔造繁荣。</Text>
+    </Replace>
+    <Replace Tag="LOC_11028A_COMPLETION" Language="zh_Hans_CN">
+      <Text>当举国上下都在为都城的陷落而悲恸时，一批预言典籍开始在帝国各地广为流传。在这些典籍中，古代先知们在天使的启示下，揭示了保加利亚过去的荣光、当下的磨难，以及未来的命运。在这个国运飘摇的年代，人们重温这些历史记载，寻得一丝心灵慰藉，然而那些国破家亡的预言，又让大家不寒而栗。</Text>
+    </Replace>
+    <Replace Tag="LOC_11028A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>杜撰编年鉴</Text>
+    </Replace>
+    <Replace Tag="LOC_11028B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>为等级最高的指挥官提供免费晋升。</Text>
+    </Replace>
+    <Replace Tag="LOC_11028B_NAME" Language="zh_Hans_CN">
+      <Text>回顾过去能为未来建立希望。</Text>
+    </Replace>
+    <Replace Tag="LOC_11028C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>骑兵{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11028C_NAME" Language="zh_Hans_CN">
+      <Text>神会赐予人民以力量。</Text>
+    </Replace>
+    <Replace Tag="LOC_11029A_COMPLETION" Language="zh_Hans_CN">
+      <Text>造访保加利亚帝国的外邦人无不为此处城市的雄壮繁荣和居民的艺术造诣所倾倒。然而当他们注视着士兵列队经过时，心中却不禁掠过一丝寒意——因为他们的祖国也可能臣服在这支骁勇之师的铁蹄之下。</Text>
+    </Replace>
+    <Replace Tag="LOC_11029A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>如日中天</Text>
+    </Replace>
+    <Replace Tag="LOC_11029B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11029B_NAME" Language="zh_Hans_CN">
+      <Text>保加利亚的声誉推动着它向前发展。</Text>
+    </Replace>
+    <Replace Tag="LOC_11029C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11029C_NAME" Language="zh_Hans_CN">
+      <Text>保加利亚的荣耀在于自身军事实力。</Text>
+    </Replace>
+    <Replace Tag="LOC_12006A_COMPLETION" Language="zh_Hans_CN">
+      <Text>黎刹医生漫小心翼翼地在崎岖山径上蹒跚前行，脑海中不断思索着保加利亚这片神奇土地的矛盾之处：巍峨群山将其与外界阻隔，而商贸纽带又让它与世界紧密相连。</Text>
+    </Replace>
+    <Replace Tag="LOC_12006A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>好医生在分岔路口</Text>
+    </Replace>
+    <Replace Tag="LOC_12006B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>追猎者{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_12006B_NAME" Language="zh_Hans_CN">
+      <Text>谁胆敢入侵恐怕会倒霉。</Text>
+    </Replace>
+    <Replace Tag="LOC_12006C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>所有定居点{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_12006C_NAME" Language="zh_Hans_CN">
+      <Text>那些商队真是无所畏惧。</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SEVEN_TRIBES_AUTHOR" Language="zh_Hans_CN">
+      <Text>《克鲁姆可汗法典》</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SEVEN_TRIBES_QUOTE" Language="zh_Hans_CN">
+      <Text>“正如之前所报，保加尔人歼灭了所有敌人。 ”</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TARNOVO_SCHOOLS_AUTHOR" Language="zh_Hans_CN">
+      <Text>科斯马斯长老</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TARNOVO_SCHOOLS_QUOTE" Language="zh_Hans_CN">
+      <Text>“魔鬼惧怕这些圣物，因此不敢靠近被它们保佑的东西。”</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TSARSTVIE_AUTHOR" Language="zh_Hans_CN">
+      <Text>彼得一世的颂词</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TSARSTVIE_QUOTE" Language="zh_Hans_CN">
+      <Text>“你如同晨星般显现在我们面前，驱散了敌人的阴影。”</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_BULGARIA_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>掠夺建筑时，所有城市获得等同于所获产量或生命值50%的[icon:YIELD_PRODUCTION]生产力。所有战斗单位对抗拥有中世纪城墙的区块时-3战斗力。</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIDDEN_FORTRESS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>+4[icon:YIELD_PRODUCTION]生产力。必须放置在不与另一个暗堡相邻的崎岖地形现有的改良设施上。此地块上的单位获得隐形能力。保加利亚特色改良设施。视为防御工事，防御时+6战斗力。无时代限制。不会移除地块上的仓库加成。</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIDDEN_FORTRESS_TOOLTIP" Language="zh_Hans_CN">
+      <Text>必须放置在不与另一个暗堡相邻的崎岖地形现有的改良设施上。此地块上的单位获得隐形能力。保加利亚特色改良设施。视为防御工事，防御时+6战斗力。无时代限制。不会移除地块上的仓库加成。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_BULGARIA" Language="zh_Hans_CN">
+      <Text>高山之巅，修士祈祷，声达九霄；平原深处，战号嘹亮，响彻四野。保加利亚铁骑奔腾，信仰之剑所向披靡，钢铁之志坚不可摧。在嘹亮的战号声中，保加尔人高举军刀，挥舞套索与长矛，豪情纵横世间。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_BULGARIA" Language="zh_Hans_CN">
+      <Text>使用你的特色能力“克鲁姆王朝”，辅以“佯退诱敌”和“计策谋略”传统，在掠夺时获得丰厚收益。但攻击驻防定居点时需要当心！</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_INTRO_BULGARIA" Language="zh_Hans_CN">
+      <Text>保加利亚将以威势横扫大地，犹如骑士屠杀恶龙。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BULGARIA_COMPLETE_RILA_MONASTERY_DESC" Language="zh_Hans_CN">
+      <Text>扮演保加利亚，建成里拉修道院</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BULGARIA_COMPLETE_RILA_MONASTERY_NAME" Language="zh_Hans_CN">
+      <Text>里拉修道院</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BULGARIA_LEGACY_PATH_MILITARISTIC_DESC" Language="zh_Hans_CN">
+      <Text>扮演保加利亚，完成一条军事传承路径</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BULGARIA_LEGACY_PATH_MILITARISTIC_NAME" Language="zh_Hans_CN">
+      <Text>保加利亚传承路径</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_BULGARIA_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>作为保加利亚的特色奇观，+30%生产力。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SEVEN_TRIBES_GREATWORKS_COMBAT_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>当你展示至少5件遗物时，战斗单位+5战斗力。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TARNOVO_SCHOOLS_TEMPLE_HAPPINESS_HIDDEN_FORTRESS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>拥有寺庙的定居点中的暗堡+2[icon:YIELD_HAPPINESS]幸福值。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TSARSTVIE_CULTURE_MOUNTAIN_HIDDEN_FORTRESS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>每有一个相邻的山脉地块，暗堡便+2[icon:YIELD_CULTURE]文化值。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TSARSTVIE_TWO_MIGRANTS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text> 首都中获得2名移民。</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_RILA_MONASTERY" Language="zh_Hans_CN">
+      <Text>里拉的圣约翰</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_RILA_MONASTERY" Language="zh_Hans_CN">
+      <Text>“隐士的财富不在于金银，而在于赤贫、克志，以及谦卑。”</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_FALSE_RETREAT_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>掠夺改良设施时，所有城镇获得等同于所获产量或生命值50%的[icon:YIELD_FOOD]食物。所有战斗单位对抗驻防区块时-3战斗力。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_ICONOLATRY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>巨作提供+1[icon:YIELD_HAPPINESS]幸福值和+1[icon:YIELD_GOLD]金币。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_STRATAGEMS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>通过掠夺获得的收益和生命值+50%。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_BULGARIA_ABILITY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>[BLIST][LI]掠夺建筑时，所有城市获得等同于[B]所获产量或生命值50%[/B]的[B][icon:YIELD_PRODUCTION]生产力[/B]。[LI]对抗拥有中世纪城墙的区块时所有单位[B]-3战斗力[/B]。[LI]建造[B]里拉修道院[/B]时[B]+30%[icon:YIELD_PRODUCTION]生产力效用[/B]。[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_BULGARIA_ABILITY_NAME" Language="zh_Hans_CN">
+      <Text>克鲁姆王朝</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_EX_BULGARIA_NAME" Language="zh_Hans_CN">
+      <Text>保加利亚市政</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BALIK_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>保加利亚特色军队指挥官。拥有3点移动力。其指挥半径内的单位可以消耗1点移动力进行掠夺。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_2_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>第2阶保加利亚特色骑兵单位。无视崎岖地形对自身移动力的影响，消除崎岖地形赋予敌方单位的战斗力加成。此单位在崎岖地形上战斗时+3战斗力。无视控制区。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_3_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>第3阶保加利亚特色骑兵单位。无视崎岖地形对自身移动力的影响，消除崎岖地形赋予敌方单位的战斗力加成。此单位在崎岖地形上战斗时+3战斗力。无视控制区。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_BASE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>保加利亚特色骑兵单位。无视崎岖地形对自身移动力的影响，消除崎岖地形赋予敌方单位的战斗力加成。此单位在崎岖地形上战斗时+3战斗力。无视控制区。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>第1阶保加利亚特色骑兵单位。无视崎岖地形对自身移动力的影响，消除崎岖地形赋予敌方单位的战斗力加成。此单位在崎岖地形上战斗时+3战斗力。无视控制区。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_ALTARS_BULGARIA_TOOLTIP" Language="zh_Hans_CN">
+      <Text>[B]祭坛[/B]是[B]保加利亚[/B]身份认同的重要组成部分。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_ALTARS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>拥有3座[B]祭坛[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_AUGUSTUS_BULGARIA_TOOLTIP" Language="zh_Hans_CN">
+      <Text>[B]奥古斯都[/B]曾统治日后成为[B]保加利亚[/B]的地区。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BULGARIA_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>扮演[B]保加利亚[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_CATHERINE_BULGARIA_TOOLTIP" Language="zh_Hans_CN">
+      <Text>[B]叶卡捷琳娜[/B]与[B]保加利亚[/B]来自相同的大陆。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_CHARLEMAGNE_BULGARIA_TOOLTIP" Language="zh_Hans_CN">
+      <Text>[B]保加利亚[/B]能在策略上助力[B]查理曼[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_RILA_MONASTERY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>+4[icon:YIELD_CULTURE]文化值。拥有3个遗物槽位。每次建造奇观时（此奇观包含在内）获得1件遗物。无法放置在区块旁。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_RILA_MONASTERY_TOOLTIP" Language="zh_Hans_CN">
+      <Text>拥有3个遗物槽位。每次建造奇观时（此奇观包含在内）获得1件遗物。无法放置在区块旁。</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_BOYAR_PREVIEW" Language="zh_Hans_CN">
+      <Text>在崎岖地形中+{1_Amount}</Text>
+    </Replace>
+    <Replace Tag="LOC_COMBAT_PREVIEW_NUMBER_GREATWORKS_BONUS_DESC" Language="zh_Hans_CN">
+      <Text>+{1_Value}战斗力，来自放入槽位的巨作。</Text>
+    </Replace>
+    <Replace Tag="LOC_SEVEN_TRIBES_GREATWORKS_COMBAT_PREVIEW" Language="zh_Hans_CN">
+      <Text>七部落+{1_Amount}</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_FALSE_RETREAT_PREVIEW" Language="zh_Hans_CN">
+      <Text>{1_CombatAmount}，来自佯退诱敌</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_BULGARIA_ABILITY_PREVIEW" Language="zh_Hans_CN">
+      <Text>{1_CombatAmount}，来自克鲁姆王朝</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_ALTARS_BULGARIA_NARRATIVE" Language="zh_Hans_CN">
+      <Text>对{1_Civilization_Adj}人而言，宗教向来属于个人私密之事。然而在城市各处祭坛周围，人们却常常不自觉地聚集在一起，传颂着古老圣徒的传奇。随着这些故事的流传，一张由虔诚信徒编织的信仰之网悄然成形，他们进而希望在权力殿堂中拥有一席之地。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_FALSE_RETREAT_NAME" Language="zh_Hans_CN">
+      <Text>佯退诱敌</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_ICONOLATRY_NAME" Language="zh_Hans_CN">
+      <Text>圣像崇拜</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_STRATAGEMS_NAME" Language="zh_Hans_CN">
+      <Text>计策谋略</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BALIK_NAME" Language="zh_Hans_CN">
+      <Text>答剌罕</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_NAME" Language="zh_Hans_CN">
+      <Text>波雅尔</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

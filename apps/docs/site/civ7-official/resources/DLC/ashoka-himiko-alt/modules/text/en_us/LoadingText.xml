@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_ASHOKA_ALT">
+			<Text>Chakravartin Ashoka, the wheel-turning monarch, your success in war made plain to you its costs. Determined to end the cycle of violence that marked your time as emperor of Maurya, you brought wisdom instead of swords, the dharma in place of destruction, and a message of non-violence to all beings. The world now needs your wisdom.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_HIMIKO_ALT">
+			<Text>Himiko, shaman-queen of Yamatai, stands between worlds. As you bring the power of the land, you turn forests to shrines, waterfalls to music, and the mountains themselves to allies. The divine wind seeks to blow; great queen, direct its path.</Text>
+		</Row>
+	</EnglishText>
+</Database>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_ATTR_BASE_VALUE">
+			<Text>Base Value</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELD_PER_TRADE_ROUTE_PER_CONSTRUCTBLE">
+			<Text>Yield per Trade Route per {1_ConstructibleName}</Text>
+		</Row>
+		<!--Happiness & Identity Effects-->
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_CONSTRUCTIBLE_DAMAGED_CATEGORY">
+			<Text>Damaged Constructibles</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_CONSTRUCTIBLE_DAMAGED_DESC">
+			<Text>-{Amount}[icon:YIELD_HAPPINESS] Happiness due to damaged Buildings or Improvements ({TurnsLeft} Turns remaining)</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_CITY_OVERCROWDED_CATEGORY">
+			<Text>City Overcrowded</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_CITY_OVERCROWDED_DESC">
+			<Text>-{Amount}[icon:YIELD_HAPPINESS] Happiness due to the City adding Population too quickly</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_CITY_NO_FRESH_WATER_CATEGORY">
+			<Text>No Fresh Water For City</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_CITY_NO_FRESH_WATER_DESC">
+			<Text>-{Amount}[icon:YIELD_HAPPINESS] Happiness due to no Fresh Water at City Center</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_CITY_STARVING_CATEGORY">
+			<Text>City Starving</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_CITY_STARVING_DESC">
+			<Text>-{Amount}[icon:YIELD_HAPPINESS] Happiness due to the City failing produce enough Food for its Population!</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_CITY_LOST_RESOURCE_CATEGORY">
+			<Text>City Lost Resource</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_CITY_LOST_RESOURCE_LOCAL_DESC">
+			<Text>-{Amount}[icon:YIELD_HAPPINESS] Happiness due to the City losing access to a locally-produced Resource</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_CITY_LOST_RESOURCE_TRADE_DESC">
+			<Text>-{Amount}[icon:YIELD_HAPPINESS] Happiness due to the City losing access to an imported Resource</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_CITY_LOST_TRADE_ROUTE_CATEGORY">
+			<Text>City Lost Trade Route</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_CITY_LOST_TRADE_ROUTE_DESC">
+			<Text>-{Amount}[icon:YIELD_HAPPINESS] Happiness due to the City losing a Trade Route</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_REFUGEE_JOINED_CITY_CATEGORY">
+			<Text>Refugees Joined City</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_REFUGEE_JOINED_CITY_DESC">
+			<Text>-{Amount}[icon:YIELD_HAPPINESS] Happiness due to Refugees resettling in the city</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_TRADITION_DEACTIVATED_CATEGORY">
+			<Text>Social Policies Lost</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_TRADITION_DEACTIVATED_DESC">
+			<Text>-{Amount}[icon:YIELD_HAPPINESS] Happiness due to removing Social Policies from your Government</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_TRADE_ROUTE_PLUNDERED_CATEGORY">
+			<Text>Trade Routes Plundered</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_TRADE_ROUTE_PLUNDERED_DESC">
+			<Text>-{Amount}[icon:YIELD_HAPPINESS] Happiness due to plundered Trade Routes</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_CITY_SIEGE_CATEGORY">
+			<Text>Cities Under Siege</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_CITY_SIEGE_DESC">
+			<Text>-{Amount}[icon:YIELD_HAPPINESS] Happiness due to active sieges on your Cities</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_PLAYER_CHANGED_GOVERNMENT_CATEGORY">
+			<Text>Government Changed</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_PLAYER_CHANGED_GOVERNMENT_DESC">
+			<Text>-{Amount}[icon:YIELD_HAPPINESS] Happiness due to changing Governments</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_PLAYER_ENTERED_WAR_CATEGORY">
+			<Text>War Declared</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_PLAYER_ENTERED_WAR_DESC">
+			<Text>-{Amount}[icon:YIELD_HAPPINESS] Happiness due to entering a war</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_CITY_TRANSFER_UNREST_CATEGORY">
+			<Text>City Unrest</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_CITY_TRANSFER_UNREST_DESC">
+			<Text>-{1_amount}[icon:YIELD_HAPPINESS] Happiness due to newly acquired City</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_CITY_REVOLT_CATEGORY">
+			<Text>Settlement Revolt</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_CITY_REVOLT_DESC">
+			<Text>Settlement may go into Revolt due to unhappiness</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_RELIGIOUS_REVOLT_CATEGORY">
+			<Text>Religious Revolt</Text>
+		</Row>
+		<Row Tag="LOC_UNHAPPINESS_EFFECT_RELIGIOUS_REVOLT_DESC">
+			<Text>Settlement may go into Revolt due to unhappiness and following a different Religion</Text>
+		</Row>
+		<Row Tag="LOC_BONUS_RESOURCE_CAP_FROM_RESOURCES">
+			<Text>Bonus Resource slots from Resources</Text>
+		</Row>
+		<Row Tag="LOC_BONUS_DISTRICT_HEALTH">
+			<Text>+{1_amount} District Health</Text>
+		</Row>
+		<Row Tag="LOC_BONUS_DISTRICT_RECOVERY">
+			<Text>+{1_amount} District Health Recovery</Text>
+		</Row>
+		<Row Tag="LOC_COMMANDER_PRESENCE_UNHAPPINESS_REDUCTION">
+			<Text>Commander Presence</Text>
+		</Row>
+	</EnglishText>
+</Database>

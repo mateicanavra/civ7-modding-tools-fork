@@ -1,0 +1,118 @@
+/* DO NOT EDIT */
+/* Generated from screen-great-works.scss */
+.great-work-selected {
+	border-image-source: url("fs://game/hud_list-focus_frame");
+	border-image-slice: 20 32 20 32;
+	border-image-width: 1.1111111111rem;
+	border-image-outset: 0.2777777778rem;
+	background: linear-gradient(90deg, #4C473D 0%, rgba(5, 7, 13, 0.5) 100%);
+}
+
+.great-works-inner-frame {
+	border-image-source: url("fs://game/base_bigframe-bg");
+	border-image-slice: 28 28 28 28 fill;
+	border-image-width: 0;
+	border-image-outset: 0;
+}
+
+.great-work-frame {
+	border-image-source: url("fs://game/hud_sidepanel_list-bg.png");
+	border-image-outset: 0 0 0 0;
+	border-image-repeat: stretch stretch;
+	border-image-slice: 8 8 8 8 fill;
+	border-image-width: 0.4444444444rem 0.4444444444rem 0.4444444444rem 0.4444444444rem;
+}
+
+.great-work-container {
+	border-image-source: url("fs://game/base_empty-slot");
+	border-image-outset: 0 0 0 0;
+	border-image-repeat: stretch stretch;
+	border-image-slice: 8 8 8 8 fill;
+	border-image-width: 0.4444444444rem 0.4444444444rem 0.4444444444rem 0.4444444444rem;
+}
+
+.more-info-toggle {
+	background-image: url("fs://game/chooser_showcity");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+@media (max-height: 55.5555555556rem) {
+	.great-works-parent-slot {
+		margin-top: 3.5555555556rem;
+		margin-bottom: 2.6666666667rem;
+	}
+}
+@media (experience: mobile) {
+	.great-works-parent-slot {
+		height: 100%;
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.great-works-inner-frame {
+		padding-top: 1.3333333333rem;
+		padding-bottom: 1.3333333333rem;
+		padding-left: 0.2222222222rem;
+		padding-left: 0.2222222222rem;
+	}
+}
+@media (experience: mobile) {
+	.great-works-inner-frame {
+		padding: 0;
+	}
+}
+
+@media (max-height: 55.5555555556rem), (experience: mobile) {
+	.showcase-column {
+		margin: 0;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.showcase-scrollable {
+		padding: 0 0.7777777778rem;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.archive-column {
+		margin: 0;
+		margin-left: 0.8888888889rem;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.city-column {
+		margin-left: 0.8888888889rem;
+		margin-right: 0.8888888889rem;
+	}
+}
+
+@media (max-height: 55.5555555556rem), (experience: mobile) {
+	.city-entry-container {
+		width: 99%;
+	}
+}
+
+@media (max-height: 55.5555555556rem), (experience: mobile) {
+	.great-work-container-entry {
+		width: 100%;
+		padding: 0.2222222222rem;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.showcase-scrollable {
+		width: 12.4444444444rem;
+	}
+}
+
+@media (experience: mobile) {
+	.great-works-header {
+		max-width: 90%;
+		align-self: center;
+	}
+}

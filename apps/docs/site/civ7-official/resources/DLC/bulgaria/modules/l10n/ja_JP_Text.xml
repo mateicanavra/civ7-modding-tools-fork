@@ -1,0 +1,654 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA1" Language="ja_JP">
+      <Text>プレスラフ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA10" Language="ja_JP">
+      <Text>プロブディフ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA11" Language="ja_JP">
+      <Text>ボルイ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA12" Language="ja_JP">
+      <Text>スコピエ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA13" Language="ja_JP">
+      <Text>ベログラド</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA14" Language="ja_JP">
+      <Text>ヴァルナ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA15" Language="ja_JP">
+      <Text>ブレズニク</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA16" Language="ja_JP">
+      <Text>デヴィニャ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA17" Language="ja_JP">
+      <Text>ペルニク</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA18" Language="ja_JP">
+      <Text>リピャン</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA19" Language="ja_JP">
+      <Text>デウルトゥム</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA2" Language="ja_JP">
+      <Text>タルノヴォ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA20" Language="ja_JP">
+      <Text>ビトラ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA21" Language="ja_JP">
+      <Text>ドレムビツァ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA22" Language="ja_JP">
+      <Text>プリレプ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA23" Language="ja_JP">
+      <Text>コソヴォ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA24" Language="ja_JP">
+      <Text>アンヒアロ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA25" Language="ja_JP">
+      <Text>メルニック</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA26" Language="ja_JP">
+      <Text>メセムヴリア</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA27" Language="ja_JP">
+      <Text>プリズレン</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA28" Language="ja_JP">
+      <Text>ヤンボル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA29" Language="ja_JP">
+      <Text>アルサ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA3" Language="ja_JP">
+      <Text>オフリド</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA30" Language="ja_JP">
+      <Text>デボル </Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA31" Language="ja_JP">
+      <Text>パザルジク </Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA4" Language="ja_JP">
+      <Text>プリスカ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA5" Language="ja_JP">
+      <Text>ドルスタル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA6" Language="ja_JP">
+      <Text>プレベン</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA7" Language="ja_JP">
+      <Text>ビディン</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA8" Language="ja_JP">
+      <Text>スレデツ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA9" Language="ja_JP">
+      <Text>カルヴナ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_1" Language="ja_JP">
+      <Text>アンナ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_10" Language="ja_JP">
+      <Text>スミルツェナ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_2" Language="ja_JP">
+      <Text>デシスラヴァ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_3" Language="ja_JP">
+      <Text>キラツァ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_4" Language="ja_JP">
+      <Text>ミリッツァ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_5" Language="ja_JP">
+      <Text>リプシミア</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_6" Language="ja_JP">
+      <Text>ミロスラヴァ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_7" Language="ja_JP">
+      <Text>コサーラ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_8" Language="ja_JP">
+      <Text>マリア</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_9" Language="ja_JP">
+      <Text>ベロスラヴァ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_1" Language="ja_JP">
+      <Text>ボリス</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_10" Language="ja_JP">
+      <Text>ラディヴォイ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_2" Language="ja_JP">
+      <Text>アスパルフ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_3" Language="ja_JP">
+      <Text>ラディスラヴ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_4" Language="ja_JP">
+      <Text>イヴァン</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_5" Language="ja_JP">
+      <Text>べズメル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_6" Language="ja_JP">
+      <Text>テルヴェル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_7" Language="ja_JP">
+      <Text>カロヤン</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_8" Language="ja_JP">
+      <Text>イヴァイロ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_9" Language="ja_JP">
+      <Text>ペタル</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_BULGARIA_ADJECTIVE" Language="ja_JP">
+      <Text>ブルガリアの</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_BULGARIA_FULLNAME" Language="ja_JP">
+      <Text>ブルガリア帝国</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_BULGARIA_NAME" Language="ja_JP">
+      <Text>ブルガリア</Text>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_EXPLORATION_9_MAJOR_BULGARIA_NAME" Language="ja_JP">
+      <Text>アベルフラウ</Text>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_EXPLORATION_9_MINOR_BULGARIA_NAME" Language="ja_JP">
+      <Text>ウェルシュ</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>670年代、アスパルフ・ハンに率いられたブルガール人の有力な一派が、定住地を求めてドナウ川流域にやって来た。当時、この地域はビザンティン帝国の領土だったが、その支配は不安定なものだった。アヴァール・ハン国の拡大と先住者であるスラブ人諸部族の同盟が、帝国の権威を脅かしていたのである。ブルガール人はボルガ・カスピ海地域を故地とするテュルク系民族で、大ブルガリアによる領土統一が短命に終わった後、アヴァール人に続いてユーラシアの大草原からやって来た。しかし、遊牧生活を捨てなかったアヴァール人と違い、アスパルフを長とするブルガール人は定住生活に移行しつつあり、それゆえに自分たちの領土を欲していた。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_10" Language="ja_JP">
+      <Text>1185年、ペタル・アセンとイヴァン・アセンの兄弟が、祖国独立のために蜂起する。2年間の激しい戦いの後、ビザンティン帝国はついにブルガリアを再び独立国として承認した。第二次ブルガリア帝国の誕生である。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_11" Language="ja_JP">
+      <Text>第二次ブルガリア帝国は、第一次ブルガリア帝国の基盤を引き継ぐ形で発展すると同時に、ますます複雑さを増すこの地域の政治情勢にも適応した。かつてのブルガリアは南の強国から認められることを切望したが、ビザンティン帝国は衰亡著しく、その承認（と贈り物）は以前ほどの価値や輝きを持たなくなっていた。兄ペタルの死後、後を継いだカロヤンは、ビザンティン、つまり東ローマ帝国ではなく、西にあるもう一つのローマの承認を求めた。コンスタンティノープルが第4回十字軍に占領されてからほどなくして、教皇インノケンティウス3世によってカロヤンは皇帝として、ブルガリア教会は総主教座として認められた。その後ブルガリアは、短命に終わったラテン帝国を新たな敵とすることになる。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_12" Language="ja_JP">
+      <Text>第二次ブルガリア帝国の絶頂期は、イヴァン・アセン2世（在位1218年～1241年）の治世に訪れた。近隣諸国との紛争はつづいていたが、戦争はもはやブルガリア経済の基盤ではなかった。国境の拡大によって肥沃な土地が領土に加わったことで、農業が社会の大部分の主軸となっていたのだ。また、東西の交点という絶好の立地を活かすことで、有力な交易の中心地としても活気づいていた。経済の活性化によって芸術も栄えた。タルノヴォに新首都が築かれると、いわゆるタルノヴォ派の下で広範囲にわたる創作運動が興り、芸術家や建築家、著述家たちによって宗教と世俗両方の美と知識が無数に生み出された。また、都市が急速に発展する一方で、僻地の山々には要塞や修道院が築かれた。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_13" Language="ja_JP">
+      <Text>イヴァン・アセン2世の死後、ブルガリアを取り巻く状況は悪化の一途を辿っていった。国内では貴族と農民の対立が激化。幾度も反乱が発生し、短期間ではあるが豚飼いが玉座に就くという事態さえ発生した。対外面でも、国際情勢の変化が衰えゆくブルガリアを多方面から圧迫した。北からモンゴル、東からセルビア、そして最終的には南からオスマン帝国が侵攻してきたのだ。ブルガリアにとどめを刺したのは、この最後の脅威だった。14世紀後半、オスマン帝国はバルカン半島に着実に版図を広げ、1393年にはタルノヴォを占領する。1396年、最後の統治者がこの世を去り、すべての領土を失ったことで、第二次ブルガリア帝国は消滅した。
+</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_2" Language="ja_JP">
+      <Text>スラブ人諸部族の連合と同盟を結んだアスパルフは、680年、ドナウ川を渡った。前進する彼の前にすぐさま皇帝コンスタンティノス4世が立ちふさがったが、ブルガール勢はオングロスの戦いで大勝し、ビザンティン軍を撃退する。この結果、ビザンティン帝国は渋々ながらブルガール側に有利な和平協定を結び、ブルガリアを国家として承認、バルカン山脈より北の土地をすべて割譲した。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_3" Language="ja_JP">
+      <Text>第一次ブルガリア帝国の初期は、国家建設と遊牧生活から定住生活への移行期だった。プリスカが都と定められ、建物は長持ちする石によって築かれ、農業経済も盛んになりはじめた。これは同時に拡大の時代でもあった。国の組織は、ブルガール人が完全な遊牧民だった時代に構築された軍事階層構造を踏襲しており、富の多くを戦争、とりわけ南方に広がる豊かなビザンティン帝国領への襲撃から得ていた</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_4" Language="ja_JP">
+      <Text>ブルガリアとビザンティンの関係は複雑で、それは中世を通じてブルガリア人のアイデンティティを形成することに寄与した。ブルガリアはビザンティンに対して好戦的だった。この生まれたばかりの国にとって略奪は財源であったし、ビザンティンによる領土奪回の危険も（杞憂などではなく）常に存在していたからである。その一方でブルガリアは、協定の締結や称号の授与といった形でビザンティンに認められ、国としての権威を確立させることも切望していた（たとえばアスパルフの後継者であるテルヴェルは、帝位を追われたユスティニアヌス2世の復位に力を貸し、「カエサル」の称号を授けられて大いに喜んだ）。ビザンティンのすぐ近くに位置していたことは、政治や宗教から文学や芸術にいたるまで、数世紀にわたってブルガリアの多くの側面に影響を与えつづけた。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_5" Language="ja_JP">
+      <Text>ビザンティンにしてみれば、北の玄関口に存在する脅威は悩みの種だった。役に立つことも（もっぱら内戦の際に傭兵として）なくはなかったが、ほとんどの場合、帝国にとってブルガリアは厄介者以外の何者でもなかった。とはいえ、ビザンティンにとってブルガリアの問題は二の次だった。この時代、ビザンティンにとって最大のライバルはアッバース朝であり、その危険性はブルガリアの比ではなかったからだ。東方での戦争中はブルガリアを条約と金で懐柔し、よほど挑発されないかぎりバルカン半島での戦いはより大きな紛争が小康状態になるまで控えるようにしたのは、ひとえに二正面作戦を避けるためだった。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_6" Language="ja_JP">
+      <Text>ブルガリア兵は獰猛な戦士であり、バルカン半島の複雑な地形を利用することに長けていた。数において劣ることが多かったが、この土地を知り尽くしていた彼らは、待ち伏せや奇策を駆使して戦いを有利に進めた。ブルガリア兵は恐るべき襲撃者であり、こうした強みは大規模な戦いでも発揮された。ニケフォロス1世率いるビザンティン帝国軍をクルム・ハンが壊滅させた811年のプリスカの戦いは、その好例である。皇帝自身もこの戦いで命を落とし、クルム・ハンはその頭蓋骨を杯にして祝杯を挙げたと言われている。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_7" Language="ja_JP">
+      <Text>プリスカでの勝利につづく平和な時代は、国家として発展する新たな機会をブルガリアにもたらした。この時期、バルカン半島の各地を訪れてブルガール人とスラブ人の改宗を進めたのが、ビザンティン帝国の宣教師キュリロスとメトディオスである。教えを正しく伝えるため、彼らはスラブ語を書き記すためのアルファベットであるグラゴル文字を考案した。正教への改宗が進むにつれ、ブルガール人貴族とスラブ人の文化的な境界線は曖昧になり、ブルガール人はこの地の文化にますます同化していった。ブルガリアのアイデンティティにおけるこうした変化は、王国をより統一された存在へ強化すると同時に、より広い範囲のキリスト教圏ヨーロッパとの新たな（流血をともなわない）政治的、経済的交流の道を開いた。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_8" Language="ja_JP">
+      <Text>シメオン1世（在位893年～927年）の治世に第一次ブルガリア帝国は最盛期を迎える。コンスタンティノープルで教育を受けたシメオン1世は、ブルガリアの文化と領土の両方を拡大した。芸術と文学の後援者であった彼は、新たな首都プレスラフを壮麗な大都市へと発展させた。同時に彼は軍事遠征にも着手し、ブルガリアの領土をエーゲ海やアドリア海の沿岸まで拡大した。しかしそれは、長くはつづかなかった。1014年、バシレイオス2世がクレディオンの戦いでブルガリア軍を壊滅させる（これによって彼は、「ブルガリア人殺し」という異名を奉られることとなる）。その後、ブルガリアはビザンティンの軍門に下り、それから150年にわたって帝国の支配下に置かれた。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_9" Language="ja_JP">
+      <Text>この狭間の時代も、ブルガリア人がおとなしくしていることはなかった。独立を回復しようという試みは何度かあり、結局はミカエル4世に敗れたものの、1040年にはペタル・デリャンがバルカン半島西部の大部分を占領することに成功した。（ちなみに、後のノルウェー王ハーラル3世もヴァリャーギ親衛隊の一員としてミカエル4世のこの遠征に参加し、戦功を認められて昇進している。） また、それほど暴力的ではないが十分に攻撃的なやり方でビザンティンはバルカン半島のギリシャ化を試み、手はじめとしてブルガリア教会を大改革した。しかし、十字軍遠征による他地域の混乱やセルジューク・トルコの侵入が妨げとなり、この方面で大きな進展を得ることはできなかった。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_IMPROVEMENT_HIDDEN_FORTRESS_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>バルカン山脈の一画、ベログラドチクの町の近くに、秘密を抱えた岩山がある。天然の城壁に隠されたその山頂には、はるかな昔、兵士たちが駐屯していたのだ。こうした小規模な要塞は、ブルガリア帝国の荒々しい地形に点在していた。これらは戦略上の要所に位置し、断崖や狭い谷、手ごろな岩山などの地形によっておおむね守られていたが、さらに強化され、兵士や物資を収容する建物も築かれていた。また、さらに小規模な要塞は、ひそかに監視したり奇襲をしかけたりすることを可能にするため、道行く者の目から隠されるように設計されることが多かった。ブルガリアは地の利を活かすことで戦いを有利に展開したが、これもそのための手段のひとつだった。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_IMPROVEMENT_HIDDEN_FORTRESS_CHAPTER_HISTORY_PARA_2" Language="ja_JP">
+      <Text>現存する隠し要塞は多くないが、その中で最も注目に値するのはベログラドチクにあるものだ。ローマ時代に原形が築かれ、その後、ビザンティン帝国、ブルガリア、そして最終的にはオスマン帝国によって、幾度となく補強と拡張が繰り返されたこの要塞は、ヴィディンを中心とする地域にとって非常に重要な存在だった。現在では岩山を越えて広がる威容が目を引くが、元の城塞は今でも風景に溶け込んでいる。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_SEVEN_TRIBES_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>ブルガール人が中央アジアの故郷を離れて東ヨーロッパにやって来たとき、そこにはすでにスラブ人が住んでいた。ビザンティンの年代記編者であるテオファネスによれば、ドナウ川流域には7つのスラブ人部族があり、7世紀には団結して南のビザンティン帝国と西のアヴァール人を撃退したという。ところが彼らは、ブルガール人の進出に対しては抵抗せず、それどころか同盟を結んでブルガール人の長であったアスパルフ・ハンの権威を認めた。こうして統一された勢力は、ビザンティン帝国を撃退し、ドナウ川を渡って第一次ブルガリア帝国を興した。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_SEVEN_TRIBES_CHAPTER_HISTORY_PARA_2" Language="ja_JP">
+      <Text>その後もスラブ人は人口の中心を占めた。ブルガール人は元来はテュルク系の民族だったが、この地の風習や文化、言語に同化していき、10世紀までには事実上スラブ人となった。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_TARNOVO_SCHOOLS_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>第二次ブルガリア帝国の時代、首都タルノヴォは芸術と建築、文学の中心地だった。さまざまな分野の才能ある人々がそれぞれ集まり、目覚ましい成果を次々と生み出した。建築家たちは複雑なレンガ造りの技法を用い、ビザンティンの様式をデザインに取り入れた装飾性豊かな宗教建築物や世俗建築物を築き、ブルガリア独自の新たな建築様式を生み出した。そうした建築物の壁や天井を芸術家たちは壁画やモザイク画で飾り、さらに素晴らしいものにした。作品の規模では劣るが、画家たちも写本の挿絵やイコンなどに腕を振るった。識字率の向上によって文芸活動が盛んになり、聖人の生涯や詩篇から歴史や民話にいたるまで、さまざまな文学作品が生み出された。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_TARNOVO_SCHOOLS_CHAPTER_HISTORY_PARA_2" Language="ja_JP">
+      <Text>タルノヴォ派の成長は、文化の花咲く都市としてのタルノヴォの地位を確固たるものとし、タルノヴォ派の芸術家や著述家の作品は、宗教、教育、自己表現への新たな関わり方を示した。また、富裕層に限られてはいたが、タルノヴォ派の写本やイコンを通して、個人が芸術を鑑賞する習慣も育まれた。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_TSARSTVIE_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>遊牧民族であったブルガール人から定住民の帝国（ツァールストヴィエ）への変遷は特筆に値する。東西の中間に位置していたことは、この変化を促進すると同時に複雑にもした。ブルガール人が先住のスラブ人と徐々に同化していったことは、初期の王国の成長は早め、何世紀にもわたって存続する新たな政治体制へと両者のアイデンティティを昇華させた。だが、ブルガリアは大国に挟まれていたため、発展の過程ではそれらの国から大きな影響を受けることになった。ビザンティン帝国との関係は特に強く、その影響は第一次ブルガリア帝国と第二次ブルガリア帝国の両方に広く見られる。その後、ブルガリアがコンスタンティノープル中心の世界を離れ、新たな機会を求めるようになると、ローマが力と富、そしてインスピレーションの源となっていった。波乱に満ちたその長い歴史の中で、ブルガリアは適応と成長の力を示してきた。この力があったからこそ、ブルガリアはその本質を失うことなく今日にいたるまで存続してきたのである。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_BALIK_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>「タルハン」は、高位の軍事指揮官や地方総督を意味するテュルク語である。タルハンの地位は中世の中央アジアで広く見られ、西方へ移住する以前のブルガール人の社会階層にも存在していた。第一次ブルガリア帝国の建国にともなってブルガール人は急速に定住生活へ移行したが、称号や職務、権力区分など、政治と軍事の組織構造は草原で遊牧生活を送っていた頃のままだった。タルハンの役割も同様で、その階級はジュパン・タルハン、オグル・タルハン、カル・タルハンといった追加の称号によって区別されていた。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_BALIK_CHAPTER_HISTORY_PARA_2" Language="ja_JP">
+      <Text>先住のスラブ人との同化やビザンティン帝国からの強い影響、後のキリスト教への改宗によって国が進化していくにつれ、ブルガール人のテュルク系民族としての特徴は薄れていった。だが、職務が有名無実化してもタルハンという称号は生き残り、12世紀の史料にもこの言葉は見られる。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_BOYAR_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>ブルガリアの貴族階級は、第一次帝国ではボイラ、第二次帝国ではボルヤールと呼ばれていた。貴族には民事と軍事両方の役割があり、平時には所領に対して権力をふるったが、戦時には出兵の義務を負っていた。ブルガリア軍が強かったのは、高位の軍人である彼らが提供する技術、すなわち優れた馬術と土地勘のおかげだった。騎兵は貴重だったので、平時であっても馬を粗末に扱えば厳しく罰せられた。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_BOYAR_CHAPTER_HISTORY_PARA_2" Language="ja_JP">
+      <Text>ボルヤールの称号は世襲だった。ボルヤールの中にもさらに身分の高低があり、少数の高位ボルヤールが国家評議員を務め、下位のボルヤールはもっぱら地方行政に従事した。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_RILA_MONASTERY_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>10世紀、修道士イヴァン（ヨハネとも呼ばれた）はリラ山脈にこもり、隠者として暮らしていた。やがてイヴァンの奇跡が知られるようになると、彼から学び、祝福を授かろうと、多くの敬虔な人々が彼の住まう人里離れた洞窟に集まった。こうして弟子となった人々は、最初は仮初めの、後に恒久的な住まいを築いた。これがリラ修道院の起源である。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_RILA_MONASTERY_CHAPTER_HISTORY_PARA_2" Language="ja_JP">
+      <Text>長い年月の間に、リラ修道院は多くの変化を経験してきた。破壊と再建が幾度となく繰り返され、今日ではブルガリアのさまざまな時代の芸術、建築、歴史を象徴する場所となっている（そのすべてに第二次ブルガリア帝国で栄えたタルノヴォ派の影響が顕著だが）。リラ修道院はその長い歴史を通じてブルガリアの信仰と芸術的功績、アイデンティティの象徴でありつづけてきた。修道院としても今なお現役である。</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIDDEN_FORTRESS_NAME" Language="ja_JP">
+      <Text>隠れ要塞</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_RILA_MONASTERY_NAME" Language="ja_JP">
+      <Text>リラ修道院</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_DRINA_NAME" Language="ja_JP">
+      <Text>ドリナ川</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_ISKAR_NAME" Language="ja_JP">
+      <Text>イスクル川</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_MORAVA_NAME" Language="ja_JP">
+      <Text>モラヴァ川</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_PRUT_NAME" Language="ja_JP">
+      <Text>プルート川</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_YANTRA_NAME" Language="ja_JP">
+      <Text>ヤントラ川</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_ADATEPE_NAME" Language="ja_JP">
+      <Text>アダテペ</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_CIOMADUL_NAME" Language="ja_JP">
+      <Text>シオマドゥル</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_CSOVANYOS_NAME" Language="ja_JP">
+      <Text>チョヴァニョシュ</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_KERKIS_NAME" Language="ja_JP">
+      <Text>ケルキス</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_MOUNT_KARADAG_NAME" Language="ja_JP">
+      <Text>カラダー山</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SEVEN_TRIBES_NAME" Language="ja_JP">
+      <Text>七部族</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TARNOVO_SCHOOLS_NAME" Language="ja_JP">
+      <Text>タルノヴォ派</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TSARSTVIE_NAME" Language="ja_JP">
+      <Text>ツァールストヴィエ</Text>
+    </Replace>
+    <Replace Tag="LOC_11020A_COMPLETION" Language="ja_JP">
+      <Text>ブルガリアの山々は多くの秘密を抱いている。太古から存在するその壮大な美しさは、静かな頂を見上げる人々の目を奪う。しかし、この土地に害を成す者は、山もまたこちらを見つめていると気づくだろう。その視線は、けっして穏やかなものではない。</Text>
+    </Replace>
+    <Replace Tag="LOC_11020A_STORYTITLE" Language="ja_JP">
+      <Text>生ける断崖</Text>
+    </Replace>
+    <Replace Tag="LOC_11020B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11020B_NAME" Language="ja_JP">
+      <Text>姿を見られることなく相手を観察できれば、多くのことがわかるだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11020C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11020C_NAME" Language="ja_JP">
+      <Text>山々が抱えられる秘密は、これだけではない。</Text>
+    </Replace>
+    <Replace Tag="LOC_11021A_COMPLETION" Language="ja_JP">
+      <Text>戦いがなくなり、ブルガリアは繁栄を謳歌している。タルハンたちは武勇を披露する場を奪われたが、街を歩く今も威風堂々としている。とはいえ、昨今は日常的な問題の解決を求められることが増えている。</Text>
+    </Replace>
+    <Replace Tag="LOC_11021A_STORYTITLE" Language="ja_JP">
+      <Text>平和な時代の指導力</Text>
+    </Replace>
+    <Replace Tag="LOC_11021B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。ただし、{3_turn_timer}の間{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11021B_NAME" Language="ja_JP">
+      <Text>タルハンに行政を学ばせよう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11021C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11021C_NAME" Language="ja_JP">
+      <Text>平和な時こそ戦争に備えるべきだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11022A_COMPLETION" Language="ja_JP">
+      <Text>山の頂にある洞窟で孤独に暮らす聖者が、周辺地域の人々に奇跡を見せているという。祝福を授かろうと、多くの人々が個の人里離れた地に集っている。</Text>
+    </Replace>
+    <Replace Tag="LOC_11022A_STORYTITLE" Language="ja_JP">
+      <Text>山の中の奇跡</Text>
+    </Replace>
+    <Replace Tag="LOC_11022B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11022B_NAME" Language="ja_JP">
+      <Text>修道院を創立すべきだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11022C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11022C_NAME" Language="ja_JP">
+      <Text>そんな隠者のことは放っておけ！</Text>
+    </Replace>
+    <Replace Tag="LOC_11023A_COMPLETION" Language="ja_JP">
+      <Text>リラ修道院の修道士たちが、教会でひざまずき、無言のまま神に祈りを捧げている。だがその静寂は、室内に飾られていた豪奢なフレスコ画に驚嘆する大きな声によって破られた。</Text>
+    </Replace>
+    <Replace Tag="LOC_11023A_STORYTITLE" Language="ja_JP">
+      <Text>文化観光</Text>
+    </Replace>
+    <Replace Tag="LOC_11023B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}、{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11023B_NAME" Language="ja_JP">
+      <Text>修道院はすべてブルガリア人を受け入れる場所であるべきだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11023C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11023C_NAME" Language="ja_JP">
+      <Text>修道院は瞑想の場でありつづけるべきだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11024A_COMPLETION" Language="ja_JP">
+      <Text>周囲の自然までもが恐るべき敵と化す中、敵軍の司令官は兵士たちを自分の周囲に集結させた。ブルガリア軍は姿こそ見せないが、いたるところにいる。盾を叩く音は夜通しつづき、敵軍は混乱し、恐怖し、疲弊していった... 翌朝、ブルガリア軍は夜明けとともにようやく攻撃に移り、ごく短時間のうちに敵を壊滅させた。</Text>
+    </Replace>
+    <Replace Tag="LOC_11024A_STORYTITLE" Language="ja_JP">
+      <Text>ヴァルビツァの復讐</Text>
+    </Replace>
+    <Replace Tag="LOC_11024B_DESCRIPTION" Language="ja_JP">
+      <Text>騎兵の{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11024B_NAME" Language="ja_JP">
+      <Text>今夜は兵士たちにたっぷりと酒を振る舞ってやれ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11024C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11024C_NAME" Language="ja_JP">
+      <Text>戦いは終わっていないぞ。増援を呼べ！</Text>
+    </Replace>
+    <Replace Tag="LOC_11025A_COMPLETION" Language="ja_JP">
+      <Text>奇跡を起こすと評判の司祭が学校を開いた。そこでは若い伝道師たちに新たな文字を教え、教育を通して知識をすべての人々に広めるよう指導している。</Text>
+    </Replace>
+    <Replace Tag="LOC_11025A_STORYTITLE" Language="ja_JP">
+      <Text>オフリドの司祭</Text>
+    </Replace>
+    <Replace Tag="LOC_11025B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11025B_NAME" Language="ja_JP">
+      <Text>この灯火を広げることによってのみ私たちは世界を明るく照らせるのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11025C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11025C_NAME" Language="ja_JP">
+      <Text>伝道師たちが切り拓いた道は、商人たちに商機を与えるだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11026A_COMPLETION" Language="ja_JP">
+      <Text>海路で、また陸路で、伝道師たちがブルガリアの信仰を聞く耳を持つ者たちに広めている。さらなる導きを求める多くの新たな信徒が、ブルガリアの聖人たちの祝福を求め、やがて旅立つことだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11026A_STORYTITLE" Language="ja_JP">
+      <Text>遠方からの巡礼者</Text>
+    </Replace>
+    <Replace Tag="LOC_11026B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11026B_NAME" Language="ja_JP">
+      <Text>神の社はすべての者を迎え入れる場であらねばならない。</Text>
+    </Replace>
+    <Replace Tag="LOC_11026C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11026C_NAME" Language="ja_JP">
+      <Text>これはイコンが飛ぶように売れそうだ...</Text>
+    </Replace>
+    <Replace Tag="LOC_11027A_COMPLETION" Language="ja_JP">
+      <Text>破壊された建物から煙が立ち上る中、ボルヤールたちが略奪した品々を馬に乗せている。襲撃を成功させて彼らは意気軒昂だったが、どうしてこの土地がこれほどまでに豊かなのか、不思議に思わずにいられなかった。</Text>
+    </Replace>
+    <Replace Tag="LOC_11027A_STORYTITLE" Language="ja_JP">
+      <Text>奇襲</Text>
+    </Replace>
+    <Replace Tag="LOC_11027B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}、ただし{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11027B_NAME" Language="ja_JP">
+      <Text>隣人が豊かなのはブルガリアにとってよいことだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11027C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11027C_NAME" Language="ja_JP">
+      <Text>彼らの繁栄から学ぶべきことがあるかもしれない。</Text>
+    </Replace>
+    <Replace Tag="LOC_11028A_COMPLETION" Language="ja_JP">
+      <Text>首都を奪われたことを民が嘆き悲しむ中、いくつかの文書が盛んに読まれている。古の預言者たちが、天使に導かれ、ブルガリアの過去と現在、そして未来を記したものだという。激動の時代、歴史を振り返ることで心の平穏を得る者は多い。気がかりなのは、預言の結末がきわめて暗いことだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11028A_STORYTITLE" Language="ja_JP">
+      <Text>外典の預言書</Text>
+    </Replace>
+    <Replace Tag="LOC_11028B_DESCRIPTION" Language="ja_JP">
+      <Text>最高レベルの司令官が無償の昇格を得る。</Text>
+    </Replace>
+    <Replace Tag="LOC_11028B_NAME" Language="ja_JP">
+      <Text>未来への希望は過去を思い出すことから生まれるのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11028C_DESCRIPTION" Language="ja_JP">
+      <Text>騎兵の{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11028C_NAME" Language="ja_JP">
+      <Text>神が民に力を与え給うだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11029A_COMPLETION" Language="ja_JP">
+      <Text>ブルガリアを訪れた者たちは、その都市の美しさとそこに住まう人々が生み出す芸術に息を呑んだ。だがその一方で、行進する兵士たちを見る目には恐れの色が浮かんだ。無理もない。彼らの国が次なる標的になるかもしれないのだから。</Text>
+    </Replace>
+    <Replace Tag="LOC_11029A_STORYTITLE" Language="ja_JP">
+      <Text>絶頂</Text>
+    </Replace>
+    <Replace Tag="LOC_11029B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11029B_NAME" Language="ja_JP">
+      <Text>ブルガリアの名声は成長の糧となるだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11029C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11029C_NAME" Language="ja_JP">
+      <Text>軍こそブルガリアの誇りだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_12006A_COMPLETION" Language="ja_JP">
+      <Text>険しい山道を慎重に下りながら、リサールはブルガリアという土地の背理に思いを馳せる... 広大な山地によって外界から切り離されているにもかかわらず、ブルガリアは交易によって外界とつながっているのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_12006A_STORYTITLE" Language="ja_JP">
+      <Text>交差路のよき医師</Text>
+    </Replace>
+    <Replace Tag="LOC_12006B_DESCRIPTION" Language="ja_JP">
+      <Text>コーサーに{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_12006B_NAME" Language="ja_JP">
+      <Text>侵略を企む者たちに災いあれ。</Text>
+    </Replace>
+    <Replace Tag="LOC_12006C_DESCRIPTION" Language="ja_JP">
+      <Text>すべての居住地に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_12006C_NAME" Language="ja_JP">
+      <Text>勇敢な商人たちに障害はない。</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SEVEN_TRIBES_AUTHOR" Language="ja_JP">
+      <Text>ブルガリア皇帝クルムの法</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SEVEN_TRIBES_QUOTE" Language="ja_JP">
+      <Text>「既に伝えられているとおり、ブルガリアによって敵はせん滅された」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TARNOVO_SCHOOLS_AUTHOR" Language="ja_JP">
+      <Text>コスマス司祭</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TARNOVO_SCHOOLS_QUOTE" Language="ja_JP">
+      <Text>「悪魔どもはこの聖遺物を恐れ、祝福されたその中身には近づこうとしない」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TSARSTVIE_AUTHOR" Language="ja_JP">
+      <Text>ペタル1世への追悼</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TSARSTVIE_QUOTE" Language="ja_JP">
+      <Text>「あなた様は暁の明星のごとく現れ、敵の影を払いのけてくださった」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_BULGARIA_DESCRIPTION" Language="ja_JP">
+      <Text>建造物を略奪すると、獲得した産出量またはHPの50%に相当する [icon:YIELD_PRODUCTION] 生産力をすべての都市が得る。中世の防壁がある区域に対する全戦闘ユニットの戦闘力-3。</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIDDEN_FORTRESS_DESCRIPTION" Language="ja_JP">
+      <Text>[icon:YIELD_PRODUCTION] 生産力+4。他の隠し要塞に隣接していない荒地の既存施設に配置する必要がある。このタイルにいるユニットは「ステルス」を獲得する。ブルガリアの固有施設。要塞化陣地として扱われ、防衛時の戦闘力+6。時代を問わない。タイルの倉庫ボーナスは取り除かれない。</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIDDEN_FORTRESS_TOOLTIP" Language="ja_JP">
+      <Text>他の隠し要塞に隣接していない荒地の既存施設に配置する必要がある。このタイルにいるユニットは「ステルス」を獲得する。ブルガリアの固有施設。要塞化陣地として扱われ、防衛時の戦闘力+6。時代を問わない。タイルの倉庫ボーナスは取り除かれない。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_BULGARIA" Language="ja_JP">
+      <Text>高い峰の頂上では修道士たちが天に向かって祈りを捧げ、眼下の平原ではラッパが鳴り響く。ブルガリアは騎馬を進める、信仰に導かれし剣と、鋼よりも強固なる信仰を携えて。戦いの角笛とサーベル、投げ縄と長槍を掲げ、ブルガリア軍を世界へ解き放て！</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_BULGARIA" Language="ja_JP">
+      <Text>固有能力「クルム王朝」に伝統「偽装撤退」と「術策」を組み合わせれば、略奪によって大量の産出量ボーナスを得られます。ただし、要塞化された居住地を襲撃する場合は注意が必要です！</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_INTRO_BULGARIA" Language="ja_JP">
+      <Text>騎馬の兵らが竜を蹄にかけるとき、ブルガリアは大地を蹂躙せん</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BULGARIA_COMPLETE_RILA_MONASTERY_DESC" Language="ja_JP">
+      <Text>ブルガリアでプレイし、リラ修道院を完成させる。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BULGARIA_COMPLETE_RILA_MONASTERY_NAME" Language="ja_JP">
+      <Text>リラ修道院</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BULGARIA_LEGACY_PATH_MILITARISTIC_DESC" Language="ja_JP">
+      <Text>ブルガリアでプレイし、軍事レガシーパスを完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BULGARIA_LEGACY_PATH_MILITARISTIC_NAME" Language="ja_JP">
+      <Text>ブルガリアのレガシーパス</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_BULGARIA_DESCRIPTION" Language="ja_JP">
+      <Text>ブルガリアの固有遺産であることにより生産力+30%。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SEVEN_TRIBES_GREATWORKS_COMBAT_DESCRIPTION" Language="ja_JP">
+      <Text>遺物を5つ以上展示している場合、戦闘ユニットの戦闘力+5。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TARNOVO_SCHOOLS_TEMPLE_HAPPINESS_HIDDEN_FORTRESS_DESCRIPTION" Language="ja_JP">
+      <Text>神殿が存在する居住地にある隠し要塞の [icon:YIELD_HAPPINESS] 幸福度+2。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TSARSTVIE_CULTURE_MOUNTAIN_HIDDEN_FORTRESS_DESCRIPTION" Language="ja_JP">
+      <Text>隣接する山岳タイル1つにつき隠し要塞の [icon:YIELD_CULTURE] 文化力+2。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TSARSTVIE_TWO_MIGRANTS_DESCRIPTION" Language="ja_JP">
+      <Text>首都に移住者2を得る。</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_RILA_MONASTERY" Language="ja_JP">
+      <Text>リラのヨハネ</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_RILA_MONASTERY" Language="ja_JP">
+      <Text>隠者の富は金銀ではなく、完全な貧しさ、意志の否定、限りない謙虚さの中にある</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_FALSE_RETREAT_DESCRIPTION" Language="ja_JP">
+      <Text>建造物を略奪すると、獲得した産出量またはHPの50%に相当する [icon:YIELD_FOOD] 食料をすべての町が得る。中世の防壁がある区域に対する全戦闘ユニットの戦闘力-3。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_ICONOLATRY_DESCRIPTION" Language="ja_JP">
+      <Text>傑作がもたらす [icon:YIELD_HAPPINESS] 幸福度+1、 [icon:YIELD_GOLD] ゴールド+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_STRATAGEMS_DESCRIPTION" Language="ja_JP">
+      <Text>略奪による産出量とHP+50%。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_BULGARIA_ABILITY_DESCRIPTION" Language="ja_JP">
+      <Text>[BLIST][LI]建造物を略奪すると、[B]獲得した産出量またはHPの50%[/B]に相当する [B][icon:YIELD_PRODUCTION] 生産力[/B]をすべての都市が得る。中世の防壁がある区域に対する全戦闘ユニットの[B]戦闘力-3[/B]。[LI][B]リラ修道院[/B]の建設に対する[B] [icon:YIELD_PRODUCTION] 生産力+30%[/B]。[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_BULGARIA_ABILITY_NAME" Language="ja_JP">
+      <Text>クルム王朝</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_EX_BULGARIA_NAME" Language="ja_JP">
+      <Text>ブルガリアの社会制度</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BALIK_DESCRIPTION" Language="ja_JP">
+      <Text>ブルガリア固有の軍団司令官。移動力3。指揮範囲内にいるユニットは、移動力1の消費で略奪できる。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_2_DESCRIPTION" Language="ja_JP">
+      <Text>ブルガリア固有の騎兵ユニット（ティア2）。荒地地形の移動制限と敵ユニットの戦闘制限を無視できる。荒地地形にいるユニットと戦うと戦闘力+3。支配領域を無視する。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_3_DESCRIPTION" Language="ja_JP">
+      <Text>ブルガリア固有の騎兵ユニット（ティア3）。荒地地形の移動制限と敵ユニットの戦闘制限を無視できる。荒地地形にいるユニットと戦うと戦闘力+3。支配領域を無視する。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_BASE_DESCRIPTION" Language="ja_JP">
+      <Text>ブルガリア固有の騎兵ユニット。荒地地形の移動制限と敵ユニットの戦闘制限を無視できる。荒地地形にいるユニットと戦うと戦闘力+3。支配領域を無視する。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_DESCRIPTION" Language="ja_JP">
+      <Text>ブルガリア固有の騎兵ユニット（ティア1）。荒地地形の移動制限と敵ユニットの戦闘制限を無視できる。荒地地形にいるユニットと戦うと戦闘力+3。支配領域を無視する。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_ALTARS_BULGARIA_TOOLTIP" Language="ja_JP">
+      <Text>[B]祭壇[/B]は[B]ブルガリア[/B]のアイデンティティの重要な一部分だった。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_ALTARS_DESCRIPTION" Language="ja_JP">
+      <Text>[B]祭壇[/B]を3つ保有する。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_AUGUSTUS_BULGARIA_TOOLTIP" Language="ja_JP">
+      <Text>[B]アウグストゥス[/B]は後に[B]ブルガリア[/B]となる地域を支配していた。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BULGARIA_DESCRIPTION" Language="ja_JP">
+      <Text>[B]ブルガリア[/B]としてプレイする。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_CATHERINE_BULGARIA_TOOLTIP" Language="ja_JP">
+      <Text>[B]エカチェリーナ2世[/B]は[B]ブルガリア[/B]と同じ大陸に属していた。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_CHARLEMAGNE_BULGARIA_TOOLTIP" Language="ja_JP">
+      <Text>[B]ブルガリア[/B]は[B]シャルルマーニュ[/B]を戦略的に補完する。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_RILA_MONASTERY_DESCRIPTION" Language="ja_JP">
+      <Text>[icon:YIELD_CULTURE] 文化力+4。遺物スロット3。これを含む遺産を建設するたびに遺物を獲得する。区域に隣接させることはできない。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_RILA_MONASTERY_TOOLTIP" Language="ja_JP">
+      <Text>遺物スロット3。これを含む遺産を建設するたびに遺物を獲得する。区域に隣接させることはできない。</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_BOYAR_PREVIEW" Language="ja_JP">
+      <Text>荒地地形では+{1_Amount}</Text>
+    </Replace>
+    <Replace Tag="LOC_COMBAT_PREVIEW_NUMBER_GREATWORKS_BONUS_DESC" Language="ja_JP">
+      <Text>スロットに入っている傑作により戦闘力+{1_Value}。</Text>
+    </Replace>
+    <Replace Tag="LOC_SEVEN_TRIBES_GREATWORKS_COMBAT_PREVIEW" Language="ja_JP">
+      <Text>七部族+{1_Amount}</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_FALSE_RETREAT_PREVIEW" Language="ja_JP">
+      <Text>偽装撤退により{1_CombatAmount}</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_BULGARIA_ABILITY_PREVIEW" Language="ja_JP">
+      <Text>クルム王朝により{1_CombatAmount}</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_ALTARS_BULGARIA_NARRATIVE" Language="ja_JP">
+      <Text>{1_Civilization_Adj}民にとって宗教は個人的な問題だった。しかし都市に設けられた祭壇の周辺では、大勢の人々が過去の聖人の話をさかんに語り合っている。こうした物語の広まりから、信心深い人々の新たなネットワークが形作られ、権力者たちに彼らが思い描く将来像を伝えようとしている。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_FALSE_RETREAT_NAME" Language="ja_JP">
+      <Text>偽装撤退</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_ICONOLATRY_NAME" Language="ja_JP">
+      <Text>イコン崇拝</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_STRATAGEMS_NAME" Language="ja_JP">
+      <Text>術策</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BALIK_NAME" Language="ja_JP">
+      <Text>タルハン</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_NAME" Language="ja_JP">
+      <Text>ボルヤール</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

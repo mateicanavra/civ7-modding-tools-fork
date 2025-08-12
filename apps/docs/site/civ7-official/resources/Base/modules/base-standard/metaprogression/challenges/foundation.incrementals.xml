@@ -1,0 +1,1366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metaprogression xmlns="Metaprogression">
+	<challenges class="CHALLENGE_CLASS_FOUNDATION" category="CHALLENGE_CATEGORY_FOUNDATION_INCREMENTALS" legendPath="LEGEND_PATH_FOUNDATION">
+		<challenge id="CHALLENGE_MILITARY_VICTORY_FIRST_PLACE_5" scope="Career" difficulty="3">
+			<l10n>
+				<name>Military Legacy Path 5</name>
+				<description>Complete a Military Legacy Path 5 times.</description>
+			</l10n>
+			<sortIndex>8600</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_MILITARY_VICTORY" threshold="5" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_MILITARY_VICTORY_FIRST_PLACE_10" scope="Career" difficulty="3">
+			<l10n>
+				<name>Military Legacy Path 10</name>
+				<description>Complete a Military Legacy Path 10 times.</description>
+			</l10n>
+			<sortIndex>8700</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_MILITARY_VICTORY" threshold="10" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_MILITARY_VICTORY_FIRST_PLACE_15" scope="Career" difficulty="3">
+			<l10n>
+				<name>Military Legacy Path 15</name>
+				<description>Complete a Military Legacy Path 15 times.</description>
+			</l10n>
+			<sortIndex>8800</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_MILITARY_VICTORY" threshold="15" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_MILITARY_VICTORY_FIRST_PLACE_20" scope="Career" difficulty="3">
+			<l10n>
+				<name>Military Legacy Path 20</name>
+				<description>Complete a Military Legacy Path 20 times.</description>
+			</l10n>
+			<sortIndex>8810</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_MILITARY_VICTORY" threshold="20" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_MILITARY_VICTORY_FIRST_PLACE_25" scope="Career" difficulty="3">
+			<l10n>
+				<name>Military Legacy Path 25</name>
+				<description>Complete a Military Legacy Path 25 times.</description>
+			</l10n>
+			<sortIndex>8820</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_MILITARY_VICTORY" threshold="25" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_MILITARY_VICTORY_FIRST_PLACE_30" scope="Career" difficulty="3">
+			<l10n>
+				<name>Military Legacy Path 30</name>
+				<description>Complete a Military Legacy Path 30 times.</description>
+			</l10n>
+			<sortIndex>8830</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_MILITARY_VICTORY" threshold="30" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_ECONOMIC_VICTORY_FIRST_PLACE_5" scope="Career" difficulty="3">
+			<l10n>
+				<name>Economic Legacy Path 5</name>
+				<description>Complete an Economic Legacy Path 5 times.</description>
+			</l10n>
+			<sortIndex>9500</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_ECONOMIC_VICTORY" threshold="5" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_ECONOMIC_VICTORY_FIRST_PLACE_10" scope="Career" difficulty="3">
+			<l10n>
+				<name>Economic Legacy Path 10</name>
+				<description>Complete an Economic Legacy Path 10 times.</description>
+			</l10n>
+			<sortIndex>9600</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_ECONOMIC_VICTORY" threshold="10" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_ECONOMIC_VICTORY_FIRST_PLACE_15" scope="Career" difficulty="3">
+			<l10n>
+				<name>Economic Legacy Path 15</name>
+				<description>Complete an Economic Legacy Path 15 times.</description>
+			</l10n>
+			<sortIndex>9700</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_ECONOMIC_VICTORY" threshold="15" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_ECONOMIC_VICTORY_FIRST_PLACE_20" scope="Career" difficulty="3">
+			<l10n>
+				<name>Economic Legacy Path 20</name>
+				<description>Complete an Economic Legacy Path 20 times.</description>
+			</l10n>
+			<sortIndex>9710</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_ECONOMIC_VICTORY" threshold="20" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_ECONOMIC_VICTORY_FIRST_PLACE_25" scope="Career" difficulty="3">
+			<l10n>
+				<name>Economic Legacy Path 25</name>
+				<description>Complete an Economic Legacy Path 25 times.</description>
+			</l10n>
+			<sortIndex>9720</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_ECONOMIC_VICTORY" threshold="25" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_ECONOMIC_VICTORY_FIRST_PLACE_30" scope="Career" difficulty="3">
+			<l10n>
+				<name>Economic Legacy Path 30</name>
+				<description>Complete an Economic Legacy Path 30 times.</description>
+			</l10n>
+			<sortIndex>9730</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_ECONOMIC_VICTORY" threshold="30" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_SCIENCE_VICTORY_FIRST_PLACE_5" scope="Career" difficulty="3">
+			<l10n>
+				<name>Science Legacy Path 5</name>
+				<description>Complete a Science Legacy Path 5 times.</description>
+			</l10n>
+			<sortIndex>9200</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_SCIENCE_VICTORY" threshold="5" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_SCIENCE_VICTORY_FIRST_PLACE_10" scope="Career" difficulty="3">
+			<l10n>
+				<name>Science Legacy Path 10</name>
+				<description>Complete a Science Legacy Path 10 times.</description>
+			</l10n>
+			<sortIndex>9300</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_SCIENCE_VICTORY" threshold="10" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_SCIENCE_VICTORY_FIRST_PLACE_15" scope="Career" difficulty="3">
+			<l10n>
+				<name>Science Legacy Path 15</name>
+				<description>Complete a Science Legacy Path 15 times.</description>
+			</l10n>
+			<sortIndex>9400</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_SCIENCE_VICTORY" threshold="15" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_SCIENCE_VICTORY_FIRST_PLACE_20" scope="Career" difficulty="3">
+			<l10n>
+				<name>Science Legacy Path 20</name>
+				<description>Complete a Science Legacy Path 20 times.</description>
+			</l10n>
+			<sortIndex>9410</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_SCIENCE_VICTORY" threshold="20" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_SCIENCE_VICTORY_FIRST_PLACE_25" scope="Career" difficulty="3">
+			<l10n>
+				<name>Science Legacy Path 25</name>
+				<description>Complete a Science Legacy Path 25 times.</description>
+			</l10n>
+			<sortIndex>9420</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_SCIENCE_VICTORY" threshold="25" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_SCIENCE_VICTORY_FIRST_PLACE_30" scope="Career" difficulty="3">
+			<l10n>
+				<name>Science Legacy Path 30</name>
+				<description>Complete a Science Legacy Path 30 times.</description>
+			</l10n>
+			<sortIndex>9430</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_SCIENCE_VICTORY" threshold="30" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_CULTURE_VICTORY_FIRST_PLACE_5" scope="Career" difficulty="3">
+			<l10n>
+				<name>Culture Legacy Path 5</name>
+				<description>Complete a Culture Legacy Path 5 times.</description>
+			</l10n>
+			<sortIndex>8900</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_CULTURE_VICTORY" threshold="5" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_CULTURE_VICTORY_FIRST_PLACE_10" scope="Career" difficulty="3">
+			<l10n>
+				<name>Culture Legacy Path 10</name>
+				<description>Complete a Culture Legacy Path 10 times.</description>
+			</l10n>
+			<sortIndex>9000</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_CULTURE_VICTORY" threshold="10" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_CULTURE_VICTORY_FIRST_PLACE_15" scope="Career" difficulty="3">
+			<l10n>
+				<name>Culture Legacy Path 15</name>
+				<description>Complete a Culture Legacy Path 15 times.</description>
+			</l10n>
+			<sortIndex>9100</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_CULTURE_VICTORY" threshold="15" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_CULTURE_VICTORY_FIRST_PLACE_20" scope="Career" difficulty="3">
+			<l10n>
+				<name>Culture Legacy Path 20</name>
+				<description>Complete a Culture Legacy Path 20 times.</description>
+			</l10n>
+			<sortIndex>9110</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_CULTURE_VICTORY" threshold="20" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_CULTURE_VICTORY_FIRST_PLACE_25" scope="Career" difficulty="3">
+			<l10n>
+				<name>Culture Legacy Path 25</name>
+				<description>Complete a Culture Legacy Path 25 times.</description>
+			</l10n>
+			<sortIndex>9120</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_CULTURE_VICTORY" threshold="25" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_CULTURE_VICTORY_FIRST_PLACE_30" scope="Career" difficulty="3">
+			<l10n>
+				<name>Culture Legacy Path 30</name>
+				<description>Complete a Culture Legacy Path 30 times.</description>
+			</l10n>
+			<sortIndex>9130</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_FIRST_PLACE_CULTURE_VICTORY" threshold="30" />
+			<reward type="XP" reward="75" />
+		</challenge>
+		<challenge id="CHALLENGE_CELEBRATIONS_TRIGGERED_5" scope="Career" difficulty="3">
+			<l10n>
+				<name>Celebrations 5</name>
+				<description>Trigger 5 Celebrations.</description>
+			</l10n>
+			<sortIndex>11600</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_CELEBRATIONS_TRIGGERED" threshold="5" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CELEBRATIONS_TRIGGERED_10" scope="Career" difficulty="3">
+			<l10n>
+				<name>Celebrations 10</name>
+				<description>Trigger 10 Celebrations.</description>
+			</l10n>
+			<sortIndex>11700</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_CELEBRATIONS_TRIGGERED" threshold="10" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CELEBRATIONS_TRIGGERED_15" scope="Career" difficulty="3">
+			<l10n>
+				<name>Celebrations 15</name>
+				<description>Trigger 15 Celebrations.</description>
+			</l10n>
+			<sortIndex>11800</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_CELEBRATIONS_TRIGGERED" threshold="15" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CELEBRATIONS_TRIGGERED_20" scope="Career" difficulty="3">
+			<l10n>
+				<name>Celebrations 20</name>
+				<description>Trigger 20 Celebrations.</description>
+			</l10n>
+			<sortIndex>11800</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_CELEBRATIONS_TRIGGERED" threshold="20" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CELEBRATIONS_TRIGGERED_25" scope="Career" difficulty="3">
+			<l10n>
+				<name>Celebrations 25</name>
+				<description>Trigger 25 Celebrations.</description>
+			</l10n>
+			<sortIndex>11800</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_CELEBRATIONS_TRIGGERED" threshold="25" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CELEBRATIONS_TRIGGERED_30" scope="Career" difficulty="3">
+			<l10n>
+				<name>Celebrations 30</name>
+				<description>Trigger 30 Celebrations.</description>
+			</l10n>
+			<sortIndex>11830</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_CELEBRATIONS_TRIGGERED" threshold="30" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CELEBRATIONS_TRIGGERED_35" scope="Career" difficulty="3">
+			<l10n>
+				<name>Celebrations 35</name>
+				<description>Trigger 35 Celebrations.</description>
+			</l10n>
+			<sortIndex>11840</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_CELEBRATIONS_TRIGGERED" threshold="35" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CELEBRATIONS_TRIGGERED_40" scope="Career" difficulty="3">
+			<l10n>
+				<name>Celebrations 40</name>
+				<description>Trigger 40 Celebrations.</description>
+			</l10n>
+			<sortIndex>11850</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_CELEBRATIONS_TRIGGERED" threshold="40" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CELEBRATIONS_TRIGGERED_45" scope="Career" difficulty="3">
+			<l10n>
+				<name>Celebrations 45</name>
+				<description>Trigger 45 Celebrations.</description>
+			</l10n>
+			<sortIndex>11860</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_CELEBRATIONS_TRIGGERED" threshold="45" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CELEBRATIONS_TRIGGERED_50" scope="Career" difficulty="3">
+			<l10n>
+				<name>Celebrations 50</name>
+				<description>Trigger 50 Celebrations.</description>
+			</l10n>
+			<sortIndex>11870</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_CELEBRATIONS_TRIGGERED" threshold="50" />
+			<reward type="XP" reward="50" />
+			<reward type="UnlockableReward" reward="BADGE_HAPPINESS_BADGE"/>
+		</challenge>
+		<challenge id="CHALLENGE_WONDERS_BUILT_10" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders Built 10</name>
+				<description>Build 10 Wonders</description>
+			</l10n>
+			<sortIndex>10100</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_WONDER_BUILT" threshold="10" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_WONDERS_BUILT_20" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders Built 20</name>
+				<description>Build 20 Wonders</description>
+			</l10n>
+			<sortIndex>10200</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_WONDER_BUILT" threshold="20" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_WONDERS_BUILT_30" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders Built 30</name>
+				<description>Build 30 Wonders</description>
+			</l10n>
+			<sortIndex>10300</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_WONDER_BUILT" threshold="30" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_WONDERS_BUILT_40" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders Built 40</name>
+				<description>Build 40 Wonders</description>
+			</l10n>
+			<sortIndex>10310</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_WONDER_BUILT" threshold="40" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_WONDERS_BUILT_50" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders Built 50</name>
+				<description>Build 50 Wonders</description>
+			</l10n>
+			<sortIndex>10320</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_WONDER_BUILT" threshold="50" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_WONDERS_BUILT_60" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders Built 60</name>
+				<description>Build 60 Wonders</description>
+			</l10n>
+			<sortIndex>10330</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_WONDER_BUILT" threshold="60" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_WONDERS_BUILT_70" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders Built 70</name>
+				<description>Build 70 Wonders</description>
+			</l10n>
+			<sortIndex>10340</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_WONDER_BUILT" threshold="70" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_WONDERS_BUILT_80" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders Built 80</name>
+				<description>Build 80 Wonders</description>
+			</l10n>
+			<sortIndex>10350</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_WONDER_BUILT" threshold="80" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_WONDERS_BUILT_90" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders Built 90</name>
+				<description>Build 90 Wonders</description>
+			</l10n>
+			<sortIndex>10360</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_WONDER_BUILT" threshold="90" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_WONDERS_BUILT_100" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders Built 100</name>
+				<description>Build 100 Wonders</description>
+			</l10n>
+			<sortIndex>10370</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_WONDER_BUILT" threshold="100" />
+			<reward type="XP" reward="50" />
+			<reward type="UnlockableReward" reward="BADGE_PRODUCTION_BADGE"/>
+		</challenge>
+		<challenge id="CHALLENGE_LEADERS_PLAYED_5" scope="Campaign" difficulty="3">
+			<l10n>
+				<name>Leaders played 5</name>
+				<description>Reach at least 1 Legacy Path Milestone with 5 different Leaders</description>
+			</l10n>
+			<sortIndex>10400</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADERS_PLAYED_10" scope="Campaign" difficulty="3">
+			<l10n>
+				<name>Leaders played 10</name>
+				<description>Reach at least 1 Legacy Path Milestone with 10 different Leaders</description>
+			</l10n>
+			<sortIndex>10500</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADERS_PLAYED_15" scope="Campaign" difficulty="3">
+			<l10n>
+				<name>Leaders played 15</name>
+				<description>Reach at least 1 Legacy Path Milestone with 15 different Leaders</description>
+			</l10n>
+			<sortIndex>10600</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CIVS_PLAYED_5" scope="Campaign" difficulty="3">
+			<l10n>
+				<name>Civs played 5</name>
+				<description>Reach at least 1 Legacy Path Milestone with 5 different Civs</description>
+			</l10n>
+			<sortIndex>10700</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CIVS_PLAYED_10" scope="Campaign" difficulty="3">
+			<l10n>
+				<name>Civs played 10</name>
+				<description>Reach at least 1 Legacy Path Milestone with 10 different Civs</description>
+			</l10n>
+			<sortIndex>10800</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CIVS_PLAYED_15" scope="Campaign" difficulty="3">
+			<l10n>
+				<name>Civs played 15</name>
+				<description>Reach at least 1 Legacy Path Milestone with 15 different Civs</description>
+			</l10n>
+			<sortIndex>10900</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CIVS_PLAYED_20" scope="Campaign" difficulty="3">
+			<l10n>
+				<name>Civs played 20</name>
+				<description>Reach at least 1 Legacy Path Milestone with 20 different Civs</description>
+			</l10n>
+			<sortIndex>10910</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CIVS_PLAYED_25" scope="Campaign" difficulty="3">
+			<l10n>
+				<name>Civs played 25</name>
+				<description>Reach at least 1 Legacy Path Milestone with 25 different Civs</description>
+			</l10n>
+			<sortIndex>10920</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_END_AGES_5" scope="Career" difficulty="2">
+			<l10n>
+				<name>Ages Completed 5</name>
+				<description>See the end of 5 Ages</description>
+			</l10n>
+			<sortIndex>8000</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_AGES_COMPLETED" threshold="5" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_END_AGES_10" scope="Career" difficulty="2">
+			<l10n>
+				<name>Ages Completed 10</name>
+				<description>See the end of 10 Ages</description>
+			</l10n>
+			<sortIndex>8100</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_AGES_COMPLETED" threshold="10" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_END_AGES_15" scope="Career" difficulty="2">
+			<l10n>
+				<name>Ages Completed 15</name>
+				<description>See the end of 15 Ages</description>
+			</l10n>
+			<sortIndex>8200</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_AGES_COMPLETED" threshold="15" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_NATURAL_WONDERS_DISCOVERED_5" scope="Career" difficulty="3">
+			<l10n>
+				<name>Natural Wonders Discovered 5</name>
+				<description>Discover 5 Natural Wonders.</description>
+			</l10n>
+			<sortIndex>9800</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_NATURAL_WONDERS_DISCOVERED" threshold="5"/>
+			<reward type="XP" reward="50"/>
+		</challenge>
+		<challenge id="CHALLENGE_NATURAL_WONDERS_DISCOVERED_10" scope="Career" difficulty="3">
+			<l10n>
+				<name>Natural Wonders Discovered 10</name>
+				<description>Discover 10 Natural Wonders.</description>
+			</l10n>
+			<sortIndex>9900</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_NATURAL_WONDERS_DISCOVERED" threshold="10"/>
+			<reward type="XP" reward="50"/>
+		</challenge>
+		<challenge id="CHALLENGE_NATURAL_WONDERS_DISCOVERED_15" scope="Career" difficulty="3">
+			<l10n>
+				<name>Natural Wonders Discovered 15</name>
+				<description>Discover 15 Natural Wonders.</description>
+			</l10n>
+			<sortIndex>10000</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_NATURAL_WONDERS_DISCOVERED" threshold="15"/>
+			<reward type="XP" reward="50"/>
+		</challenge>
+		<challenge id="CHALLENGE_NATURAL_WONDERS_DISCOVERED_20" scope="Career" difficulty="3">
+			<l10n>
+				<name>Natural Wonders Discovered 20</name>
+				<description>Discover 20 Natural Wonders.</description>
+			</l10n>
+			<sortIndex>10001</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_NATURAL_WONDERS_DISCOVERED" threshold="20"/>
+			<reward type="XP" reward="50"/>
+		</challenge>
+		<challenge id="CHALLENGE_NATURAL_WONDERS_DISCOVERED_25" scope="Career" difficulty="3">
+			<l10n>
+				<name>Natural Wonders Discovered 25</name>
+				<description>Discover 25 Natural Wonders.</description>
+			</l10n>
+			<sortIndex>10002</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_NATURAL_WONDERS_DISCOVERED" threshold="25"/>
+			<reward type="XP" reward="50"/>
+		</challenge>
+		<challenge id="CHALLENGE_NATURAL_WONDERS_DISCOVERED_30" scope="Career" difficulty="3">
+			<l10n>
+				<name>Natural Wonders Discovered 30</name>
+				<description>Discover 30 Natural Wonders.</description>
+			</l10n>
+			<sortIndex>10003</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_NATURAL_WONDERS_DISCOVERED" threshold="30"/>
+			<reward type="XP" reward="50"/>
+		</challenge>
+		<challenge id="CHALLENGE_NATURAL_WONDERS_DISCOVERED_35" scope="Career" difficulty="3">
+			<l10n>
+				<name>Natural Wonders Discovered 35</name>
+				<description>Discover 35 Natural Wonders.</description>
+			</l10n>
+			<sortIndex>10004</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_NATURAL_WONDERS_DISCOVERED" threshold="35"/>
+			<reward type="XP" reward="50"/>
+		</challenge>
+		<challenge id="CHALLENGE_NATURAL_WONDERS_DISCOVERED_40" scope="Career" difficulty="3">
+			<l10n>
+				<name>Natural Wonders Discovered 40</name>
+				<description>Discover 40 Natural Wonders.</description>
+			</l10n>
+			<sortIndex>10005</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_NATURAL_WONDERS_DISCOVERED" threshold="40"/>
+			<reward type="XP" reward="50"/>
+		</challenge>
+		<challenge id="CHALLENGE_NATURAL_WONDERS_DISCOVERED_45" scope="Career" difficulty="3">
+			<l10n>
+				<name>Natural Wonders Discovered 45</name>
+				<description>Discover 45 Natural Wonders.</description>
+			</l10n>
+			<sortIndex>10006</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_NATURAL_WONDERS_DISCOVERED" threshold="45"/>
+			<reward type="XP" reward="50"/>
+		</challenge>
+		<challenge id="CHALLENGE_NATURAL_WONDERS_DISCOVERED_50" scope="Career" difficulty="3">
+			<l10n>
+				<name>Natural Wonders Discovered 50</name>
+				<description>Discover 50 Natural Wonders.</description>
+			</l10n>
+			<sortIndex>10007</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_NATURAL_WONDERS_DISCOVERED" threshold="50"/>
+			<reward type="XP" reward="50"/>
+		</challenge>
+		<challenge id="CHALLENGE_ATTRIBUTE_POINTS_SPENT_5" scope="Career" difficulty="3">
+			<l10n>
+				<name>Attribute Points Spent 5</name>
+				<description>Spent 5 Attribute Points</description>
+			</l10n>
+			<sortIndex>11000</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_ATTRIBUTE_POINTS_SPENT" threshold="5"/>
+			<reward type="XP" reward="50"/>
+		</challenge>
+		<challenge id="CHALLENGE_ATTRIBUTE_POINTS_SPENT_10" scope="Career" difficulty="3">
+			<l10n>
+				<name>Attribute Points Spent 10</name>
+				<description>Spent 10 Attribute Points</description>
+			</l10n>
+			<sortIndex>11100</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_ATTRIBUTE_POINTS_SPENT" threshold="10"/>
+			<reward type="XP" reward="50"/>
+		</challenge>
+		<challenge id="CHALLENGE_ATTRIBUTE_POINTS_SPENT_15" scope="Career" difficulty="3">
+			<l10n>
+				<name>Attribute Points Spent 15</name>
+				<description>Spent 15 Attribute Points</description>
+			</l10n>
+			<sortIndex>11200</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_ATTRIBUTE_POINTS_SPENT" threshold="15"/>
+			<reward type="XP" reward="50"/>
+		</challenge>
+		<challenge id="CHALLENGE_ATTRIBUTE_POINTS_SPENT_20" scope="Career" difficulty="3">
+			<l10n>
+				<name>Attribute Points Spent 20</name>
+				<description>Spent 20 Attribute Points</description>
+			</l10n>
+			<sortIndex>11210</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_ATTRIBUTE_POINTS_SPENT" threshold="20"/>
+			<reward type="XP" reward="50"/>
+		</challenge>
+		<challenge id="CHALLENGE_ATTRIBUTE_POINTS_SPENT_25" scope="Career" difficulty="3">
+			<l10n>
+				<name>Attribute Points Spent 25</name>
+				<description>Spent 25 Attribute Points</description>
+			</l10n>
+			<sortIndex>11220</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_ATTRIBUTE_POINTS_SPENT" threshold="25"/>
+			<reward type="XP" reward="50"/>
+		</challenge>
+		<challenge id="CHALLENGE_ATTRIBUTE_POINTS_SPENT_30" scope="Career" difficulty="3">
+			<l10n>
+				<name>Attribute Points Spent 30</name>
+				<description>Spent 30 Attribute Points</description>
+			</l10n>
+			<sortIndex>11230</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_ATTRIBUTE_POINTS_SPENT" threshold="30"/>
+			<reward type="XP" reward="50"/>
+		</challenge>
+		<challenge id="CHALLENGE_ATTRIBUTE_POINTS_SPENT_35" scope="Career" difficulty="3">
+			<l10n>
+				<name>Attribute Points Spent 35</name>
+				<description>Spent 35 Attribute Points</description>
+			</l10n>
+			<sortIndex>11240</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_ATTRIBUTE_POINTS_SPENT" threshold="35"/>
+			<reward type="XP" reward="50"/>
+		</challenge>
+		<challenge id="CHALLENGE_ATTRIBUTE_POINTS_SPENT_40" scope="Career" difficulty="3">
+			<l10n>
+				<name>Attribute Points Spent 40</name>
+				<description>Spent 40 Attribute Points</description>
+			</l10n>
+			<sortIndex>11250</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_ATTRIBUTE_POINTS_SPENT" threshold="40"/>
+			<reward type="XP" reward="50"/>
+		</challenge>
+		<challenge id="CHALLENGE_ATTRIBUTE_POINTS_SPENT_45" scope="Career" difficulty="3">
+			<l10n>
+				<name>Attribute Points Spent 45</name>
+				<description>Spent 45 Attribute Points</description>
+			</l10n>
+			<sortIndex>11260</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_ATTRIBUTE_POINTS_SPENT" threshold="45"/>
+			<reward type="XP" reward="50"/>
+		</challenge>
+		<challenge id="CHALLENGE_ATTRIBUTE_POINTS_SPENT_50" scope="Career" difficulty="3">
+			<l10n>
+				<name>Attribute Points Spent 50</name>
+				<description>Spent 50 Attribute Points</description>
+			</l10n>
+			<sortIndex>11270</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_ATTRIBUTE_POINTS_SPENT" threshold="50"/>
+			<reward type="XP" reward="50"/>
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_COMMANDER_PROMOTIONS_10" scope="Career" difficulty="3">
+			<l10n>
+				<name>Commander Promotions 10</name>
+				<description>Promote your Commanders a total of 10 times</description>
+			</l10n>
+			<sortIndex>11300</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_COMMANDER_PROMOTIONS" threshold="10" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_COMMANDER_PROMOTIONS_20" scope="Career" difficulty="3">
+			<l10n>
+				<name>Commander Promotions 20</name>
+				<description>Promote your Commanders a total of 20 times</description>
+			</l10n>
+			<sortIndex>11400</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_COMMANDER_PROMOTIONS" threshold="20" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_COMMANDER_PROMOTIONS_30" scope="Career" difficulty="3">
+			<l10n>
+				<name>Commander Promotions 30</name>
+				<description>Promote your Commanders a total of 30 times</description>
+			</l10n>
+			<sortIndex>11500</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_COMMANDER_PROMOTIONS" threshold="30" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_COMMANDER_PROMOTIONS_40" scope="Career" difficulty="3">
+			<l10n>
+				<name>Commander Promotions 40</name>
+				<description>Promote your Commanders a total of 40 times</description>
+			</l10n>
+			<sortIndex>11510</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_COMMANDER_PROMOTIONS" threshold="40" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_COMMANDER_PROMOTIONS_50" scope="Career" difficulty="3">
+			<l10n>
+				<name>Commander Promotions 50</name>
+				<description>Promote your Commanders a total of 50 times</description>
+			</l10n>
+			<sortIndex>11520</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_COMMANDER_PROMOTIONS" threshold="50" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_COMMANDER_PROMOTIONS_60" scope="Career" difficulty="3">
+			<l10n>
+				<name>Commander Promotions 60</name>
+				<description>Promote your Commanders a total of 60 times</description>
+			</l10n>
+			<sortIndex>11530</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_COMMANDER_PROMOTIONS" threshold="60" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_COMMANDER_PROMOTIONS_70" scope="Career" difficulty="3">
+			<l10n>
+				<name>Commander Promotions 70</name>
+				<description>Promote your Commanders a total of 70 times</description>
+			</l10n>
+			<sortIndex>11540</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_COMMANDER_PROMOTIONS" threshold="70" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_COMMANDER_PROMOTIONS_80" scope="Career" difficulty="3">
+			<l10n>
+				<name>Commander Promotions 80</name>
+				<description>Promote your Commanders a total of 80 times</description>
+			</l10n>
+			<sortIndex>11550</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_COMMANDER_PROMOTIONS" threshold="80" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_COMMANDER_PROMOTIONS_90" scope="Career" difficulty="3">
+			<l10n>
+				<name>Commander Promotions 90</name>
+				<description>Promote your Commanders a total of 90 times</description>
+			</l10n>
+			<sortIndex>11560</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_COMMANDER_PROMOTIONS" threshold="90" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_COMMANDER_PROMOTIONS_100" scope="Career" difficulty="3">
+			<l10n>
+				<name>Commander Promotions 100</name>
+				<description>Promote your Commanders a total of 100 times</description>
+			</l10n>
+			<sortIndex>11570</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_COMMANDER_PROMOTIONS" threshold="100" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TECHNOLOGIES_UNLOCKED_25" scope="Career" difficulty="3">
+			<l10n>
+				<name>Technologies 25</name>
+				<description>Research 25 Technologies</description>
+			</l10n>
+			<sortIndex>12800</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TECHNOLOGY_UNLOCKED_PROGRESS" threshold="25" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TECHNOLOGIES_UNLOCKED_50" scope="Career" difficulty="3">
+			<l10n>
+				<name>Technologies 50</name>
+				<description>Research 50 Technologies</description>
+			</l10n>
+			<sortIndex>12900</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TECHNOLOGY_UNLOCKED_PROGRESS" threshold="50" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TECHNOLOGIES_UNLOCKED_75" scope="Career" difficulty="3">
+			<l10n>
+				<name>Technologies 75</name>
+				<description>Research 75 Technologies</description>
+			</l10n>
+			<sortIndex>13000</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TECHNOLOGY_UNLOCKED_PROGRESS" threshold="75" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TECHNOLOGIES_UNLOCKED_100" scope="Career" difficulty="3">
+			<l10n>
+				<name>Technologies 100</name>
+				<description>Research 100 Technologies</description>
+			</l10n>
+			<sortIndex>13010</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TECHNOLOGY_UNLOCKED_PROGRESS" threshold="100" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TECHNOLOGIES_UNLOCKED_125" scope="Career" difficulty="3">
+			<l10n>
+				<name>Technologies 125</name>
+				<description>Research 125 Technologies</description>
+			</l10n>
+			<sortIndex>13020</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TECHNOLOGY_UNLOCKED_PROGRESS" threshold="125" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TECHNOLOGIES_UNLOCKED_150" scope="Career" difficulty="3">
+			<l10n>
+				<name>Technologies 150</name>
+				<description>Research 150 Technologies</description>
+			</l10n>
+			<sortIndex>13030</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TECHNOLOGY_UNLOCKED_PROGRESS" threshold="150" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TECHNOLOGIES_UNLOCKED_175" scope="Career" difficulty="3">
+			<l10n>
+				<name>Technologies 175</name>
+				<description>Research 175 Technologies</description>
+			</l10n>
+			<sortIndex>13040</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TECHNOLOGY_UNLOCKED_PROGRESS" threshold="175" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TECHNOLOGIES_UNLOCKED_200" scope="Career" difficulty="3">
+			<l10n>
+				<name>Technologies 200</name>
+				<description>Research 200 Technologies</description>
+			</l10n>
+			<sortIndex>13050</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TECHNOLOGY_UNLOCKED_PROGRESS" threshold="200" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TECHNOLOGIES_UNLOCKED_225" scope="Career" difficulty="3">
+			<l10n>
+				<name>Technologies 225</name>
+				<description>Research 225 Technologies</description>
+			</l10n>
+			<sortIndex>13060</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TECHNOLOGY_UNLOCKED_PROGRESS" threshold="225" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TECHNOLOGIES_UNLOCKED_250" scope="Career" difficulty="3">
+			<l10n>
+				<name>Technologies 250</name>
+				<description>Research 250 Technologies</description>
+			</l10n>
+			<sortIndex>13070</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TECHNOLOGY_UNLOCKED_PROGRESS" threshold="250" />
+			<reward type="XP" reward="50" />
+			<reward type="UnlockableReward" reward="BADGE_SCIENCE_BADGE"/>
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TRADE_ROUTES_ESTABLISHED_10" scope="Career" difficulty="3">
+			<l10n>
+				<name>Trade Routes 10</name>
+				<description>Establish 10 Trade Routes</description>
+			</l10n>
+			<sortIndex>12200</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TRADE_ROUTES_ESTABLISHED" threshold="10" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TRADE_ROUTES_ESTABLISHED_20" scope="Career" difficulty="3">
+			<l10n>
+				<name>Trade Routes 20</name>
+				<description>Establish 20 Trade Routes</description>
+			</l10n>
+			<sortIndex>12300</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TRADE_ROUTES_ESTABLISHED" threshold="20" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TRADE_ROUTES_ESTABLISHED_30" scope="Career" difficulty="3">
+			<l10n>
+				<name>Trade Routes 30</name>
+				<description>Establish 30 Trade Routes</description>
+			</l10n>
+			<sortIndex>12400</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TRADE_ROUTES_ESTABLISHED" threshold="30" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TRADE_ROUTES_ESTABLISHED_40" scope="Career" difficulty="3">
+			<l10n>
+				<name>Trade Routes 40</name>
+				<description>Establish 40 Trade Routes</description>
+			</l10n>
+			<sortIndex>12410</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TRADE_ROUTES_ESTABLISHED" threshold="40" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TRADE_ROUTES_ESTABLISHED_50" scope="Career" difficulty="3">
+			<l10n>
+				<name>Trade Routes 50</name>
+				<description>Establish 50 Trade Routes</description>
+			</l10n>
+			<sortIndex>12420</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TRADE_ROUTES_ESTABLISHED" threshold="50" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TRADE_ROUTES_ESTABLISHED_60" scope="Career" difficulty="3">
+			<l10n>
+				<name>Trade Routes 60</name>
+				<description>Establish 60 Trade Routes</description>
+			</l10n>
+			<sortIndex>12430</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TRADE_ROUTES_ESTABLISHED" threshold="60" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TRADE_ROUTES_ESTABLISHED_70" scope="Career" difficulty="3">
+			<l10n>
+				<name>Trade Routes 70</name>
+				<description>Establish 70 Trade Routes</description>
+			</l10n>
+			<sortIndex>12440</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TRADE_ROUTES_ESTABLISHED" threshold="70" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TRADE_ROUTES_ESTABLISHED_80" scope="Career" difficulty="3">
+			<l10n>
+				<name>Trade Routes 80</name>
+				<description>Establish 80 Trade Routes</description>
+			</l10n>
+			<sortIndex>12450</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TRADE_ROUTES_ESTABLISHED" threshold="80" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TRADE_ROUTES_ESTABLISHED_90" scope="Career" difficulty="3">
+			<l10n>
+				<name>Trade Routes 90</name>
+				<description>Establish 90 Trade Routes</description>
+			</l10n>
+			<sortIndex>12460</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TRADE_ROUTES_ESTABLISHED" threshold="90" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TRADE_ROUTES_ESTABLISHED_100" scope="Career" difficulty="3">
+			<l10n>
+				<name>Trade Routes 100</name>
+				<description>Establish 100 Trade Routes</description>
+			</l10n>
+			<sortIndex>12470</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TRADE_ROUTES_ESTABLISHED" threshold="100" />
+			<reward type="XP" reward="50" />
+			<reward type="UnlockableReward" reward="BADGE_GOLD_BADGE"/>
+		</challenge>
+		<challenge id="CHALLENGE_SETTLEMENTS_BUILT_10" scope="Career" difficulty="3">
+			<l10n>
+				<name>Settlements 10</name>
+				<description>Establish 10 Settlements</description>
+			</l10n>
+			<sortIndex>12500</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_SETTLEMENT_ESTABLISHED_PROGRESS" threshold="10" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_SETTLEMENTS_BUILT_20" scope="Career" difficulty="3">
+			<l10n>
+				<name>Settlements 20</name>
+				<description>Establish 20 Settlements</description>
+			</l10n>
+			<sortIndex>12600</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_SETTLEMENT_ESTABLISHED_PROGRESS" threshold="20" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_SETTLEMENTS_BUILT_30" scope="Career" difficulty="3">
+			<l10n>
+				<name>Settlements 30</name>
+				<description>Establish 30 Settlements</description>
+			</l10n>
+			<sortIndex>12700</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_SETTLEMENT_ESTABLISHED_PROGRESS" threshold="30" />
+			<reward type="XP" reward="50" />
+			<reward type="UnlockableReward" reward="BADGE_FOOD_BADGE"/>
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_CIVICS_UNLOCKED_25" scope="Career" difficulty="3">
+			<l10n>
+				<name>Civics 25</name>
+				<description>Study 25 Civics</description>
+			</l10n>
+			<sortIndex>13100</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_CIVIC_UNLOCKED_PROGRESS" threshold="25" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_CIVICS_UNLOCKED_50" scope="Career" difficulty="3">
+			<l10n>
+				<name>Civics 50</name>
+				<description>Study 50 Civics</description>
+			</l10n>
+			<sortIndex>13200</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_CIVIC_UNLOCKED_PROGRESS" threshold="50" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_CIVICS_UNLOCKED_75" scope="Career" difficulty="3">
+			<l10n>
+				<name>Civics 75</name>
+				<description>Study 75 Civics</description>
+			</l10n>
+			<sortIndex>13300</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_CIVIC_UNLOCKED_PROGRESS" threshold="75" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_CIVICS_UNLOCKED_100" scope="Career" difficulty="3">
+			<l10n>
+				<name>Civics 100</name>
+				<description>Study 100 Civics</description>
+			</l10n>
+			<sortIndex>13310</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_CIVIC_UNLOCKED_PROGRESS" threshold="100" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_CIVICS_UNLOCKED_125" scope="Career" difficulty="3">
+			<l10n>
+				<name>Civics 125</name>
+				<description>Study 125 Civics</description>
+			</l10n>
+			<sortIndex>13320</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_CIVIC_UNLOCKED_PROGRESS" threshold="125" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_CIVICS_UNLOCKED_150" scope="Career" difficulty="3">
+			<l10n>
+				<name>Civics 150</name>
+				<description>Study 150 Civics</description>
+			</l10n>
+			<sortIndex>13330</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_CIVIC_UNLOCKED_PROGRESS" threshold="150" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_CIVICS_UNLOCKED_175" scope="Career" difficulty="3">
+			<l10n>
+				<name>Civics 175</name>
+				<description>Study 175 Civics</description>
+			</l10n>
+			<sortIndex>13340</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_CIVIC_UNLOCKED_PROGRESS" threshold="175" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_CIVICS_UNLOCKED_200" scope="Career" difficulty="3">
+			<l10n>
+				<name>Civics 200</name>
+				<description>Study 200 Civics</description>
+			</l10n>
+			<sortIndex>13350</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_CIVIC_UNLOCKED_PROGRESS" threshold="200" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_CIVICS_UNLOCKED_225" scope="Career" difficulty="3">
+			<l10n>
+				<name>Civics 225</name>
+				<description>Study 225 Civics</description>
+			</l10n>
+			<sortIndex>13360</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_CIVIC_UNLOCKED_PROGRESS" threshold="250" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_CIVICS_UNLOCKED_250" scope="Career" difficulty="3">
+			<l10n>
+				<name>Civics 250</name>
+				<description>Study 250 Civics</description>
+			</l10n>
+			<sortIndex>13370</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_CIVIC_UNLOCKED_PROGRESS" threshold="275" />
+			<reward type="XP" reward="50" />
+			<reward type="UnlockableReward" reward="BADGE_CULTURE_BADGE"/>
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_DIPLOMACY_ACTIONS_UNLOCKED_25" scope="Career" difficulty="3">
+			<l10n>
+				<name>Diplomatic Actions 25</name>
+				<description>Engage in 25 Diplomatic Actions</description>
+			</l10n>
+			<sortIndex>13400</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_DIPLOMACY_ACTIONS_UNLOCKED_PROGRESS" threshold="25" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_DIPLOMACY_ACTIONS_UNLOCKED_50" scope="Career" difficulty="3">
+			<l10n>
+				<name>Diplomatic Actions 50</name>
+				<description>Engage in 50 Diplomatic Actions</description>
+			</l10n>
+			<sortIndex>13500</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_DIPLOMACY_ACTIONS_UNLOCKED_PROGRESS" threshold="50" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_DIPLOMACY_ACTIONS_UNLOCKED_75" scope="Career" difficulty="3">
+			<l10n>
+				<name>Diplomatic Actions 75</name>
+				<description>Engage in 75 Diplomatic Actions</description>
+			</l10n>
+			<sortIndex>13600</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_DIPLOMACY_ACTIONS_UNLOCKED_PROGRESS" threshold="75" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_DIPLOMACY_ACTIONS_UNLOCKED_100" scope="Career" difficulty="3">
+			<l10n>
+				<name>Diplomatic Actions 100</name>
+				<description>Engage in 100 Diplomatic Actions</description>
+			</l10n>
+			<sortIndex>13700</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_DIPLOMACY_ACTIONS_UNLOCKED_PROGRESS" threshold="100" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_DIPLOMACY_ACTIONS_UNLOCKED_125" scope="Career" difficulty="3">
+			<l10n>
+				<name>Diplomatic Actions 125</name>
+				<description>Engage in 125 Diplomatic Actions</description>
+			</l10n>
+			<sortIndex>13800</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_DIPLOMACY_ACTIONS_UNLOCKED_PROGRESS" threshold="125" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_DIPLOMACY_ACTIONS_UNLOCKED_150" scope="Career" difficulty="3">
+			<l10n>
+				<name>Diplomatic Actions 150</name>
+				<description>Engage in 150 Diplomatic Actions</description>
+			</l10n>
+			<sortIndex>13900</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_DIPLOMACY_ACTIONS_UNLOCKED_PROGRESS" threshold="150" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_DIPLOMACY_ACTIONS_UNLOCKED_175" scope="Career" difficulty="3">
+			<l10n>
+				<name>Diplomatic Actions 175</name>
+				<description>Engage in 175 Diplomatic Actions</description>
+			</l10n>
+			<sortIndex>14000</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_DIPLOMACY_ACTIONS_UNLOCKED_PROGRESS" threshold="175" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_DIPLOMACY_ACTIONS_UNLOCKED_200" scope="Career" difficulty="3">
+			<l10n>
+				<name>Diplomatic Actions 200</name>
+				<description>Engage in 200 Diplomatic Actions</description>
+			</l10n>
+			<sortIndex>14100</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_DIPLOMACY_ACTIONS_UNLOCKED_PROGRESS" threshold="200" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_DIPLOMACY_ACTIONS_UNLOCKED_225" scope="Career" difficulty="3">
+			<l10n>
+				<name>Diplomatic Actions 225</name>
+				<description>Engage in 225 Diplomatic Actions</description>
+			</l10n>
+			<sortIndex>14200</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_DIPLOMACY_ACTIONS_UNLOCKED_PROGRESS" threshold="225" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_DIPLOMACY_ACTIONS_UNLOCKED_250" scope="Career" difficulty="3">
+			<l10n>
+				<name>Diplomatic Actions 250</name>
+				<description>Engage in 250 Diplomatic Actions</description>
+			</l10n>
+			<sortIndex>14300</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_DIPLOMACY_ACTIONS_UNLOCKED_PROGRESS" threshold="250" />
+			<reward type="XP" reward="50" />
+			<reward type="UnlockableReward" reward="BADGE_INFLUENCE_BADGE"/>
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TURNS_PLAYED_100" scope="Career" difficulty="2">
+			<l10n>
+				<name>Turns Played 100</name>
+				<description>Play 100 Turns</description>
+			</l10n>
+			<sortIndex>8300</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TURNS_PLAYED_PROGRESS" threshold="100" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TURNS_PLAYED_300" scope="Career" difficulty="2">
+			<l10n>
+				<name>Turns Played 300</name>
+				<description>Play 300 Turns</description>
+			</l10n>
+			<sortIndex>8400</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TURNS_PLAYED_PROGRESS" threshold="300" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TURNS_PLAYED_500" scope="Career" difficulty="2">
+			<l10n>
+				<name>Turns Played 500</name>
+				<description>Play 500 Turns</description>
+			</l10n>
+			<sortIndex>8500</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TURNS_PLAYED_PROGRESS" threshold="500" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TURNS_PLAYED_700" scope="Career" difficulty="2">
+			<l10n>
+				<name>Turns Played 700</name>
+				<description>Play 700 Turns</description>
+			</l10n>
+			<sortIndex>8510</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TURNS_PLAYED_PROGRESS" threshold="700" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TURNS_PLAYED_900" scope="Career" difficulty="2">
+			<l10n>
+				<name>Turns Played 900</name>
+				<description>Play 900 Turns</description>
+			</l10n>
+			<sortIndex>8520</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TURNS_PLAYED_PROGRESS" threshold="900" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TURNS_PLAYED_1100" scope="Career" difficulty="2">
+			<l10n>
+				<name>Turns Played 1100</name>
+				<description>Play 1100 Turns</description>
+			</l10n>
+			<sortIndex>8530</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TURNS_PLAYED_PROGRESS" threshold="1100" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TURNS_PLAYED_1300" scope="Career" difficulty="2">
+			<l10n>
+				<name>Turns Played 1300</name>
+				<description>Play 1300 Turns</description>
+			</l10n>
+			<sortIndex>8540</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TURNS_PLAYED_PROGRESS" threshold="1300" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TURNS_PLAYED_1500" scope="Career" difficulty="2">
+			<l10n>
+				<name>Turns Played 1500</name>
+				<description>Play 1500 Turns</description>
+			</l10n>
+			<sortIndex>8550</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TURNS_PLAYED_PROGRESS" threshold="1500" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TURNS_PLAYED_1700" scope="Career" difficulty="2">
+			<l10n>
+				<name>Turns Played 1700</name>
+				<description>Play 1700 Turns</description>
+			</l10n>
+			<sortIndex>8560</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TURNS_PLAYED_PROGRESS" threshold="1700" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_TURNS_PLAYED_1900" scope="Career" difficulty="2">
+			<l10n>
+				<name>Turns Played 1900</name>
+				<description>Play 1900 Turns</description>
+			</l10n>
+			<sortIndex>8570</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_TURNS_PLAYED_PROGRESS" threshold="1900" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_DISCOVERY_PROGRESS_10" scope="Career" difficulty="2">
+			<l10n>
+				<name>Discoveries 10</name>
+				<description>Complete 10 Discoveries.</description>
+			</l10n>
+			<sortIndex>10010</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_DISCOVERY_TRIGGERED" threshold="10" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_DISCOVERY_PROGRESS_20" scope="Career" difficulty="2">
+			<l10n>
+				<name>Discoveries 20</name>
+				<description>Complete 20 Discoveries.</description>
+			</l10n>
+			<sortIndex>10020</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_DISCOVERY_TRIGGERED" threshold="20" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_DISCOVERY_PROGRESS_30" scope="Career" difficulty="2">
+			<l10n>
+				<name>Discoveries 30</name>
+				<description>Complete 30 Discoveries.</description>
+			</l10n>
+			<sortIndex>10030</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_DISCOVERY_TRIGGERED" threshold="30" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_DISCOVERY_PROGRESS_40" scope="Career" difficulty="2">
+			<l10n>
+				<name>Discoveries 40</name>
+				<description>Complete 40 Discoveries.</description>
+			</l10n>
+			<sortIndex>10040</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_DISCOVERY_TRIGGERED" threshold="40" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_DISCOVERY_PROGRESS_50" scope="Career" difficulty="2">
+			<l10n>
+				<name>Discoveries 50</name>
+				<description>Complete 50 Discoveries.</description>
+			</l10n>
+			<sortIndex>10050</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_DISCOVERY_TRIGGERED" threshold="50" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_DISCOVERY_PROGRESS_60" scope="Career" difficulty="2">
+			<l10n>
+				<name>Discoveries 60</name>
+				<description>Complete 60 Discoveries.</description>
+			</l10n>
+			<sortIndex>10060</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_DISCOVERY_TRIGGERED" threshold="60" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_DISCOVERY_PROGRESS_70" scope="Career" difficulty="2">
+			<l10n>
+				<name>Discoveries 70</name>
+				<description>Complete 70 Discoveries.</description>
+			</l10n>
+			<sortIndex>10070</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_DISCOVERY_TRIGGERED" threshold="70" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_DISCOVERY_PROGRESS_80" scope="Career" difficulty="2">
+			<l10n>
+				<name>Discoveries 80</name>
+				<description>Complete 80 Discoveries.</description>
+			</l10n>
+			<sortIndex>10080</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_DISCOVERY_TRIGGERED" threshold="80" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_DISCOVERY_PROGRESS_90" scope="Career" difficulty="2">
+			<l10n>
+				<name>Discoveries 90</name>
+				<description>Complete 90 Discoveries.</description>
+			</l10n>
+			<sortIndex>10090</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_DISCOVERY_TRIGGERED" threshold="90" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_DISCOVERY_PROGRESS_100" scope="Career" difficulty="2">
+			<l10n>
+				<name>Discoveries 100</name>
+				<description>Complete 100 Discoveries.</description>
+			</l10n>
+			<sortIndex>10091</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_DISCOVERY_TRIGGERED" threshold="100" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_STORYLETS_PROGRESS_50" scope="Career" difficulty="2">
+			<l10n>
+				<name>Seen Some Things</name>
+				<description>Gain rewards from Narrative Events 50 times.</description>
+			</l10n>
+			<sortIndex>19400</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_STORYLETS_TRIGGERED" threshold="50"/>
+			<reward type="XP" reward="50"/>
+			<reward type="UnlockableReward" reward="BADGE_STORYLETS_1"/>
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_STORYLETS_PROGRESS_100" scope="Career" difficulty="3">
+			<l10n>
+				<name>Seen Many Things</name>
+				<description>Gain rewards from Narrative Events 100 times.</description>
+			</l10n>
+			<sortIndex>19500</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_STORYLETS_TRIGGERED" threshold="100"/>
+			<reward type="XP" reward="50"/>
+			<reward type="UnlockableReward" reward="BADGE_STORYLETS_2"/>
+		</challenge>
+		<challenge id="CHALLENGE_INCREMENTALS_STORYLETS_PROGRESS_150" scope="Career" difficulty="4">
+			<l10n>
+				<name>Seen Lots of Things</name>
+				<description>Gain rewards from Narrative Events 150 times.</description>
+			</l10n>
+			<sortIndex>19550</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_STORYLETS_TRIGGERED" threshold="150"/>
+			<reward type="XP" reward="100"/>
+			<reward type="UnlockableReward" reward="BADGE_STORYLETS_3"/>
+		</challenge>
+	</challenges>
+</metaprogression>

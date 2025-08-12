@@ -1,0 +1,1058 @@
+@use '../../themes/default/theme' as *;
+@use '../../utilities/utility-layout' as *;
+@use '../../utilities/utility-text' as *;
+
+.editor-input-binding-panel {
+	background-color: rgba(14, 14, 14, .86);
+}
+
+.editor-controller-mapping {
+	.editor-controller-mapping__title {
+		margin-top: pixels(20);
+		padding-bottom: pixels(12);
+
+		@media (max-height: pixels(768)),
+		(max-width: pixels(1366)) {
+			margin-top: pixels(0);
+			padding-bottom: pixels(0);
+		}
+	}
+
+	.editor-controller-mapping__content {
+		max-width: pixels(1700);
+		padding-top: pixels(52);
+
+		@media (max-height: pixels(768)),
+		(max-width: pixels(1366)) {
+			padding-top: pixels(40);
+		}
+	}
+
+	.editor-controller-mapping__options {
+		max-width: pixels(1700);
+		margin-top: pixels(-48);
+	}
+
+	.editor-controller-mapping__action-list-container {
+		flex-basis: pixels(100);
+	}
+
+	.editor-controller-mapping__controller-section {
+		&.xbox {
+			margin-left: pixels(240);
+			margin-right: pixels(215);
+
+			@media (max-height: pixels(768)),
+			(max-width: pixels(1366)) {
+				margin-left: pixels(200);
+				margin-right: pixels(175);
+			}
+		}
+
+		&.playstation-5,
+		&.playstation-4 {
+			margin-left: pixels(240);
+			margin-right: pixels(215);
+
+			@media (max-height: pixels(768)),
+			(max-width: pixels(1366)) {
+				margin-left: pixels(200);
+				margin-right: pixels(175);
+			}
+		}
+
+		&.switch {
+			margin-left: pixels(136);
+			margin-right: pixels(102);
+
+			@media (max-height: pixels(768)),
+			(max-width: pixels(1366)) {
+				margin-left: pixels(96);
+				margin-right: pixels(62);
+			}
+		}
+
+		&.ounce {
+			margin-left: pixels(136);
+			margin-right: pixels(102);
+
+			@media (max-height: pixels(768)),
+			(max-width: pixels(1366)) {
+				margin-left: pixels(96);
+				margin-right: pixels(62);
+			}
+		}
+	}
+
+	.editor-controller-mapping__action-description {
+		&.switch {
+			top: -13%;
+
+			@media (max-height: pixels(768)) {
+				top: -16%
+			}
+		}
+
+		&.ounce {
+			top: -13%;
+
+			@media (max-height: pixels(768)) {
+				top: -16%
+			}
+		}
+
+		&.xbox {
+			top: -22%;
+
+			@media (max-height: pixels(768)) {
+				top: -29%
+			}
+
+		}
+
+		&.playstation-4 {
+			top: -14%;
+
+			@media (max-height: pixels(768)) {
+				top: -21%
+			}
+		}
+
+		&.playstation-5 {
+			top: -14%;
+
+			@media (max-height: pixels(768)) {
+				top: -21%
+			}
+		}
+	}
+}
+
+.controller-map-action-element {
+	display: none;
+
+	&.switch {
+		position: absolute;
+		display: none;
+
+		&.button-bottom {
+			display: block;
+			top: 58.5%;
+			left: 79%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.button-right {
+			display: block;
+			top: 50%;
+			left: 79%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.button-left {
+			display: block;
+			top: 67%;
+			left: 79%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.button-top {
+			display: block;
+			top: 41.5%;
+			left: 79%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.right-bumper {
+			display: block;
+			top: 8%;
+			left: 81%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.left-bumper {
+			display: block;
+			top: 8%;
+			right: 81%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.right-trigger {
+			display: block;
+			top: 0.5%;
+			left: 81%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.left-trigger {
+			display: block;
+			top: 0.5%;
+			right: 81%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.dpad-up {
+			display: block;
+			top: 73.5%;
+			right: 80%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.dpad-down {
+			display: block;
+			top: 82%;
+			right: 80%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.dpad-left {
+			display: block;
+			top: 99%;
+			right: 80%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.dpad-right {
+			display: block;
+			top: 90.5%;
+			right: 80%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.start {
+			display: block;
+			top: 25%;
+			left: 79%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.back {
+			display: block;
+			top: 25%;
+			right: 81%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.left-stick-press {
+			display: block;
+			top: 55.5%;
+			right: 80%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.right-stick-press {
+			display: block;
+			top: 97.5%;
+			left: 79%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.left-stick {
+			display: block;
+			top: 47%;
+			right: 80%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.right-stick {
+			display: block;
+			top: 89%;
+			left: 79%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+	}
+
+	&.ounce {
+		position: absolute;
+		display: none;
+
+		&.button-bottom {
+			display: block;
+			top: 76%;
+			left: 81%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.button-right {
+			display: block;
+			top: 68%;
+			left: 81%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.button-left {
+			display: block;
+			top: 60%;
+			left: 81%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.button-top {
+			display: block;
+			top: 52%;
+			left: 81%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.right-bumper {
+			display: block;
+			top: 9%;
+			left: 81%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.left-bumper {
+			display: block;
+			top: 9%;
+			right: 81%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.right-trigger {
+			display: block;
+			top: 1%;
+			left: 81%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.left-trigger {
+			display: block;
+			top: 1%;
+			right: 81%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.dpad-up {
+			display: block;
+			top: 75.5%;
+			right: 81%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.dpad-down {
+			display: block;
+			top: 83.5%;
+			right: 81%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.dpad-left {
+			display: block;
+			top: 99.5%;
+			right: 81%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.dpad-right {
+			display: block;
+			top: 91.5%;
+			right: 81%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.start {
+			display: block;
+			top: 28%;
+			left: 81%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.back {
+			display: block;
+			top: 28%;
+			right: 81%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.left-stick-press {
+			display: block;
+			top: 57%;
+			right: 81%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.right-stick-press {
+			display: block;
+			top: 98%;
+			left: 81%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.left-stick {
+			display: block;
+			top: 49%;
+			right: 81%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.right-stick {
+			display: block;
+			top: 91%;
+			left: 81%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+	}
+
+	&.xbox {
+		display: none;
+		position: absolute;
+
+		&.button-bottom {
+			display: block;
+			top: 52%;
+			left: 96%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.button-right {
+			display: block;
+			top: 42%;
+			left: 96%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.button-left {
+			display: block;
+			top: 62%;
+			left: 96%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.button-top {
+			display: block;
+			top: 30.5%;
+			left: 96%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.right-bumper {
+			display: block;
+			top: 7%;
+			left: 93%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.left-bumper {
+			display: block;
+			top: 7%;
+			right: 97%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.right-trigger {
+			display: block;
+			top: -0.5%;
+			left: 100%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.left-trigger {
+			display: block;
+			top: -0.5%;
+			right: 101%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.dpad-up {
+			display: block;
+			top: 92%;
+			right: 61.5%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.dpad-down {
+			display: block;
+			top: 100.5%;
+			right: 61.5%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.dpad-left {
+			display: block;
+			top: 117.5%;
+			right: 61.5%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.dpad-right {
+			display: block;
+			top: 109%;
+			right: 61.5%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.start {
+			display: block;
+			top: -6%;
+			left: 57%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.back {
+			display: block;
+			top: -6%;
+			right: 62%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.left-stick-press {
+			display: block;
+			top: 46.5%;
+			right: 96.5%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.right-stick-press {
+			display: block;
+			top: 100.5%;
+			left: 56.5%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.left-stick {
+			display: block;
+			top: 38%;
+			right: 96.5%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.right-stick {
+			display: block;
+			top: 92%;
+			left: 56.5%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+	}
+
+	&.playstation-4 {
+		display: none;
+		position: absolute;
+
+		&.button-bottom {
+			display: block;
+			top: 71%;
+			left: 101%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.button-right {
+			display: block;
+			top: 59%;
+			left: 101%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.button-left {
+			display: block;
+			top: 82%;
+			left: 101%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.button-top {
+			display: block;
+			top: 47.5%;
+			left: 101%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.right-bumper {
+			display: block;
+			top: 11.5%;
+			left: 83%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.left-bumper {
+			display: block;
+			top: 11.5%;
+			right: 86%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.right-trigger {
+			display: block;
+			top: 3%;
+			left: 86%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.left-trigger {
+			display: block;
+			top: 3%;
+			right: 89%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.dpad-up {
+			display: block;
+			top: 46%;
+			right: 101.5%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.dpad-down {
+			display: block;
+			top: 54.5%;
+			right: 101.5%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.dpad-left {
+			display: block;
+			top: 71.5%;
+			right: 101.5%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.dpad-right {
+			display: block;
+			top: 63%;
+			right: 101.5%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.start {
+			display: block;
+			top: 13.5%;
+			right: 34.5%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.back {
+			display: block;
+			top: 2%;
+			left: 39%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.left-stick-press {
+			display: block;
+			top: 105.5%;
+			right: 63.5%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.right-stick-press {
+			display: block;
+			top: 105.5%;
+			left: 61%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.left-stick {
+			display: block;
+			top: 97%;
+			right: 63.5%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.right-stick {
+			display: block;
+			top: 97%;
+			left: 61%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+	}
+
+	&.playstation-5 {
+		display: none;
+		position: absolute;
+
+		&.button-bottom {
+			display: block;
+			top: 70.5%;
+			left: 101%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.button-right {
+			display: block;
+			top: 59%;
+			left: 101%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.button-left {
+			display: block;
+			top: 81.5%;
+			left: 101%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.button-top {
+			display: block;
+			top: 49%;
+			left: 101%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.right-bumper {
+			display: block;
+			top: 12.5%;
+			left: 85%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.left-bumper {
+			display: block;
+			top: 12.5%;
+			right: 87%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.right-trigger {
+			display: block;
+			top: 4%;
+			left: 85%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.left-trigger {
+			display: block;
+			top: 4%;
+			right: 87%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.dpad-up {
+			display: block;
+			top: 47%;
+			right: 101.5%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.dpad-down {
+			display: block;
+			top: 55.5%;
+			right: 101.5%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.dpad-left {
+			display: block;
+			top: 72.5%;
+			right: 101.5%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.dpad-right {
+			display: block;
+			top: 64%;
+			right: 101.5%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.start {
+			display: block;
+			top: 14.5%;
+			right: 32.5%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.back {
+			display: block;
+			top: 4%;
+			left: 36%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.left-stick-press {
+			display: block;
+			top: 104%;
+			right: 62.5%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.right-stick-press {
+			display: block;
+			top: 104%;
+			left: 60.5%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+
+		&.left-stick {
+			display: block;
+			top: 95.5%;
+			right: 62.5%;
+
+			>div {
+				flex-direction: row;
+			}
+		}
+
+		&.right-stick {
+			display: block;
+			top: 95.5%;
+			left: 60.5%;
+
+			>div {
+				flex-direction: row-reverse;
+			}
+		}
+	}
+}

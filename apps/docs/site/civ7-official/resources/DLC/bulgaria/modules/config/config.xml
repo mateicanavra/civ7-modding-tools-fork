@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LeaderCivilizationBias>
+	</LeaderCivilizationBias>
+	<Civilizations>
+		<Row Domain="ExplorationAgeCivilizations" CivilizationType="CIVILIZATION_BULGARIA" CivilizationName="LOC_CIVILIZATION_BULGARIA_NAME" CivilizationFullName="LOC_CIVILIZATION_BULGARIA_FULLNAME" CivilizationDescription="LOC_CIVILIZATION_BULGARIA_DESCRIPTION" CivilizationIcon="shawnee_icon.png"/>
+	</Civilizations>
+	<CivilizationItems>
+		<Row CivilizationDomain="ExplorationAgeCivilizations" CivilizationType="CIVILIZATION_BULGARIA" Type="TRAIT_BULGARIA_ABILITY" Kind="KIND_TRAIT" Name="LOC_TRAIT_BULGARIA_ABILITY_NAME" Description="LOC_TRAIT_BULGARIA_ABILITY_DESCRIPTION"/>
+		<Row CivilizationDomain="ExplorationAgeCivilizations" CivilizationType="CIVILIZATION_BULGARIA" Type="UNIT_BOYAR" Kind="KIND_UNIT" Name="LOC_UNIT_BOYAR_NAME" Description="LOC_UNIT_BOYAR_BASE_DESCRIPTION" Icon="unitflag_leiomano.png"/>
+		<Row CivilizationDomain="ExplorationAgeCivilizations" CivilizationType="CIVILIZATION_BULGARIA" Type="UNIT_BALIK" Kind="KIND_UNIT" Name="LOC_UNIT_BALIK_NAME" Description="LOC_UNIT_BALIK_DESCRIPTION" Icon="unitflag_BALIK.png"/>
+		<Row CivilizationDomain="ExplorationAgeCivilizations" CivilizationType="CIVILIZATION_BULGARIA" Type="IMPROVEMENT_HIDDEN_FORTRESS" Kind="KIND_IMPROVEMENT" Name="LOC_IMPROVEMENT_HIDDEN_FORTRESS_NAME" Description="LOC_IMPROVEMENT_HIDDEN_FORTRESS_DESCRIPTION" Icon="impicon_loikalo.png"/>
+	</CivilizationItems>
+	<CivilizationTags>
+		<Row CivilizationDomain="ExplorationAgeCivilizations" CivilizationType="CIVILIZATION_BULGARIA" TagType="TAG_TRAIT_EXPANSIONIST"/>
+		<Row CivilizationDomain="ExplorationAgeCivilizations" CivilizationType="CIVILIZATION_BULGARIA" TagType="TAG_TRAIT_MILITARISTIC"/>
+	</CivilizationTags>
+	<CivilizationUnlocks>
+		<Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_GREECE" AgeDomain="StandardAges" AgeType="AGE_EXPLORATION" Type="CIVILIZATION_BULGARIA" Kind="KIND_CIVILIZATION" Name="LOC_CIVILIZATION_BULGARIA_NAME" Description="LOC_CIVILIZATION_BULGARIA_DESCRIPTION" Icon="CIVILIZATION_BULGARIA"/>
+		<Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_PERSIA" AgeDomain="StandardAges" AgeType="AGE_EXPLORATION" Type="CIVILIZATION_BULGARIA" Kind="KIND_CIVILIZATION" Name="LOC_CIVILIZATION_BULGARIA_NAME" Description="LOC_CIVILIZATION_BULGARIA_DESCRIPTION" Icon="CIVILIZATION_BULGARIA"/>
+		<Row CivilizationDomain="ExplorationAgeCivilizations" CivilizationType="CIVILIZATION_BULGARIA" AgeDomain="StandardAges" AgeType="AGE_MODERN" Type="CIVILIZATION_RUSSIA" Kind="KIND_CIVILIZATION" Name="LOC_CIVILIZATION_RUSSIA_NAME" Description="LOC_CIVILIZATION_RUSSIA_DESCRIPTION" Icon="CIVILIZATION_RUSSIA"/>
+	</CivilizationUnlocks>
+	<LeaderUnlocks>
+		<Row LeaderDomain="StandardLeaders" LeaderType="LEADER_AUGUSTUS" AgeDomain="StandardAges" AgeType="AGE_EXPLORATION" Type="CIVILIZATION_BULGARIA" Kind="KIND_CIVILIZATION" Name="LOC_CIVILIZATION_BULGARIA_NAME" Description="LOC_CIVILIZATION_BULGARIA_DESCRIPTION" Icon="CIVILIZATION_BULGARIA"/>
+		<Row LeaderDomain="StandardLeaders" LeaderType="LEADER_CATHERINE" AgeDomain="StandardAges" AgeType="AGE_EXPLORATION" Type="CIVILIZATION_BULGARIA" Kind="KIND_CIVILIZATION" Name="LOC_CIVILIZATION_BULGARIA_NAME" Description="LOC_CIVILIZATION_BULGARIA_DESCRIPTION" Icon="CIVILIZATION_BULGARIA"/>
+		<Row LeaderDomain="StandardLeaders" LeaderType="LEADER_CHARLEMAGNE" AgeDomain="StandardAges" AgeType="AGE_EXPLORATION" Type="CIVILIZATION_BULGARIA" Kind="KIND_CIVILIZATION" Name="LOC_CIVILIZATION_BULGARIA_NAME" Description="LOC_CIVILIZATION_BULGARIA_DESCRIPTION" Icon="CIVILIZATION_BULGARIA"/>
+	</LeaderUnlocks>
+	<LeaderCivilizationBias>
+		<Row CivilizationDomain="ExplorationAgeCivilizations" CivilizationType="CIVILIZATION_BULGARIA" LeaderDomain="StandardLeaders" LeaderType="LEADER_CATHERINE" Bias="2" ReasonType="LOC_UNLOCK_PLAY_AS_CATHERINE_BULGARIA_TOOLTIP" ChoiceType="LOC_CREATE_GAME_GEOGRAPHIC_CHOICE" />
+		<Row CivilizationDomain="ExplorationAgeCivilizations" CivilizationType="CIVILIZATION_BULGARIA" LeaderDomain="StandardLeaders" LeaderType="LEADER_AUGUSTUS" Bias="1" ReasonType="LOC_UNLOCK_PLAY_AS_AUGUSTUS_BULGARIA_TOOLTIP" ChoiceType="LOC_CREATE_GAME_HISTORICAL_CHOICE" />
+		<Row CivilizationDomain="ExplorationAgeCivilizations" CivilizationType="CIVILIZATION_BULGARIA" LeaderDomain="StandardLeaders" LeaderType="LEADER_CHARLEMAGNE" Bias="1" ReasonType="LOC_UNLOCK_PLAY_AS_CHARLEMAGNE_BULGARIA_TOOLTIP" ChoiceType="LOC_CREATE_GAME_STRATEGIC_CHOICE" />
+	</LeaderCivilizationBias>
+	<OwnershipConditions>
+		<Row ItemType="CIVILIZATION_BULGARIA" Action="LOC_LOCKED_INCLUDED_WITH_CONTENT" />
+	</OwnershipConditions>
+</Database>

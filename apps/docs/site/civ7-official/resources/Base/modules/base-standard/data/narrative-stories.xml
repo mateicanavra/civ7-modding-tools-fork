@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <Types>
+        <Row Type="21A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="22A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="22B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="22C" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="ATTRIBUTE_79A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="ATTRIBUTE_79B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="INDEPENDENT_GIFT_CULTURE_4A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="INDEPENDENT_GIFT_SCIENCE_4A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="INDEPENDENT_GIFT_MILITARY_4A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="INDEPENDENT_GIFT_ECONOMIC_4A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="1025A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="1025B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="8081A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="8081B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="8081C" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="8082A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="8082B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="8082C" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="8083A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="8083B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="8083C" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="8088A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="8088B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="8088C" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="8089A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="8089B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="8089C" Kind="KIND_NARRATIVE_STORY"/>
+    </Types>
+    <NarrativeStories>
+        <Row NarrativeStoryType="21A" Name="LOC_21A_NAME" Description="LOC_21A_DESCRIPTION" Completion="LOC_21A_COMPLETION" StoryTitle="LOC_21A_STORYTITLE" Activation="AUTO" RequirementSetId="REQSET_21A_NARRATIVE" UIActivation="CINEMATIC"/>
+        <Row NarrativeStoryType="22A" Name="LOC_22A_NAME" Description="LOC_22A_DESCRIPTION" Completion="LOC_22A_COMPLETION" StoryTitle="LOC_22A_STORYTITLE" Activation="AUTO" RequirementSetId="REQSET_22A_NARRATIVE" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="22B" Name="LOC_22B_NAME" Description="LOC_22B_DESCRIPTION" Completion="LOC_22B_COMPLETION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="22C" Name="LOC_22C_NAME" Description="LOC_22C_DESCRIPTION" Completion="LOC_22C_COMPLETION" StoryTitle="LOC_22C_STORYTITLE" Activation="LINKED" Imperative="LOC_22C_IMPERATIVE" IsQuest="TRUE" RequirementSetId="REQSET_22C_NARRATIVE" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="ATTRIBUTE_79A" Name="LOC_ATTRIBUTE_79A_NAME" Description="LOC_ATTRIBUTE_79A_DESCRIPTION" Completion="LOC_ATTRIBUTE_79A_COMPLETION" StoryTitle="LOC_ATTRIBUTE_79A_STORYTITLE" Activation="REQUISITE" RequirementSetId="REQSET_ATTRIBUTE_79A_NARRATIVE" ActivationRequirementSetId="REQSET_ATTRIBUTE_79A_NARRATIVE_REQUISITE" UIActivation="SYSTEMIC"/>
+        <Row NarrativeStoryType="ATTRIBUTE_79B" Name="LOC_ATTRIBUTE_79B_NAME" Description="LOC_ATTRIBUTE_79B_DESCRIPTION" Completion="LOC_ATTRIBUTE_79B_COMPLETION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="SYSTEMIC"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_CULTURE_4A" Name="LOC_INDEPENDENT_GIFT_CULTURE_4A_NAME" Description="LOC_INDEPENDENT_GIFT_CULTURE_4A_DESCRIPTION" Completion="LOC_INDEPENDENT_GIFT_CULTURE_4A_COMPLETION" StoryTitle="LOC_INDEPENDENT_GIFT_CULTURE_4A_STORYTITLE" Activation="INDEPENDENT_GIFT" RequirementSetId="REQSET_INDEPENDENT_GIFT_CULTURE_4A_NARRATIVE" UIActivation="LIGHT" Queue="NARRATIVE_GROUP_INDEPENDENT_GIFT_CULTURE" AllowDuplicates="TRUE"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_SCIENCE_4A" Name="LOC_INDEPENDENT_GIFT_SCIENCE_4A_NAME" Description="LOC_INDEPENDENT_GIFT_SCIENCE_4A_DESCRIPTION" Completion="LOC_INDEPENDENT_GIFT_SCIENCE_4A_COMPLETION" StoryTitle="LOC_INDEPENDENT_GIFT_SCIENCE_4A_STORYTITLE" Activation="INDEPENDENT_GIFT" RequirementSetId="REQSET_INDEPENDENT_GIFT_SCIENCE_4A_NARRATIVE" UIActivation="LIGHT" Queue="NARRATIVE_GROUP_INDEPENDENT_GIFT_SCIENCE" AllowDuplicates="TRUE"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_MILITARY_4A" Name="LOC_INDEPENDENT_GIFT_MILITARY_4A_NAME" Description="LOC_INDEPENDENT_GIFT_MILITARY_4A_DESCRIPTION" Completion="LOC_INDEPENDENT_GIFT_MILITARY_4A_COMPLETION" StoryTitle="LOC_INDEPENDENT_GIFT_MILITARY_4A_STORYTITLE" Activation="INDEPENDENT_GIFT" RequirementSetId="REQSET_INDEPENDENT_GIFT_MILITARY_4A_NARRATIVE" UIActivation="LIGHT" Queue="NARRATIVE_GROUP_INDEPENDENT_GIFT_MILITARY" AllowDuplicates="TRUE"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_ECONOMIC_4A" Name="LOC_INDEPENDENT_GIFT_ECONOMIC_4A_NAME" Description="LOC_INDEPENDENT_GIFT_ECONOMIC_4A_DESCRIPTION" Completion="LOC_INDEPENDENT_GIFT_ECONOMIC_4A_COMPLETION" StoryTitle="LOC_INDEPENDENT_GIFT_ECONOMIC_4A_STORYTITLE" Activation="INDEPENDENT_GIFT" RequirementSetId="REQSET_INDEPENDENT_GIFT_ECONOMIC_4A_NARRATIVE" UIActivation="LIGHT" Queue="NARRATIVE_GROUP_INDEPENDENT_GIFT_ECONOMIC" AllowDuplicates="TRUE"/>
+        <Row NarrativeStoryType="1025A" Name="LOC_1025A_NAME" Description="LOC_1025A_DESCRIPTION" Completion="LOC_1025A_COMPLETION" StoryTitle="LOC_1025A_STORYTITLE" Activation="AUTO" RequirementSetId="REQSET_1025A_NARRATIVE" UIActivation="STANDARD" Queue="NARRATIVE_GROUP_RANDOM"/>
+        <Row NarrativeStoryType="1025B" Name="LOC_1025B_NAME" Description="LOC_1025B_DESCRIPTION" Completion="LOC_1025B_COMPLETION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="8081A" Name="LOC_8081A_NAME" Description="LOC_8081A_DESCRIPTION" Completion="LOC_8081A_COMPLETION" StoryTitle="LOC_8081A_STORYTITLE" Activation="AUTO" RequirementSetId="REQSET_8081A_NARRATIVE" UIActivation="STANDARD" Queue="NARRATIVE_GROUP_DIPLOMACY"/>
+        <Row NarrativeStoryType="8081B" Name="LOC_8081B_NAME" Description="LOC_8081B_DESCRIPTION" Completion="LOC_8081B_COMPLETION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="8081C" Name="LOC_8081C_NAME" Description="LOC_8081C_DESCRIPTION" Completion="LOC_8081C_COMPLETION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="8082A" Name="LOC_8082A_NAME" Description="LOC_8082A_DESCRIPTION" Completion="LOC_8082A_COMPLETION" StoryTitle="LOC_8082A_STORYTITLE" Activation="AUTO" RequirementSetId="REQSET_8082A_NARRATIVE" UIActivation="STANDARD" Queue="NARRATIVE_GROUP_DIPLOMACY"/>
+        <Row NarrativeStoryType="8082B" Name="LOC_8082B_NAME" Description="LOC_8082B_DESCRIPTION" Completion="LOC_8082B_COMPLETION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="8082C" Name="LOC_8082C_NAME" Description="LOC_8082C_DESCRIPTION" Completion="LOC_8082C_COMPLETION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="8083A" Name="LOC_8083A_NAME" Description="LOC_8083A_DESCRIPTION" Completion="LOC_8083A_COMPLETION" StoryTitle="LOC_8083A_STORYTITLE" Activation="AUTO" RequirementSetId="REQSET_8083A_NARRATIVE" UIActivation="STANDARD" Queue="NARRATIVE_GROUP_DIPLOMACY"/>
+        <Row NarrativeStoryType="8083B" Name="LOC_8083B_NAME" Description="LOC_8083B_DESCRIPTION" Completion="LOC_8083B_COMPLETION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="8083C" Name="LOC_8083C_NAME" Description="LOC_8083C_DESCRIPTION" Completion="LOC_8083C_COMPLETION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="8088A" Name="LOC_8088A_NAME" Description="LOC_8088A_DESCRIPTION" Completion="LOC_8088A_COMPLETION" StoryTitle="LOC_8088A_STORYTITLE" Activation="AUTO" RequirementSetId="REQSET_8088A_NARRATIVE" UIActivation="STANDARD" Queue="NARRATIVE_GROUP_DIPLOMACY"/>
+        <Row NarrativeStoryType="8088B" Name="LOC_8088B_NAME" Description="LOC_8088B_DESCRIPTION" Completion="LOC_8088B_COMPLETION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="8088C" Name="LOC_8088C_NAME" Description="LOC_8088C_DESCRIPTION" Completion="LOC_8088C_COMPLETION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="8089A" Name="LOC_8089A_NAME" Description="LOC_8089A_DESCRIPTION" Completion="LOC_8089A_COMPLETION" StoryTitle="LOC_8089A_STORYTITLE" Activation="AUTO" RequirementSetId="REQSET_8089A_NARRATIVE" UIActivation="STANDARD" Queue="NARRATIVE_GROUP_DIPLOMACY"/>
+        <Row NarrativeStoryType="8089B" Name="LOC_8089B_NAME" Description="LOC_8089B_DESCRIPTION" Completion="LOC_8089B_COMPLETION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="8089C" Name="LOC_8089C_NAME" Description="LOC_8089C_DESCRIPTION" Completion="LOC_8089C_COMPLETION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="STANDARD"/>
+    </NarrativeStories>
+    <NarrativeRewards>
+        <Row NarrativeRewardType="21A_REWARD" ModifierID="21A_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="22B_REWARD" ModifierID="22B_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="22C_REWARD" ModifierID="22C_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="ATTRIBUTE_79B_REWARD" ModifierID="ATTRIBUTE_79B_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="INDEPENDENT_GIFT_CULTURE_4A_REWARD" ModifierID="INDEPENDENT_GIFT_CULTURE_4A_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="INDEPENDENT_GIFT_SCIENCE_4A_REWARD" ModifierID="INDEPENDENT_GIFT_SCIENCE_4A_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="INDEPENDENT_GIFT_MILITARY_4A_REWARD" ModifierID="INDEPENDENT_GIFT_MILITARY_4A_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="INDEPENDENT_GIFT_ECONOMIC_4A_REWARD" ModifierID="INDEPENDENT_GIFT_ECONOMIC_4A_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="1025B_REWARD" ModifierID="1025B_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="8081B_REWARD" ModifierID="8081B_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="8081C_REWARD" ModifierID="8081C_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="8082B_REWARD" ModifierID="8082B_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="8082C_REWARD" ModifierID="8082C_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="8083B_REWARD" ModifierID="8083B_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="8083C_REWARD" ModifierID="8083C_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="8088B_REWARD" ModifierID="8088B_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="8088C_REWARD" ModifierID="8088C_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="8089B_REWARD" ModifierID="8089B_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="8089C_REWARD" ModifierID="8089C_NARRATIVE_MODIFIER"/>
+    </NarrativeRewards>
+    <NarrativeStory_Rewards>
+        <Row NarrativeStoryType="21A" NarrativeRewardType="21A_REWARD" Activation="COMPLETE"/>
+        <Row NarrativeStoryType="22B" NarrativeRewardType="22B_REWARD" Activation="START"/>
+        <Row NarrativeStoryType="22C" NarrativeRewardType="22C_REWARD" Activation="COMPLETE"/>
+        <Row NarrativeStoryType="ATTRIBUTE_79B" NarrativeRewardType="ATTRIBUTE_79B_REWARD" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_CULTURE_4A" NarrativeRewardType="INDEPENDENT_GIFT_CULTURE_4A_REWARD" Activation="COMPLETE" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_SCIENCE_4A" NarrativeRewardType="INDEPENDENT_GIFT_SCIENCE_4A_REWARD" Activation="COMPLETE" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_MILITARY_4A" NarrativeRewardType="INDEPENDENT_GIFT_MILITARY_4A_REWARD" Activation="COMPLETE" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_ECONOMIC_4A" NarrativeRewardType="INDEPENDENT_GIFT_ECONOMIC_4A_REWARD" Activation="COMPLETE" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="1025B" NarrativeRewardType="1025B_REWARD" Activation="START"/>
+        <Row NarrativeStoryType="8081B" NarrativeRewardType="8081B_REWARD" Activation="START"/>
+        <Row NarrativeStoryType="8081C" NarrativeRewardType="8081C_REWARD" Activation="START"/>
+        <Row NarrativeStoryType="8082B" NarrativeRewardType="8082B_REWARD" Activation="START"/>
+        <Row NarrativeStoryType="8082C" NarrativeRewardType="8082C_REWARD" Activation="START"/>
+        <Row NarrativeStoryType="8083B" NarrativeRewardType="8083B_REWARD" Activation="START"/>
+        <Row NarrativeStoryType="8083C" NarrativeRewardType="8083C_REWARD" Activation="START"/>
+        <Row NarrativeStoryType="8088B" NarrativeRewardType="8088B_REWARD" Activation="START"/>
+        <Row NarrativeStoryType="8088C" NarrativeRewardType="8088C_REWARD" Activation="START"/>
+        <Row NarrativeStoryType="8089B" NarrativeRewardType="8089B_REWARD" Activation="START"/>
+        <Row NarrativeStoryType="8089C" NarrativeRewardType="8089C_REWARD" Activation="START"/>
+    </NarrativeStory_Rewards>
+    <NarrativeStoryOverrides>
+    </NarrativeStoryOverrides>
+    <NarrativeVariations>
+    </NarrativeVariations>
+    <NarrativeRewardIcons>
+        <Row NarrativeStoryType="21A" RewardIconType="YIELD_HAPPINESS"/>
+        <Row NarrativeStoryType="22B" RewardIconType="UNIT"/>
+        <Row NarrativeStoryType="22C" RewardIconType="ATTRIBUTE_MILITARISTIC"/>
+        <Row NarrativeStoryType="ATTRIBUTE_79B" RewardIconType="ATTRIBUTE_WILDCARD"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_CULTURE_4A" RewardIconType="YIELD_CULTURE"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_SCIENCE_4A" RewardIconType="YIELD_SCIENCE"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_MILITARY_4A" RewardIconType="UNIT"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_ECONOMIC_4A" RewardIconType="YIELD_GOLD"/>
+        <Row NarrativeStoryType="1025B" RewardIconType="YIELD_CULTURE"/>
+        <Row NarrativeStoryType="8081B" RewardIconType="YIELD_DIPLOMACY"/>
+        <Row NarrativeStoryType="8081C" RewardIconType="YIELD_DIPLOMACY"/>
+        <Row NarrativeStoryType="8088B" RewardIconType="YIELD_DIPLOMACY"/>
+        <Row NarrativeStoryType="8088C" RewardIconType="YIELD_CULTURE"/>
+        <Row NarrativeStoryType="8089B" RewardIconType="YIELD_DIPLOMACY"/>
+        <Row NarrativeStoryType="8089C" RewardIconType="YIELD_DIPLOMACY"/>
+        <Row NarrativeStoryType="8082B" RewardIconType="YIELD_DIPLOMACY"/>
+        <Row NarrativeStoryType="8082C" RewardIconType="YIELD_GOLD"/>
+        <Row NarrativeStoryType="8083B" RewardIconType="YIELD_GOLD"/>
+        <Row NarrativeStoryType="8083C" RewardIconType="YIELD_DIPLOMACY"/>
+    </NarrativeRewardIcons>
+    <NarrativeStory_TextReplacements>
+        <Row NarrativeStoryType="21A" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="21A" NarrativeStoryTextType="BODY" NarrativeTextReplacementType="ASSOCIATED_WONDER" Priority="1"/>
+        <Row NarrativeStoryType="21A" NarrativeStoryTextType="BODY" NarrativeTextReplacementType="CIVILIZATION_ADJ" Priority="2"/>
+        <Row NarrativeStoryType="21A" NarrativeStoryTextType="BODY" NarrativeTextReplacementType="CIVILIZATION_ADJ" Priority="3"/>
+        <Row NarrativeStoryType="22A" NarrativeStoryTextType="BODY" NarrativeTextReplacementType="CIVILIZATION_ADJ" Priority="1"/>
+        <Row NarrativeStoryType="22A" NarrativeStoryTextType="BODY" NarrativeTextReplacementType="ASSOCIATED_WONDER" Priority="2"/>
+        <Row NarrativeStoryType="22B" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="22C" NarrativeStoryTextType="OPTION" NarrativeTextReplacementType="CIVILIZATION_ADJ" Priority="1"/>
+        <Row NarrativeStoryType="22C" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="22C" NarrativeStoryTextType="BODY" NarrativeTextReplacementType="ASSOCIATED_WONDER" Priority="1"/>
+        <Row NarrativeStoryType="22C" NarrativeStoryTextType="BODY" NarrativeTextReplacementType="CIVILIZATION_ADJ" Priority="2"/>
+        <Row NarrativeStoryType="22C" NarrativeStoryTextType="IMPERATIVE" NarrativeTextReplacementType="ASSOCIATED_WONDER" Priority="1"/>
+        <Row NarrativeStoryType="ATTRIBUTE_79B" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_CULTURE_4A" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_CULTURE_4A" NarrativeStoryTextType="BODY" NarrativeTextReplacementType="INDEPENDENT" Priority="1"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_CULTURE_4A" NarrativeStoryTextType="BODY" NarrativeTextReplacementType="CIVILIZATION" Priority="2"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_SCIENCE_4A" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_SCIENCE_4A" NarrativeStoryTextType="BODY" NarrativeTextReplacementType="INDEPENDENT" Priority="1"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_SCIENCE_4A" NarrativeStoryTextType="BODY" NarrativeTextReplacementType="CIVILIZATION" Priority="2"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_MILITARY_4A" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_MILITARY_4A" NarrativeStoryTextType="BODY" NarrativeTextReplacementType="INDEPENDENT" Priority="1"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_MILITARY_4A" NarrativeStoryTextType="BODY" NarrativeTextReplacementType="CIVILIZATION" Priority="2"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_ECONOMIC_4A" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_ECONOMIC_4A" NarrativeStoryTextType="BODY" NarrativeTextReplacementType="INDEPENDENT" Priority="1"/>
+        <Row NarrativeStoryType="INDEPENDENT_GIFT_ECONOMIC_4A" NarrativeStoryTextType="BODY" NarrativeTextReplacementType="CIVILIZATION" Priority="2"/>
+        <Row NarrativeStoryType="1025B" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="8081B" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="8081C" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="8082B" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="8082C" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="8083B" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="8083C" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="8088B" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="8088C" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="8089B" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="8089C" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+    </NarrativeStory_TextReplacements>
+    <NarrativeStory_Links>
+        <Row FromNarrativeStoryType="22A" ToNarrativeStoryType="22B" Priority="0" Name="LOC_22B_NAME" Description="LOC_22B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="22A" ToNarrativeStoryType="22C" Priority="1" Name="LOC_22C_NAME" Description="LOC_22C_DESCRIPTION" Imperative="LOC_22C_IMPERATIVE"/>
+        <Row FromNarrativeStoryType="ATTRIBUTE_79A" ToNarrativeStoryType="ATTRIBUTE_79B" Priority="0" Name="LOC_ATTRIBUTE_79B_NAME" Description="LOC_ATTRIBUTE_79B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="1025A" ToNarrativeStoryType="1025B" Priority="0" Name="LOC_1025B_NAME" Description="LOC_1025B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="8081A" ToNarrativeStoryType="8081B" Priority="0" Name="LOC_8081B_NAME" Description="LOC_8081B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="8081A" ToNarrativeStoryType="8081C" Priority="1" Name="LOC_8081C_NAME" Description="LOC_8081C_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="8082A" ToNarrativeStoryType="8082B" Priority="0" Name="LOC_8082B_NAME" Description="LOC_8082B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="8082A" ToNarrativeStoryType="8082C" Priority="1" Name="LOC_8082C_NAME" Description="LOC_8082C_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="8083A" ToNarrativeStoryType="8083B" Priority="0" Name="LOC_8083B_NAME" Description="LOC_8083B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="8083A" ToNarrativeStoryType="8083C" Priority="1" Name="LOC_8083C_NAME" Description="LOC_8083C_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="8088A" ToNarrativeStoryType="8088B" Priority="0" Name="LOC_8088B_NAME" Description="LOC_8088B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="8088A" ToNarrativeStoryType="8088C" Priority="1" Name="LOC_8088C_NAME" Description="LOC_8088C_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="8089A" ToNarrativeStoryType="8089B" Priority="0" Name="LOC_8089B_NAME" Description="LOC_8089B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="8089A" ToNarrativeStoryType="8089C" Priority="1" Name="LOC_8089C_NAME" Description="LOC_8089C_DESCRIPTION"/>
+    </NarrativeStory_Links>
+</Database>

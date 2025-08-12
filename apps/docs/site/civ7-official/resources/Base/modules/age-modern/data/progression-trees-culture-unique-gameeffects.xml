@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<GameEffects xmlns="GameEffects">
+	<!--America-->
+	<Modifier id="MOD_YANKEE_INGENUITY_PROSPECTOR_DISCOUNT" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_OR_CITY_UNIT_PURCHASE_EFFICIENCY">
+		<Argument name="UnitTag">UNIT_CLASS_PROSPECTOR</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Percent">25</Argument>
+		<String context="Description">LOC_MOD_YANKEE_INGENUITY_PROSPECTOR_DISCOUNT_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_CAPTAINS_OF_INDUSTRY_PRODUCTION_ON_RESOURCES" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_RESOURCE_TAG_MATCHES">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Description">LOC_MOD_CAPTAINS_OF_INDUSTRY_PRODUCTION_ON_RESOURCES_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_WARTIME_MANUFACTURING_COMBAT_STRENGTH_PER_ADJACENT_ENEMY_UNIT" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_IS_COMBAT"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">WARTIME_MANUFACTURING_COMBAT_STRENGTH</Argument>
+		<String context="Description">LOC_MOD_WARTIME_MANUFACTURING_COMBAT_STRENGTH_PER_ADJACENT_ENEMY_UNIT_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_WARTIME_MANUFACTURING_UNIT_PRODUCTION_RATE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_X_WAR_SUPPORT">
+				<Argument name="MoreThanOpponent">true</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Percent">25</Argument>
+		<String context="Description">LOC_MOD_WARTIME_MANUFACTURING_UNIT_PRODUCTION_RATE_DESCRIPTION</String>
+	</Modifier>
+	<!--Buganda-->
+	<Modifier id="MOD_BLUTABAALO_PILLAGING_BUILDING_YIELDS" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_UNITS_PILLAGE_BUILDING_MODIFIER">
+		<Argument name="Percent">50</Argument>
+		<String context="Description">LOC_MOD_BLUTABAALO_PILLAGING_BUILDING_YIELDS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_BLUTABAALO_PILLAGING_IMPROVEMENT_YIELDS" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_UNITS_PILLAGE_IMPROVEMENT_MODIFIER">
+		<Argument name="Percent">50</Argument>
+		<String context="Description">LOC_MOD_BLUTABAALO_PILLAGING_IMPROVEMENT_YIELDS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_BLUTABAALO_COMMANDER_EXP_YIELDS" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_PILLAGE_XP</Argument>
+		<String context="Description">LOC_MOD_BLUTABAALO_COMMANDER_EXP_YIELDS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_NNALUBAALE_LAKE_NAVIGABLE_RIVER_FOOD" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements type="REQUIREMENTSET_TEST_ANY">
+			<Requirement type="REQUIREMENT_PLOT_IS_LAKE">
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_IS_RIVER">
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_TERRAIN_TYPE_MATCHES">
+				<Argument name="TerrainType">TERRAIN_NAVIGABLE_RIVER</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_HAS_CONSTRUCTIBLE">
+				<Argument name="ConstructibleType">IMPROVEMENT_KABAKAS_LAKE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Description">LOC_MOD_NNALUBAALE_LAKE_NAVIGABLE_RIVER_FOOD_CULTURE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_NNALUBAALE_LAKE_NAVIGABLE_RIVER_CULTURE" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements type="REQUIREMENTSET_TEST_ANY">
+			<Requirement type="REQUIREMENT_PLOT_IS_LAKE">
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_IS_RIVER">
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_TERRAIN_TYPE_MATCHES">
+				<Argument name="TerrainType">TERRAIN_NAVIGABLE_RIVER</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_HAS_CONSTRUCTIBLE">
+				<Argument name="ConstructibleType">IMPROVEMENT_KABAKAS_LAKE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MOD_NNALUBAALE_EMBARKED_UNITS_MOVEMENT_BONUS" collection="COLLECTION_ALL_UNITS" effect="EFFECT_ADJUST_UNIT_EMBARKED_MOVEMENT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_NNALUBAALE_EMBARKED_UNITS_MOVEMENT_BONUS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_NYANZA_LAKES_URBAN_CULTURE" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements type="REQUIREMENTSET_TEST_ALL">
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_TO_LAKE">
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_IS_QUARTER"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_NYANZA_LAKE_RIVERS_URBAN_CULTURE_HAPPINESS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_NYANZA_RIVERS_URBAN_CULTURE" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements type="REQUIREMENTSET_TEST_ALL">
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_TO_RIVER">
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_IS_QUARTER"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="MOD_NYANZA_LAKES_URBAN_HAPPINESS" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements type="REQUIREMENTSET_TEST_ALL">
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_TO_LAKE">
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_IS_QUARTER"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="MOD_NYANZA_RIVERS_URBAN_HAPPINESS" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements type="REQUIREMENTSET_TEST_ALL">
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_TO_RIVER">
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_IS_QUARTER"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="MOD_NYANZA_LAKE_SETTLEMENT_POPULATION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_POPULATION" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_DISTRICT_CLASS">
+				<Argument name="DistrictClass">CITYCENTER</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_TO_LAKE"/>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_NYANZA_LAKE_SETTLEMENT_POPULATION_DESCRIPTION</String>
+	</Modifier>
+	<!--French Empire-->
+	<Modifier id="MOD_BELLE_EPOQUE_CULTURE_ON_HAPPINESS_BUILDINGS" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Tag">HAPPINESS</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Description">LOC_MOD_BELLE_EPOQUE_CULTURE_ON_HAPPINESS_BUILDINGS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_BELLE_EPOQUE_CULTURE_ON_WONDERS" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="ConstructibleClass">WONDER</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MOD_VOIE_TRIOMPHALE_HAPPINESS_ON_MILITARY_BUILDINGS" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Tag">MILITARY</Argument>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Description">LOC_MOD_VOIE_TRIOMPHALE_HAPPINESS_ON_MILITARY_BUILDINGS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_VOIE_TRIOMPHALE_HAPPINESS_ON_WONDERS" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="ConstructibleClass">WONDER</Argument>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MOD_GRANDE_ARMEE_COMMANDER_PROMOTION" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_GRANT_UNIT_PROMOTION" run-once="false" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_COMMAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_GRANDE_ARMEE_COMMANDER_PROMOTION_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_GRANDE_ARMEE_UNIT_ABILITY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_GRANDE_ARMEE</Argument>
+		<String context="Description">LOC_MOD_GRANDE_ARMEE_FRIENDLY_ADJACENT_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_CODE_CIVIL_CULTURE_PER_ACTIVE_TRADITION" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_PER_ACTIVE_TRADITION">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Description">LOC_MOD_CODE_CIVIL_CULTURE_PER_ACTIVE_TRADITION_DESCRIPTION</String>
+	</Modifier>
+	<!--Meiji-->
+	<Modifier id="MOD_BUNMEI_KAIKA_MILITARY_BUILDING_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_PRODUCTION">
+		<Argument name="Apply">Rate</Argument>
+		<Argument name="Percent">50</Argument>
+		<Argument name="Tag">MILITARY</Argument>
+		<String context="Description">LOC_MOD_BUNMEI_KAIKA_MILITARY_BUILDING_PRODUCTION_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_BUNMEI_KAIKA_PRODUCTION_BUILDING_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_PRODUCTION">
+		<Argument name="Apply">Rate</Argument>
+		<Argument name="Percent">50</Argument>
+		<Argument name="Tag">PRODUCTION</Argument>
+		<String context="Description">LOC_MOD_BUNMEI_KAIKA_MILITARY_BUILDING_PRODUCTION_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_OATH_IN_FIVE_ARTICLES_SCIENCE_BUILDING_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_PRODUCTION">
+		<Argument name="Apply">Rate</Argument>
+		<Argument name="Percent">50</Argument>
+		<Argument name="Tag">SCIENCE</Argument>
+		<String context="Description">LOC_MOD_OATH_IN_FIVE_ARTICLES_SCIENCE_BUILDING_PRODUCTION_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SUPREME_WAR_COUNCIL_AIRCRAFT_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION">
+		<Argument name="UnitClass">UNIT_CLASS_AIRCRAFT</Argument>
+		<Argument name="Percent">25</Argument>
+		<String context="Description">LOC_MOD_SUPREME_WAR_COUNCIL_AIRCRAFT_PRODUCTION_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SUPREME_WAR_COUNCIL_NAVAL_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION">
+		<Argument name="UnitClass">UNIT_CLASS_NAVAL</Argument>
+		<Argument name="Percent">25</Argument>
+	</Modifier>
+	<Modifier id="MOD_KANTAI_KESSEN_ADJUST_COMBAT_STRENGTH_ON_COAST" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_MEIJI_KANTAI_KESSEN</Argument>
+		<String context="Description">LOC_MOD_KANTAI_KESSEN_ADJUST_COMBAT_STRENGTH_ON_COAST_DESCRIPTION</String>
+	</Modifier>
+	<!--Mexico-->
+	<Modifier id="MOD_PLANES_POLITICOS_TRADITION_SLOT" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_TRADITION_SLOTS" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_PLANES_POLITICOS_TRADITION_SLOT_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_PLAN_OF_IGUALA_GOLDEN_AGE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADD_GOLDEN_AGE_CHOICE">
+		<Argument name="GoldenAgeType">GOLDEN_AGE_REVOLUCION_2</Argument>
+		<String context="Description">LOC_MOD_PLAN_OF_IGUALA_GOLDEN_AGE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_PLAN_OF_AYUTLA_GOLDEN_AGE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADD_GOLDEN_AGE_CHOICE">
+		<Argument name="GoldenAgeType">GOLDEN_AGE_REVOLUCION_3</Argument>
+		<String context="Description">LOC_MOD_PLAN_OF_AYUTLA_GOLDEN_AGE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_PLAN_OF_TUXTEPEC_GOLDEN_AGE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADD_GOLDEN_AGE_CHOICE">
+		<Argument name="GoldenAgeType">GOLDEN_AGE_REVOLUCION_4</Argument>
+		<String context="Description">LOC_MOD_PLAN_OF_TUXTEPEC_GOLDEN_AGE_DESCRIPTION</String>
+	</Modifier>
+	<!--Mughal-->
+	<Modifier id="MOD_ZABT_FARM_GOLD" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_HAS_CONSTRUCTIBLE">
+				<Argument name="ConstructibleType">IMPROVEMENT_FARM</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_ZABT_FARM_GOLD_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_JAGIR_FARM_HAPPINESS" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_HAS_CONSTRUCTIBLE">
+				<Argument name="ConstructibleType">IMPROVEMENT_FARM</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_JAGIR_FARM_HAPPINESS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MANSABDARI_INFANTRY_PURCHASE_COST" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_OR_CITY_UNIT_PURCHASE_EFFICIENCY">
+		<Argument name="Percent">25</Argument>
+		<Argument name="UnitTag">UNIT_CLASS_INFANTRY</Argument>
+		<String context="Description">LOC_MOD_MANSABDARI_INFANTRY_PURCHASE_COST_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_GARDENS_OF_PARADISE_PURCHASE_ABILITY" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_WONDER_PURCHASING">
+		<Argument name="PurchaseEfficiency">-100</Argument>
+		<String context="Description">LOC_MOD_GARDENS_OF_PARADISE_PURCHASE_ABILITY_DESCRIPTION</String>
+	</Modifier>
+	<!--Prussia-->
+	<Modifier id="MOD_RUHR_CONSTRUCTIBLE_RIVER_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ACTIVATE_CONSTRUCTIBLE_ADJACENCY">
+		<Argument name="ConstructibleAdjacency">RuhrWildcardNavigableRiverAdjacencyProduction</Argument>
+		<Argument name="Tooltip">LOC_CIVIC_RUHR_NAME</Argument>
+		<String context="Description">LOC_MOD_RUHR_CONSTRUCTIBLE_RIVER_PRODUCTION_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_RUHR_STRATEGIC_RESOURCE_SCIENCE" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_RESOURCE_TAG_MATCHES">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount">2</Argument>
+		<Argument name="Tooltip">LOC_CIVIC_RUHR_NAME</Argument>
+		<String context="Description">LOC_MOD_RUHR_STRATEGIC_RESOURCE_SCIENCE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_ZOLLVEREIN_TRADE_DURING_WAR" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_TRADE_DURING_WAR">
+		<Argument name="TradeDuringWar">true</Argument>
+		<String context="Description">LOC_MOD_ZOLLVEREIN_TRADE_DURING_WAR_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_ZOLLVEREIN_STAATSEISENBAHN_TRADE_YIELD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_TRADE_YIELD">
+		<SubjectRequirements type="REQUIREMENTSET_TEST_ALL">
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILD_QUEUE"/>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILDING">
+				<Argument name="BuildingType">BUILDING_RAIL_STATION</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Percent">25</Argument>
+		<String context="Description">LOC_MOD_ZOLLVEREIN_STAATSEISENBAHN_TRADE_YIELD_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_EMS_DISPATCH_RELATIONSHIPS_FAVOR_ENDEAVOR" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_RELATIONSHIP_GAIN_FROM_EVENT">
+		<Argument name="EventType">FAVOR_FROM_ENDEAVOR</Argument>
+		<Argument name="Percent">25</Argument>
+		<String context="Description">LOC_MOD_EMS_DISPATCH_RELATIONSHIPS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_EMS_DISPATCH_RELATIONSHIPS_FAVOR_SUPPORT" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_RELATIONSHIP_GAIN_FROM_EVENT">
+		<Argument name="EventType">FAVOR_FROM_SUPPORT</Argument>
+		<Argument name="Percent">25</Argument>
+	</Modifier>
+	<Modifier id="MOD_EMS_DISPATCH_RELATIONSHIPS_GRIEVANCE_SANCTION" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_RELATIONSHIP_GAIN_FROM_EVENT">
+		<Argument name="EventType">GRIEVANCE_FROM_SANCTION</Argument>
+		<Argument name="Percent">25</Argument>
+	</Modifier>
+	<Modifier id="MOD_EMS_DISPATCH_RELATIONSHIPS_GRIEVANCE_REJECTED_ENDEAVOR" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_RELATIONSHIP_GAIN_FROM_EVENT">
+		<Argument name="EventType">GRIEVANCE_FROM_REJECTED_ENDEAVOR</Argument>
+		<Argument name="Percent">25</Argument>
+	</Modifier>
+	<Modifier id="MOD_BEWEGUNGSKRIEG_HEAVY_CAVALRY_SKIRMISH_ABILITY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_FLANKING_ATTACK_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_CAVALRY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Percent">50</Argument>
+		<String context="Description">LOC_MOD_BEWEGUNGSKRIEG_HEAVY_CAVALRY_SKIRMISH_ABILITY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_BEWEGUNGSKRIEG_LIGHT_CAVALRY_FLANKING_BONUS" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_FLANKING_ATTACK_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_CAVALRY_LIGHT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Percent">50</Argument>
+	</Modifier>
+	<!--Qing-->
+	<Modifier id="MOD_TEN_GREAT_CAMPAIGNS_ADJUST_COMBAT_STRENGTH" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_TEN_GREAT_CAMPAIGNS</Argument>
+		<String context="Description">LOC_MOD_TEN_GREAT_CAMPAIGNS_ADJUST_COMBAT_STRENGTH_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="TEN_GREAT_CAMPAIGNS_MOD_COMBAT_STRENGTH" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_TRADE_ROUTE_COMBAT_MODIFIER">
+		<Argument name="Amount">1</Argument>
+		<String context="Preview">LOC_TEN_GREAT_CAMPAIGNS_PREVIEW</String>
+		<String context="Description">LOC_MOD_TEN_GREAT_CAMPAIGNS_ADJUST_COMBAT_STRENGTH_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_OPEN_CUSTOMS_CULTURE_PER_IMPORTED_RESOURCE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_PER_RESOURCE">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">2</Argument>
+		<Argument name="Imported">true</Argument>
+		<String context="Description">LOC_MOD_OPEN_CUSTOMS_CULTURE_PER_IMPORTED_RESOURCE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_KANG_XI_TAX_REFORMATION_ASSIGNED_RESOURCE_FOOD" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_RESOURCE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILD_QUEUE">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Amount">2</Argument>
+		<Argument name="PercentMultiplier">false</Argument>
+		<String context="Description">LOC_MOD_KANG_XI_TAX_REFORMATION_ASSIGNED_RESOURCE_FOOD_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_STABILIZING_FRONTIER_ASSIGNED_RESOURCE_HAPPINESS" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_RESOURCE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILD_QUEUE">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">2</Argument>
+		<Argument name="PercentMultiplier">false</Argument>
+		<String context="Description">LOC_MOD_STABILIZING_FRONTIER_ASSIGNED_RESOURCE_HAPPINESS_DESCRIPTION</String>
+	</Modifier>
+	<!--Russia-->
+	<Modifier id="MOD_SERFDOM_FARM_FOOD" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_HAS_CONSTRUCTIBLE">
+				<Argument name="ConstructibleType">IMPROVEMENT_FARM</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILD_QUEUE" inverse="true">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_SERFDOM_FARM_FOOD_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SERFDOM_TUNDRA_FARM_PRODUCTION" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_BIOME_TYPE_MATCHES">
+				<Argument name="BiomeType">BIOME_TUNDRA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_CITY_IS_TOWN">
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_HAS_CONSTRUCTIBLE">
+				<Argument name="ConstructibleType">IMPROVEMENT_FARM</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_SERFDOM_TUNDRA_FARM_PRODUCTION_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_TABLE_OF_RANKS_URBAN_GOLD_URBAN" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_MOD_TABLE_OF_RANKS_URBAN_GOLD_URBAN</Argument>
+		<String context="Description">LOC_MOD_TABLE_OF_RANKS_URBAN_GOLD_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="ATTACH_MOD_TABLE_OF_RANKS_URBAN_GOLD_URBAN" collection="COLLECTION_CITY_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_DISTRICT_CLASS">
+				<Argument name="DistrictClass">CITYCENTER, URBAN</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="MOD_TABLE_OF_RANKS_TUNDRA_URBAN_CULTURE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_BIOME_TYPE_MATCHES">
+				<Argument name="BiomeType">BIOME_TUNDRA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILD_QUEUE">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_MOD_TABLE_OF_RANKS_TUNDRA_URBAN_CULTURE</Argument>
+		<String context="Description">LOC_MOD_TABLE_OF_RANKS_TUNDRA_URBAN_CULTURE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="ATTACH_MOD_TABLE_OF_RANKS_TUNDRA_URBAN_CULTURE" collection="COLLECTION_CITY_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_DISTRICT_CLASS">
+				<Argument name="DistrictClass">CITYCENTER, URBAN</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_TABLE_OF_RANKS_TUNDRA_URBAN_CULTURE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SAMODERZHAVIYE_ENEMY_BLIZZARD_VULNERABILITY" collection="COLLECTION_OWNER" effect="EFFECT_UNITS_EXTRA_RANDOM_EVENT_DAMAGE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_IN_OWNER_TERRITORY">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="RandomEventClass">CLASS_BLIZZARD</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Description">LOC_MOD_SAMODERZHAVIYE_ENEMY_BLIZZARD_VULNERABILITY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SAMODERZHAVIYE_FRIENDLY_BLIZZARD_IMMUNITY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNITS_IMMUNE_TO_RANDOM_EVENTS">
+		<Argument name="RandomEventClass">CLASS_BLIZZARD</Argument>
+		<String context="Description">LOC_MOD_SAMODERZHAVIYE_ENEMY_BLIZZARD_VULNERABILITY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SAMODERZHAVIYE_CITY_CULTURE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILD_QUEUE">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_MOD_SAMODERZHAVIYE_CITY_CULTURE</Argument>
+		<String context="Description">LOC_MOD_SAMODERZHAVIYE_CITY_CULTURE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="ATTACH_MOD_SAMODERZHAVIYE_CITY_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Percent">1</Argument>
+		<String context="Description">LOC_MOD_SAMODERZHAVIYE_CITY_CULTURE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SAMODERZHAVIYE_TUNDRA_CITY_CULTURE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_BIOME_TYPE_MATCHES">
+				<Argument name="BiomeType">BIOME_TUNDRA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILD_QUEUE">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_MOD_SAMODERZHAVIYE_TUNDRA_CITY_CULTURE</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_MOD_SAMODERZHAVIYE_TUNDRA_CITY_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Percent">2</Argument>
+		<String context="Description">LOC_MOD_SAMODERZHAVIYE_CITY_CULTURE_DESCRIPTION</String>
+	</Modifier>
+	<!--Siam-->
+	<Modifier id="MOD_NINE_GEMS_CULTURE_PER_FRIENDLY" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_YIELD_PER_PLAYER_RELATIONSHIP">
+		<Argument name="RelationshipType">PLAYER_RELATIONSHIP_FRIENDLY</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Description">LOC_MOD_NINE_GEMS_CULTURE_PER_FRIENDLY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_NINE_GEMS_CULTURE_PER_HELPFUL" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_YIELD_PER_PLAYER_RELATIONSHIP">
+		<Argument name="RelationshipType">PLAYER_RELATIONSHIP_HELPFUL</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MOD_NINE_GEMS_INFLUENCE_PER_FRIENDLY" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_YIELD_PER_PLAYER_RELATIONSHIP">
+		<Argument name="RelationshipType">PLAYER_RELATIONSHIP_FRIENDLY</Argument>
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Description">LOC_MOD_NINE_GEMS_INFLUENCE_PER_FRIENDLY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_NINE_GEMS_INFLUENCE_PER_HELPFUL" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_YIELD_PER_PLAYER_RELATIONSHIP">
+		<Argument name="RelationshipType">PLAYER_RELATIONSHIP_HELPFUL</Argument>
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MOD_MANDALA_CHANG_BEUN_COMBAT_STRENGTH_IN_CITY_STATE_ALLY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_CHANG_BEUN</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_IS_SUZERAIN">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_MANDALA</Argument>
+		<String context="Description">LOC_MOD_MANDALA_CHANG_BEUN_COMBAT_STRENGTH_IN_CITY_STATE_ALLY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MANDALA_CHANG_BEUN_COMBAT_STRENGTH_IN_CITY_STATE_ALLY_ABILITY" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">6</Argument>
+		<String context="Preview">LOC_MOD_MANDALA_CHANG_BEUN_COMBAT_STRENGTH_IN_CITY_STATE_ALLY_PREVIEW</String>
+	</Modifier>
+	<Modifier id="MOD_MANDALA_PALACE_CULTURE_PER_CITY_STATE_ALLY" collection="COLLECTION_PLAYER_CONSTRUCTIBLES" effect="EFFECT_CITY_ADJUST_SUZERAIN_OF_CONSTRUCTIBLE_YIELD">
+		<Argument name="Amount">3</Argument>
+		<Argument name="ConstructibleType">BUILDING_PALACE</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="PercentMultiplier">false</Argument>
+		<String context="Description">LOC_MOD_MANDALA_PALACE_CULTURE_PER_CITY_STATE_ALLY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SRIWILAI_CULTURE_PER_AGREEMENT_ENDEAVOR" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_YIELD_PER_PLAYER_INVOLVED_ACTION">
+		<Argument name="ActionGroupType">DIPLOMACY_ACTION_GROUP_PROJECT</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Description">LOC_MOD_SRIWILAI_CULTURE_PER_AGREEMENT_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SRIWILAI_CULTURE_PER_AGREEMENT_SANCTION" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_YIELD_PER_PLAYER_INVOLVED_ACTION">
+		<Argument name="ActionGroupType">DIPLOMACY_ACTION_GROUP_SANCTION</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Description">LOC_MOD_SRIWILAI_CULTURE_PER_AGREEMENT_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SRIWILAI_TRADE_ROUTE_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_PER_NUM_TRADE_ROUTES">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">5</Argument>
+		<String context="Description">LOC_MOD_SRIWILAI_TRADE_ROUTE_CULTURE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SRIWILAI_TRADE_ROUTE_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_PER_NUM_TRADE_ROUTES">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+</GameEffects>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<Row Kind="KIND_DIFFICULTY" />
+		<InsertOrIgnore Kind="KIND_TRAIT" />
+	</Kinds>
+	<Types>
+		<Row Type="DIFFICULTY_SETTLER" Kind="KIND_DIFFICULTY" />
+		<Row Type="DIFFICULTY_PRINCE" Kind="KIND_DIFFICULTY" />
+		<Row Type="DIFFICULTY_KING" Kind="KIND_DIFFICULTY" />
+		<Row Type="DIFFICULTY_EMPEROR" Kind="KIND_DIFFICULTY" />
+		<Row Type="DIFFICULTY_IMMORTAL" Kind="KIND_DIFFICULTY" />
+		<Row Type="DIFFICULTY_DEITY" Kind="KIND_DIFFICULTY" />
+		<Row Type="DIFFICULTY_CUSTOM" Kind="KIND_DIFFICULTY" />
+	</Types>
+
+	<Difficulties>
+		<Row DifficultyType="DIFFICULTY_SETTLER" Name="LOC_DIFFICULTY_SETTLER_NAME" />
+		<Row DifficultyType="DIFFICULTY_PRINCE" Name="LOC_DIFFICULTY_PRINCE_NAME" />
+		<Row DifficultyType="DIFFICULTY_KING" Name="LOC_DIFFICULTY_KING_NAME" />
+		<Row DifficultyType="DIFFICULTY_EMPEROR" Name="LOC_DIFFICULTY_EMPEROR_NAME" />
+		<Row DifficultyType="DIFFICULTY_IMMORTAL" Name="LOC_DIFFICULTY_IMMORTAL_NAME" />
+		<Row DifficultyType="DIFFICULTY_DEITY" Name="LOC_DIFFICULTY_DEITY_NAME" />
+		<Row DifficultyType="DIFFICULTY_CUSTOM" Name="LOC_DIFFICULTY_CUSTOM_NAME" />
+	</Difficulties>
+	<HandicapSystems>
+		<Row HandicapSystemType="HANDICAP_ARMY_XP" Name="LOC_DIFFICULTY_ARMY_X_NAME" NumLevels="11" />
+		<Row HandicapSystemType="HANDICAP_COMBAT" Name="LOC_DIFFICULTY_COMBAT_NAME" NumLevels="9" />
+		<Row HandicapSystemType="HANDICAP_CULTURE" Name="LOC_DIFFICULTY_CULTURE_NAME" NumLevels="6" />
+		<Row HandicapSystemType="HANDICAP_GOLD" Name="LOC_DIFFICULTY_GOLD_NAME" NumLevels="6" />
+		<Row HandicapSystemType="HANDICAP_HAPPINESS" Name="LOC_DIFFICULTY_HAPPINESS_NAME" NumLevels="6" />
+		<Row HandicapSystemType="HANDICAP_INDEPENDENTS_COMBAT" Name="LOC_DIFFICULTY_COMBAT_NAME" NumLevels="6"/>
+		<Row HandicapSystemType="HANDICAP_SCIENCE" Name="LOC_DIFFICULTY_SCIENCE_NAME" NumLevels="6" />
+		<Row HandicapSystemType="HANDICAP_BUILDINGS" Name="LOC_DIFFICULTY_BUILDINGS_NAME" NumLevels="6" />
+		<Row HandicapSystemType="HANDICAP_UNITS" Name="LOC_DIFFICULTY_UNITS_NAME" NumLevels="6" />
+		<Row HandicapSystemType="HANDICAP_WATER_DAMAGE" Name="LOC_DIFFICULTY_WATER_DAMAGE_NAME" NumLevels="6" />
+		<Row HandicapSystemType="HANDICAP_TECH_COST" Name="LOC_DIFFICULTY_TECH_COST_NAME" NumLevels="6" />
+		<Row HandicapSystemType="HANDICAP_CIVIC_COST" Name="LOC_DIFFICULTY_CIVIC_COST_NAME" NumLevels="6" />
+	</HandicapSystems>
+	<StandardHandicaps>
+		<Row DifficultyType="DIFFICULTY_SETTLER" HandicapSystemType="HANDICAP_ARMY_XP" HandicapLevel="0" />
+		<Row DifficultyType="DIFFICULTY_PRINCE" HandicapSystemType="HANDICAP_ARMY_XP" HandicapLevel="1" />
+		<Row DifficultyType="DIFFICULTY_KING" HandicapSystemType="HANDICAP_ARMY_XP" HandicapLevel="3" />
+		<Row DifficultyType="DIFFICULTY_EMPEROR" HandicapSystemType="HANDICAP_ARMY_XP" HandicapLevel="4" />
+		<Row DifficultyType="DIFFICULTY_IMMORTAL" HandicapSystemType="HANDICAP_ARMY_XP" HandicapLevel="5" />
+		<Row DifficultyType="DIFFICULTY_DEITY" HandicapSystemType="HANDICAP_ARMY_XP" HandicapLevel="6" />
+		<Row DifficultyType="DIFFICULTY_SETTLER" HandicapSystemType="HANDICAP_BUILDINGS" HandicapLevel="0" />
+		<Row DifficultyType="DIFFICULTY_PRINCE" HandicapSystemType="HANDICAP_BUILDINGS" HandicapLevel="1" />
+		<Row DifficultyType="DIFFICULTY_KING" HandicapSystemType="HANDICAP_BUILDINGS" HandicapLevel="2" />
+		<Row DifficultyType="DIFFICULTY_EMPEROR" HandicapSystemType="HANDICAP_BUILDINGS" HandicapLevel="3" />
+		<Row DifficultyType="DIFFICULTY_IMMORTAL" HandicapSystemType="HANDICAP_BUILDINGS" HandicapLevel="4" />
+		<Row DifficultyType="DIFFICULTY_DEITY" HandicapSystemType="HANDICAP_BUILDINGS" HandicapLevel="5" />
+		<Row DifficultyType="DIFFICULTY_SETTLER" HandicapSystemType="HANDICAP_COMBAT" HandicapLevel="-4" />
+		<Row DifficultyType="DIFFICULTY_PRINCE" HandicapSystemType="HANDICAP_COMBAT" HandicapLevel="0" />
+		<Row DifficultyType="DIFFICULTY_KING" HandicapSystemType="HANDICAP_COMBAT" HandicapLevel="1" />
+		<Row DifficultyType="DIFFICULTY_EMPEROR" HandicapSystemType="HANDICAP_COMBAT" HandicapLevel="3" />
+		<Row DifficultyType="DIFFICULTY_IMMORTAL" HandicapSystemType="HANDICAP_COMBAT" HandicapLevel="5" />
+		<Row DifficultyType="DIFFICULTY_DEITY" HandicapSystemType="HANDICAP_COMBAT" HandicapLevel="8" />
+		<Row DifficultyType="DIFFICULTY_SETTLER" HandicapSystemType="HANDICAP_CULTURE" HandicapLevel="0" />
+		<Row DifficultyType="DIFFICULTY_PRINCE" HandicapSystemType="HANDICAP_CULTURE" HandicapLevel="1" />
+		<Row DifficultyType="DIFFICULTY_KING" HandicapSystemType="HANDICAP_CULTURE" HandicapLevel="2" />
+		<Row DifficultyType="DIFFICULTY_EMPEROR" HandicapSystemType="HANDICAP_CULTURE" HandicapLevel="3" />
+		<Row DifficultyType="DIFFICULTY_IMMORTAL" HandicapSystemType="HANDICAP_CULTURE" HandicapLevel="4" />
+		<Row DifficultyType="DIFFICULTY_DEITY" HandicapSystemType="HANDICAP_CULTURE" HandicapLevel="5" />
+		<Row DifficultyType="DIFFICULTY_SETTLER" HandicapSystemType="HANDICAP_GOLD" HandicapLevel="-20" />
+		<Row DifficultyType="DIFFICULTY_PRINCE" HandicapSystemType="HANDICAP_GOLD" HandicapLevel="0" />
+		<Row DifficultyType="DIFFICULTY_KING" HandicapSystemType="HANDICAP_GOLD" HandicapLevel="20" />
+		<Row DifficultyType="DIFFICULTY_EMPEROR" HandicapSystemType="HANDICAP_GOLD" HandicapLevel="40" />
+		<Row DifficultyType="DIFFICULTY_IMMORTAL" HandicapSystemType="HANDICAP_GOLD" HandicapLevel="60" />
+		<Row DifficultyType="DIFFICULTY_DEITY" HandicapSystemType="HANDICAP_GOLD" HandicapLevel="80" />
+		<Row DifficultyType="DIFFICULTY_SETTLER" HandicapSystemType="HANDICAP_HAPPINESS" HandicapLevel="-30" />
+		<Row DifficultyType="DIFFICULTY_PRINCE" HandicapSystemType="HANDICAP_HAPPINESS" HandicapLevel="0" />
+		<Row DifficultyType="DIFFICULTY_KING" HandicapSystemType="HANDICAP_HAPPINESS" HandicapLevel="20" />
+		<Row DifficultyType="DIFFICULTY_EMPEROR" HandicapSystemType="HANDICAP_HAPPINESS" HandicapLevel="40" />
+		<Row DifficultyType="DIFFICULTY_IMMORTAL" HandicapSystemType="HANDICAP_HAPPINESS" HandicapLevel="60" />
+		<Row DifficultyType="DIFFICULTY_DEITY" HandicapSystemType="HANDICAP_HAPPINESS" HandicapLevel="80" />
+		<Row DifficultyType="DIFFICULTY_SETTLER" HandicapSystemType="HANDICAP_INDEPENDENTS_COMBAT" HandicapLevel="-6" />
+		<Row DifficultyType="DIFFICULTY_PRINCE" HandicapSystemType="HANDICAP_INDEPENDENTS_COMBAT" HandicapLevel="-3" />
+		<Row DifficultyType="DIFFICULTY_KING" HandicapSystemType="HANDICAP_INDEPENDENTS_COMBAT" HandicapLevel="-3" />
+		<Row DifficultyType="DIFFICULTY_EMPEROR" HandicapSystemType="HANDICAP_INDEPENDENTS_COMBAT" HandicapLevel="0" />
+		<Row DifficultyType="DIFFICULTY_IMMORTAL" HandicapSystemType="HANDICAP_INDEPENDENTS_COMBAT" HandicapLevel="0" />
+		<Row DifficultyType="DIFFICULTY_DEITY" HandicapSystemType="HANDICAP_INDEPENDENTS_COMBAT" HandicapLevel="0" />
+		<Row DifficultyType="DIFFICULTY_SETTLER" HandicapSystemType="HANDICAP_SCIENCE" HandicapLevel="0" />
+		<Row DifficultyType="DIFFICULTY_PRINCE" HandicapSystemType="HANDICAP_SCIENCE" HandicapLevel="1" />
+		<Row DifficultyType="DIFFICULTY_KING" HandicapSystemType="HANDICAP_SCIENCE" HandicapLevel="2" />
+		<Row DifficultyType="DIFFICULTY_EMPEROR" HandicapSystemType="HANDICAP_SCIENCE" HandicapLevel="3" />
+		<Row DifficultyType="DIFFICULTY_IMMORTAL" HandicapSystemType="HANDICAP_SCIENCE" HandicapLevel="4" />
+		<Row DifficultyType="DIFFICULTY_DEITY" HandicapSystemType="HANDICAP_SCIENCE" HandicapLevel="5" />
+		<Row DifficultyType="DIFFICULTY_SETTLER" HandicapSystemType="HANDICAP_UNITS" HandicapLevel="0" />
+		<Row DifficultyType="DIFFICULTY_PRINCE" HandicapSystemType="HANDICAP_UNITS" HandicapLevel="1" />
+		<Row DifficultyType="DIFFICULTY_KING" HandicapSystemType="HANDICAP_UNITS" HandicapLevel="2" />
+		<Row DifficultyType="DIFFICULTY_EMPEROR" HandicapSystemType="HANDICAP_UNITS" HandicapLevel="3" />
+		<Row DifficultyType="DIFFICULTY_IMMORTAL" HandicapSystemType="HANDICAP_UNITS" HandicapLevel="4" />
+		<Row DifficultyType="DIFFICULTY_DEITY" HandicapSystemType="HANDICAP_UNITS" HandicapLevel="5" />
+		<Row DifficultyType="DIFFICULTY_SETTLER" HandicapSystemType="HANDICAP_WATER_DAMAGE" HandicapLevel="25" />
+		<Row DifficultyType="DIFFICULTY_PRINCE" HandicapSystemType="HANDICAP_WATER_DAMAGE" HandicapLevel="33" />
+		<Row DifficultyType="DIFFICULTY_KING" HandicapSystemType="HANDICAP_WATER_DAMAGE" HandicapLevel="40" />
+		<Row DifficultyType="DIFFICULTY_EMPEROR" HandicapSystemType="HANDICAP_WATER_DAMAGE" HandicapLevel="45" />
+		<Row DifficultyType="DIFFICULTY_IMMORTAL" HandicapSystemType="HANDICAP_WATER_DAMAGE" HandicapLevel="50" />
+		<Row DifficultyType="DIFFICULTY_DEITY" HandicapSystemType="HANDICAP_WATER_DAMAGE" HandicapLevel="80" />
+		<Row DifficultyType="DIFFICULTY_SETTLER" HandicapSystemType="HANDICAP_TECH_COST" HandicapLevel="0" />
+		<Row DifficultyType="DIFFICULTY_PRINCE" HandicapSystemType="HANDICAP_TECH_COST" HandicapLevel="1" />
+		<Row DifficultyType="DIFFICULTY_KING" HandicapSystemType="HANDICAP_TECH_COST" HandicapLevel="2" />
+		<Row DifficultyType="DIFFICULTY_EMPEROR" HandicapSystemType="HANDICAP_TECH_COST" HandicapLevel="3" />
+		<Row DifficultyType="DIFFICULTY_IMMORTAL" HandicapSystemType="HANDICAP_TECH_COST" HandicapLevel="4" />
+		<Row DifficultyType="DIFFICULTY_DEITY" HandicapSystemType="HANDICAP_TECH_COST" HandicapLevel="5" />
+		<Row DifficultyType="DIFFICULTY_SETTLER" HandicapSystemType="HANDICAP_CIVIC_COST" HandicapLevel="0" />
+		<Row DifficultyType="DIFFICULTY_PRINCE" HandicapSystemType="HANDICAP_CIVIC_COST" HandicapLevel="1" />
+		<Row DifficultyType="DIFFICULTY_KING" HandicapSystemType="HANDICAP_CIVIC_COST" HandicapLevel="2" />
+		<Row DifficultyType="DIFFICULTY_EMPEROR" HandicapSystemType="HANDICAP_CIVIC_COST" HandicapLevel="3" />
+		<Row DifficultyType="DIFFICULTY_IMMORTAL" HandicapSystemType="HANDICAP_CIVIC_COST" HandicapLevel="4" />
+		<Row DifficultyType="DIFFICULTY_DEITY" HandicapSystemType="HANDICAP_CIVIC_COST" HandicapLevel="5" />
+	</StandardHandicaps>
+	<!-- Possibly a questionable decision, but putting the difficulty modifiers here rather than with AI or leaders - AWG -->
+	<TraitModifiers>
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="HANDICAP_ARMY_XP_SCALING" />
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="HANDICAP_COMBAT_SCALING" />
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="HANDICAP_CULTURE_SCALING" />
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="HANDICAP_GOLD_SCALING" />
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="HANDICAP_HAPPINESS_SCALING" />
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="HANDICAP_SCIENCE_SCALING" />
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="HANDICAP_CONSTRUCTIBLE_PRODUCTION_SCALING" />
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="HANDICAP_UNITS_PRODUCTION_SCALING" />
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="HANDICAP_WATER_DAMAGE_SCALING" />
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="HANDICAP_TECH_COST" />
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="HANDICAP_CIVIC_COST" />
+	</TraitModifiers>
+	<PlayerModifiers>
+		<Row ModifierId="HANDICAP_INDEPENDENT_COMBAT_SCALING" />
+	</PlayerModifiers>
+	<Modifiers>
+		<Row ModifierId="HANDICAP_ARMY_XP_SCALING" ModifierType="MODIFIER_PLAYER_ARMIES_ADJUST_EXPERIENCE_RATE" SubjectRequirementSetId="REQSET_PLAYER_IS_AI_COMMAND" OwnerRequirementSetId="REQSET_PLAYER_IS_AI" />
+		<Row ModifierId="HANDICAP_COMBAT_SCALING" ModifierType="MODIFIER_PLAYER_UNITS_ADJUST_COMBAT_STRENGTH_PER_DIFFICULTY" OwnerRequirementSetId="REQSET_PLAYER_IS_AI" />
+		<Row ModifierId="HANDICAP_CULTURE_SCALING" ModifierType="MODIFIER_PLAYER_ADJUST_YIELD" OwnerRequirementSetId="REQSET_PLAYER_IS_AI" />
+		<Row ModifierId="HANDICAP_GOLD_SCALING" ModifierType="MODIFIER_PLAYER_ADJUST_YIELD" OwnerRequirementSetId="REQSET_PLAYER_IS_AI" />
+		<Row ModifierId="HANDICAP_HAPPINESS_SCALING" ModifierType="MODIFIER_PLAYER_ADJUST_YIELD" OwnerRequirementSetId="REQSET_PLAYER_IS_AI" />
+		<Row ModifierId="HANDICAP_INDEPENDENT_COMBAT_SCALING" ModifierType="MODIFIER_PLAYER_UNITS_ADJUST_COMBAT_STRENGTH_PER_DIFFICULTY" OwnerRequirementSetId="REQSET_PLAYER_IS_MINOR"/>
+		<Row ModifierId="HANDICAP_SCIENCE_SCALING" ModifierType="MODIFIER_PLAYER_ADJUST_YIELD" OwnerRequirementSetId="REQSET_PLAYER_IS_AI" />
+		<Row ModifierId="HANDICAP_CONSTRUCTIBLE_PRODUCTION_SCALING" ModifierType="MODIFIER_PLAYER_ADJUST_CONSTRUCTIBLE_PRODUCTION" OwnerRequirementSetId="REQSET_PLAYER_IS_AI" />
+		<Row ModifierId="HANDICAP_UNITS_PRODUCTION_SCALING" ModifierType="MODIFIER_PLAYER_ADJUST_UNIT_PRODUCTION" OwnerRequirementSetId="REQSET_PLAYER_IS_AI" />
+		<Row ModifierId="HANDICAP_WATER_DAMAGE_SCALING" ModifierType="MODIFIER_PLAYER_UNITS_ADJUST_WATER_DAMAGE" OwnerRequirementSetId="REQSET_PLAYER_IS_AI" />
+		<!-- Node cost scaling is deliberately applied to both Human and AI players -->
+		<Row ModifierId="HANDICAP_TECH_COST" ModifierType="MODIFIER_PLAYER_ADJUST_PROGRESSION_TREE_EFFICIENCY" />
+		<Row ModifierId="HANDICAP_CIVIC_COST" ModifierType="MODIFIER_PLAYER_ADJUST_PROGRESSION_TREE_EFFICIENCY" />
+	</Modifiers>
+	<ModifierArguments>
+		<Row ModifierId="HANDICAP_ARMY_XP_SCALING" Name="Percent" Type="LinearScaleFromDefaultHandicap" Value="-20" Extra="20" SecondExtra="HANDICAP_ARMY_XP" />
+		<Row ModifierId="HANDICAP_COMBAT_SCALING" Name="Type" Value="ALL" />
+		<Row ModifierId="HANDICAP_COMBAT_SCALING" Name="Amount" Type="NextLowestHandicapValue" Value="-4" Extra="2" SecondExtra="HANDICAP_COMBAT" />
+		<Row ModifierId="HANDICAP_CULTURE_SCALING" Name="YieldType" Value="YIELD_CULTURE" />
+		<Row ModifierId="HANDICAP_CULTURE_SCALING" Name="Percent" Type="LinearScaleFromDefaultHandicap" Value="-20" Extra="20" SecondExtra="HANDICAP_CULTURE" />
+		<Row ModifierId="HANDICAP_GOLD_SCALING" Name="YieldType" Value="YIELD_GOLD" />
+		<Row ModifierId="HANDICAP_GOLD_SCALING" Name="Percent" Type="NextLowestHandicapValue" Value="-20" Extra="20" SecondExtra="HANDICAP_GOLD" />
+		<Row ModifierId="HANDICAP_HAPPINESS_SCALING" Name="YieldType" Value="YIELD_HAPPINESS" />
+		<Row ModifierId="HANDICAP_HAPPINESS_SCALING" Name="Percent" Type="NextLowestHandicapValue" Value="-20" Extra="20" SecondExtra="HANDICAP_HAPPINESS" />
+		<Row ModifierId="HANDICAP_INDEPENDENT_COMBAT_SCALING" Name="Type" Value="ALL" />
+		<Row ModifierId="HANDICAP_INDEPENDENT_COMBAT_SCALING" Name="Amount" Type="NextLowestHandicapValue" Value="-4" Extra="2" SecondExtra="HANDICAP_INDEPENDENTS_COMBAT" />
+		<Row ModifierId="HANDICAP_SCIENCE_SCALING" Name="YieldType" Value="YIELD_SCIENCE" />
+		<Row ModifierId="HANDICAP_SCIENCE_SCALING" Name="Percent" Type="LinearScaleFromDefaultHandicap" Value="-20" Extra="20" SecondExtra="HANDICAP_SCIENCE" />
+		<Row ModifierId="HANDICAP_CONSTRUCTIBLE_PRODUCTION_SCALING" Name="Percent" Type="LinearScaleFromDefaultHandicap" Value="-20" Extra="20" SecondExtra="HANDICAP_BUILDINGS" />
+		<Row ModifierId="HANDICAP_UNITS_PRODUCTION_SCALING" Name="Percent" Type="LinearScaleFromDefaultHandicap" Value="-40" Extra="40" SecondExtra="HANDICAP_UNITS" />
+		<Row ModifierId="HANDICAP_WATER_DAMAGE_SCALING" Name="WaterDamage" Type="NextLowestHandicapValue" Value="33" Extra="2" SecondExtra="HANDICAP_WATER_DAMAGE"/>
+		<Row ModifierId="HANDICAP_TECH_COST" Name="SystemType" Value="SYSTEM_TECH" />
+		<Row ModifierId="HANDICAP_TECH_COST" Name="Percent" Type="LinearScaleFromDefaultHandicap" Value="10" Extra="-10" SecondExtra="HANDICAP_TECH_COST" />
+		<Row ModifierId="HANDICAP_CIVIC_COST" Name="SystemType" Value="SYSTEM_CULTURE" />
+		<Row ModifierId="HANDICAP_CIVIC_COST" Name="Percent" Type="LinearScaleFromDefaultHandicap" Value="10" Extra="-10" SecondExtra="HANDICAP_TECH_COST" />
+	</ModifierArguments>
+	<ModifierStrings>
+		<Row ModifierId="HANDICAP_ARMY_XP_SCALING" Context="Preview" Text="LOC_DIFFICULTY_ARMY_X_NAME"/>
+		<Row ModifierId="HANDICAP_COMBAT_SCALING" Context="Preview" Text="LOC_DIFFICULTY_COMBAT_NAME"/>
+		<Row ModifierId="HANDICAP_CULTURE_SCALING" Context="Preview" Text="LOC_DIFFICULTY_CULTURE_NAME"/>
+		<Row ModifierId="HANDICAP_GOLD_SCALING" Context="Preview" Text="LOC_DIFFICULTY_GOLD_NAME"/>
+		<Row ModifierId="HANDICAP_HAPPINESS_SCALING" Context="Preview" Text="LOC_DIFFICULTY_HAPPINESS_NAME"/>
+		<Row ModifierId="HANDICAP_INDEPENDENT_COMBAT_SCALING" Context="Preview" Text="LOC_DIFFICULTY_COMBAT_NAME"/>
+		<Row ModifierId="HANDICAP_SCIENCE_SCALING" Context="Preview" Text="LOC_DIFFICULTY_SCIENCE_NAME"/>
+		<Row ModifierId="HANDICAP_CONSTRUCTIBLE_PRODUCTION_SCALING" Context="Preview" Text="LOC_DIFFICULTY_BUILDINGS_NAME"/>
+		<Row ModifierId="HANDICAP_UNITS_PRODUCTION_SCALING" Context="Preview" Text="LOC_DIFFICULTY_UNITS_NAME"/>
+		<Row ModifierId="HANDICAP_WATER_DAMAGE_SCALING" Context="Preview" Text="LOC_DIFFICULTY_WATER_DAMAGE_NAME"/>
+		<Row ModifierId="HANDICAP_TECH_COST" Context="Preview" Text="LOC_DIFFICULTY_TECH_COST_NAME"/>
+		<Row ModifierId="HANDICAP_CIVIC_COST" Context="Preview" Text="LOC_DIFFICULTY_CIVIC_COST_NAME"/>
+	</ModifierStrings>
+</Database>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<Database>
+	<EnglishText>
+		<!--Watch Out Moments-->
+		<Row Tag="LOC_WARNING_UNDEFENDED_CITY_THREATENED_MESSAGE">
+			<Text>Our settlement of {1_City} stands unguarded in these dangerous times — but not unnoticed. The forces of the {2_CivName} approach, and we must bare our fangs to protect the citizens. Send military units to this urban center immediately. </Text>
+		</Row>
+		<Row Tag="LOC_WARNING_UNDEFENDED_CITY_THREATENED_SUMMARY">
+			<Text>Defenseless Settlement</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_DEFENDED_CITY_THREATENED_MESSAGE">
+			<Text>The enemy approaches our settlement of {1_City}, bearing the banners of the {2_CivName}. The garrison will defend our people to the end, but they are greatly outnumbered. Send reinforcements to swell their ranks.</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_DEFENDED_CITY_THREATENED_SUMMARY">
+			<Text>Settlement Under Threat</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_LOSING_INDEPENDENT_MESSAGE">
+			<Text>The rulers of {2_IndependentName} are being swayed more and more by {1_LeaderName}. If we do not spend more Influence there, they will become a City-State under the suzerainty of our rivals!</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_LOSING_INDEPENDENT_SUMMARY">
+			<Text>Independent Being Lured Away</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_OVER_SETTLEMENT_CAP_MESSAGE">
+			<Text>There is only so much administration one can assemble, and too many places for it to go. With our new Settlement, we have exceeded our Settlement Cap. Perhaps researching some new Civics might help.</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_OVER_SETTLEMENT_CAP_SUMMARY">
+			<Text>Over Settlement Cap</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_TRAILING_2_TECHS_MESSAGE">
+			<Text>Rumors abound that {1_CivAdjective} Technology is decades ahead of the rest of the world's. If we are to remain relevant in the scientific community, we must find a way to increase our own Science output.</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_TRAILING_2_TECHS_SUMMARY">
+			<Text>Trailing in Technology</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_TRAILING_2_CIVICS_MESSAGE">
+			<Text>"What is the latest style in {1_CivName}?" It is a question I hear daily. They appear to be ahead of us by several Civics, and people are starting to take notice. Perhaps some more Culture output is in order?</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_TRAILING_2_CIVICS_SUMMARY">
+			<Text>Trailing in Civics</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_NEGATIVE_GPT_MESSAGE">
+			<Text>A well-run economy sails like a well-hulled ship. Ours is leaking Gold. To keep from sinking entirely, we must construct buildings that provide Gold, reduce our military, construct Towns in productive areas, or sign Open Markets deals with our neighbors.</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_NEGATIVE_GPT_SUMMARY">
+			<Text>Negative Gold Per Turn</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_SURPLUS_INFLUENCE_MESSAGE">
+			<Text>Influence is squandered when hoarded. Its value lies in how it is traded. We should use our unspent Influence to strengthen Alliances and boost our trade yields!</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_SURPLUS_INFLUENCE_SUMMARY">
+			<Text>Surplus Influence</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_SURPLUS_PROMOTIONS_MESSAGE">
+			<Text>One of our great Commanders is a hero to soldiers and civilians alike. Their battlefield ingenuity has earned them several promotions, but these have yet to be awarded. It is time they receive their rightful honors.</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_SURPLUS_PROMOTIONS_SUMMARY">
+			<Text>Promotions to Award</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_TRADE_OPPORTUNITY_MESSAGE">
+			<Text>{2_City}, part of the {3_CivName}, is overflowing with valuable commodities and {1_Amount} resources. Thriving markets are a sign of thriving societies. To strengthen our own, we should dispatch a merchant to negotiate a trade agreement.</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_TRADE_OPPORTUNITY_SUMMARY">
+			<Text>Trade Opportunity</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_LOW_HAPPINESS_MESSAGE">
+			<Text>{1_City} is brimming with discontent, and productivity is flagging. We should assign Happiness resources, station a Commander in the settlement, or invest in Happiness infrastructure here. With trust and confidence in your rule, Gold will flow once more.</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_LOW_HAPPINESS_SUMMARY">
+			<Text>Low Happiness</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_ALLIANCE_WEAKENING_MESSAGE">
+			<Text>The bond between us and {1_LeaderName} is beginning to fray. If relations become Neutral, this Alliance will cease. We should strengthen our ties through a joint Diplomatic Endeavor.</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_ALLIANCE_WEAKENING_SUMMARY">
+			<Text>Alliance Weakening</Text>
+		</Row>
+		<!--  If you change this then check LOC_WAR_TOOLTIP_RECEIVING_WAR_WEARINESS in DiplomacyText.xml to see if it needs to be updated as well.  -->
+		<Row Tag="LOC_WARNING_WAR_WEARINESS_MESSAGE">
+			<Text>Our war efforts falter as {1_playerName}'s support in this conflict grows. At home, our people suffer a penalty to [icon:YIELD_HAPPINESS]Happiness in our settlements. At the front, our soldiers endure a combat penalty when fighting {1_playerName}'s units. Let us spend [icon:YIELD_DIPLOMACY]Influence to increase support for our cause to reduce these negative effects.</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_WAR_WEARINESS_SUMMARY">
+			<Text>Suffering War Weariness</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_REVOLT_MESSAGE">
+			<Text>The settlement of {2_CityName} is on the brink of Revolt. If they remain Unhappy for {1_Duration} turns, they may Revolt. We should assign Happiness resources, station a Commander in the settlement, or invest in Happiness infrastructure here immediately.</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_REVOLT_SUMMARY">
+			<Text>Settlement Revolt</Text>
+		</Row>
+	</EnglishText>
+</Database>

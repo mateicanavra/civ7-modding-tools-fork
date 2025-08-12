@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<AiComponents>
+		<Row Component="Targets_Antiquity" DefaultPriority="AI_PRIORITY_STRATEGIC"/>
+	</AiComponents>
+	<AiDefinitions>
+		<Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Targets_Antiquity"/>
+		<Row LeaderTrait="TRAIT_LEADER_MINOR_CIV" AiComponent="Targets_Antiquity"/>
+		<Row LeaderTrait="TRAIT_LEADER_INDEPENDENT" AiComponent="Targets_Antiquity"/>
+	</AiDefinitions>
+	<OpTeamRequirements>
+		<Update>
+			<Where TeamName="Independent Civ Force" ClassTag="UNIT_CLASS_COMBAT"/>
+			<Set MinNumber="1" MaxNumber="2"/>
+		</Update>
+		<Update>
+			<Where TeamName="Independent Civ Force" ClassTag="UNIT_CLASS_MELEE"/>
+			<Set MinNumber="1"/>
+		</Update>
+		<Update>
+			<Where TeamName="Independent Large Civ Force" ClassTag="UNIT_CLASS_COMBAT"/>
+			<Set MinNumber="2" MaxNumber="4"/>
+		</Update>
+		<Update>
+			<Where TeamName="Independent Large Civ Force" ClassTag="UNIT_CLASS_MELEE"/>
+			<Set MinNumber="1"/>
+		</Update>
+	</OpTeamRequirements>
+	<PseudoYields>
+		<Update>
+			<Where PseudoYieldType="PSEUDOYIELD_NEW_CITY"/>
+			<Set DefaultValue="400"/>
+		</Update>
+	</PseudoYields>
+	<AiListTypes>
+		<!-- Antiquity Majors -->
+		<Row ListType="Antiquity Tag Biases"/>
+		<Row ListType="Antiquity Constructible Biases"/>
+		<Row ListType="Antiquity Unit Biases"/>
+
+		<!-- Aksum -->
+		<Row ListType="Aksum Unit Biases"/>
+		<Row ListType="Aksum Government Bias"/>
+		<Row ListType="Aksum Settle Plot Conditions" />
+		<Row ListType="Aksum Constructibles Biases" />
+
+		<!-- EGYPT -->
+		<Row ListType="Egypt Units Biases" />
+		<Row ListType="Egypt Government Bias" />
+		<Row ListType="Egypt Settle Plot Conditions" />
+		<Row ListType="Egypt Constructibles Biases" />
+
+		<!-- Greece -->
+		<Row ListType="Greece Unit Biases"/>
+		<Row ListType="Greece Government Bias"/>
+		<Row ListType="Greece Settle Plot Conditions"/>
+		<Row ListType="Greece Constructibles Biases" />
+
+		<!-- Han -->
+		<Row ListType="Han Unit Biases"/>
+		<Row ListType="Han Government Bias"/>
+		<Row ListType="Han Tag Biases"/>
+		<Row ListType="Han Constructibles Biases" />
+
+		<!-- Khmer -->
+		<Row ListType="Khmer Unit Biases"/>
+		<Row ListType="Khmer Government Bias"/>
+		<Row ListType="Khmer Settle Plot Conditions" />
+		<Row ListType="Khmer PseudoYield Biases"/>
+		<Row ListType="Khmer Constructibles Biases" />
+
+		<!-- Maurya -->
+		<Row ListType="Maurya Unit Biases"/>
+		<Row ListType="Maurya Government Bias"/>
+		<Row ListType="Maurya Settle Plot Conditions" />
+		<Row ListType="Maurya ProgressionTreeNodes Biases"/>
+		<Row ListType="Maurya Constructibles Biases" />
+
+		<!-- Maya -->
+		<Row ListType="Maya Unit Biases"/>
+		<Row ListType="Maya Government Bias"/>
+		<Row ListType="Maya Settle Plot Conditions" />
+		<Row ListType="Maya Tag Biases"/>
+		<Row ListType="Maya Constructibles Biases" />
+
+		<!-- Mississippian -->
+		<Row ListType="Mississippian Unit Biases"/>
+		<Row ListType="Mississippian Government Bias"/>
+		<Row ListType="Mississippian PseudoYield Biases" />
+		<Row ListType="Mississippian Constructibles Biases" />
+		<Row ListType="Mississippian Settle Plot Conditions" />
+
+		<!-- Persia -->
+		<Row ListType="Persia Unit Biases"/>
+		<Row ListType="Persia Government Bias"/>
+		<Row ListType="Persia Budget Biases"/>
+		<Row ListType="Persia Constructibles Biases" />
+
+		<!-- Rome -->
+		<Row ListType="Rome Unit Biases"/>
+		<Row ListType="Rome Government Bias"/>
+		<Row ListType="Rome PseudoYield Biases"/>
+		<Row ListType="Rome Constructibles Biases" />
+
+	</AiListTypes>
+	<AiLists>
+		<!-- Antiquity Majors  -->
+		<Row ListType="Antiquity Tag Biases" LeaderType="TRAIT_ANTIQUITY_CIV" System="TagBiases"/>
+		<Row ListType="Antiquity Constructible Biases" LeaderType="TRAIT_ANTIQUITY_CIV" System="ConstructibleBiases"/>
+		<Row ListType="Antiquity Unit Biases" LeaderType="TRAIT_ANTIQUITY_CIV" System="UnitBiases"/>
+
+		<!-- Aksum -->
+		<Row ListType="Aksum Unit Biases" LeaderType="TRAIT_AKSUM" System="UnitBiases"/>
+		<Row ListType="Aksum Government Bias" LeaderType="TRAIT_AKSUM" System="GovernmentBiases"/>
+		<Row ListType="Aksum Settle Plot Conditions" LeaderType="TRAIT_AKSUM" System="SettlementPlotEvaluations"/>
+		<Row ListType="Aksum Constructibles Biases" LeaderType="TRAIT_AKSUM" System="ConstructibleBiases" />
+
+		<!-- EGYPT -->
+		<Row ListType="Egypt Units Biases" LeaderType="TRAIT_EGYPT" System="UnitBiases" />
+		<Row ListType="Egypt Government Bias" LeaderType="TRAIT_EGYPT" System="GovernmentBiases"/>
+		<Row ListType="Egypt Settle Plot Conditions" LeaderType="TRAIT_EGYPT" System="SettlementPlotEvaluations"/>
+		<Row ListType="Egypt Constructibles Biases" LeaderType="TRAIT_EGYPT" System="ConstructibleBiases" />
+
+		<!-- Greece -->
+		<Row ListType="Greece Unit Biases" LeaderType="TRAIT_GREECE" System="UnitBiases"/>
+		<Row ListType="Greece Government Bias" LeaderType="TRAIT_GREECE" System="GovernmentBiases"/>
+		<Row ListType="Greece Settle Plot Conditions" LeaderType="TRAIT_GREECE" System="SettlementPlotEvaluations"/>
+		<Row ListType="Greece Constructibles Biases" LeaderType="TRAIT_GREECE" System="ConstructibleBiases" />
+
+		<!-- Han -->
+		<Row ListType="Han Unit Biases" LeaderType="TRAIT_HAN" System="UnitBiases"/>
+		<Row ListType="Han Government Bias" LeaderType="TRAIT_HAN" System="GovernmentBiases"/>
+		<Row ListType="Han Tag Biases" LeaderType="TRAIT_HAN" System="TagBiases"/>
+		<Row ListType="Han Constructibles Biases" LeaderType="TRAIT_HAN" System="ConstructibleBiases" />
+
+		<!-- Khmer -->
+		<Row ListType="Khmer Unit Biases" LeaderType="TRAIT_KHMER" System="UnitBiases"/>
+		<Row ListType="Khmer Government Bias" LeaderType="TRAIT_KHMER" System="GovernmentBiases"/>
+		<Row ListType="Khmer Settle Plot Conditions" LeaderType="TRAIT_KHMER" System="SettlementPlotEvaluations" />
+		<Row ListType="Khmer PseudoYield Biases" LeaderType="TRAIT_KHMER" System="PseudoYieldBiases"/>
+		<Row ListType="Khmer Constructibles Biases" LeaderType="TRAIT_KHMER" System="ConstructibleBiases" />
+
+		<!-- Maurya -->
+		<Row ListType="Maurya Unit Biases" LeaderType="TRAIT_MAURYA" System="UnitBiases"/>
+		<Row ListType="Maurya Government Bias" LeaderType="TRAIT_MAURYA" System="GovernmentBiases"/>
+		<Row ListType="Maurya Settle Plot Conditions" LeaderType="TRAIT_MAURYA" System="SettlementPlotEvaluations"/>
+		<Row ListType="Maurya ProgressionTreeNodes Biases" LeaderType="TRAIT_MAURYA" System="ProgressionTreeNodeBiases"/>
+		<Row ListType="Maurya Constructibles Biases" LeaderType="TRAIT_MAURYA" System="ConstructibleBiases" />
+
+		<!-- Maya -->
+		<Row ListType="Maya Unit Biases" LeaderType="TRAIT_MAYA" System="UnitBiases"/>
+		<Row ListType="Maya Government Bias" LeaderType="TRAIT_MAYA" System="GovernmentBiases"/>
+		<Row ListType="Maya Settle Plot Conditions" LeaderType="TRAIT_MAYA" System="SettlementPlotEvaluations"/>
+		<Row ListType="Maya Tag Biases" LeaderType="TRAIT_MAYA" System="TagBiases"/>
+		<Row ListType="Maya Constructibles Biases" LeaderType="TRAIT_MAYA" System="ConstructibleBiases" />
+
+		<!-- Mississippian -->
+		<Row ListType="Mississippian Unit Biases" LeaderType="TRAIT_MISSISSIPPIAN" System="UnitBiases"/>
+		<Row ListType="Mississippian Government Bias" LeaderType="TRAIT_MISSISSIPPIAN" System="GovernmentBiases"/>
+		<Row ListType="Mississippian PseudoYield Biases" LeaderType="TRAIT_MISSISSIPPIAN" System="PseudoYieldBiases"/>
+		<Row ListType="Mississippian Constructibles Biases" LeaderType="TRAIT_MISSISSIPPIAN" System="ConstructibleBiases" />
+		<Row ListType="Mississippian Settle Plot Conditions" LeaderType="TRAIT_MISSISSIPPIAN" System="SettlementPlotEvaluations" />
+
+		<!-- Persia -->
+		<Row ListType="Persia Unit Biases" LeaderType="TRAIT_PERSIA" System="UnitBiases"/>
+		<Row ListType="Persia Government Bias" LeaderType="TRAIT_PERSIA" System="GovernmentBiases"/>
+		<Row ListType="Persia Budget Biases" LeaderType="TRAIT_PERSIA" System="AiBudgetBiases"/>
+		<Row ListType="Persia Constructibles Biases" LeaderType="TRAIT_PERSIA" System="ConstructibleBiases" />
+
+		<!-- Rome -->
+		<Row ListType="Rome Unit Biases" LeaderType="TRAIT_ROME" System="UnitBiases"/>
+		<Row ListType="Rome Government Bias" LeaderType="TRAIT_ROME" System="GovernmentBiases"/>
+		<Row ListType="Rome PseudoYield Biases" LeaderType="TRAIT_ROME" System="PseudoYieldBiases"/>
+		<Row ListType="Rome Constructibles Biases" LeaderType="TRAIT_ROME" System="ConstructibleBiases" />
+
+	</AiLists>
+	<AiFavoredItems>
+		<!-- Antiquity Majors  -->
+		<Row ListType="Antiquity Tag Biases" Item="PRODUCTION" Value="100"/>
+		<Row ListType="Antiquity Constructible Biases" Item="BUILDING_GARDEN" Value="-50"/>
+
+		<!-- Aksum -->
+		<Row ListType="Aksum Unit Biases" Item="UNIT_DHOW" Value="50"/>
+		<Row ListType="Aksum Unit Biases" Item="UNIT_DHOW_2" Value="50"/>
+		<Row ListType="Aksum Unit Biases" Item="UNIT_ARCHER" Value="25"/>
+		<Row ListType="Aksum Unit Biases" Item="UNIT_SLINGER" Value="25"/>
+		<Row ListType="Aksum Government Bias" Item="GOVERNMENT_OLIGARCHY" Value="25"/>
+		<Row ListType="Aksum Settle Plot Conditions" Item="Coastal" Favored="false" Value="15" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_COAST"/>
+    	<Row ListType="Aksum Settle Plot Conditions" Item="Coastal" Favored="false" Value="15" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_COAST"/>
+    	<Row ListType="Aksum Settle Plot Conditions" Item="Specific Terrain" Value="2" StringVal="TERRAIN_COAST" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_TERRAIN"/>
+    	<Row ListType="Aksum Settle Plot Conditions" Item="Resource Class" Value="5" StringVal="RESOURCECLASS_BONUS" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_STRATEGIC_RESOURCES"/>
+    	<Row ListType="Aksum Settle Plot Conditions" Item="Resource Class" Value="5" StringVal="RESOURCECLASS_CITY" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_STRATEGIC_RESOURCES"/>
+    	<Row ListType="Aksum Settle Plot Conditions" Item="Resource Class" Value="5" StringVal="RESOURCECLASS_EMPIRE" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_STRATEGIC_RESOURCES"/>
+		<Row ListType="Aksum Constructibles Biases" Item="IMPROVEMENT_HAWELT" Value="200"/>
+		<Row ListType="Aksum Constructibles Biases" Item="WONDER_GREAT_STELE" Value="50"/>
+
+		<!-- EGYPT -->
+		<!-- This is hard to maintain if we vary .  Should we try to leverage plot effect requirements here? Something else? -->
+		<Row ListType="Egypt Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="3" StringVal="FEATURE_DESERT_FLOODPLAIN_MINOR" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Egypt Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="3" StringVal="FEATURE_GRASSLAND_FLOODPLAIN_MINOR" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Egypt Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="3" StringVal="FEATURE_PLAINS_FLOODPLAIN_MINOR" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Egypt Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="3" StringVal="FEATURE_TROPICAL_FLOODPLAIN_MINOR" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Egypt Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="3" StringVal="FEATURE_TUNDRA_FLOODPLAIN_MINOR" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Egypt Settle Plot Conditions" Item="Specific Terrain" Favored="false" Value="10" StringVal="TERRAIN_NAVIGABLE_RIVER" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_TERRAIN"/>
+		<Row ListType="Egypt Constructibles Biases" Item="BUILDING_MASTABA" Value="200"/>
+		<Row ListType="Egypt Constructibles Biases" Item="BUILDING_MORTUARY_TEMPLE" Value="200"/>
+		<Row ListType="Egypt Constructibles Biases" Item="WONDER_PYRAMIDS" Value="50"/>
+		<Row ListType="Egypt Units Biases" Item="UNIT_MEDJAY" Value="50"/>
+		<Row ListType="Egypt Units Biases" Item="UNIT_MEDJAY_2" Value="50"/>
+		<Row ListType="Egypt Units Biases" Item="UNIT_MEDJAY_3" Value="50"/>
+		<Row ListType="Egypt Units Biases" Item="UNIT_CHARIOT" Value="25"/>
+		<Row ListType="Egypt Units Biases" Item="UNIT_HORSEMAN" Value="25"/>
+		<Row ListType="Egypt Units Biases" Item="UNIT_TJATY" Value="50"/>
+		<Row ListType="Egypt Government Bias" Item="GOVERNMENT_OLIGARCHY" Value="25"/>
+
+		<!-- Greece -->
+		<Row ListType="Greece Unit Biases" Item="UNIT_HOPLITE" Value="50"/>
+		<Row ListType="Greece Unit Biases" Item="UNIT_HOPLITE_2" Value="50"/>
+		<Row ListType="Greece Unit Biases" Item="UNIT_HOPLITE_3" Value="50"/>
+		<Row ListType="Greece Unit Biases" Item="UNIT_GALLEY" Value="25"/>
+		<Row ListType="Greece Unit Biases" Item="UNIT_QUADRIREME" Value="25"/>
+		<Row ListType="Greece Unit Biases" Item="UNIT_LOGIOS" Value="50"/>
+		<Row ListType="Greece Government Bias" Item="GOVERNMENT_CLASSICAL_REPUBLIC" Value="50"/>
+		<Row ListType="Greece Settle Plot Conditions" Item="Specific Terrain" Favored="false" Value="5" StringVal="TERRAIN_HILL" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Greece Constructibles Biases" Item="BUILDING_ODEON" Value="200"/>
+		<Row ListType="Greece Constructibles Biases" Item="BUILDING_PARTHENON" Value="200"/>
+		<Row ListType="Greece Constructibles Biases" Item="WONDER_ORACLE" Value="50"/>
+
+		<!-- Han -->
+		<Row ListType="Han Unit Biases" Item="UNIT_NU" Value="50"/>
+		<Row ListType="Han Unit Biases" Item="UNIT_NU_2" Value="50"/>
+		<Row ListType="Han Unit Biases" Item="UNIT_BALLISTA" Value="25"/>
+		<Row ListType="Han Unit Biases" Item="UNIT_SHI_DAFU" Value="50"/>
+		<Row ListType="Han Government Bias" Item="GOVERNMENT_DESPOTISM" Value="50"/>
+		<Row ListType="Han Tag Biases" Item="SCIENCE" Value="50"/>
+		<Row ListType="Han Tag Biases" Item="HAPPINESS" Value="25"/>
+		<Row ListType="Han Constructibles Biases" Item="IMPROVEMENT_HAN_GREAT_WALL" Value="200"/>
+		<Row ListType="Han Constructibles Biases" Item="WONDER_WEIYANG_PALACE" Value="50"/>
+
+		<!-- Khmer -->
+		<Row ListType="Khmer Unit Biases" Item="UNIT_DANTINAS_TATHA" Value="50"/>
+		<Row ListType="Khmer Unit Biases" Item="UNIT_DANTINAS_TATHA_2" Value="50"/>
+		<Row ListType="Khmer Unit Biases" Item="UNIT_GALLEY" Value="50"/>
+		<Row ListType="Khmer Unit Biases" Item="UNIT_QUADRIREME" Value="50"/>
+		<Row ListType="Khmer Government Bias" Item="GOVERNMENT_OLIGARCHY" Value="25"/>
+		<Row ListType="Khmer Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="3" StringVal="FEATURE_DESERT_FLOODPLAIN_MINOR" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Khmer Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="3" StringVal="FEATURE_GRASSLAND_FLOODPLAIN_MINOR" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Khmer Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="3" StringVal="FEATURE_PLAINS_FLOODPLAIN_MINOR" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Khmer Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="3" StringVal="FEATURE_TROPICAL_FLOODPLAIN_MINOR" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Khmer Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="3" StringVal="FEATURE_TUNDRA_FLOODPLAIN_MINOR" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Khmer PseudoYield Biases" Item="PSEUDOYIELD_BUILD_QUEUE_IN_CITY" Value="-25"/>
+		<Row ListType="Khmer Constructibles Biases" Item="IMPROVEMENT_BARAY" Value="200"/>
+		<Row ListType="Khmer Constructibles Biases" Item="WONDER_ANGKOR_WAT" Value="50"/>
+
+		<!-- Maurya -->
+		<Row ListType="Maurya Unit Biases" Item="UNIT_PURABHETTARAH" Value="50"/>
+		<Row ListType="Maurya Unit Biases" Item="UNIT_PURABHETTARAH_2" Value="50"/>
+		<Row ListType="Maurya Unit Biases" Item="UNIT_WARRIOR" Value="25"/>
+		<Row ListType="Maurya Unit Biases" Item="UNIT_SPEARMAN" Value="25"/>
+		<Row ListType="Maurya Unit Biases" Item="UNIT_PHALANX" Value="25"/>
+		<Row ListType="Maurya Government Bias" Item="GOVERNMENT_OLIGARCHY" Value="25"/>
+		<Row ListType="Maurya Settle Plot Conditions" Item="Specific Terrain" Favored="false" Value="10" StringVal="TERRAIN_MOUNTAIN" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Maurya ProgressionTreeNodes Biases" Item="NODE_CIVIC_AQ_MAIN_MYSTICISM" Value="500"/>
+		<Row ListType="Maurya Constructibles Biases" Item="IMPROVEMENT_BARAY" Value="200"/>
+		<Row ListType="Maurya Constructibles Biases" Item="WONDER_SANCHI_STUPA" Value="50"/>
+
+		<!-- Maya -->
+		<Row ListType="Maya Unit Biases" Item="UNIT_HULCHE" Value="50"/>
+		<Row ListType="Maya Unit Biases" Item="UNIT_HULCHE_2" Value="50"/>
+		<Row ListType="Maya Unit Biases" Item="UNIT_JAGUAR_SLAYER" Value="50"/>
+		<Row ListType="Maya Unit Biases" Item="UNIT_WARRIOR" Value="25"/>
+		<Row ListType="Maya Unit Biases" Item="UNIT_SPEARMAN" Value="25"/>
+		<Row ListType="Maya Unit Biases" Item="UNIT_PHALANX" Value="25"/>
+		<Row ListType="Maya Government Bias" Item="GOVERNMENT_DESPOTISM" Value="25"/>
+		<Row ListType="Maya Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="3" StringVal="FEATURE_SAGEBRUSH_STEPPE" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Maya Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="3" StringVal="FEATURE_FOREST" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Maya Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="3" StringVal="FEATURE_SAVANNA_WOODLAND" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Maya Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="3" StringVal="FEATURE_RAINFOREST" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Maya Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="3" StringVal="FEATURE_TAIGA" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Maya Tag Biases" Item="HAPPINESS" Value="25"/>
+		<Row ListType="Maya Constructibles Biases" Item="BUILDING_JALAW" Value="200"/>
+		<Row ListType="Maya Constructibles Biases" Item="BUILDING_KUH_NAH" Value="200"/>
+		<Row ListType="Maya Constructibles Biases" Item="WONDER_MUNDO_PERDIDO" Value="50"/>
+
+		<!-- Mississippian -->
+		<Row ListType="Mississippian Unit Biases" Item="UNIT_BURNING_ARROW" Value="50"/>
+		<Row ListType="Mississippian Unit Biases" Item="UNIT_BURNING_ARROW_2" Value="50"/>
+		<Row ListType="Mississippian Unit Biases" Item="UNIT_WARRIOR" Value="25"/>
+		<Row ListType="Mississippian Unit Biases" Item="UNIT_SPEARMAN" Value="25"/>
+		<Row ListType="Mississippian Unit Biases" Item="UNIT_PHALANX" Value="25"/>
+		<Row ListType="Mississippian Government Bias" Item="GOVERNMENT_OLIGARCHY" Value="50"/>
+		<Row ListType="Mississippian PseudoYield Biases" Item="PSEUDOYIELD_RESOURCE_IMPORT" Value="50"/>
+		<Row ListType="Mississippian Constructibles Biases" Item="IMPROVEMENT_POTKOP" Value="200"/>
+		<Row ListType="Mississippian Constructibles Biases" Item="WONDER_MONKS_MOUND" Value="50"/>
+		<Row ListType="Mississippian Settle Plot Conditions" Item="Resource Class" Value="5" StringVal="RESOURCECLASS_BONUS" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_STRATEGIC_RESOURCES"/>
+		<Row ListType="Mississippian Settle Plot Conditions" Item="Resource Class" Value="5" StringVal="RESOURCECLASS_CITY" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_STRATEGIC_RESOURCES"/>
+		<Row ListType="Mississippian Settle Plot Conditions" Item="Resource Class" Value="5" StringVal="RESOURCECLASS_EMPIRE" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_STRATEGIC_RESOURCES"/>
+
+		<!-- Persia -->
+		<Row ListType="Persia Unit Biases" Item="UNIT_IMMORTAL" Value="50"/>
+		<Row ListType="Persia Unit Biases" Item="UNIT_IMMORTAL_2" Value="50"/>
+		<Row ListType="Persia Unit Biases" Item="UNIT_CHARIOT" Value="25"/>
+		<Row ListType="Persia Unit Biases" Item="UNIT_HORSEMAN" Value="25"/>
+		<Row ListType="Persia Unit Biases" Item="UNIT_HAZARAPATIS" Value="50"/>
+		<Row ListType="Persia Government Bias" Item="GOVERNMENT_DESPOTISM" Value="50"/>
+		<Row ListType="Persia Budget Biases" Item="AI_BUDGET_STANDING_ARMY" Value="50"/>
+		<Row ListType="Persia Constructibles Biases" Item="IMPROVEMENT_PAIRIDAEZA" Value="200"/>
+		<Row ListType="Persia Constructibles Biases" Item="WONDER_GATE_OF_ALL_NATIONS" Value="50"/>
+
+		<!-- Rome -->
+		<Row ListType="Rome Unit Biases" Item="UNIT_LEGION" Value="50"/>
+		<Row ListType="Rome Unit Biases" Item="UNIT_LEGION_2" Value="50"/>
+		<Row ListType="Rome Unit Biases" Item="UNIT_BALLISTA" Value="25"/>
+		<Row ListType="Rome Unit Biases" Item="UNIT_LEGATUS" Value="50"/>
+		<Row ListType="Rome Government Bias" Item="GOVERNMENT_CLASSICAL_REPUBLIC" Value="25"/>
+		<Row ListType="Rome PseudoYield Biases" Item="PSEUDOYIELD_NEW_CITY" Value="50"/>
+		<Row ListType="Rome PseudoYield Biases" Item="PSEUDOYIELD_BUILD_QUEUE_IN_CITY" Value="-10"/>
+		<Row ListType="Rome Constructibles Biases" Item="BUILDING_BASILICA" Value="200"/>
+		<Row ListType="Rome Constructibles Biases" Item="BUILDING_TEMPLE_OF_JUPITER" Value="200"/>
+		<Row ListType="Rome Constructibles Biases" Item="WONDER_COLOSSEUM" Value="50"/>
+
+	</AiFavoredItems>
+	<!-- City Strategies -->
+	<Strategies>
+		<Row StrategyType="CITY_STRATEGY_WONDERS" CityStrategy="true" MinNumConditionsNeeded="1" MaxNumConditionsNeeded="1"/>
+	</Strategies>
+	<StrategyConditions>
+		<Row StrategyType="CITY_STRATEGY_WONDERS" ConditionFunction="HasProductionGreaterThan" ThresholdValue="20"/>
+	</StrategyConditions>
+	<Strategy_Priorities>
+		<Row StrategyType="CITY_STRATEGY_WONDERS" ListType="CityWonderBias"/>
+	</Strategy_Priorities>
+	<AiListTypes>
+		<Row ListType="CityWonderBias"/>
+	</AiListTypes>
+	<AiLists>
+		<Row ListType="CityWonderBias" System="ConstructibleClassBiases"/>
+	</AiLists>
+	<AiFavoredItems>
+		<Row ListType="CityWonderBias" Item="WONDER" Value="200"/>
+	</AiFavoredItems>
+</Database>

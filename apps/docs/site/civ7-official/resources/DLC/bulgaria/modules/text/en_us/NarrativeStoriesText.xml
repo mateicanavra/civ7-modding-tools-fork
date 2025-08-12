@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <EnglishText>
+        <Row Tag="LOC_11020A_STORYTITLE">
+            <Text>The Living Cliffs</Text>
+        </Row>
+        <Row Tag="LOC_11020A_COMPLETION">
+            <Text>The Bulgarian mountains hold many secrets. They are grand, and ancient, and their beauty attracts the eyes of all who pass beneath their silent peaks. But enemies soon find that the mountains stare back — and their gaze is anything but friendly.</Text>
+        </Row>
+        <Row Tag="LOC_11020B_NAME">
+            <Text>Much can be learned from observing others unseen.</Text>
+        </Row>
+        <Row Tag="LOC_11020B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11020C_NAME">
+            <Text>The mountains have room for more secrets.</Text>
+        </Row>
+        <Row Tag="LOC_11020C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11021A_STORYTITLE">
+            <Text>Peacetime Leadership</Text>
+        </Row>
+        <Row Tag="LOC_11021A_COMPLETION">
+            <Text>In the absence of war, the Bulgarian Empire thrives. The tarkhans, though deprived of battlefields, still cut fine figures in the streets, and the people look increasingly to their authority for mundane matters.</Text>
+        </Row>
+        <Row Tag="LOC_11021B_NAME">
+            <Text>The tarkhans must learn civic government.</Text>
+        </Row>
+        <Row Tag="LOC_11021B_DESCRIPTION">
+            <Text>{1_reward} but {2_reward} for {3_turn_timer}.</Text>
+        </Row>
+        <Row Tag="LOC_11021C_NAME">
+            <Text>Peace is the ideal time to prepare for war.</Text>
+        </Row>
+        <Row Tag="LOC_11021C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11022A_STORYTITLE">
+            <Text>Miracles in the Mountains</Text>
+        </Row>
+        <Row Tag="LOC_11022A_COMPLETION">
+            <Text>High in the mountains, a holy man lives alone in a cave, performing miracles among the local populace. Many flock to his remote habitation hoping to benefit from his blessings.</Text>
+        </Row>
+        <Row Tag="LOC_11022B_NAME">
+            <Text>A permanent monastery should be established here.</Text>
+        </Row>
+        <Row Tag="LOC_11022B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11022C_NAME">
+            <Text>Leave the hermit alone!</Text>
+        </Row>
+        <Row Tag="LOC_11022C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11023A_STORYTITLE">
+            <Text>Cultural Tourism</Text>
+        </Row>
+        <Row Tag="LOC_11023A_COMPLETION">
+            <Text>The monks of Rila Monastery sit in silence within the church, contemplating the divine. Their quiet prayers are suddenly interrupted by voices outside loudly marveling at the artistry of the building’s elaborate frescoes.</Text>
+        </Row>
+        <Row Tag="LOC_11023B_NAME">
+            <Text>The monastery is a space for all Bulgars.</Text>
+        </Row>
+        <Row Tag="LOC_11023B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11023C_NAME">
+            <Text>This place is reserved for spiritual contemplation.</Text>
+        </Row>
+        <Row Tag="LOC_11023C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11024A_STORYTITLE">
+            <Text>Varbitsa’s Revenge</Text>
+        </Row>
+        <Row Tag="LOC_11024A_COMPLETION">
+            <Text>The enemy commander rallies his troops as the surrounding wilderness calls out for their deaths. The Bulgars are everywhere and nowhere at once. All night the land echoes with the clanging of shields. The enemy is confused…frightened…exhausted…and when the Bulgars finally attack viciously at dawn, their victory is swift and final.</Text>
+        </Row>
+        <Row Tag="LOC_11024B_NAME">
+            <Text>Tonight the soldiers will drink well.</Text>
+        </Row>
+        <Row Tag="LOC_11024B_DESCRIPTION">
+            <Text>{1_reward} on Cavalry.</Text>
+        </Row>
+        <Row Tag="LOC_11024C_NAME">
+            <Text>The war continues — bring in reinforcements!</Text>
+        </Row>
+        <Row Tag="LOC_11024C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11025A_STORYTITLE">
+            <Text>The Priest of Ohrid</Text>
+        </Row>
+        <Row Tag="LOC_11025A_COMPLETION">
+            <Text>A priest famed for miracles has established a school for young missionaries. He teaches them a new alphabet, and instructs them to use their education to share their knowledge with all.</Text>
+        </Row>
+        <Row Tag="LOC_11025B_NAME">
+            <Text>Only by spreading this flame can we light the world.</Text>
+        </Row>
+        <Row Tag="LOC_11025B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11025C_NAME">
+            <Text>The paths they forge open new opportunities for merchants.</Text>
+        </Row>
+        <Row Tag="LOC_11025C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11026A_STORYTITLE">
+            <Text>Pilgrims from Afar</Text>
+        </Row>
+        <Row Tag="LOC_11026A_COMPLETION">
+            <Text>By ship and caravan, missionaries bear Bulgarian spirituality to all who will listen to their teachings. Many new students soon seek additional guidance and set out in hopes of receiving blessings from the Bulgarian saints themselves.</Text>
+        </Row>
+        <Row Tag="LOC_11026B_NAME">
+            <Text>The temples must welcome the masses.</Text>
+        </Row>
+        <Row Tag="LOC_11026B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11026C_NAME">
+            <Text>What an incredible market for icons…</Text>
+        </Row>
+        <Row Tag="LOC_11026C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11027A_STORYTITLE">
+            <Text>Surprise Attack</Text>
+        </Row>
+        <Row Tag="LOC_11027A_COMPLETION">
+            <Text>Smoke rises from devastated buildings as bolyars load their horses with pillaged goods. The success of their most recent raid energizes them, though they cannot help but wonder how these lands became so rich to begin with.</Text>
+        </Row>
+        <Row Tag="LOC_11027B_NAME">
+            <Text>Wealthy neighbors are Bulgaria’s boon.</Text>
+        </Row>
+        <Row Tag="LOC_11027B_DESCRIPTION">
+            <Text>{1_reward} but {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11027C_NAME">
+            <Text>Perhaps there is something to learn from their prosperity.</Text>
+        </Row>
+        <Row Tag="LOC_11027C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11028A_STORYTITLE">
+            <Text>Apocryphal Annals</Text>
+        </Row>
+        <Row Tag="LOC_11028A_COMPLETION">
+            <Text>As the populace mourns the loss of their capital city, several texts gain popularity throughout the empire. Within, prophets of old relate Bulgaria’s past, present, and future with guidance from angels. Many find comfort in revisiting their history during this turbulent time, though the apocalyptic conclusions are unnerving.</Text>
+        </Row>
+        <Row Tag="LOC_11028B_NAME">
+            <Text>Reminders of the past build hope for the future.</Text>
+        </Row>
+        <Row Tag="LOC_11028B_DESCRIPTION">
+            <Text>Free Promotion on highest Level Commander.</Text>
+        </Row>
+        <Row Tag="LOC_11028C_NAME">
+            <Text>The divine grants strength to the people.</Text>
+        </Row>
+        <Row Tag="LOC_11028C_DESCRIPTION">
+            <Text>{1_reward} on Cavalry.</Text>
+        </Row>
+        <Row Tag="LOC_11029A_STORYTITLE">
+            <Text>Zenith</Text>
+        </Row>
+        <Row Tag="LOC_11029A_COMPLETION">
+            <Text>Visitors to the Bulgarian Empire admire the beauty of its cities and the artistry of its inhabitants. Yet they watch parading soldiers with a twinge of fear, aware that their kingdom may be the next to fall to these bold forces.</Text>
+        </Row>
+        <Row Tag="LOC_11029B_NAME">
+            <Text>Bulgaria’s reputation fuels its growth.</Text>
+        </Row>
+        <Row Tag="LOC_11029B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11029C_NAME">
+            <Text>Bulgaria’s pride lies in its military.</Text>
+        </Row>
+        <Row Tag="LOC_11029C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_12006A_STORYTITLE">
+            <Text>The Good Doctor at a Crossroads</Text>
+        </Row>
+        <Row Tag="LOC_12006A_COMPLETION">
+            <Text>Inching down a treacherous mountain path, Dr. Rizal mulls over the paradox of the Bulgarian domain — isolated from the world by vast mountains, but connected to it by trade.</Text>
+        </Row>
+        <Row Tag="LOC_12006B_NAME">
+            <Text>Woe betide potential invaders.</Text>
+        </Row>
+        <Row Tag="LOC_12006B_DESCRIPTION">
+            <Text>{1_reward} on Courser.</Text>
+        </Row>
+        <Row Tag="LOC_12006C_NAME">
+            <Text>Those brave merchant caravans.</Text>
+        </Row>
+        <Row Tag="LOC_12006C_DESCRIPTION">
+            <Text>{1_reward} in all Settlements.</Text>
+        </Row>
+    </EnglishText>
+</Database>

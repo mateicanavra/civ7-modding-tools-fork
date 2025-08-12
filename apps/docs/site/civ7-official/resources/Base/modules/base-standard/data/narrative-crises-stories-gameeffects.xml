@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+    <Modifier id="LOYALTY001B_NARRATIVE_MODIFIER" collection="COLLECTION_ANY_CITY_AT_STORY" effect="EFFECT_CITY_TRANSFER_OWNER" run-once="true" permanent="true">
+        <Argument name="TransferType">BY_REVOLT</Argument>
+    </Modifier>
+    <Modifier id="LOYALTY001C_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_HAPPINESS</Argument>
+        <Argument name="Amount" type="ScaleByGameAge" extra="100">-1</Argument>
+    </Modifier>
+    <Modifier id="LOYALTY001C_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+        <Argument name="Amount" type="ScaleByGameAge" extra="100">-1</Argument>
+    </Modifier>
+    <Modifier id="LOYALTY001C_NARRATIVE_MODIFIER3" collection="COLLECTION_ANY_CITY_AT_STORY" effect="EFFECT_CITY_DAMAGE_CONSTRUCTIBLES" run-once="false" permanent="true">
+        <Argument name="DamageType">UNHAPPINESS</Argument>
+        <Argument name="Amount">3</Argument>
+    </Modifier>
+    <RequirementSet id="REQSET_LOYALTY001D_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_CITY_REVOLT">
+            <Argument name="IsOwner">False</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LOYALTY002B_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_CITY_REVOLT">
+            <Argument name="IsOwner">True</Argument>
+        </Requirement>
+    </RequirementSet>
+    <Modifier id="LOYALTY002D_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_HAPPINESS</Argument>
+        <Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+    </Modifier>
+    <Modifier id="LOYALTY002C_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_DIPLOMATIC_ACTION_TOKEN_BONUS" run-once="false" permanent="true">
+        <Argument name="ActionType">DIPLOMACY_ACTION_DECLARE_WAR</Argument>
+        <Argument name="OnlyWhenInitiator">true</Argument>
+        <Argument name="Amount">2</Argument>
+    </Modifier>
+</GameEffects>

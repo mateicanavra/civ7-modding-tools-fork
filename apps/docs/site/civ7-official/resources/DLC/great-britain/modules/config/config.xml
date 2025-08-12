@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LeaderCivilizationBias>
+	</LeaderCivilizationBias>
+	<Civilizations>
+		<Row Domain="ModernAgeCivilizations" CivilizationType="CIVILIZATION_GREAT_BRITAIN" CivilizationName="LOC_CIVILIZATION_GREAT_BRITAIN_NAME" CivilizationFullName="LOC_CIVILIZATION_GREAT_BRITAIN_FULLNAME" CivilizationDescription="LOC_CIVILIZATION_GREAT_BRITAIN_DESCRIPTION" CivilizationIcon="shawnee_icon.png"/>
+	</Civilizations>
+	<CivilizationItems>
+		<Row CivilizationDomain="ModernAgeCivilizations" CivilizationType="CIVILIZATION_GREAT_BRITAIN" Type="TRAIT_GREAT_BRITAIN_ABILITY" Kind="KIND_TRAIT" Name="LOC_TRAIT_GREAT_BRITAIN_ABILITY_NAME" Description="LOC_TRAIT_GREAT_BRITAIN_ABILITY_DESCRIPTION"/>
+		<Row CivilizationDomain="ModernAgeCivilizations" CivilizationType="CIVILIZATION_GREAT_BRITAIN" Type="UNIT_REVENGE" Kind="KIND_UNIT" Name="LOC_UNIT_REVENGE_NAME" Description="LOC_UNIT_REVENGE_BASE_DESCRIPTION" Icon="unitflag_leiomano.png"/>
+		<Row CivilizationDomain="ModernAgeCivilizations" CivilizationType="CIVILIZATION_GREAT_BRITAIN" Type="UNIT_ANTIQUARIAN" Kind="KIND_UNIT" Name="LOC_UNIT_ANTIQUARIAN_NAME" Description="LOC_UNIT_ANTIQUARIAN_DESCRIPTION" Icon="unitflag_SHERPA.png"/>
+		<Row CivilizationDomain="ModernAgeCivilizations" CivilizationType="CIVILIZATION_GREAT_BRITAIN" Type="QUARTER_FINANCIAL_CENTRE" Kind="KIND_QUARTER" Name="LOC_QUARTER_FINANCIAL_CENTRE_NAME" Description="LOC_QUARTER_FINANCIAL_CENTRE_DESCRIPTION" Icon="city_uniquequarter"/>
+		<Row CivilizationDomain="ModernAgeCivilizations" CivilizationType="CIVILIZATION_GREAT_BRITAIN" Type="BUILDING_ROYAL_EXCHANGE" Kind="KIND_BUILDING" Name="LOC_BUILDING_ROYAL_EXCHANGE_NAME" Description="LOC_BUILDING_ROYAL_EXCHANGE_DESCRIPTION" Icon="buildicon_formalgarden.png"/>
+		<Row CivilizationDomain="ModernAgeCivilizations" CivilizationType="CIVILIZATION_GREAT_BRITAIN" Type="BUILDING_MANUFACTORY" Kind="KIND_BUILDING" Name="LOC_BUILDING_MANUFACTORY_NAME" Description="LOC_BUILDING_MANUFACTORY_DESCRIPTION" Icon="buildicon_salon.png"/>
+	</CivilizationItems>
+	<CivilizationTags>
+		<Row CivilizationDomain="ModernAgeCivilizations" CivilizationType="CIVILIZATION_GREAT_BRITAIN" TagType="TAG_TRAIT_ECONOMIC"/>
+		<Row CivilizationDomain="ModernAgeCivilizations" CivilizationType="CIVILIZATION_GREAT_BRITAIN" TagType="TAG_TRAIT_EXPANSIONIST"/>
+	</CivilizationTags>
+	<LeaderCivilizationBias>
+		<!--This is the table used for UI, the AI uses LeaderCivPriorities in civilizations.xml-->
+		<Row CivilizationDomain="ModernAgeCivilizations" CivilizationType="CIVILIZATION_GREAT_BRITAIN" LeaderDomain="StandardLeaders" LeaderType="LEADER_BENJAMIN_FRANKLIN" Bias="3" ReasonType="LOC_UNLOCK_PLAY_AS_BENJAMIN_FRANKLIN_GREAT_BRITAIN_TOOLTIP" ChoiceType="LOC_CREATE_GAME_STRATEGIC_CHOICE"/>
+	</LeaderCivilizationBias>
+	<LeaderUnlocks>
+		<Row LeaderDomain="StandardLeaders" LeaderType="LEADER_BENJAMIN_FRANKLIN" AgeDomain="StandardAges" AgeType="AGE_MODERN" Type="CIVILIZATION_GREAT_BRITAIN" Kind="KIND_CIVILIZATION" Name="LOC_CIVILIZATION_GREAT_BRITAIN_NAME" Description="LOC_CIVILIZATION_GREAT_BRITAIN_DESCRIPTION" Icon="CIVILIZATION_GREAT_BRITAIN"/>
+	</LeaderUnlocks>
+	<CivilizationUnlocks>
+		<Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_ROME" AgeDomain="StandardAges" AgeType="AGE_MODERN" Type="CIVILIZATION_GREAT_BRITAIN" Kind="KIND_CIVILIZATION" Name="LOC_CIVILIZATION_GREAT_BRITAIN_NAME" Description="LOC_CIVILIZATION_GREAT_BRITAIN_DESCRIPTION" Icon="CIVILIZATION_GREAT_BRITAIN"/>
+		<Row CivilizationDomain="ExplorationAgeCivilizations" CivilizationType="CIVILIZATION_NORMAN" AgeDomain="StandardAges" AgeType="AGE_MODERN" Type="CIVILIZATION_GREAT_BRITAIN" Kind="KIND_CIVILIZATION" Name="LOC_CIVILIZATION_GREAT_BRITAIN_NAME" Description="LOC_CIVILIZATION_GREAT_BRITAIN_DESCRIPTION" Icon="CIVILIZATION_GREAT_BRITAIN"/>
+	</CivilizationUnlocks>
+	<OwnershipConditions>
+		<Row ItemType="CIVILIZATION_GREAT_BRITAIN" Action="LOC_LOCKED_INCLUDED_WITH_CONTENT" />
+	</OwnershipConditions>
+</Database>

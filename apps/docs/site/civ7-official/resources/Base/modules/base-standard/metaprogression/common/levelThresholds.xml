@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metaprogression xmlns="Metaprogression" common="true">
+	<legendPathLevels>
+		<levelData level="2" threshold="100"/>
+		<levelData level="3" threshold="250"/>
+		<levelData level="4" threshold="400"/>
+		<levelData level="5" threshold="550"/>
+		<levelData level="6" threshold="700"/>
+		<levelData level="7" threshold="850"/>
+		<levelData level="8" threshold="1000"/>
+		<levelData level="9" threshold="1150"/>
+		<levelData level="10" threshold="1300"/>
+		<levelData level="11" threshold="1500"/>
+		<levelData level="12" threshold="1700"/>
+		<levelData level="13" threshold="1900"/>
+		<levelData level="14" threshold="2100"/>
+		<levelData level="15" threshold="2300"/>
+		<levelData level="16" threshold="2500"/>
+		<levelData level="17" threshold="2700"/>
+		<levelData level="18" threshold="2900"/>
+		<levelData level="19" threshold="3100"/>
+		<levelData level="20" threshold="3300"/>
+		<levelData level="21" threshold="3600"/>
+		<levelData level="22" threshold="3900"/>
+		<levelData level="23" threshold="4200"/>
+		<levelData level="24" threshold="4500"/>
+		<levelData level="25" threshold="4800"/>
+		<levelData level="26" threshold="5100"/>
+		<levelData level="27" threshold="5400"/>
+		<levelData level="28" threshold="5700"/>
+		<levelData level="29" threshold="6000"/>
+		<levelData level="30" threshold="6300"/>
+		<levelData level="31" threshold="6600"/>
+		<levelData level="32" threshold="6900"/>
+		<levelData level="33" threshold="7200"/>
+		<levelData level="34" threshold="7500"/>
+		<levelData level="35" threshold="7800"/>
+		<levelData level="36" threshold="8100"/>
+		<levelData level="37" threshold="8400"/>
+		<levelData level="38" threshold="8700"/>
+		<levelData level="39" threshold="9000"/>
+		<levelData level="40" threshold="9300"/>
+		<levelData level="41" threshold="9600"/>
+		<levelData level="42" threshold="9900"/>
+		<levelData level="43" threshold="10200"/>
+		<levelData level="44" threshold="10500"/>
+		<levelData level="45" threshold="10800"/>
+		<levelData level="46" threshold="11100"/>
+		<levelData level="47" threshold="11400"/>
+		<levelData level="48" threshold="11700"/>
+		<levelData level="49" threshold="12000"/>
+		<levelData level="50" threshold="12300"/>
+	</legendPathLevels>
+</metaprogression>

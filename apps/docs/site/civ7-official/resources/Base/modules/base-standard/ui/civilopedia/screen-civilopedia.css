@@ -1,0 +1,84 @@
+/* DO NOT EDIT */
+/* Generated from screen-civilopedia.scss */
+/**
+Based on Robert Penner's easing equations
+@url http://robertpenner.com/easing/
+**/
+screen-civilopedia {
+	width: 72.2222222222rem;
+	top: 0rem;
+	bottom: 0rem;
+}
+@media (experience: mobile) {
+	screen-civilopedia {
+		width: 100%;
+	}
+}
+screen-civilopedia .img-frame-filigree {
+	margin-top: 0.2222222222rem;
+}
+@media (experience: mobile) {
+	screen-civilopedia .fxs-close-button {
+		right: 2.1111111111rem;
+		top: 1.4444444444rem;
+	}
+}
+
+screen-civilopedia span.indent-1 {
+	margin-left: 0.6666666667rem;
+	margin-right: 0.3333333333rem;
+}
+
+.pedia-search__icon {
+	background-image: url("fs://game/pedia_search_icon");
+}
+
+.pedia-search__results-scrollable {
+	z-index: 128;
+}
+
+.pedia-search__results {
+	z-index: 128;
+}
+
+.pedia__icon-container {
+	background-image: linear-gradient(to bottom, #12151F 50%, #23252B 100%);
+}
+
+.pedia__icon-container-circle {
+	background-image: url("fs://game/pedia_circle_frame.png");
+}
+
+.pedia-breadcrumbs__divider {
+	background-image: url("fs://game/pedia_breadcrumb-pointer.png");
+}
+
+.pedia_main-content-shadowing {
+	border-image: url("fs://game/pedia_inner_shadow.png");
+	border-image-slice: 20 20 fill;
+	border-image-width: 1.1111111111rem 1.1111111111rem;
+}
+
+pedia-page-sidebar-portrait.pedia-unit-portrait {
+	border: solid 0.1111111111rem #4C5366;
+}
+
+.pedia-page-content-shadow {
+	border-image-source: url("fs://game/pedia_inner_shadow.png");
+	border-image-slice: 16 16 16 16 fill;
+	border-image-width: 0.8888888889rem 0.8888888889rem 0.8888888889rem 0.8888888889rem;
+	border-image-outset: 0.2222222222rem 0.2222222222rem 0.2222222222rem 0.2222222222rem;
+	background: linear-gradient(180deg, #12151F 0%, #23252B 100%);
+}
+
+.pedia-page-content {
+	background: rgba(0, 0, 0, 0.1);
+}
+
+.pedia-page-content-header {
+	background: rgba(5, 7, 13, 0.33);
+}
+
+.pedia-page-content-body {
+	background: rgba(76, 83, 102, 0.05);
+}

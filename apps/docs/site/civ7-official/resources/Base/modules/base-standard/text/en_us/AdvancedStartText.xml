@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <EnglishText>
+    <Row Tag="LOC_UI_ADVANCED_START_TITLE">
+      <Text>Advanced Start</Text>
+    </Row>
+    <Row Tag="LOC_UI_AGE_TRANSITION_TITLE">
+      <Text>Legacy Planning</Text>
+    </Row>
+    <Row Tag="LOC_UI_ADVANCED_START_AVAILABLE_CARDS">
+      <Text>Available Bonuses</Text>
+    </Row>
+    <Row Tag="LOC_UI_ADVANCED_START_CHOOSE_LEGACIES">
+      <Text>Choose Legacies</Text>
+    </Row>
+    <Row Tag="LOC_UI_ADVANCED_START_SELECTED_CARDS">
+      <Text>Selected Legacies</Text>
+    </Row>
+    <Row Tag="LOC_UI_ADVANCED_START_PLACE_EFFECTS">
+      <Text>Place Effects</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_CONFIRM_DECK">
+      <Text>Confirm Legacies</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_VIEW_MAP">
+      <Text>View Map</Text>
+    </Row>
+    <Row Tag="LOC_UI_ADVANCED_START_LEGACY_POINTS">
+      <Text>Legacy Points</Text>
+    </Row>
+    <Row Tag="LOC_UI_VIEW_ADVANCED_START">
+      <Text>View Advanced Start</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_LEGACY_POINTS">
+      <Text>Legacy Points: </Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_FORCE_COMPLETE_DECK">
+      <Text>Finish Placement</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_CONFIRM_COMPLETE_TITLE">
+      <Text>Placement Finished?</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_CONFIRM_COMPLETE_BODY">
+      <Text>Are you sure you are finished with all placements? Remaining City and Town placements will each grant a Settler Unit instead.</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_CONFIRM_UNUSED_POINTS_TITLE">
+      <Text>Unused Legacy Points</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_CONFIRM_UNUSED_POINTS_BODY">
+      <Text>You have unused Legacy Points! Are you sure you want to continue?</Text>
+    </Row>
+    <Row Tag="LOC_CARD_COST">
+      <Text>Cost: {1_Cost}</Text>
+    </Row>
+    <Row Tag="LOC_CARD_CATEGORY_SHORT_MILITARISTIC">
+      <Text>{1_Amount}M</Text>
+    </Row>
+    <Row Tag="LOC_CARD_CATEGORY_SHORT_CULTURAL">
+      <Text>{1_Amount}C</Text>
+    </Row>
+    <Row Tag="LOC_CARD_CATEGORY_SHORT_ECONOMIC">
+      <Text>{1_Amount}E</Text>
+    </Row>
+    <Row Tag="LOC_CARD_CATEGORY_SHORT_SCIENTIFIC">
+      <Text>{1_Amount}S</Text>
+    </Row>
+    <Row Tag="LOC_CARD_CATEGORY_SHORT_WILDCARD">
+      <Text>{1_Amount}W</Text>
+    </Row>
+    <Row Tag="LOC_CARD_CATEGORY_SHORT_DARK_AGE">
+      <Text>{1_Amount}D</Text>
+    </Row>
+    <Row Tag="LOC_ADV_START_SELECT_CARD">
+      <Text>Select Bonus</Text>
+    </Row>
+    <Row Tag="LOC_ADV_START_DESELECT_CARD">
+      <Text>Deselect Bonus</Text>
+    </Row>
+    <Row Tag="LOC_ADV_START_CONFIRM_DECK">
+      <Text>Confirm Legacies</Text>
+    </Row>
+    <Row Tag="LOC_ADV_START_SHOW_DECK">
+      <Text>Show Legacies</Text>
+    </Row>
+    <Row Tag="LOC_ADV_START_HIDE_DECK">
+      <Text>Hide Legacies</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_PLACE_CARD">
+      <Text>Place Settlement</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_FINISH_PLACEMENT">
+      <Text>Finish All Placements</Text>
+    </Row>
+    <Row Tag="LOC_DEFAULT_YIELD">
+      <Text>Default Yield</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_DEFAULT_YIELD">
+      <Text>Advanced Start Default Yield</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_FILTER">
+      <Text>Filter</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_SUBTEXT">
+      <Text>Add Legacies or select a Preset to plan your Civilization in this Age.</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_AUTOFILL">
+      <Text>Auto-Fill</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_CONFIRM_LEGACIES">
+      <Text>Confirm Legacies</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_PRESET_CUSTOM">
+      <Text>Custom</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_PRESET_MILITARY">
+      <Text>Militaristic</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_PRESET_CULTURE">
+      <Text>Cultural</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_PRESET_SCIENCE">
+      <Text>Scientific</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_PRESET_ECONOMY">
+      <Text>Economic</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_PRESET_EXPANSION">
+      <Text>Expansion</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_PRESET_POLITICAL">
+      <Text>Political</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_PRESET_WILD">
+      <Text>Wild</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_INSUFFICIENT">
+      <Text>You do not have enough Legacy points.</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_CANNOT_USE">
+      <Text>Cannot use with {1_Legacy}</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_MORE_THAN_GOLDEN">
+      <Text>Cannot use more than 1 Golden Age Legacy.</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_CANNOT_COMBINE_TOTAL">
+      <Text>Cannot have more than a combined total of 3 City and Town Legacies.</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_MULTIPLE_LEGACIES">
+      <Text>x{1_amount}</Text>
+    </Row>
+    <Row Tag="LOC_ADVANCED_START_CHANGE_PRESET">
+      <Text>Change Preset</Text>
+    </Row>
+  </EnglishText>
+</Database>

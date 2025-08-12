@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="METAPROGRESSION_CHALLENGE_DAI_VIET_LEGACY_PATH_CULTURAL_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_EXPLORATION_CULTURE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_DAI_VIET</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_DAI_VIET_LEGACY_PATH_CULTURAL</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_DAI_VIET_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_DAI_VIET</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_DAI_VIET_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_DAI_VIET_COMPLETE_THANH_HUE_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_DAI_VIET</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_THANH_HUE</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_DAI_VIET_COMPLETE_THANH_HUE</Argument>
+	</Modifier>
+</GameEffects>

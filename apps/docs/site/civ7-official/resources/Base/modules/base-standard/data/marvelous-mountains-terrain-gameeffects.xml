@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- Mount Everest -->
+	<!-- On discovery, reveal all Mountain tiles on the continent. -->
+	<Modifier id="MOUNT_EVEREST_REVEAL_ALL_MOUNTAIN_TILES" collection="COLLECTION_ALL_PLOT_YIELDS" effect="EFFECT_REVEAL_PLOTS" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_DISCOVERED_NATURAL_WONDER">
+				<Argument name="FeatureType">FEATURE_MOUNT_EVEREST</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_TERRAIN_TYPE_MATCHES">
+				<Argument name="TerrainType">TERRAIN_MOUNTAIN</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="SharesContinentFeature">FEATURE_MOUNT_EVEREST</Argument>
+	</Modifier>
+</GameEffects>

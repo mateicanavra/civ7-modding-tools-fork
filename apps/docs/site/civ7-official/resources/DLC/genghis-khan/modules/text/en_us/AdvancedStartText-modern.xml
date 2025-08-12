@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_GENGHIS_KHAN_1_NAME">
+			<Text>Genghis Khan Modern Legend Expansionist</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_GENGHIS_KHAN_1_DESCRIPTION">
+			<Text>For this Age, gain +15% Food[icon:YIELD_FOOD] at the cost of -10% Gold[icon:YIELD_GOLD]</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_GENGHIS_KHAN_2_NAME">
+			<Text>Genghis Khan Modern Legend Militaristic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_GENGHIS_KHAN_2_DESCRIPTION">
+			<Text>For this Age, +3 Combat Strength for your Air Units at the cost of -10% Influence[icon:YIELD_DIPLOMACY]</Text>
+		</Row>
+	</EnglishText>
+</Database>

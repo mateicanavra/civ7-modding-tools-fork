@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_LEADER_NAPOLEON_ALT_NAME">
+			<Text>Napoleon, Revolutionary</Text>
+		</Row>
+		<Row Tag="LOC_LEADER_NAPOLEON_ALT_DESCRIPTION">
+			<Text>+1 [icon:Action_Move] Movement for all Land Units. Defeating an enemy Unit provides [icon:YIELD_CULTURE] Culture equal to 50% of its [icon:NAR_REW_COMBAT] Combat Strength.</Text>
+		</Row>
+		<Row Tag="LOC_TRAIT_LEADER_NAPOLEON_ALT_ABILITY_NAME">
+			<Text>La Grande Armée</Text>
+		</Row>
+		<Row Tag="LOC_TRAIT_LEADER_NAPOLEON_ALT_ABILITY_DESCRIPTION">
+			<Text>[BLIST][LI][B]+1 [icon:Action_Move] Movement [/B]for all [B]Land Units[/B].[LI]Defeating an enemy Unit provides [icon:YIELD_CULTURE] [B]Culture [/B]equal to [B]50% [/B]of its [icon:NAR_REW_COMBAT] [B]Combat Strength[/B].[/LIST]</Text>
+		</Row>
+	</EnglishText>
+</Database>

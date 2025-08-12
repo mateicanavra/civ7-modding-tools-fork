@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_CONSTRUCTIBLE"/>
+	</Kinds>
+	<Types>
+		<!--Civ Unique Improvements-->
+		<Row Type="IMPROVEMENT_WATER_PUPPET_THEATER" Kind="KIND_CONSTRUCTIBLE"/>
+		<!--Wonders-->
+		<Row Type="WONDER_THANH_HUE" Kind="KIND_CONSTRUCTIBLE"/>
+	</Types>
+	<TypeQuotes>
+		<Row Type="WONDER_THANH_HUE" Quote="LOC_QUOTE_WONDER_THANH_HUE" QuoteAuthor="LOC_QUOTE_AUTHOR_WONDER_THANH_HUE" QuoteAudio="VO_Quote_ThanhHue"/>
+	</TypeQuotes>
+	<Constructibles>
+		<!--Civ Unique Improvements-->
+		<Row ConstructibleType="IMPROVEMENT_WATER_PUPPET_THEATER" Name="LOC_IMPROVEMENT_WATER_PUPPET_THEATER_NAME" Description="LOC_IMPROVEMENT_WATER_PUPPET_THEATER_DESCRIPTION" Tooltip="LOC_IMPROVEMENT_WATER_PUPPET_THEATER_TOOLTIP" ConstructibleClass="IMPROVEMENT" Cost="90" AdjacentRiver="true" Population="1" Age="AGE_EXPLORATION"/>
+		<!--Wonders-->
+		<Row ConstructibleType="WONDER_THANH_HUE" Name="LOC_WONDER_THANH_HUE_NAME" Description="LOC_WONDER_THANH_HUE_DESCRIPTION" Tooltip="LOC_WONDER_THANH_HUE_TOOLTIP" DistrictDefense="true" ConstructibleClass="WONDER" Cost="550" Population="0" ImmuneDamage="true" Age="AGE_EXPLORATION"/>
+	</Constructibles>
+	<Improvements>
+		<!--Civ Unique Improvements-->
+		<Row ConstructibleType="IMPROVEMENT_WATER_PUPPET_THEATER" ResourceTier="0" CityBuildable="true" SameAdjacentValid="false" TraitType="TRAIT_DAI_VIET"/>
+	</Improvements>
+	<Wonders>
+		<Row ConstructibleType="WONDER_THANH_HUE" MaxWorldInstances="1" RequiredConstructibleInSettlement="BUILDING_MEDIEVAL_WALLS" RequiredConstructibleInSettlementCount="7" AdjacentConstructible="BUILDING_MEDIEVAL_WALLS"/>
+	</Wonders>
+	<Constructible_ValidTerrains>
+		<Row ConstructibleType="WONDER_THANH_HUE" TerrainType="TERRAIN_FLAT"/>
+	</Constructible_ValidTerrains>
+	<TypeTags>
+		<Row Type="IMPROVEMENT_WATER_PUPPET_THEATER" Tag="UNIQUE_IMPROVEMENT"/>
+		<Row Type="IMPROVEMENT_WATER_PUPPET_THEATER" Tag="AGELESS"/>
+		<Row Type="WONDER_THANH_HUE" Tag="FORTIFICATION"/>
+	</TypeTags>
+	<Constructible_ValidDistricts>
+		<!--Civ Unique Improvements-->
+		<Row ConstructibleType="IMPROVEMENT_WATER_PUPPET_THEATER" DistrictType="DISTRICT_RURAL"/>
+		<!--Wonders-->
+		<Row ConstructibleType="WONDER_THANH_HUE" DistrictType="DISTRICT_WONDER"/>
+	</Constructible_ValidDistricts>
+	<Constructible_YieldChanges>
+		<!--Civ Unique Improvements-->
+		<Row ConstructibleType="IMPROVEMENT_WATER_PUPPET_THEATER" YieldType="YIELD_FOOD" YieldChange="4"/>
+		<!--Wonders-->
+		<Row ConstructibleType="WONDER_THANH_HUE" YieldType="YIELD_CULTURE" YieldChange="4"/>
+	</Constructible_YieldChanges>
+	<Constructible_WarehouseYields>
+		<Row ConstructibleType="BUILDING_GRISTMILL" YieldChangeId="ThanhHoangGristmillWaterPuppetTheaterFood" RequiresActivation="true"/>
+	</Constructible_WarehouseYields>
+	<Warehouse_YieldChanges>
+		<Row ID="ThanhHoangGristmillWaterPuppetTheaterFood" Age="AGE_EXPLORATION" YieldType="YIELD_FOOD" YieldChange="2" ConstructibleInCity="IMPROVEMENT_WATER_PUPPET_THEATER"/>
+	</Warehouse_YieldChanges>
+	<Constructible_WildcardAdjacencies>
+		<Row YieldChangeId="ChuNomTropicalCulture" RequiresActivation="true" ConstructibleTag="CULTURE"/>
+	</Constructible_WildcardAdjacencies>
+	<Adjacency_YieldChanges>
+		<Row ID="ChuNomTropicalCulture" Age="AGE_EXPLORATION" YieldType="YIELD_CULTURE" YieldChange="1" TilesRequired="1" ProjectMaxYield="true" AdjacentBiome="BIOME_TROPICAL"/>
+	</Adjacency_YieldChanges>
+	<Constructible_Plunders>
+		<Row ConstructibleType="IMPROVEMENT_WATER_PUPPET_THEATER" PlunderType="PLUNDER_HEAL" Amount="30"/>
+	</Constructible_Plunders>
+	<ConstructibleModifiers>
+		<Row ConstructibleType="IMPROVEMENT_WATER_PUPPET_THEATER" ModifierId="MOD_WATER_PUPPET_THEATER_HAPPINESS"/>
+		<Row ConstructibleType="WONDER_THANH_HUE" ModifierId="MOD_THANH_HUE_SPECIALIST_LIMIT"/>
+	</ConstructibleModifiers>
+	<TraitModifiers>
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="MOD_WATER_PUPPET_THEATER_FLOOD_IMMUNITY"/>
+		<Row TraitType="TRAIT_LEADER_MAJOR_CIV" ModifierId="MOD_CIV_WATER_PUPPET_THEATER_CULTURE"/>
+	</TraitModifiers>
+	<Constructible_Advisories>
+		<Row ConstructibleType="IMPROVEMENT_WATER_PUPPET_THEATER" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ConstructibleType="IMPROVEMENT_WATER_PUPPET_THEATER" AdvisoryClassType="ADVISORY_CLASS_FOOD"/>
+		<Row ConstructibleType="WONDER_THANH_HUE" AdvisoryClassType="ADVISORY_CLASS_DEFENSE"/>
+		<Row ConstructibleType="WONDER_THANH_HUE" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+	</Constructible_Advisories>
+</Database>

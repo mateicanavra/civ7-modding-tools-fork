@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LoadingInfo_Ages>
+		<Row AgeType="AGE_MODERN" AgeIntroText="LOC_LOADING_GENERIC_INTRO_TEXT" AgeOutroText="LOC_LOADING_UNIQUE_UNITS_INTRO_TEXT" />
+	</LoadingInfo_Ages>
+
+	<LoadingInfo_Civilizations>
+		<Row CivilizationType="CIVILIZATION_AMERICA" CivilizationText="LOC_LOADING_CIV_INTRO_TEXT_AMERICA" Audio="VO_Loading_America" Subtitle="LOC_LOADING_INTRO_AMERICA" BackgroundImageHigh="fs://game/lsbg_america_1080.png" BackgroundImageLow="fs://game/lsbg_america_720.png" ForegroundImage="fs://game/civ_line_america.png" Tip="LOC_LOADING_CIV_TIPS_TEXT_AMERICA" />
+		<Row CivilizationType="CIVILIZATION_BUGANDA" CivilizationText="LOC_LOADING_CIV_INTRO_TEXT_BUGANDA" Audio="VO_Loading_Buganda" Subtitle="LOC_LOADING_INTRO_BUGANDA" BackgroundImageHigh="fs://game/lsbg_buganda_1080.png" BackgroundImageLow="fs://game/lsbg_buganda_720.png" ForegroundImage="fs://game/civ_line_buganda.png" Tip="LOC_LOADING_CIV_TIPS_TEXT_BUGANDA" />
+		<Row CivilizationType="CIVILIZATION_FRENCH_EMPIRE" CivilizationText="LOC_LOADING_CIV_INTRO_TEXT_FRENCH_EMPIRE" Audio="VO_Loading_French" Subtitle="LOC_LOADING_INTRO_FRENCH_EMPIRE" BackgroundImageHigh="fs://game/lsbg_french_empire_1080.png" BackgroundImageLow="fs://game/lsbg_french_empire_720.png" ForegroundImage="fs://game/civ_line_french_empire.png" Tip="LOC_LOADING_CIV_TIPS_TEXT_FRENCH_EMPIRE" />
+		<Row CivilizationType="CIVILIZATION_MEIJI" CivilizationText="LOC_LOADING_CIV_INTRO_TEXT_MEIJI" Audio="VO_Loading_Meiji" Subtitle="LOC_LOADING_INTRO_MEIJI" BackgroundImageHigh="fs://game/lsbg_meiji_1080.png" BackgroundImageLow="fs://game/lsbg_meiji_720.png" ForegroundImage="fs://game/civ_line_meiji.png" Tip="LOC_LOADING_CIV_TIPS_TEXT_MEIJI" />
+		<Row CivilizationType="CIVILIZATION_MEXICO" CivilizationText="LOC_LOADING_CIV_INTRO_TEXT_MEXICO" Audio="VO_Loading_Mexico" Subtitle="LOC_LOADING_INTRO_MEXICO" BackgroundImageHigh="fs://game/lsbg_mexico_1080.png" BackgroundImageLow="fs://game/lsbg_mexico_720.png" ForegroundImage="fs://game/civ_line_mexico.png" Tip="LOC_LOADING_CIV_TIPS_TEXT_MEXICO" />
+		<Row CivilizationType="CIVILIZATION_MUGHAL" CivilizationText="LOC_LOADING_CIV_INTRO_TEXT_MUGHAL" Audio="VO_Loading_Mughal" Subtitle="LOC_LOADING_INTRO_MUGHAL" BackgroundImageHigh="fs://game/lsbg_mughal_1080.png" BackgroundImageLow="fs://game/lsbg_mughal_720.png" ForegroundImage="fs://game/civ_line_mughal.png" Tip="LOC_LOADING_CIV_TIPS_TEXT_MUGHAL" />
+		<Row CivilizationType="CIVILIZATION_PRUSSIA" CivilizationText="LOC_LOADING_CIV_INTRO_TEXT_PRUSSIA" Audio="VO_Loading_Prussia" Subtitle="LOC_LOADING_INTRO_PRUSSIA" BackgroundImageHigh="fs://game/lsbg_prussia_1080.png" BackgroundImageLow="fs://game/lsbg_prussia_720.png" ForegroundImage="fs://game/civ_line_prussia.png" Tip="LOC_LOADING_CIV_TIPS_TEXT_PRUSSIA" />
+		<Row CivilizationType="CIVILIZATION_QING" CivilizationText="LOC_LOADING_CIV_INTRO_TEXT_QING" Audio="VO_Loading_Qing" Subtitle="LOC_LOADING_INTRO_QING" BackgroundImageHigh="fs://game/lsbg_qing_1080.png" BackgroundImageLow="fs://game/lsbg_qing_720.png" ForegroundImage="fs://game/civ_line_qing.png" Tip="LOC_LOADING_CIV_TIPS_TEXT_QING" />
+		<Row CivilizationType="CIVILIZATION_RUSSIA" CivilizationText="LOC_LOADING_CIV_INTRO_TEXT_RUSSIA" Audio="VO_Loading_Russia" Subtitle="LOC_LOADING_INTRO_RUSSIA" BackgroundImageHigh="fs://game/lsbg_russia_1080.png" BackgroundImageLow="fs://game/lsbg_russia_720.png" ForegroundImage="fs://game/civ_line_russia.png"  Tip="LOC_LOADING_CIV_TIPS_TEXT_RUSSIA"/>
+		<Row CivilizationType="CIVILIZATION_SIAM" CivilizationText="LOC_LOADING_CIV_INTRO_TEXT_SIAM" Audio="VO_Loading_Siam" Subtitle="LOC_LOADING_INTRO_SIAM" BackgroundImageHigh="fs://game/lsbg_siam_1080.png" BackgroundImageLow="fs://game/lsbg_siam_720.png" ForegroundImage="fs://game/civ_line_siam.png"  Tip="LOC_LOADING_CIV_TIPS_TEXT_SIAM"/>
+	</LoadingInfo_Civilizations>
+</Database>

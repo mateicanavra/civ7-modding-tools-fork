@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_SYSTEM_MESSAGE_GAME_INVITE_JOIN">
+			<Text>Join</Text>
+		</Row>
+		<Row Tag="LOC_SYSTEM_MESSAGE_GAME_INVITE_DECLINE">
+			<Text>Decline</Text>
+		</Row>
+		<Row Tag="LOC_SYSTEM_MESSAGE_GAME_INVITE_TITLE">
+			<Text>Game Invite From {1_playerName}</Text>
+		</Row>
+		<Row Tag="LOC_SYSTEM_MESSAGE_GAME_INVITE_CONTENT">
+			<Text>{1_playerName} has invited you to join their game. Would you like to join?</Text>
+		</Row>
+		<Row Tag="LOC_SYSTEM_MESSAGE_GAME_INVITE_CONTENT_IN_GAME">
+			<Text>{1_playerName} has invited you to join their game. Would you like to leave your current game and join theirs?</Text>
+		</Row>
+		<Row Tag="LOC_SYSTEM_MESSAGE_GAME_INVITE_SAVE_GAME_TITLE">
+			<Text>Save Game?</Text>
+		</Row>
+		<Row Tag="LOC_SYSTEM_MESSAGE_GAME_INVITE_SAVE_GAME_CONTENT">
+			<Text>Would you like to save your game first?</Text>
+		</Row>
+	</EnglishText>
+</Database>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_UNLOCK"/>
+	</Kinds>
+	<Types>
+		<InsertOrIgnore Type="UNLOCK_CIVILIZATION_NEPAL" Kind="KIND_UNLOCK"/>
+	</Types>
+	<Unlocks>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_NEPAL"/>
+	</Unlocks>
+	<UnlockRewards>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_NEPAL" Name="LOC_CIVILIZATION_NEPAL_NAME" Description="LOC_UNLOCK_MODERN_CIV_DESCRIPTION" Icon="CIVILIZATION_NEPAL" UnlockRewardType="CIVILIZATION_NEPAL" UnlockRewardKind="KIND_CIVILIZATION"/>
+	</UnlockRewards>
+	<UnlockConfigurationValues>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_NEPAL" ConfigurationValue="CIVILIZATION_NEPAL"/>
+	</UnlockConfigurationValues>
+	<UnlockRequirements>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_NEPAL" RequirementSetId="REQSET_LEADER_IS_ASHOKA_ALT" Description="LOC_UNLOCK_PLAY_AS_ASHOKA_ALT_DESCRIPTION" Tooltip="LOC_UNLOCK_PLAY_AS_ASHOKA_ALT_NEPAL_TOOLTIP"/>
+	</UnlockRequirements>
+</Database>

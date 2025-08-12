@@ -1,0 +1,874 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA1" Language="fr_FR">
+      <Text>Ninive</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA10" Language="fr_FR">
+      <Text>Nuhadra</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA11" Language="fr_FR">
+      <Text>Arbi-Ilu</Text>
+      <Gender>feminine:no_article:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA12" Language="fr_FR">
+      <Text>Ḫilakku</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA13" Language="fr_FR">
+      <Text>Huzirina</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA14" Language="fr_FR">
+      <Text>Kaneš</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA15" Language="fr_FR">
+      <Text>Mardaman</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA16" Language="fr_FR">
+      <Text>Šinahuttum</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA17" Language="fr_FR">
+      <Text>Mansuate</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA18" Language="fr_FR">
+      <Text>Rapiqum</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA19" Language="fr_FR">
+      <Text>Shareisha</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA2" Language="fr_FR">
+      <Text>Kalkhu</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA20" Language="fr_FR">
+      <Text>Kahat</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA21" Language="fr_FR">
+      <Text>Sittake</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA22" Language="fr_FR">
+      <Text>Kar-Šulmānu-Ašarēdu</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA23" Language="fr_FR">
+      <Text>Hadātu</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA24" Language="fr_FR">
+      <Text>Tušhan</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA25" Language="fr_FR">
+      <Text>Kar-Sipar</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA26" Language="fr_FR">
+      <Text>Ḫana</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA27" Language="fr_FR">
+      <Text>Mari</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA28" Language="fr_FR">
+      <Text>Kiššaššu</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA29" Language="fr_FR">
+      <Text>Arinnu</Text>
+      <Gender>feminine:no_article:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA3" Language="fr_FR">
+      <Text>Aššur</Text>
+      <Gender>feminine:no_article:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA30" Language="fr_FR">
+      <Text>Sam'al</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA4" Language="fr_FR">
+      <Text>Arrapha</Text>
+      <Gender>feminine:no_article:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA5" Language="fr_FR">
+      <Text>Karkemiš</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA6" Language="fr_FR">
+      <Text>Dūr-Katlimmu</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA7" Language="fr_FR">
+      <Text>Kar-Tukulti-Ninurta</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA8" Language="fr_FR">
+      <Text>Imgur-Enlil</Text>
+      <Gender>feminine:no_article:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA9" Language="fr_FR">
+      <Text>Amida</Text>
+      <Gender>feminine:no_article:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_1" Language="fr_FR">
+      <Text>Šadditu</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_10" Language="fr_FR">
+      <Text>Muballitat-Sherua</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_2" Language="fr_FR">
+      <Text>Libbāli-šarrat</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_3" Language="fr_FR">
+      <Text>Tašmetu-šarrat</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_4" Language="fr_FR">
+      <Text>Sammu-rāmat</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_5" Language="fr_FR">
+      <Text>Ahat-Abiša</Text>
+      <Gender>feminine:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_6" Language="fr_FR">
+      <Text>Zakûtu</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_7" Language="fr_FR">
+      <Text>Šeruʾa-eṭirat</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_8" Language="fr_FR">
+      <Text>Ešarra-ḫammat</Text>
+      <Gender>feminine:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_9" Language="fr_FR">
+      <Text>Ra'īmâ</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_1" Language="fr_FR">
+      <Text>Arda-Mulišši</Text>
+      <Gender>masculine:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_10" Language="fr_FR">
+      <Text>Aššur-etil-ilāni</Text>
+      <Gender>masculine:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_2" Language="fr_FR">
+      <Text>Sîn-ahu-usur</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_3" Language="fr_FR">
+      <Text>Mutakkil-Nusku</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_4" Language="fr_FR">
+      <Text>Tukultī-Ninurta</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_5" Language="fr_FR">
+      <Text>Aššur-rabi</Text>
+      <Gender>masculine:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_6" Language="fr_FR">
+      <Text>Šamši-ilu</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_7" Language="fr_FR">
+      <Text>Adad-nīrārī</Text>
+      <Gender>masculine:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_8" Language="fr_FR">
+      <Text>Sîn-nadin-apli</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_9" Language="fr_FR">
+      <Text>Aššur-dān</Text>
+      <Gender>masculine:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_ASSYRIA_ADJECTIVE" Language="fr_FR">
+      <Text>assyrien|assyrienne|assyriens|assyriennes</Text>
+      <Gender>masculine|feminine|masculine|feminine</Gender>
+      <Plurality>1|1|2|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_ASSYRIA_FULLNAME" Language="fr_FR">
+      <Text>Empire assyrien</Text>
+      <Gender>masculine:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_ASSYRIA_NAME" Language="fr_FR">
+      <Text>Assyrie</Text>
+      <Gender>feminine:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_ANTIQUITY_35_MAJOR_ASSYRIA_NAME" Language="fr_FR">
+      <Text>Waššukanni</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_ANTIQUITY_35_MINOR_ASSYRIA_NAME" Language="fr_FR">
+      <Text>Mittanni</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_CITADEL_CHAPTER_HISTORY_PARA_1" Language="fr_FR">
+      <Text>Le pouvoir de l'Empire assyrien résidait dans sa centralisation, à une échelle encore inédite dans l'histoire. Ce système reposait sur un roi unique, dont la parole faisait loi : il n'était pas rare que les ordres envoyés aux gouverneurs, même les plus influents, se concluent par une menace de mort (parfois étendue à leur famille) s'ils n'exécutaient pas les demandes dans les délais. Ce contrôle rigoureux avait été rendu possible grâce à plusieurs éléments d'organisation : des infrastructures de communication efficaces, une armée permanente et bien entraînée, le déplacement forcé de populations ennemies et une distribution maîtrisée du pouvoir à travers les provinces. Tout ce système prenait racine dans la citadelle du roi, au cœur de sa capitale.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_ROYAL_LIBRARY_CHAPTER_HISTORY_PARA_1" Language="fr_FR">
+      <Text>Le roi néo-assyrien Assurbanipal est célèbre pour sa brutalité militaire. Pourtant, il s'est aussi passionné pour la collecte et la préservation des écrits. Les langues de la Mésopotamie ancienne s'écrivaient en caractères cunéiformes, gravés dans l'argile à l'aide d'un calame. Assurbanipal, souvent représenté avec un stylet à la main, avait réuni des tablettes dans son palais et envoyé des demandes aux royaumes voisins pour enrichir sa collection. Les œuvres préservées jusqu'à nos jours comprennent l'épopée de Gilgamesh, des lettres, des documents politiques, des traités médicaux, des instructions rituelles et bien d'autres textes, qui livrent un précieux témoignage sur le fonctionnement interne de l'empire depuis le point de vue des Assyriens eux-mêmes.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_ROYAL_LIBRARY_CHAPTER_HISTORY_PARA_2" Language="fr_FR">
+      <Text>Ce que l'on appelle aujourd'hui la Bibliothèque royale d'Assurbanipal rassemble plus de 30 000 tablettes, mises au jour pour la première fois au XIXe siècle. Des tablettes ont été retrouvées dans divers palais, prouvant l'existence d'autres bibliothèques royales, mais aucune n'a livré un volume de documents comparable à celle de Ninive. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_1" Language="fr_FR">
+      <Text>Assur est à la fois un dieu, une terre et une ville, comme en témoigne le nom Assyrie qui provient de l'assyrien "māt aššur", signifiant "pays d'Assur". L'empire assyrien s'est imposé comme l'un des plus puissants et novateurs du monde antique. Son expansion a couvert toute la Mésopotamie, avec des conquêtes temporaires en Égypte et dans les régions de la future Perse.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_10" Language="fr_FR">
+      <Text>Le déplacement de populations a aussi joué un rôle clé dans la domination assyrienne, amorçant des changements culturels profonds. En dispersant les locuteurs de l'araméen à travers l'empire, cette langue s'est peu à peu imposée comme une lingua franca, qui perdurera bien après la chute de l'empire.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_11" Language="fr_FR">
+      <Text>L'Assyrie s'est effondrée peu après le règne d'Assurbanipal. Les raisons restent floues, mais les études suggèrent des causes environnementales et sociales, qui ont mené à la naissance d'une nouvelle Babylone.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_2" Language="fr_FR">
+      <Text>Tout a commencé avec les Sumériens. Ce peuple énigmatique, probablement originaire du sous-continent indien, a émergé avec les premières villes dans l'actuel Irak. Leurs cités sont parmi les plus anciennes de la région. Plus tard, les Akkadiens, menés par Sargon, se sont rebellés et ont fondé un empire sur les anciennes terres sumériennes ; un empire qui s'est effondré autour de 2150 avant notre ère. Les siècles qui ont suivi ont été marqués par l'instabilité, alors que des cités-États, dont Assur, luttaient pour asseoir leur pouvoir.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_3" Language="fr_FR">
+      <Text>L'Assyrie a connu deux apogées : la première vers -1350, la seconde aux environs de -900, soit bien après l'Égypte, bien avant la Grèce et à peu près à la même époque que le déclin de la dynastie Shang et l'ascension des Zhou en Chine. Penchons-nous sur cette seconde période, celle de l'empire néo-assyrien.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_4" Language="fr_FR">
+      <Text>Les noms de rois comme Sargon II, Sennachérib ou Assurbanipal ont traversé les siècles, et pour cause : ces souverains ont redéfini le pouvoir à l'échelle régionale. Leur réussite tenait en partie à des innovations économiques : l'Assyrie a adopté une forme de libre-échange (alors que le commerce sumérien était contrôlé par les temples), mais plus notable encore, elle a établi une armée permanente. Les soldats n'étaient plus obligés de rentrer chez eux à la saison des récoltes et pouvaient rester en campagne jusqu'à l'épuisement de l'ennemi. Les Assyriens étaient aussi d'excellents ingénieurs. Leur armée comptait un corps dédié à la construction de machines de siège, de rampes massives ou d'autres engins capables de venir à bout des murailles les plus solides. Enfin, l'Assyrie était un empire de l'âge du fer, un métal qui pouvait être plus fragile que le bronze selon sa teneur en acier, mais qui était bien plus facile à produire en masse, et moins dépendant des fluctuations commerciales. Après tout, l'ancien Empire assyrien avait pâti des grandes perturbations à la fin de l'âge du bronze. Même les bottes de combat sont une invention assyrienne, parmi d'autres petites innovations. En somme, leur armée était une machine de guerre bien huilée.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_5" Language="fr_FR">
+      <Text>Mais elle était aussi réputée pour sa violence. Dans leurs récits, les Assyriens semblent prendre un malin plaisir à décrire les horreurs infligées à ceux qui leur résistaient : écorchements, mutilations ou encore destruction totale des villes dissidentes, à tel point que les campagnes de Sennachérib au royaume de Juda sont décrites dans l'Ancien Testament. Alors que Juda s'était révolté avec l'appui de l'Égypte, Sennachérib avait répondu sans pitié : il avait fait déporter toute la population et mis à mort les dirigeants dans d'atroces souffrances. Selon certains récits, les soldats assyriens forçaient les captifs à chanter des hymnes de joie sur la route vers Babylone. D'après la Bible, une vengeance divine aurait frappé les envahisseurs lors du siège de Jérusalem, mais il est également possible que Sennachérib ait eu vent d'une révolte à Babylone, le poussant à battre en retraite.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_6" Language="fr_FR">
+      <Text>Les jardins de Sennachérib étaient célèbres en Assyrie. Véritables prouesses d'ingénierie hydraulique, ils auraient inspiré le mythe des jardins suspendus. Là encore, il s'agissait d'une démonstration de pouvoir : les jardins assyriens étaient des symboles de conquête, dont le paysage et la flore rappelaient les territoires vaincus. À Ninive, on pouvait ainsi se promener parmi les cèdres du Liban pour se réjouir de sa soumission.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_7" Language="fr_FR">
+      <Text>Assurbanipal est l'un des plus grands rois assyriens, mais aussi l'un des derniers. Son père avait partagé l'empire entre ses deux fils : Assur pour Assurbanipal, Babylone pour Shamash-shum-ukin. Mais ce dernier, bien déterminé à dominer tout le royaume, s'est allié aux Élamites… en vain. Assurbanipal a terrassé son frère, semé la destruction en Élam et, dans la foulée, conquis l'Égypte. Ses campagnes sont racontées sur des bas-reliefs dans leurs moindres détails, jusqu'aux corps flottant dans les rivières. La cruauté d'Assurbanipal a également été immortalisée dans les scènes de chasse au lion ; les artistes ont sculpté les animaux dans leur agonie, renvoyant au spectateur l'image glaçante du roi dominateur.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_8" Language="fr_FR">
+      <Text>Mais Assurbanipal n'était pas qu'un conquérant. C'était aussi un homme de lettres, dont la bibliothèque faisait toute sa fierté. Il avait rassemblé tout ce qu'il pouvait trouver, des textes de tous types et de tous genres, afin de préserver le savoir de son temps. Des dizaines de milliers de tablettes d'argile issues de sa collection ont résisté au passage du temps dans les ruines de Ninive. C'est d'ailleurs dans cette bibliothèque qu'a été retrouvée l'Épopée de Gilgamesh.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_9" Language="fr_FR">
+      <Text>La société assyrienne était multilingue : l'akkadien et le sumérien y coexistaient sous différentes formes. Chaque cité possédait sa propre divinité protectrice, et la guerre n'était pas seulement une affaire de souverains : elle opposait aussi les dieux eux-mêmes. Lorsqu'une ville tombait, elle livrait symboliquement son dieu protecteur, comme Marduk pour Babylone. Le vainqueur pouvait alors l'humilier rituellement ou bien l'intégrer dans son propre panthéon comme divinité subalterne. Quant aux vassaux, certains étaient maintenus en place, mais beaucoup étaient remplacés par des nobles assyriens, alimentant la rancune chez les peuples conquis.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_ASSYRIA_BIRTUTU_CHAPTER_HISTORY_PARA_1" Language="fr_FR">
+      <Text>L'armée assyrienne était la force militaire la plus redoutable de son temps, notamment grâce à sa maîtrise de l'art du siège. Ses conquêtes reposaient sur l'usage d'armes de siège et de rampes en terre, sur la guerre psychologique, et sur la discipline de ses troupes et ses stratégies. Les Assyriens étaient aussi d'excellents défenseurs grâce à leurs villes fortifiées, les birtūtu. Des tours et de hautes murailles crénelées assuraient la défense, tandis que des douves et des rampes pouvaient être défendues depuis des positions supérieures. Les portes, points les plus vulnérables d'une forteresse, n'étaient pas seulement renforcées : elles étaient aussi ornées de créatures mythiques et de bas-reliefs guerriers, conçus pour intimider autant les visiteurs que les ennemis.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_ASSYRIA_KIBRAT_ARBA_I_CHAPTER_HISTORY_PARA_1" Language="fr_FR">
+      <Text>Les inscriptions royales des souverains de la Mésopotamie antique commencent généralement par une liste de titres, et chez les rois néo-assyriens, l'un des plus puissants était celui de "roi des quatre provinces" (kibrāt arba'i), qui renvoient à des zones géographiques anciennes correspondant aux points cardinaux (Sumer, Martu, Élam et Subartu). Néanmoins, leur portée symbolique désigne l'ensemble du monde. Ce titre n'était pas adopté par tous les rois et l'on a noté que son usage diminuait en l'absence de campagnes militaires, ce qui suggère qu'un certain prestige militaire était nécessaire pour le revendiquer. Sa force symbolique dépasse même la fin de l'empire assyrien ; Cyrus le Grand, fondateur de l'Empire perse, est le dernier souverain à s'en être prévalu.  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_ASSYRIA_TUPSARRUTU_CHAPTER_HISTORY_PARA_1" Language="fr_FR">
+      <Text>Dans l'Empire assyrien, l'éducation débutait tôt pour les enfants destinés à devenir scribes. Pendant douze ans, filles et garçons suivaient un apprentissage strict de l'écriture cunéiforme, mais aussi de l'histoire, la religion, la médecine et l'agriculture. Cet enseignement, appelé tupšarrūtu, était long et difficile pour les élèves, mais à l'issue de leur formation, leurs compétences étaient très demandées. Ils pouvaient alors accéder à de nombreuses professions liées à l'écriture et au savoir : scribe, médecin, astronome, musicien ou architecte. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_QUARTER_EKALLU_CHAPTER_HISTORY_PARA_1" Language="fr_FR">
+      <Text>Le palais assyrien (ekallu) était un complexe à la fois résidentiel et politique. Des centres imposants combinaient espaces publics et privés ; on y trouvait des salles de réception et une salle du trône pour les visiteurs, des bureaux pour les administrateurs, mais aussi des jardins et des quartiers résidentiels pour le roi et sa famille. Chaque espace était décoré en fonction des personnes qui l'occupaient. Des statues de lions ou de créatures hybrides mi-hommes mi-animaux se dressaient aux portes et aux entrées, tandis que des bas-reliefs peints ornaient les murs. Dans les salles diplomatiques, les décorations illustraient la royauté à travers des scènes de cour ou des chasses au lion, tandis que les espaces privés étaient plutôt ornés de scènes mythologiques ou religieuses. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_MAGARRU_CHAPTER_HISTORY_PARA_1" Language="fr_FR">
+      <Text>Le magarru, "char de guerre", était une arme majeure de l'armée néo-assyrienne. Les chevaux étaient exploités en Mésopotamie depuis au moins l'époque de l'Empire akkadien, mais en l'absence de selles, d'étriers ou d'autres équipements adaptés, il était difficile de les chevaucher en combat. Attelés à des chars, ils étaient plus faciles à diriger. Ces petits véhicules légers étaient munis de deux roues et transportaient deux passagers : un conducteur et un archer. Comme les chevaux rechignaient à charger les lignes ennemies, les chars n'étaient déployés qu'au moment où l'adversaire commençait à fuir, afin de permettre à l'archer de fondre sur ses cibles. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_MAGARRU_CHAPTER_HISTORY_PARA_2" Language="fr_FR">
+      <Text>Cependant, leur coût de fabrication élevé en faisait un pari risqué sur le champ de bataille. À partir du règne de Sargon II, au VIIIe siècle avant notre ère, les progrès en harnachement et en équitation ont permis à la cavalerie de supplanter les chars en tant qu'unités mobiles de l'armée.  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_TURTANU_CHAPTER_HISTORY_PARA_1" Language="fr_FR">
+      <Text>Le turtānu était un officier militaire de haut rang chargé de diriger l'armée assyrienne à la place du roi en temps de guerre. C'était un poste extrêmement puissant, juste en dessous de celui du souverain. Vers le VIIIe siècle avant notre ère, la fonction semble avoir été scindée en deux, avec un turtānu de droite et un turtānu de gauche, sans doute pour éviter qu'un seul homme ne détienne trop de pouvoir en dehors du roi. Avec le temps, leur rôle s'est élargi jusqu'à l'administration des provinces. </Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_CITADEL_NAME" Language="fr_FR">
+      <Text>Citadelle|Citadelles</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_ROYAL_LIBRARY_NAME" Language="fr_FR">
+      <Text>Bibliothèque royale|Bibliothèques royales</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_EKALLU_NAME" Language="fr_FR">
+      <Text>Ekallu|Ekallu</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_BALIKH_RIVER_NAME" Language="fr_FR">
+      <Text>Belikh</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_BATMAN_RIVER_NAME" Language="fr_FR">
+      <Text>Batman</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_DIYALA_RIVER_NAME" Language="fr_FR">
+      <Text>Diyâlâ</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_KHABUR_RIVER_NAME" Language="fr_FR">
+      <Text>Khabour</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SAJUR_RIVER_NAME" Language="fr_FR">
+      <Text>Sajour</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_GIREKOL_NAME" Language="fr_FR">
+      <Text>Girekol</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_HASANDAGI_NAME" Language="fr_FR">
+      <Text>Mont Hasan</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_KARACA_DAG_NAME" Language="fr_FR">
+      <Text>Karaca Dağ</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_KAUKAB_NAME" Language="fr_FR">
+      <Text>Kaukab</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_MOUNT_ARARAT_NAME" Language="fr_FR">
+      <Text>Mont Ararat</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_BIRTUTU_NAME" Language="fr_FR">
+      <Text>Birtūtu</Text>
+      <Gender>feminine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_KIBRAT_ARBA_I_NAME" Language="fr_FR">
+      <Text>Kibrāt arba’i</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TUPSARRUTU_NAME" Language="fr_FR">
+      <Text>Tupšarrūtu</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_11071A_COMPLETION" Language="fr_FR">
+      <Text>Les messagers de l'Assyrie proclament leur droit à régner en tant que šar kibrāt arba'i, seigneurs des quatre provinces du monde. Une expression que l'on peut interpréter librement.</Text>
+    </Replace>
+    <Replace Tag="LOC_11071A_STORYTITLE" Language="fr_FR">
+      <Text>Les quatre provinces</Text>
+    </Replace>
+    <Replace Tag="LOC_11071B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11071B_NAME" Language="fr_FR">
+      <Text>C'est littéral. Nous devons conquérir des terres.</Text>
+    </Replace>
+    <Replace Tag="LOC_11071C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11071C_NAME" Language="fr_FR">
+      <Text>C'est figuratif. Nous devons acquérir du savoir.</Text>
+    </Replace>
+    <Replace Tag="LOC_11072A_COMPLETION" Language="fr_FR">
+      <Text>Une marchande se faufile à travers la foule amassée au temple pour retrouver ses marchandises, surveillées par les prêtres. Autour d'elle, d'autres commerçants glissent des pièces dans les mains des assistants, impatients de faire consigner leurs transactions. En ce lieu, on peut régler affaires d'esprit et d'argent au même endroit.</Text>
+    </Replace>
+    <Replace Tag="LOC_11072A_STORYTITLE" Language="fr_FR">
+      <Text>Le temple du commerce</Text>
+    </Replace>
+    <Replace Tag="LOC_11072B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11072B_NAME" Language="fr_FR">
+      <Text>Agrandissons les réserves du temple.</Text>
+    </Replace>
+    <Replace Tag="LOC_11072C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11072C_NAME" Language="fr_FR">
+      <Text>Les prêtres devraient financer leurs propres commerces.</Text>
+    </Replace>
+    <Replace Tag="LOC_11073A_COMPLETION" Language="fr_FR">
+      <Text>Les unités de siège assyriennes aident les machines de guerre en arrachant les briques du rempart à coups de marteau et de pioche. Lorsque la poussière se dissipe, ces hommes, mais aussi leurs commandants, revendiquent la chute du mur.</Text>
+    </Replace>
+    <Replace Tag="LOC_11073A_STORYTITLE" Language="fr_FR">
+      <Text>Siège et conquête</Text>
+    </Replace>
+    <Replace Tag="LOC_11073B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} unités de siège.</Text>
+    </Replace>
+    <Replace Tag="LOC_11073B_NAME" Language="fr_FR">
+      <Text>Nous le devons aux unités de siège assyriennes.</Text>
+    </Replace>
+    <Replace Tag="LOC_11073C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour les commandants actuels.</Text>
+    </Replace>
+    <Replace Tag="LOC_11073C_NAME" Language="fr_FR">
+      <Text>Que les commandants s'en inspirent.</Text>
+    </Replace>
+    <Replace Tag="LOC_11074A_COMPLETION" Language="fr_FR">
+      <Text>L'heure est venue pour la ville conquise de faire des offrandes au dieu Assur. Abattus, les vaincus forment des files pour transporter bovins et céréales à l'autel. Sous le regard d'un commandant assyrien, un prêtre fidèle aux anciennes traditions refuse d'accepter le nouvel ordre divin.</Text>
+    </Replace>
+    <Replace Tag="LOC_11074A_STORYTITLE" Language="fr_FR">
+      <Text>Offrandes à Assur</Text>
+    </Replace>
+    <Replace Tag="LOC_11074B_DESCRIPTION" Language="fr_FR">
+      <Text>Sélectionnez un panthéon supplémentaire, mais {1_reward} dans toutes les colonies.</Text>
+    </Replace>
+    <Replace Tag="LOC_11074B_NAME" Language="fr_FR">
+      <Text>Faisons preuve de miséricorde. Ignorons ce prêtre.</Text>
+    </Replace>
+    <Replace Tag="LOC_11074C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}, mais {2_reward} dans toutes les colonies.</Text>
+    </Replace>
+    <Replace Tag="LOC_11074C_NAME" Language="fr_FR">
+      <Text>Aux armes. La reddition doit être totale.</Text>
+    </Replace>
+    <Replace Tag="LOC_11075A_COMPLETION" Language="fr_FR">
+      <Text>Les nouvelles recrues de l'armée dorment dans les étables et les officiers se réunissent en extérieur. Il n'y a pas assez de place pour tous ces soldats.</Text>
+    </Replace>
+    <Replace Tag="LOC_11075A_STORYTITLE" Language="fr_FR">
+      <Text>L'armée d'Assur</Text>
+    </Replace>
+    <Replace Tag="LOC_11075B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11075B_NAME" Language="fr_FR">
+      <Text>Agrandissons les citadelles.</Text>
+    </Replace>
+    <Replace Tag="LOC_11075C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11075C_NAME" Language="fr_FR">
+      <Text>Les soldats ont la vie dure et doivent s'adapter.</Text>
+    </Replace>
+    <Replace Tag="LOC_11076A_COMPLETION" Language="fr_FR">
+      <Text>Lorsque le commandant se retire, tout le monde garde le silence. Les mots ont peu d'importance quand un raz-de-marée est sur le point d'engloutir Assur et toute sa gloire. Cette défaite ne manquera pas d'affecter le peuple assyrien.</Text>
+    </Replace>
+    <Replace Tag="LOC_11076A_STORYTITLE" Language="fr_FR">
+      <Text>La chute</Text>
+    </Replace>
+    <Replace Tag="LOC_11076B_DESCRIPTION" Language="fr_FR">
+      <Text>Lance une célébration.</Text>
+    </Replace>
+    <Replace Tag="LOC_11076B_NAME" Language="fr_FR">
+      <Text>Ravivons l'espoir. Tout n'est pas perdu.</Text>
+    </Replace>
+    <Replace Tag="LOC_11076C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} unités militaires.</Text>
+    </Replace>
+    <Replace Tag="LOC_11076C_NAME" Language="fr_FR">
+      <Text>Formons plus de soldats. Tout n'est pas perdu.</Text>
+    </Replace>
+    <Replace Tag="LOC_11077A_COMPLETION" Language="fr_FR">
+      <Text>Une jeune femme s'entraîne à inscrire son nom dans l'argile molle. Bien qu'à peine lisible, l'inscription servira de sceau pour un contrat à durée déterminée, qui lui accordera une meilleure vie. Une vie de servitude, certes, mais qui lui permettra de s'alimenter, se vêtir et être au chaud.</Text>
+    </Replace>
+    <Replace Tag="LOC_11077A_STORYTITLE" Language="fr_FR">
+      <Text>Servitude volontaire</Text>
+    </Replace>
+    <Replace Tag="LOC_11077B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour les bâtiments de Production.</Text>
+    </Replace>
+    <Replace Tag="LOC_11077B_NAME" Language="fr_FR">
+      <Text>Qu'elle s'engage dans l'armée.</Text>
+    </Replace>
+    <Replace Tag="LOC_11077C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11077C_NAME" Language="fr_FR">
+      <Text>Qu'elle travaille dans un temple.</Text>
+    </Replace>
+    <Replace Tag="LOC_11077D_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour les bâtiments générant de la Nourriture.</Text>
+    </Replace>
+    <Replace Tag="LOC_11077D_NAME" Language="fr_FR">
+      <Text>Qu'elle détruise la tablette et rentre chez elle. La servitude n'est pas une option.</Text>
+    </Replace>
+    <Replace Tag="LOC_11078A_COMPLETION" Language="fr_FR">
+      <Text>La bibliothèque s'élève fièrement, sa magnificence reflétant à peine la grande richesse des mondes que renferment ses écrits. Pourtant, trop d'étagères restent vides. Autant d'espaces en attente, prêts à accueillir d'autres rêves gravés dans l'argile.</Text>
+    </Replace>
+    <Replace Tag="LOC_11078A_STORYTITLE" Language="fr_FR">
+      <Text>La bibliothèque royale</Text>
+    </Replace>
+    <Replace Tag="LOC_11078B_COMPLETION" Language="fr_FR">
+      <Text>La bibliothécaire dépose l'ouvrage à sa place d'honneur, puis essuie une tache avec un petit bout de tissu. De l'encre, probablement.</Text>
+    </Replace>
+    <Replace Tag="LOC_11078B_DESCRIPTION" Language="fr_FR">
+      <Text>Codex +1.</Text>
+    </Replace>
+    <Replace Tag="LOC_11078B_IMPERATIVE" Language="fr_FR">
+      <Text>Capturez une colonie.</Text>
+    </Replace>
+    <Replace Tag="LOC_11078B_NAME" Language="fr_FR">
+      <Text>Tous les textes appartiennent à l'Assyrie.</Text>
+    </Replace>
+    <Replace Tag="LOC_11078B_STORYTITLE" Language="fr_FR">
+      <Text>La bibliothèque royale</Text>
+    </Replace>
+    <Replace Tag="LOC_11078C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11078C_NAME" Language="fr_FR">
+      <Text>Que les marchands locaux exploitent les espaces vacants.</Text>
+    </Replace>
+    <Replace Tag="LOC_11079A_COMPLETION" Language="fr_FR">
+      <Text>L'arène est ornée de scènes de chasse au lion, et c'est justement cet animal que la population est venue voir. Lorsque le félin est lâché, le public pousse des cris de joie, mais à la fin du spectacle, les gémissements de la bête blessée suscitent l'empathie.</Text>
+    </Replace>
+    <Replace Tag="LOC_11079A_STORYTITLE" Language="fr_FR">
+      <Text>Le roi de l'arène</Text>
+    </Replace>
+    <Replace Tag="LOC_11079B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11079B_NAME" Language="fr_FR">
+      <Text>Épargnons le lion et faisons combattre des soldats.</Text>
+    </Replace>
+    <Replace Tag="LOC_11079C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11079C_NAME" Language="fr_FR">
+      <Text>Achevons la bête !</Text>
+    </Replace>
+    <Replace Tag="LOC_11080A_COMPLETION" Language="fr_FR">
+      <Text>Alors qu'un commandant capturé est mis à genoux, les soldats assyriens font venir un char. L'humiliation de la défaite sur le champ de bataille n'a pas suffi.</Text>
+    </Replace>
+    <Replace Tag="LOC_11080A_STORYTITLE" Language="fr_FR">
+      <Text>L'insulte suprême</Text>
+    </Replace>
+    <Replace Tag="LOC_11080B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11080B_NAME" Language="fr_FR">
+      <Text>Que le prisonnier tracte le char dans toute la ville !</Text>
+    </Replace>
+    <Replace Tag="LOC_11080C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11080C_NAME" Language="fr_FR">
+      <Text>Que le prisonnier hennisse comme un canasson !</Text>
+    </Replace>
+    <Replace Tag="LOC_12010A_COMPLETION" Language="fr_FR">
+      <Text>Le Dr Rizal observe une immense tour de siège, dont le sommet dépasse à peine du rempart d'une garnison assyrienne, et il sent un frisson lui parcourir l'échine.</Text>
+    </Replace>
+    <Replace Tag="LOC_12010A_STORYTITLE" Language="fr_FR">
+      <Text>Le bon docteur au pays des rois</Text>
+    </Replace>
+    <Replace Tag="LOC_12010B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour les guerriers.</Text>
+    </Replace>
+    <Replace Tag="LOC_12010B_NAME" Language="fr_FR">
+      <Text>Elle a dû voir tant de guerres...</Text>
+    </Replace>
+    <Replace Tag="LOC_12010C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_12010C_NAME" Language="fr_FR">
+      <Text>Elle possède une certaine élégance brute...</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_MAGARRU_DESCRIPTION" Language="fr_FR">
+      <Text>Peut se déplacer après avoir attaqué et ignore les zones de contrôle.</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_TURTANU_COMBAT_DESCRIPTION" Language="fr_FR">
+      <Text>Puissance de combat +5 contre les districts.</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_TURTANU_DESCRIPTION" Language="fr_FR">
+      <Text>Les unités d'infanterie et de cavalerie dans le rayon de commandement gagnent Puissance de combat +5 contre les districts.</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_CITADEL_DESCRIPTION" Language="fr_FR">
+      <Text>[icon:YIELD_PRODUCTION] Production +3. [icon:YIELD_HAPPINESS] Bonheur +2 en cas de placement sur un terrain plat. [icon:YIELD_PRODUCTION] Production +1 par merveille adjacente. Fortification et bâtiment de Production exclusif aux Assyriens. Intemporelle. Tous les districts fortifiés doivent être conquis pour capturer une colonie.</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_CITADEL_TOOLTIP" Language="fr_FR">
+      <Text>[icon:YIELD_HAPPINESS] Bonheur +2 en cas de placement sur un terrain plat. Fortification et bâtiment de Production exclusif aux Assyriens. Intemporelle. Tous les districts fortifiés doivent être conquis pour capturer une colonie.</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_ROYAL_LIBRARY_DESCRIPTION" Language="fr_FR">
+      <Text>[icon:YIELD_SCIENCE] Science +3. Dispose de 2 emplacements de codex. Bonus d'adjacence de [icon:YIELD_SCIENCE] Science +1 avec les cases de fleuve et les merveilles. Bâtiment scientifique exclusif à l'Assyrie. Intemporelle.</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_ROYAL_LIBRARY_TOOLTIP" Language="fr_FR">
+      <Text>Dispose de 2 emplacements de codex. Bâtiment scientifique exclusif à l'Assyrie. Intemporelle.</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_BIRTUTU_AUTHOR" Language="fr_FR">
+      <Text>Sargon II</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_BIRTUTU_QUOTE" Language="fr_FR">
+      <Text>"J'ai ceint la ville d'un rempart inébranlable comme les montagnes, et y ai installé les peuples des terres conquises de mes mains."</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_KIBRAT_ARBA_I_AUTHOR" Language="fr_FR">
+      <Text>Sennachérib</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_KIBRAT_ARBA_I_QUOTE" Language="fr_FR">
+      <Text>"J'ai mené mes armées d'un bout à l'autre de la Terre et soumis tous les princes des quatre provinces du monde."</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TUPSARRUTU_AUTHOR" Language="fr_FR">
+      <Text>Assurbanipal</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TUPSARRUTU_QUOTE" Language="fr_FR">
+      <Text>"Ô Assur, tu es le gardien des savoirs de l'antique passé comme du lointain avenir."</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_ASSYRIA_DESCRIPTION" Language="fr_FR">
+      <Text>Octroie une technologie la première fois que vous conquérez une colonie. Les technologies ne rapportent pas de codex. Les conquêtes octroient des codex une fois le dogme Tupšarrūtu étudié.</Text>
+    </Replace>
+    <Replace Tag="LOC_INTRO_ASSYRIA" Language="fr_FR">
+      <Text>Le peuple est appelé ici, au cœur du royaume, où il travaillera et prospérera. Et par la providence d'Assur, il portera le nom d'Assyrie.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_ASSYRIA" Language="fr_FR">
+      <Text>Les tours de siège grondent, les lames de fer sont aiguisées : la machine de guerre assyrienne se met en branle. Sous le regard acéré d'Assur, un nouvel ordre se déploie sur ces terres gorgées de soleil : villes planifiées, ingénieurs talentueux, et marche implacable des soldats. Lancez-vous sur le monde et écrasez toute compétition.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_ASSYRIA" Language="fr_FR">
+      <Text>Les Assyriens n'obtiennent pas de codex en achevant des maîtrises de technologie, mais de la Culture grâce au dogme Birtūtu. Débloquez rapidement le dogme Tupšarrūtu pour obtenir des codex en conquérant des colonies !</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASSYRIA_COMPLETE_DUR_SHARRUKIN_DESC" Language="fr_FR">
+      <Text>Terminer Dur-Sharrukin avec l'Assyrie</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASSYRIA_COMPLETE_DUR_SHARRUKIN_NAME" Language="fr_FR">
+      <Text>Dur-Sharrukin</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASSYRIA_LEGACY_PATH_SCIENTIFIC_DESC" Language="fr_FR">
+      <Text>Terminer une orientation d'héritage scientifique avec l'Assyrie</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASSYRIA_LEGACY_PATH_SCIENTIFIC_NAME" Language="fr_FR">
+      <Text>Orientation d'héritage de l'Assyrie</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_BIRTUTU_COMBAT_DEFENDING_DESCRIPTION" Language="fr_FR">
+      <Text>Puissance de combat +5 en défense pour les unités de combat contre les unités d'attaque à distance.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_BIRTUTU_TECH_MASTERY_CULTURE_DESCRIPTION" Language="fr_FR">
+      <Text>[icon:YIELD_CULTURE] Culture +2 pour la capitale pour chaque maîtrise de technologie.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_ASSYRIA_DESCRIPTION" Language="fr_FR">
+      <Text>Merveille associée aux Assyriens : [icon:YIELD_PRODUCTION] Production +30 %.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_KIBRAT_ARBA_I_CAPTURE_SCIENCE_DESCRIPTION" Language="fr_FR">
+      <Text>[icon:YIELD_SCIENCE] Science +20 % dans les villes que vous n'avez pas fondées.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_KIBRAT_ARBA_I_COMBAT_MAGARRU_DESCRIPTION" Language="fr_FR">
+      <Text>Puissance de combat +5 pour les magarru dans le rayon de commandement.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TUPSARRUTU_GREATWORK_DESCRIPTION" Language="fr_FR">
+      <Text>Octroie un codex lorsque vous capturez une colonie pour la première fois.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TUPSARRUTU_HAPPINNESS_SCIENCE_BUILDING_DESCRIPTION" Language="fr_FR">
+      <Text>[icon:YIELD_HAPPINESS] Bonheur +2 pour les bâtiments scientifiques.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_EKALLU_DESCRIPTION" Language="fr_FR">
+      <Text>Quartier exclusif aux Assyriens. Créé en construisant une bibliothèque royale et une citadelle dans le même district. [icon:YIELD_PRODUCTION] Production +2 pour chaque [icon:NAR_REW_GREATWORK] chef-d'œuvre dans cette colonie.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_EKALLU_TOOLTIP" Language="fr_FR">
+      <Text>[icon:YIELD_PRODUCTION] Production +2 pour chaque [icon:NAR_REW_GREATWORK] chef-d'œuvre dans cette colonie.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_DURANI_DESCRIPTION" Language="fr_FR">
+      <Text>[icon:YIELD_SCIENCE] Science +1 pour les fortifications.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_GIRRU_DESCRIPTION" Language="fr_FR">
+      <Text>[icon:YIELD_PRODUCTION] Production +3 et [icon:YIELD_FOOD] Nourriture +3 dans les colonies que vous n'avez pas fondées.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_MIHISTU_DESCRIPTION" Language="fr_FR">
+      <Text>[icon:YIELD_PRODUCTION] Production +25 % pour les bâtiments et les merveilles dotés d'un emplacement de chef-d'œuvre.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_ASSYRIA_ABILITY_DESCRIPTION" Language="fr_FR">
+      <Text>[BLIST][LI]Octroie une [B]technologie[/B] la première fois que vous conquérez une colonie.[LI]Les technologies ne rapportent pas de [B]codex[/B].[LI]Les conquêtes octroient des [B]codex[/B] une fois le dogme Tupšarrūtu étudié.[LI][B][icon:YIELD_PRODUCTION]Production +30 %[/B] pour la construction de [B]Dur-Sharrukin[/B].[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_ASSYRIA_ABILITY_NAME" Language="fr_FR">
+      <Text>Trésors de Ninive</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_AQ_ASSYRIA_NAME" Language="fr_FR">
+      <Text>Dogmes assyriens</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_MAGARRU_2_DESCRIPTION" Language="fr_FR">
+      <Text>Unité de cavalerie de niveau 3 exclusive aux Assyriens. Se déplace comme une unité à roues et profite d'un bonus de PM. Peut se déplacer après avoir attaqué et ignore les zones de contrôle.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_MAGARRU_BASE_DESCRIPTION" Language="fr_FR">
+      <Text>Unité de cavalerie exclusive aux Assyriens. Se déplace comme une unité à roues et profite d'un bonus de PM. Peut se déplacer après avoir attaqué et ignore les zones de contrôle.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_MAGARRU_DESCRIPTION" Language="fr_FR">
+      <Text>Unité de cavalerie de niveau 2 exclusive aux Assyriens. Se déplace comme une unité à roues et profite d'un bonus de PM. Peut se déplacer après avoir attaqué et ignore les zones de contrôle.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_TURTANU_DESCRIPTION" Language="fr_FR">
+      <Text>Commandant d'armée exclusif aux Assyriens. Les unités d'infanterie et de cavalerie dans le rayon de commandement gagnent Puissance de combat +5 contre les districts.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ASSYRIA_DESCRIPTION" Language="fr_FR">
+      <Text>Jouer avec les [B]Assyriens[/B]</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_GENGHIS_KHAN_ASSYRIA_TOOLTIP" Language="fr_FR">
+      <Text>[B]L'Assyrie[/B] présente des synergies stratégiques avec [B]Gengis Khan[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_LAKSHMIBAI_ASSYRIA_TOOLTIP" Language="fr_FR">
+      <Text>[B]Lakshmî Bâî[/B] venait du même continent que les [B]Assyriens[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_XERXES_ASSYRIA_TOOLTIP" Language="fr_FR">
+      <Text>[B]Xerxès[/B] a régné sur la région qui allait devenir [B]l'Assyrie[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_BIRTUTU_COMBAT_DEFENDING_PREVIEW" Language="fr_FR">
+      <Text>+{1_Amount} birtūtu.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_KIBRAT_ARBA_I_COMBAT_MAGARRU_PREVIEW" Language="fr_FR">
+      <Text>+{1_Amount} kibrāt arba'i.</Text>
+    </Replace>
+    <Replace Tag="LOC_TURTANU_COMMAND_RADIUS_COMBAT_PREVIEW" Language="fr_FR">
+      <Text>+{1_Amount} turtanu.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_DURANI_NAME" Language="fr_FR">
+      <Text>Dūrāni</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_GIRRU_NAME" Language="fr_FR">
+      <Text>Girru</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_MIHISTU_NAME" Language="fr_FR">
+      <Text>Miḫiṣtu</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_1_ACCEPTED_ADVISOR_BODY_ASSYRIA" Language="fr_FR">
+      <Text>Le monde regorge de mystères attendant d'être découverts, mais nombre d'entre eux sont jalousement gardés par les ennemis de l'Assyrie. En tant qu'humble conseiller scientifique, j'estime qu'aucun prix n'est trop élevé dans la quête du savoir. Commençons par évaluer nos propres forces.</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_1_ACCEPTED_BODY_ASSYRIA" Language="fr_FR">
+      <Text>Objectif : [icon:NOTIFICATION_CULTURE_TREE_REVEALED] [b]étudier le {LOC_CIVIC_BIRTUTU_NAME} et le dogme {LOC_CIVIC_DISCIPLINE_NAME}[/b], première étape pour établir un [icon:YIELD_SCIENCE] héritage scientifique [b][icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME}[/b] de l'Antiquité.
+			[n][n]Remarque : les [icon:NOTIFICATION_TEAM_VICTORIOUS] [b]héritages[/b] améliorent vos performances dans les âges à venir, mais [b]vous pouvez choisir d'en viser un seul, plusieurs ou aucun[/b].</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_1_TRACKING_BODY_ASSYRIA" Language="fr_FR">
+      <Text>Étudier le [icon:NOTIFICATION_CULTURE_TREE_REVEALED] {LOC_CIVIC_BIRTUTU_NAME} {1_itemComplete}
+			[n]Étudier [icon:NOTIFICATION_CULTURE_TREE_REVEALED] {LOC_CIVIC_DISCIPLINE_NAME} {2_itemComplete}</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_2_ADVISOR_BODY_ASSYRIA" Language="fr_FR">
+      <Text>Je ne suis pas soldat, mais je peux affirmer sans crainte que les Assyriens sont aussi féroces qu'une meute de lions. Il nous faudra nos plus vaillants guerriers pour arracher aux mains avides des autres civilisations les secrets du monde. Rassemblez vos troupes et préparez-vous au combat.</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_2_BODY_ASSYRIA" Language="fr_FR">
+      <Text>Avec les [b]Assyriens[/b], vous ne pouvez obtenir des codex qu'en [b]capturant des colonies[/b] et grâce à [b]l'arbre des dogmes [icon:NOTIFICATION_CULTURE_TREE_REVEALED] d'Assyrie[/b]. Contrairement aux autres civilisations, vous devrez former une puissante armée pour progresser dans cette orientation d'héritage.
+			[n]Prochain objectif : étudiez le dogme [icon:NOTIFICATION_CULTURE_TREE_REVEALED] [b]{LOC_CIVIC_TUPSARRUTU_NAME}[/b], qui vous permettra d'obtenir un [b]codex[/b] en capturant une colonie. Ensuite, réunissez un {1_ArmyCommanderIcon} [b]{2_ArmyCommanderName} avec des unités[/b] pour former une armée.</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_2_TRACKING_BODY_ASSYRIA" Language="fr_FR">
+      <Text>Étudiez le [icon:NOTIFICATION_CULTURE_TREE_REVEALED] {LOC_CIVIC_TUPSARRUTU_NAME} {1_itemComplete}
+			[n]Formez des unités militaires de type {2_UnitsTarget} : {3_UnitsCurrent}/{2_UnitsTarget}
+			[n]Assemblez une armée complète : {4_PackedCurrent}/{2_UnitsTarget}</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_3_ADVISOR_BODY_ASSYRIA" Language="fr_FR">
+      <Text>Comme je le disais, une meute de lions. Sur ce, n'oubliez pas mes propos : aucun prix n'est trop élevé dans la quête du savoir. Allez livrer bataille et ramenez ce qui nous revient de droit.</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_3_BODY_ASSYRIA" Language="fr_FR">
+      <Text>Prochain objectif : [b]capturez une colonie[/b] pour produire un [b]codex[/b], chef-d'œuvre de l'Antiquité.</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_3_TRACKING_BODY_ASSYRIA" Language="fr_FR">
+      <Text>Capturer une colonie : {1_CapturedCurrent}/{2_CapturedTarget}</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_4_ADVISOR_BODY_ASSYRIA" Language="fr_FR">
+      <Text>Des flammes de la guerre jaillit la lumière qui guidera notre peuple.
+			[n]Mais nous n'en sommes qu'au début de notre croisade. Poursuivez la quête du savoir et édifiez un lieu où l'emmagasiner.</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_4_BODY_ASSYRIA" Language="fr_FR">
+      <Text>Les codex doivent être [b]exposés[/b] pour être pris en compte pour l'orientation d'héritage [icon:YIELD_SCIENCE] scientifique [icon:NOTIFICATION_TEAM_VICTORIOUS] [b]{LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME}[/b]. La [icon:BUILDING_ROYAL_LIBRARY] [b]{LOC_BUILDING_ROYAL_LIBRARY_NAME}[/b] peut être construite dans n'importe quelle ville qui dispose d'emplacements pour [b]exposer[/b] des codex. 
+			[n]Prochain objectif : construisez une [icon:BUILDING_ROYAL_LIBRARY] [b]{LOC_BUILDING_ROYAL_LIBRARY_NAME}[/b], puis obtenez et exposez [b]{1_CodexGoalNum} codex[/b].</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_4_TRACKING_BODY_ASSYRIA" Language="fr_FR">
+      <Text>Construisez la [icon:BUILDING_ROYAL_LIBRARY] {LOC_BUILDING_ROYAL_LIBRARY_NAME} {1_itemComplete}
+			[n]Obtenez et exposez des codex : {2_CodexCurrent}/{3_CodexTarget}</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_5_ADVISOR_BODY_ASSYRIA" Language="fr_FR">
+      <Text>Nos antichambres du savoir abritent désormais {1_CodexCount} codex contenant l'ensemble des connaissances du peuple assyrien. Quels secrets nous reste-t-il encore à découvrir ?</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_5_BODY_ASSYRIA" Language="fr_FR">
+      <Text>Vous avez validé la première [b]étape[/b] de [b]l'orientation d'héritage {LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME}[/b] 
+			[n]Prochain objectif : construisez une deuxième [icon:BUILDING_ROYAL_LIBRARY] [b]{LOC_BUILDING_ROYAL_LIBRARY_NAME}[/b] pour accueillir davantage de codex, puis [b]exposez {1_CodexGoalNum} codex[/b] pour valider la seconde étape de l'orientation d'héritage.</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_5_TRACKING_BODY_ASSYRIA" Language="fr_FR">
+      <Text>Construisez une seconde [icon:BUILDING_ROYAL_LIBRARY] {LOC_BUILDING_ROYAL_LIBRARY_NAME} {1_itemComplete}
+			[n]Obtenez et exposez des codex : {2_CodexCurrent}/{3_CodexTarget}</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_6_ADVISOR_BODY_ASSYRIA" Language="fr_FR">
+      <Text>Nous possédons désormais {1_CodexCount} codex. Le savoir du peuple assyrien croît de jour en jour, faisant reculer toujours plus loin les ténèbres de l'ignorance.</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_6_BODY_ASSYRIA" Language="fr_FR">
+      <Text>Vous avez validé la seconde [b]étape[/b] de [b]l'orientation d'héritage {LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME}[/b]. Continuez de rassembler des [b]codex[/b] pour obtenir les dernières récompenses.
+			[n]Prochain objectif : [b]exposez {1_CodexGoalNum} codex[/b] pour valider la troisième et [b]dernière[/b] étape de l'orientation d'héritage {LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME}.
+			</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_6_TRACKING_BODY_ASSYRIA" Language="fr_FR">
+      <Text>Obtenez et exposez des codex : {1_CodexCurrent}/{2_CodexTarget}</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_LINE_COMPLETED_ADVISOR_BODY_ASSYRIA" Language="fr_FR">
+      <Text>Notre collection de codex est enviée dans le monde entier. C'est un véritable jardin de savoir qui portera ses fruits pour de nombreux siècles à venir. Les mystères de l'univers sont innombrables, mais nous pouvons considérer notre œuvre avec fierté.</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_LINE_COMPLETED_BODY_ASSYRIA" Language="fr_FR">
+      <Text>Félicitations ! Vous avez [b]exposé {1_CodexCount} codex[/b] et terminé l'orientation d'héritage [icon:YIELD_SCIENCE] scientifique [b][icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME}[/b] de l'Antiquité.[n]Vous pouvez consulter [b]l'écran d'orientation d'héritage[/b] pour voir les autres orientations disponibles, ou bien forger votre propre voie.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_MAGARRU_NAME" Language="fr_FR">
+      <Text>Magarru|Magarru</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_UNIT_TURTANU_NAME" Language="fr_FR">
+      <Text>Turtanu|Turtanu</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+  </LocalizedText>
+</Database>

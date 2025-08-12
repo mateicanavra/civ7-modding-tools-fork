@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MODULE_BOLIVAR_NAME">
+			<Text>Simón Bolívar</Text>
+		</Row>
+		<Row Tag="LOC_MODULE_BOLIVAR_DESCRIPTION">
+			<Text>Contains a new Leader, Simón Bolívar.</Text>
+		</Row>
+	</EnglishText>
+</Database>

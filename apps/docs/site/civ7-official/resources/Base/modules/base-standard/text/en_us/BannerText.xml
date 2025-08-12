@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_BANNER_NAME_UNSET">
+			<Text>Banner Name Unset.</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_INDEPENDENT_POWER_NAME">
+			<Text>Village: {1_Name}</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_ENCAMPMENT_NAME">
+			<Text>Encampment: {1_Name}</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_CITY_STATE_NAME">
+			<Text>City-State: {1_Name}</Text>
+		</Row>
+		<Row Tag="LOC_CITY_BANNER_CONQUERED_TOOLTIP">
+			<Text>Conquered Settlement.</Text>
+		</Row>
+	</EnglishText>
+</Database>

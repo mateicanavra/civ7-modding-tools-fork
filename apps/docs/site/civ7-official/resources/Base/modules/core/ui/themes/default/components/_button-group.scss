@@ -1,0 +1,32 @@
+@use 'sass:math';
+@use 'sass:string';
+@use '../theme';
+@use '../../../utilities/utility-layout' as *;
+@use '../../../utilities/utility-text' as *;
+
+.fxs-button-group {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	>.fxs-button,
+	>.fxs-text-button,
+	>.fxs-hero-button,
+	>.fxs-minmax-button,
+	>.minusplus-button,
+	>.fxs-checkbox,
+	>.fxs-radio-button {
+		margin-left: pixels(12);
+		margin-right: pixels(12);
+	}
+
+	> :first-child {
+		margin-left: 0;
+	}
+
+	> :last-child {
+		margin-right: 0;
+	}
+}

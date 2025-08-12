@@ -1,0 +1,65 @@
+@use '../../utilities/utility-layout' as *;
+@use '../../themes/default/_baseColors.scss';
+@use '../../themes/default/_animations.scss';
+@use '../../themes/default/_theme.scss';
+
+.age-select-age-choice {
+	border-image: url("fs://game/hud_list-focus_frame.png");
+	border-image-slice: 20 32 20 32 fill;
+	border-image-width: pixels(20) pixels(32) pixels(20) pixels(32);
+	border-image-outset: pixels(6) pixels(5);
+
+	min-height: pixels(195);
+	background-size: cover;
+
+	@media (max-height: pixels(1000)) {
+		min-height: pixels(110);
+	}
+}
+
+.age-select-scrollable {
+	.fxs-scrollbar-container {
+		right: pixels(8);
+	}
+}
+
+.age-select-age-antiquity {
+	background-image: radial-gradient(50% 50% at 50% 50%, #DBDBB5 0%, rgba(219, 219, 181, 0) 100%), url("fs://game/shell_antiquity-select.png");
+
+	&.age-select-unselected {
+		background-image: url("fs://game/age-sel_antiquity_desat.png");
+	}
+
+	@media (max-height: pixels(1000)) {
+		background-image: radial-gradient(70% 70% at 50% 50%, #DBDBB5 0%, rgba(219, 219, 181, 0) 100%), url("fs://game/shell_antiquity-select.png");
+	}
+}
+
+.age-select-age-exploration {
+	background-image: radial-gradient(50% 50% at 50% 50%, #DBDBB5 0%, rgba(219, 219, 181, 0) 100%), url("fs://game/shell_exploration-select.png");
+
+	&.age-select-unselected {
+		background-image: url("fs://game/age-sel_exploration_desat.png");
+	}
+
+	@media (max-height: pixels(1000)) {
+		background-image: radial-gradient(70% 70% at 50% 50%, #DBDBB5 0%, rgba(219, 219, 181, 0) 100%), url("fs://game/shell_exploration-select.png");
+	}
+}
+
+.age-select-age-modern {
+	background-image: radial-gradient(50% 50% at 50% 50%, #DBDBB5 0%, rgba(219, 219, 181, 0) 100%), url("fs://game/shell_modern-select.png");
+
+	@media (max-height: pixels(1000)) {
+		background-image: radial-gradient(70% 70% at 50% 50%, #DBDBB5 0%, rgba(219, 219, 181, 0) 100%), url("fs://game/shell_modern-select.png");
+	}
+
+	&.age-select-unselected {
+		background-image: url("fs://game/age-sel_modern_desat.png");
+	}
+}
+
+.age-select-unselected {
+	color: theme.color("accent-2");
+	text-shadow: pixels(1) pixels(1) pixels(0) rgb(0 0 0), pixels(2) pixels(2) pixels(0) rgb(0 0 0);
+}

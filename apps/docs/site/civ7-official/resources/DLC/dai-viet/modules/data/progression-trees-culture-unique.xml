@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<!--Civ Unique Mastery Trees-->
+		<Row Type="TREE_CIVICS_EX_DAI_VIET" Kind="KIND_TREE"/>
+		<!--Civ Unique Mastery Tree Nodes-->
+		<!--Đại Việt-->
+		<Row Type="NODE_CIVIC_EX_DAI_VIET_CAM_QUAN" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_EX_DAI_VIET_CHU_NOM" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_EX_DAI_VIET_THANH_HOANG" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_EX_DAI_VIET_TU_DAN" Kind="KIND_TREE_NODE"/>
+	</Types>
+	<TypeQuotes>
+		<Row Type="NODE_CIVIC_EX_DAI_VIET_CAM_QUAN" Quote="LOC_CIVIC_CAM_QUAN_QUOTE" QuoteAuthor="LOC_CIVIC_CAM_QUAN_AUTHOR" QuoteAudio="VO_Quote_CamQuan"/>
+		<Row Type="NODE_CIVIC_EX_DAI_VIET_CHU_NOM" Quote="LOC_CIVIC_CHU_NOM_QUOTE" QuoteAuthor="LOC_CIVIC_CHU_NOM_AUTHOR" QuoteAudio="VO_Quote_ChuNom"/>
+		<Row Type="NODE_CIVIC_EX_DAI_VIET_THANH_HOANG" Quote="LOC_CIVIC_THANH_HOANG_QUOTE" QuoteAuthor="LOC_CIVIC_THANH_HOANG_AUTHOR" QuoteAudio="VO_Quote_ThanhHoang"/>
+		<Row Type="NODE_CIVIC_EX_DAI_VIET_TU_DAN" Quote="LOC_CIVIC_TU_DAN_QUOTE" QuoteAuthor="LOC_CIVIC_TU_DAN_AUTHOR" QuoteAudio="VO_Quote_TuDan"/>
+	</TypeQuotes>
+	<ProgressionTrees>
+		<!--Civ Unique Mastery Trees-->
+		<Row ProgressionTreeType="TREE_CIVICS_EX_DAI_VIET" AgeType="AGE_EXPLORATION" SystemType="SYSTEM_CULTURE" Name="LOC_TREE_CIVICS_EX_DAI_VIET_NAME"/>
+	</ProgressionTrees>
+	<ProgressionTreeNodes>
+		<!--Civ Unique Mastery Tree Nodes-->
+		<!--DAI_VIET-->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_DAI_VIET_CAM_QUAN" ProgressionTree="TREE_CIVICS_EX_DAI_VIET" Cost="800" Name="LOC_CIVIC_CAM_QUAN_NAME" IconString="cult_dai_viet"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_DAI_VIET_CHU_NOM" ProgressionTree="TREE_CIVICS_EX_DAI_VIET" Cost="800" Name="LOC_CIVIC_CHU_NOM_NAME" IconString="cult_dai_viet"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_DAI_VIET_THANH_HOANG" ProgressionTree="TREE_CIVICS_EX_DAI_VIET" Cost="800" Name="LOC_CIVIC_THANH_HOANG_NAME" IconString="cult_dai_viet"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_DAI_VIET_TU_DAN" ProgressionTree="TREE_CIVICS_EX_DAI_VIET" Cost="1200" Name="LOC_CIVIC_TU_DAN_NAME" IconString="cult_dai_viet"/>
+	</ProgressionTreeNodes>
+	<ProgressionTreeNodeUnlocks>
+		<!--Đại Việt-->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_DAI_VIET_CAM_QUAN" TargetKind="KIND_MODIFIER" TargetType="MOD_CAM_QUAN_FORMAL_WAR_COMBAT_ABILITY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_DAI_VIET_CAM_QUAN" TargetKind="KIND_MODIFIER" TargetType="MOD_CAM_QUAN_FORTIFICATION_CONSTRUCTIBLES" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_DAI_VIET_CAM_QUAN" TargetKind="KIND_TRADITION" TargetType="TRADITION_CAM_BINH" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_DAI_VIET_CHU_NOM" TargetKind="KIND_MODIFIER" TargetType="MOD_CHU_NOM_CULTURE_TROPICAL" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_DAI_VIET_CHU_NOM" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_RELIC" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_DAI_VIET_CHU_NOM" TargetKind="KIND_MODIFIER" TargetType="MOD_CHU_NOM_FLOOD_PLAINS_CULTURE" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_DAI_VIET_CHU_NOM" TargetKind="KIND_TRADITION" TargetType="TRADITION_CON_KENH" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_DAI_VIET_THANH_HOANG" TargetKind="KIND_CONSTRUCTIBLE" TargetType="IMPROVEMENT_WATER_PUPPET_THEATER" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_DAI_VIET_THANH_HOANG" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_THANH_HUE" UnlockDepth="1" AIIgnoreUnlockValue="true"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_DAI_VIET_THANH_HOANG" TargetKind="KIND_MODIFIER" TargetType="MOD_THANH_HOANG_GRISTMILL_WATER_PUPPET_THEATER" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_DAI_VIET_THANH_HOANG" TargetKind="KIND_TRADITION" TargetType="TRADITION_RUONG_LANG_XA" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_DAI_VIET_TU_DAN" TargetKind="KIND_MODIFIER" TargetType="MOD_TU_DAN_WALL_COMBAT_STRENGTH" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_DAI_VIET_TU_DAN" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_SETTLEMENT_CAP_INCREASE" UnlockDepth="1"/>
+	</ProgressionTreeNodeUnlocks>
+	<ProgressionTreePrereqs>
+		<!--Đại Việt-->
+		<Row Node="NODE_CIVIC_EX_DAI_VIET_TU_DAN" PrereqNode="NODE_CIVIC_EX_DAI_VIET_CAM_QUAN"/>
+		<Row Node="NODE_CIVIC_EX_DAI_VIET_TU_DAN" PrereqNode="NODE_CIVIC_EX_DAI_VIET_CHU_NOM"/>
+		<Row Node="NODE_CIVIC_EX_DAI_VIET_TU_DAN" PrereqNode="NODE_CIVIC_EX_DAI_VIET_THANH_HOANG"/>
+	</ProgressionTreePrereqs>
+</Database>

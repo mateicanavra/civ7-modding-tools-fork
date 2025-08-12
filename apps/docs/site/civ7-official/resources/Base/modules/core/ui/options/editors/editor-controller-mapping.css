@@ -1,0 +1,856 @@
+/* DO NOT EDIT */
+/* Generated from editor-controller-mapping.scss */
+.editor-input-binding-panel {
+	background-color: rgba(14, 14, 14, 0.86);
+}
+
+.editor-controller-mapping .editor-controller-mapping__title {
+	margin-top: 1.1111111111rem;
+	padding-bottom: 0.6666666667rem;
+}
+@media (max-height: 42.6666666667rem), (max-width: 75.8888888889rem) {
+	.editor-controller-mapping .editor-controller-mapping__title {
+		margin-top: 0rem;
+		padding-bottom: 0rem;
+	}
+}
+.editor-controller-mapping .editor-controller-mapping__content {
+	max-width: 94.4444444444rem;
+	padding-top: 2.8888888889rem;
+}
+@media (max-height: 42.6666666667rem), (max-width: 75.8888888889rem) {
+	.editor-controller-mapping .editor-controller-mapping__content {
+		padding-top: 2.2222222222rem;
+	}
+}
+.editor-controller-mapping .editor-controller-mapping__options {
+	max-width: 94.4444444444rem;
+	margin-top: -2.6666666667rem;
+}
+.editor-controller-mapping .editor-controller-mapping__action-list-container {
+	flex-basis: 5.5555555556rem;
+}
+.editor-controller-mapping .editor-controller-mapping__controller-section.xbox {
+	margin-left: 13.3333333333rem;
+	margin-right: 11.9444444444rem;
+}
+@media (max-height: 42.6666666667rem), (max-width: 75.8888888889rem) {
+	.editor-controller-mapping .editor-controller-mapping__controller-section.xbox {
+		margin-left: 11.1111111111rem;
+		margin-right: 9.7222222222rem;
+	}
+}
+.editor-controller-mapping .editor-controller-mapping__controller-section.playstation-5, .editor-controller-mapping .editor-controller-mapping__controller-section.playstation-4 {
+	margin-left: 13.3333333333rem;
+	margin-right: 11.9444444444rem;
+}
+@media (max-height: 42.6666666667rem), (max-width: 75.8888888889rem) {
+	.editor-controller-mapping .editor-controller-mapping__controller-section.playstation-5, .editor-controller-mapping .editor-controller-mapping__controller-section.playstation-4 {
+		margin-left: 11.1111111111rem;
+		margin-right: 9.7222222222rem;
+	}
+}
+.editor-controller-mapping .editor-controller-mapping__controller-section.switch {
+	margin-left: 7.5555555556rem;
+	margin-right: 5.6666666667rem;
+}
+@media (max-height: 42.6666666667rem), (max-width: 75.8888888889rem) {
+	.editor-controller-mapping .editor-controller-mapping__controller-section.switch {
+		margin-left: 5.3333333333rem;
+		margin-right: 3.4444444444rem;
+	}
+}
+.editor-controller-mapping .editor-controller-mapping__controller-section.ounce {
+	margin-left: 7.5555555556rem;
+	margin-right: 5.6666666667rem;
+}
+@media (max-height: 42.6666666667rem), (max-width: 75.8888888889rem) {
+	.editor-controller-mapping .editor-controller-mapping__controller-section.ounce {
+		margin-left: 5.3333333333rem;
+		margin-right: 3.4444444444rem;
+	}
+}
+.editor-controller-mapping .editor-controller-mapping__action-description.switch {
+	top: -13%;
+}
+@media (max-height: 42.6666666667rem) {
+	.editor-controller-mapping .editor-controller-mapping__action-description.switch {
+		top: -16%;
+	}
+}
+.editor-controller-mapping .editor-controller-mapping__action-description.ounce {
+	top: -13%;
+}
+@media (max-height: 42.6666666667rem) {
+	.editor-controller-mapping .editor-controller-mapping__action-description.ounce {
+		top: -16%;
+	}
+}
+.editor-controller-mapping .editor-controller-mapping__action-description.xbox {
+	top: -22%;
+}
+@media (max-height: 42.6666666667rem) {
+	.editor-controller-mapping .editor-controller-mapping__action-description.xbox {
+		top: -29%;
+	}
+}
+.editor-controller-mapping .editor-controller-mapping__action-description.playstation-4 {
+	top: -14%;
+}
+@media (max-height: 42.6666666667rem) {
+	.editor-controller-mapping .editor-controller-mapping__action-description.playstation-4 {
+		top: -21%;
+	}
+}
+.editor-controller-mapping .editor-controller-mapping__action-description.playstation-5 {
+	top: -14%;
+}
+@media (max-height: 42.6666666667rem) {
+	.editor-controller-mapping .editor-controller-mapping__action-description.playstation-5 {
+		top: -21%;
+	}
+}
+
+.controller-map-action-element {
+	display: none;
+}
+.controller-map-action-element.switch {
+	position: absolute;
+	display: none;
+}
+.controller-map-action-element.switch.button-bottom {
+	display: block;
+	top: 58.5%;
+	left: 79%;
+}
+.controller-map-action-element.switch.button-bottom > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.switch.button-right {
+	display: block;
+	top: 50%;
+	left: 79%;
+}
+.controller-map-action-element.switch.button-right > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.switch.button-left {
+	display: block;
+	top: 67%;
+	left: 79%;
+}
+.controller-map-action-element.switch.button-left > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.switch.button-top {
+	display: block;
+	top: 41.5%;
+	left: 79%;
+}
+.controller-map-action-element.switch.button-top > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.switch.right-bumper {
+	display: block;
+	top: 8%;
+	left: 81%;
+}
+.controller-map-action-element.switch.right-bumper > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.switch.left-bumper {
+	display: block;
+	top: 8%;
+	right: 81%;
+}
+.controller-map-action-element.switch.left-bumper > div {
+	flex-direction: row;
+}
+.controller-map-action-element.switch.right-trigger {
+	display: block;
+	top: 0.5%;
+	left: 81%;
+}
+.controller-map-action-element.switch.right-trigger > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.switch.left-trigger {
+	display: block;
+	top: 0.5%;
+	right: 81%;
+}
+.controller-map-action-element.switch.left-trigger > div {
+	flex-direction: row;
+}
+.controller-map-action-element.switch.dpad-up {
+	display: block;
+	top: 73.5%;
+	right: 80%;
+}
+.controller-map-action-element.switch.dpad-up > div {
+	flex-direction: row;
+}
+.controller-map-action-element.switch.dpad-down {
+	display: block;
+	top: 82%;
+	right: 80%;
+}
+.controller-map-action-element.switch.dpad-down > div {
+	flex-direction: row;
+}
+.controller-map-action-element.switch.dpad-left {
+	display: block;
+	top: 99%;
+	right: 80%;
+}
+.controller-map-action-element.switch.dpad-left > div {
+	flex-direction: row;
+}
+.controller-map-action-element.switch.dpad-right {
+	display: block;
+	top: 90.5%;
+	right: 80%;
+}
+.controller-map-action-element.switch.dpad-right > div {
+	flex-direction: row;
+}
+.controller-map-action-element.switch.start {
+	display: block;
+	top: 25%;
+	left: 79%;
+}
+.controller-map-action-element.switch.start > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.switch.back {
+	display: block;
+	top: 25%;
+	right: 81%;
+}
+.controller-map-action-element.switch.back > div {
+	flex-direction: row;
+}
+.controller-map-action-element.switch.left-stick-press {
+	display: block;
+	top: 55.5%;
+	right: 80%;
+}
+.controller-map-action-element.switch.left-stick-press > div {
+	flex-direction: row;
+}
+.controller-map-action-element.switch.right-stick-press {
+	display: block;
+	top: 97.5%;
+	left: 79%;
+}
+.controller-map-action-element.switch.right-stick-press > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.switch.left-stick {
+	display: block;
+	top: 47%;
+	right: 80%;
+}
+.controller-map-action-element.switch.left-stick > div {
+	flex-direction: row;
+}
+.controller-map-action-element.switch.right-stick {
+	display: block;
+	top: 89%;
+	left: 79%;
+}
+.controller-map-action-element.switch.right-stick > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.ounce {
+	position: absolute;
+	display: none;
+}
+.controller-map-action-element.ounce.button-bottom {
+	display: block;
+	top: 76%;
+	left: 81%;
+}
+.controller-map-action-element.ounce.button-bottom > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.ounce.button-right {
+	display: block;
+	top: 68%;
+	left: 81%;
+}
+.controller-map-action-element.ounce.button-right > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.ounce.button-left {
+	display: block;
+	top: 60%;
+	left: 81%;
+}
+.controller-map-action-element.ounce.button-left > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.ounce.button-top {
+	display: block;
+	top: 52%;
+	left: 81%;
+}
+.controller-map-action-element.ounce.button-top > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.ounce.right-bumper {
+	display: block;
+	top: 9%;
+	left: 81%;
+}
+.controller-map-action-element.ounce.right-bumper > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.ounce.left-bumper {
+	display: block;
+	top: 9%;
+	right: 81%;
+}
+.controller-map-action-element.ounce.left-bumper > div {
+	flex-direction: row;
+}
+.controller-map-action-element.ounce.right-trigger {
+	display: block;
+	top: 1%;
+	left: 81%;
+}
+.controller-map-action-element.ounce.right-trigger > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.ounce.left-trigger {
+	display: block;
+	top: 1%;
+	right: 81%;
+}
+.controller-map-action-element.ounce.left-trigger > div {
+	flex-direction: row;
+}
+.controller-map-action-element.ounce.dpad-up {
+	display: block;
+	top: 75.5%;
+	right: 81%;
+}
+.controller-map-action-element.ounce.dpad-up > div {
+	flex-direction: row;
+}
+.controller-map-action-element.ounce.dpad-down {
+	display: block;
+	top: 83.5%;
+	right: 81%;
+}
+.controller-map-action-element.ounce.dpad-down > div {
+	flex-direction: row;
+}
+.controller-map-action-element.ounce.dpad-left {
+	display: block;
+	top: 99.5%;
+	right: 81%;
+}
+.controller-map-action-element.ounce.dpad-left > div {
+	flex-direction: row;
+}
+.controller-map-action-element.ounce.dpad-right {
+	display: block;
+	top: 91.5%;
+	right: 81%;
+}
+.controller-map-action-element.ounce.dpad-right > div {
+	flex-direction: row;
+}
+.controller-map-action-element.ounce.start {
+	display: block;
+	top: 28%;
+	left: 81%;
+}
+.controller-map-action-element.ounce.start > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.ounce.back {
+	display: block;
+	top: 28%;
+	right: 81%;
+}
+.controller-map-action-element.ounce.back > div {
+	flex-direction: row;
+}
+.controller-map-action-element.ounce.left-stick-press {
+	display: block;
+	top: 57%;
+	right: 81%;
+}
+.controller-map-action-element.ounce.left-stick-press > div {
+	flex-direction: row;
+}
+.controller-map-action-element.ounce.right-stick-press {
+	display: block;
+	top: 98%;
+	left: 81%;
+}
+.controller-map-action-element.ounce.right-stick-press > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.ounce.left-stick {
+	display: block;
+	top: 49%;
+	right: 81%;
+}
+.controller-map-action-element.ounce.left-stick > div {
+	flex-direction: row;
+}
+.controller-map-action-element.ounce.right-stick {
+	display: block;
+	top: 91%;
+	left: 81%;
+}
+.controller-map-action-element.ounce.right-stick > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.xbox {
+	display: none;
+	position: absolute;
+}
+.controller-map-action-element.xbox.button-bottom {
+	display: block;
+	top: 52%;
+	left: 96%;
+}
+.controller-map-action-element.xbox.button-bottom > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.xbox.button-right {
+	display: block;
+	top: 42%;
+	left: 96%;
+}
+.controller-map-action-element.xbox.button-right > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.xbox.button-left {
+	display: block;
+	top: 62%;
+	left: 96%;
+}
+.controller-map-action-element.xbox.button-left > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.xbox.button-top {
+	display: block;
+	top: 30.5%;
+	left: 96%;
+}
+.controller-map-action-element.xbox.button-top > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.xbox.right-bumper {
+	display: block;
+	top: 7%;
+	left: 93%;
+}
+.controller-map-action-element.xbox.right-bumper > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.xbox.left-bumper {
+	display: block;
+	top: 7%;
+	right: 97%;
+}
+.controller-map-action-element.xbox.left-bumper > div {
+	flex-direction: row;
+}
+.controller-map-action-element.xbox.right-trigger {
+	display: block;
+	top: -0.5%;
+	left: 100%;
+}
+.controller-map-action-element.xbox.right-trigger > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.xbox.left-trigger {
+	display: block;
+	top: -0.5%;
+	right: 101%;
+}
+.controller-map-action-element.xbox.left-trigger > div {
+	flex-direction: row;
+}
+.controller-map-action-element.xbox.dpad-up {
+	display: block;
+	top: 92%;
+	right: 61.5%;
+}
+.controller-map-action-element.xbox.dpad-up > div {
+	flex-direction: row;
+}
+.controller-map-action-element.xbox.dpad-down {
+	display: block;
+	top: 100.5%;
+	right: 61.5%;
+}
+.controller-map-action-element.xbox.dpad-down > div {
+	flex-direction: row;
+}
+.controller-map-action-element.xbox.dpad-left {
+	display: block;
+	top: 117.5%;
+	right: 61.5%;
+}
+.controller-map-action-element.xbox.dpad-left > div {
+	flex-direction: row;
+}
+.controller-map-action-element.xbox.dpad-right {
+	display: block;
+	top: 109%;
+	right: 61.5%;
+}
+.controller-map-action-element.xbox.dpad-right > div {
+	flex-direction: row;
+}
+.controller-map-action-element.xbox.start {
+	display: block;
+	top: -6%;
+	left: 57%;
+}
+.controller-map-action-element.xbox.start > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.xbox.back {
+	display: block;
+	top: -6%;
+	right: 62%;
+}
+.controller-map-action-element.xbox.back > div {
+	flex-direction: row;
+}
+.controller-map-action-element.xbox.left-stick-press {
+	display: block;
+	top: 46.5%;
+	right: 96.5%;
+}
+.controller-map-action-element.xbox.left-stick-press > div {
+	flex-direction: row;
+}
+.controller-map-action-element.xbox.right-stick-press {
+	display: block;
+	top: 100.5%;
+	left: 56.5%;
+}
+.controller-map-action-element.xbox.right-stick-press > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.xbox.left-stick {
+	display: block;
+	top: 38%;
+	right: 96.5%;
+}
+.controller-map-action-element.xbox.left-stick > div {
+	flex-direction: row;
+}
+.controller-map-action-element.xbox.right-stick {
+	display: block;
+	top: 92%;
+	left: 56.5%;
+}
+.controller-map-action-element.xbox.right-stick > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.playstation-4 {
+	display: none;
+	position: absolute;
+}
+.controller-map-action-element.playstation-4.button-bottom {
+	display: block;
+	top: 71%;
+	left: 101%;
+}
+.controller-map-action-element.playstation-4.button-bottom > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.playstation-4.button-right {
+	display: block;
+	top: 59%;
+	left: 101%;
+}
+.controller-map-action-element.playstation-4.button-right > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.playstation-4.button-left {
+	display: block;
+	top: 82%;
+	left: 101%;
+}
+.controller-map-action-element.playstation-4.button-left > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.playstation-4.button-top {
+	display: block;
+	top: 47.5%;
+	left: 101%;
+}
+.controller-map-action-element.playstation-4.button-top > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.playstation-4.right-bumper {
+	display: block;
+	top: 11.5%;
+	left: 83%;
+}
+.controller-map-action-element.playstation-4.right-bumper > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.playstation-4.left-bumper {
+	display: block;
+	top: 11.5%;
+	right: 86%;
+}
+.controller-map-action-element.playstation-4.left-bumper > div {
+	flex-direction: row;
+}
+.controller-map-action-element.playstation-4.right-trigger {
+	display: block;
+	top: 3%;
+	left: 86%;
+}
+.controller-map-action-element.playstation-4.right-trigger > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.playstation-4.left-trigger {
+	display: block;
+	top: 3%;
+	right: 89%;
+}
+.controller-map-action-element.playstation-4.left-trigger > div {
+	flex-direction: row;
+}
+.controller-map-action-element.playstation-4.dpad-up {
+	display: block;
+	top: 46%;
+	right: 101.5%;
+}
+.controller-map-action-element.playstation-4.dpad-up > div {
+	flex-direction: row;
+}
+.controller-map-action-element.playstation-4.dpad-down {
+	display: block;
+	top: 54.5%;
+	right: 101.5%;
+}
+.controller-map-action-element.playstation-4.dpad-down > div {
+	flex-direction: row;
+}
+.controller-map-action-element.playstation-4.dpad-left {
+	display: block;
+	top: 71.5%;
+	right: 101.5%;
+}
+.controller-map-action-element.playstation-4.dpad-left > div {
+	flex-direction: row;
+}
+.controller-map-action-element.playstation-4.dpad-right {
+	display: block;
+	top: 63%;
+	right: 101.5%;
+}
+.controller-map-action-element.playstation-4.dpad-right > div {
+	flex-direction: row;
+}
+.controller-map-action-element.playstation-4.start {
+	display: block;
+	top: 13.5%;
+	right: 34.5%;
+}
+.controller-map-action-element.playstation-4.start > div {
+	flex-direction: row;
+}
+.controller-map-action-element.playstation-4.back {
+	display: block;
+	top: 2%;
+	left: 39%;
+}
+.controller-map-action-element.playstation-4.back > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.playstation-4.left-stick-press {
+	display: block;
+	top: 105.5%;
+	right: 63.5%;
+}
+.controller-map-action-element.playstation-4.left-stick-press > div {
+	flex-direction: row;
+}
+.controller-map-action-element.playstation-4.right-stick-press {
+	display: block;
+	top: 105.5%;
+	left: 61%;
+}
+.controller-map-action-element.playstation-4.right-stick-press > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.playstation-4.left-stick {
+	display: block;
+	top: 97%;
+	right: 63.5%;
+}
+.controller-map-action-element.playstation-4.left-stick > div {
+	flex-direction: row;
+}
+.controller-map-action-element.playstation-4.right-stick {
+	display: block;
+	top: 97%;
+	left: 61%;
+}
+.controller-map-action-element.playstation-4.right-stick > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.playstation-5 {
+	display: none;
+	position: absolute;
+}
+.controller-map-action-element.playstation-5.button-bottom {
+	display: block;
+	top: 70.5%;
+	left: 101%;
+}
+.controller-map-action-element.playstation-5.button-bottom > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.playstation-5.button-right {
+	display: block;
+	top: 59%;
+	left: 101%;
+}
+.controller-map-action-element.playstation-5.button-right > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.playstation-5.button-left {
+	display: block;
+	top: 81.5%;
+	left: 101%;
+}
+.controller-map-action-element.playstation-5.button-left > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.playstation-5.button-top {
+	display: block;
+	top: 49%;
+	left: 101%;
+}
+.controller-map-action-element.playstation-5.button-top > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.playstation-5.right-bumper {
+	display: block;
+	top: 12.5%;
+	left: 85%;
+}
+.controller-map-action-element.playstation-5.right-bumper > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.playstation-5.left-bumper {
+	display: block;
+	top: 12.5%;
+	right: 87%;
+}
+.controller-map-action-element.playstation-5.left-bumper > div {
+	flex-direction: row;
+}
+.controller-map-action-element.playstation-5.right-trigger {
+	display: block;
+	top: 4%;
+	left: 85%;
+}
+.controller-map-action-element.playstation-5.right-trigger > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.playstation-5.left-trigger {
+	display: block;
+	top: 4%;
+	right: 87%;
+}
+.controller-map-action-element.playstation-5.left-trigger > div {
+	flex-direction: row;
+}
+.controller-map-action-element.playstation-5.dpad-up {
+	display: block;
+	top: 47%;
+	right: 101.5%;
+}
+.controller-map-action-element.playstation-5.dpad-up > div {
+	flex-direction: row;
+}
+.controller-map-action-element.playstation-5.dpad-down {
+	display: block;
+	top: 55.5%;
+	right: 101.5%;
+}
+.controller-map-action-element.playstation-5.dpad-down > div {
+	flex-direction: row;
+}
+.controller-map-action-element.playstation-5.dpad-left {
+	display: block;
+	top: 72.5%;
+	right: 101.5%;
+}
+.controller-map-action-element.playstation-5.dpad-left > div {
+	flex-direction: row;
+}
+.controller-map-action-element.playstation-5.dpad-right {
+	display: block;
+	top: 64%;
+	right: 101.5%;
+}
+.controller-map-action-element.playstation-5.dpad-right > div {
+	flex-direction: row;
+}
+.controller-map-action-element.playstation-5.start {
+	display: block;
+	top: 14.5%;
+	right: 32.5%;
+}
+.controller-map-action-element.playstation-5.start > div {
+	flex-direction: row;
+}
+.controller-map-action-element.playstation-5.back {
+	display: block;
+	top: 4%;
+	left: 36%;
+}
+.controller-map-action-element.playstation-5.back > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.playstation-5.left-stick-press {
+	display: block;
+	top: 104%;
+	right: 62.5%;
+}
+.controller-map-action-element.playstation-5.left-stick-press > div {
+	flex-direction: row;
+}
+.controller-map-action-element.playstation-5.right-stick-press {
+	display: block;
+	top: 104%;
+	left: 60.5%;
+}
+.controller-map-action-element.playstation-5.right-stick-press > div {
+	flex-direction: row-reverse;
+}
+.controller-map-action-element.playstation-5.left-stick {
+	display: block;
+	top: 95.5%;
+	right: 62.5%;
+}
+.controller-map-action-element.playstation-5.left-stick > div {
+	flex-direction: row;
+}
+.controller-map-action-element.playstation-5.right-stick {
+	display: block;
+	top: 95.5%;
+	left: 60.5%;
+}
+.controller-map-action-element.playstation-5.right-stick > div {
+	flex-direction: row-reverse;
+}

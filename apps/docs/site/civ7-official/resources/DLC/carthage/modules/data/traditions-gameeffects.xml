@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==================================================	-->
+	<!--	ANTIQUITY							-->
+	<!-- ==================================================	-->
+	<!-- Carthage -->
+	<Modifier id="QUINQUEREME_MOD_NAVAL_MAINTENANCE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_UNIT_MAINTENANCE_EFFICIENCY">
+		<Argument name="Amount">1</Argument>
+		<Argument name="UnitTag">UNIT_CLASS_NAVAL</Argument>
+		<String context="Description">LOC_TRADITION_QUINQUEREME_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="QUINQUEREME_MOD_PURCHASE_RATE_UNITS" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_OR_CITY_UNIT_PURCHASE_EFFICIENCY">
+		<Argument name="Percent">25</Argument>
+		<Argument name="UnitTag">UNIT_CLASS_NAVAL</Argument>
+	</Modifier>
+	<Modifier id="GAULOS_MOD_PURCHASE_RATE_BUILDINGS" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_OR_CITY_BUILDING_PURCHASE_EFFICIENCY">
+		<Argument name="Percent">25</Argument>
+		<Argument name="BuildingTag">WATER</Argument>
+		<String context="Description">LOC_TRADITION_GAULOS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="SUFFETES_FARM_TOWNS_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_PROJECT">
+				<Argument name="ProjectType">PROJECT_TOWN_GRANARY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Percent">20</Argument>
+		<Argument name="Tooltip">LOC_TRADITION_SUFFETES_NAME</Argument>
+		<String context="Description">LOC_TRADITION_SUFFETES_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="SUFFETES_FISHING_TOWNS_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_PROJECT">
+				<Argument name="ProjectType">PROJECT_TOWN_FISHING</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Percent">20</Argument>
+		<Argument name="Tooltip">LOC_TRADITION_SUFFETES_NAME</Argument>
+	</Modifier>
+	<Modifier id="SUFFETES_MINING_TOWNS_GOLD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_PROJECT">
+				<Argument name="ProjectType">PROJECT_TOWN_PRODUCTION</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Percent">20</Argument>
+		<Argument name="Tooltip">LOC_TRADITION_SUFFETES_NAME</Argument>
+	</Modifier>
+</GameEffects>

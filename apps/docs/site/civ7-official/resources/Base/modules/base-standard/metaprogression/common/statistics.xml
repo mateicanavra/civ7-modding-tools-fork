@@ -1,0 +1,2191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metaprogression xmlns="Metaprogression" common="true">
+	<statistics>
+		<!-- LEADER MILITARY VICTORY ANTIQUITY -->
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AMINA_MILITARY_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_AMINA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ASHOKA_MILITARY_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_ASHOKA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AUGUSTUS_MILITARY_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_AUGUSTUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_BENJAMIN_FRANKLIN_MILITARY_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_BENJAMIN_FRANKLIN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CATHERINE_MILITARY_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_CATHERINE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CHARLEMAGNE_MILITARY_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_CHARLEMAGNE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_MILITARY_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_CONFUCIUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_FRIEDRICH_MILITARY_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_FRIEDRICH_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HARRIET_TUBMAN_MILITARY_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_HARRIET_TUBMAN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_MILITARY_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_HATSHEPSUT_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HIMIKO_MILITARY_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_HIMIKO_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_IBN_BATTUTA_MILITARY_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_IBN_BATTUTA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ISABELLA_MILITARY_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_ISABELLA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_MILITARY_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_JOSE_RIZAL_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_LAFAYETTE_MILITARY_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_LAFAYETTE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_MACHIAVELLI_MILITARY_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_MACHIAVELLI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_PACHACUTI_MILITARY_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_PACHACUTI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_TRUNG_TRAC_MILITARY_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_TRUNG_TRAC_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_XERXES_MILITARY_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_XERXES_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<!-- LEADER MILITARY VICTORY EXPLORATION -->
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AMINA_MILITARY_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_AMINA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ASHOKA_MILITARY_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_ASHOKA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AUGUSTUS_MILITARY_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_AUGUSTUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_BENJAMIN_FRANKLIN_MILITARY_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_BENJAMIN_FRANKLIN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CATHERINE_MILITARY_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_CATHERINE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CHARLEMAGNE_MILITARY_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_CHARLEMAGNE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_MILITARY_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_CONFUCIUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_FRIEDRICH_MILITARY_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_FRIEDRICH_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HARRIET_TUBMAN_MILITARY_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_HARRIET_TUBMAN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_MILITARY_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_HATSHEPSUT_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HIMIKO_MILITARY_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_HIMIKO_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_IBN_BATTUTA_MILITARY_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_IBN_BATTUTA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ISABELLA_MILITARY_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_ISABELLA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_MILITARY_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_JOSE_RIZAL_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_LAFAYETTE_MILITARY_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_LAFAYETTE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_MACHIAVELLI_MILITARY_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_MACHIAVELLI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_PACHACUTI_MILITARY_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_PACHACUTI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_TRUNG_TRAC_MILITARY_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_TRUNG_TRAC_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_XERXES_MILITARY_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_XERXES_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<!-- LEADER MILITARY VICTORY MODERN -->
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AMINA_MILITARY_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_AMINA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ASHOKA_MILITARY_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_ASHOKA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AUGUSTUS_MILITARY_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_AUGUSTUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_BENJAMIN_FRANKLIN_MILITARY_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_BENJAMIN_FRANKLIN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CATHERINE_MILITARY_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_CATHERINE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CHARLEMAGNE_MILITARY_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_CHARLEMAGNE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_MILITARY_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_CONFUCIUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_FRIEDRICH_MILITARY_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_FRIEDRICH_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HARRIET_TUBMAN_MILITARY_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_HARRIET_TUBMAN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_MILITARY_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_HATSHEPSUT_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HIMIKO_MILITARY_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_HIMIKO_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_IBN_BATTUTA_MILITARY_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_IBN_BATTUTA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ISABELLA_MILITARY_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_ISABELLA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_MILITARY_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_JOSE_RIZAL_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_LAFAYETTE_MILITARY_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_LAFAYETTE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_MACHIAVELLI_MILITARY_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_MACHIAVELLI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_PACHACUTI_MILITARY_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_PACHACUTI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_TRUNG_TRAC_MILITARY_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_TRUNG_TRAC_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_XERXES_MILITARY_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_XERXES_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<!-- LEADER ECONOMIC VICTORY ANTIQUITY -->
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AMINA_ECONOMIC_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_AMINA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ASHOKA_ECONOMIC_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_ASHOKA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AUGUSTUS_ECONOMIC_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_AUGUSTUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_BENJAMIN_FRANKLIN_ECONOMIC_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_BENJAMIN_FRANKLIN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CATHERINE_ECONOMIC_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_CATHERINE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CHARLEMAGNE_ECONOMIC_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_CHARLEMAGNE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_ECONOMIC_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_CONFUCIUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_FRIEDRICH_ECONOMIC_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_FRIEDRICH_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HARRIET_TUBMAN_ECONOMIC_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_HARRIET_TUBMAN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_ECONOMIC_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_HATSHEPSUT_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HIMIKO_ECONOMIC_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_HIMIKO_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_IBN_BATTUTA_ECONOMIC_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_IBN_BATTUTA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ISABELLA_ECONOMIC_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_ISABELLA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_ECONOMIC_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_JOSE_RIZAL_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_LAFAYETTE_ECONOMIC_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_LAFAYETTE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_MACHIAVELLI_ECONOMIC_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_MACHIAVELLI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_PACHACUTI_ECONOMIC_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_PACHACUTI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_TRUNG_TRAC_ECONOMIC_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_TRUNG_TRAC_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_XERXES_ECONOMIC_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_XERXES_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<!-- LEADER ECONOMIC VICTORY EXPLORATION -->
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AMINA_ECONOMIC_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_AMINA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ASHOKA_ECONOMIC_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_ASHOKA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AUGUSTUS_ECONOMIC_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_AUGUSTUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_BENJAMIN_FRANKLIN_ECONOMIC_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_BENJAMIN_FRANKLIN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CATHERINE_ECONOMIC_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_CATHERINE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CHARLEMAGNE_ECONOMIC_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_CHARLEMAGNE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_ECONOMIC_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_CONFUCIUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_FRIEDRICH_ECONOMIC_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_FRIEDRICH_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HARRIET_TUBMAN_ECONOMIC_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_HARRIET_TUBMAN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_ECONOMIC_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_HATSHEPSUT_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HIMIKO_ECONOMIC_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_HIMIKO_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_IBN_BATTUTA_ECONOMIC_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_IBN_BATTUTA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ISABELLA_ECONOMIC_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_ISABELLA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_ECONOMIC_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_JOSE_RIZAL_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_LAFAYETTE_ECONOMIC_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_LAFAYETTE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_MACHIAVELLI_ECONOMIC_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_MACHIAVELLI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_PACHACUTI_ECONOMIC_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_PACHACUTI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_TRUNG_TRAC_ECONOMIC_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_TRUNG_TRAC_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_XERXES_ECONOMIC_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_XERXES_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<!-- LEADER ECONOMIC VICTORY MODERN -->
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AMINA_ECONOMIC_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_AMINA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ASHOKA_ECONOMIC_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_ASHOKA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AUGUSTUS_ECONOMIC_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_AUGUSTUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_BENJAMIN_FRANKLIN_ECONOMIC_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_BENJAMIN_FRANKLIN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CATHERINE_ECONOMIC_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_CATHERINE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CHARLEMAGNE_ECONOMIC_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_CHARLEMAGNE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_ECONOMIC_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_CONFUCIUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_FRIEDRICH_ECONOMIC_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_FRIEDRICH_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HARRIET_TUBMAN_ECONOMIC_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_HARRIET_TUBMAN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_ECONOMIC_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_HATSHEPSUT_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HIMIKO_ECONOMIC_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_HIMIKO_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_IBN_BATTUTA_ECONOMIC_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_IBN_BATTUTA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ISABELLA_ECONOMIC_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_ISABELLA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_ECONOMIC_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_JOSE_RIZAL_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_LAFAYETTE_ECONOMIC_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_LAFAYETTE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_MACHIAVELLI_ECONOMIC_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_MACHIAVELLI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_PACHACUTI_ECONOMIC_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_PACHACUTI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_TRUNG_TRAC_ECONOMIC_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_TRUNG_TRAC_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_XERXES_ECONOMIC_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_XERXES_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<!-- LEADER SCIENCE VICTORY ANTIQUITY -->
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AMINA_SCIENCE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_AMINA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ASHOKA_SCIENCE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_ASHOKA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AUGUSTUS_SCIENCE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_AUGUSTUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_BENJAMIN_FRANKLIN_SCIENCE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_BENJAMIN_FRANKLIN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CATHERINE_SCIENCE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_CATHERINE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CHARLEMAGNE_SCIENCE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_CHARLEMAGNE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_SCIENCE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_CONFUCIUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_FRIEDRICH_SCIENCE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_FRIEDRICH_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HARRIET_TUBMAN_SCIENCE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_HARRIET_TUBMAN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_SCIENCE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_HATSHEPSUT_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HIMIKO_SCIENCE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_HIMIKO_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_IBN_BATTUTA_SCIENCE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_IBN_BATTUTA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ISABELLA_SCIENCE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_ISABELLA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_SCIENCE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_JOSE_RIZAL_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_LAFAYETTE_SCIENCE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_LAFAYETTE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_MACHIAVELLI_SCIENCE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_MACHIAVELLI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_PACHACUTI_SCIENCE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_PACHACUTI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_TRUNG_TRAC_SCIENCE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_TRUNG_TRAC_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_XERXES_SCIENCE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_XERXES_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<!-- LEADER SCIENCE VICTORY EXPLORATION -->
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AMINA_SCIENCE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_AMINA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ASHOKA_SCIENCE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_ASHOKA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AUGUSTUS_SCIENCE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_AUGUSTUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_BENJAMIN_FRANKLIN_SCIENCE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_BENJAMIN_FRANKLIN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CATHERINE_SCIENCE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_CATHERINE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CHARLEMAGNE_SCIENCE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_CHARLEMAGNE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_SCIENCE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_CONFUCIUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_FRIEDRICH_SCIENCE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_FRIEDRICH_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HARRIET_TUBMAN_SCIENCE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_HARRIET_TUBMAN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_SCIENCE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_HATSHEPSUT_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HIMIKO_SCIENCE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_HIMIKO_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_IBN_BATTUTA_SCIENCE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_IBN_BATTUTA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ISABELLA_SCIENCE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_ISABELLA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_SCIENCE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_JOSE_RIZAL_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_LAFAYETTE_SCIENCE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_LAFAYETTE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_MACHIAVELLI_SCIENCE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_MACHIAVELLI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_PACHACUTI_SCIENCE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_PACHACUTI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_TRUNG_TRAC_SCIENCE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_TRUNG_TRAC_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_XERXES_SCIENCE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_XERXES_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<!-- LEADER SCIENCE VICTORY MODERN -->
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AMINA_SCIENCE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_AMINA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ASHOKA_SCIENCE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_ASHOKA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AUGUSTUS_SCIENCE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_AUGUSTUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_BENJAMIN_FRANKLIN_SCIENCE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_BENJAMIN_FRANKLIN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CATHERINE_SCIENCE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_CATHERINE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CHARLEMAGNE_SCIENCE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_CHARLEMAGNE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_SCIENCE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_CONFUCIUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_FRIEDRICH_SCIENCE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_FRIEDRICH_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HARRIET_TUBMAN_SCIENCE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_HARRIET_TUBMAN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_SCIENCE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_HATSHEPSUT_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HIMIKO_SCIENCE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_HIMIKO_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_IBN_BATTUTA_SCIENCE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_IBN_BATTUTA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ISABELLA_SCIENCE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_ISABELLA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_SCIENCE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_JOSE_RIZAL_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_LAFAYETTE_SCIENCE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_LAFAYETTE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_MACHIAVELLI_SCIENCE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_MACHIAVELLI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_PACHACUTI_SCIENCE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_PACHACUTI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_TRUNG_TRAC_SCIENCE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_TRUNG_TRAC_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_XERXES_SCIENCE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_XERXES_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<!-- LEADER CULTURE VICTORY ANTIQUITY -->
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AMINA_CULTURE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_AMINA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ASHOKA_CULTURE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_ASHOKA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AUGUSTUS_CULTURE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_AUGUSTUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_BENJAMIN_FRANKLIN_CULTURE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_BENJAMIN_FRANKLIN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CATHERINE_CULTURE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_CATHERINE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CHARLEMAGNE_CULTURE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_CHARLEMAGNE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_CULTURE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_CONFUCIUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_FRIEDRICH_CULTURE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_FRIEDRICH_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HARRIET_TUBMAN_CULTURE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_HARRIET_TUBMAN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_CULTURE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_HATSHEPSUT_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HIMIKO_CULTURE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_HIMIKO_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_IBN_BATTUTA_CULTURE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_IBN_BATTUTA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ISABELLA_CULTURE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_ISABELLA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_CULTURE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_JOSE_RIZAL_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_LAFAYETTE_CULTURE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_LAFAYETTE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_MACHIAVELLI_CULTURE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_MACHIAVELLI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_PACHACUTI_CULTURE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_PACHACUTI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_TRUNG_TRAC_CULTURE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_TRUNG_TRAC_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_XERXES_CULTURE_VICTORY_ANTIQUITY" event="CHALLENGE_EVENT_LEADER_XERXES_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<!-- LEADER CULTURE VICTORY EXPLORATION -->
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AMINA_CULTURE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_AMINA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ASHOKA_CULTURE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_ASHOKA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AUGUSTUS_CULTURE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_AUGUSTUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_BENJAMIN_FRANKLIN_CULTURE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_BENJAMIN_FRANKLIN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CATHERINE_CULTURE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_CATHERINE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CHARLEMAGNE_CULTURE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_CHARLEMAGNE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_CULTURE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_CONFUCIUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_FRIEDRICH_CULTURE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_FRIEDRICH_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HARRIET_TUBMAN_CULTURE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_HARRIET_TUBMAN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_CULTURE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_HATSHEPSUT_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HIMIKO_CULTURE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_HIMIKO_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_IBN_BATTUTA_CULTURE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_IBN_BATTUTA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ISABELLA_CULTURE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_ISABELLA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_CULTURE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_JOSE_RIZAL_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_LAFAYETTE_CULTURE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_LAFAYETTE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_MACHIAVELLI_CULTURE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_MACHIAVELLI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_PACHACUTI_CULTURE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_PACHACUTI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_TRUNG_TRAC_CULTURE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_TRUNG_TRAC_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_XERXES_CULTURE_VICTORY_EXPLORATION" event="CHALLENGE_EVENT_LEADER_XERXES_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<!-- LEADER CULTURE VICTORY MODERN -->
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AMINA_CULTURE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_AMINA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ASHOKA_CULTURE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_ASHOKA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AUGUSTUS_CULTURE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_AUGUSTUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_BENJAMIN_FRANKLIN_CULTURE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_BENJAMIN_FRANKLIN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CATHERINE_CULTURE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_CATHERINE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CHARLEMAGNE_CULTURE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_CHARLEMAGNE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_CULTURE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_CONFUCIUS_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_FRIEDRICH_CULTURE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_FRIEDRICH_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HARRIET_TUBMAN_CULTURE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_HARRIET_TUBMAN_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_CULTURE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_HATSHEPSUT_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HIMIKO_CULTURE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_HIMIKO_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_IBN_BATTUTA_CULTURE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_IBN_BATTUTA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ISABELLA_CULTURE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_ISABELLA_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_CULTURE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_JOSE_RIZAL_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_LAFAYETTE_CULTURE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_LAFAYETTE_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_MACHIAVELLI_CULTURE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_MACHIAVELLI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_PACHACUTI_CULTURE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_PACHACUTI_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_TRUNG_TRAC_CULTURE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_TRUNG_TRAC_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_XERXES_CULTURE_VICTORY_MODERN" event="CHALLENGE_EVENT_LEADER_XERXES_VICTORY_ACHIEVED">
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+		</statistic>
+		<!-- LEADER AGE ANTIQUITY COMPLETED -->
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AMINA_ANTIQUITY_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_AMINA_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ASHOKA_ANTIQUITY_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_ASHOKA_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AUGUSTUS_ANTIQUITY_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_AUGUSTUS_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_BENJAMIN_FRANKLIN_ANTIQUITY_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_BENJAMIN_FRANKLIN_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CATHERINE_ANTIQUITY_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_CATHERINE_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CHARLEMAGNE_ANTIQUITY_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_CHARLEMAGNE_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_ANTIQUITY_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_CONFUCIUS_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_FRIEDRICH_ANTIQUITY_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_FRIEDRICH_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HARRIET_TUBMAN_ANTIQUITY_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_HARRIET_TUBMAN_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_ANTIQUITY_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_HATSHEPSUT_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HIMIKO_ANTIQUITY_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_HIMIKO_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_IBN_BATTUTA_ANTIQUITY_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_IBN_BATTUTA_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ISABELLA_ANTIQUITY_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_ISABELLA_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_ANTIQUITY_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_JOSE_RIZAL_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_LAFAYETTE_ANTIQUITY_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_LAFAYETTE_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_MACHIAVELLI_ANTIQUITY_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_MACHIAVELLI_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_PACHACUTI_ANTIQUITY_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_PACHACUTI_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_TRUNG_TRAC_ANTIQUITY_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_TRUNG_TRAC_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_XERXES_ANTIQUITY_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_XERXES_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+			</rules>
+		</statistic>
+		<!-- LEADER AGE EXPLORATION COMPLETED -->
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AMINA_EXPLORATION_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_AMINA_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_EXPLORATION</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ASHOKA_EXPLORATION_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_ASHOKA_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_EXPLORATION</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AUGUSTUS_EXPLORATION_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_AUGUSTUS_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_EXPLORATION</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_BENJAMIN_FRANKLIN_EXPLORATION_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_BENJAMIN_FRANKLIN_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_EXPLORATION</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CATHERINE_EXPLORATION_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_CATHERINE_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_EXPLORATION</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CHARLEMAGNE_EXPLORATION_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_CHARLEMAGNE_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_EXPLORATION</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_EXPLORATION_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_CONFUCIUS_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_EXPLORATION</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_FRIEDRICH_EXPLORATION_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_FRIEDRICH_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_EXPLORATION</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HARRIET_TUBMAN_EXPLORATION_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_HARRIET_TUBMAN_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_EXPLORATION</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_EXPLORATION_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_HATSHEPSUT_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_EXPLORATION</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HIMIKO_EXPLORATION_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_HIMIKO_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_EXPLORATION</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_IBN_BATTUTA_EXPLORATION_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_IBN_BATTUTA_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_EXPLORATION</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ISABELLA_EXPLORATION_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_ISABELLA_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_EXPLORATION</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_EXPLORATION_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_JOSE_RIZAL_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_EXPLORATION</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_LAFAYETTE_EXPLORATION_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_LAFAYETTE_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_EXPLORATION</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_MACHIAVELLI_EXPLORATION_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_MACHIAVELLI_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_EXPLORATION</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_PACHACUTI_EXPLORATION_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_PACHACUTI_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_EXPLORATION</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_TRUNG_TRAC_EXPLORATION_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_TRUNG_TRAC_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_EXPLORATION</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_XERXES_EXPLORATION_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_XERXES_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_EXPLORATION</rule>
+			</rules>
+		</statistic>
+		<!-- LEADER AGE MODERN COMPLETED -->
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AMINA_MODERN_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_AMINA_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_MODERN</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ASHOKA_MODERN_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_ASHOKA_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_MODERN</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AUGUSTUS_MODERN_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_AUGUSTUS_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_MODERN</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_BENJAMIN_FRANKLIN_MODERN_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_BENJAMIN_FRANKLIN_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_MODERN</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CATHERINE_MODERN_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_CATHERINE_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_MODERN</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CHARLEMAGNE_MODERN_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_CHARLEMAGNE_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_MODERN</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_MODERN_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_CONFUCIUS_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_MODERN</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_FRIEDRICH_MODERN_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_FRIEDRICH_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_MODERN</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HARRIET_TUBMAN_MODERN_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_HARRIET_TUBMAN_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_MODERN</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_MODERN_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_HATSHEPSUT_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_MODERN</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HIMIKO_MODERN_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_HIMIKO_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_MODERN</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_IBN_BATTUTA_MODERN_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_IBN_BATTUTA_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_MODERN</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ISABELLA_MODERN_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_ISABELLA_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_MODERN</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_MODERN_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_JOSE_RIZAL_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_MODERN</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_LAFAYETTE_MODERN_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_LAFAYETTE_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_MODERN</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_MACHIAVELLI_MODERN_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_MACHIAVELLI_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_MODERN</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_PACHACUTI_MODERN_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_PACHACUTI_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_MODERN</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_TRUNG_TRAC_MODERN_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_TRUNG_TRAC_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_MODERN</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_XERXES_MODERN_AGES_COMPLETED" event="CHALLENGE_EVENT_LEADER_XERXES_AGE_ENDED">
+			<rules>
+				<rule type="equals" var="age">AGE_MODERN</rule>
+			</rules>
+		</statistic>
+		<!-- LEADER LEGACY MILESTONE -->
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AMINA_LEGACY_PATH_MILESTONE_COMPLETED" event="CHALLENGE_EVENT_LEADER_AMINA_LEGACY_PATH_MILESTONE_COMPLETED"/>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ASHOKA_LEGACY_PATH_MILESTONE_COMPLETED" event="CHALLENGE_EVENT_LEADER_ASHOKA_LEGACY_PATH_MILESTONE_COMPLETED"/>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_AUGUSTUS_LEGACY_PATH_MILESTONE_COMPLETED" event="CHALLENGE_EVENT_LEADER_AUGUSTUS_LEGACY_PATH_MILESTONE_COMPLETED"/>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_BENJAMIN_FRANKLIN_LEGACY_PATH_MILESTONE_COMPLETED" event="CHALLENGE_EVENT_LEADER_BENJAMIN_FRANKLIN_LEGACY_PATH_MILESTONE_COMPLETED"/>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CATHERINE_LEGACY_PATH_MILESTONE_COMPLETED" event="CHALLENGE_EVENT_LEADER_CATHERINE_LEGACY_PATH_MILESTONE_COMPLETED"/>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CHARLEMAGNE_LEGACY_PATH_MILESTONE_COMPLETED" event="CHALLENGE_EVENT_LEADER_CHARLEMAGNE_LEGACY_PATH_MILESTONE_COMPLETED"/>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_CONFUCIUS_LEGACY_PATH_MILESTONE_COMPLETED" event="CHALLENGE_EVENT_LEADER_CONFUCIUS_LEGACY_PATH_MILESTONE_COMPLETED"/>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_FRIEDRICH_LEGACY_PATH_MILESTONE_COMPLETED" event="CHALLENGE_EVENT_LEADER_FRIEDRICH_LEGACY_PATH_MILESTONE_COMPLETED"/>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HARRIET_TUBMAN_LEGACY_PATH_MILESTONE_COMPLETED" event="CHALLENGE_EVENT_LEADER_HARRIET_TUBMAN_LEGACY_PATH_MILESTONE_COMPLETED"/>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_LEGACY_PATH_MILESTONE_COMPLETED" event="CHALLENGE_EVENT_LEADER_HATSHEPSUT_LEGACY_PATH_MILESTONE_COMPLETED"/>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_HIMIKO_LEGACY_PATH_MILESTONE_COMPLETED" event="CHALLENGE_EVENT_LEADER_HIMIKO_LEGACY_PATH_MILESTONE_COMPLETED"/>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_IBN_BATTUTA_LEGACY_PATH_MILESTONE_COMPLETED" event="CHALLENGE_EVENT_LEADER_IBN_BATTUTA_LEGACY_PATH_MILESTONE_COMPLETED"/>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_ISABELLA_LEGACY_PATH_MILESTONE_COMPLETED" event="CHALLENGE_EVENT_LEADER_ISABELLA_LEGACY_PATH_MILESTONE_COMPLETED"/>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_LEGACY_PATH_MILESTONE_COMPLETED" event="CHALLENGE_EVENT_LEADER_JOSE_RIZAL_LEGACY_PATH_MILESTONE_COMPLETED"/>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_LAFAYETTE_LEGACY_PATH_MILESTONE_COMPLETED" event="CHALLENGE_EVENT_LEADER_LAFAYETTE_LEGACY_PATH_MILESTONE_COMPLETED"/>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_MACHIAVELLI_LEGACY_PATH_MILESTONE_COMPLETED" event="CHALLENGE_EVENT_LEADER_MACHIAVELLI_LEGACY_PATH_MILESTONE_COMPLETED"/>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_PACHACUTI_LEGACY_PATH_MILESTONE_COMPLETED" event="CHALLENGE_EVENT_LEADER_PACHACUTI_LEGACY_PATH_MILESTONE_COMPLETED"/>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_TRUNG_TRAC_LEGACY_PATH_MILESTONE_COMPLETED" event="CHALLENGE_EVENT_LEADER_TRUNG_TRAC_LEGACY_PATH_MILESTONE_COMPLETED"/>
+		<statistic id="CHALLENGE_STATISTIC_LEADER_XERXES_LEGACY_PATH_MILESTONE_COMPLETED" event="CHALLENGE_EVENT_LEADER_XERXES_LEGACY_PATH_MILESTONE_COMPLETED"/>
+		<!-- LEADER LEGACY MILESTONE -->
+		<statistic id="CHALLENGE_STATISTIC_FIRST_PLACE_MILITARY_VICTORY" event="CHALLENGE_EVENT_FIRST_PLACE_VICTORY">
+			<rules>
+				<rule type="equals" var="victoryType">VICTORY_CLASS_MILITARY</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_FIRST_PLACE_CULTURE_VICTORY" event="CHALLENGE_EVENT_FIRST_PLACE_VICTORY">
+			<rules>
+				<rule type="equals" var="victoryType">VICTORY_CLASS_CULTURE</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_FIRST_PLACE_SCIENCE_VICTORY" event="CHALLENGE_EVENT_FIRST_PLACE_VICTORY">
+			<rules>
+				<rule type="equals" var="victoryType">VICTORY_CLASS_SCIENCE</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_FIRST_PLACE_ECONOMIC_VICTORY" event="CHALLENGE_EVENT_FIRST_PLACE_VICTORY">
+			<rules>
+				<rule type="equals" var="victoryType">VICTORY_CLASS_ECONOMIC</rule>
+			</rules>
+		</statistic>
+		<statistic id="CHALLENGE_STATISTIC_CELEBRATIONS_TRIGGERED" event="CHALLENGE_EVENT_FOUNDATION_INCREMENTALS_CELEBRATION_TRIGGERED"/>
+		<statistic id="CHALLENGE_STATISTIC_WONDER_BUILT" event="CHALLENGE_EVENT_FOUNDATION_INCREMENTALS_WONDER_BUILT"/>
+		<statistic id="CHALLENGE_STATISTIC_AGES_COMPLETED" event="CHALLENGE_EVENT_AGE_ENDED"/>
+		<statistic id="CHALLENGE_STATISTIC_COMMANDER_PROMOTIONS" event="CHALLENGE_EVENT_FOUNDATION_INCREMENTALS_COMMANDER_PROMOTIONS"/>
+		<statistic id="CHALLENGE_STATISTIC_ATTRIBUTE_POINTS_SPENT" event="CHALLENGE_EVENT_FOUNDATION_INCREMENTALS_ATTRIBUTE_POINTS_SPENT"/>
+		<statistic id="CHALLENGE_STATISTIC_NATURAL_WONDERS_DISCOVERED" event="CHALLENGE_EVENT_FOUNDATION_INCREMENTALS_NATURAL_WONDER_DISCOVERED"/>
+		<statistic id="CHALLENGE_STATISTIC_TECHNOLOGY_UNLOCKED_PROGRESS" event="CHALLENGE_EVENT_FOUNDATION_INCREMENTALS_TECHNOLOGY_UNLOCKED"/>
+		<statistic id="CHALLENGE_STATISTIC_TRADE_ROUTES_ESTABLISHED" event="CHALLENGE_EVENT_FOUNDATION_INCREMENTALS_TRADE_ROUTES_ESTABLISHED"/>
+		<statistic id="CHALLENGE_STATISTIC_SETTLEMENT_ESTABLISHED_PROGRESS" event="CHALLENGE_EVENT_FOUNDATION_INCREMENTALS_SETTLEMENT_ESTABLISHED"/>
+		<statistic id="CHALLENGE_STATISTIC_CIVIC_UNLOCKED_PROGRESS" event="CHALLENGE_EVENT_FOUNDATION_INCREMENTALS_CIVIC_UNLOCKED"/>
+		<statistic id="CHALLENGE_STATISTIC_DIPLOMACY_ACTIONS_UNLOCKED_PROGRESS" event="CHALLENGE_EVENT_FOUNDATION_INCREMENTALS_DIPLOMACY_ACTION_UNLOCKED"/>
+		<statistic id="CHALLENGE_STATISTIC_TURNS_PLAYED_PROGRESS" event="CHALLENGE_EVENT_FOUNDATION_INCREMENTALS_TURNS_PLAYED"/>
+		<statistic id="CHALLENGE_STATISTIC_DISCOVERY_TRIGGERED" event="CHALLENGE_EVENT_FOUNDATION_INCREMENTALS_DISCOVERY_TRIGGERED"/>
+		<statistic id="CHALLENGE_STATISTIC_STORYLETS_TRIGGERED" event="CHALLENGE_EVENT_FOUNDATION_INCREMENTALS_STORYLETS_SEEN"/>
+		<!-- MONTHLY CHALLENGES -->
+		<!-- Monthly challege stats should be unique stats and not shared with other base stats so that they do not unlock automatically -->
+		<statistic id="CHALLENGE_STATISTIC_MONTHLY_BUILD_WONDERS_PROGRESS" event="CHALLENGE_EVENT_MONTHLY_BUILD_WONDERS_TRIGGERED"/>
+		<statistic id="CHALLENGE_STATISTIC_MONTHLY_GREAT_WORKS_PROGRESS" event="CHALLENGE_EVENT_MONTHLY_GREAT_WORKS_TRIGGERED"/>
+		<statistic id="CHALLENGE_STATISTIC_MONTHLY_BUILD_UNITS_PROGRESS" event="CHALLENGE_EVENT_MONTHLY_BUILD_UNITS_TRIGGERED"/>
+		<statistic id="CHALLENGE_STATISTIC_MONTHLY_KILL_UNITS_PROGRESS" event="CHALLENGE_EVENT_MONTHLY_KILL_UNITS_TRIGGERED"/>
+		<statistic id="CHALLENGE_STATISTIC_MONTHLY_GAIN_GOLD_PROGRESS" event="CHALLENGE_EVENT_MONTHLY_GAIN_GOLD_TRIGGERED"/>
+	</statistics>
+</metaprogression>

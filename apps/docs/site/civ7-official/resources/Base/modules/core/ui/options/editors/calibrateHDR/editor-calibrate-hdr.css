@@ -1,0 +1,35 @@
+/* DO NOT EDIT */
+/* Generated from editor-calibrate-hdr.scss */
+.editor-calibrate-hdr__row:hover, .editor-calibrate-hdr__row:focus-within {
+	background: linear-gradient(to right, #875d2f 0%, rgba(135, 93, 47, 0.5) 20%, rgba(135, 93, 47, 0) 30%, rgba(135, 93, 47, 0) 100%);
+	border-image-source: url("fs://game/hud_list-focus_frame.png");
+	border-image-slice: 24 32 24 32 fill;
+	border-image-outset: 0.3888888889rem;
+	border-image-width: 1.3333333333rem 1.7777777778rem 1.3333333333rem 1.7777777778rem;
+}
+
+@media (max-height: 55.5555555556rem) {
+	.editor-calibrate-hdr_main-content {
+		padding: 0.4444444444rem;
+	}
+	.editor-calibrate-hdr_main-content .editor-calibrate-hdr_frame {
+		padding-top: 1.3333333333rem;
+		padding-bottom: 0.6666666667rem;
+	}
+	.editor-calibrate-hdr_main-content .img-frame-filigree {
+		margin-top: 0.6666666667rem;
+	}
+}
+
+.editor-calibrate-hdr-ui-panel {
+	width: 35%;
+}
+@media (max-height: 55.5555555556rem) {
+	.editor-calibrate-hdr-ui-panel {
+		width: 48%;
+		padding: 1.1111111111rem 1.1111111111rem 0rem 0.3333333333rem;
+	}
+	.editor-calibrate-hdr-ui-panel .editor-calibrate-hdr-2nd-item {
+		display: none;
+	}
+}

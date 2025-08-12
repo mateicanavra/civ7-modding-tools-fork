@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Ibn Battuta Main Menu Char Select Text-->
+		<Row Tag="LOC_MAIN_CHAR_SELECT_LEADER_IBN_BATTUTA_ANY">
+			<Text>Come, and we will walk strange shores and make them familiar. And on returning find our familiar shores strange. </Text>
+		</Row>
+
+		<!--Ibn Battuta Statement Text-->
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_IBN_BATTUTA_ANY">
+			<Text>We are well met upon the traveler's road. At least I hope so! </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_IBN_BATTUTA_ANY">
+			<Text>We are well met upon the traveler's road. At least I hope so! </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_IBN_BATTUTA_ANY">
+			<Text>We are well met upon the traveler's road. At least I hope so! </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_IBN_BATTUTA_ANY">
+			<Text>I am no soldier. But I employ them. Here they come.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_IBN_BATTUTA_ANY">
+			<Text>A future traveler will not be able to tell our dead from yours.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DEFEAT_AI_LEADER_IBN_BATTUTA_ANY">
+			<Text>In the empty plain I have seen men's forms turned to stone, and all around them their cities nothing but dust. Is that me? Shall I gaze sightless upon the plain for all eternity? Ah, what a fate.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_IBN_BATTUTA">
+			<Text>A righteous development.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_IBN_BATTUTA">
+			<Text>I fear I cannot.</Text>
+		</Row>
+	</EnglishText>
+</Database>

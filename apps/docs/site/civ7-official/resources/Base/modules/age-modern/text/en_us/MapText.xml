@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--Routes-->
+		<Row Tag="LOC_ROUTE_RAILROAD_NAME">
+			<Text>Railroad</Text>
+		</Row>
+		<Row Tag="LOC_ROUTE_RAILROAD_DESCRIPTION">
+			<Text>A ribbon of steel created to allow speedy transit between Settlements.</Text>
+		</Row>
+		<Row Tag="LOC_ROUTE_STAATSEISENBAHN_NAME">
+			<Text>Staatseisenbahn</Text>
+		</Row>
+		<Row Tag="LOC_ROUTE_STAATSEISENBAHN_DESCRIPTION">
+			<Text>Prussian Unique Railroad. +2[icon:YIELD_GOLD] Gold and[icon:YIELD_PRODUCTION] Production on Rural tiles with a Staatseisenbahn.</Text>
+		</Row>
+		<Row Tag="LOC_ROUTE_STAATSEISENBAHN_TOOLTIP">
+			<Text>Prussian Unique Railroad.</Text>
+		</Row>
+	</EnglishText>
+</Database>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--Artifacts-->
+		<Row Tag="LOC_GREATWORK_ARTIFACT_CONTESTED_STATUE_NAME">
+			<Text>Contested Statue</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_KOH_I_NOOR_NAME">
+			<Text>Koh-i-Noor</Text>
+		</Row>
+	</EnglishText>
+</Database>

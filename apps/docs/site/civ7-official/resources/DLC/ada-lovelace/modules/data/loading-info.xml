@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LoadingInfo_Leaders>
+		<Row LeaderType="LEADER_ADA_LOVELACE" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_ADA_LOVELACE" LeaderImage="blp:lsl_ada_lovelace.png" Audio="VO_Loading2_DLC01_AdaLovelace"/>
+	</LoadingInfo_Leaders>
+</Database>

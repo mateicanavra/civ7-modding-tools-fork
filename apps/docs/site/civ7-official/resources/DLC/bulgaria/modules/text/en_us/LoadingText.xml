@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_LOADING_CIV_INTRO_TEXT_BULGARIA">
+			<Text>Atop the high peaks, the monks send their prayers skyward, and on the plains below, the trumpet sounds. Bulgaria rides, with swords guided by faith and faith stronger than steel. Raise the war-horn and the saber, the arkani and the long spear, and set the Bulgars loose upon the world.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_INTRO_BULGARIA">
+			<Text>As the horseman tramples the dragon, Bulgaria shall overrun the earth.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIPS_TEXT_BULGARIA">
+			<Text>Pair your Unique Ability, Krum's Dynasty, with the False Retreat and Stratagems Traditions to receive hefty yield bonuses from pillaging. Just be careful attacking Fortified Settlements!</Text>
+		</Row>
+	</EnglishText>
+</Database>

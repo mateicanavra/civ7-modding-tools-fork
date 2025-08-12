@@ -1,0 +1,686 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_NEPAL1" Language="ja_JP">
+      <Text>カトマンズ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL10" Language="ja_JP">
+      <Text>ジャナクプルダム</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL11" Language="ja_JP">
+      <Text>ジュムラ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL12" Language="ja_JP">
+      <Text>ビラートナガル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL13" Language="ja_JP">
+      <Text>トゥルシプール</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL14" Language="ja_JP">
+      <Text>ブトワル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL15" Language="ja_JP">
+      <Text>ゴダワリ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL16" Language="ja_JP">
+      <Text>ネパールガンジ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL17" Language="ja_JP">
+      <Text>ゴラヒ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL18" Language="ja_JP">
+      <Text>ルンビニ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL19" Language="ja_JP">
+      <Text>ナガルコート</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL2" Language="ja_JP">
+      <Text>ポカラ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL20" Language="ja_JP">
+      <Text>ドゥリケル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL21" Language="ja_JP">
+      <Text>カライヤ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL22" Language="ja_JP">
+      <Text>ダマク</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL23" Language="ja_JP">
+      <Text>ムスタン</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL24" Language="ja_JP">
+      <Text>ガイガート</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL25" Language="ja_JP">
+      <Text>ビルガンジ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL26" Language="ja_JP">
+      <Text>サンクー</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL27" Language="ja_JP">
+      <Text>ダンガルヒ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL28" Language="ja_JP">
+      <Text>イナルワシラ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL29" Language="ja_JP">
+      <Text>アムレクガンジ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL3" Language="ja_JP">
+      <Text>ラリトプル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL30" Language="ja_JP">
+      <Text>タラケシュワル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL4" Language="ja_JP">
+      <Text>バラトプル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL5" Language="ja_JP">
+      <Text>ガハワ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL6" Language="ja_JP">
+      <Text>ダーラン</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL7" Language="ja_JP">
+      <Text>ヘトウラ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL8" Language="ja_JP">
+      <Text>ビレンドラナガル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL9" Language="ja_JP">
+      <Text>イタハリ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_1" Language="ja_JP">
+      <Text>シャムバーフ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_10" Language="ja_JP">
+      <Text>アヌスカ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_2" Language="ja_JP">
+      <Text>スネーハ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_3" Language="ja_JP">
+      <Text>サリタ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_4" Language="ja_JP">
+      <Text>アミタ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_5" Language="ja_JP">
+      <Text>アリナ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_6" Language="ja_JP">
+      <Text>タニシャ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_7" Language="ja_JP">
+      <Text>レシュマ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_8" Language="ja_JP">
+      <Text>シュリーヤ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_9" Language="ja_JP">
+      <Text>ソニーヤ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_1" Language="ja_JP">
+      <Text>ビベク</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_10" Language="ja_JP">
+      <Text>ウドガム</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_2" Language="ja_JP">
+      <Text>クリシュナ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_3" Language="ja_JP">
+      <Text>カマル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_4" Language="ja_JP">
+      <Text>プラサド</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_5" Language="ja_JP">
+      <Text>ガガン</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_6" Language="ja_JP">
+      <Text>ラム</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_7" Language="ja_JP">
+      <Text>ビシャル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_8" Language="ja_JP">
+      <Text>アミル</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_9" Language="ja_JP">
+      <Text>ローシャン</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_NEPAL_ADJECTIVE" Language="ja_JP">
+      <Text>ネパールの</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_NEPAL_FULLNAME" Language="ja_JP">
+      <Text>ネパール帝国</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_NEPAL_NAME" Language="ja_JP">
+      <Text>ネパール</Text>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_MODERN_23_MAJOR_NEPAL_NAME" Language="ja_JP">
+      <Text>プナカ</Text>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_MODERN_23_MINOR_NEPAL_NAME" Language="ja_JP">
+      <Text>ブータン</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>ネパールは世界の果てであり、同時に世界の中心でもある。地球上で最も高い山々の谷間にあるこの国は、世界有数の2つの大国に挟まれている。この地政学的な近さは交易の発達を促し、資源を手に入れやすいというメリットがあった。地形的な悪条件も、生き残りにはプラスに働いた。国内に目を向けると、ネパールには仏教徒が多くを占める高地の民族と、ヒンドゥー教徒が多数を占める低地の多数派が混在している。低地ではさまざまな国が興り、多かれ少なかれ高地と交流を持ってきた。当然そこにはある種の力関係が生じたが、それは支配というより共存に重きを置くものだった。国家の中心を形成したのは、ヒンドゥー教徒のネワール族やチェトリ族など、低地で暮らす人々だった。しかしそんな彼らも、交通や資源に関しては、タマン族やシェルパなど、高地の人々のネットワークに頼るところが大きかった。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_2" Language="ja_JP">
+      <Text>インド北部と国境を接し、高い山々の谷間に位置するネパールには、千年以上前からさまざまな王国が存在しており、そのいずれもが大国に朝貢していた。グプタ朝をはじめとする当時の大国の碑文をよく読めば、「ネパール」という名がちらほら見受けられる。ネパールが存在感を持ちはじめるのは10世紀にカトマンズが建設された頃だが、有力な勢力として頭角を現すのは、18世紀にプリトヴィ・ナラヤン・シャハがゴルカ朝ネパール王国を建国してからだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_3" Language="ja_JP">
+      <Text>当時のインドはイスラム教徒が支配するムガル帝国の統治下にあったが、ムガル軍は馬やラクダ、象で構成された騎兵部隊を主戦力としていたため、急峻なうえに冷え込みの厳しいこの谷間の国を支配するのは容易でなく、高地を通って中国に至る補給路を包囲することも不可能だった。こうしてネパールはヒンドゥー教徒の砦のような存在となり、南でイスラム教徒のスルタン国や帝国が争うのを尻目にその立場を守った。その後インドに侵出してきたイギリスも、この地域を支配下に置くのは無理と判断したが、グルカ戦争（1814年-1816年）によって貧弱な武器しか持たないネパールから領土的な譲歩を引き出し、ネパールを保護国とした。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_4" Language="ja_JP">
+      <Text>この保護国化は、後継のラナ王朝の時代には孤立主義へとつながっていったが、インド大反乱から第二次世界大戦に至るまで、この王朝はさまざまな紛争でイギリスと緊密に協調する姿勢をとった。ラナ王朝時代のネパールは、独裁的で孤立主義の国だった。独立を維持できたのは、巧みな同盟や厳しい地理的条件、地政学的かつ戦略的な立ち回りのおかげだった。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_5" Language="ja_JP">
+      <Text>ラナ家はクーデターと暗殺を駆使して実権を握り、宰相として君主を操った。時にはこうした権力を使って王族を殺害することすらあった。イギリスへの忠誠も、ラナ家なりの戦略的な立ち回りだった。独裁をはじめたジャンガ・バハドゥルは、イギリス本国で軍の施設を見学した際、彼我の軍事力の差をまざまざと見せつけられ、イギリスに戦いを挑むのは無謀だと思い定めたのだ。こうした背景により、ラナ家は1857年のインド大反乱ではイギリスの支援に回り、アフガニスタンとの戦争や二度の世界大戦では精鋭グルカ兵の軍団を派遣してイギリス軍と共闘した。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_6" Language="ja_JP">
+      <Text>この体制はやがて1950年代後半に崩壊を迎え、ラナ家の退場後は立憲君主制と君主制独裁が互いに争う不安定な時代がつづいた。不満が高じたあげく、共産主義にもとづく反政府運動まで起きている。2001年には多数の王族が殺害される痛ましい事件を経て王制は終焉に向かい、2008年に正式に廃止された。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_IMPROVEMENT_HIGHLAND_POWER_STATION_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>1911年、ネパールで初の水力発電所が稼働を開始した。アメリカとインドに水力発電が登場してまだ間がない頃である。たしかにこの国は水力発電に向いていそうだ。土地の高低差は大きく、ヒマラヤ山脈の斜面を流れ落ちる水量は膨大だからだ。しかしこの最初のプロジェクト以来、新たな発電所はなかなか増えていない。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_GORKHAPATRA_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>マスメディアは国民意識を形成する重要な存在だ。日刊紙『ゴルカパトラ』（「ネパール新聞」）は、首相官邸が中心となって運営されていたため、政府の広報機関のような役割を果たしていた。厳しい検閲を受けていたことは言うまでもない。創刊時の政権は倒れたが、 『ゴルカパトラ』は今も（政府との距離が近すぎるという批判は根強いものの）発行されつづけている。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_JYUMDO_BAGHA_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>アマル・シンハ・タパはネパールの「生ける虎」（ジュムド・バガ）と呼ばれた将軍で、イギリス・ネパール戦争（グルカ戦争）においてネパール軍の指揮をとったことで知られている。1800年初頭に起きたこの紛争は、富と資源を狙うイギリス東インド会社がネパールを支配しようとしたことに端を発する。戦力も装備もイギリス軍のほうが上回っていたが、地形やマラリアへの懸念に足を引っ張られ、戦争は激化した。結果としてはイギリスの勝利に終わったが、ネパール統治は限定的で、厳しく統制されたものにとどまった。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_SAGARMATHA_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>サガルマタとはチョモランマのネパール語名で、「空の女神」を意味する（チベット語では「世界の母」）。こうした名前に馴染みがなくても、英語名の「エベレスト」ならピンとくるだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_SAGARMATHA_CHAPTER_HISTORY_PARA_2" Language="ja_JP">
+      <Text>ネパールは大きな山々の背後に位置している。その峰はあまりにも高く、ここを超える過程で大気中の水分は雨や雪となってほとんど失われてしまう。実際、地球の生態系や地形は、こうした仕組みの産物だ。インド亜大陸を吹き抜ける熱く湿った風は、ここで湿気を失い、結果として山の南北の風景はまったく異なったものとなる。南側には肥沃な谷に木々がうっそうと生い茂り、北側には乾燥したチベット高原が広がっている。低地と高地、川と高地の砂漠、ヒンドゥー教徒のネパール人と仏教を信仰するチベット人... この境界は、社会の形成にも大きく関わっている。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_SINGHA_DURBAR_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>近代のネパールは、確固たる支配に基づいた主権国家である。これはある意味逆説的だ。というのも、ネパールの領土は民族的にも地理的にも分断されており、その気になれば攻めるのは難しくなさそうに見えるからだ。1908年に完成したシンハダルバール（獅子の宮殿）は、ラナ王朝の強固な支配を象徴する建物だ。ラナ家は宰相や高官の地位を世襲してきた一族で、かつては実権を握って王家を操り、対内的にも対外的にも強い支配権を行使した。そんなラナ家と縁の深いシンハダルバールだが、奴隷制の廃止やネパールの独立承認など、近代ネパールにとって重要な出来事の舞台となった場所でもある。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_GURKHA_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>「グルカ」という名前は「ゴルカ」を語源としている。ゴルカとは、近代ネパールの前身の一つである王国の名だ。しかし19世紀後半から20世紀初頭にかけて、グルカ兵は他国に派遣されて戦うネパール人の雇われ兵士を指すようになった。その雇い主の特筆に挙げられるのはイギリスだ。イギリス・ネパール戦争では敵として戦った両国だが、戦後、イギリスはネパール人兵士の忠誠心と闘争心に目を留め、グルカ兵で構成された大隊を編成して自軍に加えた。実際、グルカ兵は期待に応え、1857年のインド大反乱と2つの世界大戦ではイギリス軍の一員として戦っている。インド独立後もグルカ兵はイギリスのために戦いつづけたが、インド軍に加わった者も多かった。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_GURKHA_CHAPTER_HISTORY_PARA_2" Language="ja_JP">
+      <Text>グルカ兵のシンボルとして有名なのがククリだ。刃が前に向かって湾曲しているこのずっしりとしたナイフは、武器としてだけでなくナタとしても使うことができる。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_SHERPA_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>シェルパはチベット仏教を信仰するチベット系の少数民族だ。彼らはネパール、インド、ブータンの高地で暮らし、地球上のどこよりも標高の高いこうした土地で歴史を紡いできた。世界最高峰の山々へ勇敢に立ち向かうシェルパの評判はたちまち知れ渡り、今やシェルパといえば恐れを知らぬ登山家の代名詞となっている。中でもテンジン・ノルゲイは、人類初のエベレスト登頂に成功した2人の登山家のひとりとして有名だ。今日、シェルパはネパールの観光業に深く関わっており、特に国内の高い山々を巡るハイキング客のガイドとして活躍している。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_BOUDHANATH_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>ボダナートとは、ネパールの中心地に作られた仏教遺跡、ボダストゥーパ（巨大仏塔）を中心とする地区のことだ。ここはヒンドゥー教国であるネパールにおける仏教の聖地のような場所であり、僧院や礼拝所が集まっている。中心にそびえる仏塔は、白いドームとブッダの二つの目で知られ、カトマンズの街とネパール全体のシンボルとなっている。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_BOUDHANATH_CHAPTER_HISTORY_PARA_2" Language="ja_JP">
+      <Text>この仏塔は、天界から追放されたインドラ神の娘が、失われた功徳を積むために建てたのだとされている。言い伝えによれば、仏の教えをあまねく広めるため、僧たちはここから北の地やさらに高い山奥へと旅立っていったという。実際、雪に覆われた山々やチベットの高原にはネパールで数少ない仏教徒が暮らしているのだから、布教の努力は無駄ではなかったのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIGHLAND_POWER_STATION_NAME" Language="ja_JP">
+      <Text>高地発電所</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BOUDHANATH_NAME" Language="ja_JP">
+      <Text>ボダナート</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_BAGMATI_NAME" Language="ja_JP">
+      <Text>バグマティ川</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_BHERI_NAME" Language="ja_JP">
+      <Text>バリー川</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_GANDAKI_NAME" Language="ja_JP">
+      <Text>ガンダキ川</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_GHAGHARA_NAME" Language="ja_JP">
+      <Text>ガガラ川</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_KOSI_NAME" Language="ja_JP">
+      <Text>コシ川</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_DAHEI_SHAN_NAME" Language="ja_JP">
+      <Text>大黒山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_DHOSI_HILL_NAME" Language="ja_JP">
+      <Text>ドーシーヒル</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_KA_ER_DAXI_NAME" Language="ja_JP">
+      <Text>カエルダクシ</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_POPA_NAME" Language="ja_JP">
+      <Text>ポパ</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_TOSHAM_HILL_NAME" Language="ja_JP">
+      <Text>トシャム・ヒル</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_GORKHAPATRA_NAME" Language="ja_JP">
+      <Text>ゴルカパトラ</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_JYUMDO_BAGHA_NAME" Language="ja_JP">
+      <Text>ジュムド・バガ</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SAGARMATHA_NAME" Language="ja_JP">
+      <Text>サガルマタ</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SINGHA_DURBAR_NAME" Language="ja_JP">
+      <Text>シンハダルバール</Text>
+    </Replace>
+    <Replace Tag="LOC_11030A_COMPLETION" Language="ja_JP">
+      <Text>高山地帯で暮らす人々が、うずたかく積み上げた物資を背負い、険しい道を歩いてネパールの谷を下る。ネパールは山に守られているが、かつてはインカ人こそが真の高地の子であった。</Text>
+    </Replace>
+    <Replace Tag="LOC_11030A_STORYTITLE" Language="ja_JP">
+      <Text>空の子たち</Text>
+    </Replace>
+    <Replace Tag="LOC_11030B_DESCRIPTION" Language="ja_JP">
+      <Text>山岳に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11030B_NAME" Language="ja_JP">
+      <Text>彼らの伝統をつづけさせてやろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_COMPLETION" Language="ja_JP">
+      <Text>インカの言語は徐々にネパール語に道を譲り、古い慣習は廃れていく。</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_IMPERATIVE" Language="ja_JP">
+      <Text>山岳に隣接する学舎を3つ保有する</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_NAME" Language="ja_JP">
+      <Text>彼らがネパール人となるには学校が必要だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_STORYTITLE" Language="ja_JP">
+      <Text>空の子たち</Text>
+    </Replace>
+    <Replace Tag="LOC_11032A_COMPLETION" Language="ja_JP">
+      <Text>山が揺れ、雪と氷がジュウジュウと湯気を立てながら火に飲まれていく。シェルパはもがき苦しみながらも山にとどまろうとするが、その間にもすべてが炎に包まれていく。</Text>
+    </Replace>
+    <Replace Tag="LOC_11032A_STORYTITLE" Language="ja_JP">
+      <Text>ジャワムラキの怒り</Text>
+    </Replace>
+    <Replace Tag="LOC_11032B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11032B_NAME" Language="ja_JP">
+      <Text>とどまり、大地が血を流すさまを見届けるのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11032C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11032C_NAME" Language="ja_JP">
+      <Text>逃げろ！</Text>
+    </Replace>
+    <Replace Tag="LOC_11033A_COMPLETION" Language="ja_JP">
+      <Text>山々の上に雪を冠してそびえ立つ二重の頂は、我らこそ天空の支配者なりと豪語しているかのようだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11033A_STORYTITLE" Language="ja_JP">
+      <Text>マチュプチャレ</Text>
+    </Replace>
+    <Replace Tag="LOC_11033B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11033B_NAME" Language="ja_JP">
+      <Text>その威容を失わせてはならない。</Text>
+    </Replace>
+    <Replace Tag="LOC_11034A_COMPLETION" Language="ja_JP">
+      <Text>遠征は大惨事となり、死によって締めくくられた。山岳ガイドたちは、ここは神々の住処であり、誰も挑んではならないのだと警告している。</Text>
+    </Replace>
+    <Replace Tag="LOC_11034A_DESCRIPTION" Language="ja_JP">
+      <Text>{2_reward}、そして物語はつづく。</Text>
+    </Replace>
+    <Replace Tag="LOC_11034A_NAME" Language="ja_JP">
+      <Text>遠征隊を編成して山に登ろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11034A_STORYTITLE" Language="ja_JP">
+      <Text>マチュプチャレ</Text>
+    </Replace>
+    <Replace Tag="LOC_11034B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11034B_NAME" Language="ja_JP">
+      <Text>閉じる。</Text>
+    </Replace>
+    <Replace Tag="LOC_11035A_COMPLETION" Language="ja_JP">
+      <Text>戦場でグルカ兵同士が対峙する。戦闘後、敵の死者の中にはネパール人の姿があった。</Text>
+    </Replace>
+    <Replace Tag="LOC_11035A_STORYTITLE" Language="ja_JP">
+      <Text>同族の戦い</Text>
+    </Replace>
+    <Replace Tag="LOC_11035B_DESCRIPTION" Language="ja_JP">
+      <Text>文化関連の建造物に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11035B_NAME" Language="ja_JP">
+      <Text>敵といえども同じネパール人だ。きちんと弔ってやろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11035C_DESCRIPTION" Language="ja_JP">
+      <Text>生産関連の建造物に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11035C_NAME" Language="ja_JP">
+      <Text>ネパールと戦った時点で彼らは異国人だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11036A_COMPLETION" Language="ja_JP">
+      <Text>ネパールは独立を維持し、他者が戦う際は調停者となる。戦時下だろうと、物を買わないわけにはいかないのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11036A_STORYTITLE" Language="ja_JP">
+      <Text>2つの岩に挟まれたヤムイモ</Text>
+    </Replace>
+    <Replace Tag="LOC_11036B_DESCRIPTION" Language="ja_JP">
+      <Text>交易路の [icon:YIELD_DIPLOMACY] 影響力+2。</Text>
+    </Replace>
+    <Replace Tag="LOC_11036B_NAME" Language="ja_JP">
+      <Text>平和維持の力でありつづけよう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11036C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}、ただし全文明との関係-15。</Text>
+    </Replace>
+    <Replace Tag="LOC_11036C_NAME" Language="ja_JP">
+      <Text>武器交易に参入しよう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11037A_COMPLETION" Language="ja_JP">
+      <Text>進歩の炎の燃料となる資源を求め、各国が殺到した。町が建設され、鉄道が敷かれる。しかしネパールの辺境では、たったひとりのシェルパが地面に杭を打ち、歩みをつづけている。</Text>
+    </Replace>
+    <Replace Tag="LOC_11037A_STORYTITLE" Language="ja_JP">
+      <Text>高地の探鉱者</Text>
+    </Replace>
+    <Replace Tag="LOC_11037B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11037B_NAME" Language="ja_JP">
+      <Text>ネパールは謙虚に、しかし着々と拡大するのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11038A_COMPLETION" Language="ja_JP">
+      <Text>ネパール人の公平さと冷静沈着な助言は高く評価され、ほぼすべての国際紛争において、ネパール人の仲介役は不可欠な存在となっている。</Text>
+    </Replace>
+    <Replace Tag="LOC_11038A_STORYTITLE" Language="ja_JP">
+      <Text>顧問官</Text>
+    </Replace>
+    <Replace Tag="LOC_11038B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11038B_NAME" Language="ja_JP">
+      <Text>当然のことをしているだけだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11038C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11038C_NAME" Language="ja_JP">
+      <Text>このような奉仕には報酬があってしかるべきだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11039A_COMPLETION" Language="ja_JP">
+      <Text>ネパールの渓谷には長年にわたって氷河が横たわっていたが、今では澄んだ水とともに電気が山頂から流れ落ちてくる。清潔で、澄み渡った、近代的な外面と険しい山頂との調和。ここには山岳社会が目指すべき姿がある。</Text>
+    </Replace>
+    <Replace Tag="LOC_11039A_STORYTITLE" Language="ja_JP">
+      <Text>山岳の稜堡</Text>
+    </Replace>
+    <Replace Tag="LOC_11039B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11039B_NAME" Language="ja_JP">
+      <Text>山は資源であり、谷は故郷である。</Text>
+    </Replace>
+    <Replace Tag="LOC_11039C_DESCRIPTION" Language="ja_JP">
+      <Text>山岳に隣接した土地で防衛時、戦闘力+2。</Text>
+    </Replace>
+    <Replace Tag="LOC_11039C_NAME" Language="ja_JP">
+      <Text>山が我らの城壁だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11040A_COMPLETION" Language="ja_JP">
+      <Text>イギリス軍の一員となることは、ネパールの国内外で尊敬される名誉だ。新兵たちは外国人に好奇の目で見られながら、遠く離れた海岸に向かって誇らしげに行進する。</Text>
+    </Replace>
+    <Replace Tag="LOC_11040A_STORYTITLE" Language="ja_JP">
+      <Text>グルカ旅団</Text>
+    </Replace>
+    <Replace Tag="LOC_11040B_DESCRIPTION" Language="ja_JP">
+      <Text>軍事関連の建造物に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11040B_NAME" Language="ja_JP">
+      <Text>彼らの名は故郷でも記録に残されるだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11040C_DESCRIPTION" Language="ja_JP">
+      <Text>アクション「グルカ兵の寄贈」の開始に対する [icon:YIELD_DIPLOMACY] 影響力+15%。</Text>
+    </Replace>
+    <Replace Tag="LOC_11040C_NAME" Language="ja_JP">
+      <Text>彼らの送金によって故郷は多少なりとも豊かになるだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11041A_COMPLETION" Language="ja_JP">
+      <Text>シンハダルバール、すなわち「獅子の宮殿」の権勢は、ネパール全土に轟いている。しかし、首都でささやかれている噂によると、旧家はその伝統的権威の失墜を感じているらしく、政府関係者からは恐喝や脅迫の報告が寄せられている。</Text>
+    </Replace>
+    <Replace Tag="LOC_11041A_STORYTITLE" Language="ja_JP">
+      <Text>旧家</Text>
+    </Replace>
+    <Replace Tag="LOC_11041B_DESCRIPTION" Language="ja_JP">
+      <Text>都市に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11041B_NAME" Language="ja_JP">
+      <Text>旧家の権利を認めてやろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_11041C_DESCRIPTION" Language="ja_JP">
+      <Text>町に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11041C_NAME" Language="ja_JP">
+      <Text>支配権は獅子の宮殿にある。</Text>
+    </Replace>
+    <Replace Tag="LOC_11069A_COMPLETION" Language="ja_JP">
+      <Text>シンハダルバールを朝日が照らす中、列を成したネパールの役人たちがひっそりと街を出ていく。ここにネパールの新秩序が立案され、ネパールの印が世界に刻まれるのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_11069A_STORYTITLE" Language="ja_JP">
+      <Text>エカタカプラテーク</Text>
+    </Replace>
+    <Replace Tag="LOC_11069B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11069B_NAME" Language="ja_JP">
+      <Text>ネパールには世界において果たすべき役割がある。</Text>
+    </Replace>
+    <Replace Tag="LOC_11069C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11069C_NAME" Language="ja_JP">
+      <Text>ネパールは内なる完成を第一に求める。</Text>
+    </Replace>
+    <Replace Tag="LOC_12007A_COMPLETION" Language="ja_JP">
+      <Text>シェルパについて急勾配を登りながら、リサールは振り返り、ネパールの雄大な高地と低地を眺めた。</Text>
+    </Replace>
+    <Replace Tag="LOC_12007A_STORYTITLE" Language="ja_JP">
+      <Text>天地の狭間のよき医師</Text>
+    </Replace>
+    <Replace Tag="LOC_12007B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_12007B_NAME" Language="ja_JP">
+      <Text>高地の人間は独立心がすさまじく強い。</Text>
+    </Replace>
+    <Replace Tag="LOC_12007C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_12007C_NAME" Language="ja_JP">
+      <Text>低地の人間は温かくて友好的だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_SHERPA_UNLOCK_DESCRIPTION" Language="ja_JP">
+      <Text>居住地の都心から5タイル以内にある山岳タイルで発動する。その山岳にただちに高地発電所が築かれる。そこが国境の外であっても、居住地に至る一連のタイルがプレイヤーのものとなる。</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_SHERPA_UNLOCK_NAME" Language="ja_JP">
+      <Text>山岳を獲得</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_GORKHAPATRA_AUTHOR" Language="ja_JP">
+      <Text>ビレンドラ王</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_GORKHAPATRA_QUOTE" Language="ja_JP">
+      <Text>「国の文化と思想の間には、切っても切れない関係がある」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_JYUMDO_BAGHA_AUTHOR" Language="ja_JP">
+      <Text>グルカ兵のモットー</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_JYUMDO_BAGHA_QUOTE" Language="ja_JP">
+      <Text>「臆病に生きるより死を」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SAGARMATHA_AUTHOR" Language="ja_JP">
+      <Text>ラドヤード・キップリング</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SAGARMATHA_QUOTE" Language="ja_JP">
+      <Text>「もうたくさんだ、山へ逃げよう。穏やかで、冷たい雨と漂う霧の中へ」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SINGHA_DURBAR_AUTHOR" Language="ja_JP">
+      <Text>グルカ兵の鬨の声</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SINGHA_DURBAR_QUOTE" Language="ja_JP">
+      <Text>「アヨ・ゴルカリ！ グルカの怒り、思い知れ！」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_NEPAL_DESCRIPTION" Language="ja_JP">
+      <Text>すべての倉庫建造物が山岳タイルに適用されるが、維持に必要な [icon:YIELD_GOLD] ゴールドと [icon:YIELD_HAPPINESS] 幸福度+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_ACTION_GIFT_GURKHA_NAME" Language="ja_JP">
+      <Text>グルカ兵の寄贈</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_ACCEPT" Language="ja_JP">
+      <Text>首都でグルカ兵1ユニットを受け取る。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_DESCRIPTION" Language="ja_JP">
+      <Text>グルカ兵を贈る。[n]承諾: 相手との関係+10。さらに相手との現在の関係レベルにより、 [icon:YIELD_CULTURE] 文化力5を得る（標準速度の場合）。他の指導者は首都でグルカ兵1ユニットを得る。友好的または有益な文明にしか実行できない。</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIGHLAND_POWER_STATION_DESCRIPTION" Language="ja_JP">
+      <Text>[icon:YIELD_PRODUCTION] 生産力+3、 [icon:YIELD_CULTURE] 文化力+3。ネパールの固有施設。時代を問わない。タイルの倉庫ボーナスは取り除かれない。特徴を持たない山岳タイルに配置する必要があり、「サガルマータ」に習熟するとシェルパによって築かれる。</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIGHLAND_POWER_STATION_TOOLTIP" Language="ja_JP">
+      <Text>ネパールの固有施設。時代を問わない。タイルの倉庫ボーナスは取り除かれない。特徴を持たない山岳タイルに配置する必要があり、「サガルマータ」に習熟するとシェルパによって築かれる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_NEPAL" Language="ja_JP">
+      <Text>何があろうとネパールは屈しない。高地の砦ではグルカ兵が目を光らせ、宮殿前の広場では大臣たちが計画や陰謀を練っている。ネパールの旗の下、世界の頂は繁栄する。敵は急斜面にゆく手を阻まれ、レンガ造りの仏塔や尖塔のはるか下で力尽きることだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_NEPAL" Language="ja_JP">
+      <Text>シェルパは、領有している山岳タイルはもちろん、領有していない山岳タイルでも都心から5タイル以内なら高地発電所を建設できます。このことを踏まえて、道に迷わないようにしましょう！</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_INTRO_NEPAL" Language="ja_JP">
+      <Text>ネパールが近隣諸国を圧倒する。世界的大国にならんがために</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NEPAL_COMPLETE_BOUDHANATH_DESC" Language="ja_JP">
+      <Text>ネパールでプレイし、ボダナートを完成させる。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NEPAL_COMPLETE_BOUDHANATH_NAME" Language="ja_JP">
+      <Text>ボダナート</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NEPAL_LEGACY_PATH_CULTURAL_DESC" Language="ja_JP">
+      <Text>ネパールでプレイし、文化レガシーパスを完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NEPAL_LEGACY_PATH_CULTURAL_NAME" Language="ja_JP">
+      <Text>ネパールのレガシーパス</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_NEPAL_DESCRIPTION" Language="ja_JP">
+      <Text>ネパールの固有遺産であることにより生産力+30%。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_GIFT_GURKHA_DESCRIPTION" Language="ja_JP">
+      <Text>別の文明にグルカ兵を与えるアクション「グルカ兵の寄贈」が解除される。ネパールはその文明との関係+10。さらに相手との現在の関係レベルに応じて [icon:YIELD_CULTURE] 文化力+5（ゲーム速度に応じて変化）。友好的または有益な文明にしか実行できない。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_GORKHAPATRA_MUSEUM_SLOTS_DESCRIPTION" Language="ja_JP">
+      <Text>博物館が追加傑作スロット2つを得る。 </Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_JYUMDO_BAGHA_FORTIFICATION_DESCRIPTION" Language="ja_JP">
+      <Text>山岳に隣接している場合、要塞化陣地が1ターンで完成する。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_JYUMDO_BAGHA_MOUNTAIN_WALLS_DESCRIPTION" Language="ja_JP">
+      <Text>山岳に隣接するすべての区域に、1回限りの効果を持つ防衛要塞化陣地がもたらされる。通常の防壁配置ルールが適用される。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SAGARMATHA_BUILDINGS_MOUNTAIN_ADJACENCY_DESCRIPTION" Language="ja_JP">
+      <Text>食料および科学関連の建造物が山岳から隣接ボーナスを得る。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SHERPA_MOUNTAIN_CLAIM_DESCRIPTION" Language="ja_JP">
+      <Text>シェルパは、居住地の宮殿またはシティホールから5タイル以内にある山岳タイルで5ターンごとに発動できる。居住地に至る一連のタイルがプレイヤーのものとなり、その山岳タイルがただちに開発されて高地発電所が築かれる。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SINGHA_DURBAR_INFLUENCE_CULTURE_BUILDING_DESCRIPTION" Language="ja_JP">
+      <Text>文化関連の建造物の [icon:YIELD_DIPLOMACY] 影響力+3。 </Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_BOUDHANATH" Language="ja_JP">
+      <Text>『賢劫経』</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_BOUDHANATH" Language="ja_JP">
+      <Text>この知恵の海について教える者は、物事の瞬間的な性質を理解する</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_HIMAL_DESCRIPTION" Language="ja_JP">
+      <Text>首都の山岳タイルの [icon:YIELD_CULTURE] 文化力+4、他の居住地の山岳タイルの [icon:YIELD_CULTURE] 文化力+2。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_MAITRI_SANADHI_DESCRIPTION" Language="ja_JP">
+      <Text>保有している居住地が最も少ない場合は、外交努力の開始に対して [icon:YIELD_DIPLOMACY] 影響力+50%。そうでない場合は+20%。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_TUNDIKHEL_DESCRIPTION" Language="ja_JP">
+      <Text>山岳地形に隣接するすべてのユニットの戦闘力+3。そのユニットが自国の領土内にいる場合はさらに+3。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_NEPAL_ABILITY_DESCRIPTION" Language="ja_JP">
+      <Text>[BLIST][LI][B]すべての倉庫建造物[/B]が[B]山岳地形[/B]に適用されるが、維持に必要な [icon:YIELD_GOLD] ゴールドと [icon:YIELD_HAPPINESS] 幸福度+1。[LI][B]ボダナート[/B]の建設に対する [B][icon:YIELD_PRODUCTION] 生産力+30%[/B]。[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_NEPAL_ABILITY_NAME" Language="ja_JP">
+      <Text>世界の屋根</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_MO_NEPAL_NAME" Language="ja_JP">
+      <Text>ネパールの社会制度</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_2_DESCRIPTION" Language="ja_JP">
+      <Text>ネパール固有の歩兵ユニット（ティア2）。移動力+1。戦闘力+5。ライフル銃兵より高コスト。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_3_DESCRIPTION" Language="ja_JP">
+      <Text>ネパール固有の歩兵ユニット（ティア3）。移動力+1。戦闘力+5。ライフル銃兵より高コスト。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_BASE_DESCRIPTION" Language="ja_JP">
+      <Text>ネパール固有の歩兵ユニット。より強力で敏捷だがコストが高い。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_DESCRIPTION" Language="ja_JP">
+      <Text>ネパール固有の歩兵ユニット（ティア1）。移動力+1。戦闘力+5。ライフル銃兵より高コスト。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_SHERPA_DESCRIPTION" Language="ja_JP">
+      <Text>ネパール固有の斥候。視界に関して山岳と荒地地形を無視できる。移動時には特徴を持たない山岳を無視できる。エベレスト山を移動できる。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNITCOMMAND_CLAIM_MOUNTAIN_DESCRIPTION" Language="ja_JP">
+      <Text>居住地の都心から5タイル以内にある山岳タイルで発動する。その山岳にただちに高地発電所が築かれる。そこが国境の外であっても、居住地に至る一連のタイルがプレイヤーのものとなる。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNITCOMMAND_CLAIM_MOUNTAIN_NAME" Language="ja_JP">
+      <Text>山岳を獲得</Text>
+    </Replace>
+    <Replace Tag="LOC_UNITCOMMAND_CLAIM_MOUNTAIN_REQUIRES_UNOWNED_MOUNTAIN" Language="ja_JP">
+      <Text>居住地の宮殿またはシティホールから5タイル以内に山岳タイルが必要。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_MOUNTAIN_5_SETTLEMENTS_DESCRIPTION" Language="ja_JP">
+      <Text>[B]山岳[/B]が3つ以上ある居住地を5つ保有する。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_MOUNTAIN_SETTLEMENTS_NEPAL_TOOLTIP" Language="ja_JP">
+      <Text>[B]山[/B]は[B]ネパール[/B]のアイデンティティの重要な一部分だった。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ASHOKA_NEPAL_TOOLTIP" Language="ja_JP">
+      <Text>[B]アショーカ[/B]は[B]ネパール[/B]と同じ大陸に属していた。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_LAKSHMIBAI_NEPAL_TOOLTIP" Language="ja_JP">
+      <Text>[B]ラクシュミー・バーイー[/B]は[B]ネパール[/B]と同じ大陸に属していた。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_PACHACUTI_NEPAL_TOOLTIP" Language="ja_JP">
+      <Text>[B]ネパール[/B]は[B]パチャクテク[/B]を戦略的に補完する。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BOUDHANATH_DESCRIPTION" Language="ja_JP">
+      <Text>[icon:YIELD_DIPLOMACY] 影響力+4。他の指導者全員との関係+20。山岳に隣接する熱帯に建設する必要がある。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BOUDHANATH_TOOLTIP" Language="ja_JP">
+      <Text>他の指導者全員との関係+20。山岳に隣接する熱帯に建設する必要がある。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_REJECT" Language="ja_JP">
+      <Text>外交アクションがキャンセルされます。[n]{1_initialName}の [icon:YIELD_DIPLOMACY] 影響力が返還されます。[n]{2_cooldown}ターンの間、指導者間での新たな外交努力は実施できません。[n]関係が悪化します。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_REQUEST" Language="ja_JP">
+      <Text>{1_leaderName}がグルカ兵ユニットの寄贈を申し出ている。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_MOUNTAIN_SETTLEMENTS_NEPAL_NARRATIVE" Language="ja_JP">
+      <Text>高地の国の領土である渓谷の迷宮は、{1_Civilization_Adj}手が届かない高さにあり、そこに{1_Civilization_Adj}力は及ばない。収税人や測量士は道に迷い、住人たちは誇り高く自由なままだ。 </Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_HIMAL_NAME" Language="ja_JP">
+      <Text>ヒマール</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_MAITRI_SANADHI_NAME" Language="ja_JP">
+      <Text>マイトリー・サナディー</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_TUNDIKHEL_NAME" Language="ja_JP">
+      <Text>トゥンディケル</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_NAME" Language="ja_JP">
+      <Text>グルカ兵</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_SHERPA_NAME" Language="ja_JP">
+      <Text>シェルパ</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="MEMENTO_NAPOLEON_EMPEROR_PORTRAIT_JOSEPHINE_MODIFIER_1" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_YIELD_PER_PLAYER_RELATIONSHIP">
+		<Argument name="RelationshipType">PLAYER_RELATIONSHIP_UNFRIENDLY</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_NAPOLEON_EMPEROR_PORTRAIT_JOSEPHINE_MODIFIER_2" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_YIELD_PER_PLAYER_RELATIONSHIP">
+		<Argument name="RelationshipType">PLAYER_RELATIONSHIP_HOSTILE</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+	</Modifier>
+
+	<Modifier id="MEMENTO_NAPOLEON_EMPEROR_GREEN_COLONEL_JACKET_MODIFIER_1" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_PER_NUM_TRADE_ROUTES">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_NAPOLEON_EMPEROR_GREEN_COLONEL_JACKET_NAME</Argument>
+		<String context="Description">LOC_MEMENTO_NAPOLEON_EMPEROR_GREEN_COLONEL_JACKET_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_NAPOLEON_EMPEROR_GREEN_COLONEL_JACKET_MODIFIER_2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_PER_NUM_TRADE_ROUTES">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_MOST_TRADE_ROUTES">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_NAPOLEON_EMPEROR_GREEN_COLONEL_JACKET_NAME</Argument>
+		<String context="Description">LOC_MEMENTO_NAPOLEON_EMPEROR_GREEN_COLONEL_JACKET_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+
+	<Modifier id="MEMENTO_NAPOLEON_EMPEROR_CROWN_OF_NAPOLEON_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_DECLARED_WAR">
+				<Argument name="WarType">FORMAL_WAR</Argument>
+				<Argument name="DeclaredByOwner">false</Argument>
+				<Argument name="DeclaredByOpponent">true</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">200</Argument>
+	</Modifier>
+</GameEffects>

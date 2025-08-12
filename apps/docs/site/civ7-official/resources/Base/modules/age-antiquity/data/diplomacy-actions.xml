@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<Row Type="DIPLOMACY_ACTION_WONDER_CONSTRUCTION" Kind="KIND_DIPLOMACY_ACTION" />
+		<Row Type="DIPLOMACY_WONDER_CONSTRUCTION_COMPLETE" Kind="KIND_DIPLOMACY_ACTION_STAGE" />
+	</Types>
+	<DiplomacyActions>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_WONDER_CONSTRUCTION" Name="LOC_DIPLOMACY_PROJECT_WONDER_CONSTRUCTION_NAME" Description="LOC_DIPLOMACY_PROJECT_WONDER_CONSTRUCTION_NO_DATA" BaseTokenCost="1" BaseDuration="15" Symmetrical="false" Opposed="true" IsMutualSupport="false" SupportFavors="1500" TargetFavors="1000" TargetFavorsFreq="3" RejectionRefundsInfluence="true"/>
+	</DiplomacyActions>
+	<DiplomaticActionValidTokens>
+		<Row TokenType="DIPLOMACY_TOKEN_GLOBAL" DiplomacyActionType="DIPLOMACY_ACTION_WONDER_CONSTRUCTION"/>
+	</DiplomaticActionValidTokens>
+	<DiplomaticActionStages>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_WONDER_CONSTRUCTION" StageType="DIPLOMACY_WONDER_CONSTRUCTION_COMPLETE" ProgressRequirement="0"/>
+	</DiplomaticActionStages>
+	<EnterStageModifiers>
+		<Row StageType="DIPLOMACY_WONDER_CONSTRUCTION_COMPLETE" ModifierId="PLAYER_DIPLOMACY_WONDER_CONSTRUCTION_COMPLETE" />
+	</EnterStageModifiers>
+	<DiplomaticProjects_UI_Data>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_WONDER_CONSTRUCTION" DiplomacyActionGroup="DIPLOMACY_ACTION_GROUP_ENDEAVOR" PlayerOperationType="COOPERATIVE_YIELDS_DIPLOMATIC_ACTION" UIStartProject="true" Target1Type="DIPLOMACY_TARGET_PLAYER" Target2Type="DIPLOMACY_TARGET_NONE" MaxNumEnvoys="1" MinNumVirtEnvoys="2" MaxNumVirtEnvoys="2" MaxNumSupportEnvoys="0" MaxNumOpposeEnvoys="0" Description="LOC_DIPLOMACY_PROJECT_WONDER_CONSTRUCTION_INITIAL" ActiveDescription="LOC_DIPLOMACY_PROJECT_WONDER_CONSTRUCTION"/>
+	</DiplomaticProjects_UI_Data>
+	<DiplomacyBonusEnvoyData>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_WONDER_CONSTRUCTION" InitialUnfriendly="0" InitialFriendly="0" TargetUnfriendly="0" TargetFriendly="0"/>
+	</DiplomacyBonusEnvoyData>
+	<DiplomaticActionInfluenceCosts>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_GIVE_INFLUENCE_TOKEN" InfCostNoRelationship="80" InfCostSupportIncreaseFlat="10"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_RECEIVE_GIFT" InfCostNoRelationship="60" InfCostSupportIncreaseFlat="10"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_DECLARE_WAR" InfCostHostile="60" InfCostUnfriendly="60" InfCostNeutral="60" InfCostFriendly="60" InfCostHelpful="60" InfCostNoRelationship="0" InfCostSupportIncreaseFlat="30"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_DECLARE_FORMAL_WAR" InfCostHostile="60" InfCostUnfriendly="60" InfCostNeutral="60" InfCostFriendly="60" InfCostHelpful="60" InfCostNoRelationship="0" InfCostSupportIncreaseFlat="30"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_OPEN_BORDERS" InfCostHostile="35" InfCostUnfriendly="30" InfCostNeutral="25" InfCostFriendly="20" InfCostHelpful="15"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_RESEARCH_COLLABORATION" InfCostUnfriendly="65" InfCostNeutral="60" InfCostFriendly="55" InfCostHelpful="50"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_CULTURAL_EXCHANGE" InfCostUnfriendly="65" InfCostNeutral="60" InfCostFriendly="55" InfCostHelpful="50"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_MINOR_TRADE" InfCostUnfriendly="65" InfCostNeutral="60" InfCostFriendly="55" InfCostHelpful="50"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_LOCAL_FESTIVALS" InfCostUnfriendly="65" InfCostNeutral="60" InfCostFriendly="55" InfCostHelpful="50"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_TRADE_MAP" InfCostUnfriendly="65" InfCostNeutral="60" InfCostFriendly="55" InfCostHelpful="50"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_FARMERS_MARKET" InfCostUnfriendly="65" InfCostNeutral="60" InfCostFriendly="55" InfCostHelpful="50"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_MILITARY_AID" InfCostUnfriendly="65" InfCostNeutral="60" InfCostFriendly="55" InfCostHelpful="50"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_WONDER_CONSTRUCTION" InfCostHostile="150" InfCostUnfriendly="130" InfCostNeutral="120" InfCostFriendly="110" InfCostHelpful="100"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SABOTAGE_TREASURY" InfCostHostile="30" InfCostUnfriendly="40" InfCostNeutral="80"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SABOTAGE_MORALE" InfCostHostile="30" InfCostUnfriendly="40" InfCostNeutral="80"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SABOTAGE_RESEARCH" InfCostHostile="30" InfCostUnfriendly="40" InfCostNeutral="80"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SABOTAGE_CIVIC_STUDY" InfCostHostile="30" InfCostUnfriendly="40" InfCostNeutral="80"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SABOTAGE_MILITARY_PRODUCTION" InfCostHostile="30" InfCostUnfriendly="40" InfCostNeutral="80"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SABOTAGE_FOOD_PRODUCTION" InfCostHostile="30" InfCostUnfriendly="40" InfCostNeutral="80"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SABOTAGE_TRADE_CAPACITY" InfCostHostile="50" InfCostUnfriendly="55" InfCostNeutral="60" InfCostFriendly="65" InfCostHelpful="70"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_DENOUNCE" InfCostUnfriendly="55" InfCostNeutral="60" InfCostFriendly="65" InfCostHelpful="70"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SEND_DELEGATION" InfCostHostile="60"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_INCITE_RAID" InfCostNoRelationship="60" InfCostHostile="60" InfCostUnfriendly="60" InfCostNeutral="60" InfCostFriendly="60" InfCostHelpful="60"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_CS_PROMOTE_GROWTH" InfCostNoRelationship="30"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_CS_BOLSTER_MILITARY" InfCostNoRelationship="60"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_CS_ORDER_ATTACK" InfCostNoRelationship="60"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_IMPROVE_TRADE_RELATIONS" InfCostUnfriendly="65" InfCostNeutral="60" InfCostFriendly="55" InfCostHelpful="50"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_GINSING_AGREEMENT" InfCostUnfriendly="65" InfCostNeutral="60" InfCostFriendly="55" InfCostHelpful="50"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_FRIEND_OF_WA" InfCostHostile="-1" InfCostUnfriendly="-1" InfCostNeutral="-1" InfCostFriendly="100" InfCostHelpful="90"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_ESPIONAGE_MILITARY_SABOTAGE" InfCostHostile="40" InfCostUnfriendly="40" InfCostNeutral="40" InfCostFriendly="40" InfCostHelpful="40" InfCostPerTurn="2" PenaltyInfCostPerTurn="2" PenaltyInfCostDuration="10"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_ESPIONAGE_STEAL_TECH" InfCostHostile="80" InfCostUnfriendly="80" InfCostNeutral="80" InfCostFriendly="80" InfCostHelpful="80" InfCostPerTurn="4" PenaltyInfCostPerTurn="8" PenaltyInfCostDuration="10"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_ESPIONAGE_STEAL_CIVIC" InfCostHostile="80" InfCostUnfriendly="80" InfCostNeutral="80" InfCostFriendly="80" InfCostHelpful="80" InfCostPerTurn="4" PenaltyInfCostPerTurn="8" PenaltyInfCostDuration="10"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_ESPIONAGE_MILITARY_INFILTRATION" InfCostHostile="40" InfCostUnfriendly="40" InfCostNeutral="40" InfCostFriendly="40" InfCostHelpful="40" InfCostPerTurn="2" PenaltyInfCostPerTurn="2" PenaltyInfCostDuration="10"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_COUNTER_SPY" InfCostHostile="40" InfCostUnfriendly="40" InfCostNeutral="40" InfCostFriendly="40" InfCostHelpful="40" InfCostPerTurn="1"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_CS_INCORPORATE" InfCostNoRelationship="240"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_GRANT_POLICY_SLOT" InfCostUnfriendly="200" InfCostNeutral="180" InfCostFriendly="160" InfCostHelpful="140"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_DENOUNCE_MILITARY_PRESENCE" InfCostHostile="20" InfCostUnfriendly="20" InfCostNeutral="20" InfCostFriendly="20" InfCostHelpful="20"/>
+	</DiplomaticActionInfluenceCosts>
+	<DiplomaticActionResponses>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_OPEN_BORDERS" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_OPEN_BORDERS_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_OPEN_BORDERS" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="10" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_OPEN_BORDERS_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_RESEARCH_COLLABORATION" DiplomaticResponseType="DIPLOMACY_RESPONSE_SUPPORT" InfCost="60" Name="LOC_DIPLOMACY_RESPONSE_SUPPORT" Description="LOC_DIPLOMACY_PROJECT_RESEARCH_COLLABORATION_SUPPORT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_RESEARCH_COLLABORATION" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_RESEARCH_COLLABORATION_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_RESEARCH_COLLABORATION" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="20" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_RESEARCH_COLLABORATION_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_CULTURAL_EXCHANGE" DiplomaticResponseType="DIPLOMACY_RESPONSE_SUPPORT" InfCost="60" Name="LOC_DIPLOMACY_RESPONSE_SUPPORT" Description="LOC_DIPLOMACY_PROJECT_CULTURAL_EXCHANGE_SUPPORT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_CULTURAL_EXCHANGE" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_CULTURAL_EXCHANGE_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_CULTURAL_EXCHANGE" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="20" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_CULTURAL_EXCHANGE_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_MINOR_TRADE" DiplomaticResponseType="DIPLOMACY_RESPONSE_SUPPORT" InfCost="60" Name="LOC_DIPLOMACY_RESPONSE_SUPPORT" Description="LOC_DIPLOMACY_PROJECT_MINOR_TRADE_SUPPORT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_MINOR_TRADE" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_MINOR_TRADE_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_MINOR_TRADE" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="20" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_MINOR_TRADE_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_LOCAL_FESTIVALS" DiplomaticResponseType="DIPLOMACY_RESPONSE_SUPPORT" InfCost="60" Name="LOC_DIPLOMACY_RESPONSE_SUPPORT" Description="LOC_DIPLOMACY_PROJECT_LOCAL_FESTIVALS_SUPPORT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_LOCAL_FESTIVALS" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_LOCAL_FESTIVALS_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_LOCAL_FESTIVALS" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="20" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_LOCAL_FESTIVALS_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_TRADE_MAP" DiplomaticResponseType="DIPLOMACY_RESPONSE_SUPPORT" InfCost="60" Name="LOC_DIPLOMACY_RESPONSE_SUPPORT" Description="LOC_DIPLOMACY_PROJECT_TRADE_MAP_SUPPORT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_TRADE_MAP" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_TRADE_MAP_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_TRADE_MAP" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="20" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_FARMERS_MARKET" DiplomaticResponseType="DIPLOMACY_RESPONSE_SUPPORT" InfCost="60" Name="LOC_DIPLOMACY_RESPONSE_SUPPORT" Description="LOC_DIPLOMACY_PROJECT_FARMERS_MARKET_SUPPORT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_FARMERS_MARKET" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_FARMERS_MARKET_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_FARMERS_MARKET" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="20" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_MILITARY_AID" DiplomaticResponseType="DIPLOMACY_RESPONSE_SUPPORT" InfCost="60" Name="LOC_DIPLOMACY_RESPONSE_SUPPORT" Description="LOC_DIPLOMACY_PROJECT_MILITARY_AID_SUPPORT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_MILITARY_AID" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_MILITARY_AID_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_MILITARY_AID" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="20" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SABOTAGE_TREASURY" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_SABOTAGE_TREASURY_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SABOTAGE_TREASURY" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="60" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_SABOTAGE_TREASURY_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SABOTAGE_MORALE" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_SABOTAGE_MORALE_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SABOTAGE_MORALE" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="60" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_SABOTAGE_MORALE_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SABOTAGE_RESEARCH" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_SABOTAGE_RESEARCH_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SABOTAGE_RESEARCH" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="60" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_SABOTAGE_RESEARCH_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SABOTAGE_CIVIC_STUDY" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_SABOTAGE_CIVIC_STUDY_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SABOTAGE_CIVIC_STUDY" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="60" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_SABOTAGE_CIVIC_STUDY_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SABOTAGE_FOOD_PRODUCTION" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_SABOTAGE_FOOD_PRODUCTION_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SABOTAGE_FOOD_PRODUCTION" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="60" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_SABOTAGE_FOOD_PRODUCTION_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SABOTAGE_TRADE_CAPACITY" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_SABOTAGE_TRADE_CAPACITY_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SABOTAGE_TRADE_CAPACITY" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="240" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_SABOTAGE_TRADE_CAPACITY_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SABOTAGE_MILITARY_PRODUCTION" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_SABOTAGE_MILITARY_PRODUCTION_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SABOTAGE_MILITARY_PRODUCTION" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="60" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_SABOTAGE_MILITARY_PRODUCTION_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_DENOUNCE" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_DENOUNCE_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_DENOUNCE" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="120" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_DENOUNCE_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SEND_DELEGATION" DiplomaticResponseType="DIPLOMACY_RESPONSE_SUPPORT" InfCost="60" Name="LOC_DIPLOMACY_RESPONSE_SUPPORT" Description="LOC_DIPLOMACY_PROJECT_SEND_DELEGATION_SUPPORT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SEND_DELEGATION" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_SEND_DELEGATION_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_SEND_DELEGATION" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="20" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_SEND_DELEGATION_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_IMPROVE_TRADE_RELATIONS" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_IMPROVE_TRADE_RELATIONS_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_IMPROVE_TRADE_RELATIONS" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="60" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_WONDER_CONSTRUCTION" DiplomaticResponseType="DIPLOMACY_RESPONSE_SUPPORT" InfCost="120" Name="LOC_DIPLOMACY_RESPONSE_SUPPORT" Description="LOC_DIPLOMACY_PROJECT_WONDER_CONSTRUCTION_SUPPORT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_WONDER_CONSTRUCTION" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_WONDER_CONSTRUCTION_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_WONDER_CONSTRUCTION" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="40" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_GINSING_AGREEMENT" DiplomaticResponseType="DIPLOMACY_RESPONSE_SUPPORT" InfCost="60" Name="LOC_DIPLOMACY_RESPONSE_SUPPORT" Description="LOC_DIPLOMACY_PROJECT_GINSING_AGREEMENT_SUPPORT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_GINSING_AGREEMENT" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_GINSING_AGREEMENT_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_GINSING_AGREEMENT" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="20" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_GINSING_AGREEMENT_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_FRIEND_OF_WA" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_FRIEND_OF_WA_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_FRIEND_OF_WA" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="40" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_FRIEND_OF_WA_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_GRANT_POLICY_SLOT" DiplomaticResponseType="DIPLOMACY_RESPONSE_SUPPORT" InfCost="150" Name="LOC_DIPLOMACY_RESPONSE_SUPPORT" Description="LOC_DIPLOMACY_PROJECT_GRANT_POLICY_SLOT_SUPPORT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_GRANT_POLICY_SLOT" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_GRANT_POLICY_SLOT_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_GRANT_POLICY_SLOT" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="60" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_GRANT_POLICY_SLOT_REJECT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_DENOUNCE_MILITARY_PRESENCE" DiplomaticResponseType="DIPLOMACY_RESPONSE_SUPPORT" InfCost="20" Name="LOC_DIPLOMACY_RESPONSE_SUPPORT" Description="LOC_DIPLOMACY_PROJECT_DENOUNCE_MILITARY_PRESENCE_SUPPORT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_DENOUNCE_MILITARY_PRESENCE" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_DENOUNCE_MILITARY_PRESENCE_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_DENOUNCE_MILITARY_PRESENCE" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_DENOUNCE_MILITARY_PRESENCE_REJECT"/>
+	</DiplomaticActionResponses>
+	<DiplomaticActionResponseModifiers>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_WONDER_CONSTRUCTION" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" ModifierId="PLAYER_DIPLOMACY_BLOCK_ENDEAVORS_10" ModifierType="DIPLOMACY_MODIFIER_TYPE_ACTION" ModifierTarget="DIPLOMACY_MODIFIER_TARGET_BOTH"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_WONDER_CONSTRUCTION" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" ModifierId="PLAYER_DIPLOMACY_GRIEVANCES_FOR_ACTION_REJECTION" ModifierType="DIPLOMACY_MODIFIER_TYPE_ACTION" ModifierTarget="DIPLOMACY_MODIFIER_TARGET_INITIAL"/>
+		<!--  Currently relationship changes are being applied to both sides.  Don't apply this to both or will double up.  -->
+	</DiplomaticActionResponseModifiers>
+	<DiplomacyFavorsGrievancesEventsData>
+		<Row DiplomacyFavorGrievanceEventType="GRIEVANCE_FROM_CLOSE_LAND_CLAIM" Amount="20" Range="10" Name="LOC_GRIEVANCE_FROM_CLOSE_LAND_CLAIM" DiplomacyFavorGrievanceEventGroup="DIPLOMACY_UNIQUE_EVENT" InfAward="60"/>
+		<Row DiplomacyFavorGrievanceEventType="GRIEVANCE_FROM_RAZING_SETTLEMENT" Name="LOC_GRIEVANCE_FROM_RAZING_SETTLEMENT" DiplomacyFavorGrievanceEventGroup="DIPLOMACY_GRIEVANCE" InfAwardPerPopulation="5"/>
+		<Row DiplomacyFavorGrievanceEventType="GRIEVANCE_FROM_CAPTURE_SETTLEMENT" Name="LOC_GRIEVANCE_FROM_CAPTURE_SETTLEMENT" DiplomacyFavorGrievanceEventGroup="DIPLOMACY_GRIEVANCE" InfAwardPerPopulation="10"/>
+		<Row DiplomacyFavorGrievanceEventType="GRIEVANCE_FROM_WINNING_SUZERAIN" Amount="-30" Name="LOC_GRIEVANCE_FROM_WINNING_SUZERAIN" DiplomacyFavorGrievanceEventGroup="DIPLOMACY_GRIEVANCE" InfAward="60"/>
+		<Row DiplomacyFavorGrievanceEventType="GRIEVANCE_FROM_DISPERSING_IP" Amount="-30" Name="LOC_GRIEVANCE_FROM_DISPERSING_IP" DiplomacyFavorGrievanceEventGroup="DIPLOMACY_GRIEVANCE" InfAward="60"/>
+		<Row DiplomacyFavorGrievanceEventType="GRIEVANCE_FROM_END_ALLIANCE" Amount="-30" Name="LOC_GRIEVANCE_FROM_END_ALLIANCE" DiplomacyFavorGrievanceEventGroup="DIPLOMACY_GRIEVANCE" InfAward="120"/>
+		<Row DiplomacyFavorGrievanceEventType="GRIEVANCE_FROM_BREAK_ALLIANCE" Amount="-30" Name="LOC_GRIEVANCE_FROM_BREAK_ALLIANCE" DiplomacyFavorGrievanceEventGroup="DIPLOMACY_GRIEVANCE" InfAward="120"/>
+		<Row DiplomacyFavorGrievanceEventType="GRIEVANCE_FROM_UNEVEN_PEACE_DEAL" Amount="-5" Name="LOC_GRIEVANCE_FROM_UNEVEN_PEACE_DEAL" DiplomacyFavorGrievanceEventGroup="DIPLOMACY_GRIEVANCE" InfAward="120"/>
+		<Row DiplomacyFavorGrievanceEventType="GRIEVANCE_FROM_REVEALED_ESPIONAGE" Amount="-10" Name="LOC_GRIEVANCE_FROM_REVEALED_ESPIONAGE" DiplomacyFavorGrievanceEventGroup="DIPLOMACY_GRIEVANCE" InfAward="30"/>
+		<Row DiplomacyFavorGrievanceEventType="GRIEVANCE_FROM_REVEALED_TS_ESPIONAGE" Amount="-20" Name="LOC_GRIEVANCE_FROM_REVEALED_TS_ESPIONAGE" DiplomacyFavorGrievanceEventGroup="DIPLOMACY_GRIEVANCE" InfAward="60"/>
+	</DiplomacyFavorsGrievancesEventsData>
+</Database>

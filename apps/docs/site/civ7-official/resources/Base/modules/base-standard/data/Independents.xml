@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<CityStateTypes>
+		<Row CityStateType="CULTURAL" Name="LOC_CULTURAL_NAME" Weight="100" YieldType="YIELD_CULTURE" DisperseRewardAmount="100"/>
+		<Row CityStateType="ECONOMIC" Name="LOC_ECONOMIC_NAME" Weight="100" YieldType="YIELD_GOLD" DisperseRewardAmount="100"/>
+		<Row CityStateType="MILITARISTIC" Name="LOC_MILITARISTIC_NAME" Weight="100" YieldType="YIELD_PRODUCTION" DisperseRewardAmount="100"/>
+		<Row CityStateType="SCIENTIFIC" Name="LOC_SCIENTIFIC_NAME" Weight="100" YieldType="YIELD_SCIENCE" DisperseRewardAmount="100"/>
+	</CityStateTypes>
+	<IndependentTribeTypes>
+		<Row TribeType="TRIBE_DEFAULT" DefenderTagSet="DEFAULT_DEFENDER_TAGS" AdvancedRaidOperation="Independent Large Raid"/>
+		<Row TribeType="TRIBE_NAVAL" DefenderTagSet="DEFAULT_DEFENDER_TAGS" />
+		<Row TribeType="TRIBE_CRISIS" DefenderTagSet="DEFAULT_DEFENDER_TAGS" RaidOperation="Independent Large Raid" RespawnTime="6" IgnoreSpacing="true" CanBeBefriended="false" CampConstructibleType="IMPROVEMENT_ENCAMPMENT"/>
+	</IndependentTribeTypes>
+	<TribeTagSets>
+		<Row TribeTagName="DEFAULT_SCOUT_TAGS" InitialUnitAmount="1" MaxUnitAmount="1"/>
+		<Row TribeTagName="DEFAULT_DEFENDER_TAGS" InitialUnitAmount="1" MaxUnitAmount="1"/>
+		<Row TribeTagName="DEFAULT_COMBAT_TAGS" InitialUnitAmount="0" MaxUnitAmount="5"/>
+		<Row TribeTagName="DEFAULT_COMMANDER_TAGS" InitialUnitAmount="0" MaxUnitAmount="0"/>
+		<Row TribeTagName="NAVAL_COMBAT_TAGS" InitialUnitAmount="0" MaxUnitAmount="5"/>
+		<Row TribeTagName="NAVAL_LAND_COMBAT_TAGS" InitialUnitAmount="0" MaxUnitAmount="3"/>
+		<Row TribeTagName="NAVAL_COMMANDER_TAGS" InitialUnitAmount="0" MaxUnitAmount="0"/>
+		<Row TribeTagName="CRISIS_COMBAT_UNITS" InitialUnitAmount="0" MaxUnitAmount="7"/>
+	</TribeTagSets>
+	<TribeCombatTags>
+		<Row TribeTagSet="DEFAULT_COMBAT_TAGS" CombatTag="UNIT_CLASS_MELEE"/>
+		<Row TribeTagSet="DEFAULT_COMBAT_TAGS" CombatTag="UNIT_CLASS_RANGED"/>
+		<Row TribeTagSet="DEFAULT_COMBAT_TAGS" CombatTag="UNIT_CLASS_SKIRMISH"/>
+		<Row TribeTagSet="NAVAL_LAND_COMBAT_TAGS" CombatTag="UNIT_CLASS_MELEE"/>
+		<Row TribeTagSet="NAVAL_LAND_COMBAT_TAGS" CombatTag="UNIT_CLASS_RANGED"/>
+		<Row TribeTagSet="NAVAL_LAND_COMBAT_TAGS" CombatTag="UNIT_CLASS_SKIRMISH"/>
+		<Row TribeTagSet="NAVAL_COMBAT_TAGS" CombatTag="UNIT_CLASS_MELEE"/>
+		<Row TribeTagSet="NAVAL_COMBAT_TAGS" CombatTag="UNIT_CLASS_RANGED"/>
+		<Row TribeTagSet="CRISIS_COMBAT_UNITS" CombatTag="UNIT_CLASS_MELEE"/>
+		<Row TribeTagSet="CRISIS_COMBAT_UNITS" CombatTag="UNIT_CLASS_RANGED"/>
+		<Row TribeTagSet="CRISIS_COMBAT_UNITS" CombatTag="UNIT_CLASS_SKIRMISH"/>
+	</TribeCombatTags>
+	<TribeRequiredCombatTags>
+		<Row TribeTagSet="DEFAULT_SCOUT_TAGS" CombatTag="UNIT_CLASS_RECON"/>
+		<Row TribeTagSet="DEFAULT_DEFENDER_TAGS" CombatTag="UNIT_CLASS_COMBAT"/>
+		<Row TribeTagSet="DEFAULT_DEFENDER_TAGS" CombatTag="UNIT_CLASS_MELEE"/>
+		<Row TribeTagSet="DEFAULT_COMBAT_TAGS" CombatTag="UNIT_CLASS_COMBAT"/>
+		<Row TribeTagSet="DEFAULT_COMMANDER_TAGS" CombatTag="UNIT_CLASS_ARMY_COMMANDER"/>
+		<Row TribeTagSet="NAVAL_COMMANDER_TAGS" CombatTag="UNIT_CLASS_FLEET_COMMANDER"/>
+		<Row TribeTagSet="NAVAL_COMBAT_TAGS" CombatTag="UNIT_CLASS_NAVAL"/>
+		<Row TribeTagSet="CRISIS_COMBAT_UNITS" CombatTag="UNIT_CLASS_COMBAT"/>
+	</TribeRequiredCombatTags>
+	<TribeForbiddenCombatTags>
+		<Row TribeTagSet="DEFAULT_SCOUT_TAGS" CombatTag="UNIT_CLASS_NAVAL"/>
+		<Row TribeTagSet="DEFAULT_SCOUT_TAGS" CombatTag="UNIT_CLASS_NO_INDEPENDENTS"/>
+		<Row TribeTagSet="DEFAULT_COMBAT_TAGS" CombatTag="UNIT_CLASS_NAVAL"/>
+		<Row TribeTagSet="DEFAULT_COMBAT_TAGS" CombatTag="UNIT_CLASS_NO_INDEPENDENTS"/>
+		<Row TribeTagSet="DEFAULT_DEFENDER_TAGS" CombatTag="UNIT_CLASS_NAVAL"/>
+		<Row TribeTagSet="DEFAULT_DEFENDER_TAGS" CombatTag="UNIT_CLASS_NO_INDEPENDENTS"/>
+		<Row TribeTagSet="DEFAULT_COMMANDER_TAGS" CombatTag="UNIT_CLASS_NAVAL"/>
+		<Row TribeTagSet="DEFAULT_COMMANDER_TAGS" CombatTag="UNIT_CLASS_NO_INDEPENDENTS"/>
+		<Row TribeTagSet="NAVAL_COMMANDER_TAGS" CombatTag="UNIT_CLASS_NO_INDEPENDENTS"/>
+		<Row TribeTagSet="NAVAL_LAND_COMBAT_TAGS" CombatTag="UNIT_CLASS_NAVAL"/>
+		<Row TribeTagSet="NAVAL_LAND_COMBAT_TAGS" CombatTag="UNIT_CLASS_NO_INDEPENDENTS"/>
+		<Row TribeTagSet="CRISIS_COMBAT_UNITS" CombatTag="UNIT_CLASS_NAVAL"/>
+		<Row TribeTagSet="CRISIS_COMBAT_UNITS" CombatTag="UNIT_CLASS_NO_INDEPENDENTS"/>
+	</TribeForbiddenCombatTags>
+	<TribeScoutTagSets>
+		<Row TribeTypeName="TRIBE_DEFAULT" TribeTagSetName="DEFAULT_SCOUT_TAGS"/>
+		<Row TribeTypeName="TRIBE_NAVAL" TribeTagSetName="DEFAULT_SCOUT_TAGS"/>
+		<Row TribeTypeName="TRIBE_CRISIS" TribeTagSetName="DEFAULT_SCOUT_TAGS"/>
+	</TribeScoutTagSets>
+	<TribeCombatTagSets>
+		<Row TribeTypeName="TRIBE_DEFAULT" TribeTagSetName="DEFAULT_COMBAT_TAGS"/>
+		<Row TribeTypeName="TRIBE_NAVAL" TribeTagSetName="NAVAL_COMBAT_TAGS"/>
+		<Row TribeTypeName="TRIBE_NAVAL" TribeTagSetName="NAVAL_LAND_COMBAT_TAGS"/>
+		<Row TribeTypeName="TRIBE_CRISIS" TribeTagSetName="CRISIS_COMBAT_UNITS"/>
+	</TribeCombatTagSets>
+	<TribeCommanderTagSets>
+		<Row TribeTypeName="TRIBE_DEFAULT" TribeTagSetName="DEFAULT_COMMANDER_TAGS"/>
+		<Row TribeTypeName="TRIBE_NAVAL" TribeTagSetName="NAVAL_COMMANDER_TAGS"/>
+		<Row TribeTypeName="TRIBE_CRISIS" TribeTagSetName="DEFAULT_COMMANDER_TAGS"/>
+	</TribeCommanderTagSets>
+	<AiDefinitions>
+		<Row LeaderTrait="TRAIT_LEADER_INDEPENDENT" AiComponent="BehaviorTreeManager"/>
+		<Row LeaderTrait="TRAIT_LEADER_INDEPENDENT" AiComponent="IndependentStrategic"/>
+		<Row LeaderTrait="TRAIT_LEADER_INDEPENDENT" AiComponent="IndependentTactical"/>
+		<Row LeaderTrait="TRAIT_LEADER_INDEPENDENT" AiComponent="Military"/>
+		<Row LeaderTrait="TRAIT_LEADER_INDEPENDENT" AiComponent="Planning"/>
+		<Row LeaderTrait="TRAIT_LEADER_INDEPENDENT" AiComponent="Tribe_AI"/>
+	</AiDefinitions>
+	<AiListTypes>
+		<Row ListType="Default Minor Independent"/>
+	</AiListTypes>
+	<AiLists>
+		<Row ListType="Default Minor Independent" LeaderType="TRAIT_LEADER_INDEPENDENT" System="Tactics"/>
+	</AiLists>
+	<AiFavoredItems>
+		<Row ListType="Default Minor Independent" Item="Rampage"/>
+		<Row ListType="Default Minor Independent" Item="Attack High Priority Unit"/>
+		<Row ListType="Default Minor Independent" Item="Explore"/>
+		<Row ListType="Default Minor Independent" Item="Defend Home"/>
+		<Row ListType="Default Minor Independent" Item="Capture City"/>
+		<Row ListType="Default Minor Independent" Item="Attack Medium Priority Unit"/>
+		<Row ListType="Default Minor Independent" Item="Attack Low Priority Unit"/>
+		<Row ListType="Default Minor Independent" Item="Wander near camp"/>
+	</AiFavoredItems>
+</Database>

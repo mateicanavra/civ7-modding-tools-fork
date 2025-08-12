@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MODULE_TRUNG_NHI_NAME">
+			<Text>Unit - Trung Nhi</Text>
+		</Row>
+		<Row Tag="LOC_MODULE_TRUNG_NHI_DESCRIPTION">
+			<Text>Contains Trung Trac's unique commander, Trung Nhi.</Text>
+		</Row>
+	</EnglishText>
+</Database>

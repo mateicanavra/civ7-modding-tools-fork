@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+
+	<!-- ==================================================	-->
+	<!--					Improvements					-->
+	<!-- ==================================================	-->
+	<!-- ==================================================	-->
+	<!--					Wonders							-->
+	<!-- ==================================================	-->
+	<!-- Serpent Mound -->
+	<Modifier id="MOD_BOUDHANATH_INCREASED_RELATIONSHIP" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_ALL_PLAYERS_FAVORS_GRIEVANCES" run-once="true" permanent="true">
+		<Argument name="FavorsAmount">20</Argument>
+		<Argument name="FavorsEventType">FAVOR_FROM_WONDER</Argument>
+	</Modifier>
+</GameEffects>

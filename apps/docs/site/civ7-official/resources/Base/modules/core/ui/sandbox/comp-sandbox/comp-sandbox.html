@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Test - Components</title>
+	<!-- <link rel="stylesheet" href="fs://game/core/ui/shell/utility.css"> -->
+	<link rel="stylesheet" href="fs://game/core/ui/themes/default/theme-colors.css">
+	<link rel="stylesheet" href="fs://game/core/ui/themes/default/materials.css">
+	<link rel="stylesheet" href="fs://game/core/ui/themes/default/default.css">
+
+	<script src="fs://game/core/ui/cohtml.js"></script>
+	<script src="fs://game/core/ui/component-support.js"></script>
+</head>
+
+<body style="background-color: rgb(100, 100, 100);">
+	<comp-sandbox>
+		<div class="test-component-group">
+			<fxs-scrollable class="test-component-scroll">
+				<div class="test-button-panel">
+					<div class="sub-header text-gap-2">Default Button - Variable Width</div>
+					<fxs-button-group>
+						<fxs-button caption="Test"></fxs-button>
+						<fxs-button caption="Longer Test"></fxs-button>
+					</fxs-button-group>
+
+					<div class="sub-header text-gap-2">Default Button - Fixed Width - Determined By Longest Text</div>
+					<fxs-button-group>
+						<fxs-button class="disabled" caption="Test"></fxs-button>
+						<fxs-button class="button-constrained"
+									caption="This is a Longer Test Text to Test Multi-Line Text">
+						</fxs-button>
+					</fxs-button-group>
+					<div class="sub-header text-gap-2">Default Button - Fixed Width - Determined By Container Length
+					</div>
+					<fxs-button-group type="fixed" class="button-container--fixed">
+						<fxs-button type="big" caption="Test"></fxs-button>
+						<fxs-button type="big" caption="Longer Test"></fxs-button>
+					</fxs-button-group>
+
+					<div class="sub-header text-gap-2">Ornate Buttons</div>
+					<fxs-button-group>
+						<fxs-ornate-button icon="icon_war-big" caption="Test"></fxs-ornate-button>
+						<fxs-ornate-button icon="icon_peace-big" caption="Longer Test"></fxs-ornate-button>
+						<fxs-ornate-button icon="icon_conquered-big" caption="Longer Test"></fxs-ornate-button>
+					</fxs-button-group>
+
+					<div class="sub-header text-gap-2">Close Button</div>
+					<fxs-button-group>
+						<fxs-close-button></fxs-close-button>
+					</fxs-button-group>
+
+
+					<div class="sub-header text-gap-2">Text Buttons</div>
+					<fxs-button-group>
+						<fxs-text-button caption="Test"></fxs-text-button>
+						<fxs-text-button caption="Longer Test"></fxs-text-button>
+					</fxs-button-group>
+
+					<div class="sub-header text-gap-2">Text Buttons (Big)</div>
+					<fxs-button-group>
+						<fxs-text-button type="big" caption="Test"></fxs-text-button>
+						<fxs-text-button type="big" caption="Longer Test"></fxs-text-button>
+					</fxs-button-group>
+					<div class="sub-header text-gap-2">Dropdown</div>
+					<fxs-button-group>
+						<test-dropdown></test-dropdown>
+					</fxs-button-group>
+					<div class="sub-header text-gap-2">Slider</div>
+					<fxs-button-group>
+						<fxs-slider min="0" max="100" value="76" steps="20"></fxs-slider>
+						<fxs-slider min="0" max="100" value="76"></fxs-slider>
+					</fxs-button-group>
+					<div class="sub-header text-gap-2">Stepper</div>
+					<fxs-button-group>
+						<fxs-stepper min-value="1" max-value="10" value="5"></fxs-stepper>
+					</fxs-button-group>
+					<div class="sub-header text-gap-2">Tab Bar</div>
+					<div id="tabbar-container">
+					</div>
+					<!-- <div class="sub-header text-gap-2">Hex Icon</div>
+					<fxs-button-group>
+						<hex-icon size="lg" class="test-hex--big"></hex-icon>
+						<hex-icon-activatable class="test-hex--small"></hex-icon-activatable>
+						<hex-icon-activatable class="test-hex--leader"></hex-icon-activatable>
+					</fxs-button-group> -->
+				</div>
+			</fxs-scrollable>
+			<div class="test-button-panel">
+				<div class="sub-header text-gap-2">Min Max Buttons</div>
+				<fxs-button-group type="fixed-internal">
+					<fxs-minmax-button class="minmax-button--up"></fxs-minmax-button>
+					<fxs-minmax-button></fxs-minmax-button>
+				</fxs-button-group>
+				<div class="sub-header text-gap-2">Minus Plus Buttons</div>
+				<fxs-button-group type="fixed-internal">
+					<fxs-minus-plus type="minus"></fxs-minus-plus>
+					<fxs-minus-plus></fxs-minus-plus>
+				</fxs-button-group>
+				<div class="sub-header text-gap-2">Checkbox Buttons</div>
+				<fxs-button-group type="fixed-internal">
+					<fxs-checkbox></fxs-checkbox>
+					<fxs-checkbox selected="true"></fxs-checkbox>
+				</fxs-button-group>
+				<div class="sub-header text-gap-2">Radio Buttons</div>
+				<fxs-button-group type="fixed-internal">
+					<fxs-radio-button group-tag="test-radio-buttons"></fxs-radio-button>
+					<fxs-radio-button group-tag="test-radio-buttons" selected="true"></fxs-radio-button>
+				</fxs-button-group>
+				<div class="sub-header text-gap-2">Toggle Buttons</div>
+				<fxs-button-group type="fixed-internal">
+					<fxs-switch></fxs-switch>
+					<fxs-switch selected="true"></fxs-switch>
+				</fxs-button-group>
+				<div class="sub-header text-gap-2">Remove Button</div>
+				<fxs-button-group type="fixed-internal">
+					<test-remove-button></test-remove-button>
+				</fxs-button-group>
+				<div class="sub-header text-gap-2">Bumper Arrow</div>
+				<fxs-button-group type="fixed-internal">
+					<test-bumper-arrow></test-bumper-arrow>
+					<test-bumper-arrow class="bumper-arrow--right"></test-bumper-arrow>
+				</fxs-button-group>
+			</div>
+		</div>
+		<div class="comp-sandbox__right-panel">
+			<test-dropdown class="comp-sandbox__primary-color-drop"></test-dropdown>
+			<test-dropdown class="comp-sandbox__secondary-color-drop"></test-dropdown>
+		</div>
+	</comp-sandbox>
+	<script src="fs://game/core/ui/sandbox/comp-sandbox/comp-sandbox.js" type="module"></script>
+	<link rel="stylesheet" href="fs://game/core/ui/themes/default/text-materials.css">
+	<link rel="stylesheet" href="fs://game/core/ui/sandbox/comp-sandbox/comp-sandbox.css">
+</body>
+
+</html>

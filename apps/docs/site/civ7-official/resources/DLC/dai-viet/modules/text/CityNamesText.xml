@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--DAI_VIET-->
+		<Row Tag="LOC_CITY_NAME_DAI_VIET1">
+			<Text>Thăng Long</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET2">
+			<Text>Thái Bình</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET3">
+			<Text>Thanh Hóa</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET4">
+			<Text>Bắc Giang</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET5">
+			<Text>Đồng Hới</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET6">
+			<Text>Hà Tĩnh</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET7">
+			<Text>Hải Phòng</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET8">
+			<Text>Hội An</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET9">
+			<Text>Hoa Lư</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET10">
+			<Text>Thái Nguyên</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET11">
+			<Text>Bắc Ninh</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET12">
+			<Text>Đường Lâm</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET13">
+			<Text>Chí Linh</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET14">
+			<Text>Xứ Đông</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET15">
+			<Text>Quốc Oai</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET16">
+			<Text>Từ Sơn</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET17">
+			<Text>Cao Bằng</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET18">
+			<Text>Nghệ An</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET19">
+			<Text>Xứ Đoài</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET20">
+			<Text>Việt Trì</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET21">
+			<Text>Tam Đái</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET22">
+			<Text>Châu Lạng</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET23">
+			<Text>Tuyên Quang</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET24">
+			<Text>Hưng Yên</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET25">
+			<Text>Yên Bái</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET26">
+			<Text>Bảo Thắng</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET27">
+			<Text>Quảng Trị</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET28">
+			<Text>Hồng Lĩnh</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET29">
+			<Text>Châu Lý</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_DAI_VIET30">
+			<Text>Đỗ Động Giang</Text>
+		</Row>
+	</EnglishText>
+</Database>

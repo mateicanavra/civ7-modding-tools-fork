@@ -1,0 +1,29 @@
+/* DO NOT EDIT */
+/* Generated from progression-header.scss */
+.ph-portrait-container:hover, .ph-portrait-container:focus {
+	transform: scale(1.1);
+}
+
+.ph-title-container {
+	width: 14.4444444444rem;
+}
+
+.ph-highlight {
+	background: linear-gradient(90deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+	opacity: 0;
+}
+
+.ph-micro-background {
+	background: linear-gradient(#333640, #4C5366);
+	border-style: solid;
+	border-width: 0.1111111111rem;
+	border-image: linear-gradient(to bottom, #8C7E62, #4C473D) 1;
+}
+.ph-micro-background:hover, .ph-micro-background:focus {
+	transform: scale(1.1);
+	border-image: linear-gradient(to bottom, #E5D2AC, #8C7E62) 1;
+}
+
+.ph-use-highlight:hover .ph-highlight, .ph-use-highlight:focus .ph-highlight {
+	opacity: 0.4;
+}

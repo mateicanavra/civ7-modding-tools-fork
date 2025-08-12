@@ -1,0 +1,22 @@
+/* DO NOT EDIT */
+/* Generated from screen-save-load.scss */
+screen-save-load .screen-save__frame {
+	max-width: 97.2222222222rem;
+	max-height: 60rem;
+}
+screen-save-load p {
+	text-align: center;
+	max-width: 100%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+screen-save-load .screen-save__sort-dropdow-container {
+	height: calc(2.2222222222rem + 1rem);
+}
+screen-save-load .screen-save__description__scrollable .fxs-scrollbar__track--vertical {
+	right: -1rem;
+}
+screen-save-load .screen-save__frame {
+	max-width: 97.2222222222rem;
+}

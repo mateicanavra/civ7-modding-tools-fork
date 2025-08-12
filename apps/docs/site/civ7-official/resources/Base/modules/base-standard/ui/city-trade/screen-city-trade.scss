@@ -1,0 +1,180 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+@use '../../../core/ui/themes/default/baseColors.scss';
+
+.screen-city-trade {
+	flex: 1 1 auto;
+	position: absolute;
+	width: 40%;
+	left: 5%;
+	top: 20%;
+
+	.main-container {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: 100%;
+		font-size: pixels-font(17.6);
+	}
+
+	.trade-power-btn {
+		margin-top: pixels(96);
+		font-size: pixels-font(24);
+	}
+
+	.section-header {
+		font-size: pixels-font(24);
+		color: gold;
+		display: flex;
+		flex-direction: row;
+		white-space: pre-wrap;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.section-subheader {
+		font-size: pixels-font(20.8);
+		color: chocolate;
+		font-style: oblique;
+		margin-top: pixels(16);
+	}
+
+	.stat {
+		padding-left: pixels(14);
+		font-size: pixels-font(20);
+	}
+
+	.stat-sub {
+		color: gray;
+		padding-left: pixels(28);
+		font-size: pixels-font(16);
+	}
+
+	.market-item-container {
+		display: flex;
+		flex-direction: row;
+		white-space: pre-wrap;
+		justify-content: center;
+		align-items: center;
+
+		>.market-yield-container {
+			display: flex;
+			flex-direction: column;
+			white-space: pre-wrap;
+			justify-content: flex-start;
+			align-items: center;
+			font-size: pixels-font(22.4);
+			padding-left: pixels(14);
+			padding-right: pixels(14);
+
+			.value {
+				padding-left: pixels(14);
+				padding-right: pixels(14);
+				background-color: darkgreen;
+			}
+
+			.focus-tip {
+				padding-left: pixels(14);
+				padding-right: pixels(14);
+				font-size: pixels-font(16);
+				background-color: darkorange;
+				color: black;
+			}
+		}
+	}
+
+	.resource-container {
+		display: flex;
+		flex-direction: column;
+		font-size: pixels-font(19.2);
+		width: 100%;
+
+
+
+		>.route-name {
+			color: cyan;
+			font-size: pixels-font(20);
+			font-style: oblique;
+			margin-top: pixels(16);
+		}
+
+		>.resource {
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			padding-left: pixels(20);
+			font-size: pixels-font(20);
+			white-space: pre-wrap;
+
+			>.resource-name {
+				color: goldenrod;
+				margin-left: pixels(8);
+				width: 20%;
+			}
+
+			>.resource-yield {
+				width: 25%;
+			}
+
+			>.resource-source {
+				color: darkcyan;
+			}
+		}
+	}
+
+	.button {
+		pointer-events: auto;
+		position: relative;
+		width: 95%;
+		padding: pixels(4);
+		margin: pixels(4) pixels(4) pixels(4) pixels(4);
+		border: pixels(1) solid baseColors.$second-darker-color;
+		background-color: baseColors.$base-color;
+		color: baseColors.$second-color;
+		align-self: center;
+
+		display: flex;
+		justify-content: center;
+
+		&:hover,
+		&:focus {
+			color: baseColors.$base-color;
+			background-color: baseColors.$highlight-color;
+		}
+
+		&:active {
+			color: baseColors.$base-color;
+			background-color: baseColors.$third-color;
+		}
+
+		&.disabled {
+			pointer-events: none;
+		}
+	}
+
+	.none {
+		font-size: pixels-font(17.6);
+		color: dimgray;
+		white-space: pre-wrap;
+	}
+
+	.YIELD_CULTURE {
+		background-color: darkorchid;
+	}
+
+	.YIELD_GOLD {
+		background-color: darkgoldenrod;
+	}
+
+	.YIELD_SCIENCE {
+		background-color: blue;
+	}
+
+	.YIELD_FOOD {
+		background-color: darkgreen;
+	}
+
+	.YIELD_PRODUCTION {
+		background-color: darkorange;
+	}
+}

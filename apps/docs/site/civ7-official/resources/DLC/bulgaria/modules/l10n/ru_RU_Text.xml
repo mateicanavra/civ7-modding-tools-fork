@@ -1,0 +1,801 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA1" Language="ru_RU">
+      <Text>Преслав|Преслава|Преславу|Преслав|Преславом|Преславе</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA10" Language="ru_RU">
+      <Text>Пловдив|Пловдива|Пловдиву|Пловдив|Пловдивом|Пловдиве</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA11" Language="ru_RU">
+      <Text>Боруй|Боруя|Борую|Боруя|Боруем|Боруе</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA12" Language="ru_RU">
+      <Text>Скопье|Скопья|Скопью|Скопье|Скопьем|Скопье</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA13" Language="ru_RU">
+      <Text>Белоград|Белограда|Белограду|Белоград|Белоградом|Белограде </Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA14" Language="ru_RU">
+      <Text>Варна|Варны|Варне|Варну|Варной|Варне</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA15" Language="ru_RU">
+      <Text>Брезник|Брезника|Брезнику|Брезник|Брезником|Брезнике</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA16" Language="ru_RU">
+      <Text>Девина|Девины|Девине|Девину|Девиной|Девине</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA17" Language="ru_RU">
+      <Text>Перник|Перника|Пернику|Перник|Перником|Пернике</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA18" Language="ru_RU">
+      <Text>Липян|Липяна|Липяну|Липяна|Липяном|Липяне</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA19" Language="ru_RU">
+      <Text>Деултум|Деултума|Деултуму|Деултум|Деултумом|Деултуме</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA2" Language="ru_RU">
+      <Text>Тырново|Тырнова|Тырнову|Тырново|Тырновом|Тырнове</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA20" Language="ru_RU">
+      <Text>Битоля|Битоли|Битоле|Битолю|Битолей|Битоле</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA21" Language="ru_RU">
+      <Text>Дрембица|Дрембицы|Дрембице|Дрембицу|Дрембицей|Дрембице</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA22" Language="ru_RU">
+      <Text>Прилеп|Прилепа|Прилепу|Прилеп|Прилепом|Прилепе</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA23" Language="ru_RU">
+      <Text>Косово|Косова|Косову|Косово|Косовом|Косове</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA24" Language="ru_RU">
+      <Text>Анхиало|Анхиала|Анхиалу|Анхиало|Анхиалом|Анхиале</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA25" Language="ru_RU">
+      <Text>Мелник|Мелника|Мелнику|Мелник|Мелником|Мелнике</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA26" Language="ru_RU">
+      <Text>Месемврия|Месемврии|Месемврии|Месемврию|Месемврией|Месемврии</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA27" Language="ru_RU">
+      <Text>Призрен|Призрена|Призрену|Призрен|Призреном|Призрене</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA28" Language="ru_RU">
+      <Text>Ямбол|Ямбола|Ямболу|Ямбол|Ямболом|Ямболе</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA29" Language="ru_RU">
+      <Text>Арса|Арсы|Арсе|Арсу|Арсой|Арсе</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA3" Language="ru_RU">
+      <Text>Охрид|Охрида|Охриду|Охрид|Охридом|Охриде</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA30" Language="ru_RU">
+      <Text>Девол|Девола|Деволу|Девол|Деволом|Деволе </Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA31" Language="ru_RU">
+      <Text>Пазарджик|Пазарджика|Пазарджику|Пазарджик|Пазарджиком|Пазарджике </Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA4" Language="ru_RU">
+      <Text>Плиска|Плиски|Плиске|Плиску|Плиской|Плиске</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA5" Language="ru_RU">
+      <Text>Драстар|Драстара|Драстару|Драстар|Драстаром|Драстаре</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA6" Language="ru_RU">
+      <Text>Плевен|Плевена|Плевену|Плевен|Плевеном|Плевене</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA7" Language="ru_RU">
+      <Text>Бадин|Бадина|Бадину|Бадин|Бадином|Бадине</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA8" Language="ru_RU">
+      <Text>Средец|Средца|Средцу|Средец|Средцем|Средце</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA9" Language="ru_RU">
+      <Text>Карвуна|Карвуны|Карвуне|Карвуну|Карвуной|Карвуне</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_1" Language="ru_RU">
+      <Text>Анна|Анны|Анне|Анну|Анной|Анне</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_10" Language="ru_RU">
+      <Text>Смилцена|Смилцены|Смилцене|Смилцену|Смилценой|Смилцене</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_2" Language="ru_RU">
+      <Text>Десислава|Десиславы|Десиславе|Десиславу|Десиславой|Десиславе</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_3" Language="ru_RU">
+      <Text>Кераца|Керацы|Кераце|Керацу|Керацей|Кераце</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_4" Language="ru_RU">
+      <Text>Милица|Милицы|Милице|Милицу|Милицей|Милице</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_5" Language="ru_RU">
+      <Text>Рипсиния|Рипсинии|Рипсинии|Рипсинию|Рипсинией|Рипсинии</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_6" Language="ru_RU">
+      <Text>Мирослава|Мирославы|Мирославе|Мирославу|Мирославой|Мирославе</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_7" Language="ru_RU">
+      <Text>Косара|Косары|Косаре|Косару|Косарой|Косаре</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_8" Language="ru_RU">
+      <Text>Мария|Марии|Марии|Марию|Марией|Марии</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_9" Language="ru_RU">
+      <Text>Белослава|Белославы|Белославе|Белославу|Белославой|Белославе</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_1" Language="ru_RU">
+      <Text>Борис|Бориса|Борису|Бориса|Борисом|Борисе</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_10" Language="ru_RU">
+      <Text>Радивой|Радивоя|Радивою|Радивой|Радивоем|Радивое</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_2" Language="ru_RU">
+      <Text>Аспарух|Аспаруха|Аспаруху|Аспаруха|Аспарухом|Аспарухе</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_3" Language="ru_RU">
+      <Text>Радислав|Радислава|Радиславу|Радислава|Радиславом|Радиславе</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_4" Language="ru_RU">
+      <Text>Иван|Ивана|Ивану|Ивана|Иваном|Иване</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_5" Language="ru_RU">
+      <Text>Безмер|Безмера|Безмеру|Безмер|Безмером|Безмере</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_6" Language="ru_RU">
+      <Text>Тервел|Тервела|Тервелу|Тервел|Тервелом|Тервеле</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_7" Language="ru_RU">
+      <Text>Калоян|Калояна|Калояну|Калояна|Калояном|Калояне</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_8" Language="ru_RU">
+      <Text>Ивайло|Ивайла|Ивайлу|Ивайло|Ивайлом|Ивайле</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_9" Language="ru_RU">
+      <Text>Петр|Петра|Петру|Петра|Петром|Петре</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_BULGARIA_ADJECTIVE" Language="ru_RU">
+      <Text>Болгарский|Болгарск|болгарск</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_BULGARIA_FULLNAME" Language="ru_RU">
+      <Text>Болгарское царство|Болгарского царства|Болгарскому царству|Болгарское царство|Болгарским царством|Болгарском царстве|</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_BULGARIA_NAME" Language="ru_RU">
+      <Text>Болгария|Болгарии|Болгарии|Болгарию|Болгарией|Болгарии</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_EXPLORATION_9_MAJOR_BULGARIA_NAME" Language="ru_RU">
+      <Text>Аберфрау|Аберфрау|Аберфрау|Аберфрау|Аберфрау|Аберфрау</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_EXPLORATION_9_MINOR_BULGARIA_NAME" Language="ru_RU">
+      <Text>Валлийский|Валлийск|валлийск</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>В 670-х гг. мощная армия болгар под предводительством хана Аспаруха прибыла в Придунавье с намерением там обосноваться. В то время этой территорией владела Византийская империя, но ее власть была непрочной, а среди новых проблем объявились экспансия Аварского каганата и союз местных славянских племен. Болгары (булгары), тюркский народ из Волго-Каспийского региона, последовали за аварами из евразийской степи после распада недолговечной единой территории Древней Великой Болгарии. Но, в отличие от бродячих аваров, которые сохранили свою кочевую империю, болгары Аспаруха начали вести более оседлый образ жизни и стремились найти постоянную территорию, чтобы сделать ее своей. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_10" Language="ru_RU">
+      <Text>В 1185 г. братья Петр и Иван Асень организовали восстание, борясь за независимость. После двух лет упорных боев Византия наконец признала Болгарию независимой державой — Вторым Болгарским царством. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_11" Language="ru_RU">
+      <Text>В этой главе рассказывалось о том, как продолжала формироваться держава на фундаменте Первого царства и как она адаптировалась ко все более сложной политике региона. Если раньше Болгария искала признания у своего грозного южного соседа, то теперь Византия слабела, а ее одобрение (и ее дары) уже не имели прежней ценности и блеска. Преемник Петра Асеня, его брат Калоян, вместо этого обратился за поддержкой к другому Риму — на Западе. Вскоре после падения Константинополя в ходе Четвертого крестового похода папа Иннокентий III признал Калояна царем, а болгарскую церковь — патриархией. Впоследствии Болгария обрела нового врага в недолговечной Латинской империи.  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_12" Language="ru_RU">
+      <Text>Расцвет Второго Болгарского царства пришелся на время правления Ивана Асеня II (1218–1241). Несмотря на продолжающиеся конфликты с соседями, война больше не была основой болгарской экономики. Расширение границ царства позволило добавить плодородные земли, и большей частью общество было ориентировано на сельское хозяйство. Однако Болгария также воспользовалась своим выгодным положением перекрестка между Востоком и Западом и обрела новую жизнь в качестве мощного центра торговли. С ростом экономики расцвело и искусство. В Тырново была основана новая столица, и под эгидой Тырновских школ возникло обширное творческое движение. Художники, архитекторы и писатели во множестве создавали красоту и знания — как религиозного, так и светского характера. Города быстро росли, а в отдаленных горах появлялись крепости и монастыри.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_13" Language="ru_RU">
+      <Text>После смерти Ивана Асеня II дела в Болгарии пошли плохо. Внутренний раскол между аристократией и крестьянством усилился до крайности и привел к нескольким восстаниям, что позволило временно занять трон свинопасу. Внешний мир менялся и давил на слабеющее царство со всех сторон: монголы с севера, сербы с востока и, наконец, османы с юга. Именно последняя угроза оказалась смертельной. В конце XIV века османы неуклонно продвигались по Балканам, пока в 1393 г. не взяли Тырново. К 1396 г., после смерти последнего правителя и потери всех территорий, Второе Болгарское царство прекратило свое существование.  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_2" Language="ru_RU">
+      <Text>Заключив союз с объединенными славянскими племенами, Аспарух в 680 г. перешел Дунай. Против его продвижения сразу же выступил император Константин IV, но болгары решительно разгромили византийскую армию в битве при Онгале. Их победа привела к заключению выгодного мирного договора, который, к огорчению Византии, признавал Болгарию государством и уступал ей все земли к северу от Балканских гор. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_3" Language="ru_RU">
+      <Text>Ранний период Первого Болгарского царства характеризовался построением государства и переходом от кочевой жизни к оседлой. В Плиске воздвигли столицу из камня, чтобы должно было обеспечить ее долговечность, и началось процветание сельскохозяйственной экономики. Но это была также и эпоха экспансии. Царство было организовано таким образом, что все еще следовало привычной военной иерархии, связанной с кочевым происхождением болгар, и большая часть его богатства была получена в результате военных действий, в первую очередь набегов на богатые византийские земли на юге. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_4" Language="ru_RU">
+      <Text>Отношения между болгарами и византийцами всегда были сложными, во многом определяя болгарскую идентичность на протяжении всего Средневековья. Болгары были агрессивны по отношению к Византии, потому что их молодое государство финансировалось за счет набегов, а захват византийцами всегда был (реалистичным) риском. Однако они также хотели подтверждения своей власти, которое пришло с признанием со стороны Восточной Римской империи, будь то в виде договоров или титулов, дарованных болгарским правителям (преемник Аспаруха Тервель, например, помог свергнутому Юстиниану II вернуть трон и был удостоен титула «цезарь», к его большому удовольствию). В течение веков близость Византии оказывала все большее влияние на многие стороны жизни Болгарии, от политики и религии до литературы и искусств. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_5" Language="ru_RU">
+      <Text>Византийцы, в свою очередь, были возмущены угрозой у своего северного порога. Время от времени они находили применение болгарам, в основном используя их как оружие против врагов во время гражданских войн, но в основном те были для империи бельмом на глазу. У византийцев находились дела поважнее: их главным соперником в эту эпоху был Аббасидский халифат, представлявший гораздо большую опасность. Чтобы избежать войны на два фронта, они пытались умиротворить болгар договорами и монетой, пока воевали на Востоке, приберегая свои балканские кампании на время затишья в этом более крупном конфликте, если их не провоцировали иным образом. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_6" Language="ru_RU">
+      <Text>Болгары были свирепыми воинами и превосходно использовали сложный рельеф Балкан. Они знали местность и разработали хитрости и тактику засад, чтобы одерживать верх над противниками, которые часто значительно превосходили их числом. Эти преимущества делали их смертоносными налетчиками, а также приносили плоды в крупных сражениях, как, например, при Плиске в 811 г., когда хан Крум уничтожил византийскую армию под командованием Никифора I. Сам император был убит в битве, а Крум отпраздновал это событие, превратив его череп в кубок.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_7" Language="ru_RU">
+      <Text>Победа при Плиске положила начало мирному периоду, который открыл новые возможности для развития Болгарии как государства. Кирилл и Мефодий, два византийских миссионера, начали путешествовать по Балканам с целью обращения в их веру болгар и славян. Чтобы лучше донести свое учение, они изобрели глаголицу — алфавит для славянского языка, позволявший его записывать. Вместе с обращением в православие стирались и культурные границы между болгарской знатью и славянским населением, и болгары все больше ассимилировались с местной культурой. Такие изменения в болгарской идентичности укрепили царство, сделав из него более унифицированное образование, а также открыли новые пути (мирного) политического и экономического общения с более широкой христианской Европой. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_8" Language="ru_RU">
+      <Text>Зенит Первого Болгарского царства пришелся на время правления Симеона I (893–927). Получив образование в Константинополе, он увеличил свое царство как в культурном, так и в географическом плане. Царь покровительствовал искусству и литературе, а новую столицу Преслав превратил во впечатляющий город. Он также начал военные кампании, которые расширили территорию Болгарии до южного побережья Эгейского и Адриатического морей. Правда, этому не суждено было продлиться долго. В 1014 г. Василий II уничтожил болгарскую армию в битве на Клейдионе, за что был прозван Болгаробойцей. После этого Болгарское царство отказалось от своей независимости и следующие 150 лет подчинилось византийской власти.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_9" Language="ru_RU">
+      <Text>Во время этого антракта болгары не ушли спокойно в тень. Были попытки вернуть независимость, особенно в 1040 г., когда Петру Деляну удалось захватить крупную часть западных Балкан, прежде чем он был разбит Михаилом IV. (В кампании Михаила, в составе варяжской стражи, участвовал молодой норвежский принц Харальд Суровый, получивший повышение за свой вклад.) Менее жестоко, но все так же агрессивно Византия пыталась эллинизировать Балканы, начав с реорганизации болгарской церкви. Однако беспорядки в других провинциях, вызванные крестовыми походами и вторжениями турок-сельджуков, помешали значимому прогрессу на этом фронте. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_IMPROVEMENT_HIDDEN_FORTRESS_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>В Балканских горах, недалеко от города Белоградчик, возвышается скалистый выступ с секретом — среди этих вершин когда-то располагался древний гарнизон, скрытый за естественными валами. Неровный ландшафт болгарских царств был усеян такими небольшими крепостями. Они возводились в стратегически важных местах, которые были в основном защищены рельефом: крутыми скалами, узкими долинами, удобными скоплениями камней. В дальнейшем место еще больше укреплялось, и там возводились здания для размещения солдат и провизии. Небольшие крепости часто проектировались таким образом, чтобы быть скрытыми от посторонних глаз и позволять вести тайное наблюдение или осуществлять внезапное нападение — один из многих способов, с помощью которых болгары использовали рельеф местности против своих врагов. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_IMPROVEMENT_HIDDEN_FORTRESS_CHAPTER_HISTORY_PARA_2" Language="ru_RU">
+      <Text>Сегодня сохранилось не так много таких скрытых крепостей, но самая примечательная из них — это Белоградчик. Впервые она была возведена в римскую эпоху, затем неоднократно укреплялась и расширялась византийцами, болгарами и, наконец, османами; это был особенно важный объект для отколовшегося от Болгарии государства с центром в Видине. Сегодня крепость гораздо более заметно выходит за пределы скал, но первоначальная цитадель все еще умудряется сливаться с окружающим пейзажем.  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_SEVEN_TRIBES_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Когда болгары прибыли в Восточную Европу со своей среднеазиатской родины, они обнаружили землю, уже населенную славянскими народами. Согласно византийскому летописцу Феофану, в Придунавье проживало семь племен, которые объединились в VII веке, чтобы противостоять византийцам на юге и аварам на западе. Но они не выступили против болгар, а вместо этого заключили союз с новоприбывшими, признав власть болгарского хана Аспаруха. Эти объединенные силы вскоре разгромили византийцев и форсировали Дунай, после чего основали Первое Болгарское царство.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_SEVEN_TRIBES_CHAPTER_HISTORY_PARA_2" Language="ru_RU">
+      <Text>Славяне продолжали оставаться важнейшим населением царства, и со временем тюркские болгары приняли местные обычаи, культуру и язык. К X веку они сами фактически стали славянами.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_TARNOVO_SCHOOLS_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Во времена Второго Болгарского царства столица Тырново была центром художественных, архитектурных и литературных достижений. Творческие умы собирались в соответствующих школах, что вызвало необычайный всплеск производства. Архитектурная школа использовала сложную кирпичную кладку и византийский дизайн для возведения украшенных зданий, как религиозных, так и светских, формируя новый ярко выраженный болгарский стиль. Художественная школа, покрывавшая стены и потолки фресками и мозаикой, также применяла свои навыки для создания более мелких работ, таких как миниатюры для рукописей и иконы. Распространение грамотности привело к росту литературной школы и появлению множества текстов — от житий святых и псалтырей до историй и сказок. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_TARNOVO_SCHOOLS_CHAPTER_HISTORY_PARA_2" Language="ru_RU">
+      <Text>Рост Тырновских школ укрепил Тырново в качестве процветающей культурной столицы, а работы местных художников и писателей открывали новые пути обретения духовности, образования и самоутверждения. Школы также способствовали частному восприятию искусства через рукописи и иконы — по крайней мере, для тех, кто мог себе это позволить. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_TSARSTVIE_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Превращение кочевых болгар в упрочившееся царство было удивительным достижением, чему помогло его расположение между Востоком и Западом, хотя оно же все усложнило. Устойчивая ассимиляция болгар с местными славянскими народами ускорила рост раннего царства, объединив обе идентичности в новую государственную структуру, которой предстояло существовать в течение столетий. Однако Болгария также находилась на стыке между крупными державами, которые сильно повлияли на ее развитие. Наиболее тесные отношения сложились у нее с Византией, влияние которой пронизывало оба Болгарских царства. Запад все больше становился источником власти, богатства и вдохновения, пока болгары искали новые возможности за пределами константинопольской орбиты. На протяжении всей своей долгой и бурной истории Болгария умела адаптироваться и развиваться, что обеспечило ей долголетие, хотя ее основная идентичность оставалась неизменно болгарской. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_BALIK_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>«Тархан» — тюркское слово, обозначающее высокопоставленного военного офицера и/или провинциального губернатора. Этот термин широко использовался среди древних и средневековых народов Центральной Азии, и булгары включили его в свою иерархию еще до миграции на запад. С образованием Первого Болгарского царства булгары быстро перешли от кочевого образа жизни к оседлости, однако сохранили некоторые черты политической и военной организации своих степных предков. Это проявлялось в использовании титулов, распределении обязанностей и делении власти. Нашли себе место в новом обществе и тарханы, у которых также была своя внутренняя иерархия (жупан-тархан, оглу-тархан, калу-тархан и др.). </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_BALIK_CHAPTER_HISTORY_PARA_2" Language="ru_RU">
+      <Text>Ассимиляция с местным славянским населением, влияние Византийской империи и обращение в христианство преобразили государство булгар, и их тюркское происхождение со временем утратило свое значение. Однако, несмотря на то, что обязанности тарханов сократились, сам титул сохранился и встречается в источниках вплоть до XII века. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_BOYAR_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Титул «бойла» носили аристократы в Первом Болгарском царстве. В эпоху Второго Болгарского царства аристократию стали называть болярами или же боярами. Боляре исполняли как гражданские, так и военные функции: в мирное время они управляли своими землями, а в случае войны собирали войско. Эти полководцы были прекрасными наездниками и хорошо знали свою землю — и именно эти качества делали болгарскую армию такой эффективной. Кавалерия была таким ценным ресурсом, что за плохое обращение с лошадьми даже в мирное время полагалось суровое наказание. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_BOYAR_CHAPTER_HISTORY_PARA_2" Language="ru_RU">
+      <Text>Титул болярина передавался по наследству, и у боляр была своя внутренняя иерархия. Небольшая группа старших боляр входила в совет при царе, а младшие боляре отвечали за местное управление. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_RILA_MONASTERY_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>В X веке н. э. монах Иоанн Рыльский удалился в горы Рила и стал отшельником. Иоанн прославился своими чудесами, и в его уединенную пещеру стали стекаться толпы последователей, желавших учиться у него или получить его благословение. Ученики и паломники построили себе жилища — сначала временные, а затем постоянные. Так возник Рильский монастырь. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_RILA_MONASTERY_CHAPTER_HISTORY_PARA_2" Language="ru_RU">
+      <Text>За десять веков монастырь претерпел множество изменений. Его неоднократно разрушали и восстанавливали, а сегодняшний комплекс вобрал в себя различные эпохи болгарского искусства, архитектуры и истории. Особенно сильно здесь ощущается влияние Тырновской художественной школы времен Второго Болгарского царства. На протяжении всей своей долгой истории Рильский монастырь неизменно оставался символом болгарской духовности, искусства и национальной идентичности. И по сей день он является действующим монастырем. </Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIDDEN_FORTRESS_NAME" Language="ru_RU">
+      <Text>Тайная крепость|тайной крепости|тайной крепости|тайную крепость|тайной крепостью|тайной крепости</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_WONDER_RILA_MONASTERY_NAME" Language="ru_RU">
+      <Text>Рильский монастырь|Рильского монастыря|Рильскому монастырю|Рильский монастырь|Рильским монастырем|Рильском монастыре</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_DRINA_NAME" Language="ru_RU">
+      <Text>Дрина|Дрины|Дрине|Дрину|Дриной|Дрине</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_ISKAR_NAME" Language="ru_RU">
+      <Text>Искыр|Искыра|Искыру|Искыр|Искыром|Искыре</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_MORAVA_NAME" Language="ru_RU">
+      <Text>Морава|Моравы|Мораве|Мораву|Моравой|Мораве</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_PRUT_NAME" Language="ru_RU">
+      <Text>Прут|Прута|Пруту|Прут|Прутом|Пруте</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_YANTRA_NAME" Language="ru_RU">
+      <Text>Янтра|Янтры|Янтре|Янтру|Янтрой|Янтре</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_ADATEPE_NAME" Language="ru_RU">
+      <Text>Адатепе|Адатепе|Адатепе|Адатепе|Адатепе|Адатепе</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_CIOMADUL_NAME" Language="ru_RU">
+      <Text>Чиомадул|Чиомадула|Чиомадулу|Чиомадул|Чиомадулом|Чиомадуле</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_CSOVANYOS_NAME" Language="ru_RU">
+      <Text>Чованьош|Чованьоша|Чованьошу|Чованьош|Чованьошом|Чованьоше</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_KERKIS_NAME" Language="ru_RU">
+      <Text>Керкис|Керкиса|Керкису|Керкис|Керкисом|Керкисе</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_MOUNT_KARADAG_NAME" Language="ru_RU">
+      <Text>Карадаг|Карадага|Карадагу|Карадаг|Карадаг|Карадаге</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SEVEN_TRIBES_NAME" Language="ru_RU">
+      <Text>Семь племен|Семи племен|Семи племенам|Семь племен|Семи племенами|Семи племенах</Text>
+      <Gender>neuter</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TARNOVO_SCHOOLS_NAME" Language="ru_RU">
+      <Text>Тырновские школы|Тырновских школ|Тырновским школам|Тырновские школы|Тырновскими школами|Тырновских школах</Text>
+      <Gender>feminine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TSARSTVIE_NAME" Language="ru_RU">
+      <Text>Царство|Царства|Царству|Царство|Царством|Царстве</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_11020A_COMPLETION" Language="ru_RU">
+      <Text>Болгарские горы таят в себе множество секретов. Величественная красота этих древних молчаливых вершин привлекает взоры всех, кто приходит сюда. Однако враги вскоре замечают, что горы тоже смотрят на них. И взгляд их не предвещает ничего хорошего.</Text>
+    </Replace>
+    <Replace Tag="LOC_11020A_STORYTITLE" Language="ru_RU">
+      <Text>Живые утесы</Text>
+    </Replace>
+    <Replace Tag="LOC_11020B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11020B_NAME" Language="ru_RU">
+      <Text>Можно многое узнать, наблюдая за чужаками из теней.</Text>
+    </Replace>
+    <Replace Tag="LOC_11020C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11020C_NAME" Language="ru_RU">
+      <Text>В горах найдется место для чужих секретов.</Text>
+    </Replace>
+    <Replace Tag="LOC_11021A_COMPLETION" Language="ru_RU">
+      <Text>В мирное время Болгарское царство процветает. Тарханы, хоть и лишенные воинской славы, все еще выделяются в толпе, и народ все чаще обращается к ним для разрешения бытовых вопросов.</Text>
+    </Replace>
+    <Replace Tag="LOC_11021A_STORYTITLE" Language="ru_RU">
+      <Text>Лидеры мирного времени</Text>
+    </Replace>
+    <Replace Tag="LOC_11021B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}, но {2_reward} на {3_turn_timer}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11021B_NAME" Language="ru_RU">
+      <Text>Пусть тарханы научатся управлению.</Text>
+    </Replace>
+    <Replace Tag="LOC_11021C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11021C_NAME" Language="ru_RU">
+      <Text>Мир — идеальное время для подготовки к войне.</Text>
+    </Replace>
+    <Replace Tag="LOC_11022A_COMPLETION" Language="ru_RU">
+      <Text>Высоко в горах живет в пещере один святой, что совершает чудеса среди местных жителей. Множество людей приходит к его отдаленному жилищу в надежде получить благословение.</Text>
+    </Replace>
+    <Replace Tag="LOC_11022A_STORYTITLE" Language="ru_RU">
+      <Text>Чудеса в горах</Text>
+    </Replace>
+    <Replace Tag="LOC_11022B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11022B_NAME" Language="ru_RU">
+      <Text>Здесь следует построить монастырь.</Text>
+    </Replace>
+    <Replace Tag="LOC_11022C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11022C_NAME" Language="ru_RU">
+      <Text>Оставьте отшельника в покое!</Text>
+    </Replace>
+    <Replace Tag="LOC_11023A_COMPLETION" Language="ru_RU">
+      <Text>Монахи Рильского монастыря размышляют о природе божественного в тишине церкви. Внезапно их молитвы прерывают голоса паломников, которые громко восторгаются искусными монастырскими фресками.</Text>
+    </Replace>
+    <Replace Tag="LOC_11023A_STORYTITLE" Language="ru_RU">
+      <Text>Культурный туризм</Text>
+    </Replace>
+    <Replace Tag="LOC_11023B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} и {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11023B_NAME" Language="ru_RU">
+      <Text>Монастырь принимает всех жителей Болгарии.</Text>
+    </Replace>
+    <Replace Tag="LOC_11023C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11023C_NAME" Language="ru_RU">
+      <Text>Это место предназначено для духовных размышлений.</Text>
+    </Replace>
+    <Replace Tag="LOC_11024A_COMPLETION" Language="ru_RU">
+      <Text>Вражеский командир призывает к себе свое войско, когда вокруг раздаются крики. Кажется, что сами горы желают солдатам смерти. Болгары возникают из ниоткуда и так же быстро исчезают. Всю ночь эхом разносится звон щитов. Враг растерян... напуган... истощен... а на рассвете болгары идут в атаку. Они беспощадны, а их победа неизбежна.</Text>
+    </Replace>
+    <Replace Tag="LOC_11024A_STORYTITLE" Language="ru_RU">
+      <Text>Месть за Вырбицу</Text>
+    </Replace>
+    <Replace Tag="LOC_11024B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} для кавалерии.</Text>
+    </Replace>
+    <Replace Tag="LOC_11024B_NAME" Language="ru_RU">
+      <Text>Сегодня вечером воинов ждет пир.</Text>
+    </Replace>
+    <Replace Tag="LOC_11024C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11024C_NAME" Language="ru_RU">
+      <Text>Война продолжается — нам нужны подкрепления!</Text>
+    </Replace>
+    <Replace Tag="LOC_11025A_COMPLETION" Language="ru_RU">
+      <Text>Прославившийся своими чудесами священник основал школу для молодых миссионеров. Он обучает их новому алфавиту и хочет, чтобы они поделились своими знаниями со всеми.</Text>
+    </Replace>
+    <Replace Tag="LOC_11025A_STORYTITLE" Language="ru_RU">
+      <Text>Охридский святой</Text>
+    </Replace>
+    <Replace Tag="LOC_11025B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11025B_NAME" Language="ru_RU">
+      <Text>Только огонь учения может осветить мир.</Text>
+    </Replace>
+    <Replace Tag="LOC_11025C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11025C_NAME" Language="ru_RU">
+      <Text>Протоптанные миссионерами дороги откроют новые пути для торговли.</Text>
+    </Replace>
+    <Replace Tag="LOC_11026A_COMPLETION" Language="ru_RU">
+      <Text>С кораблями и с караванами миссионеры несут духовность Болгарии всем, кто готов услышать их учение. И вот уже эти новые ученики отправляются в паломничество за благословением болгарских святых.</Text>
+    </Replace>
+    <Replace Tag="LOC_11026A_STORYTITLE" Language="ru_RU">
+      <Text>Паломники издалека</Text>
+    </Replace>
+    <Replace Tag="LOC_11026B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11026B_NAME" Language="ru_RU">
+      <Text>Храмы должны принять всех.</Text>
+    </Replace>
+    <Replace Tag="LOC_11026C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11026C_NAME" Language="ru_RU">
+      <Text>Это же потенциальные покупатели икон...</Text>
+    </Replace>
+    <Replace Tag="LOC_11027A_COMPLETION" Language="ru_RU">
+      <Text>Дым поднимается от разрушенных домов, а боляры нагружают лошадей награбленным. Их воодушевил успешный набег, но они невольно спрашивают себя: как этим землям удалось накопить такие богатства?</Text>
+    </Replace>
+    <Replace Tag="LOC_11027A_STORYTITLE" Language="ru_RU">
+      <Text>Внезапная атака</Text>
+    </Replace>
+    <Replace Tag="LOC_11027B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}, но {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11027B_NAME" Language="ru_RU">
+      <Text>Болгарии повезло с богатыми соседями.</Text>
+    </Replace>
+    <Replace Tag="LOC_11027C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11027C_NAME" Language="ru_RU">
+      <Text>Возможно, из их процветания можно извлечь урок.</Text>
+    </Replace>
+    <Replace Tag="LOC_11028A_COMPLETION" Language="ru_RU">
+      <Text>Народ оплакивает потерю столицы, и в империи широко распространяются несколько текстов. В них пророки древности описывают прошлое, настоящее и будущее Болгарии, о котором поведали ангелы. В эти трудные времена многим приносят утешение главы из истории страны, однако апокалиптическая концовка вызывает некоторое беспокойство.</Text>
+    </Replace>
+    <Replace Tag="LOC_11028A_STORYTITLE" Language="ru_RU">
+      <Text>Апокрифические анналы</Text>
+    </Replace>
+    <Replace Tag="LOC_11028B_DESCRIPTION" Language="ru_RU">
+      <Text>Командир самого высокого уровня получает бесплатное повышение.</Text>
+    </Replace>
+    <Replace Tag="LOC_11028B_NAME" Language="ru_RU">
+      <Text>Напоминания о прошлом формируют надежду на будущее.</Text>
+    </Replace>
+    <Replace Tag="LOC_11028C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} для кавалерии.</Text>
+    </Replace>
+    <Replace Tag="LOC_11028C_NAME" Language="ru_RU">
+      <Text>Небеса придают людям сил.</Text>
+    </Replace>
+    <Replace Tag="LOC_11029A_COMPLETION" Language="ru_RU">
+      <Text>Гости Болгарского царства восхищаются красотой городов и искусными творениями местных жителей. Однако их сердца сжимаются от страха при виде болгарских солдат. Они отлично понимают, что их страна может оказаться следующей на пути этих храбрых завоевателей.</Text>
+    </Replace>
+    <Replace Tag="LOC_11029A_STORYTITLE" Language="ru_RU">
+      <Text>Зенит</Text>
+    </Replace>
+    <Replace Tag="LOC_11029B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11029B_NAME" Language="ru_RU">
+      <Text>Репутация Болгарии питает ее рост.</Text>
+    </Replace>
+    <Replace Tag="LOC_11029C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11029C_NAME" Language="ru_RU">
+      <Text>Армия — главная гордость Болгарии.</Text>
+    </Replace>
+    <Replace Tag="LOC_12006A_COMPLETION" Language="ru_RU">
+      <Text>Осторожно спускаясь по коварной горной тропе, доктор Рисаль размышляет о парадоксе Болгарии, изолированной от мира высокими горами, но связанной с ним торговлей.</Text>
+    </Replace>
+    <Replace Tag="LOC_12006A_STORYTITLE" Language="ru_RU">
+      <Text>Добрый доктор на перекрестке</Text>
+    </Replace>
+    <Replace Tag="LOC_12006B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} для летучего отряда.</Text>
+    </Replace>
+    <Replace Tag="LOC_12006B_NAME" Language="ru_RU">
+      <Text>Горе потенциальным захватчикам.</Text>
+    </Replace>
+    <Replace Tag="LOC_12006C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} во всех поселениях.</Text>
+    </Replace>
+    <Replace Tag="LOC_12006C_NAME" Language="ru_RU">
+      <Text>Какие храбрые у них торговцы.</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SEVEN_TRIBES_AUTHOR" Language="ru_RU">
+      <Text>Законы хана Крума</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SEVEN_TRIBES_QUOTE" Language="ru_RU">
+      <Text>«Как сообщалось ранее, болгары уничтожили всех врагов».</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TARNOVO_SCHOOLS_AUTHOR" Language="ru_RU">
+      <Text>Козьма Пресвитер</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TARNOVO_SCHOOLS_QUOTE" Language="ru_RU">
+      <Text>«Демоны боятся этих реликвий и не осмеливаются приблизиться к благословенным сосудам».</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TSARSTVIE_AUTHOR" Language="ru_RU">
+      <Text>Панегирик Петру I</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TSARSTVIE_QUOTE" Language="ru_RU">
+      <Text>«Твое явление прогнало вражескую тень, подобно утренней звезде».</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_BULGARIA_DESCRIPTION" Language="ru_RU">
+      <Text>Вы получаете [icon:YIELD_PRODUCTION] производство во всех городах за разграбление зданий в размере 50% от полученной прибыли или ОЗ. Все боевые юниты получают -3 к боевой мощи против районов со средневековыми стенами.</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIDDEN_FORTRESS_DESCRIPTION" Language="ru_RU">
+      <Text>+4 к [icon:YIELD_PRODUCTION] производству. Можно разместить только на существующем улучшении на неровной клетке, если по соседству нет другой тайной крепости. Юниты на этой клетке получают скрытность. Уникальное улучшение Болгарии. Считается укреплением. +6 к боевой мощи во время обороны. Не устаревает. Не убирает бонусы от складов с клетки.</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIDDEN_FORTRESS_TOOLTIP" Language="ru_RU">
+      <Text>Можно разместить только на существующем улучшении на неровной клетке, если по соседству нет другой тайной крепости. Юниты на этой клетке получают скрытность. Уникальное улучшение Болгарии. Считается укреплением. +6 к боевой мощи во время обороны. Не устаревает. Не убирает бонусы от складов с клетки.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_BULGARIA" Language="ru_RU">
+      <Text>На вершинах гор монахи обращаются с молитвами к небесам, а по равнинам разносятся звуки труб. Болгария движется только вперед, а ее мечи направляет вера, что прочнее стали. Доставайте сабли и трубите в рога, берите арканы и длинные копья — болгары готовы обрушиться на этот мир.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_BULGARIA" Language="ru_RU">
+      <Text>Сочетайте уникальную способность «Династия Крума» с традициями «Ложное отступление» и «Стратагемы», чтобы получать крупные бонусы к прибыли при разграблении. Только будьте осторожны во время атаки на укрепленные поселения!</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_INTRO_BULGARIA" Language="ru_RU">
+      <Text>Как всадник топчет копытами дракона, так Болгария растопчет всю землю.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BULGARIA_COMPLETE_RILA_MONASTERY_DESC" Language="ru_RU">
+      <Text>Завершите Рильский монастырь, играя за Болгарию</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BULGARIA_COMPLETE_RILA_MONASTERY_NAME" Language="ru_RU">
+      <Text>Рильский монастырь</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BULGARIA_LEGACY_PATH_MILITARISTIC_DESC" Language="ru_RU">
+      <Text>Завершите военную тропу наследия, играя за Болгарию</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BULGARIA_LEGACY_PATH_MILITARISTIC_NAME" Language="ru_RU">
+      <Text>Тропа наследия Болгарии</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_BULGARIA_DESCRIPTION" Language="ru_RU">
+      <Text>+30% производства за уникальное чудо света Болгарии.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SEVEN_TRIBES_GREATWORKS_COMBAT_DESCRIPTION" Language="ru_RU">
+      <Text>Боевые юниты получают +5 к боевой мощи, когда в вашей империи выставлены на обозрение хотя бы 5 реликвий.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TARNOVO_SCHOOLS_TEMPLE_HAPPINESS_HIDDEN_FORTRESS_DESCRIPTION" Language="ru_RU">
+      <Text>+2 к [icon:YIELD_HAPPINESS] довольству от тайных крепостей в поселениях с храмом.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TSARSTVIE_CULTURE_MOUNTAIN_HIDDEN_FORTRESS_DESCRIPTION" Language="ru_RU">
+      <Text>Тайные крепости получают +2 к [icon:YIELD_CULTURE] культуре за каждую соседствующую горную клетку.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TSARSTVIE_TWO_MIGRANTS_DESCRIPTION" Language="ru_RU">
+      <Text> Вы получаете 2 эмигрантов в столице.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_RILA_MONASTERY" Language="ru_RU">
+      <Text>Иоанн Рыльский</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_RILA_MONASTERY" Language="ru_RU">
+      <Text>Богатство отшельника не в серебре и злате, но в абсолютной бедности и бесконечном смирении.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_FALSE_RETREAT_DESCRIPTION" Language="ru_RU">
+      <Text>Вы получаете [icon:YIELD_FOOD] пищу во всех городках за разграбление улучшений в размере 50% от полученной прибыли или ОЗ. Все боевые юниты получают -3 к боевой мощи против укрепленных районов.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_ICONOLATRY_DESCRIPTION" Language="ru_RU">
+      <Text>Шедевры дают +1 к [icon:YIELD_HAPPINESS] довольству и +1 [icon:YIELD_GOLD] к золоту.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_STRATAGEMS_DESCRIPTION" Language="ru_RU">
+      <Text>+50% доходов и ОЗ от разграбления.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_BULGARIA_ABILITY_DESCRIPTION" Language="ru_RU">
+      <Text>[BLIST][LI]Вы получаете [B][icon:YIELD_PRODUCTION] производство [/B]во всех [B]городах [/B]за разграбление зданий в размере [B]50% от полученной прибыли или ОЗ[/B].[LI]Все боевые юниты получают [B]-3 к боевой мощи[/B] против районов со средневековыми стенами.[LI][B]+30%[icon:YIELD_PRODUCTION] производства [/B]при строительстве [B]Рильского монастыря[/B].[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_BULGARIA_ABILITY_NAME" Language="ru_RU">
+      <Text>Династия Крума</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_EX_BULGARIA_NAME" Language="ru_RU">
+      <Text>Социальные институты Болгарии</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BALIK_DESCRIPTION" Language="ru_RU">
+      <Text>Уникальный командир армии Болгарии. Имеет 3 очка перемещения. Юниты в зоне командования могут грабить, потратив 1 очко перемещения.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_2_DESCRIPTION" Language="ru_RU">
+      <Text>Уникальный болгарский юнит кавалерии 2 уровня. Игнорирует штрафы пересеченной местности при перемещении и от вражеского юнита в бою. +3 к боевой мощи в бою на пересеченной местности. Игнорирует зону контроля.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_3_DESCRIPTION" Language="ru_RU">
+      <Text>Уникальный болгарский юнит кавалерии 3 уровня. Игнорирует штрафы пересеченной местности при перемещении и от вражеского юнита в бою. +3 к боевой мощи в бою на пересеченной местности. Игнорирует зону контроля.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_BASE_DESCRIPTION" Language="ru_RU">
+      <Text>Уникальный болгарский юнит кавалерии. Игнорирует штрафы пересеченной местности при перемещении и от вражеского юнита в бою. +3 к боевой мощи в бою на пересеченной местности. Игнорирует зону контроля.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_DESCRIPTION" Language="ru_RU">
+      <Text>Уникальный болгарский юнит кавалерии 1 уровня. Игнорирует штрафы пересеченной местности при перемещении и от вражеского юнита в бою. +3 к боевой мощи в бою на пересеченной местности. Игнорирует зону контроля.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_ALTARS_BULGARIA_TOOLTIP" Language="ru_RU">
+      <Text>[B]Алтари[/B] были важной частью идентичности [B]Болгарии[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_ALTARS_DESCRIPTION" Language="ru_RU">
+      <Text>У вас должно быть три [B]алтаря[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_AUGUSTUS_BULGARIA_TOOLTIP" Language="ru_RU">
+      <Text>[B]Август[/B] правил регионом, который позднее станет [B]Болгарией[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BULGARIA_DESCRIPTION" Language="ru_RU">
+      <Text>Играть за [B]Болгарию[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_CATHERINE_BULGARIA_TOOLTIP" Language="ru_RU">
+      <Text>[B]Екатерина[/B] жила на том же континенте, где находилась [B]Болгария[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_CHARLEMAGNE_BULGARIA_TOOLTIP" Language="ru_RU">
+      <Text>Особенности [B]Болгарии[/B] стратегически сочетаются с игрой за [B]Карла Великого[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_RILA_MONASTERY_DESCRIPTION" Language="ru_RU">
+      <Text>+4 к [icon:YIELD_CULTURE] культуре. Есть 3 ячейки для реликвии. Вы будете получать реликвию за каждое построенное чудо света, включая это. Нельзя разместить по соседству с районом.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_RILA_MONASTERY_TOOLTIP" Language="ru_RU">
+      <Text>Есть 3 ячейки для реликвии. Вы будете получать реликвию за каждое построенное чудо света, включая это. Нельзя разместить по соседству с районом.</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_BOYAR_PREVIEW" Language="ru_RU">
+      <Text>+{1_Amount} на пересеченной местности</Text>
+    </Replace>
+    <Replace Tag="LOC_COMBAT_PREVIEW_NUMBER_GREATWORKS_BONUS_DESC" Language="ru_RU">
+      <Text>+{1_Value} к боевой мощи от заполненных ячеек шедевров.</Text>
+    </Replace>
+    <Replace Tag="LOC_SEVEN_TRIBES_GREATWORKS_COMBAT_PREVIEW" Language="ru_RU">
+      <Text>+{1_Amount} «Семь племен»</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_FALSE_RETREAT_PREVIEW" Language="ru_RU">
+      <Text>{1_CombatAmount} от ложного отступления</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_BULGARIA_ABILITY_PREVIEW" Language="ru_RU">
+      <Text>{1_CombatAmount} от династии Крума</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_ALTARS_BULGARIA_NARRATIVE" Language="ru_RU">
+      <Text>Религия всегда была личным делом каждого для {1_Civilization_Adj} народа. Но вот у городских алтарей собираются толпы, чтобы поделиться историями о святых прошлого. Здесь зарождается новое сообщество верующих, которые стремятся донести свое видение до власть имущих.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_FALSE_RETREAT_NAME" Language="ru_RU">
+      <Text>Ложное отступление|Ложного отступления|Ложному отступлению|Ложное отступление|Ложным отступлением|Ложном отступлении</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_ICONOLATRY_NAME" Language="ru_RU">
+      <Text>Иконолатрия|Иконолатрии|Иконолатрии|Иконолатрию|Иконолатрией|Иконолатрии</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_STRATAGEMS_NAME" Language="ru_RU">
+      <Text>Стратагемы|Стратагем|Стратагемам|Стратагемы|Стратагемами|Стратагемах</Text>
+      <Gender>feminine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BALIK_NAME" Language="ru_RU">
+      <Text>Тархан|тархана|тархану|тархана|тарханом|тархане</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_NAME" Language="ru_RU">
+      <Text>Боляр|боляра|боляру|боляра|боляром|боляре</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+  </LocalizedText>
+</Database>

@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_UNIT_SLINGER_NAME">
+			<Text>Slinger</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_SLINGER_DESCRIPTION">
+			<Text>Tier 1 Antiquity Ranged Unit. Stronger on attack than defense.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_WARRIOR_NAME">
+			<Text>Warrior</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_WARRIOR_DESCRIPTION">
+			<Text>Tier 1 Antiquity Infantry Unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_SPEARMAN_NAME">
+			<Text>Spearman</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_SPEARMAN_DESCRIPTION">
+			<Text>Tier 2 Antiquity Infantry Unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_ARCHER_NAME">
+			<Text>Archer</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_UNIT_ARCHER_DESCRIPTION">
+			<Text>Tier 2 Antiquity Ranged Unit. Stronger on attack than defense.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_CHARIOT_NAME">
+			<Text>Chariot</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_CHARIOT_DESCRIPTION">
+			<Text>Tier 2 Antiquity Cavalry Unit. Ignores Zone of Control.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_BALLISTA_NAME">
+			<Text>Ballista</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_BALLISTA_DESCRIPTION">
+			<Text>Tier 2 Antiquity Siege Unit. High Bombard strength for attacking Fortified Districts.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_GALLEY_NAME">
+			<Text>Galley</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_GALLEY_DESCRIPTION">
+			<Text>Tier 2 Antiquity Naval Unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_PHALANX_NAME">
+			<Text>Phalanx</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_PHALANX_DESCRIPTION">
+			<Text>Tier 3 Antiquity Infantry Unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HORSEMAN_NAME">
+			<Text>Horseman</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HORSEMAN_DESCRIPTION">
+			<Text>Tier 3 Antiquity Cavalry Unit. Ignores Zone of Control.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_QUADRIREME_NAME">
+			<Text>Quadrireme</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_QUADRIREME_DESCRIPTION">
+			<Text>Tier 3 Antiquity Naval Unit.</Text>
+		</Row>
+		<!-- Unit Abilities -->
+		<Row Tag="LOC_ABILITY_SIEGE_RANGED_RESISTANCE_PREVIEW">
+			<Text>+{1_Amount} against Ranged Attacks</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_AQ_TECH_INFANTRY_PREVIEW">
+			<Text>+{1_Amount} Bronze Working</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_AQ_TECH_NAVAL_PREVIEW">
+			<Text>+{1_Amount} Navigation</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_AQ_TECH_RANGED_PREVIEW">
+			<Text>+{1_Amount} Military Training</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_AQ_TECH_SIEGE_PREVIEW">
+			<Text>+{1_Amount} Military Training</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_CAVALRY_CHARGE_DESCRIPTION">
+			<Text>Combat bonus when making an unobstructed attack from more than one tile away.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_INVASION_1_MELEE_PREVIEW">
+			<Text>+{1_Amount} Invasion Crisis</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_INVASION_1_RANGED_PREVIEW">
+			<Text>+{1_Amount} Invasion Crisis</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_INVASION_2_MELEE_PREVIEW">
+			<Text>+{1_Amount} Invasion Crisis</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_INVASION_2_RANGED_PREVIEW">
+			<Text>+{1_Amount} Invasion Crisis</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_INVASION_3_MELEE_PREVIEW">
+			<Text>+{1_Amount} Invasion Crisis</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_INVASION_3_RANGED_PREVIEW">
+			<Text>+{1_Amount} Invasion Crisis</Text>
+		</Row>
+		<!-- Aksum Unique Units -->
+		<Row Tag="LOC_UNIT_DHOW_NAME">
+			<Text>Dhow</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_DHOW_BASE_DESCRIPTION">
+			<Text>Unique Naval Unit. +4 Combat Strength on Coast. Has 1 charge to create a naval Trade Route.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_DHOW_DESCRIPTION">
+			<Text>Tier 2 Aksum Unique Naval Unit. +4 Combat Strength on Coast. Has 1 charge to create a naval Trade Route.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_DHOW_2_DESCRIPTION">
+			<Text>Tier 3 Aksum Unique Naval Unit. +4 Combat Strength on Coast. Has 1 charge to create a naval Trade Route.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_DHOW_DESCRIPTION">
+			<Text>+{1_Amount} Combat Strength on Coast.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_DHOW_PREVIEW">
+			<Text>+{1_Amount} Combat Strength on Coast.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_DHOW_UPGRADE_NAME">
+			<Text>Swift</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_TANKWA_NAME">
+			<Text>Tankwa</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_TANKWA_DESCRIPTION">
+			<Text>Aksum Unique Trade Ship. Cannot be pillaged. +10 Trade Route range.</Text>
+		</Row>
+		<!-- Egypt Unique Units -->
+		<Row Tag="LOC_UNIT_MEDJAY_NAME">
+			<Text>Medjay</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_MEDJAY_BASE_DESCRIPTION">
+			<Text>Egyptian Unique Infantry Unit. Has no maintenance. +3 Combat Strength in friendly territory, doubled when stationed in a Settlement you own.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_MEDJAY_DESCRIPTION">
+			<Text>Tier 1 Egyptian Unique Infantry Unit. Has no maintenance. +3 Combat Strength in friendly territory, doubled when stationed in a Settlement you own.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_MEDJAY_2_DESCRIPTION">
+			<Text>Tier 2 Egyptian Unique Infantry Unit. Has no maintenance. +3 Combat Strength in friendly territory, doubled when stationed in a Settlement you own.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_MEDJAY_3_DESCRIPTION">
+			<Text>Tier 3 Egyptian Unique Infantry Unit. Has no maintenance. +3 Combat Strength in friendly territory, doubled when stationed in a Settlement you own.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_MEDJAY_DESCRIPTION">
+			<Text>+{1_Amount} Combat Strength in friendly territory, doubled when stationed in a Settlement you own.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_MEDJAY_FRIENDLY_TERRITORY_PREVIEW">
+			<Text>+{1_Amount} in friendly territory</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_MEDJAY_URBAN_PREVIEW">
+			<Text>+{1_Amount} Stationed</Text>
+		</Row>
+		<!-- Greece Unique Units -->
+		<Row Tag="LOC_UNIT_HOPLITE_NAME">
+			<Text>Hoplite</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HOPLITE_BASE_DESCRIPTION">
+			<Text>Greek Unique Infantry Unit. +2 Combat Strength if adjacent to another Hoplite.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HOPLITE_DESCRIPTION">
+			<Text>Tier 1 Greek Unique Infantry Unit. +2 Combat Strength if adjacent to another Hoplite.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HOPLITE_2_DESCRIPTION">
+			<Text>Tier 2 Greek Unique Infantry Unit. +2 Combat Strength if adjacent to another Hoplite.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HOPLITE_3_DESCRIPTION">
+			<Text>Tier 3 Greek Unique Infantry Unit. +2 Combat Strength if adjacent to another Hoplite.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_HOPLITE_DESCRIPTION">
+			<Text>+2 Combat Strength if adjacent to another Hoplite.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_HOPLITE_PREVIEW">
+			<Text>+{1_Amount} Adjacent Hoplite</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_HOPLITE_UPGRADE_DESCRIPTION">
+			<Text>+1 Combat Strength for each City-State you are suzerain of.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_HOPLITE_UPGRADE_PREVIEW">
+			<Text>+{1_Amount} from City-States</Text>
+		</Row>
+		<!-- Han Unique Units -->
+		<Row Tag="LOC_UNIT_NU_NAME">
+			<Text>Chu-Ko-Nu</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_NU_BASE_DESCRIPTION">
+			<Text>Han Unique Ranged Unit. Has Zone of Control and a higher Defense Strength. +5 Combat Strength when attacking adjacent Units.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_NU_DESCRIPTION">
+			<Text>Tier 1 Han Unique Ranged Unit. Has Zone of Control and a higher Defense Strength. +5 Combat Strength when attacking adjacent Units.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_NU_2_DESCRIPTION">
+			<Text>Tier 2 Han Unique Ranged Unit. Has Zone of Control and a higher Defense Strength. +5 Combat Strength when attacking adjacent Units.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_NU_PREVIEW">
+			<Text>+{1_Amount} against adjacent Units</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_HAN_YI_PREVIEW">
+			<Text>+{1_Amount} when defending</Text>
+		</Row>
+		<!-- Khmer Unique Units -->
+		<Row Tag="LOC_UNIT_DANTINAS_TATHA_NAME">
+			<Text>Yuthahathi</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_DANTINAS_TATHA_BASE_DESCRIPTION">
+			<Text>Khmer Unique Cavalry Unit. Higher Combat Strength, but slower Movement. Immune to flood damage. Ignores Zone of Control.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_DANTINAS_TATHA_DESCRIPTION">
+			<Text>Tier 2 Khmer Unique Cavalry Unit. Higher Combat Strength, but slower Movement. Immune to flood damage. Ignores Zone of Control.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_DANTINAS_TATHA_2_DESCRIPTION">
+			<Text>Tier 3 Khmer Unique Cavalry Unit. Higher Combat Strength, but slower Movement. Immune to flood damage. Ignores Zone of Control.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_DANTINAS_TATHA_DESCRIPTION">
+			<Text>Immune to flood damage.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_VAISHYA_NAME">
+			<Text>Vaishya</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_VAISHYA_DESCRIPTION">
+			<Text>Khmer Unique Merchant. Civilian who can establish a Trade Route to import Resources from a foreign Settlement. Immune to flood damage. Ignores movement penalties from Wet Terrain.</Text>
+		</Row>
+		<!-- Maurya Unique Units -->
+		<Row Tag="LOC_UNIT_PURABHETTARAH_NAME">
+			<Text>Purabhettarah</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_PURABHETTARAH_BASE_DESCRIPTION">
+			<Text>Maurya Unique Cavalry Unit. +5 Combat Strength against Fortified Districts. Ignores Zone of Control.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_PURABHETTARAH_DESCRIPTION">
+			<Text>Tier 2 Maurya Unique Cavalry Unit. +5 Combat Strength against Fortified Districts. Ignores Zone of Control.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_PURABHETTARAH_2_DESCRIPTION">
+			<Text>Tier 3 Maurya Unique Cavalry Unit. +5 Combat Strength against Fortified Districts. Ignores Zone of Control.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_PURABHETTARAH_DESCRIPTION">
+			<Text>+{1_amount} Combat Strength against Fortified Districts.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_PURABHETTARAH_PREVIEW">
+			<Text>+{1_Amount} against Fortified Districts</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_NAGARIKA_NAME">
+			<Text>Nagarika</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_NAGARIKA_DESCRIPTION">
+			<Text>Maurya Unique Settler. Civilian Unit capable of founding new Towns. Adds +2[icon:YIELD_HAPPINESS] Happiness on City Halls.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_VYUHAM_NAME">
+			<Text>Vyuham</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_VYUHAM_CAVALRY_PREVIEW">
+			<Text>+{1_Amount} Adjacent to friendly Infantry</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_VYUHAM_INFANTRY_PREVIEW">
+			<Text>+{1_Amount} Adjacent to friendly Cavalry</Text>
+		</Row>
+		<!-- Maya Unique Units -->
+		<Row Tag="LOC_UNIT_HULCHE_NAME">
+			<Text>Hul'che</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HULCHE_BASE_DESCRIPTION">
+			<Text>Maya Unique Ranged Unit. Can see through Vegetation and ignores movement penalties from Vegetated Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HULCHE_DESCRIPTION">
+			<Text>Tier 1 Maya Unique Ranged Unit. Can see through Vegetation and ignores movement penalties from Vegetated Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HULCHE_2_DESCRIPTION">
+			<Text>Tier 2 Maya Unique Ranged Unit. Can see through Vegetation and ignores movement penalties from Vegetated Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_JAGUAR_SLAYER_NAME">
+			<Text>Jaguar Slayer</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_JAGUAR_SLAYER_DESCRIPTION">
+			<Text>Maya Unique Scout. Can initiate combat. Has 1 charge to place a Jaguar Trap that is invisible to enemy Units, dealing 25 damage and ending movement. This ability recharges 5 turns after placing a trap.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_STONE_TRAP_NAME">
+			<Text>Jaguar Trap</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_STONE_TRAP_DESCRIPTION">
+			<Text>Deals 25 damage to enemy Units that enter the tile and ends their movement. This removes the trap. Traps are invisible to all other Civilizations until triggered. Can be placed in unowned territory. Must be placed on Flat or Vegetated Terrain.</Text>
+		</Row>
+		<!-- Mississippian Unique Units -->
+		<Row Tag="LOC_UNIT_BURNING_ARROW_NAME">
+			<Text>Burning Arrow</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_BURNING_ARROW_BASE_DESCRIPTION">
+			<Text>Mississippian Unique Ranged Unit. Increased Bombard Strength. +3 Combat Strength against Siege Units. Applies the Burning status to tiles for 2 turns.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_BURNING_ARROW_DESCRIPTION">
+			<Text>Tier 1 Mississippian Unique Ranged Unit. Increased Bombard Strength. +3 Combat Strength against Siege Units. Applies the Burning status to tiles for 2 turns.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_BURNING_ARROW_2_DESCRIPTION">
+			<Text>Tier 2 Mississippian Unique Ranged Unit. Increased Bombard Strength. +3 Combat Strength against Siege Units. Applies the Burning status to tiles for 2 turns.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_BURNING_ARROW_PREVIEW">
+			<Text>+{1_Amount} against Siege</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_WATONATHI_NAME">
+			<Text>Watonathi</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_WATONATHI_DESCRIPTION">
+			<Text>Mississippian Unique Merchant. Civilian who can establish a Trade Route to import Resources from a foreign Settlement. Gain 25[icon:YIELD_GOLD] Gold per Resource acquired when creating a Trade Route.</Text>
+		</Row>
+		<!-- Persia Unique Units -->
+		<Row Tag="LOC_UNIT_IMMORTAL_NAME">
+			<Text>Immortal</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_UNIT_IMMORTAL_BASE_DESCRIPTION">
+			<Text>Persian Unique Infantry Unit. Heals 15 HP after defeating an enemy Unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_IMMORTAL_DESCRIPTION">
+			<Text>Tier 2 Persian Unique Infantry Unit. Heals 15 HP after defeating an enemy Unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_IMMORTAL_2_DESCRIPTION">
+			<Text>Tier 3 Persian Unique Infantry Unit. Heals 15 HP after defeating an enemy Unit.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_IMMORTAL_DESCRIPTION">
+			<Text>Heals 15 HP after defeating an enemy Unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HAZARAPATIS_NAME">
+			<Text>Hazarapatis</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_HAZARAPATIS_DESCRIPTION">
+			<Text>Persian Unique Army Commander. Starts with the Initiative Promotion.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_HAZARAPATIS_DESCRIPTION">
+			<Text>Gains the Initiative Promotion.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_HAMARANA_COUNCIL_NAME">
+			<Text>Hamarana Council</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_HAMARANA_COUNCIL_DESCRIPTION">
+			<Text>+{1_Amount} when attacking</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_HAMARANA_COUNCIL_PREVIEW">
+			<Text>+{1_Amount} Hamarana Council</Text>
+		</Row>
+		<!-- Rome Unique Units -->
+		<Row Tag="LOC_UNIT_LEGION_NAME">
+			<Text>Legion</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_LEGION_BASE_DESCRIPTION">
+			<Text>Roman Unique Infantry Unit. +1 Combat Strength for every Tradition in the Government.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_LEGION_DESCRIPTION">
+			<Text>Tier 2 Roman Unique Infantry Unit. +1 Combat Strength for every Tradition in the Government.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_LEGION_2_DESCRIPTION">
+			<Text>Tier 3 Roman Unique Infantry Unit. +1 Combat Strength for every Tradition in the Government.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_LEGION_DESCRIPTION">
+			<Text>+{1_Amount} Combat Strength for every Tradition in the Government.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_LEGION_PREVIEW">
+			<Text>+{1_Amount} from Traditions</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_LEGATUS_NAME">
+			<Text>Legatus</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_LEGATUS_DESCRIPTION">
+			<Text>Roman Unique Army Commander. Gains 1 charge to create a new Settlement for every 3 Levels it has.</Text>
+		</Row>
+		<!-- City-State Unique Units -->
+		<Row Tag="LOC_UNIT_FOEDERATI_NAME">
+			<Text>Foederati</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_FOEDERATI_BASE_DESCRIPTION">
+			<Text>City-State Unique Infantry Unit. Up to 20% cheaper to purchase. Each one is slightly more expensive than the last. +2 Combat Strength for each adjacent Military Unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_FOEDERATI_DESCRIPTION">
+			<Text>Tier 1 City-State Unique Infantry Unit. Up to 20% cheaper to purchase. Each one is slightly more expensive than the last. +2 Combat Strength for each adjacent Military Unit.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FOEDERATI_PREVIEW">
+			<Text>+{1_Amount} Adjacent Military Units</Text>
+		</Row>
+	</EnglishText>
+</Database>

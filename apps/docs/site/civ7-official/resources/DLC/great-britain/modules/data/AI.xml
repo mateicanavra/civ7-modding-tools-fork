@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	 <AiListTypes>
+		<Row ListType="Great Britian Unit Biases"/>
+		<Row ListType="Great Britian Government Bias"/>
+		<Row ListType="Great Britian Constructibles Biases" />
+		<Row ListType="Great Britian Settlement Plot Evaluations" />
+		<Row ListType="Great Britian Pseudoyield Biases" />
+		<Row ListType="Great Britain Diplomatic"/>
+	 </AiListTypes>
+	  <AiLists>
+		<Row ListType="Great Britian Unit Biases" LeaderType="TRAIT_GREAT_BRITAIN" System="UnitBiases"/>
+		<Row ListType="Great Britian Government Bias" LeaderType="TRAIT_GREAT_BRITAIN" System="GovernmentBiases"/>
+		<Row ListType="Great Britian Constructibles Biases" LeaderType="TRAIT_GREAT_BRITAIN" System="ConstructibleBiases" />
+		<Row ListType="Great Britian Settlement Plot Evaluations" LeaderType="TRAIT_GREAT_BRITAIN" System="SettlementPlotEvaluations"/>
+		<Row ListType="Great Britian Pseudoyield Biases" LeaderType="TRAIT_GREAT_BRITAIN" System="PseudoyieldBiases"/>
+		<Row ListType="Great Britain Diplomatic" LeaderType="TRAIT_GREAT_BRITAIN" System="DiplomaticActions"/>
+	  </AiLists>
+	  <AiFavoredItems>
+		<Row ListType="Great Britian Unit Biases" Item="UNIT_REVENGE" Value="50"/>
+		<Row ListType="Great Britian Unit Biases" Item="UNIT_REVENGE_2" Value="50"/>
+		<Row ListType="Great Britian Unit Biases" Item="UNIT_IRONCLAD" Value="25"/>
+		<Row ListType="Great Britian Unit Biases" Item="UNIT_CRUISER" Value="25"/>
+		<Row ListType="Great Britian Unit Biases" Item="UNIT_DREADNOUGHT" Value="25"/>
+		<Row ListType="Great Britian Unit Biases" Item="UNIT_DESTROYER" Value="25"/>
+		<Row ListType="Great Britian Unit Biases" Item="UNIT_SUBMARINE" Value="25"/>
+		<Row ListType="Great Britian Unit Biases" Item="UNIT_ANTIQUARIAN" Value="50"/>
+		<Row ListType="Great Britian Government Bias" Item="GOVERNMENT_BUREAUCRATIC_MONARCHY" Value="50"/>
+		<Row ListType="Great Britian Settlement Plot Evaluations" Item="Resource Class" Value="5" StringVal="RESOURCECLASS_FACTORY" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_STRATEGIC_RESOURCES"/>
+		<Row ListType="Great Britian Constructibles Biases" Item="BUILDING_ROYAL_EXCHANGE" Value="200"/>
+		<Row ListType="Great Britian Constructibles Biases" Item="BUILDING_MANUFACTORY" Value="200"/>
+		<Row ListType="Great Britian Constructibles Biases" Item="BUILDING_PORT" Value="25"/>
+		<Row ListType="Great Britian Constructibles Biases" Item="BUILDING_MUSEUM" Value="25"/>
+		<Row ListType="Great Britian Constructibles Biases" Item="WONDER_BATTERSEA_POWER_STATION" Value="50"/>
+		<Row ListType="Great Britian Pseudoyield Biases" Item="PSEUDOYIELD_BUILD_QUEUE_IN_CITY" Value="-15"/>
+		<Row ListType="Default Diplomatic" Item="DIPLOMACY_ACTION_FORM_ALLIANCE" Value="-15"/>
+	  </AiFavoredItems>
+</Database>

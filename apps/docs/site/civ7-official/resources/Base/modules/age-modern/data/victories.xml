@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<Row Type="MODERN_SCIENCE_MILESTONE_1" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="MODERN_SCIENCE_MILESTONE_2" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="MODERN_SCIENCE_MILESTONE_3" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="MODERN_MILITARY_MILESTONE_1" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="MODERN_MILITARY_MILESTONE_2" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="MODERN_MILITARY_MILESTONE_3" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="MODERN_CULTURE_MILESTONE_1" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="MODERN_CULTURE_MILESTONE_2" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="MODERN_CULTURE_MILESTONE_3" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="MODERN_ECONOMIC_MILESTONE_1" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="MODERN_ECONOMIC_MILESTONE_2" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="MODERN_ECONOMIC_MILESTONE_3" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+	</Types>
+	<Victories>
+		<Row VictoryType="VICTORY_MODERN_ECONOMIC" VictoryClassType="VICTORY_CLASS_ECONOMIC" Name="LOC_VICTORY_MODERN_ECONOMIC_NAME" Description="LOC_VICTORY_MODERN_ECONOMIC_DESCRIPTION" RequirementSetId="REQSET_VICTORY_MODERN_ECONOMIC"/>
+		<Row VictoryType="VICTORY_MODERN_MILITARY" VictoryClassType="VICTORY_CLASS_MILITARY" Name="LOC_VICTORY_MODERN_MILITARY_NAME" Description="LOC_VICTORY_MODERN_MILITARY_DESCRIPTION" RequirementSetId="REQSET_VICTORY_MODERN_MILITARY"/>
+		<Row VictoryType="VICTORY_MODERN_SCIENCE" VictoryClassType="VICTORY_CLASS_SCIENCE" Name="LOC_VICTORY_MODERN_SCIENCE_NAME" Description="LOC_VICTORY_MODERN_SCIENCE_DESCRIPTION" RequirementSetId="REQSET_VICTORY_MODERN_SCIENCE"/>
+		<Row VictoryType="VICTORY_MODERN_CULTURE" VictoryClassType="VICTORY_CLASS_CULTURE" Name="LOC_VICTORY_MODERN_CULTURE_NAME" Description="LOC_VICTORY_MODERN_CULTURE_DESCRIPTION" RequirementSetId="REQSET_VICTORY_MODERN_CULTURE"/>
+	</Victories>
+	<VictoryCinematics>
+		<Row VictoryType="VICTORY_MODERN_ECONOMIC" VictoryCinematicType="VICTORY_CINEMATIC_TYPE_UNIT" Name="LOC_VICTORY_MODERN_MILITARY_CINEMATIC"/>
+		<Row VictoryType="VICTORY_MODERN_MILITARY" VictoryCinematicType="VICTORY_CINEMATIC_TYPE_NUKE" Name="LOC_VICTORY_MODERN_MILITARY_CINEMATIC"/>
+		<Row VictoryType="VICTORY_MODERN_SCIENCE" VictoryCinematicType="VICTORY_CINEMATIC_TYPE_UNIT" Name="LOC_VICTORY_MODERN_MILITARY_CINEMATIC"/>
+		<Row VictoryType="VICTORY_MODERN_CULTURE" VictoryCinematicType="VICTORY_CINEMATIC_TYPE_WONDER" Name="LOC_VICTORY_MODERN_MILITARY_CINEMATIC"/>
+	</VictoryCinematics>
+	<AgeProgressionEvents>
+		<Row AgeProgressionEventType="AGE_PROGRESSION_TURN_COUNTER" Points="1" AgeType="AGE_MODERN" MapSizeType="MAPSIZE_TINY"/>
+		<Row AgeProgressionEventType="AGE_PROGRESSION_PLAYER_ELIMINATED" Points="0" AgeType="AGE_MODERN" MapSizeType="MAPSIZE_TINY"/>
+		<Row AgeProgressionEventType="AGE_PROGRESSION_TURN_COUNTER" Points="1" AgeType="AGE_MODERN" MapSizeType="MAPSIZE_SMALL"/>
+		<Row AgeProgressionEventType="AGE_PROGRESSION_PLAYER_ELIMINATED" Points="0" AgeType="AGE_MODERN" MapSizeType="MAPSIZE_SMALL"/>
+		<Row AgeProgressionEventType="AGE_PROGRESSION_TURN_COUNTER" Points="1" AgeType="AGE_MODERN" MapSizeType="MAPSIZE_STANDARD"/>
+		<Row AgeProgressionEventType="AGE_PROGRESSION_PLAYER_ELIMINATED" Points="0" AgeType="AGE_MODERN" MapSizeType="MAPSIZE_STANDARD"/>
+		<Row AgeProgressionEventType="AGE_PROGRESSION_TURN_COUNTER" Points="1" AgeType="AGE_MODERN" MapSizeType="MAPSIZE_LARGE"/>
+		<Row AgeProgressionEventType="AGE_PROGRESSION_PLAYER_ELIMINATED" Points="0" AgeType="AGE_MODERN" MapSizeType="MAPSIZE_LARGE"/>
+		<Row AgeProgressionEventType="AGE_PROGRESSION_TURN_COUNTER" Points="1" AgeType="AGE_MODERN" MapSizeType="MAPSIZE_HUGE"/>
+		<Row AgeProgressionEventType="AGE_PROGRESSION_PLAYER_ELIMINATED" Points="0" AgeType="AGE_MODERN" MapSizeType="MAPSIZE_HUGE"/>
+	</AgeProgressionEvents>
+	<!-- SETTLEMENT SCORING ITEMS -->
+	<PlayerModifiers>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_CONQUER_SCORING"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_CONQUER_WITH_IDEOLOGY_SCORING"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_CONQUER_OPPOSITE_IDEOLOGY_SCORING"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_REACQUIRE_SCORING"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_REACQUIRE_WITH_IDEOLOGY_SCORING"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_REACQUIRE_OPPOSITE_IDEOLOGY_SCORING"/>
+		<Row ModifierId="VICTORY_MODERN_CULTURE_GREAT_WORK_SCORING"/>
+	</PlayerModifiers>
+	<Modifiers>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_CONQUER_SCORING" ModifierType="MODIFIER_PLAYER_ADJUST_SETTLEMENT_SCORING" SubjectRequirementSetId="REQSET_PLAYER_IS_MAJOR"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_CONQUER_WITH_IDEOLOGY_SCORING" ModifierType="MODIFIER_PLAYER_ADJUST_SETTLEMENT_SCORING" SubjectRequirementSetId="REQSET_PLAYER_IS_MAJOR"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_CONQUER_OPPOSITE_IDEOLOGY_SCORING" ModifierType="MODIFIER_PLAYER_ADJUST_SETTLEMENT_SCORING" SubjectRequirementSetId="REQSET_PLAYER_IS_MAJOR"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_REACQUIRE_SCORING" ModifierType="MODIFIER_PLAYER_ADJUST_SETTLEMENT_SCORING" SubjectRequirementSetId="REQSET_PLAYER_IS_MAJOR"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_REACQUIRE_WITH_IDEOLOGY_SCORING" ModifierType="MODIFIER_PLAYER_ADJUST_SETTLEMENT_SCORING" SubjectRequirementSetId="REQSET_PLAYER_IS_MAJOR"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_REACQUIRE_OPPOSITE_IDEOLOGY_SCORING" ModifierType="MODIFIER_PLAYER_ADJUST_SETTLEMENT_SCORING" SubjectRequirementSetId="REQSET_PLAYER_IS_MAJOR"/>
+		<Row ModifierId="VICTORY_MODERN_CULTURE_GREAT_WORK_SCORING" ModifierType="MODIFIER_PLAYER_ADJUST_GREAT_WORK_SCORING" SubjectRequirementSetId="REQSET_PLAYER_IS_MAJOR"/>
+	</Modifiers>
+	<ModifierArguments>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_CONQUER_SCORING" Name="LegacyPathType" Value="LEGACY_PATH_MODERN_MILITARY"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_CONQUER_SCORING" Name="VP" Value="1"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_CONQUER_SCORING" Name="Conquer" Value="true"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_CONQUER_SCORING" Name="OncePerLocation" Value="true"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_CONQUER_WITH_IDEOLOGY_SCORING" Name="LegacyPathType" Value="LEGACY_PATH_MODERN_MILITARY"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_CONQUER_WITH_IDEOLOGY_SCORING" Name="VP" Value="2"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_CONQUER_WITH_IDEOLOGY_SCORING" Name="Conquer" Value="true"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_CONQUER_WITH_IDEOLOGY_SCORING" Name="OncePerLocation" Value="true"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_CONQUER_WITH_IDEOLOGY_SCORING" Name="HaveIdeology" Value="true"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_CONQUER_OPPOSITE_IDEOLOGY_SCORING" Name="LegacyPathType" Value="LEGACY_PATH_MODERN_MILITARY"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_CONQUER_OPPOSITE_IDEOLOGY_SCORING" Name="VP" Value="3"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_CONQUER_OPPOSITE_IDEOLOGY_SCORING" Name="Conquer" Value="true"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_CONQUER_OPPOSITE_IDEOLOGY_SCORING" Name="OncePerLocation" Value="true"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_CONQUER_OPPOSITE_IDEOLOGY_SCORING" Name="OpposingIdeology" Value="true"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_REACQUIRE_SCORING" Name="LegacyPathType" Value="LEGACY_PATH_MODERN_MILITARY"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_REACQUIRE_SCORING" Name="VP" Value="1"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_REACQUIRE_SCORING" Name="Reacquire" Value="true"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_REACQUIRE_SCORING" Name="OncePerLocation" Value="true"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_REACQUIRE_WITH_IDEOLOGY_SCORING" Name="LegacyPathType" Value="LEGACY_PATH_MODERN_MILITARY"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_REACQUIRE_WITH_IDEOLOGY_SCORING" Name="VP" Value="2"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_REACQUIRE_WITH_IDEOLOGY_SCORING" Name="Reacquire" Value="true"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_REACQUIRE_WITH_IDEOLOGY_SCORING" Name="OncePerLocation" Value="true"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_REACQUIRE_WITH_IDEOLOGY_SCORING" Name="HaveIdeology" Value="true"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_REACQUIRE_OPPOSITE_IDEOLOGY_SCORING" Name="LegacyPathType" Value="LEGACY_PATH_MODERN_MILITARY"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_REACQUIRE_OPPOSITE_IDEOLOGY_SCORING" Name="VP" Value="3"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_REACQUIRE_OPPOSITE_IDEOLOGY_SCORING" Name="Reacquire" Value="true"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_REACQUIRE_OPPOSITE_IDEOLOGY_SCORING" Name="OncePerLocation" Value="true"/>
+		<Row ModifierId="VICTORY_MODERN_MILITARY_REACQUIRE_OPPOSITE_IDEOLOGY_SCORING" Name="OpposingIdeology" Value="true"/>
+		<Row ModifierId="VICTORY_MODERN_CULTURE_GREAT_WORK_SCORING" Name="VP" Value="1"/>
+		<Row ModifierId="VICTORY_MODERN_CULTURE_GREAT_WORK_SCORING" Name="LegacyPathType" Value="LEGACY_PATH_MODERN_CULTURE"/>
+		<Row ModifierId="VICTORY_MODERN_CULTURE_GREAT_WORK_SCORING" Name="GreatWorkObjectType" Value="GREATWORKOBJECT_ARTIFACT"/>
+	</ModifierArguments>
+	<Strategies>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_IDEOLOGY" LegacyPathType="LEGACY_PATH_MODERN_MILITARY" MinNumConditionsNeeded="2" MaxNumConditionsNeeded="7"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RAILROAD_TYCOON" LegacyPathType="LEGACY_PATH_MODERN_ECONOMIC" MinNumConditionsNeeded="2" MaxNumConditionsNeeded="6"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_SPACE_RACE" LegacyPathType="LEGACY_PATH_MODERN_SCIENCE" MinNumConditionsNeeded="2" MaxNumConditionsNeeded="6"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_ARTIFACTS" LegacyPathType="LEGACY_PATH_MODERN_CULTURE" MinNumConditionsNeeded="2" MaxNumConditionsNeeded="4"/>
+	</Strategies>
+	<!-- Reminder: These conditions must be met to START following the strategy - they are not victory conditions themselves -->
+	<StrategyConditions>
+		<!-- Military Victory -->
+		<Row StrategyType="LEGACY_PATH_STRATEGY_IDEOLOGY" ConditionFunction="TopMilitaryPercent" ThresholdValue="50"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_IDEOLOGY" ConditionFunction="TopMilitaryPercent" ThresholdValue="25"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_IDEOLOGY" ConditionFunction="NumCommanders" ThresholdValue="4"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_IDEOLOGY" ConditionFunction="NumConqueredCities" ThresholdValue="1"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_IDEOLOGY" ConditionFunction="GovernmentMatches" ThresholdValue="25" StringValue="GOVERNMENT_AUTHORITARIANISM"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_IDEOLOGY" ConditionFunction="HasLeaderTrait" ThresholdValue="1" StringValue="TRAIT_LEADER_ATTRIBUTE_MILITARISTIC"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_IDEOLOGY" ConditionFunction="HasLeaderTrait" ThresholdValue="1" StringValue="TRAIT_LEADER_ATTRIBUTE_POLITICAL"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_IDEOLOGY" ConditionFunction="HasLeaderTrait" Exclusive="true" ThresholdValue="1" StringValue="TRAIT_MO_MILITARY_VICTORY"/>
+		<!-- Science Victory -->
+		<Row StrategyType="LEGACY_PATH_STRATEGY_SPACE_RACE" ConditionFunction="GovernmentMatches" ThresholdValue="25" StringValue="GOVERNMENT_ELECTIVE_REPUBLIC"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_SPACE_RACE" ConditionFunction="TopSciencePercent" ThresholdValue="25"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_SPACE_RACE" ConditionFunction="TopSciencePercent" ThresholdValue="50"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_SPACE_RACE" ConditionFunction="VictoryPoints" ThresholdValue="1" StringValue="VICTORY_MODERN_SCIENCE"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_SPACE_RACE" ConditionFunction="HasLeaderTrait" ThresholdValue="1" StringValue="TRAIT_LEADER_ATTRIBUTE_SCIENTIFIC"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_SPACE_RACE" ConditionFunction="HasLeaderTrait" ThresholdValue="1" StringValue="TRAIT_LEADER_ATTRIBUTE_MILITARISTIC"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_SPACE_RACE" ConditionFunction="HasLeaderTrait" Exclusive="true" ThresholdValue="1" StringValue="TRAIT_MO_SCIENCE_VICTORY"/>
+		<!-- Economic Victory -->
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RAILROAD_TYCOON" ConditionFunction="GovernmentMatches" StringValue="GOVERNMENT_BUREAUCRATIC_MONARCHY"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RAILROAD_TYCOON" ConditionFunction="YieldIncome" ThresholdValue="60" StringValue="YIELD_PRODUCTION"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RAILROAD_TYCOON" ConditionFunction="NumCities" ThresholdValue="4"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RAILROAD_TYCOON" ConditionFunction="VictoryPoints" ThresholdValue="1" StringValue="VICTORY_MODERN_ECONOMIC"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RAILROAD_TYCOON" ConditionFunction="HasLeaderTrait" ThresholdValue="1" StringValue="TRAIT_LEADER_ATTRIBUTE_ECONOMIC"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RAILROAD_TYCOON" ConditionFunction="HasLeaderTrait" ThresholdValue="1" StringValue="TRAIT_LEADER_ATTRIBUTE_EXPANSIONIST"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RAILROAD_TYCOON" ConditionFunction="HasLeaderTrait" Exclusive="true" ThresholdValue="1" StringValue="TRAIT_MO_ECONOMIC_VICTORY"/>
+		<!-- Culture Victory -->
+		<Row StrategyType="LEGACY_PATH_STRATEGY_ARTIFACTS" ConditionFunction="GovernmentMatches" ThresholdValue="25" StringValue="GOVERNMENT_ELECTIVE_REPUBLIC"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_ARTIFACTS" ConditionFunction="NumGreatWorks" ThresholdValue="3"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_ARTIFACTS" ConditionFunction="HasLeaderTrait" ThresholdValue="1" StringValue="TRAIT_LEADER_ATTRIBUTE_CULTURAL"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_ARTIFACTS" ConditionFunction="HasLeaderTrait" ThresholdValue="1" StringValue="TRAIT_LEADER_ATTRIBUTE_POLITICAL"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_ARTIFACTS" ConditionFunction="HasLeaderTrait" Exclusive="true" ThresholdValue="1" StringValue="TRAIT_MO_CULTURE_VICTORY"/>
+	</StrategyConditions>
+	<Strategy_Priorities>
+		<!-- Railroad Tycoon -->
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RAILROAD_TYCOON" ListType="LegacyPathStrategyRailroadsConstructibleBiases"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RAILROAD_TYCOON" ListType="LegacyPathStrategyRailroadsPseudoYieldBiases"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RAILROAD_TYCOON" ListType="LegacyPathStrategyRailroadsSettlements"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RAILROAD_TYCOON" ListType="LegacyPathStrategyRailroadsBudgetBiases"/>
+		<!-- Ideology -->
+		<Row StrategyType="LEGACY_PATH_STRATEGY_IDEOLOGY" ListType="LegacyPathStrategyIdeologyPseduoyieldBiases"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_IDEOLOGY" ListType="LegacyPathStrategyIdeologyBudgetBiases"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_IDEOLOGY" ListType="LegacyPathStrategyIdeologyProgressionTreeNodesBiases"/>
+		<!-- Space Race -->
+		<Row StrategyType="LEGACY_PATH_STRATEGY_SPACE_RACE" ListType="LegacyPathStrategyThreeLaunchesConstructibleBiases"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_SPACE_RACE" ListType="LegacyPathStrategyThreeLaunchesProjectBiases"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_SPACE_RACE" ListType="LegacyPathStrategyThreeLaunchesBudgetBiases"/>
+		<!-- Artifacts -->
+		<Row StrategyType="LEGACY_PATH_STRATEGY_ARTIFACTS" ListType="LegacyPathArtifactsConstructibleBiases"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_ARTIFACTS" ListType="LegacyPathArtifactsUnitBiases"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_ARTIFACTS" ListType="LegacyPathArtifactsPseudoYieldBiases"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_ARTIFACTS" ListType="LegacyPathArtifactsBudgetBiases"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_ARTIFACTS" ListType="LegacyPathArtifactsProgressionTreeNodesBiases"/>
+	</Strategy_Priorities>
+	<AiListTypes>
+		<!-- Railroad Tycoon -->
+		<Row ListType="LegacyPathStrategyRailroadsConstructibleBiases"/>
+		<Row ListType="LegacyPathStrategyRailroadsPseudoYieldBiases"/>
+		<Row ListType="LegacyPathStrategyRailroadsSettlements"/>
+		<Row ListType="LegacyPathStrategyRailroadsBudgetBiases"/>
+		<!-- Ideology -->
+		<Row ListType="LegacyPathStrategyIdeologyPseduoyieldBiases"/>
+		<Row ListType="LegacyPathStrategyIdeologyBudgetBiases"/>
+		<Row ListType="LegacyPathStrategyIdeologyProgressionTreeNodesBiases"/>
+		<!-- Space Race -->
+		<Row ListType="LegacyPathStrategyThreeLaunchesConstructibleBiases"/>
+		<Row ListType="LegacyPathStrategyThreeLaunchesProjectBiases"/>
+		<Row ListType="LegacyPathStrategyThreeLaunchesBudgetBiases"/>
+		<Row ListType="LegacyPathStrategyThreeLaunchesYieldBiases"/>
+		<Row ListType="LegacyPathStrategyThreeLaunchesPseudoyieldBiases"/>
+		<!-- Artifacts -->
+		<Row ListType="LegacyPathArtifactsConstructibleBiases"/>
+		<Row ListType="LegacyPathArtifactsUnitBiases"/>
+		<Row ListType="LegacyPathArtifactsPseudoYieldBiases"/>
+		<Row ListType="LegacyPathArtifactsBudgetBiases"/>
+		<Row ListType="LegacyPathArtifactsProgressionTreeNodesBiases"/>
+	</AiListTypes>
+	<AiLists>
+		<!-- Railroad Tycoon -->
+		<Row ListType="LegacyPathStrategyRailroadsConstructibleBiases" System="ConstructibleBiases"/>
+		<Row ListType="LegacyPathStrategyRailroadsPseudoYieldBiases" System="PseudoYieldBiases"/>
+		<Row ListType="LegacyPathStrategyRailroadsSettlements" System="PlotEvalConditionBiases"/>
+		<Row ListType="LegacyPathStrategyRailroadsBudgetBiases" System="AiBudgetBiases"/>
+		<!-- Ideology-->
+		<Row ListType="LegacyPathStrategyIdeologyPseduoyieldBiases" System="PseudoYieldBiases"/>
+		<Row ListType="LegacyPathStrategyIdeologyBudgetBiases" System="AiBudgetBiases"/>
+		<Row ListType="LegacyPathStrategyIdeologyProgressionTreeNodesBiases" System="ProgressionTreeNodeBiases"/>
+		<!-- Space Race -->
+		<Row ListType="LegacyPathStrategyThreeLaunchesConstructibleBiases" System="ConstructibleBiases"/>
+		<Row ListType="LegacyPathStrategyThreeLaunchesProjectBiases" System="ProjectBiases"/>
+		<Row ListType="LegacyPathStrategyThreeLaunchesBudgetBiases" System="AiBudgetBiases"/>
+		<Row ListType="LegacyPathStrategyThreeLaunchesYieldBiases" System="YieldBiases"/>
+		<Row ListType="LegacyPathStrategyThreeLaunchesPseudoyieldBiases" System="PseudoYieldBiases"/>
+		<!-- Artifacts -->
+		<Row ListType="LegacyPathArtifactsConstructibleBiases" System="ConstructibleBiases"/>
+		<Row ListType="LegacyPathArtifactsUnitBiases" System="UnitBiases"/>
+		<Row ListType="LegacyPathArtifactsPseudoYieldBiases" System="PseudoYieldBiases"/>
+		<Row ListType="LegacyPathArtifactsBudgetBiases" System="AiBudgetBiases"/>
+		<Row ListType="LegacyPathArtifactsProgressionTreeNodesBiases" System="ProgressionTreeNodeBiases"/>
+	</AiLists>
+	<AiFavoredItems>
+		<!-- Railroad Tycoon -->
+		<Row ListType="LegacyPathStrategyRailroadsConstructibleBiases" Item="BUILDING_FACTORY" Value="2000"/>
+		<Row ListType="LegacyPathStrategyRailroadsConstructibleBiases" Item="BUILDING_RAIL_STATION" Value="1000"/>
+		<Row ListType="LegacyPathStrategyRailroadsConstructibleBiases" Item="BUILDING_PORT" Value="1000"/>
+		<Row ListType="LegacyPathStrategyRailroadsConstructibleBiases" Item="BUILDING_DEPARTMENT_STORE" Value="500"/>
+		<Row ListType="LegacyPathStrategyRailroadsPseudoYieldBiases" Item="PSEUDOYIELD_RAIL_CONNECTION" Value="300"/>
+		<Row ListType="LegacyPathStrategyRailroadsPseudoYieldBiases" Item="PSEUDOYIELD_POTENTIAL_RAIL_CONNECTION" Value="100"/>
+		<Row ListType="LegacyPathStrategyRailroadsPseudoYieldBiases" Item="PSEUDOYIELD_NEW_CITY" Value="50"/>
+		<Row ListType="LegacyPathStrategyRailroadsPseudoYieldBiases" Item="PSEUDOYIELD_RESOURCE_IMPORT" Value="100"/>
+		<Row ListType="LegacyPathStrategyRailroadsBudgetBiases" Item="AI_BUDGET_EXPANSION" Value="50"/>
+		<Row ListType="LegacyPathStrategyRailroadsSettlements" Item="Resource Class" Value="50" StringVal="RESOURCECLASS_FACTORY" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_STRATEGIC_RESOURCES"/>
+		<!-- Ideology-->
+		<Row ListType="LegacyPathStrategyIdeologyBudgetBiases" Item="AI_BUDGET_STANDING_ARMY" Value="50"/>
+		<Row ListType="LegacyPathStrategyIdeologyPseduoyieldBiases" Item="PSEUDOYIELD_STANDING_ARMY_UNIT" Value="50"/>
+		<Row ListType="LegacyPathStrategyIdeologyPseduoyieldBiases" Item="PSEUDOYIELD_STANDING_ARMY_UNIT_COMBAT_VALUE" Value="25"/>
+		<Row ListType="LegacyPathStrategyIdeologyPseduoyieldBiases" Item="PSEUDOYIELD_UNLOCK_IDEOLOGIES" Value="1000"/>
+		<Row ListType="LegacyPathStrategyIdeologyPseduoyieldBiases" Item="PSEUDOYIELD_IDEOLOGY_EARLY_PICK_PER_TIER" Value="2000"/>
+		<Row ListType="LegacyPathStrategyIdeologyPseduoyieldBiases" Item="PSEUDOYIELD_NEW_CITY" Value="50"/>
+		<Row ListType="LegacyPathStrategyIdeologyProgressionTreeNodesBiases" Item="NODE_CIVIC_MO_MAIN_POLITICAL_THEORY" Value="2000"/>
+		<!-- Space Race -->
+		<Row ListType="LegacyPathStrategyThreeLaunchesConstructibleBiases" Item="BUILDING_LAUNCH_PAD" Value="500"/>
+		<Row ListType="LegacyPathStrategyThreeLaunchesProjectBiases" Item="PROJECT_TRANS_OCEANIC_FLIGHT" Value="200"/>
+		<Row ListType="LegacyPathStrategyThreeLaunchesProjectBiases" Item="PROJECT_BREAK_SOUND_BARRIER" Value="300"/>
+		<Row ListType="LegacyPathStrategyThreeLaunchesProjectBiases" Item="PROJECT_LAUNCH_SATELLITE" Value="500"/>
+		<Row ListType="LegacyPathStrategyThreeLaunchesBudgetBiases" Item="AI_BUDGET_CITY_DEVELOPMENT" Value="50"/>
+		<Row ListType="LegacyPathStrategyThreeLaunchesYieldBiases" Item="YIELD_SCIENCE" Value="100"/>
+		<Row ListType="LegacyPathStrategyThreeLaunchesPseudoyieldBiases" Item="PSEUDOYIELD_VICTORY_PROJECT" Value="300"/>
+		<!-- Artifacts -->
+		<Row ListType="LegacyPathArtifactsConstructibleBiases" Item="BUILDING_MUSEUM" Value="200"/>
+		<Row ListType="LegacyPathArtifactsUnitBiases" Item="UNIT_EXPLORER" Value="200"/>
+		<Row ListType="LegacyPathArtifactsPseudoYieldBiases" Item="PSEUDOYIELD_GREAT_WORK" Value="200"/>
+		<Row ListType="LegacyPathArtifactsPseudoYieldBiases" Item="PSEUDOYIELD_GREAT_WORK_SLOT" Value="200"/>
+		<Row ListType="LegacyPathArtifactsPseudoYieldBiases" Item="PSEUDOYIELD_BUILD_QUEUE_IN_CITY" Value="50"/>
+		<Row ListType="LegacyPathArtifactsPseudoYieldBiases" Item="PSEUDOYIELD_DIGGING_RESEARCHING_UNIT" Value="500"/>
+		<Row ListType="LegacyPathArtifactsPseudoYieldBiases" Item="PSEUDOYIELD_UNLOCK_CONTINENT_AGE_DIGGING" Value="500"/>
+		<Row ListType="LegacyPathArtifactsPseudoYieldBiases" Item="PSEUDOYIELD_UNLOCK_NATURAL_WONDER_DIGGING" Value="500"/>
+		<Row ListType="LegacyPathArtifactsBudgetBiases" Item="AI_BUDGET_CITY_DEVELOPMENT" Value="50"/>
+		<Row ListType="LegacyPathArtifactsProgressionTreeNodesBiases" Item="NODE_CIVIC_MO_MAIN_NATURAL_HISTORY" Value="400"/>
+		<Row ListType="LegacyPathArtifactsProgressionTreeNodesBiases" Item="NODE_CIVIC_MO_MAIN_HEGEMONY" Value="400"/>
+	</AiFavoredItems>
+	<AgeProgressionMilestones>
+		<Row AgeProgressionMilestoneType="MODERN_SCIENCE_MILESTONE_1" LegacyPathType="LEGACY_PATH_MODERN_SCIENCE" RequiredPathPoints="1" AgeProgressionAmount="5"/>
+		<Row AgeProgressionMilestoneType="MODERN_SCIENCE_MILESTONE_2" LegacyPathType="LEGACY_PATH_MODERN_SCIENCE" RequiredPathPoints="2" AgeProgressionAmount="10"/>
+		<Row AgeProgressionMilestoneType="MODERN_SCIENCE_MILESTONE_3" LegacyPathType="LEGACY_PATH_MODERN_SCIENCE" RequiredPathPoints="3" AgeProgressionAmount="0" FinalMilestone="true"/>
+		<Row AgeProgressionMilestoneType="MODERN_MILITARY_MILESTONE_1" LegacyPathType="LEGACY_PATH_MODERN_MILITARY" RequiredPathPoints="10" AgeProgressionAmount="5"/>
+		<Row AgeProgressionMilestoneType="MODERN_MILITARY_MILESTONE_2" LegacyPathType="LEGACY_PATH_MODERN_MILITARY" RequiredPathPoints="15" AgeProgressionAmount="10"/>
+		<Row AgeProgressionMilestoneType="MODERN_MILITARY_MILESTONE_3" LegacyPathType="LEGACY_PATH_MODERN_MILITARY" RequiredPathPoints="20" AgeProgressionAmount="0" FinalMilestone="true"/>
+		<Row AgeProgressionMilestoneType="MODERN_CULTURE_MILESTONE_1" LegacyPathType="LEGACY_PATH_MODERN_CULTURE" RequiredPathPoints="5" AgeProgressionAmount="5"/>
+		<Row AgeProgressionMilestoneType="MODERN_CULTURE_MILESTONE_2" LegacyPathType="LEGACY_PATH_MODERN_CULTURE" RequiredPathPoints="10" AgeProgressionAmount="10"/>
+		<Row AgeProgressionMilestoneType="MODERN_CULTURE_MILESTONE_3" LegacyPathType="LEGACY_PATH_MODERN_CULTURE" RequiredPathPoints="15" AgeProgressionAmount="0" FinalMilestone="true"/>
+		<Row AgeProgressionMilestoneType="MODERN_ECONOMIC_MILESTONE_1" LegacyPathType="LEGACY_PATH_MODERN_ECONOMIC" RequiredPathPoints="150" AgeProgressionAmount="5"/>
+		<Row AgeProgressionMilestoneType="MODERN_ECONOMIC_MILESTONE_2" LegacyPathType="LEGACY_PATH_MODERN_ECONOMIC" RequiredPathPoints="300" AgeProgressionAmount="10"/>
+		<Row AgeProgressionMilestoneType="MODERN_ECONOMIC_MILESTONE_3" LegacyPathType="LEGACY_PATH_MODERN_ECONOMIC" RequiredPathPoints="500" AgeProgressionAmount="0" FinalMilestone="true"/>
+	</AgeProgressionMilestones>
+	<AgeProgressionMilestoneRewards>
+		<Row AgeProgressionMilestoneType="MODERN_SCIENCE_MILESTONE_1" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_SCIENCE" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="MODERN_SCIENCE_MILESTONE_2" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_SCIENCE" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="MODERN_SCIENCE_MILESTONE_3" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_SCIENCE" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="MODERN_MILITARY_MILESTONE_1" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_MILITARY" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="MODERN_MILITARY_MILESTONE_2" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_MILITARY" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="MODERN_MILITARY_MILESTONE_3" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_MILITARY" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="MODERN_CULTURE_MILESTONE_1" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_CULTURE" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="MODERN_CULTURE_MILESTONE_2" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_CULTURE" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="MODERN_CULTURE_MILESTONE_3" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_CULTURE" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="MODERN_ECONOMIC_MILESTONE_1" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_ECONOMIC" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="MODERN_ECONOMIC_MILESTONE_2" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_ECONOMIC" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="MODERN_ECONOMIC_MILESTONE_3" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_ECONOMIC" IsImmediate="true"/>
+		<!-- TODO: only apply victory unlocks if final age-->
+		<Row AgeProgressionMilestoneType="MODERN_MILITARY_MILESTONE_3" AgeProgressionRewardType="AGE_REWARD_UNLOCK_MANHATTAN_PROJECT" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="MODERN_MILITARY_MILESTONE_3" AgeProgressionRewardType="AGE_REWARD_UNLOCK_WONDER_BOOST_FROM_LP_MANHATTAN_PROJECT" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="MODERN_MILITARY_MILESTONE_3" AgeProgressionRewardType="AGE_REWARD_UNLOCK_PROJECT_BOOST_OPERATION_IVY" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="MODERN_ECONOMIC_MILESTONE_3" AgeProgressionRewardType="AGE_REWARD_UNLOCK_JOHN_MAYNARD_KEYNES" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="MODERN_ECONOMIC_MILESTONE_3" AgeProgressionRewardType="AGE_REWARD_UNLOCK_PROJECT_BOOST_FROM_LP_ECONOMIC_TEXT_ONLY" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="MODERN_CULTURE_MILESTONE_3" AgeProgressionRewardType="AGE_REWARD_UNLOCK_WORLDS_FAIR" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="MODERN_CULTURE_MILESTONE_3" AgeProgressionRewardType="AGE_REWARD_UNLOCK_WONDER_BOOST_FROM_LP_WORLDS_FAIR" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="MODERN_SCIENCE_MILESTONE_3" AgeProgressionRewardType="AGE_REWARD_UNLOCK_PROJECT_BOOST_FROM_LP_LAUNCH_ROCKET" IsImmediate="true"/>
+	</AgeProgressionMilestoneRewards>
+</Database>

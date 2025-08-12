@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_GRAND_BAZAAR_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>15世紀、オスマン帝国は成長を遂げ、それにともなって経済も拡大した。このことはベデステンと呼ばれる屋根つきバザールの誕生からもうかがえる。もともとは織物を売買する場所だったが、こうした屋内市場では貴重な商品を夜間安全に保管できたので、やがてさまざまな贅沢品が扱われるようになった。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_GRAND_BAZAAR_CHAPTER_HISTORY_PARA_2" Language="ja_JP">
+      <Text>首都イスタンブールの中心部には、ビザンティン帝国から奪ってから数十年の間に、2つのベデステンが設けられた。隣り合って築かれていたこのイチ・ベデステンとサンダル・ベデステンは、やがて屋外市場に囲まれ、グランドバザールという一つの大きな商業空間を形成するに至る。多くの交易路の要衝に位置していたグランドバザールには、世界中から集まってきた多種多様な商品を扱う何千もの店舗が軒を連ねていた。世界各地の人々が訪れるこの市場の活況は、当時のヨーロッパのあらゆる市場を凌駕していた。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_GRAND_BAZAAR_CHAPTER_HISTORY_PARA_3" Language="ja_JP">
+      <Text>グランドバザールは今も市場として活況を呈しているばかりか、世界で最も人気のある観光地のひとつとなっている。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_MAUSOLEUM_AT_HALICARNASSUS_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>古代世界の七不思議のひとつに数えられているハリカルナッソスのマウソロス霊廟は、西アナトリアのカリア地方を支配していたマウソロスのために紀元前353年から351年頃に建てられた墳墓である。当時随一のギリシャ人建築家や彫刻家たちによって設計され、装飾された壮大な建造物で、精巧なレリーフや数百体の彫像によって飾られ、四頭立て場所の彫像が頂上から下界を見下ろしていた（この馬車には、マウソロスとその妻で妹でもあったアルテミシアが立っていたとも言われている）。ちなみに「霊廟」を意味する英語「モーソリーアム」は、このマウソロス霊廟を語源としている。マウソロス霊廟は中世まで存在していたが、11世紀から15世紀の間におそらくは地震によって崩れてしまった。とはいえ、その痕跡は今日でも見ることができる。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_UBUDIAH_MOSQUE_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>『コーラン』では、ウブーディヤーの原則として、神にのみ服従することを信者に説いている。この教えにもとづいて築かれたのがウブディア・モスクである。イスラム教は12世紀に東南アジアに伝来し、マレー世界全域を全体として鎖のように結んだ新興の諸スルタン国の基盤を形成した。中でも現在のマレーシアに位置するペラ・スルタン国は、19世紀から20世紀初頭にかけてイギリスの統治下に置かれていたにもかかわらず、際立った存在感と富を持つに至った。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_UBUDIAH_MOSQUE_CHAPTER_HISTORY_PARA_2" Language="ja_JP">
+      <Text>スルタンであったイドリス・シャー1世は、病から回復したことへの感謝の印として、この地にモスクを建設した。完成は1917年で、建材にはイタリア産の大理石で用いられ、塔の屋根は南アジア様式の黄金のドームとなっている（設計したのはイギリス人建築家だが）。世界大戦や2頭の象のケンカが原因で建設が中断することもあったが、今日に至るまでクアラ・カンサーの町とペラ州のシンボルでありつづけ、この地のイスラム教徒によって現役のモスクとして利用されている。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_WAT_XIENG_THONG_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>東南アジアの上座部仏教寺院には、地域社会の学校や集会所として機能していたものもあるが、王の威厳を誇示するために築かれたものもある。かつてラオスを支配していたラーンサーン（「百万頭の象」）王朝の古都ルアンパバーンにあるワット・シエントーンは、後者に属する寺院だ。建立されたのは1560年頃、命じたのはセータティラート王である。当時はラーンサーン王朝の絶頂期で、ビルマの侵略を退け、アユタヤ朝（シャム）に対しても勝利をおさめようとしていた。大きく、空に向かって伸びあがるような形をした屋根からは、優雅さと気品が感じられる。メコン川とナムカーン川を一望できるこの地は、伝説によれば蛇霊ナーガが住まう祝福された場所であるという。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_GRAND_BAZAAR_NAME" Language="ja_JP">
+      <Text>グランドバザール</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_MAUSOLEUM_AT_HALICARNASSUS_NAME" Language="ja_JP">
+      <Text>マウソロス霊廟</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_UBUDIAH_MOSQUE_NAME" Language="ja_JP">
+      <Text>ウブディア・モスク</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_WAT_XIENG_THONG_NAME" Language="ja_JP">
+      <Text>ワット・シエントーン</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_GRAND_BAZAAR" Language="ja_JP">
+      <Text>ジェームズ・エルロイ・フレッカー</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_MAUSOLEUM_AT_HALICARNASSUS" Language="ja_JP">
+      <Text>サモサタのルキアノス</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_UBUDIAH_MOSQUE" Language="ja_JP">
+      <Text>ハムザ・ファンスーリー</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_WAT_XIENG_THONG" Language="ja_JP">
+      <Text>ヒキガエルの王の伝説</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_GRAND_BAZAAR" Language="ja_JP">
+      <Text>黄金の道を通り、我々はサマルカンドへ向かった</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_MAUSOLEUM_AT_HALICARNASSUS" Language="ja_JP">
+      <Text>ハリカルナッソスの地に建つ広き墳墓に私は眠る。その巨大なること、その美の精緻なること、他の死者には望むべくもあるまい</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_UBUDIAH_MOSQUE" Language="ja_JP">
+      <Text>商人の子よ、ゆめゆめ忘れてはならない。お前の望むことは戦争にとって敵なのだということを</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_WAT_XIENG_THONG" Language="ja_JP">
+      <Text>雨期には雨が降り、水田ではカエルが鳴く。それでいいのだ</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_GRAND_BAZAAR_DESCRIPTION" Language="ja_JP">
+      <Text>[icon:YIELD_GOLD] ゴールド+2。資源スロット+2。本土の財宝資源タイルに [icon:YIELD_GOLD] ゴールド+3。時代を問わない。本土の区域に隣接させる必要がある。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_GRAND_BAZAAR_TOOLTIP" Language="ja_JP">
+      <Text>資源スロット+2。本土の財宝資源タイルに [icon:YIELD_GOLD] ゴールド+3。時代を問わない。本土の区域に隣接させる必要がある。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_MAUSOLEUM_AT_HALICARNASSUS_DESCRIPTION" Language="ja_JP">
+      <Text>騎兵ユニットが初めて倒されると、HPが25%の状態で最寄りの自国居住地に再出現する。時代を問わない。沿岸に隣接する平地地形に配置する必要がある。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_MAUSOLEUM_AT_HALICARNASSUS_TOOLTIP" Language="ja_JP">
+      <Text>騎兵ユニットが初めて倒されると、HPが25%の状態で最寄りの自国居住地に再出現する。時代を問わない。沿岸に隣接する平地地形に配置する必要がある。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_UBUDIAH_MOSQUE_DESCRIPTION" Language="ja_JP">
+      <Text>[icon:YIELD_HAPPINESS] 幸福度+4。この居住地の施設の産出量+50%。時代を問わない。湿地地形に配置する必要がある。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_UBUDIAH_MOSQUE_TOOLTIP" Language="ja_JP">
+      <Text>この居住地の施設の産出量+50%。時代を問わない。湿地地形に配置する必要がある。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_WAT_XIENG_THONG_DESCRIPTION" Language="ja_JP">
+      <Text>[icon:YIELD_CULTURE] 文化力+2。傑作を獲得するたびに [icon:YIELD_GOLD] ゴールド+200（ゲーム速度に応じて変化）。時代を問わない。河川に隣接させる必要がある。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_WAT_XIENG_THONG_TOOLTIP" Language="ja_JP">
+      <Text>傑作を獲得するたびに [icon:YIELD_GOLD] ゴールド+200（ゲーム速度に応じて変化）。時代を問わない。河川に隣接させる必要がある。</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metaprogression xmlns="Metaprogression">
+	<challenges class="CHALLENGE_CLASS_FOUNDATION" category="CHALLENGE_CATEGORY_FOUNDATION_MONTHLY" legendPath="LEGEND_PATH_FOUNDATION">
+		<challenge id="CHALLENGE_MONTHLY_BUILD_WONDERS_10" scope="Career" difficulty="1" hidden="true">
+			<l10n>
+				<name>Build 10 Wonders</name>
+				<description>Build 10 Wonders over any number of Ages</description>
+			</l10n>
+			<sortIndex>110000</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_MONTHLY_BUILD_WONDERS_PROGRESS" threshold="10" />
+			<reward type="XP" reward="10" />
+		</challenge>
+		<challenge id="CHALLENGE_MONTHLY_GREAT_WORKS_20" scope="Career" difficulty="2" hidden="true">
+			<l10n>
+				<name>Collect Great Works 20</name>
+				<description>Collect 20 Great Works over any number of Ages</description>
+			</l10n>
+			<sortIndex>110100</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_MONTHLY_GREAT_WORKS_PROGRESS" threshold="20" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_MONTHLY_BUILD_UNITS_15" scope="Career" difficulty="1" hidden="true">
+			<l10n>
+				<name>Build Units 15</name>
+				<description>Build 15 Units over any number of Ages.</description>
+			</l10n>
+			<sortIndex>110200</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_MONTHLY_BUILD_UNITS_PROGRESS" threshold="15" />
+			<reward type="XP" reward="10" />
+		</challenge>
+		<challenge id="CHALLENGE_MONTHLY_KILL_UNITS_50" scope="Career" difficulty="3" hidden="true">
+			<l10n>
+				<name>Kill Units 50</name>
+				<description>Kill 50 Units over any number of Ages.</description>
+			</l10n>
+			<sortIndex>110300</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_MONTHLY_KILL_UNITS_PROGRESS" threshold="50" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_MONTHLY_GAIN_GOLD_1000" scope="Career" difficulty="2" hidden="true">
+			<l10n>
+				<name>Gain Gold 1000</name>
+				<description>Gain 1000 Gold over any number of Ages.</description>
+			</l10n>
+			<sortIndex>110400</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_MONTHLY_GAIN_GOLD_PROGRESS" threshold="1000" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_MONTHLY_FINISH_FIRST_DIPLOMATIC" scope="Campaign" difficulty="2" hidden="true">
+			<l10n>
+				<name>Finish First Diplomatic</name>
+				<description>Finish First in an Age with a Diplomatic Leader</description>
+			</l10n>
+			<sortIndex>110500</sortIndex>
+			<reward type="XP" reward="25" />
+		</challenge>
+	</challenges>
+</metaprogression>

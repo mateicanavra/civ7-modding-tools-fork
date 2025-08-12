@@ -1,0 +1,56 @@
+/* DO NOT EDIT */
+/* Generated from screen-belief-chooser.scss */
+.belief-chooser-scroll {
+	height: 90%;
+}
+
+.belief-chooser__content {
+	position: absolute;
+	top: 0.8888888889rem;
+	width: 100%;
+	pointer-events: auto;
+}
+.belief-chooser__content .gen-chooser-item {
+	display: flex;
+	flex-direction: row;
+	width: 99%;
+	height: 5.3333333333rem;
+	border: 0.1111111111rem solid grey;
+	margin-top: 0.4444444444rem;
+	pointer-events: auto;
+}
+.belief-chooser__content .gen-chooser-item:focus, .belief-chooser__content .gen-chooser-item:hover {
+	border: 0.1111111111rem solid white;
+}
+
+.belief-chooser__selection-status {
+	display: flex;
+	top: 3.5555555556rem;
+	right: 3.5555555556rem;
+	z-index: 1;
+	margin-top: 1.3333333333rem;
+}
+
+.belief-chooser__selection-text {
+	width: auto;
+	height: 2.6666666667rem;
+	text-align: left;
+	margin-top: 2.2222222222rem;
+	margin-left: 0.8888888889rem;
+}
+
+.belief-chooser__selection-icon-img {
+	opacity: 0.9;
+	pointer-events: auto;
+	display: flex;
+	position: relative;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+	width: 2.6666666667rem;
+	height: 2.6666666667rem;
+	transform-origin: center;
+}

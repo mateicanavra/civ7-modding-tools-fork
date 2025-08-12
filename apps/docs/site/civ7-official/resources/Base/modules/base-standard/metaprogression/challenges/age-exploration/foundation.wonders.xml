@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metaprogression xmlns="Metaprogression">
+	<challenges class="CHALLENGE_CLASS_FOUNDATION" category="CHALLENGE_CATEGORY_FOUNDATION_WONDERS" legendPath="LEGEND_PATH_FOUNDATION">
+		<challenge id="CHALLENGE_ABBASID_COMPLETE_HOUSE_OF_WISDOM" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>House of Wisdom</name>
+				<description>As Abbasid, complete the House of Wisdom</description>
+			</l10n>
+			<sortIndex>200</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CHOLA_COMPLETE_BRIHADEESWARAR" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Brihadeeswarar</name>
+				<description>As Chola, complete Brihadeeswarar</description>
+			</l10n>
+			<sortIndex>600</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_INCA_COMPLETE_MACHU_PIKCHU" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Machu Pikchu</name>
+				<description>As Inca, complete Machu Pikchu</description>
+			</l10n>
+			<sortIndex>1200</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_MAJAPAHIT_COMPLETE_CETBANG" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Borobudur</name>
+				<description>As Majapahit, complete Borobudur</description>
+			</l10n>
+			<sortIndex>1400</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_MING_COMPLETE_FORBIDDEN_CITY" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Forbidden City</name>
+				<description>As Ming, complete the Forbidden City</description>
+			</l10n>
+			<sortIndex>1900</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_MONGOLIA_COMPLETE_ERDENE_ZUU" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Erdene Zuu</name>
+				<description>As Mongolia, complete the Erdene Zuu</description>
+			</l10n>
+			<sortIndex>2100</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_NORMAN_COMPLETE_WHITE_TOWER" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>White Tower</name>
+				<description>As Normans, complete the White Tower</description>
+			</l10n>
+			<sortIndex>2300</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_SONGHAI_COMPLETE_TOMB_OF_ASKIA" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Tomb of Askia</name>
+				<description>As Songhai, complete Tomb of Askia</description>
+			</l10n>
+			<sortIndex>3100</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_SPAIN_COMPLETE_EL_ESCORIAL" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>El Escorial</name>
+				<description>As Spain, complete El Escorial</description>
+			</l10n>
+			<sortIndex>3200</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+	</challenges>
+</metaprogression>

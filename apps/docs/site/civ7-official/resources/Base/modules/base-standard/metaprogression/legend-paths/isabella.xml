@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metaprogression xmlns="Metaprogression">
+	<legendPath id="LEGEND_PATH_ISABELLA" type="CHALLENGE_CLASS_LEADER">
+		<sortIndex>40</sortIndex>
+		<level level="2">
+			<reward reward="MEMENTO_ISABELLA_QUEENS_JEWELRY"/>
+		</level>
+		<level level="3">
+			<reward reward="NODE_ATTRIBUTE_ECONOMIC_LEGEND_ISABELLA_L1"/>
+		</level>
+		<level level="4">
+			<reward reward="STRATEGYCARD_ISABELLA_EXPLORATION_1"/>
+			<reward reward="STRATEGYCARD_ISABELLA_EXPLORATION_2"/>
+		</level>
+		<level level="5">
+			<reward reward="MEMENTO_ISABELLA_BALLESTILLA"/>
+		</level>
+		<level level="6">
+			<reward reward="BADGE_ISABELLA"/>
+			<reward reward="BANNER_ISABELLA"/>
+		</level>
+		<level level="7">
+			<reward reward="NODE_ATTRIBUTE_EXPANSIONIST_LEGEND_ISABELLA_L2"/>
+		</level>
+		<level level="8">
+			<reward reward="STRATEGYCARD_ISABELLA_MODERN_1"/>
+			<reward reward="STRATEGYCARD_ISABELLA_MODERN_2"/>
+		</level>
+		<level level="9">
+			<reward reward="MEMENTO_ISABELLA_PADRON_REAL"/>
+		</level>
+		<level level="10">
+			<reward reward="TITLE_ISABELLA"/>
+			<reward reward="BADGE_ISABELLA_P"/>
+		</level>
+	</legendPath>
+</metaprogression>

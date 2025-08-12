@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_TRAIT"/>
+	</Kinds>
+	<Types>
+		<Row Type="LEADER_BOLIVAR" Kind="KIND_LEADER"/>
+		<Row Type="TRAIT_LEADER_BOLIVAR_ABILITY" Kind="KIND_TRAIT"/>
+	</Types>
+	<Leaders>
+		<Row LeaderType="LEADER_BOLIVAR" Name="LOC_LEADER_BOLIVAR_NAME" IsMajorLeader="true" InheritFrom="LEADER_DEFAULT" />
+	</Leaders>
+	<TypeQuotes>
+		<Row Type="LEADER_BOLIVAR" Quote="LOC_MAIN_CHAR_SELECT_LEADER_BOLIVAR_ANY"/>
+	</TypeQuotes>
+	<AiFavoredItems>
+	</AiFavoredItems>
+	<Traits>
+		<Row TraitType="TRAIT_LEADER_BOLIVAR_ABILITY" InternalOnly="true" Name="LOC_TRAIT_LEADER_BOLIVAR_ABILITY_NAME" Description="LOC_TRAIT_LEADER_BOLIVAR_ABILITY_DESCRIPTION"/>
+	</Traits>
+	<LeaderTraits>
+		<Row LeaderType="LEADER_BOLIVAR" TraitType="TRAIT_LEADER_BOLIVAR_ABILITY"/>
+		<Row LeaderType="LEADER_BOLIVAR" TraitType="TRAIT_LEADER_ATTRIBUTE_EXPANSIONIST"/>
+		<Row LeaderType="LEADER_BOLIVAR" TraitType="TRAIT_LEADER_ATTRIBUTE_MILITARISTIC"/>
+		<Row LeaderType="LEADER_BOLIVAR" TraitType="TRAIT_LEADER_AGGRESSIVE"/>
+		<Row LeaderType="LEADER_BOLIVAR" TraitType="TRAIT_AQ_MILITARY_VICTORY"/>
+		<Row LeaderType="LEADER_BOLIVAR" TraitType="TRAIT_EX_ECONOMIC_VICTORY"/>
+		<Row LeaderType="LEADER_BOLIVAR" TraitType="TRAIT_MO_MILITARY_VICTORY"/>
+	</LeaderTraits>
+	<TraitModifiers>
+		<Row TraitType="TRAIT_LEADER_BOLIVAR_ABILITY" ModifierId="BOLIVAR_MOD_WAR_SUPPORT_DEF"/>
+		<Row TraitType="TRAIT_LEADER_BOLIVAR_ABILITY" ModifierId="BOLIVAR_MOD_WAR_SUPPORT_AGGRO"/>
+		<Row TraitType="TRAIT_LEADER_BOLIVAR_ABILITY" ModifierId="BOLIVAR_MOD_FREE_BUILDING"/>
+		<Row TraitType="TRAIT_LEADER_BOLIVAR_ABILITY" ModifierId="BOLIVAR_MOD_PURCHASE_UNREST"/>
+		<Row TraitType="TRAIT_LEADER_BOLIVAR_ABILITY" ModifierId="BOLIVAR_MOD_AGENDA_CORNERSTONE_FREEDOM"/>
+	</TraitModifiers>
+	<AiListTypes>
+		<!-- Leader Psuedoyield Biases -->
+		<Row ListType="Bolivar Yield Biases"/>
+		<Row ListType="Bolivar Budget Biases"/>
+	</AiListTypes>
+	<AiLists>
+		<!-- Leader Psuedoyield Biases -->
+		<Row ListType="Bolivar Yield Biases" LeaderType="TRAIT_LEADER_BOLIVAR_ABILITY" System="YieldBiases"/>
+		<Row ListType="Bolivar Budget Biases" LeaderType="TRAIT_LEADER_BOLIVAR_ABILITY" System="AiBudgetBiases"/>
+	</AiLists>
+	<AiFavoredItems>
+		<Row ListType="Bolivar Yield Biases" Item="YIELD_PRODUCTION" Value="50"/>
+		<Row ListType="Bolivar Yield Biases" Item="YIELD_GOLD" Value="25"/>
+		<Row ListType="Bolivar Budget Biases" Item="AI_BUDGET_STANDING_ARMY" Value="50"/>
+	</AiFavoredItems>
+</Database>

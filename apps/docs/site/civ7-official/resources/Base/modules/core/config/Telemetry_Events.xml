@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TelemetryItems>
+	<Table Name="PlayerAgeTransition" Version="1" Context="game" Enabled="1" EventTracked="GameCoreEvent::PlayerAgeTransitionComplete" Hook="OnPlayerAgeTransitionComplete">
+	</Table>
+	<Table Name="CampaignStatus" Version="1" Context="game" Enabled="1" EventTracked="GameCoreEvent::TurnEnd" Hook="OnTurnEnd">
+	</Table>
+	<Table Name="DiplomacyActionStatus" Version="1" Context="game" Enabled="1" EventTracked="GameCoreEvent::DiplomacyEventStarted" Hook="OnDiplomacyEventStarted">
+	</Table>
+	<Table Name="DiplomacyActionStatus" Version="1" Context="game" Enabled="1" EventTracked="GameCoreEvent::DiplomacyEventResponse" Hook="OnDiplomacyEventResponse">
+	</Table>
+	<Table Name="DiplomacyActionStatus" Version="1" Context="game" Enabled="1" EventTracked="GameCoreEvent::DiplomacyEventEnded" Hook="OnDiplomacyEventEnded">
+	</Table>
+	<Table Name="DiplomacyRelationshipStatus" Version="1" Context="game" Enabled="1" EventTracked="GameCoreEvent::DiplomacyRelationshipLevelChanged" Hook="OnDiplomacyRelationshipLevelChanged">
+	</Table>
+	<Table Name="CityGrowthModeChanged" Version="1" Context="game" Enabled="1" EventTracked="GameCoreEvent::CityGrowthModeChanged" Hook="OnCityGrowthModeChanged">
+	</Table>
+	<Table Name="CityInitialized" Version="1" Context="game" Enabled="1" EventTracked="GameCoreEvent::CityInitialized" Hook="OnCityInitialized">
+	</Table>
+	<Table Name="CityProductionCompleted" Version="1" Context="game" Enabled="1" EventTracked="GameCoreEvent::CityProductionCompleted" Hook="OnCityProductionCompleted">
+	</Table>
+	<Table Name="CityProductionChanged" Version="1" Context="game" Enabled="1" EventTracked="GameCoreEvent::CityProductionChanged" Hook="OnCityProductionChanged">
+	</Table>
+	<Table Name="CityMadePurchase" Version="1" Context="game" Enabled="1" EventTracked="GameCoreEvent::CityMadePurchase" Hook="OnCityMadePurchase">
+	</Table>
+	<Table Name="CityGovernmentLevelChanged" Version="1" Context="game" Enabled="1" EventTracked="GameCoreEvent::CityGovernmentLevelChanged" Hook="OnCityGovernmentLevelChanged">
+	</Table>
+	<Table Name="ConstructibleDamaged" Version="1" Context="game" Enabled="1" EventTracked="GameCoreEvent::ConstructibleDamaged" Hook="OnConstructibleDamaged">
+	</Table>
+	<Table Name="CityTileOwnershipChanged" Version="1" Context="game" Enabled="1" EventTracked="GameCoreEvent::CityTileOwnershipChanged" Hook="OnCityTileOwnershipChanged">
+	</Table>
+	<Table Name="WorkerAdded" Version="1" Context="game" Enabled="1" EventTracked="GameCoreEvent::WorkerAdded" Hook="OnWorkerAdded">
+	</Table>
+	<Table Name="CityTransfered" Version="1" Context="game" Enabled="1" EventTracked="GameCoreEvent::CityTransfered" Hook="OnCityTransfered">
+	</Table>
+	<Table Name="DistrictControlChanged" Version="1" Context="game" Enabled="1" EventTracked="GameCoreEvent::DistrictControlChanged" Hook="OnDistrictControlChanged">
+	</Table>
+</TelemetryItems>

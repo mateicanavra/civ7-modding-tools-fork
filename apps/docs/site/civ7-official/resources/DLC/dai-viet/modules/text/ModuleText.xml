@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MODULE_DAI_VIET_NAME">
+			<Text>Đại Việt</Text>
+		</Row>
+		<Row Tag="LOC_MODULE_DAI_VIET_DESCRIPTION">
+			<Text>Contains a new Exploration Age Civilization, Đại Việt.</Text>
+		</Row>
+	</EnglishText>
+</Database>

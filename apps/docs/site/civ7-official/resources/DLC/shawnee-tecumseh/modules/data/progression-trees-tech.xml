@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<ProgressionTreeNodeUnlocks>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_ASTRONOMY" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_SERPENT_MOUND" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_HERALDRY" TargetKind="KIND_UNIT" TargetType="UNIT_KISPOKO_NENA_TO_2" UnlockDepth="1" RequiredTraitType="TRAIT_SHAWNEE"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_METAL_CASTING" TargetKind="KIND_UNIT" TargetType="UNIT_KISPOKO_NENA_TO_3" UnlockDepth="1" RequiredTraitType="TRAIT_SHAWNEE"/>
+	</ProgressionTreeNodeUnlocks>
+</Database>

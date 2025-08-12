@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<Row Type="UNITCOMMAND_CLAIM_MOUNTAIN" Kind="KIND_UNITCOMMAND"/>
+	</Types>
+	<UnitCommands>
+		<Row CommandType="UNITCOMMAND_CLAIM_MOUNTAIN" VisibleInUI="true" HoldCycling="true" CategoryInUI="ACTIVE_PRIMARY" PriorityInUI="10" Icon="blp:action_claimmountain.png" Name="LOC_UNITCOMMAND_CLAIM_MOUNTAIN_NAME" Description="LOC_UNITCOMMAND_CLAIM_MOUNTAIN_DESCRIPTION" ShowActivationPlots="true"/>
+	</UnitCommands>
+</Database>

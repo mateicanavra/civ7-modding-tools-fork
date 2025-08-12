@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="Definitions">
+	<definition name="Notification" table-name="Notifications" cpp="true">
+		<field name="NotificationType" type="Text" key="true" unique="true" not-null="true" hash="true"/>
+		<field name="Message" type="Text"/>
+		<field name="Summary" type="Text"/>
+		<field name="SeverityType" type="Text" hash="true"/>
+		<field name="ExpiresEndOfTurn" type="Bool" value="True" not-null="true"/>
+		<field name="ExpiresEndOfNextTurn" type="Bool" value="False" not-null="true"/>
+		<field name="SubType" type="Text" hash="true"/>
+		<field name="AutoNotify" type="Bool" value="False" not-null="true"/>
+		<field name="GroupType" type="Text" hash="true"/>
+		<field name="Icon" type="Text"/>
+		<field name="Priority" type="Integer" not-null="true"/>
+		<field name="AutoActivate" type="Bool" value="False" not-null="true"/>
+		<field name="VisibleInUI" description="Is the notification shown in the UI?" type="Bool" value="True" not-null="true"/>
+		<field name="ShowIconSinglePlayer" description="Is this notification's icon shown in the queue in singleplayer?" type="Bool" value="True" not-null="true"/>
+	</definition>
+	<definition name="NotificationSound" table-name="NotificationSounds" cpp="false">
+		<field name="NotificationType" type="Text" not-null="true" key="true" hash="true"/>
+		<field name="Context" type="Text" not-null="true" key="true"/>
+		<field name="Audio" type="Text"/>
+	</definition>
+</definitions>

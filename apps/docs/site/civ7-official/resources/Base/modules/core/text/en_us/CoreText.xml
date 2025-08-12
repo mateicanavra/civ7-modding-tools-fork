@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Internal Modding Errors -->
+		<Row Tag="LOC_MODDING_ERROR_UNKNOWN">
+			<Text>An unknown error occurred while trying to start the game.</Text>
+		</Row>
+		<Row Tag="LOC_MODDING_ERROR_CONTENT">
+			<Text>One or more errors occurred while trying to configure modding content.</Text>
+		</Row>
+		<Row Tag="LOC_MODDING_ERROR_REASON_GAMEPLAY_DATABASE">
+			<Text>Gameplay database failed validation!  See Database.log for additional details.</Text>
+		</Row>
+	</EnglishText>
+</Database>
+		

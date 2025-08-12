@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+
+	<!-- Military Legacy Milestones -->
+	<RequirementSet id="REQSET_REACHED_ANTIQUITY_MILITARY_MILESTONE_1">
+		<Requirement type="REQUIREMENT_PLAYER_LEGACY_PATH_MILESTONE_ACHIEVED">
+			<Argument name="AgeProgressionMilestoneType">ANTIQUITY_MILITARY_MILESTONE_1</Argument>
+		</Requirement>
+	</RequirementSet>
+	<RequirementSet id="REQSET_REACHED_ANTIQUITY_MILITARY_MILESTONE_2">
+		<Requirement type="REQUIREMENT_PLAYER_LEGACY_PATH_MILESTONE_ACHIEVED">
+			<Argument name="AgeProgressionMilestoneType">ANTIQUITY_MILITARY_MILESTONE_2</Argument>
+		</Requirement>
+	</RequirementSet>
+	<RequirementSet id="REQSET_REACHED_ANTIQUITY_MILITARY_MILESTONE_3">
+		<Requirement type="REQUIREMENT_PLAYER_LEGACY_PATH_MILESTONE_ACHIEVED">
+			<Argument name="AgeProgressionMilestoneType">ANTIQUITY_MILITARY_MILESTONE_3</Argument>
+		</Requirement>
+	</RequirementSet>
+
+	<!-- Cultural Legacy Milestones -->
+	<RequirementSet id="REQSET_REACHED_ANTIQUITY_CULTURE_MILESTONE_1">
+		<Requirement type="REQUIREMENT_PLAYER_LEGACY_PATH_MILESTONE_ACHIEVED">
+			<Argument name="AgeProgressionMilestoneType">ANTIQUITY_CULTURE_MILESTONE_1</Argument>
+		</Requirement>
+	</RequirementSet>
+	<RequirementSet id="REQSET_REACHED_ANTIQUITY_CULTURE_MILESTONE_2">
+		<Requirement type="REQUIREMENT_PLAYER_LEGACY_PATH_MILESTONE_ACHIEVED">
+			<Argument name="AgeProgressionMilestoneType">ANTIQUITY_CULTURE_MILESTONE_2</Argument>
+		</Requirement>
+	</RequirementSet>
+	<RequirementSet id="REQSET_REACHED_ANTIQUITY_CULTURE_MILESTONE_3">
+		<Requirement type="REQUIREMENT_PLAYER_LEGACY_PATH_MILESTONE_ACHIEVED">
+			<Argument name="AgeProgressionMilestoneType">ANTIQUITY_CULTURE_MILESTONE_3</Argument>
+		</Requirement>
+	</RequirementSet>
+
+	<!-- Economic Legacy Milestones -->
+	<RequirementSet id="REQSET_REACHED_ANTIQUITY_ECONOMIC_MILESTONE_1">
+		<Requirement type="REQUIREMENT_PLAYER_LEGACY_PATH_MILESTONE_ACHIEVED">
+			<Argument name="AgeProgressionMilestoneType">ANTIQUITY_ECONOMIC_MILESTONE_1</Argument>
+		</Requirement>
+	</RequirementSet>
+	<RequirementSet id="REQSET_REACHED_ANTIQUITY_ECONOMIC_MILESTONE_2">
+		<Requirement type="REQUIREMENT_PLAYER_LEGACY_PATH_MILESTONE_ACHIEVED">
+			<Argument name="AgeProgressionMilestoneType">ANTIQUITY_ECONOMIC_MILESTONE_2</Argument>
+		</Requirement>
+	</RequirementSet>
+	<RequirementSet id="REQSET_REACHED_ANTIQUITY_ECONOMIC_MILESTONE_3">
+		<Requirement type="REQUIREMENT_PLAYER_LEGACY_PATH_MILESTONE_ACHIEVED">
+			<Argument name="AgeProgressionMilestoneType">ANTIQUITY_ECONOMIC_MILESTONE_3</Argument>
+		</Requirement>
+	</RequirementSet>
+
+	<!-- Scientific Legacy Milestones -->
+	<RequirementSet id="REQSET_REACHED_ANTIQUITY_SCIENCE_MILESTONE_1">
+		<Requirement type="REQUIREMENT_PLAYER_LEGACY_PATH_MILESTONE_ACHIEVED">
+			<Argument name="AgeProgressionMilestoneType">ANTIQUITY_SCIENCE_MILESTONE_1</Argument>
+		</Requirement>
+	</RequirementSet>
+	<RequirementSet id="REQSET_REACHED_ANTIQUITY_SCIENCE_MILESTONE_2">
+		<Requirement type="REQUIREMENT_PLAYER_LEGACY_PATH_MILESTONE_ACHIEVED">
+			<Argument name="AgeProgressionMilestoneType">ANTIQUITY_SCIENCE_MILESTONE_2</Argument>
+		</Requirement>
+	</RequirementSet>
+	<RequirementSet id="REQSET_REACHED_ANTIQUITY_SCIENCE_MILESTONE_3">
+		<Requirement type="REQUIREMENT_PLAYER_LEGACY_PATH_MILESTONE_ACHIEVED">
+			<Argument name="AgeProgressionMilestoneType">ANTIQUITY_SCIENCE_MILESTONE_3</Argument>
+		</Requirement>
+	</RequirementSet>
+</GameEffects>

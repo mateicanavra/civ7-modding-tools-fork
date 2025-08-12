@@ -1,0 +1,479 @@
+/* DO NOT EDIT */
+/* Generated from panel-advisor-victory.scss */
+.advisor-carousel__bg-gradient {
+	background: linear-gradient(180deg, rgba(5, 7, 13, 0.4) 0%, rgba(5, 7, 13, 0.2) 50.5%, rgba(5, 7, 13, 0.35) 100%);
+}
+
+.advisor-carousel__border-bar {
+	border-image: url("fs://game/hud_section-line.png");
+	border-image-slice: 4 32 0 32 fill;
+	border-image-width: auto;
+	border-image-outset: 0rem 0.3333333333rem;
+	border-image-repeat: stretch;
+}
+.advisor-carousel__border-bar.bottom {
+	transform: scaleY(-1);
+}
+
+.advisor-portrait {
+	border-image-source: url("fs://game/hud_unit-panel_box-bg");
+	border-image-slice: 18 14 18 14 fill;
+	border-image-width: 0;
+	border-image-outset: 17 13 17 13;
+}
+@media (max-height: 55.5555555556rem) {
+	.advisor-portrait {
+		width: 7.2222222222rem;
+		height: 7.2222222222rem;
+		margin-top: 1.3888888889rem;
+	}
+}
+
+.advisor-filigree {
+	width: 10.3333333333rem;
+	right: -0.7222222222rem;
+	bottom: -1.2222222222rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.advisor-filigree {
+		width: 8.3333333333rem;
+		height: 1.6666666667rem;
+		bottom: -0.9444444444rem;
+		right: -0.5555555556rem;
+	}
+}
+
+.advisor-victory-carousel {
+	width: 52.7777777778rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.advisor-victory-carousel {
+		width: 34.7222222222rem;
+		height: 13.8888888889rem;
+		top: -1.1111111111rem;
+		margin-left: 0rem;
+	}
+}
+@media (experience: mobile) {
+	.advisor-victory-carousel {
+		width: 55%;
+	}
+}
+@media (experience: mobile) and (max-height: 55.5555555556rem) {
+	.advisor-victory-carousel {
+		width: 50%;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.advisor-carousel__content-container {
+		height: 10rem;
+	}
+}
+
+.advisor-carousel__advisor-text-bg {
+	background: linear-gradient(180deg, rgba(5, 7, 13, 0.4) 0%, rgba(5, 7, 13, 0.2) 50.5%, rgba(5, 7, 13, 0.35) 100%);
+}
+
+.local-player {
+	border-radius: 1.3333333333rem;
+}
+
+@media (experience: mobile) and (max-height: 55.5555555556rem) {
+	.advisor-panel_top {
+		margin-top: 2.2222222222rem;
+	}
+}
+
+.advisor-panel__progress-bar {
+	width: 69.4444444444rem;
+	height: 1.6666666667rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__progress-bar {
+		width: 52.7777777778rem;
+	}
+}
+@media (experience: mobile) {
+	.advisor-panel__progress-bar {
+		width: 65.5555555556rem;
+	}
+}
+@media (experience: mobile) and (max-height: 55.5555555556rem) {
+	.advisor-panel__progress-bar {
+		width: 58.3333333333rem;
+	}
+}
+
+.advisor-panel__darkage-bar {
+	left: -4%;
+}
+@media (max-height: 55.5555555556rem), (experience: mobile) {
+	.advisor-panel__darkage-bar {
+		left: 0;
+		height: 2.2222222222rem;
+		top: -2.0555555556rem;
+	}
+}
+
+.advisor-panel__reward-wrapper {
+	top: -6.8333333333rem;
+}
+
+.advisor-panel__reward-holder {
+	width: 4.2777777778rem;
+	height: 6.8333333333rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__reward-holder {
+		width: 2.6666666667rem;
+		height: 4.2777777778rem;
+		top: 2.7777777778rem;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__reward-icon {
+		width: 2.6666666667rem;
+		height: 2.6666666667rem;
+		left: 0rem;
+		top: 0rem;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__additional-rewards {
+		height: 2.2222222222rem;
+		margin-top: 0.5555555556rem;
+	}
+}
+
+.advisor-panel__darkage-icon {
+	top: -6.8333333333rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__darkage-icon {
+		width: 2.6666666667rem;
+		height: 2.6666666667rem;
+		left: -1.3333333333rem;
+		top: -4.1666666667rem;
+	}
+}
+@media (experience: mobile) and (min-height: 55.5555555556rem) {
+	.advisor-panel__darkage-icon {
+		left: -1.9444444444rem;
+		top: -6.6666666667rem;
+	}
+}
+
+.advisor-panel__victory-icon {
+	height: 9.7777777778rem;
+	top: -2.8888888889rem;
+	left: -2.7777777778rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__victory-icon {
+		height: 6.1111111111rem;
+		width: 6.1111111111rem;
+		left: -1.6666666667rem;
+		top: -1.7222222222rem;
+	}
+}
+
+.advisor-panel__golden-icon-advisor_science {
+	height: 9.7777777778rem;
+	top: -2.0555555556rem;
+	left: -2.9444444444rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__golden-icon-advisor_science {
+		height: 6.2777777778rem;
+		width: 6.2777777778rem;
+		left: -1.8888888889rem;
+		top: -1.3333333333rem;
+	}
+}
+
+.advisor-panel__golden-icon-advisor_military,
+.advisor-panel__golden-icon-advisor_culture {
+	height: 10.5555555556rem;
+	top: -3.0555555556rem;
+	left: -2.7777777778rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__golden-icon-advisor_military,
+.advisor-panel__golden-icon-advisor_culture {
+		height: 7rem;
+		width: 6.0555555556rem;
+		left: -1.7222222222rem;
+		top: -2.1111111111rem;
+	}
+}
+
+.advisor-panel__golden-icon-advisor_economic {
+	height: 8.8888888889rem;
+	top: -3.1666666667rem;
+	left: -2.7777777778rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__golden-icon-advisor_economic {
+		height: 5.9444444444rem;
+		width: 6.1666666667rem;
+		left: -1.7777777778rem;
+		top: -2.2222222222rem;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__title {
+		width: 31.9444444444rem;
+		margin-left: -0.8333333333rem;
+		margin-right: 1.1111111111rem;
+	}
+}
+@media (experience: mobile) {
+	.advisor-panel__title {
+		width: 45%;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__victory-icon-wrapper {
+		height: 2.5rem;
+		justify-content: center;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__progressbar-legend {
+		width: 8.1666666667rem;
+		height: 2.5rem;
+		margin-left: -1rem;
+	}
+}
+@media (experience: mobile) {
+	.advisor-panel__progressbar-legend {
+		width: auto;
+		height: auto;
+		max-width: 8.8888888889rem;
+		margin-top: -2.5555555556rem;
+		margin-left: -3.8888888889rem;
+	}
+}
+@media (experience: mobile) and (max-height: 55.5555555556rem) {
+	.advisor-panel__progressbar-legend {
+		margin-top: 3.6111111111rem;
+		margin-left: 0;
+	}
+}
+
+@media (experience: mobile) {
+	.advisor-panel__progress-rewards {
+		min-height: 4.7777777778rem;
+	}
+}
+@media (experience: mobile) and (max-height: 55.5555555556rem) {
+	.advisor-panel__progress-rewards {
+		min-height: 3.0555555556rem;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__progress-key {
+		padding-top: 1.9444444444rem;
+	}
+}
+@media (experience: mobile) {
+	.advisor-panel__progress-key {
+		padding-top: -0.6666666667rem;
+	}
+}
+@media (experience: mobile) and (max-height: 55.5555555556rem) {
+	.advisor-panel__progress-key {
+		padding-top: -2.1111111111rem;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__progress-bar-wrapper {
+		padding-top: 7.2222222222rem;
+	}
+}
+@media (experience: mobile) {
+	.advisor-panel__progress-bar-wrapper {
+		padding-left: 2.2222222222rem;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__pip {
+		bottom: -0.5rem;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__reward-pip {
+		width: 1.1111111111rem;
+		height: 1.9444444444rem;
+		bottom: -1.7222222222rem;
+	}
+}
+@media (experience: mobile) {
+	.advisor-panel__reward-pip {
+		width: 1.5555555556rem;
+		height: 2.5rem;
+		bottom: -2.5555555556rem;
+	}
+}
+@media (experience: mobile) and (max-height: 55.5555555556rem) {
+	.advisor-panel__reward-pip {
+		width: 1.3888888889rem;
+		height: 2rem;
+		bottom: -1.8333333333rem;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__last-reward {
+		right: -1.2222222222rem;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__victory-desc {
+		left: 3.0555555556rem;
+		top: 4.1666666667rem;
+		white-space: pre-wrap;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__final-pip {
+		width: 1.5rem;
+		height: 2.2222222222rem;
+		bottom: -1.9444444444rem;
+		right: -0.6111111111rem;
+	}
+}
+@media (experience: mobile) and (min-height: 55.5555555556rem) {
+	.advisor-panel__final-pip {
+		width: 2.4444444444rem;
+		height: 3.5555555556rem;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__age-progress {
+		letter-spacing: 0rem;
+		bottom: -2.9444444444rem;
+	}
+	.advisor-panel__age-progress fxs-font-icon {
+		margin: 0rem -0.3333333333rem 0rem -0.2222222222rem;
+	}
+}
+@media (experience: mobile) and (max-height: 55.5555555556rem) {
+	.advisor-panel__age-progress {
+		bottom: -3.1111111111rem;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__advisor-icon {
+		height: 11.1111111111rem;
+		width: 11.1111111111rem;
+		margin-top: -4.7777777778rem;
+		margin-left: -8.0555555556rem;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.advisor-pane__portrait-wrapper {
+		margin-top: -1.3888888889rem;
+		margin-left: 1.8888888889rem;
+	}
+}
+
+.advisor-panel__icon-border {
+	background-image: url("fs://game/adv_port_bk.png");
+	background-size: cover;
+	width: 9rem;
+	height: 9rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__icon-border {
+		height: 4.8333333333rem;
+		width: 4.8333333333rem;
+	}
+}
+
+.advisor-panel__portrait {
+	top: 1.1666666667rem;
+	left: 1.1666666667rem;
+	width: 6.6666666667rem;
+	height: 6.6666666667rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__portrait {
+		height: 3.6944444444rem;
+		width: 3.6944444444rem;
+		top: 0.5555555556rem;
+		left: 0.5555555556rem;
+	}
+}
+
+.advisor-panel__type-icon-bg {
+	height: 4.1666666667rem;
+	width: 4.1666666667rem;
+	left: 5rem;
+	top: 5rem;
+	background-image: url("fs://game/adv_icon_bk.png");
+	background-size: cover;
+}
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__type-icon-bg {
+		height: 2.9166666667rem;
+		width: 2.9166666667rem;
+		left: 2.6666666667rem;
+		top: 2.6666666667rem;
+	}
+}
+
+.advisor-panel__type-icon {
+	height: 2.5rem;
+	width: 2.5rem;
+	left: 5.8333333333rem;
+	top: 5.8888888889rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__type-icon {
+		height: 1.6666666667rem;
+		width: 1.6666666667rem;
+		left: 3.2777777778rem;
+		top: 3.3333333333rem;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel_victory-title {
+		margin-bottom: 0;
+	}
+}
+
+.advisor-text p {
+	width: 100%;
+}
+
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel_civilopedia-link {
+		display: none;
+	}
+}
+
+.advisor-panel__civilopedia {
+	display: none;
+}
+@media (max-height: 55.5555555556rem) {
+	.advisor-panel__civilopedia {
+		display: block;
+	}
+}

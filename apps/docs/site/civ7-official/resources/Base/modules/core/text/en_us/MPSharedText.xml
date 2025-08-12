@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This file is for core multiplayer related text that is used in both the frontend and ingame. -->
+<Database>
+	<EnglishText>
+		<!-- Multiplayer Game Abandoned Popup -->
+		<Row Tag="LOC_GAME_ABANDONED_KICKED">
+			<Text>You have been kicked from the game.</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_KICKED_TITLE">
+			<Text>Kicked!</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_HOST_LOSTED">
+			<Text>Network connection to host has been lost.</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_HOST_LOSTED_TITLE">
+			<Text>Host Connection Lost</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_ROOM_FULL">
+			<Text>The game has the maximum number of players.</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_ROOM_FULL_TITLE">
+			<Text>Full Game</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_VERSION_MISMATCH">
+			<Text>Version mismatch with host.[N]Our Version={1_localVersion}[N]Host Version={2_remoteVersion}</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_VERSION_MISMATCH_TITLE">
+			<Text>Version Mismatch</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_MOD_ERROR">
+			<Text>Unable to apply additional content.</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_MOD_ERROR_TITLE">
+			<Text>Mod Error</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_MOD_MISSING">
+			<Text>Additional content is required but either has not been purchased or is not installed.[N]Content:[N]</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_MOD_MISSING_TITLE">
+			<Text>Mod Missing</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_MOD_ACCESS_DENIED">
+			<Text>Steam Workshop denied access to required additional content.[N]Content:[N]</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_MOD_MISSING_DOWNLOADS_DISABLED">
+			<Text>This game requires additional content that is not installed. The automatic download of additional content is currently disabled. Automatic downloads can be enabled in the Options Menu.[N]Content:[N]</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_CONNECTION_LOST">
+			<Text>Network connection has been lost.</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_CONNECTION_LOST_TITLE">
+			<Text>Disconnected</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_JOIN_FAILED">
+			<Text>Error joining Multiplayer session.</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_JOIN_FAILED_TITLE">
+			<Text>Join Failed</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_MATCH_DELETED">
+			<Text>The host deleted the game.</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_MATCH_DELETED_TITLE">
+			<Text>Game Deleted</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_GAME_STARTED">
+			<Text>You cannot join this game. It is already in progress.</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_GAME_STARTED_TITLE">
+			<Text>Game In Progress</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_TOO_MANY_MATCHES">
+			<Text>You are currently in too many multiplayer games. Complete or exit existing games before trying again.</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_TOO_MANY_MATCHES_TITLE">
+			<Text>Too Many Matches</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_APP_SLEPT">
+			<Text>Network connection lost due to Sleep mode.</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_APP_SLEPT_TITLE">
+			<Text>Disconnected</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_LOBBY_CONNECT">
+			<Text>Unable to connect to game lobby.</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_LOBBY_CONNECT_TITLE">
+			<Text>Lobby Connection Failed</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_KICK_PLATFORM_MAPSIZE">
+			<Text>You cannot join this game. The map size is not compatible with this platform.</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_KICK_PLATFORM_MAPSIZE_TITLE">
+			<Text>Map Size Unsupported</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_CROSSPLAY_DISABLED_HOST">
+			<Text>You cannot join this game. It has Crossplay disabled and is hosted on another platform.</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_CROSSPLAY_DISABLED_HOST_TITLE">
+			<Text>Crossplay Mismatch</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_CROSSPLAY_DISABLED_CLIENT">
+			<Text>You cannot join Crossplay games while Crossplay is disabled. You can enable Crossplay in the Options Menu.</Text>
+		</Row>
+		<Row Tag="LOC_GAME_ABANDONED_CROSSPLAY_DISABLED_CLIENT_TITLE">
+			<Text>Crossplay Disabled</Text>
+		</Row>
+		<Row Tag="LOC_SLOTTYPE_HUMANREQ">
+			<Text>Human Required</Text>
+		</Row>
+		<Row Tag="LOC_SLOTTYPE_OPEN">
+			<Text>Open</Text>
+		</Row>
+		<Row Tag="LOC_SLOTTYPE_AI">
+			<Text>AI</Text>
+		</Row>
+		<Row Tag="LOC_SLOTTYPE_CLOSED">
+			<Text>Closed</Text>
+		</Row>
+		<Row Tag="LOC_RANDOM_LEADER">
+			<Text>Random Leader</Text>
+		</Row>
+
+		<!-- Kick -->
+
+		<Row Tag="LOC_KICK_DIALOG_TITLE">
+			<Text>Kick Player?</Text>
+		</Row>
+		<Row Tag="LOC_DIRECT_KICK_CONFIRM_DIALOG">
+			<Text>Are you sure you wish to kick {1_kickPlayerName} immediately from the game?</Text>
+		</Row>
+		<Row Tag="LOC_KICK_VOTE_CONFIRM_DIALOG">
+			<Text>Are you sure you wish to kick {1_kickPlayerName} from the game? A vote will start.</Text>
+		</Row>
+		<Row Tag="LOC_KICK_VOTE_CHOICE_DIALOG">
+			<Text>{2_kickerPlayerName} has started a vote against {1_kickPlayerName}.[N]Do you wish to kick {1_kickPlayerName} from the game?</Text>
+		</Row>
+		<Row Tag="LOC_KICK_DIALOG_TIMEOUT">
+			<Text>You must wait at least 30 seconds between starting kick votes.</Text>
+		</Row>
+
+		<!-- Mute -->
+		<Row Tag="LOC_MUTE_DIALOG_TITLE">
+			<Text>Mute Player?</Text>
+		</Row>
+		<Row Tag="LOC_DIRECT_MUTE_CONFIRM_DIALOG">
+			<Text>Are you sure you wish to mute {1_mutePlayerName}?</Text>
+		</Row>
+
+		<Row Tag="LOC_UNMUTE_DIALOG_TITLE">
+			<Text>Unmute Player?</Text>
+		</Row>
+		<Row Tag="LOC_DIRECT_UNMUTE_CONFIRM_DIALOG">
+			<Text>Are you sure you wish to unmute {1_unmutePlayerName}?</Text>
+		</Row>
+
+		<!-- Game Listings -->
+		<Row Tag="LOC_MULTIPLAYER_DEFAULT_GAME_NAME">
+			<Text>{1_PlayerName}'s Game</Text>
+		</Row>
+
+		<!-- Chat Panel -->
+		<Row Tag="LOC_CHAT_GLOBAL">
+			<Text>Global</Text>
+		</Row>
+		<Row Tag="LOC_CHAT_TEAM">
+			<Text>Team</Text>
+		</Row>
+
+		<!-- Chat Panel -->
+
+		<Row Tag="LOC_PLATFORM_ICON_GENERIC_CROSSPLAY">
+			<Text>Crossplay Platform</Text>
+		</Row>
+		<Row Tag="LOC_PLATFORM_ICON_STEAM">
+			<Text>Steam</Text>
+		</Row>
+		<Row Tag="LOC_PLATFORM_ICON_EOS">
+			<Text>Epic Games Store</Text>
+		</Row>
+		<Row Tag="LOC_PLATFORM_ICON_T2GP">
+			<Text>Take-Two</Text>
+		</Row>
+		<Row Tag="LOC_PLATFORM_ICON_GAMECENTER">
+			<Text>Nintendo Switch</Text>
+		</Row>
+		<Row Tag="LOC_PLATFORM_ICON_NX">
+			<Text>Nintendo Switch</Text>
+		</Row>
+		<Row Tag="LOC_PLATFORM_ICON_XBOX">
+			<Text>Xbox</Text>
+		</Row>
+		<Row Tag="LOC_PLATFORM_ICON_PLAYSTATION">
+			<Text>PlayStation</Text>
+		</Row>
+
+		<!-- Report Abuse -->
+		<Row Tag="LOC_UI_MP_REPORT_PLAYER_TITLE">
+			<Text>Report Player</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_REPORT_PLAYER_BODY">
+			<Text>How is this player being abusive?</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_FOUL_LANGUAGE">
+			<Text>Foul Language</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_FOUL_LANGUAGE_TOOLTIP">
+			<Text>The player is using inappropriate language.</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_CHEATING">
+			<Text>Cheating</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_CHEATING_TOOLTIP">
+			<Text>The player is cheating.</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_BAD_REMARKS">
+			<Text>Bad Remarks</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_BAD_REMARKS_TOOLTIP">
+			<Text>The player is making inflammatory remarks.</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_REPORT_FEEDBACK_REPORTED">
+			<Text>You have reported {1_PlayerName}</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_HACKS">
+			<Text>Hacking</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_HACKS_TOOLTIP">
+			<Text>Hack</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_PRIVACY">
+			<Text>Privacy</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_PRIVACY_TOOLTIP">
+			<Text>Privacy</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_FRAUD">
+			<Text>Fraud</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_FRAUD_TOOLTIP">
+			<Text>Fraud</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_SPAM">
+			<Text>Spam</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_SPAM_TOOLTIP">
+			<Text>Spam</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_VIOLENCE">
+			<Text>Violence</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_VIOLENCE_TOOLTIP">
+			<Text>Violence</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_SELFHARM">
+			<Text>Self Harm</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_SELFHARM_TOOLTIP">
+			<Text>Suicide or Self Harm</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_HARASSMENT">
+			<Text>Adult Sexual Harassment</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_HARASSMENT_TOOLTIP">
+			<Text>Adult Sexual Harassment</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_EXPLICIT_CONTENT">
+			<Text>Adult Sexually Explicit Content</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_EXPLICIT_CONTENT_TOOLTIP">
+			<Text>Adult Sexually Explicit Content</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_MINORABUSE">
+			<Text>Minor Abuse or Child Sexual Content</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_MINORABUSE_TOOLTIP">
+			<Text>Minor Abuse or Child Sexual Content</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_BULLYING">
+			<Text>Bullying, Threats, Harassment</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_BULLYING_TOOLTIP">
+			<Text>Bullying, Threats, Harassment</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_HATESPEECH">
+			<Text>Hate Speech, Discrimination</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_HATESPEECH_TOOLTIP">
+			<Text>Hate Speech, Discrimination</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_TERRORISM">
+			<Text>Terrorism or Violent Extremism</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_TERRORISM_TOOLTIP">
+			<Text>Terrorism or Violent Extremism</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_OTHER">
+			<Text>Other Illegal Content</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_OTHER_TOOLTIP">
+			<Text>Other Illegal Content</Text>
+		</Row>
+		<Row Tag="LOC_ABUSE_REPORT_SELECT_REASON">
+			<Text>Select a Reason</Text>
+		</Row>
+		<!-- Multiplayer : Friends -->
+		<Row Tag="LOC_UI_MP_FRIENDS_FRIENDS_LIST">
+			<Text>Friends</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_UNBLOCK_LIST">
+			<Text>Block</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_RECENT_LIST">
+			<Text>Recent</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_SEARCH_LIST">
+			<Text>Search</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_LOBBY_LIST">
+			<Text>Lobby</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_SEARCH_RESULTS_LIST">
+			<Text>Search Results</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_NOTIFICATIONS_LIST">
+			<Text>Notifications</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_NO_RESULTS">
+			<Text>There is no one in your {1_ListType} List.</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_LOBBY_MULTIPLYER_REMINDER">
+			<Text>You need to be in multiplayer mode</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_SEARCHING">
+			<Text>Searching...</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_TITLE_INVITE">
+			<Text>Invite Friends</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_TITLE_UNBLOCK">
+			<Text>Block List</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_TITLE_RECENT">
+			<Text>Recent</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_TITLE_SEARCH">
+			<Text>Search Results</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_TAB_INVITE">
+			<Text>Friends</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_TAB_UNBLOCK">
+			<Text>Block List</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_TAB_RECENT">
+			<Text>Recent</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_TAB_SEARCH">
+			<Text>Search Results</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_TAB_LOBBY">
+			<Text>Lobby</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_TAB_NOTIFICATIONS">
+			<Text>Notifications</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_ACTION_NOTIFICATIONS_RECEIVED">
+			<Text>Action Received</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_ACTION_NOTIFICATIONS_SENT">
+			<Text>Action Sent</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_ACTION_INVITE">
+			<Text>Send Invite</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_ACTION_INVITED">
+			<Text>Invite Sent</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_ACTION_UNBLOCK">
+			<Text>Unblock</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_ACTION_ADD_FRIEND">
+			<Text>Add Friend</Text>
+		</Row>
+		<Row Tag="LOC_UI_FRIENDS_SEARCH_FIELD">
+			<Text>Enter the 2K Friend Username</Text>
+		</Row>
+		<Row Tag="LOC_UI_FRIENDS_OPEN_SEARCH">
+			<Text>Find 2K Friends</Text>
+		</Row>
+		<Row Tag="LOC_UI_FRIENDS_OPEN_SEARCH_TITLE">
+			<Text>Find 2K Player</Text>
+		</Row>
+		<Row Tag="LOC_UI_FRIENDS_SEARCH">
+			<Text>Search</Text>
+		</Row>
+		<Row Tag="LOC_UI_FRIENDS_SEARCH_TITLE">
+			<Text>Find 2K Friends</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_FEEDBACK_INVITE_TITLE">
+			<Text>Player Invited</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_FEEDBACK_INVITE">
+			<Text>You have invited {1_PlayerName}</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_FEEDBACK_BLOCK">
+			<Text>You have blocked {1_PlayerName}</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_FEEDBACK_UNBLOCK_TITLE">
+			<Text>Player Unblocked</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_FEEDBACK_UNBLOCK">
+			<Text>You have unblocked {1_PlayerName}</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_FEEDBACK_INVITE_TO_JOIN_TITLE">
+			<Text>Game Invite Request Sent</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_FEEDBACK_INVITE_TO_JOIN">
+			<Text>You have sent a game invite request to {1_PlayerName}</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_FEEDBACK_ADD_FRIEND_TITLE">
+			<Text>Friend Request Sent</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_FEEDBACK_ADD_FRIEND">
+			<Text>You have sent a friend request to {1_PlayerName}</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_FEEDBACK_REMOVE_FRIEND">
+			<Text>You have removed {1_PlayerName} from your friends list</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_FEEDBACK_ACCEPT_FRIEND">
+			<Text>You are now friends with {1_PlayerName}</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_FEEDBACK_DECLINE_FREIND">
+			<Text>You have declined this friend request from {1_PlayerName}</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_CONFIRM_BLOCK_TITLE">
+			<Text>Block Player</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_CONFIRM_BLOCK">
+			<Text>Are you sure you want to block {1_PlayerName}?</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_CONFIRM_UNBLOCK_TITLE">
+			<Text>Unblock Player</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_CONFIRM_UNBLOCK">
+			<Text>Are you sure you want to unblock {1_PlayerName}?</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_CONFIRM_GAME_INVITE_TITLE">
+			<Text>Send Game Invite?</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_CONFIRM_GAME_INVITE">
+			<Text>Are you sure you want to send a game invite to {1_PlayerName}?</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_CONFIRM_REQUEST">
+			<Text>Are you sure you want to send a friend request to {1_PlayerName}?</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_CONFIRM_REQUEST_TITLE">
+			<Text>Send Friend Request?</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_CONFIRM_CANCEL_REQUEST">
+			<Text>Are you sure you want to cancel a friend request to {1_PlayerName}?</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_CONFIRM_ACCEPT_REQUEST">
+			<Text>Are you sure you want to accept a friend request from {1_PlayerName}?</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_CONFIRM_DECLINE_REQUEST">
+			<Text>Are you sure you want to decline a friend request from {1_PlayerName}?</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_CONFIRM_CANCEL_REQUEST_TITLE">
+			<Text>Cancel Friend Request?</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_CONFIRM_ACCEPT_REQUEST_TITLE">
+			<Text>Accept Friend Request?</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_CONFIRM_DECLINE_REQUEST_TITLE">
+			<Text>Decline Friend Request?</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_REMOVE_FRIEND_TITLE">
+			<Text>Remove Friend?</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_REMOVE_FRIEND">
+			<Text>Are you sure you want to remove friend {1_PlayerName}?</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_CONFIRM_ACCEPT_INVITE_TITLE">
+			<Text>Accept Game Invite Request?</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_CONFIRM_ACCEPT_INVITE">
+			<Text>Are you sure you want to accept a game invite from {1_PlayerName}?</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_CONFIRM_DECLINE_INVITE_TITLE">
+			<Text>Decline Game Invite Request?</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_CONFIRM_DECLINE_INVITE">
+			<Text>Are you sure you want to decline a game invite from {1_PlayerName}?</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_2K_HEART_TOOLTIP">
+			<Text>You are 2K friends</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_FRIENDS_HEART_TOOLTIP">
+			<Text>You are friends</Text>
+		</Row>
+		<!-- Multiplayer Lobby : Player Options -->
+		<Row Tag="LOC_UI_MP_PLAYER_OPTIONS_ADD_PLAT_FRIEND">
+			<Text>Friend</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAYER_OPTIONS_VIEW_PROFILE">
+			<Text>View Profile</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAYER_OPTIONS_INVITE_FRIEND">
+			<Text>Invite To Join</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAYER_OPTIONS_ADD_T2GP_FRIEND">
+			<Text>Add Friend</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAYER_OPTIONS_REMOVE_FRIEND">
+			<Text>Remove Friend</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAYER_OPTIONS_CANCEL_T2GP_FRIEND_REQUEST">
+			<Text>Cancel Friend Request</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAYER_OPTIONS_ACCEPT_T2GP_FRIEND_REQUEST">
+			<Text>Accept Friend Request</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAYER_OPTIONS_DECLINE_T2GP_FRIEND_REQUEST">
+			<Text>Decline Friend Request</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAYER_OPTIONS_ACCEPT_T2GP_GAME_INVITE_REQUEST">
+			<Text>Accept Game Invite Request</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAYER_OPTIONS_DECLINE_T2GP_GAME_INVITE_REQUEST">
+			<Text>Decline Game Invite Request</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAYER_OPTIONS_REPORT">
+			<Text>Report</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAYER_OPTIONS_BLOCK">
+			<Text>Block</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAYER_OPTIONS_UNBLOCK">
+			<Text>Unblock</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAYER_OPTIONS_KICK">
+			<Text>Kick</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAYER_OPTIONS_MUTE">
+			<Text>Mute</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAYER_OPTIONS_UNMUTE">
+			<Text>Unmute</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAYER_OPTIONS_CHAT_UNAVAILABLE">
+			<Text>Unavailable</Text>
+		</Row>
+		<Row Tag="LOC_UI_ALREADY_FRIEND">
+			<Text>{1_PlayerName} is already your friend</Text>
+		</Row>
+
+		<!-- Teams -->
+		<Row Tag="LOC_MULTIPLAYER_DEFAULT_NO_TEAM_NAME">
+			<Text>No Team</Text>
+		</Row>
+		<Row Tag="LOC_MULTIPLAYER_DEFAULT_TEAM_NAME">
+			<Text>Team {1_TeamNumber}</Text>
+		</Row>
+	</EnglishText>
+</Database>

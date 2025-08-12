@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Authoritarianism -->
+		<Row Tag="LOC_GOLDEN_AGE_AUTHORITARIANISM_NAME">
+			<Text>Authoritarianism</Text>
+		</Row>
+		<Row Tag="LOC_GOLDEN_AGE_AUTHORITARIANISM_1_DESCRIPTION">
+			<Text>+30%[icon:YIELD_PRODUCTION] Production towards training Military Units for {1_numTurns} Turns.</Text>
+		</Row>
+		<Row Tag="LOC_GOLDEN_AGE_AUTHORITARIANISM_2_DESCRIPTION">
+			<Text>+3 Combat Strength for all Units for {1_numTurns} Turns.</Text>
+		</Row>
+		<!-- Bureaucratic Monarchy -->
+		<Row Tag="LOC_GOLDEN_AGE_BUREAUCRATIC_MONARCHY_NAME">
+			<Text>Bureaucratic Monarchy</Text>
+		</Row>
+		<Row Tag="LOC_GOLDEN_AGE_BUREAUCRATIC_MONARCHY_1_DESCRIPTION">
+			<Text>+20%[icon:YIELD_GOLD] Gold for {1_numTurns} Turns.</Text>
+		</Row>
+		<Row Tag="LOC_GOLDEN_AGE_BUREAUCRATIC_MONARCHY_2_DESCRIPTION">
+			<Text>+30% Relationship change from Endeavors and Sanctions for {1_numTurns} Turns.</Text>
+		</Row>
+		<!-- Elective Republic -->
+		<Row Tag="LOC_GOLDEN_AGE_ELECTIVE_REPUBLIC_NAME">
+			<Text>Elective Republic</Text>
+		</Row>
+		<Row Tag="LOC_GOLDEN_AGE_ELECTIVE_REPUBLIC_1_DESCRIPTION">
+			<Text>+20%[icon:YIELD_CULTURE] Culture for {1_numTurns} Turns.</Text>
+		</Row>
+		<Row Tag="LOC_GOLDEN_AGE_ELECTIVE_REPUBLIC_2_DESCRIPTION">
+			<Text>+20%[icon:YIELD_SCIENCE] Science for {1_numTurns} Turns.</Text>
+		</Row>
+		<!-- Revolucion -->
+		<Row Tag="LOC_GOLDEN_AGE_REVOLUCION_NAME">
+			<Text>Revolución</Text>
+		</Row>
+		<Row Tag="LOC_GOLDEN_AGE_REVOLUCION_1_DESCRIPTION">
+			<Text>+30%[icon:YIELD_CULTURE] Culture for {1_numTurns} Turns.</Text>
+		</Row>
+		<Row Tag="LOC_GOLDEN_AGE_REVOLUCION_2_DESCRIPTION">
+			<Text>+40%[icon:YIELD_PRODUCTION] Production towards training Military Units for {1_numTurns} Turns.</Text>
+		</Row>
+		<Row Tag="LOC_GOLDEN_AGE_REVOLUCION_3_DESCRIPTION">
+			<Text>+50%[icon:YIELD_DIPLOMACY] Influence towards initiating all Diplomatic Actions for {1_numTurns} Turns.</Text>
+		</Row>
+		<Row Tag="LOC_GOLDEN_AGE_REVOLUCION_4_DESCRIPTION">
+			<Text>+30%[icon:YIELD_SCIENCE] Science for {1_numTurns} Turns.</Text>
+		</Row>
+		<!-- Dark Ages -->
+		<Row Tag="LOC_GOLDEN_AGE_DARK_AGE_HAPPINESS_NAME">
+			<Text>Isolationism</Text>
+		</Row>
+		<Row Tag="LOC_GOLDEN_AGE_DARK_AGE_HAPPINESS_DESCRIPTION">
+			<Text>+15%[icon:YIELD_CULTURE] Culture and[icon:YIELD_SCIENCE] Science for {1_numTurns} Turns.</Text>
+		</Row>
+	</EnglishText>
+</Database>

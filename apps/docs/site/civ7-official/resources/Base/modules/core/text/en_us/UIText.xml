@@ -1,0 +1,439 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_GENERIC_ACCEPT">
+			<Text>Accept</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_OK">
+			<Text>OK</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_SAVE">
+			<Text>Save</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_SELECT">
+			<Text>Select</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_DESELECT">
+			<Text>Deselect</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_BACK">
+			<Text>Back</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_UNLINK">
+			<Text>Unlink</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_TWOKPORTAL">
+			<Text>2K Portal</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_RESET_PRIMARY_ACCOUNT">
+			<Text>Reset Primary Account</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_LOGOUT">
+			<Text>Logout</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_CANCEL">
+			<Text>Cancel</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_REDEEMCODE">
+			<Text>Redeem Code</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_REDEEM">
+			<Text>Redeem</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_CLOSE">
+			<Text>Close</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_YES">
+			<Text>Yes</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_CONFIRM">
+			<Text>Confirm</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_NO">
+			<Text>No</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_CONTINUE">
+			<Text>Continue</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_RESUME">
+			<Text>Resume</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_GO">
+			<Text>Go</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_MORE_INFO">
+			<Text>More Info</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_LESS_INFO">
+			<Text>Less Info</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_SHOW_DETAILS">
+			<Text>Show Details</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_HIDE_DETAILS">
+			<Text>Hide Details</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_CHOOSE">
+			<Text>Choose {1_Choice}</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_POSITION">
+			<Text>Position</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_PLAYER_NAME">
+			<Text>Player Name</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_SCORE">
+			<Text>Score</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_DATE">
+			<Text>Date</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_LEADER">
+			<Text>Leader</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_CIVILIZATION">
+			<Text>Civilization</Text>
+		</Row>
+		<Row Tag="LOC_GENERIC_RANK">
+			<Text>Rank</Text>
+		</Row>
+		<!-- Tooltip for the fxs-close-button -->
+		<Row Tag="LOC_PANEL_X_CLOSE">
+			<Text>Close this</Text>
+		</Row>
+		<!-- Tooltip for the fxs-minimize-button -->
+		<Row Tag="LOC_PANEL_X_MINIMIZE">
+			<Text>Minimize/Maximize this</Text>
+		</Row>
+		<!-- closemgr.ts dialog strings -->
+		<Row Tag="LOC_CLOSEMGR_CONFIRM_TITLE">
+			<Text>Confirm Quitting</Text>
+		</Row>
+		<Row Tag="LOC_CLOSEMGR_CONFIRM_BODY">
+			<Text>Are you sure you want to quit?</Text>
+		</Row>
+		<Row Tag="LOC_RADIAL_MENU_TITLE_TEXT">
+			<Text>Radial Menu</Text>
+		</Row>
+		<!-- Filter & Sort Popup -->
+		<Row Tag="LOC_UI_FILTER_SORT_FILTERS">
+			<Text>Filters</Text>
+		</Row>
+		<Row Tag="LOC_UI_FILTER_SORT_SORTING">
+			<Text>Sorting</Text>
+		</Row>
+		<Row Tag="LOC_UI_DROPDOWN_NO_SELECTION">
+			<Text>Select an item</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_SEND">
+			<Text>Send</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_SEND_TO">
+			<Text>Send To</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_ICONS">
+			<Text>Icons</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_ICONS_EMOJI">
+			<Text>Emojis</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_ICONS_RESOURCES">
+			<Text>Resources</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_ICONS_YIELDS">
+			<Text>Yields</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PREVIEW">
+			<Text>Preview</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_TO">
+			<Text>To</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_FROM">
+			<Text>From</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PRIVATE">
+			<Text>Private</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_TEAM">
+			<Text>Team</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PANEL_OPEN_TIP">
+			<Text>Open chat panel</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PANEL_TOGGLE_TIP">
+			<Text>Toggle chat panel</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PANEL_OPEN_TIP_PRIVATE">
+			<Text>Open target options</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PANEL_OPEN_TIP_PREVIEW">
+			<Text>Open message preview</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PANEL_OPEN_TIP_ICONS">
+			<Text>Open icon options</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PANEL_PLAYER_CONNECTED">
+			<Text>Player [STYLE:mp-chat__text-shrink]{1_Name} [/S]is connected...</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PANEL_PLAYER_DISCONNECTED">
+			<Text>Player [STYLE:mp-chat__text-shrink]{1_Name} [/S]is disconnected...</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PANEL_PLAYER_VOTE_KICK">
+			<Text>The vote against [STYLE:mp-chat__text-shrink]{1_Name} [/S]is successful.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PANEL_PLAYER_DIRECT_KICK">
+			<Text>The direct kick against [STYLE:mp-chat__text-shrink]{1_Name} [/S]is successful.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PANEL_PLAYER_DIRECT_FAIL">
+			<Text>The direct kick against [STYLE:mp-chat__text-shrink]{1_Name} [/S]has failed.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PANEL_PLAYER_VOTE_NOT_ENOUGH_PLAYERS">
+			<Text>The vote against [STYLE:mp-chat__text-shrink]{1_Name} [/S]is cancelled. There were not enough voters.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PANEL_PLAYER_VOTE_TARGET_INVALID">
+			<Text>The vote against [STYLE:mp-chat__text-shrink]{1_Name} [/S]is cancelled. They are not a valid kick target.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PANEL_PLAYER_VOTE_TIME_ELAPSED">
+			<Text>The vote against [STYLE:mp-chat__text-shrink]{1_Name} [/S]is cancelled. The time to vote elapsed.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PANEL_PLAYER_VOTE_NO_KICK">
+			<Text>The vote against [STYLE:mp-chat__text-shrink]{1_Name} [/S]is refused.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PANEL_PLAYER_KICKED_VERSION_MISMATCH">
+			<Text>Player [STYLE:mp-chat__text-shrink]{1_Name} [/S]has been kicked due to version mismatch.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PANEL_PLAYER_KICKED_DEFAULT">
+			<Text>Player [STYLE:mp-chat__text-shrink]{1_Name} [/S]has been kicked.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PANEL_PLAYER_KICKED_MOD_MISSING">
+			<Text>Player [STYLE:mp-chat__text-shrink]{1_Name} [/S]has been kicked due to mod missing.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PANEL_PLAYER_KICKED_MOD_ERROR">
+			<Text>Player [STYLE:mp-chat__text-shrink]{1_Name} [/S]has been kicked due to mod error.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PANEL_PLAYER_KICKED_CROSSPLAY_DISABLED_HOST">
+			<Text>Player [STYLE:mp-chat__text-shrink]{1_Name} [/S]has been kicked due to crossplay disabled on host.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PANEL_PLAYER_KICKED_CROSSPLAY_DISABLED_CLIENT">
+			<Text>Player [STYLE:mp-chat__text-shrink]{1_Name} [/S]has been kicked due to crossplay disabled on client.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PANEL_PLAYER_KICKED_NO_ROOM">
+			<Text>Player [STYLE:mp-chat__text-shrink]{1_Name} [/S]has been kicked due to no room left.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_COMMAND_LIST">
+			<Text>Available Chat Command List:</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_COMMAND_ARG_MESSAGE">
+			<Text>(ChatMessage)</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_COMMAND_ARG_PLAYER">
+			<Text>(PlayerName)</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_COMMAND_PROMPT_HELP">
+			<Text>Type '/help' or '/h' to see all the chat commands</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_COMMAND_DESC_HELP">
+			<Text>Lists chat commands in the chat panel.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_COMMAND_DESC_GLOBAL">
+			<Text>Send a global chat.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_GAMEPAD_INPUT_DESC_GLOBAL">
+			<Text>Write to GLOBAL</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_COMMAND_DESC_TEAM">
+			<Text>Send a message to your team channel.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_GAMEPAD_INPUT_DESC_TEAM">
+			<Text>Write to TEAM</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_COMMAND_DESC_PRIVATE">
+			<Text>Send a private message to {1_Name}.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_GAMEPAD_INPUT_DESC_PRIVATE">
+			<Text>Write to {1_Name}</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_COMMAND_DESC_RESPOND">
+			<Text>Respond to the most recent private message.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_NEW_MESSAGE">
+			<Text>New Messages</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_COMMAND_ERROR_UNKNOWN">
+			<Text>Command Error: Unknown Command '/{1_Name}'</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_COMMAND_ERROR_PLAYER">
+			<Text>Command Error: Player with name '{1_Name}' doesn't exist or there is more than one player with this name. Please write a precise name</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_COMMAND_ERROR_BLANK">
+			<Text>Command Error: Please send a message</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_COMMAND_ERROR_RESPOND">
+			<Text>Command Error: No private message to respond to</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PROMPT_HELP_SHORT">
+			<Text>h</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PROMPT_HELP_LONG">
+			<Text>help</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PROMPT_PRIVATE_SHORT">
+			<Text>w</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PROMPT_GLOBAL_SHORT">
+			<Text>g</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PROMPT_TEAM_SHORT">
+			<Text>t</Text>
+		</Row>
+		<Row Tag="LOC_UI_CHAT_PROMPT_RESPOND_SHORT">
+			<Text>r</Text>
+		</Row>
+		<Row Tag="LOC_OOBE_TITLE_LANGUAGE">
+			<Text>Choose Your Languages</Text>
+		</Row>
+		<Row Tag="LOC_OOBE_TITLE_DISPLAY">
+			<Text>Choose Your Display Options</Text>
+		</Row>
+		<Row Tag="LOC_OOBE_TITLE_AUDIO">
+			<Text>Choose Your Audio Options</Text>
+		</Row>
+		<Row Tag="LOC_OOBE_TITLE_AUTOSAVE">
+			<Text>This game supports auto save.[n]Please do not turn off your game when you see this icon.</Text>
+		</Row>
+		<Row Tag="LOC_UI_SPOP_LOGOUT_GAME">
+			<Text>Logout</Text>
+		</Row>
+		<Row Tag="LOC_UI_TERMINATE_SESSION">
+			<Text>Terminate other session</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_SOCIAL_BUTTON_LABEL">
+			<Text>Social Menu</Text>
+		</Row>
+		<Row Tag="LOC_UI_SOCIAL_TITLE">
+			<Text>Social</Text>
+		</Row>
+		<Row Tag="LOC_UI_NO_INTERNET_CONNECTION_TITLE">
+			<Text>NO INTERNET CONNECTION</Text>
+		</Row>
+		<Row Tag="LOC_UI_NO_INTERNET_CONNECTION">
+			<Text>Any existing cloud saves will not be available.[n]Legends meta progression may not be saved.</Text>
+		</Row>
+		<Row Tag="LOC_UI_ACTIVITY_LEAVE_MP_GAME_TITLE">
+			<Text>LEAVE MULTIPLAYER GAME?</Text>
+		</Row>
+		<Row Tag="LOC_UI_ACTIVITY_LEAVE_GAME_TITLE">
+			<Text>LEAVE GAME?</Text>
+		</Row>
+		<Row Tag="LOC_UI_ACTIVITY_LAST_SAVE_DESC">
+			<Text>If you continue to your last save, you will leave this match. Are you certain?</Text>
+		</Row>
+		<Row Tag="LOC_UI_ACTIVITY_HOST_MP_DESC">
+			<Text>If you continue to a new lobby, you will leave this game without saving. Are you certain?</Text>
+		</Row>
+		<Row Tag="LOC_UI_TOOLTIP_MODS">
+			<Text>Add-ons</Text>
+		</Row>
+		<Row Tag="LOC_UI_TOOLTIP_DLCS">
+			<Text>Official Content</Text>
+		</Row>
+		<Row Tag="LOC_UI_TOOLTIP_DISABLED_CONTENT">
+			<Text>Disabled Content</Text>
+		</Row>
+		<Row Tag="LOC_UI_REDEEM_CODE_TEXT_FIELD">
+			<Text>Enter Code Here</Text>
+		</Row>
+		<Row Tag="LOC_UI_REDEEM_CODE_SUCCESS_TITLE">
+			<Text>Code Successful</Text>
+		</Row>
+		<Row Tag="LOC_UI_REDEEM_CODE_FAILED_TITLE">
+			<Text>Invalid Code</Text>
+		</Row>
+		<Row Tag="LOC_UI_REDEEM_CODE_ALREADY_REDEEMED_TITLE">
+			<Text>Code Already Redeemed</Text>
+		</Row>
+		<Row Tag="LOC_UI_REDEEM_CODE_SUCCESS_INFO">
+			<Text>Code redemption successful! You have been granted:[n]{1_ListOfNames}[n]Would you like to redeem another code?</Text>
+		</Row>
+		<Row Tag="LOC_UI_REDEEM_CODE_SUCCESS_INFO_ENTITLEMENT">
+			<Text>- {1_Name}[n]</Text>
+		</Row>
+		<Row Tag="LOC_UI_REDEEM_CODE_SUCCESS_INFO_CURRENCY">
+			<Text>- {1_Amount} {2_Name}[n]</Text>
+		</Row>
+		<Row Tag="LOC_UI_REDEEM_CODE_FAILED_INFO">
+			<Text>This code is invalid.[n]{1_ErrorMessage}[n]Would you like to redeem a different code?</Text>
+		</Row>
+		<Row Tag="LOC_UI_REDEEM_CODE_ALREADY_REDEEMED_INFO">
+			<Text>This code has already been redeemed.[n]Would you like to redeem a different code?</Text>
+		</Row>
+		<!-- Error used for Code Redemption and (possibly?) gift boxes when we hook them up -->
+		<Row Tag="LOC_UI_ERROR_DECODING_ENTITLEMENT_NAME">
+			<Text>Error G100: Could not decode name of granted item</Text>
+		</Row>
+		<Row Tag="LOC_UI_CODE_REDEEM_ERROR_BAD_REQUEST">
+			<Text>Invalid code request.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CODE_REDEEM_ERROR_RESOURCE_NOT_FOUND">
+			<Text>Code not found.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CODE_REDEEM_ERROR_ALREADY_REDEEMED">
+			<Text>Code already redeemed.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CODE_REDEEM_ERROR_UNSUPPORTED_MEDIA_TYPE">
+			<Text>Unsupported media type.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CODE_REDEEM_ERROR_TOO_MANY_REQUESTS">
+			<Text>Too many code requests.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CODE_REDEEM_INTERNAL_SERVER_ERROR">
+			<Text>Unknown server error.</Text>
+		</Row>
+		<Row Tag="LOC_UI_CODE_REDEEM_UNKOWN_ERROR">
+			<Text>Unknown error has occurred.</Text>
+		</Row>
+		<Row Tag="LOC_UI_TOOLTIP_STORE">
+			<Text>Collection</Text>
+		</Row>
+		<Row Tag="LOC_UI_STORE_DESCRIPTION">
+			<Text>View additional content available for Civilization VII</Text>
+		</Row>
+		<Row Tag="LOC_UI_ENABLED">
+			<Text>Enabled</Text>
+		</Row>
+		<Row Tag="LOC_UI_DISABLED">
+			<Text>Disabled</Text>
+		</Row>
+		<Row Tag="LOC_UI_DEPENDENDENCIES">
+			<Text>Dependencies</Text>
+		</Row>
+		<Row Tag="LOC_UI_MOD_AUTHOR">
+			<Text>Author: {1_Name}</Text>
+		</Row>
+		<Row Tag="LOC_AUTHORS_FIRAXIS">
+			<Text>Firaxis Games</Text>
+		</Row>
+		<Row Tag="LOC_UI_MOD_DATE">
+			<Text>Created: {1_Date: datetime}</Text>
+		</Row>
+		<Row Tag="LOC_UI_AFFECTS_SAVE">
+			<Text>Affects saved games: </Text>
+		</Row>
+		<Row Tag="LOC_UI_MOD_SINGLE_PLAYER">
+			<Text>Single Player: </Text>
+		</Row>
+		<Row Tag="LOC_UI_MOD_MULTIPLAYER">
+			<Text>Multiplayer: </Text>
+		</Row>
+		<Row Tag="LOC_UI_TEXT_ENTRY_DENIAL">
+			<Text>Invalid text entry</Text>
+		</Row>
+		<Row Tag="LOC_UI_MOD_NONE_AVAILABLE">
+			<Text>No additional content available.</Text>
+		</Row>
+		<Row Tag="LOC_UI_ODR_DOWNLOAD_DESCRIPTION">
+			<Text>Downloading will continue in the background</Text>
+		</Row>
+	</EnglishText>
+</Database>

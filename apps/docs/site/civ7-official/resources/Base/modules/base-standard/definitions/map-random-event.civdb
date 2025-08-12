@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="Definitions">
+	<definition name="RealismSetting" table-name="RealismSettings" cpp="true">
+		<field name="RealismSettingType" type="Text" key="true" not-null="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="PercentVolcanoesActive" type="Integer"/>
+	</definition>
+	<definition name="EventClass" table-name="EventClasses" cpp="true">
+		<field name="EventClass" type="Text" key="true" not-null="true" hash="true" unique="true"/>
+		<reference source="EventClass" target="Type" to="Type"/>
+	</definition>
+	<definition name="RandomEvent" table-name="RandomEvents" cpp="true">
+		<field name="RandomEventType" type="Text" key="true" not-null="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="Description" type="Text" not-null="true"/>
+		<field name="EffectOperatorType" type="Text" not-null="true"/>
+		<field name="EventClass" type="Text" hash="true" not-null="true"/>
+		<field name="Severity" type="Integer" not-null="true"/>
+		<field name="NaturalWonder" type="Text"/>
+		<field name="BiomeType" type="Text" hash="true"/>
+		<field name="Hexes" type="Integer"/>
+		<field name="Movement" type="Integer"/>
+		<field name="Duration" type="Integer"/>
+		<field name="Spacing" type="Integer"/>
+		<reference source="NaturalWonder" target="FeatureType" sourceRoleName="FeatureRef" to="Feature"/>
+		<reference source="BiomeType" target="BiomeType" sourceRoleName="BiomeRef" targetRoleName="ConstructibleBiomeRef" to="Biome"/>
+		<property name="NaturalWonderReference" path="FeatureRef"/>
+		<property name="DamageCollection" path="DamageCollectionRef"/>
+		<property name="FrequencyCollection" path="FrequencyCollectionRef"/>
+		<property name="YieldCollection" path="YieldCollectionRef"/>
+		<property name="PlotEffectCollection" path="PlotEffectCollectionRef"/>
+	</definition>
+	<definition name="RandomEventFrequency" table-name="RandomEventFrequencies" cpp="true">
+		<field name="RandomEventType" type="Text" key="true" not-null="true"/>
+		<field name="RealismSettingType" type="Text" key="true" not-null="true"/>
+		<field name="OccurrencesPerAge" type="Real" not-null="true"/>
+		<reference source="RandomEventType" target="RandomEventType" sourceRoleName="RandomEventRef" targetRoleName="FrequencyCollectionRef" to="RandomEvent"/>
+		<reference source="RealismSettingType" target="RealismSettingType" sourceRoleName="RealismSettingRef" to="RealismSetting"/>
+	</definition>
+	<definition name="RandomEventDamage" table-name="RandomEventDamages" cpp="true">
+		<field name="RandomEventType" type="Text" key="true" not-null="true"/>
+		<field name="DamageType" type="Text" key="true" not-null="true"/>
+		<field name="Percentage" type="Integer" not-null="true"/>
+		<field name="MinHP" type="Integer"/>
+		<field name="MaxHP" type="Integer"/>
+		<reference source="RandomEventType" target="RandomEventType" sourceRoleName="RandomEventRef" targetRoleName="DamageCollectionRef" to="RandomEvent"/>
+		<property name="RandomEventReference" path="RandomEventRef"/>
+	</definition>
+	<definition name="RandomEventPlotEffect" table-name="RandomEventPlotEffects" cpp="true">
+		<field name="RandomEventType" type="Text" key="true" not-null="true"/>
+		<field name="PlotEffectType" type="Text" key="true" not-null="true"/>
+		<field name="Duration" type="Integer" not-null="true"/>
+		<reference source="RandomEventType" target="RandomEventType" sourceRoleName="RandomEventRef" targetRoleName="PlotEffectCollectionRef" to="RandomEvent"/>
+		<property name="RandomEventReference" path="RandomEventRef"/>
+	</definition>
+	<definition name="RandomEventYield" table-name="RandomEventYields" cpp="true">
+		<field name="RandomEventType" type="Text" key="true" not-null="true"/>
+		<field name="YieldType" type="Text" key="true" not-null="true"/>
+		<field name="Percentage" type="Integer" not-null="true"/>
+		<reference source="RandomEventType" target="RandomEventType" sourceRoleName="RandomEventRef" targetRoleName="YieldCollectionRef" to="RandomEvent"/>
+		<reference source="YieldType" target="YieldType" sourceRoleName="YieldRef" to="Yield"/>
+	</definition>
+	<definition name="PrevailingWind" table-name="PrevailingWinds" cpp="true">
+		<field name="MinimumLatitude" type="Integer" not-null="true"/>
+		<field name="MaximumLatitude" type="Integer" not-null="true"/>
+		<field name="DirectionType" type="Text" not-null="true"/>
+		<field name="Weight" type="Integer" not-null="true"/>
+	</definition>
+	<definition name="RandomEventUI" table-name="RandomEventUI" cpp="false">
+		<field name="EventClass" type="Text" not-null="true" key="true" hash="true" unique="true"/>
+		<field name="Tooltip" type="Text" not-null="true"/>
+		<reference source="EventClass" target="EventClass" to="EventClass"/>
+	</definition>
+	<definition name="EventPopupData" table-name="EventPopupData" cpp="false">
+		<field name="Type" type="Text" key="true" unique="true" not-null="true" hash="true"/>
+		<field name="Title" type="Text" not-null="true"/>
+		<field name="Description" type="Text"/>
+		<field name="BackgroundImage" type="Text"/>
+		<field name="ForegroundImage" type="Text"/>
+		<field name="Effects" type="Text"/>
+		<field name="ImageText" type="Text"/>
+		<field name="FilterCondition" type="Text"/>
+		<field name="EffectType" type="Text"/>
+	</definition>
+</definitions>

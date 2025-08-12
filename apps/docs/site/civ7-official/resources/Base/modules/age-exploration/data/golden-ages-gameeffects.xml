@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- Feudal Monarchy -->
+	<Modifier id="MOD_GOLDEN_AGE_FEUDAL_MONARCHY_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Percent">20</Argument>
+	</Modifier>
+	<Modifier id="MOD_GOLDEN_AGE_FEUDAL_MONARCHY_CAVALRY" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION">
+		<Argument name="UnitClass">UNIT_CLASS_CAVALRY</Argument>
+		<Argument name="Percent">30</Argument>
+	</Modifier>
+	<Modifier id="MOD_GOLDEN_AGE_FEUDAL_MONARCHY_NAVAL" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION">
+		<Argument name="UnitClass">UNIT_CLASS_NAVAL</Argument>
+		<Argument name="Percent">30</Argument>
+	</Modifier>
+	<!-- Plutocracy -->
+	<Modifier id="MOD_GOLDEN_AGE_PLUTOCRACY_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Percent">20</Argument>
+	</Modifier>
+	<Modifier id="MOD_GOLDEN_AGE_PLUTOCRACY_OVERBUILDING" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_PRODUCTION">
+		<Argument name="ConstructibleClass">BUILDING</Argument>
+		<Argument name="Percent">30</Argument>
+	</Modifier>
+	<!-- Theocracy -->
+	<Modifier id="MOD_GOLDEN_AGE_THEOCRACY_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Percent">20</Argument>
+	</Modifier>
+	<Modifier id="MOD_GOLDEN_AGE_THEOCRACY_CIVILIAN" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION">
+		<Argument name="UnitCoreClass">CORE_CLASS_CIVILIAN</Argument>
+		<Argument name="Percent">40</Argument>
+	</Modifier>
+	<Modifier id="MOD_GOLDEN_AGE_THEOCRACY_SUPPORT" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION">
+		<Argument name="UnitCoreClass">CORE_CLASS_SUPPORT</Argument>
+		<Argument name="Percent">40</Argument>
+	</Modifier>
+	<Modifier id="MOD_GOLDEN_AGE_THEOCRACY_RECON" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION">
+		<Argument name="UnitCoreClass">CORE_CLASS_RECON</Argument>
+		<Argument name="Percent">40</Argument>
+	</Modifier>
+	<!-- Authoritarianism -->
+	<Modifier id="MOD_GOLDEN_AGE_REVOLUTIONARY_AUTHORITARIANISM_UNIT_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION">
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Percent">100</Argument>
+		<Argument name="UnitCoreClass">CORE_CLASS_MILITARY</Argument>
+	</Modifier>
+	<Modifier id="MOD_GOLDEN_AGE_REVOLUTIONARY_AUTHORITARIANISM_ENVOYS" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_DIPLOMATIC_ACTION_TOKEN_BONUS">
+		<Argument name="ActionType">DIPLOMACY_ACTION_DECLARE_WAR</Argument>
+		<Argument name="OnlyWhenInitiator">true</Argument>
+		<Argument name="Amount">6</Argument>
+	</Modifier>
+	<!-- Constitutional Monarchy -->
+	<Modifier id="MOD_GOLDEN_AGE_CONSTITUTIONAL_MONARCHY_GOLD_PERCENT" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Percent">40</Argument>
+	</Modifier>
+	<Modifier id="MOD_GOLDEN_AGE_CONSTITUTIONAL_MONARCHY_DIPLOMACY" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_DIPLOMATIC_ACTION_TYPE_EFFICIENCY">
+		<Argument name="ActionGroupType">DIPLOMACY_ACTION_GROUP_ENDEAVOR</Argument>
+		<Argument name="Percent">100</Argument>
+	</Modifier>
+	<!-- Revolutionary Republic -->
+	<Modifier id="MOD_GOLDEN_AGE_REVOLUTIONARY_REPUBLIC_YIELDS" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<Argument name="YieldType">YIELD_CULTURE, YIELD_SCIENCE</Argument>
+		<Argument name="Percent">20</Argument>
+	</Modifier>
+	<Modifier id="MOD_GOLDEN_AGE_REVOLUTIONARY_REPUBLIC_DIPLOMACY" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_DIPLOMATIC_ACTION_TYPE_EFFICIENCY">
+		<Argument name="ActionGroupType">DIPLOMACY_ACTION_GROUP_SANCTION</Argument>
+		<Argument name="Percent">100</Argument>
+	</Modifier>
+</GameEffects>

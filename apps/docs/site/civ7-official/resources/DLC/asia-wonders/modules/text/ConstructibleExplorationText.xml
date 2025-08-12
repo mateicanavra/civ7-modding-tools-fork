@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_WONDER_GRAND_BAZAAR_NAME">
+			<Text>Grand Bazaar</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_GRAND_BAZAAR_DESCRIPTION">
+			<Text>+2[icon:YIELD_GOLD] Gold. +2 Resource Slots. Homelands Treasure Resource tiles receive +3[icon:YIELD_GOLD] Gold. Ageless. Must be placed adjacent to a District in the Homelands.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_GRAND_BAZAAR_TOOLTIP">
+			<Text>+2 Resource Slots. Homelands Treasure Resource tiles receive +3[icon:YIELD_GOLD] Gold. Ageless. Must be placed adjacent to a District in the Homelands.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_GRAND_BAZAAR">
+			<Text>"We take the golden road to Samarkand."</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_GRAND_BAZAAR">
+			<Text>James Elroy Flecker</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_WAT_XIENG_THONG_NAME">
+			<Text>Wat Xieng Thong</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_WAT_XIENG_THONG_DESCRIPTION">
+			<Text>+2[icon:YIELD_CULTURE] Culture. +200 [icon:YIELD_GOLD] Gold (Scales by Game Speed) every time you obtain a Great Work. Ageless. Must be placed adjacent to a River.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_WAT_XIENG_THONG_TOOLTIP">
+			<Text>+200 [icon:YIELD_GOLD] Gold (Scales by Game Speed) every time you obtain a Great Work. Ageless. Must be placed adjacent to a River.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_WAT_XIENG_THONG">
+			<Text>"Let the rain fall according to season, and let the frogs cry out in the fields."</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_WAT_XIENG_THONG">
+			<Text>The Legend of the Toad King</Text>
+		</Row>
+	</EnglishText>
+</Database>

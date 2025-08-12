@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<!-- Property Collection Definitions -->
+	<IProperties>
+		<Row Collection="Unit_Combat_Instance" Name="BonusAttacks" Type="Int" Access="Indexed"/>
+		<Row Collection="Unit_Movement_Instance" Name="InvalidTerrains" Type="Int" Container="Vector" Definition="Terrains" Access="Indexed"/>
+		<Row Collection="Unit_Movement_Instance" Name="IgnoreTerrains" Type="Int" Container="Vector" Definition="Terrains" Access="Indexed"/>
+		<Row Collection="Unit_Movement_Instance" Name="IgnoreFeatures" Type="Int" Container="Vector" Definition="Features" Access="Indexed"/>
+		<Row Collection="Unit_Movement_Instance" Name="IgnoreAllTerrainCost" Type="Int" Access="Indexed"/>
+		<Row Collection="Unit_Movement_Instance" Name="ExtraMoves" Type="Int" Access="Indexed"/>
+		<Row Collection="Unit_Movement_Instance" Name="ClearTerrainStartMovement" Type="Int" Access="Indexed"/>
+		<Row Collection="Unit_Movement_Instance" Name="FriendlyTerritoryStartMovement" Type="Int" Access="Indexed"/>
+		<Row Collection="Unit_Movement_Instance" Name="EnterForeignLands" Type="Int" Access="Indexed"/>
+		<Row Collection="Unit_Movement_Instance" Name="IgnoreRivers" Type="Int" Access="Indexed"/>
+		<Row Collection="Unit_Movement_Instance" Name="IgnoreCliffs" Type="Int" Access="Indexed"/>
+		<Row Collection="Unit_Movement_Instance" Name="IgnoreShores" Type="Int" Access="Indexed"/>
+		<Row Collection="Unit_Movement_Instance" Name="EscortMobility" Type="Int" Access="Indexed"/>
+		<Row Collection="Unit_Health_Instance" Name="EnemyTerritoryHeal" Type="Int" Access="Indexed"/>
+		<Row Collection="Unit_Health_Instance" Name="NeutralTerritoryHeal" Type="Int" Access="Indexed"/>
+		<Row Collection="Unit_Health_Instance" Name="FriendlyTerritoryHeal" Type="Int" Access="Indexed"/>
+		<Row Collection="Unit_Health_Instance" Name="CanHealAfterAction" Type="Int" Access="Indexed"/>
+		<Row Collection="Unit_Religion_Instance" Name="EnemyTerritoryHeal" Type="Int" Access="Indexed"/>
+		<Row Collection="Unit_Religion_Instance" Name="NeutralTerritoryHeal" Type="Int" Access="Indexed"/>
+		<Row Collection="Unit_Religion_Instance" Name="FriendlyTerritoryHeal" Type="Int" Access="Indexed"/>
+		<Row Collection="Unit_Religion_Instance" Name="CanHealAfterAction" Type="Int" Access="Indexed"/>
+		<Row Collection="Unit_Instance" Name="Levied" Type="Int" Access="Dynamic"/>
+		<Row Collection="Unit_Instance" Name="BarbarianTribeIndex" Type="Int" Access="Dynamic"/>
+		<Row Collection="Unit_Instance" Name="UnitAiType" Type="Int" Access="Dynamic"/>
+		<Row Collection="Unit_Instance" Name="HomeCity" Type="Int" Access="Dynamic"/>
+		<Row Collection="Unit_Instance" Name="RampageTarget" Type="Int" Access="Dynamic"/>
+		<!-- Trade Unit properties -->
+		<Row Collection="Unit_Instance" Name="Trade_FromCityPlayer" Type="Int" Access="Dynamic"/>
+		<Row Collection="Unit_Instance" Name="Trade_ToCityPlayer" Type="Int" Access="Dynamic"/>
+		<Row Collection="Unit_Instance" Name="Trade_FromCityID" Type="Int" Access="Dynamic"/>
+		<Row Collection="Unit_Instance" Name="Trade_ToCityID" Type="Int" Access="Dynamic"/>
+		<Row Collection="Unit_Instance" Name="Trade_CurrentPathIndex" Type="Int" Access="Dynamic"/>
+		<Row Collection="Unit_Instance" Name="Trade_DirectionForward" Type="Int" Access="Dynamic"/>
+		<Row Collection="Unit_Binding_Instance" Name="GroupLimitModifier" Type="Int" Container="Vector" Access="Indexed"/>
+	</IProperties>
+</Database>

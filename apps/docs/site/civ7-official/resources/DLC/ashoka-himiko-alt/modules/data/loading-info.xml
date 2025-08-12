@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LoadingInfo_Leaders>
+		<Row LeaderType="LEADER_ASHOKA_ALT" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_ASHOKA_ALT" LeaderImage="blp:lsl_ashoka_alt.png" Audio="VO_Loading2_ASHOKA" />
+		<Row LeaderType="LEADER_HIMIKO_ALT" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_HIMIKO_ALT" LeaderImage="blp:lsl_himiko_alt.png" Audio="VO_Loading2_HIMIKO" />
+	</LoadingInfo_Leaders>
+</Database>

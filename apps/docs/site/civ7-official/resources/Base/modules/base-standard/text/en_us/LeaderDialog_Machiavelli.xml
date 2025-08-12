@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Machiavelli Main Menu Char Select Text-->
+		<Row Tag="LOC_MAIN_CHAR_SELECT_LEADER_MACHIAVELLI_ANY">
+			<Text>Every one sees what you appear to be, few really know what you are. This is as it should be.</Text>
+		</Row>
+
+		<!--Machiavelli Statement Text-->
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_MACHIAVELLI_ANY">
+			<Text>Niccolo Machiavelli, at your service. How might you be of service to me? I mean… how might I be of service to you? </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_MACHIAVELLI_ANY">
+			<Text>Niccolo Machiavelli, at your service. How might you be of service to me? I mean… how might I be of service to you? </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_MACHIAVELLI_ANY">
+			<Text>Niccolo Machiavelli, at your service. How might you be of service to me? I mean… how might I be of service to you? </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_MACHIAVELLI_ANY">
+			<Text>To be caught unarmed is the worst fault.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_MACHIAVELLI_ANY">
+			<Text>Hahahaha! You think me a fox; I am also a lion.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DEFEAT_AI_LEADER_MACHIAVELLI_ANY">
+			<Text>A struggle. A fall. I am no prince, but only a writer. I return to my writing desk in obscurity.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_MACHIAVELLI">
+			<Text>This works into my plans splendidly.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_MACHIAVELLI">
+			<Text>There is no profit in it.</Text>
+		</Row>
+	</EnglishText>
+</Database>

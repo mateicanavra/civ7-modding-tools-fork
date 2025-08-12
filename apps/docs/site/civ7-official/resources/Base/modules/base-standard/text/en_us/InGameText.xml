@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--Advisors-->
+		<Row Tag="LOC_ADVISOR_MILITARY_NAME">
+			<Text>Military Advisor</Text>
+		</Row>
+		<Row Tag="LOC_ADVISOR_CULTURE_NAME">
+			<Text>Cultural Advisor</Text>
+		</Row>
+		<Row Tag="LOC_ADVISOR_SCIENCE_NAME">
+			<Text>Science Advisor</Text>
+		</Row>
+		<Row Tag="LOC_ADVISOR_ECONOMIC_NAME">
+			<Text>Economic Advisor</Text>
+		</Row>
+		<!--Trade Screen-->
+		<Row Tag="LOC_RESOURCE_VALUE_TO_CITY">
+			<Text>{1_Value} {2_Resource} to {3_City}</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_VALUE_TO_CITY_LEFT">
+			<Text>&lt;&lt;&lt; {1_Value} {2_Resource} to {3_City} &lt;&lt;&lt;</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_VALUE_TO_CITY_RIGHT">
+			<Text>&gt;&gt;&gt; {1_Value} {2_Resource} to {3_City} &gt;&gt;&gt;</Text>
+		</Row>
+		<!-- Multiplayer Last Remaining Player Popup -->
+		<Row Tag="TXT_KEY_MP_LAST_PLAYER">
+			<Text>You are the last remaining human player in the game.</Text>
+		</Row>
+		<Row Tag="TXT_KEY_MP_LAST_PLAYER_TITLE">
+			<Text>All Alone</Text>
+		</Row>
+		<!-- City-State Types -->
+		<Row Tag="LOC_CULTURAL_NAME">
+			<Text>Cultural</Text>
+		</Row>
+		<Row Tag="LOC_ECONOMIC_NAME">
+			<Text>Economic</Text>
+		</Row>
+		<Row Tag="LOC_MILITARISTIC_NAME">
+			<Text>Militaristic</Text>
+		</Row>
+		<Row Tag="LOC_SCIENTIFIC_NAME">
+			<Text>Scientific</Text>
+		</Row>
+		<!-- Temporary for Discoveries -->
+		<Row Tag="LOC_DISCOVERY_DISPERSAL_DESCRIPTION">
+			<Text>+{1_Value} Gold from Discovery</Text>
+		</Row>
+		<!-- Place Population / City Growth -->
+		<Row Tag="LOC_UI_ADD_IMPROVEMENT">
+			<Text>Add Improvement</Text>
+		</Row>
+		<Row Tag="LOC_UI_IMPROVEMENT_FOR_TILE">
+			<Text>Picking this tile will give you {LOC_GRAMMAR_A_AN &lt;&lt; {1_ImprovementName}}.</Text>
+		</Row>
+		<Row Tag="LOC_PLOTKEY_FRESHWATER">
+			<Text>Fresh Water</Text>
+		</Row>
+		<Row Tag="LOC_PLOTKEY_REGULAR">
+			<Text>Regular</Text>
+		</Row>
+		<Row Tag="LOC_PLOTKEY_UNAVAILABLE">
+			<Text>Unavailable</Text>
+		</Row>
+	</EnglishText>
+</Database>

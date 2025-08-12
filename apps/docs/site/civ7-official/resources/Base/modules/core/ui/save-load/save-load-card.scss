@@ -1,0 +1,182 @@
+@use '../utilities/utility-layout' as *;
+@use '../utilities/utility-text' as *;
+@use '../themes/default/theme';
+
+save-load-card {
+	display: flex;
+	position: relative;
+	margin-bottom: 0;
+	padding: pixels(16);
+	align-items: center;
+	transition: .2s ease-in-out transform;
+	z-index: 1;
+
+	// TODO: change this to a relative font size when civ-icon and leaner-icon are no longer defined in ems
+	font-size: pixels(8);
+
+	.card__frame {
+		position: absolute;
+		filter: fxs-color-mask(theme.$default-color-primary-accent);
+		top: pixels(6);
+		bottom: pixels(6);
+		left: pixels(6);
+		right: pixels(6);
+		border-image-source: url('fs://game/Frame_small_symmetrical.png');
+		border-image-width: pixels(24) pixels(24);
+		border-image-slice: 24 fill;
+		border-image-repeat: stretch;
+		pointer-events: none;
+	}
+
+	.card-selection__frame {
+		position: absolute;
+		top: pixels(0);
+		bottom: pixels(0);
+		left: pixels(8);
+		right: pixels(8);
+		display: flex;
+		flex-direction: column;
+		filter: fxs-color-mask(theme.color('accent-1'));
+		opacity: 0;
+		transition: opacity .2s ease-in-out, visibility .2s ease-in-out;
+	}
+
+	.card__bg {
+		z-index: -1;
+		position: absolute;
+		top: pixels(6);
+		bottom: pixels(6);
+		left: pixels(6);
+		right: pixels(6);
+		border-image-source: url('fs://game/Frame_small_symmetrical_fill.png');
+		border-image-width: pixels(24) pixels(24);
+		border-image-slice: 24 fill;
+		border-image-repeat: stretch;
+		opacity: .45;
+		filter: fxs-color-mask(theme.$default-color-primary-more);
+		pointer-events: none;
+	}
+
+	.card__bg--highlight {
+		visibility: hidden;
+		z-index: -1;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border-image-source: url('fs://game/Frame_small_symmetrical_fill.png');
+		border-image-width: pixels(24) pixels(24);
+		border-image-slice: 24 fill;
+		border-image-repeat: stretch;
+		opacity: 0;
+		transition: opacity .2s ease-in-out, visibility .2s ease-in-out;
+		filter: fxs-color-mask(theme.color('accent-1'));
+		pointer-events: none;
+	}
+
+	.card-selection {
+		position: absolute;
+		top: pixels(6);
+		bottom: pixels(6);
+		left: pixels(6);
+		right: pixels(6);
+		mask-image: linear-gradient(to right, transparent, black 40%, black 60%, transparent);
+		pointer-events: none;
+		mask-position: pixels(-40);
+		transition: opacity .2s ease-in-out, visibility .2s ease-in-out;
+		visibility: hidden;
+		opacity: 0;
+	}
+
+
+	.card-selection__frame-bottom {
+		flex: 1;
+		border-image-source: url('fs://game/Ornament_centerDivider_simple.png');
+		border-image-width: pixels(4);
+		border-image-slice: 0 0 100 0;
+		border-image-repeat: stretch;
+	}
+
+	.card-selection__frame-top {
+		flex: 1;
+		border-image-source: url('fs://game/Ornament_centerDivider_simple.png');
+		border-image-width: pixels(4);
+		border-image-slice: 100 0 0 0;
+		border-image-repeat: stretch;
+	}
+
+	.card-select-icon {
+		visibility: hidden;
+		width: pixels(40);
+		height: pixels(40);
+		margin-left: pixels(-8.8);
+		margin-right: pixels(-27.2);
+		mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), black 10%, black 90%, rgba(0, 0, 0, 0));
+		pointer-events: none;
+
+		.select-icon-bg {
+			width: 100%;
+			height: 100%;
+			background-image: url('fs://game/Selector_TabBarItem.png');
+			filter: fxs-color-mask(var(--default-color-secondary));
+			background-size: pixels(192) pixels(56);
+			background-position: pixels(-76) 0;
+			transform: rotate(-90deg);
+			transform-origin: center;
+			background-repeat: no-repeat;
+		}
+	}
+
+	&.selected {
+		.card-select-icon {
+			visibility: visible;
+		}
+
+		.card__bg--highlight {
+			visibility: visible;
+			opacity: 0.125;
+		}
+
+		.card-selection {
+			visibility: visible;
+			opacity: 1;
+		}
+
+		.card-selection__frame {
+			opacity: 1;
+		}
+	}
+
+	&:focus {
+		.card-select-icon {
+			visibility: visible;
+		}
+
+		.card__bg--highlight {
+			visibility: visible;
+			opacity: 0.125;
+		}
+
+		.card-selection {
+			visibility: visible;
+			opacity: 1;
+		}
+
+		.card-selection__frame {
+			opacity: 1;
+		}
+	}
+
+	&:hover {
+		.card-selection {
+			visibility: visible;
+			opacity: 1;
+		}
+
+		.card__bg--highlight {
+			visibility: visible;
+			opacity: 0.375;
+		}
+	}
+}

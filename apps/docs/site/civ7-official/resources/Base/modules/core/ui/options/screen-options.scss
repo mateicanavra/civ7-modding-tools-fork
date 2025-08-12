@@ -1,0 +1,6 @@
+@use '../utilities/utility-layout' as *;
+@use '../../../core/ui/themes/default/theme';
+
+.option-frame {
+	min-width: pixels(1024);
+}

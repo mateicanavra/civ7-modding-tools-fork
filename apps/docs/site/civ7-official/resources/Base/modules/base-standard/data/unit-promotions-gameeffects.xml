@@ -1,0 +1,1159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- COMMENDATIONS -->
+	<!-- Common -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_COMMENDATION_MERIT" collection="COLLECTION_OWNER" effect="EFFECT_ARMY_ADJUST_COMMAND_RADIUS">
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_PROMOTION_COMMENDATION_MERIT_DESCRIPTION</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_COMMENDATION_DUTY" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_COMMANDER_ATTACK</Argument>
+	</Modifier>
+	<Modifier id="MOD_PROMOTION_COMMENDATION_DUTY_ADJUST_ATTACK_DAMAGE" collection="COLLECTION_OWNER" effect="EFFECT_ARMY_ADJUST_COMMANDER_ATTACK_DAMAGE">
+		<Argument name="Amount">30</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+
+	<!-- Army Commendations -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_ARMY_PROMOTION_COMMENDATION_SERVICE" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ARMY_SERVICE</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_ARMY_SERVICE" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_ABILITY_ARMY_SERVICE_DESCRIPTION</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_ARMY_PROMOTION_COMMENDATION_ORDER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ARMY_ORDER</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_ARMY_ORDER" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_ABILITY_ORDER_PREVIEW</String>
+		<String context="Description">LOC_ABILITY_ARMY_ORDER_DESCRIPTION</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<!-- Code only checks unit has the ability, so modifier does nothing -->
+	<Modifier id="MOD_ABILITY_ARMY_DUTY" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING">
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_ARMY_PROMOTION_COMMENDATION_VALOR" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_GRANT_SECOND_WIND</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+
+	<!-- Fleet Commendations -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_FLEET_PROMOTION_COMMENDATION_SERVICE" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_SEA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_FLEET_SERVICE</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_FLEET_SERVICE" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_ABILITY_FLEET_SERVICE_DESCRIPTION</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_FLEET_PROMOTION_COMMENDATION_ORDER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_SEA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_FLEET_ORDER</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_FLEET_ORDER" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_ABILITY_ORDER_PREVIEW</String>
+		<String context="Description">LOC_ABILITY_FLEET_ORDER_DESCRIPTION</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<!-- Code only checks unit has the ability, so modifier does nothing -->
+	<Modifier id="MOD_ABILITY_FLEET_DUTY" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING">
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_FLEET_PROMOTION_COMMENDATION_VALOR" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_GRANT_SECOND_WIND</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+
+	<!-- Squadron Commendations -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_SQUADRON_PROMOTION_COMMENDATION_SERVICE" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_SQUADRON_SERVICE</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_SQUADRON_SERVICE" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<Argument name="Amount">2</Argument>
+		<String context="Description">LOC_ABILITY_SQUADRON_SERVICE_DESCRIPTION</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_SQUADRON_PROMOTION_COMMENDATION_ORDER" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_SQUADRON_ORDER</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_SQUADRON_ORDER" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_ABILITY_ORDER_PREVIEW</String>
+		<String context="Description">LOC_ABILITY_SQUADRON_ORDER_DESCRIPTION</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_SQUADRON_PROMOTION_COMMENDATION_ACHIEVEMENT" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_SQUADRON_ACHIEVEMENT</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_SQUADRON_ACHIEVEMENT" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_POST_COMBAT_HEAL">
+		<Argument name="AttackAmount">10</Argument>
+		<Argument name="RequiresKill">false</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<!-- ____________________________________________________________________________________________________ -->
+
+	<!-- COMMON COMMANDER PROMOTIONS -->
+	<Modifier id="MOD_PROMOTION_MOVE_AFTER_UNPACKING" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_MOVE_AFTER_UNPACKING</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_COMMANDER_SIGHT" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_SIGHT">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<!-- COMMON COMMANDER ABILITIES -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_ABILITY_IGNORE_CLIFFS" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_IGNORE_MOVEMENT_OBSTACLE">
+		<Argument name="Obstacle">OBSTACLE_CLIFFS</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<!-- Code only checks unit has the ability, so modifier does nothing -->
+	<Modifier id="MOD_ABILITY_RETALIATE_WHEN_RANGED_DAMAGE_RECEIVED" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING">
+		<String context="Preview">LOC_ABILITY_RETALIATE_WHEN_RANGED_DAMAGE_RECEIVED_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<!-- Code only checks unit has the ability, so modifier does nothing -->
+	<Modifier id="MOD_ABILITY_ALLOW_UNIT_UPGRADE_OUTSIDE_FRIENDLY_TERRITORY" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING">
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<!-- ZOC code only checks unit has the ability, so modifier does nothing -->
+	<Modifier id="MOD_ABILITY_UNIT_AFFECTED_BY_ZOC" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING">
+	</Modifier>
+	<Modifier id="MOD_ABILITY_IGNORE_TERRAIN" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_IGNORE_MOVEMENT_OBSTACLE">
+		<Argument name="IgnoreAll">true</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_ABILITY_FLEET_PACK_LAND_UNITS" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING">
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<!-- ____________________________________________________________________________________________________ -->
+
+	<!--ARMY PROMOTIONS-->
+	<!-- Army PromotionDiscipline Bastion -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_STEADFAST" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ARMY_STEADFAST</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_ARMY_STEADFAST" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING">
+				<Argument name="Inverse">true</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">2</Argument>
+		<String context="Preview">LOC_ABILITY_ARMY_STEADFAST_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_BULWARK" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ARMY_BULWARK</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_ARMY_BULWARK" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_FORTIFICATION_CONSTRUCTION_TIME">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_FRIENDLY_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_COMBAT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">-1</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_HOLD_THE_LINE" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ARMY_HOLD_THE_LINE</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_ARMY_HOLD_THE_LINE" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_IS_STATIONED_ON_DISTRICT"/>
+		</SubjectRequirements>
+		<Argument name="Amount">2</Argument>
+		<String context="Preview">LOC_ABILITY_ARMY_HOLD_THE_LINE_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_DEFILADE" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ARMY_DEFILADE</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_ARMY_DEFILADE" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING">
+				<Argument name="Inverse">true</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_UNIT_IS_FORTIFIED"/>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_ARMY_DEFILADE_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_GARRISON" collection="COLLECTION_UNIT_OCCUPIED_CITY" effect="EFFECT_CITY_ADJUST_TOTAL_DISTRICT_HEALTH">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_UNIT_IS_STATIONED_ON_DISTRICT"/>
+		</OwnerRequirements>
+		<Argument name="Amount">10</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_RESOLUTE" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ARMY_RESOLUTE</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_ARMY_RESOLUTE" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_POST_COMBAT_HEAL">
+		<Argument name="AttackAmount">5</Argument>
+		<Argument name="RequiresKill">false</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+
+	<!-- Army PromotionDiscipline Assault -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_ROUT" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_INFANTRY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ARMY_ROUT</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_ARMY_ROUT" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING"/>
+		</SubjectRequirements>
+		<Argument name="Amount">2</Argument>
+		<String context="Preview">LOC_ABILITY_ARMY_ROUT_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_STORM" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_RANGED</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ARMY_STORM</Argument>
+	</Modifier>
+
+	<Modifier id="MOD_ABILITY_ARMY_STORM" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING"/>
+		</SubjectRequirements>
+		<Argument name="Amount">2</Argument>
+		<String context="Preview">LOC_ABILITY_ARMY_STORM_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_SHOCK_TACTICS" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_CAVALRY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ARMY_SHOCK_TACTICS</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_ARMY_SHOCK_TACTICS" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING"/>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_ARMY_SHOCK_TACTICS_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_ENFILADE" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_SIEGE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ARMY_ENFILADE</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_ARMY_ENFILADE" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING"/>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_ARMY_ENFILADE_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_ADVANCEMENT" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_INFANTRY, UNIT_CLASS_CAVALRY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_FIRST_STRIKE</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+
+	<!-- Army PromotionDiscipline Logistics -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_QUARTERMASTER" collection="COLLECTION_COMMANDER_PACKED_UNITS" effect="EFFECT_UNIT_ADJUST_PLAYER_YIELD">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_RECRUITMENT" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_IS_STATIONED_ON_DISTRICT">
+				<Argument name="DistrictType">DISTRICT_CITY_CENTER, DISTRICT_URBAN</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ARMY_RECRUITMENT</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_ARMY_RECRUITMENT" collection="COLLECTION_UNIT_OCCUPIED_CITY" effect="EFFECT_CITY_ADJUST_UNIT_DOMAIN_PRODUCTION">
+		<Argument name="Percent">15</Argument>
+		<Argument name="DomainType">DOMAIN_LAND</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_REGIMENTS_CAPACITY" collection="COLLECTION_OWNER" effect="EFFECT_ARMY_ADJUST_UNIT_CAPACITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_ARMY_COMMANDER</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_REGIMENTS_REINFORCE_SPEED" collection="COLLECTION_OWNER" effect="EFFECT_ARMY_ADJUST_UNIT_REINFORCE_SPEED">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_ARMY_COMMANDER</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_FIELD_MEDIC" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ARMY_FIELD_MEDIC</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_ARMY_FIELD_MEDIC" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_HEAL_PER_TURN">
+		<Argument name="Amount">5</Argument>
+		<Argument name="TerritoryTypes">NEUTRAL_TERRITORY, ENEMY_TERRITORY</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_LOOTING" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ARMY_LOOTING</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_LOOTING_IMPROVEMENTS" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_PERCENT_PILLAGE_IMPROVEMENT_MODIFIER">
+		<Argument name="Percent">50</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_LOOTING_BUILDINGS" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_PERCENT_PILLAGE_BUILDING_MODIFIER">
+		<Argument name="Percent">50</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_SURVIVAL_TRAINING" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_DOUBLE_TERRAIN_COMBAT_BONUS_AND_INGORE_CLIFFS</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+
+	<!-- Army PromotionDiscipline Maneuver -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_MOBILITY_MOVEMENT" collection="COLLECTION_OWNER" effect="EFFECT_ARMY_ADJUST_MOVEMENT_RATE">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_MOBILITY_IGNORE_TERRAIN_WHILE_PACKED" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_IGNORE_MOVEMENT_OBSTACLE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_ARMY_HAS_UNITS"/>
+		</SubjectRequirements>
+		<Argument name="Obstacle">TERRAIN_HILL, RIVER_MINOR</Argument>
+		<Argument name="IgnoreAll">true</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_HARASSMENT" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_FLANKING_ATTACK_MODIFIER" subject-stack-limit="1">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_REDEPLOY" collection="COLLECTION_ALL_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_IS_ENEMY_OF_OWNER"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ARMY_REDEPLOY</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_ARMY_REDEPLOY" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_FLANKING_ATTACK_MODIFIER">
+		<Argument name="Amount">-2</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_AMPHIBIOUS" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_AMPHIBIOUS</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_PATHFINDER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ARMY_PATHFINDER</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_AREA_DENIAL" collection="COLLECTION_ALL_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_IS_ENEMY_OF_OWNER"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_UNIT_AFFECTED_BY_ZOC</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+
+	<!-- Army PromotionDiscipline Leadership -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_ZEAL" collection="COLLECTION_UNIT_OCCUPIED_CITY" effect="EFFECT_CITY_ADJUST_YIELD">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_UNIT_IS_STATIONED_ON_DISTRICT"/>
+		</OwnerRequirements>
+		<Argument name="YieldType">YIELD_FOOD, YIELD_PRODUCTION, YIELD_GOLD, YIELD_CULTURE, YIELD_SCIENCE, YIELD_DIPLOMACY</Argument>
+		<Argument name="Percent">5</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_FIELD_COMMISSION" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ALLOW_UNIT_UPGRADE_OUTSIDE_FRIENDLY_TERRITORY</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_RESILIENCE" collection="COLLECTION_OWNER" effect="EFFECT_ARMY_ADJUST_RESPAWN_SPEED">
+		<Argument name="Percent">-50</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_OLD_GUARD" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING">
+				<Argument name="Inverse">true</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">10</Argument>
+		<String context="Preview">LOC_ABILITY_ARMY_OLD_GUARD_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_ONSLAUGHT" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ARMY_ONSLAUGHT</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_ARMY_ONSLAUGHT" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_FOCUSED_ATTACK_DAMAGE">
+		<Argument name="Amount">5</Argument>
+		<Argument name="CombatType">COMBAT_MELEE</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_BARRAGE" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_RANGED, UNIT_CLASS_SIEGE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ARMY_BARRAGE</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_ARMY_BARRAGE" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_FOCUSED_ATTACK_DAMAGE">
+		<Argument name="Amount">5</Argument>
+		<Argument name="CombatType">COMBAT_RANGED</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<!-- ____________________________________________________________________________________________________ -->
+
+	<!-- FLEET PROMOTIONS -->
+	<!-- Fleet PromotionDiscipline Bombardment -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_FLEET_SHELLING" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_SEA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_FLEET_SHELLING</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_FLEET_SHELLING" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_FLEET_SHELLING_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_FLEET_NAVAL_ARTILLERY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_SEA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_FLEET_NAVAL_ARTILLERY</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_FLEET_NAVAL_ARTILLERY" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_DISTRICT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_PROMOTION_FLEET_NAVAL_ARTILLERY_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_FLEET_SPOTTER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_SEA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_FLEET_SPOTTER</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_FLEET_SPOTTER" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_ATTACK_RANGE">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_FLEET_SECONDARY_ARMAMENT" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_SEA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_RETALIATE_WHEN_RANGED_DAMAGE_RECEIVED</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_FLEET_GUNFIRE_SUPPORT" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ADJUST_UNIT_SPLASH_DAMAGE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_SEA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Percent">50</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+
+	<!-- Fleet PromotionDiscipline Engagement -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_FLEET_REINFORCED_HULL" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_SEA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_FLEET_RAKING_FIRE</Argument>
+	</Modifier>
+	<!-- Code only checks unit has the ability, so modifier does nothing -->
+	<Modifier id="MOD_ABILITY_RAKING_FIRE" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING">
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_FLEET_RAKING_FIRE" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_SEA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_FLEET_REINFORCED_HULL</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_FLEET_REINFORCED_HULL" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING">
+				<Argument name="Inverse">true</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_FLEET_REINFORCED_HULL_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_FLEET_SALVO" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_SEA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_FLEET_SALVO</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_FLEET_SALVO" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_SEA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_FLEET_SALVO_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_FLEET_FUSILLADE" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_SEA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_FLEET_FUSILLADE</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+
+	<!-- Fleet PromotionDiscipline Logistics -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_FLEET_WARSHIPS" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_IS_STATIONED_ON_DISTRICT">
+				<Argument name="DistrictType">DISTRICT_CITY_CENTER, DISTRICT_URBAN</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_FLEET_WARSHIPS</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_FLEET_WARSHIPS" collection="COLLECTION_UNIT_OCCUPIED_CITY" effect="EFFECT_CITY_ADJUST_UNIT_DOMAIN_PRODUCTION">
+		<Argument name="Percent">15</Argument>
+		<Argument name="DomainType">DOMAIN_SEA</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_FLEET_FLOTILLA_UNIT_CAPACITY" collection="COLLECTION_OWNER" effect="EFFECT_ARMY_ADJUST_UNIT_CAPACITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_FLEET_COMMANDER</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MOD_PROMOTION_FLEET_FLOTILLA_PACK_LAND_UNITS" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_FLEET_PACK_LAND_UNITS</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_FLEET_SHIPS_TENDER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_SEA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_FLEET_SHIPS_TENDER</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_FLEET_SHIPS_TENDER" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_HEAL_PER_TURN">
+		<Argument name="Amount">5</Argument>
+		<Argument name="TerritoryTypes">NEUTRAL_TERRITORY, ENEMY_TERRITORY</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_FLEET_LOOTING" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_SEA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_FLEET_LOOTING</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_FLEET_LOOTING_IMPROVEMENTS" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_PERCENT_PILLAGE_IMPROVEMENT_MODIFIER">
+		<Argument name="Percent">50</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_FLEET_LOOTING_BUILDINGS" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_PERCENT_PILLAGE_BUILDING_MODIFIER">
+		<Argument name="Percent">50</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+
+	<!-- Fleet PromotionDiscipline Maneuver -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_FLEET_CROSSING_THE_T" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_SEA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_FLEET_CROSSING_THE_T</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_FLEET_CROSSING_THE_T" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_FLANKING_ATTACK_MODIFIER">
+		<Argument name="Amount">3</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_FLEET_BRACE" collection="COLLECTION_ALL_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_IS_ENEMY_OF_OWNER"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_SEA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_FLEET_BRACE</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_FLEET_BRACE" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_FLANK_DEFENSE_MODIFIER">
+		<Argument name="Amount">3</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_FLEET_DEAD_RECKONING" collection="COLLECTION_ALL_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_IS_ENEMY_OF_OWNER"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_SEA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_UNIT_AFFECTED_BY_ZOC</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+
+	<!-- Fleet PromotionDiscipline Leadership -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_FLEET_ZEAL" collection="COLLECTION_UNIT_OCCUPIED_CITY" effect="EFFECT_CITY_ADJUST_YIELD">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_UNIT_IS_STATIONED_ON_DISTRICT"/>
+		</OwnerRequirements>
+		<Argument name="YieldType">YIELD_FOOD, YIELD_PRODUCTION, YIELD_GOLD, YIELD_CULTURE, YIELD_SCIENCE, YIELD_DIPLOMACY</Argument>
+		<Argument name="Percent">5</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_FLEET_FIELD_COMMISSION" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_SEA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ALLOW_UNIT_UPGRADE_OUTSIDE_FRIENDLY_TERRITORY</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_FLEET_FLAGSHIP" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING">
+				<Argument name="Inverse">true</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">10</Argument>
+		<String context="Preview">LOC_ABILITY_FLEET_FLAGSHIP_PREVIEW</String>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_FLEET_FLAGSHIP" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING">
+				<Argument name="Inverse">true</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">10</Argument>
+		<String context="Preview">LOC_ABILITY_FLEET_FLAGSHIP_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_FLEET_CONVOYS" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<!-- Embarked units are considered land units still -->
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_FLEET_CONVOYS</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_FLEET_CONVOYS" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">10</Argument>
+		<String context="Preview">LOC_ABILITY_FLEET_CONVOYS_PREVIEW</String>
+	</Modifier>
+	<Modifier id="MOD_PROMOTION_FLEET_CONVOYS_TRADE_PROTECTION" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_SET_TRADE_ROUTE_PROTECTED">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_TRADE_ROUTE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_FLEET_BARRAGE" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_SEA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_FLEET_BARRAGE</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_FLEET_BARRAGE" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_FOCUSED_ATTACK_DAMAGE">
+		<Argument name="Amount">5</Argument>
+		<Argument name="CombatType">COMBAT_RANGED</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<!-- ____________________________________________________________________________________________________ -->
+
+	<!-- SQUADRON PROMOTIONS -->
+	<!-- Squadron PromotionDiscipline Dogfighting -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_SQUADRON_SYNCHRONIZATION" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_SQUADRON_SYNCHRONIZATION</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_SQUADRON_SYNCHRONIZATION" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_AIR</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_AIR_FIGHTER</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_SQUADRON_SYNCHRONIZATION_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_SQUADRON_EVASIVE_MANEUVERS" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_SQUADRON_EVASIVE_MANEUVERS</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_SQUADRON_EVASIVE_MANEUVERS" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING">
+				<Argument name="Inverse">true</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_OPPONENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_AIR</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_SQUADRON_EVASIVE_MANEUVERS_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_SQUADRON_COMBAT_SPREAD" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_SQUADRON_FIRST_STRIKE</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_SQUADRON_FIRST_STRIKE" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_IS_WOUNDED" inverse="true"/>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_KEYWORD_ABILITY_FIRST_STRIKE_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_SQUADRON_ACE" collection="COLLECTION_OWNER" effect="EFFECT_ARMY_ADJUST_AIR_INTERCEPTION_RANGE">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+
+	<!--Squadron PromotionDiscipline Raids-->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_SQUADRON_TACTICAL_STRIKE" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_SQUADRON_TACTICAL_STRIKE</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_SQUADRON_TACTICAL_STRIKE" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_AIR_LAND_ATTACK_SPECIALIST</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_SQUADRON_TACTICAL_STRIKE_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_SQUADRON_SATURATION" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_FOCUSED_ATTACK_DAMAGE">
+		<Argument name="AirAttack">true</Argument>
+		<Argument name="Amount">5</Argument>
+		<Argument name="CombatType">COMBAT_BOMBARD</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_SQUADRON_FORMATIONS" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_FOCUSED_ATTACK_DAMAGE">
+		<Argument name="AirAttack">true</Argument>
+		<Argument name="Amount">5</Argument>
+		<Argument name="CombatType">COMBAT_RANGED</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_SQUADRON_OBLITERATION" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_SPLASH_DAMAGE">
+		<Argument name="Percent">50</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+
+	<!-- Squadron PromotionDiscipline Logistics -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_SQUADRON_ADVANCED_LANDING_GROUND_DEFENSE" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">10</Argument>
+		<String context="Preview">LOC_PROMOTION_SQUADRON_ADVANCED_LANDING_GROUND_PREVIEW</String>
+	</Modifier>
+	<Modifier id="MOD_PROMOTION_SQUADRON_ADVANCED_LANDING_GROUND_CAPACITY" collection="COLLECTION_OWNER" effect="EFFECT_ARMY_ADJUST_UNIT_CAPACITY">
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_SQUADRON_FIELD_COMMISSION" collection="COLLECTION_COMMANDER_PACKED_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_AIR</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ALLOW_UNIT_UPGRADE_OUTSIDE_FRIENDLY_TERRITORY</Argument>
+	</Modifier>
+	<Modifier id="MOD_PROMOTION_SQUADRON_FIELD_COMMISSION_UPDAGRE_DISCOUNT" collection="COLLECTION_COMMANDER_PACKED_UNITS" effect="EFFECT_UNIT_PROPERTY">
+		<Argument name="Key">UpgradeDiscount</Argument>
+		<Argument name="Value">25</Argument>
+		<Argument name="Operation">SET</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_SQUADRON_AERIAL_RECONNIASSANCE" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_SQUADRON_AERIAL_RECON</Argument>
+	</Modifier>
+	<!-- Code only checks unit has the ability, so modifier does nothing -->
+	<Modifier id="MOD_ABILITY_SQUADRON_AERIAL_RECON" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING">
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_SQUADRON_DANGER_CLOSE" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_SQUADRON_DANGER_CLOSE</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_SQUADRON_DANGER_CLOSE" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_TARGET_IS_ADJACENT_TO_FRIENDLY_UNIT">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_SQUADRON_DANGER_CLOSE_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_CARRIER_BATTLE_GROUP_DEFENSE" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING">
+				<Argument name="Inverse">true</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">10</Argument>
+		<String context="Preview">LOC_PROMOTION_CARRIER_BATTLE_GROUP_PREVIEW</String>
+	</Modifier>
+	<Modifier id="MOD_PROMOTION_CARRIER_BATTLE_GROUP_NAVAL_STRENGTH" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_SEA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_CARRIER_BATTLE_GROUP_STRENGTH</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_CARRIER_BATTLE_GROUP_NAVAL_STRENGTH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING">
+				<Argument name="Inverse">true</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_PROMOTION_CARRIER_BATTLE_GROUP_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+
+	<!-- Squadron PromotionDiscipline Airlift Operations -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_SQUADRON_AIRBORNE_FORCES" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_UNIT_AIR_DROP</Argument>
+	</Modifier>
+	<!-- Code only checks unit has the ability, so modifier does nothing -->
+	<Modifier id="MOD_ABILITY_UNIT_AIR_DROP" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING">
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_SQUADRON_CARGO_DROP" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_SQUADRON_CARGO_DROP</Argument>
+	</Modifier>
+	<!-- Code only checks unit has the ability, so modifier does nothing -->
+	<Modifier id="MOD_ABILITY_SQUADRON_CARGO_DROP" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING">
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_SQUADRON_LOW_LEVEL_EXTRACTION" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_SQUADRON_LOW_LEVEL_EXTRACTION</Argument>
+	</Modifier>
+	<!-- Code only checks unit has the ability, so modifier does nothing -->
+	<Modifier id="MOD_ABILITY_SQUADRON_LOW_LEVEL_EXTRACTION" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING">
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_SQUADRON_VERTICAL_ENVELOPMENT" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_SQUADRON_VERTICAL_ENVELOPMENT</Argument>
+	</Modifier>
+	<!-- Code only checks unit has the ability, so modifier does nothing -->
+	<Modifier id="MOD_ABILITY_SQUADRON_VERTICAL_ENVELOPMENT" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING">
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+
+	<!-- Squadron PromotionDiscipline Aerodrome Logistics -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_AERODROME_ADVANCED_LANDING_GROUND_DEFENSE" collection="COLLECTION_UNIT_OCCUPIED_DISTRICT" effect="EFFECT_DISTRICT_ADJUST_FORTIFIED_COMBAT_STRENGTH">
+		<Argument name="Amount">10</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+
+	<!-- Squadron PromotionDiscipline Carrier Operations -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_SQUADRON_FLIGHT_DECK_CAPACITY" collection="COLLECTION_OWNER" effect="EFFECT_ARMY_ADJUST_UNIT_CAPACITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_SQUADRON_COMMANDER</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MOD_PROMOTION_SQUADRON_FLIGHT_DECK_MOVEMENT" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_SQUADRON_FLIGHT_DECK</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_SQUADRON_FLIGHT_DECK" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_AIR</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_SQUADRON_TORPEDO_BOMBERS" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_SQUADRON_TORPEDO_BOMBERS</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_SQUADRON_TORPEDO_BOMBERS" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_NAVAL</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_AIR_LAND_ATTACK_SPECIALIST</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_ABILITY_SQUADRON_TORPEDO_BOMBERS_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_SQUADRON_SPOTTING" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_SQUADRON_SPOTTING</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_SQUADRON_SPOTTING" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_NAVAL_STEALTH</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_AIRCRAFT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_ABILITY_SQUADRON_SPOTTING_PREVIEW</String>
+	</Modifier>
+	<Modifier id="MOD_PROMOTION_SQUADRON_SPOTTING_REVEAL" collection="COLLECTION_ALL_UNITS" effect="EFFECT_REVEAL_UNIT_PLOT_FOR_PLAYER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_TO_OWNER">
+				<Argument name="MinDistance">1</Argument>
+				<Argument name="MaxDistance">3</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_UNIT_IS_ENEMY_OF_OWNER"/>
+		</SubjectRequirements>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_CARRIER_SUPERCARRIER" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_HEAL_PER_TURN">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_SQUADRON_COMMANDER</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">10</Argument>
+		<Argument name="TerritoryTypes">NEUTRAL_TERRITORY, ENEMY_TERRITORY</Argument>
+	</Modifier>
+</GameEffects>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<GameEffects xmlns="GameEffects">
+	<Modifier id="MOD_MO_OPEN_EXPLORATION_ARCHAEOLOGY" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_OPEN_ARCHAEOLOGY">
+		<Argument name="ArchaeologyAge">AGE_EXPLORATION</Argument>
+		<String context="Description">LOC_MOD_CIVIC_MO_EXPLORATION_ARCHAEOLOGY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MO_NATURAL_WONDER_ARCHAEOLOGY" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_OPEN_ARCHAEOLOGY">
+		<Argument name="AllowNaturalWonders">true</Argument>
+		<String context="Description">LOC_MOD_MO_NATURAL_WONDER_ARCHAEOLOGY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MO_TRADITION_SLOT" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_TRADITION_SLOTS" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_MO_TRADITION_SLOT_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MO_UNLOCK_IDEOLOGIES" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING">
+		<String context="Description">LOC_MOD_MO_UNLOCK_IDEOLOGIES_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MO_OPEN_ANTIQUITY_ARCHAEOLOGY" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_OPEN_ARCHAEOLOGY">
+		<Argument name="ArchaeologyAge">AGE_ANTIQUITY</Argument>
+		<String context="Description">LOC_MOD_CIVIC_MO_ANTIQUITY_ARCHAEOLOGY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_FUTURE_CIVIC_ATTRIBUTE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_MO_FUTURE_CIVIC_ATTRIBUTE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_FUTURE_CIVIC_AGE_PROGRESS" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_AGE_PROGRESS" permanent="true" run-once="true">
+		<Argument name="Amount">10</Argument>
+		<Argument name="eventType">AGE_PROGRESSION_FUTURE_CIVIC</Argument>
+		<Argument name="HumanOnly">true</Argument>
+		<String context="Description">LOC_MOD_MO_FUTURE_CIVIC_AGE_PROGRESS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_DEMOCRACY_RIFLEMEN" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_UNIT" permanent="true">
+		<Argument name="Amount">4</Argument>
+		<Argument name="UnitTag">UNIT_CLASS_INFANTRY</Argument>
+		<String context="Description">LOC_MOD_DEMOCRACY_RIFLEMEN_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_DEMOCRACY_CULTURAL_ATTRIBUTE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="AttributeType">ATTRIBUTE_CULTURAL</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_CARD_AT_MOD_CULTURAL_ATTRIBUTE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_DEMOCRACY_POLITICAL_ATTRIBUTE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="AttributeType">ATTRIBUTE_POLITICAL</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_CARD_AT_MOD_POLITICAL_ATTRIBUTE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_FASCISM_LANDSHIP" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_UNIT" permanent="true">
+		<Argument name="Amount">3</Argument>
+		<Argument name="UnitTag">UNIT_CLASS_MOUNTED</Argument>
+		<String context="Description">LOC_MOD_FASCISM_LANDSHIP_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_FASCISM_ECONOMIC_ATTRIBUTE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="AttributeType">ATTRIBUTE_ECONOMIC</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_CARD_AT_MOD_ECONOMIC_ATTRIBUTE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_FASCISM_MILITARISTIC_ATTRIBUTE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="AttributeType">ATTRIBUTE_MILITARISTIC</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_CARD_AT_MOD_MILITARISTIC_ATTRIBUTE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_COMMUNISM_AT_GUNS" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_UNIT" permanent="true">
+		<Argument name="Amount">3</Argument>
+		<Argument name="UnitTag">UNIT_CLASS_RANGED</Argument>
+		<String context="Description">LOC_MOD_COMMUNISM_AT_GUNS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_COMMUNISM_EXPANSIONIST_ATTRIBUTE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="AttributeType">ATTRIBUTE_EXPANSIONIST</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_CARD_AT_MOD_EXPANSIONIST_ATTRIBUTE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_COMMUNISM_SCIENTIFIC_ATTRIBUTE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="AttributeType">ATTRIBUTE_SCIENTIFIC</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_CARD_AT_MOD_SCIENTIFIC_ATTRIBUTE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_IDEOLOGY_FIRST_ADOPTER_SLOTS" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_TRADITION_SLOTS" permanent="true">
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MOD_IDEOLOGY_SECOND_ADOPTER_SLOTS" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_TRADITION_SLOTS" permanent="true">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="MOD_MO_ARTIFACT" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_GREAT_WORK" run-once="true" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_MAJOR"/>
+		</SubjectRequirements>
+		<Argument name="ObjectType">GREATWORKOBJECT_ARTIFACT</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="ArchaeologyAge">AGE_ANTIQUITY</Argument>
+		<String context="Description">LOC_MOD_MO_ARTIFACT_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MO_EXPLORER_SIGHT" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ADJUST_UNIT_SIGHT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_EXPLORER</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_MO_EXPLORER_SIGHT_DESCRIPTION</String>
+	</Modifier>
+</GameEffects>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<ProgressionTreeNodeUnlocks>
+		<Row ProgressionTreeNodeType="NODE_TECH_MO_ELECTRICITY" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_BATTERSEA_POWER_STATION" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_MO_COMBUSTION" TargetKind="KIND_UNIT" TargetType="UNIT_REVENGE" UnlockDepth="1" RequiredTraitType="TRAIT_GREAT_BRITAIN"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_MO_MOBILIZATION" TargetKind="KIND_UNIT" TargetType="UNIT_REVENGE_2" UnlockDepth="1" RequiredTraitType="TRAIT_GREAT_BRITAIN"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_MAIN_NATURAL_HISTORY" TargetKind="KIND_UNIT" TargetType="UNIT_ANTIQUARIAN" UnlockDepth="1" RequiredTraitType="TRAIT_GREAT_BRITAIN"/>
+	</ProgressionTreeNodeUnlocks>
+</Database>

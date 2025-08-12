@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<!-- Major Civs -->
+		<Row Type="TRAIT_BULGARIA" Kind="KIND_TRAIT"/>
+		<Row Type="CIVILIZATION_BULGARIA" Kind="KIND_CIVILIZATION"/>
+	</Types>
+	<LegacyCivilizations>
+		<!-- Full Civs -->
+		<Row CivilizationType="CIVILIZATION_BULGARIA" Name="LOC_CIVILIZATION_BULGARIA_NAME" FullName="LOC_CIVILIZATION_BULGARIA_FULLNAME" Adjective="LOC_CIVILIZATION_BULGARIA_ADJECTIVE" Age="AGE_EXPLORATION"/>
+	</LegacyCivilizations>
+	<LegacyCivilizationTraits>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" TraitType="TRAIT_BULGARIA"/>
+	</LegacyCivilizationTraits>
+	<Traits>
+		<Row TraitType="TRAIT_BULGARIA" InternalOnly="true"/>
+	</Traits>
+	<LegacyIndependents>
+		<Update>
+			<Where IndependentType="INDEPENDENT_EXPLORATION_9"/>
+			<Set Name="LOC_INDEPENDENT_EXPLORATION_9_MAJOR_BULGARIA_NAME"/>
+		</Update>
+	</LegacyIndependents>
+</Database>
