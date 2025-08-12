@@ -1,14 +1,6 @@
 import { Args, Command, Flags } from "@oclif/core";
-import * as fs from "node:fs";
-import * as path from "node:path";
-import * as os from "node:os";
-import { spawn } from "node:child_process";
-import { parse } from "jsonc-parser";
-
-// Define the structure of the config file for type safety
-interface UnzipConfig {
-    [profile: string]: any;
-}
+import { findProjectRoot, loadConfig, resolveUnzipDir, resolveZipPath } from "@civ7/config";
+import { unzipResources } from "@civ7/plugin-files";
 
 export default class Unzip extends Command {
     static id = "unzip";
@@ -49,39 +41,6 @@ The source zip file and extraction path are determined by the profile, but can b
         }),
     };
 
-    // Helper function to find the project root from any script location
-    private findProjectRoot(startDir: string): string {
-        let currentDir = startDir;
-        while (currentDir !== path.parse(currentDir).root) {
-            if (fs.existsSync(path.join(currentDir, "pnpm-workspace.yaml"))) {
-                return currentDir;
-            }
-            currentDir = path.dirname(currentDir);
-        }
-        throw new Error(
-            "Could not find project root. Are you in a pnpm workspace?",
-        );
-    }
-
-    // Helper to find the config file by searching in prioritized locations.
-    private findConfig(configPath?: string): string | null {
-        const projectRoot = this.findProjectRoot(process.cwd());
-        // Use a Set to avoid checking the same path twice if cwd is root
-        const searchPaths = new Set<string | undefined>([
-            configPath, // 1. Path from --config flag
-            path.join(process.cwd(), "civ.config.jsonc"), // 2. Current working directory
-            path.join(projectRoot, "civ.config.jsonc"), // 3. Project root
-        ]);
-
-        for (const p of searchPaths) {
-            if (p && fs.existsSync(p)) {
-                return p;
-            }
-        }
-        return null;
-    }
-
-    // Helper to format bytes into KB, MB, GB, etc.
     private formatBytes(bytes: number): string {
         if (bytes === 0) return "0 B";
         const units = ["B", "KB", "MB", "GB", "TB"];
@@ -89,142 +48,44 @@ The source zip file and extraction path are determined by the profile, but can b
         return `${parseFloat((bytes / Math.pow(1024, i)).toFixed(2))} ${units[i]}`;
     }
 
-    // Helper to expand ~ to the user's home directory
-    private expandPath(filePath: string): string {
-        if (filePath.startsWith("~")) {
-            return path.join(os.homedir(), filePath.slice(1));
-        }
-        return filePath;
-    }
-
     public async run(): Promise<void> {
         const { args, flags } = await this.parse(Unzip);
 
         // --- 1. Find and Parse Config ---
-        const configPath = this.findConfig(flags.config);
-        if (!configPath) {
-            this.error("Config file not found. Provide --config or create a config file in the project root.");
+        const projectRoot = findProjectRoot(process.cwd());
+        const cfg = await loadConfig(projectRoot, flags.config);
+        if (!cfg.path) {
+            this.warn("Config file not found; using default settings. To create a config, run 'civ7 config:init'.");
+        } else {
+            this.log(`→ Using config: ${cfg.path}`);
         }
-        this.log(`→ Using config: ${configPath}`);
+        const config = cfg.raw;
+        const profile = config.profiles?.[args.profile!] ?? {};
 
-        const configFileContent = fs.readFileSync(configPath, "utf8");
-        const config: UnzipConfig = parse(configFileContent);
-        const profileConfig = config[args.profile];
-
-        if (!profileConfig) {
-            this.error(`Profile '${args.profile}' not found in ${configPath}`);
-        }
-
-        const projectRoot = this.findProjectRoot(process.cwd());
-
-        // --- 2. Determine Source Zip File ---
-        const zipPathFromConfig = profileConfig.zip?.zip_path;
-        let zipFile = args.zipfile || zipPathFromConfig;
-
-        if (!zipFile) {
-            this.error(
-                `Source zip file not defined for profile '${args.profile}' and no override provided.`,
-            );
+        if (args.profile && !profile.description) {
+            this.warn(`Profile '${args.profile}' not found in ${cfg.path ?? 'config'}. Using default settings.`);
         }
 
-        zipFile = path.resolve(projectRoot, this.expandPath(zipFile));
-
-        if (!fs.existsSync(zipFile)) {
-            this.error(`Source zip file not found: ${zipFile}`);
-        }
-
-        this.log(`→ Using source: ${zipFile}`);
-
-        // --- 3. Determine Extraction Destination ---
-        const extractPathFromConfig = profileConfig.unzip?.extract_path;
-        let destDir = args.extractpath || extractPathFromConfig;
-
-        if (!destDir) {
-            this.error(
-                `Extraction path not defined for profile '${args.profile}' and no override provided.`,
-            );
-        }
-
-        destDir = path.resolve(projectRoot, this.expandPath(destDir));
-        this.log(`→ Extracting to: ${destDir}`);
-
-        // --- 4. Prepare Destination ---
-        this.log("→ Cleaning destination directory...");
-        if (fs.existsSync(destDir)) {
-            fs.rmSync(destDir, { recursive: true, force: true });
-        }
-
-        fs.mkdirSync(destDir, { recursive: true });
-
-        // --- 5. Execute Unzip Command ---
-        const unzipArgs = ["-q", zipFile, "-d", destDir];
-        this.log("→ Unpacking all resources from archive...");
-
-        const unzipProcess = spawn("unzip", unzipArgs, {
-            stdio: "pipe",
+        // --- 2. Execute via plugin lib ---
+        const zipOverride = args.zipfile ? resolveZipPath({ projectRoot, profile: args.profile }, config, args.zipfile) : undefined;
+        const destOverride = args.extractpath ? resolveUnzipDir({ projectRoot, profile: args.profile }, config, args.extractpath) : undefined;
+        const summary = await unzipResources({
+            projectRoot,
+            profile: args.profile,
+            zip: zipOverride,
+            dest: destOverride,
+            configPath: flags.config,
         });
 
-        return new Promise((resolve, reject) => {
-            unzipProcess.on("close", (code) => {
-                if (code !== 0) {
-                    this.error(`Unzip process exited with code ${code}.`, {
-                        exit: code ?? 1,
-                    });
-                    return reject();
-                }
-
-                // --- 6. Final Summary ---
-                if (!fs.existsSync(destDir)) {
-                    this.error("Failed to unpack resources.");
-                    return reject();
-                }
-
-                this.log(`✅ Successfully unpacked resources to: ${destDir}`);
-
-                const archiveStats = fs.statSync(zipFile);
-                const archiveSize = archiveStats.size;
-
-                // Get the uncompressed size from zip metadata for consistency
-                const unzipL = spawn("unzip", ["-l", zipFile]);
-                let output = "";
-                unzipL.stdout.on("data", (data) => {
-                    output += data.toString();
-                });
-
-                unzipL.on("close", () => {
-                    const lastLine = output.trim().split("\n").pop();
-                    const uncompressedSize = lastLine
-                        ? parseInt(lastLine.trim().split(/\s+/)[0], 10)
-                        : 0;
-
-                    this.log("");
-                    this.log(
-                        "+--------------------------------------------------------+",
-                    );
-                    this.log(
-                        `| Unzip Operation Summary for Profile: '${args.profile!.padEnd(18)}' |`,
-                    );
-                    this.log(
-                        "+-----------------------------+--------------------------+",
-                    );
-                    this.log(
-                        `| Archive Size                | ${this.formatBytes(archiveSize).padEnd(24)} |`,
-                    );
-                    this.log(
-                        `| Uncompressed Size           | ${this.formatBytes(uncompressedSize).padEnd(24)} |`,
-                    );
-                    this.log(
-                        "+-----------------------------+--------------------------+",
-                    );
-                    this.log("");
-                    resolve();
-                });
-            });
-
-            unzipProcess.on("error", (err) => {
-                this.error(`Failed to start unzip process: ${err.message}`);
-                reject(err);
-            });
-        });
+        // --- 3. Final Summary ---
+        this.log(`✅ Successfully unpacked resources to: ${summary.outputPath}`);
+        this.log("");
+        this.log("+--------------------------------------------------------+");
+        this.log(`| Unzip Operation Summary for Profile: '${args.profile!.padEnd(18)}' |`);
+        this.log("+-----------------------------+--------------------------+");
+        this.log(`| Archive Size                | ${this.formatBytes(summary.archiveSizeBytes).padEnd(24)} |`);
+        this.log(`| Uncompressed Size           | ${this.formatBytes(summary.uncompressedSizeBytes).padEnd(24)} |`);
+        this.log("+-----------------------------+--------------------------+");
+        this.log("");
     }
 }

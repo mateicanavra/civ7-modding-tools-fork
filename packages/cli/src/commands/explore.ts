@@ -2,10 +2,9 @@ import { Args, Command, Flags } from "@oclif/core";
 import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import * as fssync from "node:fs";
-import { Graphviz } from "@hpcc-js/wasm";
-import { buildIndexFromXml, crawl, parseSeed } from "../tools/crawler";
-import { graphToDot, graphToJson, buildGraphViewerHtml } from "../tools/graph";
-import { findProjectRoot, resolveOutDir, resolveRootFromConfigOrFlag } from "../utils/cli-helpers";
+import { exploreGraph } from "@civ7/plugin-graph";
+import { findProjectRoot, loadConfig, resolveGraphOutDir } from "@civ7/config";
+import { resolveRootFromConfigOrFlag } from "../utils";
 import { spawn } from "node:child_process";
 import * as http from "node:http";
 
@@ -42,8 +41,9 @@ export default class Explore extends Command {
     const { args, flags } = await this.parse(Explore);
 
     const projectRoot = findProjectRoot(process.cwd());
+    const cfg = await loadConfig(projectRoot, flags.config);
     const root = await resolveRootFromConfigOrFlag({ projectRoot, profile: flags.profile!, flagsRoot: flags.root, flagsConfig: flags.config });
-    if (!root) this.error("Could not determine XML root directory. Provide --root or define unzip.extract_path in the config file.");
+    if (!root) this.error("Could not determine XML root directory. Provide --root or define 'outputs.unzip.dir' in the config file.");
     if (!fssync.existsSync(root)) this.error(`Root path not found: ${root}`);
 
     const seed = args.seed;
@@ -52,52 +52,44 @@ export default class Explore extends Command {
     if (outDirArg === 'false' || outDirArg === 'true' || (outDirArg && outDirArg.startsWith('--'))) {
       outDirArg = undefined;
     }
-    const outDir = resolveOutDir(projectRoot, seed, outDirArg);
+    const outDir = resolveGraphOutDir({ projectRoot, profile: flags.profile }, cfg.raw ?? {}, seed, outDirArg);
 
-    // Crawl
-    const idx = await buildIndexFromXml(root);
-    const parsedSeed = parseSeed(seed);
-    if (!parsedSeed) this.error(`Could not parse seed: ${seed}`);
-    const { graph, manifestFiles } = crawl(idx, parsedSeed);
+    const useHtmlViewer = Boolean((flags as any)["viz.html"]) || Boolean((flags as any).vizHtml);
+    const { dot, json, svg, html, manifestFiles } = await exploreGraph({
+      rootDir: root,
+      seed,
+      engine: flags.engine as 'dot' | 'neato' | 'fdp' | 'sfdp' | 'circo' | 'twopi',
+      emitHtml: useHtmlViewer,
+      log: this.log.bind(this),
+    });
 
-    // Persist graph
     await fs.mkdir(outDir, { recursive: true });
-    const dot = graphToDot(graph);
-    await fs.writeFile(path.join(outDir, "graph.json"), JSON.stringify(graphToJson(graph), null, 2), "utf8");
+    await fs.writeFile(path.join(outDir, "graph.json"), JSON.stringify(json, null, 2), "utf8");
     await fs.writeFile(path.join(outDir, "graph.dot"), dot, "utf8");
     await fs.writeFile(path.join(outDir, "manifest.txt"), manifestFiles.join("\n"), "utf8");
 
-    // Render SVG
-    const gv = await Graphviz.load();
-    const svg = gv.layout(dot, "svg", flags.engine!);
     const svgPath = path.join(outDir, "graph.svg");
     await fs.writeFile(svgPath, svg, "utf8");
 
-    // Optionally build HTML viewer
     let htmlPath: string | null = null;
-    const useHtmlViewer = Boolean((flags as any)["viz.html"]) || Boolean((flags as any).vizHtml);
-    if (useHtmlViewer) {
-      const html = buildGraphViewerHtml({ title: `${seed} — Graph`, svg });
+    if (html) {
       htmlPath = path.join(outDir, "graph.html");
       await fs.writeFile(htmlPath, html, "utf8");
     }
 
     this.log(`Explore pipeline complete. Output: ${outDir}`);
 
-    // Open visualization(s) only in interactive terminals (avoid CI/pipes)
     const shouldOpen = Boolean(flags.open) && Boolean(process.stdout.isTTY) && !process.env.CI;
     if (useHtmlViewer) {
       if (flags.serve) {
         const { url } = await this.startStaticServer(outDir, flags.port!);
         await this.openUrl(`${url}/graph.html`);
         this.log(`Serving ${outDir} at ${url} (Ctrl+C to stop)`);
-        // Keep process alive while server runs
         await new Promise(() => {});
       } else if (shouldOpen && htmlPath) {
         await this.openInBrowser(htmlPath);
       }
     } else if (shouldOpen) {
-      // Default: open SVG
       await this.openInBrowser(svgPath);
     }
     if (flags.openOnline) {

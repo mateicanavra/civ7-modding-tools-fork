@@ -1,0 +1,20 @@
+{
+  "name": "@civ7/docs",
+  "private": true,
+  "scripts": {
+    "predev": "pnpm -F @civ7/config build && pnpm -F @civ7/plugin-files build",
+    "dev": "bun run scripts/sync-resources.ts && docsify serve site",
+    "start": "bunx docsify-cli serve ./site -p 4000 --no-open",
+    "fix:links": "bun run scripts/fix-links.ts",
+    "check": "bunx typescript@5.9.2 -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "docsify-cli": "^4.4.4"
+  },
+  "dependencies": {
+    "@civ7/config": "workspace:*",
+    "@civ7/plugin-files": "workspace:*"
+  }
+}
+
+

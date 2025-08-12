@@ -2,9 +2,9 @@ import { Args, Command, Flags } from "@oclif/core";
 import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import * as fssync from "node:fs";
-import { buildIndexFromXml, parseSeed, crawl } from "../tools/crawler";
-import { graphToJson, graphToDot } from "../tools/graph";
-import { findProjectRoot, resolveOutDir, resolveRootFromConfigOrFlag } from "../utils/cli-helpers";
+import { crawlGraph, graphToJson, graphToDot } from "@civ7/plugin-graph";
+import { findProjectRoot, loadConfig, resolveGraphOutDir } from "@civ7/config";
+import { resolveRootFromConfigOrFlag } from "../utils";
 
 export default class Crawl extends Command {
     static id = "crawl";
@@ -40,20 +40,17 @@ to discover related rows. It writes a graph (JSON + DOT) and a manifest of XML f
         const { args, flags } = await this.parse(Crawl);
 
         const projectRoot = findProjectRoot(process.cwd());
+        const cfg = await loadConfig(projectRoot, flags.config);
         const root = await resolveRootFromConfigOrFlag({ projectRoot, profile: flags.profile!, flagsRoot: flags.root, flagsConfig: flags.config });
-        if (!root) this.error("Could not determine XML root directory. Provide --root or define unzip.extract_path in the config file.");
+        if (!root) this.error("Could not determine XML root directory. Provide --root or define 'outputs.unzip.dir' in the config file.");
         if (!fssync.existsSync(root)) {
             this.error(`Root path not found: ${root}`);
         }
 
         const seed = args.seed;
-        const outDir = resolveOutDir(projectRoot, seed, args.outDir);
+        const outDir = resolveGraphOutDir({ projectRoot, profile: flags.profile }, cfg.raw ?? {}, seed, args.outDir);
 
-        const idx = await buildIndexFromXml(root);
-        const parsedSeed = parseSeed(seed);
-        if (!parsedSeed) this.error(`Could not parse seed: ${seed}`);
-
-        const { graph, manifestFiles } = crawl(idx, parsedSeed!);
+        const { graph, manifestFiles } = await crawlGraph(root, seed, this.log.bind(this));
 
         await fs.mkdir(outDir, { recursive: true });
         await fs.writeFile(path.join(outDir, "graph.json"), JSON.stringify(graphToJson(graph), null, 2), "utf8");

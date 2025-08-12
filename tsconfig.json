@@ -1,15 +1,16 @@
 {
+    "extends": "./tsconfig.base.json",
     "compilerOptions": {
-        "outDir": "dist",
-        "module": "CommonJS",
-        "target": "ES6",
-        "declaration": true,
-        "sourceMap": true,
-        "strict": true,
-        "esModuleInterop": true,
-        "noImplicitAny": false,
+        "noEmit": true
     },
-    "include": [
-        "src"
+    "files": [],
+    "references": [
+        { "path": "./packages/cli" },
+        { "path": "./packages/config" },
+        { "path": "./packages/sdk" },
+        { "path": "./packages/plugins/plugin-files" },
+        { "path": "./packages/plugins/plugin-graph" },
+        { "path": "./apps/playground" },
+        { "path": "./apps/docs" }
     ]
 }

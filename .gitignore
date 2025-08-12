@@ -11,6 +11,7 @@ yarn-error.log*
 .env
 .env.*
 coverage/
+**/*.tgz
 *.tmp
 *.log
 *.tsbuildinfo
@@ -18,6 +19,13 @@ dist/
 
 # CLI outputs
 out/**
+.civ7/**
+
+# Docs build output (for Turbo outputs)
+apps/docs/dist/
+
+# Playground generated examples
+apps/playground/example-generated-mod/
 
 # OS/system files
 .DS_Store
@@ -33,7 +41,13 @@ Thumbs.db
 
 # Project-specific ignores
 # Modify this to match your zip output
-civ7-official-resources/
-docs/civ7-official/resources/
-
+**/civ7-official/resources/
 .early.coverage/
+
+# Turbo cache
+.turbo/
+
+# AI-generated artifacts and archives
+.ai/*
+!.ai/archive/
+!.ai/archive/**
