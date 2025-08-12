@@ -11,7 +11,14 @@ export default defineConfig({
       {
         extends: true,
         root: r('packages/cli'),
-        test: { name: 'cli' }
+        test: {
+          name: 'cli',
+          env: {
+            // Ensure oclif does not attempt to load dev plugins (like @oclif/plugin-plugins)
+            // during tests; treat tests as production to suppress noisy warnings.
+            NODE_ENV: 'production',
+          },
+        }
       },
       {
         extends: true,
