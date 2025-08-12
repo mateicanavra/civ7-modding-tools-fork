@@ -4,5 +4,13 @@
         "noEmit": true
     },
     "files": [],
-    "include": []
+    "references": [
+        { "path": "./packages/cli" },
+        { "path": "./packages/config" },
+        { "path": "./packages/sdk" },
+        { "path": "./packages/plugins/plugin-files" },
+        { "path": "./packages/plugins/plugin-graph" },
+        { "path": "./apps/playground" },
+        { "path": "./apps/docs" }
+    ]
 }
