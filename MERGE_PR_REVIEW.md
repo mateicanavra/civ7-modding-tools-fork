@@ -58,7 +58,7 @@ Looking at the CI/CD workflows in this PR, I can see several well-designed aspec
 - name: Setup Bun (for playground build)
   uses: oven-sh/setup-bun@v2
   with:
-    bun-version: "1.1.38"
+    bun-version-file: ".bun-version"
 - name: Cache Turbo
   uses: actions/cache@v4
   with:
@@ -131,7 +131,7 @@ This future-proofs the caching as the plugin architecture expands.
 Created a `.bun-version` file to pin the Bun version:
 
 ```text
-1.1.38
+1.2.20
 ```
 
 Updated the CI workflow to use the pinned version:
@@ -149,7 +149,7 @@ This ensures:
 - The version is centrally managed in one place (`.bun-version` file)
 - No more non-deterministic builds due to Bun version differences
 
-The setup follows Bun's recommended practices for version pinning in projects.
+The setup follows Bun's recommended practices for version pinning in projects. See the latest release notes for Bun v1.2.20 for stability improvements and fixes that benefit CI reliability ([Bun v1.2.20 blog](https://bun.sh/blog/bun-v1.2.20), [GitHub release](https://github.com/oven-sh/bun/releases/tag/bun-v1.2.20)).
 
 ---
 
