@@ -446,6 +446,70 @@
         "commands",
         "zip.js"
       ]
+    },
+    "docs:serve": {
+      "aliases": [],
+      "args": {},
+      "description": "\nSynchronizes documentation resources from central outputs (if available) and serves the Docsify site.\n\nBy default, serves the directory apps/docs/site under the project root. You can override with --siteDir.\n  ",
+      "examples": [
+        "<%= config.bin %> docs serve",
+        "<%= config.bin %> docs serve --port 4000",
+        "<%= config.bin %> docs serve --siteDir ./apps/docs/site --no-open"
+      ],
+      "flags": {
+        "siteDir": {
+          "description": "Path to docs site directory (defaults to apps/docs/site)",
+          "name": "siteDir",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "port": {
+          "description": "Port to serve on",
+          "name": "port",
+          "default": 4000,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "host": {
+          "description": "Host/interface to bind",
+          "name": "host",
+          "default": "127.0.0.1",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "open": {
+          "description": "Open the server URL in your default browser",
+          "name": "open",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "skipSync": {
+          "description": "Skip syncing documentation resources before serving",
+          "name": "skipSync",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "docs:serve",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Serve the documentation site (apps/docs/site) with synced resources.",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "docs",
+        "serve.js"
+      ]
     }
   },
   "version": "0.1.0"
