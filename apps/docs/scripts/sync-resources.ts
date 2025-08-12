@@ -4,9 +4,9 @@ import { unzipResources } from '@civ7/plugin-files';
 
 // When run from apps/docs (package cwd), resolve central outputs under repo root
 const SOURCE_DIR = path.resolve(process.cwd(), '../../.civ7/outputs/resources');
-const DEST_DIR = path.resolve(process.cwd(), 'site/civ7-official/resources');
+const DEST_DIR = path.resolve(process.cwd(), 'public/civ7-official/resources');
 const SOURCE_ZIP = path.resolve(process.cwd(), '../../.civ7/outputs/archives/civ7-official-resources.zip');
-const DEST_ZIP = path.resolve(process.cwd(), 'site/civ7-official/civ7-official-resources.zip');
+const DEST_ZIP = path.resolve(process.cwd(), 'public/civ7-official/civ7-official-resources.zip');
 
 async function sync() {
   console.log('🔄 Syncing documentation resources...');

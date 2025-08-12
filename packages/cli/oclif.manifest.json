@@ -450,19 +450,32 @@
     "docs:serve": {
       "aliases": [],
       "args": {},
-      "description": "\nSynchronizes documentation resources from central outputs (if available) and serves the Docsify site.\n\nBy default, serves the directory apps/docs/site under the project root. You can override with --siteDir.\n  ",
+      "description": "\n  Synchronizes documentation resources from central outputs (if available) and serves the Mintlify site.\n\n  By default, serves the directory apps/docs under the project root. You can override with --siteDir.\n  ",
       "examples": [
         "<%= config.bin %> docs serve",
         "<%= config.bin %> docs serve --port 4000",
-        "<%= config.bin %> docs serve --siteDir ./apps/docs/site --no-open"
+        "<%= config.bin %> docs serve --siteDir ./apps/docs --no-open",
+        "<%= config.bin %> docs serve --engine docsify"
       ],
       "flags": {
         "siteDir": {
-          "description": "Path to docs site directory (defaults to apps/docs/site)",
+          "description": "Path to docs directory (Mintlify: apps/docs, Docsify: apps/docs/site)",
           "name": "siteDir",
           "required": false,
           "hasDynamicHelp": false,
           "multiple": false,
+          "type": "option"
+        },
+        "engine": {
+          "description": "Docs engine to serve",
+          "name": "engine",
+          "default": "mint",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "options": [
+            "mint",
+            "docsify"
+          ],
           "type": "option"
         },
         "port": {
@@ -474,7 +487,7 @@
           "type": "option"
         },
         "host": {
-          "description": "Host/interface to bind",
+          "description": "Host/interface to bind (docsify only)",
           "name": "host",
           "default": "127.0.0.1",
           "hasDynamicHelp": false,
@@ -501,7 +514,7 @@
       "pluginName": "@mateicanavra/civ7-cli",
       "pluginType": "core",
       "strict": true,
-      "summary": "Serve the documentation site (apps/docs/site) with synced resources.",
+      "summary": "Serve the Mintlify documentation (apps/docs) with synced resources.",
       "enableJsonFlag": false,
       "isESM": false,
       "relativePath": [

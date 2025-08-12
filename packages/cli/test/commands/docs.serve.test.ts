@@ -13,7 +13,7 @@ vi.mock('@civ7/config', async (orig) => {
 });
 
 vi.mock('node:fs', () => ({
-  existsSync: vi.fn((p: string) => p.includes('/apps/docs/site')),
+  existsSync: vi.fn((p: string) => p.includes('/apps/docs')),
   promises: {
     mkdir: vi.fn(async () => {}),
     stat: vi.fn(async (p: string) => ({ isFile: () => true, isDirectory: () => false })),
@@ -35,7 +35,7 @@ describe('docs serve command', () => {
     vi.clearAllMocks();
     process.env = { ...OLD_ENV };
     process.env.CI = '1';
-    // Minimal Bun mock for bunx docsify-cli
+    // Minimal Bun mock for bunx mint
     (globalThis as any).Bun = {
       spawn: vi.fn(() => ({
         kill: vi.fn(),
@@ -52,6 +52,15 @@ describe('docs serve command', () => {
     expect(fs.existsSync).toHaveBeenCalled();
     expect(unzipResources).toHaveBeenCalled();
     expect((globalThis as any).Bun.spawn).toHaveBeenCalled();
+    const call = (globalThis as any).Bun.spawn.mock.calls[0][0];
+    expect(call.cmd[0]).toBe('bunx');
+    expect(call.cmd.includes('mint')).toBe(true);
+  });
+
+  test('supports --engine docsify', async () => {
+    await DocsServe.run(['--engine', 'docsify']);
+    const call = (globalThis as any).Bun.spawn.mock.calls[0][0];
+    expect(call.cmd.includes('docsify-cli')).toBe(true);
   });
 
   test('supports --skipSync to avoid syncing', async () => {
