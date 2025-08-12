@@ -4,14 +4,16 @@
   "theme": "mint",
   "favicon": "/favicon.svg",
   "colors": { "primary": "#1f6feb" },
-  "navigation": {
-    "group": "Docs",
-    "pages": [
-      "index",
-      "community",
-      "civ7-official/modding/getting-started"
-    ]
-  }
+  "navigation": [
+    {
+      "group": "Docs",
+      "pages": [
+        "/",
+        "/community",
+        "/civ7-official/modding/getting-started"
+      ]
+    }
+  ]
 }
 
 
