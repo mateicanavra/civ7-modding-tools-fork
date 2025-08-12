@@ -32,8 +32,21 @@ jobs:
           corepack enable
           corepack prepare pnpm@10.10.0 --activate
 
+      - name: Cache pnpm store
+        uses: actions/cache@v4
+        with:
+          path: ~/.local/share/pnpm/store
+          key: pnpm-store-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-store-${{ runner.os }}-
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Setup Bun (for any Bun-based scripts)
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version-file: ".bun-version"
 
       - name: Build
         run: pnpm build
@@ -44,11 +57,27 @@ jobs:
       - name: Test
         run: pnpm test
 
-      - name: Typecheck (SDK)
-        run: pnpm -F @civ7/sdk run typecheck
+      - name: Typecheck (workspace)
+        run: pnpm check
 
-      - name: Typecheck (CLI)
-        run: pnpm -F @civ7/cli run typecheck
+      - name: Validate package versions match tag
+        shell: bash
+        run: |
+          TAG=${GITHUB_REF_NAME#v}
+          if [[ $GITHUB_REF_NAME == sdk-v* ]]; then
+            TAG=${GITHUB_REF_NAME#sdk-v}
+            PKG=$(node -p "require('./packages/sdk/package.json').version")
+            if [[ "$PKG" != "$TAG" ]]; then echo "SDK version mismatch: tag=$TAG package.json=$PKG"; exit 1; fi
+          elif [[ $GITHUB_REF_NAME == cli-v* ]]; then
+            TAG=${GITHUB_REF_NAME#cli-v}
+            PKG=$(node -p "require('./packages/cli/package.json').version")
+            if [[ "$PKG" != "$TAG" ]]; then echo "CLI version mismatch: tag=$TAG package.json=$PKG"; exit 1; fi
+          elif [[ $GITHUB_REF_NAME == v* ]]; then
+            SDK=$(node -p "require('./packages/sdk/package.json').version")
+            CLI=$(node -p "require('./packages/cli/package.json').version")
+            if [[ "$SDK" != "$TAG" ]]; then echo "SDK version mismatch: tag=$TAG package.json=$SDK"; exit 1; fi
+            if [[ "$CLI" != "$TAG" ]]; then echo "CLI version mismatch: tag=$TAG package.json=$CLI"; exit 1; fi
+          fi
 
       - name: Determine publish target
         id: target
