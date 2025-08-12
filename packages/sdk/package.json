@@ -1,5 +1,5 @@
 {
-  "name": "@civ7/sdk",
+  "name": "@mateicanavra/civ7-sdk",
   "version": "0.0.0",
   "private": false,
   "type": "module",
@@ -37,6 +37,9 @@
     "@types/jstoxml": "^5.0.0"
   },
   "engines": { "node": ">=20" },
-  "publishConfig": { "access": "public" }
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "public"
+  }
 }
 

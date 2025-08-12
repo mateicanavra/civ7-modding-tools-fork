@@ -1,4 +1,4 @@
-import { ACTION_GROUP_BUNDLE, Mod, UNIT, UNIT_CLASS, UnitBuilder } from "@civ7/sdk";
+import { ACTION_GROUP_BUNDLE, Mod, UNIT, UNIT_CLASS, UnitBuilder } from "@mateicanavra/civ7-sdk";
 
 let mod = new Mod({
     id: 'mod-test',

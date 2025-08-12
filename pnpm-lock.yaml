@@ -65,7 +65,7 @@ importers:
 
   apps/playground:
     dependencies:
-      '@civ7/sdk':
+      '@mateicanavra/civ7-sdk':
         specifier: workspace:*
         version: link:../../packages/sdk
     devDependencies:

@@ -15,7 +15,7 @@ import {
     EFFECT,
     REQUIREMENT,
     UNIT_CLASS
-} from "@civ7/sdk";
+} from "@mateicanavra/civ7-sdk";
 
 // Create a new mod
 const mod = new Mod({

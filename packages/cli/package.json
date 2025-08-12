@@ -1,5 +1,5 @@
 {
-  "name": "@civ7/cli",
+  "name": "@mateicanavra/civ7-cli",
   "version": "0.1.0",
   "description": "CLI for managing Civilization VII modding resources.",
   "author": "Your Name",
@@ -45,6 +45,7 @@
     "vitest": "^3.2.4"
   },
   "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
     "access": "public"
   },
   "oclif": {

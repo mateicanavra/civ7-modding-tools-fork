@@ -21,7 +21,7 @@ import {
     UNIT_CLASS,
     UnitBuilder,
     YIELD
-} from "@civ7/sdk";
+} from "@mateicanavra/civ7-sdk";
 
 let mod = new Mod({
     id: 'mod-test',

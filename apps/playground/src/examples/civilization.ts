@@ -11,7 +11,7 @@ import {
     UNIT_CLASS,
     UnitBuilder, YIELD,
     AGE, CivilizationUnlockBuilder, COLLECTION, EFFECT, LeaderUnlockBuilder, REQUIREMENT
-} from "@civ7/sdk";
+} from "@mateicanavra/civ7-sdk";
 
 let mod = new Mod({
     id: 'mod-test',

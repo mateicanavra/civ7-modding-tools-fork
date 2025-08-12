@@ -1,4 +1,4 @@
-import { Mod } from '@civ7/sdk';
+import { Mod } from '@mateicanavra/civ7-sdk';
 import { expect, test } from 'vitest';
 
 test('SDK Mod can be instantiated', () => {

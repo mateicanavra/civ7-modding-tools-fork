@@ -9,7 +9,7 @@
     "test": "vitest run --project playground"
   },
   "dependencies": {
-    "@civ7/sdk": "workspace:*"
+    "@mateicanavra/civ7-sdk": "workspace:*"
   },
   "devDependencies": {
     "typescript": "^5.9.2",

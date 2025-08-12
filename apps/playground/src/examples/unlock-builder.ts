@@ -1,5 +1,5 @@
-import { ACTION_GROUP_BUNDLE, AGE, CivilizationBuilder, REQUIREMENT, REQUIREMENT_SET, RESOURCE, UnlockBuilder } from "@civ7/sdk";
-import { Mod } from "@civ7/sdk";
+import { ACTION_GROUP_BUNDLE, AGE, CivilizationBuilder, REQUIREMENT, REQUIREMENT_SET, RESOURCE, UnlockBuilder } from "@mateicanavra/civ7-sdk";
+import { Mod } from "@mateicanavra/civ7-sdk";
 
 const mod = new Mod({ id: 'mod-test', version: '1' });
 const civilization = new CivilizationBuilder({

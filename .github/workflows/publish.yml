@@ -1,4 +1,4 @@
-name: Publish Packages
+name: Publish to GitHub Packages
 
 on:
   push:
@@ -7,30 +7,44 @@ on:
       - "sdk-v*.*.*"  # publish SDK only
       - "cli-v*.*.*"  # publish CLI only
   workflow_dispatch:
+    inputs:
+      target:
+        description: "Which package(s) to publish (cli, sdk, all)"
+        required: false
+        default: all
+        type: choice
+        options:
+          - all
+          - cli
+          - sdk
+
+permissions:
+  contents: read
+  packages: write
 
 jobs:
   publish:
+    name: Publish
     runs-on: ubuntu-latest
-    env:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-    permissions:
-      contents: read
-      packages: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          registry-url: "https://registry.npmjs.org"
-          scope: "@civ7"
+          scope: "@mateicanavra"
+          registry-url: https://npm.pkg.github.com
+          always-auth: true
 
-      - name: Enable Corepack and pin pnpm
-        run: |
-          corepack enable
-          corepack prepare pnpm@10.10.0 --activate
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install pnpm (pinned)
+        run: corepack prepare pnpm@10.10.0 --activate
 
       - name: Cache pnpm store
         uses: actions/cache@v4
@@ -40,27 +54,38 @@ jobs:
           restore-keys: |
             pnpm-store-${{ runner.os }}-
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Setup Bun (for any Bun-based scripts)
+      - name: Setup Bun (for playground build)
         uses: oven-sh/setup-bun@v2
         with:
           bun-version-file: ".bun-version"
 
-      - name: Build
-        run: pnpm build
+      - name: Cache Turbo
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml', 'turbo.json', 'packages/*/package.json', 'packages/plugins/*/package.json', 'apps/*/package.json') }}
+          restore-keys: |
+            turbo-${{ runner.os }}-
 
-      - name: Lint
-        run: pnpm lint
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      - name: Test
-        run: pnpm test
-
-      - name: Typecheck (workspace)
-        run: pnpm check
+      - name: Determine publish target
+        id: target
+        shell: bash
+        run: |
+          TARGET_INPUT="${{ github.event.inputs.target }}"
+          if [ -n "$TARGET_INPUT" ]; then
+            echo "target=$TARGET_INPUT" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          TAG=${GITHUB_REF_NAME}
+          if [[ $TAG == sdk-v* ]]; then echo "target=sdk" >> $GITHUB_OUTPUT; exit 0; fi
+          if [[ $TAG == cli-v* ]]; then echo "target=cli" >> $GITHUB_OUTPUT; exit 0; fi
+          echo "target=all" >> $GITHUB_OUTPUT
 
       - name: Validate package versions match tag
+        if: startsWith(github.ref, 'refs/tags/')
         shell: bash
         run: |
           TAG=${GITHUB_REF_NAME#v}
@@ -79,22 +104,48 @@ jobs:
             if [[ "$CLI" != "$TAG" ]]; then echo "CLI version mismatch: tag=$TAG package.json=$CLI"; exit 1; fi
           fi
 
-      - name: Determine publish target
-        id: target
-        run: |
-          TAG=${GITHUB_REF_NAME}
-          if [[ $TAG == sdk-v* ]]; then echo "target=sdk" >> $GITHUB_OUTPUT; exit 0; fi
-          if [[ $TAG == cli-v* ]]; then echo "target=cli" >> $GITHUB_OUTPUT; exit 0; fi
-          echo "target=all" >> $GITHUB_OUTPUT
+      - name: Build SDK
+        if: steps.target.outputs.target == 'sdk' || steps.target.outputs.target == 'all'
+        run: pnpm -F @mateicanavra/civ7-sdk build
+
+      - name: Build CLI
+        if: steps.target.outputs.target == 'cli' || steps.target.outputs.target == 'all'
+        run: pnpm -F @mateicanavra/civ7-cli build
+
+      - name: Lint SDK
+        if: steps.target.outputs.target == 'sdk' || steps.target.outputs.target == 'all'
+        run: pnpm -F @mateicanavra/civ7-sdk lint
+
+      - name: Lint CLI
+        if: steps.target.outputs.target == 'cli' || steps.target.outputs.target == 'all'
+        run: pnpm -F @mateicanavra/civ7-cli lint
+
+      - name: Test SDK
+        if: steps.target.outputs.target == 'sdk' || steps.target.outputs.target == 'all'
+        run: pnpm -F @mateicanavra/civ7-sdk test
+
+      - name: Test CLI
+        if: steps.target.outputs.target == 'cli' || steps.target.outputs.target == 'all'
+        run: pnpm -F @mateicanavra/civ7-cli test
+
+      - name: Typecheck SDK
+        if: steps.target.outputs.target == 'sdk' || steps.target.outputs.target == 'all'
+        run: pnpm -F @mateicanavra/civ7-sdk check
+
+      - name: Typecheck CLI
+        if: steps.target.outputs.target == 'cli' || steps.target.outputs.target == 'all'
+        run: pnpm -F @mateicanavra/civ7-cli check
 
       - name: Publish SDK
-        if: env.NPM_TOKEN != '' && (steps.target.outputs.target == 'sdk' || steps.target.outputs.target == 'all')
+        if: steps.target.outputs.target == 'sdk' || steps.target.outputs.target == 'all'
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: pnpm -F @civ7/sdk publish --access public
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_SDK }}
+          NPM_CONFIG_REGISTRY: https://npm.pkg.github.com
+        run: pnpm -F @mateicanavra/civ7-sdk publish --access public --no-git-checks
 
       - name: Publish CLI
-        if: env.NPM_TOKEN != '' && (steps.target.outputs.target == 'cli' || steps.target.outputs.target == 'all')
+        if: steps.target.outputs.target == 'cli' || steps.target.outputs.target == 'all'
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: pnpm -F @civ7/cli publish --access public
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_CLI }}
+          NPM_CONFIG_REGISTRY: https://npm.pkg.github.com
+        run: pnpm -F @mateicanavra/civ7-cli publish --access public --no-git-checks
