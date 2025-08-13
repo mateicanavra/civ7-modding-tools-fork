@@ -45,7 +45,7 @@ Define these essential elements for your leader:
 
 Organize your leader mod with a clear folder structure:
 
-```
+``` xml
 <GAME_DATA>/Mods/your-leader-mod/
 ├── leaders/             # Leader definitions
 ├── agendas/             # Agenda definitions
@@ -61,7 +61,7 @@ Organize your leader mod with a clear folder structure:
 
 The `.modinfo` file defines your mod's metadata and structure:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <Mod id="your-leader-mod" version="1" xmlns="ModInfo">
   <Properties>
@@ -98,7 +98,7 @@ The `.modinfo` file defines your mod's metadata and structure:
 
 Create a file like `leaders/your_leader.xml`:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
   {/*Define Leader Type*/}
@@ -140,7 +140,7 @@ Create a file like `leaders/your_leader.xml`:
 
 Define your leader's unique abilities in `traits/your_leader_traits.xml`:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
   {/*Define Trait Type*/}
@@ -180,7 +180,7 @@ Define your leader's unique abilities in `traits/your_leader_traits.xml`:
 
 Define your leader's agenda in `agendas/your_leader_agendas.xml`:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
   {/*Define Agenda Types*/}
@@ -225,7 +225,7 @@ Define your leader's agenda in `agendas/your_leader_agendas.xml`:
 
 Create localization files in `text/your_leader_text.xml`:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <GameData>
   <LocalizedText>
@@ -270,7 +270,7 @@ Create localization files in `text/your_leader_text.xml`:
 
 Civilization VII allows for implementing multiple personas for the same historical figure, representing different periods or aspects of their life:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
   {/*Define multiple leader personas*/}
@@ -311,7 +311,7 @@ Personas typically require separate asset files for different visual appearances
 
 In Civilization VII, leaders may have different abilities depending on the current Age. You can implement this as follows:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
   {/*Age-specific traits*/}
@@ -354,7 +354,7 @@ In Civilization VII, leaders may have different abilities depending on the curre
 
 Some leaders can be designed to span multiple Ages, with special abilities that evolve or change across Ages:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
   {/*Leader traits for multiple ages*/}
@@ -393,7 +393,7 @@ Some leaders can be designed to span multiple Ages, with special abilities that 
 
 Civilization VII categorizes leaders into gameplay specializations. Implement this as follows:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
   {/*Define leader category*/}
@@ -420,7 +420,7 @@ Available categories include:
 
 Leaders in Civilization VII have unique diplomatic interactions. Implement them as follows:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
   {/*Define leader-specific diplomacy responses*/}
@@ -471,7 +471,7 @@ Leaders in Civilization VII have unique diplomatic interactions. Implement them 
 The official DLC leader Cyrus of Persia demonstrates these principles in action:
 
 ### Basic Structure
-```
+``` xml
 <GAME_RESOURCES>/DLC/persian-dlc/
 ├── leaders/           # Cyrus leader definition
 ├── agendas/           # Persian Empire agenda
@@ -491,7 +491,7 @@ The official DLC leader Cyrus of Persia demonstrates these principles in action:
 
 ### Basic Leader Ability with Civilization Synergy
 
-```xml
+``` xml
 {/*Leader definition*/}
 <Row LeaderType="LEADER_CYRUS" CivilizationType="CIVILIZATION_PERSIA"/>
 
@@ -511,7 +511,7 @@ The official DLC leader Cyrus of Persia demonstrates these principles in action:
 
 ### Conditional Leader Ability
 
-```xml
+``` xml
 {/*Ability that only applies when certain conditions are met*/}
 <Modifiers>
   <Row ModifierId="MODIFIER_LEADER_CULTURAL_BONUS" 

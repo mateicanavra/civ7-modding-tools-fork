@@ -20,7 +20,7 @@ Binding allows you to create relationships between different game elements witho
 
 ### Basic Binding Example
 
-```typescript
+``` typescript
 import {
     ACTION_GROUP_BUNDLE,
     CivilizationBuilder,
@@ -67,7 +67,7 @@ mod.build('./dist');
 
 You can bind multiple entities in a single operation:
 
-```typescript
+``` typescript
 // Create multiple entities
 const dacia = new CivilizationBuilder({...});
 const falxWarrior = new UnitBuilder({...});
@@ -84,7 +84,7 @@ dacia.bind([falxWarrior, dacianFortress, dacianWarfare]);
 
 You can create chains of bindings for more complex relationships:
 
-```typescript
+``` typescript
 // Create entities
 const dacia = new CivilizationBuilder({...});
 const falxWarrior = new UnitBuilder({...});
@@ -107,7 +107,7 @@ Civilization VII's Age system allows for different versions of game elements acr
 
 The key to creating age-specific content is using the appropriate `actionGroupBundle` when creating elements:
 
-```typescript
+``` typescript
 import {
     ACTION_GROUP_BUNDLE,
     Mod,
@@ -168,7 +168,7 @@ To properly manage age transitions, you need to ensure that:
 
 You can create civilizations that change their abilities across different ages:
 
-```typescript
+``` typescript
 // Antiquity Age civilization
 const daciaAntiquity = new CivilizationBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
@@ -202,7 +202,7 @@ For larger mods, organizing your code across multiple files improves maintainabi
 
 A typical organized mod project might have this structure:
 
-```
+``` text
 my-mod/
 ├── src/
 │   ├── civilizations/
@@ -227,7 +227,7 @@ my-mod/
 Each component can be defined in its own file:
 
 **src/civilizations/dacia.ts**:
-```typescript
+``` typescript
 import { CivilizationBuilder, ACTION_GROUP_BUNDLE } from "civ7-modding-tools";
 
 export function createDacianCivilization() {
@@ -243,7 +243,7 @@ export function createDacianCivilization() {
 ```
 
 **src/units/falx-warrior.ts**:
-```typescript
+``` typescript
 import { UnitBuilder, ACTION_GROUP_BUNDLE } from "civ7-modding-tools";
 
 export function createFalxWarrior() {
@@ -263,7 +263,7 @@ export function createFalxWarrior() {
 The main build file imports and combines all components:
 
 **build.ts**:
-```typescript
+``` typescript
 import { Mod } from "civ7-modding-tools";
 import { createDacianCivilization } from "./src/civilizations/dacia";
 import { createFalxWarrior } from "./src/units/falx-warrior";
@@ -318,7 +318,7 @@ For maximum control, you can directly work with XML nodes instead of using the h
 
 The low-level node API gives you direct access to the XML structure:
 
-```typescript
+``` typescript
 import {
     ACTION_GROUP,
     ACTION_GROUP_ACTION,
@@ -389,7 +389,7 @@ Consider using the low-level node API in these situations:
 
 You can directly modify database structures:
 
-```typescript
+``` typescript
 // Create custom database nodes
 const customTable = new DatabaseTableNode({
     name: 'CustomGameElements',
@@ -421,7 +421,7 @@ For truly advanced mods, you can extend the built-in tools by creating custom bu
 
 ### Creating a Custom Builder Class
 
-```typescript
+``` typescript
 import { BuilderBase, ACTION_GROUP_BUNDLE } from "civ7-modding-tools";
 
 // Create a custom builder for a game element not directly supported
@@ -468,7 +468,7 @@ export class ReligionBuilder extends BuilderBase {
 
 ### Using a Custom Builder
 
-```typescript
+``` typescript
 // Use your custom builder
 const customReligion = new ReligionBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
@@ -491,7 +491,7 @@ When creating large mods, consider these performance optimization techniques:
 
 Load components only when needed:
 
-```typescript
+``` typescript
 // Instead of importing everything at once
 import { createAllDacianUnits } from "./src/units/all-units";
 
@@ -506,7 +506,7 @@ const getSpecificUnit = () => {
 
 Reuse components when appropriate:
 
-```typescript
+``` typescript
 // Create a base warrior template
 const baseWarrior = {
     baseMoves: 2,

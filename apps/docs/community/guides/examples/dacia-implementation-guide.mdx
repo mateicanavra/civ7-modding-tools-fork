@@ -10,7 +10,7 @@ This document outlines the technical implementation details for adding the Dacia
 
 Maintain the following directory structure for implementing the mod:
 
-```
+``` text
 Dacia/
 ├── civilizations/
 │   └── dacia/
@@ -62,7 +62,7 @@ Dacia/
 
 ### 2.1 Civilization Definition (civilizations/dacia/current.xml)
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <GameData>
     <Civilizations>
@@ -130,7 +130,7 @@ Dacia/
 
 ### 2.2 Civilization Game Effects (civilizations/dacia/game-effects.xml)
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <GameData>
     <CivilizationTraits>
@@ -241,7 +241,7 @@ Dacia/
 
 ### 2.3 Leader Definition (Example for Decebalus)
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <GameData>
     <Leaders>
@@ -267,7 +267,7 @@ Dacia/
 
 ### 2.4 Leader Game Effects (Example for Decebalus)
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <GameData>
     <LeaderTraits>
@@ -411,7 +411,7 @@ Dacia/
 
 ### 2.5 Unique Unit Definition (units/dacia/current.xml)
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <GameData>
     <Units>
@@ -457,7 +457,7 @@ Dacia/
 
 ### 2.6 Unique Unit Game Effects (units/dacia/game-effects.xml)
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <GameData>
     <GameEffects>
@@ -498,7 +498,7 @@ Dacia/
 
 ### 2.7 Unique Building - Mountain Sanctuary (constructibles/dacia/mountain-sanctuary/current.xml)
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <GameData>
     <Buildings>
@@ -536,7 +536,7 @@ Dacia/
 
 ### 2.8 Unique District - Hill Fortress (constructibles/dacia/hill-fortress/current.xml)
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <GameData>
     <Districts>
@@ -578,7 +578,7 @@ Dacia/
 
 ### 2.9 Localization (Example for Civilization and Leaders)
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <GameData>
     <Localization>
@@ -688,7 +688,7 @@ Dacia/
 
 Update the Dacia.modinfo file to reference all the new files:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <Mod id="com.dacia.civilization">
     <Properties>

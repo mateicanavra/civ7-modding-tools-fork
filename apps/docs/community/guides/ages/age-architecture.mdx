@@ -8,7 +8,7 @@ title: "Civilization VII Age System Architecture"
 
 One of Civilization VII's defining features is its Ages system, which directly impacts how modding works:
 
-```
+``` xml
 <GAME_RESOURCES>/Base/
 ├── base-standard (core definitions)
 ├── age-antiquity (earliest era)
@@ -40,7 +40,7 @@ Custom mods can interact with these modules through dependencies, additions, or 
 
 Examining the actual game files, each age module follows a consistent structure:
 
-```
+``` xml
 <GAME_RESOURCES>/Base/modules/module-name/
 ├── module-name.modinfo   # Module definition file
 ├── package.json          # Package metadata

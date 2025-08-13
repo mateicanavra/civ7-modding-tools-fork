@@ -132,7 +132,7 @@ One of the core parts of making a custom civ or leader is designing their *uniqu
 
 **Trait Definition:** In the `Traits` table, add a row for each unique ability. For example:
 
-```xml
+``` xml
 <Traits>
   <Row TraitType="TRAIT_CIVILIZATION_RAPID_HORSE_ARCHERS" Name="LOC_TRAIT_RAPID_HORSE_ARCHERS_NAME" Description="LOC_TRAIT_RAPID_HORSE_ARCHERS_DESCRIPTION" />
   <Row TraitType="TRAIT_LEADER_STOIC_DEFENDER" Name="LOC_TRAIT_STOIC_DEFENDER_NAME" Description="LOC_TRAIT_STOIC_DEFENDER_DESCRIPTION" />
@@ -146,7 +146,7 @@ After defining a Trait, assign it:
 - Leader abilities go in `LeaderTraits` (linking `LeaderType` to `TraitType`). 
 
 For example:
-```xml
+``` xml
 <CivilizationTraits>
   <Row CivilizationType="CIVILIZATION_SCYTHIA_ANTIQUITY" TraitType="TRAIT_CIVILIZATION_RAPID_HORSE_ARCHERS"/>
 </CivilizationTraits>
@@ -164,7 +164,7 @@ For example, suppose **Scythia’s civ trait** grants *light cavalry units +1 ad
 - Modifier B: Heal unit on kill.
 
 We would add: 
-```xml
+``` xml
 <Modifiers>
   <Row ModifierId="SCYTHIA_LIGHT_CAV_MOVEMENT" ModifierType="MODIFIER_UNIT_ADJUST_MOVEMENT" />
   <Row ModifierId="SCYTHIA_CAV_HEAL_ON_KILL" ModifierType="MODIFIER_UNIT_ADJUST_HEAL_ON_KILL" />
@@ -177,7 +177,7 @@ We would add:
 *(The exact ModifierType names and arguments are hypothetical for illustration.)*
 
 Now link these modifiers to the trait:
-```xml
+``` xml
 <TraitModifiers>
   <Row TraitType="TRAIT_CIVILIZATION_RAPID_HORSE_ARCHERS" ModifierId="SCYTHIA_LIGHT_CAV_MOVEMENT"/>
   <Row TraitType="TRAIT_CIVILIZATION_RAPID_HORSE_ARCHERS" ModifierId="SCYTHIA_CAV_HEAL_ON_KILL"/>
@@ -194,7 +194,7 @@ For example, consider the *Bayanihan* ability from the Philippines mod (Modern c
 - **Combat Strength Penalty outside territory:** A unit combat modifier with a Requirement that `IsOutsideFriendlyTerritory = true` (so it only applies outside borders).
 
 We would create Requirement entries like:
-```xml
+``` xml
 <Requirements>
   <Row RequirementId="REQ_OUTSIDE_FRIENDLY_TERRITORY" RequirementType="REQUIREMENT_UNIT_OUTSIDE_FRIENDLY_TERRITORY"/>
 </Requirements>
@@ -269,7 +269,7 @@ Save these as DDS files (8.8.8.8 ARGB or DXT5) for compatibility. Name them clea
 **Defining Icon Atlases:** Civ7 uses atlases to group icons. An **IconTextureAtlas** is a collection of same-size icons in a single image file (the DDS). Even if your DDS has only one icon, you define an atlas entry for it. Each atlas entry specifies an Atlas name, the icon size (resolution of each icon), the sheet dimensions in terms of number of icons per row/column, and the filename. Then individual icons are defined by name and an index pointing into that atlas. This is very similar to Civ5/Civ6’s system.
 
 For example, to define a 256px atlas for our civ icon and a 256px atlas for our leader portrait:
-```xml
+``` xml
 <IconTextureAtlases>
   {/*Atlas for Scythia emblem, one icon of 256x256*/}
   <Row Name="ICON_ATLAS_CIVILIZATION_SCYTHIA_256" IconSize="256" IconsPerRow="1" IconsPerColumn="1" Filename="Scythia_Icon_256.dds"/>
@@ -328,7 +328,7 @@ To ensure the game loads your civilization and leader properly, you must structu
 
 **.modinfo File:** This is the manifest that tells the game what to do with your files. It includes mod metadata (name, version, etc.), dependencies, and actions. A simplified example modinfo might look like:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <Mod id="12345678-ABCD-4EFG-90HI-ABCDEFGHIJKL" version="1">
   <Properties>
@@ -381,7 +381,7 @@ In our example modinfo, we pointed to files in subfolders (Data, Text, Art). Thi
 
 **Folder Structure Example:**
 
-```
+``` text
 ScythiaAntiquityMod/
 ├─ ScythiaAntiquityMod.modinfo
 ├─ Data/
@@ -400,7 +400,7 @@ ScythiaAntiquityMod/
 This is a logical layout. The game doesn’t mandate the folder names, but the modinfo must correctly reference the paths. 
 
 **Including SQL (if you prefer):** Instead of XML, you can use SQL files in UpdateDatabase to insert/update data. Some modders find SQL syntax easier for batch inserts. For example, an SQL snippet to add a trait might be:
-```sql
+``` sql
 INSERT INTO Traits (TraitType, Name, Description) 
 VALUES ('TRAIT_CIVILIZATION_RAPID_HORSE_ARCHERS', 'LOC_TRAIT_RAPID_HORSE_ARCHERS_NAME', 'LOC_TRAIT_RAPID_HORSE_ARCHERS_DESCRIPTION');
 ```

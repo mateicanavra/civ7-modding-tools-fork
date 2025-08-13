@@ -53,7 +53,7 @@ Consider these factors when balancing your civilization:
 
 Create a well-organized folder structure for your mod:
 
-```
+``` xml
 <GAME_DATA>/Mods/your-civilization-mod/
 ├── civilizations/        # Civilization definitions
 ├── traditions/           # Tradition definitions
@@ -70,7 +70,7 @@ Create a well-organized folder structure for your mod:
 
 The `.modinfo` file defines your mod's metadata and structure:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <Mod id="your-civilization-mod" version="1" xmlns="ModInfo">
   <Properties>
@@ -108,7 +108,7 @@ The `.modinfo` file defines your mod's metadata and structure:
 
 Create a file like `civilizations/your_civilization.xml`:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
   <Civilizations>
@@ -144,7 +144,7 @@ Create a file like `civilizations/your_civilization.xml`:
 
 Define your civilization's unique abilities:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
   <Types>
@@ -181,7 +181,7 @@ Define your civilization's unique abilities:
 
 Define a unique unit for your civilization:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
   <Types>
@@ -224,7 +224,7 @@ Define a unique unit for your civilization:
 
 Define unique buildings, improvements, or quarters:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
   {/*For a unique building*/}
@@ -260,7 +260,7 @@ Define unique buildings, improvements, or quarters:
 
 Define traditions that persist across Ages:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
   <Types>
@@ -300,7 +300,7 @@ Define traditions that persist across Ages:
 
 Create a unique Civic Tree branch for your civilization:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
   <ProgressionTreeNodes>
@@ -329,7 +329,7 @@ Create a unique Civic Tree branch for your civilization:
 
 Create localization files for your civilization:
 
-```xml
+``` xml
 <?xml version="1.0" encoding="utf-8"?>
 <GameData>
   <LocalizedText>
@@ -414,7 +414,7 @@ Create localization files for your civilization:
 The community-created Scythia civilization mod demonstrates these principles in action:
 
 ### Folder Structure
-```
+``` xml
 <GAME_DATA>/Mods/civmods-izica-civilization-scythia-38056/
 ├── civilizations/           # Civilization definition
 ├── traditions/              # Scythia-specific traditions
