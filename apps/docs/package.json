@@ -6,7 +6,7 @@
     "prebuild": "pnpm -F @civ7/config build && pnpm -F @civ7/plugin-files build",
     "dev": "bun run scripts/sync-resources.ts && bun run scripts/dev-staged.ts",
     "start": "mint dev -p 4000 --no-open",
-    "build": "bun run scripts/sync-resources.ts && bun run scripts/validate-docs.ts && bun run scripts/broken-links-pages-only.ts",
+    "build": "tsx scripts/sync-resources.ts && tsx scripts/validate-docs.ts && tsx scripts/broken-links-pages-only.ts",
     "migrate": "bun run scripts/migrate-site-to-pages.ts",
     "fix:links": "bun run scripts/fix-links.ts",
     "check": "bunx typescript@5.9.2 -p tsconfig.json --noEmit"

@@ -13,5 +13,5 @@ test('Mintlify config, llms.txt, and entry page exist', () => {
   expect(existsSync(llmsTxt)).toBe(true);
   const json = JSON.parse(readFileSync(docsJson, 'utf8'));
   expect(json.name).toBeTruthy();
-  expect(Array.isArray(json.navigation)).toBe(true);
+  expect(json.navigation && typeof json.navigation === 'object' && !Array.isArray(json.navigation)).toBe(true);
 });

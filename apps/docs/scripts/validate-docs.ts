@@ -17,7 +17,9 @@ function main(): void {
 
   const json = JSON.parse(readFileSync(docsJsonPath, 'utf8'));
   if (!json.name) fail('docs.json: missing name');
-  if (!Array.isArray(json.navigation)) fail('docs.json: navigation must be an array');
+  if (!json.navigation || typeof json.navigation !== 'object' || Array.isArray(json.navigation)) {
+    fail('docs.json: navigation must be an object');
+  }
   console.log('Docs validation OK');
 }
 

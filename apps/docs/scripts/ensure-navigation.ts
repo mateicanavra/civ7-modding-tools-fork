@@ -12,7 +12,7 @@ interface DocsConfig {
   theme?: string;
   favicon?: string;
   colors?: { primary?: string };
-  navigation?: NavigationGroup[];
+  navigation?: Record<string, Array<string | { group: string; pages: string[] }>> | NavigationGroup[];
   [key: string]: unknown;
 }
 
@@ -21,15 +21,30 @@ function main(): void {
   const migratedIndex = resolve(process.cwd(), 'pages', 'migrated', 'index.mdx');
   if (!existsSync(docsPath)) return;
   const json = JSON.parse(readFileSync(docsPath, 'utf8')) as DocsConfig;
-  if (!json.navigation) json.navigation = [];
+
+  // If navigation is an array (legacy), convert to object shape
+  if (Array.isArray(json.navigation)) {
+    const navArray = json.navigation as NavigationGroup[];
+    const converted: Record<string, Array<string | { group: string; pages: string[] }>> = {};
+    for (const group of navArray) {
+      if (group && typeof group === 'object' && 'group' in group && Array.isArray(group.pages)) {
+        converted[(group as NavigationGroup).group] = (group as NavigationGroup).pages;
+      }
+    }
+    json.navigation = converted;
+  }
+
+  if (!json.navigation || Array.isArray(json.navigation)) {
+    json.navigation = {};
+  }
+
+  const navObject = json.navigation as Record<string, Array<string | { group: string; pages: string[] }>>;
 
   const hasMigrated = existsSync(migratedIndex);
   if (hasMigrated) {
-    const alreadyReferenced = json.navigation.some((g) =>
-      Array.isArray(g.pages) && g.pages.some((p) => (typeof p === 'string' ? p === '/migrated' : false))
-    );
-    if (!alreadyReferenced) {
-      json.navigation.push({ group: 'Legacy', pages: ['/migrated'] });
+    const legacyPages = navObject['Legacy'] ?? [];
+    if (!legacyPages.some((p) => typeof p === 'string' && p === '/migrated')) {
+      navObject['Legacy'] = [...legacyPages, '/migrated'];
     }
   }
 
