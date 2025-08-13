@@ -7,8 +7,127 @@
     "primary": "#1f6feb"
   },
   "navigation": {
-    "pages": [
-      "pages/index"
+    "groups": [
+      {
+        "group": "Overview",
+        "pages": [
+          "index"
+        ]
+      },
+      {
+        "group": "Official",
+        "pages": [
+          "official/README",
+          {
+            "group": "Guides",
+            "pages": [
+              "official/guides/getting-started",
+              "official/guides/guide-index",
+              "official/guides/database-modding",
+              "official/guides/the-modifier-system",
+              "official/guides/narrative-events",
+              "official/guides/modinfo-files"
+            ]
+          },
+          {
+            "group": "Examples",
+            "pages": [
+              "official/examples/fxs-majapahit-rework/README",
+              "official/examples/fxs-new-narrative-event/README",
+              "official/examples/fxs-new-policies/README"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "Community",
+        "pages": [
+          "community/README",
+          "community/documentation-guide",
+          {
+            "group": "Guides",
+            "pages": [
+              "community/guides/getting-started",
+              "community/guides/general-modifying-content",
+              "community/guides/modding-architecture",
+              "community/guides/general-creating-civilizations",
+              "community/guides/general-creating-leaders",
+              "community/guides/base-standard-module",
+              "community/guides/database-schemas",
+              "community/guides/mod-patterns"
+            ]
+          },
+          {
+            "group": "TypeScript",
+            "pages": [
+              "community/guides/typescript/typescript-overview",
+              "community/guides/typescript/typescript-technical",
+              {
+                "group": "How-To",
+                "pages": [
+                  "community/guides/typescript/howto/index",
+                  "community/guides/typescript/howto/environment-setup",
+                  "community/guides/typescript/howto/creating-units",
+                  "community/guides/typescript/howto/creating-buildings",
+                  "community/guides/typescript/howto/creating-civilizations",
+                  "community/guides/typescript/howto/leaders-and-ages",
+                  "community/guides/typescript/howto/unique-quarters",
+                  "community/guides/typescript/howto/traditions",
+                  "community/guides/typescript/howto/progression-trees",
+                  "community/guides/typescript/howto/modifiers-and-effects",
+                  "community/guides/typescript/howto/assets-and-icons",
+                  "community/guides/typescript/howto/advanced-techniques"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Ages",
+            "pages": [
+              "community/guides/ages/age-architecture",
+              "community/guides/ages/age-gameplay-mechanics",
+              "community/guides/ages/age-modules"
+            ]
+          },
+          {
+            "group": "Examples",
+            "pages": [
+              "community/guides/examples/dacia-historical-reference",
+              "community/guides/examples/dacia-implementation-guide",
+              "community/guides/examples/dacia-civilization-ideas",
+              "community/guides/examples/dacia-mechanics-alignment"
+            ]
+          },
+          {
+            "group": "Learning Paths",
+            "pages": [
+              "community/guides/learning-paths/README"
+            ]
+          },
+          {
+            "group": "Legacy Paths",
+            "pages": [
+              "community/guides/legacy-paths/README"
+            ]
+          },
+          {
+            "group": "Legends",
+            "pages": [
+              "community/guides/legends/README"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "Reference",
+        "pages": [
+          "community/reference/modding-reference",
+          "community/reference/gameplay-mechanics",
+          "community/reference/file-paths-reference",
+          "community/reference/modding-guide-civs-leaders",
+          "community/reference/community-modding-tips"
+        ]
+      }
     ]
   }
 }
