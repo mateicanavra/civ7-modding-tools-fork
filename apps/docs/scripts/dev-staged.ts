@@ -33,12 +33,12 @@ function runCommand(command: string, args: string[], options: { cwd?: string } =
 async function main(): Promise<void> {
   const hasSite = existsSync(resolve(process.cwd(), 'site'));
   if (hasSite) {
-    await runCommand('tsx', ['scripts/fix-links.ts']);
-    await runCommand('tsx', ['scripts/migrate-site-to-pages.ts']);
+    await runCommand('bun', ['run', 'scripts/fix-links.ts']);
+    await runCommand('bun', ['run', 'scripts/migrate-site-to-pages.ts']);
   }
 
   // Ensure navigation includes migrated entry if present
-  await runCommand('tsx', ['scripts/ensure-navigation.ts']);
+  await runCommand('bun', ['run', 'scripts/ensure-navigation.ts']);
 
   const mintBin = resolve(process.cwd(), 'node_modules/.bin/mint');
   const command = existsSync(mintBin) ? mintBin : 'mint';
