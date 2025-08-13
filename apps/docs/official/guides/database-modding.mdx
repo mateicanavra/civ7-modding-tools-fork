@@ -53,7 +53,7 @@ When we add something new to the game (whether it be a building, a unit, a civ, 
 
 **To make changes to any database, we create a new `.xml` or `.sql` file to contain our changes, then use the `.modinfo` file to tell the game to load that file.**
 
-1. Make new mod with a `.modinfo` file if you don't have one already (see the [Getting Started](/civ7-official/modding/guides/getting-started) page if you're not sure how).
+1. Make new mod with a `.modinfo` file if you don't have one already (see the [Getting Started](/official/guides/getting-started) page if you're not sure how).
 2. Create a folder in the the same place as the `.modinfo` file. Name it `data`.
 3. Depending on whether you want to use XML or SQL, create a file named `antiquity-traditions.xml` or `antiquity-traditions.sql` in the `data` folder. 
 
@@ -63,7 +63,7 @@ When we add something new to the game (whether it be a building, a unit, a civ, 
 > However, this specific naming and structuring scheme is not required by mods to function, and in the future, you can structure and name things in your mod folder the way you want. Best to stay organised though!
 ## Loading our new file with the .modinfo file
 
-We'll want to modify our `.modinfo` file so that the game knows to load the `antiquity-traditions.xml`/`antiquity-traditions.sql` file we made. There's going to be a bunch of `.modinfo` terminology here, you don't need to worry too much about it for this process, and we'll have sample code so you can see what we're doing in this guide as well. But if you want to learn more about `.modinfo` files, you can find out more in the ["modinfo Files"](/civ7-official/modding/guides/modinfo-files) document.
+We'll want to modify our `.modinfo` file so that the game knows to load the `antiquity-traditions.xml`/`antiquity-traditions.sql` file we made. There's going to be a bunch of `.modinfo` terminology here, you don't need to worry too much about it for this process, and we'll have sample code so you can see what we're doing in this guide as well. But if you want to learn more about `.modinfo` files, you can find out more in the ["modinfo Files"](/official/guides/modinfo-files) document.
 
 To tell the game to load our new `antiquity-traditions.xml`/`antiquity-traditions.sql` file, make these changes to the `.modinfo` file:
 
@@ -208,7 +208,7 @@ If you've set things up right, after booting up the game, and after ensuring tha
 
 Neat! Now we have two new policies in the game. But do they do anything yet?
 
-Unfortunately no. For that we'll need Modifiers, which is *technically* just making more Gameplay Database changes, but Modifiers are also a system unto itself. Check out the [Modifier System](/civ7-official/modding/guides/the-modifier-system) article for more information.
+Unfortunately no. For that we'll need Modifiers, which is *technically* just making more Gameplay Database changes, but Modifiers are also a system unto itself. Check out the [Modifier System](/official/guides/the-modifier-system) article for more information.
 
 For now:
 
@@ -512,7 +512,7 @@ Unlike the FrontEnd vs Gameplay databases, the Localization/Icon/Color databases
 
 Much of database modding requires an understanding of the data that is already available to you to work with, but perhaps more importantly, a grasp of how that data is structured.
 
-The simplest way is probably browsing the game files. If you installed the game via Steam, you can find where the game is installed via the game's properties (as detailed in the [Getting Started](/civ7-official/modding/guides/getting-started) document).
+The simplest way is probably browsing the game files. If you installed the game via Steam, you can find where the game is installed via the game's properties (as detailed in the [Getting Started](/official/guides/getting-started) document).
 
 Under `Base` > `modules`, you'll see the various game ages as separate modules. In each of those, there's a `data` folder with all the data for the age contained as `.xml` files. You can open these files with your code editor.
 
@@ -539,7 +539,7 @@ Most code editors also have a "search in files" function (usually using `Ctrl`+`
 
 Alternatively, you can also use a **SQLite Database Browser** to view game data.
 
-If you have `CopyDatabasesToDisk` set to 1 (as detailed in the [Getting Started](/civ7-official/modding/guides/getting-started) document), the game will output `.sqlite` files in the `debug` folder after you have started a game.
+If you have `CopyDatabasesToDisk` set to 1 (as detailed in the [Getting Started](/official/guides/getting-started) document), the game will output `.sqlite` files in the `debug` folder after you have started a game.
 
 ![](/civ7-official/modding/guides/images/gameplay-copy.png)
 

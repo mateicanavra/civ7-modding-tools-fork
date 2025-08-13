@@ -8,11 +8,12 @@ function fail(message: string): never {
 
 function main(): void {
   const docsJsonPath = join(process.cwd(), 'docs.json');
-  const indexMdxPath = join(process.cwd(), 'pages', 'index.mdx');
+  const indexMdxRoot = join(process.cwd(), 'index.mdx');
+  const indexMdxPages = join(process.cwd(), 'pages', 'index.mdx');
   const llmsTxtPath = join(process.cwd(), 'public', 'llms.txt');
 
   if (!existsSync(docsJsonPath)) fail('docs.json missing');
-  if (!existsSync(indexMdxPath)) fail('pages/index.mdx missing');
+  if (!existsSync(indexMdxRoot) && !existsSync(indexMdxPages)) fail('index.mdx missing (looked in ./ and ./pages)');
   if (!existsSync(llmsTxtPath)) fail('public/llms.txt missing');
 
   const json = JSON.parse(readFileSync(docsJsonPath, 'utf8'));

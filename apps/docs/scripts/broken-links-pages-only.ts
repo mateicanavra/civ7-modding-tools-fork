@@ -35,6 +35,21 @@ async function run(): Promise<void> {
     }
     copyMdx(projectRoot, tmpRoot);
 
+    // Copy public assets to tmp root so absolute paths like /civ7-official/... resolve
+    const publicDir = resolve(projectRoot, 'public');
+    if (existsSync(publicDir)) {
+      const { readdirSync, statSync } = await import('node:fs');
+      readdirSync(publicDir, { withFileTypes: true }).forEach((entry) => {
+        const srcPath = join(publicDir, entry.name);
+        const dstPath = join(tmpRoot, entry.name);
+        if (entry.isDirectory()) {
+          cpSync(srcPath, dstPath, { recursive: true });
+        } else if (entry.isFile()) {
+          cpSync(srcPath, dstPath);
+        }
+      });
+    }
+
     // Use local mint binary from original project node_modules
     const mintBin = resolve(projectRoot, 'node_modules/.bin/mint');
     const result = spawnSync(mintBin, ['broken-links'], {
