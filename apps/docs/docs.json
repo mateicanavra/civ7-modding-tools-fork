@@ -1,16 +1,14 @@
 {
-  "$schema": "https://mintlify.com/schema.json",
+  "$schema": "https://mintlify.com/docs.json",
   "name": "Civ7 Modding Tools",
   "theme": "mint",
-  "favicon": "/favicon.svg",
-  "colors": { "primary": "#1f6feb" },
+  "favicon": "public/favicon.svg",
+  "colors": {
+    "primary": "#1f6feb"
+  },
   "navigation": {
-    "Docs": [
-      "/",
-      "/community",
-      "/civ7-official/modding/getting-started"
+    "pages": [
+      "pages/index"
     ]
   }
 }
-
-

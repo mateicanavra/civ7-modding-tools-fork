@@ -4,9 +4,9 @@ import { promises as fs } from 'node:fs';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
 
-const SITE_ROOT = path.resolve(process.cwd(), 'site');
-const PAGES_ROOT = path.resolve(process.cwd(), 'pages', 'migrated');
-const PUBLIC_MIGRATED_ROOT = path.resolve(process.cwd(), 'public', 'migrated');
+const SITE_ROOT = path.resolve(process.env.DOCS_SITE_ROOT || process.cwd(), '.archive/site');
+const PAGES_ROOT = path.resolve(process.cwd(), 'pages');
+const PUBLIC_ROOT = path.resolve(process.cwd(), 'public');
 
 const SKIP_FILES = new Set([
   '_sidebar.md',
@@ -37,9 +37,22 @@ function toPagesPath(siteFile: string): string {
   return path.join(PAGES_ROOT, parsed.dir, `${parsed.name}${newExt}`);
 }
 
-function toPublicMigratedPath(siteAssetFile: string): string {
+function toPublicPath(siteAssetFile: string): string {
   const rel = path.relative(SITE_ROOT, siteAssetFile);
-  return path.join(PUBLIC_MIGRATED_ROOT, rel);
+  return path.join(PUBLIC_ROOT, rel);
+}
+
+function escapeYamlString(input: string): string {
+  return input.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+}
+
+function sanitizeTitle(raw: string): string {
+  let s = raw.trim();
+  s = s.replace(/^\*\*?(.*)\*\*?$/s, '$1');
+  s = s.replace(/^__(.*)__$/s, '$1');
+  s = s.replace(/`+/g, '');
+  s = s.replace(/\s+/g, ' ').trim();
+  return s;
 }
 
 function rewriteMarkdown(content: string, sourceRelDir: string): { content: string; assets: string[]; title?: string } {
@@ -48,25 +61,25 @@ function rewriteMarkdown(content: string, sourceRelDir: string): { content: stri
 
   // Extract first H1 as title
   const h1Match = updated.match(/^#\s+(.+)$/m);
-  const title = h1Match?.[1]?.trim();
+  const title = h1Match?.[1] ? sanitizeTitle(h1Match[1]) : undefined;
 
   // Convert HTML comments to MDX comments
   updated = updated.replace(/<!--([\s\S]*?)-->/g, (_m, p1: string) => `{/*${p1.trim()}*/}`);
 
-  // Rewrite links from something.md to /migrated/something
-  updated = updated.replace(/\]\(([^)]+\.md)\)/g, (_, p1: string) => {
+  // Rewrite links from something.md to root-absolute path based on source directory
+  updated = updated.replace(/\]\(([^)]+\.md)\)/g, (_: string, p1: string) => {
     const clean = p1.replace(/#.*/, '');
     const withoutExt = clean.replace(/\.md$/i, '').replace(/\.markdown$/i, '');
-    const abs = '/' + path.posix.join('migrated', path.posix.normalize(path.posix.join(sourceRelDir.replaceAll('\\', '/'), withoutExt)));
+    const abs = '/' + path.posix.normalize(path.posix.join(sourceRelDir.replaceAll('\\', '/'), withoutExt));
     return `](${abs})`;
   });
 
   // Collect and rewrite image references ![alt](path)
   updated = updated.replace(/!\[[^\]]*\]\(([^)]+)\)/g, (m: string, imgPath: string) => {
-    // Ignore URLs (http/https)
-    if (/^https?:\/\//i.test(imgPath)) return m;
+    // Ignore absolute URLs and browser/data schemes
+    if (/^(?:https?:\/\/|data:|blob:)/i.test(imgPath)) return m;
     const normalized = path.posix.normalize(path.posix.join(sourceRelDir.replaceAll('\\', '/'), imgPath));
-    const publicPath = '/' + path.posix.join('migrated', normalized);
+    const publicPath = '/' + normalized;
     assets.push(normalized);
     return m.replace(imgPath, publicPath);
   });
@@ -76,7 +89,7 @@ function rewriteMarkdown(content: string, sourceRelDir: string): { content: stri
 
 async function copyAsset(relFromSite: string): Promise<void> {
   const src = path.join(SITE_ROOT, relFromSite);
-  const dest = path.join(PUBLIC_MIGRATED_ROOT, relFromSite);
+  const dest = path.join(PUBLIC_ROOT, relFromSite);
   await ensureDir(path.dirname(dest));
   await fs.copyFile(src, dest).catch(async () => {
     // If it's not a file (e.g., missing), ignore
@@ -100,7 +113,8 @@ async function migrate(): Promise<void> {
     await ensureDir(path.dirname(dest));
     const original = await fs.readFile(file, 'utf8');
     const { content, assets, title } = rewriteMarkdown(original, relDir);
-    const frontmatter = `---\n${title ? `title: ${title}\n` : ''}---\n\n`;
+    const fmTitle = title ? `title: "${escapeYamlString(title)}"\n` : '';
+    const frontmatter = `---\n${fmTitle}---\n\n`;
     await fs.writeFile(dest, frontmatter + content, 'utf8');
     migratedCount++;
     for (const assetRel of assets) {
@@ -108,12 +122,7 @@ async function migrate(): Promise<void> {
     }
   }
 
-  // Create a simple index page for migrated content
-  const indexPath = path.join(PAGES_ROOT, 'index.mdx');
-  await ensureDir(path.dirname(indexPath));
-  await fs.writeFile(indexPath, `---\ntitle: Migrated Docs\n---\n\nThis section contains content migrated from the legacy Docsify site.\n`, 'utf8');
-
-  console.log(`Migrated ${migratedCount} markdown files to pages/migrated as MDX.`);
+  console.log(`Migrated ${migratedCount} markdown files directly under pages/ (no /migrated prefix).`);
 }
 
 migrate().catch((err) => {

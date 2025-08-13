@@ -31,10 +31,13 @@ function runCommand(command: string, args: string[], options: { cwd?: string } =
 }
 
 async function main(): Promise<void> {
+  const skipMigration = process.env.DOCS_SKIP_MIGRATION === '1' || process.env.DOCS_FAST_DEV === '1';
   const hasSite = existsSync(resolve(process.cwd(), 'site'));
-  if (hasSite) {
+  if (hasSite && !skipMigration) {
     await runCommand('bun', ['run', 'scripts/fix-links.ts']);
     await runCommand('bun', ['run', 'scripts/migrate-site-to-pages.ts']);
+  } else if (skipMigration) {
+    console.log('⏭️  Skipping site migration (DOCS_SKIP_MIGRATION/DOCS_FAST_DEV enabled).');
   }
 
   // Ensure navigation includes migrated entry if present

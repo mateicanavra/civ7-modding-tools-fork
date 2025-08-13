@@ -38,15 +38,8 @@ function main(): void {
     json.navigation = {};
   }
 
-  const navObject = json.navigation as Record<string, Array<string | { group: string; pages: string[] }>>;
-
-  const hasMigrated = existsSync(migratedIndex);
-  if (hasMigrated) {
-    const legacyPages = navObject['Legacy'] ?? [];
-    if (!legacyPages.some((p) => typeof p === 'string' && p === '/migrated')) {
-      navObject['Legacy'] = [...legacyPages, '/migrated'];
-    }
-  }
+  // Keep navigation normalized but do not auto-insert any groups/pages
+  const _navObject = json.navigation as Record<string, Array<string | { group: string; pages: string[] }>>;
 
   writeFileSync(docsPath, JSON.stringify(json, null, 2) + '\n', 'utf8');
 }

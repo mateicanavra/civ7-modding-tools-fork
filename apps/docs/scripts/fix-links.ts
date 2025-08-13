@@ -49,7 +49,7 @@ function rewriteLinks(content: string): { content: string; changed: boolean } {
 
 async function main() {
     const rootArg = process.argv[2];
-    const siteRoot = path.resolve(process.cwd(), rootArg ?? "site");
+    const siteRoot = path.resolve(process.cwd(), rootArg ?? ".archive/site");
     if (!fssync.existsSync(siteRoot)) {
         console.error(`Site root not found: ${siteRoot}`);
         process.exit(1);
