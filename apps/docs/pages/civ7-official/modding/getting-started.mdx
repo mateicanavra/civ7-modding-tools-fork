@@ -2,6 +2,226 @@
 title: Getting Started (Official)
 ---
 
-This page will link to official getting started content previously under `site/civ7-official/modding/getting-started.md`.
+# Getting Started with Civilization VII Modding
+
+## What is Modding?
+
+Modding is the process of modifying the game to create new experiences, content, or behaviors. When you boot up Civilization VII, the game looks through predesignated folders for mods and adds them to a list so they can be toggled on or off in-game. Each mod has a set of actions that get performed when their respective mod is activated during game setup.
+
+<Info>
+**Modding Capabilities**: There are many different things a mod can do:
+- Modify the UI using **JavaScript, HTML, and CSS**
+- Change gameplay data using **SQL or XML**  
+- Introduce new behaviors with **JavaScript**
+- Or combine all these approaches!
+</Info>
+
+## Setting Expectations
+
+Before we dive in, let's establish what this guide aims to accomplish. This guide won't be a comprehensive set of instructions on how to add every single thing possible into the game, nor will it be a complete tutorial on JavaScript, SQL, or XML.
+
+<Warning>
+**Important**: We'll focus on setting you up with the basics and pointing you toward resources where you can dig deeper. Even veteran modders copy existing code from the game and other mods, then modify it to suit their needs. You aren't expected to know everything by heart!
+</Warning>
+
+Our goals are to:
+- Set you up with the fundamentals
+- Point you to resources for advanced topics  
+- Provide documentation where necessary
+- Help you understand how to learn from existing examples
+
+## Help! I Don't Know How to Code at All!
+
+If you've never touched a code editor, don't worry! You don't necessarily need prior coding experience to make a mod. The most important languages to know—XML and SQL—are simple enough to understand if you're patient and observant.
+
+### Understanding XML
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<Mod id="my-first-mod" version="1" xmlns="ModInfo">
+	<Properties>
+		<Name>My First Mod</Name>
+		<Description>This is my first Mod.</Description>
+		<Authors>Me</Authors>
+		<AffectsSavedGames>1</AffectsSavedGames>
+	</Properties>
+	<Dependencies>
+	</Dependencies>
+</Mod>
+```
+
+<CardGroup cols={2}>
+<Card title="XML Structure" icon="code">
+**XML** uses a simple tag-based structure that's easy to understand:
+- Every opening `<tag>` has a closing `</tag>` or is self-closing `<tag/>`
+- Elements can have children and attributes like `<tag Attribute="Value">`
+- Whitespace doesn't matter, but good formatting helps readability
+</Card>
+
+<Card title="Key Concepts" icon="lightbulb">
+- **XML Declaration**: The first line `<?xml version="1.0" encoding="utf-8"?>`
+- **Elements**: Tag pairs or self-closing tags
+- **Attributes**: Properties within opening tags
+- **Nesting**: Elements can contain other elements
+</Card>
+</CardGroup>
+
+<Tip>
+Just make sure everything is closed properly and the structure matches the examples or what you find in the game files.
+</Tip>
+
+### Understanding SQL
+
+```sql
+INSERT INTO Types
+        (Type,                              Kind)
+VALUES  ('TRADITION_FXS_CYLINDER_SEALS',    'KIND_TRADITION');
+
+INSERT INTO TraditionModifiers
+		(
+			TraditionType,
+			ModifierId
+		)
+VALUES	(
+			'TRADITION_PANJI',
+			'MOD_FXS_TRADITION_PANJI_QUARTER_CULTURE'
+		),
+		(
+			'TRADITION_PANJI',
+			'MOD_FXS_TRADITION_PANJI_QUARTER_CULTURE_ISLAND'
+		);
+```
+
+<CardGroup cols={2}>
+<Card title="SQL Basics" icon="database">
+**SQL** is more complex but manageable:
+- **Statements** begin with instructions like `INSERT INTO`
+- Always end with a semicolon `;`
+- Whitespace doesn't matter as long as words are separated
+</Card>
+
+<Card title="Common Pitfalls" icon="warning">
+- **Pay attention to commas and semicolons!**
+- Mixing them up will break your code
+- Copy existing structures when starting out
+- Test changes incrementally
+</Card>
+</CardGroup>
+
+### JavaScript (Advanced)
+
+<Note>
+**JavaScript** is a full programming language that you likely won't be able to learn just by reading example code. The good news? You don't need JavaScript to start modding, and you won't need it for most mods that don't change the game's UI.
+
+For UI mods or complex gameplay scripting, there are plenty of online resources to learn JavaScript basics since it's the most important language of the internet!
+</Note>
+
+## Setting Up Your Modding Environment
+
+Now that you understand the basics, let's get your environment ready for modding.
+
+### Essential Tools
+
+<Steps>
+<Step title="Get a Code Editor">
+While you could technically use Windows Notepad, you'll want a proper code editor. **Visual Studio Code** (VS Code) is an excellent free option that's widely used by modders.
+
+[Download Visual Studio Code](https://code.visualstudio.com/)
+</Step>
+
+<Step title="Install Civilization VII Modding SDK">
+If you're reading this documentation, you probably already have this! The SDK includes:
+- **Steam Workshop Uploader** for publishing mods
+- **FireTuner** for debugging and running JavaScript commands
+- **In-game editor** for debugging your mods
+
+Get the Modding SDK via Steam in your Civilization VII library.
+</Step>
+
+<Step title="Optional: SQLite Database Browser">
+A tool to view the game's debug database can help you understand available data and visualize relationships. You won't need this for your first few mods, but it becomes helpful for complex modifications.
+</Step>
+</Steps>
+
+### Important Folders to Bookmark
+
+<CardGroup cols={2}>
+<Card title="Game Installation Folder" icon="folder">
+Mods are structured similarly to the game itself. When unsure how to implement something, reference how the base game or DLC handles it.
+
+**Finding via Steam:**
+1. Right-click Civilization VII in Steam
+2. Go to `Properties` → `Installed Files` tab  
+3. Click `Browse`
+</Card>
+
+<Card title="Game Settings Folder" icon="gear">
+This is where you'll manually install mods and access logs for debugging.
+
+**Locations:**
+- **Windows**: `%localappdata%/Firaxis Games/Sid Meier's Civilization VII/`
+- **Mac**: `~/Library/Application Support/Civilization VII/`
+- **Linux/Steam Deck**: `~/My Games/Sid Meier's Civilization VII/`
+
+Create a `Mods` folder here if it doesn't exist.
+</Card>
+</CardGroup>
+
+### Essential Settings Configuration
+
+<Warning>
+**File Extensions**: First, make sure you've enabled file extensions in your file browser. You'll need to create files with specific extensions and change existing ones.
+</Warning>
+
+Open `AppOptions.txt` in your game settings folder. You'll see many options that can be enabled by **removing the semicolon** at the beginning of the line and **changing the value**.
+
+**Example transformation:**
+```
+;Make copies of commonly used databases to disk after they have been updated.
+;CopyDatabasesToDisk 0
+```
+**Becomes:**
+```
+;Make copies of commonly used databases to disk after they have been updated.
+CopyDatabasesToDisk 1
+```
+
+<Steps>
+<Step title="Enable Database Export">
+Set `CopyDatabasesToDisk 1`
+
+This tells the game to export the database as `.sqlite` files for browsing—useful for SQL/XML modding.
+</Step>
+
+<Step title="Enable FireTuner">
+Set `EnableTuner 1`
+
+Allows FireTuner to connect to the game for debugging.
+</Step>
+
+<Step title="Enable Debug Panels">
+Set `EnableDebugPanels 1`
+
+Access in-game debug panels by pressing the backtick key (`).
+</Step>
+
+<Step title="Enable UI Debugger">
+Set `UIDebugger 1`
+
+Use Google Chrome to inspect the game's HTML, CSS, and JavaScript while running.
+</Step>
+
+<Step title="Enable UI File Watcher">
+Set `UIFileWatcher 1`
+
+The game will reload UI files as you edit them—no restart needed for UI changes!
+</Step>
+</Steps>
+
+---
+
+<Info>
+**What's Next?** Now that your environment is set up and you understand the basics, you're ready to create your first mod! Continue to our [Build a Mod](/civ7-official/modding/build-a-mod) guide to put this knowledge into practice.
+</Info>
 
 

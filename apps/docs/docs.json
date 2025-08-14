@@ -10,7 +10,8 @@
       "pages": [
         "/",
         "/community",
-        "/civ7-official/modding/getting-started"
+        "/civ7-official/modding/getting-started",
+        "/civ7-official/modding/build-a-mod"
       ]
     }
   ]
