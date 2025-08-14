@@ -127,7 +127,6 @@
             "group": "Coming Soon",
             "icon": "hourglass-half",
             "pages": [
-              "community/guides/coming-soon/learning-paths",
               "community/guides/coming-soon/legacy-paths",
               "community/guides/coming-soon/legends"
             ]
