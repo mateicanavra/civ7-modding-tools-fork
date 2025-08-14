@@ -92,10 +92,15 @@
           {
             "group": "Examples",
             "pages": [
-              "community/guides/examples/dacia-historical-reference",
-              "community/guides/examples/dacia-implementation-guide",
-              "community/guides/examples/dacia-civilization-ideas",
-              "community/guides/examples/dacia-mechanics-alignment"
+              {
+                "group": "Dacia",
+                "pages": [
+                  "community/guides/examples/dacia-historical-reference",
+                  "community/guides/examples/dacia-implementation-guide",
+                  "community/guides/examples/dacia-civilization-ideas",
+                  "community/guides/examples/dacia-mechanics-alignment"
+                ]
+              }
             ]
           },
           {
