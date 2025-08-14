@@ -4,7 +4,16 @@
   "theme": "mint",
   "favicon": "public/favicon.svg",
   "colors": {
-    "primary": "#1f6feb"
+    "primary": "#E3BB3C",
+    "light": "#FAF5E8",
+    "dark": "#E3BB3C"
+  },
+  "background": {
+    "decoration": "grid",
+    "colors": {
+      "light": "#FAF5E8",
+      "dark": "#E3BB3C"
+    }
   },
   "navigation": {
     "groups": [
