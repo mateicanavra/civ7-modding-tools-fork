@@ -10,7 +10,7 @@ This guide covers how to create custom buildings and improvements using the Civi
 
 Buildings are constructed within districts and provide various bonuses to your cities:
 
-```typescript
+``` typescript expandable icon="code" id="community-guides-typescript-howto-creating-buildings__d6dd88ad" tag="code-snippet"
 import { 
     ACTION_GROUP_BUNDLE, 
     CONSTRUCTIBLE_TYPE_TAG, 
@@ -79,7 +79,7 @@ mod.add([trainingGrounds]).build('./dist');
 
 Improvements are constructed on tiles outside of cities and provide bonuses to those tiles:
 
-```typescript
+``` typescript expandable icon="code" id="community-guides-typescript-howto-creating-buildings__06ffc330" tag="code-snippet"
 import { 
     ACTION_GROUP_BUNDLE, 
     CONSTRUCTIBLE_TYPE_TAG, 
@@ -158,7 +158,7 @@ When creating buildings and improvements, these are the important components:
 
 You can set prerequisites for buildings:
 
-```typescript
+``` typescript icon="code" id="community-guides-typescript-howto-creating-buildings__828d7a61" tag="code-snippet"
 const advancedBuilding = new ConstructibleBuilder({
     // Basic building properties...
     
@@ -175,7 +175,7 @@ const advancedBuilding = new ConstructibleBuilder({
 
 Create improvements that require specific resources:
 
-```typescript
+``` typescript icon="code" id="community-guides-typescript-howto-creating-buildings__e97030d7" tag="code-snippet"
 const resourceImprovement = new ConstructibleBuilder({
     // Basic improvement properties...
     

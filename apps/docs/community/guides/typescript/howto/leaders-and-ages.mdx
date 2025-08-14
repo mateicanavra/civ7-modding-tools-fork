@@ -10,7 +10,7 @@ This guide covers how to create leader-civilization associations and work with a
 
 In Civilization VII, the TypeScript Modding Tools primarily support associating existing game leaders with civilizations rather than creating entirely new leaders. The toolkit provides the `LeaderUnlockBuilder` class for this purpose.
 
-```typescript
+``` typescript icon="code" id="community-guides-typescript-howto-leaders-and-ages__f97737bc" tag="code-snippet"
 import {
     ACTION_GROUP_BUNDLE,
     CivilizationUnlockBuilder,
@@ -53,7 +53,7 @@ mod.add([decebalusLeadsDacia]);
 
 You can also define civilization transitions between Ages:
 
-```typescript
+``` typescript icon="code" id="community-guides-typescript-howto-leaders-and-ages__4895ec55" tag="code-snippet"
 // Create a civilization unlock for Age transitions
 const daciaTransitionsToRome = new CivilizationUnlockBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_EXPLORATION,
@@ -82,7 +82,7 @@ To create entirely new leaders (rather than just associating existing ones), you
 
 For example:
 
-```typescript
+``` typescript expandable icon="code" id="community-guides-typescript-howto-leaders-and-ages__e90d77f4" tag="code-snippet"
 import {
     ACTION_GROUP_BUNDLE,
     ACTION_GROUP_ACTION,
@@ -137,7 +137,7 @@ Civilization VII's Age system affects how leaders and civilizations evolve throu
 
 You can create leader abilities that only apply in specific Ages:
 
-```typescript
+``` typescript icon="code" id="community-guides-typescript-howto-leaders-and-ages__7ed09555" tag="code-snippet"
 import {
     ACTION_GROUP_BUNDLE,
     ModifierBuilder,
@@ -181,7 +181,7 @@ mod.add([ancientLeaderBonus]);
 
 Similar to civilizations, you can define how leaders transition between Ages:
 
-```typescript
+``` typescript icon="code" id="community-guides-typescript-howto-leaders-and-ages__8eba351b" tag="code-snippet"
 import {
     ACTION_GROUP_BUNDLE,
     LeaderUnlockBuilder,
@@ -227,7 +227,7 @@ When working with leaders across multiple Ages, keep these points in mind:
 
 You can define multiple leaders for the same civilization:
 
-```typescript
+``` typescript icon="code" id="community-guides-typescript-howto-leaders-and-ages__70bc4dc2" tag="code-snippet"
 // First leader for Dacia
 const decebalusLeadsDacia = new LeaderUnlockBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,

@@ -17,12 +17,12 @@ Civilization VII uses two main directory locations:
 This is where the base game files are installed and contains all game assets, modules, and definitions:
 
 **macOS:**
-``` text
+``` text lines icon="text" id="community-reference-file-paths-reference__b03716df" tag="text"
 ~/Library/Application Support/Steam/steamapps/common/Sid Meier's Civilization VII/CivilizationVII.app/Contents/Resources/
 ```
 
 **Windows:**
-``` text
+``` text lines icon="text" id="community-reference-file-paths-reference__be61ee41" tag="text"
 C:\Program Files (x86)\Steam\steamapps\common\Sid Meier's Civilization VII\Base\
 ```
 
@@ -31,12 +31,12 @@ C:\Program Files (x86)\Steam\steamapps\common\Sid Meier's Civilization VII\Base\
 This is where user-specific data including saves, logs, and installed mods are stored:
 
 **macOS:**
-``` text
+``` text lines icon="text" id="community-reference-file-paths-reference__76985c37" tag="text"
 ~/Library/Application Support/Civilization VII/
 ```
 
 **Windows:**
-``` text
+``` text lines icon="text" id="community-reference-file-paths-reference__e19cd907" tag="text"
 C:\Users\[Username]\Documents\My Games\Sid Meier's Civilization VII\
 ```
 
@@ -48,7 +48,7 @@ For the remainder of this document, we'll use platform-independent path referenc
 
 The Civilization VII installation follows a modular structure, with the game itself organized as a collection of modules:
 
-``` xml
+``` xml lines icon="file-xml" id="community-reference-file-paths-reference__6c39dfc6" tag="xml"
 <GAME_RESOURCES>/
 ├── Base/
 │   ├── modules/
@@ -75,7 +75,7 @@ The Civilization VII installation follows a modular structure, with the game its
 
 The user data directory contains user-specific files:
 
-``` xml
+``` xml lines icon="file-xml" id="community-reference-file-paths-reference__c4613e23" tag="xml"
 <GAME_DATA>/
 ├── Mods/                         # Installed mods
 ├── Logs/                         # Game logs (various .csv and .log files)
@@ -88,7 +88,7 @@ The user data directory contains user-specific files:
 
 The base-standard module contains the core definitions and systems that all other modules depend on:
 
-``` xml
+``` xml lines icon="file-xml" id="community-reference-file-paths-reference__8e277c03" tag="xml"
 <GAME_RESOURCES>/Base/modules/base-standard/
 ├── base-standard.modinfo     # Module definition file
 ├── package.json              # Package metadata
@@ -121,7 +121,7 @@ The base-standard module contains the core definitions and systems that all othe
 
 Each Age module follows a similar structure, containing content specific to that historical period:
 
-``` xml
+``` xml lines icon="file-xml" id="community-reference-file-paths-reference__03f3d9a0" tag="xml"
 <GAME_RESOURCES>/Base/modules/age-[name]/
 ├── age-[name].modinfo        # Module definition
 ├── package.json              # Package metadata
@@ -146,7 +146,7 @@ Each Age module follows a similar structure, containing content specific to that
 
 Official DLC follows this general structure:
 
-``` xml
+``` xml lines icon="file-xml" id="community-reference-file-paths-reference__1709bda9" tag="xml"
 <GAME_RESOURCES>/DLC/[dlc-name]/
 ├── [dlc-name].modinfo        # DLC definition
 ├── package.json              # Package metadata
@@ -164,7 +164,7 @@ Official DLC follows this general structure:
 
 When creating a mod, follow this recommended structure to ensure compatibility and organization:
 
-``` xml
+``` xml lines icon="file-xml" id="community-reference-file-paths-reference__b4ca261f" tag="xml"
 <GAME_DATA>/Mods/your-mod-name/
 ├── your-mod-name.modinfo     # Mod definition file
 ├── config/                   # Configuration files (if needed)
@@ -189,7 +189,7 @@ When creating a mod, follow this recommended structure to ensure compatibility a
 
 For mods that add new leaders, use this structure:
 
-``` xml
+``` xml lines icon="file-xml" id="community-reference-file-paths-reference__a4457515" tag="xml"
 <GAME_DATA>/Mods/your-leader-mod/
 ├── your-leader-mod.modinfo   # Mod definition file
 ├── leaders/                  # Leader definitions
@@ -208,7 +208,7 @@ For mods that add new leaders, use this structure:
 
 For mods that add new civilizations, use this structure:
 
-``` xml
+``` xml lines icon="file-xml" id="community-reference-file-paths-reference__ff5d2836" tag="xml"
 <GAME_DATA>/Mods/your-civilization-mod/
 ├── your-civilization-mod.modinfo # Mod definition file
 ├── civilizations/             # Civilization definitions
@@ -229,7 +229,7 @@ For mods that add new civilizations, use this structure:
 
 When using the TypeScript Modding Tools, the output structure follows a more specific organization based on element types:
 
-``` xml
+``` xml lines icon="file-xml" id="community-reference-file-paths-reference__db2523ec" tag="xml"
 <OUTPUT_DIRECTORY>/
 ├── your-mod-id.modinfo           # Generated modinfo file
 ├── civilizations/                # Generated civilization definitions
@@ -245,7 +245,7 @@ This structure is directly compatible with the game's mod loading system and can
 
 ### Database Schema Files
 
-``` xml
+``` xml lines icon="file-xml" id="community-reference-file-paths-reference__4f918d1e" tag="xml"
 <GAME_RESOURCES>/Base/Assets/schema/gameplay/01_GameplaySchema.sql   # Core gameplay schema
 <GAME_RESOURCES>/Base/Assets/schema/modding/schema-modding-10.sql    # Modding framework schema
 <GAME_RESOURCES>/Base/Assets/schema/icons/IconManager.sql            # Icon management schema
@@ -256,13 +256,13 @@ This structure is directly compatible with the game's mod loading system and can
 
 ### Definition Files
 
-``` xml
+``` xml lines icon="file-xml" id="community-reference-file-paths-reference__aa3023e5" tag="xml"
 <GAME_RESOURCES>/Base/modules/base-standard/definitions/*.civdb      # Core game element schemas
 ```
 
 ### Civilization Files
 
-``` xml
+``` xml lines icon="file-xml" id="community-reference-file-paths-reference__f8c764bd" tag="xml"
 <GAME_RESOURCES>/Base/modules/base-standard/data/civilizations.xml   # Base civilizations
 <GAME_RESOURCES>/Base/modules/age-antiquity/data/civilizations.xml   # Antiquity Age civilizations
 <GAME_RESOURCES>/Base/modules/age-exploration/data/civilizations.xml # Exploration Age civilizations
@@ -271,7 +271,7 @@ This structure is directly compatible with the game's mod loading system and can
 
 ### Leader Files
 
-``` xml
+``` xml lines icon="file-xml" id="community-reference-file-paths-reference__b240beff" tag="xml"
 <GAME_RESOURCES>/Base/modules/base-standard/data/leaders.xml         # Base leader definitions
 <GAME_RESOURCES>/Base/modules/age-antiquity/data/leaders.xml         # Antiquity Age leaders
 <GAME_RESOURCES>/Base/modules/age-exploration/data/leaders.xml       # Exploration Age leaders
@@ -280,7 +280,7 @@ This structure is directly compatible with the game's mod loading system and can
 
 ### Unit Files
 
-``` xml
+``` xml lines icon="file-xml" id="community-reference-file-paths-reference__5a611f16" tag="xml"
 <GAME_RESOURCES>/Base/modules/base-standard/data/units.xml           # Base unit definitions
 <GAME_RESOURCES>/Base/modules/age-antiquity/data/units.xml           # Antiquity Age units
 <GAME_RESOURCES>/Base/modules/age-exploration/data/units.xml         # Exploration Age units
@@ -289,7 +289,7 @@ This structure is directly compatible with the game's mod loading system and can
 
 ### Building and Improvement Files
 
-``` xml
+``` xml lines icon="file-xml" id="community-reference-file-paths-reference__c8012eb0" tag="xml"
 <GAME_RESOURCES>/Base/modules/base-standard/data/constructibles.xml  # Base buildings/improvements
 <GAME_RESOURCES>/Base/modules/age-antiquity/data/constructibles.xml  # Antiquity Age buildings
 <GAME_RESOURCES>/Base/modules/age-exploration/data/constructibles.xml # Exploration Age buildings
@@ -298,7 +298,7 @@ This structure is directly compatible with the game's mod loading system and can
 
 ### Technology and Civic Tree Files
 
-``` xml
+``` xml lines icon="file-xml" id="community-reference-file-paths-reference__d2891270" tag="xml"
 <GAME_RESOURCES>/Base/modules/age-antiquity/data/progression-trees-tech.xml      # Antiquity tech tree
 <GAME_RESOURCES>/Base/modules/age-antiquity/data/progression-trees-culture.xml   # Antiquity civic tree
 <GAME_RESOURCES>/Base/modules/age-exploration/data/progression-trees-tech.xml    # Exploration tech tree
@@ -309,14 +309,14 @@ This structure is directly compatible with the game's mod loading system and can
 
 ### Localization Files
 
-``` xml
+``` xml lines icon="file-xml" id="community-reference-file-paths-reference__52f840ef" tag="xml"
 <GAME_RESOURCES>/Base/modules/base-standard/text/*.xml               # Base game text strings
 <GAME_RESOURCES>/Base/modules/age-*/text/*.xml                       # Age-specific text strings
 ```
 
 ### Log Files
 
-``` xml
+``` xml lines icon="file-xml" id="community-reference-file-paths-reference__82479766" tag="xml"
 <GAME_DATA>/Logs/                                # All game logs
 <GAME_DATA>/Logs/system.log                      # System-level logs
 <GAME_DATA>/Logs/database.log                    # Database operation logs
@@ -330,12 +330,12 @@ This structure is directly compatible with the game's mod loading system and can
 Mods should be installed in the user's mod directory:
 
 **macOS:**
-``` text
+``` text lines icon="text" id="community-reference-file-paths-reference__1b1db976" tag="text"
 ~/Library/Application Support/Civilization VII/Mods/
 ```
 
 **Windows:**
-``` text
+``` text lines icon="text" id="community-reference-file-paths-reference__10129e36" tag="text"
 C:\Users\[Username]\Documents\My Games\Sid Meier's Civilization VII\Mods\
 ```
 

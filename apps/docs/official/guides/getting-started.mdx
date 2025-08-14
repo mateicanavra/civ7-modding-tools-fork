@@ -23,7 +23,7 @@ You don't necessarily need to have coded before to make a mod. The most importan
 
 #### XML
 
-``` xml
+``` xml lines icon="file-xml" id="official-guides-getting-started__269cc8b7" tag="xml"
 <?xml version="1.0" encoding="utf-8"?>
 <Mod id="my-first-mod" version="1" xmlns="ModInfo">
 	<Properties>
@@ -44,7 +44,7 @@ Whitespace (the empty space between elements) does not matter. However, it’s g
 Just make sure everything is closed properly, and that the structure matches the examples or what you find in the game files.
 #### SQL
 
-``` sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="official-guides-getting-started__e473d263" tag="sql"
 INSERT INTO Types
         (Type,                              Kind)
 VALUES  ('TRADITION_FXS_CYLINDER_SEALS',    'KIND_TRADITION');
@@ -125,13 +125,13 @@ First, if you haven't already, make sure you've enabled file extensions in your 
 Now to tweak some game options. Open `AppOptions.txt` (it will be in the same folder as your Mods folder). You'll see a whole bunch of options! You can change most options by **removing the semicolon** at the beginning of the line, and **changing the value** at the end of it, like so:
 
 **Before**
-``` ini
+``` ini lines icon="file-lines" id="official-guides-getting-started__995d3fb7" tag="ini"
 ;Make copies of commonly used databases to disk after they have been updated.
 ;CopyDatabasesToDisk 0
 ```
 
 **After**
-``` ini
+``` ini lines icon="file-lines" id="official-guides-getting-started__e651d7ba" tag="ini"
 ;Make copies of commonly used databases to disk after they have been updated.
 CopyDatabasesToDisk 1
 ```
@@ -156,7 +156,7 @@ Let's make your first mod! In the `Mods` folder, create a new empty folder. Name
 
 Open the file in a code editor, and copy and paste the following into the file, then save the file.
 
-``` xml
+``` xml lines icon="file-xml" id="official-guides-getting-started__ae05ae22" tag="xml"
 <?xml version="1.0" encoding="utf-8"?>
 <Mod id="my-first-mod" version="1" xmlns="ModInfo">
 	<Properties>

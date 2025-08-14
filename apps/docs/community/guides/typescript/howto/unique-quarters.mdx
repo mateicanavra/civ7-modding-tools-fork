@@ -20,7 +20,7 @@ Creating a unique quarter involves several steps:
 
 Here's a complete example:
 
-```typescript
+``` typescript expandable icon="code" id="community-guides-typescript-howto-unique-quarters__34515bfb" tag="code-snippet"
 import {
     ACTION_GROUP_BUNDLE,
     CONSTRUCTIBLE_TYPE_TAG,
@@ -155,7 +155,7 @@ When creating a unique quarter, these are the essential components to consider:
 
 Unique quarters often serve as a unique feature for a specific civilization. Here's how to integrate a unique quarter with a civilization:
 
-```typescript
+``` typescript expandable icon="code" id="community-guides-typescript-howto-unique-quarters__67fd6ccd" tag="code-snippet"
 import {
     CivilizationBuilder,
     UniqueQuarterBuilder,
@@ -217,7 +217,7 @@ mod.add([dacia, building1, building2, dacianQuarter]);
 
 Create unique quarters that are only available in specific Ages:
 
-```typescript
+``` typescript expandable icon="code" id="community-guides-typescript-howto-unique-quarters__189b9dd9" tag="code-snippet"
 import { AGE, /* other imports */ } from "civ7-modding-tools";
 
 // Create an Antiquity Age unique quarter
@@ -270,7 +270,7 @@ const ageSpecificModifier = new ModifierBuilder({
 
 Create unique quarters with bonuses that depend on game conditions:
 
-```typescript
+``` typescript expandable icon="code" id="community-guides-typescript-howto-unique-quarters__7efd1c7b" tag="code-snippet"
 // Create a unique quarter with bonuses based on terrain
 const hillsBonus = new ModifierBuilder({
     modifier: {

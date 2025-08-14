@@ -10,7 +10,7 @@ This guide covers how to create custom civilizations using the Civilization VII 
 
 Creating a complete civilization requires defining multiple components and binding them together:
 
-```typescript
+``` typescript expandable id="community-guides-typescript-howto-creating-civilizations__1f6a805a" tag="file-tree" wrap
 import {
     ACTION_GROUP_BUNDLE,
     CivilizationBuilder,
@@ -120,7 +120,7 @@ When creating a civilization, these are the essential components:
 
 Unique abilities are what make civilizations distinct in gameplay:
 
-```typescript
+``` typescript icon="code" id="community-guides-typescript-howto-creating-civilizations__0c67e5b8" tag="code-snippet"
 // Combat bonus for units in specific terrain
 const mountainWarfare = new ModifierBuilder({
     modifier: {
@@ -165,7 +165,7 @@ dacia.bind([mountainWarfare, goldsmithCraft]);
 
 You can create unique units and buildings for your civilization:
 
-```typescript
+``` typescript expandable icon="code" id="community-guides-typescript-howto-creating-civilizations__8e613e2f" tag="code-snippet"
 import {
     UnitBuilder,
     ConstructibleBuilder,
@@ -220,7 +220,7 @@ dacia.bind([falxWarrior, goldMine]);
 
 You can define different versions of your civilization for different Ages:
 
-```typescript
+``` typescript icon="code" id="community-guides-typescript-howto-creating-civilizations__4dedfe6b" tag="code-snippet"
 // Antiquity Age version
 const ancientDacia = new CivilizationBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,

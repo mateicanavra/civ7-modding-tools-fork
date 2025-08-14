@@ -9,8 +9,9 @@
   Usage: bun run scripts/update-code-blocks.ts
 */
 
-import { readdirSync, readFileSync, writeFileSync, statSync } from 'node:fs';
-import { join, extname } from 'node:path';
+import { readdirSync, readFileSync, writeFileSync, statSync, existsSync } from 'node:fs';
+import { join, extname, relative } from 'node:path';
+import { createHash } from 'node:crypto';
 
 // This script is executed from apps/docs; use that as the root for docs
 const OFFICIAL_DIR = join(process.cwd(), 'official');
@@ -38,10 +39,86 @@ const LANGUAGE_ALIASES: Record<string, string> = {
   jsonc: 'json',
 };
 
+// Map languages to Font Awesome icon names (fallbacks when no local icon is present)
+const LANGUAGE_TO_FA_ICON: Record<string, string> = {
+  xml: 'file-code',
+  sql: 'file-code',
+  bash: 'terminal',
+  javascript: 'square-js',
+  typescript: 'file-code',
+  ini: 'file-lines',
+  json: 'file-code',
+  yaml: 'file-code',
+  markdown: 'file-lines',
+  text: 'text',
+};
+
+function getIconNameForLanguage(language: string): string {
+  // Prefer local icons in public/icons via absolute path under /public
+  if (language === 'typescript') return '/icons/icon-code-ts.svg';
+  if (language === 'sql') return '/icons/icon-code-sql.svg';
+  return LANGUAGE_TO_FA_ICON[language] ?? 'file-code';
+}
+
 function normalizeLanguageToken(token: string | undefined): string | undefined {
   if (!token) return token;
   const lower = token.trim().toLowerCase();
   return LANGUAGE_ALIASES[lower] ?? lower;
+}
+
+function createShortHash(input: string): string {
+  const h = createHash('sha1').update(input).digest('hex');
+  return h.substring(0, 8);
+}
+
+function buildPageSlug(filePath: string): string {
+  const relOfficial = relative(OFFICIAL_DIR, filePath);
+  const relCommunity = relative(COMMUNITY_DIR, filePath);
+  let rel: string;
+  if (!relOfficial.startsWith('..')) {
+    rel = join('official', relOfficial);
+  } else if (!relCommunity.startsWith('..')) {
+    rel = join('community', relCommunity);
+  } else {
+    rel = filePath;
+  }
+  const noExt = rel.replace(/\.(mdx?|MDX?)$/, '');
+  return noExt.replace(/[\\/]+/g, '-').replace(/[^a-zA-Z0-9_-]+/g, '-').toLowerCase();
+}
+
+function detectTag(language: string, code: string): string {
+  const snippet = code.slice(0, 2000);
+  if (language === 'bash') return 'shell';
+  if (language === 'sql') return 'sql';
+  if (language === 'xml') return 'xml';
+  if (language === 'json') return 'json';
+  if (language === 'yaml') return 'yaml';
+  if (language === 'ini') return 'ini';
+  if (language === 'markdown') return 'markdown';
+  if (/[├└]──|\b(src|assets|public|dist|node_modules)\/.*/.test(snippet)) return 'file-tree';
+  if (language === 'typescript' || language === 'javascript') return 'code-snippet';
+  return 'text';
+}
+type TagConfig = {
+  icon?: string | false;
+  lines?: boolean;
+  wrap?: boolean;
+  title?: string;
+  expandable?: boolean;
+  expandableMinLines?: number;
+  extra?: string[];
+};
+type Config = {
+  tags?: Record<string, TagConfig>;
+};
+function loadConfig(cwd: string): Config {
+  const p = join(cwd, 'code-blocks.config.json');
+  if (!existsSync(p)) return {};
+  try {
+    return JSON.parse(readFileSync(p, 'utf8')) as Config;
+  } catch {
+    return {};
+  }
 }
 
 function detectLanguage(code: string): Detection {
@@ -92,7 +169,7 @@ function detectLanguage(code: string): Detection {
   return { language: 'text', reason: 'default' };
 }
 
-function processFile(filePath: string): { updated: boolean; before: string; after: string } {
+function processFile(filePath: string, config: any = {}): { updated: boolean; before: string; after: string } {
   const original = readFileSync(filePath, 'utf8');
 
   const lines = original.split(/\r?\n/);
@@ -146,11 +223,79 @@ function processFile(filePath: string): { updated: boolean; before: string; afte
     const normalizedExisting = existingLanguageRaw ? normalizeLanguageToken(existingLanguageRaw) : undefined;
     const needsHeaderUpdate = !normalizedExisting || normalizedExisting !== finalLanguage;
 
-    if (needsHeaderUpdate) {
-      changed = true;
+    // Enrich meta options per Mintlify guidelines
+    // - Add lines (show line numbers) if missing
+    // - Add expandable for long code blocks
+    // - Set icon to a Font Awesome icon matching the language
+    let workingMetaTokens = [...metaTokens];
+    const hasLines = workingMetaTokens.some(t => t === 'lines' || t.startsWith('lines='));
+    const hasExpandable = workingMetaTokens.some(t => t === 'expandable' || t.startsWith('expandable='));
+    const iconIndex = workingMetaTokens.findIndex(t => /^icon=/.test(t));
+    const idIndex = workingMetaTokens.findIndex(t => /^id=/.test(t));
+    const tagIndex = workingMetaTokens.findIndex(t => /^tag=/.test(t));
+
+    const detectedTag = detectTag(finalLanguage, codeBody);
+    const tagConfig = (config.tags && config.tags[detectedTag]) || undefined;
+    const codeLineCount = codeBody === '' ? 0 : codeBody.split(/\r?\n/).length;
+    const LONG_BLOCK_THRESHOLD = (tagConfig && tagConfig.expandableMinLines) ?? 40;
+
+    if (tagConfig && tagConfig.lines === false) {
+      workingMetaTokens = workingMetaTokens.filter(t => t !== 'lines' && !t.startsWith('lines='));
+    } else if (!hasLines || (tagConfig && tagConfig.lines === true)) {
+      if (!hasLines) workingMetaTokens.push('lines');
+    }
+    if ((tagConfig && tagConfig.expandable === true) || (!hasExpandable && codeLineCount >= LONG_BLOCK_THRESHOLD)) {
+      if (!hasExpandable) workingMetaTokens.push('expandable');
+    }
+    if (tagConfig && tagConfig.wrap) workingMetaTokens.push('wrap');
+    const iconDisabled = tagConfig && tagConfig.icon === false;
+    if (iconDisabled) {
+      if (iconIndex >= 0) workingMetaTokens.splice(iconIndex, 1);
+    } else {
+      const iconName = (tagConfig && typeof tagConfig.icon === 'string' ? tagConfig.icon : undefined) || getIconNameForLanguage(finalLanguage);
+      if (iconIndex >= 0) {
+        workingMetaTokens[iconIndex] = `icon="${iconName}"`;
+      } else {
+        workingMetaTokens.push(`icon="${iconName}"`);
+      }
     }
 
-    const newHeader = `${fence}${finalLanguage ? ' ' + finalLanguage : ''}${metaTokens.length ? ' ' + metaTokens.join(' ') : ''}`;
+    if (tagConfig && tagConfig.title) {
+      const titleIndex = workingMetaTokens.findIndex(t => /^title=/.test(t));
+      const titleToken = `title="${tagConfig.title}"`;
+      if (titleIndex >= 0) workingMetaTokens[titleIndex] = titleToken; else workingMetaTokens.push(titleToken);
+    }
+    if (tagConfig && Array.isArray(tagConfig.extra) && tagConfig.extra.length > 0) {
+      workingMetaTokens.push(...tagConfig.extra);
+    }
+
+    // Add id and tag for centralized configuration
+    const pageSlug = buildPageSlug(filePath);
+    const hash = createShortHash(codeBody);
+    const blockId = `${pageSlug}__${hash}`;
+    const tag = detectedTag;
+    if (idIndex >= 0) {
+      workingMetaTokens[idIndex] = `id="${blockId}"`;
+    } else {
+      workingMetaTokens.push(`id="${blockId}"`);
+    }
+    if (tagIndex >= 0) {
+      workingMetaTokens[tagIndex] = `tag="${tag}"`;
+    } else {
+      workingMetaTokens.push(`tag="${tag}"`);
+    }
+
+    // De-duplicate meta tokens by key, keeping the last occurrence
+    const keys = workingMetaTokens.map(t => t.split('=')[0]);
+    let enrichedMetaTokens = workingMetaTokens.filter((t, idx) => keys.lastIndexOf(t.split('=')[0]) === idx);
+    // Final enforcement: if config disables lines, ensure it's removed even after de-dup
+    if (tagConfig && tagConfig.lines === false) {
+      enrichedMetaTokens = enrichedMetaTokens.filter(t => t !== 'lines' && !t.startsWith('lines='));
+    }
+    const metaChanged = enrichedMetaTokens.join(' ') !== metaTokens.join(' ');
+    if (needsHeaderUpdate || metaChanged) changed = true;
+
+    const newHeader = `${fence}${finalLanguage ? ' ' + finalLanguage : ''}${enrichedMetaTokens.length ? ' ' + enrichedMetaTokens.join(' ') : ''}`;
 
     out.push(newHeader);
     // push body as-is
@@ -185,13 +330,14 @@ function walkDir(dir: string, acc: string[] = []): string[] {
 }
 
 function main() {
+  const config = loadConfig(process.cwd());
   const targets = [OFFICIAL_DIR, COMMUNITY_DIR];
   let filesProcessed = 0;
   let filesChanged = 0;
   for (const base of targets) {
     const files = walkDir(base);
     for (const file of files) {
-      const { updated } = processFile(file);
+      const { updated } = processFile(file, config);
       filesProcessed += 1;
       if (updated) filesChanged += 1;
     }

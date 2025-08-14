@@ -48,7 +48,7 @@ To reiterate, the **Pop-up** and **the Buttons** in a pop-up usually **belong to
 
 Let's create a Pop-up with two choices. For this we'll need to make three separate Narrative Events. Then we link two of them to the third so they appear as buttons.
 
-```xml
+``` xml lines expandable icon="file-xml" id="official-guides-narrative-events__6d5b6b49" tag="xml"
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
     <Types>
@@ -118,7 +118,7 @@ So we've defined three new Narrative Events (A, B, and C) in `Types`/`NarrativeS
 <details class="code-example">
 <summary>antiquity-discovery.xml</summary>
 
-```xml lines=1-10
+``` xml lines=1-10 icon="file-xml" id="official-guides-narrative-events__36d09eba" tag="xml"
 %[{ examples/fxs-new-narrative-event/data/antiquity-discovery.xml }]%
 ```
 
@@ -128,7 +128,7 @@ So we've defined three new Narrative Events (A, B, and C) in `Types`/`NarrativeS
 <details class="code-example">
 <summary>antiquity-discovery-game-effects.sql</summary>
 
-```sql lines=1-80
+``` sql lines=1-80 icon="/icons/icon-code-sql.svg" id="official-guides-narrative-events__acf5b746" tag="sql"
 %[{ examples/fxs-new-narrative-event/data/antiquity-discovery-game-effects.sql }]%
 ```
 
@@ -175,7 +175,7 @@ Events will need RequirementSets to determine when and for whom they can trigger
 2. The  `RequirementSetId` determines when the event is 'complete'/when the pop-up is triggered. For events that are quests, this will be where you'd want to check if the quest has been completed. The  `RequirementSetId` is continually checked after the event has been initialised.
 	* So in the example above, you would want to check whether the player has founded 2 cities yet, so that the event can be marked as 'complete' and the pop-up can be triggered.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-narrative-events__439d1a20" tag="xml"
 <?xml version="1.0" encoding="utf-8"?>
 <GameEffects xmlns="GameEffects">
 	<RequirementSet id="REQSET_EVENT_A_NARRATIVE_REQUISITE" type="REQUIREMENTSET_TEST_ANY">
@@ -211,7 +211,7 @@ Often, we will want Narrative Events to interact with the game state. Most frequ
 
 To do this, we use Modifiers, and assign it as a Narrative Reward.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-narrative-events__083f47a6" tag="xml"
 <Modifier id="EVENT_C_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" permanent="true">
 	<Argument name="YieldType">YIELD_CULTURE</Argument>
 	<Argument name="Amount">2</Argument>
@@ -219,7 +219,7 @@ To do this, we use Modifiers, and assign it as a Narrative Reward.
 </Modifier>
 ```
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-narrative-events__686a4191" tag="xml"
 <NarrativeRewards>
     <Row NarrativeRewardType="EVENT_C_REWARD" ModifierID="EVENT_C_MODIFIER"/>
 </NarrativeRewards>
@@ -247,7 +247,7 @@ The `NarrativeRewardIcons` table can be used to add icons to Narrative Event but
 
 A single Narrative Event can have multiple NarrativeRewardIcons.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-narrative-events__dc9cad06" tag="xml"
     <NarrativeRewardIcons>
         <Row NarrativeStoryType="EVENT_B" RewardIconType="QUEST"/>
         <Row NarrativeStoryType="EVENT_B" RewardIconType="YIELD_FOOD"/>
@@ -265,7 +265,7 @@ Occasionally you will want text to be dynamically filled by the event itself. Th
 
 To do this we use the `NarrativeStory_TextReplacements` table.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-narrative-events__89da8c77" tag="xml"
     <NarrativeStory_TextReplacements>
         <Row NarrativeStoryType="EVENT_A" 
         NarrativeStoryTextType="BODY" 
@@ -282,7 +282,7 @@ To do this we use the `NarrativeStory_TextReplacements` table.
     </NarrativeStory_TextReplacements>
 ```
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-narrative-events__b15d374b" tag="xml"
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
     <LocalizedText>
@@ -322,7 +322,7 @@ Discoveries are a subset of Narrative Events, replacing the various "goody huts"
 
 Making a Discovery is mostly the same as making a Narrative Event with a few quirks.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-narrative-events__d261b153" tag="xml"
     <Types>
         <Row Type="DISCOVERY_FXS_MY_EVENT" Kind="KIND_NARRATIVE_STORY"/>
     </Types>
@@ -371,7 +371,7 @@ You can see a full list of queues in the `NarrativeStory_Queues` table.
 
 You will also want to assign the `DISCOVERY_BASE_REWARD` to this initial Narrative Event.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-narrative-events__bc989b0f" tag="xml"
 <NarrativeStory_Rewards>
     <Row
         NarrativeStoryType="DISCOVERY_FXS_MY_EVENT"
@@ -386,7 +386,7 @@ The `DISCOVERY_BASE_REWARD` NarrativeRewardType is just a predefined Reward Type
 
 The process to add choices to your new Discovery is the same as with standard Narrative Events: just create further Narrative Events exactly how you would normally (the only difference is you will likely want to use `DISCOVERY` for the `UIActivation`). You can define icons, text replacements, quests/imperatives, for those linked Narratives events if you want as well.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-narrative-events__0805bb7a" tag="xml"
     <Types>
         <Row Type="DISCOVERY_FXS_MY_EVENT_A" Kind="KIND_NARRATIVE_STORY"/>
     </Types>
@@ -428,7 +428,7 @@ To use `REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS`, you provide a list of Goss
 
 If the number of Gossip Types with at least one match is equal to at least the provided `Amount`, the requirement is met.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-narrative-events__c7a7f07d" tag="xml"
 <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
     <Argument name="GossipTypes">GOSSIP_CONSTRUCT_BUILDING01,GOSSIP_TRADITION_ACTIVATED02</Argument>
     <Argument name="GOSSIP_CONSTRUCT_BUILDING01">Hash,ConstructibleType,BUILDING_BLACKSMITH</Argument>
@@ -450,7 +450,7 @@ These additional arguments are the parameters to check for that Gossip Type. A p
 
 There can be multiple parameters per argument, as seen below. Remember that a single parameter comes as a set of three.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-narrative-events__a42dbaf7" tag="xml"
 <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
     <Argument name="GossipTypes">GOSSIP_CONQUER_CITY01,GOSSIP_CONQUER_CITY02</Argument>
     <Argument name="GOSSIP_CONQUER_CITY01">Hash,OriginalCivilization,CIVILIZATION_GREECE,Hash,OtherPlayer,Other</Argument>
@@ -477,7 +477,7 @@ The sample below tells the modifier to check for multiple instances of the `GOSS
 
 This argument can **ONLY** be used when a **single Gossip Type** is provided. It cannot be used with multiple Gossip Types.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-narrative-events__587b53b6" tag="xml"
 	<Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
 	    <Argument name="GossipTypes">GOSSIP_CONSTRUCT_BUILDING01</Argument>
 	    <Argument name="GOSSIP_CONSTRUCT_BUILDING01">Hash,ConstructibleType,BUILDING_MONUMENT</Argument>
@@ -491,7 +491,7 @@ Most (but not all), Gossips have an associated plot location for where the Gossi
   
 In the example below, the game is instructed to check that a Library and an Academy are built on the same tile (distance 0).
 
-``` xml
+``` xml lines icon="file-xml" id="official-guides-narrative-events__1be37f71" tag="xml"
 <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
     <Argument name="GossipTypes">GOSSIP_CONSTRUCT_BUILDING01,GOSSIP_CONSTRUCT_BUILDING02</Argument>
     <Argument name="GOSSIP_CONSTRUCT_BUILDING01">Hash,ConstructibleType,BUILDING_LIBRARY</Argument>

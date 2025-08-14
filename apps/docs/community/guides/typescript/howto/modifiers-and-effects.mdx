@@ -20,7 +20,7 @@ Modifiers are at the heart of gameplay effects in Civilization VII. They define 
 
 Here's how to create a simple modifier that provides a flat bonus:
 
-```typescript
+``` typescript icon="code" id="community-guides-typescript-howto-modifiers-and-effects__b8e0c0de" tag="code-snippet"
 import {
     ACTION_GROUP_BUNDLE,
     COLLECTION,
@@ -59,7 +59,7 @@ mod.build('./dist');
 
 For more targeted effects, you can add requirements to your modifiers:
 
-```typescript
+``` typescript expandable icon="code" id="community-guides-typescript-howto-modifiers-and-effects__ef3e63cd" tag="code-snippet"
 import {
     ACTION_GROUP_BUNDLE,
     COLLECTION,
@@ -109,7 +109,7 @@ mod.add([complexModifier]);
 
 Collections define what game entities are affected by a modifier. Here are some commonly used collections:
 
-```typescript
+``` typescript icon="code" id="community-guides-typescript-howto-modifiers-and-effects__4b2df7db" tag="code-snippet"
 import { COLLECTION } from "civ7-modding-tools";
 
 // Available collections
@@ -136,7 +136,7 @@ const collections = {
 
 Effects define what the modifier actually does. Here are some commonly used effects:
 
-```typescript
+``` typescript icon="code" id="community-guides-typescript-howto-modifiers-and-effects__39d10063" tag="code-snippet"
 import { EFFECT } from "civ7-modding-tools";
 
 // Unit effects
@@ -166,7 +166,7 @@ const playerEffects = {
 
 Requirements define conditions that must be met for the modifier to apply:
 
-```typescript
+``` typescript icon="code" id="community-guides-typescript-howto-modifiers-and-effects__bec448c3" tag="code-snippet"
 import { REQUIREMENT } from "civ7-modding-tools";
 
 // Unit requirements
@@ -201,7 +201,7 @@ const cityRequirements = {
 
 ### Unit Modifiers
 
-```typescript
+``` typescript icon="code" id="community-guides-typescript-howto-modifiers-and-effects__51c9d42f" tag="code-snippet"
 // Modifier for ranged units to get +1 range
 const rangeModifier = new ModifierBuilder({
     modifier: {
@@ -221,7 +221,7 @@ const rangeModifier = new ModifierBuilder({
 
 ### City Modifiers
 
-```typescript
+``` typescript icon="code" id="community-guides-typescript-howto-modifiers-and-effects__2742a460" tag="code-snippet"
 // Modifier for cities near mountains to get +1 Science
 const mountainScienceModifier = new ModifierBuilder({
     modifier: {
@@ -244,7 +244,7 @@ const mountainScienceModifier = new ModifierBuilder({
 
 ### Civilization Modifiers
 
-```typescript
+``` typescript icon="code" id="community-guides-typescript-howto-modifiers-and-effects__7cf7a972" tag="code-snippet"
 // Modifier that gives a civilization a unique bonus
 const civModifier = new ModifierBuilder({
     modifier: {
@@ -271,7 +271,7 @@ const civModifier = new ModifierBuilder({
 
 Modifiers generally need to be bound to game elements to take effect:
 
-```typescript
+``` typescript icon="code" id="community-guides-typescript-howto-modifiers-and-effects__29876564" tag="code-snippet"
 import {
     CivilizationBuilder,
     ModifierBuilder,
@@ -309,7 +309,7 @@ unit.bind([dacianBonus]);
 
 You can create temporary or permanent modifiers:
 
-```typescript
+``` typescript icon="code" id="community-guides-typescript-howto-modifiers-and-effects__be6fa0d2" tag="code-snippet"
 // Permanent modifier (always active)
 const permanentModifier = new ModifierBuilder({
     modifier: {
@@ -344,7 +344,7 @@ const temporaryModifier = new ModifierBuilder({
 
 Create complex conditional logic using multiple requirements:
 
-```typescript
+``` typescript expandable icon="code" id="community-guides-typescript-howto-modifiers-and-effects__27e19a92" tag="code-snippet"
 // Modifier with multiple requirements in AND relationship (all must be true)
 const andRequirements = new ModifierBuilder({
     modifier: {

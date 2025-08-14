@@ -32,7 +32,7 @@ Key components include:
 This schema defines how mods are structured and loaded into the game. Understanding this schema is crucial for properly packaging and deploying mods.
 
 Key components include:
-``` sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="community-reference-modding-reference__23da942b" tag="sql"
 -- Primary table of all discovered mods
 CREATE TABLE Mods(
     'ModRowId' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -70,7 +70,7 @@ This schema outlines how mods are discovered, loaded, and applied to the base ga
 This schema defines how the game manages icons for various game elements. For modders, this is essential when adding custom icons for civilizations, units, buildings, or other visual elements.
 
 Key components include:
-``` sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="community-reference-modding-reference__19225e8c" tag="sql"
 CREATE TABLE 'Icons' (
     'ID' TEXT NOT NULL,
     'Context' TEXT DEFAULT 'DEFAULT',
@@ -103,7 +103,7 @@ The schema includes tables for icon contexts, definitions, aliases, and chat ico
 This schema defines the structure for map generation, world building, and age transitions. Understanding this schema is important for mods that affect world generation or implement custom map features.
 
 Key components include:
-``` sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="community-reference-modding-reference__34b70ae5" tag="sql"
 CREATE TABLE "Map" (
     "ID" TEXT NOT NULL,
     "Width" INTEGER,
@@ -203,7 +203,7 @@ The Antiquity Age represents ancient civilizations and early empire development.
   - **independent-powers/**: Early tribal and city-state entities
 
 Example from config.xml:
-``` xml
+``` xml lines icon="file-xml" id="community-reference-modding-reference__b18b08fd" tag="xml"
 <Ages>
     <Row AgeType="AGE_ANTIQUITY" Name="LOC_AGE_ANTIQUITY_NAME" Description="LOC_AGE_ANTIQUITY_DESCRIPTION" PlayerCivilizationDomain="AntiquityAgeCivilizations" DefeatDomain="AntiquityDefeats" VictoryDomain="AntiquityVictories" MapSizeDomain="DistantLandsMapSizes" Banner="age-sel_antiquity_full" SortIndex="10"/>
 </Ages>
@@ -225,7 +225,7 @@ The Exploration Age represents the era of global navigation, colonization, and c
   - **distant-lands/**: Expanded map areas accessible through naval exploration
 
 Example from config.xml:
-``` xml
+``` xml lines icon="file-xml" id="community-reference-modding-reference__89495eab" tag="xml"
 <Ages>
     <Row AgeType="AGE_EXPLORATION" Name="LOC_AGE_EXPLORATION_NAME" Description="LOC_AGE_EXPLORATION_DESCRIPTION" PlayerCivilizationDomain="ExplorationAgeCivilizations" DefeatDomain="ExplorationDefeats" VictoryDomain="ExplorationVictories" MapSizeDomain="DistantLandsMapSizes" Banner="age-sel_exploration_full" SortIndex="20"/>
 </Ages>
@@ -247,7 +247,7 @@ The Modern Age represents industrialization, global conflicts, and technological
   - **diplomacy/**: Enhanced diplomatic options and alliances
 
 Example from config.xml:
-``` xml
+``` xml lines icon="file-xml" id="community-reference-modding-reference__5c1423be" tag="xml"
 <Ages>
     <Row AgeType="AGE_MODERN" Name="LOC_AGE_MODERN_NAME" Description="LOC_AGE_MODERN_DESCRIPTION" PlayerCivilizationDomain="ModernAgeCivilizations" DefeatDomain="ModernDefeats" VictoryDomain="ModernVictories" MapSizeDomain="StandardMapSizes" Banner="age-sel_modern_full" SortIndex="30"/>
 </Ages>
@@ -303,7 +303,7 @@ This file defines the structure of civilizations in the game. Key components inc
 - **Unique Infrastructure**: Special buildings, quarters, and improvements
 
 Example structure:
-``` json
+``` json lines icon="file-code" id="community-reference-modding-reference__8b45088e" tag="json"
 {
   "CivilizationTypes": [
     {
@@ -337,7 +337,7 @@ Key components include:
 - **Civilization Compatibility**: Which civilizations a leader can lead
 
 Example structure:
-``` json
+``` json lines icon="file-code" id="community-reference-modding-reference__f78148cc" tag="json"
 {
   "LeaderTypes": [
     {
@@ -376,7 +376,7 @@ Key components include:
 - **Production Costs**: Resources and turns required
 
 Example structure:
-``` json
+``` json lines icon="file-code" id="community-reference-modding-reference__fa89a1c4" tag="json"
 {
   "UnitTypes": [
     {
@@ -407,7 +407,7 @@ Key components include:
 - **Maintenance Costs**: Ongoing gold or resource costs
 
 Example structure:
-``` json
+``` json lines icon="file-code" id="community-reference-modding-reference__5c360398" tag="json"
 {
   "ConstructibleTypes": [
     {
@@ -455,7 +455,7 @@ In Civilization VII, leaders and civilizations are designed to be mixed and matc
 3. **Geographic Proximity**: Leaders from nearby regions often have higher compatibility
 
 Example pattern from existing game files:
-``` xml
+``` xml lines icon="file-xml" id="community-reference-modding-reference__85ed57e7" tag="xml"
 <LeaderCivilizationBias>
     <Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_ROME" LeaderDomain="StandardLeaders" LeaderType="LEADER_AUGUSTUS" Bias="4" ReasonType="LOC_UNLOCK_PLAY_AS_AUGUSTUS_ROME_TOOLTIP" ChoiceType="LOC_CREATE_GAME_HISTORICAL_CHOICE" />
 </LeaderCivilizationBias>
@@ -486,7 +486,7 @@ This directory contains XML files defining icons for various game elements. When
 - **building-icons.xml**: Building and improvement icons
 
 Example civilization icon definition:
-``` xml
+``` xml lines icon="file-xml" id="community-reference-modding-reference__255f0f67" tag="xml"
 <Row ID="ICON_CIVILIZATION_CUSTOM" Context="Civilizations">
     <Path>path/to/custom_symbol.png</Path>
 </Row>
@@ -542,7 +542,7 @@ Leaders are defined through a set of interrelated files:
 4. **leader_[name]_agendas.xml**: Leader's preferences and dislikes
 
 Example of a leader definition from DLC:
-``` xml
+``` xml lines icon="file-xml" id="community-reference-modding-reference__bb365200" tag="xml"
 <Leaders>
   <Row LeaderType="LEADER_ADA_LOVELACE" Name="LOC_LEADER_ADA_LOVELACE_NAME" InheritFrom="LEADER_DEFAULT" SceneLighting="LEADER_ADA_LOVELACE_LIGHTING"/>
 </Leaders>
@@ -567,7 +567,7 @@ Civilizations are defined through:
 4. **civilization_[name]_buildings.xml**: Unique buildings/infrastructure
 
 Example of a civilization definition from DLC:
-``` xml
+``` xml lines icon="file-xml" id="community-reference-modding-reference__d48563fb" tag="xml"
 <Civilizations>
   <Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" Name="LOC_CIVILIZATION_GREAT_BRITAIN_NAME" Adjective="LOC_CIVILIZATION_GREAT_BRITAIN_ADJECTIVE" StartingTechType="TECH_POTTERY" StartingCivicType="CIVIC_CODE_OF_LAWS" FavoredReligion="RELIGION_PROTESTANTISM"/>
 </Civilizations>
@@ -601,7 +601,7 @@ DLCs show how to properly implement translations for in-game text:
 **File Path:** `<GAME_RESOURCES>/DLC/[name]/text/`
 
 Localization files are organized by language with XML files containing string entries:
-``` xml
+``` xml lines icon="file-xml" id="community-reference-modding-reference__fd8c4ca6" tag="xml"
 <GameData>
   <LocalizedText>
     <Row Tag="LOC_CIVILIZATION_GREAT_BRITAIN_NAME" Language="en_US" Text="Great Britain"/>
@@ -618,7 +618,7 @@ DLCs provide examples of how to package and reference visual assets:
 **File Path:** `<GAME_RESOURCES>/DLC/[name]/icons/`
 
 Icon definitions follow this pattern:
-``` xml
+``` xml lines icon="file-xml" id="community-reference-modding-reference__3da8d007" tag="xml"
 <GameData>
   <IconDefinitions>
     <Row ID="ICON_CIVILIZATION_GREAT_BRITAIN" Size="32" Path="civ_sym_great_britain_32.dds"/>
@@ -680,7 +680,7 @@ The content within DLCs is organized by type:
 
 This official DLC adds several civilizations and leaders across all Ages. The structure is particularly valuable as a reference for modders:
 
-``` xml
+``` xml lines icon="file-xml" id="community-reference-modding-reference__bee224c1" tag="xml"
 <GAME_RESOURCES>/DLC/CrossroadsCollection/
 ├── CrossroadsCollection.modinfo
 ├── package.json
@@ -730,12 +730,12 @@ This DLC demonstrates how to structure a mod that adds content across multiple A
 The correct location for installing mods:
 
 **macOS:**
-``` text
+``` text lines icon="text" id="community-reference-modding-reference__1b1db976" tag="text"
 ~/Library/Application Support/Civilization VII/Mods/
 ```
 
 **Windows:**
-``` text
+``` text lines icon="text" id="community-reference-modding-reference__10129e36" tag="text"
 C:\Users\[Username]\Documents\My Games\Sid Meier's Civilization VII\Mods\
 ```
 
@@ -743,7 +743,7 @@ C:\Users\[Username]\Documents\My Games\Sid Meier's Civilization VII\Mods\
 
 Based on the game's conventions and official DLCs, the following structure is recommended for civilization mods:
 
-``` text
+``` text id="community-reference-modding-reference__1352df63" tag="file-tree" wrap
 your-mod-name/
 ├── your-mod-name.modinfo      # Module definition file
 ├── civilizations/
@@ -769,7 +769,7 @@ This structure aligns with the game's content organization and makes it easier t
 The .modinfo file is a crucial component of any mod, defining its properties, dependencies, and the files it contains.
 
 Example structure:
-``` xml
+``` xml lines icon="file-xml" id="community-reference-modding-reference__facd9600" tag="xml"
 <?xml version="1.0" encoding="utf-8"?>
 <Mod id="your-unique-mod-id" version="1">
   <Properties>

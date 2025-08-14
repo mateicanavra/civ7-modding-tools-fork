@@ -80,7 +80,7 @@ Additionally we'll want to tell the game to restrict those changes to the Antiqu
 
 Your `.modinfo` file should look something like this.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-database-modding__81f71d59" tag="xml"
 <?xml version="1.0" encoding="utf-8"?>
 <Mod id="fxs-new-policies" version="1"
 	xmlns="ModInfo">
@@ -125,7 +125,7 @@ For now our goal here is to **add two new policies.** We'll also want to set the
 
 If making changes with XML, you can always reference the game's XML files to see *exactly* how things are done. But for now, here's the XML we'll need:
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-database-modding__adab8769" tag="xml"
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
     <Types>
@@ -152,7 +152,7 @@ So we're adding to the `Types`, `Traditions`, and  `ProgressionTreeNodeUnlocks` 
 
 Here's **SQL** that's equivalent to the XML from the previous section.
 
-```sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="official-guides-database-modding__74034304" tag="sql"
 INSERT INTO Types
         (Type,                              Kind)
 VALUES  ('TRADITION_FXS_CYLINDER_SEALS',    'KIND_TRADITION'),
@@ -215,7 +215,7 @@ For now:
 1. In the `data` folder create a new `.xml` file. Name it `antiquity-game-effects.xml` (it's easier to use XML over SQL here).
 2. Copy the code in the code block below, paste it into the `antiquity-game-effects.xml`, and save.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-database-modding__b06dbc92" tag="xml"
 <?xml version="1.0" encoding="utf-8"?>
 {/*Note that we're changing `GameEffects`, not `Database` like in other files!*/}
 <GameEffects xmlns="GameEffects">
@@ -252,7 +252,7 @@ We also need to add a new item to our `.modinfo` file that tells the game to loa
 
 The `ActionGroups` section of your `.modinfo` file should look something like this.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-database-modding__a3c90979" tag="xml"
 	<ActionGroups>
 		<ActionGroup id="antiquity-game" scope="game" criteria="antiquity-age-current">
 			<Actions>
@@ -272,7 +272,7 @@ We'll also need to go back to our `antiquity-traditions` XML/SQL file and associ
 **For XML**:
 Add this near the end of the XML file but **before** the closing `Database` tag.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-database-modding__2dac9629" tag="xml"
 	<TraditionModifiers>
 		<Row TraditionType="TRADITION_FXS_CYLINDER_SEALS" ModifierId="FXS_CYLINDER_SEALS_MOD_PALACE_FOOD"/>
 		<Row TraditionType="TRADITION_FXS_CYLINDER_SEALS" ModifierId="FXS_CYLINDER_SEALS_MOD_PALACE_GOLD"/>
@@ -284,7 +284,7 @@ Add this near the end of the XML file but **before** the closing `Database` tag.
 **For SQL:**
 Add this to the end of the file.
 
-```sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="official-guides-database-modding__002f5737" tag="sql"
 INSERT INTO TraditionModifiers
         (TraditionType,                     ModifierId)
 VALUES  ('TRADITION_FXS_CYLINDER_SEALS',    'FXS_CYLINDER_SEALS_MOD_PALACE_FOOD'),
@@ -307,7 +307,7 @@ We also need to modify our `.modinfo` file, so the game knows to load this new f
 
 Here's the excerpt of the modified `ActionGroups` section in the `.modinfo`.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-database-modding__5ece5461" tag="xml"
 	<ActionGroups>
 		<ActionGroup id="antiquity-game" scope="game" criteria="antiquity-age-current">
 			<Actions>
@@ -334,7 +334,7 @@ The game will look up the `Tag` in the Localization database, and retrieve the t
 
 Here's the XML we'll be using to add new text. There is a `Row` for each new tag we want to add. We set the `Tag` and `Language` attributes as needed. Then add a `Text` child element with the new text we want to assign to the tag.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-database-modding__5e5f4a51" tag="xml"
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
     <LocalizedText>
@@ -358,7 +358,7 @@ Here's the XML we'll be using to add new text. There is a `Row` for each new tag
 
 And the equivalent in SQL. We define our `Tag`, `Language`, and `Text` as columns, and provide our rows as a set of values surrounded by parentheses in the same order we initially listed the columns.
 
-```sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="official-guides-database-modding__d5821dcf" tag="sql"
 INSERT OR REPLACE INTO LocalizedText
 	(Tag,	Language,	Text)
 VALUES
@@ -406,7 +406,7 @@ And that's it! That's our social policy mod done! A completed version of it is b
 
 Here are examples of **Color** and **Icon** database files respectively, both in `.xml`. You still use  both `.xml` and `.sql` here though! 
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-database-modding__35524bbb" tag="xml"
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Database>
 	<PlayerColors>
@@ -438,7 +438,7 @@ Here are examples of **Color** and **Icon** database files respectively, both in
 > 
 > When defining new `Colors`, the `Color` entries are used for UI controls, whereas `Color3D` entries are used for the team color on 3D models in game.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-database-modding__7a14f2ab" tag="xml"
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Database>
 	<IconDefinitions>
@@ -457,7 +457,7 @@ Here are examples of **Color** and **Icon** database files respectively, both in
 
 Use the `UpdateColors` and `UpdateIcons` actions to update Colors and Icons respectively.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-database-modding__9a686876" tag="xml"
 	<Actions>
 		<UpdateIcons>
 			<Item>data/modded-icons.sql</Item>
@@ -473,7 +473,7 @@ Not all mods need to modify the FrontEnd/Shell: mostly it'll be mods adding new 
 
 Modifying the FrontEnd database really isn't any different from modifying the Gameplay database. You simply need to change the `ActionGroup`'s scope to `shell`. Though there are a few things to keep in mind.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-database-modding__9769c092" tag="xml"
 	<ActionCriteria>
 		<Criteria id="always">
 			<AlwaysMet></AlwaysMet>

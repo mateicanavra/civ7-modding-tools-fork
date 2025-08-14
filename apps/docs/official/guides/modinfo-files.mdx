@@ -16,7 +16,7 @@ If you're ever in need of references, check out the various `.modinfo` files in 
 
 This is a sample `.modinfo` file. You can copy the code here to use as base for your own `.modinfo` files:
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-modinfo-files__517a4444" tag="xml"
 <?xml version="1.0" encoding="utf-8"?>
 <Mod id="fxs-new-policies" version="1"
 	xmlns="ModInfo">
@@ -99,7 +99,7 @@ Each child `Mod` element should have the following attributes:
 * `title`
 	* This is the name of the mod that this mod will reference on. This should match the `Name` in the `Properties` element of that mod's `.modinfo` file
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-modinfo-files__49c3c8db" tag="xml"
 <Dependencies>
 	<Mod id="fxs-new-policies" title="LOC_MODULE_ANTIQUITY_POLICIES_NAME"/>
 </Dependencies>
@@ -122,7 +122,7 @@ Each child `Mod` element should have the following attributes:
 * `title`
 	* This is the name of the mod that this mod will depend on. This should match the `Name` in the `Properties` element of that mod's `.modinfo` file
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-modinfo-files__6e922d38" tag="xml"
 <References>
 	<Mod id="friedrich-xerxes-alt" title="LOC_MODULE_FRIEDRICH_XERXES_ALT_NAME"/>
 </References>
@@ -136,7 +136,7 @@ The `ActionCriteria` element consists of `Criteria` child elements.
 
 Each criteria must have an `id` property. The `id` must be unique on a per mod basis. So a single mod should not have multiple criteria with the same id; but it may have an id that matches a criteria in another mod without conflict.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-modinfo-files__3fa77505" tag="xml"
 	<ActionCriteria>
 		<Criteria id="antiquity-age-current">
 			<AgeInUse>AGE_ANTIQUITY</AgeInUse>
@@ -187,7 +187,7 @@ You can reference the `Parameters` table in the frontend/shell database for vali
 
 For example, a criterion that checks if the game is set to standard speed would look like this.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-modinfo-files__c1c386af" tag="xml"
 	<ConfigurationValueMatches>
 		<Group>Game</Group>
 		<ConfigurationId>SpeedType</ConfigurationId>
@@ -200,7 +200,7 @@ Almost identical to `ConfigurationValueMatches`, but it instead takes a comma de
 
 For example, a criterion that checks if the game is set to Governor or Viceroy difficulty would look like this.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-modinfo-files__bc5ccb11" tag="xml"
 	<ConfigurationValueContains>
 		<Group>Game</Group>
 		<ConfigurationId>Handicap</ConfigurationId>
@@ -211,7 +211,7 @@ For example, a criterion that checks if the game is set to Governor or Viceroy d
 #### `MapInUse`
 Checks whether the current map type matches the provided value. The value provided should be match the `File` column of the `Maps` table in the frontend database.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-modinfo-files__f1f839ea" tag="xml"
 		<Criteria id="continents-plus">
 			<MapInUse>{base-standard}maps/continents-plus.js</MapInUse>
 		</Criteria>
@@ -234,7 +234,7 @@ This criterion is met when a mod with an `id` matching the provided value is act
 	  
 it can optionally also take a `Version` property. In which case it will check to see if the mod version **MATCHES EXACTLY** before being met. It must be exact. Version `1` will not match version `1.0`.
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-modinfo-files__2e46e89b" tag="xml"
 	<ActionCriteria>
 		<Criteria id="babylon-mod-active">
 			<ModInUse>
@@ -247,7 +247,7 @@ it can optionally also take a `Version` property. In which case it will check to
 
 ## ActionGroups
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-modinfo-files__1ca4072c" tag="xml"
 <ActionGroups>
 	<ActionGroup id="antiquity-game" scope="game" criteria="antiquity-age">
 		<Actions>

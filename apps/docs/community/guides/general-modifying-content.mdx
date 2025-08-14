@@ -44,7 +44,7 @@ When modifying existing content, consider these key principles:
 
 Organize your modification mod with a clear folder structure:
 
-``` xml
+``` xml lines icon="file-xml" id="community-guides-general-modifying-content__be864cdb" tag="xml"
 <GAME_DATA>/Mods/your-mod-name/
 ├── civilization_overrides/   # Modifications to existing civilizations
 ├── leader_overrides/         # Modifications to existing leaders
@@ -61,7 +61,7 @@ Organize your modification mod with a clear folder structure:
 
 The `.modinfo` file defines your mod's metadata and structure. Here's a real example from Sukritact's Inca Rework mod:
 
-``` xml
+``` xml lines expandable icon="file-xml" id="community-guides-general-modifying-content__e52e536d" tag="xml"
 <?xml version="1.0" encoding="utf-8"?>
 <Mod id="sukritacts_inca_rework" version="1" xmlns="ModInfo">
   <Properties>
@@ -133,7 +133,7 @@ Note how this mod uses the `ActionCriteria` to ensure certain modifications only
 
 To modify an existing civilization, you can use either SQL or XML approaches. Many community modders prefer SQL for its efficiency. Here's how Sukritact's Inca Rework mod modifies the Terrace Farm improvement:
 
-``` sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="community-guides-general-modifying-content__33868443" tag="sql"
 -- Remove restrictive terrain requirement
 UPDATE Constructibles
 SET AdjacentTerrain = NULL
@@ -164,7 +164,7 @@ This approach uses SQL UPDATE, DELETE, and INSERT statements to modify existing 
 
 To modify an existing leader, create a file like `leader_overrides/trajan_modifications.xml`:
 
-``` xml
+``` xml lines icon="file-xml" id="community-guides-general-modifying-content__e62f5cb7" tag="xml"
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
   {/*Modify Leader Trait*/}
@@ -202,7 +202,7 @@ To modify an existing leader, create a file like `leader_overrides/trajan_modifi
 
 Here's a real example from the Han Chukonu Rebalance mod showing how to modify an existing unit's stats and functionality:
 
-``` sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="community-guides-general-modifying-content__10dbe1ee" tag="sql" expandable
 -- Update unit properties
 UPDATE Units
 SET Tier="2", Maintenance="1" 
@@ -243,7 +243,7 @@ WHERE TargetType="UNIT_NU";
 
 The mod also adds an entirely new bonus modifier for the unit:
 
-``` sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="community-guides-general-modifying-content__92e60a4c" tag="sql"
 -- Add new Iron resource bonus for the Chu Ko Nu
 INSERT INTO Types ([Type], Kind) VALUES
   ("MOD_IRON_CHU_KO_NU_COMBAT_STRENGTH_TYPE", "KIND_EFFECT");
@@ -271,7 +271,7 @@ This mod demonstrates the "Hybrid Approach" - adjusting numerical values while a
 
 To modify existing buildings, create a file like `building_overrides/building_modifications.xml`:
 
-``` xml
+``` xml lines icon="file-xml" id="community-guides-general-modifying-content__ff1297ef" tag="xml"
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
   {/*Modify Building Yields*/}
@@ -305,7 +305,7 @@ To modify existing buildings, create a file like `building_overrides/building_mo
 
 To modify core gameplay systems, create a file like `gameplay_overrides/gameplay_modifications.xml`:
 
-``` xml
+``` xml lines icon="file-xml" id="community-guides-general-modifying-content__3dc1256c" tag="xml"
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
   {/*Modify Research Costs*/}
@@ -342,7 +342,7 @@ To modify core gameplay systems, create a file like `gameplay_overrides/gameplay
 
 Create localization files in `text_overrides/modified_text.xml`:
 
-``` xml
+``` xml lines icon="file-xml" id="community-guides-general-modifying-content__673bcb37" tag="xml"
 <?xml version="1.0" encoding="utf-8"?>
 <GameData>
   <LocalizedText>
@@ -373,7 +373,7 @@ Create localization files in `text_overrides/modified_text.xml`:
 
 Civilization VII's Age system requires special consideration when modifying content. Sukritact's mods demonstrate best practices:
 
-``` xml
+``` xml lines icon="file-xml" id="community-guides-general-modifying-content__5567860a" tag="xml"
 <ActionCriteria>
   <Criteria id="exploration-age-current">
     <AgeInUse>AGE_EXPLORATION</AgeInUse>
@@ -387,7 +387,7 @@ Civilization VII's Age system requires special consideration when modifying cont
 
 Then in ActionGroups:
 
-``` xml
+``` xml lines icon="file-xml" id="community-guides-general-modifying-content__bc966732" tag="xml"
 <ActionGroup id="game-suk-inca-rework-EXP" scope="game" criteria="exploration-age-current">
   <Actions>
     <UpdateDatabase>
@@ -421,7 +421,7 @@ To use the SQL approach:
 This community mod reworks the Exploration Age Inca civilization:
 
 #### Key Files
-``` xml
+``` xml lines icon="file-xml" id="community-guides-general-modifying-content__af6fb7b0" tag="xml"
 <GAME_DATA>/Mods/sukritacts_inca_rework/
 ├── data/
 │   ├── Suk_Inca_Rework_Constructibles.sql  # Modifies Terrace Farm and Machu Pikchu
@@ -443,7 +443,7 @@ This community mod reworks the Exploration Age Inca civilization:
 This focused mod rebalances the Han civilization's unique unit:
 
 #### Key Files
-``` xml
+``` xml lines icon="file-xml" id="community-guides-general-modifying-content__63441b88" tag="xml"
 <GAME_DATA>/Mods/civmods-han_chukonu_rebalance-38120/
 ├── data/
 │   └── BaseGame_Antiquity.sql  # Unit stat modifications and new Iron bonus

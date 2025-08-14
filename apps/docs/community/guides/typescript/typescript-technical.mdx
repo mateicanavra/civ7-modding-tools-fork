@@ -29,7 +29,7 @@ The TypeScript Modding Tools documentation is divided into three complementary p
 
 The modding toolkit is organized with a clear separation of concerns:
 
-``` text
+``` text id="community-guides-typescript-typescript-technical__097501bb" tag="file-tree" wrap
 civ7-modding-tools/
 ├── src/
 │   ├── builders/        # Builder classes for game entities
@@ -66,7 +66,7 @@ The typical lifecycle of a mod created with this toolkit:
 
 All builder classes extend the `BaseBuilder` class which provides core functionality:
 
-``` typescript
+``` typescript icon="code" id="community-guides-typescript-typescript-technical__437be22e" tag="code-snippet"
 // Simplified BaseBuilder implementation
 export class BaseBuilder {
     constructor(options: BaseBuilderOptions) {
@@ -95,7 +95,7 @@ export class BaseBuilder {
 
 The `CivilizationBuilder` is one of the most complex implementations:
 
-``` typescript
+``` typescript expandable icon="code" id="community-guides-typescript-typescript-technical__5e855252" tag="code-snippet"
 export class CivilizationBuilder extends BaseBuilder {
     civilization: CivilizationNode;
     civilizationTag: TypeNode;
@@ -158,7 +158,7 @@ export class CivilizationBuilder extends BaseBuilder {
 
 The `UnitBuilder` demonstrates how specialized builders are implemented:
 
-``` typescript
+``` typescript icon="code" id="community-guides-typescript-typescript-technical__2eff5f1e" tag="code-snippet"
 export class UnitBuilder extends BaseBuilder {
     unit: UnitNode;
     unitTag: TypeNode;
@@ -206,7 +206,7 @@ The constants in the toolkit are directly mapped from game files to TypeScript e
 
 Constants are organized into categories matching game systems:
 
-``` typescript
+``` typescript icon="code" id="community-guides-typescript-typescript-technical__54e9f656" tag="code-snippet"
 // Example of UNIT_CLASS constants
 export const UNIT_CLASS = {
     RECON: 'RECON',
@@ -229,7 +229,7 @@ To understand how constants are derived from game data, let's compare with actua
 
 1. **CONSTRUCTIBLE_TYPE_TAG** - Maps to `TypeTags` in constructibles.xml:
 
-``` typescript
+``` typescript icon="code" id="community-guides-typescript-typescript-technical__422cba9d" tag="code-snippet"
 // In constants/CONSTRUCTIBLE_TYPE_TAG.ts
 export const CONSTRUCTIBLE_TYPE_TAG = {
     AGELESS: 'AGELESS',
@@ -246,7 +246,7 @@ export const CONSTRUCTIBLE_TYPE_TAG = {
 } as const;
 ```
 
-``` xml
+``` xml lines icon="file-xml" id="community-guides-typescript-typescript-technical__bbe0b6d8" tag="xml"
 {/*In constructibles.xml*/}
 <TypeTags>
     <Row Type="BUILDING_FISHING_QUAY" Tag="FOOD"/>
@@ -260,7 +260,7 @@ export const CONSTRUCTIBLE_TYPE_TAG = {
 
 2. **EFFECT** - Maps to modifier effects defined in the game:
 
-``` typescript
+``` typescript icon="code" id="community-guides-typescript-typescript-technical__f706e380" tag="code-snippet"
 // In constants/EFFECT.ts (simplified)
 export const EFFECT = {
     UNIT_ADJUST_COMBAT_STRENGTH: 'EFFECT_ADJUST_UNIT_COMBAT_STRENGTH',
@@ -272,7 +272,7 @@ export const EFFECT = {
 
 3. **ACTION_GROUP** - Controls when files are loaded:
 
-``` typescript
+``` typescript icon="code" id="community-guides-typescript-typescript-technical__2c02f654" tag="code-snippet"
 // In constants/ACTION_GROUP.ts
 export const ACTION_GROUP = {
     AGE_ANTIQUITY_CURRENT: 'AGE_ANTIQUITY',
@@ -301,7 +301,7 @@ The node system represents the backbone of the XML generation process. Each node
 
 All nodes inherit from a base class that provides XML conversion:
 
-``` typescript
+``` typescript icon="code" id="community-guides-typescript-typescript-technical__2d82ad72" tag="code-snippet"
 export class BaseNode {
     // Converts the node to an XML element
     toXmlElement(): XmlElement {
@@ -314,7 +314,7 @@ export class BaseNode {
 
 The `DatabaseNode` represents a complete database XML file:
 
-``` typescript
+``` typescript icon="code" id="community-guides-typescript-typescript-technical__a9676508" tag="code-snippet"
 export class DatabaseNode extends BaseNode {
     types: TypeNode[];
     units: UnitNode[];
@@ -360,7 +360,7 @@ export class DatabaseNode extends BaseNode {
 
 Each game entity has its own node type:
 
-``` typescript
+``` typescript icon="code" id="community-guides-typescript-typescript-technical__d0c58f4a" tag="code-snippet"
 export class UnitNode extends BaseNode {
     unitType: string;
     baseMoves: number;
@@ -395,7 +395,7 @@ The toolkit generates two primary types of files:
 
 ### XmlFile Implementation
 
-``` typescript
+``` typescript icon="code" id="community-guides-typescript-typescript-technical__3c9a47c3" tag="code-snippet"
 export class XmlFile {
     path: string;
     name: string;
@@ -426,7 +426,7 @@ export class XmlFile {
 
 ### ImportFile Implementation
 
-``` typescript
+``` typescript icon="code" id="community-guides-typescript-typescript-technical__38d3391d" tag="code-snippet"
 export class ImportFile {
     path: string;
     name: string;
@@ -458,7 +458,7 @@ export class ImportFile {
 
 The `Mod` class orchestrates the entire mod generation process:
 
-``` typescript
+``` typescript expandable icon="code" id="community-guides-typescript-typescript-technical__f39c30e7" tag="code-snippet"
 export class Mod {
     id: string;
     version: string;
@@ -507,7 +507,7 @@ To illustrate the complete process, let's walk through the creation of a civiliz
 
 ### 1. Builder Initialization
 
-``` typescript
+``` typescript icon="code" id="community-guides-typescript-typescript-technical__0f7c495c" tag="code-snippet"
 const civilization = new CivilizationBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
     civilization: {
@@ -524,7 +524,7 @@ const civilization = new CivilizationBuilder({
 
 ### 2. Node Creation (Inside Initialize)
 
-``` typescript
+``` typescript icon="code" id="community-guides-typescript-typescript-technical__a1542623" tag="code-snippet"
 initialize() {
     // Create civilization node
     this.civilization = new CivilizationNode({
@@ -556,7 +556,7 @@ initialize() {
 
 ### 3. Binding Related Entities
 
-``` typescript
+``` typescript icon="code" id="community-guides-typescript-typescript-technical__fdf2e4ba" tag="code-snippet"
 bind(entities: BaseBuilder[]) {
     entities.forEach(entity => {
         if (entity instanceof ModifierBuilder) {
@@ -581,7 +581,7 @@ bind(entities: BaseBuilder[]) {
 
 ### 4. File Generation
 
-``` typescript
+``` typescript icon="code" id="community-guides-typescript-typescript-technical__f8afbe46" tag="code-snippet"
 getFiles() {
     // Create database node
     const database = new DatabaseNode({
@@ -607,7 +607,7 @@ getFiles() {
 
 ### 5. Mod Building
 
-``` typescript
+``` typescript icon="code" id="community-guides-typescript-typescript-technical__0f4d35f8" tag="code-snippet"
 // Add to mod
 mod.add([civilization]);
 
@@ -617,7 +617,7 @@ mod.build('./output-directory');
 
 ### 6. Generated XML (Example)
 
-``` xml
+``` xml lines icon="file-xml" id="community-guides-typescript-typescript-technical__ea6d16bd" tag="xml"
 <?xml version="1.0" encoding="utf-8"?>
 <Database>
   <Types>

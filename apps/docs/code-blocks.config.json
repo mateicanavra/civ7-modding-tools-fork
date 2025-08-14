@@ -1,0 +1,37 @@
+{
+	"$schema": "./code-blocks.config.schema.json",
+	"tags": {
+		"file-tree": {
+			"icon": false,
+			"lines": false,
+			"wrap": true,
+			"expandable": false
+		},
+		"shell": {
+			"icon": "terminal",
+			"lines": false,
+			"expandableMinLines": 20
+		},
+		"sql": {
+			"icon": "/icons/icon-code-sql.svg",
+			"lines": true,
+			"expandableMinLines": 30
+		},
+		"xml": {
+			"icon": "file-xml",
+			"lines": true
+		},
+		"code-snippet": {
+			"icon": "code",
+			"lines": false,
+			"expandableMinLines": 40
+		},
+		"code-file": {
+			"icon": "code",
+			"lines": true,
+			"expandableMinLines": 40,
+			"wrap": true
+		}
+	}
+}
+

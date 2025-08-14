@@ -10,7 +10,7 @@ This guide covers how to create custom units using the Civilization VII TypeScri
 
 Here's how to create a custom scout unit:
 
-```typescript
+``` typescript expandable icon="code" id="community-guides-typescript-howto-creating-units__28f79fe5" tag="code-snippet"
 import { 
     ACTION_GROUP_BUNDLE, 
     Mod, 
@@ -88,7 +88,7 @@ When creating a unit, these are the essential components:
 
 ### Setting Advanced Unit Properties
 
-```typescript
+``` typescript icon="code" id="community-guides-typescript-howto-creating-units__99ea5e30" tag="code-snippet"
 // Advanced unit with more properties
 const advancedUnit = new UnitBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
@@ -129,7 +129,7 @@ const advancedUnit = new UnitBuilder({
 
 To use custom art assets for your unit:
 
-```typescript
+``` typescript id="community-guides-typescript-howto-creating-units__cf3ad73f" tag="file-tree" wrap
 import { 
     ImportFileBuilder, 
     UnitBuilder 

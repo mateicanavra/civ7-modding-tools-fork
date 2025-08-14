@@ -31,7 +31,7 @@ The core gameplay database includes hundreds of interrelated tables. Here are so
 
 #### Civilizations
 
-```sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="community-guides-database-schemas__76e3263e" tag="sql"
 CREATE TABLE "Civilizations" (
   "CivilizationType" TEXT NOT NULL,
   "Name" TEXT NOT NULL,
@@ -55,7 +55,7 @@ These tables define civilizations and associate them with traits (abilities). Wh
 
 #### Leaders
 
-```sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="community-guides-database-schemas__b1c23c3d" tag="sql"
 CREATE TABLE "Leaders" (
   "LeaderType" TEXT NOT NULL,
   "Name" TEXT NOT NULL,
@@ -87,7 +87,7 @@ These tables define leaders, their traits, and which civilizations they can lead
 
 #### Units
 
-```sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="community-guides-database-schemas__847e90ef" tag="sql"
 CREATE TABLE "Units" (
   "UnitType" TEXT NOT NULL,
   "Name" TEXT NOT NULL,
@@ -115,7 +115,7 @@ This table defines the base attributes of units. Additional tables like UnitAbil
 
 #### Buildings and Quarters (Districts)
 
-```sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="community-guides-database-schemas__98bc518c" tag="sql"
 CREATE TABLE "Buildings" (
   "BuildingType" TEXT NOT NULL,
   "Name" TEXT NOT NULL,
@@ -154,7 +154,7 @@ This schema is crucial for understanding how to properly package and deploy mods
 
 ### Key Table Structures
 
-```sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="community-guides-database-schemas__0e0d6a97" tag="sql" expandable
 CREATE TABLE Mods(
     'ModRowId' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     'ScannedFileRowId' INTEGER NOT NULL, 
@@ -214,7 +214,7 @@ Icons are a crucial visual component of the game, representing civilizations, un
 
 ### Key Table Structures
 
-```sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="community-guides-database-schemas__19225e8c" tag="sql"
 CREATE TABLE 'Icons' (
     'ID' TEXT NOT NULL,
     'Context' TEXT DEFAULT 'DEFAULT',
@@ -250,7 +250,7 @@ It is particularly important for mods that create custom maps or scenarios.
 
 ### Key Table Structures
 
-```sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="community-guides-database-schemas__c98e61f2" tag="sql" expandable
 CREATE TABLE "Map" (
     "ID" TEXT NOT NULL,
     "Width" INTEGER,
@@ -298,7 +298,7 @@ Proper localization is essential for mods to display text correctly to users in 
 
 ### Key Table Structures
 
-```sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="community-guides-database-schemas__748f8068" tag="sql"
 CREATE TABLE "Languages" (
     "Language" TEXT NOT NULL,
     "Name" TEXT NOT NULL,
@@ -347,7 +347,7 @@ Age-specific schema elements include:
 
 To add a new civilization, you need to work with multiple schema tables:
 
-```xml
+``` xml lines icon="file-xml" id="community-guides-database-schemas__af3069fd" tag="xml"
 {/*Adding a new civilization*/}
 <Civilizations>
     <Row CivilizationType="CIVILIZATION_DACIA" 
@@ -370,7 +370,7 @@ To add a new civilization, you need to work with multiple schema tables:
 
 ### Creating a Leader and Connecting to Civilization
 
-```xml
+``` xml lines icon="file-xml" id="community-guides-database-schemas__59492112" tag="xml"
 {/*Adding a new leader*/}
 <Leaders>
     <Row LeaderType="LEADER_DECEBALUS" 
@@ -402,7 +402,7 @@ To add a new civilization, you need to work with multiple schema tables:
 
 ### Defining a Unique Unit
 
-```xml
+``` xml lines icon="file-xml" id="community-guides-database-schemas__10d0d71f" tag="xml"
 {/*Adding a unique unit*/}
 <Units>
     <Row UnitType="UNIT_DACIA_FALX_WARRIOR" 

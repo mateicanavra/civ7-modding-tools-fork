@@ -28,7 +28,7 @@ The Owner of a modifier is generally determined by which tables the modifier is 
 
 So you can see below multiple modifiers being assigned to Ashoka's leader trait.
 
-```sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="official-guides-the-modifier-system__82612763" tag="sql"
 INSERT INTO TraditionModifiers
 	(
 		TraditionType,
@@ -56,7 +56,7 @@ We know enough at this point to start making a new modifier in earnest, so let's
 
 The code below creates a new ModifierType that combines the `EFFECT_CITY_ADJUST_YIELD` effect and `COLLECTION_PLAYER_CITIES`. So when applied, it will try to **adjust City yields** in **all of a specific Player's Cities**.
 
-```sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="official-guides-the-modifier-system__1433343d" tag="sql"
 INSERT INTO Types
         (Type,                                      Kind)
 VALUES  ('FXS_IRRIGATION_DITCHES_MOD_TYPE',         'KIND_MODIFIER');
@@ -77,7 +77,7 @@ VALUES
 
 We create a new modifier with the `FXS_IRRIGATION_DITCHES_MOD_TYPE` `ModifierType`. We can then assign it to the `TraditionModifiers` (which are the modifiers for Traditions and Policies), so when a player slots the Tradition into their government, the yields of all their cities are modified.
 
-```sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="official-guides-the-modifier-system__575afe66" tag="sql"
 INSERT INTO Modifiers
 	(
 		ModifierId,
@@ -103,7 +103,7 @@ VALUES	(
 
 Neat, but what type of yields are we adjusting here? While a `ModifierType` determines what sort of effect a modifier has, entries in the `ModifierArguments` table control the specifics of the effect. So for example, let's tell the modifier we just made that we want to adjust the yields specifically by 5 Food!
 
-```sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="official-guides-the-modifier-system__2caac0f8" tag="sql"
 INSERT INTO ModifierArguments
 	(
 		ModifierId,
@@ -134,7 +134,7 @@ That's where `RequirementSets` come in! These are sets of `Requirements` that mu
 
 RequirementSets are assigned to Modifiers (using the `RequirementSetID` as a unique identifier) via the optional `OwnerRequirementSetID` and `SubjectRequirementSetID` columns in the `Modifiers` table. A modifier can have one, none, or both of those columns filled as desired.
 
-```sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="official-guides-the-modifier-system__1f217481" tag="sql"
 INSERT INTO Modifiers
 	(
 		ModifierId,
@@ -159,7 +159,7 @@ VALUES
 
 Getting back to our example. We'll need to create a new entry in the `RequirementSets` table, then go back to where we defined our modifier and edit it to include the new Requirement Set (we'll assign it as a `SubjectRequirementSetID` since we want to check whether each city has a Granary).
 
-```sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="official-guides-the-modifier-system__66b52d32" tag="sql"
 INSERT INTO RequirementSets
 	(
 		RequirementSetId,
@@ -172,7 +172,7 @@ VALUES
 	);
 ```
 
-```sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="official-guides-the-modifier-system__d5a037eb" tag="sql"
 INSERT INTO Modifiers
 	(
 		ModifierId,
@@ -195,7 +195,7 @@ VALUES
 
 Now we need to create a requirement and assign it to the Requirement Set we just created.
 
-```sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="official-guides-the-modifier-system__818d8597" tag="sql"
 INSERT INTO Requirements
 	(
 		RequirementId,
@@ -223,7 +223,7 @@ A requirement consists of a `RequirementId` which is a unique identifier for the
 
 You'll also determine the specifics of a modifier via the `RequirementArguments` table. Similar to `ModifierArguments`, the valid `Names` and `Values` will depend on the `RequirementType`. You can look for other requirements that share the same `RequirementType` in the game files or through `gameplay-copy.sqlite` in the Debug folder.
 
-```sql
+``` sql lines icon="/icons/icon-code-sql.svg" id="official-guides-the-modifier-system__1f866b03" tag="sql"
 INSERT INTO RequirementArguments
 	(
 		RequirementId,
@@ -264,7 +264,7 @@ The Modifier System requires managing a **LOT** of different tables. Which is wh
 
 When working with XML, instead of trying to modify multiple different tables in the database, you can instead do this:
 
-```xml
+``` xml lines icon="file-xml" id="official-guides-the-modifier-system__d6b9fc64" tag="xml"
 <?xml version="1.0" encoding="utf-8"?>
 <GameEffects xmlns="GameEffects">
 	<Modifier id="MOD_PERIPLUS_OF_THE_ERYTHRAEAN_SEA_RESOURCE_CAP" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_RESOURCE_CAP">

@@ -14,7 +14,7 @@ Assets are the visual elements of your mod, including icons, portraits, textures
 
 The first step in using custom assets is importing them into your mod. This is done using the `ImportFileBuilder` class:
 
-```typescript
+``` typescript id="community-guides-typescript-howto-assets-and-icons__9bee7990" tag="file-tree" wrap
 import {
     ACTION_GROUP_BUNDLE,
     ImportFileBuilder,
@@ -44,7 +44,7 @@ mod.build('./dist');
 
 Different game elements require different types of assets. Here's how to import various common asset types:
 
-```typescript
+``` typescript id="community-guides-typescript-howto-assets-and-icons__6c865f76" tag="file-tree" wrap
 // Civilization icon (displayed in the civilization selection screen)
 const civIcon = new ImportFileBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
@@ -88,7 +88,7 @@ mod.add([civIcon, leaderPortrait, unitIcon, buildingIcon, traditionIcon]);
 
 After importing assets, you need to reference them in your game elements. Here's how to do that for different elements:
 
-```typescript
+``` typescript expandable id="community-guides-typescript-howto-assets-and-icons__abd04ef3" tag="file-tree" wrap
 import {
     ACTION_GROUP_BUNDLE,
     CivilizationBuilder,
@@ -149,7 +149,7 @@ mod.add([civIcon, unitIcon, civilization, unit]);
 
 When referencing assets, you need to use the correct file path format:
 
-```typescript
+``` typescript icon="code" id="community-guides-typescript-howto-assets-and-icons__76f1ecc3" tag="code-snippet"
 // Standard format for referencing imported assets
 const assetPath = `fs://game/${mod.id}/${assetName}`;
 
@@ -181,7 +181,7 @@ For the best results, follow these guidelines for your assets:
 
 For mods that span multiple ages, you can import age-specific assets:
 
-```typescript
+``` typescript id="community-guides-typescript-howto-assets-and-icons__5ee2e86d" tag="file-tree" wrap
 // Antiquity Age icon
 const antiquityIcon = new ImportFileBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
@@ -221,7 +221,7 @@ const antiquityUnit = new UnitBuilder({
 
 Besides icons, you can import other asset types:
 
-```typescript
+``` typescript id="community-guides-typescript-howto-assets-and-icons__571b26b6" tag="file-tree" wrap
 // Sound effect
 const soundEffect = new ImportFileBuilder({
     actionGroupBundle: ACTION_GROUP_BUNDLE.AGE_ANTIQUITY,
@@ -255,7 +255,7 @@ If you encounter issues with your assets, check these common problems:
 
 Here's a complete example of a mod that uses custom assets:
 
-```typescript
+``` typescript expandable id="community-guides-typescript-howto-assets-and-icons__1bd60933" tag="file-tree" wrap
 import {
     ACTION_GROUP_BUNDLE,
     CivilizationBuilder,
