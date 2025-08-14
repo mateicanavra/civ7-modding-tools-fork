@@ -30,7 +30,7 @@ Key components include:
 This schema defines how mods are structured and loaded into the game. Understanding this schema is crucial for properly packaging and deploying mods.
 
 Key components include:
-``` sql lines icon="/icons/icon-code-sql.svg" id="community-reference-modding-reference__23da942b" tag="sql"
+``` sql lines icon="database" id="community-reference-modding-reference__23da942b" tag="sql"
 -- Primary table of all discovered mods
 CREATE TABLE Mods(
     'ModRowId' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -68,7 +68,7 @@ This schema outlines how mods are discovered, loaded, and applied to the base ga
 This schema defines how the game manages icons for various game elements. For modders, this is essential when adding custom icons for civilizations, units, buildings, or other visual elements.
 
 Key components include:
-``` sql lines icon="/icons/icon-code-sql.svg" id="community-reference-modding-reference__19225e8c" tag="sql"
+``` sql lines icon="database" id="community-reference-modding-reference__19225e8c" tag="sql"
 CREATE TABLE 'Icons' (
     'ID' TEXT NOT NULL,
     'Context' TEXT DEFAULT 'DEFAULT',
@@ -101,7 +101,7 @@ The schema includes tables for icon contexts, definitions, aliases, and chat ico
 This schema defines the structure for map generation, world building, and age transitions. Understanding this schema is important for mods that affect world generation or implement custom map features.
 
 Key components include:
-``` sql lines icon="/icons/icon-code-sql.svg" id="community-reference-modding-reference__34b70ae5" tag="sql"
+``` sql lines icon="database" id="community-reference-modding-reference__34b70ae5" tag="sql"
 CREATE TABLE "Map" (
     "ID" TEXT NOT NULL,
     "Width" INTEGER,

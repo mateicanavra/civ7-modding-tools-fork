@@ -13,7 +13,7 @@
 			"expandableMinLines": 20
 		},
 		"sql": {
-			"icon": "/icons/icon-code-sql.svg",
+			"icon": "database",
 			"lines": true,
 			"expandableMinLines": 30
 		},

@@ -133,7 +133,7 @@ Note how this mod uses the `ActionCriteria` to ensure certain modifications only
 
 To modify an existing civilization, you can use either SQL or XML approaches. Many community modders prefer SQL for its efficiency. Here's how Sukritact's Inca Rework mod modifies the Terrace Farm improvement:
 
-``` sql lines icon="/icons/icon-code-sql.svg" id="community-guides-general-modifying-content__33868443" tag="sql"
+``` sql lines icon="database" id="community-guides-general-modifying-content__33868443" tag="sql"
 -- Remove restrictive terrain requirement
 UPDATE Constructibles
 SET AdjacentTerrain = NULL
@@ -202,7 +202,7 @@ To modify an existing leader, create a file like `leader_overrides/trajan_modifi
 
 Here's a real example from the Han Chukonu Rebalance mod showing how to modify an existing unit's stats and functionality:
 
-``` sql lines icon="/icons/icon-code-sql.svg" id="community-guides-general-modifying-content__10dbe1ee" tag="sql" expandable
+``` sql lines icon="database" id="community-guides-general-modifying-content__10dbe1ee" tag="sql" expandable
 -- Update unit properties
 UPDATE Units
 SET Tier="2", Maintenance="1" 
@@ -243,7 +243,7 @@ WHERE TargetType="UNIT_NU";
 
 The mod also adds an entirely new bonus modifier for the unit:
 
-``` sql lines icon="/icons/icon-code-sql.svg" id="community-guides-general-modifying-content__92e60a4c" tag="sql"
+``` sql lines icon="database" id="community-guides-general-modifying-content__92e60a4c" tag="sql"
 -- Add new Iron resource bonus for the Chu Ko Nu
 INSERT INTO Types ([Type], Kind) VALUES
   ("MOD_IRON_CHU_KO_NU_COMBAT_STRENGTH_TYPE", "KIND_EFFECT");

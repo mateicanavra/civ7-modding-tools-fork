@@ -21,7 +21,9 @@ If you've never touched a code editor, here's some advice on getting started.
 
 You don't necessarily need to have coded before to make a mod. The most important languages to know, XML and SQL, are simple enough to parse even if you've not worked with them before if you're patient and observant.
 
-#### XML
+<AccordionGroup>
+  <Accordion title="XML" icon="file-xml">
+You'll likely find **XML** simple enough to understand even without prior experience. Look at the sample code and example mods and examine their structure. The first line is always an `XML Declaration`. Afterwards, every opening `<tag>` has a closing `</tag>` or is self-closing like this: `<tag/>`. A pair of tags or a self-closing tag is called an `element`. Elements can have children (additional elements nested between the opening and closing tags), and attributes, like so `<tag Attribute="Value"></tag>`.
 
 ``` xml lines icon="file-xml" id="official-guides-getting-started__269cc8b7" tag="xml"
 <?xml version="1.0" encoding="utf-8"?>
@@ -37,14 +39,14 @@ You don't necessarily need to have coded before to make a mod. The most importan
 </Mod>
 ```
 
-You'll likely find **XML** simple enough to understand even without prior experience. Look at the sample code and example mods and examine their structure. The first line is always an `XML Declaration`. Afterwards, every opening `<tag>` has a closing `</tag>` or is self-closing like this: `<tag/>`. A pair of tags or a self-closing tag is called an `element`. Elements can have children (additional elements nested between the opening and closing tags), and attributes, like so `<tag Attribute="Value"></tag>`.
-
 Whitespace (the empty space between elements) does not matter. However, it’s good practice to structure the code in a way that makes it easy to read.
 
 Just make sure everything is closed properly, and that the structure matches the examples or what you find in the game files.
-#### SQL
+</Accordion>
+<Accordion title="SQL" icon="database">
+**SQL** is more complicated, but you probably can also get pretty far just by copying the structure of the code in the example mods and game files.
 
-``` sql lines icon="/icons/icon-code-sql.svg" id="official-guides-getting-started__e473d263" tag="sql"
+``` sql lines icon="database" id="official-guides-getting-started__e473d263" tag="sql"
 INSERT INTO Types
         (Type,                              Kind)
 VALUES  ('TRADITION_FXS_CYLINDER_SEALS',    'KIND_TRADITION');
@@ -64,30 +66,36 @@ VALUES	(
 		);
 ```
 
-**SQL** is more complicated, but you probably can also get pretty far just by copying the structure of the code in the example mods and game files.
 
 The core of SQL are `statements`, which generally begin with an instruction (like `INSERT INTO`), and always end with a semicolon `;`.  Whitespace doesn't matter so long as the words are properly separated. Play attention to the commas and semicolons! Mixing them up will break the code!
-
-#### JavaScript
+</Accordion>
+<Accordion title="JavaScript" icon="code">
 
 **JavaScript** is a programming language, and you'll likely not be able to learn it just by reading example code. You don't need to know JavaScript to start modding, and you won't need it at all for most mods that don't change the game's UI.
 
 Luckily for those of you who do want to make UI mods or more complex gameplay mods, as the most important language of the internet, there are plenty of resources out there to help you learn JavaScript! Find them online to learn the basics if you want to jump into UI modding or gameplay scripting.
+</Accordion>
+</AccordionGroup>
 
 # Setting Up
-## Tools
 
+<Tabs>
+<Tab title="Tools" icon="wrench">
 While *theoretically* you can make a mod with just Windows Notepad, it'll be easier with the correct tools. 
+	<Card title="Code Editor" icon="code" href="https://code.visualstudio.com/" cta="Download Visual Studio Code" arrow="true">
+			You'll want a text editor that is geared towards code. **Visual Studio Code** (also known as **VS Code**) is a good option for this.
+	</Card>
+	
+	<Card title="Civilization VII Modding SDK" icon="code" href="https://steamcommunity.com/app/3688890" cta="Download the Modding SDK" arrow="true">
+		If you're looking at this documentation, you probably have this already! You'll want the Steam Workshop Uploader to be able to upload mods to the Steam Workshop; and FireTuner, which is a debugging tool that lets you run Javascript commands, and provides access to a UI that functions as an Ingame editor to help you debug your mods.
+	</Card>
 
-1. **Code Editor**: You'll want a text editor that is geared towards code. **Visual Studio Code** (also known as **VS Code**) is a good option for this.
-   
-2. **Civilization VII Modding SDK**: If you're looking at this documentation, you probably have this already! You'll want the Steam Workshop Uploader to be able to upload mods to the Steam Workshop; and FireTuner, which is a debugging tool that lets you run Javascript commands, and provides access to a UI that functions as an Ingame editor to help you debug your mods.
-   
-   You can get the Modding SDK via Steam.
-   
-3. **(Optional) SQLite Database Browser**: A tool to view the game's debug database may help you understand what is going on and visualise what data is available to work with. You **WON'T** need this for your first few mods, but it can be helpful as begin making more complex mods.
-## Important Folders
+	<Card title="SQLite Database Browser" icon="database" href="https://github.com/beekeeper-studio/beekeeper-studio/" cta="Download SQLite Database Browser" arrow="true">
+		A tool to view the game's debug database may help you understand what is going on and visualise what data is available to work with. You **WON'T** need this for your first few mods, but it can be helpful as begin making more complex mods.
+	</Card>
 
+</Tab>
+<Tab title="Important Folders" icon="folder">
 There are a couple of folders you'll probably want to bookmark.
 
 First is the folder where you've installed the game. Mods are structured very similarly to how the game itself is set up, so if you're ever unsure how to do this or that, you often can just reference how the game or a DLC does things.
@@ -114,6 +122,10 @@ On **Linux/Steam Deck**:
 `~/My Games/Sid Meier's Civilization VII/`
 
 Create a `Mods` folder there if one doesn't already exist. This is where you can install the mods you create.
+
+</Tab>
+<Tab title="Settings" icon="gear">
+
 ## Settings
 
 There are a couple of settings that I recommend changing. These setting will make life easier for you as a modder, it'll give you access to tools and information you would not otherwise have, and they're set and forget! So let's change them now.
@@ -148,6 +160,10 @@ CopyDatabasesToDisk 1
    This will allow you to use Google Chrome (it's buggy with other browsers) to inspect the HTML, CSS, and JavaScript used by the game's UI as it's running.
 5. Set `UIFileWatcher` to `1`
    This will tell the game to reload already loaded UI files as you edit them, so you don't have to restart the game to make UI changes.
+
+</Tab>
+</Tabs>
+
 # Your First Mod
 
 Let's make your first mod! In the `Mods` folder, create a new empty folder. Name it what you want. Then create a new empty file in that folder. You can also name it what you want, but make sure it has the `.modinfo` file extension.
@@ -179,6 +195,8 @@ Congratulations! You've just created your first mod. It doesn't *do* anything ye
 ![](/civ7-official/modding/guides/images/AddOns.png)
 
 What you've just done is created a `.modinfo` file. They are the crux of all mods. They tell the game what files to load and what to do with them. They tell the game how your mod interacts with DLC and other mods.
+
+## Wrapping Up
 
 A couple of things to note about our `.modinfo` file.
 

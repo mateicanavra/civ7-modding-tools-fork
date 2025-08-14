@@ -3,6 +3,13 @@
   "name": "Civ7 Modding Tools",
   "theme": "mint",
   "favicon": "public/favicon.svg",
+  "logo": "public/logo.svg",
+  "navbar": {
+    "primary": {
+      "type": "github",
+      "href": "https://github.com/mateicanavra/civ7-modding-tools-fork"
+    }
+  },
   "colors": {
     "primary": "#E3BB3C",
     "light": "#FAF5E8",
@@ -15,14 +22,18 @@
       "dark": "#E3BB3C"
     }
   },
+  "contextual": {
+    "options": ["copy", "view", "chatgpt", "claude", "perplexity", "mcp", "cursor", "vscode"]
+  },
+  "search": {
+    "prompt": "How do I create a new civilization?"
+  },
   "navigation": {
     "groups": [
       {
         "group": "Overview",
         "icon": "house",
-        "pages": [
-          "index"
-        ]
+        "pages": ["index"]
       },
       {
         "group": "Official",
@@ -35,10 +46,44 @@
             "pages": [
               "official/guides/getting-started",
               "official/guides/guide-index",
-              "official/guides/database-modding",
-              "official/guides/the-modifier-system",
-              "official/guides/narrative-events",
-              "official/guides/modinfo-files"
+              {
+                "group": "Database Modding",
+                "icon": "database",
+                "pages": [
+                  "official/guides/database-modding-fundamentals",
+                  "official/guides/database-modding-gameplay",
+                  "official/guides/database-modding-localization-icons",
+                  "official/guides/database-modding-frontend-debugging"
+                ]
+              },
+              {
+                "group": "Modifier System",
+                "icon": "sliders",
+                "pages": [
+                  "official/guides/the-modifier-system-concepts",
+                  "official/guides/the-modifier-system-modifiers",
+                  "official/guides/the-modifier-system-requirements"
+                ]
+              },
+              {
+                "group": "Narrative Events",
+                "icon": "message",
+                "pages": [
+                  "official/guides/narrative-events-basics",
+                  "official/guides/narrative-events-creation",
+                  "official/guides/narrative-events-rewards",
+                  "official/guides/narrative-events-discoveries"
+                ]
+              },
+              {
+                "group": ".modinfo Files",
+                "icon": "file-code",
+                "pages": [
+                  "official/guides/modinfo-files-overview",
+                  "official/guides/modinfo-files-structure",
+                  "official/guides/modinfo-files-actions"
+                ]
+              }
             ]
           },
           {

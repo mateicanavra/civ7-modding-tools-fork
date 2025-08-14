@@ -1,0 +1,90 @@
+---
+title: "Modifiers and arguments"
+description: "Define ModifierTypes, attach to entities, and set ModifierArguments."
+---
+
+## The ModifierType
+
+The Subject, as well as what exactly a modifier does, are determined by the `ModifierType`.
+
+A `ModifierType` is a combination of an `EffectType` and a `CollectionType`. The Effect type determines what it does, and the collection determines who it affects.
+
+We know enough at this point to start making a new modifier in earnest, so let's create a modifier called "Irrigation Ditches" as an example, to use with policy card of the same name.
+
+The code below creates a new ModifierType that combines the `EFFECT_CITY_ADJUST_YIELD` effect and `COLLECTION_PLAYER_CITIES`. So when applied, it will try to **adjust City yields** in **all of a specific Player's Cities**.
+
+``` sql lines icon="database" id="official-guides-the-modifier-system-modifiers__d1cfa420" tag="sql"
+INSERT INTO Types
+        (Type,                                      Kind)
+VALUES  ('FXS_IRRIGATION_DITCHES_MOD_TYPE',         'KIND_MODIFIER');
+
+INSERT INTO DynamicModifiers
+    (
+        ModifierType,
+        CollectionType,
+        EffectType
+    )
+VALUES
+    (
+        'FXS_IRRIGATION_DITCHES_MOD_TYPE',
+        'COLLECTION_PLAYER_CITIES',
+        'EFFECT_CITY_ADJUST_YIELD'
+    );
+```
+
+We create a new modifier with the `FXS_IRRIGATION_DITCHES_MOD_TYPE` `ModifierType`. We can then assign it to the `TraditionModifiers` (which are the modifiers for Traditions and Policies), so when a player slots the Tradition into their government, the yields of all their cities are modified.
+
+``` sql lines icon="database" id="official-guides-the-modifier-system-modifiers__1ea99e3b" tag="sql"
+INSERT INTO Modifiers
+    (
+        ModifierId,
+        ModifierType
+    )
+VALUES
+    (
+        'FXS_IRRIGATION_DITCHES_MODIFIER',
+        'FXS_IRRIGATION_DITCHES_MOD_TYPE'
+    );
+
+INSERT INTO TraditionModifiers
+        (
+            TraditionType,
+            ModifierId
+        )
+VALUES    (
+            'TRADITION_FXS_IRRIGATION_DITCHES',
+            'FXS_IRRIGATION_DITCHES_MODIFIER'
+        );
+```
+
+## ModifierArguments
+
+Neat, but what type of yields are we adjusting here? While a `ModifierType` determines what sort of effect a modifier has, entries in the `ModifierArguments` table control the specifics of the effect. So for example, let's tell the modifier we just made that we want to adjust the yields specifically by 5 Food!
+
+``` sql lines icon="database" id="official-guides-the-modifier-system-modifiers__e7830193" tag="sql"
+INSERT INTO ModifierArguments
+    (
+        ModifierId,
+        Name,
+        Value
+    )
+VALUES
+    (
+        'FXS_IRRIGATION_DITCHES_MODIFIER',
+        'YieldType',
+        'YIELD_FOOD'
+    ),
+    (
+        'FXS_IRRIGATION_DITCHES_MODIFIER',
+        'Amount',
+        5
+    );
+```
+
+`ModifierArguments` consist of a `Name`, a `Value`, and the `ModifierId` of the modifier it controls. Which argument Names are available will vary based on the `EffectType`, and the easiest way to figure that out is to look for other modifiers that share the same `EffectType` in the game files or through `gameplay-copy.sqlite` in the Debug folder.
+
+Putting this all together we have a modifier attached to a `TRADITION_FXS_IRRIGATION_DITCHES` tradition—which technically still needs to be made—that grants +5 Food per turn to all of a specific player's cities.
+
+Continue to: [Modifier System — Requirements and GameEffects XML](/official/guides/the-modifier-system-requirements)
+
+

@@ -1,0 +1,257 @@
+---
+title: "Gameplay changes"
+description: "How to load XML/SQL via .modinfo, add entries, and view changes."
+---
+
+# Modifying the Gameplay Database
+
+When we add something new to the game (whether it be a building, a unit, a civ, a policy, etc.), we'll want to add that information to the game/gameplay database. In this example, we'll be adding new Social Policies in the Antiquity Age.
+
+**To make changes to any database, we create a new `.xml` or `.sql` file to contain our changes, then use the `.modinfo` file to tell the game to load that file.**
+
+1. Make new mod with a `.modinfo` file if you don't have one already (see the [Getting Started](/official/guides/getting-started) page if you're not sure how).
+2. Create a folder in the the same place as the `.modinfo` file. Name it `data`.
+3. Depending on whether you want to use XML or SQL, create a file named `antiquity-traditions.xml` or `antiquity-traditions.sql` in the `data` folder. 
+
+> **Note:** 
+> We'll be making specifically named folders and files in this guide. **I recommend using the same names and folder structure so you can easily follow along.**
+> 
+> However, this specific naming and structuring scheme is not required by mods to function, and in the future, you can structure and name things in your mod folder the way you want. Best to stay organised though!
+
+## Loading our new file with the .modinfo file
+
+We'll want to modify our `.modinfo` file so that the game knows to load the `antiquity-traditions.xml`/`antiquity-traditions.sql` file we made. There's going to be a bunch of `.modinfo` terminology here, you don't need to worry too much about it for this process, and we'll have sample code so you can see what we're doing in this guide as well. But if you want to learn more about `.modinfo` files, you can find out more in the ["modinfo Files"](/official/guides/modinfo-files) document.
+
+To tell the game to load our new `antiquity-traditions.xml`/`antiquity-traditions.sql` file, make these changes to the `.modinfo` file:
+
+1. Add a new `ActionGroup` to the `ActionGroups` section with `game` as the scope. Give it a unique ID.
+2. Add an `UpdateDatabase` action to load the new `.xml`/`.sql` file. This basically tells the game to update the gameplay database with our new file if the mod is active.
+3. Add an `Item` to the `UpdateDatabase` action. Set its value to the path to the  `antiquity-traditions.xml` or `antiquity-traditions.sql` file.
+
+Additionally we'll want to tell the game to restrict those changes to the Antiquity Age.
+
+1. Add a new `Criteria` to the `ActionCriteria` section. Give it a unique ID.
+2. Add an `AgeInUse` criterion. Set its value to `AGE_ANTIQUITY`.
+3. Assign the `Criteria` we made to the `ActionGroup` we made in the previous step.
+    * We do this by giving the `ActionGroup`  a `criteria` attribute with the unique ID from our newly created `Criteria` as the value
+
+Your `.modinfo` file should look something like this.
+
+``` xml lines icon="file-xml" id="official-guides-database-modding-gameplay__2d1512fa" tag="xml"
+<?xml version="1.0" encoding="utf-8"?>
+<Mod id="fxs-new-policies" version="1"
+    xmlns="ModInfo">
+    <Properties>
+        <Name>Antiquity Policies</Name>
+        <Description>Adds new policies to the Antiquity Age</Description>
+        <Authors>Firaxis</Authors>
+        <AffectsSavedGames>1</AffectsSavedGames>
+    </Properties>
+    <Dependencies>
+    </Dependencies>
+    <ActionCriteria>
+        <Criteria id="antiquity-age-current">
+            <AgeInUse>AGE_ANTIQUITY</AgeInUse>
+        </Criteria>
+    </ActionCriteria>
+    <ActionGroups>
+        <ActionGroup id="antiquity-game" scope="game" criteria="antiquity-age-current">
+            <Actions>
+                <UpdateDatabase>
+                    <Item>data/antiquity-traditions.xml</Item>
+                </UpdateDatabase>
+            </Actions>
+        </ActionGroup>
+    </ActionGroups>
+ </Mod>
+```
+
+The game will now load our `.xml`/`.sql` file, provided our mod is active on game setup, and we're playing in the Antiquity Age.
+
+> **Warning:** 
+> .modinfo files are only loaded on booting up Civilization VII! If you've made any changes to a .modinfo file, you'll need to completely exit the game if it's already running, then start it up again!
+
+## Making changes with XML/SQL
+
+The specific parts of the Database we need to modify will always vary depending on our goals. If you're not sure what to do or how to do it, you can always reference the game's XML. So if you want to add a new building, you can search for "Granary" in the game's files and use those results as a guide. See the Browsing game data section for more information for how to look through the game's files.
+
+For now our goal here is to **add two new policies.** We'll also want to set them to unlock with the Chiefdom civic.
+
+> **Important:** 
+> For the sake of this guide, please note that Policies and Traditions are both called "Traditions" in the database. So while we are adding new policies, we'll be working with a lot of tags and tables that say "Traditions".
+
+### If working with XML
+
+If making changes with XML, you can always reference the game's XML files to see *exactly* how things are done. But for now, here's the XML we'll need:
+
+``` xml lines icon="file-xml" id="official-guides-database-modding-gameplay__4f75afbb" tag="xml"
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <Types>
+        <Row Type="TRADITION_FXS_CYLINDER_SEALS" Kind="KIND_TRADITION"/>
+        <Row Type="TRADITION_FXS_ORACLE_BONES" Kind="KIND_TRADITION"/>
+    </Types>
+    <Traditions>
+        <Row TraditionType="TRADITION_FXS_CYLINDER_SEALS" Name="LOC_TRADITION_FXS_CYLINDER_SEALS_NAME" Description="LOC_TRADITION_FXS_CYLINDER_SEALS_DESCRIPTION"/>
+        <Row TraditionType="TRADITION_FXS_ORACLE_BONES" Name="LOC_TRADITION_FXS_ORACLE_BONES_NAME" Description="LOC_TRADITION_FXS_ORACLE_BONES_DESCRIPTION"/>
+    </Traditions>
+    <ProgressionTreeNodeUnlocks>
+        <Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAIN_CHIEFDOM" TargetKind="KIND_TRADITION" TargetType="TRADITION_FXS_CYLINDER_SEALS" UnlockDepth="1"/>
+        <Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAIN_CHIEFDOM" TargetKind="KIND_TRADITION" TargetType="TRADITION_FXS_ORACLE_BONES" UnlockDepth="1"/>
+    </ProgressionTreeNodeUnlocks>
+ </Database>
+```
+
+So we're adding to the `Types`, `Traditions`, and  `ProgressionTreeNodeUnlocks` tables in the database. Each entry into the table is a separate `Row`, with their columns (such as `TraditionType` or `TargetKind`) defined as separate attributes in those `Rows`.
+
+> **Note:** 
+> While the game's XML files are a good place to reference what attributes you might need to add, they aren't an exhaustive list. Using a SQLite Database Browser to open up the debug gameplay database, will give you a much better idea of all the options available to you.
+
+### if working with SQL
+
+Here's **SQL** that's equivalent to the XML from the previous section.
+
+``` sql lines icon="database" id="official-guides-database-modding-gameplay__74034304" tag="sql"
+INSERT INTO Types
+        (Type,                              Kind)
+VALUES  ('TRADITION_FXS_CYLINDER_SEALS',    'KIND_TRADITION'),
+        ('TRADITION_FXS_ORACLE_BONES',      'KIND_TRADITION');
+
+INSERT INTO Traditions
+        (TraditionType,                     Name,                                        Description)
+VALUES  ('TRADITION_FXS_CYLINDER_SEALS',    'LOC_TRADITION_FXS_CYLINDER_SEALS_NAME',     'LOC_TRADITION_FXS_CYLINDER_SEALS_DESCRIPTION'),
+        ('TRADITION_FXS_ORACLE_BONES',      'LOC_TRADITION_FXS_ORACLE_BONES_NAME',       'LOC_TRADITION_FXS_ORACLE_BONES_DESCRIPTION');
+
+INSERT INTO ProgressionTreeNodeUnlocks
+        (
+            ProgressionTreeNodeType,
+            TargetKind,
+            TargetType,
+            UnlockDepth   
+        )
+VALUES  (
+            'NODE_CIVIC_AQ_MAIN_CHIEFDOM',
+            'KIND_TRADITION',
+            'TRADITION_FXS_CYLINDER_SEALS',
+            1
+        ),
+        (
+            'NODE_CIVIC_AQ_MAIN_CHIEFDOM',
+            'KIND_TRADITION',
+            'TRADITION_FXS_ORACLE_BONES',
+            1
+        );
+```
+
+The structure is different from XML. You state which table you're trying to `INSERT INTO`; define the various columns you need, then each new row is a set of values surrounded by parentheses in the same order you initially listed the columns.
+
+We're adding to the `Types`, `Traditions`, and  `ProgressionTreeNodeUnlocks` tables in the database. So we have three separate statements, one for each of those tables, each adding two values, one for each for our new Policies.
+
+The syntax can be rather strict, so you'll get errors if you put a comma where you needed a semicolon for example. But SQL is a very powerful language with many more features! There are a lot of resources online about how you can use SQL queries to interact with databases in general that are applicable to modding Civ as well!
+
+Unlike working with XML, you won't be able to use the game files as a direct 1-1 reference, but you can still use those files to figure out which table you need to `INSERT INTO`, as well as what columns are needed.
+
+## Viewing our changes
+
+If you've set things up right, after booting up the game, and after ensuring that the mod is enabled, you'll be able to start a new game in the Antiquity Age, and our new Policies should appear on the Chiefdom civic!
+
+![](/civ7-official/modding/guides/images/NewPolicies_1.png)
+
+> **Warning:**  It's not working! Help!
+> Don't panic! It's probably a small typo somewhere. Unfortunately those little details do matter. Double check your `.modinfo` and `.xml` files to make sure your tags are properly closed. If you're using SQL, make sure you aren't missing a quotation mark, a comma, semicolon, or a parenthesis somewhere!
+> 
+> In the `Logs` folder next to your `Mods` folder, you can also open the `Database.log` file with a text editor, and look over it to see if there's any indication of what went wrong.
+> 
+> See the Debugging errors section for more info.
+
+## Adding Game Effects
+
+Neat! Now we have two new policies in the game. But do they do anything yet?
+
+Unfortunately no. For that we'll need Modifiers, which is *technically* just making more Gameplay Database changes, but Modifiers are also a system unto itself. Check out the [Modifier System](/official/guides/the-modifier-system) article for more information.
+
+For now:
+
+1. In the `data` folder create a new `.xml` file. Name it `antiquity-game-effects.xml` (it's easier to use XML over SQL here).
+2. Copy the code in the code block below, paste it into the `antiquity-game-effects.xml`, and save.
+
+``` xml lines icon="file-xml" id="official-guides-database-modding-gameplay__83536044" tag="xml"
+<?xml version="1.0" encoding="utf-8"?>
+{/*Note that we're changing `GameEffects`, not `Database` like in other files!*/}
+<GameEffects xmlns="GameEffects">
+    <Modifier id="FXS_CYLINDER_SEALS_MOD_PALACE_FOOD" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+        <Argument name="YieldType">YIELD_FOOD</Argument>
+        <Argument name="Amount">2</Argument>
+        <Argument name="ConstructibleType">BUILDING_PALACE</Argument>
+    </Modifier>
+    <Modifier id="FXS_CYLINDER_SEALS_MOD_PALACE_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+        <Argument name="YieldType">YIELD_GOLD</Argument>
+        <Argument name="Amount">3</Argument>
+        <Argument name="ConstructibleType">BUILDING_PALACE</Argument>
+        <String context="Description">LOC_TRADITION_FXS_CYLINDER_SEALS_DESCRIPTION</String>
+    </Modifier>
+    <Modifier id="FXS_ORACLE_BONES_MOD_PALACE_HAPPINESS" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+        <Argument name="YieldType">YIELD_HAPPINESS</Argument>
+        <Argument name="Amount">3</Argument>
+        <Argument name="ConstructibleType">BUILDING_PALACE</Argument>
+    </Modifier>
+    <Modifier id="FXS_ORACLE_BONES_MOD_PALACE_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+        <Argument name="YieldType">YIELD_CULTURE</Argument>
+        <Argument name="Amount">1</Argument>
+        <Argument name="ConstructibleType">BUILDING_PALACE</Argument>
+        <String context="Description">LOC_TRADITION_FXS_ORACLE_BONES_DESCRIPTION</String>
+    </Modifier>
+ </GameEffects>
+```
+
+We also need to add a new item to our `.modinfo` file that tells the game to load the new `antiquity-game-effects.xml`
+
+1. Add a new `Item` to the `UpdateDatabase` section of the `.modinfo` file.
+2. Set the item to the path to the `antiquity-game-effects.xml` file, which should be `data/antiquity-game-effects.xml`
+
+The `ActionGroups` section of your `.modinfo` file should look something like this.
+
+``` xml lines icon="file-xml" id="official-guides-database-modding-gameplay__2124bded" tag="xml"
+    <ActionGroups>
+        <ActionGroup id="antiquity-game" scope="game" criteria="antiquity-age-current">
+            <Actions>
+                <UpdateDatabase>
+                    <Item>data/antiquity-traditions.xml</Item>
+                    <Item>data/antiquity-game-effects.xml</Item>
+                </UpdateDatabase>
+            </Actions>
+        </ActionGroup>
+    </ActionGroups>
+```
+
+-----
+
+We'll also need to go back to our `antiquity-traditions` XML/SQL file and associate these new modifiers with our previously created policy cards.
+
+**For XML**:
+Add this near the end of the XML file but **before** the closing `Database` tag.
+
+``` xml lines icon="file-xml" id="official-guides-database-modding-gameplay__1cf6e77f" tag="xml"
+    <TraditionModifiers>
+        <Row TraditionType="TRADITION_FXS_CYLINDER_SEALS" ModifierId="FXS_CYLINDER_SEALS_MOD_PALACE_FOOD"/>
+        <Row TraditionType="TRADITION_FXS_CYLINDER_SEALS" ModifierId="FXS_CYLINDER_SEALS_MOD_PALACE_GOLD"/>
+        <Row TraditionType="TRADITION_FXS_ORACLE_BONES" ModifierId="FXS_ORACLE_BONES_MOD_PALACE_HAPPINESS"/>
+        <Row TraditionType="TRADITION_FXS_ORACLE_BONES" ModifierId="FXS_ORACLE_BONES_MOD_PALACE_CULTURE"/>
+    </TraditionModifiers>
+```
+
+**For SQL:**
+Add this to the end of the file.
+
+``` sql lines icon="database" id="official-guides-database-modding-gameplay__002f5737" tag="sql"
+INSERT INTO TraditionModifiers
+        (TraditionType,                     ModifierId)
+VALUES  ('TRADITION_FXS_CYLINDER_SEALS',    'FXS_CYLINDER_SEALS_MOD_PALACE_FOOD'),
+        ('TRADITION_FXS_CYLINDER_SEALS',    'FXS_CYLINDER_SEALS_MOD_PALACE_GOLD'),
+        ('TRADITION_FXS_ORACLE_BONES',      'FXS_ORACLE_BONES_MOD_PALACE_HAPPINESS'),
+        ('TRADITION_FXS_ORACLE_BONES',      'FXS_ORACLE_BONES_MOD_PALACE_CULTURE');
+```
+
+Our new social policies should now actually have effects matching our descriptions.
+
+

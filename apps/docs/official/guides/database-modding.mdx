@@ -152,7 +152,7 @@ So we're adding to the `Types`, `Traditions`, and  `ProgressionTreeNodeUnlocks` 
 
 Here's **SQL** that's equivalent to the XML from the previous section.
 
-``` sql lines icon="/icons/icon-code-sql.svg" id="official-guides-database-modding__74034304" tag="sql"
+``` sql lines icon="database" id="official-guides-database-modding__74034304" tag="sql"
 INSERT INTO Types
         (Type,                              Kind)
 VALUES  ('TRADITION_FXS_CYLINDER_SEALS',    'KIND_TRADITION'),
@@ -284,7 +284,7 @@ Add this near the end of the XML file but **before** the closing `Database` tag.
 **For SQL:**
 Add this to the end of the file.
 
-``` sql lines icon="/icons/icon-code-sql.svg" id="official-guides-database-modding__002f5737" tag="sql"
+``` sql lines icon="database" id="official-guides-database-modding__002f5737" tag="sql"
 INSERT INTO TraditionModifiers
         (TraditionType,                     ModifierId)
 VALUES  ('TRADITION_FXS_CYLINDER_SEALS',    'FXS_CYLINDER_SEALS_MOD_PALACE_FOOD'),
@@ -358,7 +358,7 @@ Here's the XML we'll be using to add new text. There is a `Row` for each new tag
 
 And the equivalent in SQL. We define our `Tag`, `Language`, and `Text` as columns, and provide our rows as a set of values surrounded by parentheses in the same order we initially listed the columns.
 
-``` sql lines icon="/icons/icon-code-sql.svg" id="official-guides-database-modding__d5821dcf" tag="sql"
+``` sql lines icon="database" id="official-guides-database-modding__d5821dcf" tag="sql"
 INSERT OR REPLACE INTO LocalizedText
 	(Tag,	Language,	Text)
 VALUES

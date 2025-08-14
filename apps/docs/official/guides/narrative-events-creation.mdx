@@ -1,0 +1,169 @@
+---
+title: "Creating events and requirements"
+description: "Define NarrativeStories, link events, and set requirements."
+---
+
+## Creating an Event
+
+### NarrativeStories
+
+Let's create a Pop-up with two choices. For this we'll need to make three separate Narrative Events. Then we link two of them to the third so they appear as buttons.
+
+``` xml lines expandable icon="file-xml" id="official-guides-narrative-events-creation__ed53a650" tag="xml"
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <Types>
+        <Row Type="EVENT_A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EVENT_B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EVENT_C" Kind="KIND_NARRATIVE_STORY"/>
+    </Types>
+    <NarrativeStories>
+        <Row
+            NarrativeStoryType="EVENT_A"
+            Name="LOC_EVENT_A_NAME"
+            Description="LOC_EVENT_A_DESCRIPTION"
+            Completion="LOC_EVENT_A_COMPLETION"
+            StoryTitle="LOC_EVENT_A_STORYTITLE"
+            Age="AGE_ANTIQUITY"
+            Activation="REQUISITE"
+            ActivationRequirementSetId="REQSET_EVENT_A_NARRATIVE_REQUISITE"
+            RequirementSetId="REQSET_EVENT_A_NARRATIVE"
+            UIActivation="STANDARD"
+        />
+        <Row
+            NarrativeStoryType="EVENT_B"
+            Name="LOC_EVENT_B_NAME"
+            Description="LOC_EVENT_B_DESCRIPTION"
+            Completion="LOC_EVENT_B_COMPLETION"
+            Age="AGE_ANTIQUITY"
+            Activation="LINKED"
+            RequirementSetId="Met"
+            UIActivation="STANDARD"
+        />
+        <Row
+            NarrativeStoryType="EVENT_C"
+            Name="LOC_EVENT_C_NAME"
+            Description="LOC_EVENT_C_DESCRIPTION"
+            Completion="LOC_EVENT_C_COMPLETION"
+            StoryTitle="LOC_EVENT_C_STORYTITLE"
+            Age="AGE_ANTIQUITY"
+            Activation="LINKED"
+            IsQuest="FALSE"
+            Hidden="TRUE"
+            RequirementSetId="Met"
+            UIActivation="STANDARD"
+        />
+    </NarrativeStories>
+    <NarrativeStory_Links>
+        <Row
+            FromNarrativeStoryType="EVENT_A"
+            ToNarrativeStoryType="EVENT_B"
+            Name="LOC_EVENT_B_NAME"
+            Description="LOC_EVENT_B_DESCRIPTION"
+        />
+        <Row
+            FromNarrativeStoryType="EVENT_A"
+            ToNarrativeStoryType="EVENT_C"
+            Name="LOC_EVENT_C_NAME"
+            Description="LOC_EVENT_C_DESCRIPTION"
+        />
+    </NarrativeStory_Links>
+ </Database>
+```
+
+So we've defined three new Narrative Events (A, B, and C) in `Types`/`NarrativeStories`. In `NarrativeStory_Links`, we tell the game that A leads to B and C.
+
+![](/civ7-official/modding/guides/images/Event_1.png)
+
+<details class="code-example">
+<summary>antiquity-discovery.xml</summary>
+
+``` xml lines=1-10 icon="file-xml" id="official-guides-narrative-events-creation__36d09eba" tag="xml"
+%[{ examples/fxs-new-narrative-event/data/antiquity-discovery.xml }]%
+```
+
+</details>
+
+<details class="code-example">
+<summary>antiquity-discovery-game-effects.sql</summary>
+
+``` sql lines=1-80 icon="database" id="official-guides-narrative-events-creation__acf5b746" tag="sql"
+%[{ examples/fxs-new-narrative-event/data/antiquity-discovery-game-effects.sql }]%
+```
+
+</details>
+
+Most of the columns here are self-explanatory, but here are some columns worth noting.
+
+* `NarrativeStories`
+    * `Name`/`Description`
+        * We talked about the Name/Description in the previous section, but an important thing to note is that these two columns must be defined, even if you're not using them. You can just provide dummy tags, they just can't be left empty.
+    * `UIActivation`
+        * This determines the visual appearance of the Pop-up in game. `STANDARD` and `DISCOVERY` are probably the most common choices.
+    * `Activation` 
+        * Determines how the event is activated. Generally you will want to use `REQUISITE` for the initial Narrative Event, and `LINKED` or `LINKED_REQUISITE` for subsequent events. Use `AUTO` for initial Discovery events.
+    * `ActivationRequirementSetId` (**OPTIONAL**)
+        * A RequirementSet that is checked **once** when the Narrative Event is initialised. Events that fail this check are **immediately archived** and **never shown to the player**.
+          
+          For `REQUISITE` events, this will generally be checks you don't expect to change over the course of play, such as ensuring the player is a given leader or civilization.
+          
+          For `LINKED_REQUISITE` events, the check is run when their parent pop-up triggers. This is useful for when you want to hide buttons on a popup unless the player meets certain conditions at that specific moment in time. Perhaps you want to have an event option only be available and visible to a certain leader. Perhaps you want the option to only be available if they have at least three cities.
+          
+          Events with their `Activation` set to `LINKED` ignore this field.
+    * `RequirementSetId`
+        * A RequirementSet to check if a Narrative Event is 'complete'. Normally this will be a RequirementSet that checks if the **Imperative** is met for a quest, or if the conditions have been met for a Narrative Event to trigger.
+          
+          Pop-ups display when an event is marked as 'complete'. Hence, the flavor text also being called the `Completion` text.
+          
+          This can be set to `Met` if you don't need to run any checks.
+    * `IsQuest` (**OPTIONAL**)
+        * Marks if an event is a quest. Defaults to "FALSE" if left empty. Note that marking an event as a quest does not cause the Quest icon to appear in its button by default. You will still have to manually add the button via the `NarrativeRewardIcons` table.
+    * `Hidden` (**OPTIONAL**)
+        * Hidden events do not spawn Pop-ups when the event is 'complete'. They will still appear as buttons on events that lead to it however. Defaults to "FALSE" if left empty.
+    
+* `NarrativeStory_Links`
+    * `Name`/`Description`
+        * The values in these fields are not actually used by the game, but they must be filled. You can just provide dummy tags, they just can't be left empty.
+
+##  Requirements
+
+Events will need RequirementSets to determine when and for whom they can trigger. Let's say you want the event to trigger  a pop-up when they found their 2nd city, but if only if the player is one of Rome, Aksum, or the Mississippians.
+
+1. The `ActivationRequirementSetId` determines if a player is eligible for the event. It is only checked once when the event is initialised.
+    * So in the example above, you would want to check the player's `CivilizationType` here.
+2. The  `RequirementSetId` determines when the event is 'complete'/when the pop-up is triggered. For events that are quests, this will be where you'd want to check if the quest has been completed. The  `RequirementSetId` is continually checked after the event has been initialised.
+    * So in the example above, you would want to check whether the player has founded 2 cities yet, so that the event can be marked as 'complete' and the pop-up can be triggered.
+
+``` xml lines icon="file-xml" id="official-guides-narrative-events-creation__8b541f57" tag="xml"
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+    <RequirementSet id="REQSET_EVENT_A_NARRATIVE_REQUISITE" type="REQUIREMENTSET_TEST_ANY">
+        <Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+            <Argument name="CivilizationType">CIVILIZATION_AKSUM</Argument>
+        </Requirement>
+        <Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+            <Argument name="CivilizationType">CIVILIZATION_ROME</Argument>
+        </Requirement>
+        <Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+            <Argument name="CivilizationType">CIVILIZATION_MISSISSIPPIAN</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_EVENT_A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_FOUND_CITY01</Argument>
+            <Argument name="DuplicateCount">2</Argument>
+        </Requirement>
+    </RequirementSet>
+ </GameEffects>
+```
+
+> **Important:** 
+> Many Events utilize the `REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS` requirement type. This requirement type is a very flexible requirement type that can check for a lot of things, and often overlaps with more standard requirements.
+> 
+> In the above example, `REQSET_EVENT_A_NARRATIVE` could also have been achieved with a `REQUIREMENT_PLAYER_HAS_FOUNDED_X_CITIES` requirement type.
+> 
+> Which you choose to use will vary depending on both your preferences and needs. **See the appendix for a more detailed look at the `REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS` requirement.**
+
+Continue to: [Narrative Events — Rewards, icons, and text replacements](/official/guides/narrative-events-rewards)
+
+

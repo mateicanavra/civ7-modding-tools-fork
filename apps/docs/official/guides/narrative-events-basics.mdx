@@ -1,0 +1,46 @@
+---
+title: "Basics and anatomy"
+description: "Pop-ups, buttons, and how events link together."
+---
+
+> **Important:** 
+> This article assumes familiarity with both the basics of [Database Modding](/official/guides/database-modding) and the [Modifier System](/official/guides/the-modifier-system). Familiarise yourself with that before diving into modding Narrative Events! And if you have never made a mod before, begin with the [Getting Started](/official/guides/getting-started) article!
+
+**Narrative Events** are a brand-new feature in Civilization VII. You've probably seen them as the various pop-ups that appear as you play.
+
+![](/civ7-official/modding/guides/images/NarrativeEvent_Vanilla.png)
+
+As the name suggests, they're a great vehicle for narrative, and a great way to bring a sense of life to the game. Now, with the power of modding, you too can bring your own stories into Civilization VII!
+
+# Anatomy of a Narrative Event
+
+We interact with Narrative Events through pop-ups, so it's best to consider how they relate.
+
+Most pop-ups are actually composed of **multiple Narrative Events**. So to make a single pop-up you'll be normally be creating multiple events and linking them together.
+
+![](/civ7-official/modding/guides/images/NarrativeEventDiagram.png)
+
+For example, the above popup consists of **4 Narrative Event entries**. Event A is the pop-up itself. Events B to D are each of the three buttons presented to you as choices. These buttons are events in their own right and may have their own popups with further choices. **We would say Event A leads to Events B, C, and D**
+
+So we can break events down into two sections. The **Pop-up** and the **Button**.
+
+* **Pop-ups** consist of the following text:
+    * The **Storytitle** is the title that appears at the top of a Pop-up.
+    * The **Completion** is the long flavor text that appears as the body of a Pop-up.
+* **Buttons** consist of the following text:
+    * The **Name** is the flavor text that appears as the key text element in a button.
+    * The **Imperative** is an optional text entry that gives you a command to complete in order to advance the Narrative Event. It appears below the Name.
+    * The **Description** is gameplay text that appears as the tooltip of a button. This usually a description of what happens when you select an option, such as "+2 Culture on Amphitheaters".
+
+Narrative Events might not use both sections. Some events aren't triggered by buttons. Some events don't trigger pop-ups. 
+
+To reiterate, the **Pop-up** and **the Buttons** in a pop-up usually **belong to separate Narrative Events**. With the parent event supplying data for the Pop-up, and the various events it leads to supplying data for the buttons.
+
+> **Note:** 
+> There is one exception to this, which is a Narrative Event that **does not lead to further events**. In which case, the Pop-up will only have one button that says "Close", text is **pulled from the same Narrative Event** for the **Description**. The **Name** and **Imperative** are ignored.
+>
+> ![](/civ7-official/modding/guides/images/SingleEvent.png)
+
+Continue to: [Narrative Events — Creating events and requirements](/official/guides/narrative-events-creation)
+
+
