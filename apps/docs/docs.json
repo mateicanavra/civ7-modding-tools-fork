@@ -1,0 +1,194 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "name": "Civ7 Modding Tools",
+  "theme": "mint",
+  "favicon": "public/favicon.svg",
+  "logo": "public/logo.svg",
+  "navbar": {
+    "primary": {
+      "type": "github",
+      "href": "https://github.com/mateicanavra/civ7-modding-tools-fork"
+    }
+  },
+  "colors": {
+    "primary": "#E3BB3C",
+    "light": "#FAF5E8",
+    "dark": "#E3BB3C"
+  },
+  "background": {
+    "decoration": "grid",
+    "colors": {
+      "light": "#FAF5E8",
+      "dark": "#E3BB3C"
+    }
+  },
+  "contextual": {
+    "options": ["copy", "view", "chatgpt", "claude", "perplexity", "mcp", "cursor", "vscode"]
+  },
+  "search": {
+    "prompt": "How do I create a new civilization?"
+  },
+  "navigation": {
+    "groups": [
+      {
+        "group": "Overview",
+        "icon": "house",
+        "pages": ["index"]
+      },
+      {
+        "group": "Official",
+        "icon": "landmark",
+        "pages": [
+          "official/README",
+          {
+            "group": "Guides",
+            "icon": "compass",
+            "pages": [
+              "official/guides/getting-started",
+              "official/guides/guide-index",
+              {
+                "group": "Database Modding",
+                "icon": "database",
+                "pages": [
+                  "official/guides/database-modding-fundamentals",
+                  "official/guides/database-modding-gameplay",
+                  "official/guides/database-modding-localization-icons",
+                  "official/guides/database-modding-frontend-debugging"
+                ]
+              },
+              {
+                "group": "Modifier System",
+                "icon": "sliders",
+                "pages": [
+                  "official/guides/the-modifier-system-concepts",
+                  "official/guides/the-modifier-system-modifiers",
+                  "official/guides/the-modifier-system-requirements"
+                ]
+              },
+              {
+                "group": "Narrative Events",
+                "icon": "message",
+                "pages": [
+                  "official/guides/narrative-events-basics",
+                  "official/guides/narrative-events-creation",
+                  "official/guides/narrative-events-rewards",
+                  "official/guides/narrative-events-discoveries"
+                ]
+              },
+              {
+                "group": ".modinfo Files",
+                "icon": "file-code",
+                "pages": [
+                  "official/guides/modinfo-files-overview",
+                  "official/guides/modinfo-files-structure",
+                  "official/guides/modinfo-files-actions"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Examples",
+            "icon": "flask",
+            "pages": [
+              "official/examples/fxs-majapahit-rework/README",
+              "official/examples/fxs-new-narrative-event/README",
+              "official/examples/fxs-new-policies/README"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "Community",
+        "icon": "users",
+        "pages": [
+          "community/README",
+          "community/documentation-guide",
+          {
+            "group": "Guides",
+            "icon": "compass",
+            "pages": [
+              "community/guides/getting-started",
+              "community/guides/general-modifying-content",
+              "community/guides/modding-architecture",
+              "community/guides/general-creating-civilizations",
+              "community/guides/general-creating-leaders",
+              "community/guides/base-standard-module",
+              "community/guides/database-schemas",
+              "community/guides/mod-patterns"
+            ]
+          },
+          {
+            "group": "TypeScript",
+            "icon": "code",
+            "pages": [
+              "community/guides/typescript/typescript-overview",
+              "community/guides/typescript/typescript-technical",
+              {
+                "group": "How-To",
+                "icon": "screwdriver-wrench",
+                "pages": [
+                  "community/guides/typescript/howto/index",
+                  "community/guides/typescript/howto/environment-setup",
+                  "community/guides/typescript/howto/creating-units",
+                  "community/guides/typescript/howto/creating-buildings",
+                  "community/guides/typescript/howto/creating-civilizations",
+                  "community/guides/typescript/howto/leaders-and-ages",
+                  "community/guides/typescript/howto/unique-quarters",
+                  "community/guides/typescript/howto/traditions",
+                  "community/guides/typescript/howto/progression-trees",
+                  "community/guides/typescript/howto/modifiers-and-effects",
+                  "community/guides/typescript/howto/assets-and-icons",
+                  "community/guides/typescript/howto/advanced-techniques"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Ages",
+            "icon": "hourglass",
+            "pages": [
+              "community/guides/ages/age-architecture",
+              "community/guides/ages/age-gameplay-mechanics",
+              "community/guides/ages/age-modules"
+            ]
+          },
+          {
+            "group": "Examples",
+            "icon": "flask",
+            "pages": [
+              {
+                "group": "Dacia",
+                "icon": "landmark",
+                "pages": [
+                  "community/guides/examples/dacia-historical-reference",
+                  "community/guides/examples/dacia-implementation-guide",
+                  "community/guides/examples/dacia-civilization-ideas",
+                  "community/guides/examples/dacia-mechanics-alignment"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Coming Soon",
+            "icon": "hourglass-half",
+            "pages": [
+              "community/guides/coming-soon/legacy-paths",
+              "community/guides/coming-soon/legends"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "Reference",
+        "icon": "book",
+        "pages": [
+          "community/reference/modding-reference",
+          "community/reference/gameplay-mechanics",
+          "community/reference/file-paths-reference",
+          "community/reference/modding-guide-civs-leaders",
+          "community/reference/community-modding-tips"
+        ]
+      }
+    ]
+  }
+}

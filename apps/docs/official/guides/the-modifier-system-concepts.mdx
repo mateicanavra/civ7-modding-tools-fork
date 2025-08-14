@@ -1,0 +1,55 @@
+---
+title: "Concepts"
+description: "What modifiers are, ownership, and entity modifier tables."
+---
+
+> **Note:** 
+> This article assumes familiarity with the basics of [Database Modding](/official/guides/database-modding). Familiarise yourself with that before diving into Modifiers!
+
+The Modifier System has been a key part of modding the game since Civilization VI.
+
+If you're new to modding, this article will attempt to explain what Modifiers are, when you need them, and how to make your own.
+
+Veteran modders, on the other hand, will find that the system remains essentially unchanged from Civ VI, there are new modifiers and new requirements, but *how* it works is no different! Veteran Civ VI modders may be interested in the GameEffects XML files section of this document however!
+
+# What is a Modifier?
+
+Modifiers are a system used to let designers and modders dynamically interact with the game through database entries. They are one of the main ways that entities in the game are given effects. Civ Abilities, Civic unlocks, Unit Abilities, Wonders, and more, are implemented via Modifiers.
+
+> **Important:**  Not everything is a Modifier!
+> Some things, like Adjacency bonuses, Warehouse bonuses, and simple Building yields, aren't implemented with Modifiers. There are tables like `Constructible_Adjacencies`, `Constructible_WarehouseYields`, and `Constructible_YieldChanges` that allow you to do this more easily and efficiently.
+> 
+> If you're not sure if something needs to be implement via a modifier, look for another piece of game content that does something similar in the game files to use as a guide!
+
+Each modifier has an **Owner**, which is the entity it's attached to. This could be a player, a city, a unit, or even the game itself. They also have a **Subject** which is the entity the modifier will act on. 
+
+Each modifier has a `ModifierId` which its unique identifier in the database, and a `ModifierType` which determines the effects of the modifier.
+
+## "EntityModifier Tables"
+
+The Owner of a modifier is generally determined by which tables the modifier is assigned to in the database. There are a bunch of these "EntityModifier Tables", such as `TraitModifiers`, `TraditionModifiers` or `UnitAbilityModifiers`.
+
+So you can see below multiple modifiers being assigned to Ashoka's leader trait.
+
+``` sql lines icon="database" id="official-guides-the-modifier-system-concepts__32e3631b" tag="sql"
+INSERT INTO TraditionModifiers
+    (
+        TraditionType,
+        ModifierId
+    )
+VALUES
+    (
+        'TRAIT_LEADER_ASHOKA_ALT_ABILITY',
+        'ASHOKA_ALT_MOD_HAPPINESS_PRODUCTION'
+    ),
+    (
+        'TRAIT_LEADER_ASHOKA_ALT_ABILITY',
+        'ASHOKA_ALT_MOD_CAPTURED_SETTLEMENT_PRODUCTION'
+    );
+```
+
+A modifier in the `TraitModifiers` table enters play when there's a player with that specific trait in-game. The Owner of the modifier would be that player.
+
+Continue to: [Modifier System — Building modifiers and arguments](/official/guides/the-modifier-system-modifiers)
+
+

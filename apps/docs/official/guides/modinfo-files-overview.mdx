@@ -1,0 +1,51 @@
+---
+title: "Overview and sample"
+description: "What a .modinfo is and a complete sample file."
+---
+
+A `.modinfo` file is the linchpin of any mod. At its core, a `.modinfo` file is just an XML file structured in a particular way and given the `.modinfo` file extension.
+
+It tells the game what files to load and what to do with them. It tells the game how a mod relates to other mods and to DLC. It stores all the basic info about the mod (such as the name, author, and so on)!
+
+For those coming from modding Civ VI, the structure of a `.modinfo` file should be very familiar to you, although there are a number of differences.
+
+If you're ever in need of references, check out the various `.modinfo` files in the example mods, or in the game files (yes! The game's modules and DLCs are structured in the same way as mods!).
+
+# Sample .modinfo file
+
+This is a sample `.modinfo` file. You can copy the code here to use as base for your own `.modinfo` files:
+
+``` xml lines icon="file-xml" id="official-guides-modinfo-files-overview__1b7984ae" tag="xml"
+<?xml version="1.0" encoding="utf-8"?>
+<Mod id="fxs-new-policies" version="1"
+    xmlns="ModInfo">
+    <Properties>
+        <Name>Antiquity Policies</Name>
+        <Description>Adds new policies to the Antiquity Age</Description>
+        <Authors>Firaxis</Authors>
+        <AffectsSavedGames>1</AffectsSavedGames>
+    </Properties>
+    <Dependencies>
+    </Dependencies>
+    <References>
+    </References>
+    <ActionCriteria>
+        <Criteria id="antiquity-age-current">
+            <AgeInUse>AGE_ANTIQUITY</AgeInUse>
+        </Criteria>
+    </ActionCriteria>
+    <ActionGroups>
+        <ActionGroup id="antiquity-game" scope="game" criteria="antiquity-age-current">
+            <Actions>
+                <UpdateDatabase>
+                    <Item>data/antiquity-traditions.xml</Item>
+                </UpdateDatabase>
+            </Actions>
+        </ActionGroup>
+    </ActionGroups>
+ </Mod>
+```
+
+Continue to: [.modinfo — Structure and elements](/official/guides/modinfo-files-structure)
+
+

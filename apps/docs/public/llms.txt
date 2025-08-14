@@ -1,0 +1,16 @@
+# Civ7 Modding Tools Docs
+
+> Documentation for Civilization VII modding tools, SDK, CLI, and guides.
+
+## Guides
+- [Overview](/index): Start here
+- [Community Guides](/community): Tutorials and best practices
+
+## Official Docs
+- [Getting Started](/civ7-official/modding/getting-started): Official modding intro
+- [Migrated (Legacy)](/migrated): Content ported from the previous docs site
+
+## Reference
+- GitHub: https://github.com/mateicanavra/civ7-modding-tools-fork
+
+

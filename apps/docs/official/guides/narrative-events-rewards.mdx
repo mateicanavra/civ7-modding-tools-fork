@@ -1,0 +1,119 @@
+---
+title: "Rewards, icons, and text replacements"
+description: "Assign modifiers as rewards, add icons, and dynamic text."
+---
+
+## Rewards
+
+Often, we will want Narrative Events to interact with the game state. Most frequently, we will want them to grant bonuses or maluses upon completion.
+
+To do this, we use Modifiers, and assign it as a Narrative Reward.
+
+``` xml lines icon="file-xml" id="official-guides-narrative-events-rewards__f4947192" tag="xml"
+<Modifier id="EVENT_C_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" permanent="true">
+    <Argument name="YieldType">YIELD_CULTURE</Argument>
+    <Argument name="Amount">2</Argument>
+    <Argument name="ConstructibleType">BUILDING_PALACE</Argument>
+ </Modifier>
+```
+
+``` xml lines icon="file-xml" id="official-guides-narrative-events-rewards__30dd0846" tag="xml"
+<NarrativeRewards>
+    <Row NarrativeRewardType="EVENT_C_REWARD" ModifierID="EVENT_C_MODIFIER"/>
+ </NarrativeRewards>
+<NarrativeStory_Rewards>
+    <Row NarrativeStoryType="EVENT_C" NarrativeRewardType="EVENT_C_REWARD" Activation="COMPLETE"/>
+ </NarrativeStory_Rewards>
+```
+
+The process of adding modifiers to an event is slightly more complicated.
+
+1. Create a Modifier you want to assign as a reward. Set `permanent` to true so it persists after the Narrative Event ends.
+2. Create a new `NarrativeRewardType`, assigning the Modifier you want to use to it.
+3. Assign the `NarrativeRewardType` to a previously created `NarrativeStoryType` using the `NarrativeStory_Rewards` table.
+
+The `Activation` field in `NarrativeStory_Rewards` can be set to `COMPLETE` (when the event's `RequiremenSetId` is met, or `START` (when the event is activated).
+
+**In the case where an event has multiple modifiers. You will need to create multiple Narrative Rewards.**
+
+## Additional Tables
+
+That's technically all you need to know when making a Narrative Event. But there are a few more tables, which while not vital, are extremely helpful in communicating to the player what an event does.
+
+### NarrativeRewardIcons
+
+The `NarrativeRewardIcons` table can be used to add icons to Narrative Event buttons. Despite its name, it is used for more than just rewards. It is also used to add Quest icons, and icons for costs.
+
+A single Narrative Event can have multiple NarrativeRewardIcons.
+
+``` xml lines icon="file-xml" id="official-guides-narrative-events-rewards__dc9cad06" tag="xml"
+    <NarrativeRewardIcons>
+        <Row NarrativeStoryType="EVENT_B" RewardIconType="QUEST"/>
+        <Row NarrativeStoryType="EVENT_B" RewardIconType="YIELD_FOOD"/>
+        <Row NarrativeStoryType="EVENT_C" RewardIconType="BUILDING_ALTAR"/>
+        <Row NarrativeStoryType="EVENT_C" RewardIconType="GREATWORK"/>
+    </NarrativeRewardIcons>
+```
+
+![](/civ7-official/modding/guides/images/NarrativeIcons.png)
+
+You can theoretically use any icon defined in the game's Icon database here, but normally, only **Yield** icons, **Attribute** icons, and one of a number of preset options are used (so in the above example, `BUILDING_ALTAR` is **non-standard** usage, but it *IS* possible). There is also a `Negative` field that can be used with Yield icons and a number of the preset options to get a red negative version of said icon.
+
+### NarrativeStory_TextReplacements
+
+Occasionally you will want text to be dynamically filled by the event itself. The text might have a reference to your capital city for example.
+
+To do this we use the `NarrativeStory_TextReplacements` table.
+
+``` xml lines icon="file-xml" id="official-guides-narrative-events-rewards__89da8c77" tag="xml"
+    <NarrativeStory_TextReplacements>
+        <Row NarrativeStoryType="EVENT_A" 
+        NarrativeStoryTextType="BODY" 
+        NarrativeTextReplacementType="CAPITAL"
+        Priority="1"/>
+        <Row NarrativeStoryType="EVENT_C" 
+        NarrativeStoryTextType="REWARD" 
+        NarrativeTextReplacementType="REWARD"
+        Priority="1"/>
+        <Row NarrativeStoryType="EVENT_C" 
+        NarrativeStoryTextType="REWARD" 
+        NarrativeTextReplacementType="CAPITAL"
+        Priority="2"/>
+    </NarrativeStory_TextReplacements>
+```
+
+``` xml lines icon="file-xml" id="official-guides-narrative-events-rewards__d86398e5" tag="xml"
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <LocalizedText>
+        <Replace Tag="LOC_EVENT_A_COMPLETION" Language="en_US">
+            <Text>My Capital City is {1}</Text>
+        </Replace>
+        <Replace Tag="LOC_EVENT_C_DESCRIPTION" Language="en_US">
+            <Text>{1} in {2}.</Text>
+        </Replace>
+    </LocalizedText>
+ </Database>
+```
+
+![](/civ7-official/modding/guides/images/NarrativeTextReplacements.png)
+
+* `NarrativeStoryTextType` determines which part of a Narrative Event you want to replace text in.
+    * `BODY` replaces text in the `Completion`
+    * `REWARD` replaces text in the `Description`
+    * `IMPERATIVE` replaces text in the `Imperative`
+    * `OPTION` replaces text in the `Name`
+* `NarrativeTextReplacementType` is the data you want to use in the text as a replacement. Some common options include
+    * `REWARD`
+        * This is an unusual one. `REWARD` parses a reward modifiers attached to the event and provides text describing it. This will be gameplay text so it should normally only be used with the `REWARD`/`Description`. This is why many Narrative events only have `{1_REWARD}.` written out as their `Description`.
+          
+          This does not work with all modifiers, so you may sometimes need to write the reward out manually.
+    * `CAPITAL`, your capital city.
+    * `CIVILIZATION`, your civilization. (e.g. 'Rome')
+    * `CIVILIZATION_ADJ`, your civilization's adjective. (e.g. 'Roman')
+    * `INDEPENDENT` a nearby Independent.
+* `Priority` determines the order in which the replacement should occur, in case you need multiple text replacements in a single piece of text.
+
+Continue to: [Narrative Events — Discoveries and appendix](/official/guides/narrative-events-discoveries)
+
+

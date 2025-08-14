@@ -1,0 +1,107 @@
+---
+title: "Frontend scope and debugging"
+description: "Shell scope changes, browsing data, and troubleshooting errors."
+---
+
+# Modifying the FrontEnd/Shell Scope
+
+Not all mods need to modify the FrontEnd/Shell: mostly it'll be mods adding new content and options that affect game setup, for example, if you're adding a new leader, new difficulty options, a new map type, a new civ, etc.
+
+Modifying the FrontEnd database really isn't any different from modifying the Gameplay database. You simply need to change the `ActionGroup`'s scope to `shell`. Though there are a few things to keep in mind.
+
+``` xml lines icon="file-xml" id="official-guides-database-modding-frontend-debugging__ad291b67" tag="xml"
+    <ActionCriteria>
+        <Criteria id="always">
+            <AlwaysMet></AlwaysMet>
+        </Criteria>
+    </ActionCriteria>
+    <ActionGroups>
+        <ActionGroup id="shell-actions" scope="shell" criteria="always">
+            <Actions>
+                <UpdateDatabase>
+                    <Item>data/shell-data.xml</Item>
+                </UpdateDatabase>
+                <UpdateText>
+                    <Item>text/antiquity-text.sql</Item>
+                </UpdateText>
+            </Actions>
+        </ActionGroup>
+    </ActionGroups>
+```
+
+First, and most importantly, the structure of the FrontEnd database is completely different from the Gameplay database. While the syntax used to modify it remains the same, you'll be working with different tables with different columns, so you'll need completely separate `.xml`/`.sql` files.
+
+Most DLC will have `.xml` files used to edit the FrontEnd database in a folder named `config` which you can use as a reference.
+
+![](/civ7-official/modding/guides/images/ConfigFolder.png)
+
+Another thing to remember if you need custom text/icons/colors for use during game setup, you'll need to update the Localization/Icon/Color database on the FrontEnd as well.
+
+Things that are loaded in the `game` scope are not automatically loaded in the `shell` scope. So if you need that same text, icons, or color values available to you in the FrontEnd, you need update the `shell` scope accordingly.
+
+Unlike the FrontEnd vs Gameplay databases, the Localization/Icon/Color databases are more or less identical in structure in the `game` and `shell` scopes. So you normally can use the same `.xml`/`.sql` as you used to update the Localization/Icon/Color database in the `game` scope to update the Localization/Icon/Color database in `shell` scope.
+
+# Appendix
+
+## Browsing game data
+
+Much of database modding requires an understanding of the data that is already available to you to work with, but perhaps more importantly, a grasp of how that data is structured.
+
+The simplest way is probably browsing the game files. If you installed the game via Steam, you can find where the game is installed via the game's properties (as detailed in the [Getting Started](/official/guides/getting-started) document).
+
+Under `Base` > `modules`, you'll see the various game ages as separate modules. In each of those, there's a `data` folder with all the data for the age contained as `.xml` files. You can open these files with your code editor.
+
+> **Warning:** 
+> This is the data the game uses to drive gameplay. **DO NOT edit these files.** 
+> 
+> 1. You may **lose your changes when the game updates**, as updates may overwrite these files.
+> 2. You will **not be able to play multiplayer games**, as your data will be out of sync with other players.
+> 3. If incorrectly done, you **can break your game**, so you will be unable to start a new game or load previous saves.
+> 
+> If this happens, you can **verify your game files via Steam** to restore the original files.
+> 
+> **Make a mod if you would like to make any changes to the game**. You will be better able to track the changes you make, the mod can be shared with people you would like to play multiplayer with, and any changes can be undone by simply disabling the mod.
+
+![](/civ7-official/modding/guides/images/game-files-modules.png)
+
+![](/civ7-official/modding/guides/images/game-files-data.png)
+
+Most code editors also have a "search in files" function (usually using `Ctrl`+`Shift`+`F`) you can use to search the game's files. So you can also just add the location you installed Civilization VII to the folders to search in!
+
+![](/civ7-official/modding/guides/images/SearchingGameFiles.png)
+
+----
+
+Alternatively, you can also use a **SQLite Database Browser** to view game data.
+
+If you have `CopyDatabasesToDisk` set to 1 (as detailed in the [Getting Started](/official/guides/getting-started) document), the game will output `.sqlite` files in the `debug` folder after you have started a game.
+
+![](/civ7-official/modding/guides/images/gameplay-copy.png)
+
+They can be opened to view what each database (whether it be the gameplay, or frontend, or localization database) looks like on game start. You'll be able to see a comprehensive list of all the tables, columns, and values available to work with.
+
+Edits in these debug databases do not have any effect on the game, and these files will be overridden when you exit to the main menu, or when you start a new game.
+
+![](/civ7-official/modding/guides/images/sqlite-browse.png)
+
+## Debugging errors
+
+If there is an error in your code, you will usually be greeted with this warning when you try to start a game.
+
+![](/civ7-official/modding/guides/images/content-validation-failed.png)
+
+Don't panic! There's a way to figure out what's wrong. The game outputs logs so you can see how it's processing your files. The most helpful file to look at for database modding is the `Database.log` file.
+
+![](/civ7-official/modding/guides/images/logs-folder.png)
+
+Open the file with your code editor and look for an error message. It'll tell you what sort of error the game encountered. It might even help you pinpoint you where the error is occurring.
+
+For example, here, we're getting a "syntax error" near INSERT. So this is probably an issue with one of the `.SQL` files. It's not always obvious where the error might be unfortunately, so you may still need to do some digging, particularly in larger mods, but at least this will help narrow down the issue somewhat.
+
+![](/civ7-official/modding/guides/images/database-log.png)
+
+Looking through my SQL files, it seems my issue here is that I'm missing a semicolon (`;`) to end the statement before starting the new `INSERT INTO TraditionModifiers` statement.
+
+![](/civ7-official/modding/guides/images/sql-error.png)
+
+

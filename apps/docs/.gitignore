@@ -1,0 +1,8 @@
+.mintlify
+.vercel
+.cache
+out
+build
+dist
+node_modules
+

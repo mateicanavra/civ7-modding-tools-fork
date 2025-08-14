@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://civ7.tools/schemas/code-blocks.config.schema.json",
+  "title": "Code Blocks Config",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Editor schema reference (VS Code, etc.)."
+    },
+    "tags": {
+      "type": "object",
+      "description": "Per-tag configuration overrides for code blocks",
+      "additionalProperties": { "$ref": "#/$defs/TagConfig" }
+    }
+  },
+  "required": ["tags"],
+  "$defs": {
+    "TagConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "icon": {
+          "description": "Font Awesome/Lucide icon name, absolute path under /public (e.g., /icons/icon.svg), or false to disable the icon",
+          "oneOf": [
+            { "type": "string" },
+            { "const": false }
+          ]
+        },
+        "lines": { "type": "boolean", "description": "Show line numbers" },
+        "wrap": { "type": "boolean", "description": "Enable text wrapping" },
+        "title": { "type": "string", "description": "Code block title" },
+        "expandable": { "type": "boolean", "description": "Force expandable block" },
+        "expandableMinLines": { "type": "integer", "minimum": 1, "description": "Min line count to auto-add expandable" },
+        "extra": { "type": "array", "items": { "type": "string" }, "description": "Additional meta tokens to append" }
+      }
+    }
+  }
+}
+

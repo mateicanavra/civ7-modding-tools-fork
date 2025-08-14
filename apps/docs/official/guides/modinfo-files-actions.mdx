@@ -1,0 +1,74 @@
+---
+title: "ActionGroups and actions"
+description: "Scopes, load order, UpdateDatabase/Text/Icons and more."
+---
+
+## ActionGroups
+
+``` xml lines icon="file-xml" id="official-guides-modinfo-files-actions__e3b1fbd4" tag="xml"
+<ActionGroups>
+    <ActionGroup id="antiquity-game" scope="game" criteria="antiquity-age">
+        <Actions>
+            <UpdateDatabase>
+                <Item>data/antiquity-traditions.xml</Item>
+            </UpdateDatabase>
+        </Actions>
+    </ActionGroup>
+    <ActionGroup id="game-always" scope="game" criteria="always">
+        <Properties>
+            <LoadOrder>10</LoadOrder>
+        </Properties>
+        <Actions>
+            <UpdateText>
+                <Item>text/core-text.sql</Item>
+            </UpdateText>
+            <UIScripts>
+                <Item>ui/unit-flags/custom-flags.js</Item>
+            </UIScripts>
+            <ImportFiles>
+                <Item>textures/custom-flag-backing.png</Item>
+                <Item>ui/lenses/layer/building-placement-layer.js</Item>
+            </ImportFiles>
+        </Actions>
+    </ActionGroup>
+ </ActionGroups>
+```
+
+The `ActionGroups` element consists of `ActionGroup` child elements. Each `ActionGroup` should have the following attributes:
+* `id`
+    * The `id` of the `ActionGroup`. This must be unique on a per mod basis.
+* `scope`
+    * Whether the `ActionGroup` targets the frontend or gameplay scope. The value of this element must be either `game` or `shell`
+* `criteria`
+    * The criteria that must be met for this `ActionGroup` to trigger. Set the value to the `id` of a `Criteria` defined in `ActionCriteria`
+
+An `ActionGroup` consists of `Action` child elements, which in turn consists of an array of different child elements representing different types of actions. Those child elements should have further `Item` file elements that contain a path (relative to the `.modinfo` file) to the file to be loaded by the action
+
+There are a variety of different action types.
+#### `UpdateDatabase`
+Updates either the frontend/shell or gameplay database with the provided `.xml` or `.sql` items, depending on the `scope` of the `ActionGroup`.
+#### `UpdateText`
+Updates the Localization database with the provided `.xml` or `.sql` items. 
+#### `UpdateIcons`
+Updates the Icons database with the provided `.xml` or `.sql` items. 
+#### `UpdateColors`
+Updates the Colors database with the provided `.xml` or `.sql` items. 
+#### `UpdateArt`
+Updates art files. This action type won't be useful for modders until art tools are released.
+#### `ImportFiles`
+Imports files into the game's file system. This can be used to import custom 2D assets such as `.png` files. It can also be used to replace files, provided the file being imported has the same name and path (relative to the `.modinfo` file).
+#### `UIScripts`
+Loads the provided `.js` files as new UI scripts.
+#### `UIShortcuts`
+
+![](/civ7-official/modding/guides/images/DebugPanel.png)
+
+Loads the provided `.html` files into the game's debug menu for loading. `EnableDebugPanels` must be set to `1` in `AppOptions.txt` to access the panel.
+#### `UpdateVisualRemaps`
+Updates the Visual Remap database with the provided `.xml` or `.sql` items. The Visual Remaps can be used to relink the visuals of gameplay entries onto other assets.
+#### `MapGenScripts`
+Adds a new `.js` gameplay script that is loaded during map generation, then unloaded after.
+#### `ScenarioScripts`
+Adds a new `.js` gameplay script.
+
+

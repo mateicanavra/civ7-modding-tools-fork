@@ -1,0 +1,181 @@
+---
+title: "Localization, Icons, and Colors"
+description: "UpdateText, text tags, inline icons, and updating icon/color databases."
+---
+
+# Modifying the Localization Database
+
+Changing the Localization database is a lot like changing the gameplay database. You just use the `UpdateText` action instead.
+
+Because the Localization database is separate from the gameplay database, we **must** make a new file to store the changes we want to make.
+
+1. Create a folder in the the same place as the `.modinfo` file. Name it `text`.
+2. Depending on whether you want to use SQL or XML, create a file named `antiquity-text.xml` or `antiquity-text.sql` in the `data` folder. 
+   
+We also need to modify our `.modinfo` file, so the game knows to load this new file. In this instance, since we already have everything set-up from the previous section, we can actually go ahead and edit the `ActionGroup` we previously made in the `.modinfo`, adding a new `UpdateText` block! So whenever the Action Group is triggered and the game goes to load our gameplay changes, it will also load our text changes.
+
+Here's the excerpt of the modified `ActionGroups` section in the `.modinfo`.
+
+``` xml lines icon="file-xml" id="official-guides-database-modding-localization-icons__02a8cea2" tag="xml"
+    <ActionGroups>
+        <ActionGroup id="antiquity-game" scope="game" criteria="antiquity-age-current">
+            <Actions>
+                <UpdateDatabase>
+                    <Item>data/antiquity-traditions.xml</Item>
+                    <Item>data/antiquity-game-effects.xml</Item>
+                </UpdateDatabase>
+                <UpdateText>
+                    <Item>text/antiquity-text.sql</Item>
+                </UpdateText>
+            </Actions>
+        </ActionGroup>
+    </ActionGroups>
+```
+
+-----------
+
+Now for the actual database changes.
+
+The way text works, is most text entries in the game are assigned a `Tag`: we did this for our Policies in the `Traditions` table, where we gave a `Name`, and a `Description` to each new `TraditionType`.
+
+The game will look up the `Tag` in the Localization database, and retrieve the text in the appropriate language. In this case American English (`en_US`).
+
+## If working with XML
+
+Here's the XML we'll be using to add new text. There is a `Row` for each new tag we want to add. We set the `Tag` and `Language` attributes as needed. Then add a `Text` child element with the new text we want to assign to the tag.
+
+``` xml lines icon="file-xml" id="official-guides-database-modding-localization-icons__29cfdea8" tag="xml"
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <LocalizedText>
+        <Row Tag="LOC_TRADITION_FXS_CYLINDER_SEALS_NAME" Language="en_US">
+            <Text>Cylinder Seals</Text>
+        </Row>
+        <Row Tag="LOC_TRADITION_FXS_CYLINDER_SEALS_DESCRIPTION" Language="en_US">
+            <Text>+2[icon:YIELD_FOOD] Food, +3[icon:YIELD_GOLD] Gold on the Palace.</Text>
+        </Row>
+        <Row Tag="LOC_TRADITION_FXS_ORACLE_BONES_NAME" Language="en_US">
+            <Text>Oracle Bones</Text>
+        </Row>
+        <Row Tag="LOC_TRADITION_FXS_ORACLE_BONES_DESCRIPTION" Language="en_US">
+            <Text>+3[icon:YIELD_HAPPINESS] Happiness, +1[icon:YIELD_CULTURE] Culture on the Palace.</Text>
+        </Row>
+    </LocalizedText>
+ </Database>
+```
+
+## If working with SQL
+
+And the equivalent in SQL. We define our `Tag`, `Language`, and `Text` as columns, and provide our rows as a set of values surrounded by parentheses in the same order we initially listed the columns.
+
+``` sql lines icon="database" id="official-guides-database-modding-localization-icons__6531ea84" tag="sql"
+INSERT OR REPLACE INTO LocalizedText
+    (Tag,    Language,    Text)
+VALUES
+    (
+        'LOC_TRADITION_FXS_CYLINDER_SEALS_NAME',
+        'en_US',
+        'Cylinder Seals'
+    ),
+    (
+        'LOC_TRADITION_FXS_CYLINDER_SEALS_DESCRIPTION',
+        'en_US',
+        '+2[icon:YIELD_FOOD] Food, +3[icon:YIELD_GOLD] Gold on the Palace.'
+    ),
+    (
+        'LOC_TRADITION_FXS_ORACLE_BONES_NAME',
+        'en_US',
+        'Oracle Bones'
+    ),
+    (
+        'LOC_TRADITION_FXS_ORACLE_BONES_DESCRIPTION',
+        'en_US',
+        '+3[icon:YIELD_HAPPINESS] Happiness, +1[icon:YIELD_CULTURE] Culture on the Palace.'
+    );
+```
+
+Restart the game to see our new changes.
+
+![](/civ7-official/modding/guides/images/NewPolicies_2.png)
+
+> **Note:**  What are those funny `[icon:YIELD_FOOD]` things?
+> Those are the inline icons: the yield symbols interspersed in the game's text! The yield icons are simple, just change from `YIELD_FOOD` to `YIELD_INFLUENCE` or `YIELD_SCIENCE` for example. 
+> 
+> There are other icons if you look around in the game files as well.
+
+> **Note:**  LocalizedText? But the game files use EnglishText!
+> Good eye! The `EnglishText` table is a shorthand for adding an entry into the `LocalizedText` table with `en_US` in the `Language` column.
+> 
+> You can use either table if you're working with English, they're basically the same, with the `EnglishText` table omitting the `Language`.
+> 
+> But you'll need to used `LocalizedText` with the appropriate language tag (eg. `es_ES` or `zh_Hans_CN`) if you want to provide translations. You do not need a new file to provide translations.
+
+And that's it! That's our social policy mod done! A completed version of it is be available as a sample mod, with both `.xml` and `.sql` so you can take a examine how things are done in either language.
+
+# Modifying the Icons and Color Databases
+
+Here are examples of **Color** and **Icon** database files respectively, both in `.xml`. You still use  both `.xml` and `.sql` here though! 
+
+``` xml lines icon="file-xml" id="official-guides-database-modding-localization-icons__1279f852" tag="xml"
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Database>
+    <PlayerColors>
+        <Row>
+            <Type>LEADER_SAPPHO</Type>
+            <Usage>Unique</Usage>
+            <PrimaryColor>COLOR_STANDARD_RED_DK</PrimaryColor>
+            <SecondaryColor>COLOR_STANDARD_WHITE_LT</SecondaryColor>
+            <Alt1PrimaryColor>COLOR_STANDARD_WHITE_LT</Alt1PrimaryColor>
+            <Alt1SecondaryColor>COLOR_STANDARD_RED_DK</Alt1SecondaryColor>
+            <Alt2PrimaryColor>COLOR_STANDARD_BLUE_DK</Alt2PrimaryColor>
+            <Alt2SecondaryColor>COLOR_STANDARD_WHITE_LT</Alt2SecondaryColor>
+            <Alt3PrimaryColor>COLOR_STANDARD_WHITE_LT</Alt3PrimaryColor>
+            <Alt3SecondaryColor>COLOR_STANDARD_BLUE_DK</Alt3SecondaryColor>
+        </Row>
+    </PlayerColors>
+    <Colors>
+        <Row>
+            <Type>COLOR_MY_NEW_COLOR</Type>
+            <Color>229,117,116,255</Color>
+            <Color3D>229,117,116,255</Color3D>
+        </Row>
+    </Colors>
+ </Database>
+```
+
+> **Note:** 
+> Existing player colors can be found in `playerstandardcolors.xml`
+> 
+> When defining new `Colors`, the `Color` entries are used for UI controls, whereas `Color3D` entries are used for the team color on 3D models in game.
+
+``` xml lines icon="file-xml" id="official-guides-database-modding-localization-icons__e394ae93" tag="xml"
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Database>
+    <IconDefinitions>
+        <Row>
+            <ID>BUILDING_STAVE_CHURCH</ID>
+            <Path>fs://game/denmark/icons/building_stave_church.png</Path>
+        </Row>
+    </IconDefinitions>
+ </Database>
+```
+
+> **Note:** 
+> New `.png` files for icons will need to be imported via the `ImportFiles` in the `.modinfo` file.
+> 
+> The `Path` to the file will be `fs://game/` + the mod Id + the path to the file in that mod. So in the example above, the mod's Id would be `denmark`, and the `.png` file is in the icons folder of that mod.
+
+Use the `UpdateColors` and `UpdateIcons` actions to update Colors and Icons respectively.
+
+``` xml lines icon="file-xml" id="official-guides-database-modding-localization-icons__fdddd369" tag="xml"
+    <Actions>
+        <UpdateIcons>
+            <Item>data/modded-icons.sql</Item>
+        </UpdateIcons>
+        <UpdateColors>
+            <Item>data/modded-colors.sql</Item>
+        </UpdateColors>
+    </Actions>
+```
+
+

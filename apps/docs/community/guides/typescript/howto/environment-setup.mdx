@@ -1,0 +1,115 @@
+---
+title: "Environment Setup"
+sidebarTitle: "Environment Setup"
+description: "Set up your development environment and tools for TypeScript modding."
+---
+
+This guide covers how to set up your development environment for using the Civilization VII TypeScript Modding Tools.
+
+
+## Prerequisites
+
+<Check title="Prerequisites" icon="square-check" iconColor="green">
+Before you begin, ensure you have:
+
+- Node.js installed (version 14 or later)
+- Basic knowledge of TypeScript/JavaScript
+- Basic understanding of Civilization VII modding concepts
+</Check>
+
+## Installation
+
+<Accordion title="Install from NPM" icon="npm">
+
+1. Create a new directory for your mod project
+2. Initialize a Node.js project:
+   ```bash
+   mkdir my-civ7-mod
+   cd my-civ7-mod
+   pnpm init
+   ```
+3. Install the TypeScript modding tools:
+   ```bash
+   pnpm add civ7-modding-tools typescript ts-node
+   ```
+4. Create a TypeScript configuration file (`tsconfig.json`):
+   ```json title="tsconfig.json" icon="brackets-curly"
+   {
+     "compilerOptions": {
+       "target": "ES2020",
+       "module": "CommonJS",
+       "esModuleInterop": true,
+       "strict": true,
+       "outDir": "./dist"
+     },
+     "include": ["src/**/*"]
+   }
+   ```
+</Accordion>
+
+<Accordion title="Install from GitHub" icon="github">
+
+<Steps>
+   <Step title="Clone the repository">
+      ```bash
+      git clone https://github.com/izica/civ7-modding-tools
+      ```
+   </Step>
+   <Step title="Install dependencies">
+      ```bash
+      cd civ7-modding-tools
+      pnpm install
+      ```
+   </Step>
+   <Step title="Copy the examples to use as templates">
+      ```bash
+      mkdir -p src
+      cp examples/* src/
+      ```
+   </Step>
+</Steps>
+</Accordion>
+
+## Project Structure
+
+Set up your project with this recommended structure:
+
+``` text id="community-guides-typescript-howto-environment-setup__a58b67f3" tag="file-tree" wrap
+my-civ7-mod/
+├── src/           # Your mod code
+├── assets/        # Icons and other assets
+├── build.ts       # Main build script
+├── package.json   # Project configuration
+└── tsconfig.json  # TypeScript configuration
+```
+
+## Basic Mod Setup
+
+Create a `build.ts` file in your project root:
+
+``` typescript title="build.ts" icon="code" id="community-guides-typescript-howto-environment-setup__7d1a1c60" tag="code-snippet"
+import { Mod } from "civ7-modding-tools";
+
+// Create a new mod
+const mod = new Mod({
+  id: "my-first-mod", // Unique ID for your mod
+  version: "1.0", // Version string
+});
+
+// Add components to the mod (we'll do this in later sections)
+// mod.add([...]);
+
+// Build the mod
+mod.build("./dist"); // Output directory
+```
+
+Run this script with:
+
+``` bash icon="terminal" id="community-guides-typescript-howto-environment-setup__d012d849" tag="shell"
+pnpm ts-node build.ts
+```
+
+For more detailed information about the TypeScript modding tools, see:
+
+- [TypeScript Modding Tools Overview](/community/guides/typescript/typescript-overview)
+- [TypeScript Modding Tools Technical Implementation](/community/guides/typescript/typescript-technical)

@@ -1,0 +1,52 @@
+---
+title: "Fundamentals"
+description: "Languages, scopes, and age-aware content."
+---
+
+Contrary to popular belief, there isn't a lot of direct programming that goes into making most mods. Instead, a lot of it is driven by adding and editing values in a database.
+
+To add a new social policy, a new unit, a new civ, etc., you create new entries in the database that tell the game what you're adding, what yields it gives, and what effects you want it to have (assuming you're not trying to have it do something unprecedented), and more.
+
+Text (and translations for that text); whether it be gameplay text, or elaborate flavour text; are also added to the game with a basically identical process, so we'll be covering adding that here too.
+
+# Database Languages
+
+We can interact with the game's database with either **XML** or **SQL**
+
+**XML** is a markup language. It is probably the easiest choice to work with for beginners, and if you've ever worked with HTML, you'll find it looks very similar. It's easier to understand, and simpler to work with. Additionally, most of the game uses XML as well, so you'll have plenty of reference to work from. More advanced users may find it less flexible than SQL, however.
+
+**SQL** (sometimes pronounced "sequel") is a language designed for data manipulation. While it is slightly more complicated than XML, it can be more powerful, as you can dynamically make changes to the database based on already existing data. SQL has a lot of features and functionality that we won't be getting into, but there are plenty of resources and references online if you want to learn more. Civilization specifically uses **SQLite**.
+
+You can use a combination of XML and SQL files in the same mod (just don't try to mix the two in the same file)!
+
+> **Note:** 
+> Neither XML or SQL is strictly better than the other. XML is usually simpler and quicker to write, so it can be a better choice for simple changes. Say, if you just want to add a single yield to a single building.
+> 
+> Conversely, if you wanted to make every Wonder give +5 Gold for example, you'd be able to do so with a single SQL statement as opposed to dozens of lines of XML.
+
+# Database types
+
+Just so you know, there's more than one database you'll be working with! The game has two database contexts: the *shell* (also called the *frontend*), and *game* 'scopes'.
+
+* The **shell** 'scope' is data used in the **main menu**, and **during age transitions** when you select civs for the next age.
+* The **game** 'scope' is used during **actual gameplay**. If there's a 3D map running in the background, then it’s pulling from the game context.
+
+The structure of the database in these scopes are **completely different**, so you won't be able to use the SQL/XML files that you use to modify the shell to also modify the game and vice versa.
+
+Both scopes also have **Localization**, **Icon**, and **Color** databases. The structure for these databases are identical for both the shell and game scopes, so you generally will be able to use the same XML/SQL files that modify them in both scopes.
+
+# Working with Ages
+
+One last thing to keep in mind when working specifically with the **game** scope, is that the contents of the database will be different between the various game ages. In Civ 7, game content is designed to work in certain Ages, whether that's a single Age, multiple Ages, or all the Ages. Thus when making database changes, you also need specify which Ages the changes affect.
+
+* Some things, like Leaders, are present no matter the age.
+* Some things, like most Units, are present in only one age. Slingers only exist in the Antiquity Age!
+* Some things, like Wonders, may be present across multiple ages, but might not be in all of them! Notre Dame is present in the game in Exploration and Modern, but NOT in Antiquity!
+
+> **Note:** Why is this important to know?
+> 1. You don't want to add things to Ages where they're not needed.
+> 2. You can't edit or reference things that aren't in the database for that Age.
+
+Continue to: [Database Modding — Gameplay changes](/official/guides/database-modding-gameplay)
+
+
