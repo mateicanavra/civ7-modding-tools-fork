@@ -1,0 +1,194 @@
+---
+title: Build a Mod
+---
+
+# Build Your First Mod
+
+Ready to put your newfound knowledge to work? Let's create your first Civilization VII mod step by step. By the end of this guide, you'll have a working mod that appears in your game's Add-Ons menu.
+
+<Info>
+**Prerequisites**: Make sure you've completed the [Getting Started](/civ7-official/modding/getting-started) guide and have your modding environment set up properly.
+</Info>
+
+## Creating Your Mod Structure
+
+Let's start by creating the basic structure for your mod.
+
+<Steps>
+<Step title="Create Your Mod Folder">
+Navigate to your game settings folder and locate the `Mods` directory you created earlier. Inside this folder, create a new empty folder and give it a descriptive name like `MyFirstMod`.
+
+<CardGroup cols={1}>
+<Card title="Folder Location Reminder" icon="folder-open">
+- **Windows**: `%localappdata%/Firaxis Games/Sid Meier's Civilization VII/Mods/`
+- **Mac**: `~/Library/Application Support/Civilization VII/Mods/`
+- **Linux/Steam Deck**: `~/My Games/Sid Meier's Civilization VII/Mods/`
+</Card>
+</CardGroup>
+</Step>
+
+<Step title="Create the ModInfo File">
+Inside your `MyFirstMod` folder, create a new empty file. Name it exactly what you want, but ensure it has the `.modinfo` file extension (for example: `MyFirstMod.modinfo`).
+
+<Warning>
+**File Extension Alert**: Make sure you can see file extensions in your file browser. The file should show as `MyFirstMod.modinfo`, not just `MyFirstMod`.
+</Warning>
+</Step>
+
+<Step title="Add ModInfo Content">
+Open the `.modinfo` file in your code editor and copy the following content, then save the file:
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<Mod id="my-first-mod" version="1" xmlns="ModInfo">
+	<Properties>
+		<Name>My First Mod</Name>
+		<Description>This is my first Mod.</Description>
+		<Authors>Me</Authors>
+		<AffectsSavedGames>1</AffectsSavedGames>
+	</Properties>
+	<Dependencies>
+	</Dependencies>
+	<ActionCriteria>
+	</ActionCriteria>
+	<ActionGroups>
+	</ActionGroups>
+</Mod>
+```
+</Step>
+</Steps>
+
+## Understanding Your ModInfo File
+
+<Tip>
+**Congratulations!** You've just created your first mod. It doesn't do anything yet, but it should appear in the Add-Ons menu when you boot up the game, ready to be activated or deactivated.
+</Tip>
+
+Let's break down what each part of your `.modinfo` file does:
+
+<CardGroup cols={2}>
+<Card title="Mod Identity" icon="id-card">
+**Key Elements:**
+- `id="my-first-mod"` - Unique identifier for your mod
+- `version="1"` - Version number for updates
+- `xmlns="ModInfo"` - Required XML namespace
+
+<Warning>
+The `id` must be unique! If multiple mods share the same ID, they'll be treated as different versions of the same mod.
+</Warning>
+</Card>
+
+<Card title="Properties Section" icon="gear">
+**Customizable Fields:**
+- `<Name>` - Display name in the mod manager
+- `<Description>` - Brief description of your mod
+- `<Authors>` - Your name or team
+- `<AffectsSavedGames>` - Set to `0` for UI-only mods that don't change game state
+</Card>
+</CardGroup>
+
+<CardGroup cols={2}>
+<Card title="Dependencies" icon="link">
+Lists other mods or DLC that your mod requires to function properly. Leave empty for now.
+</Card>
+
+<Card title="Action Sections" icon="play">
+- `<ActionCriteria>` - Conditions for when mod actions should apply
+- `<ActionGroups>` - The actual modifications your mod makes
+
+We'll explore these in future guides!
+</Card>
+</CardGroup>
+
+## Testing Your Mod
+
+<Steps>
+<Step title="Launch the Game">
+Start Civilization VII and navigate to the main menu.
+</Step>
+
+<Step title="Open Add-Ons Menu">
+Look for the Add-Ons or Mods section in the main menu. Your mod should appear in the list with the name you specified in the `<Name>` field.
+</Step>
+
+<Step title="Activate Your Mod">
+Toggle your mod on to activate it. Even though it doesn't change anything yet, this confirms your mod structure is correct and the game recognizes it.
+</Step>
+
+<Step title="Start a Test Game">
+Create a new game with your mod enabled. The game should start normally, proving your mod doesn't break anything!
+</Step>
+</Steps>
+
+## What You've Accomplished
+
+<CardGroup cols={3}>
+<Card title="✅ Mod Structure" icon="check">
+Created a properly formatted mod folder and ModInfo file
+</Card>
+
+<Card title="✅ Game Recognition" icon="eye">
+Your mod appears in the game's Add-Ons menu
+</Card>
+
+<Card title="✅ Basic Testing" icon="flask">
+Confirmed your mod loads without errors
+</Card>
+</CardGroup>
+
+## Next Steps: Making Your Mod Do Something
+
+Now that you have a working mod foundation, you're ready to make it actually modify the game! Here are your next learning paths:
+
+<CardGroup cols={2}>
+<Card title="Database Modding" icon="database">
+Learn how to modify game data using SQL and XML to change civilizations, units, buildings, and more.
+
+[Explore Database Modding →](database-modding.md)
+</Card>
+
+<Card title="ModInfo Deep Dive" icon="file-code">
+Understand the full structure and capabilities of ModInfo files, including dependencies and action groups.
+
+[Learn About ModInfo Files →](modinfo-files.md)
+</Card>
+</CardGroup>
+
+<Note>
+**Learning Philosophy**: Don't worry if you don't fully understand everything right away! Modding is a gradual learning process. Even veteran modders regularly copy existing code from the game and other mods, then modify it to suit their needs.
+
+The key is to start simple, experiment often, and learn from examples. Each mod you create will teach you something new!
+</Note>
+
+## Troubleshooting Common Issues
+
+<AccordionGroup>
+<Accordion title="My mod doesn't appear in the Add-Ons menu">
+**Possible Solutions:**
+- Check that the `.modinfo` file has the correct extension
+- Verify the XML syntax is correct (matching opening/closing tags)
+- Ensure the file is saved in the correct Mods folder location
+- Try restarting the game completely
+</Accordion>
+
+<Accordion title="Game crashes when I enable my mod">
+**Possible Solutions:**
+- Check for XML syntax errors in your `.modinfo` file
+- Ensure the `xmlns="ModInfo"` attribute is present and correct
+- Verify there are no special characters in your mod's `id` field
+- Review the game logs for specific error messages
+</Accordion>
+
+<Accordion title="I can't see file extensions">
+**Solution:**
+- **Windows**: Open File Explorer → View tab → Check "File name extensions"
+- **Mac**: Finder → Preferences → Advanced → Check "Show all filename extensions"
+- **Linux**: Most file managers show extensions by default
+</Accordion>
+</AccordionGroup>
+
+---
+
+<Info>
+**Ready for More?** You've successfully created your first mod! While it doesn't change gameplay yet, you now understand the fundamental structure that every Civilization VII mod builds upon. Continue exploring our guides to learn how to add actual functionality to your mods.
+</Info>
