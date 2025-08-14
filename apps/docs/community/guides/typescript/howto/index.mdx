@@ -2,43 +2,52 @@
 title: "TypeScript Modding Tools: Complete Guide Collection"
 ---
 
-# TypeScript Modding Tools: Complete Guide Collection
+<Card title="Summary">
 
 This page serves as the primary resource for practical how-to guides for Civilization VII TypeScript modding. While the [main documentation](/community/guides/typescript/typescript-overview) covers general concepts and the [technical implementation guide](/community/guides/typescript/typescript-technical) explains the internal architecture, these how-to guides provide step-by-step instructions for common modding tasks.
 
+</Card>
+
 ## Guide Categories
 
-### Getting Started
+<AccordionGroup>
+<Accordion title="Getting Started">
 - [**Environment Setup**](/community/guides/typescript/howto/environment-setup) - *Start here if you're new to TypeScript modding*
   - Set up your development environment, install necessary tools, and create your first project structure
+</Accordion>
 
-### Basic Game Elements
+<Accordion title="Basic Game Elements">
 - [**Creating Units**](/community/guides/typescript/howto/creating-units) - *For modders adding or modifying military and civilian units*
   - Complete process for designing and implementing custom units with appropriate properties
 - [**Creating Buildings**](/community/guides/typescript/howto/creating-buildings) - *For modders adding or modifying buildings and tile improvements*
   - Step-by-step instructions for buildings within districts and map tile improvements
+</Accordion>
 
-### Civilization Components
+<Accordion title="Civilization Components"> 
 - [**Creating Civilizations**](/community/guides/typescript/howto/creating-civilizations) - *For modders creating complete new civilizations*
   - Comprehensive guide to civilization definitions, abilities, and unique elements
 - [**Leaders and Ages**](/community/guides/typescript/howto/leaders-and-ages) - *For modders working with leaders or age-specific content*
   - Instructions for leaders, their abilities, and how they interact with age mechanics
 - [**Unique Quarters**](/community/guides/typescript/howto/unique-quarters) - *For modders adding specialized districts*
   - Detailed guide to creating civilization-specific districts with unique bonuses
+</Accordion>
 
-### Game Systems
+<Accordion title="Game Systems">
 - [**Traditions**](/community/guides/typescript/howto/traditions) - *For modders expanding the traditions system*
   - Complete process for implementing traditions with various effects and requirements
 - [**Progression Trees**](/community/guides/typescript/howto/progression-trees) - *For modders working with technology and civic trees*
   - Guide to creating advanced trees with multiple branches and progression paths
+</Accordion>
 
-### Technical Implementation
+<Accordion title="Technical Implementation">
 - [**Modifiers and Effects**](/community/guides/typescript/howto/modifiers-and-effects) - *For modders who need to create complex game mechanics*
   - In-depth coverage of the modifier system that powers gameplay effects
 - [**Assets and Icons**](/community/guides/typescript/howto/assets-and-icons) - *For modders adding visual elements to their mods*
   - Instructions for importing, referencing, and managing custom visual assets
 - [**Advanced Techniques**](/community/guides/typescript/howto/advanced-techniques) - *For experienced modders optimizing complex mods*
   - Advanced strategies for organizing code, optimizing performance, and creating complex game systems
+</Accordion>
+</AccordionGroup>
 
 ## When to Use Each Guide
 
@@ -70,7 +79,7 @@ Each guide follows a consistent structure:
 
 For advanced modifications, you can also import SQL files directly:
 
-``` typescript icon="code" title="Example Import SQL File" id="community-guides-typescript-howto-index__d9dab6fc" tag="code-file" lines wrap
+``` typescript icon="code" title="Example Import SQL File" id="community-guides-typescript-howto-index__d9dab6fc" tag="code-file" wrap
 import {
     ACTION_GROUP_BUNDLE,
     ImportFileBuilder,

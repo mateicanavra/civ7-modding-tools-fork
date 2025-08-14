@@ -7,10 +7,19 @@
     "dev": "bun run scripts/sync-resources.ts && bun run scripts/dev-staged.ts",
     "dev:fast": "DOCS_FAST_DEV=1 bun run scripts/dev-staged.ts",
     "start": "mint dev -p 6660 --no-open",
-    "build": "bun run scripts/sync-resources.ts && bun run scripts/validate-docs.ts && bun run scripts/broken-links-pages-only.ts",
-    "migrate": "bun run scripts/migrate-site-to-pages.ts",
+    
+    "normalize": "bun run scripts/update-code-blocks.ts",
+    "check": "bunx typescript@5.9.2 -p tsconfig.json --noEmit",
+    "check:ts": "bunx typescript@5.9.2 -p tsconfig.json --noEmit",
+    "check:links": "bun run scripts/broken-links-pages-only.ts",
+    "validate": "bun run scripts/validate-docs.ts && bun run scripts/broken-links-pages-only.ts",
+    
     "fix:links": "bun run scripts/fix-links.ts",
-    "check": "bunx typescript@5.9.2 -p tsconfig.json --noEmit"
+    "fix:mdx-links": "bun run scripts/fix-mdx-links.ts",
+    "migrate": "bun run scripts/migrate-site-to-pages.ts",
+    "sync": "bun run scripts/sync-resources.ts",
+    
+    "build": "bun run sync && bun run validate"
   },
   "devDependencies": {
     "mintlify": "^4.2.67"
