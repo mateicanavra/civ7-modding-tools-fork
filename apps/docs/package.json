@@ -14,6 +14,7 @@
     "check:links": "bun run scripts/broken-links-pages-only.ts",
     "validate": "bun run scripts/validate-docs.ts && bun run scripts/broken-links-pages-only.ts",
     "fix:duplicate-h1": "bun run scripts/remove-duplicate-h1.ts",
+    "fix:title-prefixes": "bun run scripts/remove-title-prefixes.ts",
     
     "fix:links": "bun run scripts/fix-links.ts",
     "fix:mdx-links": "bun run scripts/fix-mdx-links.ts",
