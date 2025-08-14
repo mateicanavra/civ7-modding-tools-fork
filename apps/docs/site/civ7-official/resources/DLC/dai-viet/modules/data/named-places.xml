@@ -1,0 +1,30 @@
+<Database>
+	<NamedRivers>
+		<Row NamedRiverType="RIVER_SONG_HONG" Name="LOC_RIVER_SONG_HONG_NAME"/>
+		<Row NamedRiverType="RIVER_SONG_LAM" Name="LOC_RIVER_SONG_LAM_NAME"/>
+		<Row NamedRiverType="RIVER_SONG_CHU" Name="LOC_RIVER_SONG_CHU_NAME"/>
+		<Row NamedRiverType="RIVER_SONG_DUONG" Name="LOC_RIVER_SONG_DUONG_NAME"/>
+		<Row NamedRiverType="RIVER_SONG_GAM" Name="LOC_RIVER_SONG_GAM_NAME"/>
+	</NamedRivers>
+	<NamedVolcanoes>
+		<Row NamedVolcanoType="VOLCANO_CU_LAO_RE" Name="LOC_VOLCANO_CU_LAO_RE_NAME"/>
+		<Row NamedVolcanoType="VOLCANO_DONG_NAI" Name="LOC_VOLCANO_DONG_NAI_NAME"/>
+		<Row NamedVolcanoType="VOLCANO_CHU_DANG_YA" Name="LOC_VOLCANO_CHU_DANG_YA_NAME"/>
+		<Row NamedVolcanoType="VOLCANO_NAM_DONG" Name="LOC_VOLCANO_NAM_DONG_NAME"/>
+		<Row NamedVolcanoType="VOLCANO_BANG_MO" Name="LOC_VOLCANO_BANG_MO_NAME"/>
+	</NamedVolcanoes>
+	<NamedRiverCivilizations>
+		<Row NamedRiverType="RIVER_SONG_HONG" CivilizationType="CIVILIZATION_DAI_VIET"/>
+		<Row NamedRiverType="RIVER_SONG_LAM" CivilizationType="CIVILIZATION_DAI_VIET"/>
+		<Row NamedRiverType="RIVER_SONG_CHU" CivilizationType="CIVILIZATION_DAI_VIET"/>
+		<Row NamedRiverType="RIVER_SONG_DUONG" CivilizationType="CIVILIZATION_DAI_VIET"/>
+		<Row NamedRiverType="RIVER_SONG_GAM" CivilizationType="CIVILIZATION_DAI_VIET"/>
+	</NamedRiverCivilizations>
+	<NamedVolcanoCivilizations>
+		<Row NamedVolcanoType="VOLCANO_CU_LAO_RE" CivilizationType="CIVILIZATION_DAI_VIET"/>
+		<Row NamedVolcanoType="VOLCANO_DONG_NAI" CivilizationType="CIVILIZATION_DAI_VIET"/>
+		<Row NamedVolcanoType="VOLCANO_CHU_DANG_YA" CivilizationType="CIVILIZATION_DAI_VIET"/>
+		<Row NamedVolcanoType="VOLCANO_NAM_DONG" CivilizationType="CIVILIZATION_DAI_VIET"/>
+		<Row NamedVolcanoType="VOLCANO_BANG_MO" CivilizationType="CIVILIZATION_DAI_VIET"/>
+	</NamedVolcanoCivilizations>
+</Database>

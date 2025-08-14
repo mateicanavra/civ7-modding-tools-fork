@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<NarrativeDisplay_Civilizations>
+		<Row CivilizationType="CIVILIZATION_CARTHAGE" CivilizationImage="bg-panel-carthage.png"/>
+	</NarrativeDisplay_Civilizations>
+</Database>

@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==================================================	-->
+	<!--	Aksum							-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_PERIPLUS_OF_THE_ERYTHRAEAN_SEA_RESOURCE_CAP" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_RESOURCE_CAP">
+		<SubjectRequirements type="REQUIREMENTSET_TEST_ANY">
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_TO_COAST"/>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_TO_RIVER">
+				<Argument name="Navigable">true</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_PERIPLUS_OF_THE_ERYTHRAEAN_SEA_RESOURCE_CAP_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_PERIPLUS_OF_THE_ERYTHRAEAN_SEA_COASTAL_URBAN_GOLD" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IS_QUARTER">
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_TO_COAST"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Tooltip">LOC_CIVIC_PERIPLUS_OF_THE_ERYTHRAEAN_SEA_NAME</Argument>
+		<String context="Description">LOC_MOD_PERIPLUS_OF_THE_ERYTHRAEAN_SEA_COASTAL_URBAN_GOLD_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MONUMENTUM_ADULITANUM_ALTAR_HAWELT" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ACTIVATE_CONSTRUCTIBLE_ADJACENCY">
+		<Argument name="ConstructibleAdjacency">AltarHaweltCulture</Argument>
+		<String context="Description">LOC_MOD_MONUMENTUM_ADULITANUM_ALTAR_HAWELT_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MONUMENTUM_ADULITANUM_MONUMENT_HAWELT" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ACTIVATE_CONSTRUCTIBLE_ADJACENCY">
+		<Argument name="ConstructibleAdjacency">MonumentHaweltCulture</Argument>
+	</Modifier>
+	<Modifier id="MOD_HIMYARITES_DHOW_SWIFT" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_DHOW</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_DHOW_UPGRADE</Argument>
+		<String context="Description">LOC_MOD_HIMYARITES_DHOW_SWIFT_DESCRIPTION</String>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	Egypt							-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_HAPI_UNITS_IGNORE_MINOR_RIVER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_IGNORE_MOVEMENT_OBSTACLE">
+		<Argument name="Obstacle">RIVER_MINOR</Argument>
+		<String context="Description">LOC_MOD_HAPI_UNITS_IGNORE_MINOR_RIVER_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_ANUBIS_MEDJAY_GENERATE_GOLD" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_PLAYER_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_MEDJAY</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_UNIT_ON_DISTRICT">
+				<Argument name="Friendly">true</Argument>
+				<Argument name="DistrictType">DISTRICT_CITY_CENTER, DISTRICT_URBAN</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_ANUBIS_MEDJAY_GENERATE_GOLD_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_AMUN_RA_PALACE_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="ConstructibleType">BUILDING_PALACE</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">5</Argument>
+		<String context="Description">LOC_MOD_AMUN_RA_PALACE_GOLD_DESCRIPTION</String>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	Greece							-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_EKKLESIA_CULTURE_ENDEAVOR" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_YIELD_PER_PLAYER_INVOLVED_ACTION">
+		<Argument name="ActionGroupType">DIPLOMACY_ACTION_GROUP_ENDEAVOR</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Description">LOC_MOD_EKKLESIA_CULTURE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_EKKLESIA_CULTURE_SANCTION" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_YIELD_PER_PLAYER_INVOLVED_ACTION">
+		<Argument name="ActionGroupType">DIPLOMACY_ACTION_GROUP_SANCTION</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MOD_EKKLESIA_CULTURE_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_YIELD_PER_PLAYER_INVOLVED_ACTION">
+		<Argument name="ActionGroupType">DIPLOMACY_ACTION_GROUP_PROJECT</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGOGE_HOPLITE_ABILITY_FRIENDLY_INDEPENDENT" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_HOPLITE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_HOPLITE_UPGRADE</Argument>
+		<String context="Description">LOC_MOD_AGOGE_HOPLITE_ABILITY_FRIENDLY_INDEPENDENT_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SYMMACHIA_CULTURE_PER_FRIENDLY_INDEPENDENT" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_PER_SUZERAIN">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">2</Argument>
+		<Argument name="Tooltip">LOC_CIVIC_SYMMACHIA_NAME</Argument>
+		<String context="Description">LOC_MOD_SYMMACHIA_CULTURE_PER_FRIENDLY_INDEPENDENT_DESCRIPTION</String>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	Han							-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_ZHI_SCIENCE_BUILDING_URBAN_ADJACENCY" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ACTIVATE_CONSTRUCTIBLE_ADJACENCY">
+		<Argument name="ConstructibleAdjacency">HanUrbanScience</Argument>
+		<String context="Description">LOC_MOD_ZHI_SCIENCE_BUILDING_URBAN_ADJACENCY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_LI_DIPLOMACY_YIELD" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="Amount">2</Argument>
+		<Argument name="ConstructibleType">BUILDING_PALACE</Argument>
+		<String context="Description">LOC_MOD_LI_DIPLOMACY_YIELD_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_YI_ABILITY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_NU</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_HAN_YI</Argument>
+		<String context="Description">LOC_MOD_YI_ABILITY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_JUNZI_CAPITAL_SCIENCE" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_ADJUST_YIELD">
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Percent">10</Argument>
+		<String context="Description">LOC_MOD_JUNZI_CAPITAL_SCIENCE_DESCRIPTION</String>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	Khmer							-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_AMNACH_DANTINAS_TATHA_MOVEMENT_BONUS" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_DANTINAS_TATHA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_AMNACH_DANTINAS_TATHA_MOVEMENT_BONUS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_CHAKRAVARTI_CAPITAL_GROWTH" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_ADJUST_GROWTH">
+		<Argument name="Percent">50</Argument>
+		<Argument name="Tooltip">LOC_CIVIC_CHAKRAVARTI_NAME</Argument>
+		<String context="Description">LOC_MOD_CHAKRAVARTI_CAPITAL_GROWTH_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_CHAKRAVARTI_CITY_HAPPINESS_PENALTY" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILDING" inverse="true">
+				<Argument name="BuildingType">BUILDING_PALACE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">-5</Argument>
+		<Argument name="Tooltip">LOC_CIVIC_CHAKRAVARTI_NAME</Argument>
+	</Modifier>
+	<Modifier id="MOD_CHAKRAVARTI_GREAT_WORKS_SLOTS" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_ADJUST_GREAT_WORK_SLOTS">
+		<Argument name="ConstructibleType">BUILDING_PALACE</Argument>
+		<Argument name="Amount">3</Argument>
+		<String context="Description">LOC_MOD_CHAKRAVARTI_GREAT_WORKS_SLOTS_DESCRIPTION</String>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	Maurya							-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_VYUHAM_CAVALRY_ABILITY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_CAVALRY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_VYUHAM_CAVALRY</Argument>
+		<String context="Description">LOC_MOD_VYUHAM_CAVALRY_ABILITY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_VYUHAM_INFANTRY_ABILITY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_INFANTRY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_VYUHAM_INFANTRY</Argument>
+	</Modifier>
+	<Modifier id="MOD_AYURVEDA_PURABHETTARAH_HEAL_ABILITY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_PURABHETTARAH</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_PURABHETTARAH_HEALING</Argument>
+		<String context="Description">LOC_MOD_AYURVEDA_PURABHETTARAH_HEAL_ABILITY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MANTRIPARISHAD_OCCUPIED_CITY_YIELD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_ORIGINAL_OWNER" inverse="true"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE,YIELD_DIPLOMACY,YIELD_FOOD,YIELD_GOLD,YIELD_HAPPINESS,YIELD_PRODUCTION,YIELD_SCIENCE</Argument>
+		<Argument name="Percent">10</Argument>
+		<String context="Description">LOC_MOD_MANTRIPARISHAD_OCCUPIED_CITY_YIELD_DESCRIPTION</String>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	Maya							-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_CHAAC_ALTAR_VEGETATION_ADJACENCY" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ACTIVATE_CONSTRUCTIBLE_ADJACENCY">
+		<Argument name="ConstructibleAdjacency">MayaAltarVegetatedScience</Argument>
+		<String context="Description">LOC_MOD_CHAAC_ALTAR_VEGETATION_ADJACENCY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_XIBALBA_HULCHE_STEALTH" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_HULCHE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_VEGETATED_STEALTH</Argument>
+		<String context="Description">LOC_MOD_XIBALBA_HULCHE_STEALTH_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_XIBALBA_JAGUAR_SLAYER_STEALTH" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_JAGUAR_SLAYER</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_VEGETATED_STEALTH</Argument>
+	</Modifier>
+	<Modifier id="MOD_CALENDAR_ROUND_CULTURE_FOR_TECH" collection="COLLECTION_OWNER" effect="TRIGGER_PLAYER_GRANT_YIELD_ON_PROGRESSION_TREE_NODE_DEPTH_UNLOCKED">
+		<Argument name="SystemType">SYSTEM_TECH</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="PercentCost">10</Argument>
+		<String context="Description">LOC_MOD_CALENDAR_ROUND_CULTURE_FOR_TECH_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_CALENDAR_ROUND_SCIENCE_FOR_CIVIC" collection="COLLECTION_OWNER" effect="TRIGGER_PLAYER_GRANT_YIELD_ON_PROGRESSION_TREE_NODE_DEPTH_UNLOCKED">
+		<Argument name="SystemType">SYSTEM_CULTURE</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="PercentCost">10</Argument>
+		<String context="Description">LOC_MOD_CALENDAR_ROUND_SCIENCE_FOR_CIVIC_DESCRIPTION</String>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	Mississippian							-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_EARTHWORKS_BUILDING_PRODUCTION_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_PRODUCTION">
+		<Argument name="ConstructibleClass">BUILDING</Argument>
+		<Argument name="Percent">10</Argument>
+		<String context="Description">LOC_MOD_EARTHWORKS_BUILDING_PRODUCTION_MODIFIER_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_CAH_NAH_HA_RESOURCE_CAP" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_ADJUST_RESOURCE_CAP">
+		<Argument name="Amount">2</Argument>
+		<String context="Description">LOC_MOD_CAH_NAH_HA_RESOURCE_CAP_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_WAAHIH_BURNING_ARROW_PILLAGE_ABILITY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_BURNING_ARROW</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_BURNING_ARROW_PILLAGE</Argument>
+		<String context="Description">LOC_MOD_WAAHIH_BURNING_ARROW_PILLAGE_ABILITY_DESCRIPTION</String>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	Persia							-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_SPADA_UNIT_MAINTENANCE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_UNIT_MAINTENANCE_EFFICIENCY">
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_SPADA_UNIT_MAINTENANCE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SATRAPIES_PAIRIDAEZA_URBAN_ADJACENCY" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ACTIVATE_CONSTRUCTIBLE_ADJACENCY">
+		<Argument name="ConstructibleAdjacency">PairidaezaUrbanHappiness</Argument>
+		<String context="Description">LOC_MOD_SATRAPIES_PAIRIDAEZA_URBAN_ADJACENCY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_ACHAEMENID_EMPIRE_CAPTURED_CITY_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_PER_UNIQUE_CIV_CONQUERED_CITY">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">5</Argument>
+		<Argument name="Tooltip">LOC_CIVIC_ACHAEMENID_EMPIRE_NAME</Argument>
+		<String context="Description">LOC_MOD_ACHAEMENID_EMPIRE_CAPTURED_CITY_GOLD_DESCRIPTION</String>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	Rome							-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_EXERCITUS_ROMANUS_LEGATUS_PROMOTION" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_GRANT_UNIT_PROMOTION">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_LEGATUS</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="UnitPromotionType">PROMOTION_ARMY_BULWARK</Argument>
+		<Argument name="UnitPromotionDisciplineType">DISCIPLINE_ARMY_BASTION</Argument>
+		<String context="Description">LOC_MOD_EXERCITUS_ROMANUS_LEGATUS_PROMOTION_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_CIVIS_ROMANUS_CAPITAL_GOLD_PER_TOWN" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_NUM_CITIES">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILDING">
+				<Argument name="BuildingType">BUILDING_PALACE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">2</Argument>
+		<Argument name="Cities">false</Argument>
+		<Argument name="Towns">true</Argument>
+		<Argument name="Tooltip">LOC_CIVIC_CIVIS_ROMANUS_NAME</Argument>
+		<String context="Description">LOC_MOD_CIVIS_ROMANUS_CAPITAL_GOLD_PER_TOWN_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_LEGATUS_PRO_PRAETORE_INFANTRY" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_UNIT" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_FIRST_TIME_SETTLEMENT_OCCUPATION">
+				<Argument name="OwnerSettled">true</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="UnitTag">UNIT_CLASS_INFANTRY</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="AllowUniqueOverride">true</Argument>
+		<String context="Description">LOC_MOD_LEGATUS_PRO_PRAETORE_INFANTRY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SENATUS_POPULUSQUE_ROMANUS_TRADITION_SLOTS" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_TRADITION_SLOTS" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_SENATUS_POPULUSQUE_ROMANUS_TRADITION_SLOTS_DESCRIPTION</String>
+	</Modifier>
+	<!--Example Requirement set with ID for REQSET_IS_MET use-->
+	<RequirementSet id="REQSET_CITY_CENTER_ADJACENT_TO_COAST">
+		<Requirement type="REQUIREMENT_PLOT_DISTRICT_CLASS">
+			<Argument name="DistrictClass">CITYCENTER</Argument>
+		</Requirement>
+		<Requirement type="REQUIREMENT_PLOT_ADJACENT_TO_COAST"></Requirement>
+	</RequirementSet>
+</GameEffects>

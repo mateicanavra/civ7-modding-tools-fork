@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--Artifacts-->
+		<Row Tag="LOC_GREATWORK_ARTIFACT_NAME">
+			<Text>Artifact</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_DESCRIPTION">
+			<Text>+4[icon:YIELD_CULTURE] Culture</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_1_NAME">
+			<Text>urn</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_2_NAME">
+			<Text>stone tablet</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_3_NAME">
+			<Text>spear</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_4_NAME">
+			<Text>scroll</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_5_NAME">
+			<Text>mask</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_6_NAME">
+			<Text>amphora</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_7_NAME">
+			<Text>mosaic</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_8_NAME">
+			<Text>axe</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_9_NAME">
+			<Text>shield</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_10_NAME">
+			<Text>bracelet</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_11_NAME">
+			<Text>chalice</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_12_NAME">
+			<Text>silver coin</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_13_NAME">
+			<Text>chainmail</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_14_NAME">
+			<Text>axe</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_15_NAME">
+			<Text>signet ring</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_16_NAME">
+			<Text>astrolabe</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_17_NAME">
+			<Text>doubloon</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_18_NAME">
+			<Text>halberd</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_19_NAME">
+			<Text>fresco</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_20_NAME">
+			<Text>earring</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_21_NAME">
+			<Text>mask</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_22_NAME">
+			<Text>knife</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_23_NAME">
+			<Text>flintlock pistol</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_24_NAME">
+			<Text>map</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_25_NAME">
+			<Text>necklace</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_26_NAME">
+			<Text>stone arrowhead</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_27_NAME">
+			<Text>fertility statue</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_28_NAME">
+			<Text>roundel</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_29_NAME">
+			<Text>sword</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_30_NAME">
+			<Text>terracotta statue</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_31_NAME">
+			<Text>metal arrowhead</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_32_NAME">
+			<Text>chalice</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_33_NAME">
+			<Text>compass</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_34_NAME">
+			<Text>paddle</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_35_NAME">
+			<Text>drum set</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_36_NAME">
+			<Text>drum</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_37_NAME">
+			<Text>set of tools</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_38_NAME">
+			<Text>sword</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_39_NAME">
+			<Text>lamellar armor</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_40_NAME">
+			<Text>cache of precious stones</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_41_NAME">
+			<Text>curse tablet</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_42_NAME">
+			<Text>cylinder seal</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_43_NAME">
+			<Text>ehel tent post</Text>
+		</Row>		
+		<Row Tag="LOC_GREATWORK_ARTIFACT_44_NAME">
+			<Text>incantation bowl</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_45_NAME">
+			<Text>lion hunt relief</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_46_NAME">
+			<Text>power figure</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_47_NAME">
+			<Text>obsidian knife</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_48_NAME">
+			<Text>glyph tablet</Text>
+		</Row>
+		<!--Named Great Works-->
+		<Row Tag="LOC_GREATWORK_ARTIFACT_EAGLE_NAME">
+			<Text>Lost Roman Eagle</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_HORRIBLE_PORTRAIT_NAME">
+			<Text>Horrible Portrait</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_LAUDATIO_NAME">
+			<Text>Laudatio Turiae</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_BRASS_PLATES_NAME">
+			<Text>Brass Plates</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_GRAUBALLE_NAME">
+			<Text>Grauballe Man</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_STANDING_VISHNU_NAME">
+			<Text>Standing Vishnu</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_PENDANT_WATCH_NAME">
+			<Text>Pendant Watch</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_LOST_CITY_AMPHORA_NAME">
+			<Text>Lost City Amphora</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_LOST_VILLAGE_DAGGER_NAME">
+			<Text>Lost Village Dagger</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_PHILOSOPHICAL_TREATISE_NAME">
+			<Text>Philosophical Treatise</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_COIN_NAME">
+			<Text>Lost Coin</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_VERNACULAR_TABLET_NAME">
+			<Text>Vernacular Tablet</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_SECRET_CHALICE_NAME">
+			<Text>Secret Chalice</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_BAYEUX_TAPESTRY_NAME">
+			<Text>Bayeux Tapestry</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_TRANSLATED_SAGA_NAME">
+			<Text>Rare Saga</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_EADBURG_MANUSCRIPT_NAME">
+			<Text>Eadburg Manuscript</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_MARBLE_SCULPTURE_NAME">
+			<Text>Marble Sculpture</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_BOG_BODY_NAME">
+			<Text>Bog Body</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_ARTIFACT_RESEARCH_NAME">
+			<Text>Exhibit</Text>
+		</Row>
+	</EnglishText>
+</Database>

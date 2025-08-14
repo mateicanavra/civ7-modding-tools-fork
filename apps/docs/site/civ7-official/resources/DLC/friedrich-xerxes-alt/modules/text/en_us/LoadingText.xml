@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_FRIEDRICH_ALT">
+			<Text>Though a lover of the opera house more than the battlefield, it is in the cannon’s fire that you shine. The line of attack replaces the violin’s bow, the roll of cannon stands in for the timpani, and the brass horn now calls forth iron shot. Bend your mind towards the artistry of war, Friedrich - your orchestra awaits your signal.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_XERXES_ALT">
+			<Text>Shah of shahs, you bring the fire of ambition to the world. Its light glitters off of the gold in your throne room - and the bronze blades of your warriors. You conceive of a new world, one of wonders rising from the wilderness, of an empire that defies time, and one that will never forget your name - Xerxes.</Text>
+		</Row>
+	</EnglishText>
+</Database>

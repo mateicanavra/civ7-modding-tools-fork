@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_MILITARY_VICTORY_ANTIQUITY_PROGRESS" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_SEND_EVENT" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_AGE_TYPE_MATCH">
+				<Argument name="AgeType">AGE_ANTIQUITY</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_ANTIQUITY_MILITARY</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Event">CHALLENGE_EVENT_LEADER_NAPOLEON_ALT_VICTORY_ACHIEVED</Argument>
+		<Argument name="Parameters">victoryType:VICTORY_CLASS_MILITARY,age:AGE_ANTIQUITY</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_MILITARY_VICTORY_EXPLORATION_PROGRESS" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_SEND_EVENT" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_AGE_TYPE_MATCH">
+				<Argument name="AgeType">AGE_EXPLORATION</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_EXPLORATION_MILITARY</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Event">CHALLENGE_EVENT_LEADER_NAPOLEON_ALT_VICTORY_ACHIEVED</Argument>
+		<Argument name="Parameters">victoryType:VICTORY_CLASS_MILITARY,age:AGE_EXPLORATION</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_MILITARY_VICTORY_MODERN_PROGRESS" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_SEND_EVENT" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_AGE_TYPE_MATCH">
+				<Argument name="AgeType">AGE_MODERN</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_MODERN_MILITARY</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Event">CHALLENGE_EVENT_LEADER_NAPOLEON_ALT_VICTORY_ACHIEVED</Argument>
+		<Argument name="Parameters">victoryType:VICTORY_CLASS_MILITARY,age:AGE_MODERN</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_ECONOMIC_VICTORY_ANTIQUITY_PROGRESS" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_SEND_EVENT" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_AGE_TYPE_MATCH">
+				<Argument name="AgeType">AGE_ANTIQUITY</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_ANTIQUITY_ECONOMIC</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Event">CHALLENGE_EVENT_LEADER_NAPOLEON_ALT_VICTORY_ACHIEVED</Argument>
+		<Argument name="Parameters">victoryType:VICTORY_CLASS_ECONOMIC,age:AGE_ANTIQUITY</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_ECONOMIC_VICTORY_EXPLORATION_PROGRESS" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_SEND_EVENT" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_AGE_TYPE_MATCH">
+				<Argument name="AgeType">AGE_EXPLORATION</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_EXPLORATION_ECONOMIC</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Event">CHALLENGE_EVENT_LEADER_NAPOLEON_ALT_VICTORY_ACHIEVED</Argument>
+		<Argument name="Parameters">victoryType:VICTORY_CLASS_ECONOMIC,age:AGE_EXPLORATION</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_ECONOMIC_VICTORY_MODERN_PROGRESS" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_SEND_EVENT" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_AGE_TYPE_MATCH">
+				<Argument name="AgeType">AGE_MODERN</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_MODERN_ECONOMIC</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Event">CHALLENGE_EVENT_LEADER_NAPOLEON_ALT_VICTORY_ACHIEVED</Argument>
+		<Argument name="Parameters">victoryType:VICTORY_CLASS_ECONOMIC,age:AGE_MODERN</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_SCIENCE_VICTORY_ANTIQUITY_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_SEND_EVENT" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_AGE_TYPE_MATCH">
+				<Argument name="AgeType">AGE_ANTIQUITY</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_ANTIQUITY_SCIENCE</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Event">CHALLENGE_EVENT_LEADER_NAPOLEON_ALT_VICTORY_ACHIEVED</Argument>
+		<Argument name="Parameters">victoryType:VICTORY_CLASS_SCIENCE,age:AGE_ANTIQUITY</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_SCIENCE_VICTORY_EXPLORATION_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_SEND_EVENT" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_AGE_TYPE_MATCH">
+				<Argument name="AgeType">AGE_EXPLORATION</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_EXPLORATION_SCIENCE</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Event">CHALLENGE_EVENT_LEADER_NAPOLEON_ALT_VICTORY_ACHIEVED</Argument>
+		<Argument name="Parameters">victoryType:VICTORY_CLASS_SCIENCE,age:AGE_EXPLORATION</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_SCIENCE_VICTORY_MODERN_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_SEND_EVENT" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_AGE_TYPE_MATCH">
+				<Argument name="AgeType">AGE_MODERN</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_MODERN_SCIENCE</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Event">CHALLENGE_EVENT_LEADER_NAPOLEON_ALT_VICTORY_ACHIEVED</Argument>
+		<Argument name="Parameters">victoryType:VICTORY_CLASS_SCIENCE,age:AGE_MODERN</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_CULTURE_VICTORY_ANTIQUITY_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_SEND_EVENT" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_AGE_TYPE_MATCH">
+				<Argument name="AgeType">AGE_ANTIQUITY</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_ANTIQUITY_CULTURE</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Event">CHALLENGE_EVENT_LEADER_NAPOLEON_ALT_VICTORY_ACHIEVED</Argument>
+		<Argument name="Parameters">victoryType:VICTORY_CLASS_CULTURE,age:AGE_ANTIQUITY</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_CULTURE_VICTORY_EXPLORATION_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_SEND_EVENT" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_AGE_TYPE_MATCH">
+				<Argument name="AgeType">AGE_EXPLORATION</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_EXPLORATION_CULTURE</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Event">CHALLENGE_EVENT_LEADER_NAPOLEON_ALT_VICTORY_ACHIEVED</Argument>
+		<Argument name="Parameters">victoryType:VICTORY_CLASS_CULTURE,age:AGE_EXPLORATION</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_CULTURE_VICTORY_MODERN_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_SEND_EVENT" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_AGE_TYPE_MATCH">
+				<Argument name="AgeType">AGE_MODERN</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_MODERN_CULTURE</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Event">CHALLENGE_EVENT_LEADER_NAPOLEON_ALT_VICTORY_ACHIEVED</Argument>
+		<Argument name="Parameters">victoryType:VICTORY_CLASS_CULTURE,age:AGE_MODERN</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_FLAWLESS_VICTORY_ANTIQUITY_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_SEND_EVENT" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_AGE_TYPE_MATCH">
+				<Argument name="AgeType">AGE_ANTIQUITY</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="MinLegacyPathsCompleted">2</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+				<Argument name="LeaderType">LEADER_NAPOLEON_ALT</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Event">CHALLENGE_EVENT_LEADER_NAPOLEON_ALT_FLAWLESS_VICTORY_ACHIEVED</Argument>
+		<Argument name="Parameters">legacyPathCount:2,age:AGE_ANTIQUITY</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_FLAWLESS_VICTORY_EXPLORATION_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_SEND_EVENT" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_AGE_TYPE_MATCH">
+				<Argument name="AgeType">AGE_EXPLORATION</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="MinLegacyPathsCompleted">2</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+				<Argument name="LeaderType">LEADER_NAPOLEON_ALT</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Event">CHALLENGE_EVENT_LEADER_NAPOLEON_ALT_FLAWLESS_VICTORY_ACHIEVED</Argument>
+		<Argument name="Parameters">legacyPathCount:2,age:AGE_EXPLORATION</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_FLAWLESS_VICTORY_MODERN_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_SEND_EVENT" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_GAME_AGE_TYPE_MATCH">
+				<Argument name="AgeType">AGE_MODERN</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="MinLegacyPathsCompleted">2</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+				<Argument name="LeaderType">LEADER_NAPOLEON_ALT</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Event">CHALLENGE_EVENT_LEADER_NAPOLEON_ALT_FLAWLESS_VICTORY_ACHIEVED</Argument>
+		<Argument name="Parameters">legacyPathCount:2,age:AGE_MODERN</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_QUEST_A_ANTIQUITY_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_NARRATIVE_STORY">
+				<Argument name="StoryType">LEADER_CHAIN_1191D</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_NAPOLEON_ALT_QUEST_A_ANTIQUITY</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_QUEST_B_ANTIQUITY_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_NARRATIVE_STORY">
+				<Argument name="StoryType">LEADER_CHAIN_1192D</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_NAPOLEON_ALT_QUEST_B_ANTIQUITY</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_QUEST_A_EXPLORATION_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_NARRATIVE_STORY">
+				<Argument name="StoryType">LEADER_CHAIN_1194D</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_NAPOLEON_ALT_QUEST_A_EXPLORATION</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_QUEST_B_EXPLORATION_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_NARRATIVE_STORY">
+				<Argument name="StoryType">LEADER_CHAIN_1196D</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_NAPOLEON_ALT_QUEST_B_EXPLORATION</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_QUEST_A_MODERN_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_NARRATIVE_STORY">
+				<Argument name="StoryType">LEADER_CHAIN_1198E</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_NAPOLEON_ALT_QUEST_A_MODERN</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_QUEST_B_MODERN_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_NARRATIVE_STORY">
+				<Argument name="StoryType">LEADER_CHAIN_1199E</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_NAPOLEON_ALT_QUEST_B_MODERN</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_UNLOCKED_STRATEGYCARDS_EXPLORATION_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_UNLOCKED_SPECIFIC_REWARD">
+				<Argument name="RewardId">STRATEGYCARD_NAPOLEON_REVOLUTIONARY_EXPLORATION_1</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_NAPOLEON_ALT_UNLOCKED_STRATEGYCARDS_EXPLORATION</Argument>
+	</Modifier>
+	<Modifier id="CHALLENGE_NAPOLEON_ALT_UNLOCKED_STRATEGYCARDS_MODERN_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_UNLOCKED_SPECIFIC_REWARD">
+				<Argument name="RewardId">STRATEGYCARD_NAPOLEON_REVOLUTIONARY_MODERN_1</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_NAPOLEON_ALT_UNLOCKED_STRATEGYCARDS_MODERN</Argument>
+	</Modifier>
+</GameEffects>

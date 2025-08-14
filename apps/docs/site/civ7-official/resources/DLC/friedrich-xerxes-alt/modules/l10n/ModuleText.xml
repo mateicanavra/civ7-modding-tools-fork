@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_DESCRIPTION" Language="pt_BR">
+      <Text>Contém novas personalidades para Frederico e Xerxes.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_NAME" Language="pt_BR">
+      <Text>Pacote de Personalidade – Frederico e Xerxes </Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_DESCRIPTION" Language="fr_FR">
+      <Text>Contient de nouvelles personnalités pour Frédéric et Xerxès.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_NAME" Language="fr_FR">
+      <Text>Pack de personnalités : Frédéric et Xerxès </Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_DESCRIPTION" Language="de_DE">
+      <Text>Enthält neue Personae von Friedrich und Xerxes.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_NAME" Language="de_DE">
+      <Text>Persona-Paket – Friedrich und Xerxes </Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_DESCRIPTION" Language="it_IT">
+      <Text>Contiene nuove personalità per Federico e Serse.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_NAME" Language="it_IT">
+      <Text>Pacchetto personaggi Federico e Serse </Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_DESCRIPTION" Language="ja_JP">
+      <Text>フリードリヒ2世とクセルクセス1世の新たなパーソナリティを含みます。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_NAME" Language="ja_JP">
+      <Text>パーソナリティパック - フリードリヒ2世とクセルクセス1世</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_DESCRIPTION" Language="ko_KR">
+      <Text>프리드리히와 크세르크세스의 새로운 페르소나가 포함되어 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_NAME" Language="ko_KR">
+      <Text>페르소나 팩 - 프리드리히 및 크세르크세스 </Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_DESCRIPTION" Language="pl_PL">
+      <Text>Zawiera nowe warianty Fryderyka i Kserksesa.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_NAME" Language="pl_PL">
+      <Text>Pakiet wariantów Fryderyka i Kserksesa </Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_DESCRIPTION" Language="ru_RU">
+      <Text>Содержит новые персоны для Фридриха и Ксеркса.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_NAME" Language="ru_RU">
+      <Text>Набор персон: Фридрих и Ксеркс </Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>包含腓特烈和薛西斯的一个新形象。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_NAME" Language="zh_Hans_CN">
+      <Text>形象包 - 腓特烈和薛西斯 </Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_DESCRIPTION" Language="es_ES">
+      <Text>Contiene personalidades nuevas de Federico y Jerjes.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_NAME" Language="es_ES">
+      <Text>Pack de personalidades: Federico y Jerjes </Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>包含腓特烈及薛西斯的新形象。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_NAME" Language="zh_Hant_HK">
+      <Text>形象包：腓特烈與薛西斯 </Text>
+    </Replace>
+  </LocalizedText>
+</Database>

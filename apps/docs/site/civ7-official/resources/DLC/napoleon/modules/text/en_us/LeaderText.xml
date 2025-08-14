@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_LEADER_NAPOLEON_NAME">
+			<Text>Napoleon, Emperor</Text>
+		</Row>
+		<Row Tag="LOC_LEADER_NAPOLEON_DESCRIPTION">
+			<Text>Gain a unique [icon:SANCTIONS] Sanction called Continental System that reduces the [icon:TRADE_ROUTE] Trade Route limit of the targeted Leader to all other Leaders by 1. Causes a massive Relationship penalty, and costs more to reject. +8 [icon:YIELD_GOLD] Gold per Age for every Leader you are Unfriendly or Hostile with. Can reject [icon:ENDEAVOR] Endeavors for free.</Text>
+		</Row>
+		<Row Tag="LOC_TRAIT_LEADER_NAPOLEON_ABILITY_NAME">
+			<Text>Empereur des Français</Text>
+		</Row>
+		<Row Tag="LOC_TRAIT_LEADER_NAPOLEON_ABILITY_DESCRIPTION">
+			<Text>[BLIST][LI]Gain a unique [icon:SANCTIONS] [B]Sanction [/B]called [B]Continental System [/B]that reduces the [icon:TRADE_ROUTE] [B]Trade Route [/B]limit of the targeted Leader to [B]all other Leaders [/B]by [B]1[/B]. Causes a massive Relationship penalty, and costs more to reject.[LI][B]+8 [icon:YIELD_GOLD] Gold [/B]per Age for every [B]Leader [/B]you are [B]Unfriendly [/B]or [B]Hostile [/B]with.[LI]Can reject [icon:ENDEAVOR] [B]Endeavors [/B]for [B]free[/B].[/LIST]</Text>
+		</Row>
+	</EnglishText>
+</Database>

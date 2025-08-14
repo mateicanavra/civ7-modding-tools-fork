@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_FEATURE"/>
+	</Kinds>
+	<Types>
+		<!--Natural Wonders -->
+		<Row Type="FEATURE_MACHAPUCHARE" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_MOUNT_FUJI" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_VIHREN" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_VINICUNCA" Kind="KIND_FEATURE"/>
+		<Row Type="RANDOM_EVENT_VOLCANO_MOUNT_FUJI" Kind="KIND_RANDOM_EVENT"/>
+	</Types>
+	<TypeTags>
+		<Row Type="FEATURE_MOUNT_FUJI" Tag="VOLCANO"/>
+	</TypeTags>
+	<TypeQuotes>
+		<Row Type="FEATURE_MACHAPUCHARE" Quote="LOC_QUOTE_FEATURE_MACHAPUCHARE" QuoteAuthor="LOC_QUOTE_AUTHOR_FEATURE_MACHAPUCHARE" QuoteAudio="VO_Quote_Machapuchare"/>
+		<Row Type="FEATURE_MOUNT_FUJI" Quote="LOC_QUOTE_FEATURE_MOUNT_FUJI" QuoteAuthor="LOC_QUOTE_AUTHOR_FEATURE_MOUNT_FUJI" QuoteAudio="VO_Quote_Fuji"/>
+		<Row Type="FEATURE_VIHREN" Quote="LOC_QUOTE_FEATURE_VIHREN" QuoteAuthor="LOC_QUOTE_AUTHOR_FEATURE_VIHREN" QuoteAudio="VO_Quote_Vihren"/>
+		<Row Type="FEATURE_VINICUNCA" Quote="LOC_QUOTE_FEATURE_VINICUNCA" QuoteAuthor="LOC_QUOTE_AUTHOR_FEATURE_VINICUNCA" QuoteAudio="VO_Quote_Vinicunca"/>
+	</TypeQuotes>
+	<NamedVolcanoCivilizations>
+		<Delete NamedVolcanoType="VOLCANO_MOUNT_FUJI" CivilizationType="CIVILIZATION_MEIJI"/>
+	</NamedVolcanoCivilizations>
+	<NamedVolcanoes>
+		<Update>
+			<Where NamedVolcanoType="VOLCANO_MOUNT_FUJI"/>
+			<Set Name="LOC_VOLCANO_MOUNT_VINSON_NAME"/>
+		</Update>
+	</NamedVolcanoes>
+	<Features>
+		<!--Natural Wonders -->
+		<Row FeatureType="FEATURE_MACHAPUCHARE" Name="LOC_FEATURE_MACHAPUCHARE_NAME" Description="LOC_FEATURE_MACHAPUCHARE_DESCRIPTION" Tooltip="LOC_FEATURE_MACHAPUCHARE_TOOLTIP" PlacementClass="THREETRIANGLE"  Appeal="1" Impassable="true" Removable="false" SightThroughModifier="1"/>
+		<Row FeatureType="FEATURE_MOUNT_FUJI" Name="LOC_FEATURE_MOUNT_FUJI_NAME" Description="LOC_FEATURE_MOUNT_FUJI_DESCRIPTION" Tooltip="LOC_FEATURE_MOUNT_FUJI_TOOLTIP" PlacementClass="THREETRIANGLE"  Appeal="1" Impassable="true" Removable="false" SightThroughModifier="1"/>
+		<Row FeatureType="FEATURE_VIHREN" Name="LOC_FEATURE_VIHREN_NAME" Description="LOC_FEATURE_VIHREN_DESCRIPTION" Tooltip="LOC_FEATURE_VIHREN_TOOLTIP" PlacementClass="THREETRIANGLE"  Appeal="1" Impassable="true" Removable="false" SightThroughModifier="1"/>
+		<Row FeatureType="FEATURE_VINICUNCA" Name="LOC_FEATURE_VINICUNCA_NAME" Description="LOC_FEATURE_VINICUNCA_DESCRIPTION" Tooltip="LOC_FEATURE_VINICUNCA_TOOLTIP" PlacementClass="FOURPARALLELAGRM" Appeal="1" Impassable="true" Removable="false" SightThroughModifier="1"/>
+	</Features>
+	<Feature_NaturalWonders>
+		<Row FeatureType="FEATURE_MOUNT_FUJI" Direction="2" Tiles="3" PlacementPercentage="100"/>
+		<Row FeatureType="FEATURE_MACHAPUCHARE" Tiles="3" PlacementPercentage="100"/>
+		<Row FeatureType="FEATURE_VIHREN" Direction="1" Tiles="3" PlacementPercentage="100"/>
+		<Row FeatureType="FEATURE_VINICUNCA" Tiles="4" PlacementPercentage="100"/>
+	</Feature_NaturalWonders>
+	<Feature_ValidTerrains>
+		<!--Natural Wonders -->
+		<Row FeatureType="FEATURE_MACHAPUCHARE" TerrainType="TERRAIN_MOUNTAIN"/>
+		<Row FeatureType="FEATURE_MOUNT_FUJI" TerrainType="TERRAIN_MOUNTAIN"/>
+		<Row FeatureType="FEATURE_VIHREN" TerrainType="TERRAIN_MOUNTAIN"/>
+		<Row FeatureType="FEATURE_VINICUNCA" TerrainType="TERRAIN_MOUNTAIN"/>
+	</Feature_ValidTerrains>
+	<Feature_ValidBiomes>
+		<!--Natural Wonders -->
+		<Row FeatureType="FEATURE_MACHAPUCHARE" BiomeType="BIOME_TROPICAL"/>
+		<Row FeatureType="FEATURE_MOUNT_FUJI" BiomeType="BIOME_GRASSLAND"/>
+		<Row FeatureType="FEATURE_VIHREN" BiomeType="BIOME_PLAINS"/>
+		<Row FeatureType="FEATURE_VINICUNCA" BiomeType="BIOME_DESERT"/>
+	</Feature_ValidBiomes>
+	<TerrainBiomeFeature_YieldChanges>
+		<!--Natural Wonders -->
+		<Row TerrainType="TERRAIN_MOUNTAIN" BiomeType="BIOME_TROPICAL" FeatureType="FEATURE_MACHAPUCHARE" YieldType="YIELD_PRODUCTION" YieldChange="4" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_MOUNTAIN" BiomeType="BIOME_TROPICAL" FeatureType="FEATURE_MACHAPUCHARE" YieldType="YIELD_CULTURE" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_MOUNTAIN" BiomeType="BIOME_GRASSLAND" FeatureType="FEATURE_MOUNT_FUJI" YieldType="YIELD_CULTURE" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_MOUNTAIN" BiomeType="BIOME_GRASSLAND" FeatureType="FEATURE_MOUNT_FUJI" YieldType="YIELD_HAPPINESS" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_MOUNTAIN" BiomeType="BIOME_GRASSLAND" FeatureType="FEATURE_MOUNT_FUJI" YieldType="YIELD_GOLD" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_MOUNTAIN" BiomeType="BIOME_PLAINS" FeatureType="FEATURE_VIHREN" YieldType="YIELD_FOOD" YieldChange="4" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_MOUNTAIN" BiomeType="BIOME_PLAINS" FeatureType="FEATURE_VIHREN" YieldType="YIELD_PRODUCTION" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_MOUNTAIN" BiomeType="BIOME_DESERT" FeatureType="FEATURE_VINICUNCA" YieldType="YIELD_SCIENCE" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_MOUNTAIN" BiomeType="BIOME_DESERT" FeatureType="FEATURE_VINICUNCA" YieldType="YIELD_PRODUCTION" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_MOUNTAIN" BiomeType="BIOME_DESERT" FeatureType="FEATURE_VINICUNCA" YieldType="YIELD_HAPPINESS" YieldChange="2" ScaleByGameAge="50"/>
+	</TerrainBiomeFeature_YieldChanges>
+	<Feature_AdjacentYields>
+	</Feature_AdjacentYields>
+	<Feature_CityYields>
+		<Row Feature_CityYieldType="MACHAPUCHARE_ROUGH_HAPPINESS" FeatureType="FEATURE_MACHAPUCHARE" YieldType="YIELD_HAPPINESS" Terrain="TERRAIN_HILL" YieldChange="1"/>
+		<Row Feature_CityYieldType="MACHAPUCHARE_MOUNTAIN_MACHAPUCHARE" FeatureType="FEATURE_MACHAPUCHARE" YieldType="YIELD_HAPPINESS" Terrain="TERRAIN_MOUNTAIN" YieldChange="1"/>
+	</Feature_CityYields>
+	<GameModifiers>
+		<Row ModifierId="VIHREN_CULTURE_DISASTERS"/>
+		<Row ModifierId="VIHREN_HAPPINESS_DISASTERS"/>
+		<Row ModifierId="VINICUNCA_ADJACENT_YIELDS"/>
+	</GameModifiers>
+	<RandomEvents>
+		<Row RandomEventType="RANDOM_EVENT_VOLCANO_MOUNT_FUJI" Name="LOC_RANDOM_EVENT_VOLCANO_MOUNT_FUJI_NAME" Description="LOC_RANDOM_EVENT_VOLCANO_MOUNT_FUJI_DESCRIPTION" EffectOperatorType="VOLCANO" EventClass="CLASS_VOLCANO" Severity="3" NaturalWonder="FEATURE_MOUNT_FUJI"/>
+	</RandomEvents>
+	<RandomEventFrequencies>
+		<Row RandomEventType="RANDOM_EVENT_VOLCANO_MOUNT_FUJI" RealismSettingType="REALISM_SETTING_LIGHT" OccurrencesPerAge="4"/>
+		<Row RandomEventType="RANDOM_EVENT_VOLCANO_MOUNT_FUJI" RealismSettingType="REALISM_SETTING_MODERATE" OccurrencesPerAge="8"/>
+		<Row RandomEventType="RANDOM_EVENT_VOLCANO_MOUNT_FUJI" RealismSettingType="REALISM_SETTING_HEAVY" OccurrencesPerAge="12"/>
+	</RandomEventFrequencies>
+	<RandomEventDamages>
+		<Row RandomEventType="RANDOM_EVENT_VOLCANO_MOUNT_FUJI" DamageType="CONSTRUCTIBLE_DAMAGED" Percentage="40"/>
+		<Row RandomEventType="RANDOM_EVENT_VOLCANO_MOUNT_FUJI" DamageType="UNIT_DAMAGED" Percentage="100" MinHP="40" MaxHP="60"/>
+	</RandomEventDamages>
+	<RandomEventYields>
+		<Row RandomEventType="RANDOM_EVENT_VOLCANO_MOUNT_FUJI" YieldType="YIELD_PRODUCTION" Percentage="30"/>
+		<Row RandomEventType="RANDOM_EVENT_VOLCANO_MOUNT_FUJI" YieldType="YIELD_FOOD" Percentage="30"/>
+		<Row RandomEventType="RANDOM_EVENT_VOLCANO_MOUNT_FUJI" YieldType="YIELD_CULTURE" Percentage="15"/>
+	</RandomEventYields>
+	<District_FreeConstructibles>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_EXPEDITION_BASE" FeatureType="FEATURE_MACHAPUCHARE" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_EXPEDITION_BASE" FeatureType="FEATURE_MOUNT_FUJI" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_EXPEDITION_BASE" FeatureType="FEATURE_VIHREN" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_EXPEDITION_BASE" FeatureType="FEATURE_VINICUNCA" Priority="3"/>
+	</District_FreeConstructibles>
+	<AiFavoredItems>
+		<Row ListType="Isabella Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="15" StringVal="FEATURE_MACHAPUCHARE" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Isabella Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="15" StringVal="FEATURE_MOUNT_FUJI" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Isabella Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="15" StringVal="FEATURE_VIHREN" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+		<Row ListType="Isabella Settle Plot Conditions" Item="Specific Feature" Favored="false" Value="15" StringVal="FEATURE_VINICUNCA" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+	</AiFavoredItems>
+</Database>

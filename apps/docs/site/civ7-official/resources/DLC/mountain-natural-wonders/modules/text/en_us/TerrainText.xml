@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Natural Wonders -->
+		<Row Tag="LOC_FEATURE_MACHAPUCHARE_NAME">
+			<Text>Machapuchare</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_MACHAPUCHARE_DESCRIPTION">
+			<Text>+2 [icon:YIELD_CULTURE] Culture and +4 [icon:YIELD_PRODUCTION] Production per Age. +1[icon:YIELD_HAPPINESS] Happiness on Rough and Mountain Terrain in this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_MACHAPUCHARE_TOOLTIP">
+			<Text>+1[icon:YIELD_HAPPINESS] Happiness on Rough and Mountain Terrain in this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_MOUNT_FUJI_NAME">
+			<Text>Mount Fuji</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_MOUNT_FUJI_DESCRIPTION">
+			<Text>+2 [icon:YIELD_GOLD] Gold, [icon:YIELD_CULTURE] Culture, and [icon:YIELD_HAPPINESS] Happiness per Age. Volcano tiles.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_MOUNT_FUJI_TOOLTIP">
+			<Text>Volcano tiles.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_VIHREN_NAME">
+			<Text>Vihren</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_VIHREN_DESCRIPTION">
+			<Text>+4 [icon:YIELD_FOOD] Food and +2 [icon:YIELD_PRODUCTION] Production per Age. +1 [icon:YIELD_HAPPINESS] Happiness and [icon:YIELD_CULTURE] Culture per Age, every time a Natural Disaster has provided Fertility this Age to you. </Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_VIHREN_TOOLTIP">
+			<Text>+1 [icon:YIELD_HAPPINESS] Happiness and [icon:YIELD_CULTURE] Culture per Age, every time a Natural Disaster has provided Fertility this Age to you. </Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_VINICUNCA_NAME">
+			<Text>Vinicunca</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_VINICUNCA_DESCRIPTION">
+			<Text>+2[icon:YIELD_PRODUCTION] Production,[icon:YIELD_HAPPINESS] Happiness, and[icon:YIELD_SCIENCE] Science per Age. +2 [icon:YIELD_CULTURE] Culture to adjacent Rural tiles.</Text>
+		</Row>
+		<Row Tag="LOC_FEATURE_VINICUNCA_TOOLTIP">
+			<Text>+2 [icon:YIELD_CULTURE] Culture to adjacent Rural tiles.</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_VINSON_NAME">
+			<Text>Mount Vinson</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_FEATURE_MACHAPUCHARE">
+			<Text>Shiva is signless, without color, taste, smell, that is beyond word or touch, without quality, motionless and changeless.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_FEATURE_MACHAPUCHARE">
+			<Text>The Linga Purana</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_FEATURE_MOUNT_FUJI">
+			<Text>In an enchanted world, the sun bumps her head on Fuji's peak.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_FEATURE_MOUNT_FUJI">
+			<Text>Matsuo Bashō</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_FEATURE_VIHREN">
+			<Text>The earth is held fast by mountains, so that it does not sway upon the waters.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_FEATURE_VIHREN">
+			<Text>The Razumnik</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_FEATURE_VINICUNCA">
+			<Text>O Pachacamac! Art thou in the sky or upon the earth? In the clouds or in the deeps?</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_FEATURE_VINICUNCA">
+			<Text>Pachacuti</Text>
+		</Row>
+	</EnglishText>
+</Database>

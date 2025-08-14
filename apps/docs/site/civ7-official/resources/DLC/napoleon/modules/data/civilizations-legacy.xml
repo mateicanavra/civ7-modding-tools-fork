@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LegacyLeaderCivPriorities>
+		<Row Leader="LEADER_NAPOLEON" CivilizationType="CIVILIZATION_EGYPT"/>
+		<Row Leader="LEADER_NAPOLEON" CivilizationType="CIVILIZATION_ROME"/>
+		<Row Leader="LEADER_NAPOLEON" CivilizationType="CIVILIZATION_NORMAN"/>
+		<Row Leader="LEADER_NAPOLEON" CivilizationType="CIVILIZATION_SPAIN"/>
+		<Row Leader="LEADER_NAPOLEON" CivilizationType="CIVILIZATION_FRENCH_EMPIRE"/>
+		<Row Leader="LEADER_NAPOLEON" CivilizationType="CIVILIZATION_RUSSIA"/>
+	</LegacyLeaderCivPriorities>
+</Database>

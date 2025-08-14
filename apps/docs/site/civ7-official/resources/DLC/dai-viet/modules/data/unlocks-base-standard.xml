@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_UNLOCK"/>
+	</Kinds>
+	<Types>
+		<InsertOrIgnore Type="UNLOCK_CIVILIZATION_DAI_VIET" Kind="KIND_UNLOCK"/>
+	</Types>
+	<Unlocks>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_DAI_VIET"/>
+	</Unlocks>
+	<UnlockRewards>
+		<Row UnlockType="UNLOCK_CIVILIZATION_DAI_VIET" Name="LOC_CIVILIZATION_DAI_VIET_NAME" Description="LOC_UNLOCK_EXPLORATION_CIV_DESCRIPTION" Icon="CIVILIZATION_DAI_VIET" UnlockRewardType="CIVILIZATION_DAI_VIET" UnlockRewardKind="KIND_CIVILIZATION"/>
+	</UnlockRewards>
+	<RequirementSets>
+		<Row RequirementSetId="REQSET_PLAYER_HAS_3_TROPICAL" RequirementSetType="REQUIREMENTSET_TEST_ALL"/>
+	</RequirementSets>
+	<Requirements>
+		<Row RequirementId="REQ_PLAYER_HAS_3_TROPICAL" RequirementType="REQUIREMENT_PLAYER_HAS_X_SETTLEMENTS_IN_BIOME"/>
+	</Requirements>
+	<RequirementArguments>
+		<Row RequirementId="REQ_PLAYER_HAS_3_TROPICAL" Name="BiomeType" Value="BIOME_TROPICAL"/>
+		<Row RequirementId="REQ_PLAYER_HAS_3_TROPICAL" Name="Count" Value="3"/>
+	</RequirementArguments>
+	<RequirementSetRequirements>
+		<Row RequirementSetId="REQSET_PLAYER_HAS_3_TROPICAL" RequirementId="REQ_PLAYER_HAS_3_TROPICAL"/>
+		<Row RequirementSetId="REQSET_PLAYER_HAS_3_TROPICAL" RequirementId="REQ_AGE_IS_ANTIQUITY"/>
+	</RequirementSetRequirements>
+	<UnlockRequirements>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_DAI_VIET" RequirementSetId="REQSET_PLAYER_HAS_3_TROPICAL" Description="LOC_UNLOCK_TROPICAL_DESCRIPTION" Tooltip="LOC_UNLOCK_TROPICAL_DAI_VIET_TOOLTIP" NarrativeText="LOC_UNLOCK_TROPICAL_DAI_VIET_NARRATIVE"/>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_DAI_VIET" RequirementSetId="REQSET_LEADER_IS_TRUNG_TRAC" Description="LOC_UNLOCK_PLAY_AS_TRUNG_TRAC_DESCRIPTION" Tooltip="LOC_UNLOCK_PLAY_AS_TRUNG_TRAC_DAI_VIET_TOOLTIP"/>
+	</UnlockRequirements>
+	<UnlockConfigurationValues>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_DAI_VIET" ConfigurationValue="CIVILIZATION_DAI_VIET"/>
+	</UnlockConfigurationValues>
+</Database>

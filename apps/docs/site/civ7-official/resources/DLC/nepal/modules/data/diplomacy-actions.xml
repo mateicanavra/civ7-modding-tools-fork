@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<Row Type="DIPLOMACY_ACTION_GIFT_GURKHA" Kind="KIND_DIPLOMACY_ACTION" />
+		<Row Type="DIPLOMACY_GIFT_GURKHA_COMPLETE" Kind="KIND_DIPLOMACY_ACTION_STAGE" />
+		<Row Type="DIPLOMACY_GIFT_GURKHA_ACTIVE" Kind="KIND_DIPLOMACY_ACTION_STAGE" />
+	</Types>
+	<DiplomacyActions>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_GIFT_GURKHA" Name="LOC_DIPLOMACY_ACTION_GIFT_GURKHA_NAME" Description="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_DESCRIPTION" BaseTokenCost="1" BaseDuration="15" Symmetrical="true" IsMutualSupport="false" TargetFavors="10000" TargetFavorsFreq="3" RequestString="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_REQUEST" UIIconPath="blp:dipaction_gift_gurkha" RequiresUnlock="true" RejectionRefundsInfluence="true"/>
+	</DiplomacyActions>
+	<DiplomaticActionValidTokens>
+		<Row TokenType="DIPLOMACY_TOKEN_GLOBAL" DiplomacyActionType="DIPLOMACY_ACTION_GIFT_GURKHA"/>
+	</DiplomaticActionValidTokens>
+	<DiplomaticActionStages>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_GIFT_GURKHA" StageType="DIPLOMACY_GIFT_GURKHA_COMPLETE" ProgressRequirement="0"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_GIFT_GURKHA" StageType="DIPLOMACY_GIFT_GURKHA_ACTIVE" ProgressRequirement="10"/>
+	</DiplomaticActionStages>
+	<EnterStageModifiers>
+		<Row StageType="DIPLOMACY_GIFT_GURKHA_COMPLETE" ModifierId="PLAYER_DIPLOMACY_GIFT_GURKHA_COMPLETE" />
+	</EnterStageModifiers>
+	<DiplomaticProjects_UI_Data>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_GIFT_GURKHA" DiplomacyActionGroup="DIPLOMACY_ACTION_GROUP_ENDEAVOR" PlayerOperationType="COOPERATIVE_YIELDS_DIPLOMATIC_ACTION" Target1Type="DIPLOMACY_TARGET_PLAYER" Target2Type="DIPLOMACY_TARGET_NONE" MaxNumEnvoys="1" MinNumVirtEnvoys="1" MaxNumVirtEnvoys="1" MaxNumSupportEnvoys="0" MaxNumOpposeEnvoys="0" Description="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_DESCRIPTION" ActiveDescription="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_DESCRIPTION" />
+	</DiplomaticProjects_UI_Data>
+	<DiplomaticActionResponseModifiers>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_GIFT_GURKHA" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" ModifierId="PLAYER_DIPLOMACY_BLOCK_ENDEAVORS_10" ModifierType="DIPLOMACY_MODIFIER_TYPE_ACTION" ModifierTarget="DIPLOMACY_MODIFIER_TARGET_BOTH"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_GIFT_GURKHA" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" ModifierId="PLAYER_DIPLOMACY_GRIEVANCES_FOR_ACTION_REJECTION" ModifierType="DIPLOMACY_MODIFIER_TYPE_ACTION" ModifierTarget="DIPLOMACY_MODIFIER_TARGET_INITIAL"/>
+	</DiplomaticActionResponseModifiers>
+</Database>

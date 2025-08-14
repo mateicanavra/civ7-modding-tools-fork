@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_CIVILIZATION"/>
+		<InsertOrIgnore Kind="KIND_TRAIT"/>
+	</Kinds>
+	<Types>
+		<!-- Major Civs -->
+		<Row Type="TRAIT_CARTHAGE" Kind="KIND_TRAIT"/>
+		<Row Type="CIVILIZATION_CARTHAGE" Kind="KIND_CIVILIZATION"/>
+	</Types>
+	<LegacyCivilizations>
+		<!-- Full Civs -->
+		<Row CivilizationType="CIVILIZATION_CARTHAGE" Name="LOC_CIVILIZATION_CARTHAGE_NAME" FullName="LOC_CIVILIZATION_CARTHAGE_FULLNAME" Adjective="LOC_CIVILIZATION_CARTHAGE_ADJECTIVE" Age="AGE_ANTIQUITY"/>
+	</LegacyCivilizations>
+	<LegacyCivilizationTraits>
+		<Row CivilizationType="CIVILIZATION_CARTHAGE" TraitType="TRAIT_CARTHAGE"/>
+	</LegacyCivilizationTraits>
+	<Traits>
+		<Row TraitType="TRAIT_CARTHAGE" InternalOnly="true"/>
+	</Traits>
+	<LegacyIndependents>
+		<Update>
+			<Where IndependentType="INDEPENDENT_ANTIQUITY_4"/>
+			<Set Name="LOC_INDEPENDENT_ANTIQUITY_4_MAJOR_CARTHAGE_NAME"/>
+		</Update>
+	</LegacyIndependents>
+</Database>

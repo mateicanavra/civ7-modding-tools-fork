@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<ProgressionTreeNodeUnlocks>
+		<Delete ProgressionTreeNodeType="NODE_TECH_AQ_CURRENCY" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_CODEX" UnlockDepth="2"/>
+		<Delete ProgressionTreeNodeType="NODE_TECH_AQ_ENGINEERING" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_CODEX" UnlockDepth="2"/>
+		<Delete ProgressionTreeNodeType="NODE_TECH_AQ_MILITARY_TRAINING" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_CODEX" UnlockDepth="2"/>
+		<Delete ProgressionTreeNodeType="NODE_TECH_AQ_NAVIGATION" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_CODEX" UnlockDepth="2"/>
+		<Delete ProgressionTreeNodeType="NODE_TECH_AQ_WHEEL" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_CODEX" UnlockDepth="2"/>
+		<Delete ProgressionTreeNodeType="NODE_TECH_AQ_WRITING" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_CODEX" UnlockDepth="2"/>
+		<Delete ProgressionTreeNodeType="NODE_TECH_AQ_MILITARY_TRAINING" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_CODEX" UnlockDepth="2"/>
+		<Delete ProgressionTreeNodeType="NODE_TECH_AQ_MATHEMATICS" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_MATHEMATICS_CODEX" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_CURRENCY" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_CODEX_REDUX" UnlockDepth="2" NotTraitType="TRAIT_ASSYRIA"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_ENGINEERING" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_CODEX_REDUX" UnlockDepth="2" NotTraitType="TRAIT_ASSYRIA"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MILITARY_TRAINING" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_CODEX_REDUX" UnlockDepth="2" NotTraitType="TRAIT_ASSYRIA"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_NAVIGATION" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_CODEX_REDUX" UnlockDepth="2" NotTraitType="TRAIT_ASSYRIA"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WHEEL" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_CODEX_REDUX" UnlockDepth="2" NotTraitType="TRAIT_ASSYRIA"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WRITING" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_CODEX_REDUX" UnlockDepth="2" NotTraitType="TRAIT_ASSYRIA"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MATHEMATICS" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_MATHEMATICS_CODEX_REDUX" UnlockDepth="2" NotTraitType="TRAIT_ASSYRIA"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_AQ_MAIN_DISCIPLINE" TargetKind="KIND_UNIT" TargetType="UNIT_TURTANU" UnlockDepth="1" RequiredTraitType="TRAIT_ASSYRIA"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WHEEL" TargetKind="KIND_UNIT" TargetType="UNIT_MAGARRU" UnlockDepth="1" RequiredTraitType="TRAIT_ASSYRIA"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_IRON_WORKING" TargetKind="KIND_UNIT" TargetType="UNIT_MAGARRU_2" UnlockDepth="1" RequiredTraitType="TRAIT_ASSYRIA"/>
+	</ProgressionTreeNodeUnlocks>
+</Database>

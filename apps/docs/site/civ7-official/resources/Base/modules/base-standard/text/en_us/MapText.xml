@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--Routes-->
+		<Row Tag="LOC_ROUTE_ROAD_NAME">
+			<Text>Road</Text>
+		</Row>
+		<Row Tag="LOC_ROUTE_ROAD_DESCRIPTION">
+			<Text>A basic connection between Settlements to aid the passage of frequent travelers.</Text>
+		</Row>
+		<!--Plot Effects-->
+		<Row Tag="LOC_PLOTEFFECT_RADIOACTIVE_FALLOUT_NAME">
+			<Text>Radioactive Fallout</Text>
+		</Row>
+		<Row Tag="LOC_PLOTEFFECT_FLOODED">
+			<Text>Flooded</Text>
+		</Row>
+		<Row Tag="LOC_PLOTEFFECT_IS_BURNING_NAME">
+			<Text>Burning</Text>
+		</Row>
+		<Row Tag="LOC_PLOTEFFECT_BURNED">
+			<Text>Burned</Text>
+		</Row>
+		<Row Tag="LOC_PLOTEFFECT_SAND">
+			<Text>Sand</Text>
+		</Row>
+		<Row Tag="LOC_PLOTEFFECT_STONE_TRAP_NAME">
+			<Text>Jaguar Trap</Text>
+		</Row>
+		<Row Tag="LOC_PLOTEFFECT_DIGSITE_NAME">
+			<Text>Dig Site</Text>
+		</Row>
+		<Row Tag="LOC_PLOTEFFECT_UNIT_FORTIFICATIONS">
+			<Text>Temporary Fortifications</Text>
+		</Row>
+		<Row Tag="LOC_PLOTEFFECT_SNOW_HEAVY">
+			<Text>Heavy Snow</Text>
+		</Row>
+		<Row Tag="LOC_PLOTEFFECT_SNOW_MEDIUM">
+			<Text>Medium Snow</Text>
+		</Row>
+		<Row Tag="LOC_PLOTEFFECT_SNOW_LIGHT">
+			<Text>Light Snow</Text>
+		</Row>
+		<Row Tag="LOC_PLOTEFFECT_PLAGUE_NAME">
+			<Text>Plague</Text>
+		</Row>
+		<!--Continents-->
+		<Row Tag="LOC_CONTINENT_AFRICA_DESCRIPTION">
+			<Text>Africa</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_AMASIA_DESCRIPTION">
+			<Text>Amasia</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_AMERICA_DESCRIPTION">
+			<Text>America</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_ANTARCTICA_DESCRIPTION">
+			<Text>Antarctica</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_ARCTICA_DESCRIPTION">
+			<Text>Arctica</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_ASIA_DESCRIPTION">
+			<Text>Asia</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_ASIAMERICA_DESCRIPTION">
+			<Text>Asiamerica</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_ATLANTICA_DESCRIPTION">
+			<Text>Atlantica</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_ATLANTIS_DESCRIPTION">
+			<Text>Atlantis</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_AUSTRALIA_DESCRIPTION">
+			<Text>Australia</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_AVALONIA_DESCRIPTION">
+			<Text>Avalonia</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_AZANIA_DESCRIPTION">
+			<Text>Azania</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_BALTICA_DESCRIPTION">
+			<Text>Baltica</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_CIMMERIA_DESCRIPTION">
+			<Text>Cimmeria</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_COLUMBIA_DESCRIPTION">
+			<Text>Columbia</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_CONGO_CRATON_DESCRIPTION">
+			<Text>Congo Craton</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_EURAMERICA_DESCRIPTION">
+			<Text>Euramerica</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_EUROPE_DESCRIPTION">
+			<Text>Europe</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_GONDWANA_DESCRIPTION">
+			<Text>Gondwana</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_KALAHARIA_DESCRIPTION">
+			<Text>Kalaharia</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_KAZAKHSTANIA_DESCRIPTION">
+			<Text>Kazakhstania</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_KERNORLAND_DESCRIPTION">
+			<Text>Kernorland</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_KUMARI_KANDAM_DESCRIPTION">
+			<Text>Kumari Kandam</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_LAURASIA_DESCRIPTION">
+			<Text>Laurasia</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_LAURENTIA_DESCRIPTION">
+			<Text>Laurentia</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_LEMURIA_DESCRIPTION">
+			<Text>Lemuria</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_MU_DESCRIPTION">
+			<Text>Mu</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_NENA_DESCRIPTION">
+			<Text>Nena</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_NORTH_AMERICA_DESCRIPTION">
+			<Text>North America</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_NOVOPANGAEA_DESCRIPTION">
+			<Text>Novopangaea</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_NUNA_DESCRIPTION">
+			<Text>Nuna</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_OCEANIA_DESCRIPTION">
+			<Text>Oceania</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_PANGAEA_DESCRIPTION">
+			<Text>Pangaea</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_PANGAEA_ULTIMA_DESCRIPTION">
+			<Text>Pangaea Ultima</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_PANNOTIA_DESCRIPTION">
+			<Text>Pannotia</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_RODINIA_DESCRIPTION">
+			<Text>Rodinia</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_SIBERIA_DESCRIPTION">
+			<Text>Siberia</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_SOUTH_AMERICA_DESCRIPTION">
+			<Text>South America</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_TERRA_AUSTRALIS_DESCRIPTION">
+			<Text>Terra Australis</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_UR_DESCRIPTION">
+			<Text>Ur</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_VAALBARA_DESCRIPTION">
+			<Text>Vaalbara</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_VENDIAN_DESCRIPTION">
+			<Text>Vendian</Text>
+		</Row>
+		<Row Tag="LOC_CONTINENT_ZEALANDIA_DESCRIPTION">
+			<Text>Zealandia</Text>
+		</Row>
+	</EnglishText>
+</Database>

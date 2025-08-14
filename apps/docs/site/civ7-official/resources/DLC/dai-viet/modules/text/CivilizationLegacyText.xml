@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <EnglishText>
+    <!--Civilization Names-->
+    <Row Tag="LOC_CIVILIZATION_DAI_VIET_NAME">
+      <Text>Đại Việt</Text>
+    </Row>
+    <!--Civilization Full Names-->
+    <Row Tag="LOC_CIVILIZATION_DAI_VIET_FULLNAME">
+      <Text>Đại Việt Empire</Text>
+    </Row>
+    <!--Civilization Adjectives-->
+    <Row Tag="LOC_CIVILIZATION_DAI_VIET_ADJECTIVE">
+      <Text>Vietnamese</Text>
+    </Row>
+	<Row Tag="LOC_INDEPENDENT_EXPLORATION_10_MINOR_DAI_VIET_NAME">
+		<Text>Tidorese</Text>
+	</Row>
+	<Row Tag="LOC_INDEPENDENT_EXPLORATION_10_MAJOR_DAI_VIET_NAME">
+		<Text>Tidore</Text>
+    </Row>
+  </EnglishText>
+</Database>

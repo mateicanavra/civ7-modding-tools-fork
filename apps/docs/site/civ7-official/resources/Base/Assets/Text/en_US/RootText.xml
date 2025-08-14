@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_EMPTY">
+			<Text></Text>
+		</Row>
+		<Row Tag="LOC_PLACEHOLDER">
+			<Text>[[PLACEHOLDER]]</Text>
+		</Row>
+	</EnglishText>
+</Database>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<!-- Major Civs -->
+		<Row Type="TRAIT_NEPAL" Kind="KIND_TRAIT"/>
+		<Row Type="CIVILIZATION_NEPAL" Kind="KIND_CIVILIZATION"/>
+	</Types>
+	<LegacyCivilizations>
+		<!-- Full Civs -->
+		<Row CivilizationType="CIVILIZATION_NEPAL" Name="LOC_CIVILIZATION_NEPAL_NAME" FullName="LOC_CIVILIZATION_NEPAL_FULLNAME" Adjective="LOC_CIVILIZATION_NEPAL_ADJECTIVE" Age="AGE_MODERN"/>
+	</LegacyCivilizations>
+	<LegacyCivilizationTraits>
+		<Row CivilizationType="CIVILIZATION_NEPAL" TraitType="TRAIT_NEPAL"/>
+	</LegacyCivilizationTraits>
+	<Traits>
+		<Row TraitType="TRAIT_NEPAL" InternalOnly="true"/>
+	</Traits>
+	<LegacyIndependents>
+		<Update>
+			<Where IndependentType="INDEPENDENT_MODERN_23"/>
+			<Set Name="LOC_INDEPENDENT_MODERN_23_MAJOR_NEPAL_NAME"/>
+		</Update>
+	</LegacyIndependents>
+</Database>

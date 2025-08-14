@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_NAME">
+			<Text>Persona Pack - Friedrich and Xerxes </Text>
+		</Row>
+		<Row Tag="LOC_MODULE_FRIEDRICH_XERXES_ALT_DESCRIPTION">
+			<Text>Contains new personas for Friedrich and Xerxes.</Text>
+		</Row>
+	</EnglishText>
+</Database>

@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <EnglishText>
+        <Row Tag="LOC_11071A_STORYTITLE">
+            <Text>The Four Corners</Text>
+        </Row>
+        <Row Tag="LOC_11071A_COMPLETION">
+            <Text>Assyrian heralds announce their right to rule as the šar kibrāt arba’i – the lords over the four corners of the world. But the meaning is open to interpretation.</Text>
+        </Row>
+        <Row Tag="LOC_11071B_NAME">
+            <Text>It is literal. Strive towards conquest.</Text>
+        </Row>
+        <Row Tag="LOC_11071B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11071C_NAME">
+            <Text>It is figurative. Strive towards knowledge.</Text>
+        </Row>
+        <Row Tag="LOC_11071C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11072A_STORYTITLE">
+            <Text>Temple of Trade</Text>
+        </Row>
+        <Row Tag="LOC_11072A_COMPLETION">
+            <Text>A shopkeeper squeezes through the temple crowd towards her wares, stored safely under the eye of the priests. Surrounding her, other merchants press coins into the attendants’ hands, each eager to have their transactions recorded. Here, one may address issues of spirit and finance in one stop.</Text>
+        </Row>
+        <Row Tag="LOC_11072B_NAME">
+            <Text>Expand altar storehouses.</Text>
+        </Row>
+        <Row Tag="LOC_11072B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11072C_NAME">
+            <Text>Priests should finance their own trade ventures.</Text>
+        </Row>
+        <Row Tag="LOC_11072C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11073A_STORYTITLE">
+            <Text>Besiege and Conquer</Text>
+        </Row>
+        <Row Tag="LOC_11073A_COMPLETION">
+            <Text>Assyrian sappers assist the war engines, tearing loose bricks from the wall with hammers and pickaxes. When the dust clears, both engine crews and their commanders claim credit for the wall’s collapse.</Text>
+        </Row>
+        <Row Tag="LOC_11073B_NAME">
+            <Text>This is the result of Assyrian engineering.</Text>
+        </Row>
+        <Row Tag="LOC_11073B_DESCRIPTION">
+            <Text>{1_reward} Siege Units.</Text>
+        </Row>
+        <Row Tag="LOC_11073C_NAME">
+            <Text>Let this be a lesson for Assyria's commanders.</Text>
+        </Row>
+        <Row Tag="LOC_11073C_DESCRIPTION">
+            <Text>{1_reward} on current Commanders.</Text>
+        </Row>
+        <Row Tag="LOC_11074A_STORYTITLE">
+            <Text>The Feeding of Ashur</Text>
+        </Row>
+        <Row Tag="LOC_11074A_COMPLETION">
+            <Text>The feeding of the god Ashur begins in the newly conquered city, and dejected lines form bearing gifts of cattle and grain to the altar. A priest of the old faith hangs back, refusing to acknowledge this new divine order, as an Assyrian commander looks on.</Text>
+        </Row>
+        <Row Tag="LOC_11074B_NAME">
+            <Text>Ignore the priest. The time for mercy has come.</Text>
+        </Row>
+        <Row Tag="LOC_11074B_DESCRIPTION">
+            <Text>Select an additional Pantheon, but {1_reward} in all Settlements.</Text>
+        </Row>
+        <Row Tag="LOC_11074C_NAME">
+            <Text>Draw weapons. Surrender must be absolute.</Text>
+        </Row>
+        <Row Tag="LOC_11074C_DESCRIPTION">
+            <Text>{1_reward}, but {2_reward} in all Settlements.</Text>
+        </Row>
+        <Row Tag="LOC_11075A_STORYTITLE">
+            <Text>Ashur's Army</Text>
+        </Row>
+        <Row Tag="LOC_11075A_COMPLETION">
+            <Text>Army recruits sleep in stables, and commanders hold their meetings in the open air. There are simply too many soldiers and too few places for them.</Text>
+        </Row>
+        <Row Tag="LOC_11075B_NAME">
+            <Text>Expand existing citadels.</Text>
+        </Row>
+        <Row Tag="LOC_11075B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11075C_NAME">
+            <Text>A soldier's life is hard. They must adapt.</Text>
+        </Row>
+        <Row Tag="LOC_11075C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11076A_STORYTITLE">
+            <Text>The Fall</Text>
+        </Row>
+        <Row Tag="LOC_11076A_COMPLETION">
+            <Text>No one speaks when the commander leaves. Words mean little when a rising tide seems ready to drown Ashur and all his glory. The news of the recent defeat will trickle down to the rest of the Assyrian people soon.</Text>
+        </Row>
+        <Row Tag="LOC_11076B_NAME">
+            <Text>Rekindle hope. The tide may yet turn.</Text>
+        </Row>
+        <Row Tag="LOC_11076B_DESCRIPTION">
+            <Text>Enter a Celebration.</Text>
+        </Row>
+        <Row Tag="LOC_11076C_NAME">
+            <Text>Train more soldiers. The tide may yet turn.</Text>
+        </Row>
+        <Row Tag="LOC_11076C_DESCRIPTION">
+            <Text>{1_reward} Military Units.</Text>
+        </Row>
+        <Row Tag="LOC_11077A_STORYTITLE">
+            <Text>Body as a Tool</Text>
+        </Row>
+        <Row Tag="LOC_11077A_COMPLETION">
+            <Text>A young woman practices inscribing her name onto soft clay. Though barely legible, it will act as the seal to bind herself to a temporary contract in search of a better life. One of servitude, but that is full of food, clothing, and warmth.</Text>
+        </Row>
+        <Row Tag="LOC_11077B_NAME">
+            <Text>Find service in the military.</Text>
+        </Row>
+        <Row Tag="LOC_11077B_DESCRIPTION">
+            <Text>{1_reward} on Production Buildings.</Text>
+        </Row>
+        <Row Tag="LOC_11077C_NAME">
+            <Text>Work in the temple.</Text>
+        </Row>
+        <Row Tag="LOC_11077C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11077D_NAME">
+            <Text>Destroy the tablet and return home. Servitude is no choice.</Text>
+        </Row>
+        <Row Tag="LOC_11077D_DESCRIPTION">
+            <Text>{1_reward} on Food Buildings.</Text>
+        </Row>
+        <Row Tag="LOC_11078A_STORYTITLE">
+            <Text>The Royal Library</Text>
+        </Row>
+        <Row Tag="LOC_11078A_COMPLETION">
+            <Text>The library rises, its magnificence dwarfed by the worlds contained in the writings within. But there are too many empty shelves, too many spaces for yet more dreams inscribed in clay.</Text>
+        </Row>
+        <Row Tag="LOC_11078B_STORYTITLE">
+            <Text>The Royal Library</Text>
+        </Row>
+        <Row Tag="LOC_11078B_NAME">
+            <Text>All texts, everywhere, belong to Assyria.</Text>
+        </Row>
+        <Row Tag="LOC_11078B_DESCRIPTION">
+            <Text>+1 Additional Codex.</Text>
+        </Row>
+        <Row Tag="LOC_11078B_COMPLETION">
+            <Text>The librarian places the work in its seat of honor. She takes a small cloth and wipes clean a small stain. Ink, perhaps.</Text>
+        </Row>
+        <Row Tag="LOC_11078B_IMPERATIVE">
+            <Text>Capture a Settlement.</Text>
+        </Row>
+        <Row Tag="LOC_11078C_NAME">
+            <Text>Use some of this empty space for local merchants.</Text>
+        </Row>
+        <Row Tag="LOC_11078C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11079A_STORYTITLE">
+            <Text>The Mane Event</Text>
+        </Row>
+        <Row Tag="LOC_11079A_COMPLETION">
+            <Text>The arena is adorned with images of lion hunts, and it is lions the crowd has come to see. As the lion is released, the crowd roars with joy. But as it concludes, the mournful howls of the wounded beast draw murmurs of sympathy.</Text>
+        </Row>
+        <Row Tag="LOC_11079B_NAME">
+            <Text>Spare the lions. Have soldiers fight.</Text>
+        </Row>
+        <Row Tag="LOC_11079B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11079C_NAME">
+            <Text>Slay the beasts!</Text>
+        </Row>
+        <Row Tag="LOC_11079C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11080A_STORYTITLE">
+            <Text>The Biggest Insult</Text>
+        </Row>
+        <Row Tag="LOC_11080A_COMPLETION">
+            <Text>A captured enemy commander is forced to his knees as Assyrian soldiers bring forth a chariot. After the humiliation on the battlefield, some further demonstration is needed.</Text>
+        </Row>
+        <Row Tag="LOC_11080B_NAME">
+            <Text>The prisoner will pull the chariot through the city!</Text>
+        </Row>
+        <Row Tag="LOC_11080B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11080C_NAME">
+            <Text>The prisoner will neigh like a proper steed.</Text>
+        </Row>
+        <Row Tag="LOC_11080C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_12010A_STORYTITLE">
+            <Text>The Good Doctor in the Land of Kings</Text>
+        </Row>
+        <Row Tag="LOC_12010A_COMPLETION">
+            <Text>Dr. Rizal regards an immense siege tower, its top just visible behind the wall of an Assyrian garrison, and a chill runs down the length of his spine.</Text>
+        </Row>
+        <Row Tag="LOC_12010B_NAME">
+            <Text>The wars it has outlived...</Text>
+        </Row>
+        <Row Tag="LOC_12010B_DESCRIPTION">
+            <Text>{1_reward} on Warriors.</Text>
+        </Row>
+        <Row Tag="LOC_12010C_NAME">
+            <Text>The brutal elegance of it...</Text>
+        </Row>
+        <Row Tag="LOC_12010C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+    </EnglishText>
+</Database>

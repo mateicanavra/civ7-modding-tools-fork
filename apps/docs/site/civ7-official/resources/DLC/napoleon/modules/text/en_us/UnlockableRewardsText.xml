@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_BADGE_NAPOLEON_EMPEROR_NAME">
+			<Text>Napoleon Emperor Badge 1</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_NAPOLEON_EMPEROR_P_NAME">
+			<Text>Napoleon Emperor Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_NAPOLEON_EMPEROR_NAME">
+			<Text>Napoleon Emperor Banner</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_NAPOLEON_EMPEROR_NAME">
+			<Text>Self-Crowned Emperor</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_NAPOLEON_EMPEROR_EXPLORATION_1_NAME">
+			<Text>Exploration Diplomatic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_NAPOLEON_EMPEROR_EXPLORATION_1_DESCRIPTION">
+			<Text>As Napoleon, access a new Exploration Legacy Card:[n]
+				+15% Influence, -2 Combat Strength for Naval Units</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_NAPOLEON_EMPEROR_EXPLORATION_2_NAME">
+			<Text>Exploration Economic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_NAPOLEON_EMPEROR_EXPLORATION_2_DESCRIPTION">
+			<Text>As Napoleon, access a new Exploration Legacy Card:[n]
+				+15% Gold, -10% Food</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_NAPOLEON_EMPEROR_MODERN_1_NAME">
+			<Text>Modern Diplomatic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_NAPOLEON_EMPEROR_MODERN_1_DESCRIPTION">
+			<Text>As Napoleon, access a new Modern Legacy Card:[n]
+				+15% Influence, -2 Combat Strength for Air Units</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_NAPOLEON_EMPEROR_MODERN_2_NAME">
+			<Text>Modern Economic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_NAPOLEON_EMPEROR_MODERN_2_DESCRIPTION">
+			<Text>As Napoleon, access a new Modern Legacy Card:[n]
+				+15% Gold, -10% Food</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_NAPOLEON_EMPEROR_L1_NAME">
+			<Text>Economic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_NAPOLEON_EMPEROR_L1_DESCRIPTION">
+			<Text>+25% Gold from Trade and Treasure Convoys.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_NAPOLEON_EMPEROR_L2_NAME">
+			<Text>Diplomatic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_NAPOLEON_EMPEROR_L2_DESCRIPTION">
+			<Text>+25% Relationship from starting or supporting Endeavors. -25% Relationship from starting Sanctions or rejecting Endeavors.</Text>
+		</Row>
+	</EnglishText>
+</Database>

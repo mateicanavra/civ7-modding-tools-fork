@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--Codices-->
+		<Row Tag="LOC_GREATWORK_CODEX_NAME">
+			<Text>Codex</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_CODEX_DESCRIPTION">
+			<Text>+2 Science</Text>
+		</Row>
+		<!-- Great Person Great Works -->
+		<Row Tag="LOC_GREATWORK_SAPPHO_APHRODITE_NAME">
+			<Text>Hymn to Aphrodite</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_SAPPHO_APHRODITE_DESCRIPTION">
+			<Text>+2 Culture</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_PTAHHOTEP_MAXIMS_NAME">
+			<Text>The Maxims of Ptahhotep</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_PTAHHOTEP_MAXIMS_DESCRIPTION">
+			<Text>+3 Science</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_BAN_ZHAO_LESSONS_NAME">
+			<Text>Book of Han</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_BAN_ZHAO_LESSONS_DESCRIPTION">
+			<Text>+2 Culture</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_LAOZI_TAO_NAME">
+			<Text>Tao Te Ching</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_LAOZI_TAO_DESCRIPTION">
+			<Text>+2 Happiness</Text>
+		</Row>
+		<!-- Uniquely Named Great Works-->
+		<Row Tag="LOC_GREATWORK_CODEX_ON_THE_WARS_NAME">
+			<Text>On the Wars</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_CODEX_HISTORIA_ANIMALIUM_NAME">
+			<Text>Historia Animalium</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_CODEX_DE_PARTIBUS_ANIMALIUM_NAME">
+			<Text>De Partibus Animalium</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_CODEX_ANABASIS_NAME">
+			<Text>Anabasis</Text>
+		</Row>
+		<Row Tag="LOC_GREATWORK_CODEX_BRASS_PLATES_NAME">
+			<Text>Brass Plates</Text>
+		</Row>
+	</EnglishText>
+</Database>

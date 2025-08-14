@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<!-- Property Types that are associated with Definitions.
+		 These primarily define the link between the Definition and its Enum for its primary key -->
+	<IPropertyTypes>
+		<Row Type="BiomeTypes" KindOf="Enum" Definition="Biomes"/>
+		<Row Type="CivilizationTypes" KindOf="Enum" Definition="Civilizations"/>
+		<Row Type="ConstructibleTypes" KindOf="Enum" Definition="Constructibles"/>
+		<Row Type="ContinentTypes" KindOf="Enum" Definition="Continents"/>
+		<Row Type="AgeTypes" KindOf="Enum" Definition="Ages"/>
+		<Row Type="FeatureTypes" KindOf="Enum" Definition="Features"/>
+		<Row Type="LeaderTypes" KindOf="Enum" Definition="Leaders"/>
+		<Row Type="ProgressionTreeTypes" KindOf="Enum" Definition="ProgressionTrees"/>
+		<Row Type="ResourceTypes" KindOf="Enum" Definition="Resources"/>
+		<Row Type="TerrainTypes" KindOf="Enum" Definition="Terrains"/>
+		<Row Type="UnitTypes" KindOf="Enum" Definition="Units"/>
+		<Row Type="YieldTypes" KindOf="Enum" Definition="Yields"/>
+	</IPropertyTypes>
+</Database>

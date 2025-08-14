@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="MOD_GRAND_BAZAAR_RESOURCE_CAP" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_RESOURCE_CAP">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_GRAND_BAZAAR</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MOD_GRAND_BAZAAR_HOMELAND_RESOURCE_GOLD" collection="COLLECTION_OWNER_PLAYER" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_GRAND_BAZAAR</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ModifierId">MOD_GRAND_BAZAAR_HOMELAND_RESOURCE_GOLD_EFFECT</Argument>
+	</Modifier>
+	<Modifier id="MOD_GRAND_BAZAAR_HOMELAND_RESOURCE_GOLD_EFFECT" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IS_HOMELANDS"/>
+			<Requirement type="REQUIREMENT_PLOT_RESOURCE_VISIBLE"/>
+			<Requirement type="REQUIREMENT_PLOT_RESOURCE_CLASS_TYPE_MATCHES">
+				<Argument name="ResourceClass">RESOURCECLASS_TREASURE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+	</Modifier>
+	<Modifier id="MOD_WAT_XIENG_THONG_GW_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_YIELD_FOR_GREAT_WORK">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_WAT_XIENG_THONG</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">200</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+	</Modifier>
+</GameEffects>

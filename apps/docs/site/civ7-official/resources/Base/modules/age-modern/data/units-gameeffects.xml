@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==================================================	-->
+	<!--	Generic Abilities							-->
+	<!-- ==================================================	-->
+	<Modifier id="AUTHORITARIANISM_MOD_COMBAT_STRENGTH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_AUTHORITARIANISM_PREVIEW</String>
+	</Modifier>
+	<Modifier id="MO_TECH_CAVALRY_MOD_COMBAT_STRENGTH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_MO_TECH_CAVALRY_PREVIEW</String>
+	</Modifier>
+	<Modifier id="MO_TECH_INFANTRY_MOD_COMBAT_STRENGTH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_MO_TECH_INFANTRY_PREVIEW</String>
+	</Modifier>
+	<Modifier id="MO_TECH_AIRCRAFT_MOD_INTERCEPT_RANGE" collection="COLLECTION_OWNER" effect="EFFECT_ARMY_ADJUST_AIR_INTERCEPTION_RANGE">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="MO_TECH_NAVAL_MOD_COMBAT_STRENGTH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_MO_TECH_NAVAL_PREVIEW</String>
+	</Modifier>
+	<Modifier id="MO_TECH_RANGED_MOD_COMBAT_STRENGTH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_MO_TECH_RANGED_PREVIEW</String>
+	</Modifier>
+	<Modifier id="MO_TECH_SIEGE_MOD_COMBAT_STRENGTH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_MO_TECH_SIEGE_PREVIEW</String>
+	</Modifier>
+	<Modifier id="MO_TECH_AIRCRAFT_MOD_COMBAT_STRENGTH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_MO_TECH_AIRCRAFT_PREVIEW</String>
+	</Modifier>
+	<Modifier id="THEIR_FINEST_HOUR_AIR_UNIT_COMBAT_STRENGTH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IS_OWNER">
+			</Requirement>
+			<Requirement type="REQUIREMENT_UNIT_CLASS_MATCHES">
+				<Argument name="UnitClass">UNIT_CLASS_AIRCRAFT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_ABILITY_THEIR_FINEST_HOUR_PREVIEW</String>
+	</Modifier>
+	<Modifier id="DEFENSE_OF_THE_MOTHERLAND_MOD_COMBAT_STRENGTH_IN_TERRITORY" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IS_OWNER">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_TRADITION_DEFENSE_OF_THE_MOTHERLAND_PREVIEW</String>
+	</Modifier>
+	<Modifier id="AT_MOD_COMBAT_FRIENDLY_TERRITORY" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IS_OWNER">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_AT_MOD_COMBAT_FRIENDLY_TERRITORY_PREVIEW</String>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	Unique Abilities							-->
+	<!-- ==================================================	-->
+	<Modifier id="ABAMBOWA_MOD_PILLAGE_HEAL_BUILDING" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_BUILDING_PILLAGE_YIELD_MODIFIER">
+		<Argument name="Amount">10</Argument>
+		<Argument name="PlunderTypes">PLUNDER_HEAL</Argument>
+	</Modifier>
+	<Modifier id="ABAMBOWA_MOD_PILLAGE_HEAL_IMPROVEMENT" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_IMPROVEMENT_PILLAGE_YIELD_MODIFIER">
+		<Argument name="Amount">10</Argument>
+		<Argument name="PlunderTypes">PLUNDER_HEAL</Argument>
+	</Modifier>
+	<Modifier id="CHANG_BEUN_MOD_MOVE_AFTER_ATTACK" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_MOVE_AFTER_ATTACK">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="COSSACK_MOD_COMBAT_STRENGTH_IN_FRIENDLY_TERRITORY" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements type="REQUIREMENTSET_TEST_ANY">
+			<Requirement type="REQUIREMENT_PLOT_IS_OWNER"/>
+			<Requirement type="REQUIREMENT_PLOT_IS_SUZERAIN"/>
+		</SubjectRequirements>
+		<Argument name="Amount">4</Argument>
+		<String context="Preview">LOC_ABILITY_COSSACK_PREVIEW</String>
+	</Modifier>
+	<Modifier id="GARDE_IMPERIALE_MOD_COMBAT_STRENGTH_COMMAND_RADIUS" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_FRIENDLY_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_COMMAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">2</Argument>
+		<String context="Preview">LOC_ABILITY_GARDE_IMPERIALE_PREVIEW</String>
+	</Modifier>
+	<Modifier id="GUSA_MOD_COMBAT_FROM_ADJACENT_GUSA" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_COMBAT_STRENGTH_MULTIPLE_ADJACENT_ENEMIES_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_FRIENDLY_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_GUSA</Argument>
+				<Argument name="IncludeCenter">false</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">4</Argument>
+		<String context="Preview">LOC_ABILITY_GUSA_PREVIEW</String>
+	</Modifier>
+	<Modifier id="HANGSHANG_MOD_NAVAL_ROUTE_CREATION_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_COMMAND_AWARD">
+		<Argument name="DomainType">DOMAIN_SEA</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameSpeed">50</Argument>
+		<Argument name="PerResource">true</Argument>
+		<Argument name="CommandType">UNITCOMMAND_MAKE_TRADE_ROUTE</Argument>
+	</Modifier>
+	<Modifier id="HUSSAR_MOD_MOVEMENT_TO_COMBAT_STRENGTH" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_STRENGTH_FROM_MOVEMENT</Argument>
+	</Modifier>
+	<Modifier id="KATYUSHA_MOD_SPLASH_ABILITY" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_SPLASH_DAMAGE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_KATYUSHA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Percent">50</Argument>
+	</Modifier>
+	<Modifier id="MARINE_MOD_AMPHIBIOUS" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_MARINE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_AMPHIBIOUS</Argument>
+	</Modifier>
+	<Modifier id="MIKASA_MOD_RESPAWN_ON_DEATH" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_UNIT_RESPAWN_CHARGE" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="Health">50</Argument>
+		<Argument name="TurnTimer">0</Argument>
+	</Modifier>
+	<Modifier id="MWAMI_MOD_PILLAGING_YIELD_IMPROVEMENTS" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ADJUST_UNIT_PERCENT_PILLAGE_IMPROVEMENT_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+		</SubjectRequirements>
+		<Argument name="Percent">50</Argument>
+	</Modifier>
+	<Modifier id="MWAMI_MOD_PILLAGING_YIELD_BUILDINGS" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ADJUST_UNIT_PERCENT_PILLAGE_BUILDING_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+		</SubjectRequirements>
+		<Argument name="Percent">50</Argument>
+	</Modifier>
+	<Modifier id="PROSPECTOR_MOD_GRANT_ABILITY_CHARGE" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_UNIT_ABILITY_CHARGE" permanent="true">
+		<Argument name="ChargedAbilityType">CHARGED_ABILITY_CLAIM_RESOURCE</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="AERODROME_AERIAL_RECON_MOD_GRANT_ABILITY_CHARGE" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_UNIT_ABILITY_CHARGE" permanent="true">
+		<Argument name="ChargedAbilityType">CHARGED_ABILITY_AERODROME_AERIAL_RECON</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="SOLDADERAS_MOD_ADJACENT_ABILITY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_HEAL_PER_TURN" subject-stack-limit="1">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_TO_OWNER"/>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+	</Modifier>
+	<Modifier id="STUKA_MOD_COMBAT_STRENGTH_VS_LAND" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_STUKA_PREVIEW</String>
+	</Modifier>
+	<Modifier id="ZERO_MOD_COMBAT_STRENGTH_VS_FIGHTERS" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_AIR_FIGHTER</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">4</Argument>
+		<String context="Preview">LOC_ABILITY_ZERO_PREVIEW</String>
+	</Modifier>
+	<Modifier id="PARTISAN_MOD_HEAL" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_HEAL_PER_TURN">
+		<Argument name="Amount">10</Argument>
+		<Argument name="TerritoryTypes">FRIENDLY_TERRITORY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	Other Abilities							-->
+	<!-- ==================================================	-->
+	<Modifier id="EMBED_CITY_LOSE_HAPPINESS" collection="COLLECTION_OWNER_CITY" effect="EFFECT_CITY_ADJUST_YIELD">
+		<Argument name="Amount">-5</Argument>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+	</Modifier>
+	<Modifier id="KANTAI_KESSEN_ADJUST_COMBAT_STRENGTH_ON_COAST" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements type="REQUIREMENTSET_TEST_ANY">
+			<Requirement type="REQUIREMENT_PLOT_TERRAIN_TYPE_MATCHES">
+				<Argument name="TerrainType">TERRAIN_COAST</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_TO_COAST"/>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_MOD_KANTAI_KESSEN_ADJUST_COMBAT_STRENGTH_ON_COAST_PREVIEW</String>
+	</Modifier>
+	<Modifier id="GENERAL_MOROZ_MOD_ADJUST_COMBAT_STRENGTH_IN_TUNDRA" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_BIOME_TYPE_MATCHES">
+				<Argument name="BiomeType">BIOME_TUNDRA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Description">LOC_ABILITY_GENERAL_MOROZ_DESCRIPTION</String>
+		<String context="Preview">LOC_ABILITY_GENERAL_MOROZ_PREVIEW</String>
+	</Modifier>
+	<Modifier id="MOD_GRANDE_ARMEE_FRIENDLY_ADJACENT" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_NEIGHBOR_COMBAT_MODIFIER">
+		<Argument name="OnlyFriendly">true</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="IRON_CROSS_COMBAT_STRENGTH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_IRON_CROSS_PREVIEW</String>
+	</Modifier>
+	<Modifier id="RIVER_RAIDS_MOD_PILLAGE_BUILDINGS_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_BUILDING_PILLAGE_YIELD_MODIFIER">
+		<Argument name="Amount">100</Argument>
+		<Argument name="PlunderTypes">PLUNDER_CULTURE</Argument>
+		<String context="WorldText">LOC_WORLD_CULTURE_INCREASE_FLOATER</String>
+	</Modifier>
+	<Modifier id="RIVER_RAIDS_MOD_PILLAGE_IMPROVEMENTS_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_IMPROVEMENT_PILLAGE_YIELD_MODIFIER">
+		<Argument name="Amount">100</Argument>
+		<Argument name="PlunderTypes">PLUNDER_CULTURE</Argument>
+		<String context="WorldText">LOC_WORLD_CULTURE_INCREASE_FLOATER</String>
+	</Modifier>
+	<Modifier id="PARTISAN_MOD_IDEOLOGY" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_IS_OTHER_IDEOLOGY"/>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_PARTISAN_MOD_IDEOLOGY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="AVILA_COMBAT_STRENGTH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_GREAT_PERSON_INDIVIDUAL_REVOLUCIONARIO_AVILA_PREVIEW</String>
+	</Modifier>
+	<Modifier id="HERRA_COMMANDER_ABILITY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_HERRERA_COMBAT</Argument>
+	</Modifier>
+	<Modifier id="HERRA_COMBAT_STRENGTH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_GREAT_PERSON_INDIVIDUAL_REVOLUCIONARIO_HERRERA_PREVIEW</String>
+	</Modifier>
+	<Modifier id="VILLA_COMMANDER_ABILITY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_VILLA_GOLD</Argument>
+	</Modifier>
+	<Modifier id="VILLA_GOLD_KILLS" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_POST_COMBAT_YIELD">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="PercentDefeatedStrength">25</Argument>
+	</Modifier>
+	<Modifier id="BILLAUD_VARENNE_DISTRICT_RANGED_COMBAT" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_IS_STATIONED_ON_DISTRICT">
+				<Argument name="DistrictType">DISTRICT_CITY_CENTER, DISTRICT_URBAN</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_COMBAT_TYPE_MATCHES">
+				<Argument name="CombatType">COMBAT_RANGED</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_BILLAUD_VARENNE_PREVIEW</String>
+	</Modifier>
+	<Modifier id="BILLAUD_VARENNE_DISTRICT_MELEE_COMBAT" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_IS_STATIONED_ON_DISTRICT">
+				<Argument name="DistrictType">DISTRICT_CITY_CENTER, DISTRICT_URBAN</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_COMBAT_TYPE_MATCHES">
+				<Argument name="CombatType">COMBAT_MELEE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_BILLAUD_VARENNE_PREVIEW</String>
+	</Modifier>
+	<Modifier id="BRISSOT_COMBAT" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">2</Argument>
+		<String context="Preview">LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_BRISSOT_PREVIEW</String>
+	</Modifier>
+	<Modifier id="SAINT_JUST_COMMANDER_ABILITY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_SAINT_JUST_COMBAT</Argument>
+	</Modifier>
+	<Modifier id="SAINT_JUST_COMBAT_STRENGTH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">4</Argument>
+		<String context="Preview">LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_SAINT_JUST_PREVIEW</String>
+	</Modifier>
+	<Modifier id="SAKDIPHONLASEP_COMBAT_STRENGTH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_GREAT_PERSON_INDIVIDUAL_UPARAT_SAKDIPHONLASEP_PREVIEW</String>
+	</Modifier>
+	<Modifier id="SENANURAK_COMMANDER_ABILITY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_SENANURAK_COMBAT</Argument>
+	</Modifier>
+	<Modifier id="SENANURAK_COMBAT_STRENGTH" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_SUZERAIN_OF_COMBAT_MODIFIER">
+		<Argument name="Amount">1</Argument>
+		<String context="Preview">LOC_GREAT_PERSON_INDIVIDUAL_UPARAT_SENANURAK_NAME</String>
+	</Modifier>
+	
+	<Modifier id="WARTIME_MANUFACTURING_COMBAT_STRENGTH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_NUM_ENEMY_UNITS">
+				<Argument name="NumUnits">2</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_MOD_WARTIME_MANUFACTURING_COMBAT_STRENGTH_PREVIEW</String>
+	</Modifier>
+	
+</GameEffects>

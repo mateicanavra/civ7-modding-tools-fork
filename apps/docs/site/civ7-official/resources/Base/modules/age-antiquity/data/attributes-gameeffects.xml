@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!--These modifiers exist for advanced starts, but are not necessary for Antiquity. They must be included to prevent database errors.-->
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_EXPANSIONIST" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING"/>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_MILITARISTIC" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING"/>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_POLITICAL" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING"/>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_CULTURAL" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING"/>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_SCIENTIFIC" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING"/>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_ECONOMIC" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING"/>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_WILDCARD" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING"/>
+</GameEffects>

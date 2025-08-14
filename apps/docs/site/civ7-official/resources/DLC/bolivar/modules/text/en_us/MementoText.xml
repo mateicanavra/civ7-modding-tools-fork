@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MEMENTO_BOLIVAR_GOLD_SNUFF_BOX_NAME">
+			<Text>Gold Snuff Box</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_BOLIVAR_GOLD_SNUFF_BOX_DESCRIPTION">
+			<Text>Gift from a royal.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_BOLIVAR_GOLD_SNUFF_BOX_FUNCTIONAL_DESCRIPTION">
+			<Text>+20%[icon:YIELD_FOOD] Food when in only one Alliance.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_BOLIVAR_DAVALOS_MEDAL_NAME">
+			<Text>Davalos Medal</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_BOLIVAR_DAVALOS_MEDAL_DESCRIPTION">
+			<Text>Legacy of Ayacucho.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_BOLIVAR_DAVALOS_MEDAL_FUNCTIONAL_DESCRIPTION">
+			<Text>+1[icon:YIELD_HAPPINESS] Happiness per Age on Military Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_BOLIVAR_LETTER_TO_JAMAICA_NAME">
+			<Text>Letter to Jamaica</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_BOLIVAR_LETTER_TO_JAMAICA_DESCRIPTION">
+			<Text>Vision of the future.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_BOLIVAR_LETTER_TO_JAMAICA_FUNCTIONAL_DESCRIPTION">
+			<Text>+50%[icon:YIELD_GOLD] Gold towards purchasing Units during a Celebration.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_BOLIVAR_GOLD_SNUFF_BOX_UNLOCK_TITLE">
+			<Text>Unlock at Simón Bolívar level 2</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_BOLIVAR_DAVALOS_MEDAL_UNLOCK_TITLE">
+			<Text>Unlock at Simón Bolívar level 5</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_BOLIVAR_LETTER_TO_JAMAICA_UNLOCK_TITLE">
+			<Text>Unlock at Simón Bolívar level 9</Text>
+		</Row>
+	</EnglishText>
+</Database>

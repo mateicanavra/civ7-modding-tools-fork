@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Leaders>
+		<Row LeaderType="LEADER_BOLIVAR" LeaderName="LOC_LEADER_BOLIVAR_NAME" LeaderDescription="LOC_LEADER_BOLIVAR_DESCRIPTION" LeaderIcon="LEADER_BOLIVAR"/>
+	</Leaders>
+	<LeaderItems>
+		<Row LeaderType="LEADER_BOLIVAR" Type="TRAIT_LEADER_BOLIVAR_ABILITY" Kind="KIND_TRAIT" Name="LOC_TRAIT_LEADER_BOLIVAR_ABILITY_NAME" Description="LOC_TRAIT_LEADER_BOLIVAR_ABILITY_DESCRIPTION"/>
+	</LeaderItems>
+	<LeaderTags>
+		<Row LeaderType="LEADER_BOLIVAR" TagType="TAG_TRAIT_MILITARISTIC"/>
+		<Row LeaderType="LEADER_BOLIVAR" TagType="TAG_TRAIT_EXPANSIONIST"/>
+		<Row LeaderType="LEADER_BOLIVAR" TagType="TAG_GENDER_MALE"/>
+	</LeaderTags>
+	<LeaderQuotes>
+		<Row LeaderType="LEADER_BOLIVAR" Quote="LOC_MAIN_CHAR_SELECT_LEADER_BOLIVAR_ANY"/>
+	</LeaderQuotes>
+	<LeaderCivilizationBias>
+		<Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_MAYA" LeaderDomain="StandardLeaders" LeaderType="LEADER_BOLIVAR" Bias="2" ReasonType="LOC_UNLOCK_PLAY_AS_BOLIVAR_MAYA_TOOLTIP" ChoiceType="LOC_CREATE_GAME_GEOGRAPHIC_CHOICE" />
+		<Row CivilizationDomain="AntiquityAgeCivilizations" CivilizationType="CIVILIZATION_ROME" LeaderDomain="StandardLeaders" LeaderType="LEADER_BOLIVAR" Bias="2" ReasonType="LOC_UNLOCK_PLAY_AS_BOLIVAR_ROME_TOOLTIP" ChoiceType="LOC_CREATE_GAME_STRATEGIC_CHOICE" />
+		<Row CivilizationDomain="ExplorationAgeCivilizations" CivilizationType="CIVILIZATION_INCA" LeaderDomain="StandardLeaders" LeaderType="LEADER_BOLIVAR" Bias="2" ReasonType="LOC_UNLOCK_PLAY_AS_BOLIVAR_INCA_TOOLTIP" ChoiceType="LOC_CREATE_GAME_GEOGRAPHIC_CHOICE" />
+		<Row CivilizationDomain="ExplorationAgeCivilizations" CivilizationType="CIVILIZATION_SPAIN" LeaderDomain="StandardLeaders" LeaderType="LEADER_BOLIVAR" Bias="2" ReasonType="LOC_UNLOCK_PLAY_AS_BOLIVAR_SPAIN_TOOLTIP" ChoiceType="LOC_CREATE_GAME_STRATEGIC_CHOICE" />
+		<Row CivilizationDomain="ModernAgeCivilizations" CivilizationType="CIVILIZATION_FRENCH_EMPIRE" LeaderDomain="StandardLeaders" LeaderType="LEADER_BOLIVAR" Bias="1" ReasonType="LOC_UNLOCK_PLAY_AS_BOLIVAR_FRANCE_TOOLTIP" ChoiceType="LOC_CREATE_GAME_STRATEGIC_CHOICE" />
+		<Row CivilizationDomain="ModernAgeCivilizations" CivilizationType="CIVILIZATION_MEXICO" LeaderDomain="StandardLeaders" LeaderType="LEADER_BOLIVAR" Bias="3" ReasonType="LOC_UNLOCK_PLAY_AS_BOLIVAR_MEXICO_TOOLTIP" ChoiceType="LOC_CREATE_GAME_GEOGRAPHIC_CHOICE" />
+	</LeaderCivilizationBias>
+	<Mementos>
+		<Row Type="MEMENTO_BOLIVAR_GOLD_SNUFF_BOX" Name="LOC_MEMENTO_BOLIVAR_GOLD_SNUFF_BOX_NAME" Description="LOC_MEMENTO_BOLIVAR_GOLD_SNUFF_BOX_DESCRIPTION" FunctionalDescription="LOC_MEMENTO_BOLIVAR_GOLD_SNUFF_BOX_FUNCTIONAL_DESCRIPTION" UnlockTitle="LOC_MEMENTO_BOLIVAR_GOLD_SNUFF_BOX_UNLOCK_TITLE"/>
+		<Row Type="MEMENTO_BOLIVAR_DAVALOS_MEDAL" Name="LOC_MEMENTO_BOLIVAR_DAVALOS_MEDAL_NAME" Description="LOC_MEMENTO_BOLIVAR_DAVALOS_MEDAL_DESCRIPTION" FunctionalDescription="LOC_MEMENTO_BOLIVAR_DAVALOS_MEDAL_FUNCTIONAL_DESCRIPTION" UnlockTitle="LOC_MEMENTO_BOLIVAR_DAVALOS_MEDAL_UNLOCK_TITLE"/>
+		<Row Type="MEMENTO_BOLIVAR_LETTER_TO_JAMAICA" Name="LOC_MEMENTO_BOLIVAR_LETTER_TO_JAMAICA_NAME" Description="LOC_MEMENTO_BOLIVAR_LETTER_TO_JAMAICA_DESCRIPTION" FunctionalDescription="LOC_MEMENTO_BOLIVAR_LETTER_TO_JAMAICA_FUNCTIONAL_DESCRIPTION" LeaderSpecific="LEGEND_PATH_BOLIVAR" UnlockTitle="LOC_MEMENTO_BOLIVAR_LETTER_TO_JAMAICA_UNLOCK_TITLE"/>
+	</Mementos>
+	<LeaderUnlocks>
+		<Row LeaderDomain="StandardLeaders" LeaderType="LEADER_BOLIVAR" AgeDomain="StandardAges" AgeType="AGE_EXPLORATION" Type="CIVILIZATION_INCA" Kind="KIND_CIVILIZATION" Name="LOC_CIVILIZATION_INCA_NAME" Description="LOC_CIVILIZATION_INCA_DESCRIPTION" Icon="CIVILIZATION_INCA"/>
+		<Row LeaderDomain="StandardLeaders" LeaderType="LEADER_BOLIVAR" AgeDomain="StandardAges" AgeType="AGE_EXPLORATION" Type="CIVILIZATION_SPAIN" Kind="KIND_CIVILIZATION" Name="LOC_CIVILIZATION_SPAIN_NAME" Description="LOC_CIVILIZATION_SPAIN_DESCRIPTION" Icon="CIVILIZATION_SPAIN"/>
+		<Row LeaderDomain="StandardLeaders" LeaderType="LEADER_BOLIVAR" AgeDomain="StandardAges" AgeType="AGE_MODERN" Type="CIVILIZATION_FRENCH_EMPIRE" Kind="KIND_CIVILIZATION" Name="LOC_CIVILIZATION_FRENCH_EMPIRE_NAME" Description="LOC_CIVILIZATION_FRENCH_EMPIRE_DESCRIPTION" Icon="CIVILIZATION_FRENCH_EMPIRE"/>
+		<Row LeaderDomain="StandardLeaders" LeaderType="LEADER_BOLIVAR" AgeDomain="StandardAges" AgeType="AGE_MODERN" Type="CIVILIZATION_MEXICO" Kind="KIND_CIVILIZATION" Name="LOC_CIVILIZATION_MEXICO_NAME" Description="LOC_CIVILIZATION_MEXICO_DESCRIPTION" Icon="CIVILIZATION_MEXICO"/>
+	</LeaderUnlocks>
+	<OwnershipConditions>
+		<Row ItemType="LEADER_BOLIVAR" Action="LOC_LOCKED_INCLUDED_WITH_CONTENT" />
+	</OwnershipConditions>
+</Database>

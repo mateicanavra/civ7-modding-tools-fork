@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<Database>
+    <EnglishText>
+		<!--Catherine Main Menu Char Select-->
+		<Row Tag="LOC_MAIN_CHAR_SELECT_LEADER_CATHERINE_ANY">
+			<Text>Let us rule by force of personality, by passion, rather than some bloodless system! </Text>
+		</Row>
+	
+		<!--Catherine Statement Text-->
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_CATHERINE_ANY">
+			<Text>Yekaterina Alekseyevna, Catherine, tsarina and patron of the arts. But you can call me Sophie. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_CATHERINE_ANY">
+			<Text>Yekaterina Alekseyevna, Catherine, tsarina and patron of the arts. But you can call me Sophie. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_CATHERINE_ANY">
+			<Text>Yekaterina Alekseyevna, Catherine, tsarina and patron of the arts. But you can call me Sophie. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_CATHERINE_ANY">
+			<Text>I am already planning my triumphal parade after your defeat.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_CATHERINE_ANY">
+			<Text>Come, then. I will leave you where — as they say — the crayfish sleep.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DEFEAT_AI_LEADER_CATHERINE_ANY">
+			<Text>Look after my palace when I am gone. The Grand Church must be aired regularly, and keep the amber dusted. You mu — No. It is yours. I leave now.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_CATHERINE">
+			<Text>Lovely. Let us make it so.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_CATHERINE">
+			<Text>Friendship is friendship, but there are times that I must say no.</Text>
+		</Row>
+		
+    </EnglishText>
+</Database>

@@ -1,0 +1,114 @@
+@use '../../../utilities/utility-layout' as *;
+@use '../../../utilities/utility-text' as *;
+@use "../baseColors" as baseColors;
+
+fxs-progress-bar {
+	position: relative;
+
+	.bar-caption {
+		visibility: hidden;
+		position: absolute;
+		padding-left: pixels(8);
+		text-shadow: pixels(0) pixels(2) black;
+		width: auto;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		pointer-events: none;
+	}
+
+	.hidden {
+		visibility: hidden;
+	}
+
+	&.other-tracker {
+		.progress-bar-tracker {
+			border-image-source: url("fs://game/dip_befriend_progress_neg.png");
+		}
+	}
+}
+
+.progress-bar-background {
+	border-image-source: url("fs://game/dip_progress_tracker_bg_grey.png");
+	border-image-slice: 2 2 fill;
+	border-image-width: pixels(2) pixels(2);
+}
+
+.progress-bar-tracker {
+	border-image-source: url("fs://game/dip_befriend_progress_pos.png");
+	border-image-slice: 2 2 fill;
+	border-image-width: pixels(2) pixels(2);
+}
+
+.final-stage {
+	background-image: url("fs://game/dip_gold_star.png");
+}
+
+.step-icon-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 100%;
+	height: 100%;
+
+	.step-icon-bg {
+		margin-left: calc(-.5 * var(--icon-width));
+	}
+}
+
+.step-icon-bg {
+	--step-offset: 0%;
+	position: absolute;
+	left: var(--step-offset);
+	pointer-events: none;
+
+	background-image: url("fs://game/hud_civics-icon_frame.png");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+
+	.step-icon-highlight-frame {
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		bottom: 0;
+		border: pixels(4) solid baseColors.$highlight-color; // TODO: this is a temporary style for focus visibility on gamepad
+		opacity: 0;
+		transition-property: opacity;
+		transition-duration: .25s;
+		transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+	}
+
+	// Gamepad
+	&:focus {
+		.step-icon-highlight-frame {
+			opacity: 1;
+		}
+	}
+}
+
+.step-icon {
+	border-top-left-radius: 100% 100%;
+	border-top-right-radius: 100% 100%;
+	border-bottom-left-radius: 100% 100%;
+	border-bottom-right-radius: 100% 100%;
+}
+
+.step-turn-icon {
+	background-image: url('fs://game/turn_icon.png');
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.progress-bar-check-icon {
+	background-image: url("fs://game/chal_check.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.progress-bar-border {
+	border-image-source: url("fs://game/dip_war_card_border.png");
+	border-image-slice: 1 1 fill;
+	border-image-width: pixels(1) pixels(1);
+}

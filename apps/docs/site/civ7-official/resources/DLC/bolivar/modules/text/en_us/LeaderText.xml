@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_LEADER_BOLIVAR_NAME">
+			<Text>Simón Bolívar</Text>
+		</Row>
+		<Row Tag="LOC_LEADER_BOLIVAR_DESCRIPTION">
+			<Text>Gain 1 [icon:WAR_SUPPORT] War Support on all your wars. When you conquer a Settlement for the first time it can purchase 1 Constructible for free. [icon:YIELD_ANGRY] Unrest does not prevent Purchasing.</Text>
+		</Row>
+		<Row Tag="LOC_TRAIT_LEADER_BOLIVAR_ABILITY_NAME">
+			<Text>El Libertador</Text>
+		</Row>
+		<Row Tag="LOC_TRAIT_LEADER_BOLIVAR_ABILITY_DESCRIPTION">
+			<Text>[BLIST][LI]Gain [B]1 [icon:WAR_SUPPORT] War Support [/B]on all your wars.[LI]When you conquer a Settlement for the first time the Settlement can [B]purchase 1 Constructible for free[/B].[LI][icon:YIELD_ANGRY] [B]Unrest [/B]does not prevent Purchasing.[/LIST]</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_CORNERSTONE_FREEDOM_NAME">
+			<Text>Cornerstone of Freedom</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_AGENDA_CORNERSTONE_FREEDOM_DESC">
+			<Text>Likes the Leader with the least Unhappy Settlements. Dislikes the one with the most Unhappy Settlements.</Text>
+		</Row>
+	</EnglishText>
+</Database>

@@ -1,0 +1,49 @@
+@use 'utility-layout' as *;
+@use 'sass:math';
+@use 'sass:list';
+
+$font-scales: (
+	//Name, Base font size, Font scale modifier
+	(2xs, 12, pixels(-6)),
+	(xs, 14, pixels(-4)),
+	(sm, 16, pixels(-2)),
+	(base, 18, pixels(0)),
+	(lg, 22, pixels(4)),
+	(xl, 26, pixels(8)),
+	(2xl, 32, pixels(14)),
+);
+
+@function find-nearest-font-scale($value) {
+	$nearest-value: 999999;
+	$nearest: null;
+
+	@each $font-scale in $font-scales {
+		$font-size: list.nth($font-scale, 2);
+		$diff: math.abs($value - $font-size);
+
+		@if $diff < $nearest-value {
+			$nearest-value: $diff;
+			$nearest: list.nth($font-scale, 3);
+		}
+
+		@if $font-size >$value {
+			@return $nearest;
+		}
+	}
+
+	@return $nearest;
+}
+
+// DEPRECATED - Use font-size classes from _text.scss or helper functions from global-scaling.ts instead of using this function
+// WARNING - Fonts defined using this function will not scale with font size option, only with global UI scale
+// Used to define a scalable font-size
+@function pixels-font($size) {
+	$font-scale: find-nearest-font-scale($size);
+	$result: 1rem;
+
+	@if $font-scale !=pixels(0) {
+		$result: calc(1rem + $font-scale);
+	}
+
+	@return $result;
+}

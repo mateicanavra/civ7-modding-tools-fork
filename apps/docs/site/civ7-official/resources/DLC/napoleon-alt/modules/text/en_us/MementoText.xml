@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_ARTILLERYMAN_GLOVES_NAME">
+			<Text>Artilleryman's Gloves</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_ARTILLERYMAN_GLOVES_DESCRIPTION">
+			<Text>Face cannon fire for the fallen.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_ARTILLERYMAN_GLOVES_FUNCTIONAL_DESCRIPTION">
+			<Text>+1 [icon:YIELD_CULTURE]Culture per Age for every Army Commander Level.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_BICORNE_HAT_NAME">
+			<Text>Bicorne Hat</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_BICORNE_HAT_DESCRIPTION">
+			<Text>Worn side-to-side.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_BICORNE_HAT_FUNCTIONAL_DESCRIPTION">
+			<Text>+1 Movement for Infantry Units.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_LEGION_DHONNEUR_GRAND_EAGLE_CROSS_NAME">
+			<Text>Legion d'honneur Grand Eagle and Cross</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_LEGION_DHONNEUR_GRAND_EAGLE_CROSS_DESCRIPTION">
+			<Text>With such baubles, men are led.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_LEGION_DHONNEUR_GRAND_EAGLE_CROSS_FUNCTIONAL_DESCRIPTION">
+			<Text>Units in a Command Radius heal +10 HP after defeating an enemy Unit.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENT_NAPOLEON_REVOLUTIONARY_ARTILLERYMAN_GLOVES_UNLOCK_TITLE">
+			<Text>Unlock at Napoleon Revolutionary level 2</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_BICORNE_HAT_UNLOCK_TITLE">
+			<Text>Unlock at Napoleon Revolutionary level 5</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_LEGION_DHONNEUR_GRAND_EAGLE_CROSS_UNLOCK_TITLE">
+			<Text>Unlock at Napoleon Revolutionary level 9</Text>
+		</Row>
+	</EnglishText>
+</Database>

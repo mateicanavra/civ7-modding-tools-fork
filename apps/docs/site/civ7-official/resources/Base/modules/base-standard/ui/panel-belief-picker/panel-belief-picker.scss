@@ -1,0 +1,42 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/_utility-shapes' as shapes;
+@use '../../../core/ui/utilities/utility-text' as *;
+@use '../../../core/ui/themes/default/baseColors';
+@use '../../../core/ui/themes/default/theme';
+
+.belief-picker_religion-info-icon-container_holder {
+	background-image: url("fs://game/rel_icon_holder.png");
+}
+
+.belief-picker_religion-info-icon-container_glow {
+	background-image: url("fs://game/rel_glow_element.png");
+}
+
+.belief-choice-menu {
+	.img-frame-filigree {
+		display: none;
+	}
+
+	@media (experience:mobile) {
+		max-width: 100%;
+	}
+}
+
+.belief-picker_back {
+	background-image: url("fs://game/shell_back-button.png");
+
+	&:hover,
+	&:focus {
+		background-image: url("fs://game/shell_back-button-focus.png");
+	}
+}
+
+.belief-picker_belief-info-religion-name {
+	max-width: pixels(436);
+}
+
+.panel-belief-picker-content {
+	@media (experience:mobile) {
+		margin-top: pixels(55);
+	}
+}

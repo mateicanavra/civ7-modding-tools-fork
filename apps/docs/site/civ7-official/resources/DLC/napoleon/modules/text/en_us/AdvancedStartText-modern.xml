@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_NAPOLEON_EMPEROR_1_NAME">
+			<Text>Napoleon Modern Legend Diplomatic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_NAPOLEON_EMPEROR_1_DESCRIPTION">
+			<Text>For this Age, gain +15% Influence[icon:YIELD_DIPLOMACY] at the cost of -2 Combat Strength for your Air Units</Text>
+		</Row>
+
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_NAPOLEON_EMPEROR_2_NAME">
+			<Text>Napoleon Modern Legend Economic</Text>
+		</Row>
+		<Row Tag="LOC_CARD_AT_MOD_LEGEND_NAPOLEON_EMPEROR_2_DESCRIPTION">
+			<Text>For this Age, gain +15% Gold[icon:YIELD_GOLD] at the cost of -10% Food[icon:YIELD_FOOD]</Text>
+		</Row>
+	</EnglishText>
+</Database>

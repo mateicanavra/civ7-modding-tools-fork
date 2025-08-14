@@ -1,0 +1,49 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+@use '../../../core/ui/themes/default/baseColors';
+@use '../../../core/ui/themes/default/animations';
+@use '../../../core/ui/themes/default/theme';
+
+.screen-government-picker {
+		top: pixels(150);
+		bottom: pixels(30);
+		left: auto;
+		right: auto;
+		width: pixels(720);
+
+	@media (max-height: pixels(1000)) {
+		top: pixels(0);
+		bottom: pixels(4);
+		left: pixels(4);
+		right: pixels(4);
+		width: auto;
+	}
+
+	@media (experience: mobile) {
+		top: pixels(40);
+		bottom: pixels(24);
+		left: auto;
+		right: auto;
+		width: pixels(900);
+	}
+}
+
+.government-picker-header {
+	@media (experience: mobile) {
+		margin-top: pixels(32);
+	}
+}
+
+.government-picker-desc {
+	@media (experience: mobile) {
+		text-align: center;
+		margin-top: pixels(4);
+		margin-bottom: pixels(8);
+	}
+}
+
+.government-chooser-item {
+	@media (experience: mobile) {
+		margin-bottom: pixels(16);
+	}
+}

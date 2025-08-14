@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+    <Modifier id="LEADER_CHAIN_1076D_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" run-once="false" permanent="true">
+        <Argument name="AttributeType">ATTRIBUTE_CULTURAL</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1184D_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" run-once="false" permanent="true">
+        <Argument name="AttributeType">ATTRIBUTE_CULTURAL</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1184D_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_GOLD</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MEDIUM_EARLY</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1186D_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" run-once="false" permanent="true">
+        <Argument name="AttributeType">ATTRIBUTE_ECONOMIC</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1076D_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_NARRATIVE_TAG" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_LEADER_CHAIN_B</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1186D_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_NARRATIVE_TAG" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_LEADER_CHAIN_B</Argument>
+    </Modifier>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1073D_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_FRIEDRICH_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1073E_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_FRIEDRICH_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1074D_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_FRIEDRICH_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1074E_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_FRIEDRICH_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1075C_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_FRIEDRICH_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1076D_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_FRIEDRICH_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1076E_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_FRIEDRICH_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1077C_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_FRIEDRICH_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1183D_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_XERXES_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1183E_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_XERXES_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1184D_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_XERXES_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1184E_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_XERXES_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1185C_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_XERXES_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1186D_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_XERXES_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1186E_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_XERXES_ALT_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1187C_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_XERXES_ALT_ONLY"/>
+    </RequirementSet>
+</GameEffects>

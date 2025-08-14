@@ -1,0 +1,106 @@
+/* DO NOT EDIT */
+/* Generated from popup.scss */
+pop-up {
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+pop-up.top-center .popup-content {
+	top: 1.3333333333rem;
+	left: 50%;
+}
+pop-up.top-left .popup-content {
+	top: 1.3333333333rem;
+	left: 1.3333333333rem;
+}
+pop-up.top-right .popup-content {
+	top: 1.3333333333rem;
+	right: 1.3333333333rem;
+}
+pop-up.middle-left .popup-content {
+	top: 50%;
+	left: 1.3333333333rem;
+}
+pop-up.middle-center .popup-content {
+	top: 50%;
+	left: 50%;
+}
+pop-up.middle-right .popup-content {
+	top: 50%;
+	right: 1.3333333333rem;
+}
+pop-up.bottom-left .popup-content {
+	bottom: 1.3333333333rem;
+	right: 1.3333333333rem;
+}
+pop-up.bottom-center .popup-content {
+	bottom: 1.3333333333rem;
+	right: 50%;
+}
+pop-up.bottom-right .popup-content {
+	bottom: 1.3333333333rem;
+	right: 1.3333333333rem;
+}
+
+.popup-content {
+	color: #C2C4CC;
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	align-self: center;
+	animation-name: popup-anim;
+	animation-duration: 0.5s;
+	animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+	animation-fill-mode: both;
+	transform-origin: center;
+}
+
+.popup-body {
+	margin: 1.1111111111rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.popup-shadow {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-image-source: url("fs://game/shadow_square.png");
+	border-image-slice: 18 fill;
+	border-image-width: 3.7777777778rem;
+	border-image-outset: 2.7777777778rem 3.1111111111rem;
+	z-index: -1;
+	opacity: 0.875;
+}
+
+.popup-body-text1,
+.popup-body-text2 {
+	margin: 0.4444444444rem;
+}
+
+.popup-frame {
+	position: absolute;
+	left: 0.2222222222rem;
+	right: 0.2222222222rem;
+	top: 0.2222222222rem;
+	bottom: 0.2222222222rem;
+	border-image: url("fs://game/Frame_large_symmetrical_inverted.png");
+	border-image-width: 1.3333333333rem;
+	border-style: solid;
+	border-image-slice: 24 fill;
+	border-image-repeat: stretch;
+	filter: fxs-color-mask(#977851);
+}
+
+@keyframes popup-anim {
+	from {
+		opacity: 0;
+		transform: scale(0);
+	}
+}

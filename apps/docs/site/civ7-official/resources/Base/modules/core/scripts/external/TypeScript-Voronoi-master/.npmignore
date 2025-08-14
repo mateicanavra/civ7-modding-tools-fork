@@ -1,0 +1,6 @@
+src/
+test/
+
+.github
+.vscode
+.travis.yml

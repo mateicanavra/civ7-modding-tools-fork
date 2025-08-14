@@ -1,0 +1,17 @@
+/* DO NOT EDIT */
+/* Generated from screen-espionage-details.scss */
+.espionage-details-container {
+	border-image-source: url("fs://game/dip_modal_bg.png");
+	border-image-slice: 32 100 64 100 fill;
+	border-image-width: 1.7777777778rem 5.5555555556rem 3.5555555556rem 5.5555555556rem;
+	border-image-outset: 0.2777777778rem 0.8888888889rem 1.4444444444rem 0.8888888889rem;
+}
+
+.espionage-details-acknowledge-icon {
+	background-image: url("fs://game/dip_esp_success_icon.png");
+	background-color: #285f23;
+}
+
+.espionage-details-diplomacy-icon {
+	background-image: url("fs://game/ntf_diplomatic_action.png");
+}

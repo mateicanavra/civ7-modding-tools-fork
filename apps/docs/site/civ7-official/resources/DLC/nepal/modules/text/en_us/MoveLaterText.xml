@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_UNITCOMMAND_CLAIM_MOUNTAIN_NAME">
+			<Text>Claim Mountain</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_CLAIM_MOUNTAIN_DESCRIPTION">
+			<Text>Activate on a Mountain tile within 5 tiles of one of your Settlement's City Centers. The Mountain is improved immediately with a Highland Power Station. If the Mountain is outside your borders, a path of tiles is claimed back to the Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_CLAIM_MOUNTAIN_REQUIRES_UNOWNED_MOUNTAIN">
+			<Text>Requires a Mountain tile within 5 tiles of one of your Settlements' Palace or City Hall.</Text>
+		</Row>
+	</EnglishText>
+</Database>

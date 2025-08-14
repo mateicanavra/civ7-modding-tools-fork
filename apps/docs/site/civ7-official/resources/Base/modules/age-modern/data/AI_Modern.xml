@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <AiComponents>
+    <!-- Tentatively use the same targeting as in antuqity -->
+    <Row Component="Targets_Antiquity" DefaultPriority="AI_PRIORITY_STRATEGIC"/>
+    <Row Component="Military_Modern" DefaultPriority="AI_PRIORITY_MEDIUM" Consumer="true"/>
+    <Row Component="Diplomatic_Modern" DefaultPriority="AI_PRIORITY_MEDIUM" Consumer="true"/>
+    <Row Component="Archaeology" DefaultPriority="AI_PRIORITY_MEDIUM" Consumer="true"/>
+  </AiComponents>
+  <AiDefinitions>
+    <Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Targets_Antiquity"/>
+    <Row LeaderTrait="TRAIT_LEADER_MINOR_CIV" AiComponent="Targets_Antiquity"/>
+    <Row LeaderTrait="TRAIT_LEADER_INDEPENDENT" AiComponent="Targets_Antiquity"/>
+    <Delete LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Military"/>
+    <Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Military_Modern"/>
+    <Delete LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Diplomatic"/>
+    <Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Diplomatic_Modern"/>
+    <Row LeaderTrait="TRAIT_LEADER_MAJOR_CIV" AiComponent="Archaeology"/>
+  </AiDefinitions>
+  <Pseudoyields>
+    <Update>
+      <Where PseudoYieldType="PSEUDOYIELD_STANDING_AIR_UNIT"/>
+      <Set DefaultValue="240"/>
+    </Update>
+  </Pseudoyields>
+  <IdeologyPriorities>
+    <Row IdeologyType="IDEOLOGY_COMMUNISM" AiListType="IdeologyCommunismYieldBiases"/>
+    <Row IdeologyType="IDEOLOGY_DEMOCRACY" AiListType="IdeologyDemocracyYieldBiases"/>
+    <Row IdeologyType="IDEOLOGY_FASCISM" AiListType="IdeologyFascismYieldBiases"/>
+  </IdeologyPriorities>
+  <OpTeamRequirements>
+    <Update>
+      <Where TeamName="Independent Civ Force" ClassTag="UNIT_CLASS_COMBAT"/>
+      <Set MaxNumber="5"/>
+    </Update>
+  </OpTeamRequirements>
+  <AiListTypes>
+    <!-- Ideology Biases -->
+    <Row ListType="IdeologyCommunismYieldBiases"/>
+    <Row ListType="IdeologyDemocracyYieldBiases"/>
+    <Row ListType="IdeologyFascismYieldBiases"/>
+
+    <!-- Modern Majors -->
+    <Row ListType="Modern Tag Biases"/>
+    <Row ListType="Modern Constructible Biases"/>
+    <Row ListType="Modern Unit Biases"/>
+
+    <!-- America -->
+    <Row ListType="America Unit Biases"/>
+    <Row ListType="America Government Bias"/>
+    <Row ListType="America Constructibles Biases" />
+    <Row ListType="America Settlement Plot Evaluations" />
+
+    <!-- Buganda -->
+    <Row ListType="Buganda Unit Biases"/>
+    <Row ListType="Buganda Government Bias"/>
+    <Row ListType="Buganda Constructibles Biases" />
+    <Row ListType="Buganda Settlement Plot Evaluations" />
+
+    <!-- French Empire -->
+    <Row ListType="French Unit Biases"/>
+    <Row ListType="French Government Bias"/>
+    <Row ListType="French Constructibles Biases" />
+    <Row ListType="French Budget Biases" />
+
+    <!-- Meiji Empire -->
+    <Row ListType="Meiji Unit Biases"/>
+    <Row ListType="Meiji Government Bias"/>
+    <Row ListType="Meiji Constructibles Biases" />
+    <Row ListType="Meiji Tag Biases" />
+    <Row ListType="Meiji Settlement Plot Evaluations" />
+
+    <!-- Mexico -->
+    <Row ListType="Mexico Unit Biases"/>
+    <Row ListType="Mexico Constructibles Biases" />
+    <Row ListType="Mexico Tag Biases" />
+
+    <!-- Mughal -->
+    <Row ListType="Mughal Unit Biases"/>
+    <Row ListType="Mughal Government Bias"/>
+    <Row ListType="Mughal Constructibles Biases" />
+    <Row ListType="Mughal Tag Biases" />
+
+    <!-- Prussia -->
+    <Row ListType="Prussia Unit Biases"/>
+    <Row ListType="Prussia Government Bias"/>
+    <Row ListType="Prussia Constructibles Biases" />
+    <Row ListType="Prussia Budget Biases" />
+    <Row ListType="Prussia Settlement Plot Evaluations" />
+
+    <!-- Qing -->
+    <Row ListType="Qing Unit Biases"/>
+    <Row ListType="Qing Government Bias"/>
+    <Row ListType="Qing Constructibles Biases" />
+    <Row ListType="Qing PseudoYield Biases"/>
+
+    <!-- Russia -->
+    <Row ListType="Russia Unit Biases"/>
+    <Row ListType="Russia Government Bias"/>
+    <Row ListType="Russia Constructibles Biases" />
+    <Row ListType="Russia Settlement Plot Evaluations" />
+    <Row ListType="Russia PseudoYield Biases"/>
+
+    <!-- Siam -->
+    <Row ListType="Siam Unit Biases"/>
+    <Row ListType="Siam Government Bias"/>
+    <Row ListType="Siam Constructibles Biases" />
+
+  </AiListTypes>
+  <AiLists>
+    <!-- Ideology Biases -->
+    <Row ListType="IdeologyCommunismYieldBiases" LeaderType="TRAIT_COMMUNIST_IDEOLOGY" System="YieldBiases"/>
+    <Row ListType="IdeologyDemocracyYieldBiases" LeaderType="TRAIT_DEMOCRATIC_IDEOLOGY" System="YieldBiases"/>
+    <Row ListType="IdeologyFascismYieldBiases" LeaderType="TRAIT_FASCIST_IDEOLOGY" System="YieldBiases"/>
+
+    <!-- Modern Majors  -->
+    <Row ListType="Modern Tag Biases" LeaderType="TRAIT_EXPLORATION_CIV" System="TagBiases"/>
+    <Row ListType="Modern Constructible Biases" LeaderType="TRAIT_EXPLORATION_CIV" System="ConstructibleBiases"/>
+    <Row ListType="Modern Unit Biases" LeaderType="TRAIT_EXPLORATION_CIV" System="UnitBiases"/>
+
+    <!-- America -->
+    <Row ListType="America Unit Biases" LeaderType="TRAIT_AMERICA" System="UnitBiases"/>
+    <Row ListType="America Government Bias" LeaderType="TRAIT_AMERICA" System="GovernmentBiases"/>
+    <Row ListType="America Constructibles Biases" LeaderType="TRAIT_AMERICA" System="ConstructibleBiases" />
+    <Row ListType="America Settlement Plot Evaluations" LeaderType="TRAIT_AMERICA" System="SettlementPlotEvaluations"/>
+
+    <!-- Buganda -->
+    <Row ListType="Buganda Unit Biases" LeaderType="TRAIT_BUGANDA" System="UnitBiases"/>
+    <Row ListType="Buganda Government Bias" LeaderType="TRAIT_BUGANDA" System="GovernmentBiases"/>
+    <Row ListType="Buganda Constructibles Biases" LeaderType="TRAIT_BUGANDA" System="ConstructibleBiases" />
+    <Row ListType="Buganda Settlement Plot Evaluations" LeaderType="TRAIT_BUGANDA" System="SettlementPlotEvaluations"/>
+
+    <!-- French Empire -->
+    <Row ListType="French Unit Biases" LeaderType="TRAIT_FRENCH_EMPIRE" System="UnitBiases"/>
+    <Row ListType="French Government Bias" LeaderType="TRAIT_FRENCH_EMPIRE" System="GovernmentBiases"/>
+    <Row ListType="French Constructibles Biases" LeaderType="TRAIT_FRENCH_EMPIRE" System="ConstructibleBiases" />
+    <Row ListType="French Budget Biases" LeaderType="TRAIT_FRENCH_EMPIRE" System="AiBudgetBiases"/>
+
+    <!-- Meiji Empire -->
+    <Row ListType="Meiji Unit Biases" LeaderType="TRAIT_MEIJI" System="UnitBiases"/>
+    <Row ListType="Meiji Government Bias" LeaderType="TRAIT_MEIJI" System="GovernmentBiases"/>
+    <Row ListType="Meiji Constructibles Biases" LeaderType="TRAIT_MEIJI" System="ConstructibleBiases" />
+    <Row ListType="Meiji Tag Biases" LeaderType="TRAIT_MEIJI" System="TagBiases"/>
+    <Row ListType="Meiji Settlement Plot Evaluations" LeaderType="TRAIT_MEIJI" System="SettlementPlotEvaluations"/>
+
+    <!-- Mexico -->
+    <Row ListType="Mexico Unit Biases" LeaderType="TRAIT_MEXICO" System="UnitBiases"/>
+    <Row ListType="Mexico Constructibles Biases" LeaderType="TRAIT_MEXICO" System="ConstructibleBiases" />
+    <Row ListType="Mexico Tag Biases" LeaderType="TRAIT_MEXICO" System="TagBiases"/>
+
+    <!-- Mughal -->
+    <Row ListType="Mughal Unit Biases" LeaderType="TRAIT_MUGHAL" System="UnitBiases"/>
+    <Row ListType="Mughal Government Bias" LeaderType="TRAIT_MUGHAL" System="GovernmentBiases"/>
+    <Row ListType="Mughal Constructibles Biases" LeaderType="TRAIT_MUGHAL" System="ConstructibleBiases"/>
+    <Row ListType="Mughal Tag Biases" LeaderType="TRAIT_MUGHAL" System="TagBiases"/>
+
+    <!-- Prussia -->
+    <Row ListType="Prussia Unit Biases" LeaderType="TRAIT_PRUSSIA" System="UnitBiases"/>
+    <Row ListType="Prussia Government Bias" LeaderType="TRAIT_PRUSSIA" System="GovernmentBiases"/>
+    <Row ListType="Prussia Constructibles Biases" LeaderType="TRAIT_PRUSSIA" System="ConstructibleBiases" />
+    <Row ListType="Prussia Budget Biases" LeaderType="TRAIT_PRUSSIA" System="AiBudgetBiases"/>
+    <Row ListType="Prussia Settlement Plot Evaluations" LeaderType="TRAIT_PRUSSIA" System="SettlementPlotEvaluations"/>
+
+    <!-- Qing Empire -->
+    <Row ListType="Qing Unit Biases" LeaderType="TRAIT_QING" System="UnitBiases"/>
+    <Row ListType="Qing Government Bias" LeaderType="TRAIT_QING" System="GovernmentBiases"/>
+    <Row ListType="Qing Constructibles Biases" LeaderType="TRAIT_QING" System="ConstructibleBiases" />
+    <Row ListType="Qing PseudoYield Biases" LeaderType="TRAIT_QING" System="PseudoYieldBiases"/>
+
+    <!-- Russia -->
+    <Row ListType="Russia Unit Biases" LeaderType="TRAIT_RUSSIA" System="UnitBiases"/>
+    <Row ListType="Russia Government Bias" LeaderType="TRAIT_RUSSIA" System="GovernmentBiases"/>
+    <Row ListType="Russia Constructibles Biases" LeaderType="TRAIT_RUSSIA" System="ConstructibleBiases" />
+    <Row ListType="Russia Settlement Plot Evaluations" LeaderType="TRAIT_RUSSIA" System="SettlementPlotEvaluations"/>
+    <Row ListType="Russia PseudoYield Biases" LeaderType="TRAIT_RUSSIA" System="PseudoYieldBiases"/>
+
+    <!-- Siam -->
+    <Row ListType="Siam Unit Biases" LeaderType="TRAIT_SIAM" System="UnitBiases"/>
+    <Row ListType="Siam Government Bias" LeaderType="TRAIT_SIAM" System="GovernmentBiases"/>
+    <Row ListType="Siam Constructibles Biases" LeaderType="TRAIT_SIAM" System="ConstructibleBiases"/>
+
+  </AiLists>
+  <AiFavoredItems>
+    <!-- Ideology Biases -->
+    <Row ListType="IdeologyCommunismYieldBiases" Item="YIELD_FOOD" Value="25"/>
+    <Row ListType="IdeologyDemocracyYieldBiases" Item="YIELD_GOLD" Value="25"/>
+    <Row ListType="IdeologyFascismYieldBiases" Item="YIELD_PRODUCTION" Value="25"/>
+
+    <!-- Modern Majors  -->
+    <Row ListType="Modern Tag Biases" Item="PRODUCTION" Value="100"/>
+    <Row ListType="Modern Unit Biases" Item="UNIT_BIPLANE" Value="25"/>
+    <Row ListType="Modern Unit Biases" Item="UNIT_TRENCH_FIGHTER" Value="25"/>
+    <Row ListType="Modern Unit Biases" Item="UNIT_BOMBER" Value="25"/>
+    <Row ListType="Modern Unit Biases" Item="UNIT_FIGHTER" Value="25"/>
+    <Row ListType="Modern Unit Biases" Item="UNIT_DIVEBOMBER" Value="25"/>
+    <Row ListType="Modern Unit Biases" Item="UNIT_HEAVY_BOMBER" Value="25"/>
+
+    <!-- America -->
+    <Row ListType="America Unit Biases" Item="UNIT_MARINE" Value="50"/>
+    <Row ListType="America Unit Biases" Item="UNIT_MARINE_2" Value="50"/>
+    <Row ListType="America Unit Biases" Item="UNIT_IRONCLAD" Value="25"/>
+    <Row ListType="America Unit Biases" Item="UNIT_FRIGATE" Value="25"/>
+    <Row ListType="America Unit Biases" Item="UNIT_CRUISER" Value="25"/>
+    <Row ListType="America Unit Biases" Item="UNIT_DREADNOUGHT" Value="25"/>
+    <Row ListType="America Unit Biases" Item="UNIT_DESTROYER" Value="25"/>
+    <Row ListType="America Unit Biases" Item="UNIT_BATTLESHIP" Value="25"/>
+    <Row ListType="America Unit Biases" Item="UNIT_SUBMARINE" Value="25"/>
+    <Row ListType="America Unit Biases" Item="UNIT_PROSPECTOR" Value="50"/>
+    <Row ListType="America Government Bias" Item="GOVERNMENT_ELECTIVE_REPUBLIC" Value="50"/>
+    <Row ListType="America Settlement Plot Evaluations" Item="Resource Class" Value="5" StringVal="RESOURCECLASS_BONUS" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_STRATEGIC_RESOURCES"/>
+    <Row ListType="America Settlement Plot Evaluations" Item="Resource Class" Value="5" StringVal="RESOURCECLASS_CITY" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_STRATEGIC_RESOURCES"/>
+    <Row ListType="America Settlement Plot Evaluations" Item="Resource Class" Value="5" StringVal="RESOURCECLASS_EMPIRE" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_STRATEGIC_RESOURCES"/>
+    <Row ListType="America Settlement Plot Evaluations" Item="Resource Class" Value="5" StringVal="RESOURCECLASS_FACTORY" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_STRATEGIC_RESOURCES"/>
+    <Row ListType="America Constructibles Biases" Item="BUILDING_STEEL_MILL" Value="200"/>
+    <Row ListType="America Constructibles Biases" Item="BUILDING_RAILYARD" Value="200"/>
+    <Row ListType="America Constructibles Biases" Item="WONDER_STATUE_OF_LIBERTY" Value="50"/>
+
+    <!-- Buganda -->
+    <Row ListType="Buganda Unit Biases" Item="UNIT_ABAMBOWA" Value="50"/>
+    <Row ListType="Buganda Unit Biases" Item="UNIT_ABAMBOWA_2" Value="50"/>
+    <Row ListType="Buganda Unit Biases" Item="UNIT_ABAMBOWA_3" Value="25"/>
+    <Row ListType="Buganda Unit Biases" Item="UNIT_FIELD_CANNON" Value="25"/>
+    <Row ListType="Buganda Unit Biases" Item="UNIT_FIELD_GUN" Value="25"/>
+    <Row ListType="Buganda Unit Biases" Item="UNIT_AT_GUN" Value="25"/>
+    <Row ListType="Buganda Unit Biases" Item="UNIT_MWAMI" Value="50"/>
+    <Row ListType="Buganda Government Bias" Item="GOVERNMENT_BUREAUCRATIC_MONARCHY" Value="25"/>
+    <Row ListType="Buganda Settlement Plot Evaluations" Item="Specific Terrain" Value="5" StringVal="TERRAIN_NAVIGABLE_RIVER" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_TERRAIN"/>
+    <Row ListType="Buganda Settlement Plot Evaluations" Item="Lake" Value="5" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_LAKE_COUNT"/>
+    <Row ListType="Buganda Constructibles Biases" Item="IMPROVEMENT_KABAKAS_LAKE" Value="200"/>
+    <Row ListType="Buganda Constructibles Biases" Item="WONDER_MUZIBU_AZAALA_MPANGA" Value="50"/>
+
+    <!-- French Empire -->
+    <Row ListType="French Unit Biases" Item="UNIT_GARDE_IMPERIALE" Value="50"/>
+    <Row ListType="French Unit Biases" Item="UNIT_GARDE_IMPERIALE_2" Value="50"/>
+    <Row ListType="French Unit Biases" Item="UNIT_GARDE_IMPERIALE_3" Value="50"/>
+    <Row ListType="French Unit Biases" Item="UNIT_MORTAR" Value="25"/>
+    <Row ListType="French Unit Biases" Item="UNIT_HEAVY_ARTILLERY" Value="25"/>
+    <Row ListType="French Unit Biases" Item="UNIT_ASSAULT_GUN" Value="25"/>
+    <Row ListType="French Unit Biases" Item="UNIT_JACOBIN" Value="50"/>
+    <Row ListType="French Government Bias" Item="GOVERNMENT_ELECTIVE_REPUBLIC" Value="25"/>
+    <Row ListType="French Constructibles Biases" Item="BUILDING_SALON" Value="200" />
+    <Row ListType="French Constructibles Biases" Item="BUILDING_FORMAL_GARDEN" Value="200" />
+    <Row ListType="French Constructibles Biases" Item="WONDER_EIFFEL_TOWER" Value="50" />
+    <Row ListType="French Budget Biases" Item="AI_BUDGET_CITY_DEVELOPMENT" Value="50"/>
+
+    <!-- Meiji Empire -->
+    <Row ListType="Meiji Unit Biases" Item="UNIT_MIKASA" Value="50"/>
+    <Row ListType="Meiji Unit Biases" Item="UNIT_MIKASA_2" Value="50"/>
+    <Row ListType="Meiji Unit Biases" Item="UNIT_ZERO" Value="50"/>
+    <Row ListType="Meiji Unit Biases" Item="UNIT_ZERO_2" Value="50"/>
+    <Row ListType="Meiji Unit Biases" Item="UNIT_LINE_INFANTRY" Value="25"/>
+    <Row ListType="Meiji Unit Biases" Item="UNIT_RIFLEMAN" Value="25"/>
+    <Row ListType="Meiji Unit Biases" Item="UNIT_INFANTRY_COMPANY" Value="25"/>
+    <Row ListType="Meiji Government Bias" Item="GOVERNMENT_AUTHORITARIANISM" Value="50"/>
+    <Row ListType="Meiji Constructibles Biases" Item="BUILDING_GINKO" Value="200" />
+    <Row ListType="Meiji Constructibles Biases" Item="BUILDING_JUKOGYO" Value="200" />
+    <Row ListType="Meiji Constructibles Biases" Item="WONDER_DOGO_ONSEN" Value="50" />
+    <Row ListType="Meiji Tag Biases" Item="PRODUCTION" Value="50"/>
+    <Row ListType="Meiji Settlement Plot Evaluations" Item="Coastal" Favored="false" Value="15" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_COAST"/>
+
+    <!-- Mexico -->
+    <Row ListType="Mexico Unit Biases" Item="UNIT_SOLDADERAS" Value="50"/>
+    <Row ListType="Mexico Unit Biases" Item="UNIT_SOLDADERAS_2" Value="50"/>
+    <Row ListType="Mexico Unit Biases" Item="UNIT_SOLDADERAS_3" Value="50"/>
+    <Row ListType="Mexico Unit Biases" Item="UNIT_CUIRASSIER" Value="50"/>
+    <Row ListType="Mexico Unit Biases" Item="UNIT_LANDSHIP" Value="25"/>
+    <Row ListType="Mexico Unit Biases" Item="UNIT_TANK" Value="25"/>
+    <Row ListType="Mexico Unit Biases" Item="UNIT_REVOLUCIONARIO" Value="50"/>
+    <Row ListType="Mexico Constructibles Biases" Item="BUILDING_CATEDRAL" Value="200" />
+    <Row ListType="Mexico Constructibles Biases" Item="BUILDING_PORTAL_DE_MERCADERES" Value="200" />
+    <Row ListType="Mexico Constructibles Biases" Item="WONDER_PALACIO_DE_BELLAS_ARTES" Value="50" />
+    <Row ListType="Mexico Tag Biases" Item="HAPPINESS" Value="50"/>
+
+    <!-- Mughal -->
+    <Row ListType="Mughal Unit Biases" Item="UNIT_SEPOY" Value="50"/>
+    <Row ListType="Mughal Unit Biases" Item="UNIT_SEPOY_2" Value="50"/>
+    <Row ListType="Mughal Unit Biases" Item="UNIT_SEPOY_3" Value="50"/>
+    <Row ListType="Mughal Unit Biases" Item="UNIT_MORTAR" Value="25"/>
+    <Row ListType="Mughal Unit Biases" Item="UNIT_HEAVY_ARTILLERY" Value="25"/>
+    <Row ListType="Mughal Unit Biases" Item="UNIT_ASSAULT_GUN" Value="25"/>
+    <Row ListType="Mughal Government Bias" Item="GOVERNMENT_BUREAUCRATIC_MONARCHY" Value="25"/>
+    <Row ListType="Mughal Constructibles Biases" Item="WONDER_RED_FORT" Value="50"/>
+    <Row ListType="Mughal Constructibles Biases" Item="IMPROVEMENT_STEPWELL" Value="200"/>
+    <Row ListType="Mughal Constructibles Biases" Item="IMPROVEMENT_FARM" Value="50"/>
+    <Row ListType="Mughal Tag Biases" Item="GOLD" Value="100"/>
+
+    <!-- Prussia -->
+    <Row ListType="Prussia Unit Biases" Item="UNIT_HUSSAR" Value="50"/>
+    <Row ListType="Prussia Unit Biases" Item="UNIT_HUSSAR_2" Value="50"/>
+    <Row ListType="Prussia Unit Biases" Item="UNIT_HUSSAR_3" Value="50"/>
+    <Row ListType="Prussia Unit Biases" Item="UNIT_STUKA" Value="50"/>
+    <Row ListType="Prussia Unit Biases" Item="UNIT_STUKA_2" Value="50"/>
+    <Row ListType="Prussia Unit Biases" Item="UNIT_CUIRASSIER" Value="25"/>
+    <Row ListType="Prussia Unit Biases" Item="UNIT_LANDSHIP" Value="25"/>
+    <Row ListType="Prussia Unit Biases" Item="UNIT_TANK" Value="25"/>
+    <Row ListType="Prussia Government Bias" Item="GOVERNMENT_AUTHORITARIANISM" Value="50"/>
+    <Row ListType="Prussia Constructibles Biases" Item="WONDER_BRANDENBURG_GATE" Value="50" />
+    <Row ListType="Prussia Budget Biases" Item="AI_BUDGET_STANDING_ARMY" Value="50"/>
+    <Row ListType="Prussia Settlement Plot Evaluations" Item="Specific Feature" Favored="false" Value="3" StringVal="FEATURE_DESERT_FLOODPLAIN_MINOR" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+    <Row ListType="Prussia Settlement Plot Evaluations" Item="Specific Feature" Favored="false" Value="3" StringVal="FEATURE_GRASSLAND_FLOODPLAIN_MINOR" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+    <Row ListType="Prussia Settlement Plot Evaluations" Item="Specific Feature" Favored="false" Value="3" StringVal="FEATURE_PLAINS_FLOODPLAIN_MINOR" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+    <Row ListType="Prussia Settlement Plot Evaluations" Item="Specific Feature" Favored="false" Value="3" StringVal="FEATURE_TROPICAL_FLOODPLAIN_MINOR" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+    <Row ListType="Prussia Settlement Plot Evaluations" Item="Specific Feature" Favored="false" Value="3" StringVal="FEATURE_TUNDRA_FLOODPLAIN_MINOR" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_FEATURES"/>
+    <Row ListType="Prussia Settlement Plot Evaluations" Item="Specific Terrain" Favored="false" Value="10" StringVal="TERRAIN_NAVIGABLE_RIVER" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_TERRAIN"/>
+
+    <!-- Qing Empire -->
+    <Row ListType="Qing Unit Biases" Item="UNIT_GUSA" Value="50"/>
+    <Row ListType="Qing Unit Biases" Item="UNIT_GUSA_2" Value="50"/>
+    <Row ListType="Qing Unit Biases" Item="UNIT_GUSA_3" Value="50"/>
+    <Row ListType="Qing Unit Biases" Item="UNIT_IRONCLAD" Value="25"/>
+    <Row ListType="Qing Unit Biases" Item="UNIT_FRIGATE" Value="25"/>
+    <Row ListType="Qing Unit Biases" Item="UNIT_CRUISER" Value="25"/>
+    <Row ListType="Qing Unit Biases" Item="UNIT_DREADNOUGHT" Value="25"/>
+    <Row ListType="Qing Unit Biases" Item="UNIT_DESTROYER" Value="25"/>
+    <Row ListType="Qing Unit Biases" Item="UNIT_BATTLESHIP" Value="25"/>
+    <Row ListType="Qing Unit Biases" Item="UNIT_SUBMARINE" Value="25"/>
+    <Row ListType="Qing Government Bias" Item="GOVERNMENT_BUREAUCRATIC_MONARCHY" Value="25"/>
+    <Row ListType="Qing Constructibles Biases" Item="BUILDING_EXAMINATION_HALL" Value="200" />
+    <Row ListType="Qing Constructibles Biases" Item="BUILDING_MONEY_SHOP" Value="200" />
+    <Row ListType="Qing Constructibles Biases" Item="WONDER_CHENGDE_MOUNTAIN_RESORT" Value="50" />
+    <Row ListType="Qing PseudoYield Biases" Item="PSEUDOYIELD_RESOURCE_IMPORT" Value="50"/>
+
+    <!-- Russia -->
+    <Row ListType="Russia Unit Biases" Item="UNIT_COSSACK" Value="50"/>
+    <Row ListType="Russia Unit Biases" Item="UNIT_COSSACK_2" Value="50"/>
+    <Row ListType="Russia Unit Biases" Item="UNIT_COSSACK_3" Value="50"/>
+    <Row ListType="Russia Unit Biases" Item="UNIT_KATYUSHA" Value="50"/>
+    <Row ListType="Russia Unit Biases" Item="UNIT_KATYUSHA_2" Value="50"/>
+    <Row ListType="Russia Unit Biases" Item="UNIT_LINE_INFANTRY" Value="25"/>
+    <Row ListType="Russia Unit Biases" Item="UNIT_RIFLEMAN" Value="25"/>
+    <Row ListType="Russia Unit Biases" Item="UNIT_INFANTRY_COMPANY" Value="25"/>
+    <Row ListType="Russia Government Bias" Item="GOVERNMENT_AUTHORITARIANISM" Value="50"/>
+    <Row ListType="Russia Constructibles Biases" Item="IMPROVEMENT_FARM" Value="50" />
+    <Row ListType="Russia Constructibles Biases" Item="IMPROVEMENT_OBSHCHINA" Value="200" />
+    <Row ListType="Russia Constructibles Biases" Item="WONDER_HERMITAGE" Value="50" />
+    <Row ListType="Russia Settlement Plot Evaluations" Item="Specific Biome" Favored="false" Value="3" StringVal="BIOME_TUNDRA" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_CITY_CENTER_BIOME"/>
+    <Row ListType="Russia Settlement Plot Evaluations" Item="City Center Biome" Favored="false" Value="15" StringVal="BIOME_TUNDRA" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_CITY_CENTER_BIOME"/>
+    <Row ListType="Russia PseudoYield Biases" Item="PSEUDOYIELD_BUILD_QUEUE_IN_CITY" Value="-15"/>
+
+    <!-- Siam Empire -->
+    <Row ListType="Siam Unit Biases" Item="UNIT_CHANG_BEUN" Value="50"/>
+    <Row ListType="Siam Unit Biases" Item="UNIT_CHANG_BEUN_2" Value="50"/>
+    <Row ListType="Siam Unit Biases" Item="UNIT_CHANG_BEUN_3" Value="50"/>
+    <Row ListType="Siam Unit Biases" Item="UNIT_IRONCLAD" Value="25"/>
+    <Row ListType="Siam Unit Biases" Item="UNIT_FRIGATE" Value="25"/>
+    <Row ListType="Siam Unit Biases" Item="UNIT_CRUISER" Value="25"/>
+    <Row ListType="Siam Unit Biases" Item="UNIT_DREADNOUGHT" Value="25"/>
+    <Row ListType="Siam Unit Biases" Item="UNIT_DESTROYER" Value="25"/>
+    <Row ListType="Siam Unit Biases" Item="UNIT_BATTLESHIP" Value="25"/>
+    <Row ListType="Siam Unit Biases" Item="UNIT_SUBMARINE" Value="25"/>
+    <Row ListType="Siam Unit Biases" Item="UNIT_UPARAT" Value="50"/>
+    <Row ListType="Siam Government Bias" Item="GOVERNMENT_BUREAUCRATIC_MONARCHY" Value="50"/>
+    <Row ListType="Siam Constructibles Biases" Item="IMPROVEMENT_BANG" Value="200" />
+    <Row ListType="Siam Constructibles Biases" Item="RAIL_STATION" Value="200" />
+    <Row ListType="Siam Constructibles Biases" Item="BUILDING_RADIO_STATION" Value="50" />
+    <Row ListType="Siam Constructibles Biases" Item="WONDER_DOI_SUTHEP" Value="50" />
+  </AiFavoredItems>
+</Database>

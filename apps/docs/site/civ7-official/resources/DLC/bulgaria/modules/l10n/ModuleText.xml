@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_MODULE_BULGARIA_DESCRIPTION" Language="pt_BR">
+      <Text>Contém uma nova Civilização da Era da Exploração, Bulgária.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_BULGARIA_NAME" Language="pt_BR">
+      <Text>Bulgária</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_BULGARIA_DESCRIPTION" Language="fr_FR">
+      <Text>Contient une nouvelle civilisation de l’Âge de l’exploration, la Bulgarie.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_BULGARIA_NAME" Language="fr_FR">
+      <Text>Bulgarie</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_BULGARIA_DESCRIPTION" Language="de_DE">
+      <Text>Enthält eine neue Zivilisation des Zeitalters der Erkundung: Bulgarien.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_BULGARIA_NAME" Language="de_DE">
+      <Text>Bulgarien</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_BULGARIA_DESCRIPTION" Language="it_IT">
+      <Text>Contiene una nuova civiltà dell'epoca delle esplorazioni, la Bulgaria.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_BULGARIA_NAME" Language="it_IT">
+      <Text>Bulgaria</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_BULGARIA_DESCRIPTION" Language="ja_JP">
+      <Text>新たな探検の時代の文明「ブルガリア」を含みます。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_BULGARIA_NAME" Language="ja_JP">
+      <Text>ブルガリア</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_BULGARIA_DESCRIPTION" Language="ko_KR">
+      <Text>새로운 대항해시대 문명 불가리아가 포함되어 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_BULGARIA_NAME" Language="ko_KR">
+      <Text>불가리아</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_BULGARIA_DESCRIPTION" Language="pl_PL">
+      <Text>Zawiera nową cywilizację epoki odkryć – Bułgarię.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_BULGARIA_NAME" Language="pl_PL">
+      <Text>Bułgaria</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_BULGARIA_DESCRIPTION" Language="ru_RU">
+      <Text>Содержит новую цивилизацию современной эпохи — Болгарию.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_BULGARIA_NAME" Language="ru_RU">
+      <Text>Болгария</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_BULGARIA_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>包含1个新探索时代文明：保加利亚。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_BULGARIA_NAME" Language="zh_Hans_CN">
+      <Text>保加利亚</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_BULGARIA_DESCRIPTION" Language="es_ES">
+      <Text>Contiene una nueva civilización de la Era de los Descubrimientos: Bulgaria.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_BULGARIA_NAME" Language="es_ES">
+      <Text>Bulgaria</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_BULGARIA_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>包含一個新的探索時代文明——保加利亞。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_BULGARIA_NAME" Language="zh_Hant_HK">
+      <Text>保加利亞</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

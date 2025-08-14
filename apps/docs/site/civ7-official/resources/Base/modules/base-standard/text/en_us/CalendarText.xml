@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_TIME_AD">
+			<Text>{1_Date: number #} CE</Text>
+		</Row>
+		<Row Tag="LOC_TIME_AD_SAVE">
+			<Text>{2} CE-{1_Date}</Text>
+		</Row>
+		<Row Tag="LOC_TIME_BC">
+			<Text>{1_Date: number #} BCE</Text>
+		</Row>
+		<Row Tag="LOC_TIME_BC_SAVE">
+			<Text>{2} BCE-{1_Date}</Text>
+		</Row>
+		<Row Tag="LOC_TIME_MONTH">
+			<Text>{1_Date},{2_Month}</Text>
+		</Row>
+		<Row Tag="LOC_TIME_MONTH_SAVE">
+			<Text>{1_Date}-{2_Month}</Text>
+		</Row>
+		<Row Tag="LOC_TIME_STANDARD">
+			<Text>{1_Month}, {2_Year}</Text>
+		</Row>
+		<Row Tag="LOC_TIME_STANDARD_SAVE">
+			<Text>{1_Year} {2_Month}</Text>
+		</Row>
+		<Row Tag="LOC_MONTH_JANUARY_NAME">
+			<Text>January</Text>
+		</Row>
+		<Row Tag="LOC_MONTH_FEBRUARY_NAME">
+			<Text>February</Text>
+		</Row>
+		<Row Tag="LOC_MONTH_MARCH_NAME">
+			<Text>March</Text>
+		</Row>
+		<Row Tag="LOC_MONTH_APRIL_NAME">
+			<Text>April</Text>
+		</Row>
+		<Row Tag="LOC_MONTH_MAY_NAME">
+			<Text>May</Text>
+		</Row>
+		<Row Tag="LOC_MONTH_JUNE_NAME">
+			<Text>June</Text>
+		</Row>
+		<Row Tag="LOC_MONTH_JULY_NAME">
+			<Text>July</Text>
+		</Row>
+		<Row Tag="LOC_MONTH_AUGUST_NAME">
+			<Text>August</Text>
+		</Row>
+		<Row Tag="LOC_MONTH_SEPTEMBER_NAME">
+			<Text>September</Text>
+		</Row>
+		<Row Tag="LOC_MONTH_OCTOBER_NAME">
+			<Text>October</Text>
+		</Row>
+		<Row Tag="LOC_MONTH_NOVEMBER_NAME">
+			<Text>November</Text>
+		</Row>
+		<Row Tag="LOC_MONTH_DECEMBER_NAME">
+			<Text>December</Text>
+		</Row>
+		<Row Tag="LOC_SEASON_WINTER_NAME">
+			<Text>Winter</Text>
+		</Row>
+		<Row Tag="LOC_SEASON_SPRING_NAME">
+			<Text>Spring</Text>
+		</Row>
+		<Row Tag="LOC_SEASON_SUMMER_NAME">
+			<Text>Summer</Text>
+		</Row>
+		<Row Tag="LOC_SEASON_FALL_NAME">
+			<Text>Fall</Text>
+		</Row>
+	</EnglishText>
+</Database>

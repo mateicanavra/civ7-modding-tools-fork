@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<NarrativeDisplay_Civilizations>
+		<Row CivilizationType="CIVILIZATION_GREAT_BRITAIN" CivilizationImage="bg-panel-great_britain.png"/>
+	</NarrativeDisplay_Civilizations>
+</Database>

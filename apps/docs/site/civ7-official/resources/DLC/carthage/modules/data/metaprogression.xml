@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<MetaprogressionModifiers>
+		<Row ModifierId="METAPROGRESSION_CHALLENGE_CARTHAGE_LEGACY_PATH_MILITARISTIC_ACHIEVED" RequiredCivilizationType="CIVILIZATION_CARTHAGE" />
+		<Row ModifierId="METAPROGRESSION_CHALLENGE_CARTHAGE_LEGACY_PATH_MILESTONE_COMPLETED" RequiredCivilizationType="CIVILIZATION_CARTHAGE" />
+		<Row ModifierId="METAPROGRESSION_CHALLENGE_CARTHAGE_COMPLETE_BYRSA_ACHIEVED" RequiredCivilizationType="CIVILIZATION_CARTHAGE" />
+	</MetaprogressionModifiers>
+</Database>

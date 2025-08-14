@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_CITIZEN_ASSYRIA_MALE_1">
+			<Text>Arda-Mulišši</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ASSYRIA_MALE_2">
+			<Text>Sîn-ahu-usur</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ASSYRIA_MALE_3">
+			<Text>Mutakkil-Nusku</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ASSYRIA_MALE_4">
+			<Text>Tukultī-Ninurta</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ASSYRIA_MALE_5">
+			<Text>Aššur-rabi</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ASSYRIA_MALE_6">
+			<Text>Šamši-ilu</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ASSYRIA_MALE_7">
+			<Text>Adad-nīrārī</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ASSYRIA_MALE_8">
+			<Text>Sîn-nadin-apli</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ASSYRIA_MALE_9">
+			<Text>Aššur-dān</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ASSYRIA_MALE_10">
+			<Text>Aššur-etil-ilāni</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ASSYRIA_FEMALE_1">
+			<Text>Šadditu</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ASSYRIA_FEMALE_2">
+			<Text>Libbāli-šarrat</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ASSYRIA_FEMALE_3">
+			<Text>Tašmetu-šarrat</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ASSYRIA_FEMALE_4">
+			<Text>Sammu-rāmat</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ASSYRIA_FEMALE_5">
+			<Text>Ahat-Abiša</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ASSYRIA_FEMALE_6">
+			<Text>Zakûtu</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ASSYRIA_FEMALE_7">
+			<Text>Šeruʾa-eṭirat</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ASSYRIA_FEMALE_8">
+			<Text>Ešarra-ḫammat</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ASSYRIA_FEMALE_9">
+			<Text>Ra'īmâ</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ASSYRIA_FEMALE_10">
+			<Text>Muballitat-Sherua</Text>
+		</Row>
+	</EnglishText>
+</Database>

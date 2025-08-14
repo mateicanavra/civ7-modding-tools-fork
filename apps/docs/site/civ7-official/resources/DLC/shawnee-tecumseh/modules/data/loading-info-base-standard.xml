@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LoadingInfo_Leaders>
+		<Row LeaderType="LEADER_TECUMSEH" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_TECUMSEH" LeaderImage="fs://game/lsl_tecumseh.png" Audio="VO_Loading2_Tecumseh" />
+	</LoadingInfo_Leaders>
+</Database>

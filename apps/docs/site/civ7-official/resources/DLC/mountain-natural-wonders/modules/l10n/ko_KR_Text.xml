@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_MACHAPUCHARE_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>네팔 히말라야의 안나푸르나산맥에서 위로 뻗은, 거의 수직에 가까운 암벽인 마차푸차레는 아직 사람의 손길이 닿지 않은 봉우리입니다. 7,000m에 약간 못 미치는 높이로 에베레스트보다는 낮지만, 비교적 저지대에서 솟아 있는 탓에 압도적인 존재감을 자랑합니다. 마차푸차레 주변에 사는 티베트고원 사람들과 네팔인(시바 신의 거처라고 주장함) 모두가 이 산을 신성하게 여기는 이유일지도 모릅니다. 이러한 이유로 네팔 정부는 마차푸차레 등반 허가를 극도로 꺼리고 있습니다. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_MOUNT_FUJI_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>후지산은 일본 본섬 혼슈의 중앙에 있는 활화산으로, 매끄러운 원뿔 모양으로 솟아 있으며 거의 일 년 내내 만년설이 덮여 있습니다. 그 아름다움 덕분에 후지산은 수천 년 동안 본섬을 상징하는 존재였습니다. 때문에 호쿠사이의 목판화, 바쇼의 시에서 작품 소재가 된 것은 물론, 중요한 신도교 예배지 겸 순례지로 남아 있습니다. 후지산 정상에는 신사가 있으며 그 경사면은 성지순례지이자 오락용 산행 장소로 쓰이고 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_MOUNT_FUJI_CHAPTER_HISTORY_PARA_2" Language="ko_KR">
+      <Text>후지산은 2013년에 문화적 중요성을 인정받아 세계문화유산에 등재되었습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_VIHREN_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>불가리아 남서쪽 구석에 있는 피린산맥은 그 아래 계곡에서부터 가파르게 솟아 있습니다. 그 중심에는 피린산맥에서 가장 높은 산이자 발칸 반도에서 세 번째로 높은 비흐렌이 자리하고 있습니다. 2,914m의 피라미드형 봉우리는 황량한 카르스트 지형의 표본 그 자체입니다. 그 아래에는 유럽 최남단 빙하인 스네즈니카 소빙하가 자리하고 있습니다. 피린산맥은 오래전 슬라브족이 믿은 폭풍의 신, 페룬의 이름에서 유래했으며 비흐렌이라는 이름은 '회오리'라는 뜻입니다. 비흐렌은 오늘날에도 등반가들에게 인기 있는 여행지입니다. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_VINICUNCA_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>페루 안데스산맥 깊숙한 곳에는 일곱 빛깔의 무지개산, 비니쿤카가 있습니다. 비니쿤카의 밝은 색조는 붉은 점토의 분홍색, 석영과 이회토의 흰색, 갈철석과 침철석의 보라색, 철의 빨간색, 녹니석의 녹색, 마그네슘의 갈색, 그리고 석회질 사암의 노란색까지 다양한 광물이 섞인 결과입니다. 비니쿤카는 2013년에야 발견되었습니다. 그때까지 만년설에 덮여 존재가 드러나지 않았다가 지구의 기온 상승으로 만년설이 녹으면서 모습을 드러냈으며, 이후 페루의 주요 관광 명소 중 하나가 되었습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MACHAPUCHARE_NAME" Language="ko_KR">
+      <Text>마차푸차레</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MOUNT_FUJI_NAME" Language="ko_KR">
+      <Text>후지산</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VIHREN_NAME" Language="ko_KR">
+      <Text>비흐렌</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VINICUNCA_NAME" Language="ko_KR">
+      <Text>비니쿤카</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_MOUNT_VINSON_NAME" Language="ko_KR">
+      <Text>빈슨산</Text>
+      <Gender>neuter</Gender>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MACHAPUCHARE_DESCRIPTION" Language="ko_KR">
+      <Text>시대당 [icon:YIELD_CULTURE] 문화 +2 및 [icon:YIELD_PRODUCTION] 생산력이 +4 증가합니다. 이 정착지의 거친 지형과 산 지형에서 [icon:YIELD_HAPPINESS] 행복도가 +1 증가합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MACHAPUCHARE_TOOLTIP" Language="ko_KR">
+      <Text>이 정착지의 거친 지형과 산 지형에서 [icon:YIELD_HAPPINESS] 행복도가 +1 증가합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MOUNT_FUJI_DESCRIPTION" Language="ko_KR">
+      <Text>시대당 [icon:YIELD_GOLD] 금, [icon:YIELD_CULTURE] 문화 및 [icon:YIELD_HAPPINESS] 행복도가 +2 증가합니다. 화산 타일입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MOUNT_FUJI_TOOLTIP" Language="ko_KR">
+      <Text>화산 타일입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VIHREN_DESCRIPTION" Language="ko_KR">
+      <Text>시대당 [icon:YIELD_FOOD] 식량이 +4, [icon:YIELD_PRODUCTION] 생산력이 +2 증가합니다. 이번 시대에 자연 재해로 타일이 비옥해질 때마다 시대당 [icon:YIELD_HAPPINESS] 행복도 및 [icon:YIELD_CULTURE] 문화가 +1 증가합니다. </Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VIHREN_TOOLTIP" Language="ko_KR">
+      <Text>이번 시대에 자연 재해로 타일이 비옥해질 때마다 시대당 [icon:YIELD_HAPPINESS] 행복도 및 [icon:YIELD_CULTURE] 문화가 +1 증가합니다. </Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VINICUNCA_DESCRIPTION" Language="ko_KR">
+      <Text>시대당 [icon:YIELD_PRODUCTION] 생산력, [icon:YIELD_HAPPINESS] 행복도 및 [icon:YIELD_SCIENCE] 과학이 +2 증가합니다. 인접한 교외 타일의 [icon:YIELD_CULTURE] 문화가 +2 증가합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VINICUNCA_TOOLTIP" Language="ko_KR">
+      <Text>인접한 교외 타일의 [icon:YIELD_CULTURE] 문화가 +2 증가합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_MACHAPUCHARE" Language="ko_KR">
+      <Text>링가 푸라나</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_MOUNT_FUJI" Language="ko_KR">
+      <Text>마츠오 바쇼</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_VIHREN" Language="ko_KR">
+      <Text>라줌니크</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_VINICUNCA" Language="ko_KR">
+      <Text>파차쿠티</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_MACHAPUCHARE" Language="ko_KR">
+      <Text>시바는 징후가 없다. 색도 맛도 냄새도 없으며 말이나 촉감을 넘어서며 움직임도 없고 변하지도 않는다.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_MOUNT_FUJI" Language="ko_KR">
+      <Text>요술 속 세상, 머리를 부딪힌 해, 후지산 정상.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_VIHREN" Language="ko_KR">
+      <Text>땅은 산이 꽉 쥐고 있어 물 위에서 흔들리지 않는다.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_VINICUNCA" Language="ko_KR">
+      <Text>오, 파차카막이여! 그대는 하늘에 있습니까, 땅에 있습니까? 구름 속에 있습니까, 깊은 바닷속에 있습니까?</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

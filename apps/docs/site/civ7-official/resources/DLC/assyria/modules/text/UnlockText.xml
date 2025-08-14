@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_LAKSHMIBAI_ASSYRIA_TOOLTIP">
+			<Text>[B]Lakshmibai[/B] was from the same continent as [B]Assyria[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_XERXES_ASSYRIA_TOOLTIP">
+			<Text>[B]Xerxes[/B] ruled the region that was once [B]Assyria[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_GENGHIS_KHAN_ASSYRIA_TOOLTIP">
+			<Text>[B]Assyria[/B] strategically complements [B]Genghis Khan[/B].</Text>
+		</Row>
+	</EnglishText>
+</Database>

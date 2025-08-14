@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="Definitions">
+	<definition name="ProgressionTree" table-name="ProgressionTrees" cpp="true">
+		<field name="ProgressionTreeType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="AgeType" type="Text"/>
+		<field name="SystemType" type="Text" not-null="true" hash="true"/>
+		<field name="Name" type="Text"/>
+		<field name="MultipleUnlockName" type="Text"/>
+		<field name="IconString" type="Text"/>
+		<field name="RevealRequirementSetId" type="Text" hash="true"/>
+		<field name="PrereqFormat" type="Text" not-null="true" hash="true" value="AND"/>
+		<field name="CostProgressionModel" type="Text" value="NO_COST_PROGRESSION" not-null="true" hash="true"/>
+		<field name="CostProgressionParam1" type="Integer" value="0" not-null="true"/>
+		<reference source="AgeType" target="AgeType" sourceRoleName="AgeRef" to="Age"/>
+		<property name="NodeCollection" path="NodeCollectionRef"/>
+		<property name="AgeReference" path="AgeRef"/>
+	</definition>
+	<definition name="ProgressionTreeNode" table-name="ProgressionTreeNodes" cpp="true">
+		<field name="ProgressionTreeNodeType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="ProgressionTree" type="Text" not-null="true" hash="true"/>
+		<field name="Cost" type="Integer" not-null="true"/>
+		<field name="StartingUnlockDepth" type="Integer" not-null="true" value="-1"/>
+		<field name="CanBoost" type="Bool" not-null="true" value="1"/>
+		<field name="CanSteal" type="Bool" not-null="true" value="1"/>
+		<field name="Name" type="Text" not-null="true" value=""/>
+		<field name="Description" type="Text"/>
+		<field name="IconString" type="Text"/>
+		<field name="UILayoutRow" type="Integer"/>
+		<field name="UILayoutColumn" type="Integer"/>
+		<field name="Repeatable" type="Bool" value="0" not-null="true"/>
+		<field name="RepeatableCostProgressionModel" type="Text" value="NO_PROGRESSION_MODEL" not-null="true" hash="true"/>
+		<field name="RepeatableCostProgressionParam1" type="Integer" value="0" not-null="true"/>
+		<reference source="ProgressionTree" target="ProgressionTreeType" sourceRoleName="ProgressionTreeRef" targetRoleName="NodeCollectionRef" to="ProgressionTree"/>
+		<property name="ProgressionTreeReference" path="ProgressionTreeRef"/>
+		<property name="PrereqNodeCollection" path="PrereqNodeCollection.NodeRef"/>
+		<property name="UnlockCollection" path="UnlockCollectionRef"/>
+		<property name="AdvisoryClasses" path="AdvisoryClassesRef"/>
+	</definition>
+	<definition name="ProgressionTreePrereq" table-name="ProgressionTreePrereqs" cpp="false">
+		<field name="Node" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="PrereqNode" type="Text" key="true" not-null="true" hash="true"/>
+		<reference source="Node" target="ProgressionTreeNodeType" targetRoleName="PrereqNodeCollection" to="ProgressionTreeNode"/>
+		<reference source="PrereqNode" target="ProgressionTreeNodeType" sourceRoleName="NodeRef" to="ProgressionTreeNode"/>
+	</definition>
+	<definition name="ProgressionTreeNodeUnlock" table-name="ProgressionTreeNodeUnlocks" cpp="true">
+		<field name="ProgressionTreeNodeType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="TargetType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="TargetKind" type="Text" not-null="true" hash="true"/>
+		<field name="UnlockDepth" type="Integer" not-null="true" value="1"/>
+		<field name="IconString" type="Text"/>
+		<field name="RequiredTraitType" type="Text" hash="true"/>
+		<field name="NotTraitType" type="Text" hash="true"/>
+		<field name="Hidden" type="Bool"/>
+		<field name="AIIgnoreUnlockValue" type="Bool" not-null="true" value="false"/>
+		<reference source="ProgressionTreeNodeType" target="ProgressionTreeNodeType" sourceRoleName="ProgressionTreeNodeRef" targetRoleName="UnlockCollectionRef" to="ProgressionTreeNode"/>
+		<reference source="RequiredTraitType" target="TraitType" sourceRoleName="TraitRef" on-delete="SetDefault" on-update="SetDefault" to="Trait"/>
+		<reference source="NotTraitType" target="TraitType" sourceRoleName="TraitRef" on-delete="SetDefault" on-update="SetDefault" to="Trait"/>
+		<property name="ProgressionTreeNodeReference" path="ProgressionTreeNodeRef"/>
+		<property name="TraitReference" path="TraitRef"/>
+	</definition>
+	<definition name="Attribute" table-name="Attributes" cpp="true">
+		<field name="AttributeType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="ProgressionTreeType" type="Text" hash="true"/>
+		<field name="Description" type="Text"/>
+		<reference source="ProgressionTreeType" target="ProgressionTreeType" sourceRoleName="ProgressionTreeRef" on-delete="SetNULL" to="ProgressionTree"/>
+		<property name="ProgressionTreeReference" path="ProgressionTreeRef"/>
+	</definition>
+	<definition name="ProgressionTree_Advisory" table-name="ProgressionTree_Advisories" cpp="true">
+		<field name="ProgressionTreeNodeType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="AdvisoryClassType" type="Text" key="true" not-null="true" hash="true"/>
+		<reference source="ProgressionTreeNodeType" target="ProgressionTreeNodeType" targetRoleName="AdvisoryClassesRef" to="ProgressionTreeNode" on-delete="Cascade" on-update="Cascade"/>
+		<reference source="AdvisoryClassType" target="AdvisoryClassType" to="AdvisoryClass"/>
+	</definition>
+</definitions>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<AiListTypes>
+
+		<!-- Leader Yield biases -->
+		<Row ListType="Fredrich Baroque Yield Biases"/>
+		<Row ListType="Xerxes Achaemenid Yield Biases"/>
+
+		<!-- Leader Psuedoyield Biases -->
+		<Row ListType="Xerxes Achaemenid Pseudoyield Biases"/>
+
+		<!-- Leader Tag Biases -->
+		<Row ListType="Fredrich Baroque Tag Biases"/>
+
+	</AiListTypes>
+	<AiLists>
+
+		<!-- Leader Yield Biases -->
+		<Row ListType="Fredrich Baroque Yield Biases" LeaderType="TRAIT_LEADER_FRIEDRICH_ALT_ABILITY" System="YieldBiases"/>
+		<Row ListType="Xerxes Achaemenid Yield Biases" LeaderType="TRAIT_LEADER_XERXES_ALT_ABILITY" System="YieldBiases"/>
+
+		<!-- Leader Psuedoyield Biases -->
+		<Row ListType="Xerxes Achaemenid Pseudoyield Biases" LeaderType="TRAIT_LEADER_XERXES_ALT_ABILITY" System="PseudoYieldBiases"/>
+
+		<!-- Leader Tag Biases -->
+		<Row ListType="Fredrich Baroque Tag Biases" LeaderType="TRAIT_LEADER_FRIEDRICH_ALT_ABILITY" System="TagBiases"/>
+
+	</AiLists>
+	<AiFavoredItems>
+
+		<!-- Leader Yield Biases -->
+		<Row ListType="Fredrich Baroque Yield Biases" Item="YIELD_HAPPINESS" Value="50"/>
+		<Row ListType="Fredrich Baroque Yield Biases" Item="YIELD_PRODUCTION" Value="25"/>
+		<Row ListType="Xerxes Achaemenid Yield Biases" Item="YIELD_HAPPINESS" Value="50"/>
+		<Row ListType="Xerxes Achaemenid Yield Biases" Item="YIELD_CULTURE" Value="25"/>
+
+		<!-- Leader Psuedoyield Biases -->
+		<Row ListType="Xerxes Achaemenid Pseudoyield Biases" Item="PSEUDOYIELD_RESOURCE_IMPORT" Value="50"/>
+
+		<!-- Leader Tag Biases -->
+		<Row ListType="Fredrich Baroque Tag Biases" Item="MILITARY" Value="100"/>
+
+	</AiFavoredItems>
+</Database>

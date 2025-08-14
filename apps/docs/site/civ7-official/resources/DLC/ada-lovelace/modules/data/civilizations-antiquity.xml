@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LeaderCivPriorities>
+		<Row Leader="LEADER_ADA_LOVELACE" Civilization="CIVILIZATION_ROME" Priority="2"/>
+		<Row Leader="LEADER_ADA_LOVELACE" Civilization="CIVILIZATION_GREECE" Priority="2"/>
+	</LeaderCivPriorities>
+</Database>

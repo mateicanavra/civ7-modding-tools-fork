@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_RIVER_THAMES_NAME">
+			<Text>River Thames</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_WYE_NAME">
+			<Text>River Wye</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_TAY_NAME">
+			<Text>River Tay</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_BARROW_HILL_NAME">
+			<Text>Barrow Hill</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_BEN_NEVIS_NAME">
+			<Text>Ben Nevis</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_HELVELLYN_NAME">
+			<Text>Helvellyn</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MYNYDD_Y_DREF_NAME">
+			<Text>Mynydd y Dref</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_ARTHUR_S_SEAT_NAME">
+			<Text>Arthur's Seat</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_THE_CHEVIOT_NAME">
+			<Text>The Cheviot</Text>
+		</Row>
+	</EnglishText>
+</Database>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_EXPANSIONIST" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_IS_AGE_COUNT">
+				<Argument name="AgeCount">1</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="AttributeType">ATTRIBUTE_EXPANSIONIST</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_MILITARISTIC" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_IS_AGE_COUNT">
+				<Argument name="AgeCount">1</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="AttributeType">ATTRIBUTE_MILITARISTIC</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_POLITICAL" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_IS_AGE_COUNT">
+				<Argument name="AgeCount">1</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="AttributeType">ATTRIBUTE_POLITICAL</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_CULTURAL" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_IS_AGE_COUNT">
+				<Argument name="AgeCount">1</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="AttributeType">ATTRIBUTE_CULTURAL</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_SCIENTIFIC" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_IS_AGE_COUNT">
+				<Argument name="AgeCount">1</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="AttributeType">ATTRIBUTE_SCIENTIFIC</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_ECONOMIC" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_IS_AGE_COUNT">
+				<Argument name="AgeCount">1</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="AttributeType">ATTRIBUTE_ECONOMIC</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MOD_TRAIT_LEADER_ATTRIBUTE_WILDCARD" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_IS_AGE_COUNT">
+				<Argument name="AgeCount">1</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="AttributeType">ATTRIBUTE_WILDCARD</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+</GameEffects>

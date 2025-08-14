@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <Kinds>
+    <InsertOrIgnore Kind="KIND_PSEUDOYIELD"/>
+  </Kinds>
+  <PseudoYields>
+    <Row PseudoYieldType="PSEUDOYIELD_ALL_UNITS_PERCENT_PRODUCTION_BONUS" DefaultValue="15"/>
+    <Row PseudoYieldType="PSEUDOYIELD_BASE_UNIQUE_DISTRICT_VALUE" DefaultValue="800"/>
+    <Row PseudoYieldType="PSEUDOYIELD_CITY_GARRISON_COMBAT_VALUE" DefaultValue="5"/>
+    <Row PseudoYieldType="PSEUDOYIELD_CITY_DEFENSES" DefaultValue="25"/>
+    <Row PseudoYieldType="PSEUDOYIELD_CITY_GUARDS" DefaultValue="25"/>
+    <Row PseudoYieldType="PSEUDOYIELD_COMMANDER_XP_PERCENT_BONUS" DefaultValue="5"/>
+    <Row PseudoYieldType="PSEUDOYIELD_DIPLOMATIC_RELATIONSHIP" DefaultValue="1"/>
+    <Row PseudoYieldType="PSEUDOYIELD_DIPLOMATIC_TOKEN" DefaultValue="500"/>
+    <Row PseudoYieldType="PSEUDOYIELD_DISTANT_HEMISPHERE_TRADE_GOLD" DefaultValue="1"/>
+    <Row PseudoYieldType="PSEUDOYIELD_BUILD_QUEUE_IN_CITY" DefaultValue="2000"/>
+    <Row PseudoYieldType="PSEUDOYIELD_FOUND_RELIGION" DefaultValue="1000"/>
+    <Row PseudoYieldType="PSEUDOYIELD_GOLDEN_AGE_THRESHOLD_PERCENT_REDUCTION" DefaultValue="10"/>
+    <Row PseudoYieldType="PSEUDOYIELD_GREAT_WORK" DefaultValue="600"/>
+    <Row PseudoYieldType="PSEUDOYIELD_GREAT_WORK_SLOT" DefaultValue="200"/>
+    <Row PseudoYieldType="PSEUDOYIELD_GREAT_WORK_SLOT_WITH_AVAILABLE_WORK" DefaultValue="700"/>
+    <Row PseudoYieldType="PSEUDOYIELD_UNLOCK_IDEOLOGIES" DefaultValue="1000"/>
+    <Row PseudoYieldType="PSEUDOYIELD_IDEOLOGY_EARLY_PICK_PER_TIER" DefaultValue="1000"/>
+    <Row PseudoYieldType="PSEUDOYIELD_UNIT_CLASS_PERCENT_PRODUCTION_BONUS" DefaultValue="10"/>
+    <Row PseudoYieldType="PSEUDOYIELD_UNIT_MOVEMENT_BONUS" DefaultValue="100"/>
+    <Row PseudoYieldType="PSEUDOYIELD_UNIT_ABILITY" DefaultValue="100"/>
+    <Row PseudoYieldType="PSEUDOYIELD_LEADER_ATTRIBUTE_POINT_CULTURAL" DefaultValue="100"/>
+    <Row PseudoYieldType="PSEUDOYIELD_LEADER_ATTRIBUTE_POINT_POLITICAL" DefaultValue="100"/>
+    <Row PseudoYieldType="PSEUDOYIELD_LEADER_ATTRIBUTE_POINT_ECONOMIC" DefaultValue="100"/>
+    <Row PseudoYieldType="PSEUDOYIELD_LEADER_ATTRIBUTE_POINT_EXPANSIONIST" DefaultValue="100"/>
+    <Row PseudoYieldType="PSEUDOYIELD_LEADER_ATTRIBUTE_POINT_MILITARISTIC" DefaultValue="100"/>
+    <Row PseudoYieldType="PSEUDOYIELD_LEADER_ATTRIBUTE_POINT_SCIENTIFIC" DefaultValue="100"/>
+    <Row PseudoYieldType="PSEUDOYIELD_LEADER_ATTRIBUTE_POINT_WILDCARD" DefaultValue="200"/>
+    <Row PseudoYieldType="PSEUDOYIELD_NEW_CITY" DefaultValue="300"/>
+    <Row PseudoYieldType="PSEUDOYIELD_RELIGION_CONVERSION" DefaultValue="300"/>
+    <Row PseudoYieldType="PSEUDOYIELD_RESOURCE" DefaultValue="100"/>
+    <Row PseudoYieldType="PSEUDOYIELD_SCOUTING_UNIT" DefaultValue="100"/>
+    <Row PseudoYieldType="PSEUDOYIELD_SPECIFIC_UNIT_PERCENT_PRODUCTION_BONUS" DefaultValue="5"/>
+    <Row PseudoYieldType="PSEUDOYIELD_STANDING_ARMY_COMMANDER" DefaultValue="50"/>
+    <Row PseudoYieldType="PSEUDOYIELD_STANDING_ARMY_UNIT" DefaultValue="50"/>
+    <Row PseudoYieldType="PSEUDOYIELD_STANDING_ARMY_COMBAT_VALUE" DefaultValue="10"/>
+    <Row PseudoYieldType="PSEUDOYIELD_GROWTH_FOOD" DefaultValue="1"/>
+    <Row PseudoYieldType="PSEUDOYIELD_ENABLE_UNIT_EMBARKATION_INLAND" DefaultValue="10"/>
+    <Row PseudoYieldType="PSEUDOYIELD_ENABLE_UNIT_EMBARKATION_SHALLOW" DefaultValue="50"/>
+    <Row PseudoYieldType="PSEUDOYIELD_ENABLE_UNIT_EMBARKATION_DEEP" DefaultValue="150"/>
+    <Row PseudoYieldType="PSEUDOYIELD_ENABLE_UNIT_EMBARKATION_ROUGH" DefaultValue="200"/>
+    <Row PseudoYieldType="PSEUDOYIELD_UNIT_SIGHT_RANGE" DefaultValue="15"/>
+    <Row PseudoYieldType="PSEUDOYIELD_REVEAL_CULTURE_TREE" DefaultValue="300"/>
+    <Row PseudoYieldType="PSEUDOYIELD_UNLOCK_PANTHEON" DefaultValue="400"/>
+    <Row PseudoYieldType="PSEUDOYIELD_REPAIR_BONUS" DefaultValue="10000"/>
+    <Row PseudoYieldType="PSEUDOYIELD_PARTIAL_CONSTRUCTION_BONUS" DefaultValue="1000"/>
+    <Row PseudoYieldType="PSEUDOYIELD_VICTORY_PROJECT" DefaultValue="1500"/>
+    <Row PseudoYieldType="PSEUDOYIELD_TOWN_TO_CITY_UPGRADE_PER_POPULATION" DefaultValue="150"/>
+    <Row PseudoYieldType="PSEUDOYIELD_GREAT_PERSON" DefaultValue="700"/>
+    <Row PseudoYieldType="PSEUDOYIELD_GREAT_PERSON_VALUE_REDUCTION_PER" DefaultValue="200"/>
+    
+    
+    <!-- *********************************************************************************** -->
+    <!-- Naval and air pseudoyields - debating whether this should be in base, or age-specific -->
+    <Row PseudoYieldType="PSEUDOYIELD_STANDING_NAVY_COMBAT_VALUE" DefaultValue="6"/>
+    <Row PseudoYieldType="PSEUDOYIELD_STANDING_NAVY_COMMANDER" DefaultValue="50"/>
+    <Row PseudoYieldType="PSEUDOYIELD_STANDING_NAVY_UNIT" DefaultValue="120"/>
+    <Row PseudoYieldType="PSEUDOYIELD_STANDING_AIR_COMBAT_VALUE" DefaultValue="6"/>
+    <Row PseudoYieldType="PSEUDOYIELD_STANDING_AIR_COMMANDER" DefaultValue="50"/>
+    <Row PseudoYieldType="PSEUDOYIELD_STANDING_AIR_UNIT" DefaultValue="120"/>
+
+    <!-- The value of those pseudoyields are computed dynamically. They should have a value of 1 so that biases can multiplicatively affect the dynamic value. -->
+    <Row PseudoYieldType="PSEUDOYIELD_UNASSIGNED_WORKER" DefaultValue="1"/>
+    <Row PseudoYieldType="PSEUDOYIELD_TRADITION_SLOT" DefaultValue="1"/>
+    <Row PseudoYieldType="PSEUDOYIELD_RURAL_TILE" DefaultValue="1"/>
+    <Row PseudoYieldType="PSEUDOYIELD_IMPROVE_RESOURCE_DISTANT_LANDS" DefaultValue="1"/>
+    <Row PseudoYieldType="PSEUDOYIELD_IMPROVE_RESOURCE_HOMELAND" DefaultValue="1"/>
+    <Row PseudoYieldType="PSEUDOYIELD_SETTLEMENT_CAP_INCREASE" DefaultValue="1"/>
+    <Row PseudoYieldType="PSEUDOYIELD_TECH_MASTERY" DefaultValue="1"/>
+    <Row PseudoYieldType="PSEUDOYIELD_CIVIC_MASTERY" DefaultValue="1"/>
+    <Row PseudoYieldType="PSEUDOYIELD_SLOT_CIV_UNIQUE_TRADITION" DefaultValue="1"/>
+    <Row PseudoYieldType="PSEUDOYIELD_UNLOCK_CIV_UNIQUE_TRADITION" DefaultValue="1"/>
+        
+    <!-- Yield that is always worth 1. Used for scoring stuff that doesn't warrant its own pseudoyield while having a guaranteed scoring criteria. -->
+    <Row PseudoYieldType="PSEUDOYIELD_BASIC_YIELD" DefaultValue="1"/>
+  </PseudoYields>
+</Database>

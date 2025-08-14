@@ -1,0 +1,33 @@
+<Database>
+	<NamedRivers>
+		<Row NamedRiverType="RIVER_MORAVA" Name="LOC_RIVER_MORAVA_NAME"/>
+		<Row NamedRiverType="RIVER_YANTRA" Name="LOC_RIVER_YANTRA_NAME"/>
+		<Row NamedRiverType="RIVER_DRINA" Name="LOC_RIVER_DRINA_NAME"/>
+		<Row NamedRiverType="RIVER_ISKAR" Name="LOC_RIVER_ISKAR_NAME"/>
+		<Row NamedRiverType="RIVER_PRUT" Name="LOC_RIVER_PRUT_NAME"/>
+	</NamedRivers>
+	<NamedVolcanoes>
+		<Row NamedVolcanoType="VOLCANO_ADATEPE" Name="LOC_VOLCANO_ADATEPE_NAME"/>
+		<Row NamedVolcanoType="VOLCANO_CIOMADUL" Name="LOC_VOLCANO_CIOMADUL_NAME"/>
+		<Row NamedVolcanoType="VOLCANO_CSOVANYOS" Name="LOC_VOLCANO_CSOVANYOS_NAME"/>
+		<Row NamedVolcanoType="VOLCANO_KERKIS" Name="LOC_VOLCANO_KERKIS_NAME"/>
+		<Row NamedVolcanoType="VOLCANO_MOUNT_KARADAG" Name="LOC_VOLCANO_MOUNT_KARADAG_NAME"/>
+	</NamedVolcanoes>
+	<NamedRiverCivilizations>
+		<Row NamedRiverType="DANUBE_RIVER" CivilizationType="CIVILIZATION_BULGARIA"/>
+		<Row NamedRiverType="MARITSA_RIVER" CivilizationType="CIVILIZATION_BULGARIA"/>
+		<Row NamedRiverType="STRUMA_RIVER" CivilizationType="CIVILIZATION_BULGARIA"/>
+		<Row NamedRiverType="RIVER_MORAVA" CivilizationType="CIVILIZATION_BULGARIA"/>
+		<Row NamedRiverType="RIVER_YANTRA" CivilizationType="CIVILIZATION_BULGARIA"/>
+		<Row NamedRiverType="RIVER_DRINA" CivilizationType="CIVILIZATION_BULGARIA"/>
+		<Row NamedRiverType="RIVER_ISKAR" CivilizationType="CIVILIZATION_BULGARIA"/>
+		<Row NamedRiverType="RIVER_PRUT" CivilizationType="CIVILIZATION_BULGARIA"/>
+	</NamedRiverCivilizations>
+	<NamedVolcanoCivilizations>
+		<Row NamedVolcanoType="VOLCANO_ADATEPE" CivilizationType="CIVILIZATION_BULGARIA"/>
+		<Row NamedVolcanoType="VOLCANO_CIOMADUL" CivilizationType="CIVILIZATION_BULGARIA"/>
+		<Row NamedVolcanoType="VOLCANO_CSOVANYOS" CivilizationType="CIVILIZATION_BULGARIA"/>
+		<Row NamedVolcanoType="VOLCANO_KERKIS" CivilizationType="CIVILIZATION_BULGARIA"/>
+		<Row NamedVolcanoType="VOLCANO_MOUNT_KARADAG" CivilizationType="CIVILIZATION_BULGARIA"/>
+	</NamedVolcanoCivilizations>
+</Database>

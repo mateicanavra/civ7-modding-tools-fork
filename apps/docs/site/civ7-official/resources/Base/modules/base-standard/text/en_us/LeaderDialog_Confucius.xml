@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Confucius Main Menu Char Select Text-->
+		<Row Tag="LOC_MAIN_CHAR_SELECT_LEADER_CONFUCIUS_ANY">
+			<Text>Shall I teach you about knowledge? What you know, you know, what you don't know, you don't know. This is true knowledge. </Text>
+		</Row>
+
+		<!--CONFUCIUS Statement Text-->
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_CONFUCIUS_ANY">
+			<Text>Have you come to me, Kong Fu Zi, seeking knowledge? That already is knowledge. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_CONFUCIUS_ANY">
+			<Text>Have you come to me, Kong Fu Zi, seeking knowledge? That already is knowledge. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_CONFUCIUS_ANY">
+			<Text>Have you come to me, Kong Fu Zi, seeking knowledge? That already is knowledge. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_CONFUCIUS_ANY">
+			<Text>One must know when one can fight. And now we can.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_CONFUCIUS_ANY">
+			<Text>Heaven is against you; you shall see.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DEFEAT_AI_LEADER_CONFUCIUS_ANY">
+			<Text>Death! What a blessing! The righteous man can rest, and villains' tricks end.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_CONFUCIUS">
+			<Text>Yes, this is wise</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_CONFUCIUS">
+			<Text>This is unadvised. Reconsider.</Text>
+		</Row>
+	</EnglishText>
+</Database>

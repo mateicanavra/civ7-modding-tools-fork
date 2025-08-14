@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- ==============================================================	-->
+		<!--	Legend Unlocks												-->
+		<!-- ==============================================================	-->
+		<!-- Cultural Attribute -->
+
+		<!-- Diplomatic Attribute -->
+		<Row Tag="LOC_MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_NAPOLEON_L1_DESCRIPTION">
+			<Text>Legend Unlock. +25% Relationship from starting or supporting Endeavors. -25% Relationship from starting Sanctions or rejecting Endeavors.</Text>
+		</Row>
+
+		<!-- Economic Attribute -->
+		<Row Tag="LOC_MOD_ATTRIBUTE_ECONOMIC_LEGEND_NAPOLEON_L2_DESCRIPTION">
+			<Text>Legend Unlock.[n]+25% [icon:YIELD_GOLD]Gold from Trade and Treasure Convoys.</Text>
+		</Row>
+		<!-- Expansionist Attribute -->
+
+		<!-- Militaristic Attribute -->
+
+		<!-- Scientific Attribute -->
+
+	</EnglishText>
+</Database>

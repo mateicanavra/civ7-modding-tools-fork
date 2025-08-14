@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <EnglishText>
+    <!--Civilization Names-->
+    <Row Tag="LOC_CIVILIZATION_SHAWNEE_NAME">
+      <Text>Shawnee</Text>
+    </Row>
+    <!--Civilization Full Names-->
+    <Row Tag="LOC_CIVILIZATION_SHAWNEE_FULLNAME">
+      <Text>Shawnee</Text>
+    </Row>
+    <!--Civilization Adjectives-->
+    <Row Tag="LOC_CIVILIZATION_SHAWNEE_ADJECTIVE">
+      <Text>Shawnee</Text>
+    </Row>
+  </EnglishText>
+</Database>

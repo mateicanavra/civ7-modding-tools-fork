@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--Civ Unique Buildings-->
+		<Row Tag="LOC_QUARTER_EKALLU_NAME">
+			<Text>Ekallu</Text>
+		</Row>
+		<Row Tag="LOC_QUARTER_EKALLU_DESCRIPTION">
+			<Text>Assyrian Unique Quarter. Created by constructing the Royal Library and Citadel in the same District. +2 [icon:YIELD_PRODUCTION] Production for each [icon:NAR_REW_GREATWORK] Great Work in this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_QUARTER_EKALLU_TOOLTIP">
+			<Text>+2 [icon:YIELD_PRODUCTION] Production for each [icon:NAR_REW_GREATWORK] Great Work in this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_ROYAL_LIBRARY_NAME">
+			<Text>Royal Library</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_ROYAL_LIBRARY_DESCRIPTION">
+			<Text>+3[icon:YIELD_SCIENCE] Science. Has 2 Codex slots. +1[icon:YIELD_SCIENCE] Science Adjacency for Rivers and Wonders. Assyrian Unique Science Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_ROYAL_LIBRARY_TOOLTIP">
+			<Text>Has 2 Codex slots. Assyrian Unique Science Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_CITADEL_NAME">
+			<Text>Citadel</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_CITADEL_DESCRIPTION">
+			<Text>+3 [icon:YIELD_PRODUCTION] Production. +2[icon:YIELD_HAPPINESS] Happiness if placed on Flat Terrain. +1[icon:YIELD_PRODUCTION] Production adjacency for Wonders. Assyrian Unique Production Building and Fortification. Ageless. All Fortified Districts must be conquered to capture a Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_CITADEL_TOOLTIP">
+			<Text>+2[icon:YIELD_HAPPINESS] Happiness if placed on Flat Terrain. Assyrian Unique Production Building and Fortification. Ageless. All Fortified Districts must be conquered to capture a Settlement.</Text>
+		</Row>
+	</EnglishText>
+</Database>

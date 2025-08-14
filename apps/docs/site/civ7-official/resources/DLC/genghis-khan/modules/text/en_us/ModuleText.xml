@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MODULE_GENGHIS_KHAN_NAME">
+			<Text>Genghis Khan</Text>
+		</Row>
+		<Row Tag="LOC_MODULE_GENGHIS_KHAN_DESCRIPTION">
+			<Text>Contains a new Leader, Genghis Khan.</Text>
+		</Row>
+	</EnglishText>
+</Database>

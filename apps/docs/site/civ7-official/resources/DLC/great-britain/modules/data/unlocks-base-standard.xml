@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_UNLOCK"/>
+	</Kinds>
+	<Types>
+		<InsertOrIgnore Type="UNLOCK_CIVILIZATION_GREAT_BRITAIN" Kind="KIND_UNLOCK"/>
+	</Types>
+	<Unlocks>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_GREAT_BRITAIN"/>
+	</Unlocks>
+	<UnlockRewards>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_GREAT_BRITAIN" Name="LOC_CIVILIZATION_GREAT_BRITAIN_NAME" Description="LOC_UNLOCK_MODERN_CIV_DESCRIPTION" Icon="CIVILIZATION_GREAT_BRITAIN" UnlockRewardType="CIVILIZATION_GREAT_BRITAIN" UnlockRewardKind="KIND_CIVILIZATION"/>
+	</UnlockRewards>
+	<RequirementSets>
+		<InsertOrIgnore RequirementSetId="REQSET_PLAYER_HAS_2_FLEET_COMMANDERS" RequirementSetType="REQUIREMENTSET_TEST_ALL"/>
+	</RequirementSets>
+	<Requirements>
+		<InsertOrIgnore RequirementId="REQ_PLAYER_HAS_2_FLEET_COMMANDERS" RequirementType="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_UNIT_TYPE"/>
+	</Requirements>
+	<RequirementArguments>
+		<InsertOrIgnore RequirementId="REQ_PLAYER_HAS_2_FLEET_COMMANDERS" Name="UnitType" Value="UNIT_FLEET_COMMANDER"/>
+		<InsertOrIgnore RequirementId="REQ_PLAYER_HAS_2_FLEET_COMMANDERS" Name="Amount" Value="2"/>
+	</RequirementArguments>
+	<RequirementSetRequirements>
+		<InsertOrIgnore RequirementSetId="REQSET_PLAYER_HAS_2_FLEET_COMMANDERS" RequirementId="REQ_PLAYER_HAS_2_FLEET_COMMANDERS"/>
+		<InsertOrIgnore RequirementSetId="REQSET_PLAYER_HAS_2_FLEET_COMMANDERS" RequirementId="REQ_AGE_IS_EXPLORATION"/>
+	</RequirementSetRequirements>
+	<UnlockRequirements>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_GREAT_BRITAIN" RequirementSetId="REQSET_PLAYER_HAS_2_FLEET_COMMANDERS" Description="LOC_UNLOCK_FLEET_COMMANDERS_DESCRIPTION" Tooltip="LOC_UNLOCK_FLEET_COMMANDERS_GREAT_BRITAIN_TOOLTIP" NarrativeText="LOC_UNLOCK_FLEET_COMMANDERS_GREAT_BRITAIN_NARRATIVE"/>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_GREAT_BRITAIN" RequirementSetId="REQSET_LEADER_IS_BENJAMIN_FRANKLIN" Description="LOC_UNLOCK_PLAY_AS_BENJAMIN_FRANKLIN_DESCRIPTION" Tooltip="LOC_UNLOCK_PLAY_AS_BENJAMIN_FRANKLIN_GREAT_BRITAIN_TOOLTIP"/>
+	</UnlockRequirements>
+	<UnlockConfigurationValues>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_GREAT_BRITAIN" ConfigurationValue="CIVILIZATION_GREAT_BRITAIN"/>
+	</UnlockConfigurationValues>
+</Database>

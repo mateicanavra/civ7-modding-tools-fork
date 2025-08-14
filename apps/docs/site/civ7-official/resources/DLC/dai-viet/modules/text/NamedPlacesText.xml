@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_RIVER_SONG_HONG_NAME">
+			<Text>Sông Hong</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SONG_LAM_NAME">
+			<Text>Sông Lam</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SONG_CHU_NAME">
+			<Text>Sông Chu</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SONG_DUONG_NAME">
+			<Text>Sông Đuống</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SONG_GAM_NAME">
+			<Text>Sông Gâm</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_CU_LAO_RE_NAME">
+			<Text>Cù-Lao Ré</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_DONG_NAI_NAME">
+			<Text>Dong Nai</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_CHU_DANG_YA_NAME">
+			<Text>Chu Dang Ya</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_NAM_DONG_NAME">
+			<Text>Nam Dong</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_BANG_MO_NAME">
+			<Text>Bang Mo</Text>
+		</Row>
+	</EnglishText>
+</Database>

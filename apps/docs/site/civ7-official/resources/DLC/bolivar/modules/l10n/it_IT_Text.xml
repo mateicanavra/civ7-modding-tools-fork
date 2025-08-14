@@ -1,0 +1,1142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAR_CHAPTER_HISTORY_PARA_1" Language="it_IT">
+      <Text>Simón Bolívar guidò i movimenti che avrebbero portato all'indipendenza del Sudamerica dalla Spagna, guadagnandosi il soprannome di "El Libertador". Le lotte interne tra Bolívar e gli altri aspiranti leader portarono alla frammentazione della sua idea originale di un'America del sud unica e indivisa, ma la sua azione inflisse comunque un colpo decisivo al controllo europeo sul continente. Oggi è venerato come un eroe.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAR_CHAPTER_HISTORY_PARA_2" Language="it_IT">
+      <Text>Bolívar nacque in Venezuela nel 1783 in una ricca famiglia creola (ovvero di origine europea) e ancora giovanissimo si trovò costretto ad occuparsi della gestione della proprietà e delle ricchezze della famiglia. La sua educazione fu fortemente segnata dai princìpi libertari che provenivano dalla Francia dell'epoca, con una speciale influenza di Jean-Jacques Rousseau. Ancora giovane, durante una visita a Parigi, poté osservare l'ascesa al potere di Napoleone. Anche se ammirò molti dei suoi risultati, Bolívar rimase disgustato da un così forte consolidamento del potere in una sola persona dopo la rivoluzione francese.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAR_CHAPTER_HISTORY_PARA_3" Language="it_IT">
+      <Text>In seguito le guerre napoleoniche indebolirono la Francia e per estensione anche il suo stato fantoccio spagnolo, così il governo di Caracas dichiarò l'indipendenza del Venezuela. Nei conflitti successivi il Venezuela sarebbe stato liberato per poi ricadere in mano alla Spagna e Bolívar si trovò a passare dalla guida delle truppe sul campo di battaglia a scontri altrettanto ardui in campo diplomatico. Una volta, con un'azione memorabile, condusse le sue truppe attraverso le Ande in una marcia durissima per prendere di sorpresa gli spagnoli, piombando giù dalle alture per riportare la vittoria. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAR_CHAPTER_HISTORY_PARA_4" Language="it_IT">
+      <Text>Nel tumultuoso scenario politico successivo all'indipendenza, Bolívar lottò per mantenere un certo grado di unità. In questo sforzo arrivò a scontrarsi con il suo vicepresidente, Francisco de Paula Santander, sui valori relativi della democrazia e dell'unità. Bolívar desiderava ricevere la presidenza a vita e avere una presa più salda sul potere, mentre Santander puntava a instaurare una democrazia elettorale. Alla fine Bolívar si auto-dichiarò dittatore, ma fu deposto dopo soli due anni.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAR_CHAPTER_HISTORY_PARA_5" Language="it_IT">
+      <Text>Malato di tubercolosi e vedendo che la sua speranza di riunire il Sudamerica stava svanendo, Bolívar cercò di raggiungere l'Europa, ma morì nel 1830. Aveva liberato il continente, ma in seguito paragonò le sue imprese al tentativo di "arare il mare". La sua figura sarà ricordata per sempre in Sudamerica come un monumento alla rivoluzione.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAT_TITLE" Language="it_IT">
+      <Text>{LOC_LEADER_BOLIVAR_NAME}</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_BOLIVAR_ANY" Language="it_IT">
+      <Text>Sei un mostro che infesta la terra; la tua punizione sarà pari ai tuoi crimini. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_BOLIVAR_ANY" Language="it_IT">
+      <Text>Tu, infido serpente, non inghiottirai la mia terra per soddisfare la tua rabbia velenosa. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DEFEAT_AI_LEADER_BOLIVAR_ANY" Language="it_IT">
+      <Text>Ho visto la luce. Ora devo ricadere nell'oscurità. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_BOLIVAR_ANY" Language="it_IT">
+      <Text>Io sono Simón Bolívar, la mano che schiaccia la tirannia e conduce le nazioni alla libertà. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_BOLIVAR_ANY" Language="it_IT">
+      <Text>Io sono Simón Bolívar, la mano che schiaccia la tirannia e conduce le nazioni alla libertà. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_BOLIVAR_ANY" Language="it_IT">
+      <Text>Io sono Simón Bolívar, la mano che schiaccia la tirannia e conduce le nazioni alla libertà. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_BOLIVAR" Language="it_IT">
+      <Text>Una proposta così esaltante mi onora. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_BOLIVAR" Language="it_IT">
+      <Text>Hai buone intenzioni, ma le tue proposte sono mal consigliate. </Text>
+    </Replace>
+    <Replace Tag="LOC_MAIN_CHAR_SELECT_LEADER_BOLIVAR_ANY" Language="it_IT">
+      <Text>È più difficile mantenere l'equilibrio della libertà che sopportare il peso della tirannia. </Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_BOLIVAR_NAME" Language="it_IT">
+      <Text>Simón Bolívar|di Simón Bolívar|a Simón Bolívar|Simón Bolívar|da Simón Bolívar</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220B_NAME" Language="it_IT">
+      <Text>Queste terre sono solo l'inizio.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220C_NAME" Language="it_IT">
+      <Text>Devono essere protetti.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220D_NAME" Language="it_IT">
+      <Text>Sono sufficienti.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221B_NAME" Language="it_IT">
+      <Text>Ricorda il contadino, il minatore, lo stalliere.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221C_NAME" Language="it_IT">
+      <Text>Buon per loro.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222B_NAME" Language="it_IT">
+      <Text>Passiamo allo scontro successivo.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222C_NAME" Language="it_IT">
+      <Text>È stato versato abbastanza sangue.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1223B_NAME" Language="it_IT">
+      <Text>Un impero fiorente non può essere minacciato.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1223C_NAME" Language="it_IT">
+      <Text>Bisogna sempre essere preparati al peggio.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224B_NAME" Language="it_IT">
+      <Text>C'è solo un modo per scoprirlo.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224C_NAME" Language="it_IT">
+      <Text>Nessuno.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1225B_NAME" Language="it_IT">
+      <Text>Lasciamo che siano amici, prima che diventino nemici.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226B_NAME" Language="it_IT">
+      <Text>L'obbedienza va guadagnata.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226C_NAME" Language="it_IT">
+      <Text>I soldati devono imparare a pensare con la loro testa.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1227B_NAME" Language="it_IT">
+      <Text>Colpisci la testa del nemico.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228B_NAME" Language="it_IT">
+      <Text>La promessa della modernità appartiene a tutti.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228C_NAME" Language="it_IT">
+      <Text>Chiudi.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228D_NAME" Language="it_IT">
+      <Text>Chiudi.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229B_NAME" Language="it_IT">
+      <Text>Chi si oppone a lui, cade.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229C_NAME" Language="it_IT">
+      <Text>Chiudi.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229D_NAME" Language="it_IT">
+      <Text>Chiudi.</Text>
+    </Replace>
+    <Replace Tag="LOC_10030A_COMPLETION" Language="it_IT">
+      <Text>Bolívar ha visto la cura con cui i custodi della biblioteca maneggiano la saggezza raccolta in questi tempi, ma vuole comunque assicurarsi che non sia rinchiusa in umide cantine.</Text>
+    </Replace>
+    <Replace Tag="LOC_10030A_STORYTITLE" Language="it_IT">
+      <Text>Conoscenza con uno scopo</Text>
+    </Replace>
+    <Replace Tag="LOC_10030B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} dagli edifici militari.</Text>
+    </Replace>
+    <Replace Tag="LOC_10030B_NAME" Language="it_IT">
+      <Text>Condividila con gli ufficiali.</Text>
+    </Replace>
+    <Replace Tag="LOC_10030C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} dagli edifici militari.</Text>
+    </Replace>
+    <Replace Tag="LOC_10030C_NAME" Language="it_IT">
+      <Text>Condividila con i soldati.</Text>
+    </Replace>
+    <Replace Tag="LOC_10031A_COMPLETION" Language="it_IT">
+      <Text>Circondato da una folla di cittadini adoranti, Bolívar non può fare a meno di lasciarsi trascinare dal momento. Con la testa adorna di una corona nuova fiammante, gli ritorna alla memoria la figura dell'imperatore Napoleone.</Text>
+    </Replace>
+    <Replace Tag="LOC_10031A_STORYTITLE" Language="it_IT">
+      <Text>Un modello da imitare</Text>
+    </Replace>
+    <Replace Tag="LOC_10031B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} a {2_capital}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10031B_NAME" Language="it_IT">
+      <Text>È un uomo di stato senza pari.</Text>
+    </Replace>
+    <Replace Tag="LOC_10031C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} a {2_capital}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10031C_NAME" Language="it_IT">
+      <Text>La sua astuzia militare non ha eguali.</Text>
+    </Replace>
+    <Replace Tag="LOC_10032A_COMPLETION" Language="it_IT">
+      <Text>Questo non è lo splendente imperatore che Bolívar aveva ammirato nel fatidico giorno dell'incoronazione. Era tutto uno spettacolo?</Text>
+    </Replace>
+    <Replace Tag="LOC_10032A_STORYTITLE" Language="it_IT">
+      <Text>Un modello da evitare</Text>
+    </Replace>
+    <Replace Tag="LOC_10032B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10032B_NAME" Language="it_IT">
+      <Text>Mostra pietà verso il popolo di Napoleone.</Text>
+    </Replace>
+    <Replace Tag="LOC_10032C_DESCRIPTION" Language="it_IT">
+      <Text>+1 Supporto bellico verso tutte le guerre.</Text>
+    </Replace>
+    <Replace Tag="LOC_10032C_NAME" Language="it_IT">
+      <Text>Insisti.</Text>
+    </Replace>
+    <Replace Tag="LOC_10033A_COMPLETION" Language="it_IT">
+      <Text>A uno a uno, i comandanti di Bolívar indossano le decorazioni che testimoniano il loro coraggio, la loro dedizione alla causa della libertà.</Text>
+    </Replace>
+    <Replace Tag="LOC_10033A_STORYTITLE" Language="it_IT">
+      <Text>Attraverso le file</Text>
+    </Replace>
+    <Replace Tag="LOC_10033B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10033B_NAME" Language="it_IT">
+      <Text>Un'ispirazione per gli altri soldati.</Text>
+    </Replace>
+    <Replace Tag="LOC_10033C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} e {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10033C_NAME" Language="it_IT">
+      <Text>Un'ispirazione per tutti.</Text>
+    </Replace>
+    <Replace Tag="LOC_10034A_COMPLETION" Language="it_IT">
+      <Text>Bolívar riconosce {1_Independent[4]} e vede un popolo libero, indipendente. Ma quale libertà conta di più?</Text>
+    </Replace>
+    <Replace Tag="LOC_10034A_STORYTITLE" Language="it_IT">
+      <Text>Una questione di libertà</Text>
+    </Replace>
+    <Replace Tag="LOC_10034B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} alla fanteria, ma {2_reward} a {3_capital}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10034B_NAME" Language="it_IT">
+      <Text>Quella della Spagna, di conquistare.</Text>
+    </Replace>
+    <Replace Tag="LOC_10034C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} e {2_reward} in tutti gli insediamenti.</Text>
+    </Replace>
+    <Replace Tag="LOC_10034C_NAME" Language="it_IT">
+      <Text>Quella {1_Independent[2]}, di resistere.</Text>
+    </Replace>
+    <Replace Tag="LOC_10035A_COMPLETION" Language="it_IT">
+      <Text>Bolívar riconosce {1_Independent[4]} e vede un popolo libero, indipendente. Le prime impressioni sono quelle che contano di più.</Text>
+    </Replace>
+    <Replace Tag="LOC_10035A_STORYTITLE" Language="it_IT">
+      <Text>Autonomia</Text>
+    </Replace>
+    <Replace Tag="LOC_10035B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10035B_NAME" Language="it_IT">
+      <Text>Accogli i migranti.</Text>
+    </Replace>
+    <Replace Tag="LOC_10035C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10035C_NAME" Language="it_IT">
+      <Text>Tratta con i capi.</Text>
+    </Replace>
+    <Replace Tag="LOC_10036A_COMPLETION" Language="it_IT">
+      <Text>Dopo una lunga, sanguinosa battaglia, le truppe di Bolívar riprendono {1_STORY_CITY}. I cittadini {2_civilization_adj[3]} li acclamano mentre i conquistatori spagnoli sono presi prigionieri. È una buona giornata.</Text>
+    </Replace>
+    <Replace Tag="LOC_10036A_STORYTITLE" Language="it_IT">
+      <Text>Nemici giurati</Text>
+    </Replace>
+    <Replace Tag="LOC_10036B_DESCRIPTION" Language="it_IT">
+      <Text>Promozione gratuita al Comandante di livello più alto.</Text>
+    </Replace>
+    <Replace Tag="LOC_10036B_NAME" Language="it_IT">
+      <Text>Ricompensa l'impresa.</Text>
+    </Replace>
+    <Replace Tag="LOC_10036C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10036C_NAME" Language="it_IT">
+      <Text>Restiamo pronti a tutto.</Text>
+    </Replace>
+    <Replace Tag="LOC_10037A_COMPLETION" Language="it_IT">
+      <Text>Bolívar è obbligato a riparare a {1_capital} mentre il destino del paese è appeso a un filo. Posto di fronte alla morte, cerca una risposta.</Text>
+    </Replace>
+    <Replace Tag="LOC_10037A_STORYTITLE" Language="it_IT">
+      <Text>Tempi disperati</Text>
+    </Replace>
+    <Replace Tag="LOC_10037B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} ma {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10037B_NAME" Language="it_IT">
+      <Text>Combatti disperatamente.</Text>
+    </Replace>
+    <Replace Tag="LOC_10037C_DESCRIPTION" Language="it_IT">
+      <Text>+1 Supporto bellico verso tutte le guerre, ma una casella diventa saccheggiata a {1_capital}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10037C_NAME" Language="it_IT">
+      <Text>Riunisci il popolo intorno a un'idea audace.</Text>
+    </Replace>
+    <Replace Tag="LOC_10038A_COMPLETION" Language="it_IT">
+      <Text>Bolívar fa un cenno alla folla mentre, trionfante, fa il suo ritorno a {1_capital}. Il popolo è di nuovo... no, è sempre stato, {2_civilization_adj[1]}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10038A_STORYTITLE" Language="it_IT">
+      <Text>Ritorno alla normalità</Text>
+    </Replace>
+    <Replace Tag="LOC_10038B_DESCRIPTION" Language="it_IT">
+      <Text>Dai il via a una Celebrazione.</Text>
+    </Replace>
+    <Replace Tag="LOC_10038B_NAME" Language="it_IT">
+      <Text>È un giusto motivo per celebrare.</Text>
+    </Replace>
+    <Replace Tag="LOC_10038C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10038C_NAME" Language="it_IT">
+      <Text>Possa non accadere mai più.</Text>
+    </Replace>
+    <Replace Tag="LOC_10039A_COMPLETION" Language="it_IT">
+      <Text>Bolívar si sforza di mantenere la calma di fronte al rifiuto. Un insulto simile si riflette su di lui e sul suo popolo.</Text>
+    </Replace>
+    <Replace Tag="LOC_10039A_STORYTITLE" Language="it_IT">
+      <Text>Diniego</Text>
+    </Replace>
+    <Replace Tag="LOC_10039B_DESCRIPTION" Language="it_IT">
+      <Text>+1 Supporto bellico verso tutte le guerre.</Text>
+    </Replace>
+    <Replace Tag="LOC_10039B_NAME" Language="it_IT">
+      <Text>Non sarà dimenticato.</Text>
+    </Replace>
+    <Replace Tag="LOC_10039C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10039C_NAME" Language="it_IT">
+      <Text>È già stato dimenticato.</Text>
+    </Replace>
+    <Replace Tag="LOC_10040A_COMPLETION" Language="it_IT">
+      <Text>Per Bolívar, assumere il comando è sempre stata una cosa naturale. Ora si trova riluttante ad affidare compiti delicati a persone che non ritiene sufficientemente attrezzate per affrontarli.</Text>
+    </Replace>
+    <Replace Tag="LOC_10040A_STORYTITLE" Language="it_IT">
+      <Text>Un dilemma</Text>
+    </Replace>
+    <Replace Tag="LOC_10040B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10040B_NAME" Language="it_IT">
+      <Text>C'è una ragione per cui esistono le élite.</Text>
+    </Replace>
+    <Replace Tag="LOC_10040C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10040C_NAME" Language="it_IT">
+      <Text>Se concedi fiducia a una persona, ti sarà ripagata.</Text>
+    </Replace>
+    <Replace Tag="LOC_10042A_COMPLETION" Language="it_IT">
+      <Text>Per quanto ci provi, Simón Bolívar non riesce a deporre la spada. Forse crede nella libertà solo finché è lui a concederla.</Text>
+    </Replace>
+    <Replace Tag="LOC_10042A_STORYTITLE" Language="it_IT">
+      <Text>Alle armi</Text>
+    </Replace>
+    <Replace Tag="LOC_10042B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} a tutte le unità, ma una casella diventa saccheggiata in ogni insediamento.</Text>
+    </Replace>
+    <Replace Tag="LOC_10042B_NAME" Language="it_IT">
+      <Text>La gente dovrà fare dei sacrifici.</Text>
+    </Replace>
+    <Replace Tag="LOC_10042C_DESCRIPTION" Language="it_IT">
+      <Text>+3 Supporto bellico verso tutte le guerre, ma tutte le unità subiscono 50 danni.</Text>
+    </Replace>
+    <Replace Tag="LOC_10042C_NAME" Language="it_IT">
+      <Text>Le truppe dovranno fare dei sacrifici.</Text>
+    </Replace>
+    <Replace Tag="LOC_10043A_COMPLETION" Language="it_IT">
+      <Text>È una cosa così semplice, ma per tanto tempo è sfuggita a Bolívar: due nazioni impegnate in una relazione produttiva, per il miglioramento di entrambi i popoli.</Text>
+    </Replace>
+    <Replace Tag="LOC_10043A_STORYTITLE" Language="it_IT">
+      <Text>Una salda stretta di mano</Text>
+    </Replace>
+    <Replace Tag="LOC_10043B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} ma {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10043B_NAME" Language="it_IT">
+      <Text>Accogli il libero scambio di idee e capitali.</Text>
+    </Replace>
+    <Replace Tag="LOC_10043C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} ma {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10043C_NAME" Language="it_IT">
+      <Text>Resta allerta.</Text>
+    </Replace>
+    <Replace Tag="LOC_10046A_COMPLETION" Language="it_IT">
+      <Text>Bolívar conosce bene la disperazione di chi combatte da solo. Così, quando arriva una richiesta di aiuto, non esita a rispondere.</Text>
+    </Replace>
+    <Replace Tag="LOC_10046A_STORYTITLE" Language="it_IT">
+      <Text>Uniti nella lotta</Text>
+    </Replace>
+    <Replace Tag="LOC_10046B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10046B_NAME" Language="it_IT">
+      <Text>Di' al mondo che Bolívar sta arrivando.</Text>
+    </Replace>
+    <Replace Tag="LOC_10046C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10046C_NAME" Language="it_IT">
+      <Text>Arruola dei rinforzi.</Text>
+    </Replace>
+    <Replace Tag="LOC_10047A_COMPLETION" Language="it_IT">
+      <Text>La popolarità di Bolívar presso gli altri leader si estende ai rispettivi popoli: forse è il suo modo di parlare, forse la pura forza della sua personalità.</Text>
+    </Replace>
+    <Replace Tag="LOC_10047A_STORYTITLE" Language="it_IT">
+      <Text>Un leader carismatico</Text>
+    </Replace>
+    <Replace Tag="LOC_10047B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10047B_NAME" Language="it_IT">
+      <Text>Vogliono vedere le sue terre con i loro occhi.</Text>
+    </Replace>
+    <Replace Tag="LOC_10047C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10047C_NAME" Language="it_IT">
+      <Text>Dedicano la loro vita alla sua casa.</Text>
+    </Replace>
+    <Replace Tag="LOC_10048A_COMPLETION" Language="it_IT">
+      <Text>Mentre Simón Bolívar attraversa le strade di {1_STORY_CITY}, un tempo devastate dalla guerra, la gente lo acclama. Guadagnarsi l'ammirazione di un popolo nemico è un'impresa quasi impossibile... a meno di non essere El Libertador.</Text>
+    </Replace>
+    <Replace Tag="LOC_10048A_STORYTITLE" Language="it_IT">
+      <Text>Una visione gradita</Text>
+    </Replace>
+    <Replace Tag="LOC_10048B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10048B_NAME" Language="it_IT">
+      <Text>I mercanti sognano una maggiore prosperità.</Text>
+    </Replace>
+    <Replace Tag="LOC_10048C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10048C_NAME" Language="it_IT">
+      <Text>Gli artigiani perfezionano i progetti più ambiziosi.</Text>
+    </Replace>
+    <Replace Tag="LOC_10049A_COMPLETION" Language="it_IT">
+      <Text>La prosperità scorre verso il Messico su fiumi d'oro, a testimonianza della resilienza e della volontà del suo popolo... e dei sogni di Simón Bolívar che si avverano.</Text>
+    </Replace>
+    <Replace Tag="LOC_10049A_STORYTITLE" Language="it_IT">
+      <Text>Viva la Revolución</Text>
+    </Replace>
+    <Replace Tag="LOC_10049B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} e {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10049B_NAME" Language="it_IT">
+      <Text>Questo è solo l'inizio.</Text>
+    </Replace>
+    <Replace Tag="LOC_10049C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} e {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10049C_NAME" Language="it_IT">
+      <Text>Il mondo non è ancora pronto.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220A_COMPLETION" Language="it_IT">
+      <Text>Simón Bolívar si erge tra i campi che ricoprono le sue terre e nutrono il suo popolo. Il grano luccica per le piogge recenti.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220A_STORYTITLE" Language="it_IT">
+      <Text>Queste terre</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220B_COMPLETION" Language="it_IT">
+      <Text>Incoraggiato da Bolívar, il popolo cerca nuove terre per insediarsi e coltivare. Col tempo, le piogge vivificanti benediranno anche quelle.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220B_IMPERATIVE" Language="it_IT">
+      <Text>Fonda altri 2 insediamenti.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220B_STORYTITLE" Language="it_IT">
+      <Text>Queste terre</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220C_COMPLETION" Language="it_IT">
+      <Text>Bolívar percorre i bastioni a piedi in tutta la loro lunghezza per vedere il suo impero da una prospettiva nuova. Le sue terre si estendono fin dove arriva l'occhio, ma ora il loro cuore è ben difeso.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220C_IMPERATIVE" Language="it_IT">
+      <Text>Costruisci altre 4 Mura antiche</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220C_STORYTITLE" Language="it_IT">
+      <Text>Queste terre</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220D_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} a {2_capital}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221A_COMPLETION" Language="it_IT">
+      <Text>I mercanti di Bolívar incontrano i loro vicini al tavolo delle trattative, in cerca di un accordo che possa riempire d'oro le loro tasche.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221A_STORYTITLE" Language="it_IT">
+      <Text>Un popolo</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221B_COMPLETION" Language="it_IT">
+      <Text>L'impero di Bolívar non è un luogo, ma un popolo, in cui il mercante, il soldato, il lavoratore trovano il loro posto allo stesso modo.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221B_IMPERATIVE" Language="it_IT">
+      <Text>Possiedi un insediamento con una popolazione rurale di 10.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221B_STORYTITLE" Language="it_IT">
+      <Text>Un popolo</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222A_COMPLETION" Language="it_IT">
+      <Text>La polvere della battaglia si dissipa, posandosi allo stesso modo su sconfitti e vincitori. I soldati di Bolívar mettono via le armi, aspettando il suo ordine per impugnarle di nuovo.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222A_STORYTITLE" Language="it_IT">
+      <Text>Pronto a tutto</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222B_COMPLETION" Language="it_IT">
+      <Text>Con {1_STORY_CITY} sotto il controllo dei suoi tenenti, Bolívar ordina di cessare lo spargimento di sangue. Non potrebbe lanciare un messaggio più chiaro ai suoi nemici.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222B_IMPERATIVE" Language="it_IT">
+      <Text>Cattura un insediamento.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222B_STORYTITLE" Language="it_IT">
+      <Text>Pronto a tutto</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1223A_COMPLETION" Language="it_IT">
+      <Text>Mille volte al giorno, gli aiutanti di Bolívar si rivolgono a lui per essere guidati e istruiti, che si tratti dell'amministrazione di tutti i giorni dell'impero o di minacce che arrivano da lontano.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1223A_STORYTITLE" Language="it_IT">
+      <Text>Non finiscono mai</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1223B_DESCRIPTION" Language="it_IT">
+      <Text>La storia continua.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1223C_DESCRIPTION" Language="it_IT">
+      <Text>La storia continua.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224A_COMPLETION" Language="it_IT">
+      <Text>Bolívar osserva con distacco mentre un ammiraglio brandisce delicati strumenti e spiega come questi permettano di navigare nelle acque più pericolose. Bolívar ha sempre messo al primo posto le necessità del suo popolo: a che cosa possono servirgli delle terre situate dall'altra parte del mondo?</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224A_STORYTITLE" Language="it_IT">
+      <Text>Se è necessario</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224B_COMPLETION" Language="it_IT">
+      <Text>I nuovi territori sono ancora tutti da scoprire, ma {1_STORY_CITY} mostra già un enorme potenziale. Forse tra i locali ci sono degli spiriti affini.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224B_IMPERATIVE" Language="it_IT">
+      <Text>Possiedi un insediamento in Terre lontane.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224B_STORYTITLE" Language="it_IT">
+      <Text>Se è necessario</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1225A_COMPLETION" Language="it_IT">
+      <Text>Bolívar cammina avanti e indietro mentre i suoi consiglieri bisticciano. Il recente incontro con l'altro leader non è andato male, ma alcuni mettono in dubbio le motivazioni di coloro che provengono da oltre i vasti oceani.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1225A_STORYTITLE" Language="it_IT">
+      <Text>Visitatori</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1225B_COMPLETION" Language="it_IT">
+      <Text>L'inchiostro si asciuga sul contratto mentre Bolívar stringe la mano del suo omologo. Sapere di non essere soli in questo mondo è una cosa che non si può ignorare.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1225B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} dagli edifici che producono Oro.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1225B_IMPERATIVE" Language="it_IT">
+      <Text>Stringi un'alleanza con una civiltà in Terre lontane.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1225B_STORYTITLE" Language="it_IT">
+      <Text>Visitatori</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226A_COMPLETION" Language="it_IT">
+      <Text>Visitando una caserma, Bolívar osserva i soldati veterani mentre ammoniscono le reclute che l'obbedienza fa la differenza fra la vita e la morte.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226A_STORYTITLE" Language="it_IT">
+      <Text>Un fascio di frecce</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226B_COMPLETION" Language="it_IT">
+      <Text>Un tempo erano come frecce senza bersaglio, ma ora i soldati di Bolívar ricevono uno scopo dal loro comandante.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226B_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226B_IMPERATIVE" Language="it_IT">
+      <Text>Possiedi un Comandante con 8 promozioni.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226B_STORYTITLE" Language="it_IT">
+      <Text>Un fascio di frecce</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1227A_COMPLETION" Language="it_IT">
+      <Text>La guerra ha raggiunto Simón Bolívar, ma non è arrivata inaspettata. Leader e popolo si ergono uniti contro la tirannia.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1227A_STORYTITLE" Language="it_IT">
+      <Text>Prendere posizione</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1227B_COMPLETION" Language="it_IT">
+      <Text>Le truppe di Bolívar obbligano il nemico a ritirarsi, un augurio di vittoria. La guerra non è ancora decisa, ma potrebbe finire presto.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1227B_DESCRIPTION" Language="it_IT">
+      <Text>Dai il via a una Celebrazione.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1227B_IMPERATIVE" Language="it_IT">
+      <Text>Sconfiggi un Comandante d'Armata in Terre lontane.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1227B_STORYTITLE" Language="it_IT">
+      <Text>Prendere posizione</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228A_COMPLETION" Language="it_IT">
+      <Text>Bolívar nota che le strade di {1_CAPITAL} non sono mai state più piene di vita. È un'opportunità.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228A_STORYTITLE" Language="it_IT">
+      <Text>Una porta si apre</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228B_COMPLETION" Language="it_IT">
+      <Text>Una grande energia, inconfondibilmente {1_CIVILIZATION_ADJ[2]}, corre lungo i binari che attraversano l'impero di Bolívar. Il suo popolo non è mai stato tanto unito.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228B_DESCRIPTION" Language="it_IT">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228B_IMPERATIVE" Language="it_IT">
+      <Text>Possiedi 5 Stazioni ferroviarie.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228B_STORYTITLE" Language="it_IT">
+      <Text>Una porta si apre</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228D_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} e dai il via a una Celebrazione.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229A_COMPLETION" Language="it_IT">
+      <Text>Fin dai primi giorni, Bolívar ha lottato con tutte le sue forze per ciò in cui crede. Ora chiede al popolo di stare al suo fianco.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229A_STORYTITLE" Language="it_IT">
+      <Text>Determinazione incrollabile</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229B_COMPLETION" Language="it_IT">
+      <Text>Uno dopo l'altro, i suoi nemici cadono. Gli altri possono dire quello che vogliono, ma Simón Bolívar vive per essere all'altezza delle sue convinzioni.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229B_DESCRIPTION" Language="it_IT">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229B_IMPERATIVE" Language="it_IT">
+      <Text>Cattura 2 insediamenti.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229B_STORYTITLE" Language="it_IT">
+      <Text>Determinazione incrollabile</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229C_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229D_DESCRIPTION" Language="it_IT">
+      <Text>{1_reward} e dai il via a una Celebrazione.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_BOLIVAR_L1_DESCRIPTION" Language="it_IT">
+      <Text>+50% Oro per la conversione di un Paese in una città.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_BOLIVAR_L1_NAME" Language="it_IT">
+      <Text>Nodo Attributo Espansionista</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_BOLIVAR_L2_DESCRIPTION" Language="it_IT">
+      <Text>+5 alla Forza di combattimento di tutte le unità contro i distretti.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_BOLIVAR_L2_NAME" Language="it_IT">
+      <Text>Nodo Attributo Militarista</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_BOLIVAR_NAME" Language="it_IT">
+      <Text>Stemma Bolívar 1</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_BOLIVAR_P_NAME" Language="it_IT">
+      <Text>Stemma Bolívar 2</Text>
+    </Replace>
+    <Replace Tag="LOC_BANNER_BOLIVAR_NAME" Language="it_IT">
+      <Text>Bandiera Bolívar</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_BOLIVAR_1_DESCRIPTION" Language="it_IT">
+      <Text>Per la durata di quest'epoca, ottieni +15% Cibo[icon:YIELD_FOOD] al costo di -10% Oro[icon:YIELD_GOLD]</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_BOLIVAR_1_NAME" Language="it_IT">
+      <Text>Bolívar Esplorazione Leggenda Espansionista</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_BOLIVAR_2_DESCRIPTION" Language="it_IT">
+      <Text>Per la durata di quest'epoca, +3 alla Forza di combattimento delle tue unità navali al costo di -10% Influenza[icon:YIELD_DIPLOMACY]</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_BOLIVAR_2_NAME" Language="it_IT">
+      <Text>Bolívar Esplorazione Leggenda Militarista</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_BOLIVAR_1_DESCRIPTION" Language="it_IT">
+      <Text>Per la durata di quest'epoca, ottieni +15% Cibo[icon:YIELD_FOOD] al costo di -10% Oro[icon:YIELD_GOLD]</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_BOLIVAR_1_NAME" Language="it_IT">
+      <Text>Bolívar Moderna Leggenda Espansionista</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_BOLIVAR_2_DESCRIPTION" Language="it_IT">
+      <Text>Per la durata di quest'epoca, +3 alla Forza di combattimento delle tue unità aeree al costo di -10% Influenza[icon:YIELD_DIPLOMACY]</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_BOLIVAR_2_NAME" Language="it_IT">
+      <Text>Bolívar Moderna Leggenda Militarista</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_AGENDA_CORNERSTONE_FREEDOM_DESC" Language="it_IT">
+      <Text>Apprezza il leader che ha il numero più basso di insediamenti Infelici. Disprezza il leader che ha più insediamenti Infelici di tutti.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_AGENDA_CORNERSTONE_FREEDOM_NAME" Language="it_IT">
+      <Text>Pilastro della libertà</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_BOLIVAR_DESCRIPTION" Language="it_IT">
+      <Text>Ottieni 1 [icon:WAR_SUPPORT] Supporto bellico per tutte le tue guerre. Quando conquisti un insediamento per la prima volta, puoi acquistare 1 costruzione gratuitamente. [icon:YIELD_ANGRY] L'Irrequietezza non impedisce l'acquisto.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_LEADER_INTRO_TEXT_BOLIVAR" Language="it_IT">
+      <Text>Il vecchio mondo è sbiadito, il nuovo sta sorgendo. Simón Bolívar, Grande Liberatore, tu osi cavalcare contro chi vorrebbe imporre dei limiti al tuo sogno. Il tuo carisma attira il popolo verso di te, la tua audacia lo spinge avanti. Combatti, anche se ti senti come se dovessi arare il mare.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_DAVALOS_MEDAL_DESCRIPTION" Language="it_IT">
+      <Text>Il retaggio di Ayacucho.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_DAVALOS_MEDAL_FUNCTIONAL_DESCRIPTION" Language="it_IT">
+      <Text>+1 [icon:YIELD_HAPPINESS] Felicità per epoca dagli edifici militari.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_DAVALOS_MEDAL_NAME" Language="it_IT">
+      <Text>Medaglia Davalos</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_DAVALOS_MEDAL_UNLOCK_TITLE" Language="it_IT">
+      <Text>Si sblocca con Simón Bolívar Livello 5</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_GOLD_SNUFF_BOX_DESCRIPTION" Language="it_IT">
+      <Text>Un dono reale.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_GOLD_SNUFF_BOX_FUNCTIONAL_DESCRIPTION" Language="it_IT">
+      <Text>+20% [icon:YIELD_FOOD] Cibo quando fai parte di una sola alleanza.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_GOLD_SNUFF_BOX_NAME" Language="it_IT">
+      <Text>Tabacchiera d'oro</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_GOLD_SNUFF_BOX_UNLOCK_TITLE" Language="it_IT">
+      <Text>Si sblocca con Simón Bolívar Livello 2</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_LETTER_TO_JAMAICA_DESCRIPTION" Language="it_IT">
+      <Text>Una visione del futuro.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_LETTER_TO_JAMAICA_FUNCTIONAL_DESCRIPTION" Language="it_IT">
+      <Text>+50% [icon:YIELD_GOLD] Oro per l'acquisto di unità durante una Celebrazione.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_LETTER_TO_JAMAICA_NAME" Language="it_IT">
+      <Text>Lettera alla Giamaica</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_LETTER_TO_JAMAICA_UNLOCK_TITLE" Language="it_IT">
+      <Text>Si sblocca con Simón Bolívar Livello 9</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_ANTIQUITY_2_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, arriva alla fine dell'epoca antica due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_ANTIQUITY_2_NAME" Language="it_IT">
+      <Text>Epoca antica completata 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_ANTIQUITY_3_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, arriva alla fine dell'epoca antica tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_ANTIQUITY_3_NAME" Language="it_IT">
+      <Text>Epoca antica completata 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_ANTIQUITY_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, arriva alla fine dell'epoca antica.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_ANTIQUITY_NAME" Language="it_IT">
+      <Text>Epoca antica completata</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_EXPLORATION_2_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, arriva alla fine dell'epoca delle esplorazioni due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_EXPLORATION_2_NAME" Language="it_IT">
+      <Text>Epoca delle esplorazioni completata 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_EXPLORATION_3_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, arriva alla fine dell'epoca delle esplorazioni tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_EXPLORATION_3_NAME" Language="it_IT">
+      <Text>Epoca delle esplorazioni completata 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_EXPLORATION_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, arriva alla fine dell'epoca delle esplorazioni.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_EXPLORATION_NAME" Language="it_IT">
+      <Text>Epoca delle esplorazioni completata</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_MODERN_2_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, arriva alla fine dell'epoca moderna due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_MODERN_2_NAME" Language="it_IT">
+      <Text>Epoca moderna completata 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_MODERN_3_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, arriva alla fine dell'epoca moderna tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_MODERN_3_NAME" Language="it_IT">
+      <Text>Epoca moderna completata 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_MODERN_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, arriva alla fine dell'epoca moderna.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_MODERN_NAME" Language="it_IT">
+      <Text>Epoca moderna completata</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_ANTIQUITY_2_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Meraviglie del mondo antico due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_ANTIQUITY_2_NAME" Language="it_IT">
+      <Text>Meraviglie del mondo antico 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_ANTIQUITY_3_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Meraviglie del mondo antico tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_ANTIQUITY_3_NAME" Language="it_IT">
+      <Text>Meraviglie del mondo antico 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_ANTIQUITY_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Meraviglie del mondo antico.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_ANTIQUITY_NAME" Language="it_IT">
+      <Text>Meraviglie del mondo antico</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_EXPLORATION_2_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Toshakhana due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_EXPLORATION_2_NAME" Language="it_IT">
+      <Text>Toshakhana 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_EXPLORATION_3_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Toshakhana tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_EXPLORATION_3_NAME" Language="it_IT">
+      <Text>Toshakhana 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_EXPLORATION_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Toshakhana.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_EXPLORATION_NAME" Language="it_IT">
+      <Text>Toshakhana</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_MODERN_2_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Società geografica due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_MODERN_2_NAME" Language="it_IT">
+      <Text>Società geografica 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_MODERN_3_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Società geografica tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_MODERN_3_NAME" Language="it_IT">
+      <Text>Società geografica 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_MODERN_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Società geografica.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_MODERN_NAME" Language="it_IT">
+      <Text>Società geografica</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_ANTIQUITY_2_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Vie della Seta due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_ANTIQUITY_2_NAME" Language="it_IT">
+      <Text>Vie della Seta 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_ANTIQUITY_3_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Vie della Seta tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_ANTIQUITY_3_NAME" Language="it_IT">
+      <Text>Vie della Seta 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_ANTIQUITY_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Vie della Seta.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_ANTIQUITY_NAME" Language="it_IT">
+      <Text>Vie della Seta</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_EXPLORATION_2_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Flotta del tesoro due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_EXPLORATION_2_NAME" Language="it_IT">
+      <Text>Flotta del tesoro 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_EXPLORATION_3_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Flotta del tesoro tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_EXPLORATION_3_NAME" Language="it_IT">
+      <Text>Flotta del tesoro 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_EXPLORATION_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Flotta del tesoro.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_EXPLORATION_NAME" Language="it_IT">
+      <Text>Flotta del tesoro</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_MODERN_2_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Magnate delle ferrovie due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_MODERN_2_NAME" Language="it_IT">
+      <Text>Magnate delle ferrovie 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_MODERN_3_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Magnate delle ferrovie tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_MODERN_3_NAME" Language="it_IT">
+      <Text>Magnate delle ferrovie 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_MODERN_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Magnate delle ferrovie.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_MODERN_NAME" Language="it_IT">
+      <Text>Magnate delle ferrovie</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_FLAWLESS_VICTORY_ANTIQUITY_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa 2 Percorsi Retaggio in una singola epoca antica.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_FLAWLESS_VICTORY_ANTIQUITY_NAME" Language="it_IT">
+      <Text>Doppio Retaggio, epoca antica</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_FLAWLESS_VICTORY_EXPLORATION_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa 2 Percorsi Retaggio in una singola epoca delle esplorazioni.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_FLAWLESS_VICTORY_EXPLORATION_NAME" Language="it_IT">
+      <Text>Doppio Retaggio, epoca delle esplorazioni</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_FLAWLESS_VICTORY_MODERN_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa 2 Percorsi Retaggio in una singola epoca moderna.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_FLAWLESS_VICTORY_MODERN_NAME" Language="it_IT">
+      <Text>Doppio Retaggio, epoca moderna</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_ANTIQUITY_2_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Pax Imperatoria due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_ANTIQUITY_2_NAME" Language="it_IT">
+      <Text>Pax Imperatoria 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_ANTIQUITY_3_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Pax Imperatoria tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_ANTIQUITY_3_NAME" Language="it_IT">
+      <Text>Pax Imperatoria 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_ANTIQUITY_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Pax Imperatoria.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_ANTIQUITY_NAME" Language="it_IT">
+      <Text>Pax Imperatoria</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_EXPLORATION_2_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Non Sufficit Orbis due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_EXPLORATION_2_NAME" Language="it_IT">
+      <Text>Non Sufficit Orbis 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_EXPLORATION_3_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Non Sufficit Orbis tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_EXPLORATION_3_NAME" Language="it_IT">
+      <Text>Non Sufficit Orbis 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_EXPLORATION_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Non Sufficit Orbis.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_EXPLORATION_NAME" Language="it_IT">
+      <Text>Non Sufficit Orbis</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_MODERN_2_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Ideologia due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_MODERN_2_NAME" Language="it_IT">
+      <Text>Ideologia 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_MODERN_3_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Ideologia tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_MODERN_3_NAME" Language="it_IT">
+      <Text>Ideologia 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_MODERN_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Ideologia.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_MODERN_NAME" Language="it_IT">
+      <Text>Ideologia</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_PLAY_GAMES_1_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, raggiungi almeno 1 Impresa di un Percorso Retaggio.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_PLAY_GAMES_1_NAME" Language="it_IT">
+      <Text>Gioca la partita 1</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_PLAY_GAMES_2_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, raggiungi almeno 2 Imprese di un Percorso Retaggio.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_PLAY_GAMES_2_NAME" Language="it_IT">
+      <Text>Gioca la partita 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_PLAY_GAMES_3_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, raggiungi almeno 3 Imprese di un Percorso Retaggio.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_PLAY_GAMES_3_NAME" Language="it_IT">
+      <Text>Gioca la partita 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_A_ANTIQUITY_DESC" Language="it_IT">
+      <Text>Giocando con Simón Bolívar in epoca antica, completa una missione per toccare il cuore del popolo delle campagne.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_A_ANTIQUITY_NAME" Language="it_IT">
+      <Text>Un popolo</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_A_EXPLORATION_DESC" Language="it_IT">
+      <Text>Giocando con Simón Bolívar nell'epoca delle esplorazioni, completa una missione per affrontare oceani pericolosi.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_A_EXPLORATION_NAME" Language="it_IT">
+      <Text>Tutto ciò che è necessario</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_A_MODERN_DESC" Language="it_IT">
+      <Text>Giocando con Simón Bolívar in epoca moderna, completa una missione per unire l'impero con le ferrovie.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_A_MODERN_NAME" Language="it_IT">
+      <Text>Una porta si apre</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_B_ANTIQUITY_DESC" Language="it_IT">
+      <Text>Giocando con Simón Bolívar in epoca antica, completa una missione per far posare il polverone della battaglia.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_B_ANTIQUITY_NAME" Language="it_IT">
+      <Text>Pronto a tutto</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_B_EXPLORATION_DESC" Language="it_IT">
+      <Text>Giocando con Simón Bolívar nell'epoca delle esplorazioni, completa una missione per promuovere un soldato veterano.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_B_EXPLORATION_NAME" Language="it_IT">
+      <Text>Un fascio di frecce</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_B_MODERN_DESC" Language="it_IT">
+      <Text>Giocando con Simón Bolívar in epoca moderna, completa una missione per combattere per i tuoi ideali.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_B_MODERN_NAME" Language="it_IT">
+      <Text>Determinazione incrollabile</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_ANTIQUITY_2_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Grande Biblioteca due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_ANTIQUITY_2_NAME" Language="it_IT">
+      <Text>Grande Biblioteca 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_ANTIQUITY_3_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Grande Biblioteca tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_ANTIQUITY_3_NAME" Language="it_IT">
+      <Text>Grande Biblioteca 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_ANTIQUITY_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Grande Biblioteca.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_ANTIQUITY_NAME" Language="it_IT">
+      <Text>Grande Biblioteca</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_EXPLORATION_2_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Illuminismo due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_EXPLORATION_2_NAME" Language="it_IT">
+      <Text>Illuminismo 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_EXPLORATION_3_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Illuminismo tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_EXPLORATION_3_NAME" Language="it_IT">
+      <Text>Illuminismo 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_EXPLORATION_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Illuminismo.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_EXPLORATION_NAME" Language="it_IT">
+      <Text>Illuminismo</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_MODERN_2_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Corsa allo spazio due volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_MODERN_2_NAME" Language="it_IT">
+      <Text>Corsa allo spazio 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_MODERN_3_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Corsa allo spazio tre volte.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_MODERN_3_NAME" Language="it_IT">
+      <Text>Corsa allo spazio 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_MODERN_DESC" Language="it_IT">
+      <Text>Giocando con Bolívar, completa il Percorso Retaggio Corsa allo spazio.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_MODERN_NAME" Language="it_IT">
+      <Text>Corsa allo spazio</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_EXPANSIONIST_LEGEND_BOLIVAR_L1_DESCRIPTION" Language="it_IT">
+      <Text>Sbloccato tramite la Leggenda. +50% [icon:YIELD_GOLD] Oro per la conversione di un Paese in una città.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_BOLIVAR_L2_DESCRIPTION" Language="it_IT">
+      <Text>Sbloccato tramite la Leggenda. +5 alla Forza di combattimento di tutte le unità quando attaccano i distretti.</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_BOLIVAR" Language="it_IT">
+      <Text>Il liberatore</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_EXPLORATION_1_DESCRIPTION" Language="it_IT">
+      <Text>Giocando con Bolívar, ottieni una nuova carta Retaggio dell'epoca delle esplorazioni:[n]
+				+15% Oro, -10% Cibo</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_EXPLORATION_1_NAME" Language="it_IT">
+      <Text>Carta Retaggio Espansionista Esplorazioni</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_EXPLORATION_2_DESCRIPTION" Language="it_IT">
+      <Text>Giocando con Bolívar, ottieni una nuova carta Retaggio dell'epoca delle esplorazioni:[n]
+				+3 Forza di combattimento delle unità navali, -10% Influenza</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_EXPLORATION_2_NAME" Language="it_IT">
+      <Text>Carta Retaggio Militarista Esplorazioni</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_MODERN_1_DESCRIPTION" Language="it_IT">
+      <Text>Giocando con Pachacuti, ottieni una nuova carta Retaggio dell'epoca moderna:[n]
+				+15% Cibo, -10% Oro</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_MODERN_1_NAME" Language="it_IT">
+      <Text>Carta Retaggio Espansionista Moderna</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_MODERN_2_DESCRIPTION" Language="it_IT">
+      <Text>Giocando con Bolívar, ottieni una nuova carta Retaggio dell'epoca moderna:[n]
+				+3 Forza di combattimento delle unità aeree, -10% Influenza</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_MODERN_2_NAME" Language="it_IT">
+      <Text>Carta Retaggio Militarista Moderna</Text>
+    </Replace>
+    <Replace Tag="LOC_TITLE_BOLIVAR_NAME" Language="it_IT">
+      <Text>Il liberatore</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_BOLIVAR_ABILITY_DESCRIPTION" Language="it_IT">
+      <Text>[BLIST][LI]Ottieni [B]1 [icon:WAR_SUPPORT] Supporto bellico[/B] per tutte le tue guerre.[LI]Quando conquisti un insediamento per la prima volta, questo può [B]acquistare 1 Costruzione gratuitamente[/B].[LI][icon:YIELD_ANGRY] L'[B]Irrequietezza[/B] non impedisce l'acquisto.[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_BOLIVAR_ABILITY_NAME" Language="it_IT">
+      <Text>El Libertador</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BOLIVAR_DESCRIPTION" Language="it_IT">
+      <Text>Gioca con [B]Simón Bolívar[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BOLIVAR_FRANCE_TOOLTIP" Language="it_IT">
+      <Text>[B]Simón Bolívar[/B] è stato influenzato dall'[B]impero francese[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BOLIVAR_INCA_TOOLTIP" Language="it_IT">
+      <Text>[B]Simón Bolivar[/B] era originario delle Americhe.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BOLIVAR_MAYA_TOOLTIP" Language="it_IT">
+      <Text>[B]Simón Bolivar[/B] era originario delle Americhe.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BOLIVAR_MEXICO_TOOLTIP" Language="it_IT">
+      <Text>[B]Simón Bolivar[/B] era originario delle Americhe.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BOLIVAR_ROME_TOOLTIP" Language="it_IT">
+      <Text>[B]Roma[/B] si adatta bene alle strategie di [B]Simón Bolivar[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BOLIVAR_SPAIN_TOOLTIP" Language="it_IT">
+      <Text>La [B]Spagna[/B] si adatta bene alle strategie di [B]Simón Bolivar[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_BOLIVAR_L2_COMBAT_PREVIEW" Language="it_IT">
+      <Text>+{1_Value} Leggenda Attributo militarista</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

@@ -1,0 +1,18 @@
+/**
+ * @file interface-mode-focus-fire.ts
+ * @copyright 2021, Firaxis Games
+ */
+import FocusedAttackBaseInterfaceMode from '/base-standard/ui/interface-modes/interface-mode-focused-attack-base.js';
+import { InterfaceMode } from '/core/ui/interface-modes/interface-modes.js';
+/**
+ * Handler for INTERFACEMODE_FOCUSED_ATTACK_LAND_RANGED.
+ */
+class FocusedAttackLandRanged extends FocusedAttackBaseInterfaceMode {
+    initialize() {
+        this.commandName = 'UNITCOMMAND_FOCUSED_ATTACK_LAND_RANGED';
+        return super.initialize();
+    }
+}
+InterfaceMode.addHandler('INTERFACEMODE_FOCUSED_ATTACK_LAND_RANGED', new FocusedAttackLandRanged());
+
+//# sourceMappingURL=file:///base-standard/ui/interface-modes/interface-mode-focused-attack-land-ranged.js.map

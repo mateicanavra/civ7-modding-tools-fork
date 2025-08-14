@@ -1,0 +1,19 @@
+@use '../utilities/utility-layout' as *;
+@use '../../../core/ui/themes/default/baseColors.scss';
+
+.soft-cursor {
+    width: pixels(1);
+    height: pixels(1);
+    position: relative;
+
+    >.soft-cursor-icon {
+        width: pixels(32);
+        height: pixels(32);
+        display: flex;
+        position: relative;
+        background-image: url("../cursors/soft-cursor.png");
+        background-size: contain;
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
+}

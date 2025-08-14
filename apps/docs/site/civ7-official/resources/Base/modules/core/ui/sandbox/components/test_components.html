@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Test - Components</title>
+	<link rel="stylesheet" href="fs://game/core/ui/shell/utility.css">
+	<link rel="stylesheet" href="fs://game/core/ui/themes/default/default.css">
+	<link rel="stylesheet" href="fs://game/core/ui/sandbox/components/test_components.css">
+	<link rel="stylesheet" href="fs://game/core/ui/themes/default/theme-colors.css">
+	<script src="fs://game/core/ui/cohtml.js"></script>
+	<script src="fs://game/core/ui/component-support.js"></script>
+</head>
+
+<body style="background-color: rgb(100, 100, 100);">
+	<div class="test-container">
+		<div class="test-card-container"
+			 style="background-image: linear-gradient(195deg, rgb(224, 199, 164)0%, rgb(228, 185, 128));">
+			<!-- Add cards here for testing -->
+			<!-- Valid states are: "available", "complete", "researching", and "locked" -->
+			<test-civics-card data-main-card="complete" data-main-bonus-count="3" data-first-tier="complete"
+							  data-first-tier-bonus-count="2" data-second-tier="available"
+							  data-second-tier-bonus-count="4" data-primary-color="rgb(9,46,96)"
+							  data-secondary-color="rgb(219,161,85)"></test-civics-card>
+			<test-civics-card data-main-card="complete" data-main-bonus-count="4" data-first-tier="researching"
+							  data-first-tier-bonus-count="3" data-second-tier="locked" data-second-tier-bonus-count="2"
+							  data-primary-color="rgb(9,46,96)" data-secondary-color="rgb(219,161,85)">
+			</test-civics-card>
+			<test-civics-card data-main-card="available" data-main-bonus-count="2" data-first-tier="locked"
+							  data-first-tier-bonus-count="4" data-primary-color="rgb(9,46,96)"
+							  data-secondary-color="rgb(219,161,85)"></test-civics-card>
+		</div>
+		<div class="test-card-container"
+			 style="background-image: linear-gradient(195deg, rgb(21,42, 8)0%, rgb(9,19,4));">
+			<test-civics-card data-main-card="locked" data-main-bonus-count="3" data-first-tier="locked"
+							  data-first-tier-bonus-count="2" data-primary-color="rgb(231,163,110)"
+							  data-secondary-color="rgb(28,56,11)"></test-civics-card>
+			<test-civics-card data-main-card="available" data-main-bonus-count="2" data-primary-color="rgb(231,163,110)"
+							  data-secondary-color="rgb(28,56,11)"></test-civics-card>
+			<test-civics-card data-main-card="complete" data-main-bonus-count="3" data-first-tier="available"
+							  data-first-tier-bonus-count="4" data-primary-color="rgb(231,163,110)"
+							  data-secondary-color="rgb(28,56,11)">
+			</test-civics-card>
+		</div>
+	</div>
+	<script src="fs://game/core/ui/sandbox/components/test_components.js" type="module"></script>
+</body>
+
+</html>

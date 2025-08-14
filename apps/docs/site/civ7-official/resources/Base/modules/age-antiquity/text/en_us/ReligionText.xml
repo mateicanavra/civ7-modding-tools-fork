@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--BELIEF CLASSES-->
+		<Row Tag="LOC_BELIEF_CLASS_PANTHEON_NAME">
+			<Text>Pantheon</Text>
+		</Row>
+		<!--Pantheon Names-->
+		<Row Tag="LOC_PANTHEON_BONUS_1_NAME">
+			<Text>City Patron Goddess</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_2_NAME">
+			<Text>Earth Goddess</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_3_NAME">
+			<Text>Fertility Rites</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_4_NAME">
+			<Text>Goddess of Festivals</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_5_NAME">
+			<Text>God of Healing</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_6_NAME">
+			<Text>Goddess of the Harvest</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_7_NAME">
+			<Text>God of the Forest</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_8_NAME">
+			<Text>God of the Forge</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_9_NAME">
+			<Text>God of the Sea</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_10_NAME">
+			<Text>God of the Sun</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_11_NAME">
+			<Text>God of War</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_12_NAME">
+			<Text>God of Wisdom</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_13_NAME">
+			<Text>Monument to the Gods</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_14_NAME">
+			<Text>Oral Tradition</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_15_NAME">
+			<Text>Sacred Waters</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_16_NAME">
+			<Text>Stone Circles</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_17_NAME">
+			<Text>God of Revelry</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_18_NAME">
+			<Text>Trickster God</Text>
+		</Row>
+		<!--Pantheon Descriptions-->
+		<Row Tag="LOC_PANTHEON_BONUS_1_DESCRIPTION">
+			<Text>+2[icon:YIELD_DIPLOMACY] Influence on the Altar.</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_2_DESCRIPTION">
+			<Text>The Altar receives a +1[icon:YIELD_HAPPINESS] Happiness Adjacency for Mountains and Natural Wonders.</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_3_DESCRIPTION">
+			<Text>+10% Growth Rate in Settlements with an Altar.</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_4_DESCRIPTION">
+			<Text>+1[icon:YIELD_CULTURE] Culture on Quarters in Settlements with an Altar.</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_5_DESCRIPTION">
+			<Text>+5 healing for Units in Rural tiles with an Altar in the Capital.</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_6_DESCRIPTION">
+			<Text>+1[icon:YIELD_FOOD] Food on Farms, Pastures, and Plantations in Settlements with an Altar. Warehouse bonus.</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_7_DESCRIPTION">
+			<Text>+1[icon:YIELD_GOLD] Gold on Camps and Woodcutters in Settlements with an Altar. Warehouse bonus.</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_8_DESCRIPTION">
+			<Text>+10%[icon:YIELD_PRODUCTION] Production towards constructing Buildings in Cities with an Altar.</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_9_DESCRIPTION">
+			<Text>+1[icon:YIELD_PRODUCTION] Production on Fishing Boats in Settlements with an Altar. Warehouse bonus.</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_10_DESCRIPTION">
+			<Text>+1[icon:YIELD_CULTURE] Culture,[icon:YIELD_FOOD] Food,[icon:YIELD_GOLD] Gold,[icon:YIELD_HAPPINESS] Happiness,[icon:YIELD_PRODUCTION] Production, and[icon:YIELD_SCIENCE] Science on the Altar.</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_11_DESCRIPTION">
+			<Text>+15%[icon:YIELD_PRODUCTION] Production towards training Military Units in Cities with an Altar.</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_12_DESCRIPTION">
+			<Text>+1[icon:YIELD_SCIENCE] Science on Quarters in Settlements with an Altar.</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_13_DESCRIPTION">
+			<Text>+10%[icon:YIELD_PRODUCTION] Production towards constructing Wonders in Cities with an Altar.</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_14_DESCRIPTION">
+			<Text>+10%[icon:YIELD_PRODUCTION] Production towards training Settlers in Cities with an Altar.</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_15_DESCRIPTION">
+			<Text>The Altar receives a +1[icon:YIELD_HAPPINESS] Happiness Adjacency for Coast, Lakes, and Navigable River tiles.</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_16_DESCRIPTION">
+			<Text>+1[icon:YIELD_PRODUCTION] Production on Clay Pits, Mines, and Quarries in Settlements with an Altar. Warehouse bonus.</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_17_DESCRIPTION">
+			<Text>+1[icon:YIELD_HAPPINESS] Happiness on Resources in Settlements with an Altar. This Pantheon can be chosen by multiple Civilizations.</Text>
+		</Row>
+		<Row Tag="LOC_PANTHEON_BONUS_18_DESCRIPTION">
+			<Text>+25%[icon:YIELD_DIPLOMACY] Influence towards Endeavors and Sanctions with an Altar in the Capital. This Pantheon can be chosen by multiple Civilizations.</Text>
+		</Row>
+	</EnglishText>
+</Database>

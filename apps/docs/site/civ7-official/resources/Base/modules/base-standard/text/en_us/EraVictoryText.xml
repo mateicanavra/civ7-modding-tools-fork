@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_ERA_VICTORY_OVERVIEW_VICTORY_NAME">
+			<Text>Overview</Text>
+		</Row>
+		<Row Tag="LOC_ERA_VICTORY_NEXT">
+			<Text>Next Victory Tab</Text>
+		</Row>
+		<Row Tag="LOC_ERA_VICTORY_PREVIOUS">
+			<Text>Previous Victory Tab</Text>
+		</Row>
+		<Row Tag="LOC_ERA_VICTORY_PLACE_1">
+			<Text>1st Place: </Text>
+		</Row>
+		<Row Tag="LOC_ERA_VICTORY_PLACE_2">
+			<Text>2nd Place: </Text>
+		</Row>
+		<Row Tag="LOC_ERA_VICTORY_PLACE_3">
+			<Text>3rd Place: </Text>
+		</Row>
+    <!-- Age Scores - panel-age-scores -->
+    <Row Tag="LOC_AGE_SCORE_PLACE_1">
+      <Text>1st</Text>
+    </Row>
+    <Row Tag="LOC_AGE_SCORE_PLACE_2">
+      <Text>2nd</Text>
+    </Row>
+    <Row Tag="LOC_AGE_SCORE_PLACE_3">
+      <Text>3rd</Text>
+    </Row>
+    <Row Tag="LOC_AGE_SCORE_PLACE_4">
+      <Text>4th</Text>
+    </Row>
+    <Row Tag="LOC_AGE_SCORE_PLACE_5">
+      <Text>5th</Text>
+    </Row>
+    <Row Tag="LOC_AGE_SCORE_PLACE_6">
+      <Text>6th</Text>
+    </Row>
+    <Row Tag="LOC_AGE_SCORE_PLACE_7">
+      <Text>7th</Text>
+    </Row>
+    <Row Tag="LOC_AGE_SCORE_PLACE_8">
+      <Text>8th</Text>
+    </Row>
+    <Row Tag="LOC_AGE_SCORE_PLACE_9">
+      <Text>9th</Text>
+    </Row>
+    <Row Tag="LOC_AGE_SCORE_PLACE_10">
+      <Text>10th</Text>
+    </Row>
+    <Row Tag="LOC_AGE_SCORE_PLACE_11">
+      <Text>11th</Text>
+    </Row>
+    <Row Tag="LOC_AGE_SCORE_PLACE_12">
+      <Text>12th</Text>
+    </Row>
+    <Row Tag="LOC_AGE_SCORE_YOU_TEXT">
+      <Text>You</Text>
+    </Row>
+	</EnglishText>
+</Database>

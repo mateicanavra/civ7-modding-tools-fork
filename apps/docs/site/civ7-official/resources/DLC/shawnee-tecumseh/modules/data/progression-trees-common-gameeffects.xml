@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==============================================================	-->
+	<!--	Legend Unlocks												-->
+	<!-- ==============================================================	-->
+	<!-- ==================================================	-->
+	<!--	Cultural Attribute								-->
+	<!-- ==================================================	-->
+
+	<!-- ==================================================	-->
+	<!--	Diplomatic Attribute							-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_TECUMSEH_L2_01" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_RELATIONSHIP_GAIN_FROM_EVENT">
+		<Argument name="EventType">GRIEVANCE_FROM_SANCTION</Argument>
+		<Argument name="Percent">-25</Argument>
+		<Argument name="Tooltip">LOC_TREE_ATTRIBUTE_POLITICAL</Argument>
+		<String context="Description">LOC_MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_TECUMSEH_L2_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_TECUMSEH_L2_02" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_RELATIONSHIP_GAIN_FROM_EVENT">
+		<Argument name="EventType">GRIEVANCE_FROM_REJECTED_ENDEAVOR</Argument>
+		<Argument name="Percent">-25</Argument>
+		<Argument name="Tooltip">LOC_TREE_ATTRIBUTE_POLITICAL</Argument>
+	</Modifier>
+	<Modifier id="MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_TECUMSEH_L2_03" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_RELATIONSHIP_GAIN_FROM_EVENT">
+		<Argument name="EventType">FAVOR_FROM_ENDEAVOR</Argument>
+		<Argument name="Percent">25</Argument>
+		<Argument name="Tooltip">LOC_TREE_ATTRIBUTE_POLITICAL</Argument>
+	</Modifier>
+	<Modifier id="MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_TECUMSEH_L2_04" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_RELATIONSHIP_GAIN_FROM_EVENT">
+		<Argument name="EventType">FAVOR_FROM_SUPPORT</Argument>
+		<Argument name="Percent">25</Argument>
+		<Argument name="Tooltip">LOC_TREE_ATTRIBUTE_POLITICAL</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	Economic Attribute								-->
+	<!-- ==================================================	-->
+
+	<!-- ==================================================	-->
+	<!--	Expansionist Attribute							-->
+	<!-- ==================================================	-->
+
+	<!-- ==================================================	-->
+	<!--	Militaristic Attribute							-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_ATTRIBUTE_MILITARISTIC_LEGEND_TECUMSEH_L1" collection="COLLECTION_PLAYER_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_IS_DISTRICT"/>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+		<String context="Description">LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_TECUMSEH_L1_DESCRIPTION</String>
+		<String context="Preview">LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_TECUMSEH_L1_COMBAT_PREVIEW</String>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	Scientific Attribute							-->
+	<!-- ==================================================	-->
+
+</GameEffects>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <EnglishText>
+    <!--Civilization Names-->
+    <Row Tag="LOC_CIVILIZATION_ASSYRIA_NAME">
+      <Text>Assyria</Text>
+    </Row>
+    <!--Civilization Full Names-->
+    <Row Tag="LOC_CIVILIZATION_ASSYRIA_FULLNAME">
+      <Text>Assyrian Empire</Text>
+    </Row>
+    <!--Civilization Adjectives-->
+    <Row Tag="LOC_CIVILIZATION_ASSYRIA_ADJECTIVE">
+      <Text>Assyrian</Text>
+    </Row>
+	<Row Tag="LOC_INDEPENDENT_ANTIQUITY_35_MINOR_ASSYRIA_NAME">
+		<Text>Mitanni</Text>
+	</Row>
+	<Row Tag="LOC_INDEPENDENT_ANTIQUITY_35_MAJOR_ASSYRIA_NAME">
+		<Text>Waššukanni</Text>
+    </Row>
+  </EnglishText>
+</Database>

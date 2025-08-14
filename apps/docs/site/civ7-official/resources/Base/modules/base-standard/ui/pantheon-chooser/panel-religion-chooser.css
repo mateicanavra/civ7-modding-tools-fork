@@ -1,0 +1,182 @@
+/* DO NOT EDIT */
+/* Generated from panel-religion-chooser.scss */
+.panel-religion-chooser {
+	position: absolute;
+	flex-direction: column;
+	width: 40vh;
+	top: 0.8888888889rem;
+	bottom: 0.8888888889rem;
+	left: 0.8888888889rem;
+	pointer-events: auto;
+	background-color: aqua;
+}
+
+.panel-religion-chooser__religion-header {
+	margin-top: 0.4444444444rem;
+	width: 100%;
+	height: 10vh;
+}
+
+.panel-religion-chooser__religion-background-image {
+	position: inherit;
+	pointer-events: none;
+	display: block;
+	height: 100%;
+	width: 100%;
+	background-image: url("fs://game/AT_Greece.png");
+}
+
+.panel-religion-chooser__chosen-religion {
+	pointer-events: none;
+	position: absolute;
+	justify-content: center;
+	align-items: center;
+	background-image: url("fs://game/unitflag_missingicon.png");
+}
+
+.panel-religion-chooser__religion-buttons-container {
+	position: absolute;
+	display: flex;
+	right: 0%;
+	bottom: 0%;
+	flex-direction: row;
+}
+
+.panel-religion-chooser__religion-button {
+	pointer-events: auto;
+}
+
+.panel-religion-chooser__religion-button-icon {
+	pointer-events: none;
+	height: 1.7777777778rem;
+	width: 1.7777777778rem;
+	--religion-icon: url("fs://game/unitflag_missingicon.png");
+	background-image: var(--religion-icon);
+}
+
+.panel-religion-chooser__religion-title {
+	display: flex;
+	pointer-events: none;
+	position: relative;
+	padding: 0.5555555556rem 0.3333333333rem;
+	letter-spacing: 0.0555555556rem;
+	margin-right: -0.0555555556rem;
+	line-height: 1rem;
+	overflow-wrap: break-word;
+	white-space: pre-wrap;
+	max-width: 16rem;
+	justify-content: center;
+	height: auto;
+	text-align: center;
+}
+
+.panel-religion-chooser__religion-stats-container {
+	display: flex;
+	flex-direction: column;
+	margin-top: 0.4444444444rem;
+	background-color: chocolate;
+}
+
+.panel-religion-chooser__religion-stats-row {
+	display: flex;
+	flex-direction: row;
+}
+
+.panel-religion-chooser__belief-container {
+	display: flex;
+	flex-direction: column;
+	background-color: cornflowerblue;
+}
+
+.panel-religion-chooser__belief-container {
+	display: flex;
+	flex-direction: column;
+	margin-top: 0.4444444444rem;
+	margin-bottom: 0.4444444444rem;
+	background-color: green;
+}
+
+.panel-religion-belief-header {
+	display: flex;
+	flex-direction: row;
+}
+
+.panel-religion-chooser__stat-container {
+	padding-left: 0.4444444444rem;
+	padding-right: 0.4444444444rem;
+	display: flex;
+	flex-direction: row;
+}
+
+.panel-religion-chooser__stat-icon {
+	--stat-icon: url("fs://game/unitflag_missingicon.png");
+	background-image: var(--stat-icon);
+	height: 1.7777777778rem;
+	width: 1.7777777778rem;
+}
+
+.stat-value {
+	letter-spacing: 0.0555555556rem;
+	margin-right: -0.0555555556rem;
+	line-height: 1rem;
+	overflow-wrap: break-word;
+	white-space: pre-wrap;
+	max-width: 16rem;
+	text-align: right;
+}
+
+.panel-religion-chooser__hcontainer {
+	display: flex;
+	flex-direction: row;
+}
+
+.panel-religion-chooser__vcontainer {
+	flex-direction: column;
+}
+
+.panel-religion-chooser__belief-header-container {
+	display: flex;
+	justify-content: space-between;
+	flex-direction: row;
+}
+
+.panel-religion-chooser__assigned-values {
+	display: flex;
+	justify-content: flex-end;
+	flex-direction: row;
+}
+
+.belief-icon {
+	--belief-icon: url("fs://game/unitflag_missingicon.png");
+	background-image: var(--belief-icon);
+	height: 4.4444444444rem;
+	width: 4.4444444444rem;
+}
+
+.panel-religion-chooser-belief-button {
+	pointer-events: auto;
+	padding: 0.4444444444rem;
+	display: flex;
+	flex-direction: row;
+}
+
+.belief-button {
+	padding-top: 0.4444444444rem;
+	pointer-events: auto;
+}
+
+.panel-religion-chooser__belief-options-container {
+	background-color: darkslateblue;
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	left: 100%;
+	top: 30%;
+	width: 30vh;
+}
+
+.panel-religion-chooser__belief-button-background {
+	display: flex;
+	--background-color: cornflowerblue;
+	background-color: var(--background-color);
+}

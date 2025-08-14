@@ -1,0 +1,818 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE1" Language="zh_Hans_CN">
+      <Text>迦太基</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE10" Language="zh_Hans_CN">
+      <Text>鲁西卡德</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE11" Language="zh_Hans_CN">
+      <Text>提斯德鲁斯</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE12" Language="zh_Hans_CN">
+      <Text>鲁斯古尼亚</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE13" Language="zh_Hans_CN">
+      <Text>廷加</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE14" Language="zh_Hans_CN">
+      <Text>加迪尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE15" Language="zh_Hans_CN">
+      <Text>奥亚季</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE16" Language="zh_Hans_CN">
+      <Text>基提翁</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE17" Language="zh_Hans_CN">
+      <Text>拉帕苏斯</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE18" Language="zh_Hans_CN">
+      <Text>伊达利翁</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE19" Language="zh_Hans_CN">
+      <Text>鲁斯皮纳</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE2" Language="zh_Hans_CN">
+      <Text>乌提卡</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE20" Language="zh_Hans_CN">
+      <Text>席兹</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE21" Language="zh_Hans_CN">
+      <Text>卡拉利</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE22" Language="zh_Hans_CN">
+      <Text>塞克西 </Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE23" Language="zh_Hans_CN">
+      <Text>卡帕拉</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE24" Language="zh_Hans_CN">
+      <Text>鲁萨迪尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE25" Language="zh_Hans_CN">
+      <Text>阿布德拉</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE26" Language="zh_Hans_CN">
+      <Text>马拉克</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE27" Language="zh_Hans_CN">
+      <Text>利利拜乌姆</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE28" Language="zh_Hans_CN">
+      <Text>楚卢</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE29" Language="zh_Hans_CN">
+      <Text>阿兰比斯</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE3" Language="zh_Hans_CN">
+      <Text>哈德鲁梅图姆</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE30" Language="zh_Hans_CN">
+      <Text>梅宁克斯</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE4" Language="zh_Hans_CN">
+      <Text>希波</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE5" Language="zh_Hans_CN">
+      <Text>莫提亚</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE6" Language="zh_Hans_CN">
+      <Text>特纳埃</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE7" Language="zh_Hans_CN">
+      <Text>莱普提斯</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE8" Language="zh_Hans_CN">
+      <Text>查布拉坦</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE9" Language="zh_Hans_CN">
+      <Text>马莱斯</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_1" Language="zh_Hans_CN">
+      <Text>阿里夏</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_10" Language="zh_Hans_CN">
+      <Text>齐亚布科特</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_2" Language="zh_Hans_CN">
+      <Text>希洪巴亚尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_3" Language="zh_Hans_CN">
+      <Text>巴特巴尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_4" Language="zh_Hans_CN">
+      <Text>巴特诺亚姆</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_5" Language="zh_Hans_CN">
+      <Text>穆顿巴尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_6" Language="zh_Hans_CN">
+      <Text>乌马什塔特</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_7" Language="zh_Hans_CN">
+      <Text>汉彼</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_8" Language="zh_Hans_CN">
+      <Text>阿莫亚什塔特</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_9" Language="zh_Hans_CN">
+      <Text>伊泽贝尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_1" Language="zh_Hans_CN">
+      <Text>哈米尔卡</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_10" Language="zh_Hans_CN">
+      <Text>博米尔卡</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_2" Language="zh_Hans_CN">
+      <Text>汉诺</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_3" Language="zh_Hans_CN">
+      <Text>马戈</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_4" Language="zh_Hans_CN">
+      <Text>哈斯德鲁巴尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_5" Language="zh_Hans_CN">
+      <Text>吉斯戈</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_6" Language="zh_Hans_CN">
+      <Text>博多</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_7" Language="zh_Hans_CN">
+      <Text>阿扎巴尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_8" Language="zh_Hans_CN">
+      <Text>博斯塔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_9" Language="zh_Hans_CN">
+      <Text>马坦巴尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_CARTHAGE_ADJECTIVE" Language="zh_Hans_CN">
+      <Text>迦太基</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_CARTHAGE_FULLNAME" Language="zh_Hans_CN">
+      <Text>迦太基帝国</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_CARTHAGE_NAME" Language="zh_Hans_CN">
+      <Text>迦太基</Text>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_ANTIQUITY_4_MAJOR_CARTHAGE_NAME" Language="zh_Hans_CN">
+      <Text>斐斯托斯</Text>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_ANTIQUITY_4_MINOR_CARTHAGE_NAME" Language="zh_Hans_CN">
+      <Text>米诺斯</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_COTHON_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>环型港（cothon）是迦太基港口的内港，也是这座城市海军的驻扎地。它的名字源自一种形状相似的希腊饮水器皿。整个港口呈圆弧形，中间有一座小岛，完全由人工建造而成。内外两岸都建有船库，船库上方则是储存各类物资的仓库。古典文献记载环型港可停泊多达220艘战船，但考古发现表明实际数量可能更接近170艘。这座独特的港口已成为古代迦太基的标志性建筑；然而有趣的是，环型港的建造其实始于第二次布匿战争之后，在迦太基历史末期才方得完工，距离迦太基最终毁灭还不到50年。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_DOCKYARD_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>迦太基港口分为两个区域：军港与商港。其中商港虽为平民所用，却是迦太基积累财富的经济命脉。这座人工开凿的矩形港湾见证了无数商船的进出、装卸，也是征收商税和接收各地殖民贡品的枢纽。虽然在第二次布匿战争后经过大规模翻修，商港的占地面积依然只有七公顷，规模虽小却地位显赫。为弥补空间不足，港口修建了一条延伸入海的木质码头，以此扩展泊船空间。  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>公元前12世纪发生了一场席卷地中海和近东地区的文明浩劫，让这里曾经辉煌的青铜时代文明轰然倒塌。气候变迁、技术差距、外族入侵等多重因素交织在一起，逐渐瓦解了各个中央集权政府的统治根基。随之而来的是帝国的崩塌，曾经繁华的城市中心随之凋零，人们不得不分散迁徙至各个偏远的乡村定居点。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_10" Language="zh_Hans_CN">
+      <Text>公元前3世纪，罗马取代希腊，成为了迦太基的最大敌手。西西里岛再次成为导火索，在公元前264年点燃了第一次布匿战争的战火。这场持续二十余载的战争以罗马的胜利告终，迦太基不仅失去了在西西里的全部领地，还要面对雇佣军的内部叛乱。然而战火并未就此平息，公元前218年，第二次布匿战争爆发。迦太基名将汉尼拔率军横穿高卢，跨越险峻的阿尔卑斯山，从北方对罗马发起进攻。在坎尼会战中，他大败罗马主力，但因援军迟迟未至，未能彻底征服罗马。最终，罗马人成功将迦太基军队驱逐出意大利和西班牙，再次赢得胜利，由此确立了其在西地中海的霸主地位。战败的迦太基不仅被剥夺了所有海外领地，海军也被削减至仅剩十艘战船，实际上已沦为罗马的附庸国。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_11" Language="zh_Hans_CN">
+      <Text>这座古城还被剥夺了发动战争的权利。然而五十年后，为了反击努米底亚对其领土的侵扰，迦太基违背了这一禁令，重新组建军队。表面上，罗马对迦太基与努米底亚的纷争并无干涉之意，但第二次布匿战争在罗马人心中留下的创伤始终未愈。虽然罗马在政治上已完全掌控迦太基，却始终对这个宿敌心存戒备，尤其是看到迦太基通过贸易和农业的传统方式逐渐恢复元气。元老院中的老加图更是因每次演说必以“此外，我认为必须摧毁迦太基”结尾而闻名。迦太基针对努米底亚展开军事行动，恰好给了罗马一个期待已久的战争借口。战火重燃，这座古城随即被围困，最终惨遭彻底摧毁，化为废墟。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_2" Language="zh_Hans_CN">
+      <Text>然而，并非所有文明都湮没于历史的黑暗之中。腓尼基城邦的崛起可以追溯到至少两个世纪之前，它们最早出现在埃及征服黎凡特沿海定居点的史料记载中。这些城邦逐渐发展成为连接欧洲、北非和亚洲的贸易枢纽，但也不得不与觊觎其区域经济优势的各大帝国周旋。青铜时代的崩塌让这些帝国势力相继衰落或覆亡，他们对腓尼基人的钳制也随之瓦解。获得真正独立的腓尼基人终于迎来了腾飞的机遇。他们迅速填补地区权力真空，很快掌控了整个地中海的贸易网络。为了进一步扩张势力，腓尼基人开始在地中海沿岸建立殖民地，其势力范围沿欧洲和北非海岸不断延伸，最终远达摩洛哥和西班牙。他们筛选殖民地的标准十分严格：良好的天然港湾、通达的本地市场，以及对周边资源的控制力，缺一不可。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_3" Language="zh_Hans_CN">
+      <Text>公元前814年，一群远道而来的苏尔殖民者在现今突尼斯的突尼斯湾找到了他们理想中的新家园。这片土地的地理位置得天独厚：一座易守难攻的山丘俯瞰着下方的港湾，而港湾不仅能为船只遮风避浪，更因紧邻西西里海峡这个地中海贸易咽喉要道而具有重要战略意义。苏尔人迅速在此奠基立城，将这座新建的殖民地命名为“qrt-ḥdšt”，意为“新城”。这座城市，就是后世闻名的迦太基。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_4" Language="zh_Hans_CN">
+      <Text>迦太基建城史有两个版本：一个是平实的历史记载，另一个则是后世流传的传奇故事。第二个版本讲述了一位叫狄多（又名艾莉莎）的苏尔女王的故事。兄长皮格马利翁不仅夺走了狄多的继承权，还残忍谋害了她的丈夫。为逃避兄长迫害，狄多被迫逃至北非。在那里，她与一位柏柏尔当地部落首领达成协议：她可以拥有一张牛皮能覆盖的土地。狄多聪颖过人，将牛皮裁成极细的皮条，首尾相连，竟然围住了日后发展城市的整座山丘。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_5" Language="zh_Hans_CN">
+      <Text>在最初的几个世纪里，迦太基不过是众多殖民地中的一座普通城邦。然而公元前四世纪，亚历山大大帝的铁蹄横扫黎凡特，命运的齿轮就此转动。公元前332年，亚历山大大帝攻陷苏尔，这座腓尼基权力中心轰然倒塌，大批苏尔难民被迫离乡背井。其中相当一部分人最终涌入迦太基，这座殖民地城市因而人口骤增。苏尔的衰落与迦太基的兴起形成鲜明对比，后者迅速崛起，成为地中海新的政治与经济中心。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_6" Language="zh_Hans_CN">
+      <Text>迦太基的富庶主要源自三个方面：商贸往来、藩属进贡和税收征收。与其他腓尼基城邦甘于固守城池不同，迦太基人野心勃勃，通过不断征服扩张其疆域版图。凭借强大的海上力量，并与邻国努米底亚王国结盟，迦太基的军队横跨地中海两岸，不仅征服了其他腓尼基殖民地，还开拓了大片新领土。关于迦太基何以走上扩张之路，史学界有多种解读：有人认为这是为了在与希腊、罗马的贸易竞争中确立优势地位，也有人将其归因于军事将领在迦太基政坛上的日益强势。但无论出于何种原因，迦太基并未采取直接统治的方式管理这些新征服的领地，而是建立起一种霸权体系：向属地和殖民地征收贡品，同时将它们打造成贸易枢纽，发挥商业价值。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_7" Language="zh_Hans_CN">
+      <Text>到了公元前四世纪，迦太基的政体已经从君主制逐步演化为共和制。政权最高层由两位士师（意为“法官”）把持，后者通过选举从最具权势的贵族家族中产生。他们与一个拥有二百到三百名成员的元老院共掌国政。在这个体系下，公民大会负责对士师和元老院提出的法律议案进行表决。迦太基政制的一大特色是军政分离：军事将领或经由选举产生，或由上级任命，但不得干预政务；同样，作为最高行政首脑的士师也无权干预军队事务。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_8" Language="zh_Hans_CN">
+      <Text>比尔萨城塞巍然矗立于山顶，俯瞰着碧波万顷的大海，是这座城市最为显赫的地标。山坡之下分布着四大居住区，以及一处规模宏大的港口。在城市中心区域之外，则是一望无际的农田。迦太基人在农业上造诣颇深，他们成功培育了多样化的农作物，不仅满足了城中居民的需求，还创造了大量盈余供出口。迦太基的农业技术如此珍贵，在这座城市覆灭之后，农学家马戈撰写的一部农业专著有幸得以保存流传。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_9" Language="zh_Hans_CN">
+      <Text>迦太基的扩张之路并非一帆风顺，其中最先遭遇的重大挑战来自希腊。早在迦太基还是一座默默无闻的小殖民地时，希腊就已经是腓尼基人在地中海贸易中的强劲对手，不断蚕食后者的贸易霸权。随着迦太基崛起，积年的商业角力自然转移到了这座新兴城邦身上。两大势力很快剑拔弩张，兵戎相见。自公元前480年起，双方为争夺西西里岛的控制权，爆发了一连串战争。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_CARTHAGE_RED_SLIP_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>虽然迦太基宗教的全貌、神祇体系和宗教仪式因史料的缺失和可信度问题而扑朔迷离，但女神塔尼特的形象却因其在迦太基本土及殖民地的广泛崇拜而得以保存至今。作为智慧、生育与母性的化身，她与丈夫巴尔·哈蒙共同位列迦太基神系的最高位置。塔尼特是布匿万神殿中的一位后起之秀——与根植于腓尼基文明的巴尔·哈蒙不同，她约在公元前五世纪才显现神迹，很可能源自当地柏柏尔人的信仰。然而，她在迦太基的地位和声望却迅速超越了丈夫。对塔尼特的崇拜似乎包含了在托非特（一处神圣祭祀场所）举行的人祭仪式，但关于迦太基人究竟在何种程度上实施这种祭祀，学界仍存在争议。塔尼特的圣徽——也就是本游戏中代表迦太基的标志，常见于古代的石刻和马赛克作品中。在后期的艺术描绘中，她被塑造成一位长着翅膀、狮首人身的形象。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_CARTHAGE_SHIPSHEDS_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>船舶是迦太基经济与军事实力的根基，而船只的维护保养则是确保其霸业的关键所在。在地中海内外的远航过程中，木质船只不断遭受着严峻考验：或遭暴风雨的重创，或因木材浸水而航速减缓并面临腐朽之虞，更有无数觊觎木材的海洋生物日夜侵蚀着船体。然而，要将这些庞然大物拖上陆地进行干坞储存和修缮，不仅费时费力，而且还要冒日晒雨淋等自然侵蚀的风险。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_CARTHAGE_SHIPSHEDS_CHAPTER_HISTORY_PARA_2" Language="zh_Hans_CN">
+      <Text>为应对这些困境，迦太基为其庞大的舰队修建了一系列船库。这些船库沿岸而建，以带顶篷的滑道为主体，不仅让庞大的船只能轻松快捷地驶入遮蔽的干船坞，更为它们提供了免受风雨侵袭的庇护。在这样的环境下，船只可以从容接受维修，随后迅速重返水域。这种设计大大缩短了船只的维护时间，提高了保养频率，使迦太基的海军舰队和商船始终保持着最佳状态。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_CARTHAGE_SICILIAN_WARS_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>迦太基人承袭了腓尼基人的衣钵，最终确立了自己作为地中海贸易航线霸主的地位。然而，这种霸主地位始终面临着各方的挑战。他们遇到的第一个强劲对手是希腊城邦，这个同样拥有强大海上力量的文明，在地中海区域与迦太基展开了激烈角逐。双方争夺的焦点是西西里岛。这座岛屿将地中海一分为二，可以说谁控制了西西里，谁就掌握了古代地中海的制海权。为争夺这一战略要地，迦太基人与希腊人在公元前480年至306年间爆发了一系列战争，岛上疆域随着战事起伏不断易主。当罗马的势力日渐超越希腊时，西西里战争逐渐平息，希腊在岛上的领地也落入罗马之手。但是，新对手的崛起往往预示着新的纷争——布匿战争由此爆发，而这场新的较量，其导火索依然是西西里岛。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_QUARTER_PUNIC_PORT_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>作为一个以航海贸易立国的经济强权，迦太基的兴衰成败皆系于其港口。这座令人叹为观止的港口工程由两部分构成：供商船停泊的外港区，以及专供军舰使用的内部环型港。整个港区是在公元前200年左右从沼泽地中开凿而成，工程浩大，单是土方工程就达到约23.5万立方米。港口建筑采用砂岩切石精心砌筑，四周环绕高大的城墙，几乎将整个港区隐藏起来。外港和内港的入口处较为窄小，可以用粗重的铁链封锁，构成了固若金汤的防御体系。在第三次布匿战争中，当罗马军队攻陷迦太基时，这座港口首当其冲，遭到了毁灭性的破坏。然而时至今日，港口的遗迹依然清晰可见地镌刻在突尼斯的海岸线上，成为诉说迦太基昔日荣光的少数见证者之一。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_COLONIST_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>迦太基最初不过是腓尼基人为控制地中海贸易而建立的一个小型沿海前哨。随着这座城市日渐发展壮大，成为独立的政治中心，迦太基也开始效仿其母邦的扩张模式，以建立殖民地，而非单纯的领土扩张来铸就其帝国基业。从历史角度看，这种扩张方式常被描述为具有侵略性和帝国主义色彩（这很大程度上源于罗马史料对迦太基颇具敌意的记载）。然而，近代研究揭示了一个不同的历史图景：在早期，迦太基主要致力于接管和加强地中海西岸既有的腓尼基定居点，直接的领土征服是后来才出现的现象。在后期阶段，迦太基开始向地中海沿岸乃至更远的地区派遣殖民者，建立新定居点。这些殖民地既是贸易枢纽和物资中转站，也为迦太基舰队提供了安全的港湾。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_NUMIDIAN_CAVALRY_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>迦太基的实力主要建立在贸易航线和分布各地的沿海殖民地之上。这种特殊的帝国形态决定了，无论是城市本身，还是其经济势力范围内的人口都不甚稠密。因此，在战时为了扩充军力，迦太基往往会招募邻近的努米底亚人充当雇佣兵。这些柏柏尔族勇士以其独特的战法闻名：他们装备轻盈，善使标枪，驾驭着体型虽小但异常敏捷的战马；凭借其出众的速度和机动性，常常能给敌人造成无休止的骚扰和打击。在第二次布匿战争中，努米底亚骑兵成为了迦太基军队的中坚力量。无论是在汉尼拔远征意大利的战役中，还是在北非抵御罗马军队入侵时，这支部队都发挥了举足轻重的作用。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_BYRSA_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>在迦太基城市中心的山顶上，耸立着俯瞰全城的比尔萨城塞。其名字的来源众说纷纭——狄多的传说牵强地将其与希腊语“byrsa”（牛皮）联系起来，暗指她获得这片日后演变为迦太基的土地时所使用的方法。然而，这个名字更可能源自腓尼基语“barsat”（要塞）的变体。比尔萨城塞是迦太基军事力量的核心，与其所在的山丘（同样被称为“比尔萨”）一起，还容纳着主要的政治和宗教机构。在迦太基陷落后，这座城墙环绕的堡垒先后被罗马人、汪达尔人、拜占庭人等多个文明继续使用。如今，它已成为一处重要的考古遗址。  </Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_COTHON_NAME" Language="zh_Hans_CN">
+      <Text>环型港</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_DOCKYARD_NAME" Language="zh_Hans_CN">
+      <Text>船坞</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_PUNIC_PORT_NAME" Language="zh_Hans_CN">
+      <Text>布匿港</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BYRSA_NAME" Language="zh_Hans_CN">
+      <Text>比尔萨城塞</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_MEDJERDA_NAME" Language="zh_Hans_CN">
+      <Text>迈杰尔达河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_MILIANE_NAME" Language="zh_Hans_CN">
+      <Text>米利亚内河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SEJENANE_NAME" Language="zh_Hans_CN">
+      <Text>塞真南河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SILIANA_NAME" Language="zh_Hans_CN">
+      <Text>斯利亚纳河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_TESSA_NAME" Language="zh_Hans_CN">
+      <Text>泰萨河</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_EMI_KOUSSI_NAME" Language="zh_Hans_CN">
+      <Text>库西山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_HARUJ_NAME" Language="zh_Hans_CN">
+      <Text>哈鲁吉山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_JEBEL_TOUBKAL_NAME" Language="zh_Hans_CN">
+      <Text>图卜卡勒峰</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_PANTELLERIA_NAME" Language="zh_Hans_CN">
+      <Text>潘泰莱里亚山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_WAW_AN_NAMUS_NAME" Language="zh_Hans_CN">
+      <Text>瓦乌纳穆斯山</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_RED_SLIP_NAME" Language="zh_Hans_CN">
+      <Text>塔尼特之智</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SHIPSHEDS_NAME" Language="zh_Hans_CN">
+      <Text>船库</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SICILIAN_WARS_NAME" Language="zh_Hans_CN">
+      <Text>西西里战争</Text>
+    </Replace>
+    <Replace Tag="LOC_11000A_COMPLETION" Language="zh_Hans_CN">
+      <Text>新建的定居点熙熙攘攘，迦太基的势力范围已跨越城墙之外，世界为那摄人心魄的华贵紫色趋之若鹜。</Text>
+    </Replace>
+    <Replace Tag="LOC_11000A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>繁盛之色</Text>
+    </Replace>
+    <Replace Tag="LOC_11000B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>探路者{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11000B_NAME" Language="zh_Hans_CN">
+      <Text>让我们见证迦太基的影响力能拓展何等远方。</Text>
+    </Replace>
+    <Replace Tag="LOC_11000C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11000C_NAME" Language="zh_Hans_CN">
+      <Text>守护属于迦太基的每一分财富。</Text>
+    </Replace>
+    <Replace Tag="LOC_11001A_COMPLETION" Language="zh_Hans_CN">
+      <Text>商船的风帆猎猎作响，从迦太基的港口扬帆起航，宛如飞鸟编队般驶向远方富庶的土地。</Text>
+    </Replace>
+    <Replace Tag="LOC_11001A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>扬帆启航</Text>
+    </Replace>
+    <Replace Tag="LOC_11001B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>商人{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11001B_NAME" Language="zh_Hans_CN">
+      <Text>让贸易之风劲吹不息。</Text>
+    </Replace>
+    <Replace Tag="LOC_11001C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11001C_NAME" Language="zh_Hans_CN">
+      <Text>借他们之口，传颂迦太基的荣光。</Text>
+    </Replace>
+    <Replace Tag="LOC_11002A_COMPLETION" Language="zh_Hans_CN">
+      <Text>迦太基的诸多港口宛如环环相扣的铁链，跨越浩瀚疆域连为一体——财富汇聚内流，国力向外辐射。</Text>
+    </Replace>
+    <Replace Tag="LOC_11002A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>坚实纽带</Text>
+    </Replace>
+    <Replace Tag="LOC_11002B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>进入一次庆典。</Text>
+    </Replace>
+    <Replace Tag="LOC_11002B_NAME" Language="zh_Hans_CN">
+      <Text>让醇酒尽情流淌。</Text>
+    </Replace>
+    <Replace Tag="LOC_11002C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_capital}+1人口</Text>
+    </Replace>
+    <Replace Tag="LOC_11002C_NAME" Language="zh_Hans_CN">
+      <Text>传扬港口的无限魅力。</Text>
+    </Replace>
+    <Replace Tag="LOC_11003A_COMPLETION" Language="zh_Hans_CN">
+      <Text>迦太基人所到之处，尽是令人惊叹的美景，然而他们却为基本生活设施和基础建设的匮乏而叹息。若是民众无法完全体验和欣赏，这些瑰丽的奇观又有何意义？</Text>
+    </Replace>
+    <Replace Tag="LOC_11003A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>瑰丽震天撼地</Text>
+    </Replace>
+    <Replace Tag="LOC_11003B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>+3贸易路线范围。</Text>
+    </Replace>
+    <Replace Tag="LOC_11003B_NAME" Language="zh_Hans_CN">
+      <Text>基础设施只能靠外力支援。</Text>
+    </Replace>
+    <Replace Tag="LOC_11003C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>奇观{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11003C_NAME" Language="zh_Hans_CN">
+      <Text>奇观本身就是最好的基础设施。</Text>
+    </Replace>
+    <Replace Tag="LOC_11004A_COMPLETION" Language="zh_Hans_CN">
+      <Text>罗马人身上依稀可见其牧羊人先祖的粗犷印记，但也仅存一丝痕迹而已。如今，他们的野心已不再局限于牧场——贪婪的目光甚至投向了迦太基的领土。</Text>
+    </Replace>
+    <Replace Tag="LOC_11004A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>新月与苍狼</Text>
+    </Replace>
+    <Replace Tag="LOC_11004B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11004B_NAME" Language="zh_Hans_CN">
+      <Text>签订互惠协定，缔造永久和平。</Text>
+    </Replace>
+    <Replace Tag="LOC_11004C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11004C_NAME" Language="zh_Hans_CN">
+      <Text>迦太基必须保持警惕，不容有失。</Text>
+    </Replace>
+    <Replace Tag="LOC_11004D_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11004D_NAME" Language="zh_Hans_CN">
+      <Text>迦太基与罗马之间的渊源，远比子民想象中更为深厚。</Text>
+    </Replace>
+    <Replace Tag="LOC_11005A_COMPLETION" Language="zh_Hans_CN">
+      <Text>这所谓的“世界之都”正在熊熊燃烧。浓烟从富丽堂皇的别墅和平民公寓中冲天而起，罗马人和迦太基人都在这片烟霾中苦苦挣扎。众多市民已携带细软仓皇逃离。那些留下的人——年迈者、病弱者、贫困者，和倔强不愿离去者——向迦太基大军求情。</Text>
+    </Replace>
+    <Replace Tag="LOC_11005A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>都城陷落</Text>
+    </Replace>
+    <Replace Tag="LOC_11005B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>所有战争+1战争支持。</Text>
+    </Replace>
+    <Replace Tag="LOC_11005B_NAME" Language="zh_Hans_CN">
+      <Text>让这里只剩下灰烬与盐土。</Text>
+    </Replace>
+    <Replace Tag="LOC_11005C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>所有定居点+1人口。</Text>
+    </Replace>
+    <Replace Tag="LOC_11005C_NAME" Language="zh_Hans_CN">
+      <Text>带他们去见识真正的世界之都。</Text>
+    </Replace>
+    <Replace Tag="LOC_11005D_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>等级最高的指挥官获得“坚毅”晋升。</Text>
+    </Replace>
+    <Replace Tag="LOC_11005D_NAME" Language="zh_Hans_CN">
+      <Text>收留他们最骁勇的将领。</Text>
+    </Replace>
+    <Replace Tag="LOC_11006A_COMPLETION" Language="zh_Hans_CN">
+      <Text>在条约签署之际，罗马和迦太基的使节彼此投以审慎的目光。一位罗马元老低声呢喃着“务必摧毁”……然而，协议终究还是签下了。</Text>
+    </Replace>
+    <Replace Tag="LOC_11006A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>不情之诺</Text>
+    </Replace>
+    <Replace Tag="LOC_11006B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11006B_NAME" Language="zh_Hans_CN">
+      <Text>罗马和迦太基的海域终将迎来宁静。</Text>
+    </Replace>
+    <Replace Tag="LOC_11006C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11006C_NAME" Language="zh_Hans_CN">
+      <Text>崭新的联盟将催生崭新的思想。</Text>
+    </Replace>
+    <Replace Tag="LOC_11006D_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11006D_NAME" Language="zh_Hans_CN">
+      <Text>双方城市将敞开，欢迎来客。</Text>
+    </Replace>
+    <Replace Tag="LOC_11007A_COMPLETION" Language="zh_Hans_CN">
+      <Text>条约墨迹未干，一位饱经沧桑的元老就开始高声抗议。每次会议上，不论议题为何，他都宣称迦太基的过度繁荣必将扼杀贸易，使罗马陷入苦难。为此，他一再警告，务必将迦太基摧毁。</Text>
+    </Replace>
+    <Replace Tag="LOC_11007A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>务必摧毁</Text>
+    </Replace>
+    <Replace Tag="LOC_11007B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>城镇{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11007B_NAME" Language="zh_Hans_CN">
+      <Text>乡村百姓将从中获益，而非遭殃。</Text>
+    </Replace>
+    <Replace Tag="LOC_11007C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_capital}+1资源上限。</Text>
+    </Replace>
+    <Replace Tag="LOC_11007C_NAME" Language="zh_Hans_CN">
+      <Text>联盟承诺重大，绝不容许毁约。</Text>
+    </Replace>
+    <Replace Tag="LOC_11007D_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>城镇{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11007D_NAME" Language="zh_Hans_CN">
+      <Text>嘲讽这个老顽固和他那陈腐的制度。</Text>
+    </Replace>
+    <Replace Tag="LOC_11008A_COMPLETION" Language="zh_Hans_CN">
+      <Text>从金碧辉煌的宫殿到熙来攘往的港口，迦太基的每一寸土地都物尽其用。在这座世界最繁荣的城邦之一中，迦太基人在川流不息的街道上演绎着他们充实的日常。</Text>
+    </Replace>
+    <Replace Tag="LOC_11008A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>至臻富足</Text>
+    </Replace>
+    <Replace Tag="LOC_11008B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_capital}+1专家上限。</Text>
+    </Replace>
+    <Replace Tag="LOC_11008B_NAME" Language="zh_Hans_CN">
+      <Text>迦太基是孕育伟大的沃土。</Text>
+    </Replace>
+    <Replace Tag="LOC_11008C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11008C_NAME" Language="zh_Hans_CN">
+      <Text>它将永远屹立不倒。</Text>
+    </Replace>
+    <Replace Tag="LOC_11009A_COMPLETION" Language="zh_Hans_CN">
+      <Text>努米底亚人满意地点头，对契约条款表示认可。这支骑兵虽不效忠于迦太基，但只要军饷不断，他们便会随令而动，所向披靡。</Text>
+    </Replace>
+    <Replace Tag="LOC_11009A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>黄金换利器</Text>
+    </Replace>
+    <Replace Tag="LOC_11009B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>努米底亚骑兵{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11009B_NAME" Language="zh_Hans_CN">
+      <Text>他们必须冷酷无情地作战。</Text>
+    </Replace>
+    <Replace Tag="LOC_11009C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>努米底亚骑兵{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11009C_NAME" Language="zh_Hans_CN">
+      <Text>任何违反军纪的行为都将受到严惩。</Text>
+    </Replace>
+    <Replace Tag="LOC_11009D_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11009D_NAME" Language="zh_Hans_CN">
+      <Text>重新磋商他们的合约。</Text>
+    </Replace>
+    <Replace Tag="LOC_11064A_COMPLETION" Language="zh_Hans_CN">
+      <Text>未获薪饷的努米底亚人怨声载道。他们参战并非为迦太基效力，只为填饱肚子。但迦太基向来慷慨大方——或许这次也不会例外。</Text>
+    </Replace>
+    <Replace Tag="LOC_11064A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>毁约之殇</Text>
+    </Replace>
+    <Replace Tag="LOC_11064B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>生产力建筑{1_reward}，但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11064B_NAME" Language="zh_Hans_CN">
+      <Text>加征赋税，履行合约。</Text>
+    </Replace>
+    <Replace Tag="LOC_11064C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}努米底亚骑兵，但他们将{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11064C_NAME" Language="zh_Hans_CN">
+      <Text>骑兵必须学会知足，接受我们所能给予的。</Text>
+    </Replace>
+    <Replace Tag="LOC_11065A_COMPLETION" Language="zh_Hans_CN">
+      <Text>敌舰在轰鸣中四分五裂，船员们在千万碎片中徒劳挣扎求生。从此刻起，迦太基的水域将永远是子民安居乐业的庇护所。</Text>
+    </Replace>
+    <Replace Tag="LOC_11065A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>安全港湾</Text>
+    </Replace>
+    <Replace Tag="LOC_11065B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11065B_NAME" Language="zh_Hans_CN">
+      <Text>安居乐业的家庭将助力迦太基繁荣发展。</Text>
+    </Replace>
+    <Replace Tag="LOC_11065C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11065C_NAME" Language="zh_Hans_CN">
+      <Text>工人们再也不必为自身安危提心吊胆。</Text>
+    </Replace>
+    <Replace Tag="LOC_11066A_COMPLETION" Language="zh_Hans_CN">
+      <Text>巍峨的石墙在城市纵横间绵延，从海岸线延伸至腹地边缘。迦太基无时无刻守护着自己的子民。</Text>
+    </Replace>
+    <Replace Tag="LOC_11066A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>壁垒花园</Text>
+    </Replace>
+    <Replace Tag="LOC_11066B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>驻守单位{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11066B_NAME" Language="zh_Hans_CN">
+      <Text>确保守卫们所需无缺。</Text>
+    </Replace>
+    <Replace Tag="LOC_11066C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>免费购买一座远古城墙。</Text>
+    </Replace>
+    <Replace Tag="LOC_11066C_NAME" Language="zh_Hans_CN">
+      <Text>征调能工巧匠，扩建城墙。</Text>
+    </Replace>
+    <Replace Tag="LOC_11067A_COMPLETION" Language="zh_Hans_CN">
+      <Text>每一面巍峨的城墙，每一片高扬的风帆，都在诉说着迦太基的传奇，它将传遍天下，无人能提出质疑。</Text>
+    </Replace>
+    <Replace Tag="LOC_11067A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>迦太基之子</Text>
+    </Replace>
+    <Replace Tag="LOC_11067B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11067B_NAME" Language="zh_Hans_CN">
+      <Text>这是一个关于无可匹敌之力量的故事。</Text>
+    </Replace>
+    <Replace Tag="LOC_11067C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11067C_NAME" Language="zh_Hans_CN">
+      <Text>这是一个关于富可敌国之财富的故事。</Text>
+    </Replace>
+    <Replace Tag="LOC_12004A_COMPLETION" Language="zh_Hans_CN">
+      <Text>黎刹医生漫步迦太基街头，见证着这座城市的脉动。马背上的雇佣兵毫不在意脚下行人的安危，港口中巨舰穿梭往来，维系着这座城市的勃勃生机。</Text>
+    </Replace>
+    <Replace Tag="LOC_12004A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>好医生在迦太基</Text>
+    </Replace>
+    <Replace Tag="LOC_12004B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>桨帆船{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_12004B_NAME" Language="zh_Hans_CN">
+      <Text>细究这些船只的奥秘。</Text>
+    </Replace>
+    <Replace Tag="LOC_12004C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_12004C_NAME" Language="zh_Hans_CN">
+      <Text>驻足欣赏这些骏马的风姿。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1030_CARTHAGEB_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>拥有一座花园。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1030_CARTHAGEC_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>拥有一座纪念碑。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1031_CARTHAGEB_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>拥有一座学院。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1040_CARTHAGEC_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>拥有一座图书馆和一座纪念碑。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1041_CARTHAGEB_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>拥有一座圆形剧场。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1050_CARTHAGEC_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>拥有一座图书馆。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1052_CARTHAGEB_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>拥有1个市场和2条贸易路线。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1060_CARTHAGEC_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>用抄本填满一座图书馆。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1062_CARTHAGEB_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>拥有一座学院。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1070_CARTHAGEC_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>拥有一座花园。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1070_CARTHAGEF_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>拥有一座花园。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1072_CARTHAGEB_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>拥有一座学院。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1072_CARTHAGED_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>拥有一座学院。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1090_CARTHAGEC_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>建造一座奇观。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1130_CARTHAGEB_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>用抄本填满一座图书馆。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1140_CARTHAGEB_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>拥有一座花园和一座市场。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1170_CARTHAGEC_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>拥有一座纪念碑，然后进入庆典。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1172_CARTHAGEB_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>拥有一座学院。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1180_CARTHAGEB_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>拥有一座纪念碑，然后进入庆典。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1180_CARTHAGEE_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>拥有一座纪念碑，然后进入庆典。</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_COLONIST_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>+1上船移动力，如果创立定居点与资源相邻则+1人口。</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_NUMIDIAN_CAVALRY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>每有1特色城市资源分配给首都，便+1战斗力。</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTR_TOTAL_TRADE_ROUTES" Language="zh_Hans_CN">
+      <Text>贸易路线总数</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTR_YIELDS_FROM_NUM_TRADE_ROUTES" Language="zh_Hans_CN">
+      <Text>贸易路线数量</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_COTHON_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>+2[icon:YIELD_PRODUCTION]生产力。从海岸、可航行河流和奇观获得+1[icon:YIELD_PRODUCTION]生产力相邻加成。迦太基特色生产力建筑。无时代限制。可在城镇中购买。必须放置在海岸上。</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_COTHON_TOOLTIP" Language="zh_Hans_CN">
+      <Text>迦太基特色生产力建筑。无时代限制。可在城镇中购买。必须放置在海岸上。</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_DOCKYARD_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>+2[icon:YIELD_GOLD]金币。从资源、区块和奇观获得+1[icon:YIELD_FOOD]食物相邻加成。迦太基特色金币建筑。无时代限制。可在城镇中购买。必须放置在海岸上。</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_DOCKYARD_TOOLTIP" Language="zh_Hans_CN">
+      <Text>迦太基特色金币建筑。无时代限制。可在城镇中购买。必须放置在海岸上。</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_RED_SLIP_AUTHOR" Language="zh_Hans_CN">
+      <Text>马戈</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_RED_SLIP_QUOTE" Language="zh_Hans_CN">
+      <Text>“乐居都市者，自觉乡野了无生趣。”</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SHIPSHEDS_AUTHOR" Language="zh_Hans_CN">
+      <Text>航海家汉诺</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SHIPSHEDS_QUOTE" Language="zh_Hans_CN">
+      <Text>“我们极速航行，经过一片猛烈燃烧且芬芳四溢的土地，缕缕火焰从那里落入海中。”</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SICILIAN_WARS_AUTHOR" Language="zh_Hans_CN">
+      <Text>西西里的狄奥多罗斯</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SICILIAN_WARS_QUOTE" Language="zh_Hans_CN">
+      <Text>“迦太基人将俘获的舰队公之于众，确保人们不仅可以听到，更能见证他们的胜利。”</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_CARTHAGE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>只能拥有1座城市。无法将城镇“转换为城市”。每次购买/生产商人或殖民者时，额外获得一个相同单位。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_CARTHAGE" Language="zh_Hans_CN">
+      <Text>环形港中，舰船整装待发。有的满载精美瓷器、粮秣货物，远赴异域换取黄金象牙；有的搭载精兵锐卒，意图另辟蹊径获取财富。无论出发点为何，舰船都会回到同一终点——世界之都迦太基。开启港门闸口，任凯旋舰队载誉而归，让财富如甘露洒满全城。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_CARTHAGE" Language="zh_Hans_CN">
+      <Text>特色城区“布匿港”可以在城镇中购买，增加其资源容量。这在未来时代中将持续存在，在之后提供强大的优势！</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_INTRO_CARTHAGE" Language="zh_Hans_CN">
+      <Text>苏尔的儿女远道而来，宣告自己的命运。他们将在世界中心统御一个无与伦比的帝国。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_CARTHAGE_COMPLETE_BYRSA_DESC" Language="zh_Hans_CN">
+      <Text>扮演迦太基，建成比尔萨城塞</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_CARTHAGE_COMPLETE_BYRSA_NAME" Language="zh_Hans_CN">
+      <Text>比尔萨城塞</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_CARTHAGE_LEGACY_PATH_MILITARISTIC_DESC" Language="zh_Hans_CN">
+      <Text>扮演迦太基，完成一条军事传承路径</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_CARTHAGE_LEGACY_PATH_MILITARISTIC_NAME" Language="zh_Hans_CN">
+      <Text>迦太基传承路径</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_CARTHAGE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>作为迦太基的关联奇观，+30%[icon:YIELD_PRODUCTION]生产力。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_RED_SLIP_RESOURCE_CAP_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>可以分配给首都的资源数量+3。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_RED_SLIP_TRADE_GOLD_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>+15海上贸易路线范围。每有一条来自首都的贸易路线，首都便+3[icon:YIELD_GOLD]金币。 </Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SHIPSHEDS_NAVAL_MOVEMENT_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>海上单位+1移动力</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SHIPSHEDS_NAVAL_RANGE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>海上单位+1范围</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SICILIAN_WARS_MOVEMENT_NUMIDIAN_CAVALRY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>努米底亚骑兵单位+1移动力和视野</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SICILIAN_WARS_SETTLEMENT_CAP_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>+2定居点上限。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SICILIAN_WARS_TOWN_PROJECT_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>拥有“贸易前哨”重心的城镇的市政厅+1抄本槽位。</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_PUNIC_PORT_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>迦太基特色城区。建造方法是将环型港和船坞放置在同一个区块中。可分配给此定居点的[icon:NOTIFICATION_DISCOVER_RESOURCE]资源数量+2。</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_PUNIC_PORT_TOOLTIP" Language="zh_Hans_CN">
+      <Text>可分配给此定居点的[icon:NOTIFICATION_DISCOVER_RESOURCE]资源数量+2。</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_BYRSA" Language="zh_Hans_CN">
+      <Text>利奥·阿非利加努斯</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_BYRSA" Language="zh_Hans_CN">
+      <Text>“城市断壁残垣至今仍犹可见。”</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_GAULOS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>在海岸或可航行河流上购买建筑时+25%[icon:YIELD_GOLD]金币效用。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_QUINQUEREME_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>购买海上单位时+25%[icon:YIELD_GOLD]金币效用。海上单位维护费用-1[icon:YIELD_GOLD]金币。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_SUFFETES_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>矿业城镇+20%[icon:YIELD_GOLD]金币。渔业或农业城镇+20%[icon:YIELD_FOOD]食物。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_CARTHAGE_ABILITY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>[BLIST][LI]只能拥有1座城市。无法将城镇[B]转换为城市[/B]。[LI]每次购买/生产[B]商人[/B]或[B]殖民者[/B]时额外获得一个相同单位。[LI]建造[B]比尔萨城塞[/B]时[B]+30%[icon:YIELD_PRODUCTION]生产力效用[/B]。[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_CARTHAGE_ABILITY_NAME" Language="zh_Hans_CN">
+      <Text>腓尼基遗产</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_AQ_CARTHAGE_NAME" Language="zh_Hans_CN">
+      <Text>迦太基市政</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_COLONIST_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>迦太基特色开拓者。+1上船移动力，如果创立定居点与资源相邻则+1人口。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_NUMIDIAN_CAVALRY_2_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>第3阶迦太基特色骑兵单位。只能被购买，且成本更高。每有1特色城市资源分配给首都，便+1战斗力。无视控制区。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_NUMIDIAN_CAVALRY_BASE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>迦太基特色骑兵单位。只能被购买，且成本更高。每有1特色城市资源分配给首都，便+1战斗力。无视控制区。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_NUMIDIAN_CAVALRY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>第2阶迦太基特色骑兵单位。只能被购买，且成本更高。每有1特色城市资源分配给首都，便+1战斗力。无视控制区。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_AUGUSTUS_CARTHAGE_TOOLTIP" Language="zh_Hans_CN">
+      <Text>[B]迦太基[/B]能在策略上助力[B]奥古斯都[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_CARTHAGE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>扮演[B]迦太基[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_CARTHAGE_SPAIN_TOOLTIP" Language="zh_Hans_CN">
+      <Text>[B]迦太基[/B]和[B]西班牙[/B]均是地中海强国。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_HATSHEPSUT_CARTHAGE_TOOLTIP" Language="zh_Hans_CN">
+      <Text>[B]哈特谢普苏特[/B]与[B]迦太基[/B]来自相同的大陆。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_IBN_BATTUTA_CARTHAGE_TOOLTIP" Language="zh_Hans_CN">
+      <Text>[B]伊本·白图泰[/B]曾在[B]迦太基[/B]所在相同地区游历。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ISABELLA_CARTHAGE_TOOLTIP" Language="zh_Hans_CN">
+      <Text>[B]伊莎贝拉[/B]与[B]迦太基[/B]均来自地中海。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BYRSA_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>+2[icon:YIELD_GOLD]金币。贸易路线无法被掠夺。此城市中与海岸相邻且能够建造城墙的地块将自动获得城墙。必须放置在海岸地块旁。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BYRSA_TOOLTIP" Language="zh_Hans_CN">
+      <Text>贸易路线无法被掠夺。此城市中与海岸相邻且能够建造城墙的地块将自动获得城墙。必须放置在海岸地块旁。</Text>
+    </Replace>
+    <Replace Tag="LOC_COMBAT_PREVIEW_NUMBER_RESOURCES_CAPITAL_BONUS_DESC" Language="zh_Hans_CN">
+      <Text>+{1_Value}战斗力，来自分配给首都的资源。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_GAULOS_NAME" Language="zh_Hans_CN">
+      <Text>圆舟</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_QUINQUEREME_NAME" Language="zh_Hans_CN">
+      <Text>五桨战船</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_SUFFETES_NAME" Language="zh_Hans_CN">
+      <Text>士师</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_COLONIST_NAME" Language="zh_Hans_CN">
+      <Text>殖民者</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_NUMIDIAN_CAVALRY_NAME" Language="zh_Hans_CN">
+      <Text>努米底亚骑兵</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

@@ -1,0 +1,318 @@
+/* DO NOT EDIT */
+/* Generated from main-menu.scss */
+.main-menu-button-container {
+	width: 52.7777777778rem;
+	top: 8.8888888889rem;
+}
+
+.logo-box {
+	background-image: url("fs://game/shell_logo-full.png");
+}
+@media (max-height: 55.5555555556rem) {
+	.logo-box {
+		width: 14.2222222222rem;
+		height: 1.7777777778rem;
+	}
+}
+
+.filigree-menu-top {
+	border-image-source: url("fs://game/header_filigree.png");
+	border-image-slice: 62 238 1 238 fill;
+	border-image-width: 3.4444444444rem 13.2222222222rem 0.1111111111rem 13.2222222222rem;
+	min-width: 28.4444444444rem;
+	min-height: 3.5555555556rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.filigree-menu-top {
+		width: 16.6666666667rem;
+		height: 1.7777777778rem;
+	}
+}
+
+.main-menu-title-divider {
+	background-image: url("fs://game/shell_top-filigree.png");
+}
+@media (max-height: 55.5555555556rem) {
+	.main-menu-title-divider {
+		min-width: 16.6666666667rem;
+		min-height: 1.3333333333rem;
+		width: 16.6666666667rem;
+		height: 1.3333333333rem;
+	}
+}
+
+.main-menu-selection-container {
+	left: -42.6666666667rem;
+	width: 28.4444444444rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.main-menu-selection-container {
+		top: -7.2222222222rem;
+	}
+}
+
+.main-menu-filigree-divider {
+	background-image: url("fs://game/shell_simple-div.png");
+}
+
+.main-menu-build-info {
+	bottom: 1.7777777778rem;
+	left: 11.1111111111rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.main-menu-build-info {
+		left: 9.4444444444rem;
+	}
+}
+
+.carousel {
+	width: 25rem;
+	height: 13.4444444444rem;
+	bottom: 5.1111111111rem;
+	right: 4.4444444444rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.carousel {
+		right: 2.7777777778rem;
+	}
+}
+.carousel.hidden {
+	visibility: hidden;
+}
+
+.carousel-thumb-title {
+	height: 2.2222222222rem;
+}
+
+.carousel-inner-vslot {
+	max-width: 90%;
+}
+
+.carousel-outer {
+	background: linear-gradient(#23252B, #12151F);
+	border-style: solid;
+	border-width: 0.1666666667rem;
+	border-image: linear-gradient(to bottom, #8C7E62, #4C473D) 1;
+}
+
+.carousel-expanded {
+	position: absolute;
+	top: 18%;
+	left: 18%;
+	width: 64%;
+	height: 70%;
+}
+@media (max-height: 55.5555555556rem) {
+	.carousel-expanded {
+		width: 90%;
+		height: 90%;
+		left: 4%;
+		top: 4%;
+	}
+}
+.carousel-expanded .carousel-main-hslot {
+	height: 91%;
+}
+.carousel-expanded .carousel-content-help {
+	display: none;
+}
+.carousel-expanded .carousel-image-container {
+	width: 100%;
+	height: 80%;
+}
+.carousel-expanded .carousel-thumb-bg {
+	display: none;
+}
+
+.carousel-image {
+	width: 100%;
+	height: 100%;
+}
+
+.carousel-bumper {
+	background-image: url("fs://game/base_component-arrow.png");
+}
+.carousel-bumper:hover {
+	filter: brightness(200%);
+}
+
+.carousel-bumper-disabled {
+	pointer-events: none;
+	filter: brightness(50%);
+}
+.carousel-bumper-disabled:hover {
+	filter: brightness(50%);
+}
+
+.carousel-content {
+	width: 100%;
+	height: 100%;
+}
+
+.carousel-image-container {
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.carousel-content-large {
+	width: 98%;
+	height: 100%;
+}
+.carousel-content-large .carousel-image-container .carousel-image {
+	max-width: 70%;
+}
+.carousel-content-large .carousel-image-container .carousel-image:hover {
+	transform: none;
+}
+
+.carousel-text-only {
+	margin-left: 1.25vw;
+	position: relative;
+	display: flex;
+	width: 90%;
+	height: 8vh;
+}
+
+.carousel-text {
+	font-size: 22px;
+	line-height: 25.78px;
+	letter-spacing: 0.1em;
+}
+
+.carousel-text-only-scrollable {
+	height: 80%;
+}
+
+.carousel-standard-layout {
+	width: 100%;
+	height: 100%;
+}
+
+.carousel-standard-layout-text {
+	width: 80%;
+	height: 80%;
+}
+
+.carousel-standard-layout-image {
+	width: 100%;
+	height: 75%;
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.carousel-filigree-top {
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+
+.carousel-breadcrumb-bar {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	left: 0;
+	right: 0;
+}
+
+.motd-box {
+	coh-font-fit-mode: shrink;
+	background-color: #333640;
+	height: 1.5555555556rem;
+}
+
+.connection-status {
+	left: 7rem;
+	bottom: 1.3333333333rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.connection-status {
+		left: 5.3333333333rem;
+	}
+}
+.connection-status.hidden {
+	visibility: hidden;
+}
+.connection-status.no-mouse {
+	pointer-events: none;
+}
+
+.connection-anim-container {
+	top: -0.3888888889rem;
+	left: -0.4444444444rem;
+}
+
+@media (max-height: 55.5555555556rem) {
+	.account-status {
+		bottom: 0.6666666667rem;
+		left: 0.4444444444rem;
+	}
+}
+.account-status .account-icon-img:hover, .account-status .account-icon-img:focus {
+	transform: scale(1.1);
+}
+.account-status .account-icon-img .fxs-nav-help {
+	position: absolute;
+	bottom: 0.4444444444rem;
+	right: 0rem;
+}
+.account-status.hidden {
+	visibility: hidden;
+}
+
+.main-menu__button-bg-container {
+	background-color: #5a5a5a;
+}
+
+.main-menu__social-button-icon {
+	background-image: url("fs://game/soc_social");
+}
+
+.menu-shroud {
+	background-color: black;
+}
+
+.menu-border {
+	width: 96%;
+	height: 98%;
+	border-image-source: url("fs://game/base_frame-filigree.png");
+	border-image-slice: 142 0 0 142 fill;
+	border-image-width: 7.8888888889rem 0 0 7.8888888889rem;
+	fxs-border-image-tint: rgba(254, 254, 254, 0.35);
+}
+@media (max-height: 55.5555555556rem) {
+	.menu-border {
+		top: 0.8888888889rem;
+		width: 100%;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.menu-border-left {
+		left: 0.8888888889rem;
+	}
+}
+
+@media (max-height: 55.5555555556rem) {
+	.menu-border-right {
+		right: 0.8888888889rem;
+	}
+}
+
+.main-menu__notification-badge {
+	background-image: radial-gradient(circle at 50% 50%, #c00000 0rem, #c00000 0.5555555556rem, #f0bc78 0.6111111111rem, #f0bc78 0.6666666667rem, transparent 0.7222222222rem, transparent 0.8888888889rem), url("fs://game/fxt_very_soft_circle_Red.png");
+}
+
+.main-menu__profile-header-container {
+	top: 3.3333333333rem;
+	right: 3.3333333333rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.main-menu__profile-header-container {
+		top: 1.6666666667rem;
+		right: 2.7777777778rem;
+	}
+}

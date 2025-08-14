@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MEMENTO_FRIEDRICH_BAROQUE_FLUTE_NAME">
+			<Text>Flute</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_FRIEDRICH_BAROQUE_FLUTE_DESCRIPTION">
+			<Text>Carefree melodies.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_FRIEDRICH_BAROQUE_FLUTE_FUNCTIONAL_DESCRIPTION">
+			<Text>+1 [icon:YIELD_CULTURE]Culture per Age on Military Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_FRIEDRICH_BAROQUE_VOLTAIRE_EDITS_NAME">
+			<Text>Voltaire's Edits</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_FRIEDRICH_BAROQUE_VOLTAIRE_EDITS_DESCRIPTION">
+			<Text>To hold a pen is to be at war.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_FRIEDRICH_BAROQUE_VOLTAIRE_EDITS_FUNCTIONAL_DESCRIPTION">
+			<Text>Gain 50 [icon:YIELD_CULTURE]Culture when you spend an Attribute Point on the Cultural Attribute tree.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_FRIEDRICH_BAROQUE_ANTI_MACHIAVEL_NAME">
+			<Text>Anti-Machiavel</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_FRIEDRICH_BAROQUE_ANTI_MACHIAVEL_DESCRIPTION">
+			<Text>The capacity to do good.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_FRIEDRICH_BAROQUE_ANTI_MACHIAVEL_FUNCTIONAL_DESCRIPTION">
+			<Text>+2 free War Support on all wars declared against you.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_XERXES_ACHAEMENID_INCENSE_CENSER_NAME">
+			<Text>Incense Censer</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_XERXES_ACHAEMENID_INCENSE_CENSER_DESCRIPTION">
+			<Text>Divine intermediary.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_XERXES_ACHAEMENID_INCENSE_CENSER_FUNCTIONAL_DESCRIPTION">
+			<Text>+2 [icon:YIELD_CULTURE]Culture per Age for every active Trade Route.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_XERXES_ACHAEMENID_GOLD_FLUTED_PHIALE_NAME">
+			<Text>Gold Fluted Phiale</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_XERXES_ACHAEMENID_GOLD_FLUTED_PHIALE_DESCRIPTION">
+			<Text>Lobed bowl, regal gift.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_XERXES_ACHAEMENID_GOLD_FLUTED_PHIALE_FUNCTIONAL_DESCRIPTION">
+			<Text>+1 Trade Route Limit with all other Leaders.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_XERXES_ACHAEMENID_CHALCEDONY_SEAL_NAME">
+			<Text>Chalcedony Seal</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_XERXES_ACHAEMENID_CHALCEDONY_SEAL_DESCRIPTION">
+			<Text>Carved depiction of a great king.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_XERXES_ACHAEMENID_CHALCEDONY_SEAL_FUNCTIONAL_DESCRIPTION">
+			<Text>+1 [icon:YIELD_CULTURE]Culture and [icon:YIELD_GOLD]Gold on Unique Buildings and Improvements.</Text>
+		</Row>
+
+		<Row Tag="LOC_MEMENTO_FRIEDRICH_BAROQUE_FLUTE_UNLOCK_TITLE">
+			<Text>Unlock at Friedrich, Baroque level 2</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_FRIEDRICH_BAROQUE_VOLTAIRE_EDITS_UNLOCK_TITLE">
+			<Text>Unlock at Friedrich, Baroque level 5</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_FRIEDRICH_BAROQUE_ANTI_MACHIAVEL_UNLOCK_TITLE">
+			<Text>Unlock at Friedrich, Baroque level 9</Text>
+		</Row>
+
+		<Row Tag="LOC_MEMENTO_XERXES_ACHAEMENID_INCENSE_CENSER_UNLOCK_TITLE">
+			<Text>Unlock at Xerxes, the Achaemenid level 2</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_XERXES_ACHAEMENID_GOLD_FLUTED_PHIALE_UNLOCK_TITLE">
+			<Text>Unlock at Xerxes, the Achaemenid level 5</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_XERXES_ACHAEMENID_CHALCEDONY_SEAL_UNLOCK_TITLE">
+			<Text>Unlock at Xerxes, the Achaemenid level 9</Text>
+		</Row>
+	</EnglishText>
+</Database>

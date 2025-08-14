@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--NEPAL-->
+		<Row Tag="LOC_CITY_NAME_NEPAL1">
+			<Text>Kathmandu</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL2">
+			<Text>Pokhara</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL3">
+			<Text>Lalitpur</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL4">
+			<Text>Bharatpur</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL5">
+			<Text>Gahawa</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL6">
+			<Text>Dharan</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL7">
+			<Text>Hetauda</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL8">
+			<Text>Birendranagar</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL9">
+			<Text>Itahari</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL10">
+			<Text>Janakpurdham</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL11">
+			<Text>Jumla</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL12">
+			<Text>Biratnagar</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL13">
+			<Text>Tulsipur</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL14">
+			<Text>Butwal</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL15">
+			<Text>Godawari</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL16">
+			<Text>Nepalgunj</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL17">
+			<Text>Gorahi</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL18">
+			<Text>Lumbini</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL19">
+			<Text>Nagarkot</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL20">
+			<Text>Dhulikhel</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL21">
+			<Text>Kalaiya</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL22">
+			<Text>Damak</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL23">
+			<Text>Mustang</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL24">
+			<Text>Gaighat</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL25">
+			<Text>Birgunj</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL26">
+			<Text>Sankhu</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL27">
+			<Text>Dhangadhi</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL28">
+			<Text>Inarwasira</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL29">
+			<Text>Amlekhganj</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_NEPAL30">
+			<Text>Tarakeshwar</Text>
+		</Row>
+	</EnglishText>
+</Database>

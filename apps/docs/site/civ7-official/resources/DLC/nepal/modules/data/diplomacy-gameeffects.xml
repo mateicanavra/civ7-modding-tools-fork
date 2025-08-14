@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="PLAYER_DIPLOMACY_GIFT_GURKHA_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_COOPERATIVE_ATTACH_MODIFIER">
+		<String context="Name">LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_NAME</String>
+		<Argument name="InitialPlayerAccept">PLAYER_DIPLOMACY_GIFT_GURKHA_INITIAL_PLAYER_ACCEPT</Argument>
+		<Argument name="TargetPlayerAccept">PLAYER_DIPLOMACY_GIFT_GURKHA_TARGET_PLAYER_ACCEPT</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_GIFT_GURKHA_INITIAL_PLAYER_ACCEPT" collection="COLLECTION_OWNER" effect="EFFECT_DAE_GRANT_YIELD_PER_RELATIONSHIP">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">5</Argument>
+		<Argument name="AdjustByGameSpeed">true</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_GIFT_GURKHA_TARGET_PLAYER_ACCEPT" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_ATTACH_MODIFIERS">
+		<Argument name="ModifierId">ATTACH_GIFT_GURKHA, ATTACH_GIFT_GURKHA_2, ATTACH_GIFT_GURKHA_3</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_GIFT_GURKHA" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_UNIT" run-once="true" permanent="true">
+		<SubjectRequirements>
+			<Requirement inverse="true" type="REQUIREMENT_PLAYER_HAS_COMPLETED_PROGRESSION_TREE_NODE">
+				<Argument name="ProgressionTreeNodeType">NODE_TECH_MO_INDUSTRIALIZATION</Argument>
+				<Argument name="MinDepth">1</Argument>
+			</Requirement>
+			<Requirement inverse="true" type="REQUIREMENT_PLAYER_HAS_COMPLETED_PROGRESSION_TREE_NODE">
+				<Argument name="ProgressionTreeNodeType">NODE_TECH_MO_ARMOR</Argument>
+				<Argument name="MinDepth">1</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="UnitType">UNIT_GURKHA</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_GIFT_GURKHA_2" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_UNIT" run-once="true" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_PROGRESSION_TREE_NODE">
+				<Argument name="ProgressionTreeNodeType">NODE_TECH_MO_INDUSTRIALIZATION</Argument>
+				<Argument name="MinDepth">1</Argument>
+			</Requirement>
+			<Requirement inverse="true" type="REQUIREMENT_PLAYER_HAS_COMPLETED_PROGRESSION_TREE_NODE">
+				<Argument name="ProgressionTreeNodeType">NODE_TECH_MO_ARMOR</Argument>
+				<Argument name="MinDepth">1</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="UnitType">UNIT_GURKHA_2</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_GIFT_GURKHA_3" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_UNIT" run-once="true" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_PROGRESSION_TREE_NODE">
+				<Argument name="ProgressionTreeNodeType">NODE_TECH_MO_ARMOR</Argument>
+				<Argument name="MinDepth">1</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="UnitType">UNIT_GURKHA_3</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+</GameEffects>

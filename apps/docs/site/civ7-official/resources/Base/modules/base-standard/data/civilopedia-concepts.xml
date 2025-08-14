@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<CivilopediaPageLayouts>
+		<Row PageLayoutID="CONCEPTS_STATEHOOD_2" UseSidebar="false"/>
+		<Row PageLayoutID="CONCEPTS_STATEHOOD_3" UseSidebar="false"/>
+		<Row PageLayoutID="CONCEPTS_CITYCAPTURE_1" UseSidebar="false"/>
+		<Row PageLayoutID="CONCEPTS_REPAIR_1" UseSidebar="false"/>
+		<Row PageLayoutID="CONCEPTS_AGENDA_1" UseSidebar="false"/>
+		<Row PageLayoutID="CONCEPTS_UNHAPPINESS_1" UseSidebar="false"/>
+		<Row PageLayoutID="CONCEPTS_TOWN_1" UseSidebar="false"/>
+		<Row PageLayoutID="CONCEPTS_GROWTH_1" UseSidebar="false"/>
+		<Row PageLayoutID="CONCEPTS_UNITS_1" UseSidebar="false"/>
+		<Row PageLayoutID="CONCEPTS_DEFENSE_1" UseSidebar="false"/>
+		<Row PageLayoutID="CONCEPTS_LEGENDS_4" UseSidebar="false"/>
+		<Row PageLayoutID="CONCEPTS_MEMENTOS_1" UseSidebar="false"/>
+	</CivilopediaPageLayouts>
+
+	<CivilopediaPageLayoutChapters>
+		<Row PageLayoutID="CONCEPTS_STATEHOOD_2" ChapterID="CONTENT" SortIndex="10" />
+		<Row PageLayoutID="CONCEPTS_STATEHOOD_2" ChapterID="VILLAGES" SortIndex="20" />
+		<Row PageLayoutID="CONCEPTS_STATEHOOD_3" ChapterID="CONTENT" SortIndex="10" />
+		<Row PageLayoutID="CONCEPTS_STATEHOOD_3" ChapterID="CITYSTATES" SortIndex="20" />
+		<Row PageLayoutID="CONCEPTS_CITYCAPTURE_1" ChapterID="CONTENT" SortIndex="10" />
+		<Row PageLayoutID="CONCEPTS_CITYCAPTURE_1" ChapterID="URBAN" SortIndex="20" />
+		<Row PageLayoutID="CONCEPTS_CITYCAPTURE_1" ChapterID="WALL" SortIndex="30" />
+		<Row PageLayoutID="CONCEPTS_REPAIR_1" ChapterID="BUILDINGREPAIR" SortIndex="10" />
+		<Row PageLayoutID="CONCEPTS_REPAIR_1" ChapterID="IMPROVEMENTREPAIR" SortIndex="20" />
+		<Row PageLayoutID="CONCEPTS_AGENDA_1" ChapterID="CONTENT" SortIndex="10" />
+		<Row PageLayoutID="CONCEPTS_AGENDA_1" ChapterID="LEADERAGENDA" SortIndex="20" />
+		<Row PageLayoutID="CONCEPTS_AGENDA_1" ChapterID="AIBIAS" SortIndex="30" />
+		<Row PageLayoutID="CONCEPTS_UNHAPPINESS_1" ChapterID="EFFECTS" SortIndex="10" />
+		<Row PageLayoutID="CONCEPTS_UNHAPPINESS_1" ChapterID="GLOBAL" SortIndex="20" />
+		<Row PageLayoutID="CONCEPTS_UNHAPPINESS_1" ChapterID="METHODS" SortIndex="30" />
+		<Row PageLayoutID="CONCEPTS_TOWN_1" ChapterID="CONTENT" SortIndex="10" />
+		<Row PageLayoutID="CONCEPTS_TOWN_1" ChapterID="FOCUS" SortIndex="20" />
+		<Row PageLayoutID="CONCEPTS_TOWN_1" ChapterID="CONNECTIVITY" SortIndex="30" />
+		<Row PageLayoutID="CONCEPTS_TOWN_1" ChapterID="RESTRICTION" SortIndex="40" />
+		<Row PageLayoutID="CONCEPTS_TOWN_1" ChapterID="BUILDINGS" SortIndex="50" />
+		<Row PageLayoutID="CONCEPTS_TOWN_1" ChapterID="UPGRADING" SortIndex="60" />
+		<Row PageLayoutID="CONCEPTS_GROWTH_1" ChapterID="CONTENT" SortIndex="10" />
+		<Row PageLayoutID="CONCEPTS_GROWTH_1" ChapterID="BORDER" SortIndex="20" />
+		<Row PageLayoutID="CONCEPTS_GROWTH_1" ChapterID="POP" SortIndex="30" />
+		<Row PageLayoutID="CONCEPTS_UNITS_1" ChapterID="MILITARY" SortIndex="10" />
+		<Row PageLayoutID="CONCEPTS_UNITS_1" ChapterID="SUPPORT" SortIndex="20" />
+		<Row PageLayoutID="CONCEPTS_UNITS_1" ChapterID="CIVILIAN" SortIndex="30" />
+		<Row PageLayoutID="CONCEPTS_DEFENSE_1" ChapterID="STATIONED" SortIndex="10" />
+		<Row PageLayoutID="CONCEPTS_DEFENSE_1" ChapterID="GARRISONED" SortIndex="20" />
+		<Row PageLayoutID="CONCEPTS_LEGENDS_4" ChapterID="BASICS" SortIndex="10" />
+		<Row PageLayoutID="CONCEPTS_LEGENDS_4" ChapterID="FOUNDATION" SortIndex="20" />
+		<Row PageLayoutID="CONCEPTS_LEGENDS_4" ChapterID="LEADER" SortIndex="30" />
+		<Row PageLayoutID="CONCEPTS_MEMENTOS_1" ChapterID="BASICS" SortIndex="10" />
+		<Row PageLayoutID="CONCEPTS_MEMENTOS_1" ChapterID="UNLOCK" SortIndex="20" />
+		<Row PageLayoutID="CONCEPTS_MEMENTOS_1" ChapterID="STRAT" SortIndex="30" />
+	</CivilopediaPageLayoutChapters>
+
+	<CivilopediaPages>
+		<Row SectionID="CONCEPTS" PageID="AGES_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_AGES_1_TITLE" SortIndex="1" />
+		<Row SectionID="CONCEPTS" PageID="ATTRIBUTE_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_ATTRIBUTE_1_TITLE" SortIndex="2" />
+		<Row SectionID="CONCEPTS" PageID="ARMY_1" PageGroupID="ARMY" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_ARMY_1_TITLE" SortIndex="30" />
+		<Row SectionID="CONCEPTS" PageID="ARMY_2" PageGroupID="ARMY" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_ARMY_2_TITLE" SortIndex="40" />
+		<Row SectionID="CONCEPTS" PageID="ARMY_3" PageGroupID="ARMY" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_ARMY_3_TITLE" SortIndex="50" />
+		<Row SectionID="CONCEPTS" PageID="ARMY_4" PageGroupID="ARMY" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_ARMY_4_TITLE" SortIndex="60" />
+		<Row SectionID="CONCEPTS" PageID="ARMY_5" PageGroupID="ARMY" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_ARMY_5_TITLE" SortIndex="70" />
+		<Row SectionID="CONCEPTS" PageID="ARMY_6" PageGroupID="ARMY" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_ARMY_6_TITLE" SortIndex="80" />
+		<Row SectionID="CONCEPTS" PageID="BUILDINGS_1" PageGroupID="BUILDINGS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_BUILDINGS_1_TITLE" SortIndex="90" />
+		<Row SectionID="CONCEPTS" PageID="BUILDINGS_2" PageGroupID="BUILDINGS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_BUILDINGS_2_TITLE" SortIndex="100" />
+		<Row SectionID="CONCEPTS" PageID="BUILDINGS_12" PageGroupID="BUILDINGS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_BUILDINGS_12_TITLE" SortIndex="105" />
+		<Row SectionID="CONCEPTS" PageID="BUILDINGS_3" PageGroupID="BUILDINGS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_BUILDINGS_3_TITLE" SortIndex="110" />
+		<Row SectionID="CONCEPTS" PageID="BUILDINGS_4" PageGroupID="BUILDINGS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_BUILDINGS_4_TITLE" SortIndex="120" />
+		<Row SectionID="CONCEPTS" PageID="BUILDINGS_5" PageGroupID="BUILDINGS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_BUILDINGS_5_TITLE" SortIndex="130" />
+		<Row SectionID="CONCEPTS" PageID="BUILDINGS_6" PageGroupID="BUILDINGS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_BUILDINGS_6_TITLE" SortIndex="140" />
+		<Row SectionID="CONCEPTS" PageID="BUILDINGS_7" PageGroupID="BUILDINGS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_BUILDINGS_7_TITLE" SortIndex="150" />
+		<Row SectionID="CONCEPTS" PageID="BUILDINGS_8" PageGroupID="BUILDINGS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_BUILDINGS_8_TITLE" SortIndex="160" />
+		<Row SectionID="CONCEPTS" PageID="BUILDINGS_9" PageGroupID="BUILDINGS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_BUILDINGS_9_TITLE" SortIndex="170" />
+		<Row SectionID="CONCEPTS" PageID="BUILDINGS_10" PageGroupID="BUILDINGS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_BUILDINGS_10_TITLE" SortIndex="180" />
+		<Row SectionID="CONCEPTS" PageID="BUILDINGS_11" PageGroupID="BUILDINGS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_BUILDINGS_11_TITLE" SortIndex="181" />
+		<Row SectionID="CONCEPTS" PageID="TILES_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_TILES_1_TITLE" SortIndex="190" />
+		<Row SectionID="CONCEPTS" PageID="REPAIR_1" PageGroupID="CONCEPTS" PageLayoutID="CONCEPTS_REPAIR_1" Name="LOC_PEDIA_CONCEPTS_PAGE_REPAIR_1_TITLE" SortIndex="200" />
+		<Row SectionID="CONCEPTS" PageID="CODEX_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_CODEX_1_TITLE" SortIndex="210" />
+		<Row SectionID="CONCEPTS" PageID="COMBAT_1" PageGroupID="COMBAT" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_COMBAT_1_TITLE" SortIndex="220" />
+		<Row SectionID="CONCEPTS" PageID="COMBAT_2" PageGroupID="COMBAT" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_COMBAT_2_TITLE" SortIndex="230" />
+		<Row SectionID="CONCEPTS" PageID="COMBAT_3" PageGroupID="COMBAT" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_COMBAT_3_TITLE" SortIndex="231" />
+		<Row SectionID="CONCEPTS" PageID="COMBAT_4" PageGroupID="COMBAT" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_COMBAT_4_TITLE" SortIndex="241" />
+		<Row SectionID="CONCEPTS" PageID="COMBAT_9" PageGroupID="COMBAT" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_COMBAT_9_TITLE" SortIndex="240" />
+		<Row SectionID="CONCEPTS" PageID="COMBAT_5" PageGroupID="COMBAT" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_COMBAT_5_TITLE" SortIndex="242" />
+		<Row SectionID="CONCEPTS" PageID="COMBAT_10" PageGroupID="COMBAT" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_COMBAT_10_TITLE" SortIndex="243" />
+		<Row SectionID="CONCEPTS" PageID="COMBAT_6" PageGroupID="COMBAT" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_COMBAT_6_TITLE" SortIndex="244" />
+		<Row SectionID="CONCEPTS" PageID="COMBAT_7" PageGroupID="COMBAT" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_COMBAT_7_TITLE" SortIndex="245" />
+		<Row SectionID="CONCEPTS" PageID="COMBAT_8" PageGroupID="COMBAT" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_COMBAT_8_TITLE" SortIndex="246" />
+		<Row SectionID="CONCEPTS" PageID="CITYCAPTURE_1" PageGroupID="COMBAT" PageLayoutID="CONCEPTS_CITYCAPTURE_1" Name="LOC_PEDIA_CONCEPTS_PAGE_CITYCAPTURE_1_TITLE" SortIndex="250" />
+		<Row SectionID="CONCEPTS" PageID="RAZING_1" PageGroupID="COMBAT" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_RAZING_1_TITLE" SortIndex="260" />
+		<Row SectionID="CONCEPTS" PageID="RAZING_2" PageGroupID="COMBAT" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_RAZING_2_TITLE" SortIndex="261" />
+		<Row SectionID="CONCEPTS" PageID="UNITS_1" PageGroupID="COMBAT" PageLayoutID="CONCEPTS_UNITS_1" Name="LOC_PEDIA_CONCEPTS_PAGE_UNITS_1_TITLE" SortIndex="270" />
+		<Row SectionID="CONCEPTS" PageID="DEFENSE_1" PageGroupID="COMBAT" PageLayoutID="CONCEPTS_DEFENSE_1" Name="LOC_PEDIA_CONCEPTS_PAGE_DEFENSE_1_TITLE" SortIndex="280" />
+		<Row SectionID="CONCEPTS" PageID="PILLAGING_1" PageGroupID="COMBAT" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_PILLAGING_1_TITLE" SortIndex="290" />
+		<Row SectionID="CONCEPTS" PageID="DIPLOMACY_1" PageGroupID="DIPLOMACY" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_DIPLOMACY_1_TITLE" SortIndex="300" />
+		<Row SectionID="CONCEPTS" PageID="DIPLOMACY_2" PageGroupID="DIPLOMACY" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_DIPLOMACY_2_TITLE" SortIndex="310" />
+		<Row SectionID="CONCEPTS" PageID="DIPLOMACY_3" PageGroupID="DIPLOMACY" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_DIPLOMACY_3_TITLE" SortIndex="320" />
+		<Row SectionID="CONCEPTS" PageID="DIPLOMACY_4" PageGroupID="DIPLOMACY" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_DIPLOMACY_4_TITLE" SortIndex="330" />
+		<Row SectionID="CONCEPTS" PageID="DIPLOMACY_5" PageGroupID="DIPLOMACY" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_DIPLOMACY_5_TITLE" SortIndex="340" />
+		<Row SectionID="CONCEPTS" PageID="DIPLOMACY_6" PageGroupID="DIPLOMACY" PageLayoutID="CONCEPTS_AGENDA_1" Name="LOC_PEDIA_CONCEPTS_PAGE_DIPLOMACY_6_TITLE" SortIndex="350" />
+		<Row SectionID="CONCEPTS" PageID="STATEHOOD_1" PageGroupID="STATEHOOD" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_STATEHOOD_1_TITLE" SortIndex="360" />
+		<Row SectionID="CONCEPTS" PageID="STATEHOOD_2" PageGroupID="STATEHOOD" PageLayoutID="CONCEPTS_STATEHOOD_2" Name="LOC_PEDIA_CONCEPTS_PAGE_STATEHOOD_2_TITLE" SortIndex="370" />
+		<Row SectionID="CONCEPTS" PageID="STATEHOOD_3" PageGroupID="STATEHOOD" PageLayoutID="CONCEPTS_STATEHOOD_3" Name="LOC_PEDIA_CONCEPTS_PAGE_STATEHOOD_3_TITLE" SortIndex="380" />
+		<Row SectionID="CONCEPTS" PageID="WARWEARINESS_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_WARWEARINESS_1_TITLE" SortIndex="390" />
+		<Row SectionID="CONCEPTS" PageID="WONDERS_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_WONDERS_1_TITLE" SortIndex="400" />
+		<Row SectionID="CONCEPTS" PageID="NATURALWONDER_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_NATURALWONDER_1_TITLE" SortIndex="410" />
+		<Row SectionID="CONCEPTS" PageID="DISCOVERIES_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_DISCOVERIES_1_TITLE" SortIndex="415" />
+		<Row SectionID="CONCEPTS" PageID="DISTANTLAND_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_DISTANTLAND_1_TITLE" SortIndex="420" />
+		<Row SectionID="CONCEPTS" PageID="DISASTER_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_DISASTER_1_TITLE" SortIndex="430" />
+		<Row SectionID="CONCEPTS" PageID="DISASTER_2" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_DISASTER_2_TITLE" SortIndex="440" />
+		<Row SectionID="CONCEPTS" PageID="PANTHEON_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_PANTHEON_1_TITLE" SortIndex="450" />
+		<Row SectionID="CONCEPTS" PageID="GOVERNMENT_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_GOVERNMENT_1_TITLE" SortIndex="460" />
+		<Row SectionID="CONCEPTS" PageID="IMPROVEMENT_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_IMPROVEMENT_1_TITLE" SortIndex="480" />
+		<Row SectionID="CONCEPTS" PageID="RESOURCES_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_RESOURCES_1_TITLE" SortIndex="481" />
+		<Row SectionID="CONCEPTS" PageID="HAPPINESS_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_HAPPINESS_1_TITLE" SortIndex="490" />
+		<Row SectionID="CONCEPTS" PageID="UNHAPPINESS_1" PageGroupID="CONCEPTS" PageLayoutID="CONCEPTS_UNHAPPINESS_1" Name="LOC_PEDIA_CONCEPTS_PAGE_UNHAPPINESS_1_TITLE" SortIndex="500" />
+		<Row SectionID="CONCEPTS" PageID="CELEBRATION_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_CELEBRATION_1_TITLE" SortIndex="510" />
+		<Row SectionID="CONCEPTS" PageID="CITY_1" PageGroupID="SETTLEMENTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_CITY_1_TITLE" SortIndex="520" />
+		<Row SectionID="CONCEPTS" PageID="TOWN_1" PageGroupID="SETTLEMENTS" PageLayoutID="CONCEPTS_TOWN_1" Name="LOC_PEDIA_CONCEPTS_PAGE_TOWN_1_TITLE" SortIndex="530" />
+		<Row SectionID="CONCEPTS" PageID="TOWN_2" PageGroupID="SETTLEMENTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_TOWN_2_TITLE" SortIndex="540" />
+		<Row SectionID="CONCEPTS" PageID="TOWN_3" PageGroupID="SETTLEMENTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_TOWN_3_TITLE" SortIndex="541" />
+		<Row SectionID="CONCEPTS" PageID="TOWN_4" PageGroupID="SETTLEMENTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_TOWN_4_TITLE" SortIndex="542" />
+		<Row SectionID="CONCEPTS" PageID="TOWN_5" PageGroupID="SETTLEMENTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_TOWN_5_TITLE" SortIndex="543" />
+		<Row SectionID="CONCEPTS" PageID="TOWN_6" PageGroupID="SETTLEMENTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_TOWN_6_TITLE" SortIndex="544" />
+		<Row SectionID="CONCEPTS" PageID="TOWN_7" PageGroupID="SETTLEMENTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_TOWN_7_TITLE" SortIndex="545" />
+		<Row SectionID="CONCEPTS" PageID="TOWN_8" PageGroupID="SETTLEMENTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_TOWN_8_TITLE" SortIndex="546" />
+		<Row SectionID="CONCEPTS" PageID="TOWN_9" PageGroupID="SETTLEMENTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_TOWN_9_TITLE" SortIndex="547" />
+		<Row SectionID="CONCEPTS" PageID="MERCHANTS_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_MERCHANTS_1_TITLE" SortIndex="550" />
+		<Row SectionID="CONCEPTS" PageID="CAP_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_CAP_1_TITLE" SortIndex="560" />
+		<Row SectionID="CONCEPTS" PageID="PRODUCTION_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_PRODUCTION_1_TITLE" SortIndex="570" />
+		<Row SectionID="CONCEPTS" PageID="FOOD_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_FOOD_1_TITLE" SortIndex="580" />
+		<Row SectionID="CONCEPTS" PageID="GOLD_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_GOLD_1_TITLE" SortIndex="590" />
+		<Row SectionID="CONCEPTS" PageID="GROWTH_1" PageGroupID="CONCEPTS" PageLayoutID="CONCEPTS_GROWTH_1" Name="LOC_PEDIA_CONCEPTS_PAGE_GROWTH_1_TITLE" SortIndex="600" />
+		<Row SectionID="CONCEPTS" PageID="CONSTRUCTIBLES_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_CONSTRUCTIBLES_1_TITLE" SortIndex="610" />
+		<Row SectionID="CONCEPTS" PageID="WALLS_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_WALLS_1_TITLE" SortIndex="620" />
+		<Row SectionID="CONCEPTS" PageID="SETTLERS_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_SETTLERS_1_TITLE" SortIndex="630" />
+		<Row SectionID="CONCEPTS" PageID="POLICIES_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_POLICIES_1_TITLE" SortIndex="640" />
+		<Row SectionID="CONCEPTS" PageID="POLICIES_2" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_POLICIES_2_TITLE" SortIndex="650" />
+		<Row SectionID="CONCEPTS" PageID="DIPLO_1" PageGroupID="DIPLOMACY" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_DIPLO_1_TITLE" SortIndex="660" />
+		<Row SectionID="CONCEPTS" PageID="DIPLO_2" PageGroupID="DIPLOMACY" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_DIPLO_2_TITLE" SortIndex="670" />
+		<Row SectionID="CONCEPTS" PageID="DIPLO_5" PageGroupID="DIPLOMACY" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_DIPLO_5_TITLE" SortIndex="671" />
+		<Row SectionID="CONCEPTS" PageID="DIPLO_3" PageGroupID="DIPLOMACY" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_DIPLO_3_TITLE" SortIndex="675" />
+		<Row SectionID="CONCEPTS" PageID="DIPLO_4" PageGroupID="DIPLOMACY" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_DIPLO_4_TITLE" SortIndex="676" />
+		<Row SectionID="CONCEPTS" PageID="BIOME_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_BIOME_1_TITLE" SortIndex="680" />
+		<Row SectionID="CONCEPTS" PageID="BIOME_2" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_BIOME_2_TITLE" SortIndex="690" />
+		<Row SectionID="CONCEPTS" PageID="TECH_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_TECH_1_TITLE" SortIndex="700" />
+		<Row SectionID="CONCEPTS" PageID="CIVIC_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_CIVIC_1_TITLE" SortIndex="710" />
+		<Row SectionID="CONCEPTS" PageID="MASTERIES_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_MASTERIES_1_TITLE" SortIndex="720" />
+		<Row SectionID="CONCEPTS" PageID="SPECIALIST_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_SPECIALIST_1_TITLE" SortIndex="730" />
+		<Row SectionID="CONCEPTS" PageID="OCEAN_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_OCEAN_1_TITLE" SortIndex="740" />
+		<Row SectionID="CONCEPTS" PageID="ROAD_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_ROAD_1_TITLE" SortIndex="745" />
+		<Row SectionID="CONCEPTS" PageID="RAILROAD_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_RAILROAD_1_TITLE" SortIndex="750" />
+		<Row SectionID="CONCEPTS" PageID="RELIGION_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_RELIGION_1_TITLE" SortIndex="760" />
+		<Row SectionID="CONCEPTS" PageID="RELIGION_2" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_RELIGION_2_TITLE" SortIndex="761" />
+		<Row SectionID="CONCEPTS" PageID="BANKRUPTCY_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_BANKRUPTCY_1_TITLE" SortIndex="770" />
+		<Row SectionID="CONCEPTS" PageID="CONNECTED_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_CONNECTED_1_TITLE" SortIndex="780" />
+		<Row SectionID="CONCEPTS" PageID="ONEMORE_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_ONEMORE_1_TITLE" SortIndex="781" />
+		<Row SectionID="CONCEPTS" PageID="TURNEND_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_TURNEND_1_TITLE" SortIndex="999" />
+		<Row SectionID="CONCEPTS" PageID="TEAMPLAY_1" PageGroupID="CONCEPTS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_TEAMPLAY_1_TITLE" SortIndex="800" />
+		<Row SectionID="CONCEPTS" PageID="LEGENDS_1" PageGroupID="LEGENDS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_LEGENDS_1_TITLE" SortIndex="810" />
+		<Row SectionID="CONCEPTS" PageID="LEGENDS_2" PageGroupID="LEGENDS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_LEGENDS_2_TITLE" SortIndex="820" />
+		<Row SectionID="CONCEPTS" PageID="LEGENDS_3" PageGroupID="LEGENDS" PageLayoutID="Concept" Name="LOC_PEDIA_CONCEPTS_PAGE_LEGENDS_3_TITLE" SortIndex="830" />
+		<Row SectionID="CONCEPTS" PageID="LEGENDS_4" PageGroupID="LEGENDS" PageLayoutID="CONCEPTS_LEGENDS_4" Name="LOC_PEDIA_CONCEPTS_PAGE_LEGENDS_4_TITLE" SortIndex="840" />
+		<Row SectionID="CONCEPTS" PageID="LEGENDS_5" PageGroupID="LEGENDS" PageLayoutID="CONCEPTS_MEMENTOS_1" Name="LOC_PEDIA_CONCEPTS_PAGE_LEGENDS_5_TITLE" SortIndex="850" />
+		<Row SectionID="IMPROVEMENTS" PageID="ROUTE_STAATSEISENBAHN" Name="LOC_ROUTE_STAATSEISENBAHN_NAME" PageLayoutID="Improvement" SortIndex="30" />
+	</CivilopediaPages>
+
+	<CivilopediaPageChapterParagraphs>
+		<Row SectionID="IMPROVEMENTS" PageID="ROUTE_STAATSEISENBAHN" ChapterID="SUMMARY" Paragraph="LOC_ROUTE_STAATSEISENBAHN_DESCRIPTION" />
+	</CivilopediaPageChapterParagraphs>
+</Database>
+	

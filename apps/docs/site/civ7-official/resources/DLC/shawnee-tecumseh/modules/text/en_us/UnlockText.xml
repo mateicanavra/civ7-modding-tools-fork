@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_MISSISSIPPI_SHAWNEE_DESCRIPTION">
+			<Text>The [B]Mississippians [/B] were a contemporary of the [B]Shawnee's [/B] ancestors.</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_TECUMSEH_MISSISSIPPIAN_TOOLTIP">
+			<Text>[B]Tecumseh's[/B] ancestors were neighbors to the [B]Mississippians.[/B]</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_TECUMSEH_DESCRIPTION">
+			<Text>Play as [B]Tecumseh[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_TECUMSEH_TOOLTIP">
+			<Text>[B]Tecumseh[/B] led the [B]Shawnee[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_TECUMSEH_AMERICA_TOOLTIP">
+			<Text>[B]Tecumseh[/B] lived in lands later occupied by [B]America[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_TECUMSEH_MEXICO_TOOLTIP">
+			<Text>[B]Tecumseh[/B] was from North America.</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_TECUMSEH_HAWAII_TOOLTIP">
+			<Text>
+				[B]Tecumseh[/B] was an indigenous person in the Americas.</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_SHAWNEE_DESCRIPTION">
+			<Text>Play as the [B]Shawnee[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_SHAWNEE_MEXICO_TOOLTIP">
+			<Text>The [B]Shawnee [/B] are from the same continent as [B]Mexico[/b].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_SHAWNEE_AMERICA_TOOLTIP">
+			<Text>The [B]Shawnee [/B] are from the same continent as [B]Mexico[/b].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_HIDES_DESCRIPTION">
+			<Text>Improve 3 [B]Hides[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_HIDES_TOOLTIP">
+			<Text>[B]Hides[/B] were an important commodity to the [B]Shawnee[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_HIDES_NARRATIVE">
+			<Text>The forest trappers enter the city at dawn, burdened by the tanned and stretched hides they intend for the market. They are met, sometimes even outside the gates, by merchants eager for trade - hides have become vital to the {1_Civilization_Adj} economy... as have their procurers. </Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_HIDES_UNLOCK">
+			<Text>You have unlocked Shawnee by improving 3 Hides Resources.</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_CITY_STATES_DESCRIPTION">
+			<Text>Be [B]Suzerain[/B] of 2 [B]City-States[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_CITY_STATES_TOOLTIP">
+			<Text>The [B]Shawnee [/B] were friends with many smaller nations.</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_CITY_STATES_NARRATIVE">
+			<Text>Power in {1_Civilization_Adj} lands emerges not only from the palace, but from the network of diplomatic alliances that converge there. The teachings of the prophet Tenskwatawa have begun to circulate among some that move between the city-states and {1_Civilization_Adj} cities; a lesson of unity in the face of change.</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_CITY_STATES_UNLOCK">
+			<Text>You have unlocked Shawnee by becoming the Suzerain of 2 City-States.</Text>
+		</Row>
+	</EnglishText>
+</Database>

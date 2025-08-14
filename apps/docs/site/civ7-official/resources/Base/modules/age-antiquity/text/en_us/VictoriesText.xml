@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_VICTORY_OPPONENT_PLACEMENT">
+			<Text>{1_opponentName} has placed 1st in:</Text>
+		</Row>
+		<Row Tag="LOC_VICTORY_NUMBER_REMAINING">
+			<Text>{1_numberVictories} {1_numberVictories: plural 1?Victory remains; other?Victories remain;} until Age End Countdown begins.</Text>
+		</Row>
+		<Row Tag="LOC_VICTORY_TURNS_REDUCED">
+			<Text>The Remaining Turns have been reduced.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_CULTURE_NAME">
+			<Text>Wonders of the Ancient World</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_CULTURE_DESCRIPTION">
+			<Text>Build 7 World Wonders.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_CULTURE_VICTORY_TEXT">
+			<Text>Congratulations, you won a Culture Victory!</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_MILITARY_NAME">
+			<Text>Pax Imperatoria</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_MILITARY_DESCRIPTION">
+			<Text>Have 12 Towns or Cities in your empire. Conquered Settlements count as 2.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_MILITARY_VICTORY_TEXT">
+			<Text>Congratulations, you won a Military Victory!</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME">
+			<Text>Great Library</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_DESCRIPTION">
+			<Text>Display 10 Codices in your empire.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_VICTORY_TEXT">
+			<Text>Congratulations, you won a Science Victory!</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_ECONOMIC_NAME">
+			<Text>Silk Roads</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_ECONOMIC_DESCRIPTION">
+			<Text>Assign 20 Resources to your Settlements.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_ANTIQUITY_ECONOMIC_VICTORY_TEXT">
+			<Text>Congratulations, you won an Economic Victory!</Text>
+		</Row>
+		<!-- Unlocks -->
+		<Row Tag="LOC_VICTORY_UNLOCK_ANTIQUITY_MILITARY_NAME">
+			<Text>Militaristic Victory</Text>
+		</Row>
+		<Row Tag="LOC_VICTORY_UNLOCK_ANTIQUITY_CULTURE_NAME">
+			<Text>Cultural Victory</Text>
+		</Row>
+		<Row Tag="LOC_VICTORY_UNLOCK_ANTIQUITY_ECONOMIC_NAME">
+			<Text>Economic Victory</Text>
+		</Row>
+		<Row Tag="LOC_VICTORY_UNLOCK_ANTIQUITY_SCIENCE_NAME">
+			<Text>Scientific Victory</Text>
+		</Row>
+		<Row Tag="LOC_DARK_AGE_UNLOCK_ANTIQUITY_NAME">
+			<Text>Dark Age</Text>
+		</Row>
+		<Row Tag="LOC_VICTORY_UNLOCK_ANTIQUITY_MILITARY_DESCRIPTION">
+			<Text>[WIP]Unlock special Militaristic Victory cards in the [B]Exploration [/B]Age!</Text>
+		</Row>
+		<Row Tag="LOC_VICTORY_UNLOCK_ANTIQUITY_CULTURE_DESCRIPTION">
+			<Text>[WIP]Unlock special Cultural Victory cards in the [B]Exploration [/B]Age!</Text>
+		</Row>
+		<Row Tag="LOC_VICTORY_UNLOCK_ANTIQUITY_ECONOMIC_DESCRIPTION">
+			<Text>[WIP]Unlock special Economic Victory cards in the [B]Exploration [/B]Age!</Text>
+		</Row>
+		<Row Tag="LOC_VICTORY_UNLOCK_ANTIQUITY_SCIENCE_DESCRIPTION">
+			<Text>[WIP]Unlock special Scientific Victory cards in the [B]Exploration [/B]Age!</Text>
+		</Row>
+		<Row Tag="LOC_DARK_AGE_UNLOCK_ANTIQUITY_DESCRIPTION">
+			<Text>[WIP]Unlock special Dark Age cards in the [B]Exploration [/B]Age!</Text>
+		</Row>
+		<Row Tag="LOC_VICTORY_REQUNLOCK_ANTIQUITY_MILITARY_DESCRIPTION">
+			<Text>Win the [B]Pax Imperatoria [/B] Victory</Text>
+		</Row>
+		<Row Tag="LOC_SECOND_REQUNLOCK_ANTIQUITY_MILITARY_DESCRIPTION">
+			<Text>Achieve at least second place in the [B]Pax Imperatoria [/B] Victory</Text>
+		</Row>
+		<Row Tag="LOC_THIRD_REQUNLOCK_ANTIQUITY_MILITARY_DESCRIPTION">
+			<Text>Achieve at least third place in the [B]Pax Imperatoria [/B] Victory</Text>
+		</Row>
+		<Row Tag="LOC_VICTORY_REQUNLOCK_ANTIQUITY_CULTURE_DESCRIPTION">
+			<Text>Win the [B]Wonders of the Ancient World [/B] Victory</Text>
+		</Row>
+		<Row Tag="LOC_SECOND_REQUNLOCK_ANTIQUITY_CULTURE_DESCRIPTION">
+			<Text>Achieve at least second place in the [B]Wonders of the Ancient World [/B] Victory</Text>
+		</Row>
+		<Row Tag="LOC_THIRD_REQUNLOCK_ANTIQUITY_CULTURE_DESCRIPTION">
+			<Text>Achieve at least third place in the [B]Wonders of the Ancient World [/B] Victory</Text>
+		</Row>
+		<Row Tag="LOC_VICTORY_REQUNLOCK_ANTIQUITY_ECONOMIC_DESCRIPTION">
+			<Text>Win the [B]Silk Roads [/B] Victory</Text>
+		</Row>
+		<Row Tag="LOC_SECOND_REQUNLOCK_ANTIQUITY_ECONOMIC_DESCRIPTION">
+			<Text>Achieve at least second place in the [B]Silk Roads [/B] Victory</Text>
+		</Row>
+		<Row Tag="LOC_THIRD_REQUNLOCK_ANTIQUITY_ECONOMIC_DESCRIPTION">
+			<Text>Achieve at least third place in the [B]Silk Roads [/B] Victory</Text>
+		</Row>
+		<Row Tag="LOC_VICTORY_REQUNLOCK_ANTIQUITY_SCIENCE_DESCRIPTION">
+			<Text>Win the [B]Great Library [/B] Victory</Text>
+		</Row>
+		<Row Tag="LOC_SECOND_REQUNLOCK_ANTIQUITY_SCIENCE_DESCRIPTION">
+			<Text>Achieve at least second place in the [B]Great Library [/B] Victory</Text>
+		</Row>
+		<Row Tag="LOC_THIRD_REQUNLOCK_ANTIQUITY_SCIENCE_DESCRIPTION">
+			<Text>Achieve at least third place in the [B]Great Library [/B] Victory</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_BELIEF_BONUS_15_DESCRIPTION">
+			<Text>Have the Interfaith Dialogue Belief</Text>
+		</Row>
+	</EnglishText>
+</Database>

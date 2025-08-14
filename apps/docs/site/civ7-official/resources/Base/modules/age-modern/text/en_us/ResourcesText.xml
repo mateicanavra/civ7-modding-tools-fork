@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Antiquity Resource Tooltips-->
+		<Row Tag="LOC_ANT_RESOURCE_COTTON_TOOLTIP">
+			<Text>+5%[icon:YIELD_PRODUCTION] Production towards training Land Units.</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_FISH_TOOLTIP">
+			<Text>+6[icon:YIELD_FOOD] Food in Settlements with a Port, +3[icon:YIELD_FOOD] Food to any other Settlement</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_GOLD_TOOLTIP">
+			<Text>+20%[icon:YIELD_GOLD] Gold towards purchasing Buildings</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_GOLD_DISTANT_LANDS_TOOLTIP">
+			<Text>+20%[icon:YIELD_GOLD] Gold towards purchasing Buildings</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_IVORY_TOOLTIP">
+			<Text>+4[icon:YIELD_HAPPINESS] Happiness, +4[icon:YIELD_PRODUCTION] Production</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_KAOLIN_TOOLTIP">
+			<Text>+3%[icon:YIELD_CULTURE] Culture.</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_MARBLE_TOOLTIP">
+			<Text>+10%[icon:YIELD_PRODUCTION] Production towards constructing Wonders</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_PEARLS_TOOLTIP">
+			<Text>+6[icon:YIELD_HAPPINESS] Happiness in Capital. +3[icon:YIELD_HAPPINESS] Happiness to any other City.</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_SILK_TOOLTIP">
+			<Text>+6[icon:YIELD_CULTURE] Culture in Capital. +3[icon:YIELD_CULTURE] Culture to any other City.</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_SILVER_TOOLTIP">
+			<Text>+20%[icon:YIELD_GOLD] Gold towards purchasing and upgrading Units</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_SILVER_DISTANT_LANDS_TOOLTIP">
+			<Text>+20%[icon:YIELD_GOLD] Gold towards purchasing Units</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_WINE_TOOLTIP">
+			<Text>+4[icon:YIELD_FOOD] Food, +4[icon:YIELD_PRODUCTION] Production</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_HORSES_TOOLTIP">
+			<Text>+6[icon:YIELD_HAPPINESS] Happiness</Text>
+		</Row>
+		<!-- Exploration Resource Tooltips-->
+		<Row Tag="LOC_EXP_RESOURCE_COCOA_TOOLTIP">
+			<Text>+3%[icon:YIELD_HAPPINESS] Happiness.</Text>
+		</Row>
+		<Row Tag="LOC_EXP_RESOURCE_FURS_TOOLTIP">
+			<Text>+6[icon:YIELD_HAPPINESS] Happiness in a City with a Rail Station. +3[icon:YIELD_HAPPINESS] Happiness to any other City.</Text>
+		</Row>
+		<Row Tag="LOC_EXP_RESOURCE_SPICES_TOOLTIP">
+			<Text>+4[icon:YIELD_FOOD] Food, +4[icon:YIELD_HAPPINESS] Happiness</Text>
+		</Row>
+		<Row Tag="LOC_EXP_RESOURCE_SUGAR_TOOLTIP">
+			<Text>+6[icon:YIELD_FOOD] Food</Text>
+		</Row>
+		<Row Tag="LOC_EXP_RESOURCE_TEA_TOOLTIP">
+			<Text>+3%[icon:YIELD_SCIENCE] Science.</Text>
+		</Row>
+		<Row Tag="LOC_EXP_RESOURCE_TRUFFLES_TOOLTIP">
+			<Text>+6[icon:YIELD_FOOD] Food in a City with a Rail Station. +3[icon:YIELD_FOOD] Food to any other City.</Text>
+		</Row>
+		<Row Tag="LOC_EXP_RESOURCE_NITER_TOOLTIP">
+			<Text>Ranged and Siege Units gain +1 Combat Strength (Max +6)</Text>
+		</Row>
+		<Row Tag="LOC_EXP_RESOURCE_WHALES_TOOLTIP">
+			<Text>+6[icon:YIELD_PRODUCTION] Production</Text>
+		</Row>
+		<!-- Modern Resource Tooltips-->
+		<Row Tag="LOC_MOD_RESOURCE_COFFEE_TOOLTIP">
+			<Text>+5%[icon:YIELD_PRODUCTION] Production towards constructing Buildings and Wonders.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_RESOURCE_TOBACCO_TOOLTIP">
+			<Text>+6[icon:YIELD_PRODUCTION] Production in a City with a Rail Station. +3[icon:YIELD_PRODUCTION] Production to any other City.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_RESOURCE_CITRUS_TOOLTIP">
+			<Text>+5%[icon:YIELD_PRODUCTION] Production towards training Naval Units.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_RESOURCE_COAL_TOOLTIP">
+			<Text>Light Naval Units gain +1 Combat Strength (Max +6). +10%[icon:YIELD_PRODUCTION] Production towards Rail Stations and Ports.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_RESOURCE_OIL_TOOLTIP">
+			<Text>Heavy Naval and Cavalry Units gain +1 Combat Strength (Max +6). +10%[icon:YIELD_PRODUCTION] Production towards Factories.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_RESOURCE_NICKEL_TOOLTIP">
+			<Text>+10%[icon:YIELD_GOLD] Gold, +10%[icon:YIELD_SCIENCE] Science</Text>
+		</Row>
+		<Row Tag="LOC_MOD_RESOURCE_QUININE_TOOLTIP">
+			<Text>Units heal +1 HP.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_RESOURCE_RUBBER_TOOLTIP">
+			<Text>Infantry and Air Units gain +1 Combat Strength (Max +6)</Text>
+		</Row>
+		<Row Tag="LOC_EXP_RESOURCE_NICKEL_TOOLTIP">
+			<Text>+10%[icon:YIELD_GOLD] Gold, 10%[icon:YIELD_SCIENCE] Science</Text>
+		</Row>
+	</EnglishText>
+</Database>

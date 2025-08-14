@@ -1,0 +1,44 @@
+@use '../../themes/default/theme' as *;
+@use '../../utilities/utility-layout' as *;
+@use '../../utilities/utility-text' as *;
+@use '../../../../core/ui/themes/default/baseColors';
+@use '../../../../core/ui/themes/default/theme';
+
+.mp-friends {
+	height: 96%;
+}
+
+.mp-friends-frame {
+	background-image: linear-gradient(color('primary-5'), color('primary-4'));
+	border-style: solid;
+	border-width: pixels(3);
+	border-image: linear-gradient(to bottom, color('secondary-2'), color('secondary-3')) 1;
+}
+
+.mp-friends-tab-bar {
+	width: 100%;
+}
+
+.mp-friends-close-div {
+	top: -100%;
+	left: 96%;
+}
+
+.mp-friends-close {
+	left: pixels(0);
+}
+
+.mp-friends-slot-group {
+	background-color: color('primary-5');
+}
+
+.notification-badge {
+	background-image: radial-gradient(circle at 50% 50%,
+			rgb(192, 0, 0) pixels(0),
+			rgb(192, 0, 0) 10px,
+			rgb(240, 188, 120) 11px,
+			rgb(240, 188, 120) 12px,
+			transparent 13px,
+			transparent 16px),
+		url("fs://game/fxt_very_soft_circle_Red.png");
+}

@@ -1,0 +1,737 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_COPYRIGHT_BLOCK">
+			<Text>© 1991-2025 Take-Two Interactive Software, Inc.  Developed by Firaxis Games.  2K, Firaxis Games, Sid Meier's Civilization VII, Sid Meier's Civilization, Civilization, Civ, and their respective logos are trademarks of Take-Two Interactive Software, Inc.  Sid Meier's Civilization VII uses Coherent Labs user interface technology. Copyright 2012-2025 Coherent Labs. All Rights Reserved.  Powered by Wwise © 2006-2025 Audiokinetic Inc.  All rights reserved.  Uses Oodle. Copyright © 2008-2025 by Epic Games Tools, LLC.  Uses Quixel Megascans ®, Copyright © 2017 Quixel AB.</Text>
+		</Row>
+		<Row Tag="LOC_DRIVER_OUT_OF_DATE_MESSAGE">
+			<Text>"The graphics drivers on this machine might be out of date.  We recommend using graphics drivers with official support for Sid Meier's Civilization VII for the best experience.  More information can be found at https://support.2k.com/"</Text>
+		</Row>
+		<Row Tag="LOC_DRIVER_OUT_OF_DATE_EXIT">
+			<Text>"Exit"</Text>
+		</Row>
+		<Row Tag="LOC_DRIVER_OUT_OF_DATE_CONTINUE">
+			<Text>"Continue"</Text>
+		</Row>
+		<Row Tag="LOC_DRIVER_OUT_OF_DATE_IGNORE">
+			<Text>"Ignore Always"</Text>
+		</Row>
+		<Row Tag="LOC_LEADER_RANDOM_NAME">
+			<Text>Random</Text>
+		</Row>
+		<Row Tag="LOC_LEADER_RANDOM_DESCRIPTION">
+			<Text>A leader will be chosen for you.</Text>
+		</Row>
+		<Row Tag="LOC_CIVILIZATION_RANDOM_NAME">
+			<Text>Random</Text>
+		</Row>
+		<Row Tag="LOC_CIVILIZATION_RANDOM_DESCRIPTION">
+			<Text>A civilization will be chosen for you.</Text>
+		</Row>
+		<Row Tag="LOC_UPSELL_UPGRADE_COMPLETE">
+			<Text>Thank you for your purchase. Please restart the game for the changes to take effect.</Text>
+		</Row>
+		<!-- Multiplayer Lobby -->
+		<Row Tag="LOC_UI_MP_STAGING_TITLE">
+			<Text>MULTIPLAYER</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_STAGING_SUBTITLE">
+			<Text>Staging Screen</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_STAGING_READY_BUTTON_READY">
+			<Text>READY UP</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_STAGING_READY_BUTTON_UNREADY">
+			<Text>UNREADY</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_STAGING_HOST_TITLE">
+			<Text>Multiplayer Staging Screen: Host Set Up</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_STAGING_CLIENT_TITLE">
+			<Text>Multiplayer Staging Screen: Client Set Up</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_STAGING_PLAYER_LIST_TITLE">
+			<Text>Player List: </Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_STAGING_INVITE_BUTTON">
+			<Text>Invite Friends</Text>
+		</Row>
+		<Row Tag="LOC_GAME_SUMMARY_JOIN_CODE">
+			<Text>Join Code: {1_JoinCode}</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_SUBTITLE">
+			<Text>Lobby</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_TIME_REMAINING">
+			<Text>Time remaining</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_SHOW_JOIN_CODE">
+			<Text>Show Join Code</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_SHOW_FRIENDS">
+			<Text>Show Friends</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_HEADER_PLAYER">
+			<Text>Player</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_HEADER_TEAM">
+			<Text>Team</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_HEADER_CIV">
+			<Text>Civ</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_HEADER_LEADER">
+			<Text>Leader</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_HEADER_READY">
+			<Text>Ready?</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_HEADER_KICK">
+			<Text>Kick</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_CHAT">
+			<Text>Chat</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_RULES">
+			<Text>View All Rules</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_MEMENTO">
+			<Text>Choose Mementos</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_GAME_OPTION">
+			<Text>Game Options</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_PLAYERS">
+			<Text>{1_currentPlayers}/{2_maxPlayers} players</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_DIFFICULTY">
+			<Text>Difficulty:</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_RULE_SET">
+			<Text>Rule Set:</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_MAP_TYPE">
+			<Text>Map Type:</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_MAP_SIZE">
+			<Text>Map Size:</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_GAME_SPEED">
+			<Text>Game Speed:</Text>
+		</Row>
+
+		<Row Tag="LOC_UI_MP_LOBBY_NAVTRAY_READY">
+			<Text>Ready</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_NAVTRAY_UNREADY">
+			<Text>Unready</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_READY_BUTTON_NOT_READY">
+			<Text>Ready?</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_READY_BUTTON_WAITING_FOR_OTHERS">
+			<Text>Waiting for players</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_READY_BUTTON_STARTING_GAME">
+			<Text>Starting...</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_DROPDOWN_ACTION_DESC">
+			<Text>Action selector for this player slot.</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_DROPDOWN_TEAM_DESC">
+			<Text>Team selector for this player.</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_DROPDOWN_CIV_DESC">
+			<Text>Civilization selector for this player.</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_DROPDOWN_LEADER_DESC">
+			<Text>Leader selector for this player.</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_DROPDOWN_ACTION_DEFAULT">
+			<Text>Actions on Player</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_DROPDOWN_TEAM_DEFAULT">
+			<Text>None</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LOBBY_TEAM">
+			<Text>{1_TeamNumber}</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_NOT_CONNECTED_TO_LOBBY">
+			<Text>Not connected to lobby</Text>
+		</Row>
+		<!-- Landing Page -->
+		<Row Tag="LOC_UI_MP_LANDING_TITLE">
+			<Text>MULTIPLAYER PLAY MODE</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LANDING_SUBTITLE">
+			<Text>LANDING SCREEN</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LANDING_LAN">
+			<Text>LAN</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LANDING_INTERNET">
+			<Text>Internet</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LANDING_WIRELESS">
+			<Text>Wireless</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LANDING_MATCHMAKE_GAME">
+			<Text>QUICK JOIN</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LANDING_CREATE_GAME">
+			<Text>CREATE GAME</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LANDING_JOIN_GAME">
+			<Text>JOIN GAME</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LANDING_LOAD_GAME">
+			<Text>LOAD GAME</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LANDING_GAMES_BROWSER">
+			<Text>BROWSE GAMES</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LANDING_ERROR_ROOM_FULL">
+			<Text>Room Full</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LANDING_ERROR_GAME_STARTED">
+			<Text>Game started</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LANDING_ERROR_TOO_MANY_MATCHES">
+			<Text>Too many matches</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LANDING_ERROR_NO_CONNECTION">
+			<Text>No connection</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LANDING_UNKNOWN_ERROR">
+			<Text>Unknown error returned: {1_ErrorNumber}</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LANDING_ERROR_BODY">
+			<Text>Failed to join lobby: {1_Reason}</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LANDING_MATCHMAKE_START_ERROR">
+			<Text>Matchmaking failed to start</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_LANDING_RELAY_SERVER_ADDRESS_PROMPT">
+			<Text>Relay Server Address:</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_REPORT_TITLE">
+			<Text>Report Game</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_REPORT_BODY">
+			<Text>Are you sure you want to report the host player and hide this game from the list?</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_JOIN_CODE_TITLE">
+			<Text>Join Code</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_JOIN_CODE_PLACEHOLDER">
+			<Text>Enter code</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_NEW_GAME_TITLE">
+			<Text>NEW GAME</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_NEW_GAME_JOIN">
+			<Text>JOIN</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_NEW_GAME_CREATE">
+			<Text>CREATE</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_NEW_GAME_ENTER_JOIN_CODE">
+			<Text>Please enter a join code:</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_STATUS_JOINING">
+			<Text>Joining game ... </Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAY_MODE_TITLE">
+			<Text>CHOOSE PLAY MODE</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAY_MODE_SUBTITLE">
+			<Text>MULTIPLAYER</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAY_MODE_ONLINE">
+			<Text>Online</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAY_MODE_ONLINE_DESCRIPTION">
+			<Text>Create a Multiplayer Online game with friends or join an auto match</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAY_MODE_LOCAL">
+			<Text>Local</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_PLAY_MODE_LOCAL_DESCRIPTION">
+			<Text>Create a local game and invite friends</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_GAME_MODE_TITLE">
+			<Text>CHOOSE GAME MODE</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_GAME_MODE_SUBTITLE">
+			<Text>MULTIPLAYER</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_GAME_MODE_CREATE_GAME">
+			<Text>Create Game</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_GAME_MODE_CREATE_GAME_DESCRIPTION">
+			<Text>Create an Online game and invite friends</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_GAME_MODE_AUTOMATCH">
+			<Text>Auto Match</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_GAME_MODE_AUTOMATCH_DESCRIPTION">
+			<Text>Auto Match with random players</Text>
+		</Row>
+		<!-- Multiplayer Dialogs -->
+		<Row Tag="LOC_MP_PARENT_PERMISSIONS_TITLE">
+			<Text>Parental Permissions</Text>
+		</Row>
+		<Row Tag="LOC_MP_JOIN_PARENT_PERMISSIONS_DISABLED">
+			<Text>2K Account not authorized, please ask a parent or guardian for permission to play online.</Text>
+		</Row>
+		<Row Tag="LOC_MP_JOINING_GAME_TITLE">
+			<Text>Joining a game</Text>
+		</Row>
+		<Row Tag="LOC_MP_JOINING_GAME_BODY">
+			<Text>Please wait . . . </Text>
+		</Row>
+		<Row Tag="LOC_MP_MATCHMAKING_GAME_TITLE">
+			<Text>Searching for Lobby</Text>
+		</Row>
+		<Row Tag="LOC_MP_JOINING_ERROR_TITLE">
+			<Text>Join Error</Text>
+		</Row>
+		<Row Tag="LOC_MP_CREATE_GAME_WAITING_BODY">
+			<Text>Please wait . . . </Text>
+		</Row>
+		<Row Tag="LOC_MP_CREATE_GAME_WAITING_TITLE">
+			<Text>Creating Game</Text>
+		</Row>
+		<Row Tag="LOC_SHELL_BUILD_INFO">
+			<Text>Build: {1_BuildString}</Text>
+		</Row>
+		<Row Tag="LOC_MP_CANT_PLAY_ONLINE_ERROR_TITLE">
+			<Text>Can't Play Online</Text>
+		</Row>
+		<!-- Multiplayer Join Game Errors -->
+		<Row Tag="LOC_JOIN_GAME_ROOM_FULL">
+			<Text>The game is full.</Text>
+		</Row>
+		<Row Tag="LOC_JOIN_GAME_SESSION_ERROR">
+			<Text>Join game attempt failed to start. Please restart the game and try again.</Text>
+		</Row>
+		<Row Tag="LOC_JOIN_GAME_SESSION_UNEXPECTED">
+			<Text>Unexpected state encountered while attempting to join game. Please restart the game and try again.</Text>
+		</Row>
+		<Row Tag="LOC_JOIN_GAME_MATCHMAKING_FAILED">
+			<Text>Matchmaking failed. Please restart the game and try again.</Text>
+		</Row>
+		<Row Tag="LOC_JOIN_GAME_MATCHMAKING_TIMED_OUT">
+			<Text>Matchmaking timed out. Not enough players in the queue, please try again later or try a different queue.</Text>
+		</Row>
+		<Row Tag="LOC_JOIN_GAME_ROOM_UNKNOWN_ERROR">
+			<Text>Unknown error encountered while attempting to join game. Please restart the game and try again.</Text>
+		</Row>
+		<Row Tag="LOC_JOIN_GAME_NO_ONLINE_SUB">
+			<Text>An online subscription is required to play multiplayer.</Text>
+		</Row>
+		<Row Tag="LOC_JOIN_GAME_JOINCODE_SYNTAX">
+			<Text>Bad Join Code. Check Join Code and try again.</Text>
+		</Row>
+		<Row Tag="LOC_JOIN_GAME_JOINCODE_TRANSPORT">
+			<Text>The multiplayer mode of this Join Code is unsupported.</Text>
+		</Row>
+		<Row Tag="LOC_JOIN_GAME_CONNECTION_REJECTED">
+			<Text>Failed to connect to game host. If using a Join Code, check it and try again.</Text>
+		</Row>
+		<Row Tag="LOC_JOIN_GAME_LINK_INCOMPLETE">
+			<Text>A 2K Account must be completed.</Text>
+		</Row>
+		<Row Tag="LOC_JOIN_GAME_LINK_ACCOUNT">
+			<Text>A 2K Account must be linked.</Text>
+		</Row>
+		<Row Tag="LOC_JOIN_GAME_CHILD_ACCOUNT">
+			<Text>2K Account not authorized. Please ask a parent or guardian for permission to play online.</Text>
+		</Row>
+		<Row Tag="LOC_JOIN_GAME_BANNED_TITLE">
+			<Text>User Banned</Text>
+		</Row>
+		<Row Tag="LOC_JOIN_GAME_BANNED_BODY">
+			<Text>you have been banned from multiplayer. Please reach out to 2K support for more information.</Text>
+		</Row>
+		<!-- Create Game -->
+		<Row Tag="LOC_CREATE_GAME_LEADER_SELECT_CATEGORY">
+			<Text>Leader</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_AGE_CIV_SELECT_CATEGORY">
+			<Text>Age &amp; Civilization</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_GAME_START_CATEGORY">
+			<Text>Confirm</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_CIV_UNIQUE_BONUSES_SUBTITLE">
+			<Text>Unique Units and Buildings</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_AGE_TITLE">
+			<Text>{1_Item} Age</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_AGE_UNLOCK_TITLE">
+			<Text>Age Unlocks</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_NEXT_UNLOCK_TITLE">
+			<Text>Next Level Unlock</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_RECOMMENDED_CHOICE">
+			<Text>Recommended Choice!</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_HISTORICAL_CHOICE">
+			<Text>Historic Choice!</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_GEOGRAPHIC_CHOICE">
+			<Text>Geographic Choice!</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_STRATEGIC_CHOICE">
+			<Text>Strategic Choice!</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_LEADER_TO_CIV">
+			<Text>of</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_LEADER_TO_AGE">
+			<Text>in the</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_ADD_MEMENTO_MINOR">
+			<Text>Add Memento</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_ADD_MEMENTO_MAJOR">
+			<Text>Add Memento</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_ADD_MEMENTO_UNLOCK">
+			<Text>Unlock at level {1_Level}</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_UNLOCK_ITEM">
+			<Text>Unlocks [B]{1_Item}[/B].</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_UNLOCK_ITEM_IN_AGE">
+			<Text>Unlocks [B]{1_Item} [/B]in the [B]{2_Age} [/B]age.</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_UNLOCKS_LIST">
+			<Text>Unlocks the following:[BLIST]{1_Items}[/LIST]</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_UNLOCKS_LIST_ITEM">
+			<Text>[LI] [B]{1_UnlockName}[/B].</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_UNLOCKS_LIST_ITEM_IN_AGE">
+			<Text>[LI] [B]{1_UnlockName} [/B]in the [B]{2_AgeName} [/B]age.</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_LEADER_CIV_HISTORIC_BIAS">
+			<Text>[B]{1_LeaderName} [/B]is historically related to this civilization.</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_POPUP_TITLE">
+			<Text>2K Store</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_POPUP_BODY">
+			<Text>Do you want to purchase {1_Name}?</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_BUYABLE">
+			<Text>Select to purchase this leader</Text>
+		</Row>
+		<Row Tag="LOC_EDIT_MEMENTOS_TITLE">
+			<Text>Select Mementos</Text>
+		</Row>
+		<Row Tag="LOC_EDIT_MEMENTOS_SHOWALL">
+			<Text>Show All Leader Mementos</Text>
+		</Row>
+		<Row Tag="LOC_EDIT_MEMENTOS_LEADER_TITLE">
+			<Text>{1_LeaderName} Mementos</Text>
+		</Row>
+		<Row Tag="LOC_EDIT_MEMENTOS_CANCEL">
+			<Text>Cancel</Text>
+		</Row>
+		<Row Tag="LOC_EDIT_MEMENTOS_CONFIRM">
+			<Text>Confirm</Text>
+		</Row>
+		<Row Tag="LOC_CREATE_GAME_LEARN_MORE">
+			<Text>Learn More</Text>
+		</Row>
+		<Row Tag="LOC_LOCKED_GENERIC">
+			<Text>{1_LeaderOrCivName} is locked.</Text>
+		</Row>
+		<Row Tag="LOC_LOCKED_INCLUDED_WITH_CONTENT">
+			<Text>{1_LeaderOrCivName} is included with {2_ContentPack}.</Text>
+		</Row>
+		<Row Tag="LOC_LOCKED_LINK_ACCOUNT">
+			<Text>Sign up (or sign in) for a 2k Account to unlock {1_LeaderOrCivName}!</Text>
+		</Row>
+		<!-- Multiplayer Browser -->
+		<Row Tag="LOC_UI_MP_BROWSER_MISSING_MOD_TOOLTIP">
+			<Text>Missing Content</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_LOADING_SAVE_TOOLTIP">
+			<Text>Game Loading Save</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_SCREEN_TITLE">
+			<Text>Browse Public Games</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_SCREEN_SUBTITLE">
+			<Text>Public Games</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_FILTERS">
+			<Text>Filters</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_REFRESH_BUTTON">
+			<Text>Refresh</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_JOIN_BUTTON">
+			<Text>Join Code</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_REFRESH_MESSAGE">
+			<Text>Updating game list</Text>
+		</Row>
+		<Row Tag="LOC_GAME_LIST_ERROR_TITLE">
+			<Text>Game List Update Failed</Text>
+		</Row>
+		<Row Tag="LOC_GAME_LIST_ERROR_GENERAL">
+			<Text>Game list update failed. Try again later.</Text>
+		</Row>
+		<Row Tag="LOC_LOBBY_ERROR_TITLE">
+			<Text>Lobby Error</Text>
+		</Row>
+		<Row Tag="LOC_LOBBY_ERROR_GENERAL">
+			<Text>Lobby encountered an error.</Text>
+		</Row>
+		<Row Tag="LOC_LOBBY_ERROR_NO_ERROR">
+			<Text>Lobby has no error.</Text>
+		</Row>
+		<Row Tag="LOC_LOBBY_ERROR_DEVICE_REMOVED">
+			<Text>Device removed.</Text>
+		</Row>
+		<Row Tag="LOC_LOBBY_ERROR_WIFI_OFF">
+			<Text>Wifi is not available.</Text>
+		</Row>
+		<Row Tag="LOC_LOBBY_ERROR_UNKNOWN_ERROR">
+			<Text>Lobby encountered an unknown error.</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_FILTER_GAME_NAME">
+			<Text>Game Name</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_FILTER_EVENT">
+			<Text>Event</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_FILTER_RULE">
+			<Text>Rule Set</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_FILTER_MAP_TYPE">
+			<Text>Map Type</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_FILTER_GAME_SPEED">
+			<Text>Game Speed</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_FILTER_CONTENT">
+			<Text>Content</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_FILTER_PLAYERS">
+			<Text>Players</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_JOIN_NAVTRAY">
+			<Text>Join</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_QUICK_JOIN_NAVTRAY">
+			<Text>Quick Join</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_LOAD_NAVTRAY">
+			<Text>Load Game</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_CREATE_NAVTRAY">
+			<Text>Create Game</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_TITLE">
+			<Text>Browse Games</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_TITLE_INTERNET">
+			<Text>Browse Internet Games</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_TITLE_LAN">
+			<Text>Browse LAN Games</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_TITLE_WIRELESS">
+			<Text>Browse Wireless Games</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_JOIN_GAME">
+			<Text>Join</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_QUICK_JOIN">
+			<Text>Quick Join</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_LOAD_GAME">
+			<Text>Load Game</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_CREATE_GAME">
+			<Text>Create Game</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_ENTER_JOIN_CODE">
+			<Text>Enter Join Code</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_AGE">
+			<Text>Age: {1_age}</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_RULE_SET">
+			<Text>Rule Set: {1_rule_set}</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_MAP_TYPE">
+			<Text>Map Type: {1_map_type}</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_SPEED">
+			<Text>Speed: {1_speed}</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BROWSER_PLAYERS">
+			<Text>Players</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_BLOCKED_PLAYER_GAME">
+			<Text>Blocked Player's Game</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_SOCIAL_RESTRICTED_GAME">
+			<Text>Custom Game</Text>
+		</Row>
+		<!-- Age Transition -->
+		<Row Tag="LOC_AGE_TRANSITION_VIEW_DETAILS">
+			<Text>View Details</Text>
+		</Row>
+		<Row Tag="LOC_AGE_TRANSITION_EDIT_MEMENTOS">
+			<Text>Change Mementos</Text>
+		</Row>
+		<Row Tag="LOC_AGE_TRANSITION_PLAY_AS">
+			<Text>Play as [B]{1_Requirement}[/B]</Text>
+		</Row>
+		<Row Tag="LOC_AGE_TRANSITION_CHOOSE_CIV">
+			<Text>Choose {1_Civilization}</Text>
+		</Row>
+		<Row Tag="LOC_AGE_TRANSITION_CIV_LOCKED">
+			<Text>Locked</Text>
+		</Row>
+		<Row Tag="LOC_AGE_TRANSITION_SCREEN_TITLE">
+			<Text>A New Culture Emerges</Text>
+		</Row>
+		<!-- Multiplayer Create Game -->
+		<Row Tag="LOC_UI_MP_CREATE_GAME_TITLE">
+			<Text>MULTIPLAYER</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_CREATE_GAME_SUBTITLE">
+			<Text>Create Multiplayer Game</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_HOST_LOBBY">
+			<Text>Host Lobby</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_EXTRA_CONTENT">
+			<Text>Downloadable Content</Text>
+		</Row>
+		<Row Tag="LOC_GROUPID_GAMEOPTIONS">
+			<Text>Game Settings</Text>
+		</Row>
+		<Row Tag="LOC_GROUPID_ADVANCEDOPTIONS">
+			<Text>Advanced</Text>
+		</Row>
+		<Row Tag="LOC_GROUPID_DISASTER_CRISIS_OPTIONS">
+			<Text>Disaster and Crisis Settings</Text>
+		</Row>
+		<Row Tag="LOC_GROUPID_DIFFICULTY_OPTIONS">
+			<Text>Difficulty Settings</Text>
+		</Row>
+		<Row Tag="LOC_GROUPID_MAPOPTIONS">
+			<Text>Map Specific</Text>
+		</Row>
+		<Row Tag="LOC_GROUPID_LEGACYOPTIONS">
+			<Text>Legacy Path Settings</Text>
+		</Row>
+		<Row Tag="LOC_GROUPID_DISASTEROPTIONS">
+			<Text>Disaster and Crisis Settings</Text>
+		</Row>
+		<!-- Multiplayer Quick Join -->
+		<Row Tag="LOC_UI_MP_QUICK_JOIN_SUBTITLE">
+			<Text>Quick Join Rules</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_QUICK_JOIN_JOIN">
+			<Text>Quick Join</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_QUICK_JOIN_RULE_RULESET">
+			<Text>Ruleset</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_QUICK_JOIN_RULE_AGE">
+			<Text>Starting Age</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_QUICK_JOIN_RULE_SPEED">
+			<Text>Game Speed</Text>
+		</Row>
+		<!-- Multiplayer Lobby : Game Rules -->
+		<Row Tag="LOC_UI_MP_GAME_RULES_TITLE">
+			<Text>Multiplayer Rules and Mods</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_HEADER_RULES">
+			<Text>Rules</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_HEADER_MODS">
+			<Text>Mods</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_GAME_RULE_HOST">
+			<Text>Host:</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_GAME_RULE_HUMAN_PLAYER_COUNT">
+			<Text>Number of Players:</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_GAME_RULE_AI_PLAYER_COUNT">
+			<Text>Number of CPU Players:</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_GAME_RULE_PRIVATE_GAME">
+			<Text>Hidden Game:</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_GAME_RULE_KICK_VOTING">
+			<Text>Kick Voting:</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_GAME_RULE_TURN_TIMER">
+			<Text>Turn Timer:</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_GAME_RULE_TURN_TIMER_NONE">
+			<Text>None</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_GAME_RULE_TURN_TIMER_STANDARD">
+			<Text>Standard</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_GAME_RULE_TURN_TIMER_DYNAMIC">
+			<Text>Dynamic</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_GAME_RULE_TURN_TIME">
+			<Text>Turn Time:</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_GAME_RULE_TURN_MODE">
+			<Text>Turn Mode:</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_GAME_RULE_TURN_MODE_NONE">
+			<Text>None</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_GAME_RULE_TURN_MODE_SINGLEPLAYER">
+			<Text>Singleplayer</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_GAME_RULE_TURN_MODE_SIMULTANEOUS">
+			<Text>Simultaneous</Text>
+		</Row>
+		<Row Tag="LOC_UI_MP_GAME_RULE_STARTING_AGE">
+			<Text>Starting Age:</Text>
+		</Row>
+		<!-- Events -->
+		<Row Tag="LOC_UI_EVENTS_RULES">
+			<Text>Rules:</Text>
+		</Row>
+		<Row Tag="LOC_UI_EVENTS_SINGLEPLAYER">
+			<Text>New Event Game</Text>
+		</Row>
+		<Row Tag="LOC_UI_CONTINUE_EVENTS">
+			<Text>Continue Event Game</Text>
+		</Row>
+		<Row Tag="LOC_UI_LOAD_EVENTS">
+			<Text>Load Event Game</Text>
+		</Row>
+		<Row Tag="LOC_UI_EVENTS_MULTIPLAYER">
+			<Text>Multiplayer Event Game</Text>
+		</Row>
+		<Row Tag="LOC_UI_EVENTS_EXIT">
+			<Text>Exit to Main Menu</Text>
+		</Row>
+		<Row Tag="LOC_UI_EVENTS_MULTIPLAYER_NO_WIRELESS">
+			<Text>Wireless mode will disconnect internet connection which is required for events.</Text>
+		</Row>
+	</EnglishText>
+</Database>

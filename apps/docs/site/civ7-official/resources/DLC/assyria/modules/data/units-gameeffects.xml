@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==================================================	-->
+	<!--	Unique Abilities							-->
+	<!-- ==================================================	-->
+	<!--Assyria-->
+	<Modifier id="MAGARRU_MOD_MOVE_AFTER_ATTACK" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_MOVE_AFTER_ATTACK">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="MAGARRU_MOD_IGNORE_ZOC" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_IGNORE_ZOC">
+		<Argument name="Ignore">true</Argument>
+	</Modifier>
+	<Modifier id="TURTANU_COMMAND_RADIUS" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_CAVALRY, UNIT_CLASS_INFANTRY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ModifierId">TURTANU_COMMAND_RADIUS_COMBAT_ATTACH</Argument>
+	</Modifier>
+	<Modifier id="TURTANU_COMMAND_RADIUS_COMBAT_ATTACH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_IS_DISTRICT"/>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_TURTANU_COMMAND_RADIUS_COMBAT_PREVIEW</String>
+	</Modifier>
+</GameEffects>

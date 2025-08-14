@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="ADA_LOVELACE_MOD_TECH_MASTERY" collection="COLLECTION_OWNER" effect="TRIGGER_PLAYER_GRANT_YIELD_ON_PROGRESSION_TREE_NODE_DEPTH_UNLOCKED">
+		<Argument name="SystemType">SYSTEM_TECH</Argument>
+		<Argument name="YieldTypeConverted">YIELD_SCIENCE</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="PercentYieldPerTurn">50</Argument>
+		<Argument name="Depth">2</Argument>
+		<String context="WorldText">LOC_WORLD_CULTURE_INCREASE_FLOATER</String>
+		<String context="Description">LOC_TRAIT_LEADER_ADA_LOVELACE_ABILITY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="ADA_LOVELACE_MOD_CIVIC_MASTERY" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_UNLOCKED_PROGRESSION_TREE_NODE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+		</SubjectRequirements>
+		<Argument name="SystemType">SYSTEM_CULTURE</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<String context="Description">LOC_TRAIT_LEADER_ADA_LOVELACE_ABILITY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="ADA_LOVELACE_MOD_AGENDA_ANALYTICAL_ENGINE" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_ANALYTICAL_ENGINE_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_ANALYTICAL_ENGINE_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_ANALYTICAL_ENGINE_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_NUM_MASTERIES</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_HIGHEST</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_AMT_SMALL</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_LOWEST</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_NEG_AMT_SMALL</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+</GameEffects>

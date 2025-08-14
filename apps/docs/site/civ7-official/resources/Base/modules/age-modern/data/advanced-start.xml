@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Maps>
+		<Update>
+			<Where MapSizeType="MAPSIZE_TINY"/>
+			<Set PlayersLandmass1="2" PlayersLandmass2="2"/>
+		</Update>
+		<Update>
+			<Where MapSizeType="MAPSIZE_SMALL"/>
+			<Set PlayersLandmass1="3" PlayersLandmass2="3"/>
+		</Update>
+		<Update>
+			<Where MapSizeType="MAPSIZE_STANDARD"/>
+			<Set PlayersLandmass1="4" PlayersLandmass2="4"/>
+		</Update>
+		<Update>
+			<Where MapSizeType="MAPSIZE_LARGE"/>
+			<Set PlayersLandmass1="5" PlayersLandmass2="5"/>
+		</Update>
+		<Update>
+			<Where MapSizeType="MAPSIZE_HUGE"/>
+			<Set PlayersLandmass1="6" PlayersLandmass2="6"/>
+		</Update>
+	</Maps>
+	<AdvancedStartUnits>
+	</AdvancedStartUnits>
+	<AdvancedStartArmyUnits>
+		<Row ArmyID="1" Age="AGE_MODERN" Unit="UNIT_ARMY_COMMANDER" Level="6"/>
+		<Row ArmyID="1" Age="AGE_MODERN" Unit="UNIT_LINE_INFANTRY"/>
+		<Row ArmyID="1" Age="AGE_MODERN" Unit="UNIT_LINE_INFANTRY"/>
+		<Row ArmyID="1" Age="AGE_MODERN" Unit="UNIT_FIELD_CANNON"/>
+		<Row ArmyID="1" Age="AGE_MODERN" Unit="UNIT_CUIRASSIER"/>
+		<Row ArmyID="2" Age="AGE_MODERN" Unit="UNIT_ARMY_COMMANDER" Level="3"/>
+		<Row ArmyID="2" Age="AGE_MODERN" Unit="UNIT_LINE_INFANTRY"/>
+		<Row ArmyID="2" Age="AGE_MODERN" Unit="UNIT_LINE_INFANTRY"/>
+		<Row ArmyID="3" Age="AGE_MODERN" Unit="UNIT_ARMY_COMMANDER" Level="3"/>
+		<Row ArmyID="3" Age="AGE_MODERN" Unit="UNIT_FIELD_CANNON"/>
+		<Row ArmyID="3" Age="AGE_MODERN" Unit="UNIT_FIELD_CANNON"/>
+		<Row ArmyID="4" Age="AGE_MODERN" Unit="UNIT_ARMY_COMMANDER" Level="3"/>
+		<Row ArmyID="4" Age="AGE_MODERN" Unit="UNIT_CUIRASSIER"/>
+		<Row ArmyID="4" Age="AGE_MODERN" Unit="UNIT_CUIRASSIER"/>
+		<Row ArmyID="4" Age="AGE_MODERN" Unit="UNIT_CUIRASSIER"/>
+		<Row ArmyID="4" Age="AGE_MODERN" Unit="UNIT_CUIRASSIER"/>
+	</AdvancedStartArmyUnits>
+	<AdvancedStartTowns>
+		<Row Age="AGE_MODERN" TownID="1" UrbanPopulation="12" RuralPopulation="14" WorkerPopulation="3" City="true" Capital="true"/>
+		<Row Age="AGE_MODERN" TownID="2" UrbanPopulation="12" RuralPopulation="14" City="true" Capital="false"/>
+		<Row Age="AGE_MODERN" TownID="3" UrbanPopulation="5" RuralPopulation="6" City="false" Capital="false"/>
+	</AdvancedStartTowns>
+	<AdvancedStartBuildings>
+		<Row TownID="1" ConstructibleType="BUILDING_GRANARY" Placement="PREFERS_STACKED" MinimumAdjacency="0"/>
+		<Row TownID="1" ConstructibleType="BUILDING_SAW_PIT" Placement="PREFERS_STACKED" MinimumAdjacency="0"/>
+		<Row TownID="1" ConstructibleType="BUILDING_STONECUTTER" Placement="PREFERS_STACKED" MinimumAdjacency="0"/>
+		<Row TownID="1" ConstructibleType="BUILDING_UNIVERSITY" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="1" ConstructibleType="BUILDING_PAVILION" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="1" ConstructibleType="BUILDING_SAWMILL" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="1" ConstructibleType="BUILDING_FISHING_QUAY" Placement="PREFERS_STACKED" MinimumAdjacency="0"/>
+		<Row TownID="1" ConstructibleType="BUILDING_GRISTMILL" Placement="PREFERS_STACKED" MinimumAdjacency="0"/>
+		<Row TownID="1" ConstructibleType="BUILDING_SHIPYARD" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="1" ConstructibleType="BUILDING_WHARF" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="1" ConstructibleType="BUILDING_TEMPLE" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="1" ConstructibleType="BUILDING_BANK" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="1" ConstructibleType="BUILDING_BAZAAR" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="1" ConstructibleType="BUILDING_OBSERVATORY" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="1" ConstructibleType="BUILDING_MENAGERIE" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="1" ConstructibleType="BUILDING_HOSPITAL" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="2" ConstructibleType="BUILDING_GRANARY" Placement="PREFERS_STACKED" MinimumAdjacency="0"/>
+		<Row TownID="2" ConstructibleType="BUILDING_SAW_PIT" Placement="PREFERS_STACKED" MinimumAdjacency="0"/>
+		<Row TownID="2" ConstructibleType="BUILDING_STONECUTTER" Placement="PREFERS_STACKED" MinimumAdjacency="0"/>
+		<Row TownID="2" ConstructibleType="BUILDING_UNIVERSITY" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="2" ConstructibleType="BUILDING_PAVILION" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="2" ConstructibleType="BUILDING_SAWMILL" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="2" ConstructibleType="BUILDING_FISHING_QUAY" Placement="PREFERS_STACKED" MinimumAdjacency="0"/>
+		<Row TownID="2" ConstructibleType="BUILDING_GRISTMILL" Placement="PREFERS_STACKED" MinimumAdjacency="0"/>
+		<Row TownID="2" ConstructibleType="BUILDING_SHIPYARD" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="2" ConstructibleType="BUILDING_WHARF" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="2" ConstructibleType="BUILDING_TEMPLE" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="2" ConstructibleType="BUILDING_BANK" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="2" ConstructibleType="BUILDING_BAZAAR" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="2" ConstructibleType="BUILDING_OBSERVATORY" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="2" ConstructibleType="BUILDING_MENAGERIE" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="2" ConstructibleType="BUILDING_HOSPITAL" Placement="AVOID_STACKING" MinimumAdjacency="0"/>
+		<Row TownID="3" ConstructibleType="BUILDING_STONECUTTER" Placement="PREFERS_STACKED" MinimumAdjacency="0"/>
+		<Row TownID="3" ConstructibleType="BUILDING_GRANARY" Placement="PREFERS_STACKED" MinimumAdjacency="0"/>
+		<Row TownID="3" ConstructibleType="BUILDING_FISHING_QUAY" Placement="PREFERS_STACKED" MinimumAdjacency="0"/>
+		<Row TownID="3" ConstructibleType="BUILDING_SAWMILL" Placement="PREFERS_STACKED" MinimumAdjacency="0"/>
+		<Row TownID="3" ConstructibleType="BUILDING_GRISTMILL" Placement="PREFERS_STACKED" MinimumAdjacency="0"/>
+		<Row TownID="3" ConstructibleType="BUILDING_SAW_PIT" Placement="PREFERS_STACKED" MinimumAdjacency="0"/>
+		<Row TownID="3" ConstructibleType="BUILDING_BRICKYARD" Placement="PREFERS_STACKED" MinimumAdjacency="0"/>
+	</AdvancedStartBuildings>
+	<AdvancedStartParameters>
+		<Row Age="AGE_MODERN" ShowRegion="true" MaxRegionPlots="180" DeckLimit="10" CardLimit="2" RevealType="REVEAL_TYPE_DISTANT_LANDS_WATER"/>
+	</AdvancedStartParameters>
+	<AdvancedStartCardSets>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" Name="LOC_ADVANCED_START_MOD_DEFAULT_NAME" DefaultSet="true"/>
+	</AdvancedStartCardSets>
+	<AgeTransitionCardSets>
+		<Row Age="AGE_MODERN" CardSet="AGE_TRANSITION_MOD_DEFAULT" Name="LOC_AGE_TRANSITION_MOD_DEFAULT_NAME" DefaultSet="true"/>
+	</AgeTransitionCardSets>
+	<AdvancedStartCardEffects>
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_CITY" Name="LOC_CARD_EFFECT_MOD_CITY_NAME" Description="LOC_CARD_EFFECT_MOD_CITY_DESCRIPTION" EffectType="ADV_START_EFFECT_PLACE_SETTLEMENT" IsPlacementEffect="true" DidNotPlaceEffectType="CARD_GRANT_SETTLER" Amount="1" Special="2" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_TOWN" Name="LOC_CARD_EFFECT_MOD_TOWN_NAME" Description="LOC_CARD_EFFECT_MOD_TOWN_DESCRIPTION" EffectType="ADV_START_EFFECT_PLACE_SETTLEMENT" IsPlacementEffect="true" DidNotPlaceEffectType="CARD_GRANT_SETTLER" Amount="1" Special="3" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_WALLS" EffectType="CARD_GRANT_WALLS" Amount="1" />
+		<!-- TODO: Eventually wonders Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_WONDER" Name="LOC_CARD_EFFECT_MOD_WONDER_NAME" Description="LOC_CARD_EFFECT_MOD_WONDER_DESCRIPTION" EffectType="EFFECT_PLACE_WONDER" Subtype="RANDOM" Amount="1"  /-->
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_CAPITAL_ADJUST_POPULATION" EffectType="CARD_CAPITAL_ADJUST_POPULATION" Amount="1" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_ARMY_INFANTRY" EffectType="CARD_ADD_ARMY_INFANTRY" Amount="1" Special="1" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_ARMY_RANGED" EffectType="CARD_ADD_ARMY_RANGED" Amount="1" Special="1" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_ARMY_CAVALRY" EffectType="CARD_ADD_ARMY_CAVALRY" Amount="1" Special="1" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_GOLD" EffectType="CARD_GRANT_GOLD" Amount="1" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_ATTRIBUTE" EffectType="CARD_GRANT_ATTRIBUTE" Amount="1" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_FREE_TECH_ACADEMICS" EffectType="CARD_GRANT_TECH_ACADEMICS" Amount="1" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_FREE_TECH_STEAM_ENGINE" EffectType="CARD_GRANT_TECH_STEAM_ENGINE" Amount="1" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_FREE_TECH_MILITARY_SCIENCE" EffectType="CARD_GRANT_TECH_MILITARY_SCIENCE" Amount="1" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_FREE_CIVIC_MODERNIZATION" EffectType="CARD_GRANT_CIVIC_MODERNIZATION" Amount="1" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_FREE_CIVIC_NATURAL_HISTORY" EffectType="CARD_GRANT_CIVIC_NATURAL_HISTORY" Amount="1" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_FREE_CIVIC_SOCIAL_QUESTION" EffectType="CARD_GRANT_CIVIC_SOCIAL_QUESTION" Amount="1" />
+
+		<!-- Legend Card Effects -->
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_LEADER_FOOD_BOON" EffectType="LEADER_CARD_FOOD_BOON" Amount="1" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_LEADER_GOLD_BOON" EffectType="LEADER_CARD_GOLD_BOON" Amount="1" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_LEADER_INFLUENCE_BOON" EffectType="LEADER_CARD_INFLUENCE_BOON" Amount="1" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_LEADER_SCIENCE_BOON" EffectType="LEADER_CARD_SCIENCE_BOON" Amount="1" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_LEADER_CULTURE_BOON" EffectType="LEADER_CARD_CULTURE_BOON" Amount="1" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_LEADER_COMBAT_BOON" EffectType="LEADER_CARD_MOD_COMBAT_BOON" Amount="1" />
+
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_LEADER_FOOD_BANE" EffectType="LEADER_CARD_FOOD_BANE" Amount="1" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_LEADER_GOLD_BANE" EffectType="LEADER_CARD_GOLD_BANE" Amount="1" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_LEADER_INFLUENCE_BANE" EffectType="LEADER_CARD_INFLUENCE_BANE" Amount="1" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_LEADER_SCIENCE_BANE" EffectType="LEADER_CARD_SCIENCE_BANE" Amount="1" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_LEADER_CULTURE_BANE" EffectType="LEADER_CARD_CULTURE_BANE" Amount="1" />
+		<Row Age="AGE_MODERN" EffectID="CARD_EFFECT_MOD_LEADER_COMBAT_BANE" EffectType="LEADER_CARD_MOD_COMBAT_BANE" Amount="1" />
+	</AdvancedStartCardEffects>
+	<AdvancedStartCards>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="CARD_MOD_CITY" Name="LOC_CARD_MOD_CITY_NAME" Description="LOC_CARD_MOD_CITY_DESCRIPTION" WildcardCost="2" CardEffectType1="CARD_EFFECT_MOD_CITY" IndividualLimit="1" CategorySortOrder="10"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="CARD_MOD_TOWN" Name="LOC_CARD_MOD_TOWN_NAME" Description="LOC_CARD_MOD_TOWN_DESCRIPTION" WildcardCost="1" CardEffectType1="CARD_EFFECT_MOD_TOWN" GroupLimit="6" CategorySortOrder="20"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="CARD_MOD_ATTRIBUTE" Name="LOC_CARD_MOD_ATTRIBUTE_NAME" Description="LOC_CARD_MOD_ATTRIBUTE_DESCRIPTION" WildcardCost="1" CardEffectType1="CARD_EFFECT_MOD_ATTRIBUTE" CategorySortOrder="100"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="CARD_MOD_WALLS" Name="LOC_CARD_MOD_WALLS_NAME" Description="LOC_CARD_MOD_WALLS_DESCRIPTION" MilitaristicCost="1" CardEffectType1="CARD_EFFECT_MOD_WALLS" IndividualLimit="1" CategorySortOrder="100"/>
+		<!-- TODO: Eventually wonders Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="CARD_MOD_WONDER" Name="LOC_CARD_MOD_WONDER_NAME" Description="LOC_CARD_MOD_CARD_WONDER_DESCRIPTION" WildcardCost="1" CardEffectType1="CARD_EFFECT_MOD_WONDER" /-->
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="CARD_MOD_ARMY_INFANTRY" Name="LOC_CARD_MOD_ARMY_INFANTRY_NAME" Description="LOC_CARD_MOD_ARMY_INFANTRY_DESCRIPTION" MilitaristicCost="1" CardEffectType1="CARD_EFFECT_MOD_ARMY_INFANTRY" CategorySortOrder="110"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="CARD_MOD_ARMY_RANGED" LimitID="CARD_MOD_ARMY_INFANTRY" Name="LOC_CARD_MOD_ARMY_RANGED_NAME" Description="LOC_CARD_MOD_ARMY_RANGED_DESCRIPTION" MilitaristicCost="1" CardEffectType1="CARD_EFFECT_MOD_ARMY_RANGED" CategorySortOrder="120"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="CARD_MOD_ARMY_CAVALRY" LimitID="CARD_MOD_ARMY_INFANTRY" Name="LOC_CARD_MOD_ARMY_CAVALRY_NAME" Description="LOC_CARD_MOD_ARMY_CAVALRY_DESCRIPTION" MilitaristicCost="2" CardEffectType1="CARD_EFFECT_MOD_ARMY_CAVALRY" CategorySortOrder="130"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="CARD_MOD_GOLD" Name="LOC_CARD_MOD_GOLD_NAME" Description="LOC_CARD_MOD_GOLD_DESCRIPTION" EconomicCost="1" CardEffectType1="CARD_EFFECT_MOD_GOLD" CategorySortOrder="100"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="CARD_MOD_CAPITAL_UPGRADE" Name="LOC_CARD_MOD_CAPITAL_UPGRADE_NAME" Description="LOC_CARD_MOD_CAPITAL_UPGRADE_DESCRIPTION" EconomicCost="1" CardEffectType1="CARD_EFFECT_MOD_CAPITAL_ADJUST_POPULATION" CategorySortOrder="110"/>
+
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="CARD_GRANT_TECH_ACADEMICS" Name="LOC_CARD_GRANT_TECH_ACADEMICS_NAME" Description="LOC_CARD_GRANT_TECH_ACADEMICS_DESCRIPTION" ScienceCost="1" CardEffectType1="CARD_EFFECT_MOD_FREE_TECH_ACADEMICS" IndividualLimit="1" CategorySortOrder="100"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="CARD_GRANT_TECH_STEAM_ENGINE" Name="LOC_CARD_GRANT_TECH_STEAM_ENGINE_NAME" Description="LOC_CARD_GRANT_TECH_STEAM_ENGINE_DESCRIPTION" ScienceCost="1" CardEffectType1="CARD_EFFECT_MOD_FREE_TECH_STEAM_ENGINE" IndividualLimit="1" CategorySortOrder="110"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="CARD_GRANT_TECH_MILITARY_SCIENCE" Name="LOC_CARD_GRANT_TECH_MILITARY_SCIENCE_NAME" Description="LOC_CARD_GRANT_TECH_MILITARY_SCIENCE_DESCRIPTION" ScienceCost="1" CardEffectType1="CARD_EFFECT_MOD_FREE_TECH_MILITARY_SCIENCE" IndividualLimit="1" CategorySortOrder="120"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="CARD_GRANT_CIVIC_MODERNIZATION" Name="LOC_CARD_GRANT_CIVIC_MODERNIZATION_NAME" Description="LOC_CARD_GRANT_CIVIC_MODERNIZATION_DESCRIPTION" CultureCost="1" CardEffectType1="CARD_EFFECT_MOD_FREE_CIVIC_MODERNIZATION" IndividualLimit="1" CategorySortOrder="100"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="CARD_GRANT_CIVIC_NATURAL_HISTORY" Name="LOC_CARD_GRANT_CIVIC_NATURAL_HISTORY_NAME" Description="LOC_CARD_GRANT_CIVIC_NATURAL_HISTORY_DESCRIPTION" CultureCost="1" CardEffectType1="CARD_EFFECT_MOD_FREE_CIVIC_NATURAL_HISTORY" IndividualLimit="1" CategorySortOrder="110"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="CARD_GRANT_CIVIC_SOCIAL_QUESTION" Name="LOC_CARD_GRANT_CIVIC_SOCIAL_QUESTION_NAME" Description="LOC_CARD_GRANT_CIVIC_SOCIAL_QUESTION_DESCRIPTION" CultureCost="1" CardEffectType1="CARD_EFFECT_MOD_FREE_CIVIC_SOCIAL_QUESTION" IndividualLimit="1" CategorySortOrder="120"/>
+
+		<!-- Legend Cards -->
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_AMINA_MODERN_1" Name="LOC_CARD_AT_MOD_LEGEND_AMINA_1_NAME" Description="LOC_CARD_AT_MOD_LEGEND_AMINA_1_DESCRIPTION" EconomicCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_GOLD_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_FOOD_BANE" IndividualLimit="1" UniqueLeader="LEADER_AMINA" Unlock="UNLOCK_LEGEND_LEVEL_8_AMINA" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_AMINA_MODERN_2" Name="LOC_CARD_AT_MOD_LEGEND_AMINA_2_NAME" Description="LOC_CARD_AT_MOD_LEGEND_AMINA_2_DESCRIPTION" MilitaristicCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_COMBAT_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_INFLUENCE_BANE" IndividualLimit="1" UniqueLeader="LEADER_AMINA" Unlock="UNLOCK_LEGEND_LEVEL_8_AMINA" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_ASHOKA_RENOUNCER_MODERN_1" Name="LOC_CARD_AT_MOD_LEGEND_ASHOKA_RENOUNCER_1_NAME" Description="LOC_CARD_AT_MOD_LEGEND_ASHOKA_RENOUNCER_1_DESCRIPTION" CultureCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_INFLUENCE_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_COMBAT_BANE" IndividualLimit="1" UniqueLeader="LEADER_ASHOKA" Unlock="UNLOCK_LEGEND_LEVEL_8_ASHOKA_RENOUNCER" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_ASHOKA_RENOUNCER_MODERN_2" Name="LOC_CARD_AT_MOD_LEGEND_ASHOKA_RENOUNCER_2_NAME" Description="LOC_CARD_AT_MOD_LEGEND_ASHOKA_RENOUNCER_2_DESCRIPTION" ScienceCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_FOOD_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_GOLD_BANE" IndividualLimit="1" UniqueLeader="LEADER_ASHOKA" Unlock="UNLOCK_LEGEND_LEVEL_8_ASHOKA_RENOUNCER" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_AUGUSTUS_MODERN_1" Name="LOC_CARD_AT_MOD_LEGEND_AUGUSTUS_1_NAME" Description="LOC_CARD_AT_MOD_LEGEND_AUGUSTUS_1_DESCRIPTION" CultureCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_CULTURE_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_SCIENCE_BANE" IndividualLimit="1" UniqueLeader="LEADER_AUGUSTUS" Unlock="UNLOCK_LEGEND_LEVEL_8_AUGUSTUS" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_AUGUSTUS_MODERN_2" Name="LOC_CARD_AT_MOD_LEGEND_AUGUSTUS_2_NAME" Description="LOC_CARD_AT_MOD_LEGEND_AUGUSTUS_2_DESCRIPTION" ScienceCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_FOOD_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_GOLD_BANE" IndividualLimit="1" UniqueLeader="LEADER_AUGUSTUS" Unlock="UNLOCK_LEGEND_LEVEL_8_AUGUSTUS" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_FRANKLIN_MODERN_1" Name="LOC_CARD_AT_MOD_LEGEND_FRANKLIN_1_NAME" Description="LOC_CARD_AT_MOD_LEGEND_FRANKLIN_1_DESCRIPTION" CultureCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_INFLUENCE_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_COMBAT_BANE" IndividualLimit="1" UniqueLeader="LEADER_BENJAMIN_FRANKLIN" Unlock="UNLOCK_LEGEND_LEVEL_8_FRANKLIN" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_FRANKLIN_MODERN_2" Name="LOC_CARD_AT_MOD_LEGEND_FRANKLIN_2_NAME" Description="LOC_CARD_AT_MOD_LEGEND_FRANKLIN_2_DESCRIPTION" ScienceCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_SCIENCE_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_CULTURE_BANE" IndividualLimit="1" UniqueLeader="LEADER_BENJAMIN_FRANKLIN" Unlock="UNLOCK_LEGEND_LEVEL_8_FRANKLIN" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_CATHERINE_MODERN_1" Name="LOC_CARD_AT_MOD_LEGEND_CATHERINE_1_NAME" Description="LOC_CARD_AT_MOD_LEGEND_CATHERINE_1_DESCRIPTION" CultureCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_CULTURE_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_SCIENCE_BANE" IndividualLimit="1" UniqueLeader="LEADER_CATHERINE" Unlock="UNLOCK_LEGEND_LEVEL_8_CATHERINE" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_CATHERINE_MODERN_2" Name="LOC_CARD_AT_MOD_LEGEND_CATHERINE_2_NAME" Description="LOC_CARD_AT_MOD_LEGEND_CATHERINE_2_DESCRIPTION" ScienceCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_SCIENCE_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_CULTURE_BANE" IndividualLimit="1" UniqueLeader="LEADER_CATHERINE" Unlock="UNLOCK_LEGEND_LEVEL_8_CATHERINE" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_CHARLEMAGNE_MODERN_1" Name="LOC_CARD_AT_MOD_LEGEND_CHARLEMAGNE_1_NAME" Description="LOC_CARD_AT_MOD_LEGEND_CHARLEMAGNE_1_DESCRIPTION" MilitaristicCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_COMBAT_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_INFLUENCE_BANE" IndividualLimit="1" UniqueLeader="LEADER_CHARLEMAGNE" Unlock="UNLOCK_LEGEND_LEVEL_8_CHARLEMAGNE" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_CHARLEMAGNE_MODERN_2" Name="LOC_CARD_AT_MOD_LEGEND_CHARLEMAGNE_2_NAME" Description="LOC_CARD_AT_MOD_LEGEND_CHARLEMAGNE_2_DESCRIPTION" ScienceCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_SCIENCE_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_CULTURE_BANE" IndividualLimit="1" UniqueLeader="LEADER_CHARLEMAGNE" Unlock="UNLOCK_LEGEND_LEVEL_8_CHARLEMAGNE" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_CONFUCIUS_MODERN_1" Name="LOC_CARD_AT_MOD_LEGEND_CONFUCIUS_1_NAME" Description="LOC_CARD_AT_MOD_LEGEND_CONFUCIUS_1_DESCRIPTION" ScienceCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_FOOD_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_GOLD_BANE" IndividualLimit="1" UniqueLeader="LEADER_CONFUCIUS" Unlock="UNLOCK_LEGEND_LEVEL_8_CONFUCIUS" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_CONFUCIUS_MODERN_2" Name="LOC_CARD_AT_MOD_LEGEND_CONFUCIUS_2_NAME" Description="LOC_CARD_AT_MOD_LEGEND_CONFUCIUS_2_DESCRIPTION" ScienceCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_SCIENCE_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_CULTURE_BANE" IndividualLimit="1" UniqueLeader="LEADER_CONFUCIUS" Unlock="UNLOCK_LEGEND_LEVEL_8_CONFUCIUS" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_FRIEDRICH_OBLIQUE_MODERN_1" Name="LOC_CARD_AT_MOD_LEGEND_FRIEDRICH_OBLIQUE_1_NAME" Description="LOC_CARD_AT_MOD_LEGEND_FRIEDRICH_OBLIQUE_1_DESCRIPTION" MilitaristicCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_COMBAT_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_INFLUENCE_BANE" IndividualLimit="1" UniqueLeader="LEADER_FRIEDRICH" Unlock="UNLOCK_LEGEND_LEVEL_8_FRIEDRICH_OBLIQUE" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_FRIEDRICH_OBLIQUE_MODERN_2" Name="LOC_CARD_AT_MOD_LEGEND_FRIEDRICH_OBLIQUE_2_NAME" Description="LOC_CARD_AT_MOD_LEGEND_FRIEDRICH_OBLIQUE_2_DESCRIPTION" ScienceCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_SCIENCE_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_CULTURE_BANE" IndividualLimit="1" UniqueLeader="LEADER_FRIEDRICH" Unlock="UNLOCK_LEGEND_LEVEL_8_FRIEDRICH_OBLIQUE" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_TUBMAN_MODERN_1" Name="LOC_CARD_AT_MOD_LEGEND_TUBMAN_1_NAME" Description="LOC_CARD_AT_MOD_LEGEND_TUBMAN_1_DESCRIPTION" CultureCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_INFLUENCE_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_COMBAT_BANE" IndividualLimit="1" UniqueLeader="LEADER_HARRIET_TUBMAN" Unlock="UNLOCK_LEGEND_LEVEL_8_TUBMAN" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_TUBMAN_MODERN_2" Name="LOC_CARD_AT_MOD_LEGEND_TUBMAN_2_NAME" Description="LOC_CARD_AT_MOD_LEGEND_TUBMAN_2_DESCRIPTION" MilitaristicCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_COMBAT_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_INFLUENCE_BANE" IndividualLimit="1" UniqueLeader="LEADER_HARRIET_TUBMAN" Unlock="UNLOCK_LEGEND_LEVEL_8_TUBMAN" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_HATSHEPSUT_MODERN_1" Name="LOC_CARD_AT_MOD_LEGEND_HATSHEPSUT_1_NAME" Description="LOC_CARD_AT_MOD_LEGEND_HATSHEPSUT_1_DESCRIPTION" CultureCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_CULTURE_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_SCIENCE_BANE" IndividualLimit="1" UniqueLeader="LEADER_HATSHEPSUT" Unlock="UNLOCK_LEGEND_LEVEL_8_HATSHEPSUT" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_HATSHEPSUT_MODERN_2" Name="LOC_CARD_AT_MOD_LEGEND_HATSHEPSUT_2_NAME" Description="LOC_CARD_AT_MOD_LEGEND_HATSHEPSUT_2_DESCRIPTION" EconomicCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_GOLD_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_FOOD_BANE" IndividualLimit="1" UniqueLeader="LEADER_HATSHEPSUT" Unlock="UNLOCK_LEGEND_LEVEL_8_HATSHEPSUT" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_HIMIKO_QUEEN_MODERN_1" Name="LOC_CARD_AT_MOD_LEGEND_HIMIKO_QUEEN_1_NAME" Description="LOC_CARD_AT_MOD_LEGEND_HIMIKO_QUEEN_1_DESCRIPTION" CultureCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_INFLUENCE_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_COMBAT_BANE" IndividualLimit="1" UniqueLeader="LEADER_HIMIKO" Unlock="UNLOCK_LEGEND_LEVEL_8_HIMIKO_QUEEN" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_HIMIKO_QUEEN_MODERN_2" Name="LOC_CARD_AT_MOD_LEGEND_HIMIKO_QUEEN_2_NAME" Description="LOC_CARD_AT_MOD_LEGEND_HIMIKO_QUEEN_2_DESCRIPTION" ScienceCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_SCIENCE_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_CULTURE_BANE" IndividualLimit="1" UniqueLeader="LEADER_HIMIKO" Unlock="UNLOCK_LEGEND_LEVEL_8_HIMIKO_QUEEN" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_BATTUTA_MODERN_1" Name="LOC_CARD_AT_MOD_LEGEND_BATTUTA_1_NAME" Description="LOC_CARD_AT_MOD_LEGEND_BATTUTA_1_DESCRIPTION" EconomicCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_GOLD_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_FOOD_BANE" IndividualLimit="1" UniqueLeader="LEADER_IBN_BATTUTA" Unlock="UNLOCK_LEGEND_LEVEL_8_BATTUTA" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_BATTUTA_MODERN_2" Name="LOC_CARD_AT_MOD_LEGEND_BATTUTA_2_NAME" Description="LOC_CARD_AT_MOD_LEGEND_BATTUTA_2_DESCRIPTION" CultureCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_CULTURE_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_SCIENCE_BANE" IndividualLimit="1" UniqueLeader="LEADER_IBN_BATTUTA" Unlock="UNLOCK_LEGEND_LEVEL_8_BATTUTA" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_ISABELLA_MODERN_1" Name="LOC_CARD_AT_MOD_LEGEND_ISABELLA_1_NAME" Description="LOC_CARD_AT_MOD_LEGEND_ISABELLA_1_DESCRIPTION" EconomicCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_GOLD_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_FOOD_BANE" IndividualLimit="1" UniqueLeader="LEADER_ISABELLA" Unlock="UNLOCK_LEGEND_LEVEL_8_ISABELLA" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_ISABELLA_MODERN_2" Name="LOC_CARD_AT_MOD_LEGEND_ISABELLA_2_NAME" Description="LOC_CARD_AT_MOD_LEGEND_ISABELLA_2_DESCRIPTION" ScienceCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_FOOD_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_GOLD_BANE" IndividualLimit="1" UniqueLeader="LEADER_ISABELLA" Unlock="UNLOCK_LEGEND_LEVEL_8_ISABELLA" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_RIZAL_MODERN_1" Name="LOC_CARD_AT_MOD_LEGEND_RIZAL_1_NAME" Description="LOC_CARD_AT_MOD_LEGEND_RIZAL_1_DESCRIPTION" CultureCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_CULTURE_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_SCIENCE_BANE" IndividualLimit="1" UniqueLeader="LEADER_JOSE_RIZAL" Unlock="UNLOCK_LEGEND_LEVEL_8_RIZAL" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_RIZAL_MODERN_2" Name="LOC_CARD_AT_MOD_LEGEND_RIZAL_2_NAME" Description="LOC_CARD_AT_MOD_LEGEND_RIZAL_2_DESCRIPTION" CultureCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_INFLUENCE_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_COMBAT_BANE" IndividualLimit="1" UniqueLeader="LEADER_JOSE_RIZAL" Unlock="UNLOCK_LEGEND_LEVEL_8_RIZAL" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_LAFAYETTE_MODERN_1" Name="LOC_CARD_AT_MOD_LEGEND_LAFAYETTE_1_NAME" Description="LOC_CARD_AT_MOD_LEGEND_LAFAYETTE_1_DESCRIPTION" CultureCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_CULTURE_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_SCIENCE_BANE" IndividualLimit="1" UniqueLeader="LEADER_LAFAYETTE" Unlock="UNLOCK_LEGEND_LEVEL_8_LAFAYETTE" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_LAFAYETTE_MODERN_2" Name="LOC_CARD_AT_MOD_LEGEND_LAFAYETTE_2_NAME" Description="LOC_CARD_AT_MOD_LEGEND_LAFAYETTE_2_DESCRIPTION" CultureCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_INFLUENCE_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_COMBAT_BANE" IndividualLimit="1" UniqueLeader="LEADER_LAFAYETTE" Unlock="UNLOCK_LEGEND_LEVEL_8_LAFAYETTE" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_MACHIAVELLI_MODERN_1" Name="LOC_CARD_AT_MOD_LEGEND_MACHIAVELLI_1_NAME" Description="LOC_CARD_AT_MOD_LEGEND_MACHIAVELLI_1_DESCRIPTION" CultureCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_INFLUENCE_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_COMBAT_BANE" IndividualLimit="1" UniqueLeader="LEADER_MACHIAVELLI" Unlock="UNLOCK_LEGEND_LEVEL_8_MACHIAVELLI" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_MACHIAVELLI_MODERN_2" Name="LOC_CARD_AT_MOD_LEGEND_MACHIAVELLI_2_NAME" Description="LOC_CARD_AT_MOD_LEGEND_MACHIAVELLI_2_DESCRIPTION" EconomicCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_GOLD_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_FOOD_BANE" IndividualLimit="1" UniqueLeader="LEADER_MACHIAVELLI" Unlock="UNLOCK_LEGEND_LEVEL_8_MACHIAVELLI" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_PACHACUTI_MODERN_1" Name="LOC_CARD_AT_MOD_LEGEND_PACHACUTI_1_NAME" Description="LOC_CARD_AT_MOD_LEGEND_PACHACUTI_1_DESCRIPTION" EconomicCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_GOLD_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_FOOD_BANE" IndividualLimit="1" UniqueLeader="LEADER_PACHACUTI" Unlock="UNLOCK_LEGEND_LEVEL_8_PACHACUTI" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_PACHACUTI_MODERN_2" Name="LOC_CARD_AT_MOD_LEGEND_PACHACUTI_2_NAME" Description="LOC_CARD_AT_MOD_LEGEND_PACHACUTI_2_DESCRIPTION" ScienceCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_FOOD_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_GOLD_BANE" IndividualLimit="1" UniqueLeader="LEADER_PACHACUTI" Unlock="UNLOCK_LEGEND_LEVEL_8_PACHACUTI" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_TRUNG_MODERN_1" Name="LOC_CARD_AT_MOD_LEGEND_TRUNG_1_NAME" Description="LOC_CARD_AT_MOD_LEGEND_TRUNG_1_DESCRIPTION" MilitaristicCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_COMBAT_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_INFLUENCE_BANE" IndividualLimit="1" UniqueLeader="LEADER_TRUNG_TRAC" Unlock="UNLOCK_LEGEND_LEVEL_8_TRUNG" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_TRUNG_MODERN_2" Name="LOC_CARD_AT_MOD_LEGEND_TRUNG_2_NAME" Description="LOC_CARD_AT_MOD_LEGEND_TRUNG_2_DESCRIPTION" ScienceCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_SCIENCE_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_CULTURE_BANE" IndividualLimit="1" UniqueLeader="LEADER_TRUNG_TRAC" Unlock="UNLOCK_LEGEND_LEVEL_8_TRUNG" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_XERXES_KING_MODERN_1" Name="LOC_CARD_AT_MOD_LEGEND_XERXES_KING_1_NAME" Description="LOC_CARD_AT_MOD_LEGEND_XERXES_KING_1_DESCRIPTION" EconomicCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_GOLD_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_FOOD_BANE" IndividualLimit="1" UniqueLeader="LEADER_XERXES" Unlock="UNLOCK_LEGEND_LEVEL_8_XERXES_KING" CategorySortOrder="50000"/>
+		<Row Age="AGE_MODERN" CardSet="ADVANCED_START_MOD_DEFAULT" CardID="STRATEGYCARD_AS_XERXES_KING_MODERN_2" Name="LOC_CARD_AT_MOD_LEGEND_XERXES_KING_2_NAME" Description="LOC_CARD_AT_MOD_LEGEND_XERXES_KING_2_DESCRIPTION" MilitaristicCost="1" CardEffectType1="CARD_EFFECT_MOD_LEADER_COMBAT_BOON" CardEffectType2="CARD_EFFECT_MOD_LEADER_INFLUENCE_BANE" IndividualLimit="1" UniqueLeader="LEADER_XERXES" Unlock="UNLOCK_LEGEND_LEVEL_8_XERXES_KING" CategorySortOrder="50000"/>
+	</AdvancedStartCards>
+	<AdvancedStartDecks>
+		<!-- List of Modern Decks: available to all players in this age-->
+		<Row DeckID="DefaultModernDeck"/>
+		<Row DeckID="CulturalModernDeck"/>
+		<Row DeckID="EconomicModernDeck"/>
+		<Row DeckID="ExpansionistModernnDeck"/>
+		<Row DeckID="MilitaristicModernDeck"/>
+		<Row DeckID="PoliticalModernDeck"/>
+		<Row DeckID="ScientificModernDeck"/>
+	</AdvancedStartDecks>
+	<AdvancedStartDeckCardEntries>
+		<!-- If there are more cards that can be picked in a deck, further evaluation will prioritise them. -->
+
+		<Row DeckID="DefaultModernDeck" CardID="CARD_MOD_CITY"/>
+		<Row DeckID="DefaultModernDeck" CardID="CARD_MOD_TOWN"/>
+		<Row DeckID="DefaultModernDeck" CardID="CARD_MOD_TOWN"/>
+		<Row DeckID="DefaultModernDeck" CardID="CARD_MOD_TOWN"/>
+		<Row DeckID="DefaultModernDeck" CardID="CARD_MOD_TOWN"/>
+		<Row DeckID="DefaultModernDeck" CardID="CARD_MOD_ARMY_INFANTRY"/>
+		<Row DeckID="DefaultModernDeck" CardID="CARD_MOD_ARMY_RANGED"/>
+		<Row DeckID="DefaultModernDeck" CardID="CARD_MOD_GOLD"/>
+		<Row DeckID="DefaultModernDeck" CardID="CARD_MOD_GOLD"/>
+
+		<Row DeckID="CulturalModernDeck" CardID="CARD_MOD_CITY"/>
+		<Row DeckID="CulturalModernDeck" CardID="CARD_MOD_TOWN"/>
+		<Row DeckID="CulturalModernDeck" CardID="CARD_MOD_TOWN"/>
+		<Row DeckID="CulturalModernDeck" CardID="CARD_MOD_ARMY_INFANTRY"/>
+		<Row DeckID="CulturalModernDeck" CardID="CARD_MOD_GOLD"/>
+		<Row DeckID="CulturalModernDeck" CardID="CARD_MOD_WALLS"/>
+		<Row DeckID="CulturalModernDeck" CardID="CARD_GRANT_CIVIC_NATURAL_HISTORY"/>
+		<Row DeckID="CulturalModernDeck" CardID="CARD_GRANT_TECH_ACADEMICS"/>
+		<Row DeckID="CulturalModernDeck" CardID="CARD_GRANT_TECH_STEAM_ENGINE"/>
+		<Row DeckID="CulturalModernDeck" CardID="CARD_GRANT_CIVIC_SOCIAL_QUESTION"/>
+		<Row DeckID="CulturalModernDeck" CardID="CARD_MOD_ATTRIBUTE"/>
+
+		<Row DeckID="EconomicModernDeck" CardID="CARD_MOD_CITY"/>
+		<Row DeckID="EconomicModernDeck" CardID="CARD_MOD_TOWN"/>
+		<Row DeckID="EconomicModernDeck" CardID="CARD_MOD_TOWN"/>
+		<Row DeckID="EconomicModernDeck" CardID="CARD_MOD_GOLD"/>
+		<Row DeckID="EconomicModernDeck" CardID="CARD_GRANT_TECH_MILITARY_SCIENCE"/>
+		<Row DeckID="EconomicModernDeck" CardID="CARD_GRANT_TECH_STEAM_ENGINE"/>
+		<Row DeckID="EconomicModernDeck" CardID="CARD_GRANT_TECH_ACADEMICS"/>
+		<Row DeckID="EconomicModernDeck" CardID="CARD_MOD_WALLS"/>
+		<Row DeckID="EconomicModernDeck" CardID="CARD_MOD_ATTRIBUTE"/>
+		<Row DeckID="EconomicModernDeck" CardID="CARD_MOD_ARMY_CAVALRY"/>
+
+		<Row DeckID="ExpansionistModernnDeck" CardID="CARD_MOD_CITY"/>
+		<Row DeckID="ExpansionistModernnDeck" CardID="CARD_MOD_TOWN"/>
+		<Row DeckID="ExpansionistModernnDeck" CardID="CARD_MOD_TOWN"/>
+		<Row DeckID="ExpansionistModernnDeck" CardID="CARD_MOD_GOLD"/>
+		<Row DeckID="ExpansionistModernnDeck" CardID="CARD_MOD_ARMY_INFANTRY"/>
+		<Row DeckID="ExpansionistModernnDeck" CardID="CARD_GRANT_TECH_STEAM_ENGINE"/>
+		<Row DeckID="ExpansionistModernnDeck" CardID="CARD_MOD_WALLS"/>
+		<Row DeckID="ExpansionistModernnDeck" CardID="CARD_GRANT_TECH_ACADEMICS"/>
+		<Row DeckID="ExpansionistModernnDeck" CardID="CARD_MOD_ARMY_CAVALRY"/>
+		<Row DeckID="ExpansionistModernnDeck" CardID="CARD_MOD_CAPITAL_UPGRADE"/>
+
+		<Row DeckID="MilitaristicModernDeck" CardID="CARD_MOD_TOWN"/>
+		<Row DeckID="MilitaristicModernDeck" CardID="CARD_MOD_TOWN"/>
+		<Row DeckID="MilitaristicModernDeck" CardID="CARD_MOD_ARMY_RANGED"/>
+		<Row DeckID="MilitaristicModernDeck" CardID="CARD_MOD_ARMY_CAVALRY"/>
+		<Row DeckID="MilitaristicModernDeck" CardID="CARD_GRANT_TECH_STEAM_ENGINE"/>
+		<Row DeckID="MilitaristicModernDeck" CardID="CARD_GRANT_TECH_MILITARY_SCIENCE"/>
+		<Row DeckID="MilitaristicModernDeck" CardID="CARD_MOD_GOLD"/>
+		<Row DeckID="MilitaristicModernDeck" CardID="CARD_MOD_WALLS"/>
+		<Row DeckID="MilitaristicModernDeck" CardID="CARD_MOD_CITY"/>
+
+		<Row DeckID="PoliticalModernDeck" CardID="CARD_MOD_TOWN"/>
+		<Row DeckID="PoliticalModernDeck" CardID="CARD_MOD_TOWN"/>
+		<Row DeckID="PoliticalModernDeck" CardID="CARD_MOD_ARMY_INFANTRY"/>
+		<Row DeckID="PoliticalModernDeck" CardID="CARD_MOD_GOLD"/>
+		<Row DeckID="PoliticalModernDeck" CardID="CARD_GRANT_TECH_STEAM_ENGINE"/>
+		<Row DeckID="PoliticalModernDeck" CardID="CARD_GRANT_CIVIC_MODERNIZATION"/>
+		<Row DeckID="PoliticalModernDeck" CardID="CARD_GRANT_CIVIC_SOCIAL_QUESTION"/>
+		<Row DeckID="PoliticalModernDeck" CardID="CARD_MOD_CITY"/>
+		<Row DeckID="PoliticalModernDeck" CardID="CARD_MOD_WALLS"/>
+		<Row DeckID="PoliticalModernDeck" CardID="CARD_MOD_ARMY_CAVALRY"/>
+
+		<Row DeckID="ScientificModernDeck" CardID="CARD_MOD_TOWN"/>
+		<Row DeckID="ScientificModernDeck" CardID="CARD_MOD_TOWN"/>
+		<Row DeckID="ScientificModernDeck" CardID="CARD_MOD_ARMY_INFANTRY"/>
+		<Row DeckID="ScientificModernDeck" CardID="CARD_MOD_GOLD"/>
+		<Row DeckID="ScientificModernDeck" CardID="CARD_MOD_CAPITAL_UPGRADE"/>
+		<Row DeckID="ScientificModernDeck" CardID="CARD_GRANT_TECH_ACADEMICS"/>
+		<Row DeckID="ScientificModernDeck" CardID="CARD_GRANT_TECH_STEAM_ENGINE"/>
+		<Row DeckID="ScientificModernDeck" CardID="CARD_MOD_CITY"/>
+		<Row DeckID="ScientificModernDeck" CardID="CARD_MOD_WALLS"/>
+		<Row DeckID="ScientificModernDeck" CardID="CARD_MOD_ARMY_CAVALRY"/>
+
+
+	</AdvancedStartDeckCardEntries>
+	<AIListTypes>
+		<Row ListType="DefaultDecklistBiases"/>
+	</AIListTypes>
+	<AILists>
+		<Row ListType="DefaultDecklistBiases" LeaderType="TRAIT_LEADER_MAJOR_CIV" System="AdvancedStartDeckSelection"/>
+	</AILists>
+	<AiFavoredItems>
+		<Row ListType="DefaultDecklistBiases" Item="DefaultModernDeck" Value="100"/>
+	</AiFavoredItems>
+</Database>

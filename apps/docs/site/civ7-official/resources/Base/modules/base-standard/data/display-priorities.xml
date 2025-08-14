@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<DisplayQueuePriorities>
+		<Row Category="ShellDialogBox" Priority="1000" />
+		<Row Category="GameDialogBox" Priority="2000" />
+		<Row Category="SystemMessage" Priority="3000" />
+		<Row Category="EndgameScreen" Priority="4000" />
+		<Row Category="DiplomacyDeal" Priority="5000" />
+		<Row Category="DiplomacyDialog" Priority="6000" />
+		<Row Category="Cinematic" Priority="7000" />
+		<Row Category="TechCivicPopup" Priority="8000" />
+		<Row Category="TutorialManager" Priority="9000" />
+		<Row Category="Notification" Priority="10000" />
+	</DisplayQueuePriorities>
+</Database>

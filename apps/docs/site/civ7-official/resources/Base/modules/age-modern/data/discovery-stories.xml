@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<DiscoveryStory_Yield_Rewards>
+		<Row Type="REWARD_TYPE_MINOR" GoldYieldValue="200" ProductionYieldValue="30" ProgressionYieldValue="75" HappinessYieldValue="150" FoodYieldValue="75" DiplomacyYieldValue="20"/>
+		<Row Type="REWARD_TYPE_MAJOR" GoldYieldValue="400" ProductionYieldValue="60" ProgressionYieldValue="175" HappinessYieldValue="300" FoodYieldValue="175" DiplomacyYieldValue="40"/>
+	</DiscoveryStory_Yield_Rewards>
+	<Types>
+	</Types>
+	<NarrativeStories>
+	</NarrativeStories>
+	<NarrativeRewards>
+	</NarrativeRewards>
+	<NarrativeStory_Rewards>
+	</NarrativeStory_Rewards>
+	<NarrativeStoryOverrides>
+	</NarrativeStoryOverrides>
+	<NarrativeStory_Links>
+	</NarrativeStory_Links>
+</Database>

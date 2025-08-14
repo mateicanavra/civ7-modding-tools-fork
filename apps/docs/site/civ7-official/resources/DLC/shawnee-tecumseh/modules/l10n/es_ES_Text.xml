@@ -1,0 +1,1895 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE1" Language="es_ES">
+      <Text>Cilakofa</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE10" Language="es_ES">
+      <Text>Yetakapewaki</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE11" Language="es_ES">
+      <Text>Ikan'hatki</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE12" Language="es_ES">
+      <Text>Wapa'konetta</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE13" Language="es_ES">
+      <Text>Cornstalk</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE14" Language="es_ES">
+      <Text>Nonhelema</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE15" Language="es_ES">
+      <Text>Nepipemi Hotaapata</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE16" Language="es_ES">
+      <Text>Saawanwa Hotewe</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE17" Language="es_ES">
+      <Text>Wapatomica</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE18" Language="es_ES">
+      <Text>Makacheki</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE19" Language="es_ES">
+      <Text>Mawaskawewiikiwa</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE2" Language="es_ES">
+      <Text>Pikawiiki</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE20" Language="es_ES">
+      <Text>New Pekowiki</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE21" Language="es_ES">
+      <Text>Chillicothe Old Town</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE22" Language="es_ES">
+      <Text>Bluejacket's Town</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE23" Language="es_ES">
+      <Text>Wicita</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE24" Language="es_ES">
+      <Text>Eskalapia</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE25" Language="es_ES">
+      <Text> Manitou</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE26" Language="es_ES">
+      <Text>Chinodahichetha</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE27" Language="es_ES">
+      <Text>Skaalaappiye</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE28" Language="es_ES">
+      <Text>Hokima</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE29" Language="es_ES">
+      <Text>Nipiwasikwana</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE3" Language="es_ES">
+      <Text>Hotewe</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE30" Language="es_ES">
+      <Text>Kolawapani Hotekwi</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE4" Language="es_ES">
+      <Text>Penfekim'teko </Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE5" Language="es_ES">
+      <Text>White Oak</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE6" Language="es_ES">
+      <Text>Little Axe</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE7" Language="es_ES">
+      <Text>Prophet's Town</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE8" Language="es_ES">
+      <Text>Sekakwis</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE9" Language="es_ES">
+      <Text>Wakacaalli</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_FEMALE_1" Language="es_ES">
+      <Text>Pelowikaposi</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_FEMALE_10" Language="es_ES">
+      <Text>Hacipiwasi </Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_FEMALE_2" Language="es_ES">
+      <Text>Napiwesi</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_FEMALE_3" Language="es_ES">
+      <Text>Wikekakamsi</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_FEMALE_4" Language="es_ES">
+      <Text>Natopesi</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_FEMALE_5" Language="es_ES">
+      <Text>Wiicipiyesi</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_FEMALE_6" Language="es_ES">
+      <Text>Kitakimiyesi</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_FEMALE_7" Language="es_ES">
+      <Text>Pelowapama</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_FEMALE_8" Language="es_ES">
+      <Text>Hakowesi</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_FEMALE_9" Language="es_ES">
+      <Text>Nikaanipiyeesi</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_MALE_1" Language="es_ES">
+      <Text>Kinwisiimo</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_MALE_10" Language="es_ES">
+      <Text>Paksinwa</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_MALE_2" Language="es_ES">
+      <Text>Peecfepto</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_MALE_3" Language="es_ES">
+      <Text>Napiyehaska</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_MALE_4" Language="es_ES">
+      <Text>Natopeskata</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_MALE_5" Language="es_ES">
+      <Text>Piyecikapowi</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_MALE_6" Language="es_ES">
+      <Text>Hatakeepi</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_MALE_7" Language="es_ES">
+      <Text>Kokwetekwisiimo</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_MALE_8" Language="es_ES">
+      <Text>Ciipikweskaka</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_MALE_9" Language="es_ES">
+      <Text>Haalakotaaka</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_SHAWNEE_ADJECTIVE" Language="es_ES">
+      <Text>Shawnee|Shawnee|Shawnee|Shawnee</Text>
+      <Gender>masculine|feminine|masculine|feminine</Gender>
+      <Plurality>1|1|2|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_SHAWNEE_FULLNAME" Language="es_ES">
+      <Text>Shawnee|Shawnee|Shawnee|Shawnee</Text>
+      <Gender>masculine|feminine|masculine|feminine</Gender>
+      <Plurality>1|1|2|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_SHAWNEE_NAME" Language="es_ES">
+      <Text>Shawnee|Shawnee|Shawnee|Shawnee</Text>
+      <Gender>masculine|feminine|masculine|feminine</Gender>
+      <Plurality>1|1|2|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_TECUMSEH_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>La expansión hacia el oeste de las colonias americanas dio lugar a constantes conflictos con las tribus nativas americanas. Las comunidades nativas trataban de repeler el avance colonial de forma independiente, así como de unificar y hacer frente a la amenaza conjuntamente. Sus divisiones sociales, políticas y culturales estaban fuertemente arraigadas y era complicado dejarlas atrás. Pero en 1783, una confederación de tribus se reunió en torno a la región de los Grandes Lagos y cosechó importantes victorias contra los Estados Unidos. Aunque la alianza fue efímera, la idea de un frente unido arraigó en un joven guerrero shawnee que había presenciado el auge y la caída de la misma y que estaba decidido a repetirlo.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_TECUMSEH_CHAPTER_HISTORY_PARA_2" Language="es_ES">
+      <Text>Tecumseh, que significa "Pantera que atraviesa los cielos", llegó al mundo en 1768 mientras un meteorito surcaba la noche. A pesar de las dificultades de sus primeros años, no tardó en sobresalir entre sus semejantes como líder y guerrero prometedor. Tecumseh era un hábil cazador y combatiente; tras huir de su primera batalla a la edad de catorce años, fue avergonzado por su comportamiento y se prometió que jamás volvería a suceder (promesa que cumplió). Era carismático, inteligente y un buen orador, dado al humor y con ojo para la diplomacia. Al crecer en medio de los conflictos entre los colonos y la comunidad shawnee, decidió aprender inglés a una edad temprana, aunque solía disimular su dominio del idioma y hablaba únicamente en shawnee en los encuentros diplomáticos. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_TECUMSEH_CHAPTER_HISTORY_PARA_3" Language="es_ES">
+      <Text>Para la década de 1780, los colonos norteamericanos avanzaban por el territorio del noroeste, una región comprendida entre el río Ohio y los Grandes Lagos. Una dispersa confederación de tribus, que incluía a los shawnees al mando del jefe Chaqueta Azul, hizo frente a su avance con la ayuda de los británicos. Pero, tras la derrota de la confederación en la Batalla de los Árboles Caídos, en la que participó Tecumseh, muchos jefes renunciaron a sus tierras en favor de los Estados Unidos en el Tratado de Greeneville de 1795. Tecumseh se opuso firmemente a esta acta y, en años posteriores, aumentó su influencia sobre la población shawnee. Sin embargo, el inesperado auge de su hermano menor cambiaría el curso de su vida. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_TECUMSEH_CHAPTER_HISTORY_PARA_4" Language="es_ES">
+      <Text>A diferencia de Tecumseh, Lalawethika nunca había demostrado grandes aptitudes. Era un cobarde, inepto y alcohólico que se había disparado en un ojo por accidente cuando era pequeño. Aun así, en 1805 empezó a tener visiones en las que el Señor de la Vida, la deidad principal shawnee, le mostraba el destino de quienes seguían (así como de quienes habían dejado atrás) una vida virtuosa. Lalawethika se cambió el nombre por el de Tenskwatawa, "la puerta abierta", y comenzó a hacer proselitismo de una nueva forma de espiritualidad que rechazaba las prácticas y los productos europeos y que se regía únicamente por los valores y estilos de vida tradicionales. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_TECUMSEH_CHAPTER_HISTORY_PARA_5" Language="es_ES">
+      <Text>El profeta Tenskwatawa se erigió como el nuevo líder espiritual de la aldea. Tecumseh, como jefe político y bélico, decidió aliarse con las creencias de su hermano. Ambos consiguieron importantes seguidores de las tribus cercanas, pero tuvieron que hacer frente a otros shawnees: aunque Chaqueta Azul, antiguo líder de la confederación, se unió a sus filas, el poderoso Pezuña Negra de Wapakoneta se negó a reconocerlos. Asimismo, los hermanos llamaron la atención de los oficiales coloniales de la zona, inquietos ante el nuevo movimiento espiritual y su potencial para unir a las tribus. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_TECUMSEH_CHAPTER_HISTORY_PARA_6" Language="es_ES">
+      <Text>En 1808, Tecumseh y Tenskwatawa avanzaron hacia el oeste y establecieron la aldea de Prophetstown, en la que reunieron a un gran número de seguidores de muchas tribus diferentes. Su coexistencia pacífica llegaría a su fin un año después, con el Tratado de Fort Wayne, en el que William Henry Harrison, gobernador del territorio de Indiana, negoció la compra de tierras con distintas tribus en la que no se incluyó a los shawnees. Indignado por dicho acuerdo, Tecumseh se enfrentó personalmente a Harrison para anular el tratado, pues la tierra pertenecía a todas las tribus y, por tanto, no podía venderla una sola. Al regresar con las manos vacías a su hogar, se afanó por forjar una confederación entre las tribus con un doble propósito: unir a los nativos norteamericanos y preservar el estilo de vida tradicional de cada tribu. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_TECUMSEH_CHAPTER_HISTORY_PARA_7" Language="es_ES">
+      <Text>A medida que más y más guerreros llegaban a Prophetstown, Tecumseh dejó que Tenskwatawa dirigiera el frente local y comenzó a realizar grandes viajes. Recorrió varios miles de kilómetros hasta llegar al sur y habló con un gran número de comunidades para alentar a sus jóvenes guerreros a que se unieran a su causa. Su viaje no cosechó un gran éxito en términos de reclutamiento, pero la retórica de Tecumseh plantó semillas que darían sus frutos en los conflictos venideros. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_TECUMSEH_CHAPTER_HISTORY_PARA_8" Language="es_ES">
+      <Text>Durante la ausencia de Tecumseh, Harrison dirigió a un ejército hasta Prophetstown para destituir a Tenskwatawa. Tecumseh había advertido a su hermano de que no exacerbara las tensiones con los estadounidenses, pero el profeta ordenó un ataque antes de que pudieran comenzar las negociaciones con Harrison. Aunque este perdió a más soldados, la Batalla de Tippecanoe se saldó con la victoria estadounidense y Prophetstown acabó en llamas. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_TECUMSEH_CHAPTER_HISTORY_PARA_9" Language="es_ES">
+      <Text>La confederación de Tecumseh parecía destrozada, pero comenzó su reconstrucción en cuanto regresó de su odisea. Pocos meses después, dirigió a sus seguidores a una alianza con los británicos al inicio de la guerra de 1812. Su personalidad e ingenio militar no tardaron en granjearse la confianza y admiración de los comandantes británicos, y lo pusieron al frente de la orquestación de las fuerzas nativas norteamericanas hasta su muerte en la Batalla del Támesis de 1813. Si bien su fallecimiento puso fin a la confederación, las ideas y el legado de Tecumseh lo convirtieron en un héroe popular que ha sobrevivido hasta nuestros días. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_TECUMSEH_TITLE" Language="es_ES">
+      <Text>{LOC_LEADER_TECUMSEH_NAME}</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_SHAWNEE_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>Los orígenes de los shawnees son aún objeto de debate, pero se cree que surgieron de la cultura de Fort Ancient en el valle del río Ohio (c. 1000-1650 d. C.). El pueblo de Fort Ancient emergió a su vez del periodo silvícola tardío con un mayor conocimiento de las técnicas de cultivo y agricultura del maíz, lo que redundó en estilos de vida más sedentarios y asentamientos mayores. No formaban un único estado. Más bien, compartían una cultura común de organización social, creencias religiosas, estilos artísticos y construcción de montículos que se extendía a lo largo de grupos políticos y lingüísticos diversos. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_SHAWNEE_CHAPTER_HISTORY_PARA_2" Language="es_ES">
+      <Text>Las aldeas de Fort Ancient, gobernadas por jefes y consejos, solo ejercían el poder intramuros. Su influencia política no se extendía a otras aldeas, y no existían grandes centros de poder. Las aldeas de verano se construían para que fuesen permanentes, eran agrícolas y podían albergar hasta a 500 personas. Se abandonaban en invierno, cuando los habitantes se disgregaban en campamentos de caza móviles de hasta 30 personas. Con la llegada de la primavera, la gente de Fort Ancient se volvía a reunir en las aldeas de verano, un ciclo de migración alrededor del cual surgieron rituales que celebraban los cambios de estación. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_SHAWNEE_CHAPTER_HISTORY_PARA_3" Language="es_ES">
+      <Text>A través del comercio con los iroqueses, muchas mercancías europeas llegaron al valle del río Ohio durante el siglo XVI y comienzos del XVII. Sin embargo, cuando los europeos llegaron alrededor de 1650, el pueblo de Fort Ancient ya no estaba. Los motivos de su migración aún no se han determinado. Los estudios arqueológicos indican que hubo múltiples olas de impactos de enfermedades como la viruela (posiblemente portada por mercaderes) en el valle del río Ohio. El crecimiento en agresividad de las sociedades vecinas pudo ser otro factor a medida que las Guerras de los Castores alimentaban la violencia y la expansión desde el este. Con el aumento de los peligros externos que cercaban al valle del río Ohio, el pueblo de Fort Ancient debió de haber elegido emigrar antes que permanecer en sus tierras. Durante su éxodo, sus diferencias tribales conformaron una nueva era de nuevas identidades. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_SHAWNEE_CHAPTER_HISTORY_PARA_4" Language="es_ES">
+      <Text>Los shawnees eran una de esas tribus de transición. Al igual que sus predecesores de Fort Ancient, la aldea era el centro principal de lealtad y de poder, y el liderazgo se repartía entre un jefe civil y un caudillo militar. Los cambios estacionales se marcaban con importantes rituales, particularmente las danzas del pan en primavera y otoño. La tribu se dividía en cinco partes (Chalagawtha, Kispokotha, Mekoche, Pekowitha y Thawekila), y cada una de ellas aportaba un rol social determinado dentro de la tribu principal.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_SHAWNEE_CHAPTER_HISTORY_PARA_5" Language="es_ES">
+      <Text>En sus primeras apariciones en los registros históricos coloniales, en 1674, los shawnees ya eran viajeros. En las siguientes décadas, aparecen constantemente en las intersecciones de los contactos de europeos y nativos americanos, actuando como intermediarios entre dos mundos. Se asentaban en diversas latitudes de la costa este, trabajando a menudo como comerciantes, traductores y diplomáticos. El idioma shawnee llegó incluso a convertirse en la lengua franca del comercio. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_SHAWNEE_CHAPTER_HISTORY_PARA_6" Language="es_ES">
+      <Text>Con el avance del siglo XVIII, el antagonismo entre las colonias y los pueblos nativos creció en intensidad. Muchos shawnees, así como otras tribus algonquinas, volvieron al valle del río Ohio, que habían habitado antes sus ancestros de Fort Ancient. Sin embargo, las colonias estadounidenses continuaron avanzando hacia el oeste, robando el territorio y expulsando a las tribus de sus tierras. Muchos jefes de guerra shawnee se enfrentaron a esta expansión, y de entre ellos el más importante fue Tecumseh, que unió a diversos pueblos nativos americanos conformando una importante confederación intertribal para hacer frente al avance estadounidense. Tras su muerte en combate en 1813 la confederación se dispersó, y los shawnees migraron cada vez más al oeste. Hoy en día existen tres tribus shawnee en Oklahoma reconocidas oficialmente por el Gobierno estadounidense: la tribu shawnee, la tribu shawnee emigrada y la tribu shawnee oriental. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_IMPROVEMENT_MAWASKAWE_SKOTE_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>El mawaskawe skote, el "fuego del consejo", es el punto central de debate tribal e intertribal. Históricamente, el fuego se encendía cuando era preciso tomar decisiones que afectaban a toda la comunidad shawnee. A su alrededor se congregaban representantes electos que debatían la cuestión hasta que se alcanzaba una resolución. El mawaskawe skote era un espacio en el que reinaba el respeto, y donde las partes afectadas tenían la oportunidad de hablar y ser escuchadas. El mantenimiento del propio fuego era una práctica sagrada. A día de hoy sigue siendo una parte muy importante de la tradición shawnee. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_SHAWNEE_MALEKI_KINTAKE_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>Los asentamientos shawnee se solían construir en zonas que ofrecían ventajas naturales, con frecuencia en ecotonos que permitían el acceso a una gran variedad de recursos. Al mismo tiempo, los shawnees modificaban su entorno con prácticas sostenibles que les permitían cubrir sus necesidades. Los maleki kintake ("hábitats planificados") aumentaban la cantidad de alimentos que se podían extraer a la vez que ayudaban a la recuperación y la repoblación de la vida natural. La gestión forestal era un elemento clave de este proceso: la tala de árboles y las quemas forestales planificadas despejaban excesos de vegetación para crear espacios para la agricultura. Estos espacios también daban pie a la proliferación de arbustos de bayas y otras fuentes salvajes de alimentos que atraían a animales grandes, como jabalíes y ciervos, que podían a su vez ser cazados. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_SHAWNEE_MIYASKA_LATOWEKI_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>Los shawnees eran viajeros, habitaban asentamientos y facilitaban el comercio desde la bahía de Chesapeake al valle del río Savannah. Un signo importante de su presencia era la adopción de la lengua shawnee como la lengua principal del comercio (miyaska latoweki, lengua franca) en toda la costa este. El shawnee, una lengua algonquina central, se consideraba fácil de aprender tanto por otras tribus como por los colonos, y facilitó la comunicación intercultural de una gran variedad de personas en una era en la que era muy necesaria. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_SHAWNEE_TELWATIKI_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>A pesar de ser históricamente una población pequeña, los shawnees tuvieron una enorme influencia en la historia temprana de los Estados Unidos, principalmente por sus grandes habilidades diplomáticas. Se desarrollaban bien en el espacio perceptible entre los mundos europeo y nativo americano, coexistían en las aldeas de otras tribus, y facilitaron alianzas en todas las partes por su papel como comerciantes, guías y traductores. Eran capaces de comprender realidades sociopolíticas complejas, y de aplicar esta comprensión en la práctica del telwatiki, consistente en oponer unas partes a otras. Moviendo el mundo a su alrededor aseguraban la longevidad y prosperidad de su pueblo.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_SHAWNEE_WYEHI_SIMEKOFI_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>Las comunidades shawnee se organizaban bajo la filosofía wiyehi simekofi, una forma de igualitarismo. La mayoría de los cargos sociales no eran hereditarios. Por contra, la posición social de cada persona venía determinada por sus méritos y logros en vida, y el liderazgo era compartido entre diversas figuras políticas. La administración se dividía entre un líder civil y un líder militar. Los líderes civiles se elegían del clan Chalagawtha, y su cargo era vitalicio. Los caudillos de guerra ascendían al cargo gracias a sus capacidades y logros personales. Las aldeas shawnee tenían también consejos de ancianos y ancianas que moderaban y guiaban a la comunidad.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_HOCEEPKILENI_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>El "hoceepkileni", el chamán, era el líder espiritual del pueblo shawnee. Su función era la de intermediario entre los mundos físico y metafísico, y guiaba a la comunidad en su relación con lo divino. La curación era esencial dentro del conjunto de habilidades del "hoceepkileni", y las dolencias físicas se trataban tanto a nivel médico como espiritual. Sin embargo, también mediaba en las tensiones sociales y en las disputas de la comunidad con el fin de solventar la división del pueblo. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_KISPOKO_NENA_TO_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>Las tácticas de guerra shawnee dependían tanto del conocimiento del territorio como del poder marcial. Cada "kispoko nena'to", guerrero, entrenaba desde muy joven para dominar las armas y desarrollar una relación con los bosques, a menudo a través de la caza. Así, sus tácticas consistían sobre todo en emboscadas y el uso del terreno para obtener ventaja. Los guerreros eran capaces de esperar durante varios días en la misma posición, inmóviles entre la maleza, antes de atacar a los enemigos desprevenidos. Al desplazarse de forma rápida y silenciosa, sin el estorbo de la armadura, se mimetizaban con los bosques y aparecían de repente para lanzar un ataque letal; a continuación, desaparecían tan rápidamente como habían aparecido. Estas estrategias amplificaban la eficacia de los pequeños grupos de guerra, lo que les permitía superar a fuerzas mucho más numerosas. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_SERPENT_MOUND_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>En una meseta de la actual Ohio, en el lugar de un antiguo cráter, los indígenas erigieron un montículo sinuoso con la forma de una gran serpiente. El lugar se eligió probablemente por el inusual terreno y los trabajos de construcción, llevados a cabo por diferentes pueblos, duraron más de mil años, entre el 320 a. C. y el 1400 d. C. El montículo serpentea por el territorio, adaptándose a las formas del paisaje y parece que la boca de la serpiente devora un objeto ovalado, quizá un huevo (o el lugar donde se encontraba el templo).</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_SERPENT_MOUND_CHAPTER_HISTORY_PARA_2" Language="es_ES">
+      <Text>El propósito concreto del montículo sigue siendo un misterio, dada la falta de registros escritos de la época, aunque los pobladores de la región han construido montículos desde la antigüedad y han mantenido la idea de una gran serpiente mitológica: la cultura misisipiana (que está relacionada, pero no directamente asociada, con el montículo) es famosa por sus grandes construcciones en Cahokia y la figura de una serpiente con cuernos aparece en la mitología de los shawnees, entre otras.</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_MAWASKAWE_SKOTE_NAME" Language="es_ES">
+      <Text>Mawaskawe Skote|Mawaskawe Skotes</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_WONDER_SERPENT_MOUND_NAME" Language="es_ES">
+      <Text>Montículo de la Serpiente|Montículos de la Serpiente</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_TECUMSEH_ANY" Language="es_ES">
+      <Text>Os expulsaremos de vuelta al mar, a las cavernas o al sitio del que hayáis venido, sea el que sea.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_TECUMSEH_ANY" Language="es_ES">
+      <Text>¿Dejar que nos arrebaten nuestro hogar y la tierra que nos otorgó el Gran Espíritu, el sitio donde enterramos a aquellos que han vuelto a casa? ¡Jamás!</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DEFEAT_AI_LEADER_TECUMSEH_ANY" Language="es_ES">
+      <Text>Ha llegado a mí una canción de muerte y pienso cantarla. Cuando termine, iré allí donde van las nieves del invierno, donde no podréis alcanzarme.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_TECUMSEH_ANY" Language="es_ES">
+      <Text>¿Ves esa estrella que cruza el firmamento nocturno como un relámpago? Soy yo, Tecumseh, el que salta grandes distancias.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_TECUMSEH_ANY" Language="es_ES">
+      <Text>¿Ves esa estrella que cruza el firmamento nocturno como un relámpago? Soy yo, Tecumseh, el que salta grandes distancias.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_TECUMSEH_ANY" Language="es_ES">
+      <Text>¿Ves esa estrella que cruza el firmamento nocturno como un relámpago? Soy yo, Tecumseh, el que salta grandes distancias.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_TECUMSEH" Language="es_ES">
+      <Text>Trato hecho. Que no tengamos que lamentarlo.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_TECUMSEH" Language="es_ES">
+      <Text>No. </Text>
+    </Replace>
+    <Replace Tag="LOC_MAIN_CHAR_SELECT_LEADER_TECUMSEH_ANY" Language="es_ES">
+      <Text>Mis antepasados eran guerreros. Su hijo es un guerrero. De ellos extraigo solo mi existencia. Yo he hecho de mí mismo quien soy. </Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_K_TEKANI_FIPI_NAME" Language="es_ES">
+      <Text>K'tekani Fipi</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_KILEKINIKA_FIPI_NAME" Language="es_ES">
+      <Text>Kilekinika Fipi</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_M_SIFIPIWIKI_NAME" Language="es_ES">
+      <Text>M'sifipiwiki </Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_P_SIKFI_FIPI_NAME" Language="es_ES">
+      <Text>P'sikfi Fipi </Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_PELEWA_FIPI_NAME" Language="es_ES">
+      <Text>Pelewa Fipi</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_MALEKI_KINTAKE_NAME" Language="es_ES">
+      <Text>Maleki Kintake</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_MIYASKA_LATOWEKI_NAME" Language="es_ES">
+      <Text>Miyaska Latoweki</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TELWATIKI_NAME" Language="es_ES">
+      <Text>Telwatiki</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_WYEHI_SIMEKOFI_NAME" Language="es_ES">
+      <Text>Wiyehi Simekofi</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200B_NAME" Language="es_ES">
+      <Text>La cara del mal es una: la derrota.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200C_NAME" Language="es_ES">
+      <Text>Solo mediante la unidad es posible derrotar al enemigo.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200D_NAME" Language="es_ES">
+      <Text>Que el pueblo interprete esta visión como desee.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1201B_NAME" Language="es_ES">
+      <Text>La visión revela el camino a la victoria.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1201C_NAME" Language="es_ES">
+      <Text>¿Cómo puede resistir tanto calor una criatura?</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1202B_NAME" Language="es_ES">
+      <Text>La pipa es, por sí sola, un regalo merecedor de una alianza.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1202C_NAME" Language="es_ES">
+      <Text>Necesitamos más tácticas de negociación.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1203B_NAME" Language="es_ES">
+      <Text>Los nuevos creyentes pueden convertirse en nuevos soldados.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1203C_NAME" Language="es_ES">
+      <Text>Este milagro debe saberse.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1204B_NAME" Language="es_ES">
+      <Text>Que se apresten los guerreros.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1204C_NAME" Language="es_ES">
+      <Text>El derramamiento de sangre no siempre es la respuesta.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1205B_NAME" Language="es_ES">
+      <Text>Cerrar.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1206B_NAME" Language="es_ES">
+      <Text>La lealtad de la juventud garantiza un futuro luminoso.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1206C_NAME" Language="es_ES">
+      <Text>Debemos respetar las dudas de los ancianos.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1207B_NAME" Language="es_ES">
+      <Text>Cerrar.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208B_NAME" Language="es_ES">
+      <Text>Cerrar.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208C_NAME" Language="es_ES">
+      <Text>Cerrar.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208D_NAME" Language="es_ES">
+      <Text>Cerrar.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209B_NAME" Language="es_ES">
+      <Text>Cerrar.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209C_NAME" Language="es_ES">
+      <Text>Cerrar.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209D_NAME" Language="es_ES">
+      <Text>Cerrar.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_TECUMSEH_NAME" Language="es_ES">
+      <Text>Tecumseh</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_1109C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_1109C_NAME" Language="es_ES">
+      <Text>Cuando los shawnees se reúnen, se elevan nubes azules del humo del tabaco que se mezclan con las risas y la conversación.</Text>
+    </Replace>
+    <Replace Tag="LOC_1497A_COMPLETION" Language="es_ES">
+      <Text>En el apogeo de los shawnee, los ancianos de la división cilakofe tomaban las decisiones políticas para el pueblo. Pero con un gobierno {1_civilization_adj}, su papel quedó indeterminado. Algunos shawnee {2_civilizations_adj} creen que ya no hay necesidad de acatar las antiguas tradiciones, mientras que otros comprenden su valor.</Text>
+    </Replace>
+    <Replace Tag="LOC_1497A_STORYTITLE" Language="es_ES">
+      <Text>Los nuevos shawnee</Text>
+    </Replace>
+    <Replace Tag="LOC_1497B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward} en ciudades por cada Tradición shawnee asignada.</Text>
+    </Replace>
+    <Replace Tag="LOC_1497B_NAME" Language="es_ES">
+      <Text>Preserva la autoridad de los ancianos.</Text>
+    </Replace>
+    <Replace Tag="LOC_1497C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward} en edificios de Oro.</Text>
+    </Replace>
+    <Replace Tag="LOC_1497C_NAME" Language="es_ES">
+      <Text>Los nuevos shawnee adoptan nuevas formas de gobierno.</Text>
+    </Replace>
+    <Replace Tag="LOC_1498A_COMPLETION" Language="es_ES">
+      <Text>Los ancianos cilakofe, reconvertidos en partido político en el gobierno {1_civilization_adj}, plantean su preocupación por los cotos de caza, que siempre fueron de importancia para los shawnee. Las nuevas intrusiones urbanas amenazan con mermar la fauna local.</Text>
+    </Replace>
+    <Replace Tag="LOC_1498A_STORYTITLE" Language="es_ES">
+      <Text>Los derechos del bosque</Text>
+    </Replace>
+    <Replace Tag="LOC_1498B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward} en ciudades, pero {2_reward} en ciudades.</Text>
+    </Replace>
+    <Replace Tag="LOC_1498B_NAME" Language="es_ES">
+      <Text>Los ancianos se ocuparán del bosque.</Text>
+    </Replace>
+    <Replace Tag="LOC_1498C_DESCRIPTION" Language="es_ES">
+      <Text>La historia termina.</Text>
+    </Replace>
+    <Replace Tag="LOC_1498C_NAME" Language="es_ES">
+      <Text>Ignora la solicitud.</Text>
+    </Replace>
+    <Replace Tag="LOC_1499A_COMPLETION" Language="es_ES">
+      <Text>Los jóvenes shawnee {1_civilization_adj} han redescubierto las enseñanzas de Tenskwatawa. Aunque los ancianos las habían eliminado de su autoridad tradicional, los jóvenes shawnee las reinterpretan a su manera, adaptándolas a los tiempos que corren.</Text>
+    </Replace>
+    <Replace Tag="LOC_1499A_STORYTITLE" Language="es_ES">
+      <Text>El renacimiento shawnee</Text>
+    </Replace>
+    <Replace Tag="LOC_1499B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_1499B_NAME" Language="es_ES">
+      <Text>Los jóvenes regresan a su lugar favorito.</Text>
+    </Replace>
+    <Replace Tag="LOC_1499C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_1499C_NAME" Language="es_ES">
+      <Text>Las canciones shawnee suenan por la radio.</Text>
+    </Replace>
+    <Replace Tag="LOC_1500A_COMPLETION" Language="es_ES">
+      <Text>Un planificador urbano shawnee revela los planes de construir nuevas zonas industriales, pero a los ancianos chillicothe les preocupa que ponga en peligro un centenario emplazamiento de un mawaskawe skote.</Text>
+    </Replace>
+    <Replace Tag="LOC_1500A_STORYTITLE" Language="es_ES">
+      <Text>La marcha de la industria</Text>
+    </Replace>
+    <Replace Tag="LOC_1500B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}, pero {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_1500B_NAME" Language="es_ES">
+      <Text>Acepta el consejo de los ancianos.</Text>
+    </Replace>
+    <Replace Tag="LOC_1500C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}, pero {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_1500C_NAME" Language="es_ES">
+      <Text>Rechaza el consejo de los ancianos.</Text>
+    </Replace>
+    <Replace Tag="LOC_1501A_COMPLETION" Language="es_ES">
+      <Text>Una nueva era requiere nuevas historias, y los historiadores han comenzado con un gran tratado del pueblo {1_civilization_adj}. Los hoceepkileni shawnee se preguntan hasta qué punto se incluirán sus historias en el volumen.</Text>
+    </Replace>
+    <Replace Tag="LOC_1501A_STORYTITLE" Language="es_ES">
+      <Text>Mitos nacionales</Text>
+    </Replace>
+    <Replace Tag="LOC_1501B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_1501B_NAME" Language="es_ES">
+      <Text>Los hoceepkileni mantienen sus historias en su comunidad.</Text>
+    </Replace>
+    <Replace Tag="LOC_1501C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_1501C_NAME" Language="es_ES">
+      <Text>Los hoceepkileni abren sus archivos y contribuyen.</Text>
+    </Replace>
+    <Replace Tag="LOC_3713A_COMPLETION" Language="es_ES">
+      <Text>A la hora en la que los agricultores vuelven de los campos, los shawnees se reúnen para la danza del pan. Las mujeres colocan tortas de maíz al lado de la carne que dejan los cazadores. Comida cultivada y comida recolectada; vida alimentada y vida quitada. La gente baila, canta y agradece la generosidad de la tierra, que les permite alimentarse y les garantiza un futuro.</Text>
+    </Replace>
+    <Replace Tag="LOC_3713A_STORYTITLE" Language="es_ES">
+      <Text>Cambio de estación</Text>
+    </Replace>
+    <Replace Tag="LOC_3713B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3713B_NAME" Language="es_ES">
+      <Text>Los campos son fértiles a más no poder.</Text>
+    </Replace>
+    <Replace Tag="LOC_3713C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3713C_NAME" Language="es_ES">
+      <Text>Los bosques están llenos de caza.</Text>
+    </Replace>
+    <Replace Tag="LOC_3713D_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3713D_NAME" Language="es_ES">
+      <Text>Todo el pueblo se une a la celebración.</Text>
+    </Replace>
+    <Replace Tag="LOC_3714A_COMPLETION" Language="es_ES">
+      <Text>Cada vez hay menos animales en los bosques, y los cazadores shawnee se preguntan qué ha sido de ellos. Una anciana atenta señala al bosque: los árboles son demasiado densos. Si quieren que vuelvan los animales, tendrán que asegurarse de que el bosque pueda acogerlos.</Text>
+    </Replace>
+    <Replace Tag="LOC_3714A_STORYTITLE" Language="es_ES">
+      <Text>Familiares ausentes</Text>
+    </Replace>
+    <Replace Tag="LOC_3714B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3714B_NAME" Language="es_ES">
+      <Text>Prendamos fuego al bosque.</Text>
+    </Replace>
+    <Replace Tag="LOC_3714C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3714C_NAME" Language="es_ES">
+      <Text>Bastará con cortar algunos árboles.</Text>
+    </Replace>
+    <Replace Tag="LOC_3715A_COMPLETION" Language="es_ES">
+      <Text>Los ciudadanos shawnee se reúnen en el "mawaskawe skote" para hablar sobre el aumento de la población en la capital. A varios jefes les preocupa que la diversidad cultural entre en declive a medida que la vida de más personas se entrelaza en los barrios densamente habitados.</Text>
+    </Replace>
+    <Replace Tag="LOC_3715A_STORYTITLE" Language="es_ES">
+      <Text>En el fuego del consejo</Text>
+    </Replace>
+    <Replace Tag="LOC_3715B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3715B_NAME" Language="es_ES">
+      <Text>Debemos preservar las diferencias.</Text>
+    </Replace>
+    <Replace Tag="LOC_3715C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3715C_NAME" Language="es_ES">
+      <Text>Debemos dejar que la evolución siga su curso.</Text>
+    </Replace>
+    <Replace Tag="LOC_3716A_COMPLETION" Language="es_ES">
+      <Text>El "hoceepkileni" prepara su equipo y su bolsa de medicinas. Muchos esperan sus palabras y consejos. También los que aún no han abierto los ojos a la verdadera naturaleza del mundo.</Text>
+    </Replace>
+    <Replace Tag="LOC_3716A_STORYTITLE" Language="es_ES">
+      <Text>Sabiduría ancestral</Text>
+    </Replace>
+    <Replace Tag="LOC_3716B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3716B_NAME" Language="es_ES">
+      <Text>Los shawnees se beneficiarán de su sabiduría.</Text>
+    </Replace>
+    <Replace Tag="LOC_3716C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3716C_NAME" Language="es_ES">
+      <Text>Debe viajar al extranjero.</Text>
+    </Replace>
+    <Replace Tag="LOC_3717A_COMPLETION" Language="es_ES">
+      <Text>Los dolientes cantan frente al cuerpo del "kispoko nena'to", recuerdan su valiente determinación y se preguntan si su muerte será vengada. De repente, se alza un grito: un enemigo ha caído.</Text>
+    </Replace>
+    <Replace Tag="LOC_3717A_STORYTITLE" Language="es_ES">
+      <Text>Una vida por otra</Text>
+    </Replace>
+    <Replace Tag="LOC_3717B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward} en Kispoko Nena'tos.</Text>
+    </Replace>
+    <Replace Tag="LOC_3717B_NAME" Language="es_ES">
+      <Text>Los gritos de los guerreros resuenan.</Text>
+    </Replace>
+    <Replace Tag="LOC_3717C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3717C_NAME" Language="es_ES">
+      <Text>Debemos cubrir su ausencia.</Text>
+    </Replace>
+    <Replace Tag="LOC_3718A_COMPLETION" Language="es_ES">
+      <Text>El tambor retumba mientras los guerreros shawnee se preparan para la guerra. Reúnen comida y armas, y comienzan su ayuno para purificarse ante la inminente lucha. Se eleva un gran clamor. Los guerreros gritan y disparan sus armas, bailan y cantan por su futuro éxito. Luego, se hace el silencio mientras se funden con el paisaje en busca de enemigos.</Text>
+    </Replace>
+    <Replace Tag="LOC_3718A_STORYTITLE" Language="es_ES">
+      <Text>Conflicto inminente</Text>
+    </Replace>
+    <Replace Tag="LOC_3718B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3718B_NAME" Language="es_ES">
+      <Text>Cerrar.</Text>
+    </Replace>
+    <Replace Tag="LOC_3719A_COMPLETION" Language="es_ES">
+      <Text>Los plateros shawnee reciben un aluvión de nuevos encargos. Anillos y pulseras, pendientes y platos... Todo el mundo desea el hermoso metal y pronto todos los asentamientos brillan con más fuerza que la propia luna.</Text>
+    </Replace>
+    <Replace Tag="LOC_3719A_STORYTITLE" Language="es_ES">
+      <Text>Tejedores del metal</Text>
+    </Replace>
+    <Replace Tag="LOC_3719B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3719B_NAME" Language="es_ES">
+      <Text>Nunca se tiene demasiada plata.</Text>
+    </Replace>
+    <Replace Tag="LOC_3719C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3719C_NAME" Language="es_ES">
+      <Text>Es hora de exportar estas obras maestras.</Text>
+    </Replace>
+    <Replace Tag="LOC_3720A_COMPLETION" Language="es_ES">
+      <Text>Ciudades de todo el mundo claman por los productos shawnee. Los comerciantes se apresuran de un mercado a otro, cortejan a los compradores y comparten historias de su hogar.</Text>
+    </Replace>
+    <Replace Tag="LOC_3720A_STORYTITLE" Language="es_ES">
+      <Text>Mercaderes parlanchines</Text>
+    </Replace>
+    <Replace Tag="LOC_3720B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3720B_NAME" Language="es_ES">
+      <Text>Convierten las palabras en riquezas.</Text>
+    </Replace>
+    <Replace Tag="LOC_3720C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3720C_NAME" Language="es_ES">
+      <Text>Las nuevas amistades abren puertas.</Text>
+    </Replace>
+    <Replace Tag="LOC_3721A_COMPLETION" Language="es_ES">
+      <Text>Los guerreros shawnee celebran una cacería exitosa. Sin embargo, los ancianos se preguntan si los jóvenes han dado las gracias de forma adecuada por el sacrificio que los animales han realizado.</Text>
+    </Replace>
+    <Replace Tag="LOC_3721A_STORYTITLE" Language="es_ES">
+      <Text>El botín de los bosques</Text>
+    </Replace>
+    <Replace Tag="LOC_3721B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3721B_NAME" Language="es_ES">
+      <Text>Debemos respetar la tradición para que esta perdure.</Text>
+    </Replace>
+    <Replace Tag="LOC_3721C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3721C_NAME" Language="es_ES">
+      <Text>Los animales agradecidos se multiplican y dan abundancia a los bosques.</Text>
+    </Replace>
+    <Replace Tag="LOC_3722A_COMPLETION" Language="es_ES">
+      <Text>Multitudes que llegan de lugares próximos y lejanos acuden a la casa de fieras shawnee. Los animales son extraordinarios y todos se maravillan ante estas extrañas bestias. Sin embargo, en medio del insólito espectáculo, se encuentra un recordatorio de lo ordinario: un pavo, venerado durante mucho tiempo por el pueblo y necesario para su forma de vida.</Text>
+    </Replace>
+    <Replace Tag="LOC_3722A_STORYTITLE" Language="es_ES">
+      <Text>Pelewa</Text>
+    </Replace>
+    <Replace Tag="LOC_3722B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3722B_NAME" Language="es_ES">
+      <Text>Todos los animales tienen el mismo valor.</Text>
+    </Replace>
+    <Replace Tag="LOC_3722C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3722C_NAME" Language="es_ES">
+      <Text>Los pavos tienen un encanto propio.</Text>
+    </Replace>
+    <Replace Tag="LOC_3723A_COMPLETION" Language="es_ES">
+      <Text>Los astrónomos señalan a los cielos cuando un cometa atraviesa el firmamento. Acuden a Tecumseh y ven la pantera celestial reflejada en sus ojos mientras viaja a través de las estrellas. Con gran orgullo, contempla a su tocayo desaparecer dejando un rastro de fuego.</Text>
+    </Replace>
+    <Replace Tag="LOC_3723A_STORYTITLE" Language="es_ES">
+      <Text>El camino de la pantera</Text>
+    </Replace>
+    <Replace Tag="LOC_3723B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3723B_NAME" Language="es_ES">
+      <Text>La fortuna sonreirá al pueblo.</Text>
+    </Replace>
+    <Replace Tag="LOC_3723C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3723C_NAME" Language="es_ES">
+      <Text>La siguiente cacería será productiva.</Text>
+    </Replace>
+    <Replace Tag="LOC_3724A_COMPLETION" Language="es_ES">
+      <Text>Después de mucho debatir, los jefes locales se niegan a unirse a la confederación de Tecumseh. Cansados de discutir, ofrecen una pipa de la paz para suavizar los posibles rencores. Tecumseh, disgustado por la falta de progreso, sostiene la pipa con cuidado entre los dedos. Entonces, con un solo movimiento, la rompe por la mitad y lanza los fragmentos al fuego. Un jefe suspira mientras sus guerreros instan a que lo reconsidere: "Muy bien...".</Text>
+    </Replace>
+    <Replace Tag="LOC_3724A_STORYTITLE" Language="es_ES">
+      <Text>Tácticas de negociación</Text>
+    </Replace>
+    <Replace Tag="LOC_3724B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3724B_NAME" Language="es_ES">
+      <Text>Cerrar.</Text>
+    </Replace>
+    <Replace Tag="LOC_3725A_COMPLETION" Language="es_ES">
+      <Text>Los jefes se han vuelto cautelosos ante los intentos de unificación de Tecumseh. Afirman que dos ciudades-estado son suficientes y que deben dejar en manos del pueblo su propio destino. ¡Que tomen sus propias decisiones!</Text>
+    </Replace>
+    <Replace Tag="LOC_3725A_STORYTITLE" Language="es_ES">
+      <Text>Discrepancias internas</Text>
+    </Replace>
+    <Replace Tag="LOC_3725B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3725B_NAME" Language="es_ES">
+      <Text>El verdadero poder proviene de la solidaridad.</Text>
+    </Replace>
+    <Replace Tag="LOC_3725C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}, pero reduce las relaciones con todas las potencias independientes en 2.</Text>
+    </Replace>
+    <Replace Tag="LOC_3725C_NAME" Language="es_ES">
+      <Text>Ya ha habido suficiente expansión.</Text>
+    </Replace>
+    <Replace Tag="LOC_3726A_COMPLETION" Language="es_ES">
+      <Text>El enemigo avanza y la tierra del pueblo de Tecumseh es cada vez menor. Furioso por la pérdida de su asentamiento, congrega a los territorios que están más allá de sus fronteras, apelando a los que se conforman con la inacción. Si cae, ellos serán los siguientes.</Text>
+    </Replace>
+    <Replace Tag="LOC_3726A_STORYTITLE" Language="es_ES">
+      <Text>El enemigo nos invade</Text>
+    </Replace>
+    <Replace Tag="LOC_3726B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3726B_NAME" Language="es_ES">
+      <Text>La victoria solo aguarda a quienes continúan luchando.</Text>
+    </Replace>
+    <Replace Tag="LOC_3726C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3726C_NAME" Language="es_ES">
+      <Text>Debemos dejar a un lado las diferencias por el bien común.</Text>
+    </Replace>
+    <Replace Tag="LOC_3727A_COMPLETION" Language="es_ES">
+      <Text>Las ciudades-estado observan cómo las grandes potencias se enfrentan en el campo de batalla, sin saber si deberían permanecer al margen o arriesgarlo todo involucrándose. Sin embargo, Tecumseh, siempre atento, será quien tome la decisión.</Text>
+    </Replace>
+    <Replace Tag="LOC_3727A_STORYTITLE" Language="es_ES">
+      <Text>Una invitación de guerra</Text>
+    </Replace>
+    <Replace Tag="LOC_3727B_DESCRIPTION" Language="es_ES">
+      <Text>Las acciones de Respaldar poder militar requieren menos Influencia.</Text>
+    </Replace>
+    <Replace Tag="LOC_3727B_NAME" Language="es_ES">
+      <Text>Enviemos un cinturón "wampum" negro.</Text>
+    </Replace>
+    <Replace Tag="LOC_3727C_DESCRIPTION" Language="es_ES">
+      <Text>Las acciones de Fomentar crecimiento requieren menos Influencia.</Text>
+    </Replace>
+    <Replace Tag="LOC_3727C_NAME" Language="es_ES">
+      <Text>Enviemos un cinturón "wampum" blanco.</Text>
+    </Replace>
+    <Replace Tag="LOC_3728A_COMPLETION" Language="es_ES">
+      <Text>Los civiles se acobardan mientras los guerreros saquean sus casas. Sin embargo, cuando se disponen a tomar a los inocentes como prisioneros, Tecumseh alza una mano.</Text>
+    </Replace>
+    <Replace Tag="LOC_3728A_STORYTITLE" Language="es_ES">
+      <Text>No combatientes</Text>
+    </Replace>
+    <Replace Tag="LOC_3728B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3728B_NAME" Language="es_ES">
+      <Text>Ya se ha derramado suficiente sangre.</Text>
+    </Replace>
+    <Replace Tag="LOC_3728C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3728C_NAME" Language="es_ES">
+      <Text>Coged solo los objetos valiosos.</Text>
+    </Replace>
+    <Replace Tag="LOC_3729A_COMPLETION" Language="es_ES">
+      <Text>Los guerreros gritan victoria al tiempo que los enemigos caen frente a su furia. Una vez más, la estrategia de Tecumseh ha tenido éxito. Alentados por su líder, los shawnees se funden en el paisaje y se preparan para su próximo ataque.</Text>
+    </Replace>
+    <Replace Tag="LOC_3729A_STORYTITLE" Language="es_ES">
+      <Text>El jefe de guerra</Text>
+    </Replace>
+    <Replace Tag="LOC_3729B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward} en Kispoko Nena'tos.</Text>
+    </Replace>
+    <Replace Tag="LOC_3729B_NAME" Language="es_ES">
+      <Text>Un ataque rápido aplastará al enemigo.</Text>
+    </Replace>
+    <Replace Tag="LOC_3729C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward} en Kispoko Nena'tos.</Text>
+    </Replace>
+    <Replace Tag="LOC_3729C_NAME" Language="es_ES">
+      <Text>Un golpe contundente es difícil de detener.</Text>
+    </Replace>
+    <Replace Tag="LOC_3730A_COMPLETION" Language="es_ES">
+      <Text>Tras el acuerdo alcanzado entre ambos líderes, Tecumseh recibe un regalo como símbolo de honor y amistad: el fajín del uniforme de su nuevo aliado. El objeto en sí es valioso, pero el gesto no tiene precio.</Text>
+    </Replace>
+    <Replace Tag="LOC_3730A_STORYTITLE" Language="es_ES">
+      <Text>Un regalo honorable</Text>
+    </Replace>
+    <Replace Tag="LOC_3730B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3730B_NAME" Language="es_ES">
+      <Text>Expongamos el fajín para que todos lo vean.</Text>
+    </Replace>
+    <Replace Tag="LOC_3730C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3730C_NAME" Language="es_ES">
+      <Text>Regalémosle el fajín a otro aliado.</Text>
+    </Replace>
+    <Replace Tag="LOC_3731A_COMPLETION" Language="es_ES">
+      <Text>La tierra se abarrota de edificios y el mundo natural se hace más pequeño frente a la metrópolis. Se han dicho muchas cosas, pero, para Tecumseh, la tierra es para todos.</Text>
+    </Replace>
+    <Replace Tag="LOC_3731A_STORYTITLE" Language="es_ES">
+      <Text>Los espacios intermedios</Text>
+    </Replace>
+    <Replace Tag="LOC_3731B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3731B_NAME" Language="es_ES">
+      <Text>La naturaleza aún tiene mucho que ofrecer.</Text>
+    </Replace>
+    <Replace Tag="LOC_3731C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3731C_NAME" Language="es_ES">
+      <Text>La tierra debe disfrutarse en paz.</Text>
+    </Replace>
+    <Replace Tag="LOC_3732A_COMPLETION" Language="es_ES">
+      <Text>Tecumseh observa los artefactos que tiene delante. Permanecen inertes, pero, en su silencio, oye las voces del pasado, los recuerdos que han visto estos objetos, las historias que podrían contar. Son las voces de la humanidad.</Text>
+    </Replace>
+    <Replace Tag="LOC_3732A_STORYTITLE" Language="es_ES">
+      <Text>Los ecos de la historia</Text>
+    </Replace>
+    <Replace Tag="LOC_3732B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3732B_NAME" Language="es_ES">
+      <Text>Estos objetos deben permanecer juntos.</Text>
+    </Replace>
+    <Replace Tag="LOC_3732C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3732C_NAME" Language="es_ES">
+      <Text>Cuantos más artefactos, más voces.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200A_COMPLETION" Language="es_ES">
+      <Text>Un nuevo profeta resurge de un letargo parecido a la muerte. Abandona su antigua vida y relata la visión de un camino que se bifurca: una senda lleva a la felicidad; la otra, a la desgracia. Repite la advertencia que le ha enviado el Señor de la Vida: ciertos males no tienen remedio, pero el futuro aún puede salvarse. Tecumseh escucha atentamente las palabras del profeta. Luego, extiende una mano y ayuda a su hermano a ponerse en pie.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200A_STORYTITLE" Language="es_ES">
+      <Text>La puerta se abre</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200B_COMPLETION" Language="es_ES">
+      <Text>El enemigo huye hacia la espesura circundante y los guerreros de Tecumseh celebran la victoria. Se oye un vaivén de voces junto a las hogueras que relatan anécdotas de batallas e imaginan un nuevo mañana.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200B_IMPERATIVE" Language="es_ES">
+      <Text>Derrota a 3 unidades.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200B_STORYTITLE" Language="es_ES">
+      <Text>La puerta se abre</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200C_COMPLETION" Language="es_ES">
+      <Text>Los desconocidos deambulan por las calles, atentos a cosas extrañas y maravillosas. Pero no por mucho tiempo, pues el pueblo de Tecumseh sabe dar la bienvenida a los foráneos y convertirlos en viejos amigos.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200C_IMPERATIVE" Language="es_ES">
+      <Text>Consigue la suzeranía de una potencia independiente.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200C_STORYTITLE" Language="es_ES">
+      <Text>La puerta se abre</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200D_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward} en todos los asentamientos.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200D_STORYTITLE" Language="es_ES">
+      <Text>La puerta se abre</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1201A_COMPLETION" Language="es_ES">
+      <Text>Dos hileras de guerreros se enfrentan entre sí, iluminadas por el fuego sagrado que arde en la noche. Juntos claman ante la inminente batalla. De repente, la mirada de Tecumseh se centra en el fuego. Se hace el silencio cuando una serpiente emerge de entre las llamas. Se precipita hacia la oscuridad y se reanudan los gritos con más fuerza que nunca.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1201A_STORYTITLE" Language="es_ES">
+      <Text>Rescoldos diseminados</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1201B_COMPLETION" Language="es_ES">
+      <Text>Los artesanos tallan imágenes de serpientes y los niños trazan sus largos cuerpos en el suelo. Todos saben que la aparición de la serpiente en el fuego era una señal de victoria.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1201B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1201B_IMPERATIVE" Language="es_ES">
+      <Text>Captura un asentamiento.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1201B_STORYTITLE" Language="es_ES">
+      <Text>Rescoldos diseminados</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1201C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1201C_STORYTITLE" Language="es_ES">
+      <Text>Rescoldos diseminados</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1202A_COMPLETION" Language="es_ES">
+      <Text>Pequeñas volutas se elevan de la pipa de Tecumseh al tiempo que aspira el humo. Las hierbas ardientes son la promesa de un nuevo comienzo de amistad y unión. Pero ¿a quién beneficiará?</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1202A_STORYTITLE" Language="es_ES">
+      <Text>La pipa ceremonial</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1202B_COMPLETION" Language="es_ES">
+      <Text>La pipa de Tecumseh pasa de mano en mano entre aliados. Se forjan nuevas amistades y alianzas fuertes para capear tormentas futuras.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1202B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1202B_IMPERATIVE" Language="es_ES">
+      <Text>Firma una alianza con otra civilización.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1202B_STORYTITLE" Language="es_ES">
+      <Text>La pipa ceremonial</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1202C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1202C_STORYTITLE" Language="es_ES">
+      <Text>La pipa ceremonial</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1203A_COMPLETION" Language="es_ES">
+      <Text>El profeta convoca al pueblo entero para que sea testigo del poder que le ha concedido el Señor de la Vida. De pie frente a la expectante multitud, Tecumseh reitera el mensaje transmitido en las visiones de su hermano: se avecina el cambio, pero superarán cualquier desafío a través de la unidad. De repente, como predijo el profeta, el cielo se oscurece y desaparece el sol.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1203A_STORYTITLE" Language="es_ES">
+      <Text>Sol negro</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1203B_DESCRIPTION" Language="es_ES">
+      <Text>La historia continúa.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1203B_STORYTITLE" Language="es_ES">
+      <Text>Sol negro</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1203C_DESCRIPTION" Language="es_ES">
+      <Text>La historia continúa.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1203C_STORYTITLE" Language="es_ES">
+      <Text>Sol negro</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1204A_COMPLETION" Language="es_ES">
+      <Text>Los ciudadanos se preparan para huir ante la llegada de las fuerzas enemigas. Los mensajeros del profeta convencen al oponente de que se instale en las proximidades para preparar las conversaciones de paz. En esta breve pausa, Tecumseh pondera la promesa de la guerra y las ventajas de la paz.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1204A_STORYTITLE" Language="es_ES">
+      <Text>La víspera de la batalla</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1204B_COMPLETION" Language="es_ES">
+      <Text>Los soldados caen ante la furia de los guerreros de Tecumseh. Ahora reinará la paz gracias a él.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1204B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1204B_IMPERATIVE" Language="es_ES">
+      <Text>Derrota a un Comandante enemigo.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1204B_STORYTITLE" Language="es_ES">
+      <Text>La víspera de la batalla</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1204C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1204C_STORYTITLE" Language="es_ES">
+      <Text>La víspera de la batalla</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1205A_COMPLETION" Language="es_ES">
+      <Text>Abundan rumores sobre brujas y hechiceros que amenazan la propia estructura de la sociedad de Tecumseh. El profeta advierte de su creciente poder, pero hay otras formas de ocuparse de las voces discordantes.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1205A_STORYTITLE" Language="es_ES">
+      <Text>Divisiones internas</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1205B_COMPLETION" Language="es_ES">
+      <Text>El temor del pueblo a las brujas declina a medida que aumenta su confianza en Tecumseh. Ahora que se apaciguan sus temores, la vida vuelve a ser gozosa.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1205B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward} en todos los asentamientos.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1205B_IMPERATIVE" Language="es_ES">
+      <Text>Comienza 3 Sanciones diplomáticas.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1205B_STORYTITLE" Language="es_ES">
+      <Text>Divisiones internas</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1206A_COMPLETION" Language="es_ES">
+      <Text>Tecumseh se dirige a los nuevos vecinos con fuego y compasión. Asegura que aquellas tierras les pertenecen, al igual que sus costumbres. Pero, para conservar ambas, se requiere unidad y, con ella, fuerza. Los jóvenes guerreros se regocijan ante su oferta de gloria, mientras que sus mayores se preguntan si esa es la vía de la preservación.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1206A_STORYTITLE" Language="es_ES">
+      <Text>En nuevas tierras</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1206B_COMPLETION" Language="es_ES">
+      <Text>Guerreros vecinos se reúnen en los asentamientos de Tecumseh, listos para hacerse cargo del mundo. Elevan juntos la voz y su canto da forma a una única melodía de unidad.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1206B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1206B_IMPERATIVE" Language="es_ES">
+      <Text>Consigue la suzeranía de una potencia independiente.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1206B_STORYTITLE" Language="es_ES">
+      <Text>En nuevas tierras</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1206C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1206C_STORYTITLE" Language="es_ES">
+      <Text>En nuevas tierras</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1207A_COMPLETION" Language="es_ES">
+      <Text>Con la declaración de guerra de la tierra contra la humanidad, muchos temen que los desastres sean signos de la ira del Señor de la Vida. Quienes otrora dudaron de las enseñanzas del profeta se vuelven creyentes. Tecumseh acoge a los nuevos adeptos y los envía a que proclamen su hallazgo por el mundo.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1207A_STORYTITLE" Language="es_ES">
+      <Text>El suelo tiembla</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1207B_COMPLETION" Language="es_ES">
+      <Text>Cuantas más plegarias, mejor. El profeta guía a los creyentes por todo el mundo para apaciguar la ira de la tierra y esta escucha.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1207B_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward} en todos los asentamientos.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1207B_IMPERATIVE" Language="es_ES">
+      <Text>Ten 4 asentamientos que sigan la Religión que has fundado.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1207B_STORYTITLE" Language="es_ES">
+      <Text>El suelo tiembla</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208A_COMPLETION" Language="es_ES">
+      <Text>Los ejércitos de Tecumseh marchan por la tierra, erradicando a sus enemigos y brindando una vida segura a los ciudadanos. Aunque no termina la guerra aún, la unión de su pueblo da fuerzas a Tecumseh, y su liderazgo fortalece ese vínculo.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208A_STORYTITLE" Language="es_ES">
+      <Text>Unión y armonía</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208B_COMPLETION" Language="es_ES">
+      <Text>La capital enemiga cae ante el ejército unido. En todas las calles resuenan clamores de victoria, y de todas las bocas sale una misma palabra: ¡Tecumseh!</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208B_DESCRIPTION" Language="es_ES">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208B_IMPERATIVE" Language="es_ES">
+      <Text>Captura una capital enemiga.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208B_STORYTITLE" Language="es_ES">
+      <Text>Unión y armonía</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208C_STORYTITLE" Language="es_ES">
+      <Text>Unión y armonía</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208D_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward} e introduce una Celebración.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208D_STORYTITLE" Language="es_ES">
+      <Text>Unión y armonía</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209A_COMPLETION" Language="es_ES">
+      <Text>Cada día se suman a la causa de Tecumseh más adeptos, que acuden en masa a sus ciudades y envían misivas desde remotas tierras. Son más aún quienes buscan su liderazgo conforme se recrudecen las tensiones en el mundo.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209A_STORYTITLE" Language="es_ES">
+      <Text>Un pueblo unido</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209B_COMPLETION" Language="es_ES">
+      <Text>Tecumseh observa cómo prospera su pueblo; son muchas naciones en una, y cada una de ellas es un fragmento de la visión del profeta, hoy cumplida. Nuevos horizontes aguardan, pero el Señor de la Vida sabrá iluminar el buen camino.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209B_DESCRIPTION" Language="es_ES">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209B_IMPERATIVE" Language="es_ES">
+      <Text>Ten 4 rutas comerciales.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209B_STORYTITLE" Language="es_ES">
+      <Text>Un pueblo unido</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209C_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209C_STORYTITLE" Language="es_ES">
+      <Text>Un pueblo unido</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209D_DESCRIPTION" Language="es_ES">
+      <Text>{1_reward} e introduce una Celebración.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209D_STORYTITLE" Language="es_ES">
+      <Text>Un pueblo unido</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_TECUMSEH_SUZERAIN_DESCRIPTION" Language="es_ES">
+      <Text>+1 a la Fuerza de combate por cada ciudad-estado bajo tu suzeranía.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_TECUMSEH_L1_DESCRIPTION" Language="es_ES">
+      <Text>+5 a la Fuerza de combate de todas las unidades contra distritos.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_TECUMSEH_L1_NAME" Language="es_ES">
+      <Text>Nodo de atributo militarista</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_TECUMSEH_L2_DESCRIPTION" Language="es_ES">
+      <Text>+25 % a Relación al iniciar o apoyar Esfuerzos. -25 % a Relación al iniciar Sanciones o rechazar Esfuerzos.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_TECUMSEH_L2_NAME" Language="es_ES">
+      <Text>Nodo de atributo diplomático</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_TECUMSEH_NAME" Language="es_ES">
+      <Text>Emblema de Tecumseh 1</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_TECUMSEH_P_NAME" Language="es_ES">
+      <Text>Emblema de Tecumseh 2</Text>
+    </Replace>
+    <Replace Tag="LOC_BANNER_TECUMSEH_NAME" Language="es_ES">
+      <Text>Estandarte de Tecumseh</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_TECUMSEH_1_DESCRIPTION" Language="es_ES">
+      <Text>Durante esta era, +3 a la Fuerza de combate de tus unidades navales a expensas de -10 % a[icon:YIELD_DIPLOMACY] Influencia.</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_TECUMSEH_1_NAME" Language="es_ES">
+      <Text>Leyenda militarista de la Era de los Descubrimientos de Tecumseh</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_TECUMSEH_2_DESCRIPTION" Language="es_ES">
+      <Text>Durante esta era, ganas +15 % a[icon:YIELD_DIPLOMACY] Influencia a expensas de -2 a la Fuerza de combate de tus unidades navales.</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_TECUMSEH_2_NAME" Language="es_ES">
+      <Text>Leyenda diplomática de la Era de los Descubrimientos de Tecumseh</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_TECUMSEH_1_DESCRIPTION" Language="es_ES">
+      <Text>Durante esta era, +3 a la Fuerza de combate de tus unidades aéreas a expensas de -10 % a[icon:YIELD_DIPLOMACY] Influencia.</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_TECUMSEH_1_NAME" Language="es_ES">
+      <Text>Leyenda militarista de la Edad Moderna de Tecumseh</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_TECUMSEH_2_DESCRIPTION" Language="es_ES">
+      <Text>Durante esta era, ganas +15 % a[icon:YIELD_DIPLOMACY] Influencia a expensas de -2 a la Fuerza de combate de tus unidades aéreas.</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_TECUMSEH_2_NAME" Language="es_ES">
+      <Text>Leyenda diplomática de la Edad Moderna de Tecumseh</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_MALEKI_KINTAKE_QUOTE" Language="es_ES">
+      <Text>"No podemos vivir sin la Tierra, pero la Tierra puede vivir sin nosotros."</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_MALEKI_KINTAKE_QUOTE_AUTHOR" Language="es_ES">
+      <Text>Evo Morales</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_MIYASKA_LATOWEKI_QUOTE" Language="es_ES">
+      <Text>"Recuerda y recuerda, niño comerciante, tus deseos son los enemigos de la guerra."</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_MIYASKA_LATOWEKI_QUOTE_AUTHOR" Language="es_ES">
+      <Text>Hamazah Fansuri</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TELWATIKI_QUOTE" Language="es_ES">
+      <Text>"El universo es un juego de sombras y nosotros, figuras que giran en torno al Sol."</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TELWATIKI_QUOTE_AUTHOR" Language="es_ES">
+      <Text>Omar Jayam</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_WYEHI_SIMEKOFI_QUOTE" Language="es_ES">
+      <Text>"Una pequeña ramita, combinada con otras, crea un fardo."</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_WYEHI_SIMEKOFI_QUOTE_AUTHOR" Language="es_ES">
+      <Text>Proverbio ugandés</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_SHAWNEE_DESCRIPTION" Language="es_ES">
+      <Text>Los asentamientos que se construyen junto a Ríos navegables obtienen +2 a[icon:YIELD_FOOD] Alimentos en terreno de Ríos, pero las ciudades que no lo están reciben -10 % a[icon:YIELD_FOOD] Alimentos.</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_MAWASKAWE_SKOTE_DESCRIPTION" Language="es_ES">
+      <Text>+4 a [icon:YIELD_FOOD] Alimentos. +1 de [icon:YIELD_GOLD] Oro por cada recurso adyacente. Mejora exclusiva shawnee. No envejece. No elimina las bonificaciones de Almacén de una casilla. Se debe construir en terreno con Vegetación no adyacente a otro Mawaskawe skote.</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_MAWASKAWE_SKOTE_TOOLTIP" Language="es_ES">
+      <Text>Mejora exclusiva shawnee. No envejece. No elimina las bonificaciones de Almacén de una casilla. Se debe construir en terreno con Vegetación no adyacente a otro Mawaskawe skote.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_TECUMSEH_DESCRIPTION" Language="es_ES">
+      <Text>+1 a [icon:YIELD_FOOD] Alimentos y [icon:YIELD_PRODUCTION] Producción por era en cada asentamiento por cada [icon:CITYSTATE] ciudad-estado que esté bajo tu suzeranía. +1 a la [icon:NAR_REW_COMBAT] Fuerza de combate de todas las unidades por cada [icon:CITYSTATE] ciudad-estado que esté bajo tu suzeranía.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_SHAWNEE" Language="es_ES">
+      <Text>Los shawnee son diplomáticos consumados, capaces de atravesar incontables leguas a pie para unir grupos dispares incluso cuando se enfrentan a situaciones desesperadas. Bajo la atenta mirada del kispoko, el hoceepkileni llama a todos para que acudan a las tierras de paso, escuchen lo que dicen los oradores y se alcen como uno solo.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_SHAWNEE" Language="es_ES">
+      <Text>Usa la Tradición Kakawfe Pafkotaweta para que tus asentamientos sean inmunes a las tormentas y reciban más Cultura y Oro cuando se produzcan.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_LEADER_INTRO_TEXT_TECUMSEH" Language="es_ES">
+      <Text>Donde hay división, Tecumseh, hablas de unidad, y donde hay discordia, abogas por la razón. Convoca a pueblos de todas las tierras, gran jefe, para que unan fuerzas y hagan frente a las tormentas que están por llegar.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_VO_SHAWNEE" Language="es_ES">
+      <Text>La primavera llega a los bosques. Los shawnee forjarán su legado de unidad... y dominancia.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_POTESKWATE_DESCRIPTION" Language="es_ES">
+      <Text>Mortero y maja arbóreos.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_POTESKWATE_FUNCTIONAL_DESCRIPTION" Language="es_ES">
+      <Text>+1 a [icon:YIELD_FOOD]Alimentos por era en asentamientos por cada ciudad-estado bajo tu suzeranía.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_POTESKWATE_NAME" Language="es_ES">
+      <Text>Poteskwate</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_POTESKWATE_UNLOCK_TITLE" Language="es_ES">
+      <Text>Se desbloquea con Tecumseh en el nivel 2</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_WAMPUM_BELT_DESCRIPTION" Language="es_ES">
+      <Text>Símbolo de unión.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_WAMPUM_BELT_FUNCTIONAL_DESCRIPTION" Language="es_ES">
+      <Text>+1 a la [icon:YIELD_PRODUCTION]Producción por era en asentamientos por cada ciudad-estado bajo tu suzeranía.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_WAMPUM_BELT_NAME" Language="es_ES">
+      <Text>Faja wampum</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_WAMPUM_BELT_UNLOCK_TITLE" Language="es_ES">
+      <Text>Se desbloquea con Tecumseh en el nivel 9</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_WARCLUB_DESCRIPTION" Language="es_ES">
+      <Text>Se acabó el dormir.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_WARCLUB_FUNCTIONAL_DESCRIPTION" Language="es_ES">
+      <Text>+1 a la Fuerza de combate de todas las unidades por cada ciudad-estado bajo tu suzeranía.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_WARCLUB_NAME" Language="es_ES">
+      <Text>Garrote</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_WARCLUB_UNLOCK_TITLE" Language="es_ES">
+      <Text>Se desbloquea con Tecumseh en el nivel 5</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_SHAWNEE_COMPLETE_SERPENT_MOUND_DESC" Language="es_ES">
+      <Text>Como los shawnee, completa el Montículo de la Serpiente.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_SHAWNEE_COMPLETE_SERPENT_MOUND_NAME" Language="es_ES">
+      <Text>Montículo de la Serpiente</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_SHAWNEE_LEGACY_PATH_ECONOMIC_DESC" Language="es_ES">
+      <Text>Como los shawnee, completa una Ruta de legado económico.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_SHAWNEE_LEGACY_PATH_ECONOMIC_NAME" Language="es_ES">
+      <Text>Ruta de legado shawnee</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_ANTIQUITY_2_DESC" Language="es_ES">
+      <Text>Como Tecumseh, termina dos veces la Antigüedad.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_ANTIQUITY_2_NAME" Language="es_ES">
+      <Text>Fin de la Antigüedad 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_ANTIQUITY_3_DESC" Language="es_ES">
+      <Text>Como Tecumseh, termina tres veces la Antigüedad.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_ANTIQUITY_3_NAME" Language="es_ES">
+      <Text>Fin de la Antigüedad 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_ANTIQUITY_DESC" Language="es_ES">
+      <Text>Como Tecumseh, termina la Antigüedad.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_ANTIQUITY_NAME" Language="es_ES">
+      <Text>Fin de la Antigüedad</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_EXPLORATION_2_DESC" Language="es_ES">
+      <Text>Como Tecumseh, termina dos veces la Era de los Descubrimientos.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_EXPLORATION_2_NAME" Language="es_ES">
+      <Text>Fin de los Descubrimientos 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_EXPLORATION_3_DESC" Language="es_ES">
+      <Text>Como Tecumseh, termina tres veces la Era de los Descubrimientos.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_EXPLORATION_3_NAME" Language="es_ES">
+      <Text>Fin de los Descubrimientos 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_EXPLORATION_DESC" Language="es_ES">
+      <Text>Como Tecumseh, termina la Era de los Descubrimientos.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_EXPLORATION_NAME" Language="es_ES">
+      <Text>Fin de los Descubrimientos</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_MODERN_2_DESC" Language="es_ES">
+      <Text>Como Tecumseh, termina dos veces la Edad Moderna.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_MODERN_2_NAME" Language="es_ES">
+      <Text>Fin de la Modernidad 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_MODERN_3_DESC" Language="es_ES">
+      <Text>Como Tecumseh, termina tres veces la Edad Moderna.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_MODERN_3_NAME" Language="es_ES">
+      <Text>Fin de la Modernidad 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_MODERN_DESC" Language="es_ES">
+      <Text>Como Tecumseh, termina la Edad Moderna.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_MODERN_NAME" Language="es_ES">
+      <Text>Fin de la Modernidad</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_ANTIQUITY_2_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Maravillas del Mundo Antiguo dos veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_ANTIQUITY_2_NAME" Language="es_ES">
+      <Text>Maravillas del Mundo Antiguo 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_ANTIQUITY_3_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Maravillas del Mundo Antiguo tres veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_ANTIQUITY_3_NAME" Language="es_ES">
+      <Text>Maravillas del Mundo Antiguo 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_ANTIQUITY_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Maravillas del Mundo Antiguo.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_ANTIQUITY_NAME" Language="es_ES">
+      <Text>Maravillas del Mundo Antiguo</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_EXPLORATION_2_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Toshakhana dos veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_EXPLORATION_2_NAME" Language="es_ES">
+      <Text>Toshakhana 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_EXPLORATION_3_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Toshakhana tres veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_EXPLORATION_3_NAME" Language="es_ES">
+      <Text>Toshakhana 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_EXPLORATION_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Toshakhana.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_EXPLORATION_NAME" Language="es_ES">
+      <Text>Toshakhana</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_MODERN_2_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Sociedad geográfica dos veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_MODERN_2_NAME" Language="es_ES">
+      <Text>Sociedad geográfica 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_MODERN_3_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Sociedad geográfica tres veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_MODERN_3_NAME" Language="es_ES">
+      <Text>Sociedad geográfica 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_MODERN_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Sociedad geográfica.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_MODERN_NAME" Language="es_ES">
+      <Text>Sociedad geográfica</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_ANTIQUITY_2_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Rutas de la seda dos veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_ANTIQUITY_2_NAME" Language="es_ES">
+      <Text>Rutas de la seda 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_ANTIQUITY_3_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Rutas de la seda tres veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_ANTIQUITY_3_NAME" Language="es_ES">
+      <Text>Rutas de la seda 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_ANTIQUITY_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Rutas de la seda.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_ANTIQUITY_NAME" Language="es_ES">
+      <Text>Rutas de la seda</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_EXPLORATION_2_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Flota del tesoro dos veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_EXPLORATION_2_NAME" Language="es_ES">
+      <Text>Flota del tesoro 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_EXPLORATION_3_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Flota del tesoro tres veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_EXPLORATION_3_NAME" Language="es_ES">
+      <Text>Flota del tesoro 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_EXPLORATION_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Flota del tesoro.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_EXPLORATION_NAME" Language="es_ES">
+      <Text>Flota del tesoro</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_MODERN_2_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Magnate del ferrocarril dos veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_MODERN_2_NAME" Language="es_ES">
+      <Text>Magnate del ferrocarril 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_MODERN_3_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Magnate del ferrocarril tres veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_MODERN_3_NAME" Language="es_ES">
+      <Text>Magnate del ferrocarril 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_MODERN_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Magnate del ferrocarril.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_MODERN_NAME" Language="es_ES">
+      <Text>Magnate del ferrocarril</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_FLAWLESS_VICTORY_ANTIQUITY_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa dos Rutas de legado de la Antigüedad en la misma partida.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_FLAWLESS_VICTORY_ANTIQUITY_NAME" Language="es_ES">
+      <Text>Dos legados, Antigüedad</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_FLAWLESS_VICTORY_EXPLORATION_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa dos Rutas de legado de la Era de los Descubrimientos en la misma partida.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_FLAWLESS_VICTORY_EXPLORATION_NAME" Language="es_ES">
+      <Text>Dos legados, Descubrimientos</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_FLAWLESS_VICTORY_MODERN_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa dos Rutas de legado de la Edad Moderna en la misma partida.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_FLAWLESS_VICTORY_MODERN_NAME" Language="es_ES">
+      <Text>Dos legados, Edad Moderna</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_ANTIQUITY_2_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Pax Imperatoria dos veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_ANTIQUITY_2_NAME" Language="es_ES">
+      <Text>Pax Imperatoria 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_ANTIQUITY_3_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Pax Imperatoria tres veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_ANTIQUITY_3_NAME" Language="es_ES">
+      <Text>Pax Imperatoria 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_ANTIQUITY_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Pax Imperatoria.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_ANTIQUITY_NAME" Language="es_ES">
+      <Text>Pax Imperatoria</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_EXPLORATION_2_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado El mundo no es suficiente dos veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_EXPLORATION_2_NAME" Language="es_ES">
+      <Text>El mundo no es suficiente 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_EXPLORATION_3_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado El mundo no es suficiente tres veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_EXPLORATION_3_NAME" Language="es_ES">
+      <Text>El mundo no es suficiente 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_EXPLORATION_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado El mundo no es suficiente.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_EXPLORATION_NAME" Language="es_ES">
+      <Text>El mundo no es suficiente</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_MODERN_2_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Ideología dos veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_MODERN_2_NAME" Language="es_ES">
+      <Text>Ideología 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_MODERN_3_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Ideología tres veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_MODERN_3_NAME" Language="es_ES">
+      <Text>Ideología 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_MODERN_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Ideología.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_MODERN_NAME" Language="es_ES">
+      <Text>Ideología</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_PLAY_GAMES_1_DESC" Language="es_ES">
+      <Text>Como Tecumseh, alcanza al menos un hito en Rutas de legado.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_PLAY_GAMES_1_NAME" Language="es_ES">
+      <Text>Para la posteridad 1</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_PLAY_GAMES_2_DESC" Language="es_ES">
+      <Text>Como Tecumseh, alcanza al menos dos hitos en Rutas de legado.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_PLAY_GAMES_2_NAME" Language="es_ES">
+      <Text>Para la posteridad 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_PLAY_GAMES_3_DESC" Language="es_ES">
+      <Text>Como Tecumseh, alcanza al menos tres hitos en Rutas de legado.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_PLAY_GAMES_3_NAME" Language="es_ES">
+      <Text>Para la posteridad 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_A_ANTIQUITY_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa una misión en la Antigüedad para atender a los augurios de los guerreros.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_A_ANTIQUITY_NAME" Language="es_ES">
+      <Text>Rescoldos diseminados</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_A_EXPLORATION_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa una misión en la Era de los Descubrimientos para aprestar a los guerreros.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_A_EXPLORATION_NAME" Language="es_ES">
+      <Text>La víspera de la batalla</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_A_MODERN_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa una misión en la Edad Moderna que galvanice al pueblo en la guerra.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_A_MODERN_NAME" Language="es_ES">
+      <Text>Unión y armonía</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_B_ANTIQUITY_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa una misión en la Antigüedad para pasar la pipa tomahawk.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_B_ANTIQUITY_NAME" Language="es_ES">
+      <Text>La pipa ceremonial</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_B_EXPLORATION_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa una misión en la Era de los Descubrimientos para unificar vecinos.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_B_EXPLORATION_NAME" Language="es_ES">
+      <Text>En nuevas tierras</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_B_MODERN_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa una misión en la Edad Moderna para guiar al mundo a través del comercio.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_B_MODERN_NAME" Language="es_ES">
+      <Text>Un pueblo unido</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_ANTIQUITY_2_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Gran biblioteca dos veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_ANTIQUITY_2_NAME" Language="es_ES">
+      <Text>Gran biblioteca 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_ANTIQUITY_3_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Gran biblioteca tres veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_ANTIQUITY_3_NAME" Language="es_ES">
+      <Text>Gran biblioteca 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_ANTIQUITY_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Gran biblioteca.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_ANTIQUITY_NAME" Language="es_ES">
+      <Text>Gran biblioteca</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_EXPLORATION_2_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Ilustración dos veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_EXPLORATION_2_NAME" Language="es_ES">
+      <Text>Ilustración 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_EXPLORATION_3_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Ilustración tres veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_EXPLORATION_3_NAME" Language="es_ES">
+      <Text>Ilustración 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_EXPLORATION_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Ilustración.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_EXPLORATION_NAME" Language="es_ES">
+      <Text>Ilustración</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_MODERN_2_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Carrera espacial dos veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_MODERN_2_NAME" Language="es_ES">
+      <Text>Carrera espacial 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_MODERN_3_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Carrera espacial tres veces.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_MODERN_3_NAME" Language="es_ES">
+      <Text>Carrera espacial 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_MODERN_DESC" Language="es_ES">
+      <Text>Como Tecumseh, completa la Ruta de legado Carrera espacial.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_MODERN_NAME" Language="es_ES">
+      <Text>Carrera espacial</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_TECUMSEH_L2_DESCRIPTION" Language="es_ES">
+      <Text>Se desbloquea con progreso de Leyenda. +25 % a Relación al iniciar o apoyar Esfuerzos. -25 % a Relación al iniciar Sanciones o rechazar Esfuerzos.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_TECUMSEH_L1_DESCRIPTION" Language="es_ES">
+      <Text>Se desbloquea con progreso de Leyenda. +5 a la Fuerza de combate de todas las unidades contra distritos.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_SHAWNEE_DESCRIPTION" Language="es_ES">
+      <Text>+30 % a la[icon:YIELD_PRODUCTION] Producción para la Maravilla asociada del Imperio shawnee.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_KISPOKO_NENA_TO_SUPPORT_DESCRIPTION" Language="es_ES">
+      <Text>El Kispoko Nena'to recibe +1 a la Fuerza de combate por cada Apoyo bélico positivo.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_MALEKI_KINTAKE_WAREHOUSES_DESCRIPTION" Language="es_ES">
+      <Text>+2 a [icon:YIELD_FOOD] Alimentos en Granjas y Campamentos.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_MIYASKA_LATOWEKI_CITY_STATE_RESOURCES_DESCRIPTION" Language="es_ES">
+      <Text>+1 al Límite de recursos en tu capital por cada ciudad-estado aliada.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_MIYASKA_LATOWEKI_ENDEAVOR_TRADE_DESCRIPTION" Language="es_ES">
+      <Text>+2 de [icon:YIELD_GOLD] Oro por cada ruta comercial mientras tengas al menos 3 Esfuerzos activos.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_MOD_TELWATIKI_THIRD_PARTY_DESCRIPTION" Language="es_ES">
+      <Text>Puedes apoyar las guerras de otro jugador 3 veces en lugar de 1.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TELWATIKI_INFLUENCE_DESCRIPTION" Language="es_ES">
+      <Text>+2 a [icon:YIELD_DIPLOMACY] Influencia por turno.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_WYEHI_SIMEKOFI_MAWASKAWE_SKOTE_DESCRIPTION" Language="es_ES">
+      <Text>El Mawaskawe Skote recibe +1 a [icon:YIELD_CULTURE] Cultura por cada ciudad-estado aliada.</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_TECUMSEH" Language="es_ES">
+      <Text>Jefe</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_SERPENT_MOUND" Language="es_ES">
+      <Text>Tenskwatawa</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_SERPENT_MOUND" Language="es_ES">
+      <Text>Nuestro creador nos cantó en el viento y en el agua, en las armonías de los pájaros, en la risa de los niños, y nos enseñó la música.</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_TECUMSEH_EXPLORATION_1_DESCRIPTION" Language="es_ES">
+      <Text>Como Tecumseh, accedes a una nueva carta de legado de la Era de los Descubrimientos:[n]
+				+3 a la Fuerza de combate de las unidades navales, -10 % a Influencia.</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_TECUMSEH_EXPLORATION_1_NAME" Language="es_ES">
+      <Text>Carta de legado militarista de la Era de los Descubrimientos</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_TECUMSEH_EXPLORATION_2_DESCRIPTION" Language="es_ES">
+      <Text>Como Tecumseh, accedes a una nueva carta de legado de la Era de los Descubrimientos:[n]
+				+15 % a Influencia, -2 a la Fuerza de combate de las unidades navales.</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_TECUMSEH_EXPLORATION_2_NAME" Language="es_ES">
+      <Text>Carta de legado diplomático de la Era de los Descubrimientos</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_TECUMSEH_MODERN_1_DESCRIPTION" Language="es_ES">
+      <Text>Como Tecumseh, accedes a una nueva carta de legado de la Edad Moderna:[n]
+				+3 a la Fuerza de combate de las unidades aéreas, -10 % a Influencia.</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_TECUMSEH_MODERN_1_NAME" Language="es_ES">
+      <Text>Carta de legado militarista de la Edad Moderna</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_TECUMSEH_MODERN_2_DESCRIPTION" Language="es_ES">
+      <Text>Como Tecumseh, accedes a una nueva carta de legado de la Edad Moderna:[n]
+				+15 % a Influencia, -2 a la Fuerza de combate de las unidades aéreas.</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_TECUMSEH_MODERN_2_NAME" Language="es_ES">
+      <Text>Carta de legado diplomático de la Edad Moderna</Text>
+    </Replace>
+    <Replace Tag="LOC_TITLE_TECUMSEH_NAME" Language="es_ES">
+      <Text>Jefe</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_BREAD_DANCE_DESCRIPTION" Language="es_ES">
+      <Text>+4 a [icon:YIELD_CULTURE] Cultura en todos los Pueblos agrícolas y +4 a [icon:YIELD_FOOD] Alimentos en Pueblos pesqueros.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_HELIKHILENAWEWIPE_DESCRIPTION" Language="es_ES">
+      <Text>+50 % a la[icon:YIELD_DIPLOMACY] Influencia destinada a iniciar y progresar en el proyecto Trabar amistad con independiente.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_KAKAWFE_PAFKOTAWETA_DESCRIPTION" Language="es_ES">
+      <Text>Cada vez que una Tormenta, Inundación o Erupción volcánica proporcione Fertilidad en esta era, recibe +1 a [icon:YIELD_CULTURE] Cultura y +2 de [icon:YIELD_GOLD] Oro. Las mejoras, edificios y distritos urbanos no son dañados por Tormentas.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_TAKESIYAKE_YEPEPOKI_DESCRIPTION" Language="es_ES">
+      <Text>Las ciudades reciben +2 a la[icon:YIELD_PRODUCTION] Producción en casillas de Tundra, Desierto y Llanura.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_TECUMSEH_ABILITY_DESCRIPTION" Language="es_ES">
+      <Text>[BLIST][LI][B]+1 a [icon:YIELD_FOOD] Alimentos[/B] y [icon:YIELD_PRODUCTION] [B]Producción[/B] por era [B]en cada asentamiento[/B] por cada [icon:CITYSTATE] [B]ciudad-estado[/B] que esté bajo tu [B]suzeranía[/B].[LI][B] +1 a la [icon:NAR_REW_COMBAT] Fuerza de combate[/B] de todas las unidades por cada [icon:CITYSTATE] [B]ciudad-estado[/B] que esté bajo tu [B]suzeranía[/B].[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_TECUMSEH_ABILITY_NAME" Language="es_ES">
+      <Text>Nicaakiyakoolaakwe</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_SHAWNEE_ABILITY_DESCRIPTION" Language="es_ES">
+      <Text>[BLIST][LI]Los asentamientos que se construyen junto a [B]Ríos navegables[/B] obtienen [B]+2 a [icon:YIELD_FOOD] Alimentos[/B] en [B]terreno de Ríos[/B], pero las ciudades que [B]no [/B]lo estén reciben [B]-10 % a [icon:YIELD_FOOD] Alimentos[/B].[LI][B]+30 % a la [icon:YIELD_PRODUCTION] Producción[/B] destinada a construir el [B]Montículo de la Serpiente[/B].[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_SHAWNEE_ABILITY_NAME" Language="es_ES">
+      <Text>Nepekifaki</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_EX_SHAWNEE_NAME" Language="es_ES">
+      <Text>Principios shawnee</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_HOCEEPKILENI_DESCRIPTION" Language="es_ES">
+      <Text>Misionero único shawnee. +1 al Movimiento, y los Ríos no finalizan el movimiento.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_KISPOKO_NENA_TO_2_DESCRIPTION" Language="es_ES">
+      <Text>Unidad de infantería exclusiva shawnee de categoría 2. +1 a la Fuerza de combate por cada Recurso de imperio diferente.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_KISPOKO_NENA_TO_3_DESCRIPTION" Language="es_ES">
+      <Text>Unidad de infantería exclusiva shawnee de categoría 3. +1 a la Fuerza de combate por cada Recurso de imperio diferente.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_KISPOKO_NENA_TO_BASE_DESCRIPTION" Language="es_ES">
+      <Text>Unidad de infantería exclusiva shawnee. +1 a la Fuerza de combate por cada Recurso de imperio diferente.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_KISPOKO_NENA_TO_DESCRIPTION" Language="es_ES">
+      <Text>Unidad de infantería exclusiva shawnee de categoría 1. +1 a la Fuerza de combate por cada Recurso de imperio diferente.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_CITY_STATES_DESCRIPTION" Language="es_ES">
+      <Text>Obtén la [B]suzeranía[/B] de 2 [B]ciudades-estado[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_CITY_STATES_TOOLTIP" Language="es_ES">
+      <Text>Los [B]shawnee[/B] eran amigos de muchas naciones menores.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_CITY_STATES_UNLOCK" Language="es_ES">
+      <Text>Has desbloqueado la civilización shawnee al obtener la suzeranía de 2 ciudades-estado.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_HIDES_DESCRIPTION" Language="es_ES">
+      <Text>Mejora 3 [B]Pieles[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_HIDES_TOOLTIP" Language="es_ES">
+      <Text>Las [B]Pieles[/B] eran una mercancía importante para los [B]shawnee[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_HIDES_UNLOCK" Language="es_ES">
+      <Text>Has desbloqueado la civilización shawnee al mejorar 3 recursos de Pieles.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_MISSISSIPPI_SHAWNEE_DESCRIPTION" Language="es_ES">
+      <Text>Los [B]misisipianos[/B] fueron contemporáneos de los ancestros de los [B]shawnee[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_SHAWNEE_AMERICA_TOOLTIP" Language="es_ES">
+      <Text>Los [B]shawnee[/B] eran del mismo continente que [B]México[/b].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_SHAWNEE_DESCRIPTION" Language="es_ES">
+      <Text>Juega como los [B]shawnee[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_SHAWNEE_MEXICO_TOOLTIP" Language="es_ES">
+      <Text>Los [B]shawnee[/B] eran del mismo continente que [B]México[/b].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_TECUMSEH_AMERICA_TOOLTIP" Language="es_ES">
+      <Text>[B]Tecumseh[/B] vivió en los territorios ocupados más tarde por [B]Estados Unidos[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_TECUMSEH_DESCRIPTION" Language="es_ES">
+      <Text>Juega como [B]Tecumseh[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_TECUMSEH_HAWAII_TOOLTIP" Language="es_ES">
+      <Text>
+				[B]Tecumseh[/B] era un indígena de las Américas.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_TECUMSEH_MEXICO_TOOLTIP" Language="es_ES">
+      <Text>[B]Tecumseh[/B] era de Norteamérica.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_TECUMSEH_MISSISSIPPIAN_TOOLTIP" Language="es_ES">
+      <Text>Los ancestros de [B]Tecumseh[/B] fueron vecinos de los [B]misisipianos[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_TECUMSEH_TOOLTIP" Language="es_ES">
+      <Text>[B]Tecumseh[/B] gobernó a los [B]shawnee[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_SERPENT_MOUND_DESCRIPTION" Language="es_ES">
+      <Text>+4 a[icon:YIELD_DIPLOMACY] Influencia, +3 a[icon:YIELD_SCIENCE] Ciencia y +2 a la[icon:YIELD_PRODUCTION] Producción en todas las mejoras exclusivas en este asentamiento. Debe situarse en Pradera.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_SERPENT_MOUND_TOOLTIP" Language="es_ES">
+      <Text>+3 a [icon:YIELD_SCIENCE] Ciencia y +2 a la [icon:YIELD_PRODUCTION] Producción en todas las mejoras exclusivas en este asentamiento. Debe situarse en Pradera.</Text>
+    </Replace>
+    <Replace Tag="LOC_KISPOKO_NENA_TO_RESOURCE_COMBAT_DESCRIPTION" Language="es_ES">
+      <Text>+{1_Value} a la Fuerza de combate por cada Recurso de imperio diferente.</Text>
+    </Replace>
+    <Replace Tag="LOC_KISPOKO_NENA_TO_SUPPORT_COMBAT_DESCRIPTION" Language="es_ES">
+      <Text>+{1_Value} a la Fuerza de combate por Apoyo bélico positivo (Principio Telwatiki).</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_WARCLUB_COMBAT_PREVIEW" Language="es_ES">
+      <Text>+{1_Amount} {1: plural 1?recuerdo; other?recuerdos;} de clava</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_TECUMSEH_L1_COMBAT_PREVIEW" Language="es_ES">
+      <Text>+{1_Value} al atributo militarista de leyenda</Text>
+    </Replace>
+    <Replace Tag="LOC_TECUMSEH_MOD_SUZERAIN_COMBAT_DESCRIPTION" Language="es_ES">
+      <Text>+{1_Amount} Nicaakiyakoolaakwe</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_CITY_STATES_NARRATIVE" Language="es_ES">
+      <Text>El poder en las tierras del pueblo {1_Civilization_Adj} emerge no solo del palacio, sino de la red de alianzas diplomáticas que convergen en él. Las enseñanzas del profeta Tenskwatawa han empezado a circular entre quienes se mueven entre las ciudades-estado y las ciudades del pueblo {1_Civilization_Adj}, como una lección de unidad frente al cambio.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_HIDES_NARRATIVE" Language="es_ES">
+      <Text>Los tramperos de los bosques entran en la ciudad al alba, cargados con las pieles curtidas y extendidas que pretenden vender en el mercado. A menudo se topan a las puertas con los mercaderes, ávidos por hacer negocio. Las pieles se han convertido en un producto crucial para la economía del pueblo {1_Civilization_Adj}, al igual que sus tratantes. </Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_BREAD_DANCE_NAME" Language="es_ES">
+      <Text>Danza del pan</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_HELIKHILENAWEWIPE_NAME" Language="es_ES">
+      <Text>Helikhilenawewipe</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_KAKAWFE_PAFKOTAWETA_NAME" Language="es_ES">
+      <Text>Kakawfe Pafkotaweta</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_TAKESIYAKE_YEPEPOKI_NAME" Language="es_ES">
+      <Text>Takesiyake Yepepoki</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_UNIT_HOCEEPKILENI_NAME" Language="es_ES">
+      <Text>Hoceepkileni|Hoceepkileni</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_UNIT_KISPOKO_NENA_TO_NAME" Language="es_ES">
+      <Text>Kispoko Nena'to|Kispoko Nena'tos</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+  </LocalizedText>
+</Database>

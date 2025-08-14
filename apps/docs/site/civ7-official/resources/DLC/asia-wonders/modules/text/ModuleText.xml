@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MODULE_ASIA_WONDERS_NAME">
+			<Text>Collection 2: Asia Wonder Pack</Text>
+		</Row>
+		<Row Tag="LOC_MODULE_ASIA_WONDERS_DESCRIPTION">
+			<Text>Contains 4 new Wonders; Mausoleum at Halicarnassus, Grand Bazaar, Wat Xieng Thong, and Ubudiah Mosque.</Text>
+		</Row>
+	</EnglishText>
+</Database>

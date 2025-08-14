@@ -1,0 +1,25 @@
+<fxs-vslot class="giftbox-notification-frame-container shrink grow w-full">
+	<fxs-frame frame-style="simple" class="giftbox-notification fxs-frame flex flex-auto min-w-128">
+		<fxs-vslot class="rules-container flex flex-auto">
+			<div class="flex relative flex-col items-center">
+				<div class="font-title -mt-8 text-l text-secondary text-gradient-secondary uppercase"
+					 data-l10n-id="LOC_REWARD_RECEIVED"></div>
+				<div class="img-radial-glow self-center -mt-10 w-64 h-16"></div>
+			</div>
+			<div class="rewards-scrollable-container relative mt-4 flex flex-auto h-1\/2 justify-center">
+				<fxs-vslot class="main-menu-slot opacity-100" id="GiftBoxSlot">
+					<fxs-scrollable class="rewards-scrollable mb-4 pt-2" attached-scrollbar="true">
+					</fxs-scrollable>
+				</fxs-vslot>
+			</div>
+			<div class="relative button-container justify-center mt-4">
+				<fxs-button class="continue" caption="LOC_GENERIC_CONTINUE" action-key="inline-accept"></fxs-button>
+			</div>
+		</fxs-vslot>
+	</fxs-frame>
+	<fxs-hslot class="decoration w-full justify-center absolute -top-9">
+		<div class="img-top-filigree-left grow"></div>
+		<div class="img-top-filigree-center"></div>
+		<div class="img-top-filigree-right grow"></div>
+	</fxs-hslot>
+</fxs-vslot>

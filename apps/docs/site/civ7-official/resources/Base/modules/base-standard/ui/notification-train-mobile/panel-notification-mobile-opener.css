@@ -1,0 +1,71 @@
+/* DO NOT EDIT */
+/* Generated from panel-notification-mobile-opener.scss */
+.notification-panel-opener {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	margin-right: 1.7777777778rem;
+	margin-bottom: 0.4444444444rem;
+}
+.notification-panel-opener .notification-train__decor {
+	position: absolute;
+	width: 0.8888888889rem;
+	height: 100%;
+	border-width: 2.6666666667rem 0.8888888889rem 0.6666666667rem;
+	border-style: solid;
+	border-image-source: url("fs://game/hud_notif_decor.png");
+	border-image-slice: 48 15 15 1 fill;
+	border-image-width: 2.6666666667rem 0.8333333333rem 0.8333333333rem 0.0555555556rem;
+	border-image-outset: 0;
+	border-image-repeat: repeat;
+}
+.notification-panel-opener .nmo__button-bk {
+	position: absolute;
+	width: 7.1111111111rem;
+	height: 7.1111111111rem;
+	pointer-events: none;
+	transform-origin: 50% 50%;
+	transition-duration: 0.25s;
+	transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+	background-image: url("fs://game/hud_notif_bk.png");
+	background-size: 7.1111111111rem 7.1111111111rem;
+	background-repeat: no-repeat;
+	background-position: center;
+	top: -1.3888888889rem;
+	left: -1.1111111111rem;
+}
+.notification-panel-opener .nmo__button {
+	position: relative;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	pointer-events: auto;
+	width: 3.5555555556rem;
+	height: 3.5555555556rem;
+	transition: transform 0.25s cubic-bezier(0.215, 0.61, 0.355, 1);
+	margin-top: 1.5rem;
+	margin-bottom: 0.6666666667rem;
+}
+.notification-panel-opener .nmo__button.disabled {
+	pointer-events: none;
+}
+.notification-panel-opener .nmo__button:hover, .notification-panel-opener .nmo__button:focus {
+	transform: scale(1.125);
+}
+.notification-panel-opener .nmo__button-icon {
+	transform: translate(1.6666666667rem, 0.7222222222rem);
+	width: 1.7777777778rem;
+	height: 1.7777777778rem;
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url("fs://game/ntf_default.png");
+	filter: brightness(1.375) grayscale(0.25);
+	margin-bottom: 0.8333333333rem;
+}
+.notification-panel-opener .nmo__button-notification-amt {
+	position: absolute;
+	right: 1.2777777778rem;
+	top: 0.7222222222rem;
+	width: 0.7222222222rem;
+}

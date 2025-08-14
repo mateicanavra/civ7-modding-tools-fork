@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<Database>
+	<EnglishText>
+		<!-- Antiquity Resource v2 Tooltips-->
+		<Row Tag="LOC_ANT_RESOURCE_MANGOS_TOOLTIP">
+			<Text>+2[icon:YIELD_FOOD] Food, +2[icon:YIELD_CULTURE] Culture</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_CLAY_TOOLTIP">
+			<Text>+1[icon:YIELD_PRODUCTION] Production on Warehouse Buildings</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_FLAX_TOOLTIP">
+			<Text>+2[icon:YIELD_SCIENCE] Science, +2[icon:YIELD_CULTURE] Culture</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_RUBIES_TOOLTIP">
+			<Text>+4[icon:YIELD_GOLD] Gold</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_RICE_TOOLTIP">
+			<Text>+5%[icon:YIELD_FOOD] Food in Settlements</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_LIMESTONE_TOOLTIP">
+			<Text>+5%[icon:YIELD_PRODUCTION] Production towards all Wonders</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_TIN_TOOLTIP">
+			<Text>+2[icon:YIELD_PRODUCTION] Production in Cities, +4[icon:YIELD_PRODUCTION] Production in Towns</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_LLAMAS_TOOLTIP">
+			<Text>+1[icon:YIELD_PRODUCTION] Production, +3[icon:YIELD_HAPPINESS] Happiness</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_HARDWOOD_TOOLTIP">
+			<Text>+20%[icon:YIELD_PRODUCTION] Production towards Naval units</Text>
+		</Row>
+		<Row Tag="LOC_ANT_RESOURCE_WILD_GAME_TOOLTIP">
+			<Text>+2[icon:YIELD_FOOD] Food in Cities, +4[icon:YIELD_FOOD] Food in Towns</Text>
+		</Row>
+	</EnglishText>
+</Database>

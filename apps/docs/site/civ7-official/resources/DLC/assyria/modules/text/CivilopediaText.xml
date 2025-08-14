@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- CIVILIZATION_ASSYRIA -->
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_1">
+			<Text>Ashur is a god, a land, and a city, all in one – the name “Assyria” is a Greek version of “mat Ashur,” or “the land of [the god-city of] Ashur.” It was one of the most significant and forward-looking empires of the ancient world. Its spread extended across Mesopotamia, including brief conquests in (what would become) Persia and (what already was) Egypt.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_2">
+			<Text>To begin, we must look at Sumerian history. The Sumerians were a rather mysterious people who appeared at the dawn of cities, possibly from the Indian subcontinent. They built some of the earliest cities in what is today Iraq. Over time, the Akkadians under Sargon rebelled and established an empire over former Sumerian lands, only to falter and collapse around 2150 BCE. The centuries following this fall were dark, with city-states (including Ashur) fighting for supremacy.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_3">
+			<Text>Assyria was to rise twice: first in the mid-1300s BCE and later, c. 900 BCE (for reference, this is younger than Egypt, but far older than Greece; at the tail end of Shang China and the rise of Zhou China). Here, we focus on the later Neo-Assyrian Empire.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_4">
+			<Text>The names of Sargon II, Sennacherib, Ashurbanipal, and other Assyrian kings are legendary for good reason – these were rulers who expanded the meaning of power across the region. This success was partly owed to a few novel experiments in economy – Assyria early on adopted a form of free trade (trade in Sumeria, by contrast, was managed via temples), but most significant was the development of a standing army. Think of this – soldiers no longer had to think about returning home to their fields at harvest time…meaning that they could sit outside of enemy fields waiting for their opponents to get exhausted. Furthermore, the Assyrians were engineers, having a dedicated engineering corps in the army that could build siege weapons, massive ramps, or other machines to make short work of ancient walls. Finally, the Assyrians were an Iron Age empire – iron is weaker than bronze (depending on its steel content), but could be mass-produced (and was not vulnerable to trade fluctuations; the older Assyrian Empire fell victim to some of the disruptions of the Late Bronze Age collapse). Even little innovations such as the combat boot come from Assyria – in short, the Assyrian army was a war machine.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_5">
+			<Text>And it was terrible. Assyrian accounts take particular pleasure in describing the horrors inflicted upon those who stood in their way – flayings, butcherings, and the utter destruction of cities that resisted them. Sennacherib’s conquests into Judah made it into the Old Testament – as Judah rebelled with Egyptian support, Sennacherib responded mercilessly, removing the entire population and torturing the leaders to death. As the captives were led into subjugation in Babylon, accounts report that the Assyrian armies forced them to sing songs of joy. The Biblical account holds that in the following siege of Jerusalem, divine vengeance was inflicted upon the invading Assyrians, though it may simply have been reports that Babylon had rebelled that caused the invaders to retreat.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_6">
+			<Text>At home, Sennacherib’s gardens were famous, marvels of hydroengineering that likely were the inspiration behind the “hanging gardens.” This, too, was about power – Assyrian gardens were models of conquest, with the landscape sculpted and fauna selected to reflect those of conquered lands. One could walk through the cedars of Lebanon “at home” and revel in the memory of its subjugation.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_7">
+			<Text>Ashurbanipal was the ultimate Assyrian king – meaning “the greatest” (arguably), but also the last (nearly). His father divided the kingdom between Ashur and Babylon for his two sons, but Ashurbanipal’s brother (who received the Babylonian portion) sought to ally instead with the Elamites and take the whole thing. This didn’t go well – Ashurbanipal destroyed his brother and Elam both (as well as conquering Egypt). His conquests were depicted in bas-reliefs complete with images of floating corpses. His cruelty, too, was depicted in the bas-reliefs of his lion hunt, a feat so brutal that the artist carved the animals in the extremity of their suffering, throwing back the image of the proud conqueror king.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_8">
+			<Text>Ashurbanipal was not simply a conqueror, though – he was literate, and his library was his pride. He gathered all the texts he could, of all varieties and genres, to preserve the knowledge of his era. Tens of thousands of clay tablets from his collection have survived in the ruins of Nineveh. Indeed, it is from his library that we find the Epic of Gilgamesh.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_9">
+			<Text>Assyrian society was multilingual, with Akkadian and Sumerian both present in various forms. Each city had its own patron god, and warfare was thought to be conducted not just between kings, but between these particular gods as well. Upon capture, a city would surrender its patron deity (e.g. Marduk, of Babylon) and the conquering deity might subject the conquered to a kind of ritual humiliation, or simply incorporate that deity in as a lesser member of a pantheon. Vassals, too, might remain or might find themselves replaced by Assyrian nobles – something that bred resentment amongst conquered peoples.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_10">
+			<Text>Resettlement was also vital to Assyrian conquest, laying the seeds of cultural shift. As Aramaic speakers were displaced across the empire, Aramaic became a new lingua franca, one that was to survive when the empire did not.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_11">
+			<Text>Assyria fell shortly after Ashurbanipal’s reign, though the particular reasons are unclear – signs point to environmental as well as social collapse, and a new Babylon rose in its ashes.</Text>
+		</Row>
+		<!--Constructibles-->
+		<Row Tag="LOC_PEDIA_PAGE_QUARTER_EKALLU_CHAPTER_HISTORY_PARA_1">
+			<Text>The Assyrian ekallu, or palace, was a complex for both royal residence and political function. They were imposing centers that balanced public and private spaces – they included reception halls and a throne room for visitors, administrative offices for officials, and gardens and dwellings for the king and his family. Buildings were richly decorated according to each space’s intended audience. Statues of creatures like lions and human-animal hybrids flanked gates and entrances, and painted reliefs adorned the walls. In diplomatic spaces, their subjects were royal in nature, such as court scenes and lion hunts, while private spaces focused on mythological or religious sequences. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_BUILDING_ROYAL_LIBRARY_CHAPTER_HISTORY_PARA_1">
+			<Text>The Neo-Assyrian king Ashurbanipal is well-known for his brutality in war; but he was also deeply invested in the collection and preservation of literature. The languages of ancient Mesopotamia were written in cuneiform scripts, the characters of which were pressed into clay tablets by means of a reed pen. Ashurbanipal, whose reliefs often depict him with a stylus, gathered these tablets at his palace and sent requests to neighboring kingdoms for more. Surviving works include, most famously, the Epic of Gilgamesh, but also letters, political documents, medical manuals, instructions for religious rituals, and more, all of which offer insight into the inner workings of Assyria through the voices of Assyrians themselves.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_BUILDING_ROYAL_LIBRARY_CHAPTER_HISTORY_PARA_2">
+			<Text>The collection of over 30,000 tablets now called the Royal Library of Ashurbanipal was first discovered in the 19th century. Tablets have been found at other palaces, indicating the existence of additional royal libraries, though not in the quantity uncovered at Nineveh. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_BUILDING_CITADEL_CHAPTER_HISTORY_PARA_1">
+			<Text>The power of the Assyrian Empire lay in its centralization, which occurred on a scale that had not been seen before in history. The system of governance hinged on a single king whose word was law – it was not unusual for royal demands sent to even the most powerful governors to end with a threat of death, and perhaps that of the governor’s family, should he fail to deliver by the requested date. This kind of tight control was made possible through several factors of organization, including communication infrastructure, a highly trained standing army, the dispersal of opposition through population relocation, and the distribution of provincial authority. But all of it stemmed from the core, run from the king’s citadel at the heart of his capital.</Text>
+		</Row>
+		<!--Civics-->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_ASSYRIA_BIRTUTU_CHAPTER_HISTORY_PARA_1">
+			<Text>The Assyrian army was the most effective military force in the world, and was highly skilled at siege warfare. Their conquests came through the use of siege weapons, earthen ramps, and psychological warfare in addition to their well-trained troops and efficient tactics. Thus the Assyrians were well-informed when it came to building their own fortified cities (birtūtu). A combination of towers and thick crenelated walls offered protection to those within, while moats and ramps could be effectively defended from above. Gates, always a fortress’s weakest points, were not only physically tough, but were richly decorated with mythic creatures and martial reliefs to intimidate invaders and visitors alike.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_ASSYRIA_TUPSARRUTU_CHAPTER_HISTORY_PARA_1">
+			<Text>Education in the Assyrian Empire began early for children seeking to become scribes. Over the course of 12 years, boys and girls were rigorously trained in cuneiform script; they also studied topics ranging from history and religion to medicine and agriculture. This form of scribal scholarship – tupšarrūtu – was intensive and challenging for students. But once they graduated, they became highly sought after for their skills, eligible for any position that required literacy and education, including scribes, doctors, astronomers, musicians, and architects. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_ASSYRIA_KIBRAT_ARBA_I_CHAPTER_HISTORY_PARA_1">
+			<Text>Royal inscriptions of ancient Mesopotamian rulers typically begin with a list of titles, and among the Neo-Assyrian kings, one of the most potent is “king of the four quarters.” The four quarters, “kibrāt arba’i,” refer to ancient geographical locations that align with the cardinal directions (Sumer, Martu, Elam, and Subartu), but the implication is “the whole world.”  It is not used by every king – its presence declines with the absence of military campaigns, so certain military accomplishments may have been required to claim it. Its potency outlived the Assyrians themselves; the final ruler to use the title was Cyrus the Great.  </Text>
+		</Row>
+		<!-- UNIQUE_CIVILIAN-->
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_TURTANU_CHAPTER_HISTORY_PARA_1">
+			<Text>A turtānu was a high-ranking military official who led the Assyrian army in place of the king in times of war. It was an immensely powerful position, second only to that of the ruler. At some point in the eighth century BCE, the position seems to have been divided in two, one turtānu for “the right” and one for “the left,” possibly to decrease the amount of power held by one person other than the king. Over time their duties shifted from purely martial to include civil governance of regional territories. </Text>
+		</Row>
+		<!-- UNIQUE_UNIT-->
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_MAGARRU_CHAPTER_HISTORY_PARA_1">
+			<Text>“Magarru” means chariot, a key weapon within the Neo-Assyrian army. Although horses had been in use in Mesopotamia since at least the Akkadian Empire, the lack of saddles, stirrups, and other equipment made them difficult to ride effectively in war. They were more easily managed when harnessed to chariots. These vehicles were small and light, possessing two wheels and carrying two passengers, a driver and an archer. Because horses are naturally averse to charging at lines of soldiers, they were saved until the enemy was about, or had begun, to flee – then the chariots were deployed to swiftly deliver the archer to his quarry. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_MAGARRU_CHAPTER_HISTORY_PARA_2">
+			<Text>The downside of chariots was that they were expensive to produce, and so using them on the field was a financial risk. But by the reign of Sargon II, in the eight century BCE, horse tack and horsemanship began to improve, and soon cavalry surpassed chariots as the army’s mobile unit.  </Text>
+		</Row>
+	</EnglishText>
+</Database>
+				

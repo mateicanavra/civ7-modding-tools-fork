@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+
+	<!-- ==================================================	-->
+	<!--					Improvements					-->
+	<!-- ==================================================	-->
+	<!-- ==================================================	-->
+	<!--					Wonders							-->
+	<!-- ==================================================	-->
+	<!-- Serpent Mound -->
+	<Modifier id="MOD_SERPENT_MOUND_UNIQUE_IMPROVEMENT_YIELD" collection="COLLECTION_OWNER_CITY" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_SERPENT_MOUND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Tag">UNIQUE_IMPROVEMENT</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE, YIELD_PRODUCTION</Argument>
+		<Argument name="Amount">3, 2</Argument>
+		<Argument name="Tooltip">LOC_WONDER_SERPENT_MOUND_NAME</Argument>
+	</Modifier>
+</GameEffects>

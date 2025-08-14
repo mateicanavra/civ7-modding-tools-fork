@@ -1,0 +1,1183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<!-- Tier 1 -->
+		<Row Type="UNIT_LINE_INFANTRY" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_FIELD_CANNON" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_CUIRASSIER" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_MORTAR" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_IRONCLAD" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_FRIGATE" Kind="KIND_UNIT"/>
+		<!-- Tier 2 -->
+		<Row Type="UNIT_RIFLEMAN" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_FIELD_GUN" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_LANDSHIP" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_HEAVY_ARTILLERY" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_CRUISER" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_DREADNOUGHT" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_BIPLANE" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_TRENCH_FIGHTER" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_BOMBER" Kind="KIND_UNIT"/>
+		<!-- Tier 3 -->
+		<Row Type="UNIT_INFANTRY_COMPANY" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_AT_GUN" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_TANK" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_ASSAULT_GUN" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_DESTROYER" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_BATTLESHIP" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_SUBMARINE" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_FIGHTER" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_DIVEBOMBER" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_HEAVY_BOMBER" Kind="KIND_UNIT"/>
+		<!-- Special -->
+		<Row Type="UNIT_EXPLORER" Kind="KIND_UNIT"/>
+		<Row Type="WMD_NUCLEAR_DEVICE" Kind="KIND_WMD"/>
+		<Row Type="WMD_THERMONUCLEAR_DEVICE" Kind="KIND_WMD"/>
+		<!-- Civ Unique Military -->
+		<Row Type="UNIT_ABAMBOWA" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_ABAMBOWA_2" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_ABAMBOWA_3" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_CHANG_BEUN" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_CHANG_BEUN_2" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_CHANG_BEUN_3" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_COSSACK" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_COSSACK_2" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_COSSACK_3" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_GARDE_IMPERIALE" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_GARDE_IMPERIALE_2" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_GARDE_IMPERIALE_3" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_HUSSAR" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_HUSSAR_2" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_HUSSAR_3" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_GUSA" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_GUSA_2" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_GUSA_3" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_KATYUSHA" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_KATYUSHA_2" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_MARINE" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_MARINE_2" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_MIKASA" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_MIKASA_2" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_SEPOY" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_SEPOY_2" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_SEPOY_3" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_SOLDADERAS" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_SOLDADERAS_2" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_SOLDADERAS_3" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_STUKA" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_STUKA_2" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_ZERO" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_ZERO_2" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_PARTISAN" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_PARTISAN_2" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_PARTISAN_3" Kind="KIND_UNIT"/>
+		<!-- Civ Unique Civilian -->
+		<Row Type="UNIT_JACOBIN" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_JACOBIN_BARRAS" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_JACOBIN_BILLAUD_VARENNE" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_JACOBIN_BRISSOT" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_JACOBIN_D_AELDERS" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_JACOBIN_DANTON" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_JACOBIN_DESMOULINS" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_JACOBIN_GOUGES" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_JACOBIN_MARAT" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_JACOBIN_ROBESPIERRE" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_JACOBIN_SAINT_JUST" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_MWAMI" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_REVOLUCIONARIO" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_REVOLUCIONARIO_AVILA" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_REVOLUCIONARIO_GUERRERO" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_REVOLUCIONARIO_HERRERA" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_REVOLUCIONARIO_HIDALGO" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_REVOLUCIONARIO_JIMENEZ" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_REVOLUCIONARIO_JUAREZ" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_REVOLUCIONARIO_MORELOS" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_REVOLUCIONARIO_SANTA_ANNA" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_REVOLUCIONARIO_VILLA" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_REVOLUCIONARIO_ZAPATA" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_UPARAT" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_UPARAT_CHAKRABONGSE" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_UPARAT_ITSARASUNTHON" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_UPARAT_PHIBUN" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_UPARAT_PINKLAO" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_UPARAT_PRIDI" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_UPARAT_RASMI" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_UPARAT_SAKDIPHONLASEP" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_UPARAT_SENANURAK" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_UPARAT_VAJRAVUDH" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_UPARAT_WICHAICHAN" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_VICTORY" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_HANGSHANG" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_ZAMINDAR" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_PROSPECTOR" Kind="KIND_UNIT"/>
+		<!-- Victory Units -->
+		<Row Type="UNIT_JOHN_MAYNARD_KEYNES" Kind="KIND_UNIT"/>
+		<!--Generic Abilities-->
+		<Row Type="ABILITY_AUTHORITARIANISM" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_MO_TECH_CAVALRY" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_MO_TECH_INFANTRY" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_MO_TECH_INTERCEPT_RANGE" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_MO_TECH_NAVAL" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_MO_TECH_RANGED" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_MO_TECH_SIEGE" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_AERODYNAMICS_AIRCRAFT" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_THEIR_FINEST_HOUR" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_DEFENSE_OF_THE_MOTHERLAND" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_PARTISAN" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_AT_MOD_COMBAT_FRIENDLY_TERRITORY" Kind="KIND_ABILITY"/>
+		<!--Civ Unique Abilities-->
+		<Row Type="ABILITY_ABAMBOWA" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_CHANG_BEUN" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_COSSACK" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_HUSSAR" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_GARDE_IMPERIALE" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_GUSA" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_HANGSHANG" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_KATYUSHA" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_MARINE" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_MIKASA" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_MWAMI" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_SEPOY" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_SOLDADERAS" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_SOLDADERAS_ADJACENT" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_STUKA" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_ZERO" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_GENERAL_MOROZ" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_MEIJI_KANTAI_KESSEN" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_RIVER_RAIDS" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_AVILA" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_HERRERA" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_HERRERA_COMBAT" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_VILLA" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_VILLA_GOLD" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_BILLAUD_VARENNE" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_SAINT_JUST" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_SAINT_JUST_COMBAT" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_SAKDIPHONLASEP" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_SENANURAK" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_SENANURAK_COMBAT" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_CLAIM_RESOURCE" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_AERODROME_AERIAL_RECON" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_TEN_GREAT_CAMPAIGNS" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_IRON_CROSS" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_BANNER_ARMY" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_GRANDE_ARMEE" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_NG_OMA" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_MANDALA" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_BREAK_SOUND_BARRIER" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_STRENGTH_COMMAND_RADIUS" Kind="KIND_ABILITY"/>
+	</Types>
+	<Units>
+		<!-- Tier 1 -->
+		<Row UnitType="UNIT_LINE_INFANTRY" Name="LOC_UNIT_LINE_INFANTRY_NAME" Description="LOC_UNIT_LINE_INFANTRY_DESCRIPTION" Tier="1" Maintenance="4" BaseMoves="2" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT"/>
+		<Row UnitType="UNIT_FIELD_CANNON" Name="LOC_UNIT_FIELD_CANNON_NAME" Description="LOC_UNIT_FIELD_CANNON_DESCRIPTION" Tier="1" Maintenance="4" BaseMoves="2" BaseSightRange="2" ZoneOfControl="false" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_WHEELED" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT"/>
+		<Row UnitType="UNIT_CUIRASSIER" Name="LOC_UNIT_CUIRASSIER_NAME" Description="LOC_UNIT_CUIRASSIER_DESCRIPTION" Tier="1" Maintenance="5" BaseMoves="3" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT"/>
+		<Row UnitType="UNIT_MORTAR" Name="LOC_UNIT_MORTAR_NAME" Description="LOC_UNIT_MORTAR_DESCRIPTION" Tier="1" Maintenance="4" BaseMoves="2" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_WHEELED" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT"/>
+		<Row UnitType="UNIT_IRONCLAD" Name="LOC_UNIT_IRONCLAD_NAME" Description="LOC_UNIT_IRONCLAD_DESCRIPTION" Tier="1" Maintenance="4" BaseMoves="4" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_SEA" UnitMovementClass="UNIT_MOVEMENT_CLASS_NAVAL" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_NAVAL"/>
+		<Row UnitType="UNIT_FRIGATE" Name="LOC_UNIT_FRIGATE_NAME" Description="LOC_UNIT_FRIGATE_DESCRIPTION" Tier="1" Maintenance="5" BaseMoves="3" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_SEA" UnitMovementClass="UNIT_MOVEMENT_CLASS_NAVAL" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_NAVAL"/>
+		<!-- Tier 2 -->
+		<Row UnitType="UNIT_RIFLEMAN" Name="LOC_UNIT_RIFLEMAN_NAME" Description="LOC_UNIT_RIFLEMAN_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="2" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT"/>
+		<Row UnitType="UNIT_FIELD_GUN" Name="LOC_UNIT_FIELD_GUN_NAME" Description="LOC_UNIT_FIELD_GUN_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="2" BaseSightRange="2" ZoneOfControl="false" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_WHEELED" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT"/>
+		<Row UnitType="UNIT_LANDSHIP" Name="LOC_UNIT_LANDSHIP_NAME" Description="LOC_UNIT_LANDSHIP_DESCRIPTION" Tier="2" Maintenance="5" BaseMoves="3" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_TRACKED" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT"/>
+		<Row UnitType="UNIT_HEAVY_ARTILLERY" Name="LOC_UNIT_HEAVY_ARTILLERY_NAME" Description="LOC_UNIT_HEAVY_ARTILLERY_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="2" BaseSightRange="2" ZoneOfControl="false" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_WHEELED" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT"/>
+		<Row UnitType="UNIT_CRUISER" Name="LOC_UNIT_CRUISER_NAME" Description="LOC_UNIT_CRUISER_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="4" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_SEA" UnitMovementClass="UNIT_MOVEMENT_CLASS_NAVAL" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_NAVAL"/>
+		<Row UnitType="UNIT_DREADNOUGHT" Name="LOC_UNIT_DREADNOUGHT_NAME" Description="LOC_UNIT_DREADNOUGHT_DESCRIPTION" Tier="2" Maintenance="5" BaseMoves="3" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_SEA" UnitMovementClass="UNIT_MOVEMENT_CLASS_NAVAL" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_NAVAL"/>
+		<Row UnitType="UNIT_BIPLANE" Name="LOC_UNIT_BIPLANE_NAME" Description="LOC_UNIT_BIPLANE_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="8" BaseSightRange="4" ZoneOfControl="false" Domain="DOMAIN_AIR" UnitMovementClass="UNIT_MOVEMENT_CLASS_AIR" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_AIR" CanCapture="False" IgnoreMoves="true" CanTargetAir="TRUE"/>
+		<Row UnitType="UNIT_TRENCH_FIGHTER" Name="LOC_UNIT_TRENCH_FIGHTER_NAME" Description="LOC_UNIT_TRENCH_FIGHTER_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="10" BaseSightRange="4" ZoneOfControl="false" Domain="DOMAIN_AIR" UnitMovementClass="UNIT_MOVEMENT_CLASS_AIR" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_AIR" CanCapture="False" IgnoreMoves="true" CanTargetAir="TRUE"/>
+		<Row UnitType="UNIT_BOMBER" Name="LOC_UNIT_BOMBER_NAME" Description="LOC_UNIT_BOMBER_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="10" BaseSightRange="4" ZoneOfControl="false" Domain="DOMAIN_AIR" UnitMovementClass="UNIT_MOVEMENT_CLASS_AIR" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_AIR" CanCapture="False" IgnoreMoves="true" CanTargetAir="TRUE" WMDCapable="TRUE"/>
+		<!-- Tier 3 -->
+		<Row UnitType="UNIT_INFANTRY_COMPANY" Name="LOC_UNIT_INFANTRY_COMPANY_NAME" Description="LOC_UNIT_INFANTRY_COMPANY_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="2" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT"/>
+		<Row UnitType="UNIT_AT_GUN" Name="LOC_UNIT_AT_GUN_NAME" Description="LOC_UNIT_AT_GUN_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="2" BaseSightRange="2" ZoneOfControl="false" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_WHEELED" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT"/>
+		<Row UnitType="UNIT_TANK" Name="LOC_UNIT_TANK_NAME" Description="LOC_UNIT_TANK_DESCRIPTION" Tier="3" Maintenance="6" BaseMoves="4" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_TRACKED" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT"/>
+		<Row UnitType="UNIT_ASSAULT_GUN" Name="LOC_UNIT_ASSAULT_GUN_NAME" Description="LOC_UNIT_ASSAULT_GUN_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="2" BaseSightRange="2" ZoneOfControl="false" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_TRACKED" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT"/>
+		<Row UnitType="UNIT_DESTROYER" Name="LOC_UNIT_DESTROYER_NAME" Description="LOC_UNIT_DESTROYER_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="4" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_SEA" UnitMovementClass="UNIT_MOVEMENT_CLASS_NAVAL" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_NAVAL"/>
+		<Row UnitType="UNIT_BATTLESHIP" Name="LOC_UNIT_BATTLESHIP_NAME" Description="LOC_UNIT_BATTLESHIP_DESCRIPTION" Tier="3" Maintenance="6" BaseMoves="3" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_SEA" UnitMovementClass="UNIT_MOVEMENT_CLASS_NAVAL" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_NAVAL"/>
+		<Row UnitType="UNIT_SUBMARINE" Name="LOC_UNIT_SUBMARINE_NAME" Description="LOC_UNIT_SUBMARINE_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="3" BaseSightRange="2" ZoneOfControl="false" Domain="DOMAIN_SEA" UnitMovementClass="UNIT_MOVEMENT_CLASS_NAVAL" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_NAVAL"/>
+		<Row UnitType="UNIT_FIGHTER" Name="LOC_UNIT_FIGHTER_NAME" Description="LOC_UNIT_FIGHTER_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="10" BaseSightRange="4" ZoneOfControl="false" Domain="DOMAIN_AIR" UnitMovementClass="UNIT_MOVEMENT_CLASS_AIR" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_AIR" CanCapture="False" IgnoreMoves="true" CanTargetAir="TRUE"/>
+		<Row UnitType="UNIT_DIVEBOMBER" Name="LOC_UNIT_DIVEBOMBER_NAME" Description="LOC_UNIT_DIVEBOMBER_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="12" BaseSightRange="4" ZoneOfControl="false" Domain="DOMAIN_AIR" UnitMovementClass="UNIT_MOVEMENT_CLASS_AIR" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_AIR" IgnoreMoves="true" CanTargetAir="TRUE"/>
+		<Row UnitType="UNIT_HEAVY_BOMBER" Name="LOC_UNIT_HEAVY_BOMBER_NAME" Description="LOC_UNIT_HEAVY_BOMBER_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="12" BaseSightRange="4" ZoneOfControl="false" Domain="DOMAIN_AIR" UnitMovementClass="UNIT_MOVEMENT_CLASS_AIR" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_AIR" IgnoreMoves="true" CanTargetAir="TRUE" WMDCapable="TRUE"/>
+		<!-- Special -->
+		<Row UnitType="UNIT_EXPLORER" Name="LOC_UNIT_EXPLORER_NAME" Description="LOC_UNIT_EXPLORER_DESCRIPTION" BaseSightRange="2" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" ExtractsArtifacts="true" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="400"/>
+		<!-- Civ Unique Military -->
+		<Row UnitType="UNIT_ABAMBOWA" Name="LOC_UNIT_ABAMBOWA_NAME" Description="LOC_UNIT_ABAMBOWA_DESCRIPTION" Tier="1" Maintenance="4" BaseMoves="2" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_BUGANDA"/>
+		<Row UnitType="UNIT_ABAMBOWA_2" Name="LOC_UNIT_ABAMBOWA_NAME" Description="LOC_UNIT_ABAMBOWA_2_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="2" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_BUGANDA"/>
+		<Row UnitType="UNIT_ABAMBOWA_3" Name="LOC_UNIT_ABAMBOWA_NAME" Description="LOC_UNIT_ABAMBOWA_3_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="2" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_BUGANDA"/>
+		<Row UnitType="UNIT_CHANG_BEUN" Name="LOC_UNIT_CHANG_BEUN_NAME" Description="LOC_UNIT_CHANG_BEUN_DESCRIPTION" Tier="1" Maintenance="4" BaseMoves="3" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_SIAM"/>
+		<Row UnitType="UNIT_CHANG_BEUN_2" Name="LOC_UNIT_CHANG_BEUN_NAME" Description="LOC_UNIT_CHANG_BEUN_2_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="3" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_SIAM"/>
+		<Row UnitType="UNIT_CHANG_BEUN_3" Name="LOC_UNIT_CHANG_BEUN_NAME" Description="LOC_UNIT_CHANG_BEUN_3_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="3" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_SIAM"/>
+		<Row UnitType="UNIT_COSSACK" Name="LOC_UNIT_COSSACK_NAME" Description="LOC_UNIT_COSSACK_DESCRIPTION" Tier="1" Maintenance="4" BaseMoves="3" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_RUSSIA"/>
+		<Row UnitType="UNIT_COSSACK_2" Name="LOC_UNIT_COSSACK_NAME" Description="LOC_UNIT_COSSACK_2_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="3" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_RUSSIA"/>
+		<Row UnitType="UNIT_COSSACK_3" Name="LOC_UNIT_COSSACK_NAME" Description="LOC_UNIT_COSSACK_3_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="3" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_RUSSIA"/>
+		<Row UnitType="UNIT_GARDE_IMPERIALE" Name="LOC_UNIT_GARDE_IMPERIALE_NAME" Description="LOC_UNIT_GARDE_IMPERIALE_DESCRIPTION" Tier="1" Maintenance="4" BaseMoves="2" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_FRENCH_EMPIRE"/>
+		<Row UnitType="UNIT_GARDE_IMPERIALE_2" Name="LOC_UNIT_GARDE_IMPERIALE_NAME" Description="LOC_UNIT_GARDE_IMPERIALE_2_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="2" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_FRENCH_EMPIRE"/>
+		<Row UnitType="UNIT_GARDE_IMPERIALE_3" Name="LOC_UNIT_GARDE_IMPERIALE_NAME" Description="LOC_UNIT_GARDE_IMPERIALE_3_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="2" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_FRENCH_EMPIRE"/>
+		<Row UnitType="UNIT_HUSSAR" Name="LOC_UNIT_HUSSAR_NAME" Description="LOC_UNIT_HUSSAR_DESCRIPTION" Tier="1" Maintenance="4" BaseMoves="4" BaseSightRange="2" ZoneOfControl="false" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_PRUSSIA"/>
+		<Row UnitType="UNIT_HUSSAR_2" Name="LOC_UNIT_HUSSAR_NAME" Description="LOC_UNIT_HUSSAR_2_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="4" BaseSightRange="2" ZoneOfControl="false" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_PRUSSIA"/>
+		<Row UnitType="UNIT_HUSSAR_3" Name="LOC_UNIT_HUSSAR_NAME" Description="LOC_UNIT_HUSSAR_3_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="4" BaseSightRange="2" ZoneOfControl="false" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_PRUSSIA"/>
+		<Row UnitType="UNIT_GUSA" Name="LOC_UNIT_GUSA_NAME" Description="LOC_UNIT_GUSA_DESCRIPTION" Tier="1" Maintenance="4" BaseMoves="2" BaseSightRange="2" ZoneOfControl="false" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_QING"/>
+		<Row UnitType="UNIT_GUSA_2" Name="LOC_UNIT_GUSA_NAME" Description="LOC_UNIT_GUSA_2_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="2" BaseSightRange="2" ZoneOfControl="false" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_QING"/>
+		<Row UnitType="UNIT_GUSA_3" Name="LOC_UNIT_GUSA_NAME" Description="LOC_UNIT_GUSA_3_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="2" BaseSightRange="2" ZoneOfControl="false" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_QING"/>
+		<Row UnitType="UNIT_KATYUSHA" Name="LOC_UNIT_KATYUSHA_NAME" Description="LOC_UNIT_KATYUSHA_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="3" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_WHEELED" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_RUSSIA"/>
+		<Row UnitType="UNIT_KATYUSHA_2" Name="LOC_UNIT_KATYUSHA_NAME" Description="LOC_UNIT_KATYUSHA_2_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="3" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_WHEELED" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_RUSSIA"/>
+		<Row UnitType="UNIT_MARINE" Name="LOC_UNIT_MARINE_NAME" Description="LOC_UNIT_MARINE_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="2" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_AMERICA"/>
+		<Row UnitType="UNIT_MARINE_2" Name="LOC_UNIT_MARINE_NAME" Description="LOC_UNIT_MARINE_2_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="2" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_AMERICA"/>
+		<Row UnitType="UNIT_MIKASA" Name="LOC_UNIT_MIKASA_NAME" Description="LOC_UNIT_MIKASA_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="5" BaseSightRange="3" ZoneOfControl="true" Domain="DOMAIN_SEA" UnitMovementClass="UNIT_MOVEMENT_CLASS_NAVAL" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_NAVAL" TraitType="TRAIT_MEIJI"/>
+		<Row UnitType="UNIT_MIKASA_2" Name="LOC_UNIT_MIKASA_NAME" Description="LOC_UNIT_MIKASA_2_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="5" BaseSightRange="3" ZoneOfControl="true" Domain="DOMAIN_SEA" UnitMovementClass="UNIT_MOVEMENT_CLASS_NAVAL" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_NAVAL" TraitType="TRAIT_MEIJI"/>
+		<Row UnitType="UNIT_SEPOY" Name="LOC_UNIT_SEPOY_NAME" Description="LOC_UNIT_SEPOY_DESCRIPTION" Tier="1" Maintenance="4" BaseMoves="2" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_MUGHAL"/>
+		<Row UnitType="UNIT_SEPOY_2" Name="LOC_UNIT_SEPOY_NAME" Description="LOC_UNIT_SEPOY_2_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="2" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_MUGHAL"/>
+		<Row UnitType="UNIT_SEPOY_3" Name="LOC_UNIT_SEPOY_NAME" Description="LOC_UNIT_SEPOY_3_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="2" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_MUGHAL"/>
+		<Row UnitType="UNIT_SOLDADERAS" Name="LOC_UNIT_SOLDADERAS_NAME" Description="LOC_UNIT_SOLDADERAS_DESCRIPTION" Tier="1" Maintenance="4" BaseMoves="2" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_MEXICO"/>
+		<Row UnitType="UNIT_SOLDADERAS_2" Name="LOC_UNIT_SOLDADERAS_NAME" Description="LOC_UNIT_SOLDADERAS_2_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="2" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_MEXICO"/>
+		<Row UnitType="UNIT_SOLDADERAS_3" Name="LOC_UNIT_SOLDADERAS_NAME" Description="LOC_UNIT_SOLDADERAS_3_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="2" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_MEXICO"/>
+		<Row UnitType="UNIT_STUKA" Name="LOC_UNIT_STUKA_NAME" Description="LOC_UNIT_STUKA_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="6" BaseSightRange="4" ZoneOfControl="false" Domain="DOMAIN_AIR" UnitMovementClass="UNIT_MOVEMENT_CLASS_AIR" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_AIR" TraitType="TRAIT_PRUSSIA" CanTargetAir="TRUE"/>
+		<Row UnitType="UNIT_STUKA_2" Name="LOC_UNIT_STUKA_NAME" Description="LOC_UNIT_STUKA_2_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="10" BaseSightRange="4" ZoneOfControl="false" Domain="DOMAIN_AIR" UnitMovementClass="UNIT_MOVEMENT_CLASS_AIR" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_AIR" TraitType="TRAIT_PRUSSIA" CanTargetAir="TRUE"/>
+		<Row UnitType="UNIT_ZERO" Name="LOC_UNIT_ZERO_NAME" Description="LOC_UNIT_ZERO_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="6" BaseSightRange="4" ZoneOfControl="false" Domain="DOMAIN_AIR" UnitMovementClass="UNIT_MOVEMENT_CLASS_AIR" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_AIR" CanCapture="False" IgnoreMoves="true" Stackable="TRUE" TraitType="TRAIT_MEIJI" CanTargetAir="TRUE"/>
+		<Row UnitType="UNIT_ZERO_2" Name="LOC_UNIT_ZERO_NAME" Description="LOC_UNIT_ZERO_2_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="8" BaseSightRange="4" ZoneOfControl="false" Domain="DOMAIN_AIR" UnitMovementClass="UNIT_MOVEMENT_CLASS_AIR" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_AIR" CanCapture="False" IgnoreMoves="true" Stackable="TRUE" TraitType="TRAIT_MEIJI" CanTargetAir="TRUE"/>
+		<Row UnitType="UNIT_PARTISAN" Name="LOC_UNIT_PARTISAN_NAME" Description="LOC_UNIT_PARTISAN_DESCRIPTION" Tier="1" Maintenance="4" BaseMoves="2" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_LEADER_MINOR_CIV" CostProgressionParam1="15"/>
+		<Row UnitType="UNIT_PARTISAN_2" Name="LOC_UNIT_PARTISAN_NAME" Description="LOC_UNIT_PARTISAN_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="2" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_LEADER_MINOR_CIV" CostProgressionParam1="15"/>
+		<Row UnitType="UNIT_PARTISAN_3" Name="LOC_UNIT_PARTISAN_NAME" Description="LOC_UNIT_PARTISAN_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="2" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_LEADER_MINOR_CIV" CostProgressionParam1="15"/>
+		<!-- Civ Unique Civilian -->
+		<Row UnitType="UNIT_MWAMI" Name="LOC_UNIT_MWAMI_NAME" Description="LOC_UNIT_MWAMI_DESCRIPTION" BaseSightRange="2" BaseMoves="2" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_SUPPORT" FormationClass="FORMATION_CLASS_COMMAND" ZoneOfControl="true" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="200" CanEarnExperience="true" PromotionClass="PROMOTION_CLASS_LAND_COMMANDER" TraitType="TRAIT_BUGANDA"/>
+		<Row UnitType="UNIT_HANGSHANG" Name="LOC_UNIT_HANGSHANG_NAME" Description="LOC_UNIT_HANGSHANG_DESCRIPTION" BaseSightRange="2" BaseMoves="4" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" MakeTradeRoute="true" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="20" TraitType="TRAIT_QING"/>
+		<Row UnitType="UNIT_ZAMINDAR" Name="LOC_UNIT_ZAMINDAR_NAME" Description="LOC_UNIT_ZAMINDAR_DESCRIPTION" BaseSightRange="1" PrereqPopulation="5" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_SUPPORT" FormationClass="FORMATION_CLASS_SUPPORT" ZoneOfControl="false" FoundCity="true" CostProgressionModel="COST_PROGRESSION_NUM_SETTLEMENTS" CostProgressionParam1="30" TraitType="TRAIT_MUGHAL"/>
+		<Row UnitType="UNIT_PROSPECTOR" Name="LOC_UNIT_PROSPECTOR_NAME" Description="LOC_UNIT_PROSPECTOR_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_SUPPORT" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="20" TraitType="TRAIT_AMERICA"/>
+		<!-- Great People.  There is a 'base' definition, and definitions for indivduals. The individual's unit definition must also be specified in the GreatPersonIndivdual definition. -->
+		<!-- This does allow for Individuals to have custom Unit properties, but they usually mirro the base version. -->
+		<!-- Note that the Individual entries are set to not allow the user to directly train/purchase, only the base is, then the code picks an individual. -->
+		<!--French Empire Great Person Individuals-->
+		<Row UnitType="UNIT_JACOBIN" Name="LOC_UNIT_JACOBIN_NAME" Description="LOC_UNIT_JACOBIN_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_FRENCH_EMPIRE"/>
+		<Row UnitType="UNIT_JACOBIN_BARRAS" Name="LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_BARRAS_NAME" Description="LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_BARRAS_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_FRENCH_EMPIRE" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_JACOBIN_BILLAUD_VARENNE" Name="LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_BILLAUD_VARENNE_NAME" Description="LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_BILLAUD_VARENNE_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_FRENCH_EMPIRE" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_JACOBIN_BRISSOT" Name="LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_BRISSOT_NAME" Description="LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_BRISSOT_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_FRENCH_EMPIRE" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_JACOBIN_D_AELDERS" Name="LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_D_AELDERS_NAME" Description="LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_D_AELDERS_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_FRENCH_EMPIRE" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_JACOBIN_DANTON" Name="LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_DANTON_NAME" Description="LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_DANTON_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_FRENCH_EMPIRE" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_JACOBIN_DESMOULINS" Name="LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_DESMOULINS_NAME" Description="LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_DESMOULINS_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_FRENCH_EMPIRE" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_JACOBIN_GOUGES" Name="LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_GOUGES_NAME" Description="LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_GOUGES_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_FRENCH_EMPIRE" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_JACOBIN_MARAT" Name="LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_MARAT_NAME" Description="LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_MARAT_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_FRENCH_EMPIRE" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_JACOBIN_ROBESPIERRE" Name="LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_ROBESPIERRE_NAME" Description="LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_ROBESPIERRE_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_FRENCH_EMPIRE" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_JACOBIN_SAINT_JUST" Name="LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_SAINT_JUST_NAME" Description="LOC_GREAT_PERSON_INDIVIDUAL_JACOBIN_SAINT_JUST_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_FRENCH_EMPIRE" CanTrain="false" CanPurchase="false"/>
+		<!--Mexico Great Person Individuals-->
+		<Row UnitType="UNIT_REVOLUCIONARIO" Name="LOC_UNIT_REVOLUCIONARIO_NAME" Description="LOC_UNIT_REVOLUCIONARIO_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_SUPPORT" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_MEXICO"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO_AVILA" Name="LOC_GREAT_PERSON_INDIVIDUAL_REVOLUCIONARIO_AVILA_NAME" Description="LOC_UNIT_REVOLUCIONARIO_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_MEXICO" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO_GUERRERO" Name="LOC_GREAT_PERSON_INDIVIDUAL_REVOLUCIONARIO_GUERRERO_NAME" Description="LOC_UNIT_REVOLUCIONARIO_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_MEXICO" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO_HERRERA" Name="LOC_GREAT_PERSON_INDIVIDUAL_REVOLUCIONARIO_HERRERA_NAME" Description="LOC_UNIT_REVOLUCIONARIO_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_MEXICO" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO_HIDALGO" Name="LOC_GREAT_PERSON_INDIVIDUAL_REVOLUCIONARIO_HIDALGO_NAME" Description="LOC_UNIT_REVOLUCIONARIO_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_MEXICO" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO_JIMENEZ" Name="LOC_GREAT_PERSON_INDIVIDUAL_REVOLUCIONARIO_JIMENEZ_NAME" Description="LOC_UNIT_REVOLUCIONARIO_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_MEXICO" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO_JUAREZ" Name="LOC_GREAT_PERSON_INDIVIDUAL_REVOLUCIONARIO_JUAREZ_NAME" Description="LOC_UNIT_REVOLUCIONARIO_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_MEXICO" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO_MORELOS" Name="LOC_GREAT_PERSON_INDIVIDUAL_REVOLUCIONARIO_MORELOS_NAME" Description="LOC_UNIT_REVOLUCIONARIO_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_MEXICO" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO_SANTA_ANNA" Name="LOC_GREAT_PERSON_INDIVIDUAL_REVOLUCIONARIO_SANTA_ANNA_NAME" Description="LOC_UNIT_REVOLUCIONARIO_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_MEXICO" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO_VILLA" Name="LOC_GREAT_PERSON_INDIVIDUAL_REVOLUCIONARIO_VILLA_NAME" Description="LOC_UNIT_REVOLUCIONARIO_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_MEXICO" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO_ZAPATA" Name="LOC_GREAT_PERSON_INDIVIDUAL_REVOLUCIONARIO_ZAPATA_NAME" Description="LOC_UNIT_REVOLUCIONARIO_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_MEXICO" CanTrain="false" CanPurchase="false"/>
+		<!--Siam Great Person Individuals-->
+		<Row UnitType="UNIT_UPARAT" Name="LOC_UNIT_UPARAT_NAME" Description="LOC_UNIT_UPARAT_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_SIAM"/>
+		<Row UnitType="UNIT_UPARAT_CHAKRABONGSE" Name="LOC_GREAT_PERSON_INDIVIDUAL_UPARAT_CHAKRABONGSE_NAME" Description="LOC_UNIT_UPARAT_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_SIAM" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_UPARAT_ITSARASUNTHON" Name="LOC_GREAT_PERSON_INDIVIDUAL_UPARAT_ITSARASUNTHON_NAME" Description="LOC_UNIT_UPARAT_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_SIAM" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_UPARAT_PHIBUN" Name="LOC_GREAT_PERSON_INDIVIDUAL_UPARAT_PHIBUN_NAME" Description="LOC_UNIT_UPARAT_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_SIAM" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_UPARAT_PINKLAO" Name="LOC_GREAT_PERSON_INDIVIDUAL_UPARAT_PINKLAO_NAME" Description="LOC_UNIT_UPARAT_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_SIAM" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_UPARAT_PRIDI" Name="LOC_GREAT_PERSON_INDIVIDUAL_UPARAT_PRIDI_NAME" Description="LOC_UNIT_UPARAT_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_SIAM" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_UPARAT_RASMI" Name="LOC_GREAT_PERSON_INDIVIDUAL_UPARAT_RASMI_NAME" Description="LOC_UNIT_UPARAT_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_SIAM" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_UPARAT_SAKDIPHONLASEP" Name="LOC_GREAT_PERSON_INDIVIDUAL_UPARAT_SAKDIPHONLASEP_NAME" Description="LOC_UNIT_UPARAT_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_SIAM" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_UPARAT_SENANURAK" Name="LOC_GREAT_PERSON_INDIVIDUAL_UPARAT_SENANURAK_NAME" Description="LOC_UNIT_UPARAT_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_SIAM" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_UPARAT_VAJRAVUDH" Name="LOC_GREAT_PERSON_INDIVIDUAL_UPARAT_VAJRAVUDH_NAME" Description="LOC_UNIT_UPARAT_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_SIAM" CanTrain="false" CanPurchase="false"/>
+		<Row UnitType="UNIT_UPARAT_WICHAICHAN" Name="LOC_GREAT_PERSON_INDIVIDUAL_UPARAT_WICHAICHAN_NAME" Description="LOC_UNIT_UPARAT_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" CostProgressionParam1="50" TraitType="TRAIT_SIAM" CanTrain="false" CanPurchase="false"/>
+		<!-- Victory -->
+		<Row UnitType="UNIT_JOHN_MAYNARD_KEYNES" Name="LOC_UNIT_JOHN_MAYNARD_KEYNES_NAME" Description="LOC_UNIT_JOHN_MAYNARD_KEYNES_DESCRIPTION" BaseSightRange="1" BaseMoves="8" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" CanTrain="false" CanPurchase="false" CanTriggerDiscovery="false" Teleport="true" AllowTeleportToOtherPlayerCapitals="true" CanBeDamaged="false" VictoryUnit="true" VictoryType="VICTORY_MODERN_ECONOMIC"/>
+	</Units>
+	<Unit_Stats>
+		<!-- Tier 1 -->
+		<Row UnitType="UNIT_LINE_INFANTRY" Combat="50"/>
+		<Row UnitType="UNIT_FIELD_CANNON" Combat="35" RangedCombat="45" Bombard="35" Range="2"/>
+		<Row UnitType="UNIT_CUIRASSIER" Combat="55"/>
+		<Row UnitType="UNIT_MORTAR" Combat="40" RangedCombat="35" Bombard="55" Range="2"/>
+		<Row UnitType="UNIT_IRONCLAD" Combat="45" RangedCombat="40" Bombard="40" Range="2"/>
+		<Row UnitType="UNIT_FRIGATE" Combat="50" RangedCombat="45" Bombard="45" Range="2"/>
+		<!-- Tier 2 -->
+		<Row UnitType="UNIT_RIFLEMAN" Combat="55"/>
+		<Row UnitType="UNIT_FIELD_GUN" Combat="40" RangedCombat="50" Bombard="40" Range="2"/>
+		<Row UnitType="UNIT_LANDSHIP" Combat="60"/>
+		<Row UnitType="UNIT_HEAVY_ARTILLERY" Combat="45" RangedCombat="40" Bombard="60" Range="3"/>
+		<Row UnitType="UNIT_CRUISER" Combat="50" RangedCombat="45" Bombard="45" Range="2"/>
+		<Row UnitType="UNIT_DREADNOUGHT" Combat="55" RangedCombat="50" Bombard="50" Range="2"/>
+		<Row UnitType="UNIT_BIPLANE" Combat="55" RangedCombat="35" Bombard="30" Range="8"/>
+		<Row UnitType="UNIT_TRENCH_FIGHTER" Combat="35" RangedCombat="55" Bombard="45" Range="10"/>
+		<Row UnitType="UNIT_BOMBER" Combat="35" RangedCombat="55" Bombard="65" Range="10"/>
+		<!-- Tier 3 -->
+		<Row UnitType="UNIT_INFANTRY_COMPANY" Combat="60"/>
+		<Row UnitType="UNIT_AT_GUN" Combat="45" RangedCombat="55" Bombard="45" Range="2"/>
+		<Row UnitType="UNIT_TANK" Combat="65"/>
+		<Row UnitType="UNIT_ASSAULT_GUN" Combat="50" RangedCombat="45" Bombard="65" Range="3"/>
+		<Row UnitType="UNIT_DESTROYER" Combat="55" RangedCombat="50" Bombard="50" Range="3"/>
+		<Row UnitType="UNIT_BATTLESHIP" Combat="60" RangedCombat="55" Bombard="55" Range="3"/>
+		<Row UnitType="UNIT_SUBMARINE" Combat="65" Range="2"/>
+		<Row UnitType="UNIT_FIGHTER" Combat="60" RangedCombat="40" Bombard="30" Range="10"/>
+		<Row UnitType="UNIT_DIVEBOMBER" Combat="40" RangedCombat="60" Bombard="50" Range="12"/>
+		<Row UnitType="UNIT_HEAVY_BOMBER" Combat="45" RangedCombat="50" Bombard="70" Range="12"/>
+		<!-- Special -->
+		<Row UnitType="UNIT_EXPLORER"/>
+		<!-- Civ Unique Military -->
+		<Row UnitType="UNIT_ABAMBOWA" Combat="50"/>
+		<Row UnitType="UNIT_ABAMBOWA_2" Combat="55"/>
+		<Row UnitType="UNIT_ABAMBOWA_3" Combat="60"/>
+		<Row UnitType="UNIT_CHANG_BEUN" Combat="35" RangedCombat="50" Bombard="35" Range="2"/>
+		<Row UnitType="UNIT_CHANG_BEUN_2" Combat="40" RangedCombat="55" Bombard="40" Range="2"/>
+		<Row UnitType="UNIT_CHANG_BEUN_3" Combat="45" RangedCombat="60" Bombard="45" Range="2"/>
+		<Row UnitType="UNIT_COSSACK" Combat="50"/>
+		<Row UnitType="UNIT_COSSACK_2" Combat="55"/>
+		<Row UnitType="UNIT_COSSACK_3" Combat="60"/>
+		<Row UnitType="UNIT_GARDE_IMPERIALE" Combat="50" RangedCombat="35" Bombard="5" Range="1"/>
+		<Row UnitType="UNIT_GARDE_IMPERIALE_2" Combat="55" RangedCombat="40" Bombard="10" Range="1"/>
+		<Row UnitType="UNIT_GARDE_IMPERIALE_3" Combat="60" RangedCombat="45" Bombard="15" Range="1"/>
+		<Row UnitType="UNIT_HUSSAR" Combat="50"/>
+		<Row UnitType="UNIT_HUSSAR_2" Combat="55"/>
+		<Row UnitType="UNIT_HUSSAR_3" Combat="60"/>
+		<Row UnitType="UNIT_GUSA" Combat="50"/>
+		<Row UnitType="UNIT_GUSA_2" Combat="55"/>
+		<Row UnitType="UNIT_GUSA_3" Combat="60"/>
+		<Row UnitType="UNIT_KATYUSHA" Combat="40" RangedCombat="40" Bombard="50" Range="3"/>
+		<Row UnitType="UNIT_KATYUSHA_2" Combat="45" RangedCombat="45" Bombard="55" Range="3"/>
+		<Row UnitType="UNIT_MARINE" Combat="55"/>
+		<Row UnitType="UNIT_MARINE_2" Combat="60"/>
+		<Row UnitType="UNIT_MIKASA" Combat="55" RangedCombat="50" Bombard="40" Range="2"/>
+		<Row UnitType="UNIT_MIKASA_2" Combat="60" RangedCombat="55" Bombard="45" Range="2"/>
+		<Row UnitType="UNIT_SEPOY" Combat="50" RangedCombat="5" Bombard="45" Range="1"/>
+		<Row UnitType="UNIT_SEPOY_2" Combat="55" RangedCombat="10" Bombard="50" Range="1"/>
+		<Row UnitType="UNIT_SEPOY_3" Combat="60" RangedCombat="15" Bombard="55" Range="1"/>
+		<Row UnitType="UNIT_SOLDADERAS" Combat="50"/>
+		<Row UnitType="UNIT_SOLDADERAS_2" Combat="55"/>
+		<Row UnitType="UNIT_SOLDADERAS_3" Combat="60"/>
+		<Row UnitType="UNIT_STUKA" Combat="35" RangedCombat="65" Bombard="55" Range="8"/>
+		<Row UnitType="UNIT_STUKA_2" Combat="40" RangedCombat="70" Bombard="60" Range="10"/>
+		<Row UnitType="UNIT_ZERO" Combat="55" RangedCombat="35" Bombard="30" Range="10"/>
+		<Row UnitType="UNIT_ZERO_2" Combat="60" RangedCombat="40" Bombard="35" Range="12"/>
+		<Row UnitType="UNIT_PARTISAN" Combat="55"/>
+		<Row UnitType="UNIT_PARTISAN_2" Combat="60"/>
+		<Row UnitType="UNIT_PARTISAN_3" Combat="65"/>
+	</Unit_Stats>
+	<Unit_Costs>
+		<!-- Tier 1 -->
+		<Row UnitType="UNIT_LINE_INFANTRY" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_FIELD_CANNON" YieldType="YIELD_PRODUCTION" Cost="270"/>
+		<Row UnitType="UNIT_CUIRASSIER" YieldType="YIELD_PRODUCTION" Cost="350"/>
+		<Row UnitType="UNIT_MORTAR" YieldType="YIELD_PRODUCTION" Cost="260"/>
+		<!-- Ironclad is 10 cheaper than normal to compensate for shorter window. -->
+		<Row UnitType="UNIT_IRONCLAD" YieldType="YIELD_PRODUCTION" Cost="280"/>
+		<Row UnitType="UNIT_FRIGATE" YieldType="YIELD_PRODUCTION" Cost="320"/>
+		<!-- Tier 2 -->
+		<Row UnitType="UNIT_RIFLEMAN" YieldType="YIELD_PRODUCTION" Cost="340"/>
+		<Row UnitType="UNIT_FIELD_GUN" YieldType="YIELD_PRODUCTION" Cost="320"/>
+		<Row UnitType="UNIT_LANDSHIP" YieldType="YIELD_PRODUCTION" Cost="400"/>
+		<Row UnitType="UNIT_HEAVY_ARTILLERY" YieldType="YIELD_PRODUCTION" Cost="310"/>
+		<Row UnitType="UNIT_CRUISER" YieldType="YIELD_PRODUCTION" Cost="340"/>
+		<Row UnitType="UNIT_DREADNOUGHT" YieldType="YIELD_PRODUCTION" Cost="370"/>
+		<Row UnitType="UNIT_BIPLANE" YieldType="YIELD_PRODUCTION" Cost="340"/>
+		<Row UnitType="UNIT_TRENCH_FIGHTER" YieldType="YIELD_PRODUCTION" Cost="350"/>
+		<Row UnitType="UNIT_BOMBER" YieldType="YIELD_PRODUCTION" Cost="370"/>
+		<!-- Tier 3 -->
+		<Row UnitType="UNIT_INFANTRY_COMPANY" YieldType="YIELD_PRODUCTION" Cost="400"/>
+		<Row UnitType="UNIT_AT_GUN" YieldType="YIELD_PRODUCTION" Cost="380"/>
+		<Row UnitType="UNIT_TANK" YieldType="YIELD_PRODUCTION" Cost="460"/>
+		<Row UnitType="UNIT_ASSAULT_GUN" YieldType="YIELD_PRODUCTION" Cost="370"/>
+		<Row UnitType="UNIT_DESTROYER" YieldType="YIELD_PRODUCTION" Cost="400"/>
+		<Row UnitType="UNIT_BATTLESHIP" YieldType="YIELD_PRODUCTION" Cost="430"/>
+		<Row UnitType="UNIT_SUBMARINE" YieldType="YIELD_PRODUCTION" Cost="430"/>
+		<Row UnitType="UNIT_FIGHTER" YieldType="YIELD_PRODUCTION" Cost="400"/>
+		<Row UnitType="UNIT_DIVEBOMBER" YieldType="YIELD_PRODUCTION" Cost="410"/>
+		<Row UnitType="UNIT_HEAVY_BOMBER" YieldType="YIELD_PRODUCTION" Cost="430"/>
+		<!-- Special -->
+		<Row UnitType="UNIT_EXPLORER" YieldType="YIELD_PRODUCTION" Cost="400"/>
+		<!-- Civ Unique Military -->
+		<Row UnitType="UNIT_ABAMBOWA" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_ABAMBOWA_2" YieldType="YIELD_PRODUCTION" Cost="340"/>
+		<Row UnitType="UNIT_ABAMBOWA_3" YieldType="YIELD_PRODUCTION" Cost="400"/>
+		<Row UnitType="UNIT_CHANG_BEUN" YieldType="YIELD_PRODUCTION" Cost="270"/>
+		<Row UnitType="UNIT_CHANG_BEUN_2" YieldType="YIELD_PRODUCTION" Cost="320"/>
+		<Row UnitType="UNIT_CHANG_BEUN_3" YieldType="YIELD_PRODUCTION" Cost="380"/>
+		<Row UnitType="UNIT_COSSACK" YieldType="YIELD_PRODUCTION" Cost="300"/>
+		<Row UnitType="UNIT_COSSACK_2" YieldType="YIELD_PRODUCTION" Cost="350"/>
+		<Row UnitType="UNIT_COSSACK_3" YieldType="YIELD_PRODUCTION" Cost="410"/>
+		<Row UnitType="UNIT_GARDE_IMPERIALE" YieldType="YIELD_PRODUCTION" Cost="300"/>
+		<Row UnitType="UNIT_GARDE_IMPERIALE_2" YieldType="YIELD_PRODUCTION" Cost="350"/>
+		<Row UnitType="UNIT_GARDE_IMPERIALE_3" YieldType="YIELD_PRODUCTION" Cost="410"/>
+		<Row UnitType="UNIT_HUSSAR" YieldType="YIELD_PRODUCTION" Cost="300"/>
+		<Row UnitType="UNIT_HUSSAR_2" YieldType="YIELD_PRODUCTION" Cost="350"/>
+		<Row UnitType="UNIT_HUSSAR_3" YieldType="YIELD_PRODUCTION" Cost="410"/>
+		<Row UnitType="UNIT_GUSA" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_GUSA_2" YieldType="YIELD_PRODUCTION" Cost="340"/>
+		<Row UnitType="UNIT_GUSA_3" YieldType="YIELD_PRODUCTION" Cost="400"/>
+		<Row UnitType="UNIT_KATYUSHA" YieldType="YIELD_PRODUCTION" Cost="310"/>
+		<Row UnitType="UNIT_KATYUSHA_2" YieldType="YIELD_PRODUCTION" Cost="370"/>
+		<Row UnitType="UNIT_MARINE" YieldType="YIELD_PRODUCTION" Cost="330"/>
+		<Row UnitType="UNIT_MARINE_2" YieldType="YIELD_PRODUCTION" Cost="390"/>
+		<Row UnitType="UNIT_MIKASA" YieldType="YIELD_PRODUCTION" Cost="370"/>
+		<Row UnitType="UNIT_MIKASA_2" YieldType="YIELD_PRODUCTION" Cost="430"/>
+		<Row UnitType="UNIT_SEPOY" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_SEPOY_2" YieldType="YIELD_PRODUCTION" Cost="340"/>
+		<Row UnitType="UNIT_SEPOY_3" YieldType="YIELD_PRODUCTION" Cost="400"/>
+		<Row UnitType="UNIT_SOLDADERAS" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_SOLDADERAS_2" YieldType="YIELD_PRODUCTION" Cost="340"/>
+		<Row UnitType="UNIT_SOLDADERAS_3" YieldType="YIELD_PRODUCTION" Cost="400"/>
+		<Row UnitType="UNIT_STUKA" YieldType="YIELD_PRODUCTION" Cost="350"/>
+		<Row UnitType="UNIT_STUKA_2" YieldType="YIELD_PRODUCTION" Cost="720"/>
+		<Row UnitType="UNIT_ZERO" YieldType="YIELD_PRODUCTION" Cost="350"/>
+		<Row UnitType="UNIT_ZERO_2" YieldType="YIELD_PRODUCTION" Cost="410"/>
+		<Row UnitType="UNIT_PARTISAN" YieldType="YIELD_PRODUCTION" Cost="310"/>
+		<Row UnitType="UNIT_PARTISAN_2" YieldType="YIELD_PRODUCTION" Cost="360"/>
+		<Row UnitType="UNIT_PARTISAN_3" YieldType="YIELD_PRODUCTION" Cost="420"/>
+		<!-- Civ Unique Civilian -->
+		<Row UnitType="UNIT_JACOBIN" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_JACOBIN_BARRAS" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_JACOBIN_BILLAUD_VARENNE" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_JACOBIN_BRISSOT" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_JACOBIN_D_AELDERS" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_JACOBIN_DANTON" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_JACOBIN_DESMOULINS" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_JACOBIN_GOUGES" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_JACOBIN_MARAT" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_JACOBIN_ROBESPIERRE" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_JACOBIN_SAINT_JUST" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_MWAMI" YieldType="YIELD_PRODUCTION" Cost="100"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO_AVILA" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO_GUERRERO" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO_HERRERA" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO_HIDALGO" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO_JIMENEZ" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO_JUAREZ" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO_MORELOS" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO_SANTA_ANNA" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO_VILLA" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO_ZAPATA" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_UPARAT" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_UPARAT_CHAKRABONGSE" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_UPARAT_ITSARASUNTHON" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_UPARAT_PHIBUN" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_UPARAT_PINKLAO" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_UPARAT_PRIDI" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_UPARAT_RASMI" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_UPARAT_SAKDIPHONLASEP" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_UPARAT_SENANURAK" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_UPARAT_VAJRAVUDH" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_UPARAT_WICHAICHAN" YieldType="YIELD_PRODUCTION" Cost="290"/>
+		<Row UnitType="UNIT_HANGSHANG" YieldType="YIELD_PRODUCTION" Cost="140"/>
+		<Row UnitType="UNIT_ZAMINDAR" YieldType="YIELD_PRODUCTION" Cost="60"/>
+		<Row UnitType="UNIT_PROSPECTOR" YieldType="YIELD_PRODUCTION" Cost="60"/>
+	</Unit_Costs>
+	<UnitUpgrades>
+		<Row Unit="UNIT_LINE_INFANTRY" UpgradeUnit="UNIT_RIFLEMAN"/>
+		<Row Unit="UNIT_FIELD_CANNON" UpgradeUnit="UNIT_FIELD_GUN"/>
+		<Row Unit="UNIT_CUIRASSIER" UpgradeUnit="UNIT_LANDSHIP"/>
+		<Row Unit="UNIT_MORTAR" UpgradeUnit="UNIT_HEAVY_ARTILLERY"/>
+		<Row Unit="UNIT_IRONCLAD" UpgradeUnit="UNIT_CRUISER"/>
+		<Row Unit="UNIT_FRIGATE" UpgradeUnit="UNIT_DREADNOUGHT"/>
+		<Row Unit="UNIT_RIFLEMAN" UpgradeUnit="UNIT_INFANTRY_COMPANY"/>
+		<Row Unit="UNIT_FIELD_GUN" UpgradeUnit="UNIT_AT_GUN"/>
+		<Row Unit="UNIT_LANDSHIP" UpgradeUnit="UNIT_TANK"/>
+		<Row Unit="UNIT_HEAVY_ARTILLERY" UpgradeUnit="UNIT_ASSAULT_GUN"/>
+		<Row Unit="UNIT_CRUISER" UpgradeUnit="UNIT_DESTROYER"/>
+		<Row Unit="UNIT_DREADNOUGHT" UpgradeUnit="UNIT_BATTLESHIP"/>
+		<Row Unit="UNIT_BIPLANE" UpgradeUnit="UNIT_FIGHTER"/>
+		<Row Unit="UNIT_TRENCH_FIGHTER" UpgradeUnit="UNIT_DIVEBOMBER"/>
+		<Row Unit="UNIT_BOMBER" UpgradeUnit="UNIT_HEAVY_BOMBER"/>
+		<!-- Civ Unique Military -->
+		<Row Unit="UNIT_ABAMBOWA" UpgradeUnit="UNIT_ABAMBOWA_2"/>
+		<Row Unit="UNIT_ABAMBOWA_2" UpgradeUnit="UNIT_ABAMBOWA_3"/>
+		<Row Unit="UNIT_CHANG_BEUN" UpgradeUnit="UNIT_CHANG_BEUN_2"/>
+		<Row Unit="UNIT_CHANG_BEUN_2" UpgradeUnit="UNIT_CHANG_BEUN_3"/>
+		<Row Unit="UNIT_COSSACK" UpgradeUnit="UNIT_COSSACK_2"/>
+		<Row Unit="UNIT_COSSACK_2" UpgradeUnit="UNIT_COSSACK_3"/>
+		<Row Unit="UNIT_GARDE_IMPERIALE" UpgradeUnit="UNIT_GARDE_IMPERIALE_2"/>
+		<Row Unit="UNIT_GARDE_IMPERIALE_2" UpgradeUnit="UNIT_GARDE_IMPERIALE_3"/>
+		<Row Unit="UNIT_HUSSAR" UpgradeUnit="UNIT_HUSSAR_2"/>
+		<Row Unit="UNIT_HUSSAR_2" UpgradeUnit="UNIT_HUSSAR_3"/>
+		<Row Unit="UNIT_GUSA" UpgradeUnit="UNIT_GUSA_2"/>
+		<Row Unit="UNIT_GUSA_2" UpgradeUnit="UNIT_GUSA_3"/>
+		<Row Unit="UNIT_KATYUSHA" UpgradeUnit="UNIT_KATYUSHA_2"/>
+		<Row Unit="UNIT_MARINE" UpgradeUnit="UNIT_MARINE_2"/>
+		<Row Unit="UNIT_MIKASA" UpgradeUnit="UNIT_MIKASA_2"/>
+		<Row Unit="UNIT_SEPOY" UpgradeUnit="UNIT_SEPOY_2"/>
+		<Row Unit="UNIT_SEPOY_2" UpgradeUnit="UNIT_SEPOY_3"/>
+		<Row Unit="UNIT_SOLDADERAS" UpgradeUnit="UNIT_SOLDADERAS_2"/>
+		<Row Unit="UNIT_SOLDADERAS_2" UpgradeUnit="UNIT_SOLDADERAS_3"/>
+		<Row Unit="UNIT_STUKA" UpgradeUnit="UNIT_STUKA_2"/>
+		<Row Unit="UNIT_ZERO" UpgradeUnit="UNIT_ZERO_2"/>
+		<Row Unit="UNIT_PARTISAN" UpgradeUnit="UNIT_PARTISAN_2"/>
+		<Row Unit="UNIT_PARTISAN_2" UpgradeUnit="UNIT_PARTISAN_3"/>
+	</UnitUpgrades>
+	<UnitReplaces>
+		<!-- Civ Unique Military -->
+		<Row CivUniqueUnitType="UNIT_ABAMBOWA" ReplacesUnitType="UNIT_LINE_INFANTRY"/>
+		<Row CivUniqueUnitType="UNIT_ABAMBOWA_2" ReplacesUnitType="UNIT_RIFLEMAN"/>
+		<Row CivUniqueUnitType="UNIT_ABAMBOWA_3" ReplacesUnitType="UNIT_INFANTRY_COMPANY"/>
+		<Row CivUniqueUnitType="UNIT_CHANG_BEUN" ReplacesUnitType="UNIT_FIELD_CANNON"/>
+		<Row CivUniqueUnitType="UNIT_CHANG_BEUN_2" ReplacesUnitType="UNIT_FIELD_GUN"/>
+		<Row CivUniqueUnitType="UNIT_CHANG_BEUN_3" ReplacesUnitType="UNIT_AT_GUN"/>
+		<Row CivUniqueUnitType="UNIT_GARDE_IMPERIALE" ReplacesUnitType="UNIT_LINE_INFANTRY"/>
+		<Row CivUniqueUnitType="UNIT_GARDE_IMPERIALE_2" ReplacesUnitType="UNIT_RIFLEMAN"/>
+		<Row CivUniqueUnitType="UNIT_GARDE_IMPERIALE_3" ReplacesUnitType="UNIT_INFANTRY_COMPANY"/>
+		<Row CivUniqueUnitType="UNIT_GUSA" ReplacesUnitType="UNIT_LINE_INFANTRY"/>
+		<Row CivUniqueUnitType="UNIT_GUSA_2" ReplacesUnitType="UNIT_RIFLEMAN"/>
+		<Row CivUniqueUnitType="UNIT_GUSA_3" ReplacesUnitType="UNIT_INFANTRY_COMPANY"/>
+		<Row CivUniqueUnitType="UNIT_KATYUSHA" ReplacesUnitType="UNIT_HEAVY_ARTILLERY"/>
+		<Row CivUniqueUnitType="UNIT_KATYUSHA_2" ReplacesUnitType="UNIT_ASSAULT_GUN"/>
+		<Row CivUniqueUnitType="UNIT_MARINE" ReplacesUnitType="UNIT_RIFLEMAN"/>
+		<Row CivUniqueUnitType="UNIT_MARINE_2" ReplacesUnitType="UNIT_INFANTRY_COMPANY"/>
+		<Row CivUniqueUnitType="UNIT_MIKASA" ReplacesUnitType="UNIT_DREADNOUGHT"/>
+		<Row CivUniqueUnitType="UNIT_MIKASA_2" ReplacesUnitType="UNIT_BATTLESHIP"/>
+		<Row CivUniqueUnitType="UNIT_SEPOY" ReplacesUnitType="UNIT_LINE_INFANTRY"/>
+		<Row CivUniqueUnitType="UNIT_SEPOY_2" ReplacesUnitType="UNIT_RIFLEMAN"/>
+		<Row CivUniqueUnitType="UNIT_SEPOY_3" ReplacesUnitType="UNIT_INFANTRY_COMPANY"/>
+		<Row CivUniqueUnitType="UNIT_SOLDADERAS" ReplacesUnitType="UNIT_LINE_INFANTRY"/>
+		<Row CivUniqueUnitType="UNIT_SOLDADERAS_2" ReplacesUnitType="UNIT_RIFLEMAN"/>
+		<Row CivUniqueUnitType="UNIT_SOLDADERAS_3" ReplacesUnitType="UNIT_INFANTRY_COMPANY"/>
+		<Row CivUniqueUnitType="UNIT_STUKA" ReplacesUnitType="UNIT_TRENCH_FIGHTER"/>
+		<Row CivUniqueUnitType="UNIT_STUKA_2" ReplacesUnitType="UNIT_DIVEBOMBER"/>
+		<Row CivUniqueUnitType="UNIT_ZERO" ReplacesUnitType="UNIT_BIPLANE"/>
+		<Row CivUniqueUnitType="UNIT_ZERO_2" ReplacesUnitType="UNIT_FIGHTER"/>
+		<!-- Civ Unique Civilian -->
+		<Row CivUniqueUnitType="UNIT_MWAMI" ReplacesUnitType="UNIT_ARMY_COMMANDER"/>
+		<Row CivUniqueUnitType="UNIT_HANGSHANG" ReplacesUnitType="UNIT_MERCHANT"/>
+		<Row CivUniqueUnitType="UNIT_ZAMINDAR" ReplacesUnitType="UNIT_SETTLER"/>
+	</UnitReplaces>
+	<Unit_TransitionRetains>
+		<Row UnitType="UNIT_MWAMI"/>
+	</Unit_TransitionRetains>
+	<Unit_ShadowReplacements>
+		<Row Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_MILITARY" Tag="UNIT_CLASS_INFANTRY" UnitType="UNIT_LINE_INFANTRY"/>
+		<Row Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_MILITARY" Tag="UNIT_CLASS_RANGED" UnitType="UNIT_FIELD_CANNON"/>
+		<Row Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_MILITARY" Tag="UNIT_CLASS_CAVALRY" UnitType="UNIT_CUIRASSIER"/>
+		<Row Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_MILITARY" Tag="UNIT_CLASS_SIEGE" UnitType="UNIT_MORTAR"/>
+		<Row Domain="DOMAIN_SEA" CoreClass="CORE_CLASS_MILITARY" Tag="UNIT_CLASS_NAVAL" UnitType="UNIT_FRIGATE"/>
+	</Unit_ShadowReplacements>
+	<WMDs>
+		<Row WeaponType="WMD_NUCLEAR_DEVICE" Name="LOC_WMD_NUCLEAR_DEVICE_NAME" BlastRadius="1" FalloutDuration="10" ICBMStrikeRange="12" AffectPopulation="true" AffectImprovements="true" AffectBuildings="true" AffectUnits="true" AffectResources="true" AffectRoutes="true" Maintenance="14"/>
+		<Row WeaponType="WMD_THERMONUCLEAR_DEVICE" Name="LOC_WMD_THERMONUCLEAR_DEVICE_NAME" BlastRadius="2" FalloutDuration="20" ICBMStrikeRange="15" AffectPopulation="true" AffectImprovements="true" AffectBuildings="true" AffectUnits="true" AffectResources="true" AffectRoutes="true" Maintenance="16"/>
+	</WMDs>
+	<Tags>
+		<Row Tag="UNIT_CLASS_ELITE_NAVAL_LIGHT" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_ELITE_NAVAL_HEAVY" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_ELITE_AIR_ATTACK" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_ELITE_AIR_SIEGE" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_EXPLORER" Category="UNIT_CLASS"/>
+		<!-- Civ Unique Military -->
+		<Row Tag="UNIT_CLASS_ABAMBOWA" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_CHANG_BEUN" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_COSSACK" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_GARDE_IMPERIALE" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_HUSSAR" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_GUSA" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_KATYUSHA" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_MARINE" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_MIKASA" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_SEPOY" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_SOLDADERAS" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_STUKA" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_ZERO" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_PARTISAN" Category="UNIT_CLASS"/>
+		<!-- Civ Unique Civilian -->
+		<Row Tag="UNIT_CLASS_JACOBIN" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_MWAMI" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_REVOLUCIONARIO" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_UPARAT" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_HANGSHANG" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_ZAMINDAR" Category="UNIT_CLASS"/>
+		<Row Tag="UNIT_CLASS_PROSPECTOR" Category="UNIT_CLASS"/>
+	</Tags>
+	<TypeTags>
+		<Row Type="UNIT_EXPLORER" Tag="UNIT_CLASS_EXPLORER"/>
+		<!-- Tier 1 -->
+		<Row Type="UNIT_LINE_INFANTRY" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_LINE_INFANTRY" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_LINE_INFANTRY" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_FIELD_CANNON" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_FIELD_CANNON" Tag="UNIT_CLASS_RANGED"/>
+		<Row Type="UNIT_CUIRASSIER" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_CUIRASSIER" Tag="UNIT_CLASS_MOUNTED"/>
+		<Row Type="UNIT_CUIRASSIER" Tag="UNIT_CLASS_CAVALRY"/>
+		<Row Type="UNIT_MORTAR" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_MORTAR" Tag="UNIT_CLASS_SIEGE"/>
+		<Row Type="UNIT_IRONCLAD" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_IRONCLAD" Tag="UNIT_CLASS_SIEGE"/>
+		<Row Type="UNIT_IRONCLAD" Tag="UNIT_CLASS_NAVAL"/>
+		<Row Type="UNIT_IRONCLAD" Tag="UNIT_CLASS_LIGHT"/>
+		<Row Type="UNIT_IRONCLAD" Tag="UNIT_CLASS_AUTOEXPLORE"/>
+		<Row Type="UNIT_FRIGATE" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_FRIGATE" Tag="UNIT_CLASS_SIEGE"/>
+		<Row Type="UNIT_FRIGATE" Tag="UNIT_CLASS_NAVAL"/>
+		<Row Type="UNIT_FRIGATE" Tag="UNIT_CLASS_HEAVY"/>
+		<Row Type="UNIT_FRIGATE" Tag="UNIT_CLASS_AUTOEXPLORE"/>
+		<!-- Tier 2 -->
+		<Row Type="UNIT_RIFLEMAN" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_RIFLEMAN" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_RIFLEMAN" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_FIELD_GUN" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_FIELD_GUN" Tag="UNIT_CLASS_RANGED"/>
+		<Row Type="UNIT_LANDSHIP" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_LANDSHIP" Tag="UNIT_CLASS_MOUNTED"/>
+		<Row Type="UNIT_LANDSHIP" Tag="UNIT_CLASS_CAVALRY"/>
+		<Row Type="UNIT_HEAVY_ARTILLERY" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_HEAVY_ARTILLERY" Tag="UNIT_CLASS_SIEGE"/>
+		<Row Type="UNIT_CRUISER" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_CRUISER" Tag="UNIT_CLASS_SIEGE"/>
+		<Row Type="UNIT_CRUISER" Tag="UNIT_CLASS_NAVAL"/>
+		<Row Type="UNIT_CRUISER" Tag="UNIT_CLASS_LIGHT"/>
+		<Row Type="UNIT_CRUISER" Tag="UNIT_CLASS_AUTOEXPLORE"/>
+		<Row Type="UNIT_DREADNOUGHT" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_DREADNOUGHT" Tag="UNIT_CLASS_SIEGE"/>
+		<Row Type="UNIT_DREADNOUGHT" Tag="UNIT_CLASS_NAVAL"/>
+		<Row Type="UNIT_DREADNOUGHT" Tag="UNIT_CLASS_HEAVY"/>
+		<Row Type="UNIT_DREADNOUGHT" Tag="UNIT_CLASS_AUTOEXPLORE"/>
+		<Row Type="UNIT_BIPLANE" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_BIPLANE" Tag="UNIT_CLASS_AIRCRAFT"/>
+		<Row Type="UNIT_BIPLANE" Tag="UNIT_CLASS_AIR_FIGHTER"/>
+		<Row Type="UNIT_BIPLANE" Tag="UNIT_CLASS_INTERCEPTOR"/>
+		<Row Type="UNIT_TRENCH_FIGHTER" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_TRENCH_FIGHTER" Tag="UNIT_CLASS_AIRCRAFT"/>
+		<Row Type="UNIT_TRENCH_FIGHTER" Tag="UNIT_CLASS_GROUND_ATTACKER"/>
+		<Row Type="UNIT_TRENCH_FIGHTER" Tag="UNIT_CLASS_AIR_LAND_ATTACK_SPECIALIST"/>
+		<Row Type="UNIT_BOMBER" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_BOMBER" Tag="UNIT_CLASS_AIRCRAFT"/>
+		<Row Type="UNIT_BOMBER" Tag="UNIT_CLASS_BOMBER"/>
+		<Row Type="UNIT_BOMBER" Tag="UNIT_CLASS_SIEGE"/>
+		<Row Type="UNIT_BOMBER" Tag="UNIT_CLASS_AIR_LAND_ATTACK_SPECIALIST"/>
+		<!-- Tier 3 -->
+		<Row Type="UNIT_INFANTRY_COMPANY" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_INFANTRY_COMPANY" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_INFANTRY_COMPANY" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_INFANTRY_COMPANY" Tag="UNIT_CLASS_ELITE_INFANTRY"/>
+		<Row Type="UNIT_AT_GUN" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_AT_GUN" Tag="UNIT_CLASS_RANGED"/>
+		<Row Type="UNIT_AT_GUN" Tag="UNIT_CLASS_ELITE_RANGED"/>
+		<Row Type="UNIT_TANK" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_TANK" Tag="UNIT_CLASS_MOUNTED"/>
+		<Row Type="UNIT_TANK" Tag="UNIT_CLASS_CAVALRY"/>
+		<Row Type="UNIT_TANK" Tag="UNIT_CLASS_ELITE_CAVALRY"/>
+		<Row Type="UNIT_DESTROYER" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_DESTROYER" Tag="UNIT_CLASS_SIEGE"/>
+		<Row Type="UNIT_DESTROYER" Tag="UNIT_CLASS_NAVAL"/>
+		<Row Type="UNIT_DESTROYER" Tag="UNIT_CLASS_LIGHT"/>
+		<Row Type="UNIT_DESTROYER" Tag="UNIT_CLASS_ELITE_NAVAL_LIGHT"/>
+		<Row Type="UNIT_DESTROYER" Tag="UNIT_CLASS_AUTOEXPLORE"/>
+		<Row Type="UNIT_DESTROYER" Tag="UNIT_CLASS_SEE_HIDDEN"/>
+		<Row Type="UNIT_BATTLESHIP" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_BATTLESHIP" Tag="UNIT_CLASS_SIEGE"/>
+		<Row Type="UNIT_BATTLESHIP" Tag="UNIT_CLASS_NAVAL"/>
+		<Row Type="UNIT_BATTLESHIP" Tag="UNIT_CLASS_HEAVY"/>
+		<Row Type="UNIT_BATTLESHIP" Tag="UNIT_CLASS_ELITE_NAVAL_HEAVY"/>
+		<Row Type="UNIT_BATTLESHIP" Tag="UNIT_CLASS_AUTOEXPLORE"/>
+		<Row Type="UNIT_SUBMARINE" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_SUBMARINE" Tag="UNIT_CLASS_IGNORE_DISTRICT_COMBAT"/>
+		<Row Type="UNIT_SUBMARINE" Tag="UNIT_CLASS_SKIRMISH"/>
+		<Row Type="UNIT_SUBMARINE" Tag="UNIT_CLASS_NAVAL"/>
+		<Row Type="UNIT_SUBMARINE" Tag="UNIT_CLASS_STEALTH"/>
+		<Row Type="UNIT_SUBMARINE" Tag="UNIT_CLASS_NAVAL_STEALTH"/>
+		<Row Type="UNIT_FIGHTER" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_FIGHTER" Tag="UNIT_CLASS_AIRCRAFT"/>
+		<Row Type="UNIT_FIGHTER" Tag="UNIT_CLASS_AIR_FIGHTER"/>
+		<Row Type="UNIT_FIGHTER" Tag="UNIT_CLASS_INTERCEPTOR"/>
+		<Row Type="UNIT_DIVEBOMBER" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_DIVEBOMBER" Tag="UNIT_CLASS_AIRCRAFT"/>
+		<Row Type="UNIT_DIVEBOMBER" Tag="UNIT_CLASS_GROUND_ATTACKER"/>
+		<Row Type="UNIT_DIVEBOMBER" Tag="UNIT_CLASS_ELITE_AIR_ATTACK"/>
+		<Row Type="UNIT_DIVEBOMBER" Tag="UNIT_CLASS_AIR_LAND_ATTACK_SPECIALIST"/>
+		<Row Type="UNIT_HEAVY_BOMBER" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_HEAVY_BOMBER" Tag="UNIT_CLASS_AIRCRAFT"/>
+		<Row Type="UNIT_HEAVY_BOMBER" Tag="UNIT_CLASS_BOMBER"/>
+		<Row Type="UNIT_HEAVY_BOMBER" Tag="UNIT_CLASS_SIEGE"/>
+		<Row Type="UNIT_HEAVY_BOMBER" Tag="UNIT_CLASS_ELITE_AIR_SIEGE"/>
+		<Row Type="UNIT_HEAVY_BOMBER" Tag="UNIT_CLASS_AIR_LAND_ATTACK_SPECIALIST"/>
+		<Row Type="UNIT_ASSAULT_GUN" Tag="UNIT_CLASS_ELITE_SIEGE"/>
+		<Row Type="UNIT_ASSAULT_GUN" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_ASSAULT_GUN" Tag="UNIT_CLASS_SIEGE"/>
+		<!-- Civ Unique Military -->
+		<Row Type="UNIT_ABAMBOWA" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_ABAMBOWA" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_ABAMBOWA" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_ABAMBOWA" Tag="UNIT_CLASS_ABAMBOWA"/>
+		<Row Type="UNIT_ABAMBOWA_2" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_ABAMBOWA_2" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_ABAMBOWA_2" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_ABAMBOWA_2" Tag="UNIT_CLASS_ABAMBOWA"/>
+		<Row Type="UNIT_ABAMBOWA_3" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_ABAMBOWA_3" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_ABAMBOWA_3" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_ABAMBOWA_3" Tag="UNIT_CLASS_ABAMBOWA"/>
+		<Row Type="UNIT_ABAMBOWA_3" Tag="UNIT_CLASS_ELITE_INFANTRY"/>
+		<Row Type="UNIT_CHANG_BEUN" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_CHANG_BEUN" Tag="UNIT_CLASS_RANGED"/>
+		<Row Type="UNIT_CHANG_BEUN" Tag="UNIT_CLASS_MOUNTED"/>
+		<Row Type="UNIT_CHANG_BEUN" Tag="UNIT_CLASS_CHANG_BEUN"/>
+		<Row Type="UNIT_CHANG_BEUN_2" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_CHANG_BEUN_2" Tag="UNIT_CLASS_RANGED"/>
+		<Row Type="UNIT_CHANG_BEUN_2" Tag="UNIT_CLASS_MOUNTED"/>
+		<Row Type="UNIT_CHANG_BEUN_2" Tag="UNIT_CLASS_CHANG_BEUN"/>
+		<Row Type="UNIT_CHANG_BEUN_3" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_CHANG_BEUN_3" Tag="UNIT_CLASS_RANGED"/>
+		<Row Type="UNIT_CHANG_BEUN_3" Tag="UNIT_CLASS_MOUNTED"/>
+		<Row Type="UNIT_CHANG_BEUN_3" Tag="UNIT_CLASS_ELITE_RANGED"/>
+		<Row Type="UNIT_CHANG_BEUN_3" Tag="UNIT_CLASS_CHANG_BEUN"/>
+		<Row Type="UNIT_COSSACK" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_COSSACK" Tag="UNIT_CLASS_MOUNTED"/>
+		<Row Type="UNIT_COSSACK" Tag="UNIT_CLASS_CAVALRY"/>
+		<Row Type="UNIT_COSSACK" Tag="UNIT_CLASS_COSSACK"/>
+		<Row Type="UNIT_COSSACK_2" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_COSSACK_2" Tag="UNIT_CLASS_MOUNTED"/>
+		<Row Type="UNIT_COSSACK_2" Tag="UNIT_CLASS_CAVALRY"/>
+		<Row Type="UNIT_COSSACK_2" Tag="UNIT_CLASS_COSSACK"/>
+		<Row Type="UNIT_COSSACK_3" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_COSSACK_3" Tag="UNIT_CLASS_MOUNTED"/>
+		<Row Type="UNIT_COSSACK_3" Tag="UNIT_CLASS_CAVALRY"/>
+		<Row Type="UNIT_COSSACK_3" Tag="UNIT_CLASS_COSSACK"/>
+		<Row Type="UNIT_COSSACK_3" Tag="UNIT_CLASS_ELITE_CAVALRY"/>
+		<Row Type="UNIT_GARDE_IMPERIALE" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_GARDE_IMPERIALE" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_GARDE_IMPERIALE" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_GARDE_IMPERIALE" Tag="UNIT_CLASS_GARDE_IMPERIALE"/>
+		<Row Type="UNIT_GARDE_IMPERIALE_2" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_GARDE_IMPERIALE_2" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_GARDE_IMPERIALE_2" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_GARDE_IMPERIALE_2" Tag="UNIT_CLASS_GARDE_IMPERIALE"/>
+		<Row Type="UNIT_GARDE_IMPERIALE_3" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_GARDE_IMPERIALE_3" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_GARDE_IMPERIALE_3" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_GARDE_IMPERIALE_3" Tag="UNIT_CLASS_GARDE_IMPERIALE"/>
+		<Row Type="UNIT_GARDE_IMPERIALE_2" Tag="UNIT_CLASS_ELITE_INFANTRY"/>
+		<Row Type="UNIT_HUSSAR" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_HUSSAR" Tag="UNIT_CLASS_MOUNTED"/>
+		<Row Type="UNIT_HUSSAR" Tag="UNIT_CLASS_CAVALRY"/>
+		<Row Type="UNIT_HUSSAR" Tag="UNIT_CLASS_HUSSAR"/>
+		<Row Type="UNIT_HUSSAR_2" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_HUSSAR_2" Tag="UNIT_CLASS_MOUNTED"/>
+		<Row Type="UNIT_HUSSAR_2" Tag="UNIT_CLASS_CAVALRY"/>
+		<Row Type="UNIT_HUSSAR_2" Tag="UNIT_CLASS_HUSSAR"/>
+		<Row Type="UNIT_HUSSAR_3" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_HUSSAR_3" Tag="UNIT_CLASS_MOUNTED"/>
+		<Row Type="UNIT_HUSSAR_3" Tag="UNIT_CLASS_CAVALRY"/>
+		<Row Type="UNIT_HUSSAR_3" Tag="UNIT_CLASS_HUSSAR"/>
+		<Row Type="UNIT_HUSSAR_3" Tag="UNIT_CLASS_ELITE_CAVALRY"/>
+		<Row Type="UNIT_GUSA" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_GUSA" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_GUSA" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_GUSA" Tag="UNIT_CLASS_GUSA"/>
+		<Row Type="UNIT_GUSA_2" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_GUSA_2" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_GUSA_2" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_GUSA_2" Tag="UNIT_CLASS_GUSA"/>
+		<Row Type="UNIT_GUSA_3" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_GUSA_3" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_GUSA_3" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_GUSA_3" Tag="UNIT_CLASS_GUSA"/>
+		<Row Type="UNIT_KATYUSHA" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_KATYUSHA" Tag="UNIT_CLASS_SIEGE"/>
+		<Row Type="UNIT_KATYUSHA" Tag="UNIT_CLASS_KATYUSHA"/>
+		<Row Type="UNIT_KATYUSHA_2" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_KATYUSHA_2" Tag="UNIT_CLASS_SIEGE"/>
+		<Row Type="UNIT_KATYUSHA_2" Tag="UNIT_CLASS_KATYUSHA"/>
+		<Row Type="UNIT_KATYUSHA_2" Tag="UNIT_CLASS_ELITE_SIEGE"/>
+		<Row Type="UNIT_MARINE" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_MARINE" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_MARINE" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_MARINE" Tag="UNIT_CLASS_MARINE"/>
+		<Row Type="UNIT_MARINE_2" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_MARINE_2" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_MARINE_2" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_MARINE_2" Tag="UNIT_CLASS_MARINE"/>
+		<Row Type="UNIT_MARINE_2" Tag="UNIT_CLASS_ELITE_INFANTRY"/>
+		<Row Type="UNIT_MIKASA" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_MIKASA" Tag="UNIT_CLASS_SIEGE"/>
+		<Row Type="UNIT_MIKASA" Tag="UNIT_CLASS_NAVAL"/>
+		<Row Type="UNIT_MIKASA" Tag="UNIT_CLASS_HEAVY"/>
+		<Row Type="UNIT_MIKASA" Tag="UNIT_CLASS_AUTOEXPLORE"/>
+		<Row Type="UNIT_MIKASA" Tag="UNIT_CLASS_MIKASA"/>
+		<Row Type="UNIT_MIKASA_2" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_MIKASA_2" Tag="UNIT_CLASS_SIEGE"/>
+		<Row Type="UNIT_MIKASA_2" Tag="UNIT_CLASS_NAVAL"/>
+		<Row Type="UNIT_MIKASA_2" Tag="UNIT_CLASS_HEAVY"/>
+		<Row Type="UNIT_MIKASA_2" Tag="UNIT_CLASS_MIKASA"/>
+		<Row Type="UNIT_MIKASA_2" Tag="UNIT_CLASS_ELITE_NAVAL_HEAVY"/>
+		<Row Type="UNIT_MIKASA_2" Tag="UNIT_CLASS_AUTOEXPLORE"/>
+		<Row Type="UNIT_SEPOY" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_SEPOY" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_SEPOY" Tag="UNIT_CLASS_SIEGE"/>
+		<Row Type="UNIT_SEPOY" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_SEPOY" Tag="UNIT_CLASS_SEPOY"/>
+		<Row Type="UNIT_SEPOY_2" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_SEPOY_2" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_SEPOY_2" Tag="UNIT_CLASS_SIEGE"/>
+		<Row Type="UNIT_SEPOY_2" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_SEPOY_2" Tag="UNIT_CLASS_SEPOY"/>
+		<Row Type="UNIT_SEPOY_3" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_SEPOY_3" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_SEPOY_3" Tag="UNIT_CLASS_SIEGE"/>
+		<Row Type="UNIT_SEPOY_3" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_SEPOY_3" Tag="UNIT_CLASS_SEPOY"/>
+		<Row Type="UNIT_SEPOY_3" Tag="UNIT_CLASS_ELITE_INFANTRY"/>
+		<Row Type="UNIT_SOLDADERAS" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_SOLDADERAS" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_SOLDADERAS" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_SOLDADERAS" Tag="UNIT_CLASS_SOLDADERAS"/>
+		<Row Type="UNIT_SOLDADERAS_2" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_SOLDADERAS_2" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_SOLDADERAS_2" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_SOLDADERAS_2" Tag="UNIT_CLASS_SOLDADERAS"/>
+		<Row Type="UNIT_SOLDADERAS_3" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_SOLDADERAS_3" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_SOLDADERAS_3" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_SOLDADERAS_3" Tag="UNIT_CLASS_SOLDADERAS"/>
+		<Row Type="UNIT_SOLDADERAS_3" Tag="UNIT_CLASS_ELITE_INFANTRY"/>
+		<Row Type="UNIT_STUKA" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_STUKA" Tag="UNIT_CLASS_AIRCRAFT"/>
+		<Row Type="UNIT_STUKA" Tag="UNIT_CLASS_GROUND_ATTACKER"/>
+		<Row Type="UNIT_STUKA" Tag="UNIT_CLASS_STUKA"/>
+		<Row Type="UNIT_STUKA" Tag="UNIT_CLASS_AIR_LAND_ATTACK_SPECIALIST"/>
+		<Row Type="UNIT_STUKA_2" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_STUKA_2" Tag="UNIT_CLASS_AIRCRAFT"/>
+		<Row Type="UNIT_STUKA_2" Tag="UNIT_CLASS_GROUND_ATTACKER"/>
+		<Row Type="UNIT_STUKA_2" Tag="UNIT_CLASS_STUKA"/>
+		<Row Type="UNIT_STUKA_2" Tag="UNIT_CLASS_ELITE_AIR_ATTACK"/>
+		<Row Type="UNIT_STUKA_2" Tag="UNIT_CLASS_AIR_LAND_ATTACK_SPECIALIST"/>
+		<Row Type="UNIT_ZERO" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_ZERO" Tag="UNIT_CLASS_AIRCRAFT"/>
+		<Row Type="UNIT_ZERO" Tag="UNIT_CLASS_AIR_FIGHTER"/>
+		<Row Type="UNIT_ZERO" Tag="UNIT_CLASS_INTERCEPTOR"/>
+		<Row Type="UNIT_ZERO" Tag="UNIT_CLASS_ZERO"/>
+		<Row Type="UNIT_ZERO_2" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_ZERO_2" Tag="UNIT_CLASS_AIRCRAFT"/>
+		<Row Type="UNIT_ZERO_2" Tag="UNIT_CLASS_AIR_FIGHTER"/>
+		<Row Type="UNIT_ZERO_2" Tag="UNIT_CLASS_INTERCEPTOR"/>
+		<Row Type="UNIT_ZERO_2" Tag="UNIT_CLASS_ZERO"/>
+		<Row Type="UNIT_PARTISAN" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_PARTISAN" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_PARTISAN" Tag="UNIT_CLASS_SKIRMISH"/>
+		<Row Type="UNIT_PARTISAN" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_PARTISAN" Tag="UNIT_CLASS_PARTISAN"/>
+		<Row Type="UNIT_PARTISAN_2" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_PARTISAN_2" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_PARTISAN_2" Tag="UNIT_CLASS_SKIRMISH"/>
+		<Row Type="UNIT_PARTISAN_2" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_PARTISAN_2" Tag="UNIT_CLASS_PARTISAN"/>
+		<Row Type="UNIT_PARTISAN_3" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_PARTISAN_3" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_PARTISAN_3" Tag="UNIT_CLASS_SKIRMISH"/>
+		<Row Type="UNIT_PARTISAN_3" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_PARTISAN_3" Tag="UNIT_CLASS_ELITE_INFANTRY"/>
+		<Row Type="UNIT_PARTISAN_3" Tag="UNIT_CLASS_PARTISAN"/>
+		<!-- Civ Unique Civilian -->
+		<Row Type="UNIT_JACOBIN" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_JACOBIN" Tag="UNIT_CLASS_JACOBIN"/>
+		<Row Type="UNIT_JACOBIN_BARRAS" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_JACOBIN_BARRAS" Tag="UNIT_CLASS_JACOBIN"/>
+		<Row Type="UNIT_JACOBIN_BILLAUD_VARENNE" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_JACOBIN_BILLAUD_VARENNE" Tag="UNIT_CLASS_JACOBIN"/>
+		<Row Type="UNIT_JACOBIN_BRISSOT" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_JACOBIN_BRISSOT" Tag="UNIT_CLASS_JACOBIN"/>
+		<Row Type="UNIT_JACOBIN_D_AELDERS" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_JACOBIN_D_AELDERS" Tag="UNIT_CLASS_JACOBIN"/>
+		<Row Type="UNIT_JACOBIN_DANTON" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_JACOBIN_DANTON" Tag="UNIT_CLASS_JACOBIN"/>
+		<Row Type="UNIT_JACOBIN_DESMOULINS" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_JACOBIN_DESMOULINS" Tag="UNIT_CLASS_JACOBIN"/>
+		<Row Type="UNIT_JACOBIN_GOUGES" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_JACOBIN_GOUGES" Tag="UNIT_CLASS_JACOBIN"/>
+		<Row Type="UNIT_JACOBIN_MARAT" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_JACOBIN_MARAT" Tag="UNIT_CLASS_JACOBIN"/>
+		<Row Type="UNIT_JACOBIN_ROBESPIERRE" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_JACOBIN_ROBESPIERRE" Tag="UNIT_CLASS_JACOBIN"/>
+		<Row Type="UNIT_JACOBIN_SAINT_JUST" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_JACOBIN_SAINT_JUST" Tag="UNIT_CLASS_JACOBIN"/>
+		<Row Type="UNIT_MWAMI" Tag="UNIT_CLASS_COMMAND"/>
+		<Row Type="UNIT_MWAMI" Tag="UNIT_CLASS_ARMY_COMMANDER"/>
+		<Row Type="UNIT_MWAMI" Tag="UNIT_CLASS_MWAMI"/>
+		<Row Type="UNIT_REVOLUCIONARIO" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_REVOLUCIONARIO" Tag="UNIT_CLASS_REVOLUCIONARIO"/>
+		<Row Type="UNIT_REVOLUCIONARIO_AVILA" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_REVOLUCIONARIO_AVILA" Tag="UNIT_CLASS_REVOLUCIONARIO"/>
+		<Row Type="UNIT_REVOLUCIONARIO_GUERRERO" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_REVOLUCIONARIO_GUERRERO" Tag="UNIT_CLASS_REVOLUCIONARIO"/>
+		<Row Type="UNIT_REVOLUCIONARIO_HERRERA" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_REVOLUCIONARIO_HERRERA" Tag="UNIT_CLASS_REVOLUCIONARIO"/>
+		<Row Type="UNIT_REVOLUCIONARIO_HIDALGO" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_REVOLUCIONARIO_HIDALGO" Tag="UNIT_CLASS_REVOLUCIONARIO"/>
+		<Row Type="UNIT_REVOLUCIONARIO_JIMENEZ" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_REVOLUCIONARIO_JIMENEZ" Tag="UNIT_CLASS_REVOLUCIONARIO"/>
+		<Row Type="UNIT_REVOLUCIONARIO_JUAREZ" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_REVOLUCIONARIO_JUAREZ" Tag="UNIT_CLASS_REVOLUCIONARIO"/>
+		<Row Type="UNIT_REVOLUCIONARIO_MORELOS" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_REVOLUCIONARIO_MORELOS" Tag="UNIT_CLASS_REVOLUCIONARIO"/>
+		<Row Type="UNIT_REVOLUCIONARIO_SANTA_ANNA" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_REVOLUCIONARIO_SANTA_ANNA" Tag="UNIT_CLASS_REVOLUCIONARIO"/>
+		<Row Type="UNIT_REVOLUCIONARIO_VILLA" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_REVOLUCIONARIO_VILLA" Tag="UNIT_CLASS_REVOLUCIONARIO"/>
+		<Row Type="UNIT_REVOLUCIONARIO_ZAPATA" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_REVOLUCIONARIO_ZAPATA" Tag="UNIT_CLASS_REVOLUCIONARIO"/>
+		<Row Type="UNIT_UPARAT" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_UPARAT" Tag="UNIT_CLASS_UPARAT"/>
+		<Row Type="UNIT_UPARAT_CHAKRABONGSE" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_UPARAT_CHAKRABONGSE" Tag="UNIT_CLASS_UPARAT"/>
+		<Row Type="UNIT_UPARAT_ITSARASUNTHON" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_UPARAT_ITSARASUNTHON" Tag="UNIT_CLASS_UPARAT"/>
+		<Row Type="UNIT_UPARAT_PHIBUN" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_UPARAT_PHIBUN" Tag="UNIT_CLASS_UPARAT"/>
+		<Row Type="UNIT_UPARAT_PINKLAO" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_UPARAT_PINKLAO" Tag="UNIT_CLASS_UPARAT"/>
+		<Row Type="UNIT_UPARAT_PRIDI" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_UPARAT_PRIDI" Tag="UNIT_CLASS_UPARAT"/>
+		<Row Type="UNIT_UPARAT_RASMI" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_UPARAT_RASMI" Tag="UNIT_CLASS_UPARAT"/>
+		<Row Type="UNIT_UPARAT_SAKDIPHONLASEP" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_UPARAT_SAKDIPHONLASEP" Tag="UNIT_CLASS_UPARAT"/>
+		<Row Type="UNIT_UPARAT_SENANURAK" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_UPARAT_SENANURAK" Tag="UNIT_CLASS_UPARAT"/>
+		<Row Type="UNIT_UPARAT_VAJRAVUDH" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_UPARAT_VAJRAVUDH" Tag="UNIT_CLASS_UPARAT"/>
+		<Row Type="UNIT_UPARAT_WICHAICHAN" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_UPARAT_WICHAICHAN" Tag="UNIT_CLASS_UPARAT"/>
+		<Row Type="UNIT_HANGSHANG" Tag="UNIT_CLASS_HANGSHANG"/>
+		<Row Type="UNIT_HANGSHANG" Tag="UNIT_CLASS_MAKE_TRADE_ROUTE"/>
+		<Row Type="UNIT_ZAMINDAR" Tag="UNIT_CLASS_CREATE_TOWN"/>
+		<Row Type="UNIT_ZAMINDAR" Tag="UNIT_CLASS_NON_COMBAT"/>
+		<Row Type="UNIT_ZAMINDAR" Tag="UNIT_CLASS_ZAMINDAR"/>
+		<Row Type="UNIT_PROSPECTOR" Tag="UNIT_CLASS_PROSPECTOR"/>
+		<Row Type="UNIT_JOHN_MAYNARD_KEYNES" Tag="UNIT_CLASS_GREATPERSON"/>
+		<Row Type="UNIT_JOHN_MAYNARD_KEYNES" Tag="UNIT_CLASS_UNIQUE_GREATPERSON"/>
+	</TypeTags>
+	<UnitClass_Abilities>
+		<Row UnitAbilityType="ABILITY_ABAMBOWA" UnitClassType="UNIT_CLASS_ABAMBOWA"/>
+		<Row UnitAbilityType="ABILITY_CHANG_BEUN" UnitClassType="UNIT_CLASS_CHANG_BEUN"/>
+		<Row UnitAbilityType="ABILITY_COSSACK" UnitClassType="UNIT_CLASS_COSSACK"/>
+		<Row UnitAbilityType="ABILITY_GARDE_IMPERIALE" UnitClassType="UNIT_CLASS_GARDE_IMPERIALE"/>
+		<Row UnitAbilityType="ABILITY_GUSA" UnitClassType="UNIT_CLASS_GUSA"/>
+		<Row UnitAbilityType="ABILITY_HUSSAR" UnitClassType="UNIT_CLASS_HUSSAR"/>
+		<Row UnitAbilityType="ABILITY_KATYUSHA" UnitClassType="UNIT_CLASS_KATYUSHA"/>
+		<Row UnitAbilityType="ABILITY_MARINE" UnitClassType="UNIT_CLASS_MARINE"/>
+		<Row UnitAbilityType="ABILITY_MIKASA" UnitClassType="UNIT_CLASS_MIKASA"/>
+		<Row UnitAbilityType="ABILITY_MWAMI" UnitClassType="UNIT_CLASS_MWAMI"/>
+		<Row UnitAbilityType="ABILITY_SEPOY" UnitClassType="UNIT_CLASS_SEPOY"/>
+		<Row UnitAbilityType="ABILITY_STUKA" UnitClassType="UNIT_CLASS_STUKA"/>
+		<Row UnitAbilityType="ABILITY_ZERO" UnitClassType="UNIT_CLASS_ZERO"/>
+		<Row UnitAbilityType="ABILITY_PARTISAN" UnitClassType="UNIT_CLASS_PARTISAN"/>
+		<Row UnitAbilityType="ABILITY_GENERAL_MOROZ" UnitClassType="UNIT_CLASS_COMBAT"/>
+		<Row UnitAbilityType="ABILITY_HANGSHANG" UnitClassType="UNIT_CLASS_HANGSHANG"/>
+		<Row UnitAbilityType="ABILITY_AVILA" UnitClassType="UNIT_CLASS_SOLDADERAS"/>
+		<Row UnitAbilityType="ABILITY_HERRERA" UnitClassType="UNIT_CLASS_ARMY_COMMANDER"/>
+		<Row UnitAbilityType="ABILITY_HERRERA_COMBAT" UnitClassType="UNIT_CLASS_SOLDADERAS"/>
+		<Row UnitAbilityType="ABILITY_VILLA" UnitClassType="UNIT_CLASS_ARMY_COMMANDER"/>
+		<Row UnitAbilityType="ABILITY_VILLA_GOLD" UnitClassType="UNIT_CLASS_COMBAT"/>
+		<Row UnitAbilityType="ABILITY_BILLAUD_VARENNE" UnitClassType="UNIT_CLASS_COMBAT"/>
+		<Row UnitAbilityType="ABILITY_BRISSOT" UnitClassType="UNIT_CLASS_COMBAT"/>
+		<Row UnitAbilityType="ABILITY_SAINT_JUST" UnitClassType="UNIT_CLASS_ARMY_COMMANDER"/>
+		<Row UnitAbilityType="ABILITY_SAINT_JUST_COMBAT" UnitClassType="UNIT_CLASS_COMBAT"/>
+		<Row UnitAbilityType="ABILITY_SAKDIPHONLASEP" UnitClassType="UNIT_CLASS_CHANG_BEUN"/>
+		<Row UnitAbilityType="ABILITY_SENANURAK" UnitClassType="UNIT_CLASS_ARMY_COMMANDER"/>
+		<Row UnitAbilityType="ABILITY_SENANURAK_COMBAT" UnitClassType="UNIT_CLASS_COMBAT"/>
+		<Row UnitAbilityType="ABILITY_SOLDADERAS" UnitClassType="UNIT_CLASS_SOLDADERAS"/>
+		<Row UnitAbilityType="ABILITY_CLAIM_RESOURCE" UnitClassType="UNIT_CLASS_PROSPECTOR"/>
+		<Row UnitAbilityType="ABILITY_AERODROME_AERIAL_RECON" UnitClassType="UNIT_CLASS_AERODROME_COMMANDER"/>
+		<Row UnitAbilityType="ABILITY_TEN_GREAT_CAMPAIGNS" UnitClassType="UNIT_CLASS_COMBAT"/>
+		<Row UnitAbilityType="ABILITY_IRON_CROSS" UnitClassType="UNIT_CLASS_COMBAT"/>
+		<Row UnitAbilityType="ABILITY_GRANDE_ARMEE" UnitClassType="UNIT_CLASS_COMBAT"/>
+		<Row UnitAbilityType="ABILITY_BREAK_SOUND_BARRIER" UnitClassType="UNIT_CLASS_AIRCRAFT"/>
+		<Row UnitAbilityType="ABILITY_STRENGTH_COMMAND_RADIUS" UnitClassType="UNIT_CLASS_GARDE_IMPERIALE"/>
+	</UnitClass_Abilities>
+	<UnitAbilities>
+		<!--Generic-->
+		<Row UnitAbilityType="ABILITY_AUTHORITARIANISM" Inactive="true" Name="LOC_ABILITY_AUTHORITARIANISM" Description="LOC_ABILITY_AUTHORITARIANISM_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_MO_TECH_CAVALRY" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_MO_TECH_INFANTRY" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_MO_TECH_INTERCEPT_RANGE" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_MO_TECH_NAVAL" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_MO_TECH_RANGED" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_MO_TECH_SIEGE" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_AERODYNAMICS_AIRCRAFT" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_THEIR_FINEST_HOUR" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_DEFENSE_OF_THE_MOTHERLAND" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_AT_MOD_COMBAT_FRIENDLY_TERRITORY" Inactive="true"/>
+		<!-- Unique -->
+		<Row UnitAbilityType="ABILITY_ABAMBOWA" Name="LOC_ABILITY_ABAMBOWA" Description="LOC_ABILITY_ABAMBOWA_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_CHANG_BEUN" Name="LOC_ABILITY_CHANG_BEUN" Description="LOC_ABILITY_CHANG_BEUN_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_COSSACK" Name="LOC_ABILITY_COSSACK" Description="LOC_ABILITY_COSSACK_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_GARDE_IMPERIALE" Name="LOC_ABILITY_GARDE_IMPERIALE" Description="LOC_GARDE_IMPERIALE_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_GUSA" Name="LOC_ABILITY_GUSA" Description="LOC_ABILITY_GUSA_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_HUSSAR" Name="LOC_ABILITY_HUSSAR" Description="LOC_ABILITY_HUSSAR_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_KATYUSHA" Name="LOC_ABILITY_KATYUSHA" Description="LOC_ABILITY_KATYUSHA_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_MARINE" Name="LOC_ABILITY_MARINE" Description="LOC_ABILITY_MARINE_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_MIKASA" Name="LOC_ABILITY_MIKASA" Description="LOC_ABILITY_MIKASA_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_MWAMI" Name="LOC_ABILITY_MWAMI" Description="LOC_ABILITY_MWAMI_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_SEPOY" Name="LOC_ABILITY_SEPOY" Description="LOC_ABILITY_SEPOY_DESCRIPTION" OperationType="UNITOPERATION_RANGE_ATTACK"/>
+		<Row UnitAbilityType="ABILITY_SOLDADERAS" Name="LOC_ABILITY_SOLDADERAS" Description="LOC_ABILITY_SOLDADERAS_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_SOLDADERAS_ADJACENT" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_STUKA" Name="LOC_ABILITY_STUKA" Description="LOC_ABILITY_STUKA_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_ZERO" Name="LOC_ABILITY_ZERO" Description="LOC_ABILITY_ZERO_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_PARTISAN" Name="LOC_UNIT_PARTISAN" Description="LOC_UNIT_PARTISAN_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_GENERAL_MOROZ" Inactive="true" Name="LOC_ABILITY_GENERAL_MOROZ_NAME" Description="LOC_ABILITY_GENERAL_MOROZ_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_MEIJI_KANTAI_KESSEN" Inactive="true" Name="LOC_ABILITY_MEIJI_KANTAI_KESSEN" Description="LOC_ABILITY_MEIJI_KANTAI_KESSEN_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_RIVER_RAIDS" Inactive="true" Name="LOC_ABILITY_RIVER_RAIDS_NAME" Description="LOC_ABILITY_RIVER_RAIDS_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_HANGSHANG" Name="LOC_ABILITY_HANGSHANG_NAME" Description="LOC_HANGSHANG_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_AVILA" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_HERRERA" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_HERRERA_COMBAT" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_VILLA" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_VILLA_GOLD" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_BILLAUD_VARENNE" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_BRISSOT" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_SAINT_JUST" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_SAINT_JUST_COMBAT" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_SAKDIPHONLASEP" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_SENANURAK" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_SENANURAK_COMBAT" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_CLAIM_RESOURCE" Name="LOC_ABILITY_CLAIM_RESOURCE_NAME" Description="LOC_ABILITY_CLAIM_RESOURCE_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_AERODROME_AERIAL_RECON" Name="LOC_ABILITY_AERODROME_AERIAL_RECON_NAME" Description="LOC_ABILITY_AERODROME_AERIAL_RECON_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_TEN_GREAT_CAMPAIGNS" Inactive="true"/>
+		<Row UnitAbilityType="ABILITY_BREAK_SOUND_BARRIER" Inactive="true" Name="LOC_ABILITY_BREAK_SOUND_BARRIER_NAME" Description="LOC_ABILITY_BREAK_SOUND_BARRIER_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_STRENGTH_COMMAND_RADIUS" Name="LOC_ABILITY_GARDE_IMPERIALE" Description="LOC_GARDE_IMPERIALE_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_IRON_CROSS" Inactive="true" Name="LOC_ABILITY_IRON_CROSS_NAME" Description="LOC_ABILITY_IRON_CROSS_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_BANNER_ARMY" Inactive="true" Name="LOC_TRADITION_BANNER_ARMY_NAME" Description="LOC_TRADITION_BANNER_ARMY_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_GRANDE_ARMEE" Inactive="true" Name="LOC_CIVIC_GRANDE_ARMEE_NAME" Description="LOC_CIVIC_GRANDE_ARMEE_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_NG_OMA" Inactive="true" Name="LOC_TRADITION_NG_OMA_NAME" Description="LOC_TRADITION_NG_OMA_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_MANDALA" Inactive="true" Name="LOC_CIVIC_MANDALA_NAME" Description="LOC_MOD_MANDALA_CHANG_BEUN_COMBAT_STRENGTH_IN_CITY_STATE_ALLY_DESCRIPTION"/>
+	</UnitAbilities>
+	<UnitAbilityModifiers>
+		<!--Generic-->
+		<Row UnitAbilityType="ABILITY_AUTHORITARIANISM" ModifierId="AUTHORITARIANISM_MOD_COMBAT_STRENGTH"/>
+		<Row UnitAbilityType="ABILITY_MO_TECH_CAVALRY" ModifierId="MO_TECH_CAVALRY_MOD_COMBAT_STRENGTH"/>
+		<Row UnitAbilityType="ABILITY_MO_TECH_INFANTRY" ModifierId="MO_TECH_INFANTRY_MOD_COMBAT_STRENGTH"/>
+		<Row UnitAbilityType="ABILITY_MO_TECH_INTERCEPT_RANGE" ModifierId="MO_TECH_AIRCRAFT_MOD_INTERCEPT_RANGE"/>
+		<Row UnitAbilityType="ABILITY_MO_TECH_NAVAL" ModifierId="MO_TECH_NAVAL_MOD_COMBAT_STRENGTH"/>
+		<Row UnitAbilityType="ABILITY_MO_TECH_RANGED" ModifierId="MO_TECH_RANGED_MOD_COMBAT_STRENGTH"/>
+		<Row UnitAbilityType="ABILITY_MO_TECH_SIEGE" ModifierId="MO_TECH_SIEGE_MOD_COMBAT_STRENGTH"/>
+		<Row UnitAbilityType="ABILITY_AERODYNAMICS_AIRCRAFT" ModifierId="MO_TECH_AIRCRAFT_MOD_COMBAT_STRENGTH"/>
+		<Row UnitAbilityType="ABILITY_THEIR_FINEST_HOUR" ModifierId="THEIR_FINEST_HOUR_AIR_UNIT_COMBAT_STRENGTH"/>
+		<Row UnitAbilityType="ABILITY_DEFENSE_OF_THE_MOTHERLAND" ModifierId="DEFENSE_OF_THE_MOTHERLAND_MOD_COMBAT_STRENGTH_IN_TERRITORY"/>
+		<Row UnitAbilityType="ABILITY_PARTISAN" ModifierId="PARTISAN_MOD_IDEOLOGY"/>
+		<Row UnitAbilityType="ABILITY_PARTISAN" ModifierId="PARTISAN_MOD_HEAL"/>
+		<Row UnitAbilityType="ABILITY_AT_MOD_COMBAT_FRIENDLY_TERRITORY" ModifierId="AT_MOD_COMBAT_FRIENDLY_TERRITORY"/>
+		<!-- Unique -->
+		<Row UnitAbilityType="ABILITY_ABAMBOWA" ModifierId="ABAMBOWA_MOD_PILLAGE_HEAL_BUILDING"/>
+		<Row UnitAbilityType="ABILITY_ABAMBOWA" ModifierId="ABAMBOWA_MOD_PILLAGE_HEAL_IMPROVEMENT"/>
+		<Row UnitAbilityType="ABILITY_CHANG_BEUN" ModifierId="CHANG_BEUN_MOD_MOVE_AFTER_ATTACK"/>
+		<Row UnitAbilityType="ABILITY_CLAIM_RESOURCE" ModifierId="PROSPECTOR_MOD_GRANT_ABILITY_CHARGE"/>
+		<Row UnitAbilityType="ABILITY_AERODROME_AERIAL_RECON" ModifierId="AERODROME_AERIAL_RECON_MOD_GRANT_ABILITY_CHARGE"/>
+		<Row UnitAbilityType="ABILITY_COSSACK" ModifierId="COSSACK_MOD_COMBAT_STRENGTH_IN_FRIENDLY_TERRITORY"/>
+		<Row UnitAbilityType="ABILITY_GUSA" ModifierId="GUSA_MOD_COMBAT_FROM_ADJACENT_GUSA"/>
+		<Row UnitAbilityType="ABILITY_HANGSHANG" ModifierId="HANGSHANG_MOD_NAVAL_ROUTE_CREATION_GOLD"/>
+		<Row UnitAbilityType="ABILITY_HUSSAR" ModifierId="HUSSAR_MOD_MOVEMENT_TO_COMBAT_STRENGTH"/>
+		<Row UnitAbilityType="ABILITY_KATYUSHA" ModifierId="KATYUSHA_MOD_SPLASH_ABILITY"/>
+		<Row UnitAbilityType="ABILITY_MARINE" ModifierId="MARINE_MOD_AMPHIBIOUS"/>
+		<Row UnitAbilityType="ABILITY_MIKASA" ModifierId="MIKASA_MOD_RESPAWN_ON_DEATH"/>
+		<Row UnitAbilityType="ABILITY_MWAMI" ModifierId="MWAMI_MOD_PILLAGING_YIELD_IMPROVEMENTS"/>
+		<Row UnitAbilityType="ABILITY_MWAMI" ModifierId="MWAMI_MOD_PILLAGING_YIELD_BUILDINGS"/>
+		<Row UnitAbilityType="ABILITY_SOLDADERAS" ModifierId="SOLDADERAS_MOD_ADJACENT_ABILITY"/>
+		<Row UnitAbilityType="ABILITY_STUKA" ModifierId="STUKA_MOD_COMBAT_STRENGTH_VS_LAND"/>
+		<Row UnitAbilityType="ABILITY_ZERO" ModifierId="ZERO_MOD_COMBAT_STRENGTH_VS_FIGHTERS"/>
+		<!-- Other -->
+		<Row UnitAbilityType="ABILITY_GENERAL_MOROZ" ModifierId="GENERAL_MOROZ_MOD_ADJUST_COMBAT_STRENGTH_IN_TUNDRA"/>
+		<Row UnitAbilityType="ABILITY_IRON_CROSS" ModifierId="IRON_CROSS_COMBAT_STRENGTH"/>
+		<Row UnitAbilityType="ABILITY_MEIJI_KANTAI_KESSEN" ModifierId="KANTAI_KESSEN_ADJUST_COMBAT_STRENGTH_ON_COAST"/>
+		<Row UnitAbilityType="ABILITY_RIVER_RAIDS" ModifierId="RIVER_RAIDS_MOD_PILLAGE_BUILDINGS_CULTURE"/>
+		<Row UnitAbilityType="ABILITY_RIVER_RAIDS" ModifierId="RIVER_RAIDS_MOD_PILLAGE_IMPROVEMENTS_CULTURE"/>
+		<Row UnitAbilityType="ABILITY_AVILA" ModifierId="AVILA_COMBAT_STRENGTH"/>
+		<Row UnitAbilityType="ABILITY_HERRERA" ModifierId="HERRA_COMMANDER_ABILITY"/>
+		<Row UnitAbilityType="ABILITY_HERRERA_COMBAT" ModifierId="HERRA_COMBAT_STRENGTH"/>
+		<Row UnitAbilityType="ABILITY_VILLA" ModifierId="VILLA_COMMANDER_ABILITY"/>
+		<Row UnitAbilityType="ABILITY_VILLA_GOLD" ModifierId="VILLA_GOLD_KILLS"/>
+		<Row UnitAbilityType="ABILITY_BILLAUD_VARENNE" ModifierId="BILLAUD_VARENNE_DISTRICT_RANGED_COMBAT"/>
+		<Row UnitAbilityType="ABILITY_BILLAUD_VARENNE" ModifierId="BILLAUD_VARENNE_DISTRICT_MELEE_COMBAT"/>
+		<Row UnitAbilityType="ABILITY_BRISSOT" ModifierId="BRISSOT_COMBAT"/>
+		<Row UnitAbilityType="ABILITY_SAINT_JUST" ModifierId="SAINT_JUST_COMMANDER_ABILITY"/>
+		<Row UnitAbilityType="ABILITY_SAINT_JUST_COMBAT" ModifierId="SAINT_JUST_COMBAT_STRENGTH"/>
+		<Row UnitAbilityType="ABILITY_SAKDIPHONLASEP" ModifierId="SAKDIPHONLASEP_COMBAT_STRENGTH"/>
+		<Row UnitAbilityType="ABILITY_SENANURAK" ModifierId="SENANURAK_COMMANDER_ABILITY"/>
+		<Row UnitAbilityType="ABILITY_SENANURAK_COMBAT" ModifierId="SENANURAK_COMBAT_STRENGTH"/>
+		<Row UnitAbilityType="ABILITY_TEN_GREAT_CAMPAIGNS" ModifierId="TEN_GREAT_CAMPAIGNS_MOD_COMBAT_STRENGTH"/>
+		<Row UnitAbilityType="ABILITY_BANNER_ARMY" ModifierId="MOD_ABILITY_BANNER_ARMY_ADJUST_COMBAT_STRENGTH"/>
+		<Row UnitAbilityType="ABILITY_GRANDE_ARMEE" ModifierId="MOD_GRANDE_ARMEE_FRIENDLY_ADJACENT"/>
+		<Row UnitAbilityType="ABILITY_NG_OMA" ModifierId="MOD_NG_OMA_LAKE_AJACENT_UNIT_COMBAT_STRENGTH"/>
+		<Row UnitAbilityType="ABILITY_MANDALA" ModifierId="MOD_MANDALA_CHANG_BEUN_COMBAT_STRENGTH_IN_CITY_STATE_ALLY_ABILITY"/>
+		<Row UnitAbilityType="ABILITY_BREAK_SOUND_BARRIER" ModifierId="MOD_BREAK_SOUND_BARRIER_REWARD_FROM_PROJECT"/>
+		<Row UnitAbilityType="ABILITY_STRENGTH_COMMAND_RADIUS" ModifierId="GARDE_IMPERIALE_MOD_COMBAT_STRENGTH_COMMAND_RADIUS"/>
+	</UnitAbilityModifiers>
+	<ChargedUnitAbilities>
+		<Row UnitAbilityType="CHARGED_ABILITY_AERODROME_AERIAL_RECON" RechargeTurns="1"/>
+		<Row UnitAbilityType="CHARGED_ABILITY_CLAIM_RESOURCE" RechargeTurns="5"/>
+	</ChargedUnitAbilities>
+	<!-- Advisory Attributes -->
+	<Unit_Advisories>
+		<Row UnitType="UNIT_LINE_INFANTRY" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_FIELD_CANNON" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_CUIRASSIER" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_MORTAR" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_IRONCLAD" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_FRIGATE" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_FIELD_GUN" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_HEAVY_ARTILLERY" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_CRUISER" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_DREADNOUGHT" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_BIPLANE" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_TRENCH_FIGHTER" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_INFANTRY_COMPANY" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_AT_GUN" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_TANK" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_ASSAULT_GUN" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_DESTROYER" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_BATTLESHIP" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_SUBMARINE" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_FIGHTER" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_DIVEBOMBER" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_HEAVY_BOMBER" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<!-- Special -->
+		<Row UnitType="UNIT_EXPLORER" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<!-- Civ Unique Military -->
+		<Row UnitType="UNIT_ABAMBOWA" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_ABAMBOWA_2" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_ABAMBOWA_3" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_CHANG_BEUN" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_CHANG_BEUN_2" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_CHANG_BEUN_3" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_COSSACK" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_COSSACK_2" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_COSSACK_3" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_GARDE_IMPERIALE" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_GARDE_IMPERIALE_2" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_GARDE_IMPERIALE_3" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_HUSSAR" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_HUSSAR_2" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_HUSSAR_3" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_GUSA" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_GUSA_2" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_GUSA_3" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_KATYUSHA" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_KATYUSHA_2" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_MARINE" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_MARINE_2" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_MIKASA" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_MIKASA_2" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_SEPOY" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_SEPOY_2" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_SEPOY_3" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_SOLDADERAS" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_SOLDADERAS_2" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_SOLDADERAS_3" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_STUKA" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_STUKA_2" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_ZERO" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_ZERO_2" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_PARTISAN" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_PARTISAN_2" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_PARTISAN_3" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<!-- Civ Unique Civilian -->
+		<Row UnitType="UNIT_JACOBIN" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row UnitType="UNIT_MWAMI" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_REVOLUCIONARIO" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_UPARAT" AdvisoryClassType="ADVISORY_CLASS_DIPLOMACY"/>
+		<Row UnitType="UNIT_HANGSHANG" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row UnitType="UNIT_ZAMINDAR" AdvisoryClassType="ADVISORY_CLASS_EMPIRE_EXPANSION"/>
+		<Row UnitType="UNIT_PROSPECTOR" AdvisoryClassType="ADVISORY_CLASS_EMPIRE_EXPANSION"/>
+		<Row UnitType="UNIT_PROSPECTOR" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+	</Unit_Advisories>
+	<AIUnitPrioritizedActions>
+		<Row UnitType="UNIT_JACOBIN" CommandType="UNITCOMMAND_ACTIVATE_GREAT_PERSON" />
+		<Row UnitType="UNIT_JOHN_MAYNARD_KEYNES" CommandType="UNITCOMMAND_ACTIVATE_GREAT_PERSON" />
+		<Row UnitType="UNIT_PROSPECTOR" CommandType="UNITCOMMAND_CLAIM_RESOURCE" ChargedUnitAbilityType="CHARGED_ABILITY_CLAIM_RESOURCE" />
+		<Row UnitType="UNIT_REVOLUCIONARIO" CommandType="UNITCOMMAND_ACTIVATE_GREAT_PERSON" />
+		<Row UnitType="UNIT_UPARAT" CommandType="UNITCOMMAND_ACTIVATE_GREAT_PERSON" />
+	</AIUnitPrioritizedActions>
+</Database>

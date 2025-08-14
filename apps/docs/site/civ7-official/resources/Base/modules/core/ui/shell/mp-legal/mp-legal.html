@@ -1,0 +1,24 @@
+<fxs-frame id="screen-legal" class="size-full">
+
+	<fxs-vslot class="main-content" id="focus-root">
+		<fxs-scrollable class="mp-legal__scrollable pr-3" handle-gamepad-pan="true">
+			<div class="mp-legal__title font-title text-secondary text-xl self-center mb-4"></div>
+			<div class="mp-legal__content font-body text-white text-lg"></div>
+		</fxs-scrollable>
+	</fxs-vslot>
+
+	<fxs-vslot class="mp-legal-button-container relative flex flex-col">
+		<div class="mp-legal-privacy-notice-instructions hidden mb-3 font-body text-base text-secondary self-center"
+			 data-l10n-id="LOC_UI_LEGAL_PRIVACY_NOTICE"></div>
+		<fxs-hslot class="button-container-inner self-center">
+			<fxs-button class="button-cancel mr-6" caption="LOC_GENERIC_BACK"
+						data-bind-class-toggle="mp-legal__hidden:{{g_NavTray.isTrayRequired}}"></fxs-button>
+			<fxs-button class="button-accept mr-6" caption="LOC_TUTORIAL_NEXT_PAGE"
+						data-bind-class-toggle="mp-legal__hidden:{{g_NavTray.isTrayRequired}}"></fxs-button>
+			<fxs-button class="button-previous mr-6" caption="LOC_NAV_PREVIOUS"
+						data-bind-class-toggle="mp-legal__hidden:{{g_NavTray.isTrayRequired}}"></fxs-button>
+			<fxs-button class="button-next mr-6" caption="LOC_NAV_NEXT"
+						data-bind-class-toggle="mp-legal__hidden:{{g_NavTray.isTrayRequired}}"></fxs-button>
+		</fxs-hslot>
+	</fxs-vslot>
+</fxs-frame>

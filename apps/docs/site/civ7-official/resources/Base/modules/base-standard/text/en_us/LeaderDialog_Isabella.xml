@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<Database>
+    <EnglishText>
+		<!--Isabella Main Menu Char Select Text-->
+		<Row Tag="LOC_MAIN_CHAR_SELECT_LEADER_ISABELLA_ANY">
+			<Text>It is divine will that I should be queen, and that his kingdom should extend over the earth. Is it yours? </Text>
+		</Row>
+
+		<!--Isabella Statement Text-->
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_ISABELLA_ANY">
+			<Text>I am Isabella, queen of these lands. The queen is right. The queen is always right. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_ISABELLA_ANY">
+			<Text>I am Isabella, queen of these lands. The queen is right. The queen is always right. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_ISABELLA_ANY">
+			<Text>I am Isabella, queen of these lands. The queen is right. The queen is always right. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_ISABELLA_ANY">
+			<Text>I covet not your lands and your crown for my own sake, but for the sake of God's empire. Which is mine.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_ISABELLA_ANY">
+			<Text>You only make martyrs.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DEFEAT_AI_LEADER_ISABELLA_ANY">
+			<Text>I, who sought to extend God's grace across the land, am to be cast out. To live amongst pig farmers and… what is the word… bakers!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_ISABELLA">
+			<Text>Yes, yes, yes, send it to my scribe and he will put my seal upon it. Now go away.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_ISABELLA">
+			<Text>No. I have my reasons.</Text>
+		</Row>
+    </EnglishText>
+</Database>

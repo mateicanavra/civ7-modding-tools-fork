@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==================================================	-->
+	<!--	Unique Abilities							-->
+	<!-- ==================================================	-->
+	<!--Bulgaria-->
+	<Modifier id="BOYAR_COMBAT" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_TERRAIN_TYPE_MATCHES">
+				<Argument name="TerrainType">TERRAIN_HILL</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_BOYAR_PREVIEW</String>
+	</Modifier>
+	<Modifier id="BOYAR_IGNORE_ROUGH_COMBAT" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_ROUGH_COMBAT_IGNORE_MODIFIER"/>
+	<Modifier id="BOYAR_IGNORE_ROUGH_MOVE" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_IGNORE_MOVEMENT_OBSTACLE">
+		<Argument name="Obstacle">TERRAIN_HILL</Argument>
+	</Modifier>
+	<Modifier id="BALIK_MOD_GRANT_ABILITY_IN_COMMAND_RADIUS" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_BALIK_PILLAGE</Argument>
+	</Modifier>
+	<Modifier id="BALIK_MOD_ADVANCED_PILLAGE" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_ADVANCED_PILLAGING">
+		<Argument name="UseAdvancedPillaging">true</Argument>
+	</Modifier>
+</GameEffects>

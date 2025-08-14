@@ -1,0 +1,517 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+@use '../../../core/ui/utilities/utility-shapes' as shapes;
+@use '../../../core/ui/themes/default/baseColors';
+@use '../../../core/ui/themes/default/theme';
+
+@keyframes unit-actions-slide-in {
+	0% {
+		opacity: 0;
+		transform: translateX(pixels(150)) scaleX(.65);
+	}
+
+	15% {
+		opacity: 1;
+	}
+
+	80% {
+		transform: translateX(pixels(-12)) scaleX(1);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateX(0) scaleX(1);
+	}
+}
+
+@keyframes unit-actions-slide-out {
+	0% {
+		opacity: 1;
+		transform: translateX(0) scaleX(1);
+	}
+
+	85% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+		transform: translateX(pixels(150)) scaleX(.65);
+	}
+}
+
+unit-actions {
+	opacity: 0;
+	transform: translateX(0);
+	transform-origin: right;
+	margin-bottom: pixels(32);
+	height: pixels(196);
+	animation-timing-function: linear;
+	animation-delay: 0;
+	animation-fill-mode: both;
+	animation-duration: 0.15s;
+	display: flex;
+
+	&.unit-actions--anim-in {
+		animation-name: unit-actions-slide-in;
+	}
+
+	&.unit-actions--anim-out {
+		animation-name: unit-actions-slide-out;
+	}
+}
+
+.unit-name-font {
+	letter-spacing: pixels(2.25);
+	line-height: pixels(4.5);
+	overflow-wrap: break-word;
+	white-space: pre-wrap;
+	text-align: center;
+}
+
+// Commander Banner
+.unit-actions__commander-banner-container {
+	min-width: pixels(335);
+	transform: translateX(50%);
+	visibility: hidden;
+	display: none;
+
+	&.isCommander {
+		visibility: visible;
+		display: flex;
+	}
+}
+
+.unit-actions__commander-banner-bg {
+	border-image-source: url("fs://game/hud_unit-panel_name-banner");
+	border-image-slice: 18 29 26 29 fill;
+	border-image-width: pixels(18) pixels(29) pixels(26) pixels(29);
+	border-image-outset: 5 5 5 5;
+}
+
+.unit-actions__commander-level-container {
+	background-image: url("fs://game/hud_unit-panel_level-bg");
+}
+
+.unit-actions__commander-xp-meter {
+
+	.fxs-ring-meter__ring-left,
+	.fxs-ring-meter__ring-right {
+		background-image: url("fs://game/hud_unit-panel_level-rad.png");
+		background-size: cover;
+	}
+
+	.fxs-ring-meter__ring-left {
+		background-position: left;
+	}
+
+	.fxs-ring-meter__ring-right {
+		background-position: right;
+	}
+}
+
+.unit-actions__commander-level-value {
+	line-height: pixels(10);
+	font-size: pixels-font(18);
+	white-space: pre-wrap;
+	text-align: center;
+}
+
+.unit-actions__action-panel-decor {
+	border-image-source: url('fs://game/hud_unit-panel_bracket-lines.png');
+	border-image-slice: 31 32 31 12 fill;
+	border-image-width: pixels(33) pixels(32) pixels(33) pixels(12);
+	border-image-outset: pixels(10) pixels(4) pixels(10) pixels(8);
+
+	&.isInArmy {
+		display: none;
+	}
+}
+
+.unit-actions__main-container {
+	border-image-source: url("fs://game/hud_unit-panel_bg");
+	border-image-slice: 54 90 54 28 fill;
+	border-image-width: pixels(54) pixels(90) pixels(54) pixels(28);
+	border-image-outset: pixels(20) pixels(100) pixels(20) pixels(14);
+
+	&.isInArmy {
+		border-image-source: url("fs://game/hud_unit-panel_action");
+		border-image-slice: 20 fill;
+		border-image-width: auto;
+		border-image-outset: pixels(12) pixels(10);
+	}
+}
+
+// stats
+.unit-action__portrait-stats-row {
+
+	&.isInArmy {
+		justify-content: center;
+	}
+}
+
+.unit-actions__unit-portrait-container {
+	display: flex;
+
+	&.isInArmy {
+		visibility: hidden;
+		display: none;
+	}
+}
+
+.unit-actions__unit-portrait-background {
+	background-image: url("fs://game/hud_unit-panel_unitframe");
+	background-size: cover;
+	background-repeat: no-repeat;
+	justify-content: center;
+}
+
+.unit-actions__unit-portrait-image {
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url("fs://game/unitflag_missingicon.png");
+	background-position: center;
+}
+
+.unit-actions__unit-health-bar-container {
+	background-color: black;
+}
+
+.unit-action__unit-health-progress-bar {
+	--health-percentage: 100%;
+	width: var(--health-percentage);
+	background-color: theme.color('healthbar-full');
+}
+
+.unit-actions__low-health-bar {
+	background-color: theme.color('healthbar-low');
+}
+
+.unit-actions__low-health-bar-bg {
+	background-color: theme.color('healthbar-low-bg');
+}
+
+.unit-actions__med-health-bar {
+	background-color: theme.color('healthbar-medium');
+}
+
+.unit-actions__med-health-bar-bg {
+	background-color: theme.color('healthbar-medium-bg');
+}
+
+.unit-actions__unit-identifier-container {
+
+	&.isCommander {
+		visibility: hidden;
+		display: none;
+	}
+
+	&.isInArmy {
+		justify-content: center;
+	}
+}
+
+.unit-actions__filigree-container {
+	display: none;
+
+	&.isInArmyNotCommander {
+		display: flex;
+		margin-top: pixels(-2);
+		margin-bottom: pixels(-8);
+	}
+}
+
+.unit-actions__name-filigree-left {
+	background-image: url("fs://game/hud_unit-panel_divider-line");
+	background-size: cover;
+}
+
+.unit-actions__name-filigree-center {
+	margin: pixels(0) pixels(-64);
+	background-image: url("fs://game/hud_unit-panel_divider-center");
+	background-size: contain;
+	background-position-y: 100%;
+	background-position-x: 50%;
+	background-repeat: no-repeat;
+}
+
+.unit-actions__name-filigree-right {
+	background-image: url("fs://game/hud_unit-panel_divider-line");
+	background-size: cover;
+	transform: scaleX(-1);
+}
+
+.unit-actions__unit-stats-container {
+
+	&.isInArmy {
+		margin-top: pixels(10);
+
+		&.isCommaber {
+			margin-top: pixels(28);
+		}
+	}
+}
+
+.unit-actions__hit-points-icon {
+	background-image: url("fs://game/prod_generic.png");
+}
+
+.unit-actions__hit-points-value {
+	line-height: pixels(27);
+}
+
+.unit-actions__move-points-icon {
+	background-image: url("fs://game/Action_Move.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+
+}
+
+.unit-actions__move-points-value {
+	line-height: pixels(27);
+}
+
+.unit-info__stat-value {
+	line-height: pixels(27);
+}
+
+.unit-info__stat-icon {
+	background-image: var(--icon-img);
+
+	--icon-img: url("fs://game/prod_generic.png");
+}
+
+.unit-actions__stat-div {
+	margin: pixels(0) pixels(15);
+	background: linear-gradient(to bottom, rgba(255, 255, 255, .125) 0%, rgba(255, 255, 255, .25) 50%, rgba(255, 255, 255, .125) 100%);
+}
+
+// actions
+
+.unit-actions__hidden-column-bg {
+	pointer-events: auto;
+	border-image: url("fs://game/hud_unit-panel_drawer-bg");
+	border-image-slice: 33 12 fill;
+	border-image-width: pixels(33) pixels(12);
+	border-image-outset: pixels(19) pixels(8);
+	border-image-repeat: stretch;
+	align-items: center;
+	display: flex;
+	flex-direction: column;
+	opacity: 0;
+	width: pixels(0);
+	overflow: hidden;
+
+	&.single-col {
+		animation-name: drawer-slide-single;
+		animation-duration: 0.125s;
+		animation-timing-function: ease-in-out;
+		animation-fill-mode: forwards;
+	}
+
+	&.double-col {
+		animation-name: drawer-slide-double;
+		animation-duration: 0.125s;
+		animation-timing-function: ease-in-out;
+		animation-fill-mode: forwards;
+	}
+
+	&.no-col {
+		animation-name: drawer-slide-out;
+		animation-duration: 0.125s;
+		animation-timing-function: ease-in-out;
+		animation-fill-mode: forwards;
+	}
+}
+
+@keyframes drawer-slide-single {
+	15% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+		width: pixels(74);
+	}
+}
+
+@keyframes drawer-slide-double {
+	15% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+		width: pixels(132);
+	}
+}
+
+@keyframes drawer-slide-out {
+	15% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+		width: pixels(0);
+	}
+}
+
+.unit-actions__hidden-actions {
+	flex: 1;
+	background-color: #17171c;
+}
+
+.unit-actions__action-row-bg {
+	background-color: #17171c;
+	display: flex;
+}
+
+.unit-actions__commander-row-bg {
+	position: absolute;
+	background-color: #17171c;
+	visibility: hidden;
+	width: 100%;
+	height: auto;
+
+	&.isInArmy {
+		visibility: visible;
+	}
+}
+
+.unit-actions__shelf-button {
+	border-image-source: url("fs://game/hud_unit-panel_action");
+	border-image-slice: 14 fill;
+	border-image-width: pixels(14);
+	border-image-outset: pixels(12);
+	min-width: pixels(44);
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+
+	&.flip {
+		.unit-actions__shelf-button-icon {
+			transform: scaleX(-1);
+		}
+	}
+
+	&:hover,
+	&:focus {
+		.unit-actions__shelf-button-highlight {
+			opacity: 1;
+		}
+	}
+
+	&.inactive {
+
+		&:hover,
+		&:focus,
+		&.focused {
+			.unit-actions__shelf-button-highlight {
+				opacity: 1;
+			}
+		}
+	}
+}
+
+.unit-actions__shelf-button-highlight {
+	border-image-source: url("fs://game/hud_unit-panel_action-focus");
+	border-image-slice: 14 fill;
+	border-image-width: pixels(14);
+	border-image-outset: pixels(12);
+	opacity: 0;
+	transition-property: opacity;
+	transition-duration: .25s;
+}
+
+.unit-actions__shelf-button-icon {
+	background-image: url("fs://game/hud_unit-panel_drawer-arrow");
+}
+
+.unit-actions__action-button {
+	--button-icon: url("fs://game/unitflag_missingicon.png");
+
+	width: pixels(44);
+	height: pixels(44);
+
+	position: relative;
+	pointer-events: auto;
+	display: flex;
+	align-self: center;
+	justify-content: center;
+	margin: pixels(3) pixels(3) pixels(3) pixels(3);
+
+	&:hover,
+	&:focus,
+	&.focused {
+
+		.unit-action-button__button-highlight {
+			opacity: 1;
+		}
+	}
+
+	&.inactive {
+
+		opacity: .4;
+
+		&:hover,
+		&:focus,
+		&.focused {
+			.unit-action-button__button-highlight {
+				opacity: 1;
+			}
+		}
+	}
+}
+
+.unit-action-button__button-bg-container {
+	position: relative;
+	pointer-events: none;
+	width: pixels(44);
+	height: pixels(44);
+	justify-content: center;
+	display: flex;
+	border-image-source: url("fs://game/hud_unit-panel_action");
+	border-image-slice: 14 fill;
+	border-image-width: pixels(14);
+	border-image-outset: pixels(12);
+
+
+	&.isCommander {
+		border-image-source: url("fs://game/hud_unit-panel_hex-action");
+	}
+}
+
+.unit-action-button__button-highlight {
+	position: absolute;
+
+	width: pixels(44);
+	height: pixels(44);
+	border-image-source: url("fs://game/hud_unit-panel_action-focus");
+	border-image-slice: 14 fill;
+	border-image-width: pixels(14);
+	border-image-outset: pixels(12);
+	opacity: 0;
+	pointer-events: none;
+	transition-property: opacity;
+	transition-duration: .25s;
+
+	&.isCommander {
+		border-image-source: url("fs://game/hud_unit-panel_hex-focus");
+	}
+}
+
+.unit-action-button__button-icon {
+	background-image: var(--button-icon);
+}
+
+//TODO: Might want to add colors to theme.scss instead of just using the default css colors here
+.unit-action__tooltip-title {
+	color: cyan;
+}
+
+.unit-action__tooltip-additional-desc {
+	color: yellow;
+}

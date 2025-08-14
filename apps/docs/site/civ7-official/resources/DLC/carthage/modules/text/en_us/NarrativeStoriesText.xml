@@ -1,0 +1,365 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <EnglishText>
+        <Row Tag="LOC_11000A_STORYTITLE">
+            <Text>The Color of Prosperity</Text>
+        </Row>
+        <Row Tag="LOC_11000A_COMPLETION">
+            <Text>The new settlement bustles, extending Carthage's reach beyond the city walls, and the world clamors for breathtaking, luxuriant purple.</Text>
+        </Row>
+        <Row Tag="LOC_11000B_NAME">
+            <Text>See how far Carthage's influence can reach.</Text>
+        </Row>
+        <Row Tag="LOC_11000B_DESCRIPTION">
+            <Text>{1_reward} on Scouts.</Text>
+        </Row>
+        <Row Tag="LOC_11000C_NAME">
+            <Text>Protect that which belongs to Carthage.</Text>
+        </Row>
+        <Row Tag="LOC_11000C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11001A_STORYTITLE">
+            <Text>Fair Winds</Text>
+        </Row>
+        <Row Tag="LOC_11001A_COMPLETION">
+            <Text>The sails of trade ships billow in the wind, leaving Carthage's ports as birds in formation seeking the abundance of far-off lands.</Text>
+        </Row>
+        <Row Tag="LOC_11001B_NAME">
+            <Text>Hasten the winds of trade.</Text>
+        </Row>
+        <Row Tag="LOC_11001B_DESCRIPTION">
+            <Text>{1_reward} on Merchants.</Text>
+        </Row>
+        <Row Tag="LOC_11001C_NAME">
+            <Text>Send with them stories of Carthage's greatness.</Text>
+        </Row>
+        <Row Tag="LOC_11001C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11002A_STORYTITLE">
+            <Text>Unbreakable Bonds</Text>
+        </Row>
+        <Row Tag="LOC_11002A_COMPLETION">
+            <Text>Like links in an iron chain, the ports of Carthage connect the empire across great distances — riches flowing inward, and strength projecting outward.</Text>
+        </Row>
+        <Row Tag="LOC_11002B_NAME">
+            <Text>Let wine flow.</Text>
+        </Row>
+        <Row Tag="LOC_11002B_DESCRIPTION">
+            <Text>Enter a Celebration.</Text>
+        </Row>
+        <Row Tag="LOC_11002C_NAME">
+            <Text>Spread tales of the ports' allure.</Text>
+        </Row>
+        <Row Tag="LOC_11002C_DESCRIPTION">
+            <Text>+1 Population in {1_capital}</Text>
+        </Row>
+        <Row Tag="LOC_11003A_STORYTITLE">
+            <Text>Overwhelming Splendor</Text>
+        </Row>
+        <Row Tag="LOC_11003A_COMPLETION">
+            <Text>Everywhere they go, Carthaginians are surrounded by spectacular views, yet they bemoan the absence of basic amenities and infrastructure. What good are such incredible wonders if people lack the means to fully appreciate them?</Text>
+        </Row>
+        <Row Tag="LOC_11003B_NAME">
+            <Text>Infrastructure will have to come from elsewhere.</Text>
+        </Row>
+        <Row Tag="LOC_11003B_DESCRIPTION">
+            <Text>+3 Trade Route range.</Text>
+        </Row>
+        <Row Tag="LOC_11003C_NAME">
+            <Text>The wonders are infrastructure.</Text>
+        </Row>
+        <Row Tag="LOC_11003C_DESCRIPTION">
+            <Text>{1_reward} on Wonders.</Text>
+        </Row>
+        <Row Tag="LOC_11004A_STORYTITLE">
+            <Text>The Crescent and the Wolf</Text>
+        </Row>
+        <Row Tag="LOC_11004A_COMPLETION">
+            <Text>There is a trace in the Romans of the ragged shepherds from which some of them descend, but just a trace. Now, their ambition extends beyond their pastures — and might intrude into Carthage’s.</Text>
+        </Row>
+        <Row Tag="LOC_11004B_NAME">
+            <Text>Mutual accords will create lasting peace.</Text>
+        </Row>
+        <Row Tag="LOC_11004B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11004C_NAME">
+            <Text>Carthage cannot be caught off guard.</Text>
+        </Row>
+        <Row Tag="LOC_11004C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11004D_NAME">
+            <Text>Carthage shares more with Rome than our people think.</Text>
+        </Row>
+        <Row Tag="LOC_11004D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11005A_STORYTITLE">
+            <Text>The Fall</Text>
+        </Row>
+        <Row Tag="LOC_11005A_COMPLETION">
+            <Text>The caput mundi — the head of the world — is ablaze. Smoke billows from villas and insulae alike, and Roman and Carthaginian alike choke on the soot. Many citizens have fled with whatever they can carry. Those who remain — the old, the sick, the poor, and the stubborn — beg the Carthaginian forces to relent.</Text>
+        </Row>
+        <Row Tag="LOC_11005B_NAME">
+            <Text>Leave them only ashes and salt.</Text>
+        </Row>
+        <Row Tag="LOC_11005B_DESCRIPTION">
+            <Text>+1 War Support on all wars.</Text>
+        </Row>
+        <Row Tag="LOC_11005C_NAME">
+            <Text>Bring them to the true head of the world.</Text>
+        </Row>
+        <Row Tag="LOC_11005C_DESCRIPTION">
+            <Text>+1 Population in all Settlements.</Text>
+        </Row>
+        <Row Tag="LOC_11005D_NAME">
+            <Text>Retain their most valiant general.</Text>
+        </Row>
+        <Row Tag="LOC_11005D_DESCRIPTION">
+            <Text>Highest Level Commander receives the Steadfast Promotion.</Text>
+        </Row>
+        <Row Tag="LOC_11006A_STORYTITLE">
+            <Text>Grudging Assent</Text>
+        </Row>
+        <Row Tag="LOC_11006A_COMPLETION">
+            <Text>The Roman and Carthaginian envoys eye each other warily as the parchment is signed. A Roman senator mutters, "...delenda est." Nonetheless, the deal is struck.</Text>
+        </Row>
+        <Row Tag="LOC_11006B_NAME">
+            <Text>Roman and Carthaginian waters will know peace.</Text>
+        </Row>
+        <Row Tag="LOC_11006B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11006C_NAME">
+            <Text>New alliances breed new ideas.</Text>
+        </Row>
+        <Row Tag="LOC_11006C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11006D_NAME">
+            <Text>The cities welcome all.</Text>
+        </Row>
+        <Row Tag="LOC_11006D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11007A_STORYTITLE">
+            <Text>Delenda Est</Text>
+        </Row>
+        <Row Tag="LOC_11007A_COMPLETION">
+            <Text>No sooner is the treaty made than a weathered senator begins to protest. At every meeting, no matter the subject, he proclaims that because Carthage is too prosperous, they will exert a stranglehold on trade and Romans will suffer. For these reasons, he warns repeatedly, Carthage must be destroyed.</Text>
+        </Row>
+        <Row Tag="LOC_11007B_NAME">
+            <Text>Rural citizens will benefit, not suffer, from this.</Text>
+        </Row>
+        <Row Tag="LOC_11007B_DESCRIPTION">
+            <Text>{1_reward} in Towns.</Text>
+        </Row>
+        <Row Tag="LOC_11007C_NAME">
+            <Text>The alliance promises too much to compromise it.</Text>
+        </Row>
+        <Row Tag="LOC_11007C_DESCRIPTION">
+            <Text>+1 Resource Cap in {1_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_11007D_NAME">
+            <Text>Denigrate the old crank and his archaic institution.</Text>
+        </Row>
+        <Row Tag="LOC_11007D_DESCRIPTION">
+            <Text>{1_reward} in Towns.</Text>
+        </Row>
+        <Row Tag="LOC_11008A_STORYTITLE">
+            <Text>True Wealth</Text>
+        </Row>
+        <Row Tag="LOC_11008A_COMPLETION">
+            <Text>From Palace to port, there is not an inch of Carthage that is wasted. The streets teem with life as Carthaginians go about their days in one of the most prosperous cities in the world.</Text>
+        </Row>
+        <Row Tag="LOC_11008B_NAME">
+            <Text>Carthage is where greatness is born.</Text>
+        </Row>
+        <Row Tag="LOC_11008B_DESCRIPTION">
+            <Text>+1 Specialist Cap in {1_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_11008C_NAME">
+            <Text>It will remain untouchable.</Text>
+        </Row>
+        <Row Tag="LOC_11008C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11009A_STORYTITLE">
+            <Text>Gold for Steel</Text>
+        </Row>
+        <Row Tag="LOC_11009A_COMPLETION">
+            <Text>The Numidians nod in agreement, satisfied with the terms of their contract. The cavalry may not owe any loyalty to Carthage, but as long as they are supplied, they will go where they are ordered.</Text>
+        </Row>
+        <Row Tag="LOC_11009B_NAME">
+            <Text>They must take no quarter.</Text>
+        </Row>
+        <Row Tag="LOC_11009B_DESCRIPTION">
+            <Text>{1_reward} on Numidian Cavalry.</Text>
+        </Row>
+        <Row Tag="LOC_11009C_NAME">
+            <Text>Lack of discipline will not be tolerated.</Text>
+        </Row>
+        <Row Tag="LOC_11009C_DESCRIPTION">
+            <Text>{1_reward} on Numidian Cavalry.</Text>
+        </Row>
+        <Row Tag="LOC_11009D_NAME">
+            <Text>Renegotiate their contract.</Text>
+        </Row>
+        <Row Tag="LOC_11009D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11064A_STORYTITLE">
+            <Text>Broken Contracts</Text>
+        </Row>
+        <Row Tag="LOC_11064A_COMPLETION">
+            <Text>The unpaid Numidians grumble. They fight not for Carthage, but for their bellies. But Carthage has been generous before — perhaps they will be again.</Text>
+        </Row>
+        <Row Tag="LOC_11064B_NAME">
+            <Text>Raise taxes to satisfy the contract.</Text>
+        </Row>
+        <Row Tag="LOC_11064B_DESCRIPTION">
+            <Text>{1_reward} on Production Buildings but {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11064C_NAME">
+            <Text>The cavalry must live with what we can offer.</Text>
+        </Row>
+        <Row Tag="LOC_11064C_DESCRIPTION">
+            <Text>{1_reward} Numidian Cavalry but they have the {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11065A_STORYTITLE">
+            <Text>Safe Harbor</Text>
+        </Row>
+        <Row Tag="LOC_11065A_COMPLETION">
+            <Text>The hull of the enemy ship splinters into a thousand fragments as its crew clambers in vain for safety. Today and hereafter, Carthage's waters remain secure for its people.</Text>
+        </Row>
+        <Row Tag="LOC_11065B_NAME">
+            <Text>Families that feel safe will allow Carthage to grow.</Text>
+        </Row>
+        <Row Tag="LOC_11065B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11065C_NAME">
+            <Text>Workers will not have to worry about their safety.</Text>
+        </Row>
+        <Row Tag="LOC_11065C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11066A_STORYTITLE">
+            <Text>The Walled Garden</Text>
+        </Row>
+        <Row Tag="LOC_11066A_COMPLETION">
+            <Text>Massive stone walls run the length and breadth of the city, from its shores to the edges of the hinterland. Carthage protects its own.</Text>
+        </Row>
+        <Row Tag="LOC_11066B_NAME">
+            <Text>Ensure the watchmen have everything they require.</Text>
+        </Row>
+        <Row Tag="LOC_11066B_DESCRIPTION">
+            <Text>{1_reward} on Garrisoned Units.</Text>
+        </Row>
+        <Row Tag="LOC_11066C_NAME">
+            <Text>Conscript masons to expand the walls.</Text>
+        </Row>
+        <Row Tag="LOC_11066C_DESCRIPTION">
+            <Text>Free Ancient Walls purchase.</Text>
+        </Row>
+        <Row Tag="LOC_11067A_STORYTITLE">
+            <Text>The Carthaginians</Text>
+        </Row>
+        <Row Tag="LOC_11067A_COMPLETION">
+            <Text>With every wall built and every sail raised, the story of Carthage spreads across the face of the earth, and will not be questioned.</Text>
+        </Row>
+        <Row Tag="LOC_11067B_NAME">
+            <Text>The story tells of undeniable power.</Text>
+        </Row>
+        <Row Tag="LOC_11067B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11067C_NAME">
+            <Text>The story is one of staggering wealth.</Text>
+        </Row>
+        <Row Tag="LOC_11067C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_12004A_STORYTITLE">
+            <Text>The Good Doctor in Carthage</Text>
+        </Row>
+        <Row Tag="LOC_12004A_COMPLETION">
+            <Text>Walking the streets of Carthage, Dr. Rizal sees a city on the move. Mercenaries on horseback pay little heed to anyone underfoot, while in the port, great ships power the traffic that keeps the city alive.</Text>
+        </Row>
+        <Row Tag="LOC_12004B_NAME">
+            <Text>Study the ships.</Text>
+        </Row>
+        <Row Tag="LOC_12004B_DESCRIPTION">
+            <Text>{1_reward} on Galley.</Text>
+        </Row>
+        <Row Tag="LOC_12004C_NAME">
+            <Text>Stand in awe of the horses.</Text>
+        </Row>
+        <Row Tag="LOC_12004C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1052_CARTHAGEB_IMPERATIVE">
+            <Text>Have 1 Market and 2 Trade Routes.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1060_CARTHAGEC_IMPERATIVE">
+            <Text>Fill a Library with Codices.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1090_CARTHAGEC_IMPERATIVE">
+            <Text>Build a Wonder.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1130_CARTHAGEB_IMPERATIVE">
+            <Text>Fill a Library with Codices.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1170_CARTHAGEC_IMPERATIVE">
+            <Text>Have 1 Monument then enter a Celebration.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1172_CARTHAGEB_IMPERATIVE">
+            <Text>Have an Academy.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1180_CARTHAGEB_IMPERATIVE">
+            <Text>Have 1 Monument then enter a Celebration.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1180_CARTHAGEE_IMPERATIVE">
+            <Text>Have 1 Monument then enter a Celebration.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1030_CARTHAGEB_IMPERATIVE">
+            <Text>Have a Garden.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1030_CARTHAGEC_IMPERATIVE">
+            <Text>Have a Monument.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1031_CARTHAGEB_IMPERATIVE">
+            <Text>Have an Academy.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1040_CARTHAGEC_IMPERATIVE">
+            <Text>Have a Library and a Monument.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1041_CARTHAGEB_IMPERATIVE">
+            <Text>Have an Amphitheater.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1050_CARTHAGEC_IMPERATIVE">
+            <Text>Have a Library.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1062_CARTHAGEB_IMPERATIVE">
+            <Text>Have an Academy.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1070_CARTHAGEC_IMPERATIVE">
+            <Text>Have a Garden.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1070_CARTHAGEF_IMPERATIVE">
+            <Text>Have a Garden.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1072_CARTHAGEB_IMPERATIVE">
+            <Text>Have an Academy.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1072_CARTHAGED_IMPERATIVE">
+            <Text>Have an Academy.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1140_CARTHAGEB_IMPERATIVE">
+            <Text>Have a Garden and a Market.</Text>
+        </Row>
+    </EnglishText>
+</Database>

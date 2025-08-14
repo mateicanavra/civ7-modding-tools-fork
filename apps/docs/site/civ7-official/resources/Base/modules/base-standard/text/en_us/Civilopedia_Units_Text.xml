@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--Shared Units -->
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_MIGRANT_CHAPTER_HISTORY_PARA_1">
+			<Text>Migration has been a key part of human history, conducted en masse and as a part of civic policy. At times, it was used to demoralize or alienate conquered territories; empires would often move (forcibly or not) laborers with particular skills to areas they wanted to develop. The Assyrians, for instance, may have relocated over four million people (which famously included the Israelites) from captured populations to Mesopotamia. Additionally, resettled Malay, Lao, and Cham people laid the foundations of Bangkok’s canal network. However, resettlement could go the other way – Han migrants were vital to bringing minority groups under Chinese control during imperial times, and Soviet colonization of Siberia was fueled by Russian migrants. Some of the most devastating resettlements in recent history include the partition of India and the population exchange between Turkey and Greece, where each side sought to make their population more homogenous via the mass, forced dislocation of residents. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_MIGRANT_CHAPTER_HISTORY_PARA_2">
+			<Text>Forced resettlement is now a violation of the Geneva Convention. But migrants still move of their own accord, seeking opportunity, respite, or adventure in new homes.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_SCOUT_CHAPTER_HISTORY_PARA_1">
+			<Text>Adventurers are often seen as those who set out from their homeland to catalog and discover new places, new ways of life, new people, and new ideas. They encapsulate a broad category but include figures such as Ibn Battuta, Marco Polo, and Zheng He. These expeditions could be driven by a sense of personal profit, national power, or religious fervor, but the dangers and thrills were the same. Ibn Battuta was captured by bandits, and Polo was taken by Genoese closer to home. Others survived storms, disease, animal attacks, or the simple hardship of the road.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_ARMY_COMMANDER_CHAPTER_HISTORY_PARA_1">
+			<Text>Soldiers are commissioned under the risk of death; this demands organization and inspiration. As war became a game of strategy and not one of personal glory, and as troop formations (e.g. the Greek phalanx or the ancient Indian vyuham) grew more vital to victory, commanders needed specialized training. At times, these could be political leaders, or they could be part of a specialized military class. But, as Julius Caesar amply demonstrated, the lines between them could be easily crossed.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_FLEET_COMMANDER_CHAPTER_HISTORY_PARA_1">
+			<Text>Naval warfare is highly dependent on the technologies at hand. Sail or steam, cannons or rams, boarding parties or broadsides – all of these require vastly different skill sets. Ancient Sparta elected a navarch, a fleet leader whose duties involved the command of ships in battle as well as all dealings regarding the Spartan fleet. Later fleet commanders had correspondingly diverse skill sets – Zheng He was a diplomat as well as a fleet commander, and Gajah Mada was a prime minister whose rule and conquests were based as much on rhetoric as they were on sails. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_SQUADRON_COMMANDER_CHAPTER_HISTORY_PARA_1">
+			<Text>Just as armies and navies hold supreme commanders, newly created air divisions also require leaders. The rank of squadron leader was established in 1919 by the (British) Royal Air Force, at the dawn of air combat. Organizing mass air raids became vitally important during World War II, as clashes such as the Battle of Britain, the Battle of Midway, and the devastating bombings of London, Dresden, and Tokyo required coordination and planning. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_FOUNDER_CHAPTER_HISTORY_PARA_1">
+			<Text>Great settlements required great origin stories – accounts that grew and became more elaborate over time. The tales surrounding Romulus, Rurik, Kintu, and countless others were an important part of foundational myths. The Mexica people, the Aztecs, recounted a story about an eagle perched atop a cactus. Meanwhile, King Mangrai was said to have founded Chiang Mai after noticing a procession of white animals in the Northern Thai forest. Similarly, the architect of Cuzco reportedly grew owl wings before rising into the sky. The truths behind these epic tales may be more mundane, but these narratives inspired people to expand their cities and motivated newcomers to settle down.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_SETTLER_CHAPTER_HISTORY_PARA_1">
+			<Text>At its core, settlement represents the permanent re-habitation of people from one land to another. Why do settlers relocate? Who owns the land where they settle? Are there consequences for this movement? Throughout history, settlers have occasionally arrived in truly uninhabited land, but most of the time newcomers and existing populations must negotiate the new status quo – sometimes violently, sometimes peacefully, and often a combination of the two. In many ways, settlers represent beginnings, with all the anticipation and danger that comes with them.  </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_MERCHANT_CHAPTER_HISTORY_PARA_1">
+			<Text>In the site of Óc Eo, a port city of the kingdom of Funan on the Mekong Delta of present-day Vietnam, archaeologists unearthed a cache of Roman artifacts. These arrived not from Roman triremes on a mission of conquest, but via long networks of trade spanning the known world, linking the forests of Britannia with the markets of India, African mines with cities in China. What was to become the Silk Road became the lifeblood of the Old World, bringing togas made of Chinese silk to Rome and Roman-made glass to Silla (Korea). Those who bore those goods were merchants, facing the uncertainty of travel for the potential profits to be made.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_MERCHANT_CHAPTER_HISTORY_PARA_2">
+			<Text>But even as empires depended on trade, merchants remained objects of occasional frustration. Confucius considered merchants and their quest for profits a drain on society, and avarice was labeled a sin in medieval Europe. Yet as kings and soldiers rose and fell, merchants remained.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_TRADE_CARAVAN_CHAPTER_HISTORY_PARA_1">
+			<Text>Trade involves moving expensive goods through sometimes lawless or trackless expanses, and often across long distances while at risk. Indeed, the acceptance of this risk is part of what made trade goods desirable – things obtained through hardship could be marked up. Overland trade routes were especially important in the Muslim world, which lay at the center of global trade for most of the Middle Ages; the name “caravan” is Arabic in origin and refers to a large group of merchants, especially with an armed guard. The most influential overland trade routes stretched from West Africa to Baghdad and onwards across the Silk Road to China. These routes brought Chinese silks and pottery westward, African and European gold eastward, and enriched those empires in the middle. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_TRADE_SHIP_CHAPTER_HISTORY_PARA_1">
+			<Text>Trade by sea has taken place since humans learned to steer a ship. In Southeast Asia, the “Jade Road” linked the Philippines with indigenous groups in Taiwan. The Kula Ring in the South Pacific became famous as a means through which power and prestige were exchanged. And the Swahili dhow fleets plied the western Indian Ocean. Seabourne routes became increasingly important with the development of vessels capable of securely (most of the time) crossing the ocean: the carrack and the caravel. By the 1600s, Spanish galleons were taking Mexican gold to the Philippines in exchange for Chinese finished goods and then returning to Spain in a vast trade network that spanned the globe.</Text>
+		</Row>
+	</EnglishText>
+</Database>

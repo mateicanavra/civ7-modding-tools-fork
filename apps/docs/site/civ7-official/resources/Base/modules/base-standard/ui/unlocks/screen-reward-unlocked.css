@@ -1,0 +1,13 @@
+/* DO NOT EDIT */
+/* Generated from screen-reward-unlocked.scss */
+.reward-unlocked__bg-gradient {
+	background-image: linear-gradient(to bottom, rgba(35, 37, 43, 0.45) 0%, rgba(18, 21, 31, 0.75) 100%);
+}
+
+.reward-unlocked__border-bar {
+	border-image: url("fs://game/hud_section-line.png");
+	border-image-slice: 4 32 0 32 fill;
+	border-image-width: auto;
+	border-image-outset: 0rem 0.3333333333rem;
+	border-image-repeat: stretch;
+}

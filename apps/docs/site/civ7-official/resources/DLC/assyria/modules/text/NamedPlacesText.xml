@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_RIVER_KHABUR_RIVER_NAME">
+			<Text>Khabur River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_DIYALA_RIVER_NAME">
+			<Text>Diyala River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_BATMAN_RIVER_NAME">
+			<Text>Batman River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_BALIKH_RIVER_NAME">
+			<Text>Balikh River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SAJUR_RIVER_NAME">
+			<Text>Sajur River</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_ARARAT_NAME">
+			<Text>Mount Ararat</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_KAUKAB_NAME">
+			<Text>Kaukab</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_GIREKOL_NAME">
+			<Text>Girekol</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_KARACA_DAG_NAME">
+			<Text>Karaca Dağ</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_HASANDAGI_NAME">
+			<Text>Hasandağı</Text>
+		</Row>
+	</EnglishText>
+</Database>

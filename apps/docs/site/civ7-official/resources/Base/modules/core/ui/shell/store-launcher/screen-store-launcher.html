@@ -1,0 +1,12 @@
+<fxs-frame class="flex-1 flow-column w-full h-full">
+	<fxs-header filigree-style="h3"
+				class="additional-content-header relative flex justify-center font-title text-2xl uppercase text-secondary mb-3"
+				title="LOC_UI_TOOLTIP_STORE"></fxs-header>
+	<collection-content class="collection-content flex-auto relative flow-column"></collection-content>
+	<div class="flow-row min-h-12">
+		<fxs-button class="collection-cancel-button mr-3" data-bind-class-toggle="hidden:{{g_NavTray.isTrayRequired}}"
+					caption="LOC_GENERIC_CANCEL"></fxs-button>
+		<fxs-button class="collection-redeem-button" data-bind-class-toggle="hidden:{{g_NavTray.isTrayRequired}}"
+					caption="LOC_GENERIC_REDEEMCODE"></fxs-button>
+	</div>
+</fxs-frame>

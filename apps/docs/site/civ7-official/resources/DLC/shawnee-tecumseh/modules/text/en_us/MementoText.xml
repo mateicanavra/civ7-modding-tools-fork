@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MEMENTO_TECUMSEH_POTESKWATE_NAME">
+			<Text>Poteskwate</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_TECUMSEH_POTESKWATE_DESCRIPTION">
+			<Text>Arboreal mortar and pestle.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_TECUMSEH_POTESKWATE_FUNCTIONAL_DESCRIPTION">
+			<Text>+1 [icon:YIELD_FOOD]Food per Age in Settlements for each City-State you are Suzerain of.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_TECUMSEH_WAMPUM_BELT_NAME">
+			<Text>Wampum Belt</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_TECUMSEH_WAMPUM_BELT_DESCRIPTION">
+			<Text>Symbol of union.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_TECUMSEH_WAMPUM_BELT_FUNCTIONAL_DESCRIPTION">
+			<Text>+1 [icon:YIELD_PRODUCTION]Production per Age in Settlements for each City-State you are Suzerain of.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_TECUMSEH_WARCLUB_NAME">
+			<Text>Warclub</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_TECUMSEH_WARCLUB_DESCRIPTION">
+			<Text>Sleep not longer.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_TECUMSEH_WARCLUB_FUNCTIONAL_DESCRIPTION">
+			<Text>+1 Combat Strength for all Units for every City-State you are Suzerain of.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_TECUMSEH_WARCLUB_COMBAT_PREVIEW">
+			<Text>+{1_Amount} Warclub Memento</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_TECUMSEH_POTESKWATE_UNLOCK_TITLE">
+			<Text>Unlock at Tecumseh level 2</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_TECUMSEH_WARCLUB_UNLOCK_TITLE">
+			<Text>Unlock at Tecumseh level 5</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_TECUMSEH_WAMPUM_BELT_UNLOCK_TITLE">
+			<Text>Unlock at Tecumseh level 9</Text>
+		</Row>
+	</EnglishText>
+</Database>

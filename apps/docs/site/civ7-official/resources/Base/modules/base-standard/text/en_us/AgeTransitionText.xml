@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <EnglishText>
+    <Row Tag="LOC_AGE_TRANSITION_KEEP_SETTLEMENT_NAME">
+      <Text>Integrate Conquest of {1_name}</Text>
+    </Row>
+    <Row Tag="LOC_AGE_TRANSITION_KEEP_SETTLEMENT_DESCRIPTION">
+      <Text>Fully integrate this conquest into your new empire. Population: {1_population}</Text>
+    </Row>
+    <Row Tag="LOC_AGE_TRANSITION_MAINTAIN_CITY_DESCRIPTION">
+      <Text>Maintain Settlement as a City</Text>
+    </Row>
+    <Row Tag="LOC_AGE_TRANSITION_MAINTAIN_COMMANDER_DESCRIPTION">
+      <Text>Maintain this Army with 2 Units</Text>
+    </Row>
+    <Row Tag="LOC_AGE_TRANSITION_MAINTAIN_TREASURY_NAME">
+      <Text>Maintain Treasury</Text>
+    </Row>
+    <Row Tag="LOC_AGE_TRANSITION_MAINTAIN_TREASURY_DESCRIPTION">
+      <Text>Gain {1_gold_amount}[icon:YIELD_GOLD] Gold</Text>
+    </Row>
+    <Row Tag="LOC_CARD_AT_CHANGE_CAPITAL">
+      <Text>Change Capital</Text>
+    </Row>
+    <Row Tag="LOC_CARD_AT_CHANGE_CAPITAL_DESCRIPTION">
+      <Text>{1_name} upgrades to a City, becomes the Capital, and is renamed {2_capital_name}. {3_current_capital_name} remains a City.</Text>
+    </Row>
+    <!-- Wonder Production Boost -->
+    <Row Tag="LOC_AGE_TRANSITION_BOOST_FAVORED_WONDER_PRODUCTION_NAME">
+      <Text>Boost {1_wonder_name} Production</Text>
+    </Row>
+    <Row Tag="LOC_AGE_TRANSITION_BOOST_FAVORED_WONDER_PRODUCTION_DESCRIPTION">
+      <Text>{1_percent_increase}%[icon:YIELD_PRODUCTION] Production towards constructing this Wonder</Text>
+    </Row>
+    <Row Tag="LOC_AGE_TRANSITION_MAINTAIN_WONDER_EFFECTS_NAME">
+      <Text>Preserve Wonder Effects</Text>
+    </Row>
+    <Row Tag="LOC_AGE_TRANSITION_MAINTAIN_WONDER_EFFECTS_DESCRIPTION">
+      <Text>Enable the effects of all of your Wonders</Text>
+    </Row>
+
+    <!-- Legacy Point Progression Tree Nodes -->
+    <Row Tag="LOC_MOD_MILITARISTIC_LEGACY_POINT_DESCRIPTION">
+      <Text>Gain 1 Militaristic Legacy Point</Text>
+    </Row>
+    <Row Tag="LOC_MOD_CULTURAL_LEGACY_POINT_DESCRIPTION">
+      <Text>Gain 1 Cultural Legacy Point</Text>
+    </Row>
+    <Row Tag="LOC_MOD_ECONOMIC_LEGACY_POINT_DESCRIPTION">
+      <Text>Gain 1 Economic Legacy Point</Text>
+    </Row>
+    <Row Tag="LOC_MOD_SCIENTIFIC_LEGACY_POINT_DESCRIPTION">
+      <Text>Gain 1 Scientific Legacy Point</Text>
+    </Row>
+
+  </EnglishText>
+</Database>

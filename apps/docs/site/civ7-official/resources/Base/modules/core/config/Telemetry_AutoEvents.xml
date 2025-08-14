@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TelemetryItems>
+  <Item Type="Production" Name="UnitStatus">
+    <Table Name="Production:UnitAddedToMap/" EventName="GameCoreEvent::UnitAddedToMap">
+	  <TableItem Kind="Unit" Context="UnitCompleted" Type="Set_Value" Name="unitId" Session="Yes" EventData="UnitID" EventDataType="id"/>
+	  <TableItem Kind="Unit" Context="UnitCompleted" Type="Set_Value" Name="unitName" Session="Yes" EventData="UnitType" EventDataType="string"/>
+    </Table>
+  </Item>
+  <Item Type="App" Name="ApplicationSessionStatus">
+    <Table Name="App:ApplicationSessionStatus/" EventName="LocalMachineEvent::AppStatus">
+	  <TableItem Kind="App" Context="App" Type="Set_Value" Name="appStatus" Session="Yes" EventData="AppStatus" EventDataType="string"/>
+	  <TableItem Kind="Build" Context="Build" Type="Set_Value" Name="buildEnv" Session="Yes" EventData="BuildEnv" EventDataType="string"/>
+	  <TableItem Kind="Build" Context="Build" Type="Set_Value" Name="playInEditor" Session="Yes" EventData="PlayInEditor" EventDataType="uint"/>
+	  <TableItem Kind="Build" Context="Build" Type="Set_Value" Name="buildVersion" Session="Yes" EventData="BuildVersion" EventDataType="string"/>
+	  <TableItem Kind="Build" Context="Build" Type="Set_Value" Name="buildChangelist" Session="Yes" EventData="BuildChangelist" EventDataType="uint"/>
+	  <TableItem Kind="CPU" Context="CPU" Type="Set_Value" Name="cpuVendor" Session="Yes" EventData="CpuVendor" EventDataType="string"/>
+	  <TableItem Kind="CPU" Context="CPU" Type="Set_Value" Name="cpuBrand" Session="Yes" EventData="CpuBrand" EventDataType="string"/>
+	  <TableItem Kind="CPU" Context="CPU" Type="Set_Value" Name="cpuLogicalProcessorCount" Session="Yes" EventData="CpuLogicalProcessorCount" EventDataType="uint"/>
+	  <TableItem Kind="CPU" Context="CPU" Type="Set_Value" Name="cpuPhysicalProcessorCount" Session="Yes" EventData="CpuPhysicalProcessorCount" EventDataType="uint"/>
+	  <TableItem Kind="GPU" Context="GPU" Type="Set_Value" Name="gpuDeviceName" Session="Yes" EventData="GpuDeviceName" EventDataType="string"/>
+	  <TableItem Kind="GPU" Context="GPU" Type="Set_Value" Name="gpuDeviceId" Session="Yes" EventData="GpuDeviceId" EventDataType="uint"/>
+	  <TableItem Kind="GPU" Context="GPU" Type="Set_Value" Name="gpuProfile" Session="Yes" EventData="GpuProfile" EventDataType="uint"/>
+	  <TableItem Kind="App" Context="App" Type="Set_Value" Name="platform" Session="Yes" EventData="Platform" EventDataType="string"/>
+	  <TableItem Kind="App" Context="App" Type="Set_Value" Name="applicationType" Session="Yes" EventData="ApplicationType" EventDataType="string"/>
+	  <TableItem Kind="App" Context="App" Type="Set_Value" Name="buildAccessMethod" Session="Yes" EventData="BuildAccessMethod" EventDataType="string"/>
+	  <TableItem Kind="App" Context="App" Type="Set_Value" Name="activeDLC" Session="Yes" EventData="ActiveDLC" EventDataType="string"/>
+	  <TableItem Kind="App" Context="App" Type="Set_Value" Name="hasPreorder" Session="Yes" EventData="HasPreorder" EventDataType="uint"/>
+	  <TableItem Kind="App" Context="App" Type="Set_Value" Name="directXVersion" Session="Yes" EventData="DirectXVersion" EventDataType="uint"/>
+	  <TableItem Kind="App" Context="App" Type="Set_Value" Name="host" Session="Yes" EventData="Host" EventDataType="string"/>
+	  <TableItem Kind="App" Context="App" Type="Set_Value" Name="locale" Session="Yes" EventData="Locale" EventDataType="string"/>
+	  <TableItem Kind="App" Context="App" Type="Set_Value" Name="sessionTime" Session="Yes" EventData="SessionTime" EventDataType="float"/>
+    </Table>
+  </Item>
+  <Item Type="Accomplishment" Name="AccomplishmentStatus">
+	<Table Name="Accomplishment:ChallengeCompleted/" EventName="LocalMachineEvent::ChallengeCompleted">
+	  <TableItem Kind="Challenge" Context="ChallengeCompleted" Type="Set_Value" Name="accomplishmentId" Session="Yes" EventData="AccomplishmentID" EventDataType="string"/>
+	  <TableItem Kind="Challenge" Context="ChallengeCompleted" Type="Set_Value" Name="accomplishmentType" Session="Yes" EventData="AccomplishmentType" EventDataType="string"/>
+	  <TableItem Kind="Challenge" Context="ChallengeCompleted" Type="Set_Value" Name="accomplishmentEvent" Session="Yes" EventData="AccomplishmentStatus" EventDataType="string"/>
+    </Table>
+	<Table Name="Accomplishment:ChallengeProgress/" EventName="LocalMachineEvent::ChallengeProgress">
+	  <TableItem Kind="Challenge" Context="ChallengeCompleted" Type="Set_Value" Name="accomplishmentId" Session="Yes" EventData="AccomplishmentID" EventDataType="string"/>
+	  <TableItem Kind="Challenge" Context="ChallengeCompleted" Type="Set_Value" Name="accomplishmentType" Session="Yes" EventData="AccomplishmentType" EventDataType="string"/>
+	  <TableItem Kind="Challenge" Context="ChallengeCompleted" Type="Set_Value" Name="accomplishmentProgress" Session="Yes" EventData="AccomplishmentProgress" EventDataType="int"/>
+	  <TableItem Kind="Challenge" Context="ChallengeCompleted" Type="Set_Value" Name="accomplishmentEvent" Session="Yes" EventData="AccomplishmentStatus" EventDataType="string"/>
+    </Table>
+  </Item>
+  <Item Type="Customization" Name="CustomizationStatus">
+	<Table Name="Customization:CustomizationStatus/" EventName="LocalMachineEvent::DNAUserProfileCustomizationSaved">
+	  <TableItem Kind="Challenge" Context="ChallengeCompleted" Type="Set_Value" Name="badgeId" Session="Yes" EventData="BadgeID" EventDataType="string"/>
+	  <TableItem Kind="Challenge" Context="ChallengeCompleted" Type="Set_Value" Name="titleId" Session="Yes" EventData="TitleID" EventDataType="string"/>
+	  <TableItem Kind="Challenge" Context="ChallengeCompleted" Type="Set_Value" Name="bannerId" Session="Yes" EventData="BannerID" EventDataType="string"/>
+	  <TableItem Kind="Challenge" Context="ChallengeCompleted" Type="Set_Value" Name="customizationInstanceId" Session="Yes" EventData="CustomizationInstanceID" EventDataType="string"/>
+    </Table>
+  </Item>
+</TelemetryItems>

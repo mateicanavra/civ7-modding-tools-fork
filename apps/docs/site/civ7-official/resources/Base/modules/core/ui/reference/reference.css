@@ -1,0 +1,157 @@
+@font-face {
+    font-family: 'Avenir Next LT Pro';
+    src: url('./fonts/AvenirNextLTPro-Regular.otf') format('opentype');
+}
+
+@font-face {
+    font-family: "Mercury";
+    src: url('./fonts/Mercury-DisplayRomanSC.otf')
+}
+
+div {
+    box-sizing: border-box;
+    user-select: none;
+    display: flex;
+}
+
+
+html {
+    width: 100vw;
+    height: 100vh;
+
+    --base-color: rgb(44, 42, 43);
+    --base-color-alpha: 44, 42, 43;
+    --base-dark-color: rgb(39, 37, 38);
+    --base-dark-color-alpha: 39, 37, 38;
+    --base-medium-color: rgb(62, 61, 59);
+    --base-medium-color-alpha: 62, 61, 59;
+    --base-light-color: rgb(79, 78, 77);
+    --base-light-color-alpha: 79, 78, 77;
+    --base-lighter-color: rgb(155, 151, 153);
+    --base-lighter-color-alpha: 155, 151, 153;
+    --accent-color: rgb(120, 98, 74);
+    --accent-color-alpha: 120, 98, 74;
+    --accent-dark-color: rgb(66, 56, 46);
+    --accent-dark-color-alpha: 66, 56, 46;
+    --second-color: rgb(209, 181, 133);
+    --second-color-alpha: 209, 181, 133;
+    --second-dark-color: rgb(193, 165, 123);
+    --second-dark-color-alpha: 193, 165, 123;
+    --second-darker-color: rgb(130, 112, 85);
+    --second-darker-color-alpha: 130, 112, 85;
+    --highlight-color: rgb(255, 228, 184);
+    --highlight-color-alpha: 255, 228, 184;
+    --third-color: rgb(204, 188, 163);
+    --third-color-alpha: 204, 188, 163;
+    --third-dark-color: rgb(179, 158, 128);
+    --third-dark-color-alpha: 179, 158, 128;
+    --third-darker-color: rgb(59, 53, 48);
+    --third-darker-color-alpha: 59, 53, 48;
+    --third-light-color: rgb(217, 199, 173);
+    --third-light-color-alpha: 217, 199, 173;
+}
+
+body {
+    overflow: hidden;
+    font-family: "Avenir Next LT Pro";
+    background-size: cover;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#window {
+    background-color: var(--third-light-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 900px;
+}
+
+#sheet-1 {
+    width: 400px;
+    height: 600px;
+}
+
+#sheet-2 {
+    width: 800px;
+    height: 600px;
+}
+
+.two-column-table {
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+}
+
+.row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.column-30 {
+    flex: 1 1 30%;
+}
+
+.column-70 {
+    flex: 1 1 70%;
+}
+
+.panel {
+    overflow-y: scroll;
+    padding: 1rem 2rem;
+    flex-direction: column;
+    background-color: var(--base-dark-color);
+    color: var(--third-color);
+    justify-content: flex-start;
+    align-items: center;
+    border-image-source: url('../themes/default/img/Frame_small_flatTop.png');
+    border-image-repeat: stretch;
+    border-image-width: 16px 16px 32px 16px;
+    border-image-slice: 16 16 32 16 fill;
+    /*border-image-slice: 16px fill;*/
+}
+
+.panel-header {
+    font-family: "Mercury";
+    font-size: 2rem;
+    color: var(--highlight-color);
+    justify-content: center;
+    align-items: center;
+}
+
+.panel-content {
+    flex: 1 1 auto;
+    overflow: scroll;
+    width: 100%;
+    height: 300px;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.ornament-container {
+    flex: 1 1 auto;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+
+.ornament-container > * {
+    margin: 6px;
+    flex-basis: auto;
+}
+
+
+.wrapper {
+    width: 500px;
+    height: 50px;
+    position: relative;
+    /* border: 2px solid #ffffff; */
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+}

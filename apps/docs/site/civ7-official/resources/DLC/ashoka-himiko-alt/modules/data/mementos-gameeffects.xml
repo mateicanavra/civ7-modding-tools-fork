@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="MEMENTO_ASHOKA_CONQUEROR_CHANDA_MAHASENA_MODIFIER_1" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ATTACH_MODIFIERS">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_IN_GOLDEN_AGE"/>
+		</OwnerRequirements>
+		<Argument name="ModifierId">MEMENTO_ASHOKA_CONQUEROR_CHANDA_MAHASENA_MODIFIER_2</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_ASHOKA_CONQUEROR_CHANDA_MAHASENA_MODIFIER_2" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_IS_DISTRICT"/>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_MEMENTO_ASHOKA_CONQUEROR_CHANDA_MAHASENA_COMBAT_PREVIEW</String>
+	</Modifier>
+	<Modifier id="MEMENTO_ASHOKA_CONQUEROR_SILK_UTTARIYA_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+			<Requirement type="REQUIREMENT_CITY_HAPPINESS">
+				<Argument name="MinSurplusHappiness">1</Argument>
+				<Argument name="Unhappy">false</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_ASHOKA_CONQUEROR_SILK_UTTARIYA_NAME</Argument>
+		<String context="Preview">LOC_MEMENTO_ASHOKA_CONQUEROR_SILK_UTTARIYA_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_ASHOKA_CONQUEROR_LION_CAPITAL_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ARMY_ADJUST_EXPERIENCE_RATE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_IN_GOLDEN_AGE"/>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_COMMAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Percent">50</Argument>
+	</Modifier>
+
+	<Modifier id="MEMENTO_HIMIKO_SHAMAN_SAKAKI_BRANCH_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_PRODUCTION">
+		<Argument name="Percent">25</Argument>
+		<Argument name="Tag">HAPPINESS</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_HIMIKO_SHAMAN_YATA_NO_KAGAMI_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_FOR_GOLDEN_AGE_START">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">20</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_HIMIKO_SHAMAN_KUSANAGI_NO_TSURUGI_MODIFIER_1" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">3</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Tag">HAPPINESS</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_HIMIKO_SHAMAN_KUSANAGI_NO_TSURUGI_NAME</Argument>
+		<String context="Description">LOC_MEMENTO_HIMIKO_SHAMAN_KUSANAGI_NO_TSURUGI_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_HIMIKO_SHAMAN_KUSANAGI_NO_TSURUGI_MODIFIER_2" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">-1</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Tag">HAPPINESS</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_HIMIKO_SHAMAN_KUSANAGI_NO_TSURUGI_NAME</Argument>
+		<String context="Description">LOC_MEMENTO_HIMIKO_SHAMAN_KUSANAGI_NO_TSURUGI_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+</GameEffects>

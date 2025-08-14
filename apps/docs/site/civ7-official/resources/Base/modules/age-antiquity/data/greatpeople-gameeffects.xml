@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="GREATPERSON_ACADEMY_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+		<Argument name="ConstructibleType">BUILDING_ACADEMY</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">4</Argument>
+		<String context="Summary">LOC_GREATPERSON_ACADEMY_CULTURE</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_ACADEMY_SCIENCE" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+		<Argument name="ConstructibleType">BUILDING_ACADEMY</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount">4</Argument>
+		<String context="Summary">LOC_GREATPERSON_ACADEMY_SCIENCE</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_CAPITAL_POPULATION" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_ADJUST_POPULATION" run-once="false" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<String context="Summary">LOC_GREATPERSON_CAPITAL_POPULATION</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_CITY_SCIENCE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD" run-once="false" permanent="true">
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Summary">LOC_GREATPERSON_CITY_SCIENCE</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD" run-once="true" permanent="true">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount" type="ScaleByGameSpeed">100</Argument>
+		<String context="Summary">LOC_GREATPERSON_CULTURE</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_CULTURE_PER_DIPLO" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_YIELD_CONVERSION">
+		<Argument name="FromYieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="ToYieldType">YIELD_CULTURE</Argument>
+		<Argument name="Percent">50</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_DIPLO_BURST" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD" run-once="true" permanent="true">
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="Amount" type="ScaleByGameSpeed">75</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD" run-once="true" permanent="true">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameSpeed">200</Argument>
+		<String context="Summary">LOC_GREATPERSON_GOLD</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_GRANT_CAVALRY" collection="COLLECTION_UNIT_NEAREST_OWNER_CITY" effect="EFFECT_GRANT_UNIT_OF_CLASS_AND_APPLY_ABILITY" run-once="true" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_PROGRESSION_TREE_NODE">
+				<Argument name="ProgressionTreeNodeType">NODE_TECH_AQ_WHEEL</Argument>
+				<Argument name="MinDepth">1</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="UnitTag">UNIT_CLASS_CAVALRY</Argument>
+		<Argument name="UnitAbilityType">ABILITY_APERAL_CAVALRY_COMBAT_STRENGTH</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Summary">LOC_GREATPERSON_GRANT_CAVALRY</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_GRANT_CHARIOT" collection="COLLECTION_UNIT_NEAREST_OWNER_CITY" effect="EFFECT_GRANT_UNIT_OF_CLASS_AND_APPLY_ABILITY" run-once="true" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_PROGRESSION_TREE_NODE" inverse="true">
+				<Argument name="ProgressionTreeNodeType">NODE_TECH_AQ_WHEEL</Argument>
+				<Argument name="MinDepth">1</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="UnitType">UNIT_CHARIOT</Argument>
+		<Argument name="UnitAbilityType">ABILITY_APERAL_CAVALRY_COMBAT_STRENGTH</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Summary">LOC_GREATPERSON_GRANT_CHARIOT</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_GRANT_COMMANDER" collection="COLLECTION_OWNER" effect="EFFECT_CITY_GRANT_UNIT" run-once="true" permanent="true">
+		<Argument name="UnitType">UNIT_COMMANDER</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Summary">LOC_GREATPERSON_GRANT_COMMANDER</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_GRANT_HOPLITE" collection="COLLECTION_UNIT_NEAREST_OWNER_CITY" effect="EFFECT_GRANT_UNIT_OF_CLASS_AND_APPLY_ABILITY" run-once="true" permanent="true">
+		<Argument name="UnitTag">UNIT_CLASS_HOPLITE</Argument>
+		<Argument name="UnitAbilityType">ABILITY_XENOPHON_HOPLITE_COMBAT_STRENGTH</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Summary">LOC_GREATPERSON_GRANT_HOPLITE</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_GRANT_MEDJAY" collection="COLLECTION_UNIT_NEAREST_OWNER_CITY" effect="EFFECT_GRANT_UNIT_OF_CLASS_AND_APPLY_ABILITY" run-once="true" permanent="true">
+		<Argument name="UnitTag">UNIT_CLASS_MEDJAY</Argument>
+		<Argument name="UnitAbilityType">ABILITY_KHAY_MEDJAY_COMBAT_STRENGTH</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Summary">LOC_GREATPERSON_GRANT_MEDJAY</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_LIBRARY_HAPPINESS" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+		<Argument name="ConstructibleType">BUILDING_LIBRARY</Argument>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">3</Argument>
+		<String context="Summary">LOC_GREATPERSON_LIBRARY_HAPPINESS</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_LIBRARY_SCIENCE" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+		<Argument name="ConstructibleType">BUILDING_LIBRARY</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount">3</Argument>
+		<String context="Summary">LOC_GREATPERSON_LIBRARY_SCIENCE</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_PALACE_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+		<Argument name="ConstructibleType">BUILDING_PALACE</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">3</Argument>
+		<String context="Summary">LOC_GREATPERSON_PALACE_CULTURE</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_PALACE_SCIENCE" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+		<Argument name="ConstructibleType">BUILDING_PALACE</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount">3</Argument>
+		<String context="Summary">LOC_GREATPERSON_PALACE_SCIENCE</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_SCIENCE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD" run-once="true" permanent="true">
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount" type="ScaleByGameSpeed">100</Argument>
+		<String context="Summary">LOC_GREATPERSON_SCIENCE</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_SCIENCE_PER_DIPLO" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_YIELD_CONVERSION">
+		<Argument name="FromYieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="ToYieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Percent">50</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_INFLUENCE_BUILDING" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+		<Argument name="ConstructibleType">BUILDING_PALACE, BUILDING_CITY_HALL</Argument>
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_COMMANDER_PROMOTION" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_UNIT_PROMOTION" run-once="true" permanent="true">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_CODEX_SCIENCE" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_YIELD_PER_GREAT_WORK">
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_HIGH_INFLUENCE_BUILDING" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+		<Argument name="ConstructibleType">BUILDING_PALACE</Argument>
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="Amount">3</Argument>
+	</Modifier>
+	<Modifier id="GREATPERSON_WONDER_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+		<Argument name="ConstructibleClass">WONDER</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Summary">LOC_GREATPERSON_WONDER_CULTURE</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_WONDER_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+		<Argument name="ConstructibleClass">WONDER</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Summary">LOC_GREATPERSON_WONDER_GOLD</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_WONDER_PRODUCTION_LARGE" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_PRODUCTION_IN_CITY" run-once="true" permanent="true">
+		<Argument name="Amount" type="ScaleByGameSpeed">250</Argument>
+		<Argument name="KeepOverflow">false</Argument>
+		<String context="Summary">LOC_GREATPERSON_WONDER_PRODUCTION</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_WONDER_PRODUCTION_MEDIUM" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_PRODUCTION_IN_CITY" run-once="true" permanent="true">
+		<Argument name="Amount" type="ScaleByGameSpeed">200</Argument>
+		<Argument name="KeepOverflow">false</Argument>
+		<String context="Summary">LOC_GREATPERSON_WONDER_PRODUCTION</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_WONDER_PRODUCTION_SMALL" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_PRODUCTION_IN_CITY" run-once="true" permanent="true">
+		<Argument name="Amount" type="ScaleByGameSpeed">150</Argument>
+		<Argument name="KeepOverflow">false</Argument>
+		<String context="Summary">LOC_GREATPERSON_WONDER_PRODUCTION</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_GOLDEN_AGE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_GOLDEN_AGE" run-once="true" permanent="true">
+		<String context="Summary">LOC_GREATPERSON_GOLDEN_AGE</String>
+	</Modifier>
+	<Modifier id="GREATPERSON_RANDOM_TECH" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_PROGRESSION" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="SystemType">SYSTEM_TECH</Argument>
+		<Argument name="FreeProgressionType">FREE_PROGRESSION_NODE_ANY_UNLOCKED</Argument>
+		<String context="Summary">LOC_GREATPERSON_FREE_TECH</String>
+	</Modifier>
+	<!--Unit Abilities-->
+	<Modifier id="APERAL_CAVALRY_COMBAT_STRENGTH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_APERAL_CAVALRY_COMBAT_STRENGTH_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="KHAY_MEDJAY_COMBAT_STRENGTH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_KHAY_MEDJAY_COMBAT_STRENGTH_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="XENOPHON_HOPLITE_COMBAT_STRENGTH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_XENOPHON_HOPLITE_COMBAT_STRENGTH_DESCRIPTION</String>
+	</Modifier>
+</GameEffects>

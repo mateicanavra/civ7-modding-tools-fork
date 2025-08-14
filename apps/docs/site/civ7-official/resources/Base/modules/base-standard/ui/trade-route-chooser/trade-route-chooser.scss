@@ -1,0 +1,42 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+@use '../../../core/ui/themes/default/theme';
+
+.trade-route-chooser {
+	position: absolute;
+	top: pixels(152);
+	left: pixels(24);
+	bottom: pixels(24);
+	min-width: pixels(440);
+	pointer-events: auto;
+
+	@media (experience: mobile) {
+		min-width: pixels(590);
+		bottom: 0;
+		top: pixels(55);
+	}
+}
+
+.trade-route-chooser-leader-bg {
+	background-image: url("fs://game/core/chal_port_bk");
+	background-size: cover;
+}
+
+.trade-route-chooser-leader-color {
+	background-image: url("fs://game/core/lp_circ_color_256");
+	background-size: cover;
+}
+
+.trade-route-chooser-item {
+
+	&:focus,
+	&:hover {
+		.trade-route-chooser-item-highlight {
+			background: linear-gradient(90deg, #595243 0%, rgba(41, 43, 51, 0.5) 100%);
+		}
+	}
+}
+
+.trade-route-chooser-item-disabled {
+	opacity: 0.3;
+}

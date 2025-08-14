@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LoadingInfo_Civilizations>
+		<Row CivilizationType="CIVILIZATION_CARTHAGE" CivilizationText="LOC_LOADING_CIV_INTRO_TEXT_CARTHAGE" Audio="VO_Loading_Carthage" Subtitle="LOC_LOADING_INTRO_CARTHAGE" BackgroundImageHigh="fs://game/lsbg_carthage_1080.png" BackgroundImageLow="fs://game/lsbg_carthage_720.png" ForegroundImage="fs://game/civ_line_carthage.png" Tip="LOC_LOADING_CIV_TIPS_TEXT_CARTHAGE" />
+	</LoadingInfo_Civilizations>
+</Database>

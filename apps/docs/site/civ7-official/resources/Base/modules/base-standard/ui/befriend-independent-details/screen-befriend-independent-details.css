@@ -1,0 +1,62 @@
+/* DO NOT EDIT */
+/* Generated from screen-befriend-independent-details.scss */
+.screen-befriend-independent-details {
+	left: 16px;
+}
+.screen-befriend-independent-details fxs-header div {
+	max-width: 90%;
+}
+@media (experience: mobile) {
+	.screen-befriend-independent-details fxs-header div {
+		max-width: 100%;
+	}
+}
+@media (max-height: 40rem) {
+	.screen-befriend-independent-details {
+		width: 33.3333333333rem;
+		right: 0.8888888889rem;
+		left: auto;
+	}
+}
+@media (experience: mobile) {
+	.screen-befriend-independent-details {
+		top: auto;
+		bottom: 1.2222222222rem;
+		left: auto;
+		right: 0.8888888889rem;
+	}
+}
+@media (experience: mobile) and (max-height: 55.5555555556rem) {
+	.screen-befriend-independent-details {
+		width: 36.8888888889rem;
+	}
+}
+@media (experience: mobile) and (max-height: 55.5555555556rem) {
+	.screen-befriend-independent-details .chooser-item__icon {
+		width: 3.5555555556rem;
+		height: 3.5555555556rem;
+	}
+}
+
+@media (experience: mobile) {
+	#befriend-independent-progress-bar-container {
+		padding-right: 0.4444444444rem;
+	}
+}
+@media (experience: mobile) and (max-height: 55.5555555556rem) {
+	#befriend-independent-progress-bar-container {
+		margin-left: -0.6666666667rem;
+		padding-right: 0.3333333333rem;
+	}
+}
+
+@media (experience: mobile) {
+	.befriend-independent-header {
+		max-width: 94%;
+	}
+}
+
+.befriend-independent-details-support-icon {
+	background-image: url("fs://game/dip_pod_relationship.png");
+	background-color: #285f23;
+}

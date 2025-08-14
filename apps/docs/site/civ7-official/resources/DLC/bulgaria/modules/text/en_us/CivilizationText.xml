@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--Civilization Traits-->
+		<Row Tag="LOC_TRAIT_BULGARIA_ABILITY_NAME">
+			<Text>Krum's Dynasty</Text>
+		</Row>
+		<Row Tag="LOC_CIVILIZATION_BULGARIA_DESCRIPTION">
+			<Text>Receive [icon:YIELD_PRODUCTION] Production in all Cities when pillaging Buildings equal to 50% of the yield or HP gained. All Combat units receive -3 Combat Strength against Districts with Medieval Walls.</Text>
+		</Row>
+		<Row Tag="LOC_TRAIT_BULGARIA_ABILITY_DESCRIPTION">
+			<Text>[BLIST][LI]Receive [B][icon:YIELD_PRODUCTION] Production [/B] in all [B]Cities [/B]when pillaging Buildings equal to [B]50% of the yield or HP gained[/B].[LI]All Combat units receive [B]-3 Combat Strength[/B] against Districts with Medieval Walls.[LI][B]+30%[icon:YIELD_PRODUCTION] Production [/B]towards constructing [B]Rila Monastery[/B].[/LIST]</Text>
+		</Row>
+		<Row Tag="LOC_MOD_CIV_WONDER_PRODUCTION_BULGARIA_DESCRIPTION">
+			<Text>+30% Production from being the Bulgaria's unique wonder.</Text>
+		</Row>
+		<Row Tag="LOC_TRAIT_BULGARIA_ABILITY_PREVIEW">
+			<Text>{1_CombatAmount} from Krum's Dynasty</Text>
+		</Row>
+	</EnglishText>
+</Database>

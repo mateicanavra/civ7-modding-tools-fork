@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="Definitions">
+	<definition name="AgeTransitionArmyUnit" table-name="AgeTransitionArmyUnits" cpp="true">
+		<field name="ArmyID" type="Integer" not-null="true"/>
+		<field name="Unit" type="Text" hash="true" not-null="true"/>
+		<field name="Age" type="Text" not-null="true"/>
+	</definition>
+	<definition name="AgeTransitionLegacyPoint" table-name="AgeTransitionLegacyPoints" cpp="true">
+		<field name="PointType" type="Text" not-null="true" hash="true"/>
+		<field name="Amount" type="Integer" value="0" not-null="true"/>
+		<field name="Unlock" type="Text" hash="true"/>
+		<field name="Age" type="Text" not-null="true"/>
+		<reference source="Age" target="AgeType" sourceRoleName="AgeRef" targetRoleName="AgeTransitionLegacyPointCollectionRef" to="Age"/>
+		<property name="AgeReference" path="AgeRef"/>
+	</definition>
+	<definition name="AgeTransitionCardSet" table-name="AgeTransitionCardSets" cpp="true">
+		<field name="Age" type="Text" not-null="true"/>
+		<field name="CardSet" type="Text" key="true" not-null="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="DefaultSet" type="Bool" value="false" not-null="true"/>
+		<reference source="Age" target="AgeType" sourceRoleName="AgeRef" targetRoleName="AgeTransitionCardSetCollectionRef" to="Age"/>
+		<property name="AgeReference" path="AgeRef"/>
+	</definition>
+	<definition name="AgeTransitionParameter" table-name="AgeTransitionParameters" cpp="true">
+		<field name="Age" type="Text" not-null="true"/>
+		<field name="Setting" type="Text" key="true" hash="true" not-null="true"/>
+		<field name="SettlementCountOnTransition" type="Integer" not-null="true"/>
+		<field name="CityCountOnTransition" type="Integer" not-null="true"/>
+		<field name="CommanderCountOnTransition" type="Integer" not-null="true"/>
+		<field name="WonderCountOnTransition" type="Integer" not-null="true"/>
+		<field name="DefaultGoldOnTransition" type="Integer" not-null="true"/>
+		<field name="GoldGainOnTransition" type="Integer" not-null="true"/>
+		<reference source="Age" target="AgeType" sourceRoleName="AgeRef" targetRoleName="AgeTransitionParameterCollectionRef" to="Age"/>
+		<property name="AgeReference" path="AgeRef"/>
+	</definition>
+	<definition name="AgeTransitionBoostableNode" table-name="AgeTransitionBoostableNodes" cpp="true">
+		<field name="Age" type="Text" not-null="true"/>
+		<field name="Tree" type="Text" hash="true" not-null="true"/>
+		<field name="Modifier" type="Text" key="true" hash="true" not-null="true"/>
+		<reference source="Age" target="AgeType" sourceRoleName="AgeRef" targetRoleName="AgeTransitionBoostableNodeCollectionRef" to="Age"/>
+		<property name="AgeReference" path="AgeRef"/>
+	</definition>
+	<definition name="AgeTransitionRespawnParameter" table-name="AgeTransitionRespawnParameters" cpp="true">
+		<field name="RespawnType" type="Text" hash="true" not-null="true"/>
+		<field name="ModifierID" type="Text" not-null="true"/>
+	</definition>
+	<definition name="AgeTransitionRespawnModifier" table-name="AgeTransitionRespawnModifiers" cpp="true">
+		<field name="RespawnType" type="Text" hash="true" not-null="true"/>
+		<field name="ModifierID" type="Text" not-null="true"/>
+	</definition>
+	<definition name="AgeTransitionRespawnUnit" table-name="AgeTransitionRespawnUnits" cpp="true">
+		<field name="RespawnType" type="Text" hash="true" not-null="true"/>
+		<field name="ArmyID" type="Integer"/>
+		<field name="Unit" type="Text" hash="true" not-null="true"/>
+		<field name="IsNavy" type="Bool" value="0" not-null="true"/>
+	</definition>
+</definitions>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="Definitions">
+        <definition name="NarrativeReward" table-name="NarrativeRewards" cpp="true">
+                <field name="NarrativeRewardType" type="Text" key="true" not-null="true"/>
+                <field name="ModifierID" type="Text" not-null="true" hash="true"/>
+        </definition>
+        <definition name="NarrativeRewardIcon" table-name="NarrativeRewardIcons" cpp="true">
+                <field name="NarrativeStoryType" type="Text" key="true" not-null="true"/>
+                <field name="RewardIconType" type="Text" key="true" not-null="true"/>
+                <field name="Negative" type="Bool" key="true" not-null="true" value="0"/>
+                <reference source="NarrativeStoryType" target="NarrativeStoryType" targetRoleName="NarrativeRewardIconRef" to="NarrativeStory"/>
+        </definition>
+        <definition name="NarrativeStory_RewardIcon" table-name="NarrativeStory_RewardIcons" cpp="true">
+                <field name="Type" type="Text" key="true" not-null="true"/>
+        </definition>
+        <definition name="NarrativeOverride" table-name="NarrativeStoryOverrides" cpp="true">
+                <field name="NarrativeStoryType" type="Text" key="true" not-null="true"/>
+                <field name="OverriddenStoryType" type="Text" key="true" not-null="true"/>
+                <reference source="NarrativeStoryType" target="NarrativeStoryType" targetRoleName="NarrativeStoryOverridesRef" to="NarrativeStory"/>
+        </definition>
+        <definition name="NarrativeVariation" table-name="NarrativeVariations" cpp="true">
+                <field name="NarrativeStoryType" type="Text" key="true" not-null="true"/>
+                <field name="VariationStoryType" type="Text" key="true" not-null="true"/>
+                <reference source="NarrativeStoryType" target="NarrativeStoryType" targetRoleName="NarrativeVariationsRef" to="NarrativeStory"/>
+        </definition>
+        <definition name="NarrativeStory_Queue" table-name="NarrativeStory_Queues" cpp="true">
+                <field name="QueueType" type="Text" key="true" not-null="true"/>
+                <field name="StartAll" type="Bool" key="false" value="0" not-null="true"/>
+                <field name="ActivationCount" type="Integer" key="false" value="0" not-null="true"/>
+                <property name="NarrativeStories" path="NarrativeStoriesRef"/>
+        </definition>
+        <definition name="NarrativeStory_Yield_Reward" table-name="NarrativeStory_Yield_Rewards" cpp="true">
+                <field name="Type" type="Text" key="true" not-null="true"/>
+                <field name="MaintenanceYieldValue" type="Integer" not-null="false"/>
+                <field name="ProgressionYieldValue" type="Integer" not-null="false"/>
+                <field name="DiplomacyYieldValue" type="Integer" not-null="false"/>
+        </definition>
+        <definition name="DiscoveryStory_Yield_Reward" table-name="DiscoveryStory_Yield_Rewards" cpp="true">
+                <field name="Type" type="Text" key="true" not-null="true"/>
+                <field name="GoldYieldValue" type="Integer" not-null="false"/>
+                <field name="ProductionYieldValue" type="Integer" not-null="false"/>
+                <field name="HappinessYieldValue" type="Integer" not-null="false"/>
+                <field name="FoodYieldValue" type="Integer" not-null="false"/>
+                <field name="ProgressionYieldValue" type="Integer" not-null="false"/>
+                <field name="DiplomacyYieldValue" type="Integer" not-null="false"/>
+        </definition>
+        <definition name="NarrativeStory_Activation" table-name="NarrativeStory_Activations" cpp="false">
+                <field name="Type" type="Text" key="true" not-null="true"/>
+        </definition>
+        <definition name="NarrativeStory_UIActivation" table-name="NarrativeStory_UIActivations" cpp="false">
+                <field name="Type" type="Text" key="true" not-null="true"/>
+        </definition>
+        <definition name="NarrativeStory_TextReplacementType" table-name="NarrativeStory_TextReplacementTypes" cpp="false">
+                <field name="Type" type="Text" key="true" not-null="true"/>
+        </definition>
+        <definition name="NarrativeStory_TextType" table-name="NarrativeStory_TextTypes" cpp="false">
+                <field name="Type" type="Text" key="true" not-null="true"/>
+        </definition>
+        <definition name="NarrativeStory_TextReplacement" table-name="NarrativeStory_TextReplacements" cpp="true">
+                <field name="NarrativeStoryType" type="Text" key="true" not-null="true"/>
+                <field name="NarrativeStoryTextType" type="Text" key="true" not-null="true"/>
+                <field name="NarrativeTextReplacementType" type="Text" not-null="true"/>
+                <field name="Priority" type="Integer" key="true" not-null="true" value="0"/>
+                <reference source="NarrativeStoryType" target="NarrativeStoryType" targetRoleName="NarrativeTextReplacementsRef" to="NarrativeStory"/>
+        </definition>
+        <definition name="NarrativeStory_Reward_Activation" table-name="NarrativeStory_Reward_Activations" cpp="false">
+                <field name="Type" type="Text" key="true" not-null="true"/>
+        </definition>
+        <definition name="NarrativeStory_Reward" table-name="NarrativeStory_Rewards" cpp="false">
+                <field name="NarrativeStoryType" type="Text" key="true" not-null="true"/>
+                <field name="NarrativeRewardType" type="Text" key="true" not-null="true"/>
+                <field name="Activation" type="Text" not-null="true" hash="true"/>
+                <field name="BonusEligible" type="Bool" value="True" not-null="true"/>
+                <reference source="NarrativeStoryType" target="NarrativeStoryType" targetRoleName="NarrativeStoryRewardsRef" to="NarrativeStory"/>
+                <reference source="NarrativeRewardType" target="NarrativeRewardType" sourceRoleName="NarrativeRewardsRef" to="NarrativeReward"/>
+                <reference source="Activation" target="Type" to="NarrativeStory_Reward_Activation"/>
+                <property name="Reward" path="NarrativeRewardsRef"/>
+        </definition>
+        <definition name="NarrativeStory_Link" table-name="NarrativeStory_Links" cpp="false">
+                <field name="FromNarrativeStoryType" type="Text" key="true" not-null="true"/>
+                <field name="ToNarrativeStoryType" type="Text" key="true" not-null="true"/>
+                <field name="Priority" type="Integer" not-null="true" value="0"/>
+                <field name="Name" type="LocalizedText" not-null="true"/>
+                <field name="Description" type="LocalizedText" not-null="true"/>
+                <field name="Imperative" type="LocalizedText" not-null="false"/>
+                <reference source="FromNarrativeStoryType" target="NarrativeStoryType" targetRoleName="FromNarrativeStoryRef" to="NarrativeStory"/>
+        </definition>
+        <definition name="NarrativeStory" table-name="NarrativeStories" cpp="true">
+                <field name="NarrativeStoryType" type="Text" key="true" not-null="true"/>
+                <field name="Name" type="LocalizedText" not-null="true"/>
+                <field name="Description" type="LocalizedText" not-null="true"/>
+                <field name="Age" type="Text" hash="true"/>
+                <field name="Activation" type="Text" not-null="true" hash="true"/>
+                <field name="Hidden" type="Bool" value="False" not-null="true"/>
+                <field name="RequirementSetId" type="Text" not-null="false"/>
+                <field name="ActivationRequirementSetId" type="Text" not-null="false"/>
+                <field name="ForeignOnly" type="Bool" value="False" not-null="true"/>
+                <field name="Completion" type="LocalizedText" not-null="false"/>
+                <field name="Imperative" type="LocalizedText" not-null="false"/>
+                <field name="IsQuest" type="Bool" value="False" not-null="true"/>
+                <field name="ShowProgress" type="Bool" value="False" not-null="true"/>
+                <field name="Timeout" type="Integer" not-null="false"/>
+                <field name="EndTurn" type="Integer" not-null="false"/>
+                <field name="Percentage" type="Integer" not-null="false"/>
+                <field name="FirstOnly" type="Bool" not-null="false"/>
+                <field name="StartEveryone" type="Bool" value="False" not-null="false"/>
+                <field name="Multiplayer" type="Bool" not-null="false"/>
+                <field name="ReducedScaling" type="Bool" value="False" not-null="true"/>
+                <field name="StoryTitle" type="LocalizedText" not-null="false"/>
+                <field name="PullQuote" type="LocalizedText" not-null="false"/>
+                <field name="UIActivation" type="Text" not-null="false" hash="true"/>
+                <field name="Queue" type="Text" not-null="false" hash="true"/>
+                <field name="AllowDuplicates" type="Bool" value="False" not-null="false"/>
+                <field name="ForceChoice" type="Bool" value="False" not-null="true"/>
+                <field name="Crisis" type="Bool" value="False" not-null="true"/>
+                <field name="Cost" type="Integer" value="0" not-null="true"/>
+                <field name="CostYield" type="Text" not-null="false" hash="true"/>
+                <field name="ResourceReq" type="Text" not-null="false" hash="true"/>
+                <reference source="NarrativeStoryType" target="Type" to="Type"/>
+                <reference source="Activation" target="Type" to="NarrativeStory_Activation"/>
+                <reference source="UIActivation" target="Type" to="NarrativeStory_UIActivation"/>
+                <reference source="Queue" target="QueueType" targetRoleName="NarrativeStoriesRef" to="NarrativeStory_Queue"/>
+                <reference source="CostYield" target="YieldType" sourceRoleName="YieldRef" targetRoleName="NarrativeStoriesRef" to="Yield"/>
+                <property name="Rewards" path="NarrativeStoryRewardsRef"/>
+                <property name="Links" path="FromNarrativeStoryRef"/>
+                <property name="RewardIcons" path="NarrativeRewardIconRef"/>
+                <property name="Overrides" path="NarrativeStoryOverridesRef"/>
+                <property name="Variations" path="NarrativeVariationsRef"/>
+                <property name="TextReplacements" path="NarrativeTextReplacementsRef"/>
+        </definition>
+        <definition name="NarrativeTag" table-name="NarrativeTags" cpp="true">
+                <field name="NarrativeTagType" type="Text" key="true" not-null="true"/>
+        </definition>
+        <definition name="DiscoverySiftingImprovement" table-name="DiscoverySiftingImprovements" cpp="true">
+                <field name="QueueType" type="Text" key="true" not-null="true" hash="true"/>
+                <field name="ConstructibleType" type="Text" not-null="true" hash="true"/>
+                <field name="Activation" type="Text" not-null="true" hash="true"/>
+                <reference source="Activation" target="Type" to="DiscoveryStory_Activation"/>
+        </definition>
+        <definition name="DiscoveryStory_Activation" table-name="DiscoveryStory_Activations" cpp="false">
+                <field name="Type" type="Text" key="true" not-null="true"/>
+        </definition>
+        <definition name="NarrativeDisplay_Civilization" description="Civilization-specific information that is used for displaying storylets." table-name="NarrativeDisplay_Civilizations" cpp="false">
+                <field name="CivilizationType" type="Text" key="true" not-null="true"/>
+                <field name="CivilizationImage" type="Text" />
+                <reference source="CivilizationType" target="CivilizationType" to="Civilization"/>
+        </definition>
+</definitions>

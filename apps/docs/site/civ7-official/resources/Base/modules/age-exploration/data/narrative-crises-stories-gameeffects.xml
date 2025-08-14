@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+    <Modifier id="EC001B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_TRADITION_SLOTS" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="Negative">TRUE</Argument>
+    </Modifier>
+    <Modifier id="EC001B_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_NOUVEAU_RICHE</Argument>
+    </Modifier>
+    <Modifier id="EC001B_NARRATIVE_MODIFIER3" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_IMPOVERISHED_NOBILITY</Argument>
+    </Modifier>
+    <Modifier id="EC001B_NARRATIVE_MODIFIER4" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_TAX_FARMING</Argument>
+    </Modifier>
+    <Modifier id="EC001B_NARRATIVE_MODIFIER5" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_RELIGIOUS_EXEMPTIONS</Argument>
+    </Modifier>
+    <Modifier id="EC002B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_TRADITION_SLOTS" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="Negative">TRUE</Argument>
+    </Modifier>
+    <Modifier id="EC002B_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_OPPRESSIVE_TARIFFS</Argument>
+    </Modifier>
+    <Modifier id="EC002B_NARRATIVE_MODIFIER3" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_GENDARMERIE</Argument>
+    </Modifier>
+    <Modifier id="EC002B_NARRATIVE_MODIFIER4" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_STRICT_CENSORSHIP</Argument>
+    </Modifier>
+    <Modifier id="EC002B_NARRATIVE_MODIFIER5" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_WEAK_BUREAUCRACY</Argument>
+    </Modifier>
+    <Modifier id="EC004A_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_NOUVEAU_RICHE</Argument>
+        <Argument name="Lock">TRUE</Argument>
+    </Modifier>
+    <Modifier id="EC004A_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_IMPOVERISHED_NOBILITY</Argument>
+        <Argument name="Lock">TRUE</Argument>
+    </Modifier>
+    <Modifier id="EC004A_NARRATIVE_MODIFIER3" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_RELIGIOUS_EXEMPTIONS</Argument>
+        <Argument name="Lock">TRUE</Argument>
+    </Modifier>
+    <Modifier id="EC004A_NARRATIVE_MODIFIER4" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_TAX_FARMING</Argument>
+        <Argument name="Lock">TRUE</Argument>
+    </Modifier>
+    <Modifier id="EC004A_NARRATIVE_MODIFIER5" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_REVOLUTIONARY_TRIBUNAL</Argument>
+    </Modifier>
+    <Modifier id="EC004A_NARRATIVE_MODIFIER6" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_CONSCRIPTION_RIOTS</Argument>
+    </Modifier>
+    <Modifier id="EC004A_NARRATIVE_MODIFIER7" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_PURGED_OFFICER_CORP</Argument>
+    </Modifier>
+    <Modifier id="EC004A_NARRATIVE_MODIFIER8" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_GOLDEN_AGE" run-once="false" permanent="true">
+    </Modifier>
+    <Modifier id="EC003B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_SET_GOVERNMENT" run-once="false" permanent="true">
+        <Argument name="GovernmentType">GOVERNMENT_CONSTITUTIONAL_MONARCHY</Argument>
+    </Modifier>
+    <Modifier id="EC004B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_DAMAGE_CONSTRUCTIBLES" run-once="true" permanent="false">
+        <SubjectRequirements>
+            <Requirement type="REQUIREMENT_CITY_IS_CITY">
+            </Requirement>
+        </SubjectRequirements>
+        <Argument name="Amount">3</Argument>
+        <Argument name="DamageType">UNHAPPINESS</Argument>
+    </Modifier>
+    <Modifier id="EC004B_NARRATIVE_MODIFIER2" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD" run-once="false" permanent="false">
+        <SubjectRequirements>
+            <Requirement type="REQUIREMENT_CITY_IS_CITY">
+            </Requirement>
+        </SubjectRequirements>
+        <Argument name="Amount">-10</Argument>
+        <Argument name="YieldType">YIELD_HAPPINESS</Argument>
+    </Modifier>
+    <Modifier id="EC003C_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_SET_GOVERNMENT" run-once="false" permanent="true">
+        <Argument name="GovernmentType">GOVERNMENT_REVOLUTIONARY_REPUBLIC</Argument>
+    </Modifier>
+    <Modifier id="EC004C_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_DAMAGE_CONSTRUCTIBLES" run-once="true" permanent="false">
+        <SubjectRequirements>
+            <Requirement type="REQUIREMENT_CITY_IS_CITY" inverse="true">
+            </Requirement>
+        </SubjectRequirements>
+        <Argument name="Amount">3</Argument>
+        <Argument name="DamageType">UNHAPPINESS</Argument>
+    </Modifier>
+    <Modifier id="EC004C_NARRATIVE_MODIFIER2" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD" run-once="false" permanent="false">
+        <SubjectRequirements>
+            <Requirement type="REQUIREMENT_CITY_IS_CITY" inverse="true">
+            </Requirement>
+        </SubjectRequirements>
+        <Argument name="Amount">-10</Argument>
+        <Argument name="YieldType">YIELD_HAPPINESS</Argument>
+    </Modifier>
+    <Modifier id="EC003D_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_SET_GOVERNMENT" run-once="false" permanent="true">
+        <Argument name="GovernmentType">GOVERNMENT_REVOLUTIONARY_AUTHORITARIANISM</Argument>
+    </Modifier>
+    <Modifier id="EC004D_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_DAMAGE_CONSTRUCTIBLES" run-once="true" permanent="false">
+        <SubjectRequirements>
+            <Requirement type="REQUIREMENT_CITY_IS_DISTANT_LANDS">
+            </Requirement>
+        </SubjectRequirements>
+        <Argument name="Amount">3</Argument>
+        <Argument name="DamageType">UNHAPPINESS</Argument>
+    </Modifier>
+    <Modifier id="EC004D_NARRATIVE_MODIFIER2" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD" run-once="false" permanent="false">
+        <SubjectRequirements>
+            <Requirement type="REQUIREMENT_CITY_IS_DISTANT_LANDS">
+            </Requirement>
+        </SubjectRequirements>
+        <Argument name="Amount">-10</Argument>
+        <Argument name="YieldType">YIELD_HAPPINESS</Argument>
+    </Modifier>
+    <Modifier id="EPC001B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_TRADITION_SLOTS" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="Negative">TRUE</Argument>
+    </Modifier>
+    <Modifier id="EPC002B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_TRADITION_SLOTS" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="Negative">TRUE</Argument>
+    </Modifier>
+    <Modifier id="EPC003B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_TRADITION_SLOTS" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="Negative">TRUE</Argument>
+    </Modifier>
+    <Modifier id="EPC001C_NARRATIVE_MODIFIER3" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_TRADITION_SLOTS" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="Negative">TRUE</Argument>
+    </Modifier>
+    <Modifier id="EPC001B_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_DIVINE_PUNISHMENT</Argument>
+    </Modifier>
+    <Modifier id="EPC001C_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_DIVINE_MERCY</Argument>
+    </Modifier>
+    <Modifier id="EPC002B_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_HUMORALISM</Argument>
+    </Modifier>
+    <Modifier id="EPC002B_NARRATIVE_MODIFIER3" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_PLAGUE_CULTS</Argument>
+    </Modifier>
+    <Modifier id="EPC003B_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_LAZARETTOS</Argument>
+    </Modifier>
+    <Modifier id="EPC003B_NARRATIVE_MODIFIER3" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_CORDON_SANITAIRE</Argument>
+    </Modifier>
+    <Modifier id="EPC001B_NARRATIVE_MODIFIER3" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_VALID_UNIT_BUILD" run-once="false" permanent="true">
+        <Argument name="UnitType">UNIT_PHYSICIAN</Argument>
+    </Modifier>
+    <Modifier id="EPC001C_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_VALID_UNIT_BUILD" run-once="false" permanent="true">
+        <Argument name="UnitType">UNIT_PHYSICIAN</Argument>
+    </Modifier>
+    <Modifier id="EPC001D_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNHAPPINESS_EFFECT" run-once="false">
+        <SubjectRequirements>
+            <Requirement type="REQUIREMENT_CITY_IS_INFECTED">
+            </Requirement>
+        </SubjectRequirements>
+        <Argument name="UnhappinessEffect">PlagueUnrest</Argument>
+    </Modifier>
+    <Modifier id="EPC001A_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_ADD_EVENT_FREQUENCY_OVERRIDE" run-once="false" permanent="true">
+        <Argument name="RandomEventTypes">RANDOM_EVENT_PLAGUE_MAJOR</Argument>
+        <Argument name="RealismSettingTypes">REALISM_SETTING_LIGHT</Argument>
+        <Argument name="Frequency">120</Argument>
+    </Modifier>
+    <Modifier id="EPC001A_NARRATIVE_MODIFIER3" collection="COLLECTION_OWNER" effect="EFFECT_ADD_EVENT_FREQUENCY_OVERRIDE" run-once="false" permanent="true">
+        <Argument name="RandomEventTypes">RANDOM_EVENT_PLAGUE_MAJOR</Argument>
+        <Argument name="RealismSettingTypes">REALISM_SETTING_MODERATE</Argument>
+        <Argument name="Frequency">180</Argument>
+    </Modifier>
+    <Modifier id="EPC001A_NARRATIVE_MODIFIER4" collection="COLLECTION_OWNER" effect="EFFECT_ADD_EVENT_FREQUENCY_OVERRIDE" run-once="false" permanent="true">
+        <Argument name="RandomEventTypes">RANDOM_EVENT_PLAGUE_MAJOR</Argument>
+        <Argument name="RealismSettingTypes">REALISM_SETTING_HEAVY</Argument>
+        <Argument name="Frequency">240</Argument>
+    </Modifier>
+    <Modifier id="EPC002B_NARRATIVE_MODIFIER4" collection="COLLECTION_OWNER" effect="EFFECT_ADD_EVENT_FREQUENCY_OVERRIDE" run-once="false" permanent="true">
+        <Argument name="RandomEventTypes">RANDOM_EVENT_PLAGUE_MAJOR</Argument>
+        <Argument name="RealismSettingTypes">REALISM_SETTING_LIGHT</Argument>
+        <Argument name="Frequency">200</Argument>
+    </Modifier>
+    <Modifier id="EPC002B_NARRATIVE_MODIFIER5" collection="COLLECTION_OWNER" effect="EFFECT_ADD_EVENT_FREQUENCY_OVERRIDE" run-once="false" permanent="true">
+        <Argument name="RandomEventTypes">RANDOM_EVENT_PLAGUE_MAJOR</Argument>
+        <Argument name="RealismSettingTypes">REALISM_SETTING_MODERATE</Argument>
+        <Argument name="Frequency">300</Argument>
+    </Modifier>
+    <Modifier id="EPC002B_NARRATIVE_MODIFIER6" collection="COLLECTION_OWNER" effect="EFFECT_ADD_EVENT_FREQUENCY_OVERRIDE" run-once="false" permanent="true">
+        <Argument name="RandomEventTypes">RANDOM_EVENT_PLAGUE_MAJOR</Argument>
+        <Argument name="RealismSettingTypes">REALISM_SETTING_HEAVY</Argument>
+        <Argument name="Frequency">400</Argument>
+    </Modifier>
+    <Modifier id="EPC003B_NARRATIVE_MODIFIER4" collection="COLLECTION_OWNER" effect="EFFECT_ADD_EVENT_FREQUENCY_OVERRIDE" run-once="false" permanent="true">
+        <Argument name="RandomEventTypes">RANDOM_EVENT_PLAGUE_MAJOR</Argument>
+        <Argument name="RealismSettingTypes">REALISM_SETTING_LIGHT</Argument>
+        <Argument name="Frequency">400</Argument>
+    </Modifier>
+    <Modifier id="EPC003B_NARRATIVE_MODIFIER5" collection="COLLECTION_OWNER" effect="EFFECT_ADD_EVENT_FREQUENCY_OVERRIDE" run-once="false" permanent="true">
+        <Argument name="RandomEventTypes">RANDOM_EVENT_PLAGUE_MAJOR</Argument>
+        <Argument name="RealismSettingTypes">REALISM_SETTING_MODERATE</Argument>
+        <Argument name="Frequency">600</Argument>
+    </Modifier>
+    <Modifier id="EPC003B_NARRATIVE_MODIFIER6" collection="COLLECTION_OWNER" effect="EFFECT_ADD_EVENT_FREQUENCY_OVERRIDE" run-once="false" permanent="true">
+        <Argument name="RandomEventTypes">RANDOM_EVENT_PLAGUE_MAJOR</Argument>
+        <Argument name="RealismSettingTypes">REALISM_SETTING_HEAVY</Argument>
+        <Argument name="Frequency">800</Argument>
+    </Modifier>
+    <Modifier id="ERC001B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_RELIGIOUS_TOLERANCE</Argument>
+    </Modifier>
+    <Modifier id="ERC001C_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_RELIGIOUS_ZEAL</Argument>
+    </Modifier>
+    <Modifier id="ERC001C_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_TRADITION_SLOTS" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="Negative">TRUE</Argument>
+    </Modifier>
+    <Modifier id="ERC001B_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_TRADITION_SLOTS" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="Negative">TRUE</Argument>
+    </Modifier>
+    <Modifier id="ERC002B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_TRADITION_SLOTS" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="Negative">TRUE</Argument>
+    </Modifier>
+    <Modifier id="ERC003B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_TRADITION_SLOTS" run-once="false" permanent="true">
+        <Argument name="Amount">2</Argument>
+        <Argument name="Negative">TRUE</Argument>
+    </Modifier>
+    <Modifier id="ERC002B_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_RELIGIOUS_ESPIONAGE</Argument>
+    </Modifier>
+    <Modifier id="ERC002B_NARRATIVE_MODIFIER3" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_RELIGIOUS_MERCHANTS</Argument>
+    </Modifier>
+    <Modifier id="ERC003B_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_RELIGIOUS_MOVEMENT</Argument>
+    </Modifier>
+    <Modifier id="ERC003B_NARRATIVE_MODIFIER3" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_IUS_REFORMANDI</Argument>
+    </Modifier>
+    <Modifier id="ERC003B_NARRATIVE_MODIFIER4" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_UNLOCK_TRADITION" run-once="false" permanent="true">
+        <Argument name="Tradition">TRADITION_LITURGICAL_DISPUTES</Argument>
+    </Modifier>
+    <Modifier id="ERC002C_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNHAPPINESS_EFFECT" run-once="false">
+        <SubjectRequirements>
+            <Requirement type="REQUIREMENT_CITY_FOLLOWS_RELIGION" inverse="true">
+                <Argument name="hasReligion">false</Argument>
+            </Requirement>
+            <Requirement type="REQUIREMENT_CITY_IS_CAPITAL" inverse="true">
+            </Requirement>
+            <Requirement type="REQUIREMENT_CITY_HAPPINESS">
+            </Requirement>
+        </SubjectRequirements>
+        <Argument name="UnhappinessEffect">ReligiousRevolt</Argument>
+    </Modifier>
+    <Modifier id="ERC001D_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNHAPPINESS_EFFECT" run-once="false">
+        <SubjectRequirements>
+            <Requirement type="REQUIREMENT_CITY_FOLLOWS_RELIGION" inverse="true">
+                <Argument name="hasReligion">true</Argument>
+            </Requirement>
+            <Requirement type="REQUIREMENT_CITY_IS_CAPITAL" inverse="true">
+            </Requirement>
+            <Requirement type="REQUIREMENT_CITY_HAPPINESS">
+            </Requirement>
+        </SubjectRequirements>
+        <Argument name="UnhappinessEffect">CityRioting</Argument>
+    </Modifier>
+    <Modifier id="EC001A_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_NARRATIVE_TAG" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_CRISIS_REVOLUTION</Argument>
+    </Modifier>
+    <Modifier id="EPC001A_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_NARRATIVE_TAG" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_CRISIS_EXPLORATION_PLAGUE</Argument>
+    </Modifier>
+    <Modifier id="ERC001A_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_NARRATIVE_TAG" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_CRISIS_EXPLORATION_LOYALTY</Argument>
+    </Modifier>
+    <RequirementSet id="REQSET_EC001A_NARRATIVE">
+        <Requirement type="REQUIREMENT_AGE_CRISIS_STAGE_IS_X">
+            <Argument name="Amount">0</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_EC002A_NARRATIVE">
+        <Requirement type="REQUIREMENT_AGE_CRISIS_STAGE_IS_X">
+            <Argument name="Amount">1</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_EC003A_NARRATIVE">
+        <Requirement type="REQUIREMENT_AGE_CRISIS_STAGE_IS_X">
+            <Argument name="Amount">2</Argument>
+        </Requirement>
+        <Requirement type="REQUIREMENT_PLAYER_IS_IN_GOLDEN_AGE" inverse="true">
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_EC005A_NARRATIVE">
+        <Requirement type="REQUIREMENT_AGE_CRISIS_STAGE_IS_X">
+            <Argument name="Amount">3</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_EPC001A_NARRATIVE">
+        <Requirement type="REQUIREMENT_AGE_CRISIS_STAGE_IS_X">
+            <Argument name="Amount">0</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_EPC002A_NARRATIVE">
+        <Requirement type="REQUIREMENT_AGE_CRISIS_STAGE_IS_X">
+            <Argument name="Amount">1</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_EPC003A_NARRATIVE">
+        <Requirement type="REQUIREMENT_AGE_CRISIS_STAGE_IS_X">
+            <Argument name="Amount">2</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_EPC004A_NARRATIVE">
+        <Requirement type="REQUIREMENT_AGE_CRISIS_STAGE_IS_X">
+            <Argument name="Amount">3</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_ERC001A_NARRATIVE">
+        <Requirement type="REQUIREMENT_AGE_CRISIS_STAGE_IS_X">
+            <Argument name="Amount">0</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_ERC002A_NARRATIVE">
+        <Requirement type="REQUIREMENT_AGE_CRISIS_STAGE_IS_X">
+            <Argument name="Amount">1</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_ERC003A_NARRATIVE">
+        <Requirement type="REQUIREMENT_AGE_CRISIS_STAGE_IS_X">
+            <Argument name="Amount">2</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_ERC004A_NARRATIVE">
+        <Requirement type="REQUIREMENT_AGE_CRISIS_STAGE_IS_X">
+            <Argument name="Amount">3</Argument>
+        </Requirement>
+    </RequirementSet>
+</GameEffects>

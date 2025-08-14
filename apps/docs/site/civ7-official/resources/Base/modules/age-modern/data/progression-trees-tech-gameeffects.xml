@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- Tech Standard Modifiers -->
+	<Modifier id="MOD_TECH_MO_EMBARKATION" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_TRADE_UNITS_SAFE_DEEP_WATER">
+		<Argument name="Safe">TRUE</Argument>
+		<String context="Description">LOC_MOD_TECH_MO_EMBARKATION_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MO_SETTLEMENT_CAP_INCREASE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_SETTLEMENT_CAP" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_MO_SETTLEMENT_CAP_INCREASE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MO_SPECIALIST_CAP_INCREASE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_WORKER_CAP" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_MO_SPECIALIST_CAP_INCREASE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MO_TECH_CAVALRY_STRENGTH" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_CAVALRY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_MO_TECH_CAVALRY</Argument>
+		<String context="Description">LOC_MOD_MO_TECH_CAVALRY_STRENGTH_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MO_TECH_INFANTRY_STRENGTH" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_INFANTRY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_MO_TECH_INFANTRY</Argument>
+		<String context="Description">LOC_MOD_MO_TECH_INFANTRY_STRENGTH_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MO_TECH_INTERCEPT_RANGE" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_SQUADRON_COMMANDER, UNIT_CLASS_AERODROME_COMMANDER</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_MO_TECH_INTERCEPT_RANGE</Argument>
+		<String context="Description">LOC_MOD_MO_TECH_INTERCEPT_RANGE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MO_TECH_NAVAL_STRENGTH" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_NAVAL</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_MO_TECH_NAVAL</Argument>
+		<String context="Description">LOC_MOD_MO_TECH_NAVAL_STRENGTH_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MO_TECH_RANGED_STRENGTH" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_RANGED</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_MO_TECH_RANGED</Argument>
+		<String context="Description">LOC_MOD_MO_TECH_RANGED_STRENGTH_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MO_TECH_SIEGE_STRENGTH" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_SIEGE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_MO_TECH_SIEGE</Argument>
+	</Modifier>
+	<Modifier id="MOD_MO_TECH_AIRCRAFT_STRENGTH" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_AIRCRAFT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_AERODYNAMICS_AIRCRAFT</Argument>
+		<String context="Description">LOC_MOD_MO_TECH_AIRCRAFT_STRENGTH_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_FUTURE_TECH_ATTRIBUTE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_FUTURE_TECH_ATTRIBUTE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_FUTURE_TECH_AGE_PROGRESS" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_AGE_PROGRESS" permanent="true" run-once="true">
+		<Argument name="Amount">10</Argument>
+		<Argument name="eventType">AGE_PROGRESSION_FUTURE_TECH</Argument>
+		<Argument name="HumanOnly">true</Argument>
+		<String context="Description">LOC_MOD_MO_FUTURE_TECH_AGE_PROGRESS_DESCRIPTION</String>
+	</Modifier>
+	<!-- Tech Mastery Modifiers -->
+	<Modifier id="MOD_MO_TECH_CULTURE_BUILDING" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Tag">CULTURE</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_MO_TECH_CULTURE_BUILDING_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MO_TECH_FOOD_BUILDING" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Tag">FOOD</Argument>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_MO_TECH_FOOD_BUILDING_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MO_TECH_GOLD_BUILDING" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Tag">GOLD</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_MO_TECH_GOLD_BUILDING_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MO_TECH_HAPPINESS_BUILDING" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Tag">HAPPINESS</Argument>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_MO_TECH_HAPPINESS_BUILDING_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MO_TECH_MILITARY_BUILDING" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Tag">MILITARY</Argument>
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Description">LOC_MOD_MO_TECH_MILITARY_BUILDING_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MO_TECH_PRODUCTION_BUILDING" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Tag">PRODUCTION</Argument>
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_MO_TECH_PRODUCTION_BUILDING_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MO_TECH_SCIENCE_BUILDING" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Tag">SCIENCE</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MOD_MO_TECH_SCIENCE_BUILDING_DESCRIPTION</String>
+	</Modifier>
+	<!-- Tech Improvement Modifiers -->
+	<Modifier id="MOD_TECH_MO_MINE_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MOMineResourceProduction</Argument>
+		<String context="Description">LOC_MOD_TECH_MO_MINE_PRODUCTION_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_TECH_MO_OIL_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MOOilResourceProduction</Argument>
+		<String context="Description">LOC_MOD_TECH_MO_OIL_PRODUCTION_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_TECH_MO_QUARRY_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MOQuarryProduction</Argument>
+		<String context="Description">LOC_MOD_TECH_MO_QUARRY_PRODUCTION_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_TECH_MO_ROUGH_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MORoughTerrainProduction</Argument>
+	</Modifier>
+	<Modifier id="MOD_TECH_MO_WET_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MOWetFeatureProduction</Argument>
+	</Modifier>
+	<Modifier id="MOD_TECH_MO_FISHING_BOAT_RESOURCE_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MOFishingBoatResourceFood</Argument>
+		<String context="Description">LOC_MOD_TECH_MO_FISHING_BOAT_RESOURCE_FOOD_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_TECH_MO_REEF_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MOReefFeatureFood</Argument>
+	</Modifier>
+	<Modifier id="MOD_TECH_MO_COLD_REEF_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MOColdReefFeatureFood</Argument>
+	</Modifier>
+	<Modifier id="MOD_TECH_MO_COAST_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MOCoastTerrainFood</Argument>
+	</Modifier>
+	<Modifier id="MOD_TECH_MO_NAVIGABLE_RIVER_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MONavigableRiverFood</Argument>
+	</Modifier>
+	<Modifier id="MOD_TECH_MO_PASTURE_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MOPastureFood</Argument>
+	</Modifier>
+	<Modifier id="MOD_TECH_MO_PLANTATION_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MOPlantationFood</Argument>
+		<String context="Description">LOC_MOD_TECH_MO_PLANTATION_FOOD_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_TECH_MO_DESERT_FLOODPLAIN_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MODesertFloodplainFood</Argument>
+	</Modifier>
+	<Modifier id="MOD_TECH_MO_GRASSLAND_FLOODPLAIN_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MOGrasslandFloodplainFood</Argument>
+	</Modifier>
+	<Modifier id="MOD_TECH_MO_PLAINS_FLOODPLAIN_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MOPlainsFloodplainFood</Argument>
+	</Modifier>
+	<Modifier id="MOD_TECH_MO_TROPICAL_FLOODPLAIN_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MOTropicalFloodplainFood</Argument>
+	</Modifier>
+	<Modifier id="MOD_TECH_MO_TUNDRA_FLOODPLAIN_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MOTundraFloodplainFood</Argument>
+	</Modifier>
+	<Modifier id="MOD_TECH_MO_FLAT_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MOFlatTerrainFood</Argument>
+	</Modifier>
+	<Modifier id="MOD_TECH_MO_CAMP_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MOCampProduction</Argument>
+		<String context="Description">LOC_MOD_TECH_MO_CAMP_PRODUCTION_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_TECH_MO_WOODCUTTER_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MOWoodcutterResourceProduction</Argument>
+	</Modifier>
+	<Modifier id="MOD_TECH_MO_VEGETATED_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">MOVegetatedFeatureProduction</Argument>
+	</Modifier>
+</GameEffects>

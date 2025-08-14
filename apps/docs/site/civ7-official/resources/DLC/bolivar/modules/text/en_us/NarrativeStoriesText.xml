@@ -1,0 +1,587 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <EnglishText>
+        <Row Tag="LOC_10030A_STORYTITLE">
+            <Text>Knowledge with Purpose</Text>
+        </Row>
+        <Row Tag="LOC_10030A_COMPLETION">
+            <Text>Bolívar has seen the care with which the library's keepers handles the collected wisdom of these times, yet still he wishes to ensure that it does not waste away in cold cellars.</Text>
+        </Row>
+        <Row Tag="LOC_10030B_NAME">
+            <Text>Share it with the officers.</Text>
+        </Row>
+        <Row Tag="LOC_10030B_DESCRIPTION">
+            <Text>{1_reward} on Military Buildings.</Text>
+        </Row>
+        <Row Tag="LOC_10030C_NAME">
+            <Text>Share it with the soldiers.</Text>
+        </Row>
+        <Row Tag="LOC_10030C_DESCRIPTION">
+            <Text>{1_reward} on Military Buildings.</Text>
+        </Row>
+        <Row Tag="LOC_10031A_STORYTITLE">
+            <Text>Someone to Look Up To</Text>
+        </Row>
+        <Row Tag="LOC_10031A_COMPLETION">
+            <Text>Surrounded by throngs of adoring subjects, Bolívar cannot help being swept up in the moment. A crown newly gracing his head, the sight of Emperor Napoleon is seared into Bolívar's memory.</Text>
+        </Row>
+        <Row Tag="LOC_10031B_NAME">
+            <Text>He is an exemplary statesman.</Text>
+        </Row>
+        <Row Tag="LOC_10031B_DESCRIPTION">
+            <Text>{1_reward} in {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_10031C_NAME">
+            <Text>His military cunning knows no equal.</Text>
+        </Row>
+        <Row Tag="LOC_10031C_DESCRIPTION">
+            <Text>{1_reward} in {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_10032A_STORYTITLE">
+            <Text>Someone to Look Down To</Text>
+        </Row>
+        <Row Tag="LOC_10032A_COMPLETION">
+            <Text>This is not the same resplendent emperor Bolívar saw on that fateful coronation day. Was it all just a show?</Text>
+        </Row>
+        <Row Tag="LOC_10032B_NAME">
+            <Text>Show mercy to Napoleon's people.</Text>
+        </Row>
+        <Row Tag="LOC_10032B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10032C_NAME">
+            <Text>Press on.</Text>
+        </Row>
+        <Row Tag="LOC_10032C_DESCRIPTION">
+            <Text>+1 War Support on all wars.</Text>
+        </Row>
+        <Row Tag="LOC_10033A_STORYTITLE">
+            <Text>Through the Ranks</Text>
+        </Row>
+        <Row Tag="LOC_10033A_COMPLETION">
+            <Text>One by one, Bolívar's commanders don decorations in acknowledgement of their bravery, their dedication to the cause of freedom.</Text>
+        </Row>
+        <Row Tag="LOC_10033B_NAME">
+            <Text>It is an inspiration to other soldiers.</Text>
+        </Row>
+        <Row Tag="LOC_10033B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10033C_NAME">
+            <Text>It is an inspiration to all.</Text>
+        </Row>
+        <Row Tag="LOC_10033C_DESCRIPTION">
+            <Text>{1_reward} and {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1220A_STORYTITLE">
+            <Text>These Lands</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1220A_COMPLETION">
+            <Text>Simón Bolívar stands among the fields that blanket his lands and feed his people, the grain shimmering from a recent rainfall.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1220B_STORYTITLE">
+            <Text>These Lands</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1220B_NAME">
+            <Text>These lands are just the beginning.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1220B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1220B_COMPLETION">
+            <Text>With Bolívar's encouragement, his people seek out new lands to settle and work. In time, lifegiving rains will grace them as well.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1220B_IMPERATIVE">
+            <Text>Found 2 more Settlements.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1220C_STORYTITLE">
+            <Text>These Lands</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1220C_NAME">
+            <Text>They need to be protected.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1220C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1220C_COMPLETION">
+            <Text>Bolívar walks the length of the ramparts, granting him a new perspective on his empire. His lands still stretch as far as he can see, but now their heart is defended.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1220C_IMPERATIVE">
+            <Text>Build 4 more Ancient Walls</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1220D_NAME">
+            <Text>They are enough.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1220D_DESCRIPTION">
+            <Text>{1_reward} in {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1221A_STORYTITLE">
+            <Text>A People</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1221A_COMPLETION">
+            <Text>Bolívar's merchants meet their neighbors at the bargaining table, looking for a deal that will line their pockets with gold.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1221B_STORYTITLE">
+            <Text>A People</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1221B_NAME">
+            <Text>Remember the farmer, the miner, the stablehand.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1221B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1221B_COMPLETION">
+            <Text>Bolívar's empire is not a place, but a people — the merchant, the soldier, the laborer alike.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1221B_IMPERATIVE">
+            <Text>Have a Settlement with 10 Rural Population.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1221C_NAME">
+            <Text>Good for them.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1221C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1222A_STORYTITLE">
+            <Text>Ready for Anything</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1222A_COMPLETION">
+            <Text>The dust of battle clears, settling on the defeated and the victors both. Bolívar's soldiers stow their weapons, and wait for his command to draw them again.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1222B_STORYTITLE">
+            <Text>Ready for Anything</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1222B_NAME">
+            <Text>On to the next fight.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1222B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1222B_COMPLETION">
+            <Text>Bolívar calls for an end to the bloodshed, with {1_STORY_CITY} under the firm control of his lieutenants. He can send no clearer message to his enemies.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1222B_IMPERATIVE">
+            <Text>Capture a Settlement.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1222C_NAME">
+            <Text>Enough blood has spilled.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1222C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10034A_STORYTITLE">
+            <Text>A Question of Freedom</Text>
+        </Row>
+        <Row Tag="LOC_10034A_COMPLETION">
+            <Text>Bolívar acknowledges {1_Independent} and sees a free, independent people. But whose freedom is more important?</Text>
+        </Row>
+        <Row Tag="LOC_10034B_NAME">
+            <Text>Spain's, to conquer.</Text>
+        </Row>
+        <Row Tag="LOC_10034B_DESCRIPTION">
+            <Text>{1_reward} on Infantry, but {2_reward} in {3_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_10034C_NAME">
+            <Text>{1_Independent}'s, to resist.</Text>
+        </Row>
+        <Row Tag="LOC_10034C_DESCRIPTION">
+            <Text>{1_reward} and {2_reward} in all Settlements.</Text>
+        </Row>
+        <Row Tag="LOC_10035A_STORYTITLE">
+            <Text>Autonomy</Text>
+        </Row>
+        <Row Tag="LOC_10035A_COMPLETION">
+            <Text>Bolívar acknowledges {1_Independent} and sees a free, independent people. First impressions are paramount.</Text>
+        </Row>
+        <Row Tag="LOC_10035B_NAME">
+            <Text>Welcome immigrants.</Text>
+        </Row>
+        <Row Tag="LOC_10035B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10035C_NAME">
+            <Text>Treat with leaders.</Text>
+        </Row>
+        <Row Tag="LOC_10035C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10036A_STORYTITLE">
+            <Text>Sworn Enemies</Text>
+        </Row>
+        <Row Tag="LOC_10036A_COMPLETION">
+            <Text>After a hard and bloody battle, Bolívar's troops retake {1_STORY_CITY}, {2_civilization_adj} citizens cheering as the Spanish conquerors are taken prisoner. It is a good day.</Text>
+        </Row>
+        <Row Tag="LOC_10036B_NAME">
+            <Text>Reward the accomplishment.</Text>
+        </Row>
+        <Row Tag="LOC_10036B_DESCRIPTION">
+            <Text>Free Promotion on highest Level Commander.</Text>
+        </Row>
+        <Row Tag="LOC_10036C_NAME">
+            <Text>Stay ready for anything.</Text>
+        </Row>
+        <Row Tag="LOC_10036C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10037A_STORYTITLE">
+            <Text>Desperate Times</Text>
+        </Row>
+        <Row Tag="LOC_10037A_COMPLETION">
+            <Text>Bolívar is forced to flee to {1_capital}, the fate of his country hanging in the balance. In the face of death, he searches for the correct response.</Text>
+        </Row>
+        <Row Tag="LOC_10037B_NAME">
+            <Text>Fight desperately.</Text>
+        </Row>
+        <Row Tag="LOC_10037B_DESCRIPTION">
+            <Text>{1_reward} but {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10037C_NAME">
+            <Text>Rally around bold ideas.</Text>
+        </Row>
+        <Row Tag="LOC_10037C_DESCRIPTION">
+            <Text>+1 War Support on all wars but 1 Tile is Pillaged in {1_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_10038A_STORYTITLE">
+            <Text>Return to Form</Text>
+        </Row>
+        <Row Tag="LOC_10038A_COMPLETION">
+            <Text>Bolívar nods to the crowds as he makes his triumphant return to {1_capital}. They are once again — no, they have always been — {2_civilization_adj} people.</Text>
+        </Row>
+        <Row Tag="LOC_10038B_NAME">
+            <Text>This is cause for celebration.</Text>
+        </Row>
+        <Row Tag="LOC_10038B_DESCRIPTION">
+            <Text>Enter a Celebration.</Text>
+        </Row>
+        <Row Tag="LOC_10038C_NAME">
+            <Text>May this never happen again.</Text>
+        </Row>
+        <Row Tag="LOC_10038C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1223A_STORYTITLE">
+            <Text>It Never Ends</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1223A_COMPLETION">
+            <Text>A thousand times a day, Bolívar's aides come to him for guidance and instruction, be it on the mundane administration of his empire, or threats that come from afar.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1223B_NAME">
+            <Text>A flourishing empire cannot be threatened.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1223B_DESCRIPTION">
+            <Text>Story continues.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1223C_NAME">
+            <Text>One must be prepared for the worst.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1223C_DESCRIPTION">
+            <Text>Story continues.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1224A_STORYTITLE">
+            <Text>If Needs Be</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1224A_COMPLETION">
+            <Text>Bolívar watches idly as an admiral brandishes delicate instruments, explaining how they enable one to navigate the perilous oceans. Bolívar has always put the needs of his people first — of what use to them are lands that are half the world away?</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1224B_STORYTITLE">
+            <Text>If Needs Be</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1224B_NAME">
+            <Text>There is only one way to find out.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1224B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1224B_COMPLETION">
+            <Text>Unfamiliar as these new lands may be, {1_STORY_CITY} already blossoms with potential. Perhaps there are kindred spirits among the locals.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1224B_IMPERATIVE">
+            <Text>Have a Settlement in Distant Lands.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1224C_NAME">
+            <Text>None.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1224C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1225A_STORYTITLE">
+            <Text>Visitors</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1225A_COMPLETION">
+            <Text>Bolívar paces as his advisors bicker with one another. The meeting with the newly met leader was not a disaster, but some question the motives of those from across the vast oceans.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1225B_STORYTITLE">
+            <Text>Visitors</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1225B_NAME">
+            <Text>Let them be friends before they become enemies.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1225B_DESCRIPTION">
+            <Text>{1_reward} on Gold Buildings.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1225B_COMPLETION">
+            <Text>Ink dries on the contract as Bolívar grasps his counterpart's hand in assent. To know that one does not stand alone in this world is too great to ignore.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1225B_IMPERATIVE">
+            <Text>Form an Alliance with a Civilization in Distant Lands.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1226A_STORYTITLE">
+            <Text>A Sheaf of Arrows</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1226A_COMPLETION">
+            <Text>Visiting a barracks, Bolívar watches as veteran soldiers warn new recruits that obedience is the difference between life and death.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1226B_STORYTITLE">
+            <Text>A Sheaf of Arrows</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1226B_NAME">
+            <Text>Obedience must be earned.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1226B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1226B_COMPLETION">
+            <Text>Once like arrows without a target, Bolívar's soldiers now take their purpose from their commander.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1226B_IMPERATIVE">
+            <Text>Have a Commander with 8 Promotions.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1226C_NAME">
+            <Text>Soldiers should learn to think for themselves.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1226C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1227A_STORYTITLE">
+            <Text>Taking a Stand</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1227A_COMPLETION">
+            <Text>War has come to Simón Bolívar, but it was not unforeseen. He and his people stand as one against subjugation.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1227B_STORYTITLE">
+            <Text>Taking a Stand</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1227B_NAME">
+            <Text>Strike at the enemy's head.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1227B_DESCRIPTION">
+            <Text>Enter a Celebration.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1227B_COMPLETION">
+            <Text>Bolívar's troops force the enemy to retreat, a welcome augur of victory. The war is not yet over, but the end may come sooner now.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1227B_IMPERATIVE">
+            <Text>Defeat an Army Commander in Distant Lands.</Text>
+        </Row>
+        <Row Tag="LOC_10039A_STORYTITLE">
+            <Text>Denied</Text>
+        </Row>
+        <Row Tag="LOC_10039A_COMPLETION">
+            <Text>Bolívar strives to remain composed in the face of rejection — such insults reflect on him as well as on his people.</Text>
+        </Row>
+        <Row Tag="LOC_10039B_NAME">
+            <Text>It will not be forgotten.</Text>
+        </Row>
+        <Row Tag="LOC_10039B_DESCRIPTION">
+            <Text>+1 War Support on all wars.</Text>
+        </Row>
+        <Row Tag="LOC_10039C_NAME">
+            <Text>It is already forgotten.</Text>
+        </Row>
+        <Row Tag="LOC_10039C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10040A_STORYTITLE">
+            <Text>A Dilemma</Text>
+        </Row>
+        <Row Tag="LOC_10040A_COMPLETION">
+            <Text>Leadership always came naturally to Bolívar. He finds himself reluctant to trust in others he sees as unequipped for the challenges he faces.</Text>
+        </Row>
+        <Row Tag="LOC_10040B_NAME">
+            <Text>There is a reason we have elites.</Text>
+        </Row>
+        <Row Tag="LOC_10040B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10040C_NAME">
+            <Text>Trust paid is trust rewarded.</Text>
+        </Row>
+        <Row Tag="LOC_10040C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10042A_STORYTITLE">
+            <Text>To Arms</Text>
+        </Row>
+        <Row Tag="LOC_10042A_COMPLETION">
+            <Text>Try as he might, Simón Bolívar cannot put down his sword. Perhaps he only believes in freedom so long as he is the one to grant it.</Text>
+        </Row>
+        <Row Tag="LOC_10042B_NAME">
+            <Text>The people will have to make sacrifices.</Text>
+        </Row>
+        <Row Tag="LOC_10042B_DESCRIPTION">
+            <Text>{1_reward} on all Units but 1 Tile is Pillaged in all Settlements.</Text>
+        </Row>
+        <Row Tag="LOC_10042C_NAME">
+            <Text>The troops will have to make sacrifices.</Text>
+        </Row>
+        <Row Tag="LOC_10042C_DESCRIPTION">
+            <Text>+3 War Support on all wars but 50 Damage to all Units.</Text>
+        </Row>
+        <Row Tag="LOC_10043A_STORYTITLE">
+            <Text>A Firm Handshake</Text>
+        </Row>
+        <Row Tag="LOC_10043A_COMPLETION">
+            <Text>It is such a simple thing, and yet for so long had eluded Bolívar — two nations engaged in productive relations, for the betterment of their own people and each other's.</Text>
+        </Row>
+        <Row Tag="LOC_10043B_NAME">
+            <Text>Welcome the free exchange of ideas and capital.</Text>
+        </Row>
+        <Row Tag="LOC_10043B_DESCRIPTION">
+            <Text>{1_reward} but {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10043C_NAME">
+            <Text>Stay vigilant.</Text>
+        </Row>
+        <Row Tag="LOC_10043C_DESCRIPTION">
+            <Text>{1_reward} but {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10046A_STORYTITLE">
+            <Text>United</Text>
+        </Row>
+        <Row Tag="LOC_10046A_COMPLETION">
+            <Text>Bolívar knows too well the desperation of fighting on one's own. So when a call for aid comes, he does not hesitate to answer.</Text>
+        </Row>
+        <Row Tag="LOC_10046B_NAME">
+            <Text>Tell the world Bolívar is coming.</Text>
+        </Row>
+        <Row Tag="LOC_10046B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10046C_NAME">
+            <Text>Enlist reinforcements.</Text>
+        </Row>
+        <Row Tag="LOC_10046C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10047A_STORYTITLE">
+            <Text>Charismatic Leader</Text>
+        </Row>
+        <Row Tag="LOC_10047A_COMPLETION">
+            <Text>Bolívar's popularity with other leaders extends to their people — perhaps it is his way with words, perhaps his sheer force of personality.</Text>
+        </Row>
+        <Row Tag="LOC_10047B_NAME">
+            <Text>They wish to see his lands for themselves.</Text>
+        </Row>
+        <Row Tag="LOC_10047B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10047C_NAME">
+            <Text>They dedicate their lives to his cause.</Text>
+        </Row>
+        <Row Tag="LOC_10047C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10048A_STORYTITLE">
+            <Text>A Welcome Sight</Text>
+        </Row>
+        <Row Tag="LOC_10048A_COMPLETION">
+            <Text>The people of {1_STORY_CITY} cheer Simón Bolívar as the hero passes through its once war-torn streets. To gain the admiration of your enemy's people is a nigh impossible feat — unless you are el Libertador.</Text>
+        </Row>
+        <Row Tag="LOC_10048B_NAME">
+            <Text>The merchants dream of greater prosperity.</Text>
+        </Row>
+        <Row Tag="LOC_10048B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10048C_NAME">
+            <Text>The artisans plan their most ambitious projects.</Text>
+        </Row>
+        <Row Tag="LOC_10048C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10049A_STORYTITLE">
+            <Text>Viva la Revolución</Text>
+        </Row>
+        <Row Tag="LOC_10049A_COMPLETION">
+            <Text>Prosperity flows into Mexico on rivers of gold, a testament to the endurance and will of his people — and Simón Bolívar's wildest dreams brought to life.</Text>
+        </Row>
+        <Row Tag="LOC_10049B_NAME">
+            <Text>This is only the beginning.</Text>
+        </Row>
+        <Row Tag="LOC_10049B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10049C_NAME">
+            <Text>The world is not ready.</Text>
+        </Row>
+        <Row Tag="LOC_10049C_DESCRIPTION">
+            <Text>{1_reward} and {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1228A_STORYTITLE">
+            <Text>An Open Door</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1228A_COMPLETION">
+            <Text>Bolívar notices that the streets of {1_CAPITAL} have never been livelier. There is an opportunity here.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1228B_STORYTITLE">
+            <Text>An Open Door</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1228B_NAME">
+            <Text>The promise of modernity belongs to all.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1228B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1228B_COMPLETION">
+            <Text>A great energy, unmistakably {1_CIVILIZATION_ADJ}, courses along tracks that span Bolívar's empire. His people have never been more united.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1228B_IMPERATIVE">
+            <Text>Have 5 Rail Stations.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1228C_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1228C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1228D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1228D_DESCRIPTION">
+            <Text>{1_reward} and enter a Celebration.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1229A_STORYTITLE">
+            <Text>Unwavering Resolve</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1229A_COMPLETION">
+            <Text>From his earliest days, Bolívar has striven to stand behind his beliefs. Now, he asks his people to stand with him.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1229B_STORYTITLE">
+            <Text>Unwavering Resolve</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1229B_NAME">
+            <Text>Who stands against him falls.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1229B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1229B_COMPLETION">
+            <Text>One after another, his enemies fall. Let others say what they will, but Simón Bolívar lives up to his convictions.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1229B_IMPERATIVE">
+            <Text>Capture 2 Settlements.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1229C_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1229C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1229D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1229D_DESCRIPTION">
+            <Text>{1_reward} and enter a Celebration.</Text>
+        </Row>
+    </EnglishText>
+</Database>

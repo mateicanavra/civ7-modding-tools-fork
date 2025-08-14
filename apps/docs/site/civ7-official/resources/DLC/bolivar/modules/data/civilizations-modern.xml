@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LeaderCivPriorities>
+		<Row Leader="LEADER_BOLIVAR" Civilization="CIVILIZATION_MEXICO" Priority="3"/>
+		<Row Leader="LEADER_BOLIVAR" Civilization="CIVILIZATION_FRENCH_EMPIRE" Priority="1"/>
+	</LeaderCivPriorities>
+</Database>

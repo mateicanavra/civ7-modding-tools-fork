@@ -1,0 +1,31 @@
+<div class="h-full max-h-174 max-w-192 py-8 flow-column items-center justify-center">
+	<fxs-modal-frame class="mp-game-rules-frame shrink flow-column w-full px-20" data-modal-style="generic">
+		<div class="flex items-center justify-center h-16 absolute left-4 -right-36 -top-8 pb-1">
+			<div class="grow img-top-filigree-left"></div>
+			<div class="img-top-filigree-center"></div>
+			<div class="grow img-top-filigree-right"></div>
+		</div>
+		<div class="flow-column items-center flex-auto">
+			<div class="rules-container mb-8 flow-column justify-center items-center">
+				<fxs-header title="LOC_UI_MP_GAME_RULES_TITLE" class="mb-6 uppercase"></fxs-header>
+				<div class="mp-game-rules__host"></div>
+				<div class="mp-game-rules__rules max-w-192 flow-row-wrap"></div>
+			</div>
+			<div class="mods-container flex-auto flow-column">
+				<div class="mb-2">
+					<div class="font-title-base text-center text-gradient-secondary -mb-3 uppercase"
+						 data-l10n-id="LOC_UI_MP_EXTRA_CONTENT"></div>
+					<div class="flow-row justify-center">
+						<div class="img-unit-panel-divider -scale-y-100"></div>
+						<div class="img-unit-panel-divider -scale-100"></div>
+					</div>
+				</div>
+				<fxs-scrollable class="flex-auto mp-game-rules__mods-scrollable" handle-gamepad-pan="true"
+								tabindex="-1">
+					<div class="mp-game-rules__mods flow-column items-center px-4"></div>
+				</fxs-scrollable>
+			</div>
+		</div>
+		<fxs-close-button class="-right-38 top-2"></fxs-close-button>
+	</fxs-modal-frame>
+</div>

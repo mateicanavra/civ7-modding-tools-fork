@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--BUILDING PLACEMENT MODE-->
+		<Row Tag="LOC_BUILDING_PLACEMENT_REMOVE_IMPOVEMENT">
+			<Text>Remove Improvement?</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PLACEMENT_REMOVE_IMPOVEMENT_BODY">
+			<Text>Selecting this tile will remove the existing {1_CurrentImprovementName} to make way for the {2_WonderName}. Continue?[n][b]The Rural Population is refunded[/b] and can immediately be placed on another tile.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PLACEMENT_REMOVE_GENERIC_IMPOVEMENT_BODY">
+			<Text>Selecting this tile will remove the existing Improvement to make way for the {1_WonderName}. Continue?[n][b]The Rural Population is refunded[/b] and can immediately be placed on another tile.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PLACEMENT_CREATE_URBAN_TILE">
+			<Text>Create Urban District?</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PLACEMENT_CREATE_URBAN_TILE_REMOVE_IMPROVEMENT">
+			<Text>You must convert to an Urban District to build a [b]{2_Name}[/b]. Selecting this tile will remove the existing [b]{1_CurrentImprovementName}[/b] to convert it to an Urban District.[n][b]The Rural Population is refunded[/b] and can immediately be placed on another tile.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PLACEMENT_CREATE_URBAN_TILE_BODY">
+			<Text>Selecting this tile will convert it to an Urban District. You must convert to an Urban District to build a {1_Name}. Continue?</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PLACEMENT_REPLACE_BUILDING">
+			<Text>Replace Previous Age Building?</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PLACEMENT_REPLACE_BUILDING_BODY_ADD_SPECIALIST">
+			<Text>The workers from the {1_CurrentBuildingName} will become Specialists when you add the new {2_Name} to this tile. Specialists contribute the yield of their previous Building to the City. Continue?</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PLACEMENT_REPLACE_BUILDING_BODY">
+			<Text>You will replace an existing Building when you add the new {2_Name} to this tile. Continue?</Text>
+		</Row>
+	</EnglishText>
+</Database>

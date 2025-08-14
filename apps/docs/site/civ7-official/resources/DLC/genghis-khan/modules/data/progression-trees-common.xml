@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_TREE_NODE"/>
+	</Kinds>
+	<Types>
+		<!-- Nodes -->
+		<!-- ==============================================================	-->
+		<!--	Legend Unlocks												-->
+		<!-- ==============================================================	-->
+		<Row Type="NODE_ATTRIBUTE_EXPANSIONIST_LEGEND_GENGHIS_KHAN_L1" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_ATTRIBUTE_MILITARISTIC_LEGEND_GENGHIS_KHAN_L2" Kind="KIND_TREE_NODE"/>
+	</Types>
+	<ProgressionTreeNodes>
+
+		<!-- ==============================================================	-->
+		<!--	Legend Unlocks												-->
+		<!-- ==============================================================	-->
+		<!-- Cultural Attribute -->
+
+		<!-- Diplomatic Attribute -->
+
+		<!-- Economic Attribute -->
+
+		<!-- Expansionist Attribute -->
+		<Row ProgressionTreeNodeType="NODE_ATTRIBUTE_EXPANSIONIST_LEGEND_GENGHIS_KHAN_L1" ProgressionTree="TREE_ATTRIBUTE_EXPANSIONIST" Cost="1"/>
+		<!-- Militaristic Attribute -->
+		<Row ProgressionTreeNodeType="NODE_ATTRIBUTE_MILITARISTIC_LEGEND_GENGHIS_KHAN_L2" ProgressionTree="TREE_ATTRIBUTE_MILITARISTIC" Cost="1"/>
+		<!-- Scientific Attribute -->
+
+	</ProgressionTreeNodes>
+	<ProgressionTreeNodeUnlocks>
+		<!-- ==============================================================	-->
+		<!--	Legend Unlocks												-->
+		<!-- ==============================================================	-->
+		<!-- Cultural Attribute -->
+
+		<!-- Diplomatic Attribute -->
+
+		<!-- Economic Attribute -->
+
+		<!-- Expansionist Attribute -->
+		<Row ProgressionTreeNodeType="NODE_ATTRIBUTE_EXPANSIONIST_LEGEND_GENGHIS_KHAN_L1" TargetKind="KIND_MODIFIER" TargetType="MOD_ATTRIBUTE_EXPANSIONIST_LEGEND_GENGHIS_KHAN_L1" UnlockDepth="1" RequiredTraitType="TRAIT_LEADER_GENGHIS_KHAN_ABILITY"/>
+		<!-- Militaristic Attribute -->
+		<Row ProgressionTreeNodeType="NODE_ATTRIBUTE_MILITARISTIC_LEGEND_GENGHIS_KHAN_L2" TargetKind="KIND_MODIFIER" TargetType="MOD_ATTRIBUTE_MILITARISTIC_LEGEND_GENGHIS_KHAN_L2" UnlockDepth="1" RequiredTraitType="TRAIT_LEADER_GENGHIS_KHAN_ABILITY"/>
+		<!-- Scientific Attribute -->
+
+	</ProgressionTreeNodeUnlocks>
+	<ProgressionTreePrereqs>
+		<!-- ==============================================================	-->
+		<!--	Legend Unlocks												-->
+		<!-- ==============================================================	-->
+		<!-- Cultural Attribute -->
+
+		<!-- Diplomatic Attribute -->
+
+		<!-- Economic Attribute -->
+
+		<!-- Expansionist Attribute -->
+		<Row Node="NODE_ATTRIBUTE_EXPANSIONIST_LEGEND_GENGHIS_KHAN_L1" PrereqNode="NODE_ATTRIBUTE_EXPANSIONIST_03"/>
+		<!-- Militaristic Attribute -->
+		<Row Node="NODE_ATTRIBUTE_MILITARISTIC_LEGEND_GENGHIS_KHAN_L2" PrereqNode="NODE_ATTRIBUTE_MILITARISTIC_05"/>
+		<!-- Scientific Attribute -->
+
+	</ProgressionTreePrereqs>
+</Database>

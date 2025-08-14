@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_DESCRIPTION" Language="pt_BR">
+      <Text>Contém 4 novas Maravilhas da Natureza: Machapuchare, Monte Fuji, Vihren e Vinicunca.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_NAME" Language="pt_BR">
+      <Text>Coleção 1: Pacote de Maravilhas da Natureza</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_DESCRIPTION" Language="fr_FR">
+      <Text>Contient 4 nouvelles merveilles naturelles : le Machapuchare, le mont Fuji, le Vikhren et le Vinicunca.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_NAME" Language="fr_FR">
+      <Text>Collection 1 : Pack de merveilles naturelles</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_DESCRIPTION" Language="de_DE">
+      <Text>Enthält 4 neue Naturwunder: Machapucharé, Fuji, Wichren und Vinicunca.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_NAME" Language="de_DE">
+      <Text>Sammlung 1: Naturwunder-Pack</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_DESCRIPTION" Language="it_IT">
+      <Text>Contiene 4 nuove Meraviglie naturali: Machapuchare, monte Fuji, Vihren e Vinicunca.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_NAME" Language="it_IT">
+      <Text>Collezione 1: Pacchetto Meraviglie naturali</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_DESCRIPTION" Language="ja_JP">
+      <Text>4つの新たな自然遺産、マチャプチャレ、富士山、ヴィフレン、ヴィニクンカを含みます。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_NAME" Language="ja_JP">
+      <Text>コレクション1: 自然遺産パック</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_DESCRIPTION" Language="ko_KR">
+      <Text>새로운 4개의 자연경관인 '마차푸차레, 후지산, 비흐렌, 비니쿤카'가 포함되어 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_NAME" Language="ko_KR">
+      <Text>컬렉션 1: 자연경관 팩</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_DESCRIPTION" Language="pl_PL">
+      <Text>Zawiera 4 nowe cuda natury: Machapuchare, Fudżi, Wichren i Vinicuncę.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_NAME" Language="pl_PL">
+      <Text>Kolekcja 1: Pakiet cudów natury</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_DESCRIPTION" Language="ru_RU">
+      <Text>Содержит 4 новых чуда природы: Мачапучаре, гору Фудзи, Вихрен и Виникунку.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_NAME" Language="ru_RU">
+      <Text>Коллекция 1: набор чудес природы</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>包含4个新自然奇观：鱼尾峰、富士山、维赫伦峰和彩虹山。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_NAME" Language="zh_Hans_CN">
+      <Text>合集1：自然奇观包</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_DESCRIPTION" Language="es_ES">
+      <Text>Contiene 4 nuevas Maravillas naturales: Machapuchare, el Monte Fuji, Vihren y Vinicunca.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_NAME" Language="es_ES">
+      <Text>Colección 1: pack de Maravillas Naturales</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>包含4個新的自然奇觀——魚尾峰、富士山、維赫倫峰和彩虹山。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_MOUNTAIN_NATURAL_WONDERS_NAME" Language="zh_Hant_HK">
+      <Text>合集1：自然奇觀包</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

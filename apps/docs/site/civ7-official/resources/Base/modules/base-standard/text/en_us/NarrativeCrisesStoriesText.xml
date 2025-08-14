@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <EnglishText>
+        <Row Tag="LOC_LOYALTY001A_STORYTITLE">
+            <Text>A Petition</Text>
+        </Row>
+        <Row Tag="LOC_LOYALTY001A_COMPLETION">
+            <Text>The people of neighboring {1_story_city} are terribly unhappy. They have asked to join our civilization in their quest for a brighter future.</Text>
+        </Row>
+        <Row Tag="LOC_LOYALTY001B_NAME">
+            <Text>We will welcome the people of {1_story_city}.</Text>
+        </Row>
+        <Row Tag="LOC_LOYALTY001B_DESCRIPTION">
+            <Text>Settlement control is given to you.</Text>
+        </Row>
+        <Row Tag="LOC_LOYALTY001C_NAME">
+            <Text>We must decline their request.</Text>
+        </Row>
+        <Row Tag="LOC_LOYALTY001C_DESCRIPTION">
+            <Text>-1 Happiness in all settlements and -1 Influence until the end of this Age.</Text>
+        </Row>
+        <Row Tag="LOC_LOYALTY002A_STORYTITLE">
+            <Text>A Revolt</Text>
+        </Row>
+        <Row Tag="LOC_LOYALTY002A_COMPLETION">
+            <Text>The citizens of {1_story_city} are extremely unhappy. They have risen in revolt against us.</Text>
+        </Row>
+        <Row Tag="LOC_LOYALTY002A_DESCRIPTION">
+            <Text>You have lost control of this Settlement.</Text>
+        </Row>
+        <Row Tag="LOC_LOYALTY002C_DESCRIPTION">
+            <Text>+2 War Support for wars you declare.</Text>
+        </Row>
+        <Row Tag="LOC_LOYALTY002D_DESCRIPTION">
+            <Text>+2 [Icon:YIELD_HAPPINESS] Happiness per Age in all Settlements.</Text>
+        </Row>
+        <Row Tag="LOC_LOYALTY002C_NAME">
+            <Text>This will not stand!</Text>
+        </Row>
+        <Row Tag="LOC_LOYALTY002D_NAME">
+            <Text>So be it.</Text>
+        </Row>
+        <Row Tag="LOC_ANTIQUITY_INVASION_CRISIS_NAME">
+            <Text>Antiquity Invasion Crisis</Text>
+        </Row>
+        <Row Tag="LOC_ANTIQUITY_INVASION_CRISIS_DESCRIPTION">
+            <Text>New independent powers rise up to challenge your empire.</Text>
+        </Row>
+        <Row Tag="LOC_ANTIQUITY_PLAGUE_CRISIS_NAME">
+            <Text>Antiquity Plague Crisis</Text>
+        </Row>
+        <Row Tag="LOC_ANTIQUITY_PLAGUE_CRISIS_DESCRIPTION">
+            <Text>Devastating diseases strike your largest cities.</Text>
+        </Row>
+        <Row Tag="LOC_ANTIQUITY_REVOLTS_CRISIS_NAME">
+            <Text>Antiquity Revolts Crisis</Text>
+        </Row>
+        <Row Tag="LOC_ANTIQUITY_REVOLTS_CRISIS_DESCRIPTION">
+            <Text>Unhappy settlements revolt and petition other empires for aid.</Text>
+        </Row>
+        <Row Tag="LOC_EXPLORATION_REVOLUTIONS_CRISIS_NAME">
+            <Text>Exploration Revolutions Crisis</Text>
+        </Row>
+        <Row Tag="LOC_EXPLORATION_REVOLUTIONS_CRISIS_DESCRIPTION">
+            <Text>Social unrest leads to new forms of Government.</Text>
+        </Row>
+        <Row Tag="LOC_EXPLORATION_PLAGUE_CRISIS_NAME">
+            <Text>Exploration Plague Crisis</Text>
+        </Row>
+        <Row Tag="LOC_EXPLORATION_PLAGUE_CRISIS_DESCRIPTION">
+            <Text>Devastating diseases from distant lands sweep across your empire.</Text>
+        </Row>
+        <Row Tag="LOC_EXPLORATION_RELIGIOUS_REVOLTS_CRISIS_NAME">
+            <Text>Exploration Revolts Crisis</Text>
+        </Row>
+        <Row Tag="LOC_EXPLORATION_RELIGIOUS_REVOLTS_CRISIS_DESCRIPTION">
+            <Text>Unhappy settlements following a foreign religion rise up in revolt.</Text>
+        </Row>
+    </EnglishText>
+</Database>

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="Definitions">
+	<definition name="Map" table-name="Maps" cpp="true">
+		<field name="MapSizeType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="Description" type="Text"/>
+		<field name="DefaultPlayers" type="Integer" value="0" not-null="true"/>
+		<field name="PlayersLandmass1" type="Integer" value="0" not-null="true"/>
+		<field name="PlayersLandmass2" type="Integer" value="0" not-null="true"/>
+		<field name="NumNaturalWonders" type="Integer" value="0" not-null="true"/>
+		<field name="OceanWidth" type="Integer" value="0" not-null="true"/>
+		<field name="GridWidth" type="Integer" value="0" not-null="true"/>
+		<field name="GridHeight" type="Integer" value="0" not-null="true"/>
+		<field name="Continents" type="Integer" value="1" not-null="true"/>
+		<field name="LakeGenerationFrequency" type="Integer" value="25" not-null="true"/>
+		<field name="LakeSizeCutoff" type="Integer" value="0" not-null="true"/>
+		<field name="StartSectorRows" type="Integer" value="3" not-null="true"/>
+		<field name="StartSectorCols" type="Integer" value="3" not-null="true"/>
+		<field name="AllOnLargestLandmass" type="Bool" value="0" not-null="true"/>
+	</definition>
+	<definition name="MapWorldAge" description="World Age for map generation" table-name="MapWorldAges" cpp="false">
+		<field name="MapWorldAgeType" type="Text" key="true" unique="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="Description" type="Text" not-null="true"/>
+		<field name="YearsOld" type="Real"/>
+		<field name="Scale" type="Real"/>
+	</definition>
+	<definition name="MapTemperature" table-name="MapTemperatures" cpp="true">
+		<field name="MapTemperatureType" type="Text" key="true" unique="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="Description" type="Text" not-null="true"/>
+		<field name="AverageStartingTemperature" type="Real"/>
+		<field name="Scale" type="Real"/>
+	</definition>
+	<definition name="MapRainfall" table-name="MapRainfalls" cpp="false">
+		<field name="MapRainfallType" type="Text" key="true" unique="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text"/>
+		<field name="Description" type="Text"/>
+		<field name="AverageAmountPerYear" type="Integer"/>
+		<field name="Scale" type="Real"/>
+	</definition>
+	<definition name="MapSeaLevel" table-name="MapSeaLevels" cpp="false">
+		<field name="MapSeaLevelType" type="Text" key="true" unique="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="Description" type="Text" not-null="true"/>
+		<field name="Scale" type="Real"/>
+	</definition>
+	<definition name="MapResourceDistribution" table-name="MapResourceDistributions" cpp="false">
+		<field name="MapResourceDistributionType" type="Text" key="true" unique="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="Description" type="Text" not-null="true"/>
+		<field name="Scale" type="Real"/>
+	</definition>
+	<definition name="MapStartPosition" description="Defines custom positions for maps." table-name="MapStartPositions" cpp="false">
+		<field name="Map" type="Text" key="true" not-null="true"/>
+		<field name="Plot" type="Integer" key="true" not-null="true"/>
+		<field name="Type" type="Text" not-null="true"/>
+		<field name="Value" type="Text"/>
+	</definition>
+	<definition name="MapIslandResourceBehavior" table-name="MapIslandBehavior" cpp="false">
+		<field name="MapType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="ResourceClassType" type="Text" not-null="true" hash="true"/>
+		<field name="AgeType" type="Text" not-null="true" hash="true"/>
+		<reference source="AgeType" target="AgeType" sourceRoleName="AgeReference" on-delete="SetDefault" on-update="SetDefault" to="Age"/>
+		<property name="AgeReference" path="AgeReference"/>
+	</definition>
+	<definition name="MapResourceMinimumAmountModifiers" table-name="MapResourceMinimumAmountModifier" cpp="false">
+		<field name="MapType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="MapSizeType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="Amount" type="Integer" value="0" not-null="true"/>
+	</definition>
+	<definition name="Yield" table-name="Yields" cpp="true">
+		<field name="YieldType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="IconString" type="Text" not-null="true"/>
+		<field name="OccupiedCityChange" type="Real" value="0" not-null="true"/>
+		<field name="DefaultValue" description="For AI use.  A value of 1 is equal in value to 1 production yield" type="Real" value="1" not-null="true"/>
+		<property name="TerrainBiomeFeatureChange_Refs" path="TerrainBiomeFeatureRef"/>
+		<property name="ConstructibleChange_Refs" path="ConstructibleRef"/>
+		<property name="CityFeatureYield_Refs" path="CityFeatureRef"/>
+	</definition>
+	<definition name="PlotEffect" table-name="PlotEffects" cpp="true">
+		<field name="PlotEffectType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="TimeDecay" type="Bool" value="0" not-null="true"/>
+		<field name="UnoccupiedDecay" type="Bool" value="0" not-null="true"/>
+		<field name="TimeValue" type="Integer" value="0" not-null="true"/>
+		<field name="Damage" type="Integer" value="0" not-null="true"/>
+		<field name="Defense" type="Integer" value="0" not-null="true"/>
+		<field name="TriggerOnEnter" type="Bool" value="0" not-null="true"/>
+		<field name="RemoveOnEnter" type="Bool" value="0" not-null="true"/>
+		<field name="OnlyVisibleToOwner" type="Bool" value="0" not-null="true"/>
+		<field name="AllowOnWater" type="Bool" value="true" not-null="true"/>
+		<field name="AllowConstructWhileDamaged" type="Bool" value="true" not-null="true"/>
+	</definition>
+	<definition name="Terrain" table-name="Terrains" cpp="true">
+		<field name="TerrainType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="Mountain" type="Bool" value="0" not-null="true"/>
+		<field name="Hills" type="Bool" value="0" not-null="true"/>
+		<field name="Water" type="Bool" value="0" not-null="true"/>
+		<field name="InfluenceCost" type="Integer" not-null="true"/>
+		<field name="MovementCost" type="Integer" not-null="true"/>
+		<field name="SightModifier" type="Integer" value="0" not-null="true"/>
+		<field name="SightThroughModifier" type="Integer" value="0" not-null="true"/>
+		<field name="Impassable" description="Is terrain impassable" type="Bool" value="0" not-null="true"/>
+		<field name="DefenseModifier" type="Integer" value="0" not-null="true"/>
+		<field name="Appeal" type="Integer" value="0" not-null="true"/>
+		<property name="YieldChanges" path="YieldChangesRef"/>
+		<property name="StartBiasTerrainCollection" path="StartBiasTerrainCollectionRef"/>
+		<property name="ValidResources" path="ValidResourceTerrainsRef"/>
+	</definition>
+	<definition name="Biome" table-name="Biomes" cpp="true">
+		<field name="BiomeType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="Description" type="Text" unique="true"/>
+		<field name="MaxLatitude" type="Integer"/>
+		<property name="ValidTerrains" path="ValidTerrainsRef.TerrainRef"/>
+		<property name="YieldChanges" path="YieldChangesRef"/>
+		<property name="ValidResources" path="ValidResourceBiomesRef"/>
+		<property name="StartBiasBiomeCollection" path="StartBiasBiomeCollectionRef"/>
+	</definition>
+	<definition name="Biome_ValidTerrain" table-name="Biome_ValidTerrains" cpp="false">
+		<field name="BiomeType" type="Text" key="true" not-null="true"/>
+		<field name="TerrainType" type="Text" key="true" not-null="true"/>
+		<reference source="BiomeType" target="BiomeType" sourceRoleName="BiomeRef" targetRoleName="ValidTerrainsRef" to="Biome"/>
+		<reference source="TerrainType" target="TerrainType" sourceRoleName="TerrainRef" targetRoleName="BiomeValidTerrainsRef" to="Terrain"/>
+	</definition>
+	<definition name="Fertility" table-name="Fertilities" cpp="true">
+		<field name="FertilityType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="Description" type="Text" unique="true"/>
+	</definition>
+	<definition name="Continent" table-name="Continents" cpp="true">
+		<field name="ContinentType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="Description" type="Text"/>
+	</definition>
+	<definition name="TerrainBiomeFeature_YieldChange" table-name="TerrainBiomeFeature_YieldChanges" cpp="true">
+		<field name="TerrainType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="BiomeType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="ScaleByGameAge" type="Integer" value="0" not-null="true"/>
+		<field name="FeatureType" type="Text" key="true" hash="true"/>
+		<field name="YieldType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="YieldChange" type="Integer" not-null="true"/>
+		<reference source="TerrainType" target="TerrainType" sourceRoleName="TerrainRef" targetRoleName="YieldChangesRef" to="Terrain"/>
+		<reference source="BiomeType" target="BiomeType" sourceRoleName="BiomeRef" targetRoleName="YieldChangesRef" to="Biome"/>
+		<reference source="FeatureType" target="FeatureType" sourceRoleName="FeatureRef" targetRoleName="YieldChangesRef" to="Feature"/>
+		<reference source="YieldType" target="YieldType" sourceRoleName="YieldRef" targetRoleName="TerrainBiomeFeatureRef" to="Yield"/>
+		<property name="YieldReference" path="YieldRef"/>
+	</definition>
+	<definition name="RegionClaimObstacle" table-name="RegionClaimObstacles" cpp="true">
+		<field name="ID" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="TerrainType" type="Text" key="true"/>
+		<field name="FeatureType" type="Text" key="true"/>
+		<field name="FeatureClassType" type="Text" key="true"/>
+		<field name="RiverType" type="Text" key="true"/>
+		<reference source="TerrainType" target="TerrainType" sourceRoleName="TerrainTypeRef" on-delete="SetNULL" to="Terrain"/>
+		<reference source="FeatureType" target="FeatureType" sourceRoleName="FeatureTypeRef" on-delete="SetNULL" to="Feature"/>
+	</definition>
+	<definition name="NamedRiver" table-name="NamedRivers" cpp="true">
+		<field name="NamedRiverType" type="Text" key="true" not-null="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<property name="RiverCivilizations" path="NamedRiverReference"/>
+	</definition>
+	<definition name="NamedRiverCivilization" table-name="NamedRiverCivilizations" cpp="true">
+		<field name="NamedRiverType" type="Text" key="true" not-null="true"/>
+		<field name="CivilizationType" type="Text" key="true" not-null="true"/>
+		<reference source="NamedRiverType" target="NamedRiverType" sourceRoleName="NamedRiverRef" targetRoleName="NamedRiverReference" to="NamedRiver"/>
+		<property name="NamedRiverReference" path="NamedRiverRef"/>
+	</definition>
+	<definition name="NamedVolcano" table-name="NamedVolcanoes" cpp="true">
+		<field name="NamedVolcanoType" type="Text" key="true" not-null="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<property name="VolcanoCivilizations" path="NamedVolcanoReference"/>
+	</definition>
+	<definition name="NamedVolcanoCivilization" table-name="NamedVolcanoCivilizations" cpp="true">
+		<field name="NamedVolcanoType" type="Text" key="true" not-null="true"/>
+		<field name="CivilizationType" type="Text" key="true" not-null="true"/>
+		<reference source="NamedVolcanoType" target="NamedVolcanoType" sourceRoleName="NamedVolcanoRef" targetRoleName="NamedVolcanoReference" to="NamedVolcano"/>
+		<property name="NamedVolcanoReference" path="NamedVolcanoRef"/>
+	</definition>
+	<definition name="Route" table-name="Routes" cpp="true">
+		<field name="RouteType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="Description" type="Text" not-null="true"/>
+		<field name="MovementCost" type="Real" not-null="true"/>
+		<field name="PlacementValue" type="Integer" description="Higher value routes will always replace lower value ones" unique="true" not-null="true"/>
+		<field name="PlacementRequiresRoutePresent" type="Bool" not-null="true"/>
+		<field name="PlacementRequiresOwnedTile" type="Bool" not-null="true"/>
+		<field name="PrereqAge" type="Text"/>
+		<field name="RequiredConstructible" type="Text"/>
+		<field name="TraitType" type="Text"/>
+		<reference source="PrereqAge" target="AgeType" sourceRoleName="PrereqAgeRef" on-delete="SetDefault" on-update="SetDefault" to="Age"/>
+		<reference source="RouteType" target="Type" to="Type"/>
+		<reference source="TraitType" target="TraitType" sourceRoleName="TraitRef" on-delete="SetDefault" on-update="SetDefault" to="Trait"/>
+		<reference source="RequiredConstructible" target="ConstructibleType" sourceRoleName="RequiredConstructibleRef" to="Constructible"/>
+		<property name="ValidBuildUnits" path="ValidBuildUnitRef"/>
+		<property name="PrereqAgeReference" path="PrereqAgeRef"/>
+		<property name="TraitReference" path="TraitRef"/>
+		<property name="RequiredConstructibleReference" path="RequiredConstructibleRef"/>
+	</definition>
+	<definition name="Route_ValidBuildUnit" table-name="Route_ValidBuildUnits" cpp="true">
+		<field name="RouteType" type="Text" key="true" not-null="true"/>
+		<field name="UnitType" type="Text" key="true" not-null="true"/>
+		<reference source="RouteType" target="RouteType" sourceRoleName="RouteTypeRef" targetRoleName="ValidBuildUnitRef" to="Route"/>
+		<reference source="UnitType" target="UnitType" sourceRoleName="UnitTypeRef" to="Unit"/>
+		<property name="UnitReference" path="UnitTypeRef"/>
+		<property name="RouteReference" path="RouteTypeRef"/>
+	</definition>
+</definitions>

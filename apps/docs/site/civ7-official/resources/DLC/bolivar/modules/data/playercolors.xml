@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Database>
+	<PlayerColors>
+		<Row>
+			<Type>LEADER_BOLIVAR</Type>
+			<Usage>Unique</Usage>
+			<PrimaryColor>COLOR_STANDARD_YELLOW_MD</PrimaryColor>
+			<SecondaryColor>COLOR_STANDARD_BLUE_MD</SecondaryColor>
+			<Alt1PrimaryColor>COLOR_STANDARD_BLUE_MD</Alt1PrimaryColor>
+			<Alt1SecondaryColor>COLOR_STANDARD_YELLOW_MD</Alt1SecondaryColor>
+			<Alt2PrimaryColor>COLOR_STANDARD_RED_MD</Alt2PrimaryColor>
+			<Alt2SecondaryColor>COLOR_STANDARD_AQUA_LT</Alt2SecondaryColor>
+			<Alt3PrimaryColor>COLOR_STANDARD_AQUA_LT</Alt3PrimaryColor>
+			<Alt3SecondaryColor>COLOR_STANDARD_RED_MD</Alt3SecondaryColor>
+		</Row>
+	</PlayerColors>
+</Database>

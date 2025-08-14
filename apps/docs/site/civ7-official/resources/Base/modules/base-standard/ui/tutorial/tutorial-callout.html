@@ -1,0 +1,53 @@
+<div class="tutorial-callout-content absolute flex flex-col w-auto top-0 pointer-events-auto">
+	<div class="tutorial-callout-bg"></div>
+	<div class="tutorial-callout-body-advisor-topper absolute inset-0">
+		<div class="relative w-full h-full">
+			<fxs-hslot class="absolute">
+				<div class="tutorial-callout-body-advisor-wrapper w-1\\/2 self-center"></div>
+				<div class="tutorial-callout-body-advisor-wrapper w-1\\/2 self-center -scale-x-100">
+				</div>
+			</fxs-hslot>
+			<fxs-hslot class="absolute self-center tutorial-callout-body-advisor-image-container">
+				<div class="relative">
+					<div class="tutorial-callout-body-advisor-bg bg-cover bg-no-repeat size-38"></div>
+					<div class="tutorial-callout-body-advisor-image absolute inset-0"></div>
+				</div>
+			</fxs-hslot>
+		</div>
+	</div>
+	<fxs-minus-plus class="absolute top-1 right-1"></fxs-minus-plus>
+	<fxs-nav-help class="callout-minimize__navhelp absolute top-2 right-0" alt-action-key="inline-shell-action-3"
+				  action-key="inline-center-plot-cursor">
+	</fxs-nav-help>
+	<div class="tutorial-callout-title-container">
+		<fxs-hslot class="items-center">
+			<div class="tutorial-callout-title-decoration mr-2 -scale-x-100 w-4 h-4 bg-contain bg-no-repeat"></div>
+			<div role="paragraph" class="tutorial-callout-title fxs-header font-title-xl pointer-events-auto"></div>
+			<div class="tutorial-callout-title-decoration ml-2 w-4 h-4 bg-contain bg-no-repeat"></div>
+		</fxs-hslot>
+	</div>
+	<div class="tutorial-callout-body">
+		<fxs-hslot class="tutorial-callout-body-advisor-container items-center">
+			<fxs-inner-frame class="tutorial-callout-advisor-text relative ml-6 mr-4">
+				<div class="advisor-text__content relative text-base text-primary-1 mt-3 mb-3 ml-6 mr-4"></div>
+			</fxs-inner-frame>
+		</fxs-hslot>
+		<div role="paragraph" class="tutorial-callout-body-text text-base mt-3 mb-3 ml-6 mr-4 pointer-events-auto">
+		</div>
+	</div>
+	<div class="tutorial-callout-buttons relative flex flex-row justify-center -ml-3 -mr-3 flex-wrap">
+		<fxs-button class="tutorial-callout-option1 p-6"></fxs-button>
+		<fxs-button class="tutorial-callout-option2 p-6"></fxs-button>
+		<fxs-button class="tutorial-callout-option3 p-6"></fxs-button>
+	</div>
+	<!-- TODO: Reactivate after User Test April 2024 -->
+	<!-- <div class="tutorial-callout-check-container trigger-nav-help">
+		<fxs-checkbox class="checkbox--right-close" caption="LOC_TUTORIAL_DEACTIVATE_ALL"></fxs-checkbox>
+	</div> -->
+	<div class="tutorial-callout-overlay"></div>
+	<div class="tutorial-callout-minimized flex-col items-center">
+		<div class="tutorial-callout-min__advisor-image"></div>
+		<fxs-button class="tutorial-callout-min__button mb-2" nav-help-alt-action-key="inline-shell-action-3"
+					action-key="inline-center-plot-cursor"></fxs-button>
+	</div>
+</div>

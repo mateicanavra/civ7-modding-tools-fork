@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--Wonders-->
+		<Row Tag="LOC_WONDER_UBUDIAH_MOSQUE_NAME">
+			<Text>Ubudiah Mosque</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_UBUDIAH_MOSQUE_DESCRIPTION">
+			<Text>+4[icon:YIELD_HAPPINESS] Happiness. Improvements in this Settlement receive +50% Yield. Ageless. Must be placed on Wet Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_UBUDIAH_MOSQUE_TOOLTIP">
+			<Text>Improvements in this Settlement receive +50% Yield. Ageless. Must be placed on Wet Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_UBUDIAH_MOSQUE">
+			<Text>"Remember and remember, merchant child – your desires are the enemies of war."</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_UBUDIAH_MOSQUE">
+			<Text>Hamzah Fansuri</Text>
+		</Row>
+	</EnglishText>
+</Database>

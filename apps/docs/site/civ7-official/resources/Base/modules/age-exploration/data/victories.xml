@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<Database>
+	<Types>
+		<Row Type="EXPLORATION_SCIENCE_MILESTONE_1" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="EXPLORATION_SCIENCE_MILESTONE_2" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="EXPLORATION_SCIENCE_MILESTONE_3" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="EXPLORATION_MILITARY_MILESTONE_1" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="EXPLORATION_MILITARY_MILESTONE_2" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="EXPLORATION_MILITARY_MILESTONE_3" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="EXPLORATION_CULTURE_MILESTONE_1" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="EXPLORATION_CULTURE_MILESTONE_2" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="EXPLORATION_CULTURE_MILESTONE_3" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="EXPLORATION_ECONOMIC_MILESTONE_1" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="EXPLORATION_ECONOMIC_MILESTONE_2" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+		<Row Type="EXPLORATION_ECONOMIC_MILESTONE_3" Kind="KIND_AGE_PROGRESSION_MILESTONE"/>
+	</Types>
+	<AgeProgressionEvents>
+		<Row AgeProgressionEventType="AGE_PROGRESSION_TURN_COUNTER" Points="1" AgeType="AGE_EXPLORATION" MapSizeType="MAPSIZE_TINY"/>
+		<Row AgeProgressionEventType="AGE_PROGRESSION_PLAYER_ELIMINATED" Points="20" AgeType="AGE_EXPLORATION" MapSizeType="MAPSIZE_TINY"/>
+		<Row AgeProgressionEventType="AGE_PROGRESSION_TURN_COUNTER" Points="1" AgeType="AGE_EXPLORATION" MapSizeType="MAPSIZE_SMALL"/>
+		<Row AgeProgressionEventType="AGE_PROGRESSION_PLAYER_ELIMINATED" Points="15" AgeType="AGE_EXPLORATION" MapSizeType="MAPSIZE_SMALL"/>
+		<Row AgeProgressionEventType="AGE_PROGRESSION_TURN_COUNTER" Points="1" AgeType="AGE_EXPLORATION" MapSizeType="MAPSIZE_STANDARD"/>
+		<Row AgeProgressionEventType="AGE_PROGRESSION_PLAYER_ELIMINATED" Points="10" AgeType="AGE_EXPLORATION" MapSizeType="MAPSIZE_STANDARD"/>
+		<Row AgeProgressionEventType="AGE_PROGRESSION_TURN_COUNTER" Points="1" AgeType="AGE_EXPLORATION" MapSizeType="MAPSIZE_LARGE"/>
+		<Row AgeProgressionEventType="AGE_PROGRESSION_PLAYER_ELIMINATED" Points="8" AgeType="AGE_EXPLORATION" MapSizeType="MAPSIZE_LARGE"/>
+		<Row AgeProgressionEventType="AGE_PROGRESSION_TURN_COUNTER" Points="1" AgeType="AGE_EXPLORATION" MapSizeType="MAPSIZE_HUGE"/>
+		<Row AgeProgressionEventType="AGE_PROGRESSION_PLAYER_ELIMINATED" Points="5" AgeType="AGE_EXPLORATION" MapSizeType="MAPSIZE_HUGE"/>
+	</AgeProgressionEvents>
+	<!--LEGACY PATH SCORING ITEMS -->
+	<PlayerModifiers>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_NONCONQUEST_SCORING"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_CONQUEST_SCORING"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_NONCONQUEST_RELIGION_SCORING"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_CONQUEST_RELIGION_SCORING"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_NONCONQUEST_SCORING"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_CONQUEST_SCORING"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_NONCONQUEST_RELIGION_SCORING"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_CONQUEST_RELIGION_SCORING"/>
+		<Row ModifierId="VICTORY_EXPLORATION_CULTURE_GREAT_WORK_SCORING"/>
+		<Row ModifierId="VICTORY_EXPLORATION_SCIENCE_HIGH_YIELD_DISTRICT_SCORING"/>
+	</PlayerModifiers>
+	<Modifiers>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_NONCONQUEST_SCORING" ModifierType="MODIFIER_PLAYER_ADJUST_SETTLEMENT_COUNT_SCORING" SubjectRequirementSetId="REQSET_PLAYER_IS_NOT_MONGOLIA"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_CONQUEST_SCORING" ModifierType="MODIFIER_PLAYER_ADJUST_SETTLEMENT_COUNT_SCORING" SubjectRequirementSetId="REQSET_PLAYER_IS_NOT_MONGOLIA"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_NONCONQUEST_RELIGION_SCORING" ModifierType="MODIFIER_PLAYER_ADJUST_SETTLEMENT_COUNT_SCORING" SubjectRequirementSetId="REQSET_PLAYER_IS_NOT_MONGOLIA"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_CONQUEST_RELIGION_SCORING" ModifierType="MODIFIER_PLAYER_ADJUST_SETTLEMENT_COUNT_SCORING" SubjectRequirementSetId="REQSET_PLAYER_IS_NOT_MONGOLIA"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_NONCONQUEST_SCORING" ModifierType="MODIFIER_PLAYER_ADJUST_SETTLEMENT_COUNT_SCORING" SubjectRequirementSetId="REQSET_PLAYER_IS_MONGOLIA"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_CONQUEST_SCORING" ModifierType="MODIFIER_PLAYER_ADJUST_SETTLEMENT_COUNT_SCORING" SubjectRequirementSetId="REQSET_PLAYER_IS_MONGOLIA"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_NONCONQUEST_RELIGION_SCORING" ModifierType="MODIFIER_PLAYER_ADJUST_SETTLEMENT_COUNT_SCORING" SubjectRequirementSetId="REQSET_PLAYER_IS_MONGOLIA"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_CONQUEST_RELIGION_SCORING" ModifierType="MODIFIER_PLAYER_ADJUST_SETTLEMENT_COUNT_SCORING" SubjectRequirementSetId="REQSET_PLAYER_IS_MONGOLIA"/>
+		<Row ModifierId="VICTORY_EXPLORATION_CULTURE_GREAT_WORK_SCORING" ModifierType="MODIFIER_PLAYER_ADJUST_GREAT_WORK_SCORING" SubjectRequirementSetId="REQSET_PLAYER_IS_MAJOR"/>
+		<Row ModifierId="VICTORY_EXPLORATION_SCIENCE_HIGH_YIELD_DISTRICT_SCORING" ModifierType="MODIFIER_PLAYER_ADJUST_HIGH_YIELD_DISTRICT_SCORING" SubjectRequirementSetId="REQSET_PLAYER_IS_MAJOR"/>
+	</Modifiers>
+	<ModifierArguments>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_NONCONQUEST_SCORING" Name="LegacyPathType" Value="LEGACY_PATH_EXPLORATION_MILITARY"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_NONCONQUEST_SCORING" Name="VP" Value="1"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_NONCONQUEST_SCORING" Name="NonConquest" Value="true"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_NONCONQUEST_SCORING" Name="DistantLands" Value="true"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_CONQUEST_SCORING" Name="LegacyPathType" Value="LEGACY_PATH_EXPLORATION_MILITARY"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_CONQUEST_SCORING" Name="VP" Value="2"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_CONQUEST_SCORING" Name="Conquest" Value="true"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_CONQUEST_SCORING" Name="DistantLands" Value="true"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_NONCONQUEST_RELIGION_SCORING" Name="LegacyPathType" Value="LEGACY_PATH_EXPLORATION_MILITARY"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_NONCONQUEST_RELIGION_SCORING" Name="VP" Value="2"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_NONCONQUEST_RELIGION_SCORING" Name="NonConquest" Value="true"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_NONCONQUEST_RELIGION_SCORING" Name="DistantLands" Value="true"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_NONCONQUEST_RELIGION_SCORING" Name="FollowsReligion" Value="true"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_CONQUEST_RELIGION_SCORING" Name="LegacyPathType" Value="LEGACY_PATH_EXPLORATION_MILITARY"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_CONQUEST_RELIGION_SCORING" Name="VP" Value="4"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_CONQUEST_RELIGION_SCORING" Name="Conquest" Value="true"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_CONQUEST_RELIGION_SCORING" Name="DistantLands" Value="true"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MILITARY_DISTANT_CONQUEST_RELIGION_SCORING" Name="FollowsReligion" Value="true"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_NONCONQUEST_SCORING" Name="LegacyPathType" Value="LEGACY_PATH_EXPLORATION_MILITARY"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_NONCONQUEST_SCORING" Name="VP" Value="1"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_NONCONQUEST_SCORING" Name="NonConquest" Value="true"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_NONCONQUEST_SCORING" Name="DistantLands" Value="true"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_CONQUEST_SCORING" Name="LegacyPathType" Value="LEGACY_PATH_EXPLORATION_MILITARY"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_CONQUEST_SCORING" Name="VP" Value="1"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_CONQUEST_SCORING" Name="Conquest" Value="true"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_NONCONQUEST_RELIGION_SCORING" Name="LegacyPathType" Value="LEGACY_PATH_EXPLORATION_MILITARY"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_NONCONQUEST_RELIGION_SCORING" Name="VP" Value="1"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_NONCONQUEST_RELIGION_SCORING" Name="NonConquest" Value="true"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_NONCONQUEST_RELIGION_SCORING" Name="DistantLands" Value="true"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_NONCONQUEST_RELIGION_SCORING" Name="FollowsReligion" Value="true"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_CONQUEST_RELIGION_SCORING" Name="LegacyPathType" Value="LEGACY_PATH_EXPLORATION_MILITARY"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_CONQUEST_RELIGION_SCORING" Name="VP" Value="1"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_CONQUEST_RELIGION_SCORING" Name="Conquest" Value="true"/>
+		<Row ModifierId="VICTORY_EXPLORATION_MONGOLS_CONQUEST_RELIGION_SCORING" Name="FollowsReligion" Value="true"/>
+		<Row ModifierId="VICTORY_EXPLORATION_CULTURE_GREAT_WORK_SCORING" Name="VP" Value="1"/>
+		<Row ModifierId="VICTORY_EXPLORATION_CULTURE_GREAT_WORK_SCORING" Name="LegacyPathType" Value="LEGACY_PATH_EXPLORATION_CULTURE"/>
+		<Row ModifierId="VICTORY_EXPLORATION_CULTURE_GREAT_WORK_SCORING" Name="GreatWorkObjectType" Value="GREATWORKOBJECT_RELIC"/>
+		<Row ModifierId="VICTORY_EXPLORATION_SCIENCE_HIGH_YIELD_DISTRICT_SCORING" Name="VP" Value="1"/>
+		<Row ModifierId="VICTORY_EXPLORATION_SCIENCE_HIGH_YIELD_DISTRICT_SCORING" Name="LegacyPathType" Value="LEGACY_PATH_EXPLORATION_SCIENCE"/>
+		<Row ModifierId="VICTORY_EXPLORATION_SCIENCE_HIGH_YIELD_DISTRICT_SCORING" Name="YieldNeeded" Value="40"/>
+	</ModifierArguments>
+	<!-- VICTORY TEST REQUIREMENTS -->
+	<RequirementSets>
+		<Row RequirementSetId="REQSET_VICTORY_EXPLORATION_CULTURE"/>
+		<Row RequirementSetId="REQSET_VICTORY_EXPLORATION_ECONOMIC"/>
+		<Row RequirementSetId="REQSET_VICTORY_EXPLORATION_MILITARY"/>
+		<Row RequirementSetId="REQSET_VICTORY_EXPLORATION_SCIENCE"/>
+	</RequirementSets>
+	<RequirementSetRequirements>
+		<Row RequirementSetId="REQSET_VICTORY_EXPLORATION_CULTURE" RequirementId="REQ_VICTORY_EXPLORATION_CULTURE_GREAT_WORK_VP"/>
+		<Row RequirementSetId="REQSET_VICTORY_EXPLORATION_ECONOMIC" RequirementId="REQ_VICTORY_EXPLORATION_ECONOMIC_TREASURE_VP"/>
+		<Row RequirementSetId="REQSET_VICTORY_EXPLORATION_MILITARY" RequirementId="REQ_VICTORY_EXPLORATION_MILITARY_SETTLEMENT_VP"/>
+		<Row RequirementSetId="REQSET_VICTORY_EXPLORATION_SCIENCE" RequirementId="REQ_VICTORY_EXPLORATION_SCIENCE_HIGH_YIELD_DISTRICT_VP"/>
+	</RequirementSetRequirements>
+	<Requirements>
+		<Row RequirementId="REQ_VICTORY_EXPLORATION_CULTURE_GREAT_WORK_VP" RequirementType="REQUIREMENT_PLAYER_HAS_X_VICTORY_POINTS"/>
+		<Row RequirementId="REQ_VICTORY_EXPLORATION_ECONOMIC_TREASURE_VP" RequirementType="REQUIREMENT_PLAYER_HAS_X_VICTORY_POINTS"/>
+		<Row RequirementId="REQ_VICTORY_EXPLORATION_MILITARY_SETTLEMENT_VP" RequirementType="REQUIREMENT_PLAYER_HAS_X_VICTORY_POINTS"/>
+		<Row RequirementId="REQ_VICTORY_EXPLORATION_SCIENCE_HIGH_YIELD_DISTRICT_VP" RequirementType="REQUIREMENT_PLAYER_HAS_X_VICTORY_POINTS"/>
+	</Requirements>
+	<RequirementArguments>
+		<Row RequirementId="REQ_VICTORY_EXPLORATION_CULTURE_GREAT_WORK_VP" Name="VPNeeded" Value="12"/>
+		<Row RequirementId="REQ_VICTORY_EXPLORATION_CULTURE_GREAT_WORK_VP" Name="LegacyPathType" Value="LEGACY_PATH_EXPLORATION_CULTURE"/>
+		<Row RequirementId="REQ_VICTORY_EXPLORATION_ECONOMIC_TREASURE_VP" Name="VPNeeded" Value="30"/>
+		<Row RequirementId="REQ_VICTORY_EXPLORATION_ECONOMIC_TREASURE_VP" Name="LegacyPathType" Value="LEGACY_PATH_EXPLORATION_ECONOMIC"/>
+		<Row RequirementId="REQ_VICTORY_EXPLORATION_MILITARY_SETTLEMENT_VP" Name="VPNeeded" Value="12"/>
+		<Row RequirementId="REQ_VICTORY_EXPLORATION_MILITARY_SETTLEMENT_VP" Name="LegacyPathType" Value="LEGACY_PATH_EXPLORATION_MILITARY"/>
+		<Row RequirementId="REQ_VICTORY_EXPLORATION_SCIENCE_HIGH_YIELD_DISTRICT_VP" Name="VPNeeded" Value="5"/>
+		<Row RequirementId="REQ_VICTORY_EXPLORATION_SCIENCE_HIGH_YIELD_DISTRICT_VP" Name="LegacyPathType" Value="LEGACY_PATH_EXPLORATION_SCIENCE"/>
+	</RequirementArguments>
+	<Strategies>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_DISTANT_SETTLEMENTS" LegacyPathType="LEGACY_PATH_EXPLORATION_MILITARY" MinNumConditionsNeeded="2" MaxNumConditionsNeeded="6" BehaviorTree="Strategy Settle Other Hemisphere"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_BUILDINGS" LegacyPathType="LEGACY_PATH_EXPLORATION_SCIENCE" MinNumConditionsNeeded="2" MaxNumConditionsNeeded="4"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RESOURCES" LegacyPathType="LEGACY_PATH_EXPLORATION_ECONOMIC" MinNumConditionsNeeded="2" MaxNumConditionsNeeded="4"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RELICS" LegacyPathType="LEGACY_PATH_EXPLORATION_CULTURE" MinNumConditionsNeeded="1" MaxNumConditionsNeeded="2"/>
+	</Strategies>
+	<!-- Reminder: These conditions must be met to START following the strategy - they are not victory conditions themselves -->
+	<StrategyConditions>
+		<!-- Science Victory -->
+		<Row StrategyType="LEGACY_PATH_STRATEGY_BUILDINGS" ConditionFunction="GovernmentMatches" ThresholdValue="25" StringValue="GOVERNMENT_PLUTOCRACY"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_BUILDINGS" ConditionFunction="TopSciencePercent" ThresholdValue="25"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_BUILDINGS" ConditionFunction="HasLeaderTrait" ThresholdValue="1" StringValue="TRAIT_LEADER_ATTRIBUTE_SCIENTIFIC"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_BUILDINGS" ConditionFunction="HasLeaderTrait" ThresholdValue="1" StringValue="TRAIT_LEADER_ATTRIBUTE_EXPANSIONIST"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_BUILDINGS" ConditionFunction="HasLeaderTrait" Exclusive="true" ThresholdValue="1" StringValue="TRAIT_EX_SCIENCE_VICTORY"/>
+		<!-- Military Victory -->
+		<Row StrategyType="LEGACY_PATH_STRATEGY_DISTANT_SETTLEMENTS" ConditionFunction="GovernmentMatches" ThresholdValue="25" StringValue="GOVERNMENT_FEUDAL_MONARCHY"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_DISTANT_SETTLEMENTS" ConditionFunction="TopMilitaryPercent" ThresholdValue="25"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_DISTANT_SETTLEMENTS" ConditionFunction="NumCommanders" ThresholdValue="2"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_DISTANT_SETTLEMENTS" ConditionFunction="VictoryPoints" ThresholdValue="1" StringValue="VICTORY_EXPLORATION_MILITARY"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_DISTANT_SETTLEMENTS" ConditionFunction="HasLeaderTrait" ThresholdValue="1" StringValue="TRAIT_LEADER_ATTRIBUTE_MILITARISTIC"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_DISTANT_SETTLEMENTS" ConditionFunction="HasLeaderTrait" ThresholdValue="1" StringValue="TRAIT_LEADER_ATTRIBUTE_EXPANSIONIST"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_DISTANT_SETTLEMENTS" ConditionFunction="HasLeaderTrait" Exclusive="true" ThresholdValue="1" StringValue="TRAIT_EX_MILITARY_VICTORY"/>
+		<!-- Economic Victory -->
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RESOURCES" ConditionFunction="GovernmentMatches" ThresholdValue="25" StringValue="GOVERNMENT_FEUDAL_MONARCHY"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RESOURCES" ConditionFunction="VictoryPoints" ThresholdValue="10" StringValue="VICTORY_EXPLORATION_ECONOMIC"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RESOURCES" ConditionFunction="HasLeaderTrait" ThresholdValue="1" StringValue="TRAIT_LEADER_ATTRIBUTE_ECONOMIC"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RESOURCES" ConditionFunction="HasLeaderTrait" ThresholdValue="1" StringValue="TRAIT_LEADER_ATTRIBUTE_POLITICAL"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RESOURCES" ConditionFunction="HasLeaderTrait" Exclusive="true" ThresholdValue="1" StringValue="TRAIT_EX_ECONOMIC_VICTORY"/>
+		<!-- Culture Victory -->
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RELICS" ConditionFunction="GovernmentMatches" ThresholdValue="25" StringValue="GOVERNMENT_THEOCRACY"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RELICS" ConditionFunction="NumCities" ThresholdValue="3"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RELICS" ConditionFunction="NumGreatWorks" ThresholdValue="3"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RELICS" ConditionFunction="HasLeaderTrait" ThresholdValue="1" StringValue="TRAIT_LEADER_ATTRIBUTE_CULTURAL"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RELICS" ConditionFunction="HasLeaderTrait" ThresholdValue="1" StringValue="TRAIT_LEADER_ATTRIBUTE_POLITICAL"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RELICS" ConditionFunction="HasLeaderTrait" Exclusive="true" ThresholdValue="1" StringValue="TRAIT_EX_CULTURE_VICTORY"/>
+	</StrategyConditions>
+	<Strategy_Priorities>
+		<!-- Buildings -->
+		<Row StrategyType="LEGACY_PATH_STRATEGY_BUILDINGS" ListType="LegacyPathStrategyBuildingsPseudoYieldBiases"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_BUILDINGS" ListType="LegacyPathStrategyBuildingsBudgetBiases"/>
+		<!-- Settle Other Hemisphere -->
+		<Row StrategyType="LEGACY_PATH_STRATEGY_DISTANT_SETTLEMENTS" ListType="LegacyPathStrategyDistantSettlementsSettlementPlotEvaluations"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_DISTANT_SETTLEMENTS" ListType="LegacyPathStrategyDistantSettlementsPseudoYieldBiases"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_DISTANT_SETTLEMENTS" ListType="LegacyPathStrategyDistantSettlementsBudgetBiases"/>
+		<!-- Trade Other Hemisphere -->
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RESOURCES" ListType="LegacyPathStrategyTreasureFleetConstructibleBiases"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RESOURCES" ListType="LegacyPathStrategyTreasureFleetSettlements"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RESOURCES" ListType="LegacyPathStrategyTreasureFleetBudgetBiases"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RESOURCES" ListType="LegacyPathStrategyTreasureFleetProgressionTreeNodeBiases"/>
+		<!-- Relics -->
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RELICS" ListType="LegacyPathStrategyCultureFilledConstructibleBiases"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RELICS" ListType="LegacyPathStrategyCultureFilledPseudoYieldBiases"/>
+		<Row StrategyType="LEGACY_PATH_STRATEGY_RELICS" ListType="LegacyPathStrategyCultureFilledProgressionTreeNodeBiases"/>
+	</Strategy_Priorities>
+	<AiListTypes>
+		<!-- Buildings -->
+		<Row ListType="LegacyPathStrategyBuildingsPseudoYieldBiases"/>
+		<Row ListType="LegacyPathStrategyBuildingsBudgetBiases"/>
+		<!--  Settle Other Hemisphere -->
+		<Row ListType="LegacyPathStrategyDistantSettlementsSettlementPlotEvaluations"/>
+		<Row ListType="LegacyPathStrategyDistantSettlementsPseudoYieldBiases"/>
+		<Row ListType="LegacyPathStrategyDistantSettlementsBudgetBiases"/>
+		<!-- Trade Other Hemisphere -->
+		<Row ListType="LegacyPathStrategyTreasureFleetConstructibleBiases"/>
+		<Row ListType="LegacyPathStrategyTreasureFleetSettlements"/>
+		<Row ListType="LegacyPathStrategyTreasureFleetBudgetBiases"/>
+		<Row ListType="LegacyPathStrategyTreasureFleetProgressionTreeNodeBiases"/>
+		<!-- Relics -->
+		<Row ListType="LegacyPathStrategyCultureFilledConstructibleBiases"/>
+		<Row ListType="LegacyPathStrategyCultureFilledPseudoYieldBiases"/>
+		<Row ListType="LegacyPathStrategyCultureFilledProgressionTreeNodeBiases"/>
+	</AiListTypes>
+	<AiLists>
+		<!-- Buildings -->
+		<Row ListType="LegacyPathStrategyBuildingsPseudoYieldBiases" System="PseudoYieldBiases"/>
+		<Row ListType="LegacyPathStrategyBuildingsBudgetBiases" System="AiBudgetBiases"/>
+		<!--  Settle Other Hemisphere -->
+		<Row ListType="LegacyPathStrategyDistantSettlementsSettlementPlotEvaluations" System="PlotEvalConditionBiases"/>
+		<Row ListType="LegacyPathStrategyDistantSettlementsPseudoYieldBiases" System="PseudoYieldBiases"/>
+		<Row ListType="LegacyPathStrategyDistantSettlementsBudgetBiases" System="AiBudgetBiases"/>
+		<!-- Trade Other Hemisphere -->
+		<Row ListType="LegacyPathStrategyTreasureFleetConstructibleBiases" System="ConstructibleBiases"/>
+		<Row ListType="LegacyPathStrategyTreasureFleetSettlements" System="PlotEvalConditionBiases"/>
+		<Row ListType="LegacyPathStrategyTreasureFleetBudgetBiases" System="AiBudgetBiases"/>
+		<Row ListType="LegacyPathStrategyTreasureFleetProgressionTreeNodeBiases" System="ProgressionTreeNodeBiases"/>
+		<!-- Relics -->
+		<Row ListType="LegacyPathStrategyCultureFilledConstructibleBiases" System="ConstructibleBiases"/>
+		<Row ListType="LegacyPathStrategyCultureFilledPseudoYieldBiases" System="PseudoYieldBiases"/>
+		<Row ListType="LegacyPathStrategyCultureFilledProgressionTreeNodeBiases" System="ProgressionTreeNodeBiases"/>
+	</AiLists>
+	<AiFavoredItems>
+		<!-- Buildings -->
+		<Row ListType="LegacyPathStrategyBuildingsBudgetBiases" Item="AI_BUDGET_CITY_DEVELOPMENT" Value="100"/>
+		<Row ListType="LegacyPathStrategyBuildingsPseudoYieldBiases" Item="PSEUDOYIELD_NEW_CITY" Value="-25"/>
+		<!--  Settle Other Hemisphere -->
+		<!-- This is in percentage and typically multiplying 1. -->
+		<Row ListType="LegacyPathStrategyDistantSettlementsSettlementPlotEvaluations" Item="Foreign Hemisphere" Value="500"/>
+		<Row ListType="LegacyPathStrategyDistantSettlementsSettlementPlotEvaluations" Item="Resource Class" Value="1000" StringVal="RESOURCECLASS_TREASURE" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_STRATEGIC_RESOURCES"/>
+		<Row ListType="LegacyPathStrategyDistantSettlementsPseudoYieldBiases" Item="PSEUDOYIELD_NEW_CITY" Value="50"/>
+		<Row ListType="LegacyPathStrategyDistantSettlementsPseudoYieldBiases" Item="PSEUDOYIELD_SETTLEMENT_CAP_INCREASE" Value="100"/>
+		<Row ListType="LegacyPathStrategyDistantSettlementsBudgetBiases" Item="AI_BUDGET_STANDING_ARMY" Value="50"/>
+		<Row ListType="LegacyPathStrategyDistantSettlementsBudgetBiases" Item="AI_BUDGET_EXPLORATION" Value="50"/>
+		<!-- Trade Other Hemisphere -->
+		<Row ListType="LegacyPathStrategyTreasureFleetConstructibleBiases" Item="BUILDING_FISHING_QUAY" Value="200"/>
+		<Row ListType="LegacyPathStrategyTreasureFleetBudgetBiases" Item="AI_BUDGET_GARRISON" Value="50"/>
+		<Row ListType="LegacyPathStrategyTreasureFleetBudgetBiases" Item="AI_BUDGET_EXPLORATION" Value="100"/>
+		<Row ListType="LegacyPathStrategyTreasureFleetSettlements" Item="Coastal" Favored="false" Value="15" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_COAST"/>
+		<Row ListType="LegacyPathStrategyTreasureFleetSettlements" Item="Resource Class" Value="2000" StringVal="RESOURCECLASS_TREASURE" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_STRATEGIC_RESOURCES"/>
+		<Row ListType="LegacyPathStrategyTreasureFleetProgressionTreeNodeBiases" Item="NODE_TECH_EX_SHIPBUILDING" Value="2000"/>
+		<!-- Relics -->
+		<Row ListType="LegacyPathStrategyCultureFilledConstructibleBiases" Item="BUILDING_TEMPLE" Value="200"/>
+		<Row ListType="LegacyPathStrategyCultureFilledConstructibleBiases" Item="WONDER_EL_ESCORIAL" Value="50"/>
+		<Row ListType="LegacyPathStrategyCultureFilledConstructibleBiases" Item="WONDER_HALE_O_KEAWE" Value="50"/>
+		<Row ListType="LegacyPathStrategyCultureFilledConstructibleBiases" Item="WONDER_HOUSE_OF_WISDOM" Value="50"/>
+		<Row ListType="LegacyPathStrategyCultureFilledPseudoYieldBiases" Item="PSEUDOYIELD_RELIGION_CONVERSION" Value="300"/>
+		<Row ListType="LegacyPathStrategyCultureFilledPseudoYieldBiases" Item="PSEUDOYIELD_GREAT_WORK" Value="200"/>
+		<Row ListType="LegacyPathStrategyCultureFilledPseudoYieldBiases" Item="PSEUDOYIELD_GREAT_WORK_SLOT" Value="200"/>
+		<Row ListType="LegacyPathStrategyCultureFilledProgressionTreeNodeBiases" Item="NODE_CIVIC_EX_BRANCH_THEOLOGY" Value="1000"/>
+		<Row ListType="LegacyPathStrategyCultureFilledProgressionTreeNodeBiases" Item="NODE_CIVIC_EX_BRANCH_REFORMATION" Value="1000"/>
+	</AiFavoredItems>
+	<AgeProgressionMilestones>
+		<Row AgeProgressionMilestoneType="EXPLORATION_SCIENCE_MILESTONE_1" LegacyPathType="LEGACY_PATH_EXPLORATION_SCIENCE" RequiredPathPoints="1" AgeProgressionAmount="5"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_SCIENCE_MILESTONE_2" LegacyPathType="LEGACY_PATH_EXPLORATION_SCIENCE" RequiredPathPoints="3" AgeProgressionAmount="10"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_SCIENCE_MILESTONE_3" LegacyPathType="LEGACY_PATH_EXPLORATION_SCIENCE" RequiredPathPoints="5" AgeProgressionAmount="20" FinalMilestone="true"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_MILITARY_MILESTONE_1" LegacyPathType="LEGACY_PATH_EXPLORATION_MILITARY" RequiredPathPoints="4" AgeProgressionAmount="5"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_MILITARY_MILESTONE_2" LegacyPathType="LEGACY_PATH_EXPLORATION_MILITARY" RequiredPathPoints="8" AgeProgressionAmount="10"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_MILITARY_MILESTONE_3" LegacyPathType="LEGACY_PATH_EXPLORATION_MILITARY" RequiredPathPoints="12" AgeProgressionAmount="20" FinalMilestone="true"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_CULTURE_MILESTONE_1" LegacyPathType="LEGACY_PATH_EXPLORATION_CULTURE" RequiredPathPoints="6" AgeProgressionAmount="5"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_CULTURE_MILESTONE_2" LegacyPathType="LEGACY_PATH_EXPLORATION_CULTURE" RequiredPathPoints="9" AgeProgressionAmount="10"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_CULTURE_MILESTONE_3" LegacyPathType="LEGACY_PATH_EXPLORATION_CULTURE" RequiredPathPoints="12" AgeProgressionAmount="20" FinalMilestone="true"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_ECONOMIC_MILESTONE_1" LegacyPathType="LEGACY_PATH_EXPLORATION_ECONOMIC" RequiredPathPoints="10" AgeProgressionAmount="5"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_ECONOMIC_MILESTONE_2" LegacyPathType="LEGACY_PATH_EXPLORATION_ECONOMIC" RequiredPathPoints="20" AgeProgressionAmount="10"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_ECONOMIC_MILESTONE_3" LegacyPathType="LEGACY_PATH_EXPLORATION_ECONOMIC" RequiredPathPoints="30" AgeProgressionAmount="20" FinalMilestone="true"/>
+	</AgeProgressionMilestones>
+	<AgeProgressionMilestoneRewards>
+		<Row AgeProgressionMilestoneType="EXPLORATION_SCIENCE_MILESTONE_1" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_SCIENCE" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_SCIENCE_MILESTONE_1" AgeProgressionRewardType="AGE_REWARD_MILESTONE1_SCIENCE_2"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_SCIENCE_MILESTONE_2" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_SCIENCE" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_SCIENCE_MILESTONE_2" AgeProgressionRewardType="AGE_REWARD_MILESTONE2_SCIENCE_2"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_SCIENCE_MILESTONE_3" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_SCIENCE" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_SCIENCE_MILESTONE_3" AgeProgressionRewardType="AGE_REWARD_GOLDEN_AGE_SCIENCE_2"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_MILITARY_MILESTONE_1" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_MILITARY" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_MILITARY_MILESTONE_1" AgeProgressionRewardType="AGE_REWARD_MILESTONE1_MILITARY_2"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_MILITARY_MILESTONE_1" AgeProgressionRewardType="AGE_REWARD_MILESTONE1_R2_MILITARY_2"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_MILITARY_MILESTONE_2" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_MILITARY" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_MILITARY_MILESTONE_2" AgeProgressionRewardType="AGE_REWARD_MILESTONE2_MILITARY_2"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_MILITARY_MILESTONE_3" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_MILITARY" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_MILITARY_MILESTONE_3" AgeProgressionRewardType="AGE_REWARD_GOLDEN_AGE_MILITARY_2"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_CULTURE_MILESTONE_1" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_CULTURE" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_CULTURE_MILESTONE_1" AgeProgressionRewardType="AGE_REWARD_MILESTONE1_CULTURE_2"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_CULTURE_MILESTONE_1" AgeProgressionRewardType="AGE_REWARD_MILESTONE1_R2_CULTURE_2"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_CULTURE_MILESTONE_2" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_CULTURE" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_CULTURE_MILESTONE_2" AgeProgressionRewardType="AGE_REWARD_MILESTONE2_CULTURE_2"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_CULTURE_MILESTONE_3" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_CULTURE" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_CULTURE_MILESTONE_3" AgeProgressionRewardType="AGE_REWARD_GOLDEN_AGE_CULTURE_2"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_ECONOMIC_MILESTONE_1" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_ECONOMIC" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_ECONOMIC_MILESTONE_1" AgeProgressionRewardType="AGE_REWARD_MILESTONE1_ECONOMIC_2"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_ECONOMIC_MILESTONE_2" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_ECONOMIC" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_ECONOMIC_MILESTONE_2" AgeProgressionRewardType="AGE_REWARD_MILESTONE2_ECONOMIC_2"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_ECONOMIC_MILESTONE_3" AgeProgressionRewardType="AGE_REWARD_LEGACY_POINT_ECONOMIC" IsImmediate="true"/>
+		<Row AgeProgressionMilestoneType="EXPLORATION_ECONOMIC_MILESTONE_3" AgeProgressionRewardType="AGE_REWARD_GOLDEN_AGE_ECONOMIC_2"/>
+	</AgeProgressionMilestoneRewards>
+	<AgeProgressionDarkAgeRewardInfos>
+		<Row LegacyPathType="LEGACY_PATH_EXPLORATION_SCIENCE" Name="LOC_LEGACY_PATH_EXPLORATION_SCIENCE_DARK_AGE_REWARD_TEXT" Description="LOC_LEGACY_PATH_EXPLORATION_SCIENCE_DARK_AGE_DESCRIPTION" Icon="CARD_AT_MOD_DARK_AGE_SCIENCE"/>
+		<Row LegacyPathType="LEGACY_PATH_EXPLORATION_MILITARY" Name="LOC_LEGACY_PATH_EXPLORATION_MILITARY_DARK_AGE_REWARD_TEXT" Description="LOC_LEGACY_PATH_EXPLORATION_MILITARY_DARK_AGE_DESCRIPTION" Icon="CARD_AT_MOD_DARK_AGE_MILITARY"/>
+		<Row LegacyPathType="LEGACY_PATH_EXPLORATION_CULTURE" Name="LOC_LEGACY_PATH_EXPLORATION_CULTURE_DARK_AGE_REWARD_TEXT" Description="LOC_LEGACY_PATH_EXPLORATION_CULTURE_DARK_AGE_DESCRIPTION" Icon="CARD_AT_MOD_DARK_AGE_CULTURE"/>
+		<Row LegacyPathType="LEGACY_PATH_EXPLORATION_ECONOMIC" Name="LOC_LEGACY_PATH_EXPLORATION_ECONOMIC_DARK_AGE_REWARD_TEXT" Description="LOC_LEGACY_PATH_EXPLORATION_ECONOMIC_DARK_AGE_DESCRIPTION" Icon="CARD_AT_MOD_DARK_AGE_ECONOMIC"/>
+	</AgeProgressionDarkAgeRewardInfos>
+</Database>

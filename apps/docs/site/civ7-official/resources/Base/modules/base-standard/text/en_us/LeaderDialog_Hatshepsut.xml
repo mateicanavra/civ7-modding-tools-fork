@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Hatshepsut Main Menu Char Select Text-->
+		<Row Tag="LOC_MAIN_CHAR_SELECT_LEADER_HATSHEPSUT_ANY">
+			<Text>Horus, the bright god, reborn into this person you see before you. Horus who is Hatshepsut. All that surrounds the sun works for me. Do you?</Text>
+		</Row>
+
+		<!--Hatshepsut Statement Text-->
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_HATSHEPSUT_ANY">
+			<Text>I am Horus in human flesh — Hatshepsut, pharaoh of the red lands and the black lands. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_HATSHEPSUT_ANY">
+			<Text>I am Horus in human flesh — Hatshepsut, pharaoh of the red lands and the black lands. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_HATSHEPSUT_ANY">
+			<Text>I am Horus in human flesh — Hatshepsut, pharaoh of the red lands and the black lands. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_HATSHEPSUT_ANY">
+			<Text>When we are done, the lone and level sands will be all that remains of you.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_HATSHEPSUT_ANY">
+			<Text>The nau-snake is in my belly, and I have not given myself to you, your flame will not be on me.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DEFEAT_AI_LEADER_HATSHEPSUT_ANY">
+			<Text>Open the Netherworld so that I may see my father Osiris and drive away darkness, for I am beloved of him. All you spirits, prepare a path for me.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_HATSHEPSUT">
+			<Text>The river brings blessings.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_HATSHEPSUT">
+			<Text>We must cast this downstream.</Text>
+		</Row>
+	</EnglishText>
+</Database>

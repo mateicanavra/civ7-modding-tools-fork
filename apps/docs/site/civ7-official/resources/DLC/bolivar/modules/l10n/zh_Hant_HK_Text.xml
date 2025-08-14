@@ -1,0 +1,1140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAR_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>西蒙‧玻利瓦領導的運動最終促使南美洲脫離西班牙獨立，這段事蹟也讓後世尊其為「解放者」。雖然之後與其他潛在領袖發生的內鬥，粉碎了玻利瓦統一南美洲的理想，但他卻無疑重擊了歐洲在當地的控制權，時至今日人民仍將他視為英雄。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAR_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>1783年，玻利瓦出生於委內瑞拉富有的克里奧爾人（擁有歐洲血統）家庭。他幼時即肩負管理家族莊園和財富的責任，同時自學當時法國所提倡的自由原則，並深受尚-雅克‧盧梭的影響。年輕時，他曾造訪巴黎並見證了拿破崙的崛起。他欽佩拿破崙的成就，但對法國大革命後高度集中的權力相當反感。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAR_CHAPTER_HISTORY_PARA_3" Language="zh_Hant_HK">
+      <Text>隨著拿破崙戰爭削弱了法國的力量（進而削弱了其西班牙傀儡政權），卡拉卡斯軍政府便宣布獨立。在隨後衝突中，一度解放的委內瑞拉卻再次落入西班牙手中，玻利瓦了解到自己應該從集結軍隊，轉向集結外交上的支持。他率軍艱辛地橫越了安地斯山脈，從高處勢如破竹地突襲西班牙人，並取得勝利。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAR_CHAPTER_HISTORY_PARA_4" Language="zh_Hant_HK">
+      <Text>在獨立後的局勢中，玻利瓦努力維持一定程度的統一。在這過程中，他與副總統法蘭西斯科‧德保拉‧桑坦德在民主與統一相關價值上意見相歧。玻利瓦尋求終身總統制，以及更強硬的權力控制，而桑坦德則抱有民選制度的願景。最終，玻利瓦自行宣布成為獨裁者，但僅僅兩年就慘遭罷黜。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAR_CHAPTER_HISTORY_PARA_5" Language="zh_Hant_HK">
+      <Text>身患肺結核，且統一南美洲的希望日益渺茫，玻利瓦計畫前往歐洲，但最終於1830年逝世。他解放了整個大陸，卻描述這整個過程就像是在海上耕作一樣，最終只是徒勞。然而在南美洲人心中，他的傳奇永遠是象徵革命的一個紀念碑。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAT_TITLE" Language="zh_Hant_HK">
+      <Text>{LOC_LEADER_BOLIVAR_NAME}</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_BOLIVAR_ANY" Language="zh_Hant_HK">
+      <Text>你是侵擾著這地球的怪物，而你的罪行將會獲得相應的刑罰。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_BOLIVAR_ANY" Language="zh_Hant_HK">
+      <Text>你這蛇蠍小人，別想吞侵我的土地去滿足你那惡毒的怒火。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DEFEAT_AI_LEADER_BOLIVAR_ANY" Language="zh_Hant_HK">
+      <Text>我已看過那光明。如今我將退入黑暗之中。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_BOLIVAR_ANY" Language="zh_Hant_HK">
+      <Text>我就是西蒙‧玻利瓦，推翻暴政並帶領各國走向自由之推手。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_BOLIVAR_ANY" Language="zh_Hant_HK">
+      <Text>我就是西蒙‧玻利瓦，推翻暴政並帶領各國走向自由之人。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_BOLIVAR_ANY" Language="zh_Hant_HK">
+      <Text>我就是西蒙‧玻利瓦，推翻暴政並帶領各國走向自由之推手。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_BOLIVAR" Language="zh_Hant_HK">
+      <Text>如此鼓舞人心的提案讓我備感榮耀。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_BOLIVAR" Language="zh_Hant_HK">
+      <Text>你的點子雖然立意良好，但卻走錯方向。 </Text>
+    </Replace>
+    <Replace Tag="LOC_MAIN_CHAR_SELECT_LEADER_BOLIVAR_ANY" Language="zh_Hant_HK">
+      <Text>想維持自由的平衡，往往比忍受暴政之重還艱苦。 </Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_BOLIVAR_NAME" Language="zh_Hant_HK">
+      <Text>西蒙‧玻利瓦</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220B_NAME" Language="zh_Hant_HK">
+      <Text>這些土地僅僅是個開端而已。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220C_NAME" Language="zh_Hant_HK">
+      <Text>他們需要受到保護。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220D_NAME" Language="zh_Hant_HK">
+      <Text>他們就已經足夠了。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221B_NAME" Language="zh_Hant_HK">
+      <Text>莫忘農民、礦工與馬夫。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221C_NAME" Language="zh_Hant_HK">
+      <Text>算他們好運。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222B_NAME" Language="zh_Hant_HK">
+      <Text>邁向下一場戰鬥。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222C_NAME" Language="zh_Hant_HK">
+      <Text>殺孽就到此為止。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1223B_NAME" Language="zh_Hant_HK">
+      <Text>繁榮昌盛的帝國不容威脅。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1223C_NAME" Language="zh_Hant_HK">
+      <Text>隨時該為最壞的情況做好準備。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224B_NAME" Language="zh_Hant_HK">
+      <Text>試試看就知道。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224C_NAME" Language="zh_Hant_HK">
+      <Text>沒有。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1225B_NAME" Language="zh_Hant_HK">
+      <Text>讓他們在交惡之前先交好。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226B_NAME" Language="zh_Hant_HK">
+      <Text>服從也是要爭取來的。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226C_NAME" Language="zh_Hant_HK">
+      <Text>士兵應該要學會獨立思考的能力。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1227B_NAME" Language="zh_Hant_HK">
+      <Text>直取敵首。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228B_NAME" Language="zh_Hant_HK">
+      <Text>現代化帶來的希望屬於所有人。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228C_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228D_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229B_NAME" Language="zh_Hant_HK">
+      <Text>與他為敵者必敗。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229C_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229D_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_10030A_COMPLETION" Language="zh_Hant_HK">
+      <Text>圖書館管理員悉心照料著各個時代所匯集的智慧，這些玻利瓦全都看在眼裡，但他仍希望這些智慧不會在冰冷地下室裡逐漸消逝。</Text>
+    </Replace>
+    <Replace Tag="LOC_10030A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>有目的的知識</Text>
+    </Replace>
+    <Replace Tag="LOC_10030B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>軍事建築{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10030B_NAME" Language="zh_Hant_HK">
+      <Text>將其和軍官們分享。</Text>
+    </Replace>
+    <Replace Tag="LOC_10030C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>軍事建築{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10030C_NAME" Language="zh_Hant_HK">
+      <Text>將其和士兵們分享。</Text>
+    </Replace>
+    <Replace Tag="LOC_10031A_COMPLETION" Language="zh_Hant_HK">
+      <Text>受到眾多臣民崇拜簇擁，這一刻讓玻利瓦不禁沉浸其中。頭戴新鑄的皇冠，拿破崙皇帝的形象深深地烙印在玻利瓦的記憶中。</Text>
+    </Replace>
+    <Replace Tag="LOC_10031A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>看齊的對象</Text>
+    </Replace>
+    <Replace Tag="LOC_10031B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{2_capital}{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10031B_NAME" Language="zh_Hant_HK">
+      <Text>他是政治家的典範。</Text>
+    </Replace>
+    <Replace Tag="LOC_10031C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{2_capital}{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10031C_NAME" Language="zh_Hant_HK">
+      <Text>他的軍事謀略無人能出其右。</Text>
+    </Replace>
+    <Replace Tag="LOC_10032A_COMPLETION" Language="zh_Hant_HK">
+      <Text>玻利瓦在那決定命運的加冕日所看到的崇高皇帝，肯定不會是眼前的這個人。難道那一切都是虛有其表？</Text>
+    </Replace>
+    <Replace Tag="LOC_10032A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>鄙視的對象</Text>
+    </Replace>
+    <Replace Tag="LOC_10032B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10032B_NAME" Language="zh_Hant_HK">
+      <Text>對拿破崙的人民展現恩慈。</Text>
+    </Replace>
+    <Replace Tag="LOC_10032C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>所有戰爭+1戰爭支援。</Text>
+    </Replace>
+    <Replace Tag="LOC_10032C_NAME" Language="zh_Hant_HK">
+      <Text>繼續進逼。</Text>
+    </Replace>
+    <Replace Tag="LOC_10033A_COMPLETION" Language="zh_Hant_HK">
+      <Text>玻利瓦麾下的指揮官們，身上紛紛一個接一個地掛上勳章，不僅藉此表彰他們的勇敢，也是紀念他們對自由大業的犧牲奉獻。</Text>
+    </Replace>
+    <Replace Tag="LOC_10033A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>加官晉爵</Text>
+    </Replace>
+    <Replace Tag="LOC_10033B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10033B_NAME" Language="zh_Hant_HK">
+      <Text>這對其他士兵而言是種鼓舞。</Text>
+    </Replace>
+    <Replace Tag="LOC_10033C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}與{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10033C_NAME" Language="zh_Hant_HK">
+      <Text>這對所有人而言都是種鼓舞。</Text>
+    </Replace>
+    <Replace Tag="LOC_10034A_COMPLETION" Language="zh_Hant_HK">
+      <Text>玻利瓦承認了{1_Independent}，並看到了一個自由、獨立的民族。但誰的自由更重要？</Text>
+    </Replace>
+    <Replace Tag="LOC_10034A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>自由的問題</Text>
+    </Replace>
+    <Replace Tag="LOC_10034B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>步兵{1_reward}，但{3_capital}{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10034B_NAME" Language="zh_Hant_HK">
+      <Text>西班牙征服的自由。</Text>
+    </Replace>
+    <Replace Tag="LOC_10034C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>所有聚落{1_reward}且{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10034C_NAME" Language="zh_Hant_HK">
+      <Text>{1_Independent}抵抗的自由。</Text>
+    </Replace>
+    <Replace Tag="LOC_10035A_COMPLETION" Language="zh_Hant_HK">
+      <Text>玻利瓦承認了{1_Independent}，並看到了一個自由、獨立的民族。第一印象的重要性不言而喻。</Text>
+    </Replace>
+    <Replace Tag="LOC_10035A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>獨立自治</Text>
+    </Replace>
+    <Replace Tag="LOC_10035B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10035B_NAME" Language="zh_Hant_HK">
+      <Text>歡迎移民。</Text>
+    </Replace>
+    <Replace Tag="LOC_10035C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10035C_NAME" Language="zh_Hant_HK">
+      <Text>款待領袖。</Text>
+    </Replace>
+    <Replace Tag="LOC_10036A_COMPLETION" Language="zh_Hant_HK">
+      <Text>經過艱苦而血腥的戰鬥，玻利瓦的軍隊奪回了{1_STORY_CITY}，{2_civilization_adj}的人民們歡呼雀躍，而西班牙征服者則淪為階下囚。這是美好的一天。</Text>
+    </Replace>
+    <Replace Tag="LOC_10036A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>不共戴天之敵</Text>
+    </Replace>
+    <Replace Tag="LOC_10036B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>最高等級的指揮官獲得免費強化。</Text>
+    </Replace>
+    <Replace Tag="LOC_10036B_NAME" Language="zh_Hant_HK">
+      <Text>為此成就封賞。</Text>
+    </Replace>
+    <Replace Tag="LOC_10036C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10036C_NAME" Language="zh_Hant_HK">
+      <Text>準備好迎接任何情況。</Text>
+    </Replace>
+    <Replace Tag="LOC_10037A_COMPLETION" Language="zh_Hant_HK">
+      <Text>玻利瓦被迫逃往{1_capital}，而他國家的命運懸而未決。面對死亡的挑戰，他努力尋找正確的應對方式。</Text>
+    </Replace>
+    <Replace Tag="LOC_10037A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>危急時刻</Text>
+    </Replace>
+    <Replace Tag="LOC_10037B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10037B_NAME" Language="zh_Hant_HK">
+      <Text>拼命戰鬥。</Text>
+    </Replace>
+    <Replace Tag="LOC_10037C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>所有戰爭+1戰爭支援，但{1_capital}中有1個格位遭到掠奪。</Text>
+    </Replace>
+    <Replace Tag="LOC_10037C_NAME" Language="zh_Hant_HK">
+      <Text>因大膽的想法而集結。</Text>
+    </Replace>
+    <Replace Tag="LOC_10038A_COMPLETION" Language="zh_Hant_HK">
+      <Text>玻利瓦凱旋回歸{1_capital}，一邊向人群點頭示意。他們再次成為——不，他們一直都是——{2_civilization_adj}的人民。</Text>
+    </Replace>
+    <Replace Tag="LOC_10038A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>重返榮耀</Text>
+    </Replace>
+    <Replace Tag="LOC_10038B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>進入慶典。</Text>
+    </Replace>
+    <Replace Tag="LOC_10038B_NAME" Language="zh_Hant_HK">
+      <Text>這值得好好慶祝。</Text>
+    </Replace>
+    <Replace Tag="LOC_10038C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10038C_NAME" Language="zh_Hant_HK">
+      <Text>願此景無須再次發生。</Text>
+    </Replace>
+    <Replace Tag="LOC_10039A_COMPLETION" Language="zh_Hant_HK">
+      <Text>面對拒絕，玻利瓦努力保持著鎮定——如此侮辱不僅是針對他個人，也侮辱了他的人民。</Text>
+    </Replace>
+    <Replace Tag="LOC_10039A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>遭到拒絕</Text>
+    </Replace>
+    <Replace Tag="LOC_10039B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>所有戰爭+1戰爭支援。</Text>
+    </Replace>
+    <Replace Tag="LOC_10039B_NAME" Language="zh_Hant_HK">
+      <Text>此事將被誓死銘記。</Text>
+    </Replace>
+    <Replace Tag="LOC_10039C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10039C_NAME" Language="zh_Hant_HK">
+      <Text>此事已拋諸腦後。</Text>
+    </Replace>
+    <Replace Tag="LOC_10040A_COMPLETION" Language="zh_Hant_HK">
+      <Text>對玻利瓦來說，領導這件事一直都相當得心應手。他無法信任那些沒有能力跟自己面對同等挑戰的人。</Text>
+    </Replace>
+    <Replace Tag="LOC_10040A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>兩難境地</Text>
+    </Replace>
+    <Replace Tag="LOC_10040B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10040B_NAME" Language="zh_Hant_HK">
+      <Text>我們之所以有精英是有理由的。</Text>
+    </Replace>
+    <Replace Tag="LOC_10040C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10040C_NAME" Language="zh_Hant_HK">
+      <Text>付出信任才能收穫可信之人。</Text>
+    </Replace>
+    <Replace Tag="LOC_10042A_COMPLETION" Language="zh_Hant_HK">
+      <Text>儘管西蒙‧玻利瓦竭盡全力，他依然無法放下手中長劍。也許他所相信的自由——必定只能以他手賦予他人。</Text>
+    </Replace>
+    <Replace Tag="LOC_10042A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>全民皆兵</Text>
+    </Replace>
+    <Replace Tag="LOC_10042B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>所有單位{1_reward}，但所有聚落中都有1個格位遭到掠奪。</Text>
+    </Replace>
+    <Replace Tag="LOC_10042B_NAME" Language="zh_Hant_HK">
+      <Text>人民必須做出犧牲。</Text>
+    </Replace>
+    <Replace Tag="LOC_10042C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>所有戰爭+3戰爭支援，但所有單位受到50傷害。</Text>
+    </Replace>
+    <Replace Tag="LOC_10042C_NAME" Language="zh_Hant_HK">
+      <Text>軍隊必須做出犧牲。</Text>
+    </Replace>
+    <Replace Tag="LOC_10043A_COMPLETION" Language="zh_Hant_HK">
+      <Text>這件事雖然再單純不過，卻在長期以來一直困擾著玻利瓦——讓兩國間為了促進彼此人民的福祉而進行有建設性的交流。</Text>
+    </Replace>
+    <Replace Tag="LOC_10043A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>堅定地握手</Text>
+    </Replace>
+    <Replace Tag="LOC_10043B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10043B_NAME" Language="zh_Hant_HK">
+      <Text>歡迎想法與資本的自由交換。</Text>
+    </Replace>
+    <Replace Tag="LOC_10043C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10043C_NAME" Language="zh_Hant_HK">
+      <Text>保持警覺。</Text>
+    </Replace>
+    <Replace Tag="LOC_10046A_COMPLETION" Language="zh_Hant_HK">
+      <Text>玻利瓦深知孤軍奮戰的絕望感。所以當求援的呼聲傳來時，他毫不猶豫地回應了。</Text>
+    </Replace>
+    <Replace Tag="LOC_10046A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>合力斷金</Text>
+    </Replace>
+    <Replace Tag="LOC_10046B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10046B_NAME" Language="zh_Hant_HK">
+      <Text>昭告世界玻利瓦即將到來。</Text>
+    </Replace>
+    <Replace Tag="LOC_10046C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10046C_NAME" Language="zh_Hant_HK">
+      <Text>招募援軍。</Text>
+    </Replace>
+    <Replace Tag="LOC_10047A_COMPLETION" Language="zh_Hant_HK">
+      <Text>玻利瓦在其他領袖間的人望也延伸到了其人民身上——也許是因為他的口才，也或許是因為那強大的人格魅力。</Text>
+    </Replace>
+    <Replace Tag="LOC_10047A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>魅力型領袖</Text>
+    </Replace>
+    <Replace Tag="LOC_10047B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10047B_NAME" Language="zh_Hant_HK">
+      <Text>他們想要親自去看看他的土地。</Text>
+    </Replace>
+    <Replace Tag="LOC_10047C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10047C_NAME" Language="zh_Hant_HK">
+      <Text>他們願意為了他的志業貢獻生命。</Text>
+    </Replace>
+    <Replace Tag="LOC_10048A_COMPLETION" Language="zh_Hant_HK">
+      <Text>西蒙‧玻利瓦經過這曾飽受戰爭蹂躪的街道時，{1_STORY_CITY}的人民不禁齊聲為這名英雄歡呼。要贏得敵方人民的欽佩幾乎是一項不可能的壯舉——除非你是「解放者」。</Text>
+    </Replace>
+    <Replace Tag="LOC_10048A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>喜聞樂見</Text>
+    </Replace>
+    <Replace Tag="LOC_10048B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10048B_NAME" Language="zh_Hant_HK">
+      <Text>商人們夢想更大的繁榮。</Text>
+    </Replace>
+    <Replace Tag="LOC_10048C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10048C_NAME" Language="zh_Hant_HK">
+      <Text>工匠們規劃著最有野心的計畫。</Text>
+    </Replace>
+    <Replace Tag="LOC_10049A_COMPLETION" Language="zh_Hant_HK">
+      <Text>繁榮隨著黃金之河流入墨西哥，既證明著此處人民的堅忍和意志力，也實現了西蒙‧玻利瓦最狂野的夢想。</Text>
+    </Replace>
+    <Replace Tag="LOC_10049A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>革命萬歲</Text>
+    </Replace>
+    <Replace Tag="LOC_10049B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}與{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10049B_NAME" Language="zh_Hant_HK">
+      <Text>這只是個開始。</Text>
+    </Replace>
+    <Replace Tag="LOC_10049C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}與{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10049C_NAME" Language="zh_Hant_HK">
+      <Text>這世界還沒準備好。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220A_COMPLETION" Language="zh_Hant_HK">
+      <Text>西蒙‧玻利瓦站在農田之中，這些田野覆蓋著他的領土、養育著其子民，當中的穀物在近期的降雨後閃閃發光。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>這些土地</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220B_COMPLETION" Language="zh_Hant_HK">
+      <Text>在玻利瓦的鼓勵下，人民向外尋找能定居與耕作的新土地。總有一天，滋養生命的雨水也會降臨在這些土地上。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220B_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>再創立2座聚落。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220B_STORYTITLE" Language="zh_Hant_HK">
+      <Text>這些土地</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220C_COMPLETION" Language="zh_Hant_HK">
+      <Text>玻利瓦沿著壁壘行走，這讓他對自己的帝國有了全新認識。他的領土仍然一望無際，但如今帝國核心已築起了防禦。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220C_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>再建造4座遠古城牆</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220C_STORYTITLE" Language="zh_Hant_HK">
+      <Text>這些土地</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{2_capital}{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221A_COMPLETION" Language="zh_Hant_HK">
+      <Text>玻利瓦的商人與鄰國在談判桌上會面，尋求能讓他們口袋裝滿黃金的交易。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>一個民族</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221B_COMPLETION" Language="zh_Hant_HK">
+      <Text>玻利瓦的帝國不僅僅是一方之國，而是一個民族——包含了商人、士兵和勞工等形形色色之人。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221B_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>擁有一座有10鄉村人口的聚落。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221B_STORYTITLE" Language="zh_Hant_HK">
+      <Text>一個民族</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222A_COMPLETION" Language="zh_Hant_HK">
+      <Text>戰事已塵埃落定，也落在敗者與勝者身上。玻利瓦的士兵收起武器，等待他下次的拔劍號令。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>準備好面對一切</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222B_COMPLETION" Language="zh_Hant_HK">
+      <Text>玻利瓦呼籲停止流血衝突，因為{1_STORY_CITY}已牢牢掌控在他的副官手中。他想對敵人傳達的訊息再明確不過了。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222B_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>佔領一個聚落。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222B_STORYTITLE" Language="zh_Hant_HK">
+      <Text>準備好面對一切</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1223A_COMPLETION" Language="zh_Hant_HK">
+      <Text>無論是關於帝國的日常行政，還是來自遠方的威脅，玻利瓦的助手每天都會無數次地前來尋求指引與指示。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1223A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>國事無窮</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1223B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>故事繼續。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1223C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>故事繼續。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224A_COMPLETION" Language="zh_Hant_HK">
+      <Text>某位海軍上將正展示著一款精密儀器，還一邊解釋它如何使人能夠在危險的海洋中航行，而玻利瓦就在一旁閒適地看著。玻利瓦總是將人民的需求放在第一位——對他的人民來說，遠在半個地球之外的土地有何用處？</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>若有必要</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224B_COMPLETION" Language="zh_Hant_HK">
+      <Text>儘管對這些新土地毫不熟悉，但{1_STORY_CITY}無疑展現出了蓬勃發展的潛力。也許當地人中會有志同道合的夥伴。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224B_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>在遙遠土地中擁有一個聚落。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224B_STORYTITLE" Language="zh_Hant_HK">
+      <Text>若有必要</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1225A_COMPLETION" Language="zh_Hant_HK">
+      <Text>玻利瓦來回踱步，聽著大臣們爭論不休。雖然與新認識的領導人會面並不會招致什麼損失，但有些人卻質疑那些遙遠海洋彼岸的勢力會心懷不軌。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1225A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>外來訪客</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1225B_COMPLETION" Language="zh_Hant_HK">
+      <Text>墨水在合約上逐漸乾涸，玻利瓦與對方握手表示同意。得知自己並非孤立於世是一件相當重要的體悟，重要到令人無法忽視。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1225B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>金幣建築{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1225B_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>和某個位於遙遠土地的文明締結同盟。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1225B_STORYTITLE" Language="zh_Hant_HK">
+      <Text>外來訪客</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226A_COMPLETION" Language="zh_Hant_HK">
+      <Text>參觀軍營時，玻利瓦看到老兵告誡新兵，服從與否就是生與死的區別。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>眾箭成城</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226B_COMPLETION" Language="zh_Hant_HK">
+      <Text>玻利瓦的士兵曾經像無頭蒼蠅般毫無目標，而現在則聽令於他們的指揮官。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226B_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>擁有有8次強化的指揮官。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226B_STORYTITLE" Language="zh_Hant_HK">
+      <Text>眾箭成城</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1227A_COMPLETION" Language="zh_Hant_HK">
+      <Text>戰火燒到了西蒙‧玻利瓦眼前，但他早已預見這一幕，他將和人民團結一致對抗敵人的征服。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1227A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>堅定立場</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1227B_COMPLETION" Language="zh_Hant_HK">
+      <Text>玻利瓦的軍隊迫使敵人撤退，這無疑是勝利的好兆頭。戰爭雖尚未結束，但可能會比預期得還更早結束。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1227B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>進入慶典。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1227B_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>在遙遠土地擊敗一位軍隊指揮官。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1227B_STORYTITLE" Language="zh_Hant_HK">
+      <Text>堅定立場</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228A_COMPLETION" Language="zh_Hant_HK">
+      <Text>玻利瓦注意到{1_CAPITAL}的街道變得前所未有地熱鬧，這裡似乎存在著商機。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>敞開門戶</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228B_COMPLETION" Language="zh_Hant_HK">
+      <Text>一股毫無疑問屬於{1_CIVILIZATION_ADJ}的強大能量，沿著橫跨成吉思汗帝國的軌道飛速奔馳。他的人民從未如此團結一心。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228B_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>擁有5座火車站。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228B_STORYTITLE" Language="zh_Hant_HK">
+      <Text>敞開門戶</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}並進入慶典。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229A_COMPLETION" Language="zh_Hant_HK">
+      <Text>從早年開始，成吉思汗就一直堅持著自己的信念。現在，他要求人民與他站在一起。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>不動搖的決心</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229B_COMPLETION" Language="zh_Hant_HK">
+      <Text>敵人一個接一個倒下。但任憑他人如何說三道四，西蒙‧玻利瓦始終不愧對他的信念。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229B_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>佔領2座聚落。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229B_STORYTITLE" Language="zh_Hant_HK">
+      <Text>不動搖的決心</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}並進入慶典。</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_BOLIVAR_L1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>將城鎮轉變為城市時+50%金幣效益。</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_BOLIVAR_L1_NAME" Language="zh_Hant_HK">
+      <Text>擴張屬性節點</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_BOLIVAR_L2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>對抗區域時所有單位+5戰鬥力。</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_BOLIVAR_L2_NAME" Language="zh_Hant_HK">
+      <Text>軍事屬性節點</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_BOLIVAR_NAME" Language="zh_Hant_HK">
+      <Text>玻利瓦徽章1</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_BOLIVAR_P_NAME" Language="zh_Hant_HK">
+      <Text>玻利瓦徽章2</Text>
+    </Replace>
+    <Replace Tag="LOC_BANNER_BOLIVAR_NAME" Language="zh_Hant_HK">
+      <Text>玻利瓦旗幟</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_BOLIVAR_1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在此時代中，以-10%金幣[icon:YIELD_GOLD]作為代價換取+15%食物[icon:YIELD_FOOD]</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_BOLIVAR_1_NAME" Language="zh_Hant_HK">
+      <Text>玻利瓦探索傳奇擴張</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_BOLIVAR_2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在此時代中，以-10%影響力[icon:YIELD_DIPLOMACY]作為代價換取你的所有海軍單位+3戰鬥力</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_BOLIVAR_2_NAME" Language="zh_Hant_HK">
+      <Text>玻利瓦探索傳奇軍事</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_BOLIVAR_1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在此時代中，以-10%金幣[icon:YIELD_GOLD]作為代價換取+15%食物[icon:YIELD_FOOD]</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_BOLIVAR_1_NAME" Language="zh_Hant_HK">
+      <Text>玻利瓦近代傳奇擴張</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_BOLIVAR_2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在此時代中，以-10%影響力[icon:YIELD_DIPLOMACY]作為代價換取你的所有空中單位+3戰鬥力</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_BOLIVAR_2_NAME" Language="zh_Hant_HK">
+      <Text>玻利瓦近代傳奇軍事</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_AGENDA_CORNERSTONE_FREEDOM_DESC" Language="zh_Hant_HK">
+      <Text>喜歡不開心聚落最少的領袖，不喜歡不開心聚落最多的領袖。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_AGENDA_CORNERSTONE_FREEDOM_NAME" Language="zh_Hant_HK">
+      <Text>自由的基石</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_BOLIVAR_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>你的全部戰爭獲得1[icon:WAR_SUPPORT]戰爭支援。當你首次征服一座聚落時，該聚落可免費購買1個可建造物。[icon:YIELD_ANGRY]動盪並不會導致無法購買。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_LEADER_INTRO_TEXT_BOLIVAR" Language="zh_Hant_HK">
+      <Text>舊世界已然消逝，新世界正在崛起。西蒙·玻利瓦，偉大的解放者，你勇於對抗那些試圖限制你夢想的人。你的魅力吸引著人民；你的膽識驅使他們前進。即便此舉如同耕耘大海，也要繼續戰鬥。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_DAVALOS_MEDAL_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>阿亞庫喬的傳承。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_DAVALOS_MEDAL_FUNCTIONAL_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>軍事建築+1[icon:YIELD_HAPPINESS]幸福感，依照時代疊加。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_DAVALOS_MEDAL_NAME" Language="zh_Hant_HK">
+      <Text>達瓦洛斯獎牌</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_DAVALOS_MEDAL_UNLOCK_TITLE" Language="zh_Hant_HK">
+      <Text>於西蒙‧玻利瓦等級5解鎖</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_GOLD_SNUFF_BOX_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>某個皇室的贈禮。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_GOLD_SNUFF_BOX_FUNCTIONAL_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>當僅有一名盟友時，+20%[icon:YIELD_FOOD]食物。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_GOLD_SNUFF_BOX_NAME" Language="zh_Hant_HK">
+      <Text>黃金鼻煙盒</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_GOLD_SNUFF_BOX_UNLOCK_TITLE" Language="zh_Hant_HK">
+      <Text>於西蒙‧玻利瓦等級2解鎖</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_LETTER_TO_JAMAICA_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>未來的願景。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_LETTER_TO_JAMAICA_FUNCTIONAL_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在慶典期間，購買單位時+50%[icon:YIELD_GOLD]金幣效益。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_LETTER_TO_JAMAICA_NAME" Language="zh_Hant_HK">
+      <Text>給牙買加的信</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_LETTER_TO_JAMAICA_UNLOCK_TITLE" Language="zh_Hant_HK">
+      <Text>於西蒙‧玻利瓦等級9解鎖</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_ANTIQUITY_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成古典時代兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_ANTIQUITY_2_NAME" Language="zh_Hant_HK">
+      <Text>古典時代完成2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_ANTIQUITY_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成古典時代三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_ANTIQUITY_3_NAME" Language="zh_Hant_HK">
+      <Text>古典時代完成3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成古典時代。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>古典時代完成</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_EXPLORATION_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成探索時代兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>探索時代完成2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_EXPLORATION_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成探索時代三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_EXPLORATION_3_NAME" Language="zh_Hant_HK">
+      <Text>探索時代完成3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成探索時代。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>探索時代完成</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_MODERN_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成近代兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>近代完成2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_MODERN_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成近代三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_MODERN_3_NAME" Language="zh_Hant_HK">
+      <Text>近代完成3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成近代。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>近代完成</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_ANTIQUITY_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「遠古世界的奇觀」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_ANTIQUITY_2_NAME" Language="zh_Hant_HK">
+      <Text>遠古世界的奇觀2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_ANTIQUITY_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「遠古世界的奇觀」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_ANTIQUITY_3_NAME" Language="zh_Hant_HK">
+      <Text>遠古世界的奇觀3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「遠古世界的奇觀」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>遠古世界的奇觀</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_EXPLORATION_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「藏寶庫」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>藏寶庫2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_EXPLORATION_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「藏寶庫」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_EXPLORATION_3_NAME" Language="zh_Hant_HK">
+      <Text>藏寶庫3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「藏寶庫」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>藏寶庫</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_MODERN_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「地理學會」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>地理學會2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_MODERN_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「地理學會」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_MODERN_3_NAME" Language="zh_Hant_HK">
+      <Text>地理學會3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「地理學會」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>地理學會</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_ANTIQUITY_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「絲路」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_ANTIQUITY_2_NAME" Language="zh_Hant_HK">
+      <Text>絲路2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_ANTIQUITY_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「絲路」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_ANTIQUITY_3_NAME" Language="zh_Hant_HK">
+      <Text>絲路3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「絲路」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>絲路</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_EXPLORATION_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「寶藏艦隊」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>寶藏艦隊2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_EXPLORATION_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「寶藏艦隊」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_EXPLORATION_3_NAME" Language="zh_Hant_HK">
+      <Text>寶藏艦隊3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「寶藏艦隊」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>寶藏艦隊</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_MODERN_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「鐵路大亨」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>鐵路大亨2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_MODERN_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「鐵路大亨」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_MODERN_3_NAME" Language="zh_Hant_HK">
+      <Text>鐵路大亨3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「鐵路大亨」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>鐵路大亨</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_FLAWLESS_VICTORY_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，在一次古典時代中完成2項傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_FLAWLESS_VICTORY_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>雙重傳承，古典</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_FLAWLESS_VICTORY_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，在一次探索時代中完成2項傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_FLAWLESS_VICTORY_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>雙重傳承，探索</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_FLAWLESS_VICTORY_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，在一次近代中完成2項傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_FLAWLESS_VICTORY_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>雙重傳承，近代</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_ANTIQUITY_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「和平帝國」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_ANTIQUITY_2_NAME" Language="zh_Hant_HK">
+      <Text>和平帝國2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_ANTIQUITY_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「和平帝國」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_ANTIQUITY_3_NAME" Language="zh_Hant_HK">
+      <Text>和平帝國3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「和平帝國」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>和平帝國</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_EXPLORATION_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「世界不夠大」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>世界不夠大2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_EXPLORATION_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「世界不夠大」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_EXPLORATION_3_NAME" Language="zh_Hant_HK">
+      <Text>世界不夠大3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「世界不夠大」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>世界不夠大</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_MODERN_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「意識形態」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>意識形態2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_MODERN_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「意識形態」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_MODERN_3_NAME" Language="zh_Hant_HK">
+      <Text>意識形態3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「意識形態」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>意識形態</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_PLAY_GAMES_1_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，至少達成1項傳承路徑里程碑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_PLAY_GAMES_1_NAME" Language="zh_Hant_HK">
+      <Text>開始遊戲1</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_PLAY_GAMES_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，至少達成2項傳承路徑里程碑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_PLAY_GAMES_2_NAME" Language="zh_Hant_HK">
+      <Text>開始遊戲2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_PLAY_GAMES_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，至少達成3項傳承路徑里程碑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_PLAY_GAMES_3_NAME" Language="zh_Hant_HK">
+      <Text>開始遊戲3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_A_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>在古典時代扮演西蒙·玻利瓦，完成接觸鄉間人民的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_A_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>一個民族</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_A_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>在探索時代扮演西蒙·玻利瓦，完成在危險海域航行的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_A_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>若有必要</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_A_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>在近代扮演西蒙·玻利瓦，完成透過鐵路統一帝國的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_A_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>敞開門戶</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_B_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>在古典時代扮演西蒙·玻利瓦，完成平息戰火餘塵的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_B_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>準備好面對一切</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_B_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>在探索時代扮演西蒙·玻利瓦，完成晉升一位老兵的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_B_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>眾箭成城</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_B_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>在近代扮演西蒙·玻利瓦，完成為信念而戰的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_B_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>不動搖的決心</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_ANTIQUITY_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「大圖書館」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_ANTIQUITY_2_NAME" Language="zh_Hant_HK">
+      <Text>大圖書館2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_ANTIQUITY_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「大圖書館」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_ANTIQUITY_3_NAME" Language="zh_Hant_HK">
+      <Text>大圖書館3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「大圖書館」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>大圖書館</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_EXPLORATION_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「啟蒙」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>啟蒙2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_EXPLORATION_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「啟蒙」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_EXPLORATION_3_NAME" Language="zh_Hant_HK">
+      <Text>啟蒙3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「啟蒙」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>啟發</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_MODERN_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「太空競賽」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>太空競賽2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_MODERN_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「太空競賽」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_MODERN_3_NAME" Language="zh_Hant_HK">
+      <Text>太空競賽3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，完成「太空競賽」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>太空競賽</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_EXPANSIONIST_LEGEND_BOLIVAR_L1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>傳奇解鎖。將城鎮轉變為城市時+50%[icon:YIELD_GOLD]金幣效益。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_BOLIVAR_L2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>傳奇解鎖。對抗區域時所有單位+5戰鬥力。</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_BOLIVAR" Language="zh_Hant_HK">
+      <Text>解放者</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_EXPLORATION_1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，取用一張全新探索時代傳承卡牌：[n]
+				+15%金幣，-10%食物</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_EXPLORATION_1_NAME" Language="zh_Hant_HK">
+      <Text>探索時代擴張傳承卡牌</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_EXPLORATION_2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，取用一張全新探索時代傳承卡牌：[n]
+				海軍單位+3戰鬥力，-10%影響力</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>探索時代軍事傳承卡牌</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_MODERN_1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，取用一張全新近代傳承卡牌：[n]
+				+15%食物，-10%金幣</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_MODERN_1_NAME" Language="zh_Hant_HK">
+      <Text>近代擴張傳承卡牌</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_MODERN_2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演玻利瓦，取用一張全新近代傳承卡牌：[n]
+				空中單位+3戰鬥力，-10%影響力</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>近代軍事傳承卡牌</Text>
+    </Replace>
+    <Replace Tag="LOC_TITLE_BOLIVAR_NAME" Language="zh_Hant_HK">
+      <Text>解放者</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_BOLIVAR_ABILITY_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>[BLIST][LI]你的所有戰爭獲得[B]1[icon:WAR_SUPPORT]戰爭支援[/B]。[LI]當你首次征服一座聚落時，該聚落可[B]免費購買1個可建造物[/B]。[LI][icon:YIELD_ANGRY][B]動蕩[/B]並不會導致無法購買。[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_BOLIVAR_ABILITY_NAME" Language="zh_Hant_HK">
+      <Text>解放者</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BOLIVAR_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演[B]西蒙‧玻利瓦[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BOLIVAR_FRANCE_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]西蒙‧玻利瓦[/B]曾受到[B]法蘭西帝國[/B]的影響。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BOLIVAR_INCA_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]西蒙‧玻利瓦[/B]來自美洲。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BOLIVAR_MAYA_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]西蒙‧玻利瓦[/B]來自美洲。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BOLIVAR_MEXICO_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]西蒙‧玻利瓦[/B]來自美洲。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BOLIVAR_ROME_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]羅馬[/B]和[B]西蒙‧玻利瓦[/B]在策略上互補。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BOLIVAR_SPAIN_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]西班牙[/B]和[B]西蒙‧玻利瓦[/B]在策略上互補。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_BOLIVAR_L2_COMBAT_PREVIEW" Language="zh_Hant_HK">
+      <Text>+{1_Value}傳奇軍事屬性</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

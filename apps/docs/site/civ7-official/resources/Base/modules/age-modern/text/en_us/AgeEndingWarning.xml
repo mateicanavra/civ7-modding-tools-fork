@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_AGE_END_WARNING_TITLE">
+			<Text>The Modern Age will soon come to an end</Text>
+		</Row>
+		<Row Tag="LOC_AGE_END_WARNING_DESC">
+			<Text>The Modern Age is drawing to a close. From this point forward, the Age only progresses when you select Next Turn; no other effects will influence its advance. Reflect on the remaining opportunities, and ready your Civilization for the dawn of a new era.</Text>
+		</Row>
+		<Row Tag="LOC_AGE_END_WARNING_DESC_FINAL_AGE">
+			<Text>The Modern Age is drawing to a close. From this point forward, the Age only progresses when you select Next Turn; no other effects will influence its advance. If no Victory is won before the end of the Age, the player who accumulated the most [B]Legacy Points[/B] over the course of the Age will be the winner. Reflect on the remaining opportunities and etch your Civilization's legacy into history.</Text>
+		</Row>
+	</EnglishText>
+</Database>

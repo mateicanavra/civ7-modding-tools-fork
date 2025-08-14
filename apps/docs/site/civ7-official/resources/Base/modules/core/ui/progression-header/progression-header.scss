@@ -1,0 +1,49 @@
+@use '../themes/default/_theme' as *;
+@use '../utilities/utility-layout' as *;
+@use '../utilities/utility-text' as *;
+@use '../../../core/ui/utilities/utility-shapes' as shapes;
+
+
+.ph-portrait-container {
+
+	&:hover,
+	&:focus {
+		transform: scale(1.1);
+	}
+}
+
+.ph-title-container {
+	width: pixels(260);
+}
+
+.ph-highlight {
+	background: linear-gradient(90deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+	opacity: 0;
+}
+
+.ph-micro-background {
+	background: linear-gradient(color('primary-3'), color('primary-2'));
+
+	border-style: solid;
+	border-width: pixels(2);
+	border-image: linear-gradient(to bottom, color('secondary-2'), color('secondary-3')) 1;
+
+	&:hover,
+	&:focus {
+		transform: scale(1.1);
+
+		border-image: linear-gradient(to bottom, color('secondary-1'), color('secondary-2')) 1;
+	}
+}
+
+
+.ph-use-highlight {
+
+	&:hover,
+	&:focus {
+
+		.ph-highlight {
+			opacity: 0.4;
+		}
+	}
+}

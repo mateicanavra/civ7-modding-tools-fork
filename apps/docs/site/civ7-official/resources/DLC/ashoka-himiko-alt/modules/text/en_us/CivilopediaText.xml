@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- LEADER_ASHOKA_ALT -->
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ASHOKA_ALT_TITLE">
+			<Text>{LOC_LEADER_ASHOKA_ALT_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ASHOKA_ALT_QUOTE">
+			<Text>[PLACEHOLDER] Pedia Famous Quote</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ASHOKA_ALT_CHAPTER_HISTORY_PARA_1">
+			<Text>In the immediate aftermath of Alexander the Great’s failed conquest of India, the Mauryan Empire rose to become the largest single polity to emerge in India in antiquity. After Alexander’s retreat, Chandragupta Maurya seized the chaos that followed and conquered the vassals that Greece had left behind. Though less unified than later Indian empires, Maurya was a beacon for learning and culture, even sending emissaries and Buddhist missionaries westward, in Alexander’s footsteps. Domestically, the empire continued the maintenance of trade routes across the subcontinent, from east to west, forming a key link in the Silk Road, a route that was to become central to their fame. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ASHOKA_ALT_CHAPTER_HISTORY_PARA_2">
+			<Text>Religion played a vital role in Maurya. India is home to many of the world’s religions – Hinduism, Jainism, and Buddhism, as well as a few more exotic strands of belief, such as Greek Hellenism. The early Mauryans were Jain, whose focus on non-violence and the cultivation of personal purity seems an odd choice for an emperor – until one realizes that purity in turn leads to personal power and charisma. It should be noted that the Mauryans regularly had both Chinese and Greek visitors rubbing shoulders in its cities, resulting in significant heterogeneity and cosmopolitanism. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ASHOKA_ALT_CHAPTER_HISTORY_PARA_3">
+			<Text>Ashoka (Asoka) – the name means “without sorrow” – started life as the unfavored last-born son. Apparently, his father simply did not like his complexion, which was not smooth like his brothers, and repeatedly ignored the signs that this child was going to become a conqueror. When his brother, the crown prince, headed off to war, Ashoka declared that the gods wished him to be the king. Few stood in the way of this claim: when Ashoka’s father protested, the old man promptly died; and when Ashoka’s brother returned to seize the throne, he was promptly dumped into a charcoal fire. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ASHOKA_ALT_CHAPTER_HISTORY_PARA_4">
+			<Text>Once established, Ashoka continued his rather bloody rise to power. He immediately placed his sights on the Kalinga Empire to the east and launched a war of brazen conquest. Eager for victory, Ashoka rode out to battle with his troops – and was disgusted. The bloodshed and brutality he witnessed there led him to renounce violence and embrace Buddhism and the effort to spread the truth of the dharma (Buddhist teachings) across the kingdom, which he did by erecting stelae extolling the dharma across Mauryan lands.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ASHOKA_ALT_CHAPTER_HISTORY_PARA_5">
+			<Text>On his stelae, Ashoka issued his Edicts. In addition to listing those responsible for inscribing them, the Edicts define prohibitions on immorality – violence towards animals (i.e. meat-eating), violence towards people, and overly licentious festivals. They also describe institutions (of medical care, for instance) that the emperor set up in the region, making a lasting claim towards global goodwill.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ASHOKA_ALT_CHAPTER_HISTORY_PARA_6">
+			<Text>Ashoka’s story is one of transformation. A visiting Chinese diplomat speculated that the early Ashoka had personally gone to hell to learn new methods of torture, while the later Ashoka denounces all violence, to human and animal alike. It is a story of repentance that has made Ashoka a hero across Buddhist Asia, and he is seen by many Sri Lankans and Southeast Asians as the person who brought Buddhism to their parts of the world. While this impact is perhaps his most lasting legacy worldwide, Ashoka remains compelling to Indians as well, and was the subject of a big-budget Bollywood feature and, now, a popular TV series. </Text>
+		</Row>
+		<!-- LEADER_HIMIKO -->
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_TITLE">
+			<Text>{LOC_LEADER_HIMIKO_ALT_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_QUOTE">
+			<Text>[PLACEHOLDER] Pedia Famous Quote</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_CHAPTER_HISTORY_PARA_1">
+			<Text>Early Japanese history is divided into three distinct periods: the Jomon, the Yayoi, and the Yamato. It is during the latter period that what we recognize as “Japan” takes shape, although it is in the subsequent Heian period that a lot of the recognizable art, literature, and dress come into being – recall that the golden age of samurai, etc., does not come about until the middle of the second millennium CE. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_CHAPTER_HISTORY_PARA_2">
+			<Text>Jomon Japan existed prior to anything, and is titled for its style of pottery, rather than any name the people would have called themselves. The Jomon people also appear a little ethnically different from other Japanese remains. This is a legacy of Japan’s links with Pacific islands – there are cultural similarities between the indigenous inhabitants of Okinawa, Taiwan, and further south into Southeast Asia. The Jomon appear to have been replaced by the Yayoi around the last millennium BCE, although the indigenous Ainu are likely their descendants.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_CHAPTER_HISTORY_PARA_3">
+			<Text>It was this Yayoi culture – Japanese-speaking migrants from the mainland (meaning Korea, in this case) that Himiko ruled. The Yayoi bridged the Neolithic, Bronze and Iron Ages, and grew quite adept at crafting bronze weapons, tools, and, significantly, mirrors. The Kofun era (300-538 CE) saw this industry expand, as well as the development of a shared cultural heritage with strong Chinese influence from Honshu (the big island of Japan) to Kyushu (a smaller island) to Korea. The era ends with the rise of the Yamato clan and consolidation of Japanese power.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_CHAPTER_HISTORY_PARA_4">
+			<Text>These islands were called Wo or Wa, by the Han Dynasty and were a cluster of scattered peoples – a group of culturally similar but politically divided tribes clinging to an often harsh ecosystem and possessing a warlike outlook on life.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_CHAPTER_HISTORY_PARA_5">
+			<Text>Himiko herself was both a religious and political leader. From her base at Yamatai (either northern Kyushu or near present-day Kyoto), she is primarily known from Chinese records. Himiko sent gifts to the Cao Wei kingdom, the northernmost of the three states that divided China between them in the third century CE. In these records Himiko is dubbed “Queen of Wa and friend of Wei” by the Chinese emperor. Himiko’s actual position is less clear – here we are at the very beginnings of Japanese history, where sources are scattered and unreliable. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_CHAPTER_HISTORY_PARA_6">
+			<Text>Himiko’s story gets interesting when she is accused of sorcery. Chinese sources allege that she bewitched all of the residents of Wa into submitting to her rule, and that she lived in a great castle served entirely by female attendants and guards (excepting one man, who brought her food). This mystical reputation is compounded in Japanese records, which identify Himiko with a number of divine beings: as the high shaman of the Japanese sun goddess Amaterasu, or a shamanic wife of a divine snake. In this latter story, Himiko (identified by the name Yamato-toto-hi-momo-so-bime no Mikoto) is happily married to a clearly divine being who only visits at night. She begs him to stay until morning so that she can see him in the sunlight, but he demurs. Eventually, she convinces him, and he tells her that she will see him in her toilet-case, but she must promise not to be shocked at his appearance. The next morning, when she opens the case, there is a beautiful white snake coiled inside. Himiko gasps in alarm, and the god-snake changes back to his human form. He is angry, tells her that she had been warned not to react, and that now he must leave her. Himiko, in her grief, stabs herself.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_CHAPTER_HISTORY_PARA_7">
+			<Text>Whatever the nature of her demise, upon Himiko’s death, the people of Yamatai raised a burial mound for her. According to legend, the subsequent ruler was intended to be a king, but the people, still mourning their deceased queen, refused his rule until Himiko’s relative Iyo, a girl of thirteen, was offered as the new ruler, and order was restored. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_CHAPTER_HISTORY_PARA_8">
+			<Text>As mentioned above, Himiko forms one of the foundations of Japanese theories of monarchy and Shinto, fusing the political with the supernatural in ways that are different from the Confucian-inspired Chinese ideals and the Indic-inspired Brahmanist ideals found elsewhere in Asia. With Himiko and Yamatai, we also see the first opening of Japan to a larger East Asian world. She is a common figure in popular culture, although often adapted to suit the needed narrative. She can be a villain or a hero, magical or mortal.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_CHAPTER_HISTORY_PARA_9">
+			<Text>In our representation here, we have patterned Himiko off of similar spirit mediums elsewhere in the region and presented her as a person who acts as a conduit for the goddess Amaterasu. Their relationship is close, like mother and daughter inhabiting the same body, and our Himiko switches between the two voices of queen and goddess seemingly without knowing. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_HIMIKO_ALT_CHAPTER_HISTORY_PARA_10">
+			<Text>Amaterasu – the sun goddess of ancient Japan that, in our representation, is Himiko’s divine muse – is no reserved figure. She is vivacious and tricksy, taking part in contests, disguising herself as a man, hiding from the other gods, and the like. In one of her most famous myths, the god Susanoo, her younger brother who was famously rude and troublesome, comes to Amaterasu to say his farewell after their father exiles him. Amaterasu decides to take pity on the boy. They have a chewing contest to see who can spit out the most gods, and although Amaterasu wins, Susanoo declares that he has spat out the correct gods and falls into a rage. In one version, he is so angry that he sneaks into Amaterasu’s palace and places excrement on her throne. She sits in it. This is so upsetting that she runs into a cave and hides herself (a problem because, remember, she is the sun). The other gods hatch a plan to draw her out, and they gather outside of her cave and make a great spectacle. This makes her curious, and she peeks out to see who is there – what she sees is her own reflection. The gods have hung a mirror just outside the entrance, and Amaterasu is transfixed. Order is restored (and, incidentally, the mirror becomes a vital symbol of Shinto). </Text>
+		</Row>
+	</EnglishText>
+</Database>
+				

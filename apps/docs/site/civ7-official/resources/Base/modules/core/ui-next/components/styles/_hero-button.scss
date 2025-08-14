@@ -1,0 +1,54 @@
+@use "../../../ui/utilities/utility-layout" as *;
+@use "../../../ui/themes/default/theme";
+
+.hero-button-2-centerpiece {
+    width: pixels(11);
+    height: pixels(64);
+    margin-top: pixels(-13);
+    background-image: url("blp:hud_herobutton_centerpiece2");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+
+    &.disabled {
+        background-image: url("blp:hud_herobutton_centerpiece2-dis");
+    }
+}
+
+.hero-button-2-sideframe {
+    border-image-outset: pixels(12) pixels(0) pixels(8) pixels(26);
+    border-image-slice: 24 56 24 48 fill;
+    border-image-source: url("blp:hud_herobutton2_sideframe");
+    border-image-width: pixels(24) pixels(56) pixels(24) pixels(48);
+
+    &.disabled {
+        border-image-source: url("blp:hud_herobutton2_sideframe-dis");
+    }
+}
+
+.hero-button-2-gradient {
+    background-image: linear-gradient(270deg, #8c7e62 0%, #e0b766 0.01%, rgb(76 71 61 / 75%) 50%, #e0b766 100%);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.hero-button-2 {
+    background: linear-gradient(270deg, #4c473d 0%, #35373d 50%, #4c473d 100%);
+
+    &:focus,
+    &:hover,
+    &:active {
+        .hero-button-2-gradient {
+            opacity: 1;
+        }
+    }
+
+    &.disabled {
+        background: linear-gradient(270deg, #31302e 0%, #22242b 50%, #31302e 100%);
+        color: #85878c;
+
+        .hero-button-2-gradient {
+            opacity: 0;
+        }
+    }
+}

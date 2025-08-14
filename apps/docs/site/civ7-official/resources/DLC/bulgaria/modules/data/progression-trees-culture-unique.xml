@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<!--Civ Unique Mastery Trees-->
+		<Row Type="TREE_CIVICS_EX_BULGARIA" Kind="KIND_TREE"/>
+		<!--Civ Unique Mastery Tree Nodes-->
+		<!--Bulgaria-->
+		<Row Type="NODE_CIVIC_EX_BULGARIA_SEVEN_TRIBES" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_EX_BULGARIA_TARNOVO_SCHOOLS" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_EX_BULGARIA_TSARSTVIE" Kind="KIND_TREE_NODE"/>
+	</Types>
+	<TypeQuotes>
+		<Row Type="NODE_CIVIC_EX_BULGARIA_SEVEN_TRIBES" Quote="LOC_CIVIC_SEVEN_TRIBES_QUOTE" QuoteAuthor="LOC_CIVIC_SEVEN_TRIBES_AUTHOR" QuoteAudio="VO_Quote_SevenTribes"/>
+		<Row Type="NODE_CIVIC_EX_BULGARIA_TARNOVO_SCHOOLS" Quote="LOC_CIVIC_TARNOVO_SCHOOLS_QUOTE" QuoteAuthor="LOC_CIVIC_TARNOVO_SCHOOLS_AUTHOR" QuoteAudio="VO_Quote_TarnovoSchools"/>
+		<Row Type="NODE_CIVIC_EX_BULGARIA_TSARSTVIE" Quote="LOC_CIVIC_TSARSTVIE_QUOTE" QuoteAuthor="LOC_CIVIC_TSARSTVIE_AUTHOR" QuoteAudio="VO_Quote_Tsarstvie"/>
+	</TypeQuotes>
+	<ProgressionTrees>
+		<!--Civ Unique Mastery Trees-->
+		<Row ProgressionTreeType="TREE_CIVICS_EX_BULGARIA" AgeType="AGE_EXPLORATION" SystemType="SYSTEM_CULTURE" Name="LOC_TREE_CIVICS_EX_BULGARIA_NAME"/>
+	</ProgressionTrees>
+	<ProgressionTreeNodes>
+		<!--Civ Unique Mastery Tree Nodes-->
+		<!--BULGARIA-->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_BULGARIA_SEVEN_TRIBES" ProgressionTree="TREE_CIVICS_EX_BULGARIA" Cost="800" Name="LOC_CIVIC_SEVEN_TRIBES_NAME" IconString="cult_bulgaria"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_BULGARIA_TARNOVO_SCHOOLS" ProgressionTree="TREE_CIVICS_EX_BULGARIA" Cost="1200" Name="LOC_CIVIC_TARNOVO_SCHOOLS_NAME" IconString="cult_bulgaria"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_BULGARIA_TSARSTVIE" ProgressionTree="TREE_CIVICS_EX_BULGARIA" Cost="2000" Name="LOC_CIVIC_TSARSTVIE_NAME" IconString="cult_bulgaria"/>
+	</ProgressionTreeNodes>
+	<ProgressionTreeNodeUnlocks>
+		<!--Bulgaria-->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_BULGARIA_SEVEN_TRIBES" TargetKind="KIND_CONSTRUCTIBLE" TargetType="IMPROVEMENT_HIDDEN_FORTRESS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_BULGARIA_SEVEN_TRIBES" TargetKind="KIND_TRADITION" TargetType="TRADITION_FALSE_RETREAT" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_BULGARIA_SEVEN_TRIBES" TargetKind="KIND_MODIFIER" TargetType="MOD_SEVEN_TRIBES_GREATWORKS_COMBAT" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_BULGARIA_TARNOVO_SCHOOLS" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_RILA_MONASTERY" UnlockDepth="1" AIIgnoreUnlockValue="true"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_BULGARIA_TARNOVO_SCHOOLS" TargetKind="KIND_MODIFIER" TargetType="MOD_TARNOVO_SCHOOLS_TEMPLE_HAPPINESS_HIDDEN_FORTRESS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_BULGARIA_TARNOVO_SCHOOLS" TargetKind="KIND_TRADITION" TargetType="TRADITION_ICONOLATRY" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_BULGARIA_TARNOVO_SCHOOLS" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_RELIC" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_BULGARIA_TSARSTVIE" TargetKind="KIND_MODIFIER" TargetType="MOD_TSARSTVIE_CULTURE_MOUNTAIN_HIDDEN_FORTRESS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_BULGARIA_TSARSTVIE" TargetKind="KIND_MODIFIER" TargetType="MOD_TSARSTVIE_TWO_MIGRANTS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_BULGARIA_TSARSTVIE" TargetKind="KIND_TRADITION" TargetType="TRADITION_STRATAGEMS" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_BULGARIA_TSARSTVIE" TargetKind="KIND_MODIFIER" TargetType="MOD_EX_SETTLEMENT_CAP_INCREASE" UnlockDepth="2"/>
+	</ProgressionTreeNodeUnlocks>
+	<ProgressionTreePrereqs>
+		<!--Bulgaria-->
+		<Row Node="NODE_CIVIC_EX_BULGARIA_TARNOVO_SCHOOLS" PrereqNode="NODE_CIVIC_EX_BULGARIA_SEVEN_TRIBES"/>
+		<Row Node="NODE_CIVIC_EX_BULGARIA_TSARSTVIE" PrereqNode="NODE_CIVIC_EX_BULGARIA_SEVEN_TRIBES"/>
+	</ProgressionTreePrereqs>
+	<ProgressionTree_Advisories>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_BULGARIA_SEVEN_TRIBES" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_BULGARIA_TARNOVO_SCHOOLS" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_BULGARIA_TSARSTVIE" AdvisoryClassType="ADVISORY_CLASS_EMPIRE_EXPANSION"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_EX_BULGARIA_TSARSTVIE" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+	</ProgressionTree_Advisories>
+</Database>

@@ -1,0 +1,30 @@
+<Database>
+	<NamedRivers>
+		<Row NamedRiverType="RIVER_MEDJERDA" Name="LOC_RIVER_MEDJERDA_NAME"/>
+		<Row NamedRiverType="RIVER_MILIANE" Name="LOC_RIVER_MILIANE_NAME"/>
+		<Row NamedRiverType="RIVER_SILIANA" Name="LOC_RIVER_SILIANA_NAME"/>
+		<Row NamedRiverType="RIVER_TESSA" Name="LOC_RIVER_TESSA_NAME"/>
+		<Row NamedRiverType="RIVER_SEJENANE" Name="LOC_RIVER_SEJENANE_NAME"/>
+	</NamedRivers>
+	<NamedVolcanoes>
+		<Row NamedVolcanoType="VOLCANO_PANTELLERIA" Name="LOC_VOLCANO_PANTELLERIA_NAME"/>
+		<Row NamedVolcanoType="VOLCANO_HARUJ" Name="LOC_VOLCANO_HARUJ_NAME"/>
+		<Row NamedVolcanoType="VOLCANO_EMI_KOUSSI" Name="LOC_VOLCANO_EMI_KOUSSI_NAME"/>
+		<Row NamedVolcanoType="VOLCANO_WAW_AN_NAMUS" Name="LOC_VOLCANO_WAW_AN_NAMUS_NAME"/>
+		<Row NamedVolcanoType="VOLCANO_JEBEL_TOUBKAL" Name="LOC_VOLCANO_JEBEL_TOUBKAL_NAME"/>
+	</NamedVolcanoes>
+	<NamedRiverCivilizations>
+		<Row NamedRiverType="RIVER_MEDJERDA" CivilizationType="CIVILIZATION_CARTHAGE"/>
+		<Row NamedRiverType="RIVER_MILIANE" CivilizationType="CIVILIZATION_CARTHAGE"/>
+		<Row NamedRiverType="RIVER_SILIANA" CivilizationType="CIVILIZATION_CARTHAGE"/>
+		<Row NamedRiverType="RIVER_TESSA" CivilizationType="CIVILIZATION_CARTHAGE"/>
+		<Row NamedRiverType="RIVER_SEJENANE" CivilizationType="CIVILIZATION_CARTHAGE"/>
+	</NamedRiverCivilizations>
+	<NamedVolcanoCivilizations>
+		<Row NamedVolcanoType="VOLCANO_PANTELLERIA" CivilizationType="CIVILIZATION_CARTHAGE"/>
+		<Row NamedVolcanoType="VOLCANO_HARUJ" CivilizationType="CIVILIZATION_CARTHAGE"/>
+		<Row NamedVolcanoType="VOLCANO_EMI_KOUSSI" CivilizationType="CIVILIZATION_CARTHAGE"/>
+		<Row NamedVolcanoType="VOLCANO_WAW_AN_NAMUS" CivilizationType="CIVILIZATION_CARTHAGE"/>
+		<Row NamedVolcanoType="VOLCANO_JEBEL_TOUBKAL" CivilizationType="CIVILIZATION_CARTHAGE"/>
+	</NamedVolcanoCivilizations>
+</Database>

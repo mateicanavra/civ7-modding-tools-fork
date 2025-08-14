@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LegacyLeaderCivPriorities>
+		<Row Leader="LEADER_GENGHIS_KHAN" CivilizationType="CIVILIZATION_HAN"/>
+		<Row Leader="LEADER_GENGHIS_KHAN" CivilizationType="CIVILIZATION_PERSIA"/>
+		<Row Leader="LEADER_GENGHIS_KHAN" CivilizationType="CIVILIZATION_MONGOLIA"/>
+		<Row Leader="LEADER_GENGHIS_KHAN" CivilizationType="CIVILIZATION_MING"/>
+		<Row Leader="LEADER_GENGHIS_KHAN" CivilizationType="CIVILIZATION_RUSSIA"/>
+		<Row Leader="LEADER_GENGHIS_KHAN" CivilizationType="CIVILIZATION_MUGHAL"/>
+	</LegacyLeaderCivPriorities>
+</Database>

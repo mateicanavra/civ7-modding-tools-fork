@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <EnglishText>
+        <Row Tag="LOC_11010A_STORYTITLE">
+            <Text>Air Supremacy</Text>
+        </Row>
+        <Row Tag="LOC_11010A_COMPLETION">
+            <Text>A wide-eyed Royal Air Force Cadet listens as a veteran pilot lectures their class on the risks of reckless flying. They try to pay attention, but cannot help stealing glances at the pilot's weathered Bristol F.2 Fighter and its legion of victory marks.</Text>
+        </Row>
+        <Row Tag="LOC_11010B_NAME">
+            <Text>Weed out the potential daredevils.</Text>
+        </Row>
+        <Row Tag="LOC_11010B_DESCRIPTION">
+            <Text>{1_reward} on Air Units.</Text>
+        </Row>
+        <Row Tag="LOC_11010C_NAME">
+            <Text>Encourage the daredevils.</Text>
+        </Row>
+        <Row Tag="LOC_11010C_DESCRIPTION">
+            <Text>{1_reward} for Air Units.</Text>
+        </Row>
+        <Row Tag="LOC_11011A_STORYTITLE">
+            <Text>Murmurs of Dissent</Text>
+        </Row>
+        <Row Tag="LOC_11011A_COMPLETION">
+            <Text>During lengthening shifts, workers exchange secret handshakes and signed petitions. They shout over the squeal of rusted gears, dreaming of a union that could improve their mill's safety conditions.</Text>
+        </Row>
+        <Row Tag="LOC_11011B_NAME">
+            <Text>Let them unionize.</Text>
+        </Row>
+        <Row Tag="LOC_11011B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11011C_NAME">
+            <Text>Prioritize infrastructure.</Text>
+        </Row>
+        <Row Tag="LOC_11011C_DESCRIPTION">
+            <Text>Free Factory purchase.</Text>
+        </Row>
+        <Row Tag="LOC_11012A_STORYTITLE">
+            <Text>Revolutionary Fire</Text>
+        </Row>
+        <Row Tag="LOC_11012A_COMPLETION">
+            <Text>In candlelit corners, native-born citizens of a distant colony rant about the British governor's heavy-handed subjugation. The smoldering resentment threatens to ignite a rebellion.</Text>
+        </Row>
+        <Row Tag="LOC_11012B_NAME">
+            <Text>Silence opposition with a controlled message</Text>
+        </Row>
+        <Row Tag="LOC_11012B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11012C_NAME">
+            <Text>Crush resistance with military force.</Text>
+        </Row>
+        <Row Tag="LOC_11012C_DESCRIPTION">
+            <Text>{1_reward} but {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11012D_NAME">
+            <Text>Allow the city to appoint its own viceroy.</Text>
+        </Row>
+        <Row Tag="LOC_11012D_DESCRIPTION">
+            <Text>{1_reward} but {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11013A_STORYTITLE">
+            <Text>Press Gangs</Text>
+        </Row>
+        <Row Tag="LOC_11013A_COMPLETION">
+            <Text>Freshly greased boots thump onto the deck of a commercial whaler. A press gang brandishes orders demanding forcible conscription. The outcry echoes through the decks.</Text>
+        </Row>
+        <Row Tag="LOC_11013B_NAME">
+            <Text>Orders must be obeyed.</Text>
+        </Row>
+        <Row Tag="LOC_11013B_DESCRIPTION">
+            <Text>{1_reward} on Naval Units but {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11013C_NAME">
+            <Text>The ships' owners will be compensated.</Text>
+        </Row>
+        <Row Tag="LOC_11013C_DESCRIPTION">
+            <Text>{1_reward} but {2_reward} on Naval Units.</Text>
+        </Row>
+        <Row Tag="LOC_11014A_STORYTITLE">
+            <Text>Open Ports</Text>
+        </Row>
+        <Row Tag="LOC_11014A_COMPLETION">
+            <Text>Fed up with the flood of overseas imports that has left warehouses packed with unsold British-made goods, local shop owners complain that Britain has lost its way — and the people, their sense of pride.</Text>
+        </Row>
+        <Row Tag="LOC_11014B_NAME">
+            <Text>Impose tariffs on imports.</Text>
+        </Row>
+        <Row Tag="LOC_11014B_DESCRIPTION">
+            <Text>{1_reward} but {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11014C_NAME">
+            <Text>Force British goods into foreign markets.</Text>
+        </Row>
+        <Row Tag="LOC_11014C_DESCRIPTION">
+            <Text>{1_reward} but {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11015A_STORYTITLE">
+            <Text>The Oxonians</Text>
+        </Row>
+        <Row Tag="LOC_11015A_COMPLETION">
+            <Text>As Britain thrives, more and more young men and women lobby for a place in its hallowed institutions. But elites worry that if the country's future leaders are forced to mingle with the common rabble, before long an Oxford education won't mean what it used to.</Text>
+        </Row>
+        <Row Tag="LOC_11015B_NAME">
+            <Text>Whence tradition?</Text>
+        </Row>
+        <Row Tag="LOC_11015B_DESCRIPTION">
+            <Text>{1_reward} in all Settlements but {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11015C_NAME">
+            <Text>Britain's future leaders can come from anywhere.</Text>
+        </Row>
+        <Row Tag="LOC_11015C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11016A_STORYTITLE">
+            <Text>Strength of Steel</Text>
+        </Row>
+        <Row Tag="LOC_11016A_COMPLETION">
+            <Text>Towering black furnaces tip back and forth, spewing forth rivers of molten metal — proof that Britain’s new Bessemer Process has revolutionized steel production.</Text>
+        </Row>
+        <Row Tag="LOC_11016B_NAME">
+            <Text>Ramp up ship production.</Text>
+        </Row>
+        <Row Tag="LOC_11016B_DESCRIPTION">
+            <Text>{1_reward} on Revenge.</Text>
+        </Row>
+        <Row Tag="LOC_11016C_NAME">
+            <Text>Optimize cannon construction.</Text>
+        </Row>
+        <Row Tag="LOC_11016C_DESCRIPTION">
+            <Text>{1_reward} on Revenge.</Text>
+        </Row>
+        <Row Tag="LOC_11017A_STORYTITLE">
+            <Text>Top of the Food Chain</Text>
+        </Row>
+        <Row Tag="LOC_11017A_COMPLETION">
+            <Text>A train clatters to a stop outside a cannery, and several workers begin filling its cars with crates of canned meats packed in sawdust — the epitome of British luxury and excess.</Text>
+        </Row>
+        <Row Tag="LOC_11017B_NAME">
+            <Text>Stockpile emergency food rations.</Text>
+        </Row>
+        <Row Tag="LOC_11017B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11017C_NAME">
+            <Text>Export surplus foodstuffs.</Text>
+        </Row>
+        <Row Tag="LOC_11017C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11018A_STORYTITLE">
+            <Text>The Toils of Youth</Text>
+        </Row>
+        <Row Tag="LOC_11018A_COMPLETION">
+            <Text>A social reformer stands in front of a factory, forcing leaflets into the hands of passersby while preaching about the young lives being sacrificed on the altar of profit.</Text>
+        </Row>
+        <Row Tag="LOC_11018B_NAME">
+            <Text>Children deserve a proper education.</Text>
+        </Row>
+        <Row Tag="LOC_11018B_DESCRIPTION">
+            <Text>{1_reward} but {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11018C_NAME">
+            <Text>Hard-working children grow into disciplined adults.</Text>
+        </Row>
+        <Row Tag="LOC_11018C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11019A_STORYTITLE">
+            <Text>Guardians of the Past</Text>
+        </Row>
+        <Row Tag="LOC_11019A_COMPLETION">
+            <Text>An expedition into {1_OPPONENT_CIVILIZATION_ADJ} lands returns with secret cargo — a stunning statue long thought lost to {2_OWNER_EXPLORATION_CIVILIZATION_ADJ} history. The antiquarian claims it belongs in a museum, but {3_OPPONENT_CIVILIZATION_ADJ} envoys demand its immediate return, demands backed with threats.</Text>
+        </Row>
+        <Row Tag="LOC_11019B_NAME">
+            <Text>Britain will guard the world's heritage, whether the world likes it or not.</Text>
+        </Row>
+        <Row Tag="LOC_11019B_DESCRIPTION">
+            <Text>{1_reward} but start a War.</Text>
+        </Row>
+        <Row Tag="LOC_11019C_NAME">
+            <Text>Return the artifact, with apologies.</Text>
+        </Row>
+        <Row Tag="LOC_11019C_DESCRIPTION">
+            <Text>{1_reward} but Artifact is returned.</Text>
+        </Row>
+        <Row Tag="LOC_11019D_NAME">
+            <Text>Destroy the artifact.</Text>
+        </Row>
+        <Row Tag="LOC_11019D_DESCRIPTION">
+            <Text>Artifact is lost.</Text>
+        </Row>
+        <Row Tag="LOC_11019_ALT2A_STORYTITLE">
+            <Text>The Mountain of Light</Text>
+        </Row>
+        <Row Tag="LOC_11019_ALT2A_COMPLETION">
+            <Text>A British antiquarian in Mughal lands has uncovered a diamond long thought lost. Its size and beauty are unmatched. Mughal authorities demand its return.</Text>
+        </Row>
+        <Row Tag="LOC_11019_ALT2B_NAME">
+            <Text>It should grace a British crown.</Text>
+        </Row>
+        <Row Tag="LOC_11019_ALT2B_DESCRIPTION">
+            <Text>{1_reward} but start a War.</Text>
+        </Row>
+        <Row Tag="LOC_11019_ALT2C_NAME">
+            <Text>It belongs to the Mughals.</Text>
+        </Row>
+        <Row Tag="LOC_11019_ALT2C_DESCRIPTION">
+            <Text>{1_reward} but Artifact is returned.</Text>
+        </Row>
+        <Row Tag="LOC_11068A_STORYTITLE">
+            <Text>Diplomatic Boathooks</Text>
+        </Row>
+        <Row Tag="LOC_11068A_COMPLETION">
+            <Text>The world grows more complex, yet British politicians are increasingly reluctant to support alliances with other powers. They declare that Great Britain should steer clear of foreign policy entanglements by maintaining a safe distance, though some worry that a lack of friends will come back to bite.</Text>
+        </Row>
+        <Row Tag="LOC_11068B_NAME">
+            <Text>Great Britain is fueled by inner strength.</Text>
+        </Row>
+        <Row Tag="LOC_11068B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11068C_NAME">
+            <Text>Some outreach is necessary for success.</Text>
+        </Row>
+        <Row Tag="LOC_11068C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_12005A_STORYTITLE">
+            <Text>The Good Doctor in Great Britain</Text>
+        </Row>
+        <Row Tag="LOC_12005A_COMPLETION">
+            <Text>The fog of industry hangs in the air like a veil over the British capital. More than anything else, Rizal is struck by the diversity of the people here.</Text>
+        </Row>
+        <Row Tag="LOC_12005B_NAME">
+            <Text>They seem to abide a strict class structure.</Text>
+        </Row>
+        <Row Tag="LOC_12005B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_12005C_NAME">
+            <Text>They seem to come from every corner of the empire.</Text>
+        </Row>
+        <Row Tag="LOC_12005C_DESCRIPTION">
+            <Text>{1_reward} in all Settlements.</Text>
+        </Row>
+    </EnglishText>
+</Database>

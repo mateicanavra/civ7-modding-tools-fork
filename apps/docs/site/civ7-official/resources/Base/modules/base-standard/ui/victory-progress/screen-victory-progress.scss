@@ -1,0 +1,71 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+
+screen-victory-progress {
+	.fxs-close-button {
+		@media (experience: mobile) {
+			top: pixels(26);
+			right: pixels(38);
+		}
+	}
+}
+
+.progression_nav {
+	max-width: pixels(1340);
+
+	@media (max-height: pixels(1000)) {
+		width: 95%;
+	}
+
+	@media (experience: mobile) {
+		width: 90%;
+	}
+}
+
+.progression_content-wrapper {
+	max-width: pixels(1340);
+}
+
+.progression_ranking-nav {
+	max-width: pixels(1340);
+	height: pixels(48);
+
+	@media (max-height: pixels(1000)) {
+		width: 90%;
+	}
+}
+
+.age-rankings_portrait {
+	@media (max-height: pixels(1000)) {
+		width: pixels(60);
+		height: pixels(60);
+	}
+}
+
+.victory-points_icon {
+	@media (max-height: pixels(1000)) {
+		width: pixels(70);
+		height: pixels(70);
+	}
+}
+
+.legacy-points__tab-wrapper {
+	@media (max-height: pixels(1000)) {
+		margin-top: pixels(20);
+	}
+}
+
+.victory-progress {
+	@media (max-height: pixels(1000)) {
+		padding-top: pixels(25);
+	}
+
+	@media (experience: mobile) {
+		padding-top: pixels(10);
+	}
+}
+
+.progression_header-wrapper {
+	@media (max-height: pixels(1000)) {
+		padding-bottom: pixels(10);
+	}
+}

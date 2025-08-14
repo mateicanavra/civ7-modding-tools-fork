@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_ISABELLA_CARTHAGE_TOOLTIP">
+			<Text>[B]Isabella[/B] and [B]Carthage[/B] share the Mediterranean.</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_IBN_BATTUTA_CARTHAGE_TOOLTIP">
+			<Text>[B]Ibn Battuta[/B] traveled in the same region as [B]Carthage[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_HATSHEPSUT_CARTHAGE_TOOLTIP">
+			<Text>[B]Hatshepsut[/B] was from the same continent as [B]Carthage[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_AUGUSTUS_CARTHAGE_TOOLTIP">
+			<Text>[B]Carthage[/B] strategically complements [B]Augustus[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_CARTHAGE_DESCRIPTION">
+			<Text>Play as [B]Carthage[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_CARTHAGE_SPAIN_TOOLTIP">
+			<Text>[B]Carthage[/B] and [B]Spain[/B] were both Mediterranean powers.</Text>
+		</Row>
+	</EnglishText>
+</Database>

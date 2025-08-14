@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <EnglishText>
+	<Row Tag="LOC_INDEPENDENT_EXPLORATION_9_MINOR_BULGARIA_NAME">
+		<Text>Welsh</Text>
+	</Row>
+	 <Row Tag="LOC_INDEPENDENT_EXPLORATION_9_MAJOR_BULGARIA_NAME">
+      <Text>Aberffraw</Text>
+    </Row>
+    <!--Civilization Names-->
+    <Row Tag="LOC_CIVILIZATION_BULGARIA_NAME">
+      <Text>Bulgaria</Text>
+    </Row>
+    <!--Civilization Full Names-->
+    <Row Tag="LOC_CIVILIZATION_BULGARIA_FULLNAME">
+      <Text>Bulgarian Empire</Text>
+    </Row>
+    <!--Civilization Adjectives-->
+    <Row Tag="LOC_CIVILIZATION_BULGARIA_ADJECTIVE">
+      <Text>Bulgarian</Text>
+    </Row>
+  </EnglishText>
+</Database>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--Initial Statements-->
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_GENERIC">
+			<Text>Greetings traveler. You should know that you stand in the presence of greatness!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_GENERIC">
+			<Text>Greetings traveler. You should know that you stand in the presence of greatness!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_GENERIC">
+			<Text>Greetings traveler. You should know that you stand in the presence of greatness!</Text>
+		</Row>
+
+		<!--Player Responses-->
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_CHOICE_ACKNOWLEDGE">
+			<Text>It is an honor to meet you.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_CHOICE_ACKNOWLEDGE">
+			<Text>It is an honor to meet you.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_CHOICE_ACKNOWLEDGE">
+			<Text>It is an honor to meet you.</Text>
+		</Row>
+
+		<!-- Declare War, Notification -->
+		<Row Tag="LOC_DIPLOMACY_DECLARE_WAR_NOTIFICATION_MESSAGE_INITIAL">
+			<Text>A civilization has declared war.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_DECLARE_WAR_NOTIFICATION_SUMMARY_INITIAL">
+			<Text>{1_Leader} has declared war!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_GENERIC">
+			<Text>It is War!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_GENERIC">
+			<Text>It is War!</Text>
+		</Row>
+
+		<!--Declare War, Player Responses-->
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_CHOICE_EXIT">
+			<Text>Continue</Text>
+		</Row>
+
+		<!-- Defeat, Notification -->
+		<Row Tag="LOC_DIPLOMACY_DEFEAT_NOTIFICATION_MESSAGE_INITIAL">
+			<Text>Leader Defeated</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_DEFEAT_NOTIFICATION_SUMMARY_INITIAL">
+			<Text>{1_Leader} has been defeated</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DEFEAT_AI_GENERIC">
+			<Text>I have lost!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DEFEAT_HUMAN_GENERIC">
+			<Text>I have lost!</Text>
+		</Row>
+
+		<!--Defeat, Player Responses-->
+		<Row Tag="LOC_DIPLO_DEFEAT_CHOICE_EXIT">
+			<Text>Continue</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_GENERIC_EXIT">
+			<Text>Continue</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_GENERIC">
+			<Text>I accept this proposal for peace!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_GENERIC">
+			<Text>I reject this proposal for peace!</Text>
+		</Row>
+	</EnglishText>
+</Database>

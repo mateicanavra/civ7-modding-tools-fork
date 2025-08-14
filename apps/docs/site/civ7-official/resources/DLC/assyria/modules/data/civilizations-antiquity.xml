@@ -1,0 +1,131 @@
+<Database>
+	<Types>
+		<!-- Major Civs -->
+		<Row Type="TRAIT_ASSYRIA_ABILITY" Kind="KIND_TRAIT"/>
+	</Types>
+	<Kinds>
+		<InsertOrIgnore KIND="KIND_TRAIT"/>
+	</Kinds>
+	<Civilizations>
+		<!-- Full Civs -->
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" Name="LOC_CIVILIZATION_ASSYRIA_NAME" FullName="LOC_CIVILIZATION_ASSYRIA_FULLNAME" Description="LOC_CIVILIZATION_ASSYRIA_DESCRIPTION" Adjective="LOC_CIVILIZATION_ASSYRIA_ADJECTIVE" StartingCivilizationLevelType="CIVILIZATION_LEVEL_FULL_CIV" UniqueCultureProgressionTree="TREE_CIVICS_AQ_ASSYRIA" CapitalName="LOC_CITY_NAME_ASSYRIA1" RandomCityNameDepth="10"/>
+	</Civilizations>
+	<CivilizationFavoredWonders>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" FavoredWonderType="WONDER_DUR_SHARRUKIN" FavoredWonderName="LOC_WONDER_DUR_SHARRUKIN_NAME"/>
+	</CivilizationFavoredWonders>
+	<Traits>
+		<!--Civ Traits-->
+		<Row TraitType="TRAIT_ASSYRIA_ABILITY" Name="LOC_TRAIT_ASSYRIA_ABILITY_NAME" Description="LOC_TRAIT_ASSYRIA_ABILITY_DESCRIPTION" InternalOnly="true"/>
+	</Traits>
+	<TraitModifiers>
+		<Row TraitType="TRAIT_ASSYRIA_ABILITY" ModifierId="MOD_CIV_WONDER_PRODUCTION_ASSYRIA"/>
+		<Row TraitType="TRAIT_ASSYRIA_ABILITY" ModifierId="MOD_CIV_FIRST_TIME_CONQUER"/>
+	</TraitModifiers>
+	<CivilizationTraits>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" TraitType="TRAIT_ANTIQUITY_CIV"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" TraitType="TRAIT_ASSYRIA"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" TraitType="TRAIT_ASSYRIA_ABILITY"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" TraitType="TRAIT_ATTRIBUTE_SCIENTIFIC"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" TraitType="TRAIT_ATTRIBUTE_MILITARISTIC"/>
+	</CivilizationTraits>
+	<RequirementSets>
+		<Row RequirementSetId="REQSET_PLAYER_IS_ASSYRIA" RequirementSetType="REQUIREMENTSET_TEST_ALL"/>
+	</RequirementSets>
+	<RequirementSetRequirements>
+		<Row RequirementSetId="REQSET_PLAYER_IS_ASSYRIA" RequirementId="REQ_PLAYER_HAS_TRAIT_ASSYRIA"/>
+	</RequirementSetRequirements>
+	<Requirements>
+		<Row RequirementId="REQ_PLAYER_HAS_TRAIT_ASSYRIA" RequirementType="REQUIREMENT_PLAYER_HAS_CIVILIZATION_OR_LEADER_TRAIT"/>
+	</Requirements>
+	<RequirementArguments>
+		<Row RequirementId="REQ_PLAYER_HAS_TRAIT_ASSYRIA" Name="TraitType" Value="TRAIT_ASSYRIA"/>
+	</RequirementArguments>
+	<LeaderCivPriorities>
+		<Row Leader="LEADER_XERXES" Civilization="CIVILIZATION_ASSYRIA" Priority="2"/>
+		<Row Leader="LEADER_IBN_BATTUTA" Civilization="CIVILIZATION_ASSYRIA" Priority="2"/>
+	</LeaderCivPriorities>
+	<CityNames>
+		<!--Shawnee-->
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA1"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA2"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA3"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA4"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA5"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA6"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA7"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA8"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA9"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA10"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA11"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA12"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA13"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA14"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA15"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA16"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA17"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA18"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA19"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA20"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA21"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA22"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA23"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA24"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA25"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA26"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA27"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA28"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA29"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CityName="LOC_CITY_NAME_ASSYRIA30"/>
+	</CityNames>
+	<StartBiasTerrains>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" TerrainType="TERRAIN_FLAT" Score="15"/>
+	</StartBiasTerrains>
+	<StartBiasRivers>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" Score="5"/>
+	</StartBiasRivers>
+	<VisArt_CivilizationBuildingCultures>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" BuildingCulture="BUILDING_CULTURE_MID"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" BuildingCulture="ANT_MUD"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" BuildingCulture="EXP_MUD"/>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" BuildingCulture="MOD_MUD"/>
+	</VisArt_CivilizationBuildingCultures>
+	<VisArt_CivilizationUnitCultures>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" UnitCulture="MidE"/>	
+	</VisArt_CivilizationUnitCultures>
+	<AiListTypes>
+		<Row ListType="Assyria Unit Biases"/>
+		<Row ListType="Assyria Government Bias"/>
+		<Row ListType="Assyria Budget Biases"/>
+		<Row ListType="Assyria Constructibles Biases" />
+		<Row ListType="Assyria Yield Biases" />
+		<Row ListType="Assyria PseudoYield Biases" />
+	</AiListTypes>
+	<AiLists>
+		<Row ListType="Assyria Unit Biases" LeaderType="TRAIT_ASSYRIA" System="UnitBiases"/>
+		<Row ListType="Assyria Government Bias" LeaderType="TRAIT_ASSYRIA" System="GovernmentBiases"/>
+		<Row ListType="Assyria Budget Biases" LeaderType="TRAIT_ASSYRIA" System="AiBudgetBiases"/>
+		<Row ListType="Assyria Constructibles Biases" LeaderType="TRAIT_ASSYRIA" System="ConstructibleBiases" />
+		<Row ListType="Assyria Yield Biases" LeaderType="TRAIT_ASSYRIA" System="YieldBiases" />
+		<Row ListType="Assyria PseudoYield Biases" LeaderType="TRAIT_ASSYRIA" System="PseudoYieldBiases" />
+	</AiLists>
+	<AiFavoredItems>
+		<Row ListType="Assyria Unit Biases" Item="UNIT_MAGARRU" Value="50"/>
+		<Row ListType="Assyria Unit Biases" Item="UNIT_MAGARRU_2" Value="50"/>
+		<Row ListType="Assyria Unit Biases" Item="UNIT_TURTANU" Value="50"/>
+		<Row ListType="Assyria Unit Biases" Item="UNIT_BALLISTA" Value="25"/>
+		<Row ListType="Assyria Government Bias" Item="GOVERNMENT_DESPOTISM" Value="25"/>
+		<Row ListType="Assyria Budget Biases" Item="AI_BUDGET_STANDING_ARMY" Value="50"/>
+		<Row ListType="Assyria Constructibles Biases" Item="BUILDING_CITADEL" Value="200"/>
+		<Row ListType="Assyria Constructibles Biases" Item="BUILDING_ROYAL_LIBRARY" Value="200"/>
+		<Row ListType="Assyria Constructibles Biases" Item="WONDER_DUR_SHARRUKIN" Value="50"/>
+		<Row ListType="Assyria Yield Biases" Item="YIELD_SCIENCE" Value="10"/>
+		<Row ListType="Assyria Yield Biases" Item="YIELD_CULTURE" Value="10"/>
+		<Row ListType="Assyria PseudoYield Biases" Item="PSEUDOYIELD_GREAT_WORK" Value="50"/>
+	</AiFavoredItems>
+	<Independents>
+		<Update>
+			<Where IndependentType="INDEPENDENT_ANTIQUITY_35"/>
+			<Set Name="LOC_INDEPENDENT_ANTIQUITY_35_MINOR_ASSYRIA_NAME" CityStateName="LOC_INDEPENDENT_ANTIQUITY_35_MAJOR_ASSYRIA_NAME"/>
+		</Update>
+	</Independents>
+</Database>

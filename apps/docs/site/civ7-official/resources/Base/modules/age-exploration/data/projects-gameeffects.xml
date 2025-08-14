@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="HAPPINESS_WAREHOUSE_IN_CITY_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_ATTACH_MODIFIERS">
+		<Argument name="ModifierId">ATTACH_HAPPINESS_WAREHOUSE_IN_CITY_FROM_PROJECT, ATTACH_LAND_TRADE_RANGE_IN_CITY_FROM_PROJECT, ATTACH_SEA_TRADE_RANGE_IN_CITY_FROM_PROJECT</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_HAPPINESS_WAREHOUSE_IN_CITY_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">EXHappinessProjectResourceHappiness</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_LAND_TRADE_RANGE_IN_CITY_FROM_PROJECT" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_TRADE_ROUTE_RANGE">
+		<Argument name="Amount">5</Argument>
+		<Argument name="DomainType">DOMAIN_LAND</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_SEA_TRADE_RANGE_IN_CITY_FROM_PROJECT" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_TRADE_ROUTE_RANGE">
+		<Argument name="Amount">5</Argument>
+		<Argument name="DomainType">DOMAIN_SEA</Argument>
+	</Modifier>
+	<Modifier id="GRANARY_WAREHOUSE_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">EXTownPastureFood, EXTownPlantationFood, EXTownDesertFloodplainFeatureFood, EXTownGrasslandFloodplainFeatureFood, EXTownPlainsFloodplainFeatureFood, EXTownTropicalFloodplainFeatureFood, EXTownTundraFloodplainFeatureFood, EXTownFlatTerrainFood, EXTownFishingBoatResourceFood, EXTownReefFeatureFood, EXTownColdReefFeatureFood, EXTownCoastTerrainFood, EXTownNavigableRiverFood</Argument>
+		<Argument name="Tooltip">LOC_GRANARY_WAREHOUSE_IN_THIS_TOWN_FROM_PROJECT</Argument>
+	</Modifier>
+	<Modifier id="FISHING_WAREHOUSE_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">EXTownFishingBoatResourceFood, EXTownReefFeatureFood, EXTownColdReefFeatureFood, EXTownCoastTerrainFood, EXTownNavigableRiverFood, EXTownPastureFood, EXTownPlantationFood, EXTownDesertFloodplainFeatureFood, EXTownGrasslandFloodplainFeatureFood, EXTownPlainsFloodplainFeatureFood, EXTownTropicalFloodplainFeatureFood, EXTownTundraFloodplainFeatureFood, EXTownFlatTerrainFood</Argument>
+		<Argument name="Tooltip">LOC_FISHING_WAREHOUSE_IN_THIS_TOWN_FROM_PROJECT</Argument>
+	</Modifier>
+	<Modifier id="PRODUCTION_WAREHOUSE_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<Argument name="WarehouseYieldChange">EXTownMineResourceProduction, EXTownQuarryProduction, EXTownRoughTerrainProduction, EXTownWetFeatureProduction, EXTownWoodcutterResourceProduction, EXTownCampProduction, EXTownVegetatedFeatureProduction</Argument>
+		<Argument name="Tooltip">LOC_BRICKYARD_WAREHOUSE_IN_THIS_TOWN_FROM_PROJECT</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_TEMPLES_IN_CITY_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_ATTACH_MODIFIERS">
+		<Argument name="ModifierId">HAPPINESS_ON_TEMPLES_IN_CITY_FROM_PROJECT, SLOTS_ON_TEMPLES_IN_CITY_FROM_PROJECT</Argument>
+	</Modifier>
+	<Modifier id="HAPPINESS_ON_TEMPLES_IN_CITY_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="ConstructibleClass">BUILDING</Argument>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="SLOTS_ON_TEMPLES_IN_CITY_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_GREAT_WORK_SLOTS">
+		<Argument name="ConstructibleType">BUILDING_TEMPLE</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="INFLUENCE_ON_INNS_IN_CITY_FROM_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_YIELD_PER_CONNECTED_CITY">
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+</GameEffects>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<AiListTypes>
+
+		<!-- Shawnee -->
+		<Row ListType="Shawnee Unit Biases"/>
+		<Row ListType="Shawnee Government Bias"/>
+		<Row ListType="Shawnee Settle Plot Conditions" />
+		<Row ListType="Shawnee Constructibles Biases" />
+
+	</AiListTypes>
+	<AiLists>
+		<!-- Shawnee -->
+		<Row ListType="Shawnee Unit Biases" LeaderType="TRAIT_SHAWNEE" System="UnitBiases"/>
+		<Row ListType="Shawnee Government Bias" LeaderType="TRAIT_SHAWNEE" System="GovernmentBiases"/>
+		<Row ListType="Shawnee Settle Plot Conditions" LeaderType="TRAIT_SHAWNEE" System="SettlementPlotEvaluations"/>
+		<Row ListType="Shawnee Constructibles Biases" LeaderType="TRAIT_SHAWNEE" System="ConstructibleBiases" />
+	</AiLists>
+	<AiFavoredItems>
+
+		<!-- Shawnee -->
+		<Row ListType="Shawnee Unit Biases" Item="UNIT_KISPOKO_NENA_TO" Value="50"/>
+		<Row ListType="Shawnee Unit Biases" Item="UNIT_KISPOKO_NENA_TO_2" Value="50"/>
+		<Row ListType="Shawnee Unit Biases" Item="UNIT_KISPOKO_NENA_TO_3" Value="50"/>
+		<Row ListType="Shawnee Unit Biases" Item="UNIT_HEAVY_ARCHER" Value="25"/>
+		<Row ListType="Shawnee Unit Biases" Item="UNIT_CROSSBOWMAN" Value="25"/>
+		<Row ListType="Shawnee Unit Biases" Item="UNIT_ARQUEBUSIER" Value="25"/>
+		<Row ListType="Shawnee Government Bias" Item="GOVERNMENT_FEUDAL_MONARCHY" Value="25"/>
+		<Row ListType="Shawnee Settle Plot Conditions" Item="Specific Terrain" Value="5" StringVal="TERRAIN_NAVIGABLE_RIVER" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_TERRAIN"/>
+		<Row ListType="Shawnee Settle Plot Conditions" Item="Resource Class" Value="5" StringVal="RESOURCECLASS_EMPIRE" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_STRATEGIC_RESOURCES"/>
+		<Row ListType="Shawnee Constructibles Biases" Item="IMPROVEMENT_MAWASKAWE_SKOTE" Value="200"/>
+		<Row ListType="Shawnee Constructibles Biases" Item="IMPROVEMENT_FARM" Value="25"/>
+		<Row ListType="Shawnee Constructibles Biases" Item="IMPROVEMENT_CAMP" Value="25"/>
+		<Row ListType="Shawnee Constructibles Biases" Item="WONDER_SERPENT_MOUND" Value="50"/>
+
+	</AiFavoredItems>
+</Database>

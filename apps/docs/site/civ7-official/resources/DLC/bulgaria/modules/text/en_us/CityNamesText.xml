@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--BULGARIA-->
+		<Row Tag="LOC_CITY_NAME_BULGARIA1">
+			<Text>Preslav</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA2">
+			<Text>Tarnovo</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA3">
+			<Text>Ohrid</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA4">
+			<Text>Pliska</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA5">
+			<Text>Drastar</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA6">
+			<Text>Pleven</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA7">
+			<Text>Badin</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA8">
+			<Text>Sredets</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA9">
+			<Text>Karvuna</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA10">
+			<Text>Plovdiv</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA11">
+			<Text>Borui</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA12">
+			<Text>Skopie</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA13">
+			<Text>Belograd </Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA14">
+			<Text>Varna</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA15">
+			<Text>Breznik</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA16">
+			<Text>Devina</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA17">
+			<Text>Pernik</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA18">
+			<Text>Lipjan</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA19">
+			<Text>Deultum</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA20">
+			<Text>Bitolja</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA21">
+			<Text>Drembitsa</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA22">
+			<Text>Prilep</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA23">
+			<Text>Kossovo</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA24">
+			<Text>Anchialo</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA25">
+			<Text>Melnik</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA26">
+			<Text>Mesemvriya</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA27">
+			<Text>Prizren</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA28">
+			<Text>Yambol</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA29">
+			<Text>Arsa</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA30">
+			<Text>Devol </Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_BULGARIA31">
+			<Text>Pazardzhik </Text>
+		</Row>
+	</EnglishText>
+</Database>

@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LoadingInfo_Leaders>
+		<Row LeaderType="LEADER_NAPOLEON" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_NAPOLEON" LeaderImage="blp:lsl_napoleon.png" Audio="VO_Loading2_Napoleon" />
+	</LoadingInfo_Leaders>
+</Database>

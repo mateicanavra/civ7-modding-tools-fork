@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="IBN_BATTUTA_MOD_WILDCARD_ATTRIBUTE" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING">
+		<!-- Modifier present as placeholder for future Ages. -->
+	</Modifier>
+</GameEffects>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LeaderCivPriorities>
+		<Row Leader="LEADER_GENGHIS_KHAN" Civilization="CIVILIZATION_RUSSIA" Priority="2"/>
+		<Row Leader="LEADER_GENGHIS_KHAN" Civilization="CIVILIZATION_MUGHAL" Priority="2"/>
+	</LeaderCivPriorities>
+</Database>

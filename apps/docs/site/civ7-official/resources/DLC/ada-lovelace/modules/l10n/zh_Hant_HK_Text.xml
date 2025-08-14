@@ -1,0 +1,1107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>奧古斯塔‧愛達‧金，勒芙蕾絲伯爵夫人（1815-1852）出生於一個充滿矛盾的家庭。她是浪漫主義詩人拜倫勳爵唯一的合法子女，在她出生後不久拜倫便離開了英格蘭，兩人從此再也沒有相見。拜倫是一個戲劇化、不拘一格且極富創造力的人，與妻子拜倫夫人的形象形成鮮明對比，她雖然同樣身為知識份子，但卻更傾向數學和科學。拜倫狂野而衝動，拜倫夫人卻嚴謹、不假辭色、篤信宗教，並積極參與教育改革和廢奴議題。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>愛達主要由外祖母撫養長大。她的母親雖然不常在身邊，但仍相當關心女兒，鼓勵著愛達對數學和科學的興趣——她擔心女兒會步上她父親的後塵，沉溺於創造，而走向毀滅性的道路。愛達確實繼承了母親的學術天份，同時也遺傳了父親的想像力。後世盛傳她童年時迷上了鳥類，因此決心研究如何使人類也能飛行，這需要結合創造性的思維與嚴謹的研究，包括翅膀的運作方式以及適合人類操作的材料。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_3" Language="zh_Hant_HK">
+      <Text>多虧愛達母親對她教育上的付出，愛達接受了多位當代著名學者的指導，包括數學家奧古斯塔斯‧德摩根和天文學家瑪麗‧薩默維爾。當愛達18歲時，薩默維爾將她介紹給工程師兼發明家——查爾斯‧巴貝奇，他的研究促使了差分機（後世普遍視為第一台機械式電腦）的誕生。這個發明深深吸引住了愛達，兩人遂開始了密切合作。1842年至1843年間，她將路易吉‧梅納布雷亞的一篇文章從義大利文翻譯成英文，文章探討巴貝奇的下一個發明：分析機。該機器的設計是利用輸入打孔卡來解決數學問題，但最終由於資金問題從未建造完成。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_4" Language="zh_Hant_HK">
+      <Text>在愛達翻譯梅納布雷亞文章時，她添加了大量有關分析機的註解，並探討了所蘊含的可能性。特別是，她推測該分析機所處理的數學變數，其實可以用來替代更為抽象的概念。她註解中的「筆記G」可謂其中精華，當中提出了一種理論演算法，並被後世普遍認為是世上第一個電腦程式。無論在篇幅或洞察力上，她的貢獻都遠超原文，這不僅顯示了她對機器運作的深刻理解，也展現了她對該機器可能性的宏觀視野。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_5" Language="zh_Hant_HK">
+      <Text>1835年，年方20歲的她與第八代金恩男爵威廉結婚，並育有三名子女。除了數學之外，她對宗教、催眠術和音樂也抱持濃厚興趣，並且持續關注最新的科學突破。她最終因癌症逝世，享年36歲。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_ADA_LOVELACE_ANY" Language="zh_Hant_HK">
+      <Text>這宇宙的命脈哪容你抽乾。滾吧，無賴！ </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_ADA_LOVELACE_ANY" Language="zh_Hant_HK">
+      <Text>你已喪心病狂，而你很快會肝腦塗地。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DEFEAT_AI_LEADER_ADA_LOVELACE_ANY" Language="zh_Hant_HK">
+      <Text>在我漸弱的腳步聲中，願人類能找到一些些來自彼岸的光明。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_ADA_LOVELACE_ANY" Language="zh_Hant_HK">
+      <Text>我是愛達，真榮幸見到你。跟我說說看你對微積分有什麼看法吧。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_ADA_LOVELACE_ANY" Language="zh_Hant_HK">
+      <Text>我是愛達，真榮幸見到你。跟我說說看你對微積分有什麼看法吧。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_ADA_LOVELACE_ANY" Language="zh_Hant_HK">
+      <Text>我是愛達，真榮幸見到你。跟我說說看你對微積分有什麼看法吧。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_ADA_LOVELACE" Language="zh_Hant_HK">
+      <Text>你對於此事之洞見著實了不起。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_ADA_LOVELACE" Language="zh_Hant_HK">
+      <Text>你這個變數不配出現在我的等式中。 </Text>
+    </Replace>
+    <Replace Tag="LOC_MAIN_CHAR_SELECT_LEADER_ADA_LOVELACE_ANY" Language="zh_Hant_HK">
+      <Text>若要運用科學之語言，我們必須細細欣賞、感受和把握看不見之物。 </Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_ADA_LOVELACE_NAME" Language="zh_Hant_HK">
+      <Text>愛達‧勒芙蕾絲</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_NAME" Language="zh_Hant_HK">
+      <Text>研究自然的奧秘。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_NAME" Language="zh_Hant_HK">
+      <Text>依自身意志塑造世界。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210D_NAME" Language="zh_Hant_HK">
+      <Text>給予她發揮的空間。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_NAME" Language="zh_Hant_HK">
+      <Text>將檔案整理得井井有條，思考才能有條有理。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211C_NAME" Language="zh_Hant_HK">
+      <Text>這團混亂根本沒必要去理。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_NAME" Language="zh_Hant_HK">
+      <Text>向商隊提供禮物並派遣使節。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212C_NAME" Language="zh_Hant_HK">
+      <Text>叫他們捲鋪蓋走人。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213B_NAME" Language="zh_Hant_HK">
+      <Text>她看見半人馬——富有創意、務實且令人難忘。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213C_NAME" Language="zh_Hant_HK">
+      <Text>她看見鑿子，將她的名字永遠刻進宇宙中。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_NAME" Language="zh_Hant_HK">
+      <Text>不利用這些專家的技能實在太可惜了。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214C_NAME" Language="zh_Hant_HK">
+      <Text>替他們尋找工作所消耗的精力弊大於利。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_NAME" Language="zh_Hant_HK">
+      <Text>鼓勵人民保有開明的思維。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216C_NAME" Language="zh_Hant_HK">
+      <Text>讓他們決定自己的命運。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218C_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218D_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219C_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219D_NAME" Language="zh_Hant_HK">
+      <Text>關閉。</Text>
+    </Replace>
+    <Replace Tag="LOC_10000A_COMPLETION" Language="zh_Hant_HK">
+      <Text>愛達的思想全都以方程式與粗略圖示詳實記錄，讓人得以一窺她腦海中那團混沌有多難解。光靠紙上談兵很難判斷模型是否有效——如果她想有所突破，時間是至關重要的。</Text>
+    </Replace>
+    <Replace Tag="LOC_10000A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>成功的或然率</Text>
+    </Replace>
+    <Replace Tag="LOC_10000B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10000B_NAME" Language="zh_Hant_HK">
+      <Text>持續迭代，解法自來。</Text>
+    </Replace>
+    <Replace Tag="LOC_10000C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10000C_NAME" Language="zh_Hant_HK">
+      <Text>先從社群取得意見回饋吧。</Text>
+    </Replace>
+    <Replace Tag="LOC_10001A_COMPLETION" Language="zh_Hant_HK">
+      <Text>愛達就座時，旁邊其他來自上流社會的成員們都在竊竊私語。傳聞說她創造了能預測賽馬獲勝馬匹的方法。但也有一些人嗤之以鼻，認為那不過是走運罷了。</Text>
+    </Replace>
+    <Replace Tag="LOC_10001A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>靠演算法賭博</Text>
+    </Replace>
+    <Replace Tag="LOC_10001B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>馬匹{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10001B_NAME" Language="zh_Hant_HK">
+      <Text>就讓他們去傳吧！爾虞我詐會讓賽馬更有趣。</Text>
+    </Replace>
+    <Replace Tag="LOC_10001C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>馬匹{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10001C_NAME" Language="zh_Hant_HK">
+      <Text>駁斥傳聞，下注在慢的馬上。</Text>
+    </Replace>
+    <Replace Tag="LOC_10002A_COMPLETION" Language="zh_Hant_HK">
+      <Text>居民們爭論著信仰在科學中所扮演的角色。人類的天性不就是會想為混沌賦予意義嗎？不就是會想要理解眾神運作的方式嗎？</Text>
+    </Replace>
+    <Replace Tag="LOC_10002A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>信仰的科學</Text>
+    </Replace>
+    <Replace Tag="LOC_10002B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10002B_NAME" Language="zh_Hant_HK">
+      <Text>信仰是一種和計算機沒兩樣的工具。</Text>
+    </Replace>
+    <Replace Tag="LOC_10002C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10002C_NAME" Language="zh_Hant_HK">
+      <Text>信仰創造出許多解答，也催生許多問題。</Text>
+    </Replace>
+    <Replace Tag="LOC_10002D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10002D_NAME" Language="zh_Hant_HK">
+      <Text>這世上有太多隨機性，不可能全數是偶然。</Text>
+    </Replace>
+    <Replace Tag="LOC_10003A_COMPLETION" Language="zh_Hant_HK">
+      <Text>愛達將砝碼綁在紗線上，讓其緊繃地貼合經紗。她用數種不同的顏色交織出複雜的圖案，就如同在書寫錯綜複雜的公式一般。將這兩個概念連結起來後，她開始思索織布機和數學間是否有種關聯。</Text>
+    </Replace>
+    <Replace Tag="LOC_10003A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>測量兩次，一次搞定</Text>
+    </Replace>
+    <Replace Tag="LOC_10003B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>文化值建築{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10003B_NAME" Language="zh_Hant_HK">
+      <Text>將此經歷轉變為課程計畫。</Text>
+    </Replace>
+    <Replace Tag="LOC_10003C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>金幣建築{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10003C_NAME" Language="zh_Hant_HK">
+      <Text>將織布機製成的織品賣掉。</Text>
+    </Replace>
+    <Replace Tag="LOC_10004A_COMPLETION" Language="zh_Hant_HK">
+      <Text>隨著大學的建造工程即將結束，一位建築師注意到附近的寺廟。他們聽說宗教人士經常會貶斥學者的研究。</Text>
+    </Replace>
+    <Replace Tag="LOC_10004A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>算數的支持者</Text>
+    </Replace>
+    <Replace Tag="LOC_10004B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10004B_NAME" Language="zh_Hant_HK">
+      <Text>任他們迫害侵擾——這是不會管用的。</Text>
+    </Replace>
+    <Replace Tag="LOC_10004C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10004C_NAME" Language="zh_Hant_HK">
+      <Text>重點是要消弭差異，創造雙方互相理解。</Text>
+    </Replace>
+    <Replace Tag="LOC_10004D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>科技值與文化值建築{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10004D_NAME" Language="zh_Hant_HK">
+      <Text>這類問題非黑即白的本質令人綁手綁腳。最好先問為什麼。</Text>
+    </Replace>
+    <Replace Tag="LOC_10005A_COMPLETION" Language="zh_Hant_HK">
+      <Text>一名學童舉起了手。他不同意神學課本中的一段話，並想閱讀其他的內容。愛達從他肩膀上看過去，掃視著文本。</Text>
+    </Replace>
+    <Replace Tag="LOC_10005A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>不落窠臼</Text>
+    </Replace>
+    <Replace Tag="LOC_10005B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10005B_NAME" Language="zh_Hant_HK">
+      <Text>示範給那學童看，宗教為何能提供脈絡。</Text>
+    </Replace>
+    <Replace Tag="LOC_10005C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>科技值建築{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10005C_NAME" Language="zh_Hant_HK">
+      <Text>讓該學童挑其他寓教於樂的書籍閱讀。</Text>
+    </Replace>
+    <Replace Tag="LOC_10006A_COMPLETION" Language="zh_Hant_HK">
+      <Text>愛達撫平醫院的病床，抹去最後的皺褶。織物上的褶皺與大腦極其相似，這讓她想起思緒中那段曾經作繭自縛的日子。</Text>
+    </Replace>
+    <Replace Tag="LOC_10006A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>身心不相連</Text>
+    </Replace>
+    <Replace Tag="LOC_10006B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10006B_NAME" Language="zh_Hant_HK">
+      <Text>腦子和身體是分開的，腦子不會那麼快就疲憊。</Text>
+    </Replace>
+    <Replace Tag="LOC_10006C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10006C_NAME" Language="zh_Hant_HK">
+      <Text>強大的心智能克服一切。</Text>
+    </Replace>
+    <Replace Tag="LOC_10007A_COMPLETION" Language="zh_Hant_HK">
+      <Text>科學家和牧師討論著塑造這個世界的無形力量，內容涵蓋了神祇和各種神秘現象，愛達在旁仔細聆聽。隨著彼此的世界觀逐漸相悖，談話的氣氛也逐漸變得緊張。</Text>
+    </Replace>
+    <Replace Tag="LOC_10007A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>肯定還有更多追求</Text>
+    </Replace>
+    <Replace Tag="LOC_10007B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10007B_NAME" Language="zh_Hant_HK">
+      <Text>信仰能賦予意義，激勵我們的志業。</Text>
+    </Replace>
+    <Replace Tag="LOC_10007C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10007C_NAME" Language="zh_Hant_HK">
+      <Text>正是神祕現象驅使我們尋找答案。</Text>
+    </Replace>
+    <Replace Tag="LOC_10008A_COMPLETION" Language="zh_Hant_HK">
+      <Text>顧問們認為愛達的設計太有野心、無法成真，為此紛紛提出警告。在沒有愛達掌舵的情況下計畫進展緩慢，但公式總得還是有人來完成。</Text>
+    </Replace>
+    <Replace Tag="LOC_10008A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>進度落後</Text>
+    </Replace>
+    <Replace Tag="LOC_10008B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>科技值建築{1_reward}，但城鎮{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10008B_NAME" Language="zh_Hant_HK">
+      <Text>寧可落後也不要直接被淘汰。</Text>
+    </Replace>
+    <Replace Tag="LOC_10008C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>城鎮{1_reward}，但科技值建築{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10008C_NAME" Language="zh_Hant_HK">
+      <Text>急於求成只會歪曲成果。</Text>
+    </Replace>
+    <Replace Tag="LOC_10009A_COMPLETION" Language="zh_Hant_HK">
+      <Text>愛達用羽毛筆輕敲額頭，希望能突破瓶頸。電力雖然能驅動機器並提供照明，但一定還有更多創新的運用方法。</Text>
+    </Replace>
+    <Replace Tag="LOC_10009A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>要有光</Text>
+    </Replace>
+    <Replace Tag="LOC_10009B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10009B_NAME" Language="zh_Hant_HK">
+      <Text>設計一款能檢查腦子的裝置。</Text>
+    </Replace>
+    <Replace Tag="LOC_10009C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10009C_NAME" Language="zh_Hant_HK">
+      <Text>設計一款能儲存電力供之後使用的裝置。</Text>
+    </Replace>
+    <Replace Tag="LOC_10010A_COMPLETION" Language="zh_Hant_HK">
+      <Text>愛達身兼數學家和詩人，許多人常常質疑她本人就是矛盾的化身。她非常渴望向同事們展示自己的思考方式，於是便想出了一個計畫。</Text>
+    </Replace>
+    <Replace Tag="LOC_10010A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>矛盾的化身</Text>
+    </Replace>
+    <Replace Tag="LOC_10010B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>科技值建築{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10010B_NAME" Language="zh_Hant_HK">
+      <Text>為其他數學家舉辦一場寫作工作坊。</Text>
+    </Replace>
+    <Replace Tag="LOC_10010C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>科技值建築{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10010C_NAME" Language="zh_Hant_HK">
+      <Text>挑戰藝術家們想出新發明的能力。</Text>
+    </Replace>
+    <Replace Tag="LOC_10011A_COMPLETION" Language="zh_Hant_HK">
+      <Text>某個曾經繁榮的科學社群所在地，如今已烽煙四起。少數倖存者用盡最後一絲力氣前往{1_Capital}，並懇愛達‧勒芙蕾絲的救濟。</Text>
+    </Replace>
+    <Replace Tag="LOC_10011A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>糾正錯誤</Text>
+    </Replace>
+    <Replace Tag="LOC_10011B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>文化值建築{1_reward}，但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10011B_NAME" Language="zh_Hant_HK">
+      <Text>讓他們在音樂廳裡工作。</Text>
+    </Replace>
+    <Replace Tag="LOC_10011C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10011C_NAME" Language="zh_Hant_HK">
+      <Text>在工廠中找地方安置。</Text>
+    </Replace>
+    <Replace Tag="LOC_10012A_COMPLETION" Language="zh_Hant_HK">
+      <Text>解譯了數小時複雜的工程筆記後，愛達確信自己能為這個新計畫找到贊助者。拓展出了全新的途徑後，她的影響力也因此向外延伸，那麼想打造前所未有的事物又會有多難呢？</Text>
+    </Replace>
+    <Replace Tag="LOC_10012A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>思想的交流</Text>
+    </Replace>
+    <Replace Tag="LOC_10012B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10012B_NAME" Language="zh_Hant_HK">
+      <Text>國外的工程師可能會願意協助籌措資金。</Text>
+    </Replace>
+    <Replace Tag="LOC_10012C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10012C_NAME" Language="zh_Hant_HK">
+      <Text>由學者構成的網路肯定認識手頭闊綽的人。</Text>
+    </Replace>
+    <Replace Tag="LOC_10013A_COMPLETION" Language="zh_Hant_HK">
+      <Text>又一批才思敏捷的女性準備展開新的學期，而她們想向愛達尋求學科方面的建議。</Text>
+    </Replace>
+    <Replace Tag="LOC_10013A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>牛津公式</Text>
+    </Replace>
+    <Replace Tag="LOC_10013B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10013B_NAME" Language="zh_Hant_HK">
+      <Text>推薦數理科。</Text>
+    </Replace>
+    <Replace Tag="LOC_10013C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10013C_NAME" Language="zh_Hant_HK">
+      <Text>建議人文學科。</Text>
+    </Replace>
+    <Replace Tag="LOC_10014A_COMPLETION" Language="zh_Hant_HK">
+      <Text>愛達才剛坐下來打算喝茶，古物學會代表們就闖進了她的房間。他們抱怨現代化進程過於迅速，並堅持應該採取更多保護過往的措施。</Text>
+    </Replace>
+    <Replace Tag="LOC_10014A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>就沒人願意替古物學家著想嗎？</Text>
+    </Replace>
+    <Replace Tag="LOC_10014B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>文化值建築{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10014B_NAME" Language="zh_Hant_HK">
+      <Text>時間不斷地向前進，而非後退。</Text>
+    </Replace>
+    <Replace Tag="LOC_10014C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>科技值建築{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10014C_NAME" Language="zh_Hant_HK">
+      <Text>歷史的教訓極為寶貴。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210A_COMPLETION" Language="zh_Hant_HK">
+      <Text>愛達‧勒芙蕾絲才華洋溢，吸引了一群科學家與哲學家為其效力。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>基礎工作</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_COMPLETION" Language="zh_Hant_HK">
+      <Text>經過數日深思熟慮，哲學家們提出了新穎且令人期待的理論，甚至還挑戰了愛達原有的觀點。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>擁有3本放入槽位的抄本。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_STORYTITLE" Language="zh_Hant_HK">
+      <Text>基礎工作</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_COMPLETION" Language="zh_Hant_HK">
+      <Text>愛達‧勒芙蕾絲的助手將黏土塑形並燒製成磚塊，他們不禁想像起未來那些會走在他們作品上方的形形色色路人。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>再建造2座磚廠</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_STORYTITLE" Language="zh_Hant_HK">
+      <Text>基礎工作</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211A_COMPLETION" Language="zh_Hant_HK">
+      <Text>一位學者在圖書館裡不小心撞到了愛達。學者連聲道歉，並解釋是因為周遭散落著尚未整理的文獻。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>整理過的混亂</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_COMPLETION" Language="zh_Hant_HK">
+      <Text>這位學者將新裝訂好的書本歸回書架，看到整齊排列的書脊，他不禁感到心滿意足。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>擁有6本放入槽位的抄本。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_STORYTITLE" Language="zh_Hant_HK">
+      <Text>整理過的混亂</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212A_COMPLETION" Language="zh_Hant_HK">
+      <Text>快速的發展促使許多人開始尋找新家園。想到即將探索的新天地與新事物，探險家心中雀躍不已。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>安定下來</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_COMPLETION" Language="zh_Hant_HK">
+      <Text>經過多日的旅程，商隊在適合建立家園的土地上插旗宣示主權。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>再創立3座城鎮。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_STORYTITLE" Language="zh_Hant_HK">
+      <Text>安定下來</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>所有聚落{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213A_COMPLETION" Language="zh_Hant_HK">
+      <Text>夜空中閃爍著星辰與星座微弱的光芒，等待愛達解讀。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>天文運算法</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>故事繼續。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>故事繼續。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214A_COMPLETION" Language="zh_Hant_HK">
+      <Text>各領域最優秀且最聰明的人才都在愛達的麾下努力拚搏，無論身在何處都擁護著她的價值觀。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>聰明社會</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_COMPLETION" Language="zh_Hant_HK">
+      <Text>專業人才很容易就能找到工作。小眾領域總是需要專家，而這座城市已作育無數英才。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>擁有10名專家。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_STORYTITLE" Language="zh_Hant_HK">
+      <Text>聰明社會</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215A_COMPLETION" Language="zh_Hant_HK">
+      <Text>建造建築物不僅僅是為了成就領導者的沽名釣譽。作為一位領導者，愛達擁有許多面向……但她絕非不學無術之輩。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>城市崛起</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_COMPLETION" Language="zh_Hant_HK">
+      <Text>在愛達穩定且自信的引領下，她的城市將持續發展。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>所有聚落{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>擁有5個總收益分別為40且非市中心的區域。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_STORYTITLE" Language="zh_Hant_HK">
+      <Text>城市崛起</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216A_COMPLETION" Language="zh_Hant_HK">
+      <Text>祈禱的力量可能會成為治療身心疾病的良方。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>祈願無病痛</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_COMPLETION" Language="zh_Hant_HK">
+      <Text>無論是否為安慰劑效應，數據都必須要妥善蒐集，但愛達的追隨者在祈禱後確實變得更快樂、更健康了。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>讓5座聚落信奉你的宗教。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_STORYTITLE" Language="zh_Hant_HK">
+      <Text>祈願無病痛</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>所有聚落{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217A_COMPLETION" Language="zh_Hant_HK">
+      <Text>改變即將到來。現狀正在轉變……人們對宗教教誨的異議與對未知的恐懼交雜再一起，不禁私下竊竊私語。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>質疑一切</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_COMPLETION" Language="zh_Hant_HK">
+      <Text>為了平息恐懼並讓反對者閉嘴，當局公開展示文物，使其成為安定民心的基石。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>所有巨作+1[icon:YIELD_HAPPINESS]幸福感。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>擁有5個放入槽位的遺物。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_STORYTITLE" Language="zh_Hant_HK">
+      <Text>質疑一切</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218A_COMPLETION" Language="zh_Hant_HK">
+      <Text>野心就是人類的驅動力——除了繼續向上發展，還能往何處去呢？這是一個建造偉大事物的契機。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>向上的動力</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_COMPLETION" Language="zh_Hant_HK">
+      <Text>愛達的傳奇成就促使人類又向月球邁進了一步。至於接下來會發生什麼事，仍有待時間分曉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>建造一座發射台。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_STORYTITLE" Language="zh_Hant_HK">
+      <Text>向上的動力</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}並進入慶典。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219A_COMPLETION" Language="zh_Hant_HK">
+      <Text>土壤之下埋藏著逝去已久的人類遺跡，那些故事與遺物正等待出土並與世人分享。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>古物的教訓</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_COMPLETION" Language="zh_Hant_HK">
+      <Text>這些文物如今已經出土並經過保存處理，隨時可以開始進行研究並從中學習。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_IMPERATIVE" Language="zh_Hant_HK">
+      <Text>擁有5個放入槽位的文物。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_STORYTITLE" Language="zh_Hant_HK">
+      <Text>古物的教訓</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219D_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}並進入慶典。</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ADA_LOVELACE_L1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>標準金幣、生產力與科技值建築的相鄰加成+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ADA_LOVELACE_L1_NAME" Language="zh_Hant_HK">
+      <Text>科技屬性節點</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ADA_LOVELACE_L2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>建造有巨作槽位的建築與奇觀時+15%生產力效益。</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ADA_LOVELACE_L2_NAME" Language="zh_Hant_HK">
+      <Text>文化屬性節點</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_ADA_LOVELACE_NAME" Language="zh_Hant_HK">
+      <Text>愛達‧勒芙蕾絲徽章1</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_ADA_LOVELACE_P_NAME" Language="zh_Hant_HK">
+      <Text>愛達‧勒芙蕾絲徽章2</Text>
+    </Replace>
+    <Replace Tag="LOC_BANNER_ADA_LOVELACE_NAME" Language="zh_Hant_HK">
+      <Text>愛達‧勒芙蕾絲旗幟</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ADA_LOVELACE_1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在此時代中，以-10%文化值[icon:YIELD_CULTURE]作為代價換取+15%科技值[icon:YIELD_SCIENCE]</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ADA_LOVELACE_1_NAME" Language="zh_Hant_HK">
+      <Text>愛達‧勒芙蕾絲探索傳奇科技</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ADA_LOVELACE_2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在此時代中，以-10%科技值[icon:YIELD_Science]作為代價換取+15%文化值[icon:YIELD_CULTURE]</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ADA_LOVELACE_2_NAME" Language="zh_Hant_HK">
+      <Text>愛達‧勒芙蕾絲探索傳奇文化</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ADA_LOVELACE_1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在此時代中，以-10%文化值[icon:YIELD_CULTURE]作為代價換取+15%科技值[icon:YIELD_SCIENCE]</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ADA_LOVELACE_1_NAME" Language="zh_Hant_HK">
+      <Text>愛達‧勒芙蕾絲現代傳奇科技</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ADA_LOVELACE_2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在此時代中，以-10%科技值[icon:YIELD_Science]作為代價換取+15%文化值[icon:YIELD_CULTURE]</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ADA_LOVELACE_2_NAME" Language="zh_Hant_HK">
+      <Text>愛達‧勒芙蕾絲現代傳奇文化</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_AGENDA_ANALYTICAL_ENGINE_DESC" Language="zh_Hant_HK">
+      <Text>喜歡擁有最多精通的領袖，不喜歡擁有最少精通的領袖。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_AGENDA_ANALYTICAL_ENGINE_NAME" Language="zh_Hant_HK">
+      <Text>分析機</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_ADA_LOVELACE_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>當你完成一個[icon:RADIAL_CIVICS]市政精通時，[icon:YIELD_CITIES]各城市獲得+2[icon:YIELD_SCIENCE]科技值，依照時代疊加。此效果會在每個時代開始時重設。當你完成一個[icon:RADIAL_TECH]科技精通時，獲得等同於你每回合總[icon:YIELD_SCIENCE]科技值50%的[icon:YIELD_CULTURE]文化值。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_LEADER_INTRO_TEXT_ADA_LOVELACE" Language="zh_Hant_HK">
+      <Text>愛達·勒芙蕾絲，你以邏輯與靈魂，探求理解世界的運作。在理性與計算的交織之中，蘊藏著不羈的精神。將其盡情釋放吧，將你的分析機大膽運用於這個迫切需要理性的時代，且看你能為人類想像出何等嶄新遼闊的境界。 </Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_NOTE_G_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>未來的願景。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_NOTE_G_FUNCTIONAL_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>每次你研究完一項科技或市政精通，首都就獲得等同於其花費15%的[icon:YIELD_PRODUCTION]生產力。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_NOTE_G_NAME" Language="zh_Hant_HK">
+      <Text>筆記G</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_NOTE_G_UNLOCK_TITLE" Language="zh_Hant_HK">
+      <Text>於愛達‧勒芙蕾絲等級9解鎖</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PIANO_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>結合音樂與數學。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PIANO_FUNCTIONAL_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>研發市政精通時+10%[icon:YIELD_CULTURE]文化值效益。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PIANO_NAME" Language="zh_Hant_HK">
+      <Text>鋼琴</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PIANO_UNLOCK_TITLE" Language="zh_Hant_HK">
+      <Text>於愛達‧勒芙蕾絲等級5解鎖</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PUNCH_CARDS_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>從織布機到電腦。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PUNCH_CARDS_FUNCTIONAL_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>每建成一座科技值建築，獲得20[icon:YIELD_SCIENCE]科技值，依照時代疊加。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PUNCH_CARDS_NAME" Language="zh_Hant_HK">
+      <Text>打孔卡</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PUNCH_CARDS_UNLOCK_TITLE" Language="zh_Hant_HK">
+      <Text>於愛達‧勒芙蕾絲等級2解鎖</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成古典時代兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_2_NAME" Language="zh_Hant_HK">
+      <Text>古典時代完成2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成古典時代三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_3_NAME" Language="zh_Hant_HK">
+      <Text>古典時代完成3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成古典時代。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>古典時代完成</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成探索時代兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>探索時代完成2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成探索時代三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_3_NAME" Language="zh_Hant_HK">
+      <Text>探索時代完成3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成探索時代。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>探索時代完成</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成近代兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>近代完成2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成近代三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_3_NAME" Language="zh_Hant_HK">
+      <Text>近代完成3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成近代。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>近代完成</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「遠古世界的奇觀」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_2_NAME" Language="zh_Hant_HK">
+      <Text>遠古世界的奇觀2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「遠古世界的奇觀」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_3_NAME" Language="zh_Hant_HK">
+      <Text>遠古世界的奇觀3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「遠古世界的奇觀」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>遠古世界的奇觀</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「藏寶庫」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>藏寶庫2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「藏寶庫」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_3_NAME" Language="zh_Hant_HK">
+      <Text>藏寶庫3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「藏寶庫」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>藏寶庫</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「地理學會」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>地理學會2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「地理學會」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_3_NAME" Language="zh_Hant_HK">
+      <Text>地理學會3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「地理學會」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>地理學會</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「絲路」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_2_NAME" Language="zh_Hant_HK">
+      <Text>絲路2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「絲路」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_3_NAME" Language="zh_Hant_HK">
+      <Text>絲路3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「絲路」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>絲路</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「寶藏艦隊」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>寶藏艦隊2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「寶藏艦隊」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_3_NAME" Language="zh_Hant_HK">
+      <Text>寶藏艦隊3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「寶藏艦隊」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>寶藏艦隊</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「鐵路大亨」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>鐵路大亨2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「鐵路大亨」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_3_NAME" Language="zh_Hant_HK">
+      <Text>鐵路大亨3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「鐵路大亨」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>鐵路大亨</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，在一次古典時代中完成2項傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>雙重傳承，古典</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，在一次探索時代中完成2項傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>雙重傳承，探索</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，在一次近代中完成2項傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>雙重傳承，近代</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「和平帝國」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_2_NAME" Language="zh_Hant_HK">
+      <Text>和平帝國2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「和平帝國」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_3_NAME" Language="zh_Hant_HK">
+      <Text>和平帝國3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「和平帝國」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>和平帝國</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「世界不夠大」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>世界不夠大2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「世界不夠大」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_3_NAME" Language="zh_Hant_HK">
+      <Text>世界不夠大3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「世界不夠大」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>世界不夠大</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「意識形態」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>意識形態2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「意識形態」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_3_NAME" Language="zh_Hant_HK">
+      <Text>意識形態3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「意識形態」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>意識形態</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_1_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，至少達成1項傳承路徑里程碑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_1_NAME" Language="zh_Hant_HK">
+      <Text>開始遊戲1</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，至少達成2項傳承路徑里程碑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_2_NAME" Language="zh_Hant_HK">
+      <Text>開始遊戲2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，至少達成3項傳承路徑里程碑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_3_NAME" Language="zh_Hant_HK">
+      <Text>開始遊戲3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>在古典時代扮演愛達·勒芙蕾絲，完成整理圖書館的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>整理過的混亂</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>在探索時代扮演愛達·勒芙蕾絲，完成培育最優秀菁英的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>聰明社會</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>在近代扮演愛達·勒芙蕾絲，完成前往星際的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>向上的動力</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>在古典時代扮演愛達·勒芙蕾絲，完成尋找新家園的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>安定下來</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>在探索時代扮演愛達·勒芙蕾絲，完成透過祈禱支援人民的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>祈願無病痛</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>在近代扮演愛達·勒芙蕾絲，完成從土壤之下尋求知識的任務。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>古物的教訓</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「大圖書館」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_2_NAME" Language="zh_Hant_HK">
+      <Text>大圖書館2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「大圖書館」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_3_NAME" Language="zh_Hant_HK">
+      <Text>大圖書館3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「大圖書館」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_NAME" Language="zh_Hant_HK">
+      <Text>大圖書館</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「啟蒙」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>啟蒙2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「啟蒙」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_3_NAME" Language="zh_Hant_HK">
+      <Text>啟蒙3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「啟蒙」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_NAME" Language="zh_Hant_HK">
+      <Text>啟發</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_2_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「太空競賽」傳承路徑兩次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>太空競賽2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_3_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「太空競賽」傳承路徑三次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_3_NAME" Language="zh_Hant_HK">
+      <Text>太空競賽3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_DESC" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，完成「太空競賽」傳承路徑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_NAME" Language="zh_Hant_HK">
+      <Text>太空競賽</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_CULTURAL_LEGEND_ADA_LOVELACE_L2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>傳奇解鎖。建造有巨作槽位的建築與奇觀時+15%[icon:YIELD_PRODUCTION]生產力效益。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_LEGEND_ADA_LOVELACE_L1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>傳奇解鎖。標準的[icon:YIELD_GOLD]金幣、[icon:YIELD_PRODUCTION]生產力與[icon:YIELD_SCIENCE]科技值建築+1相鄰加成。</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_ADA_LOVELACE" Language="zh_Hant_HK">
+      <Text>算數魔女</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_EXPLORATION_1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，取用一張全新探索時代傳承卡牌：[n]
+				+15%科技值，-10%文化值</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_EXPLORATION_1_NAME" Language="zh_Hant_HK">
+      <Text>探索時代科技傳承卡牌</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_EXPLORATION_2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演愛達‧勒芙蕾絲，取用一張全新探索時代傳承卡牌：[n]
+				+15%文化值，-10%科技值</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_EXPLORATION_2_NAME" Language="zh_Hant_HK">
+      <Text>探索時代文化傳承卡牌</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_MODERN_1_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演愛達·勒芙蕾絲，取用一張全新近世時代傳承卡牌：[n]
+				+15%科技值，-10%文化值</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_MODERN_1_NAME" Language="zh_Hant_HK">
+      <Text>近代科技傳承卡牌</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_MODERN_2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演愛達·勒芙蕾絲，取用一張全新近世時代傳承卡牌：[n]
+				+15%文化值，-10%科技值</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_MODERN_2_NAME" Language="zh_Hant_HK">
+      <Text>近代文化傳承卡牌</Text>
+    </Replace>
+    <Replace Tag="LOC_TITLE_ADA_LOVELACE_NAME" Language="zh_Hant_HK">
+      <Text>算數魔女</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_ADA_LOVELACE_ABILITY_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>[BLIST][LI]當你完成一個[icon:RADIAL_CIVICS][B]市政精通[/B]時，[icon:YIELD_CITIES][B]城市[/B]獲得[B]+2[icon:YIELD_SCIENCE]科技值[/B]，依照時代疊加。此效果會在每個時代開始時重設。[LI]當你完成一個[icon:RADIAL_TECH][B]科技精通[/B]時，每回合獲得等同於你總[B][icon:YIELD_SCIENCE]科技值[/B]50%的[B][icon:YIELD_CULTURE]文化值[/B]。[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_ADA_LOVELACE_ABILITY_NAME" Language="zh_Hant_HK">
+      <Text>算數魔女</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_ABBASID_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]阿拔斯[/B]和[B]愛達‧勒芙蕾絲[/B]在策略上互補。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演[B]愛達‧勒芙蕾絲[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_GREECE_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]愛達‧勒芙蕾絲[/B]源自與[B]希臘[/B]相同的大陸。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_NORMAN_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]愛達‧勒芙蕾絲[/B]的英國曾經被[B]諾曼人[/B]統治。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_ROME_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]愛達‧勒芙蕾絲[/B]源自與[B]羅馬[/B]相同的大陸。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_RUSSIA_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]愛達·勒芙蕾絲[/B]源自與[B]俄羅斯[/B]相同的大陸。</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

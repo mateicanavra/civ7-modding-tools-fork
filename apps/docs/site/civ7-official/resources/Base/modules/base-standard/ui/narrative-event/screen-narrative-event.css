@@ -1,0 +1,25 @@
+/* DO NOT EDIT */
+/* Generated from screen-narrative-event.scss */
+.screen-narrative-event {
+	width: 55.5555555556rem;
+}
+@media (max-height: 42.6666666667rem) {
+	.screen-narrative-event {
+		max-height: 30rem;
+		margin-top: 4.4444444444rem;
+	}
+}
+
+.narrative-reg__title-text {
+	text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.87), 0px 0px 0px rgba(0, 0, 0, 0.9), 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+.nar-inner-frame {
+	background-color: rgba(0, 0, 0, 0.3);
+}
+
+@media (max-height: 42.6666666667rem) {
+	.narrative-reg__content {
+		padding: 0rem 1.3333333333rem;
+	}
+}

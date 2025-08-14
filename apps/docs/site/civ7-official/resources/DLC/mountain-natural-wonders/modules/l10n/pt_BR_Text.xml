@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_MACHAPUCHARE_CHAPTER_HISTORY_PARA_1" Language="pt_BR">
+      <Text>Machapuchare é um paredão quase vertical de rochas que se eleva a partir da cordilheira Annapurna, no Himalaia, e nunca foi escalada. Embora não tenha a altura do Everest, com pouco mais de 6.700 metros, ela se ergue a partir de terras relativamente baixas, o que lhe confere um perfil impressionante. Talvez seja essa a razão pela qual é considerada sagrada pelos povos que habitam a região, tanto por grupos tibetanos da montanha quanto pelo povo nepalês, que acreditam ser o local de moradia do deus Shiva. Por essas razões, o governo nepalês é extremamente relutante em conceder permissões para a escalada de suas encostas. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_MOUNT_FUJI_CHAPTER_HISTORY_PARA_1" Language="pt_BR">
+      <Text>Um grande e ativo vulcão localizado no centro da ilha principal do Japão, Honshu, se ergue em um cone suave e mantém uma capa de neve durante a maior parte do ano. A beleza do Monte Fuji tem sido o símbolo daquelas ilhas há milênios, aparecendo nas xilogravuras de Hokusai, na poesia de Basho, e continua até hoje sendo um importante local de culto e peregrinação xintoísta. No topo de seu pico há um santuário, e suas encostas são um destino tanto para caminhadas religiosas quanto recreativas.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_MOUNT_FUJI_CHAPTER_HISTORY_PARA_2" Language="pt_BR">
+      <Text>O Monte Fuji foi incluído na Lista de Patrimônios da Humanidade em 2013, devido ao seu impacto cultural.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_VIHREN_CHAPTER_HISTORY_PARA_1" Language="pt_BR">
+      <Text>Na parte sudoeste da Bulgária, as montanhas Pirin se erguem bruscamente dos vales abaixo. Bem no centro está Vihren, a montanha mais alta da cadeia e a terceira mais alta dos Balcãs. Com 2.914 metros, o pico piramidal é um exemplar marcante da topografia cárstica. Em sua base encontra-se a geleira mais ao sul da Europa, que se chama "Snezhnika". Em uma associação histórica das montanhas Pirin com Perun, o deus eslavo das tempestades, o nome Vihren significa "redemoinho". Até hoje é um destino popular para escaladores. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_VINICUNCA_CHAPTER_HISTORY_PARA_1" Language="pt_BR">
+      <Text>No coração dos Andes peruanos está Vinicunca, a montanha das sete cores. Seus tons vibrantes são o resultado de uma mistura de minerais: rosa da argila vermelha, branco do quartzo e do marga, roxo da limonita e goethita, vermelho do ferro, verde da clorita, marrom do magnésio e amarelo do arenito calcário. Vinicunca só foi descoberta recentemente, em 2013, pois ficava escondida por uma geleira. Mas, com o aumento das temperaturas da Terra, a neve permanente acabou derretendo e revelando suas cores. Desde então, tornou-se uma das principais atrações turísticas do Peru.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MACHAPUCHARE_NAME" Language="pt_BR">
+      <Text>Machapuchare</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MOUNT_FUJI_NAME" Language="pt_BR">
+      <Text>Monte Fuji</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VIHREN_NAME" Language="pt_BR">
+      <Text>Vihren</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VINICUNCA_NAME" Language="pt_BR">
+      <Text>Vinicunca</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_MOUNT_VINSON_NAME" Language="pt_BR">
+      <Text>Monte Vinson</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MACHAPUCHARE_DESCRIPTION" Language="pt_BR">
+      <Text>+2 de [icon:YIELD_CULTURE] Cultura e +4 de [icon:YIELD_PRODUCTION] Produção por Era. +1 de [icon:YIELD_HAPPINESS] Felicidade em terreno Acidentado e Montanha neste Assentamento.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MACHAPUCHARE_TOOLTIP" Language="pt_BR">
+      <Text>+1 de [icon:YIELD_HAPPINESS] Felicidade em terreno Acidentado e Montanha neste Assentamento.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MOUNT_FUJI_DESCRIPTION" Language="pt_BR">
+      <Text>+2 de [icon:YIELD_GOLD] Ouro, [icon:YIELD_CULTURE] Cultura e [icon:YIELD_HAPPINESS] Felicidade por Era. Painéis de Vulcão.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MOUNT_FUJI_TOOLTIP" Language="pt_BR">
+      <Text>Painéis de Vulcão.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VIHREN_DESCRIPTION" Language="pt_BR">
+      <Text>+4 de [icon:YIELD_FOOD] Alimento e +2 de [icon:YIELD_PRODUCTION] Produção por Era. +1 de [icon:YIELD_HAPPINESS] Felicidade e [icon:YIELD_CULTURE] Cultura por Era, sempre que um Desastre Natural fornecer Fertilidade nesta Era para você. </Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VIHREN_TOOLTIP" Language="pt_BR">
+      <Text>+1 de [icon:YIELD_HAPPINESS] Felicidade e [icon:YIELD_CULTURE] Cultura por Era, sempre que um Desastre Natural fornecer Fertilidade nesta Era para você. </Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VINICUNCA_DESCRIPTION" Language="pt_BR">
+      <Text>+2 de [icon:YIELD_PRODUCTION] Produção, [icon:YIELD_HAPPINESS] Felicidade e [icon:YIELD_SCIENCE] Ciência por Era. +2 de [icon:YIELD_CULTURE] Cultura para painéis Rurais adjacentes.</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VINICUNCA_TOOLTIP" Language="pt_BR">
+      <Text>+2 de [icon:YIELD_CULTURE] Cultura para painéis Rurais adjacentes.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_MACHAPUCHARE" Language="pt_BR">
+      <Text>O Linga Purana</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_MOUNT_FUJI" Language="pt_BR">
+      <Text>Matsuo Bashō</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_VIHREN" Language="pt_BR">
+      <Text>O Razumnik</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_VINICUNCA" Language="pt_BR">
+      <Text>Pachacuti</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_MACHAPUCHARE" Language="pt_BR">
+      <Text>Shiva é quieto, sem cor, sabor ou cheiro, além da palavra e do toque, sem qualidade, imóvel e inalterável.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_MOUNT_FUJI" Language="pt_BR">
+      <Text>Em um mundo encantado, o sol esbarra na cabeça dele no pico do Fuji.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_VIHREN" Language="pt_BR">
+      <Text>As montanhas seguram a terra firme para que ela não balance sobre as águas.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_VINICUNCA" Language="pt_BR">
+      <Text>Ó, Pachacámac! Estás no céu ou sobre a terra? Nas nuvens ou nas profundezas?</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

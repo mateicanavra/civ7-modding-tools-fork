@@ -1,0 +1,554 @@
+@use 'sass:color';
+@use 'sass:list';
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+@use '../../../core/ui/themes/default/baseColors';
+@use '../../../core/ui/themes/default/animations';
+@use '../../../core/ui/themes/default/theme';
+
+@keyframes fadein {
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes fadeout {
+	100% {
+		opacity: 0;
+	}
+}
+
+.fade-in {
+	opacity: 0;
+	animation: fadein 2s;
+	animation-fill-mode: both;
+}
+
+.fade-out {
+	animation: fadeout 2s;
+	animation-fill-mode: both;
+}
+
+@keyframes curtain-fadeout {
+	100% {
+		opacity: 0;
+	}
+}
+
+.curtain {
+	opacity: 100;
+}
+
+.curtain-opened {
+	background-color: transparent;
+	animation: curtain-fadeout;
+	animation-duration: 1s;
+	animation-fill-mode: both;
+}
+
+.root-game-loading__scene-bg-art-container {
+	background-color: black;
+	align-self: center;
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+}
+
+.root-game-loading__scene-fg {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	//background-image: url("fs://game/lsbg_default_720.png"); // set at run-time
+	background-size: cover;
+	background-position: bottom right;
+	background-repeat: no-repeat;
+}
+
+.root-game-loading__leaderPortrait {
+	position: absolute;
+	align-self: flex-end;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	// background-image: url("fs://game/LS_Amina.png"); // set at run-time
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: bottom center;
+	max-width: pixels(800);
+
+	@media (max-height: pixels(1000)),
+	(max-aspect-ratio: 4/3),
+	(experience: mobile) {
+		background-position-x: 140%;
+	}
+}
+
+.root-game-loading__left-info-panel {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 60rem;
+	max-width: 91%;
+	height: 100%;
+	padding: 2.25em 1rem 3em 1rem;
+}
+
+.root-game-loading__left-info-bg {
+	background-image: linear-gradient(to left,
+			theme.color('primary-3', 0.5),
+			theme.color('primary-3', 0.75),
+			theme.color('primary-3', 0.875),
+			theme.color('primary-3', 0.9375) 100%);
+
+	background-repeat: no-repeat;
+}
+
+.root-game-loading__game-info-content {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.root-game-loading__game-title-box {
+	position: relative;
+	width: auto;
+	height: auto;
+	align-self: center;
+	margin-bottom: 2.25em;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 2.25em 4.5em .75em;
+}
+
+.root-game-loading__title-ornament-container {
+	position: absolute;
+	top: -.5em;
+	bottom: -.5em;
+	left: 0;
+	right: 0;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.root-game-loading__title-intro-text {
+	height: auto;
+	text-transform: uppercase;
+}
+
+.root-game-loading__title-setting-text {
+	height: auto;
+	text-transform: uppercase;
+}
+
+.root-game-loading__leader-info-field {
+	line-height: -50%;
+}
+
+.root-game-loading__generic-intro-text,
+.root-game-loading__leader-intro-text,
+.root-game-loading__civ-intro-text,
+.root-game-loading__unique-units-intro-text {
+	line-height: 110%;
+
+	p {
+		line-height: 110%;
+	}
+}
+
+.root-game-loading-intro-text {
+	line-height: 110%;
+	font-size: 1rem;
+	letter-spacing: pixels(1);
+	margin-left: -0.116667em;
+	color: theme.color('accent-2');
+}
+
+.root-game-loading__important-text-flex-box {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	//padding-bottom: 1.5em;
+	margin-top: 1em;
+}
+
+//.root-game-loading__horizontal-rule {
+//	width: 100%;
+//	height: 1.5em;
+//	background-image: url("fs://game/Ornament_Thin_CenterHex.png");
+//	background-size: 50%;
+//	background-repeat: no-repeat;
+//	background-position: center;
+//	align-self: center;
+//	filter: fxs-color-mask(theme.$default-color-secondary-accent);
+//	margin-bottom: 1.5em;
+//}
+
+.root-game-loading__unique-horizontal-flex-box {
+	width: 100%;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.root-game-loading__unique-units-flex-box {
+
+	@media (max-height: pixels(1000)),
+	(max-aspect-ratio: 4/3),
+	(experience: mobile) {
+		width: 25%;
+
+		@media (experience: mobile) {
+			width: auto;
+		}
+
+		.root-game-loading__unique-individual-unit-description-text {
+			display: none;
+		}
+
+		.root-game-loading__unique-individual-unit-description-flexbox {
+			width: 75%;
+		}
+	}
+
+
+	min-height: pixels(80);
+}
+
+.root-game-loading__two-column-unique {
+	@media (min-height: pixels(1440)) {
+		width: 100%;
+	}
+
+	width: 50%;
+
+	.root-game-loading__unique-individual-unit-description-flexbox {
+		width: 82%;
+	}
+
+	.root-game-loading__unique-individual-unit-description-text {
+		max-width: 90%;
+	}
+}
+
+.root-game-loading__four-column-unique {
+	@media (min-height: pixels(1440)) {
+		width: 100%;
+
+		.root-game-loading__unique-individual-unit-description-text {
+			display: flex;
+		}
+	}
+
+	width: 25%;
+
+	.root-game-loading__unique-individual-unit-description-text {
+		display: none;
+	}
+}
+
+.root-game-loading__unique-individual-unit-description-flexbox {
+	margin-top: 0.25rem;
+}
+
+.root-game-loading__unique-improvements-flex-box {
+	width: 50%;
+	height: auto;
+	flex-wrap: wrap;
+	flex-direction: column;
+}
+
+.root-game-loading__unique-individual-unit-flex-box {
+	display: flex;
+	margin-bottom: pixels(24);
+}
+
+.root-game-loading__unique-individual-unit-portrait-flexbox {
+	min-width: pixels(96);
+	height: pixels(96);
+}
+
+.root-game-loading__unique-individual-unit-portrait-outer-hex {
+	margin-top: -1rem;
+	background-image: url("fs://game/hud_unit-panel_unitframe.png");
+	transform: translate(0, pixels(14));
+}
+
+.root-game-loading__unique-individual-unit-portrait-masked {
+	width: 60%;
+	height: 60%;
+	background-size: cover;
+	background-position: center bottom;
+	left: pixels(19);
+	right: pixels(19);
+}
+
+.root-game-loading__overlay {
+	background-image: linear-gradient(195deg, rgb(236 224 212 /.125) 0%, rgb(10 2 13 / .1875) 100%);
+	background-repeat: no-repeat;
+}
+
+.root-game-loading__loading-animation {
+	position: absolute;
+	bottom: -2rem;
+	align-self: center;
+	display: flex;
+	align-items: center;
+}
+
+.root-game-loading__loading-gif-anim-parent {
+	position: relative;
+	align-self: center;
+	margin-top: pixels(92);
+	margin-bottom: pixels(36);
+	width: pixels(64);
+	min-width: pixels(64);
+	max-width: pixels(64);
+	height: pixels(64);
+	min-height: pixels(64);
+	max-height: pixels(64);
+	display: flex;
+	flex-direction: column;
+	animation-timing-function: animations.$quadInOut;
+	animation: spin 3s infinite;
+}
+
+.root-game-loading__loading-gif-anim-sand {
+	position: relative;
+	background-color: baseColors.$third-dark-color;
+	width: pixels(32);
+	height: pixels(32);
+	margin-left: pixels(16);
+	animation-timing-function: animations.$quadInOut;
+	animation: sand-drip 3s infinite;
+}
+
+.root-game-loading__loading-gif-text {
+	position: relative;
+	width: pixels(480);
+	line-height: pixels(36);
+	color: theme.color('accent-1');
+	text-transform: uppercase;
+	letter-spacing: pixels(4);
+	margin-right: pixels(-4);
+	padding-bottom: pixels(24);
+	margin-top: pixels(-15);
+	white-space: pre-wrap;
+}
+
+.root-game-loading__small-screen-area {
+	opacity: 0;
+
+	@media (max-height: pixels(1000)),
+	(max-aspect-ratio: 4/3),
+	(experience: mobile) {
+		opacity: 1;
+
+	}
+}
+
+.root-game-loading-uniques-large {
+
+	@media (max-height: pixels(1000)),
+	(max-aspect-ratio: 4/3),
+	(experience: mobile) {
+		display: none;
+	}
+
+	display: flex;
+}
+
+.root-game-loading__small-screen-uniques {
+	display: none;
+}
+
+.root-game-loading-small-screen-uniques-large {
+
+	@media (max-height: pixels(1000)),
+	(max-aspect-ratio: 4/3),
+	(experience: mobile) {
+		display: flex;
+	}
+
+	display: none;
+}
+
+.root-game-loading__start-game-text-container {
+
+	.root-game-loading__loading-gif-text {
+		width: auto;
+		margin-right: auto;
+		padding-bottom: 0;
+		margin-top: auto;
+	}
+
+	@media (max-height: pixels(1000)),
+	(max-aspect-ratio: 4/3),
+	(experience: mobile) {
+		display: flex;
+		flex-direction: row;
+		margin-top: pixels(-12);
+		padding-bottom: pixels(16);
+
+		fxs-nav-help {
+			padding-left: pixels(8);
+		}
+	}
+}
+
+.root-game-loading__continue-button {
+
+	@media (max-height: pixels(1000)),
+	(max-aspect-ratio: 4/3),
+	(experience: mobile) {
+		width: pixels(128);
+		height: pixels(128);
+	}
+
+	--continue-button-scale: 1;
+	--shadow-x-offset: #{pixels(0)};
+	--shadow-y-offset: #{pixels(0)};
+	position: relative;
+	width: pixels(192);
+	height: pixels(192);
+	display: flex;
+	flex-direction: column;
+	pointer-events: auto;
+
+	transform-origin: 50% 50%;
+	transition-property: transform;
+	transition-duration: .25s;
+	transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+	transform: scale(var(--continue-button-scale));
+
+	&:hover {
+		--continue-button-scale: 1.0625;
+		--shadow-x-offset: #{pixels(-4)};
+		--shadow-y-offset: #{pixels(8)};
+	}
+}
+
+
+.root-game-loading__continue-button-bg {
+	position: absolute;
+	mask-size: contain;
+	mask-position: center;
+	mask-repeat: no-repeat;
+	pointer-events: auto;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+
+	&.continue-button--outline {
+		background-color: theme.$default-color-primary;
+		background-image: url("fs://game/adv_port_bk.png");
+		mask-image: url("fs://game/adv_port_bk.png");
+	}
+
+	&.continue-button--highlight {
+		top: pixels(12);
+		left: pixels(12);
+		bottom: pixels(12);
+		right: pixels(12);
+		background-color: rgb(var(--clr-panel__overlay-light));
+		opacity: 0;
+		transition-property: opacity;
+		transition-duration: .25s;
+		transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+		mask-image: url("fs://game/adv_port_bk.png");
+	}
+}
+
+.root-game-loading__continue-button-outline {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	background-color: theme.$default-color-primary;
+	mask-image: url("fs://game/Rounded-Hex_112px.png");
+	mask-size: contain;
+	mask-position: center;
+	mask-repeat: no-repeat;
+	pointer-events: auto;
+}
+
+.root-game-loading__continue-button-inner-hex {
+	width: 100%;
+	height: 100%;
+	align-self: center;
+	background: linear-gradient(195deg, theme.$default-color-secondary-more 0%, theme.$default-color-secondary 100%);
+	mask-image: url("fs://game/Rounded-Hex_112px.png");
+	mask-size: contain;
+	mask-position: center;
+	mask-repeat: no-repeat;
+	pointer-events: none;
+	display: flex;
+	justify-content: center;
+	align-content: center;
+}
+
+.root-game-loading__continue-button-icon {
+
+	@media (max-height: pixels(1000)),
+	(max-aspect-ratio: 4/3),
+	(experience: mobile) {
+		top: pixels(29);
+		left: pixels(30);
+		bottom: pixels(30);
+		right: pixels(22);
+	}
+
+	position: absolute;
+	top: pixels(35);
+	left: pixels(36);
+	bottom: pixels(38);
+	right: pixels(34);
+	background-image: url("fs://game/ntf_next_turn.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	transform-origin: 50% 50%;
+	pointer-events: none;
+}
+
+.root-game-loading-anim-large {
+	left: auto;
+	width: auto;
+	right: pixels(72);
+}
+
+.loading-screen__animation-container {
+	width: 60rem;
+	max-width: 95%;
+	left: pixels(4);
+
+	@media (max-height: pixels(1000)),
+	(max-aspect-ratio: 4/3),
+	(experience: mobile) {
+		left: auto;
+		width: auto;
+		right: pixels(72);
+	}
+}
+
+#start_game {
+	width: 60rem;
+	max-width: 95%;
+	justify-content: center;
+	left: pixels(4);
+
+	@media (max-height: pixels(1000)),
+	(max-aspect-ratio: 4/3),
+	(experience: mobile) {
+		width: auto;
+		max-width: auto;
+		left: auto;
+		justify-content: flex-end;
+		flex-direction: column;
+		right: pixels(36);
+	}
+}

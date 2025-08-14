@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <EnglishText>
+	<Row Tag="LOC_INDEPENDENT_ANTIQUITY_4_MINOR_CARTHAGE_NAME">
+		<Text>Minoan</Text>
+	</Row>
+	 <Row Tag="LOC_INDEPENDENT_ANTIQUITY_4_MAJOR_CARTHAGE_NAME">
+      <Text>Phaistos</Text>
+    </Row>
+    <!--Civilization Names-->
+    <Row Tag="LOC_CIVILIZATION_CARTHAGE_NAME">
+      <Text>Carthage</Text>
+    </Row>
+    <!--Civilization Full Names-->
+    <Row Tag="LOC_CIVILIZATION_CARTHAGE_FULLNAME">
+      <Text>Carthaginian Empire</Text>
+    </Row>
+    <!--Civilization Adjectives-->
+    <Row Tag="LOC_CIVILIZATION_CARTHAGE_ADJECTIVE">
+      <Text>Carthaginian</Text>
+    </Row>
+  </EnglishText>
+</Database>

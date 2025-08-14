@@ -1,0 +1,43 @@
+@use 'sass:color';
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/_utility-shapes' as shapes;
+@use '../../../core/ui/themes/default/baseColors';
+@use '../../../core/ui/themes/default/animations';
+@use '../../../core/ui/themes/default/theme';
+
+.chooser-item_locked-shadow {
+	flex: 1 0 auto;
+	background-color: theme.color('primary-5', 0.5);
+}
+
+.chooser-item__icon {
+	width: pixels(76);
+	height: pixels(76);
+
+	background-image: url("fs://game/hud_civics-icon_frame.png");
+	background-size: cover;
+}
+
+.chooser-item__icon-image {
+	height: pixels(56);
+	width: pixels(56);
+
+	background-image: url("fs://game/base-standard/ui/icons/chooser_icons/chooser_animalhusbandry.png");
+	background-size: 120% 120%;
+	background-position-x: 50%;
+	background-position-y: 50%;
+	border-radius: 100%;
+}
+
+.chooser-item__lock-image {
+	height: pixels(32);
+	width: pixels(32);
+	background-image: url("fs://game/hud_lock-icon.png");
+	bottom: pixels(-10);
+	background-size: cover;
+}
+
+.chooser-item__icon_gradient {
+	background-image: radial-gradient(50% 50% at 50% 50%, rgba(0, 0, 0, 0) 81%, rgba(0, 0, 0, 0.5) 100%);
+	border-radius: 100%;
+}

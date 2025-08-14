@@ -1,0 +1,668 @@
+/* DO NOT EDIT */
+/* Generated from tooltip-manager.scss */
+.new-tooltip--root {
+	transform: translateX(0rem);
+}
+
+.tooltip {
+	padding-top: 1.3333333333rem;
+	padding-left: 1.3333333333rem;
+	padding-bottom: 0.3333333333rem;
+	padding-right: 0.3333333333rem;
+	position: relative;
+	margin: auto;
+	font-size: calc(1rem + -0.1111111111rem);
+	line-height: 1.3333333333rem;
+	display: flex;
+	flex-direction: column;
+	transform: translateX(0rem);
+}
+.tooltip.plot-tooltip {
+	--padding-top-bottom: 0.6666666667rem;
+	--padding-left-right: 0.9444444444rem;
+}
+.tooltip.plot-tooltip .tooltip__content {
+	padding-top: var(--padding-top-bottom);
+	padding-bottom: var(--padding-top-bottom);
+	padding-left: var(--padding-left-right);
+	padding-right: var(--padding-left-right);
+}
+.tooltip.plot-tooltip.plot-tooltip--local-selected-unit {
+	margin-left: 4rem;
+}
+.tooltip.plot-tooltip.plot-tooltip--local-selected-unit.right {
+	margin-left: auto;
+	margin-right: 4rem;
+}
+.tooltip.above .tooltip__progress {
+	top: initial;
+	bottom: -2.3333333333rem;
+	transform: rotate(-90deg);
+}
+.tooltip.above .tooltip-arrow {
+	top: inherit;
+	bottom: 0.7222222222rem;
+	transform: scaleY(-1);
+}
+.tooltip.above .arrow-shadow {
+	top: inherit;
+	bottom: -0.6666666667rem;
+}
+.tooltip.above .tooltip__content {
+	animation-name: tooltip-reveal-above;
+}
+.tooltip.right .tooltip__progress {
+	left: initial;
+	right: -2rem;
+	transform: scaleX(-1);
+}
+.tooltip.right .tooltip-arrow {
+	left: inherit;
+	right: 0.6666666667rem;
+	transform: scaleX(-1);
+}
+.tooltip.right .arrow-shadow {
+	left: inherit;
+	right: -0.5555555556rem;
+}
+.tooltip.right .tooltip__content {
+	animation-name: tooltip-reveal-right;
+}
+.tooltip.right.above .tooltip__progress {
+	transform: rotate(90deg) scaleX(-1);
+}
+.tooltip.right.above .tooltip-arrow {
+	transform: scaleX(-1) scaleY(-1);
+}
+.tooltip.right.above .tooltip__content {
+	animation-name: tooltip-reveal-above-right;
+}
+.tooltip .tooltip-title {
+	display: flex;
+	align-items: center;
+	color: #ccbca3;
+	font-weight: bold;
+	padding-left: 0.7222222222rem;
+	padding-right: 0.7777777778rem;
+}
+.tooltip .tooltip-value {
+	display: flex;
+	align-items: center;
+	color: #b39e80;
+	font-weight: normal;
+	padding-right: 0.7222222222rem;
+	white-space: pre-wrap;
+}
+.tooltip .tooltip-text {
+	max-width: 21.3333333333rem;
+}
+
+.tooltip__content {
+	position: relative;
+	margin: auto;
+	padding-top: 0.6666666667rem;
+	padding-bottom: 0.6666666667rem;
+	padding-left: 0.9444444444rem;
+	padding-right: 0.9444444444rem;
+	height: auto;
+	width: auto;
+	display: flex;
+	flex-direction: column;
+	animation-name: tooltip-reveal;
+	animation-duration: 0.25s;
+	animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+	animation-fill-mode: both;
+}
+
+.tooltip-debug {
+	white-space: pre-wrap;
+}
+
+.tooltip__progress {
+	position: absolute;
+	top: -0.8888888889rem;
+	left: -1.2222222222rem;
+	width: 3.3333333333rem;
+	height: 3.3333333333rem;
+	background-image: radial-gradient(circle at 50% 50%, transparent 0rem, transparent 1.1111111111rem, #0a020d 1.1111111111rem, #0a020d 1.4444444444rem, transparent 1.4444444444rem);
+	mask-image: linear-gradient(to bottom, transparent 0%, transparent 50%, white 50%, white 100%);
+	mask-size: 50% 100%;
+	mask-position: 100% 50%;
+	mask-repeat: no-repeat;
+	transform-origin: 50%;
+	opacity: 0;
+	animation-name: tooltip-progress-show, tooltip-progress-hide;
+	animation-duration: 0.25s, 0s;
+	animation-timing-function: linear;
+	animation-fill-mode: forwards;
+}
+
+.tooltip__progress-bar {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	transform-origin: 50% 50%;
+	transform: rotate(90deg);
+	background-image: radial-gradient(circle at 50% 50%, transparent 0rem, transparent 1.1111111111rem, #f0bc78 1.1111111111rem, #f0bc78 1.4444444444rem, transparent 1.4444444444rem);
+	mask-image: linear-gradient(to bottom, transparent 0%, transparent 50%, white 50%, white 100%);
+	mask-size: 50% 100%;
+	mask-position: 100% 50%;
+	mask-repeat: no-repeat;
+	animation-name: tooltip-progress;
+	animation-delay: 0s;
+	animation-timing-function: linear;
+	animation-fill-mode: both;
+}
+
+@keyframes tooltip-fade {
+	0% {
+		border-width: 0;
+	}
+	100% {
+		border-width: 0;
+	}
+}
+@keyframes tooltip-progress-show {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes tooltip-progress {
+	100% {
+		transform: rotate(0deg);
+	}
+}
+@keyframes tooltip-progress-hide {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes tooltip-reveal {
+	0% {
+		opacity: 0;
+		transform: translateX(-0.3333333333rem) translateY(-0.6666666667rem);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0rem) translateY(0rem);
+	}
+}
+@keyframes tooltip-reveal-above {
+	0% {
+		opacity: 0;
+		transform: translateX(-0.3333333333rem) translateY(0.6666666667rem);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0rem) translateY(0rem);
+	}
+}
+@keyframes tooltip-reveal-right {
+	0% {
+		opacity: 0;
+		transform: translateX(0.3333333333rem) translateY(-0.6666666667rem);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0rem) translateY(0rem);
+	}
+}
+@keyframes tooltip-reveal-above-right {
+	0% {
+		opacity: 0;
+		transform: translateX(0.3333333333rem) translateY(0.6666666667rem);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0rem) translateY(0rem);
+	}
+}
+.plot-tooltip__settler-tooltip {
+	font-size: calc(1rem + -0.2222222222rem);
+	text-align: center;
+	line-height: 1.175em;
+}
+.plot-tooltip__settler-tooltip.blocked-location {
+	padding: 0.4444444444rem;
+	background-color: #88292f;
+	color: #9b9799;
+}
+.plot-tooltip__settler-tooltip.okay-location {
+	padding: 0.4444444444rem;
+	background-color: rgba(255, 196, 0, 0.925);
+	color: #2c2a2b;
+}
+
+.plot-tooltip__line {
+	font-size: calc(1rem + -0.1111111111rem);
+	text-align: center;
+	line-height: 1rem;
+}
+
+.plot-tooltip__resourcesFlex {
+	position: relative;
+	--yield-width: 1.6666666667rem;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	width: 100%;
+	height: auto;
+	padding-top: 0.1111111111rem;
+}
+.plot-tooltip__resourcesFlex.resourcesFlex--double-digits {
+	--yield-width: 2rem;
+}
+.plot-tooltip__resourcesFlex.resourcesFlex--triple-digits {
+	--yield-width: 2.3333333333rem;
+}
+
+.plot-tooltip__district-container {
+	font-size: calc(1rem + -0.3333333333rem);
+	--padding-top-bottom: 0.2222222222rem;
+	display: flex;
+	flex-direction: column;
+	margin-left: calc(-1 * var(--padding-left-right));
+	margin-right: calc(-1 * var(--padding-left-right));
+	padding-top: var(--padding-top-bottom);
+	padding-bottom: var(--padding-top-bottom);
+	padding-left: var(--padding-left-right);
+	padding-right: var(--padding-left-right);
+	background-color: #3a0806;
+}
+.plot-tooltip__district-container .plot-tooltip__district-health {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.plot-tooltip__district-container .plot-tooltip__health-caption {
+	font-size: calc(1rem + -0.3333333333rem);
+	color: #cea92f;
+	margin-right: 0.4444444444rem;
+}
+.plot-tooltip__district-container .plot-tooltip__health-progress-bar {
+	height: 0.4444444444rem;
+	flex: 1 1 auto;
+	border-color: #cea92f;
+	border-style: solid;
+	border-width: 0.0555555556rem;
+}
+.plot-tooltip__district-container .plot-tooltip__health-progress-bar .bg {
+	height: 100%;
+	padding: 0rem;
+}
+.plot-tooltip__district-container .plot-tooltip__health-progress-bar .bar-bg {
+	height: 100%;
+}
+
+.tooltipIndividualYieldFlex {
+	display: flex;
+	justify-content: center;
+	width: 25%;
+	height: 2.6666666667rem;
+	margin-left: 0.5555555556rem;
+	margin-right: 0.5555555556rem;
+}
+
+.plot-tooltip__IndividualYieldFlex {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	width: var(--yield-width);
+}
+
+.plot-tooltip__IndividualYieldIcons-Shadow {
+	position: relative;
+	transform: translate(-0.1111111111rem, 0.1111111111rem);
+	width: 1.3333333333rem;
+	height: 1.3333333333rem;
+	background-size: contain;
+	background-repeat: no-repeat;
+	fxs-background-image-tint: black;
+}
+
+.plot-tooltip__IndividualYieldIcons {
+	position: relative;
+	transform: translate(0.1111111111rem, -0.1111111111rem);
+	width: 100%;
+	height: 100%;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.plot-tooltip__IndividualYieldValues {
+	position: relative;
+	width: auto;
+	text-align: center;
+	font-size: calc(1rem + -0.1111111111rem);
+	line-height: 1.3333333333rem;
+	font-weight: 700;
+}
+
+.plot-tooltip__TitleLineFlex {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	align-self: center;
+	margin-left: -1.3333333333rem;
+	margin-right: -1.3333333333rem;
+	flex: 1 1 auto;
+}
+
+.plot-tooltip__TitleLineleft {
+	height: 0.1111111111rem;
+	flex: 1 1 auto;
+	min-width: 1.3333333333rem;
+	margin-left: -1.3333333333rem;
+	background-image: linear-gradient(to left, #8D97A6, rgba(141, 151, 166, 0));
+}
+
+.plot-tooltip__TitleLineRight {
+	height: 0.1111111111rem;
+	flex: 1 1 auto;
+	min-width: 1.3333333333rem;
+	margin-right: -1.3333333333rem;
+	background-image: linear-gradient(to right, #8D97A6, rgba(141, 151, 166, 0));
+}
+
+.plot-tooltip__Divider {
+	height: 0.1111111111rem;
+	flex: 1 1 auto;
+	margin-left: -1.3333333333rem;
+	margin-right: -1.3333333333rem;
+	background-image: linear-gradient(90deg, rgba(141, 151, 166, 0) 0%, #8D97A6FF 50%, rgba(141, 151, 166, 0) 100%);
+}
+
+.plot-tooltip__ImprovementName {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	position: relative;
+	align-self: center;
+	text-align: center;
+	font-size: calc(1rem + -0.1111111111rem);
+	letter-spacing: 0.1111111111rem;
+	padding-left: 0.6666666667rem;
+	padding-right: 0.6666666667rem;
+	line-height: 1.3333333333rem;
+	max-width: 10.6666666667rem;
+}
+
+.plot-tooltip__Improvements-Resources-Copies-Flex {
+	width: 50%;
+	height: 1.1111111111rem;
+	display: flex;
+	justify-content: space-between;
+	transform: translate(50%, 0);
+}
+
+.plot-tooltip__Improvements-Resources-Icons {
+	width: 40%;
+	height: 1.1111111111rem;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.plot-tooltip__constructible-yield-flex {
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.plot-tooltip__constructible-yield-total-flex {
+	width: 50%;
+	height: 1.1111111111rem;
+	display: flex;
+	justify-content: space-between;
+	transform: translate(50%, 0);
+}
+
+.plot-tooltip__constructible-yield-total-icon {
+	width: 40%;
+	height: 1.1111111111rem;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.plot-tooltip__constructible-breakdown-line-flex {
+	width: 80%;
+	height: 1.1111111111rem;
+	display: flex;
+}
+
+.plot-tooltip__constructible-yield-line-icon {
+	width: 1.1111111111rem;
+	height: 1.1111111111rem;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.plot-tooltip__trade-route-info,
+.plot-tooltip__debug-title-text,
+.plot-tooltip__owner-leader-text,
+.plot-tooltip__owner-relationship-text {
+	font-size: calc(1rem + -0.1111111111rem);
+	text-align: center;
+	line-height: 1.3333333333rem;
+}
+
+.plot-tooltip__resource-label {
+	font-size: calc(1rem + -0.1111111111rem);
+	line-height: 1.3333333333rem;
+}
+
+.plot-tooltip__owner-civ-text {
+	font-size: calc(1rem + -0.2222222222rem);
+	text-align: center;
+	line-height: 1rem;
+	margin-top: 0.0555555556rem;
+}
+
+.plot-tooltip__unitInfo,
+.plot-tooltip__Civ-Info,
+.plot-tooltip__Unit-Relationship-Info,
+.plot-tooltip__coordinate-text,
+.plot-tooltip__coordinate-text,
+.plot-tooltip__building-status {
+	font-size: calc(1rem + -0.2222222222rem);
+	text-align: center;
+	line-height: 1rem;
+}
+
+.plot-tooltip__resource-label_description {
+	font-size: calc(1rem + -0.2222222222rem);
+	line-height: 1rem;
+}
+
+.plot-tooltip__resource-container {
+	position: relative;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-content: center;
+}
+
+.plot-tooltip__resource-details {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	max-width: 8rem;
+}
+
+.plot-tooltip__large-resource-icon {
+	width: 2.6666666667rem;
+	height: 2.6666666667rem;
+	margin-right: 0.6666666667rem;
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+.plot-tooltip__debug-flexbox {
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	background-color: rgba(150, 57, 57, 0.35);
+}
+
+.plot-tooltip__plot-effect-text {
+	text-align: center;
+}
+
+.relationship-tooltip__relationship-title {
+	font-size: calc(1rem + -0.3333333333rem);
+}
+
+.relationship-tooltip__agenda-title {
+	align-self: center;
+	font-size: calc(1rem + -0.1111111111rem);
+	color: rgba(255, 196, 0, 0.925);
+}
+
+.relationship-tooltip__agenda-name {
+	font-size: 1rem;
+	align-self: center;
+}
+
+.relationship-tooltip__agenda-description {
+	font-size: calc(1rem + -0.1111111111rem);
+}
+
+.tech-civic-tooltip.tooltip .tooltip__content {
+	width: 23.3333333333rem;
+}
+.tech-civic-tooltip .tech-civic-tooltip__header-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.tech-civic-tooltip .tech-civic-tooltip__unlocks-container {
+	display: flex;
+	flex-direction: column;
+}
+.tech-civic-tooltip .unlock-item {
+	position: relative;
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	flex-wrap: nowrap;
+}
+.tech-civic-tooltip .unlock-item .unlock-item-icon {
+	position: relative;
+	pointer-events: auto;
+	width: 1.6666666667rem;
+	height: 1.6666666667rem;
+	margin-right: 0.6666666667rem;
+	margin-bottom: 0.6666666667rem;
+}
+.tech-civic-tooltip .unlock-item .unlock-item-icon-bg {
+	position: absolute;
+	pointer-events: none;
+	width: 100%;
+	height: 100%;
+	fxs-background-image-tint: #333640;
+	background-image: url("fs://game/core/ui/themes/default/img/Hex_64px.png");
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+.tech-civic-tooltip .unlock-item .unlock-item-icon-img {
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	filter: coh-color-matrix(0.8, 0, 0, 0, 0, 0, 0.737254902, 0, 0, 0, 0, 0, 0.6392156863, 0, 0, 0, 0, 0, 1, 0);
+	width: 100%;
+	height: 100%;
+}
+.tech-civic-tooltip .unlock-item-content {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+}
+
+@media (max-height: 40rem) {
+	.tech-tree-tooltip {
+		display: none;
+	}
+}
+.tech-tree-tooltip.tooltip .tooltip__content {
+	width: 23.3333333333rem;
+}
+.tech-tree-tooltip .tech-tree-tooltip__header-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.tech-tree-tooltip .tech-tree-tooltip__unlocks-container {
+	display: flex;
+	flex-direction: column;
+}
+.tech-tree-tooltip .unlock-item {
+	position: relative;
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	flex-wrap: nowrap;
+}
+.tech-tree-tooltip .unlock-item .unlock-item-icon {
+	position: relative;
+	pointer-events: auto;
+	width: 1.6666666667rem;
+	height: 1.6666666667rem;
+	margin-right: 0.6666666667rem;
+	margin-bottom: 0.6666666667rem;
+}
+.tech-tree-tooltip .unlock-item .unlock-item-icon-bg {
+	position: absolute;
+	pointer-events: none;
+	width: 100%;
+	height: 100%;
+	fxs-background-image-tint: #333640;
+	background-image: url("fs://game/core/ui/themes/default/img/Hex_64px.png");
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+.tech-tree-tooltip .unlock-item .unlock-item-icon-img {
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	filter: coh-color-matrix(0.8, 0, 0, 0, 0, 0, 0.737254902, 0, 0, 0, 0, 0, 0.6392156863, 0, 0, 0, 0, 0, 1, 0);
+	width: 100%;
+	height: 100%;
+}
+.tech-tree-tooltip .unlock-item-content {
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 auto;
+}
+
+.advanced-start-tooltip.tooltip .tooltip__content {
+	width: auto;
+	max-width: 20.6111111111rem;
+}

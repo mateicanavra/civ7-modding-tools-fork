@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- Classical Republic -->
+	<Modifier id="MOD_GOLDEN_AGE_CLASSICAL_REPUBLIC_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Percent">20</Argument>
+	</Modifier>
+	<Modifier id="MOD_GOLDEN_AGE_CLASSICAL_REPUBLIC_WONDER_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_WONDER_PRODUCTION">
+		<Argument name="Percent">15</Argument>
+	</Modifier>
+	<!-- Despotism -->
+	<Modifier id="MOD_GOLDEN_AGE_DESPOTISM_SCIENCE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Percent">20</Argument>
+	</Modifier>
+	<Modifier id="MOD_GOLDEN_AGE_DESPOTISM_UNIT_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION">
+		<Argument name="UnitClass">UNIT_CLASS_INFANTRY</Argument>
+		<Argument name="Percent">30</Argument>
+	</Modifier>
+	<!-- Oligarchy -->
+	<Modifier id="MOD_GOLDEN_AGE_OLIGARCHY_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Percent">20</Argument>
+	</Modifier>
+	<Modifier id="MOD_GOLDEN_AGE_OLIGARCHY_BUILDING_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_PRODUCTION">
+		<Argument name="ConstructibleClass">BUILDING</Argument>
+		<Argument name="Percent">30</Argument>
+	</Modifier>
+</GameEffects>

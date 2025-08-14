@@ -1,0 +1,41 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/themes/default/theme';
+
+// ------------------------------------ //
+//   			ATTRIBUTE CARD			//
+// ------------------------------------ //
+
+attribute-card {
+	position: relative;
+	display: flex;
+	flex: 1 1 auto;
+	height: 100%;
+	pointer-events: none;
+
+	&.attribute-card--repeatable {
+		.attribute-card__repeated {
+			visibility: visible;
+		}
+	}
+
+	&.attribute-card--complete {
+		.attribute-card__checkmark {
+			visibility: visible;
+		}
+	}
+
+	&.selected {
+		.img-circle-selected {
+			opacity: 1;
+		}
+	}
+}
+
+.attribute-card__repeated,
+.attribute-card__checkmark {
+	--checkmark-size: #{pixels(48)};
+	position: absolute;
+	top: pixels(-24);
+	right: pixels(-22);
+	visibility: hidden;
+}

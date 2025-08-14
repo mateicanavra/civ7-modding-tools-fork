@@ -1,0 +1,19 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+@use '../../../core/ui/utilities/utility-shapes' as shapes;
+@use '../../../core/ui/themes/default/baseColors.scss';
+
+
+.screen-attribute-trees {
+	.tree-grid-row .tree-grid-card {
+		min-width: pixels(12);
+		min-height: pixels(142);
+		margin-left: pixels(0);
+		margin-right: pixels(0);
+
+		@media (max-height: pixels(1000)) {
+			min-width: pixels(24);
+			min-height: pixels(52);
+		}
+	}
+}

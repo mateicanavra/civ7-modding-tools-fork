@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_UNLOCK"/>
+	</Kinds>
+	<Types>
+		<InsertOrIgnore Type="UNLOCK_CIVILIZATION_NEPAL" Kind="KIND_UNLOCK"/>
+	</Types>
+	<Unlocks>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_NEPAL"/>
+	</Unlocks>
+	<UnlockRewards>
+		<Row UnlockType="UNLOCK_CIVILIZATION_NEPAL" Name="LOC_CIVILIZATION_NEPAL_NAME" Description="LOC_UNLOCK_MODERN_CIV_DESCRIPTION" Icon="CIVILIZATION_NEPAL" UnlockRewardType="CIVILIZATION_NEPAL" UnlockRewardKind="KIND_CIVILIZATION"/>
+	</UnlockRewards>
+	<RequirementSets>
+		<Row RequirementSetId="REQSET_PLAYER_HAS_5_MOUNTAINS_SETTLEMENTS" RequirementSetType="REQUIREMENTSET_TEST_ALL"/>
+	</RequirementSets>
+	<Requirements>
+		<Row RequirementId="REQ_PLAYER_HAS_5_MOUNTAINS_SETTLEMENTS" RequirementType="REQUIREMENT_PLAYER_HAS_X_SETTLEMENTS_AT"/>
+	</Requirements>
+	<RequirementArguments>
+		<Row RequirementId="REQ_PLAYER_HAS_5_MOUNTAINS_SETTLEMENTS" Name="Amount" Value="3"/>
+		<Row RequirementId="REQ_PLAYER_HAS_5_MOUNTAINS_SETTLEMENTS" Name="Tiles" Value="5"/>
+		<Row RequirementId="REQ_PLAYER_HAS_5_MOUNTAINS_SETTLEMENTS" Name="SettlementLocationType" Value="SETTLEMENT_LOCATION_MOUNTAIN"/>
+	</RequirementArguments>
+	<RequirementSetRequirements>
+		<Row RequirementSetId="REQSET_PLAYER_HAS_5_MOUNTAINS_SETTLEMENTS" RequirementId="REQ_PLAYER_HAS_5_MOUNTAINS_SETTLEMENTS"/>
+		<Row RequirementSetId="REQSET_PLAYER_HAS_5_MOUNTAINS_SETTLEMENTS" RequirementId="REQ_AGE_IS_EXPLORATION"/>
+	</RequirementSetRequirements>
+	<UnlockRequirements>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_NEPAL" RequirementSetId="REQSET_LEADER_IS_ASHOKA" Description="LOC_UNLOCK_PLAY_AS_ASHOKA_DESCRIPTION" Tooltip="LOC_UNLOCK_PLAY_AS_ASHOKA_NEPAL_TOOLTIP"/>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_NEPAL" RequirementSetId="REQSET_LEADER_IS_PACHACUTI" Description="LOC_UNLOCK_PLAY_AS_PACHACUTI_DESCRIPTION" Tooltip="LOC_UNLOCK_PLAY_AS_PACHACUTI_NEPAL_TOOLTIP"/>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_NEPAL" RequirementSetId="REQSET_PLAYER_HAS_5_MOUNTAINS_SETTLEMENTS" Description="LOC_UNLOCK_MOUNTAIN_5_SETTLEMENTS_DESCRIPTION" Tooltip="LOC_UNLOCK_MOUNTAIN_SETTLEMENTS_NEPAL_TOOLTIP" NarrativeText="LOC_UNLOCK_MOUNTAIN_SETTLEMENTS_NEPAL_NARRATIVE"/>
+	</UnlockRequirements>
+	<UnlockConfigurationValues>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_NEPAL" ConfigurationValue="CIVILIZATION_NEPAL"/>
+	</UnlockConfigurationValues>
+</Database>

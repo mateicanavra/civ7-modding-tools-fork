@@ -1,0 +1,216 @@
+<fxs-frame class="mp-staging__frame flex-1 flow-column relative w-full h-full">
+	<div class="flex-auto flow-column relative">
+		<div
+			 class="mp-staging__ready-button-container absolute bottom-0 left-0 right-0 flow-row justify-center items-center">
+			<div class="w-36 h-36 relative flow-row justify-center items-center">
+				<fxs-activatable class="ready-button group absolute top-3 bottom-7 left-5 right-5 flow-row justify-center items-center"
+								 data-bind-attributes="{'disabled': !{{g_MPLobbyModel.canToggleReady}}}">
+					<div
+						 class="pointer-events-none absolute img-popup_icon_glow -inset-28 tint-bg-white transition-opacity opacity-0 group-hover\:opacity-75">
+					</div>
+					<div class="img-popup_icon_wood_bk absolute inset-0"></div>
+					<div
+						 class="absolute inset-0 transition-transform group-active\:scale-95 flow-row justify-center items-center">
+						<div class="absolute inset-0 p-0\.5">
+							<div class="relative size-full">
+								<div class="mp-staging__ready-button__len img-popup_len absolute inset-4 opacity-5 transition-opacity "
+									 data-bind-class-toggle="opacity-100:['INIT', 'NOT_READY'].includes({{g_MPLobbyModel.readyStatus}})">
+								</div>
+								<div class="mp-staging__ready-button__len-selected img-popup_len_selected absolute inset-4 opacity-5 transition-opacity"
+									 data-bind-class-toggle="opacity-100:['WAITING_FOR_OTHERS', 'STARTING_GAME', 'WAITING_FOR_HOST'].includes({{g_MPLobbyModel.readyStatus}})">
+								</div>
+							</div>
+						</div>
+						<div class="absolute inset-1 top-1 bottom-1 right-1\.25">
+							<fxs-ring-meter max-value="10" min-value="0"
+											class="mp-staging__ring-meter h-full w-full flex self-center align-center items-center -scale-100 transition-opacity opacity-5"
+											ring-class="img-ring-meter-ring"
+											data-bind-attributes="{'animation-duration': {{g_MPLobbyModel.allReadyCountdownRemainingSeconds}} == 10 || {{g_MPLobbyModel.readyStatus}} != 'STARTING_GAME' ? '1' : '1500', 'value': {{g_MPLobbyModel.allReadyCountdownRemainingSeconds}}}"
+											data-bind-class-toggle="opacity-70:{{g_MPLobbyModel.readyStatus}} == 'STARTING_GAME'">
+							</fxs-ring-meter>
+						</div>
+						<div class="absolute inset-0 pr-0\.5">
+							<div class="relative size-full">
+								<div
+									 class="img-ntf_block_hov absolute inset-3 opacity-5 transition-opacity group-hover\:opacity-100">
+								</div>
+								<div
+									 class="img-ntf_block_active absolute inset-3 opacity-5 transition-opacity group-active\:opacity-100">
+								</div>
+							</div>
+						</div>
+						<div class="absolute inset-0 p-0\.5">
+							<div class="relative size-full">
+								<div class="img-popup_checkmark absolute inset-4 opacity-5 transition-opacity"
+									 data-bind-class-toggle="opacity-90:{{g_MPLobbyModel.readyStatus}} == 'WAITING_FOR_OTHERS'">
+								</div>
+							</div>
+						</div>
+						<div class="mp-staging__ring-meter__text font-title-2xl text-secondary w-full text-center center z-1 opacity-5 transition-opacity"
+							 data-bind-class-toggle="opacity-80:{{g_MPLobbyModel.readyStatus}} == 'STARTING_GAME'"
+							 data-bind-attributes="{'data-l10n-id': {{g_MPLobbyModel.allReadyCountdownRemainingSeconds}}}">
+						</div>
+						<div class="mp-staging__ring-meter__loading absolute inset-0 z-1 flow-row justify-center items-center opacity-0 transition-opacity"
+							 data-bind-class-toggle="opacity-80:{{g_MPLobbyModel.readyStatus}} == 'WAITING_FOR_HOST'">
+						</div>
+					</div>
+				</fxs-activatable>
+				<div class="absolute pointer-events-none -inset-0\.5 img-popup-laurels"></div>
+				<div class="absolute flow-row -bottom-3 w-96 h-16 flex-row justify-center items-center">
+					<div class="img-popup_header_bk absolute inset-0"></div>
+					<fxs-nav-help action-key="inline-nav-shell-next" class="absolute right-0"></fxs-nav-help>
+					<p class="mp-staging__ready-button__text font-fit-shrink whitespace-nowrap flex-auto font-title-lg text-accent-1 uppercase tracking-150 z-1 mx-2 text-center"
+					   data-bind-attributes="{'data-l10n-id': {{g_MPLobbyModel.readyButtonCaption}}}"
+					   data-bind-class-toggle="mx-12:{{g_NavTray.isTrayRequired}}"></p>
+				</div>
+			</div>
+		</div>
+		<div class="flow-row">
+			<div class="mp-staging__header-spacing mr-2">
+				<div class="flex">
+					<fxs-button class="show-join-code-button-top min-w-auto"
+								action-key="inline-nav-shell-previous"></fxs-button>
+				</div>
+			</div>
+			<div class="flex-auto flow-column items-center">
+				<p class="font-title text-2xl text-center uppercase text-gradient-secondary whitespace-nowrap font-fit-shrink max-w-full"
+				   data-bind-attributes="{'data-l10n-id':{{g_MPLobbyModel.gameName}}}"></p>
+				<p class="font-title-lg uppercase tracking-100 text-gradient-accent-4"
+				   data-bind-class-toggle="hidden:!{{g_MPLobbyModel.isUsingGlobalCountdown}}"
+				   data-bind-attributes="{'data-l10n-id':{{g_MPLobbyModel.timeRemainingTimer}}}"></p>
+				<fxs-ornament3 class="min-h-0 tint-bg-accent-5 mt-1 w-77"
+							   data-bind-class-toggle="hidden:!{{g_MPLobbyModel.isUsingGlobalCountdown}}"></fxs-ornament3>
+			</div>
+			<div
+				 class="mp-staging__header-spacing mp-staging__profile-header-container ml-2 relative flow-row justify-end items-center">
+			</div>
+		</div>
+		<div class="mb-2 mt-1 mp-staging__content">
+			<div class="flow-row mp-staging__left-section-top mb-2">
+				<fxs-button class="rules-top min-w-auto mr-3"
+							caption="LOC_UI_MP_LOBBY_RULES"></fxs-button>
+				<fxs-button class="mp-staging__toggle-chat" caption="LOC_UI_MP_CHAT"></fxs-button>
+			</div>
+			<div class="flow-row items-end justify-center">
+				<div class="mr-4 flex mp-staging__left-section-header">
+					<fxs-button class="show-join-code-button-bot min-w-auto"
+								action-key="inline-nav-shell-previous"></fxs-button>
+				</div>
+				<div class="flow-row flex-auto player-info-header-container">
+					<div class="flow-row flex-auto items-center">
+						<div class="pr-1 flex-3 font-body-base text-accent-3 mp-staging__player-header font-fit-shrink whitespace-nowrap"
+							 data-l10n-id="LOC_UI_MP_HEADER_PLAYER">
+						</div>
+						<div class="pr-1 flex-1 font-body-base text-accent-3 mp-staging__team-header font-fit-shrink whitespace-nowrap"
+							 data-l10n-id="LOC_UI_MP_HEADER_TEAM">
+						</div>
+						<div class="pr-1 flex-1 font-body-base text-accent-3 mp-staging__civ-header font-fit-shrink whitespace-nowrap"
+							 data-l10n-id="LOC_UI_MP_HEADER_CIV">
+						</div>
+						<div class="pr-1 flex-2 font-body-base text-accent-3 font-fit-shrink whitespace-nowrap"
+							 data-l10n-id="LOC_UI_MP_HEADER_LEADER">
+						</div>
+						<div class="px-1 font-body-base text-accent-3 text-center mp-staging__ready-header font-fit-shrink whitespace-nowrap"
+							 data-l10n-id="LOC_UI_MP_HEADER_READY"></div>
+						<div class="px-1 font-body-base text-accent-3 text-center mp-staging__kick-header font-fit-shrink whitespace-nowrap"
+							 data-l10n-id="LOC_UI_MP_HEADER_KICK"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="flex-auto flow-row justify-center">
+			<div class="flow-column mr-4 mp-staging__left-section-content">
+				<fxs-inner-frame class="flex-auto flow-column mb-8">
+					<div class="p-4 w-full flow-column items-center">
+						<fxs-header class="mt-3" title="LOC_UI_MP_LOBBY_GAME_OPTION" filigree-style="h4"></fxs-header>
+						<div role="paragraph" class="flow-column mb-4 mt-3 items-center pointer-events-auto">
+							<div class="font-fit-shrink whitespace-nowrap font-body-sm text-accent-2 max-w-full"
+								 data-bind-attributes="{'data-l10n-id':{{g_MPLobbyModel.playerCounters}}}"></div>
+							<div class="flow-row items-center max-w-full">
+								<div class="font-body-sm text-accent-2 mr-1" data-l10n-id="LOC_UI_MP_LOBBY_DIFFICULTY">
+								</div>
+								<div class="flex-auto">
+									<div class="font-fit-shrink whitespace-nowrap font-body-sm text-accent-2"
+										 data-bind-attributes="{'data-l10n-id':{{g_MPLobbyModel.difficulty}}}">
+									</div>
+								</div>
+							</div>
+							<div class="flow-row items-center max-w-full">
+								<div class="font-body-sm text-accent-2 mr-1" data-l10n-id="LOC_UI_MP_LOBBY_RULE_SET">
+								</div>
+								<div class="flex-auto">
+									<div class="font-fit-shrink whitespace-nowrap font-body-sm text-accent-2"
+										 data-bind-attributes="{'data-l10n-id':{{g_MPLobbyModel.summaryMapRuleSet}}}">
+									</div>
+								</div>
+							</div>
+							<div class="flow-row items-center max-w-full">
+								<div class="font-body-sm text-accent-2 mr-1" data-l10n-id="LOC_UI_MP_LOBBY_MAP_TYPE">
+								</div>
+								<div class="flex-auto">
+									<div class="font-fit-shrink whitespace-nowrap font-body-sm text-accent-2"
+										 data-bind-attributes="{'data-l10n-id':{{g_MPLobbyModel.summaryMapType}}}">
+									</div>
+								</div>
+							</div>
+							<div class="flow-row items-center max-w-full">
+								<div class="font-body-sm text-accent-2 mr-1" data-l10n-id="LOC_UI_MP_LOBBY_MAP_SIZE">
+								</div>
+								<div class="flex-auto">
+									<div class="font-fit-shrink whitespace-nowrap font-body-sm text-accent-2"
+										 data-bind-attributes="{'data-l10n-id':{{g_MPLobbyModel.summaryMapSize}}}">
+									</div>
+								</div>
+							</div>
+							<div class="flow-row items-center max-w-full">
+								<div class="font-body-sm text-accent-2 mr-1" data-l10n-id="LOC_UI_MP_LOBBY_GAME_SPEED">
+								</div>
+								<div class="flex-auto">
+									<div class="font-fit-shrink whitespace-nowrap font-body-sm text-accent-2"
+										 data-bind-attributes="{'data-l10n-id':{{g_MPLobbyModel.summarySpeed}}}">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="flex">
+							<fxs-button class="rules-bot" caption="LOC_UI_MP_LOBBY_RULES"
+										action-key="inline-shell-action-2"></fxs-button>
+						</div>
+					</div>
+					<fxs-inner-frame class="mp-staging__chat-frame relative flex-auto w-full"></fxs-inner-frame>
+				</fxs-inner-frame>
+			</div>
+			<div class="flow-column mt-1 flex-auto player-info-slot-container">
+				<div class="flex-auto flow-column">
+					<fxs-spatial-slot disable-focus-allowed="true"
+									  class="player-info-slot flex-auto flow-column"></fxs-spatial-slot>
+				</div>
+			</div>
+		</div>
+		<div class="mp-staging__bot-section flow-row justify-between items-end">
+			<fxs-button class="back-button mr-3" caption="LOC_GENERIC_BACK"></fxs-button>
+			<div class="mp-staging__bot-section2 flow-row-wrap flex-auto">
+				<fxs-button class="rules-bot2 mr-3 mt-3" caption="LOC_UI_MP_LOBBY_RULES"></fxs-button>
+				<fxs-button class="memento-button mt-3" caption="LOC_UI_MP_MEMENTO" action-key="inline-shell-action-1"
+						data-bind-attributes="{'disabled': !{{g_MPLobbyModel.canEditMementos}}}"></fxs-button>
+			</div>
+			<div class="mp-staging__ready-description-container flow-row justify-end items-center w-60">
+				<p class="mp-staging__ready-button__text font-fit-shrink whitespace-nowrap flex-auto font-title-lg text-accent-1 text-accent-1 mx-2 text-center text-right"
+					data-bind-attributes="{'data-l10n-id': {{g_MPLobbyModel.readyButtonCaption}}}">
+				</p>
+				<div class="w-14 h-14 flow-row justify-center items-center relative">
+					<fxs-ring-meter max-value="10" min-value="0"
+						class="mp-staging__ring-meter absolute inset-0 flex self-center align-center items-center -scale-100 transition-opacity opacity-5"
+						ring-class="img-ring-meter-ring"
+						data-bind-attributes="{'animation-duration': {{g_MPLobbyModel.allReadyCountdownRemainingSeconds}} == 10 || {{g_MPLobbyModel.readyStatus}} != 'STARTING_GAME' ? '1' : '1500', 'value': {{g_MPLobbyModel.allReadyCountdownRemainingSeconds}}}"
+						data-bind-class-toggle="opacity-70:{{g_MPLobbyModel.readyStatus}} == 'STARTING_GAME'">
+					</fxs-ring-meter>
+					<div class="mp-staging__ring-meter__text font-title-base text-secondary w-full text-center center z-1 opacity-0 transition-opacity"
+						data-bind-class-toggle="opacity-80:{{g_MPLobbyModel.readyStatus}} == 'STARTING_GAME'"
+						data-bind-attributes="{'data-l10n-id': {{g_MPLobbyModel.allReadyCountdownRemainingSeconds}}}">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</fxs-frame>

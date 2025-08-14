@@ -1,0 +1,17 @@
+<Database>
+	<Types>
+		<!--Named Artifacts-->
+		<Row Type="GREATWORK_ARTIFACT_CONTESTED_STATUE" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_ARTIFACT_KOH_I_NOOR" Kind="KIND_GREATWORK"/>
+	</Types>
+	<GreatWorks>
+		<!--Named Artifacts-->
+		<Row GreatWorkType="GREATWORK_ARTIFACT_CONTESTED_STATUE" GreatWorkObjectType="GREATWORKOBJECT_ARTIFACT" Name="LOC_GREATWORK_ARTIFACT_CONTESTED_STATUE_NAME" Description="LOC_GREATWORK_ARTIFACT_DESCRIPTION" Generic="false" Image="fs://game/gw_museumtagging.png"/>
+		<Row GreatWorkType="GREATWORK_ARTIFACT_KOH_I_NOOR" GreatWorkObjectType="GREATWORKOBJECT_ARTIFACT" Name="LOC_GREATWORK_ARTIFACT_KOH_I_NOOR_NAME" Description="LOC_GREATWORK_ARTIFACT_DESCRIPTION" Generic="false" Image="fs://game/gw_museumtagging.png"/>
+	</GreatWorks>
+	<GreatWork_YieldChanges>
+		<!--Named Artifacts-->
+		<Row GreatWorkType="GREATWORK_ARTIFACT_CONTESTED_STATUE" YieldType="YIELD_CULTURE" YieldChange="4"/>
+		<Row GreatWorkType="GREATWORK_ARTIFACT_KOH_I_NOOR" YieldType="YIELD_CULTURE" YieldChange="4"/>
+	</GreatWork_YieldChanges>
+</Database>

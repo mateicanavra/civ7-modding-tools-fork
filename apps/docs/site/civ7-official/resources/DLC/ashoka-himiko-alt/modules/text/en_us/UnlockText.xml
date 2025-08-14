@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_ASHOKA_ALT_DESCRIPTION">
+			<Text>Play as [B]Ashoka, World Conqueror[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_ASHOKA_ALT_CHOLA_TOOLTIP">
+			<Text>[B]Ashoka[/B] led a precursor Civilization of the [B]Chola[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_ASHOKA_ALT_HAWAII_TOOLTIP">
+			<Text>[B]Hawai'i[/B] strategically complements [B]Ashoka[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_ASHOKA_ALT_MUGHAL_TOOLTIP">
+			<Text>[B]Ashoka[/B] ruled the same region as the [B]Mughal[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_ASHOKA_ALT_SIAM_TOOLTIP">
+			<Text>[B]Ashoka[/B] influenced [B]Siamese[/B] culture.</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_HIMIKO_ALT_DESCRIPTION">
+			<Text>Play as [B]Himiko, High Shaman[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_HIMIKO_ALT_HAWAII_TOOLTIP">
+			<Text>[B]Hawai'i[/B] strategically complements [B]Himiko[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_HIMIKO_ALT_MAJAPAHIT_TOOLTIP">
+			<Text>[B]Himiko[/B] was from the same continent as [B]Majapahit[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_HIMIKO_ALT_MEIJI_TOOLTIP">
+			<Text>[B]Himiko[/B] ruled ancient [B]Japan[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_HIMIKO_ALT_SIAM_TOOLTIP">
+			<Text>[B]Himiko[/B] was from the same continent as [B]Siam[/B].</Text>
+		</Row>
+	</EnglishText>
+</Database>

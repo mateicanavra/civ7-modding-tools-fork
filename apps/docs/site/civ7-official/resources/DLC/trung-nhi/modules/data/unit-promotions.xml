@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_PROMOTION"/>
+		<InsertOrIgnore Kind="KIND_PROMOTION_CLASS"/>
+		<InsertOrIgnore Kind="KIND_PROMOITON_DISCIPLINE_CLASS"/>
+	</Kinds>
+	<Types>
+		<Row Type="DISCIPLINE_ARMY_TRUNG_NHI" Kind="KIND_PROMOITON_DISCIPLINE_CLASS"/>
+		<Row Type="PROMOTION_CLASS_TRUNG_NHI_COMMANDER" Kind="KIND_PROMOTION_CLASS"/>
+		<Row Type="DISCIPLINE_TRUNG_NHI_COMMENDATION_DUTY" Kind="KIND_PROMOITON_DISCIPLINE_CLASS"/>
+		<!-- ____________________________________________________________________________________________________ -->
+		<!-- Army PromotionDiscipline Trung Nhi -->
+		<Row Type="PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE" Kind="KIND_PROMOTION"/>
+		<Row Type="PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE" Kind="KIND_PROMOTION"/>
+		<Row Type="PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION" Kind="KIND_PROMOTION"/>
+		<Row Type="PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY" Kind="KIND_PROMOTION"/>
+		<Row Type="PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS" Kind="KIND_PROMOTION"/>
+		<Row Type="PROMOTION_ARMY_TRUNG_NHI_HAI_BA_TRUNG" Kind="KIND_PROMOTION"/>
+		<Row Type="PROMOTION_COMMENDATION_TRUNG_NHI_DUTY" Kind="KIND_PROMOTION"/>
+		<!-- ____________________________________________________________________________________________________ -->
+	</Types>
+	<UnitPromotionClasses>
+		<Row PromotionClassType="PROMOTION_CLASS_TRUNG_NHI_COMMANDER" Name="LOC_PROMOTION_CLASS_LAND_COMMANDER_NAME"/>
+	</UnitPromotionClasses>
+	<UnitPromotionDisciplines>
+		<Row UnitPromotionDisciplineType="DISCIPLINE_ARMY_TRUNG_NHI" Name="LOC_DISCIPLINE_ARMY_TRUNG_NHI_NAME" BackgroundImage="cPromo_bg_trung_nhi.png"/>
+		<Row UnitPromotionDisciplineType="DISCIPLINE_TRUNG_NHI_COMMENDATION_DUTY" Name="LOC_DISCIPLINE_TRUNG_NHI_COMMENDATION_DUTY_NAME" BackgroundImage=""/>
+	</UnitPromotionDisciplines>
+	<UnitPromotionClassSets>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row PromotionClassType="PROMOTION_CLASS_TRUNG_NHI_COMMANDER" UnitPromotionDisciplineType="DISCIPLINE_ARMY_COMMENDATION_VALOR"/>
+		<Row PromotionClassType="PROMOTION_CLASS_TRUNG_NHI_COMMANDER" UnitPromotionDisciplineType="DISCIPLINE_TRUNG_NHI_COMMENDATION_DUTY"/>
+		<Row PromotionClassType="PROMOTION_CLASS_TRUNG_NHI_COMMANDER" UnitPromotionDisciplineType="DISCIPLINE_ARMY_COMMENDATION_SERVICE"/>
+		<Row PromotionClassType="PROMOTION_CLASS_TRUNG_NHI_COMMANDER" UnitPromotionDisciplineType="DISCIPLINE_ARMY_COMMENDATION_MERIT"/>
+		<Row PromotionClassType="PROMOTION_CLASS_TRUNG_NHI_COMMANDER" UnitPromotionDisciplineType="DISCIPLINE_ARMY_COMMENDATION_ORDER"/>
+		<Row PromotionClassType="PROMOTION_CLASS_TRUNG_NHI_COMMANDER" UnitPromotionDisciplineType="DISCIPLINE_ARMY_BASTION"/>
+		<Row PromotionClassType="PROMOTION_CLASS_TRUNG_NHI_COMMANDER" UnitPromotionDisciplineType="DISCIPLINE_ARMY_ASSAULT"/>
+		<Row PromotionClassType="PROMOTION_CLASS_TRUNG_NHI_COMMANDER" UnitPromotionDisciplineType="DISCIPLINE_ARMY_LOGISTICS"/>
+		<Row PromotionClassType="PROMOTION_CLASS_TRUNG_NHI_COMMANDER" UnitPromotionDisciplineType="DISCIPLINE_ARMY_MANEUVER"/>
+		<Row PromotionClassType="PROMOTION_CLASS_TRUNG_NHI_COMMANDER" UnitPromotionDisciplineType="DISCIPLINE_ARMY_TRUNG_NHI"/>
+	</UnitPromotionClassSets>
+	<UnitPromotionDisciplineDetails>
+		<!-- ARMY COMMENDATIONS -->
+		<Row UnitPromotionDisciplineType="DISCIPLINE_TRUNG_NHI_COMMENDATION_DUTY" UnitPromotionType="PROMOTION_COMMENDATION_TRUNG_NHI_DUTY"/>
+		<!-- ARMY TRUNG NHI -->
+		<Row UnitPromotionDisciplineType="DISCIPLINE_ARMY_TRUNG_NHI" UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE"/>
+		<Row UnitPromotionDisciplineType="DISCIPLINE_ARMY_TRUNG_NHI" UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE" PrereqUnitPromotion="PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE"/>
+		<Row UnitPromotionDisciplineType="DISCIPLINE_ARMY_TRUNG_NHI" UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION" PrereqUnitPromotion="PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE"/>
+		<Row UnitPromotionDisciplineType="DISCIPLINE_ARMY_TRUNG_NHI" UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_HAI_BA_TRUNG" PrereqUnitPromotion="PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE"/>
+		<Row UnitPromotionDisciplineType="DISCIPLINE_ARMY_TRUNG_NHI" UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS" PrereqUnitPromotion="PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION"/>
+		<Row UnitPromotionDisciplineType="DISCIPLINE_ARMY_TRUNG_NHI" UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY" PrereqUnitPromotion="PROMOTION_ARMY_TRUNG_NHI_HAI_BA_TRUNG" GrantsCommendation="true"/>
+		<Row UnitPromotionDisciplineType="DISCIPLINE_ARMY_TRUNG_NHI" UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY" PrereqUnitPromotion="PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS" GrantsCommendation="true"/>
+		<!-- ____________________________________________________________________________________________________ -->
+	</UnitPromotionDisciplineDetails>
+	<UnitPromotions>
+		<Row UnitPromotionType="PROMOTION_COMMENDATION_TRUNG_NHI_DUTY" Name="LOC_PROMOTION_TRUNG_COMMENDATION_DUTY_NAME" Description="LOC_PROMOTION_TRUNG_COMMENDATION_DUTY_DESCRIPTION" Commendation="true"/>
+		<!-- ____________________________________________________________________________________________________ -->
+		<!-- Army PromotionDiscipline Trung Nhi -->
+		<Row UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE" Name="LOC_PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE_NAME" Description="LOC_PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE_DESCRIPTION" />
+		<Row UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE" Name="LOC_PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE_NAME" Description="LOC_PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE_DESCRIPTION" />
+		<Row UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION" Name="LOC_PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION_NAME" Description="LOC_PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION_DESCRIPTION" />
+		<Row UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY" Name="LOC_PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY_NAME" Description="LOC_PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY_DESCRIPTION" />
+		<Row UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS" Name="LOC_PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS_NAME" Description="LOC_PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS_DESCRIPTION" />
+		<Row UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_HAI_BA_TRUNG" Name="LOC_PROMOTION_ARMY_TRUNG_NHI_HAI_BA_TRUNG_NAME" Description="LOC_PROMOTION_ARMY_TRUNG_NHI_HAI_BA_TRUNG_DESCRIPTION" />
+	</UnitPromotions>
+	<UnitPromotionModifiers>
+		<Row UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE" ModifierId="MOD_PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE"/>
+		<Row UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE" ModifierId="MOD_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE"/>
+		<Row UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE" ModifierId="MOD_PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE"/>
+		<Row UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE" ModifierId="MOD_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE"/>
+		<Row UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION" ModifierId="MOD_PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION"/>
+		<Row UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION" ModifierId="MOD_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE"/>
+		<Row UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY" ModifierId="MOD_PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY_COORDINATED_ATTACK"/>
+		<Row UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY" ModifierId="MOD_PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY_FOCUS_FIRE"/>
+		<Row UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY" ModifierId="MOD_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_FINAL"/>
+		<Row UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS" ModifierId="MOD_PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS"/>
+		<Row UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS" ModifierId="MOD_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE"/>
+		<Row UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_HAI_BA_TRUNG" ModifierId="MOD_PROMOTION_ARMY_TRUNG_NHI_HAI_BA_TRUNG"/>
+		<Row UnitPromotionType="PROMOTION_ARMY_TRUNG_NHI_HAI_BA_TRUNG" ModifierId="MOD_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE"/>
+		<Row UnitPromotionType="PROMOTION_COMMENDATION_TRUNG_NHI_DUTY" ModifierId="MOD_PROMOTION_COMMENDATION_DUTY_ADJUST_ATTACK_DAMAGE"/>
+		<!-- ____________________________________________________________________________________________________ -->
+	</UnitPromotionModifiers>
+	<UnitAbilities>
+		<Row UnitAbilityType="ABILITY_ARMY_ONSLAUGHT_TRUNG_NHI" Name="LOC_PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY_NAME" Description="LOC_PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY_DESCRIPTION" Inactive="true" Permanent="false"/>
+		<Row UnitAbilityType="ABILITY_ARMY_BARRAGE_TRUNG_NHI" Name="LOC_PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY_NAME" Description="LOC_PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY_DESCRIPTION" Inactive="true" Permanent="false"/>
+	</UnitAbilities>
+	<UnitAbilityModifiers>
+		<Row UnitAbilityType="ABILITY_ARMY_ONSLAUGHT_TRUNG_NHI" ModifierId="MOD_ABILITY_ARMY_ONSLAUGHT_TRUNG_NHI"/>
+		<Row UnitAbilityType="ABILITY_ARMY_BARRAGE_TRUNG_NHI" ModifierId="MOD_ABILITY_ARMY_BARRAGE_TRUNG_NHI"/>
+	</UnitAbilityModifiers>
+</Database>

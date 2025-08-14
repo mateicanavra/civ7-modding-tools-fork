@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <Types>
+        <Row Type="LEADER_CHAIN_1190H" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="LEADER_CHAIN_1190E" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="LEADER_CHAIN_1190F" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="LEADER_CHAIN_1190G" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="LEADER_CHAIN_1191F" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="LEADER_CHAIN_1191D" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="LEADER_CHAIN_1191E" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="LEADER_CHAIN_1192F" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="LEADER_CHAIN_1192D" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="LEADER_CHAIN_1192E" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="3703_ALTA" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="3703_ALTB" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="3703_ALTC" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="3704_ALTA" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="3704_ALTB" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="3704_ALTC" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="3705_ALTA" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="3705_ALTB" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="3705_ALTC" Kind="KIND_NARRATIVE_STORY"/>
+    </Types>
+    <NarrativeStories>
+        <Row NarrativeStoryType="LEADER_CHAIN_1190H" Name="LOC_LEADER_CHAIN_1190H_NAME" Description="LOC_LEADER_CHAIN_1190H_DESCRIPTION" Completion="LOC_LEADER_CHAIN_1190H_COMPLETION" StoryTitle="LOC_LEADER_CHAIN_1190H_STORYTITLE" Age="AGE_ANTIQUITY" Activation="REQUISITE" RequirementSetId="REQSET_LEADER_CHAIN_1190H_NARRATIVE" ActivationRequirementSetId="REQSET_LEADER_CHAIN_1190H_NARRATIVE_REQUISITE" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1190E" Name="LOC_LEADER_CHAIN_1190E_NAME" Description="LOC_LEADER_CHAIN_1190E_DESCRIPTION" Completion="LOC_LEADER_CHAIN_1190E_COMPLETION" StoryTitle="LOC_LEADER_CHAIN_1190E_STORYTITLE" Age="AGE_ANTIQUITY" Activation="LINKED" Imperative="LOC_LEADER_CHAIN_1190E_IMPERATIVE" IsQuest="TRUE" ShowProgress="TRUE" RequirementSetId="REQSET_LEADER_CHAIN_1190E_NARRATIVE" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1190F" Name="LOC_LEADER_CHAIN_1190F_NAME" Description="LOC_LEADER_CHAIN_1190F_DESCRIPTION" Completion="LOC_LEADER_CHAIN_1190F_COMPLETION" StoryTitle="LOC_LEADER_CHAIN_1190F_STORYTITLE" Age="AGE_ANTIQUITY" Activation="LINKED" Imperative="LOC_LEADER_CHAIN_1190F_IMPERATIVE" IsQuest="TRUE" ShowProgress="TRUE" RequirementSetId="REQSET_LEADER_CHAIN_1190F_NARRATIVE" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1190G" Name="LOC_LEADER_CHAIN_1190G_NAME" Description="LOC_LEADER_CHAIN_1190G_DESCRIPTION" Completion="LOC_LEADER_CHAIN_1190G_COMPLETION" StoryTitle="LOC_LEADER_CHAIN_1190G_STORYTITLE" Age="AGE_ANTIQUITY" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1191F" Name="LOC_LEADER_CHAIN_1191F_NAME" Description="LOC_LEADER_CHAIN_1191F_DESCRIPTION" Completion="LOC_LEADER_CHAIN_1191F_COMPLETION" StoryTitle="LOC_LEADER_CHAIN_1191F_STORYTITLE" Age="AGE_ANTIQUITY" Activation="REQUISITE" RequirementSetId="REQSET_LEADER_CHAIN_1191F_NARRATIVE" ActivationRequirementSetId="REQSET_LEADER_CHAIN_1191F_NARRATIVE_REQUISITE" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1191D" Name="LOC_LEADER_CHAIN_1191D_NAME" Description="LOC_LEADER_CHAIN_1191D_DESCRIPTION" Completion="LOC_LEADER_CHAIN_1191D_COMPLETION" StoryTitle="LOC_LEADER_CHAIN_1191D_STORYTITLE" Age="AGE_ANTIQUITY" Activation="LINKED" Imperative="LOC_LEADER_CHAIN_1191D_IMPERATIVE" IsQuest="TRUE" ShowProgress="TRUE" RequirementSetId="REQSET_LEADER_CHAIN_1191D_NARRATIVE" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1191E" Name="LOC_LEADER_CHAIN_1191E_NAME" Description="LOC_LEADER_CHAIN_1191E_DESCRIPTION" Completion="LOC_LEADER_CHAIN_1191E_COMPLETION" StoryTitle="LOC_LEADER_CHAIN_1191E_STORYTITLE" Age="AGE_ANTIQUITY" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1192F" Name="LOC_LEADER_CHAIN_1192F_NAME" Description="LOC_LEADER_CHAIN_1192F_DESCRIPTION" Completion="LOC_LEADER_CHAIN_1192F_COMPLETION" StoryTitle="LOC_LEADER_CHAIN_1192F_STORYTITLE" Age="AGE_ANTIQUITY" Activation="REQUISITE" RequirementSetId="REQSET_LEADER_CHAIN_1192F_NARRATIVE" ActivationRequirementSetId="REQSET_LEADER_CHAIN_1192F_NARRATIVE_REQUISITE" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1192D" Name="LOC_LEADER_CHAIN_1192D_NAME" Description="LOC_LEADER_CHAIN_1192D_DESCRIPTION" Completion="LOC_LEADER_CHAIN_1192D_COMPLETION" StoryTitle="LOC_LEADER_CHAIN_1192D_STORYTITLE" Age="AGE_ANTIQUITY" Activation="LINKED" Imperative="LOC_LEADER_CHAIN_1192D_IMPERATIVE" IsQuest="TRUE" RequirementSetId="REQSET_LEADER_CHAIN_1192D_NARRATIVE" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1192E" Name="LOC_LEADER_CHAIN_1192E_NAME" Description="LOC_LEADER_CHAIN_1192E_DESCRIPTION" Completion="LOC_LEADER_CHAIN_1192E_COMPLETION" StoryTitle="LOC_LEADER_CHAIN_1192E_STORYTITLE" Age="AGE_ANTIQUITY" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="3703_ALTA" Name="LOC_3703_ALTA_NAME" Description="LOC_3703_ALTA_DESCRIPTION" Completion="LOC_3703_ALTA_COMPLETION" StoryTitle="LOC_3703_ALTA_STORYTITLE" Age="AGE_ANTIQUITY" Activation="REQUISITE" RequirementSetId="REQSET_3703_ALTA_NARRATIVE" ActivationRequirementSetId="REQSET_3703_ALTA_NARRATIVE_REQUISITE" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="3703_ALTB" Name="LOC_3703_ALTB_NAME" Description="LOC_3703_ALTB_DESCRIPTION" Completion="LOC_3703_ALTB_COMPLETION" Age="AGE_ANTIQUITY" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="3703_ALTC" Name="LOC_3703_ALTC_NAME" Description="LOC_3703_ALTC_DESCRIPTION" Completion="LOC_3703_ALTC_COMPLETION" Age="AGE_ANTIQUITY" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="3704_ALTA" Name="LOC_3704_ALTA_NAME" Description="LOC_3704_ALTA_DESCRIPTION" Completion="LOC_3704_ALTA_COMPLETION" StoryTitle="LOC_3704_ALTA_STORYTITLE" Age="AGE_ANTIQUITY" Activation="REQUISITE" RequirementSetId="REQSET_3704_ALTA_NARRATIVE" ActivationRequirementSetId="REQSET_3704_ALTA_NARRATIVE_REQUISITE" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="3704_ALTB" Name="LOC_3704_ALTB_NAME" Description="LOC_3704_ALTB_DESCRIPTION" Completion="LOC_3704_ALTB_COMPLETION" Age="AGE_ANTIQUITY" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="3704_ALTC" Name="LOC_3704_ALTC_NAME" Description="LOC_3704_ALTC_DESCRIPTION" Completion="LOC_3704_ALTC_COMPLETION" Age="AGE_ANTIQUITY" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="3705_ALTA" Name="LOC_3705_ALTA_NAME" Description="LOC_3705_ALTA_DESCRIPTION" Completion="LOC_3705_ALTA_COMPLETION" StoryTitle="LOC_3705_ALTA_STORYTITLE" Age="AGE_ANTIQUITY" Activation="REQUISITE" RequirementSetId="REQSET_3705_ALTA_NARRATIVE" ActivationRequirementSetId="REQSET_3705_ALTA_NARRATIVE_REQUISITE" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="3705_ALTB" Name="LOC_3705_ALTB_NAME" Description="LOC_3705_ALTB_DESCRIPTION" Completion="LOC_3705_ALTB_COMPLETION" Age="AGE_ANTIQUITY" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="STANDARD"/>
+        <Row NarrativeStoryType="3705_ALTC" Name="LOC_3705_ALTC_NAME" Description="LOC_3705_ALTC_DESCRIPTION" Completion="LOC_3705_ALTC_COMPLETION" Age="AGE_ANTIQUITY" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="STANDARD"/>
+    </NarrativeStories>
+    <NarrativeRewards>
+        <Row NarrativeRewardType="LEADER_CHAIN_1190E_REWARD" ModifierID="LEADER_CHAIN_1190E_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="LEADER_CHAIN_1190E_REWARD2" ModifierID="LEADER_CHAIN_1190E_NARRATIVE_MODIFIER2"/>
+        <Row NarrativeRewardType="LEADER_CHAIN_1190F_REWARD" ModifierID="LEADER_CHAIN_1190F_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="LEADER_CHAIN_1190F_REWARD2" ModifierID="LEADER_CHAIN_1190F_NARRATIVE_MODIFIER2"/>
+        <Row NarrativeRewardType="LEADER_CHAIN_1190G_REWARD" ModifierID="LEADER_CHAIN_1190G_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="LEADER_CHAIN_1191D_REWARD" ModifierID="LEADER_CHAIN_1191D_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="LEADER_CHAIN_1191D_REWARD2" ModifierID="LEADER_CHAIN_1191D_NARRATIVE_MODIFIER2"/>
+        <Row NarrativeRewardType="LEADER_CHAIN_1191E_REWARD" ModifierID="LEADER_CHAIN_1191E_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="LEADER_CHAIN_1192D_REWARD" ModifierID="LEADER_CHAIN_1192D_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="LEADER_CHAIN_1192D_REWARD2" ModifierID="LEADER_CHAIN_1192D_NARRATIVE_MODIFIER2"/>
+        <Row NarrativeRewardType="LEADER_CHAIN_1192E_REWARD" ModifierID="LEADER_CHAIN_1192E_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="3703_ALTB_REWARD" ModifierID="3703_ALTB_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="3703_ALTC_REWARD" ModifierID="3703_ALTC_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="3704_ALTB_REWARD" ModifierID="3704_ALTB_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="3704_ALTC_REWARD" ModifierID="3704_ALTC_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="3705_ALTB_REWARD" ModifierID="3705_ALTB_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="3705_ALTC_REWARD" ModifierID="3705_ALTC_NARRATIVE_MODIFIER"/>
+    </NarrativeRewards>
+    <NarrativeStory_Rewards>
+        <Row NarrativeStoryType="LEADER_CHAIN_1190E" NarrativeRewardType="LEADER_CHAIN_1190E_REWARD" Activation="COMPLETE"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1190E" NarrativeRewardType="LEADER_CHAIN_1190E_REWARD2" Activation="COMPLETE" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1190F" NarrativeRewardType="LEADER_CHAIN_1190F_REWARD" Activation="COMPLETE"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1190F" NarrativeRewardType="LEADER_CHAIN_1190F_REWARD2" Activation="COMPLETE" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1190G" NarrativeRewardType="LEADER_CHAIN_1190G_REWARD" Activation="START"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1191D" NarrativeRewardType="LEADER_CHAIN_1191D_REWARD" Activation="COMPLETE" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1191D" NarrativeRewardType="LEADER_CHAIN_1191D_REWARD2" Activation="COMPLETE"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1191E" NarrativeRewardType="LEADER_CHAIN_1191E_REWARD" Activation="START"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1192D" NarrativeRewardType="LEADER_CHAIN_1192D_REWARD" Activation="COMPLETE" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1192D" NarrativeRewardType="LEADER_CHAIN_1192D_REWARD2" Activation="COMPLETE"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1192E" NarrativeRewardType="LEADER_CHAIN_1192E_REWARD" Activation="START"/>
+        <Row NarrativeStoryType="3703_ALTB" NarrativeRewardType="3703_ALTB_REWARD" Activation="START"/>
+        <Row NarrativeStoryType="3703_ALTC" NarrativeRewardType="3703_ALTC_REWARD" Activation="START"/>
+        <Row NarrativeStoryType="3704_ALTB" NarrativeRewardType="3704_ALTB_REWARD" Activation="START"/>
+        <Row NarrativeStoryType="3704_ALTC" NarrativeRewardType="3704_ALTC_REWARD" Activation="START"/>
+        <Row NarrativeStoryType="3705_ALTB" NarrativeRewardType="3705_ALTB_REWARD" Activation="START"/>
+        <Row NarrativeStoryType="3705_ALTC" NarrativeRewardType="3705_ALTC_REWARD" Activation="START"/>
+    </NarrativeStory_Rewards>
+    <NarrativeStoryOverrides>
+    </NarrativeStoryOverrides>
+    <NarrativeVariations>
+    </NarrativeVariations>
+    <NarrativeRewardIcons>
+        <Row NarrativeStoryType="LEADER_CHAIN_1190E" RewardIconType="QUEST"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1190F" RewardIconType="QUEST"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1191D" RewardIconType="QUEST"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1192D" RewardIconType="QUEST"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1190E" RewardIconType="YIELD_CULTURE"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1190F" RewardIconType="YIELD_SCIENCE"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1190G" RewardIconType="YIELD_CULTURE"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1191D" RewardIconType="ATTRIBUTE_CULTURAL"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1191E" RewardIconType="YIELD_SCIENCE"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1192D" RewardIconType="ATTRIBUTE_MILITARISTIC"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1192E" RewardIconType="UNIT"/>
+        <Row NarrativeStoryType="3703_ALTB" RewardIconType="YIELD_PRODUCTION"/>
+        <Row NarrativeStoryType="3703_ALTC" RewardIconType="YIELD_PRODUCTION"/>
+        <Row NarrativeStoryType="3704_ALTB" RewardIconType="UNIT"/>
+        <Row NarrativeStoryType="3704_ALTC" RewardIconType="YIELD_DIPLOMACY"/>
+        <Row NarrativeStoryType="3705_ALTB" RewardIconType="YIELD_PRODUCTION"/>
+        <Row NarrativeStoryType="3705_ALTC" RewardIconType="YIELD_GOLD"/>
+    </NarrativeRewardIcons>
+    <NarrativeStory_TextReplacements>
+        <Row NarrativeStoryType="LEADER_CHAIN_1190E" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1190F" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1190G" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1191D" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1191E" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1192D" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="LEADER_CHAIN_1192E" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="3703_ALTB" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="3703_ALTC" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="3704_ALTB" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="3704_ALTC" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="3705_ALTB" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+        <Row NarrativeStoryType="3705_ALTC" NarrativeStoryTextType="REWARD" NarrativeTextReplacementType="REWARD" Priority="1"/>
+    </NarrativeStory_TextReplacements>
+    <NarrativeStory_Links>
+        <Row FromNarrativeStoryType="LEADER_CHAIN_1190H" ToNarrativeStoryType="LEADER_CHAIN_1190E" Priority="0" Name="LOC_LEADER_CHAIN_1190E_NAME" Description="LOC_LEADER_CHAIN_1190E_DESCRIPTION" Imperative="LOC_LEADER_CHAIN_1190E_IMPERATIVE"/>
+        <Row FromNarrativeStoryType="LEADER_CHAIN_1190H" ToNarrativeStoryType="LEADER_CHAIN_1190F" Priority="0" Name="LOC_LEADER_CHAIN_1190F_NAME" Description="LOC_LEADER_CHAIN_1190F_DESCRIPTION" Imperative="LOC_LEADER_CHAIN_1190F_IMPERATIVE"/>
+        <Row FromNarrativeStoryType="LEADER_CHAIN_1190H" ToNarrativeStoryType="LEADER_CHAIN_1190G" Priority="0" Name="LOC_LEADER_CHAIN_1190G_NAME" Description="LOC_LEADER_CHAIN_1190G_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="LEADER_CHAIN_1191F" ToNarrativeStoryType="LEADER_CHAIN_1191D" Priority="0" Name="LOC_LEADER_CHAIN_1191D_NAME" Description="LOC_LEADER_CHAIN_1191D_DESCRIPTION" Imperative="LOC_LEADER_CHAIN_1191D_IMPERATIVE"/>
+        <Row FromNarrativeStoryType="LEADER_CHAIN_1191F" ToNarrativeStoryType="LEADER_CHAIN_1191E" Priority="0" Name="LOC_LEADER_CHAIN_1191E_NAME" Description="LOC_LEADER_CHAIN_1191E_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="LEADER_CHAIN_1192F" ToNarrativeStoryType="LEADER_CHAIN_1192D" Priority="0" Name="LOC_LEADER_CHAIN_1192D_NAME" Description="LOC_LEADER_CHAIN_1192D_DESCRIPTION" Imperative="LOC_LEADER_CHAIN_1192D_IMPERATIVE"/>
+        <Row FromNarrativeStoryType="LEADER_CHAIN_1192F" ToNarrativeStoryType="LEADER_CHAIN_1192E" Priority="0" Name="LOC_LEADER_CHAIN_1192E_NAME" Description="LOC_LEADER_CHAIN_1192E_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="3703_ALTA" ToNarrativeStoryType="3703_ALTB" Priority="0" Name="LOC_3703_ALTB_NAME" Description="LOC_3703_ALTB_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="3703_ALTA" ToNarrativeStoryType="3703_ALTC" Priority="1" Name="LOC_3703_ALTC_NAME" Description="LOC_3703_ALTC_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="3704_ALTA" ToNarrativeStoryType="3704_ALTB" Priority="0" Name="LOC_3704_ALTB_NAME" Description="LOC_3704_ALTB_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="3704_ALTA" ToNarrativeStoryType="3704_ALTC" Priority="1" Name="LOC_3704_ALTC_NAME" Description="LOC_3704_ALTC_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="3705_ALTA" ToNarrativeStoryType="3705_ALTB" Priority="0" Name="LOC_3705_ALTB_NAME" Description="LOC_3705_ALTB_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="3705_ALTA" ToNarrativeStoryType="3705_ALTC" Priority="1" Name="LOC_3705_ALTC_NAME" Description="LOC_3705_ALTC_DESCRIPTION"/>
+    </NarrativeStory_Links>
+</Database>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="MOD_CARTHAGE_PUNIC_PORT_RESOURCE_CAP" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_RESOURCE_CAP">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_UNIQUE_QUARTER">
+				<Argument name="UniqueQuarterType">QUARTER_PUNIC_PORT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MOD_BYRSA_WALLS" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_BUILDING_IN_CITY_ADJACENT_TO_TERRAIN" permanent="true">
+		<Argument name="BuildingType">BUILDING_ANCIENT_WALLS</Argument>
+		<Argument name="AdjacentTerrainType">TERRAIN_COAST</Argument>
+	</Modifier>
+	<Modifier id="MOD_BYRSA_TRADE_ROUTE_PROTECTION" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_SET_TRADE_ROUTE_PROTECTED">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_TRADE_ROUTE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+	</Modifier>
+</GameEffects>

@@ -1,0 +1,1752 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE1" Language="ja_JP">
+      <Text>チラコファ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE10" Language="ja_JP">
+      <Text>イェタカペワキ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE11" Language="ja_JP">
+      <Text>イカンハトキ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE12" Language="ja_JP">
+      <Text>ワパコネタ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE13" Language="ja_JP">
+      <Text>コーンストーク・タウン</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE14" Language="ja_JP">
+      <Text>ノンヘレマ・タウン</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE15" Language="ja_JP">
+      <Text>ネピペミ・ホターパタ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE16" Language="ja_JP">
+      <Text>サーワンワ・ホテウェ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE17" Language="ja_JP">
+      <Text>ワパトミカ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE18" Language="ja_JP">
+      <Text>マカチェキ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE19" Language="ja_JP">
+      <Text>マワスカウェウィーキワ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE2" Language="ja_JP">
+      <Text>ピカウィーキ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE20" Language="ja_JP">
+      <Text>ニュー・ペコウィキ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE21" Language="ja_JP">
+      <Text>チリコセ・オールドタウン</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE22" Language="ja_JP">
+      <Text>ブルージャケット・タウン</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE23" Language="ja_JP">
+      <Text>ウィチタ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE24" Language="ja_JP">
+      <Text>エスカラピア</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE25" Language="ja_JP">
+      <Text>マニトウ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE26" Language="ja_JP">
+      <Text>チノダヒチェトハ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE27" Language="ja_JP">
+      <Text>スカーラーピエ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE28" Language="ja_JP">
+      <Text>ホキマ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE29" Language="ja_JP">
+      <Text>ニピワシクワナ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE3" Language="ja_JP">
+      <Text>スシー・ホテウェ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE30" Language="ja_JP">
+      <Text>コラワパニ・ホテクウィ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE4" Language="ja_JP">
+      <Text>ペンフェキムテコ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE5" Language="ja_JP">
+      <Text>ホワイトオーク</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE6" Language="ja_JP">
+      <Text>リトルアックス</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE7" Language="ja_JP">
+      <Text>プロフェッツタウン</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE8" Language="ja_JP">
+      <Text>セカクウィス</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_SHAWNEE9" Language="ja_JP">
+      <Text>ワカカーリ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_FEMALE_1" Language="ja_JP">
+      <Text>ペロウィカポシ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_FEMALE_10" Language="ja_JP">
+      <Text>ハチピワシ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_FEMALE_2" Language="ja_JP">
+      <Text>ナピウェシ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_FEMALE_3" Language="ja_JP">
+      <Text>ウィケカカムシ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_FEMALE_4" Language="ja_JP">
+      <Text>ナトペシ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_FEMALE_5" Language="ja_JP">
+      <Text>ウィーチピイェシ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_FEMALE_6" Language="ja_JP">
+      <Text>キタキミイェシ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_FEMALE_7" Language="ja_JP">
+      <Text>ペロワパマ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_FEMALE_8" Language="ja_JP">
+      <Text>ハコウェシ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_FEMALE_9" Language="ja_JP">
+      <Text>ニカーニピイェーシ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_MALE_1" Language="ja_JP">
+      <Text>キンウィシーモ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_MALE_10" Language="ja_JP">
+      <Text>パクシンワ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_MALE_2" Language="ja_JP">
+      <Text>ペークフェプト</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_MALE_3" Language="ja_JP">
+      <Text>ナピイェハスカ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_MALE_4" Language="ja_JP">
+      <Text>ナトペスカタ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_MALE_5" Language="ja_JP">
+      <Text>ピイェチカポウィ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_MALE_6" Language="ja_JP">
+      <Text>ハタケーピ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_MALE_7" Language="ja_JP">
+      <Text>コクウェテクウィシーモ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_MALE_8" Language="ja_JP">
+      <Text>シーピクウェスカカ</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_SHAWNEE_MALE_9" Language="ja_JP">
+      <Text>ハーラコターカ</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_SHAWNEE_ADJECTIVE" Language="ja_JP">
+      <Text>ショーニーの</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_SHAWNEE_FULLNAME" Language="ja_JP">
+      <Text>ショーニー</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_SHAWNEE_NAME" Language="ja_JP">
+      <Text>ショーニー</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_TECUMSEH_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>アメリカ入植地の西方への拡大は、ネイティブアメリカンとの絶え間ない対立を生んだ。先住民族の諸部族は、各個に植民地の進出をはね返そうとして苦戦し、結束してこの脅威に立ち向かおうと奮闘した。彼らの間には根深い社会的、政治的、文化的な分裂が横たわっており、それらを克服するのは容易ではなかった。しかし1783年、諸部族の連合体が五大湖周辺に集結し、アメリカ合衆国に対していくつかの大きな勝利をおさめた。この同盟は短命に終わったが、統一戦線という考えは、その盛衰を目撃したひとりの若きショーニーの戦士に根付き、その再現を決意させた。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_TECUMSEH_CHAPTER_HISTORY_PARA_2" Language="ja_JP">
+      <Text>テカムセ（この名前には「天空を横切る豹」という意味がある）は1768年、流れ星が空を横切った夜にこの世に生を受けた。彼は苦しい青年時代を過ごしつつも、将来有望な指導者として、そして戦士として、早くから同年代の間で頭角を現した。狩猟と戦闘の技に優れていたテカムセだが、14歳のときの初陣では戦場から逃げ出してしまう。醜態を恥じたテカムセは、二度とこんなことはしないと誓った（実際にそうなった）。彼はカリスマ性と知性に富み、優れた弁論家であり、ユーモアを好み、外交にも長けていた。入植者とショーニーの紛争の真っただ中で育ったテカムセは、若い頃に英語を学ぶことを決意したが、英語に堪能であることをあえて隠し、外交の場ではショーニー語だけを話すことが多かった。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_TECUMSEH_CHAPTER_HISTORY_PARA_3" Language="ja_JP">
+      <Text>1780年代頃には、アメリカ合衆国の入植者たちはオハイオ川と五大湖の間にある北西部領土へも進出を始めていた。ブルー・ジャケットを長とするショーニーを含む諸部族の緩やかな連合は、イギリスの力を借りてこれに抵抗した。しかし、テカムセ自身も参加したフォールン・ティンバーズの戦いで連合は敗北。1795年に結ばれたグリーンヴィル協定において多くの族長が自分たちの土地を合衆国に割譲した。テカムセはこれに強く反対した。その後の数年間で、ショーニーの間でのテカムセの影響力は増大した。だが、彼の弟の思いがけない台頭が、テカムセの人生を大きく変えることになる。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_TECUMSEH_CHAPTER_HISTORY_PARA_4" Language="ja_JP">
+      <Text>兄テカムセとは対照的に、ララウェティカは冴えない人間だった。臆病で、才に乏しく、酒におぼれ、幼少期には誤って自分で自分の目を撃ってしまったことさえあった。にもかかわらず、1805年、彼は幻視を体験しはじめる。その中で彼は、徳の高い人生を送った者（そしてそれを拒んだ者）が辿る運命を、ショーニー族の主神である「命を司る者」によって見せられた。かくしてララウェティカは、自ら名前をテンスクワタワ（「開かれた扉」）に改め、ヨーロッパの品々や慣習を拒み、伝統的な価値観や生活様式のみを尊重する新しい宗教運動を創始した。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_TECUMSEH_CHAPTER_HISTORY_PARA_5" Language="ja_JP">
+      <Text>予言者テンスクワタワは村の新たな宗教的指導者としての地位を確立した。政治と戦争を司る立場にあったテカムセも、弟の信仰に同調することを決意した。2人は近隣部族から有力な支持者を複数得たが、他のショーニーからは反発を受けた。かつて連合の指導者であったブルー・ジャケットは彼らに賛同したが、有力者であるワパコネタのブラック・フーフは彼らを認めなかった。また2人は、新たな宗教運動とそれが諸部族を団結させる可能性を危惧した入植地の当局からも要注意人物と見なされるようになった。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_TECUMSEH_CHAPTER_HISTORY_PARA_6" Language="ja_JP">
+      <Text>1808年、テカムセとテンスクワタワはさらに西へ移動してプロフェッツタウンを築き、さまざまな部族から多くの信奉者を集めた。しかしわずか1年後、インディアナ準州の知事だったウィリアム・ヘンリー・ハリソンがショーニーを除く数部族から土地を買収するために結んだフォート・ウェイン条約により、彼らの穏やかな暮らしは破壊されてしまう。激怒したテカムセは、条約を破棄させるためにハリソンと直接対峙し、この土地はすべての部族のものであるため誰にも売ることはできないと宣言した。もちろんハリソンが耳を貸さず、手ぶらで帰ることになったテカムセは、部族の垣根を越えた連合の結成に本腰を入れはじめ、ネイティブアメリカンの団結と個々の部族の伝統を守ることの2つを目標に掲げた。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_TECUMSEH_CHAPTER_HISTORY_PARA_7" Language="ja_JP">
+      <Text>プロフェッツタウンにぞくぞくと戦士が集まる中、テカムセはテンスクワタワに故郷を任せ、広く各地を旅した。彼は遥か南へおもむき、数千マイルを踏破して多くの村で語り、若い戦士たちに彼の志への賛同をうながした。彼の旅は勧誘活動としてはほぼ失敗に終わったが、テカムセの弁舌が蒔いた種は後の紛争で実を結ぶことになる。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_TECUMSEH_CHAPTER_HISTORY_PARA_8" Language="ja_JP">
+      <Text>テカムセが不在の間に、ハリソンはテンスクワタワを失脚させるべくプロフェッツタウンに軍を差し向けた。テカムセは弟にアメリカ人との緊張を悪化させないよう警告していたが、テンスクワタワはハリソンとの交渉を始めることすらせずに攻撃を命じた。ハリソンは多くの兵士を失ったが、ティッペカヌーの戦いはアメリカの勝利に終わり、プロフェッツタウンは焦土と化した。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_TECUMSEH_CHAPTER_HISTORY_PARA_9" Language="ja_JP">
+      <Text>テカムセの連合は大打撃を受けたが、旅から戻った彼はすぐさま立て直しに着手した。それからほんの数か月後に米英戦争が勃発すると、彼は信奉者たちを率いてイギリスと同盟を結んだ。テカムセはその人格と軍事的才能によって英軍指揮官たちの信頼と尊敬を勝ち取り、ネイティブアメリカン部隊の指揮を任されたが、1813年のテムズ川の戦いで戦死した。彼の死は連合に終焉をもたらしたが、テカムセの大望と遺産は彼を民族の英雄に変え、その名声は現代まで生きつづけている。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_TECUMSEH_TITLE" Language="ja_JP">
+      <Text>{LOC_LEADER_TECUMSEH_NAME}</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_SHAWNEE_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>ショーニー族の起源は不明確だが、オハイオ川流域のフォート・エンシェント文化（西暦1000年頃から1650年頃）を源流にしていると広く考えられている。後期ウッドランド期に現れたフォート・エンシェント文化は、トウモロコシ栽培と農耕技術に関する新たな知識を持ち、それがより定住的な生活様式と大規模な集落へつながっていった。彼らは単一の国を形成したわけではなく、多様な政治的、言語的集団に分かれていたが、社会組織、信仰、芸術様式、墳丘の建設といった面では共通の文化を有していた。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_SHAWNEE_CHAPTER_HISTORY_PARA_2" Language="ja_JP">
+      <Text>フォート・エンシェント文化の村落は長と評議会によって運営され、その権力は柵内にかぎられていた。言い換えれば、彼らの政治的影響力は他の村落には及ばず、大きな中央的権力は存在していなかった。恒久的な夏期村落では農業が営まれ、最大で500人が居住できた。夏季村落は冬になるといったん放棄され、人々は最大で30人からなる狩猟キャンプに散らばって移動生活を送った。しかし離散は一時的なもので、春が巡ってくると人々は夏期村落に集った。こうした転居のサイクルが、季節の移り変わりを祝う儀式の起源となった。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_SHAWNEE_CHAPTER_HISTORY_PARA_3" Language="ja_JP">
+      <Text>16世紀から17世紀初頭にかけては、ホデノショニ連邦との交易を通じて、多くのヨーロッパの品々がオハイオ川流域でも見られるようになった。しかし、1650年代に最初のヨーロッパ人がこの地へやって来たときには、フォート・エンシェント文化の人々はすでに姿を消していた。彼らが移住した正確な理由はいまもよくわかっていないが、史料からは天然痘などの伝染病（おそらく交易者によってもたらされた）がオハイオ川流域で何度も流行したことが読み取れる。また、近隣の社会がしだいに攻撃的になり、ビーバー戦争が東部からの暴力と拡張に火をつけたことも見逃せない。こうした外部からの圧力によってオハイオ川流域の危険性が増していき、それがフォート・エンシェント文化の人々に故郷にとどまるより移住することを選ばせたようだ。そして彼らの移動にともない、部族間の違いが薄まり、新たな民族集団が形成されていったのである。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_SHAWNEE_CHAPTER_HISTORY_PARA_4" Language="ja_JP">
+      <Text>ショーニーもこうした移行期に生まれた部族のひとつだ。かつてのフォート・エンシェント文化と同様に、ショーニーでも村は権力と忠誠の中心であり、民生を司る長と軍事を司る長がいた。季節の移り変わりを祝う儀式は重要視され、特に春と秋のパンの踊りは盛大に執りおこなわれた。ショーニーはさらにチャラグワサ、キスポコサ、メコチェ、ペコウィサ、タウェキラという5集団に分かれ、それぞれが部族全体のために特定の社会的役割を担っていた。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_SHAWNEE_CHAPTER_HISTORY_PARA_5" Language="ja_JP">
+      <Text>1674年に植民地時代の記録にはじめて登場したとき、ショーニーはすでに旅人だった。その後の数十年間、彼らは常にヨーロッパ人とネイティブアメリカンの接点に存在し、2つの世界の仲介者としてふるまった。ショーニーは東海岸に定住し、しばしば交易商人や通訳、外交官の役割を果たした。そのため、ショーニー語は交易の共通語となるほどだった。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_SHAWNEE_CHAPTER_HISTORY_PARA_6" Language="ja_JP">
+      <Text>18世紀が進むにつれ、白人入植者と先住民族の対立は激しさを増していった。多くのショーニーは、他のアルゴンキン系部族とともに、フォート・エンシェント文化の祖先がかつて暮らしていたオハイオ川流域に戻った。しかし、白人入植者は西へ領土を拡大しつづけ、先住民族を追い出した。ショーニーの戦士長の中には、こうした拡大に立ち向かう者もいた。とりわけ有名なのがテカムセだ。彼は部族間連合を結成してさまざまなネイティブアメリカンを団結させ、アメリカ合衆国の進出を撃退しようとした。1813年に彼が戦死すると連合は解散し、ショーニーは西へ西へと移動していった。今日では、ショーニー族、アブセンティー・ショーニー族、東部ショーニー族が連邦政府に承認され、主にオクラホマに居住している。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_IMPROVEMENT_MAWASKAWE_SKOTE_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>マワスカウェ・スコテ（「評議会の火」）は、部族内と部族間の話し合いの中心だ。歴史的には、ショーニー族全体に影響を与える決定が必要になると火が灯され、選ばれた代表者による徹底的な話し合いがおこなわれた。マワスカウェ・スコテは、利害関係者同士が発言の機会を与えられる相互尊重の場であり、火が消えないようにすることそのものが神聖な行為だった。今日でもマワスカウェ・スコテは、ショーニー族の伝統の重要な一部でありつづけている。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_SHAWNEE_MALEKI_KINTAKE_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>ショーニーの居住地は、自然の利を得られる地域に築かれることが多く、大抵はさまざまな資源が手に入る移行帯（異なる環境が接している場所）に位置していた。同時にショーニーは、必要に応じて土地を維持可能な形で作り変えた。こうしたマレキ・キンタケ（「計画的居住環境」）は、収穫できる食料を最大化すると同時に自然の恵みの再生と再繁殖を促進した。森林管理はこのプロセスにとって重要な要素だった。伐採と計画的な森林火災は余分な草木を取り除き、農地を生み出した。この空間では、ベリー類の低木やその他の野生の食料源の繁殖もうながされ、クマやシカなどの大型動物を惹きつけた。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_SHAWNEE_MIYASKA_LATOWEKI_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>ショーニーは移動しながらチェサピーク湾からサバンナ川流域にかけて居住地を築き、交易を推進した。彼らの存在感がいかに大きなものだったかは、東海岸一帯でショーニー語が主要な交易言語として用いられていたことからもうかがえる。ショーニー語は、中央アルゴンキン語族に属し、他部族や入植者にとっても習得しやすいと考えられていた。だからこそ、文化の壁を越えてコミュニケーションをとることが重要だった時代に、多種多様な人々を結びつけることができたのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_SHAWNEE_TELWATIKI_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>ショーニーの人口は少なかったが、それにもかかわらず初期のアメリカ合衆国の歴史に大きな影響を与えた主な理由は、彼らの優れた外交手腕にある。ショーニーはヨーロッパ人とネイティブアメリカンの世界の狭間で活躍し、他の部族の集落で共存し、交易商人やガイド、通訳などの仕事を通じてあらゆる方面と同盟関係を築いた。また、複雑な社会政治情勢を理解していたため、テラワティキ（互いに宴を催す慣習）を通じてその外交知識を最大限に活かすことができた。ショーニーは周囲の世界を動かすことで、部族の存続と繁栄を確かなものにしたのである。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_SHAWNEE_WYEHI_SIMEKOFI_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>ショーニーのコミュニティは、平等主義の一形態である「ウィイェヒ・シメコフィ」という哲学にもとづいて組織されていた。ほとんどの社会的地位は世襲ではなく、地位は功績や成し遂げたことによって決まった。統治は複数の政治的指導者によって分担されていた。民生の長はチャラガウサ族から選出され、その任期は終身だった。対して軍事の長は、個人的な能力と功績によって決まった。ショーニーの村落には、コミュニティの調停役であり導き手でもある長老評議会も存在していた。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_HOCEEPKILENI_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>ホシープキレニ（「呪術医」）は、ショーニーの宗教的指導者であった。物理的な世界と形而上学的な世界の仲介者であり、神聖な存在と共同体の関係を正しく導く存在だった。癒しはホシープキレニの重要な能力であり、肉体的な不具合の治療には薬とまじないの両方が用いられた。また、社会的な緊張や共同体の争いを解決し、住民間の不和を修復することもホシープキレニの役割だった。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_KISPOKO_NENA_TO_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>ショーニーの戦闘では、武勇だけでなく土地に関する知識も重要だった。キスポコ・ネナト（「戦士」）は、子供の頃から武器の扱いを学び、狩りを通じて森に精通していった。ショーニーの戦法は、待ち伏せと地形を利用した戦術的優位性の獲得に大きな重点を置いており、戦士たちは何日も茂みの中で身じろぎひとつせずに待ち、油断した敵の不意を突くことができた。鎧に邪魔されることなく素早く静かに移動し、森に溶け込み、いきなり姿を現して恐るべき攻撃をしかけるとまたすぐに姿を消す。こうした戦法は小規模な戦士団の戦闘能力を飛躍的に高め、はるかに大規模な敵軍を打ち負かすことを可能とした。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_SERPENT_MOUND_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>現在のオハイオ州の高原にある古代のクレーターには、先住民族によって築かれた、大蛇のように曲がりくねった墳丘がある。この地が選ばれた理由は、おそらくその珍しい地形だろう。紀元前320年から西暦1400年まで千年以上にわたり、さまざまな民族によって建設がつづけられてきた。墳丘はとぐろを巻いた蛇に見える一方で地形によくなじんでおり、その先端は卵にも見える楕円形の物体（神殿の遺跡）を飲みこもうとしている蛇の口のような形になっている。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_SERPENT_MOUND_CHAPTER_HISTORY_PARA_2" Language="ja_JP">
+      <Text>この時代の文字史料は存在しないため、この墳丘が何を目的としていたかは明らかになっていない。しかし、はるか昔から墳丘の建設をつづけてきた人々の神話には、巨大な蛇が登場する。たとえばミシシッピ文化圏（蛇形墳丘やこれに先行する文明とつながりはあるが、同一の文化ではない）はカホキアの巨大墳丘群で有名だが、角を持つ蛇はショーニー族などの神話にも登場するのである。</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_MAWASKAWE_SKOTE_NAME" Language="ja_JP">
+      <Text>マワスカウェ・スコテ</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_SERPENT_MOUND_NAME" Language="ja_JP">
+      <Text>蛇形墳丘</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_TECUMSEH_ANY" Language="ja_JP">
+      <Text>丁重に送り返してやろう。海なり、洞穴なり、お前たちが元いた場所へな。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_TECUMSEH_ANY" Language="ja_JP">
+      <Text>俺たちから取り上げる気か？ 大いなる精霊から授かった家と土地を？ 魂の故郷に帰った者の埋葬地を？ 断じて許さん！</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DEFEAT_AI_LEADER_TECUMSEH_ANY" Language="ja_JP">
+      <Text>死の歌が聞こえる。俺も歌おう。そして行くのだ、厳しい冬の雪が降る場所へ。そこにはお前の手も及ぶまい。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_TECUMSEH_ANY" Language="ja_JP">
+      <Text>稲妻のように夜空を駆ける星を見たことはあるか？ それが俺だ。我が名はテカムセ、千里を一跳びにする者だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_TECUMSEH_ANY" Language="ja_JP">
+      <Text>稲妻のように夜空を駆ける星を見たことはあるか？ それが俺だ。我が名はテカムセ、千里を一跳びにする者だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_TECUMSEH_ANY" Language="ja_JP">
+      <Text>稲妻のように夜空を駆ける星を見たことはあるか？ それが俺だ。我が名はテカムセ、千里を一跳びにする者だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_TECUMSEH" Language="ja_JP">
+      <Text>交渉成立だ。後悔させるなよ。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_TECUMSEH" Language="ja_JP">
+      <Text>断る。</Text>
+    </Replace>
+    <Replace Tag="LOC_MAIN_CHAR_SELECT_LEADER_TECUMSEH_ANY" Language="ja_JP">
+      <Text>俺の祖先はみな戦士だった。その息子たちも戦士だ。彼らから俺は命だけを授かった。俺を作り上げたのは俺自身だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_K_TEKANI_FIPI_NAME" Language="ja_JP">
+      <Text>クテカニ・フィピ</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_KILEKINIKA_FIPI_NAME" Language="ja_JP">
+      <Text>キレキニカ・フィピ</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_M_SIFIPIWIKI_NAME" Language="ja_JP">
+      <Text>ムシフィピウィキ</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_P_SIKFI_FIPI_NAME" Language="ja_JP">
+      <Text>プシクフィ・フィピ</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_PELEWA_FIPI_NAME" Language="ja_JP">
+      <Text>ペレワ・フィピ</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_MALEKI_KINTAKE_NAME" Language="ja_JP">
+      <Text>マレキ・キンタケ</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_MIYASKA_LATOWEKI_NAME" Language="ja_JP">
+      <Text>ミヤスカ・ラトウェキ</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TELWATIKI_NAME" Language="ja_JP">
+      <Text>テルワティキ</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_WYEHI_SIMEKOFI_NAME" Language="ja_JP">
+      <Text>ウィイェヒ・シメコフィ</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200B_NAME" Language="ja_JP">
+      <Text>この世に悪が栄えたためしはない。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200C_NAME" Language="ja_JP">
+      <Text>敵に打ち勝つには団結するしかない。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200D_NAME" Language="ja_JP">
+      <Text>この幻をどう解釈するかは人それぞれだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1201B_NAME" Language="ja_JP">
+      <Text>この幻は勝利への道を明らかにしている。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1201C_NAME" Language="ja_JP">
+      <Text>あの蛇はどうして焼け死ななかったんだ？</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1202B_NAME" Language="ja_JP">
+      <Text>パイプ自体が同盟にふさわしい贈り物だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1202C_NAME" Language="ja_JP">
+      <Text>さらなる交渉術が必要だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1203B_NAME" Language="ja_JP">
+      <Text>信徒が増えるということは兵士が増えるということだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1203C_NAME" Language="ja_JP">
+      <Text>この奇跡の話を広めなくてはならない。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1204B_NAME" Language="ja_JP">
+      <Text>戦士に用意をさせろ。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1204C_NAME" Language="ja_JP">
+      <Text>必ずしも血を流す必要はないかもしれない。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1205B_NAME" Language="ja_JP">
+      <Text>閉じる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1206B_NAME" Language="ja_JP">
+      <Text>若者たちの献身は明るい未来につながっている。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1206C_NAME" Language="ja_JP">
+      <Text>長老たちの懸念は尊重すべきだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1207B_NAME" Language="ja_JP">
+      <Text>閉じる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208B_NAME" Language="ja_JP">
+      <Text>閉じる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208C_NAME" Language="ja_JP">
+      <Text>閉じる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208D_NAME" Language="ja_JP">
+      <Text>閉じる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209B_NAME" Language="ja_JP">
+      <Text>閉じる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209C_NAME" Language="ja_JP">
+      <Text>閉じる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209D_NAME" Language="ja_JP">
+      <Text>閉じる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_TECUMSEH_NAME" Language="ja_JP">
+      <Text>テカムセ</Text>
+    </Replace>
+    <Replace Tag="LOC_1109C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_1109C_NAME" Language="ja_JP">
+      <Text>ショーニーの人々が集まるところ、タバコの青い煙が立ちのぼり、笑い声や話し声と混ざり合う。</Text>
+    </Replace>
+    <Replace Tag="LOC_1497A_COMPLETION" Language="ja_JP">
+      <Text>ショーニーの勢力が頂点にあった時代、民のために政治的な決断を下したのはチラコフェの長老たちだった。しかし、{1_civilization_adj}統治下における彼らの役割は明確ではない。{2_civilizations_adj}統治下にあるショーニーの中には、古いやり方に従う必要はないと感じている者もいるが、伝統に価値を見出す者もいる。</Text>
+    </Replace>
+    <Replace Tag="LOC_1497A_STORYTITLE" Language="ja_JP">
+      <Text>新たなショーニー</Text>
+    </Replace>
+    <Replace Tag="LOC_1497B_DESCRIPTION" Language="ja_JP">
+      <Text>スロットに収められているショーニーの伝統1つにつき、都市に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_1497B_NAME" Language="ja_JP">
+      <Text>長老の権威を保とう。</Text>
+    </Replace>
+    <Replace Tag="LOC_1497C_DESCRIPTION" Language="ja_JP">
+      <Text>ゴールド関連の建造物に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_1497C_NAME" Language="ja_JP">
+      <Text>新しいショーニーには新たな統治の形が必要だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_1498A_COMPLETION" Language="ja_JP">
+      <Text>今や{1_civilization_adj}政府内で活動する政党となったチラコフェの長老たちは、ショーニーにとって長年の課題であった狩り場に関する懸念を明らかにした。最近の都市部の浸食は、野生動物の生息域を激減させる恐れがあるというのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_1498A_STORYTITLE" Language="ja_JP">
+      <Text>森の権利</Text>
+    </Replace>
+    <Replace Tag="LOC_1498B_DESCRIPTION" Language="ja_JP">
+      <Text>都市に{1_reward}、ただし {2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_1498B_NAME" Language="ja_JP">
+      <Text>長老たちが森林を管理するのがよかろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_1498C_DESCRIPTION" Language="ja_JP">
+      <Text>物語は終わる。</Text>
+    </Replace>
+    <Replace Tag="LOC_1498C_NAME" Language="ja_JP">
+      <Text>そのような要求は考慮に値しない。</Text>
+    </Replace>
+    <Replace Tag="LOC_1499A_COMPLETION" Language="ja_JP">
+      <Text>{1_civilization_adj}ショーニーの若者が、テンスクワタワの教えを再発見した。長老たちの伝統的権威から離れて久しいショーニーの若者たちは、その教えを独自に解釈し、現在の時流に合うように再構築した。</Text>
+    </Replace>
+    <Replace Tag="LOC_1499A_STORYTITLE" Language="ja_JP">
+      <Text>ショーニールネサンス</Text>
+    </Replace>
+    <Replace Tag="LOC_1499B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_1499B_NAME" Language="ja_JP">
+      <Text>若い者にも良いものは良いとわかるのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_1499C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_1499C_NAME" Language="ja_JP">
+      <Text>ショーニーの歌がラジオから流れてくる。</Text>
+    </Replace>
+    <Replace Tag="LOC_1500A_COMPLETION" Language="ja_JP">
+      <Text>ショーニーの都市設計者が、新たな工業団地を計画している。だがチリコシーの長老たちは、何百年も昔から存在するマワスカウェ・スコテの場が破壊されることを案じている。</Text>
+    </Replace>
+    <Replace Tag="LOC_1500A_STORYTITLE" Language="ja_JP">
+      <Text>産業の進軍</Text>
+    </Replace>
+    <Replace Tag="LOC_1500B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。ただし{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_1500B_NAME" Language="ja_JP">
+      <Text>長老たちの進言を受け入れよう。</Text>
+    </Replace>
+    <Replace Tag="LOC_1500C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。ただし{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_1500C_NAME" Language="ja_JP">
+      <Text>長老たちの進言に耳を貸す必要はない。</Text>
+    </Replace>
+    <Replace Tag="LOC_1501A_COMPLETION" Language="ja_JP">
+      <Text>新たな時代には新たな物語が必要だ。歴史家たちは{1_civilization_adj}民に関する壮大な論考に着手した。ショーニーのホシープキレニたちは、自分たちの物語はどれくらい取り上げられるだろうかと思いを巡らせている。</Text>
+    </Replace>
+    <Replace Tag="LOC_1501A_STORYTITLE" Language="ja_JP">
+      <Text>民族神話</Text>
+    </Replace>
+    <Replace Tag="LOC_1501B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_1501B_NAME" Language="ja_JP">
+      <Text>ホシープキレニの物語は彼らの社会の内部に留めるべきだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_1501C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_1501C_NAME" Language="ja_JP">
+      <Text>ホシープキレニは記録を公開し、貢献するべきだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_3713A_COMPLETION" Language="ja_JP">
+      <Text>農民たちが畑から戻るのと時を同じくして、パンの踊りのためにショーニーの人々が集まってきた。女性が狩人の肉の横にトウモロコシのケーキを並べる。栽培した食料と採ってきた食料... 育てられた命と奪われた命。人々は踊り、歌い、腹を満たして未来をもたらしてくれる大地の恵みに感謝した。</Text>
+    </Replace>
+    <Replace Tag="LOC_3713A_STORYTITLE" Language="ja_JP">
+      <Text>変わりゆく季節</Text>
+    </Replace>
+    <Replace Tag="LOC_3713B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3713B_NAME" Language="ja_JP">
+      <Text>畑は恵みであふれている。</Text>
+    </Replace>
+    <Replace Tag="LOC_3713C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3713C_NAME" Language="ja_JP">
+      <Text>森には獲物がたくさんいる。</Text>
+    </Replace>
+    <Replace Tag="LOC_3713D_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3713D_NAME" Language="ja_JP">
+      <Text>誰もが祝宴を喜んでいる。</Text>
+    </Replace>
+    <Replace Tag="LOC_3714A_COMPLETION" Language="ja_JP">
+      <Text>農民たちが畑から戻るのと時を同じくして、パンの踊りのためにショーニーの人々が集まってきた。女性が狩人の肉の横にトウモロコシのケーキを並べる。栽培した食料と採ってきた食料... 育てられた命と奪われた命。人々は踊り、歌い、腹を満たして未来をもたらしてくれる大地の恵みに感謝した。</Text>
+    </Replace>
+    <Replace Tag="LOC_3714A_STORYTITLE" Language="ja_JP">
+      <Text>獲物不足</Text>
+    </Replace>
+    <Replace Tag="LOC_3714B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3714B_NAME" Language="ja_JP">
+      <Text>森に火を放とう。</Text>
+    </Replace>
+    <Replace Tag="LOC_3714C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3714C_NAME" Language="ja_JP">
+      <Text>木を間引けば問題は解決するだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_3715A_COMPLETION" Language="ja_JP">
+      <Text>ショーニーの人々はマワスカウェ・スコテに集まり、都市の人口増加について話し合った。幾人かの長は、人口密集地域では人々の生活が混じり合い、文化の多様性が低下していることに懸念を抱いている。</Text>
+    </Replace>
+    <Replace Tag="LOC_3715A_STORYTITLE" Language="ja_JP">
+      <Text>火を囲んでの話し合い</Text>
+    </Replace>
+    <Replace Tag="LOC_3715B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3715B_NAME" Language="ja_JP">
+      <Text>文化的な違いは維持されるべきだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_3715C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3715C_NAME" Language="ja_JP">
+      <Text>発展に干渉すべきではない。</Text>
+    </Replace>
+    <Replace Tag="LOC_3716A_COMPLETION" Language="ja_JP">
+      <Text>ホシープキレニが装備と薬の袋を準備する。彼の言葉と助言を多くの者が待っている。世界の真の姿に目を開いていない者たちもだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_3716A_STORYTITLE" Language="ja_JP">
+      <Text>古来の知恵</Text>
+    </Replace>
+    <Replace Tag="LOC_3716B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3716B_NAME" Language="ja_JP">
+      <Text>彼の知恵はショーニーにとって役立つだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_3716C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3716C_NAME" Language="ja_JP">
+      <Text>彼は外国へ旅するべきだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_3717A_COMPLETION" Language="ja_JP">
+      <Text>嘆き悲しむ者たちがキスポコ・ネナトの亡骸に歌を捧げてその勇敢さを思い起こさせ、その死の報復はいつ果たされるのかと訴えた。すると突然、悲鳴が上がった。敵が倒されたのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_3717A_STORYTITLE" Language="ja_JP">
+      <Text>命には命を</Text>
+    </Replace>
+    <Replace Tag="LOC_3717B_DESCRIPTION" Language="ja_JP">
+      <Text>キスポコ・ネナトに{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3717B_NAME" Language="ja_JP">
+      <Text>戦士の叫びよ、響き渡れ。</Text>
+    </Replace>
+    <Replace Tag="LOC_3717C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3717C_NAME" Language="ja_JP">
+      <Text>この埋め合わせをする必要がある。</Text>
+    </Replace>
+    <Replace Tag="LOC_3718A_COMPLETION" Language="ja_JP">
+      <Text>太鼓が打ち鳴らされるなか、ショーニーの戦士たちが戦いの準備をはじめる。食料と武器が集められる一方で、待ち構える苦難に向けて体を清めるために断食するのだ。湧きおこる喧騒。戦士たちが叫び、銃を撃ち、勝利を願って歌い、踊る... 彼らが敵を求めて出発すると、静寂が訪れた。</Text>
+    </Replace>
+    <Replace Tag="LOC_3718A_STORYTITLE" Language="ja_JP">
+      <Text>戦いの前夜</Text>
+    </Replace>
+    <Replace Tag="LOC_3718B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3718B_NAME" Language="ja_JP">
+      <Text>閉じる。</Text>
+    </Replace>
+    <Replace Tag="LOC_3719A_COMPLETION" Language="ja_JP">
+      <Text>ショーニーの銀細工師に注文が殺到している。指輪、ブレスレット、イヤリング、皿... 誰もが美しい細工品を求めているのだ。どの居住地も、やがて月よりも明るく輝くことになるだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_3719A_STORYTITLE" Language="ja_JP">
+      <Text>銀の編み手</Text>
+    </Replace>
+    <Replace Tag="LOC_3719B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3719B_NAME" Language="ja_JP">
+      <Text>銀はどれだけあっても多すぎることはない。</Text>
+    </Replace>
+    <Replace Tag="LOC_3719C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3719C_NAME" Language="ja_JP">
+      <Text>こうした傑作の輸出をはじめるべきだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_3720A_COMPLETION" Language="ja_JP">
+      <Text>世界中の都市がショーニーの製品をわれもわれもと求めている。交易商は市場から市場へ飛び回り、買い手の機嫌を取ったり故郷の話をしたりと大忙しだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_3720A_STORYTITLE" Language="ja_JP">
+      <Text>話好きな商人</Text>
+    </Replace>
+    <Replace Tag="LOC_3720B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3720B_NAME" Language="ja_JP">
+      <Text>彼らは言葉を富に変える。</Text>
+    </Replace>
+    <Replace Tag="LOC_3720C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3720C_NAME" Language="ja_JP">
+      <Text>新たな友情は道を開く。</Text>
+    </Replace>
+    <Replace Tag="LOC_3721A_COMPLETION" Language="ja_JP">
+      <Text>ショーニーの戦士が狩りの成功を祝っているが、年長者たちは若者たちが獲物にきちんと感謝しているのかいぶかしんでいる。</Text>
+    </Replace>
+    <Replace Tag="LOC_3721A_STORYTITLE" Language="ja_JP">
+      <Text>森の恵み</Text>
+    </Replace>
+    <Replace Tag="LOC_3721B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3721B_NAME" Language="ja_JP">
+      <Text>伝統を守り、忘れられないようにするべきだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_3721C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3721C_NAME" Language="ja_JP">
+      <Text>動物が増え、森の豊かさを保ってくれていることに感謝しなければ。</Text>
+    </Replace>
+    <Replace Tag="LOC_3722A_COMPLETION" Language="ja_JP">
+      <Text>ショーニーの動物園は各地からやって来た人々で大盛況だ。動物たちは美しく、誰もがその奇妙な姿かたちに目を輝かせている。しかし、風変わりな動物たちの中にただ一つ見慣れた姿があった。七面鳥だ。七面鳥は昔から崇められ、彼らの暮らしに欠かせない存在なのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_3722A_STORYTITLE" Language="ja_JP">
+      <Text>ペレワ</Text>
+    </Replace>
+    <Replace Tag="LOC_3722B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3722B_NAME" Language="ja_JP">
+      <Text>動物の価値はすべて同じだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_3722C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3722C_NAME" Language="ja_JP">
+      <Text>七面鳥には他にない良さがある。</Text>
+    </Replace>
+    <Replace Tag="LOC_3723A_COMPLETION" Language="ja_JP">
+      <Text>彗星が夜空を横切り、星を観察していた者たちは天を指さした。彼らがテカムセを振り返ると、その目には星々の間を駆ける天空の豹が映っていた。彼は誇りに満ちた様子で、自分の名の由来が光の軌跡を残して消えるのをじっと見守った。</Text>
+    </Replace>
+    <Replace Tag="LOC_3723A_STORYTITLE" Language="ja_JP">
+      <Text>豹の道</Text>
+    </Replace>
+    <Replace Tag="LOC_3723B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3723B_NAME" Language="ja_JP">
+      <Text>幸運が人々を待っているだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_3723C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3723C_NAME" Language="ja_JP">
+      <Text>次の狩りは大猟になるだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_3724A_COMPLETION" Language="ja_JP">
+      <Text>議論を尽くした後、この地の長たちはテカムセの同盟に加わらないことを決めた。言い争いに疲れた彼らは、場の雰囲気を和ませようと、パイプを差し出した。しかし進展がないことに失望したテカムセは、そっとパイプをつまむと、滑らかな動きでそれを二つに折って火に投げ込んだ。「もう一度か？」 同族の戦士たちにも再考を求められ、長の一人はため息をついた。「いいだろう...」</Text>
+    </Replace>
+    <Replace Tag="LOC_3724A_STORYTITLE" Language="ja_JP">
+      <Text>交渉戦術</Text>
+    </Replace>
+    <Replace Tag="LOC_3724B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3724B_NAME" Language="ja_JP">
+      <Text>閉じる。</Text>
+    </Replace>
+    <Replace Tag="LOC_3725A_COMPLETION" Language="ja_JP">
+      <Text>今や長たちは、テカムセの統合の試みを警戒するようになっている。2つの都市国家で十分だ。人々の運命と決断は、彼ら自身にゆだねればよいではないか。それが彼らの言い分だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_3725A_STORYTITLE" Language="ja_JP">
+      <Text>内からの異論</Text>
+    </Replace>
+    <Replace Tag="LOC_3725B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3725B_NAME" Language="ja_JP">
+      <Text>真の力は団結から生まれる。</Text>
+    </Replace>
+    <Replace Tag="LOC_3725C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}、ただし独立勢力との関係-2。</Text>
+    </Replace>
+    <Replace Tag="LOC_3725C_NAME" Language="ja_JP">
+      <Text>拡大はもう十分だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_3726A_COMPLETION" Language="ja_JP">
+      <Text>敵が進軍し、テカムセの民の土地は縮小した。居住地を失ったことに激怒したテカムセは、境界の外の領域にも結集を求め、行動を起こそうとしない者たち（そして彼が倒れれば次は自分たちが倒れることになる者たち）に訴えかけた。</Text>
+    </Replace>
+    <Replace Tag="LOC_3726A_STORYTITLE" Language="ja_JP">
+      <Text>迫り来る敵</Text>
+    </Replace>
+    <Replace Tag="LOC_3726B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3726B_NAME" Language="ja_JP">
+      <Text>戦いつづける者の未来には勝利のみが待っている。</Text>
+    </Replace>
+    <Replace Tag="LOC_3726C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3726C_NAME" Language="ja_JP">
+      <Text>大義のため、立場の違いはいったん横に置くべきだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_3727A_COMPLETION" Language="ja_JP">
+      <Text>大国が戦場で激突する中、都市国家は傍観の姿勢を保つか、一か八か自分たちも参戦すべきか、決めかねていた。しかし常に警戒を怠らなかったテカムセであれば、彼らに代わって決断を下してくれるだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_3727A_STORYTITLE" Language="ja_JP">
+      <Text>戦争への招待</Text>
+    </Replace>
+    <Replace Tag="LOC_3727B_DESCRIPTION" Language="ja_JP">
+      <Text>「軍備増強」アクションに必要な影響力が減少する。</Text>
+    </Replace>
+    <Replace Tag="LOC_3727B_NAME" Language="ja_JP">
+      <Text>黒い貝殻玉のベルトを送ろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_3727C_DESCRIPTION" Language="ja_JP">
+      <Text>「成長の促進」アクションに必要な影響力が減少する。</Text>
+    </Replace>
+    <Replace Tag="LOC_3727C_NAME" Language="ja_JP">
+      <Text>白い貝殻玉のベルトを送ろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_3728A_COMPLETION" Language="ja_JP">
+      <Text>戦士たちに家を荒らされ、なすすべもなくうずくまる人々。しかし、彼らが罪なき者まで捕虜にしようとしたとき、テカムセが手を上げた。</Text>
+    </Replace>
+    <Replace Tag="LOC_3728A_STORYTITLE" Language="ja_JP">
+      <Text>非戦闘員</Text>
+    </Replace>
+    <Replace Tag="LOC_3728B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3728B_NAME" Language="ja_JP">
+      <Text>すでに血は十分に流された。</Text>
+    </Replace>
+    <Replace Tag="LOC_3728C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3728C_NAME" Language="ja_JP">
+      <Text>奪うのは貴重品だけにしろ。</Text>
+    </Replace>
+    <Replace Tag="LOC_3729A_COMPLETION" Language="ja_JP">
+      <Text>戦士たちが勝利の雄叫びをあげ、敵は彼らの憤怒に屈した。またしてもテカムセの作戦が成功したのだ。テカムセに励まされ、ショーニーは再び景色にまぎれて次の攻撃にそなえた。</Text>
+    </Replace>
+    <Replace Tag="LOC_3729A_STORYTITLE" Language="ja_JP">
+      <Text>戦士長</Text>
+    </Replace>
+    <Replace Tag="LOC_3729B_DESCRIPTION" Language="ja_JP">
+      <Text>キスポコ・ネナトに{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3729B_NAME" Language="ja_JP">
+      <Text>素早く襲えば敵は倒れる。</Text>
+    </Replace>
+    <Replace Tag="LOC_3729C_DESCRIPTION" Language="ja_JP">
+      <Text>キスポコ・ネナトに{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3729C_NAME" Language="ja_JP">
+      <Text>渾身の一撃を防ぐことは難しい。</Text>
+    </Replace>
+    <Replace Tag="LOC_3730A_COMPLETION" Language="ja_JP">
+      <Text>2人の長が互いに忠誠を誓い合い、テカムセは名誉と友情の証を受け取った... 新たな味方の軍服についていたサッシュだ。サッシュそのものも貴重だが、それを渡すという行為の価値は計り知れない。</Text>
+    </Replace>
+    <Replace Tag="LOC_3730A_STORYTITLE" Language="ja_JP">
+      <Text>名誉ある贈り物</Text>
+    </Replace>
+    <Replace Tag="LOC_3730B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3730B_NAME" Language="ja_JP">
+      <Text>このサッシュを誰もが見られるように展示しよう。</Text>
+    </Replace>
+    <Replace Tag="LOC_3730C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3730C_NAME" Language="ja_JP">
+      <Text>このサッシュは他の同盟国への贈り物にしよう。</Text>
+    </Replace>
+    <Replace Tag="LOC_3731A_COMPLETION" Language="ja_JP">
+      <Text>建物が増え、大都市が自然を侵食している。多くのものが誰かの所有物になってしまったが、テカムセにとって大地は今もすべての人々のものだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_3731A_STORYTITLE" Language="ja_JP">
+      <Text>自然と文明の合間</Text>
+    </Replace>
+    <Replace Tag="LOC_3731B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3731B_NAME" Language="ja_JP">
+      <Text>自然が与えてくれる贈り物はまだまだ多い。</Text>
+    </Replace>
+    <Replace Tag="LOC_3731C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3731C_NAME" Language="ja_JP">
+      <Text>大地は平和であらねばならない。</Text>
+    </Replace>
+    <Replace Tag="LOC_3732A_COMPLETION" Language="ja_JP">
+      <Text>テカムセは目の前の秘宝を眺めた。それらは微動だにしないが、過去の声、秘宝が見てきた光景、語ることのできる物語が静寂の中から聞こえてくる。そう、これらは人類の声なのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_3732A_STORYTITLE" Language="ja_JP">
+      <Text>歴史の残響</Text>
+    </Replace>
+    <Replace Tag="LOC_3732B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3732B_NAME" Language="ja_JP">
+      <Text>これらは一緒に保管されるべきだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_3732C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_3732C_NAME" Language="ja_JP">
+      <Text>秘宝が増えれば声も増えるだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200A_COMPLETION" Language="ja_JP">
+      <Text>新たな予言者が、死にも似た眠りから目覚めた。生まれ変わった彼は、幻視した分かれ道について語った。その一方は喜びに、もう一方は悲嘆へとつながっている、と。さらに彼は「命を司る者」から自身を通じて伝えられた警告を繰り返した。贖えない悪もあるが、未来を救うことはまだ可能だという。テカムセは予言者の声に注意深く耳を傾けた。そして手を差し伸べ、弟を立ち上がらせた。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200A_STORYTITLE" Language="ja_JP">
+      <Text>開かれる扉</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200B_COMPLETION" Language="ja_JP">
+      <Text>敵は周囲の荒野に逃げ、テカムセの戦士たちは勝利を祝った。焚き火の周りでは、戦場について語り合い、新たな明日に思いを馳せるいくつもの声が、時に高く、時に低く響いている。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200B_IMPERATIVE" Language="ja_JP">
+      <Text>ユニットを3つ倒す</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200B_STORYTITLE" Language="ja_JP">
+      <Text>開かれる扉</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200C_COMPLETION" Language="ja_JP">
+      <Text>見知らぬ者たちが街をさまよい歩き、見慣れない光景や驚くべき品々に見入っている。だが、それは長くはつづかない。テカムセの民は、新顔を歓迎し、親しい友とするすべを知っているのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200C_IMPERATIVE" Language="ja_JP">
+      <Text>独立勢力の宗主国になる</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200C_STORYTITLE" Language="ja_JP">
+      <Text>開かれる扉</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200D_DESCRIPTION" Language="ja_JP">
+      <Text>すべての居住地に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1200D_STORYTITLE" Language="ja_JP">
+      <Text>開かれる扉</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1201A_COMPLETION" Language="ja_JP">
+      <Text>二列に並んで向かい合う戦士たちを、夜闇に燃える聖なる炎が照らす。彼らは迫りくる戦いに向け、声を合わせて歓声を上げる。だが、テカムセの眼差しは唐突に彼の軍団を離れ、炎へと向けられる。沈黙が落ちる中、一匹の蛇が火の中から現れた。蛇がさっと闇へ逃げ込むと、戦士たちは前にも増して大きな声で再び喚声を上げた。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1201A_STORYTITLE" Language="ja_JP">
+      <Text>散らばった燃えさし</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1201B_COMPLETION" Language="ja_JP">
+      <Text>職人たちは蛇の像を彫り、子供たちはその細長い姿を地面に描く。炎から現れた蛇が勝利の予兆であることを、皆が知っているのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1201B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1201B_IMPERATIVE" Language="ja_JP">
+      <Text>居住地を占領する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1201B_STORYTITLE" Language="ja_JP">
+      <Text>散らばった燃えさし</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1201C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1201C_STORYTITLE" Language="ja_JP">
+      <Text>散らばった燃えさし</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1202A_COMPLETION" Language="ja_JP">
+      <Text>テカムセが煙を大きく吸い込むと、トマホークパイプから細い煙がたなびく。くすぶるキニキニックが約束するのは、友好と団結による新たな始まりだ。だが、利益を得るのは誰なのだろう？</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1202A_STORYTITLE" Language="ja_JP">
+      <Text>儀式用のパイプ</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1202B_COMPLETION" Language="ja_JP">
+      <Text>テカムセのトマホークパイプが、手から手へと回される。ここに新たな友情が生まれた。これから到来する嵐を耐え抜く強力な同盟だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1202B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1202B_IMPERATIVE" Language="ja_JP">
+      <Text>他の文明と同盟する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1202B_STORYTITLE" Language="ja_JP">
+      <Text>儀式用のパイプ</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1202C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1202C_STORYTITLE" Language="ja_JP">
+      <Text>儀式用のパイプ</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1203A_COMPLETION" Language="ja_JP">
+      <Text>予言者は、彼が「命を司る者」から授かった力の証を見せるため、各地から人々を呼び寄せた。待ちわびる群衆の前に堂々と立ち、テカムセは彼の弟が幻視した伝言を繰り返す。「変化が訪れようとしているが、団結によってすべての困難は乗り越えられるだろう」。突然、予言者が予告したとおりに空が暗くなり、太陽が姿を消した。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1203A_STORYTITLE" Language="ja_JP">
+      <Text>黒い太陽</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1203B_DESCRIPTION" Language="ja_JP">
+      <Text>物語はつづく。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1203B_STORYTITLE" Language="ja_JP">
+      <Text>黒い太陽</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1203C_DESCRIPTION" Language="ja_JP">
+      <Text>物語はつづく。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1203C_STORYTITLE" Language="ja_JP">
+      <Text>黒い太陽</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1204A_COMPLETION" Language="ja_JP">
+      <Text>敵軍が近づき、人々が避難の準備を進める中、予言者の使者が敵陣を訪れ、和平交渉の準備のために近くに腰を落ち着けるよう説得した。このわずかな猶予の間に、テカムセは戦争の約束と平和の利点とを天秤にかけた。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1204A_STORYTITLE" Language="ja_JP">
+      <Text>戦闘前夜</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1204B_COMPLETION" Language="ja_JP">
+      <Text>戦士たちの憤怒の前に敵兵が倒れ伏していく。これで平和の世がもたらされるだろう。テカムセの手によって。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1204B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1204B_IMPERATIVE" Language="ja_JP">
+      <Text>敵の司令官を倒す</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1204B_STORYTITLE" Language="ja_JP">
+      <Text>戦闘前夜</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1204C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1204C_STORYTITLE" Language="ja_JP">
+      <Text>戦闘前夜</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1205A_COMPLETION" Language="ja_JP">
+      <Text>魔女や魔法使いの噂が広まり、テカムセの社会を根本から脅かしている。予言者はその勢力の拡大に警鐘を鳴らしているが、不満を持つ者たちに対処する方法は他にもある。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1205A_STORYTITLE" Language="ja_JP">
+      <Text>内部分裂</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1205B_COMPLETION" Language="ja_JP">
+      <Text>テカムセへの民の信頼が高まるにつれ、魔女への恐怖はおさまっていった。民の不安が静まると、喜びに満ちた日々が戻ってきた。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1205B_DESCRIPTION" Language="ja_JP">
+      <Text>すべての居住地に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1205B_IMPERATIVE" Language="ja_JP">
+      <Text>外交制裁を3回開始する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1205B_STORYTITLE" Language="ja_JP">
+      <Text>内部分裂</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1206A_COMPLETION" Language="ja_JP">
+      <Text>テカムセは新たな隣人に炎と思いやりの両方を持って接する。彼らの土地は彼らのものであり、彼らの慣習も同様だとテカムセは宣言した。しかし、土地と慣習を維持するためには団結が必要であり、団結には力が欠かせない。若き戦士たちは彼が約束する栄誉に耳をそばだてているが、年長者たちは本当にこれが過去を未来につなぐ道なのか確信を持てないでいる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1206A_STORYTITLE" Language="ja_JP">
+      <Text>新たな土地の探索</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1206B_COMPLETION" Language="ja_JP">
+      <Text>近隣の戦士たちがテカムセの居住地に集まり、世界に打って出る準備を整えている。戦士たちがともに声を張り上げるとき、彼らの歌はまじり合い、団結の旋律となる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1206B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1206B_IMPERATIVE" Language="ja_JP">
+      <Text>独立勢力の宗主国になる</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1206B_STORYTITLE" Language="ja_JP">
+      <Text>新たな土地の探索</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1206C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1206C_STORYTITLE" Language="ja_JP">
+      <Text>新たな土地の探索</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1207A_COMPLETION" Language="ja_JP">
+      <Text>大地が人に戦いを挑む中、多くの者がこうした災害は「命を司る者」の怒りの顕れではないかと恐れている。かつて予言者の教えを疑った者たちも、今では彼を信奉するようになっている。テカムセはこの新しい支持者たちを歓迎したのち、その気づきを広めさせるため、あらためて彼らを世に送り出した。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1207A_STORYTITLE" Language="ja_JP">
+      <Text>揺れる大地</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1207B_COMPLETION" Language="ja_JP">
+      <Text>大勢の祈りは一人の祈りよりも強い。予言者は怒れる大地をなだめるために世界各地の信者たちを導き、大地はその祈りに耳を傾けた。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1207B_DESCRIPTION" Language="ja_JP">
+      <Text>すべての居住地に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1207B_IMPERATIVE" Language="ja_JP">
+      <Text>自分が創始した宗教を信奉する居住地を4つ保有する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1207B_STORYTITLE" Language="ja_JP">
+      <Text>揺れる大地</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208A_COMPLETION" Language="ja_JP">
+      <Text>テカムセの軍は敵を排除し、民の安全を確保しながら進軍した。戦争はつづいているが、テカムセの指導力が民の絆を強める一方で、人々の団結はテカムセの力となっている。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208A_STORYTITLE" Language="ja_JP">
+      <Text>一致団結</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208B_COMPLETION" Language="ja_JP">
+      <Text>一致団結した軍団の前に敵の首都は陥落した。街のあちこちで兵士たちが勝利の雄たけびを上げる。歓声は徐々に集約されていき、やがて彼らは声を合わせて叫んだ。「テカムセ！」、と。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208B_IMPERATIVE" Language="ja_JP">
+      <Text>敵の首都を占領する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208B_STORYTITLE" Language="ja_JP">
+      <Text>一致団結</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208C_STORYTITLE" Language="ja_JP">
+      <Text>一致団結</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208D_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}を得て祝宴に入る。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1208D_STORYTITLE" Language="ja_JP">
+      <Text>一致団結</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209A_COMPLETION" Language="ja_JP">
+      <Text>テカムセの大義に賛同する者はひきもきらない。日々、多くの者が彼の門をくぐり、遠方からの書状も多数届いている。だが、世界が混迷の度を増せば、さらに多くの者が彼に導きを求めることだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209A_STORYTITLE" Language="ja_JP">
+      <Text>団結した民</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209B_COMPLETION" Language="ja_JP">
+      <Text>テカムセは民の繁栄を見守った。さまざまな人々が今や一つになっている。予言者が見た未来が現実になったのだ。新たな地平線が目の前に広がっているが、「命を司る者」の導きの手が道を照らしてくれるだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209B_IMPERATIVE" Language="ja_JP">
+      <Text>交易路を4つ保有する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209B_STORYTITLE" Language="ja_JP">
+      <Text>団結した民</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209C_STORYTITLE" Language="ja_JP">
+      <Text>団結した民</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209D_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}を得て祝宴に入る。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1209D_STORYTITLE" Language="ja_JP">
+      <Text>団結した民</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_TECUMSEH_SUZERAIN_DESCRIPTION" Language="ja_JP">
+      <Text>宗主国になっている都市国家1つにつき戦闘力+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_TECUMSEH_L1_DESCRIPTION" Language="ja_JP">
+      <Text>すべてのユニットの区域に対する戦闘力+5。</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_TECUMSEH_L1_NAME" Language="ja_JP">
+      <Text>軍事属性ノード</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_TECUMSEH_L2_DESCRIPTION" Language="ja_JP">
+      <Text>外交努力を開始または支持することにより関係+25%。制裁を開始または外交努力を拒否することにより関係-25%。</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_TECUMSEH_L2_NAME" Language="ja_JP">
+      <Text>外交属性ノード</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_TECUMSEH_NAME" Language="ja_JP">
+      <Text>テカムセのバッジ1</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_TECUMSEH_P_NAME" Language="ja_JP">
+      <Text>テカムセのバッジ2</Text>
+    </Replace>
+    <Replace Tag="LOC_BANNER_TECUMSEH_NAME" Language="ja_JP">
+      <Text>テカムセのバナー</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_TECUMSEH_1_DESCRIPTION" Language="ja_JP">
+      <Text>この時代の海洋ユニットの戦闘力+3、ただし [icon:YIELD_DIPLOMACY] 影響力-10%</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_TECUMSEH_1_NAME" Language="ja_JP">
+      <Text>テカムセ 探検の時代 伝説 軍事</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_TECUMSEH_2_DESCRIPTION" Language="ja_JP">
+      <Text>この時代の [icon:YIELD_DIPLOMACY] 影響力+15%、ただし海洋ユニットの戦闘力-2</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_TECUMSEH_2_NAME" Language="ja_JP">
+      <Text>テカムセ 探検の時代 伝説 外交</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_TECUMSEH_1_DESCRIPTION" Language="ja_JP">
+      <Text>この時代の航空ユニットの戦闘力+3、ただし [icon:YIELD_DIPLOMACY] 影響力-10%</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_TECUMSEH_1_NAME" Language="ja_JP">
+      <Text>テカムセ 近代 伝説 軍事</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_TECUMSEH_2_DESCRIPTION" Language="ja_JP">
+      <Text>この時代の [icon:YIELD_DIPLOMACY] 影響力+15%、ただし航空ユニットの戦闘力-2</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_TECUMSEH_2_NAME" Language="ja_JP">
+      <Text>テカムセ 近代 伝説 外交</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_MALEKI_KINTAKE_QUOTE" Language="ja_JP">
+      <Text>「我々は地球なしには生きられないが、地球は我々なしでも生きられる」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_MALEKI_KINTAKE_QUOTE_AUTHOR" Language="ja_JP">
+      <Text>エボ・モラレス</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_MIYASKA_LATOWEKI_QUOTE" Language="ja_JP">
+      <Text>「商人の子よ、ゆめゆめ忘れてはならない。お前の望むことは戦争にとって敵なのだということを」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_MIYASKA_LATOWEKI_QUOTE_AUTHOR" Language="ja_JP">
+      <Text>ハムザ・ファンスーリー</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TELWATIKI_QUOTE" Language="ja_JP">
+      <Text>「宇宙は影絵、太陽のまわりをめぐる幻の走馬灯」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TELWATIKI_QUOTE_AUTHOR" Language="ja_JP">
+      <Text>ウマル・ハイヤーム</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_WYEHI_SIMEKOFI_QUOTE" Language="ja_JP">
+      <Text>「一本一本は小さな枝が集まり、大きな束となる」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_WYEHI_SIMEKOFI_QUOTE_AUTHOR" Language="ja_JP">
+      <Text>ウガンダのことわざ</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_SHAWNEE_DESCRIPTION" Language="ja_JP">
+      <Text>航行可能な河川に隣接した居住地は、河川地形の [icon:YIELD_FOOD] 食料+2。ただし、航行可能な河川に隣接していない都市の [icon:YIELD_FOOD] 食料-10%。</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_MAWASKAWE_SKOTE_DESCRIPTION" Language="ja_JP">
+      <Text>[icon:YIELD_FOOD] 食料+4。隣接する資源1つにつき [icon:YIELD_GOLD] ゴールド+1。ショーニー固有の施設。時代を問わない。タイルの倉庫ボーナスは取り除かれない。他のマワスカウェ・スコテに隣接していない樹草地形に配置する必要がある。</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_MAWASKAWE_SKOTE_TOOLTIP" Language="ja_JP">
+      <Text>ショーニー固有の施設。時代を問わない。タイルの倉庫ボーナスは取り除かれない。他のマワスカウェ・スコテに隣接していない樹草地形に配置する必要がある。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_TECUMSEH_DESCRIPTION" Language="ja_JP">
+      <Text>宗主国になっている [icon:CITYSTATE] 都市国家1つにつき、時代ごとの居住地の [icon:YIELD_FOOD] 食料と [icon:YIELD_PRODUCTION] 生産力+1。宗主国になっている [icon:CITYSTATE] 都市国家1つにつき、すべてのユニットの [icon:NAR_REW_COMBAT] 戦闘力+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_SHAWNEE" Language="ja_JP">
+      <Text>ショーニーは卓越した外交官であり、破局は不可避と思える状況にあってさえ、はるか遠方まで徒歩で赴き、対立する者同士の仲を取り持つ。戦士たちが見守る中、呪術医は集会の場へ集うすべての者に呼びかける。弁論に耳を傾けよ、そして一致団結して立ち上がれ、と。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_SHAWNEE" Language="ja_JP">
+      <Text>伝統「カウフェ・パフコタウェタ」で居住地を嵐の猛威から守り、むしろ嵐の到来から追加の文化力やゴールドを得られるようにしましょう。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_LEADER_INTRO_TEXT_TECUMSEH" Language="ja_JP">
+      <Text>テカムセよ、汝は分断があれば団結を呼びかけ、不和があれば分別を促す。偉大なる長よ、あらゆる土地の民を自らのもとへ呼び寄せるのだ。団結によって彼らの力が増し、やがて訪れる嵐に耐えられるように。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_VO_SHAWNEE" Language="ja_JP">
+      <Text>森に春が訪れる。ショーニーは団結し、支配という遺産を作り上げるだろう</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_POTESKWATE_DESCRIPTION" Language="ja_JP">
+      <Text>木のすり鉢とすりこぎ。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_POTESKWATE_FUNCTIONAL_DESCRIPTION" Language="ja_JP">
+      <Text>宗主国になっている都市国家1つにつき時代ごとの居住地の [icon:YIELD_FOOD] 食料+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_POTESKWATE_NAME" Language="ja_JP">
+      <Text>ポテスクワテ</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_POTESKWATE_UNLOCK_TITLE" Language="ja_JP">
+      <Text>テカムセがレベル2で解除</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_WAMPUM_BELT_DESCRIPTION" Language="ja_JP">
+      <Text>連帯の象徴。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_WAMPUM_BELT_FUNCTIONAL_DESCRIPTION" Language="ja_JP">
+      <Text>宗主国になっている都市国家1つにつき時代ごとの居住地の [icon:YIELD_PRODUCTION] 生産力+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_WAMPUM_BELT_NAME" Language="ja_JP">
+      <Text>ワンプムの帯</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_WAMPUM_BELT_UNLOCK_TITLE" Language="ja_JP">
+      <Text>テカムセがレベル9で解除</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_WARCLUB_DESCRIPTION" Language="ja_JP">
+      <Text>これ以上寝てはならぬ。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_WARCLUB_FUNCTIONAL_DESCRIPTION" Language="ja_JP">
+      <Text>宗主国になっている都市国家1つにつきすべてのユニットの戦闘力+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_WARCLUB_NAME" Language="ja_JP">
+      <Text>戦棍</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_WARCLUB_UNLOCK_TITLE" Language="ja_JP">
+      <Text>テカムセがレベル5で解除</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_SHAWNEE_COMPLETE_SERPENT_MOUND_DESC" Language="ja_JP">
+      <Text>ショーニーでプレイし、蛇形墳丘を完成させる</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_SHAWNEE_COMPLETE_SERPENT_MOUND_NAME" Language="ja_JP">
+      <Text>蛇形墳丘</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_SHAWNEE_LEGACY_PATH_ECONOMIC_DESC" Language="ja_JP">
+      <Text>ショーニーでプレイし、経済レガシーパスを完了する</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_SHAWNEE_LEGACY_PATH_ECONOMIC_NAME" Language="ja_JP">
+      <Text>ショーニーのレガシーパス</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_ANTIQUITY_2_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、古代を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_ANTIQUITY_2_NAME" Language="ja_JP">
+      <Text>古代の完了2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_ANTIQUITY_3_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、古代を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_ANTIQUITY_3_NAME" Language="ja_JP">
+      <Text>古代の完了3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_ANTIQUITY_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、古代を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_ANTIQUITY_NAME" Language="ja_JP">
+      <Text>古代の完了</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_EXPLORATION_2_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、探検の時代を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_EXPLORATION_2_NAME" Language="ja_JP">
+      <Text>探検の時代の完了2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_EXPLORATION_3_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、探検の時代を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_EXPLORATION_3_NAME" Language="ja_JP">
+      <Text>探検の時代の完了3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_EXPLORATION_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、探検の時代を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_EXPLORATION_NAME" Language="ja_JP">
+      <Text>探検の時代の完了</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_MODERN_2_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、近代を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_MODERN_2_NAME" Language="ja_JP">
+      <Text>近代の完了2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_MODERN_3_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、近代を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_MODERN_3_NAME" Language="ja_JP">
+      <Text>近代の完了3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_MODERN_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、近代を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_AGE_COMPLETED_MODERN_NAME" Language="ja_JP">
+      <Text>近代の完了</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_ANTIQUITY_2_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「古代世界の遺産」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_ANTIQUITY_2_NAME" Language="ja_JP">
+      <Text>古代世界の遺産2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_ANTIQUITY_3_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「古代世界の遺産」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_ANTIQUITY_3_NAME" Language="ja_JP">
+      <Text>古代世界の遺産3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_ANTIQUITY_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「古代世界の遺産」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_ANTIQUITY_NAME" Language="ja_JP">
+      <Text>古代世界の遺産</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_EXPLORATION_2_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「トシャカーナ」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_EXPLORATION_2_NAME" Language="ja_JP">
+      <Text>トシャカーナ2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_EXPLORATION_3_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「トシャカーナ」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_EXPLORATION_3_NAME" Language="ja_JP">
+      <Text>トシャカーナ3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_EXPLORATION_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「トシャカーナ」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_EXPLORATION_NAME" Language="ja_JP">
+      <Text>トシャカーナ</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_MODERN_2_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「地理的社会」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_MODERN_2_NAME" Language="ja_JP">
+      <Text>地理的社会2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_MODERN_3_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「地理的社会」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_MODERN_3_NAME" Language="ja_JP">
+      <Text>地理的社会3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_MODERN_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「地理的社会」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_CULTURE_VICTORY_MODERN_NAME" Language="ja_JP">
+      <Text>地理的社会</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_ANTIQUITY_2_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「シルクロード」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_ANTIQUITY_2_NAME" Language="ja_JP">
+      <Text>シルクロード2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_ANTIQUITY_3_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「シルクロード」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_ANTIQUITY_3_NAME" Language="ja_JP">
+      <Text>シルクロード3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_ANTIQUITY_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「シルクロード」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_ANTIQUITY_NAME" Language="ja_JP">
+      <Text>シルクロード</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_EXPLORATION_2_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「財宝船団」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_EXPLORATION_2_NAME" Language="ja_JP">
+      <Text>財宝船団2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_EXPLORATION_3_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「財宝船団」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_EXPLORATION_3_NAME" Language="ja_JP">
+      <Text>財宝船団3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_EXPLORATION_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「財宝船団」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_EXPLORATION_NAME" Language="ja_JP">
+      <Text>財宝船団</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_MODERN_2_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「鉄道王」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_MODERN_2_NAME" Language="ja_JP">
+      <Text>鉄道王2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_MODERN_3_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「鉄道王」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_MODERN_3_NAME" Language="ja_JP">
+      <Text>鉄道王3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_MODERN_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「鉄道王」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_ECONOMIC_VICTORY_MODERN_NAME" Language="ja_JP">
+      <Text>鉄道王</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_FLAWLESS_VICTORY_ANTIQUITY_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、1回の古代でレガシーパスを2つ完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_FLAWLESS_VICTORY_ANTIQUITY_NAME" Language="ja_JP">
+      <Text>2つのレガシー（古代）</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_FLAWLESS_VICTORY_EXPLORATION_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、1回の探検の時代でレガシーパスを2つ完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_FLAWLESS_VICTORY_EXPLORATION_NAME" Language="ja_JP">
+      <Text>2つのレガシー（探検の時代）</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_FLAWLESS_VICTORY_MODERN_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、1回の近代でレガシーパスを2つ完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_FLAWLESS_VICTORY_MODERN_NAME" Language="ja_JP">
+      <Text>2つのレガシー（近代）</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_ANTIQUITY_2_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「パクス・インペラトリア」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_ANTIQUITY_2_NAME" Language="ja_JP">
+      <Text>パクス・インペラトリア2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_ANTIQUITY_3_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「パクス・インペラトリア」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_ANTIQUITY_3_NAME" Language="ja_JP">
+      <Text>パクス・インペラトリア3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_ANTIQUITY_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「パクス・インペラトリア」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_ANTIQUITY_NAME" Language="ja_JP">
+      <Text>パクス・インペラトリア</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_EXPLORATION_2_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「この時代の世界では物足りない」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_EXPLORATION_2_NAME" Language="ja_JP">
+      <Text>この時代の世界では物足りない2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_EXPLORATION_3_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「この時代の世界では物足りない」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_EXPLORATION_3_NAME" Language="ja_JP">
+      <Text>この時代の世界では物足りない3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_EXPLORATION_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「この時代の世界では物足りない」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_EXPLORATION_NAME" Language="ja_JP">
+      <Text>この時代の世界では物足りない</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_MODERN_2_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「イデオロギー」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_MODERN_2_NAME" Language="ja_JP">
+      <Text>イデオロギー2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_MODERN_3_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「イデオロギー」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_MODERN_3_NAME" Language="ja_JP">
+      <Text>イデオロギー3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_MODERN_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「イデオロギー」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_MILITARY_VICTORY_MODERN_NAME" Language="ja_JP">
+      <Text>イデオロギー</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_PLAY_GAMES_1_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、1つ以上のレガシーパス・マイルストーンに到達する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_PLAY_GAMES_1_NAME" Language="ja_JP">
+      <Text>ゲームプレイ1</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_PLAY_GAMES_2_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、2つ以上のレガシーパス・マイルストーンに到達する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_PLAY_GAMES_2_NAME" Language="ja_JP">
+      <Text>ゲームプレイ2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_PLAY_GAMES_3_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、2つ以上のレガシーパス・マイルストーンに到達する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_PLAY_GAMES_3_NAME" Language="ja_JP">
+      <Text>ゲームプレイ3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_A_ANTIQUITY_DESC" Language="ja_JP">
+      <Text>テカムセで古代をプレイし、クエストを完了して戦士たちの予兆にしたがう。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_A_ANTIQUITY_NAME" Language="ja_JP">
+      <Text>散らばった燃えさし</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_A_EXPLORATION_DESC" Language="ja_JP">
+      <Text>テカムセで探検の時代をプレイし、クエストを完了して戦士たちに準備をさせる。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_A_EXPLORATION_NAME" Language="ja_JP">
+      <Text>戦闘前夜</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_A_MODERN_DESC" Language="ja_JP">
+      <Text>テカムセで近代をプレイし、クエストを完了して戦時の民を鼓舞する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_A_MODERN_NAME" Language="ja_JP">
+      <Text>一致団結</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_B_ANTIQUITY_DESC" Language="ja_JP">
+      <Text>テカムセで古代をプレイし、クエストを完了してトマホークのパイプを渡す。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_B_ANTIQUITY_NAME" Language="ja_JP">
+      <Text>儀式用のパイプ</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_B_EXPLORATION_DESC" Language="ja_JP">
+      <Text>テカムセで探検の時代をプレイし、クエストを完了して隣人たちを団結させる。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_B_EXPLORATION_NAME" Language="ja_JP">
+      <Text>新たな土地の探索</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_B_MODERN_DESC" Language="ja_JP">
+      <Text>テカムセで近代をプレイし、クエストを完了して交易を通じて世界を導く。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_QUEST_B_MODERN_NAME" Language="ja_JP">
+      <Text>団結した民</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_ANTIQUITY_2_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「アレキサンドリア図書館」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_ANTIQUITY_2_NAME" Language="ja_JP">
+      <Text>アレキサンドリア図書館2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_ANTIQUITY_3_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「アレキサンドリア図書館」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_ANTIQUITY_3_NAME" Language="ja_JP">
+      <Text>アレキサンドリア図書館3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_ANTIQUITY_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「アレキサンドリア図書館」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_ANTIQUITY_NAME" Language="ja_JP">
+      <Text>アレキサンドリア図書館</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_EXPLORATION_2_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「啓蒙思想」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_EXPLORATION_2_NAME" Language="ja_JP">
+      <Text>啓蒙思想2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_EXPLORATION_3_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「啓蒙思想」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_EXPLORATION_3_NAME" Language="ja_JP">
+      <Text>啓蒙思想3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_EXPLORATION_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「啓蒙思想」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_EXPLORATION_NAME" Language="ja_JP">
+      <Text>啓蒙思想</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_MODERN_2_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「宇宙開発競争」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_MODERN_2_NAME" Language="ja_JP">
+      <Text>宇宙開発競争2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_MODERN_3_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「宇宙開発競争」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_MODERN_3_NAME" Language="ja_JP">
+      <Text>宇宙開発競争3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_MODERN_DESC" Language="ja_JP">
+      <Text>テカムセでプレイし、レガシーパス「宇宙開発競争」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TECUMSEH_SCIENCE_VICTORY_MODERN_NAME" Language="ja_JP">
+      <Text>宇宙開発競争</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_TECUMSEH_L2_DESCRIPTION" Language="ja_JP">
+      <Text>伝説により解除。外交努力を開始あるいは支持することにより関係+25%。制裁を開始あるいは外交努力を拒絶することにより関係-25%。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_TECUMSEH_L1_DESCRIPTION" Language="ja_JP">
+      <Text>伝説により解除。すべてのユニットの区域に対する戦闘力+5。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_SHAWNEE_DESCRIPTION" Language="ja_JP">
+      <Text>ショーニーの固有遺産であることにより [icon:YIELD_PRODUCTION] 生産力+30%。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_KISPOKO_NENA_TO_SUPPORT_DESCRIPTION" Language="ja_JP">
+      <Text>プラスの戦争への支持1につきキスポコ・ネナトの戦闘力+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_MALEKI_KINTAKE_WAREHOUSES_DESCRIPTION" Language="ja_JP">
+      <Text>農場とキャンプの [icon:YIELD_FOOD] 食料+2。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_MIYASKA_LATOWEKI_CITY_STATE_RESOURCES_DESCRIPTION" Language="ja_JP">
+      <Text>同盟中の都市国家1つにつき首都の資源最大数+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_MIYASKA_LATOWEKI_ENDEAVOR_TRADE_DESCRIPTION" Language="ja_JP">
+      <Text>有効な外交努力が3つ以上ある場合、交易路1つにつき [icon:YIELD_GOLD] ゴールド+2。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_MOD_TELWATIKI_THIRD_PARTY_DESCRIPTION" Language="ja_JP">
+      <Text>他のプレイヤーの戦争を3回支持できる（通常は1回）。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TELWATIKI_INFLUENCE_DESCRIPTION" Language="ja_JP">
+      <Text>ターンごとの [icon:YIELD_DIPLOMACY] 影響力+2。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_WYEHI_SIMEKOFI_MAWASKAWE_SKOTE_DESCRIPTION" Language="ja_JP">
+      <Text>同盟している都市国家1つにつきマワスカウェ・スコテの [icon:YIELD_CULTURE] 文化力+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_TECUMSEH" Language="ja_JP">
+      <Text>長</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_SERPENT_MOUND" Language="ja_JP">
+      <Text>テンスクワタワ</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_SERPENT_MOUND" Language="ja_JP">
+      <Text>創造の神は、風に、流れる水に、鳥の歌に、幼子の笑い声に乗せて歌を歌い、人間に音楽を教えてくれた</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_TECUMSEH_EXPLORATION_1_DESCRIPTION" Language="ja_JP">
+      <Text>テカムセとしてプレイし、新しい探検の時代のレガシーカードを得る:[n]
+				海洋ユニットの戦闘力+3、影響力-10%</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_TECUMSEH_EXPLORATION_1_NAME" Language="ja_JP">
+      <Text>探検の時代の軍事レガシーカード</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_TECUMSEH_EXPLORATION_2_DESCRIPTION" Language="ja_JP">
+      <Text>テカムセとしてプレイし、新しい探検の時代のレガシーカードを得る:[n]
+				影響力+15%、海洋ユニットの戦闘力-2</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_TECUMSEH_EXPLORATION_2_NAME" Language="ja_JP">
+      <Text>探検の時代の外交レガシーカード</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_TECUMSEH_MODERN_1_DESCRIPTION" Language="ja_JP">
+      <Text>テカムセとしてプレイし、新しい近代のレガシーカードを得る:[n]
+				航空ユニットの戦闘力+3、影響力-10%</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_TECUMSEH_MODERN_1_NAME" Language="ja_JP">
+      <Text>近代の軍事レガシーカード</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_TECUMSEH_MODERN_2_DESCRIPTION" Language="ja_JP">
+      <Text>テカムセとしてプレイし、新しい近代のレガシーカードを得る:[n]
+				影響力+15%、航空ユニットの戦闘力-2</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_TECUMSEH_MODERN_2_NAME" Language="ja_JP">
+      <Text>近代の外交レガシーカード</Text>
+    </Replace>
+    <Replace Tag="LOC_TITLE_TECUMSEH_NAME" Language="ja_JP">
+      <Text>長</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_BREAD_DANCE_DESCRIPTION" Language="ja_JP">
+      <Text>すべての農業の町の [icon:YIELD_CULTURE] 文化力+4、漁業の町の [icon:YIELD_FOOD] 食料+4。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_HELIKHILENAWEWIPE_DESCRIPTION" Language="ja_JP">
+      <Text>「独立勢力と友好関係を築く」プロジェクトの開始と進展に対する [icon:YIELD_DIPLOMACY] 影響力+50%。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_KAKAWFE_PAFKOTAWETA_DESCRIPTION" Language="ja_JP">
+      <Text>この時代に嵐、水害、噴火によって土地が肥沃になるたびに [icon:YIELD_CULTURE] 文化力+1、 [icon:YIELD_GOLD] ゴールド+2。施設、建造物、市街区域が嵐によって被害を受けない。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_TAKESIYAKE_YEPEPOKI_DESCRIPTION" Language="ja_JP">
+      <Text>都市のツンドラ、砂漠、平原タイルの [icon:YIELD_PRODUCTION] 生産力+2。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_TECUMSEH_ABILITY_DESCRIPTION" Language="ja_JP">
+      <Text>[LIST][LI][B]宗主国[/B]になっている [icon:CITYSTATE] [B]都市国家[/B]1つにつき、時代ごとの[B]居住地[/B]の [icon:YIELD_FOOD] [B]食料[/B]と [icon:YIELD_PRODUCTION] [B]生産力+1[/B]。[LI][B]宗主国[/B]になっている [icon:CITYSTATE] [B]都市国家[/B]1つにつき、すべてのユニットの [icon:NAR_REW_COMBAT] [B]戦闘力+1[/B]。[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_TECUMSEH_ABILITY_NAME" Language="ja_JP">
+      <Text>ニカーキヤクーラークウェ</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_SHAWNEE_ABILITY_DESCRIPTION" Language="ja_JP">
+      <Text>[BLIST][LI][B]航行可能な河川[/B]に隣接した居住地は、[B]河川地形[/B]の [icon:YIELD_FOOD] [B]食料+2[/B]。ただし、[B]航行可能な河川[/B]に隣接して[B]いない[/B]都市の [icon:YIELD_FOOD] [B]食料-10%[/B]。[LI][B]蛇形墳丘[/B]の建設に対する [icon:YIELD_PRODUCTION] [B]生産力+30%[/B]。[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_SHAWNEE_ABILITY_NAME" Language="ja_JP">
+      <Text>ネペキファキ</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_EX_SHAWNEE_NAME" Language="ja_JP">
+      <Text>ショーニーの社会制度</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_HOCEEPKILENI_DESCRIPTION" Language="ja_JP">
+      <Text>ショーニー固有の伝道師。移動力+1。川を渡っても移動が終了しない。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_KISPOKO_NENA_TO_2_DESCRIPTION" Language="ja_JP">
+      <Text>ショーニー固有の歩兵ユニット（ティア2）。固有の帝国資源1つにつき戦闘力+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_KISPOKO_NENA_TO_3_DESCRIPTION" Language="ja_JP">
+      <Text>ショーニー固有の歩兵ユニット（ティア3）。固有の帝国資源1つにつき戦闘力+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_KISPOKO_NENA_TO_BASE_DESCRIPTION" Language="ja_JP">
+      <Text>ショーニー固有の歩兵ユニット。固有の帝国資源1つにつき戦闘力+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_KISPOKO_NENA_TO_DESCRIPTION" Language="ja_JP">
+      <Text>ショーニー固有の歩兵ユニット（ティア1）。固有の帝国資源1つにつき戦闘力+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_CITY_STATES_DESCRIPTION" Language="ja_JP">
+      <Text>2つの[B]都市国家[/B]の[B]宗主国[/B]になる。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_CITY_STATES_TOOLTIP" Language="ja_JP">
+      <Text>[B]ショーニー[/B]は小さな国々と友好関係にあった。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_CITY_STATES_UNLOCK" Language="ja_JP">
+      <Text>2つの都市国家の宗主国になったことで、ショーニーが解除された。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_HIDES_DESCRIPTION" Language="ja_JP">
+      <Text>[B]皮[/B]を3つ開発する。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_HIDES_TOOLTIP" Language="ja_JP">
+      <Text>[B]皮[/B]は[B]ショーニー[/B]にとって重要な商品だった。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_HIDES_UNLOCK" Language="ja_JP">
+      <Text>皮資源を3つ開発したことで、ショーニーが解除された。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_MISSISSIPPI_SHAWNEE_DESCRIPTION" Language="ja_JP">
+      <Text>[B]ミシシッピ[/B]は[B]ショーニー[/B]の祖先と同時代に栄えていた。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_SHAWNEE_AMERICA_TOOLTIP" Language="ja_JP">
+      <Text>[B]ショーニー[/B]は[B]メキシコ[/B]と同じ大陸に属していた。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_SHAWNEE_DESCRIPTION" Language="ja_JP">
+      <Text>[B]ショーニー[/B]としてプレイする。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_SHAWNEE_MEXICO_TOOLTIP" Language="ja_JP">
+      <Text>[B]ショーニー[/B]は[B]メキシコ[/B]と同じ大陸に属していた。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_TECUMSEH_AMERICA_TOOLTIP" Language="ja_JP">
+      <Text>[B]テカムセ[/B]は後に[B]アメリカ[/B]によって占領される土地に暮らしていた。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_TECUMSEH_DESCRIPTION" Language="ja_JP">
+      <Text>[B]テカムセ[/B]としてプレイする。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_TECUMSEH_HAWAII_TOOLTIP" Language="ja_JP">
+      <Text>[B]テカムセ[/B]はアメリカ大陸土着の人物だった。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_TECUMSEH_MEXICO_TOOLTIP" Language="ja_JP">
+      <Text>[B]テカムセ[/B]は北米出身だった。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_TECUMSEH_MISSISSIPPIAN_TOOLTIP" Language="ja_JP">
+      <Text>[B]テカムセ[/B]の祖先は[B]ミシシッピ人[/B]の近隣で暮らしていた。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_TECUMSEH_TOOLTIP" Language="ja_JP">
+      <Text>[B]テカムセ[/B]は[B]ショーニー[/B]を導いた。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_SERPENT_MOUND_DESCRIPTION" Language="ja_JP">
+      <Text>[icon:YIELD_DIPLOMACY] 影響力+4。この居住地にあるすべての固有施設の [icon:YIELD_SCIENCE] 科学力+3、 [icon:YIELD_PRODUCTION] 生産力+2。草原に配置する必要がある。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_SERPENT_MOUND_TOOLTIP" Language="ja_JP">
+      <Text>この居住地にあるすべての固有施設の [icon:YIELD_SCIENCE] 科学力+3、 [icon:YIELD_PRODUCTION] 生産力+2。草原に配置する必要がある。</Text>
+    </Replace>
+    <Replace Tag="LOC_KISPOKO_NENA_TO_RESOURCE_COMBAT_DESCRIPTION" Language="ja_JP">
+      <Text>固有の帝国資源1つにつき戦闘力+{1_Value}。</Text>
+    </Replace>
+    <Replace Tag="LOC_KISPOKO_NENA_TO_SUPPORT_COMBAT_DESCRIPTION" Language="ja_JP">
+      <Text>プラスの戦争への支持により戦闘力+{1_Value}。（社会制度「テルワティキ」）</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_TECUMSEH_WARCLUB_COMBAT_PREVIEW" Language="ja_JP">
+      <Text>記念品「戦棍」+{1_Amount}</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_TECUMSEH_L1_COMBAT_PREVIEW" Language="ja_JP">
+      <Text>「伝説 軍事」属性 +{1_Value}</Text>
+    </Replace>
+    <Replace Tag="LOC_TECUMSEH_MOD_SUZERAIN_COMBAT_DESCRIPTION" Language="ja_JP">
+      <Text>ニカーキヤクーラークウェ+{1_Amount} </Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_CITY_STATES_NARRATIVE" Language="ja_JP">
+      <Text>{1_Civilization_Adj}土地の力は、宮殿だけでなく、そこに集まる同盟のネットワークをも源泉としている。「変化に直面したときこそ団結せよ」という予言者テンスクワタワの教えは、今や都市国家と{1_Civilization_Adj}都市を行き来する人々の間にも広まりはじめている。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_HIDES_NARRATIVE" Language="ja_JP">
+      <Text>夜明け、なめした革を市場へ運ぶため、森で暮らす罠師たちが街へ入っていく。門をくぐる前に、取引を熱望する商人たちに出迎えられることも珍しくない。皮革は{1_Civilization_Adj}経済にとって欠かせない品となっている。それを調達する者たちも同様だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_BREAD_DANCE_NAME" Language="ja_JP">
+      <Text>パンの踊り</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_HELIKHILENAWEWIPE_NAME" Language="ja_JP">
+      <Text>ヘリクヒレナウェウィプ</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_KAKAWFE_PAFKOTAWETA_NAME" Language="ja_JP">
+      <Text>カカウフェ・パフコタウェタ</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_TAKESIYAKE_YEPEPOKI_NAME" Language="ja_JP">
+      <Text>タケシヤケ・イェペポキ</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_HOCEEPKILENI_NAME" Language="ja_JP">
+      <Text>ホシープキレニ</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_KISPOKO_NENA_TO_NAME" Language="ja_JP">
+      <Text>キスポコ・ネナト</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

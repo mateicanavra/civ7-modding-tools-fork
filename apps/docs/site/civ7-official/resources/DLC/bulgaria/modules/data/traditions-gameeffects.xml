@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==================================================	-->
+	<!--	EXPLORATION							-->
+	<!-- ==================================================	-->
+	<Modifier id="FALSE_RETREAT_FOOD_PILLAGE_IMPROVEMENT" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ADJUST_UNIT_IMPROVEMENT_PILLAGE_YIELD_MODIFIER">
+		<Argument name="Amount">50</Argument>
+		<Argument name="PlunderTypes">PLUNDER_FOOD_TOWN</Argument>
+		<String context="Description">LOC_TRADITION_FALSE_RETREAT_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="FALSE_RETREAT_COMBAT_MODIFIER" collection="COLLECTION_PLAYER_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_IS_DISTRICT"/>
+		</SubjectRequirements>
+		<Argument name="Amount">-3</Argument>
+		<String context="Preview">LOC_TRADITION_FALSE_RETREAT_PREVIEW</String>
+	</Modifier>
+	<Modifier id="ICONOLATRY_GREAT_WORKS_HAPPINESS" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_GREAT_WORK">
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Tooltip">LOC_TRADITION_ICONOLATRY_NAME</Argument>
+		<String context="Description">LOC_TRADITION_ICONOLATRY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="ICONOLATRY_GREAT_WORKS_GOLD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_GREAT_WORK">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Tooltip">LOC_TRADITION_ICONOLATRY_NAME</Argument>
+	</Modifier>
+	<Modifier id="STRATAGEMS_PILLAGE_IMPROVEMENTS_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ADJUST_UNIT_PERCENT_PILLAGE_IMPROVEMENT_MODIFIER">
+		<Argument name="Percent">50</Argument>
+		<String context="Description">LOC_TRADITION_STRATAGEMS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="STRATAGEMS_PILLAGE_BUILDINGS_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ADJUST_UNIT_PERCENT_PILLAGE_BUILDING_MODIFIER">
+		<Argument name="Percent">50</Argument>
+	</Modifier>
+</GameEffects>

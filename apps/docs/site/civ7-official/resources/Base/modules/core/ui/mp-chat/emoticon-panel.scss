@@ -1,0 +1,13 @@
+@use '../../../core/ui/themes/default/theme';
+@use '../../../core/ui/utilities/utility-layout' as *;
+
+emoticon-panel {
+	fxs-nav-help {
+		z-index: 1;
+	}
+
+	.emoticon-panel__tab-item .emoticon-panel__tab-icon>img {
+		width: pixels(24);
+		height: pixels(24);
+	}
+}

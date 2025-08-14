@@ -1,0 +1,56 @@
+@use 'sass:math';
+@use 'sass:string';
+@use '../theme';
+@use '../../../utilities/utility-layout' as *;
+@use '../../../utilities/utility-text' as *;
+
+/** Hold to Confirm *********************************************************************/
+
+fxs-hold-to-confirm {
+	--hold-time: 3s;
+
+	// The icon width and height should match fxs-nav-help icon size,
+	// so this can be used as a drop-in replacement
+	$icon-width: pixels(32);
+	$icon-height: pixels(32);
+	$ring-border-width: pixels(4);
+
+	// This will calculate both the ring and the gap between the ring and
+	// the icon to be 1 ring-border-width wise
+	$quad-border: calc($ring-border-width * 4);
+	$full-size: calc(max($icon-width, $icon-height) + $quad-border);
+	$icon-top-offset: calc(($full-size - $icon-height) / 2);
+	$icon-left-offset: calc(($full-size - $icon-width) / 2);
+
+	display: flex;
+	flex-direction: row;
+	position: relative;
+	width: $icon-width;
+	height: $icon-height;
+
+	.fxs-button__content {
+		left: calc(-1 * $icon-left-offset);
+		top: calc(-1 * $icon-top-offset);
+		padding: 1.5em;
+	}
+
+	.fxs-hold-to-confirm__icon {
+		position: absolute;
+		width: $icon-width;
+		height: $icon-height;
+		left: $icon-left-offset;
+		top: $icon-top-offset;
+
+		background-position: center;
+		background-size: contain;
+		background-repeat: no-repeat;
+	}
+
+	fxs-ring-meter {
+		position: absolute;
+		top: calc(-1 * $icon-top_offset);
+		left: calc(-1 * $icon-left_offset);
+		width: $full-size;
+		height: $full-size;
+	}
+}

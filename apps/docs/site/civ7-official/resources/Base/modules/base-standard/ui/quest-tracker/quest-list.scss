@@ -1,0 +1,46 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+@use '../../../core/ui/themes/default/baseColors';
+@use '../../../core/ui/themes/default/theme';
+
+.quest-item-container {
+	transition: opacity ease-in-out 0.25s, transform ease-in-out 0.25s;
+}
+
+.quest-list-item-selectable {
+	padding: pixels(8);
+
+	&:hover,
+	&:focus {
+		border-image-source: url('fs://game/hud_list-focus_frame.png');
+		border-image-slice: 28 32 28 32;
+		border-image-width: pixels(28) pixels(32);
+		border-image-outset: pixels(6) pixels(5);
+
+		background: linear-gradient(90deg, theme.color('secondary-3') 0%, theme.color('accent-6', .5) 100%);
+	}
+}
+
+.filligree-quest-divider {
+	min-height: pixels(16);
+	min-width: pixels(256);
+	background-image: url("fs://game/hud_quest_div.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+quest-list {
+	@media (experience: mobile) {
+		margin-top: pixels(4);
+	}
+}
+
+.quest-list__expand-container {
+	@media (experience: mobile) {
+		margin-right: pixels(24);
+	}
+}
+
+quest-item p {
+	margin: 0;
+}

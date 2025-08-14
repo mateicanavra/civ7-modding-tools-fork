@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LeaderCivilizationBias>
+		<InsertOrIgnore CivilizationDomain="ModernAgeCivilizations" CivilizationType="CIVILIZATION_GREAT_BRITAIN" LeaderDomain="StandardLeaders" LeaderType="LEADER_ADA_LOVELACE" Bias="4" ReasonType="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_GREAT_BRITAIN_TOOLTIP" ChoiceType="LOC_CREATE_GAME_HISTORICAL_CHOICE" />
+	</LeaderCivilizationBias>
+	<LeaderUnlocks>
+		<Row LeaderDomain="StandardLeaders" LeaderType="LEADER_ADA_LOVELACE" AgeDomain="StandardAges" AgeType="AGE_MODERN" Type="CIVILIZATION_GREAT_BRITAIN" Kind="KIND_CIVILIZATION" Name="LOC_CIVILIZATION_GREAT_BRITAIN_NAME" Description="LOC_CIVILIZATION_GREAT_BRITAIN_DESCRIPTION" Icon="CIVILIZATION_GREAT_BRITAIN"/>
+	</LeaderUnlocks>
+</Database>

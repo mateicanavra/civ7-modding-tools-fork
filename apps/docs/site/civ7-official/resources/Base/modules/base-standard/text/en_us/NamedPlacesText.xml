@@ -1,0 +1,985 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--Rivers-->
+		<Row Tag="LOC_RIVER_ABUKUMA_NAME">
+			<Text>Abukuma River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_ACHELOUS_NAME">
+			<Text>Achelous River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_AGNO_NAME">
+			<Text>Agno River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_ALIGIDE_NAME">
+			<Text>Aligide River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_AMAZON_NAME">
+			<Text>Amazon River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_AMNOK_NAME">
+			<Text>Amnok River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_AMU_DARYA_NAME">
+			<Text>Amu Darya River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_AMUR_NAME">
+			<Text>Amur River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_APURIMAQ_MAYU_NAME">
+			<Text>Apurimaq Mayu</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_ARAS_NAME">
+			<Text>Aras River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_ARKANSAS_NAME">
+			<Text>Arkansas River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_ARNO_NAME">
+			<Text>Arno River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_ATBARAH_NAME">
+			<Text>Atbarah River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_AWASH_NAME">
+			<Text>Awash River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_AWRIQ_MAYU_NAME">
+			<Text>Awriq Mayu</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_AYUNG_NAME">
+			<Text>Ayung River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_BAHR_YUSSEF_NAME">
+			<Text>Bahr Yussef</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_BALSAS_NAME">
+			<Text>Balsas River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_BANI_NAME">
+			<Text>Bani River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_BARADA_NAME">
+			<Text>Barada River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_BARITO_NAME">
+			<Text>Barito River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_BARKA_NAME">
+			<Text>Barka River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_BASSAC_NAME">
+			<Text>Bassac River </Text>
+		</Row>
+		<Row Tag="LOC_RIVER_BATANGHARI_NAME">
+			<Text>Batanghari River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_BELIZE_NAME">
+			<Text>Belize River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_BENGAWAN_SOLO_NAME">
+			<Text>Bengawan Solo River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_BIO_BIO_NAME">
+			<Text>Bio-Bio River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_BLACK_VOLTA_NAME">
+			<Text>Black Volta</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_BLUE_NILE_NAME">
+			<Text>Blue Nile River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_BRAHMAPUTRA_NAME">
+			<Text>Brahmaputra River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_BUG_NAME">
+			<Text>Bug River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_CHAO_PHRAYA_NAME">
+			<Text>Chao Phraya River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_CHARI_NAME">
+			<Text>Chari River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_CHI_NAME">
+			<Text>Chi River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_CHINCHIPE_NAME">
+			<Text>Chinchipe River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_CHIXOY_NAME">
+			<Text>Chixoy River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_COLORADO_NAME">
+			<Text>Colorado River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_COLUMBIA_NAME">
+			<Text>Columbia River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_CONCHOS_NAME">
+			<Text>Conchos River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_CONGO_NAME">
+			<Text>Congo River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_CULIACAN_NAME">
+			<Text>Culiacán River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_DAMAS_NAME">
+			<Text>Damas River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_DAMIETTA_NAME">
+			<Text>Damietta River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_DANUBE_NAME">
+			<Text>Danube River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_DAUGAVA_NAME">
+			<Text>Daugava River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_DELAWARE_NAME">
+			<Text>Delaware River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_DNIEPER_NAME">
+			<Text>Dnieper River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_DNIESTER_NAME">
+			<Text>Dniester River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_DON_NAME">
+			<Text>Don River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_DOURO_NAME">
+			<Text>Douro River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_EBRO_NAME">
+			<Text>Ebro River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_ELBE_NAME">
+			<Text>Elbe River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_ESSEQUIBO_NAME">
+			<Text>Essequibo River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_EUPHRATES_NAME">
+			<Text>Euphrates River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_EUROTAS_NAME">
+			<Text>Eurotas River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_FLY_NAME">
+			<Text>Fly River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_GADILAM_NAME">
+			<Text>Gadilam River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_GANGES_NAME">
+			<Text>Ganges River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_GODAVARI_NAME">
+			<Text>Godavari River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_GRIJALVA_NAME">
+			<Text>Grijalva River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_GROOT_NAME">
+			<Text>Groot River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_GUADALQUIVIR_NAME">
+			<Text>Guadalquivir River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_GUADIANA_NAME">
+			<Text>Guadiana River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_HADDAS_NAME">
+			<Text>Haddas River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_HAI_NAME">
+			<Text>Hai River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_HALIACMON_NAME">
+			<Text>Haliacmon River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_HAN_NAME">
+			<Text>Han River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_HANALEI_NAME">
+			<Text>Hanalei River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_HONDO_NAME">
+			<Text>Hondo River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_INDUS_NAME">
+			<Text>Indus River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_IRRAWADDY_NAME">
+			<Text>Irrawaddy River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_ISHIKARI_NAME">
+			<Text>Ishikari River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_JAJRUD_NAME">
+			<Text>Jājrūd River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_JORDAN_NAME">
+			<Text>Jordan River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_JUCAR_NAME">
+			<Text>Júcar River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_KAPUAS_NAME">
+			<Text>Kapuas River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_KARKHEH_NAME">
+			<Text>Karkheh River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_KARUN_NAME">
+			<Text>Karun River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_KASAI_NAME">
+			<Text>Kasai River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_KATONGA_NAME">
+			<Text>Katonga River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_KAUKONAHUA_STREAM_NAME">
+			<Text>Kaukonahua Stream</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_KAVERI_NAME">
+			<Text>Kaveri River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_KERULEN_NAME">
+			<Text>Kerülen River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_KITAKAMI_NAME">
+			<Text>Kitakami River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_KIZILIRMAK_NAME">
+			<Text>Kızılırmak River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_KOLEKOLE_STREAM_NAME">
+			<Text>Kolekole Stream</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_KRISHNA_NAME">
+			<Text>Krishna River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_KSHIPRA_NAME">
+			<Text>Kshipra River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_LENA_NAME">
+			<Text>Lena River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_LERMA_NAME">
+			<Text>Lerma River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_LIMPOPO_NAME">
+			<Text>Limpopo River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_LOIRE_NAME">
+			<Text>Loire River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_LUGOGO_NAME">
+			<Text>Lugogo River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_MACKENZIE_NAME">
+			<Text>Mackenzie River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_MAHAKAM_NAME">
+			<Text>Mahakam River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_MAIPO_NAME">
+			<Text>Maipo River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_MAMBERAMO_NAME">
+			<Text>Mamberamo River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_MARITSA_NAME">
+			<Text>Maritsa River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_MAULE_NAME">
+			<Text>Maule River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_MAYANJA_NAME">
+			<Text>Mayanja River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_MEKONG_NAME">
+			<Text>Mekong River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_MEUSE_NAME">
+			<Text>Meuse River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_MISSISSIPPI_NAME">
+			<Text>Mississippi River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_MISSOURI_NAME">
+			<Text>Missouri River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_MOGAMI_NAME">
+			<Text>Mogami River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_MOTAGUA_NAME">
+			<Text>Motagua River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_MUN_NAME">
+			<Text>Mun River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_MURRAY_NAME">
+			<Text>Murray River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_MUSI_NAME">
+			<Text>Musi River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_NAKDONG_NAME">
+			<Text>Nakdong River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_NAN_NAME">
+			<Text>Nan River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_NARMADA_NAME">
+			<Text>Narmada River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_NAZAS_NAME">
+			<Text>Nazas River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_NESTOS_NAME">
+			<Text>Nestos River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_NIGER_NAME">
+			<Text>Niger River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_NILE_NAME">
+			<Text>Nile River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_NORTHERN_DVINA_NAME">
+			<Text>Northern Dvina</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_OB_NAME">
+			<Text>Ob River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_ODER_NAME">
+			<Text>Oder River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_OFANTO_NAME">
+			<Text>Ofanto River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_OHIO_NAME">
+			<Text>Ohio River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_OKAVANGO_NAME">
+			<Text>Okavango River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_ORANGE_NAME">
+			<Text>Orange River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_ORINOCO_NAME">
+			<Text>Orinoco River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_ORKHON_NAME">
+			<Text>Orkhon River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_PARAGUAY_NAME">
+			<Text>Paraguay River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_PARANA_NAME">
+			<Text>Paraná River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_PEARL_NAME">
+			<Text>Pearl River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_PENNAR_NAME">
+			<Text>Pennar River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_PING_NAME">
+			<Text>Ping River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_PO_NAME">
+			<Text>Po River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_POTOMAC_NAME">
+			<Text>Potomac River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_PURUS_NAME">
+			<Text>Purús River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_PUTUMAYU_NAME">
+			<Text>Putumayu River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_RED_NAME">
+			<Text>Red River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_RHINE_NAME">
+			<Text>Rhine River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_RHONE_NAME">
+			<Text>Rhone River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_RIO_GRANDE_NAME">
+			<Text>Río Grande</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_RIO_MADEIRA_NAME">
+			<Text>Rio Madeira</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_RIO_NEGRO_NAME">
+			<Text>Rio Negro</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_AVON_NAME">
+			<Text>River Avon</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_GREAT_OUSE_NAME">
+			<Text>River Great Ouse</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_KAFU_NAME">
+			<Text>River Kafu</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SEVERN_NAME">
+			<Text>River Severn</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_TRENT_NAME">
+			<Text>River Trent</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_WELLAND_NAME">
+			<Text>River Welland</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_ROSETTA_NAME">
+			<Text>Rosetta River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_RUBICON_NAME">
+			<Text>Rubicon River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SAINT_LAWRENCE_NAME">
+			<Text>Saint Lawrence River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SAKARYA_NAME">
+			<Text>Sakarya River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SALADO_NAME">
+			<Text>Salado River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SALWEEN_NAME">
+			<Text>Salween River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SAMALA_NAME">
+			<Text>Samala River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SAO_FRANCISCO_NAME">
+			<Text>São Francisco River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SARASWATI_NAME">
+			<Text>Saraswati River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SEFID_NAME">
+			<Text>Sefīd River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SEINE_NAME">
+			<Text>Seine River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SENEGAL_NAME">
+			<Text>Senegal River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SEPIK_NAME">
+			<Text>Sepik River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SEZIBWA_NAME">
+			<Text>Sezibwa River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SHINANO_NAME">
+			<Text>Shinano River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SONGHUA_NAME">
+			<Text>Songhua River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SREPOK_NAME">
+			<Text>Srepok River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_STRUMA_NAME">
+			<Text>Struma River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SUSQUEHANNA_NAME">
+			<Text>Susquehanna River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SYR_DARYA_NAME">
+			<Text>Syr Darya River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_TAGUS_NAME">
+			<Text>Tagus River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_TARIM_NAME">
+			<Text>Tarim River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_TENRYU_NAME">
+			<Text>Tenryu River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_TESHIO_NAME">
+			<Text>Teshio River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_THA_CHIN_NAME">
+			<Text>Tha Chin River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_TIBER_NAME">
+			<Text>Tiber River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_TIGRIS_NAME">
+			<Text>Tigris River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_TOCANTINS_NAME">
+			<Text>Tocantins River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_TONE_NAME">
+			<Text>Tone River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_TONLE_SAN_NAME">
+			<Text>Tonlé San River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_TONLE_SAP_NAME">
+			<Text>Tonlé Sap River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_TUUL_NAME">
+			<Text>Tuul River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_UCAYALI_NAME">
+			<Text>Ucayali River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_UMFOLOZI_NAME">
+			<Text>Umfolozi River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_URAL_NAME">
+			<Text>Ural River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_USUMACINTA_NAME">
+			<Text>Usumacinta River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_VARDAR_NAME">
+			<Text>Vardar River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_VISTULA_NAME">
+			<Text>Vistula River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_VOLGA_NAME">
+			<Text>Volga River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_WADI_AL_BATIN_NAME">
+			<Text>Wadi Al-Batin</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_WADI_AL_RUMMAH_NAME">
+			<Text>Wadi al-Rummah</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_WADI_FEIRAN_NAME">
+			<Text>Wadi Feiran</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_WADI_HANIFA_NAME">
+			<Text>Wadi Hanifa</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_WAILUA_NAME">
+			<Text>Wailua River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_WAILUKU_NAME">
+			<Text>Wailuku River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_WAIMEA_NAME">
+			<Text>Waimea River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_WALLAQA_MAYU_NAME">
+			<Text>Wallaqa Mayu</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_WEI_NAME">
+			<Text>Wei River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_WESER_NAME">
+			<Text>Weser River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_WHITE_NILE_NAME">
+			<Text>White Nile</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_WHITE_VOLTA_NAME">
+			<Text>White Volta</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_WILLKA_MAYU_NAME">
+			<Text>Willka Mayu</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_YAMUNA_NAME">
+			<Text>Yamuna River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_YANGTZE_NAME">
+			<Text>Yangtze River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_YELLOW_NAME">
+			<Text>Yellow River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_YENISEI_NAME">
+			<Text>Yenisei River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_YUKON_NAME">
+			<Text>Yukon River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_ZAMBEZI_NAME">
+			<Text>Zambezi River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_ZAVKHAN_NAME">
+			<Text>Zavkhan River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_ZAYANDE_NAME">
+			<Text>Zāyandé River</Text>
+		</Row>
+		<!--Volcanoes-->
+		<Row Tag="LOC_VOLCANO_AGRI_DAGI_NAME">
+			<Text>Ağrı Dağı</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_ALU_DALAFILLA_NAME">
+			<Text>Alu-Dalafilla</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_AMBRYM_VOLCANO_NAME">
+			<Text>Ambrym Volcano</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_ASKJA_NAME">
+			<Text>Askja</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_AVACHINSKY_NAME">
+			<Text>Avachinsky</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_BEZYMIANNY_NAME">
+			<Text>Bezymianny</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_CHACHANI_NAME">
+			<Text>Chachani</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_CHI_Q_AQ_NAME">
+			<Text>Chi Q'aq'</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_CHIMBORAZO_NAME">
+			<Text>Chimborazo</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_CITLALTEPETL_NAME">
+			<Text>Citlaltépetl</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_COSIGUINA_NAME">
+			<Text>Cosigüina</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_CUMBRE_VIEJA_NAME">
+			<Text>Cumbre Vieja </Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_DABBAHU_VOLCANO_NAME">
+			<Text>Dabbahu Volcano</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_DALLOL_VOLCANO_NAME">
+			<Text>Dallol Volcano</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_DAMAVAND_NAME">
+			<Text>Damavand</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_ERTA_ALE_NAME">
+			<Text>Erta Ale</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_EYJAFJALLAJOKULL_NAME">
+			<Text>Eyjafjallajökull</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_GAGXANUL_NAME">
+			<Text>Gagxanul</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_GALERAS_NAME">
+			<Text>Galeras</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_GALUNGGUNG_NAME">
+			<Text>Galunggung</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_GRIMSVOTN_NAME">
+			<Text>Grímsvötn</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_HALEAKAL_NAME">
+			<Text>Haleakalā</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_HALLASAN_NAME">
+			<Text>Hallasan</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_HAMP_ATU_NAME">
+			<Text>Hamp'atu</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_HARRAT_KHAYBAR_NAME">
+			<Text>Harrat Khaybar</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_HUAL_LAI_NAME">
+			<Text>Hualālai</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_HUNAHPU_NAME">
+			<Text>Hunahpú</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_ILOPANGO_VOLCANO_NAME">
+			<Text>Ilopango Volcano</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_KATLA_NAME">
+			<Text>Katla</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_KELUD_NAME">
+			<Text>Kelud</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_KHORGO_NAME">
+			<Text>Khorgo</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_KILAUEA_NAME">
+			<Text>Kīlauea</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_KORYAKSKY_NAME">
+			<Text>Koryaksky</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_KRAKATOA_NAME">
+			<Text>Krakatoa</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_LAACHER_SEE_NAME">
+			<Text>Laacher See</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_LASSEN_PEAK_NAME">
+			<Text>Lassen Peak</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_LLAIMA_VOLCANO_NAME">
+			<Text>Llaima Volcano</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_LOBSTER_VOLCANO_NAME">
+			<Text>Lobster Volcano</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_LOIHI_NAME">
+			<Text>Lōihi</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MANDA_HARARO_NAME">
+			<Text>Manda Hararo</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MAUNA_KEA_NAME">
+			<Text>Mauna Kea</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MAUNA_LOA_NAME">
+			<Text>Mauna Loa</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MAYON_NAME">
+			<Text>Mayon</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_METHANA_VOLCANO_NAME">
+			<Text>Methana Volcano</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_AGUNG_NAME">
+			<Text>Mount Agung</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_ALAYTA_NAME">
+			<Text>Mount Alayta</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_ASAMA_NAME">
+			<Text>Mount Asama</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_BARREN_NAME">
+			<Text>Mount Barren</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_ELBRUS_NAME">
+			<Text>Mount Elbrus</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_ERCIYES_NAME">
+			<Text>Mount Erciyes</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_EREBUS_NAME">
+			<Text>Mount Erebus</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_ETNA_NAME">
+			<Text>Mount Etna</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_FUJI_NAME">
+			<Text>Mount Fuji</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_HASAN_NAME">
+			<Text>Mount Hasan</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_HOOD_NAME">
+			<Text>Mount Hood</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_HUDSON_NAME">
+			<Text>Mount Hudson</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_KAZBEK_NAME">
+			<Text>Mount Kazbek</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_MERAPI_NAME">
+			<Text>Mount Merapi</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_MUHABURA_NAME">
+			<Text>Mount Muhabura</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_NGAURUHOE_NAME">
+			<Text>Mount Ngauruhoe</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_NYIRAGONGO_NAME">
+			<Text>Mount Nyiragongo</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_PAEKTU_NAME">
+			<Text>Mount Paektu</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_PELEE_NAME">
+			<Text>Mount Pelée</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_PINATUBO_NAME">
+			<Text>Mount Pinatubo</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_RAINIER_NAME">
+			<Text>Mount Rainier</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_RUAPEHU_NAME">
+			<Text>Mount Ruapehu</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_SABALAN_NAME">
+			<Text>Mount Sabalan</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_SAINT_HELENS_NAME">
+			<Text>Mount Saint Helens</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_SCENERY_NAME">
+			<Text>Mount Scenery</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_SEMERU_NAME">
+			<Text>Mount Semeru</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_TAMBORA_NAME">
+			<Text>Mount Tambora</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_TARAWERA_NAME">
+			<Text>Mount Tarawera</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_TIBROGARGAN_NAME">
+			<Text>Mount Tibrogargan</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_TONGARIRO_NAME">
+			<Text>Mount Tongariro</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_UNZEN_NAME">
+			<Text>Mount Unzen</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_MOUNT_VESUVIUS_NAME">
+			<Text>Mount Vesuvius</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_NABRO_VOLCANO_NAME">
+			<Text>Nabro Volcano</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_NEMRUT_NAME">
+			<Text>Nemrut</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_NEVADO_DEL_RUIZ_NAME">
+			<Text>Nevado del Ruiz</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_NISYROS_NAME">
+			<Text>Nisyros</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_NOVARUPTA_NAME">
+			<Text>Novarupta</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_OJOS_DEL_SALADO_NAME">
+			<Text>Ojos del Salado</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_PACAYA_NAME">
+			<Text>Pacaya</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_PHANOM_RUNG_VOLCANO_NAME">
+			<Text>Phanom Rung Volcano</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_PHLEGRAEAN_FIELDS_NAME">
+			<Text>Phlegraean Fields</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_PICO_DO_CABUGI_NAME">
+			<Text>Pico do Cabugi</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_PIHANGA_NAME">
+			<Text>Pihanga</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_POPOCATEPETL_NAME">
+			<Text>Popōcatepētl</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_PUY_DE_DOME_NAME">
+			<Text>Puy de Dôme</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_QUIZAPU_NAME">
+			<Text>Quizapú</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_QURUPUNA_NAME">
+			<Text>Qurupuna</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_RANGITOTO_NAME">
+			<Text>Rangitoto</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_RUCAPILLAN_NAME">
+			<Text>Rucapillan</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_SAHAND_NAME">
+			<Text>Sahand</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_SAKURAJIMA_NAME">
+			<Text>Sakurajima</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_SAWANQAYA_NAME">
+			<Text>Sawanqaya</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_SHIVELUCH_NAME">
+			<Text>Shiveluch</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_SOLLIPULLI_NAME">
+			<Text>Sollipulli</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_SOUFRIERE_HILLS_VOLCANO_NAME">
+			<Text>Soufrière Hills Volcano</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_STROMBOLI_NAME">
+			<Text>Stromboli</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_TAAL_VOLCANO_NAME">
+			<Text>Taal Volcano</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_TARANAKI_MAUNGA_NAME">
+			<Text>Taranaki Maunga</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_TAUM_SAUK_NAME">
+			<Text>Taum Sauk </Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_TAUPO_VOLCANO_NAME">
+			<Text>Taupo Volcano</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_TEIDE_NAME">
+			<Text>Teide</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_TSEAX_CONE_NAME">
+			<Text>Tseax Cone</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_ULAWUN_NAME">
+			<Text>Ulawun</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_UNDARA_VOLCANO_NAME">
+			<Text>Undara Volcano</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_UWINAS_NAME">
+			<Text>Uwinas</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_VOLCAN_ATITLAN_NAME">
+			<Text>Volcán Atitlán</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_VOLCAN_DE_COLIMA_NAME">
+			<Text>Volcán de Colima</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_SAN_CRISTOBAL_NAME">
+			<Text>Volcán San Cristóbal </Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_VOLCAN_TOLIMAN_NAME">
+			<Text>Volcán Tolimán</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_VULSINI_NAME">
+			<Text>Vulsini</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_WAYNAPUTINA_NAME">
+			<Text>Waynaputina</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_WHAKAARI_NAME">
+			<Text>Whakaari</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_YASUR_NAME">
+			<Text>Yasur</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_YEAK_LAOM_VOLCANO_NAME">
+			<Text>Yeak Laom Volcano</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_YELLOWSTONE_CALDERA_NAME">
+			<Text>Yellowstone Caldera</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_ZUIDWAL_VOLCANO_NAME">
+			<Text>Zuidwal Volcano</Text>
+		</Row>
+	</EnglishText>
+</Database>

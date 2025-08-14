@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="CARD_GRANT_SETTLER" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_UNIT" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="AllowUniqueOverride">true</Argument>
+		<Argument name="UnitType">UNIT_SETTLER</Argument>
+	</Modifier>
+</GameEffects>

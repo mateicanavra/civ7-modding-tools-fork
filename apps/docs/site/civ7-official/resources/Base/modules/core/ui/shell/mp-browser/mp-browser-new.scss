@@ -1,0 +1,8 @@
+@use '../../utilities/utility-layout' as *;
+
+screen-mp-browser {
+	.mp_browser__frame {
+		max-width: pixels(1750);
+		max-height: pixels(1080);
+	}
+}

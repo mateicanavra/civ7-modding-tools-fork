@@ -1,0 +1,156 @@
+/* DO NOT EDIT */
+/* Generated from create-game-sp.scss */
+@media (experience: mobile) {
+	.game-creator-leader-info-content {
+		width: 20rem;
+	}
+}
+
+.game-creator-main-box {
+	border-image-source: url("fs://game/hud_unit-panel_box-bg.png");
+	border-image-slice: 30 20 30 20 fill;
+	border-image-width: 1.6666666667rem 1.1111111111rem 1.6666666667rem 1.1111111111rem;
+	border-image-outset: 0.9444444444rem 0.7222222222rem;
+	width: 33.2222222222rem;
+	margin-left: 3.3333333333rem;
+	margin-bottom: 2.8888888889rem;
+}
+@media (max-width: 88.8888888889rem) {
+	.game-creator-main-box {
+		margin-left: 2rem;
+		width: 25.5555555556rem;
+	}
+}
+@media (max-height: 55.5555555556rem) {
+	.game-creator-main-box {
+		margin-bottom: 2rem;
+	}
+}
+
+.game-creator-details-box {
+	width: 31rem;
+	margin-left: 1.2777777778rem;
+	margin-top: 1.1111111111rem;
+	margin-bottom: 2.8888888889rem;
+}
+@media (max-width: 88.8888888889rem) {
+	.game-creator-details-box {
+		width: 26.6666666667rem;
+		margin-left: 0.8333333333rem;
+	}
+}
+@media (max-height: 56.8888888889rem) {
+	.game-creator-details-box {
+		margin-top: 0;
+	}
+}
+@media (experience: mobile) {
+	.game-creator-details-box {
+		flex: 1 1 0%;
+		width: auto;
+		max-width: 30.5555555556rem;
+	}
+}
+@media (experience: mobile) and (max-width: 71.1111111111rem) {
+	.game-creator-details-box {
+		max-width: 22.2222222222rem;
+	}
+}
+
+.game-creator-back-button {
+	background-image: url("fs://game/shell_back-button.png");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 2.4444444444rem;
+	height: 2.4444444444rem;
+}
+.game-creator-back-button:focus, .game-creator-back-button:hover {
+	background-image: url("fs://game/shell_back-button-focus.png");
+}
+
+.game-creator-random-button {
+	background-image: url("fs://game/shell_arrow-button.png");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 2.4444444444rem;
+	height: 2.4444444444rem;
+}
+.game-creator-random-button:focus, .game-creator-random-button:hover {
+	background-image: url("fs://game/shell_arrow-button-focus.png");
+}
+
+.game-creator-nav-button {
+	border-image-source: url("fs://game/shell_create-tab-bg.png");
+	border-image-slice: 16 96 36 96 fill;
+	border-image-width: 0.8888888889rem 5.3333333333rem 2rem 5.3333333333rem;
+	border-image-outset: 0.3333333333rem 0.4444444444rem 0.8888888889rem 0.4444444444rem;
+	background: linear-gradient(270deg, #4C473D 0%, #35373D 50%, #4C473D 100%);
+	min-width: 16.6666666667rem;
+	min-height: 2.2222222222rem;
+	margin: 0.3333333333rem;
+	padding: 0rem 0.4444444444rem;
+}
+.game-creator-nav-button:focus, .game-creator-nav-button:hover {
+	background: linear-gradient(270deg, #8C7E62 0%, #B4975E 0.01%, #584C32 35%, #584C32 65%, #B4975E 100%);
+}
+
+.game-creator-nav-button-selected {
+	border-image-source: url("fs://game/shell_create-tab-bg-focus.png");
+}
+
+.game-creator-leader-info {
+	border-image-source: url("fs://game/hud_unit-panel_box-bg.png");
+	border-image-slice: 30 20 30 20 fill;
+	border-image-width: 1.6666666667rem 1.1111111111rem 1.6666666667rem 1.1111111111rem;
+	border-image-outset: 0.9444444444rem 0.7222222222rem;
+	min-width: 24.0555555556rem;
+	max-width: 36.6666666667rem;
+}
+@media (max-width: 93.3333333333rem), (experience: mobile) {
+	.game-creator-leader-info {
+		min-width: 12.7777777778rem;
+		max-width: 13.3333333333rem;
+	}
+	.game-creator-leader-info .filigree-panel-top-special {
+		min-width: 11.1111111111rem;
+		max-width: 11.6666666667rem;
+		background-size: contain;
+		margin-top: -1.1111111111rem;
+	}
+	.game-creator-leader-info .font-title-2xl {
+		font-size: calc(1rem + 0.4444444444rem);
+	}
+	.game-creator-leader-info .game-creator-leader-info-name {
+		flex-direction: column;
+		align-content: center;
+		text-align: center;
+		margin-top: 0.4444444444rem;
+	}
+}
+@media (max-height: 55.5555555556rem), (experience: mobile) {
+	.game-creator-leader-info .filigree-panel-top-special {
+		margin-top: 0.2777777778rem;
+		max-width: 12.2222222222rem;
+	}
+}
+@media (experience: mobile) {
+	.game-creator-leader-info {
+		min-width: 17.4444444444rem;
+		max-width: 17.4444444444rem;
+	}
+	.game-creator-leader-info .filigree-panel-top-special {
+		width: 17.1111111111rem;
+		min-width: 0rem;
+		background-size: contain;
+		position: absolute;
+		top: -1.2777777778rem;
+	}
+}
+
+.game-creator-random-leader {
+	background-image: url("fs://game/shell_leader-silhouette");
+	background-repeat: no-repeat;
+	background-size: contain;
+}

@@ -1,0 +1,319 @@
+@use "sass:map";
+@use "core/ui/themes/default/theme" as *;
+@use "core/ui/utilities/utility-layout" as *;
+@use "core/ui/utilities/utility-text" as *;
+
+.load-screen-stage-tint {
+    background: rgb(7 7 7 / 70%);
+}
+
+.load-screen-stage-fill {
+    background: #161c23;
+}
+
+.load-screen-stage-gradient {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: pixels(1190);
+    background: linear-gradient(270deg, rgb(22 28 35 / 0%) 0%, #161c23 61.06%);
+}
+
+.load-screen-divider {
+    border-bottom: pixels(1) solid rgb(124 131 149 / 30%);
+}
+
+.load-screen-tips-and-hints-outer-rect {
+    border: pixels(1) solid rgb(102 90 69 / 100%);
+    background: rgb(17 20 28 / 100%);
+
+    @media (max-height: pixels(950)),
+    (max-width: pixels(1300)) {
+        display: none;
+    }
+}
+
+.load-screen-tips-and-hints-inner-rect {
+    border: pixels(1) solid rgb(102 90 69 / 100%);
+    background: rgb(34 33 36 / 100%);
+}
+
+.load-screen-pagination {
+    background: rgb(44 44 55 / 65%);
+}
+
+.load-screen-bg-tint {
+    background: rgb(13 17 21 / 90%);
+}
+
+.load-screen-above-stage-gradient {
+    height: pixels(50);
+    background: linear-gradient(180deg, rgb(0 0 0 / 0%) 0%, rgb(0 0 0 / 80%) 100%);
+}
+
+.load-screen-below-stage-gradient {
+    height: pixels(80);
+    background: linear-gradient(180deg, rgb(0 0 0 / 80%) 0%, rgb(0 0 0 / 0%) 100%);
+}
+
+.load-screen-bg-filigree {
+    border-image-slice: 142 0 0 142 fill;
+    border-image-source: url("blp:base_frame-filigree.png");
+    border-image-width: pixels(142) 0 0 pixels(142);
+    fxs-border-image-tint: rgb(58 55 41 / 25%);
+}
+
+.load-screen-info {
+    width: pixels(605);
+    margin-top: pixels(60);
+    margin-bottom: pixels(65);
+    margin-left: pixels(310);
+
+    @media (max-height: pixels(950)),
+    (max-width: pixels(1300)) {
+        margin-top: pixels(11);
+        margin-bottom: pixels(16);
+        margin-left: pixels(84);
+    }
+}
+
+.load-screen-info-scrollable {
+    width: pixels(641);
+}
+
+.load-screen-markup {
+    b {
+        color: map.get($colors, "accent-2");
+        font-weight: normal;
+    }
+
+    img {
+        width: 1em !important;
+        height: 1em !important;
+        margin-left: 0.25em !important;
+        transform: scale(1.5, 1.5);
+        transform-origin: 50% 75%;
+    }
+
+    .indent-1 {
+        margin-right: pixels(4);
+        color: white;
+        font-size: pixels(38);
+        line-height: pixels(18);
+        transform: translateY(pixels(-3));
+    }
+}
+
+.load-screen-ability-desc {
+    line-height: pixels(26);
+
+    img {
+        transform-origin: 50% 100% !important;
+    }
+}
+
+.load-screen-leader-image-area {
+    bottom: pixels(0);
+    left: pixels(989);
+    overflow: hidden;
+    width: pixels(1024);
+    height: pixels(965);
+
+    @media (max-height: pixels(950)),
+    (max-width: pixels(1300)) {
+        left: pixels(693);
+    }
+}
+
+.load-screen-leader-image {
+    width: pixels(1077);
+    height: pixels(1623);
+    margin-top: pixels(-182);
+    margin-left: pixels(-150);
+
+    @media (max-height: pixels(950)),
+    (max-width: pixels(1300)) {
+        width: pixels(746);
+        height: pixels(986);
+        margin-top: pixels(172);
+        margin-left: pixels(-96);
+        background-size: contain;
+    }
+}
+
+.load-screen-centered-content {
+    top: 0;
+    bottom: 0;
+    width: pixels(1920);
+
+    @media (max-height: pixels(950)),
+    (max-width: pixels(1300)) {
+        width: pixels(1280);
+    }
+}
+
+.load-screen-leader-image-bottom-gradient {
+    right: 0;
+    bottom: pixels(-161);
+    left: 0;
+    height: pixels(353);
+    background: radial-gradient(50% 50% at 50% 50%, rgb(0 0 0 / 60%) 30.77%, rgb(0 0 0 / 0%) 100%);
+
+    @media (max-height: pixels(950)),
+    (max-width: pixels(1300)) {
+        height: pixels(244);
+    }
+}
+
+.load-screen-leader-image-top-gradient {
+    top: 0;
+    left: pixels(220);
+    width: pixels(437);
+    height: pixels(437);
+    background: radial-gradient(50% 50% at 50% 50%, rgb(0 0 0 / 70%) 0%, rgb(0 0 0 / 0%) 100%);
+
+    @media (max-height: pixels(950)),
+    (max-width: pixels(1300)) {
+        top: pixels(200);
+        left: pixels(105);
+        width: pixels(302);
+        height: pixels(302);
+    }
+}
+
+.load-screen-icon-slot {
+    width: pixels(122);
+    height: pixels(122);
+    background-image: url("blp:hud_unit-panel_empty-slot");
+    background-position: center;
+    background-size: cover;
+}
+
+.load-screen-unit-icon-bg {
+    width: pixels(94);
+    height: pixels(94);
+    background-image: url("blp:prof_btn_bk");
+    background-position: center;
+    background-size: cover;
+}
+
+.load-screen-icon {
+    width: pixels(94);
+    height: pixels(94);
+}
+
+.load-screen-icon-sm {
+    width: pixels(48);
+    height: pixels(48);
+}
+
+.load-screen-lock-icon {
+    width: pixels(64);
+    height: pixels(64);
+    margin: pixels(29);
+}
+
+.load-screen-progress-bar-bg {
+    height: pixels(26);
+    background: url("blp:meter_well.png");
+    background-position: center;
+    background-repeat: repeat-x;
+    background-size: pixels(26);
+}
+
+.load-screen-progress-bar-fill {
+    width: 1%;
+    height: pixels(26);
+    background: url("blp:meter_fill.png");
+    background-position: center;
+    background-repeat: repeat-x;
+    background-size: pixels(26);
+    transform-origin: left;
+}
+
+.load-screen-bg-filigrees-top {
+
+    @media (max-height: pixels(950)),
+    (max-width: pixels(1300)) {
+        margin: pixels(10) pixels(-32) 0;
+    }
+}
+
+.load-screen-bg-filigrees-bottom {
+
+    @media (max-height: pixels(950)),
+    (max-width: pixels(1300)) {
+        margin: 0 pixels(-32) pixels(10);
+    }
+}
+
+.load-screen-above-stage {
+
+    @media (max-height: pixels(950)),
+    (max-width: pixels(1300)) {
+        height: pixels(44);
+    }
+}
+
+.load-screen-below-stage {
+
+    @media (max-height: pixels(950)),
+    (max-width: pixels(1300)) {
+        height: pixels(64);
+    }
+}
+
+.load-screen-filigree-top {
+
+    @media (max-height: pixels(950)),
+    (max-width: pixels(1300)) {
+        top: pixels(-8);
+        min-width: pixels(213);
+        min-height: pixels(40);
+    }
+}
+
+.load-screen-filigree-bottom {
+
+    @media (max-height: pixels(950)),
+    (max-width: pixels(1300)) {
+        bottom: pixels(-8);
+        min-width: pixels(213);
+        min-height: pixels(40);
+    }
+}
+
+.load-screen-begin-game {
+
+    @media (max-height: pixels(950)),
+    (max-width: pixels(1300)) {
+        margin-top: pixels(10);
+    }
+}
+
+@keyframes curtain-opened-fadeout {
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes load-screen-opened-fadein {
+    100% {
+        opacity: 1;
+    }
+}
+
+.load-screen-fade-in {
+    animation: load-screen-opened-fadein;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    background-color: transparent;
+    opacity: 0;
+}
+
+.curtain-opened {
+    animation: curtain-opened-fadeout;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    background-color: transparent;
+}
