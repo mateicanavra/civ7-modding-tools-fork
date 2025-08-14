@@ -121,6 +121,15 @@ function loadConfig(cwd: string): Config {
   }
 }
 
+function getMetaValue(tokens: string[], key: string): string | undefined {
+  const rx = new RegExp(`^${key}=(?:"([^"]*)"|'([^']*)'|(.+))$`);
+  for (const t of tokens) {
+    const m = t.match(rx);
+    if (m) return (m[1] ?? m[2] ?? m[3])?.trim();
+  }
+  return undefined;
+}
+
 function detectLanguage(code: string): Detection {
   const snippet = code.slice(0, 2000); // limit for perf
   const lowered = snippet.toLowerCase();
@@ -235,7 +244,9 @@ function processFile(filePath: string, config: any = {}): { updated: boolean; be
     const tagIndex = workingMetaTokens.findIndex(t => /^tag=/.test(t));
 
     const detectedTag = detectTag(finalLanguage, codeBody);
-    const tagConfig = (config.tags && config.tags[detectedTag]) || undefined;
+    const existingTagValue = getMetaValue(metaTokens, 'tag');
+    const effectiveTag = existingTagValue ?? detectedTag;
+    const tagConfig = (config.tags && config.tags[effectiveTag]) || undefined;
     const codeLineCount = codeBody === '' ? 0 : codeBody.split(/\r?\n/).length;
     const LONG_BLOCK_THRESHOLD = (tagConfig && tagConfig.expandableMinLines) ?? 40;
 
@@ -273,15 +284,13 @@ function processFile(filePath: string, config: any = {}): { updated: boolean; be
     const pageSlug = buildPageSlug(filePath);
     const hash = createShortHash(codeBody);
     const blockId = `${pageSlug}__${hash}`;
-    const tag = detectedTag;
+    const tag = effectiveTag;
     if (idIndex >= 0) {
       workingMetaTokens[idIndex] = `id="${blockId}"`;
     } else {
       workingMetaTokens.push(`id="${blockId}"`);
     }
-    if (tagIndex >= 0) {
-      workingMetaTokens[tagIndex] = `tag="${tag}"`;
-    } else {
+    if (tagIndex < 0) {
       workingMetaTokens.push(`tag="${tag}"`);
     }
 

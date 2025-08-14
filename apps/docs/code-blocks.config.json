@@ -28,7 +28,7 @@
 		},
 		"code-file": {
 			"icon": "code",
-			"lines": true,
+			"lines": false,
 			"expandableMinLines": 40,
 			"wrap": true
 		}
