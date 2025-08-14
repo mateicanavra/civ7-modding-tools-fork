@@ -10,16 +10,19 @@
     "groups": [
       {
         "group": "Overview",
+        "icon": "house",
         "pages": [
           "index"
         ]
       },
       {
         "group": "Official",
+        "icon": "landmark",
         "pages": [
           "official/README",
           {
             "group": "Guides",
+            "icon": "compass",
             "pages": [
               "official/guides/getting-started",
               "official/guides/guide-index",
@@ -31,6 +34,7 @@
           },
           {
             "group": "Examples",
+            "icon": "flask",
             "pages": [
               "official/examples/fxs-majapahit-rework/README",
               "official/examples/fxs-new-narrative-event/README",
@@ -41,11 +45,13 @@
       },
       {
         "group": "Community",
+        "icon": "users",
         "pages": [
           "community/README",
           "community/documentation-guide",
           {
             "group": "Guides",
+            "icon": "compass",
             "pages": [
               "community/guides/getting-started",
               "community/guides/general-modifying-content",
@@ -59,11 +65,13 @@
           },
           {
             "group": "TypeScript",
+            "icon": "code",
             "pages": [
               "community/guides/typescript/typescript-overview",
               "community/guides/typescript/typescript-technical",
               {
                 "group": "How-To",
+                "icon": "screwdriver-wrench",
                 "pages": [
                   "community/guides/typescript/howto/index",
                   "community/guides/typescript/howto/environment-setup",
@@ -83,6 +91,7 @@
           },
           {
             "group": "Ages",
+            "icon": "hourglass",
             "pages": [
               "community/guides/ages/age-architecture",
               "community/guides/ages/age-gameplay-mechanics",
@@ -91,9 +100,11 @@
           },
           {
             "group": "Examples",
+            "icon": "flask",
             "pages": [
               {
                 "group": "Dacia",
+                "icon": "landmark",
                 "pages": [
                   "community/guides/examples/dacia-historical-reference",
                   "community/guides/examples/dacia-implementation-guide",
@@ -104,27 +115,19 @@
             ]
           },
           {
-            "group": "Learning Paths",
+            "group": "Coming Soon",
+            "icon": "hourglass-half",
             "pages": [
-              "community/guides/learning-paths/README"
-            ]
-          },
-          {
-            "group": "Legacy Paths",
-            "pages": [
-              "community/guides/legacy-paths/README"
-            ]
-          },
-          {
-            "group": "Legends",
-            "pages": [
-              "community/guides/legends/README"
+              "community/guides/coming-soon/learning-paths",
+              "community/guides/coming-soon/legacy-paths",
+              "community/guides/coming-soon/legends"
             ]
           }
         ]
       },
       {
         "group": "Reference",
+        "icon": "book",
         "pages": [
           "community/reference/modding-reference",
           "community/reference/gameplay-mechanics",
