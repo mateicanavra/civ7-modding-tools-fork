@@ -1,0 +1,130 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Epic Diverse Huge Map Generator Configuration",
+    "description": "Schema for map_config.js. Provides validation and tooltips for all tunable parameters.",
+    "type": "object",
+    "properties": {
+        "toggles": {
+            "type": "object",
+            "description": "Master feature toggles to enable or disable major Climate Story systems.",
+            "properties": {
+                "STORY_ENABLE_HOTSPOTS": { "type": "boolean", "default": true, "description": "Enable deep-ocean hotspot trails and paradise/volcanic islands." },
+                "STORY_ENABLE_RIFTS": { "type": "boolean", "default": true, "description": "Enable continental rift valleys with shoulder humidity." },
+                "STORY_ENABLE_OROGENY": { "type": "boolean", "default": true, "description": "Enable windward/lee effects along mountain belts." },
+                "STORY_ENABLE_SWATCHES": { "type": "boolean", "default": true, "description": "Enable one guaranteed 'black swan' macro climate swatch per map." },
+                "STORY_ENABLE_PALEO": { "type": "boolean", "default": true, "description": "Enable paleo-hydrology features like deltas, oxbows, and fossil channels." }
+            },
+            "required": ["STORY_ENABLE_HOTSPOTS", "STORY_ENABLE_RIFTS", "STORY_ENABLE_OROGENY", "STORY_ENABLE_SWATCHES", "STORY_ENABLE_PALEO"]
+        },
+        "story": {
+            "type": "object",
+            "description": "Detailed parameters for each narrative motif.",
+            "properties": {
+                "hotspot": {
+                    "type": "object",
+                    "description": "Deep-ocean hotspot trails (aligned island chains).",
+                    "properties": {
+                        "maxTrails": { "type": "integer", "default": 3, "description": "Total trails on a Huge map (size-scaled)." },
+                        "steps": { "type": "integer", "default": 10, "description": "Polyline steps per trail (size-scaled)." },
+                        "stepLen": { "type": "integer", "default": 4, "description": "Tiles advanced per step." },
+                        "minDistFromLand": { "type": "integer", "default": 4, "description": "Keep trails away from coasts." },
+                        "minTrailSeparation": { "type": "integer", "default": 12, "description": "Avoid parallel clutter between trails." },
+                        "paradiseBias": { "type": "integer", "default": 2, "description": "Weight for classifying a hotspot as 'paradise' (lush, reef-friendly)." },
+                        "volcanicBias": { "type": "integer", "default": 1, "description": "Weight for classifying a hotspot as 'volcanic' (rugged, fertile ash)." },
+                        "volcanicPeakChance": { "type": "number", "minimum": 0, "maximum": 1, "default": 0.33, "description": "Chance (0-1) a volcanic center becomes a land tile." }
+                    }
+                },
+                "rift": {
+                    "type": "object",
+                    "description": "Continental rift lines (linear inland lakes/shoulders).",
+                    "properties": {
+                        "maxRiftsPerMap": { "type": "integer", "default": 3, "description": "Absolute cap on rifts per map (size-scaled)." },
+                        "lineSteps": { "type": "integer", "default": 18, "description": "Steps marched per rift (size-scaled)." },
+                        "stepLen": { "type": "integer", "default": 2, "description": "Tiles advanced per step." },
+                        "shoulderWidth": { "type": "integer", "default": 1, "description": "Lateral shoulder band on each side." }
+                    }
+                },
+                "orogeny": {
+                    "type": "object",
+                    "description": "Windward/lee amplification along mountain chains.",
+                    "properties": {
+                        "beltMaxPerContinent": { "type": "integer", "default": 2, "description": "Hard cap per large continent." },
+                        "beltMinLength": { "type": "integer", "default": 30, "description": "Minimum tiles to consider a belt (size-scaled)." },
+                        "radius": { "type": "integer", "default": 2, "description": "Narrow belt radius for flank effects (size-scaled)." },
+                        "windwardBoost": { "type": "integer", "default": 5, "description": "+rainfall on windward flank (clamped)." },
+                        "leeDrynessAmplifier": { "type": "number", "minimum": 1, "default": 1.2, "description": "Multiplier for local orographic subtraction on lee side." }
+                    }
+                },
+                "swatches": {
+                    "type": "object",
+                    "description": "'Black swan' climate swatches — one guaranteed macro zone per map.",
+                    "properties": {
+                        "maxPerMap": { "type": "integer", "default": 1 },
+                        "forceAtLeastOne": { "type": "boolean", "default": true },
+                        "sizeScaling": {
+                            "type": "object",
+                            "properties": {
+                                "widthMulSqrt": { "type": "number", "default": 0.3 },
+                                "lengthMulSqrt": { "type": "number", "default": 0.4 }
+                            }
+                        },
+                        "types": {
+                            "type": "object",
+                            "description": "Configuration for each swatch type, including selection weight.",
+                            "properties": {
+                                "macroDesertBelt": { "type": "object", "properties": { "weight": { "type": "integer", "default": 3 } } },
+                                "equatorialRainbelt": { "type": "object", "properties": { "weight": { "type": "integer", "default": 3 } } },
+                                "rainforestArchipelago": { "type": "object", "properties": { "weight": { "type": "integer", "default": 2 } } },
+                                "mountainForests": { "type": "object", "properties": { "weight": { "type": "integer", "default": 2 } } },
+                                "greatPlains": { "type": "object", "properties": { "weight": { "type": "integer", "default": 2 } } }
+                            }
+                        }
+                    }
+                },
+                "paleo": {
+                    "type": "object",
+                    "description": "Paleo-hydrology (deltas, oxbows, fossil channels) with elevation carving.",
+                    "properties": {
+                        "maxDeltas": { "type": "integer", "default": 4 },
+                        "maxOxbows": { "type": "integer", "default": 6 },
+                        "maxFossilChannels": { "type": "integer", "default": 3 },
+                        "fossilChannelLengthTiles": { "type": "integer", "default": 12 },
+                        "fossilChannelHumidity": { "type": "integer", "default": 5 },
+                        "elevationCarving": {
+                            "type": "object",
+                            "properties": {
+                                "enableCanyonRim": { "type": "boolean", "default": true },
+                                "rimWidth": { "type": "integer", "default": 1 },
+                                "canyonDryBonus": { "type": "integer", "default": 2 }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "microclimate": {
+            "type": "object",
+            "description": "Small deltas applied by refinement passes.",
+            "properties": {
+                "rainfall": {
+                    "type": "object",
+                    "properties": {
+                        "riftBoost": { "type": "integer", "default": 8 },
+                        "riftRadius": { "type": "integer", "default": 2 },
+                        "paradiseDelta": { "type": "integer", "default": 6 },
+                        "volcanicDelta": { "type": "integer", "default": 8 }
+                    }
+                },
+                "features": {
+                    "type": "object",
+                    "properties": {
+                        "paradiseReefChance": { "type": "number", "minimum": 0, "maximum": 100, "default": 18, "description": "Percent chance." },
+                        "volcanicForestChance": { "type": "number", "minimum": 0, "maximum": 100, "default": 22, "description": "Percent chance." },
+                        "volcanicTaigaChance": { "type": "number", "minimum": 0, "maximum": 100, "default": 25, "description": "Percent chance." }
+                    }
+                }
+            }
+        }
+    },
+    "required": ["toggles", "story", "microclimate"]
+}

@@ -38,14 +38,9 @@ import {
     storyTagContinentalMargins,
     storyTagClimateSwatches,
     storyTagPaleoHydrology,
+    OrogenyCache,
 } from "./story/tagging.js";
-import {
-    clamp as utilClamp,
-    inBounds as utilInBounds,
-    storyKey as utilStoryKey,
-    isAdjacentToLand as utilIsAdjacentToLand,
-    getFeatureTypeIndex as utilGetFeatureTypeIndex,
-} from "./core/utils.js";
+
 import { generateResources } from "/base-standard/maps/resource-generator.js";
 import { addVolcanoes } from "/base-standard/maps/volcano-generator.js";
 import { assignAdvancedStartRegions } from "/base-standard/maps/assign-advanced-start-region.js";
@@ -84,25 +79,6 @@ const STORY_ENABLE_OROGENY = CFG_STORY_ENABLE_OROGENY;
 
 // Tunables (conservative defaults)
 const STORY_TUNABLES = CFG_STORY_TUNABLES;
-
-function storyKey(x, y) {
-    return `${x},${y}`;
-}
-function inBounds(x, y) {
-    return (
-        x >= 0 &&
-        x < GameplayMap.getGridWidth() &&
-        y >= 0 &&
-        y < GameplayMap.getGridHeight()
-    );
-}
-function storyResetTags() {
-    StoryTags.hotspot.clear();
-    StoryTags.hotspotParadise.clear();
-    StoryTags.hotspotVolcanic.clear();
-    StoryTags.riftLine.clear();
-    StoryTags.riftShoulder.clear();
-}
 
 function requestMapData(initParams) {
     console.log("=== EPIC DIVERSE HUGE GENERATOR STARTING ===");
@@ -249,7 +225,7 @@ function generateMap() {
     // Continental margins already tagged before coast shaping
 
     devLogIf("LOG_STORY_TAGS", "StoryTags summary follows");
-    logStoryTagsSummary(StoryTags);
+    logStoryTagsSummary(StoryTags, OrogenyCache);
     {
         const t = timeStart("IslandChains");
         layerAddIslandChains(iWidth, iHeight);
@@ -298,7 +274,16 @@ function generateMap() {
         const t = timeStart("Climate: Swatches");
         // Paint one guaranteed macro climate swatch (black-swan) with soft edges
         // Runs after baseline bands, before orogeny/rift refinements compound
-        storyTagClimateSwatches();
+        // This also opportunistically calls storyTagPaleoHydrology internally for blending.
+        const swatchResult = storyTagClimateSwatches();
+        if (swatchResult && swatchResult.kind) {
+            devLogIf(
+                "LOG_STORY_TAGS",
+                `Climate Swatch: ${swatchResult.kind} (${swatchResult.tiles} tiles)`,
+            );
+        }
+        // Dev Note: To log Paleo-hydrology counts, refactor storyTagClimateSwatches
+        // to return the result from storyTagPaleoHydrology.
         timeEnd(t);
     }
 

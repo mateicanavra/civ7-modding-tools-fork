@@ -116,8 +116,9 @@ export function timeEnd(token) {
  * Safe if StoryTags is missing or partially defined.
  * No-op if LOG_STORY_TAGS disabled.
  * @param {{hotspot?:Set<string>,hotspotParadise?:Set<string>,hotspotVolcanic?:Set<string>,riftLine?:Set<string>,riftShoulder?:Set<string>,activeMargin?:Set<string>,passiveShelf?:Set<string>}} StoryTags
+ * @param {{belts?:Set<string>,windward?:Set<string>,lee?:Set<string>}} [OrogenyCache]
  */
-export function logStoryTagsSummary(StoryTags) {
+export function logStoryTagsSummary(StoryTags, OrogenyCache) {
     if (!isOn("LOG_STORY_TAGS")) return;
     if (!StoryTags || typeof StoryTags !== "object") {
         safeLog("[DEV][story] StoryTags not available");
@@ -133,6 +134,17 @@ export function logStoryTagsSummary(StoryTags) {
         passiveShelf: sizeOf(StoryTags.passiveShelf),
     };
     safeLog("[DEV][story] tags:", counts);
+
+    if (OrogenyCache && typeof OrogenyCache === "object") {
+        const oroCounts = {
+            belts: sizeOf(OrogenyCache.belts),
+            windward: sizeOf(OrogenyCache.windward),
+            lee: sizeOf(OrogenyCache.lee),
+        };
+        if (oroCounts.belts > 0) {
+            safeLog("[DEV][story] orogeny:", oroCounts);
+        }
+    }
 }
 
 /**

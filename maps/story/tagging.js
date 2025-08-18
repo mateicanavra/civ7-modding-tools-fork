@@ -647,12 +647,13 @@ export function storyTagClimateSwatches() {
         }
     }
 
-    const _swatchResult = { applied: applied > 0, kind, tiles: applied };
+    let _swatchResult = { applied: applied > 0, kind, tiles: applied };
     // Opportunistically run Paleo‑Hydrology after swatch paint so its humidity/dryness
     // overlays blend with the bands and the selected macro swatch.
     if (STORY_ENABLE_PALEO) {
         try {
-            storyTagPaleoHydrology();
+            const paleoResult = storyTagPaleoHydrology();
+            _swatchResult.paleo = paleoResult;
         } catch (_) {
             /* keep generation resilient */
         }
