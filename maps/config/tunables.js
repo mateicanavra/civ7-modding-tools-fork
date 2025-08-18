@@ -17,6 +17,7 @@ export const STORY_ENABLE_OROGENY = TOGGLES.STORY_ENABLE_OROGENY ?? true;
 export const STORY_ENABLE_SWATCHES = TOGGLES.STORY_ENABLE_SWATCHES ?? true;
 export const STORY_ENABLE_PALEO = TOGGLES.STORY_ENABLE_PALEO ?? true;
 export const STORY_ENABLE_CORRIDORS = TOGGLES.STORY_ENABLE_CORRIDORS ?? true;
+export const STORY_ENABLE_WORLDMODEL = TOGGLES.STORY_ENABLE_WORLDMODEL ?? true;
 
 // --- Tunable Groups ---
 // Merge story tunables and microclimate tunables into a single export for simplicity.
@@ -48,3 +49,9 @@ export const PLACEMENT_CFG = MAP_CONFIG?.placement || {};
 export const DEV_LOG_CFG = MAP_CONFIG?.dev || {};
 export const CORRIDOR_POLICY = MAP_CONFIG?.corridors?.policy || {};
 export const CORRIDOR_KINDS = MAP_CONFIG?.corridors?.kinds || {};
+export const WORLDMODEL_CFG = MAP_CONFIG?.worldModel || {};
+export const WORLDMODEL_PLATES = MAP_CONFIG?.worldModel?.plates || {};
+export const WORLDMODEL_WIND = MAP_CONFIG?.worldModel?.wind || {};
+export const WORLDMODEL_CURRENTS = MAP_CONFIG?.worldModel?.currents || {};
+export const WORLDMODEL_PRESSURE = MAP_CONFIG?.worldModel?.pressure || {};
+export const WORLDMODEL_POLICY = MAP_CONFIG?.worldModel?.policy || {};

@@ -29,6 +29,7 @@ import {
     STORY_ENABLE_RIFTS as CFG_STORY_ENABLE_RIFTS,
     STORY_ENABLE_OROGENY as CFG_STORY_ENABLE_OROGENY,
     STORY_TUNABLES as CFG_STORY_TUNABLES,
+    STORY_ENABLE_WORLDMODEL as CFG_STORY_ENABLE_WORLDMODEL,
 } from "./config/tunables.js";
 import { StoryTags, resetStoryTags } from "./story/tags.js";
 import { storyTagStrategicCorridors } from "./story/corridors.js";
@@ -67,6 +68,7 @@ import {
     logRainfallHistogram,
     logCorridorAsciiOverlay,
 } from "./config/dev.js";
+import { WorldModel } from "./world/model.js";
 // Orchestrator import removed for stability while we restore local engine listeners
 
 /**
@@ -76,6 +78,7 @@ import {
 const STORY_ENABLE_HOTSPOTS = CFG_STORY_ENABLE_HOTSPOTS;
 const STORY_ENABLE_RIFTS = CFG_STORY_ENABLE_RIFTS;
 const STORY_ENABLE_OROGENY = CFG_STORY_ENABLE_OROGENY;
+const STORY_ENABLE_WORLDMODEL = CFG_STORY_ENABLE_WORLDMODEL;
 
 // StoryTags are now imported from ./story/tags.js
 
@@ -110,6 +113,17 @@ function generateMap() {
 
     let mapInfo = GameInfo.Maps.lookup(uiMapSize);
     if (mapInfo == null) return;
+
+    // Initialize WorldModel (optional; no consumers yet)
+    if (STORY_ENABLE_WORLDMODEL) {
+        try {
+            if (WorldModel.init()) {
+                devLogIf("LOG_STORY_TAGS", "[WorldModel] Initialized");
+            }
+        } catch (err) {
+            devLogIf("LOG_STORY_TAGS", "[WorldModel] init error");
+        }
+    }
 
     let iNumNaturalWonders = Math.max(
         mapInfo.NumNaturalWonders + 1,

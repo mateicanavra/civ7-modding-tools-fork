@@ -26,6 +26,7 @@ export const MAP_CONFIG = Object.freeze({
         STORY_ENABLE_SWATCHES: true,
         STORY_ENABLE_PALEO: true,
         STORY_ENABLE_CORRIDORS: true,
+        STORY_ENABLE_WORLDMODEL: true,
     }),
 
     // --- Climate Story Tunables ---
@@ -325,6 +326,50 @@ export const MAP_CONFIG = Object.freeze({
                     }),
                 }),
             }),
+        }),
+    }),
+    // --- World Model (Earth Forces; lightweight, optional) ---
+    worldModel: Object.freeze({
+        // Master switch for foundational Earth Forces fields (dev-on by default)
+        enabled: true,
+
+        // Plates (Voronoi plates + boundary types; fields drive rifts/orogeny/margins)
+        plates: Object.freeze({
+            count: 8, // Huge maps: 6–10 recommended
+            axisAngles: Object.freeze([15, -20, 35]), // degrees; used to align macro trends
+            convergenceMix: 0.5, // 0..1 fraction for convergent vs divergent balance
+            seedJitter: 2, // tile jitter for plate seeds
+            interiorSmooth: 2, // smoothing steps for shield interiors
+        }),
+
+        // Global winds (zonal baseline + jet streams; used in refinement upwind checks)
+        wind: Object.freeze({
+            jetStreaks: 3,
+            jetStrength: 1.0,
+            variance: 0.6,
+            coriolisZonalScale: 1.0,
+        }),
+
+        // Ocean currents (basin gyres + boundary currents; small humidity/coast effects)
+        currents: Object.freeze({
+            basinGyreCountMax: 2,
+            westernBoundaryBias: 1.1,
+            currentStrength: 1.0,
+        }),
+
+        // Mantle pressure (bumps/ridges; optional small influence on hills/relief)
+        pressure: Object.freeze({
+            bumps: 4,
+            amplitude: 0.6,
+            scale: 0.4,
+        }),
+
+        // Policy scalars for consumers (keep gentle; all effects remain clamped/validated)
+        policy: Object.freeze({
+            windInfluence: 1.0, // scales wind use in refinement upwind barrier checks
+            currentHumidityBias: 0.4, // scales coastal humidity tweak from currents
+            boundaryFjordBias: 0.3, // scales fjord/bay bias near convergent boundaries
+            shelfReefBias: 0.2, // scales passive-shelf reef bias (validated in features)
         }),
     }),
     // --- Landmass (base land/ocean and shaping) ---
