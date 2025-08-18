@@ -106,3 +106,32 @@ When You Touch Code
 - Avoid unverifiable claims in docs; prefer observed behavior or parameters.
 
 That’s it—start in maps/epic-diverse-huge.js, keep DESIGN.md’s constraints in mind, and iterate in small, measurable steps.
+
+Modularization (v1.0.1+) — Quick Notes
+- Entry point/orchestrator:
+  - maps/epic-diverse-huge.js remains the entry point; it orchestrates the pipeline by calling modular layers.
+- Layers:
+  - Landmass: maps/layers/landmass.js (createDiverseLandmasses)
+  - Coastlines: maps/layers/coastlines.js (addRuggedCoasts)
+  - Islands: maps/layers/islands.js (addIslandChains)
+  - Climate — Baseline: maps/layers/climate-baseline.js (buildEnhancedRainfall)
+  - Climate — Earthlike: maps/layers/climate-refinement.js (refineRainfallEarthlike)
+  - Biomes: maps/layers/biomes.js (designateEnhancedBiomes)
+  - Features: maps/layers/features.js (addDiverseFeatures)
+  - Placement: maps/layers/placement.js (wonders, floodplains, snow, resources, starts, discoveries, fertility, advanced starts)
+- Climate Story (tags + tagging):
+  - Tags: maps/story/tags.js
+  - Tagging: maps/story/tagging.js (HotspotTrails, RiftValleys)
+- Config/Utils:
+  - Tunables: maps/config/tunables.js (STORY_ENABLE_* and STORY_TUNABLES)
+  - Dev logger: maps/config/dev.js (see below)
+  - Shared utils: maps/core/utils.js (clamp, inBounds, storyKey, adjacency, feature lookups)
+
+Dev Logger (optional; off by default)
+- File: maps/config/dev.js
+- Toggles (enable for a local debugging session, then revert):
+  - DEV.ENABLED: master switch
+  - DEV.LOG_TIMING: per-layer timings (used around major passes in epic-diverse-huge.js)
+  - DEV.LOG_STORY_TAGS: prints StoryTags counts (logged after tagging, before island chains)
+  - DEV.RAINFALL_HISTOGRAM: prints coarse rainfall histogram over land (logged before placement)
+- No-ops when disabled (negligible overhead). Keep disabled for release builds.

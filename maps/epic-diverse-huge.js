@@ -52,6 +52,16 @@ import { refineRainfallEarthlike as layerRefineRainfallEarthlike } from "./layer
 import { designateEnhancedBiomes as layerDesignateEnhancedBiomes } from "./layers/biomes.js";
 import { addDiverseFeatures as layerAddDiverseFeatures } from "./layers/features.js";
 import { runPlacement as layerRunPlacement } from "./layers/placement.js";
+import {
+    DEV,
+    devLog,
+    devLogIf,
+    timeSection,
+    timeStart,
+    timeEnd,
+    logStoryTagsSummary,
+    logRainfallHistogram,
+} from "./config/dev.js";
 // Orchestrator import removed for stability while we restore local engine listeners
 
 /**
@@ -182,17 +192,29 @@ function generateMap() {
     };
 
     // Generate landmasses without creating a hard horizontal ocean band
-    layerCreateDiverseLandmasses(iWidth, iHeight, [
-        landmass1,
-        landmass2,
-        landmass3,
-    ]);
+    {
+        const t = timeStart("Landmass");
+        layerCreateDiverseLandmasses(iWidth, iHeight, [
+            landmass1,
+            landmass2,
+            landmass3,
+        ]);
+        timeEnd(t);
+    }
 
     TerrainBuilder.validateAndFixTerrain();
-    expandCoasts(iWidth, iHeight);
+    {
+        const t = timeStart("ExpandCoasts");
+        expandCoasts(iWidth, iHeight);
+        timeEnd(t);
+    }
 
     // Add post-processing to make coasts more rugged and place a few islands
-    layerAddRuggedCoasts(iWidth, iHeight);
+    {
+        const t = timeStart("RuggedCoasts");
+        layerAddRuggedCoasts(iWidth, iHeight);
+        timeEnd(t);
+    }
 
     // Climate Story v0.1: Tag narrative motifs after coasts exist
     if (STORY_ENABLE_HOTSPOTS || STORY_ENABLE_RIFTS) {
@@ -207,7 +229,13 @@ function generateMap() {
         storyTagRiftValleys(iWidth, iHeight);
     }
 
-    layerAddIslandChains(iWidth, iHeight);
+    devLogIf("LOG_STORY_TAGS", "StoryTags summary follows");
+    logStoryTagsSummary(StoryTags);
+    {
+        const t = timeStart("IslandChains");
+        layerAddIslandChains(iWidth, iHeight);
+        timeEnd(t);
+    }
 
     // Remove aggressive cliff systems for playability
 
@@ -215,52 +243,94 @@ function generateMap() {
     TerrainBuilder.stampContinents();
 
     // Mountains – use base generator only (fewer peaks)
-    addMountains(iWidth, iHeight);
-    addVolcanoes(iWidth, iHeight);
+    {
+        const t = timeStart("Mountains");
+        addMountains(iWidth, iHeight);
+        timeEnd(t);
+    }
+    {
+        const t = timeStart("Volcanoes");
+        addVolcanoes(iWidth, iHeight);
+        timeEnd(t);
+    }
 
     // Lakes – fewer than before
-    generateLakes(iWidth, iHeight, iTilesPerLake);
+    {
+        const t = timeStart("Lakes");
+        generateLakes(iWidth, iHeight, iTilesPerLake);
+        timeEnd(t);
+    }
 
     AreaBuilder.recalculateAreas();
     TerrainBuilder.buildElevation();
-    addHills(iWidth, iHeight);
+    {
+        const t = timeStart("Hills");
+        addHills(iWidth, iHeight);
+        timeEnd(t);
+    }
 
     // Create moderated rainfall patterns (keep enhanced but gentle)
-    layerBuildEnhancedRainfall(iWidth, iHeight);
+    {
+        const t = timeStart("Climate: Baseline");
+        layerBuildEnhancedRainfall(iWidth, iHeight);
+        timeEnd(t);
+    }
 
     // Rivers – closer to base values for balance
-    TerrainBuilder.modelRivers(5, 15, globals.g_NavigableRiverTerrain);
+    {
+        const t = timeStart("Rivers");
+        TerrainBuilder.modelRivers(5, 15, globals.g_NavigableRiverTerrain);
+        timeEnd(t);
+    }
     TerrainBuilder.validateAndFixTerrain();
     TerrainBuilder.defineNamedRivers();
 
     // Refine rainfall with earthlike dynamics after rivers exist
-    layerRefineRainfallEarthlike(iWidth, iHeight);
+    {
+        const t = timeStart("Climate: Earthlike Refinements");
+        layerRefineRainfallEarthlike(iWidth, iHeight);
+        timeEnd(t);
+    }
 
     // Enhanced biome diversity
-    layerDesignateEnhancedBiomes(iWidth, iHeight);
+    {
+        const t = timeStart("Biomes");
+        layerDesignateEnhancedBiomes(iWidth, iHeight);
+        timeEnd(t);
+    }
 
     // Add extensive feature variety
-    layerAddDiverseFeatures(iWidth, iHeight);
+    {
+        const t = timeStart("Features");
+        layerAddDiverseFeatures(iWidth, iHeight);
+        timeEnd(t);
+    }
 
     TerrainBuilder.validateAndFixTerrain();
     AreaBuilder.recalculateAreas();
+    devLogIf("RAINFALL_HISTOGRAM", "Rainfall histogram (land tiles)");
+    logRainfallHistogram(iWidth, iHeight, 12);
     TerrainBuilder.storeWaterData();
 
     // Placement phase (wonders, floodplains, snow, resources, starts, discoveries, fertility, advanced starts)
-    startPositions = layerRunPlacement(iWidth, iHeight, {
-        mapInfo,
-        wondersPlusOne: true,
-        floodplains: { minLength: 4, maxLength: 10 },
-        starts: {
-            playersLandmass1: iNumPlayers1,
-            playersLandmass2: iNumPlayers2,
-            westContinent,
-            eastContinent,
-            startSectorRows: iStartSectorRows,
-            startSectorCols: iStartSectorCols,
-            startSectors,
-        },
-    });
+    {
+        const t = timeStart("Placement");
+        startPositions = layerRunPlacement(iWidth, iHeight, {
+            mapInfo,
+            wondersPlusOne: true,
+            floodplains: { minLength: 4, maxLength: 10 },
+            starts: {
+                playersLandmass1: iNumPlayers1,
+                playersLandmass2: iNumPlayers2,
+                westContinent,
+                eastContinent,
+                startSectorRows: iStartSectorRows,
+                startSectorCols: iStartSectorCols,
+                startSectors,
+            },
+        });
+        timeEnd(t);
+    }
 
     // Log completion with statistics
     // console.log("EPIC_MAP_GEN_COMPLETE|" + JSON.stringify({

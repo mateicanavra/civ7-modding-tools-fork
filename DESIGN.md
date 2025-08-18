@@ -309,4 +309,41 @@ To further evolve this design, we plan to break the generator into explicit laye
   - Generation time acceptable on Huge; passes remain bounded and avoid heavy flood operations.
 
 
+## 13) Modularization and Climate Story (v1.0.1+ Notes)
+
+- Orchestrator entrypoint
+  - `maps/epic-diverse-huge.js` acts as the orchestrator/entrypoint. It wires the pipeline and calls modular layers.
+  - Engine hooks remain registered here for stability.
+
+- Modular layers (current)
+  - Landmass: `maps/layers/landmass.js` (`createDiverseLandmasses`)
+  - Coastlines: `maps/layers/coastlines.js` (`addRuggedCoasts`)
+  - Islands: `maps/layers/islands.js` (`addIslandChains`)
+  - Climate — Baseline: `maps/layers/climate-baseline.js` (`buildEnhancedRainfall`)
+  - Climate — Earthlike Refinements: `maps/layers/climate-refinement.js` (`refineRainfallEarthlike`)
+  - Biomes: `maps/layers/biomes.js` (`designateEnhancedBiomes`)
+  - Features: `maps/layers/features.js` (`addDiverseFeatures`)
+  - Placement: `maps/layers/placement.js` (wonders, floodplains, snow, resources, starts, discoveries, fertility, advanced starts)
+
+- Climate Story docs
+  - Concept and guardrails: `climate-story/README.md`
+  - First iteration spec (Hotspot Trails + Rift Valleys): `climate-story/HotspotTrails_and_RiftValleys.md`
+  - Additional motifs roadmap (Margins, Orogeny, Paleo‑hydrology, Glacial): `climate-story/Roadmap_Additional_Motifs.md`
+  - TL;DR quick-start for implementation: `climate-story/TLDR.md`
+
+- Developer logger (optional; disabled by default)
+  - Config and helpers: `maps/config/dev.js`
+  - Toggles (set to true for a debug session, then revert):
+    - `DEV.ENABLED`: master switch
+    - `DEV.LOG_TIMING`: per-layer timing (use `timeStart/timeEnd` or `timeSection`)
+    - `DEV.LOG_STORY_TAGS`: prints StoryTags counts (`logStoryTagsSummary`)
+    - `DEV.RAINFALL_HISTOGRAM`: prints a coarse rainfall histogram over land (`logRainfallHistogram`)
+  - These utilities are no-op when disabled and have negligible perf impact.
+
+- Climate Story runtime integration (v0.1)
+  - Tagging runs after coasts and before island seeding:
+    - Hotspot trails and rift lines/shoulders (`story/tagging.js`, `story/tags.js`)
+  - Hotspot-aware islands (paradise/volcanic) decorate offshore chains with minimal changes to lane openness.
+  - Microclimates and features read tags later in the pipeline (refinements, biomes, features).
+
 — End of DESIGN —
