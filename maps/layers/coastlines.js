@@ -11,7 +11,11 @@
 import * as globals from "/base-standard/maps/map-globals.js";
 import { isAdjacentToLand } from "../core/utils.js";
 import { StoryTags } from "../story/tags.js";
-import { COASTLINES_CFG, CORRIDOR_POLICY } from "../config/tunables.js";
+import {
+    COASTLINES_CFG,
+    CORRIDOR_POLICY,
+    CORRIDOR_KINDS,
+} from "../config/tunables.js";
 
 /**
  * Ruggedize coasts in a sparse, performance-friendly pass.
@@ -90,10 +94,41 @@ export function addRuggedCoasts(iWidth, iHeight) {
                 const bayRollDen = isActive
                     ? bayRollDenActive
                     : bayRollDenDefault;
-                const bayRollDenUsed =
+                let bayRollDenUsed =
                     _softMult !== 1
                         ? Math.max(1, Math.round(bayRollDen / _softMult))
                         : bayRollDen;
+                // Corridor edge effect: if near a sea-lane, apply style-based bay carve bias
+                const __laneStyle = (function () {
+                    for (let ddy = -1; ddy <= 1; ddy++) {
+                        for (let ddx = -1; ddx <= 1; ddx++) {
+                            if (ddx === 0 && ddy === 0) continue;
+                            const k = `${x + ddx},${y + ddy}`;
+                            if (
+                                StoryTags.corridorSeaLane &&
+                                StoryTags.corridorSeaLane.has(k)
+                            ) {
+                                return (
+                                    StoryTags.corridorStyle?.get?.(k) || null
+                                );
+                            }
+                        }
+                    }
+                    return null;
+                })();
+                if (__laneStyle) {
+                    const edgeCfg =
+                        CORRIDOR_KINDS?.sea?.styles?.[__laneStyle]?.edge || {};
+                    const bayMult = Number.isFinite(edgeCfg.bayCarveMultiplier)
+                        ? edgeCfg.bayCarveMultiplier
+                        : 1;
+                    if (bayMult && bayMult !== 1) {
+                        bayRollDenUsed = Math.max(
+                            1,
+                            Math.round(bayRollDenUsed / bayMult),
+                        );
+                    }
+                }
                 if (
                     h % 97 < noiseGate &&
                     TerrainBuilder.getRandomNumber(
@@ -149,10 +184,54 @@ export function addRuggedCoasts(iWidth, iHeight) {
                                 (nearPassive ? fjordPassiveBonus : 0) -
                                 (nearActive ? fjordActiveBonus : 0),
                         );
-                        const denomUsed =
+                        let denomUsed =
                             _softMult !== 1
                                 ? Math.max(1, Math.round(denom / _softMult))
                                 : denom;
+                        // Corridor edge effect: if adjacent to a sea-lane tile, increase fjord/coast conversion chance
+                        {
+                            let __style = null;
+                            for (let my = -1; my <= 1 && !__style; my++) {
+                                for (let mx = -1; mx <= 1; mx++) {
+                                    if (mx === 0 && my === 0) continue;
+                                    const kk = `${x + mx},${y + my}`;
+                                    if (
+                                        StoryTags.corridorSeaLane &&
+                                        StoryTags.corridorSeaLane.has(kk)
+                                    ) {
+                                        __style =
+                                            StoryTags.corridorStyle?.get?.(
+                                                kk,
+                                            ) || null;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (__style) {
+                                const edgeCfg =
+                                    CORRIDOR_KINDS?.sea?.styles?.[__style]
+                                        ?.edge || {};
+                                const fj = Number.isFinite(edgeCfg.fjordChance)
+                                    ? edgeCfg.fjordChance
+                                    : 0;
+                                const cliffs = Number.isFinite(
+                                    edgeCfg.cliffsChance,
+                                )
+                                    ? edgeCfg.cliffsChance
+                                    : 0;
+                                // Convert combined edge effect into a denom multiplier (cap to avoid aggression)
+                                const effect = Math.max(
+                                    0,
+                                    Math.min(0.5, fj + cliffs * 0.5),
+                                );
+                                if (effect > 0) {
+                                    denomUsed = Math.max(
+                                        1,
+                                        Math.round(denomUsed * (1 - effect)),
+                                    );
+                                }
+                            }
+                        }
                         if (
                             TerrainBuilder.getRandomNumber(
                                 denomUsed,

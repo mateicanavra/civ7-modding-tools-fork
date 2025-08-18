@@ -195,6 +195,137 @@ export const MAP_CONFIG = Object.freeze({
                 biomesBiasStrength: 0.5,
             }),
         }),
+        // Corridor kinds and styles (probabilities are gentle multipliers; consumers must validate)
+        kinds: Object.freeze({
+            sea: Object.freeze({
+                styles: Object.freeze({
+                    ocean: Object.freeze({
+                        edge: Object.freeze({
+                            cliffsChance: 0.15,
+                            fjordChance: 0.1,
+                        }),
+                        features: Object.freeze({
+                            reefBias: 0.1,
+                        }),
+                    }),
+                    coastal: Object.freeze({
+                        edge: Object.freeze({
+                            cliffsChance: 0.25,
+                            bayCarveMultiplier: 1.15,
+                        }),
+                        features: Object.freeze({
+                            reefBias: 0.2,
+                        }),
+                    }),
+                }),
+            }),
+            islandHop: Object.freeze({
+                styles: Object.freeze({
+                    archipelago: Object.freeze({
+                        features: Object.freeze({
+                            reefBias: 0.5,
+                        }),
+                        edge: Object.freeze({
+                            shelfReefMultiplier: 1.25,
+                        }),
+                    }),
+                }),
+            }),
+            land: Object.freeze({
+                styles: Object.freeze({
+                    desertBelt: Object.freeze({
+                        biomes: Object.freeze({
+                            desert: 0.7,
+                            plains: 0.25,
+                            grassland: 0.1,
+                            tundra: 0.05,
+                        }),
+                        edge: Object.freeze({
+                            mountainRimChance: 0.4,
+                            forestRimChance: 0.1,
+                        }),
+                    }),
+                    plainsBelt: Object.freeze({
+                        biomes: Object.freeze({
+                            plains: 0.55,
+                            grassland: 0.3,
+                            desert: 0.1,
+                            tundra: 0.05,
+                        }),
+                        edge: Object.freeze({
+                            forestRimChance: 0.1,
+                            hillRimChance: 0.08,
+                        }),
+                    }),
+                    grasslandBelt: Object.freeze({
+                        biomes: Object.freeze({
+                            grassland: 0.6,
+                            plains: 0.25,
+                            tropical: 0.1,
+                            tundra: 0.05,
+                        }),
+                        edge: Object.freeze({
+                            forestRimChance: 0.15,
+                            hillRimChance: 0.05,
+                        }),
+                    }),
+                    canyon: Object.freeze({
+                        biomes: Object.freeze({
+                            desert: 0.45,
+                            plains: 0.3,
+                            grassland: 0.15,
+                            tundra: 0.1,
+                        }),
+                        edge: Object.freeze({
+                            cliffChance: 0.6,
+                            mountainRimChance: 0.12,
+                        }),
+                    }),
+                    plateau: Object.freeze({
+                        biomes: Object.freeze({
+                            plains: 0.4,
+                            grassland: 0.35,
+                            desert: 0.15,
+                            tundra: 0.1,
+                        }),
+                        edge: Object.freeze({
+                            escarpmentChance: 0.71,
+                            mountainRimChance: 0.08,
+                        }),
+                    }),
+                    flatMtn: Object.freeze({
+                        biomes: Object.freeze({
+                            grassland: 0.35,
+                            plains: 0.3,
+                            tundra: 0.2,
+                            desert: 0.15,
+                        }),
+                        edge: Object.freeze({
+                            mountainRimChance: 0.6,
+                            forestRimChance: 0.3,
+                        }),
+                    }),
+                }),
+            }),
+            river: Object.freeze({
+                styles: Object.freeze({
+                    riverChain: Object.freeze({
+                        biomes: Object.freeze({
+                            grassland: 0.6,
+                            plains: 0.25,
+                            tropical: 0.15,
+                        }),
+                        features: Object.freeze({
+                            floodplainBias: 0.1,
+                            forestBias: 0.1,
+                        }),
+                        edge: Object.freeze({
+                            forestRimChance: 0.15,
+                        }),
+                    }),
+                }),
+            }),
+        }),
     }),
     // --- Landmass (base land/ocean and shaping) ---
     landmass: Object.freeze({

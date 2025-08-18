@@ -624,8 +624,56 @@ export function storyTagStrategicCorridors(stage) {
         tagSeaLanes();
         tagIslandHopFromHotspots();
         tagLandCorridorsFromRifts();
+        backfillCorridorKinds();
     } else if (stage === "postRivers") {
         tagRiverChainsPostRivers();
+        backfillCorridorKinds();
+    }
+}
+
+function backfillCorridorKinds() {
+    // Sea lanes: classify as coastal when adjacent to shallow water; else ocean
+    for (const key of StoryTags.corridorSeaLane) {
+        if (!StoryTags.corridorKind.has(key)) {
+            StoryTags.corridorKind.set(key, "sea");
+        }
+        if (!StoryTags.corridorStyle.has(key)) {
+            const [sx, sy] = key.split(",").map(Number);
+            const style = GameplayMap.isAdjacentToShallowWater(sx, sy)
+                ? "coastal"
+                : "ocean";
+            StoryTags.corridorStyle.set(key, style);
+        }
+    }
+
+    // Island-hop lanes: archipelago style
+    for (const key of StoryTags.corridorIslandHop) {
+        if (!StoryTags.corridorKind.has(key)) {
+            StoryTags.corridorKind.set(key, "islandHop");
+        }
+        if (!StoryTags.corridorStyle.has(key)) {
+            StoryTags.corridorStyle.set(key, "archipelago");
+        }
+    }
+
+    // Land-open corridors: default to plainsBelt style (playable open land)
+    for (const key of StoryTags.corridorLandOpen) {
+        if (!StoryTags.corridorKind.has(key)) {
+            StoryTags.corridorKind.set(key, "land");
+        }
+        if (!StoryTags.corridorStyle.has(key)) {
+            StoryTags.corridorStyle.set(key, "plainsBelt");
+        }
+    }
+
+    // River-chain corridors: riverChain style
+    for (const key of StoryTags.corridorRiverChain) {
+        if (!StoryTags.corridorKind.has(key)) {
+            StoryTags.corridorKind.set(key, "river");
+        }
+        if (!StoryTags.corridorStyle.has(key)) {
+            StoryTags.corridorStyle.set(key, "riverChain");
+        }
     }
 }
 

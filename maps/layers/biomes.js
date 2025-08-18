@@ -27,6 +27,7 @@ import {
     STORY_ENABLE_RIFTS,
     BIOMES_CFG,
     CORRIDOR_POLICY,
+    CORRIDOR_KINDS,
 } from "../config/tunables.js";
 
 /**
@@ -152,6 +153,210 @@ export function designateEnhancedBiomes(iWidth, iHeight) {
                     ) < Math.round(RIVER_BIAS_STRENGTH * 100)
                 ) {
                     TerrainBuilder.setBiomeType(x, y, globals.g_GrasslandBiome);
+                }
+            }
+
+            // Edge hints near land/river corridors: light vegetation/mountain rim cues (biome-only)
+            // Applies to tiles adjacent to a land-open or river-chain corridor, not the corridor tile itself
+            {
+                if (
+                    !(
+                        StoryTags.corridorLandOpen?.has?.(`${x},${y}`) ||
+                        StoryTags.corridorRiverChain?.has?.(`${x},${y}`)
+                    )
+                ) {
+                    let edgeKind = null;
+                    let edgeStyle = null;
+
+                    // Find adjacent corridor neighbor and its style
+                    for (let ddy = -1; ddy <= 1 && !edgeKind; ddy++) {
+                        for (let ddx = -1; ddx <= 1; ddx++) {
+                            if (ddx === 0 && ddy === 0) continue;
+                            const nx = x + ddx;
+                            const ny = y + ddy;
+                            const nk = `${nx},${ny}`;
+                            if (!StoryTags || !StoryTags.corridorKind) continue;
+
+                            if (StoryTags.corridorLandOpen?.has?.(nk)) {
+                                edgeKind = "land";
+                                edgeStyle =
+                                    StoryTags.corridorStyle?.get?.(nk) ||
+                                    "plainsBelt";
+                                break;
+                            }
+                            if (StoryTags.corridorRiverChain?.has?.(nk)) {
+                                edgeKind = "river";
+                                edgeStyle =
+                                    StoryTags.corridorStyle?.get?.(nk) ||
+                                    "riverChain";
+                                break;
+                            }
+                        }
+                    }
+
+                    if (edgeKind && edgeStyle && CORRIDOR_KINDS?.[edgeKind]) {
+                        const edgeCfg =
+                            CORRIDOR_KINDS?.[edgeKind]?.styles?.[edgeStyle]
+                                ?.edge || {};
+
+                        // Forest rim: bias toward forest-friendly biomes (grassland/tropical) when moist
+                        const forestRimChance = Math.max(
+                            0,
+                            Math.min(1, edgeCfg.forestRimChance ?? 0),
+                        );
+                        if (
+                            forestRimChance > 0 &&
+                            rainfall > 90 &&
+                            TerrainBuilder.getRandomNumber(
+                                100,
+                                "Corr Forest Rim",
+                            ) < Math.round(forestRimChance * 100)
+                        ) {
+                            const target =
+                                lat < 22 && rainfall > 110
+                                    ? globals.g_TropicalBiome
+                                    : globals.g_GrasslandBiome;
+                            TerrainBuilder.setBiomeType(x, y, target);
+                        }
+
+                        // Hill/mountain rim: suggest drier, relief-friendly biomes (plains/tundra in cold/high)
+                        const hillRimChance = Math.max(
+                            0,
+                            Math.min(1, edgeCfg.hillRimChance ?? 0),
+                        );
+                        const mountainRimChance = Math.max(
+                            0,
+                            Math.min(1, edgeCfg.mountainRimChance ?? 0),
+                        );
+                        const escarpmentChance = Math.max(
+                            0,
+                            Math.min(1, edgeCfg.escarpmentChance ?? 0),
+                        );
+                        const reliefChance = Math.max(
+                            0,
+                            Math.min(
+                                1,
+                                hillRimChance +
+                                    mountainRimChance +
+                                    escarpmentChance,
+                            ),
+                        );
+
+                        if (
+                            reliefChance > 0 &&
+                            TerrainBuilder.getRandomNumber(
+                                100,
+                                "Corr Relief Rim",
+                            ) < Math.round(reliefChance * 100)
+                        ) {
+                            // Prefer tundra when very cold/high, else plains (playable with hills)
+                            const elev = GameplayMap.getElevation(x, y);
+                            const target =
+                                (lat > 62 || elev > 800) && rainfall < 95
+                                    ? globals.g_TundraBiome
+                                    : globals.g_PlainsBiome;
+                            TerrainBuilder.setBiomeType(x, y, target);
+                        }
+                    }
+                }
+            }
+
+            // Strategic Corridors: kind/style biome bias (very gentle; policy-scaled)
+            {
+                const cKey = `${x},${y}`;
+                const cKind =
+                    StoryTags.corridorKind && StoryTags.corridorKind.get(cKey);
+                const cStyle =
+                    StoryTags.corridorStyle &&
+                    StoryTags.corridorStyle.get(cKey);
+
+                if (
+                    (cKind === "land" || cKind === "river") &&
+                    cStyle &&
+                    CORRIDOR_KINDS &&
+                    CORRIDOR_KINDS[cKind] &&
+                    CORRIDOR_KINDS[cKind].styles &&
+                    CORRIDOR_KINDS[cKind].styles[cStyle] &&
+                    CORRIDOR_KINDS[cKind].styles[cStyle].biomes
+                ) {
+                    const biomesCfg =
+                        CORRIDOR_KINDS[cKind].styles[cStyle].biomes;
+                    const strength =
+                        cKind === "land"
+                            ? LAND_BIAS_STRENGTH
+                            : RIVER_BIAS_STRENGTH;
+
+                    if (
+                        strength > 0 &&
+                        TerrainBuilder.getRandomNumber(
+                            100,
+                            "Corridor Kind Bias",
+                        ) < Math.round(strength * 100)
+                    ) {
+                        const entries = Object.keys(biomesCfg);
+                        let totalW = 0;
+                        for (const k of entries)
+                            totalW += Math.max(0, biomesCfg[k] || 0);
+
+                        if (totalW > 0) {
+                            let roll = TerrainBuilder.getRandomNumber(
+                                totalW,
+                                "Corridor Kind Pick",
+                            );
+                            let chosen = entries[0];
+                            for (const k of entries) {
+                                const w = Math.max(0, biomesCfg[k] || 0);
+                                if (roll < w) {
+                                    chosen = k;
+                                    break;
+                                }
+                                roll -= w;
+                            }
+
+                            let target = null;
+                            if (chosen === "desert")
+                                target = globals.g_DesertBiome;
+                            else if (chosen === "plains")
+                                target = globals.g_PlainsBiome;
+                            else if (chosen === "grassland")
+                                target = globals.g_GrasslandBiome;
+                            else if (chosen === "tropical")
+                                target = globals.g_TropicalBiome;
+                            else if (chosen === "tundra")
+                                target = globals.g_TundraBiome;
+                            else if (chosen === "snow")
+                                target = globals.g_SnowBiome;
+
+                            if (target != null) {
+                                // Light sanity gates to avoid extreme mismatches
+                                let ok = true;
+                                if (
+                                    target === globals.g_DesertBiome &&
+                                    rainfall > 110
+                                )
+                                    ok = false;
+                                if (
+                                    target === globals.g_TropicalBiome &&
+                                    !(lat < 25 && rainfall > 95)
+                                )
+                                    ok = false;
+                                if (
+                                    target === globals.g_TundraBiome &&
+                                    !(lat > 60 || elevation > 800)
+                                )
+                                    ok = false;
+                                if (
+                                    target === globals.g_SnowBiome &&
+                                    !(lat > 70 || elevation > 900)
+                                )
+                                    ok = false;
+
+                                if (ok) {
+                                    TerrainBuilder.setBiomeType(x, y, target);
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
