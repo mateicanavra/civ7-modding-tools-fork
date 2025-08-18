@@ -24,14 +24,14 @@ export const MAP_CONFIG = Object.freeze({
     story: Object.freeze({
         // Deep-ocean hotspot trails (aligned island chains)
         hotspot: Object.freeze({
-            maxTrails: 3, // total trails on a Huge map
-            steps: 10, // polyline steps per trail
-            stepLen: 4, // tiles advanced per step
-            minDistFromLand: 4, // keep trails away from coasts
+            maxTrails: 12, // total trails on a Huge map
+            steps: 15, // polyline steps per trail
+            stepLen: 2, // tiles advanced per step
+            minDistFromLand: 5, // keep trails away from coasts
             minTrailSeparation: 12, // avoid parallel clutter between trails
             paradiseBias: 2, // 2:1 paradise:volcanic selection weight
             volcanicBias: 1,
-            volcanicPeakChance: 0.33, // chance a volcanic center "peeks" as land
+            volcanicPeakChance: 0.7, // chance a volcanic center "peeks" as land
         }),
 
         // Continental rift lines (linear inland lakes/shoulders)
@@ -44,16 +44,16 @@ export const MAP_CONFIG = Object.freeze({
 
         // Orogeny belts (windward/lee amplification along mountain chains)
         orogeny: Object.freeze({
-            beltMaxPerContinent: 2,
-            beltMinLength: 30,
-            radius: 2,
+            beltMaxPerContinent: 6,
+            beltMinLength: 5,
+            radius: 6,
             windwardBoost: 5,
             leeDrynessAmplifier: 1.2,
         }),
 
         // "Black swan" climate swatches (guaranteed N≈1 macro zone)
         swatches: Object.freeze({
-            maxPerMap: 1,
+            maxPerMap: 7,
             forceAtLeastOne: true,
             sizeScaling: Object.freeze({
                 widthMulSqrt: 0.3,
@@ -61,11 +61,11 @@ export const MAP_CONFIG = Object.freeze({
             }),
             types: Object.freeze({
                 macroDesertBelt: Object.freeze({
-                    weight: 3,
+                    weight: 8,
                     latitudeCenterDeg: 20,
                     halfWidthDeg: 12,
                     drynessDelta: 28,
-                    bleedRadius: 2,
+                    bleedRadius: 3,
                 }),
                 equatorialRainbelt: Object.freeze({
                     weight: 3,
@@ -75,7 +75,7 @@ export const MAP_CONFIG = Object.freeze({
                     bleedRadius: 3,
                 }),
                 rainforestArchipelago: Object.freeze({
-                    weight: 2,
+                    weight: 7,
                     islandBias: 2,
                     reefBias: 1,
                     wetnessDelta: 18,
@@ -89,7 +89,7 @@ export const MAP_CONFIG = Object.freeze({
                     bleedRadius: 1,
                 }),
                 greatPlains: Object.freeze({
-                    weight: 2,
+                    weight: 5,
                     latitudeCenterDeg: 45,
                     halfWidthDeg: 8,
                     dryDelta: 12,
@@ -105,19 +105,19 @@ export const MAP_CONFIG = Object.freeze({
             deltaFanRadius: 1,
             deltaMarshChance: 0.35,
             maxOxbows: 6,
-            oxbowElevationMax: 280,
-            maxFossilChannels: 3,
+            oxbowElevationMax: 580,
+            maxFossilChannels: 12,
             fossilChannelLengthTiles: 12,
             fossilChannelStep: 2,
-            fossilChannelHumidity: 5,
+            fossilChannelHumidity: 6,
             fossilChannelMinDistanceFromCurrentRivers: 4,
-            minDistanceFromStarts: 9,
+            minDistanceFromStarts: 7,
             sizeScaling: Object.freeze({
                 lengthMulSqrt: 0.4,
             }),
             elevationCarving: Object.freeze({
                 enableCanyonRim: true,
-                rimWidth: 1,
+                rimWidth: 4,
                 canyonDryBonus: 2,
                 bluffWetReduction: 0,
             }),
@@ -134,8 +134,8 @@ export const MAP_CONFIG = Object.freeze({
             volcanicDelta: 8,
         }),
         features: Object.freeze({
-            paradiseReefChance: 18, // % chance
-            volcanicForestChance: 22, // % chance
+            paradiseReefChance: 23, // % chance
+            volcanicForestChance: 17, // % chance
             volcanicTaigaChance: 25, // % chance
         }),
     }),
