@@ -16,7 +16,11 @@
  */
 
 import { StoryTags } from "./tags.js";
-import { STORY_TUNABLES, STORY_ENABLE_SWATCHES } from "../config/tunables.js";
+import {
+    STORY_TUNABLES,
+    STORY_ENABLE_SWATCHES,
+    STORY_ENABLE_PALEO,
+} from "../config/tunables.js";
 import { inBounds, storyKey, isAdjacentToLand } from "../core/utils.js";
 
 /**
@@ -643,7 +647,220 @@ export function storyTagClimateSwatches() {
         }
     }
 
-    return { applied: applied > 0, kind, tiles: applied };
+    const _swatchResult = { applied: applied > 0, kind, tiles: applied };
+    // Opportunistically run Paleo‑Hydrology after swatch paint so its humidity/dryness
+    // overlays blend with the bands and the selected macro swatch.
+    if (STORY_ENABLE_PALEO) {
+        try {
+            storyTagPaleoHydrology();
+        } catch (_) {
+            /* keep generation resilient */
+        }
+    }
+    return _swatchResult;
+}
+
+// -------------------------------- Paleo‑Hydrology --------------------------------
+/**
+ * storyTagPaleoHydrology — elevation‑aware paleo motifs:
+ *  - Deltas: slight humidity fans near river mouths (lowland, coastal).
+ *  - Oxbows: a handful of lowland river‑adjacent wet pockets (no rivers added).
+ *  - Fossil channels: short polylines across dry lowlands toward local basins.
+ * Elevation cues:
+ *  - Canyon/bed dryness on the fossil centerline (small).
+ *  - Optional bluff/rim hint via minor adjustments on immediate flanks.
+ * Invariants:
+ *  - All rainfall ops clamped [0, 200]. No broad flood‑fills. Strict caps.
+ */
+export function storyTagPaleoHydrology() {
+    const cfg = STORY_TUNABLES?.paleo;
+    if (!cfg) return { deltas: 0, oxbows: 0, fossils: 0 };
+
+    const width = GameplayMap.getGridWidth();
+    const height = GameplayMap.getGridHeight();
+    const area = Math.max(1, width * height);
+    const sqrtScale = Math.min(2.0, Math.max(0.6, Math.sqrt(area / 10000)));
+
+    // Helpers
+    const clamp = (v, lo, hi) => (v < lo ? lo : v > hi ? hi : v);
+    const nearStartGuard = (/*x,y*/) => true; // reserved; we don't have start positions here
+    const rand = (n, lbl) => TerrainBuilder.getRandomNumber(n, lbl || "Paleo");
+
+    let deltas = 0,
+        oxbows = 0,
+        fossils = 0;
+
+    // --- Deltas (coastal river mouths) ---
+    if (cfg.maxDeltas > 0) {
+        for (let y = 1; y < height - 1 && deltas < cfg.maxDeltas; y++) {
+            for (let x = 1; x < width - 1 && deltas < cfg.maxDeltas; x++) {
+                if (!GameplayMap.isCoastalLand(x, y)) continue;
+                // Use "river adjacency" to approximate mouths.
+                if (!GameplayMap.isAdjacentToRivers(x, y, 1)) continue;
+                // Favor lowland deltas
+                if (GameplayMap.getElevation(x, y) > 300) continue;
+
+                // Landward fan (radius 1)
+                const fanR = Math.max(0, cfg.deltaFanRadius | 0);
+                for (let dy = -fanR; dy <= fanR; dy++) {
+                    for (let dx = -fanR; dx <= fanR; dx++) {
+                        const nx = x + dx,
+                            ny = y + dy;
+                        if (!inBounds(nx, ny)) continue;
+                        if (GameplayMap.isWater(nx, ny)) continue;
+
+                        let rf = GameplayMap.getRainfall(nx, ny);
+                        // Modest humidity bump; validated features would be added in features layer.
+                        if (
+                            rand(100, "DeltaMarsh") <
+                            Math.round((cfg.deltaMarshChance || 0.35) * 100)
+                        ) {
+                            rf = clamp(rf + 6, 0, 200);
+                        } else {
+                            rf = clamp(rf + 3, 0, 200);
+                        }
+                        TerrainBuilder.setRainfall(nx, ny, rf);
+                    }
+                }
+                deltas++;
+            }
+        }
+    }
+
+    // --- Oxbows (lowland meander pockets) ---
+    if (cfg.maxOxbows > 0) {
+        let attempts = 0;
+        while (oxbows < cfg.maxOxbows && attempts < 300) {
+            attempts++;
+            const x = rand(width, "OxbowX");
+            const y = rand(height, "OxbowY");
+            if (!inBounds(x, y)) continue;
+            if (GameplayMap.isWater(x, y)) continue;
+            const elev = GameplayMap.getElevation(x, y);
+            if (elev > (cfg.oxbowElevationMax ?? 280)) continue;
+            if (!GameplayMap.isAdjacentToRivers(x, y, 1)) continue;
+            if (!nearStartGuard(x, y)) continue;
+
+            // Small wet pocket; keep single‑tile to avoid noise.
+            let rf = GameplayMap.getRainfall(x, y);
+            TerrainBuilder.setRainfall(x, y, clamp(rf + 8, 0, 200));
+            oxbows++;
+        }
+    }
+
+    // --- Fossil channels (dryland green lines toward basins) ---
+    if (cfg.maxFossilChannels > 0) {
+        const baseLen = Math.max(6, cfg.fossilChannelLengthTiles | 0);
+        const step = Math.max(1, cfg.fossilChannelStep | 0);
+        const len = Math.round(
+            baseLen *
+                (1 + (cfg.sizeScaling?.lengthMulSqrt || 0) * (sqrtScale - 1)),
+        );
+        const hum = cfg.fossilChannelHumidity | 0;
+        const minDistFromRivers = Math.max(
+            0,
+            cfg.fossilChannelMinDistanceFromCurrentRivers | 0,
+        );
+        const canyonCfg = cfg.elevationCarving || {};
+        const rimW = Math.max(0, canyonCfg.rimWidth | 0);
+        const canyonDryBonus = Math.max(0, canyonCfg.canyonDryBonus | 0);
+
+        let tries = 0;
+        while (fossils < cfg.maxFossilChannels && tries < 120) {
+            tries++;
+            // Seed in relatively dry, lowland tiles, not adjacent to rivers.
+            let sx = rand(width, "FossilX");
+            let sy = rand(height, "FossilY");
+            if (!inBounds(sx, sy)) continue;
+            if (GameplayMap.isWater(sx, sy)) continue;
+            const startElev = GameplayMap.getElevation(sx, sy);
+            if (startElev > 320) continue;
+            if (GameplayMap.isAdjacentToRivers(sx, sy, minDistFromRivers))
+                continue;
+
+            // March toward local basins by greedily stepping to lowest neighbor every "step".
+            let x = sx,
+                y = sy;
+            let used = 0;
+            while (used < len) {
+                // Apply fossil humidity on the centerline with small canyon dryness.
+                if (inBounds(x, y) && !GameplayMap.isWater(x, y)) {
+                    let rf = GameplayMap.getRainfall(x, y);
+                    rf = clamp(rf + hum, 0, 200);
+                    if (
+                        (canyonCfg.enableCanyonRim ?? true) &&
+                        canyonDryBonus > 0
+                    ) {
+                        rf = clamp(rf - canyonDryBonus, 0, 200); // canyon floor is a touch drier
+                    }
+                    TerrainBuilder.setRainfall(x, y, rf);
+
+                    // Optional immediate “rim” hint (very subtle; width 1).
+                    if ((canyonCfg.enableCanyonRim ?? true) && rimW > 0) {
+                        for (let ry = -rimW; ry <= rimW; ry++) {
+                            for (let rx = -rimW; rx <= rimW; rx++) {
+                                if (rx === 0 && ry === 0) continue;
+                                const nx = x + rx,
+                                    ny = y + ry;
+                                if (
+                                    !inBounds(nx, ny) ||
+                                    GameplayMap.isWater(nx, ny)
+                                )
+                                    continue;
+                                const e0 = GameplayMap.getElevation(x, y);
+                                const e1 = GameplayMap.getElevation(nx, ny);
+                                if (e1 > e0 + 15) {
+                                    // Slight contrast; leave rf mostly intact to avoid large brush.
+                                    const rfn = clamp(
+                                        GameplayMap.getRainfall(nx, ny) -
+                                            (cfg.bluffWetReduction ?? 0),
+                                        0,
+                                        200,
+                                    );
+                                    TerrainBuilder.setRainfall(nx, ny, rfn);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Step toward a local minimum
+                let bestNX = x,
+                    bestNY = y,
+                    bestElev = GameplayMap.getElevation(x, y);
+                for (let dy = -1; dy <= 1; dy++) {
+                    for (let dx = -1; dx <= 1; dx++) {
+                        if (dx === 0 && dy === 0) continue;
+                        const nx = x + dx,
+                            ny = y + dy;
+                        if (!inBounds(nx, ny) || GameplayMap.isWater(nx, ny))
+                            continue;
+                        const e = GameplayMap.getElevation(nx, ny);
+                        if (e < bestElev) {
+                            bestElev = e;
+                            bestNX = nx;
+                            bestNY = ny;
+                        }
+                    }
+                }
+                // If no descent, introduce a gentle lateral nudge
+                if (bestNX === x && bestNY === y) {
+                    const dir = rand(4, "FossilNudge");
+                    if (dir === 0 && inBounds(x + step, y)) x += step;
+                    else if (dir === 1 && inBounds(x - step, y)) x -= step;
+                    else if (dir === 2 && inBounds(x, y + step)) y += step;
+                    else if (dir === 3 && inBounds(x, y - step)) y -= step;
+                } else {
+                    x = bestNX;
+                    y = bestNY;
+                }
+                used += step;
+            }
+            fossils++;
+        }
+    }
+
+    return { deltas, oxbows, fossils };
 }
 
 export default {
@@ -652,5 +869,6 @@ export default {
     storyTagOrogenyBelts,
     storyTagContinentalMargins,
     storyTagClimateSwatches,
+    storyTagPaleoHydrology,
     OrogenyCache,
 };

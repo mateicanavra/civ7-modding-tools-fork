@@ -37,6 +37,7 @@ import {
     storyTagOrogenyBelts,
     storyTagContinentalMargins,
     storyTagClimateSwatches,
+    storyTagPaleoHydrology,
 } from "./story/tagging.js";
 import {
     clamp as utilClamp,

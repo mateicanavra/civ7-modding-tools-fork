@@ -15,6 +15,7 @@ export const STORY_ENABLE_HOTSPOTS = true;
 export const STORY_ENABLE_RIFTS = true;
 export const STORY_ENABLE_OROGENY = true;
 export const STORY_ENABLE_SWATCHES = true;
+export const STORY_ENABLE_PALEO = true;
 
 // Tunables grouped by concern
 export const STORY_TUNABLES = Object.freeze({
@@ -110,6 +111,31 @@ export const STORY_TUNABLES = Object.freeze({
                 lowlandMaxElevation: 300,
                 bleedRadius: 2,
             }),
+        }),
+    }),
+
+    // Paleo‑Hydrology (deltas, oxbows, fossil channels; elevation-aware carving)
+    paleo: Object.freeze({
+        maxDeltas: 4, // total deltas map‑wide (cap)
+        deltaFanRadius: 1, // landward radius for small marsh/floodplain fans
+        deltaMarshChance: 0.35, // probability per eligible fan tile (validated)
+        maxOxbows: 6, // hard cap on oxbow lake/marsh tiles
+        oxbowElevationMax: 280, // only in lowlands
+        maxFossilChannels: 3, // total fossil polylines
+        fossilChannelLengthTiles: 12, // nominal length (tiles), size‑scaled by callers
+        fossilChannelStep: 2, // spacing between fossil points
+        fossilChannelHumidity: 5, // +humidity along fossil lines (clamped)
+        fossilChannelMinDistanceFromCurrentRivers: 4,
+        minDistanceFromStarts: 9, // intrusive edits stay away from starts
+        sizeScaling: Object.freeze({
+            // gentle sqrt(area) scalers (applied by callers)
+            lengthMulSqrt: 0.4,
+        }),
+        elevationCarving: Object.freeze({
+            enableCanyonRim: true, // allow subtle canyon/bluff hints near paleo features
+            rimWidth: 1, // tiles on each side to consider for “rim” cues
+            canyonDryBonus: 2, // additional dryness near canyon floors (small)
+            bluffWetReduction: 0, // optional small reduction on bluff tops (kept 0 for now)
         }),
     }),
 
