@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MAP_EPIC_DIVERSE_HUGE_NAME">
+			<Text>Epic Diverse Huge</Text>
+		</Row>
+		<Row Tag="LOC_MAP_EPIC_DIVERSE_HUGE_DESCRIPTION">
+			<Text>Produces massive diverse continents with cliffs, extensive inland lakes, coastal regions, mountain ranges, dense jungles, tundra expanses, and maximum terrain variety. Perfect for huge epic games with all biomes and features.</Text>
+		</Row>
+	</EnglishText>
+</Database>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Mod id="epic-diverse-huge-map" version="1"
+	xmlns="ModInfo">
+	<Properties>
+		<Name>Epic Diverse Huge Map</Name>
+		<Description>LOC_MAP_EPIC_DIVERSE_HUGE_DESCRIPTION</Description>
+		<Authors>AI Assistant & User</Authors>
+		<Package>MOD</Package>
+	</Properties>
+	<Dependencies>
+		<Mod id="base-standard" title="LOC_MODULE_BASE_STANDARD_NAME"/>
+	</Dependencies>
+	<ActionCriteria>
+		<Criteria id="always">
+			<AlwaysMet></AlwaysMet>
+		</Criteria>
+	</ActionCriteria>
+	<ActionGroups>
+		<ActionGroup id="shell-epic-diverse-huge-map" scope="shell" criteria="always">
+			<Actions>
+				<UpdateDatabase>
+					<Item>config/config.xml</Item>
+				</UpdateDatabase>
+				<UpdateText>
+					<Item>text/en_us/MapText.xml</Item>
+				</UpdateText>
+			</Actions>
+		</ActionGroup>
+	</ActionGroups>
+	<LocalizedText>
+		<File>text/en_us/MapText.xml</File>
+	</LocalizedText>
+</Mod>
