@@ -50,6 +50,17 @@ export const StoryTags = Object.freeze({
 
     /** @type {TagSet} River chain corridors (river-adjacent lowland paths) */
     corridorRiverChain: new Set(),
+
+    /**
+     * Corridor metadata — kind and style
+     * - kind: high-level corridor family (e.g., "sea", "islandHop", "land", "river")
+     * - style: sub-variant or motif (e.g., "ocean", "coastal", "canyon", "plateau", "flatMtn")
+     * Keys match StoryTags tile keys ("x,y"). These maps are sparse like the tag sets.
+     */
+    /** @type {Map<string, string>} */
+    corridorKind: new Map(),
+    /** @type {Map<string, string>} */
+    corridorStyle: new Map(),
 });
 
 /**
@@ -68,6 +79,9 @@ export function resetStoryTags() {
     StoryTags.corridorIslandHop.clear();
     StoryTags.corridorLandOpen.clear();
     StoryTags.corridorRiverChain.clear();
+    // Corridor metadata maps
+    StoryTags.corridorKind.clear();
+    StoryTags.corridorStyle.clear();
 }
 
 export default StoryTags;
