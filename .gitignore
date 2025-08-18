@@ -119,3 +119,14 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
+
+# ----------------------------
+# Local linked resources (ignored)
+# ----------------------------
+/resources/
+
+# How to create local symlinks (macOS, zsh). Run from repo root:
+# mkdir -p "resources"
+# ln -s "/Users/mateicanavra/Library/Application Support/Steam/steamapps/common/Sid Meier's Civilization VII/CivilizationVII.app/Contents/Resources/Base/modules/base-standard/maps" "resources/base-standard-maps"
+# ln -s "/Users/mateicanavra/Library/Application Support/Civilization VII/Mods/civmods-better-maps-small-continents-37989" "resources/better-maps-small-continents"
+# ln -s "/Users/mateicanavra/Library/Application Support/Civilization VII/Mods/civmods-ged-ynamp-39313" "resources/ged-ynamp"
