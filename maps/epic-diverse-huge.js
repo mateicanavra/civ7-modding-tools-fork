@@ -44,6 +44,8 @@ import { assignAdvancedStartRegions } from "/base-standard/maps/assign-advanced-
 import { generateDiscoveries } from "/base-standard/maps/discovery-generator.js";
 import { generateSnow } from "/base-standard/maps/snow-generator.js";
 import { dumpStartSectors } from "/base-standard/maps/map-debug-helpers.js";
+import { createDiverseLandmasses as layerCreateDiverseLandmasses } from "./layers/landmass.js";
+// Orchestrator import removed for stability while we restore local engine listeners
 
 /**
  * Climate Story v0.1 — StoryTags scaffolding and toggles
@@ -173,7 +175,11 @@ function generateMap() {
     };
 
     // Generate landmasses without creating a hard horizontal ocean band
-    createDiverseLandmasses(iWidth, iHeight, [landmass1, landmass2, landmass3]);
+    layerCreateDiverseLandmasses(iWidth, iHeight, [
+        landmass1,
+        landmass2,
+        landmass3,
+    ]);
 
     TerrainBuilder.validateAndFixTerrain();
     expandCoasts(iWidth, iHeight);
@@ -300,85 +306,9 @@ function generateMap() {
     console.log("=== EPIC DIVERSE HUGE GENERATOR COMPLETED ===");
 }
 
-function createDiverseLandmasses(iWidth, iHeight, landmasses) {
-    // Single fractal with higher water level to ensure real oceans and coasts
-    FractalBuilder.create(globals.g_LandmassFractal, iWidth, iHeight, 3, 0);
-    // Auxiliary fractal to wiggle band edges by row and add irregularity
-    FractalBuilder.create(globals.g_HillFractal, iWidth, iHeight, 4, 0);
-    let iWaterHeight = FractalBuilder.getHeightFromPercent(
-        globals.g_LandmassFractal,
-        64,
-    );
-
-    const jitterAmp = Math.max(2, Math.floor(iWidth * 0.03));
-
-    for (let iY = 0; iY < iHeight; iY++) {
-        for (let iX = 0; iX < iWidth; iX++) {
-            let terrain = globals.g_OceanTerrain;
-
-            // Check if this tile should be land based on landmass boundaries
-            let inLandmass = false;
-            for (let landmass of landmasses) {
-                // Apply a per-row horizontal shift and slight width change to avoid straight columns
-                let sinOffset = Math.floor(
-                    Math.sin((iY + landmass.continent * 13) * 0.25) * jitterAmp,
-                );
-                let noise = FractalBuilder.getHeight(
-                    globals.g_HillFractal,
-                    iX,
-                    iY,
-                );
-                noise = Math.floor(((noise % 200) / 200 - 0.5) * jitterAmp);
-                let shift = sinOffset + Math.floor(noise * 0.5);
-                let widthDelta = Math.floor(noise * 0.3);
-                let westY = Math.max(
-                    0,
-                    Math.min(iWidth - 1, landmass.west + shift + widthDelta),
-                );
-                let eastY = Math.max(
-                    0,
-                    Math.min(iWidth - 1, landmass.east + shift - widthDelta),
-                );
-
-                if (
-                    iX >= westY &&
-                    iX <= eastY &&
-                    iY >= landmass.south &&
-                    iY <= landmass.north
-                ) {
-                    // Use fractal to determine if this specific plot should be land
-                    let iPlotHeight = FractalBuilder.getHeight(
-                        globals.g_LandmassFractal,
-                        iX,
-                        iY,
-                    );
-
-                    // Bias toward land near center of landmass
-                    let centerX = (landmass.west + landmass.east) / 2;
-                    let centerY = (landmass.south + landmass.north) / 2;
-                    let distanceFromCenter = Math.sqrt(
-                        (iX - centerX) ** 2 + (iY - centerY) ** 2,
-                    );
-                    let maxDistance = Math.sqrt(
-                        ((landmass.east - landmass.west) / 2) ** 2 +
-                            ((landmass.north - landmass.south) / 2) ** 2,
-                    );
-                    let centerBonus = Math.max(
-                        0,
-                        (1 - distanceFromCenter / maxDistance) * 110,
-                    );
-
-                    if (iPlotHeight + centerBonus >= iWaterHeight) {
-                        terrain = globals.g_FlatTerrain;
-                        inLandmass = true;
-                        break;
-                    }
-                }
-            }
-
-            TerrainBuilder.setTerrainType(iX, iY, terrain);
-        }
-    }
+function createDiverseLandmasses_DEPRECATED(iWidth, iHeight, landmasses) {
+    // Back-compat wrapper: delegate to layer implementation to avoid duplication.
+    return layerCreateDiverseLandmasses(iWidth, iHeight, landmasses);
 }
 
 function addRuggedCoasts(iWidth, iHeight) {
