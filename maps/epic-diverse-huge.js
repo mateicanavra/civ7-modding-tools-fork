@@ -51,6 +51,7 @@ import { buildEnhancedRainfall as layerBuildEnhancedRainfall } from "./layers/cl
 import { refineRainfallEarthlike as layerRefineRainfallEarthlike } from "./layers/climate-refinement.js";
 import { designateEnhancedBiomes as layerDesignateEnhancedBiomes } from "./layers/biomes.js";
 import { addDiverseFeatures as layerAddDiverseFeatures } from "./layers/features.js";
+import { runPlacement as layerRunPlacement } from "./layers/placement.js";
 // Orchestrator import removed for stability while we restore local engine listeners
 
 /**
@@ -238,68 +239,28 @@ function generateMap() {
     // Enhanced biome diversity
     layerDesignateEnhancedBiomes(iWidth, iHeight);
 
-    addNaturalWonders(iWidth, iHeight, iNumNaturalWonders);
-    TerrainBuilder.addFloodplains(4, 10);
-
     // Add extensive feature variety
     layerAddDiverseFeatures(iWidth, iHeight);
 
     TerrainBuilder.validateAndFixTerrain();
     AreaBuilder.recalculateAreas();
     TerrainBuilder.storeWaterData();
-    generateSnow(iWidth, iHeight);
 
-    // Debug output (kept disabled for performance)
-    // dumpContinents(iWidth, iHeight);
-    // dumpTerrain(iWidth, iHeight);
-    // dumpElevation(iWidth, iHeight);
-    // dumpRainfall(iWidth, iHeight);
-    // dumpBiomes(iWidth, iHeight);
-    // dumpFeatures(iWidth, iHeight);
-
-    generateResources(iWidth, iHeight);
-
-    // Assign start positions using proper method like working mod
-    console.log("Assigning start positions using proper method...");
-    try {
-        startPositions = assignStartPositions(
-            iNumPlayers1,
-            iNumPlayers2,
+    // Placement phase (wonders, floodplains, snow, resources, starts, discoveries, fertility, advanced starts)
+    startPositions = layerRunPlacement(iWidth, iHeight, {
+        mapInfo,
+        wondersPlusOne: true,
+        floodplains: { minLength: 4, maxLength: 10 },
+        starts: {
+            playersLandmass1: iNumPlayers1,
+            playersLandmass2: iNumPlayers2,
             westContinent,
             eastContinent,
-            iStartSectorRows,
-            iStartSectorCols,
+            startSectorRows: iStartSectorRows,
+            startSectorCols: iStartSectorCols,
             startSectors,
-        );
-        console.log("Start positions assigned successfully");
-    } catch (error) {
-        console.log("Error in start position assignment: " + error);
-        startPositions = [];
-    }
-
-    // Generate discoveries for exploration
-    try {
-        generateDiscoveries(iWidth, iHeight, startPositions);
-        console.log("Discoveries generated successfully");
-    } catch (error) {
-        console.log("Error generating discoveries: " + error);
-    }
-
-    // dumpResources(iWidth, iHeight); // COMMENTED OUT TO PREVENT CRASHES
-
-    FertilityBuilder.recalculate();
-
-    // Noise generation for additional texture - COMMENTED OUT TO PREVENT CRASHES
-    // let seed = GameplayMap.getRandomSeed();
-    // let avgDistanceBetweenPoints = 2; // Denser features
-    // let normalizedRangeSmoothing = 3;
-    // let poisson = TerrainBuilder.generatePoissonMap(seed, avgDistanceBetweenPoints, normalizedRangeSmoothing);
-    // let poissonPred = function(val) {
-    //     return val >= 1.5 ? "#" : val >= 1 ? "*" : val >= 0.5 ? "." : " ";
-    // };
-    // dumpNoisePredicate(iWidth, iHeight, poisson, poissonPred);
-
-    assignAdvancedStartRegions();
+        },
+    });
 
     // Log completion with statistics
     // console.log("EPIC_MAP_GEN_COMPLETE|" + JSON.stringify({
