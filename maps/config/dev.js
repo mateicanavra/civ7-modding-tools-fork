@@ -32,6 +32,7 @@ export const DEV = {
     LOG_TIMING: true, // Log per-section timings (timeSection / timeStart/timeEnd)
     LOG_STORY_TAGS: true, // Log StoryTags summary counts
     RAINFALL_HISTOGRAM: true, // Log a coarse rainfall histogram (non-water tiles only)
+    LOG_CORRIDOR_ASCII: true, // Print a coarse ASCII overlay of corridor tags (downsampled)
     LAYER_COUNTS: false, // Reserved for layer-specific counters (if used by callers)
 };
 
@@ -132,6 +133,10 @@ export function logStoryTagsSummary(StoryTags, OrogenyCache) {
         riftShoulder: sizeOf(StoryTags.riftShoulder),
         activeMargin: sizeOf(StoryTags.activeMargin),
         passiveShelf: sizeOf(StoryTags.passiveShelf),
+        corridorSeaLane: sizeOf(StoryTags.corridorSeaLane),
+        corridorIslandHop: sizeOf(StoryTags.corridorIslandHop),
+        corridorLandOpen: sizeOf(StoryTags.corridorLandOpen),
+        corridorRiverChain: sizeOf(StoryTags.corridorRiverChain),
     };
     safeLog("[DEV][story] tags:", counts);
 
@@ -144,6 +149,11 @@ export function logStoryTagsSummary(StoryTags, OrogenyCache) {
         if (oroCounts.belts > 0) {
             safeLog("[DEV][story] orogeny:", oroCounts);
         }
+    }
+
+    // Optional ASCII corridor overlay (downsampled)
+    if (isOn("LOG_CORRIDOR_ASCII")) {
+        logCorridorAsciiOverlay();
     }
 }
 
@@ -194,6 +204,66 @@ export function logRainfallHistogram(width, height, bins = 10) {
     }
 }
 
+/**
+ * Log a coarse ASCII overlay of corridor tags (downsampled).
+ * Legend:
+ *  - S: corridorSeaLane (protected open water)
+ *  - I: corridorIslandHop (hotspot arcs over water)
+ *  - R: corridorRiverChain (river-adjacent land)
+ *  - L: corridorLandOpen (open land lanes)
+ *  - ~: water (no corridor)
+ *  - .: land (no corridor)
+ * The overlay samples every `step` tiles to keep output compact on Huge maps.
+ * @param {number} [step=8] sampling stride in tiles
+ */
+export function logCorridorAsciiOverlay(step = 8) {
+    if (!isOn("LOG_CORRIDOR_ASCII")) return;
+    try {
+        const width = GameplayMap?.getGridWidth?.() ?? 0;
+        const height = GameplayMap?.getGridHeight?.() ?? 0;
+        if (!width || !height) {
+            safeLog("[DEV][corridor] No map bounds; skipping ASCII overlay.");
+            return;
+        }
+        const s = Math.max(1, step | 0);
+        safeLog(
+            "[DEV][corridor] ASCII overlay (step=",
+            s,
+            "): S=SeaLane, I=IslandHop, L=LandOpen, R=RiverChain, ~=water, .=land",
+        );
+
+        for (let y = 0; y < height; y += s) {
+            let row = "";
+            for (let x = 0; x < width; x += s) {
+                const k = `${x},${y}`;
+                const isWater = !!GameplayMap.isWater?.(x, y);
+                const cS =
+                    !!StoryTags?.corridorSeaLane &&
+                    !!StoryTags.corridorSeaLane.has?.(k);
+                const cI =
+                    !!StoryTags?.corridorIslandHop &&
+                    !!StoryTags.corridorIslandHop.has?.(k);
+                const cL =
+                    !!StoryTags?.corridorLandOpen &&
+                    !!StoryTags.corridorLandOpen.has?.(k);
+                const cR =
+                    !!StoryTags?.corridorRiverChain &&
+                    !!StoryTags.corridorRiverChain.has?.(k);
+
+                let ch = isWater ? "~" : ".";
+                if (isWater && cS) ch = "S";
+                else if (isWater && cI) ch = "I";
+                else if (!isWater && cR) ch = "R";
+                else if (!isWater && cL) ch = "L";
+
+                row += ch;
+            }
+            safeLog(row);
+        }
+    } catch (err) {
+        safeLog("[DEV][corridor] ASCII overlay error:", err);
+    }
+}
 /* ----------------------- internal helpers ----------------------- */
 
 function safeLog(...args) {

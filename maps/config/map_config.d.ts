@@ -23,6 +23,8 @@ export interface MapConfig {
     microclimate: Microclimate;
 
     // Optional granular config groups (override built-in defaults)
+    /** Strategic corridors configuration (sea lanes, island-hop, land, river chains) */
+    corridors?: Corridors;
     /** Land vs. ocean balance and band shaping (size-aware curvature/jitter) */
     landmass?: Landmass;
     /** Coast ruggedizing probabilities (bays/fjords), lane-safe guardrails */
@@ -57,6 +59,8 @@ export interface Toggles {
     STORY_ENABLE_SWATCHES: boolean;
     /** Enable paleo‑hydrology overlays (deltas/oxbows/fossil channels; clamped) */
     STORY_ENABLE_PALEO: boolean;
+    /** Enable strategic corridors (sea lanes, island-hop, land, river chains) */
+    STORY_ENABLE_CORRIDORS: boolean;
 }
 
 /** Story (motif) tunables */
@@ -307,6 +311,56 @@ export interface Islands {
     clusterMax?: number;
     /** Minimum Chebyshev radius from existing land required for island placement */
     minDistFromLandRadius?: number;
+}
+
+/** Strategic corridors (sea lanes, island-hop, land, river chains) */
+export interface Corridors {
+    /** Open-water protected sea lanes */
+    sea?: CorridorSea;
+    /** Hotspot-based island-hop arcs */
+    islandHop?: CorridorIslandHop;
+    /** Land open corridors (e.g., along rift shoulders) */
+    land?: CorridorLand;
+    /** River-adjacent lowland chains seeded post-rivers */
+    river?: CorridorRiver;
+}
+
+export interface CorridorSea {
+    /** Max number of sea lanes to tag across the map */
+    maxLanes?: number;
+    /** Minimum fraction of map span a lane must cover to qualify */
+    minLengthFrac?: number;
+    /** Sampling stride in tiles when scanning for lanes */
+    scanStride?: number;
+    /** Radius (tiles) to keep islands away from protected lanes */
+    avoidRadius?: number;
+}
+
+export interface CorridorIslandHop {
+    /** Whether to promote hotspot trails into island-hop lanes */
+    useHotspots?: boolean;
+    /** Max number of promoted arcs */
+    maxArcs?: number;
+}
+
+export interface CorridorLand {
+    /** Whether to derive land corridors from rift shoulders */
+    useRiftShoulders?: boolean;
+    /** Cap on distinct land-open corridors */
+    maxCorridors?: number;
+    /** Minimum contiguous shoulder run length eligible */
+    minRunLength?: number;
+}
+
+export interface CorridorRiver {
+    /** Max number of river chain corridors */
+    maxChains?: number;
+    /** Max greedy steps while following river-adjacent path */
+    maxSteps?: number;
+    /** Elevation threshold treated as lowland preference */
+    preferLowlandBelow?: number;
+    /** Coast seed radius for initial river-adjacent seed near coast */
+    coastSeedRadius?: number;
 }
 
 /** Baseline rainfall and local bonuses */

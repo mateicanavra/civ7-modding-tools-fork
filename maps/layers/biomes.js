@@ -109,6 +109,16 @@ export function designateEnhancedBiomes(iWidth, iHeight) {
                 TerrainBuilder.setBiomeType(x, y, globals.g_GrasslandBiome);
             }
 
+            // Strategic Corridors: land-open corridor tiles gently bias to grassland
+            if (
+                StoryTags.corridorLandOpen &&
+                StoryTags.corridorLandOpen.has(`${x},${y}`)
+            ) {
+                if (rainfall > 80 && lat < 55) {
+                    TerrainBuilder.setBiomeType(x, y, globals.g_GrasslandBiome);
+                }
+            }
+
             // Climate Story: rift shoulder preference (narrow, moisture-aware)
             if (STORY_ENABLE_RIFTS && StoryTags.riftShoulder.size > 0) {
                 const key = `${x},${y}`;

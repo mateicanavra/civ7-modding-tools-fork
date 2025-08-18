@@ -145,5 +145,10 @@ Current Status (v1.1.0 — WIP)
   - Orogeny: windward/lee flanks along belts; rainfall amplification on windward; lee dryness slightly stronger.
   - Climate Swatches: one macro swatch (weighted) with soft‑edge rainfall deltas.
   - Paleo‑Hydrology (initial): deltas/oxbows/fossil channel humidity overlays (clamped).
+- Strategic Corridors (initial):
+  - New StoryTags: corridorSeaLane (protected sea lanes), corridorIslandHop (promoted hotspot arcs), corridorLandOpen (open land lanes), corridorRiverChain (river-adjacent chains).
+  - Tagging stages: pre‑Islands (sea lanes, island‑hop, land‑open from rift shoulders); post‑Rivers (river chains).
+  - Consumers: coastlines skip edits on sea‑lane tiles; islands avoid sea‑lane radius; biomes gently bias grassland on land‑open corridors.
+  - Config: STORY_ENABLE_CORRIDORS and MAP_CONFIG.corridors.{sea,islandHop,land,river}.
 - Dev Logger: optional per‑layer timing, StoryTags summary, and rainfall histogram (maps/config/dev.js).
 - Pending: Glacial fingerprints (fjord bias, kettle lakes, taiga emphasis) and lane‑safe shelf/trench motifs; explicit diminishing‑returns composition for stacked tags.

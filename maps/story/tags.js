@@ -38,6 +38,18 @@ export const StoryTags = Object.freeze({
 
     /** @type {TagSet} Passive shelf segments (broad shallow shelf) */
     passiveShelf: new Set(),
+
+    /** @type {TagSet} Naval open-water lanes (protected sea lanes) */
+    corridorSeaLane: new Set(),
+
+    /** @type {TagSet} Hotspot-based island-hop arcs (promoted trails) */
+    corridorIslandHop: new Set(),
+
+    /** @type {TagSet} Land open corridors (plains/grass bias zones) */
+    corridorLandOpen: new Set(),
+
+    /** @type {TagSet} River chain corridors (river-adjacent lowland paths) */
+    corridorRiverChain: new Set(),
 });
 
 /**
@@ -52,6 +64,10 @@ export function resetStoryTags() {
     StoryTags.riftShoulder.clear();
     StoryTags.activeMargin.clear();
     StoryTags.passiveShelf.clear();
+    StoryTags.corridorSeaLane.clear();
+    StoryTags.corridorIslandHop.clear();
+    StoryTags.corridorLandOpen.clear();
+    StoryTags.corridorRiverChain.clear();
 }
 
 export default StoryTags;

@@ -16,6 +16,7 @@ export const STORY_ENABLE_RIFTS = TOGGLES.STORY_ENABLE_RIFTS ?? true;
 export const STORY_ENABLE_OROGENY = TOGGLES.STORY_ENABLE_OROGENY ?? true;
 export const STORY_ENABLE_SWATCHES = TOGGLES.STORY_ENABLE_SWATCHES ?? true;
 export const STORY_ENABLE_PALEO = TOGGLES.STORY_ENABLE_PALEO ?? true;
+export const STORY_ENABLE_CORRIDORS = TOGGLES.STORY_ENABLE_CORRIDORS ?? true;
 
 // --- Tunable Groups ---
 // Merge story tunables and microclimate tunables into a single export for simplicity.
@@ -38,6 +39,7 @@ export const LANDMASS_CFG = MAP_CONFIG?.landmass || {};
 export const COASTLINES_CFG = MAP_CONFIG?.coastlines || {};
 export const MARGINS_CFG = MAP_CONFIG?.margins || {};
 export const ISLANDS_CFG = MAP_CONFIG?.islands || {};
+export const CORRIDORS_CFG = MAP_CONFIG?.corridors || {};
 export const CLIMATE_BASELINE_CFG = MAP_CONFIG?.climateBaseline || {};
 export const CLIMATE_REFINE_CFG = MAP_CONFIG?.climateRefine || {};
 export const BIOMES_CFG = MAP_CONFIG?.biomes || {};

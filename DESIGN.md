@@ -298,6 +298,11 @@ To further evolve this design, we plan to break the generator into explicit laye
 - Features, margin/hotspot aware:
   - Paradise reefs near hotspot paradise centers; modest passive-shelf reef bias.
   - Volcanic vegetation near volcanic centers; gentle rainforest/forest/taiga density tweaks (validated).
+- Strategic Corridors (initial):
+  - New StoryTags for corridors: corridorSeaLane (protected sea lanes), corridorIslandHop (promoted hotspot arcs), corridorLandOpen (open land lanes), corridorRiverChain (river-adjacent chains).
+  - Tagging stages: preIslands (sea lanes, island-hop, land-open from rift shoulders) and postRivers (river chains).
+  - Consumers: coastlines skip edits on sea-lane tiles; islands avoid placing near sea-lanes; biomes gently bias grassland on land-open corridors.
+  - Config: master toggle STORY_ENABLE_CORRIDORS and MAP_CONFIG.corridors.{sea,islandHop,land,river} tunables with safe defaults.
 - Developer logger:
   - Optional per-layer timings, StoryTags counts, and rainfall histograms (`maps/config/dev.js`).
 
@@ -374,5 +379,60 @@ Invariants retained:
     - Hotspot trails and rift lines/shoulders (`story/tagging.js`, `story/tags.js`)
   - Hotspot-aware islands (paradise/volcanic) decorate offshore chains with minimal changes to lane openness.
   - Microclimates and features read tags later in the pipeline (refinements, biomes, features).
+
+## 14) Strategic Corridors (Design and Implementation)
+
+Purpose
+- Create readable, gameplay-focused paths that encourage movement and strategic planning:
+  - Sea lanes: long open-water routes across the map that remain unobstructed.
+  - Island-hop arcs: navigable chains across deep water (often aligned with hotspots).
+  - Land-open lanes: traversable plains/grassland corridors framed by relief (e.g., rift shoulders).
+  - River chains: cross-continent routes that stay close to navigable rivers and lowlands.
+
+Tagging Model
+- Tags (sparse, string keys "x,y"; O(width×height), no flood fills):
+  - StoryTags.corridorSeaLane — protected open-water tiles forming long lanes.
+  - StoryTags.corridorIslandHop — promoted hotspot neighborhoods for legible arc hopping.
+  - StoryTags.corridorLandOpen — long runs along rift shoulders marked as “open” land lanes.
+  - StoryTags.corridorRiverChain — river-adjacent lowland steps seeded from coasts after rivers exist.
+- Stages:
+  - preIslands: tagSeaLanes, tagIslandHopFromHotspots, tagLandCorridorsFromRifts
+  - postRivers: tagRiverChainsPostRivers
+- Files:
+  - maps/story/corridors.js (new): implements the tagging passes above.
+  - maps/story/tags.js: adds corridor tag sets and resets.
+
+Consumers and Effects (gentle; lane-safe)
+- Coastlines (maps/layers/coastlines.js):
+  - Skip bay/fjord edits on StoryTags.corridorSeaLane tiles to preserve lanes.
+- Islands (maps/layers/islands.js):
+  - Avoid placing islands on/near sea-lane tiles (configurable radius) to prevent chokepoints.
+- Biomes (maps/layers/biomes.js):
+  - Apply a light grassland bias on StoryTags.corridorLandOpen tiles when rainfall/latitude permit.
+- Future (optional, not enabled by default):
+  - Placement: discoveries or resource clusters could be biased along corridors.
+  - Climate refinement: tiny microclimate deltas along corridorRiverChain (must obey rainfall clamps).
+
+Configuration
+- Master toggle: MAP_CONFIG.toggles.STORY_ENABLE_CORRIDORS (default: true).
+- Tunables: MAP_CONFIG.corridors
+  - sea: { maxLanes, minLengthFrac, scanStride, avoidRadius }
+  - islandHop: { useHotspots, maxArcs }
+  - land: { useRiftShoulders, maxCorridors, minRunLength }
+  - river: { maxChains, maxSteps, preferLowlandBelow, coastSeedRadius }
+
+Invariants and Performance
+- Passes remain O(width×height) with small constants; no flood fills or global searches.
+- Rainfall range clamp [0, 200] preserved; corridor tagging itself does not change rainfall.
+- Lane safety is paramount: islands/coast edits avoid sea-lane tiles; min sea-lane width is preserved.
+- No aggressive terrain amplification; all edits are conservative and local.
+
+Acceptance Checks (additive to baseline)
+- Sea lanes: at least one uninterrupted lane across a major span; islands avoid these lanes.
+- Island-hop arcs: visible, legible arcs across deeper water; no lane blocking.
+- Land-open corridors: readably open plains/grass strips (e.g., along rift shoulders) without over-densifying.
+- River chains: 1–2 river-adjacent paths cross significant portions of continents.
+- Performance: no noticeable generation time regressions; diffs remain local.
+- Compare corridor visibility with outputs/1.0.0; ensure no chokepoint proliferation.
 
 — End of DESIGN —

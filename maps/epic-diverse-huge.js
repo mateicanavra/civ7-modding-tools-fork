@@ -31,6 +31,7 @@ import {
     STORY_TUNABLES as CFG_STORY_TUNABLES,
 } from "./config/tunables.js";
 import { StoryTags, resetStoryTags } from "./story/tags.js";
+import { storyTagStrategicCorridors } from "./story/corridors.js";
 import {
     storyTagHotspotTrails,
     storyTagRiftValleys,
@@ -64,6 +65,7 @@ import {
     timeEnd,
     logStoryTagsSummary,
     logRainfallHistogram,
+    logCorridorAsciiOverlay,
 } from "./config/dev.js";
 // Orchestrator import removed for stability while we restore local engine listeners
 
@@ -224,6 +226,9 @@ function generateMap() {
     }
     // Re-tag continental margins for downstream consumers (islands/features) after reset
     storyTagContinentalMargins();
+    // Strategic Corridors: tag pre-islands lanes and land corridors
+    storyTagStrategicCorridors("preIslands");
+    logCorridorAsciiOverlay();
 
     devLogIf("LOG_STORY_TAGS", "StoryTags summary follows");
     logStoryTagsSummary(StoryTags, OrogenyCache);
@@ -296,6 +301,9 @@ function generateMap() {
     }
     TerrainBuilder.validateAndFixTerrain();
     TerrainBuilder.defineNamedRivers();
+    // Strategic Corridors: tag river-chain corridors post-rivers
+    storyTagStrategicCorridors("postRivers");
+    logCorridorAsciiOverlay();
 
     // Refine rainfall with earthlike dynamics after rivers exist
     {

@@ -64,6 +64,14 @@ export function addRuggedCoasts(iWidth, iHeight) {
 
     for (let y = 1; y < iHeight - 1; y++) {
         for (let x = 1; x < iWidth - 1; x++) {
+            // Skip edits on protected sea-lane tiles
+            const _k = `${x},${y}`;
+            if (
+                StoryTags.corridorSeaLane &&
+                StoryTags.corridorSeaLane.has(_k)
+            ) {
+                continue;
+            }
             // Carve bays: coastal land -> coast water (very sparse)
             if (GameplayMap.isCoastalLand(x, y)) {
                 const h = FractalBuilder.getHeight(globals.g_HillFractal, x, y);

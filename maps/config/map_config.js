@@ -25,6 +25,7 @@ export const MAP_CONFIG = Object.freeze({
         STORY_ENABLE_OROGENY: true,
         STORY_ENABLE_SWATCHES: true,
         STORY_ENABLE_PALEO: true,
+        STORY_ENABLE_CORRIDORS: true,
     }),
 
     // --- Climate Story Tunables ---
@@ -145,6 +146,30 @@ export const MAP_CONFIG = Object.freeze({
             paradiseReefChance: 23, // % chance
             volcanicForestChance: 27, // % chance
             volcanicTaigaChance: 25, // % chance
+        }),
+    }),
+    // --- Strategic Corridors (sea lanes, island-hop, land, river chains) ---
+    corridors: Object.freeze({
+        sea: Object.freeze({
+            maxLanes: 3,
+            minLengthFrac: 0.7,
+            scanStride: 6,
+            avoidRadius: 2,
+        }),
+        islandHop: Object.freeze({
+            useHotspots: true,
+            maxArcs: 2,
+        }),
+        land: Object.freeze({
+            useRiftShoulders: true,
+            maxCorridors: 2,
+            minRunLength: 24,
+        }),
+        river: Object.freeze({
+            maxChains: 2,
+            maxSteps: 80,
+            preferLowlandBelow: 300,
+            coastSeedRadius: 2,
         }),
     }),
     // --- Landmass (base land/ocean and shaping) ---

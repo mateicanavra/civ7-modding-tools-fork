@@ -32,6 +32,11 @@
                     "type": "boolean",
                     "default": true,
                     "description": "Enable paleo-hydrology features like deltas, oxbows, and fossil channels."
+                },
+                "STORY_ENABLE_CORRIDORS": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable strategic corridors (sea lanes, island-hop, land, river chains)."
                 }
             },
             "required": [
@@ -39,7 +44,8 @@
                 "STORY_ENABLE_RIFTS",
                 "STORY_ENABLE_OROGENY",
                 "STORY_ENABLE_SWATCHES",
-                "STORY_ENABLE_PALEO"
+                "STORY_ENABLE_PALEO",
+                "STORY_ENABLE_CORRIDORS"
             ]
         },
         "story": {
@@ -299,6 +305,97 @@
                             "maximum": 100,
                             "default": 25,
                             "description": "Percent chance."
+                        }
+                    }
+                }
+            }
+        },
+        "corridors": {
+            "type": "object",
+            "description": "Strategic corridors (sea lanes, island-hop, land, river chains).",
+            "properties": {
+                "sea": {
+                    "type": "object",
+                    "properties": {
+                        "maxLanes": {
+                            "type": "integer",
+                            "default": 3,
+                            "description": "Max number of sea lanes to tag across the map."
+                        },
+                        "minLengthFrac": {
+                            "type": "number",
+                            "default": 0.7,
+                            "description": "Minimum fraction of map span a lane must cover to qualify."
+                        },
+                        "scanStride": {
+                            "type": "integer",
+                            "default": 6,
+                            "description": "Sampling stride in tiles when scanning for lanes."
+                        },
+                        "avoidRadius": {
+                            "type": "integer",
+                            "default": 2,
+                            "description": "Radius (tiles) to keep islands away from protected lanes."
+                        }
+                    }
+                },
+                "islandHop": {
+                    "type": "object",
+                    "properties": {
+                        "useHotspots": {
+                            "type": "boolean",
+                            "default": true,
+                            "description": "Whether to promote hotspot trails into island-hop lanes."
+                        },
+                        "maxArcs": {
+                            "type": "integer",
+                            "default": 2,
+                            "description": "Max number of promoted hotspot arcs."
+                        }
+                    }
+                },
+                "land": {
+                    "type": "object",
+                    "properties": {
+                        "useRiftShoulders": {
+                            "type": "boolean",
+                            "default": true,
+                            "description": "Whether to derive land corridors from rift shoulders."
+                        },
+                        "maxCorridors": {
+                            "type": "integer",
+                            "default": 2,
+                            "description": "Cap on distinct land-open corridors."
+                        },
+                        "minRunLength": {
+                            "type": "integer",
+                            "default": 24,
+                            "description": "Minimum contiguous shoulder run length eligible."
+                        }
+                    }
+                },
+                "river": {
+                    "type": "object",
+                    "properties": {
+                        "maxChains": {
+                            "type": "integer",
+                            "default": 2,
+                            "description": "Max number of river chain corridors."
+                        },
+                        "maxSteps": {
+                            "type": "integer",
+                            "default": 80,
+                            "description": "Max greedy steps while following river-adjacent path."
+                        },
+                        "preferLowlandBelow": {
+                            "type": "integer",
+                            "default": 300,
+                            "description": "Elevation threshold treated as lowland preference."
+                        },
+                        "coastSeedRadius": {
+                            "type": "integer",
+                            "default": 2,
+                            "description": "Coast seed radius for initial river-adjacent seed near coast."
                         }
                     }
                 }

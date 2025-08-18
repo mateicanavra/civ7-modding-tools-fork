@@ -17,7 +17,11 @@
 
 import * as globals from "/base-standard/maps/map-globals.js";
 import { StoryTags } from "../story/tags.js";
-import { STORY_TUNABLES, ISLANDS_CFG } from "../config/tunables.js";
+import {
+    STORY_TUNABLES,
+    ISLANDS_CFG,
+    CORRIDORS_CFG,
+} from "../config/tunables.js";
 import { isAdjacentToLand, storyKey } from "../core/utils.js";
 
 /**
@@ -54,6 +58,30 @@ export function addIslandChains(iWidth, iHeight) {
             // Keep islands away from existing land to preserve lanes
             const minDist = (ISLANDS_CFG?.minDistFromLandRadius ?? 2) | 0;
             if (isAdjacentToLand(x, y, Math.max(0, minDist))) continue;
+
+            // Respect strategic sea-lane corridors: skip tiles near protected lanes
+            const laneRadius = (CORRIDORS_CFG?.sea?.avoidRadius ?? 2) | 0;
+            if (
+                laneRadius > 0 &&
+                StoryTags.corridorSeaLane &&
+                StoryTags.corridorSeaLane.size > 0
+            ) {
+                let nearSeaLane = false;
+                for (
+                    let my = -laneRadius;
+                    my <= laneRadius && !nearSeaLane;
+                    my++
+                ) {
+                    for (let mx = -laneRadius; mx <= laneRadius; mx++) {
+                        const kk = storyKey(x + mx, y + my);
+                        if (StoryTags.corridorSeaLane.has(kk)) {
+                            nearSeaLane = true;
+                            break;
+                        }
+                    }
+                }
+                if (nearSeaLane) continue;
+            }
 
             const v = FractalBuilder.getHeight(globals.g_HillFractal, x, y);
             const isHotspot = StoryTags.hotspot.has(storyKey(x, y));
