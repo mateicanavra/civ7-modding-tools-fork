@@ -337,15 +337,15 @@ export const MAP_CONFIG = Object.freeze({
         plates: Object.freeze({
             count: 8, // Huge maps: 6–10 recommended
             axisAngles: Object.freeze([15, -20, 35]), // degrees; used to align macro trends
-            convergenceMix: 0.5, // 0..1 fraction for convergent vs divergent balance
-            seedJitter: 2, // tile jitter for plate seeds
-            interiorSmooth: 2, // smoothing steps for shield interiors
+            convergenceMix: 0.6, // 0..1 fraction for convergent vs divergent balance
+            seedJitter: 3, // tile jitter for plate seeds
+            interiorSmooth: 3, // smoothing steps for shield interiors
         }),
 
         // Global winds (zonal baseline + jet streams; used in refinement upwind checks)
         wind: Object.freeze({
-            jetStreaks: 3,
-            jetStrength: 1.0,
+            jetStreaks: 5,
+            jetStrength: 1.3,
             variance: 0.6,
             coriolisZonalScale: 1.0,
         }),
@@ -360,8 +360,8 @@ export const MAP_CONFIG = Object.freeze({
         // Mantle pressure (bumps/ridges; optional small influence on hills/relief)
         pressure: Object.freeze({
             bumps: 4,
-            amplitude: 0.6,
-            scale: 0.4,
+            amplitude: 0.75,
+            scale: 0.6,
         }),
 
         // Policy scalars for consumers (keep gentle; all effects remain clamped/validated)

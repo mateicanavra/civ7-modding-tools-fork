@@ -26,6 +26,7 @@ import {
     STORY_ENABLE_OROGENY,
     CLIMATE_REFINE_CFG,
 } from "../config/tunables.js";
+import { WorldModel } from "../world/model.js";
 
 /**
  * Distance in tiles (Chebyshev radius) to nearest water within maxR; -1 if none.
@@ -80,6 +81,65 @@ function hasUpwindBarrier(x, y, dx, dy, steps) {
 }
 
 /**
+ * Upwind barrier scan using WorldModel wind vectors.
+ * Steps along the dominant component of (windU, windV) per tile, normalized to -1/0/1,
+ * and returns the number of steps to first barrier (mountain/elev>=500) within 'steps', else 0.
+ */
+function hasUpwindBarrierWM(x, y, steps) {
+    const width = GameplayMap.getGridWidth();
+    const height = GameplayMap.getGridHeight();
+    const U = WorldModel.windU;
+    const V = WorldModel.windV;
+    if (!U || !V) return 0;
+
+    let cx = x;
+    let cy = y;
+    for (let s = 1; s <= steps; s++) {
+        const i = cy * width + cx;
+        let ux = 0,
+            vy = 0;
+        if (i >= 0 && i < U.length) {
+            const u = U[i] | 0;
+            const v = V[i] | 0;
+            // Choose dominant component; prefer |u| vs |v|, break ties toward u (zonal)
+            if (Math.abs(u) >= Math.abs(v)) {
+                ux = u === 0 ? 0 : u > 0 ? 1 : -1;
+                vy = 0;
+            } else {
+                ux = 0;
+                vy = v === 0 ? 0 : v > 0 ? 1 : -1;
+            }
+            // If both zero, fallback to latitude zonal step
+            if (ux === 0 && vy === 0) {
+                const lat = Math.abs(GameplayMap.getPlotLatitude(cx, cy));
+                ux = lat < 30 || lat >= 60 ? -1 : 1;
+                vy = 0;
+            }
+        } else {
+            // Out of range safety
+            const lat = Math.abs(GameplayMap.getPlotLatitude(cx, cy));
+            ux = lat < 30 || lat >= 60 ? -1 : 1;
+            vy = 0;
+        }
+
+        const nx = cx + ux;
+        const ny = cy + vy;
+        if (nx < 0 || nx >= width || ny < 0 || ny >= height) break;
+
+        if (!GameplayMap.isWater(nx, ny)) {
+            if (GameplayMap.isMountain && GameplayMap.isMountain(nx, ny))
+                return s;
+            const elev = GameplayMap.getElevation(nx, ny);
+            if (elev >= 500) return s;
+        }
+
+        cx = nx;
+        cy = ny;
+    }
+    return 0;
+}
+
+/**
  * Apply earthlike rainfall refinements in multiple small, clamped passes.
  * Call this after rivers are modeled and named.
  * @param {number} iWidth
@@ -118,17 +178,20 @@ export function refineRainfallEarthlike(iWidth, iHeight) {
             for (let x = 0; x < iWidth; x++) {
                 if (GameplayMap.isWater(x, y)) continue;
 
-                const lat = Math.abs(GameplayMap.getPlotLatitude(x, y));
-                // Trade winds (0–30): E→W; Westerlies (30–60): W→E; Polar easterlies (60+): E→W
-                const dx = lat < 30 || lat >= 60 ? -1 : 1;
-                const dy = 0; // zonal winds simplified
-                const barrier = hasUpwindBarrier(
-                    x,
-                    y,
-                    dx,
-                    dy,
-                    (CLIMATE_REFINE_CFG?.orographic?.steps ?? 4) | 0,
-                );
+                const steps = (CLIMATE_REFINE_CFG?.orographic?.steps ?? 4) | 0;
+                let barrier = 0;
+                if (
+                    WorldModel?.isEnabled?.() &&
+                    WorldModel.windU &&
+                    WorldModel.windV
+                ) {
+                    barrier = hasUpwindBarrierWM(x, y, steps);
+                } else {
+                    const lat = Math.abs(GameplayMap.getPlotLatitude(x, y));
+                    const dx = lat < 30 || lat >= 60 ? -1 : 1;
+                    const dy = 0;
+                    barrier = hasUpwindBarrier(x, y, dx, dy, steps);
+                }
 
                 if (barrier) {
                     const rf = GameplayMap.getRainfall(x, y);

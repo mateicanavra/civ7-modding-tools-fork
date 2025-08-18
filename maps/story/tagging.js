@@ -24,6 +24,7 @@ import {
     MARGINS_CFG,
 } from "../config/tunables.js";
 import { inBounds, storyKey, isAdjacentToLand } from "../core/utils.js";
+import { WorldModel } from "../world/model.js";
 
 /**
  * Tag deep‑ocean hotspot trails as sparse polylines.
@@ -124,16 +125,11 @@ export function storyTagHotspotTrails(ctx) {
 }
 
 /**
- * Tag inland rift valleys as long linear features with narrow shoulder bands.
- * Rifts are later consumed by microclimate and biome nudges (and optional tiny lakes).
+ * Tag inland rift valleys using WorldModel.riftPotential where available.
+ * Fallback: legacy random-marching rifts when WorldModel is disabled.
  *
- * Rules:
- *  - Avoid very high latitudes and high mountain seeds.
- *  - Prefer long, straight lines with occasional gentle bends.
- *  - Shoulder width is small (typically 1) to keep belts crisp and readable.
- *
- * @param {object} [ctx] - Optional context (unused; present for future parity).
- * @returns {{ rifts:number, lineTiles:number, shoulderTiles:number }} summary counts
+ * @param {object} [ctx]
+ * @returns {{ rifts:number, lineTiles:number, shoulderTiles:number }}
  */
 export function storyTagRiftValleys(ctx) {
     const width = GameplayMap.getGridWidth();
@@ -146,82 +142,86 @@ export function storyTagRiftValleys(ctx) {
         Math.round(baseRift.maxRiftsPerMap * (0.8 + 0.6 * sqrtRift)),
     );
     const lineSteps = Math.round(baseRift.lineSteps * (0.9 + 0.4 * sqrtRift));
-    const stepLen = baseRift.stepLen;
+    const stepLen = Math.max(1, baseRift.stepLen | 0);
     const shoulderWidth = baseRift.shoulderWidth + (sqrtRift > 1.5 ? 1 : 0);
 
-    // Two families of headings to get “continental-scale” lines without zig-zag
-    const dirsNS = [
-        [0, 1],
-        [0, -1],
-        [1, 1],
-        [-1, -1],
-    ];
-    const dirsEW = [
-        [1, 0],
-        [-1, 0],
-        [1, 1],
-        [-1, -1],
-    ];
+    const useWM = !!(
+        WorldModel?.isEnabled?.() &&
+        WorldModel.riftPotential &&
+        WorldModel.boundaryType &&
+        WorldModel.boundaryCloseness
+    );
+    const idx = (x, y) => y * width + x;
+    const inb = (x, y) => x >= 0 && x < width && y >= 0 && y < height;
+    const latDegAt = (y) => Math.abs(GameplayMap.getPlotLatitude(0, y));
 
-    let riftsMade = 0;
-    let lineCount = 0;
-    let shoulderCount = 0;
-    let tries = 0;
+    if (useWM) {
+        const RP = WorldModel.riftPotential;
+        const BT = WorldModel.boundaryType; // 1=convergent, 2=divergent
+        const BC = WorldModel.boundaryCloseness;
 
-    while (riftsMade < maxRiftsPerMap && tries < 300) {
-        tries++;
-        const sx = TerrainBuilder.getRandomNumber(width, "RiftSeedX");
-        const sy = TerrainBuilder.getRandomNumber(height, "RiftSeedY");
-        if (!inBounds(sx, sy)) continue;
-        if (GameplayMap.isWater(sx, sy)) continue;
-
-        const plat = Math.abs(GameplayMap.getPlotLatitude(sx, sy));
-        if (plat > 70) continue; // avoid extreme polar artifacts
-
-        const elev = GameplayMap.getElevation(sx, sy);
-        if (elev > 500) continue; // seed away from high mountains
-
-        // Pick axis family and a particular direction
-        const useNS = TerrainBuilder.getRandomNumber(2, "RiftAxis") === 0;
-        let dir = useNS
-            ? dirsNS[TerrainBuilder.getRandomNumber(dirsNS.length, "RiftDirNS")]
-            : dirsEW[
-                  TerrainBuilder.getRandomNumber(dirsEW.length, "RiftDirEW")
-              ];
-
-        let [dx, dy] = dir;
-        let x = sx;
-        let y = sy;
-
-        let placedAny = false;
-        for (let s = 0; s < lineSteps; s++) {
-            x += dx * stepLen;
-            y += dy * stepLen;
-            if (!inBounds(x, y)) break;
-            if (GameplayMap.isWater(x, y)) continue;
-
-            const k = storyKey(x, y);
-            if (!StoryTags.riftLine.has(k)) {
-                StoryTags.riftLine.add(k);
-                lineCount++;
+        // 1) Find sparse seeds: local maxima on divergent boundaries over land
+        const seeds = [];
+        let thr = 192;
+        let attempts = 0;
+        while (attempts++ < 6) {
+            seeds.length = 0;
+            for (let y = 1; y < height - 1; y++) {
+                if (latDegAt(y) > 70) continue;
+                for (let x = 1; x < width - 1; x++) {
+                    if (GameplayMap.isWater(x, y)) continue;
+                    const i = idx(x, y);
+                    if (BT[i] !== 2 || BC[i] <= 32 || RP[i] < thr) continue;
+                    // Local-maximum test
+                    const v = RP[i];
+                    let isPeak = true;
+                    for (let dy = -1; dy <= 1 && isPeak; dy++) {
+                        for (let dx = -1; dx <= 1; dx++) {
+                            if (dx === 0 && dy === 0) continue;
+                            if (RP[idx(x + dx, y + dy)] > v) {
+                                isPeak = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (isPeak) seeds.push({ x, y, v });
+                }
             }
-            placedAny = true;
+            if (seeds.length >= maxRiftsPerMap * 2 || thr <= 112) break;
+            thr -= 16;
+        }
 
-            // Tag shoulder tiles on both sides (perpendicular offset)
+        seeds.sort((a, b) => b.v - a.v);
+
+        // Space seeds out by Manhattan distance
+        const chosen = [];
+        const minSeedSep = Math.round(sqrtRift > 1.5 ? 18 : 14);
+        for (const s of seeds) {
+            if (chosen.length >= maxRiftsPerMap) break;
+            const farEnough = chosen.every(
+                (c) => Math.abs(c.x - s.x) + Math.abs(c.y - s.y) >= minSeedSep,
+            );
+            if (farEnough) chosen.push(s);
+        }
+
+        let riftsMade = 0;
+        let lineCount = 0;
+        let shoulderCount = 0;
+
+        function tagShoulders(x, y, sdx, sdy) {
             for (let off = 1; off <= shoulderWidth; off++) {
-                const px = x + -dy * off;
-                const py = y + dx * off;
-                const qx = x + dy * off;
-                const qy = y + -dx * off;
-
-                if (inBounds(px, py) && !GameplayMap.isWater(px, py)) {
+                const px = x + -sdy * off;
+                const py = y + sdx * off;
+                const qx = x + sdy * off;
+                const qy = y + -sdx * off;
+                if (inb(px, py) && !GameplayMap.isWater(px, py)) {
                     const pk = storyKey(px, py);
                     if (!StoryTags.riftShoulder.has(pk)) {
                         StoryTags.riftShoulder.add(pk);
                         shoulderCount++;
                     }
                 }
-                if (inBounds(qx, qy) && !GameplayMap.isWater(qx, qy)) {
+                if (inb(qx, qy) && !GameplayMap.isWater(qx, qy)) {
                     const qk = storyKey(qx, qy);
                     if (!StoryTags.riftShoulder.has(qk)) {
                         StoryTags.riftShoulder.add(qk);
@@ -229,40 +229,225 @@ export function storyTagRiftValleys(ctx) {
                     }
                 }
             }
+        }
 
-            // Occasional, small bend to avoid ruler-straight lines
-            if (TerrainBuilder.getRandomNumber(6, "RiftBend") === 0) {
-                if (useNS) {
-                    dir =
-                        dirsNS[
-                            TerrainBuilder.getRandomNumber(
-                                dirsNS.length,
-                                "RiftDirNS2",
-                            )
-                        ];
-                } else {
-                    dir =
-                        dirsEW[
-                            TerrainBuilder.getRandomNumber(
-                                dirsEW.length,
-                                "RiftDirEW2",
-                            )
-                        ];
+        for (const seed of chosen) {
+            let x = seed.x,
+                y = seed.y;
+            if (latDegAt(y) > 70) continue;
+
+            // Initialize step direction toward highest neighboring RP
+            let sdx = 1,
+                sdy = 0;
+            {
+                let best = -1,
+                    bdx = 1,
+                    bdy = 0;
+                for (let dy = -1; dy <= 1; dy++) {
+                    for (let dx = -1; dx <= 1; dx++) {
+                        if (dx === 0 && dy === 0) continue;
+                        const nx = x + dx,
+                            ny = y + dy;
+                        if (!inb(nx, ny) || GameplayMap.isWater(nx, ny))
+                            continue;
+                        const p = RP[idx(nx, ny)];
+                        if (p > best) {
+                            best = p;
+                            bdx = dx;
+                            bdy = dy;
+                        }
+                    }
                 }
-                [dx, dy] = dir;
+                sdx = bdx;
+                sdy = bdy;
+            }
+
+            let placedAny = false;
+            for (let s = 0; s < lineSteps; s++) {
+                if (!inb(x, y) || GameplayMap.isWater(x, y) || latDegAt(y) > 70)
+                    break;
+
+                const k = storyKey(x, y);
+                if (!StoryTags.riftLine.has(k)) {
+                    StoryTags.riftLine.add(k);
+                    lineCount++;
+                }
+                placedAny = true;
+                tagShoulders(x, y, sdx, sdy);
+
+                // Choose next step by RP gradient with straightness preference
+                let bestScore = -1,
+                    ndx = sdx,
+                    ndy = sdy,
+                    nx = x,
+                    ny = y;
+                for (let ty = -1; ty <= 1; ty++) {
+                    for (let tx = -1; tx <= 1; tx++) {
+                        if (tx === 0 && ty === 0) continue;
+                        const cx = x + tx * stepLen,
+                            cy = y + ty * stepLen;
+                        if (!inb(cx, cy) || GameplayMap.isWater(cx, cy))
+                            continue;
+
+                        const p = RP[idx(cx, cy)];
+                        const align =
+                            tx === sdx && ty === sdy
+                                ? 16
+                                : tx === -sdx && ty === -sdy
+                                  ? -12
+                                  : 0;
+                        const score = p + align;
+                        if (score > bestScore) {
+                            bestScore = score;
+                            ndx = tx;
+                            ndy = ty;
+                            nx = cx;
+                            ny = cy;
+                        }
+                    }
+                }
+
+                // Stop if leaving divergent boundary band or very weak RP
+                const ii = inb(nx, ny) ? idx(nx, ny) : -1;
+                if (ii < 0 || BT[ii] !== 2 || BC[ii] <= 16 || RP[ii] < 64)
+                    break;
+
+                x = nx;
+                y = ny;
+                sdx = ndx;
+                sdy = ndy;
+            }
+
+            if (placedAny) riftsMade++;
+            if (riftsMade >= maxRiftsPerMap) break;
+        }
+
+        return {
+            rifts: riftsMade,
+            lineTiles: lineCount,
+            shoulderTiles: shoulderCount,
+        };
+    }
+
+    // Legacy fallback: original random marching implementation
+    {
+        // Two families of headings to get “continental-scale” lines without zig-zag
+        const dirsNS = [
+            [0, 1],
+            [0, -1],
+            [1, 1],
+            [-1, -1],
+        ];
+        const dirsEW = [
+            [1, 0],
+            [-1, 0],
+            [1, 1],
+            [-1, -1],
+        ];
+
+        let riftsMade = 0;
+        let lineCount = 0;
+        let shoulderCount = 0;
+        let tries = 0;
+
+        while (riftsMade < maxRiftsPerMap && tries < 300) {
+            tries++;
+            const sx = TerrainBuilder.getRandomNumber(width, "RiftSeedX");
+            const sy = TerrainBuilder.getRandomNumber(height, "RiftSeedY");
+            if (!inBounds(sx, sy)) continue;
+            if (GameplayMap.isWater(sx, sy)) continue;
+
+            const plat = Math.abs(GameplayMap.getPlotLatitude(sx, sy));
+            if (plat > 70) continue; // avoid extreme polar artifacts
+
+            const elev = GameplayMap.getElevation(sx, sy);
+            if (elev > 500) continue; // seed away from high mountains
+
+            // Pick axis family and a particular direction
+            const useNS = TerrainBuilder.getRandomNumber(2, "RiftAxis") === 0;
+            let dir = useNS
+                ? dirsNS[
+                      TerrainBuilder.getRandomNumber(dirsNS.length, "RiftDirNS")
+                  ]
+                : dirsEW[
+                      TerrainBuilder.getRandomNumber(dirsEW.length, "RiftDirEW")
+                  ];
+
+            let [dx, dy] = dir;
+            let x = sx;
+            let y = sy;
+
+            let placedAny = false;
+            for (let s = 0; s < lineSteps; s++) {
+                x += dx * stepLen;
+                y += dy * stepLen;
+                if (!inBounds(x, y)) break;
+                if (GameplayMap.isWater(x, y)) continue;
+
+                const k = storyKey(x, y);
+                if (!StoryTags.riftLine.has(k)) {
+                    StoryTags.riftLine.add(k);
+                    lineCount++;
+                }
+                placedAny = true;
+
+                // Tag shoulder tiles on both sides (perpendicular offset)
+                for (let off = 1; off <= shoulderWidth; off++) {
+                    const px = x + -dy * off;
+                    const py = y + dx * off;
+                    const qx = x + dy * off;
+                    const qy = y + -dx * off;
+
+                    if (inBounds(px, py) && !GameplayMap.isWater(px, py)) {
+                        const pk = storyKey(px, py);
+                        if (!StoryTags.riftShoulder.has(pk)) {
+                            StoryTags.riftShoulder.add(pk);
+                            shoulderCount++;
+                        }
+                    }
+                    if (inBounds(qx, qy) && !GameplayMap.isWater(qx, qy)) {
+                        const qk = storyKey(qx, qy);
+                        if (!StoryTags.riftShoulder.has(qk)) {
+                            StoryTags.riftShoulder.add(qk);
+                            shoulderCount++;
+                        }
+                    }
+                }
+
+                // Occasional, small bend to avoid ruler-straight lines
+                if (TerrainBuilder.getRandomNumber(6, "RiftBend") === 0) {
+                    if (useNS) {
+                        dir =
+                            dirsNS[
+                                TerrainBuilder.getRandomNumber(
+                                    dirsNS.length,
+                                    "RiftDirNS2",
+                                )
+                            ];
+                    } else {
+                        dir =
+                            dirsEW[
+                                TerrainBuilder.getRandomNumber(
+                                    dirsEW.length,
+                                    "RiftDirEW2",
+                                )
+                            ];
+                    }
+                    [dx, dy] = dir;
+                }
+            }
+
+            if (placedAny) {
+                riftsMade++;
             }
         }
 
-        if (placedAny) {
-            riftsMade++;
-        }
+        return {
+            rifts: riftsMade,
+            lineTiles: lineCount,
+            shoulderTiles: shoulderCount,
+        };
     }
-
-    return {
-        rifts: riftsMade,
-        lineTiles: lineCount,
-        shoulderTiles: shoulderCount,
-    };
 }
 
 export const OrogenyCache = {
@@ -272,13 +457,8 @@ export const OrogenyCache = {
 };
 
 /**
- * Tag Orogeny belts (mountain corridors) and derive windward/lee flanks.
- * Lightweight heuristic:
- * - Belt tiles: elevation >= 500 (or engine mountain) with ≥2 high-elev neighbors.
- * - Prevailing winds by latitude: 0–30° and 60–90° E→W (dx=-1), 30–60° W→E (dx=1).
- * - Windward = upwind side within radius; Lee = downwind side within radius.
- * Size scaling:
- * - Length threshold (soft) scales with sqrt(area/base); radius +1 on very large maps.
+ * Tag Orogeny belts using WorldModel uplift/tectonic stress near convergent boundaries.
+ * Fallback: legacy elevation-density heuristic when WorldModel is disabled.
  *
  * Returns simple counts; results stored in OrogenyCache for consumers.
  */
@@ -303,75 +483,173 @@ export function storyTagOrogenyBelts(ctx) {
         Math.round((cfg.beltMinLength ?? 30) * (0.9 + 0.4 * sqrtScale)),
     );
 
-    // Helper: elevation predicate (prefer GameplayMap.isMountain when exposed)
-    function isHighElev(x, y) {
-        if (!inBounds(x, y)) return false;
-        if (GameplayMap.isMountain && GameplayMap.isMountain(x, y)) return true;
-        return GameplayMap.getElevation(x, y) >= 500;
-    }
+    const useWM = !!(
+        WorldModel?.isEnabled?.() &&
+        WorldModel.upliftPotential &&
+        WorldModel.tectonicStress &&
+        WorldModel.boundaryType &&
+        WorldModel.boundaryCloseness
+    );
 
-    // Pass 1: collect belt candidates by local mountain density
-    for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-            if (!isHighElev(x, y)) continue;
+    if (useWM) {
+        const U = WorldModel.upliftPotential;
+        const S = WorldModel.tectonicStress;
+        const BT = WorldModel.boundaryType; // 1=convergent
+        const BC = WorldModel.boundaryCloseness;
 
-            // Count high-elevation neighbors (8-neighborhood)
-            let hi = 0;
-            for (let dy = -1; dy <= 1; dy++) {
-                for (let dx = -1; dx <= 1; dx++) {
-                    if (dx === 0 && dy === 0) continue;
-                    const nx = x + dx,
-                        ny = y + dy;
-                    if (isHighElev(nx, ny)) hi++;
+        // Pass 1: seed belts from convergent boundaries with high uplift/stress combo
+        // Combined metric: 0.7*U + 0.3*S; threshold search to keep belts sparse
+        let thr = 180;
+        let attempts = 0;
+        while (attempts++ < 5) {
+            OrogenyCache.belts.clear();
+            for (let y = 1; y < height - 1; y++) {
+                for (let x = 1; x < width - 1; x++) {
+                    if (GameplayMap.isWater(x, y)) continue;
+                    const i = y * width + x;
+                    if (BT[i] !== 1 || BC[i] < 48) continue;
+                    const metric = Math.round(0.7 * U[i] + 0.3 * S[i]);
+                    if (metric >= thr) {
+                        // Light neighborhood density check to avoid salt-and-pepper
+                        let dense = 0;
+                        for (let dy = -1; dy <= 1; dy++) {
+                            for (let dx = -1; dx <= 1; dx++) {
+                                if (dx === 0 && dy === 0) continue;
+                                const j = (y + dy) * width + (x + dx);
+                                if (j >= 0 && j < width * height) {
+                                    const m2 = Math.round(
+                                        0.7 * U[j] + 0.3 * S[j],
+                                    );
+                                    if (m2 >= thr) dense++;
+                                }
+                            }
+                        }
+                        if (dense >= 2) {
+                            OrogenyCache.belts.add(`${x},${y}`);
+                        }
+                    }
                 }
             }
-            if (hi >= 2) {
-                OrogenyCache.belts.add(storyKey(x, y));
+            if (OrogenyCache.belts.size >= minLenSoft || thr <= 128) break;
+            thr -= 12;
+        }
+
+        // Soft reject trivial belts
+        if (OrogenyCache.belts.size < minLenSoft) {
+            return { belts: 0, windward: 0, lee: 0 };
+        }
+
+        // Prevailing wind vector by latitude (preserve current zonal structure)
+        function windDX(x, y) {
+            const lat = Math.abs(GameplayMap.getPlotLatitude(x, y));
+            return lat < 30 || lat >= 60 ? -1 : 1; // E→W else W→E
+        }
+
+        // Pass 2: expand flanks on both sides of each belt tile
+        for (const key of OrogenyCache.belts) {
+            const [sx, sy] = key.split(",").map(Number);
+            const dx = windDX(sx, sy);
+            const dy = 0;
+            const upwindX = -dx,
+                upwindY = -dy;
+            const downX = dx,
+                downY = dy;
+
+            for (let r = 1; r <= radius; r++) {
+                const wx = sx + upwindX * r,
+                    wy = sy + upwindY * r;
+                const lx = sx + downX * r,
+                    ly = sy + downY * r;
+
+                if (inBounds(wx, wy) && !GameplayMap.isWater(wx, wy)) {
+                    OrogenyCache.windward.add(storyKey(wx, wy));
+                }
+                if (inBounds(lx, ly) && !GameplayMap.isWater(lx, ly)) {
+                    OrogenyCache.lee.add(storyKey(lx, ly));
+                }
             }
         }
+
+        return {
+            belts: OrogenyCache.belts.size,
+            windward: OrogenyCache.windward.size,
+            lee: OrogenyCache.lee.size,
+        };
     }
 
-    // Soft reject trivial belts (very small mountain presence)
-    if (OrogenyCache.belts.size < minLenSoft) {
-        return { belts: 0, windward: 0, lee: 0 };
-    }
+    // Legacy fallback: elevation-density heuristic
+    {
+        // Helper: elevation predicate (prefer GameplayMap.isMountain when exposed)
+        function isHighElev(x, y) {
+            if (!inBounds(x, y)) return false;
+            if (GameplayMap.isMountain && GameplayMap.isMountain(x, y))
+                return true;
+            return GameplayMap.getElevation(x, y) >= 500;
+        }
 
-    // Prevailing wind vector by latitude (zonal)
-    function windDX(x, y) {
-        const lat = Math.abs(GameplayMap.getPlotLatitude(x, y));
-        return lat < 30 || lat >= 60 ? -1 : 1; // E→W else W→E
-    }
+        // Pass 1: collect belt candidates by local mountain density
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                if (!isHighElev(x, y)) continue;
 
-    // Pass 2: expand flanks on both sides of each belt tile
-    for (const key of OrogenyCache.belts) {
-        const [x, y] = key.split(",").map(Number);
-        const dx = windDX(x, y);
-        const dy = 0;
-        const upwindX = -dx,
-            upwindY = -dy;
-        const downX = dx,
-            downY = dy;
-
-        for (let r = 1; r <= radius; r++) {
-            const wx = x + upwindX * r,
-                wy = y + upwindY * r;
-            const lx = x + downX * r,
-                ly = y + downY * r;
-
-            if (inBounds(wx, wy) && !GameplayMap.isWater(wx, wy)) {
-                OrogenyCache.windward.add(storyKey(wx, wy));
-            }
-            if (inBounds(lx, ly) && !GameplayMap.isWater(lx, ly)) {
-                OrogenyCache.lee.add(storyKey(lx, ly));
+                // Count high-elevation neighbors (8-neighborhood)
+                let hi = 0;
+                for (let dy = -1; dy <= 1; dy++) {
+                    for (let dx = -1; dx <= 1; dx++) {
+                        if (dx === 0 && dy === 0) continue;
+                        const nx = x + dx,
+                            ny = y + dy;
+                        if (isHighElev(nx, ny)) hi++;
+                    }
+                }
+                if (hi >= 2) {
+                    OrogenyCache.belts.add(storyKey(x, y));
+                }
             }
         }
-    }
 
-    return {
-        belts: OrogenyCache.belts.size,
-        windward: OrogenyCache.windward.size,
-        lee: OrogenyCache.lee.size,
-    };
+        // Soft reject trivial belts (very small mountain presence)
+        if (OrogenyCache.belts.size < minLenSoft) {
+            return { belts: 0, windward: 0, lee: 0 };
+        }
+
+        // Prevailing wind vector by latitude (zonal)
+        function windDX(x, y) {
+            const lat = Math.abs(GameplayMap.getPlotLatitude(x, y));
+            return lat < 30 || lat >= 60 ? -1 : 1; // E→W else W→E
+        }
+
+        // Pass 2: expand flanks on both sides of each belt tile
+        for (const key of OrogenyCache.belts) {
+            const [x, y] = key.split(",").map(Number);
+            const dx = windDX(x, y);
+            const dy = 0;
+            const upwindX = -dx,
+                upwindY = -dy;
+            const downX = dx,
+                downY = dy;
+
+            for (let r = 1; r <= radius; r++) {
+                const wx = x + upwindX * r,
+                    wy = y + upwindY * r;
+                const lx = x + downX * r,
+                    ly = y + downY * r;
+
+                if (inBounds(wx, wy) && !GameplayMap.isWater(wx, wy)) {
+                    OrogenyCache.windward.add(storyKey(wx, wy));
+                }
+                if (inBounds(lx, ly) && !GameplayMap.isWater(lx, ly)) {
+                    OrogenyCache.lee.add(storyKey(lx, ly));
+                }
+            }
+        }
+
+        return {
+            belts: OrogenyCache.belts.size,
+            windward: OrogenyCache.windward.size,
+            lee: OrogenyCache.lee.size,
+        };
+    }
 }
 
 /**

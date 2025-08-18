@@ -33,6 +33,8 @@ export const DEV = {
     LOG_STORY_TAGS: true, // Log StoryTags summary counts
     RAINFALL_HISTOGRAM: true, // Log a coarse rainfall histogram (non-water tiles only)
     LOG_CORRIDOR_ASCII: true, // Print a coarse ASCII overlay of corridor tags (downsampled)
+    LOG_WORLDMODEL_SUMMARY: false, // Print compact WorldModel summary when available
+    WORLDMODEL_HISTOGRAMS: false, // Print histograms for rift/uplift (optionally near tags)
     LAYER_COUNTS: false, // Reserved for layer-specific counters (if used by callers)
 };
 
@@ -205,7 +207,180 @@ export function logRainfallHistogram(width, height, bins = 10) {
 }
 
 /**
+ * WorldModel summary: plates and boundary type counts (compact).
+ * Accepts a WorldModel-like object (so callers can pass the singleton).
+ * No-op if LOG_WORLDMODEL_SUMMARY disabled.
+ * @param {{isEnabled?:()=>boolean,plateId?:Int16Array,boundaryType?:Uint8Array,boundaryCloseness?:Uint8Array,upliftPotential?:Uint8Array, riftPotential?:Uint8Array}} WorldModel
+ */
+export function logWorldModelSummary(WorldModel) {
+    if (!isOn("LOG_WORLDMODEL_SUMMARY")) return;
+    try {
+        const enabled =
+            !!WorldModel &&
+            typeof WorldModel.isEnabled === "function" &&
+            !!WorldModel.isEnabled();
+        if (!enabled) {
+            safeLog("[DEV][wm] WorldModel disabled or unavailable.");
+            return;
+        }
+
+        const width = GameplayMap?.getGridWidth?.() ?? 0;
+        const height = GameplayMap?.getGridHeight?.() ?? 0;
+        const size = Math.max(0, width * height) | 0;
+
+        const plateId = WorldModel.plateId;
+        const bType = WorldModel.boundaryType;
+        const bClose = WorldModel.boundaryCloseness;
+        const uplift = WorldModel.upliftPotential;
+        const rift = WorldModel.riftPotential;
+
+        if (!plateId || !bType || !bClose) {
+            safeLog("[DEV][wm] Missing core fields; skipping summary.");
+            return;
+        }
+
+        const plates = new Set();
+        const btCounts = [0, 0, 0, 0]; // none, convergent, divergent, transform
+        let boundaryTiles = 0;
+
+        const n = Math.min(size, plateId.length, bType.length, bClose.length);
+        for (let i = 0; i < n; i++) {
+            plates.add(plateId[i]);
+            const bt = bType[i] | 0;
+            if (bt >= 0 && bt < btCounts.length) btCounts[bt]++;
+            if ((bClose[i] | 0) > 32) boundaryTiles++;
+        }
+
+        function avgByte(arr) {
+            if (!arr || !arr.length) return 0;
+            const m = Math.min(arr.length, size || arr.length);
+            let s = 0;
+            for (let i = 0; i < m; i++) s += arr[i] | 0;
+            return Math.round(s / Math.max(1, m));
+        }
+
+        const summary = {
+            width,
+            height,
+            plates: plates.size,
+            boundaryTiles,
+            boundaryTypes: {
+                none: btCounts[0] | 0,
+                convergent: btCounts[1] | 0,
+                divergent: btCounts[2] | 0,
+                transform: btCounts[3] | 0,
+            },
+            upliftAvg: uplift ? avgByte(uplift) : null,
+            riftAvg: rift ? avgByte(rift) : null,
+        };
+        safeLog("[DEV][wm] summary:", summary);
+    } catch (err) {
+        safeLog("[DEV][wm] summary error:", err);
+    }
+}
+
+/**
+ * WorldModel histograms for uplift/rift potentials. Optionally restrict samples
+ * to tiles included in provided tag sets (Orogeny belts or Rift lines).
+ * No-op if WORLDMODEL_HISTOGRAMS disabled.
+ * @param {{isEnabled?:()=>boolean,upliftPotential?:Uint8Array, riftPotential?:Uint8Array}} WorldModel
+ * @param {{riftSet?:Set<string>, beltSet?:Set<string>, bins?:number}} [opts]
+ */
+export function logWorldModelHistograms(WorldModel, opts = {}) {
+    if (!isOn("WORLDMODEL_HISTOGRAMS")) return;
+    try {
+        const enabled =
+            !!WorldModel &&
+            typeof WorldModel.isEnabled === "function" &&
+            !!WorldModel.isEnabled();
+        if (!enabled) {
+            safeLog("[DEV][wm] hist: WorldModel disabled or unavailable.");
+            return;
+        }
+        const width = GameplayMap?.getGridWidth?.() ?? 0;
+        const height = GameplayMap?.getGridHeight?.() ?? 0;
+        const size = Math.max(0, width * height) | 0;
+
+        const uplift = WorldModel.upliftPotential;
+        const rift = WorldModel.riftPotential;
+        if (!uplift || !rift) {
+            safeLog("[DEV][wm] hist: Missing fields (uplift/rift).");
+            return;
+        }
+
+        const bins = Math.max(5, Math.min(50, opts.bins | 0 || 10));
+        const histAll = (arr) => {
+            const h = new Array(bins).fill(0);
+            const n = Math.min(arr.length, size || arr.length);
+            let samples = 0;
+            for (let i = 0; i < n; i++) {
+                const v = arr[i] | 0; // 0..255
+                const bi = Math.min(bins - 1, Math.floor((v / 256) * bins));
+                h[bi]++;
+                samples++;
+            }
+            return { h, samples };
+        };
+        const histMasked = (arr, maskSet) => {
+            if (!maskSet || !(maskSet instanceof Set) || maskSet.size === 0)
+                return null;
+            const h = new Array(bins).fill(0);
+            let samples = 0;
+            // Scan grid once; test membership by tile key
+            for (let y = 0; y < height; y++) {
+                for (let x = 0; x < width; x++) {
+                    const key = `${x},${y}`;
+                    if (!maskSet.has(key)) continue;
+                    const i = y * width + x;
+                    const v = arr[i] | 0;
+                    const bi = Math.min(bins - 1, Math.floor((v / 256) * bins));
+                    h[bi]++;
+                    samples++;
+                }
+            }
+            return { h, samples };
+        };
+        const pct = (h, total) =>
+            h.map((c) => ((c / Math.max(1, total)) * 100).toFixed(1) + "%");
+
+        const aU = histAll(uplift);
+        const aR = histAll(rift);
+        safeLog("[DEV][wm] uplift (all) hist:", pct(aU.h, aU.samples));
+        safeLog("[DEV][wm] rift   (all) hist:", pct(aR.h, aR.samples));
+
+        // Optional masked histograms near tags
+        const mUrift = histMasked(uplift, opts.riftSet);
+        const mRrift = histMasked(rift, opts.riftSet);
+        if (mUrift && mRrift) {
+            safeLog(
+                "[DEV][wm] uplift (near riftLine) hist:",
+                pct(mUrift.h, mUrift.samples),
+            );
+            safeLog(
+                "[DEV][wm] rift   (near riftLine) hist:",
+                pct(mRrift.h, mRrift.samples),
+            );
+        }
+        const mUbelts = histMasked(uplift, opts.beltSet);
+        const mRbelts = histMasked(rift, opts.beltSet);
+        if (mUbelts && mRbelts) {
+            safeLog(
+                "[DEV][wm] uplift (near orogeny belts) hist:",
+                pct(mUbelts.h, mUbelts.samples),
+            );
+            safeLog(
+                "[DEV][wm] rift   (near orogeny belts) hist:",
+                pct(mRbelts.h, mRbelts.samples),
+            );
+        }
+    } catch (err) {
+        safeLog("[DEV][wm] hist error:", err);
+    }
+}
+
+/**
  * Log a coarse ASCII overlay of corridor tags (downsampled).
+ * Legend:
  * Legend:
  *  - S: corridorSeaLane (protected open water)
  *  - I: corridorIslandHop (hotspot arcs over water)
@@ -316,4 +491,6 @@ export default {
     timeEnd,
     logStoryTagsSummary,
     logRainfallHistogram,
+    logWorldModelSummary,
+    logWorldModelHistograms,
 };

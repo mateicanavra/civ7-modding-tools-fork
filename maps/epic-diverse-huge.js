@@ -67,6 +67,8 @@ import {
     logStoryTagsSummary,
     logRainfallHistogram,
     logCorridorAsciiOverlay,
+    logWorldModelSummary,
+    logWorldModelHistograms,
 } from "./config/dev.js";
 import { WorldModel } from "./world/model.js";
 // Orchestrator import removed for stability while we restore local engine listeners
@@ -119,6 +121,7 @@ function generateMap() {
         try {
             if (WorldModel.init()) {
                 devLogIf("LOG_STORY_TAGS", "[WorldModel] Initialized");
+                logWorldModelSummary(WorldModel);
             }
         } catch (err) {
             devLogIf("LOG_STORY_TAGS", "[WorldModel] init error");
@@ -237,6 +240,11 @@ function generateMap() {
     if (STORY_ENABLE_OROGENY) {
         console.log("Tagging orogenic belts...");
         storyTagOrogenyBelts();
+        logWorldModelHistograms(WorldModel, {
+            riftSet: StoryTags.riftLine,
+            beltSet: OrogenyCache.belts,
+            bins: 12,
+        });
     }
     // Re-tag continental margins for downstream consumers (islands/features) after reset
     storyTagContinentalMargins();
