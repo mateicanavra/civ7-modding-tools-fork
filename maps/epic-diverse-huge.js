@@ -24,6 +24,20 @@ import {
 import * as globals from "/base-standard/maps/map-globals.js";
 import * as utilities from "/base-standard/maps/map-utilities.js";
 import { addNaturalWonders } from "/base-standard/maps/natural-wonder-generator.js";
+import {
+    STORY_ENABLE_HOTSPOTS as CFG_STORY_ENABLE_HOTSPOTS,
+    STORY_ENABLE_RIFTS as CFG_STORY_ENABLE_RIFTS,
+    STORY_TUNABLES as CFG_STORY_TUNABLES,
+} from "./config/tunables.js";
+import { StoryTags, resetStoryTags } from "./story/tags.js";
+import { storyTagHotspotTrails, storyTagRiftValleys } from "./story/tagging.js";
+import {
+    clamp as utilClamp,
+    inBounds as utilInBounds,
+    storyKey as utilStoryKey,
+    isAdjacentToLand as utilIsAdjacentToLand,
+    getFeatureTypeIndex as utilGetFeatureTypeIndex,
+} from "./core/utils.js";
 import { generateResources } from "/base-standard/maps/resource-generator.js";
 import { addVolcanoes } from "/base-standard/maps/volcano-generator.js";
 import { assignAdvancedStartRegions } from "/base-standard/maps/assign-advanced-start-region.js";
@@ -35,38 +49,13 @@ import { dumpStartSectors } from "/base-standard/maps/map-debug-helpers.js";
  * Climate Story v0.1 — StoryTags scaffolding and toggles
  * Tags are sparse: store as "x,y" strings in Sets.
  */
-const STORY_ENABLE_HOTSPOTS = true;
-const STORY_ENABLE_RIFTS = true;
+const STORY_ENABLE_HOTSPOTS = CFG_STORY_ENABLE_HOTSPOTS;
+const STORY_ENABLE_RIFTS = CFG_STORY_ENABLE_RIFTS;
 
-const StoryTags = {
-    hotspot: new Set(), // deep-ocean hotspot trail points
-    riftLine: new Set(), // inland rift centerline
-    riftShoulder: new Set(), // shoulder tiles adjacent to rift lines
-};
+// StoryTags are now imported from ./story/tags.js
 
 // Tunables (conservative defaults)
-const STORY_TUNABLES = {
-    // Hotspots
-    hotspot: {
-        maxTrails: 3,
-        steps: 10,
-        stepLen: 4,
-        minDistFromLand: 4,
-        minTrailSeparation: 12,
-    },
-    // Rifts
-    rift: {
-        maxRiftsPerMap: 3,
-        lineSteps: 18,
-        stepLen: 2,
-        shoulderWidth: 1,
-    },
-    // Rainfall nudges
-    rainfall: {
-        riftBoost: 8,
-        riftRadius: 2,
-    },
-};
+const STORY_TUNABLES = CFG_STORY_TUNABLES;
 
 function storyKey(x, y) {
     return `${x},${y}`;
@@ -81,6 +70,8 @@ function inBounds(x, y) {
 }
 function storyResetTags() {
     StoryTags.hotspot.clear();
+    StoryTags.hotspotParadise.clear();
+    StoryTags.hotspotVolcanic.clear();
     StoryTags.riftLine.clear();
     StoryTags.riftShoulder.clear();
 }
@@ -192,7 +183,7 @@ function generateMap() {
 
     // Climate Story v0.1: Tag narrative motifs after coasts exist
     if (STORY_ENABLE_HOTSPOTS || STORY_ENABLE_RIFTS) {
-        storyResetTags();
+        resetStoryTags();
     }
     if (STORY_ENABLE_HOTSPOTS) {
         console.log("Drawing hotspot trails...");
@@ -413,7 +404,7 @@ function addRuggedCoasts(iWidth, iHeight) {
             // Occasionally convert adjacent ocean to coast to create peninsulas/fjords
             if (GameplayMap.isWater(iX, iY)) {
                 // Check if adjacent to land (approximate "deep" water by not being shallow coast already)
-                if (isAdjacentToLand(iX, iY, 1)) {
+                if (utilIsAdjacentToLand(iX, iY, 1)) {
                     if (
                         TerrainBuilder.getRandomNumber(12, "Fjord Coast") === 0
                     ) {
@@ -441,7 +432,7 @@ function addIslandChains(iWidth, iHeight) {
         for (let iX = 2; iX < iWidth - 2; iX++) {
             if (GameplayMap.isWater(iX, iY)) {
                 // Prefer tiles that are not immediately adjacent to land (keep sea lanes open)
-                if (!isAdjacentToLand(iX, iY, 2)) {
+                if (!utilIsAdjacentToLand(iX, iY, 2)) {
                     // Climate Story v0.1: hotspot trail bias
                     let isHotspot =
                         STORY_ENABLE_HOTSPOTS &&
@@ -467,11 +458,37 @@ function addIslandChains(iWidth, iHeight) {
 
                     if (baseAllowed || hotspotAllowed) {
                         // Create a tiny island cluster (1–3 coast tiles; 1–2 if hotspot)
-                        TerrainBuilder.setTerrainType(
-                            iX,
-                            iY,
-                            globals.g_CoastTerrain,
-                        );
+                        // If volcanic hotspot, small chance to "peak out" as land to show a young cone
+                        let centerTerrain = globals.g_CoastTerrain;
+                        let classifyParadise = false;
+                        if (isHotspot) {
+                            classifyParadise =
+                                TerrainBuilder.getRandomNumber(
+                                    3,
+                                    "HotspotKind",
+                                ) < 2; // 2:1 paradise:volcanic
+                            if (
+                                !classifyParadise &&
+                                TerrainBuilder.getRandomNumber(
+                                    3,
+                                    "HotspotPeak",
+                                ) === 0
+                            ) {
+                                centerTerrain = globals.g_FlatTerrain; // a single land tile peeking above water
+                            }
+                        }
+                        TerrainBuilder.setTerrainType(iX, iY, centerTerrain);
+                        if (isHotspot) {
+                            if (classifyParadise) {
+                                StoryTags.hotspotParadise.add(
+                                    utilStoryKey(iX, iY),
+                                );
+                            } else {
+                                StoryTags.hotspotVolcanic.add(
+                                    utilStoryKey(iX, iY),
+                                );
+                            }
+                        }
                         let maxCluster = isHotspot ? 2 : 3;
                         let count =
                             1 +
@@ -561,7 +578,7 @@ function buildEnhancedRainfall(iWidth, iHeight) {
 // Additional realistic refinements applied after rivers are generated
 function refineRainfallEarthlike(iWidth, iHeight) {
     // Precompute for clamping
-    const clamp = (v) => Math.max(0, Math.min(200, v));
+    const clamp = utilClamp;
 
     // Pass A: coastal and lake humidity gradient (decays with distance up to 4)
     const maxR = 4;
@@ -642,8 +659,8 @@ function refineRainfallEarthlike(iWidth, iHeight) {
                         let nx = x + dx,
                             ny = y + dy;
                         if (
-                            inBounds(nx, ny) &&
-                            StoryTags.riftLine.has(storyKey(nx, ny))
+                            utilInBounds(nx, ny) &&
+                            StoryTags.riftLine.has(utilStoryKey(nx, ny))
                         ) {
                             nearRift = true;
                             break;
@@ -660,6 +677,47 @@ function refineRainfallEarthlike(iWidth, iHeight) {
                         y,
                         clamp(rf + Math.max(0, bonus)),
                     );
+                }
+            }
+        }
+    }
+
+    // Pass E: Climate Story v0.1 — hotspot island microclimates (paradise/volcanic)
+    if (
+        STORY_ENABLE_HOTSPOTS &&
+        (StoryTags.hotspotParadise.size > 0 ||
+            StoryTags.hotspotVolcanic.size > 0)
+    ) {
+        const radius = 2;
+        for (let y = 0; y < iHeight; y++) {
+            for (let x = 0; x < iWidth; x++) {
+                if (GameplayMap.isWater(x, y)) continue;
+                let nearParadise = false;
+                let nearVolcanic = false;
+                for (
+                    let dy = -radius;
+                    dy <= radius && (!nearParadise || !nearVolcanic);
+                    dy++
+                ) {
+                    for (let dx = -radius; dx <= radius; dx++) {
+                        if (dx === 0 && dy === 0) continue;
+                        let nx = x + dx,
+                            ny = y + dy;
+                        if (!inBounds(nx, ny)) continue;
+                        let key = storyKey(nx, ny);
+                        if (StoryTags.hotspotParadise.has(key))
+                            nearParadise = true;
+                        if (StoryTags.hotspotVolcanic.has(key))
+                            nearVolcanic = true;
+                        if (nearParadise && nearVolcanic) break;
+                    }
+                }
+                if (nearParadise || nearVolcanic) {
+                    let rf = GameplayMap.getRainfall(x, y);
+                    let delta = 0;
+                    if (nearParadise) delta += 6; // lusher resort-like belts
+                    if (nearVolcanic) delta += 8; // fertile volcanic soils when present
+                    TerrainBuilder.setRainfall(x, y, clamp(rf + delta));
                 }
             }
         }
@@ -776,6 +834,46 @@ function addDiverseFeatures(iWidth, iHeight) {
 
     // Call standard feature generation
     addFeatures(iWidth, iHeight);
+    const reefIndex = utilGetFeatureTypeIndex("FEATURE_REEF");
+
+    // Climate Story v0.1 — Paradise reefs near hotspot islands (conservative, validated)
+    if (
+        STORY_ENABLE_HOTSPOTS &&
+        reefIndex !== -1 &&
+        StoryTags.hotspotParadise.size > 0
+    ) {
+        for (let key of StoryTags.hotspotParadise) {
+            let parts = key.split(",");
+            let cx = parseInt(parts[0], 10),
+                cy = parseInt(parts[1], 10);
+            for (let dy = -2; dy <= 2; dy++) {
+                for (let dx = -2; dx <= 2; dx++) {
+                    let nx = cx + dx,
+                        ny = cy + dy;
+                    if (!inBounds(nx, ny)) continue;
+                    if (!GameplayMap.isWater(nx, ny)) continue;
+                    if (
+                        GameplayMap.getFeatureType(nx, ny) !=
+                        FeatureTypes.NO_FEATURE
+                    )
+                        continue;
+                    // Conservative chance; never force invalid placements
+                    if (
+                        TerrainBuilder.getRandomNumber(100, "Paradise Reef") <
+                        18
+                    ) {
+                        if (TerrainBuilder.canHaveFeature(nx, ny, reefIndex)) {
+                            TerrainBuilder.setFeatureType(nx, ny, {
+                                Feature: reefIndex,
+                                Direction: -1,
+                                Elevation: 0,
+                            });
+                        }
+                    }
+                }
+            }
+        }
+    }
 
     // Add extra feature density in specific biomes
     for (let iY = 0; iY < iHeight; iY++) {
@@ -787,6 +885,91 @@ function addDiverseFeatures(iWidth, iHeight) {
                 let biome = GameplayMap.getBiomeType(iX, iY);
                 let elevation = GameplayMap.getElevation(iX, iY);
                 let rainfall = GameplayMap.getRainfall(iX, iY);
+
+                // Climate Story v0.1 — Volcanic forests/taiga near hotspot volcanic centers
+                // Look for a nearby volcanic hotspot center (radius 1)
+                let nearVolcanic = false;
+                if (
+                    STORY_ENABLE_HOTSPOTS &&
+                    StoryTags.hotspotVolcanic.size > 0
+                ) {
+                    for (let vdy = -1; vdy <= 1 && !nearVolcanic; vdy++) {
+                        for (let vdx = -1; vdx <= 1; vdx++) {
+                            if (vdx === 0 && vdy === 0) continue;
+                            let vx = iX + vdx,
+                                vy = iY + vdy;
+                            if (
+                                inBounds(vx, vy) &&
+                                StoryTags.hotspotVolcanic.has(
+                                    utilStoryKey(vx, vy),
+                                )
+                            ) {
+                                nearVolcanic = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if (
+                    nearVolcanic &&
+                    GameplayMap.getFeatureType(iX, iY) ==
+                        FeatureTypes.NO_FEATURE
+                ) {
+                    // Warm/wet zones: forest bias around volcanic soils
+                    if (
+                        rainfall > 95 &&
+                        (biome == globals.g_GrasslandBiome ||
+                            biome == globals.g_TropicalBiome)
+                    ) {
+                        if (
+                            TerrainBuilder.getRandomNumber(
+                                100,
+                                "Volcanic Forest",
+                            ) < 22
+                        ) {
+                            let forestIdx =
+                                utilGetFeatureTypeIndex("FEATURE_FOREST");
+                            if (
+                                forestIdx !== -1 &&
+                                TerrainBuilder.canHaveFeature(iX, iY, forestIdx)
+                            ) {
+                                TerrainBuilder.setFeatureType(iX, iY, {
+                                    Feature: forestIdx,
+                                    Direction: -1,
+                                    Elevation: 0,
+                                });
+                            }
+                        }
+                    }
+                    // Colder zones: taiga bias when conditions allow
+                    let plat = Math.abs(GameplayMap.getPlotLatitude(iX, iY));
+                    if (
+                        plat >= 55 &&
+                        biome == globals.g_TundraBiome &&
+                        elevation < 400 &&
+                        rainfall > 60
+                    ) {
+                        if (
+                            TerrainBuilder.getRandomNumber(
+                                100,
+                                "Volcanic Taiga",
+                            ) < 25
+                        ) {
+                            let taigaIdx =
+                                utilGetFeatureTypeIndex("FEATURE_TAIGA");
+                            if (
+                                taigaIdx !== -1 &&
+                                TerrainBuilder.canHaveFeature(iX, iY, taigaIdx)
+                            ) {
+                                TerrainBuilder.setFeatureType(iX, iY, {
+                                    Feature: taigaIdx,
+                                    Direction: -1,
+                                    Elevation: 0,
+                                });
+                            }
+                        }
+                    }
+                }
 
                 // Enhanced jungle in tropical high-rainfall areas
                 if (biome == globals.g_TropicalBiome && rainfall > 140) {
@@ -859,30 +1042,11 @@ function addDiverseFeatures(iWidth, iHeight) {
 }
 
 function isAdjacentToLand(iX, iY, radius) {
-    for (let dy = -radius; dy <= radius; dy++) {
-        for (let dx = -radius; dx <= radius; dx++) {
-            if (dx === 0 && dy === 0) continue;
-            let nx = iX + dx,
-                ny = iY + dy;
-            if (
-                nx >= 0 &&
-                nx < GameplayMap.getGridWidth() &&
-                ny >= 0 &&
-                ny < GameplayMap.getGridHeight()
-            ) {
-                if (!GameplayMap.isWater(nx, ny)) return true;
-            }
-        }
-    }
-    return false;
+    return utilIsAdjacentToLand(iX, iY, radius);
 }
 
 function getFeatureTypeIndex(name) {
-    let def = GameInfo.Features.lookup(name);
-    if (def) {
-        return def.$index;
-    }
-    return -1;
+    return utilGetFeatureTypeIndex(name);
 }
 
 /**
@@ -891,172 +1055,9 @@ function getFeatureTypeIndex(name) {
  * Rift valleys: inland long lines with shoulder bands (no lake carving in v0.1)
  */
 
-function storyTagHotspotTrails(iWidth, iHeight) {
-    const maxTrails = STORY_TUNABLES.hotspot.maxTrails;
-    const steps = STORY_TUNABLES.hotspot.steps;
-    const stepLen = STORY_TUNABLES.hotspot.stepLen;
-    const minLand = STORY_TUNABLES.hotspot.minDistFromLand;
-    const minSep = STORY_TUNABLES.hotspot.minTrailSeparation;
+// Moved to ./story/tagging.js (imported at top): storyTagHotspotTrails
 
-    // Helper to check distance from any existing hotspot point
-    function farFromExisting(x, y) {
-        for (let key of StoryTags.hotspot) {
-            let [sx, sy] = key.split(",").map(Number);
-            let d = Math.abs(sx - x) + Math.abs(sy - y);
-            if (d < minSep) return false;
-        }
-        return true;
-    }
-
-    let trailsMade = 0;
-    let attempts = 0;
-    while (trailsMade < maxTrails && attempts < 200) {
-        attempts++;
-        let sx = TerrainBuilder.getRandomNumber(iWidth, "HotspotSeedX");
-        let sy = TerrainBuilder.getRandomNumber(iHeight, "HotspotSeedY");
-        if (!inBounds(sx, sy)) continue;
-        if (!GameplayMap.isWater(sx, sy)) continue;
-        if (isAdjacentToLand(sx, sy, minLand)) continue;
-        if (!farFromExisting(sx, sy)) continue;
-
-        // Choose one of 8 directions; gentle bend chance later
-        const dirs = [
-            [1, 0],
-            [1, 1],
-            [0, 1],
-            [-1, 1],
-            [-1, 0],
-            [-1, -1],
-            [0, -1],
-            [1, -1],
-        ];
-        let dIndex = TerrainBuilder.getRandomNumber(dirs.length, "HotspotDir");
-        let dx = dirs[dIndex][0],
-            dy = dirs[dIndex][1];
-
-        let x = sx,
-            y = sy;
-        for (let s = 0; s < steps; s++) {
-            x += dx * stepLen;
-            y += dy * stepLen;
-            if (!inBounds(x, y)) break;
-            if (!GameplayMap.isWater(x, y)) continue;
-            if (isAdjacentToLand(x, y, minLand)) continue;
-
-            StoryTags.hotspot.add(storyKey(x, y));
-
-            // Gentle bend with small probability
-            if (TerrainBuilder.getRandomNumber(5, "HotspotBend") === 0) {
-                dIndex =
-                    (dIndex +
-                        (TerrainBuilder.getRandomNumber(3, "Turn") - 1) +
-                        dirs.length) %
-                    dirs.length;
-                dx = dirs[dIndex][0];
-                dy = dirs[dIndex][1];
-            }
-        }
-
-        trailsMade++;
-    }
-}
-
-function storyTagRiftValleys(iWidth, iHeight) {
-    const maxRifts = STORY_TUNABLES.rift.maxRiftsPerMap;
-    const steps = STORY_TUNABLES.rift.lineSteps;
-    const stepLen = STORY_TUNABLES.rift.stepLen;
-    const shoulder = STORY_TUNABLES.rift.shoulderWidth;
-
-    let riftsMade = 0;
-    let tries = 0;
-    while (riftsMade < maxRifts && tries < 300) {
-        tries++;
-        let sx = TerrainBuilder.getRandomNumber(iWidth, "RiftSeedX");
-        let sy = TerrainBuilder.getRandomNumber(iHeight, "RiftSeedY");
-        if (!inBounds(sx, sy)) continue;
-        if (GameplayMap.isWater(sx, sy)) continue;
-        let lat = Math.abs(GameplayMap.getPlotLatitude(sx, sy));
-        if (lat > 70) continue; // avoid extreme poles for now
-        let elev = GameplayMap.getElevation(sx, sy);
-        if (elev > 500) continue; // avoid high mountains as seed
-
-        // Pick a general heading: either roughly N-S or E-W
-        const dirsNS = [
-            [0, 1],
-            [0, -1],
-            [1, 1],
-            [-1, -1],
-        ];
-        const dirsEW = [
-            [1, 0],
-            [-1, 0],
-            [1, 1],
-            [-1, -1],
-        ];
-        let useNS = TerrainBuilder.getRandomNumber(2, "RiftAxis") === 0;
-        let dir = useNS
-            ? dirsNS[TerrainBuilder.getRandomNumber(dirsNS.length, "RiftDirNS")]
-            : dirsEW[
-                  TerrainBuilder.getRandomNumber(dirsEW.length, "RiftDirEW")
-              ];
-        let dx = dir[0],
-            dy = dir[1];
-
-        // March the line
-        let x = sx,
-            y = sy;
-        let placedAny = false;
-        for (let s = 0; s < steps; s++) {
-            x += dx * stepLen;
-            y += dy * stepLen;
-            if (!inBounds(x, y)) break;
-            if (GameplayMap.isWater(x, y)) continue;
-
-            StoryTags.riftLine.add(storyKey(x, y));
-            placedAny = true;
-
-            // Tag shoulders one tile on both sides perpendicular to direction
-            for (let off = 1; off <= shoulder; off++) {
-                let px = x + -dy * off; // perpendicular
-                let py = y + dx * off;
-                if (inBounds(px, py) && !GameplayMap.isWater(px, py)) {
-                    StoryTags.riftShoulder.add(storyKey(px, py));
-                }
-                let qx = x + dy * off;
-                let qy = y + -dx * off;
-                if (inBounds(qx, qy) && !GameplayMap.isWater(qx, qy)) {
-                    StoryTags.riftShoulder.add(storyKey(qx, qy));
-                }
-            }
-
-            // Small curvature
-            if (TerrainBuilder.getRandomNumber(6, "RiftBend") === 0) {
-                // rotate dir slightly by switching between axis-aligned and diagonal variants
-                if (useNS) {
-                    dir =
-                        dirsNS[
-                            TerrainBuilder.getRandomNumber(
-                                dirsNS.length,
-                                "RiftDirNS2",
-                            )
-                        ];
-                } else {
-                    dir =
-                        dirsEW[
-                            TerrainBuilder.getRandomNumber(
-                                dirsEW.length,
-                                "RiftDirEW2",
-                            )
-                        ];
-                }
-                dx = dir[0];
-                dy = dir[1];
-            }
-        }
-
-        if (placedAny) riftsMade++;
-    }
-}
+// Moved to ./story/tagging.js (imported at top): storyTagRiftValleys
 
 // Register listeners
 engine.on("RequestMapInitData", requestMapData);
