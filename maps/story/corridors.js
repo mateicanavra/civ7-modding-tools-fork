@@ -15,7 +15,7 @@
  */
 
 import { StoryTags } from "./tags.js";
-import { inBounds, storyKey } from "../core/utils.js";
+import { inBounds, storyKey, isAdjacentToLand } from "../core/utils.js";
 import { STORY_ENABLE_CORRIDORS, CORRIDORS_CFG } from "../config/tunables.js";
 import { devLogIf } from "../config/dev.js";
 
@@ -364,14 +364,26 @@ function tagSeaLanes() {
             const x = c.index;
             for (let y = c.start; y <= c.end; y++) {
                 if (GameplayMap.isWater(x, y)) {
-                    StoryTags.corridorSeaLane.add(storyKey(x, y));
+                    const kk = storyKey(x, y);
+                    StoryTags.corridorSeaLane.add(kk);
+                    StoryTags.corridorKind.set(kk, "sea");
+                    const style = isAdjacentToLand(x, y, 2)
+                        ? "coastal"
+                        : "ocean";
+                    StoryTags.corridorStyle.set(kk, style);
                 }
             }
         } else if (c.orient === "row") {
             const y = c.index;
             for (let x = c.start; x <= c.end; x++) {
                 if (GameplayMap.isWater(x, y)) {
-                    StoryTags.corridorSeaLane.add(storyKey(x, y));
+                    const kk = storyKey(x, y);
+                    StoryTags.corridorSeaLane.add(kk);
+                    StoryTags.corridorKind.set(kk, "sea");
+                    const style = isAdjacentToLand(x, y, 2)
+                        ? "coastal"
+                        : "ocean";
+                    StoryTags.corridorStyle.set(kk, style);
                 }
             }
         } else if (c.orient === "diagNE") {
@@ -385,7 +397,13 @@ function tagSeaLanes() {
                     y < height &&
                     GameplayMap.isWater(x, y)
                 ) {
-                    StoryTags.corridorSeaLane.add(storyKey(x, y));
+                    const kk = storyKey(x, y);
+                    StoryTags.corridorSeaLane.add(kk);
+                    StoryTags.corridorKind.set(kk, "sea");
+                    const style = isAdjacentToLand(x, y, 2)
+                        ? "coastal"
+                        : "ocean";
+                    StoryTags.corridorStyle.set(kk, style);
                 }
             }
         } else if (c.orient === "diagNW") {
@@ -399,7 +417,13 @@ function tagSeaLanes() {
                     y < height &&
                     GameplayMap.isWater(x, y)
                 ) {
-                    StoryTags.corridorSeaLane.add(storyKey(x, y));
+                    const kk = storyKey(x, y);
+                    StoryTags.corridorSeaLane.add(kk);
+                    StoryTags.corridorKind.set(kk, "sea");
+                    const style = isAdjacentToLand(x, y, 2)
+                        ? "coastal"
+                        : "ocean";
+                    StoryTags.corridorStyle.set(kk, style);
                 }
             }
         }
@@ -452,7 +476,12 @@ function tagIslandHopFromHotspots() {
                     ny = sy + dy;
                 if (!inBounds(nx, ny)) continue;
                 if (!GameplayMap.isWater(nx, ny)) continue;
-                StoryTags.corridorIslandHop.add(storyKey(nx, ny));
+                {
+                    const kk = storyKey(nx, ny);
+                    StoryTags.corridorIslandHop.add(kk);
+                    StoryTags.corridorKind.set(kk, "islandHop");
+                    StoryTags.corridorStyle.set(kk, "archipelago");
+                }
             }
         }
     }
@@ -502,9 +531,67 @@ function tagLandCorridorsFromRifts() {
                     }
                 }
                 if (!tooClose) {
+                    // Determine corridor style for this segment using simple context heuristics
+                    let totalElev = 0,
+                        totalRain = 0,
+                        samples = 0,
+                        reliefHits = 0;
+                    for (let cx = start; cx <= end; cx++) {
+                        if (GameplayMap.isWater(cx, y)) continue;
+                        const e = GameplayMap.getElevation(cx, y);
+                        const r = GameplayMap.getRainfall(cx, y);
+                        totalElev += e;
+                        totalRain += r;
+                        samples++;
+                        // simple local relief check (4-neighborhood)
+                        const eN = GameplayMap.getElevation(
+                            cx,
+                            Math.max(0, y - 1),
+                        );
+                        const eS = GameplayMap.getElevation(
+                            cx,
+                            Math.min(GameplayMap.getGridHeight() - 1, y + 1),
+                        );
+                        const eW = GameplayMap.getElevation(
+                            Math.max(0, cx - 1),
+                            y,
+                        );
+                        const eE = GameplayMap.getElevation(
+                            Math.min(GameplayMap.getGridWidth() - 1, cx + 1),
+                            y,
+                        );
+                        const dMax = Math.max(
+                            Math.abs(e - eN),
+                            Math.abs(e - eS),
+                            Math.abs(e - eW),
+                            Math.abs(e - eE),
+                        );
+                        if (dMax >= 60) reliefHits++;
+                    }
+                    const avgElev =
+                        samples > 0 ? Math.round(totalElev / samples) : 0;
+                    const avgRain =
+                        samples > 0 ? Math.round(totalRain / samples) : 0;
+                    const reliefFrac = samples > 0 ? reliefHits / samples : 0;
+                    const latDeg = Math.abs(GameplayMap.getPlotLatitude(0, y));
+                    let style = "plainsBelt";
+                    if (reliefFrac > 0.35 && avgRain < 95) {
+                        style = "canyon";
+                    } else if (avgElev > 650 && reliefFrac < 0.2) {
+                        style = "plateau";
+                    } else if (avgElev > 550 && reliefFrac < 0.35) {
+                        style = "flatMtn";
+                    } else if (avgRain < 85 && latDeg < 35) {
+                        style = "desertBelt";
+                    } else if (avgRain > 115) {
+                        style = "grasslandBelt";
+                    }
                     for (let cx = start; cx <= end; cx++) {
                         if (!GameplayMap.isWater(cx, y)) {
-                            StoryTags.corridorLandOpen.add(storyKey(cx, y));
+                            const kk = storyKey(cx, y);
+                            StoryTags.corridorLandOpen.add(kk);
+                            StoryTags.corridorKind.set(kk, "land");
+                            StoryTags.corridorStyle.set(kk, style);
                         }
                     }
                     usedRows.push(y);
@@ -603,7 +690,10 @@ function tagRiverChainsPostRivers() {
         }
         if (pathKeys.length >= minTiles && endOK) {
             for (let i = 0; i < pathKeys.length; i++) {
-                StoryTags.corridorRiverChain.add(pathKeys[i]);
+                const kk = pathKeys[i];
+                StoryTags.corridorRiverChain.add(kk);
+                StoryTags.corridorKind.set(kk, "river");
+                StoryTags.corridorStyle.set(kk, "riverChain");
             }
             chains++;
         }
@@ -674,6 +764,22 @@ function backfillCorridorKinds() {
         if (!StoryTags.corridorStyle.has(key)) {
             StoryTags.corridorStyle.set(key, "riverChain");
         }
+    }
+    // Dev: style distribution summary (counts by kind:style)
+    try {
+        const styleCounts = {};
+        for (const [k, kind] of StoryTags.corridorKind) {
+            const st = StoryTags.corridorStyle.get(k) || "unknown";
+            const bucket = `${kind}:${st}`;
+            styleCounts[bucket] = (styleCounts[bucket] || 0) + 1;
+        }
+        devLogIf &&
+            devLogIf(
+                "LOG_STORY_TAGS",
+                `[Corridors] Style distribution: ${JSON.stringify(styleCounts)}`,
+            );
+    } catch (_) {
+        /* safe log */
     }
 }
 
