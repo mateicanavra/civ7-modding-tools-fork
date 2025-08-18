@@ -334,6 +334,12 @@ export interface CorridorSea {
     scanStride?: number;
     /** Radius (tiles) to keep islands away from protected lanes */
     avoidRadius?: number;
+    /** Whether to consider diagonal lanes in selection/scoring */
+    preferDiagonals?: boolean;
+    /** Minimum spacing (tiles) enforced between selected lanes */
+    laneSpacing?: number;
+    /** Minimum channel width (tiles) measured orthogonal to the lane */
+    minChannelWidth?: number;
 }
 
 export interface CorridorIslandHop {

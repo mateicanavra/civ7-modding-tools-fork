@@ -336,6 +336,21 @@
                             "type": "integer",
                             "default": 2,
                             "description": "Radius (tiles) to keep islands away from protected lanes."
+                        },
+                        "preferDiagonals": {
+                            "type": "boolean",
+                            "default": true,
+                            "description": "Whether to consider diagonal lanes in selection/scoring."
+                        },
+                        "laneSpacing": {
+                            "type": "integer",
+                            "default": 6,
+                            "description": "Minimum spacing (tiles) enforced between selected lanes."
+                        },
+                        "minChannelWidth": {
+                            "type": "integer",
+                            "default": 3,
+                            "description": "Minimum channel width (tiles) measured orthogonal to the lane."
                         }
                     }
                 },

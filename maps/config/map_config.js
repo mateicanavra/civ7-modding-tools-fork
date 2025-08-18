@@ -155,6 +155,10 @@ export const MAP_CONFIG = Object.freeze({
             minLengthFrac: 0.7,
             scanStride: 6,
             avoidRadius: 2,
+            // Scoring and spacing controls
+            preferDiagonals: true,
+            laneSpacing: 6,
+            minChannelWidth: 3,
         }),
         islandHop: Object.freeze({
             useHotspots: true,
