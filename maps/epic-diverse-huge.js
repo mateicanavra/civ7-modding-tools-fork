@@ -35,6 +35,7 @@ import {
     storyTagHotspotTrails,
     storyTagRiftValleys,
     storyTagOrogenyBelts,
+    storyTagContinentalMargins,
 } from "./story/tagging.js";
 import {
     clamp as utilClamp,
@@ -238,6 +239,8 @@ function generateMap() {
         console.log("Tagging orogenic belts...");
         storyTagOrogenyBelts();
     }
+    console.log("Imprinting continental margins (active/passive)...");
+    storyTagContinentalMargins();
 
     devLogIf("LOG_STORY_TAGS", "StoryTags summary follows");
     logStoryTagsSummary(StoryTags);

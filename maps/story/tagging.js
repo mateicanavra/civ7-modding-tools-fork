@@ -368,9 +368,119 @@ export function storyTagOrogenyBelts(ctx) {
     };
 }
 
+/**
+ * Tag ACTIVE_MARGIN and PASSIVE_SHELF coast segments.
+ * Heuristic (lane-safe, size-aware):
+ * - Scan rows to collect contiguous coastal-land segments (cheap linear pass).
+ * - Choose sparse, long segments for margins using target fractions and a minimum segment length.
+ * - Targets scale gently with map size (sqrt(area/base)).
+ * Notes
+ * - Works without continent IDs; segments stay local and sparse to avoid noisy toggling.
+ * - Consumers (coastlines/islands/features) must preserve minimum sea-lane width.
+ */
+export function storyTagContinentalMargins() {
+    const width = GameplayMap.getGridWidth();
+    const height = GameplayMap.getGridHeight();
+
+    // Size-aware fractions
+    const area = Math.max(1, width * height);
+    const sqrt = Math.min(2.0, Math.max(0.6, Math.sqrt(area / 10000)));
+
+    const baseActiveFrac = 0.25; // per roadmap
+    const basePassiveFrac = 0.25; // per roadmap
+    const activeFrac = Math.min(0.35, baseActiveFrac + 0.05 * (sqrt - 1));
+    const passiveFrac = Math.min(0.35, basePassiveFrac + 0.05 * (sqrt - 1));
+
+    const minSegLen = Math.max(10, Math.round(12 * (0.9 + 0.4 * sqrt))); // size-aware minimum
+    // First pass: count total coastal land to derive quotas
+    let totalCoast = 0;
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            if (GameplayMap.isCoastalLand(x, y)) totalCoast++;
+        }
+    }
+    const targetActive = Math.floor(totalCoast * activeFrac);
+    const targetPassive = Math.floor(totalCoast * passiveFrac);
+
+    let markedActive = 0;
+    let markedPassive = 0;
+
+    // Helper to mark a segment safely
+    function markSegment(y, x0, x1, active) {
+        for (let x = x0; x <= x1; x++) {
+            const k = `${x},${y}`;
+            if (active) {
+                if (markedActive >= targetActive) break;
+                if (
+                    !StoryTags.activeMargin.has(k) &&
+                    GameplayMap.isCoastalLand(x, y)
+                ) {
+                    StoryTags.activeMargin.add(k);
+                    markedActive++;
+                }
+            } else {
+                if (markedPassive >= targetPassive) break;
+                if (
+                    !StoryTags.passiveShelf.has(k) &&
+                    GameplayMap.isCoastalLand(x, y)
+                ) {
+                    StoryTags.passiveShelf.add(k);
+                    markedPassive++;
+                }
+            }
+        }
+    }
+
+    // Row sweep: build contiguous coastal-land segments and select some
+    // Alternate selections to avoid clustering too many active or passive in a row.
+    let preferActive = true;
+    for (let y = 1; y < height - 1; y++) {
+        let x = 1;
+        while (x < width - 1) {
+            // Find start of a coastal segment
+            while (x < width - 1 && !GameplayMap.isCoastalLand(x, y)) x++;
+            if (x >= width - 1) break;
+
+            const start = x;
+            while (x < width - 1 && GameplayMap.isCoastalLand(x, y)) x++;
+            const end = x - 1;
+            const segLen = end - start + 1;
+
+            if (segLen >= minSegLen) {
+                // Coin flip with bias toward the currently preferred type
+                const roll = TerrainBuilder.getRandomNumber(
+                    100,
+                    "MarginSelect",
+                );
+                const pickActive =
+                    (preferActive && roll < 60) || (!preferActive && roll < 40);
+
+                if (pickActive && markedActive < targetActive) {
+                    markSegment(y, start, end, true);
+                } else if (markedPassive < targetPassive) {
+                    markSegment(y, start, end, false);
+                }
+                // Alternate preference to reduce long runs of the same type
+                preferActive = !preferActive;
+            }
+        }
+        // Reset scanning x for next row
+        x = 1;
+    }
+
+    return {
+        active: markedActive,
+        passive: markedPassive,
+        targetActive,
+        targetPassive,
+        minSegLen,
+    };
+}
+
 export default {
     storyTagHotspotTrails,
     storyTagRiftValleys,
     storyTagOrogenyBelts,
+    storyTagContinentalMargins,
     OrogenyCache,
 };

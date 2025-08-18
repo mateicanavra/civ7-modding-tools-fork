@@ -74,6 +74,49 @@ export function addDiverseFeatures(iWidth, iHeight) {
         }
     }
 
+    // 2b) Reefs along passive shelves (margin-aware, modest chance)
+    if (
+        reefIndex !== -1 &&
+        StoryTags.passiveShelf &&
+        StoryTags.passiveShelf.size > 0
+    ) {
+        // Keep this lower than paradise reefs to stay subtle.
+        const shelfReefChance = Math.max(
+            1,
+            Math.min(100, Math.floor((paradiseReefChance || 18) * 0.6)),
+        );
+        for (const key of StoryTags.passiveShelf) {
+            const [sx, sy] = key.split(",").map(Number);
+            // Tight radius; shelves are linear and we don't want clutter.
+            for (let dy = -1; dy <= 1; dy++) {
+                for (let dx = -1; dx <= 1; dx++) {
+                    const nx = sx + dx;
+                    const ny = sy + dy;
+                    if (!inBounds(nx, ny)) continue;
+                    if (!GameplayMap.isWater(nx, ny)) continue;
+                    if (
+                        GameplayMap.getFeatureType(nx, ny) !==
+                        FeatureTypes.NO_FEATURE
+                    )
+                        continue;
+
+                    if (
+                        TerrainBuilder.getRandomNumber(100, "Shelf Reef") <
+                        shelfReefChance
+                    ) {
+                        if (TerrainBuilder.canHaveFeature(nx, ny, reefIndex)) {
+                            TerrainBuilder.setFeatureType(nx, ny, {
+                                Feature: reefIndex,
+                                Direction: -1,
+                                Elevation: 0,
+                            });
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     // 3) Per-tile post-pass for gentle density tweaks and volcanic vegetation
     const baseVolcanicForestChance =
         STORY_TUNABLES?.features?.volcanicForestChance ?? 22;

@@ -56,10 +56,34 @@ export function addIslandChains(iWidth, iHeight) {
             const v = FractalBuilder.getHeight(globals.g_HillFractal, x, y);
             const isHotspot = StoryTags.hotspot.has(storyKey(x, y));
 
-            // Base sparse placement vs. hotspot-biased placement
+            // Margin context (adjacent coastal segments tagged by margins)
+            let nearActive = false;
+            let nearPassive = false;
+            for (let my = -1; my <= 1 && (!nearActive || !nearPassive); my++) {
+                for (let mx = -1; mx <= 1; mx++) {
+                    if (mx === 0 && my === 0) continue;
+                    const k = storyKey(x + mx, y + my);
+                    if (
+                        !nearActive &&
+                        StoryTags.activeMargin &&
+                        StoryTags.activeMargin.has(k)
+                    )
+                        nearActive = true;
+                    if (
+                        !nearPassive &&
+                        StoryTags.passiveShelf &&
+                        StoryTags.passiveShelf.has(k)
+                    )
+                        nearPassive = true;
+                }
+            }
+
+            // Base sparse placement vs. hotspot- and margin-biased placement
+            const baseIslandDen = nearActive ? 6 : 8; // slightly more islands along active margins
             const baseAllowed =
                 v > threshold &&
-                TerrainBuilder.getRandomNumber(8, "Island Seed") === 0;
+                TerrainBuilder.getRandomNumber(baseIslandDen, "Island Seed") ===
+                    0;
             const hotspotAllowed =
                 isHotspot &&
                 TerrainBuilder.getRandomNumber(3, "Hotspot Island Seed") === 0;
@@ -71,12 +95,15 @@ export function addIslandChains(iWidth, iHeight) {
             let classifyParadise = false;
 
             if (isHotspot) {
-                const bucket = paradiseWeight + volcanicWeight;
+                // Along passive shelves, slightly bias toward "paradise" centers
+                const pWeight = paradiseWeight + (nearPassive ? 1 : 0);
+                const vWeight = volcanicWeight;
+                const bucket = pWeight + vWeight;
                 const roll = TerrainBuilder.getRandomNumber(
                     bucket || 1,
                     "HotspotKind",
                 );
-                classifyParadise = roll < paradiseWeight;
+                classifyParadise = roll < pWeight;
 
                 if (!classifyParadise) {
                     // Volcanic: rare cone peeking above sea level

@@ -10,6 +10,7 @@
 
 import * as globals from "/base-standard/maps/map-globals.js";
 import { isAdjacentToLand } from "../core/utils.js";
+import { StoryTags } from "../story/tags.js";
 
 /**
  * Ruggedize coasts in a sparse, performance-friendly pass.
@@ -41,9 +42,14 @@ export function addRuggedCoasts(iWidth, iHeight) {
             // Carve bays: coastal land -> coast water (very sparse)
             if (GameplayMap.isCoastalLand(x, y)) {
                 const h = FractalBuilder.getHeight(globals.g_HillFractal, x, y);
+                // Margin-aware: slightly stronger bay carving on ACTIVE_MARGIN
+                const isActive = StoryTags.activeMargin.has(`${x},${y}`);
+                const noiseGate = 2 + bayNoiseMod + (isActive ? 1 : 0);
+                const bayRollDen = isActive ? 4 : 5;
                 if (
-                    h % 97 < 2 + bayNoiseMod &&
-                    TerrainBuilder.getRandomNumber(5, "Carve Bay") === 0
+                    h % 97 < noiseGate &&
+                    TerrainBuilder.getRandomNumber(bayRollDen, "Carve Bay") ===
+                        0
                 ) {
                     TerrainBuilder.setTerrainType(x, y, globals.g_CoastTerrain);
                     continue; // Avoid double-touching same tile in this pass
@@ -54,17 +60,57 @@ export function addRuggedCoasts(iWidth, iHeight) {
             if (GameplayMap.isWater(x, y)) {
                 // Keep to near-land ocean only; deep ocean remains untouched
                 if (isAdjacentToLand(x, y, 1)) {
-                    if (
-                        TerrainBuilder.getRandomNumber(
-                            fjordDenom,
-                            "Fjord Coast",
-                        ) === 0
-                    ) {
-                        TerrainBuilder.setTerrainType(
-                            x,
-                            y,
-                            globals.g_CoastTerrain,
+                    {
+                        // Margin-aware: widen shelf near PASSIVE_SHELF, deepen cuts near ACTIVE_MARGIN
+                        let nearActive = false,
+                            nearPassive = false;
+                        for (
+                            let ddy = -1;
+                            ddy <= 1 && (!nearActive || !nearPassive);
+                            ddy++
+                        ) {
+                            for (let ddx = -1; ddx <= 1; ddx++) {
+                                if (ddx === 0 && ddy === 0) continue;
+                                const nx = x + ddx,
+                                    ny = y + ddy;
+                                if (
+                                    nx <= 0 ||
+                                    nx >= iWidth - 1 ||
+                                    ny <= 0 ||
+                                    ny >= iHeight - 1
+                                )
+                                    continue;
+                                const k = `${nx},${ny}`;
+                                if (
+                                    !nearActive &&
+                                    StoryTags.activeMargin.has(k)
+                                )
+                                    nearActive = true;
+                                if (
+                                    !nearPassive &&
+                                    StoryTags.passiveShelf.has(k)
+                                )
+                                    nearPassive = true;
+                            }
+                        }
+                        const denom = Math.max(
+                            4,
+                            fjordDenom -
+                                (nearPassive ? 2 : 0) -
+                                (nearActive ? 1 : 0),
                         );
+                        if (
+                            TerrainBuilder.getRandomNumber(
+                                denom,
+                                "Fjord Coast",
+                            ) === 0
+                        ) {
+                            TerrainBuilder.setTerrainType(
+                                x,
+                                y,
+                                globals.g_CoastTerrain,
+                            );
+                        }
                     }
                 }
             }
