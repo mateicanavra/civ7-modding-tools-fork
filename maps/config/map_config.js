@@ -4,8 +4,16 @@
  * Central configuration data for the Epic Diverse Huge map generator.
  * This file exports a single object containing all tunable parameters.
  * For schema validation and editor tooltips, see map_config.schema.json.
+ *
+ * @typedef {import('./map_config.schema.json')} MapConfigSchema
  */
 
+// @ts-check
+
+// Note: For editor autocompletion, prefer a dev-only JSON mirror (map_config.json)
+// with "$schema": "./map_config.schema.json". This JS module remains the runtime
+// source; avoid importing JSON at runtime in the game environment.
+/** @type {import('./map_config.d.ts').MapConfig} */
 export const MAP_CONFIG = Object.freeze({
     // $schema: "./map_config.schema.json", // For editor validation
 
@@ -79,14 +87,14 @@ export const MAP_CONFIG = Object.freeze({
                     islandBias: 2,
                     reefBias: 1,
                     wetnessDelta: 18,
-                    bleedRadius: 2,
+                    bleedRadius: 3,
                 }),
                 mountainForests: Object.freeze({
                     weight: 2,
                     coupleToOrogeny: true,
                     windwardBonus: 6,
                     leePenalty: 2,
-                    bleedRadius: 1,
+                    bleedRadius: 3,
                 }),
                 greatPlains: Object.freeze({
                     weight: 5,
@@ -113,7 +121,7 @@ export const MAP_CONFIG = Object.freeze({
             fossilChannelMinDistanceFromCurrentRivers: 4,
             minDistanceFromStarts: 7,
             sizeScaling: Object.freeze({
-                lengthMulSqrt: 0.4,
+                lengthMulSqrt: 0.7,
             }),
             elevationCarving: Object.freeze({
                 enableCanyonRim: true,
@@ -135,7 +143,7 @@ export const MAP_CONFIG = Object.freeze({
         }),
         features: Object.freeze({
             paradiseReefChance: 23, // % chance
-            volcanicForestChance: 17, // % chance
+            volcanicForestChance: 27, // % chance
             volcanicTaigaChance: 25, // % chance
         }),
     }),
@@ -219,10 +227,10 @@ export const MAP_CONFIG = Object.freeze({
         }),
         riverCorridor: Object.freeze({
             lowlandAdjacencyBonus: 14,
-            highlandAdjacencyBonus: 10,
+            highlandAdjacencyBonus: 5,
         }),
         lowBasin: Object.freeze({
-            radius: 2,
+            radius: 3,
             delta: 6,
         }),
     }),
@@ -250,8 +258,8 @@ export const MAP_CONFIG = Object.freeze({
     }),
     // --- Features density tweaks (validated) ---
     featuresDensity: Object.freeze({
-        rainforestExtraChance: 55,
-        forestExtraChance: 30,
+        rainforestExtraChance: 75,
+        forestExtraChance: 20,
         taigaExtraChance: 35,
         shelfReefMultiplier: 0.6,
     }),
