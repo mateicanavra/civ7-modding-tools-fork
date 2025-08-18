@@ -23,7 +23,11 @@
 import { designateBiomes as baseDesignateBiomes } from "/base-standard/maps/feature-biome-generator.js";
 import * as globals from "/base-standard/maps/map-globals.js";
 import { StoryTags } from "../story/tags.js";
-import { STORY_ENABLE_RIFTS, BIOMES_CFG } from "../config/tunables.js";
+import {
+    STORY_ENABLE_RIFTS,
+    BIOMES_CFG,
+    CORRIDOR_POLICY,
+} from "../config/tunables.js";
 
 /**
  * Enhanced biome designation with gentle, readable nudges.
@@ -74,6 +78,14 @@ export function designateEnhancedBiomes(iWidth, iHeight) {
     const RS_TROP_RAIN_MIN = Number.isFinite(_rs.tropicalRainMin)
         ? _rs.tropicalRainMin
         : 100;
+    const LAND_BIAS_STRENGTH = Math.max(
+        0,
+        Math.min(1, CORRIDOR_POLICY?.land?.biomesBiasStrength ?? 0.6),
+    );
+    const RIVER_BIAS_STRENGTH = Math.max(
+        0,
+        Math.min(1, CORRIDOR_POLICY?.river?.biomesBiasStrength ?? 0.5),
+    );
     for (let y = 0; y < iHeight; y++) {
         for (let x = 0; x < iWidth; x++) {
             if (GameplayMap.isWater(x, y)) continue;
@@ -109,12 +121,36 @@ export function designateEnhancedBiomes(iWidth, iHeight) {
                 TerrainBuilder.setBiomeType(x, y, globals.g_GrasslandBiome);
             }
 
-            // Strategic Corridors: land-open corridor tiles gently bias to grassland
+            // Strategic Corridors: land-open corridor tiles gently bias to grassland (policy-scaled)
             if (
                 StoryTags.corridorLandOpen &&
                 StoryTags.corridorLandOpen.has(`${x},${y}`)
             ) {
-                if (rainfall > 80 && lat < 55) {
+                if (
+                    rainfall > 80 &&
+                    lat < 55 &&
+                    TerrainBuilder.getRandomNumber(
+                        100,
+                        "Corridor Land-Open Biome",
+                    ) < Math.round(LAND_BIAS_STRENGTH * 100)
+                ) {
+                    TerrainBuilder.setBiomeType(x, y, globals.g_GrasslandBiome);
+                }
+            }
+
+            // Strategic Corridors: river-chain tiles gently bias to grassland (policy-scaled)
+            if (
+                StoryTags.corridorRiverChain &&
+                StoryTags.corridorRiverChain.has(`${x},${y}`)
+            ) {
+                if (
+                    rainfall > 75 &&
+                    lat < 55 &&
+                    TerrainBuilder.getRandomNumber(
+                        100,
+                        "Corridor River-Chain Biome",
+                    ) < Math.round(RIVER_BIAS_STRENGTH * 100)
+                ) {
                     TerrainBuilder.setBiomeType(x, y, globals.g_GrasslandBiome);
                 }
             }

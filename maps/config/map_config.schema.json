@@ -386,6 +386,11 @@
                             "type": "integer",
                             "default": 24,
                             "description": "Minimum contiguous shoulder run length eligible."
+                        },
+                        "spacing": {
+                            "type": "integer",
+                            "default": 8,
+                            "description": "Minimum spacing (tiles) enforced between selected land corridor segments."
                         }
                     }
                 },
@@ -411,6 +416,57 @@
                             "type": "integer",
                             "default": 2,
                             "description": "Coast seed radius for initial river-adjacent seed near coast."
+                        },
+                        "minTiles": {
+                            "type": "integer",
+                            "default": 24,
+                            "description": "Minimum tiles that must be tagged for a chain to qualify."
+                        },
+                        "mustEndNearCoast": {
+                            "type": "boolean",
+                            "default": true,
+                            "description": "Require the chain to end near a coast or river mouth."
+                        }
+                    }
+                },
+                "policy": {
+                    "type": "object",
+                    "properties": {
+                        "sea": {
+                            "type": "object",
+                            "properties": {
+                                "protection": {
+                                    "type": "string",
+                                    "enum": ["hard", "soft"],
+                                    "default": "hard",
+                                    "description": "'hard' = never edit on lanes; 'soft' = reduce chance instead of skip."
+                                },
+                                "softChanceMultiplier": {
+                                    "type": "number",
+                                    "default": 0.5,
+                                    "description": "When protection is 'soft', multiply coast edit probabilities by this factor (0..1)."
+                                }
+                            }
+                        },
+                        "land": {
+                            "type": "object",
+                            "properties": {
+                                "biomesBiasStrength": {
+                                    "type": "number",
+                                    "default": 0.6,
+                                    "description": "0..1; scales grassland bias strength on land-open corridors."
+                                }
+                            }
+                        },
+                        "river": {
+                            "type": "object",
+                            "properties": {
+                                "biomesBiasStrength": {
+                                    "type": "number",
+                                    "default": 0.5,
+                                    "description": "0..1; scales grassland bias strength on river-chain corridors."
+                                }
+                            }
                         }
                     }
                 }

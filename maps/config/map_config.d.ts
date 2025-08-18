@@ -323,6 +323,8 @@ export interface Corridors {
     land?: CorridorLand;
     /** River-adjacent lowland chains seeded post-rivers */
     river?: CorridorRiver;
+    /** Per-consumer policy strengths and behaviors */
+    policy?: CorridorPolicy;
 }
 
 export interface CorridorSea {
@@ -356,6 +358,8 @@ export interface CorridorLand {
     maxCorridors?: number;
     /** Minimum contiguous shoulder run length eligible */
     minRunLength?: number;
+    /** Minimum spacing (tiles) enforced between selected land corridor segments */
+    spacing?: number;
 }
 
 export interface CorridorRiver {
@@ -367,6 +371,40 @@ export interface CorridorRiver {
     preferLowlandBelow?: number;
     /** Coast seed radius for initial river-adjacent seed near coast */
     coastSeedRadius?: number;
+    /** Minimum tiles that must be tagged for a chain to qualify */
+    minTiles?: number;
+    /** Require the chain to end near a coast or river mouth */
+    mustEndNearCoast?: boolean;
+}
+
+/** Per-consumer policy strengths and behaviors for corridors */
+export interface CorridorPolicy {
+    /** Sea-lane policies (coastline/island interactions) */
+    sea?: CorridorPolicySea;
+    /** Land-open corridor policies (biome bias strength) */
+    land?: CorridorPolicyLand;
+    /** River-chain corridor policies (biome bias strength) */
+    river?: CorridorPolicyRiver;
+}
+
+/** Sea-lane policy */
+export interface CorridorPolicySea {
+    /** 'hard' = never edit on lanes; 'soft' = reduce chance instead of skip */
+    protection?: "hard" | "soft";
+    /** When protection is 'soft', multiply coast edit probabilities by this factor (0..1) */
+    softChanceMultiplier?: number;
+}
+
+/** Land-open corridor policy */
+export interface CorridorPolicyLand {
+    /** 0..1; scales grassland bias strength on land-open corridors */
+    biomesBiasStrength?: number;
+}
+
+/** River-chain corridor policy */
+export interface CorridorPolicyRiver {
+    /** 0..1; scales grassland bias strength on river-chain corridors */
+    biomesBiasStrength?: number;
 }
 
 /** Baseline rainfall and local bonuses */

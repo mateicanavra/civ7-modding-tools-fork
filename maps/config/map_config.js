@@ -127,7 +127,7 @@ export const MAP_CONFIG = Object.freeze({
             elevationCarving: Object.freeze({
                 enableCanyonRim: true,
                 rimWidth: 4,
-                canyonDryBonus: 2,
+                canyonDryBonus: 3,
                 bluffWetReduction: 0,
             }),
         }),
@@ -166,14 +166,34 @@ export const MAP_CONFIG = Object.freeze({
         }),
         land: Object.freeze({
             useRiftShoulders: true,
-            maxCorridors: 2,
+            maxCorridors: 5,
             minRunLength: 24,
+            spacing: 11,
         }),
         river: Object.freeze({
             maxChains: 2,
             maxSteps: 80,
             preferLowlandBelow: 300,
             coastSeedRadius: 2,
+            minTiles: 24,
+            mustEndNearCoast: true,
+        }),
+        // Per-consumer policy strengths and behaviors
+        policy: Object.freeze({
+            sea: Object.freeze({
+                // 'hard' = never edit on lanes; 'soft' = reduce chance instead of skip
+                protection: "hard",
+                // When protection is 'soft', multiply coast edit probabilities by this factor (0..1)
+                softChanceMultiplier: 0.5,
+            }),
+            land: Object.freeze({
+                // 0..1; scales grassland bias strength on land-open corridors
+                biomesBiasStrength: 0.6,
+            }),
+            river: Object.freeze({
+                // 0..1; scales grassland bias strength on river-chain corridors
+                biomesBiasStrength: 0.5,
+            }),
         }),
     }),
     // --- Landmass (base land/ocean and shaping) ---

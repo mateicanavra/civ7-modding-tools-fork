@@ -474,6 +474,8 @@ function tagLandCorridorsFromRifts() {
     if (maxCorridors === 0 || StoryTags.riftShoulder.size === 0) return;
 
     let corridors = 0;
+    const spacing = Math.max(0, (cfg.spacing ?? 0) | 0);
+    const usedRows = [];
 
     // Sweep rows; find shoulder segments of sufficient length, tag them until budget exhausted
     for (let y = 1; y < height - 1 && corridors < maxCorridors; y++) {
@@ -491,12 +493,23 @@ function tagLandCorridorsFromRifts() {
             const len = end - start + 1;
 
             if (len >= minRun) {
-                for (let cx = start; cx <= end; cx++) {
-                    if (!GameplayMap.isWater(cx, y)) {
-                        StoryTags.corridorLandOpen.add(storyKey(cx, y));
+                // Enforce row spacing between chosen corridors
+                let tooClose = false;
+                for (let i = 0; i < usedRows.length; i++) {
+                    if (Math.abs(usedRows[i] - y) < spacing) {
+                        tooClose = true;
+                        break;
                     }
                 }
-                corridors++;
+                if (!tooClose) {
+                    for (let cx = start; cx <= end; cx++) {
+                        if (!GameplayMap.isWater(cx, y)) {
+                            StoryTags.corridorLandOpen.add(storyKey(cx, y));
+                        }
+                    }
+                    usedRows.push(y);
+                    corridors++;
+                }
             }
         }
     }
@@ -531,16 +544,15 @@ function tagRiverChainsPostRivers() {
 
         let x = sx,
             y = sy,
-            steps = 0,
-            placed = 0;
+            steps = 0;
+        const pathKeys = [];
 
         while (steps < maxSteps) {
             if (
                 !GameplayMap.isWater(x, y) &&
                 GameplayMap.isAdjacentToRivers(x, y, 1)
             ) {
-                StoryTags.corridorRiverChain.add(storyKey(x, y));
-                placed++;
+                pathKeys.push(storyKey(x, y));
             }
 
             // Greedy move: prefer neighbor that’s river‑adjacent and lower/similar elevation,
@@ -581,7 +593,20 @@ function tagRiverChainsPostRivers() {
             steps++;
         }
 
-        if (placed > 0) chains++;
+        const minTiles = Math.max(0, (cfg.minTiles ?? 0) | 0);
+        const mustEndNearCoast = !!cfg.mustEndNearCoast;
+        let endOK = true;
+        if (mustEndNearCoast) {
+            endOK =
+                GameplayMap.isCoastalLand(x, y) ||
+                GameplayMap.isAdjacentToShallowWater(x, y);
+        }
+        if (pathKeys.length >= minTiles && endOK) {
+            for (let i = 0; i < pathKeys.length; i++) {
+                StoryTags.corridorRiverChain.add(pathKeys[i]);
+            }
+            chains++;
+        }
     }
 }
 

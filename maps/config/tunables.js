@@ -46,3 +46,4 @@ export const BIOMES_CFG = MAP_CONFIG?.biomes || {};
 export const FEATURES_DENSITY_CFG = MAP_CONFIG?.featuresDensity || {};
 export const PLACEMENT_CFG = MAP_CONFIG?.placement || {};
 export const DEV_LOG_CFG = MAP_CONFIG?.dev || {};
+export const CORRIDOR_POLICY = MAP_CONFIG?.corridors?.policy || {};

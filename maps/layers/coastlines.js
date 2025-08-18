@@ -11,7 +11,7 @@
 import * as globals from "/base-standard/maps/map-globals.js";
 import { isAdjacentToLand } from "../core/utils.js";
 import { StoryTags } from "../story/tags.js";
-import { COASTLINES_CFG } from "../config/tunables.js";
+import { COASTLINES_CFG, CORRIDOR_POLICY } from "../config/tunables.js";
 
 /**
  * Ruggedize coasts in a sparse, performance-friendly pass.
@@ -62,14 +62,23 @@ export function addRuggedCoasts(iWidth, iHeight) {
         ? cfg.minSeaLaneWidth
         : 4; // reserved for future shelf/trench guards
 
+    // Sea-lane policy (hard skip vs. soft probability reduction)
+    const seaPolicy = (CORRIDOR_POLICY && CORRIDOR_POLICY.sea) || {};
+    const SEA_PROTECTION = seaPolicy.protection || "hard";
+    const SOFT_MULT = Math.max(
+        0,
+        Math.min(1, seaPolicy.softChanceMultiplier ?? 0.5),
+    );
+
     for (let y = 1; y < iHeight - 1; y++) {
         for (let x = 1; x < iWidth - 1; x++) {
-            // Skip edits on protected sea-lane tiles
+            // Sea-lane policy: hard skip or soft probability reduction
             const _k = `${x},${y}`;
-            if (
-                StoryTags.corridorSeaLane &&
-                StoryTags.corridorSeaLane.has(_k)
-            ) {
+            const _onSeaLane =
+                StoryTags.corridorSeaLane && StoryTags.corridorSeaLane.has(_k);
+            const _softMult =
+                _onSeaLane && SEA_PROTECTION === "soft" ? SOFT_MULT : 1;
+            if (_onSeaLane && SEA_PROTECTION === "hard") {
                 continue;
             }
             // Carve bays: coastal land -> coast water (very sparse)
@@ -81,10 +90,16 @@ export function addRuggedCoasts(iWidth, iHeight) {
                 const bayRollDen = isActive
                     ? bayRollDenActive
                     : bayRollDenDefault;
+                const bayRollDenUsed =
+                    _softMult !== 1
+                        ? Math.max(1, Math.round(bayRollDen / _softMult))
+                        : bayRollDen;
                 if (
                     h % 97 < noiseGate &&
-                    TerrainBuilder.getRandomNumber(bayRollDen, "Carve Bay") ===
-                        0
+                    TerrainBuilder.getRandomNumber(
+                        bayRollDenUsed,
+                        "Carve Bay",
+                    ) === 0
                 ) {
                     TerrainBuilder.setTerrainType(x, y, globals.g_CoastTerrain);
                     continue; // Avoid double-touching same tile in this pass
@@ -134,9 +149,13 @@ export function addRuggedCoasts(iWidth, iHeight) {
                                 (nearPassive ? fjordPassiveBonus : 0) -
                                 (nearActive ? fjordActiveBonus : 0),
                         );
+                        const denomUsed =
+                            _softMult !== 1
+                                ? Math.max(1, Math.round(denom / _softMult))
+                                : denom;
                         if (
                             TerrainBuilder.getRandomNumber(
-                                denom,
+                                denomUsed,
                                 "Fjord Coast",
                             ) === 0
                         ) {
