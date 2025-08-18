@@ -18,7 +18,11 @@
 import { addFeatures as baseAddFeatures } from "/base-standard/maps/feature-biome-generator.js";
 import * as globals from "/base-standard/maps/map-globals.js";
 import { StoryTags } from "../story/tags.js";
-import { STORY_ENABLE_HOTSPOTS, STORY_TUNABLES } from "../config/tunables.js";
+import {
+    STORY_ENABLE_HOTSPOTS,
+    STORY_TUNABLES,
+    FEATURES_DENSITY_CFG,
+} from "../config/tunables.js";
 import { getFeatureTypeIndex, inBounds } from "../core/utils.js";
 
 /**
@@ -81,9 +85,10 @@ export function addDiverseFeatures(iWidth, iHeight) {
         StoryTags.passiveShelf.size > 0
     ) {
         // Keep this lower than paradise reefs to stay subtle.
+        const shelfMult = FEATURES_DENSITY_CFG?.shelfReefMultiplier ?? 0.6;
         const shelfReefChance = Math.max(
             1,
-            Math.min(100, Math.floor((paradiseReefChance || 18) * 0.6)),
+            Math.min(100, Math.floor((paradiseReefChance || 18) * shelfMult)),
         );
         for (const key of StoryTags.passiveShelf) {
             const [sx, sy] = key.split(",").map(Number);
@@ -129,6 +134,10 @@ export function addDiverseFeatures(iWidth, iHeight) {
     const rainforestIdx = getFeatureTypeIndex("FEATURE_RAINFOREST");
     const forestIdx = getFeatureTypeIndex("FEATURE_FOREST");
     const taigaIdx = getFeatureTypeIndex("FEATURE_TAIGA");
+    const rainforestExtraChance =
+        FEATURES_DENSITY_CFG?.rainforestExtraChance ?? 55;
+    const forestExtraChance = FEATURES_DENSITY_CFG?.forestExtraChance ?? 30;
+    const taigaExtraChance = FEATURES_DENSITY_CFG?.taigaExtraChance ?? 35;
 
     for (let y = 0; y < iHeight; y++) {
         for (let x = 0; x < iWidth; x++) {
@@ -218,7 +227,10 @@ export function addDiverseFeatures(iWidth, iHeight) {
                 biome === globals.g_TropicalBiome &&
                 rainfall > 130
             ) {
-                if (TerrainBuilder.getRandomNumber(100, "Extra Jungle") < 55) {
+                if (
+                    TerrainBuilder.getRandomNumber(100, "Extra Jungle") <
+                    rainforestExtraChance
+                ) {
                     if (TerrainBuilder.canHaveFeature(x, y, rainforestIdx)) {
                         TerrainBuilder.setFeatureType(x, y, {
                             Feature: rainforestIdx,
@@ -236,7 +248,10 @@ export function addDiverseFeatures(iWidth, iHeight) {
                 biome === globals.g_GrasslandBiome &&
                 rainfall > 100
             ) {
-                if (TerrainBuilder.getRandomNumber(100, "Extra Forest") < 30) {
+                if (
+                    TerrainBuilder.getRandomNumber(100, "Extra Forest") <
+                    forestExtraChance
+                ) {
                     if (TerrainBuilder.canHaveFeature(x, y, forestIdx)) {
                         TerrainBuilder.setFeatureType(x, y, {
                             Feature: forestIdx,
@@ -254,7 +269,10 @@ export function addDiverseFeatures(iWidth, iHeight) {
                 biome === globals.g_TundraBiome &&
                 elevation < 300
             ) {
-                if (TerrainBuilder.getRandomNumber(100, "Extra Taiga") < 35) {
+                if (
+                    TerrainBuilder.getRandomNumber(100, "Extra Taiga") <
+                    taigaExtraChance
+                ) {
                     if (TerrainBuilder.canHaveFeature(x, y, taigaIdx)) {
                         TerrainBuilder.setFeatureType(x, y, {
                             Feature: taigaIdx,

@@ -11,6 +11,7 @@
 import * as globals from "/base-standard/maps/map-globals.js";
 import { isAdjacentToLand } from "../core/utils.js";
 import { StoryTags } from "../story/tags.js";
+import { COASTLINES_CFG } from "../config/tunables.js";
 
 /**
  * Ruggedize coasts in a sparse, performance-friendly pass.
@@ -34,8 +35,32 @@ export function addRuggedCoasts(iWidth, iHeight) {
     FractalBuilder.create(globals.g_HillFractal, iWidth, iHeight, 4, 0);
 
     // Probability tuning: on larger maps, allow a touch more edits
-    const bayNoiseMod = sqrtScale > 1 ? 1 : 0; // widen noise gate slightly
-    const fjordDenom = Math.max(6, 12 - (sqrtScale > 1.3 ? 1 : 0)); // 12 → 11 on very large maps
+    const cfg = COASTLINES_CFG || {};
+    const cfgBay = (cfg && cfg.bay) || {};
+    const cfgFjord = (cfg && cfg.fjord) || {};
+    const bayNoiseExtra =
+        (sqrtScale > 1 ? 1 : 0) +
+        (Number.isFinite(cfgBay.noiseGateAdd) ? cfgBay.noiseGateAdd : 0);
+    const fjordBaseDenom = Math.max(
+        6,
+        (Number.isFinite(cfgFjord.baseDenom) ? cfgFjord.baseDenom : 12) -
+            (sqrtScale > 1.3 ? 1 : 0),
+    );
+    const fjordActiveBonus = Number.isFinite(cfgFjord.activeBonus)
+        ? cfgFjord.activeBonus
+        : 1;
+    const fjordPassiveBonus = Number.isFinite(cfgFjord.passiveBonus)
+        ? cfgFjord.passiveBonus
+        : 2;
+    const bayRollDenActive = Number.isFinite(cfgBay.rollDenActive)
+        ? cfgBay.rollDenActive
+        : 4;
+    const bayRollDenDefault = Number.isFinite(cfgBay.rollDenDefault)
+        ? cfgBay.rollDenDefault
+        : 5;
+    const minSeaLaneWidth = Number.isFinite(cfg.minSeaLaneWidth)
+        ? cfg.minSeaLaneWidth
+        : 4; // reserved for future shelf/trench guards
 
     for (let y = 1; y < iHeight - 1; y++) {
         for (let x = 1; x < iWidth - 1; x++) {
@@ -44,8 +69,10 @@ export function addRuggedCoasts(iWidth, iHeight) {
                 const h = FractalBuilder.getHeight(globals.g_HillFractal, x, y);
                 // Margin-aware: slightly stronger bay carving on ACTIVE_MARGIN
                 const isActive = StoryTags.activeMargin.has(`${x},${y}`);
-                const noiseGate = 2 + bayNoiseMod + (isActive ? 1 : 0);
-                const bayRollDen = isActive ? 4 : 5;
+                const noiseGate = 2 + bayNoiseExtra + (isActive ? 1 : 0);
+                const bayRollDen = isActive
+                    ? bayRollDenActive
+                    : bayRollDenDefault;
                 if (
                     h % 97 < noiseGate &&
                     TerrainBuilder.getRandomNumber(bayRollDen, "Carve Bay") ===
@@ -95,9 +122,9 @@ export function addRuggedCoasts(iWidth, iHeight) {
                         }
                         const denom = Math.max(
                             4,
-                            fjordDenom -
-                                (nearPassive ? 2 : 0) -
-                                (nearActive ? 1 : 0),
+                            fjordBaseDenom -
+                                (nearPassive ? fjordPassiveBonus : 0) -
+                                (nearActive ? fjordActiveBonus : 0),
                         );
                         if (
                             TerrainBuilder.getRandomNumber(

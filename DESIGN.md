@@ -284,17 +284,22 @@ To further evolve this design, we plan to break the generator into explicit laye
   - Introduced a sqrt(area/base) scaler applied to motif lengths, band jitter, and low-probability edits so Huge maps form broader, continuous swaths instead of dotted noise.
 - Fuller, more curved continents:
   - Slight reduction in effective water fraction on larger maps (within strict bounds).
-  - Gentle curvature added to land bands to evoke long continental arcs (Americas/“fire islands” feel) while keeping true oceans.
-- Wetter equator and broader rainforest belt:
-  - Small equatorial band bump and size-aware rainfall jitter to expand wet belts without breaking clamps.
-- Denser rainforest and modest rugged vegetation near volcanic hotspots:
-  - Increased validated rainforest chance in very wet tropical zones; small, validated boosts for forest/taiga around volcanic hotspot centers.
-- Coast ruggedness tuned by size (lane-safe):
-  - Very slight probability lifts for bay/fjord-like adjustments on larger maps; deep oceans and sea-lane guardrails preserved.
-- Mountain density regression fix (post-feedback):
-  - Raised water fraction floor (min 60%) and reduced landmass center-bonus scaling to restore base mountain frequency after continent fullness tweak.
-  - Switched island seeding mask to Hill fractal (no reuse of Mountain fractal) to avoid unintentional interference with base mountain generation.
-  - Slightly increased lee-side dryness and windward boost in orogeny pass to accentuate relief without exceeding clamps.
+  - Gentle curvature added to land bands to evoke long continental arcs while keeping true oceans.
+- Climate Story (v0.1 — implemented end-to-end in pipeline)
+  - Continental Margins: active vs. passive margin tagging; coast ruggedizing reads margins; passive shelves bias validated reefs.
+  - Hotspot Trails: deep-ocean trail tagging; hotspot-aware island chains; paradise vs. volcanic classification; hotspot microclimates in rainfall refinement.
+  - Rift Valleys: rift line + shoulders; narrow rift humidity boost; shoulder biome bias toward grassland/tropical where moist.
+  - Orogeny Belts: windward/lee cache; small windward wetness boost; slightly stronger lee dryness; coupled swatch (mountainForests).
+  - Climate Swatches: one weighted macro swatch per map with soft edges (macroDesertBelt, equatorialRainbelt, rainforestArchipelago, mountainForests, greatPlains).
+  - Paleo‑Hydrology (initial): light overlays for deltas/oxbows/fossil channels affecting rainfall only; strict clamps and caps.
+- Coasts and islands (lane‑safe refinements):
+  - Margin-aware rugged coasts (slightly more bays/fjords on active segments).
+  - Hotspot-biased island chains with strict spacing and deep-water placement.
+- Features, margin/hotspot aware:
+  - Paradise reefs near hotspot paradise centers; modest passive-shelf reef bias.
+  - Volcanic vegetation near volcanic centers; gentle rainforest/forest/taiga density tweaks (validated).
+- Developer logger:
+  - Optional per-layer timings, StoryTags counts, and rainfall histograms (`maps/config/dev.js`).
 
 Invariants retained:
 - Rainfall clamped to [0, 200] at every step.

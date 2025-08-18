@@ -17,7 +17,7 @@
 
 import * as globals from "/base-standard/maps/map-globals.js";
 import { StoryTags } from "../story/tags.js";
-import { STORY_TUNABLES } from "../config/tunables.js";
+import { STORY_TUNABLES, ISLANDS_CFG } from "../config/tunables.js";
 import { isAdjacentToLand, storyKey } from "../core/utils.js";
 
 /**
@@ -28,9 +28,10 @@ import { isAdjacentToLand, storyKey } from "../core/utils.js";
 export function addIslandChains(iWidth, iHeight) {
     // Sparse mask: use mountain fractal as a high-threshold trigger
     FractalBuilder.create(globals.g_HillFractal, iWidth, iHeight, 5, 0);
+    const fracPct = (ISLANDS_CFG?.fractalThresholdPercent ?? 90) | 0;
     const threshold = FractalBuilder.getHeightFromPercent(
         globals.g_HillFractal,
-        90,
+        Math.max(0, Math.min(100, fracPct)),
     );
 
     // Tunables for hotspot classification and cone “peeking”
@@ -51,7 +52,8 @@ export function addIslandChains(iWidth, iHeight) {
             if (!GameplayMap.isWater(x, y)) continue;
 
             // Keep islands away from existing land to preserve lanes
-            if (isAdjacentToLand(x, y, 2)) continue;
+            const minDist = (ISLANDS_CFG?.minDistFromLandRadius ?? 2) | 0;
+            if (isAdjacentToLand(x, y, Math.max(0, minDist))) continue;
 
             const v = FractalBuilder.getHeight(globals.g_HillFractal, x, y);
             const isHotspot = StoryTags.hotspot.has(storyKey(x, y));
@@ -79,14 +81,19 @@ export function addIslandChains(iWidth, iHeight) {
             }
 
             // Base sparse placement vs. hotspot- and margin-biased placement
-            const baseIslandDen = nearActive ? 5 : 7; // slightly more islands along active margins
+            const denActive = (ISLANDS_CFG?.baseIslandDenNearActive ?? 5) | 0;
+            const denElse = (ISLANDS_CFG?.baseIslandDenElse ?? 7) | 0;
+            const baseIslandDen = nearActive ? denActive : denElse; // slightly more islands along active margins
             const baseAllowed =
                 v > threshold &&
                 TerrainBuilder.getRandomNumber(baseIslandDen, "Island Seed") ===
                     0;
             const hotspotAllowed =
                 isHotspot &&
-                TerrainBuilder.getRandomNumber(2, "Hotspot Island Seed") === 0;
+                TerrainBuilder.getRandomNumber(
+                    Math.max(1, (ISLANDS_CFG?.hotspotSeedDenom ?? 2) | 0),
+                    "Hotspot Island Seed",
+                ) === 0;
 
             if (!(baseAllowed || hotspotAllowed)) continue;
 
@@ -129,7 +136,7 @@ export function addIslandChains(iWidth, iHeight) {
             }
 
             // Create a tiny cluster around the center (smaller for hotspot-biased)
-            const maxCluster = isHotspot ? 3 : 3;
+            const maxCluster = Math.max(1, (ISLANDS_CFG?.clusterMax ?? 3) | 0);
             const count =
                 1 + TerrainBuilder.getRandomNumber(maxCluster, "Island Size");
 

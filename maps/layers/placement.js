@@ -40,6 +40,7 @@ import { assignAdvancedStartRegions } from "/base-standard/maps/assign-advanced-
 import { generateDiscoveries } from "/base-standard/maps/discovery-generator.js";
 import { generateSnow } from "/base-standard/maps/snow-generator.js";
 import { assignStartPositions } from "/base-standard/maps/assign-starting-plots.js";
+import { PLACEMENT_CFG } from "../config/tunables.js";
 
 /**
  * Compute the number of natural wonders to place.
@@ -49,13 +50,16 @@ import { assignStartPositions } from "/base-standard/maps/assign-starting-plots.
  * @returns {number}
  */
 function resolveNaturalWonderCount(mapInfo, wondersPlusOne = true) {
-  if (!mapInfo || typeof mapInfo.NumNaturalWonders !== "number") {
-    return 1;
-  }
-  if (wondersPlusOne) {
-    return Math.max(mapInfo.NumNaturalWonders + 1, mapInfo.NumNaturalWonders);
-  }
-  return mapInfo.NumNaturalWonders;
+    if (!mapInfo || typeof mapInfo.NumNaturalWonders !== "number") {
+        return 1;
+    }
+    if (wondersPlusOne) {
+        return Math.max(
+            mapInfo.NumNaturalWonders + 1,
+            mapInfo.NumNaturalWonders,
+        );
+    }
+    return mapInfo.NumNaturalWonders;
 }
 
 /**
@@ -77,109 +81,127 @@ function resolveNaturalWonderCount(mapInfo, wondersPlusOne = true) {
  * @returns {Array<any>} startPositions
  */
 export function runPlacement(
-  iWidth,
-  iHeight,
-  {
-    mapInfo,
-    wondersPlusOne = true,
-    floodplains = { minLength: 4, maxLength: 10 },
-    starts,
-  } = {},
+    iWidth,
+    iHeight,
+    {
+        mapInfo,
+        wondersPlusOne = true,
+        floodplains = { minLength: 4, maxLength: 10 },
+        starts,
+    } = {},
 ) {
-  const startPositions = [];
+    const startPositions = [];
 
-  // 1) Natural Wonders
-  try {
-    const wonders = resolveNaturalWonderCount(mapInfo, wondersPlusOne);
-    addNaturalWonders(iWidth, iHeight, wonders);
-  } catch (err) {
-    console.log("[Placement] addNaturalWonders failed:", err);
-  }
-
-  // 2) Floodplains
-  try {
-    const minLen =
-      floodplains && typeof floodplains.minLength === "number"
-        ? floodplains.minLength
-        : 4;
-    const maxLen =
-      floodplains && typeof floodplains.maxLength === "number"
-        ? floodplains.maxLength
-        : 10;
-    TerrainBuilder.addFloodplains(minLen, maxLen);
-  } catch (err) {
-    console.log("[Placement] addFloodplains failed:", err);
-  }
-
-  // 3) Snow (post-water/terrain stabilization)
-  try {
-    generateSnow(iWidth, iHeight);
-  } catch (err) {
-    console.log("[Placement] generateSnow failed:", err);
-  }
-
-  // 4) Resources (after snow)
-  try {
-    generateResources(iWidth, iHeight);
-  } catch (err) {
-    console.log("[Placement] generateResources failed:", err);
-  }
-
-  // 5) Start positions (vanilla-compatible)
-  try {
-    if (!starts) {
-      console.log("[Placement] Start placement skipped (no starts config provided).");
-    } else {
-      const {
-        playersLandmass1,
-        playersLandmass2,
-        westContinent,
-        eastContinent,
-        startSectorRows,
-        startSectorCols,
-        startSectors,
-      } = starts;
-
-      const pos = assignStartPositions(
-        playersLandmass1,
-        playersLandmass2,
-        westContinent,
-        eastContinent,
-        startSectorRows,
-        startSectorCols,
-        startSectors,
-      );
-      if (Array.isArray(pos)) {
-        startPositions.push(...pos);
-      }
-      console.log("[Placement] Start positions assigned successfully");
+    // 1) Natural Wonders
+    try {
+        const wonders = resolveNaturalWonderCount(
+            mapInfo,
+            typeof wondersPlusOne === "boolean"
+                ? wondersPlusOne
+                : PLACEMENT_CFG &&
+                    typeof PLACEMENT_CFG.wondersPlusOne === "boolean"
+                  ? PLACEMENT_CFG.wondersPlusOne
+                  : true,
+        );
+        addNaturalWonders(iWidth, iHeight, wonders);
+    } catch (err) {
+        console.log("[Placement] addNaturalWonders failed:", err);
     }
-  } catch (err) {
-    console.log("[Placement] assignStartPositions failed:", err);
-  }
 
-  // 6) Discoveries (post-starts to seed exploration)
-  try {
-    generateDiscoveries(iWidth, iHeight, startPositions);
-    console.log("[Placement] Discoveries generated successfully");
-  } catch (err) {
-    console.log("[Placement] generateDiscoveries failed:", err);
-  }
+    // 2) Floodplains
+    try {
+        const minLen =
+            floodplains && typeof floodplains.minLength === "number"
+                ? floodplains.minLength
+                : PLACEMENT_CFG &&
+                    PLACEMENT_CFG.floodplains &&
+                    typeof PLACEMENT_CFG.floodplains.minLength === "number"
+                  ? PLACEMENT_CFG.floodplains.minLength
+                  : 4;
+        const maxLen =
+            floodplains && typeof floodplains.maxLength === "number"
+                ? floodplains.maxLength
+                : PLACEMENT_CFG &&
+                    PLACEMENT_CFG.floodplains &&
+                    typeof PLACEMENT_CFG.floodplains.maxLength === "number"
+                  ? PLACEMENT_CFG.floodplains.maxLength
+                  : 10;
+        TerrainBuilder.addFloodplains(minLen, maxLen);
+    } catch (err) {
+        console.log("[Placement] addFloodplains failed:", err);
+    }
 
-  // 7) Fertility + Advanced Start
-  try {
-    FertilityBuilder.recalculate();
-  } catch (err) {
-    console.log("[Placement] FertilityBuilder.recalculate failed:", err);
-  }
+    // 3) Snow (post-water/terrain stabilization)
+    try {
+        generateSnow(iWidth, iHeight);
+    } catch (err) {
+        console.log("[Placement] generateSnow failed:", err);
+    }
 
-  try {
-    assignAdvancedStartRegions();
-  } catch (err) {
-    console.log("[Placement] assignAdvancedStartRegions failed:", err);
-  }
+    // 4) Resources (after snow)
+    try {
+        generateResources(iWidth, iHeight);
+    } catch (err) {
+        console.log("[Placement] generateResources failed:", err);
+    }
 
-  return startPositions;
+    // 5) Start positions (vanilla-compatible)
+    try {
+        if (!starts) {
+            console.log(
+                "[Placement] Start placement skipped (no starts config provided).",
+            );
+        } else {
+            const {
+                playersLandmass1,
+                playersLandmass2,
+                westContinent,
+                eastContinent,
+                startSectorRows,
+                startSectorCols,
+                startSectors,
+            } = starts;
+
+            const pos = assignStartPositions(
+                playersLandmass1,
+                playersLandmass2,
+                westContinent,
+                eastContinent,
+                startSectorRows,
+                startSectorCols,
+                startSectors,
+            );
+            if (Array.isArray(pos)) {
+                startPositions.push(...pos);
+            }
+            console.log("[Placement] Start positions assigned successfully");
+        }
+    } catch (err) {
+        console.log("[Placement] assignStartPositions failed:", err);
+    }
+
+    // 6) Discoveries (post-starts to seed exploration)
+    try {
+        generateDiscoveries(iWidth, iHeight, startPositions);
+        console.log("[Placement] Discoveries generated successfully");
+    } catch (err) {
+        console.log("[Placement] generateDiscoveries failed:", err);
+    }
+
+    // 7) Fertility + Advanced Start
+    try {
+        FertilityBuilder.recalculate();
+    } catch (err) {
+        console.log("[Placement] FertilityBuilder.recalculate failed:", err);
+    }
+
+    try {
+        assignAdvancedStartRegions();
+    } catch (err) {
+        console.log("[Placement] assignAdvancedStartRegions failed:", err);
+    }
+
+    return startPositions;
 }
 
 export default runPlacement;

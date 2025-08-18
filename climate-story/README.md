@@ -1,5 +1,19 @@
 # Climate Story — Narrative Imprint Layer (v1.0.0+ concept)
 
+Status Snapshot (v1.1.0 — current code)
+Implemented
+- Active vs. Passive Margins (coast ruggedizing + shelf reefs; lane-safe)
+- Hotspot Trails (deep-ocean trails; hotspot-aware islands; paradise/volcanic microclimates)
+- Rift Valleys (rift line + shoulders; narrow rainfall boost; shoulder biome bias)
+- Orogenic Belts (windward/lee flanks; rainfall amplification; coupled mountainForests swatch)
+- Climate Swatches (one weighted macro swatch; soft edges)
+- Paleo‑Hydrology (initial overlays: deltas/oxbows/fossil channels; rainfall only)
+
+Pending
+- Glacial Fingerprints (fjord bias at high latitudes; kettle lakes; taiga emphasis)
+- Volcanic Fertility (explicit volcanic arc tagging and biome/rainfall coupling)
+
+
 Purpose
 - Add legible “signs of history” to maps without heavy simulation.
 - Evoke tectonics, volcanism, paleo‑rivers, glaciation, and continental margins through sparse, data‑coupled motifs.

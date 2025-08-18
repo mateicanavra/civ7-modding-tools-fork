@@ -32,3 +32,15 @@ export const STORY_TUNABLES = Object.freeze({
     rainfall: MICRO.rainfall || {},
     features: MICRO.features || {},
 });
+
+// Additional config groups (safe fallbacks)
+export const LANDMASS_CFG = MAP_CONFIG?.landmass || {};
+export const COASTLINES_CFG = MAP_CONFIG?.coastlines || {};
+export const MARGINS_CFG = MAP_CONFIG?.margins || {};
+export const ISLANDS_CFG = MAP_CONFIG?.islands || {};
+export const CLIMATE_BASELINE_CFG = MAP_CONFIG?.climateBaseline || {};
+export const CLIMATE_REFINE_CFG = MAP_CONFIG?.climateRefine || {};
+export const BIOMES_CFG = MAP_CONFIG?.biomes || {};
+export const FEATURES_DENSITY_CFG = MAP_CONFIG?.featuresDensity || {};
+export const PLACEMENT_CFG = MAP_CONFIG?.placement || {};
+export const DEV_LOG_CFG = MAP_CONFIG?.dev || {};

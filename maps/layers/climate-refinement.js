@@ -21,7 +21,11 @@
 import { clamp, inBounds } from "../core/utils.js";
 import { StoryTags } from "../story/tags.js";
 import { OrogenyCache } from "../story/tagging.js";
-import { STORY_TUNABLES, STORY_ENABLE_OROGENY } from "../config/tunables.js";
+import {
+    STORY_TUNABLES,
+    STORY_ENABLE_OROGENY,
+    CLIMATE_REFINE_CFG,
+} from "../config/tunables.js";
 
 /**
  * Distance in tiles (Chebyshev radius) to nearest water within maxR; -1 if none.
@@ -82,9 +86,9 @@ function hasUpwindBarrier(x, y, dx, dy, steps) {
  * @param {number} iHeight
  */
 export function refineRainfallEarthlike(iWidth, iHeight) {
-    // Pass A: coastal and lake humidity gradient (decays with distance up to 5)
+    // Pass A: coastal and lake humidity gradient (decays with distance; configurable)
     {
-        const maxR = 5;
+        const maxR = (CLIMATE_REFINE_CFG?.waterGradient?.radius ?? 5) | 0;
         for (let y = 0; y < iHeight; y++) {
             for (let x = 0; x < iWidth; x++) {
                 if (GameplayMap.isWater(x, y)) continue;
@@ -93,8 +97,13 @@ export function refineRainfallEarthlike(iWidth, iHeight) {
                 if (dist >= 0) {
                     // Closer to water -> more humidity; stronger if also low elevation
                     const elev = GameplayMap.getElevation(x, y);
-                    let bonus = Math.max(0, maxR - dist) * 5; // +1 per ring vs. before
-                    if (elev < 150) bonus += 3; // slightly more bleed on lowlands
+                    let bonus =
+                        Math.max(0, maxR - dist) *
+                        (CLIMATE_REFINE_CFG?.waterGradient?.perRingBonus ?? 5);
+                    if (elev < 150)
+                        bonus +=
+                            CLIMATE_REFINE_CFG?.waterGradient?.lowlandBonus ??
+                            3;
 
                     const rf = GameplayMap.getRainfall(x, y);
                     TerrainBuilder.setRainfall(x, y, clamp(rf + bonus, 0, 200));
@@ -103,7 +112,7 @@ export function refineRainfallEarthlike(iWidth, iHeight) {
         }
     }
 
-    // Pass B: orographic rain shadows with latitude-dependent prevailing winds
+    // Pass B: orographic rain shadows with latitude-dependent prevailing winds (configurable)
     {
         for (let y = 0; y < iHeight; y++) {
             for (let x = 0; x < iWidth; x++) {
@@ -113,11 +122,21 @@ export function refineRainfallEarthlike(iWidth, iHeight) {
                 // Trade winds (0–30): E→W; Westerlies (30–60): W→E; Polar easterlies (60+): E→W
                 const dx = lat < 30 || lat >= 60 ? -1 : 1;
                 const dy = 0; // zonal winds simplified
-                const barrier = hasUpwindBarrier(x, y, dx, dy, 4);
+                const barrier = hasUpwindBarrier(
+                    x,
+                    y,
+                    dx,
+                    dy,
+                    (CLIMATE_REFINE_CFG?.orographic?.steps ?? 4) | 0,
+                );
 
                 if (barrier) {
                     const rf = GameplayMap.getRainfall(x, y);
-                    const reduction = 8 + barrier * 6; // stronger reduction with closer barrier
+                    const reduction =
+                        (CLIMATE_REFINE_CFG?.orographic?.reductionBase ?? 8) +
+                        barrier *
+                            (CLIMATE_REFINE_CFG?.orographic?.reductionPerStep ??
+                                6);
                     TerrainBuilder.setRainfall(
                         x,
                         y,
@@ -128,7 +147,7 @@ export function refineRainfallEarthlike(iWidth, iHeight) {
         }
     }
 
-    // Pass C: river corridor greening and basin humidity
+    // Pass C: river corridor greening and basin humidity (configurable)
     {
         for (let y = 0; y < iHeight; y++) {
             for (let x = 0; x < iWidth; x++) {
@@ -139,13 +158,27 @@ export function refineRainfallEarthlike(iWidth, iHeight) {
 
                 // River adjacency boost (stronger at low elevation)
                 if (GameplayMap.isAdjacentToRivers(x, y, 1)) {
-                    rf += elev < 250 ? 14 : 10;
+                    rf +=
+                        elev < 250
+                            ? (CLIMATE_REFINE_CFG?.riverCorridor
+                                  ?.lowlandAdjacencyBonus ?? 14)
+                            : (CLIMATE_REFINE_CFG?.riverCorridor
+                                  ?.highlandAdjacencyBonus ?? 10);
                 }
 
-                // Slight wetness in enclosed low basins (surrounded by higher elevation in radius 2)
+                // Slight wetness in enclosed low basins (surrounded by higher elevation; configurable radius)
                 let lowBasin = true;
-                for (let dy = -2; dy <= 2 && lowBasin; dy++) {
-                    for (let dx = -2; dx <= 2; dx++) {
+                for (
+                    let dy = -(CLIMATE_REFINE_CFG?.lowBasin?.radius ?? 2);
+                    dy <= (CLIMATE_REFINE_CFG?.lowBasin?.radius ?? 2) &&
+                    lowBasin;
+                    dy++
+                ) {
+                    for (
+                        let dx = -(CLIMATE_REFINE_CFG?.lowBasin?.radius ?? 2);
+                        dx <= (CLIMATE_REFINE_CFG?.lowBasin?.radius ?? 2);
+                        dx++
+                    ) {
                         if (dx === 0 && dy === 0) continue;
                         const nx = x + dx;
                         const ny = y + dy;
@@ -157,7 +190,8 @@ export function refineRainfallEarthlike(iWidth, iHeight) {
                         }
                     }
                 }
-                if (lowBasin && elev < 200) rf += 6;
+                if (lowBasin && elev < 200)
+                    rf += CLIMATE_REFINE_CFG?.lowBasin?.delta ?? 6;
 
                 TerrainBuilder.setRainfall(x, y, clamp(rf, 0, 200));
             }

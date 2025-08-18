@@ -222,7 +222,8 @@ function generateMap() {
         console.log("Tagging orogenic belts...");
         storyTagOrogenyBelts();
     }
-    // Continental margins already tagged before coast shaping
+    // Re-tag continental margins for downstream consumers (islands/features) after reset
+    storyTagContinentalMargins();
 
     devLogIf("LOG_STORY_TAGS", "StoryTags summary follows");
     logStoryTagsSummary(StoryTags, OrogenyCache);

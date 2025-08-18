@@ -17,6 +17,7 @@
  */
 
 import * as globals from "/base-standard/maps/map-globals.js";
+import { LANDMASS_CFG } from "../config/tunables.js";
 
 /**
  * Create continental landmasses with organic variation.
@@ -35,10 +36,19 @@ export function createDiverseLandmasses(iWidth, iHeight, landmasses) {
     const sqrtScale = Math.min(2.0, Math.max(0.6, Math.sqrt(area / BASE_AREA)));
 
     // Slightly less water on larger maps for fuller continents (clamped)
-    const baseWaterPct = 64;
+    const _lm = LANDMASS_CFG || {};
+    const baseWaterPct = Number.isFinite(_lm.baseWaterPercent)
+        ? _lm.baseWaterPercent
+        : 64;
+    const waterThumbOnScale = Number.isFinite(_lm.waterThumbOnScale)
+        ? _lm.waterThumbOnScale
+        : -4;
     const waterPct = Math.max(
         60,
-        Math.min(64, Math.round(baseWaterPct - 4 * (sqrtScale - 1))),
+        Math.min(
+            64,
+            Math.round(baseWaterPct + waterThumbOnScale * (sqrtScale - 1)),
+        ),
     );
     const iWaterHeight = FractalBuilder.getHeightFromPercent(
         globals.g_LandmassFractal,
@@ -46,12 +56,23 @@ export function createDiverseLandmasses(iWidth, iHeight, landmasses) {
     );
 
     // More wiggle on larger maps, but still restrained
+    const jitterAmpFracBase = Number.isFinite(_lm.jitterAmpFracBase)
+        ? _lm.jitterAmpFracBase
+        : 0.03;
+    const jitterAmpFracScale = Number.isFinite(_lm.jitterAmpFracScale)
+        ? _lm.jitterAmpFracScale
+        : 0.015;
     const jitterAmp = Math.max(
         2,
-        Math.floor(iWidth * (0.03 + 0.015 * (sqrtScale - 1))),
+        Math.floor(
+            iWidth * (jitterAmpFracBase + jitterAmpFracScale * (sqrtScale - 1)),
+        ),
     );
     // Curvature amplitude to bow bands into gentle arcs
-    const curveAmp = Math.floor(iWidth * 0.05 * sqrtScale);
+    const curveAmpFrac = Number.isFinite(_lm.curveAmpFrac)
+        ? _lm.curveAmpFrac
+        : 0.05;
+    const curveAmp = Math.floor(iWidth * curveAmpFrac * sqrtScale);
 
     for (let iY = 0; iY < iHeight; iY++) {
         for (let iX = 0; iX < iWidth; iX++) {

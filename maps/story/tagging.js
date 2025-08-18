@@ -13,6 +13,7 @@
  *  - Tags are stored in StoryTags as "x,y" string keys for simplicity.
  *  - ctx is optional; functions will query GameplayMap directly if omitted.
  *  - All tunables are conservative; guardrails are preserved by consumers.
+ *  - Climate tuning (baseline and refinement) is configured via map_config and consumed in the climate layers; this module only tags, while consumers preserve clamps.
  */
 
 import { StoryTags } from "./tags.js";
@@ -20,6 +21,7 @@ import {
     STORY_TUNABLES,
     STORY_ENABLE_SWATCHES,
     STORY_ENABLE_PALEO,
+    MARGINS_CFG,
 } from "../config/tunables.js";
 import { inBounds, storyKey, isAdjacentToLand } from "../core/utils.js";
 
@@ -386,16 +388,24 @@ export function storyTagContinentalMargins() {
     const width = GameplayMap.getGridWidth();
     const height = GameplayMap.getGridHeight();
 
-    // Size-aware fractions
+    // Size-aware fractions (configurable with safe defaults)
     const area = Math.max(1, width * height);
     const sqrt = Math.min(2.0, Math.max(0.6, Math.sqrt(area / 10000)));
 
-    const baseActiveFrac = 0.25; // per roadmap
-    const basePassiveFrac = 0.25; // per roadmap
+    const mcfg = MARGINS_CFG || {};
+    const baseActiveFrac = Number.isFinite(mcfg.activeFraction)
+        ? mcfg.activeFraction
+        : 0.25;
+    const basePassiveFrac = Number.isFinite(mcfg.passiveFraction)
+        ? mcfg.passiveFraction
+        : 0.25;
     const activeFrac = Math.min(0.35, baseActiveFrac + 0.05 * (sqrt - 1));
     const passiveFrac = Math.min(0.35, basePassiveFrac + 0.05 * (sqrt - 1));
 
-    const minSegLen = Math.max(10, Math.round(12 * (0.9 + 0.4 * sqrt))); // size-aware minimum
+    const baseMinSeg = Number.isFinite(mcfg.minSegmentLength)
+        ? mcfg.minSegmentLength
+        : 12;
+    const minSegLen = Math.max(10, Math.round(baseMinSeg * (0.9 + 0.4 * sqrt))); // size-aware minimum
     // First pass: count total coastal land to derive quotas
     let totalCoast = 0;
     for (let y = 0; y < height; y++) {

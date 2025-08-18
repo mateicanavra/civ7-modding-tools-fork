@@ -44,9 +44,9 @@ export const MAP_CONFIG = Object.freeze({
 
         // Orogeny belts (windward/lee amplification along mountain chains)
         orogeny: Object.freeze({
-            beltMaxPerContinent: 6,
-            beltMinLength: 5,
-            radius: 6,
+            beltMaxPerContinent: 2,
+            beltMinLength: 30,
+            radius: 2,
             windwardBoost: 5,
             leeDrynessAmplifier: 1.2,
         }),
@@ -94,7 +94,7 @@ export const MAP_CONFIG = Object.freeze({
                     halfWidthDeg: 8,
                     dryDelta: 12,
                     lowlandMaxElevation: 300,
-                    bleedRadius: 2,
+                    bleedRadius: 4,
                 }),
             }),
         }),
@@ -138,5 +138,136 @@ export const MAP_CONFIG = Object.freeze({
             volcanicForestChance: 17, // % chance
             volcanicTaigaChance: 25, // % chance
         }),
+    }),
+    // --- Landmass (base land/ocean and shaping) ---
+    landmass: Object.freeze({
+        baseWaterPercent: 64,
+        waterThumbOnScale: -4,
+        jitterAmpFracBase: 0.03,
+        jitterAmpFracScale: 0.015,
+        curveAmpFrac: 0.05,
+    }),
+    // --- Coastlines (rugged coasts; lane-safe) ---
+    coastlines: Object.freeze({
+        bay: Object.freeze({
+            noiseGateAdd: 0,
+            rollDenActive: 4,
+            rollDenDefault: 5,
+        }),
+        fjord: Object.freeze({
+            baseDenom: 12,
+            activeBonus: 1,
+            passiveBonus: 2,
+        }),
+        minSeaLaneWidth: 4,
+    }),
+    // --- Margins (active/passive tagging) ---
+    margins: Object.freeze({
+        activeFraction: 0.25,
+        passiveFraction: 0.25,
+        minSegmentLength: 12,
+    }),
+    // --- Islands (offshore clusters; hotspot bias) ---
+    islands: Object.freeze({
+        fractalThresholdPercent: 90,
+        baseIslandDenNearActive: 5,
+        baseIslandDenElse: 7,
+        hotspotSeedDenom: 2,
+        clusterMax: 3,
+        minDistFromLandRadius: 2,
+    }),
+    // --- Climate Baseline (banded blend + local bonuses) ---
+    climateBaseline: Object.freeze({
+        blend: Object.freeze({
+            baseWeight: 0.6,
+            bandWeight: 0.4,
+        }),
+        bands: Object.freeze({
+            deg0to10: 120,
+            deg10to20: 104,
+            deg20to35: 75,
+            deg35to55: 70,
+            deg55to70: 60,
+            deg70plus: 45,
+        }),
+        orographic: Object.freeze({
+            hi1Threshold: 350,
+            hi1Bonus: 8,
+            hi2Threshold: 600,
+            hi2Bonus: 7,
+        }),
+        coastal: Object.freeze({
+            coastalLandBonus: 24,
+            shallowAdjBonus: 16,
+        }),
+        noise: Object.freeze({
+            baseSpanSmall: 3,
+            spanLargeScaleFactor: 1.0,
+        }),
+    }),
+    // --- Climate Refinement (earthlike) ---
+    climateRefine: Object.freeze({
+        waterGradient: Object.freeze({
+            radius: 5,
+            perRingBonus: 5,
+            lowlandBonus: 3,
+        }),
+        orographic: Object.freeze({
+            steps: 4,
+            reductionBase: 8,
+            reductionPerStep: 6,
+        }),
+        riverCorridor: Object.freeze({
+            lowlandAdjacencyBonus: 14,
+            highlandAdjacencyBonus: 10,
+        }),
+        lowBasin: Object.freeze({
+            radius: 2,
+            delta: 6,
+        }),
+    }),
+    // --- Biomes (nudges) ---
+    biomes: Object.freeze({
+        tundra: Object.freeze({
+            latMin: 70,
+            elevMin: 850,
+            rainMax: 90,
+        }),
+        tropicalCoast: Object.freeze({
+            latMax: 18,
+            rainMin: 105,
+        }),
+        riverValleyGrassland: Object.freeze({
+            latMax: 50,
+            rainMin: 75,
+        }),
+        riftShoulder: Object.freeze({
+            grasslandLatMax: 50,
+            grasslandRainMin: 75,
+            tropicalLatMax: 18,
+            tropicalRainMin: 100,
+        }),
+    }),
+    // --- Features density tweaks (validated) ---
+    featuresDensity: Object.freeze({
+        rainforestExtraChance: 55,
+        forestExtraChance: 30,
+        taigaExtraChance: 35,
+        shelfReefMultiplier: 0.6,
+    }),
+    // --- Placement ---
+    placement: Object.freeze({
+        wondersPlusOne: true,
+        floodplains: Object.freeze({
+            minLength: 4,
+            maxLength: 10,
+        }),
+    }),
+    // --- Dev logger defaults (off for release) ---
+    dev: Object.freeze({
+        enabled: false,
+        logTiming: false,
+        logStoryTags: false,
+        rainfallHistogram: false,
     }),
 });

@@ -135,3 +135,15 @@ Dev Logger (optional; off by default)
   - DEV.LOG_STORY_TAGS: prints StoryTags counts (logged after tagging, before island chains)
   - DEV.RAINFALL_HISTOGRAM: prints coarse rainfall histogram over land (logged before placement)
 - No-ops when disabled (negligible overhead). Keep disabled for release builds.
+
+Current Status (v1.1.0 — WIP)
+- Modular pipeline in place (layers for landmass, coastlines, islands, climate A/B, biomes, features, placement).
+- Climate Story (implemented)
+  - Margins: active vs. passive tagging; coast ruggedizing is margin‑aware; passive shelf reefs.
+  - Hotspots: deep‑ocean trails; hotspot‑biased island chains; paradise vs. volcanic centers; microclimate tweaks.
+  - Rifts: rift line + shoulder tags; narrow rainfall boost near rift; shoulder biome bias.
+  - Orogeny: windward/lee flanks along belts; rainfall amplification on windward; lee dryness slightly stronger.
+  - Climate Swatches: one macro swatch (weighted) with soft‑edge rainfall deltas.
+  - Paleo‑Hydrology (initial): deltas/oxbows/fossil channel humidity overlays (clamped).
+- Dev Logger: optional per‑layer timing, StoryTags summary, and rainfall histogram (maps/config/dev.js).
+- Pending: Glacial fingerprints (fjord bias, kettle lakes, taiga emphasis) and lane‑safe shelf/trench motifs; explicit diminishing‑returns composition for stacked tags.
