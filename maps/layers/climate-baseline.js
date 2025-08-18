@@ -33,46 +33,58 @@ import { clamp } from "../core/utils.js";
  * @param {number} iHeight
  */
 export function buildEnhancedRainfall(iWidth, iHeight) {
-  console.log("Building enhanced rainfall patterns...");
+    console.log("Building enhanced rainfall patterns...");
 
-  // Start from the engine’s base rainfall to preserve vanilla assumptions.
-  buildRainfallMap(iWidth, iHeight);
+    // Start from the engine’s base rainfall to preserve vanilla assumptions.
+    buildRainfallMap(iWidth, iHeight);
 
-  // Apply latitude bands + small local adjustments
-  for (let y = 0; y < iHeight; y++) {
-    for (let x = 0; x < iWidth; x++) {
-      if (GameplayMap.isWater(x, y)) continue;
+    // Apply latitude bands + small local adjustments
+    const BASE_AREA = 10000;
+    const sqrt = Math.min(
+        2.0,
+        Math.max(0.6, Math.sqrt(Math.max(1, iWidth * iHeight) / BASE_AREA)),
+    );
+    const equatorPlus = Math.round(8 * (sqrt - 1)); // +0..+8 on very large maps
+    const noiseSpan = sqrt > 1 ? 4 : 3; // ±3 → ±4 on larger maps
+    for (let y = 0; y < iHeight; y++) {
+        for (let x = 0; x < iWidth; x++) {
+            if (GameplayMap.isWater(x, y)) continue;
 
-      const base = GameplayMap.getRainfall(x, y);
-      const elevation = GameplayMap.getElevation(x, y);
-      const lat = Math.abs(GameplayMap.getPlotLatitude(x, y)); // 0 at equator, 90 at poles
+            const base = GameplayMap.getRainfall(x, y);
+            const elevation = GameplayMap.getElevation(x, y);
+            const lat = Math.abs(GameplayMap.getPlotLatitude(x, y)); // 0 at equator, 90 at poles
 
-      // Band target by absolute latitude
-      let bandRain = 0;
-      if (lat < 10) bandRain = 115;
-      else if (lat < 20) bandRain = 100;
-      else if (lat < 35) bandRain = 75;
-      else if (lat < 55) bandRain = 70;
-      else if (lat < 70) bandRain = 60;
-      else bandRain = 45;
+            // Band target by absolute latitude
+            let bandRain = 0;
+            if (lat < 10) bandRain = 115 + equatorPlus;
+            else if (lat < 20) bandRain = 100 + Math.floor(equatorPlus * 0.5);
+            else if (lat < 35) bandRain = 75;
+            else if (lat < 55) bandRain = 70;
+            else if (lat < 70) bandRain = 60;
+            else bandRain = 45;
 
-      // Blend: lean a bit more on the base map to keep variety
-      let currentRainfall = Math.round(base * 0.6 + bandRain * 0.4);
+            // Blend: lean a bit more on the base map to keep variety
+            let currentRainfall = Math.round(base * 0.6 + bandRain * 0.4);
 
-      // Orographic: mild elevation bonuses
-      if (elevation > 350) currentRainfall += 8;
-      if (elevation > 600) currentRainfall += 7;
+            // Orographic: mild elevation bonuses
+            if (elevation > 350) currentRainfall += 8;
+            if (elevation > 600) currentRainfall += 7;
 
-      // Local water humidity: coast and shallow-water adjacency
-      if (GameplayMap.isCoastalLand(x, y)) currentRainfall += 18;
-      if (GameplayMap.isAdjacentToShallowWater(x, y)) currentRainfall += 12;
+            // Local water humidity: coast and shallow-water adjacency
+            if (GameplayMap.isCoastalLand(x, y)) currentRainfall += 18;
+            if (GameplayMap.isAdjacentToShallowWater(x, y))
+                currentRainfall += 12;
 
-      // Light noise to avoid striping/banding artifacts
-      currentRainfall += TerrainBuilder.getRandomNumber(6, "Rain Noise") - 3;
+            // Light noise to avoid striping/banding artifacts (size-aware jitter)
+            currentRainfall +=
+                TerrainBuilder.getRandomNumber(
+                    noiseSpan * 2 + 1,
+                    "Rain Noise",
+                ) - noiseSpan;
 
-      TerrainBuilder.setRainfall(x, y, clamp(currentRainfall, 0, 200));
+            TerrainBuilder.setRainfall(x, y, clamp(currentRainfall, 0, 200));
+        }
     }
-  }
 }
 
 export default buildEnhancedRainfall;

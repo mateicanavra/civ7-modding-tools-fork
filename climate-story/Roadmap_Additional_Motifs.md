@@ -27,6 +27,7 @@ Phase sequencing (recommended)
 - Phase D: Glacial — coast bias (fjords), scattered kettle lakes, biome emphasis (taiga vs. tundra), constrained to high latitudes.
 
 Shared safeguards
+- Size scaling: use sqrt(area/base) as the primary factor to widen belts, lengthen lines, and slightly raise tiny probabilities on larger maps; keep hard caps and lane/rainfall clamps.
 - Sea lanes: enforce minimum lane width for any coast/shelf/island changes.
 - Rainfall: clamp to [0, 200] after each adjustment.
 - Features: always validate via engine rules and resolve types via lookups; skip on failure.
@@ -250,8 +251,12 @@ Acceptance
 - High‑latitude coasts read a bit fjordier; scattered kettles inland; conifer belts visible where plausible—without heavy biome upheaval.
 
 
-## 6) Cross‑Cutting: Stacking, Diminishing Returns, and Caps
+## 6) Cross‑Cutting: Stacking, Diminishing Returns, Caps, and Size‑Scaling
 
+- Size‑aware scaling (“thumb on the scale” by map size):
+  - Prefer sqrt(area/baseArea) to scale radii/lengths/probabilities; use linear(area/baseArea) sparingly for global counts and always with hard caps.
+  - Targets: longer hotspot trails, more continuous rifts, slightly higher passive‑shelf/fjord chances, broader rainforest belts, modestly larger clusters on Huge.
+  - Guardrails: clamp after every scaled adjustment; never violate minimum sea‑lane width; rainfall always clamped to [0, 200].
 - Stacking control:
   - If multiple StoryTags apply to the same tile, use either:
     - Cap: total rainfall delta ≤ +12 / −12 from StoryTags combined, or

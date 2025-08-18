@@ -25,79 +25,108 @@ import * as globals from "/base-standard/maps/map-globals.js";
  * @param {Array<{west:number,east:number,south:number,north:number,continent:number}>} landmasses
  */
 export function createDiverseLandmasses(iWidth, iHeight, landmasses) {
-  // Single fractal with higher water level to ensure real oceans and coasts
-  FractalBuilder.create(globals.g_LandmassFractal, iWidth, iHeight, 3, 0);
-  // Auxiliary fractal to wiggle band edges by row and add irregularity
-  FractalBuilder.create(globals.g_HillFractal, iWidth, iHeight, 4, 0);
-  const iWaterHeight = FractalBuilder.getHeightFromPercent(
-    globals.g_LandmassFractal,
-    64
-  );
+    // Single fractal with higher water level to ensure real oceans and coasts
+    FractalBuilder.create(globals.g_LandmassFractal, iWidth, iHeight, 3, 0);
+    // Auxiliary fractal to wiggle band edges by row and add irregularity
+    FractalBuilder.create(globals.g_HillFractal, iWidth, iHeight, 4, 0);
+    // Size-aware scaling (gentle): derive a sqrt factor from map area
+    const area = Math.max(1, iWidth * iHeight);
+    const BASE_AREA = 10000;
+    const sqrtScale = Math.min(2.0, Math.max(0.6, Math.sqrt(area / BASE_AREA)));
 
-  const jitterAmp = Math.max(2, Math.floor(iWidth * 0.03));
+    // Slightly less water on larger maps for fuller continents (clamped)
+    const baseWaterPct = 64;
+    const waterPct = Math.max(
+        56,
+        Math.min(64, Math.round(baseWaterPct - 4 * (sqrtScale - 1))),
+    );
+    const iWaterHeight = FractalBuilder.getHeightFromPercent(
+        globals.g_LandmassFractal,
+        waterPct,
+    );
 
-  for (let iY = 0; iY < iHeight; iY++) {
-    for (let iX = 0; iX < iWidth; iX++) {
-      let terrain = globals.g_OceanTerrain;
+    // More wiggle on larger maps, but still restrained
+    const jitterAmp = Math.max(
+        2,
+        Math.floor(iWidth * (0.03 + 0.015 * (sqrtScale - 1))),
+    );
+    // Curvature amplitude to bow bands into gentle arcs
+    const curveAmp = Math.floor(iWidth * 0.05 * sqrtScale);
 
-      // Check if this tile should be land based on landmass boundaries
-      for (const landmass of landmasses) {
-        // Apply a per-row horizontal shift and slight width change to avoid straight columns
-        const sinOffset = Math.floor(
-          Math.sin((iY + landmass.continent * 13) * 0.25) * jitterAmp
-        );
-        let noise = FractalBuilder.getHeight(globals.g_HillFractal, iX, iY);
-        noise = Math.floor(((noise % 200) / 200 - 0.5) * jitterAmp);
-        const shift = sinOffset + Math.floor(noise * 0.5);
-        const widthDelta = Math.floor(noise * 0.3);
+    for (let iY = 0; iY < iHeight; iY++) {
+        for (let iX = 0; iX < iWidth; iX++) {
+            let terrain = globals.g_OceanTerrain;
 
-        const westY = Math.max(
-          0,
-          Math.min(iWidth - 1, landmass.west + shift + widthDelta)
-        );
-        const eastY = Math.max(
-          0,
-          Math.min(iWidth - 1, landmass.east + shift - widthDelta)
-        );
+            // Check if this tile should be land based on landmass boundaries
+            for (const landmass of landmasses) {
+                // Apply a per-row horizontal shift and slight width change to avoid straight columns
+                const sinOffset = Math.floor(
+                    Math.sin((iY + landmass.continent * 13) * 0.25) * jitterAmp,
+                );
+                let noise = FractalBuilder.getHeight(
+                    globals.g_HillFractal,
+                    iX,
+                    iY,
+                );
+                noise = Math.floor(((noise % 200) / 200 - 0.5) * jitterAmp);
 
-        if (
-          iX >= westY &&
-          iX <= eastY &&
-          iY >= landmass.south &&
-          iY <= landmass.north
-        ) {
-          // Use fractal to determine if this specific plot should be land
-          const iPlotHeight = FractalBuilder.getHeight(
-            globals.g_LandmassFractal,
-            iX,
-            iY
-          );
+                // Bow continents into long, gentle arcs; each band uses a different phase
+                const t = iY / Math.max(1, iHeight - 1);
+                const curve = Math.floor(
+                    curveAmp * Math.sin(Math.PI * t + landmass.continent * 0.7),
+                );
 
-          // Bias toward land near center of landmass
-          const centerX = (landmass.west + landmass.east) / 2;
-          const centerY = (landmass.south + landmass.north) / 2;
-          const dx = iX - centerX;
-          const dy = iY - centerY;
-          const distanceFromCenter = Math.sqrt(dx * dx + dy * dy);
-          const maxDistance = Math.sqrt(
-            ((landmass.east - landmass.west) / 2) ** 2 +
-              ((landmass.north - landmass.south) / 2) ** 2
-          );
-          const centerBonus = Math.max(
-            0,
-            (1 - distanceFromCenter / maxDistance) * 110
-          );
+                const shift = sinOffset + Math.floor(noise * 0.5) + curve;
+                const widthDelta = Math.floor(noise * 0.3);
 
-          if (iPlotHeight + centerBonus >= iWaterHeight) {
-            terrain = globals.g_FlatTerrain;
-            break;
-          }
+                const westY = Math.max(
+                    0,
+                    Math.min(iWidth - 1, landmass.west + shift + widthDelta),
+                );
+                const eastY = Math.max(
+                    0,
+                    Math.min(iWidth - 1, landmass.east + shift - widthDelta),
+                );
+
+                if (
+                    iX >= westY &&
+                    iX <= eastY &&
+                    iY >= landmass.south &&
+                    iY <= landmass.north
+                ) {
+                    // Use fractal to determine if this specific plot should be land
+                    const iPlotHeight = FractalBuilder.getHeight(
+                        globals.g_LandmassFractal,
+                        iX,
+                        iY,
+                    );
+
+                    // Bias toward land near center of landmass
+                    const centerX = (landmass.west + landmass.east) / 2;
+                    const centerY = (landmass.south + landmass.north) / 2;
+                    const dx = iX - centerX;
+                    const dy = iY - centerY;
+                    const distanceFromCenter = Math.sqrt(dx * dx + dy * dy);
+                    const maxDistance = Math.sqrt(
+                        ((landmass.east - landmass.west) / 2) ** 2 +
+                            ((landmass.north - landmass.south) / 2) ** 2,
+                    );
+                    const centerBonus = Math.max(
+                        0,
+                        (1 - distanceFromCenter / maxDistance) *
+                            (110 + Math.round(25 * (sqrtScale - 1))),
+                    );
+
+                    if (iPlotHeight + centerBonus >= iWaterHeight) {
+                        terrain = globals.g_FlatTerrain;
+                        break;
+                    }
+                }
+            }
+
+            TerrainBuilder.setTerrainType(iX, iY, terrain);
         }
-      }
-
-      TerrainBuilder.setTerrainType(iX, iY, terrain);
     }
-  }
 }
 
 export default createDiverseLandmasses;

@@ -278,6 +278,26 @@ To further evolve this design, we plan to break the generator into explicit laye
   - Structured event logging, per-pass timing, and tile-sample histograms.
 
 
+## 11) Change Log (v1.1.0 — WIP)
+
+- Size-aware “thumb on the scale” for larger maps:
+  - Introduced a sqrt(area/base) scaler applied to motif lengths, band jitter, and low-probability edits so Huge maps form broader, continuous swaths instead of dotted noise.
+- Fuller, more curved continents:
+  - Slight reduction in effective water fraction on larger maps (within strict bounds).
+  - Gentle curvature added to land bands to evoke long continental arcs (Americas/“fire islands” feel) while keeping true oceans.
+- Wetter equator and broader rainforest belt:
+  - Small equatorial band bump and size-aware rainfall jitter to expand wet belts without breaking clamps.
+- Denser rainforest and modest rugged vegetation near volcanic hotspots:
+  - Increased validated rainforest chance in very wet tropical zones; small, validated boosts for forest/taiga around volcanic hotspot centers.
+- Coast ruggedness tuned by size (lane-safe):
+  - Very slight probability lifts for bay/fjord-like adjustments on larger maps; deep oceans and sea-lane guardrails preserved.
+
+Invariants retained:
+- Rainfall clamped to [0, 200] at every step.
+- No aggressive cliffs or heavy mountain amplification reintroduced.
+- Feature placement remains gated by TerrainBuilder.canHaveFeature with data lookups.
+- Open ocean lanes preserved; island/coast edits remain sparse.
+
 ## 11) Change Log (v1.0.0)
 
 - Removed aggressive cliff systems to improve playability and performance.
