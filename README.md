@@ -1,103 +1,65 @@
-# Epic Diverse Huge Map Generator
+# Epic Diverse Huge Map Generator (v1.0.0)
 
-Version: 1.0.0
+This README is for internal development. It summarizes what matters for iteration and debugging. For full architecture, see DESIGN.md.
 
-This mod adds a custom, large-scale procedural map generator focused on organic regional formation driven by geology–climate interaction. It builds on the base game's generators and then layers climate dynamics, biome nudging, and coastline/island shaping to produce believable, high-variety worlds.
+What this is (concise)
+- A custom mapgen that layers climate- and region-formation logic on top of the base generators.
+- Landform: three organic continental bands with true oceans, rugged coasts, and small deep-water island clusters.
+- Climate: two-phase rainfall (baseline bands → earthlike refinement with humidity gradients, prevailing-wind orographic shadows, river/basin greening).
+- Biomes/features: base pass first, then gentle, validated tweaks for playability (tropical coasts near equator, greener temperate river valleys, restrained tundra).
+- Natural wonders: +1 vs. map defaults. Lakes: moderated for balance.
 
-Repository: ~/Library/Application Support/Civilization VII/Mods/epic-diverse-huge-map/
+Primary files and references
+- Core script: maps/epic-diverse-huge.js
+- Design/architecture: DESIGN.md (authoritative for v1.0.0)
+- Example outputs: outputs/1.0.0 (screenshots of generated maps)
+- Localization summary (for in-game name/desc only): text/en_us/MapText.xml
 
-Highlights (v1.0.0)
-- Three organic, vertical continental bands separated by real oceans for naval play.
-- Ruggedized coastlines and tiny island chains that preserve sea lanes.
-- Two-phase climate: baseline latitude bands + earthlike refinements using humidity gradients, prevailing winds, orographic rain shadows, river corridor greening, and low-basin wetness.
-- Biome pass that respects the base generator, then gently nudges tiles to match climate and gameplay goals (tropical coasts near the equator, greener temperate river valleys, restrained tundra).
-- Wonders, resources, snow, floodplains, and starts remain compatible with base systems.
-- Natural wonders: slightly increased vs. default (+1 over map defaults).
-- Lakes: moderated vs. earlier experiments; tuned for balance within the new landmass design.
+Runtime assumptions (observed)
+- Uses base-standard modules for elevation, rainfall baseline, coasts, biomes, features, resources, wonders, snow, discoveries, and start placement.
+- resources/ in this repo is a reference stub; not required at runtime in this setup.
 
-What changed from earlier drafts
-- Removed aggressive cliff systems for better playability and performance.
-- Reduced experimental mountain/lake amplification; rely primarily on base elevation/hills with curated rainfall/biome logic to shape regions.
-- Cleaned up coastal shaping and island placement to avoid chokepoint spam.
-- Shifted to a “compatible-first” approach: the base generators remain the source of truth, with our passes refining behavior.
-
-How to use
-1) Enable the mod
-- Launch Civilization VII
-- Main Menu → Additional Content → Mods
-- Enable “Epic Diverse Huge Map”
-- Restart the game
-
-2) Start a game
-- Create Game → Select “Epic Diverse Huge”
-- Choose Huge map size for the best continental structure and regional coherence
-- Configure other settings as desired
-
-3) Optional: Monitor generation via logs (see “Monitoring” below)
-
-Generation pipeline (simplified)
-- Start sectors: choose start-sector grid early, with optional bias to place the human start nearer the equator (vanilla-compatible helpers).
-- Landmasses: three-band continents with per-row sinusoidal jitter and fractal noise to avoid straight borders; center bias strengthens land “cores.”
-- Elevation and water:
-  - Coasts expanded per base generator, followed by a ruggedizing pass that carves bays/fjords and a deep-water island chain pass.
-  - Base mountains/hills/volcanoes for balance; lakes tuned for density per map settings (fewer than earlier experimental iterations).
-- Climate and rivers:
-  - Build baseline rainfall (vanilla) → blend with latitude bands (wet equator, drier subtropics, temperate mid-latitudes, cold/dry poles).
-  - Model rivers; then apply earthlike refinements:
-    - Coastal/lake humidity gradient decaying inland
-    - Prevailing-wind orographic rain shadows (easterlies/trade winds and westerlies by latitude)
-    - River corridor greening and enclosed low-basin humidity
-- Biomes and features:
-  - Run base biome assignment, then apply climate-aware tweaks:
-    - Tropical coasts near equator with high rainfall
-    - Temperate grassland preference along river valleys
-    - Tundra constrained to extreme latitude/elevation with low rainfall
-  - Run base features, then add density in a few targeted cases (rainforest/forest/taiga), always validated by the engine
-- Wonders, floodplains, snow, resources, discoveries:
-  - Slightly increased natural wonders vs. map defaults
-  - Floodplains, snow, resources, and exploration sites use base systems
-  - Start positions assigned with the standard method to maintain compatibility
-
-Monitoring (optional)
-A lightweight Python script is included to follow generation progress by tailing the game’s script log.
-
-Run live monitoring:
-- macOS:
-  cd ~/Library/Application\ Support/Civilization\ VII/Mods/epic-diverse-huge-map/
-  python3 external_map_monitor.py
-
-- Analysis mode (parse past events):
-  python3 external_map_monitor.py --analyze
-
-What you’ll see:
-- Lifecycle messages like:
+Debugging hooks (keep handy)
+- Log markers: the script prints clear phase messages:
   - “Loading Epic Diverse Huge Map Generator”
   - “Building enhanced rainfall patterns...”
   - “Creating enhanced biome diversity...”
   - “Adding diverse terrain features...”
-- If you enable JSON markers (disabled by default), the monitor will also summarize:
-  - EPIC_MAP_GEN_START with width/height/timestamp
-  - EPIC_MAP_GEN_COMPLETE with wonders/lake density/variety/timestamp
+- Optional JSON markers (disabled in v1.0.0 by default):
+  - EPIC_MAP_GEN_START: in requestMapData (commented out)
+  - EPIC_MAP_GEN_COMPLETE: near the end of generateMap (commented out)
+  - To enable, uncomment those two console.log blocks in maps/epic-diverse-huge.js.
+- Optional debug dumps (all commented out in the script):
+  - dumpContinents / dumpTerrain / dumpElevation / dumpRainfall / dumpBiomes / dumpFeatures
+  - Toggle temporarily when correlating visuals with data layers.
 
-Enabling JSON start/end events (optional)
-- In maps/epic-diverse-huge.js, search for “EPIC_MAP_GEN_START” and “EPIC_MAP_GEN_COMPLETE”
-- Uncomment the two console.log blocks (one in requestMapData, one near the end of generateMap)
-- This will allow external_map_monitor.py to print structured summaries of each run
+Hotspots for iteration (script functions)
+- Landform:
+  - createDiverseLandmasses(iWidth, iHeight, landmasses)
+  - addRuggedCoasts(iWidth, iHeight)
+  - addIslandChains(iWidth, iHeight)
+- Climate:
+  - buildEnhancedRainfall(iWidth, iHeight)  // baseline + latitude bands (blend with base)
+  - refineRainfallEarthlike(iWidth, iHeight)  // humidity gradient, orographic shadowing, river/basin greening
+  - Helpers: distanceToNearestWater, hasUpwindBarrier
+- Biomes/features:
+  - designateEnhancedBiomes(iWidth, iHeight)
+  - addDiverseFeatures(iWidth, iHeight)
 
-Compatibility notes
-- The script imports base-standard helpers provided by the game or active base modules. The resources/ folder here is a reference to community sources and is not required at runtime.
-- Start positions are assigned using the standard approach, with sector selection and continent bounds compatible with vanilla expectations.
-- The generator has been tuned for Huge maps; other sizes may work but are not the primary target.
+Known constraints (v1.0.0)
+- Tuned for Huge maps.
+- Aggressive cliff systems and heavy mountain amplification are intentionally removed (playability/perf).
+- Feature placement is gated by TerrainBuilder.canHaveFeature; feature IDs are resolved via GameInfo.Features.lookup.
+- Rainfall values are clamped [0, 200] in all passes.
 
-Troubleshooting
-- Mod not visible: ensure it’s in the user mods directory shown above and that epic-diverse-huge-map.modinfo is present; restart the game after enabling.
-- Monitor shows no JSON summaries: the JSON event logs are disabled by default; enable them as described above, or rely on the phase messages already present.
-- Performance: if generation feels heavy, avoid running other intensive mods concurrently; large maps with complex coastlines can take longer.
+If something looks off
+- Validate bands and oceans: toggle dumpTerrain/dumpElevation/dumpRainfall and compare to outputs/1.0.0.
+- Check river influence: ensure refineRainfallEarthlike runs after TerrainBuilder.modelRivers and defineNamedRivers.
+- Verify wind/orographic behavior by latitude: adjust wind direction in refineRainfallEarthlike if needed.
+- Reconfirm base module availability if post-generation failures occur (see DIAGNOSTIC_FIX.md for config sanity checks).
 
-Files of interest
-- maps/epic-diverse-huge.js — generator logic and climate/biome refinements
-- external_map_monitor.py — optional log monitor
-- outputs/1.0.0/ — example output images from version 1.0.0
-- EPIC_DIVERSE_MAP_GUIDE.md — general usage guide; this README reflects the authoritative behavior for v1.0.0
+Change log
+- See DESIGN.md (section: Change Log v1.0.0).
 
-Enjoy exploring truly diverse, large-scale worlds with coherent regions, believable corridors, and rich coastal/naval play.
+Next steps
+- Use DESIGN.md’s “Future Work and Modularization Plan” to begin extracting layers cleanly.
