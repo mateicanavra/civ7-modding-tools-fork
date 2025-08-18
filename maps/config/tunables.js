@@ -14,6 +14,7 @@
 export const STORY_ENABLE_HOTSPOTS = true;
 export const STORY_ENABLE_RIFTS = true;
 export const STORY_ENABLE_OROGENY = true;
+export const STORY_ENABLE_SWATCHES = true;
 
 // Tunables grouped by concern
 export const STORY_TUNABLES = Object.freeze({
@@ -50,6 +51,68 @@ export const STORY_TUNABLES = Object.freeze({
     }),
 
     // Microclimate adjustments (applied in climate refinement/feature layers)
+    swatches: Object.freeze({
+        // "Black swan" climate swatches — large, awe‑worthy zones (N≈1), guaranteed attempt.
+        // Selection is weighted; at least one swatch is attempted per map (forceAtLeastOne).
+        maxPerMap: 1,
+        forceAtLeastOne: true,
+
+        // Size-aware growth is handled by callers using widthMulSqrt/lengthMulSqrt on sqrt(area/base).
+        sizeScaling: Object.freeze({
+            widthMulSqrt: 0.3,
+            lengthMulSqrt: 0.4,
+        }),
+
+        // Per-swatch type weights and primary knobs. Callers implement the exact painting rules.
+        types: Object.freeze({
+            // Macro desert belt (Sahara/Arabia analog): dry subtropical band with soft edges.
+            macroDesertBelt: Object.freeze({
+                weight: 3,
+                latitudeCenterDeg: 20,
+                halfWidthDeg: 12,
+                drynessDelta: 28,
+                bleedRadius: 2,
+            }),
+
+            // Equatorial rain belt (Amazon/Congo analog): very wet equator with generous bleed.
+            equatorialRainbelt: Object.freeze({
+                weight: 3,
+                latitudeCenterDeg: 0,
+                halfWidthDeg: 10,
+                wetnessDelta: 24,
+                bleedRadius: 3,
+            }),
+
+            // Rainforest archipelago: scattered wet tropical islands and reefs.
+            rainforestArchipelago: Object.freeze({
+                weight: 2,
+                islandBias: 2,
+                reefBias: 1,
+                wetnessDelta: 18,
+                bleedRadius: 2,
+            }),
+
+            // Dense mountain forests (Carpathian-like): couple to orogeny windward.
+            mountainForests: Object.freeze({
+                weight: 2,
+                coupleToOrogeny: true,
+                windwardBonus: 6,
+                leePenalty: 2,
+                bleedRadius: 1,
+            }),
+
+            // Great Plains analog: broad lowland plains with restrained moisture.
+            greatPlains: Object.freeze({
+                weight: 2,
+                latitudeCenterDeg: 45,
+                halfWidthDeg: 8,
+                dryDelta: 12,
+                lowlandMaxElevation: 300,
+                bleedRadius: 2,
+            }),
+        }),
+    }),
+
     rainfall: Object.freeze({
         riftBoost: 8, // +humidity near rift lines (radius-limited; clamped)
         riftRadius: 2, // tiles around rift line to receive boost

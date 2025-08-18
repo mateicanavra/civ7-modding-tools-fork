@@ -36,6 +36,7 @@ import {
     storyTagRiftValleys,
     storyTagOrogenyBelts,
     storyTagContinentalMargins,
+    storyTagClimateSwatches,
 } from "./story/tagging.js";
 import {
     clamp as utilClamp,
@@ -290,6 +291,13 @@ function generateMap() {
     {
         const t = timeStart("Climate: Baseline");
         layerBuildEnhancedRainfall(iWidth, iHeight);
+        timeEnd(t);
+    }
+    {
+        const t = timeStart("Climate: Swatches");
+        // Paint one guaranteed macro climate swatch (black-swan) with soft edges
+        // Runs after baseline bands, before orogeny/rift refinements compound
+        storyTagClimateSwatches();
         timeEnd(t);
     }
 

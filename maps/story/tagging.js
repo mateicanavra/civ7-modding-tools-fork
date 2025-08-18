@@ -16,7 +16,7 @@
  */
 
 import { StoryTags } from "./tags.js";
-import { STORY_TUNABLES } from "../config/tunables.js";
+import { STORY_TUNABLES, STORY_ENABLE_SWATCHES } from "../config/tunables.js";
 import { inBounds, storyKey, isAdjacentToLand } from "../core/utils.js";
 
 /**
@@ -477,10 +477,180 @@ export function storyTagContinentalMargins() {
     };
 }
 
+// -------------------------------- Climate Swatches --------------------------------
+/**
+ * storyTagClimateSwatches — Paint one guaranteed macro swatch with soft edges.
+ * - Selects one swatch type (weighted) and applies rainfall deltas with gentle falloff.
+ * - Uses sqrt(area/base) to scale width/length modestly on large maps.
+ * - Keeps all adjustments clamped to [0, 200] and local (single O(W×H) pass).
+ *
+ * Swatch types (see STORY_TUNABLES.swatches.types):
+ *  - macroDesertBelt: subtract rainfall around ~20° lat with soft bleed.
+ *  - equatorialRainbelt: add rainfall around 0° lat with generous bleed.
+ *  - rainforestArchipelago: add rainfall near warm coasts/islands (tropics).
+ *  - mountainForests: add on orogeny windward, subtract a touch on lee.
+ *  - greatPlains: lowland mid-lat dry bias (broad plains feel).
+ */
+export function storyTagClimateSwatches() {
+    if (!STORY_ENABLE_SWATCHES) return { applied: false, kind: "disabled" };
+    const cfg = STORY_TUNABLES?.swatches;
+    if (!cfg) return { applied: false, kind: "missing-config" };
+
+    const width = GameplayMap.getGridWidth();
+    const height = GameplayMap.getGridHeight();
+    const area = Math.max(1, width * height);
+    const sqrtScale = Math.min(2.0, Math.max(0.6, Math.sqrt(area / 10000)));
+
+    // Helper clamp
+    const clamp = (v, lo, hi) => (v < lo ? lo : v > hi ? hi : v);
+
+    // Choose one type by weight
+    const types = cfg.types || {};
+    const entries = Object.keys(types).map((k) => ({
+        key: k,
+        w: Math.max(0, types[k].weight | 0),
+    }));
+    const totalW = entries.reduce((s, e) => s + e.w, 0) || 1;
+    let roll = TerrainBuilder.getRandomNumber(totalW, "SwatchType");
+    let chosenKey = entries[0]?.key || "macroDesertBelt";
+    for (const e of entries) {
+        if (roll < e.w) {
+            chosenKey = e.key;
+            break;
+        }
+        roll -= e.w;
+    }
+    const kind = chosenKey;
+    const t = types[chosenKey] || {};
+
+    // Scaling knobs
+    const widthMul = 1 + (cfg.sizeScaling?.widthMulSqrt || 0) * (sqrtScale - 1);
+    const lengthMul =
+        1 + (cfg.sizeScaling?.lengthMulSqrt || 0) * (sqrtScale - 1);
+
+    // Per-kind helpers
+    function latBandCenter() {
+        return t.latitudeCenterDeg ?? 0;
+    }
+    function halfWidthDeg() {
+        return Math.max(4, Math.round((t.halfWidthDeg ?? 10) * widthMul));
+    }
+    function degAt(y) {
+        return Math.abs(GameplayMap.getPlotLatitude(0, y));
+    }
+    function falloff(v, r) {
+        return Math.max(0, 1 - v / Math.max(1, r));
+    } // linear falloff 0..1
+
+    let applied = 0;
+
+    // Pass over map once; apply deltas per-kind with soft edges
+    for (let y = 0; y < height; y++) {
+        const latDeg = degAt(y);
+        for (let x = 0; x < width; x++) {
+            if (GameplayMap.isWater(x, y)) continue;
+            let rf = GameplayMap.getRainfall(x, y);
+            const elev = GameplayMap.getElevation(x, y);
+
+            if (kind === "macroDesertBelt") {
+                // Center at ~20°, subtract with falloff across halfWidthDeg and add tiny lee dryness
+                const center = latBandCenter(); // ~20
+                const hw = halfWidthDeg(); // ~12 → widened with size
+                const dDeg = Math.abs(latDeg - center);
+                const f = falloff(dDeg, hw);
+                if (f > 0) {
+                    const base = t.drynessDelta ?? 28;
+                    const bleed = t.bleedRadius ?? 2; // latitude-driven only; kept small
+                    // Lowlands dry more
+                    const lowlandBonus = elev < 250 ? 4 : 0;
+                    const delta = Math.round((base + lowlandBonus) * f);
+                    rf = clamp(rf - delta, 0, 200);
+                    applied++;
+                }
+            } else if (kind === "equatorialRainbelt") {
+                const center = latBandCenter(); // 0
+                const hw = halfWidthDeg(); // ~10 → wider on large
+                const dDeg = Math.abs(latDeg - center);
+                const f = falloff(dDeg, hw);
+                if (f > 0) {
+                    const base = t.wetnessDelta ?? 24;
+                    // Extra near coast
+                    let coastBoost = 0;
+                    if (GameplayMap.isCoastalLand(x, y)) coastBoost += 6;
+                    if (GameplayMap.isAdjacentToShallowWater(x, y))
+                        coastBoost += 4;
+                    const delta = Math.round((base + coastBoost) * f);
+                    rf = clamp(rf + delta, 0, 200);
+                    applied++;
+                }
+            } else if (kind === "rainforestArchipelago") {
+                // Tropics-only; require near coast or island-y zones
+                const fTropics = latDeg < 23 ? 1 : latDeg < 30 ? 0.5 : 0;
+                if (fTropics > 0) {
+                    let islandy = 0;
+                    if (GameplayMap.isCoastalLand(x, y)) islandy += 1;
+                    if (GameplayMap.isAdjacentToShallowWater(x, y))
+                        islandy += 0.5;
+                    if (islandy > 0) {
+                        const base = t.wetnessDelta ?? 18;
+                        const delta = Math.round(base * fTropics * islandy);
+                        rf = clamp(rf + delta, 0, 200);
+                        applied++;
+                    }
+                }
+            } else if (kind === "mountainForests") {
+                // Couple to orogeny windward if available; small lee penalty
+                const inWindward = !!(
+                    typeof OrogenyCache === "object" &&
+                    OrogenyCache.windward?.has?.(`${x},${y}`)
+                );
+                const inLee = !!(
+                    typeof OrogenyCache === "object" &&
+                    OrogenyCache.lee?.has?.(`${x},${y}`)
+                );
+                if (inWindward) {
+                    const base = t.windwardBonus ?? 6;
+                    const delta = base + (elev < 300 ? 2 : 0);
+                    rf = clamp(rf + delta, 0, 200);
+                    applied++;
+                } else if (inLee) {
+                    const base = t.leePenalty ?? 2;
+                    rf = clamp(rf - base, 0, 200);
+                    applied++;
+                }
+            } else if (kind === "greatPlains") {
+                // Mid-lat plains; prefer lowlands
+                const center = t.latitudeCenterDeg ?? 45;
+                const hw = Math.max(
+                    6,
+                    Math.round((t.halfWidthDeg ?? 8) * widthMul),
+                );
+                const dDeg = Math.abs(latDeg - center);
+                const f = falloff(dDeg, hw);
+                if (f > 0) {
+                    const dry = t.dryDelta ?? 12;
+                    if (elev <= (t.lowlandMaxElevation ?? 300)) {
+                        const delta = Math.round(dry * f);
+                        rf = clamp(rf - delta, 0, 200);
+                        applied++;
+                    }
+                }
+            }
+
+            if (applied > 0) {
+                TerrainBuilder.setRainfall(x, y, rf);
+            }
+        }
+    }
+
+    return { applied: applied > 0, kind, tiles: applied };
+}
+
 export default {
     storyTagHotspotTrails,
     storyTagRiftValleys,
     storyTagOrogenyBelts,
     storyTagContinentalMargins,
+    storyTagClimateSwatches,
     OrogenyCache,
 };
