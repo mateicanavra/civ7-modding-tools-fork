@@ -28,10 +28,10 @@
  * Flip selectively during development sessions; keep off for release builds.
  */
 export const DEV = {
-    ENABLED: false, // Master switch — must be true for any dev logging
-    LOG_TIMING: false, // Log per-section timings (timeSection / timeStart/timeEnd)
-    LOG_STORY_TAGS: false, // Log StoryTags summary counts
-    RAINFALL_HISTOGRAM: false, // Log a coarse rainfall histogram (non-water tiles only)
+    ENABLED: true, // Master switch — must be true for any dev logging
+    LOG_TIMING: true, // Log per-section timings (timeSection / timeStart/timeEnd)
+    LOG_STORY_TAGS: true, // Log StoryTags summary counts
+    RAINFALL_HISTOGRAM: true, // Log a coarse rainfall histogram (non-water tiles only)
     LAYER_COUNTS: false, // Reserved for layer-specific counters (if used by callers)
 };
 

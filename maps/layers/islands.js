@@ -30,7 +30,7 @@ export function addIslandChains(iWidth, iHeight) {
     FractalBuilder.create(globals.g_HillFractal, iWidth, iHeight, 5, 0);
     const threshold = FractalBuilder.getHeightFromPercent(
         globals.g_HillFractal,
-        92,
+        90,
     );
 
     // Tunables for hotspot classification and cone “peeking”
@@ -42,7 +42,7 @@ export function addIslandChains(iWidth, iHeight) {
             100,
             Math.round(
                 (STORY_TUNABLES?.hotspot?.volcanicPeakChance ?? 0.33) * 100,
-            ),
+            ) + 10,
         ),
     );
 
@@ -79,14 +79,14 @@ export function addIslandChains(iWidth, iHeight) {
             }
 
             // Base sparse placement vs. hotspot- and margin-biased placement
-            const baseIslandDen = nearActive ? 6 : 8; // slightly more islands along active margins
+            const baseIslandDen = nearActive ? 5 : 7; // slightly more islands along active margins
             const baseAllowed =
                 v > threshold &&
                 TerrainBuilder.getRandomNumber(baseIslandDen, "Island Seed") ===
                     0;
             const hotspotAllowed =
                 isHotspot &&
-                TerrainBuilder.getRandomNumber(3, "Hotspot Island Seed") === 0;
+                TerrainBuilder.getRandomNumber(2, "Hotspot Island Seed") === 0;
 
             if (!(baseAllowed || hotspotAllowed)) continue;
 
@@ -129,7 +129,7 @@ export function addIslandChains(iWidth, iHeight) {
             }
 
             // Create a tiny cluster around the center (smaller for hotspot-biased)
-            const maxCluster = isHotspot ? 2 : 3;
+            const maxCluster = isHotspot ? 3 : 3;
             const count =
                 1 + TerrainBuilder.getRandomNumber(maxCluster, "Island Size");
 

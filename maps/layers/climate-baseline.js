@@ -44,7 +44,7 @@ export function buildEnhancedRainfall(iWidth, iHeight) {
         2.0,
         Math.max(0.6, Math.sqrt(Math.max(1, iWidth * iHeight) / BASE_AREA)),
     );
-    const equatorPlus = Math.round(8 * (sqrt - 1)); // +0..+8 on very large maps
+    const equatorPlus = Math.round(12 * (sqrt - 1)); // +0..+12 on very large maps
     const noiseSpan = sqrt > 1 ? 4 : 3; // ±3 → ±4 on larger maps
     for (let y = 0; y < iHeight; y++) {
         for (let x = 0; x < iWidth; x++) {
@@ -56,8 +56,8 @@ export function buildEnhancedRainfall(iWidth, iHeight) {
 
             // Band target by absolute latitude
             let bandRain = 0;
-            if (lat < 10) bandRain = 115 + equatorPlus;
-            else if (lat < 20) bandRain = 100 + Math.floor(equatorPlus * 0.5);
+            if (lat < 10) bandRain = 120 + equatorPlus;
+            else if (lat < 20) bandRain = 104 + Math.floor(equatorPlus * 0.6);
             else if (lat < 35) bandRain = 75;
             else if (lat < 55) bandRain = 70;
             else if (lat < 70) bandRain = 60;
@@ -71,9 +71,9 @@ export function buildEnhancedRainfall(iWidth, iHeight) {
             if (elevation > 600) currentRainfall += 7;
 
             // Local water humidity: coast and shallow-water adjacency
-            if (GameplayMap.isCoastalLand(x, y)) currentRainfall += 18;
+            if (GameplayMap.isCoastalLand(x, y)) currentRainfall += 24;
             if (GameplayMap.isAdjacentToShallowWater(x, y))
-                currentRainfall += 12;
+                currentRainfall += 16;
 
             // Light noise to avoid striping/banding artifacts (size-aware jitter)
             currentRainfall +=

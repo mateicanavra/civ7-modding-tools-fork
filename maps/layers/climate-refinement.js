@@ -82,9 +82,9 @@ function hasUpwindBarrier(x, y, dx, dy, steps) {
  * @param {number} iHeight
  */
 export function refineRainfallEarthlike(iWidth, iHeight) {
-    // Pass A: coastal and lake humidity gradient (decays with distance up to 4)
+    // Pass A: coastal and lake humidity gradient (decays with distance up to 5)
     {
-        const maxR = 4;
+        const maxR = 5;
         for (let y = 0; y < iHeight; y++) {
             for (let x = 0; x < iWidth; x++) {
                 if (GameplayMap.isWater(x, y)) continue;
@@ -93,8 +93,8 @@ export function refineRainfallEarthlike(iWidth, iHeight) {
                 if (dist >= 0) {
                     // Closer to water -> more humidity; stronger if also low elevation
                     const elev = GameplayMap.getElevation(x, y);
-                    let bonus = Math.max(0, maxR - dist) * 4;
-                    if (elev < 150) bonus += 2;
+                    let bonus = Math.max(0, maxR - dist) * 5; // +1 per ring vs. before
+                    if (elev < 150) bonus += 3; // slightly more bleed on lowlands
 
                     const rf = GameplayMap.getRainfall(x, y);
                     TerrainBuilder.setRainfall(x, y, clamp(rf + bonus, 0, 200));

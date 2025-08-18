@@ -176,15 +176,15 @@ function generateMap() {
     // Landmass approach – 3 vertical bands, slightly narrower to widen oceans
     let landmass1 = {
         west: Math.floor(iOceanWaterColumns),
-        east: Math.floor(iWidth * 0.25) - Math.floor(iOceanWaterColumns * 0.5),
+        east: Math.floor(iWidth * 0.3) - Math.floor(iOceanWaterColumns * 0.35),
         south: globals.g_PolarWaterRows,
         north: iHeight - globals.g_PolarWaterRows,
         continent: 0,
     };
 
     let landmass2 = {
-        west: Math.floor(iWidth * 0.38) + Math.floor(iOceanWaterColumns * 0.35),
-        east: Math.floor(iWidth * 0.62) - Math.floor(iOceanWaterColumns * 0.35),
+        west: Math.floor(iWidth * 0.35) + Math.floor(iOceanWaterColumns * 0.25),
+        east: Math.floor(iWidth * 0.6) - Math.floor(iOceanWaterColumns * 0.25),
         south: globals.g_PolarWaterRows,
         north: iHeight - globals.g_PolarWaterRows,
         continent: 1,
@@ -216,7 +216,12 @@ function generateMap() {
         timeEnd(t);
     }
 
-    // Add post-processing to make coasts more rugged and place a few islands
+    // Reset StoryTags and tag continental margins before coast shaping
+    resetStoryTags();
+    console.log("Imprinting continental margins (active/passive)...");
+    storyTagContinentalMargins();
+
+    // Add post-processing to make coasts more rugged (margin-aware) and place a few islands
     {
         const t = timeStart("RuggedCoasts");
         layerAddRuggedCoasts(iWidth, iHeight);
@@ -239,8 +244,7 @@ function generateMap() {
         console.log("Tagging orogenic belts...");
         storyTagOrogenyBelts();
     }
-    console.log("Imprinting continental margins (active/passive)...");
-    storyTagContinentalMargins();
+    // Continental margins already tagged before coast shaping
 
     devLogIf("LOG_STORY_TAGS", "StoryTags summary follows");
     logStoryTagsSummary(StoryTags);
