@@ -370,6 +370,26 @@ export const MAP_CONFIG = Object.freeze({
             currentHumidityBias: 0.4, // scales coastal humidity tweak from currents
             boundaryFjordBias: 0.3, // scales fjord/bay bias near convergent boundaries
             shelfReefBias: 0.2, // scales passive-shelf reef bias (validated in features)
+
+            // Ocean separation policy (plate-aware; consumed by landmass/coast shaping)
+            oceanSeparation: Object.freeze({
+                enabled: false, // default off until consumer layer is wired
+                // Which continent band pairs to bias apart (0-based indices used by orchestrator):
+                // Use [] to disable, or [[0,1],[1,2]] to bias both left–middle and middle–right bands.
+                bandPairs: Object.freeze([
+                    [0, 1],
+                    [1, 2],
+                ]),
+                // Base lateral push (tiles) applied pre-coast expansion; positive widens oceans
+                baseSeparationTiles: 2,
+                // Multiplier (0..2) scaling separation near high WorldModel.boundaryCloseness
+                boundaryClosenessMultiplier: 1.0,
+                // Maximum absolute separation delta per row to preserve robust sea lanes
+                maxPerRowDelta: 3,
+                // Respect strategic sea lanes and enforce minimum channel width
+                respectSeaLanes: true,
+                minChannelWidth: 4,
+            }),
         }),
     }),
     // --- Landmass (base land/ocean and shaping) ---

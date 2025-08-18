@@ -17,7 +17,11 @@
  */
 
 import * as globals from "/base-standard/maps/map-globals.js";
-import { LANDMASS_CFG } from "../config/tunables.js";
+import {
+    LANDMASS_CFG,
+    WORLDMODEL_OCEAN_SEPARATION,
+} from "../config/tunables.js";
+import { WorldModel } from "../world/model.js";
 
 /**
  * Create continental landmasses with organic variation.
@@ -74,6 +78,72 @@ export function createDiverseLandmasses(iWidth, iHeight, landmasses) {
         : 0.05;
     const curveAmp = Math.floor(iWidth * curveAmpFrac * sqrtScale);
 
+    // Plate-aware ocean separation: derive per-row band shifts from WorldModel boundary closeness (optional)
+    const sepCfg = WORLDMODEL_OCEAN_SEPARATION || {};
+    const sepEnabled =
+        !!sepCfg.enabled &&
+        !!(
+            WorldModel &&
+            typeof WorldModel.isEnabled === "function" &&
+            WorldModel.isEnabled()
+        ) &&
+        !!WorldModel.boundaryCloseness;
+    const rowShifts = new Array(landmasses.length);
+    for (let k = 0; k < landmasses.length; k++)
+        rowShifts[k] = new Int16Array(iHeight);
+
+    if (sepEnabled) {
+        const BC = WorldModel.boundaryCloseness;
+        const pairs = Array.isArray(sepCfg.bandPairs)
+            ? sepCfg.bandPairs
+            : [
+                  [0, 1],
+                  [1, 2],
+              ];
+        const baseSep = Math.max(0, sepCfg.baseSeparationTiles | 0 || 0);
+        const mult = Math.max(
+            0,
+            Number.isFinite(sepCfg.boundaryClosenessMultiplier)
+                ? sepCfg.boundaryClosenessMultiplier
+                : 1.0,
+        );
+        const maxDelta = Math.max(0, sepCfg.maxPerRowDelta | 0 || 3);
+
+        for (const p of pairs) {
+            const li = Array.isArray(p) ? p[0] | 0 : -1;
+            const ri = Array.isArray(p) ? p[1] | 0 : -1;
+            if (
+                li < 0 ||
+                ri < 0 ||
+                li >= landmasses.length ||
+                ri >= landmasses.length
+            )
+                continue;
+            const left = landmasses[li];
+            const right = landmasses[ri];
+
+            for (let y = 0; y < iHeight; y++) {
+                // Approximate mid-gap sample between band bounds on this row
+                const midX = Math.max(
+                    0,
+                    Math.min(
+                        iWidth - 1,
+                        Math.floor((left.east + right.west) / 2),
+                    ),
+                );
+                const i = y * iWidth + midX;
+                const clos = BC[i] | 0;
+                const f = clos / 255; // 0..1
+                let sep = baseSep + Math.round(f * mult * baseSep);
+                if (sep > maxDelta) sep = maxDelta;
+                if (sep < 0) sep = 0;
+
+                rowShifts[li][y] -= sep; // push left band left
+                rowShifts[ri][y] += sep; // push right band right
+            }
+        }
+    }
+
     for (let iY = 0; iY < iHeight; iY++) {
         for (let iX = 0; iX < iWidth; iX++) {
             let terrain = globals.g_OceanTerrain;
@@ -97,7 +167,12 @@ export function createDiverseLandmasses(iWidth, iHeight, landmasses) {
                     curveAmp * Math.sin(Math.PI * t + landmass.continent * 0.7),
                 );
 
-                const shift = sinOffset + Math.floor(noise * 0.5) + curve;
+                const bandIdx = landmass.continent | 0;
+                const sepRowShift = sepEnabled
+                    ? rowShifts[bandIdx]?.[iY] | 0
+                    : 0;
+                const shift =
+                    sinOffset + Math.floor(noise * 0.5) + curve + sepRowShift;
                 const widthDelta = Math.floor(noise * 0.3);
 
                 const westY = Math.max(
