@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <Database>
 	<EnglishText>
 		<Row Tag="LOC_MAP_EPIC_DIVERSE_HUGE_NAME">
 			<Text>Epic Diverse Huge</Text>
 		</Row>
 		<Row Tag="LOC_MAP_EPIC_DIVERSE_HUGE_DESCRIPTION">
-			<Text>Produces massive diverse continents with cliffs, extensive inland lakes, coastal regions, mountain ranges, dense jungles, tundra expanses, and maximum terrain variety. Perfect for huge epic games with all biomes and features.</Text>
+			<Text
+            >Generates large, organic worlds with three continental bands and true oceans, ruggedized coasts and small island chains, and climate-aware rainfall refined by prevailing winds, orographic rain shadows, river corridors, and basin wetness. Biomes are gently nudged for playability (tropical coasts near the equator, greener temperate river valleys, restrained tundra). Compatible with base wonders, resources, and features; tuned for Huge maps.</Text>
 		</Row>
 	</EnglishText>
 </Database>

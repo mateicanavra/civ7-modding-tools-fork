@@ -1,113 +1,109 @@
-# Epic Diverse Map Generator - Crash Diagnostic & Fix
+# Epic Diverse Map Generator — Diagnostic Guide (v1.0.0)
 
-## 🔍 **Analysis: Map Generation Succeeds, Crash Occurs Later**
+Scope
+- This guide helps diagnose issues where the game crashes or returns to menu after map generation.
+- It reflects the current v1.0.0 design: no aggressive cliff systems, mountains/lakes primarily from base generators, and slightly increased natural wonders (+1 vs. map defaults).
 
-Based on the logs, **your map generation script is working perfectly**! The crash is happening **after** map generation completes, likely during game initialization.
+Summary
+- In v1.0.0, generation relies heavily on the base systems for elevation/hills/lakes/wonders/resources/biomes and then applies gentle climate/biome refinements.
+- Most failures observed in practice are due to configuration mismatches, mod conflicts, or environment issues—not the terrain algorithms themselves.
 
-## 📊 **What the Logs Show:**
+Common Symptoms
+- Generation logs report successful terrain/feature/biome passes, but the game exits or returns to the setup screen after “Generate Map.”
+- Starts are assigned, but the session fails to launch.
+- No obvious JavaScript errors appear in logs, or errors are unrelated to generation passes.
 
-✅ **Map generation SUCCEEDS:**
-- Script loads correctly
-- All terrain generation phases complete
-- Natural wonders place successfully
-- Features and biomes work correctly
-- No JavaScript errors during generation
+Quick Checklist (Do These First)
+1) Run on Huge map size (this mapgen is tuned for Huge).
+2) Disable other heavy map or terrain mods temporarily.
+3) Reduce player count and/or city-state count to verify capacity.
+4) Restart the game after enabling/disabling mods.
+5) Confirm the mod is in the user mods directory.
 
-❌ **Crash occurs AFTER map generation** during game startup
+Map Configuration Verification
+The script expects certain fields from the map database entry. Ensure your map row provides these (names must match the game’s schema). In particular, v1.0.0 reads:
+- NumNaturalWonders (baseline; script adds +1 at runtime)
+- LakeGenerationFrequency
+- PlayersLandmass1, PlayersLandmass2
+- StartSectorRows, StartSectorCols (if applicable in your build)
 
-## 🛠️ **Most Likely Causes & Fixes:**
-
-### **1. Map Size Mismatch (Most Common)**
-
-The game may be trying to place more players than your custom landmasses can support.
-
-**Fix:** Update your map configuration to properly handle player counts:
-
-```javascript
-// In epic-diverse-huge.js, modify this function:
-function assignEnhancedStartPositions(iNumPlayers1, iNumPlayers2, landmasses) {
-    console.log("Assigning enhanced start positions across diverse landmasses...");
-    console.log("Players requested: " + (iNumPlayers1 + iNumPlayers2));
-    console.log("Landmasses available: " + landmasses.length);
-    
-    // Ensure we don't exceed available landmasses
-    let actualPlayers1 = Math.min(iNumPlayers1, landmasses.length * 2);
-    let actualPlayers2 = Math.min(iNumPlayers2, landmasses.length * 2);
-    
-    console.log("Adjusted players: " + actualPlayers1 + " + " + actualPlayers2);
-    
-    // Use the first two landmasses with proper bounds checking
-    return assignStartPositions(actualPlayers1, actualPlayers2, landmasses[0], landmasses[1], 0, 0, []);
-}
-```
-
-### **2. Missing Map Size Configuration**
-
-The log shows: `"Using default map size for resource placement, please update the table for this map type"`
-
-**Fix:** Add this to your `config/config.xml`:
-
-```xml
+Example map row (adjust attributes as appropriate for your build):
 <Maps>
-    <Row File="{epic-diverse-huge-map}maps/epic-diverse-huge.js" 
-         Name="LOC_MAP_EPIC_DIVERSE_HUGE_NAME" 
-         Description="LOC_MAP_EPIC_DIVERSE_HUGE_DESCRIPTION" 
-         SortIndex="100"
-         DefaultSize="5"
-         MinSize="3"
-         MaxSize="6"
-         LakeGenerationFrequency="30"
-         NumNaturalWonders="12"
-         PlayersLandmass1="6" 
-         PlayersLandmass2="6"/>
+  <Row
+    File="{epic-diverse-huge-map}maps/epic-diverse-huge.js"
+    Name="LOC_MAP_EPIC_DIVERSE_HUGE_NAME"
+    Description="LOC_MAP_EPIC_DIVERSE_HUGE_DESCRIPTION"
+    SortIndex="100"
+    DefaultSize="5"
+    MinSize="3"
+    MaxSize="6"
+    LakeGenerationFrequency="30"
+    NumNaturalWonders="10"
+    PlayersLandmass1="6"
+    PlayersLandmass2="6"
+    StartSectorRows="3"
+    StartSectorCols="4"
+  />
 </Maps>
-```
 
-### **3. Potential Memory/Performance Issue**
+Notes:
+- The script sets iNumNaturalWonders = max(mapInfo.NumNaturalWonders + 1, mapInfo.NumNaturalWonders).
+- LakeGenerationFrequency is consumed by the base generator; v1.0.0 uses moderated lakes.
+- PlayersLandmass1/PlayersLandmass2 and sector rows/cols should be consistent with the target player count.
 
-Your map creates **very complex terrain**. This might cause memory issues on some systems.
+Start Placement Constraints
+- If you request more players than the configured landmasses/start sectors support, start assignment can fail in non-obvious ways.
+- For a quick sanity check:
+  - Try 6–8 players on Huge first.
+  - Avoid additional map scripts that override start placement simultaneously.
+  - Confirm human-player-near-equator logic is allowed by your settings.
 
-**Quick Fix - Simplified Version:**
+Base Module Availability
+- This script imports core/base “standard” generation modules at runtime (elevation, rainfall base map, biomes, resources, wonders, snow, etc.).
+- Ensure the base modules referenced by the imports are available and loaded in your environment.
+- If a base module path is incorrect or the module is disabled, generation may appear to succeed but fail later.
 
-If the crash persists, try this minimal test version first.
+Monitoring and Logs
+- The map script prints clear phase markers (e.g., “Building enhanced rainfall patterns...”, “Creating enhanced biome diversity...”, “Adding diverse terrain features...”).
+- Optional JSON start/complete logs (commented out by default) can make troubleshooting easier:
+  - Search for EPIC_MAP_GEN_START and EPIC_MAP_GEN_COMPLETE in the script and uncomment the console.log blocks.
+  - Use the included Python monitor script (external_map_monitor.py) to tail and summarize.
+- If these events log successfully yet a crash occurs afterward, the issue is most likely outside the terrain/feature passes (e.g., configuration, content conflicts, or post-gen initialization).
 
-## 🔧 **Applied Fixes:**
+Minimal Repro Steps (to isolate mod conflicts)
+1) Enable only Epic Diverse Huge and core/base modules. Disable other map/terrain-altering mods.
+2) Use Huge size, 6–8 players, standard speed.
+3) Try a few different seeds (or default/random) to rule out seed-specific anomalies.
+4) If stable, re-enable additional mods incrementally to identify conflicts.
 
-### ✅ **Fix 1: Updated Map Configuration**
-Added proper map size parameters to `config/config.xml`:
-- `DefaultSize="5"` (Huge)
-- `PlayersLandmass1="6"` and `PlayersLandmass2="6"`
-- Proper lake and natural wonder counts
+Environment Considerations
+- Memory/CPU pressure can surface on large scripts/maps with many concurrent mods. If you suspect resource issues:
+  - Close background apps.
+  - Temporarily reduce the number of AI players or city-states.
+  - Keep island/coastline-heavy mods disabled while testing.
 
-### ✅ **Fix 2: Enhanced Player Assignment**
-Improved `assignEnhancedStartPositions()` with:
-- Player count validation and bounds checking
-- Landmass availability verification
-- Fallback handling for edge cases
-- Detailed logging for debugging
+What Not To Change (v1.0.0)
+- Do not re-enable aggressive cliff systems or add heavy global mountain amplification; these were intentionally removed for stability and playability.
+- Avoid large global multipliers for lakes or rivers; v1.0.0 is tuned around base behavior plus climate/biome refinements.
 
-### ✅ **Fix 3: Memory Optimization**
-Your map script already uses efficient algorithms, but if crashes persist:
-- Reduce cliff generation threshold: Change `cliffScore > 800` to `cliffScore > 900`
-- Reduce lake density: Change `iTilesPerLakeBase / 2` to `iTilesPerLakeBase / 1.5`
-- Simplify mountain chains: Reduce the extra mountain generation complexity
+If Problems Persist
+- Verify the exact attributes your build expects in the map database row; some builds gate certain fields differently.
+- Test a vanilla map type to confirm your base environment is stable.
+- Re-check the mod load order and make sure there aren’t duplicate map type names clashing with other mods.
+- Collect the log segment from map generation through to the failure point; include the visible phase markers and any subsequent errors when asking for help.
 
-## 🧪 **Testing Steps:**
+Expected v1.0.0 Behavior (for reference)
+- Landmasses: three organic continental bands with true oceans.
+- Coasts/Islands: lightly ruggedized coasts; small deep-water island clusters that preserve sea lanes.
+- Climate: base rainfall blended with latitude bands, then refined with coastal/lake humidity, prevailing-wind orographic shadows, river-corridor greening, and low-basin wetness.
+- Biomes/Features: base pass + gentle nudges toward tropical coasts (near equator, wet), temperate river grasslands, and restrained tundra; validated feature density increases for rainforest/forest/taiga.
+- Wonders: +1 vs. map defaults.
+- Lakes: moderated (not “tripled”).
+- Starts: chosen with the compatible standard method.
 
-1. **Restart Civilization VII** completely
-2. **Create a new game** with:
-   - Your "Epic Diverse Huge" map
-   - **Huge map size** (most important!)
-   - **6-8 players maximum**
-   - Standard difficulty settings
-3. **Monitor the external script**:
-   ```bash
-   cd ~/Library/Application\ Support/Civilization\ VII/Mods/epic-diverse-huge-map/
-   python3 external_map_monitor.py
-   ```
-4. **Check logs** if it still crashes
-
-## 🚑 **Emergency Minimal Version:**
-
-If crashes continue, create this minimal test version by editing your JavaScript file:
-
+Contact/Next Steps
+- If you share logs, include:
+  - Map size and player count
+  - The relevant console markers (phase messages, optional JSON start/complete if enabled)
+  - Any errors after “Generate Map” completes
+- We can then correlate failures with config, environment, or post-gen steps and suggest precise fixes.

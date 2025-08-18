@@ -1,159 +1,93 @@
-# Epic Diverse Map Generator - Terrain &amp; Feature Type Verification
+# Epic Diverse Huge Map Generator — Terrain and Feature Verification (v1.0.0)
 
-## ✅ VERIFICATION COMPLETE - ALL TYPES ARE VALID!
+Purpose
+- Document what this script sets directly vs. what it delegates to the base generators.
+- Clarify the terrain, biome, and feature types referenced by the script, and how placement is validated at runtime.
+- Remove outdated claims from earlier drafts (e.g., “aggressive cliffs,” “tripled lakes,” “doubled wonders”).
 
-I've cross-referenced all terrain and feature types used in the Epic Diverse Huge Map Generator against the official Civilization VII XML definitions. Here's the complete analysis:
+Scope
+- Version: 1.0.0
+- Target: Civilization VII (Huge maps prioritized)
+- Dependencies: Base-standard map generation modules provided by the game/core modules at runtime
 
----
+Summary of actual behavior in v1.0.0
+- Landform:
+  - Three-band continental layout with true oceans; coastlines ruggedized; small deep-water island clusters.
+- Elevation/Water:
+  - Mountains, hills, volcanoes, rivers, and lakes come primarily from the base generators.
+  - Lakes are moderated vs. earlier experiments (not “3x”).
+- Climate/Regions:
+  - Two-phase rainfall: base + latitude bands, then earthlike refinements (coastal/lake humidity gradients, prevailing-wind orographic shadows, river-corridor and low-basin wetness).
+- Biomes/Features:
+  - Base biome and feature passes run first.
+  - Script performs restrained biome nudges and targeted feature density increases, validated by engine checks.
+- Wonders:
+  - Natural wonders are slightly increased relative to map defaults (+1), not doubled.
 
-## 🏔️ **TERRAIN TYPES USED**
+What this script sets directly
+- Terrain types (explicit set operations by this script):
+  - globals.g_OceanTerrain
+  - globals.g_CoastTerrain
+  - globals.g_FlatTerrain
+  - Notes:
+    - Mountains/Hills/Volcanoes are not directly set here; they are added by base generators (`addMountains`, `addHills`, `addVolcanoes`).
+    - Rivers are modeled/defined via base calls (`TerrainBuilder.modelRivers`, `TerrainBuilder.defineNamedRivers`).
+    - Navigability parameters are passed using `globals.g_NavigableRiverTerrain`.
+- Rainfall:
+  - The script calls the base rainfall builder, blends with latitude bands, then refines post-rivers.
+  - Rainfall values are clamped to [0, 200] in all passes.
+- Biomes (post-base nudges):
+  - globals.g_TundraBiome — applied only at very high latitude or extreme elevation when rainfall is low.
+  - globals.g_TropicalBiome — encouraged on warm, wet, equator-adjacent coasts.
+  - globals.g_GrasslandBiome — favored along warm/temperate river valleys with sufficient rainfall.
+- Features (post-base additions):
+  - FEATURE_RAINFOREST — in very wet tropical areas.
+  - FEATURE_FOREST — in wetter temperate grasslands.
+  - FEATURE_TAIGA — in cold tundra at lower elevations.
 
-### ✅ **All Valid - Found in `Base/modules/base-standard/data/terrain.xml`**
+Validation and safety guarantees
+- Feature placement is always gated by the engine:
+  - The script checks `TerrainBuilder.canHaveFeature(iX, iY, featureId)` before calling `TerrainBuilder.setFeatureType`.
+- Feature type resolution is data-driven:
+  - `GameInfo.Features.lookup(name)` → `$index` or no result.
+  - If lookup fails, the code returns `-1` and skips placement.
+- Biome assignment uses engine constants and applies only when the tile is land and passes climate/latitude/elevation thresholds.
+- Terrain operations include bounds checks on all neighborhood scans (coasts, islands, rainfall refinement, water-distance, etc.).
+- Rainfall and related calculations are clamped (0–200) to avoid out-of-range states.
+- Orographic barrier detection is robust:
+  - Uses `GameplayMap.isMountain(nx, ny)` when available; otherwise falls back to elevation thresholds (e.g., ≥500) to infer a barrier.
 
-| **Script Usage** | **XML Definition** | **Status** |
-|------------------|-------------------|------------|
-| `globals.g_OceanTerrain` | `TERRAIN_OCEAN` | ✅ **VALID** |
-| `globals.g_FlatTerrain` | `TERRAIN_FLAT` | ✅ **VALID** |
-| `globals.g_MountainTerrain` | `TERRAIN_MOUNTAIN` | ✅ **VALID** |
-| `globals.g_CoastTerrain` | `TERRAIN_COAST` | ✅ **VALID** |
-| `globals.g_NavigableRiverTerrain` | `TERRAIN_NAVIGABLE_RIVER` | ✅ **VALID** |
+Dependencies and assumptions
+- The following identifiers are provided by base-standard modules at runtime:
+  - Terrain constants: `globals.g_OceanTerrain`, `globals.g_CoastTerrain`, `globals.g_FlatTerrain`, `globals.g_NavigableRiverTerrain`
+  - Biome constants: `globals.g_TundraBiome`, `globals.g_TropicalBiome`, `globals.g_GrasslandBiome`
+  - Feature names: `"FEATURE_RAINFOREST"`, `"FEATURE_FOREST"`, `"FEATURE_TAIGA"`
+- Base generators handle:
+  - Coast expansion, mountains, hills, volcanoes, baseline rainfall map, lake generation, base biomes, base features, resources, snow, floodplains, natural wonders, and discovery sites.
+- If a referenced feature or biome is not present in the active data set, the script’s validation/lookup logic prevents invalid placement.
 
----
+Known non-goals (v1.0.0)
+- No custom cliff system or aggressive cliff proliferation.
+- No direct mountain placement or heavy mountain chaining beyond base behavior.
+- No “tripled” lake density; lakes are tuned for balance within the three-band landmass layout.
+- No hardcoded numeric feature IDs; all feature types are resolved via the game database.
 
-## 🌿 **FEATURE TYPES USED**
+Runtime verification checklist (how to confirm in your environment)
+- Ensure the base-standard modules are available (they provide terrain/biome/feature definitions and the base generators).
+- Enable the map, start a Huge game, and confirm:
+  - Oceans separate three main land bands with organic coastlines.
+  - Rivers exist and named rivers are defined; green corridors appear plausibly in warm/temperate zones.
+  - Drier leeward regions exist behind mountain barriers appropriate to the latitude’s prevailing winds.
+  - Tropical coasts near the equator appear where rainfall is high; tundra is restrained to extreme latitude/elevation and low rainfall.
+- Optional: Uncomment the JSON “start/complete” logs in the script to aid monitoring.
+- Optional: Temporarily enable the script’s commented debug dumps for rainfall/biomes/elevation while testing locally.
 
-### ✅ **All Valid - Found in XML `&lt;Features&gt;` Section**
+Change log vs. earlier drafts
+- Removed references to “extensive cliff systems,” heavy mountain amplification, and “tripled” lakes.
+- Clarified that wonders are slightly increased (+1 vs. defaults), not doubled.
+- Emphasized compatibility-first design: base systems lead; script applies gentle climate/biome refinements and validated feature adjustments.
 
-| **Script Usage** | **XML Definition** | **Biome Compatibility** | **Status** |
-|------------------|-------------------|------------------------|------------|
-| `"FEATURE_RAINFOREST"` | `FEATURE_RAINFOREST` | `BIOME_TROPICAL` | ✅ **VALID** |
-| `"FEATURE_FOREST"` | `FEATURE_FOREST` | `BIOME_GRASSLAND` | ✅ **VALID** |
-| `"FEATURE_TAIGA"` | `FEATURE_TAIGA` | `BIOME_TUNDRA` | ✅ **VALID** |
-
----
-
-## 🌍 **BIOME TYPES USED**
-
-### ✅ **All Valid - Found in XML `&lt;Biomes&gt;` Section**
-
-| **Script Usage** | **XML Definition** | **Valid Terrains** | **Status** |
-|------------------|-------------------|-------------------|------------|
-| `globals.g_TropicalBiome` | `BIOME_TROPICAL` | Mountain, Hill, Flat | ✅ **VALID** |
-| `globals.g_GrasslandBiome` | `BIOME_GRASSLAND` | Mountain, Hill, Flat | ✅ **VALID** |
-| `globals.g_TundraBiome` | `BIOME_TUNDRA` | Mountain, Hill, Flat | ✅ **VALID** |
-
----
-
-## 🎯 **DETAILED COMPATIBILITY ANALYSIS**
-
-### **FEATURE_RAINFOREST** - ✅ PERFECTLY MATCHED
-- **Script Logic**: Applied in `biome == globals.g_TropicalBiome && rainfall > 140`
-- **XML Rules**: `&lt;Row FeatureType="FEATURE_RAINFOREST" BiomeType="BIOME_TROPICAL"/&gt;`
-- **Terrain**: `&lt;Row FeatureType="FEATURE_RAINFOREST" TerrainType="TERRAIN_FLAT"/&gt;`
-- **✅ Result**: Script correctly applies rainforests to tropical flat terrain
-
-### **FEATURE_FOREST** - ✅ PERFECTLY MATCHED  
-- **Script Logic**: Applied in `biome == globals.g_GrasslandBiome && rainfall > 100`
-- **XML Rules**: `&lt;Row FeatureType="FEATURE_FOREST" BiomeType="BIOME_GRASSLAND"/&gt;`
-- **Terrain**: `&lt;Row FeatureType="FEATURE_FOREST" TerrainType="TERRAIN_FLAT"/&gt;`
-- **✅ Result**: Script correctly applies forests to grassland flat terrain
-
-### **FEATURE_TAIGA** - ✅ PERFECTLY MATCHED
-- **Script Logic**: Applied in `biome == globals.g_TundraBiome && elevation < 300`
-- **XML Rules**: `&lt;Row FeatureType="FEATURE_TAIGA" BiomeType="BIOME_TUNDRA"/&gt;`
-- **Terrain**: `&lt;Row FeatureType="FEATURE_TAIGA" TerrainType="TERRAIN_FLAT"/&gt;`
-- **✅ Result**: Script correctly applies taiga to tundra flat terrain
-
----
-
-## 🔧 **SCRIPT SAFETY FEATURES**
-
-### ✅ **Feature Validation Built-in**
-```javascript
-if (TerrainBuilder.canHaveFeature(iX, iY, featureParam.Feature)) {
-    TerrainBuilder.setFeatureType(iX, iY, featureParam);
-}
-```
-- Script checks compatibility before placing each feature
-- Uses official `TerrainBuilder.canHaveFeature()` validation
-- Prevents invalid terrain/biome/feature combinations
-
-### ✅ **Dynamic Feature Lookup**
-```javascript
-function getFeatureTypeIndex(name) {
-    let def = GameInfo.Features.lookup(name);
-    if (def) {
-        return def.$index;
-    }
-    return -1;
-}
-```
-- Features are looked up dynamically from game database
-- Returns -1 if feature doesn't exist (safe fallback)
-- Uses official GameInfo API
-
----
-
-## 🌟 **ENHANCED FEATURES ADDED**
-
-### **Intelligent Biome Assignment**
-- **Elevation-based**: High elevations (>300m) → Tundra biome
-- **Coastal logic**: Tropical coasts with high rainfall → Enhanced tropical features
-- **River valleys**: Adjacent to rivers → Grassland biomes
-
-### **Advanced Rainfall System**
-- **Coastal bonus**: +30 rainfall for coastal areas
-- **Lake proximity**: +20 rainfall near water bodies  
-- **Mountain effect**: +25 rainfall for high elevations (>400m)
-
-### **Multiple Terrain Layers**
-- **Cliff systems**: Fractal-based cliff generation using elevation modifications
-- **Enhanced mountains**: Chained mountain generation for realistic ranges
-- **Extensive lakes**: 3x normal lake density in low-elevation areas
-
----
-
-## 🚀 **PERFORMANCE &amp; COMPATIBILITY**
-
-### ✅ **Uses Official APIs**
-- All terrain operations use `TerrainBuilder` class
-- All biome operations use official biome constants from `globals`
-- All feature placement uses `GameInfo.Features.lookup()`
-
-### ✅ **Imports Standard Modules**
-```javascript
-import { addFeatures, designateBiomes } from '/base-standard/maps/feature-biome-generator.js';
-import { addMountains, addHills, expandCoasts, buildRainfallMap, generateLakes } from '/base-standard/maps/elevation-terrain-generator.js';
-```
-- Extends rather than replaces standard generation
-- Maintains compatibility with base game systems
-
-### ✅ **Error-Safe Implementation**
-- All feature placements are validated before application
-- Fallbacks for missing definitions
-- No hardcoded indices that could break with game updates
-
----
-
-## 📊 **VERIFICATION SUMMARY**
-
-| **Category** | **Types Used** | **Types Valid** | **Compatibility** |
-|--------------|----------------|-----------------|-------------------|
-| **Terrains** | 5 | 5 | ✅ **100%** |
-| **Features** | 3 | 3 | ✅ **100%** |  
-| **Biomes** | 3 | 3 | ✅ **100%** |
-| **API Usage** | Standard | Official | ✅ **100%** |
-
----
-
-## ✅ **FINAL VERDICT: FULLY COMPATIBLE**
-
-Your **Epic Diverse Huge Map Generator** is **100% compatible** with Civilization VII's official terrain and feature system:
-
-🎯 **All terrain types exist and are properly defined**  
-🎯 **All feature types match XML specifications exactly**  
-🎯 **All biome assignments follow official rules**  
-🎯 **Feature placement logic respects terrain/biome compatibility**  
-🎯 **Script uses official APIs and validation systems**  
-
-**Ready for production use!** 🚀
+Conclusion
+- In v1.0.0, the terrain/feature/biome usage is intentionally conservative and validation-driven.
+- The script relies on base-standard definitions and generators, adds climate-aware refinements, and performs safe, validated post-passes for biomes and features.
+- This approach yields organic, believable regions while maintaining balance and compatibility with the base game.
