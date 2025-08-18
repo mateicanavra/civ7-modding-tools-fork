@@ -27,10 +27,15 @@ import { addNaturalWonders } from "/base-standard/maps/natural-wonder-generator.
 import {
     STORY_ENABLE_HOTSPOTS as CFG_STORY_ENABLE_HOTSPOTS,
     STORY_ENABLE_RIFTS as CFG_STORY_ENABLE_RIFTS,
+    STORY_ENABLE_OROGENY as CFG_STORY_ENABLE_OROGENY,
     STORY_TUNABLES as CFG_STORY_TUNABLES,
 } from "./config/tunables.js";
 import { StoryTags, resetStoryTags } from "./story/tags.js";
-import { storyTagHotspotTrails, storyTagRiftValleys } from "./story/tagging.js";
+import {
+    storyTagHotspotTrails,
+    storyTagRiftValleys,
+    storyTagOrogenyBelts,
+} from "./story/tagging.js";
 import {
     clamp as utilClamp,
     inBounds as utilInBounds,
@@ -70,6 +75,7 @@ import {
  */
 const STORY_ENABLE_HOTSPOTS = CFG_STORY_ENABLE_HOTSPOTS;
 const STORY_ENABLE_RIFTS = CFG_STORY_ENABLE_RIFTS;
+const STORY_ENABLE_OROGENY = CFG_STORY_ENABLE_OROGENY;
 
 // StoryTags are now imported from ./story/tags.js
 
@@ -227,6 +233,10 @@ function generateMap() {
     if (STORY_ENABLE_RIFTS) {
         console.log("Marking rift lines and shoulders...");
         storyTagRiftValleys(iWidth, iHeight);
+    }
+    if (STORY_ENABLE_OROGENY) {
+        console.log("Tagging orogenic belts...");
+        storyTagOrogenyBelts();
     }
 
     devLogIf("LOG_STORY_TAGS", "StoryTags summary follows");

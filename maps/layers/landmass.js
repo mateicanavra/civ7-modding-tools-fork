@@ -37,7 +37,7 @@ export function createDiverseLandmasses(iWidth, iHeight, landmasses) {
     // Slightly less water on larger maps for fuller continents (clamped)
     const baseWaterPct = 64;
     const waterPct = Math.max(
-        56,
+        60,
         Math.min(64, Math.round(baseWaterPct - 4 * (sqrtScale - 1))),
     );
     const iWaterHeight = FractalBuilder.getHeightFromPercent(
@@ -114,7 +114,7 @@ export function createDiverseLandmasses(iWidth, iHeight, landmasses) {
                     const centerBonus = Math.max(
                         0,
                         (1 - distanceFromCenter / maxDistance) *
-                            (110 + Math.round(25 * (sqrtScale - 1))),
+                            (110 + Math.round(10 * (sqrtScale - 1))),
                     );
 
                     if (iPlotHeight + centerBonus >= iWaterHeight) {

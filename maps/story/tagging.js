@@ -259,7 +259,118 @@ export function storyTagRiftValleys(ctx) {
     };
 }
 
+export const OrogenyCache = {
+    belts: new Set(),
+    windward: new Set(),
+    lee: new Set(),
+};
+
+/**
+ * Tag Orogeny belts (mountain corridors) and derive windward/lee flanks.
+ * Lightweight heuristic:
+ * - Belt tiles: elevation >= 500 (or engine mountain) with ≥2 high-elev neighbors.
+ * - Prevailing winds by latitude: 0–30° and 60–90° E→W (dx=-1), 30–60° W→E (dx=1).
+ * - Windward = upwind side within radius; Lee = downwind side within radius.
+ * Size scaling:
+ * - Length threshold (soft) scales with sqrt(area/base); radius +1 on very large maps.
+ *
+ * Returns simple counts; results stored in OrogenyCache for consumers.
+ */
+export function storyTagOrogenyBelts(ctx) {
+    // Clear previous cache
+    OrogenyCache.belts.clear();
+    OrogenyCache.windward.clear();
+    OrogenyCache.lee.clear();
+
+    const width = GameplayMap.getGridWidth();
+    const height = GameplayMap.getGridHeight();
+
+    const area = Math.max(1, width * height);
+    const sqrtScale = Math.min(2.0, Math.max(0.6, Math.sqrt(area / 10000)));
+
+    const cfg = STORY_TUNABLES?.orogeny || {};
+    const baseRadius = (cfg.radius ?? 2) | 0;
+    const radius = baseRadius + (sqrtScale > 1.5 ? 1 : 0);
+
+    const minLenSoft = Math.max(
+        10,
+        Math.round((cfg.beltMinLength ?? 30) * (0.9 + 0.4 * sqrtScale)),
+    );
+
+    // Helper: elevation predicate (prefer GameplayMap.isMountain when exposed)
+    function isHighElev(x, y) {
+        if (!inBounds(x, y)) return false;
+        if (GameplayMap.isMountain && GameplayMap.isMountain(x, y)) return true;
+        return GameplayMap.getElevation(x, y) >= 500;
+    }
+
+    // Pass 1: collect belt candidates by local mountain density
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            if (!isHighElev(x, y)) continue;
+
+            // Count high-elevation neighbors (8-neighborhood)
+            let hi = 0;
+            for (let dy = -1; dy <= 1; dy++) {
+                for (let dx = -1; dx <= 1; dx++) {
+                    if (dx === 0 && dy === 0) continue;
+                    const nx = x + dx,
+                        ny = y + dy;
+                    if (isHighElev(nx, ny)) hi++;
+                }
+            }
+            if (hi >= 2) {
+                OrogenyCache.belts.add(storyKey(x, y));
+            }
+        }
+    }
+
+    // Soft reject trivial belts (very small mountain presence)
+    if (OrogenyCache.belts.size < minLenSoft) {
+        return { belts: 0, windward: 0, lee: 0 };
+    }
+
+    // Prevailing wind vector by latitude (zonal)
+    function windDX(x, y) {
+        const lat = Math.abs(GameplayMap.getPlotLatitude(x, y));
+        return lat < 30 || lat >= 60 ? -1 : 1; // E→W else W→E
+    }
+
+    // Pass 2: expand flanks on both sides of each belt tile
+    for (const key of OrogenyCache.belts) {
+        const [x, y] = key.split(",").map(Number);
+        const dx = windDX(x, y);
+        const dy = 0;
+        const upwindX = -dx,
+            upwindY = -dy;
+        const downX = dx,
+            downY = dy;
+
+        for (let r = 1; r <= radius; r++) {
+            const wx = x + upwindX * r,
+                wy = y + upwindY * r;
+            const lx = x + downX * r,
+                ly = y + downY * r;
+
+            if (inBounds(wx, wy) && !GameplayMap.isWater(wx, wy)) {
+                OrogenyCache.windward.add(storyKey(wx, wy));
+            }
+            if (inBounds(lx, ly) && !GameplayMap.isWater(lx, ly)) {
+                OrogenyCache.lee.add(storyKey(lx, ly));
+            }
+        }
+    }
+
+    return {
+        belts: OrogenyCache.belts.size,
+        windward: OrogenyCache.windward.size,
+        lee: OrogenyCache.lee.size,
+    };
+}
+
 export default {
     storyTagHotspotTrails,
     storyTagRiftValleys,
+    storyTagOrogenyBelts,
+    OrogenyCache,
 };

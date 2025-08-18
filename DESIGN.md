@@ -291,6 +291,10 @@ To further evolve this design, we plan to break the generator into explicit laye
   - Increased validated rainforest chance in very wet tropical zones; small, validated boosts for forest/taiga around volcanic hotspot centers.
 - Coast ruggedness tuned by size (lane-safe):
   - Very slight probability lifts for bay/fjord-like adjustments on larger maps; deep oceans and sea-lane guardrails preserved.
+- Mountain density regression fix (post-feedback):
+  - Raised water fraction floor (min 60%) and reduced landmass center-bonus scaling to restore base mountain frequency after continent fullness tweak.
+  - Switched island seeding mask to Hill fractal (no reuse of Mountain fractal) to avoid unintentional interference with base mountain generation.
+  - Slightly increased lee-side dryness and windward boost in orogeny pass to accentuate relief without exceeding clamps.
 
 Invariants retained:
 - Rainfall clamped to [0, 200] at every step.
