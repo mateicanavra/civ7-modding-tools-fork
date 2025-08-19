@@ -389,6 +389,19 @@ export const MAP_CONFIG = Object.freeze({
                 // Respect strategic sea lanes and enforce minimum channel width
                 respectSeaLanes: true,
                 minChannelWidth: 4,
+                // Optional outer-edge ocean widening/narrowing (map sides)
+                edgeWest: Object.freeze({
+                    enabled: false,
+                    baseTiles: 0,
+                    boundaryClosenessMultiplier: 1.0,
+                    maxPerRowDelta: 2,
+                }),
+                edgeEast: Object.freeze({
+                    enabled: false,
+                    baseTiles: 0,
+                    boundaryClosenessMultiplier: 1.0,
+                    maxPerRowDelta: 2,
+                }),
             }),
         }),
     }),

@@ -1,5 +1,120 @@
 # Epic Diverse Huge Map Generator — DESIGN
 
+Appendix A — Layer Contracts (authoritative quick reference)
+This appendix documents inputs, outputs, order constraints, and guarantees for each major layer. All layers are O(width × height) with small constants unless noted.
+
+- Landmass (createDiverseLandmasses)
+  - Inputs:
+    - width, height, and band windows supplied by the orchestrator
+    - `LANDMASS_CFG`
+    - Optional: `WorldModel` when `worldModel.policy.oceanSeparation.enabled = true` (consumes boundary closeness)
+  - Outputs: writes base terrain (ocean vs. flat land) via TerrainBuilder
+  - Order constraints: runs before coast expansion and any climate/tagging layer
+  - Guarantees:
+    - True oceans between bands and at map edges
+    - Organic band edges via sinusoidal/Fractal jitter
+    - If WorldModel ocean separation is enabled, per-row lateral shifts are bounded by `maxPerRowDelta` and preserve minimum channel width when configured
+
+- Coastlines (addRuggedCoasts)
+  - Inputs: `COASTLINES_CFG`, StoryTags `activeMargin`/`passiveShelf`, corridor tags and metadata (style-aware), GameplayMap adjacency
+  - Outputs: occasional coast-to-water and water-to-coast conversions (rugged coasts, sparse fjords)
+  - Order constraints: after landmass and continental margins tagging; before islands
+  - Guarantees: preserves open sea lanes; lane policy may be hard skip or soft reduction per corridor policy
+
+- Islands (addIslandChains)
+  - Inputs: `ISLANDS_CFG`, StoryTags `hotspot` (+ paradise/volcanic), margins, corridor sea-lane avoidance
+  - Outputs: tiny offshore clusters (1–3 tiles), and StoryTag classification of hotspot centers
+  - Order constraints: after coastlines; before climate baseline
+  - Guarantees: avoids land adjacency within a small radius; respects protected lanes
+
+- Climate — Baseline (buildEnhancedRainfall)
+  - Inputs: `CLIMATE_BASELINE_CFG`, GameplayMap latitude/elevation, StoryTags (optional light coupling), shared utils
+  - Outputs: baseline rainfall field (clamped)
+  - Order constraints: after islands; before rivers
+  - Guarantees: preserves clamping to [0, 200]; O(width × height)
+
+- Rivers (engine)
+  - Inputs: base systems and generator knobs
+  - Outputs: river network; names
+  - Order constraints: before climate refinement
+  - Guarantees: vanilla-compatible parameters
+
+- Climate — Refinement (refineRainfallEarthlike)
+  - Inputs:
+    - `CLIMATE_REFINE_CFG`
+    - StoryTags (`riftLine` proximity, orogeny `windward`/`lee`)
+    - Optional `WorldModel` winds (uses `windU`/`windV` to pick upwind steps if enabled)
+  - Outputs: clamped rainfall adjustments (coastal gradients, orographic shadows, river/basin greening, rift micro-wetness, hotspot microclimates)
+  - Order constraints: after rivers; before biomes/features
+  - Guarantees: clamped to [0, 200]; local scans (radius ≤ 4); upwind scan length bounded by config
+
+- Biomes (designateEnhancedBiomes)
+  - Inputs: baseline + refined rainfall, `BIOMES_CFG`, StoryTags (tundra restraint, tropical coasts, river-valley grassland nudges)
+  - Outputs: biome assignment via base systems + gentle nudges
+  - Order constraints: after refinement; before features
+  - Guarantees: vanilla validation; restrained deltas
+
+- Features (addDiverseFeatures)
+  - Inputs: `FEATURES_DENSITY_CFG`, StoryTags (validated placement), feature lookups
+  - Outputs: additional features via validated calls
+  - Order constraints: after biomes
+  - Guarantees: always gated by `TerrainBuilder.canHaveFeature` and ruleset lookups
+
+- Placement (runPlacement)
+  - Inputs: `PLACEMENT_CFG` (wonders +1; floodplains; resources; starts), start-sector windows and counts
+  - Outputs: wonders, floodplains, snow, resources, starts, discoveries, fertility
+  - Order constraints: final phase; after all terrain/biome/feature passes
+  - Guarantees: preserves vanilla compatibility and balance constraints
+
+Appendix B — WorldModel-driven Ocean Separation (plate-aware)
+This appendix specifies the plate-aware separation policy integrated into the landmass layer.
+
+- Purpose
+  - Widen/narrow oceans between configured continent bands based on `WorldModel.boundaryCloseness`, generalizing manual adjustments into a coherent, plate-informed rule.
+  - Optional widening/narrowing at the west/east map edges.
+
+- Configuration (under `worldModel.policy.oceanSeparation`)
+  - `enabled`: boolean (default false)
+  - `bandPairs`: array of `[leftIndex, rightIndex]` band pairs to bias apart (e.g., `[0,1]`, `[1,2]`)
+  - `baseSeparationTiles`: integer base lateral push per row
+  - `boundaryClosenessMultiplier`: scalar multiplier for closeness-driven scaling (0..2 recommended)
+  - `maxPerRowDelta`: hard cap on per-row separation magnitude
+  - `respectSeaLanes`: boolean; when true, enforces a minimum channel width
+  - `minChannelWidth`: integer minimum width when `respectSeaLanes` is true
+  - `edgeWest`, `edgeEast`: objects controlling outer-edge widening/narrowing
+    - `enabled`: boolean
+    - `baseTiles`: signed integer; positive widens the adjacent ocean (pushes interior band away from edge)
+    - `boundaryClosenessMultiplier`: scaling as above
+    - `maxPerRowDelta`: cap as above
+
+- Behavior (landmass layer)
+  - For each configured band pair and map row:
+    - Sample `boundaryCloseness` at the mid-gap between the bands.
+    - Compute `sep = baseSeparationTiles + round((closeness/255) * boundaryClosenessMultiplier * baseSeparationTiles)`, clamped to `maxPerRowDelta`.
+    - Apply symmetric per-row lateral shifts: left band shifts left by `sep`, right band shifts right by `sep`.
+    - If `respectSeaLanes` is set, reduce `sep` as needed to maintain `minChannelWidth`.
+  - For `edgeWest`/`edgeEast` (if enabled), compute a per-row shift of the outermost bands using the same closeness-driven scaling sampled near the corresponding map edge:
+    - West: apply signed shift to band 0 (negative moves the band left to widen the west ocean; positive narrows)
+    - East: apply signed shift to the last band (positive moves the band right to widen the east ocean; negative narrows)
+
+- Guarantees and constraints
+  - Order: applied inside the landmass layer during band boundary calculation, before coast expansion.
+  - Complexity: linear over rows; keeps the overall pass O(width × height).
+  - Safety: separation is bounded per row and optionally respects a minimum channel width to keep sea lanes open.
+  - Compatibility: disabled by default; when disabled or `WorldModel` is off, landmass behavior is unchanged.
+
+- Example policy (conceptual)
+  - Enable pairwise separation for left–middle and middle–right with modest strength:
+    - `enabled: true`
+    - `bandPairs: [[0,1],[1,2]]`
+    - `baseSeparationTiles: 2`
+    - `boundaryClosenessMultiplier: 1.0`
+    - `maxPerRowDelta: 3`
+    - `respectSeaLanes: true`, `minChannelWidth: 4`
+  - Slightly widen exterior oceans:
+    - `edgeWest.enabled: true`, `edgeWest.baseTiles: 1`
+    - `edgeEast.enabled: true`, `edgeEast.baseTiles: 1`
+
 Version: 1.0.0
 Target: Civilization VII (Huge maps prioritized)
 

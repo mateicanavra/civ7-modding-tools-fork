@@ -137,9 +137,61 @@ export function createDiverseLandmasses(iWidth, iHeight, landmasses) {
                 let sep = baseSep + Math.round(f * mult * baseSep);
                 if (sep > maxDelta) sep = maxDelta;
                 if (sep < 0) sep = 0;
+                if (sepCfg.respectSeaLanes) {
+                    const minCh = Math.max(0, sepCfg.minChannelWidth | 0 || 0);
+                    const leftEdge = left.east + rowShifts[li][y] - sep;
+                    const rightEdge = right.west + rowShifts[ri][y] + sep;
+                    const widthNow = rightEdge - leftEdge;
+                    if (widthNow < minCh) {
+                        const deficit = minCh - widthNow;
+                        sep = Math.max(0, sep - deficit);
+                    }
+                }
 
                 rowShifts[li][y] -= sep; // push left band left
                 rowShifts[ri][y] += sep; // push right band right
+            }
+        }
+        // Edge widening/narrowing (west/east map edges) — optional
+        const eW = sepCfg.edgeWest || {};
+        const eE = sepCfg.edgeEast || {};
+        const firstBand = 0;
+        const lastBand = landmasses.length - 1;
+
+        if (firstBand >= 0 && eW && eW.enabled) {
+            const baseW = eW.baseTiles | 0 || 0;
+            const multW = Number.isFinite(eW.boundaryClosenessMultiplier)
+                ? eW.boundaryClosenessMultiplier
+                : 1.0;
+            const capW = Math.max(0, eW.maxPerRowDelta | 0 || 2);
+            for (let y = 0; y < iHeight; y++) {
+                const clos = WorldModel.boundaryCloseness[y * iWidth + 0] | 0;
+                const f = clos / 255;
+                let mag =
+                    Math.abs(baseW) + Math.round(f * multW * Math.abs(baseW));
+                if (mag > capW) mag = capW;
+                // baseW > 0 widens west ocean (push left band left = negative shift)
+                const signed = baseW >= 0 ? -mag : mag;
+                rowShifts[firstBand][y] += signed;
+            }
+        }
+
+        if (lastBand >= 0 && eE && eE.enabled) {
+            const baseE = eE.baseTiles | 0 || 0;
+            const multE = Number.isFinite(eE.boundaryClosenessMultiplier)
+                ? eE.boundaryClosenessMultiplier
+                : 1.0;
+            const capE = Math.max(0, eE.maxPerRowDelta | 0 || 2);
+            for (let y = 0; y < iHeight; y++) {
+                const clos =
+                    WorldModel.boundaryCloseness[y * iWidth + (iWidth - 1)] | 0;
+                const f = clos / 255;
+                let mag =
+                    Math.abs(baseE) + Math.round(f * multE * Math.abs(baseE));
+                if (mag > capE) mag = capE;
+                // baseE > 0 widens east ocean (push right band right = positive shift)
+                const signed = baseE >= 0 ? mag : -mag;
+                rowShifts[lastBand][y] += signed;
             }
         }
     }
