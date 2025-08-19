@@ -17,25 +17,7 @@ console.log("[EpicDiverseHuge:Temperate] Loading sibling map entry...");
 import { setConfig } from "./config/runtime.js";
 
 const MAP_CONFIG = Object.freeze({
-    toggles: {
-        STORY_ENABLE_HOTSPOTS: true,
-        STORY_ENABLE_RIFTS: true,
-        STORY_ENABLE_OROGENY: true,
-        STORY_ENABLE_WORLDMODEL: true,
-    },
-    // Temperate-leaning defaults (gentle, safe)
-    landmass: {
-        geometry: {
-            preset: "classic",
-            oceanColumnsScale: 1.1,
-        },
-    },
-    worldModel: {
-        directionality: {
-            cohesion: 0.6,
-            hemispheres: { monsoonBias: 0.25 },
-        },
-    },
+    presets: ["temperate"],
 });
 
 setConfig(MAP_CONFIG);

@@ -8,12 +8,7 @@ import { setConfig } from "./config/runtime.js";
 
 // Minimal default config for this map entry (safe defaults)
 const MAP_CONFIG = Object.freeze({
-    toggles: {
-        STORY_ENABLE_HOTSPOTS: true,
-        STORY_ENABLE_RIFTS: true,
-        STORY_ENABLE_OROGENY: true,
-        STORY_ENABLE_WORLDMODEL: true,
-    },
+    presets: ["classic"],
 });
 
 setConfig(MAP_CONFIG);

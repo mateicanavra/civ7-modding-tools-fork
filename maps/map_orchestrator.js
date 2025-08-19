@@ -17,7 +17,13 @@ import {
 import * as globals from "/base-standard/maps/map-globals.js";
 import * as utilities from "/base-standard/maps/map-utilities.js";
 
-import { getConfig } from "./config/runtime.js";
+import {
+    STORY_ENABLE_HOTSPOTS,
+    STORY_ENABLE_RIFTS,
+    STORY_ENABLE_OROGENY,
+    STORY_ENABLE_WORLDMODEL,
+    LANDMASS_GEOMETRY,
+} from "./config/tunables.js";
 import { StoryTags, resetStoryTags } from "./story/tags.js";
 import { storyTagStrategicCorridors } from "./story/corridors.js";
 import {
@@ -75,13 +81,7 @@ function requestMapData(initParams) {
 function generateMap() {
     console.log("Generating Epic Diverse Map with maximum terrain variety!");
 
-    // Read per-map config at runtime
-    const cfg = getConfig() || {};
-    const T = cfg.toggles || {};
-    const STORY_ENABLE_HOTSPOTS = T.STORY_ENABLE_HOTSPOTS ?? true;
-    const STORY_ENABLE_RIFTS = T.STORY_ENABLE_RIFTS ?? true;
-    const STORY_ENABLE_OROGENY = T.STORY_ENABLE_OROGENY ?? true;
-    const STORY_ENABLE_WORLDMODEL = T.STORY_ENABLE_WORLDMODEL ?? true;
+    // Resolved config is provided via tunables (constants); no direct runtime reads here.
 
     let iWidth = GameplayMap.getGridWidth();
     let iHeight = GameplayMap.getGridHeight();
@@ -144,7 +144,7 @@ function generateMap() {
     // Create more complex continent boundaries for our diverse terrain generation
     // Compute band windows from per-map geometry config (if provided)
     {
-        const GEOM = (cfg.landmass && cfg.landmass.geometry) || /**/ {};
+        const GEOM = LANDMASS_GEOMETRY || /**/ {};
         const oceanScale = Number.isFinite(GEOM.oceanColumnsScale)
             ? GEOM.oceanColumnsScale
             : 1.1;
