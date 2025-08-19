@@ -13,11 +13,5 @@
             Description="LOC_MAP_EPIC_DIVERSE_HUGE_TEMPERATE_DESCRIPTION"
             SortIndex="101"
         />
-        <Row
-            File="{epic-diverse-huge-map}maps/z_tests/dynamic-import-map.js"
-            Name="LOC_MAP_DYNAMIC_IMPORT_TEST_NAME"
-            Description="LOC_MAP_DYNAMIC_IMPORT_TEST_DESC"
-            SortIndex="999"
-        />
 	</Maps>
 </Database>

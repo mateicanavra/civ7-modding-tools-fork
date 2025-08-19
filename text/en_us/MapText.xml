@@ -8,13 +8,8 @@
 		            <Text
             >Pronounced tectonics with rift valleys and convergent orogeny belts shaping the continents. Plate‑aware ocean separation widens gaps between bands; ruggedized coasts and islands remain lane‑safe. Climate and corridors align with plate/wind axes for a cohesive yet varied world. Tuned for Huge maps.</Text>
 		        </Row>
-		        <Row Tag="LOC_MAP_DYNAMIC_IMPORT_TEST_NAME">
-		            <Text>Dynamic Import Capability Test</Text>
-		        </Row>
-		        <Row Tag="LOC_MAP_DYNAMIC_IMPORT_TEST_DESC">
-		            <Text
-            >Debug map that attempts to use JavaScript dynamic import() at runtime and logs the result. Select this map to verify VM support: check Scripting.log for [DYN-IMPORT-TEST] messages indicating SUCCESS or ERROR. For development only.</Text>
-		        </Row>
+
+
         <Row Tag="LOC_MAP_EPIC_DIVERSE_HUGE_TEMPERATE_NAME">
             <Text>Epic Diverse Huge — Temperate</Text>
         </Row>
