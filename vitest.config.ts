@@ -49,6 +49,11 @@ export default defineConfig({
         extends: true,
         root: r('packages/plugins/plugin-graph'),
         test: { name: 'plugin-graph' }
+      },
+      {
+        extends: true,
+        root: r('packages/plugins/plugin-mapgen'),
+        test: { name: 'plugin-mapgen' }
       }
     ]
   }
