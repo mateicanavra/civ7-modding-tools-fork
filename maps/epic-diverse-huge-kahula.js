@@ -36,6 +36,9 @@ bootstrap({
         },
         // Landmass geometry: wide central band (blob continent), narrow outer bands
         landmass: {
+            baseWaterPercent: 65,
+            waterThumbOnScale: -5,
+            curveAmpFrac: 0.35,
             geometry: {
                 preset: "kahula",
                 oceanColumnsScale: 1.2,
@@ -47,7 +50,7 @@ bootstrap({
                                 westFrac: 0.05,
                                 eastFrac: 0.18,
                                 westOceanOffset: 1.2,
-                                eastOceanOffset: -0.45,
+                                eastOceanOffset: -0.64,
                             },
                             // Middle band: wide central “blob”
                             {
@@ -60,7 +63,7 @@ bootstrap({
                             {
                                 westFrac: 0.82,
                                 eastFrac: 0.95,
-                                westOceanOffset: 0.45,
+                                westOceanOffset: 0.53,
                                 eastOceanOffset: -1.2,
                             },
                         ],
@@ -68,9 +71,16 @@ bootstrap({
                 },
             },
         },
+        biomes: {
+            tundra: {
+                elevMin: 100,
+            },
+        },
         climateBaseline: {
             bands: {
-                deg35to55: 200,
+                deg0to10: 200,
+                deg10to20: 150,
+                deg70plus: 50,
             },
             orographic: {
                 hi1Threshold: 280,
@@ -89,19 +99,19 @@ bootstrap({
                 jetStreaks: 3,
             },
             plates: {
-                count: 6,
+                count: 5,
                 axisAngles: [23, -17],
-                convergenceMix: 1.75,
+                convergenceMix: 2,
                 seedJitter: 2,
-                interiorSmooth: 4,
+                interiorSmooth: 3,
             },
             directionality: {
                 cohesion: 0.9,
                 primaryAxes: {
                     // East–west plate motion tends to produce north–south belts
-                    plateAxisDeg: 0,
-                    windBiasDeg: 70,
-                    currentBiasDeg: 0,
+                    plateAxisDeg: 70,
+                    windBiasDeg: 130,
+                    currentBiasDeg: 70,
                 },
                 interplay: {
                     windsFollowPlates: 0.7,
@@ -160,8 +170,26 @@ bootstrap({
                 beltMaxPerContinent: 1,
                 beltMinLength: 60,
                 radius: 3,
-                windwardBoost: 8,
+                windwardBoost: 180,
                 leeDrynessAmplifier: 1.4,
+            },
+            swatches: {
+                forceAtLeastOne: true,
+                maxPerMap: 7,
+                sizeScaling: {
+                    lengthMulSqrt: 5,
+                    widthMulSqrt: 2,
+                },
+                types: {
+                    macroDesertBelt: {
+                        weight: 10,
+                        bleedRadius: 4,
+                    },
+                    mountainForests: {
+                        coupleToOrogeny: true,
+                        weight: 10,
+                    },
+                },
             },
         },
     },
