@@ -16,10 +16,15 @@ console.log("[EpicDiverseHuge:Kahula] Loading entry...");
 
 import { bootstrap } from "./config/entry.js";
 
+// @ts-check
+/** @typedef {import("../maps/config/map_config.d.ts").MapConfig} Config */
+
 bootstrap({
     // Start from conservative defaults
     presets: ["classic"],
     // Kahula-specific overrides to bias plate layout and band geometry
+
+    /** @type Config */
     overrides: {
         toggles: {
             STORY_ENABLE_HOTSPOTS: true,
@@ -63,13 +68,26 @@ bootstrap({
                 },
             },
         },
+        climateBaseline: {
+            bands: {
+                deg35to55: 200,
+            },
+            orographic: {
+                hi1Threshold: 280,
+                hi2Threshold: 380,
+                hi2Bonus: 2,
+            },
+        },
+        islands: {
+            minDistFromLandRadius: 3,
+        },
         // Tectonics and directionality tuned for a central ridge with flanking rifts
         worldModel: {
             enabled: true,
             plates: {
                 count: 6,
                 axisAngles: [0, -10],
-                convergenceMix: 0.75,
+                convergenceMix: 1.75,
                 seedJitter: 2,
                 interiorSmooth: 4,
             },
@@ -78,7 +96,7 @@ bootstrap({
                 primaryAxes: {
                     // East–west plate motion tends to produce north–south belts
                     plateAxisDeg: 0,
-                    windBiasDeg: 270,
+                    windBiasDeg: 70,
                     currentBiasDeg: 0,
                 },
                 interplay: {
@@ -89,8 +107,8 @@ bootstrap({
                 },
                 hemispheres: {
                     southernFlip: true,
-                    equatorBandDeg: 18,
-                    monsoonBias: 0.2,
+                    equatorBandDeg: 38,
+                    monsoonBias: 1.3,
                 },
                 variability: {
                     angleJitterDeg: 5,
@@ -115,13 +133,13 @@ bootstrap({
                         enabled: true,
                         baseTiles: 1,
                         boundaryClosenessMultiplier: 1.0,
-                        maxPerRowDelta: 2,
+                        maxPerRowDelta: 6,
                     },
                     edgeEast: {
                         enabled: true,
                         baseTiles: 1,
                         boundaryClosenessMultiplier: 1.0,
-                        maxPerRowDelta: 2,
+                        maxPerRowDelta: 6,
                     },
                 },
             },
@@ -129,10 +147,10 @@ bootstrap({
         // Encourage a pair of long rifts and a prominent orogenic belt
         story: {
             rift: {
-                maxRiftsPerMap: 2,
+                maxRiftsPerMap: 3,
                 lineSteps: 20,
                 stepLen: 3,
-                shoulderWidth: 2,
+                shoulderWidth: 6,
             },
             orogeny: {
                 beltMaxPerContinent: 1,
