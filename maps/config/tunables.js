@@ -1,156 +1,215 @@
 /**
- * @file epic-diverse-huge-map/maps/config/tunables.js
- * @description
- * Unified config access for all consumers.
+ * Unified Tunables — Live bindings with runtime rebind()
  *
- * This module resolves configuration once (at module load) using:
- *   1) Explicit defaults (BASE_CONFIG)
- *   2) Named presets declared by the entry (rc.presets array)
- *   3) Per-entry overrides (rc)
+ * Intent
+ * - Provide a single import surface for all generator tunables (toggles and groups)
+ *   backed by the resolved config snapshot.
+ * - Export live ES module bindings (let variables) so callers see updated values
+ *   after a call to rebind().
  *
- * Rationale
- * - Entry files call setConfig() before importing the orchestrator.
- * - The orchestrator and all layers import from this module.
- * - We call resolved.refresh() here so exported constants reflect the entry’s config.
+ * Usage
+ *   // Import once anywhere (bindings are live)
+ *   import {
+ *     rebind,
+ *     STORY_ENABLE_WORLDMODEL,
+ *     LANDMASS_CFG,
+ *     WORLDMODEL_DIRECTIONALITY,
+ *     // ...
+ *   } from "./config/tunables.js";
+ *
+ *   // Call rebind() at the start of a generation (or when the active entry changes)
+ *   rebind();
  *
  * Notes
- * - Arrays replace; objects deep-merge.
- * - The resolved snapshot is frozen and read-only hereafter for this run.
+ * - rebind() calls resolved.refresh() internally, then updates all exported bindings.
+ * - A best‑effort initial rebind() is performed at module load for safety.
+ * - Arrays and objects returned from the resolver are treated as read‑only.
  */
 
 // @ts-check
 
 import {
-    refresh,
-    // Group getters
-    TOGGLES,
-    STORY as STORY_GROUP,
-    MICROCLIMATE as MICROCLIMATE_GROUP,
-    LANDMASS_CFG as LANDMASS_GROUP,
-    COASTLINES_CFG as COASTLINES_GROUP,
-    MARGINS_CFG as MARGINS_GROUP,
-    ISLANDS_CFG as ISLANDS_GROUP,
-    CLIMATE_BASELINE_CFG as CLIMATE_BASELINE_GROUP,
-    CLIMATE_REFINE_CFG as CLIMATE_REFINE_GROUP,
-    BIOMES_CFG as BIOMES_GROUP,
-    FEATURES_DENSITY_CFG as FEATURES_DENSITY_GROUP,
-    CORRIDORS_CFG as CORRIDORS_GROUP,
-    PLACEMENT_CFG as PLACEMENT_GROUP,
-    DEV_LOG_CFG as DEV_LOG_GROUP,
-    WORLDMODEL_CFG as WORLDMODEL_GROUP,
-    // WorldModel nested helpers
-    WORLDMODEL_PLATES as WM_PLATES,
-    WORLDMODEL_WIND as WM_WIND,
-    WORLDMODEL_CURRENTS as WM_CURRENTS,
-    WORLDMODEL_PRESSURE as WM_PRESSURE,
-    WORLDMODEL_POLICY as WM_POLICY,
-    WORLDMODEL_DIRECTIONALITY as WM_DIRECTIONALITY,
-    WORLDMODEL_OCEAN_SEPARATION as WM_OCEAN_SEP,
+    refresh as __refreshResolved__,
+    // group getters
+    TOGGLES as __TOGGLES__,
+    STORY as __STORY__,
+    MICROCLIMATE as __MICROCLIMATE__,
+    LANDMASS_CFG as __LANDMASS__,
+    COASTLINES_CFG as __COASTLINES__,
+    MARGINS_CFG as __MARGINS__,
+    ISLANDS_CFG as __ISLANDS__,
+    CLIMATE_BASELINE_CFG as __CLIMATE_BASELINE__,
+    CLIMATE_REFINE_CFG as __CLIMATE_REFINE__,
+    BIOMES_CFG as __BIOMES__,
+    FEATURES_DENSITY_CFG as __FEATURES_DENSITY__,
+    CORRIDORS_CFG as __CORRIDORS__,
+    PLACEMENT_CFG as __PLACEMENT__,
+    DEV_LOG_CFG as __DEV__,
+    WORLDMODEL_CFG as __WM__,
+    // nested WM helpers
+    WORLDMODEL_PLATES as __WM_PLATES__,
+    WORLDMODEL_WIND as __WM_WIND__,
+    WORLDMODEL_CURRENTS as __WM_CURRENTS__,
+    WORLDMODEL_PRESSURE as __WM_PRESSURE__,
+    WORLDMODEL_POLICY as __WM_POLICY__,
+    WORLDMODEL_DIRECTIONALITY as __WM_DIR__,
+    WORLDMODEL_OCEAN_SEPARATION as __WM_OSEPARATION__,
 } from "./resolved.js";
 
 /* -----------------------------------------------------------------------------
- * Build resolved snapshot now (entry setConfig() has already run)
+ * Exported live bindings (updated by rebind)
  * -------------------------------------------------------------------------- */
-refresh();
 
-/* -----------------------------------------------------------------------------
- * Master toggles (booleans)
- * -------------------------------------------------------------------------- */
-const _T = TOGGLES() || {};
-export const STORY_ENABLE_HOTSPOTS = _T.STORY_ENABLE_HOTSPOTS ?? true;
-export const STORY_ENABLE_RIFTS = _T.STORY_ENABLE_RIFTS ?? true;
-export const STORY_ENABLE_OROGENY = _T.STORY_ENABLE_OROGENY ?? true;
-export const STORY_ENABLE_SWATCHES = _T.STORY_ENABLE_SWATCHES ?? true;
-export const STORY_ENABLE_PALEO = _T.STORY_ENABLE_PALEO ?? true;
-export const STORY_ENABLE_CORRIDORS = _T.STORY_ENABLE_CORRIDORS ?? true;
-export const STORY_ENABLE_WORLDMODEL = _T.STORY_ENABLE_WORLDMODEL ?? true;
+// Master toggles
+export let STORY_ENABLE_HOTSPOTS = true;
+export let STORY_ENABLE_RIFTS = true;
+export let STORY_ENABLE_OROGENY = true;
+export let STORY_ENABLE_SWATCHES = true;
+export let STORY_ENABLE_PALEO = true;
+export let STORY_ENABLE_CORRIDORS = true;
+export let STORY_ENABLE_WORLDMODEL = true;
 
-/* -----------------------------------------------------------------------------
- * Story and microclimate tunables (merged convenience export)
- * -------------------------------------------------------------------------- */
-const _STORY = STORY_GROUP() || {};
-const _MICRO = MICROCLIMATE_GROUP() || {};
-
-export const STORY_TUNABLES = Object.freeze({
-    hotspot: _STORY.hotspot || {},
-    rift: _STORY.rift || {},
-    orogeny: _STORY.orogeny || {},
-    swatches: _STORY.swatches || {},
-    paleo: _STORY.paleo || {},
-    rainfall: _MICRO.rainfall || {},
-    features: _MICRO.features || {},
+// Merged story+micro tunables convenience view
+export let STORY_TUNABLES = Object.freeze({
+    hotspot: Object.freeze({}),
+    rift: Object.freeze({}),
+    orogeny: Object.freeze({}),
+    swatches: Object.freeze({}),
+    paleo: Object.freeze({}),
+    rainfall: Object.freeze({}),
+    features: Object.freeze({}),
 });
 
-/* -----------------------------------------------------------------------------
- * Config groups (objects)
- * -------------------------------------------------------------------------- */
-export const LANDMASS_CFG = LANDMASS_GROUP() || {};
-export const LANDMASS_GEOMETRY = (LANDMASS_CFG && LANDMASS_CFG.geometry) || {};
+// Group objects (treat as read‑only from callers)
+export let LANDMASS_CFG = Object.freeze({});
+export let LANDMASS_GEOMETRY = Object.freeze({});
+export let COASTLINES_CFG = Object.freeze({});
+export let MARGINS_CFG = Object.freeze({});
+export let ISLANDS_CFG = Object.freeze({});
+export let CLIMATE_BASELINE_CFG = Object.freeze({});
+export let CLIMATE_REFINE_CFG = Object.freeze({});
+export let BIOMES_CFG = Object.freeze({});
+export let FEATURES_DENSITY_CFG = Object.freeze({});
+export let CORRIDORS_CFG = Object.freeze({});
+export let PLACEMENT_CFG = Object.freeze({});
+export let DEV_LOG_CFG = Object.freeze({});
+export let WORLDMODEL_CFG = Object.freeze({});
 
-export const COASTLINES_CFG = COASTLINES_GROUP() || {};
-export const MARGINS_CFG = MARGINS_GROUP() || {};
-export const ISLANDS_CFG = ISLANDS_GROUP() || {};
-export const CLIMATE_BASELINE_CFG = CLIMATE_BASELINE_GROUP() || {};
-export const CLIMATE_REFINE_CFG = CLIMATE_REFINE_GROUP() || {};
-export const BIOMES_CFG = BIOMES_GROUP() || {};
-export const FEATURES_DENSITY_CFG = FEATURES_DENSITY_GROUP() || {};
-export const CORRIDORS_CFG = CORRIDORS_GROUP() || {};
-export const PLACEMENT_CFG = PLACEMENT_GROUP() || {};
-export const DEV_LOG_CFG = DEV_LOG_GROUP() || {};
-export const WORLDMODEL_CFG = WORLDMODEL_GROUP() || {};
+// Corridor sub-groups
+export let CORRIDOR_POLICY = Object.freeze({});
+export let CORRIDOR_KINDS = Object.freeze({});
 
-/* Corridor sub-groups (convenience) */
-export const CORRIDOR_POLICY = (CORRIDORS_CFG && CORRIDORS_CFG.policy) || {};
-export const CORRIDOR_KINDS = (CORRIDORS_CFG && CORRIDORS_CFG.kinds) || {};
-
-/* -----------------------------------------------------------------------------
- * WorldModel subsets (objects)
- * -------------------------------------------------------------------------- */
-export const WORLDMODEL_PLATES = WM_PLATES() || {};
-export const WORLDMODEL_WIND = WM_WIND() || {};
-export const WORLDMODEL_CURRENTS = WM_CURRENTS() || {};
-export const WORLDMODEL_PRESSURE = WM_PRESSURE() || {};
-export const WORLDMODEL_POLICY = WM_POLICY() || {};
-export const WORLDMODEL_DIRECTIONALITY = WM_DIRECTIONALITY() || {};
-export const WORLDMODEL_OCEAN_SEPARATION = WM_OCEAN_SEP() || {};
+// WorldModel nested groups
+export let WORLDMODEL_PLATES = Object.freeze({});
+export let WORLDMODEL_WIND = Object.freeze({});
+export let WORLDMODEL_CURRENTS = Object.freeze({});
+export let WORLDMODEL_PRESSURE = Object.freeze({});
+export let WORLDMODEL_POLICY = Object.freeze({});
+export let WORLDMODEL_DIRECTIONALITY = Object.freeze({});
+export let WORLDMODEL_OCEAN_SEPARATION = Object.freeze({});
 
 /* -----------------------------------------------------------------------------
- * Default export (optional)
+ * Rebind implementation
  * -------------------------------------------------------------------------- */
+
+/**
+ * Refresh the resolved snapshot then update all exported bindings.
+ * Call this at the start of a generation (or whenever the active entry changes).
+ */
+export function rebind() {
+    // 1) Resolve the current snapshot from defaults + presets + per-entry overrides
+    __refreshResolved__();
+
+    // 2) Toggles
+    const T = safeObj(__TOGGLES__());
+    STORY_ENABLE_HOTSPOTS = T.STORY_ENABLE_HOTSPOTS ?? true;
+    STORY_ENABLE_RIFTS = T.STORY_ENABLE_RIFTS ?? true;
+    STORY_ENABLE_OROGENY = T.STORY_ENABLE_OROGENY ?? true;
+    STORY_ENABLE_SWATCHES = T.STORY_ENABLE_SWATCHES ?? true;
+    STORY_ENABLE_PALEO = T.STORY_ENABLE_PALEO ?? true;
+    STORY_ENABLE_CORRIDORS = T.STORY_ENABLE_CORRIDORS ?? true;
+    STORY_ENABLE_WORLDMODEL = T.STORY_ENABLE_WORLDMODEL ?? true;
+
+    // 3) Story+Micro merged convenience
+    const S = safeObj(__STORY__());
+    const M = safeObj(__MICROCLIMATE__());
+    STORY_TUNABLES = Object.freeze({
+        hotspot: safeObj(S.hotspot),
+        rift: safeObj(S.rift),
+        orogeny: safeObj(S.orogeny),
+        swatches: safeObj(S.swatches),
+        paleo: safeObj(S.paleo),
+        rainfall: safeObj(M.rainfall),
+        features: safeObj(M.features),
+    });
+
+    // 4) Groups
+    LANDMASS_CFG = safeObj(__LANDMASS__());
+    LANDMASS_GEOMETRY = safeObj(LANDMASS_CFG.geometry);
+    COASTLINES_CFG = safeObj(__COASTLINES__());
+    MARGINS_CFG = safeObj(__MARGINS__());
+    ISLANDS_CFG = safeObj(__ISLANDS__());
+    CLIMATE_BASELINE_CFG = safeObj(__CLIMATE_BASELINE__());
+    CLIMATE_REFINE_CFG = safeObj(__CLIMATE_REFINE__());
+    BIOMES_CFG = safeObj(__BIOMES__());
+    FEATURES_DENSITY_CFG = safeObj(__FEATURES_DENSITY__());
+    CORRIDORS_CFG = safeObj(__CORRIDORS__());
+    PLACEMENT_CFG = safeObj(__PLACEMENT__());
+    DEV_LOG_CFG = safeObj(__DEV__());
+    WORLDMODEL_CFG = safeObj(__WM__());
+
+    // 5) Corridor sub-groups
+    CORRIDOR_POLICY = safeObj(CORRIDORS_CFG.policy);
+    CORRIDOR_KINDS = safeObj(CORRIDORS_CFG.kinds);
+
+    // 6) WorldModel nested groups
+    WORLDMODEL_PLATES = safeObj(__WM_PLATES__());
+    WORLDMODEL_WIND = safeObj(__WM_WIND__());
+    WORLDMODEL_CURRENTS = safeObj(__WM_CURRENTS__());
+    WORLDMODEL_PRESSURE = safeObj(__WM_PRESSURE__());
+    WORLDMODEL_POLICY = safeObj(__WM_POLICY__());
+    WORLDMODEL_DIRECTIONALITY = safeObj(__WM_DIR__());
+    WORLDMODEL_OCEAN_SEPARATION = safeObj(__WM_OSEPARATION__());
+}
+
+/* -----------------------------------------------------------------------------
+ * Helpers
+ * -------------------------------------------------------------------------- */
+
+/**
+ * Ensure we always return a frozen plain object (never null/undefined/primitives).
+ * @param {any} v
+ * @returns {Readonly<Record<string, any>>}
+ */
+function safeObj(v) {
+    if (!v || typeof v !== "object") return Object.freeze({});
+    return v;
+}
+
+/* -----------------------------------------------------------------------------
+ * Module-load bootstrap
+ * -------------------------------------------------------------------------- */
+
+// Perform an initial bind so imports have sane values even if callers forget to rebind().
+// Callers should still rebind() at the start of each GenerateMap to ensure the
+// snapshot reflects the active entry’s presets and overrides.
+try {
+    rebind();
+} catch {
+    // Keep imports resilient even if resolution fails very early in a cold VM.
+    // Bindings already hold conservative defaults above.
+}
+
 export default {
-    // toggles
-    STORY_ENABLE_HOTSPOTS,
-    STORY_ENABLE_RIFTS,
-    STORY_ENABLE_OROGENY,
-    STORY_ENABLE_SWATCHES,
-    STORY_ENABLE_PALEO,
-    STORY_ENABLE_CORRIDORS,
-    STORY_ENABLE_WORLDMODEL,
-    // merged tunables
-    STORY_TUNABLES,
-    // groups
-    LANDMASS_CFG,
-    LANDMASS_GEOMETRY,
-    COASTLINES_CFG,
-    MARGINS_CFG,
-    ISLANDS_CFG,
-    CLIMATE_BASELINE_CFG,
-    CLIMATE_REFINE_CFG,
-    BIOMES_CFG,
-    FEATURES_DENSITY_CFG,
-    CORRIDORS_CFG,
-    PLACEMENT_CFG,
-    DEV_LOG_CFG,
-    WORLDMODEL_CFG,
-    // corridor sub-groups
-    CORRIDOR_POLICY,
-    CORRIDOR_KINDS,
-    // world model subsets
-    WORLDMODEL_PLATES,
-    WORLDMODEL_WIND,
-    WORLDMODEL_CURRENTS,
-    WORLDMODEL_PRESSURE,
-    WORLDMODEL_POLICY,
-    WORLDMODEL_DIRECTIONALITY,
-    WORLDMODEL_OCEAN_SEPARATION,
+    rebind,
+    // expose current group snapshots (optional convenience mirror)
+    get LANDMASS() {
+        return LANDMASS_CFG;
+    },
+    get CORRIDORS() {
+        return CORRIDORS_CFG;
+    },
+    get WORLD_MODEL() {
+        return WORLDMODEL_CFG;
+    },
 };

@@ -23,6 +23,7 @@ import {
     STORY_ENABLE_OROGENY,
     STORY_ENABLE_WORLDMODEL,
     LANDMASS_GEOMETRY,
+    rebind,
 } from "./config/tunables.js";
 import { StoryTags, resetStoryTags } from "./story/tags.js";
 import { storyTagStrategicCorridors } from "./story/corridors.js";
@@ -81,7 +82,8 @@ function requestMapData(initParams) {
 function generateMap() {
     console.log("Generating Epic Diverse Map with maximum terrain variety!");
 
-    // Resolved config is provided via tunables (constants); no direct runtime reads here.
+    // Ensure tunables reflect the active entry config for this run.
+    rebind();
 
     let iWidth = GameplayMap.getGridWidth();
     let iHeight = GameplayMap.getGridHeight();
