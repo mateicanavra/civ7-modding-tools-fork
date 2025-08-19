@@ -354,14 +354,51 @@ export const MAP_CONFIG = Object.freeze({
         currents: Object.freeze({
             basinGyreCountMax: 2,
             westernBoundaryBias: 1.1,
-            currentStrength: 1.0,
+            currentStrength: 3.0,
         }),
 
         // Mantle pressure (bumps/ridges; optional small influence on hills/relief)
         pressure: Object.freeze({
             bumps: 4,
-            amplitude: 0.75,
-            scale: 0.6,
+            amplitude: 0.6,
+            scale: 0.4,
+        }),
+
+        // Directionality (global cohesion and alignment controls for Earth forces)
+        // Purpose: provide cohesive, high-level controls so plates, winds, currents, and rift/orogeny
+        // can evolve in concert while remaining varied. These are read by WorldModel and consumers.
+        directionality: Object.freeze({
+            // Master cohesion dial (0..1): higher = stronger alignment between systems
+            cohesion: 0.65,
+
+            // Macro axes in degrees: bias plate motion, prevailing winds, and gyre/currents
+            primaryAxes: Object.freeze({
+                plateAxisDeg: 20, // macro plate motion axis (deg)
+                windBiasDeg: 0, // global wind bias offset (deg)
+                currentBiasDeg: -10, // global current gyre bias (deg)
+            }),
+
+            // Interplay weights (0..1): how much one system aligns with another
+            interplay: Object.freeze({
+                windsFollowPlates: 0.4, // jets and streaks tend to align with plate axes
+                currentsFollowWinds: 0.6, // surface currents track prevailing winds
+                riftsFollowPlates: 0.8, // divergent rifts along plate boundaries
+                orogenyOpposesRifts: 0.5, // convergent uplift tends to oppose divergent directions
+            }),
+
+            // Hemisphere options and seasonal asymmetry (future-facing)
+            hemispheres: Object.freeze({
+                southernFlip: false, // flip sign conventions in S hemisphere for winds/currents bias
+                equatorBandDeg: 12, // symmetric behavior band around equator
+                monsoonBias: 0.3, // seasonal asymmetry placeholder (kept conservative)
+            }),
+
+            // Variability knobs to avoid rigid patterns while honoring directionality
+            variability: Object.freeze({
+                angleJitterDeg: 8, // random jitter around macro axes
+                magnitudeVariance: 0.35, // 0..1 variance applied to vector magnitudes
+                seedOffset: 0, // RNG stream offset dedicated to directionality
+            }),
         }),
 
         // Policy scalars for consumers (keep gentle; all effects remain clamped/validated)

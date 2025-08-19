@@ -55,5 +55,7 @@ export const WORLDMODEL_WIND = MAP_CONFIG?.worldModel?.wind || {};
 export const WORLDMODEL_CURRENTS = MAP_CONFIG?.worldModel?.currents || {};
 export const WORLDMODEL_PRESSURE = MAP_CONFIG?.worldModel?.pressure || {};
 export const WORLDMODEL_POLICY = MAP_CONFIG?.worldModel?.policy || {};
+export const WORLDMODEL_DIRECTIONALITY =
+    MAP_CONFIG?.worldModel?.directionality || {};
 export const WORLDMODEL_OCEAN_SEPARATION =
     MAP_CONFIG?.worldModel?.policy?.oceanSeparation || {};
