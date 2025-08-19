@@ -359,8 +359,8 @@ export const MAP_CONFIG = Object.freeze({
 
         // Mantle pressure (bumps/ridges; optional small influence on hills/relief)
         pressure: Object.freeze({
-            bumps: 4,
-            amplitude: 0.6,
+            bumps: 7,
+            amplitude: 0.75,
             scale: 0.4,
         }),
 
@@ -374,7 +374,7 @@ export const MAP_CONFIG = Object.freeze({
             // Macro axes in degrees: bias plate motion, prevailing winds, and gyre/currents
             primaryAxes: Object.freeze({
                 plateAxisDeg: 20, // macro plate motion axis (deg)
-                windBiasDeg: 0, // global wind bias offset (deg)
+                windBiasDeg: 270, // global wind bias offset (deg)
                 currentBiasDeg: -10, // global current gyre bias (deg)
             }),
 
@@ -388,7 +388,7 @@ export const MAP_CONFIG = Object.freeze({
 
             // Hemisphere options and seasonal asymmetry (future-facing)
             hemispheres: Object.freeze({
-                southernFlip: false, // flip sign conventions in S hemisphere for winds/currents bias
+                southernFlip: true, // flip sign conventions in S hemisphere for winds/currents bias
                 equatorBandDeg: 12, // symmetric behavior band around equator
                 monsoonBias: 0.3, // seasonal asymmetry placeholder (kept conservative)
             }),

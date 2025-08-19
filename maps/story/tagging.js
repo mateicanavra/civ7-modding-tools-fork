@@ -22,6 +22,7 @@ import {
     STORY_ENABLE_SWATCHES,
     STORY_ENABLE_PALEO,
     MARGINS_CFG,
+    WORLDMODEL_DIRECTIONALITY,
 } from "../config/tunables.js";
 import { inBounds, storyKey, isAdjacentToLand } from "../core/utils.js";
 import { WorldModel } from "../world/model.js";
@@ -275,7 +276,39 @@ export function storyTagRiftValleys(ctx) {
                 placedAny = true;
                 tagShoulders(x, y, sdx, sdy);
 
-                // Choose next step by RP gradient with straightness preference
+                // Helper: directionality bias toward plateAxisDeg (cohesion × riftsFollowPlates)
+                function stepDirBias(tx, ty) {
+                    try {
+                        const DIR = WORLDMODEL_DIRECTIONALITY || {};
+                        const coh = Math.max(
+                            0,
+                            Math.min(1, DIR?.cohesion ?? 0),
+                        );
+                        const follow =
+                            Math.max(
+                                0,
+                                Math.min(
+                                    1,
+                                    DIR?.interplay?.riftsFollowPlates ?? 0,
+                                ),
+                            ) * coh;
+                        if (follow <= 0) return 0;
+                        const deg = (DIR?.primaryAxes?.plateAxisDeg ?? 0) | 0;
+                        const rad = (deg * Math.PI) / 180;
+                        const ax = Math.cos(rad);
+                        const ay = Math.sin(rad);
+                        const vlen = Math.max(1, Math.hypot(tx, ty));
+                        const vx = tx / vlen;
+                        const vy = ty / vlen;
+                        const dot = ax * vx + ay * vy; // -1..1
+                        // Scale to a small, safe bonus
+                        return Math.round(10 * follow * dot);
+                    } catch {
+                        return 0;
+                    }
+                }
+
+                // Choose next step by RP gradient with straightness + directionality preference
                 let bestScore = -1,
                     ndx = sdx,
                     ndy = sdy,
@@ -296,7 +329,7 @@ export function storyTagRiftValleys(ctx) {
                                 : tx === -sdx && ty === -sdy
                                   ? -12
                                   : 0;
-                        const score = p + align;
+                        const score = p + align + stepDirBias(tx, ty);
                         if (score > bestScore) {
                             bestScore = score;
                             ndx = tx;
@@ -539,17 +572,31 @@ export function storyTagOrogenyBelts(ctx) {
             return { belts: 0, windward: 0, lee: 0 };
         }
 
-        // Prevailing wind vector by latitude (preserve current zonal structure)
-        function windDX(x, y) {
+        // Prevailing wind step using WorldModel winds (fallback to zonal if unavailable)
+        function windStepXY(x, y) {
+            try {
+                if (WorldModel?.windU && WorldModel?.windV) {
+                    const width = GameplayMap.getGridWidth();
+                    const i = y * width + x;
+                    const u = WorldModel.windU[i] | 0;
+                    const v = WorldModel.windV[i] | 0;
+                    if (Math.abs(u) >= Math.abs(v)) {
+                        return { dx: u === 0 ? 0 : u > 0 ? 1 : -1, dy: 0 };
+                    } else {
+                        return { dx: 0, dy: v === 0 ? 0 : v > 0 ? 1 : -1 };
+                    }
+                }
+            } catch {
+                /* fall back to zonal below */
+            }
             const lat = Math.abs(GameplayMap.getPlotLatitude(x, y));
-            return lat < 30 || lat >= 60 ? -1 : 1; // E→W else W→E
+            return { dx: lat < 30 || lat >= 60 ? -1 : 1, dy: 0 };
         }
 
         // Pass 2: expand flanks on both sides of each belt tile
         for (const key of OrogenyCache.belts) {
             const [sx, sy] = key.split(",").map(Number);
-            const dx = windDX(sx, sy);
-            const dy = 0;
+            const { dx, dy } = windStepXY(sx, sy);
             const upwindX = -dx,
                 upwindY = -dy;
             const downX = dx,

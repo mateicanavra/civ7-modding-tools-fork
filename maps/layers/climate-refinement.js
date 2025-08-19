@@ -25,6 +25,7 @@ import {
     STORY_TUNABLES,
     STORY_ENABLE_OROGENY,
     CLIMATE_REFINE_CFG,
+    WORLDMODEL_DIRECTIONALITY,
 } from "../config/tunables.js";
 import { WorldModel } from "../world/model.js";
 
@@ -178,7 +179,22 @@ export function refineRainfallEarthlike(iWidth, iHeight) {
             for (let x = 0; x < iWidth; x++) {
                 if (GameplayMap.isWater(x, y)) continue;
 
-                const steps = (CLIMATE_REFINE_CFG?.orographic?.steps ?? 4) | 0;
+                const baseSteps =
+                    (CLIMATE_REFINE_CFG?.orographic?.steps ?? 4) | 0;
+                let steps = baseSteps;
+                try {
+                    const DIR = WORLDMODEL_DIRECTIONALITY || {};
+                    const coh = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
+                    const windC = Math.max(
+                        0,
+                        Math.min(1, DIR?.interplay?.windsFollowPlates ?? 0),
+                    );
+                    // Slight bias: +1 step at high cohesion and wind-plate interplay
+                    const extra = Math.round(coh * windC);
+                    steps = Math.max(1, baseSteps + extra);
+                } catch (_) {
+                    steps = baseSteps;
+                }
                 let barrier = 0;
                 if (
                     WorldModel?.isEnabled?.() &&
