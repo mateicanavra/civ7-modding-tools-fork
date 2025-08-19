@@ -66,6 +66,26 @@ This appendix documents inputs, outputs, order constraints, and guarantees for e
   - Order constraints: final phase; after all terrain/biome/feature passes
   - Guarantees: preserves vanilla compatibility and balance constraints
 
+Config Lifecycle and Entry Pattern (authoritative)
+- Single source of truth for reads: maps/config/resolved.js builds a frozen snapshot by composing:
+  1) defaults/base.js (BASE_CONFIG)
+  2) Any named presets declared by the entry (presets: ["classic", "temperate", ...])
+  3) Per-entry overrides (highest precedence)
+- Access in code: import resolved groups via maps/config/tunables.js (which reads the resolved snapshot). Typical groups:
+  - Toggles: STORY_ENABLE_*
+  - LANDMASS_CFG, CLIMATE_BASELINE_CFG, CLIMATE_REFINE_CFG, BIOMES_CFG, FEATURES_DENSITY_CFG, CORRIDORS_CFG, PLACEMENT_CFG
+  - WORLDMODEL_* (cfg, directionality, plates, wind, currents, pressure, policy, oceanSeparation)
+- Entry pattern (explicit two-liner; robust on the game VM):
+  - import { bootstrap } from "./config/entry.js";
+  - bootstrap({ presets, overrides });
+  - import "./map_orchestrator.js"; // registers engine listeners at module load
+- Tradeoff and rationale:
+  - We keep an explicit orchestrator import so the engine listener registration happens after the entry sets config. This avoids timing/friction on the VM where dynamic imports and eager constant capture can be brittle.
+  - A future “one import” pattern would require deferring all config reads to runtime (lazy getters + resolve/refresh at GenerateMap()). We chose not to adopt that yet to keep the current pipeline stable.
+- Dev logger alignment:
+  - maps/config/dev.js initializes flags from resolved.DEV_LOG_CFG() each run (defaults live in defaults/base.js under dev).
+  - Keep dev flags ON during development and OFF for release builds by adjusting defaults/presets/overrides as needed.
+
 Appendix B — WorldModel-driven Ocean Separation (plate-aware)
 This appendix specifies the plate-aware separation policy integrated into the landmass layer.
 
@@ -417,7 +437,7 @@ To further evolve this design, we plan to break the generator into explicit laye
   - New StoryTags for corridors: corridorSeaLane (protected sea lanes), corridorIslandHop (promoted hotspot arcs), corridorLandOpen (open land lanes), corridorRiverChain (river-adjacent chains).
   - Tagging stages: preIslands (sea lanes, island-hop, land-open from rift shoulders) and postRivers (river chains).
   - Consumers: coastlines skip edits on sea-lane tiles; islands avoid placing near sea-lanes; biomes gently bias grassland on land-open corridors.
-  - Config: master toggle STORY_ENABLE_CORRIDORS and MAP_CONFIG.corridors.{sea,islandHop,land,river} tunables with safe defaults.
+  - Config: master toggle STORY_ENABLE_CORRIDORS and corridors.{sea,islandHop,land,river} (resolved via maps/config/resolved.js; access through maps/config/tunables.js).
 - Developer logger:
   - Optional per-layer timings, StoryTags counts, and rainfall histograms (`maps/config/dev.js`).
 
@@ -529,8 +549,8 @@ Consumers and Effects (gentle; lane-safe)
   - Climate refinement: tiny microclimate deltas along corridorRiverChain (must obey rainfall clamps).
 
 Configuration
-- Master toggle: MAP_CONFIG.toggles.STORY_ENABLE_CORRIDORS (default: true).
-- Tunables: MAP_CONFIG.corridors
+- Master toggle: STORY_ENABLE_CORRIDORS (resolved toggles; default true in defaults/base.js).
+- Tunables: corridors (resolved via maps/config/resolved.js; consume through maps/config/tunables.js)
   - sea: { maxLanes, minLengthFrac, scanStride, avoidRadius }
   - islandHop: { useHotspots, maxArcs }
   - land: { useRiftShoulders, maxCorridors, minRunLength }

@@ -10,8 +10,13 @@ What this is (concise)
 - Natural wonders: +1 vs. map defaults. Lakes: moderated for balance.
 
 Primary files and references
-- Core script: maps/epic-diverse-huge.js
-- Design/architecture: DESIGN.md (authoritative for v1.0.0)
+- Entries: maps/epic-diverse-huge*.js (each calls bootstrap({ presets, overrides }) then imports maps/map_orchestrator.js)
+- Orchestrator: maps/map_orchestrator.js (registers engine listeners; orchestrates the pipeline)
+- Resolved config: maps/config/resolved.js (single source of truth for reads)
+- Defaults: maps/config/defaults/base.js (canonical baseline configuration)
+- Presets: maps/config/presets/* (named partial configs to compose)
+- Entry helper: maps/config/entry.js (bootstrap({ presets, overrides }))
+- Design/architecture: DESIGN.md (authoritative). Note: entries explicitly import the orchestrator after bootstrap to ensure config is set before engine listener registration; this two-line entry pattern is deliberate and robust on the game VM.
 - Example outputs: outputs/1.0.0 (screenshots of generated maps)
 - Localization summary (for in-game name/desc only): text/en_us/MapText.xml
 
@@ -28,7 +33,7 @@ Debugging hooks (keep handy)
 - Optional JSON markers (disabled in v1.0.0 by default):
   - EPIC_MAP_GEN_START: in requestMapData (commented out)
   - EPIC_MAP_GEN_COMPLETE: near the end of generateMap (commented out)
-  - To enable, uncomment those two console.log blocks in maps/epic-diverse-huge.js.
+  - To enable, uncomment those two console.log blocks in maps/map_orchestrator.js.
 - Optional debug dumps (all commented out in the script):
   - dumpContinents / dumpTerrain / dumpElevation / dumpRainfall / dumpBiomes / dumpFeatures
   - Toggle temporarily when correlating visuals with data layers.

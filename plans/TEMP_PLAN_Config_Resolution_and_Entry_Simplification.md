@@ -1,7 +1,7 @@
 # TEMP PLAN — Config Resolution and Entry Simplification
 
 Owner: Map Systems
-Status: In Progress (Phase 1 complete)
+Status: In Progress (Entry pattern decided; Phase 1 complete)
 Scope: v1.2+ refactor; low-risk, incremental; no functional behavior change until flip
 
 ---
@@ -134,7 +134,7 @@ Non-goals:
   - `setConfig({ ...TEMPERATE_PRESET, ...{ overrides here } });`
   - `import "./map_orchestrator.js";`
 
-- We will keep Pattern B during migration; Pattern A is the easy path.
+- Decision: Adopt Pattern A (explicit bootstrap + explicit orchestrator import) as the standard entry pattern. Pattern B (“one import”) remains documented but deferred. Rationale: explicit import ordering is robust on the game VM today; moving to a single import safely would require making all config reads lazy and resolving at runtime (GenerateMap), which we may revisit later.
 
 ---
 
