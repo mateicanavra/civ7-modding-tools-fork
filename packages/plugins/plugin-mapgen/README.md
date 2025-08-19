@@ -68,3 +68,24 @@ Change log
 
 Next steps
 - Use DESIGN.md’s “Future Work and Modularization Plan” to begin extracting layers cleanly.
+
+Build and outputs (monorepo)
+- Build this plugin only:
+  - pnpm -F @civ7/plugin-mapgen build
+- Build everything in the repo (Turbo pipeline):
+  - pnpm -w -r build
+- What the build does here:
+  - Library bundle (for Node/CLI/tests):
+    - tsup compiles src/index.ts → dist/index.js (ESM), dist/index.cjs (CJS), dist/index.d.ts (types)
+  - CIV7 mod artifacts (for the game client):
+    - A Bun script copies required runtime files from src → dist, preserving structure:
+      - JS entries and modules: dist/maps/**
+      - Modinfo: dist/epic-diverse-huge-map.modinfo
+      - XML config: dist/config/config.xml
+      - Localization: dist/text/en_us/MapText.xml
+- Stability pledge during TS rewrite:
+  - Keep the JS filenames and relative paths under dist/maps/** stable so the CIV7 client continues to load them.
+  - Internal imports within those JS files should remain relative (e.g., ./config/*, ./layers/*); engine modules (e.g., /base-standard/…) are provided by the game at runtime and are not bundled here.
+- How to consume:
+  - Node/CLI/tests: import @civ7/plugin-mapgen (uses the library dist/* artifacts).
+  - CIV7 client: consumes the copied JS/XML/modinfo under dist/ as part of the mod package.

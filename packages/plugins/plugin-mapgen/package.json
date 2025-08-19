@@ -10,7 +10,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "build": "tsup src/index.ts --format esm,cjs --dts && pnpm run build:mod",
+    "build:mod": "bun run scripts/build.ts",
     "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
     "check": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint .",
