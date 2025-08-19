@@ -37,6 +37,7 @@ export const STORY_TUNABLES = Object.freeze({
 
 // Additional config groups (safe fallbacks)
 export const LANDMASS_CFG = MAP_CONFIG?.landmass || {};
+export const LANDMASS_GEOMETRY = MAP_CONFIG?.landmass?.geometry || {};
 export const COASTLINES_CFG = MAP_CONFIG?.coastlines || {};
 export const MARGINS_CFG = MAP_CONFIG?.margins || {};
 export const ISLANDS_CFG = MAP_CONFIG?.islands || {};

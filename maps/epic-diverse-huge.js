@@ -30,6 +30,7 @@ import {
     STORY_ENABLE_OROGENY as CFG_STORY_ENABLE_OROGENY,
     STORY_TUNABLES as CFG_STORY_TUNABLES,
     STORY_ENABLE_WORLDMODEL as CFG_STORY_ENABLE_WORLDMODEL,
+    LANDMASS_GEOMETRY,
 } from "./config/tunables.js";
 import { StoryTags, resetStoryTags } from "./story/tags.js";
 import { storyTagStrategicCorridors } from "./story/corridors.js";
@@ -167,33 +168,62 @@ function generateMap() {
     };
 
     // Create more complex continent boundaries for our diverse terrain generation
-    // Increase ocean columns so there is true ocean on the sides and between land bands
-    let iOceanWaterColumns = Math.floor(globals.g_OceanWaterColumns * 1.1);
+    // Compute band windows from config geometry so fundamentals are controlled in one place.
+    {
+        const GEOM = LANDMASS_GEOMETRY || {};
+        const oceanScale = Number.isFinite(GEOM.oceanColumnsScale)
+            ? GEOM.oceanColumnsScale
+            : 1.1;
+        let iOceanWaterColumns = Math.floor(
+            globals.g_OceanWaterColumns * oceanScale,
+        );
 
-    // Landmass approach – 3 vertical bands, slightly narrower to widen oceans
-    let landmass1 = {
-        west: Math.floor(iOceanWaterColumns),
-        east: Math.floor(iWidth * 0.3) - Math.floor(iOceanWaterColumns * 0.35),
-        south: globals.g_PolarWaterRows,
-        north: iHeight - globals.g_PolarWaterRows,
-        continent: 0,
-    };
+        // Fallback to current defaults if bands are missing
+        const bandDefs =
+            Array.isArray(GEOM.bands) && GEOM.bands.length >= 3
+                ? GEOM.bands
+                : [
+                      {
+                          westFrac: 0.0,
+                          eastFrac: 0.3,
+                          westOceanOffset: 1.0,
+                          eastOceanOffset: -0.35,
+                      },
+                      {
+                          westFrac: 0.35,
+                          eastFrac: 0.6,
+                          westOceanOffset: 0.25,
+                          eastOceanOffset: -0.25,
+                      },
+                      {
+                          westFrac: 0.75,
+                          eastFrac: 1.0,
+                          westOceanOffset: 0.5,
+                          eastOceanOffset: -1.0,
+                      },
+                  ];
 
-    let landmass2 = {
-        west: Math.floor(iWidth * 0.35) + Math.floor(iOceanWaterColumns * 0.25),
-        east: Math.floor(iWidth * 0.6) - Math.floor(iOceanWaterColumns * 0.25),
-        south: globals.g_PolarWaterRows,
-        north: iHeight - globals.g_PolarWaterRows,
-        continent: 1,
-    };
+        function bandWindow(band, idx) {
+            const west =
+                Math.floor(iWidth * (band.westFrac ?? 0)) +
+                Math.floor(iOceanWaterColumns * (band.westOceanOffset ?? 0));
+            const east =
+                Math.floor(iWidth * (band.eastFrac ?? 1)) +
+                Math.floor(iOceanWaterColumns * (band.eastOceanOffset ?? 0));
+            return {
+                west: Math.max(0, Math.min(iWidth - 1, west)),
+                east: Math.max(0, Math.min(iWidth - 1, east)),
+                south: globals.g_PolarWaterRows,
+                north: iHeight - globals.g_PolarWaterRows,
+                continent: idx,
+            };
+        }
 
-    let landmass3 = {
-        west: Math.floor(iWidth * 0.75) + Math.floor(iOceanWaterColumns * 0.5),
-        east: iWidth - Math.floor(iOceanWaterColumns),
-        south: globals.g_PolarWaterRows,
-        north: iHeight - globals.g_PolarWaterRows,
-        continent: 2,
-    };
+        // Landmass approach – 3 vertical bands using configurable geometry
+        var landmass1 = bandWindow(bandDefs[0], 0);
+        var landmass2 = bandWindow(bandDefs[1], 1);
+        var landmass3 = bandWindow(bandDefs[2], 2);
+    }
 
     // Generate landmasses without creating a hard horizontal ocean band
     {

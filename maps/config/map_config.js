@@ -449,6 +449,42 @@ export const MAP_CONFIG = Object.freeze({
         jitterAmpFracBase: 0.03,
         jitterAmpFracScale: 0.015,
         curveAmpFrac: 0.05,
+
+        // Geometry: up-front band layout (fractions) and ocean columns scaling.
+        // Consumers (e.g., epic-diverse-huge.js or an orchestrator) can use these values
+        // to compute the three continental band windows before landmass carving.
+        geometry: Object.freeze({
+            // Scale applied to globals.g_OceanWaterColumns when computing base ocean widths
+            oceanColumnsScale: 1.1,
+
+            // Three-band layout. Fractions are relative to map width (0..1).
+            // Each band defines its target [westFrac, eastFrac] and additive offsets
+            // derived from iOceanWaterColumns via multipliers (positive adds, negative subtracts).
+            // Defaults mirror the current hardcoded starting geometry.
+            bands: Object.freeze([
+                // Left band: [0.00 .. 0.30] with ocean offsets
+                Object.freeze({
+                    westFrac: 0.0,
+                    eastFrac: 0.3,
+                    westOceanOffset: 1.0, // + 1.0 × iOceanWaterColumns
+                    eastOceanOffset: -0.35, // - 0.35 × iOceanWaterColumns
+                }),
+                // Middle band: [0.35 .. 0.60] with symmetric ocean offsets
+                Object.freeze({
+                    westFrac: 0.35,
+                    eastFrac: 0.6,
+                    westOceanOffset: 0.25, // + 0.25 × iOceanWaterColumns
+                    eastOceanOffset: -0.25, // - 0.25 × iOceanWaterColumns
+                }),
+                // Right band: [0.75 .. 1.00] with edge ocean offsets
+                Object.freeze({
+                    westFrac: 0.75,
+                    eastFrac: 1.0,
+                    westOceanOffset: 0.5, // + 0.50 × iOceanWaterColumns
+                    eastOceanOffset: -1.0, // - 1.00 × iOceanWaterColumns (to map edge)
+                }),
+            ]),
+        }),
     }),
     // --- Coastlines (rugged coasts; lane-safe) ---
     coastlines: Object.freeze({
