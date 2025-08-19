@@ -27,6 +27,7 @@
  * Master toggles (all false by default).
  * Flip selectively during development sessions; keep off for release builds.
  */
+import { DEV_LOG_CFG as __DEV_CFG__ } from "./resolved.js";
 export const DEV = {
     ENABLED: true, // Master switch — must be true for any dev logging
     LOG_TIMING: true, // Log per-section timings (timeSection / timeStart/timeEnd)
@@ -43,6 +44,28 @@ export const DEV = {
  * @param {keyof typeof DEV} flag
  * @returns {boolean}
  */
+/**
+ * Initialize DEV flags from resolved.DEV_LOG_CFG() at module import time.
+ * Entries/presets can override dev logging per run.
+ */
+try {
+    const __cfg = typeof __DEV_CFG__ === "function" ? __DEV_CFG__() : null;
+    if (__cfg && typeof __cfg === "object") {
+        if ("enabled" in __cfg) DEV.ENABLED = !!__cfg.enabled;
+        if ("logTiming" in __cfg) DEV.LOG_TIMING = !!__cfg.logTiming;
+        if ("logStoryTags" in __cfg) DEV.LOG_STORY_TAGS = !!__cfg.logStoryTags;
+        if ("rainfallHistogram" in __cfg)
+            DEV.RAINFALL_HISTOGRAM = !!__cfg.rainfallHistogram;
+        if ("LOG_CORRIDOR_ASCII" in __cfg)
+            DEV.LOG_CORRIDOR_ASCII = !!__cfg.LOG_CORRIDOR_ASCII;
+        if ("LOG_WORLDMODEL_SUMMARY" in __cfg)
+            DEV.LOG_WORLDMODEL_SUMMARY = !!__cfg.LOG_WORLDMODEL_SUMMARY;
+        if ("WORLDMODEL_HISTOGRAMS" in __cfg)
+            DEV.WORLDMODEL_HISTOGRAMS = !!__cfg.WORLDMODEL_HISTOGRAMS;
+    }
+} catch (_) {
+    /* no-op */
+}
 function isOn(flag) {
     return !!(DEV && DEV.ENABLED && DEV[flag]);
 }
