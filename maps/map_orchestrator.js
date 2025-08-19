@@ -6,24 +6,17 @@
  */
 console.log("Loading Epic Diverse Huge Map Generator");
 
-import {
-    assignStartPositions,
-    chooseStartSectors,
-} from "/base-standard/maps/assign-starting-plots.js";
+import { chooseStartSectors } from "/base-standard/maps/assign-starting-plots.js";
 import {
     addMountains,
     addHills,
     expandCoasts,
-    buildRainfallMap,
     generateLakes,
 } from "/base-standard/maps/elevation-terrain-generator.js";
-import {
-    addFeatures,
-    designateBiomes,
-} from "/base-standard/maps/feature-biome-generator.js";
+
 import * as globals from "/base-standard/maps/map-globals.js";
 import * as utilities from "/base-standard/maps/map-utilities.js";
-import { addNaturalWonders } from "/base-standard/maps/natural-wonder-generator.js";
+
 import { getConfig } from "./config/runtime.js";
 import { StoryTags, resetStoryTags } from "./story/tags.js";
 import { storyTagStrategicCorridors } from "./story/corridors.js";
@@ -33,16 +26,10 @@ import {
     storyTagOrogenyBelts,
     storyTagContinentalMargins,
     storyTagClimateSwatches,
-    storyTagPaleoHydrology,
     OrogenyCache,
 } from "./story/tagging.js";
 
-import { generateResources } from "/base-standard/maps/resource-generator.js";
 import { addVolcanoes } from "/base-standard/maps/volcano-generator.js";
-import { assignAdvancedStartRegions } from "/base-standard/maps/assign-advanced-start-region.js";
-import { generateDiscoveries } from "/base-standard/maps/discovery-generator.js";
-import { generateSnow } from "/base-standard/maps/snow-generator.js";
-import { dumpStartSectors } from "/base-standard/maps/map-debug-helpers.js";
 import { createDiverseLandmasses as layerCreateDiverseLandmasses } from "./layers/landmass.js";
 import { addRuggedCoasts as layerAddRuggedCoasts } from "./layers/coastlines.js";
 import { addIslandChains as layerAddIslandChains } from "./layers/islands.js";
