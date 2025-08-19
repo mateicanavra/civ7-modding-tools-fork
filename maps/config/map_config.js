@@ -457,10 +457,89 @@ export const MAP_CONFIG = Object.freeze({
             // Scale applied to globals.g_OceanWaterColumns when computing base ocean widths
             oceanColumnsScale: 1.1,
 
-            // Three-band layout. Fractions are relative to map width (0..1).
-            // Each band defines its target [westFrac, eastFrac] and additive offsets
-            // derived from iOceanWaterColumns via multipliers (positive adds, negative subtracts).
-            // Defaults mirror the current hardcoded starting geometry.
+            // Optional named presets for starting geometry. Consumers may prefer to read `preset`
+            // and load the matching entry from `presets`. The `bands` array below serves as a
+            // backward-compatible fallback and should mirror the currently selected preset.
+            preset: "classic",
+            presets: Object.freeze({
+                // Mirrors the original hardcoded layout
+                classic: Object.freeze({
+                    bands: Object.freeze([
+                        // Left band: [0.00 .. 0.30] with ocean offsets
+                        Object.freeze({
+                            westFrac: 0.0,
+                            eastFrac: 0.3,
+                            westOceanOffset: 1.0, // + 1.0 × iOceanWaterColumns
+                            eastOceanOffset: -0.35, // - 0.35 × iOceanWaterColumns
+                        }),
+                        // Middle band: [0.35 .. 0.60] with symmetric ocean offsets
+                        Object.freeze({
+                            westFrac: 0.35,
+                            eastFrac: 0.6,
+                            westOceanOffset: 0.25, // + 0.25 × iOceanWaterColumns
+                            eastOceanOffset: -0.25, // - 0.25 × iOceanWaterColumns
+                        }),
+                        // Right band: [0.75 .. 1.00] with edge ocean offsets
+                        Object.freeze({
+                            westFrac: 0.75,
+                            eastFrac: 1.0,
+                            westOceanOffset: 0.5, // + 0.50 × iOceanWaterColumns
+                            eastOceanOffset: -1.0, // - 1.00 × iOceanWaterColumns (to map edge)
+                        }),
+                    ]),
+                }),
+
+                // Tighter middle band (more separation between left/middle by default)
+                tightMiddle: Object.freeze({
+                    bands: Object.freeze([
+                        Object.freeze({
+                            westFrac: 0.0,
+                            eastFrac: 0.28,
+                            westOceanOffset: 1.0,
+                            eastOceanOffset: -0.4,
+                        }),
+                        Object.freeze({
+                            westFrac: 0.32,
+                            eastFrac: 0.58,
+                            westOceanOffset: 0.2,
+                            eastOceanOffset: -0.2,
+                        }),
+                        Object.freeze({
+                            westFrac: 0.72,
+                            eastFrac: 1.0,
+                            westOceanOffset: 0.5,
+                            eastOceanOffset: -1.0,
+                        }),
+                    ]),
+                }),
+
+                // Wider exterior oceans by default (conservative; still plate-aware later)
+                wideOceans: Object.freeze({
+                    bands: Object.freeze([
+                        Object.freeze({
+                            westFrac: 0.0,
+                            eastFrac: 0.25,
+                            westOceanOffset: 1.2,
+                            eastOceanOffset: -0.5,
+                        }),
+                        Object.freeze({
+                            westFrac: 0.4,
+                            eastFrac: 0.6,
+                            westOceanOffset: 0.35,
+                            eastOceanOffset: -0.35,
+                        }),
+                        Object.freeze({
+                            westFrac: 0.75,
+                            eastFrac: 1.0,
+                            westOceanOffset: 0.8,
+                            eastOceanOffset: -1.2,
+                        }),
+                    ]),
+                }),
+            }),
+
+            // Three-band layout fallback. Fractions are relative to map width (0..1).
+            // This should mirror the currently selected preset (see `preset` above).
             bands: Object.freeze([
                 // Left band: [0.00 .. 0.30] with ocean offsets
                 Object.freeze({

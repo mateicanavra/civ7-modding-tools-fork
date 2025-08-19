@@ -178,30 +178,39 @@ function generateMap() {
             globals.g_OceanWaterColumns * oceanScale,
         );
 
-        // Fallback to current defaults if bands are missing
+        // Select bands from preset when present; fallback to explicit bands, then defaults
+        const presetName = GEOM.preset;
+        const presetBands =
+            presetName &&
+            GEOM.presets &&
+            Array.isArray(GEOM.presets[presetName]?.bands)
+                ? GEOM.presets[presetName].bands
+                : null;
         const bandDefs =
-            Array.isArray(GEOM.bands) && GEOM.bands.length >= 3
-                ? GEOM.bands
-                : [
-                      {
-                          westFrac: 0.0,
-                          eastFrac: 0.3,
-                          westOceanOffset: 1.0,
-                          eastOceanOffset: -0.35,
-                      },
-                      {
-                          westFrac: 0.35,
-                          eastFrac: 0.6,
-                          westOceanOffset: 0.25,
-                          eastOceanOffset: -0.25,
-                      },
-                      {
-                          westFrac: 0.75,
-                          eastFrac: 1.0,
-                          westOceanOffset: 0.5,
-                          eastOceanOffset: -1.0,
-                      },
-                  ];
+            Array.isArray(presetBands) && presetBands.length >= 3
+                ? presetBands
+                : Array.isArray(GEOM.bands) && GEOM.bands.length >= 3
+                  ? GEOM.bands
+                  : [
+                        {
+                            westFrac: 0.0,
+                            eastFrac: 0.3,
+                            westOceanOffset: 1.0,
+                            eastOceanOffset: -0.35,
+                        },
+                        {
+                            westFrac: 0.35,
+                            eastFrac: 0.6,
+                            westOceanOffset: 0.25,
+                            eastOceanOffset: -0.25,
+                        },
+                        {
+                            westFrac: 0.75,
+                            eastFrac: 1.0,
+                            westOceanOffset: 0.5,
+                            eastOceanOffset: -1.0,
+                        },
+                    ];
 
         function bandWindow(band, idx) {
             const west =
