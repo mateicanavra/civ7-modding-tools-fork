@@ -9,3 +9,4 @@ import { bootstrap } from "./config/entry.js";
 bootstrap({
     presets: ["classic"],
 });
+import "./map_orchestrator.js";

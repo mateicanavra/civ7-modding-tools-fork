@@ -19,6 +19,7 @@ import { bootstrap } from "./config/entry.js";
 bootstrap({
     presets: ["temperate"],
 });
+import "./map_orchestrator.js";
 
 console.log(
     "[EpicDiverseHuge:Temperate] Ready (delegating to Epic Diverse Huge generator).",
