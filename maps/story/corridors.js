@@ -623,6 +623,8 @@ function tagLandCorridorsFromRifts() {
                         samples > 0 ? Math.round(totalRain / samples) : 0;
                     const reliefFrac = samples > 0 ? reliefHits / samples : 0;
                     const latDeg = Math.abs(GameplayMap.getPlotLatitude(0, y));
+
+                    // Baseline style from local context
                     let style = "plainsBelt";
                     if (reliefFrac > 0.35 && avgRain < 95) {
                         style = "canyon";
@@ -634,6 +636,72 @@ function tagLandCorridorsFromRifts() {
                         style = "desertBelt";
                     } else if (avgRain > 115) {
                         style = "grasslandBelt";
+                    }
+
+                    // Directionality-influenced steering (cohesive macro alignment)
+                    // Lanes here are row-oriented (east-west). Use global axes to nudge style.
+                    try {
+                        const DIR = WORLDMODEL_DIRECTIONALITY || {};
+                        const cohesion = Math.max(
+                            0,
+                            Math.min(1, DIR?.cohesion ?? 0),
+                        );
+                        if (cohesion > 0) {
+                            const plateDeg =
+                                (DIR?.primaryAxes?.plateAxisDeg ?? 0) | 0;
+                            const windDeg =
+                                (DIR?.primaryAxes?.windBiasDeg ?? 0) | 0;
+
+                            // Unit vectors for axes and this corridor orientation (row → east-west)
+                            const radP = (plateDeg * Math.PI) / 180;
+                            const radW = (windDeg * Math.PI) / 180;
+                            const PV = { x: Math.cos(radP), y: Math.sin(radP) };
+                            const WV = { x: Math.cos(radW), y: Math.sin(radW) };
+                            const L = { x: 1, y: 0 }; // row-aligned
+
+                            // Alignment 0..1 (absolute dot; we care about parallelism)
+                            const alignPlate = Math.abs(
+                                PV.x * L.x + PV.y * L.y,
+                            );
+                            const alignWind = Math.abs(WV.x * L.x + WV.y * L.y);
+
+                            // Heuristic thresholds scaled by cohesion
+                            const hiAlign = 0.75 * cohesion + 0.1; // ~0.85 at cohesion 1.0
+                            const midAlign = 0.5 * cohesion + 0.1;
+
+                            // Plate-aligned corridors: bias toward structural styles
+                            if (alignPlate >= hiAlign) {
+                                if (avgElev > 650 && reliefFrac < 0.28) {
+                                    style = "plateau";
+                                } else if (reliefFrac > 0.3 && avgRain < 100) {
+                                    style = "canyon";
+                                } else if (avgElev > 560 && reliefFrac < 0.35) {
+                                    style = "flatMtn";
+                                }
+                            } else if (alignPlate >= midAlign) {
+                                if (avgElev > 600 && reliefFrac < 0.25) {
+                                    style = "plateau";
+                                }
+                            }
+
+                            // Wind-aligned corridors: bias toward open belts (desert/grassland)
+                            if (alignWind >= hiAlign) {
+                                if (
+                                    avgRain > 110 ||
+                                    (latDeg < 25 && avgRain > 100)
+                                ) {
+                                    style = "grasslandBelt";
+                                } else if (avgRain < 90 && latDeg < 35) {
+                                    style = "desertBelt";
+                                }
+                            } else if (alignWind >= midAlign) {
+                                if (avgRain > 120) {
+                                    style = "grasslandBelt";
+                                }
+                            }
+                        }
+                    } catch (_) {
+                        // Keep baseline style on any error
                     }
                     for (let cx = start; cx <= end; cx++) {
                         if (!GameplayMap.isWater(cx, y)) {

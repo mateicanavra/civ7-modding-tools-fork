@@ -845,10 +845,41 @@ export function storyTagClimateSwatches() {
 
     // Choose one type by weight
     const types = cfg.types || {};
-    const entries = Object.keys(types).map((k) => ({
+    let entries = Object.keys(types).map((k) => ({
         key: k,
         w: Math.max(0, types[k].weight | 0),
     }));
+
+    // Directionality-aligned swatch weighting (cohesive, conservative)
+    try {
+        const DIR = WORLDMODEL_DIRECTIONALITY || {};
+        const COH = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
+        if (COH > 0) {
+            const windDeg = (DIR?.primaryAxes?.windBiasDeg ?? 0) | 0;
+            const plateDeg = (DIR?.primaryAxes?.plateAxisDeg ?? 0) | 0;
+            const wRad = (windDeg * Math.PI) / 180;
+            const pRad = (plateDeg * Math.PI) / 180;
+            const alignZonal = Math.abs(Math.cos(wRad)); // alignment with E–W
+            const alignPlate = Math.abs(Math.cos(pRad)); // coarse proxy
+
+            entries = entries.map((e) => {
+                let mul = 1;
+                if (e.key === "macroDesertBelt") {
+                    mul *= 1 + 0.4 * COH * alignZonal;
+                } else if (e.key === "equatorialRainbelt") {
+                    mul *= 1 + 0.25 * COH * alignZonal;
+                } else if (e.key === "mountainForests") {
+                    mul *= 1 + 0.2 * COH * alignPlate;
+                } else if (e.key === "greatPlains") {
+                    mul *= 1 + 0.2 * COH * alignZonal;
+                }
+                return { key: e.key, w: Math.max(0, Math.round(e.w * mul)) };
+            });
+        }
+    } catch (_) {
+        /* keep default weights on any error */
+    }
+
     const totalW = entries.reduce((s, e) => s + e.w, 0) || 1;
     let roll = TerrainBuilder.getRandomNumber(totalW, "SwatchType");
     let chosenKey = entries[0]?.key || "macroDesertBelt";
@@ -982,9 +1013,98 @@ export function storyTagClimateSwatches() {
         }
     }
 
+    // Monsoon tweak (directionality-aligned, coastal onshore bias; conservative)
+    try {
+        const DIR = WORLDMODEL_DIRECTIONALITY || {};
+        const monsoonBias = Math.max(
+            0,
+            Math.min(1, DIR?.hemispheres?.monsoonBias ?? 0),
+        );
+        const COH = Math.max(0, Math.min(1, DIR?.cohesion ?? 0));
+        const eqBand = Math.max(
+            0,
+            (DIR?.hemispheres?.equatorBandDeg ?? 12) | 0,
+        );
+
+        if (
+            monsoonBias > 0 &&
+            COH > 0 &&
+            WorldModel?.isEnabled?.() &&
+            WorldModel.windU &&
+            WorldModel.windV
+        ) {
+            const width = GameplayMap.getGridWidth();
+            const height = GameplayMap.getGridHeight();
+            const baseDelta = Math.max(1, Math.round(3 * COH * monsoonBias));
+
+            for (let y = 0; y < height; y++) {
+                const lat = GameplayMap.getPlotLatitude(0, y);
+                // Focus effect near equatorial/monsoon band
+                if (Math.abs(lat) > eqBand + 18) continue;
+
+                for (let x = 0; x < width; x++) {
+                    if (GameplayMap.isWater(x, y)) continue;
+                    // Coastal adjacency
+                    if (
+                        !GameplayMap.isCoastalLand(x, y) &&
+                        !GameplayMap.isAdjacentToShallowWater(x, y)
+                    )
+                        continue;
+
+                    const i = y * width + x;
+                    const u = WorldModel.windU[i] | 0;
+                    const v = WorldModel.windV[i] | 0;
+                    // Upwind unit step from dominant component
+                    let ux = 0,
+                        vy = 0;
+                    if (Math.abs(u) >= Math.abs(v)) {
+                        ux = u === 0 ? 0 : u > 0 ? 1 : -1;
+                        vy = 0;
+                    } else {
+                        ux = 0;
+                        vy = v === 0 ? 0 : v > 0 ? 1 : -1;
+                    }
+                    // Upwind is opposite of wind direction
+                    const upX = x - ux;
+                    const upY = y - vy;
+                    const dnX = x + ux;
+                    const dnY = y + vy;
+
+                    let delta = 0;
+                    if (
+                        upX >= 0 &&
+                        upX < width &&
+                        upY >= 0 &&
+                        upY < height &&
+                        GameplayMap.isWater(upX, upY)
+                    ) {
+                        // Onshore flow -> small wet boost
+                        delta = baseDelta;
+                    } else if (
+                        dnX >= 0 &&
+                        dnX < width &&
+                        dnY >= 0 &&
+                        dnY < height &&
+                        GameplayMap.isWater(dnX, dnY)
+                    ) {
+                        // Offshore flow -> tiny dry penalty
+                        delta = -Math.max(1, Math.floor(baseDelta / 2));
+                    }
+
+                    if (delta !== 0) {
+                        const rf0 = GameplayMap.getRainfall(x, y);
+                        const rf1 = Math.max(0, Math.min(200, rf0 + delta));
+                        TerrainBuilder.setRainfall(x, y, rf1);
+                    }
+                }
+            }
+        }
+    } catch (_) {
+        /* keep resilient */
+    }
+
     let _swatchResult = { applied: applied > 0, kind, tiles: applied };
-    // Opportunistically run Paleo‑Hydrology after swatch paint so its humidity/dryness
-    // overlays blend with the bands and the selected macro swatch.
+    // Opportunistically run Paleo‑Hydrology after swatch+monsoon so its overlays blend
     if (STORY_ENABLE_PALEO) {
         try {
             const paleoResult = storyTagPaleoHydrology();

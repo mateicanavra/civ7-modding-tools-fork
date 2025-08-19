@@ -345,7 +345,7 @@ export const MAP_CONFIG = Object.freeze({
         // Global winds (zonal baseline + jet streams; used in refinement upwind checks)
         wind: Object.freeze({
             jetStreaks: 5,
-            jetStrength: 1.3,
+            jetStrength: 1.75,
             variance: 0.6,
             coriolisZonalScale: 1.0,
         }),
@@ -354,7 +354,7 @@ export const MAP_CONFIG = Object.freeze({
         currents: Object.freeze({
             basinGyreCountMax: 2,
             westernBoundaryBias: 1.1,
-            currentStrength: 3.0,
+            currentStrength: 4.0,
         }),
 
         // Mantle pressure (bumps/ridges; optional small influence on hills/relief)
@@ -369,7 +369,7 @@ export const MAP_CONFIG = Object.freeze({
         // can evolve in concert while remaining varied. These are read by WorldModel and consumers.
         directionality: Object.freeze({
             // Master cohesion dial (0..1): higher = stronger alignment between systems
-            cohesion: 0.65,
+            cohesion: 0.75,
 
             // Macro axes in degrees: bias plate motion, prevailing winds, and gyre/currents
             primaryAxes: Object.freeze({
@@ -380,8 +380,8 @@ export const MAP_CONFIG = Object.freeze({
 
             // Interplay weights (0..1): how much one system aligns with another
             interplay: Object.freeze({
-                windsFollowPlates: 0.4, // jets and streaks tend to align with plate axes
-                currentsFollowWinds: 0.6, // surface currents track prevailing winds
+                windsFollowPlates: 0.6, // jets and streaks tend to align with plate axes
+                currentsFollowWinds: 0.75, // surface currents track prevailing winds
                 riftsFollowPlates: 0.8, // divergent rifts along plate boundaries
                 orogenyOpposesRifts: 0.5, // convergent uplift tends to oppose divergent directions
             }),
@@ -389,8 +389,8 @@ export const MAP_CONFIG = Object.freeze({
             // Hemisphere options and seasonal asymmetry (future-facing)
             hemispheres: Object.freeze({
                 southernFlip: true, // flip sign conventions in S hemisphere for winds/currents bias
-                equatorBandDeg: 12, // symmetric behavior band around equator
-                monsoonBias: 0.3, // seasonal asymmetry placeholder (kept conservative)
+                equatorBandDeg: 18, // symmetric behavior band around equator
+                monsoonBias: 0.7, // seasonal asymmetry placeholder (kept conservative)
             }),
 
             // Variability knobs to avoid rigid patterns while honoring directionality
