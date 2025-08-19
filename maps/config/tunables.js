@@ -56,6 +56,24 @@ import {
     WORLDMODEL_OCEAN_SEPARATION as __WM_OSEPARATION__,
 } from "./resolved.js";
 
+/**
+ * @typedef {import('./map_config.d.ts').Landmass} Landmass
+ * @typedef {import('./map_config.d.ts').LandmassGeometry} LandmassGeometry
+ * @typedef {import('./map_config.d.ts').Coastlines} CoastlinesCfg
+ * @typedef {import('./map_config.d.ts').Margins} MarginsCfg
+ * @typedef {import('./map_config.d.ts').Islands} IslandsCfg
+ * @typedef {import('./map_config.d.ts').ClimateBaseline} ClimateBaseline
+ * @typedef {import('./map_config.d.ts').ClimateRefine} ClimateRefine
+ * @typedef {import('./map_config.d.ts').Biomes} Biomes
+ * @typedef {import('./map_config.d.ts').FeaturesDensity} FeaturesDensity
+ * @typedef {import('./map_config.d.ts').Corridors} Corridors
+ * @typedef {import('./map_config.d.ts').CorridorPolicy} CorridorPolicy
+ * @typedef {import('./map_config.d.ts').CorridorKinds} CorridorKinds
+ * @typedef {import('./map_config.d.ts').Placement} Placement
+ * @typedef {import('./map_config.d.ts').DevLogging} DevLogging
+ * @typedef {import('./map_config.d.ts').WorldModel} WorldModel
+ */
+
 /* -----------------------------------------------------------------------------
  * Exported live bindings (updated by rebind)
  * -------------------------------------------------------------------------- */
@@ -81,31 +99,53 @@ export let STORY_TUNABLES = Object.freeze({
 });
 
 // Group objects (treat as read‑only from callers)
+/** @type {Readonly<Landmass>} */
 export let LANDMASS_CFG = Object.freeze({});
+/** @type {Readonly<LandmassGeometry>} */
 export let LANDMASS_GEOMETRY = Object.freeze({});
+/** @type {Readonly<CoastlinesCfg>} */
 export let COASTLINES_CFG = Object.freeze({});
+/** @type {Readonly<MarginsCfg>} */
 export let MARGINS_CFG = Object.freeze({});
+/** @type {Readonly<IslandsCfg>} */
 export let ISLANDS_CFG = Object.freeze({});
+/** @type {Readonly<ClimateBaseline>} */
 export let CLIMATE_BASELINE_CFG = Object.freeze({});
+/** @type {Readonly<ClimateRefine>} */
 export let CLIMATE_REFINE_CFG = Object.freeze({});
+/** @type {Readonly<Biomes>} */
 export let BIOMES_CFG = Object.freeze({});
+/** @type {Readonly<FeaturesDensity>} */
 export let FEATURES_DENSITY_CFG = Object.freeze({});
+/** @type {Readonly<Corridors>} */
 export let CORRIDORS_CFG = Object.freeze({});
+/** @type {Readonly<Placement>} */
 export let PLACEMENT_CFG = Object.freeze({});
+/** @type {Readonly<DevLogging>} */
 export let DEV_LOG_CFG = Object.freeze({});
+/** @type {Readonly<WorldModel>} */
 export let WORLDMODEL_CFG = Object.freeze({});
 
 // Corridor sub-groups
+/** @type {Readonly<CorridorPolicy>} */
 export let CORRIDOR_POLICY = Object.freeze({});
+/** @type {Readonly<CorridorKinds>} */
 export let CORRIDOR_KINDS = Object.freeze({});
 
 // WorldModel nested groups
+/** @type {Readonly<WorldModel['plates']>} */
 export let WORLDMODEL_PLATES = Object.freeze({});
+/** @type {Readonly<WorldModel['wind']>} */
 export let WORLDMODEL_WIND = Object.freeze({});
+/** @type {Readonly<WorldModel['currents']>} */
 export let WORLDMODEL_CURRENTS = Object.freeze({});
+/** @type {Readonly<WorldModel['pressure']>} */
 export let WORLDMODEL_PRESSURE = Object.freeze({});
+/** @type {Readonly<WorldModel['policy']>} */
 export let WORLDMODEL_POLICY = Object.freeze({});
+/** @type {Readonly<WorldModel['directionality']>} */
 export let WORLDMODEL_DIRECTIONALITY = Object.freeze({});
+/** @type {Readonly<NonNullable<WorldModel['policy']>['oceanSeparation']>} */
 export let WORLDMODEL_OCEAN_SEPARATION = Object.freeze({});
 
 /* -----------------------------------------------------------------------------
@@ -177,13 +217,16 @@ export function rebind() {
  * -------------------------------------------------------------------------- */
 
 /**
- * Ensure we always return a frozen plain object (never null/undefined/primitives).
+ * Ensure we always return a frozen object of the expected shape for TS consumers.
+ * Falls back to an empty frozen object when input is null/undefined or not an object.
+ * @template T
  * @param {any} v
- * @returns {Readonly<Record<string, any>>}
+ * @returns {Readonly<T>}
  */
 function safeObj(v) {
-    if (!v || typeof v !== "object") return Object.freeze({});
-    return v;
+    if (!v || typeof v !== "object")
+        return /** @type {Readonly<T>} */ (Object.freeze({}));
+    return /** @type {Readonly<T>} */ (v);
 }
 
 /* -----------------------------------------------------------------------------

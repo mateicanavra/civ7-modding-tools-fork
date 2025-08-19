@@ -75,7 +75,7 @@ bootstrap({
             orographic: {
                 hi1Threshold: 280,
                 hi2Threshold: 380,
-                hi2Bonus: 2,
+                hi2Bonus: 200,
             },
         },
         islands: {
@@ -84,9 +84,13 @@ bootstrap({
         // Tectonics and directionality tuned for a central ridge with flanking rifts
         worldModel: {
             enabled: true,
+            wind: {
+                coriolisZonalScale: 2.3,
+                jetStreaks: 3,
+            },
             plates: {
                 count: 6,
-                axisAngles: [0, -10],
+                axisAngles: [23, -17],
                 convergenceMix: 1.75,
                 seedJitter: 2,
                 interiorSmooth: 4,

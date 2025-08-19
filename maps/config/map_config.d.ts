@@ -279,24 +279,24 @@ export interface LandmassGeometry {
     /** Active preset name to mirror (string key into presets) */
     preset?: string;
     /** Named presets mapping to band arrays (open set of presets) */
-    presets?: Record<string, { bands: LandmassBand[] }>;
+    presets?: Record<string, { bands: ReadonlyArray<LandmassBand> }>;
     /**
      * Three-band layout fallback (should mirror selected preset).
      * Fractions are relative to map width (ratio 0..1).
      */
-    bands?: LandmassBand[];
+    bands?: ReadonlyArray<LandmassBand>;
 }
 
 /** One continental band window and ocean offsets */
 export interface LandmassBand {
     /** West bound as a fraction of map width (ratio 0..1) */
-    westFrac: number;
+    readonly westFrac: number;
     /** East bound as a fraction of map width (ratio 0..1) */
-    eastFrac: number;
+    readonly eastFrac: number;
     /** West ocean offset (+ scalar × iOceanWaterColumns → tiles) */
-    westOceanOffset: number;
+    readonly westOceanOffset: number;
     /** East ocean offset (- scalar × iOceanWaterColumns → tiles) */
-    eastOceanOffset: number;
+    readonly eastOceanOffset: number;
 }
 
 /** Coastline ruggedizing (lane-safe) */
@@ -647,7 +647,7 @@ export interface WorldModel {
         /** Plate count target (count) */
         count?: number;
         /** Macro axes used to align plate trends (degrees) */
-        axisAngles?: number[];
+        axisAngles?: ReadonlyArray<number>;
         /** 0..1 fraction for convergent vs divergent balance (ratio 0..1) */
         convergenceMix?: number;
         /** Tile jitter applied to plate seeds (tiles) */
@@ -756,7 +756,7 @@ export interface WorldModel {
              * Uses 0-based indices used by orchestrator.
              * Example: [[0,1],[1,2]]
              */
-            bandPairs?: [number, number][];
+            bandPairs?: ReadonlyArray<ReadonlyArray<number>>;
             /** Base lateral push applied pre-coast expansion; positive widens oceans (tiles) */
             baseSeparationTiles?: number;
             /** Multiplier scaling separation near high boundary closeness (ratio 0..2) */
