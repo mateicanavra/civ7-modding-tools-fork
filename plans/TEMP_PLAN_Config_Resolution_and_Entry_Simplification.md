@@ -1,7 +1,7 @@
 # TEMP PLAN — Config Resolution and Entry Simplification
 
 Owner: Map Systems
-Status: Draft (temporary planning document)
+Status: In Progress (Phase 1 complete)
 Scope: v1.2+ refactor; low-risk, incremental; no functional behavior change until flip
 
 ---
@@ -159,29 +159,33 @@ Non-goals:
 
 ## 9) Migration Plan (Incremental)
 
-Phase 0 — Prepare
-- Add `defaults/base.js` and a tiny set of `presets/*`.
-- Add `resolved.js` with a no-op `refresh()` and getters that fall back to `map_config.js` so behavior is unchanged.
-- Update `tunables.js` to re-export getters from `resolved.js` (temporary shim).
+Phase 0 — Prepare — COMPLETED
+- Added `defaults/base.js` and initial `presets/*` (`classic`, `temperate`).
+- Added `resolved.js` with deep-merge and deep-freeze; no compatibility shim.
+- Rewired `tunables.js` to resolved getters; snapshot refresh occurs at import.
 
-Phase 1 — Switch Orchestrator
-- In `generateMap()`, call `resolved.refresh()` at the top.
-- Replace direct `getConfig()` reads with `resolved` equivalents for toggles and landmass geometry.
-- Keep runtime.js for per-entry overrides (storage).
+Phase 1 — Switch Orchestrator — COMPLETED
+- Orchestrator now reads toggles and geometry via `config/tunables.js` (backed by `resolved.js`).
+- Entries use presets via `runtime.setConfig({ presets: [...] })` (`classic`, `temperate`).
+- Removed experimental/legacy modules; pruned unused imports; removed orphaned localization row.
+- Fixed `deepFreeze` to be non-mutating and safe with frozen inputs.
 
-Phase 2 — Switch Layers/WorldModel/Story
-- Update imports in layers/story/WorldModel from `config/tunables.js` to resolved getters (or continue to use the shim).
-- Verify behavior parity (rainfall clamps, feature validation, ordering intact).
+Phase 2 — Align Dev Logger with Resolved Config (NEXT)
+- Read dev flags from `resolved.DEV_LOG_CFG()` at generation start.
+- Keep defaults quiet; allow per-entry/preset overrides.
 
-Phase 3 — Entries Simplification
-- Introduce `config/entry.js` (`bootstrap()` helper).
-- Migrate `epic-diverse-huge-temperate.js` to use Bootstrap Pattern A.
-- Keep the classic setConfig + import pattern supported for now.
+Phase 3 — Defaults Consolidation (NEXT)
+- Move literal defaults from `map_config.js` into `defaults/base.js`.
+- Retire `map_config.js` or make it a thin passthrough to `BASE_CONFIG`.
+- Update docs to reference `defaults/base.js` as the canonical source.
 
-Phase 4 — Cleanup
-- Remove legacy static code from `tunables.js` and only re-export from `resolved.js` or deprecate the file entirely.
-- Consolidate defaults into `defaults/base.js`; ensure “random defaults” do not exist outside of defaults/presets.
-- Document Layer Contracts in DESIGN.md referencing resolved config.
+Phase 4 — Entry Bootstrap Helper (NEXT)
+- Add `config/entry.js` with `bootstrap({ presets, overrides })` to further reduce entry boilerplate.
+- Migrate entries to the helper; keep manual composition supported.
+
+Phase 5 — Cleanup and Docs (NEXT)
+- Verify all consumers rely on resolved config; remove any remaining scattered defaults.
+- Update DESIGN.md with Layer Contracts and call out resolved config as the source of truth.
 
 ---
 
