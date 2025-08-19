@@ -1,0 +1,10 @@
+{
+  "extends": "../../../tsconfig.plugins.json",
+  "compilerOptions": {
+    "composite": false,
+    "rootDir": "src",
+    "outDir": "dist"
+  },
+  "include": ["src"],
+  "references": []
+}
