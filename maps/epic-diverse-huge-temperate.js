@@ -14,16 +14,11 @@
 
 console.log("[EpicDiverseHuge:Temperate] Loading sibling map entry...");
 
-import { setConfig } from "./config/runtime.js";
+import { bootstrap } from "./config/entry.js";
 
-const MAP_CONFIG = Object.freeze({
+bootstrap({
     presets: ["temperate"],
 });
-
-setConfig(MAP_CONFIG);
-
-// Import the orchestrator after setting config (registers engine listeners on load)
-import "./map_orchestrator.js";
 
 console.log(
     "[EpicDiverseHuge:Temperate] Ready (delegating to Epic Diverse Huge generator).",
