@@ -203,6 +203,102 @@ export async function configureRemoteAndFetch(
   return status;
 }
 
+/** Execute GitHub CLI commands. */
+export async function execGh(args: string[], opts: GitExecOptions = {}): Promise<ExecResult> {
+  const { cwd, env, verbose, allowNonZeroExit } = opts;
+  if (verbose) {
+    console.log(`$ gh ${args.join(' ')}`);
+  }
+  try {
+    const { stdout, stderr } = await execFile('gh', args, {
+      cwd,
+      env,
+      encoding: 'utf8',
+      maxBuffer: 1024 * 1024 * 10,
+    });
+    return { stdout: stdout ?? '', stderr: stderr ?? '', code: 0 };
+  } catch (err: any) {
+    const stdout = err?.stdout ?? '';
+    const stderr = err?.stderr ?? '';
+    const code = typeof err?.code === 'number' ? err.code : 1;
+    const result: ExecResult = { stdout, stderr, code };
+    if (allowNonZeroExit) return result;
+    throw new GitError(`gh ${args.join(' ')} failed with code ${code}`, args, result);
+  }
+}
+
+/** Whether GitHub CLI is available on PATH. */
+export async function isGhAvailable(opts: GitExecOptions = {}): Promise<boolean> {
+  try {
+    await execGh(['--version'], { ...opts, allowNonZeroExit: false });
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/** Parse a GitHub repo slug (owner/repo) from a remote URL. */
+export function parseGithubRepoSlugFromUrl(url: string): string | null {
+  if (!url) return null;
+  // Normalize: strip protocol and .git suffix
+  const sshMatch = url.match(/^git@[^:]+:([^#]+?)(?:\.git)?$/);
+  if (sshMatch && sshMatch[1]) return sshMatch[1];
+  const httpsMatch = url.match(/^https?:\/\/[^/]+\/([^#]+?)(?:\.git)?$/);
+  if (httpsMatch && httpsMatch[1]) return httpsMatch[1];
+  const sshProto = url.match(/^ssh:\/\/git@[^/]+\/([^#]+?)(?:\.git)?$/);
+  if (sshProto && sshProto[1]) return sshProto[1];
+  return null;
+}
+
+/** Resolve the GitHub repo slug (owner/repo) for a given remote name. */
+export async function getGithubRepoSlugForRemote(remote: string, opts: GitExecOptions = {}): Promise<string | null> {
+  const url = await getRemoteUrl(remote, opts);
+  if (!url) return null;
+  return parseGithubRepoSlugFromUrl(url);
+}
+
+/** Create (or return existing) pull request via gh between source → base. */
+export async function createOrGetPullRequest(
+  remote: string,
+  sourceBranch: string,
+  baseBranch: string,
+  options: { title?: string; body?: string; draft?: boolean; repoSlugOverride?: string } = {},
+  opts: GitExecOptions = {},
+): Promise<{ action: 'created' | 'existing'; number?: number; url?: string } | null> {
+  if (!(await isGhAvailable(opts))) {
+    return null;
+  }
+  const repo = options.repoSlugOverride ?? (await getGithubRepoSlugForRemote(remote, opts));
+  if (!repo) return null;
+
+  // Check for existing open PR
+  const list = await execGh(
+    ['pr', 'list', '-R', repo, '--base', baseBranch, '--head', sourceBranch, '--state', 'open', '--json', 'number,url'],
+    { ...opts, allowNonZeroExit: true },
+  );
+  if (list.code === 0) {
+    try {
+      const arr = JSON.parse(list.stdout || '[]') as Array<{ number: number; url: string }>;
+      if (arr.length > 0) {
+        return { action: 'existing', number: arr[0].number, url: arr[0].url };
+      }
+    } catch {
+      // ignore parse errors
+    }
+  }
+
+  const args = ['pr', 'create', '-R', repo, '--base', baseBranch, '--head', sourceBranch];
+  if (options.title) args.push('--title', options.title);
+  if (options.body) args.push('--body', options.body);
+  if (options.draft) args.push('--draft');
+  const res = await execGh(args, { ...opts, allowNonZeroExit: true });
+  if (res.code !== 0) {
+    return null;
+  }
+  const urlMatch = (res.stdout || '').trim().split(/\s+/).find((s) => s.startsWith('http'));
+  return { action: 'created', url: urlMatch };
+}
+
 /** Determine the remote's default branch using a symbolic ref lookup of HEAD. */
 export async function getRemoteDefaultBranch(remote: string, opts: GitExecOptions = {}): Promise<string | null> {
   // Prefer: git ls-remote --symref <remote> HEAD
@@ -282,7 +378,17 @@ export async function subtreePushWithFetch(
   prefix: string,
   remote: string,
   branch: string,
-  options: { autoUnshallow?: boolean; allowDirty?: boolean; autoFastForwardTrunk?: boolean; trunkOverride?: string } = {},
+  options: {
+    autoUnshallow?: boolean;
+    allowDirty?: boolean;
+    autoFastForwardTrunk?: boolean;
+    trunkOverride?: string;
+    createPrOnFfBlock?: boolean;
+    prTitle?: string;
+    prBody?: string;
+    prDraft?: boolean;
+    ghRepoOverride?: string;
+  } = {},
   opts: GitExecOptions = {},
 ): Promise<void> {
   await assertSubtreeReady(opts);
@@ -304,7 +410,32 @@ export async function subtreePushWithFetch(
   if (options.autoFastForwardTrunk) {
     const trunk = options.trunkOverride ?? (await resolveTrunkBranch(remote, {}, opts));
     if (trunk && trunk !== branch) {
-      await fastForwardRemoteTrunk(remote, branch, trunk, opts);
+      try {
+        await fastForwardRemoteTrunk(remote, branch, trunk, opts);
+      } catch (err: any) {
+        const isGitErr = err && typeof err === 'object' && err.name === 'GitError';
+        const stderr = isGitErr ? err.result?.stderr ?? '' : '';
+        const hint = 'Fast-forward was blocked. This can happen if the trunk branch is protected.';
+        if (opts.verbose) {
+          console.error(hint);
+          if (stderr) console.error(stderr.trim());
+        }
+        if (options.createPrOnFfBlock) {
+          const title = options.prTitle ?? `Merge ${branch} into ${trunk}`;
+          const body = options.prBody ?? 'Automated PR created because direct fast-forward was blocked by branch protection.';
+          const pr = await createOrGetPullRequest(remote, branch, trunk, {
+            title,
+            body,
+            draft: options.prDraft ?? false,
+            repoSlugOverride: options.ghRepoOverride,
+          }, opts);
+          if (opts.verbose && pr) {
+            console.log(pr.action === 'created' ? `Opened PR: ${pr.url ?? ''}` : `Existing PR: ${pr.url ?? ''}`);
+          }
+        } else {
+          throw err;
+        }
+      }
     }
   }
 }
@@ -455,7 +586,8 @@ export async function fastForwardRemoteTrunk(
 
   const pushRes = await execGit(['push', remote, `${sourceBranch}:refs/heads/${trunk}`], { ...opts, allowNonZeroExit: true });
   if (pushRes.code !== 0) {
-    throw new GitError(`Fast-forward push to ${remote}/${trunk} failed`, ['push', remote, `${sourceBranch}:refs/heads/${trunk}`], pushRes);
+    const suggestion = 'Push was rejected, possibly due to branch protection. Consider creating a PR.';
+    throw new GitError(`Fast-forward push to ${remote}/${trunk} failed. ${suggestion}`, ['push', remote, `${sourceBranch}:refs/heads/${trunk}`], pushRes);
   }
   return trunkExists ? 'updated' : 'created';
 }
@@ -578,6 +710,11 @@ export default {
   listRemoteBranches,
   getRemoteDefaultBranch,
   resolveTrunkBranch,
+  execGh,
+  isGhAvailable,
+  parseGithubRepoSlugFromUrl,
+  getGithubRepoSlugForRemote,
+  createOrGetPullRequest,
   subtreeAdd,
   subtreePush,
   subtreePull,

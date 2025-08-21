@@ -234,6 +234,10 @@ export interface PushModOptions {
   autoUnshallow?: boolean;
   autoFastForwardTrunk?: boolean;
   trunk?: string;
+  createPrOnFfBlock?: boolean;
+  prTitle?: string;
+  prBody?: string;
+  prDraft?: boolean;
 }
 export async function pushModToRemote(opts: PushModOptions): Promise<void> {
   const { slug, remoteName, branch, verbose = false, allowDirty = false, autoUnshallow = false, autoFastForwardTrunk = false, trunk } = opts;
@@ -259,7 +263,16 @@ export async function pushModToRemote(opts: PushModOptions): Promise<void> {
     prefix,
     remoteName,
     effectiveBranch,
-    { autoUnshallow, allowDirty, autoFastForwardTrunk, trunkOverride },
+    {
+      autoUnshallow,
+      allowDirty,
+      autoFastForwardTrunk,
+      trunkOverride,
+      createPrOnFfBlock: opts.createPrOnFfBlock,
+      prTitle: opts.prTitle,
+      prBody: opts.prBody,
+      prDraft: opts.prDraft,
+    },
     { verbose },
   );
 }
