@@ -9,7 +9,7 @@ import {
     COLLECTION,
     EFFECT,
     REQUIREMENT,
-} from "civ7-modding-tools";
+} from "@mateicanavra/civ7-sdk";
 import { ConstructiblePackage } from '@types';
 
 // Define the Mountain Sanctuary constructible

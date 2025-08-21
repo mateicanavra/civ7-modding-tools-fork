@@ -10,6 +10,7 @@
         { "path": "./packages/sdk" },
         { "path": "./packages/plugins/plugin-files" },
         { "path": "./packages/plugins/plugin-graph" },
+        { "path": "./mods/swooper-dacia" },
         { "path": "./apps/playground" },
         { "path": "./apps/docs" }
     ]

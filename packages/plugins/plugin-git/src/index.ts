@@ -146,7 +146,7 @@ export async function getRemoteUrl(name: string, opts: GitExecOptions = {}): Pro
 
 /**
  * Add a remote if missing or update URL if different.
- * Returns: "added" | "updated" | "unchanged"
+ * Returns: 'added' | 'updated' | 'unchanged'
  */
 export async function addOrUpdateRemote(
   name: string,
@@ -179,6 +179,22 @@ export async function fetchRemote(
     args.push('--depth', String(options.depth));
   }
   await execGit(args, opts);
+}
+
+/** List branch names available on a remote. */
+export async function listRemoteBranches(name: string, opts: GitExecOptions = {}): Promise<string[]> {
+  const res = await execGit(['ls-remote', '--heads', name], { ...opts, allowNonZeroExit: true });
+  if (res.code !== 0) return [];
+  const branches: string[] = [];
+  const lines = res.stdout.split('\n');
+  for (const line of lines) {
+    const parts = line.trim().split(/\s+/);
+    if (parts.length < 2) continue;
+    const ref = parts[1]; // refs/heads/<branch>
+    const m = ref.match(/^refs\/heads\/(.+)$/);
+    if (m) branches.push(m[1]);
+  }
+  return branches.sort();
 }
 
 /**
@@ -285,6 +301,7 @@ export default {
   getRemoteUrl,
   addOrUpdateRemote,
   fetchRemote,
+  listRemoteBranches,
   subtreeAdd,
   subtreePush,
   subtreePull,

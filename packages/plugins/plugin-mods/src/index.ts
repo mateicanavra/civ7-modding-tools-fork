@@ -18,6 +18,8 @@ import {
   isWorktreeClean,
   getRepoRoot,
   getStatusSnapshot,
+  execGit,
+  listRemoteBranches,
 } from "@civ7/plugin-git";
 
 function formatSubtreeHelpMessage(originalMessage?: string): string {
@@ -43,6 +45,20 @@ async function ensureSubtreeAvailableOrThrow(verbose: boolean): Promise<void> {
     const msg = e?.message ? String(e.message) : undefined;
     throw new Error(formatSubtreeHelpMessage(msg));
   }
+}
+
+async function saveModLinkMeta(slug: string, remoteName: string, branch: string, verbose: boolean): Promise<void> {
+  // Store under local git config.
+  await execGit(['config', '--local', `civ7.mod.${slug}.remote`, remoteName], { verbose });
+  await execGit(['config', '--local', `civ7.mod.${slug}.branch`, branch], { verbose });
+}
+
+async function readModLinkMeta(slug: string, verbose: boolean): Promise<{ remote: string | null; branch: string | null }> {
+  const r = await execGit(['config', '--local', '--get', `civ7.mod.${slug}.remote`], { verbose, allowNonZeroExit: true });
+  const b = await execGit(['config', '--local', '--get', `civ7.mod.${slug}.branch`], { verbose, allowNonZeroExit: true });
+  const remote = r.code === 0 ? r.stdout.trim() || null : null;
+  const branch = b.code === 0 ? b.stdout.trim() || null : null;
+  return { remote, branch };
 }
 
 /**
@@ -253,10 +269,10 @@ export interface PushModOptions {
   autoUnshallow?: boolean;
 }
 export async function pushModToRemote(opts: PushModOptions): Promise<void> {
-  const {
+  let {
     slug,
     remoteName,
-    branch = "main",
+    branch,
     verbose = false,
     allowDirty = false,
     autoUnshallow = false,
@@ -277,9 +293,25 @@ export async function pushModToRemote(opts: PushModOptions): Promise<void> {
     if (!clean) throw new Error("Working tree is not clean. Commit/stash or set allowDirty=true.");
   }
 
+  // Resolve branch from stored meta if not provided
+  if (!branch) {
+    const meta = await readModLinkMeta(slug, verbose);
+    branch = meta.branch ?? undefined;
+    if (!remoteName && meta.remote) remoteName = meta.remote; // keep provided remoteName priority
+  }
+
   await fetchRemote(remoteName, { tags: true }, { verbose });
   if (autoUnshallow) {
     await assertFullHistory(remoteName, { verbose });
+  }
+
+  if (!branch) {
+    const branches = await listRemoteBranches(remoteName, { verbose });
+    const hint = branches.length ? `\nAvailable branches on ${remoteName}:\n- ${branches.join('\n- ')}` : '';
+    throw new Error(
+      `No branch provided for push and none stored from setup for slug "${slug}". ` +
+        `Pass --branch <name> or run setup again to persist it.${hint}`,
+    );
   }
 
   await subtreePush(prefix, remoteName, branch, { verbose });
@@ -298,10 +330,10 @@ export interface PullModOptions {
   autoUnshallow?: boolean;
 }
 export async function pullModFromRemote(opts: PullModOptions): Promise<void> {
-  const {
+  let {
     slug,
     remoteName,
-    branch = "main",
+    branch,
     squash = false,
     verbose = false,
     allowDirty = false,
@@ -323,9 +355,25 @@ export async function pullModFromRemote(opts: PullModOptions): Promise<void> {
     if (!clean) throw new Error("Working tree is not clean. Commit/stash or set allowDirty=true.");
   }
 
+  // Resolve branch from stored meta if not provided
+  if (!branch) {
+    const meta = await readModLinkMeta(slug, verbose);
+    branch = meta.branch ?? undefined;
+    if (!remoteName && meta.remote) remoteName = meta.remote; // keep provided remoteName priority
+  }
+
   await fetchRemote(remoteName, { tags: true }, { verbose });
   if (autoUnshallow) {
     await assertFullHistory(remoteName, { verbose });
+  }
+
+  if (!branch) {
+    const branches = await listRemoteBranches(remoteName, { verbose });
+    const hint = branches.length ? `\nAvailable branches on ${remoteName}:\n- ${branches.join('\n- ')}` : '';
+    throw new Error(
+      `No branch provided for pull and none stored from setup for slug "${slug}". ` +
+        `Pass --branch <name> or run setup again to persist it.${hint}`,
+    );
   }
 
   await subtreePull(prefix, remoteName, branch, { squash }, { verbose });
@@ -388,6 +436,10 @@ export async function link(opts: LinkModOptions): Promise<{ slug: string; remote
     allowDirty,
     autoUnshallow,
   });
+
+  // Persist meta for downstream push/pull
+  await saveModLinkMeta(slug, remoteName, branch, verbose);
+
   const prefix = path.posix.join("mods", slug);
   return { slug, remoteName, branch, prefix };
 }

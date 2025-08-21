@@ -21,7 +21,7 @@ import {
   COLLECTION,
   EFFECT,
   REQUIREMENT,
-} from 'civ7-modding-tools';
+} from '@mateicanavra/civ7-sdk';
 import { falxman, murusEngineer } from '@units';
 import { mountainSanctuary, murusDacicus } from '@constructibles';
 import { CivilizationPackage } from '@types';

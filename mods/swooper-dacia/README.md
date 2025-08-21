@@ -27,25 +27,41 @@ This mod adds the Dacia civilization to Civilization VII, including Decebalus as
 
 2. Launch Civilization VII and enable the mod in the Additional Content menu.
 
-## Local SDK development
+## SDK dependency
 
-This project uses a local clone of the `civ7-modding-tools` SDK. To set up for development, clone the SDK repository as a sibling directory and install dependencies:
+In this monorepo the mod uses the workspace SDK package `@mateicanavra/civ7-sdk`.
+
+If you are using this mod as a standalone repo (e.g., via subtree mirror) and the GitHub package is not available to you yet, use one of the following options:
+
+1) Install the upstream SDK and alias it to the expected name (simple fallback)
 
 ```bash
-git clone https://github.com/izica/civ7-modding-tools.git ../civ7-modding-tools
-pnpm install
-pnpm build
+pnpm add -D civ7-modding-tools
+# add this to package.json to alias the upstream to our name
+# "pnpm": { "overrides": { "@mateicanavra/civ7-sdk": "npm:civ7-modding-tools@^0.0.0" } }
 ```
 
-Now you can author and build the Dacia mod against the local SDK.
+or
+
+2) Edit this mod's package.json dependencies to point directly at the upstream
+
+```json
+{
+  "dependencies": {
+    "@mateicanavra/civ7-sdk": "npm:civ7-modding-tools@^0.0.0"
+  }
+}
+```
+
+Either approach lets the code import `@mateicanavra/civ7-sdk` while resolving to the upstream `civ7-modding-tools` package when used outside the monorepo.
 
 ## Scripts
 
-Use these npm scripts to build and deploy your mod in one step:
+Use these scripts to build and deploy your mod in one step:
 
 ```bash
-pnpm run build          # generate XML in dist/
-pnpm run deploy         # deploys mod via deploy.sh
+pnpm run build          # generate XML in mod/
+pnpm run deploy         # deploys mod via the monorepo CLI
 pnpm run build:deploy   # build and deploy
 ```
 

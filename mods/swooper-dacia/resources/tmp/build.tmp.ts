@@ -22,7 +22,7 @@ import {
     ModifierBuilder,
     FEATURE,
     TERRAIN
-} from "civ7-modding-tools";
+} from "@mateicanavra/civ7-sdk";
 
 // Initialize the mod
 let mod = new Mod({

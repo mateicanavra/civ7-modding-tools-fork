@@ -16,7 +16,7 @@ import {
   COLLECTION,
   EFFECT,
   REQUIREMENT,
-} from 'civ7-modding-tools';
+} from '@mateicanavra/civ7-sdk';
 import { UnitPackage } from '@types';
 
 // Define unit icon
