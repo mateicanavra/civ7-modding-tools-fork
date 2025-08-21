@@ -6,47 +6,21 @@ import {
   resolveModsDir as resolveModsDirFs,
 } from "@civ7/plugin-files";
 import {
-  assertSubtreeReady,
   addOrUpdateRemote,
   fetchRemote,
   getRemoteUrl,
   remoteExists,
-  subtreeAdd,
-  subtreePush,
-  subtreePull,
-  assertFullHistory,
   isWorktreeClean,
   getRepoRoot,
   getStatusSnapshot,
   listRemoteBranches,
   setLocalConfig,
   getLocalConfig,
+  configureRemoteAndFetch,
+  subtreeAddFromRemote,
+  subtreePushWithFetch,
+  subtreePullWithFetch,
 } from "@civ7/plugin-git";
-
-function formatSubtreeHelpMessage(originalMessage?: string): string {
-  const base = originalMessage && originalMessage.trim().length > 0 ? originalMessage.trim() : "git-subtree is not available";
-  const isMac = process.platform === "darwin";
-  const isLinux = process.platform === "linux";
-  const helpLines = [
-    "git-subtree is required to use mod linking (import/push/pull).",
-    isMac
-      ? "macOS: Install Homebrew Git and ensure it is first in PATH:\n  brew install git\n  which git\n  git --version\n  git subtree -h"
-      : isLinux
-      ? "Linux: Install the git-subtree package (or ensure git includes subtree):\n  Debian/Ubuntu: sudo apt-get update && sudo apt-get install -y git-subtree\n  Fedora: sudo dnf install -y git-subtree\n  Arch: sudo pacman -S git\n  Then: git subtree -h"
-      : "Install Git with subtree support and ensure 'git subtree -h' works in your shell.",
-    "If multiple Git installations exist, ensure the one with subtree appears first in PATH.",
-  ];
-  return `${base}.\n\n${helpLines.join("\n")}`;
-}
-
-async function ensureSubtreeAvailableOrThrow(verbose: boolean): Promise<void> {
-  try {
-    await assertSubtreeReady({ verbose });
-  } catch (e: any) {
-    const msg = e?.message ? String(e.message) : undefined;
-    throw new Error(formatSubtreeHelpMessage(msg));
-  }
-}
 
 // Persistent link configuration (stored in local git config)
 async function setLinkedBranch(slug: string, branch: string, opts: { verbose?: boolean } = {}) {
@@ -226,36 +200,19 @@ export async function importModFromRemote(opts: ImportModOptions): Promise<void>
     autoUnshallow = false,
   } = opts;
 
-  await ensureSubtreeAvailableOrThrow(verbose);
-
+  // Ensure repo and mods dir (mods dir creation is still mod-specific)
   const root = await getRepoRoot({ allowNonZeroExit: true, verbose });
   if (!root) throw new Error("Not inside a git repository.");
-
-  // Ensure monorepo mods dir exists
   const modsDir = path.join(root, "mods");
   if (!fs.existsSync(modsDir)) fs.mkdirSync(modsDir, { recursive: true });
 
   const prefix = path.posix.join("mods", slug);
 
-  if (!allowDirty) {
-    const clean = await isWorktreeClean({ verbose });
-    if (!clean) throw new Error("Working tree is not clean. Commit/stash or set allowDirty=true.");
-  }
+  // Ensure/configure remote and fetch
+  await configureRemoteAndFetch(remoteName, remoteUrl, { tags: true }, { verbose });
 
-  // Ensure remote is configured; create/update if URL provided
-  const exists = await remoteExists(remoteName, { verbose });
-  if (!exists && !remoteUrl) {
-    throw new Error("Remote not configured. Provide remoteUrl to create/update it.");
-  }
-  if (remoteUrl) {
-    await addOrUpdateRemote(remoteName, remoteUrl, { verbose });
-  }
-  await fetchRemote(remoteName, { tags: true }, { verbose });
-  if (autoUnshallow) {
-    await assertFullHistory(remoteName, { verbose });
-  }
-
-  await subtreeAdd(prefix, remoteName, branch, { squash }, { verbose });
+  // Let git plugin handle subtree readiness, allowDirty, unshallow, and add
+  await subtreeAddFromRemote(prefix, remoteName, branch, { squash, autoUnshallow, allowDirty }, { verbose });
 }
 
 /**
@@ -270,20 +227,10 @@ export interface PushModOptions {
   autoUnshallow?: boolean;
 }
 export async function pushModToRemote(opts: PushModOptions): Promise<void> {
-  const {
-    slug,
-    remoteName,
-    branch,
-    verbose = false,
-    allowDirty = false,
-    autoUnshallow = false,
-  } = opts;
-
-  await ensureSubtreeAvailableOrThrow(verbose);
+  const { slug, remoteName, branch, verbose = false, allowDirty = false, autoUnshallow = false } = opts;
 
   const root = await getRepoRoot({ allowNonZeroExit: true, verbose });
   if (!root) throw new Error("Not inside a git repository.");
-
   const prefix = path.posix.join("mods", slug);
   if (!fs.existsSync(path.join(root, prefix))) {
     throw new Error(`Subtree directory "${prefix}" does not exist.`);
@@ -298,17 +245,7 @@ export async function pushModToRemote(opts: PushModOptions): Promise<void> {
     );
   }
 
-  if (!allowDirty) {
-    const clean = await isWorktreeClean({ verbose });
-    if (!clean) throw new Error("Working tree is not clean. Commit/stash or set allowDirty=true.");
-  }
-
-  await fetchRemote(remoteName, { tags: true }, { verbose });
-  if (autoUnshallow) {
-    await assertFullHistory(remoteName, { verbose });
-  }
-
-  await subtreePush(prefix, remoteName, effectiveBranch, { verbose });
+  await subtreePushWithFetch(prefix, remoteName, effectiveBranch, { autoUnshallow, allowDirty }, { verbose });
 }
 
 /**
@@ -324,21 +261,10 @@ export interface PullModOptions {
   autoUnshallow?: boolean;
 }
 export async function pullModFromRemote(opts: PullModOptions): Promise<void> {
-  const {
-    slug,
-    remoteName,
-    branch,
-    squash = false,
-    verbose = false,
-    allowDirty = false,
-    autoUnshallow = false,
-  } = opts;
-
-  await ensureSubtreeAvailableOrThrow(verbose);
+  const { slug, remoteName, branch, squash = false, verbose = false, allowDirty = false, autoUnshallow = false } = opts;
 
   const root = await getRepoRoot({ allowNonZeroExit: true, verbose });
   if (!root) throw new Error("Not inside a git repository.");
-
   const prefix = path.posix.join("mods", slug);
   if (!fs.existsSync(path.join(root, prefix))) {
     throw new Error(`Subtree directory "${prefix}" does not exist.`);
@@ -353,17 +279,7 @@ export async function pullModFromRemote(opts: PullModOptions): Promise<void> {
     );
   }
 
-  if (!allowDirty) {
-    const clean = await isWorktreeClean({ verbose });
-    if (!clean) throw new Error("Working tree is not clean. Commit/stash or set allowDirty=true.");
-  }
-
-  await fetchRemote(remoteName, { tags: true }, { verbose });
-  if (autoUnshallow) {
-    await assertFullHistory(remoteName, { verbose });
-  }
-
-  await subtreePull(prefix, remoteName, effectiveBranch, { squash }, { verbose });
+  await subtreePullWithFetch(prefix, remoteName, effectiveBranch, { squash, autoUnshallow, allowDirty }, { verbose });
 }
 
 /**

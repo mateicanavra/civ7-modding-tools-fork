@@ -1,5 +1,7 @@
 import { execFile as _execFile } from 'node:child_process';
 import { promisify } from 'node:util';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
 
 /**
  * Civ7 plugin-git
@@ -182,6 +184,104 @@ export async function fetchRemote(
   await execGit(args, opts);
 }
 
+/** Configure a remote (if url provided) and fetch with options. */
+export async function configureRemoteAndFetch(
+  name: string,
+  url: string | undefined,
+  options: { tags?: boolean; prune?: boolean; depth?: number } = {},
+  opts: GitExecOptions = {},
+): Promise<'added' | 'updated' | 'unchanged' | 'skipped'> {
+  let status: 'added' | 'updated' | 'unchanged' | 'skipped' = 'skipped';
+  if (url) {
+    status = await addOrUpdateRemote(name, url, opts);
+  } else {
+    const exists = await remoteExists(name, opts);
+    if (!exists) {
+      throw new GitError(`Remote "${name}" does not exist and no URL provided to create it`, ['remote', 'get-url', name]);
+    }
+  }
+  await fetchRemote(name, options, opts);
+  return status;
+}
+
+/**
+ * Add a subtree after ensuring environment, fetching, and (optionally) full history.
+ */
+export async function subtreeAddFromRemote(
+  prefix: string,
+  remote: string,
+  branch: string,
+  options: { squash?: boolean; autoUnshallow?: boolean; allowDirty?: boolean } = {},
+  opts: GitExecOptions = {},
+): Promise<void> {
+  await assertSubtreeReady(opts);
+  const root = await getRepoRoot({ ...opts, allowNonZeroExit: true });
+  if (!root) throw new GitError('Not inside a git repository', ['rev-parse', '--show-toplevel']);
+  if (!options.allowDirty) {
+    const clean = await isWorktreeClean(opts);
+    if (!clean) throw new GitError('Working tree is not clean. Commit/stash or pass allowDirty=true.', ['status', '--porcelain']);
+  }
+  await fetchRemote(remote, { tags: true }, opts);
+  if (options.autoUnshallow) {
+    await assertFullHistory(remote, opts);
+  }
+  await execGit(['subtree', 'add', `--prefix=${prefix}`, remote, branch, ...(options.squash ? ['--squash'] : [])], opts);
+}
+
+/**
+ * Push a subtree after ensuring environment, fetching, and (optionally) full history.
+ */
+export async function subtreePushWithFetch(
+  prefix: string,
+  remote: string,
+  branch: string,
+  options: { autoUnshallow?: boolean; allowDirty?: boolean } = {},
+  opts: GitExecOptions = {},
+): Promise<void> {
+  await assertSubtreeReady(opts);
+  const root = await getRepoRoot({ ...opts, allowNonZeroExit: true });
+  if (!root) throw new GitError('Not inside a git repository', ['rev-parse', '--show-toplevel']);
+  const abs = path.join(root, prefix);
+  if (!fs.existsSync(abs)) throw new GitError(`Subtree directory "${prefix}" does not exist.`, ['subtree', 'push']);
+  if (!options.allowDirty) {
+    const clean = await isWorktreeClean(opts);
+    if (!clean) throw new GitError('Working tree is not clean. Commit/stash or pass allowDirty=true.', ['status', '--porcelain']);
+  }
+  await fetchRemote(remote, { tags: true }, opts);
+  if (options.autoUnshallow) {
+    await assertFullHistory(remote, opts);
+  }
+  await execGit(['subtree', 'push', `--prefix=${prefix}`, remote, branch], opts);
+}
+
+/**
+ * Pull a subtree after ensuring environment, fetching, and (optionally) full history.
+ */
+export async function subtreePullWithFetch(
+  prefix: string,
+  remote: string,
+  branch: string,
+  options: { squash?: boolean; autoUnshallow?: boolean; allowDirty?: boolean } = {},
+  opts: GitExecOptions = {},
+): Promise<void> {
+  await assertSubtreeReady(opts);
+  const root = await getRepoRoot({ ...opts, allowNonZeroExit: true });
+  if (!root) throw new GitError('Not inside a git repository', ['rev-parse', '--show-toplevel']);
+  const abs = path.join(root, prefix);
+  if (!fs.existsSync(abs)) throw new GitError(`Subtree directory "${prefix}" does not exist.`, ['subtree', 'pull']);
+  if (!options.allowDirty) {
+    const clean = await isWorktreeClean(opts);
+    if (!clean) throw new GitError('Working tree is not clean. Commit/stash or pass allowDirty=true.', ['status', '--porcelain']);
+  }
+  await fetchRemote(remote, { tags: true }, opts);
+  if (options.autoUnshallow) {
+    await assertFullHistory(remote, opts);
+  }
+  const args = ['subtree', 'pull', `--prefix=${prefix}`, remote, branch];
+  if (options.squash) args.push('--squash');
+  await execGit(args, opts);
+}
+
 /** List branch heads available on a remote (names only). */
 export async function listRemoteBranches(remote: string, opts: GitExecOptions = {}): Promise<string[]> {
   const res = await execGit(['ls-remote', '--heads', remote], { ...opts, allowNonZeroExit: true });
@@ -326,10 +426,14 @@ export default {
   getRemoteUrl,
   addOrUpdateRemote,
   fetchRemote,
+  configureRemoteAndFetch,
   listRemoteBranches,
   subtreeAdd,
   subtreePush,
   subtreePull,
+  subtreeAddFromRemote,
+  subtreePushWithFetch,
+  subtreePullWithFetch,
   assertSubtreeReady,
   getStatusSnapshot,
   setLocalConfig,
