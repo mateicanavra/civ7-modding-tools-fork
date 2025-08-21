@@ -82,8 +82,7 @@ Use --yes to skip safety prompts (non-interactive environments).
       hidden: true,
     }),
     branch: Flags.string({
-      description: "Branch to track for import/push/pull/setup",
-      default: "main",
+      description: "Branch to track for import/push/pull/setup (push/pull use saved branch if omitted)",
       char: "b",
     }),
     squash: Flags.boolean({
@@ -112,7 +111,7 @@ Use --yes to skip safety prompts (non-interactive environments).
     const { flags } = await this.parse(ModsLink);
     const action = flags.action as Action | undefined;
     const slug = flags.slug ?? (flags as any).id;
-    const branch = flags.branch ?? "main";
+    const branch = flags.branch; // no default; undefined means use persisted for push/pull
     const squash = !!flags.squash;
     const yes = !!flags.yes;
     const verbose = !!flags.verbose;
@@ -149,11 +148,11 @@ Use --yes to skip safety prompts (non-interactive environments).
         return;
 
       case "config-remote":
-        await this.handleConfigRemote(remoteName!, providedRemoteUrl, branch, verbose);
+        await this.handleConfigRemote(remoteName!, providedRemoteUrl, branch ?? "main", verbose);
         return;
 
       case "import":
-        await this.handleImport(prefix!, remoteName!, providedRemoteUrl, branch, {
+        await this.handleImport(prefix!, remoteName!, providedRemoteUrl, branch ?? "main", {
           squash,
           yes,
           verbose,
@@ -177,7 +176,7 @@ Use --yes to skip safety prompts (non-interactive environments).
       case "setup":
         await this.handleSetup({
           remoteUrl: providedRemoteUrl,
-          branch,
+          branch: branch ?? "main",
           slug,
           remoteName: providedRemoteName,
           squash,
@@ -197,7 +196,7 @@ Use --yes to skip safety prompts (non-interactive environments).
   private async handleStatus(
     slug: string | undefined,
     remoteName: string | undefined,
-    branch: string,
+    branch: string | undefined,
     verbose: boolean
   ) {
     const status = await getModStatus({ slug, remoteName, branch, verbose });
@@ -281,11 +280,11 @@ Use --yes to skip safety prompts (non-interactive environments).
   private async handlePush(
     prefix: string,
     remoteName: string,
-    branch: string,
+    branch: string | undefined,
     opts: { yes: boolean; verbose: boolean; autoUnshallow: boolean }
   ) {
     this.log(
-      `Pushing subtree: prefix=${prefix} → ${remoteName}/${branch} autoUnshallow=${opts.autoUnshallow ? "yes" : "no"}`
+      `Pushing subtree: prefix=${prefix} → ${remoteName}/${branch ?? "(saved branch)"} autoUnshallow=${opts.autoUnshallow ? "yes" : "no"}`
     );
     await pushModToRemote({
       slug: path.posix.basename(prefix),
@@ -295,17 +294,17 @@ Use --yes to skip safety prompts (non-interactive environments).
       allowDirty: opts.yes,
       autoUnshallow: opts.autoUnshallow,
     });
-    this.log(`✅ Pushed "${prefix}" to ${remoteName}/${branch}`);
+    this.log(`✅ Pushed "${prefix}" to ${remoteName}/${branch ?? "(saved branch)"}`);
   }
 
   private async handlePull(
     prefix: string,
     remoteName: string,
-    branch: string,
+    branch: string | undefined,
     opts: { squash: boolean; yes: boolean; verbose: boolean; autoUnshallow: boolean }
   ) {
     this.log(
-      `Pulling into subtree: prefix=${prefix} from ${remoteName}/${branch} squash=${opts.squash ? "yes" : "no"} autoUnshallow=${opts.autoUnshallow ? "yes" : "no"}`
+      `Pulling into subtree: prefix=${prefix} from ${remoteName}/${branch ?? "(saved branch)"} squash=${opts.squash ? "yes" : "no"} autoUnshallow=${opts.autoUnshallow ? "yes" : "no"}`
     );
     await pullModFromRemote({
       slug: path.posix.basename(prefix),
@@ -316,7 +315,7 @@ Use --yes to skip safety prompts (non-interactive environments).
       allowDirty: opts.yes,
       autoUnshallow: opts.autoUnshallow,
     });
-    this.log(`✅ Pulled updates into "${prefix}" from ${remoteName}/${branch}`);
+    this.log(`✅ Pulled updates into "${prefix}" from ${remoteName}/${branch ?? "(saved branch)"}`);
   }
 
   private async handleSetup(opts: {

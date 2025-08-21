@@ -10,6 +10,7 @@ import { promisify } from 'node:util';
  * - Repository state queries (root path, shallow status, worktree cleanliness)
  * - Remote management (exists/get-url/add/set-url/fetch)
  * - Subtree workflows (add/push/pull)
+ * - Generic helpers (local git config get/set)
  *
  * This module is implementation-agnostic and contains no CLI/UX logic.
  */
@@ -146,7 +147,7 @@ export async function getRemoteUrl(name: string, opts: GitExecOptions = {}): Pro
 
 /**
  * Add a remote if missing or update URL if different.
- * Returns: 'added' | 'updated' | 'unchanged'
+ * Returns: "added" | "updated" | "unchanged"
  */
 export async function addOrUpdateRemote(
   name: string,
@@ -181,20 +182,17 @@ export async function fetchRemote(
   await execGit(args, opts);
 }
 
-/** List branch names available on a remote. */
-export async function listRemoteBranches(name: string, opts: GitExecOptions = {}): Promise<string[]> {
-  const res = await execGit(['ls-remote', '--heads', name], { ...opts, allowNonZeroExit: true });
+/** List branch heads available on a remote (names only). */
+export async function listRemoteBranches(remote: string, opts: GitExecOptions = {}): Promise<string[]> {
+  const res = await execGit(['ls-remote', '--heads', remote], { ...opts, allowNonZeroExit: true });
   if (res.code !== 0) return [];
-  const branches: string[] = [];
-  const lines = res.stdout.split('\n');
-  for (const line of lines) {
-    const parts = line.trim().split(/\s+/);
-    if (parts.length < 2) continue;
-    const ref = parts[1]; // refs/heads/<branch>
-    const m = ref.match(/^refs\/heads\/(.+)$/);
-    if (m) branches.push(m[1]);
-  }
-  return branches.sort();
+  return res.stdout
+    .split('\n')
+    .map((l) => l.trim())
+    .filter(Boolean)
+    .map((l) => l.split('\t')[1] || '')
+    .filter(Boolean)
+    .map((ref) => ref.replace(/^refs\/heads\//, ''));
 }
 
 /**
@@ -240,13 +238,28 @@ export async function subtreePull(
   await execGit(args, opts);
 }
 
+function formatSubtreeHelpMessage(): string {
+  const isMac = process.platform === 'darwin';
+  const isLinux = process.platform === 'linux';
+  const lines = [
+    'git-subtree is required to use subtree operations (add/push/pull).',
+    isMac
+      ? 'macOS: Install Homebrew Git and ensure it is first in PATH:\n  brew install git\n  which git\n  git --version\n  git subtree -h'
+      : isLinux
+      ? 'Linux: Install the git-subtree package (or ensure git includes subtree):\n  Debian/Ubuntu: sudo apt-get update && sudo apt-get install -y git-subtree\n  Fedora: sudo dnf install -y git-subtree\n  Arch: sudo pacman -S git\n  Then: git subtree -h'
+      : "Install Git with subtree support and ensure 'git subtree -h' works in your shell.",
+    "If multiple Git installations exist, ensure the one with subtree appears first in PATH.",
+  ];
+  return lines.join('\n');
+}
+
 /** Convenience guard to ensure environment supports subtree operations. */
 export async function assertSubtreeReady(opts: GitExecOptions = {}): Promise<void> {
   if (!(await isGitAvailable(opts))) {
     throw new GitError('git is not available on PATH', ['--version']);
   }
   if (!(await hasSubtree(opts))) {
-    throw new GitError('git-subtree is not available in this environment', ['subtree', '-h']);
+    throw new GitError(`git-subtree is not available in this environment.\n\n${formatSubtreeHelpMessage()}`, ['subtree', '-h']);
   }
 }
 
@@ -287,6 +300,18 @@ export async function getStatusSnapshot(opts: GitExecOptions = {}): Promise<GitS
   return { repoRoot: root, shallow, clean, hasSubtree: subtreeOk, remotes };
 }
 
+/** Local git config helpers. */
+export async function setLocalConfig(key: string, value: string, opts: GitExecOptions = {}): Promise<void> {
+  await execGit(['config', '--local', key, value], opts);
+}
+
+export async function getLocalConfig(key: string, opts: GitExecOptions = {}): Promise<string | null> {
+  const res = await execGit(['config', '--local', key], { ...opts, allowNonZeroExit: true });
+  if (res.code !== 0) return null;
+  const v = res.stdout.trim();
+  return v.length ? v : null;
+}
+
 /** Aggregate default export for convenience in JS consumers. */
 export default {
   // Types are not part of runtime export
@@ -307,5 +332,7 @@ export default {
   subtreePull,
   assertSubtreeReady,
   getStatusSnapshot,
+  setLocalConfig,
+  getLocalConfig,
   GitError,
 };

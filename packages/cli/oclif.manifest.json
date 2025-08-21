@@ -656,9 +656,8 @@
         },
         "branch": {
           "char": "b",
-          "description": "Branch to track for import/push/pull/setup",
+          "description": "Branch to track for import/push/pull/setup (push/pull use saved branch if omitted)",
           "name": "branch",
-          "default": "main",
           "hasDynamicHelp": false,
           "multiple": false,
           "type": "option"
