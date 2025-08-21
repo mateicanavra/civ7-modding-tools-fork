@@ -693,7 +693,8 @@ export async function getStatusSnapshot(opts: GitExecOptions = {}): Promise<GitS
 
 /** Local git config helpers. */
 export async function setLocalConfig(key: string, value: string, opts: GitExecOptions = {}): Promise<void> {
-  await execGit(['config', '--local', key, value], opts);
+  // Replace any existing occurrences to avoid duplicate-key errors
+  await execGit(['config', '--local', '--replace-all', key, value], opts);
 }
 
 export async function getLocalConfig(key: string, opts: GitExecOptions = {}): Promise<string | null> {
@@ -705,7 +706,7 @@ export async function getLocalConfig(key: string, opts: GitExecOptions = {}): Pr
 
 /** Unset a local git config key (best-effort). */
 export async function unsetLocalConfig(key: string, opts: GitExecOptions = {}): Promise<void> {
-  const res = await execGit(['config', '--local', '--unset', key], { ...opts, allowNonZeroExit: true });
+  const res = await execGit(['config', '--local', '--unset-all', key], { ...opts, allowNonZeroExit: true });
   if (res.code !== 0) return; // ignore if not set
 }
 
@@ -723,8 +724,15 @@ export interface RemotePushConfig {
   ghRepoOverride?: string;
 }
 
+export function sanitizeRemoteForSubsection(remote: string): string {
+  // Git config: section[.subsection].variable → only one dot allowed between subsection and variable
+  // Use subsection "remote-<sanitized>" where sanitized removes dots and whitespace
+  return `remote-${remote.replace(/\s+/g, '-').replace(/\.+/g, '-').replace(/[^A-Za-z0-9_-]+/g, '-')}`;
+}
+
 function cfgKeyForRemote(remote: string, key: string): string {
-  return `civ7.remote.${remote}.${key}`;
+  const subsection = sanitizeRemoteForSubsection(remote);
+  return `civ7.${subsection}.${key}`;
 }
 
 function parseBoolean(value: string | null | undefined): boolean | undefined {
@@ -737,14 +745,23 @@ function parseBoolean(value: string | null | undefined): boolean | undefined {
 
 /** Read stored remote push config from local git config. */
 export async function getRemotePushConfig(remote: string, opts: GitExecOptions = {}): Promise<RemotePushConfig> {
+  // Prefer new keys; fall back to legacy keys (civ7.remote.<remote>.<key>) if not present
+  const newKey = (k: string) => cfgKeyForRemote(remote, k);
+  const oldKey = (k: string) => `civ7.remote.${remote}.${k}`;
+  async function readKey(k: string): Promise<string | null> {
+    const vNew = await getLocalConfig(newKey(k), opts);
+    if (vNew != null) return vNew;
+    return getLocalConfig(oldKey(k), opts);
+  }
+
   const [trunk, autoFF, prOnBlock, prTitle, prBody, prDraft, ghRepoOverride] = await Promise.all([
-    getLocalConfig(cfgKeyForRemote(remote, 'trunk'), opts),
-    getLocalConfig(cfgKeyForRemote(remote, 'autoFastForwardTrunk'), opts),
-    getLocalConfig(cfgKeyForRemote(remote, 'createPrOnFfBlock'), opts),
-    getLocalConfig(cfgKeyForRemote(remote, 'prTitle'), opts),
-    getLocalConfig(cfgKeyForRemote(remote, 'prBody'), opts),
-    getLocalConfig(cfgKeyForRemote(remote, 'prDraft'), opts),
-    getLocalConfig(cfgKeyForRemote(remote, 'ghRepoOverride'), opts),
+    readKey('trunk'),
+    readKey('autoFastForwardTrunk'),
+    readKey('createPrOnFfBlock'),
+    readKey('prTitle'),
+    readKey('prBody'),
+    readKey('prDraft'),
+    readKey('ghRepoOverride'),
   ]);
   return {
     trunk: trunk ?? undefined,
@@ -763,6 +780,21 @@ export async function setRemotePushConfig(
   partial: RemotePushConfig,
   opts: GitExecOptions = {},
 ): Promise<void> {
+  // Clear legacy keys to ensure single canonical location
+  const legacyPrefix = `civ7.remote.${remote}.`;
+  const legacyKeys = [
+    'trunk',
+    'autoFastForwardTrunk',
+    'createPrOnFfBlock',
+    'prTitle',
+    'prBody',
+    'prDraft',
+    'ghRepoOverride',
+  ];
+  await Promise.all(
+    legacyKeys.map((k) => unsetLocalConfig(`${legacyPrefix}${k}`, { ...opts, allowNonZeroExit: true })),
+  );
+
   const current = await getRemotePushConfig(remote, opts);
   const tasks: Array<Promise<void>> = [];
   const writeIfChanged = (key: keyof RemotePushConfig, value: string | boolean | undefined) => {
