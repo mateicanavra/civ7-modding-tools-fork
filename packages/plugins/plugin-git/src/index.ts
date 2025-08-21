@@ -407,8 +407,19 @@ export async function subtreePushWithFetch(
   await execGit(['subtree', 'push', `--prefix=${prefix}`, remote, branch], opts);
 
   // Optionally fast-forward the remote trunk branch to the pushed branch
-  if (options.autoFastForwardTrunk) {
-    const trunk = options.trunkOverride ?? (await resolveTrunkBranch(remote, {}, opts));
+  const stored = await getRemotePushConfig(remote, opts);
+  const merged = {
+    autoFastForwardTrunk: options.autoFastForwardTrunk ?? stored.autoFastForwardTrunk ?? false,
+    trunkOverride: options.trunkOverride ?? stored.trunk,
+    createPrOnFfBlock: options.createPrOnFfBlock ?? stored.createPrOnFfBlock ?? false,
+    prTitle: options.prTitle ?? stored.prTitle,
+    prBody: options.prBody ?? stored.prBody,
+    prDraft: options.prDraft ?? stored.prDraft,
+    ghRepoOverride: options.ghRepoOverride ?? stored.ghRepoOverride,
+  };
+
+  if (merged.autoFastForwardTrunk) {
+    const trunk = merged.trunkOverride ?? (await resolveTrunkBranch(remote, {}, opts));
     if (trunk && trunk !== branch) {
       try {
         await fastForwardRemoteTrunk(remote, branch, trunk, opts);
@@ -420,14 +431,14 @@ export async function subtreePushWithFetch(
           console.error(hint);
           if (stderr) console.error(stderr.trim());
         }
-        if (options.createPrOnFfBlock) {
-          const title = options.prTitle ?? `Merge ${branch} into ${trunk}`;
-          const body = options.prBody ?? 'Automated PR created because direct fast-forward was blocked by branch protection.';
+        if (merged.createPrOnFfBlock) {
+          const title = merged.prTitle ?? `Merge ${branch} into ${trunk}`;
+          const body = merged.prBody ?? 'Automated PR created because direct fast-forward was blocked by branch protection.';
           const pr = await createOrGetPullRequest(remote, branch, trunk, {
             title,
             body,
-            draft: options.prDraft ?? false,
-            repoSlugOverride: options.ghRepoOverride,
+            draft: merged.prDraft ?? false,
+            repoSlugOverride: merged.ghRepoOverride,
           }, opts);
           if (opts.verbose && pr) {
             console.log(pr.action === 'created' ? `Opened PR: ${pr.url ?? ''}` : `Existing PR: ${pr.url ?? ''}`);
@@ -692,6 +703,107 @@ export async function getLocalConfig(key: string, opts: GitExecOptions = {}): Pr
   return v.length ? v : null;
 }
 
+/** Unset a local git config key (best-effort). */
+export async function unsetLocalConfig(key: string, opts: GitExecOptions = {}): Promise<void> {
+  const res = await execGit(['config', '--local', '--unset', key], { ...opts, allowNonZeroExit: true });
+  if (res.code !== 0) return; // ignore if not set
+}
+
+/**
+ * Helpers for storing remote-level push configuration in git config.
+ * Keys are stored as civ7.remote.<remoteName>.<key>
+ */
+export interface RemotePushConfig {
+  trunk?: string;
+  autoFastForwardTrunk?: boolean;
+  createPrOnFfBlock?: boolean;
+  prTitle?: string;
+  prBody?: string;
+  prDraft?: boolean;
+  ghRepoOverride?: string;
+}
+
+function cfgKeyForRemote(remote: string, key: string): string {
+  return `civ7.remote.${remote}.${key}`;
+}
+
+function parseBoolean(value: string | null | undefined): boolean | undefined {
+  if (value == null) return undefined;
+  const v = String(value).trim().toLowerCase();
+  if (v === 'true' || v === '1' || v === 'yes' || v === 'on') return true;
+  if (v === 'false' || v === '0' || v === 'no' || v === 'off') return false;
+  return undefined;
+}
+
+/** Read stored remote push config from local git config. */
+export async function getRemotePushConfig(remote: string, opts: GitExecOptions = {}): Promise<RemotePushConfig> {
+  const [trunk, autoFF, prOnBlock, prTitle, prBody, prDraft, ghRepoOverride] = await Promise.all([
+    getLocalConfig(cfgKeyForRemote(remote, 'trunk'), opts),
+    getLocalConfig(cfgKeyForRemote(remote, 'autoFastForwardTrunk'), opts),
+    getLocalConfig(cfgKeyForRemote(remote, 'createPrOnFfBlock'), opts),
+    getLocalConfig(cfgKeyForRemote(remote, 'prTitle'), opts),
+    getLocalConfig(cfgKeyForRemote(remote, 'prBody'), opts),
+    getLocalConfig(cfgKeyForRemote(remote, 'prDraft'), opts),
+    getLocalConfig(cfgKeyForRemote(remote, 'ghRepoOverride'), opts),
+  ]);
+  return {
+    trunk: trunk ?? undefined,
+    autoFastForwardTrunk: parseBoolean(autoFF),
+    createPrOnFfBlock: parseBoolean(prOnBlock),
+    prTitle: prTitle ?? undefined,
+    prBody: prBody ?? undefined,
+    prDraft: parseBoolean(prDraft),
+    ghRepoOverride: ghRepoOverride ?? undefined,
+  };
+}
+
+/** Idempotently write provided remote push config keys to local git config. */
+export async function setRemotePushConfig(
+  remote: string,
+  partial: RemotePushConfig,
+  opts: GitExecOptions = {},
+): Promise<void> {
+  const current = await getRemotePushConfig(remote, opts);
+  const tasks: Array<Promise<void>> = [];
+  const writeIfChanged = (key: keyof RemotePushConfig, value: string | boolean | undefined) => {
+    if (value === undefined) return;
+    const cfgKey = cfgKeyForRemote(remote, String(key));
+    const desired = typeof value === 'boolean' ? (value ? 'true' : 'false') : String(value);
+    const existing = (current as any)[key];
+    const existingStr = typeof existing === 'boolean' ? (existing ? 'true' : 'false') : (existing ?? undefined);
+    if (existingStr !== desired) {
+      tasks.push(setLocalConfig(cfgKey, desired, opts));
+    }
+  };
+
+  writeIfChanged('trunk', partial.trunk);
+  writeIfChanged('autoFastForwardTrunk', partial.autoFastForwardTrunk);
+  writeIfChanged('createPrOnFfBlock', partial.createPrOnFfBlock);
+  writeIfChanged('prTitle', partial.prTitle);
+  writeIfChanged('prBody', partial.prBody);
+  writeIfChanged('prDraft', partial.prDraft);
+  writeIfChanged('ghRepoOverride', partial.ghRepoOverride);
+  await Promise.all(tasks);
+}
+
+/** Initialize sensible defaults for a remote's push behavior (idempotent). */
+export async function initRemotePushConfig(
+  remote: string,
+  opts: GitExecOptions = {},
+): Promise<void> {
+  // Resolve default trunk from remote
+  const trunk = await resolveTrunkBranch(remote, {}, opts);
+  // Set defaults only if not present: trunk, autoFF enabled by default, PR creation enabled by default
+  const current = await getRemotePushConfig(remote, opts);
+  const desired: RemotePushConfig = {
+    trunk: current.trunk ?? trunk,
+    autoFastForwardTrunk: current.autoFastForwardTrunk ?? true,
+    createPrOnFfBlock: current.createPrOnFfBlock ?? true,
+    prDraft: current.prDraft ?? false,
+  };
+  await setRemotePushConfig(remote, desired, opts);
+}
+
 /** Aggregate default export for convenience in JS consumers. */
 export default {
   // Types are not part of runtime export
@@ -727,5 +839,6 @@ export default {
   getStatusSnapshot,
   setLocalConfig,
   getLocalConfig,
+  unsetLocalConfig,
   GitError,
 };

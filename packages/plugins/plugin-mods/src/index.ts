@@ -18,6 +18,7 @@ import {
   setLocalConfig,
   getLocalConfig,
   configureRemoteAndFetch,
+  initRemotePushConfig,
   subtreeAddFromRemote,
   subtreePushWithFetch,
   subtreePullWithFetch,
@@ -144,6 +145,8 @@ export async function configureModRemote(options: {
   const { remoteName, remoteUrl, verbose = false } = options;
   const res = await addOrUpdateRemote(remoteName, remoteUrl, { verbose });
   await fetchRemote(remoteName, { tags: true }, { verbose });
+  // Initialize remote-level push defaults (idempotent)
+  await initRemotePushConfig(remoteName, { verbose });
   return res;
 }
 
@@ -217,6 +220,8 @@ export async function importModFromRemote(opts: ImportModOptions): Promise<void>
 
   // Ensure/configure remote and fetch
   await configureRemoteAndFetch(remoteName, remoteUrl, { tags: true }, { verbose });
+  // Initialize remote-level push defaults (idempotent)
+  await initRemotePushConfig(remoteName, { verbose });
 
   // Let git plugin handle subtree readiness, allowDirty, unshallow, and add
   await subtreeAddFromRemote(prefix, remoteName, branch, { squash, autoUnshallow, allowDirty }, { verbose });
