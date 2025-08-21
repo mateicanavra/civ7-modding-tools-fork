@@ -17,6 +17,7 @@ import {
   assertFullHistory,
   isWorktreeClean,
   getRepoRoot,
+  getStatusSnapshot,
 } from "@civ7/plugin-git";
 
 export interface ModsDirInfo {
@@ -39,6 +40,71 @@ export function listMods(modsDir?: string): string[] {
   if (!target || !fs.existsSync(target)) return [];
   const entries = fs.readdirSync(target, { withFileTypes: true });
   return entries.filter((e) => e.isDirectory()).map((e) => e.name);
+}
+
+/**
+ * Ensure the monorepo-level "mods" directory exists and return absolute paths.
+ */
+export async function ensureModsFolder(): Promise<{ repoRoot: string; modsDir: string }> {
+  const root = await getRepoRoot({ allowNonZeroExit: true });
+  if (!root) throw new Error("Not inside a git repository.");
+  const modsDir = path.join(root, "mods");
+  if (!fs.existsSync(modsDir)) fs.mkdirSync(modsDir, { recursive: true });
+  return { repoRoot: root, modsDir };
+}
+
+/**
+ * High-level status for a specific mod subtree and its remote.
+ */
+export async function getModStatus(params: {
+  slug: string;
+  remoteName?: string;
+  branch?: string;
+  verbose?: boolean;
+}): Promise<{
+  repoRoot: string | null;
+  modsPrefix: string;
+  modsPathExists: boolean;
+  subtreeExists: boolean;
+  remoteConfigured: boolean;
+  remoteUrl: string | null;
+  branch: string;
+}> {
+  const { slug, remoteName, branch = "main", verbose = false } = params;
+  const snapshot = await getStatusSnapshot({ verbose });
+  const prefix = path.posix.join("mods", slug);
+  const abs = snapshot.repoRoot ? path.join(snapshot.repoRoot, prefix) : prefix;
+
+  let remoteConfigured = false;
+  let remoteUrl: string | null = null;
+  if (remoteName) {
+    remoteUrl = await getRemoteUrl(remoteName, { verbose });
+    remoteConfigured = !!remoteUrl;
+  }
+
+  return {
+    repoRoot: snapshot.repoRoot,
+    modsPrefix: prefix,
+    modsPathExists: !!snapshot.repoRoot && fs.existsSync(path.join(snapshot.repoRoot, "mods")),
+    subtreeExists: !!snapshot.repoRoot && fs.existsSync(abs),
+    remoteConfigured,
+    remoteUrl,
+    branch,
+  };
+}
+
+/**
+ * Configure or update a mod remote and fetch tags.
+ */
+export async function configureModRemote(options: {
+  remoteName: string;
+  remoteUrl: string;
+  verbose?: boolean;
+}): Promise<"added" | "updated" | "unchanged"> {
+  const { remoteName, remoteUrl, verbose = false } = options;
+  const res = await addOrUpdateRemote(remoteName, remoteUrl, { verbose });
+  await fetchRemote(remoteName, { tags: true }, { verbose });
+  return res;
 }
 
 // copy behavior is unfiltered: deploy what the build produced
