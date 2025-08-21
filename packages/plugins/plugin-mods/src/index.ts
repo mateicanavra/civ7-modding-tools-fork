@@ -20,6 +20,31 @@ import {
   getStatusSnapshot,
 } from "@civ7/plugin-git";
 
+function formatSubtreeHelpMessage(originalMessage?: string): string {
+  const base = originalMessage && originalMessage.trim().length > 0 ? originalMessage.trim() : "git-subtree is not available";
+  const isMac = process.platform === "darwin";
+  const isLinux = process.platform === "linux";
+  const helpLines = [
+    "git-subtree is required to use mod linking (import/push/pull).",
+    isMac
+      ? "macOS: Install Homebrew Git and ensure it is first in PATH:\n  brew install git\n  which git\n  git --version\n  git subtree -h"
+      : isLinux
+      ? "Linux: Install the git-subtree package (or ensure git includes subtree):\n  Debian/Ubuntu: sudo apt-get update && sudo apt-get install -y git-subtree\n  Fedora: sudo dnf install -y git-subtree\n  Arch: sudo pacman -S git\n  Then: git subtree -h"
+      : "Install Git with subtree support and ensure 'git subtree -h' works in your shell.",
+    "If multiple Git installations exist, ensure the one with subtree appears first in PATH.",
+  ];
+  return `${base}.\n\n${helpLines.join("\n")}`;
+}
+
+async function ensureSubtreeAvailableOrThrow(verbose: boolean): Promise<void> {
+  try {
+    await assertSubtreeReady({ verbose });
+  } catch (e: any) {
+    const msg = e?.message ? String(e.message) : undefined;
+    throw new Error(formatSubtreeHelpMessage(msg));
+  }
+}
+
 /**
  * Information about the OS-specific Civilization VII Mods directory
  * (the in-game install location, not the monorepo 'mods/' folder).
@@ -184,7 +209,7 @@ export async function importModFromRemote(opts: ImportModOptions): Promise<void>
     autoUnshallow = false,
   } = opts;
 
-  await assertSubtreeReady({ verbose });
+  await ensureSubtreeAvailableOrThrow(verbose);
 
   const root = await getRepoRoot({ allowNonZeroExit: true, verbose });
   if (!root) throw new Error("Not inside a git repository.");
@@ -237,7 +262,7 @@ export async function pushModToRemote(opts: PushModOptions): Promise<void> {
     autoUnshallow = false,
   } = opts;
 
-  await assertSubtreeReady({ verbose });
+  await ensureSubtreeAvailableOrThrow(verbose);
 
   const root = await getRepoRoot({ allowNonZeroExit: true, verbose });
   if (!root) throw new Error("Not inside a git repository.");
@@ -283,7 +308,7 @@ export async function pullModFromRemote(opts: PullModOptions): Promise<void> {
     autoUnshallow = false,
   } = opts;
 
-  await assertSubtreeReady({ verbose });
+  await ensureSubtreeAvailableOrThrow(verbose);
 
   const root = await getRepoRoot({ allowNonZeroExit: true, verbose });
   if (!root) throw new Error("Not inside a git repository.");
@@ -304,6 +329,67 @@ export async function pullModFromRemote(opts: PullModOptions): Promise<void> {
   }
 
   await subtreePull(prefix, remoteName, branch, { squash }, { verbose });
+}
+
+/**
+ * Link a mod by configuring the remote and importing the subtree in one step.
+ * Sensible defaults: branch=main, squash=false, autoUnshallow=true, remoteName=mod-<slug>, slug derived from repo name if not provided.
+ */
+export interface LinkModOptions {
+  remoteUrl: string;
+  branch?: string;
+  slug?: string;
+  remoteName?: string;
+  squash?: boolean;
+  verbose?: boolean;
+  allowDirty?: boolean;
+  autoUnshallow?: boolean;
+}
+
+function inferSlugFromRemoteUrl(remoteUrl: string): string {
+  // Handle common git URL formats: git@host:owner/repo.git, https://host/owner/repo.git, file paths
+  const sanitized = remoteUrl.replace(/\\+/g, "/");
+  const parts = sanitized
+    .replace(/^git@[^:]+:/, "")
+    .replace(/^https?:\/\//, "")
+    .split("/");
+  const last = parts[parts.length - 1] || "mod";
+  const base = last.replace(/\.git$/i, "");
+  const kebab = base
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+  return kebab || "mod";
+}
+
+export async function link(opts: LinkModOptions): Promise<{ slug: string; remoteName: string; branch: string; prefix: string }> {
+  const {
+    remoteUrl,
+    branch = "main",
+    verbose = false,
+    squash = false,
+    allowDirty = false,
+  } = opts;
+  if (!remoteUrl) throw new Error("remoteUrl is required for link");
+
+  const slug = opts.slug ?? inferSlugFromRemoteUrl(remoteUrl);
+  const remoteName = opts.remoteName ?? `mod-${slug}`;
+  const autoUnshallow = opts.autoUnshallow ?? true; // default to full history
+
+  await configureModRemote({ remoteName, remoteUrl, verbose });
+  await importModFromRemote({
+    slug,
+    remoteName,
+    remoteUrl,
+    branch,
+    squash,
+    verbose,
+    allowDirty,
+    autoUnshallow,
+  });
+  const prefix = path.posix.join("mods", slug);
+  return { slug, remoteName, branch, prefix };
 }
 
 /**
@@ -375,6 +461,7 @@ export default {
   importModFromRemote,
   pushModToRemote,
   pullModFromRemote,
+  link,
   planCreateMod,
   validateModStructure,
   planPackageMod,

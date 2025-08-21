@@ -8,14 +8,15 @@ import {
   importModFromRemote,
   pushModToRemote,
   pullModFromRemote,
+  link as linkPlugin,
 } from "@civ7/plugin-mods";
 
 
-type Action = "config-remote" | "import" | "push" | "pull" | "status";
+type Action = "config-remote" | "import" | "push" | "pull" | "status" | "setup";
 
-export default class ModsImport extends Command {
-  static id = "mod import";
-  static summary = "Manage subtree-based mod imports and mirroring under mods/<slug>";
+export default class ModsLink extends Command {
+  static id = "mod link";
+  static summary = "Link a mod repository under mods/<slug> (setup/import/push/pull/status)";
   static description = `Make this monorepo the source of truth for a mod while mirroring to a read-only repo.
 
 This command wraps git subtree operations to:
@@ -23,6 +24,7 @@ This command wraps git subtree operations to:
 - Import a remote repo's history under mods/<slug>
 - Push changes from mods/<slug> back to the mirror repo
 - Pull any last-minute fixes from the mirror into mods/<slug>
+- Setup: configure + import in one step
 - Inspect status (repo, remotes, subtree presence)
 
 Use --yes to skip safety prompts (non-interactive environments).
@@ -30,73 +32,113 @@ Use --yes to skip safety prompts (non-interactive environments).
 
   static examples = [
     // Configure the remote
-    "<%= config.bin %> mod import --action config-remote --slug my-civ-mod --remote-url git@github.com:you/my-civ-mod.git",
+    "<%= config.bin %> mod link --action config-remote --slug my-civ-mod --remote-url git@github.com:you/my-civ-mod.git",
     // Import (preserve history)
-    "<%= config.bin %> mod import --action import --slug my-civ-mod --branch main",
+    "<%= config.bin %> mod link --action import --slug my-civ-mod --branch main",
     // Import (squash history)
-    "<%= config.bin %> mod import --action import --slug my-civ-mod --branch main --squash",
+    "<%= config.bin %> mod link --action import --slug my-civ-mod --branch main --squash",
     // Push subtree updates to mirror
-    "<%= config.bin %> mod import --action push --slug my-civ-mod --branch main",
+    "<%= config.bin %> mod link --action push --slug my-civ-mod --branch main",
     // Pull hotfixes from mirror into subtree (must match --squash mode used on add)
-    "<%= config.bin %> mod import --action pull --slug my-civ-mod --branch main",
+    "<%= config.bin %> mod link --action pull --slug my-civ-mod --branch main",
+    // Setup: configure + import
+    "<%= config.bin %> mod link --action setup --remote-url git@github.com:you/my-civ-mod.git --branch main --slug my-civ-mod",
     // Show status and diagnostics
-    "<%= config.bin %> mod import --action status --slug my-civ-mod",
+    "<%= config.bin %> mod link --action status --slug my-civ-mod",
   ];
 
   static flags = {
     action: Flags.string({
       description: "Operation to perform",
-      options: ["config-remote", "import", "push", "pull", "status"],
-      required: true,
+      options: ["config-remote", "import", "push", "pull", "status", "setup"],
+      char: "a",
+      // Not required: we'll show a friendly usage summary when missing
     }),
     slug: Flags.string({
-      description: 'Mod slug (directory under mods/, e.g., "my-civ-mod")',
+      description: 'Mod slug (directory under mods/, e.g., "my-civ-mod"). For setup, defaults from remote repo name.',
+      char: "s",
+    }),
+    // Hidden alias for slug
+    id: Flags.string({
+      description: "Alias for --slug",
+      hidden: true,
     }),
     remoteName: Flags.string({
       description: "Git remote name (default: mod-<slug>)",
+      char: "R",
+    }),
+    // Hidden alias for remoteName
+    name: Flags.string({
+      description: "Alias for --remote-name",
+      hidden: true,
     }),
     remoteUrl: Flags.string({
       description: "Git remote URL (e.g., git@github.com:you/repo.git)",
+      char: "u",
+    }),
+    // Hidden alias for remoteUrl
+    url: Flags.string({
+      description: "Alias for --remote-url",
+      hidden: true,
     }),
     branch: Flags.string({
-      description: "Branch to track for import/push/pull",
+      description: "Branch to track for import/push/pull/setup",
       default: "main",
+      char: "b",
     }),
     squash: Flags.boolean({
       description: "Use history squash for add/pull (must match across operations)",
       default: false,
+      char: "S",
     }),
     yes: Flags.boolean({
       description: 'Assume "yes" to safety prompts (non-interactive)',
       default: false,
+      char: "y",
     }),
     autoUnshallow: Flags.boolean({
       description: "Automatically unshallow the repo if required for subtree operations",
-      default: false,
+      default: undefined,
+      char: "U",
     }),
     verbose: Flags.boolean({
       description: "Show underlying git commands (verbose)",
       default: false,
+      char: "v",
     }),
-  };
+  } as const;
 
   async run(): Promise<void> {
-    const { flags } = await this.parse(ModsImport);
-    const action = flags.action as Action;
-    const slug = flags.slug;
+    const { flags } = await this.parse(ModsLink);
+    const action = flags.action as Action | undefined;
+    const slug = flags.slug ?? (flags as any).id;
     const branch = flags.branch ?? "main";
     const squash = !!flags.squash;
     const yes = !!flags.yes;
     const verbose = !!flags.verbose;
-    const autoUnshallow = !!flags.autoUnshallow;
+    const autoUnshallow = flags.autoUnshallow; // may be undefined
+    const providedRemoteUrl = flags.remoteUrl ?? (flags as any).url;
+    const providedRemoteName = flags.remoteName ?? (flags as any).name;
+
+    if (!action) {
+      this.log("No --action provided. Available actions: setup, import, push, pull, status, config-remote\n");
+      this.log("Quick start:");
+      this.log("  - Setup (configure + import):");
+      this.log("    $ civ7 mod link --action setup --remote-url <git-url> --branch main [--slug <slug>]");
+      this.log("  - Status:");
+      this.log("    $ civ7 mod link --action status [--slug <slug>]\n");
+      this.log("See --help for full usage and examples.");
+      this.exit(2);
+      return;
+    }
 
     // Derived defaults
-    const remoteName = flags.remoteName ?? (slug ? `mod-${slug}` : undefined);
+    const remoteName = providedRemoteName ?? (slug ? `mod-${slug}` : undefined);
     const prefix = slug ? path.posix.join("mods", slug) : undefined;
 
-    // Status is the only action that can meaningfully run without slug
-    if (action !== "status") {
-      if (!slug) this.error("Missing required --slug <slug>");
+    // Status/setup can run without slug (setup can infer from remote)
+    if (action !== "status" && action !== "setup") {
+      if (!slug) this.error("Missing required --slug <slug>. Tip: use --action setup to infer from --remote-url.");
       if (!remoteName) this.error("Unable to infer --remote-name; please pass it explicitly.");
     }
 
@@ -107,20 +149,20 @@ Use --yes to skip safety prompts (non-interactive environments).
         return;
 
       case "config-remote":
-        await this.handleConfigRemote(remoteName!, flags.remoteUrl, branch, verbose);
+        await this.handleConfigRemote(remoteName!, providedRemoteUrl, branch, verbose);
         return;
 
       case "import":
-        await this.handleImport(prefix!, remoteName!, flags.remoteUrl, branch, {
+        await this.handleImport(prefix!, remoteName!, providedRemoteUrl, branch, {
           squash,
           yes,
           verbose,
-          autoUnshallow,
+          autoUnshallow: autoUnshallow ?? false,
         });
         return;
 
       case "push":
-        await this.handlePush(prefix!, remoteName!, branch, { yes, verbose, autoUnshallow });
+        await this.handlePush(prefix!, remoteName!, branch, { yes, verbose, autoUnshallow: autoUnshallow ?? false });
         return;
 
       case "pull":
@@ -128,7 +170,20 @@ Use --yes to skip safety prompts (non-interactive environments).
           squash,
           yes,
           verbose,
-          autoUnshallow,
+          autoUnshallow: autoUnshallow ?? false,
+        });
+        return;
+
+      case "setup":
+        await this.handleSetup({
+          remoteUrl: providedRemoteUrl,
+          branch,
+          slug,
+          remoteName: providedRemoteName,
+          squash,
+          yes,
+          verbose,
+          autoUnshallow: autoUnshallow ?? true, // prefer full history by default
         });
         return;
 
@@ -177,7 +232,12 @@ Use --yes to skip safety prompts (non-interactive environments).
     branch: string,
     verbose: boolean
   ) {
-    if (!remoteUrl) this.error("config-remote requires --remote-url <url>");
+    if (!remoteUrl) {
+      this.error(
+        "config-remote requires --remote-url <url>. Example: civ7 mod link --action config-remote --slug my-mod --remote-url git@github.com:you/my-mod.git"
+      );
+    }
+    this.log(`Configuring remote "${remoteName}" → ${remoteUrl} ...`);
     const res = await configureModRemote({ remoteName, remoteUrl, verbose });
     const badge = res === "added" ? "added" : res === "updated" ? "updated" : "unchanged";
     this.log(`Remote "${remoteName}" ${badge}: ${remoteUrl}`);
@@ -202,6 +262,9 @@ Use --yes to skip safety prompts (non-interactive environments).
       }
     }
 
+    this.log(
+      `Importing subtree: prefix=${prefix} remote=${remoteName} branch=${branch} squash=${opts.squash ? "yes" : "no"} autoUnshallow=${opts.autoUnshallow ? "yes" : "no"}`
+    );
     await importModFromRemote({
       slug: path.posix.basename(prefix),
       remoteName,
@@ -221,6 +284,9 @@ Use --yes to skip safety prompts (non-interactive environments).
     branch: string,
     opts: { yes: boolean; verbose: boolean; autoUnshallow: boolean }
   ) {
+    this.log(
+      `Pushing subtree: prefix=${prefix} → ${remoteName}/${branch} autoUnshallow=${opts.autoUnshallow ? "yes" : "no"}`
+    );
     await pushModToRemote({
       slug: path.posix.basename(prefix),
       remoteName,
@@ -238,6 +304,9 @@ Use --yes to skip safety prompts (non-interactive environments).
     branch: string,
     opts: { squash: boolean; yes: boolean; verbose: boolean; autoUnshallow: boolean }
   ) {
+    this.log(
+      `Pulling into subtree: prefix=${prefix} from ${remoteName}/${branch} squash=${opts.squash ? "yes" : "no"} autoUnshallow=${opts.autoUnshallow ? "yes" : "no"}`
+    );
     await pullModFromRemote({
       slug: path.posix.basename(prefix),
       remoteName,
@@ -248,6 +317,42 @@ Use --yes to skip safety prompts (non-interactive environments).
       autoUnshallow: opts.autoUnshallow,
     });
     this.log(`✅ Pulled updates into "${prefix}" from ${remoteName}/${branch}`);
+  }
+
+  private async handleSetup(opts: {
+    remoteUrl?: string;
+    branch: string;
+    slug?: string;
+    remoteName?: string;
+    squash: boolean;
+    yes: boolean;
+    verbose: boolean;
+    autoUnshallow: boolean;
+  }) {
+    const { remoteUrl, branch, slug, remoteName, squash, yes, verbose, autoUnshallow } = opts;
+    if (!remoteUrl) {
+      this.error(
+        "setup requires --remote-url <url>. Example: civ7 mod link --action setup --remote-url git@github.com:you/my-mod.git --branch main [--slug my-mod]"
+      );
+    }
+
+    const inferredSlug = slug ?? "(inferred from remote)";
+    const inferredRemoteName = remoteName ?? (slug ? `mod-${slug}` : "(inferred after slug)");
+    this.log(
+      `Setup starting: remoteUrl=${remoteUrl} branch=${branch} slug=${inferredSlug} remoteName=${inferredRemoteName} squash=${squash ? "yes" : "no"} autoUnshallow=${autoUnshallow ? "yes" : "no"}`
+    );
+
+    const res = await linkPlugin({
+      remoteUrl,
+      branch,
+      slug,
+      remoteName,
+      squash,
+      allowDirty: yes,
+      verbose,
+      autoUnshallow,
+    });
+    this.log(`✅ Setup complete: ${res.slug} at ${res.prefix} from ${res.remoteName}/${res.branch}`);
   }
 
   // Helpers

@@ -91,12 +91,11 @@ export async function isGitAvailable(opts: GitExecOptions = {}): Promise<boolean
 
 /** Whether the current git has the subtree command available. */
 export async function hasSubtree(opts: GitExecOptions = {}): Promise<boolean> {
-  try {
-    await execGit(['subtree', '--help'], { ...opts, allowNonZeroExit: false });
-    return true;
-  } catch {
-    return false;
-  }
+  // Use '-h' to avoid invoking a pager; some Git versions return 129 for help usage.
+  const res = await execGit(['subtree', '-h'], { ...opts, allowNonZeroExit: true });
+  if (res.code === 0 || res.code === 129) return true;
+  const combined = `${res.stdout}\n${res.stderr}`.toLowerCase();
+  return combined.includes('usage: git subtree') || combined.includes('git-subtree');
 }
 
 /** Resolve repository root directory, or null if not in a git repo. */
@@ -231,7 +230,7 @@ export async function assertSubtreeReady(opts: GitExecOptions = {}): Promise<voi
     throw new GitError('git is not available on PATH', ['--version']);
   }
   if (!(await hasSubtree(opts))) {
-    throw new GitError('git-subtree is not available in this environment', ['subtree', '--help']);
+    throw new GitError('git-subtree is not available in this environment', ['subtree', '-h']);
   }
 }
 
