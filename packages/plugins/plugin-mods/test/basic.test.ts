@@ -21,7 +21,7 @@ vi.mock('node:fs', async () => {
   };
 });
 
-describe('@civ7/plugin-mods-deploy', () => {
+describe('@civ7/plugin-mods', () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });

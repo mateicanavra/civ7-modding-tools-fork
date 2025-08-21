@@ -1,6 +1,6 @@
 import { describe, test, expect, vi, beforeEach } from 'vitest';
 
-vi.mock('@civ7/plugin-mods-deploy', () => ({
+vi.mock('@civ7/plugin-mods', () => ({
   deployMod: vi.fn((opts: any) => ({ targetDir: `${opts.modsDir}/${opts.modId}`, modsDir: opts.modsDir, filesCopied: 1 })),
   resolveModsDir: vi.fn(() => ({ modsDir: '/Mods', platform: 'darwin' })),
 }));
@@ -14,7 +14,7 @@ vi.mock('node:fs', async () => {
 });
 
 import ModDeploy from '../../src/commands/mod/deploy';
-import { deployMod } from '@civ7/plugin-mods-deploy';
+import { deployMod } from '@civ7/plugin-mods';
 
 describe('mod deploy command', () => {
   beforeEach(() => vi.clearAllMocks());

@@ -1,5 +1,5 @@
 import { Command, Flags } from '@oclif/core';
-import { deployMod, resolveModsDir } from '@civ7/plugin-mods-deploy';
+import { deployMod, resolveModsDir } from '@civ7/plugin-mods';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
 import { pathToFileURL } from 'node:url';

@@ -1,5 +1,5 @@
 import { Command, Flags } from '@oclif/core';
-import { listMods, resolveModsDir } from '@civ7/plugin-mods-deploy';
+import { listMods, resolveModsDir } from '@civ7/plugin-mods';
 
 export default class ModList extends Command {
     static id = 'mod list';

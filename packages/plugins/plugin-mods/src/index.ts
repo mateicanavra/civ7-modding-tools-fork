@@ -58,4 +58,47 @@ export default {
   deployMod,
 };
 
+// --- Future stubs ---
+export interface CreateModOptions {
+  modId: string;
+  name?: string;
+  description?: string;
+  authors?: string;
+}
+
+export interface CreateModPlan {
+  files: Array<{ path: string; description: string }>;
+}
+
+export function planCreateMod(options: CreateModOptions): CreateModPlan {
+  const { modId, name, description, authors } = options;
+  // Use examples at plugin-mapgen/src/config/config.xml and epic-diverse-huge-map.modinfo for structure
+  return {
+    files: [
+      { path: `${modId}/${modId}.modinfo`, description: 'Mod descriptor with Properties, Dependencies, ActionGroups, LocalizedText' },
+      { path: `${modId}/config/config.xml`, description: 'Core config: Database > Maps > Rows' },
+      { path: `${modId}/text/en_us/MapText.xml`, description: 'Localization stub for names/descriptions' },
+    ],
+  };
+}
+
+export interface ValidateResult { valid: boolean; errors: string[] }
+export function validateModStructure(modDir: string): ValidateResult {
+  // Stub: later will check required files, XML schema, etc.
+  return { valid: true, errors: [] };
+}
+
+export interface PackagePlan { archivePath: string }
+export function planPackageMod(modDir: string, outZip?: string): PackagePlan {
+  // Stub: later integrate with zip in plugin-files
+  const archivePath = outZip ?? `${modDir}.zip`;
+  return { archivePath };
+}
+
+export interface SteamUploadPlan { notes: string }
+export function planSteamUpload(archivePath: string): SteamUploadPlan {
+  // Stub: will integrate with Steam APIs later
+  return { notes: `Upload ${archivePath} to Steam Workshop (stub)` };
+}
+
 

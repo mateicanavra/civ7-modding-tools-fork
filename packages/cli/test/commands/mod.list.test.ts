@@ -1,12 +1,12 @@
 import { describe, test, expect, vi, beforeEach } from 'vitest';
 
-vi.mock('@civ7/plugin-mods-deploy', () => ({
+vi.mock('@civ7/plugin-mods', () => ({
   listMods: vi.fn(() => ['A', 'B']),
   resolveModsDir: vi.fn(() => ({ modsDir: '/Mods', platform: 'darwin' })),
 }));
 
 import ModList from '../../src/commands/mod/list';
-import { listMods } from '@civ7/plugin-mods-deploy';
+import { listMods } from '@civ7/plugin-mods';
 
 describe('mod list command', () => {
   beforeEach(() => vi.clearAllMocks());
