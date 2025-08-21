@@ -25,7 +25,8 @@
   },
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "mods/*"
   ],
   "repository": {
     "type": "git",

@@ -31,6 +31,8 @@ civ7-modding-tools/
 ├── apps/
 │   ├── docs/         # Documentation site (Docsify)
 │   └── playground/   # Example mods and experiments
+├── mods/
+│   └── <mod-name>/    # Colocated mod workspaces that consume the SDK; build to ./mod/
 └── civ.config.jsonc  # CLI configuration
 ```
 
