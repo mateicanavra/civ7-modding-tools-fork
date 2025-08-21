@@ -1,28 +1,27 @@
 {
-  "name": "@civ7/plugin-mapgen",
+  "name": "@civ7/plugin-mods-deploy",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json && pnpm run build:mod",
-    "build:mod": "bun run scripts/build.ts",
-    "dev": "tsc -w -p tsconfig.json",
+    "build": "tsup src/index.ts --format esm,cjs --dts",
+    "dev": "tsup src/index.ts --format esm,cjs --dts --watch",
     "check": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint .",
     "test": "vitest run",
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@civ7/plugin-mods-deploy": "workspace:*",
     "@civ7/plugin-files": "workspace:*"
   },
   "devDependencies": {
+    "tsup": "^8.5.0",
     "typescript": "^5.9.2",
     "@types/node": "^24.2.1",
     "vitest": "^3.2.4"
@@ -31,3 +30,5 @@
     "node": ">=20"
   }
 }
+
+
