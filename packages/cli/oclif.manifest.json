@@ -585,6 +585,7 @@
         "<%= config.bin %> mod link --action import --slug my-civ-mod --branch main",
         "<%= config.bin %> mod link --action import --slug my-civ-mod --branch main --squash",
         "<%= config.bin %> mod link --action push --slug my-civ-mod --branch main",
+        "<%= config.bin %> mod link --action push --slug my-civ-mod --branch release -ff -t main",
         "<%= config.bin %> mod link --action pull --slug my-civ-mod --branch main",
         "<%= config.bin %> mod link --action setup --remote-url git@github.com:you/my-civ-mod.git --branch main --slug my-civ-mod",
         "<%= config.bin %> mod link --action status --slug my-civ-mod"
@@ -689,6 +690,21 @@
           "name": "verbose",
           "allowNo": false,
           "type": "boolean"
+        },
+        "autoFastForwardTrunk": {
+          "char": "f",
+          "description": "After push, fast-forward the remote trunk branch if possible (FF-only)",
+          "name": "autoFastForwardTrunk",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "trunk": {
+          "char": "t",
+          "description": "Override trunk branch name for FF update (defaults to remote's default)",
+          "name": "trunk",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
         }
       },
       "hasDynamicHelp": false,

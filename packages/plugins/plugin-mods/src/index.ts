@@ -14,6 +14,7 @@ import {
   getRepoRoot,
   getStatusSnapshot,
   listRemoteBranches,
+  resolveTrunkBranch,
   setLocalConfig,
   getLocalConfig,
   configureRemoteAndFetch,
@@ -34,6 +35,12 @@ async function setLinkedRemoteName(slug: string, remoteName: string, opts: { ver
 }
 async function getLinkedRemoteName(slug: string, opts: { verbose?: boolean } = {}): Promise<string | null> {
   return getLocalConfig(`civ7.mod.${slug}.remoteName`, { verbose: opts.verbose });
+}
+async function setLinkedTrunk(slug: string, branch: string, opts: { verbose?: boolean } = {}) {
+  await setLocalConfig(`civ7.mod.${slug}.trunk`, branch, { verbose: opts.verbose });
+}
+async function getLinkedTrunk(slug: string, opts: { verbose?: boolean } = {}): Promise<string | null> {
+  return getLocalConfig(`civ7.mod.${slug}.trunk`, { verbose: opts.verbose });
 }
 
 /**
@@ -89,7 +96,7 @@ export async function getModStatus(params: {
   shallow: boolean;
   clean: boolean;
   hasSubtree: boolean;
-  remotes: Array<{ name: string; url: string | null }>;
+  remotes: Array<{ name: string; url: string | null; defaultBranch: string | null; resolvedTrunk: string | null; trunkPushAllowed: boolean | null }>;
   // Mod-level (may be null if no slug provided)
   modsPrefix: string | null;
   modsPathExists: boolean;
@@ -225,9 +232,11 @@ export interface PushModOptions {
   verbose?: boolean;
   allowDirty?: boolean;
   autoUnshallow?: boolean;
+  autoFastForwardTrunk?: boolean;
+  trunk?: string;
 }
 export async function pushModToRemote(opts: PushModOptions): Promise<void> {
-  const { slug, remoteName, branch, verbose = false, allowDirty = false, autoUnshallow = false } = opts;
+  const { slug, remoteName, branch, verbose = false, allowDirty = false, autoUnshallow = false, autoFastForwardTrunk = false, trunk } = opts;
 
   const root = await getRepoRoot({ allowNonZeroExit: true, verbose });
   if (!root) throw new Error("Not inside a git repository.");
@@ -245,7 +254,14 @@ export async function pushModToRemote(opts: PushModOptions): Promise<void> {
     );
   }
 
-  await subtreePushWithFetch(prefix, remoteName, effectiveBranch, { autoUnshallow, allowDirty }, { verbose });
+  const trunkOverride = trunk ?? (await getLinkedTrunk(slug, { verbose })) ?? undefined;
+  await subtreePushWithFetch(
+    prefix,
+    remoteName,
+    effectiveBranch,
+    { autoUnshallow, allowDirty, autoFastForwardTrunk, trunkOverride },
+    { verbose },
+  );
 }
 
 /**
@@ -295,6 +311,7 @@ export interface LinkModOptions {
   verbose?: boolean;
   allowDirty?: boolean;
   autoUnshallow?: boolean;
+  trunk?: string;
 }
 
 function inferSlugFromRemoteUrl(remoteUrl: string): string {
@@ -321,6 +338,7 @@ export async function link(opts: LinkModOptions): Promise<{ slug: string; remote
     verbose = false,
     squash = false,
     allowDirty = false,
+    trunk,
   } = opts;
   if (!remoteUrl) throw new Error("remoteUrl is required for link");
 
@@ -343,6 +361,8 @@ export async function link(opts: LinkModOptions): Promise<{ slug: string; remote
   // Persist link defaults for subsequent commands
   await setLinkedBranch(slug, branch, { verbose });
   await setLinkedRemoteName(slug, remoteName, { verbose });
+  const resolvedTrunk = trunk ?? (await resolveTrunkBranch(remoteName, {}, { verbose }));
+  if (resolvedTrunk) await setLinkedTrunk(slug, resolvedTrunk, { verbose });
 
   const prefix = path.posix.join("mods", slug);
   return { slug, remoteName, branch, prefix };

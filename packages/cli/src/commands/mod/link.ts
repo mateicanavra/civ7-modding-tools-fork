@@ -39,6 +39,8 @@ Use --yes to skip safety prompts (non-interactive environments).
     "<%= config.bin %> mod link --action import --slug my-civ-mod --branch main --squash",
     // Push subtree updates to mirror
     "<%= config.bin %> mod link --action push --slug my-civ-mod --branch main",
+    // Push and auto fast-forward trunk after push
+    "<%= config.bin %> mod link --action push --slug my-civ-mod --branch release -ff -t main",
     // Pull hotfixes from mirror into subtree (must match --squash mode used on add)
     "<%= config.bin %> mod link --action pull --slug my-civ-mod --branch main",
     // Setup: configure + import
@@ -105,6 +107,15 @@ Use --yes to skip safety prompts (non-interactive environments).
       default: false,
       char: "v",
     }),
+    autoFastForwardTrunk: Flags.boolean({
+      description: "After push, fast-forward the remote trunk branch if possible (FF-only)",
+      default: false,
+      char: "f",
+    }),
+    trunk: Flags.string({
+      description: "Override trunk branch name for FF update (defaults to remote's default)",
+      char: "t",
+    }),
   } as const;
 
   async run(): Promise<void> {
@@ -116,6 +127,8 @@ Use --yes to skip safety prompts (non-interactive environments).
     const yes = !!flags.yes;
     const verbose = !!flags.verbose;
     const autoUnshallow = flags.autoUnshallow; // may be undefined
+    const autoFastForwardTrunk = !!flags.autoFastForwardTrunk;
+    const trunk = flags.trunk;
     const providedRemoteUrl = flags.remoteUrl ?? (flags as any).url;
     const providedRemoteName = flags.remoteName ?? (flags as any).name;
 
@@ -161,7 +174,13 @@ Use --yes to skip safety prompts (non-interactive environments).
         return;
 
       case "push":
-        await this.handlePush(prefix!, remoteName!, branch, { yes, verbose, autoUnshallow: autoUnshallow ?? false });
+        await this.handlePush(prefix!, remoteName!, branch, {
+          yes,
+          verbose,
+          autoUnshallow: autoUnshallow ?? false,
+          autoFastForwardTrunk,
+          trunk,
+        });
         return;
 
       case "pull":
@@ -183,6 +202,7 @@ Use --yes to skip safety prompts (non-interactive environments).
           yes,
           verbose,
           autoUnshallow: autoUnshallow ?? true, // prefer full history by default
+          trunk,
         });
         return;
 
@@ -209,6 +229,13 @@ Use --yes to skip safety prompts (non-interactive environments).
     if (!status.remotes || status.remotes.length === 0) this.log("  (none)");
     for (const r of status.remotes ?? []) {
       this.log(`  - ${r.name}: ${r.url ?? "(no url)"}`);
+      const defaultBranch = (r as any).defaultBranch ?? null;
+      const resolvedTrunk = (r as any).resolvedTrunk ?? null;
+      const trunkPushAllowed = (r as any).trunkPushAllowed ?? null;
+      const pushStr = trunkPushAllowed === null ? "unknown" : trunkPushAllowed ? "allowed" : "blocked";
+      this.log(
+        `    default=${defaultBranch ?? "(unknown)"}  trunk=${resolvedTrunk ?? "(unknown)"}  trunkPush=${pushStr}`
+      );
     }
 
     if (slug) {
@@ -281,10 +308,10 @@ Use --yes to skip safety prompts (non-interactive environments).
     prefix: string,
     remoteName: string,
     branch: string | undefined,
-    opts: { yes: boolean; verbose: boolean; autoUnshallow: boolean }
+    opts: { yes: boolean; verbose: boolean; autoUnshallow: boolean; autoFastForwardTrunk: boolean; trunk?: string }
   ) {
     this.log(
-      `Pushing subtree: prefix=${prefix} → ${remoteName}/${branch ?? "(saved branch)"} autoUnshallow=${opts.autoUnshallow ? "yes" : "no"}`
+      `Pushing subtree: prefix=${prefix} → ${remoteName}/${branch ?? "(saved branch)"} autoUnshallow=${opts.autoUnshallow ? "yes" : "no"} autoFFTrunk=${opts.autoFastForwardTrunk ? "yes" : "no"}`
     );
     await pushModToRemote({
       slug: path.posix.basename(prefix),
@@ -293,6 +320,8 @@ Use --yes to skip safety prompts (non-interactive environments).
       verbose: opts.verbose,
       allowDirty: opts.yes,
       autoUnshallow: opts.autoUnshallow,
+      autoFastForwardTrunk: opts.autoFastForwardTrunk,
+      trunk: opts.trunk,
     });
     this.log(`✅ Pushed "${prefix}" to ${remoteName}/${branch ?? "(saved branch)"}`);
   }
@@ -327,8 +356,9 @@ Use --yes to skip safety prompts (non-interactive environments).
     yes: boolean;
     verbose: boolean;
     autoUnshallow: boolean;
+    trunk?: string;
   }) {
-    const { remoteUrl, branch, slug, remoteName, squash, yes, verbose, autoUnshallow } = opts;
+    const { remoteUrl, branch, slug, remoteName, squash, yes, verbose, autoUnshallow, trunk } = opts;
     if (!remoteUrl) {
       this.error(
         "setup requires --remote-url <url>. Example: civ7 mod link --action setup --remote-url git@github.com:you/my-mod.git --branch main [--slug my-mod]"
@@ -350,6 +380,7 @@ Use --yes to skip safety prompts (non-interactive environments).
       allowDirty: yes,
       verbose,
       autoUnshallow,
+      trunk,
     });
     this.log(`✅ Setup complete: ${res.slug} at ${res.prefix} from ${res.remoteName}/${res.branch}`);
   }

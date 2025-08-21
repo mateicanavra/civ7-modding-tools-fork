@@ -58,7 +58,6 @@ export class GitError extends Error {
 export async function execGit(args: string[], opts: GitExecOptions = {}): Promise<ExecResult> {
   const { cwd, env, verbose, allowNonZeroExit } = opts;
   if (verbose) {
-    // eslint-disable-next-line no-console
     console.log(`$ git ${args.join(' ')}`);
   }
   try {
@@ -204,6 +203,54 @@ export async function configureRemoteAndFetch(
   return status;
 }
 
+/** Determine the remote's default branch using a symbolic ref lookup of HEAD. */
+export async function getRemoteDefaultBranch(remote: string, opts: GitExecOptions = {}): Promise<string | null> {
+  // Prefer: git ls-remote --symref <remote> HEAD
+  const res = await execGit(['ls-remote', '--symref', remote, 'HEAD'], { ...opts, allowNonZeroExit: true });
+  if (res.code !== 0) return null;
+  // Expected line: "ref: refs/heads/<branch> HEAD"
+  const symrefLine = res.stdout
+    .split('\n')
+    .map((l) => l.trim())
+    .find((l) => l.startsWith('ref: '));
+  if (!symrefLine) return null;
+  const match = symrefLine.match(/^ref:\s+refs\/heads\/([^\s]+)\s+HEAD$/);
+  if (!match) return null;
+  const branch = match[1]?.trim();
+  return branch && branch.length ? branch : null;
+}
+
+/** Resolve the trunk branch name, preferring remote default, then provided candidates, then common defaults. */
+export async function resolveTrunkBranch(
+  remote: string,
+  options: { candidates?: string[] } = {},
+  opts: GitExecOptions = {},
+): Promise<string> {
+  const candidates: string[] = [];
+  const remoteDefault = await getRemoteDefaultBranch(remote, opts);
+  if (remoteDefault) candidates.push(remoteDefault);
+  if (options.candidates && options.candidates.length) {
+    candidates.push(...options.candidates);
+  }
+  // Common defaults
+  candidates.push('main', 'master');
+
+  // Deduplicate, preserving order
+  const seen = new Set<string>();
+  const unique = candidates.filter((b) => {
+    if (seen.has(b)) return false;
+    seen.add(b);
+    return true;
+  });
+
+  // If any exist on the remote, pick the first match; otherwise return the first candidate
+  const remoteBranches = await listRemoteBranches(remote, opts);
+  for (const b of unique) {
+    if (remoteBranches.includes(b)) return b;
+  }
+  return unique[0];
+}
+
 /**
  * Add a subtree after ensuring environment, fetching, and (optionally) full history.
  */
@@ -235,7 +282,7 @@ export async function subtreePushWithFetch(
   prefix: string,
   remote: string,
   branch: string,
-  options: { autoUnshallow?: boolean; allowDirty?: boolean } = {},
+  options: { autoUnshallow?: boolean; allowDirty?: boolean; autoFastForwardTrunk?: boolean; trunkOverride?: string } = {},
   opts: GitExecOptions = {},
 ): Promise<void> {
   await assertSubtreeReady(opts);
@@ -252,6 +299,14 @@ export async function subtreePushWithFetch(
     await assertFullHistory(remote, opts);
   }
   await execGit(['subtree', 'push', `--prefix=${prefix}`, remote, branch], opts);
+
+  // Optionally fast-forward the remote trunk branch to the pushed branch
+  if (options.autoFastForwardTrunk) {
+    const trunk = options.trunkOverride ?? (await resolveTrunkBranch(remote, {}, opts));
+    if (trunk && trunk !== branch) {
+      await fastForwardRemoteTrunk(remote, branch, trunk, opts);
+    }
+  }
 }
 
 /**
@@ -363,13 +418,86 @@ export async function assertSubtreeReady(opts: GitExecOptions = {}): Promise<voi
   }
 }
 
+/**
+ * Fast-forward update the remote trunk branch from a given source branch.
+ * If trunk does not exist, this will create it from source.
+ * Returns a status string describing the outcome.
+ */
+export async function fastForwardRemoteTrunk(
+  remote: string,
+  sourceBranch: string,
+  trunkBranch?: string,
+  opts: GitExecOptions = {},
+): Promise<'updated' | 'created' | 'skipped' | 'blocked'> {
+  const trunk = trunkBranch ?? (await getRemoteDefaultBranch(remote, opts)) ?? 'main';
+  if (sourceBranch === trunk) return 'skipped';
+
+  // Ensure we have up-to-date remote refs
+  await fetchRemote(remote, { tags: false, prune: false }, opts);
+
+  const srcRef = `${remote}/${sourceBranch}`;
+  const trunkRef = `${remote}/${trunk}`;
+
+  const srcRes = await execGit(['rev-parse', srcRef], { ...opts, allowNonZeroExit: true });
+  if (srcRes.code !== 0) {
+    throw new GitError(`Remote branch ${srcRef} not found after push`, ['rev-parse', srcRef], srcRes);
+  }
+
+  const trunkRes = await execGit(['rev-parse', trunkRef], { ...opts, allowNonZeroExit: true });
+  const trunkExists = trunkRes.code === 0;
+
+  if (trunkExists) {
+    const anc = await execGit(['merge-base', '--is-ancestor', trunkRef, srcRef], { ...opts, allowNonZeroExit: true });
+    if (anc.code !== 0) {
+      return 'blocked';
+    }
+  }
+
+  const pushRes = await execGit(['push', remote, `${sourceBranch}:refs/heads/${trunk}`], { ...opts, allowNonZeroExit: true });
+  if (pushRes.code !== 0) {
+    throw new GitError(`Fast-forward push to ${remote}/${trunk} failed`, ['push', remote, `${sourceBranch}:refs/heads/${trunk}`], pushRes);
+  }
+  return trunkExists ? 'updated' : 'created';
+}
+
+/** Check (best-effort) whether pushing to a remote branch is allowed, using a dry run. */
+export async function isRemoteBranchPushAllowed(
+  remote: string,
+  branch: string,
+  opts: GitExecOptions = {},
+): Promise<boolean> {
+  // Ensure refs are up-to-date
+  await fetchRemote(remote, {}, opts);
+
+  const remoteRef = `${remote}/${branch}`;
+  const revRes = await execGit(['rev-parse', remoteRef], { ...opts, allowNonZeroExit: true });
+  let refspec: string;
+  if (revRes.code === 0) {
+    const sha = revRes.stdout.trim();
+    if (!sha) return false;
+    // Attempt a no-op update to the same commit
+    refspec = `${sha}:refs/heads/${branch}`;
+  } else {
+    // Branch does not exist; attempt to create it from current HEAD
+    refspec = `HEAD:refs/heads/${branch}`;
+  }
+  const pushRes = await execGit(['push', '--dry-run', remote, refspec], { ...opts, allowNonZeroExit: true });
+  return pushRes.code === 0;
+}
+
 /** A brief status snapshot for diagnostics and UX. */
 export interface GitStatusSnapshot {
   repoRoot: string | null;
   shallow: boolean;
   clean: boolean;
   hasSubtree: boolean;
-  remotes: Array<{ name: string; url: string | null }>;
+  remotes: Array<{
+    name: string;
+    url: string | null;
+    defaultBranch: string | null;
+    resolvedTrunk: string | null;
+    trunkPushAllowed: boolean | null;
+  }>;
 }
 
 /** Return a brief status snapshot for diagnostics and UX. */
@@ -386,15 +514,35 @@ export async function getStatusSnapshot(opts: GitExecOptions = {}): Promise<GitS
   const remoteNames = remotesRes.code === 0
     ? remotesRes.stdout.split('\n').map((s) => s.trim()).filter(Boolean)
     : [];
-  const remotes: Array<{ name: string; url: string | null }> = [];
+  const remotes: Array<{ name: string; url: string | null; defaultBranch: string | null; resolvedTrunk: string | null; trunkPushAllowed: boolean | null }> = [];
   for (const name of remoteNames) {
     let url: string | null = null;
+    let defaultBranch: string | null = null;
+    let resolvedTrunk: string | null = null;
+    let trunkPushAllowed: boolean | null = null;
     try {
       url = await getRemoteUrl(name, opts);
     } catch {
       url = null;
     }
-    remotes.push({ name, url });
+    try {
+      defaultBranch = await getRemoteDefaultBranch(name, opts);
+    } catch {
+      defaultBranch = null;
+    }
+    try {
+      resolvedTrunk = await resolveTrunkBranch(name, {}, opts);
+    } catch {
+      resolvedTrunk = defaultBranch;
+    }
+    if (resolvedTrunk) {
+      try {
+        trunkPushAllowed = await isRemoteBranchPushAllowed(name, resolvedTrunk, opts);
+      } catch {
+        trunkPushAllowed = null;
+      }
+    }
+    remotes.push({ name, url, defaultBranch, resolvedTrunk, trunkPushAllowed });
   }
 
   return { repoRoot: root, shallow, clean, hasSubtree: subtreeOk, remotes };
@@ -428,12 +576,16 @@ export default {
   fetchRemote,
   configureRemoteAndFetch,
   listRemoteBranches,
+  getRemoteDefaultBranch,
+  resolveTrunkBranch,
   subtreeAdd,
   subtreePush,
   subtreePull,
   subtreeAddFromRemote,
   subtreePushWithFetch,
   subtreePullWithFetch,
+  fastForwardRemoteTrunk,
+  isRemoteBranchPushAllowed,
   assertSubtreeReady,
   getStatusSnapshot,
   setLocalConfig,
