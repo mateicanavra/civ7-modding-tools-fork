@@ -6,7 +6,6 @@
   "main": "index.js",
   "scripts": {
     "build": "tsx build.ts",
-    "start": "tsx build.ts",
     "deploy": "pnpm -C ../../ dev:cli mod deploy --input ./mod --id macnsqueeze-dacia",
     "docs": "docsify serve docs",
     "lint": "eslint .",
