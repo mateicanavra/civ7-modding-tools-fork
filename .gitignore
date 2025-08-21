@@ -38,6 +38,7 @@ Thumbs.db
 *.code-workspace
 .cursor/
 .roo/
+.zed/
 
 # Project-specific ignores
 # Modify this to match your zip output

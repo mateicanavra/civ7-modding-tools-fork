@@ -1,0 +1,864 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Epic Diverse Huge Map Generator Configuration",
+    "description": "Schema for map_config.js. Provides validation and tooltips for all tunable parameters.",
+    "type": "object",
+    "properties": {
+        "toggles": {
+            "type": "object",
+            "description": "Master feature toggles to enable or disable major Climate Story systems.",
+            "properties": {
+                "STORY_ENABLE_HOTSPOTS": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable deep-ocean hotspot trails and paradise/volcanic islands."
+                },
+                "STORY_ENABLE_RIFTS": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable continental rift valleys with shoulder humidity."
+                },
+                "STORY_ENABLE_OROGENY": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable windward/lee effects along mountain belts."
+                },
+                "STORY_ENABLE_SWATCHES": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable one guaranteed 'black swan' macro climate swatch per map."
+                },
+                "STORY_ENABLE_PALEO": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable paleo-hydrology features like deltas, oxbows, and fossil channels."
+                },
+                "STORY_ENABLE_CORRIDORS": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable strategic corridors (sea lanes, island-hop, land, river chains)."
+                }
+            },
+            "required": [
+                "STORY_ENABLE_HOTSPOTS",
+                "STORY_ENABLE_RIFTS",
+                "STORY_ENABLE_OROGENY",
+                "STORY_ENABLE_SWATCHES",
+                "STORY_ENABLE_PALEO",
+                "STORY_ENABLE_CORRIDORS"
+            ]
+        },
+        "story": {
+            "type": "object",
+            "description": "Detailed parameters for each narrative motif.",
+            "properties": {
+                "hotspot": {
+                    "type": "object",
+                    "description": "Deep-ocean hotspot trails (aligned island chains).",
+                    "properties": {
+                        "maxTrails": {
+                            "type": "integer",
+                            "default": 3,
+                            "description": "Total trails on a Huge map (size-scaled)."
+                        },
+                        "steps": {
+                            "type": "integer",
+                            "default": 10,
+                            "description": "Polyline steps per trail (size-scaled)."
+                        },
+                        "stepLen": {
+                            "type": "integer",
+                            "default": 4,
+                            "description": "Tiles advanced per step."
+                        },
+                        "minDistFromLand": {
+                            "type": "integer",
+                            "default": 4,
+                            "description": "Keep trails away from coasts."
+                        },
+                        "minTrailSeparation": {
+                            "type": "integer",
+                            "default": 12,
+                            "description": "Avoid parallel clutter between trails."
+                        },
+                        "paradiseBias": {
+                            "type": "integer",
+                            "default": 2,
+                            "description": "Weight for classifying a hotspot as 'paradise' (lush, reef-friendly)."
+                        },
+                        "volcanicBias": {
+                            "type": "integer",
+                            "default": 1,
+                            "description": "Weight for classifying a hotspot as 'volcanic' (rugged, fertile ash)."
+                        },
+                        "volcanicPeakChance": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1,
+                            "default": 0.33,
+                            "description": "Chance (0-1) a volcanic center becomes a land tile."
+                        }
+                    }
+                },
+                "rift": {
+                    "type": "object",
+                    "description": "Continental rift lines (linear inland lakes/shoulders).",
+                    "properties": {
+                        "maxRiftsPerMap": {
+                            "type": "integer",
+                            "default": 3,
+                            "description": "Absolute cap on rifts per map (size-scaled)."
+                        },
+                        "lineSteps": {
+                            "type": "integer",
+                            "default": 18,
+                            "description": "Steps marched per rift (size-scaled)."
+                        },
+                        "stepLen": {
+                            "type": "integer",
+                            "default": 2,
+                            "description": "Tiles advanced per step."
+                        },
+                        "shoulderWidth": {
+                            "type": "integer",
+                            "default": 1,
+                            "description": "Lateral shoulder band on each side."
+                        }
+                    }
+                },
+                "orogeny": {
+                    "type": "object",
+                    "description": "Windward/lee amplification along mountain chains.",
+                    "properties": {
+                        "beltMaxPerContinent": {
+                            "type": "integer",
+                            "default": 2,
+                            "description": "Hard cap per large continent."
+                        },
+                        "beltMinLength": {
+                            "type": "integer",
+                            "default": 30,
+                            "description": "Minimum tiles to consider a belt (size-scaled)."
+                        },
+                        "radius": {
+                            "type": "integer",
+                            "default": 2,
+                            "description": "Narrow belt radius for flank effects (size-scaled)."
+                        },
+                        "windwardBoost": {
+                            "type": "integer",
+                            "default": 5,
+                            "description": "+rainfall on windward flank (clamped)."
+                        },
+                        "leeDrynessAmplifier": {
+                            "type": "number",
+                            "minimum": 1,
+                            "default": 1.2,
+                            "description": "Multiplier for local orographic subtraction on lee side."
+                        }
+                    }
+                },
+                "swatches": {
+                    "type": "object",
+                    "description": "'Black swan' climate swatches — one guaranteed macro zone per map.",
+                    "properties": {
+                        "maxPerMap": { "type": "integer", "default": 1 },
+                        "forceAtLeastOne": {
+                            "type": "boolean",
+                            "default": true
+                        },
+                        "sizeScaling": {
+                            "type": "object",
+                            "properties": {
+                                "widthMulSqrt": {
+                                    "type": "number",
+                                    "default": 0.3
+                                },
+                                "lengthMulSqrt": {
+                                    "type": "number",
+                                    "default": 0.4
+                                }
+                            }
+                        },
+                        "types": {
+                            "type": "object",
+                            "description": "Configuration for each swatch type, including selection weight.",
+                            "properties": {
+                                "macroDesertBelt": {
+                                    "type": "object",
+                                    "properties": {
+                                        "weight": {
+                                            "type": "integer",
+                                            "default": 3
+                                        }
+                                    }
+                                },
+                                "equatorialRainbelt": {
+                                    "type": "object",
+                                    "properties": {
+                                        "weight": {
+                                            "type": "integer",
+                                            "default": 3
+                                        }
+                                    }
+                                },
+                                "rainforestArchipelago": {
+                                    "type": "object",
+                                    "properties": {
+                                        "weight": {
+                                            "type": "integer",
+                                            "default": 2
+                                        }
+                                    }
+                                },
+                                "mountainForests": {
+                                    "type": "object",
+                                    "properties": {
+                                        "weight": {
+                                            "type": "integer",
+                                            "default": 2
+                                        }
+                                    }
+                                },
+                                "greatPlains": {
+                                    "type": "object",
+                                    "properties": {
+                                        "weight": {
+                                            "type": "integer",
+                                            "default": 2
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "paleo": {
+                    "type": "object",
+                    "description": "Paleo-hydrology (deltas, oxbows, fossil channels) with elevation carving.",
+                    "properties": {
+                        "maxDeltas": { "type": "integer", "default": 4 },
+                        "maxOxbows": { "type": "integer", "default": 6 },
+                        "maxFossilChannels": {
+                            "type": "integer",
+                            "default": 3
+                        },
+                        "fossilChannelLengthTiles": {
+                            "type": "integer",
+                            "default": 12
+                        },
+                        "fossilChannelHumidity": {
+                            "type": "integer",
+                            "default": 5
+                        },
+                        "elevationCarving": {
+                            "type": "object",
+                            "properties": {
+                                "enableCanyonRim": {
+                                    "type": "boolean",
+                                    "default": true
+                                },
+                                "rimWidth": { "type": "integer", "default": 1 },
+                                "canyonDryBonus": {
+                                    "type": "integer",
+                                    "default": 2
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "microclimate": {
+            "type": "object",
+            "description": "Small deltas applied by refinement passes.",
+            "properties": {
+                "rainfall": {
+                    "type": "object",
+                    "properties": {
+                        "riftBoost": { "type": "integer", "default": 8 },
+                        "riftRadius": { "type": "integer", "default": 2 },
+                        "paradiseDelta": { "type": "integer", "default": 6 },
+                        "volcanicDelta": { "type": "integer", "default": 8 }
+                    }
+                },
+                "features": {
+                    "type": "object",
+                    "properties": {
+                        "paradiseReefChance": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 100,
+                            "default": 18,
+                            "description": "Percent chance."
+                        },
+                        "volcanicForestChance": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 100,
+                            "default": 22,
+                            "description": "Percent chance."
+                        },
+                        "volcanicTaigaChance": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 100,
+                            "default": 25,
+                            "description": "Percent chance."
+                        }
+                    }
+                }
+            }
+        },
+        "corridors": {
+            "type": "object",
+            "description": "Strategic corridors (sea lanes, island-hop, land, river chains).",
+            "properties": {
+                "sea": {
+                    "type": "object",
+                    "properties": {
+                        "maxLanes": {
+                            "type": "integer",
+                            "default": 3,
+                            "description": "Max number of sea lanes to tag across the map."
+                        },
+                        "minLengthFrac": {
+                            "type": "number",
+                            "default": 0.7,
+                            "description": "Minimum fraction of map span a lane must cover to qualify."
+                        },
+                        "scanStride": {
+                            "type": "integer",
+                            "default": 6,
+                            "description": "Sampling stride in tiles when scanning for lanes."
+                        },
+                        "avoidRadius": {
+                            "type": "integer",
+                            "default": 2,
+                            "description": "Radius (tiles) to keep islands away from protected lanes."
+                        },
+                        "preferDiagonals": {
+                            "type": "boolean",
+                            "default": true,
+                            "description": "Whether to consider diagonal lanes in selection/scoring."
+                        },
+                        "laneSpacing": {
+                            "type": "integer",
+                            "default": 6,
+                            "description": "Minimum spacing (tiles) enforced between selected lanes."
+                        },
+                        "minChannelWidth": {
+                            "type": "integer",
+                            "default": 3,
+                            "description": "Minimum channel width (tiles) measured orthogonal to the lane."
+                        }
+                    }
+                },
+                "islandHop": {
+                    "type": "object",
+                    "properties": {
+                        "useHotspots": {
+                            "type": "boolean",
+                            "default": true,
+                            "description": "Whether to promote hotspot trails into island-hop lanes."
+                        },
+                        "maxArcs": {
+                            "type": "integer",
+                            "default": 2,
+                            "description": "Max number of promoted hotspot arcs."
+                        }
+                    }
+                },
+                "land": {
+                    "type": "object",
+                    "properties": {
+                        "useRiftShoulders": {
+                            "type": "boolean",
+                            "default": true,
+                            "description": "Whether to derive land corridors from rift shoulders."
+                        },
+                        "maxCorridors": {
+                            "type": "integer",
+                            "default": 2,
+                            "description": "Cap on distinct land-open corridors."
+                        },
+                        "minRunLength": {
+                            "type": "integer",
+                            "default": 24,
+                            "description": "Minimum contiguous shoulder run length eligible."
+                        },
+                        "spacing": {
+                            "type": "integer",
+                            "default": 8,
+                            "description": "Minimum spacing (tiles) enforced between selected land corridor segments."
+                        }
+                    }
+                },
+                "river": {
+                    "type": "object",
+                    "properties": {
+                        "maxChains": {
+                            "type": "integer",
+                            "default": 2,
+                            "description": "Max number of river chain corridors."
+                        },
+                        "maxSteps": {
+                            "type": "integer",
+                            "default": 80,
+                            "description": "Max greedy steps while following river-adjacent path."
+                        },
+                        "preferLowlandBelow": {
+                            "type": "integer",
+                            "default": 300,
+                            "description": "Elevation threshold treated as lowland preference."
+                        },
+                        "coastSeedRadius": {
+                            "type": "integer",
+                            "default": 2,
+                            "description": "Coast seed radius for initial river-adjacent seed near coast."
+                        },
+                        "minTiles": {
+                            "type": "integer",
+                            "default": 24,
+                            "description": "Minimum tiles that must be tagged for a chain to qualify."
+                        },
+                        "mustEndNearCoast": {
+                            "type": "boolean",
+                            "default": true,
+                            "description": "Require the chain to end near a coast or river mouth."
+                        }
+                    }
+                },
+                "policy": {
+                    "type": "object",
+                    "properties": {
+                        "sea": {
+                            "type": "object",
+                            "properties": {
+                                "protection": {
+                                    "type": "string",
+                                    "enum": ["hard", "soft"],
+                                    "default": "hard",
+                                    "description": "'hard' = never edit on lanes; 'soft' = reduce chance instead of skip."
+                                },
+                                "softChanceMultiplier": {
+                                    "type": "number",
+                                    "default": 0.5,
+                                    "description": "When protection is 'soft', multiply coast edit probabilities by this factor (0..1)."
+                                }
+                            }
+                        },
+                        "land": {
+                            "type": "object",
+                            "properties": {
+                                "biomesBiasStrength": {
+                                    "type": "number",
+                                    "default": 0.6,
+                                    "description": "0..1; scales grassland bias strength on land-open corridors."
+                                }
+                            }
+                        },
+                        "river": {
+                            "type": "object",
+                            "properties": {
+                                "biomesBiasStrength": {
+                                    "type": "number",
+                                    "default": 0.5,
+                                    "description": "0..1; scales grassland bias strength on river-chain corridors."
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "landmass": {
+            "type": "object",
+            "description": "Parameters governing base land/ocean balance and band shaping.",
+            "properties": {
+                "baseWaterPercent": {
+                    "type": "integer",
+                    "default": 64,
+                    "description": "Baseline global water percent used for fractal thresholding."
+                },
+                "waterThumbOnScale": {
+                    "type": "number",
+                    "default": -4,
+                    "description": "Gentle reduction to water percent as map size grows (applied via sqrt(area) scaler), clamped to safe bounds."
+                },
+                "jitterAmpFracBase": {
+                    "type": "number",
+                    "default": 0.03,
+                    "description": "Base fraction of map width used for per-row sinusoidal jitter amplitude."
+                },
+                "jitterAmpFracScale": {
+                    "type": "number",
+                    "default": 0.015,
+                    "description": "Additional jitter fraction applied with size scaling."
+                },
+                "curveAmpFrac": {
+                    "type": "number",
+                    "default": 0.05,
+                    "description": "Curvature amplitude as a fraction of map width to bow bands into long arcs."
+                }
+            }
+        },
+        "coastlines": {
+            "type": "object",
+            "description": "Rugged coast shaping parameters (lane-safe, sparse).",
+            "properties": {
+                "bay": {
+                    "type": "object",
+                    "properties": {
+                        "noiseGateAdd": {
+                            "type": "integer",
+                            "default": 0,
+                            "description": "Additional noise gate widening for bay carving on larger maps."
+                        },
+                        "rollDenActive": {
+                            "type": "integer",
+                            "default": 4,
+                            "description": "Random denominator for bay rolls on ACTIVE margins (lower = more frequent; keep sparse)."
+                        },
+                        "rollDenDefault": {
+                            "type": "integer",
+                            "default": 5,
+                            "description": "Random denominator for bay rolls elsewhere (lower = more frequent; keep sparse)."
+                        }
+                    }
+                },
+                "fjord": {
+                    "type": "object",
+                    "properties": {
+                        "baseDenom": {
+                            "type": "integer",
+                            "default": 12,
+                            "description": "Base random denominator for fjord-like coastal conversions (lower = more frequent)."
+                        },
+                        "activeBonus": {
+                            "type": "integer",
+                            "default": 1,
+                            "description": "Additional bias on ACTIVE margins (subtracts from denom to slightly increase chance)."
+                        },
+                        "passiveBonus": {
+                            "type": "integer",
+                            "default": 2,
+                            "description": "Additional bias near PASSIVE shelves (subtracts from denom to slightly increase chance for shelfy coasts)."
+                        }
+                    }
+                },
+                "minSeaLaneWidth": {
+                    "type": "integer",
+                    "default": 4,
+                    "description": "Documented minimum safe sea-lane width for any future shelf/trench operations (guardrail)."
+                }
+            }
+        },
+        "margins": {
+            "type": "object",
+            "description": "Continental margin tagging parameters.",
+            "properties": {
+                "activeFraction": {
+                    "type": "number",
+                    "default": 0.25,
+                    "description": "Target fraction of coastal land to tag as ACTIVE_MARGIN (size-aware cap applied)."
+                },
+                "passiveFraction": {
+                    "type": "number",
+                    "default": 0.25,
+                    "description": "Target fraction of coastal land to tag as PASSIVE_SHELF (size-aware cap applied)."
+                },
+                "minSegmentLength": {
+                    "type": "integer",
+                    "default": 12,
+                    "description": "Minimum contiguous coastal segment length eligible for tagging (avoids noisy toggling)."
+                }
+            }
+        },
+        "islands": {
+            "type": "object",
+            "description": "Island seeding parameters (offshore clusters; hotspot bias).",
+            "properties": {
+                "fractalThresholdPercent": {
+                    "type": "integer",
+                    "default": 90,
+                    "description": "Percent height threshold on the fractal mask for island seeding (sparse when high)."
+                },
+                "baseIslandDenNearActive": {
+                    "type": "integer",
+                    "default": 5,
+                    "description": "Random denominator for near-active-margin island seeding (lower = more frequent; keep sparse)."
+                },
+                "baseIslandDenElse": {
+                    "type": "integer",
+                    "default": 7,
+                    "description": "Random denominator elsewhere (lower = more frequent; keep sparse)."
+                },
+                "hotspotSeedDenom": {
+                    "type": "integer",
+                    "default": 2,
+                    "description": "Random denominator when on a hotspot trail point (lower = more frequent; keep sparse)."
+                },
+                "clusterMax": {
+                    "type": "integer",
+                    "default": 3,
+                    "description": "Maximum cluster size for small island groups."
+                },
+                "minDistFromLandRadius": {
+                    "type": "integer",
+                    "default": 2,
+                    "description": "Minimum Chebyshev radius from existing land required for island placement."
+                }
+            }
+        },
+        "climateBaseline": {
+            "type": "object",
+            "description": "Baseline rainfall blending and local bonuses.",
+            "properties": {
+                "blend": {
+                    "type": "object",
+                    "properties": {
+                        "baseWeight": {
+                            "type": "number",
+                            "default": 0.6,
+                            "description": "Weight for engine base rainfall."
+                        },
+                        "bandWeight": {
+                            "type": "number",
+                            "default": 0.4,
+                            "description": "Weight for latitude band target."
+                        }
+                    }
+                },
+                "bands": {
+                    "type": "object",
+                    "description": "Target rainfall by absolute latitude band (0..200).",
+                    "properties": {
+                        "deg0to10": { "type": "integer", "default": 120 },
+                        "deg10to20": { "type": "integer", "default": 104 },
+                        "deg20to35": { "type": "integer", "default": 75 },
+                        "deg35to55": { "type": "integer", "default": 70 },
+                        "deg55to70": { "type": "integer", "default": 60 },
+                        "deg70plus": { "type": "integer", "default": 45 }
+                    }
+                },
+                "orographic": {
+                    "type": "object",
+                    "properties": {
+                        "hi1Threshold": {
+                            "type": "integer",
+                            "default": 350,
+                            "description": "Elevation threshold for first mild orographic bonus."
+                        },
+                        "hi1Bonus": { "type": "integer", "default": 8 },
+                        "hi2Threshold": {
+                            "type": "integer",
+                            "default": 600,
+                            "description": "Elevation threshold for second mild orographic bonus."
+                        },
+                        "hi2Bonus": { "type": "integer", "default": 7 }
+                    }
+                },
+                "coastal": {
+                    "type": "object",
+                    "properties": {
+                        "coastalLandBonus": {
+                            "type": "integer",
+                            "default": 24,
+                            "description": "Bonus rainfall on coastal land."
+                        },
+                        "shallowAdjBonus": {
+                            "type": "integer",
+                            "default": 16,
+                            "description": "Bonus rainfall when adjacent to shallow water."
+                        }
+                    }
+                },
+                "noise": {
+                    "type": "object",
+                    "properties": {
+                        "baseSpanSmall": {
+                            "type": "integer",
+                            "default": 3,
+                            "description": "Base ±jitter span on small maps."
+                        },
+                        "spanLargeScaleFactor": {
+                            "type": "number",
+                            "default": 1.0,
+                            "description": "Additional span applied on larger maps (scaled by sqrt(area))."
+                        }
+                    }
+                }
+            }
+        },
+        "climateRefine": {
+            "type": "object",
+            "description": "Refinement pass parameters (earthlike).",
+            "properties": {
+                "waterGradient": {
+                    "type": "object",
+                    "properties": {
+                        "radius": {
+                            "type": "integer",
+                            "default": 5,
+                            "description": "Max Chebyshev radius to search for nearest water."
+                        },
+                        "perRingBonus": {
+                            "type": "integer",
+                            "default": 5,
+                            "description": "Bonus per ring closer to water."
+                        },
+                        "lowlandBonus": {
+                            "type": "integer",
+                            "default": 3,
+                            "description": "Additional bonus on low elevations."
+                        }
+                    }
+                },
+                "orographic": {
+                    "type": "object",
+                    "properties": {
+                        "steps": {
+                            "type": "integer",
+                            "default": 4,
+                            "description": "Upwind scan distance for barriers."
+                        },
+                        "reductionBase": {
+                            "type": "integer",
+                            "default": 8,
+                            "description": "Base rainfall reduction on lee side when barrier exists."
+                        },
+                        "reductionPerStep": {
+                            "type": "integer",
+                            "default": 6,
+                            "description": "Additional reduction scaled by closeness of barrier."
+                        }
+                    }
+                },
+                "riverCorridor": {
+                    "type": "object",
+                    "properties": {
+                        "lowlandAdjacencyBonus": {
+                            "type": "integer",
+                            "default": 14
+                        },
+                        "highlandAdjacencyBonus": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    }
+                },
+                "lowBasin": {
+                    "type": "object",
+                    "properties": {
+                        "radius": {
+                            "type": "integer",
+                            "default": 2,
+                            "description": "Neighborhood radius to assess enclosed low basins."
+                        },
+                        "delta": {
+                            "type": "integer",
+                            "default": 6,
+                            "description": "Humidity bonus in enclosed low basins (low elevation only)."
+                        }
+                    }
+                }
+            }
+        },
+        "biomes": {
+            "type": "object",
+            "description": "Biome nudging thresholds (post-rainfall).",
+            "properties": {
+                "tundra": {
+                    "type": "object",
+                    "properties": {
+                        "latMin": { "type": "integer", "default": 70 },
+                        "elevMin": { "type": "integer", "default": 850 },
+                        "rainMax": { "type": "integer", "default": 90 }
+                    }
+                },
+                "tropicalCoast": {
+                    "type": "object",
+                    "properties": {
+                        "latMax": { "type": "integer", "default": 18 },
+                        "rainMin": { "type": "integer", "default": 105 }
+                    }
+                },
+                "riverValleyGrassland": {
+                    "type": "object",
+                    "properties": {
+                        "latMax": { "type": "integer", "default": 50 },
+                        "rainMin": { "type": "integer", "default": 75 }
+                    }
+                },
+                "riftShoulder": {
+                    "type": "object",
+                    "properties": {
+                        "grasslandLatMax": { "type": "integer", "default": 50 },
+                        "grasslandRainMin": {
+                            "type": "integer",
+                            "default": 75
+                        },
+                        "tropicalLatMax": { "type": "integer", "default": 18 },
+                        "tropicalRainMin": { "type": "integer", "default": 100 }
+                    }
+                }
+            }
+        },
+        "featuresDensity": {
+            "type": "object",
+            "description": "Gentle extra chances for validated feature density tweaks.",
+            "properties": {
+                "rainforestExtraChance": {
+                    "type": "integer",
+                    "default": 55,
+                    "description": "Percent chance for additional rainforest in very wet tropical zones."
+                },
+                "forestExtraChance": {
+                    "type": "integer",
+                    "default": 30,
+                    "description": "Percent chance for additional forest in wet temperate grassland."
+                },
+                "taigaExtraChance": {
+                    "type": "integer",
+                    "default": 35,
+                    "description": "Percent chance for additional taiga in cold lowlands."
+                },
+                "shelfReefMultiplier": {
+                    "type": "number",
+                    "default": 0.6,
+                    "description": "Multiplier applied to paradiseReefChance to derive passive-shelf reef chance."
+                }
+            }
+        },
+        "placement": {
+            "type": "object",
+            "description": "Late-stage placement and finalization parameters.",
+            "properties": {
+                "wondersPlusOne": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether to place +1 natural wonder vs. map default."
+                },
+                "floodplains": {
+                    "type": "object",
+                    "properties": {
+                        "minLength": { "type": "integer", "default": 4 },
+                        "maxLength": { "type": "integer", "default": 10 }
+                    }
+                }
+            }
+        },
+        "dev": {
+            "type": "object",
+            "description": "Developer logging toggles (kept off for release builds).",
+            "properties": {
+                "enabled": { "type": "boolean", "default": false },
+                "logTiming": { "type": "boolean", "default": false },
+                "logStoryTags": { "type": "boolean", "default": false },
+                "rainfallHistogram": { "type": "boolean", "default": false }
+            }
+        }
+    },
+    "required": ["toggles", "story", "microclimate"]
+}

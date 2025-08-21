@@ -31,6 +31,7 @@
   "dependencies": {
     "@civ7/plugin-files": "workspace:*",
     "@civ7/plugin-graph": "workspace:*",
+    "@civ7/plugin-mods": "workspace:*",
     "@civ7/config": "workspace:*",
     "@oclif/core": "^4.5.2",
     "@oclif/plugin-help": "^6.2.32",

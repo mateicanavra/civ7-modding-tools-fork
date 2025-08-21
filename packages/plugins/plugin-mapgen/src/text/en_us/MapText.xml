@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MAP_EPIC_DIVERSE_HUGE_NAME">
+			<Text>Epic Diverse Huge</Text>
+		</Row>
+
+
+
+        <Row Tag="LOC_MAP_EPIC_DIVERSE_HUGE_TEMPERATE_NAME">
+            <Text>Epic Diverse Huge — Temperate</Text>
+        </Row>
+        <Row Tag="LOC_MAP_EPIC_DIVERSE_HUGE_TEMPERATE_DESCRIPTION">
+            <Text
+            >Balanced, temperate trade‑wind world with a classic three‑band layout. Robust sea lanes, gentle coast ruggedness and small island chains. Rainfall blends latitude bands with prevailing winds; earthlike refinements add believable rain shadows and greener river corridors. Tuned for Huge maps.</Text>
+        </Row>
+        <Row Tag="LOC_MAP_EPIC_DIVERSE_HUGE_KAHULA_NAME">
+            <Text>Epic Diverse Huge — Kahula</Text>
+        </Row>
+        <Row Tag="LOC_MAP_EPIC_DIVERSE_HUGE_KAHULA_DESCRIPTION">
+            <Text
+            >A tectonic showcase: one broad central continent with a towering convergent ridge and rifted flanks to the east and west. Outer bands are true oceans with only small island chains; strategic sea lanes remain open. Climate refinements yield believable rain shadows, coastal humidity, and greener river corridors. Tuned for Huge maps.</Text>
+        </Row>
+			</EnglishText>
+		</Database>
