@@ -576,6 +576,105 @@
         "deploy.js"
       ]
     },
+    "mod:import": {
+      "aliases": [],
+      "args": {},
+      "description": "Make this monorepo the source of truth for a mod while mirroring to a read-only repo.\n\nThis command wraps git subtree operations to:\n- Configure (or update) a remote for a mod\n- Import a remote repo's history under mods/<slug>\n- Push changes from mods/<slug> back to the mirror repo\n- Pull any last-minute fixes from the mirror into mods/<slug>\n- Inspect status (repo, remotes, subtree presence)\n\nUse --yes to skip safety prompts (non-interactive environments).\n",
+      "examples": [
+        "<%= config.bin %> mod import --action config-remote --slug my-civ-mod --remote-url git@github.com:you/my-civ-mod.git",
+        "<%= config.bin %> mod import --action import --slug my-civ-mod --branch main",
+        "<%= config.bin %> mod import --action import --slug my-civ-mod --branch main --squash",
+        "<%= config.bin %> mod import --action push --slug my-civ-mod --branch main",
+        "<%= config.bin %> mod import --action pull --slug my-civ-mod --branch main",
+        "<%= config.bin %> mod import --action status --slug my-civ-mod"
+      ],
+      "flags": {
+        "action": {
+          "description": "Operation to perform",
+          "name": "action",
+          "required": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "options": [
+            "config-remote",
+            "import",
+            "push",
+            "pull",
+            "status"
+          ],
+          "type": "option"
+        },
+        "slug": {
+          "description": "Mod slug (directory under mods/, e.g., \"my-civ-mod\")",
+          "name": "slug",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "remoteName": {
+          "description": "Git remote name (default: mod-<slug>)",
+          "name": "remoteName",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "remoteUrl": {
+          "description": "Git remote URL (e.g., git@github.com:you/repo.git)",
+          "name": "remoteUrl",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "branch": {
+          "description": "Branch to track for import/push/pull",
+          "name": "branch",
+          "default": "main",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "squash": {
+          "description": "Use history squash for add/pull (must match across operations)",
+          "name": "squash",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "yes": {
+          "description": "Assume \"yes\" to safety prompts (non-interactive)",
+          "name": "yes",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "autoUnshallow": {
+          "description": "Automatically unshallow the repo if required for subtree operations",
+          "name": "autoUnshallow",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "description": "Show underlying git commands (verbose)",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "mod:import",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Manage subtree-based mod imports and mirroring under mods/<slug>",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "mod",
+        "import.js"
+      ]
+    },
     "mod:list": {
       "aliases": [],
       "args": {},

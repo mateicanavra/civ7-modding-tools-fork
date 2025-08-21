@@ -87,6 +87,9 @@ importers:
       '@civ7/plugin-files':
         specifier: workspace:*
         version: link:../plugins/plugin-files
+      '@civ7/plugin-git':
+        specifier: workspace:*
+        version: link:../plugins/plugin-git
       '@civ7/plugin-graph':
         specifier: workspace:*
         version: link:../plugins/plugin-graph
@@ -157,6 +160,27 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.2.1)(@vitest/ui@3.2.4)(jiti@1.21.7)(tsx@4.20.4)(yaml@2.8.1)
 
+  packages/plugins/plugin-git:
+    devDependencies:
+      '@types/node':
+        specifier: ^24.2.1
+        version: 24.2.1
+      eslint:
+        specifier: ^9.33.0
+        version: 9.33.0(jiti@1.21.7)
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.0.1
+      tsup:
+        specifier: ^8.5.0
+        version: 8.5.0(jiti@1.21.7)(postcss@8.5.6)(tsx@4.20.4)(typescript@5.9.2)(yaml@2.8.1)
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.2
+      vitest:
+        specifier: ^3.2.4
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.2.1)(@vitest/ui@3.2.4)(jiti@1.21.7)(tsx@4.20.4)(yaml@2.8.1)
+
   packages/plugins/plugin-graph:
     dependencies:
       '@hpcc-js/wasm':
@@ -203,6 +227,9 @@ importers:
       '@civ7/plugin-files':
         specifier: workspace:*
         version: link:../plugin-files
+      '@civ7/plugin-git':
+        specifier: workspace:*
+        version: link:../plugin-git
     devDependencies:
       '@types/node':
         specifier: ^24.2.1

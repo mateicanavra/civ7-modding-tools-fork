@@ -3,4 +3,4 @@
 // Keeping this note documents intent without adding an unused dependency today.
 // Example (future): import { SomeSdkUtility } from '@mateicanavra/sdk';
 
-export { run } from '@oclif/core'
+export { run } from "@oclif/core";
