@@ -1,5 +1,5 @@
 import { XmlElement } from "jstoxml";
-import * as lodash from "lodash";
+import * as lodash from "lodash-es";
 
 import { fill } from "../utils";
 

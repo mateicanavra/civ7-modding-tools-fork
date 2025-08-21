@@ -1,4 +1,4 @@
-import { kebabCase } from "lodash";
+import * as lodash from "lodash-es";
 
 import { TClassProperties, TPartialRequired } from "../types";
 import {
@@ -101,7 +101,7 @@ export class LeaderUnlockBuilder extends BaseBuilder<TLeaderUnlockBuilder> {
     }
 
     build() {
-        const name = `${kebabCase(trim(this.leaderUnlock.leaderType))}-${kebabCase(trim(this.leaderUnlock.type))}`;
+        const name = `${lodash.kebabCase(trim(this.leaderUnlock.leaderType))}-${lodash.kebabCase(trim(this.leaderUnlock.type))}`;
         const path = `/unlocks/${name}/`;
         return [
             new XmlFile({

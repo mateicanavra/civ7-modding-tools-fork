@@ -1,4 +1,4 @@
-import * as lodash from "lodash";
+import * as lodash from "lodash-es";
 
 import { BaseNode } from "./BaseNode";
 import { TypeTagNode } from "./TypeTagNode";

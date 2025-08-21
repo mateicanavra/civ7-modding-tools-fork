@@ -1,4 +1,4 @@
-import * as lodash from "lodash"
+import * as lodash from "lodash-es"
 
 import { TClassProperties } from "../types";
 import { DatabaseNode, GameEffectNode, ModifierNode, StringNode, TModifierNode } from "../nodes";
