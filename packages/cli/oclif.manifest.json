@@ -523,6 +523,88 @@
         "docs",
         "serve.js"
       ]
+    },
+    "mod:deploy": {
+      "aliases": [],
+      "args": {},
+      "description": "Copies files from an input directory into Mods/[mod-id].",
+      "examples": [
+        "<%= config.bin %> mod deploy --input ./dist --id my_mod",
+        "<%= config.bin %> mod deploy -i ../plugin-mapgen/dist -m epic-diverse-huge"
+      ],
+      "flags": {
+        "input": {
+          "char": "i",
+          "description": "Input directory of the mod files",
+          "name": "input",
+          "required": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "id": {
+          "char": "m",
+          "description": "Target mod id (directory name under Mods/)",
+          "name": "id",
+          "required": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "dir": {
+          "description": "Override Mods directory path",
+          "name": "dir",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "mod:deploy",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Deploy a mod folder into the Civ7 Mods directory",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "mod",
+        "deploy.js"
+      ]
+    },
+    "mod:list": {
+      "aliases": [],
+      "args": {},
+      "description": "Finds the Mods directory on this machine and lists subdirectories.",
+      "flags": {
+        "dir": {
+          "description": "Override Mods directory path",
+          "name": "dir",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "mod:list",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "List locally installed Civ7 mods in the Mods directory",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "mod",
+        "list.js"
+      ]
     }
   },
   "version": "0.1.0"

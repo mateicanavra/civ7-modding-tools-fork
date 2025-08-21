@@ -2,6 +2,7 @@ import * as path from 'node:path';
 import * as fsSync from 'node:fs';
 import { spawn } from 'node:child_process';
 import { loadConfig, resolveInstallDir, resolveUnzipDir, resolveZipPath, findProjectRoot } from '@civ7/config';
+import type { Dirent } from 'node:fs';
 
 export interface ZipOptions {
   projectRoot?: string;
@@ -24,6 +25,18 @@ export interface OperationSummary {
   archiveSizeBytes: number;
   uncompressedSizeBytes: number;
   outputPath: string;
+}
+
+export interface CopySummary {
+  copiedFiles: number;
+  skippedEntries: number;
+  errors: number;
+}
+
+export interface DirectoryCopyOptions {
+  filter?: (relativePath: string, dirent: Dirent) => boolean;
+  preserveSymlinks?: boolean;
+  onCopy?: (fromPath: string, toPath: string) => void;
 }
 
 function execSpawn(cmd: string, args: string[], cwd?: string): Promise<void> {
@@ -110,4 +123,98 @@ export async function unzipResources(options: UnzipOptions): Promise<OperationSu
   return { archiveSizeBytes, uncompressedSizeBytes, outputPath: destDir };
 }
 
+function ensureDir(dirPath: string): void {
+  if (!fsSync.existsSync(dirPath)) {
+    fsSync.mkdirSync(dirPath, { recursive: true });
+  }
+}
+
+export function ensureDirectory(pathToEnsure: string): void {
+  ensureDir(pathToEnsure);
+}
+
+export function copyDirectoryRecursive(sourceDir: string, destDir: string, options?: DirectoryCopyOptions): CopySummary {
+  const summary: CopySummary = { copiedFiles: 0, skippedEntries: 0, errors: 0 };
+  const root = sourceDir;
+  ensureDir(destDir);
+
+  function recurse(currentSrc: string, currentDest: string, relBase: string) {
+    const entries = fsSync.readdirSync(currentSrc, { withFileTypes: true });
+    for (const entry of entries) {
+      const from = path.join(currentSrc, entry.name);
+      const to = path.join(currentDest, entry.name);
+      const rel = path.join(relBase, entry.name);
+      try {
+        if (entry.isDirectory()) {
+          ensureDir(to);
+          recurse(from, to, rel);
+          continue;
+        }
+        if (entry.isSymbolicLink()) {
+          if (options?.preserveSymlinks) {
+            try {
+              const target = fsSync.readlinkSync(from);
+              fsSync.symlinkSync(target, to);
+              options?.onCopy?.(from, to);
+              summary.copiedFiles++;
+            } catch (e) {
+              summary.errors++;
+            }
+          } else {
+            // Skip symlinks by default
+            summary.skippedEntries++;
+          }
+          continue;
+        }
+        // Files
+        if (options?.filter && !options.filter(rel, entry)) {
+          summary.skippedEntries++;
+          continue;
+        }
+        ensureDir(path.dirname(to));
+        fsSync.copyFileSync(from, to);
+        options?.onCopy?.(from, to);
+        summary.copiedFiles++;
+      } catch (err) {
+        summary.errors++;
+      }
+    }
+  }
+
+  recurse(sourceDir, destDir, '.');
+  return summary;
+}
+
+/**
+ * Resolve the user-writable Civ7 Game Data directory by OS conventions.
+ * - macOS: ~/Library/Application Support/Civilization VII
+ * - Windows: %USERPROFILE%/Documents/My Games/Sid Meier's Civilization VII
+ * - Linux/other: ~/.local/share/civ7
+ */
+export function resolveGameDataDir(): string {
+  const platform = process.platform;
+  if (platform === 'darwin') {
+    const home = process.env.HOME || process.env.USERPROFILE || '';
+    return path.join(home, 'Library', 'Application Support', 'Civilization VII');
+  }
+  if (platform === 'win32') {
+    const userProfile = process.env.USERPROFILE || '';
+    return path.join(userProfile, 'Documents', 'My Games', "Sid Meier's Civilization VII");
+  }
+  const home = process.env.HOME || process.env.USERPROFILE || '';
+  return path.join(home, '.local', 'share', 'civ7');
+}
+
+export interface ModsDirInfo {
+  platform: NodeJS.Platform;
+  modsDir: string;
+}
+
+/**
+ * Resolve the Mods directory under the user-writable Game Data folder.
+ */
+export function resolveModsDir(): ModsDirInfo {
+  const base = resolveGameDataDir();
+  return { platform: process.platform, modsDir: path.join(base, 'Mods') };
+}
 

@@ -72,6 +72,12 @@
       "typescript": "^5.9.2",
       "@types/node": "^24.2.1",
       "rimraf": "^6.0.1"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "docsify",
+      "esbuild",
+      "puppeteer",
+      "sharp"
+    ]
   }
 }

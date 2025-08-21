@@ -7,9 +7,10 @@ Purpose
 Mission
 - Produce large, organic worlds where geology and climate interact convincingly.
 - Preserve vanilla compatibility/balance; apply targeted refinements.
+- Source files are authored in TypeScript; original JavaScript sources live in `js-archive/` for 1:1 output verification.
 
 Repo Wayfinding
-- Core script: maps/epic-diverse-huge.js
+- Core script: maps/epic-diverse-huge.ts
 - Design/architecture: DESIGN.md (authoritative)
 - Internal guide for iteration: EPIC_DIVERSE_MAP_GUIDE.md (short)
 - Debug/config sanity: DIAGNOSTIC_FIX.md
@@ -18,10 +19,10 @@ Repo Wayfinding
 - Example outputs: outputs/1.0.0 (screenshots)
 - Map DB row (minimal): config/config.xml
 - Mod metadata: epic-diverse-huge-map.modinfo
-- Resolved config provider: maps/config/resolved.js (single source of truth for reads)
-- Defaults: maps/config/defaults/base.js (canonical baseline configuration)
+- Resolved config provider: maps/config/resolved.ts (single source of truth for reads)
+- Defaults: maps/config/defaults/base.ts (canonical baseline configuration)
 - Presets: maps/config/presets/* (named partial configs to compose)
-- Entry helper: maps/config/entry.js (bootstrap({ presets, overrides }) for entries)
+- Entry helper: maps/config/entry.ts (bootstrap({ presets, overrides }) for entries)
 - Resources (symlinked refs): resources/ — symlinked directories to base/community sources; use terminal to traverse. Examples (macOS):
   - cd ~/Library/Application\ Support/Civilization\ VII/Mods/epic-diverse-huge-map/resources
   - ls -l

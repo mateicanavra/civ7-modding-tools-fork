@@ -1,5 +1,6 @@
 # Epic Diverse Huge Map Generator (v1.0.0)
 
+Source files are maintained in TypeScript. Original JavaScript versions are preserved under `js-archive/` and are used in tests to ensure the compiled output matches the legacy scripts.
 This README is for internal development. It summarizes what matters for iteration and debugging. For full architecture, see DESIGN.md.
 
 What this is (concise)

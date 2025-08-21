@@ -12,6 +12,7 @@
 
 ## Plugins architecture
 - Reusable logic lives under `packages/plugins/*` (e.g., `plugin-files`, `plugin-graph`).
+- `plugin-mapgen` sources are written in TypeScript with legacy JS copies under `js-archive/` for verification.
 - CLI commands should remain thin wrappers around these plugins.
 
 ### Testing imports

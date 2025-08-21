@@ -90,6 +90,9 @@ importers:
       '@civ7/plugin-graph':
         specifier: workspace:*
         version: link:../plugins/plugin-graph
+      '@civ7/plugin-mods':
+        specifier: workspace:*
+        version: link:../plugins/plugin-mods
       '@oclif/core':
         specifier: ^4.5.2
         version: 4.5.2
@@ -177,6 +180,29 @@ importers:
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.2.1)(@vitest/ui@3.2.4)(jiti@1.21.7)(tsx@4.20.4)(yaml@2.8.1)
 
   packages/plugins/plugin-mapgen:
+    dependencies:
+      '@civ7/plugin-files':
+        specifier: workspace:*
+        version: link:../plugin-files
+      '@civ7/plugin-mods':
+        specifier: workspace:*
+        version: link:../plugin-mods
+    devDependencies:
+      '@types/node':
+        specifier: ^24.2.1
+        version: 24.2.1
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.2
+      vitest:
+        specifier: ^3.2.4
+        version: 3.2.4(@types/debug@4.1.12)(@types/node@24.2.1)(@vitest/ui@3.2.4)(jiti@1.21.7)(tsx@4.20.4)(yaml@2.8.1)
+
+  packages/plugins/plugin-mods:
+    dependencies:
+      '@civ7/plugin-files':
+        specifier: workspace:*
+        version: link:../plugin-files
     devDependencies:
       '@types/node':
         specifier: ^24.2.1
