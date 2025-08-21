@@ -1,0 +1,40 @@
+{
+  "name": "civ-mod-dacia",
+  "version": "1.0.0",
+  "description": "This mod adds the Dacia civilization to Civilization VII, including Decebalus as a leader, along with unique abilities, units, and buildings.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsx build.ts",
+    "start": "tsx build.ts",
+    "deploy": "bash deploy.sh",
+    "docs": "docsify serve docs",
+    "lint": "eslint . --ext .ts",
+    "format": "prettier --write .",
+    "build:deploy": "pnpm run build && pnpm run deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mateicanavra/civ-mod-dacia.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mateicanavra/civ-mod-dacia/issues"
+  },
+  "homepage": "https://github.com/mateicanavra/civ-mod-dacia#readme",
+  "dependencies": {
+    "civ7-modding-tools": "file:../civ7-modding-tools"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.39.0",
+    "@typescript-eslint/parser": "^8.39.0",
+    "docsify-cli": "^4.4.4",
+    "eslint": "^9.32.0",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.6.2",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
+  }
+}
