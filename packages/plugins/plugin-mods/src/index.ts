@@ -20,21 +20,27 @@ import {
   getStatusSnapshot,
 } from "@civ7/plugin-git";
 
+/**
+ * Information about the OS-specific Civilization VII Mods directory
+ * (the in-game install location, not the monorepo 'mods/' folder).
+ */
 export interface ModsDirInfo {
   platform: NodeJS.Platform;
   modsDir: string;
 }
 
-export interface DeployOptions {
-  inputDir: string;
-  modId: string;
-  modsDir?: string;
-}
-
+/**
+ * Return the OS-specific Mods directory info for the local machine.
+ * This is separate from the monorepo 'mods/' folder used for sources.
+ */
 export function resolveModsDir(): ModsDirInfo {
   return resolveModsDirFs();
 }
 
+/**
+ * List child directories inside the given Mods directory path.
+ * Defaults to the OS-specific Mods directory if not provided.
+ */
 export function listMods(modsDir?: string): string[] {
   const target = modsDir ?? resolveModsDir().modsDir;
   if (!target || !fs.existsSync(target)) return [];
@@ -54,16 +60,22 @@ export async function ensureModsFolder(): Promise<{ repoRoot: string; modsDir: s
 }
 
 /**
- * High-level status for a specific mod subtree and its remote.
+ * High-level status for a specific mod subtree and its remote, including repo-level info.
  */
 export async function getModStatus(params: {
-  slug: string;
+  slug?: string;
   remoteName?: string;
   branch?: string;
   verbose?: boolean;
 }): Promise<{
+  // Repo-level
   repoRoot: string | null;
-  modsPrefix: string;
+  shallow: boolean;
+  clean: boolean;
+  hasSubtree: boolean;
+  remotes: Array<{ name: string; url: string | null }>;
+  // Mod-level (may be null if no slug provided)
+  modsPrefix: string | null;
   modsPathExists: boolean;
   subtreeExists: boolean;
   remoteConfigured: boolean;
@@ -72,8 +84,8 @@ export async function getModStatus(params: {
 }> {
   const { slug, remoteName, branch = "main", verbose = false } = params;
   const snapshot = await getStatusSnapshot({ verbose });
-  const prefix = path.posix.join("mods", slug);
-  const abs = snapshot.repoRoot ? path.join(snapshot.repoRoot, prefix) : prefix;
+  const prefix = slug ? path.posix.join("mods", slug) : null;
+  const abs = snapshot.repoRoot && prefix ? path.join(snapshot.repoRoot, prefix) : null;
 
   let remoteConfigured = false;
   let remoteUrl: string | null = null;
@@ -84,9 +96,13 @@ export async function getModStatus(params: {
 
   return {
     repoRoot: snapshot.repoRoot,
+    shallow: !!snapshot.shallow,
+    clean: !!snapshot.clean,
+    hasSubtree: !!snapshot.hasSubtree,
+    remotes: snapshot.remotes ?? [],
     modsPrefix: prefix,
     modsPathExists: !!snapshot.repoRoot && fs.existsSync(path.join(snapshot.repoRoot, "mods")),
-    subtreeExists: !!snapshot.repoRoot && fs.existsSync(abs),
+    subtreeExists: !!snapshot.repoRoot && !!abs && fs.existsSync(abs),
     remoteConfigured,
     remoteUrl,
     branch,
@@ -94,7 +110,8 @@ export async function getModStatus(params: {
 }
 
 /**
- * Configure or update a mod remote and fetch tags.
+ * Configure or update a mod mirror remote and fetch tags.
+ * Returns whether the remote was added/updated/unchanged.
  */
 export async function configureModRemote(options: {
   remoteName: string;
@@ -107,14 +124,20 @@ export async function configureModRemote(options: {
   return res;
 }
 
-// copy behavior is unfiltered: deploy what the build produced
-
+/**
+ * Deploy a built mod from a local folder to the user's OS Mods directory.
+ * This copies the exact contents of inputDir into Mods/<modId>.
+ */
+export interface DeployOptions {
+  inputDir: string;
+  modId: string;
+  modsDir?: string;
+}
 export interface DeployResult {
   modsDir: string;
   targetDir: string;
   filesCopied: number;
 }
-
 export function deployMod(options: DeployOptions): DeployResult {
   const { inputDir, modId } = options;
   if (!inputDir || !fs.existsSync(inputDir)) {
@@ -135,6 +158,10 @@ export function deployMod(options: DeployOptions): DeployResult {
   return { modsDir, targetDir, filesCopied };
 }
 
+/**
+ * Import a mod repository into the monorepo as a subtree at mods/<slug>.
+ * Optionally configure the remote if it doesn't exist.
+ */
 export interface ImportModOptions {
   slug: string;
   remoteName: string;
@@ -145,7 +172,6 @@ export interface ImportModOptions {
   allowDirty?: boolean;
   autoUnshallow?: boolean;
 }
-
 export async function importModFromRemote(opts: ImportModOptions): Promise<void> {
   const {
     slug,
@@ -163,8 +189,9 @@ export async function importModFromRemote(opts: ImportModOptions): Promise<void>
   const root = await getRepoRoot({ allowNonZeroExit: true, verbose });
   if (!root) throw new Error("Not inside a git repository.");
 
-  const modsDirPath = path.join(root, "mods");
-  if (!fs.existsSync(modsDirPath)) fs.mkdirSync(modsDirPath, { recursive: true });
+  // Ensure monorepo mods dir exists
+  const modsDir = path.join(root, "mods");
+  if (!fs.existsSync(modsDir)) fs.mkdirSync(modsDir, { recursive: true });
 
   const prefix = path.posix.join("mods", slug);
 
@@ -173,15 +200,15 @@ export async function importModFromRemote(opts: ImportModOptions): Promise<void>
     if (!clean) throw new Error("Working tree is not clean. Commit/stash or set allowDirty=true.");
   }
 
-  if (!(await remoteExists(remoteName, { verbose }))) {
-    if (!remoteUrl)
-      throw new Error("Remote not configured. Provide remoteUrl to create/update it.");
+  // Ensure remote is configured; create/update if URL provided
+  const exists = await remoteExists(remoteName, { verbose });
+  if (!exists && !remoteUrl) {
+    throw new Error("Remote not configured. Provide remoteUrl to create/update it.");
   }
   if (remoteUrl) {
     await addOrUpdateRemote(remoteName, remoteUrl, { verbose });
   }
   await fetchRemote(remoteName, { tags: true }, { verbose });
-
   if (autoUnshallow) {
     await assertFullHistory(remoteName, { verbose });
   }
@@ -189,6 +216,9 @@ export async function importModFromRemote(opts: ImportModOptions): Promise<void>
   await subtreeAdd(prefix, remoteName, branch, { squash }, { verbose });
 }
 
+/**
+ * Push a subtree at mods/<slug> out to its mirror remote.
+ */
 export interface PushModOptions {
   slug: string;
   remoteName: string;
@@ -197,7 +227,6 @@ export interface PushModOptions {
   allowDirty?: boolean;
   autoUnshallow?: boolean;
 }
-
 export async function pushModToRemote(opts: PushModOptions): Promise<void> {
   const {
     slug,
@@ -231,6 +260,9 @@ export async function pushModToRemote(opts: PushModOptions): Promise<void> {
   await subtreePush(prefix, remoteName, branch, { verbose });
 }
 
+/**
+ * Pull updates from the mirror remote into the subtree at mods/<slug>.
+ */
 export interface PullModOptions {
   slug: string;
   remoteName: string;
@@ -240,7 +272,6 @@ export interface PullModOptions {
   allowDirty?: boolean;
   autoUnshallow?: boolean;
 }
-
 export async function pullModFromRemote(opts: PullModOptions): Promise<void> {
   const {
     slug,
@@ -275,30 +306,21 @@ export async function pullModFromRemote(opts: PullModOptions): Promise<void> {
   await subtreePull(prefix, remoteName, branch, { squash }, { verbose });
 }
 
-export default {
-  resolveModsDir,
-  listMods,
-  deployMod,
-  importModFromRemote,
-  pushModToRemote,
-  pullModFromRemote,
-};
+/**
+ * Optional: plan and validation helpers for future flows.
+ */
 
-// --- Future stubs ---
 export interface CreateModOptions {
   modId: string;
   name?: string;
   description?: string;
   authors?: string;
 }
-
 export interface CreateModPlan {
   files: Array<{ path: string; description: string }>;
 }
-
 export function planCreateMod(options: CreateModOptions): CreateModPlan {
-  const { modId, name, description, authors } = options;
-  // Use examples at plugin-mapgen/src/config/config.xml and epic-diverse-huge-map.modinfo for structure
+  const { modId } = options;
   return {
     files: [
       {
@@ -318,7 +340,7 @@ export interface ValidateResult {
   valid: boolean;
   errors: string[];
 }
-export function validateModStructure(modDir: string): ValidateResult {
+export function validateModStructure(_modDir: string): ValidateResult {
   // Stub: later will check required files, XML schema, etc.
   return { valid: true, errors: [] };
 }
@@ -339,3 +361,22 @@ export function planSteamUpload(archivePath: string): SteamUploadPlan {
   // Stub: will integrate with Steam APIs later
   return { notes: `Upload ${archivePath} to Steam Workshop (stub)` };
 }
+
+/**
+ * Default export convenience.
+ */
+export default {
+  resolveModsDir,
+  listMods,
+  ensureModsFolder,
+  getModStatus,
+  configureModRemote,
+  deployMod,
+  importModFromRemote,
+  pushModToRemote,
+  pullModFromRemote,
+  planCreateMod,
+  validateModStructure,
+  planPackageMod,
+  planSteamUpload,
+};

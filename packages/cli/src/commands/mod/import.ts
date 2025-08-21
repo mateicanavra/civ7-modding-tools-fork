@@ -3,16 +3,13 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 
 import {
-  addOrUpdateRemote,
-  assertSubtreeReady,
-  fetchRemote,
-  getRemoteUrl,
-  getRepoRoot,
-  getStatusSnapshot,
-  isWorktreeClean,
-  remoteExists,
-} from "@civ7/plugin-git";
-import { importModFromRemote, pushModToRemote, pullModFromRemote } from "@civ7/plugin-mods";
+  getModStatus,
+  configureModRemote,
+  importModFromRemote,
+  pushModToRemote,
+  pullModFromRemote,
+} from "@civ7/plugin-mods";
+
 
 type Action = "config-remote" | "import" | "push" | "pull" | "status";
 
@@ -103,9 +100,6 @@ Use --yes to skip safety prompts (non-interactive environments).
       if (!remoteName) this.error("Unable to infer --remote-name; please pass it explicitly.");
     }
 
-    // Diagnostics: ensure git+subtree available (except for pure status we still want to verify)
-    await this.assertSubtreeReadyVerbose(verbose);
-
     // Route actions
     switch (action) {
       case "status":
@@ -151,29 +145,28 @@ Use --yes to skip safety prompts (non-interactive environments).
     branch: string,
     verbose: boolean
   ) {
-    const snapshot = await getStatusSnapshot({ verbose });
+    const status = await getModStatus({ slug, remoteName, branch, verbose });
     this.log("Git status:");
-    this.log(`- Repo root: ${snapshot.repoRoot ?? "(not a git repo)"}`);
-    this.log(`- Shallow: ${snapshot.shallow ? "yes" : "no"}`);
-    this.log(`- Clean worktree: ${snapshot.clean ? "yes" : "no"}`);
-    this.log(`- Subtree available: ${snapshot.hasSubtree ? "yes" : "no"}`);
+    this.log(`- Repo root: ${status.repoRoot ?? "(not a git repo)"}`);
+    this.log(`- Shallow: ${status.shallow ? "yes" : "no"}`);
+    this.log(`- Clean worktree: ${status.clean ? "yes" : "no"}`);
+    this.log(`- Subtree available: ${status.hasSubtree ? "yes" : "no"}`);
     this.log("- Remotes:");
-    if (snapshot.remotes.length === 0) this.log("  (none)");
-    for (const r of snapshot.remotes) {
+    if (!status.remotes || status.remotes.length === 0) this.log("  (none)");
+    for (const r of status.remotes ?? []) {
       this.log(`  - ${r.name}: ${r.url ?? "(no url)"}`);
     }
 
     if (slug) {
-      const prefix = path.posix.join("mods", slug);
       this.log("");
       this.log(`Subtree target for slug "${slug}":`);
-      this.log(`- Prefix: ${prefix}`);
-      this.log(`- Exists: ${fs.existsSync(prefix) ? "yes" : "no"}`);
+      this.log(`- Prefix: ${status.modsPrefix}`);
+      this.log(`- Exists: ${status.subtreeExists ? "yes" : "no"}`);
       if (remoteName) {
-        const exists = await remoteExists(remoteName, { verbose });
-        const url = exists ? await getRemoteUrl(remoteName, { verbose }) : null;
-        this.log(`- Remote: ${exists ? `${remoteName} (${url ?? "no url"})` : "(not configured)"}`);
-        this.log(`- Branch: ${branch}`);
+        this.log(
+          `- Remote: ${status.remoteConfigured ? `${remoteName} (${status.remoteUrl ?? "no url"})` : "(not configured)"}`
+        );
+        this.log(`- Branch: ${status.branch}`);
       }
     }
   }
@@ -185,10 +178,9 @@ Use --yes to skip safety prompts (non-interactive environments).
     verbose: boolean
   ) {
     if (!remoteUrl) this.error("config-remote requires --remote-url <url>");
-    const res = await addOrUpdateRemote(remoteName, remoteUrl, { verbose });
+    const res = await configureModRemote({ remoteName, remoteUrl, verbose });
     const badge = res === "added" ? "added" : res === "updated" ? "updated" : "unchanged";
     this.log(`Remote "${remoteName}" ${badge}: ${remoteUrl}`);
-    await fetchRemote(remoteName, { tags: true }, { verbose });
     this.log(`Fetched tags from "${remoteName}". Tracking branch: ${branch}`);
   }
 
@@ -199,9 +191,6 @@ Use --yes to skip safety prompts (non-interactive environments).
     branch: string,
     opts: { squash: boolean; yes: boolean; verbose: boolean; autoUnshallow: boolean }
   ) {
-    await this.ensureMonorepoRoot();
-    await this.ensureModsDir();
-
     // Optional safety check for pre-existing non-empty directory
     if (fs.existsSync(prefix)) {
       const nonEmpty = this.isNonEmptyDir(prefix);
@@ -232,10 +221,6 @@ Use --yes to skip safety prompts (non-interactive environments).
     branch: string,
     opts: { yes: boolean; verbose: boolean; autoUnshallow: boolean }
   ) {
-    await this.ensureMonorepoRoot();
-
-    if (!fs.existsSync(prefix)) this.error(`Subtree directory "${prefix}" does not exist.`);
-
     await pushModToRemote({
       slug: path.posix.basename(prefix),
       remoteName,
@@ -253,10 +238,6 @@ Use --yes to skip safety prompts (non-interactive environments).
     branch: string,
     opts: { squash: boolean; yes: boolean; verbose: boolean; autoUnshallow: boolean }
   ) {
-    await this.ensureMonorepoRoot();
-
-    if (!fs.existsSync(prefix)) this.error(`Subtree directory "${prefix}" does not exist.`);
-
     await pullModFromRemote({
       slug: path.posix.basename(prefix),
       remoteName,
@@ -270,48 +251,6 @@ Use --yes to skip safety prompts (non-interactive environments).
   }
 
   // Helpers
-
-  private async assertSubtreeReadyVerbose(verbose: boolean) {
-    try {
-      await assertSubtreeReady({ verbose });
-    } catch (e: any) {
-      const msg = e?.message ? String(e.message) : "git subtree not available";
-      this.error(msg);
-    }
-  }
-
-  private async ensureMonorepoRoot() {
-    const root = await getRepoRoot({ allowNonZeroExit: true });
-    if (!root) this.error("Not inside a git repository.");
-    if (!fs.existsSync(path.join(root!, "mods"))) {
-      fs.mkdirSync(path.join(root!, "mods"), { recursive: true });
-    }
-  }
-
-  private async ensureModsDir() {
-    const root = await getRepoRoot({ allowNonZeroExit: true });
-    if (!root) this.error("Not inside a git repository.");
-    const modsDir = path.join(root!, "mods");
-    if (!fs.existsSync(modsDir)) fs.mkdirSync(modsDir, { recursive: true });
-  }
-
-  private async ensureRemoteConfigured(remoteName: string, verbose: boolean) {
-    if (!(await remoteExists(remoteName, { verbose }))) {
-      this.error(
-        `Remote "${remoteName}" not found. Run with --action config-remote and --remote-url to configure it.`
-      );
-    }
-  }
-
-  private async ensureFullHistoryMaybe(
-    remoteName: string,
-    autoUnshallow: boolean,
-    verbose: boolean
-  ) {
-    // No-op: subtree history handling now lives in @civ7/plugin-mods.
-    // This stub remains for backward compatibility with older command flows.
-    return;
-  }
 
   private isNonEmptyDir(dir: string): boolean {
     try {
