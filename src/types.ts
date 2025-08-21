@@ -8,7 +8,7 @@ import {
   CivilizationUnlockBuilder,
   LeaderUnlockBuilder,
   ImportFileBuilder
-} from 'civ7-modding-tools';
+} from '@mateicanavra/civ7-sdk';
 
 /**
  * Type for import file configuration

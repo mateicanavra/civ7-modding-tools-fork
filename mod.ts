@@ -1,4 +1,4 @@
-import { Mod } from "civ7-modding-tools";
+import { Mod } from "@mateicanavra/civ7-sdk";
 
 export const mod = new Mod({
     id: "macnsqueeze-dacia",

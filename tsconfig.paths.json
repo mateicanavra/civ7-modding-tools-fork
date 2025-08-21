@@ -1,4 +1,5 @@
 {
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -16,4 +17,4 @@
       "@types": ["src/types.ts"]
     }
   }
-} 
+}

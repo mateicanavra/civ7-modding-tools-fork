@@ -31,5 +31,5 @@ mod.add([
 	...constructibleImports
 ]);
 
-// Build the mod to the dist directory
-mod.build("./dist");
+// Build the mod to the mod directory (monorepo convention)
+mod.build("./mod");

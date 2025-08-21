@@ -10,7 +10,7 @@ import {
 	REQUIREMENT,
 	DOMAIN,
     ACTION_GROUP_BUNDLE,
-} from "civ7-modding-tools";
+} from "@mateicanavra/civ7-sdk";
 import { ConstructiblePackage } from '@types';
 
 // Define the Murus Dacicus constructible
