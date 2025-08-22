@@ -361,7 +361,7 @@ export async function link(opts: LinkModOptions): Promise<{ slug: string; remote
   if (!remoteUrl) throw new Error("remoteUrl is required for link");
 
   const slug = opts.slug ?? inferSlugFromRemoteUrl(remoteUrl);
-  const remoteName = opts.remoteName ?? `mod-${slug}`;
+  const remoteName = opts.remoteName ?? `mod-${inferSlugFromRemoteUrl(remoteUrl)}`;
   const autoUnshallow = opts.autoUnshallow ?? true; // default to full history
 
   await configureModRemote({ remoteName, remoteUrl, verbose });

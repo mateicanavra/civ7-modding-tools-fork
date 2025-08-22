@@ -724,15 +724,36 @@ export interface RemotePushConfig {
   ghRepoOverride?: string;
 }
 
-export function sanitizeRemoteForSubsection(remote: string): string {
+export function sanitizeRepoKeyForSubsection(repoKey: string): string {
   // Git config: section[.subsection].variable → only one dot allowed between subsection and variable
-  // Use subsection "remote-<sanitized>" where sanitized removes dots and whitespace
-  return `remote-${remote.replace(/\s+/g, '-').replace(/\.+/g, '-').replace(/[^A-Za-z0-9_-]+/g, '-')}`;
+  // Use subsection "repo-<sanitized>" where sanitized removes dots and whitespace
+  return `repo-${repoKey.replace(/\s+/g, '-').replace(/\.+/g, '-').replace(/[^A-Za-z0-9_-]+/g, '-')}`;
 }
 
-function cfgKeyForRemote(remote: string, key: string): string {
-  const subsection = sanitizeRemoteForSubsection(remote);
+function cfgKeyForRepoKey(repoKey: string, key: string): string {
+  const subsection = sanitizeRepoKeyForSubsection(repoKey);
   return `civ7.${subsection}.${key}`;
+}
+
+function getCanonicalRepoKeyFromUrl(url: string): string {
+  const lower = url.trim().toLowerCase();
+  // git@host:owner/repo.git
+  let m = lower.match(/^git@([^:]+):([^#]+?)(?:\.git)?$/);
+  if (m) return `${m[1]}-${m[2].replace(/[\/]+/g, '-')}`;
+  // https://host/owner/repo.git
+  m = lower.match(/^https?:\/\/([^/]+)\/([^#]+?)(?:\.git)?$/);
+  if (m) return `${m[1]}-${m[2].replace(/[\/]+/g, '-')}`;
+  // ssh://git@host/owner/repo.git
+  m = lower.match(/^ssh:\/\/git@([^/]+)\/([^#]+?)(?:\.git)?$/);
+  if (m) return `${m[1]}-${m[2].replace(/[\/]+/g, '-')}`;
+  // fallback to sanitized full url
+  return lower.replace(/[^a-z0-9]+/g, '-');
+}
+
+async function getCanonicalRepoKeyForRemote(remote: string, opts: GitExecOptions = {}): Promise<string | null> {
+  const url = await getRemoteUrl(remote, opts);
+  if (!url) return null;
+  return getCanonicalRepoKeyFromUrl(url);
 }
 
 function parseBoolean(value: string | null | undefined): boolean | undefined {
@@ -744,24 +765,30 @@ function parseBoolean(value: string | null | undefined): boolean | undefined {
 }
 
 /** Read stored remote push config from local git config. */
-export async function getRemotePushConfig(remote: string, opts: GitExecOptions = {}): Promise<RemotePushConfig> {
-  // Prefer new keys; fall back to legacy keys (civ7.remote.<remote>.<key>) if not present
-  const newKey = (k: string) => cfgKeyForRemote(remote, k);
-  const oldKey = (k: string) => `civ7.remote.${remote}.${k}`;
-  async function readKey(k: string): Promise<string | null> {
-    const vNew = await getLocalConfig(newKey(k), opts);
-    if (vNew != null) return vNew;
-    return getLocalConfig(oldKey(k), opts);
+function varNameForField(field: keyof RemotePushConfig): string {
+  switch (field) {
+    case 'trunk': return 'trunk';
+    case 'autoFastForwardTrunk': return 'auto-fast-forward-trunk';
+    case 'createPrOnFfBlock': return 'create-pr-on-ff-block';
+    case 'prTitle': return 'pr-title';
+    case 'prBody': return 'pr-body';
+    case 'prDraft': return 'pr-draft';
+    case 'ghRepoOverride': return 'gh-repo-override';
+    default: return String(field);
   }
+}
 
+export async function getRemotePushConfig(remote: string, opts: GitExecOptions = {}): Promise<RemotePushConfig> {
+  const repoKey = await getCanonicalRepoKeyForRemote(remote, opts);
+  if (!repoKey) return {};
   const [trunk, autoFF, prOnBlock, prTitle, prBody, prDraft, ghRepoOverride] = await Promise.all([
-    readKey('trunk'),
-    readKey('autoFastForwardTrunk'),
-    readKey('createPrOnFfBlock'),
-    readKey('prTitle'),
-    readKey('prBody'),
-    readKey('prDraft'),
-    readKey('ghRepoOverride'),
+    getLocalConfig(cfgKeyForRepoKey(repoKey, varNameForField('trunk')), opts),
+    getLocalConfig(cfgKeyForRepoKey(repoKey, varNameForField('autoFastForwardTrunk')), opts),
+    getLocalConfig(cfgKeyForRepoKey(repoKey, varNameForField('createPrOnFfBlock')), opts),
+    getLocalConfig(cfgKeyForRepoKey(repoKey, varNameForField('prTitle')), opts),
+    getLocalConfig(cfgKeyForRepoKey(repoKey, varNameForField('prBody')), opts),
+    getLocalConfig(cfgKeyForRepoKey(repoKey, varNameForField('prDraft')), opts),
+    getLocalConfig(cfgKeyForRepoKey(repoKey, varNameForField('ghRepoOverride')), opts),
   ]);
   return {
     trunk: trunk ?? undefined,
@@ -780,26 +807,13 @@ export async function setRemotePushConfig(
   partial: RemotePushConfig,
   opts: GitExecOptions = {},
 ): Promise<void> {
-  // Clear legacy keys to ensure single canonical location
-  const legacyPrefix = `civ7.remote.${remote}.`;
-  const legacyKeys = [
-    'trunk',
-    'autoFastForwardTrunk',
-    'createPrOnFfBlock',
-    'prTitle',
-    'prBody',
-    'prDraft',
-    'ghRepoOverride',
-  ];
-  await Promise.all(
-    legacyKeys.map((k) => unsetLocalConfig(`${legacyPrefix}${k}`, { ...opts, allowNonZeroExit: true })),
-  );
-
+  const repoKey = await getCanonicalRepoKeyForRemote(remote, opts);
+  if (!repoKey) return;
   const current = await getRemotePushConfig(remote, opts);
   const tasks: Array<Promise<void>> = [];
   const writeIfChanged = (key: keyof RemotePushConfig, value: string | boolean | undefined) => {
     if (value === undefined) return;
-    const cfgKey = cfgKeyForRemote(remote, String(key));
+    const cfgKey = cfgKeyForRepoKey(repoKey, varNameForField(key));
     const desired = typeof value === 'boolean' ? (value ? 'true' : 'false') : String(value);
     const existing = (current as any)[key];
     const existingStr = typeof existing === 'boolean' ? (existing ? 'true' : 'false') : (existing ?? undefined);

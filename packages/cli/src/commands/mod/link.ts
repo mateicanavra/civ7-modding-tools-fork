@@ -10,6 +10,7 @@ import {
   pullModFromRemote,
   link as linkPlugin,
 } from "@civ7/plugin-mods";
+import { getRemotePushConfig, parseGithubRepoSlugFromUrl } from "@civ7/plugin-git";
 
 
 type Action = "config-remote" | "import" | "push" | "pull" | "status" | "setup";
@@ -145,7 +146,9 @@ Use --yes to skip safety prompts (non-interactive environments).
     }
 
     // Derived defaults
-    const remoteName = providedRemoteName ?? (slug ? `mod-${slug}` : undefined);
+    const remoteName = providedRemoteName
+      ?? (providedRemoteUrl ? inferRemoteNameFromUrl(providedRemoteUrl) : undefined)
+      ?? (slug ? `mod-${slug}` : undefined);
     const prefix = slug ? path.posix.join("mods", slug) : undefined;
 
     // Status/setup can run without slug (setup can infer from remote)
@@ -268,6 +271,16 @@ Use --yes to skip safety prompts (non-interactive environments).
     const badge = res === "added" ? "added" : res === "updated" ? "updated" : "unchanged";
     this.log(`Remote "${remoteName}" ${badge}: ${remoteUrl}`);
     this.log(`Fetched tags from "${remoteName}". Tracking branch: ${branch}`);
+    try {
+      const cfg = await getRemotePushConfig(remoteName, { verbose });
+      this.log("Push config:");
+      this.log(`  trunk: ${cfg.trunk ?? "(auto)"}`);
+      this.log(`  autoFastForwardTrunk: ${cfg.autoFastForwardTrunk ?? false}`);
+      this.log(`  createPrOnFfBlock: ${cfg.createPrOnFfBlock ?? false}`);
+      this.log(`  prDraft: ${cfg.prDraft ?? false}`);
+      if (cfg.prTitle) this.log(`  prTitle: ${cfg.prTitle}`);
+      if (cfg.prBody) this.log(`  prBody: ${cfg.prBody}`);
+    } catch {}
   }
 
   private async handleImport(
@@ -383,6 +396,17 @@ Use --yes to skip safety prompts (non-interactive environments).
       trunk,
     });
     this.log(`✅ Setup complete: ${res.slug} at ${res.prefix} from ${res.remoteName}/${res.branch}`);
+    try {
+      const effectiveRemoteName = remoteName ?? inferRemoteNameFromUrl(remoteUrl!);
+      const cfg = await getRemotePushConfig(effectiveRemoteName, { verbose });
+      this.log("Push config:");
+      this.log(`  trunk: ${cfg.trunk ?? "(auto)"}`);
+      this.log(`  autoFastForwardTrunk: ${cfg.autoFastForwardTrunk ?? false}`);
+      this.log(`  createPrOnFfBlock: ${cfg.createPrOnFfBlock ?? false}`);
+      this.log(`  prDraft: ${cfg.prDraft ?? false}`);
+      if (cfg.prTitle) this.log(`  prTitle: ${cfg.prTitle}`);
+      if (cfg.prBody) this.log(`  prBody: ${cfg.prBody}`);
+    } catch {}
   }
 
   // Helpers
@@ -397,4 +421,12 @@ Use --yes to skip safety prompts (non-interactive environments).
       return false;
     }
   }
+}
+
+function inferRemoteNameFromUrl(remoteUrl: string): string {
+  const slug = parseGithubRepoSlugFromUrl(remoteUrl) ?? remoteUrl;
+  const repo = slug.split("/").pop() || "remote";
+  const base = repo.replace(/\.git$/i, "");
+  const kebab = base.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  return `mod-${kebab || "remote"}`;
 }
