@@ -50,11 +50,16 @@ export default defineConfig({
         root: r('packages/plugins/plugin-graph'),
         test: { name: 'plugin-graph' }
       },
-      {
-        extends: true,
-        root: r('packages/plugins/plugin-mapgen'),
-        test: { name: 'plugin-mapgen' }
-      }
-    ]
-  }
-});
+        {
+          extends: true,
+          root: r('packages/plugins/plugin-mapgen'),
+          test: { name: 'plugin-mapgen' }
+        },
+        {
+          extends: true,
+          root: r('mods/mod-swooper-maps'),
+          test: { name: 'mod-swooper-maps' }
+        }
+      ]
+    }
+  });
