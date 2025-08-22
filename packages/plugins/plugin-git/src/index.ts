@@ -734,7 +734,6 @@ export async function removeConfigSubsection(section: string, subsection: string
 
 /**
  * Helpers for storing remote-level push configuration in git config.
- * Keys are stored as civ7.remote.<remoteName>.<key>
  */
 export interface RemotePushConfig {
   trunk?: string;
@@ -884,14 +883,11 @@ export async function initRemotePushConfig(
 ): Promise<void> {
   // Resolve default trunk from remote
   const trunk = await resolveTrunkBranch(remote, {}, opts);
-  // Reset config under this repo and legacy remote subsection to avoid duplicate keys
+  // Reset config under this repo to avoid duplicate keys
   const repoKey = await getCanonicalRepoKeyForRemote(remote, opts);
   if (repoKey) {
     await removeConfigSubsection('civ7', sanitizeRepoKeyForSubsection(repoKey), { ...opts, allowNonZeroExit: true });
   }
-  // Also clear any legacy remote-scoped subsection if present
-  const legacySubsection = `remote-${remote.replace(/\s+/g, '-').replace(/\.+/g, '-').replace(/[^A-Za-z0-9_-]+/g, '-')}`;
-  await removeConfigSubsection('civ7', legacySubsection, { ...opts, allowNonZeroExit: true });
   // Set defaults only if not present: trunk, autoFF enabled by default, PR creation enabled by default
   const current = await getRemotePushConfig(remote, opts);
   const desired: RemotePushConfig = {
