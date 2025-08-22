@@ -4,14 +4,19 @@ import * as path from "node:path";
 
 import {
   getModStatus,
-  configureModRemote,
-  importModFromRemote,
-  pushModToRemote,
-  pullModFromRemote,
   link as linkPlugin,
   listRegisteredSlugs,
 } from "@civ7/plugin-mods";
-import { getRemotePushConfig, parseGithubRepoSlugFromUrl } from "@civ7/plugin-git";
+import { getRemotePushConfig } from "@civ7/plugin-git";
+import {
+  configureRemote,
+  importSubtree,
+  pushSubtree,
+  pullSubtree,
+  resolveRemoteName,
+  requireRemoteName,
+  requireBranch,
+} from "../../utils";
 
 
 type Action = "config-remote" | "import" | "push" | "pull" | "status" | "setup";
@@ -165,16 +170,15 @@ Use --yes to skip safety prompts (non-interactive environments).
     }
 
     // Derived defaults
-    const remoteName = providedRemoteName
-      ?? (providedRemoteUrl ? inferRemoteNameFromUrl(providedRemoteUrl) : undefined)
-      ?? (slug ? slug : undefined);
+    const remoteName = await resolveRemoteName({
+      domain: "mod",
+      slug,
+      remoteName: providedRemoteName,
+      remoteUrl: providedRemoteUrl,
+      verbose,
+      logger: this,
+    });
     const prefix = slug ? path.posix.join("mods", slug) : undefined;
-
-    // Status/setup can run without slug (setup can infer from remote)
-    if (action !== "status" && action !== "setup") {
-      if (!slug) this.error("Missing required --slug <slug>. Tip: use --action setup to infer from --remote-url.");
-      if (!remoteName) this.error("Unable to infer --remote-name; please pass it explicitly.");
-    }
 
     // Route actions
     switch (action) {
@@ -182,37 +186,129 @@ Use --yes to skip safety prompts (non-interactive environments).
         await this.handleStatus(slug ?? undefined, remoteName, branch, verbose);
         return;
 
-      case "config-remote":
-        await this.handleConfigRemote(remoteName!, providedRemoteUrl, branch ?? "main", verbose);
-        return;
-
-      case "import":
-        await this.handleImport(prefix!, remoteName!, providedRemoteUrl, branch ?? "main", {
-          squash,
-          yes,
+      case "config-remote": {
+        const rName = await requireRemoteName({
+          domain: "mod",
+          slug,
+          remoteName,
+          remoteUrl: providedRemoteUrl,
           verbose,
+          logger: this,
+        });
+        if (!providedRemoteUrl) {
+          this.error(
+            "config-remote requires --remote-url <url>. Example: civ7 mod link --action config-remote --slug my-mod --remote-url git@github.com:you/my-mod.git",
+          );
+        }
+        await configureRemote({
+          remoteName: rName,
+          remoteUrl: providedRemoteUrl!,
+          branch: branch ?? "main",
+          verbose,
+          logger: this,
+        });
+        try {
+          const cfg = await getRemotePushConfig(rName, { verbose });
+          this.log("Push config:");
+          this.log(`  trunk: ${cfg.trunk ?? "(auto)"}`);
+          this.log(`  autoFastForwardTrunk: ${cfg.autoFastForwardTrunk ?? false}`);
+          this.log(`  createPrOnFfBlock: ${cfg.createPrOnFfBlock ?? false}`);
+          if (cfg.prTitle) this.log(`  prTitle: ${cfg.prTitle}`);
+          if (cfg.prBody) this.log(`  prBody: ${cfg.prBody}`);
+          this.log(`  prDraft: ${cfg.prDraft ?? false}`);
+          this.log(`  prAutoMerge: ${cfg.prAutoMerge ?? true}`);
+          this.log(`  prMergeStrategy: ${cfg.prMergeStrategy ?? 'rebase'}`);
+        } catch {}
+        return;
+      }
+
+      case "import": {
+        if (!slug)
+          this.error("Missing required --slug <slug>. Tip: use --action setup to infer from --remote-url.");
+        const rName = await requireRemoteName({
+          domain: "mod",
+          slug,
+          remoteName,
+          remoteUrl: providedRemoteUrl,
+          verbose,
+          logger: this,
+        });
+        await importSubtree({
+          prefix: prefix!,
+          remoteName: rName,
+          branch: branch ?? "main",
+          remoteUrl: providedRemoteUrl,
+          squash,
+          allowDirty: yes,
           autoUnshallow: autoUnshallow ?? false,
+          verbose,
+          logger: this,
         });
         return;
+      }
 
-      case "push":
-        await this.handlePush(prefix!, remoteName!, branch, {
-          yes,
+      case "push": {
+        if (!slug)
+          this.error("Missing required --slug <slug>. Tip: use --action setup to infer from --remote-url.");
+        const rName = await requireRemoteName({
+          domain: "mod",
+          slug,
+          remoteName,
+          remoteUrl: providedRemoteUrl,
           verbose,
+          logger: this,
+        });
+        const effectiveBranch = await requireBranch({
+          domain: "mod",
+          slug,
+          branch,
+          verbose,
+          logger: this,
+        });
+        await pushSubtree({
+          prefix: prefix!,
+          remoteName: rName,
+          branch: effectiveBranch,
+          allowDirty: yes,
           autoUnshallow: autoUnshallow ?? false,
           autoFastForwardTrunk,
           trunk,
-        });
-        return;
-
-      case "pull":
-        await this.handlePull(prefix!, remoteName!, branch, {
-          squash,
-          yes,
           verbose,
-          autoUnshallow: autoUnshallow ?? false,
+          logger: this,
         });
         return;
+      }
+
+      case "pull": {
+        if (!slug)
+          this.error("Missing required --slug <slug>. Tip: use --action setup to infer from --remote-url.");
+        const rName = await requireRemoteName({
+          domain: "mod",
+          slug,
+          remoteName,
+          remoteUrl: providedRemoteUrl,
+          verbose,
+          logger: this,
+        });
+        const effectiveBranch = await requireBranch({
+          domain: "mod",
+          slug,
+          branch,
+          verbose,
+          logger: this,
+        });
+        await pullSubtree({
+          prefix: prefix!,
+          remoteName: rName,
+          branch: effectiveBranch,
+          squash,
+          allowDirty: yes,
+          autoUnshallow: autoUnshallow ?? false,
+          verbose,
+          logger: this,
+        });
+        return;
+      }
 
       case "setup":
         await this.handleSetup({
@@ -239,7 +335,7 @@ Use --yes to skip safety prompts (non-interactive environments).
     slug: string | undefined,
     remoteName: string | undefined,
     branch: string | undefined,
-    verbose: boolean
+    verbose: boolean,
   ) {
     const status = await getModStatus({ slug, remoteName, branch, verbose });
     this.log("Git status:");
@@ -256,7 +352,7 @@ Use --yes to skip safety prompts (non-interactive environments).
       const trunkPushAllowed = (r as any).trunkPushAllowed ?? null;
       const pushStr = trunkPushAllowed === null ? "unknown" : trunkPushAllowed ? "allowed" : "blocked";
       this.log(
-        `    default=${defaultBranch ?? "(unknown)"}  trunk=${resolvedTrunk ?? "(unknown)"}  trunkPush=${pushStr}`
+        `    default=${defaultBranch ?? "(unknown)"}  trunk=${resolvedTrunk ?? "(unknown)"}  trunkPush=${pushStr}`,
       );
     }
 
@@ -267,118 +363,11 @@ Use --yes to skip safety prompts (non-interactive environments).
       this.log(`- Exists: ${status.subtreeExists ? "yes" : "no"}`);
       if (remoteName) {
         this.log(
-          `- Remote: ${status.remoteConfigured ? `${remoteName} (${status.remoteUrl ?? "no url"})` : "(not configured)"}`
+          `- Remote: ${status.remoteConfigured ? `${remoteName} (${status.remoteUrl ?? "no url"})` : "(not configured)"}`,
         );
         this.log(`- Branch: ${status.branch}`);
       }
     }
-  }
-
-  private async handleConfigRemote(
-    remoteName: string,
-    remoteUrl: string | undefined,
-    branch: string,
-    verbose: boolean
-  ) {
-    if (!remoteUrl) {
-      this.error(
-        "config-remote requires --remote-url <url>. Example: civ7 mod link --action config-remote --slug my-mod --remote-url git@github.com:you/my-mod.git"
-      );
-    }
-    this.log(`Configuring remote "${remoteName}" → ${remoteUrl} ...`);
-    const res = await configureModRemote({ remoteName, remoteUrl, verbose });
-    const badge = res === "added" ? "added" : res === "updated" ? "updated" : "unchanged";
-    this.log(`Remote "${remoteName}" ${badge}: ${remoteUrl}`);
-    this.log(`Fetched tags from "${remoteName}". Tracking branch: ${branch}`);
-    try {
-      const cfg = await getRemotePushConfig(remoteName, { verbose });
-      this.log("Push config:");
-      this.log(`  trunk: ${cfg.trunk ?? "(auto)"}`);
-      this.log(`  autoFastForwardTrunk: ${cfg.autoFastForwardTrunk ?? false}`);
-      this.log(`  createPrOnFfBlock: ${cfg.createPrOnFfBlock ?? false}`);
-      this.log(`  prDraft: ${cfg.prDraft ?? false}`);
-      this.log(`  prAutoMerge: ${cfg.prAutoMerge ?? true}`);
-      this.log(`  prMergeStrategy: ${cfg.prMergeStrategy ?? 'rebase'}`);
-      if (cfg.prTitle) this.log(`  prTitle: ${cfg.prTitle}`);
-      if (cfg.prBody) this.log(`  prBody: ${cfg.prBody}`);
-    } catch {}
-  }
-
-  private async handleImport(
-    prefix: string,
-    remoteName: string,
-    remoteUrl: string | undefined,
-    branch: string,
-    opts: { squash: boolean; yes: boolean; verbose: boolean; autoUnshallow: boolean }
-  ) {
-    // Optional safety check for pre-existing non-empty directory
-    if (fs.existsSync(prefix)) {
-      const nonEmpty = this.isNonEmptyDir(prefix);
-      if (nonEmpty && !opts.yes) {
-        this.error(
-          `Target directory "${prefix}" already exists and is not empty. ` +
-            "If this was not previously imported using subtree, add may fail. Re-run with --yes to continue anyway."
-        );
-      }
-    }
-
-    this.log(
-      `Importing subtree: prefix=${prefix} remote=${remoteName} branch=${branch} squash=${opts.squash ? "yes" : "no"} autoUnshallow=${opts.autoUnshallow ? "yes" : "no"}`
-    );
-    await importModFromRemote({
-      slug: path.posix.basename(prefix),
-      remoteName,
-      remoteUrl,
-      branch,
-      squash: opts.squash,
-      verbose: opts.verbose,
-      allowDirty: opts.yes,
-      autoUnshallow: opts.autoUnshallow,
-    });
-    this.log(`✅ Imported ${remoteName}/${branch} into ${prefix}`);
-  }
-
-  private async handlePush(
-    prefix: string,
-    remoteName: string,
-    branch: string | undefined,
-    opts: { yes: boolean; verbose: boolean; autoUnshallow: boolean; autoFastForwardTrunk: boolean; trunk?: string }
-  ) {
-    this.log(
-      `Pushing subtree: prefix=${prefix} → ${remoteName}/${branch ?? "(saved branch)"} autoUnshallow=${opts.autoUnshallow ? "yes" : "no"} autoFFTrunk=${opts.autoFastForwardTrunk ? "yes" : "no"}`
-    );
-    await pushModToRemote({
-      slug: path.posix.basename(prefix),
-      remoteName,
-      branch,
-      verbose: opts.verbose,
-      allowDirty: opts.yes,
-      autoUnshallow: opts.autoUnshallow,
-      autoFastForwardTrunk: opts.autoFastForwardTrunk,
-      trunk: opts.trunk,
-    });
-    this.log(`✅ Pushed "${prefix}" to ${remoteName}/${branch ?? "(saved branch)"}`);
-  }
-
-  private async handlePull(
-    prefix: string,
-    remoteName: string,
-    branch: string | undefined,
-    opts: { squash: boolean; yes: boolean; verbose: boolean; autoUnshallow: boolean }
-  ) {
-    this.log(
-      `Pulling into subtree: prefix=${prefix} from ${remoteName}/${branch ?? "(saved branch)"} squash=${opts.squash ? "yes" : "no"} autoUnshallow=${opts.autoUnshallow ? "yes" : "no"}`
-    );
-    await pullModFromRemote({
-      slug: path.posix.basename(prefix),
-      remoteName,
-      branch,
-      squash: opts.squash,
-      verbose: opts.verbose,
-      allowDirty: opts.yes,
-      autoUnshallow: opts.autoUnshallow,
-    });
-    this.log(`✅ Pulled updates into "${prefix}" from ${remoteName}/${branch ?? "(saved branch)"}`);
   }
 
   private async handleSetup(opts: {
@@ -401,9 +390,19 @@ Use --yes to skip safety prompts (non-interactive environments).
     }
 
     const inferredSlug = slug ?? "(inferred from remote)";
-    const inferredRemoteName = remoteName ?? (remoteUrl ? inferRemoteNameFromUrl(remoteUrl) : "(inferred after --remote-url)");
+    const inferredRemoteName =
+      (await resolveRemoteName({
+        domain: "mod",
+        slug,
+        remoteName,
+        remoteUrl,
+        verbose,
+        logger: this,
+      })) ?? "(inferred after --remote-url)";
     this.log(
-      `Setup starting: remoteUrl=${remoteUrl} branch=${branch} slug=${inferredSlug} remoteName=${inferredRemoteName} squash=${squash ? "yes" : "no"} autoUnshallow=${autoUnshallow ? "yes" : "no"}`
+      `Setup starting: remoteUrl=${remoteUrl} branch=${branch} slug=${inferredSlug} remoteName=${inferredRemoteName} squash=${
+        squash ? "yes" : "no"
+      } autoUnshallow=${autoUnshallow ? "yes" : "no"}`,
     );
 
     const res = await linkPlugin({
@@ -433,7 +432,15 @@ Use --yes to skip safety prompts (non-interactive environments).
       }
     } catch {}
     try {
-      const effectiveRemoteName = remoteName ?? inferRemoteNameFromUrl(remoteUrl!);
+      const effectiveRemoteName =
+        (await resolveRemoteName({
+          domain: "mod",
+          slug,
+          remoteName,
+          remoteUrl: remoteUrl!,
+          verbose,
+          logger: this,
+        })) ?? "";
       const cfg = await getRemotePushConfig(effectiveRemoteName, { verbose });
       this.log("Push config:");
       this.log(`  trunk: ${cfg.trunk ?? "(auto)"}`);
@@ -446,25 +453,4 @@ Use --yes to skip safety prompts (non-interactive environments).
       if (cfg.prBody) this.log(`  prBody: ${cfg.prBody}`);
     } catch {}
   }
-
-  // Helpers
-
-  private isNonEmptyDir(dir: string): boolean {
-    try {
-      const s = fs.statSync(dir);
-      if (!s.isDirectory()) return true;
-      const entries = fs.readdirSync(dir);
-      return entries.length > 0;
-    } catch {
-      return false;
-    }
-  }
-}
-
-function inferRemoteNameFromUrl(remoteUrl: string): string {
-  const slug = parseGithubRepoSlugFromUrl(remoteUrl) ?? remoteUrl;
-  const repo = slug.split("/").pop() || "remote";
-  const base = repo.replace(/\.git$/i, "");
-  const kebab = base.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-  return kebab || "remote";
 }
