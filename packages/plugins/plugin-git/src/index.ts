@@ -388,6 +388,8 @@ export async function subtreePushWithFetch(
     prBody?: string;
     prDraft?: boolean;
     ghRepoOverride?: string;
+    prAutoMerge?: boolean;
+    prMergeStrategy?: 'merge' | 'squash' | 'rebase';
   } = {},
   opts: GitExecOptions = {},
 ): Promise<void> {
@@ -416,6 +418,8 @@ export async function subtreePushWithFetch(
     prBody: options.prBody ?? stored.prBody,
     prDraft: options.prDraft ?? stored.prDraft,
     ghRepoOverride: options.ghRepoOverride ?? stored.ghRepoOverride,
+    prAutoMerge: options.prAutoMerge ?? stored.prAutoMerge ?? true,
+    prMergeStrategy: options.prMergeStrategy ?? stored.prMergeStrategy ?? 'rebase',
   };
 
   if (merged.autoFastForwardTrunk) {
@@ -442,6 +446,19 @@ export async function subtreePushWithFetch(
           }, opts);
           if (opts.verbose && pr) {
             console.log(pr.action === 'created' ? `Opened PR: ${pr.url ?? ''}` : `Existing PR: ${pr.url ?? ''}`);
+          }
+          // If auto-merge requested, attempt it via gh
+          if (pr && merged.prAutoMerge) {
+            try {
+              const strategyArg = merged.prMergeStrategy === 'squash' ? '--squash' : merged.prMergeStrategy === 'rebase' ? '--rebase' : '--merge';
+              if (pr.number) {
+                await execGh(['pr', 'merge', String(pr.number), strategyArg, '--auto'], { ...opts, allowNonZeroExit: true });
+              } else if (pr.url) {
+                await execGh(['pr', 'merge', pr.url, strategyArg, '--auto'], { ...opts, allowNonZeroExit: true });
+              }
+            } catch {
+              // best-effort; leave PR open if merge can't proceed
+            }
           }
         } else {
           throw err;
@@ -710,6 +727,12 @@ export async function unsetLocalConfig(key: string, opts: GitExecOptions = {}): 
   if (res.code !== 0) return; // ignore if not set
 }
 
+/** Remove an entire [section "subsection"] from local git config (best-effort). */
+export async function removeConfigSubsection(section: string, subsection: string, opts: GitExecOptions = {}): Promise<void> {
+  const res = await execGit(['config', '--local', '--remove-section', `${section}.${subsection}`], { ...opts, allowNonZeroExit: true });
+  if (res.code !== 0) return; // ignore if not present
+}
+
 /**
  * Helpers for storing remote-level push configuration in git config.
  * Keys are stored as civ7.remote.<remoteName>.<key>
@@ -722,6 +745,8 @@ export interface RemotePushConfig {
   prBody?: string;
   prDraft?: boolean;
   ghRepoOverride?: string;
+  prAutoMerge?: boolean;
+  prMergeStrategy?: 'merge' | 'squash' | 'rebase';
 }
 
 export function sanitizeRepoKeyForSubsection(repoKey: string): string {
@@ -774,6 +799,8 @@ function varNameForField(field: keyof RemotePushConfig): string {
     case 'prBody': return 'pr-body';
     case 'prDraft': return 'pr-draft';
     case 'ghRepoOverride': return 'gh-repo-override';
+    case 'prAutoMerge': return 'pr-auto-merge';
+    case 'prMergeStrategy': return 'pr-merge-strategy';
     default: return String(field);
   }
 }
@@ -790,6 +817,10 @@ export async function getRemotePushConfig(remote: string, opts: GitExecOptions =
     getLocalConfig(cfgKeyForRepoKey(repoKey, varNameForField('prDraft')), opts),
     getLocalConfig(cfgKeyForRepoKey(repoKey, varNameForField('ghRepoOverride')), opts),
   ]);
+  const [prAutoMerge, prMergeStrategy] = await Promise.all([
+    getLocalConfig(cfgKeyForRepoKey(repoKey, varNameForField('prAutoMerge')), opts),
+    getLocalConfig(cfgKeyForRepoKey(repoKey, varNameForField('prMergeStrategy')), opts),
+  ]);
   return {
     trunk: trunk ?? undefined,
     autoFastForwardTrunk: parseBoolean(autoFF),
@@ -798,6 +829,12 @@ export async function getRemotePushConfig(remote: string, opts: GitExecOptions =
     prBody: prBody ?? undefined,
     prDraft: parseBoolean(prDraft),
     ghRepoOverride: ghRepoOverride ?? undefined,
+    prAutoMerge: parseBoolean(prAutoMerge),
+    prMergeStrategy: ((): 'merge' | 'squash' | 'rebase' | undefined => {
+      const v = (prMergeStrategy ?? '').trim().toLowerCase();
+      if (v === 'merge' || v === 'squash' || v === 'rebase') return v;
+      return undefined;
+    })(),
   };
 }
 
@@ -829,6 +866,8 @@ export async function setRemotePushConfig(
   writeIfChanged('prBody', partial.prBody);
   writeIfChanged('prDraft', partial.prDraft);
   writeIfChanged('ghRepoOverride', partial.ghRepoOverride);
+  writeIfChanged('prAutoMerge', partial.prAutoMerge);
+  if (partial.prMergeStrategy) writeIfChanged('prMergeStrategy', partial.prMergeStrategy);
   await Promise.all(tasks);
 }
 
@@ -839,6 +878,14 @@ export async function initRemotePushConfig(
 ): Promise<void> {
   // Resolve default trunk from remote
   const trunk = await resolveTrunkBranch(remote, {}, opts);
+  // Reset config under this repo and legacy remote subsection to avoid duplicate keys
+  const repoKey = await getCanonicalRepoKeyForRemote(remote, opts);
+  if (repoKey) {
+    await removeConfigSubsection('civ7', sanitizeRepoKeyForSubsection(repoKey), { ...opts, allowNonZeroExit: true });
+  }
+  // Also clear any legacy remote-scoped subsection if present
+  const legacySubsection = `remote-${remote.replace(/\s+/g, '-').replace(/\.+/g, '-').replace(/[^A-Za-z0-9_-]+/g, '-')}`;
+  await removeConfigSubsection('civ7', legacySubsection, { ...opts, allowNonZeroExit: true });
   // Set defaults only if not present: trunk, autoFF enabled by default, PR creation enabled by default
   const current = await getRemotePushConfig(remote, opts);
   const desired: RemotePushConfig = {
@@ -846,6 +893,8 @@ export async function initRemotePushConfig(
     autoFastForwardTrunk: current.autoFastForwardTrunk ?? true,
     createPrOnFfBlock: current.createPrOnFfBlock ?? true,
     prDraft: current.prDraft ?? false,
+    prAutoMerge: current.prAutoMerge ?? true,
+    prMergeStrategy: current.prMergeStrategy ?? 'rebase',
   };
   await setRemotePushConfig(remote, desired, opts);
 }

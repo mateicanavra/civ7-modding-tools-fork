@@ -278,6 +278,8 @@ Use --yes to skip safety prompts (non-interactive environments).
       this.log(`  autoFastForwardTrunk: ${cfg.autoFastForwardTrunk ?? false}`);
       this.log(`  createPrOnFfBlock: ${cfg.createPrOnFfBlock ?? false}`);
       this.log(`  prDraft: ${cfg.prDraft ?? false}`);
+      this.log(`  prAutoMerge: ${cfg.prAutoMerge ?? true}`);
+      this.log(`  prMergeStrategy: ${cfg.prMergeStrategy ?? 'rebase'}`);
       if (cfg.prTitle) this.log(`  prTitle: ${cfg.prTitle}`);
       if (cfg.prBody) this.log(`  prBody: ${cfg.prBody}`);
     } catch {}
@@ -404,6 +406,8 @@ Use --yes to skip safety prompts (non-interactive environments).
       this.log(`  autoFastForwardTrunk: ${cfg.autoFastForwardTrunk ?? false}`);
       this.log(`  createPrOnFfBlock: ${cfg.createPrOnFfBlock ?? false}`);
       this.log(`  prDraft: ${cfg.prDraft ?? false}`);
+      this.log(`  prAutoMerge: ${cfg.prAutoMerge ?? true}`);
+      this.log(`  prMergeStrategy: ${cfg.prMergeStrategy ?? 'rebase'}`);
       if (cfg.prTitle) this.log(`  prTitle: ${cfg.prTitle}`);
       if (cfg.prBody) this.log(`  prBody: ${cfg.prBody}`);
     } catch {}
