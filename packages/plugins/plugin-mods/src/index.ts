@@ -22,6 +22,7 @@ import {
   subtreeAddFromRemote,
   subtreePushWithFetch,
   subtreePullWithFetch,
+  execGit,
 } from "@civ7/plugin-git";
 
 // Persistent link configuration (stored in local git config)
@@ -363,7 +364,7 @@ export async function link(opts: LinkModOptions): Promise<{ slug: string; remote
   if (!remoteUrl) throw new Error("remoteUrl is required for link");
 
   const slug = opts.slug ?? inferSlugFromRemoteUrl(remoteUrl);
-  const remoteName = opts.remoteName ?? `mod-${inferSlugFromRemoteUrl(remoteUrl)}`;
+  const remoteName = opts.remoteName ?? inferSlugFromRemoteUrl(remoteUrl);
   const autoUnshallow = opts.autoUnshallow ?? true; // default to full history
   const prefix = path.posix.join("mods", slug);
 
@@ -426,6 +427,22 @@ export async function link(opts: LinkModOptions): Promise<{ slug: string; remote
   if (resolvedTrunk) await setLinkedTrunk(slug, resolvedTrunk, { verbose });
 
   return { slug, remoteName, branch, prefix };
+}
+
+/** List registered slugs from local git config (civ7.mod.<slug>.*). */
+export async function listRegisteredSlugs(opts: { verbose?: boolean } = {}): Promise<string[]> {
+  try {
+    const res = await execGit(["config", "--local", "--list", "--name-only"], { allowNonZeroExit: true, verbose: opts.verbose });
+    if (res.code !== 0) return [];
+    const slugs = new Set<string>();
+    for (const line of (res.stdout || "").split("\n")) {
+      const m = line.trim().match(/^civ7\.mod\.([^\.]+)\.(?:branch|remoteName|trunk)$/);
+      if (m && m[1]) slugs.add(m[1]);
+    }
+    return Array.from(slugs).sort();
+  } catch {
+    return [];
+  }
 }
 
 /**
@@ -498,6 +515,7 @@ export default {
   pushModToRemote,
   pullModFromRemote,
   link,
+  listRegisteredSlugs,
   planCreateMod,
   validateModStructure,
   planPackageMod,

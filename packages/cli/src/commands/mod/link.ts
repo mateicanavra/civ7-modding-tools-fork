@@ -9,6 +9,7 @@ import {
   pushModToRemote,
   pullModFromRemote,
   link as linkPlugin,
+  listRegisteredSlugs,
 } from "@civ7/plugin-mods";
 import { getRemotePushConfig, parseGithubRepoSlugFromUrl } from "@civ7/plugin-git";
 
@@ -126,7 +127,21 @@ Use --yes to skip safety prompts (non-interactive environments).
   async run(): Promise<void> {
     const { flags } = await this.parse(ModsLink);
     const action = flags.action as Action | undefined;
-    const slug = flags.slug ?? (flags as any).id;
+    // Auto-fill slug: if not provided and exactly one registered slug exists, use it
+    let slug = flags.slug ?? (flags as any).id;
+    let usedAutoSlug = false;
+    if (!slug) {
+      try {
+        const slugs = await listRegisteredSlugs();
+        if (slugs.length === 1) {
+          slug = slugs[0];
+          usedAutoSlug = true;
+        } else if (slugs.length > 1) {
+          this.log(`Registered slugs: ${slugs.join(", ")}`);
+        }
+      } catch {}
+    }
+    if (usedAutoSlug && slug) this.log(`Using slug from config: ${slug}`);
     const branch = flags.branch; // no default; undefined means use persisted for push/pull
     const squash = !!flags.squash;
     const yes = !!flags.yes;
@@ -152,7 +167,7 @@ Use --yes to skip safety prompts (non-interactive environments).
     // Derived defaults
     const remoteName = providedRemoteName
       ?? (providedRemoteUrl ? inferRemoteNameFromUrl(providedRemoteUrl) : undefined)
-      ?? (slug ? `mod-${slug}` : undefined);
+      ?? (slug ? slug : undefined);
     const prefix = slug ? path.posix.join("mods", slug) : undefined;
 
     // Status/setup can run without slug (setup can infer from remote)
@@ -386,7 +401,7 @@ Use --yes to skip safety prompts (non-interactive environments).
     }
 
     const inferredSlug = slug ?? "(inferred from remote)";
-    const inferredRemoteName = remoteName ?? (slug ? `mod-${slug}` : "(inferred after slug)");
+    const inferredRemoteName = remoteName ?? (remoteUrl ? inferRemoteNameFromUrl(remoteUrl) : "(inferred after --remote-url)");
     this.log(
       `Setup starting: remoteUrl=${remoteUrl} branch=${branch} slug=${inferredSlug} remoteName=${inferredRemoteName} squash=${squash ? "yes" : "no"} autoUnshallow=${autoUnshallow ? "yes" : "no"}`
     );
@@ -451,5 +466,5 @@ function inferRemoteNameFromUrl(remoteUrl: string): string {
   const repo = slug.split("/").pop() || "remote";
   const base = repo.replace(/\.git$/i, "");
   const kebab = base.trim().toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-  return `mod-${kebab || "remote"}`;
+  return kebab || "remote";
 }
