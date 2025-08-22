@@ -710,8 +710,11 @@ export async function getStatusSnapshot(opts: GitExecOptions = {}): Promise<GitS
 
 /** Local git config helpers. */
 export async function setLocalConfig(key: string, value: string, opts: GitExecOptions = {}): Promise<void> {
-  // Replace any existing occurrences to avoid duplicate-key errors
-  await execGit(['config', '--local', '--replace-all', key, value], opts);
+  // Replace any existing occurrences; if that fails for any reason, fall back to simple set
+  const res = await execGit(['config', '--local', '--replace-all', key, value], { ...opts, allowNonZeroExit: true });
+  if (res.code !== 0) {
+    await execGit(['config', '--local', key, value], opts);
+  }
 }
 
 export async function getLocalConfig(key: string, opts: GitExecOptions = {}): Promise<string | null> {
