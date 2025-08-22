@@ -710,11 +710,7 @@ export async function getStatusSnapshot(opts: GitExecOptions = {}): Promise<GitS
 
 /** Local git config helpers. */
 export async function setLocalConfig(key: string, value: string, opts: GitExecOptions = {}): Promise<void> {
-  // Replace any existing occurrences; if that fails for any reason, fall back to simple set
-  const res = await execGit(['config', '--local', '--replace-all', key, value], { ...opts, allowNonZeroExit: true });
-  if (res.code !== 0) {
-    await execGit(['config', '--local', key, value], opts);
-  }
+  await execGit(['config', '--local', key, value], opts);
 }
 
 export async function getLocalConfig(key: string, opts: GitExecOptions = {}): Promise<string | null> {
@@ -850,28 +846,35 @@ export async function setRemotePushConfig(
   const repoKey = await getCanonicalRepoKeyForRemote(remote, opts);
   if (!repoKey) return;
   const current = await getRemotePushConfig(remote, opts);
-  const tasks: Array<Promise<void>> = [];
-  const writeIfChanged = (key: keyof RemotePushConfig, value: string | boolean | undefined) => {
+  const writes: Array<{ key: string; value: string }> = [];
+  const queueWriteIfChanged = (field: keyof RemotePushConfig, value: string | boolean | undefined) => {
     if (value === undefined) return;
-    const cfgKey = cfgKeyForRepoKey(repoKey, varNameForField(key));
+    const cfgKey = cfgKeyForRepoKey(repoKey, varNameForField(field));
     const desired = typeof value === 'boolean' ? (value ? 'true' : 'false') : String(value);
-    const existing = (current as any)[key];
+    const existing = (current as any)[field];
     const existingStr = typeof existing === 'boolean' ? (existing ? 'true' : 'false') : (existing ?? undefined);
     if (existingStr !== desired) {
-      tasks.push(setLocalConfig(cfgKey, desired, opts));
+      writes.push({ key: cfgKey, value: desired });
     }
   };
 
-  writeIfChanged('trunk', partial.trunk);
-  writeIfChanged('autoFastForwardTrunk', partial.autoFastForwardTrunk);
-  writeIfChanged('createPrOnFfBlock', partial.createPrOnFfBlock);
-  writeIfChanged('prTitle', partial.prTitle);
-  writeIfChanged('prBody', partial.prBody);
-  writeIfChanged('prDraft', partial.prDraft);
-  writeIfChanged('ghRepoOverride', partial.ghRepoOverride);
-  writeIfChanged('prAutoMerge', partial.prAutoMerge);
-  if (partial.prMergeStrategy) writeIfChanged('prMergeStrategy', partial.prMergeStrategy);
-  await Promise.all(tasks);
+  queueWriteIfChanged('trunk', partial.trunk);
+  queueWriteIfChanged('autoFastForwardTrunk', partial.autoFastForwardTrunk);
+  queueWriteIfChanged('createPrOnFfBlock', partial.createPrOnFfBlock);
+  queueWriteIfChanged('prTitle', partial.prTitle);
+  queueWriteIfChanged('prBody', partial.prBody);
+  queueWriteIfChanged('prDraft', partial.prDraft);
+  queueWriteIfChanged('ghRepoOverride', partial.ghRepoOverride);
+  queueWriteIfChanged('prAutoMerge', partial.prAutoMerge);
+  if (partial.prMergeStrategy) queueWriteIfChanged('prMergeStrategy', partial.prMergeStrategy);
+
+  // Write sequentially to avoid git config lock contention (which causes code 255)
+  for (const w of writes) {
+    if (opts.verbose) {
+      console.log(`[git-config] set ${w.key}=${w.value}`);
+    }
+    await setLocalConfig(w.key, w.value, opts);
+  }
 }
 
 /** Initialize sensible defaults for a remote's push behavior (idempotent). */
