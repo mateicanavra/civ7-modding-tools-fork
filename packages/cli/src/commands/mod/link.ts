@@ -117,6 +117,10 @@ Use --yes to skip safety prompts (non-interactive environments).
       description: "Override trunk branch name for FF update (defaults to remote's default)",
       char: "t",
     }),
+    overwrite: Flags.boolean({
+      description: "If subtree path exists, overwrite local directory with imported remote",
+      default: false,
+    }),
   } as const;
 
   async run(): Promise<void> {
@@ -372,8 +376,9 @@ Use --yes to skip safety prompts (non-interactive environments).
     verbose: boolean;
     autoUnshallow: boolean;
     trunk?: string;
+    overwrite?: boolean;
   }) {
-    const { remoteUrl, branch, slug, remoteName, squash, yes, verbose, autoUnshallow, trunk } = opts;
+    const { remoteUrl, branch, slug, remoteName, squash, yes, verbose, autoUnshallow, trunk, overwrite } = opts;
     if (!remoteUrl) {
       this.error(
         "setup requires --remote-url <url>. Example: civ7 mod link --action setup --remote-url git@github.com:you/my-mod.git --branch main [--slug my-mod]"
@@ -396,8 +401,22 @@ Use --yes to skip safety prompts (non-interactive environments).
       verbose,
       autoUnshallow,
       trunk,
+      overwrite,
     });
     this.log(`✅ Setup complete: ${res.slug} at ${res.prefix} from ${res.remoteName}/${res.branch}`);
+    // If path existed and we skipped import, hint next steps
+    try {
+      const abs = path.join(process.cwd(), res.prefix);
+      if (fs.existsSync(abs)) {
+        const entries = fs.readdirSync(abs);
+        if (entries.length > 0 && !overwrite) {
+          this.log(`Note: ${res.prefix} already existed. Import was skipped. You can now run:`);
+          this.log(`  - Pull remote into subtree: civ7 mod link -a pull -s ${res.slug} -R ${res.remoteName} -b ${res.branch}`);
+          this.log(`  - Or push local subtree to remote: civ7 mod link -a push -s ${res.slug} -R ${res.remoteName} -b ${res.branch}`);
+          this.log(`  - To overwrite local with remote: re-run setup with --overwrite`);
+        }
+      }
+    } catch {}
     try {
       const effectiveRemoteName = remoteName ?? inferRemoteNameFromUrl(remoteUrl!);
       const cfg = await getRemotePushConfig(effectiveRemoteName, { verbose });

@@ -705,6 +705,12 @@
           "hasDynamicHelp": false,
           "multiple": false,
           "type": "option"
+        },
+        "overwrite": {
+          "description": "If subtree path exists, overwrite local directory with imported remote",
+          "name": "overwrite",
+          "allowNo": false,
+          "type": "boolean"
         }
       },
       "hasDynamicHelp": false,

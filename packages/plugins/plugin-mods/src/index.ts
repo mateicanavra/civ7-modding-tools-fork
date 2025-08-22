@@ -330,6 +330,7 @@ export interface LinkModOptions {
   allowDirty?: boolean;
   autoUnshallow?: boolean;
   trunk?: string;
+  overwrite?: boolean;
 }
 
 function inferSlugFromRemoteUrl(remoteUrl: string): string {
@@ -357,24 +358,66 @@ export async function link(opts: LinkModOptions): Promise<{ slug: string; remote
     squash = false,
     allowDirty = false,
     trunk,
+    overwrite = false,
   } = opts;
   if (!remoteUrl) throw new Error("remoteUrl is required for link");
 
   const slug = opts.slug ?? inferSlugFromRemoteUrl(remoteUrl);
   const remoteName = opts.remoteName ?? `mod-${inferSlugFromRemoteUrl(remoteUrl)}`;
   const autoUnshallow = opts.autoUnshallow ?? true; // default to full history
+  const prefix = path.posix.join("mods", slug);
 
   await configureModRemote({ remoteName, remoteUrl, verbose });
-  await importModFromRemote({
-    slug,
-    remoteName,
-    remoteUrl,
-    branch,
-    squash,
-    verbose,
-    allowDirty,
-    autoUnshallow,
-  });
+
+  // Idempotent: if the subtree path already exists and is non-empty, treat monorepo as source of truth and push;
+  // otherwise import the remote history into a new subtree. If overwrite=true, replace local dir with import.
+  const root = await getRepoRoot({ allowNonZeroExit: true, verbose });
+  if (!root) throw new Error("Not inside a git repository.");
+  const abs = path.join(root, prefix);
+  let existsAndNonEmpty = false;
+  try {
+    if (fs.existsSync(abs)) {
+      const entries = fs.readdirSync(abs);
+      existsAndNonEmpty = entries.length > 0;
+    }
+  } catch {
+    existsAndNonEmpty = false;
+  }
+
+  if (existsAndNonEmpty) {
+    if (overwrite) {
+      // Replace local dir with clean import
+      try {
+        fs.rmSync(abs, { recursive: true, force: true });
+      } catch {}
+      // Ensure parent exists
+      const parent = path.dirname(abs);
+      if (!fs.existsSync(parent)) fs.mkdirSync(parent, { recursive: true });
+      await importModFromRemote({
+        slug,
+        remoteName,
+        remoteUrl,
+        branch,
+        squash,
+        verbose,
+        allowDirty,
+        autoUnshallow,
+      });
+    } else {
+      // Skip import; caller (CLI) should inform user next steps.
+    }
+  } else {
+    await importModFromRemote({
+      slug,
+      remoteName,
+      remoteUrl,
+      branch,
+      squash,
+      verbose,
+      allowDirty,
+      autoUnshallow,
+    });
+  }
 
   // Persist link defaults for subsequent commands
   await setLinkedBranch(slug, branch, { verbose });
@@ -382,7 +425,6 @@ export async function link(opts: LinkModOptions): Promise<{ slug: string; remote
   const resolvedTrunk = trunk ?? (await resolveTrunkBranch(remoteName, {}, { verbose }));
   if (resolvedTrunk) await setLinkedTrunk(slug, resolvedTrunk, { verbose });
 
-  const prefix = path.posix.join("mods", slug);
   return { slug, remoteName, branch, prefix };
 }
 
