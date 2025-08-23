@@ -1,0 +1,31 @@
+import { Args } from '@oclif/core';
+import SubtreeCommand from '../base/SubtreeCommand.js';
+import { configureRemote } from '../utils/git.js';
+
+export default abstract class ConfigRemoteBase extends SubtreeCommand {
+  static flags = {
+    ...SubtreeCommand.baseFlags,
+  } as const;
+
+  static args = {
+    slug: Args.string({ description: 'Subtree slug', required: true }),
+  } as const;
+
+  async run() {
+    const ctor: any = this.constructor;
+    const { args, flags } = await this.parse({
+      flags: ctor.flags ?? (this as any).flags ?? ConfigRemoteBase.flags,
+      args: ctor.args ?? (this as any).args ?? ConfigRemoteBase.args,
+    });
+    const slug = args.slug as string;
+    await configureRemote({
+      domain: this.domain,
+      slug,
+      remoteName: flags.remoteName,
+      remoteUrl: flags.remoteUrl,
+      branch: flags.branch,
+      verbose: flags.verbose,
+      logger: this,
+    });
+  }
+}
