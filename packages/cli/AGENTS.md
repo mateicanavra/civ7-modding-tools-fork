@@ -98,7 +98,7 @@ Tip: All commands support `--help` via oclif.
 ### Code structure (key paths)
 
 - `src/commands/` — oclif commands (`crawl`, `explore`, `render`, `slice`, `zip`, `unzip`)
-- `src/utils/` — config/path resolution helpers; generic git helpers (configureRemote, importSubtree, pushSubtree, pullSubtree, logRemotePushConfig, inferRemoteNameFromUrl, resolveRemoteName/requireRemoteName, resolveBranch/requireBranch, isNonEmptyDir) live in `utils/git.ts` and centralize logging for git operations
+- `src/utils/` — config/path resolution helpers; generic git helpers (configureRemote, importSubtree, pushSubtree, pullSubtree, logRemotePushConfig, inferRemoteNameFromUrl, resolveRemoteName/requireRemoteName, resolveBranch/requireBranch, isNonEmptyDir) live in `utils/git.ts` and centralize logging, argument defaults, and remote/branch inference for git operations
  - Use `@civ7/plugin-graph` for graph workflows (`crawlGraph`, `exploreGraph`); archive helpers are in `@civ7/plugin-files`.
 
 ### Conceptual model and traversal

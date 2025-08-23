@@ -77,6 +77,8 @@ describe('git utilities', () => {
 
     it('importSubtree wires plugin-git helpers', async () => {
       await importSubtree({
+        domain: 'mod',
+        slug: 'foo',
         prefix: 'mods/foo',
         remoteName: 'origin',
         branch: 'main',
@@ -99,7 +101,14 @@ describe('git utilities', () => {
     });
 
     it('pushSubtree wires plugin-git helpers', async () => {
-      await pushSubtree({ prefix: 'mods/foo', remoteName: 'origin', branch: 'main', logger });
+      await pushSubtree({
+        domain: 'mod',
+        slug: 'foo',
+        prefix: 'mods/foo',
+        remoteName: 'origin',
+        branch: 'main',
+        logger,
+      });
       expect(subtreePushWithFetch).toHaveBeenCalledWith(
         'mods/foo',
         'origin',
@@ -110,7 +119,14 @@ describe('git utilities', () => {
     });
 
     it('pullSubtree wires plugin-git helpers', async () => {
-      await pullSubtree({ prefix: 'mods/foo', remoteName: 'origin', branch: 'main', logger });
+      await pullSubtree({
+        domain: 'mod',
+        slug: 'foo',
+        prefix: 'mods/foo',
+        remoteName: 'origin',
+        branch: 'main',
+        logger,
+      });
       expect(subtreePullWithFetch).toHaveBeenCalledWith(
         'mods/foo',
         'origin',
@@ -124,9 +140,22 @@ describe('git utilities', () => {
       const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'git-util-import-'));
       fs.writeFileSync(path.join(dir, 'x.txt'), 'x');
       await expect(
-        importSubtree({ prefix: dir, remoteName: 'r', branch: 'main', logger }),
+        importSubtree({ domain: 'mod', slug: 'foo', prefix: dir, remoteName: 'r', branch: 'main', logger }),
       ).rejects.toThrow(/already exists/);
       fs.rmSync(dir, { recursive: true, force: true });
+    });
+
+    it('pushSubtree resolves remote and branch from config when omitted', async () => {
+      vi.mocked(getLocalConfig).mockResolvedValueOnce('saved-remote');
+      vi.mocked(getLocalConfig).mockResolvedValueOnce('main');
+      await pushSubtree({ domain: 'mod', slug: 'foo', prefix: 'mods/foo', logger });
+      expect(subtreePushWithFetch).toHaveBeenCalledWith(
+        'mods/foo',
+        'saved-remote',
+        'main',
+        { allowDirty: false, autoUnshallow: false, autoFastForwardTrunk: false, trunkOverride: undefined },
+        { verbose: false },
+      );
     });
   });
 
@@ -179,6 +208,8 @@ describe('git utilities', () => {
         prMergeStrategy: 'rebase',
       });
       await configureRemote({
+        domain: 'mod',
+        slug: 'foo',
         remoteName: 'origin',
         remoteUrl: 'git@github.com:me/repo.git',
         branch: 'main',

@@ -112,11 +112,16 @@ export async function requireBranch(opts: ResolveBranchOptions): Promise<string>
 }
 
 export interface ConfigureRemoteOptions {
-  remoteName: string;
-  remoteUrl: string;
-  branch: string;
+  domain: string;
+  slug?: string;
+  remoteName?: string;
+  remoteUrl?: string;
+  branch?: string;
+  defaultBranch?: string;
   verbose?: boolean;
   logger?: Logger;
+  /** Custom message when remoteUrl or remoteName cannot be resolved. */
+  remoteRequiredMessage?: string;
 }
 
 export interface LogRemotePushConfigOptions {
@@ -144,41 +149,85 @@ export async function logRemotePushConfig(
   } catch {}
 }
 
-export async function configureRemote(opts: ConfigureRemoteOptions): Promise<'added' | 'updated' | 'unchanged' | 'skipped'> {
-  const { remoteName, remoteUrl, branch, verbose = false, logger } = opts;
+export async function configureRemote(
+  opts: ConfigureRemoteOptions,
+): Promise<'added' | 'updated' | 'unchanged' | 'skipped'> {
+  const {
+    domain,
+    slug,
+    remoteName,
+    remoteUrl,
+    branch,
+    defaultBranch = 'main',
+    verbose = false,
+    logger,
+    remoteRequiredMessage,
+  } = opts;
+  if (!remoteUrl) {
+    throw new Error(
+      remoteRequiredMessage ?? 'remoteUrl is required to configure a remote.',
+    );
+  }
+  const rName = await requireRemoteName({
+    domain,
+    slug,
+    remoteName,
+    remoteUrl,
+    verbose,
+    logger,
+  }).catch((err) => {
+    if (remoteRequiredMessage) throw new Error(remoteRequiredMessage);
+    throw err;
+  });
+  const branchName = branch ?? defaultBranch;
   const log = getLogger(logger).log;
-  log(`Configuring remote "${remoteName}" → ${remoteUrl} ...`);
-  const res = await configureRemoteAndFetch(remoteName, remoteUrl, { tags: true }, { verbose });
-  const badge = res === 'added' ? 'added' : res === 'updated' ? 'updated' : res === 'unchanged' ? 'unchanged' : 'skipped';
-  log(`Remote "${remoteName}" ${badge}: ${remoteUrl}`);
-  log(`Fetched tags from "${remoteName}". Tracking branch: ${branch}`);
-  await logRemotePushConfig(remoteName, { logger, verbose });
+  log(`Configuring remote "${rName}" → ${remoteUrl} ...`);
+  const res = await configureRemoteAndFetch(rName, remoteUrl, { tags: true }, { verbose });
+  const badge =
+    res === 'added'
+      ? 'added'
+      : res === 'updated'
+      ? 'updated'
+      : res === 'unchanged'
+      ? 'unchanged'
+      : 'skipped';
+  log(`Remote "${rName}" ${badge}: ${remoteUrl}`);
+  log(`Fetched tags from "${rName}". Tracking branch: ${branchName}`);
+  await logRemotePushConfig(rName, { logger, verbose });
   return res;
 }
 
 export interface ImportSubtreeOptions {
+  domain: string;
+  slug: string;
   prefix: string;
-  remoteName: string;
-  branch: string;
+  branch?: string;
+  remoteName?: string;
   remoteUrl?: string;
+  defaultBranch?: string;
   squash?: boolean;
   allowDirty?: boolean;
   autoUnshallow?: boolean;
   verbose?: boolean;
   logger?: Logger;
+  remoteRequiredMessage?: string;
 }
 
 export async function importSubtree(opts: ImportSubtreeOptions): Promise<void> {
   const {
+    domain,
+    slug,
     prefix,
-    remoteName,
     branch,
+    remoteName,
     remoteUrl,
+    defaultBranch = 'main',
     squash = false,
     allowDirty = false,
     autoUnshallow = false,
     verbose = false,
     logger,
+    remoteRequiredMessage,
   } = opts;
   const log = getLogger(logger).log;
 
@@ -192,26 +241,42 @@ export async function importSubtree(opts: ImportSubtreeOptions): Promise<void> {
     }
   }
 
+  const rName = await requireRemoteName({
+    domain,
+    slug,
+    remoteName,
+    remoteUrl,
+    verbose,
+    logger,
+  }).catch((err) => {
+    if (remoteRequiredMessage) throw new Error(remoteRequiredMessage);
+    throw err;
+  });
+  const branchName = branch ?? defaultBranch;
+
   log(
-    `Importing subtree: prefix=${prefix} remote=${remoteName} branch=${branch} squash=${
+    `Importing subtree: prefix=${prefix} remote=${rName} branch=${branchName} squash=${
       squash ? 'yes' : 'no'
     } autoUnshallow=${autoUnshallow ? 'yes' : 'no'}`,
   );
-  await configureRemoteAndFetch(remoteName, remoteUrl, { tags: true }, { verbose });
+  await configureRemoteAndFetch(rName, remoteUrl, { tags: true }, { verbose });
   await subtreeAddFromRemote(
     prefix,
-    remoteName,
-    branch,
+    rName,
+    branchName,
     { squash, autoUnshallow, allowDirty },
     { verbose },
   );
-  log(`✅ Imported ${remoteName}/${branch} into ${prefix}`);
+  log(`✅ Imported ${rName}/${branchName} into ${prefix}`);
 }
 
 export interface PushSubtreeOptions {
+  domain: string;
+  slug: string;
   prefix: string;
-  remoteName: string;
-  branch: string;
+  branch?: string;
+  remoteName?: string;
+  remoteUrl?: string;
   allowDirty?: boolean;
   autoUnshallow?: boolean;
   autoFastForwardTrunk?: boolean;
@@ -219,13 +284,18 @@ export interface PushSubtreeOptions {
   verbose?: boolean;
   logger?: Logger;
   pushConfig?: RemotePushConfig;
+  remoteRequiredMessage?: string;
+  branchRequiredMessage?: string;
 }
 
 export async function pushSubtree(opts: PushSubtreeOptions): Promise<void> {
   const {
+    domain,
+    slug,
     prefix,
-    remoteName,
     branch,
+    remoteName,
+    remoteUrl,
     allowDirty = false,
     autoUnshallow = false,
     autoFastForwardTrunk = false,
@@ -233,60 +303,116 @@ export async function pushSubtree(opts: PushSubtreeOptions): Promise<void> {
     verbose = false,
     logger,
     pushConfig,
+    remoteRequiredMessage,
+    branchRequiredMessage,
   } = opts;
   const log = getLogger(logger).log;
 
+  const rName = await requireRemoteName({
+    domain,
+    slug,
+    remoteName,
+    remoteUrl,
+    verbose,
+    logger,
+  }).catch((err) => {
+    if (remoteRequiredMessage) throw new Error(remoteRequiredMessage);
+    throw err;
+  });
+  const branchName = await requireBranch({
+    domain,
+    slug,
+    branch,
+    verbose,
+    logger,
+  }).catch((err) => {
+    if (branchRequiredMessage) throw new Error(branchRequiredMessage);
+    throw err;
+  });
+
   log(
-    `Pushing subtree: prefix=${prefix} → ${remoteName}/${branch} autoUnshallow=${
+    `Pushing subtree: prefix=${prefix} → ${rName}/${branchName} autoUnshallow=${
       autoUnshallow ? 'yes' : 'no'
     } autoFFTrunk=${autoFastForwardTrunk ? 'yes' : 'no'}`,
   );
   await subtreePushWithFetch(
     prefix,
-    remoteName,
-    branch,
+    rName,
+    branchName,
     { allowDirty, autoUnshallow, autoFastForwardTrunk, trunkOverride: trunk, ...pushConfig },
     { verbose },
   );
-  log(`✅ Pushed "${prefix}" to ${remoteName}/${branch}`);
+  log(`✅ Pushed "${prefix}" to ${rName}/${branchName}`);
 }
 
 export interface PullSubtreeOptions {
+  domain: string;
+  slug: string;
   prefix: string;
-  remoteName: string;
-  branch: string;
+  branch?: string;
+  remoteName?: string;
+  remoteUrl?: string;
   squash?: boolean;
   allowDirty?: boolean;
   autoUnshallow?: boolean;
   verbose?: boolean;
   logger?: Logger;
+  remoteRequiredMessage?: string;
+  branchRequiredMessage?: string;
 }
 
 export async function pullSubtree(opts: PullSubtreeOptions): Promise<void> {
   const {
+    domain,
+    slug,
     prefix,
-    remoteName,
     branch,
+    remoteName,
+    remoteUrl,
     squash = false,
     allowDirty = false,
     autoUnshallow = false,
     verbose = false,
     logger,
+    remoteRequiredMessage,
+    branchRequiredMessage,
   } = opts;
   const log = getLogger(logger).log;
 
+  const rName = await requireRemoteName({
+    domain,
+    slug,
+    remoteName,
+    remoteUrl,
+    verbose,
+    logger,
+  }).catch((err) => {
+    if (remoteRequiredMessage) throw new Error(remoteRequiredMessage);
+    throw err;
+  });
+  const branchName = await requireBranch({
+    domain,
+    slug,
+    branch,
+    verbose,
+    logger,
+  }).catch((err) => {
+    if (branchRequiredMessage) throw new Error(branchRequiredMessage);
+    throw err;
+  });
+
   log(
-    `Pulling into subtree: prefix=${prefix} from ${remoteName}/${branch} squash=${
+    `Pulling into subtree: prefix=${prefix} from ${rName}/${branchName} squash=${
       squash ? 'yes' : 'no'
     } autoUnshallow=${autoUnshallow ? 'yes' : 'no'}`,
   );
   await subtreePullWithFetch(
     prefix,
-    remoteName,
-    branch,
+    rName,
+    branchName,
     { squash, allowDirty, autoUnshallow },
     { verbose },
   );
-  log(`✅ Pulled updates into "${prefix}" from ${remoteName}/${branch}`);
+  log(`✅ Pulled updates into "${prefix}" from ${rName}/${branchName}`);
 }
 

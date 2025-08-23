@@ -13,8 +13,6 @@ import {
   pushSubtree,
   pullSubtree,
   resolveRemoteName,
-  requireRemoteName,
-  requireBranch,
   logRemotePushConfig,
 } from "../../utils";
 
@@ -169,43 +167,32 @@ Use --yes to skip safety prompts (non-interactive environments).
       return;
     }
 
-    // Derived defaults
-    const remoteName = await resolveRemoteName({
-      domain: "mod",
-      slug,
-      remoteName: providedRemoteName,
-      remoteUrl: providedRemoteUrl,
-      verbose,
-      logger: this,
-    });
     const prefix = slug ? path.posix.join("mods", slug) : undefined;
 
     // Route actions
     switch (action) {
       case "status":
-        await this.handleStatus(slug ?? undefined, remoteName, branch, verbose);
+        await this.handleStatus({
+          slug: slug ?? undefined,
+          remoteName: providedRemoteName,
+          remoteUrl: providedRemoteUrl,
+          branch,
+          verbose,
+        });
         return;
 
       case "config-remote": {
-        const rName = await requireRemoteName({
+        await configureRemote({
           domain: "mod",
           slug,
-          remoteName,
+          remoteName: providedRemoteName,
           remoteUrl: providedRemoteUrl,
+          branch,
+          defaultBranch: "main",
           verbose,
           logger: this,
-        });
-        if (!providedRemoteUrl) {
-          this.error(
+          remoteRequiredMessage:
             "config-remote requires --remote-url <url>. Example: civ7 mod link --action config-remote --slug my-mod --remote-url git@github.com:you/my-mod.git",
-          );
-        }
-        await configureRemote({
-          remoteName: rName,
-          remoteUrl: providedRemoteUrl!,
-          branch: branch ?? "main",
-          verbose,
-          logger: this,
         });
         return;
       }
@@ -213,19 +200,14 @@ Use --yes to skip safety prompts (non-interactive environments).
       case "import": {
         if (!slug)
           this.error("Missing required --slug <slug>. Tip: use --action setup to infer from --remote-url.");
-        const rName = await requireRemoteName({
+        await importSubtree({
           domain: "mod",
           slug,
-          remoteName,
-          remoteUrl: providedRemoteUrl,
-          verbose,
-          logger: this,
-        });
-        await importSubtree({
           prefix: prefix!,
-          remoteName: rName,
-          branch: branch ?? "main",
+          remoteName: providedRemoteName,
           remoteUrl: providedRemoteUrl,
+          branch,
+          defaultBranch: "main",
           squash,
           allowDirty: yes,
           autoUnshallow: autoUnshallow ?? false,
@@ -238,25 +220,13 @@ Use --yes to skip safety prompts (non-interactive environments).
       case "push": {
         if (!slug)
           this.error("Missing required --slug <slug>. Tip: use --action setup to infer from --remote-url.");
-        const rName = await requireRemoteName({
-          domain: "mod",
-          slug,
-          remoteName,
-          remoteUrl: providedRemoteUrl,
-          verbose,
-          logger: this,
-        });
-        const effectiveBranch = await requireBranch({
-          domain: "mod",
-          slug,
-          branch,
-          verbose,
-          logger: this,
-        });
         await pushSubtree({
+          domain: "mod",
+          slug,
           prefix: prefix!,
-          remoteName: rName,
-          branch: effectiveBranch,
+          remoteName: providedRemoteName,
+          remoteUrl: providedRemoteUrl,
+          branch,
           allowDirty: yes,
           autoUnshallow: autoUnshallow ?? false,
           autoFastForwardTrunk,
@@ -270,25 +240,13 @@ Use --yes to skip safety prompts (non-interactive environments).
       case "pull": {
         if (!slug)
           this.error("Missing required --slug <slug>. Tip: use --action setup to infer from --remote-url.");
-        const rName = await requireRemoteName({
-          domain: "mod",
-          slug,
-          remoteName,
-          remoteUrl: providedRemoteUrl,
-          verbose,
-          logger: this,
-        });
-        const effectiveBranch = await requireBranch({
-          domain: "mod",
-          slug,
-          branch,
-          verbose,
-          logger: this,
-        });
         await pullSubtree({
+          domain: "mod",
+          slug,
           prefix: prefix!,
-          remoteName: rName,
-          branch: effectiveBranch,
+          remoteName: providedRemoteName,
+          remoteUrl: providedRemoteUrl,
+          branch,
           squash,
           allowDirty: yes,
           autoUnshallow: autoUnshallow ?? false,
@@ -319,13 +277,23 @@ Use --yes to skip safety prompts (non-interactive environments).
 
   // Actions
 
-  private async handleStatus(
-    slug: string | undefined,
-    remoteName: string | undefined,
-    branch: string | undefined,
-    verbose: boolean,
-  ) {
-    const status = await getModStatus({ slug, remoteName, branch, verbose });
+  private async handleStatus(opts: {
+    slug?: string;
+    remoteName?: string;
+    remoteUrl?: string;
+    branch?: string;
+    verbose: boolean;
+  }) {
+    const { slug, remoteName, remoteUrl, branch, verbose } = opts;
+    const resolvedRemote = await resolveRemoteName({
+      domain: "mod",
+      slug,
+      remoteName,
+      remoteUrl,
+      verbose,
+      logger: this,
+    });
+    const status = await getModStatus({ slug, remoteName: resolvedRemote, branch, verbose });
     this.log("Git status:");
     this.log(`- Repo root: ${status.repoRoot ?? "(not a git repo)"}`);
     this.log(`- Shallow: ${status.shallow ? "yes" : "no"}`);
@@ -349,9 +317,9 @@ Use --yes to skip safety prompts (non-interactive environments).
       this.log(`Subtree target for slug "${slug}":`);
       this.log(`- Prefix: ${status.modsPrefix}`);
       this.log(`- Exists: ${status.subtreeExists ? "yes" : "no"}`);
-      if (remoteName) {
+      if (resolvedRemote) {
         this.log(
-          `- Remote: ${status.remoteConfigured ? `${remoteName} (${status.remoteUrl ?? "no url"})` : "(not configured)"}`,
+          `- Remote: ${status.remoteConfigured ? `${resolvedRemote} (${status.remoteUrl ?? "no url"})` : "(not configured)"}`,
         );
         this.log(`- Branch: ${status.branch}`);
       }
