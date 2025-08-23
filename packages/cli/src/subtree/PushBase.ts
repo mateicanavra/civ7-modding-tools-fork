@@ -5,6 +5,16 @@ import { pushSubtree } from '../utils/git.js';
 export default abstract class PushBase extends SubtreeCommand {
   static flags = {
     ...SubtreeCommand.baseFlags,
+    yes: Flags.boolean({
+      description: 'Assume yes to safety prompts',
+      default: false,
+      char: 'y',
+    }),
+    autoUnshallow: Flags.boolean({
+      description: 'Automatically unshallow the repo if needed',
+      default: undefined,
+      char: 'U',
+    }),
     autoFastForwardTrunk: Flags.boolean({
       description: 'After push, attempt to fast-forward the remote trunk branch',
       default: false,
@@ -37,7 +47,6 @@ export default abstract class PushBase extends SubtreeCommand {
       slug,
       prefix,
       remoteName: flags.remoteName,
-      remoteUrl: flags.remoteUrl,
       branch: flags.branch,
       allowDirty: flags.yes,
       autoUnshallow: flags.autoUnshallow,

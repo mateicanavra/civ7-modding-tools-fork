@@ -9,28 +9,9 @@ export default abstract class SubtreeCommand extends BaseCommand {
       description: 'Git remote name (defaults from config or slug)',
       char: 'R',
     }),
-    remoteUrl: Flags.string({
-      description: 'Git remote URL',
-      char: 'u',
-    }),
     branch: Flags.string({
       description: 'Branch to track',
       char: 'b',
-    }),
-    squash: Flags.boolean({
-      description: 'Squash history when importing/pulling',
-      default: false,
-      char: 'S',
-    }),
-    yes: Flags.boolean({
-      description: 'Assume yes to safety prompts',
-      default: false,
-      char: 'y',
-    }),
-    autoUnshallow: Flags.boolean({
-      description: 'Automatically unshallow the repo if needed',
-      default: undefined,
-      char: 'U',
     }),
     verbose: Flags.boolean({
       description: 'Show underlying git commands',

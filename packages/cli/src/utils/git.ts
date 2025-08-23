@@ -278,7 +278,6 @@ export interface PushSubtreeOptions {
   prefix: string;
   branch?: string;
   remoteName?: string;
-  remoteUrl?: string;
   allowDirty?: boolean;
   autoUnshallow?: boolean;
   autoFastForwardTrunk?: boolean;
@@ -297,7 +296,6 @@ export async function pushSubtree(opts: PushSubtreeOptions): Promise<void> {
     prefix,
     branch,
     remoteName,
-    remoteUrl,
     allowDirty = false,
     autoUnshallow = false,
     autoFastForwardTrunk = false,
@@ -314,7 +312,6 @@ export async function pushSubtree(opts: PushSubtreeOptions): Promise<void> {
     domain,
     slug,
     remoteName,
-    remoteUrl,
     verbose,
     logger,
   }).catch((err) => {
@@ -353,7 +350,6 @@ export interface PullSubtreeOptions {
   prefix: string;
   branch?: string;
   remoteName?: string;
-  remoteUrl?: string;
   squash?: boolean;
   allowDirty?: boolean;
   autoUnshallow?: boolean;
@@ -370,7 +366,6 @@ export async function pullSubtree(opts: PullSubtreeOptions): Promise<void> {
     prefix,
     branch,
     remoteName,
-    remoteUrl,
     squash = false,
     allowDirty = false,
     autoUnshallow = false,
@@ -385,7 +380,6 @@ export async function pullSubtree(opts: PullSubtreeOptions): Promise<void> {
     domain,
     slug,
     remoteName,
-    remoteUrl,
     verbose,
     logger,
   }).catch((err) => {

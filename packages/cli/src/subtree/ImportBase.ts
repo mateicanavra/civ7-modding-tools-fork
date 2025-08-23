@@ -1,10 +1,30 @@
-import { Args } from '@oclif/core';
+import { Args, Flags } from '@oclif/core';
 import SubtreeCommand from '../base/SubtreeCommand.js';
 import { importSubtree } from '../utils/git.js';
 
 export default abstract class ImportBase extends SubtreeCommand {
   static flags = {
     ...SubtreeCommand.baseFlags,
+    remoteUrl: Flags.string({
+      description: 'Git remote URL',
+      char: 'u',
+      required: true,
+    }),
+    squash: Flags.boolean({
+      description: 'Squash history when importing',
+      default: false,
+      char: 'S',
+    }),
+    yes: Flags.boolean({
+      description: 'Assume yes to safety prompts',
+      default: false,
+      char: 'y',
+    }),
+    autoUnshallow: Flags.boolean({
+      description: 'Automatically unshallow the repo if needed',
+      default: undefined,
+      char: 'U',
+    }),
   } as const;
 
   static args = {

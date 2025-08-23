@@ -1,10 +1,15 @@
-import { Args } from '@oclif/core';
+import { Args, Flags } from '@oclif/core';
 import SubtreeCommand from '../base/SubtreeCommand.js';
 import { configureRemote } from '../utils/git.js';
 
 export default abstract class ConfigRemoteBase extends SubtreeCommand {
   static flags = {
     ...SubtreeCommand.baseFlags,
+    remoteUrl: Flags.string({
+      description: 'Git remote URL',
+      char: 'u',
+      required: true,
+    }),
   } as const;
 
   static args = {

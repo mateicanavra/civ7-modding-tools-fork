@@ -5,6 +5,26 @@ import { configureRemote, importSubtree } from '../utils/git.js';
 export default abstract class SetupBase extends SubtreeCommand {
   static flags = {
     ...SubtreeCommand.baseFlags,
+    remoteUrl: Flags.string({
+      description: 'Git remote URL',
+      char: 'u',
+      required: true,
+    }),
+    squash: Flags.boolean({
+      description: 'Squash history when importing',
+      default: false,
+      char: 'S',
+    }),
+    yes: Flags.boolean({
+      description: 'Assume yes to safety prompts',
+      default: false,
+      char: 'y',
+    }),
+    autoUnshallow: Flags.boolean({
+      description: 'Automatically unshallow the repo if needed',
+      default: undefined,
+      char: 'U',
+    }),
     overwrite: Flags.boolean({
       description: 'Overwrite existing subtree directory if non-empty',
       default: false,

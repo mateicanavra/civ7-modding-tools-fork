@@ -555,14 +555,6 @@
           "multiple": false,
           "type": "option"
         },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
         "branch": {
           "char": "b",
           "description": "Branch to track",
@@ -571,33 +563,21 @@
           "multiple": false,
           "type": "option"
         },
-        "squash": {
-          "char": "S",
-          "description": "Squash history when importing/pulling",
-          "name": "squash",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "yes": {
-          "char": "y",
-          "description": "Assume yes to safety prompts",
-          "name": "yes",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "autoUnshallow": {
-          "char": "U",
-          "description": "Automatically unshallow the repo if needed",
-          "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        },
         "verbose": {
           "char": "v",
           "description": "Show underlying git commands",
           "name": "verbose",
           "allowNo": false,
           "type": "boolean"
+        },
+        "remoteUrl": {
+          "char": "u",
+          "description": "Git remote URL",
+          "name": "remoteUrl",
+          "required": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
         }
       },
       "hasDynamicHelp": false,
@@ -642,14 +622,6 @@
           "multiple": false,
           "type": "option"
         },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
         "branch": {
           "char": "b",
           "description": "Branch to track",
@@ -658,9 +630,25 @@
           "multiple": false,
           "type": "option"
         },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "remoteUrl": {
+          "char": "u",
+          "description": "Git remote URL",
+          "name": "remoteUrl",
+          "required": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
         "squash": {
           "char": "S",
-          "description": "Squash history when importing/pulling",
+          "description": "Squash history when importing",
           "name": "squash",
           "allowNo": false,
           "type": "boolean"
@@ -676,13 +664,6 @@
           "char": "U",
           "description": "Automatically unshallow the repo if needed",
           "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
           "allowNo": false,
           "type": "boolean"
         }
@@ -729,14 +710,6 @@
           "multiple": false,
           "type": "option"
         },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
         "branch": {
           "char": "b",
           "description": "Branch to track",
@@ -745,9 +718,16 @@
           "multiple": false,
           "type": "option"
         },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
         "squash": {
           "char": "S",
-          "description": "Squash history when importing/pulling",
+          "description": "Squash history when pulling",
           "name": "squash",
           "allowNo": false,
           "type": "boolean"
@@ -763,13 +743,6 @@
           "char": "U",
           "description": "Automatically unshallow the repo if needed",
           "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
           "allowNo": false,
           "type": "boolean"
         }
@@ -816,14 +789,6 @@
           "multiple": false,
           "type": "option"
         },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
         "branch": {
           "char": "b",
           "description": "Branch to track",
@@ -832,10 +797,10 @@
           "multiple": false,
           "type": "option"
         },
-        "squash": {
-          "char": "S",
-          "description": "Squash history when importing/pulling",
-          "name": "squash",
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
           "allowNo": false,
           "type": "boolean"
         },
@@ -850,13 +815,6 @@
           "char": "U",
           "description": "Automatically unshallow the repo if needed",
           "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
           "allowNo": false,
           "type": "boolean"
         },
@@ -918,14 +876,6 @@
           "multiple": false,
           "type": "option"
         },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
         "branch": {
           "char": "b",
           "description": "Branch to track",
@@ -934,9 +884,25 @@
           "multiple": false,
           "type": "option"
         },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "remoteUrl": {
+          "char": "u",
+          "description": "Git remote URL",
+          "name": "remoteUrl",
+          "required": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
         "squash": {
           "char": "S",
-          "description": "Squash history when importing/pulling",
+          "description": "Squash history when importing",
           "name": "squash",
           "allowNo": false,
           "type": "boolean"
@@ -952,13 +918,6 @@
           "char": "U",
           "description": "Automatically unshallow the repo if needed",
           "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
           "allowNo": false,
           "type": "boolean"
         },
@@ -1011,14 +970,6 @@
           "multiple": false,
           "type": "option"
         },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
         "branch": {
           "char": "b",
           "description": "Branch to track",
@@ -1026,27 +977,6 @@
           "hasDynamicHelp": false,
           "multiple": false,
           "type": "option"
-        },
-        "squash": {
-          "char": "S",
-          "description": "Squash history when importing/pulling",
-          "name": "squash",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "yes": {
-          "char": "y",
-          "description": "Assume yes to safety prompts",
-          "name": "yes",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "autoUnshallow": {
-          "char": "U",
-          "description": "Automatically unshallow the repo if needed",
-          "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
         },
         "verbose": {
           "char": "v",
@@ -1098,14 +1028,6 @@
           "multiple": false,
           "type": "option"
         },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
         "branch": {
           "char": "b",
           "description": "Branch to track",
@@ -1114,33 +1036,21 @@
           "multiple": false,
           "type": "option"
         },
-        "squash": {
-          "char": "S",
-          "description": "Squash history when importing/pulling",
-          "name": "squash",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "yes": {
-          "char": "y",
-          "description": "Assume yes to safety prompts",
-          "name": "yes",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "autoUnshallow": {
-          "char": "U",
-          "description": "Automatically unshallow the repo if needed",
-          "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        },
         "verbose": {
           "char": "v",
           "description": "Show underlying git commands",
           "name": "verbose",
           "allowNo": false,
           "type": "boolean"
+        },
+        "remoteUrl": {
+          "char": "u",
+          "description": "Git remote URL",
+          "name": "remoteUrl",
+          "required": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
         }
       },
       "hasDynamicHelp": false,
@@ -1237,14 +1147,6 @@
           "multiple": false,
           "type": "option"
         },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
         "branch": {
           "char": "b",
           "description": "Branch to track",
@@ -1253,9 +1155,25 @@
           "multiple": false,
           "type": "option"
         },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "remoteUrl": {
+          "char": "u",
+          "description": "Git remote URL",
+          "name": "remoteUrl",
+          "required": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
         "squash": {
           "char": "S",
-          "description": "Squash history when importing/pulling",
+          "description": "Squash history when importing",
           "name": "squash",
           "allowNo": false,
           "type": "boolean"
@@ -1271,13 +1189,6 @@
           "char": "U",
           "description": "Automatically unshallow the repo if needed",
           "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
           "allowNo": false,
           "type": "boolean"
         }
@@ -1324,14 +1235,6 @@
           "multiple": false,
           "type": "option"
         },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
         "branch": {
           "char": "b",
           "description": "Branch to track",
@@ -1340,9 +1243,25 @@
           "multiple": false,
           "type": "option"
         },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "remoteUrl": {
+          "char": "u",
+          "description": "Git remote URL",
+          "name": "remoteUrl",
+          "required": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
         "squash": {
           "char": "S",
-          "description": "Squash history when importing/pulling",
+          "description": "Squash history when importing",
           "name": "squash",
           "allowNo": false,
           "type": "boolean"
@@ -1358,13 +1277,6 @@
           "char": "U",
           "description": "Automatically unshallow the repo if needed",
           "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
           "allowNo": false,
           "type": "boolean"
         },
@@ -1447,14 +1359,6 @@
           "multiple": false,
           "type": "option"
         },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
         "branch": {
           "char": "b",
           "description": "Branch to track",
@@ -1463,9 +1367,16 @@
           "multiple": false,
           "type": "option"
         },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
         "squash": {
           "char": "S",
-          "description": "Squash history when importing/pulling",
+          "description": "Squash history when pulling",
           "name": "squash",
           "allowNo": false,
           "type": "boolean"
@@ -1481,13 +1392,6 @@
           "char": "U",
           "description": "Automatically unshallow the repo if needed",
           "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
           "allowNo": false,
           "type": "boolean"
         }
@@ -1534,14 +1438,6 @@
           "multiple": false,
           "type": "option"
         },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
         "branch": {
           "char": "b",
           "description": "Branch to track",
@@ -1550,10 +1446,10 @@
           "multiple": false,
           "type": "option"
         },
-        "squash": {
-          "char": "S",
-          "description": "Squash history when importing/pulling",
-          "name": "squash",
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
           "allowNo": false,
           "type": "boolean"
         },
@@ -1568,13 +1464,6 @@
           "char": "U",
           "description": "Automatically unshallow the repo if needed",
           "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
           "allowNo": false,
           "type": "boolean"
         },
@@ -1636,14 +1525,6 @@
           "multiple": false,
           "type": "option"
         },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
         "branch": {
           "char": "b",
           "description": "Branch to track",
@@ -1652,9 +1533,25 @@
           "multiple": false,
           "type": "option"
         },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "remoteUrl": {
+          "char": "u",
+          "description": "Git remote URL",
+          "name": "remoteUrl",
+          "required": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
         "squash": {
           "char": "S",
-          "description": "Squash history when importing/pulling",
+          "description": "Squash history when importing",
           "name": "squash",
           "allowNo": false,
           "type": "boolean"
@@ -1670,13 +1567,6 @@
           "char": "U",
           "description": "Automatically unshallow the repo if needed",
           "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
           "allowNo": false,
           "type": "boolean"
         },
@@ -1729,14 +1619,6 @@
           "multiple": false,
           "type": "option"
         },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
         "branch": {
           "char": "b",
           "description": "Branch to track",
@@ -1744,27 +1626,6 @@
           "hasDynamicHelp": false,
           "multiple": false,
           "type": "option"
-        },
-        "squash": {
-          "char": "S",
-          "description": "Squash history when importing/pulling",
-          "name": "squash",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "yes": {
-          "char": "y",
-          "description": "Assume yes to safety prompts",
-          "name": "yes",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "autoUnshallow": {
-          "char": "U",
-          "description": "Automatically unshallow the repo if needed",
-          "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
         },
         "verbose": {
           "char": "v",
