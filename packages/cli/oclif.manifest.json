@@ -1,6 +1,6 @@
 {
   "commands": {
-    "crawl": {
+    "data:crawl": {
       "aliases": [],
       "args": {
         "seed": {
@@ -49,7 +49,7 @@
       },
       "hasDynamicHelp": false,
       "hiddenAliases": [],
-      "id": "crawl",
+      "id": "data:crawl",
       "pluginAlias": "@mateicanavra/civ7-cli",
       "pluginName": "@mateicanavra/civ7-cli",
       "pluginType": "core",
@@ -60,10 +60,11 @@
       "relativePath": [
         "dist",
         "commands",
+        "data",
         "crawl.js"
       ]
     },
-    "explore": {
+    "data:explore": {
       "aliases": [],
       "args": {
         "seed": {
@@ -170,7 +171,7 @@
       },
       "hasDynamicHelp": false,
       "hiddenAliases": [],
-      "id": "explore",
+      "id": "data:explore",
       "pluginAlias": "@mateicanavra/civ7-cli",
       "pluginName": "@mateicanavra/civ7-cli",
       "pluginType": "core",
@@ -181,10 +182,11 @@
       "relativePath": [
         "dist",
         "commands",
+        "data",
         "explore.js"
       ]
     },
-    "render": {
+    "data:render": {
       "aliases": [],
       "args": {
         "input": {
@@ -250,7 +252,7 @@
       },
       "hasDynamicHelp": false,
       "hiddenAliases": [],
-      "id": "render",
+      "id": "data:render",
       "pluginAlias": "@mateicanavra/civ7-cli",
       "pluginName": "@mateicanavra/civ7-cli",
       "pluginType": "core",
@@ -261,10 +263,11 @@
       "relativePath": [
         "dist",
         "commands",
+        "data",
         "render.js"
       ]
     },
-    "slice": {
+    "data:slice": {
       "aliases": [],
       "args": {
         "manifest": {
@@ -315,7 +318,7 @@
       },
       "hasDynamicHelp": false,
       "hiddenAliases": [],
-      "id": "slice",
+      "id": "data:slice",
       "pluginAlias": "@mateicanavra/civ7-cli",
       "pluginName": "@mateicanavra/civ7-cli",
       "pluginType": "core",
@@ -326,10 +329,11 @@
       "relativePath": [
         "dist",
         "commands",
+        "data",
         "slice.js"
       ]
     },
-    "unzip": {
+    "data:unzip": {
       "aliases": [],
       "args": {
         "profile": {
@@ -368,7 +372,7 @@
       },
       "hasDynamicHelp": false,
       "hiddenAliases": [],
-      "id": "unzip",
+      "id": "data:unzip",
       "pluginAlias": "@mateicanavra/civ7-cli",
       "pluginName": "@mateicanavra/civ7-cli",
       "pluginType": "core",
@@ -379,10 +383,11 @@
       "relativePath": [
         "dist",
         "commands",
+        "data",
         "unzip.js"
       ]
     },
-    "zip": {
+    "data:zip": {
       "aliases": [],
       "args": {
         "profile": {
@@ -433,7 +438,7 @@
       },
       "hasDynamicHelp": false,
       "hiddenAliases": [],
-      "id": "zip",
+      "id": "data:zip",
       "pluginAlias": "@mateicanavra/civ7-cli",
       "pluginName": "@mateicanavra/civ7-cli",
       "pluginType": "core",
@@ -444,6 +449,7 @@
       "relativePath": [
         "dist",
         "commands",
+        "data",
         "zip.js"
       ]
     },
@@ -522,549 +528,6 @@
         "commands",
         "docs",
         "serve.js"
-      ]
-    },
-    "git:config": {
-      "aliases": [],
-      "args": {
-        "slug": {
-          "description": "Subtree slug",
-          "name": "slug",
-          "required": true
-        }
-      },
-      "description": "Add or update the git remote for a subtree.",
-      "flags": {
-        "json": {
-          "description": "Output machine-readable JSON",
-          "name": "json",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "remoteName": {
-          "char": "R",
-          "description": "Git remote name (defaults from config or slug)",
-          "name": "remoteName",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "branch": {
-          "char": "b",
-          "description": "Branch to track",
-          "name": "branch",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "squash": {
-          "char": "S",
-          "description": "Squash history when importing/pulling",
-          "name": "squash",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "yes": {
-          "char": "y",
-          "description": "Assume yes to safety prompts",
-          "name": "yes",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "autoUnshallow": {
-          "char": "U",
-          "description": "Automatically unshallow the repo if needed",
-          "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "git:config",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "strict": true,
-      "summary": "Configure the remote for a git subtree",
-      "enableJsonFlag": false,
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "git",
-        "config.js"
-      ]
-    },
-    "git:import": {
-      "aliases": [],
-      "args": {
-        "slug": {
-          "description": "Subtree slug",
-          "name": "slug",
-          "required": true
-        }
-      },
-      "description": "Preserve history by importing a remote repository under a prefix.",
-      "flags": {
-        "json": {
-          "description": "Output machine-readable JSON",
-          "name": "json",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "remoteName": {
-          "char": "R",
-          "description": "Git remote name (defaults from config or slug)",
-          "name": "remoteName",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "branch": {
-          "char": "b",
-          "description": "Branch to track",
-          "name": "branch",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "squash": {
-          "char": "S",
-          "description": "Squash history when importing/pulling",
-          "name": "squash",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "yes": {
-          "char": "y",
-          "description": "Assume yes to safety prompts",
-          "name": "yes",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "autoUnshallow": {
-          "char": "U",
-          "description": "Automatically unshallow the repo if needed",
-          "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "git:import",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "strict": true,
-      "summary": "Import a remote repository into a local subtree",
-      "enableJsonFlag": false,
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "git",
-        "import.js"
-      ]
-    },
-    "git:pull": {
-      "aliases": [],
-      "args": {
-        "slug": {
-          "description": "Subtree slug",
-          "name": "slug",
-          "required": true
-        }
-      },
-      "description": "Fetch and merge updates from the remote repository into the local subtree.",
-      "flags": {
-        "json": {
-          "description": "Output machine-readable JSON",
-          "name": "json",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "remoteName": {
-          "char": "R",
-          "description": "Git remote name (defaults from config or slug)",
-          "name": "remoteName",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "branch": {
-          "char": "b",
-          "description": "Branch to track",
-          "name": "branch",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "squash": {
-          "char": "S",
-          "description": "Squash history when importing/pulling",
-          "name": "squash",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "yes": {
-          "char": "y",
-          "description": "Assume yes to safety prompts",
-          "name": "yes",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "autoUnshallow": {
-          "char": "U",
-          "description": "Automatically unshallow the repo if needed",
-          "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "git:pull",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "strict": true,
-      "summary": "Pull remote changes into a subtree",
-      "enableJsonFlag": false,
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "git",
-        "pull.js"
-      ]
-    },
-    "git:push": {
-      "aliases": [],
-      "args": {
-        "slug": {
-          "description": "Subtree slug",
-          "name": "slug",
-          "required": true
-        }
-      },
-      "description": "Push local subtree changes back to the remote repository.",
-      "flags": {
-        "json": {
-          "description": "Output machine-readable JSON",
-          "name": "json",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "remoteName": {
-          "char": "R",
-          "description": "Git remote name (defaults from config or slug)",
-          "name": "remoteName",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "branch": {
-          "char": "b",
-          "description": "Branch to track",
-          "name": "branch",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "squash": {
-          "char": "S",
-          "description": "Squash history when importing/pulling",
-          "name": "squash",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "yes": {
-          "char": "y",
-          "description": "Assume yes to safety prompts",
-          "name": "yes",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "autoUnshallow": {
-          "char": "U",
-          "description": "Automatically unshallow the repo if needed",
-          "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "autoFastForwardTrunk": {
-          "char": "f",
-          "description": "After push, attempt to fast-forward the remote trunk branch",
-          "name": "autoFastForwardTrunk",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "trunk": {
-          "char": "t",
-          "description": "Override trunk branch name",
-          "name": "trunk",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "git:push",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "strict": true,
-      "summary": "Push a subtree to its configured remote",
-      "enableJsonFlag": false,
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "git",
-        "push.js"
-      ]
-    },
-    "git:setup": {
-      "aliases": [],
-      "args": {
-        "slug": {
-          "description": "Subtree slug",
-          "name": "slug",
-          "required": true
-        }
-      },
-      "description": "Adds the remote and imports the repository under a prefix.",
-      "flags": {
-        "json": {
-          "description": "Output machine-readable JSON",
-          "name": "json",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "remoteName": {
-          "char": "R",
-          "description": "Git remote name (defaults from config or slug)",
-          "name": "remoteName",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "branch": {
-          "char": "b",
-          "description": "Branch to track",
-          "name": "branch",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "squash": {
-          "char": "S",
-          "description": "Squash history when importing/pulling",
-          "name": "squash",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "yes": {
-          "char": "y",
-          "description": "Assume yes to safety prompts",
-          "name": "yes",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "autoUnshallow": {
-          "char": "U",
-          "description": "Automatically unshallow the repo if needed",
-          "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "overwrite": {
-          "description": "Overwrite existing subtree directory if non-empty",
-          "name": "overwrite",
-          "allowNo": false,
-          "type": "boolean"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "git:setup",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "strict": true,
-      "summary": "Configure and import a repository into a subtree",
-      "enableJsonFlag": false,
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "git",
-        "setup.js"
-      ]
-    },
-    "git:status": {
-      "aliases": [],
-      "args": {
-        "slug": {
-          "description": "Subtree slug",
-          "name": "slug",
-          "required": false
-        }
-      },
-      "description": "Displays push configuration for the subtree's remote.",
-      "flags": {
-        "json": {
-          "description": "Output machine-readable JSON",
-          "name": "json",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "remoteName": {
-          "char": "R",
-          "description": "Git remote name (defaults from config or slug)",
-          "name": "remoteName",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "branch": {
-          "char": "b",
-          "description": "Branch to track",
-          "name": "branch",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "squash": {
-          "char": "S",
-          "description": "Squash history when importing/pulling",
-          "name": "squash",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "yes": {
-          "char": "y",
-          "description": "Assume yes to safety prompts",
-          "name": "yes",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "autoUnshallow": {
-          "char": "U",
-          "description": "Automatically unshallow the repo if needed",
-          "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "git:status",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "strict": true,
-      "summary": "Show git subtree status",
-      "enableJsonFlag": false,
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "git",
-        "status.js"
       ]
     },
     "mod:config": {
@@ -1782,6 +1245,549 @@
         "dist",
         "commands",
         "mod",
+        "status.js"
+      ]
+    },
+    "git:config": {
+      "aliases": [],
+      "args": {
+        "slug": {
+          "description": "Subtree slug",
+          "name": "slug",
+          "required": true
+        }
+      },
+      "description": "Add or update the git remote for a subtree.",
+      "flags": {
+        "json": {
+          "description": "Output machine-readable JSON",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "remoteName": {
+          "char": "R",
+          "description": "Git remote name (defaults from config or slug)",
+          "name": "remoteName",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "remoteUrl": {
+          "char": "u",
+          "description": "Git remote URL",
+          "name": "remoteUrl",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "branch": {
+          "char": "b",
+          "description": "Branch to track",
+          "name": "branch",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "squash": {
+          "char": "S",
+          "description": "Squash history when importing/pulling",
+          "name": "squash",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "yes": {
+          "char": "y",
+          "description": "Assume yes to safety prompts",
+          "name": "yes",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "autoUnshallow": {
+          "char": "U",
+          "description": "Automatically unshallow the repo if needed",
+          "name": "autoUnshallow",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "git:config",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Configure the remote for a git subtree",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "git",
+        "config.js"
+      ]
+    },
+    "git:import": {
+      "aliases": [],
+      "args": {
+        "slug": {
+          "description": "Subtree slug",
+          "name": "slug",
+          "required": true
+        }
+      },
+      "description": "Preserve history by importing a remote repository under a prefix.",
+      "flags": {
+        "json": {
+          "description": "Output machine-readable JSON",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "remoteName": {
+          "char": "R",
+          "description": "Git remote name (defaults from config or slug)",
+          "name": "remoteName",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "remoteUrl": {
+          "char": "u",
+          "description": "Git remote URL",
+          "name": "remoteUrl",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "branch": {
+          "char": "b",
+          "description": "Branch to track",
+          "name": "branch",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "squash": {
+          "char": "S",
+          "description": "Squash history when importing/pulling",
+          "name": "squash",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "yes": {
+          "char": "y",
+          "description": "Assume yes to safety prompts",
+          "name": "yes",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "autoUnshallow": {
+          "char": "U",
+          "description": "Automatically unshallow the repo if needed",
+          "name": "autoUnshallow",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "git:import",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Import a remote repository into a local subtree",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "git",
+        "import.js"
+      ]
+    },
+    "git:pull": {
+      "aliases": [],
+      "args": {
+        "slug": {
+          "description": "Subtree slug",
+          "name": "slug",
+          "required": true
+        }
+      },
+      "description": "Fetch and merge updates from the remote repository into the local subtree.",
+      "flags": {
+        "json": {
+          "description": "Output machine-readable JSON",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "remoteName": {
+          "char": "R",
+          "description": "Git remote name (defaults from config or slug)",
+          "name": "remoteName",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "remoteUrl": {
+          "char": "u",
+          "description": "Git remote URL",
+          "name": "remoteUrl",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "branch": {
+          "char": "b",
+          "description": "Branch to track",
+          "name": "branch",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "squash": {
+          "char": "S",
+          "description": "Squash history when importing/pulling",
+          "name": "squash",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "yes": {
+          "char": "y",
+          "description": "Assume yes to safety prompts",
+          "name": "yes",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "autoUnshallow": {
+          "char": "U",
+          "description": "Automatically unshallow the repo if needed",
+          "name": "autoUnshallow",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "git:pull",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Pull remote changes into a subtree",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "git",
+        "pull.js"
+      ]
+    },
+    "git:push": {
+      "aliases": [],
+      "args": {
+        "slug": {
+          "description": "Subtree slug",
+          "name": "slug",
+          "required": true
+        }
+      },
+      "description": "Push local subtree changes back to the remote repository.",
+      "flags": {
+        "json": {
+          "description": "Output machine-readable JSON",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "remoteName": {
+          "char": "R",
+          "description": "Git remote name (defaults from config or slug)",
+          "name": "remoteName",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "remoteUrl": {
+          "char": "u",
+          "description": "Git remote URL",
+          "name": "remoteUrl",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "branch": {
+          "char": "b",
+          "description": "Branch to track",
+          "name": "branch",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "squash": {
+          "char": "S",
+          "description": "Squash history when importing/pulling",
+          "name": "squash",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "yes": {
+          "char": "y",
+          "description": "Assume yes to safety prompts",
+          "name": "yes",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "autoUnshallow": {
+          "char": "U",
+          "description": "Automatically unshallow the repo if needed",
+          "name": "autoUnshallow",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "autoFastForwardTrunk": {
+          "char": "f",
+          "description": "After push, attempt to fast-forward the remote trunk branch",
+          "name": "autoFastForwardTrunk",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "trunk": {
+          "char": "t",
+          "description": "Override trunk branch name",
+          "name": "trunk",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "git:push",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Push a subtree to its configured remote",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "git",
+        "push.js"
+      ]
+    },
+    "git:setup": {
+      "aliases": [],
+      "args": {
+        "slug": {
+          "description": "Subtree slug",
+          "name": "slug",
+          "required": true
+        }
+      },
+      "description": "Adds the remote and imports the repository under a prefix.",
+      "flags": {
+        "json": {
+          "description": "Output machine-readable JSON",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "remoteName": {
+          "char": "R",
+          "description": "Git remote name (defaults from config or slug)",
+          "name": "remoteName",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "remoteUrl": {
+          "char": "u",
+          "description": "Git remote URL",
+          "name": "remoteUrl",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "branch": {
+          "char": "b",
+          "description": "Branch to track",
+          "name": "branch",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "squash": {
+          "char": "S",
+          "description": "Squash history when importing/pulling",
+          "name": "squash",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "yes": {
+          "char": "y",
+          "description": "Assume yes to safety prompts",
+          "name": "yes",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "autoUnshallow": {
+          "char": "U",
+          "description": "Automatically unshallow the repo if needed",
+          "name": "autoUnshallow",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "overwrite": {
+          "description": "Overwrite existing subtree directory if non-empty",
+          "name": "overwrite",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "git:setup",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Configure and import a repository into a subtree",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "git",
+        "setup.js"
+      ]
+    },
+    "git:status": {
+      "aliases": [],
+      "args": {
+        "slug": {
+          "description": "Subtree slug",
+          "name": "slug",
+          "required": false
+        }
+      },
+      "description": "Displays push configuration for the subtree's remote.",
+      "flags": {
+        "json": {
+          "description": "Output machine-readable JSON",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "remoteName": {
+          "char": "R",
+          "description": "Git remote name (defaults from config or slug)",
+          "name": "remoteName",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "remoteUrl": {
+          "char": "u",
+          "description": "Git remote URL",
+          "name": "remoteUrl",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "branch": {
+          "char": "b",
+          "description": "Branch to track",
+          "name": "branch",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "squash": {
+          "char": "S",
+          "description": "Squash history when importing/pulling",
+          "name": "squash",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "yes": {
+          "char": "y",
+          "description": "Assume yes to safety prompts",
+          "name": "yes",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "autoUnshallow": {
+          "char": "U",
+          "description": "Automatically unshallow the repo if needed",
+          "name": "autoUnshallow",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "git:status",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Show git subtree status",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "git",
         "status.js"
       ]
     }
