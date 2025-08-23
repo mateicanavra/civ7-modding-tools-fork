@@ -4,6 +4,7 @@ import { resolveBranch, resolveRemoteName } from '../utils/git.js';
 
 export default abstract class SubtreeCommand extends BaseCommand {
   static baseFlags = {
+    ...BaseCommand.baseFlags,
     remoteName: Flags.string({
       description: 'Git remote name (defaults from config or slug)',
       char: 'R',

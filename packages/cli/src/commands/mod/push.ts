@@ -4,8 +4,6 @@ import PushBase from '../../subtree/PushBase.js';
 export default class ModPush extends PushBase {
   static summary = 'Push mods/<slug> to its configured remote';
   static description = 'Push local mod subtree changes back to the mirror repository.';
-
-  static flags = { ...PushBase.flags } as typeof PushBase.flags;
   static args = { slug: Args.string({ description: 'Mod slug', required: true }) } as const;
 
   protected domain = 'mod';

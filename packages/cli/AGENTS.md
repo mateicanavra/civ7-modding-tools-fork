@@ -98,7 +98,7 @@ Tip: All commands support `--help` via oclif.
 ### Code structure (key paths)
 
  - `src/base/` & `src/subtree/` — abstract oclif commands for git subtree flows (configure, import, push, pull, setup). Domain commands extend these to supply prefixes and defaults.
- - `src/commands/` — oclif commands (`crawl`, `explore`, `render`, `slice`, `zip`, `unzip`, plus domain git commands under `mod/`)
+ - `src/commands/` — oclif commands (`crawl`, `explore`, `render`, `slice`, `zip`, `unzip`, generic git subtree commands under `git/`, plus domain commands under `mod/`; `mod link` aliases `mod setup` for backward compatibility)
  - `src/utils/` — config/path resolution helpers; generic git helpers (configureRemote, importSubtree, pushSubtree, pullSubtree, logRemotePushConfig, inferRemoteNameFromUrl, resolveRemoteName/requireRemoteName, resolveBranch/requireBranch, isNonEmptyDir) live in `utils/git.ts` and centralize logging, argument defaults, and remote/branch inference for git operations
  - Use `@civ7/plugin-graph` for graph workflows (`crawlGraph`, `exploreGraph`); archive helpers are in `@civ7/plugin-files`.
 

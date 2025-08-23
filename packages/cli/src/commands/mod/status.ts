@@ -6,7 +6,6 @@ import { logRemotePushConfig } from '../../utils/git.js';
 export default class ModStatus extends SubtreeCommand {
   static summary = 'Show git subtree status for a mod';
   static description = 'Displays repository and remote information for mods/<slug>.';
-  static flags = { ...SubtreeCommand.baseFlags } as typeof SubtreeCommand.baseFlags;
   static args = { slug: Args.string({ description: 'Mod slug', required: true }) } as const;
 
   protected domain = 'mod';
