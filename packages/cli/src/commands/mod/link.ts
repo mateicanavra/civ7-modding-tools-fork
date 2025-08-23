@@ -7,7 +7,6 @@ import {
   link as linkPlugin,
   listRegisteredSlugs,
 } from "@civ7/plugin-mods";
-import { getRemotePushConfig } from "@civ7/plugin-git";
 import {
   configureRemote,
   importSubtree,
@@ -16,6 +15,7 @@ import {
   resolveRemoteName,
   requireRemoteName,
   requireBranch,
+  logRemotePushConfig,
 } from "../../utils";
 
 
@@ -207,18 +207,6 @@ Use --yes to skip safety prompts (non-interactive environments).
           verbose,
           logger: this,
         });
-        try {
-          const cfg = await getRemotePushConfig(rName, { verbose });
-          this.log("Push config:");
-          this.log(`  trunk: ${cfg.trunk ?? "(auto)"}`);
-          this.log(`  autoFastForwardTrunk: ${cfg.autoFastForwardTrunk ?? false}`);
-          this.log(`  createPrOnFfBlock: ${cfg.createPrOnFfBlock ?? false}`);
-          if (cfg.prTitle) this.log(`  prTitle: ${cfg.prTitle}`);
-          if (cfg.prBody) this.log(`  prBody: ${cfg.prBody}`);
-          this.log(`  prDraft: ${cfg.prDraft ?? false}`);
-          this.log(`  prAutoMerge: ${cfg.prAutoMerge ?? true}`);
-          this.log(`  prMergeStrategy: ${cfg.prMergeStrategy ?? 'rebase'}`);
-        } catch {}
         return;
       }
 
@@ -441,16 +429,7 @@ Use --yes to skip safety prompts (non-interactive environments).
           verbose,
           logger: this,
         })) ?? "";
-      const cfg = await getRemotePushConfig(effectiveRemoteName, { verbose });
-      this.log("Push config:");
-      this.log(`  trunk: ${cfg.trunk ?? "(auto)"}`);
-      this.log(`  autoFastForwardTrunk: ${cfg.autoFastForwardTrunk ?? false}`);
-      this.log(`  createPrOnFfBlock: ${cfg.createPrOnFfBlock ?? false}`);
-      this.log(`  prDraft: ${cfg.prDraft ?? false}`);
-      this.log(`  prAutoMerge: ${cfg.prAutoMerge ?? true}`);
-      this.log(`  prMergeStrategy: ${cfg.prMergeStrategy ?? 'rebase'}`);
-      if (cfg.prTitle) this.log(`  prTitle: ${cfg.prTitle}`);
-      if (cfg.prBody) this.log(`  prBody: ${cfg.prBody}`);
+      await logRemotePushConfig(effectiveRemoteName, { logger: this, verbose });
     } catch {}
   }
 }

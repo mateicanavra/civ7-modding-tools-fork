@@ -6,6 +6,7 @@ import {
   subtreePullWithFetch,
   parseGithubRepoSlugFromUrl,
   getLocalConfig,
+  getRemotePushConfig,
   type RemotePushConfig,
 } from '@civ7/plugin-git';
 
@@ -118,6 +119,31 @@ export interface ConfigureRemoteOptions {
   logger?: Logger;
 }
 
+export interface LogRemotePushConfigOptions {
+  verbose?: boolean;
+  logger?: Logger;
+}
+
+export async function logRemotePushConfig(
+  remoteName: string,
+  opts: LogRemotePushConfigOptions = {},
+): Promise<void> {
+  const { verbose = false, logger } = opts;
+  const log = getLogger(logger).log;
+  try {
+    const cfg = await getRemotePushConfig(remoteName, { verbose });
+    log('Push config:');
+    log(`  trunk: ${cfg.trunk ?? '(auto)'}`);
+    log(`  autoFastForwardTrunk: ${cfg.autoFastForwardTrunk ?? false}`);
+    log(`  createPrOnFfBlock: ${cfg.createPrOnFfBlock ?? false}`);
+    if (cfg.prTitle) log(`  prTitle: ${cfg.prTitle}`);
+    if (cfg.prBody) log(`  prBody: ${cfg.prBody}`);
+    log(`  prDraft: ${cfg.prDraft ?? false}`);
+    log(`  prAutoMerge: ${cfg.prAutoMerge ?? true}`);
+    log(`  prMergeStrategy: ${cfg.prMergeStrategy ?? 'rebase'}`);
+  } catch {}
+}
+
 export async function configureRemote(opts: ConfigureRemoteOptions): Promise<'added' | 'updated' | 'unchanged' | 'skipped'> {
   const { remoteName, remoteUrl, branch, verbose = false, logger } = opts;
   const log = getLogger(logger).log;
@@ -126,6 +152,7 @@ export async function configureRemote(opts: ConfigureRemoteOptions): Promise<'ad
   const badge = res === 'added' ? 'added' : res === 'updated' ? 'updated' : res === 'unchanged' ? 'unchanged' : 'skipped';
   log(`Remote "${remoteName}" ${badge}: ${remoteUrl}`);
   log(`Fetched tags from "${remoteName}". Tracking branch: ${branch}`);
+  await logRemotePushConfig(remoteName, { logger, verbose });
   return res;
 }
 

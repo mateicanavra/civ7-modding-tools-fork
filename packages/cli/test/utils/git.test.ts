@@ -13,6 +13,7 @@ vi.mock('@civ7/plugin-git', () => ({
   subtreePushWithFetch: vi.fn().mockResolvedValue(undefined),
   subtreePullWithFetch: vi.fn().mockResolvedValue(undefined),
   getLocalConfig: vi.fn(),
+  getRemotePushConfig: vi.fn().mockResolvedValue({}),
 }));
 
 import {
@@ -25,6 +26,7 @@ import {
   requireRemoteName,
   resolveBranch,
   requireBranch,
+  configureRemote,
 } from '../../src/utils/git';
 import {
   configureRemoteAndFetch,
@@ -32,6 +34,7 @@ import {
   subtreePushWithFetch,
   subtreePullWithFetch,
   getLocalConfig,
+  getRemotePushConfig,
 } from '@civ7/plugin-git';
 
 describe('git utilities', () => {
@@ -131,6 +134,7 @@ describe('git utilities', () => {
     const logger = { log: vi.fn() };
     beforeEach(() => {
       vi.resetAllMocks();
+      logger.log.mockReset();
     });
 
     it('resolveRemoteName reads from config', async () => {
@@ -163,6 +167,32 @@ describe('git utilities', () => {
       await expect(
         requireBranch({ domain: 'mod', slug: 'slug', logger, verbose: true }),
       ).rejects.toThrow(/No branch specified/);
+    });
+
+    it('configureRemote logs push config', async () => {
+      vi.mocked(getRemotePushConfig).mockResolvedValueOnce({
+        trunk: undefined,
+        autoFastForwardTrunk: false,
+        createPrOnFfBlock: false,
+        prDraft: false,
+        prAutoMerge: true,
+        prMergeStrategy: 'rebase',
+      });
+      await configureRemote({
+        remoteName: 'origin',
+        remoteUrl: 'git@github.com:me/repo.git',
+        branch: 'main',
+        logger,
+      });
+      expect(configureRemoteAndFetch).toHaveBeenCalledWith(
+        'origin',
+        'git@github.com:me/repo.git',
+        { tags: true },
+        { verbose: false },
+      );
+      expect(getRemotePushConfig).toHaveBeenCalledWith('origin', { verbose: false });
+      expect(logger.log).toHaveBeenCalledWith('Push config:');
+      expect(logger.log).toHaveBeenCalledWith('  trunk: (auto)');
     });
   });
 });
