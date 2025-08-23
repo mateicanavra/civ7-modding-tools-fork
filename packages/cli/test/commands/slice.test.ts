@@ -15,7 +15,7 @@ vi.mock('node:fs', () => ({
   },
 }));
 
-import Slice from '../../src/commands/slice';
+import Slice from '../../src/commands/data/slice';
 import * as fs from 'node:fs';
 const copyFile = (fs.promises as any).copyFile as any;
 

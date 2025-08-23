@@ -1,6 +1,6 @@
 import { Args } from '@oclif/core';
 import SubtreeCommand from '../base/SubtreeCommand.js';
-import { logRemotePushConfig } from '../utils/git.js';
+import { getRemotePushConfig, logRemotePushConfig } from '../utils/git.js';
 
 export default abstract class StatusBase extends SubtreeCommand {
   static flags = {
@@ -19,6 +19,14 @@ export default abstract class StatusBase extends SubtreeCommand {
     });
     const slug = args.slug as string | undefined;
     const remoteName = await this.resolveRemoteName({ slug, flags });
+    if (flags.json) {
+      const config = remoteName
+        ? await getRemotePushConfig(remoteName, { verbose: flags.verbose })
+        : undefined;
+      this.logJson({ remoteName, config });
+      return;
+    }
+
     if (remoteName) {
       await logRemotePushConfig(remoteName, { logger: this, verbose: flags.verbose });
     }

@@ -23,37 +23,38 @@ This document orients AI agents and contributors to the `@civ7-modding/cli` pack
 
 ### Commands (high level)
 
-- **crawl**: Crawl Civ XML resources and output graph + manifest.
+- **data crawl**: Crawl Civ XML resources and output graph + manifest.
   - Args: `seed` (required), `outDir` (optional)
   - Flags: `--config`, `--profile`, `--root`
-  - Example: `civ7 crawl LEADER_AMANITORE`
+  - Example: `civ7 data crawl LEADER_AMANITORE`
 
-- **explore**: One‑shot pipeline: crawl → render → open viewer.
+- **data explore**: One‑shot pipeline: crawl → render → open viewer.
   - Args: `seed` (required), `outDir` (optional)
   - Flags: `--config`, `--profile`, `--root`, `--engine`, `--open`, `--openOnline`, `--viz.html`/`--vizHtml`, `--serve`, `--port`, `--maxUrlLength`
-  - Example: `civ7 explore CIVILIZATION_ROME --serve`
+  - Example: `civ7 data explore CIVILIZATION_ROME --serve`
 
-- **render**: Render a DOT file to SVG (no external Graphviz needed).
+- **data render**: Render a DOT file to SVG (no external Graphviz needed).
   - Args: `input` (DOT path or a seed), `output` (optional)
   - Flags: `--engine`, `--format=svg`, `--config`, `--profile`
-  - Example: `civ7 render ./out/rome/graph.dot ./out/rome/graph.svg`
+  - Example: `civ7 data render ./out/rome/graph.dot ./out/rome/graph.svg`
 
-- **slice**: Copy files listed in a `manifest.txt` into a destination folder, preserving paths.
+- **data slice**: Copy files listed in a `manifest.txt` into a destination folder, preserving paths.
   - Args: `manifest`
   - Flags: `--config`, `--profile`, `--root`, `--dest`
-  - Example: `civ7 slice ./out/rome/manifest.txt --dest ./out/rome-slice`
+  - Example: `civ7 data slice ./out/rome/manifest.txt --dest ./out/rome-slice`
 
-- **zip**: Create a zip archive of game resources based on a profile.
+- **data zip**: Create a zip archive of game resources based on a profile.
   - Args: `profile` (default `default`), `zipfile` (optional)
   - Flags: `--config`, `-v/--verbose`
-  - Example: `civ7 zip default ./resources.zip`
+  - Example: `civ7 data zip default ./resources.zip`
 
-- **unzip**: Extract a resource archive based on a profile.
+- **data unzip**: Extract a resource archive based on a profile.
   - Args: `profile` (default `default`), `zipfile` (optional), `extractpath` (optional)
   - Flags: `--config`
-  - Example: `civ7 unzip default ./resources.zip ./resources`
+  - Example: `civ7 data unzip default ./resources.zip ./resources`
 
 Tip: All commands support `--help` via oclif.
+Status-style commands (e.g., `git status`, `mod status`) also accept `--json` for machine-readable output.
 
 ### Outputs
 
@@ -93,12 +94,12 @@ Tip: All commands support `--help` via oclif.
 - Local linking (optional): `pnpm --filter @civ7-modding/cli run publish:local` to expose the `civ7` binary.
 - Dev run:
   - Via bin: `node packages/cli/bin/run.js <command>`
-  - Via scripts: `pnpm --filter @civ7-modding/cli run crawl -- --help`
+  - Via scripts: `pnpm --filter @civ7-modding/cli run data:crawl -- --help`
 
 ### Code structure (key paths)
 
  - `src/base/` & `src/subtree/` — abstract oclif commands for git subtree flows (configure, import, push, pull, setup). Domain commands extend these to supply prefixes and defaults.
- - `src/commands/` — oclif commands (`crawl`, `explore`, `render`, `slice`, `zip`, `unzip`, generic git subtree commands under `git/`, plus domain commands under `mod/`; `mod link` aliases `mod setup` for backward compatibility)
+ - `src/commands/` — oclif commands grouped by topic: `data/` (crawl, explore, render, slice, zip, unzip), `docs/`, `git/`, and `mod/` (with `mod link` aliasing `mod setup` for backward compatibility)
  - `src/utils/` — config/path resolution helpers; generic git helpers (configureRemote, importSubtree, pushSubtree, pullSubtree, logRemotePushConfig, inferRemoteNameFromUrl, resolveRemoteName/requireRemoteName, resolveBranch/requireBranch, isNonEmptyDir) live in `utils/git.ts` and centralize logging, argument defaults, and remote/branch inference for git operations
  - Use `@civ7/plugin-graph` for graph workflows (`crawlGraph`, `exploreGraph`); archive helpers are in `@civ7/plugin-files`.
 

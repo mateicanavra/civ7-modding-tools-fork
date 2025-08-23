@@ -10,6 +10,8 @@ import {
   type RemotePushConfig,
 } from '@civ7/plugin-git';
 
+export { getRemotePushConfig, type RemotePushConfig } from '@civ7/plugin-git';
+
 /**
  * Returns true if the directory exists and contains entries.
  * Non-directory paths are treated as non-empty.
