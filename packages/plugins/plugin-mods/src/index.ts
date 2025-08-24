@@ -191,7 +191,7 @@ export function deployMod(options: DeployOptions): DeployResult {
  */
 export interface ImportModOptions {
   slug: string;
-  remoteName: string;
+  remoteName?: string;
   remoteUrl?: string;
   branch?: string;
   squash?: boolean;
@@ -219,13 +219,19 @@ export async function importModFromRemote(opts: ImportModOptions): Promise<void>
 
   const prefix = path.posix.join("mods", slug);
 
+  const rName =
+    remoteName ??
+    (await getLinkedRemoteName(slug, { verbose })) ??
+    (remoteUrl ? inferSlugFromRemoteUrl(remoteUrl) : `mod-${slug}`);
+
   // Ensure/configure remote and fetch
-  await configureRemoteAndFetch(remoteName, remoteUrl, { tags: true }, { verbose });
+  await configureRemoteAndFetch(rName, remoteUrl, { tags: true }, { verbose });
   // Initialize remote-level push defaults (idempotent)
-  await initRemotePushConfig(remoteName, { verbose });
+  await initRemotePushConfig(rName, { verbose });
 
   // Let git plugin handle subtree readiness, allowDirty, unshallow, and add
-  await subtreeAddFromRemote(prefix, remoteName, branch, { squash, autoUnshallow, allowDirty }, { verbose });
+  await subtreeAddFromRemote(prefix, rName, branch, { squash, autoUnshallow, allowDirty }, { verbose });
+  await setLinkedRemoteName(slug, rName, { verbose });
 }
 
 /**
@@ -233,7 +239,7 @@ export async function importModFromRemote(opts: ImportModOptions): Promise<void>
  */
 export interface PushModOptions {
   slug: string;
-  remoteName: string;
+  remoteName?: string;
   branch?: string;
   verbose?: boolean;
   allowDirty?: boolean;
@@ -255,10 +261,11 @@ export async function pushModToRemote(opts: PushModOptions): Promise<void> {
     throw new Error(`Subtree directory "${prefix}" does not exist.`);
   }
 
+  const rName = remoteName ?? (await getLinkedRemoteName(slug, { verbose })) ?? `mod-${slug}`;
   const effectiveBranch = branch ?? (await getLinkedBranch(slug, { verbose }));
   if (!effectiveBranch) {
-    const branches = await listRemoteBranches(remoteName, { verbose });
-    const hint = branches.length ? `Available remote branches for ${remoteName}:\n- ${branches.join("\n- ")}` : `No heads found on remote ${remoteName}.`;
+    const branches = await listRemoteBranches(rName, { verbose });
+    const hint = branches.length ? `Available remote branches for ${rName}:\n- ${branches.join("\n- ")}` : `No heads found on remote ${rName}.`;
     throw new Error(
       `No branch specified and none configured for slug "${slug}". Re-run with --branch <name> or set a default via setup.\n\n${hint}`
     );
@@ -267,7 +274,7 @@ export async function pushModToRemote(opts: PushModOptions): Promise<void> {
   const trunkOverride = trunk ?? (await getLinkedTrunk(slug, { verbose })) ?? undefined;
   await subtreePushWithFetch(
     prefix,
-    remoteName,
+    rName,
     effectiveBranch,
     {
       autoUnshallow,
@@ -288,7 +295,7 @@ export async function pushModToRemote(opts: PushModOptions): Promise<void> {
  */
 export interface PullModOptions {
   slug: string;
-  remoteName: string;
+  remoteName?: string;
   branch?: string;
   squash?: boolean;
   verbose?: boolean;
@@ -305,16 +312,17 @@ export async function pullModFromRemote(opts: PullModOptions): Promise<void> {
     throw new Error(`Subtree directory "${prefix}" does not exist.`);
   }
 
+  const rName = remoteName ?? (await getLinkedRemoteName(slug, { verbose })) ?? `mod-${slug}`;
   const effectiveBranch = branch ?? (await getLinkedBranch(slug, { verbose }));
   if (!effectiveBranch) {
-    const branches = await listRemoteBranches(remoteName, { verbose });
-    const hint = branches.length ? `Available remote branches for ${remoteName}:\n- ${branches.join("\n- ")}` : `No heads found on remote ${remoteName}.`;
+    const branches = await listRemoteBranches(rName, { verbose });
+    const hint = branches.length ? `Available remote branches for ${rName}:\n- ${branches.join("\n- ")}` : `No heads found on remote ${rName}.`;
     throw new Error(
       `No branch specified and none configured for slug "${slug}". Re-run with --branch <name> or set a default via setup.\n\n${hint}`
     );
   }
 
-  await subtreePullWithFetch(prefix, remoteName, effectiveBranch, { squash, autoUnshallow, allowDirty }, { verbose });
+  await subtreePullWithFetch(prefix, rName, effectiveBranch, { squash, autoUnshallow, allowDirty }, { verbose });
 }
 
 /**

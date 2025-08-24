@@ -548,8 +548,8 @@
           "type": "boolean"
         },
         "remoteName": {
-          "char": "R",
-          "description": "Git remote name (defaults from config or slug)",
+          "description": "Git remote name (advanced override)",
+          "hidden": true,
           "name": "remoteName",
           "hasDynamicHelp": false,
           "multiple": false,
@@ -615,8 +615,8 @@
           "type": "boolean"
         },
         "remoteName": {
-          "char": "R",
-          "description": "Git remote name (defaults from config or slug)",
+          "description": "Git remote name (advanced override)",
+          "hidden": true,
           "name": "remoteName",
           "hasDynamicHelp": false,
           "multiple": false,
@@ -703,8 +703,8 @@
           "type": "boolean"
         },
         "remoteName": {
-          "char": "R",
-          "description": "Git remote name (defaults from config or slug)",
+          "description": "Git remote name (advanced override)",
+          "hidden": true,
           "name": "remoteName",
           "hasDynamicHelp": false,
           "multiple": false,
@@ -782,8 +782,8 @@
           "type": "boolean"
         },
         "remoteName": {
-          "char": "R",
-          "description": "Git remote name (defaults from config or slug)",
+          "description": "Git remote name (advanced override)",
+          "hidden": true,
           "name": "remoteName",
           "hasDynamicHelp": false,
           "multiple": false,
@@ -869,8 +869,8 @@
           "type": "boolean"
         },
         "remoteName": {
-          "char": "R",
-          "description": "Git remote name (defaults from config or slug)",
+          "description": "Git remote name (advanced override)",
+          "hidden": true,
           "name": "remoteName",
           "hasDynamicHelp": false,
           "multiple": false,
@@ -963,8 +963,8 @@
           "type": "boolean"
         },
         "remoteName": {
-          "char": "R",
-          "description": "Git remote name (defaults from config or slug)",
+          "description": "Git remote name (advanced override)",
+          "hidden": true,
           "name": "remoteName",
           "hasDynamicHelp": false,
           "multiple": false,
@@ -1021,8 +1021,8 @@
           "type": "boolean"
         },
         "remoteName": {
-          "char": "R",
-          "description": "Git remote name (defaults from config or slug)",
+          "description": "Git remote name (advanced override)",
+          "hidden": true,
           "name": "remoteName",
           "hasDynamicHelp": false,
           "multiple": false,
@@ -1140,8 +1140,8 @@
           "type": "boolean"
         },
         "remoteName": {
-          "char": "R",
-          "description": "Git remote name (defaults from config or slug)",
+          "description": "Git remote name (advanced override)",
+          "hidden": true,
           "name": "remoteName",
           "hasDynamicHelp": false,
           "multiple": false,
@@ -1228,8 +1228,8 @@
           "type": "boolean"
         },
         "remoteName": {
-          "char": "R",
-          "description": "Git remote name (defaults from config or slug)",
+          "description": "Git remote name (advanced override)",
+          "hidden": true,
           "name": "remoteName",
           "hasDynamicHelp": false,
           "multiple": false,
@@ -1352,8 +1352,8 @@
           "type": "boolean"
         },
         "remoteName": {
-          "char": "R",
-          "description": "Git remote name (defaults from config or slug)",
+          "description": "Git remote name (advanced override)",
+          "hidden": true,
           "name": "remoteName",
           "hasDynamicHelp": false,
           "multiple": false,
@@ -1431,8 +1431,8 @@
           "type": "boolean"
         },
         "remoteName": {
-          "char": "R",
-          "description": "Git remote name (defaults from config or slug)",
+          "description": "Git remote name (advanced override)",
+          "hidden": true,
           "name": "remoteName",
           "hasDynamicHelp": false,
           "multiple": false,
@@ -1518,8 +1518,8 @@
           "type": "boolean"
         },
         "remoteName": {
-          "char": "R",
-          "description": "Git remote name (defaults from config or slug)",
+          "description": "Git remote name (advanced override)",
+          "hidden": true,
           "name": "remoteName",
           "hasDynamicHelp": false,
           "multiple": false,
@@ -1612,8 +1612,8 @@
           "type": "boolean"
         },
         "remoteName": {
-          "char": "R",
-          "description": "Git remote name (defaults from config or slug)",
+          "description": "Git remote name (advanced override)",
+          "hidden": true,
           "name": "remoteName",
           "hasDynamicHelp": false,
           "multiple": false,

@@ -6,8 +6,8 @@ export default abstract class SubtreeCommand extends BaseCommand {
   static baseFlags = {
     ...BaseCommand.baseFlags,
     remoteName: Flags.string({
-      description: 'Git remote name (defaults from config or slug)',
-      char: 'R',
+      description: 'Git remote name (advanced override)',
+      hidden: true,
     }),
     branch: Flags.string({
       description: 'Branch to track',
