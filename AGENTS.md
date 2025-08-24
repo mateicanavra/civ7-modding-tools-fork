@@ -14,6 +14,8 @@
 - Reusable logic lives under `packages/plugins/*` (e.g., `plugin-files`, `plugin-graph`).
 - `plugin-mapgen` sources are written in TypeScript with legacy JS copies under `js-archive/` for verification.
 - CLI commands should remain thin wrappers around these plugins.
+- Status-style CLI commands now accept `--json` for machine-readable output.
+ - Subtree-based CLI commands expose only relevant flags; missing `slug` or `repoUrl` values are prompted interactively during setup, import, or update. Repo URL, remote name, and default branch are stored during setup and reused by downstream commands.
 
 ### Testing imports
 - Prefer importing from a package's public entry point (e.g., `@civ7/plugin-graph`) in tests rather than deep paths like `../src/*`. This keeps tests resilient to internal refactors (such as folder renames like `pipelines/` → `workflows/`) and validates the surface that external consumers use.
@@ -26,6 +28,7 @@
 - Use `pnpm test` to execute the Vitest suites across all workspaces and ensure basic smoke tests pass.
 - Use `pnpm test:ui` to open the interactive Vitest UI when visualizing test runs.
 - When adding CLI command tests, mock filesystem and configuration interactions to avoid touching real resources.
+- If tests or builds fail with missing workspace packages (e.g. `@civ7/plugin-git` or `lodash-es`), run `pnpm install` to link all workspace dependencies before retrying.
 
 ### Repository and PR policy
 - We now push branches and open pull requests exclusively against the `fork` remote (`mateicanavra/civ7-modding-tools-fork`). Do not target the original `origin` upstream, as it has diverged and no longer receives updates.

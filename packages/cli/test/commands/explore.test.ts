@@ -20,7 +20,7 @@ vi.mock('node:fs', () => ({
   },
 }));
 
-import Explore from '../../src/commands/explore';
+import Explore from '../../src/commands/data/explore';
 import { exploreGraph } from '@civ7/plugin-graph';
 
 describe('explore command', () => {

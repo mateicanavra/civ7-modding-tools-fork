@@ -146,6 +146,33 @@ export async function getRemoteUrl(name: string, opts: GitExecOptions = {}): Pro
   return res.stdout.trim() || null;
 }
 
+/** Find the name of the first remote matching the provided URL, or null if none. */
+export async function findRemoteByUrl(
+  url: string,
+  opts: GitExecOptions = {},
+): Promise<string | null> {
+  const listRes = await execGit(['remote'], { ...opts, allowNonZeroExit: true });
+  if (listRes.code !== 0) return null;
+  const names = listRes.stdout.split('\n').map((s) => s.trim()).filter(Boolean);
+  for (const name of names) {
+    const remoteUrl = await getRemoteUrl(name, opts);
+    if (remoteUrl === url) return name;
+  }
+  return null;
+}
+
+/** Ensure a remote exists for the given URL, adding it with the provided name if missing. */
+export async function ensureRemoteForUrl(
+  url: string,
+  name: string,
+  opts: GitExecOptions = {},
+): Promise<string> {
+  const existing = await findRemoteByUrl(url, opts);
+  if (existing) return existing;
+  await addOrUpdateRemote(name, url, opts);
+  return name;
+}
+
 /**
  * Add a remote if missing or update URL if different.
  * Returns: "added" | "updated" | "unchanged"
@@ -732,6 +759,62 @@ export async function removeConfigSubsection(section: string, subsection: string
   if (res.code !== 0) return; // ignore if not present
 }
 
+export interface SubtreeConfigEntry {
+  slug: string;
+  repoUrl: string | null;
+  branch: string | null;
+}
+
+export async function listSubtreeConfigs(domain: string, opts: GitExecOptions = {}): Promise<SubtreeConfigEntry[]> {
+  const res = await execGit(['config', '--local', '--list'], { ...opts, allowNonZeroExit: true });
+  if (res.code !== 0) return [];
+  const entries = new Map<string, SubtreeConfigEntry>();
+  for (const line of (res.stdout || '').split('\n')) {
+    const [key, valueRaw] = line.split('=', 2);
+    if (!key || !key.startsWith(`civ7.${domain}.`)) continue;
+    const rest = key.substring(`civ7.${domain}.`.length);
+    const parts = rest.split('.');
+    if (parts.length !== 2) continue;
+    const [slug, field] = parts;
+    const value = valueRaw?.trim() ?? null;
+    const entry = entries.get(slug) ?? { slug, repoUrl: null, branch: null };
+    const f = field.toLowerCase();
+    if (f === 'repourl') entry.repoUrl = value;
+    if (f === 'branch') entry.branch = value;
+    entries.set(slug, entry);
+  }
+  return Array.from(entries.values()).sort((a, b) => a.slug.localeCompare(b.slug));
+}
+
+export interface RemoveSubtreeConfigOptions extends GitExecOptions {
+  slug?: string;
+  repoUrl?: string;
+}
+
+export async function removeSubtreeConfig(
+  domain: string,
+  opts: RemoveSubtreeConfigOptions,
+): Promise<string | null> {
+  const { slug, repoUrl, ...gitOpts } = opts;
+  let target = slug;
+  if (!target && repoUrl) {
+    const list = await listSubtreeConfigs(domain, gitOpts);
+    target = list.find((e) => e.repoUrl === repoUrl)?.slug;
+    if (!target) return null;
+  }
+  if (!target) throw new Error('slug or repoUrl required');
+  await removeConfigSubsection('civ7', `${domain}.${target}`, gitOpts);
+  return target;
+}
+
+export async function clearSubtreeConfigs(domain: string, opts: GitExecOptions = {}): Promise<string[]> {
+  const list = await listSubtreeConfigs(domain, opts);
+  for (const entry of list) {
+    await removeConfigSubsection('civ7', `${domain}.${entry.slug}`, opts);
+  }
+  return list.map((e) => e.slug);
+}
+
 /**
  * Helpers for storing remote-level push configuration in git config.
  */
@@ -937,5 +1020,8 @@ export default {
   setLocalConfig,
   getLocalConfig,
   unsetLocalConfig,
+  listSubtreeConfigs,
+  removeSubtreeConfig,
+  clearSubtreeConfigs,
   GitError,
 };

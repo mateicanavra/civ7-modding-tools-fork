@@ -6,11 +6,6 @@ import {
   resolveModsDir as resolveModsDirFs,
 } from "@civ7/plugin-files";
 import {
-  addOrUpdateRemote,
-  fetchRemote,
-  getRemoteUrl,
-  remoteExists,
-  isWorktreeClean,
   getRepoRoot,
   getStatusSnapshot,
   listRemoteBranches,
@@ -23,6 +18,7 @@ import {
   subtreePushWithFetch,
   subtreePullWithFetch,
   execGit,
+  findRemoteByUrl,
 } from "@civ7/plugin-git";
 
 // Persistent link configuration (stored in local git config)
@@ -32,11 +28,11 @@ async function setLinkedBranch(slug: string, branch: string, opts: { verbose?: b
 async function getLinkedBranch(slug: string, opts: { verbose?: boolean } = {}): Promise<string | null> {
   return getLocalConfig(`civ7.mod.${slug}.branch`, { verbose: opts.verbose });
 }
-async function setLinkedRemoteName(slug: string, remoteName: string, opts: { verbose?: boolean } = {}) {
-  await setLocalConfig(`civ7.mod.${slug}.remoteName`, remoteName, { verbose: opts.verbose });
+async function setLinkedRepoUrl(slug: string, repoUrl: string, opts: { verbose?: boolean } = {}) {
+  await setLocalConfig(`civ7.mod.${slug}.repoUrl`, repoUrl, { verbose: opts.verbose });
 }
-async function getLinkedRemoteName(slug: string, opts: { verbose?: boolean } = {}): Promise<string | null> {
-  return getLocalConfig(`civ7.mod.${slug}.remoteName`, { verbose: opts.verbose });
+async function getLinkedRepoUrl(slug: string, opts: { verbose?: boolean } = {}): Promise<string | null> {
+  return getLocalConfig(`civ7.mod.${slug}.repoUrl`, { verbose: opts.verbose });
 }
 async function setLinkedTrunk(slug: string, branch: string, opts: { verbose?: boolean } = {}) {
   await setLocalConfig(`civ7.mod.${slug}.trunk`, branch, { verbose: opts.verbose });
@@ -89,7 +85,6 @@ export async function ensureModsFolder(): Promise<{ repoRoot: string; modsDir: s
  */
 export async function getModStatus(params: {
   slug?: string;
-  remoteName?: string;
   branch?: string;
   verbose?: boolean;
 }): Promise<{
@@ -104,19 +99,28 @@ export async function getModStatus(params: {
   modsPathExists: boolean;
   subtreeExists: boolean;
   remoteConfigured: boolean;
+  remoteName: string | null;
   remoteUrl: string | null;
   branch: string;
 }> {
-  const { slug, remoteName, branch = "main", verbose = false } = params;
+  const { slug, branch = "main", verbose = false } = params;
   const snapshot = await getStatusSnapshot({ verbose });
   const prefix = slug ? path.posix.join("mods", slug) : null;
   const abs = snapshot.repoRoot && prefix ? path.join(snapshot.repoRoot, prefix) : null;
 
   let remoteConfigured = false;
+  let remoteName: string | null = null;
   let remoteUrl: string | null = null;
-  if (remoteName) {
-    remoteUrl = await getRemoteUrl(remoteName, { verbose });
-    remoteConfigured = !!remoteUrl;
+  if (slug) {
+    const savedUrl = await getLinkedRepoUrl(slug, { verbose });
+    if (savedUrl) {
+      remoteUrl = savedUrl;
+      const match = (snapshot.remotes ?? []).find((r) => r.url === savedUrl);
+      if (match) {
+        remoteName = match.name;
+        remoteConfigured = true;
+      }
+    }
   }
 
   return {
@@ -129,6 +133,7 @@ export async function getModStatus(params: {
     modsPathExists: !!snapshot.repoRoot && fs.existsSync(path.join(snapshot.repoRoot, "mods")),
     subtreeExists: !!snapshot.repoRoot && !!abs && fs.existsSync(abs),
     remoteConfigured,
+    remoteName,
     remoteUrl,
     branch,
   };
@@ -138,19 +143,6 @@ export async function getModStatus(params: {
  * Configure or update a mod mirror remote and fetch tags.
  * Returns whether the remote was added/updated/unchanged.
  */
-export async function configureModRemote(options: {
-  remoteName: string;
-  remoteUrl: string;
-  verbose?: boolean;
-}): Promise<"added" | "updated" | "unchanged"> {
-  const { remoteName, remoteUrl, verbose = false } = options;
-  const res = await addOrUpdateRemote(remoteName, remoteUrl, { verbose });
-  await fetchRemote(remoteName, { tags: true }, { verbose });
-  // Initialize remote-level push defaults (idempotent)
-  await initRemotePushConfig(remoteName, { verbose });
-  return res;
-}
-
 /**
  * Deploy a built mod from a local folder to the user's OS Mods directory.
  * This copies the exact contents of inputDir into Mods/<modId>.
@@ -191,7 +183,6 @@ export function deployMod(options: DeployOptions): DeployResult {
  */
 export interface ImportModOptions {
   slug: string;
-  remoteName: string;
   remoteUrl?: string;
   branch?: string;
   squash?: boolean;
@@ -202,7 +193,6 @@ export interface ImportModOptions {
 export async function importModFromRemote(opts: ImportModOptions): Promise<void> {
   const {
     slug,
-    remoteName,
     remoteUrl,
     branch = "main",
     squash = false,
@@ -219,13 +209,17 @@ export async function importModFromRemote(opts: ImportModOptions): Promise<void>
 
   const prefix = path.posix.join("mods", slug);
 
-  // Ensure/configure remote and fetch
-  await configureRemoteAndFetch(remoteName, remoteUrl, { tags: true }, { verbose });
-  // Initialize remote-level push defaults (idempotent)
-  await initRemotePushConfig(remoteName, { verbose });
+  const url = remoteUrl ?? (await getLinkedRepoUrl(slug, { verbose }));
+  if (!url) throw new Error("remoteUrl is required to import a mod");
+  const existing = await findRemoteByUrl(url, { verbose });
+  const rName = existing ?? inferSlugFromRemoteUrl(url);
 
-  // Let git plugin handle subtree readiness, allowDirty, unshallow, and add
-  await subtreeAddFromRemote(prefix, remoteName, branch, { squash, autoUnshallow, allowDirty }, { verbose });
+  await configureRemoteAndFetch(rName, existing ? undefined : url, { tags: true }, { verbose });
+  await initRemotePushConfig(rName, { verbose });
+
+  await subtreeAddFromRemote(prefix, rName, branch, { squash, autoUnshallow, allowDirty }, { verbose });
+  await setLinkedBranch(slug, branch, { verbose });
+  await setLinkedRepoUrl(slug, url, { verbose });
 }
 
 /**
@@ -233,7 +227,6 @@ export async function importModFromRemote(opts: ImportModOptions): Promise<void>
  */
 export interface PushModOptions {
   slug: string;
-  remoteName: string;
   branch?: string;
   verbose?: boolean;
   allowDirty?: boolean;
@@ -246,7 +239,7 @@ export interface PushModOptions {
   prDraft?: boolean;
 }
 export async function pushModToRemote(opts: PushModOptions): Promise<void> {
-  const { slug, remoteName, branch, verbose = false, allowDirty = false, autoUnshallow = false, autoFastForwardTrunk = false, trunk } = opts;
+  const { slug, branch, verbose = false, allowDirty = false, autoUnshallow = false, autoFastForwardTrunk = false, trunk } = opts;
 
   const root = await getRepoRoot({ allowNonZeroExit: true, verbose });
   if (!root) throw new Error("Not inside a git repository.");
@@ -255,10 +248,18 @@ export async function pushModToRemote(opts: PushModOptions): Promise<void> {
     throw new Error(`Subtree directory "${prefix}" does not exist.`);
   }
 
+  const url = await getLinkedRepoUrl(slug, { verbose });
+  if (!url) {
+    throw new Error(`No repoUrl configured for slug "${slug}". Run setup first.`);
+  }
+  const rName = await findRemoteByUrl(url, { verbose });
+  if (!rName) {
+    throw new Error(`No git remote for ${url}. Run setup again.`);
+  }
   const effectiveBranch = branch ?? (await getLinkedBranch(slug, { verbose }));
   if (!effectiveBranch) {
-    const branches = await listRemoteBranches(remoteName, { verbose });
-    const hint = branches.length ? `Available remote branches for ${remoteName}:\n- ${branches.join("\n- ")}` : `No heads found on remote ${remoteName}.`;
+    const branches = await listRemoteBranches(rName, { verbose });
+    const hint = branches.length ? `Available remote branches for ${rName}:\n- ${branches.join("\n- ")}` : `No heads found on remote ${rName}.`;
     throw new Error(
       `No branch specified and none configured for slug "${slug}". Re-run with --branch <name> or set a default via setup.\n\n${hint}`
     );
@@ -267,7 +268,7 @@ export async function pushModToRemote(opts: PushModOptions): Promise<void> {
   const trunkOverride = trunk ?? (await getLinkedTrunk(slug, { verbose })) ?? undefined;
   await subtreePushWithFetch(
     prefix,
-    remoteName,
+    rName,
     effectiveBranch,
     {
       autoUnshallow,
@@ -288,7 +289,6 @@ export async function pushModToRemote(opts: PushModOptions): Promise<void> {
  */
 export interface PullModOptions {
   slug: string;
-  remoteName: string;
   branch?: string;
   squash?: boolean;
   verbose?: boolean;
@@ -296,7 +296,7 @@ export interface PullModOptions {
   autoUnshallow?: boolean;
 }
 export async function pullModFromRemote(opts: PullModOptions): Promise<void> {
-  const { slug, remoteName, branch, squash = false, verbose = false, allowDirty = false, autoUnshallow = false } = opts;
+  const { slug, branch, squash = false, verbose = false, allowDirty = false, autoUnshallow = false } = opts;
 
   const root = await getRepoRoot({ allowNonZeroExit: true, verbose });
   if (!root) throw new Error("Not inside a git repository.");
@@ -305,27 +305,34 @@ export async function pullModFromRemote(opts: PullModOptions): Promise<void> {
     throw new Error(`Subtree directory "${prefix}" does not exist.`);
   }
 
+  const url = await getLinkedRepoUrl(slug, { verbose });
+  if (!url) {
+    throw new Error(`No repoUrl configured for slug "${slug}". Run setup first.`);
+  }
+  const rName = await findRemoteByUrl(url, { verbose });
+  if (!rName) {
+    throw new Error(`No git remote for ${url}. Run setup again.`);
+  }
   const effectiveBranch = branch ?? (await getLinkedBranch(slug, { verbose }));
   if (!effectiveBranch) {
-    const branches = await listRemoteBranches(remoteName, { verbose });
-    const hint = branches.length ? `Available remote branches for ${remoteName}:\n- ${branches.join("\n- ")}` : `No heads found on remote ${remoteName}.`;
+    const branches = await listRemoteBranches(rName, { verbose });
+    const hint = branches.length ? `Available remote branches for ${rName}:\n- ${branches.join("\n- ")}` : `No heads found on remote ${rName}.`;
     throw new Error(
       `No branch specified and none configured for slug "${slug}". Re-run with --branch <name> or set a default via setup.\n\n${hint}`
     );
   }
 
-  await subtreePullWithFetch(prefix, remoteName, effectiveBranch, { squash, autoUnshallow, allowDirty }, { verbose });
+  await subtreePullWithFetch(prefix, rName, effectiveBranch, { squash, autoUnshallow, allowDirty }, { verbose });
 }
 
 /**
  * Link a mod by configuring the remote and importing the subtree in one step.
- * Sensible defaults: branch=main, squash=false, autoUnshallow=true, remoteName=mod-<slug>, slug derived from repo name if not provided.
+ * Sensible defaults: branch=main, squash=false, autoUnshallow=true, slug derived from repo name if not provided.
  */
 export interface LinkModOptions {
   remoteUrl: string;
   branch?: string;
   slug?: string;
-  remoteName?: string;
   squash?: boolean;
   verbose?: boolean;
   allowDirty?: boolean;
@@ -364,11 +371,13 @@ export async function link(opts: LinkModOptions): Promise<{ slug: string; remote
   if (!remoteUrl) throw new Error("remoteUrl is required for link");
 
   const slug = opts.slug ?? inferSlugFromRemoteUrl(remoteUrl);
-  const remoteName = opts.remoteName ?? inferSlugFromRemoteUrl(remoteUrl);
+  const existing = await findRemoteByUrl(remoteUrl, { verbose });
+  const remoteName = existing ?? inferSlugFromRemoteUrl(remoteUrl);
   const autoUnshallow = opts.autoUnshallow ?? true; // default to full history
   const prefix = path.posix.join("mods", slug);
 
-  await configureModRemote({ remoteName, remoteUrl, verbose });
+  await configureRemoteAndFetch(remoteName, existing ? undefined : remoteUrl, { tags: true }, { verbose });
+  await initRemotePushConfig(remoteName, { verbose });
 
   // Idempotent: if the subtree path already exists and is non-empty, treat monorepo as source of truth and push;
   // otherwise import the remote history into a new subtree. If overwrite=true, replace local dir with import.
@@ -396,7 +405,6 @@ export async function link(opts: LinkModOptions): Promise<{ slug: string; remote
       if (!fs.existsSync(parent)) fs.mkdirSync(parent, { recursive: true });
       await importModFromRemote({
         slug,
-        remoteName,
         remoteUrl,
         branch,
         squash,
@@ -410,7 +418,6 @@ export async function link(opts: LinkModOptions): Promise<{ slug: string; remote
   } else {
     await importModFromRemote({
       slug,
-      remoteName,
       remoteUrl,
       branch,
       squash,
@@ -422,7 +429,7 @@ export async function link(opts: LinkModOptions): Promise<{ slug: string; remote
 
   // Persist link defaults for subsequent commands
   await setLinkedBranch(slug, branch, { verbose });
-  await setLinkedRemoteName(slug, remoteName, { verbose });
+  await setLinkedRepoUrl(slug, remoteUrl, { verbose });
   const resolvedTrunk = trunk ?? (await resolveTrunkBranch(remoteName, {}, { verbose }));
   if (resolvedTrunk) await setLinkedTrunk(slug, resolvedTrunk, { verbose });
 
@@ -436,7 +443,7 @@ export async function listRegisteredSlugs(opts: { verbose?: boolean } = {}): Pro
     if (res.code !== 0) return [];
     const slugs = new Set<string>();
     for (const line of (res.stdout || "").split("\n")) {
-      const m = line.trim().match(/^civ7\.mod\.([^\.]+)\.(?:branch|remoteName|trunk)$/);
+      const m = line.trim().match(/^civ7\.mod\.([^\.]+)\.(?:branch|repoUrl|trunk)$/);
       if (m && m[1]) slugs.add(m[1]);
     }
     return Array.from(slugs).sort();
@@ -509,7 +516,6 @@ export default {
   listMods,
   ensureModsFolder,
   getModStatus,
-  configureModRemote,
   deployMod,
   importModFromRemote,
   pushModToRemote,

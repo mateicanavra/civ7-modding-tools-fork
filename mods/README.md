@@ -165,7 +165,7 @@ Security and permissions
 
 Repeat the pattern per mod:
 - Directory: `mods/<slug>`
-- Remote name: `mod-<slug>`
+- Remote name (internal): automatically derived as `mod-<slug>`
 - Branch: typically `main`
 - Commands use the corresponding `--prefix=mods/<slug>` and remote.
 
