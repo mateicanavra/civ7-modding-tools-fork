@@ -1,10 +1,10 @@
 import { Flags } from '@oclif/core';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import BaseCommand from '../base/BaseCommand.js';
-import { listSubtreeConfigs, removeSubtreeConfig } from '../utils/git.js';
+import BaseCommand from '../BaseCommand.js';
+import { listSubtreeConfigs, removeSubtreeConfig } from '../../utils/git.js';
 
-export default abstract class ClearConfigBase extends BaseCommand {
+export default abstract class SubtreeClearConfigBase extends BaseCommand {
   static flags = {
     deleteLocal: Flags.boolean({
       description: 'Also delete local subtree directories',
@@ -23,7 +23,7 @@ export default abstract class ClearConfigBase extends BaseCommand {
   async run() {
     const ctor: any = this.constructor;
     const { flags } = await this.parse({
-      flags: ctor.flags ?? (this as any).flags ?? ClearConfigBase.flags,
+      flags: ctor.flags ?? (this as any).flags ?? SubtreeClearConfigBase.flags,
     });
     const configs = await listSubtreeConfigs(this.domain, { verbose: flags.verbose });
     if (configs.length === 0) {

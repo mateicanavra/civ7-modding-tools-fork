@@ -1,6 +1,6 @@
-import SetupBase from '../../../subtree/SetupBase.js';
+import SubtreeSetupBase from '../../../base/subtree/SubtreeSetupBase.js';
 
-export default class GitSetup extends SetupBase {
+export default class GitSetup extends SubtreeSetupBase {
   static summary = 'Configure and import a repository into a subtree';
   static description = 'Adds the remote and imports the repository under a prefix.';
 

@@ -1,8 +1,8 @@
 import { Args, Flags } from '@oclif/core';
-import SubtreeCommand from '../base/SubtreeCommand.js';
-import { configureRemote, importSubtree } from '../utils/git.js';
+import SubtreeCommand from './SubtreeCommand.js';
+import { configureRemote, importSubtree } from '../../utils/git.js';
 
-export default abstract class SetupBase extends SubtreeCommand {
+export default abstract class SubtreeImportBase extends SubtreeCommand {
   static flags = {
     ...SubtreeCommand.baseFlags,
     remoteUrl: Flags.string({
@@ -25,10 +25,6 @@ export default abstract class SetupBase extends SubtreeCommand {
       default: undefined,
       char: 'U',
     }),
-    overwrite: Flags.boolean({
-      description: 'Overwrite existing subtree directory if non-empty',
-      default: false,
-    }),
   } as const;
 
   static args = {
@@ -42,8 +38,8 @@ export default abstract class SetupBase extends SubtreeCommand {
   async run() {
     const ctor: any = this.constructor;
     const { args, flags } = await this.parse({
-      flags: ctor.flags ?? (this as any).flags ?? SetupBase.flags,
-      args: ctor.args ?? (this as any).args ?? SetupBase.args,
+      flags: ctor.flags ?? (this as any).flags ?? SubtreeImportBase.flags,
+      args: ctor.args ?? (this as any).args ?? SubtreeImportBase.args,
     });
     const slug = args.slug as string;
     const prefix = this.getPrefix(slug);

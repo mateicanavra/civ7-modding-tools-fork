@@ -1,6 +1,6 @@
-import RemoveConfigBase from '../../../subtree/RemoveConfigBase.js';
+import SubtreeRemoveConfigBase from '../../../base/subtree/SubtreeRemoveConfigBase.js';
 
-export default class ModLinkConfigRemove extends RemoveConfigBase {
+export default class ModLinkRemove extends SubtreeRemoveConfigBase {
   static summary = 'Remove a stored mod subtree configuration';
   static description = 'Delete config for a slug or repo URL.';
   protected domain = 'mod';

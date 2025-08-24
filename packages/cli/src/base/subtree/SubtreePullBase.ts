@@ -1,10 +1,15 @@
 import { Args, Flags } from '@oclif/core';
-import SubtreeCommand from '../base/SubtreeCommand.js';
-import { pushSubtree } from '../utils/git.js';
+import SubtreeCommand from './SubtreeCommand.js';
+import { pullSubtree } from '../../utils/git.js';
 
-export default abstract class PushBase extends SubtreeCommand {
+export default abstract class SubtreePullBase extends SubtreeCommand {
   static flags = {
     ...SubtreeCommand.baseFlags,
+    squash: Flags.boolean({
+      description: 'Squash history when pulling',
+      default: false,
+      char: 'S',
+    }),
     yes: Flags.boolean({
       description: 'Assume yes to safety prompts',
       default: false,
@@ -14,15 +19,6 @@ export default abstract class PushBase extends SubtreeCommand {
       description: 'Automatically unshallow the repo if needed',
       default: undefined,
       char: 'U',
-    }),
-    autoFastForwardTrunk: Flags.boolean({
-      description: 'After push, attempt to fast-forward the remote trunk branch',
-      default: false,
-      char: 'f',
-    }),
-    trunk: Flags.string({
-      description: 'Override trunk branch name',
-      char: 't',
     }),
   } as const;
 
@@ -37,20 +33,19 @@ export default abstract class PushBase extends SubtreeCommand {
   async run() {
     const ctor: any = this.constructor;
     const { args, flags } = await this.parse({
-      flags: ctor.flags ?? (this as any).flags ?? PushBase.flags,
-      args: ctor.args ?? (this as any).args ?? PushBase.args,
+      flags: ctor.flags ?? (this as any).flags ?? SubtreePullBase.flags,
+      args: ctor.args ?? (this as any).args ?? SubtreePullBase.args,
     });
     const slug = args.slug as string;
     const prefix = this.getPrefix(slug);
-    await pushSubtree({
+    await pullSubtree({
       domain: this.domain,
       slug,
       prefix,
       branch: flags.branch,
+      squash: flags.squash,
       allowDirty: flags.yes,
       autoUnshallow: flags.autoUnshallow,
-      autoFastForwardTrunk: flags.autoFastForwardTrunk,
-      trunk: flags.trunk,
       verbose: flags.verbose,
       logger: this,
     });

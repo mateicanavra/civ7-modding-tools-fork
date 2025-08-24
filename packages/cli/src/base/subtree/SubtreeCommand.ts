@@ -1,6 +1,6 @@
 import { Flags } from '@oclif/core';
-import BaseCommand from './BaseCommand.js';
-import { resolveBranch } from '../utils/git.js';
+import BaseCommand from '../BaseCommand.js';
+import { resolveBranch } from '../../utils/git.js';
 
 export default abstract class SubtreeCommand extends BaseCommand {
   static baseFlags = {

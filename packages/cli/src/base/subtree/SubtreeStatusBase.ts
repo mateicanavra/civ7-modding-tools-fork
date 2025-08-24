@@ -1,8 +1,8 @@
 import { Args, Flags } from '@oclif/core';
-import BaseCommand from '../base/BaseCommand.js';
-import { findRemoteNameForSlug, getRemotePushConfig, logRemotePushConfig } from '../utils/git.js';
+import BaseCommand from '../BaseCommand.js';
+import { findRemoteNameForSlug, getRemotePushConfig, logRemotePushConfig } from '../../utils/git.js';
 
-export default abstract class StatusBase extends BaseCommand {
+export default abstract class SubtreeStatusBase extends BaseCommand {
   static flags = {
     json: Flags.boolean({
       description: 'Output machine-readable JSON',
@@ -24,8 +24,8 @@ export default abstract class StatusBase extends BaseCommand {
   async run() {
     const ctor: any = this.constructor;
     const { args, flags } = await this.parse({
-      flags: ctor.flags ?? (this as any).flags ?? StatusBase.flags,
-      args: ctor.args ?? (this as any).args ?? StatusBase.args,
+      flags: ctor.flags ?? (this as any).flags ?? SubtreeStatusBase.flags,
+      args: ctor.args ?? (this as any).args ?? SubtreeStatusBase.args,
     });
     const slug = args.slug as string | undefined;
     const remoteName = slug

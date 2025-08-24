@@ -1,10 +1,10 @@
 import { Args, Flags } from '@oclif/core';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import BaseCommand from '../base/BaseCommand.js';
-import { removeSubtreeConfig } from '../utils/git.js';
+import BaseCommand from '../BaseCommand.js';
+import { removeSubtreeConfig } from '../../utils/git.js';
 
-export default abstract class RemoveConfigBase extends BaseCommand {
+export default abstract class SubtreeRemoveConfigBase extends BaseCommand {
   static flags = {
     repoUrl: Flags.string({ description: 'Repository URL to match' }),
     deleteLocal: Flags.boolean({
@@ -28,8 +28,8 @@ export default abstract class RemoveConfigBase extends BaseCommand {
   async run() {
     const ctor: any = this.constructor;
     const { flags, args } = await this.parse({
-      flags: ctor.flags ?? (this as any).flags ?? RemoveConfigBase.flags,
-      args: ctor.args ?? (this as any).args ?? RemoveConfigBase.args,
+      flags: ctor.flags ?? (this as any).flags ?? SubtreeRemoveConfigBase.flags,
+      args: ctor.args ?? (this as any).args ?? SubtreeRemoveConfigBase.args,
     });
     const slug = args.slug as string | undefined;
     const repoUrl = flags.repoUrl as string | undefined;

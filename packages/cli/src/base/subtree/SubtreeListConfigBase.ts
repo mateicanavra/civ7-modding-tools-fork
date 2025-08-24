@@ -1,8 +1,8 @@
 import { Flags } from '@oclif/core';
-import BaseCommand from '../base/BaseCommand.js';
-import { listSubtreeConfigs } from '../utils/git.js';
+import BaseCommand from '../BaseCommand.js';
+import { listSubtreeConfigs } from '../../utils/git.js';
 
-export default abstract class ListConfigBase extends BaseCommand {
+export default abstract class SubtreeListConfigBase extends BaseCommand {
   static flags = {
     json: Flags.boolean({
       description: 'Output machine-readable JSON',
@@ -20,7 +20,7 @@ export default abstract class ListConfigBase extends BaseCommand {
   async run() {
     const ctor: any = this.constructor;
     const { flags } = await this.parse({
-      flags: ctor.flags ?? (this as any).flags ?? ListConfigBase.flags,
+      flags: ctor.flags ?? (this as any).flags ?? SubtreeListConfigBase.flags,
     });
     const configs = await listSubtreeConfigs(this.domain, { verbose: flags.verbose });
     if (flags.json) {

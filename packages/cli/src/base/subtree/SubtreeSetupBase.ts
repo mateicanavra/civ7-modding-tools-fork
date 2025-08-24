@@ -1,12 +1,17 @@
 import { Args, Flags } from '@oclif/core';
-import SubtreeCommand from '../base/SubtreeCommand.js';
-import { pullSubtree } from '../utils/git.js';
+import SubtreeCommand from './SubtreeCommand.js';
+import { configureRemote, importSubtree } from '../../utils/git.js';
 
-export default abstract class PullBase extends SubtreeCommand {
+export default abstract class SubtreeSetupBase extends SubtreeCommand {
   static flags = {
     ...SubtreeCommand.baseFlags,
+    remoteUrl: Flags.string({
+      description: 'Git remote URL',
+      char: 'u',
+      required: true,
+    }),
     squash: Flags.boolean({
-      description: 'Squash history when pulling',
+      description: 'Squash history when importing',
       default: false,
       char: 'S',
     }),
@@ -19,6 +24,10 @@ export default abstract class PullBase extends SubtreeCommand {
       description: 'Automatically unshallow the repo if needed',
       default: undefined,
       char: 'U',
+    }),
+    overwrite: Flags.boolean({
+      description: 'Overwrite existing subtree directory if non-empty',
+      default: false,
     }),
   } as const;
 
@@ -33,16 +42,23 @@ export default abstract class PullBase extends SubtreeCommand {
   async run() {
     const ctor: any = this.constructor;
     const { args, flags } = await this.parse({
-      flags: ctor.flags ?? (this as any).flags ?? PullBase.flags,
-      args: ctor.args ?? (this as any).args ?? PullBase.args,
+      flags: ctor.flags ?? (this as any).flags ?? SubtreeSetupBase.flags,
+      args: ctor.args ?? (this as any).args ?? SubtreeSetupBase.args,
     });
     const slug = args.slug as string;
     const prefix = this.getPrefix(slug);
-    await pullSubtree({
+    await configureRemote({
+      domain: this.domain,
+      slug,
+      remoteUrl: flags.remoteUrl,
+      branch: flags.branch,
+      verbose: flags.verbose,
+      logger: this,
+    });
+    await importSubtree({
       domain: this.domain,
       slug,
       prefix,
-      branch: flags.branch,
       squash: flags.squash,
       allowDirty: flags.yes,
       autoUnshallow: flags.autoUnshallow,
