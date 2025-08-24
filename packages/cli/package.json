@@ -58,6 +58,9 @@
       "@oclif/plugin-help"
     ],
     "topicSeparator": " ",
+    "hooks": {
+      "prerun": "./dist/hooks/prerun/promptMissingArgs.js"
+    },
     "topics": {
       "data": {
         "description": "Work with Civilization VII data: crawl XML resources, explore relationships, zip outputs."
@@ -66,10 +69,19 @@
         "description": "Serve the project documentation site (Mintlify or Docsify) with optional syncing."
       },
       "git": {
-        "description": "Generic git-subtree operations: configure remotes, import repos, pull, push, setup and view status."
+        "description": "Git utilities"
+      },
+      "git:subtree": {
+        "description": "Configure remotes, import repos, pull, push, setup and view status via git subtree"
       },
       "mod": {
-        "description": "Manage Civilization VII mods: configure and import repos, push/pull changes, setup, list and deploy mods, view status."
+        "description": "Manage Civilization VII mods"
+      },
+      "mod:git": {
+        "description": "Configure and sync mod repositories via git subtree (setup, import, pull, push, status, list, clear, remove, update)"
+      },
+      "mod:manage": {
+        "description": "Manage local mod folders (list, deploy)"
       }
     }
   },

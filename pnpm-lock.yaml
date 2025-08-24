@@ -79,7 +79,7 @@ importers:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.2.1)(@vitest/ui@3.2.4)(jiti@1.21.7)(tsx@4.20.4)(yaml@2.8.1)
 
-  mods/mod-swooper-dacia:
+  mods/mod-swooper-civ-dacia:
     dependencies:
       '@mateicanavra/civ7-sdk':
         specifier: workspace:*
