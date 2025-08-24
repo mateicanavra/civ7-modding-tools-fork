@@ -60,17 +60,18 @@ export interface ResolveRemoteNameOptions {
 
 export async function resolveRemoteName(opts: ResolveRemoteNameOptions): Promise<string | undefined> {
   const { domain, slug, remoteName, remoteUrl, verbose = false, logger } = opts;
-  if (remoteName) return remoteName;
   const log = getLogger(logger).log;
+  let saved: string | undefined;
   if (slug) {
     try {
-      const saved = await getLocalConfig(`civ7.${domain}.${slug}.remoteName`, { verbose });
-      if (saved) {
+      saved = await getLocalConfig(`civ7.${domain}.${slug}.remoteName`, { verbose }) ?? undefined;
+      if (saved && !remoteName) {
         log(`Using remote from config: ${saved}`);
-        return saved;
       }
     } catch {}
   }
+  if (!remoteName && saved) return saved;
+  if (remoteName) return remoteName;
   if (remoteUrl) return inferRemoteNameFromUrl(remoteUrl);
   return slug;
 }
@@ -78,7 +79,7 @@ export async function resolveRemoteName(opts: ResolveRemoteNameOptions): Promise
 export async function requireRemoteName(opts: ResolveRemoteNameOptions): Promise<string> {
   const name = await resolveRemoteName(opts);
   if (!name) {
-    throw new Error('Unable to determine remote name. Pass --remote-name or --remote-url, or run setup to persist configuration.');
+    throw new Error('Unable to determine remote name. Pass --remoteName (advanced) or --remoteUrl, or run setup to persist configuration.');
   }
   return name;
 }
