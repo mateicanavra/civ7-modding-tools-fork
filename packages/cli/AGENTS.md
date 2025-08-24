@@ -101,8 +101,8 @@ Status-style commands (e.g., `git status`, `mod status`) also accept `--json` fo
  - `src/base/` & `src/base/subtree/` — abstract oclif commands for git subtree flows (configure, import, push, pull, setup). Domain commands extend these to supply prefixes and defaults.
  - `src/commands/` — oclif commands grouped by topic: `data/` (crawl, explore, render, slice, zip, unzip), `docs/`, `git/subtree/` for git subtree helpers, and `mod/` (`git/` hosts subtree operations like `clear`, `list`, `remove`, `update`, `setup`, `import`, `pull`, `push`, `status` with aliases `link:*`, and `manage/` for local utilities)
  - `src/utils/` — config/path resolution helpers; generic git helpers (configureRemote, importSubtree, pushSubtree, pullSubtree, logRemotePushConfig, findRemoteNameForSlug/requireRemoteNameForSlug, resolveBranch/requireBranch, isNonEmptyDir) live in `utils/git.ts` and centralize logging, argument defaults, and remote/branch inference for git operations
-- Subtree command classes expose only the flags they consume; `repoUrl` is required only for `update`, `import`, and `setup` flows, while `push`/`pull` rely on saved config.
-- `repoUrl` may be provided via flag or interactively when running `setup`, `import`, or `update`; a `prerun` hook prompts when the flag is omitted in a TTY.
+ - Subtree command classes expose only the flags they consume; `repoUrl` is required only for `update`, `import`, and `setup` flows, while `push`/`pull` rely on saved config.
+ - `repoUrl` or missing `slug` values may be provided interactively when running subtree commands; a `prerun` hook prompts for them in a TTY if omitted.
  - Config management commands (`list`, `clear`, `remove`, `update`) operate on stored git config and accept `--deleteLocal` to also remove imported directories.
 - `repoUrl`, remote name, and default `branch` are stored during setup and always resolved from saved config; downstream commands no longer derive remote names at runtime.
 - Use `@civ7/plugin-graph` for graph workflows (`crawlGraph`, `exploreGraph`); archive helpers are in `@civ7/plugin-files`.

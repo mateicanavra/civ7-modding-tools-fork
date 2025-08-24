@@ -59,7 +59,7 @@
     ],
     "topicSeparator": " ",
     "hooks": {
-      "prerun": "./dist/hooks/prerun/promptRepoUrl.js"
+      "prerun": "./dist/hooks/prerun/promptMissingArgs.js"
     },
     "topics": {
       "data": {
