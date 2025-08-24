@@ -250,7 +250,7 @@ export async function pushModToRemote(opts: PushModOptions): Promise<void> {
 
   const url = await getLinkedRepoUrl(slug, { verbose });
   if (!url) {
-    throw new Error(`No repoUrl configured for slug "${slug}". Run link first.`);
+    throw new Error(`No repoUrl configured for slug "${slug}". Run setup first.`);
   }
   const rName = await findRemoteByUrl(url, { verbose });
   if (!rName) {
@@ -307,7 +307,7 @@ export async function pullModFromRemote(opts: PullModOptions): Promise<void> {
 
   const url = await getLinkedRepoUrl(slug, { verbose });
   if (!url) {
-    throw new Error(`No repoUrl configured for slug "${slug}". Run link first.`);
+    throw new Error(`No repoUrl configured for slug "${slug}". Run setup first.`);
   }
   const rName = await findRemoteByUrl(url, { verbose });
   if (!rName) {

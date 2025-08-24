@@ -73,7 +73,7 @@
       "mod": {
         "description": "Manage Civilization VII mods"
       },
-      "mod:link": {
+      "mod:git": {
         "description": "Configure and sync mod repositories via git subtree (setup, import, pull, push, status, list, clear, remove, update)"
       },
       "mod:manage": {

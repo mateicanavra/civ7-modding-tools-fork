@@ -99,7 +99,7 @@ Status-style commands (e.g., `git status`, `mod status`) also accept `--json` fo
 ### Code structure (key paths)
 
  - `src/base/` & `src/base/subtree/` — abstract oclif commands for git subtree flows (configure, import, push, pull, setup). Domain commands extend these to supply prefixes and defaults.
- - `src/commands/` — oclif commands grouped by topic: `data/` (crawl, explore, render, slice, zip, unzip), `docs/`, `git/subtree/` for git subtree helpers, and `mod/` (`link/` hosts subtree operations like `clear`, `list`, `remove`, `update`, `setup`, `import`, `pull`, `push`, `status` with aliases `link:*`, and `manage/` for local utilities)
+ - `src/commands/` — oclif commands grouped by topic: `data/` (crawl, explore, render, slice, zip, unzip), `docs/`, `git/subtree/` for git subtree helpers, and `mod/` (`git/` hosts subtree operations like `clear`, `list`, `remove`, `update`, `setup`, `import`, `pull`, `push`, `status` with aliases `link:*`, and `manage/` for local utilities)
  - `src/utils/` — config/path resolution helpers; generic git helpers (configureRemote, importSubtree, pushSubtree, pullSubtree, logRemotePushConfig, findRemoteNameForSlug/requireRemoteNameForSlug, resolveBranch/requireBranch, isNonEmptyDir) live in `utils/git.ts` and centralize logging, argument defaults, and remote/branch inference for git operations
  - Subtree command classes expose only the flags they consume; `remoteUrl` is required only for `update`, `import`, and `setup` flows, while `push`/`pull` rely on saved config.
  - Config management commands (`list`, `clear`, `remove`, `update`) operate on stored git config and accept `--deleteLocal` to also remove imported directories.
