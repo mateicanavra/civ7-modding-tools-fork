@@ -3,11 +3,9 @@ import BaseCommand from '../BaseCommand.js';
 import { findRemoteNameForSlug, getRemotePushConfig, logRemotePushConfig } from '../../utils/git.js';
 
 export default abstract class SubtreeStatusBase extends BaseCommand {
+  static enableJsonFlag = true;
+
   static flags = {
-    json: Flags.boolean({
-      description: 'Output machine-readable JSON',
-      default: false,
-    }),
     verbose: Flags.boolean({
       description: 'Show underlying git commands',
       default: false,
@@ -31,12 +29,11 @@ export default abstract class SubtreeStatusBase extends BaseCommand {
     const remoteName = slug
       ? await findRemoteNameForSlug(this.domain, slug)
       : undefined;
-    if (flags.json) {
+    if (this.jsonEnabled()) {
       const config = remoteName
         ? await getRemotePushConfig(remoteName, { verbose: flags.verbose })
         : undefined;
-      this.logJson({ remoteName, config });
-      return;
+      return { remoteName, config };
     }
 
     if (remoteName) {

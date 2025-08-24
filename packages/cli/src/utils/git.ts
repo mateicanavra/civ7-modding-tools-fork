@@ -45,7 +45,8 @@ export interface Logger {
 }
 
 function getLogger(logger?: Logger): Logger {
-  return logger ?? console;
+  const base = logger ?? console;
+  return { log: base.log.bind(base) };
 }
 
 export async function findRemoteNameForSlug(

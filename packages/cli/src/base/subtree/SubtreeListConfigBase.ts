@@ -3,11 +3,9 @@ import BaseCommand from '../BaseCommand.js';
 import { listSubtreeConfigs } from '../../utils/git.js';
 
 export default abstract class SubtreeListConfigBase extends BaseCommand {
+  static enableJsonFlag = true;
+
   static flags = {
-    json: Flags.boolean({
-      description: 'Output machine-readable JSON',
-      default: false,
-    }),
     verbose: Flags.boolean({
       description: 'Show underlying git commands',
       default: false,
@@ -23,9 +21,8 @@ export default abstract class SubtreeListConfigBase extends BaseCommand {
       flags: ctor.flags ?? (this as any).flags ?? SubtreeListConfigBase.flags,
     });
     const configs = await listSubtreeConfigs(this.domain, { verbose: flags.verbose });
-    if (flags.json) {
-      this.logJson(configs);
-      return;
+    if (this.jsonEnabled()) {
+      return configs;
     }
     if (configs.length === 0) {
       this.log('No stored config entries.');
