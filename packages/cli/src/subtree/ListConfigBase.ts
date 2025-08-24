@@ -4,7 +4,10 @@ import { listSubtreeConfigs } from '../utils/git.js';
 
 export default abstract class ListConfigBase extends BaseCommand {
   static flags = {
-    ...BaseCommand.baseFlags,
+    json: Flags.boolean({
+      description: 'Output machine-readable JSON',
+      default: false,
+    }),
     verbose: Flags.boolean({
       description: 'Show underlying git commands',
       default: false,

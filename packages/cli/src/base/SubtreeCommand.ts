@@ -4,7 +4,6 @@ import { resolveBranch } from '../utils/git.js';
 
 export default abstract class SubtreeCommand extends BaseCommand {
   static baseFlags = {
-    ...BaseCommand.baseFlags,
     branch: Flags.string({
       description: 'Branch to track',
       char: 'b',

@@ -6,7 +6,6 @@ import { listSubtreeConfigs, removeSubtreeConfig } from '../utils/git.js';
 
 export default abstract class ClearConfigBase extends BaseCommand {
   static flags = {
-    ...BaseCommand.baseFlags,
     deleteLocal: Flags.boolean({
       description: 'Also delete local subtree directories',
       default: false,

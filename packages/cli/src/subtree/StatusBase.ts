@@ -1,15 +1,25 @@
-import { Args } from '@oclif/core';
-import SubtreeCommand from '../base/SubtreeCommand.js';
+import { Args, Flags } from '@oclif/core';
+import BaseCommand from '../base/BaseCommand.js';
 import { findRemoteNameForSlug, getRemotePushConfig, logRemotePushConfig } from '../utils/git.js';
 
-export default abstract class StatusBase extends SubtreeCommand {
+export default abstract class StatusBase extends BaseCommand {
   static flags = {
-    ...SubtreeCommand.baseFlags,
+    json: Flags.boolean({
+      description: 'Output machine-readable JSON',
+      default: false,
+    }),
+    verbose: Flags.boolean({
+      description: 'Show underlying git commands',
+      default: false,
+      char: 'v',
+    }),
   } as const;
 
   static args = {
     slug: Args.string({ description: 'Subtree slug', required: false }),
   } as const;
+
+  protected abstract domain: string;
 
   async run() {
     const ctor: any = this.constructor;
