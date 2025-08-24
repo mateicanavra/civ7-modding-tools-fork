@@ -28,6 +28,7 @@
 - Use `pnpm test` to execute the Vitest suites across all workspaces and ensure basic smoke tests pass.
 - Use `pnpm test:ui` to open the interactive Vitest UI when visualizing test runs.
 - When adding CLI command tests, mock filesystem and configuration interactions to avoid touching real resources.
+- If tests or builds fail with missing workspace packages (e.g. `@civ7/plugin-git` or `lodash-es`), run `pnpm install` to link all workspace dependencies before retrying.
 
 ### Repository and PR policy
 - We now push branches and open pull requests exclusively against the `fork` remote (`mateicanavra/civ7-modding-tools-fork`). Do not target the original `origin` upstream, as it has diverged and no longer receives updates.

@@ -65,13 +65,13 @@ export async function resolveRemoteName(opts: ResolveRemoteNameOptions): Promise
   if (slug) {
     try {
       saved = await getLocalConfig(`civ7.${domain}.${slug}.remoteName`, { verbose }) ?? undefined;
-      if (saved) {
+      if (saved && !remoteName) {
         log(`Using remote from config: ${saved}`);
       }
     } catch {}
   }
+  if (!remoteName && saved) return saved;
   if (remoteName) return remoteName;
-  if (saved) return saved;
   if (remoteUrl) return inferRemoteNameFromUrl(remoteUrl);
   return slug;
 }

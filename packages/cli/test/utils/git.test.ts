@@ -189,6 +189,18 @@ describe('git utilities', () => {
       expect(getLocalConfig).toHaveBeenCalledWith('civ7.mod.slug.remoteName', { verbose: true });
     });
 
+    it('resolveRemoteName skips config log when overridden', async () => {
+      vi.mocked(getLocalConfig).mockResolvedValueOnce('saved-remote');
+      await resolveRemoteName({
+        domain: 'mod',
+        slug: 'slug',
+        remoteName: 'override',
+        logger,
+        verbose: true,
+      });
+      expect(logger.log).not.toHaveBeenCalledWith('Using remote from config: saved-remote');
+    });
+
     it('resolveRemoteName infers from remoteUrl when missing', async () => {
       vi.mocked(getLocalConfig).mockResolvedValueOnce(undefined);
       await expect(
