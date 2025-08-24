@@ -5,14 +5,14 @@ vi.mock('../../src/utils/git', () => ({
   importSubtree: vi.fn(),
 }));
 
-import ModImport from '../../src/commands/mod/import';
+import ModLinkImport from '../../src/commands/mod/link/import';
 import { configureRemote, importSubtree } from '../../src/utils/git';
 
-describe('mod import command', () => {
+describe('mod link import command', () => {
   beforeEach(() => vi.clearAllMocks());
 
   test('configures remote then imports subtree', async () => {
-    await ModImport.run(['my-mod', '--remoteUrl', 'https://example.com/repo.git']);
+    await ModLinkImport.run(['my-mod', '--remoteUrl', 'https://example.com/repo.git']);
     expect(configureRemote).toHaveBeenCalledWith(
       expect.objectContaining({
         slug: 'my-mod',

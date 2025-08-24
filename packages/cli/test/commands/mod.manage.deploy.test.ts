@@ -13,14 +13,14 @@ vi.mock('node:fs', async () => {
   };
 });
 
-import ModDeploy from '../../src/commands/mod/deploy';
+import ModManageDeploy from '../../src/commands/mod/manage/deploy';
 import { deployMod } from '@civ7/plugin-mods';
 
-describe('mod deploy command', () => {
+describe('mod manage deploy command', () => {
   beforeEach(() => vi.clearAllMocks());
 
   test('calls deployMod with resolved paths', async () => {
-    await ModDeploy.run(['--input', './dist', '--id', 'my_mod']);
+    await ModManageDeploy.run(['--input', './dist', '--id', 'my_mod']);
     expect(deployMod).toHaveBeenCalledWith({ inputDir: expect.stringContaining('/dist'), modId: 'my_mod', modsDir: '/Mods' });
   });
 });

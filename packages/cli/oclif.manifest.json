@@ -854,490 +854,6 @@
         "status.js"
       ]
     },
-    "mod:deploy": {
-      "aliases": [],
-      "args": {},
-      "description": "Copies files from an input directory into Mods/[mod-id].",
-      "examples": [
-        "<%= config.bin %> mod deploy --input ./dist --id my_mod",
-        "<%= config.bin %> mod deploy -i ../plugin-mapgen/dist -m epic-diverse-huge"
-      ],
-      "flags": {
-        "input": {
-          "char": "i",
-          "description": "Input directory of the mod files",
-          "name": "input",
-          "required": true,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "id": {
-          "char": "m",
-          "description": "Target mod id (directory name under Mods/)",
-          "name": "id",
-          "required": true,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "dir": {
-          "description": "Override Mods directory path",
-          "name": "dir",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "mod:deploy",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "strict": true,
-      "summary": "Deploy a mod folder into the Civ7 Mods directory",
-      "enableJsonFlag": false,
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "mod",
-        "deploy.js"
-      ]
-    },
-    "mod:import": {
-      "aliases": [],
-      "args": {
-        "slug": {
-          "description": "Mod slug",
-          "name": "slug",
-          "required": true
-        }
-      },
-      "description": "Preserve history by adding the remote as a subtree under mods/<slug>.",
-      "flags": {
-        "branch": {
-          "char": "b",
-          "description": "Branch to track",
-          "name": "branch",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "required": true,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "squash": {
-          "char": "S",
-          "description": "Squash history when importing",
-          "name": "squash",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "yes": {
-          "char": "y",
-          "description": "Assume yes to safety prompts",
-          "name": "yes",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "autoUnshallow": {
-          "char": "U",
-          "description": "Automatically unshallow the repo if needed",
-          "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "mod:import",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "summary": "Import a remote mod repository under mods/<slug>",
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "mod",
-        "import.js"
-      ]
-    },
-    "mod:link": {
-      "aliases": [],
-      "args": {
-        "slug": {
-          "description": "Mod slug",
-          "name": "slug",
-          "required": true
-        }
-      },
-      "description": "Use \"mod setup\" instead.",
-      "flags": {
-        "branch": {
-          "char": "b",
-          "description": "Branch to track",
-          "name": "branch",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "required": true,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "squash": {
-          "char": "S",
-          "description": "Squash history when importing",
-          "name": "squash",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "yes": {
-          "char": "y",
-          "description": "Assume yes to safety prompts",
-          "name": "yes",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "autoUnshallow": {
-          "char": "U",
-          "description": "Automatically unshallow the repo if needed",
-          "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "overwrite": {
-          "description": "Overwrite existing subtree directory if non-empty",
-          "name": "overwrite",
-          "allowNo": false,
-          "type": "boolean"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "mod:link",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "summary": "Deprecated alias for mod setup",
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "mod",
-        "link.js"
-      ]
-    },
-    "mod:list": {
-      "aliases": [],
-      "args": {},
-      "description": "Finds the Mods directory on this machine and lists subdirectories.",
-      "flags": {
-        "dir": {
-          "description": "Override Mods directory path",
-          "name": "dir",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "mod:list",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "strict": true,
-      "summary": "List locally installed Civ7 mods in the Mods directory",
-      "enableJsonFlag": false,
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "mod",
-        "list.js"
-      ]
-    },
-    "mod:pull": {
-      "aliases": [],
-      "args": {
-        "slug": {
-          "description": "Mod slug",
-          "name": "slug",
-          "required": true
-        }
-      },
-      "description": "Fetch and merge updates from the mirror repository into the local mod subtree.",
-      "flags": {
-        "branch": {
-          "char": "b",
-          "description": "Branch to track",
-          "name": "branch",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "squash": {
-          "char": "S",
-          "description": "Squash history when pulling",
-          "name": "squash",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "yes": {
-          "char": "y",
-          "description": "Assume yes to safety prompts",
-          "name": "yes",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "autoUnshallow": {
-          "char": "U",
-          "description": "Automatically unshallow the repo if needed",
-          "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "mod:pull",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "summary": "Pull remote changes into mods/<slug>",
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "mod",
-        "pull.js"
-      ]
-    },
-    "mod:push": {
-      "aliases": [],
-      "args": {
-        "slug": {
-          "description": "Mod slug",
-          "name": "slug",
-          "required": true
-        }
-      },
-      "description": "Push local mod subtree changes back to the mirror repository.",
-      "flags": {
-        "branch": {
-          "char": "b",
-          "description": "Branch to track",
-          "name": "branch",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "yes": {
-          "char": "y",
-          "description": "Assume yes to safety prompts",
-          "name": "yes",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "autoUnshallow": {
-          "char": "U",
-          "description": "Automatically unshallow the repo if needed",
-          "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "autoFastForwardTrunk": {
-          "char": "f",
-          "description": "After push, attempt to fast-forward the remote trunk branch",
-          "name": "autoFastForwardTrunk",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "trunk": {
-          "char": "t",
-          "description": "Override trunk branch name",
-          "name": "trunk",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "mod:push",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "summary": "Push mods/<slug> to its configured remote",
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "mod",
-        "push.js"
-      ]
-    },
-    "mod:setup": {
-      "aliases": [],
-      "args": {
-        "slug": {
-          "description": "Mod slug",
-          "name": "slug",
-          "required": true
-        }
-      },
-      "description": "Adds the remote and imports the repository into mods/<slug>.",
-      "flags": {
-        "branch": {
-          "char": "b",
-          "description": "Branch to track",
-          "name": "branch",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "required": true,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "squash": {
-          "char": "S",
-          "description": "Squash history when importing",
-          "name": "squash",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "yes": {
-          "char": "y",
-          "description": "Assume yes to safety prompts",
-          "name": "yes",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "autoUnshallow": {
-          "char": "U",
-          "description": "Automatically unshallow the repo if needed",
-          "name": "autoUnshallow",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "overwrite": {
-          "description": "Overwrite existing subtree directory if non-empty",
-          "name": "overwrite",
-          "allowNo": false,
-          "type": "boolean"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "mod:setup",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "summary": "Configure and import a mod in one step",
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "mod",
-        "setup.js"
-      ]
-    },
-    "mod:status": {
-      "aliases": [],
-      "args": {
-        "slug": {
-          "description": "Mod slug",
-          "name": "slug",
-          "required": true
-        }
-      },
-      "description": "Displays repository and remote information for mods/<slug>.",
-      "flags": {
-        "json": {
-          "description": "Output machine-readable JSON",
-          "name": "json",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "mod:status",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "summary": "Show git subtree status for a mod",
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "mod",
-        "status.js"
-      ]
-    },
     "git:config:clear": {
       "aliases": [],
       "args": {},
@@ -1506,7 +1022,420 @@
         "remove.js"
       ]
     },
-    "mod:config:clear": {
+    "mod:link:import": {
+      "aliases": [],
+      "args": {
+        "slug": {
+          "description": "Mod slug",
+          "name": "slug",
+          "required": true
+        }
+      },
+      "description": "Preserve history by adding the remote as a subtree under mods/<slug>.",
+      "flags": {
+        "branch": {
+          "char": "b",
+          "description": "Branch to track",
+          "name": "branch",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "remoteUrl": {
+          "char": "u",
+          "description": "Git remote URL",
+          "name": "remoteUrl",
+          "required": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "squash": {
+          "char": "S",
+          "description": "Squash history when importing",
+          "name": "squash",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "yes": {
+          "char": "y",
+          "description": "Assume yes to safety prompts",
+          "name": "yes",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "autoUnshallow": {
+          "char": "U",
+          "description": "Automatically unshallow the repo if needed",
+          "name": "autoUnshallow",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "mod:link:import",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "summary": "Import a remote mod repository under mods/<slug>",
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "mod",
+        "link",
+        "import.js"
+      ]
+    },
+    "mod:link:pull": {
+      "aliases": [],
+      "args": {
+        "slug": {
+          "description": "Mod slug",
+          "name": "slug",
+          "required": true
+        }
+      },
+      "description": "Fetch and merge updates from the mirror repository into the local mod subtree.",
+      "flags": {
+        "branch": {
+          "char": "b",
+          "description": "Branch to track",
+          "name": "branch",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "squash": {
+          "char": "S",
+          "description": "Squash history when pulling",
+          "name": "squash",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "yes": {
+          "char": "y",
+          "description": "Assume yes to safety prompts",
+          "name": "yes",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "autoUnshallow": {
+          "char": "U",
+          "description": "Automatically unshallow the repo if needed",
+          "name": "autoUnshallow",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "mod:link:pull",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "summary": "Pull remote changes into mods/<slug>",
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "mod",
+        "link",
+        "pull.js"
+      ]
+    },
+    "mod:link:push": {
+      "aliases": [],
+      "args": {
+        "slug": {
+          "description": "Mod slug",
+          "name": "slug",
+          "required": true
+        }
+      },
+      "description": "Push local mod subtree changes back to the mirror repository.",
+      "flags": {
+        "branch": {
+          "char": "b",
+          "description": "Branch to track",
+          "name": "branch",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "yes": {
+          "char": "y",
+          "description": "Assume yes to safety prompts",
+          "name": "yes",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "autoUnshallow": {
+          "char": "U",
+          "description": "Automatically unshallow the repo if needed",
+          "name": "autoUnshallow",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "autoFastForwardTrunk": {
+          "char": "f",
+          "description": "After push, attempt to fast-forward the remote trunk branch",
+          "name": "autoFastForwardTrunk",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "trunk": {
+          "char": "t",
+          "description": "Override trunk branch name",
+          "name": "trunk",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "mod:link:push",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "summary": "Push mods/<slug> to its configured remote",
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "mod",
+        "link",
+        "push.js"
+      ]
+    },
+    "mod:link:setup": {
+      "aliases": [],
+      "args": {
+        "slug": {
+          "description": "Mod slug",
+          "name": "slug",
+          "required": true
+        }
+      },
+      "description": "Adds the remote and imports the repository into mods/<slug>.",
+      "flags": {
+        "branch": {
+          "char": "b",
+          "description": "Branch to track",
+          "name": "branch",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "remoteUrl": {
+          "char": "u",
+          "description": "Git remote URL",
+          "name": "remoteUrl",
+          "required": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "squash": {
+          "char": "S",
+          "description": "Squash history when importing",
+          "name": "squash",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "yes": {
+          "char": "y",
+          "description": "Assume yes to safety prompts",
+          "name": "yes",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "autoUnshallow": {
+          "char": "U",
+          "description": "Automatically unshallow the repo if needed",
+          "name": "autoUnshallow",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "overwrite": {
+          "description": "Overwrite existing subtree directory if non-empty",
+          "name": "overwrite",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "mod:link:setup",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "summary": "Configure and import a mod in one step",
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "mod",
+        "link",
+        "setup.js"
+      ]
+    },
+    "mod:link:status": {
+      "aliases": [],
+      "args": {
+        "slug": {
+          "description": "Mod slug",
+          "name": "slug",
+          "required": true
+        }
+      },
+      "description": "Displays repository and remote information for mods/<slug>.",
+      "flags": {
+        "json": {
+          "description": "Output machine-readable JSON",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "mod:link:status",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "summary": "Show git subtree status for a mod",
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "mod",
+        "link",
+        "status.js"
+      ]
+    },
+    "mod:manage:deploy": {
+      "aliases": [],
+      "args": {},
+      "description": "Copies files from an input directory into Mods/[mod-id].",
+      "examples": [
+        "<%= config.bin %> mod manage deploy --input ./dist --id my_mod",
+        "<%= config.bin %> mod manage deploy -i ../plugin-mapgen/dist -m epic-diverse-huge"
+      ],
+      "flags": {
+        "input": {
+          "char": "i",
+          "description": "Input directory of the mod files",
+          "name": "input",
+          "required": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "id": {
+          "char": "m",
+          "description": "Target mod id (directory name under Mods/)",
+          "name": "id",
+          "required": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "dir": {
+          "description": "Override Mods directory path",
+          "name": "dir",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "mod:manage:deploy",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Deploy a mod folder into the Civ7 Mods directory",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "mod",
+        "manage",
+        "deploy.js"
+      ]
+    },
+    "mod:manage:list": {
+      "aliases": [],
+      "args": {},
+      "description": "Finds the Mods directory on this machine and lists subdirectories.",
+      "flags": {
+        "dir": {
+          "description": "Override Mods directory path",
+          "name": "dir",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "mod:manage:list",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "List locally installed Civ7 mods in the Mods directory",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "mod",
+        "manage",
+        "list.js"
+      ]
+    },
+    "mod:link:config:clear": {
       "aliases": [],
       "args": {},
       "flags": {
@@ -1526,7 +1455,7 @@
       },
       "hasDynamicHelp": false,
       "hiddenAliases": [],
-      "id": "mod:config:clear",
+      "id": "mod:link:config:clear",
       "pluginAlias": "@mateicanavra/civ7-cli",
       "pluginName": "@mateicanavra/civ7-cli",
       "pluginType": "core",
@@ -1536,11 +1465,96 @@
         "dist",
         "commands",
         "mod",
+        "link",
         "config",
         "clear.js"
       ]
     },
-    "mod:config": {
+    "mod:link:config:list": {
+      "aliases": [],
+      "args": {},
+      "flags": {
+        "json": {
+          "description": "Output machine-readable JSON",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "mod:link:config:list",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "summary": "List stored mod subtree configurations",
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "mod",
+        "link",
+        "config",
+        "list.js"
+      ]
+    },
+    "mod:link:config:remove": {
+      "aliases": [],
+      "args": {
+        "slug": {
+          "description": "Subtree slug",
+          "name": "slug",
+          "required": false
+        }
+      },
+      "description": "Delete config for a slug or repo URL.",
+      "flags": {
+        "repoUrl": {
+          "description": "Repository URL to match",
+          "name": "repoUrl",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "deleteLocal": {
+          "description": "Also delete local subtree directory",
+          "name": "deleteLocal",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "mod:link:config:remove",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "summary": "Remove a stored mod subtree configuration",
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "mod",
+        "link",
+        "config",
+        "remove.js"
+      ]
+    },
+    "mod:link:config:update": {
       "aliases": [],
       "args": {
         "slug": {
@@ -1578,100 +1592,19 @@
       },
       "hasDynamicHelp": false,
       "hiddenAliases": [],
-      "id": "mod:config",
+      "id": "mod:link:config:update",
       "pluginAlias": "@mateicanavra/civ7-cli",
       "pluginName": "@mateicanavra/civ7-cli",
       "pluginType": "core",
-      "summary": "Configure the remote for a mod subtree",
+      "summary": "Create or update the remote configuration for a mod subtree",
       "isESM": false,
       "relativePath": [
         "dist",
         "commands",
         "mod",
+        "link",
         "config",
-        "index.js"
-      ]
-    },
-    "mod:config:list": {
-      "aliases": [],
-      "args": {},
-      "flags": {
-        "json": {
-          "description": "Output machine-readable JSON",
-          "name": "json",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "mod:config:list",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "summary": "List stored mod subtree configurations",
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "mod",
-        "config",
-        "list.js"
-      ]
-    },
-    "mod:config:remove": {
-      "aliases": [],
-      "args": {
-        "slug": {
-          "description": "Subtree slug",
-          "name": "slug",
-          "required": false
-        }
-      },
-      "description": "Delete config for a slug or repo URL.",
-      "flags": {
-        "repoUrl": {
-          "description": "Repository URL to match",
-          "name": "repoUrl",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "deleteLocal": {
-          "description": "Also delete local subtree directory",
-          "name": "deleteLocal",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "mod:config:remove",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "summary": "Remove a stored mod subtree configuration",
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "mod",
-        "config",
-        "remove.js"
+        "update.js"
       ]
     }
   },

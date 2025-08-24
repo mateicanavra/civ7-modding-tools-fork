@@ -69,7 +69,13 @@
         "description": "Generic git-subtree operations: configure remotes, import repos, pull, push, setup and view status."
       },
       "mod": {
-        "description": "Manage Civilization VII mods: configure and import repos, push/pull changes, setup, list and deploy mods, view status."
+        "description": "Manage Civilization VII mods"
+      },
+      "mod link": {
+        "description": "Configure and sync mod repositories via git subtree (config, setup, import, pull, push, status)"
+      },
+      "mod manage": {
+        "description": "Manage local mod folders (list, deploy)"
       }
     }
   },
