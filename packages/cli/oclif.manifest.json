@@ -1,458 +1,5 @@
 {
   "commands": {
-    "data:crawl": {
-      "aliases": [],
-      "args": {
-        "seed": {
-          "description": "Seed identifier: either Table:ID or an ID with a known prefix (e.g., LEADER_*)",
-          "name": "seed",
-          "required": true
-        },
-        "outDir": {
-          "description": "Output directory (default: out/<seed>)",
-          "name": "outDir",
-          "required": false
-        }
-      },
-      "description": "\nGiven a root folder (or single XML file) and a seed (e.g., LEADER_*, TRAIT_*, or Table:ID),\nthis command builds an in-memory index of Civ-style XML and performs a breadth-first crawl\nto discover related rows. It writes a graph (JSON + DOT) and a manifest of XML files.\n",
-      "examples": [
-        "<%= config.bin %> crawl LEADER_AMANITORE",
-        "<%= config.bin %> crawl Traits:TRAIT_SOME_TRAIT --profile default",
-        "<%= config.bin %> crawl LEADER_AMANITORE ./out/genghis"
-      ],
-      "flags": {
-        "config": {
-          "description": "Path to config file",
-          "name": "config",
-          "required": false,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "profile": {
-          "description": "Profile key from config",
-          "name": "profile",
-          "required": false,
-          "default": "default",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "root": {
-          "description": "Override root folder (XML dir) if not using config",
-          "name": "root",
-          "required": false,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "data:crawl",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "strict": true,
-      "summary": "Crawl Civ XML resources and output a dependency graph + manifest",
-      "enableJsonFlag": false,
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "data",
-        "crawl.js"
-      ]
-    },
-    "data:explore": {
-      "aliases": [],
-      "args": {
-        "seed": {
-          "description": "Seed identifier: Table:ID or an ID with a known prefix (e.g., LEADER_*)",
-          "name": "seed",
-          "required": true
-        },
-        "outDir": {
-          "description": "Output directory (default: out/<seed>)",
-          "name": "outDir",
-          "required": false
-        }
-      },
-      "description": "Runs the full pipeline: crawl resources for a seed, emit graph.json/graph.dot, render SVG, and optionally open a visualizer (local SVG or Graphviz Online).",
-      "examples": [
-        "<%= config.bin %> explore LEADER_AMINA",
-        "<%= config.bin %> explore CIVILIZATION_ROME --openOnline"
-      ],
-      "flags": {
-        "config": {
-          "description": "Path to config file",
-          "name": "config",
-          "required": false,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "profile": {
-          "description": "Profile key from config",
-          "name": "profile",
-          "required": false,
-          "default": "default",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "root": {
-          "description": "Override root folder (XML dir) if not using config",
-          "name": "root",
-          "required": false,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "engine": {
-          "description": "Graphviz engine",
-          "name": "engine",
-          "default": "dot",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "options": [
-            "dot",
-            "neato",
-            "fdp",
-            "sfdp",
-            "circo",
-            "twopi"
-          ],
-          "type": "option"
-        },
-        "open": {
-          "description": "Open the generated visualization (HTML viewer by default) in your default browser",
-          "name": "open",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "openOnline": {
-          "description": "Open GraphvizOnline with DOT in the URL hash (may be too long for big graphs)",
-          "name": "openOnline",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "maxUrlLength": {
-          "description": "Max URL length for online viewer (guard)",
-          "name": "maxUrlLength",
-          "default": 8000,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "vizHtml": {
-          "aliases": [
-            "viz.html"
-          ],
-          "description": "Emit a local HTML viewer (graph.html) that embeds the generated SVG and adds pan/zoom",
-          "name": "vizHtml",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "serve": {
-          "description": "Serve the output directory and open http://localhost:<port>/graph.html",
-          "name": "serve",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "port": {
-          "description": "Port for --serve (default 3000 or next free)",
-          "name": "port",
-          "default": 3000,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "data:explore",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "strict": true,
-      "summary": "Crawl + render + open a visualization in one pipeline.",
-      "enableJsonFlag": false,
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "data",
-        "explore.js"
-      ]
-    },
-    "data:render": {
-      "aliases": [],
-      "args": {
-        "input": {
-          "description": "Path to DOT file (defaults to out/<seed>/graph.dot)",
-          "name": "input",
-          "required": true
-        },
-        "output": {
-          "description": "Path to output SVG (defaults to out/<seed>/graph.svg)",
-          "name": "output",
-          "required": false
-        }
-      },
-      "description": "\nRenders a Graphviz DOT file to SVG using a WebAssembly Graphviz engine.\n",
-      "examples": [
-        "<%= config.bin %> render ./out/graph.dot ./out/graph.svg"
-      ],
-      "flags": {
-        "config": {
-          "description": "Path to config file",
-          "name": "config",
-          "required": false,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "profile": {
-          "description": "Profile key from config",
-          "name": "profile",
-          "required": false,
-          "default": "default",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "engine": {
-          "description": "Graphviz engine",
-          "name": "engine",
-          "default": "dot",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "options": [
-            "dot",
-            "neato",
-            "fdp",
-            "sfdp",
-            "circo",
-            "twopi"
-          ],
-          "type": "option"
-        },
-        "format": {
-          "description": "Output format",
-          "name": "format",
-          "default": "svg",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "options": [
-            "svg"
-          ],
-          "type": "option"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "data:render",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "strict": true,
-      "summary": "Render a Graphviz DOT file to an SVG (no external deps).",
-      "enableJsonFlag": false,
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "data",
-        "render.js"
-      ]
-    },
-    "data:slice": {
-      "aliases": [],
-      "args": {
-        "manifest": {
-          "description": "Path to manifest.txt (defaults to out/<seed>/manifest.txt)",
-          "name": "manifest",
-          "required": true
-        }
-      },
-      "description": "\nReads a manifest.txt (one absolute path per line) and copies those files from a given root into a destination folder,\npreserving relative directory structure.\n",
-      "examples": [
-        "<%= config.bin %> slice ./out/<seed>/manifest.txt",
-        "<%= config.bin %> slice --profile default ./out/<seed>/manifest.txt ./out/<seed>-slice"
-      ],
-      "flags": {
-        "config": {
-          "description": "Path to config file",
-          "name": "config",
-          "required": false,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "profile": {
-          "description": "Profile key from config",
-          "name": "profile",
-          "required": false,
-          "default": "default",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "root": {
-          "description": "Override root directory (XML source) if not using config",
-          "name": "root",
-          "required": false,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "dest": {
-          "description": "Override destination directory",
-          "name": "dest",
-          "required": false,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "data:slice",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "strict": true,
-      "summary": "Copy files from manifest.txt into a destination folder (preserving paths).",
-      "enableJsonFlag": false,
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "data",
-        "slice.js"
-      ]
-    },
-    "data:unzip": {
-      "aliases": [],
-      "args": {
-        "profile": {
-          "default": "default",
-          "description": "The profile to use from the config file.",
-          "name": "profile",
-          "required": false
-        },
-        "zipfile": {
-          "description": "Overrides the source path for the zip archive.",
-          "name": "zipfile",
-          "required": false
-        },
-        "extractpath": {
-          "description": "Overrides the output directory for extraction.",
-          "name": "extractpath",
-          "required": false
-        }
-      },
-      "description": "\nReads profiles from the CLI config to extract a resource archive.\nThe source zip file and extraction path are determined by the profile, but can be overridden.\n",
-      "examples": [
-        "<%= config.bin %> unzip",
-        "<%= config.bin %> unzip full",
-        "<%= config.bin %> unzip --config ./my-config.jsonc default",
-        "<%= config.bin %> unzip default ./my-custom-archive.zip ./my-custom-output-dir"
-      ],
-      "flags": {
-        "config": {
-          "description": "Path to the configuration file.",
-          "name": "config",
-          "required": false,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "data:unzip",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "strict": true,
-      "summary": "Unzips Civilization VII resources based on a profile.",
-      "enableJsonFlag": false,
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "data",
-        "unzip.js"
-      ]
-    },
-    "data:zip": {
-      "aliases": [],
-      "args": {
-        "profile": {
-          "default": "default",
-          "description": "The profile to use from the config file.",
-          "name": "profile",
-          "required": false
-        },
-        "zipfile": {
-          "description": "Overrides the output path for the zip archive.",
-          "name": "zipfile",
-          "required": false
-        }
-      },
-      "description": "\nReads profiles from the CLI config to create a zip archive of the game's resources.\nAutomatically detects OS defaults but can be overridden. Supports include/exclude patterns and prints a summary.\n",
-      "examples": [
-        "<%= config.bin %> zip",
-        "<%= config.bin %> zip full",
-        "<%= config.bin %> zip --verbose assets",
-        "<%= config.bin %> zip --config ./my-config.jsonc default",
-        "<%= config.bin %> zip default ./my-custom-archive.zip"
-      ],
-      "flags": {
-        "verbose": {
-          "char": "v",
-          "description": "Enables verbose output from the zip command.",
-          "name": "verbose",
-          "required": false,
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "config": {
-          "description": "Path to the configuration file.",
-          "name": "config",
-          "required": false,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "installDir": {
-          "description": "Override Civ7 install directory (source)",
-          "name": "installDir",
-          "required": false,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "data:zip",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "strict": true,
-      "summary": "Zips Civilization VII resources based on a profile.",
-      "enableJsonFlag": false,
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "data",
-        "zip.js"
-      ]
-    },
     "docs:serve": {
       "aliases": [],
       "args": {},
@@ -528,65 +75,6 @@
         "commands",
         "docs",
         "serve.js"
-      ]
-    },
-    "git:config": {
-      "aliases": [],
-      "args": {
-        "slug": {
-          "description": "Subtree slug",
-          "name": "slug",
-          "required": true
-        }
-      },
-      "description": "Add or update the git remote for a subtree.",
-      "flags": {
-        "json": {
-          "description": "Output machine-readable JSON",
-          "name": "json",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "branch": {
-          "char": "b",
-          "description": "Branch to track",
-          "name": "branch",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "required": true,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "git:config",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "strict": true,
-      "summary": "Configure the remote for a git subtree",
-      "enableJsonFlag": false,
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "git",
-        "config.js"
       ]
     },
     "git:import": {
@@ -953,65 +441,6 @@
         "commands",
         "git",
         "status.js"
-      ]
-    },
-    "mod:config": {
-      "aliases": [],
-      "args": {
-        "slug": {
-          "description": "Mod slug",
-          "name": "slug",
-          "required": true
-        }
-      },
-      "description": "Add or update the git remote used by mods/<slug>.",
-      "flags": {
-        "json": {
-          "description": "Output machine-readable JSON",
-          "name": "json",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "branch": {
-          "char": "b",
-          "description": "Branch to track",
-          "name": "branch",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
-        "verbose": {
-          "char": "v",
-          "description": "Show underlying git commands",
-          "name": "verbose",
-          "allowNo": false,
-          "type": "boolean"
-        },
-        "remoteUrl": {
-          "char": "u",
-          "description": "Git remote URL",
-          "name": "remoteUrl",
-          "required": true,
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        }
-      },
-      "hasDynamicHelp": false,
-      "hiddenAliases": [],
-      "id": "mod:config",
-      "pluginAlias": "@mateicanavra/civ7-cli",
-      "pluginName": "@mateicanavra/civ7-cli",
-      "pluginType": "core",
-      "strict": true,
-      "summary": "Configure the remote for a mod subtree",
-      "enableJsonFlag": false,
-      "isESM": false,
-      "relativePath": [
-        "dist",
-        "commands",
-        "mod",
-        "config.js"
       ]
     },
     "mod:deploy": {
@@ -1546,6 +975,847 @@
         "commands",
         "mod",
         "status.js"
+      ]
+    },
+    "git:config:clear": {
+      "aliases": [],
+      "args": {},
+      "flags": {
+        "json": {
+          "description": "Output machine-readable JSON",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "deleteLocal": {
+          "description": "Also delete local subtree directories",
+          "name": "deleteLocal",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "git:config:clear",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Delete all stored git subtree configurations",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "git",
+        "config",
+        "clear.js"
+      ]
+    },
+    "git:config": {
+      "aliases": [],
+      "args": {
+        "slug": {
+          "description": "Subtree slug",
+          "name": "slug",
+          "required": true
+        }
+      },
+      "description": "Add or update the git remote for a subtree.",
+      "flags": {
+        "json": {
+          "description": "Output machine-readable JSON",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "branch": {
+          "char": "b",
+          "description": "Branch to track",
+          "name": "branch",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "remoteUrl": {
+          "char": "u",
+          "description": "Git remote URL",
+          "name": "remoteUrl",
+          "required": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "git:config",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Configure the remote for a git subtree",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "git",
+        "config",
+        "index.js"
+      ]
+    },
+    "git:config:list": {
+      "aliases": [],
+      "args": {},
+      "flags": {
+        "json": {
+          "description": "Output machine-readable JSON",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "git:config:list",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "List stored git subtree configurations",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "git",
+        "config",
+        "list.js"
+      ]
+    },
+    "git:config:remove": {
+      "aliases": [],
+      "args": {
+        "slug": {
+          "description": "Subtree slug",
+          "name": "slug",
+          "required": false
+        }
+      },
+      "description": "Delete config for a slug or repo URL.",
+      "flags": {
+        "json": {
+          "description": "Output machine-readable JSON",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "repoUrl": {
+          "description": "Repository URL to match",
+          "name": "repoUrl",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "deleteLocal": {
+          "description": "Also delete local subtree directory",
+          "name": "deleteLocal",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "git:config:remove",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Remove a stored git subtree configuration",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "git",
+        "config",
+        "remove.js"
+      ]
+    },
+    "data:crawl": {
+      "aliases": [],
+      "args": {
+        "seed": {
+          "description": "Seed identifier: either Table:ID or an ID with a known prefix (e.g., LEADER_*)",
+          "name": "seed",
+          "required": true
+        },
+        "outDir": {
+          "description": "Output directory (default: out/<seed>)",
+          "name": "outDir",
+          "required": false
+        }
+      },
+      "description": "\nGiven a root folder (or single XML file) and a seed (e.g., LEADER_*, TRAIT_*, or Table:ID),\nthis command builds an in-memory index of Civ-style XML and performs a breadth-first crawl\nto discover related rows. It writes a graph (JSON + DOT) and a manifest of XML files.\n",
+      "examples": [
+        "<%= config.bin %> crawl LEADER_AMANITORE",
+        "<%= config.bin %> crawl Traits:TRAIT_SOME_TRAIT --profile default",
+        "<%= config.bin %> crawl LEADER_AMANITORE ./out/genghis"
+      ],
+      "flags": {
+        "config": {
+          "description": "Path to config file",
+          "name": "config",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "profile": {
+          "description": "Profile key from config",
+          "name": "profile",
+          "required": false,
+          "default": "default",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "root": {
+          "description": "Override root folder (XML dir) if not using config",
+          "name": "root",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "data:crawl",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Crawl Civ XML resources and output a dependency graph + manifest",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "data",
+        "crawl.js"
+      ]
+    },
+    "data:explore": {
+      "aliases": [],
+      "args": {
+        "seed": {
+          "description": "Seed identifier: Table:ID or an ID with a known prefix (e.g., LEADER_*)",
+          "name": "seed",
+          "required": true
+        },
+        "outDir": {
+          "description": "Output directory (default: out/<seed>)",
+          "name": "outDir",
+          "required": false
+        }
+      },
+      "description": "Runs the full pipeline: crawl resources for a seed, emit graph.json/graph.dot, render SVG, and optionally open a visualizer (local SVG or Graphviz Online).",
+      "examples": [
+        "<%= config.bin %> explore LEADER_AMINA",
+        "<%= config.bin %> explore CIVILIZATION_ROME --openOnline"
+      ],
+      "flags": {
+        "config": {
+          "description": "Path to config file",
+          "name": "config",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "profile": {
+          "description": "Profile key from config",
+          "name": "profile",
+          "required": false,
+          "default": "default",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "root": {
+          "description": "Override root folder (XML dir) if not using config",
+          "name": "root",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "engine": {
+          "description": "Graphviz engine",
+          "name": "engine",
+          "default": "dot",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "options": [
+            "dot",
+            "neato",
+            "fdp",
+            "sfdp",
+            "circo",
+            "twopi"
+          ],
+          "type": "option"
+        },
+        "open": {
+          "description": "Open the generated visualization (HTML viewer by default) in your default browser",
+          "name": "open",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "openOnline": {
+          "description": "Open GraphvizOnline with DOT in the URL hash (may be too long for big graphs)",
+          "name": "openOnline",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "maxUrlLength": {
+          "description": "Max URL length for online viewer (guard)",
+          "name": "maxUrlLength",
+          "default": 8000,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "vizHtml": {
+          "aliases": [
+            "viz.html"
+          ],
+          "description": "Emit a local HTML viewer (graph.html) that embeds the generated SVG and adds pan/zoom",
+          "name": "vizHtml",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "serve": {
+          "description": "Serve the output directory and open http://localhost:<port>/graph.html",
+          "name": "serve",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "port": {
+          "description": "Port for --serve (default 3000 or next free)",
+          "name": "port",
+          "default": 3000,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "data:explore",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Crawl + render + open a visualization in one pipeline.",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "data",
+        "explore.js"
+      ]
+    },
+    "data:render": {
+      "aliases": [],
+      "args": {
+        "input": {
+          "description": "Path to DOT file (defaults to out/<seed>/graph.dot)",
+          "name": "input",
+          "required": true
+        },
+        "output": {
+          "description": "Path to output SVG (defaults to out/<seed>/graph.svg)",
+          "name": "output",
+          "required": false
+        }
+      },
+      "description": "\nRenders a Graphviz DOT file to SVG using a WebAssembly Graphviz engine.\n",
+      "examples": [
+        "<%= config.bin %> render ./out/graph.dot ./out/graph.svg"
+      ],
+      "flags": {
+        "config": {
+          "description": "Path to config file",
+          "name": "config",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "profile": {
+          "description": "Profile key from config",
+          "name": "profile",
+          "required": false,
+          "default": "default",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "engine": {
+          "description": "Graphviz engine",
+          "name": "engine",
+          "default": "dot",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "options": [
+            "dot",
+            "neato",
+            "fdp",
+            "sfdp",
+            "circo",
+            "twopi"
+          ],
+          "type": "option"
+        },
+        "format": {
+          "description": "Output format",
+          "name": "format",
+          "default": "svg",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "options": [
+            "svg"
+          ],
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "data:render",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Render a Graphviz DOT file to an SVG (no external deps).",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "data",
+        "render.js"
+      ]
+    },
+    "data:slice": {
+      "aliases": [],
+      "args": {
+        "manifest": {
+          "description": "Path to manifest.txt (defaults to out/<seed>/manifest.txt)",
+          "name": "manifest",
+          "required": true
+        }
+      },
+      "description": "\nReads a manifest.txt (one absolute path per line) and copies those files from a given root into a destination folder,\npreserving relative directory structure.\n",
+      "examples": [
+        "<%= config.bin %> slice ./out/<seed>/manifest.txt",
+        "<%= config.bin %> slice --profile default ./out/<seed>/manifest.txt ./out/<seed>-slice"
+      ],
+      "flags": {
+        "config": {
+          "description": "Path to config file",
+          "name": "config",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "profile": {
+          "description": "Profile key from config",
+          "name": "profile",
+          "required": false,
+          "default": "default",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "root": {
+          "description": "Override root directory (XML source) if not using config",
+          "name": "root",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "dest": {
+          "description": "Override destination directory",
+          "name": "dest",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "data:slice",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Copy files from manifest.txt into a destination folder (preserving paths).",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "data",
+        "slice.js"
+      ]
+    },
+    "data:unzip": {
+      "aliases": [],
+      "args": {
+        "profile": {
+          "default": "default",
+          "description": "The profile to use from the config file.",
+          "name": "profile",
+          "required": false
+        },
+        "zipfile": {
+          "description": "Overrides the source path for the zip archive.",
+          "name": "zipfile",
+          "required": false
+        },
+        "extractpath": {
+          "description": "Overrides the output directory for extraction.",
+          "name": "extractpath",
+          "required": false
+        }
+      },
+      "description": "\nReads profiles from the CLI config to extract a resource archive.\nThe source zip file and extraction path are determined by the profile, but can be overridden.\n",
+      "examples": [
+        "<%= config.bin %> unzip",
+        "<%= config.bin %> unzip full",
+        "<%= config.bin %> unzip --config ./my-config.jsonc default",
+        "<%= config.bin %> unzip default ./my-custom-archive.zip ./my-custom-output-dir"
+      ],
+      "flags": {
+        "config": {
+          "description": "Path to the configuration file.",
+          "name": "config",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "data:unzip",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Unzips Civilization VII resources based on a profile.",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "data",
+        "unzip.js"
+      ]
+    },
+    "data:zip": {
+      "aliases": [],
+      "args": {
+        "profile": {
+          "default": "default",
+          "description": "The profile to use from the config file.",
+          "name": "profile",
+          "required": false
+        },
+        "zipfile": {
+          "description": "Overrides the output path for the zip archive.",
+          "name": "zipfile",
+          "required": false
+        }
+      },
+      "description": "\nReads profiles from the CLI config to create a zip archive of the game's resources.\nAutomatically detects OS defaults but can be overridden. Supports include/exclude patterns and prints a summary.\n",
+      "examples": [
+        "<%= config.bin %> zip",
+        "<%= config.bin %> zip full",
+        "<%= config.bin %> zip --verbose assets",
+        "<%= config.bin %> zip --config ./my-config.jsonc default",
+        "<%= config.bin %> zip default ./my-custom-archive.zip"
+      ],
+      "flags": {
+        "verbose": {
+          "char": "v",
+          "description": "Enables verbose output from the zip command.",
+          "name": "verbose",
+          "required": false,
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "config": {
+          "description": "Path to the configuration file.",
+          "name": "config",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "installDir": {
+          "description": "Override Civ7 install directory (source)",
+          "name": "installDir",
+          "required": false,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "data:zip",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Zips Civilization VII resources based on a profile.",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "data",
+        "zip.js"
+      ]
+    },
+    "mod:config:clear": {
+      "aliases": [],
+      "args": {},
+      "flags": {
+        "json": {
+          "description": "Output machine-readable JSON",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "deleteLocal": {
+          "description": "Also delete local subtree directories",
+          "name": "deleteLocal",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "mod:config:clear",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Delete all stored mod subtree configurations",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "mod",
+        "config",
+        "clear.js"
+      ]
+    },
+    "mod:config": {
+      "aliases": [],
+      "args": {
+        "slug": {
+          "description": "Mod slug",
+          "name": "slug",
+          "required": true
+        }
+      },
+      "description": "Add or update the git remote used by mods/<slug>.",
+      "flags": {
+        "json": {
+          "description": "Output machine-readable JSON",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "branch": {
+          "char": "b",
+          "description": "Branch to track",
+          "name": "branch",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "remoteUrl": {
+          "char": "u",
+          "description": "Git remote URL",
+          "name": "remoteUrl",
+          "required": true,
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "mod:config",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Configure the remote for a mod subtree",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "mod",
+        "config",
+        "index.js"
+      ]
+    },
+    "mod:config:list": {
+      "aliases": [],
+      "args": {},
+      "flags": {
+        "json": {
+          "description": "Output machine-readable JSON",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "mod:config:list",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "List stored mod subtree configurations",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "mod",
+        "config",
+        "list.js"
+      ]
+    },
+    "mod:config:remove": {
+      "aliases": [],
+      "args": {
+        "slug": {
+          "description": "Subtree slug",
+          "name": "slug",
+          "required": false
+        }
+      },
+      "description": "Delete config for a slug or repo URL.",
+      "flags": {
+        "json": {
+          "description": "Output machine-readable JSON",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "repoUrl": {
+          "description": "Repository URL to match",
+          "name": "repoUrl",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "deleteLocal": {
+          "description": "Also delete local subtree directory",
+          "name": "deleteLocal",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show underlying git commands",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "mod:config:remove",
+      "pluginAlias": "@mateicanavra/civ7-cli",
+      "pluginName": "@mateicanavra/civ7-cli",
+      "pluginType": "core",
+      "strict": true,
+      "summary": "Remove a stored mod subtree configuration",
+      "enableJsonFlag": false,
+      "isESM": false,
+      "relativePath": [
+        "dist",
+        "commands",
+        "mod",
+        "config",
+        "remove.js"
       ]
     }
   },

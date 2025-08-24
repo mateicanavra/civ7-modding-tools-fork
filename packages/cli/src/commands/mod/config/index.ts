@@ -1,5 +1,5 @@
 import { Args } from '@oclif/core';
-import ConfigRemoteBase from '../../subtree/ConfigRemoteBase.js';
+import ConfigRemoteBase from '../../../subtree/ConfigRemoteBase.js';
 
 export default class ModConfig extends ConfigRemoteBase {
   static summary = 'Configure the remote for a mod subtree';

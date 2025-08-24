@@ -45,7 +45,7 @@ export default defineConfig({
         root: r('packages/plugins/plugin-files'),
         test: { name: 'plugin-files' }
       },
-      {
+      { 
         extends: true,
         root: r('packages/plugins/plugin-graph'),
         test: { name: 'plugin-graph' }
@@ -54,6 +54,11 @@ export default defineConfig({
         extends: true,
         root: r('packages/plugins/plugin-mapgen'),
         test: { name: 'plugin-mapgen' }
+      },
+      {
+        extends: true,
+        root: r('packages/plugins/plugin-git'),
+        test: { name: 'plugin-git' }
       }
     ]
   }

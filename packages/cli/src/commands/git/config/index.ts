@@ -1,4 +1,4 @@
-import ConfigRemoteBase from '../../subtree/ConfigRemoteBase.js';
+import ConfigRemoteBase from '../../../subtree/ConfigRemoteBase.js';
 
 export default class GitConfig extends ConfigRemoteBase {
   static summary = 'Configure the remote for a git subtree';
