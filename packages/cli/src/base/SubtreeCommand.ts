@@ -1,14 +1,10 @@
 import { Flags } from '@oclif/core';
 import BaseCommand from './BaseCommand.js';
-import { resolveBranch, resolveRemoteName } from '../utils/git.js';
+import { resolveBranch } from '../utils/git.js';
 
 export default abstract class SubtreeCommand extends BaseCommand {
   static baseFlags = {
     ...BaseCommand.baseFlags,
-    remoteName: Flags.string({
-      description: 'Git remote name (advanced override)',
-      hidden: true,
-    }),
     branch: Flags.string({
       description: 'Branch to track',
       char: 'b',
@@ -21,18 +17,6 @@ export default abstract class SubtreeCommand extends BaseCommand {
   } as const;
 
   protected abstract domain: string;
-
-  protected async resolveRemoteName(opts: { slug?: string; flags: any }) {
-    const { slug, flags } = opts;
-    return resolveRemoteName({
-      domain: this.domain,
-      slug,
-      remoteName: flags.remoteName,
-      remoteUrl: flags.remoteUrl,
-      verbose: flags.verbose,
-      logger: this,
-    });
-  }
 
   protected async resolveBranch(opts: { slug: string; flags: any }) {
     const { slug, flags } = opts;

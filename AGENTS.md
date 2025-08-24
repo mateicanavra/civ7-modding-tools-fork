@@ -15,7 +15,7 @@
 - `plugin-mapgen` sources are written in TypeScript with legacy JS copies under `js-archive/` for verification.
 - CLI commands should remain thin wrappers around these plugins.
 - Status-style CLI commands now accept `--json` for machine-readable output.
-- Subtree-based CLI commands expose only relevant flags; `remoteUrl` is required only for `config`, `import`, and `setup`. `remoteName` is resolved from config and hidden; use `--remoteName` only for advanced overrides.
+- Subtree-based CLI commands expose only relevant flags; `remoteUrl` is required only for `config`, `import`, and `setup`. Remote names are stored during setup and always resolved from config with no overrides.
 
 ### Testing imports
 - Prefer importing from a package's public entry point (e.g., `@civ7/plugin-graph`) in tests rather than deep paths like `../src/*`. This keeps tests resilient to internal refactors (such as folder renames like `pipelines/` → `workflows/`) and validates the surface that external consumers use.

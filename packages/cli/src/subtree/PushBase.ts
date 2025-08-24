@@ -46,7 +46,6 @@ export default abstract class PushBase extends SubtreeCommand {
       domain: this.domain,
       slug,
       prefix,
-      remoteName: flags.remoteName,
       branch: flags.branch,
       allowDirty: flags.yes,
       autoUnshallow: flags.autoUnshallow,

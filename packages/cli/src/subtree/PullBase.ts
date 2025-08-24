@@ -42,7 +42,6 @@ export default abstract class PullBase extends SubtreeCommand {
       domain: this.domain,
       slug,
       prefix,
-      remoteName: flags.remoteName,
       branch: flags.branch,
       squash: flags.squash,
       allowDirty: flags.yes,

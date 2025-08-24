@@ -100,9 +100,9 @@ Status-style commands (e.g., `git status`, `mod status`) also accept `--json` fo
 
  - `src/base/` & `src/subtree/` — abstract oclif commands for git subtree flows (configure, import, push, pull, setup). Domain commands extend these to supply prefixes and defaults.
  - `src/commands/` — oclif commands grouped by topic: `data/` (crawl, explore, render, slice, zip, unzip), `docs/`, `git/`, and `mod/` (with `mod link` aliasing `mod setup` for backward compatibility)
-- `src/utils/` — config/path resolution helpers; generic git helpers (configureRemote, importSubtree, pushSubtree, pullSubtree, logRemotePushConfig, inferRemoteNameFromUrl, resolveRemoteName/requireRemoteName, resolveBranch/requireBranch, isNonEmptyDir) live in `utils/git.ts` and centralize logging, argument defaults, and remote/branch inference for git operations
+- `src/utils/` — config/path resolution helpers; generic git helpers (configureRemote, importSubtree, pushSubtree, pullSubtree, logRemotePushConfig, getRemoteNameForSlug/requireRemoteNameForSlug, resolveBranch/requireBranch, isNonEmptyDir) live in `utils/git.ts` and centralize logging, argument defaults, and remote/branch inference for git operations
 - Subtree command classes expose only the flags they consume; `remoteUrl` is required only for `config`, `import`, and `setup` flows, while `push`/`pull` rely on saved config.
-- `remoteName` is resolved from saved config and hidden from help; pass `--remoteName` only for advanced overrides.
+- `remoteName` is stored during setup and always resolved from saved config; no CLI override is supported.
 - Use `@civ7/plugin-graph` for graph workflows (`crawlGraph`, `exploreGraph`); archive helpers are in `@civ7/plugin-files`.
 
 ### Conceptual model and traversal

@@ -47,7 +47,6 @@ export default abstract class ImportBase extends SubtreeCommand {
       domain: this.domain,
       slug,
       prefix,
-      remoteName: flags.remoteName,
       remoteUrl: flags.remoteUrl,
       branch: flags.branch,
       squash: flags.squash,

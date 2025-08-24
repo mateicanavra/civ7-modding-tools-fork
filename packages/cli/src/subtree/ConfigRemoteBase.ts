@@ -26,7 +26,6 @@ export default abstract class ConfigRemoteBase extends SubtreeCommand {
     await configureRemote({
       domain: this.domain,
       slug,
-      remoteName: flags.remoteName,
       remoteUrl: flags.remoteUrl,
       branch: flags.branch,
       verbose: flags.verbose,

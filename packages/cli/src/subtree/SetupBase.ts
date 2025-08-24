@@ -50,7 +50,6 @@ export default abstract class SetupBase extends SubtreeCommand {
     await configureRemote({
       domain: this.domain,
       slug,
-      remoteName: flags.remoteName,
       remoteUrl: flags.remoteUrl,
       branch: flags.branch,
       verbose: flags.verbose,
@@ -60,7 +59,6 @@ export default abstract class SetupBase extends SubtreeCommand {
       domain: this.domain,
       slug,
       prefix,
-      remoteName: flags.remoteName,
       remoteUrl: flags.remoteUrl,
       branch: flags.branch,
       squash: flags.squash,
@@ -68,7 +66,6 @@ export default abstract class SetupBase extends SubtreeCommand {
       autoUnshallow: flags.autoUnshallow,
       verbose: flags.verbose,
       logger: this,
-      remoteRequiredMessage: 'setup requires --remote-url <url>',
     });
   }
 }

@@ -547,14 +547,6 @@
           "allowNo": false,
           "type": "boolean"
         },
-        "remoteName": {
-          "description": "Git remote name (advanced override)",
-          "hidden": true,
-          "name": "remoteName",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
         "branch": {
           "char": "b",
           "description": "Branch to track",
@@ -666,14 +658,6 @@
           "allowNo": false,
           "type": "boolean"
         },
-        "remoteName": {
-          "description": "Git remote name (advanced override)",
-          "hidden": true,
-          "name": "remoteName",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
         "branch": {
           "char": "b",
           "description": "Branch to track",
@@ -753,14 +737,6 @@
           "name": "json",
           "allowNo": false,
           "type": "boolean"
-        },
-        "remoteName": {
-          "description": "Git remote name (advanced override)",
-          "hidden": true,
-          "name": "remoteName",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
         },
         "branch": {
           "char": "b",
@@ -878,14 +854,6 @@
           "allowNo": false,
           "type": "boolean"
         },
-        "remoteName": {
-          "description": "Git remote name (advanced override)",
-          "hidden": true,
-          "name": "remoteName",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
         "branch": {
           "char": "b",
           "description": "Branch to track",
@@ -956,14 +924,6 @@
           "name": "json",
           "allowNo": false,
           "type": "boolean"
-        },
-        "remoteName": {
-          "description": "Git remote name (advanced override)",
-          "hidden": true,
-          "name": "remoteName",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
         },
         "branch": {
           "char": "b",
@@ -1043,14 +1003,6 @@
           "name": "json",
           "allowNo": false,
           "type": "boolean"
-        },
-        "remoteName": {
-          "description": "Git remote name (advanced override)",
-          "hidden": true,
-          "name": "remoteName",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
         },
         "branch": {
           "char": "b",
@@ -1138,14 +1090,6 @@
           "allowNo": false,
           "type": "boolean"
         },
-        "remoteName": {
-          "description": "Git remote name (advanced override)",
-          "hidden": true,
-          "name": "remoteName",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
         "branch": {
           "char": "b",
           "description": "Branch to track",
@@ -1195,14 +1139,6 @@
           "name": "json",
           "allowNo": false,
           "type": "boolean"
-        },
-        "remoteName": {
-          "description": "Git remote name (advanced override)",
-          "hidden": true,
-          "name": "remoteName",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
         },
         "branch": {
           "char": "b",
@@ -1262,14 +1198,6 @@
           "name": "json",
           "allowNo": false,
           "type": "boolean"
-        },
-        "remoteName": {
-          "description": "Git remote name (advanced override)",
-          "hidden": true,
-          "name": "remoteName",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
         },
         "branch": {
           "char": "b",
@@ -1351,14 +1279,6 @@
           "allowNo": false,
           "type": "boolean"
         },
-        "remoteName": {
-          "description": "Git remote name (advanced override)",
-          "hidden": true,
-          "name": "remoteName",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
-        },
         "branch": {
           "char": "b",
           "description": "Branch to track",
@@ -1429,14 +1349,6 @@
           "name": "json",
           "allowNo": false,
           "type": "boolean"
-        },
-        "remoteName": {
-          "description": "Git remote name (advanced override)",
-          "hidden": true,
-          "name": "remoteName",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
         },
         "branch": {
           "char": "b",
@@ -1516,14 +1428,6 @@
           "name": "json",
           "allowNo": false,
           "type": "boolean"
-        },
-        "remoteName": {
-          "description": "Git remote name (advanced override)",
-          "hidden": true,
-          "name": "remoteName",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
         },
         "branch": {
           "char": "b",
@@ -1610,14 +1514,6 @@
           "name": "json",
           "allowNo": false,
           "type": "boolean"
-        },
-        "remoteName": {
-          "description": "Git remote name (advanced override)",
-          "hidden": true,
-          "name": "remoteName",
-          "hasDynamicHelp": false,
-          "multiple": false,
-          "type": "option"
         },
         "branch": {
           "char": "b",

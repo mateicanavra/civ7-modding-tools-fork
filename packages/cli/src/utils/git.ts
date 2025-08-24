@@ -4,9 +4,9 @@ import {
   subtreeAddFromRemote,
   subtreePushWithFetch,
   subtreePullWithFetch,
-  parseGithubRepoSlugFromUrl,
   getLocalConfig,
   getRemotePushConfig,
+  setLocalConfig,
   type RemotePushConfig,
 } from '@civ7/plugin-git';
 
@@ -27,18 +27,6 @@ export function isNonEmptyDir(dir: string): boolean {
   }
 }
 
-/**
- * Infer a git remote name from its URL.
- * Strips ".git" suffix and normalizes to kebab-case.
- */
-export function inferRemoteNameFromUrl(remoteUrl: string): string {
-  const slug = parseGithubRepoSlugFromUrl(remoteUrl) ?? remoteUrl;
-  const repo = slug.split('/').pop() || 'remote';
-  const base = repo.replace(/\.git$/i, '');
-  const kebab = base.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-  return kebab || 'remote';
-}
-
 // Generic git subtree helpers -----------------------------------------------
 
 export interface Logger {
@@ -49,39 +37,30 @@ function getLogger(logger?: Logger): Logger {
   return logger ?? console;
 }
 
-export interface ResolveRemoteNameOptions {
-  domain: string;
-  slug?: string;
-  remoteName?: string;
-  remoteUrl?: string;
-  verbose?: boolean;
-  logger?: Logger;
+function computeRemoteName(domain: string, slug: string): string {
+  return domain === 'mod' ? `mod-${slug}` : slug;
 }
 
-export async function resolveRemoteName(opts: ResolveRemoteNameOptions): Promise<string | undefined> {
-  const { domain, slug, remoteName, remoteUrl, verbose = false, logger } = opts;
-  const log = getLogger(logger).log;
-  let saved: string | undefined;
-  if (slug) {
-    try {
-      saved = await getLocalConfig(`civ7.${domain}.${slug}.remoteName`, { verbose }) ?? undefined;
-      if (saved && !remoteName) {
-        log(`Using remote from config: ${saved}`);
-      }
-    } catch {}
+export async function getRemoteNameForSlug(
+  domain: string,
+  slug: string,
+): Promise<string | undefined> {
+  try {
+    return (await getLocalConfig(`civ7.${domain}.${slug}.remoteName`)) ?? undefined;
+  } catch {
+    return undefined;
   }
-  if (!remoteName && saved) return saved;
-  if (remoteName) return remoteName;
-  if (remoteUrl) return inferRemoteNameFromUrl(remoteUrl);
-  return slug;
 }
 
-export async function requireRemoteName(opts: ResolveRemoteNameOptions): Promise<string> {
-  const name = await resolveRemoteName(opts);
-  if (!name) {
-    throw new Error('Unable to determine remote name. Pass --remoteName (advanced) or --remoteUrl, or run setup to persist configuration.');
+export async function requireRemoteNameForSlug(
+  domain: string,
+  slug: string,
+): Promise<string> {
+  const remoteName = await getRemoteNameForSlug(domain, slug);
+  if (!remoteName) {
+    throw new Error(`No remote configured for ${domain} "${slug}". Run setup first.`);
   }
-  return name;
+  return remoteName;
 }
 
 export interface ResolveBranchOptions {
@@ -116,14 +95,13 @@ export async function requireBranch(opts: ResolveBranchOptions): Promise<string>
 
 export interface ConfigureRemoteOptions {
   domain: string;
-  slug?: string;
-  remoteName?: string;
-  remoteUrl?: string;
+  slug: string;
+  remoteUrl: string;
   branch?: string;
   defaultBranch?: string;
   verbose?: boolean;
   logger?: Logger;
-  /** Custom message when remoteUrl or remoteName cannot be resolved. */
+  /** Custom message when remoteUrl cannot be resolved. */
   remoteRequiredMessage?: string;
 }
 
@@ -158,7 +136,6 @@ export async function configureRemote(
   const {
     domain,
     slug,
-    remoteName,
     remoteUrl,
     branch,
     defaultBranch = 'main',
@@ -171,17 +148,8 @@ export async function configureRemote(
       remoteRequiredMessage ?? 'remoteUrl is required to configure a remote.',
     );
   }
-  const rName = await requireRemoteName({
-    domain,
-    slug,
-    remoteName,
-    remoteUrl,
-    verbose,
-    logger,
-  }).catch((err) => {
-    if (remoteRequiredMessage) throw new Error(remoteRequiredMessage);
-    throw err;
-  });
+  const rName = computeRemoteName(domain, slug);
+  await setLocalConfig(`civ7.${domain}.${slug}.remoteName`, rName, { verbose });
   const branchName = branch ?? defaultBranch;
   const log = getLogger(logger).log;
   log(`Configuring remote "${rName}" → ${remoteUrl} ...`);
@@ -205,7 +173,6 @@ export interface ImportSubtreeOptions {
   slug: string;
   prefix: string;
   branch?: string;
-  remoteName?: string;
   remoteUrl?: string;
   defaultBranch?: string;
   squash?: boolean;
@@ -222,7 +189,6 @@ export async function importSubtree(opts: ImportSubtreeOptions): Promise<void> {
     slug,
     prefix,
     branch,
-    remoteName,
     remoteUrl,
     defaultBranch = 'main',
     squash = false,
@@ -244,14 +210,7 @@ export async function importSubtree(opts: ImportSubtreeOptions): Promise<void> {
     }
   }
 
-  const rName = await requireRemoteName({
-    domain,
-    slug,
-    remoteName,
-    remoteUrl,
-    verbose,
-    logger,
-  }).catch((err) => {
+  const rName = await requireRemoteNameForSlug(domain, slug).catch((err) => {
     if (remoteRequiredMessage) throw new Error(remoteRequiredMessage);
     throw err;
   });
@@ -278,7 +237,6 @@ export interface PushSubtreeOptions {
   slug: string;
   prefix: string;
   branch?: string;
-  remoteName?: string;
   allowDirty?: boolean;
   autoUnshallow?: boolean;
   autoFastForwardTrunk?: boolean;
@@ -296,7 +254,6 @@ export async function pushSubtree(opts: PushSubtreeOptions): Promise<void> {
     slug,
     prefix,
     branch,
-    remoteName,
     allowDirty = false,
     autoUnshallow = false,
     autoFastForwardTrunk = false,
@@ -309,13 +266,7 @@ export async function pushSubtree(opts: PushSubtreeOptions): Promise<void> {
   } = opts;
   const log = getLogger(logger).log;
 
-  const rName = await requireRemoteName({
-    domain,
-    slug,
-    remoteName,
-    verbose,
-    logger,
-  }).catch((err) => {
+  const rName = await requireRemoteNameForSlug(domain, slug).catch((err) => {
     if (remoteRequiredMessage) throw new Error(remoteRequiredMessage);
     throw err;
   });
@@ -350,7 +301,6 @@ export interface PullSubtreeOptions {
   slug: string;
   prefix: string;
   branch?: string;
-  remoteName?: string;
   squash?: boolean;
   allowDirty?: boolean;
   autoUnshallow?: boolean;
@@ -366,7 +316,6 @@ export async function pullSubtree(opts: PullSubtreeOptions): Promise<void> {
     slug,
     prefix,
     branch,
-    remoteName,
     squash = false,
     allowDirty = false,
     autoUnshallow = false,
@@ -377,13 +326,7 @@ export async function pullSubtree(opts: PullSubtreeOptions): Promise<void> {
   } = opts;
   const log = getLogger(logger).log;
 
-  const rName = await requireRemoteName({
-    domain,
-    slug,
-    remoteName,
-    verbose,
-    logger,
-  }).catch((err) => {
+  const rName = await requireRemoteNameForSlug(domain, slug).catch((err) => {
     if (remoteRequiredMessage) throw new Error(remoteRequiredMessage);
     throw err;
   });
