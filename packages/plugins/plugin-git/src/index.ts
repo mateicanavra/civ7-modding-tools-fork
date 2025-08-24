@@ -146,6 +146,33 @@ export async function getRemoteUrl(name: string, opts: GitExecOptions = {}): Pro
   return res.stdout.trim() || null;
 }
 
+/** Find the name of the first remote matching the provided URL, or null if none. */
+export async function findRemoteByUrl(
+  url: string,
+  opts: GitExecOptions = {},
+): Promise<string | null> {
+  const listRes = await execGit(['remote'], { ...opts, allowNonZeroExit: true });
+  if (listRes.code !== 0) return null;
+  const names = listRes.stdout.split('\n').map((s) => s.trim()).filter(Boolean);
+  for (const name of names) {
+    const remoteUrl = await getRemoteUrl(name, opts);
+    if (remoteUrl === url) return name;
+  }
+  return null;
+}
+
+/** Ensure a remote exists for the given URL, adding it with the provided name if missing. */
+export async function ensureRemoteForUrl(
+  url: string,
+  name: string,
+  opts: GitExecOptions = {},
+): Promise<string> {
+  const existing = await findRemoteByUrl(url, opts);
+  if (existing) return existing;
+  await addOrUpdateRemote(name, url, opts);
+  return name;
+}
+
 /**
  * Add a remote if missing or update URL if different.
  * Returns: "added" | "updated" | "unchanged"

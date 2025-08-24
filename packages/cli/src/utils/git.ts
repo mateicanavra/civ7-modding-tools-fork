@@ -7,8 +7,7 @@ import {
   getLocalConfig,
   getRemotePushConfig,
   setLocalConfig,
-  getRemoteUrl,
-  remoteExists,
+  findRemoteByUrl,
   type RemotePushConfig,
 } from '@civ7/plugin-git';
 
@@ -43,43 +42,34 @@ function computeRemoteName(domain: string, slug: string): string {
   return domain === 'mod' ? `mod-${slug}` : slug;
 }
 
-export async function getRemoteNameForSlug(
+export async function findRemoteNameForSlug(
   domain: string,
   slug: string,
+  opts: { verbose?: boolean } = {},
 ): Promise<string | undefined> {
-  try {
-    return (await getLocalConfig(`civ7.${domain}.${slug}.remoteName`)) ?? undefined;
-  } catch {
-    return undefined;
-  }
+  const { verbose = false } = opts;
+  const url = await getRepoUrlForSlug(domain, slug);
+  if (!url) return undefined;
+  return (await findRemoteByUrl(url, { verbose })) ?? undefined;
 }
 
 export async function requireRemoteNameForSlug(
   domain: string,
   slug: string,
-  opts: { verify?: boolean; verbose?: boolean } = {},
+  opts: { verbose?: boolean } = {},
 ): Promise<string> {
-  const { verify = true, verbose = false } = opts;
-  const remoteName = await getRemoteNameForSlug(domain, slug);
-  if (!remoteName) {
-    throw new Error(`No remote configured for ${domain} "${slug}". Run setup first.`);
+  const { verbose = false } = opts;
+  const url = await getRepoUrlForSlug(domain, slug);
+  if (!url) {
+    throw new Error(`No repoUrl configured for ${domain} "${slug}". Run setup first.`);
   }
-  if (verify) {
-    const exists = await remoteExists(remoteName, { verbose });
-    if (!exists) {
-      throw new Error(`Remote "${remoteName}" missing for ${domain} "${slug}". Run setup again.`);
-    }
-    const expectedUrl = await getRepoUrlForSlug(domain, slug);
-    if (expectedUrl) {
-      const actualUrl = await getRemoteUrl(remoteName, { verbose });
-      if (actualUrl && actualUrl !== expectedUrl) {
-        throw new Error(
-          `Remote "${remoteName}" URL mismatch for ${domain} "${slug}". Run setup again.`,
-        );
-      }
-    }
+  const name = await findRemoteByUrl(url, { verbose });
+  if (!name) {
+    throw new Error(
+      `No git remote with URL ${url} found for ${domain} "${slug}". Run setup again.`,
+    );
   }
-  return remoteName;
+  return name;
 }
 
 export async function getRepoUrlForSlug(
@@ -191,22 +181,19 @@ export async function configureRemote(
       remoteRequiredMessage ?? 'remoteUrl is required to configure a remote.',
     );
   }
-  const rName = computeRemoteName(domain, slug);
-  await setLocalConfig(`civ7.${domain}.${slug}.remoteName`, rName, { verbose });
+  const existing = await findRemoteByUrl(remoteUrl, { verbose });
+  const rName = existing ?? computeRemoteName(domain, slug);
+  const res = await configureRemoteAndFetch(
+    rName,
+    existing ? undefined : remoteUrl,
+    { tags: true },
+    { verbose },
+  );
   await setLocalConfig(`civ7.${domain}.${slug}.repoUrl`, remoteUrl, { verbose });
   const branchName = branch ?? defaultBranch;
   await setLocalConfig(`civ7.${domain}.${slug}.branch`, branchName, { verbose });
   const log = getLogger(logger).log;
-  log(`Configuring remote "${rName}" → ${remoteUrl} ...`);
-  const res = await configureRemoteAndFetch(rName, remoteUrl, { tags: true }, { verbose });
-  const badge =
-    res === 'added'
-      ? 'added'
-      : res === 'updated'
-      ? 'updated'
-      : res === 'unchanged'
-      ? 'unchanged'
-      : 'skipped';
+  const badge = res === 'added' ? 'added' : res === 'updated' ? 'updated' : 'unchanged';
   log(`Remote "${rName}" ${badge}: ${remoteUrl}`);
   log(`Fetched tags from "${rName}". Tracking branch: ${branchName}`);
   await logRemotePushConfig(rName, { logger, verbose });
