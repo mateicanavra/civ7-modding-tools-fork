@@ -1,0 +1,54 @@
+# Build artifacts
+build/
+dist/
+mod/
+*.log
+*.map
+
+# Dependencies
+**/node_modules/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*~
+*.sublime*
+.project
+.settings/
+*.code-workspace
+
+# Game-specific temporary files
+*.tmp
+*.temp
+*.cache
+
+# Potential local configuration files
+.env
+.env.local
+*.config.local.json
+
+# Backup files
+*.bak
+*.backup
+*-backup.*
+
+# Debug files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
