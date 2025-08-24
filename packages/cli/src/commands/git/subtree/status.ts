@@ -1,4 +1,4 @@
-import StatusBase from '../../subtree/StatusBase.js';
+import StatusBase from '../../../subtree/StatusBase.js';
 
 export default class GitStatus extends StatusBase {
   static summary = 'Show git subtree status';

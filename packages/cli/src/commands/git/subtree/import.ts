@@ -1,4 +1,4 @@
-import ImportBase from '../../subtree/ImportBase.js';
+import ImportBase from '../../../subtree/ImportBase.js';
 
 export default class GitImport extends ImportBase {
   static summary = 'Import a remote repository into a local subtree';

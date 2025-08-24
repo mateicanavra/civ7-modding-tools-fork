@@ -1,4 +1,4 @@
-import ClearConfigBase from '../../../../subtree/ClearConfigBase.js';
+import ClearConfigBase from '../../../subtree/ClearConfigBase.js';
 
 export default class ModLinkConfigClear extends ClearConfigBase {
   static summary = 'Delete all stored mod subtree configurations';

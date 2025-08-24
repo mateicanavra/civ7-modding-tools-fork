@@ -1,4 +1,4 @@
-import SetupBase from '../../subtree/SetupBase.js';
+import SetupBase from '../../../subtree/SetupBase.js';
 
 export default class GitSetup extends SetupBase {
   static summary = 'Configure and import a repository into a subtree';
