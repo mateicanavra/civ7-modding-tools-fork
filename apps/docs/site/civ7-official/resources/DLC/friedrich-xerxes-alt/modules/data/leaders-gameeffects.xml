@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==================================================	-->
+	<!-- Friedrich, Baroque -->
+	<!-- ==================================================	-->
+	<Modifier id="FRIEDRICH_ALT_MOD_GREATWORK" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_GREAT_WORK" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_FIRST_TIME_SETTLEMENT_OCCUPATION"/>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="FRIEDRICH_ALT_MOD_INFANTRY_CONSTRUCT_CULTURE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_UNIT" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_BUILT_TAGGED_CONSTRUCTIBLE">
+				<Argument name="Tags">CULTURE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AllowUniqueOverride">true</Argument>
+		<Argument name="UnitTag">UNIT_CLASS_INFANTRY</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="FRIEDRICH_ALT_MOD_INFANTRY_CIVIC" collection="COLLECTION_OWNER" effect="TRIGGER_PLAYER_GRANT_UNIT_ON_PROGRESSION_TREE_NODE_DEPTH_UNLOCKED">
+		<Argument name="SystemType">SYSTEM_CULTURE</Argument>
+		<Argument name="UnitTag">UNIT_CLASS_INFANTRY</Argument>
+		<Argument name="AllowUniqueOverride">true</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Depth">2</Argument>
+	</Modifier>
+	<Modifier id="FRIEDRICH_ALT_MOD_GREAT_WORK_CULTURE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_GREAT_WORK">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_FRIEDRICH_ALT_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="FRIEDRICH_ALT_MOD_AGENDA_BAROQUE" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_BAROQUE_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_BAROQUE_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_BAROQUE_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_BAROQUE</Argument>
+		<Argument name="FirstMeetDelay">10</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_ALL</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_AMT_SMALL</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_ALL</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_AMT_CUSTOM</Argument>
+		<Argument name="AwardAmt2">-1</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Xerxes, the Achaemenid -->
+	<!-- ==================================================	-->
+	<Modifier id="XERXES_ALT_MOD_TRADE_ROUTE_CAP" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_TRADE_CAPACITY">
+		<Argument name="Amount">1</Argument>
+		<Argument name="MajorsOnly">true</Argument>
+	</Modifier>
+	<Modifier id="XERXES_ALT_MOD_TRADE_RANGE_EXTEND_LAND" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_TRADE_ROUTE_RANGE">
+		<Argument name="Amount">10</Argument>
+		<Argument name="DomainType">DOMAIN_LAND</Argument>
+	</Modifier>
+	<Modifier id="XERXES_ALT_MOD_TRADE_RANGE_EXTEND_SEA" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_TRADE_ROUTE_RANGE">
+		<Argument name="Amount">10</Argument>
+		<Argument name="DomainType">DOMAIN_SEA</Argument>
+	</Modifier>
+	<Modifier id="XERXES_ALT_MOD_TRADE_ROUTE_CULTURE" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_COMMAND_AWARD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_MAKE_TRADE_ROUTE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">50</Argument>
+		<Argument name="AdjustByGameSpeed">true</Argument>
+		<Argument name="CommandType">UNITCOMMAND_MAKE_TRADE_ROUTE</Argument>
+		<String context="WorldText">LOC_WORLD_CULTURE_INCREASE_FLOATER</String>
+	</Modifier>
+	<Modifier id="XERXES_ALT_MOD_ROAD_CULTURE" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_COMMAND_AWARD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_MAKE_TRADE_ROUTE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">50</Argument>
+		<Argument name="AdjustByGameSpeed">true</Argument>
+		<Argument name="CommandType">UNITCOMMAND_CONNECT_WITH_ROAD</Argument>
+		<String context="WorldText">LOC_WORLD_CULTURE_INCREASE_FLOATER</String>
+	</Modifier>
+	<Modifier id="XERXES_ALT_MOD_TRADE_ROUTE_GOLD" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_COMMAND_AWARD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_MAKE_TRADE_ROUTE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">100</Argument>
+		<Argument name="AdjustByGameSpeed">true</Argument>
+		<Argument name="CommandType">UNITCOMMAND_MAKE_TRADE_ROUTE</Argument>
+		<String context="WorldText">LOC_WORLD_GOLD_INCREASE_FLOATER</String>
+	</Modifier>
+	<Modifier id="XERXES_ALT_MOD_ROAD_GOLD" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_COMMAND_AWARD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_MAKE_TRADE_ROUTE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">100</Argument>
+		<Argument name="AdjustByGameSpeed">true</Argument>
+		<Argument name="CommandType">UNITCOMMAND_CONNECT_WITH_ROAD</Argument>
+		<String context="WorldText">LOC_WORLD_GOLD_INCREASE_FLOATER</String>
+	</Modifier>
+	<Modifier id="XERXES_ALT_MOD_UNIQUE_BUILDING_YIELD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Tag">UNIQUE</Argument>
+		<Argument name="YieldType">YIELD_CULTURE, YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_XERXES_ALT_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="XERXES_ALT_MOD_UNIQUE_IMPROVEMENT_YIELD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Tag">UNIQUE_IMPROVEMENT</Argument>
+		<Argument name="YieldType">YIELD_CULTURE, YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_XERXES_ALT_ABILITY_NAME</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Xerxes, Silk Road - Agenda -->
+	<!-- ==================================================	-->
+	<Modifier id="XERXES_ALT_MOD_AGENDA_LORD_OF_COIN" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_LORD_OF_COIN_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_LORD_OF_COIN_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_LORD_OF_COIN_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_NUM_TRADE_ROUTES</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_HIGHER_OR_EQUAL</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_NEG_AMT_MEDIUM</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_LOWER</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_AMT_SMALL</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+</GameEffects>

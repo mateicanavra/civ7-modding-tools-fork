@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MEMENTO_GENGHIS_KHAN_PAIZA_NAME">
+			<Text>Paiza</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_GENGHIS_KHAN_PAIZA_DESCRIPTION">
+			<Text>Tax-free and ready to ride.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_GENGHIS_KHAN_PAIZA_FUNCTIONAL_DESCRIPTION">
+			<Text>-1 [icon:YIELD_GOLD]Gold Maintenance on Cavalry Units</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_GENGHIS_KHAN_SADDLE_NAME">
+			<Text>Saddle</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_GENGHIS_KHAN_SADDLE_DESCRIPTION">
+			<Text>Union of horse and warrior.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_GENGHIS_KHAN_SADDLE_FUNCTIONAL_DESCRIPTION">
+			<Text>+1 [icon:YIELD_FOOD]Food per Age per Cavalry Unit Stationed on a Town Center.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_GENGHIS_KHAN_SULDE_NAME">
+			<Text>Sulde</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_GENGHIS_KHAN_SULDE_DESCRIPTION">
+			<Text>Banner of war.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_GENGHIS_KHAN_SULDE_FUNCTIONAL_DESCRIPTION">
+			<Text>+1 [icon:YIELD_CULTURE]Culture per Age for each Commander Promotion</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_GENGHIS_KHAN_PAIZA_UNLOCK_TITLE">
+			<Text>Unlock at Genghis Khan level 2</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_GENGHIS_KHAN_SADDLE_UNLOCK_TITLE">
+			<Text>Unlock at Genghis Khan level 5</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_GENGHIS_KHAN_LETTER_TO_JAMAICA_UNLOCK_TITLE">
+			<Text>Unlock at Genghis Khan level 9</Text>
+		</Row>
+	</EnglishText>
+</Database>

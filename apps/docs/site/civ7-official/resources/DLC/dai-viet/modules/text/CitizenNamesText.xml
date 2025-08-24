@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Shawnee-->
+		<Row Tag="LOC_CITIZEN_DAI_VIET_MALE_1">
+			<Text>Lĩnh</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_DAI_VIET_MALE_2">
+			<Text>Liễn</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_DAI_VIET_MALE_3">
+			<Text>Hoàn</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_DAI_VIET_MALE_4">
+			<Text>Thánh</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_DAI_VIET_MALE_5">
+			<Text>Phật Mã</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_DAI_VIET_MALE_6">
+			<Text>Dương</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_DAI_VIET_MALE_7">
+			<Text>Hiếu</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_DAI_VIET_MALE_8">
+			<Text>Cường</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_DAI_VIET_MALE_9">
+			<Text>Định</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_DAI_VIET_MALE_10">
+			<Text>Quang</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_DAI_VIET_FEMALE_1">
+			<Text>Nga</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_DAI_VIET_FEMALE_2">
+			<Text>Minh</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_DAI_VIET_FEMALE_3">
+			<Text>Mai</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_DAI_VIET_FEMALE_4">
+			<Text>Anh</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_DAI_VIET_FEMALE_5">
+			<Text>Giang</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_DAI_VIET_FEMALE_6">
+			<Text>Hạnh</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_DAI_VIET_FEMALE_7">
+			<Text>Hòa</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_DAI_VIET_FEMALE_8">
+			<Text>Thủy</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_DAI_VIET_FEMALE_9">
+			<Text>Tuyến</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_DAI_VIET_FEMALE_10">
+			<Text>Phượng</Text>
+		</Row>
+	</EnglishText>
+</Database>

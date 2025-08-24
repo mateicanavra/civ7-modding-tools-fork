@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<AiListTypes>
+
+		<!-- Leader Yield biases -->
+		<Row ListType="Tecumseh Yield Biases"/>
+
+		<!-- Leader PseudoYield Biases -->
+
+	</AiListTypes>
+	<AiLists>
+
+		<!-- Leader Yield Biases -->
+		<Row ListType="Tecumseh Yield Biases" LeaderType="TRAIT_LEADER_TECUMSEH_ABILITY" System="YieldBiases"/>
+
+		<!-- Leader PseudoYield Biases -->
+
+	</AiLists>
+	<AiFavoredItems>
+
+		<!-- Leader Yield Biases -->
+		<Row ListType="Tecumseh Yield Biases" Item="YIELD_DIPLOMACY" Value="50"/>
+		<Row ListType="Tecumseh Yield Biases" Item="YIELD_PRODUCTION" Value="25"/>
+
+		<!-- Leader PseudoYield Biases -->
+
+	</AiFavoredItems>
+</Database>

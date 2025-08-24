@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="PLAYER_DIPLOMACY_RESEARCH_COLLABORATION_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_GRANT_COOPERATIVE_YIELD_SUPPORT_BASE_PER_TURN">
+		<!-- If you change any value here, also make the same changes in the _DESCRIBE version.  Also update the _INITIAL description in DiplomacyText.xml  -->
+		<String context="Name">LOC_DIPLOMACY_PROJECT_RESEARCH_COLLABORATION_NAME</String>
+		<Argument name="Tooltip">LOC_DIPLOMACY_PROJECT_RESEARCH_COLLABORATION_NAME</Argument>
+		<Argument name="Amount">4</Argument>
+		<Argument name="SupportAmount">8</Argument>
+		<Argument name="AyalyzeNumTurns">10</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_CULTURAL_EXCHANGE_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_GRANT_COOPERATIVE_YIELD_SUPPORT_BASE_PER_TURN">
+		<!-- If you change any value here, also make the same changes in the _DESCRIBE version.  Also update the _INITIAL description in DiplomacyText.xml  -->
+		<String context="Name">LOC_DIPLOMACY_PROJECT_CULTURAL_EXCHANGE_NAME</String>
+		<Argument name="Tooltip">LOC_DIPLOMACY_PROJECT_CULTURAL_EXCHANGE_NAME</Argument>
+		<Argument name="Amount">4</Argument>
+		<Argument name="SupportAmount">8</Argument>
+		<Argument name="AyalyzeNumTurns">15</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_MINOR_TRADE_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_GRANT_COOPERATIVE_YIELD_SUPPORT_BASE_PER_TURN">
+		<!-- If you change any value here, also make the same changes in the _DESCRIBE version.  Also update the _INITIAL description in DiplomacyText.xml -->
+		<String context="Name">LOC_DIPLOMACY_PROJECT_MINOR_TRADE_NAME</String>
+		<Argument name="Tooltip">LOC_DIPLOMACY_PROJECT_MINOR_TRADE_NAME</Argument>
+		<Argument name="Amount">4</Argument>
+		<Argument name="SupportAmount">8</Argument>
+		<Argument name="AyalyzeNumTurns">15</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_GINSING_AGREEMENT_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_GRANT_COOPERATIVE_YIELD_SUPPORT_BASE_PER_TURN">
+		<!-- If you change any value here, also make the same changes in the _DESCRIBE version.  Also update the _INITIAL description in DiplomacyText.xml -->
+		<String context="Name">LOC_DIPLOMACY_PROJECT_GINSING_AGREEMENT_NAME</String>
+		<Argument name="Tooltip">LOC_DIPLOMACY_PROJECT_GINSING_AGREEMENT_NAME</Argument>
+		<Argument name="Amount">4</Argument>
+		<Argument name="SupportAmount">8</Argument>
+		<Argument name="AyalyzeNumTurns">15</Argument>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_FRIEND_OF_WA_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_GRANT_COOPERATIVE_YIELD_SUPPORT_BASE_PER_TURN">
+		<!-- If you change any value here, also make the same changes in the _DESCRIBE version.  Also update the _INITIAL description in DiplomacyText.xml -->
+		<String context="Name">LOC_DIPLOMACY_PROJECT_FRIEND_OF_WA_NAME</String>
+		<Argument name="Tooltip">LOC_DIPLOMACY_PROJECT_FRIEND_OF_WA_NAME</Argument>
+		<Argument name="Percent">25</Argument>
+		<Argument name="TargetPercent">25</Argument>
+		<Argument name="AyalyzeNumTurns">15</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+	</Modifier>
+	<Modifier id="DIPLOMACY_MOD_ESPIONAGE_OPEN_THE_GATES_IN_PROGRESS" collection="COLLECTION_OWNER" effect="EFFECT_DAE_ESPIONAGE_DESTROY_TARGET_INFRASTRUCTURE">
+		<Argument name="BuildingType">BUILDING_ANCIENT_WALLS, BUILDING_MEDIEVAL_WALLS</Argument>
+	</Modifier>
+	<Modifier id="DIPLOMACY_MOD_ESPIONAGE_CONVERT_POPULATION_IN_PROGRESS" collection="COLLECTION_OWNER" effect="EFFECT_DAE_ESPIONAGE_CONVERT_SETTLEMENT" permanent="true">
+	</Modifier>
+	<Modifier id="DIPLOMACY_MOD_ESPIONAGE_SABOTAGE_WORKERS_IN_PROGRESS" collection="COLLECTION_OWNER" effect="EFFECT_DAE_ESPIONAGE_DISABLE_SETTLEMENT_WORKERS">
+	</Modifier>
+	<Modifier id="DIPLOMACY_MOD_ESPIONAGE_STEAL_RICHES_IN_PROGRESS_SPAWN_TREASURE_FLEET" collection="COLLECTION_OWNER" effect="EFFECT_DAE_ESPIONAGE_SPAWN_TREASURE_FLEET" permanent="true">
+	</Modifier>
+	<Modifier id="DIPLOMACY_MOD_ESPIONAGE_STEAL_RICHES_IN_PROGRESS_DESTROY_RESOURCES" collection="COLLECTION_OWNER" effect="EFFECT_DAE_ESPIONAGE_DESTROY_TARGET_INFRASTRUCTURE_WITH_RESOURCE_TYPE" permanent="true">
+		<Argument name="ResourceClassType">RESOURCECLASS_TREASURE</Argument>
+		<Argument name="DestroyAll">true</Argument>
+	</Modifier>
+	<Modifier id="DIPLOMACY_MOD_ESTABLISH_TREASURE_FLEET_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_ESPIONAGE_SPAWN_TREASURE_FLEET" permanent="true">
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_ESTABLISH_TREASURE_FLEET_STARTED" collection="COLLECTION_OWNER" effect="EFFECT_DAE_TARGET_ATTACH_MODIFIER">
+		<String context="Name">LOC_DIPLOMACY_PROJECT_ESTABLISH_TREASURE_FLEET_NAME</String>
+		<Argument name="TargetPlayerAccept">PLAYER_DIPLOMACY_ESTABLISH_TREASURE_FLEET_TARGET_ACCEPT_GOLD</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_ESTABLISH_TREASURE_FLEET_TARGET_ACCEPT_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">12</Argument>
+		<Argument name="Tooltip">LOC_PLAYER_DIPLOMACY_ESTABLISH_TREASURE_FLEET_TARGET_PLAYER_ACCEPT</Argument>
+	</Modifier>
+</GameEffects>

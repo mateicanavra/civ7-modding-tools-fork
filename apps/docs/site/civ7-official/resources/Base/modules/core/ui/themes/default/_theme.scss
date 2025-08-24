@@ -1,0 +1,316 @@
+@use 'sass:color';
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:meta';
+@use '../../utilities/utility-layout' as *;
+@use '../../utilities/utility-text' as *;
+
+// Color schema for UI2
+// Prefer using the utility classes instead of using these directly
+// DO NOT USE THIS MAP DIRECTLY. Use the `color()` function instead.
+$colors: (
+	"primary": #4C5366,
+	"primary-1": #8D97A6,
+	"primary-2": #4C5366,
+	"primary-3": #333640,
+	"primary-4": #23252B,
+	// panel gradient light
+	"primary-5": #12151F,
+	// panel gradient dark
+
+	"secondary": #E5D2AC,
+	"secondary-1": #E5D2AC,
+	// panel stroke light
+	"secondary-2": #8C7E62,
+	// panel stroke dark
+	"secondary-3": #4C473D,
+
+	"tertiary-1": #b29e79,
+	"tertiary-2": #dad0bd,
+
+	"negative": #944356,
+	"negative-light": #944356,
+	"negative-dark": #490D1B,
+	"positive": #579544,
+	"positive-light": #579544,
+	"positive-dark": #0D4920,
+
+	"accent": #616266,
+
+	// button text
+	"accent-1": #E5E5E5,
+
+	// body text
+	"accent-2": #C2C4CC,
+
+	// button subtext
+	"accent-3": #9DA0A6,
+
+	// subtext
+	"accent-4": #85878C,
+
+	// accent
+	"accent-5": #616266,
+
+	// shadow and framing
+	"accent-6": #05070D,
+
+	// warm glow used at low opacity
+	"glow": #875B2F,
+
+	"yield-gold": #d9c8ad,
+	"yield-science": #98b5d9,
+	"yield-influence": #add9c1,
+	"yield-culture": #bfa3d9,
+	"yield-happiness": #d9b198,
+
+	"victory-science":#4d7c96,
+	"victory-culture":#892bb3,
+	"victory-economic": #ffd553,
+	"victory-military": #af1b1c,
+
+	// chat
+	"team": #e9b0b0,
+	"direct": #d4e9b0,
+
+	// debug
+	"magenta": magenta,
+
+	"white": #FFFFFF,
+	"black": #000000,
+	"transparent": #00000000
+);
+
+// These colors are considered deprecated and should not be used in new code.
+// We may want some of them added to the theme colors above after a review.
+$deprecated-colors: (
+	healthbar-full: #9bd371,
+	healthbar-full-bg: #1c4212,
+	healthbar-medium: #cea92f,
+	healthbar-medium-bg: #442c0b,
+	healthbar-low: #bb2823,
+	healthbar-low-bg: #3a0806
+);
+
+@function color($key, $alpha: null) {
+	$merged-colors: map.merge($colors, $deprecated-colors);
+	$color: map.get($merged-colors, $key);
+
+	@if $color ==null {
+		@error "Color key `#{$key}` not found in color map";
+		@return null;
+	}
+
+	@if meta.type-of($alpha)==number and $alpha >=0 and $alpha <=1 {
+		@return color.change($color, $alpha: $alpha);
+	}
+
+	@else {
+		@return $color
+	}
+}
+
+;
+
+// gradients
+// $gradient-panel-bg: linear-gradient(to bottom, color.change($color-dark, $alpha: .85), color.change($color-dark, $alpha: .75));
+@function gradient-panel-bg($direction) {
+	@return linear-gradient($direction, color('primary-3', $alpha: .85), color('primary-3', $alpha: .75));
+}
+
+// Do not add new entries to this mapping, if it seems necessary, raise an issue first.
+$spacing-discrete: (
+	auto: auto,
+	0: pixels(0),
+	px: pixels(1),
+	0\.5: pixels(2),
+	1: pixels(4),
+	1\.25: pixels(5),
+	1\.5: pixels(6),
+	2: pixels(8),
+	2\.5: pixels(10),
+	3: pixels(12),
+	3\.5: pixels(14),
+	4: pixels(16),
+	5: pixels(20),
+	6: pixels(24),
+	7: pixels(28),
+	8: pixels(32),
+	9: pixels(36),
+	10: pixels(40),
+	11: pixels(44),
+	12: pixels(48),
+	13: pixels(52),
+	14: pixels(56),
+	16: pixels(64),
+	18: pixels(72),
+	19: pixels(76),
+	20: pixels(80),
+	21: pixels(84),
+	22: pixels(88),
+	24: pixels(96),
+	25: pixels(100),
+	26: pixels(104),
+	28: pixels(112),
+	32: pixels(128),
+	36: pixels(144),
+	38: pixels(152),
+	39: pixels(158),
+	40: pixels(160),
+	44: pixels(176),
+	45: pixels(180),
+	48: pixels(192),
+	52: pixels(208),
+	56: pixels(224),
+	60: pixels(240),
+	62: pixels(248),
+	64: pixels(256),
+	72: pixels(288),
+	76: pixels(304),
+	77: pixels(308),
+	80: pixels(320),
+	84: pixels(336),
+	96: pixels(384),
+	128: pixels(512),
+	187: pixels(748),
+	174: pixels(696),
+	192: pixels(768),
+	194: pixels(776),
+	200: pixels(800),
+);
+
+$spacing-percent: (
+	1\/4: 25%,
+	1\/3: 33.3333%,
+	1\/2: 50%,
+	2\/3: 66.6667%,
+	3\/4: 75%,
+	full: 100%
+);
+
+$font-sizes: (
+);
+
+@each $font-size-name, $font-size in $font-scales {
+	$pixels-font-size: pixels-font($font-size);
+	$font-sizes: map.set($font-sizes, $font-size-name, $pixels-font-size);
+}
+
+$border-style: (
+	solid: solid,
+	// dashed: dashed, // not supported by gameface
+	// dotted: dotted, // not supported by gameface
+	// double: double, // not supported by gameface
+	hidden: hidden,
+	none: none,
+);
+
+// Default tailwind border widths
+$border-widths: (
+	0: 0,
+	DEFAULT: pixels(1),
+	2: pixels(2),
+	4: pixels(4),
+	8: pixels(8)
+);
+
+// Default tailwind border radius
+$border-radius: (
+	none: 0,
+	sm: pixels(2),
+	DEFAULT: pixels(4),
+	lg: pixels(8),
+	xl: pixels(12),
+	2xl: pixels(16),
+	3xl: pixels(24),
+	full: 9999px
+);
+
+$line-heights: (
+	3: pixels(12),
+	4: pixels(16),
+	5: pixels(20),
+	6: pixels(24),
+	7: pixels(28),
+	8: pixels(32),
+	9: pixels(36),
+	10: pixels(40),
+	none: 1,
+	tight: 1.25,
+	snug: 1.375,
+	normal: 1.5,
+	relaxed: 1.625,
+	loose: 2
+);
+
+$title-font: "TitleFont", "TitleFont-JP", "TitleFont-KR", "TitleFont-SC", "TitleFont-TC";
+$body-font: "BodyFont", "BodyFont-JP", "BodyFont-KR", "BodyFont-SC", "BodyFont-TC";
+
+@function negative-compatible($suffix) {
+	@return $suffix !='auto' and $suffix !='0' and not map.has-key($spacing-percent, $suffix);
+}
+
+$spacing: map.merge($spacing-discrete, $spacing-percent);
+
+
+// default tailwind durations
+$transition-duration-default: 250ms;
+$transition-duration: (
+	0: 0s,
+	75: 75ms,
+	100: 100ms,
+	150: 150ms,
+	200: 200ms,
+	250: 250ms,
+	300: 300ms,
+	400: 400ms,
+	500: 500ms,
+	700: 700ms,
+	1000: 1000ms,
+);
+
+// default tailwind spacing, but with em units
+$letter-spacing: (
+	// to be used with body font
+	'25': 0.025em,
+
+	// flair / title font at <= 16px
+	'100': 0.1em,
+
+	// flair / title font at > 16px (18px+)
+	'150': 0.15em
+);
+
+$font-weight: (
+	'thin': 100,
+	'extralight': 200,
+	'light': 300,
+	'normal': 400,
+	'medium': 500,
+	'semibold': 600,
+	'bold': 700,
+	'extrabold': 800,
+	'black': 900
+);
+
+// Below here are some colors taken from existing pre UI2 color files, redefined as scss variables
+// Should be removed/updated as needed
+$default-color-primary: rgb(26, 25, 26);
+$default-color-primary-accent: rgb(121, 97, 68);
+$default-color-primary-less: rgb(79, 65, 49);
+$default-color-primary-more: rgb(19, 18, 19);
+$default-color-primary-text: rgb(9, 8, 9);
+$default-color-primary-tint: rgb(26, 25, 26);
+$default-color-secondary: rgb(240, 188, 120);
+$default-color-secondary-more: rgb(244, 206, 156);
+$default-color-secondary-less: rgb(186, 147, 96);
+$default-color-secondary-text: rgb(250, 232, 210);
+$default-color-secondary-tint: rgb(240, 188, 120);
+$default-color-secondary-accent: rgb(151, 120, 81);
+$color-highlight: rgb(255, 239, 214);
+
+// Default highlight colors (button & text)
+
+$highlight: #ffefd6;
+$highlight-gradient: #ffefd6;

@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_UNIT_UNIQUE_TITLE">
+			<Text>Unique Unit</Text>
+		</Row>
+		<!--Civilian Unit Text-->
+		<Row Tag="LOC_UNIT_ARMY_COMMANDER_NAME">
+			<Text>Army Commander</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_UNIT_ARMY_COMMANDER_DESCRIPTION">
+			<Text>Land Support Unit capable of assembling and commanding a collection of Land Military Units as an Army. Respawns after a long delay if defeated.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_FLEET_COMMANDER_NAME">
+			<Text>Fleet Commander</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_FLEET_COMMANDER_DESCRIPTION">
+			<Text>Naval Support Unit capable of assembling and commanding a collection of Naval Military Units as a single Fleet. Respawns after a long delay if defeated.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_SQUADRON_COMMANDER_NAME">
+			<Text>Squadron Commander</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_SQUADRON_COMMANDER_DESCRIPTION">
+			<Text>Air Support Unit capable of assembling and commanding a collection of Air Military Units as a single Squadron. Respawns after a long delay if defeated.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_CARRIER_COMMANDER_NAME">
+			<Text>Aircraft Carrier</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_UNIT_CARRIER_COMMANDER_DESCRIPTION">
+			<Text>Naval Support Unit capable of assembling and commanding a collection of Air Military Units.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_AERODROME_COMMANDER_NAME">
+			<Text>Aerodrome Commander</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_UNIT_AERODROME_COMMANDER_DESCRIPTION">
+			<Text>When an Aerodrome is constructed an Aerodrome Commander is automatically attached to that Aerodrome and air units created in this settlement will be automatically packed into the Aerodrome Commander. The Aerodrome Commander cannot move, so choose the locations of your Aerodromes carefully! An Aerodrome Commander is lost if the settlement with their Aerodrome is captured. In order to relocate Air Units packed in an Aerodrome, they must use the Rebase action to move to either another Aerodrome Commander, Aircraft Carrier or Squadron Commander who has used its Establish Air Base action with available slots in range.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_MIGRANT_NAME">
+			<Text>Migrant</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_MIGRANT_DESCRIPTION">
+			<Text>Civilian Unit capable of joining a Settlement and claiming a new Rural tile.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_SCOUT_NAME">
+			<Text>Scout</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_SCOUT_DESCRIPTION">
+			<Text>Civilian pathfinder, ideal for revealing Terrain and discovering new locations.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_FOUNDER_NAME">
+			<Text>Founder</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_FOUNDER_DESCRIPTION">
+			<Text>Civilian Unit capable of founding a Capital.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_SETTLER_NAME">
+			<Text>Settler</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_SETTLER_DESCRIPTION">
+			<Text>Civilian Unit capable of founding new Towns.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_MERCHANT_NAME">
+			<Text>Merchant</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_MERCHANT_DESCRIPTION">
+			<Text>Civilian who can establish a Trade Route to import Resources from a foreign Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_TRADE_CARAVAN_NAME">
+			<Text>Trade Caravan</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_TRADE_CARAVAN_DESCRIPTION">
+			<Text>Automatically-moved Civilian Unit that shows activity along a Land Trade Route. Subject to plunder by enemy forces.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_TRADE_SHIP_NAME">
+			<Text>Trade Ship</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_TRADE_SHIP_DESCRIPTION">
+			<Text>Automatically-moved Civilian Unit that shows activity along a Naval Trade Route. Subject to plunder by enemy forces.</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_NAME_WITH_CITY">
+			<Text>{1_CityName} {2_UnitName}</Text>
+		</Row>
+		<!--Keyword Abilities-->
+		<Row Tag="LOC_KEYWORD_ABILITY_AMPHIBIOUS">
+			<Text>Amphibious</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_AMPHIBIOUS_DESCRIPTION">
+			<Text>Ignores the Combat Strength penalty for being Embarked. Pays no Movement cost to Embark or Disembark.</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_ENTER_FOREIGN_LANDS">
+			<Text>Enter Foreign Lands</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_ENTER_FOREIGN_LANDS_DESCRIPTION">
+			<Text>Can enter foreign territory even without Open Borders.</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_EMBED">
+			<Text>Embed</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_EMBED_DESCRIPTION">
+			<Text>The Unit remains in place at its location and gains an ongoing ability effect. Embedded Units cannot interact with other Units or Settlements in any way, but they do not block Units or Armies from entering their tile. Players can cancel Embedded abilities at any time.</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_FIRST_STRIKE">
+			<Text>First Strike</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_FIRST_STRIKE_DESCRIPTION">
+			<Text>+{1_Value} Combat Strength against Units at full health.</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_FIRST_STRIKE_PREVIEW">
+			<Text>+{1_Amount} First Strike</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_FEAR">
+			<Text>Fear</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_FEAR_DESCRIPTION">
+			<Text>-4 Combat Strength to adjacent enemy Units, does not stack.</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_FEAR_PREVIEW">
+			<Text>-4 Fear</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_FORAGE_NAME">
+			<Text>Forage</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_FORAGE_SUMMARY">
+			<Text>Forage {1_Value}</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_FORAGE_DESCRIPTION">
+			<Text>The Unit spends all movement to heal 10 HP. Foraging remains active until the Unit is fully healed or the player cancels the ability.</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_LOOKOUT">
+			<Text>Lookout</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_LOOKOUT_DESCRIPTION">
+			<Text>Increase sight range +1.</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_SEARCH">
+			<Text>Search</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_SEARCH_DESCRIPTION">
+			<Text>Increase sight range +1 for 1 turn. Reveal all discoveries within twice this range.</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_POISON">
+			<Text>Poison</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_POISON_SUMMARY">
+			<Text>+{1_Value} Poison</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_POISON_DESCRIPTION">
+			<Text>+{1_Value} Combat Strength against wounded Units.</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_SKIRMISH">
+			<Text>Skirmish</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_SKIRMISH_SUMMARY">
+			<Text>+{1_Value}% Combat Strength from Flanking.</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_SKIRMISH_DESCRIPTION">
+			<Text>+{1_Value}% Combat Strength from Flanking.</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_STEALTH">
+			<Text>Stealth</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_STEALTH_SUMMARY">
+			<Text>Invisible</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_STEALTH_DESCRIPTION">
+			<Text>Invisible to Units that are not in an adjacent tile.</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_SWIFT">
+			<Text>Swift</Text>
+		</Row>
+		<Row Tag="LOC_KEYWORD_ABILITY_SWIFT_DESCRIPTION">
+			<Text>Unit ignores Zone of Control.</Text>
+		</Row>
+		<Row Tag="LOC_COMBAT_PREVIEW_NUMBER_CIV_TRADITIONS_BONUS_DESC">
+			<Text>+{1_Value} Combat Strength from Traditions</Text>
+		</Row>
+		<Row Tag="LOC_COMBAT_PREVIEW_NUMBER_CIVS_TRADING_BONUS_DESC">
+			<Text>+{1_Value} Combat Strength from every other Civilization with which you have a Trade Route</Text>
+		</Row>
+		<Row Tag="LOC_COMBAT_PREVIEW_NUMBER_URBAN_POP_BONUS_DESC">
+			<Text>+{1_Value} Combat Strength from Urban Population</Text>
+		</Row>
+		<Row Tag="LOC_COMBAT_PREVIEW_NUMBER_TRIBUTARIES_BONUS_DESC">
+			<Text>+{1_Value} Combat Strength from City-States you are Suzerain of</Text>
+		</Row>
+		<Row Tag="LOC_COMBAT_PREVIEW_NEIGHBOR_COMBAT_BONUS_DESC">
+			<Text>+{1_Value} Combat Strength from neighboring Military Units</Text>
+		</Row>
+		<Row Tag="LOC_COMBAT_PREVIEW_NEIGHBOR_ENEMY_COMBAT_BONUS_DESC">
+			<Text>+{1_Value} Combat Strength from neighboring enemy Military Units</Text>
+		</Row>
+		<Row Tag="LOC_COMBAT_PREVIEW_NEIGHBOR_FRIENDLY_COMBAT_BONUS_DESC">
+			<Text>+{1_Value} Combat Strength from neighboring friendly Military Units</Text>
+		</Row>
+		<!--Unit Abilities-->
+		<Row Tag="LOC_ABILITY_FLOODPLAIN_COMBAT_DESCRIPTION">
+			<Text>+{1_Value} Combat Strength on Floodplains.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_INDEPENDENT_COMBAT_MAJOR_DESCRIPTION">
+			<Text>+{1_Value} Combat Strength against Independents.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_INDEPENDENT_COMBAT_MINOR_DESCRIPTION">
+			<Text>+{1_Value} Combat Strength against Independents.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_INDEPENDENT_COMBAT_MINOR_PENALTY_DESCRIPTION">
+			<Text>{1_Value} Combat Strength against Independents.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_RESETTLE_NAME">
+			<Text>Resettle</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_RESETTLE_DESCRIPTION">
+			<Text>Join a Settlement and become part of its Population. Usable on any owned District.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_CAVALRY_VS_INFANTRY_BONUS_NAME">
+			<Text>Bonus against Infantry</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_CAVALRY_VS_INFANTRY_BONUS_DESCRIPTION">
+			<Text>Gain bonus Combat Strength when attacking or defending against Infantry Units.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_CAVALRY_VS_INFANTRY_BONUS_PREVIEW">
+			<Text>{1_Value} Bonus against Infantry</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_RANGED_VS_CAVALRY_BONUS_NAME">
+			<Text>Bonus against Cavalry</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_RANGED_VS_CAVALRY_BONUS_DESCRIPTION">
+			<Text>Gain bonus Combat Strength when attacking Cavalry Units.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_RANGED_VS_CAVALRY_BONUS_PREVIEW">
+			<Text>{1_Value} Bonus against Cavalry</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_STRENGTH_FROM_MOVEMENT_NAME">
+			<Text>Strength From Movement</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_STRENGTH_FROM_MOVEMENT_DESCRIPTION">
+			<Text>+{Amount} Combat Strength per movement point</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_STRENGTH_FROM_MOVEMENT_PREVIEW">
+			<Text>+{Amount} Remaining Movement</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SHOCK_ATTACK_DESCRIPTION">
+			<Text>Cavalry Charge</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_VEGETATED_STEALTH_DESCRIPTION">
+			<Text>This Unit gains Stealth in Vegetated Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_NARRATIVE_ABILITY_STRENGTH_BONUS">
+			<Text>+{1_Amount} Determined Ability Bonus</Text>
+		</Row>
+		<Row Tag="LOC_NARRATIVE_ABILITY_STRENGTH_PENALTY">
+			<Text>{1_Amount} Dispirited Ability Penalty</Text>
+		</Row>
+		<Row Tag="LOC_NARRATIVE_ABILITY_AGGRESSIVE_BONUS">
+			<Text>+{1_Amount} Reckless Ability Bonus</Text>
+		</Row>
+		<Row Tag="LOC_NARRATIVE_ABILITY_AGGRESSIVE_PENALTY">
+			<Text>{1_Amount} Reckless Ability Penalty</Text>
+		</Row>
+		<Row Tag="LOC_NARRATIVE_ABILITY_DEFENSE_PENALTY">
+			<Text>{1_Amount} Cautious Ability Penalty</Text>
+		</Row>
+		<Row Tag="LOC_NARRATIVE_ABILITY_DEFENSE_BONUS">
+			<Text>+{1_Amount} Cautious Ability Bonus</Text>
+		</Row>
+		<Row Tag="LOC_NARRATIVE_ABILITY_MOVEMENT_BONUS">
+			<Text>+{1_Amount} Agile Ability Bonus</Text>
+		</Row>
+		<Row Tag="LOC_NARRATIVE_ABILITY_MOVEMENT_PENALTY">
+			<Text>-{1_Amount} Sluggish Ability Penalty</Text>
+		</Row>
+		<Row Tag="LOC_NARRATIVE_ABILITY_RANGE_DEFENSE_BONUS">
+			<Text>+{1_Amount} Cover Ability Bonus</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_NARRATIVE_STRENGTH_NAME">
+			<Text>Determined Ability</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_NARRATIVE_STRENGTH_DESCRIPTION">
+			<Text>+2 Combat Strength</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_NARRATIVE_STRENGTH_PENALTY_NAME">
+			<Text>Dispirited Ability</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_NARRATIVE_STRENGTH_PENALTY_DESCRIPTION">
+			<Text>-2 Combat Strength</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_NARRATIVE_AGGRESSION_NAME">
+			<Text>Reckless Ability</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_NARRATIVE_AGGRESSION_DESCRIPTION">
+			<Text>+3 Combat Strength when attacking; -2 Combat Strength when defending</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_NARRATIVE_DEFENSIVE_NAME">
+			<Text>Cautious Ability</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_NARRATIVE_RANGE_DEFENSE_DESCRIPTION">
+			<Text>+2 Combat Strength against ranged attacks</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_NARRATIVE_RANGE_DEFENSE_NAME">
+			<Text>Cover Ability</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_NARRATIVE_DEFENSIVE_DESCRIPTION">
+			<Text>+3 Combat Strength when defending; -2 Combat Strength when attacking</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_NARRATIVE_MOVEMENT_NAME">
+			<Text>Agile Ability</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_NARRATIVE_MOVEMENT_DESCRIPTION">
+			<Text>+1 Movement</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_NARRATIVE_MOVEMENT_PENALTY_NAME">
+			<Text>Sluggish Ability</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_NARRATIVE_MOVEMENT_PENALTY_DESCRIPTION">
+			<Text>-1 Movement</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ESPIONAGE_MILITARY_SABOTAGE_NAME">
+			<Text>Military Sabotage</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ESPIONAGE_MILITARY_SABOTAGE_DESCRIPTION">
+			<Text>-{1_Amount} Combat Strength against Siege Units</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ESPIONAGE_MILITARY_SABOTAGE_PREVIEW">
+			<Text>{1_Value} Infiltrated Position</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SIEGE_VULNERABILITY_NAME">
+			<Text>Siege Vulnerability</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SIEGE_VULNERABILITY_DESCRIPTION">
+			<Text>Unit takes increased damage from Siege Units</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SIEGE_VULNERABILITY_PREVIEW">
+			<Text>Vulnerable To Siege Units</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_PILLAGE_XP_NAME">
+			<Text>Pillage Experience</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_PILLAGE_XP_DESCRIPTION">
+			<Text>Unit awards experience to Commanders for pillaging</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_AREA_DAMAGE_NAME">
+			<Text>[WIP]Area Damage</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_AREA_DAMAGE_DESCRIPTION">
+			<Text>Deals 15 damage to enemy Units within the command radius.</Text>
+		</Row>
+		<!--Leader Unit Abilities-->
+		<Row Tag="LOC_ABILITY_AMINA_DESERT_MELEE_DESCRIPTION">
+			<Text>+{1_Value} Combat Strength in Desert</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_AMINA_PLAINS_MELEE_DESCRIPTION">
+			<Text>+{1_Value} Combat Strength in Plains</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_AMINA_COMBAT_PREVIEW">
+			<Text>+{1_Amount} Warrior-Queen of Zazzau</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_CHARLEMAGNE_CAVALRY_DESCRIPTION">
+			<Text>+{1_Value} Combat Strength for Cavalry Units during a Celebration</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_CHARLEMAGNE_COMBAT_PREVIEW">
+			<Text>+{1_Amount} Father of Europe</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_LAFAYETTE_COMBAT_DESCRIPTION">
+			<Text>+{1_Value} Combat Strength in friendly territory for every Tradition slotted into the Government</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_LAFAYETTE_COMBAT_PREVIEW">
+			<Text>+{1_Amount} Hero of Two Worlds</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_XERXES_UNIT_ATTACK_DESCRIPTION">
+			<Text>+{1_Value} Combat Strength when attacking in neutral or enemy territory</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_XERXES_COMBAT_PREVIEW">
+			<Text>+{1_Amount} Crusher of Rebellions</Text>
+		</Row>
+		<!--Messaging-->
+		<Row Tag="LOC_WORLD_ARMY_ATTRITION_FLOATER">
+			<Text>[STYLE:bad]Attrition! All Army Units Damaged[/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_UNIT_ATTACK_OVERRUN_FLOATER">
+			<Text>[STYLE:bad]OVERRUN![/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_UNIT_DAMAGE_DECREASE_FLOATER">
+			<Text>[STYLE:good]+{1_Num}[/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_UNIT_DAMAGE_INCREASE_FLOATER">
+			<Text>[STYLE:bad]-{1_Num}[/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_DEFENSES_DAMAGE_INCREASE_FLOATER">
+			<Text>[STYLE:bad]-{1_Num} Defenses[/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_OCEAN_UNIT_DAMAGE_FLOATER">
+			<Text>[STYLE:bad]-{1_Num} Rough Seas![/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_ENEMY_ARMY_DETECTED_FLOATER">
+			<Text>[STYLE:bad]Enemy Army Detected![/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_ENEMY_ARMY_LOCATION_FLOATER">
+			<Text>[STYLE:bad]Enemy Army![/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_UNIT_EXPERIENCE_INCREASE_FLOATER">
+			<Text>[STYLE:yield-experience]+{1_Num}XP[/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_UNIT_EXPERIENCE_INCREASE_LEVEL_FLOATER">
+			<Text>[STYLE:yield-experience]+{1_Num}XP[N]*PROMOTION AVAILABLE*[/STYLE]</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_UNIT_ESTABLISHING_BASE">
+			<Text>Establishing Base</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_UNIT_BASE_ESTABLISHED">
+			<Text>Base Established</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_UNIT_BUILDING_FORTIFICATIONS">
+			<Text>Building Fortifications</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_UNIT_FORTIFICATIONS_COMPLETE">
+			<Text>Fortifications Completed</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_UNIT_REINFORCEMENTS_ARRIVED">
+			<Text>Reinforcements Arrived</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_UNIT_REINFORCEMENT_FAILED">
+			<Text>Reinforce Failed</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_UNIT_ENEMY_REINFORCEMENTS_SPOTTED">
+			<Text>Reinforcements Spotted! The Enemy Commander Has Been Revealed!</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_CONSTRUCTION_CANCELED">
+			<Text>Building Production Interrupted!</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_DISTRICT_DEFENSES_DESTROYED">
+			<Text>District Defenses Destroyed!</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_ARMY_ROUTED">
+			<Text>Army Routed!</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_FLEET_SCATTERED">
+			<Text>Fleet Scattered!</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_LAND_CLAIM_DESTROYED">
+			<Text>Land Claim Destroyed!</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_AIRBASE_DESTROYED">
+			<Text>Air Base Destroyed!</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_AIRBASE_DESTROYED_NO_REBASE_FOUND">
+			<Text>Your {1_Unit} couldn't find a new base and was destroyed!</Text>
+		</Row>
+		<Row Tag="LOC_WORLD_UNIT_PROVIDED_AIR_SUPPORT">
+			<Text>Provided Air Support!</Text>
+		</Row>
+		<!--Great People-->
+		<Row Tag="LOC_GREAT_PEOPLE_CANNOT_EARN_PERSON_NO_VALID_LOCATION">
+			<Text>This Unit does not have a valid location.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_NAME_RETIRE">
+			<Text>Retire</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_CHARGES">
+			<Text>{1_ChargeAmount} {1_ChargeAmount : plural 1?Charge; other?Charges;}</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_INVALID_DISTRICT">
+			<Text>Must be on a completed {1_DistrictName} district.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_ON_OWNED_TILE">
+			<Text>Activate on a tile you own.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_ON_FOREIGN_TILE">
+			<Text>Activate on an unowned tile.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_ON_INDEPENDENT_TILE">
+			<Text>Activate on a tile owned by an Independent Power.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_ON_ALLIED_CITY_STATE">
+			<Text>Activate on a tile owned by a City-State you are Suzerain of.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_NO_MILITARY_UNIT">
+			<Text>Activate on a tile with no Military Unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_DOMAIN_TYPE_SEA">
+			<Text>Activate on a Naval Unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_OWN_TILE">
+			<Text>Activate on a tile you own.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_NO_GREATWORK_SLOT">
+			<Text>Activate on a Constructible with a Great Work slot.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_FOREIGN_TILE">
+			<Text>Must be on an unowned tile.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_INDEPENDENT_TILE">
+			<Text>Must be on a tile owned by an Independent Power.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_ALLIED_CITY_STATE">
+			<Text>Must be on a tile owned by a City-State you are Suzerain of.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_ON_COMPLETED_CONSTRUCTIBLE">
+			<Text>Activate on a {1_ConstructibleType}.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_NO_COMPLETED_CONSTRUCTIBLE">
+			<Text>City cannot have {1_ConstructibleType: gender *:an?an; other?a;}  {1_ConstructibleType}.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_ON_COMPLETED_CONSTRUCTIBLE_TAG">
+			<Text>Activate on a {1_ConstructibleTag} Constructible.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_ON_MISSING_BUILDING_TAG">
+			<Text>Must be on a tile with a valid Constructible.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_NAVIGABLE_RIVER">
+			<Text>Activate on a Navigable River.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_NAVIGABLE_RIVER">
+			<Text>Must be on a tile with a Navigable River.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_ON_OR_ADJACENT_NATURAL_WONDER">
+			<Text>Must be on or adjacent to a tile with a Natural Wonder.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_INCOMPLETE_WONDER">
+			<Text>Must be on a tile with an incomplete Wonder.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_ON_INCOMPLETE_WONDER">
+			<Text>Activate on a tile with an incomplete Wonder.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_PILLAGED_TILE">
+			<Text>Must be on a tile with an pillaged Constructible.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_ON_PILLAGED_TILE">
+			<Text>Activate on a tile with an pillaged Constructible.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_MILITARY_UNIT_ANY_DOMAIN">
+			<Text>Activate on a tile with a Military Unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_MILITARY_UNIT">
+			<Text>Activate on a tile with a Military Unit.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_CAPITAL">
+			<Text>Activate in the Capital.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_CITY">
+			<Text>Activate in a City.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_TOWN">
+			<Text>Activate in a Town.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_VALID_SETTLEMENT_LOCATION">
+			<Text>Activate in a valid Settlement location.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_FOREIGN_HEMISPHERE">
+			<Text>Activate in Distant Lands.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_EFFECT_GREAT_WORK_OBJECT">
+			<Text>Activate on a tile with a Constructible with an open Great Work slot to create {1_GreatWorkName}.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_FOREIGN_HEMISPHERE">
+			<Text>Must be on a tile in Distant Lands.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_CAPITAL">
+			<Text>Must be on a tile in the Capital.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_CITY">
+			<Text>Must be on a tile in a City.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_TOWN">
+			<Text>Must be on a tile in a Town.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_VALID_SETTLEMENT_LOCATION">
+			<Text>Must be on a tile that is a valid Settlement location.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_ARMY_SLOTS">
+			<Text>Activate in an Army Commander with empty slots.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_ARMY_SLOTS">
+			<Text>Must be on a tile with a Commander with {1_Amount} empty slots.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_COMMANDER">
+			<Text>Activate on a Commander.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_COMMANDER">
+			<Text>Must be on a tile with a Commander.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_SPECIALIST_SLOTS">
+			<Text>Activate on an tile with empty Specialist slots.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_SPECIALIST_SLOTS">
+			<Text>Must be on a tile with {1_Amount} empty Specialist slots.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_ON_REMAINING_CAPITALS">
+			<Text>[N]The remaining Capitals where this great person must be activated are: [N] {1_CityList}</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_APPEND_CITY_LIST">
+			<Text>{1_List}, {2_AppendCity} [N]</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_ON_BIOME">
+			<Text>Activate on a {1_BiomeType} tile.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_ON_BIOME_TYPE">
+			<Text>Must be on a tile with {1_BiomeType} Biome.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_ON_UNIT">
+			<Text>Activate on a {1_UnitType} tile.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_ON_UNIT_TYPE">
+			<Text>Must be on a tile with {1_UnitType} Unit.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_USAGE_ON_COMPLETED_QUARTER">
+			<Text>Activate on a {1_UniqueQuarter} Quarter.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_ON_QUARTER">
+			<Text>Must be on a tile with {1_UniqueQuarter} Quarter.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_RESOURCE">
+			<Text>Must be on a tile containing a resource.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_REQUIRES_RESOURCE_TYPE">
+			<Text>Must be on a tile containing a {1_ResourceType} resource.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_NAME">
+			<Text>Activate Great Person</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_CULTURE">
+			<Text>Grants 100 Culture.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_GOLD">
+			<Text>Grants 200 Gold.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_SCIENCE">
+			<Text>Grants 100 Science.</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_DIPLOMATIC_TOKENS">
+			<Text>Instantly gain +{Amount} Envoy.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_LESS_THAN_X_BUILDING">
+			<Text>Tile must have less than {1_Amount} {1_Amount: plural 1?Building; other?Buildings;}.</Text>
+		</Row>
+		<!--Standard Flags-->
+		<Row Tag="LOC_UNITFLAG_INDEPENDENT_POWER_NAME">
+			<Text>Village: {1_Name}</Text>
+		</Row>
+		<Row Tag="LOC_GREATPERSON_ACTION_VICTORY_JOHN_MAYNARD_KEYNES">
+			<Text>Establish World Bank Office</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_JOHN_MAYNARD_KEYNES_NAME">
+			<Text>Great Banker</Text>
+		</Row>
+		<Row Tag="LOC_UNIT_JOHN_MAYNARD_KEYNES_DESCRIPTION">
+			<Text>Unique Civilian unit that can spend Gold and Influence in a Capital City to open World Bank branches needed for a Modern Economic Victory.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_INSUFFICIENT_GOLD">
+			<Text>Requires {1_gold} additional gold.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_INSUFFICIENT_INFLUENCE">
+			<Text>Requires {1_gold} additional influence.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ACTIVATE_GREAT_PERSON_ALREAD_ACTIVATED_FOR_VICTORY">
+			<Text>Victory point already acquired for this location.</Text>
+		</Row>
+
+	</EnglishText>
+</Database>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_QUOTE_FEATURE_GRAND_CANYON">
+			<Text>The river there is like our veins - the veins of the world.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_FEATURE_GRAND_CANYON">
+			<Text>Paiute Elder</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_FEATURE_BARRIER_REEF">
+			<Text>One of the most spectacular, complex, but fragile ecosystems in the world.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_FEATURE_BARRIER_REEF">
+			<Text>David Attenborough</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_FEATURE_BERMUDA_TRIANGLE">
+			<Text>Thou ever restless sea, 'God's half-uttered mystery,' where are all the ships that sailed so gallantly away?</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_FEATURE_BERMUDA_TRIANGLE">
+			<Text>Albert Laighton</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_FEATURE_GULLFOSS">
+			<Text>I peered down, I took up the runes - screaming, I took them - from there, I fell back again.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_FEATURE_GULLFOSS">
+			<Text>Hávamál</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_FEATURE_HOERIKWAGGO">
+			<Text>The land is always stalking people. The land makes people live right. The land looks after us. The land looks after people.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_FEATURE_HOERIKWAGGO">
+			<Text>Anne Peaches</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_FEATURE_IGUAZU_FALLS">
+			<Text>This land has owners!</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_FEATURE_IGUAZU_FALLS">
+			<Text>Sepé Tiaraju</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_FEATURE_KILIMANJARO">
+			<Text>Close to the western summit there is the dried and frozen carcass of a leopard. No one has explained what the leopard was seeking at that altitude.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_FEATURE_KILIMANJARO">
+			<Text>Ernest Hemingway</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_FEATURE_MOUNT_EVEREST">
+			<Text>We look up. For weeks, for months, that is all we have done. Look up.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_FEATURE_MOUNT_EVEREST">
+			<Text>Tenzing Norgay</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_FEATURE_REDWOOD_FOREST">
+			<Text>There is one tree that speaks only to the austere mountain heads, to the mindful wind and the watching stars. </Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_FEATURE_REDWOOD_FOREST">
+			<Text>Mary Austin</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_FEATURE_THERA">
+			<Text>A vapor like an oven's fire boiled up for days from the depths of the sea, and the whole place burned like fire.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_FEATURE_THERA">
+			<Text>George Kedrenos</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_FEATURE_TORRES_DEL_PAINE">
+			<Text>In the calm darkness of moonless nights; in the lone glare of day, the snows descend upon that mountain; none beholds them there.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_FEATURE_TORRES_DEL_PAINE">
+			<Text>Percy Shelley</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_FEATURE_ULURU">
+			<Text>The tourist should get another lens - see straight inside. Wouldn't see big rock then. He would see that Kuniya living right inside there as from the beginning.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_FEATURE_ULURU">
+			<Text>Tony Tjamiwa</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_FEATURE_VALLEY_OF_FLOWERS">
+			<Text>Spring flowers fade in autumn; it is not for the bees to mourn.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_FEATURE_VALLEY_OF_FLOWERS">
+			<Text>The 6th Dalai Lama</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_FEATURE_ZHANGJIAJIE">
+			<Text>You ask for what reason I stay on the green mountain. I smile, but do not answer.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_FEATURE_ZHANGJIAJIE">
+			<Text>Li Bai</Text>
+		</Row>
+	</EnglishText>
+</Database>

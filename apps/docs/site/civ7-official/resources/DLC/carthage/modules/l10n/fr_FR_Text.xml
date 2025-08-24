@@ -1,0 +1,972 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE1" Language="fr_FR">
+      <Text>Carthage</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE10" Language="fr_FR">
+      <Text>Rusucade</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE11" Language="fr_FR">
+      <Text>Thysdrus</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE12" Language="fr_FR">
+      <Text>Rusguniae</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE13" Language="fr_FR">
+      <Text>Tinga</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE14" Language="fr_FR">
+      <Text>Gadir</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE15" Language="fr_FR">
+      <Text>Oea</Text>
+      <Gender>feminine:vowel:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE16" Language="fr_FR">
+      <Text>Kition</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE17" Language="fr_FR">
+      <Text>Lapathus</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE18" Language="fr_FR">
+      <Text>Idalion</Text>
+      <Gender>feminine:vowel:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE19" Language="fr_FR">
+      <Text>Ruspina</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE2" Language="fr_FR">
+      <Text>Utica</Text>
+      <Gender>feminine:vowel:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE20" Language="fr_FR">
+      <Text>Ziz</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE21" Language="fr_FR">
+      <Text>Karaly</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE22" Language="fr_FR">
+      <Text>Sexi </Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE23" Language="fr_FR">
+      <Text>Kapara</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE24" Language="fr_FR">
+      <Text>Rusadir</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE25" Language="fr_FR">
+      <Text>Abdera</Text>
+      <Gender>feminine:vowel:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE26" Language="fr_FR">
+      <Text>Malake</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE27" Language="fr_FR">
+      <Text>Lilybée</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE28" Language="fr_FR">
+      <Text>Chullu</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE29" Language="fr_FR">
+      <Text>Arambys</Text>
+      <Gender>feminine:vowel:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE3" Language="fr_FR">
+      <Text>Hadrumetum</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE30" Language="fr_FR">
+      <Text>Meninx</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE4" Language="fr_FR">
+      <Text>Hippo</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE5" Language="fr_FR">
+      <Text>Motya</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE6" Language="fr_FR">
+      <Text>Thenae</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE7" Language="fr_FR">
+      <Text>Leptis Magna</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE8" Language="fr_FR">
+      <Text>Sabratha</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE9" Language="fr_FR">
+      <Text>Maleth</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_1" Language="fr_FR">
+      <Text>Arishat</Text>
+      <Gender>feminine:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_10" Language="fr_FR">
+      <Text>Zyabqot</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_2" Language="fr_FR">
+      <Text>Siphonbaal</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_3" Language="fr_FR">
+      <Text>Batbaal</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_4" Language="fr_FR">
+      <Text>Batnoam</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_5" Language="fr_FR">
+      <Text>Muttunbaal</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_6" Language="fr_FR">
+      <Text>Ummashtart</Text>
+      <Gender>feminine:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_7" Language="fr_FR">
+      <Text>Hanbi</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_8" Language="fr_FR">
+      <Text>Amoashtart</Text>
+      <Gender>feminine:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_9" Language="fr_FR">
+      <Text>Yzebel</Text>
+      <Gender>feminine:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_1" Language="fr_FR">
+      <Text>Hamilcar</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_10" Language="fr_FR">
+      <Text>Bomilcar</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_2" Language="fr_FR">
+      <Text>Hanno</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_3" Language="fr_FR">
+      <Text>Mago</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_4" Language="fr_FR">
+      <Text>Hasdrubal</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_5" Language="fr_FR">
+      <Text>Gisgo</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_6" Language="fr_FR">
+      <Text>Bodo</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_7" Language="fr_FR">
+      <Text>Azarbaal</Text>
+      <Gender>masculine:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_8" Language="fr_FR">
+      <Text>Bostar</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_9" Language="fr_FR">
+      <Text>Mattanbaal</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_CARTHAGE_ADJECTIVE" Language="fr_FR">
+      <Text>carthaginois|carthaginoise|carthaginois|carthaginoises</Text>
+      <Gender>masculine|feminine|masculine|feminine</Gender>
+      <Plurality>1|1|2|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_CARTHAGE_FULLNAME" Language="fr_FR">
+      <Text>Empire carthaginois</Text>
+      <Gender>masculine:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_CARTHAGE_NAME" Language="fr_FR">
+      <Text>Carthage</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_ANTIQUITY_4_MAJOR_CARTHAGE_NAME" Language="fr_FR">
+      <Text>Phaistos</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_ANTIQUITY_4_MINOR_CARTHAGE_NAME" Language="fr_FR">
+      <Text>Minoens</Text>
+      <Gender>masculine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_COTHON_CHAPTER_HISTORY_PARA_1" Language="fr_FR">
+      <Text>Le cothon était le port intérieur de Carthage, qui servait de base aux forces navales de la cité. De forme circulaire avec une île artificielle en son centre, il tire son nom d'un récipient grec de forme similaire. Les rives intérieure et extérieure étaient bordées de hangars à bateaux, surmontés d'entrepôts remplis de provisions. D'après les sources antiques, le cothon pouvait accueillir jusqu'à 220 navires, mais on était plus proche de 170 selon les archéologues. Grâce à son apparence distinctive, le cothon est devenu l'un des symboles visuels du Carthage antique. Pourtant, il a été construit tardivement dans l'histoire de la cité, peu après la deuxième guerre punique et moins de cinquante ans avant sa destruction.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_DOCKYARD_CHAPTER_HISTORY_PARA_1" Language="fr_FR">
+      <Text>Le port de Carthage comportait deux bassins : l'un destiné aux forces navales, l'autre aux civils. Ce dernier était un chantier naval commercial majeur qui a permis à Carthage de s'enrichir. Dans ce bassin rectangulaire artificiel, les navires marchands étaient déchargés et réapprovisionnés, les taxes collectées et les tributs des colonies proches et lointaines perçus. Son importance surpassait de loin sa taille ; malgré d'importantes rénovations après la deuxième guerre punique, le chantier naval ne s'étendait que sur sept hectares, mais un quai en bois a été ajouté ultérieurement à l'extérieur des murs pour atteindre la mer.  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_1" Language="fr_FR">
+      <Text>L'effondrement de l'âge du bronze au XIIe siècle avant notre ère a provoqué le déclin de nombreuses civilisations de la Méditerranée et du Proche-Orient. L'accumulation de divers facteurs tels que le changement climatique, les déséquilibres technologiques et les invasions ont fragilisé les gouvernements centralisés, entraînant la chute des empires et la dispersion des populations des centres urbains vers de plus petites communautés rurales.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_10" Language="fr_FR">
+      <Text>Au IIIe siècle avant notre ère, Rome avait remplacé la Grèce comme principal rival de Carthage. C'est en Sicile qu'éclate la première guerre punique en -264. Après plus de vingt ans de conflit, les Romains remportent la victoire et Carthage perd ses territoires sur l'île, tout en faisant face à une révolte interne de ses mercenaires. Mais en 218 avant l'ère commune, la guerre éclate de nouveau. Lors de la deuxième guerre punique, le célèbre général carthaginois Hannibal mène son armée par voie terrestre, traversant la Gaule et les Alpes pour attaquer Rome par le nord. Il inflige une défaite écrasante à une imposante armée romaine lors de la bataille de Cannes, mais faute de renforts, il ne peut achever sa conquête. Les Romains parviennent à expulser les Carthaginois d'Italie et d'Espagne, remportant ainsi une nouvelle victoire. Rome devient alors la puissance dominante en Méditerranée occidentale. Carthage est dépouillée de toutes ses possessions extérieures et sa flotte est réduite à seulement dix navires de guerre. Sur le plan politique, elle était devenue un État subordonné de Rome.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_11" Language="fr_FR">
+      <Text>Carthage est également privée du droit de faire la guerre, mais cinquante ans plus tard, elle enfreint cette règle en mobilisant une armée pour riposter contre des incursions numides sur son territoire. Les Romains n'étaient pas impliqués dans le conflit entre Carthage et la Numidie, mais les cicatrices de la deuxième guerre punique étaient encore profondes. Ainsi, malgré leur domination politique sur la civilisation carthaginoise, ils demeuraient méfiants, d'autant plus que celle-ci commençait à retrouver sa puissance économique grâce au commerce et à l'agriculture. D'ailleurs, Caton l'Ancien est célèbre pour avoir terminé tous ses discours au Sénat par la phrase : "Ceterum autem censeo, Carthaginem esse delendam" ("Qui plus est, j'estime qu'il faut détruire Carthage"). La mobilisation de Carthage contre la Numidie offre à Rome le casus belli qu'elle attendait. La guerre est déclarée, la cité assiégée et Carthage entièrement rasée.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_2" Language="fr_FR">
+      <Text>Mais les civilisations n'ont pas toutes connu la ruine. Les cités-États phéniciennes, par exemple, étaient en plein essor depuis au moins deux siècles. Elles sont mentionnées pour la première fois dans des récits égyptiens qui relatent leurs conquêtes sur les colonies côtières du Levant. Devenues des centres commerciaux majeurs facilitant les échanges entre l'Europe, l'Afrique du Nord et l'Asie, ces cités-États avaient dû lutter contre les empires cherchant à contrôler leur pouvoir économique dans la région. Après l'effondrement de l'âge du bronze, les grandes puissances se sont affaiblies et leur influence sur les Phéniciens s'est dissipée. Désormais totalement indépendants, ces derniers ont pu développer leur civilisation et profiter de la chute de leurs voisins pour affirmer leur domination commerciale à travers la Méditerranée. Ils ont établi des colonies tout autour de la mer, sur les côtes européennes et africaines jusqu'au Maroc et l'Espagne, en quête de ports naturels exploitables, d'accès aux marchés locaux et de ressources.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_3" Language="fr_FR">
+      <Text>Vers 814 avant notre ère, une communauté de colons originaires de Tyr atteint le golfe de Tunis. L'emplacement est parfait pour établir une nouvelle colonie : une colline, facilement défendable, surplombe un port qui offre à la fois un abri contre les tempêtes et une position stratégique proche du canal de Sicile, point de passage clé pour le commerce en Méditerranée. Les Tyriens établissent rapidement leur colonie, qu'ils baptisent "qrt-ḥdšt" ("ville nouvelle"). Aujourd'hui, nous la connaissons sous le nom de Carthage.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_4" Language="fr_FR">
+      <Text>L'histoire plutôt banale de la fondation de Carthage diffère de la légende que rapportent les sources ultérieures. Dans la version la plus captivante, Didon (ou Elissa), reine de Tyr, fuit sa cité après que son frère Pygmalion lui a volé son héritage et assassiné son époux. Arrivée en Afrique du Nord, elle conclut un accord avec un chef berbère local : elle pourra revendiquer autant de terres qu'une seule peau de bœuf pourra couvrir. Didon découpe alors la peau en fines lanières et s'en sert pour encercler toute la colline où s'élèvera sa future cité.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_5" Language="fr_FR">
+      <Text>Carthage a été une colonie mineure pendant plusieurs siècles, jusqu'à ce que les troupes d'Alexandre le Grand déferlent dans le Levant au IVe siècle avant notre ère. En -332, il met à sac Tyr, détruisant le cœur du pouvoir phénicien et dispersant les Tyriens, dont beaucoup trouvent refuge à Carthage. Cette explosion démographique, conjuguée à la chute de Tyr, permet à la cité de devenir rapidement le nouveau centre de pouvoir du bassin méditerranéen.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_6" Language="fr_FR">
+      <Text>La richesse de Carthage provenait principalement du commerce et de la collecte des tributs et des taxes. Contrairement à d'autres cités-États phéniciennes, qui concentraient leur pouvoir à l'intérieur de leurs propres murs, les Carthaginois ont adopté une politique de conquêtes territoriales. En s'appuyant sur leur puissante force navale et en alliant leurs armées à celles du royaume numide voisin, ils ont soumis d'autres colonies phéniciennes et ont conquis de nouveaux territoires de part et d'autre de la Méditerranée. Plusieurs facteurs expliquent cette orientation expansionniste, comme la nécessité d'établir leur domination face à la concurrence commerciale des Grecs et des Romains ou encore l'ascension de chefs militaires au sein du gouvernement carthaginois. Quelle qu'en soit la raison, Carthage exerçait rarement un contrôle direct sur ses territoires, préférant une approche hégémonique consistant à percevoir des tributs de ses colonies et à les utiliser comme des points stratégiques pour le commerce.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_7" Language="fr_FR">
+      <Text>Au IVe siècle, le régime de Carthage a évolué, passant d'une monarchie à une république. À sa tête se trouvaient deux suffètes (juges) élus parmi les familles les plus influentes. Ils gouvernaient conjointement avec un sénat composé de 200 à 300 membres. Une assemblée citoyenne votait les lois et les mesures proposées par les suffètes et le sénat. Les pouvoirs civil et militaire étaient strictement séparés : les généraux, élus ou nommés, n'avaient aucune influence sur les affaires politiques, tandis que les suffètes, de leur côté, n'exerçaient aucun contrôle sur les armées.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_8" Language="fr_FR">
+      <Text>La ville en elle-même était dominée par la colline de Byrsa, où se perchait une citadelle surplombant la mer. En contrebas s'étendaient quatre quartiers résidentiels ainsi qu'un très grand port. Le centre urbain était entouré de terres cultivées ; Carthage était en effet très développée sur le plan agricole, et produisait une grande variété de cultures, en quantité suffisante pour nourrir sa population et générer des revenus par l'exportation. L'expertise agricole carthaginoise était telle que l'un des rares textes à avoir survécu à la destruction de la cité n'est autre qu'un traité d'agriculture de l'écrivain Magon. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_9" Language="fr_FR">
+      <Text>L'expansion de Carthage ne s'est pas faite sans friction, et un premier conflit de grande ampleur l'a opposée à la Grèce. Avant même que la modeste colonie de Carthage ne devienne une cité importante, les Grecs figuraient parmi les concurrents majeurs des Phéniciens, et empiétaient sur leur monopole commercial dans la Méditerranée. L'essor de Carthage s'est accompagné d'un transfert de ces tensions, et les deux empires se sont rapidement retrouvés à couteaux tirés. Dès 480 avant notre ère, Carthage et la Grèce se sont livré une série de guerres pour le contrôle de la Sicile. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_CARTHAGE_RED_SLIP_CHAPTER_HISTORY_PARA_1" Language="fr_FR">
+      <Text>Nous manquons cruellement de sources sur la religion carthaginoise, ses dieux et ses pratiques, et les rares écrits dont nous disposons ne brillent pas par leur fiabilité. Toutefois, la déesse Tanit est parvenue jusqu'à nous, de par son omniprésence dans la grande cité et ses colonies. Divinité de la sagesse, de la fertilité et de la maternité, elle était l'une des déités principales de Carthage, avec son consort Ba'al Hammon. Elle constitue un ajout tardif au panthéon punique. En effet, si la figure de Ba'al Hammon est ancrée de longue date dans la culture phénicienne, celle de Tanit n'émerge qu'au Ve siècle avant l'ère commune, potentiellement à travers des croyances berbères locales, et ne tarde pas à surpasser son consort à Carthage en termes de proéminence et de révérence. Il semblerait que des sacrifices humains aient été associés au culte de Tanit : ceux-ci auraient eu lieu dans un tophet, sorte de sanctuaire sacré, bien que la prévalence de ces rituels dans la société carthaginoise soit sujette à débats. Le signe de Tanit, employé dans ce jeu pour représenter Carthage, est un motif qui revient souvent dans les gravures et mosaïques. Certaines représentations ultérieures de la déesse lui prêtent des ailes et une tête de lion.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_CARTHAGE_SHIPSHEDS_CHAPTER_HISTORY_PARA_1" Language="fr_FR">
+      <Text>Les navires représentaient la clé de voûte de la puissance économique et militaire de Carthage, leur entretien était donc d'une importance capitale. Au cours de leurs nombreux voyages dans la Méditerranée et au-delà, les vaisseaux étaient exposés à bien des sources d'usure : tempêtes en mer, charpentes gorgées d'eaux risquant de pourrir ou encore faune marine friande de bois. Mais tirer des bâtiments si lourds et imposants sur la terre ferme pour leur permettre de sécher ou les réparer était une tâche difficile et chronophage, et ne les protégeait pas pour autant des éléments.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_CARTHAGE_SHIPSHEDS_CHAPTER_HISTORY_PARA_2" Language="fr_FR">
+      <Text>Pour résoudre ce problème, les Carthaginois ont construit des hangars à bateaux, des sortes de cales alignées le long de l'eau et permettant de mettre rapidement et aisément les navires au sec et à l'abri des intempéries. On pouvait alors procéder aux réparations nécessaires et redéployer les vaisseaux, ce qui réduisait les périodes d'inactivité, optimisait la maintenance et contribuait aux performances des flottes marchandes et militaires de Carthage. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_CARTHAGE_SICILIAN_WARS_CHAPTER_HISTORY_PARA_1" Language="fr_FR">
+      <Text>Dignes héritiers des Phéniciens, les Carthaginois régnaient en maîtres sur les routes commerciales méditerranéennes. Mais la concurrence était rude. Leurs premières rivales majeures, les cités-États grecques, constituaient elles aussi une forte puissance navale cherchant à dominer la région. Au centre de ce conflit se trouvait la Sicile, île située en plein milieu de la Méditerranée et indispensable à l'hégémonie maritime pendant l'Antiquité. Les Carthaginois et les Grecs se sont livré plusieurs guerres entre 480 et 307 avant l'ère commune pour le contrôle de cette île, au cours desquelles les territoires n'ont cessé de changer de mains. Ces guerres siciliennes se sont calmées lorsque Rome a commencé à prendre le dessus sur la Grèce, et que les possessions de cette dernière sont devenues romaines. Mais l'apparition d'un nouvel adversaire pour Carthage a déclenché une nouvelle série de conflits, les guerres puniques, dont le point névralgique était également la Sicile. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_QUARTER_PUNIC_PORT_CHAPTER_HISTORY_PARA_1" Language="fr_FR">
+      <Text>En tant que puissance économique maritime, la prospérité et la survie même de Carthage reposaient sur son port. Cette infrastructure tout à fait remarquable était composée d'une enceinte de chantiers navals consacrés au commerce, et à l'intérieur d'un cothon qui abritait les navires de guerre. Ce projet colossal a été lancé dans une zone marécageuse vers l'an 200 avant l'ère commune, et a nécessité l'évacuation d'environ 235 000 mètres cubes de terre. Les bâtiments étaient faits de blocs de grès taillés, et entourés d'immenses murs qui les occultaient presque entièrement. Les étroites entrées des ports extérieur et intérieur pouvaient être condamnées à l'aide de grandes chaînes de fer. Quand les Romains ont conquis Carthage à la fin de la troisième guerre punique, ils ont commencé par détruire le port de la cité. Mais son empreinte est toujours bien visible sur la côte tunisienne, et demeure l'un des rares vestiges de la gloire de Carthage. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_COLONIST_CHAPTER_HISTORY_PARA_1" Language="fr_FR">
+      <Text>À ses débuts, Carthage n'était qu'une colonie phénicienne, un simple avant-poste côtier établi pour faciliter et contrôler le commerce dans la Méditerranée. Au fil de son développement en tant que ville et centre de pouvoir indépendant, elle a employé la même technique pour étendre son influence et sa puissance : fonder des colonies au lieu de chercher à conquérir des terres. Si les sources historiques qualifient cette expansion d'agressive et impérialiste (principalement car il s'agit de sources romaines, et donc hostiles à Carthage), les recherches récentes montrent qu'initialement, Carthage accroissait son influence en prenant le contrôle d'autres colonies phéniciennes occidentales déjà existantes, et en les renforçant. La revendication directe de territoires ne serait intervenue que plus tard. À cette période, des colons partaient fonder de nouveaux centres de peuplement dans la Méditerranée et au-delà, qui servaient de comptoirs commerciaux, de dépôts et de ports sécurisés pour les flottes carthaginoises.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_NUMIDIAN_CAVALRY_CHAPTER_HISTORY_PARA_1" Language="fr_FR">
+      <Text>La puissance de Carthage reposait sur ses routes commerciales et ses petites colonies côtières. La ville elle-même et son empire économique ne totalisaient donc pas une population très nombreuse. Aussi, afin de gonfler les rangs de l'armée en temps de guerre, on faisait appel à des mercenaires recrutés chez les populations numides voisines. Ces guerriers berbères étaient armés de javelots et montaient des chevaux rapides de petite taille. Agiles et vives, ces unités légères harcelaient sans répit leurs adversaires. Carthage a beaucoup eu recours à la cavalerie numide pendant la deuxième guerre punique ; elle a notamment été déployée avec une grande efficacité par Hannibal lors de son invasion d'Italie, ainsi que contre les incursions romaines en Afrique du Nord. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_BYRSA_CHAPTER_HISTORY_PARA_1" Language="fr_FR">
+      <Text>Juchée sur la colline qui s'élève au centre de Carthage, la citadelle de Byrsa veillait sur la cité. L'origine de ce nom est incertaine : la légende de Didon établit un lien discutable avec le mot grec "βυρσα" (prononcé "byrsa"), qui signifie "peau de bœuf", en référence à la façon dont la reine aurait obtenu le territoire de la future Carthage. Toutefois, il s'agit plus probablement d'une variation du phénicien "barsat", ("place forte"). Quoi qu'il en soit, la forteresse constituait le cœur de la puissance militaire carthaginoise, et partageait la colline (également appelée "Byrsa") avec des institutions politiques et religieuses majeures. Après la chute de Carthage, la citadelle et ses remparts seront réutilisés par les Romains, les Vandales et les Byzantins, entre autres. De nos jours, il s'agit d'un site archéologique de première importance.  </Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_COTHON_NAME" Language="fr_FR">
+      <Text>Cothon|Cothons</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_DOCKYARD_NAME" Language="fr_FR">
+      <Text>Atelier naval|Ateliers navals</Text>
+      <Gender>masculine:vowel</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_PUNIC_PORT_NAME" Language="fr_FR">
+      <Text>Port punique|Ports puniques</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BYRSA_NAME" Language="fr_FR">
+      <Text>Byrsa</Text>
+      <Gender>feminine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_MEDJERDA_NAME" Language="fr_FR">
+      <Text>Medjerda</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_MILIANE_NAME" Language="fr_FR">
+      <Text>Miliane</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SEJENANE_NAME" Language="fr_FR">
+      <Text>Sejnane</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SILIANA_NAME" Language="fr_FR">
+      <Text>Siliana</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_TESSA_NAME" Language="fr_FR">
+      <Text>Tessa</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_EMI_KOUSSI_NAME" Language="fr_FR">
+      <Text>Emi Koussi</Text>
+      <Gender>masculine:vowel</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_HARUJ_NAME" Language="fr_FR">
+      <Text>Haruj</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_JEBEL_TOUBKAL_NAME" Language="fr_FR">
+      <Text>Djebel Toubkal</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_PANTELLERIA_NAME" Language="fr_FR">
+      <Text>Pantelleria</Text>
+      <Gender>masculine:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_WAW_AN_NAMUS_NAME" Language="fr_FR">
+      <Text>Waw an Namus</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_RED_SLIP_NAME" Language="fr_FR">
+      <Text>Sagesse de Tanit</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SHIPSHEDS_NAME" Language="fr_FR">
+      <Text>Hangars à bateaux</Text>
+      <Gender>masculine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SICILIAN_WARS_NAME" Language="fr_FR">
+      <Text>Guerres siciliennes</Text>
+      <Gender>feminine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_11000A_COMPLETION" Language="fr_FR">
+      <Text>La nouvelle colonie bouillonne de vie, étendant la portée de Carthage bien au-delà des murs de la ville, et le monde entier veut obtenir ce riche violet époustouflant.</Text>
+    </Replace>
+    <Replace Tag="LOC_11000A_STORYTITLE" Language="fr_FR">
+      <Text>La couleur de la prospérité</Text>
+    </Replace>
+    <Replace Tag="LOC_11000B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour les éclaireurs.</Text>
+    </Replace>
+    <Replace Tag="LOC_11000B_NAME" Language="fr_FR">
+      <Text>Voyons jusqu'où peut s'étendre l'influence de Carthage.</Text>
+    </Replace>
+    <Replace Tag="LOC_11000C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11000C_NAME" Language="fr_FR">
+      <Text>Protégeons ce qui appartient à Carthage.</Text>
+    </Replace>
+    <Replace Tag="LOC_11001A_COMPLETION" Language="fr_FR">
+      <Text>Les voiles des navires de commerce s'agitent dans le vent et quittent les ports de Carthage comme des oiseaux en formation partant chercher l'abondance sur des terres lointaines.</Text>
+    </Replace>
+    <Replace Tag="LOC_11001A_STORYTITLE" Language="fr_FR">
+      <Text>Bon vent</Text>
+    </Replace>
+    <Replace Tag="LOC_11001B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour les marchands.</Text>
+    </Replace>
+    <Replace Tag="LOC_11001B_NAME" Language="fr_FR">
+      <Text>Accélérons les vents du commerce.</Text>
+    </Replace>
+    <Replace Tag="LOC_11001C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11001C_NAME" Language="fr_FR">
+      <Text>Servons-nous-en pour propager des histoires sur la grandeur de Carthage.</Text>
+    </Replace>
+    <Replace Tag="LOC_11002A_COMPLETION" Language="fr_FR">
+      <Text>Comme les maillons d'une chaîne, les ports de Carthage connectent l'empire sur une vaste distance. Les richesses affluent vers l'intérieur et la force est projetée vers l'extérieur.</Text>
+    </Replace>
+    <Replace Tag="LOC_11002A_STORYTITLE" Language="fr_FR">
+      <Text>Liens indestructibles</Text>
+    </Replace>
+    <Replace Tag="LOC_11002B_DESCRIPTION" Language="fr_FR">
+      <Text>Lance une célébration.</Text>
+    </Replace>
+    <Replace Tag="LOC_11002B_NAME" Language="fr_FR">
+      <Text>Faisons couler le vin.</Text>
+    </Replace>
+    <Replace Tag="LOC_11002C_DESCRIPTION" Language="fr_FR">
+      <Text>Population +1 dans {1_capital}</Text>
+    </Replace>
+    <Replace Tag="LOC_11002C_NAME" Language="fr_FR">
+      <Text>Propageons des mythes sur l'attrait de nos ports.</Text>
+    </Replace>
+    <Replace Tag="LOC_11003A_COMPLETION" Language="fr_FR">
+      <Text>Partout où ils vont, les Carthaginois sont entourés de vues spectaculaires, mais ils se plaignent de l'absence d'infrastructures et d'aménagements basiques. À quoi servent ces incroyables merveilles si le peuple n'a pas les moyens de pleinement les apprécier ?</Text>
+    </Replace>
+    <Replace Tag="LOC_11003A_STORYTITLE" Language="fr_FR">
+      <Text>Splendeur écrasante</Text>
+    </Replace>
+    <Replace Tag="LOC_11003B_DESCRIPTION" Language="fr_FR">
+      <Text>Portée des routes commerciales +3.</Text>
+    </Replace>
+    <Replace Tag="LOC_11003B_NAME" Language="fr_FR">
+      <Text>Les infrastructures devront venir d'ailleurs.</Text>
+    </Replace>
+    <Replace Tag="LOC_11003C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour les merveilles.</Text>
+    </Replace>
+    <Replace Tag="LOC_11003C_NAME" Language="fr_FR">
+      <Text>Les merveilles sont des infrastructures.</Text>
+    </Replace>
+    <Replace Tag="LOC_11004A_COMPLETION" Language="fr_FR">
+      <Text>Les Romains ont encore en eux un peu des bergers dépenaillés dont certains d'entre eux descendent, mais plus beaucoup. À présent, leur ambition va plus loin que leur pâturage, et pourrait même englober Carthage.</Text>
+    </Replace>
+    <Replace Tag="LOC_11004A_STORYTITLE" Language="fr_FR">
+      <Text>Le croissant et le loup</Text>
+    </Replace>
+    <Replace Tag="LOC_11004B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11004B_NAME" Language="fr_FR">
+      <Text>Des accords mutuels créeront une paix durable.</Text>
+    </Replace>
+    <Replace Tag="LOC_11004C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11004C_NAME" Language="fr_FR">
+      <Text>Carthage ne peut pas être prise par surprise.</Text>
+    </Replace>
+    <Replace Tag="LOC_11004D_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11004D_NAME" Language="fr_FR">
+      <Text>Carthage partage bien plus avec Rome que ne le pense notre peuple.</Text>
+    </Replace>
+    <Replace Tag="LOC_11005A_COMPLETION" Language="fr_FR">
+      <Text>Le caput mundi, la capitale du monde, est en proie aux flammes. La fumée s'échappe des villas et insulas, et Romains comme Carthaginois s'étouffent dans l'air nauséabond. De nombreux citoyens ont fui, emportant tout ce qu'ils pouvaient. Ceux qui restent, les vieux, les malades, les pauvres et les plus entêtés, supplient les forces carthaginoises de les épargner.</Text>
+    </Replace>
+    <Replace Tag="LOC_11005A_STORYTITLE" Language="fr_FR">
+      <Text>La chute</Text>
+    </Replace>
+    <Replace Tag="LOC_11005B_DESCRIPTION" Language="fr_FR">
+      <Text>Soutien à la guerre +1 pour toutes les guerres.</Text>
+    </Replace>
+    <Replace Tag="LOC_11005B_NAME" Language="fr_FR">
+      <Text>Ne laissons que des cendres et du sel.</Text>
+    </Replace>
+    <Replace Tag="LOC_11005C_DESCRIPTION" Language="fr_FR">
+      <Text>Population +1 dans toutes les colonies.</Text>
+    </Replace>
+    <Replace Tag="LOC_11005C_NAME" Language="fr_FR">
+      <Text>Emmenons-les dans la véritable capitale du monde.</Text>
+    </Replace>
+    <Replace Tag="LOC_11005D_DESCRIPTION" Language="fr_FR">
+      <Text>Le commandant ayant le plus haut niveau reçoit la promotion Fermeté.</Text>
+    </Replace>
+    <Replace Tag="LOC_11005D_NAME" Language="fr_FR">
+      <Text>Retenons leur général le plus vaillant.</Text>
+    </Replace>
+    <Replace Tag="LOC_11006A_COMPLETION" Language="fr_FR">
+      <Text>Les envoyés romains et carthaginois se regardent avec méfiance alors même que le parchemin est signé. Un sénateur romain murmure, "… delenda est". Quoi qu'il en soit, l'accord est conclu.</Text>
+    </Replace>
+    <Replace Tag="LOC_11006A_STORYTITLE" Language="fr_FR">
+      <Text>Accord réticent</Text>
+    </Replace>
+    <Replace Tag="LOC_11006B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11006B_NAME" Language="fr_FR">
+      <Text>Les eaux romaines et carthaginoises connaîtront la paix.</Text>
+    </Replace>
+    <Replace Tag="LOC_11006C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11006C_NAME" Language="fr_FR">
+      <Text>De nouvelles alliances font naître de nouvelles idées.</Text>
+    </Replace>
+    <Replace Tag="LOC_11006D_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11006D_NAME" Language="fr_FR">
+      <Text>Les villes accueillent tout le monde.</Text>
+    </Replace>
+    <Replace Tag="LOC_11007A_COMPLETION" Language="fr_FR">
+      <Text>À peine le traité est-il signé qu'un vieux sénateur commence à protester. À chaque réunion, quel que soit le sujet, il prétend que parce que Carthage est trop prospère, elle étrangle le commerce et les Romains en pâtissent. Pour ces raisons, il ne cesse de clamer que Carthage doit être détruite.</Text>
+    </Replace>
+    <Replace Tag="LOC_11007A_STORYTITLE" Language="fr_FR">
+      <Text>Delenda est</Text>
+    </Replace>
+    <Replace Tag="LOC_11007B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} dans les communes.</Text>
+    </Replace>
+    <Replace Tag="LOC_11007B_NAME" Language="fr_FR">
+      <Text>Les citoyens ruraux vont en tirer profit, pas en souffrir.</Text>
+    </Replace>
+    <Replace Tag="LOC_11007C_DESCRIPTION" Language="fr_FR">
+      <Text>Capacité en ressources +1 à {1_capital}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11007C_NAME" Language="fr_FR">
+      <Text>L'alliance implique trop de promesses pour la compromettre.</Text>
+    </Replace>
+    <Replace Tag="LOC_11007D_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} dans les communes.</Text>
+    </Replace>
+    <Replace Tag="LOC_11007D_NAME" Language="fr_FR">
+      <Text>Dénigrons le vieux fossile et son institution archaïque.</Text>
+    </Replace>
+    <Replace Tag="LOC_11008A_COMPLETION" Language="fr_FR">
+      <Text>Du palais au port, pas un centimètre de Carthage n'est laissé à l'abandon. Les rues grouillent de vie alors que les Carthaginois vaquent à leurs occupations dans l'une des villes les plus prospères au monde.</Text>
+    </Replace>
+    <Replace Tag="LOC_11008A_STORYTITLE" Language="fr_FR">
+      <Text>Véritable richesse</Text>
+    </Replace>
+    <Replace Tag="LOC_11008B_DESCRIPTION" Language="fr_FR">
+      <Text>Limite de spécialistes +1 à {1_capital}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11008B_NAME" Language="fr_FR">
+      <Text>Carthage est le berceau de la grandeur.</Text>
+    </Replace>
+    <Replace Tag="LOC_11008C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11008C_NAME" Language="fr_FR">
+      <Text>Elle restera intouchable.</Text>
+    </Replace>
+    <Replace Tag="LOC_11009A_COMPLETION" Language="fr_FR">
+      <Text>Les Numides hochent la tête, satisfaits des termes du contrat. La cavalerie n'aura peut-être aucune loyauté envers Carthage, mais tant qu'elle sera payée, elle ira là où on lui ordonne.</Text>
+    </Replace>
+    <Replace Tag="LOC_11009A_STORYTITLE" Language="fr_FR">
+      <Text>De l'or contre de l'acier</Text>
+    </Replace>
+    <Replace Tag="LOC_11009B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour la cavalerie numide.</Text>
+    </Replace>
+    <Replace Tag="LOC_11009B_NAME" Language="fr_FR">
+      <Text>Ils ne doivent ressentir aucune pitié.</Text>
+    </Replace>
+    <Replace Tag="LOC_11009C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour la cavalerie numide.</Text>
+    </Replace>
+    <Replace Tag="LOC_11009C_NAME" Language="fr_FR">
+      <Text>Nous ne tolérerons aucun manquement à la discipline.</Text>
+    </Replace>
+    <Replace Tag="LOC_11009D_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11009D_NAME" Language="fr_FR">
+      <Text>Renégocions le contrat.</Text>
+    </Replace>
+    <Replace Tag="LOC_11064A_COMPLETION" Language="fr_FR">
+      <Text>Les Numides sont en colère. S'ils se battent, ce n'est pas pour Carthage, mais pour gagner leur pitance. La ville s'est déjà montrée généreuse par le passé, alors tout espoir n'est pas perdu.</Text>
+    </Replace>
+    <Replace Tag="LOC_11064A_STORYTITLE" Language="fr_FR">
+      <Text>Contrats rompus</Text>
+    </Replace>
+    <Replace Tag="LOC_11064B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour les bâtiments de Production, mais {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11064B_NAME" Language="fr_FR">
+      <Text>Augmentons les taxes pour les satisfaire.</Text>
+    </Replace>
+    <Replace Tag="LOC_11064C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} unité(s) de cavalerie numide, mais avec {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11064C_NAME" Language="fr_FR">
+      <Text>La cavalerie devra se contenter de ce que nous pouvons lui donner.</Text>
+    </Replace>
+    <Replace Tag="LOC_11065A_COMPLETION" Language="fr_FR">
+      <Text>Alors que la coque du navire ennemi éclate en mille morceaux, son équipage tente tant bien que mal de survivre au naufrage. Les eaux de Carthage demeureront sûres pour son peuple.</Text>
+    </Replace>
+    <Replace Tag="LOC_11065A_STORYTITLE" Language="fr_FR">
+      <Text>Refuge</Text>
+    </Replace>
+    <Replace Tag="LOC_11065B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11065B_NAME" Language="fr_FR">
+      <Text>Les familles qui se sentent en sécurité contribueront au développement de Carthage.</Text>
+    </Replace>
+    <Replace Tag="LOC_11065C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11065C_NAME" Language="fr_FR">
+      <Text>Les travailleurs n'auront pas à se soucier de leur sécurité.</Text>
+    </Replace>
+    <Replace Tag="LOC_11066A_COMPLETION" Language="fr_FR">
+      <Text>D'imposantes murailles de pierre s'étendent tout autour de la cité, des rivages jusqu'aux confins de l'arrière-pays. Carthage veille sur son peuple.</Text>
+    </Replace>
+    <Replace Tag="LOC_11066A_STORYTITLE" Language="fr_FR">
+      <Text>Le jardin fortifié</Text>
+    </Replace>
+    <Replace Tag="LOC_11066B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour les unités en garnison.</Text>
+    </Replace>
+    <Replace Tag="LOC_11066B_NAME" Language="fr_FR">
+      <Text>Approvisionnons les sentinelles.</Text>
+    </Replace>
+    <Replace Tag="LOC_11066C_DESCRIPTION" Language="fr_FR">
+      <Text>Les remparts antiques sont gratuits.</Text>
+    </Replace>
+    <Replace Tag="LOC_11066C_NAME" Language="fr_FR">
+      <Text>Engageons des maçons pour agrandir les murs.</Text>
+    </Replace>
+    <Replace Tag="LOC_11067A_COMPLETION" Language="fr_FR">
+      <Text>Chaque mur érigé, chaque voile dressée propage un peu plus loin l'histoire de Carthage, qui ne sera jamais remise en question.</Text>
+    </Replace>
+    <Replace Tag="LOC_11067A_STORYTITLE" Language="fr_FR">
+      <Text>Les Carthaginois</Text>
+    </Replace>
+    <Replace Tag="LOC_11067B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11067B_NAME" Language="fr_FR">
+      <Text>Notre histoire met en avant un pouvoir incommensurable.</Text>
+    </Replace>
+    <Replace Tag="LOC_11067C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11067C_NAME" Language="fr_FR">
+      <Text>Notre histoire met en avant des richesses inimaginables.</Text>
+    </Replace>
+    <Replace Tag="LOC_12004A_COMPLETION" Language="fr_FR">
+      <Text>En arpentant les rues de Carthage, le Dr Rizal observe une cité en pleine effervescence. Des mercenaires à cheval avancent sans prêter attention à ceux qui croisent leur chemin, tandis qu'au port, d'imposants navires alimentent le trafic qui donne son énergie à la ville.</Text>
+    </Replace>
+    <Replace Tag="LOC_12004A_STORYTITLE" Language="fr_FR">
+      <Text>Le bon docteur à Carthage</Text>
+    </Replace>
+    <Replace Tag="LOC_12004B_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} pour les galères.</Text>
+    </Replace>
+    <Replace Tag="LOC_12004B_NAME" Language="fr_FR">
+      <Text>Étudions les navires.</Text>
+    </Replace>
+    <Replace Tag="LOC_12004C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_12004C_NAME" Language="fr_FR">
+      <Text>Émerveillons-nous devant les chevaux.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1030_CARTHAGEB_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez un jardin.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1030_CARTHAGEC_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez un monument.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1031_CARTHAGEB_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez une académie.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1040_CARTHAGEC_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez une bibliothèque et un monument.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1041_CARTHAGEB_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez un amphithéâtre.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1050_CARTHAGEC_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez une bibliothèque.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1052_CARTHAGEB_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez un marché et 2 routes commerciales.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1060_CARTHAGEC_IMPERATIVE" Language="fr_FR">
+      <Text>Remplissez une bibliothèque de codex.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1062_CARTHAGEB_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez une académie.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1070_CARTHAGEC_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez un jardin.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1070_CARTHAGEF_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez un jardin.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1072_CARTHAGEB_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez une académie.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1072_CARTHAGED_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez une académie.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1090_CARTHAGEC_IMPERATIVE" Language="fr_FR">
+      <Text>Construisez une merveille.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1130_CARTHAGEB_IMPERATIVE" Language="fr_FR">
+      <Text>Remplissez une bibliothèque de codex.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1140_CARTHAGEB_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez un jardin et un marché.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1170_CARTHAGEC_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez un monument et lancez une célébration.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1172_CARTHAGEB_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez une académie.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1180_CARTHAGEB_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez un monument et lancez une célébration.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1180_CARTHAGEE_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez un monument et lancez une célébration.</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_COLONIST_DESCRIPTION" Language="fr_FR">
+      <Text>PM +1 lorsque cette unité est embarquée. Population +1 si elle fonde une colonie adjacente à une ressource.</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_NUMIDIAN_CAVALRY_DESCRIPTION" Language="fr_FR">
+      <Text>Puissance de combat +1 par ressource de ville différente assignée à votre capitale.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTR_TOTAL_TRADE_ROUTES" Language="fr_FR">
+      <Text>Routes commerciales totales</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTR_YIELDS_FROM_NUM_TRADE_ROUTES" Language="fr_FR">
+      <Text>Nombre de routes commerciales</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_COTHON_DESCRIPTION" Language="fr_FR">
+      <Text>[icon:YIELD_PRODUCTION] Production +2. [icon:YIELD_PRODUCTION] Production +1 par case de côte, merveille ou fleuve navigable adjacente. Bâtiment de Production exclusif à Carthage. Intemporel. Peut être acheté dans les communes. Doit être placé sur la côte.</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_COTHON_TOOLTIP" Language="fr_FR">
+      <Text>Bâtiment de Production exclusif à Carthage. Intemporel. Peut être acheté dans les communes. Doit être placé sur la côte.</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_DOCKYARD_DESCRIPTION" Language="fr_FR">
+      <Text>[icon:YIELD_GOLD] Or +2. [icon:YIELD_FOOD] Nourriture +1 par ressource, merveille et district adjacents. Intemporel. Bâtiment générant de l'Or exclusif à Carthage. Peut être acheté dans les communes. Doit être placé sur la côte.</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_DOCKYARD_TOOLTIP" Language="fr_FR">
+      <Text>Bâtiment générant de l'Or exclusif à Carthage. Intemporel. Peut être acheté dans les communes. Doit être placé sur la côte.</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_RED_SLIP_AUTHOR" Language="fr_FR">
+      <Text>Mago</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_RED_SLIP_QUOTE" Language="fr_FR">
+      <Text>"Qui trouve davantage de joie dans une résidence urbaine n'a nullement besoin d'une ferme rurale."</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SHIPSHEDS_AUTHOR" Language="fr_FR">
+      <Text>Hannon le Navigateur</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SHIPSHEDS_QUOTE" Language="fr_FR">
+      <Text>"Naviguant à pleines voiles, nous avons longé un pays ardent aux parfums entêtants, qui déversait des rivières de flammes dans la mer."</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SICILIAN_WARS_AUTHOR" Language="fr_FR">
+      <Text>Diodore de Sicile</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SICILIAN_WARS_QUOTE" Language="fr_FR">
+      <Text>"En présentant la flotte capturée, les Carthaginois permettaient au peuple de voir de ses propres yeux la gloire de leur réussite."</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_CARTHAGE_DESCRIPTION" Language="fr_FR">
+      <Text>Vous ne pouvez posséder qu'une seule ville. Les communes n'ont pas accès au projet Conversion en ville. Chaque fois que vous formez ou achetez un marchand ou un colon carthaginois, vous en recevez un second.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_CARTHAGE" Language="fr_FR">
+      <Text>Bien à l'abri dans leurs cothons, les navires préparent leurs expéditions. Certains sont chargés de poteries de luxe, de céréales et d'autres articles à échanger contre de l'or et de l'ivoire. D'autres transportent des soldats cherchant le profit par des moyens différents. Les uns comme les autres rentreront chez eux, au centre du monde, à Carthage. Ouvrez les portes des cothons, et qu'à leur retour, vos flottes apportent prospérité à la cité.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_CARTHAGE" Language="fr_FR">
+      <Text>Le quartier exclusif du port punique peut être acheté dans les communes. Il augmente leur capacité en ressources et est conservé à travers les âges, ce qui vous fournira de puissants avantages à long terme !</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_INTRO_CARTHAGE" Language="fr_FR">
+      <Text>Les enfants de Tyr ont longuement voyagé pour prendre en main leur destinée. Depuis le centre du monde, ils régneront sur un empire sans égal.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_CARTHAGE_COMPLETE_BYRSA_DESC" Language="fr_FR">
+      <Text>Terminer Byrsa avec Carthage</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_CARTHAGE_COMPLETE_BYRSA_NAME" Language="fr_FR">
+      <Text>Byrsa</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_CARTHAGE_LEGACY_PATH_MILITARISTIC_DESC" Language="fr_FR">
+      <Text>Terminer une orientation d'héritage militaire avec Carthage</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_CARTHAGE_LEGACY_PATH_MILITARISTIC_NAME" Language="fr_FR">
+      <Text>Orientation d'héritage de Carthage</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_CARTHAGE_DESCRIPTION" Language="fr_FR">
+      <Text>Merveille associée à Carthage : [icon:YIELD_PRODUCTION] Production +30 %.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_RED_SLIP_RESOURCE_CAP_DESCRIPTION" Language="fr_FR">
+      <Text>Augmente de 3 la quantité de ressources pouvant être affectées à la capitale.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_RED_SLIP_TRADE_GOLD_DESCRIPTION" Language="fr_FR">
+      <Text>+15 à la portée des routes commerciales maritimes. [icon:YIELD_GOLD] Or +3 dans la capitale par route commerciale partant de la capitale. </Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SHIPSHEDS_NAVAL_MOVEMENT_DESCRIPTION" Language="fr_FR">
+      <Text>PM +1 pour les unités navales.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SHIPSHEDS_NAVAL_RANGE_DESCRIPTION" Language="fr_FR">
+      <Text>Portée +1 pour les unités navales.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SICILIAN_WARS_MOVEMENT_NUMIDIAN_CAVALRY_DESCRIPTION" Language="fr_FR">
+      <Text>PM et vision +1 pour la cavalerie numide.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SICILIAN_WARS_SETTLEMENT_CAP_DESCRIPTION" Language="fr_FR">
+      <Text>Limite de colonies +2.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SICILIAN_WARS_TOWN_PROJECT_DESCRIPTION" Language="fr_FR">
+      <Text>+1 emplacement de codex pour les hôtels de ville dans les communes possédant la spécialisation Comptoir commercial.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_PUNIC_PORT_DESCRIPTION" Language="fr_FR">
+      <Text>Quartier exclusif aux Carthaginois. Créé en construisant un cothon et un atelier naval dans le même district. Augmente de 2 la quantité de [icon:NOTIFICATION_DISCOVER_RESOURCE] ressources pouvant être affectées à cette colonie.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_PUNIC_PORT_TOOLTIP" Language="fr_FR">
+      <Text>Augmente de 2 la quantité de [icon:NOTIFICATION_DISCOVER_RESOURCE] ressources pouvant être affectées à cette colonie.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_BYRSA" Language="fr_FR">
+      <Text>Léon l'Africain</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_BYRSA" Language="fr_FR">
+      <Text>Il demeure à ce jour certains vestiges des remparts de la ville.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_GAULOS_DESCRIPTION" Language="fr_FR">
+      <Text>Réduit de +25 % le coût en [icon:YIELD_GOLD] Or des bâtiments sur des côtes ou des fleuves navigables.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_QUINQUEREME_DESCRIPTION" Language="fr_FR">
+      <Text>Réduit de +25 % le coût en [icon:YIELD_GOLD] Or des unités navales. Coût d'entretien en [icon:YIELD_GOLD] Or -1 pour les unités navales.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_SUFFETES_DESCRIPTION" Language="fr_FR">
+      <Text>[icon:YIELD_GOLD] Or +20 % dans les communes minières. [icon:YIELD_FOOD] Nourriture +20 % dans les communes agricoles et de pêche.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_CARTHAGE_ABILITY_DESCRIPTION" Language="fr_FR">
+      <Text>[BLIST][LI]Vous ne pouvez posséder qu'une seule ville. Les communes n'ont pas accès au projet [B]Conversion en ville[/B].[LI]Chaque fois que vous formez ou achetez un [B]marchand[/B] ou un [B]colon carthaginois[/B], vous en recevez un second.[LI][B][icon:YIELD_PRODUCTION] Production +30 %[/B] pour la construction de [B]Byrsa[/B].[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_CARTHAGE_ABILITY_NAME" Language="fr_FR">
+      <Text>Héritage phénicien</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_AQ_CARTHAGE_NAME" Language="fr_FR">
+      <Text>Dogmes carthaginois</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_COLONIST_DESCRIPTION" Language="fr_FR">
+      <Text>Colon exclusif à Carthage. PM +1 lorsque cette unité est embarquée. Population +1 si elle fonde une colonie adjacente à une ressource.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_NUMIDIAN_CAVALRY_2_DESCRIPTION" Language="fr_FR">
+      <Text>Unité de cavalerie de niveau 3 exclusive à Carthage. Uniquement disponible à l'achat et plus coûteuse. Puissance de combat +1 par ressource de ville différente affectée à votre capitale. Ignore les zones de contrôle.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_NUMIDIAN_CAVALRY_BASE_DESCRIPTION" Language="fr_FR">
+      <Text>Unité de cavalerie exclusive à Carthage. Uniquement disponible à l'achat et plus coûteuse. Puissance de combat +1 par ressource de ville différente affectée à votre capitale. Ignore les zones de contrôle.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_NUMIDIAN_CAVALRY_DESCRIPTION" Language="fr_FR">
+      <Text>Unité de cavalerie de niveau 2 exclusive à Carthage. Uniquement disponible à l'achat et plus coûteuse. Puissance de combat +1 par ressource de ville différente affectée à votre capitale. Ignore les zones de contrôle.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_AUGUSTUS_CARTHAGE_TOOLTIP" Language="fr_FR">
+      <Text>[B]Carthage[/B] présente des synergies stratégiques avec [B]Auguste[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_CARTHAGE_DESCRIPTION" Language="fr_FR">
+      <Text>Jouer avec [B]Carthage[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_CARTHAGE_SPAIN_TOOLTIP" Language="fr_FR">
+      <Text>[B]Carthage[/B] et [B]l'Espagne[/B] étaient des puissances méditerranéennes.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_HATSHEPSUT_CARTHAGE_TOOLTIP" Language="fr_FR">
+      <Text>[B]Hatchepsout[/B] venait du même continent que [B]Carthage[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_IBN_BATTUTA_CARTHAGE_TOOLTIP" Language="fr_FR">
+      <Text>[B]Ibn Battûta[/B] a voyagé dans les régions contrôlées par [B]Carthage[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ISABELLA_CARTHAGE_TOOLTIP" Language="fr_FR">
+      <Text>[B]Isabelle[/B] et [B]Carthage[/B] étaient établies autour de la Méditerranée.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BYRSA_DESCRIPTION" Language="fr_FR">
+      <Text>[icon:YIELD_GOLD] Or +2. Les routes commerciales sont insensibles au pillage. Toutes les cases de cette ville adjacentes à la côte et pouvant accueillir des remparts en sont immédiatement dotées. Doit être placée sur une case adjacente à la côte.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BYRSA_TOOLTIP" Language="fr_FR">
+      <Text>Les routes commerciales sont insensibles au pillage. Toutes les cases de cette ville adjacentes à la côte et pouvant accueillir des remparts en sont immédiatement dotées. Doit être placée sur une case adjacente à la côte.</Text>
+    </Replace>
+    <Replace Tag="LOC_COMBAT_PREVIEW_NUMBER_RESOURCES_CAPITAL_BONUS_DESC" Language="fr_FR">
+      <Text>Puissance de combat +{1_Value} grâce aux ressources affectées à la capitale.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_GAULOS_NAME" Language="fr_FR">
+      <Text>Gaulos</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_QUINQUEREME_NAME" Language="fr_FR">
+      <Text>Quinquérème</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_SUFFETES_NAME" Language="fr_FR">
+      <Text>Suffètes</Text>
+      <Gender>masculine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_UNIT_COLONIST_NAME" Language="fr_FR">
+      <Text>Colon carthaginois|Colons carthaginois</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_UNIT_NUMIDIAN_CAVALRY_NAME" Language="fr_FR">
+      <Text>Cavalerie numide|Cavaleries numides</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+  </LocalizedText>
+</Database>

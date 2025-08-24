@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<Database>
+	<Kinds>
+		<Row Kind="KIND_ADVISORY_SUBJECT"/>
+		<Row Kind="KIND_ADVISORY_CLASS"/>
+		<Row Kind="KIND_ADVISOR"/>
+		<Row Kind="KIND_ADVISOR_WARNING"/>
+	</Kinds>
+	<Types>
+		<Row Type="ADVISOR_WARNING_UNDEFENDED_CITY_THREATENED" Kind="KIND_ADVISOR_WARNING"/>
+		<Row Type="ADVISOR_WARNING_DEFENDED_CITY_THREATENED" Kind="KIND_ADVISOR_WARNING"/>
+		<Row Type="ADVISOR_WARNING_LOSING_INDEPENDENT" Kind="KIND_ADVISOR_WARNING"/>
+		<Row Type="ADVISOR_WARNING_OVER_SETTLEMENT_CAP" Kind="KIND_ADVISOR_WARNING"/>
+		<Row Type="ADVISOR_WARNING_TRAILING_2_TECHS" Kind="KIND_ADVISOR_WARNING"/>
+		<Row Type="ADVISOR_WARNING_TRAILING_2_CIVICS" Kind="KIND_ADVISOR_WARNING"/>
+		<Row Type="ADVISOR_WARNING_NEGATIVE_GPT" Kind="KIND_ADVISOR_WARNING"/>
+		<Row Type="ADVISOR_WARNING_SURPLUS_INFLUENCE" Kind="KIND_ADVISOR_WARNING"/>
+		<Row Type="ADVISOR_WARNING_SURPLUS_PROMOTIONS" Kind="KIND_ADVISOR_WARNING"/>
+		<Row Type="ADVISOR_WARNING_TRADE_OPPORTUNITY" Kind="KIND_ADVISOR_WARNING"/>
+		<Row Type="ADVISOR_WARNING_LOW_HAPPINESS" Kind="KIND_ADVISOR_WARNING"/>
+		<Row Type="ADVISOR_WARNING_ALLIANCE_WEAKENING" Kind="KIND_ADVISOR_WARNING"/>
+		<Row Type="ADVISOR_WARNING_WAR_WEARINESS" Kind="KIND_ADVISOR_WARNING"/>
+		<Row Type="ADVISOR_WARNING_CITY_REVOLT" Kind="KIND_ADVISOR_WARNING"/>
+	</Types>
+	<!-- Subjects an advisor can be asked to advise on -->
+	<AdvisorySubjects>
+		<Row AdvisorySubjectType="ADVISORY_SUBJECT_PRODUCTION"/>
+		<Row AdvisorySubjectType="ADVISORY_SUBJECT_PRODUCE_UNITS"/>
+		<Row AdvisorySubjectType="ADVISORY_SUBJECT_PRODUCE_CONSTRUCTIBLES"/>
+		<Row AdvisorySubjectType="ADVISORY_SUBJECT_PRODUCE_PROJECTS"/>
+		<Row AdvisorySubjectType="ADVISORY_SUBJECT_CHOOSE_TECH"/>
+		<Row AdvisorySubjectType="ADVISORY_SUBJECT_CHOOSE_CULTURE"/>
+		<Row AdvisorySubjectType="ADVISORY_SUBJECT_CHOOSE_GOVERNMENT"/>
+		<Row AdvisorySubjectType="ADVISORY_SUBJECT_CHOOSE_RELIGION"/>
+	</AdvisorySubjects>
+	<!-- Hints, attached to other definitions, that give an advisor an idea of what it is used for. -->
+	<AdvisoryClasses>
+		<!-- High-level classes -->
+		<Row AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<!-- Mid-level classes -->
+		<Row AdvisoryClassType="ADVISORY_CLASS_CITY_EXPANSION"/>
+		<Row AdvisoryClassType="ADVISORY_CLASS_EMPIRE_EXPANSION"/>
+		<Row AdvisoryClassType="ADVISORY_CLASS_FOOD"/>
+		<Row AdvisoryClassType="ADVISORY_CLASS_NARRATIVE"/>
+		<Row AdvisoryClassType="ADVISORY_CLASS_RELIGION"/>
+		<Row AdvisoryClassType="ADVISORY_CLASS_DIPLOMACY"/>
+		<Row AdvisoryClassType="ADVISORY_CLASS_TRADE"/>
+		<Row AdvisoryClassType="ADVISORY_CLASS_INFRASTRUCTURE"/>
+		<Row AdvisoryClassType="ADVISORY_CLASS_HAPPINESS"/>
+		<Row AdvisoryClassType="ADVISORY_CLASS_DEFENSE"/>
+		<Row AdvisoryClassType="ADVISORY_CLASS_OFFENSE"/>
+		<Row AdvisoryClassType="ADVISORY_CLASS_LAND"/>
+		<Row AdvisoryClassType="ADVISORY_CLASS_SEA"/>
+	</AdvisoryClasses>
+	<!-- Distinct Advisor types -->
+	<Advisors>
+		<Row AdvisorType="ADVISOR_MILITARY" Name="LOC_ADVISOR_MILITARY_NAME"/>
+		<Row AdvisorType="ADVISOR_CULTURE" Name="LOC_ADVISOR_CULTURE_NAME"/>
+		<Row AdvisorType="ADVISOR_SCIENCE" Name="LOC_ADVISOR_SCIENCE_NAME"/>
+		<Row AdvisorType="ADVISOR_ECONOMIC" Name="LOC_ADVISOR_ECONOMIC_NAME"/>
+	</Advisors>
+	<!-- Subjects / Classes that each Advisor is interested in -->
+	<AdvisorSubjects>
+		<Row AdvisorType="ADVISOR_MILITARY" AdvisorySubjectType="ADVISORY_SUBJECT_PRODUCTION" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row AdvisorType="ADVISOR_MILITARY" AdvisorySubjectType="ADVISORY_SUBJECT_PRODUCTION" AdvisoryClassType="ADVISORY_CLASS_OFFENSE"/>
+		<Row AdvisorType="ADVISOR_MILITARY" AdvisorySubjectType="ADVISORY_SUBJECT_PRODUCTION" AdvisoryClassType="ADVISORY_CLASS_DEFENSE"/>
+		<Row AdvisorType="ADVISOR_MILITARY" AdvisorySubjectType="ADVISORY_SUBJECT_CHOOSE_TECH" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row AdvisorType="ADVISOR_MILITARY" AdvisorySubjectType="ADVISORY_SUBJECT_CHOOSE_CULTURE" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row AdvisorType="ADVISOR_CULTURE" AdvisorySubjectType="ADVISORY_SUBJECT_PRODUCTION" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row AdvisorType="ADVISOR_CULTURE" AdvisorySubjectType="ADVISORY_SUBJECT_CHOOSE_TECH" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row AdvisorType="ADVISOR_CULTURE" AdvisorySubjectType="ADVISORY_SUBJECT_CHOOSE_CULTURE" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row AdvisorType="ADVISOR_SCIENCE" AdvisorySubjectType="ADVISORY_SUBJECT_PRODUCTION" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row AdvisorType="ADVISOR_SCIENCE" AdvisorySubjectType="ADVISORY_SUBJECT_CHOOSE_TECH" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row AdvisorType="ADVISOR_SCIENCE" AdvisorySubjectType="ADVISORY_SUBJECT_CHOOSE_CULTURE" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row AdvisorType="ADVISOR_ECONOMIC" AdvisorySubjectType="ADVISORY_SUBJECT_PRODUCTION" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row AdvisorType="ADVISOR_ECONOMIC" AdvisorySubjectType="ADVISORY_SUBJECT_PRODUCTION" AdvisoryClassType="ADVISORY_CLASS_FOOD"/>
+		<Row AdvisorType="ADVISOR_ECONOMIC" AdvisorySubjectType="ADVISORY_SUBJECT_PRODUCTION" AdvisoryClassType="ADVISORY_CLASS_EMPIRE_EXPANSION"/>
+		<Row AdvisorType="ADVISOR_ECONOMIC" AdvisorySubjectType="ADVISORY_SUBJECT_CHOOSE_TECH" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row AdvisorType="ADVISOR_ECONOMIC" AdvisorySubjectType="ADVISORY_SUBJECT_CHOOSE_CULTURE" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+	</AdvisorSubjects>
+	<!-- Watch Out warnings issued by Advisors-->
+	<AdvisorWarnings>
+		<Row AdvisorWarningType="ADVISOR_WARNING_UNDEFENDED_CITY_THREATENED" AdvisorType="ADVISOR_MILITARY" NotificationType="NOTIFICATION_ADVISOR_WARNING_MILITARY" Name="LOC_WARNING_UNDEFENDED_CITY_THREATENED_SUMMARY" Description="LOC_WARNING_UNDEFENDED_CITY_THREATENED_MESSAGE" NotificationLevel="0" Repeatable="true" CooldownTurns="1" SpecificItemCooldownTurns="10"/>
+		<Row AdvisorWarningType="ADVISOR_WARNING_DEFENDED_CITY_THREATENED" AdvisorType="ADVISOR_MILITARY" NotificationType="NOTIFICATION_ADVISOR_WARNING_MILITARY" Name="LOC_WARNING_DEFENDED_CITY_THREATENED_SUMMARY" Description="LOC_WARNING_DEFENDED_CITY_THREATENED_MESSAGE" NotificationLevel="0" Repeatable="true" CooldownTurns="1" SpecificItemCooldownTurns="10"/>
+		<Row AdvisorWarningType="ADVISOR_WARNING_LOSING_INDEPENDENT" AdvisorType="ADVISOR_ECONOMIC" NotificationType="NOTIFICATION_ADVISOR_WARNING_ECONOMIC" Name="LOC_WARNING_LOSING_INDEPENDENT_SUMMARY" Description="LOC_WARNING_LOSING_INDEPENDENT_MESSAGE" NotificationLevel="0" Repeatable="true" CooldownTurns="1" SpecificItemCooldownTurns="20"/>
+		<Row AdvisorWarningType="ADVISOR_WARNING_OVER_SETTLEMENT_CAP" AdvisorType="ADVISOR_CULTURE" NotificationType="NOTIFICATION_ADVISOR_WARNING_CULTURE" Name="LOC_WARNING_OVER_SETTLEMENT_CAP_SUMMARY" Description="LOC_WARNING_OVER_SETTLEMENT_CAP_MESSAGE" NotificationLevel="0" Repeatable="true" CooldownTurns="30" MaxAgePercentComplete="75"/>
+		<Row AdvisorWarningType="ADVISOR_WARNING_TRAILING_2_TECHS" AdvisorType="ADVISOR_SCIENCE" NotificationType="NOTIFICATION_ADVISOR_WARNING_SCIENCE" Name="LOC_WARNING_TRAILING_2_TECHS_SUMMARY" Description="LOC_WARNING_TRAILING_2_TECHS_MESSAGE" NotificationLevel="0" Repeatable="false"/>
+		<Row AdvisorWarningType="ADVISOR_WARNING_TRAILING_2_CIVICS" AdvisorType="ADVISOR_CULTURE" NotificationType="NOTIFICATION_ADVISOR_WARNING_CULTURE" Name="LOC_WARNING_TRAILING_2_CIVICS_SUMMARY" Description="LOC_WARNING_TRAILING_2_CIVICS_MESSAGE" NotificationLevel="0" Repeatable="false"/>
+		<Row AdvisorWarningType="ADVISOR_WARNING_NEGATIVE_GPT" AdvisorType="ADVISOR_CULTURE" NotificationType="NOTIFICATION_ADVISOR_WARNING_ECONOMIC" Name="LOC_WARNING_NEGATIVE_GPT_SUMMARY" Description="LOC_WARNING_NEGATIVE_GPT_MESSAGE" NotificationLevel="0" Repeatable="false"/>
+		<Row AdvisorWarningType="ADVISOR_WARNING_SURPLUS_INFLUENCE" AdvisorType="ADVISOR_CULTURE" NotificationType="NOTIFICATION_ADVISOR_WARNING_ECONOMIC" Name="LOC_WARNING_SURPLUS_INFLUENCE_SUMMARY" Description="LOC_WARNING_SURPLUS_INFLUENCE_MESSAGE" NotificationLevel="0" Repeatable="true" CooldownTurns="30" MaxAgePercentComplete="75"/>
+		<Row AdvisorWarningType="ADVISOR_WARNING_SURPLUS_PROMOTIONS" AdvisorType="ADVISOR_CULTURE" NotificationType="NOTIFICATION_ADVISOR_WARNING_MILITARY" Name="LOC_WARNING_SURPLUS_PROMOTIONS_SUMMARY" Description="LOC_WARNING_SURPLUS_PROMOTIONS_MESSAGE" NotificationLevel="0" Repeatable="true" CooldownTurns="30"/>
+		<Row AdvisorWarningType="ADVISOR_WARNING_TRADE_OPPORTUNITY" AdvisorType="ADVISOR_CULTURE" NotificationType="NOTIFICATION_ADVISOR_WARNING_ECONOMIC" Name="LOC_WARNING_TRADE_OPPORTUNITY_SUMMARY" Description="LOC_WARNING_TRADE_OPPORTUNITY_MESSAGE" NotificationLevel="0" Repeatable="true" CooldownTurns="30"/>
+		<Row AdvisorWarningType="ADVISOR_WARNING_LOW_HAPPINESS" AdvisorType="ADVISOR_CULTURE" NotificationType="NOTIFICATION_ADVISOR_WARNING_ECONOMIC" Name="LOC_WARNING_LOW_HAPPINESS_SUMMARY" Description="LOC_WARNING_LOW_HAPPINESS_MESSAGE" NotificationLevel="0" Repeatable="true" CooldownTurns="30"/>
+		<Row AdvisorWarningType="ADVISOR_WARNING_ALLIANCE_WEAKENING" AdvisorType="ADVISOR_ECONOMIC" NotificationType="NOTIFICATION_ADVISOR_WARNING_ECONOMIC" Name="LOC_WARNING_ALLIANCE_WEAKENING_SUMMARY" Description="LOC_WARNING_ALLIANCE_WEAKENING_MESSAGE" NotificationLevel="0" Repeatable="true" CooldownTurns="1" SpecificItemCooldownTurns="30"/>
+		<Row AdvisorWarningType="ADVISOR_WARNING_WAR_WEARINESS" AdvisorType="ADVISOR_MILITARY" NotificationType="NOTIFICATION_ADVISOR_WARNING_MILITARY" Name="LOC_WARNING_WAR_WEARINESS_SUMMARY" Description="LOC_WARNING_WAR_WEARINESS_MESSAGE" NotificationLevel="0" Repeatable="true" CooldownTurns="1" SpecificItemCooldownTurns="30"/>
+		<Row AdvisorWarningType="ADVISOR_WARNING_CITY_REVOLT" AdvisorType="ADVISOR_MILITARY" NotificationType="NOTIFICATION_ADVISOR_WARNING_MILITARY" Name="LOC_WARNING_REVOLT_SUMMARY" Description="LOC_WARNING_REVOLT_MESSAGE" NotificationLevel="0" Repeatable="true" CooldownTurns="1" SpecificItemCooldownTurns="3"/>
+	</AdvisorWarnings>
+</Database>

@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <Types>
+        <Row Type="ECINTROA" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EC001A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EC001B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EC002A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EC002B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EC003A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EC003B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EC003C" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EC003D" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EC004B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EC004C" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EC004D" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EC005A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EC005B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EC004A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EPCINTROA" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EPC001A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EPC001B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EPC002A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EPC002B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EPC003A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EPC003B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EPC004A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EPC004B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EPC001C" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="EPC001D" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="ERCINTROA" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="ERC001A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="ERC001B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="ERC001C" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="ERC002A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="ERC002B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="ERC003A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="ERC003B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="ERC004A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="ERC004B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="ERC002C" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="ERC001D" Kind="KIND_NARRATIVE_STORY"/>
+    </Types>
+    <NarrativeStories>
+        <Row NarrativeStoryType="ECINTROA" Name="LOC_ECINTROA_NAME" Description="LOC_ECINTROA_DESCRIPTION" Completion="LOC_ECINTROA_COMPLETION" Age="AGE_EXPLORATION" Activation="AUTO" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" Queue="NARRATIVE_GROUP_CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EC001A" Name="LOC_EC001A_NAME" Description="LOC_EC001A_DESCRIPTION" Completion="LOC_EC001A_COMPLETION" StoryTitle="LOC_EC001A_STORYTITLE" Age="AGE_EXPLORATION" Activation="UNLOCKED" Hidden="FALSE" RequirementSetId="REQSET_EC001A_NARRATIVE" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EC001B" Name="LOC_EC001B_NAME" Description="LOC_EC001B_DESCRIPTION" Completion="LOC_EC001B_COMPLETION" Age="AGE_EXPLORATION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EC002A" Name="LOC_EC002A_NAME" Description="LOC_EC002A_DESCRIPTION" Completion="LOC_EC002A_COMPLETION" StoryTitle="LOC_EC002A_STORYTITLE" Age="AGE_EXPLORATION" Activation="UNLOCKED" Hidden="FALSE" RequirementSetId="REQSET_EC002A_NARRATIVE" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EC002B" Name="LOC_EC002B_NAME" Description="LOC_EC002B_DESCRIPTION" Completion="LOC_EC002B_COMPLETION" Age="AGE_EXPLORATION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EC003A" Name="LOC_EC003A_NAME" Description="LOC_EC003A_DESCRIPTION" Completion="LOC_EC003A_COMPLETION" StoryTitle="LOC_EC003A_STORYTITLE" Age="AGE_EXPLORATION" Activation="UNLOCKED" Hidden="FALSE" RequirementSetId="REQSET_EC003A_NARRATIVE" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EC003B" Name="LOC_EC003B_NAME" Description="LOC_EC003B_DESCRIPTION" Completion="LOC_EC003B_COMPLETION" Age="AGE_EXPLORATION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EC003C" Name="LOC_EC003C_NAME" Description="LOC_EC003C_DESCRIPTION" Completion="LOC_EC003C_COMPLETION" Age="AGE_EXPLORATION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EC003D" Name="LOC_EC003D_NAME" Description="LOC_EC003D_DESCRIPTION" Completion="LOC_EC003D_COMPLETION" Age="AGE_EXPLORATION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EC004B" Name="LOC_EC004B_NAME" Description="LOC_EC004B_DESCRIPTION" Completion="LOC_EC004B_COMPLETION" Age="AGE_EXPLORATION" Activation="UNLOCKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EC004C" Name="LOC_EC004C_NAME" Description="LOC_EC004C_DESCRIPTION" Completion="LOC_EC004C_COMPLETION" Age="AGE_EXPLORATION" Activation="UNLOCKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EC004D" Name="LOC_EC004D_NAME" Description="LOC_EC004D_DESCRIPTION" Completion="LOC_EC004D_COMPLETION" Age="AGE_EXPLORATION" Activation="UNLOCKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EC005A" Name="LOC_EC005A_NAME" Description="LOC_EC005A_DESCRIPTION" Completion="LOC_EC005A_COMPLETION" StoryTitle="LOC_EC005A_STORYTITLE" Age="AGE_EXPLORATION" Activation="UNLOCKED" Hidden="FALSE" RequirementSetId="REQSET_EC005A_NARRATIVE" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EC005B" Name="LOC_EC005B_NAME" Description="LOC_EC005B_DESCRIPTION" Completion="LOC_EC005B_COMPLETION" Age="AGE_EXPLORATION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EC004A" Name="LOC_EC004A_NAME" Description="LOC_EC004A_DESCRIPTION" Completion="LOC_EC004A_COMPLETION" Age="AGE_EXPLORATION" Activation="UNLOCKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EPCINTROA" Name="LOC_EPCINTROA_NAME" Description="LOC_EPCINTROA_DESCRIPTION" Completion="LOC_EPCINTROA_COMPLETION" Age="AGE_EXPLORATION" Activation="AUTO" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" Queue="NARRATIVE_GROUP_CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EPC001A" Name="LOC_EPC001A_NAME" Description="LOC_EPC001A_DESCRIPTION" Completion="LOC_EPC001A_COMPLETION" StoryTitle="LOC_EPC001A_STORYTITLE" Age="AGE_EXPLORATION" Activation="UNLOCKED" Hidden="FALSE" RequirementSetId="REQSET_EPC001A_NARRATIVE" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EPC001B" Name="LOC_EPC001B_NAME" Description="LOC_EPC001B_DESCRIPTION" Completion="LOC_EPC001B_COMPLETION" Age="AGE_EXPLORATION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EPC002A" Name="LOC_EPC002A_NAME" Description="LOC_EPC002A_DESCRIPTION" Completion="LOC_EPC002A_COMPLETION" StoryTitle="LOC_EPC002A_STORYTITLE" Age="AGE_EXPLORATION" Activation="UNLOCKED" Hidden="FALSE" RequirementSetId="REQSET_EPC002A_NARRATIVE" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EPC002B" Name="LOC_EPC002B_NAME" Description="LOC_EPC002B_DESCRIPTION" Completion="LOC_EPC002B_COMPLETION" Age="AGE_EXPLORATION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EPC003A" Name="LOC_EPC003A_NAME" Description="LOC_EPC003A_DESCRIPTION" Completion="LOC_EPC003A_COMPLETION" StoryTitle="LOC_EPC003A_STORYTITLE" Age="AGE_EXPLORATION" Activation="UNLOCKED" Hidden="FALSE" RequirementSetId="REQSET_EPC003A_NARRATIVE" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EPC003B" Name="LOC_EPC003B_NAME" Description="LOC_EPC003B_DESCRIPTION" Completion="LOC_EPC003B_COMPLETION" Age="AGE_EXPLORATION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EPC004A" Name="LOC_EPC004A_NAME" Description="LOC_EPC004A_DESCRIPTION" Completion="LOC_EPC004A_COMPLETION" StoryTitle="LOC_EPC004A_STORYTITLE" Age="AGE_EXPLORATION" Activation="UNLOCKED" Hidden="FALSE" RequirementSetId="REQSET_EPC004A_NARRATIVE" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EPC004B" Name="LOC_EPC004B_NAME" Description="LOC_EPC004B_DESCRIPTION" Completion="LOC_EPC004B_COMPLETION" Age="AGE_EXPLORATION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EPC001C" Name="LOC_EPC001C_NAME" Description="LOC_EPC001C_DESCRIPTION" Completion="LOC_EPC001C_COMPLETION" Age="AGE_EXPLORATION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="EPC001D" Name="LOC_EPC001D_NAME" Description="LOC_EPC001D_DESCRIPTION" Completion="LOC_EPC001D_COMPLETION" Age="AGE_EXPLORATION" Activation="UNLOCKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="ERCINTROA" Name="LOC_ERCINTROA_NAME" Description="LOC_ERCINTROA_DESCRIPTION" Completion="LOC_ERCINTROA_COMPLETION" Age="AGE_EXPLORATION" Activation="AUTO" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" Queue="NARRATIVE_GROUP_CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="ERC001A" Name="LOC_ERC001A_NAME" Description="LOC_ERC001A_DESCRIPTION" Completion="LOC_ERC001A_COMPLETION" StoryTitle="LOC_ERC001A_STORYTITLE" Age="AGE_EXPLORATION" Activation="UNLOCKED" Hidden="FALSE" RequirementSetId="REQSET_ERC001A_NARRATIVE" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="ERC001B" Name="LOC_ERC001B_NAME" Description="LOC_ERC001B_DESCRIPTION" Completion="LOC_ERC001B_COMPLETION" Age="AGE_EXPLORATION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="ERC001C" Name="LOC_ERC001C_NAME" Description="LOC_ERC001C_DESCRIPTION" Completion="LOC_ERC001C_COMPLETION" Age="AGE_EXPLORATION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="ERC002A" Name="LOC_ERC002A_NAME" Description="LOC_ERC002A_DESCRIPTION" Completion="LOC_ERC002A_COMPLETION" StoryTitle="LOC_ERC002A_STORYTITLE" Age="AGE_EXPLORATION" Activation="UNLOCKED" Hidden="FALSE" RequirementSetId="REQSET_ERC002A_NARRATIVE" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="ERC002B" Name="LOC_ERC002B_NAME" Description="LOC_ERC002B_DESCRIPTION" Completion="LOC_ERC002B_COMPLETION" Age="AGE_EXPLORATION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="ERC003A" Name="LOC_ERC003A_NAME" Description="LOC_ERC003A_DESCRIPTION" Completion="LOC_ERC003A_COMPLETION" StoryTitle="LOC_ERC003A_STORYTITLE" Age="AGE_EXPLORATION" Activation="UNLOCKED" Hidden="FALSE" RequirementSetId="REQSET_ERC003A_NARRATIVE" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="ERC003B" Name="LOC_ERC003B_NAME" Description="LOC_ERC003B_DESCRIPTION" Completion="LOC_ERC003B_COMPLETION" Age="AGE_EXPLORATION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="ERC004A" Name="LOC_ERC004A_NAME" Description="LOC_ERC004A_DESCRIPTION" Completion="LOC_ERC004A_COMPLETION" StoryTitle="LOC_ERC004A_STORYTITLE" Age="AGE_EXPLORATION" Activation="UNLOCKED" Hidden="FALSE" RequirementSetId="REQSET_ERC004A_NARRATIVE" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="ERC004B" Name="LOC_ERC004B_NAME" Description="LOC_ERC004B_DESCRIPTION" Completion="LOC_ERC004B_COMPLETION" Age="AGE_EXPLORATION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="ERC002C" Name="LOC_ERC002C_NAME" Description="LOC_ERC002C_DESCRIPTION" Completion="LOC_ERC002C_COMPLETION" Age="AGE_EXPLORATION" Activation="UNLOCKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="ERC001D" Name="LOC_ERC001D_NAME" Description="LOC_ERC001D_DESCRIPTION" Completion="LOC_ERC001D_COMPLETION" Age="AGE_EXPLORATION" Activation="UNLOCKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="TRUE" Crisis="TRUE"/>
+    </NarrativeStories>
+    <NarrativeRewards>
+        <Row NarrativeRewardType="EC001A_REWARD" ModifierID="EC001A_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="EC001B_REWARD" ModifierID="EC001B_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="EC001B_REWARD2" ModifierID="EC001B_NARRATIVE_MODIFIER2"/>
+        <Row NarrativeRewardType="EC001B_REWARD3" ModifierID="EC001B_NARRATIVE_MODIFIER3"/>
+        <Row NarrativeRewardType="EC001B_REWARD4" ModifierID="EC001B_NARRATIVE_MODIFIER4"/>
+        <Row NarrativeRewardType="EC001B_REWARD5" ModifierID="EC001B_NARRATIVE_MODIFIER5"/>
+        <Row NarrativeRewardType="EC002B_REWARD" ModifierID="EC002B_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="EC002B_REWARD2" ModifierID="EC002B_NARRATIVE_MODIFIER2"/>
+        <Row NarrativeRewardType="EC002B_REWARD3" ModifierID="EC002B_NARRATIVE_MODIFIER3"/>
+        <Row NarrativeRewardType="EC002B_REWARD4" ModifierID="EC002B_NARRATIVE_MODIFIER4"/>
+        <Row NarrativeRewardType="EC002B_REWARD5" ModifierID="EC002B_NARRATIVE_MODIFIER5"/>
+        <Row NarrativeRewardType="EC003B_REWARD" ModifierID="EC003B_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="EC003C_REWARD" ModifierID="EC003C_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="EC003D_REWARD" ModifierID="EC003D_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="EC004B_REWARD" ModifierID="EC004B_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="EC004B_REWARD2" ModifierID="EC004B_NARRATIVE_MODIFIER2"/>
+        <Row NarrativeRewardType="EC004C_REWARD" ModifierID="EC004C_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="EC004C_REWARD2" ModifierID="EC004C_NARRATIVE_MODIFIER2"/>
+        <Row NarrativeRewardType="EC004D_REWARD" ModifierID="EC004D_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="EC004D_REWARD2" ModifierID="EC004D_NARRATIVE_MODIFIER2"/>
+        <Row NarrativeRewardType="EC004A_REWARD" ModifierID="EC004A_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="EC004A_REWARD2" ModifierID="EC004A_NARRATIVE_MODIFIER2"/>
+        <Row NarrativeRewardType="EC004A_REWARD3" ModifierID="EC004A_NARRATIVE_MODIFIER3"/>
+        <Row NarrativeRewardType="EC004A_REWARD4" ModifierID="EC004A_NARRATIVE_MODIFIER4"/>
+        <Row NarrativeRewardType="EC004A_REWARD5" ModifierID="EC004A_NARRATIVE_MODIFIER5"/>
+        <Row NarrativeRewardType="EC004A_REWARD6" ModifierID="EC004A_NARRATIVE_MODIFIER6"/>
+        <Row NarrativeRewardType="EC004A_REWARD7" ModifierID="EC004A_NARRATIVE_MODIFIER7"/>
+        <Row NarrativeRewardType="EC004A_REWARD8" ModifierID="EC004A_NARRATIVE_MODIFIER8"/>
+        <Row NarrativeRewardType="EPC001A_REWARD" ModifierID="EPC001A_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="EPC001A_REWARD2" ModifierID="EPC001A_NARRATIVE_MODIFIER2"/>
+        <Row NarrativeRewardType="EPC001A_REWARD3" ModifierID="EPC001A_NARRATIVE_MODIFIER3"/>
+        <Row NarrativeRewardType="EPC001A_REWARD4" ModifierID="EPC001A_NARRATIVE_MODIFIER4"/>
+        <Row NarrativeRewardType="EPC001B_REWARD" ModifierID="EPC001B_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="EPC001B_REWARD2" ModifierID="EPC001B_NARRATIVE_MODIFIER2"/>
+        <Row NarrativeRewardType="EPC001B_REWARD3" ModifierID="EPC001B_NARRATIVE_MODIFIER3"/>
+        <Row NarrativeRewardType="EPC002B_REWARD" ModifierID="EPC002B_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="EPC002B_REWARD2" ModifierID="EPC002B_NARRATIVE_MODIFIER2"/>
+        <Row NarrativeRewardType="EPC002B_REWARD3" ModifierID="EPC002B_NARRATIVE_MODIFIER3"/>
+        <Row NarrativeRewardType="EPC002B_REWARD4" ModifierID="EPC002B_NARRATIVE_MODIFIER4"/>
+        <Row NarrativeRewardType="EPC002B_REWARD5" ModifierID="EPC002B_NARRATIVE_MODIFIER5"/>
+        <Row NarrativeRewardType="EPC002B_REWARD6" ModifierID="EPC002B_NARRATIVE_MODIFIER6"/>
+        <Row NarrativeRewardType="EPC003B_REWARD" ModifierID="EPC003B_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="EPC003B_REWARD2" ModifierID="EPC003B_NARRATIVE_MODIFIER2"/>
+        <Row NarrativeRewardType="EPC003B_REWARD3" ModifierID="EPC003B_NARRATIVE_MODIFIER3"/>
+        <Row NarrativeRewardType="EPC003B_REWARD4" ModifierID="EPC003B_NARRATIVE_MODIFIER4"/>
+        <Row NarrativeRewardType="EPC003B_REWARD5" ModifierID="EPC003B_NARRATIVE_MODIFIER5"/>
+        <Row NarrativeRewardType="EPC003B_REWARD6" ModifierID="EPC003B_NARRATIVE_MODIFIER6"/>
+        <Row NarrativeRewardType="EPC001C_REWARD" ModifierID="EPC001C_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="EPC001C_REWARD2" ModifierID="EPC001C_NARRATIVE_MODIFIER2"/>
+        <Row NarrativeRewardType="EPC001C_REWARD3" ModifierID="EPC001C_NARRATIVE_MODIFIER3"/>
+        <Row NarrativeRewardType="EPC001D_REWARD" ModifierID="EPC001D_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="ERC001A_REWARD" ModifierID="ERC001A_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="ERC001B_REWARD" ModifierID="ERC001B_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="ERC001B_REWARD2" ModifierID="ERC001B_NARRATIVE_MODIFIER2"/>
+        <Row NarrativeRewardType="ERC001C_REWARD" ModifierID="ERC001C_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="ERC001C_REWARD2" ModifierID="ERC001C_NARRATIVE_MODIFIER2"/>
+        <Row NarrativeRewardType="ERC002B_REWARD" ModifierID="ERC002B_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="ERC002B_REWARD2" ModifierID="ERC002B_NARRATIVE_MODIFIER2"/>
+        <Row NarrativeRewardType="ERC002B_REWARD3" ModifierID="ERC002B_NARRATIVE_MODIFIER3"/>
+        <Row NarrativeRewardType="ERC003B_REWARD" ModifierID="ERC003B_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="ERC003B_REWARD2" ModifierID="ERC003B_NARRATIVE_MODIFIER2"/>
+        <Row NarrativeRewardType="ERC003B_REWARD3" ModifierID="ERC003B_NARRATIVE_MODIFIER3"/>
+        <Row NarrativeRewardType="ERC003B_REWARD4" ModifierID="ERC003B_NARRATIVE_MODIFIER4"/>
+        <Row NarrativeRewardType="ERC002C_REWARD" ModifierID="ERC002C_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="ERC001D_REWARD" ModifierID="ERC001D_NARRATIVE_MODIFIER"/>
+    </NarrativeRewards>
+    <NarrativeStory_Rewards>
+        <Row NarrativeStoryType="EC001A" NarrativeRewardType="EC001A_REWARD" Activation="COMPLETE" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC001B" NarrativeRewardType="EC001B_REWARD" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC001B" NarrativeRewardType="EC001B_REWARD2" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC001B" NarrativeRewardType="EC001B_REWARD3" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC001B" NarrativeRewardType="EC001B_REWARD4" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC001B" NarrativeRewardType="EC001B_REWARD5" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC002B" NarrativeRewardType="EC002B_REWARD" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC002B" NarrativeRewardType="EC002B_REWARD2" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC002B" NarrativeRewardType="EC002B_REWARD3" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC002B" NarrativeRewardType="EC002B_REWARD4" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC002B" NarrativeRewardType="EC002B_REWARD5" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC003B" NarrativeRewardType="EC003B_REWARD" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC003C" NarrativeRewardType="EC003C_REWARD" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC003D" NarrativeRewardType="EC003D_REWARD" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC004B" NarrativeRewardType="EC004B_REWARD" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC004B" NarrativeRewardType="EC004B_REWARD2" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC004C" NarrativeRewardType="EC004C_REWARD" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC004C" NarrativeRewardType="EC004C_REWARD2" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC004D" NarrativeRewardType="EC004D_REWARD" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC004D" NarrativeRewardType="EC004D_REWARD2" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC004A" NarrativeRewardType="EC004A_REWARD" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC004A" NarrativeRewardType="EC004A_REWARD2" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC004A" NarrativeRewardType="EC004A_REWARD3" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC004A" NarrativeRewardType="EC004A_REWARD4" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC004A" NarrativeRewardType="EC004A_REWARD5" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC004A" NarrativeRewardType="EC004A_REWARD6" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC004A" NarrativeRewardType="EC004A_REWARD7" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EC004A" NarrativeRewardType="EC004A_REWARD8" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC001A" NarrativeRewardType="EPC001A_REWARD" Activation="COMPLETE" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC001A" NarrativeRewardType="EPC001A_REWARD2" Activation="COMPLETE" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC001A" NarrativeRewardType="EPC001A_REWARD3" Activation="COMPLETE" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC001A" NarrativeRewardType="EPC001A_REWARD4" Activation="COMPLETE" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC001B" NarrativeRewardType="EPC001B_REWARD" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC001B" NarrativeRewardType="EPC001B_REWARD2" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC001B" NarrativeRewardType="EPC001B_REWARD3" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC002B" NarrativeRewardType="EPC002B_REWARD" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC002B" NarrativeRewardType="EPC002B_REWARD2" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC002B" NarrativeRewardType="EPC002B_REWARD3" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC002B" NarrativeRewardType="EPC002B_REWARD4" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC002B" NarrativeRewardType="EPC002B_REWARD5" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC002B" NarrativeRewardType="EPC002B_REWARD6" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC003B" NarrativeRewardType="EPC003B_REWARD" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC003B" NarrativeRewardType="EPC003B_REWARD2" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC003B" NarrativeRewardType="EPC003B_REWARD3" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC003B" NarrativeRewardType="EPC003B_REWARD4" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC003B" NarrativeRewardType="EPC003B_REWARD5" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC003B" NarrativeRewardType="EPC003B_REWARD6" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC001C" NarrativeRewardType="EPC001C_REWARD" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC001C" NarrativeRewardType="EPC001C_REWARD2" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC001C" NarrativeRewardType="EPC001C_REWARD3" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="EPC001D" NarrativeRewardType="EPC001D_REWARD" Activation="COMPLETE" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="ERC001A" NarrativeRewardType="ERC001A_REWARD" Activation="COMPLETE" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="ERC001B" NarrativeRewardType="ERC001B_REWARD" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="ERC001B" NarrativeRewardType="ERC001B_REWARD2" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="ERC001C" NarrativeRewardType="ERC001C_REWARD" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="ERC001C" NarrativeRewardType="ERC001C_REWARD2" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="ERC002B" NarrativeRewardType="ERC002B_REWARD" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="ERC002B" NarrativeRewardType="ERC002B_REWARD2" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="ERC002B" NarrativeRewardType="ERC002B_REWARD3" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="ERC003B" NarrativeRewardType="ERC003B_REWARD" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="ERC003B" NarrativeRewardType="ERC003B_REWARD2" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="ERC003B" NarrativeRewardType="ERC003B_REWARD3" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="ERC003B" NarrativeRewardType="ERC003B_REWARD4" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="ERC002C" NarrativeRewardType="ERC002C_REWARD" Activation="COMPLETE" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="ERC001D" NarrativeRewardType="ERC001D_REWARD" Activation="COMPLETE" BonusEligible="FALSE"/>
+    </NarrativeStory_Rewards>
+    <NarrativeStoryOverrides>
+    </NarrativeStoryOverrides>
+    <NarrativeVariations>
+    </NarrativeVariations>
+    <NarrativeRewardIcons>
+    </NarrativeRewardIcons>
+    <NarrativeStory_TextReplacements>
+    </NarrativeStory_TextReplacements>
+    <NarrativeStory_Links>
+        <Row FromNarrativeStoryType="ECINTROA" ToNarrativeStoryType="EC001A" Priority="0" Name="LOC_EC001A_NAME" Description="LOC_EC001A_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EC001A" ToNarrativeStoryType="EC001B" Priority="0" Name="LOC_EC001B_NAME" Description="LOC_EC001B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="ECINTROA" ToNarrativeStoryType="EC002A" Priority="0" Name="LOC_EC002A_NAME" Description="LOC_EC002A_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EC002A" ToNarrativeStoryType="EC002B" Priority="0" Name="LOC_EC002B_NAME" Description="LOC_EC002B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="ECINTROA" ToNarrativeStoryType="EC003A" Priority="0" Name="LOC_EC003A_NAME" Description="LOC_EC003A_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EC003A" ToNarrativeStoryType="EC003B" Priority="0" Name="LOC_EC003B_NAME" Description="LOC_EC003B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EC003A" ToNarrativeStoryType="EC003C" Priority="1" Name="LOC_EC003C_NAME" Description="LOC_EC003C_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EC003A" ToNarrativeStoryType="EC003D" Priority="2" Name="LOC_EC003D_NAME" Description="LOC_EC003D_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EC003B" ToNarrativeStoryType="EC004B" Priority="0" Name="LOC_EC004B_NAME" Description="LOC_EC004B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EC003C" ToNarrativeStoryType="EC004C" Priority="0" Name="LOC_EC004C_NAME" Description="LOC_EC004C_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EC003D" ToNarrativeStoryType="EC004D" Priority="0" Name="LOC_EC004D_NAME" Description="LOC_EC004D_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="ECINTROA" ToNarrativeStoryType="EC005A" Priority="0" Name="LOC_EC005A_NAME" Description="LOC_EC005A_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EC005A" ToNarrativeStoryType="EC005B" Priority="0" Name="LOC_EC005B_NAME" Description="LOC_EC005B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EC003B" ToNarrativeStoryType="EC004A" Priority="0" Name="LOC_EC004A_NAME" Description="LOC_EC004A_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EC003C" ToNarrativeStoryType="EC004A" Priority="0" Name="LOC_EC004A_NAME" Description="LOC_EC004A_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EC003D" ToNarrativeStoryType="EC004A" Priority="0" Name="LOC_EC004A_NAME" Description="LOC_EC004A_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EPCINTROA" ToNarrativeStoryType="EPC001A" Priority="0" Name="LOC_EPC001A_NAME" Description="LOC_EPC001A_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EPC001A" ToNarrativeStoryType="EPC001B" Priority="0" Name="LOC_EPC001B_NAME" Description="LOC_EPC001B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EPCINTROA" ToNarrativeStoryType="EPC002A" Priority="0" Name="LOC_EPC002A_NAME" Description="LOC_EPC002A_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EPC002A" ToNarrativeStoryType="EPC002B" Priority="0" Name="LOC_EPC002B_NAME" Description="LOC_EPC002B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EPCINTROA" ToNarrativeStoryType="EPC003A" Priority="0" Name="LOC_EPC003A_NAME" Description="LOC_EPC003A_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EPC003A" ToNarrativeStoryType="EPC003B" Priority="0" Name="LOC_EPC003B_NAME" Description="LOC_EPC003B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EPCINTROA" ToNarrativeStoryType="EPC004A" Priority="0" Name="LOC_EPC004A_NAME" Description="LOC_EPC004A_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EPC004A" ToNarrativeStoryType="EPC004B" Priority="0" Name="LOC_EPC004B_NAME" Description="LOC_EPC004B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EPC001A" ToNarrativeStoryType="EPC001C" Priority="1" Name="LOC_EPC001C_NAME" Description="LOC_EPC001C_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EPC001B" ToNarrativeStoryType="EPC001D" Priority="0" Name="LOC_EPC001D_NAME" Description="LOC_EPC001D_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="EPC001C" ToNarrativeStoryType="EPC001D" Priority="0" Name="LOC_EPC001D_NAME" Description="LOC_EPC001D_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="ERCINTROA" ToNarrativeStoryType="ERC001A" Priority="0" Name="LOC_ERC001A_NAME" Description="LOC_ERC001A_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="ERC001A" ToNarrativeStoryType="ERC001B" Priority="0" Name="LOC_ERC001B_NAME" Description="LOC_ERC001B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="ERC001A" ToNarrativeStoryType="ERC001C" Priority="1" Name="LOC_ERC001C_NAME" Description="LOC_ERC001C_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="ERCINTROA" ToNarrativeStoryType="ERC002A" Priority="0" Name="LOC_ERC002A_NAME" Description="LOC_ERC002A_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="ERC002A" ToNarrativeStoryType="ERC002B" Priority="0" Name="LOC_ERC002B_NAME" Description="LOC_ERC002B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="ERCINTROA" ToNarrativeStoryType="ERC003A" Priority="0" Name="LOC_ERC003A_NAME" Description="LOC_ERC003A_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="ERC003A" ToNarrativeStoryType="ERC003B" Priority="0" Name="LOC_ERC003B_NAME" Description="LOC_ERC003B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="ERCINTROA" ToNarrativeStoryType="ERC004A" Priority="0" Name="LOC_ERC004A_NAME" Description="LOC_ERC004A_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="ERC004A" ToNarrativeStoryType="ERC004B" Priority="0" Name="LOC_ERC004B_NAME" Description="LOC_ERC004B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="ERC002B" ToNarrativeStoryType="ERC002C" Priority="0" Name="LOC_ERC002C_NAME" Description="LOC_ERC002C_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="ERC001B" ToNarrativeStoryType="ERC001D" Priority="0" Name="LOC_ERC001D_NAME" Description="LOC_ERC001D_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="ERC001C" ToNarrativeStoryType="ERC001D" Priority="0" Name="LOC_ERC001D_NAME" Description="LOC_ERC001D_DESCRIPTION"/>
+    </NarrativeStory_Links>
+</Database>

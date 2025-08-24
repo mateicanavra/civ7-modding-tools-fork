@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MODULE_CARTHAGE_NAME">
+			<Text>Carthage</Text>
+		</Row>
+		<Row Tag="LOC_MODULE_CARTHAGE_DESCRIPTION">
+			<Text>Contains a new Antiquity Age Civilization, Carthage.</Text>
+		</Row>
+	</EnglishText>
+</Database>

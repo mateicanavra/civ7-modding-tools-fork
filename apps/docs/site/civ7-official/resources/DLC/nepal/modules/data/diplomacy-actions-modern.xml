@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<DiplomaticActionInfluenceCosts>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_GIFT_GURKHA" InfCostUnfriendly="-1" InfCostNeutral="-1" InfCostFriendly="165" InfCostHelpful="150"/>
+	</DiplomaticActionInfluenceCosts>
+	<DiplomaticActionResponses>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_GIFT_GURKHA" DiplomaticResponseType="DIPLOMACY_RESPONSE_ACCEPT" InfCost="0" Name="LOC_DIPLOMACY_RESPONSE_ACCEPT" Description="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_ACCEPT"/>
+		<Row DiplomacyActionType="DIPLOMACY_ACTION_GIFT_GURKHA" DiplomaticResponseType="DIPLOMACY_RESPONSE_REJECT" InfCost="60" Name="LOC_DIPLOMACY_RESPONSE_REJECT" Description="LOC_DIPLOMACY_PROJECT_REJECT"/>
+	</DiplomaticActionResponses>
+</Database>

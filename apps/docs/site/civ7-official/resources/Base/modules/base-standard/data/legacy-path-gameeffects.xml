@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="MOD_AGE_REWARD_LEGACY_POINT_SCIENCE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_LEGACY_POINTS" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="Type">CARD_CATEGORY_SCIENTIFIC</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_LEGACY_POINT_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_LEGACY_POINTS" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="Type">CARD_CATEGORY_CULTURAL</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_LEGACY_POINT_ECONOMIC" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_LEGACY_POINTS" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="Type">CARD_CATEGORY_ECONOMIC</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_LEGACY_POINT_MILITARY" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_LEGACY_POINTS" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="Type">CARD_CATEGORY_MILITARISTIC</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_MILITARY_VICTORY_UNLOCK_MANHATTAN_PROJECT" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_CONSTRUCTIBLE_UNLOCK">
+		<Argument name="ConstructibleType">WONDER_MANHATTAN_PROJECT</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_MILITARY_VICTORY_OPERATION_IVY_LP_BOOST" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_PROJECT_PRODUCTION_PER_LEGACY_POINT">
+		<Argument name="ProjectType">PROJECT_OPERATION_IVY</Argument>
+		<Argument name="Percent">10</Argument>
+		<Argument name="LegacyPathType">LEGACY_PATH_MODERN_MILITARY</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_MILITARY_VICTORY_MANHATTAN_PROJECT_LP_BOOST" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_BUILDING_PRODUCTION_PRODUCTION_PER_LEGACY_POINT">
+		<Argument name="ConstructibleType">WONDER_MANHATTAN_PROJECT</Argument>
+		<Argument name="Percent">10</Argument>
+		<Argument name="LegacyPathType">LEGACY_PATH_MODERN_MILITARY</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_ECONOMIC_VICTORY_UNLOCK_JOHN_MAYNARD_KEYNES" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_UNIT" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="UnitType">UNIT_JOHN_MAYNARD_KEYNES</Argument>
+		<Argument name="AllowUniqueOverride">FALSE</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_CULTURE_UNLOCK_WORLDS_FAIR" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_CONSTRUCTIBLE_UNLOCK">
+		<Argument name="ConstructibleType">WONDER_WORLDS_FAIR</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_CULTURE_VICTORY_WORLDS_FAIR_LP_BOOST" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_BUILDING_PRODUCTION_PRODUCTION_PER_LEGACY_POINT">
+		<Argument name="ConstructibleType">WONDER_WORLDS_FAIR</Argument>
+		<Argument name="Percent">10</Argument>
+		<Argument name="LegacyPathType">LEGACY_PATH_MODERN_CULTURE</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_SCIENCE_VICTORY_LAUNCH_ROCKET_LP_BOOST" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_PROJECT_PRODUCTION_PER_LEGACY_POINT">
+		<Argument name="ProjectType">PROJECT_LAUNCH_ROCKET</Argument>
+		<Argument name="Percent">10</Argument>
+		<Argument name="LegacyPathType">LEGACY_PATH_MODERN_SCIENCE</Argument>
+	</Modifier>
+	<Modifier id="MOD_AGE_REWARD_ECONOMIC_LP_BOOST_DO_NOTHING" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING">
+	</Modifier>
+</GameEffects>

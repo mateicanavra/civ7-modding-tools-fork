@@ -1,0 +1,24 @@
+/* DO NOT EDIT */
+/* Generated from panel-notification-train-mobile.scss */
+.notifications-train-mobile fxs-nav-help .caption {
+	display: none;
+}
+@media (experience: mobile) {
+	.notifications-train-mobile .fxs-close-button {
+		top: 1.6666666667rem;
+		right: 1.6666666667rem;
+	}
+}
+.notifications-train-mobile .group-arrow:hover {
+	filter: brightness(200%);
+}
+.notifications-train-mobile .chooser-item__icon {
+	background: none;
+}
+.notifications-train-mobile .chooser-item__icon_gradient {
+	display: none;
+}
+.notifications-train-mobile .chooser-item__icon-image {
+	background-size: contain !important;
+	border-radius: 0;
+}

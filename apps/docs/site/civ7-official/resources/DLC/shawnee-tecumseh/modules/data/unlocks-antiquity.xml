@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_UNLOCK"/>
+	</Kinds>
+	<Types>
+		<InsertOrIgnore Type="UNLOCK_CIVILIZATION_SHAWNEE" Kind="KIND_UNLOCK"/>
+	</Types>
+	<Unlocks>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_SHAWNEE"/>
+	</Unlocks>
+	<UnlockRewards>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_SHAWNEE" Name="LOC_CIVILIZATION_SHAWNEE_NAME" Description="LOC_UNLOCK_EXPLORATION_CIV_DESCRIPTION" Icon="CIVILIZATION_SHAWNEE" UnlockRewardType="CIVILIZATION_SHAWNEE" UnlockRewardKind="KIND_CIVLIZATION" />
+	</UnlockRewards>
+	<UnlockRequirements>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_HAWAII" RequirementSetId="REQSET_LEADER_IS_TECUMSEH" Description="LOC_UNLOCK_PLAY_AS_TECUMSEH_DESCRIPTION" Tooltip="LOC_UNLOCK_PLAY_AS_TECUMSEH_HAWAII_TOOLTIP"/>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_SHAWNEE" RequirementSetId="REQSET_CIV_IS_MISSISSIPPIAN" Description="LOC_UNLOCK_PLAY_AS_MISSISSIPPIAN_DESCRIPTION" Tooltip="LOC_UNLOCK_PLAY_AS_MISSISSIPPI_SHAWNEE_DESCRIPTION"/>
+	</UnlockRequirements>
+	<UnlockConfigurationValues>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_SHAWNEE" ConfigurationValue="CIVILIZATION_SHAWNEE"/>
+	</UnlockConfigurationValues>
+</Database>

@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Egypt-->
+		<Row Tag="LOC_CITIZEN_EGYPT_MALE_1">
+			<Text>Ahmes</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_EGYPT_MALE_2">
+			<Text>Apis</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_EGYPT_MALE_3">
+			<Text>Benipe</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_EGYPT_MALE_4">
+			<Text>Canopus</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_EGYPT_MALE_5">
+			<Text>Kames</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_EGYPT_MALE_6">
+			<Text>Kanebti</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_EGYPT_MALE_7">
+			<Text>Nahab</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_EGYPT_MALE_8">
+			<Text>Pasupti</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_EGYPT_MALE_9">
+			<Text>Rimes</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_EGYPT_MALE_10">
+			<Text>Seker</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_EGYPT_FEMALE_1">
+			<Text>Amaunet</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_EGYPT_FEMALE_2">
+			<Text>Berenice</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_EGYPT_FEMALE_3">
+			<Text>Hasina</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_EGYPT_FEMALE_4">
+			<Text>Hatasu</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_EGYPT_FEMALE_5">
+			<Text>Heqet</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_EGYPT_FEMALE_6">
+			<Text>Hotep</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_EGYPT_FEMALE_7">
+			<Text>Layla</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_EGYPT_FEMALE_8">
+			<Text>Merit</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_EGYPT_FEMALE_9">
+			<Text>Nanu</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_EGYPT_FEMALE_10">
+			<Text>Titi</Text>
+		</Row>
+		<!--Greece-->
+		<Row Tag="LOC_CITIZEN_GREECE_MALE_1">
+			<Text>Agapetos</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREECE_MALE_2">
+			<Text>Alcibiades</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREECE_MALE_3">
+			<Text>Demokritos</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREECE_MALE_4">
+			<Text>Diogenes</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREECE_MALE_5">
+			<Text>Heracleitos</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREECE_MALE_6">
+			<Text>Hippolytos</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREECE_MALE_7">
+			<Text>Nereus</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREECE_MALE_8">
+			<Text>Phaidros</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREECE_MALE_9">
+			<Text>Sosigenes</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREECE_MALE_10">
+			<Text>Zotikos</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREECE_FEMALE_1">
+			<Text>Apollonia</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREECE_FEMALE_2">
+			<Text>Chloe</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREECE_FEMALE_3">
+			<Text>Eudoxia</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREECE_FEMALE_4">
+			<Text>Hypatia</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREECE_FEMALE_5">
+			<Text>Kallisto</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREECE_FEMALE_6">
+			<Text>Ligeia</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREECE_FEMALE_7">
+			<Text>Lysistrate</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREECE_FEMALE_8">
+			<Text>Pelagia</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREECE_FEMALE_9">
+			<Text>Sappho</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_GREECE_FEMALE_10">
+			<Text>Xanthe</Text>
+		</Row>
+		<!-- Persia-->
+		<Row Tag="LOC_CITIZEN_PERSIA_MALE_1">
+			<Text>Ariomardus</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_PERSIA_MALE_2">
+			<Text>Arsames</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_PERSIA_MALE_3">
+			<Text>Arsites</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_PERSIA_MALE_4">
+			<Text>Bardiya</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_PERSIA_MALE_5">
+			<Text>Cambyses</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_PERSIA_MALE_6">
+			<Text>Gaumata</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_PERSIA_MALE_7">
+			<Text>Hydarnes</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_PERSIA_MALE_8">
+			<Text>Otanes</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_PERSIA_MALE_9">
+			<Text>Oxyathres</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_PERSIA_MALE_10">
+			<Text>Sogdianus</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_PERSIA_FEMALE_1">
+			<Text>Artistun</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_PERSIA_FEMALE_2">
+			<Text>Cassandane</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_PERSIA_FEMALE_3">
+			<Text>Drypetis</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_PERSIA_FEMALE_4">
+			<Text>Parmida</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_PERSIA_FEMALE_5">
+			<Text>Parysatis</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_PERSIA_FEMALE_6">
+			<Text>Phaedymia</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_PERSIA_FEMALE_7">
+			<Text>Roxana</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_PERSIA_FEMALE_8">
+			<Text>Sisygambis</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_PERSIA_FEMALE_9">
+			<Text>Stateira</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_PERSIA_FEMALE_10">
+			<Text>Amytis</Text>
+		</Row>
+		<!--Rome-->
+		<Row Tag="LOC_CITIZEN_ROME_MALE_1">
+			<Text>Acacius</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ROME_MALE_2">
+			<Text>Aetius</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ROME_MALE_3">
+			<Text>Brutus</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ROME_MALE_4">
+			<Text>Caelinus</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ROME_MALE_5">
+			<Text>Emidius</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ROME_MALE_6">
+			<Text>Flavius</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ROME_MALE_7">
+			<Text>Jovilius</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ROME_MALE_8">
+			<Text>Manius</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ROME_MALE_9">
+			<Text>Sophus</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ROME_MALE_10">
+			<Text>Timaeus</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ROME_FEMALE_1">
+			<Text>Abelia</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ROME_FEMALE_2">
+			<Text>Chloris</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ROME_FEMALE_3">
+			<Text>Clotho</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ROME_FEMALE_4">
+			<Text>Eliana</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ROME_FEMALE_5">
+			<Text>Gracilia</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ROME_FEMALE_6">
+			<Text>Herta</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ROME_FEMALE_7">
+			<Text>Isidora</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ROME_FEMALE_8">
+			<Text>Laetitia</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ROME_FEMALE_9">
+			<Text>Melita</Text>
+		</Row>
+		<Row Tag="LOC_CITIZEN_ROME_FEMALE_10">
+			<Text>Proserpina</Text>
+		</Row>
+	</EnglishText>
+</Database>

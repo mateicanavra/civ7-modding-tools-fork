@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<!-- Delete existing strings/translations for the given keys.-->
+	<LocalizedText>
+		<Delete Tag="LOC_GESTURE_THUMB_AXIS" />
+	</LocalizedText>
+
+	<!-- Define platform-specific overrides. -->
+	<EnglishText>
+		<Row Tag="LOC_GESTURE_THUMB_AXIS_PS4">
+			<Text>Actions using the sticks</Text>
+		</Row>
+
+		<Replace Tag="LOC_GESTURE_THUMB_AXIS">
+			<Text>{LOC_GESTURE_THUMB_AXIS_PS4}</Text>
+		</Replace>
+	</EnglishText>
+</Database>

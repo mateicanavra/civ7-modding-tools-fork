@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_MACHAPUCHARE_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>マチャプチャレは、ネパール・ヒマラヤ山脈のアンナプルナ山系からほぼ垂直にそそり立つ峻険な岩山である。その山頂を踏みしめた者は、いまだかつて一人もいない。標高は6700メートルを上回る程度でエベレストに及ばないが、比較的低い位置から突き出しているその輪郭はきわめて印象的だ。そのためか、高原のチベット人グループもネパールの人々も、付近の住人は皆この山を神聖視しており、特に後者はこの山をシヴァ神の住まいと信じている。こうした理由から、ネパール政府はこの山に登ることを基本的に禁じており、入山許可が降りることはめったにない。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_MOUNT_FUJI_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>日本の本州、その中央にそびえる富士山は、なだらかな円錐形をした大きな活火山で、一年の大半は雪の帽子をかぶっている。その姿はじつに端正で、一千年の昔から国の象徴として親しまれてきた。葛飾北斎の錦絵や松尾芭蕉の俳句の題材としても有名だ。神道にとっては今でも重要な崇拝と巡礼の場であり、山頂には神社が祀られている。しかし、人々がこの山を目指すのは信仰のためだけではない。富士山を登ることでしか得られない歓びがあるからだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_MOUNT_FUJI_CHAPTER_HISTORY_PARA_2" Language="ja_JP">
+      <Text>富士山は2013年、世界遺産に登録された。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_VIHREN_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>ブルガリアの南西の隅に位置するピリン山脈は、足下の谷から急角度でそびえる険しい山地だ。その中心にあるヴィフレン山はこの山脈の最高峰にして、バルカン半島で3番目に高い山である。標高は2914メートルで、ピラミッド型をした山頂は、一目でそれとわかるほど典型的なカルスト地形を形成している。また、麓にはヨーロッパ最南端の氷河であるスネシュニカ氷河が広がっている。昔からピリン山脈はスラヴ神話の嵐の神ペルーンと結び付けられることが多く、それもあってヴィフレンという名前には「突風」という意味がある。今もこの山は、人気の観光地として多くの登山客を集めている。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_VINICUNCA_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>ペルーのアンデス山脈の奥地に、ヴィニクンカという七色の山がある。その鮮やかな色彩の秘密は鉱物だ。ピンクは赤粘土、白は石英と泥灰土、紫は褐鉄鉱と針鉄鉱、赤は鉄、緑は緑泥石、茶色はマグネシウム、黄色は石灰質砂岩の色である。ヴィニクンカが発見されたのは2013年と、ごく最近のことである。ずっと氷河の下で眠っていたが、温暖化によって万年雪が溶け、地表に現れたのだ。それ以来、レインボーマウンテンとも呼ばれるこの山は、ペルー有数の景勝地として人気を博している。</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MACHAPUCHARE_NAME" Language="ja_JP">
+      <Text>マチャプチャレ</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MOUNT_FUJI_NAME" Language="ja_JP">
+      <Text>富士山</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VIHREN_NAME" Language="ja_JP">
+      <Text>ヴィフレン</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VINICUNCA_NAME" Language="ja_JP">
+      <Text>ヴィニクンカ</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_MOUNT_VINSON_NAME" Language="ja_JP">
+      <Text>ヴィンソン山</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MACHAPUCHARE_DESCRIPTION" Language="ja_JP">
+      <Text>時代ごとの [icon:YIELD_CULTURE] 文化力+2、 [icon:YIELD_PRODUCTION] 生産力+4。この居住地にある荒地および山岳地形の [icon:YIELD_HAPPINESS] 幸福度+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MACHAPUCHARE_TOOLTIP" Language="ja_JP">
+      <Text>この居住地にある荒地地形と山岳地形の [icon:YIELD_HAPPINESS] 幸福度+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MOUNT_FUJI_DESCRIPTION" Language="ja_JP">
+      <Text>時代ごとの [icon:YIELD_GOLD] ゴールド、[icon:YIELD_CULTURE] 文化力、 [icon:YIELD_HAPPINESS] 幸福度+2。火山タイル。</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MOUNT_FUJI_TOOLTIP" Language="ja_JP">
+      <Text>火山タイル。</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VIHREN_DESCRIPTION" Language="ja_JP">
+      <Text>時代ごとの [icon:YIELD_FOOD] 食料+4、 [icon:YIELD_PRODUCTION] 生産力+2。自然災害によってこの時代に豊穣がもたらされるたびに、時代ごとの [icon:YIELD_HAPPINESS] 幸福度と [icon:YIELD_CULTURE] 文化力+1。 </Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VIHREN_TOOLTIP" Language="ja_JP">
+      <Text>自然災害によってこの時代に豊穣がもたらされるたびに、時代ごとの [icon:YIELD_HAPPINESS] 幸福度と [icon:YIELD_CULTURE] 文化力+1。 </Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VINICUNCA_DESCRIPTION" Language="ja_JP">
+      <Text>時代ごとの [icon:YIELD_PRODUCTION] 生産力、[icon:YIELD_HAPPINESS] 幸福度、[icon:YIELD_SCIENCE] 科学力+2。隣接する郊外タイルの [icon:YIELD_CULTURE] 文化力+2。</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VINICUNCA_TOOLTIP" Language="ja_JP">
+      <Text>隣接する郊外タイルの [icon:YIELD_CULTURE] 文化力+2。</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_MACHAPUCHARE" Language="ja_JP">
+      <Text>『リンガ・プラーナ』</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_MOUNT_FUJI" Language="ja_JP">
+      <Text>松尾芭蕉</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_VIHREN" Language="ja_JP">
+      <Text>イヴァノフ・ラズームニク</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_VINICUNCA" Language="ja_JP">
+      <Text>パチャクテク</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_MACHAPUCHARE" Language="ja_JP">
+      <Text>シヴァ神に徴はなく、色も味も匂いもなく、言葉や触覚を超越し、計れず、動かず、変わることもない</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_MOUNT_FUJI" Language="ja_JP">
+      <Text>日を額にうつ 富士の棟上げ</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_VIHREN" Language="ja_JP">
+      <Text>海の上で揺れ動かないよう、大地は山によって支えられている</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_VINICUNCA" Language="ja_JP">
+      <Text>ああ、パチャカマックよ、御身は空と大地、雲とわだつみのどちらにおわすのか？</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

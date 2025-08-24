@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- LEADER_BOLIVAR -->
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAT_TITLE">
+			<Text>{LOC_LEADER_BOLIVAR_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAR_CHAPTER_HISTORY_PARA_1">
+			<Text>Simón Bolívar led the movements that would result in the independence of South America from Spain, and as such was dubbed “El Libertador,” the Liberator, for his efforts. While in-fighting between other would-be leaders and Bolívar fragmented his idea of a unified South America, he struck a decisive blow to European control over the continent, and remains revered as a hero today.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAR_CHAPTER_HISTORY_PARA_2">
+			<Text>He was born in Venezuela to a wealthy criollo family (having European ancestry) in 1783. Thrust into stewardship of his family’s estate and wealth as a child, he also educated himself on the principles of liberty coming out of France at the time, and was influenced greatly by Jean-Jacques Rousseau. As a young man, he witnessed Napoleon’s rise to power during a visit to Paris. He admired Napoleon’s accomplishments, but was repelled by such intense consolidation of power in the wake of the Revolution.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAR_CHAPTER_HISTORY_PARA_3">
+			<Text>As the Napoleonic wars sapped France’s strength (and, by extension, that of its Spanish puppet state), the junta in Caracas declared independence. In the subsequent conflicts, where Venezuela would become liberated and fall again to Spain, Bolívar found himself moving from rallying troops to rallying diplomatic support. In one memorable moment, he marched his troops across the Andes in a brutal trek, to eventually catch the Spanish off-guard and sweep downwards from the heights to victory. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAR_CHAPTER_HISTORY_PARA_4">
+			<Text>In the landscape that came after independence, Bolívar struggled to keep some degree of unity. In this endeavor, he clashed with his vice president, Francisco de Paula Santander, over the relative values of democracy and unity. Bolívar sought a lifetime presidency, and a stronger hand on the reins of power, whereas Santander had a vision of electoral democracy. Eventually, Bolívar declared himself dictator, but found himself deposed only two years afterwards.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAR_CHAPTER_HISTORY_PARA_5">
+			<Text>Tubercular and with his hopes for a united South America on shaky ground, Bolívar sought to travel to Europe, but died in 1830. He had liberated the continent, but likened the struggle to an attempt to “plow the sea.” His legacy forever remains enshrined in South America as a monument to revolution.</Text>
+		</Row>
+
+	</EnglishText>
+</Database>
+				

@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <EnglishText>
+        <Row Tag="LOC_11030A_STORYTITLE">
+            <Text>The Children of the Sky</Text>
+        </Row>
+        <Row Tag="LOC_11030A_COMPLETION">
+            <Text>Communities in the high peaks descend into Nepalese valleys, making the difficult trek with goods piled high on their shoulders. While the mountains give Nepal shelter, these former Inca were the true children of the heights.</Text>
+        </Row>
+        <Row Tag="LOC_11031A_STORYTITLE">
+            <Text>The Children of the Sky</Text>
+        </Row>
+        <Row Tag="LOC_11031A_NAME">
+            <Text>They need schools, so that they can become Nepali.</Text>
+        </Row>
+        <Row Tag="LOC_11031A_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11031A_COMPLETION">
+            <Text>Slowly, the Inca language gives way to Nepali, and old customs wither.</Text>
+        </Row>
+        <Row Tag="LOC_11031A_IMPERATIVE">
+            <Text>Have 3 Schoolhouses adjacent to Mountains.</Text>
+        </Row>
+        <Row Tag="LOC_11030B_NAME">
+            <Text>Let them continue their traditions.</Text>
+        </Row>
+        <Row Tag="LOC_11030B_DESCRIPTION">
+            <Text>{1_reward} on Mountains.</Text>
+        </Row>
+        <Row Tag="LOC_11032A_STORYTITLE">
+            <Text>The Wrath of Jwalamukhi</Text>
+        </Row>
+        <Row Tag="LOC_11032A_COMPLETION">
+            <Text>The mountain shakes, and snow and ice give way in hissing steam to fire. Struggling, the sherpa seeks to hold some purchase on the mountain, as all falls into flame.</Text>
+        </Row>
+        <Row Tag="LOC_11032B_NAME">
+            <Text>Remain, to see the blood of the earth exposed.</Text>
+        </Row>
+        <Row Tag="LOC_11032B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11032C_NAME">
+            <Text>Flee!</Text>
+        </Row>
+        <Row Tag="LOC_11032C_DESCRIPTION">
+            <Text>{1_reward} and {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11033A_STORYTITLE">
+            <Text>Machapuchare</Text>
+        </Row>
+        <Row Tag="LOC_11033A_COMPLETION">
+            <Text>The great double-peaked snowcap rises above the mountain chains, seeming to declare its dominion over the sky.</Text>
+        </Row>
+        <Row Tag="LOC_11034A_STORYTITLE">
+            <Text>Machapuchare</Text>
+        </Row>
+        <Row Tag="LOC_11034A_NAME">
+            <Text>Arrange an expedition to climb it.</Text>
+        </Row>
+        <Row Tag="LOC_11034A_DESCRIPTION">
+            <Text>{1_reward} and story continues.</Text>
+        </Row>
+        <Row Tag="LOC_11034A_COMPLETION">
+            <Text>The expedition is a disaster and ends in failure — and death. The mountain guides warn that this is the home of the gods, and none should challenge it.</Text>
+        </Row>
+        <Row Tag="LOC_11034B_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_11034B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11033B_NAME">
+            <Text>Let it remain in splendor.</Text>
+        </Row>
+        <Row Tag="LOC_11033B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11035A_STORYTITLE">
+            <Text>Brother Against Brother</Text>
+        </Row>
+        <Row Tag="LOC_11035A_COMPLETION">
+            <Text>On the battlefield, Gurkha faces Gurkha. Afterwards, Nepali faces are among the enemy dead.</Text>
+        </Row>
+        <Row Tag="LOC_11035B_NAME">
+            <Text>They are Nepali still. Give them a proper funeral.</Text>
+        </Row>
+        <Row Tag="LOC_11035B_DESCRIPTION">
+            <Text>{1_reward} on Culture Buildings.</Text>
+        </Row>
+        <Row Tag="LOC_11035C_NAME">
+            <Text>They become foreigners upon fighting Nepalis.</Text>
+        </Row>
+        <Row Tag="LOC_11035C_DESCRIPTION">
+            <Text>{1_reward} on Production Buildings.</Text>
+        </Row>
+        <Row Tag="LOC_11036A_STORYTITLE">
+            <Text>A Yam Between Two Boulders</Text>
+        </Row>
+        <Row Tag="LOC_11036A_COMPLETION">
+            <Text>Nepal remains independent, a mediating force when others fight. In a world at war, people still shop.</Text>
+        </Row>
+        <Row Tag="LOC_11036B_NAME">
+            <Text>Remain a force for calm.</Text>
+        </Row>
+        <Row Tag="LOC_11036B_DESCRIPTION">
+            <Text>+2 [icon:YIELD_DIPLOMACY] Influence on Trade Routes.</Text>
+        </Row>
+        <Row Tag="LOC_11036C_NAME">
+            <Text>Enter the arms trade.</Text>
+        </Row>
+        <Row Tag="LOC_11036C_DESCRIPTION">
+            <Text>{1_reward} but -15 Relationship with all Civilizations.</Text>
+        </Row>
+        <Row Tag="LOC_11037A_STORYTITLE">
+            <Text>Prospectors of the High Country</Text>
+        </Row>
+        <Row Tag="LOC_11037A_COMPLETION">
+            <Text>Civilizations rush to claim resources to fuel the fires of progress. Towns are founded, rail lines constructed. But on the Nepalese frontier, a lone sherpa plants a stake in the ground and moves on.</Text>
+        </Row>
+        <Row Tag="LOC_11037B_NAME">
+            <Text>Nepal expands with humility, but expands.</Text>
+        </Row>
+        <Row Tag="LOC_11037B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11038A_STORYTITLE">
+            <Text>The Councilors</Text>
+        </Row>
+        <Row Tag="LOC_11038A_COMPLETION">
+            <Text>Nepali reputation for evenhandedness and level-headed advice makes Nepali negotiators a necessity within nearly all international disputes.</Text>
+        </Row>
+        <Row Tag="LOC_11038B_NAME">
+            <Text>So it should be.</Text>
+        </Row>
+        <Row Tag="LOC_11038B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11038C_NAME">
+            <Text>Surely one might pay a little for this service.</Text>
+        </Row>
+        <Row Tag="LOC_11038C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11039A_STORYTITLE">
+            <Text>The Mountain Bastion</Text>
+        </Row>
+        <Row Tag="LOC_11039A_COMPLETION">
+            <Text>Glacial rivers have long flowed through the valleys of Nepal, but now electricity as well as clear water stream down from the mountaintops. Here is a vision of a mountain utopia — clean, clear, modern surfaces and rugged peaks blending in harmony.</Text>
+        </Row>
+        <Row Tag="LOC_11039B_NAME">
+            <Text>The mountains are a resource; the valleys are home.</Text>
+        </Row>
+        <Row Tag="LOC_11039B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11039C_NAME">
+            <Text>The mountains are our bulwark.</Text>
+        </Row>
+        <Row Tag="LOC_11039C_DESCRIPTION">
+            <Text>+2 Combat Strength when Defending adjacent to Mountains.</Text>
+        </Row>
+        <Row Tag="LOC_11040A_STORYTITLE">
+            <Text>The Brigade of Gurkhas</Text>
+        </Row>
+        <Row Tag="LOC_11040A_COMPLETION">
+            <Text>To serve in the British Army is an honor respected by both Nepali and foreign sides. The new soldiers march proudly, under foreign eyes, towards distant shores.</Text>
+        </Row>
+        <Row Tag="LOC_11040B_NAME">
+            <Text>Their names are recorded at home, as well.</Text>
+        </Row>
+        <Row Tag="LOC_11040B_DESCRIPTION">
+            <Text>{1_reward} on Military Buildings.</Text>
+        </Row>
+        <Row Tag="LOC_11040C_NAME">
+            <Text>They send their remittances home.</Text>
+        </Row>
+        <Row Tag="LOC_11040C_DESCRIPTION">
+            <Text>+15%[icon:YIELD_DIPLOMACY] Influence towards initiating the Gift Gurkha Action.</Text>
+        </Row>
+        <Row Tag="LOC_11041A_STORYTITLE">
+            <Text>The Old Families</Text>
+        </Row>
+        <Row Tag="LOC_11041A_COMPLETION">
+            <Text>The Singha Durbar — the lion palace — projects its power across Nepal. But mutterings stir in the capital: the old families feel that their traditional domain is being eclipsed. Government officials report shakedowns and intimidation.</Text>
+        </Row>
+        <Row Tag="LOC_11041B_NAME">
+            <Text>Allow families their right.</Text>
+        </Row>
+        <Row Tag="LOC_11041B_DESCRIPTION">
+            <Text>{1_reward} in Cities.</Text>
+        </Row>
+        <Row Tag="LOC_11041C_NAME">
+            <Text>The lion palace rules.</Text>
+        </Row>
+        <Row Tag="LOC_11041C_DESCRIPTION">
+            <Text>{1_reward} in Towns.</Text>
+        </Row>
+        <Row Tag="LOC_11069A_STORYTITLE">
+            <Text>Ekata Ka Prateek</Text>
+        </Row>
+        <Row Tag="LOC_11069A_COMPLETION">
+            <Text>As dawn breaks over the Singha Durbar, the line of Nepalese officials snakes out across the city. Here, a new Nepali order is drafted, one which will stamp the world with a Nepali mark.</Text>
+        </Row>
+        <Row Tag="LOC_11069B_NAME">
+            <Text>Nepal has a part to play in world affairs.</Text>
+        </Row>
+        <Row Tag="LOC_11069B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_11069C_NAME">
+            <Text>Nepal seeks inward perfection foremost.</Text>
+        </Row>
+        <Row Tag="LOC_11069C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_12007A_STORYTITLE">
+            <Text>The Good Doctor, High and Low</Text>
+        </Row>
+        <Row Tag="LOC_12007A_COMPLETION">
+            <Text>Following the Sherpa up a steep incline, Dr Rizal looks back at the majesty of Nepal's highlands and lowlands.</Text>
+        </Row>
+        <Row Tag="LOC_12007B_NAME">
+            <Text>The highlanders are fiercely independent.</Text>
+        </Row>
+        <Row Tag="LOC_12007B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_12007C_NAME">
+            <Text>The lowlanders are warm and welcoming.</Text>
+        </Row>
+        <Row Tag="LOC_12007C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+    </EnglishText>
+</Database>

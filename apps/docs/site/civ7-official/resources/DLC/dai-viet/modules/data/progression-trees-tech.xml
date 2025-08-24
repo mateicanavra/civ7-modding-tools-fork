@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<ProgressionTreeNodeUnlocks>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CASTLES" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_THANH_HUE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_CASTLES" TargetKind="KIND_UNIT" TargetType="UNIT_VOI_CHIEN_2" UnlockDepth="1" RequiredTraitType="TRAIT_DAI_VIET"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_EX_GUNPOWDER" TargetKind="KIND_UNIT" TargetType="UNIT_VOI_CHIEN_3" UnlockDepth="1" RequiredTraitType="TRAIT_DAI_VIET"/>
+	</ProgressionTreeNodeUnlocks>
+</Database>

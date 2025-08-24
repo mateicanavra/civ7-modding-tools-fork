@@ -1,0 +1,1055 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_NAPOLEON_ALT_CHAPTER_HISTORY_PARA_1" Language="fr_FR">
+      <Text>La Révolution française cherche à imposer agressivement un État réimaginé, basé sur de nouveaux principes bureaucratiques, scientifiques et politiques. Les mois sont renommés, de nouveaux systèmes de mesures sont créés et le clergé est activement ciblé. La classe moyenne voit sa situation s'améliorer, mais la Révolution finit par rencontrer de nombreux écueils. Les troubles politiques n'arrangent pas l'économie française et le spectre des émeutes terrifie les puissances voisines aux monarchies bien établies (soit presque tous les États européens). Ce chaos appelle à l'ordre.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_NAPOLEON_ALT_CHAPTER_HISTORY_PARA_2" Language="fr_FR">
+      <Text>Né dans une famille italo-corse ayant combattu pour l'indépendance de l'île après son annexion par la France en 1769, Napoléon est formé dans une école militaire de la métropole avant de devenir officier d'artillerie de l'armée française juste avant le début de la Révolution. Sensible aux idéaux des révolutionnaires, il savait également qu'au milieu d'un tel chaos, la chance sourit aux audacieux. Bien vite, il se retrouve commandant ses troupes contre les royalistes cherchant à reprendre Paris.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_NAPOLEON_ALT_CHAPTER_HISTORY_PARA_3" Language="fr_FR">
+      <Text>C'est aux commandes de l'armée d'Italie que la chance lui sourit vraiment, sur le front d'une de ces guerres créées par les monarchies voisines voulant éteindre l'étincelle révolutionnaire. Napoléon répond par une série de campagnes agressives et dévastatrices contre les forces autrichiennes. Alors que l'autorité centrale en France se détériore, il se retrouve libre de faire ce qu'il veut des royaumes qu'il a conquis. Il met alors en place ses propres républiques en Italie en suivant de nouveaux modèles d'administration. Porté par son succès, Napoléon souhaite mettre un terme aux ambitions britanniques en Inde en récupérant leurs possessions en Égypte et en tentant de s'allier avec les ennemis de la Compagnie anglaise des Indes orientales sur le sous-continent. Fidèle aux principes de la Révolution, Napoléon considère ses sujets égyptiens comme des pairs, promouvant la citoyenneté pour tous, quelle que soit leur religion.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_NAPOLEON_ALT_CHAPTER_HISTORY_PARA_4" Language="fr_FR">
+      <Text>La campagne égyptienne se solde par un échec pour la France, mais pas pour Napoléon. À son retour à Paris, il est acclamé en héros et peut jouer un rôle majeur dans la construction du nouveau gouvernement, dont il devient Premier consul (terme emprunté directement à l'Empire romain). En théorie, Napoléon est élu, mais il exploite la corruption du régime et le chaos qui ronge le pays pour augmenter ses votes. Les guerres qui s'éternisaient se terminent brusquement, du moins pour l'instant, et la France émerge victorieuse et forte de territoires abandonnés par les Autrichiens.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_NAPOLEON_ALT_CHAPTER_HISTORY_PARA_5" Language="fr_FR">
+      <Text>La période d'entre-guerre est tendue. Napoléon consolide son pouvoir en devenant dirigeant à vie et essaie de revitaliser l'économie fatiguée du pays. Pour ce faire, il réinstaure l'esclavage dans les colonies d'outre-mer, provoquant l'étincelle faisant exploser la Révolution haïtienne. Il cède également la plupart des revendications territoriales françaises en Amérique du Nord avec la vente de la Louisiane. Le Code Napoléon (également connu sous le nom de Code civil des Français) inscrit les droits à la propriété et signe la fin des privilèges aristocratiques, marquant la transition entre un système gouverné par le statut vers un système fonctionnant sur le talent, le mérite et l'ordre. Anecdote célèbre, Napoléon aurait invité le pape à son sacre d'empereur… où il s'est couronné lui-même. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_NAPOLEON_ALT_CHAPTER_HISTORY_PARA_6" Language="fr_FR">
+      <Text>Mais les puissances européennes ne restent pas sans réagir bien longtemps. À peine quelques années plus tard, la guerre reprend, et cette fois encore, Napoléon semble invincible, contournant et gardant toujours une longueur d'avance sur les forces de coalition. Lors de la bataille d'Austerlitz, faisant croire à ses adversaires que son armée est faible et démoralisée, il les écrase impitoyablement. Cette défaite, et celles d'une campagne prussienne ultérieure, neutralise l'Autriche, la Russie et la Prusse, et propulse les Ottomans dans l'orbite de la France. Cela permet aussi à Napoléon d'établir son blocus continental, un boycott mené par toute l'Europe contre le Royaume-Uni, afin d'affamer le plus vieil ennemi de la France.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_NAPOLEON_ALT_CHAPTER_HISTORY_PARA_7" Language="fr_FR">
+      <Text>Une fois encore, une paix tendue s'installe. Les puissances européennes sont irritées par le blocus continental et les menaces constantes de Napoléon envers les monarchies existantes. Décision volontairement choquante, il installe son frère sur le trône d'Espagne. Cette nomination va préparer le terrain des futures révolutions latino-américaines et des guerres qui ravageront l'Espagne.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_NAPOLEON_ALT_CHAPTER_HISTORY_PARA_8" Language="fr_FR">
+      <Text>Comme auparavant, la paix est de courte durée. Les conquêtes temporaires de Napoléon et ses traités de paix inégaux sont rapidement rompus et l'Autriche et ses alliés lancent de nouvelles guerres. Mais c'est la campagne de Russie de l'empereur qui signe sa chute. Alors que les Français marchent sur Moscou pour mettre un terme à cette menace, les Russes retournent le territoire contre eux. Brûlant les récoltes avant l'arrivée des soldats, les troupes d'Alexandre Ier laissent la météo se charger du reste. Lorsque les Français entrent dans Moscou, ses habitants incendient même la ville. Napoléon aurait dit que ses soldats méritaient la victoire, mais que les Russes méritaient l'invincibilité. Poussé par la défaite du dictateur, le reste de l'Europe se regroupe pour former une coalition qui, en 1814, finit par prendre Paris et envoie Napoléon en exil sur l'île méditerranéenne d'Elbe.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_NAPOLEON_ALT_CHAPTER_HISTORY_PARA_9" Language="fr_FR">
+      <Text>Moins d'un an plus tard, Napoléon s'échappe de l'île et rassemble ses anciens alliés dans une campagne pour reprendre ce qu'il a perdu. Mais sa fortune a tourné. Après une dévastatrice défaite à Waterloo, il abdique en faveur de son fils, tente de s'enfuir, mais finit par se rendre. Cette fois-ci, Napoléon est envoyé à Sainte-Hélène, une île lointaine de l'Océan atlantique, où il reste jusqu'à sa mort. Pendant ses solitaires années d'exil, il écrit un livre sur César, un homme qu'il a toujours admiré, voire incarné, pour un certain temps.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_NAPOLEON_ALT_TITLE" Language="fr_FR">
+      <Text>{LOC_LEADER_NAPOLEON_ALT_NAME}</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_NAPOLEON_ALT_ANY" Language="fr_FR">
+      <Text>J'ai fait tous les calculs ; le destin fera le reste.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_NAPOLEON_ALT_ANY" Language="fr_FR">
+      <Text>Le boulet qui me tuera n'est pas encore fondu.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DEFEAT_AI_LEADER_NAPOLEON_ALT_ANY" Language="fr_FR">
+      <Text>L'exil, donc. J'écrirai mes mémoires. Le travail est la faux du temps.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_NAPOLEON_ALT_ANY" Language="fr_FR">
+      <Text>Je suis Napoléon, et c'est à moi qu'il revient de décider du destin du monde.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_NAPOLEON_ALT_ANY" Language="fr_FR">
+      <Text>Je suis Napoléon, et c'est à moi qu'il revient de décider du destin du monde.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_NAPOLEON_ALT_ANY" Language="fr_FR">
+      <Text>Je suis Napoléon, et c'est à moi qu'il revient de décider du destin du monde.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_NAPOLEON_ALT" Language="fr_FR">
+      <Text>L'homme supérieur ne fait jamais obstruction.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_NAPOLEON_ALT" Language="fr_FR">
+      <Text>Nul ne saurait traiter avec le monde entier en même temps.</Text>
+    </Replace>
+    <Replace Tag="LOC_MAIN_CHAR_SELECT_LEADER_NAPOLEON_ALT_ANY" Language="fr_FR">
+      <Text>Faire tout ce que l'on est capable de faire, c'est être un homme ; faire tout ce que l'on voudrait faire, c'est être un dieu.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1190E_NAME" Language="fr_FR">
+      <Text>Tu lui insuffleras de nouvelles idées.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1190F_NAME" Language="fr_FR">
+      <Text>Tu le galvaniseras de ta force.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1190G_NAME" Language="fr_FR">
+      <Text>C'était un rêve, rien de plus.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1191D_NAME" Language="fr_FR">
+      <Text>La révolution débute au cœur même des foyers, dans les esprits.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1191E_NAME" Language="fr_FR">
+      <Text>Le niveau d'éducation est déplorable.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1192D_NAME" Language="fr_FR">
+      <Text>Ils rejoindront nos rangs, qu'ils le veuillent ou non.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1192E_NAME" Language="fr_FR">
+      <Text>Des accords commerciaux seront plus persuasifs que l'épée.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1193D_NAME" Language="fr_FR">
+      <Text>Ce sont les idées qui bâtissent les empires.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1193E_NAME" Language="fr_FR">
+      <Text>Préparons les canons.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1194D_NAME" Language="fr_FR">
+      <Text>Tout le monde a besoin de donner un sens à sa vie, qu'il soit spirituel ou matériel.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1194E_NAME" Language="fr_FR">
+      <Text>Ce n'est qu'une curiosité dotée d'un certain charme.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1195C_NAME" Language="fr_FR">
+      <Text>Fermer.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1196D_NAME" Language="fr_FR">
+      <Text>La guerre n'est qu'une opportunité d'accroître sa grandeur.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1196E_NAME" Language="fr_FR">
+      <Text>La guerre permet de diffuser des idées.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1197C_NAME" Language="fr_FR">
+      <Text>Fermer.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1198E_NAME" Language="fr_FR">
+      <Text>Fermer.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1198F_NAME" Language="fr_FR">
+      <Text>Fermer.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1198G_NAME" Language="fr_FR">
+      <Text>Fermer.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1199E_NAME" Language="fr_FR">
+      <Text>Fermer.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1199F_NAME" Language="fr_FR">
+      <Text>Fermer.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1199G_NAME" Language="fr_FR">
+      <Text>Fermer.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_NAPOLEON_ALT_NAME" Language="fr_FR">
+      <Text>Napoléon, Révolutionnaire</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_3703_ALTA_COMPLETION" Language="fr_FR">
+      <Text>Alors qu'il observe la ville depuis le pied des grandes pyramides, Napoléon constate l'étendue des territoires conquis… et de ceux qui ne le sont pas encore. La guerre l'appelle, mais la gloire peut s'obtenir par d'autres moyens.</Text>
+    </Replace>
+    <Replace Tag="LOC_3703_ALTA_STORYTITLE" Language="fr_FR">
+      <Text>Quarante siècles</Text>
+    </Replace>
+    <Replace Tag="LOC_3703_ALTB_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3703_ALTB_NAME" Language="fr_FR">
+      <Text>Toute conquête nécessite des préparatifs.</Text>
+    </Replace>
+    <Replace Tag="LOC_3703_ALTC_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3703_ALTC_NAME" Language="fr_FR">
+      <Text>La violence n'est pas toujours la solution.</Text>
+    </Replace>
+    <Replace Tag="LOC_3704_ALTA_COMPLETION" Language="fr_FR">
+      <Text>Les légions de Napoléon déferlent dans les rues de sa nouvelle colonie. Son pouvoir résonne désormais à travers tout le monde connu. Il s'agit de la première étape d'une grande épopée, de la naissance d'un empire qui perdurera à jamais.</Text>
+    </Replace>
+    <Replace Tag="LOC_3704_ALTA_STORYTITLE" Language="fr_FR">
+      <Text>L'avènement d'un nouvel empire</Text>
+    </Replace>
+    <Replace Tag="LOC_3704_ALTB_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3704_ALTB_NAME" Language="fr_FR">
+      <Text>L'armée impériale a besoin de renforts.</Text>
+    </Replace>
+    <Replace Tag="LOC_3704_ALTC_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3704_ALTC_NAME" Language="fr_FR">
+      <Text>Cette victoire doit être connue de tous.</Text>
+    </Replace>
+    <Replace Tag="LOC_3705_ALTA_COMPLETION" Language="fr_FR">
+      <Text>Napoléon regarde ses navires disparaître sous les vagues, emportant avec eux ses lettres et celles de ses soldats. Mais quelqu'un a décidé de les remonter à la surface, et peu de temps après, des traductions de ces conversations privées sont publiées par l'ennemi.</Text>
+    </Replace>
+    <Replace Tag="LOC_3705_ALTA_STORYTITLE" Language="fr_FR">
+      <Text>Violation de la vie privée</Text>
+    </Replace>
+    <Replace Tag="LOC_3705_ALTB_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3705_ALTB_NAME" Language="fr_FR">
+      <Text>Une telle humiliation est impardonnable.</Text>
+    </Replace>
+    <Replace Tag="LOC_3705_ALTC_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3705_ALTC_NAME" Language="fr_FR">
+      <Text>Il n'y a pas de honte à avoir des secrets.</Text>
+    </Replace>
+    <Replace Tag="LOC_3706_ALTA_COMPLETION" Language="fr_FR">
+      <Text>Alors qu'ils étaient en pleine discussion sur la construction d'un nouveau pont, les conseillers marquent une pause pour observer les petits tours de Napoléon avec son couteau. Pendant qu'il écoute, interroge et réplique, il canalise son énergie dans la lame avant de l'enfoncer dans l'accoudoir de son fauteuil, processus qu'il répète en boucle. L'un des conseillers, les yeux rivés sur les profondes entailles, propose de faire une pause pour apaiser les esprits. "Ce ne sera pas nécessaire, l'interrompt Napoléon d'un geste de la main. Dites-moi, a-t-on assez de chirurgiens ?"</Text>
+    </Replace>
+    <Replace Tag="LOC_3706_ALTA_STORYTITLE" Language="fr_FR">
+      <Text>Une victime innocente</Text>
+    </Replace>
+    <Replace Tag="LOC_3706_ALTB_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3706_ALTB_NAME" Language="fr_FR">
+      <Text>Il faut d'abord régler le problème du pont.</Text>
+    </Replace>
+    <Replace Tag="LOC_3706_ALTC_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3706_ALTC_NAME" Language="fr_FR">
+      <Text>À propos des chirurgiens…</Text>
+    </Replace>
+    <Replace Tag="LOC_3707_ALTA_COMPLETION" Language="fr_FR">
+      <Text>Les aides de camp se tiennent au garde-à-vous dans la tente de commandement pendant que Napoléon examine l'une des nombreuses caisses en acajou. Il passe d'abord les doigts sur le revêtement interne en velours, puis sur la reliure en cuir des livres qu'elles renferment. Sans prêter la moindre attention aux soldats essoufflés qui posent la dernière caisse de livres, il secoue la tête. Des centaines de livres l'entourent, mais pour satisfaire une telle soif de connaissance, il lui en faudrait des milliers.</Text>
+    </Replace>
+    <Replace Tag="LOC_3707_ALTA_STORYTITLE" Language="fr_FR">
+      <Text>La bibliothèque ambulante</Text>
+    </Replace>
+    <Replace Tag="LOC_3707_ALTB_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3707_ALTB_NAME" Language="fr_FR">
+      <Text>Plus de livres, ça veut dire plus de caisses.</Text>
+    </Replace>
+    <Replace Tag="LOC_3707_ALTC_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3707_ALTC_NAME" Language="fr_FR">
+      <Text>Utilisons un nouveau format, avec une police plus petite et aucune marge.</Text>
+    </Replace>
+    <Replace Tag="LOC_3708_ALTA_COMPLETION" Language="fr_FR">
+      <Text>Napoléon défile dans les rues de la ville conquise. Les habitants l'observent en silence et se demandent ce qu'il adviendra de leurs traditions. Les chefs religieux locaux le supplient d'au moins préserver leurs croyances.</Text>
+    </Replace>
+    <Replace Tag="LOC_3708_ALTA_STORYTITLE" Language="fr_FR">
+      <Text>Religions locales</Text>
+    </Replace>
+    <Replace Tag="LOC_3708_ALTB_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3708_ALTB_NAME" Language="fr_FR">
+      <Text>Pourquoi changer ce qui fait le bonheur des gens ?</Text>
+    </Replace>
+    <Replace Tag="LOC_3708_ALTC_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3708_ALTC_NAME" Language="fr_FR">
+      <Text>Il faut uniformiser toutes les croyances.</Text>
+    </Replace>
+    <Replace Tag="LOC_3709_ALTA_COMPLETION" Language="fr_FR">
+      <Text>L'armée de Napoléon traverse au pas le territoire récemment conquis, laissant d'innombrables empreintes dans la neige. Les soldats s'émerveillent du beau temps qui a caractérisé leur campagne, et se félicitent de la bonne organisation de leurs lignes de ravitaillement. Certains estiment même que les leçons apprises durant cette guerre sont plus précieuses que le butin qui attend derrière les murs de la ville.</Text>
+    </Replace>
+    <Replace Tag="LOC_3709_ALTA_STORYTITLE" Language="fr_FR">
+      <Text>Le maître de l'hiver</Text>
+    </Replace>
+    <Replace Tag="LOC_3709_ALTB_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3709_ALTB_NAME" Language="fr_FR">
+      <Text>Cette expérience nous servira lors de futures campagnes.</Text>
+    </Replace>
+    <Replace Tag="LOC_3709_ALTC_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3709_ALTC_NAME" Language="fr_FR">
+      <Text>Cette ville abrite de nombreuses œuvres d'art…</Text>
+    </Replace>
+    <Replace Tag="LOC_3710_ALTA_COMPLETION" Language="fr_FR">
+      <Text>Le droit est loin d'être uniforme dans l'Empire français. Certaines régions se fondent sur de vieux documents juridiques, tandis qu'à d'autres endroits on applique le droit commun. Napoléon est las de ce chaos. Il est temps de mettre en place un code unique : le Code civil des Français.</Text>
+    </Replace>
+    <Replace Tag="LOC_3710_ALTA_STORYTITLE" Language="fr_FR">
+      <Text>Un nouveau code</Text>
+    </Replace>
+    <Replace Tag="LOC_3710_ALTB_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3710_ALTB_NAME" Language="fr_FR">
+      <Text>Il faut prendre le temps nécessaire pour mener ce projet à bien.</Text>
+    </Replace>
+    <Replace Tag="LOC_3710_ALTC_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3710_ALTC_NAME" Language="fr_FR">
+      <Text>Plus tôt ces réformes seront appliquées, mieux ce sera.</Text>
+    </Replace>
+    <Replace Tag="LOC_3711_ALTA_COMPLETION" Language="fr_FR">
+      <Text>Napoléon admire la statue qui lui fait face. Un dieu de la guerre antique doté de ses propres traits lui rend son regard. Une somptueuse représentation. Mais son physique n'est guère flatteur… pas plus que sa quasi-nudité. Tandis que l'on emporte l'effigie dans les tréfonds du palais, dont elle ne devra jamais ressortir, l'empereur rémunère chaleureusement le sculpteur avant de le congédier.</Text>
+    </Replace>
+    <Replace Tag="LOC_3711_ALTA_STORYTITLE" Language="fr_FR">
+      <Text>Une divinité moderne</Text>
+    </Replace>
+    <Replace Tag="LOC_3711_ALTB_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3711_ALTB_NAME" Language="fr_FR">
+      <Text>L'art est l'expression même de l'âme humaine.</Text>
+    </Replace>
+    <Replace Tag="LOC_3711_ALTC_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3711_ALTC_NAME" Language="fr_FR">
+      <Text>Il faut se méfier de ses propres désirs.</Text>
+    </Replace>
+    <Replace Tag="LOC_3712_ALTA_COMPLETION" Language="fr_FR">
+      <Text>Napoléon ne s'entoure pas seulement de généraux : il consulte fréquemment les plus grands intellectuels. Science, littérature, musique, théologie… Son expertise dans ces domaines surprend les spécialistes autant qu'elle les ravit.</Text>
+    </Replace>
+    <Replace Tag="LOC_3712_ALTA_STORYTITLE" Language="fr_FR">
+      <Text>Bien plus qu'un simple soldat</Text>
+    </Replace>
+    <Replace Tag="LOC_3712_ALTB_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3712_ALTB_NAME" Language="fr_FR">
+      <Text>Un soldat érudit montre l'exemple à ses sujets.</Text>
+    </Replace>
+    <Replace Tag="LOC_3712_ALTC_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_3712_ALTC_NAME" Language="fr_FR">
+      <Text>La connaissance doit être accessible à tous.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1190E_COMPLETION" Language="fr_FR">
+      <Text>Les nouveaux courants de pensée se diffusent rapidement. Napoléon favorise leur propagation pour réformer son royaume.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1190E_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1190E_IMPERATIVE" Language="fr_FR">
+      <Text>Rencontrez tous les dirigeants.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1190E_STORYTITLE" Language="fr_FR">
+      <Text>L'homme du destin</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1190F_COMPLETION" Language="fr_FR">
+      <Text>Napoléon distribue sa nouvelle liste d'ordres. Ses généraux ont suivi une formation rigoureuse, mais au bout du compte, ils ne sont que le prolongement de sa volonté.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1190F_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1190F_IMPERATIVE" Language="fr_FR">
+      <Text>Ayez 2 commandants.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1190F_STORYTITLE" Language="fr_FR">
+      <Text>L'homme du destin</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1190G_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} dans toutes les colonies.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1190G_STORYTITLE" Language="fr_FR">
+      <Text>L'homme du destin</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1190H_COMPLETION" Language="fr_FR">
+      <Text>Napoléon se réveille en pleine nuit, l'esprit encore embrumé par son rêve. Un petit homme rouge vif s'était posé sur son torse pour lui révéler le destin du monde : un monde illuminé par la foudre, où les hommes savent voler et où les étoiles tombent pour brûler la Terre.[n][n]La lumière du feu vacille dans les braseros de bronze. Napoléon a du mal à se rappeler la fin. "Quant à toi, avait dit l'homme du rêve, tu t'empareras de ce monde, et alors..."</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1190H_STORYTITLE" Language="fr_FR">
+      <Text>L'homme du destin</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1191D_COMPLETION" Language="fr_FR">
+      <Text>Napoléon n'est jamais à court d'idées, et son peuple non plus. Les citoyens se rassemblent dans les maisons et dans les rues pour parler des changements qu'ils apportent au monde.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1191D_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1191D_IMPERATIVE" Language="fr_FR">
+      <Text>Atteignez une population de 25, toutes colonies cumulées.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1191D_STORYTITLE" Language="fr_FR">
+      <Text>Indépendance</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1191E_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} dans toutes les colonies.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1191E_STORYTITLE" Language="fr_FR">
+      <Text>Indépendance</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1191F_COMPLETION" Language="fr_FR">
+      <Text>"Le monde entier n'est que chaos," chuchote l'homme rouge à l'oreille de Bonaparte. En effet, il regorge de superstitions et de pensées illogiques. Les gens suivent les symboles plutôt que les idées.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1191F_STORYTITLE" Language="fr_FR">
+      <Text>Indépendance</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1192D_COMPLETION" Language="fr_FR">
+      <Text>Les combattants du village n'ont aucune chance face à l'armée bien entraînée de Napoléon. Les habitants et leurs possessions sont désormais la propriété de l'autorité véritable.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1192D_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1192D_IMPERATIVE" Language="fr_FR">
+      <Text>Capturez une colonie.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1192D_STORYTITLE" Language="fr_FR">
+      <Text>Indépendants</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1192E_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1192E_STORYTITLE" Language="fr_FR">
+      <Text>Indépendants</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1192F_COMPLETION" Language="fr_FR">
+      <Text>"Le monde entier n'est que chaos," chuchote l'homme rouge à l'oreille de Bonaparte. En effet, les continents grouillent d'insignifiants rois et tyrans en devenir, et ce qu'il manque à ces petites puissances, c'est une vision.[n][n]Ce n'est pas le cas de Napoléon, malgré ses quelques défauts.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1192F_STORYTITLE" Language="fr_FR">
+      <Text>Indépendants</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1193D_DESCRIPTION" Language="fr_FR">
+      <Text>L'histoire se poursuit.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1193D_STORYTITLE" Language="fr_FR">
+      <Text>Le nouveau géant</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1193E_DESCRIPTION" Language="fr_FR">
+      <Text>L'histoire se poursuit.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1193E_STORYTITLE" Language="fr_FR">
+      <Text>Le nouveau géant</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1193F_COMPLETION" Language="fr_FR">
+      <Text>Qu'est-ce qui fait la grandeur d'un dirigeant ? Son envie de réformer la société ou sa volonté de conquérir le monde ? Quelle que soit la voie qu'il empruntera, Napoléon sait qu'il est sur le point d'écrire l'Histoire.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1193F_STORYTITLE" Language="fr_FR">
+      <Text>Le nouveau géant</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1194D_COMPLETION" Language="fr_FR">
+      <Text>Partout dans l'empire, les édifices religieux ouvrent leurs portes aux populations. À travers les sermons, elles trouvent un sens à leur vie et une raison de rester fidèles à l'autorité de Napoléon.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1194D_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1194D_IMPERATIVE" Language="fr_FR">
+      <Text>Possédez 3 temples.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1194D_STORYTITLE" Language="fr_FR">
+      <Text>Une messe pour les masses</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1194E_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1194E_STORYTITLE" Language="fr_FR">
+      <Text>Une messe pour les masses</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1194F_COMPLETION" Language="fr_FR">
+      <Text>Dans l'église, les chants des prêtres résonnent et les fidèles se rassemblent. Napoléon, vêtu sobrement, est assis au fond, à observer et écouter. Devant, un homme pleure à chaudes larmes, submergé par l'émotion. "Que pensez-vous de tout cela ?" murmure son conseiller.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1194F_STORYTITLE" Language="fr_FR">
+      <Text>Une messe pour les masses</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1195C_COMPLETION" Language="fr_FR">
+      <Text>Des caravanes et des navires introduisent des marchandises dans les territoires de Napoléon, mais aussi des idées qui s'y implantent durablement.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1195C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} dans toutes les colonies.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1195C_IMPERATIVE" Language="fr_FR">
+      <Text>Récupérez 4 ressources dans les contrées lointaines.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1195C_STORYTITLE" Language="fr_FR">
+      <Text>Jusqu'au bout du monde</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1195D_COMPLETION" Language="fr_FR">
+      <Text>Le palefrenier de Napoléon a trop bu. Il entonne une litanie de plaintes et se moque bien de qui peut l'entendre : "Vous savez ce que j'ai retiré des sabots de Marengo ? Des épines, de la glace, de l'argile rouge, de l'argile blanche, des clous, des balles et même une tarentule vivante ! Non mais franchement ! Qu'est-ce que ce sera la prochaine fois ?"</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1195D_STORYTITLE" Language="fr_FR">
+      <Text>Jusqu'au bout du monde</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1196D_COMPLETION" Language="fr_FR">
+      <Text>Au sommet d'une colline surplombant le champ de bataille, Napoléon hume l'odeur des combats, écoute le vacarme de la guerre et observe la concrétisation de ses directives méticuleuses. Lorsque les ordres hurlés par les officiers deviennent des cris de victoire, il esquisse un sourire.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1196D_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1196D_IMPERATIVE" Language="fr_FR">
+      <Text>Capturez une colonie dans une contrée lointaine.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1196D_STORYTITLE" Language="fr_FR">
+      <Text>Le petit Caporal</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1196E_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1196E_STORYTITLE" Language="fr_FR">
+      <Text>Le petit Caporal</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1196F_COMPLETION" Language="fr_FR">
+      <Text>Ni les terrains difficiles ni le mauvais temps n'arrêtent l'expansion du pouvoir de Bonaparte. Son armée avance, galvanisée par ses ordres, ne cherchant qu'à satisfaire sa glorieuse vision de domination.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1196F_STORYTITLE" Language="fr_FR">
+      <Text>Le petit Caporal</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1197C_COMPLETION" Language="fr_FR">
+      <Text>Napoléon examine avec attention les nouvelles bombardes. Elles feront des ravages sur le champ de bataille... et changeront le visage de la guerre.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1197C_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} dans toutes les colonies.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1197C_IMPERATIVE" Language="fr_FR">
+      <Text>Formez 3 bombardes.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1197C_STORYTITLE" Language="fr_FR">
+      <Text>L'artilleur</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1197D_COMPLETION" Language="fr_FR">
+      <Text>La détonation assourdissante du canon résonne contre les falaises au loin. Bonaparte observe, un léger tressaillement au coin de la bouche trahissant son plaisir. "On augmente sa taille ?" demande son ingénieur. "Non, répond le Premier Consul. On augmente le nombre."</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1197D_STORYTITLE" Language="fr_FR">
+      <Text>L'artilleur</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1198E_COMPLETION" Language="fr_FR">
+      <Text>Les récits immortalisent les grands moments de l'histoire. Mais ils peuvent être réécrits, et l'unique roman qui compte aux yeux de Napoléon est celui qu'il rédige lui-même.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1198E_DESCRIPTION" Language="fr_FR">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1198E_IMPERATIVE" Language="fr_FR">
+      <Text>Construisez une merveille.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1198E_STORYTITLE" Language="fr_FR">
+      <Text>Le 18 brumaire</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1198F_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1198F_STORYTITLE" Language="fr_FR">
+      <Text>Le 18 brumaire</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1198G_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} et lance une célébration.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1198G_STORYTITLE" Language="fr_FR">
+      <Text>Le 18 brumaire</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1198H_COMPLETION" Language="fr_FR">
+      <Text>Napoléon Bonaparte est le héros d'un âge rationnel, où un seul homme audacieux et ambitieux est capable de tenir tête aux forces réactionnaires. Du moins est-ce la propagande des journaux. Les pamphlets radicaux brossent un portrait bien différent : une révolution de façade, un autocrate qui se cache derrière une cocarde. Non pas une tragédie, mais une triste mascarade.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1198H_STORYTITLE" Language="fr_FR">
+      <Text>Le 18 brumaire</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1199E_COMPLETION" Language="fr_FR">
+      <Text>L'armée de Napoléon n'est plus clouée au sol. Désormais, la destruction tombe des cieux et une pluie de feu s'abat sur le monde. Un monde qui lui appartient.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1199E_DESCRIPTION" Language="fr_FR">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1199E_IMPERATIVE" Language="fr_FR">
+      <Text>Formez un biplan, un chasseur des tranchées et un bombardier.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1199E_STORYTITLE" Language="fr_FR">
+      <Text>Le 11 frimaire</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1199F_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1199F_STORYTITLE" Language="fr_FR">
+      <Text>Le 11 frimaire</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1199G_DESCRIPTION" Language="fr_FR">
+      <Text>{1_reward} et lance une célébration.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1199G_STORYTITLE" Language="fr_FR">
+      <Text>Le 11 frimaire</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1199H_COMPLETION" Language="fr_FR">
+      <Text>Napoléon Bonaparte, l'empereur "parti de rien". Le roi dépouillé de tous les atours de la monarchie, jusqu'à ses os de salpêtre et de plomb. Il porte une couronne qu'il a lui-même placée sur sa tête.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1199H_STORYTITLE" Language="fr_FR">
+      <Text>Le 11 frimaire</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_NAPOLEON_REVOLUTIONARY_L1_DESCRIPTION" Language="fr_FR">
+      <Text>Production +15% pour la construction de bâtiments et de merveilles dotés d'emplacements de chef-d'œuvre.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_NAPOLEON_REVOLUTIONARY_L1_NAME" Language="fr_FR">
+      <Text>Dogme d'attribut culturel</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_NAPOLEON_REVOLUTIONARY_L2_DESCRIPTION" Language="fr_FR">
+      <Text>Puissance de combat +5 contre les districts pour toutes les unités.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_NAPOLEON_REVOLUTIONARY_L2_NAME" Language="fr_FR">
+      <Text>Dogme d'attribut militariste</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_NAPOLEON_REVOLUTIONARY_NAME" Language="fr_FR">
+      <Text>Badge de Napoléon, Révolutionnaire 1</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_NAPOLEON_REVOLUTIONARY_P_NAME" Language="fr_FR">
+      <Text>Badge de Napoléon, Révolutionnaire 2</Text>
+    </Replace>
+    <Replace Tag="LOC_BANNER_NAPOLEON_REVOLUTIONARY_NAME" Language="fr_FR">
+      <Text>Bannière de Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_NAPOLEON_REVOLUTIONARY_1_DESCRIPTION" Language="fr_FR">
+      <Text>Pendant cet âge, [icon:YIELD_CULTURE] Culture +15%, mais [icon:YIELD_Science] Science -10%.</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_NAPOLEON_REVOLUTIONARY_1_NAME" Language="fr_FR">
+      <Text>Légende culturelle de Napoléon pour l'Âge de l'exploration</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_NAPOLEON_REVOLUTIONARY_2_DESCRIPTION" Language="fr_FR">
+      <Text>Pendant cet âge, Puissance de combat +3 pour les unités navales, mais [icon:YIELD_DIPLOMACY] Influence -10%.</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_NAPOLEON_REVOLUTIONARY_2_NAME" Language="fr_FR">
+      <Text>Légende militaire de Napoléon pour l'Âge de l'exploration</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_NAPOLEON_REVOLUTIONARY_1_DESCRIPTION" Language="fr_FR">
+      <Text>Pendant cet âge, [icon:YIELD_CULTURE] Culture +15%, mais [icon:YIELD_Science] Science -10%.</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_NAPOLEON_REVOLUTIONARY_1_NAME" Language="fr_FR">
+      <Text>Légende culturelle de Napoléon pour l'Âge moderne</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_NAPOLEON_REVOLUTIONARY_2_DESCRIPTION" Language="fr_FR">
+      <Text>Pendant cet âge, Puissance de combat +3 pour les unités aériennes, mais [icon:YIELD_DIPLOMACY] Influence -10%.</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_NAPOLEON_REVOLUTIONARY_2_NAME" Language="fr_FR">
+      <Text>Légende militaire de Napoléon pour l'Âge moderne</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_NAPOLEON_ALT_DESCRIPTION" Language="fr_FR">
+      <Text>[icon:Action_Move] PM +1 pour toutes les unités terrestres. Lorsque vous éliminez une unité ennemie, vous gagnez un montant de [icon:YIELD_CULTURE] Culture égal à 50 % de sa [icon:NAR_REW_COMBAT] puissance de combat.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_LEADER_INTRO_TEXT_NAPOLEON_ALT" Language="fr_FR">
+      <Text>Napoléon Bonaparte, votre nom est synonyme d'ambition et d'audace. Dans le chaos de la révolution, vous apportez l'ordre : votre ordre, défini et décrété par vous-même. Avec votre sens aigu de la stratégie et votre volonté implacable, vous bouleversez le monde. Et quand la fumée se dissipera, seul vous resterez debout.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENT_NAPOLEON_REVOLUTIONARY_ARTILLERYMAN_GLOVES_UNLOCK_TITLE" Language="fr_FR">
+      <Text>Déblocage au niveau 2 de Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_ARTILLERYMAN_GLOVES_DESCRIPTION" Language="fr_FR">
+      <Text>Faites face au tir du canon, pour ceux qui sont tombés.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_ARTILLERYMAN_GLOVES_FUNCTIONAL_DESCRIPTION" Language="fr_FR">
+      <Text>[icon:YIELD_CULTURE] Culture +1 par âge pour chaque niveau de commandant d'armée.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_ARTILLERYMAN_GLOVES_NAME" Language="fr_FR">
+      <Text>Gants d'artilleur</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_BICORNE_HAT_DESCRIPTION" Language="fr_FR">
+      <Text>Se porte en bataille.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_BICORNE_HAT_FUNCTIONAL_DESCRIPTION" Language="fr_FR">
+      <Text>PM +1 pour les unités d'infanterie.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_BICORNE_HAT_NAME" Language="fr_FR">
+      <Text>Bicorne</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_BICORNE_HAT_UNLOCK_TITLE" Language="fr_FR">
+      <Text>Déblocage au niveau 5 de Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_LEGION_DHONNEUR_GRAND_EAGLE_CROSS_DESCRIPTION" Language="fr_FR">
+      <Text>C'est avec ces hochets que l'on mène les hommes.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_LEGION_DHONNEUR_GRAND_EAGLE_CROSS_FUNCTIONAL_DESCRIPTION" Language="fr_FR">
+      <Text>Les unités dans le rayon de commandement se soignent de 10 PV après avoir éliminé une unité ennemie.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_LEGION_DHONNEUR_GRAND_EAGLE_CROSS_NAME" Language="fr_FR">
+      <Text>Grand-aigle de la Légion d'honneur</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_NAPOLEON_REVOLUTIONARY_LEGION_DHONNEUR_GRAND_EAGLE_CROSS_UNLOCK_TITLE" Language="fr_FR">
+      <Text>Déblocage au niveau 9 de Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_AGE_COMPLETED_ANTIQUITY_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'Antiquité avec Napoléon</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_AGE_COMPLETED_ANTIQUITY_2_NAME" Language="fr_FR">
+      <Text>Antiquité terminée 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_AGE_COMPLETED_ANTIQUITY_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'Antiquité avec Napoléon</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_AGE_COMPLETED_ANTIQUITY_3_NAME" Language="fr_FR">
+      <Text>Antiquité terminée 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_AGE_COMPLETED_ANTIQUITY_DESC" Language="fr_FR">
+      <Text>Terminer l'Antiquité avec Napoléon</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_AGE_COMPLETED_ANTIQUITY_NAME" Language="fr_FR">
+      <Text>Antiquité terminée</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_AGE_COMPLETED_EXPLORATION_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'Âge de l'exploration avec Napoléon</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_AGE_COMPLETED_EXPLORATION_2_NAME" Language="fr_FR">
+      <Text>Âge de l'exploration terminé 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_AGE_COMPLETED_EXPLORATION_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'Âge de l'exploration avec Napoléon</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_AGE_COMPLETED_EXPLORATION_3_NAME" Language="fr_FR">
+      <Text>Âge de l'exploration terminé 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_AGE_COMPLETED_EXPLORATION_DESC" Language="fr_FR">
+      <Text>Terminer l'Âge de l'exploration avec Napoléon</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_AGE_COMPLETED_EXPLORATION_NAME" Language="fr_FR">
+      <Text>Âge de l'exploration terminé</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_AGE_COMPLETED_MODERN_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'Âge moderne avec Napoléon</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_AGE_COMPLETED_MODERN_2_NAME" Language="fr_FR">
+      <Text>Âge moderne terminé 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_AGE_COMPLETED_MODERN_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'Âge moderne avec Napoléon</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_AGE_COMPLETED_MODERN_3_NAME" Language="fr_FR">
+      <Text>Âge moderne terminé 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_AGE_COMPLETED_MODERN_DESC" Language="fr_FR">
+      <Text>Terminer l'Âge moderne avec Napoléon</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_AGE_COMPLETED_MODERN_NAME" Language="fr_FR">
+      <Text>Âge moderne terminé</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_CULTURE_VICTORY_ANTIQUITY_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Merveilles du monde antique avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_CULTURE_VICTORY_ANTIQUITY_2_NAME" Language="fr_FR">
+      <Text>Merveilles du monde antique 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_CULTURE_VICTORY_ANTIQUITY_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Merveilles du monde antique avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_CULTURE_VICTORY_ANTIQUITY_3_NAME" Language="fr_FR">
+      <Text>Merveilles du monde antique 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_CULTURE_VICTORY_ANTIQUITY_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Merveilles du monde antique avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_CULTURE_VICTORY_ANTIQUITY_NAME" Language="fr_FR">
+      <Text>Merveilles du monde antique</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_CULTURE_VICTORY_EXPLORATION_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Toshakhana avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_CULTURE_VICTORY_EXPLORATION_2_NAME" Language="fr_FR">
+      <Text>Toshakhana 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_CULTURE_VICTORY_EXPLORATION_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Toshakhana avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_CULTURE_VICTORY_EXPLORATION_3_NAME" Language="fr_FR">
+      <Text>Toshakhana 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_CULTURE_VICTORY_EXPLORATION_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Toshakhana avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_CULTURE_VICTORY_EXPLORATION_NAME" Language="fr_FR">
+      <Text>Toshakhana</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_CULTURE_VICTORY_MODERN_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Société géographique avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_CULTURE_VICTORY_MODERN_2_NAME" Language="fr_FR">
+      <Text>Société géographique 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_CULTURE_VICTORY_MODERN_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Société géographique avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_CULTURE_VICTORY_MODERN_3_NAME" Language="fr_FR">
+      <Text>Société géographique 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_CULTURE_VICTORY_MODERN_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Société géographique avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_CULTURE_VICTORY_MODERN_NAME" Language="fr_FR">
+      <Text>Société géographique</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_ECONOMIC_VICTORY_ANTIQUITY_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Routes de la soie avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_ECONOMIC_VICTORY_ANTIQUITY_2_NAME" Language="fr_FR">
+      <Text>Routes de la soie 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_ECONOMIC_VICTORY_ANTIQUITY_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Routes de la soie avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_ECONOMIC_VICTORY_ANTIQUITY_3_NAME" Language="fr_FR">
+      <Text>Routes de la soie 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_ECONOMIC_VICTORY_ANTIQUITY_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Routes de la soie avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_ECONOMIC_VICTORY_ANTIQUITY_NAME" Language="fr_FR">
+      <Text>Routes de la soie</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_ECONOMIC_VICTORY_EXPLORATION_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Flotte des Indes avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_ECONOMIC_VICTORY_EXPLORATION_2_NAME" Language="fr_FR">
+      <Text>Flotte des Indes 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_ECONOMIC_VICTORY_EXPLORATION_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Flotte des Indes avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_ECONOMIC_VICTORY_EXPLORATION_3_NAME" Language="fr_FR">
+      <Text>Flotte des Indes 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_ECONOMIC_VICTORY_EXPLORATION_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Flotte des Indes avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_ECONOMIC_VICTORY_EXPLORATION_NAME" Language="fr_FR">
+      <Text>Flotte des Indes</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_ECONOMIC_VICTORY_MODERN_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Magnat du rail avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_ECONOMIC_VICTORY_MODERN_2_NAME" Language="fr_FR">
+      <Text>Magnat du rail 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_ECONOMIC_VICTORY_MODERN_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Magnat du rail avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_ECONOMIC_VICTORY_MODERN_3_NAME" Language="fr_FR">
+      <Text>Magnat du rail 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_ECONOMIC_VICTORY_MODERN_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Magnat du rail avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_ECONOMIC_VICTORY_MODERN_NAME" Language="fr_FR">
+      <Text>Magnat du rail</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_FLAWLESS_VICTORY_ANTIQUITY_DESC" Language="fr_FR">
+      <Text>Terminer 2 orientations d'héritage durant une même Antiquité avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_FLAWLESS_VICTORY_ANTIQUITY_NAME" Language="fr_FR">
+      <Text>Double héritage - Antiquité</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_FLAWLESS_VICTORY_EXPLORATION_DESC" Language="fr_FR">
+      <Text>Terminer 2 orientations d'héritage durant un même Âge de l'exploration avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_FLAWLESS_VICTORY_EXPLORATION_NAME" Language="fr_FR">
+      <Text>Double héritage - Âge de l'exploration</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_FLAWLESS_VICTORY_MODERN_DESC" Language="fr_FR">
+      <Text>Terminer 2 orientations d'héritage durant un même Âge moderne avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_FLAWLESS_VICTORY_MODERN_NAME" Language="fr_FR">
+      <Text>Double héritage - Âge moderne</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_MILITARY_VICTORY_ANTIQUITY_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Pax imperatoria avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_MILITARY_VICTORY_ANTIQUITY_2_NAME" Language="fr_FR">
+      <Text>Pax imperatoria 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_MILITARY_VICTORY_ANTIQUITY_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Pax imperatoria avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_MILITARY_VICTORY_ANTIQUITY_3_NAME" Language="fr_FR">
+      <Text>Pax imperatoria 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_MILITARY_VICTORY_ANTIQUITY_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Pax imperatoria avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_MILITARY_VICTORY_ANTIQUITY_NAME" Language="fr_FR">
+      <Text>Pax imperatoria</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_MILITARY_VICTORY_EXPLORATION_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Non sufficit orbis avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_MILITARY_VICTORY_EXPLORATION_2_NAME" Language="fr_FR">
+      <Text>Non sufficit orbis 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_MILITARY_VICTORY_EXPLORATION_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Non sufficit orbis avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_MILITARY_VICTORY_EXPLORATION_3_NAME" Language="fr_FR">
+      <Text>Non sufficit orbis 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_MILITARY_VICTORY_EXPLORATION_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Non sufficit orbis avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_MILITARY_VICTORY_EXPLORATION_NAME" Language="fr_FR">
+      <Text>Non sufficit orbis</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_MILITARY_VICTORY_MODERN_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Idéologie avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_MILITARY_VICTORY_MODERN_2_NAME" Language="fr_FR">
+      <Text>Idéologie 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_MILITARY_VICTORY_MODERN_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Idéologie avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_MILITARY_VICTORY_MODERN_3_NAME" Language="fr_FR">
+      <Text>Idéologie 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_MILITARY_VICTORY_MODERN_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Idéologie avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_MILITARY_VICTORY_MODERN_NAME" Language="fr_FR">
+      <Text>Idéologie</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_PLAY_GAMES_1_DESC" Language="fr_FR">
+      <Text>Valider au moins 1 étape d'orientation d'héritage avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_PLAY_GAMES_1_NAME" Language="fr_FR">
+      <Text>Jouer le jeu 1</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_PLAY_GAMES_2_DESC" Language="fr_FR">
+      <Text>Valider au moins 2 étapes d'orientation d'héritage avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_PLAY_GAMES_2_NAME" Language="fr_FR">
+      <Text>Jouer le jeu 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_PLAY_GAMES_3_DESC" Language="fr_FR">
+      <Text>Valider au moins 3 étapes d'orientation d'héritage avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_PLAY_GAMES_3_NAME" Language="fr_FR">
+      <Text>Jouer le jeu 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_QUEST_A_ANTIQUITY_DESC" Language="fr_FR">
+      <Text>Pendant l'Antiquité, avec Napoléon, Révolutionnaire, accomplir une quête permettant d'écouter les idées du peuple</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_QUEST_A_ANTIQUITY_NAME" Language="fr_FR">
+      <Text>Indépendance</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_QUEST_A_EXPLORATION_DESC" Language="fr_FR">
+      <Text>Pendant l'Âge de l'exploration, avec Napoléon, Révolutionnaire, accomplir une quête permettant d'assister au rassemblement des fidèles</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_QUEST_A_EXPLORATION_NAME" Language="fr_FR">
+      <Text>Une messe pour les masses</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_QUEST_A_MODERN_DESC" Language="fr_FR">
+      <Text>Pendant l'Âge moderne, avec Napoléon, Révolutionnaire, accomplir une quête permettant de réécrire l'histoire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_QUEST_A_MODERN_NAME" Language="fr_FR">
+      <Text>Le 18 brumaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_QUEST_B_ANTIQUITY_DESC" Language="fr_FR">
+      <Text>Pendant l'Antiquité, avec Napoléon, Révolutionnaire, accomplir une quête permettant de s'approprier l'autorité véritable</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_QUEST_B_ANTIQUITY_NAME" Language="fr_FR">
+      <Text>Indépendants</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_QUEST_B_EXPLORATION_DESC" Language="fr_FR">
+      <Text>Pendant l'Âge de l'exploration, avec Napoléon, Révolutionnaire, accomplir une quête permettant de satisfaire une vision de domination</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_QUEST_B_EXPLORATION_NAME" Language="fr_FR">
+      <Text>Le petit Caporal</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_QUEST_B_MODERN_DESC" Language="fr_FR">
+      <Text>Pendant l'Âge moderne, avec Napoléon, Révolutionnaire, accomplir une quête permettant de faire s'abattre une pluie de feu</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_QUEST_B_MODERN_NAME" Language="fr_FR">
+      <Text>Le 11 frimaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_SCIENCE_VICTORY_ANTIQUITY_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Grande bibliothèque avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_SCIENCE_VICTORY_ANTIQUITY_2_NAME" Language="fr_FR">
+      <Text>Grande bibliothèque 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_SCIENCE_VICTORY_ANTIQUITY_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Grande bibliothèque avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_SCIENCE_VICTORY_ANTIQUITY_3_NAME" Language="fr_FR">
+      <Text>Grande bibliothèque 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_SCIENCE_VICTORY_ANTIQUITY_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Grande bibliothèque avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_SCIENCE_VICTORY_ANTIQUITY_NAME" Language="fr_FR">
+      <Text>Grande bibliothèque</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_SCIENCE_VICTORY_EXPLORATION_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Lumières avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_SCIENCE_VICTORY_EXPLORATION_2_NAME" Language="fr_FR">
+      <Text>Lumières 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_SCIENCE_VICTORY_EXPLORATION_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Lumières avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_SCIENCE_VICTORY_EXPLORATION_3_NAME" Language="fr_FR">
+      <Text>Lumières 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_SCIENCE_VICTORY_EXPLORATION_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Lumières avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_SCIENCE_VICTORY_EXPLORATION_NAME" Language="fr_FR">
+      <Text>Lumières</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_SCIENCE_VICTORY_MODERN_2_DESC" Language="fr_FR">
+      <Text>Terminer deux fois l'orientation d'héritage Course à l'espace avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_SCIENCE_VICTORY_MODERN_2_NAME" Language="fr_FR">
+      <Text>Course à l'espace 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_SCIENCE_VICTORY_MODERN_3_DESC" Language="fr_FR">
+      <Text>Terminer trois fois l'orientation d'héritage Course à l'espace avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_SCIENCE_VICTORY_MODERN_3_NAME" Language="fr_FR">
+      <Text>Course à l'espace 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_SCIENCE_VICTORY_MODERN_DESC" Language="fr_FR">
+      <Text>Terminer l'orientation d'héritage Course à l'espace avec Napoléon, Révolutionnaire</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NAPOLEON_ALT_SCIENCE_VICTORY_MODERN_NAME" Language="fr_FR">
+      <Text>Course à l'espace</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_CULTURAL_LEGEND_NAPOLEON_ALT_L1_DESCRIPTION" Language="fr_FR">
+      <Text>Déblocable via la légende. [icon:YIELD_PRODUCTION] Production +15% pour la construction de bâtiments et de merveilles dotés d'emplacements de chef-d'œuvre.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_NAPOLEON_ALT_L2_DESCRIPTION" Language="fr_FR">
+      <Text>Déblocable via la légende. Puissance de combat +5 contre les districts pour toutes les unités.</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_NAPOLEON_REVOLUTIONARY" Language="fr_FR">
+      <Text>Homme du destin</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_NAPOLEON_REVOLUTIONARY_EXPLORATION_1_DESCRIPTION" Language="fr_FR">
+      <Text>Avec Napoléon, vous avez accès à une nouvelle carte d'héritage de l'Âge de l'exploration :[n]
+				Culture +15%, Science -10%.</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_NAPOLEON_REVOLUTIONARY_EXPLORATION_1_NAME" Language="fr_FR">
+      <Text>Carte d'héritage culturel de l'Âge de l'exploration</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_NAPOLEON_REVOLUTIONARY_EXPLORATION_2_DESCRIPTION" Language="fr_FR">
+      <Text>Avec Napoléon, vous avez accès à une nouvelle carte d'héritage de l'Âge de l'exploration :[n]
+				Puissance de combat +3 pour les unités navales, Influence -10%.</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_NAPOLEON_REVOLUTIONARY_EXPLORATION_2_NAME" Language="fr_FR">
+      <Text>Carte d'héritage militariste de l'Âge de l'exploration</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_NAPOLEON_REVOLUTIONARY_MODERN_1_DESCRIPTION" Language="fr_FR">
+      <Text>Avec Napoléon, vous avez accès à une nouvelle carte d'héritage de l'Âge moderne :[n]
+				Culture +15%, Science -10%.</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_NAPOLEON_REVOLUTIONARY_MODERN_1_NAME" Language="fr_FR">
+      <Text>Carte d'héritage culturel de l'Âge moderne</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_NAPOLEON_REVOLUTIONARY_MODERN_2_DESCRIPTION" Language="fr_FR">
+      <Text>Avec Napoléon, vous avez accès à une nouvelle carte d'héritage de l'Âge moderne :[n]
+				Puissance de combat +3 pour les unités aériennes, Influence -10%.</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_NAPOLEON_REVOLUTIONARY_MODERN_2_NAME" Language="fr_FR">
+      <Text>Carte d'héritage militariste de l'Âge moderne</Text>
+    </Replace>
+    <Replace Tag="LOC_TITLE_NAPOLEON_REVOLUTIONARY_NAME" Language="fr_FR">
+      <Text>Homme du destin</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_NAPOLEON_ALT_ABILITY_DESCRIPTION" Language="fr_FR">
+      <Text>[BLIST][LI][B][icon:Action_Move] PM +1[/B] pour toutes les [B]unités terrestres[/B].[LI]Lorsque vous éliminez une unité ennemie, vous gagnez un montant de [icon:YIELD_CULTURE][B] Culture[/B] égal à [B]50 %[/B] de sa [icon:NAR_REW_COMBAT][B] puissance de combat[/B].[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_NAPOLEON_ALT_ABILITY_NAME" Language="fr_FR">
+      <Text>Grande Armée</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_NAPOLEON_ALT_DESCRIPTION" Language="fr_FR">
+      <Text>Jouer avec [B]Napoléon, Révolutionnaire[/B]</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_NAPOLEON_ALT_EGYPT_TOOLTIP" Language="fr_FR">
+      <Text>La [B]Perse[/B] présente des synergies stratégiques avec [B]Napoléon[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_NAPOLEON_ALT_FRENCH_EMPIRE_TOOLTIP" Language="fr_FR">
+      <Text>[B]Napoléon[/B] a dirigé l'Empire français.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_NAPOLEON_ALT_NORMAN_TOOLTIP" Language="fr_FR">
+      <Text>La France de [B]Napoléon[/B] comprenait la Normandie.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_NAPOLEON_ALT_PRUSSIA_TOOLTIP" Language="fr_FR">
+      <Text>La [B]Prusse[/B] présente des synergies stratégiques avec [B]Napoléon[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_NAPOLEON_ALT_ROME_TOOLTIP" Language="fr_FR">
+      <Text>[B]Napoléon[/B] se présentait comme un descendant des Romains.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_NAPOLEON_ALT_SPAIN_TOOLTIP" Language="fr_FR">
+      <Text>[B]Napoléon[/B] a mené une campagne en Espagne.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_NAPOLEON_ALT_L2_COMBAT_PREVIEW" Language="fr_FR">
+      <Text>+{1_Value} attribut militariste de légende</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

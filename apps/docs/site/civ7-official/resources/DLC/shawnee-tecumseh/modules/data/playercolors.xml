@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Database>
+	<PlayerColors>
+		<Row>
+			<Type>LEADER_TECUMSEH</Type>
+			<Usage>Unique</Usage>
+			<PrimaryColor>COLOR_STANDARD_ORANGE_DK</PrimaryColor>
+			<SecondaryColor>COLOR_STANDARD_YELLOW_MD</SecondaryColor>
+			<Alt1PrimaryColor>COLOR_STANDARD_YELLOW_MD</Alt1PrimaryColor>
+			<Alt1SecondaryColor>COLOR_STANDARD_ORANGE_DK</Alt1SecondaryColor>
+			<Alt2PrimaryColor>COLOR_STANDARD_AQUA_DK</Alt2PrimaryColor>
+			<Alt2SecondaryColor>COLOR_STANDARD_GREEN_MD</Alt2SecondaryColor>
+			<Alt3PrimaryColor>COLOR_STANDARD_GREEN_MD</Alt3PrimaryColor>
+			<Alt3SecondaryColor>COLOR_STANDARD_AQUA_DK</Alt3SecondaryColor>
+		</Row>
+	</PlayerColors>
+</Database>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- LEADER_XERXES_ALT -->
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_XERXES_ALT_TITLE">
+			<Text>{LOC_LEADER_XERXES_ALT_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_XERXES_ALT_CHAPTER_HISTORY_PARA_1">
+			<Text>The term “Persia” originates from the Greek name for the empire of Iran, the land of the Farsi people, who are referred to as “Aryan” in other texts (bearing in mind the term’s association with North India and not with the strange alterations it carried in the 19th and 20th centuries). In the Achaemenid period, Persia was the largest empire at that point in history (Alexander the Great took that title a few years later). The empire extended from Egypt and parts of Greece in the west to the Indus River Valley in the east, encompassing and surpassing what we now know as the Middle and Near East today. Despite its size, or perhaps because of it, Persia had sophisticated transportation networks and bureaucratic and communication systems; was multi-cultural and multi-religious; and established a clear lingua franca throughout its domain. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_XERXES_ALT_CHAPTER_HISTORY_PARA_2">
+			<Text>Early on, the Persians took slow control over Mesopotamia as Babylon and Assyria declined. Under Cyrus the Great, it expanded into Asia Minor and transformed into an empire. Cyrus' line was overthrown by Darius – also "the Great" – who led the Persians to another wave of conquests, this time in Egypt and the Indus Valley. But this triumph was tenuous. With revolt brewing in Egypt, Darius suddenly died and was succeeded by Xerxes – the last and arguably greatest of the Persian emperors.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_XERXES_ALT_CHAPTER_HISTORY_PARA_3">
+			<Text>Xerxes became famous for his campaign against Greece, including the battles of Thermopylae and Salamis. He was a subject of Herodotus’s histories, an inspiration for Alexander the Great, and an icon for cruel tyrants – largely based on Greek perspective. However, while Xerxes was proud and occasionally cruel, he was no cartoon villain.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_XERXES_ALT_CHAPTER_HISTORY_PARA_4">
+			<Text>Xerxes descended from two great emperors – his father was Darius, and his grandfather (on his mother’s side) was Cyrus. He was raised by court eunuchs, as was the custom, and taught horsemanship (the Persians were only a few generations out from being Central Asian horse nomads). His life in the palace of Babylon was one of luxury.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_XERXES_ALT_CHAPTER_HISTORY_PARA_5">
+			<Text>Xerxes' early brush with destiny came when Darius, preparing to leave for Egypt to quash its rebellion, fell ill and unexpectedly died. In the wake of this death, the question of succession loomed. Should the crown go to Darius’ eldest? Or to Xerxes, the grandson of Cyrus? A debate was arranged to solve this question, and Xerxes won, taking the throne in 486 BCE, at the age of 35. He also inherited his father’s wars and immediately took to quelling Egypt, followed by Babylon after that city rebelled. He enacted a brutal vengeance upon Babylon, melting the statues of its gods in punishment. Indeed, Xerxes was staunchly religious (likely adhering to a precursor of Zoroastrianism).</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_XERXES_ALT_CHAPTER_HISTORY_PARA_6">
+			<Text>Still, Xerxes is most famous for his invasion of Greece. Darius had attempted such a campaign, which seemed logical since Persia already occupied all of Asia Minor. However, Darius was thwarted at Marathon. Following in his father’s footsteps, Xerxes pulled no punches. He amassed a gargantuan army, built a bridge over the Hellespont (the straits at modern Istanbul), and marched his troops over it. At the Battle of Thermopylae, Xerxes' massive Persian army was stalled by only around 7,000 Spartans – a battle that has become the most renowned example of Spartan bravery in history. However, the keyword here is “stalled,” not “stopped.” Xerxes eventually continued down the Greek coast, and Athens was destroyed. Many Athenians fled to the island of Salamis and bunkered down as the Persians prepared a naval assault. Unfortunately, that battle did not go in favor of the Persians. After the Athenians won, the Persians – mindful of their fragile bridge over the Hellespont – decided that they’d had enough.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_XERXES_ALT_CHAPTER_HISTORY_PARA_7">
+			<Text>Alexander the Great would enact Greece's revenge more than a century later, but this failure brought an end to Xerxes’s plans of domination. Upon returning home to Persia, he turned his gaze inward, funding a dramatic boom in construction, arts, and infrastructure. Persian roads and postal relay systems were some of the most advanced the world had ever seen, and the great capital of Persepolis continued to rise in splendor. Though these ambitious projects did irreparable damage to the royal treasury, the remains of Xerxes’ palaces and monuments are still visible today. He was assassinated in 465.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_XERXES_ALT_CHAPTER_HISTORY_PARA_8">
+			<Text>In Greek texts, Xerxes often plays a foil to democratic Athens. Indeed, this Greek portrait colors our modern view of Asia and Asian antiquity. When the Greeks categorized the Persians as despotic, aggressive, fundamentally undemocratic, and weak from living in a soft climate of rich land, that says more about Greek resentment than it does about real history. This trope persists because Athens reports most of our Greek history, and they accomplished this by juxtaposing themselves with others: Athenian democracy versus Spartan militarism and Athenian freedom versus Persian despotism. They didn't necessarily chronicle things as they were; they made a political point.</Text>
+		</Row>
+		<!-- LEADER_FRIEDRICH_ALT -->
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_FRIEDRICH_ALT_TITLE">
+			<Text>{LOC_LEADER_FRIEDRICH_ALT_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_FRIEDRICH_ALT_CHAPTER_HISTORY_PARA_1">
+			<Text>What is Germany? The area the Romans called Germania was a region east of the Rhine where the empire's influence ceased. Linguistically and culturally, Germanic refers to a loose coalition of languages that range from extremely similar (Bavarian/Austrian, German) to slightly different (Dutch, Flemish) to quite distinct (Swedish, Icelandic, English). As a people, Germans were often divided – this is still visible today in Austria and Germany.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_FRIEDRICH_ALT_CHAPTER_HISTORY_PARA_2">
+			<Text>Eventually, two states rose to power: Prussia and Austria. The latter was a Catholic state and powerful within the Holy Roman Empire. On the other hand, Prussia was caught on the northern edge. Subject to influences (Teutonic, Hanseatic, Polish) outside of the Holy Roman Empire, Prussia needed to militarize to remain independent.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_FRIEDRICH_ALT_CHAPTER_HISTORY_PARA_3">
+			<Text>Amid this rise to power enters Friedrich II.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_FRIEDRICH_ALT_CHAPTER_HISTORY_PARA_4">
+			<Text>Friedrich the Great was the longest-ruling king of Prussia, from 1740-1786. He lived in a time of art and literature as well as Prussian military dominance. Friedrich was caught between worlds. His love of the arts clashed with the militarism of the time. His homosexuality clashed with imperial demands to marry and produce an heir. His Francophilia clashed with the militant anti-French nationalism at large in Prussia. In short, he was trapped, yet he managed to stay alive and nurture both sides of Prussia: the artistic and the militant.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_FRIEDRICH_ALT_CHAPTER_HISTORY_PARA_5">
+			<Text>Friedrich was the son of Friedrich William, an infamous despot known for his relative disdain for culture, his promotion of the military, and for “Prussian virtues” of frugality and sobriety (meaning “a lack of humor” in this case). His wife, Sophia Dorothea, was quite the opposite and found the court stifling. She was far more Francophile than Friedrich William. Prussia's court language was French and both monarchs were fluent, but Friedrich William was notoriously ungrammatical in the language. Other French court customs were shunned as Prussian frugality won over. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_FRIEDRICH_ALT_CHAPTER_HISTORY_PARA_6">
+			<Text>Friedrich II was the third son; his two elder brothers died young, so much of his parents’ hope rested on the young Friedrich. Sophia Dorothea sought to instill in her son the love of high culture and court life that her husband disdained. He also learned French; in fact, he was not terribly fluent in German despite being German. But there was conflict between father and son. As much as Friedrich loved learning Latin and high culture, his father pressured him to adopt a harsh austerity. Tensions grew, and Friedrich eventually maintained a hidden library in a palace across town. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_FRIEDRICH_ALT_CHAPTER_HISTORY_PARA_7">
+			<Text>Friedrich William was concerned about his son’s sexuality – while rumors abounded about the teenager’s love affairs, their “effeminacy” bothered the king the most, and he feared that the new state of Prussia might crumble without a sober and militaristic king. Ironically, his diplomatic ineptitude was causing headaches in the empire: his loyalty to a German monarchy led him to curry favor with Austrian monarchs, who despised the austere Prussian.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_FRIEDRICH_ALT_CHAPTER_HISTORY_PARA_8">
+			<Text>Enter Lieutenant Hans Hermann von Katte. Katte was a teenage friend of the young Friedrich – though their friendship was clearly something more. Take this scene from the life of young Friedrich: Katte and Friedrich have put on luxurious dressing gowns and done their hair in the latest Parisian fashions. They practice music in Friedrich’s chambers when the king storms upstairs. Katte hides in a closet as the angry king tosses all the luxurious clothes into a fire and then forces young Friedrich back into a military uniform.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_FRIEDRICH_ALT_CHAPTER_HISTORY_PARA_9">
+			<Text>It sounds like a scene from a farce – until the next part. The crown prince was so scandalized by his father’s conduct that he decided to run away with Katte to England. The two were caught. And while Friedrich escaped punishment, Katte was executed while Friedrich was forced to watch.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_FRIEDRICH_ALT_CHAPTER_HISTORY_PARA_10">
+			<Text>Friedrich William died in 1740, leaving the crown to Friedrich II. Under the new king, the palace saw an explosion of art, and invitations went out to French-speaking intelligentsia. Friedrich cultivated a court where he could express his sexuality – if not entirely openly, at least in private.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_FRIEDRICH_ALT_CHAPTER_HISTORY_PARA_11">
+			<Text>Still, Friedrich’s relationship with his father was more complicated. The young king desired his late father’s posthumous approval and maintained his father's aggressive military and diplomatic endeavors. He invaded Silesia in 1740 and routing the French and Austrian forces in the War of Austrian Succession.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_FRIEDRICH_ALT_CHAPTER_HISTORY_PARA_12">
+			<Text>For all of Friedrich’s attention to art and culture, he remained an accomplished strategist. Prussia, which had been a shaky, unstable, militaristic power, was suddenly rising to become a major force, especially after seizing the wealthiest parts of Austria. Prussia’s rise also reshaped the system of alliances in Europe from an Austrian/British alliance to an Austrian/French alliance.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_FRIEDRICH_ALT_CHAPTER_HISTORY_PARA_13">
+			<Text>The interlude between wars was brief. The Seven Year’s War was another conflagration of shifting alliances, as Austria/France/Russia fought Prussia/Britain. And Friedrich started this conflict as well – again seizing Austrian territory in Saxony. In this fight, Friedrich nearly lost everything. He was bold but too bold; the only thing that saved his dwindling army was Russia's withdrawal from the war.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_FRIEDRICH_ALT_CHAPTER_HISTORY_PARA_14">
+			<Text>In short, Friedrich was a capable military leader who – despite his father – pushed Prussia ever outward. As with Napoleon, he is often credited with daring and innovative plans to pin down and outmaneuver the enemy, showing a keen understanding of supply lines and logistics. He died in 1786 in his palace.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_FRIEDRICH_ALT_CHAPTER_HISTORY_PARA_15">
+			<Text>This was a time of absolutism. Friedrich styled himself as an enlightened despot – a philosopher-king – who was the Platonic ideal of a ruler. This is hardly democratic, but few European leaders were at the time.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_FRIEDRICH_ALT_CHAPTER_HISTORY_PARA_16">
+			<Text>Friedrich was a lifelong patron of the arts, especially French and Italian arts, and cultivated friendships with Voltaire and other luminaries. As French artists and thinkers became increasingly uncertain in France, they found a home in the Prussian court alongside other intellectuals of the day, like Johann Wolfgang von Goethe, and Classical-era composers such as Johann Sebastian Bach. Friedrich also sponsored an architectural revival, particularly in the late Baroque style, or Rococo, an elaboration upon Enlightenment forms that seek to soften (or overwhelm) the strict geometric forms of French architecture.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_FRIEDRICH_ALT_CHAPTER_HISTORY_PARA_17">
+			<Text>Friedrich’s legacy is twofold: the rise of Prussian militarism on one hand, and the flourishing of late Baroque arts on the other. People like Thomas Mann saw Friedrich as a ruthless expansionist seeking to chip away at Austria (which is true). Others accused Friedrich of contributing to the sparks that ignited the French Revolution by establishing a court of French philosophers and thinkers who could freely speak of sedition (also true). Ultimately, one can see Friedrich as a model for truly modern despotism, ruling by sword and pen and creating a firm break from a feudal past.</Text>
+		</Row>
+	</EnglishText>
+</Database>
+				

@@ -1,0 +1,29 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+
+.keep-icon-image {
+	background-image: url("city_keep");
+}
+
+.raze-icon-image {
+	background-image: url("city_raze");
+}
+
+.city-capture__frame-container {
+	@media (experience: mobile) {
+		width: pixels(672);
+		margin-top: pixels(14);
+		margin-bottom: 0;
+	}
+}
+
+.cap-chooser__city-name {
+	@media (experience: mobile) {
+		margin-bottom: pixels(10);
+	}
+}
+
+.city-capture__subtitle {
+	@media (experience: mobile) {
+		max-width: pixels(450);
+	}
+}

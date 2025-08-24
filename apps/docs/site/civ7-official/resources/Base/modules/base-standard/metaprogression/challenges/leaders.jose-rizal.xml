@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metaprogression xmlns="Metaprogression">
+	<challenges class="CHALLENGE_CLASS_LEADER" category="CHALLENGE_CATEGORY_LEADER_JOSE_RIZAL" legendPath="LEGEND_PATH_JOSE_RIZAL">
+		<challenge id="CHALLENGE_JOSE_RIZAL_MILITARY_VICTORY_ANTIQUITY" scope="Career" difficulty="3">
+			<l10n>
+				<name>Pax Imperatoria</name>
+				<description>As José Rizal, complete the Pax Imperatoria Legacy Path.</description>
+			</l10n>
+			<sortIndex>72800</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_MILITARY_VICTORY_ANTIQUITY" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_MILITARY_VICTORY_ANTIQUITY_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Pax Imperatoria 2</name>
+				<description>As José Rizal, complete the Pax Imperatoria Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>72810</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_MILITARY_VICTORY_ANTIQUITY" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_MILITARY_VICTORY_ANTIQUITY_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Pax Imperatoria 3</name>
+				<description>As José Rizal, complete the Pax Imperatoria Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>72820</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_MILITARY_VICTORY_ANTIQUITY" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_ECONOMIC_VICTORY_ANTIQUITY" scope="Career" difficulty="3">
+			<l10n>
+				<name>Silk Roads</name>
+				<description>As José Rizal, complete the Silk Roads Legacy Path.</description>
+			</l10n>
+			<sortIndex>73000</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_ECONOMIC_VICTORY_ANTIQUITY" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_ECONOMIC_VICTORY_ANTIQUITY_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Silk Roads 2</name>
+				<description>As José Rizal, complete the Silk Roads Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>73010</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_ECONOMIC_VICTORY_ANTIQUITY" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_ECONOMIC_VICTORY_ANTIQUITY_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Silk Roads 3</name>
+				<description>As José Rizal, complete the Silk Roads Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>73020</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_ECONOMIC_VICTORY_ANTIQUITY" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_MILITARY_VICTORY_EXPLORATION" scope="Career" difficulty="3">
+			<l10n>
+				<name>Non Sufficit Orbis</name>
+				<description>As José Rizal, complete the Non Sufficit Orbis Legacy Path.</description>
+			</l10n>
+			<sortIndex>73400</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_MILITARY_VICTORY_EXPLORATION" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_MILITARY_VICTORY_EXPLORATION_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Non Sufficit Orbis 2</name>
+				<description>As José Rizal, complete the Non Sufficit Orbis Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>73410</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_MILITARY_VICTORY_EXPLORATION" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_MILITARY_VICTORY_EXPLORATION_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Non Sufficit Orbis 3</name>
+				<description>As José Rizal, complete the Non Sufficit Orbis Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>73420</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_MILITARY_VICTORY_EXPLORATION" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_ECONOMIC_VICTORY_EXPLORATION" scope="Career" difficulty="3">
+			<l10n>
+				<name>Treasure Fleet</name>
+				<description>As José Rizal, complete the Treasure Fleet Legacy Path.</description>
+			</l10n>
+			<sortIndex>73600</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_ECONOMIC_VICTORY_EXPLORATION" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_ECONOMIC_VICTORY_EXPLORATION_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Treasure Fleet 2</name>
+				<description>As José Rizal, complete the Treasure Fleet Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>73610</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_ECONOMIC_VICTORY_EXPLORATION" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_ECONOMIC_VICTORY_EXPLORATION_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Treasure Fleet 3</name>
+				<description>As José Rizal, complete the Treasure Fleet Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>73620</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_ECONOMIC_VICTORY_EXPLORATION" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_MILITARY_VICTORY_MODERN" scope="Career" difficulty="3">
+			<l10n>
+				<name>Ideology</name>
+				<description>As José Rizal, complete the Ideology Legacy Path.</description>
+			</l10n>
+			<sortIndex>74000</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_MILITARY_VICTORY_MODERN" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_MILITARY_VICTORY_MODERN_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Ideology 2</name>
+				<description>As José Rizal, complete the Ideology Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>74010</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_MILITARY_VICTORY_MODERN" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_MILITARY_VICTORY_MODERN_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Ideology 3</name>
+				<description>As José Rizal, complete the Ideology Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>74020</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_MILITARY_VICTORY_MODERN" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_ECONOMIC_VICTORY_MODERN" scope="Career" difficulty="3">
+			<l10n>
+				<name>Railroad Tycoon</name>
+				<description>As José Rizal, complete the Railroad Tycoon Legacy Path.</description>
+			</l10n>
+			<sortIndex>73900</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_ECONOMIC_VICTORY_MODERN" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_ECONOMIC_VICTORY_MODERN_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Railroad Tycoon 2</name>
+				<description>As José Rizal, complete the Railroad Tycoon Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>73910</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_ECONOMIC_VICTORY_MODERN" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_ECONOMIC_VICTORY_MODERN_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Railroad Tycoon 3</name>
+				<description>As José Rizal, complete the Railroad Tycoon Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>73920</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_ECONOMIC_VICTORY_MODERN" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_AGE_COMPLETED_ANTIQUITY" scope="Career" difficulty="2">
+			<l10n>
+				<name>Antiquity Complete</name>
+				<description>As José Rizal, finish the Antiquity Age.</description>
+			</l10n>
+			<sortIndex>72600</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_ANTIQUITY_AGES_COMPLETED" threshold="1" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_AGE_COMPLETED_ANTIQUITY_2" scope="Career" difficulty="2">
+			<l10n>
+				<name>Antiquity Complete 2</name>
+				<description>As José Rizal, finish the Antiquity Age twice.</description>
+			</l10n>
+			<sortIndex>72610</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_ANTIQUITY_AGES_COMPLETED" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_AGE_COMPLETED_ANTIQUITY_3" scope="Career" difficulty="2">
+			<l10n>
+				<name>Antiquity Complete 3</name>
+				<description>As José Rizal, finish the Antiquity Age thrice.</description>
+			</l10n>
+			<sortIndex>72620</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_ANTIQUITY_AGES_COMPLETED" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_AGE_COMPLETED_EXPLORATION" scope="Career" difficulty="3">
+			<l10n>
+				<name>Exploration Complete</name>
+				<description>As José Rizal, finish the Exploration Age.</description>
+			</l10n>
+			<sortIndex>73200</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_EXPLORATION_AGES_COMPLETED" threshold="1" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_AGE_COMPLETED_EXPLORATION_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Exploration Complete 2</name>
+				<description>As José Rizal, finish the Exploration Age twice.</description>
+			</l10n>
+			<sortIndex>73210</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_EXPLORATION_AGES_COMPLETED" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_AGE_COMPLETED_EXPLORATION_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Exploration Complete 3</name>
+				<description>As José Rizal, finish the Exploration Age thrice.</description>
+			</l10n>
+			<sortIndex>73220</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_EXPLORATION_AGES_COMPLETED" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_AGE_COMPLETED_MODERN" scope="Career" difficulty="2">
+			<l10n>
+				<name>Modern Complete</name>
+				<description>As José Rizal, finish the Modern Age.</description>
+			</l10n>
+			<sortIndex>73800</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_MODERN_AGES_COMPLETED" threshold="1" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_AGE_COMPLETED_MODERN_2" scope="Career" difficulty="2">
+			<l10n>
+				<name>Modern Complete 2</name>
+				<description>As José Rizal, finish the Modern Age twice.</description>
+			</l10n>
+			<sortIndex>73810</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_MODERN_AGES_COMPLETED" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_AGE_COMPLETED_MODERN_3" scope="Career" difficulty="2">
+			<l10n>
+				<name>Modern Complete 3</name>
+				<description>As José Rizal, finish the Modern Age thrice.</description>
+			</l10n>
+			<sortIndex>73820</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_MODERN_AGES_COMPLETED" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_PLAY_GAMES_1" scope="Career" difficulty="1">
+			<l10n>
+				<name>Play Game 1</name>
+				<description>As José Rizal, reach at least 1 Legacy Path Milestone.</description>
+			</l10n>
+			<sortIndex>74400</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_LEGACY_PATH_MILESTONE_COMPLETED" threshold="1" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_PLAY_GAMES_2" scope="Career" difficulty="1">
+			<l10n>
+				<name>Play Game 2</name>
+				<description>As José Rizal, reach at least 2 Legacy Path Milestones.</description>
+			</l10n>
+			<sortIndex>74500</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_LEGACY_PATH_MILESTONE_COMPLETED" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_PLAY_GAMES_3" scope="Career" difficulty="1">
+			<l10n>
+				<name>Play Game 3</name>
+				<description>As José Rizal, reach at least 3 Legacy Path Milestones.</description>
+			</l10n>
+			<sortIndex>74600</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_LEGACY_PATH_MILESTONE_COMPLETED" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_SCIENCE_VICTORY_ANTIQUITY" scope="Career" difficulty="3">
+			<l10n>
+				<name>Great Library</name>
+				<description>As José Rizal, complete the Great Library Legacy Path.</description>
+			</l10n>
+			<sortIndex>72900</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_SCIENCE_VICTORY_ANTIQUITY" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_SCIENCE_VICTORY_ANTIQUITY_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Great Library 2</name>
+				<description>As José Rizal, complete the Great Library Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>72910</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_SCIENCE_VICTORY_ANTIQUITY" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_SCIENCE_VICTORY_ANTIQUITY_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Great Library 3</name>
+				<description>As José Rizal, complete the Great Library Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>72920</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_SCIENCE_VICTORY_ANTIQUITY" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_SCIENCE_VICTORY_EXPLORATION" scope="Career" difficulty="3">
+			<l10n>
+				<name>Enlightenment</name>
+				<description>As José Rizal, complete the Enlightenment Legacy Path.</description>
+			</l10n>
+			<sortIndex>73500</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_SCIENCE_VICTORY_EXPLORATION" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_SCIENCE_VICTORY_EXPLORATION_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Enlightenment 2</name>
+				<description>As José Rizal, complete the Enlightenment Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>73510</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_SCIENCE_VICTORY_EXPLORATION" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_SCIENCE_VICTORY_EXPLORATION_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Enlightenment 3</name>
+				<description>As José Rizal, complete the Enlightenment Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>73520</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_SCIENCE_VICTORY_EXPLORATION" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_SCIENCE_VICTORY_MODERN" scope="Career" difficulty="3">
+			<l10n>
+				<name>Space Race</name>
+				<description>As José Rizal, complete the Space Race Legacy Path.</description>
+			</l10n>
+			<sortIndex>74100</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_SCIENCE_VICTORY_MODERN" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_SCIENCE_VICTORY_MODERN_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Space Race 2</name>
+				<description>As José Rizal, complete the Space Race Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>74110</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_SCIENCE_VICTORY_MODERN" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_SCIENCE_VICTORY_MODERN_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Space Race 3</name>
+				<description>As José Rizal, complete the Space Race Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>74120</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_SCIENCE_VICTORY_MODERN" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_CULTURE_VICTORY_ANTIQUITY" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders of the Ancient World</name>
+				<description>As José Rizal, complete the Wonders of the Ancient World Legacy Path.</description>
+			</l10n>
+			<sortIndex>72700</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_CULTURE_VICTORY_ANTIQUITY" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_CULTURE_VICTORY_ANTIQUITY_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders of the Ancient World 2</name>
+				<description>As José Rizal, complete the Wonders of the Ancient World Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>72710</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_CULTURE_VICTORY_ANTIQUITY" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_CULTURE_VICTORY_ANTIQUITY_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders of the Ancient World 3</name>
+				<description>As José Rizal, complete the Wonders of the Ancient World Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>72720</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_CULTURE_VICTORY_ANTIQUITY" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_CULTURE_VICTORY_EXPLORATION" scope="Career" difficulty="3">
+			<l10n>
+				<name>Toshakhana</name>
+				<description>As José Rizal, complete the Toshakhana Legacy Path.</description>
+			</l10n>
+			<sortIndex>73300</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_CULTURE_VICTORY_EXPLORATION" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_CULTURE_VICTORY_EXPLORATION_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Toshakhana 2</name>
+				<description>As José Rizal, complete the Toshakhana Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>73310</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_CULTURE_VICTORY_EXPLORATION" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_CULTURE_VICTORY_EXPLORATION_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Toshakhana 3</name>
+				<description>As José Rizal, complete the Toshakhana Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>73320</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_CULTURE_VICTORY_EXPLORATION" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_CULTURE_VICTORY_MODERN" scope="Career" difficulty="3">
+			<l10n>
+				<name>Geographic Society</name>
+				<description>As José Rizal, complete the Geographic Society Legacy Path.</description>
+			</l10n>
+			<sortIndex>74200</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_CULTURE_VICTORY_MODERN" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_CULTURE_VICTORY_MODERN_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Geographic Society 2</name>
+				<description>As José Rizal, complete the Geographic Society Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>74210</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_CULTURE_VICTORY_MODERN" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_CULTURE_VICTORY_MODERN_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Geographic Society 3</name>
+				<description>As José Rizal, complete the Geographic Society Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>74220</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_JOSE_RIZAL_CULTURE_VICTORY_MODERN" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_FLAWLESS_VICTORY_ANTIQUITY" scope="Campaign" difficulty="4">
+			<l10n>
+				<name>Dual Legacies, Antiquity</name>
+				<description>As José Rizal, complete 2 Legacy Paths in a single Antiquity Age.</description>
+			</l10n>
+			<sortIndex>73100</sortIndex>
+			<campaignConfig event="CHALLENGE_EVENT_LEADER_JOSE_RIZAL_FLAWLESS_VICTORY_ACHIEVED" />
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="legacyPathCount">2</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_FLAWLESS_VICTORY_EXPLORATION" scope="Campaign" difficulty="4">
+			<l10n>
+				<name>Dual Legacies, Exploration</name>
+				<description>As José Rizal, complete 2 Legacy Paths in a single Exploration Age.</description>
+			</l10n>
+			<sortIndex>73700</sortIndex>
+			<campaignConfig event="CHALLENGE_EVENT_LEADER_JOSE_RIZAL_FLAWLESS_VICTORY_ACHIEVED" />
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="legacyPathCount">2</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_JOSE_RIZAL_FLAWLESS_VICTORY_MODERN" scope="Campaign" difficulty="4">
+			<l10n>
+				<name>Dual Legacies, Modern</name>
+				<description>As José Rizal, complete 2 Legacy Paths in a single Modern Age.</description>
+			</l10n>
+			<sortIndex>74300</sortIndex>
+			<campaignConfig event="CHALLENGE_EVENT_LEADER_JOSE_RIZAL_FLAWLESS_VICTORY_ACHIEVED" />
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="legacyPathCount">2</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_JOSE_RIZAL_QUEST_A_ANTIQUITY" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>An Opus</name>
+				<description>As José Rizal in Antiquity, complete a quest to complete a magnum opus.</description>
+			</l10n>
+			<sortIndex>75300</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_JOSE_RIZAL_QUEST_B_ANTIQUITY" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>A Political Quandary</name>
+				<description>As José Rizal in Antiquity, complete a quest to depose a despotic leader.</description>
+			</l10n>
+			<sortIndex>75400</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_JOSE_RIZAL_QUEST_A_EXPLORATION" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>The Bibliophile</name>
+				<description>As José Rizal in Exploration, complete a quest to satisfy scholastic curiosity.</description>
+			</l10n>
+			<sortIndex>75500</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_JOSE_RIZAL_QUEST_B_EXPLORATION" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>The Fixed Star</name>
+				<description>As José Rizal in Exploration, complete a quest to follow a star to new lands.</description>
+			</l10n>
+			<sortIndex>75600</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_JOSE_RIZAL_QUEST_A_MODERN" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>The Poet's Vision</name>
+				<description>As José Rizal in Modern, complete a quest to look to the sea.</description>
+			</l10n>
+			<sortIndex>75700</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_JOSE_RIZAL_QUEST_B_MODERN" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>The Heart of His People</name>
+				<description>As José Rizal in Modern, complete a quest to navigate diversity.</description>
+			</l10n>
+			<sortIndex>75800</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_JOSE_RIZAL_UNLOCKED_STRATEGYCARDS_EXPLORATION" scope="Campaign" difficulty="1" hidden="true" allowRewardWhenHidden="true">
+			<l10n>
+				<name>Age Transition Card Exploration</name>
+				<description>As José Rizal unlock age transition legend strategycards for exploration age.</description>
+			</l10n>
+			<sortIndex>62501</sortIndex>
+			<reward type="UnlockableReward" reward="STRATEGYCARD_AS_RIZAL_EXPLORATION_1" />
+			<reward type="UnlockableReward" reward="STRATEGYCARD_AS_RIZAL_EXPLORATION_2" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_JOSE_RIZAL_UNLOCKED_STRATEGYCARDS_MODERN" scope="Campaign" difficulty="1" hidden="true" allowRewardWhenHidden="true">
+			<l10n>
+				<name>Age Transition Card Modern</name>
+				<description>As José Rizal unlock age transition legend strategycards for modern age.</description>
+			</l10n>
+			<sortIndex>62502</sortIndex>
+			<reward type="UnlockableReward" reward="STRATEGYCARD_AS_RIZAL_MODERN_1" />
+			<reward type="UnlockableReward" reward="STRATEGYCARD_AS_RIZAL_MODERN_2" />
+		</challenge>
+	</challenges>
+</metaprogression>

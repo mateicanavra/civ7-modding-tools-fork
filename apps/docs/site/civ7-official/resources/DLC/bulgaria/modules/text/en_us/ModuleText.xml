@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MODULE_BULGARIA_NAME">
+			<Text>Bulgaria</Text>
+		</Row>
+		<Row Tag="LOC_MODULE_BULGARIA_DESCRIPTION">
+			<Text>Contains a new Exploration Age Civilization, Bulgaria.</Text>
+		</Row>
+	</EnglishText>
+</Database>

@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_TERRAIN"/>
+		<InsertOrIgnore Kind="KIND_BIOME"/>
+		<InsertOrIgnore Kind="KIND_FEATURE"/>
+		<InsertOrIgnore Kind="KIND_FEATURE_CLASS"/>
+		<InsertOrIgnore Kind="KIND_FERTILITY"/>
+	</Kinds>
+	<Types>
+		<Row Type="TERRAIN_COAST" Kind="KIND_TERRAIN"/>
+		<Row Type="TERRAIN_FLAT" Kind="KIND_TERRAIN"/>
+		<Row Type="TERRAIN_HILL" Kind="KIND_TERRAIN"/>
+		<Row Type="TERRAIN_MOUNTAIN" Kind="KIND_TERRAIN"/>
+		<Row Type="TERRAIN_OCEAN" Kind="KIND_TERRAIN"/>
+		<Row Type="TERRAIN_NAVIGABLE_RIVER" Kind="KIND_TERRAIN"/>
+		<Row Type="BIOME_DESERT" Kind="KIND_BIOME"/>
+		<Row Type="BIOME_GRASSLAND" Kind="KIND_BIOME"/>
+		<Row Type="BIOME_MARINE" Kind="KIND_BIOME"/>
+		<Row Type="BIOME_PLAINS" Kind="KIND_BIOME"/>
+		<Row Type="BIOME_TROPICAL" Kind="KIND_BIOME"/>
+		<Row Type="BIOME_TUNDRA" Kind="KIND_BIOME"/>
+		<!-- Fertility -->
+		<Row Type="FERTILITY_STANDARD" Kind="KIND_FERTILITY"/>
+		<Row Type="FERTILITY_DRY" Kind="KIND_FERTILITY"/>
+		<Row Type="FERTILITY_FERTILE" Kind="KIND_FERTILITY"/>
+		<!-- Features -->
+		<Row Type="FEATURE_CLASS_AQUATIC" Kind="KIND_FEATURE_CLASS"/>
+		<Row Type="FEATURE_CLASS_FLOODPLAIN" Kind="KIND_FEATURE_CLASS"/>
+		<Row Type="FEATURE_CLASS_VEGETATED" Kind="KIND_FEATURE_CLASS"/>
+		<Row Type="FEATURE_CLASS_WET" Kind="KIND_FEATURE_CLASS"/>
+		<Row Type="FEATURE_SAGEBRUSH_STEPPE" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_OASIS" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_DESERT_FLOODPLAIN_MINOR" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_DESERT_FLOODPLAIN_NAVIGABLE" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_FOREST" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_MARSH" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_GRASSLAND_FLOODPLAIN_MINOR" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_GRASSLAND_FLOODPLAIN_NAVIGABLE" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_REEF" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_COLD_REEF" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_SAVANNA_WOODLAND" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_WATERING_HOLE" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_PLAINS_FLOODPLAIN_MINOR" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_PLAINS_FLOODPLAIN_NAVIGABLE" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_RAINFOREST" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_MANGROVE" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_TROPICAL_FLOODPLAIN_MINOR" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_TROPICAL_FLOODPLAIN_NAVIGABLE" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_TAIGA" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_TUNDRA_BOG" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_TUNDRA_FLOODPLAIN_MINOR" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_TUNDRA_FLOODPLAIN_NAVIGABLE" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_ICE" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_VOLCANO" Kind="KIND_FEATURE"/>
+		<!--Natural Wonders -->
+		<Row Type="FEATURE_VALLEY_OF_FLOWERS" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_BARRIER_REEF" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_REDWOOD_FOREST" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_GRAND_CANYON" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_GULLFOSS" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_HOERIKWAGGO" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_IGUAZU_FALLS" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_KILIMANJARO" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_ZHANGJIAJIE" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_THERA" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_TORRES_DEL_PAINE" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_ULURU" Kind="KIND_FEATURE"/>
+	</Types>
+	<Terrains>
+		<!--TERRAIN types must be in this order, they are matching hard-coded indices in gamecore!-->
+		<Row TerrainType="TERRAIN_MOUNTAIN" Name="LOC_TERRAIN_MOUNTAIN_NAME" InfluenceCost="3" MovementCost="1" Appeal="1" Impassable="true" SightThroughModifier="2"/>
+		<Row TerrainType="TERRAIN_HILL" Name="LOC_TERRAIN_HILL_NAME" InfluenceCost="2" MovementCost="1" Hills="true"/>
+		<Row TerrainType="TERRAIN_FLAT" Name="LOC_TERRAIN_FLAT_NAME" InfluenceCost="0" MovementCost="1"/>
+		<Row TerrainType="TERRAIN_COAST" Name="LOC_TERRAIN_COAST_NAME" InfluenceCost="1" MovementCost="1" Appeal="1" Water="true"/>
+		<Row TerrainType="TERRAIN_OCEAN" Name="LOC_TERRAIN_OCEAN_NAME" InfluenceCost="3" MovementCost="1" Water="true"/>
+		<Row TerrainType="TERRAIN_NAVIGABLE_RIVER" Name="LOC_TERRAIN_NAVIGABLE_RIVER_NAME" InfluenceCost="0" MovementCost="1" Appeal="1"/>
+	</Terrains>
+	<Biomes>
+		<Row BiomeType="BIOME_TUNDRA" Name="LOC_BIOME_TUNDRA_NAME"/>
+		<Row BiomeType="BIOME_GRASSLAND" Name="LOC_BIOME_GRASSLAND_NAME" MaxLatitude="58"/>
+		<Row BiomeType="BIOME_PLAINS" Name="LOC_BIOME_PLAINS_NAME" MaxLatitude="33"/>
+		<Row BiomeType="BIOME_TROPICAL" Name="LOC_BIOME_TROPICAL_NAME" MaxLatitude="17"/>
+		<Row BiomeType="BIOME_DESERT" Name="LOC_BIOME_DESERT_NAME" MaxLatitude="44"/>
+		<Row BiomeType="BIOME_MARINE" Name="LOC_BIOME_MARINE_NAME"/>
+	</Biomes>
+	<Biome_ValidTerrains>
+		<Row BiomeType="BIOME_DESERT" TerrainType="TERRAIN_MOUNTAIN"/>
+		<Row BiomeType="BIOME_DESERT" TerrainType="TERRAIN_HILL"/>
+		<Row BiomeType="BIOME_DESERT" TerrainType="TERRAIN_FLAT"/>
+		<Row BiomeType="BIOME_GRASSLAND" TerrainType="TERRAIN_MOUNTAIN"/>
+		<Row BiomeType="BIOME_GRASSLAND" TerrainType="TERRAIN_HILL"/>
+		<Row BiomeType="BIOME_GRASSLAND" TerrainType="TERRAIN_FLAT"/>
+		<Row BiomeType="BIOME_MARINE" TerrainType="TERRAIN_COAST"/>
+		<Row BiomeType="BIOME_MARINE" TerrainType="TERRAIN_OCEAN"/>
+		<Row BiomeType="BIOME_PLAINS" TerrainType="TERRAIN_MOUNTAIN"/>
+		<Row BiomeType="BIOME_PLAINS" TerrainType="TERRAIN_HILL"/>
+		<Row BiomeType="BIOME_PLAINS" TerrainType="TERRAIN_FLAT"/>
+		<Row BiomeType="BIOME_TROPICAL" TerrainType="TERRAIN_MOUNTAIN"/>
+		<Row BiomeType="BIOME_TROPICAL" TerrainType="TERRAIN_HILL"/>
+		<Row BiomeType="BIOME_TROPICAL" TerrainType="TERRAIN_FLAT"/>
+		<Row BiomeType="BIOME_TUNDRA" TerrainType="TERRAIN_MOUNTAIN"/>
+		<Row BiomeType="BIOME_TUNDRA" TerrainType="TERRAIN_HILL"/>
+		<Row BiomeType="BIOME_TUNDRA" TerrainType="TERRAIN_FLAT"/>
+	</Biome_ValidTerrains>
+	<TagCategories>
+		<Row Category="FEATURE_ATTRIBUTE"/>
+	</TagCategories>
+	<Tags>
+		<Row Tag="ADJACENTTOLAND" Category="FEATURE_ATTRIBUTE"/>
+		<Row Tag="ADJACENTTOCOAST" Category="FEATURE_ATTRIBUTE"/>
+		<Row Tag="ADJACENTTOSAMEBIOME" Category="FEATURE_ATTRIBUTE"/>
+		<Row Tag="ADJACENTMOUNTAIN" Category="FEATURE_ATTRIBUTE"/>
+		<Row Tag="FEATURE_FOREST" Category="FEATURE_ATTRIBUTE"/>
+		<Row Tag="FEATURE_REEF" Category="FEATURE_ATTRIBUTE"/>
+		<Row Tag="FEATURE_WATERING_HOLE" Category="FEATURE_ATTRIBUTE"/>
+		<Row Tag="LAKE" Category="FEATURE_ATTRIBUTE"/>
+		<Row Tag="NEARCOAST" Category="FEATURE_ATTRIBUTE"/>
+		<Row Tag="NOTNEARCOAST" Category="FEATURE_ATTRIBUTE"/>
+		<Row Tag="NOTADJACENTMOUNTAIN" Category="FEATURE_ATTRIBUTE"/>
+		<Row Tag="NOTADJACENTTORIVER" Category="FEATURE_ATTRIBUTE"/>
+		<Row Tag="NOTADJACENTTOICE" Category="FEATURE_ATTRIBUTE"/>
+		<Row Tag="NOTADJACENTTOLAND" Category="FEATURE_ATTRIBUTE"/>
+		<Row Tag="SIMALARELEVATION" Category="FEATURE_ATTRIBUTE"/>
+		<Row Tag="SHALLOWWATER" Category="FEATURE_ATTRIBUTE"/>
+		<Row Tag="VOLCANO" Category="FEATURE_ATTRIBUTE"/>
+		<Row Tag="WATERFALL" Category="FEATURE_ATTRIBUTE"/>
+	</Tags>
+	<TypeTags>
+		<Row Type="FEATURE_VOLCANO" Tag="VOLCANO"/>
+		<Row Type="FEATURE_VALLEY_OF_FLOWERS" Tag="NOTNEARCOAST"/>
+		<Row Type="FEATURE_VALLEY_OF_FLOWERS" Tag="ADJACENTMOUNTAIN"/>
+		<Row Type="FEATURE_BARRIER_REEF" Tag="ADJACENTTOLAND"/>
+		<Row Type="FEATURE_BARRIER_REEF" Tag="FEATURE_REEF"/>
+		<Row Type="FEATURE_BARRIER_REEF" Tag="SHALLOWWATER"/>
+		<Row Type="FEATURE_BARRIER_REEF" Tag="NOTADJACENTTOICE"/>
+		<Row Type="FEATURE_COLD_REEF" Tag="NOTADJACENTTOICE"/>
+		<Row Type="FEATURE_REDWOOD_FOREST" Tag="FEATURE_FOREST"/>
+		<Row Type="FEATURE_GULLFOSS" Tag="WATERFALL"/>
+		<Row Type="FEATURE_GRAND_CANYON" Tag="NOTNEARCOAST"/>
+		<Row Type="FEATURE_GRAND_CANYON" Tag="NOTADJACENTTORIVER"/>
+		<Row Type="FEATURE_IGUAZU_FALLS" Tag="WATERFALL"/>
+		<Row Type="FEATURE_KILIMANJARO" Tag="VOLCANO"/>
+		<Row Type="FEATURE_THERA" Tag="ADJACENTTOLAND"/>
+		<Row Type="FEATURE_THERA" Tag="VOLCANO"/>
+		<Row Type="FEATURE_THERA" Tag="SHALLOWWATER"/>
+		<Row Type="FEATURE_THERA" Tag="NOTADJACENTTOICE"/>
+		<Row Type="FEATURE_ULURU" Tag="ADJACENTTOSAMEBIOME"/>
+		<Row Type="FEATURE_ULURU" Tag="NOTADJACENTMOUNTAIN"/>
+	</TypeTags>
+	<TypeQuotes>
+		<Row Type="FEATURE_VALLEY_OF_FLOWERS" Quote="LOC_QUOTE_FEATURE_VALLEY_OF_FLOWERS" QuoteAuthor="LOC_QUOTE_AUTHOR_FEATURE_VALLEY_OF_FLOWERS" QuoteAudio="VO_Quote_ValleyFlowers"/>
+		<Row Type="FEATURE_BARRIER_REEF" Quote="LOC_QUOTE_FEATURE_BARRIER_REEF" QuoteAuthor="LOC_QUOTE_AUTHOR_FEATURE_BARRIER_REEF" QuoteAudio="VO_Quote_GreatBarrierReef"/>
+		<Row Type="FEATURE_REDWOOD_FOREST" Quote="LOC_QUOTE_FEATURE_REDWOOD_FOREST" QuoteAuthor="LOC_QUOTE_AUTHOR_FEATURE_REDWOOD_FOREST" QuoteAudio="VO_Quote_RedwoodForest"/>
+		<Row Type="FEATURE_GRAND_CANYON" Quote="LOC_QUOTE_FEATURE_GRAND_CANYON" QuoteAuthor="LOC_QUOTE_AUTHOR_FEATURE_GRAND_CANYON" QuoteAudio="VO_Quote_GrandCanyon"/>
+		<Row Type="FEATURE_GULLFOSS" Quote="LOC_QUOTE_FEATURE_GULLFOSS" QuoteAuthor="LOC_QUOTE_AUTHOR_FEATURE_GULLFOSS" QuoteAudio="VO_Quote_Gullfoss"/>
+		<Row Type="FEATURE_HOERIKWAGGO" Quote="LOC_QUOTE_FEATURE_HOERIKWAGGO" QuoteAuthor="LOC_QUOTE_AUTHOR_FEATURE_HOERIKWAGGO" QuoteAudio="VO_Quote_Hoerikwaggo"/>
+		<Row Type="FEATURE_IGUAZU_FALLS" Quote="LOC_QUOTE_FEATURE_IGUAZU_FALLS" QuoteAuthor="LOC_QUOTE_AUTHOR_FEATURE_IGUAZU_FALLS" QuoteAudio="VO_Quote_IgazuFalls"/>
+		<Row Type="FEATURE_KILIMANJARO" Quote="LOC_QUOTE_FEATURE_KILIMANJARO" QuoteAuthor="LOC_QUOTE_AUTHOR_FEATURE_KILIMANJARO" QuoteAudio="VO_Quote_Kilimanjaro"/>
+		<Row Type="FEATURE_ZHANGJIAJIE" Quote="LOC_QUOTE_FEATURE_ZHANGJIAJIE" QuoteAuthor="LOC_QUOTE_AUTHOR_FEATURE_ZHANGJIAJIE" QuoteAudio="VO_Quote_Zhangjiajie"/>
+		<Row Type="FEATURE_THERA" Quote="LOC_QUOTE_FEATURE_THERA" QuoteAuthor="LOC_QUOTE_AUTHOR_FEATURE_THERA" QuoteAudio="VO_Quote_Thera"/>
+		<Row Type="FEATURE_TORRES_DEL_PAINE" Quote="LOC_QUOTE_FEATURE_TORRES_DEL_PAINE" QuoteAuthor="LOC_QUOTE_AUTHOR_FEATURE_TORRES_DEL_PAINE" QuoteAudio="VO_Quote_TorresdelPaine"/>
+		<Row Type="FEATURE_ULURU" Quote="LOC_QUOTE_FEATURE_ULURU" QuoteAuthor="LOC_QUOTE_AUTHOR_FEATURE_ULURU" QuoteAudio="VO_Quote_Uluru"/>
+	</TypeQuotes>
+	<Fertilities>
+		<!-- Please keep this in order of less to more fertile -->
+		<Row FertilityType="FERTILITY_DRY" Name="LOC_FERTILITY_DRY_NAME"/>
+		<Row FertilityType="FERTILITY_STANDARD" Name="LOC_FERTILITY_STANDARD_NAME"/>
+		<Row FertilityType="FERTILITY_FERTILE" Name="LOC_FERTILITY_FERTILE_NAME"/>
+	</Fertilities>
+	<FeatureClasses>
+		<Row FeatureClassType="FEATURE_CLASS_AQUATIC" Name="LOC_FEATURE_CLASS_AQUATIC_NAME" Adjective="LOC_FEATURE_CLASS_AQUATIC_ADJ" Description="LOC_FEATURE_CLASS_AQUATIC_DESC"/>
+		<Row FeatureClassType="FEATURE_CLASS_FLOODPLAIN" Name="LOC_FEATURE_CLASS_FLOODPLAIN_NAME" Adjective="LOC_FEATURE_CLASS_FLOODPLAIN_ADJ" Description="LOC_FEATURE_CLASS_FLOODPLAIN_DESC"/>
+		<Row FeatureClassType="FEATURE_CLASS_VEGETATED" Name="LOC_FEATURE_CLASS_VEGETATED_NAME" Adjective="LOC_FEATURE_CLASS_VEGETATED_ADJ" Description="LOC_FEATURE_CLASS_VEGETATED_DESC"/>
+		<Row FeatureClassType="FEATURE_CLASS_WET" Name="LOC_FEATURE_CLASS_WET_NAME" Adjective="LOC_FEATURE_CLASS_WET_ADJ" Description="LOC_FEATURE_CLASS_WET_DESC"/>
+	</FeatureClasses>
+	<Features>
+		<Row FeatureType="FEATURE_SAGEBRUSH_STEPPE" Name="LOC_FEATURE_SAGEBRUSH_STEPPE_NAME" FeatureClassType="FEATURE_CLASS_VEGETATED" SightThroughModifier="1" DefenseModifier="2" PlacementClass="SCATTER" PlacementDensity="30" Appeal="1" AntiquityPriority="10" Removable="true"/>
+		<Row FeatureType="FEATURE_OASIS" Name="LOC_FEATURE_OASIS_NAME" FeatureClassType="FEATURE_CLASS_WET" PlacementClass="ISOLATED" PlacementDensity="50" AntiquityPriority="25" AddsFreshWater="true" Removable="true"/>
+		<Row FeatureType="FEATURE_DESERT_FLOODPLAIN_MINOR" Name="LOC_FEATURE_DESERT_FLOODPLAIN_NAME" FeatureClassType="FEATURE_CLASS_FLOODPLAIN" PlacementClass="RIVERMOUTH" Removable="true"/>
+		<Row FeatureType="FEATURE_DESERT_FLOODPLAIN_NAVIGABLE" Name="LOC_FEATURE_DESERT_FLOODPLAIN_NAME" FeatureClassType="FEATURE_CLASS_FLOODPLAIN" PlacementClass="RIVERMOUTH" Removable="true"/>
+		<Row FeatureType="FEATURE_FOREST" Name="LOC_FEATURE_FOREST_NAME" FeatureClassType="FEATURE_CLASS_VEGETATED" SightThroughModifier="1" DefenseModifier="2" PlacementClass="SCATTER" PlacementDensity="50" Appeal="1" AntiquityPriority="15" Removable="true"/>
+		<Row FeatureType="FEATURE_MARSH" Name="LOC_FEATURE_MARSH_NAME" FeatureClassType="FEATURE_CLASS_WET" DefenseModifier="-2" PlacementClass="NEARRIVER" PlacementDensity="30" AntiquityPriority="25" AddsFreshWater="true" Removable="true"/>
+		<Row FeatureType="FEATURE_GRASSLAND_FLOODPLAIN_MINOR" Name="LOC_FEATURE_GRASSLAND_FLOODPLAIN_NAME" FeatureClassType="FEATURE_CLASS_FLOODPLAIN" PlacementClass="RIVERMOUTH" Removable="true"/>
+		<Row FeatureType="FEATURE_GRASSLAND_FLOODPLAIN_NAVIGABLE" Name="LOC_FEATURE_GRASSLAND_FLOODPLAIN_NAME" FeatureClassType="FEATURE_CLASS_FLOODPLAIN" PlacementClass="RIVERMOUTH" Removable="true"/>
+		<Row FeatureType="FEATURE_REEF" Name="LOC_FEATURE_REEF_NAME" FeatureClassType="FEATURE_CLASS_AQUATIC" MaxLatitude="55" PlacementClass="REEF" PlacementDensity="30" Removable="true"/>
+		<Row FeatureType="FEATURE_COLD_REEF" Name="LOC_FEATURE_REEF_NAME" FeatureClassType="FEATURE_CLASS_AQUATIC" MaxLatitude="90" MinLatitude="55" PlacementClass="REEF" PlacementDensity="30" Removable="true"/>
+		<Row FeatureType="FEATURE_ICE" Name="LOC_FEATURE_ICE_NAME" PlacementClass="ICE" NoLake="true" PlacementDensity="90" Impassable="true" Removable="false"/>
+		<Row FeatureType="FEATURE_SAVANNA_WOODLAND" Name="LOC_FEATURE_SAVANNA_WOODLAND_NAME" FeatureClassType="FEATURE_CLASS_VEGETATED" SightThroughModifier="1" DefenseModifier="2" PlacementClass="SCATTER" PlacementDensity="30" Appeal="1" AntiquityPriority="10" Removable="true"/>
+		<Row FeatureType="FEATURE_WATERING_HOLE" Name="LOC_FEATURE_WATERING_HOLE_NAME" FeatureClassType="FEATURE_CLASS_WET" PlacementClass="ISOLATED" PlacementDensity="30" AntiquityPriority="20" AddsFreshWater="true" Removable="true"/>
+		<Row FeatureType="FEATURE_PLAINS_FLOODPLAIN_MINOR" Name="LOC_FEATURE_PLAINS_FLOODPLAIN_NAME" FeatureClassType="FEATURE_CLASS_FLOODPLAIN" PlacementClass="RIVERMOUTH" Removable="true"/>
+		<Row FeatureType="FEATURE_PLAINS_FLOODPLAIN_NAVIGABLE" Name="LOC_FEATURE_PLAINS_FLOODPLAIN_NAME" FeatureClassType="FEATURE_CLASS_FLOODPLAIN" PlacementClass="RIVERMOUTH" Removable="true"/>
+		<Row FeatureType="FEATURE_RAINFOREST" Name="LOC_FEATURE_RAINFOREST_NAME" FeatureClassType="FEATURE_CLASS_VEGETATED" SightThroughModifier="1" DefenseModifier="2" PlacementClass="SCATTER" PlacementDensity="65" Appeal="1" AntiquityPriority="20" Removable="true"/>
+		<Row FeatureType="FEATURE_MANGROVE" Name="LOC_FEATURE_MANGROVE_NAME" FeatureClassType="FEATURE_CLASS_WET" DefenseModifier="-2" AntiquityPriority="20" AddsFreshWater="true" PlacementClass="COASTAL" PlacementDensity="30" Removable="true"/>
+		<Row FeatureType="FEATURE_TROPICAL_FLOODPLAIN_MINOR" Name="LOC_FEATURE_TROPICAL_FLOODPLAIN_NAME" FeatureClassType="FEATURE_CLASS_FLOODPLAIN" PlacementClass="RIVERMOUTH" Removable="true"/>
+		<Row FeatureType="FEATURE_TROPICAL_FLOODPLAIN_NAVIGABLE" Name="LOC_FEATURE_TROPICAL_FLOODPLAIN_NAME" FeatureClassType="FEATURE_CLASS_FLOODPLAIN" PlacementClass="RIVERMOUTH" Removable="true"/>
+		<Row FeatureType="FEATURE_TAIGA" Name="LOC_FEATURE_TAIGA_NAME" FeatureClassType="FEATURE_CLASS_VEGETATED" SightThroughModifier="1" DefenseModifier="2" PlacementClass="SCATTER" PlacementDensity="50" Appeal="1" AntiquityPriority="15" Removable="true"/>
+		<Row FeatureType="FEATURE_TUNDRA_BOG" Name="LOC_FEATURE_TUNDRA_BOG_NAME" FeatureClassType="FEATURE_CLASS_WET" DefenseModifier="-2" AntiquityPriority="25" AddsFreshWater="true" PlacementClass="NEARRIVER" PlacementDensity="30" Removable="true"/>
+		<Row FeatureType="FEATURE_TUNDRA_FLOODPLAIN_MINOR" Name="LOC_FEATURE_TUNDRA_FLOODPLAIN_NAME" FeatureClassType="FEATURE_CLASS_FLOODPLAIN" PlacementClass="RIVERMOUTH" Removable="true"/>
+		<Row FeatureType="FEATURE_TUNDRA_FLOODPLAIN_NAVIGABLE" Name="LOC_FEATURE_TUNDRA_FLOODPLAIN_NAME" FeatureClassType="FEATURE_CLASS_FLOODPLAIN" PlacementClass="RIVERMOUTH" Removable="true"/>
+		<Row FeatureType="FEATURE_VOLCANO" Name="LOC_FEATURE_VOLCANO_NAME" PlacementClass="VOLCANO" Removable="false" SightThroughModifier="1" Impassable="true"/>
+		<!--Natural Wonders -->
+		<Row FeatureType="FEATURE_VALLEY_OF_FLOWERS" Name="LOC_FEATURE_VALLEY_OF_FLOWERS_NAME" Description="LOC_FEATURE_VALLEY_OF_FLOWERS_DESCRIPTION" Tooltip="LOC_FEATURE_VALLEY_OF_FLOWERS_TOOLTIP" PlacementClass="TWOADJACENT" Appeal="1" Impassable="false" Removable="false"/>
+		<Row FeatureType="FEATURE_BARRIER_REEF" Name="LOC_FEATURE_BARRIER_REEF_NAME" Description="LOC_FEATURE_BARRIER_REEF_DESCRIPTION" Tooltip="LOC_FEATURE_BARRIER_REEF_TOOLTIP" PlacementClass="FOURADJACENT" NoLake="true" Appeal="1" FeatureClassType="FEATURE_CLASS_VEGETATED" Removable="false"/>
+		<Row FeatureType="FEATURE_REDWOOD_FOREST" Name="LOC_FEATURE_REDWOOD_FOREST_NAME" Description="LOC_FEATURE_REDWOOD_FOREST_DESCRIPTION" Tooltip="LOC_FEATURE_REDWOOD_FOREST_TOOLTIP" PlacementClass="THREETRIANGLE" Appeal="1" FeatureClassType="FEATURE_CLASS_VEGETATED" SightThroughModifier="1" DefenseModifier="2" Removable="false"/>
+		<Row FeatureType="FEATURE_GRAND_CANYON" Name="LOC_FEATURE_GRAND_CANYON_NAME" Description="LOC_FEATURE_GRAND_CANYON_DESCRIPTION" Tooltip="LOC_FEATURE_GRAND_CANYON_TOOLTIP" PlacementClass="FOURPARALLELAGRM" Appeal="1" MinimumElevation="350" Impassable="true" Removable="false"/>
+		<Row FeatureType="FEATURE_GULLFOSS" Name="LOC_FEATURE_GULLFOSS_NAME" Description="LOC_FEATURE_GULLFOSS_DESCRIPTION" Tooltip="LOC_FEATURE_GULLFOSS_TOOLTIP" PlacementClass="ONE" AddsFreshWater="true" Appeal="1" Impassable="true" Removable="false"/>
+		<Row FeatureType="FEATURE_HOERIKWAGGO" Name="LOC_FEATURE_HOERIKWAGGO_NAME" Description="LOC_FEATURE_HOERIKWAGGO_DESCRIPTION" Tooltip="LOC_FEATURE_HOERIKWAGGO_TOOLTIP" PlacementClass="FOURL" Appeal="1" Impassable="true" Removable="false"/>
+		<Row FeatureType="FEATURE_IGUAZU_FALLS" Name="LOC_FEATURE_IGUAZU_FALLS_NAME" Description="LOC_FEATURE_IGUAZU_FALLS_DESCRIPTION" Tooltip="LOC_FEATURE_IGUAZU_FALLS_TOOLTIP" AddsFreshWater="true" PlacementClass="ONE" Appeal="1" Impassable="true" Removable="false"/>
+		<Row FeatureType="FEATURE_KILIMANJARO" Name="LOC_FEATURE_KILIMANJARO_NAME" Description="LOC_FEATURE_KILIMANJARO_DESCRIPTION" Tooltip="LOC_FEATURE_KILIMANJARO_TOOLTIP" PlacementClass="THREETRIANGLE" Appeal="1" Impassable="true" Removable="false" SightThroughModifier="1"/>
+		<Row FeatureType="FEATURE_ZHANGJIAJIE" Name="LOC_FEATURE_ZHANGJIAJIE_NAME" Description="LOC_FEATURE_ZHANGJIAJIE_DESCRIPTION" Tooltip="LOC_FEATURE_ZHANGJIAJIE_TOOLTIP" PlacementClass="TWOADJACENT" Appeal="1" Impassable="true" FeatureClassType="FEATURE_CLASS_WET" Removable="false"/>
+		<Row FeatureType="FEATURE_THERA" Name="LOC_FEATURE_THERA_NAME" Description="LOC_FEATURE_THERA_DESCRIPTION" Tooltip="LOC_FEATURE_THERA_TOOLTIP" Impassable="true" Removable="false" PlacementClass="FOURPARALLELAGRM" NoLake="true" Appeal="1" SightThroughModifier="1"/>
+		<Row FeatureType="FEATURE_TORRES_DEL_PAINE" Name="LOC_FEATURE_TORRES_DEL_PAINE_NAME" Description="LOC_FEATURE_TORRES_DEL_PAINE_DESCRIPTION" Tooltip="LOC_FEATURE_TORRES_DEL_PAINE_TOOLTIP" PlacementClass="THREETRIANGLE" Appeal="1" Impassable="true" Removable="false"/>
+		<Row FeatureType="FEATURE_ULURU" Name="LOC_FEATURE_ULURU_NAME" Description="LOC_FEATURE_ULURU_DESCRIPTION" Tooltip="LOC_FEATURE_ULURU_TOOLTIP" PlacementClass="ONE" Appeal="1" Impassable="true" Removable="false" SightThroughModifier="1"/>
+	</Features>
+	<Feature_NaturalWonders>
+		<Row FeatureType="FEATURE_BARRIER_REEF" Tiles="4" PlacementPercentage="100"/>
+		<Row FeatureType="FEATURE_VALLEY_OF_FLOWERS" Tiles="2" PlacementPercentage="100" PlaceFirst="true"/>
+		<Row FeatureType="FEATURE_REDWOOD_FOREST" Tiles="3" PlacementPercentage="100"/>
+		<Row FeatureType="FEATURE_GRAND_CANYON" Tiles="4" PlacementPercentage="100"/>
+		<Row FeatureType="FEATURE_GULLFOSS" Tiles="1" PlacementPercentage="100" NoRiver="false" PlaceFirst="true"/>
+		<Row FeatureType="FEATURE_HOERIKWAGGO" Tiles="4" PlacementPercentage="100"/>
+		<Row FeatureType="FEATURE_IGUAZU_FALLS" Tiles="1" PlacementPercentage="100" NoRiver="false" PlaceFirst="true"/>
+		<Row FeatureType="FEATURE_KILIMANJARO" Tiles="3" PlacementPercentage="100"/>
+		<Row FeatureType="FEATURE_ZHANGJIAJIE" Tiles="2" PlacementPercentage="100"/>
+		<Row FeatureType="FEATURE_THERA" Tiles="4" PlacementPercentage="100"/>
+		<Row FeatureType="FEATURE_TORRES_DEL_PAINE" Tiles="3" PlacementPercentage="100"/>
+		<Row FeatureType="FEATURE_ULURU" Tiles="1" PlacementPercentage="100"/>
+	</Feature_NaturalWonders>
+	<Feature_ValidTerrains>
+		<Row FeatureType="FEATURE_SAGEBRUSH_STEPPE" TerrainType="TERRAIN_FLAT"/>
+		<Row FeatureType="FEATURE_OASIS" TerrainType="TERRAIN_FLAT"/>
+		<Row FeatureType="FEATURE_DESERT_FLOODPLAIN_MINOR" TerrainType="TERRAIN_FLAT"/>
+		<Row FeatureType="FEATURE_DESERT_FLOODPLAIN_NAVIGABLE" TerrainType="TERRAIN_NAVIGABLE_RIVER"/>
+		<Row FeatureType="FEATURE_FOREST" TerrainType="TERRAIN_FLAT"/>
+		<Row FeatureType="FEATURE_MARSH" TerrainType="TERRAIN_FLAT"/>
+		<Row FeatureType="FEATURE_GRASSLAND_FLOODPLAIN_MINOR" TerrainType="TERRAIN_FLAT"/>
+		<Row FeatureType="FEATURE_GRASSLAND_FLOODPLAIN_NAVIGABLE" TerrainType="TERRAIN_NAVIGABLE_RIVER"/>
+		<Row FeatureType="FEATURE_REEF" TerrainType="TERRAIN_COAST"/>
+		<Row FeatureType="FEATURE_COLD_REEF" TerrainType="TERRAIN_COAST"/>
+		<Row FeatureType="FEATURE_ICE" TerrainType="TERRAIN_COAST"/>
+		<Row FeatureType="FEATURE_ICE" TerrainType="TERRAIN_OCEAN"/>
+		<Row FeatureType="FEATURE_SAVANNA_WOODLAND" TerrainType="TERRAIN_FLAT"/>
+		<Row FeatureType="FEATURE_WATERING_HOLE" TerrainType="TERRAIN_FLAT"/>
+		<Row FeatureType="FEATURE_PLAINS_FLOODPLAIN_MINOR" TerrainType="TERRAIN_FLAT"/>
+		<Row FeatureType="FEATURE_PLAINS_FLOODPLAIN_NAVIGABLE" TerrainType="TERRAIN_NAVIGABLE_RIVER"/>
+		<Row FeatureType="FEATURE_RAINFOREST" TerrainType="TERRAIN_FLAT"/>
+		<Row FeatureType="FEATURE_MANGROVE" TerrainType="TERRAIN_FLAT"/>
+		<Row FeatureType="FEATURE_TROPICAL_FLOODPLAIN_MINOR" TerrainType="TERRAIN_FLAT"/>
+		<Row FeatureType="FEATURE_TROPICAL_FLOODPLAIN_NAVIGABLE" TerrainType="TERRAIN_NAVIGABLE_RIVER"/>
+		<Row FeatureType="FEATURE_TAIGA" TerrainType="TERRAIN_FLAT"/>
+		<Row FeatureType="FEATURE_TUNDRA_BOG" TerrainType="TERRAIN_FLAT"/>
+		<Row FeatureType="FEATURE_TUNDRA_FLOODPLAIN_MINOR" TerrainType="TERRAIN_FLAT"/>
+		<Row FeatureType="FEATURE_TUNDRA_FLOODPLAIN_NAVIGABLE" TerrainType="TERRAIN_NAVIGABLE_RIVER"/>
+		<!--Natural Wonders -->
+		<Row FeatureType="FEATURE_VALLEY_OF_FLOWERS" TerrainType="TERRAIN_FLAT"/>
+		<Row FeatureType="FEATURE_BARRIER_REEF" TerrainType="TERRAIN_COAST"/>
+		<Row FeatureType="FEATURE_REDWOOD_FOREST" TerrainType="TERRAIN_FLAT"/>
+		<Row FeatureType="FEATURE_GULLFOSS" TerrainType="TERRAIN_HILL"/>
+		<Row FeatureType="FEATURE_GRAND_CANYON" TerrainType="TERRAIN_FLAT"/>
+		<Row FeatureType="FEATURE_HOERIKWAGGO" TerrainType="TERRAIN_MOUNTAIN"/>
+		<Row FeatureType="FEATURE_IGUAZU_FALLS" TerrainType="TERRAIN_HILL"/>
+		<Row FeatureType="FEATURE_KILIMANJARO" TerrainType="TERRAIN_MOUNTAIN"/>
+		<Row FeatureType="FEATURE_ZHANGJIAJIE" TerrainType="TERRAIN_MOUNTAIN"/>
+		<Row FeatureType="FEATURE_THERA" TerrainType="TERRAIN_COAST"/>
+		<Row FeatureType="FEATURE_TORRES_DEL_PAINE" TerrainType="TERRAIN_MOUNTAIN"/>
+		<Row FeatureType="FEATURE_ULURU" TerrainType="TERRAIN_HILL"/>
+	</Feature_ValidTerrains>
+	<Feature_ValidBiomes>
+		<Row FeatureType="FEATURE_SAGEBRUSH_STEPPE" BiomeType="BIOME_DESERT"/>
+		<Row FeatureType="FEATURE_OASIS" BiomeType="BIOME_DESERT"/>
+		<Row FeatureType="FEATURE_DESERT_FLOODPLAIN_MINOR" BiomeType="BIOME_DESERT"/>
+		<Row FeatureType="FEATURE_DESERT_FLOODPLAIN_NAVIGABLE" BiomeType="BIOME_DESERT"/>
+		<Row FeatureType="FEATURE_FOREST" BiomeType="BIOME_GRASSLAND"/>
+		<Row FeatureType="FEATURE_MARSH" BiomeType="BIOME_GRASSLAND"/>
+		<Row FeatureType="FEATURE_GRASSLAND_FLOODPLAIN_MINOR" BiomeType="BIOME_GRASSLAND"/>
+		<Row FeatureType="FEATURE_GRASSLAND_FLOODPLAIN_NAVIGABLE" BiomeType="BIOME_GRASSLAND"/>
+		<Row FeatureType="FEATURE_REEF" BiomeType="BIOME_MARINE"/>
+		<Row FeatureType="FEATURE_COLD_REEF" BiomeType="BIOME_MARINE"/>
+		<Row FeatureType="FEATURE_ICE" BiomeType="BIOME_MARINE"/>
+		<Row FeatureType="FEATURE_SAVANNA_WOODLAND" BiomeType="BIOME_PLAINS"/>
+		<Row FeatureType="FEATURE_WATERING_HOLE" BiomeType="BIOME_PLAINS"/>
+		<Row FeatureType="FEATURE_PLAINS_FLOODPLAIN_MINOR" BiomeType="BIOME_PLAINS"/>
+		<Row FeatureType="FEATURE_PLAINS_FLOODPLAIN_NAVIGABLE" BiomeType="BIOME_PLAINS"/>
+		<Row FeatureType="FEATURE_RAINFOREST" BiomeType="BIOME_TROPICAL"/>
+		<Row FeatureType="FEATURE_MANGROVE" BiomeType="BIOME_TROPICAL"/>
+		<Row FeatureType="FEATURE_TROPICAL_FLOODPLAIN_MINOR" BiomeType="BIOME_TROPICAL"/>
+		<Row FeatureType="FEATURE_TROPICAL_FLOODPLAIN_NAVIGABLE" BiomeType="BIOME_TROPICAL"/>
+		<Row FeatureType="FEATURE_TAIGA" BiomeType="BIOME_TUNDRA"/>
+		<Row FeatureType="FEATURE_TUNDRA_BOG" BiomeType="BIOME_TUNDRA"/>
+		<Row FeatureType="FEATURE_TUNDRA_FLOODPLAIN_MINOR" BiomeType="BIOME_TUNDRA"/>
+		<Row FeatureType="FEATURE_TUNDRA_FLOODPLAIN_NAVIGABLE" BiomeType="BIOME_TUNDRA"/>
+		<!--Natural Wonders -->
+		<Row FeatureType="FEATURE_VALLEY_OF_FLOWERS" BiomeType="BIOME_PLAINS"/>
+		<Row FeatureType="FEATURE_BARRIER_REEF" BiomeType="BIOME_MARINE"/>
+		<Row FeatureType="FEATURE_REDWOOD_FOREST" BiomeType="BIOME_GRASSLAND"/>
+		<Row FeatureType="FEATURE_GRAND_CANYON" BiomeType="BIOME_DESERT"/>
+		<Row FeatureType="FEATURE_GULLFOSS" BiomeType="BIOME_TUNDRA"/>
+		<Row FeatureType="FEATURE_GULLFOSS" BiomeType="BIOME_GRASSLAND" ReplaceWithBiomeType="BIOME_TUNDRA" ReplaceRange="1"/>
+		<Row FeatureType="FEATURE_HOERIKWAGGO" BiomeType="BIOME_GRASSLAND"/>
+		<Row FeatureType="FEATURE_IGUAZU_FALLS" BiomeType="BIOME_TROPICAL"/>
+		<Row FeatureType="FEATURE_KILIMANJARO" BiomeType="BIOME_PLAINS"/>
+		<Row FeatureType="FEATURE_ZHANGJIAJIE" BiomeType="BIOME_TROPICAL"/>
+		<Row FeatureType="FEATURE_THERA" BiomeType="BIOME_MARINE"/>
+		<Row FeatureType="FEATURE_TORRES_DEL_PAINE" BiomeType="BIOME_TUNDRA"/>
+		<Row FeatureType="FEATURE_ULURU" BiomeType="BIOME_DESERT"/>
+	</Feature_ValidBiomes>
+	<TerrainBiomeFeature_YieldChanges>
+		<!--Natural Wonders -->
+		<Row TerrainType="TERRAIN_FLAT" BiomeType="BIOME_PLAINS" FeatureType="FEATURE_VALLEY_OF_FLOWERS" YieldType="YIELD_FOOD" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_FLAT" BiomeType="BIOME_PLAINS" FeatureType="FEATURE_VALLEY_OF_FLOWERS" YieldType="YIELD_CULTURE" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_FLAT" BiomeType="BIOME_PLAINS" FeatureType="FEATURE_VALLEY_OF_FLOWERS" YieldType="YIELD_HAPPINESS" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_COAST" BiomeType="BIOME_MARINE" FeatureType="FEATURE_BARRIER_REEF" YieldType="YIELD_FOOD" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_COAST" BiomeType="BIOME_MARINE" FeatureType="FEATURE_BARRIER_REEF" YieldType="YIELD_HAPPINESS" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_COAST" BiomeType="BIOME_MARINE" FeatureType="FEATURE_BARRIER_REEF" YieldType="YIELD_SCIENCE" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_FLAT" BiomeType="BIOME_GRASSLAND" FeatureType="FEATURE_REDWOOD_FOREST" YieldType="YIELD_FOOD" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_FLAT" BiomeType="BIOME_GRASSLAND" FeatureType="FEATURE_REDWOOD_FOREST" YieldType="YIELD_PRODUCTION" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_FLAT" BiomeType="BIOME_GRASSLAND" FeatureType="FEATURE_REDWOOD_FOREST" YieldType="YIELD_HAPPINESS" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_FLAT" BiomeType="BIOME_DESERT" FeatureType="FEATURE_GRAND_CANYON" YieldType="YIELD_CULTURE" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_FLAT" BiomeType="BIOME_DESERT" FeatureType="FEATURE_GRAND_CANYON" YieldType="YIELD_HAPPINESS" YieldChange="4" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_HILL" BiomeType="BIOME_TUNDRA" FeatureType="FEATURE_GULLFOSS" YieldType="YIELD_FOOD" YieldChange="6" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_MOUNTAIN" BiomeType="BIOME_GRASSLAND" FeatureType="FEATURE_HOERIKWAGGO" YieldType="YIELD_CULTURE" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_MOUNTAIN" BiomeType="BIOME_GRASSLAND" FeatureType="FEATURE_HOERIKWAGGO" YieldType="YIELD_FOOD" YieldChange="4" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_HILL" BiomeType="BIOME_TROPICAL" FeatureType="FEATURE_IGUAZU_FALLS" YieldType="YIELD_FOOD" YieldChange="4" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_HILL" BiomeType="BIOME_TROPICAL" FeatureType="FEATURE_IGUAZU_FALLS" YieldType="YIELD_HAPPINESS" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_MOUNTAIN" BiomeType="BIOME_PLAINS" FeatureType="FEATURE_KILIMANJARO" YieldType="YIELD_HAPPINESS" YieldChange="4" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_MOUNTAIN" BiomeType="BIOME_PLAINS" FeatureType="FEATURE_KILIMANJARO" YieldType="YIELD_PRODUCTION" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_MOUNTAIN" BiomeType="BIOME_TROPICAL" FeatureType="FEATURE_ZHANGJIAJIE" YieldType="YIELD_HAPPINESS" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_MOUNTAIN" BiomeType="BIOME_TROPICAL" FeatureType="FEATURE_ZHANGJIAJIE" YieldType="YIELD_PRODUCTION" YieldChange="4" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_COAST" BiomeType="BIOME_MARINE" FeatureType="FEATURE_THERA" YieldType="YIELD_CULTURE" YieldChange="4" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_COAST" BiomeType="BIOME_MARINE" FeatureType="FEATURE_THERA" YieldType="YIELD_HAPPINESS" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_MOUNTAIN" BiomeType="BIOME_TUNDRA" FeatureType="FEATURE_TORRES_DEL_PAINE" YieldType="YIELD_FOOD" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_MOUNTAIN" BiomeType="BIOME_TUNDRA" FeatureType="FEATURE_TORRES_DEL_PAINE" YieldType="YIELD_HAPPINESS" YieldChange="4" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_HILL" BiomeType="BIOME_DESERT" FeatureType="FEATURE_ULURU" YieldType="YIELD_HAPPINESS" YieldChange="6" ScaleByGameAge="50"/>
+	</TerrainBiomeFeature_YieldChanges>
+	<Feature_CityYields>
+		<Row Feature_CityYieldType="REDWOOD_FOREST_VEG_CULTURE" FeatureType="FEATURE_REDWOOD_FOREST" YieldType="YIELD_CULTURE" FeatureClass="FEATURE_CLASS_VEGETATED" YieldChange="1"/>
+		<Row Feature_CityYieldType="REDWOOD_FOREST_VEG_SCIENCE" FeatureType="FEATURE_REDWOOD_FOREST" YieldType="YIELD_SCIENCE" FeatureClass="FEATURE_CLASS_VEGETATED" YieldChange="1"/>
+		<Row Feature_CityYieldType="ZHANGJIAJIE_ROUGH_CULTURE" FeatureType="FEATURE_ZHANGJIAJIE" YieldType="YIELD_CULTURE" Terrain="TERRAIN_HILL" YieldChange="2"/>
+		<Row Feature_CityYieldType="GRAND_CANYON_FLAT_SCIENCE" FeatureType="FEATURE_GRAND_CANYON" YieldType="YIELD_SCIENCE" Terrain="TERRAIN_FLAT" YieldChange="2"/>
+		<Row Feature_CityYieldType="TORRES_DEL_PAINE_TUNDRA_FOOD" FeatureType="FEATURE_TORRES_DEL_PAINE" YieldType="YIELD_FOOD" Biome="BIOME_TUNDRA" YieldChange="1"/>
+		<Row Feature_CityYieldType="TORRES_DEL_PAINE_TUNDRA_PRODUCTION" FeatureType="FEATURE_TORRES_DEL_PAINE" YieldType="YIELD_PRODUCTION" Biome="BIOME_TUNDRA" YieldChange="1"/>
+		<Row Feature_CityYieldType="ULURU_DESERT_CULTURE" FeatureType="FEATURE_ULURU" YieldType="YIELD_CULTURE" Biome="BIOME_DESERT" YieldChange="2"/>
+	</Feature_CityYields>
+	<GameModifiers>
+		<Row ModifierId="VALLEY_OF_FLOWERS_TRADE_ROUTE_RANGE"/>
+		<Row ModifierId="BARRIER_REEF_ADJACENT_RURAL_SEA_YIELDS"/>
+		<Row ModifierId="HOERIKWAGGO_ADJACENT_URBAN_YIELDS"/>
+		<Row ModifierId="IGUAZU_FALLS_ADJACENT_URBAN_YIELDS"/>
+		<Row ModifierId="GULLFOSS_ADJACENT_YIELDS"/>
+	</GameModifiers>
+</Database>

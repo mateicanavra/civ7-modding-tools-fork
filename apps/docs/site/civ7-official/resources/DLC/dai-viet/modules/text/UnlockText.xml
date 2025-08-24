@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_UNLOCK_TROPICAL_DESCRIPTION">
+			<Text>Have three Settlements on [B]Tropical[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_DAI_VIET_DESCRIPTION">
+			<Text>Play as [B]Đại Việt[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_TROPICAL_DAI_VIET_DESCRIPTION">
+			<Text>Have three Settlements on [B]Tropical[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_TROPICAL_DAI_VIET_TOOLTIP">
+			<Text>[B]Tropical Settlements[/B] were an important part of [B]Đại Việt's[/B] identity.</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_TROPICAL_DAI_VIET_NARRATIVE">
+			<Text>To carve cities and towns out of the waist of the world, where life overwhelms life, requires constant vigilance. In building their tropical cities, {1_Civilization_Adj} settlers emulate those already living there - clearing one’s own ground and holding it against the forces that seek to overwhelm. </Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_LAKSHMIBAI_DAI_VIET_TOOLTIP">
+			<Text>[B]Lakshmibai[/B] was from the same continent as [B]Đại Việt[/B].</Text>
+		</Row>
+		<Row Tag="LOC_UNLOCK_PLAY_AS_TRUNG_TRAC_DAI_VIET_TOOLTIP">
+			<Text>[B]Trung Trac[/B] was a ruler in ancient Vietnam.</Text>
+		</Row>
+	</EnglishText>
+</Database>

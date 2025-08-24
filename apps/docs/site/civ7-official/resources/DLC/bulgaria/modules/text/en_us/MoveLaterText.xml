@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_COMBAT_PREVIEW_NUMBER_GREATWORKS_BONUS_DESC">
+			<Text>+{1_Value} Combat Strength from slotted Great Works.</Text>
+		</Row>
+	</EnglishText>
+</Database>

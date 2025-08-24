@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_BADGE_NAPOLEON_REVOLUTIONARY_NAME">
+			<Text>Napoleon Revolutionary Badge 1</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_NAPOLEON_REVOLUTIONARY_P_NAME">
+			<Text>Napoleon Revolutionary Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_NAPOLEON_REVOLUTIONARY_NAME">
+			<Text>Napoleon Revolutionary Banner</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_NAPOLEON_REVOLUTIONARY_NAME">
+			<Text>Man of Destiny</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_NAPOLEON_REVOLUTIONARY_EXPLORATION_1_NAME">
+			<Text>Exploration Cultural Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_NAPOLEON_REVOLUTIONARY_EXPLORATION_1_DESCRIPTION">
+			<Text>As Napoleon, access a new Exploration Legacy Card:[n]
+				+15% Culture, -10% Science</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_NAPOLEON_REVOLUTIONARY_EXPLORATION_2_NAME">
+			<Text>Exploration Militaristic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_NAPOLEON_REVOLUTIONARY_EXPLORATION_2_DESCRIPTION">
+			<Text>As Napoleon, access a new Exploration Legacy Card:[n]
+				+3 Combat Strength towards Naval Units, -10% Influence</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_NAPOLEON_REVOLUTIONARY_MODERN_1_NAME">
+			<Text>Modern Cultural Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_NAPOLEON_REVOLUTIONARY_MODERN_1_DESCRIPTION">
+			<Text>As Napoleon, access a new Modern Legacy Card:[n]
+				+15% Culture, -10% Science</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_NAPOLEON_REVOLUTIONARY_MODERN_2_NAME">
+			<Text>Modern Militaristic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_NAPOLEON_REVOLUTIONARY_MODERN_2_DESCRIPTION">
+			<Text>As Napoleon, access a new Modern Legacy Card:[n]
+				+3 Combat Strength towards Air Units, -10% Influence</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_NAPOLEON_REVOLUTIONARY_L1_NAME">
+			<Text>Cultural Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_NAPOLEON_REVOLUTIONARY_L1_DESCRIPTION">
+			<Text>+15% Production towards constructing Buildings and Wonders with Great Works slots.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_NAPOLEON_REVOLUTIONARY_L2_NAME">
+			<Text>Militaristic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_NAPOLEON_REVOLUTIONARY_L2_DESCRIPTION">
+			<Text>+5 Combat Strength for all Units against Districts.</Text>
+		</Row>
+	</EnglishText>
+</Database>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<UnitMovementClassObstacles>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_NAVAL" TerrainType="TERRAIN_OCEAN" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_WHEELED" TerrainType="TERRAIN_OCEAN" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_TRACKED" TerrainType="TERRAIN_OCEAN" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_RECON" TerrainType="TERRAIN_OCEAN" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" TerrainType="TERRAIN_OCEAN" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" TerrainType="TERRAIN_OCEAN" EndsTurn="true"/>
+	</UnitMovementClassObstacles>
+</Database>

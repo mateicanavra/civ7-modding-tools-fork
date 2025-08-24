@@ -1,0 +1,59 @@
+@use 'sass:math';
+@use '../../../core/ui/themes/default/theme';
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+
+.pause-event-rules {
+	@media (max-width: pixels(1599)) {
+		right: pixels(600);
+	}
+
+	@media (max-width: pixels(1399)) {
+		right: pixels(450);
+	}
+
+	height: 95%;
+	width: auto;
+	pointer-events: auto;
+	right: pixels(650);
+
+	.events-description {
+		position: relative;
+		width: 95%;
+	}
+
+	.events-info {
+		border-image-source: url("fs://game/hud_unit-panel_box-bg.png");
+		border-image-slice: 30 20 30 20 fill;
+		border-image-width: auto;
+		border-image-outset: pixels(17) pixels(13);
+		width: pixels(800);
+	}
+
+	.events-desc-hslot {
+		width: 45vw;
+		justify-content: space-between;
+		border-bottom-style: solid;
+		border-bottom-width: pixels(1);
+		border-bottom-color: theme.color('accent-1');
+	}
+
+	.events-desc-hslot {
+		width: 100%;
+	}
+
+	.events-banner {
+		background-image: url('fs://game/bn_default.png');
+	}
+
+	.events-scrollable {
+
+		.fxs-scrollable-content {
+			max-width: 95%;
+		}
+	}
+
+	.events-rules {
+		margin-top: pixels-rel(32);
+	}
+}

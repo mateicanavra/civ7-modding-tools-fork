@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS_NAME" Language="pl_PL">
+      <Text>65 twierdz|65 twierdz|65 twierdzom|65 twierdz|65 twierdzami|65 twierdzach|65 twierdz|65 twierdz|65 twierdzom|65 twierdz|65 twierdzami|65 twierdzach</Text>
+      <Gender>feminine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_HAI_BA_TRUNG_NAME" Language="pl_PL">
+      <Text>Hai Bà Trung</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE_NAME" Language="pl_PL">
+      <Text>Działania wojenne w dżunglii|Działań wojennych w dżunglii|Działaniom wojennym w dżunglii|Działania wojenne w dżunglii|Działaniami wojennymi w dżunglii|Działaniach wojennych w dżunglii|działania wojenne w dżunglii|działań wojennych w dżunglii|działaniom wojennym w dżunglii|działania wojenne w dżunglii|działaniami wojennymi w dżunglii|działaniach wojennych w dżunglii</Text>
+      <Gender>masculine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION_NAME" Language="pl_PL">
+      <Text>Bunt Lạc|Buntu Lạc|Buntowi Lạc|Bunt Lạc|Buntem Lạc|Buncie Lạc|bunt Lạc|buntu Lạc|buntowi Lạc|bunt Lạc|buntem Lạc|buncie Lạc</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE_NAME" Language="pl_PL">
+      <Text>Zapał i odwaga|Zapału i odwagi|Zapałowi i odwadze|Zapał i odwagę|Zapałem i odwagą|Zapale i odwadze|zapał i odwaga|zapału i odwagi|zapałowi i odwadze|zapał i odwagę|zapałem i odwagą|zapale i odwadze</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY_NAME" Language="pl_PL">
+      <Text>Pojedynczy okrzyk|Pojedynczego okrzyku|Pojedynczemu okrzykowi|Pojedynczy okrzyk|Pojedynczym okrzykiem|Pojedynczym okrzyku|pojedynczy okrzyk|pojedynczego okrzyku|pojedynczemu okrzykowi|pojedynczy okrzyk|pojedynczym okrzykiem|pojedynczym okrzyku</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_TRUNG_COMMENDATION_DUTY_NAME" Language="pl_PL">
+      <Text>Zjednoczenie sióstr|Zjednoczenia sióstr|Zjednoczeniu sióstr|Zjednoczenie sióstr|Zjednoczeniem sióstr|Zjednoczeniu sióstr|zjednoczenie sióstr|zjednoczenia sióstr|zjednoczeniu sióstr|zjednoczenie sióstr|zjednoczeniem sióstr|zjednoczeniu sióstr</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_DESCRIPTION" Language="pl_PL">
+      <Text>+3 do obrażeń dla heroicznego natarcia.</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_FINAL_DESCRIPTION" Language="pl_PL">
+      <Text>+10 do obrażeń dla heroicznego natarcia.</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_TRUNG_COMMENDATION_DUTY_DESCRIPTION" Language="pl_PL">
+      <Text>+30 do obrażeń dla heroicznego natarcia.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_TRUNG_NHI_DESCRIPTION" Language="pl_PL">
+      <Text>Unikalny dowódca armii. Ma dodatkowe drzewo awansów. Pokonany odradza się szybciej, niż inni dowódcy. </Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_ARMY_TRUNG_NHI_HAI_BA_TRUNG_PREVIEW" Language="pl_PL">
+      <Text>+{Amount} dzięki Hai Bà Trung</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS_DESCRIPTION" Language="pl_PL">
+      <Text>+5 do siły bojowej jednostek lądowych atakujących ufortyfikowane dystrykty znajdujących się w promieniu dowodzenia. [n]{LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_DESCRIPTION}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS_PREVIEW" Language="pl_PL">
+      <Text>+{Amount} dzięki 65 twierdzom</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_HAI_BA_TRUNG_DESCRIPTION" Language="pl_PL">
+      <Text>+15 do siły bojowej tego dowódcy podczas obrony. [n]{LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_DESCRIPTION}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE_DESCRIPTION" Language="pl_PL">
+      <Text>+5 do siły bojowej jednostek lądowych w promieniu dowodzenia, gdy znajdują się na tropikalnym polu. [n]{LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_DESCRIPTION}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE_PREVIEW" Language="pl_PL">
+      <Text>+{1_Amount} dzięki działaniom wojennym w dżungli</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION_DESCRIPTION" Language="pl_PL">
+      <Text>+3 do siły bojowej tego dowódcy i jednostek lądowych w promieniu dowodzenia, gdy w sąsiedztwie są przynajmniej 2 wrogie jednostki. [n]{LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_DESCRIPTION}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION_PREVIEW" Language="pl_PL">
+      <Text>+{1_Amount} dzięki Lạc Rebellion</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE_DESCRIPTION" Language="pl_PL">
+      <Text>+5 do siły bojowej jednostek lądowych w promieniu dowodzenia, gdy znajdują się na przyjaznym terytorium. [n]{LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_DESCRIPTION}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE_PREVIEW" Language="pl_PL">
+      <Text>+{1_Amount} dzięki zapałowi i odwadze</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY_DESCRIPTION" Language="pl_PL">
+      <Text>+5 do siły bojowej podczas skoordynowanego ataku i korzystania ze skupionego ognia. [n]{LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_FINAL_DESCRIPTION}</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_TRUNG_NHI_NAME" Language="pl_PL">
+      <Text>Trung Nhi</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+  </LocalizedText>
+</Database>

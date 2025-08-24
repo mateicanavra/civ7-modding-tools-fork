@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--ASSYRIA-->
+		<Row Tag="LOC_CITY_NAME_ASSYRIA1">
+			<Text>Nineveh</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA2">
+			<Text>Kalhu</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA3">
+			<Text>Aššur</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA4">
+			<Text>Arrapkha</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA5">
+			<Text>Karkemiš</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA6">
+			<Text>Dur-Katlimmu</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA7">
+			<Text>Kar-Tukulti-Ninurta</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA8">
+			<Text>Imgur-Enlil</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA9">
+			<Text>Amida</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA10">
+			<Text>Nuhadra</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA11">
+			<Text>Arbi-Ilu</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA12">
+			<Text>Khilakku</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA13">
+			<Text>Huzirina</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA14">
+			<Text>Kaneš</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA15">
+			<Text>Mardama</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA16">
+			<Text>Šinahuttum</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA17">
+			<Text>Mansuate</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA18">
+			<Text>Rapiqu</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA19">
+			<Text>Shareisha</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA20">
+			<Text>Kahat</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA21">
+			<Text>Sittake</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA22">
+			<Text>Kar-Šulmānu-Ašarēdu</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA23">
+			<Text>Hadātu</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA24">
+			<Text>Tušhan</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA25">
+			<Text>Kar-Sipar</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA26">
+			<Text>Hana</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA27">
+			<Text>Mari</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA28">
+			<Text>Kiššaššu</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA29">
+			<Text>Arinnu</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_ASSYRIA30">
+			<Text>Sam'al</Text>
+		</Row>
+	</EnglishText>
+</Database>

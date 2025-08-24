@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==================================================	-->
+	<!--	Unique Abilities							-->
+	<!-- ==================================================	-->
+	<!--Shawnee-->
+	<Modifier id="KISPOKO_NENA_TO_RESOURCE_COMBAT" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_RESOURCE_DAMAGE">
+		<Argument name="Amount">1</Argument>
+		<Argument name="ResourceClassType">RESOURCECLASS_EMPIRE</Argument>
+		<String context="Preview">LOC_KISPOKO_NENA_TO_RESOURCE_COMBAT_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="HOCEEPKILENI_MINOR_RIVER" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_IGNORE_MOVEMENT_OBSTACLE">
+		<Argument name="Obstacle">RIVER_MINOR</Argument>
+	</Modifier>
+	<Modifier id="HOCEEPKILENI_NAVIGABLE_RIVER" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_IGNORE_MOVEMENT_OBSTACLE">
+		<Argument name="Obstacle">RIVER_NAVIGABLE</Argument>
+	</Modifier>
+	<Modifier id="HOCEEPKILENI_FREE_EMBARK" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_IGNORE_MOVEMENT_OBSTACLE">
+		<Argument name="Obstacle">OBSTACLE_EMBARKATION</Argument>
+	</Modifier>
+</GameEffects>

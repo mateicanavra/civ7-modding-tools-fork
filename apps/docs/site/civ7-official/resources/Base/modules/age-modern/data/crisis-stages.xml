@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<!-- TODO modern crisis, this can be removed if we don't want it.
+	<AgeCrisisStages>
+		<Row Stage="1" AgeCrisisEventType="MODERN_CRISIS_???" MinDuration="5" AgeProgressTriggerPercent="70" AgeProgressEndPercent="80"/>
+		<Row Stage="2" AgeCrisisEventType="MODERN_CRISIS_???" MinDuration="5" AgeProgressTriggerPercent="80" AgeProgressEndPercent="90"/>
+		<Row Stage="3" AgeCrisisEventType="MODERN_CRISIS_???" MinDuration="5" AgeProgressTriggerPercent="90" AgeProgressEndPercent="100"/>
+		<Row Stage="4" AgeCrisisEventType="MODERN_CRISIS_???" MinDuration="5" AgeProgressTriggerPercent="100" AgeProgressEndPercent="100" FinalStage="true"/>
+	</AgeCrisisStages>
+	<AgeCrisisNarrative>
+		<Row NarrativeStoryType="MCINTRO" AgeCrisisEventType="MODERN_CRISIS_???"/>
+	</AgeCrisisNarrative> -->
+</Database>

@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metaprogression xmlns="Metaprogression">
+	<challenges class="CHALLENGE_CLASS_LEADER" category="CHALLENGE_CATEGORY_LEADER_HATSHEPSUT" legendPath="LEGEND_PATH_HATSHEPSUT">
+		<challenge id="CHALLENGE_HATSHEPSUT_MILITARY_VICTORY_ANTIQUITY" scope="Career" difficulty="3">
+			<l10n>
+				<name>Pax Imperatoria</name>
+				<description>As Hatshepsut, complete the Pax Imperatoria Legacy Path.</description>
+			</l10n>
+			<sortIndex>56200</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_MILITARY_VICTORY_ANTIQUITY" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_MILITARY_VICTORY_ANTIQUITY_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Pax Imperatoria 2</name>
+				<description>As Hatshepsut, complete the Pax Imperatoria Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>56210</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_MILITARY_VICTORY_ANTIQUITY" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_MILITARY_VICTORY_ANTIQUITY_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Pax Imperatoria 3</name>
+				<description>As Hatshepsut, complete the Pax Imperatoria Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>56220</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_MILITARY_VICTORY_ANTIQUITY" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_ECONOMIC_VICTORY_ANTIQUITY" scope="Career" difficulty="3">
+			<l10n>
+				<name>Silk Roads</name>
+				<description>As Hatshepsut, complete the Silk Roads Legacy Path.</description>
+			</l10n>
+			<sortIndex>56400</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_ECONOMIC_VICTORY_ANTIQUITY" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_ECONOMIC_VICTORY_ANTIQUITY_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Silk Roads 2</name>
+				<description>As Hatshepsut, complete the Silk Roads Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>56410</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_ECONOMIC_VICTORY_ANTIQUITY" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_ECONOMIC_VICTORY_ANTIQUITY_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Silk Roads 3</name>
+				<description>As Hatshepsut, complete the Silk Roads Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>56420</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_ECONOMIC_VICTORY_ANTIQUITY" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_MILITARY_VICTORY_EXPLORATION" scope="Career" difficulty="3">
+			<l10n>
+				<name>Non Sufficit Orbis</name>
+				<description>As Hatshepsut, complete the Non Sufficit Orbis Legacy Path.</description>
+			</l10n>
+			<sortIndex>56800</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_MILITARY_VICTORY_EXPLORATION" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_MILITARY_VICTORY_EXPLORATION_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Non Sufficit Orbis 2</name>
+				<description>As Hatshepsut, complete the Non Sufficit Orbis Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>56810</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_MILITARY_VICTORY_EXPLORATION" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_MILITARY_VICTORY_EXPLORATION_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Non Sufficit Orbis 3</name>
+				<description>As Hatshepsut, complete the Non Sufficit Orbis Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>56820</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_MILITARY_VICTORY_EXPLORATION" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_ECONOMIC_VICTORY_EXPLORATION" scope="Career" difficulty="3">
+			<l10n>
+				<name>Treasure Fleet</name>
+				<description>As Hatshepsut, complete the Treasure Fleet Legacy Path.</description>
+			</l10n>
+			<sortIndex>57000</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_ECONOMIC_VICTORY_EXPLORATION" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_ECONOMIC_VICTORY_EXPLORATION_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Treasure Fleet 2</name>
+				<description>As Hatshepsut, complete the Treasure Fleet Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>57010</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_ECONOMIC_VICTORY_EXPLORATION" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_ECONOMIC_VICTORY_EXPLORATION_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Treasure Fleet 3</name>
+				<description>As Hatshepsut, complete the Treasure Fleet Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>57020</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_ECONOMIC_VICTORY_EXPLORATION" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_MILITARY_VICTORY_MODERN" scope="Career" difficulty="3">
+			<l10n>
+				<name>Ideology</name>
+				<description>As Hatshepsut, complete the Ideology Legacy Path.</description>
+			</l10n>
+			<sortIndex>57400</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_MILITARY_VICTORY_MODERN" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_MILITARY_VICTORY_MODERN_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Ideology 2</name>
+				<description>As Hatshepsut, complete the Ideology Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>57410</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_MILITARY_VICTORY_MODERN" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_MILITARY_VICTORY_MODERN_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Ideology 3</name>
+				<description>As Hatshepsut, complete the Ideology Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>57420</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_MILITARY_VICTORY_MODERN" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_ECONOMIC_VICTORY_MODERN" scope="Career" difficulty="3">
+			<l10n>
+				<name>Railroad Tycoon</name>
+				<description>As Hatshepsut, complete the Railroad Tycoon Legacy Path.</description>
+			</l10n>
+			<sortIndex>57300</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_ECONOMIC_VICTORY_MODERN" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_ECONOMIC_VICTORY_MODERN_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Railroad Tycoon 2</name>
+				<description>As Hatshepsut, complete the Railroad Tycoon Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>57310</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_ECONOMIC_VICTORY_MODERN" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_ECONOMIC_VICTORY_MODERN_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Railroad Tycoon 3</name>
+				<description>As Hatshepsut, complete the Railroad Tycoon Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>57320</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_ECONOMIC_VICTORY_MODERN" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_AGE_COMPLETED_ANTIQUITY" scope="Career" difficulty="2">
+			<l10n>
+				<name>Antiquity Complete</name>
+				<description>As Hatshepsut, finish the Antiquity Age.</description>
+			</l10n>
+			<sortIndex>56000</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_ANTIQUITY_AGES_COMPLETED" threshold="1" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_AGE_COMPLETED_ANTIQUITY_2" scope="Career" difficulty="2">
+			<l10n>
+				<name>Antiquity Complete 2</name>
+				<description>As Hatshepsut, finish the Antiquity Age twice.</description>
+			</l10n>
+			<sortIndex>56010</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_ANTIQUITY_AGES_COMPLETED" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_AGE_COMPLETED_ANTIQUITY_3" scope="Career" difficulty="2">
+			<l10n>
+				<name>Antiquity Complete 3</name>
+				<description>As Hatshepsut, finish the Antiquity Age thrice.</description>
+			</l10n>
+			<sortIndex>56020</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_ANTIQUITY_AGES_COMPLETED" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_AGE_COMPLETED_EXPLORATION" scope="Career" difficulty="3">
+			<l10n>
+				<name>Exploration Complete</name>
+				<description>As Hatshepsut, finish the Exploration Age.</description>
+			</l10n>
+			<sortIndex>56600</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_EXPLORATION_AGES_COMPLETED" threshold="1" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_AGE_COMPLETED_EXPLORATION_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Exploration Complete 2</name>
+				<description>As Hatshepsut, finish the Exploration Age twice.</description>
+			</l10n>
+			<sortIndex>56610</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_EXPLORATION_AGES_COMPLETED" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_AGE_COMPLETED_EXPLORATION_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Exploration Complete 3</name>
+				<description>As Hatshepsut, finish the Exploration Age thrice.</description>
+			</l10n>
+			<sortIndex>56620</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_EXPLORATION_AGES_COMPLETED" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_AGE_COMPLETED_MODERN" scope="Career" difficulty="2">
+			<l10n>
+				<name>Modern Complete</name>
+				<description>As Hatshepsut, finish the Modern Age.</description>
+			</l10n>
+			<sortIndex>57200</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_MODERN_AGES_COMPLETED" threshold="1" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_AGE_COMPLETED_MODERN_2" scope="Career" difficulty="2">
+			<l10n>
+				<name>Modern Complete 2</name>
+				<description>As Hatshepsut, finish the Modern Age twice.</description>
+			</l10n>
+			<sortIndex>57210</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_MODERN_AGES_COMPLETED" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_AGE_COMPLETED_MODERN_3" scope="Career" difficulty="2">
+			<l10n>
+				<name>Modern Complete 3</name>
+				<description>As Hatshepsut, finish the Modern Age thrice.</description>
+			</l10n>
+			<sortIndex>57220</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_MODERN_AGES_COMPLETED" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_PLAY_GAMES_1" scope="Career" difficulty="1">
+			<l10n>
+				<name>Play Game 1</name>
+				<description>As Hatshepsut, reach at least 1 Legacy Path Milestone.</description>
+			</l10n>
+			<sortIndex>57800</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_LEGACY_PATH_MILESTONE_COMPLETED" threshold="1" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_PLAY_GAMES_2" scope="Career" difficulty="1">
+			<l10n>
+				<name>Play Game 2</name>
+				<description>As Hatshepsut, reach at least 2 Legacy Path Milestones.</description>
+			</l10n>
+			<sortIndex>57900</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_LEGACY_PATH_MILESTONE_COMPLETED" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_PLAY_GAMES_3" scope="Career" difficulty="1">
+			<l10n>
+				<name>Play Game 3</name>
+				<description>As Hatshepsut, reach at least 3 Legacy Path Milestones.</description>
+			</l10n>
+			<sortIndex>58000</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_LEGACY_PATH_MILESTONE_COMPLETED" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_SCIENCE_VICTORY_ANTIQUITY" scope="Career" difficulty="3">
+			<l10n>
+				<name>Great Library</name>
+				<description>As Hatshepsut, complete the Great Library Legacy Path.</description>
+			</l10n>
+			<sortIndex>56300</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_SCIENCE_VICTORY_ANTIQUITY" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_SCIENCE_VICTORY_ANTIQUITY_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Great Library 2</name>
+				<description>As Hatshepsut, complete the Great Library Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>56310</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_SCIENCE_VICTORY_ANTIQUITY" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_SCIENCE_VICTORY_ANTIQUITY_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Great Library 3</name>
+				<description>As Hatshepsut, complete the Great Library Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>56320</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_SCIENCE_VICTORY_ANTIQUITY" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_SCIENCE_VICTORY_EXPLORATION" scope="Career" difficulty="3">
+			<l10n>
+				<name>Enlightenment</name>
+				<description>As Hatshepsut, complete the Enlightenment Legacy Path.</description>
+			</l10n>
+			<sortIndex>56900</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_SCIENCE_VICTORY_EXPLORATION" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_SCIENCE_VICTORY_EXPLORATION_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Enlightenment 2</name>
+				<description>As Hatshepsut, complete the Enlightenment Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>56910</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_SCIENCE_VICTORY_EXPLORATION" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_SCIENCE_VICTORY_EXPLORATION_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Enlightenment 3</name>
+				<description>As Hatshepsut, complete the Enlightenment Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>56920</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_SCIENCE_VICTORY_EXPLORATION" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_SCIENCE_VICTORY_MODERN" scope="Career" difficulty="3">
+			<l10n>
+				<name>Space Race</name>
+				<description>As Hatshepsut, complete the Space Race Legacy Path.</description>
+			</l10n>
+			<sortIndex>57500</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_SCIENCE_VICTORY_MODERN" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_SCIENCE_VICTORY_MODERN_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Space Race 2</name>
+				<description>As Hatshepsut, complete the Space Race Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>57510</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_SCIENCE_VICTORY_MODERN" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_SCIENCE_VICTORY_MODERN_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Space Race 3</name>
+				<description>As Hatshepsut, complete the Space Race Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>57520</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_SCIENCE_VICTORY_MODERN" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_CULTURE_VICTORY_ANTIQUITY" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders of the Ancient World</name>
+				<description>As Hatshepsut, complete the Wonders of the Ancient World Legacy Path.</description>
+			</l10n>
+			<sortIndex>56100</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_CULTURE_VICTORY_ANTIQUITY" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_CULTURE_VICTORY_ANTIQUITY_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders of the Ancient World 2</name>
+				<description>As Hatshepsut, complete the Wonders of the Ancient World Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>56110</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_CULTURE_VICTORY_ANTIQUITY" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_CULTURE_VICTORY_ANTIQUITY_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders of the Ancient World 3</name>
+				<description>As Hatshepsut, complete the Wonders of the Ancient World Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>56120</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_CULTURE_VICTORY_ANTIQUITY" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_CULTURE_VICTORY_EXPLORATION" scope="Career" difficulty="3">
+			<l10n>
+				<name>Toshakhana</name>
+				<description>As Hatshepsut, complete the Toshakhana Legacy Path.</description>
+			</l10n>
+			<sortIndex>56700</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_CULTURE_VICTORY_EXPLORATION" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_CULTURE_VICTORY_EXPLORATION_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Toshakhana 2</name>
+				<description>As Hatshepsut, complete the Toshakhana Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>56710</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_CULTURE_VICTORY_EXPLORATION" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_CULTURE_VICTORY_EXPLORATION_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Toshakhana 3</name>
+				<description>As Hatshepsut, complete the Toshakhana Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>56720</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_CULTURE_VICTORY_EXPLORATION" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_CULTURE_VICTORY_MODERN" scope="Career" difficulty="3">
+			<l10n>
+				<name>Geographic Society</name>
+				<description>As Hatshepsut, complete the Geographic Society Legacy Path.</description>
+			</l10n>
+			<sortIndex>57600</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_CULTURE_VICTORY_MODERN" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_CULTURE_VICTORY_MODERN_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Geographic Society 2</name>
+				<description>As Hatshepsut, complete the Geographic Society Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>57610</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_CULTURE_VICTORY_MODERN" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_CULTURE_VICTORY_MODERN_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Geographic Society 3</name>
+				<description>As Hatshepsut, complete the Geographic Society Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>57620</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_HATSHEPSUT_CULTURE_VICTORY_MODERN" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_FLAWLESS_VICTORY_ANTIQUITY" scope="Campaign" difficulty="4">
+			<l10n>
+				<name>Dual Legacies, Antiquity</name>
+				<description>As Hatshepsut, complete 2 Legacy Paths in a single Antiquity Age.</description>
+			</l10n>
+			<sortIndex>56500</sortIndex>
+			<campaignConfig event="CHALLENGE_EVENT_LEADER_HATSHEPSUT_FLAWLESS_VICTORY_ACHIEVED" />
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="legacyPathCount">2</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_FLAWLESS_VICTORY_EXPLORATION" scope="Campaign" difficulty="4">
+			<l10n>
+				<name>Dual Legacies, Exploration</name>
+				<description>As Hatshepsut, complete 2 Legacy Paths in a single Exploration Age.</description>
+			</l10n>
+			<sortIndex>57100</sortIndex>
+			<campaignConfig event="CHALLENGE_EVENT_LEADER_HATSHEPSUT_FLAWLESS_VICTORY_ACHIEVED" />
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="legacyPathCount">2</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_HATSHEPSUT_FLAWLESS_VICTORY_MODERN" scope="Campaign" difficulty="4">
+			<l10n>
+				<name>Dual Legacies, Modern</name>
+				<description>As Hatshepsut, complete 2 Legacy Paths in a single Modern Age.</description>
+			</l10n>
+			<sortIndex>57700</sortIndex>
+			<campaignConfig event="CHALLENGE_EVENT_LEADER_HATSHEPSUT_FLAWLESS_VICTORY_ACHIEVED" />
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="legacyPathCount">2</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_HATSHEPSUT_QUEST_A_ANTIQUITY" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Land of Punt</name>
+				<description>As Hatshepsut in Antiquity, complete a quest to fulfill the wants of the people.</description>
+			</l10n>
+			<sortIndex>58700</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_HATSHEPSUT_QUEST_B_ANTIQUITY" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Precinct of Mut</name>
+				<description>As Hatshepsut in Antiquity, complete a quest to rise to divinity.</description>
+			</l10n>
+			<sortIndex>58800</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_HATSHEPSUT_QUEST_A_EXPLORATION" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Across the Sea of Night</name>
+				<description>As Hatshepsut in Exploration, complete a quest to scour the world for riches.</description>
+			</l10n>
+			<sortIndex>58900</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_HATSHEPSUT_QUEST_B_EXPLORATION" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Immortality</name>
+				<description>As Hatshepsut in Exploration, complete a quest to spread the words of the high priests.</description>
+			</l10n>
+			<sortIndex>59000</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_HATSHEPSUT_QUEST_A_MODERN" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>The Forever Land</name>
+				<description>As Hatshepsut in Modern, complete a quest to fill the court with luxuries.</description>
+			</l10n>
+			<sortIndex>59100</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_HATSHEPSUT_QUEST_B_MODERN" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>The Undying Lands</name>
+				<description>As Hatshepsut in Modern, complete a quest to prevent the weathering of power.</description>
+			</l10n>
+			<sortIndex>59200</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_HATSHEPSUT_UNLOCKED_STRATEGYCARDS_EXPLORATION" scope="Campaign" difficulty="1" hidden="true" allowRewardWhenHidden="true">
+			<l10n>
+				<name>Age Transition Card Exploration</name>
+				<description>As Hatshepsut unlock age transition legend strategycards for exploration age.</description>
+			</l10n>
+			<sortIndex>55901</sortIndex>
+			<reward type="UnlockableReward" reward="STRATEGYCARD_AS_HATSHEPSUT_EXPLORATION_1" />
+			<reward type="UnlockableReward" reward="STRATEGYCARD_AS_HATSHEPSUT_EXPLORATION_2" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_HATSHEPSUT_UNLOCKED_STRATEGYCARDS_MODERN" scope="Campaign" difficulty="1" hidden="true" allowRewardWhenHidden="true">
+			<l10n>
+				<name>Age Transition Card Modern</name>
+				<description>As Hatshepsut unlock age transition legend strategycards for modern age.</description>
+			</l10n>
+			<sortIndex>55902</sortIndex>
+			<reward type="UnlockableReward" reward="STRATEGYCARD_AS_HATSHEPSUT_MODERN_1" />
+			<reward type="UnlockableReward" reward="STRATEGYCARD_AS_HATSHEPSUT_MODERN_2" />
+		</challenge>
+	</challenges>
+</metaprogression>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_LOADING_CIV_INTRO_TEXT_AMERICA">
+			<Text>Built on steam, on iron, and on a vision that looks relentlessly ahead, America surges forward. The brave new world unrolls from factory assembly lines, on rail tracks that extend across the plains, and in the eyes of each immigrant who sets foot upon its shores. Come, and dream anew, under the stars and stripes.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_INTRO_TEXT_BUGANDA">
+			<Text>At the word of the kabaka, the lake-fleets sail, and the sound of the king’s drums echo across the waters. The rowers dip their oars into the water with each beat, pushed relentlessly forward, and the lake’s surface sends back a double of each musket and spear that the warriors carry. Row with them, to unknown shores and untold glories.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_INTRO_TEXT_FRENCH_EMPIRE">
+			<Text>The spark of revolution catches, and France is born. Standing in defiance of the right of kings, the French people choose a future governed by science and learning, provided that the old ways pass first through the guillotine. Bring the Revolution’s promise of a more just world, or resurrect the specters of autocracy.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_INTRO_TEXT_MEXICO">
+			<Text>As Mexico makes its break with the old world, it faces new challenges, both internal and external. In the Zócalo, in the stateroom, and in clandestine meetings of revolutionaries, its future is constantly being formed and re-formed, but its soul remains. Let that soul sing.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_INTRO_TEXT_MUGHAL">
+			<Text>From the Peacock Throne, the Mughals oversee lands sprawling and rich, decadent and earnest, where architects dream of wonders and commoners dream of bread. Its contrasts are yours - give the order.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_INTRO_TEXT_MEIJI">
+			<Text>As isolated Japan turns outward, the Meiji Dynasty heralds a new beginning. Embracing a world it once shut out, the Meiji streets blend kimonos with top hats, under the glare of electric lights. A new dawn breaks; the world will see what Japan has to offer.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_INTRO_TEXT_PRUSSIA">
+			<Text>Precision with soul - this is the heart of Prussia, a heart of steam, iron, and coal. Its discipline extends from the factory floor to the train schedule, from the formations of the hussars to the conductors in the concert hall. Take stock of your regiments, secure your supply lines - and set the Prussian machine in motion.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_INTRO_TEXT_QING">
+			<Text>From the northern edges of the Chinese world come the Manchu, the Qing Dynasty of China. The mandarins of the court administer vast territories, their artists produce marvels that are the envy of the world, and their gusa defend the land against all who would seek to claim their mandate. Let the world remember the Qing.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_INTRO_TEXT_RUSSIA">
+			<Text>Imperial Russia rules with beauty, science, and authority. Defying the snows of winter and would-be conquerors alike, Russians make a living from the edges of the world, turning hardship to art, perseverance to poetry, and opposition to resilience. Turn the Russian winter into a thing of beauty, and let the Russian soul shine.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_INTRO_TEXT_SIAM">
+			<Text>Canal-waters teem with the call of market vendors, and the air is sharp with roasting spices - this is Siam. Bending, but never breaking, the Siamese take in what they can. And when they cannot, they fit war elephants with machine guns. Chaiyo, Siam - survive, adapt and prosper.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_INTRO_AMERICA">
+			<Text>From the fertile soil of America springs forth a brave new world, driven by passion, ideas, and a desire to shape the future.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_INTRO_BUGANDA">
+			<Text>From the lakes, with war-canoe and spear, rifle and kingly authority, the Baganda of Buganda come. Let all kneel before the throne of the kabakas.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_INTRO_FRENCH_EMPIRE">
+			<Text>France looks out upon an incomplete world – a blank canvas waiting to be marked.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_INTRO_MEIJI">
+			<Text>The sun rises. The Meiji ascend.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_INTRO_MEXICO">
+			<Text>A world built from the bones of the past, refashioned for a new future: Mexico has arrived.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_INTRO_MUGHAL">
+			<Text>The Mughals come, foreigners to the land, but with a drive to assemble the foundations of an empire from the detritus of what went before. </Text>
+		</Row>
+		<Row Tag="LOC_LOADING_INTRO_PRUSSIA">
+			<Text>A harbinger of change, Prussia ushers in an age of explosive growth and opportunity.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_INTRO_QING">
+			<Text>The Eight Banners rise to make way for the Qing.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_INTRO_RUSSIA">
+			<Text>The velikaya dusha - the great Russian soul - emerges upon the world, with its unquenchable appetite for knowledge, poetry... and conquest.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_INTRO_SIAM">
+			<Text>Siam grows like mai pai, like forest bamboo. It bends with the changing winds, it does not break.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIPS_TEXT_AMERICA">
+			<Text>The Prospector Unique Civilian can claim Land Resource tiles outside your borders, up to 5 tiles away from a City Center. The tiles don't even have to be adjacent to your borders.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIPS_TEXT_BUGANDA">
+			<Text>Settle on Lakes connected to Navigable Rivers for extra adjacency bonuses. Then use the additional embarked movement from the 'Nnalubaale Civic to sail the rivers to your opponents and pillage their tiles for big yields.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIPS_TEXT_FRENCH_EMPIRE">
+			<Text>The French Empire benefits from large Cities and larger Armies. Their Jacobin Unique Civilian can increase yields on Quarters, provide Units additional Combat Strength, or even grant a unique Tradition.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIPS_TEXT_MEIJI">
+			<Text>The Meiji excels at fast Building production, so use the extra time to build Naval and Air Units. Then take advantage of the combat bonuses provided by the Kantai Kessen Civic and Kōkūtai Tradition.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIPS_TEXT_MEXICO">
+			<Text>Mexico's Revolución Government provides different Celebration options than other Modern Civilizations. Unlock your preferred Revolución Celebration from your Civics early, and then focus on other Civic paths.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIPS_TEXT_MUGHAL">
+			<Text>Everyone loves Gold! Gain the ability to purchase Wonders by unlocking the Gardens of Paradise Civic.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIPS_TEXT_QING">
+			<Text>Trade Routes are the Qing's best friend. Import as many Resources as possible and assign them to your Settlements. Trade Route range and Resource Capacity boosts will help!</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIPS_TEXT_PRUSSIA">
+			<Text>Prussia benefits from being unfriendly with its neighbors. But you need some friends for Endeavors, so try not to turn the whole world against you.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIPS_TEXT_RUSSIA">
+			<Text>Russia gets strong benefits from Settlements in Tundra. This means that the City Center itself must be in the Tundra Biome.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIPS_TEXT_SIAM">
+			<Text>The Uparat Unique Civilian has a variety of effects that get stronger with every City-State you become Suzerain of. Start befriending those Independent Powers, or else you may lose them to your rivals.</Text>
+		</Row>		
+	</EnglishText>
+</Database>

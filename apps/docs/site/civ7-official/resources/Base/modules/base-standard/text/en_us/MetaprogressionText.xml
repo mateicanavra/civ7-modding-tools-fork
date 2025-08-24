@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- UI text -->
+		<Row Tag="LOC_METAPROGRESSION_PERCENT">
+			<Text>{1_Number}%</Text>
+		</Row>
+		<Row Tag="LOC_METAPROGRESSION_PCT_COMPLETE">
+			<Text>{1_Number}% {2_Type} Challenges Complete</Text>
+		</Row>
+		<Row Tag="LOC_METAPROGRESSION_XP">
+			<Text>{1_Number}XP</Text>
+		</Row>
+		<Row Tag="LOC_METAPROGRESSION_SORT_BY_CHALLENGES">
+			<Text>Sort by Default</Text>
+		</Row>
+		<Row Tag="LOC_METAPROGRESSION_SORT_BY_COMPLETED">
+			<Text>Sort by Completed Status</Text>
+		</Row>
+		<Row Tag="LOC_METAPROGRESSION_PANEL_TITLE">
+			<Text>View Your Progress</Text>
+		</Row>
+		<Row Tag="LOC_METAPROGRESSION_PANEL_SUB_TITLE">
+			<Text>Legends</Text>
+		</Row>
+		<Row Tag="LOC_METAPROGRESSION_CHALLENGES_PANEL_SUB_TITLE">
+			<Text>Challenges</Text>
+		</Row>
+		<Row Tag="LOC_METAPROGRESSION_UNLOCK_LEVEL">
+			<Text>Level</Text>
+		</Row>
+		<Row Tag="LOC_METAPROGRESSION_UNLOCK_CONDITION_DEFAULT">
+			<Text>Unlocked By Default</Text>
+		</Row>
+		<Row Tag="LOC_METAPROGRESSION_UNLOCK_CONDITION_CHALLENGE">
+			<Text>To Unlock: {1_ChallengeName}</Text>
+		</Row>
+		<Row Tag="LOC_METAPROGRESSION_UNLOCK_CONDITION_FOUNDATION_PATH">
+			<Text>To Unlock: Reach Level {1_LevelNumber} on the Foundation Path.</Text>
+		</Row>
+		<Row Tag="LOC_METAPROGRESSION_UNLOCK_CONDITION_LEADER_PATH">
+			<Text>To Unlock: Reach Level {1_LevelNumber} with {2_LeaderName}.</Text>
+		</Row>
+		<Row Tag="LOC_METAPROGRESSION_UNLOCK_CONDITION_EVENT_PARTICIPATION">
+			<Text>To Unlock: Complete the {1_EventName} Event.</Text>
+		</Row>
+		<Row Tag="LOC_METAPROGRESSION_UNLOCK_CONDITION_EVENT_VICTORY">
+			<Text>To Unlock: Win the {1_EventName} Event.</Text>
+		</Row>
+		<!-- Legend Paths -->
+		<Row Tag="LOC_METAPROGRESSION_PATH_FOUNDATION">
+			<Text>Foundation</Text>
+		</Row>
+		<Row Tag="LOC_METAPROGRESSION_FOUNDATION_SELECT_LEADER">
+			<Text>Select a leader</Text>
+		</Row>
+	</EnglishText>
+</Database>

@@ -1,0 +1,548 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metaprogression xmlns="Metaprogression">
+	<challenges class="CHALLENGE_CLASS_LEADER" category="CHALLENGE_CATEGORY_LEADER_XERXES" legendPath="LEGEND_PATH_XERXES">
+		<challenge id="CHALLENGE_XERXES_MILITARY_VICTORY_ANTIQUITY" scope="Career" difficulty="3">
+			<l10n>
+				<name>Pax Imperatoria</name>
+				<description>As Xerxes, King of Kings, complete the Pax Imperatoria Legacy Path.</description>
+			</l10n>
+			<sortIndex>99200</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_MILITARY_VICTORY_ANTIQUITY" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_MILITARY_VICTORY_ANTIQUITY_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Pax Imperatoria 2</name>
+				<description>As Xerxes, King of Kings, complete the Pax Imperatoria Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>99210</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_MILITARY_VICTORY_ANTIQUITY" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_MILITARY_VICTORY_ANTIQUITY_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Pax Imperatoria 3</name>
+				<description>As Xerxes, King of Kings, complete the Pax Imperatoria Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>99220</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_MILITARY_VICTORY_ANTIQUITY" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_ECONOMIC_VICTORY_ANTIQUITY" scope="Career" difficulty="3">
+			<l10n>
+				<name>Silk Roads</name>
+				<description>As Xerxes, King of Kings, complete the Silk Roads Legacy Path.</description>
+			</l10n>
+			<sortIndex>99400</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_ECONOMIC_VICTORY_ANTIQUITY" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_ECONOMIC_VICTORY_ANTIQUITY_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Silk Roads 2</name>
+				<description>As Xerxes, King of Kings, complete the Silk Roads Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>99410</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_ECONOMIC_VICTORY_ANTIQUITY" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_ECONOMIC_VICTORY_ANTIQUITY_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Silk Roads 3</name>
+				<description>As Xerxes, King of Kings, complete the Silk Roads Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>99420</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_ECONOMIC_VICTORY_ANTIQUITY" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_MILITARY_VICTORY_EXPLORATION" scope="Career" difficulty="3">
+			<l10n>
+				<name>Non Sufficit Orbis</name>
+				<description>As Xerxes, King of Kings, complete the Non Sufficit Orbis Legacy Path.</description>
+			</l10n>
+			<sortIndex>99800</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_MILITARY_VICTORY_EXPLORATION" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_MILITARY_VICTORY_EXPLORATION_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Non Sufficit Orbis 2</name>
+				<description>As Xerxes, King of Kings, complete the Non Sufficit Orbis Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>99810</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_MILITARY_VICTORY_EXPLORATION" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_MILITARY_VICTORY_EXPLORATION_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Non Sufficit Orbis 3</name>
+				<description>As Xerxes, King of Kings, complete the Non Sufficit Orbis Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>99820</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_MILITARY_VICTORY_EXPLORATION" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_ECONOMIC_VICTORY_EXPLORATION" scope="Career" difficulty="3">
+			<l10n>
+				<name>Treasure Fleet</name>
+				<description>As Xerxes, King of Kings, complete the Treasure Fleet Legacy Path.</description>
+			</l10n>
+			<sortIndex>100000</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_ECONOMIC_VICTORY_EXPLORATION" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_ECONOMIC_VICTORY_EXPLORATION_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Treasure Fleet 2</name>
+				<description>As Xerxes, King of Kings, complete the Treasure Fleet Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>100010</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_ECONOMIC_VICTORY_EXPLORATION" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_ECONOMIC_VICTORY_EXPLORATION_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Treasure Fleet 3</name>
+				<description>As Xerxes, King of Kings, complete the Treasure Fleet Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>100020</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_ECONOMIC_VICTORY_EXPLORATION" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_MILITARY_VICTORY_MODERN" scope="Career" difficulty="3">
+			<l10n>
+				<name>Ideology</name>
+				<description>As Xerxes, King of Kings, complete the Ideology Legacy Path.</description>
+			</l10n>
+			<sortIndex>100400</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_MILITARY_VICTORY_MODERN" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_MILITARY_VICTORY_MODERN_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Ideology 2</name>
+				<description>As Xerxes, King of Kings, complete the Ideology Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>100410</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_MILITARY_VICTORY_MODERN" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_MILITARY_VICTORY_MODERN_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Ideology 3</name>
+				<description>As Xerxes, King of Kings, complete the Ideology Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>100420</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_MILITARY_VICTORY_MODERN" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_ECONOMIC_VICTORY_MODERN" scope="Career" difficulty="3">
+			<l10n>
+				<name>Railroad Tycoon</name>
+				<description>As Xerxes, King of Kings, complete the Railroad Tycoon Legacy Path.</description>
+			</l10n>
+			<sortIndex>100300</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_ECONOMIC_VICTORY_MODERN" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_ECONOMIC_VICTORY_MODERN_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Railroad Tycoon 2</name>
+				<description>As Xerxes, King of Kings, complete the Railroad Tycoon Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>100310</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_ECONOMIC_VICTORY_MODERN" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_ECONOMIC_VICTORY_MODERN_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Railroad Tycoon 3</name>
+				<description>As Xerxes, King of Kings, complete the Railroad Tycoon Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>100320</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_ECONOMIC_VICTORY_MODERN" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_AGE_COMPLETED_ANTIQUITY" scope="Career" difficulty="2">
+			<l10n>
+				<name>Antiquity Complete</name>
+				<description>As Xerxes, finish the Antiquity Age.</description>
+			</l10n>
+			<sortIndex>99000</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_ANTIQUITY_AGES_COMPLETED" threshold="1" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_AGE_COMPLETED_ANTIQUITY_2" scope="Career" difficulty="2">
+			<l10n>
+				<name>Antiquity Complete 2</name>
+				<description>As Xerxes, finish the Antiquity Age twice.</description>
+			</l10n>
+			<sortIndex>99010</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_ANTIQUITY_AGES_COMPLETED" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_AGE_COMPLETED_ANTIQUITY_3" scope="Career" difficulty="2">
+			<l10n>
+				<name>Antiquity Complete 3</name>
+				<description>As Xerxes, finish the Antiquity Age thrice.</description>
+			</l10n>
+			<sortIndex>99020</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_ANTIQUITY_AGES_COMPLETED" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_AGE_COMPLETED_EXPLORATION" scope="Career" difficulty="3">
+			<l10n>
+				<name>Exploration Complete</name>
+				<description>As Xerxes, finish the Exploration Age.</description>
+			</l10n>
+			<sortIndex>99600</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_EXPLORATION_AGES_COMPLETED" threshold="1" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_AGE_COMPLETED_EXPLORATION_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Exploration Complete 2</name>
+				<description>As Xerxes, finish the Exploration Age twice.</description>
+			</l10n>
+			<sortIndex>99610</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_EXPLORATION_AGES_COMPLETED" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_AGE_COMPLETED_EXPLORATION_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Exploration Complete 3</name>
+				<description>As Xerxes, finish the Exploration Age thrice.</description>
+			</l10n>
+			<sortIndex>99620</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_EXPLORATION_AGES_COMPLETED" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_AGE_COMPLETED_MODERN" scope="Career" difficulty="2">
+			<l10n>
+				<name>Modern Complete</name>
+				<description>As Xerxes, finish the Modern Age.</description>
+			</l10n>
+			<sortIndex>100200</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_MODERN_AGES_COMPLETED" threshold="1" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_AGE_COMPLETED_MODERN_2" scope="Career" difficulty="2">
+			<l10n>
+				<name>Modern Complete 2</name>
+				<description>As Xerxes, finish the Modern Age twice.</description>
+			</l10n>
+			<sortIndex>100210</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_MODERN_AGES_COMPLETED" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_AGE_COMPLETED_MODERN_3" scope="Career" difficulty="2">
+			<l10n>
+				<name>Modern Complete 3</name>
+				<description>As Xerxes, finish the Modern Age thrice.</description>
+			</l10n>
+			<sortIndex>100220</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_MODERN_AGES_COMPLETED" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_PLAY_GAMES_1" scope="Career" difficulty="1">
+			<l10n>
+				<name>Play Game 1</name>
+				<description>As Xerxes, King of Kings, reach at least 1 Legacy Path Milestone.</description>
+			</l10n>
+			<sortIndex>100800</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_LEGACY_PATH_MILESTONE_COMPLETED" threshold="1" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_PLAY_GAMES_2" scope="Career" difficulty="1">
+			<l10n>
+				<name>Play Game 2</name>
+				<description>As Xerxes, King of Kings, reach at least 2 Legacy Path Milestones.</description>
+			</l10n>
+			<sortIndex>100900</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_LEGACY_PATH_MILESTONE_COMPLETED" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_PLAY_GAMES_3" scope="Career" difficulty="1">
+			<l10n>
+				<name>Play Game 3</name>
+				<description>As Xerxes, King of Kings, reach at least 3 Legacy Path Milestones.</description>
+			</l10n>
+			<sortIndex>101000</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_LEGACY_PATH_MILESTONE_COMPLETED" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_SCIENCE_VICTORY_ANTIQUITY" scope="Career" difficulty="3">
+			<l10n>
+				<name>Great Library</name>
+				<description>As Xerxes, King of Kings, complete the Great Library Legacy Path.</description>
+			</l10n>
+			<sortIndex>99300</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_SCIENCE_VICTORY_ANTIQUITY" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_SCIENCE_VICTORY_ANTIQUITY_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Great Library 2</name>
+				<description>As Xerxes, King of Kings, complete the Great Library Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>99310</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_SCIENCE_VICTORY_ANTIQUITY" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_SCIENCE_VICTORY_ANTIQUITY_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Great Library 3</name>
+				<description>As Xerxes, King of Kings, complete the Great Library Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>99320</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_SCIENCE_VICTORY_ANTIQUITY" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_SCIENCE_VICTORY_EXPLORATION" scope="Career" difficulty="3">
+			<l10n>
+				<name>Enlightenment</name>
+				<description>As Xerxes, King of Kings, complete the Enlightenment Legacy Path.</description>
+			</l10n>
+			<sortIndex>99900</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_SCIENCE_VICTORY_EXPLORATION" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_SCIENCE_VICTORY_EXPLORATION_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Enlightenment 2</name>
+				<description>As Xerxes, King of Kings, complete the Enlightenment Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>99910</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_SCIENCE_VICTORY_EXPLORATION" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_SCIENCE_VICTORY_EXPLORATION_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Enlightenment 3</name>
+				<description>As Xerxes, King of Kings, complete the Enlightenment Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>99920</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_SCIENCE_VICTORY_EXPLORATION" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_SCIENCE_VICTORY_MODERN" scope="Career" difficulty="3">
+			<l10n>
+				<name>Space Race</name>
+				<description>As Xerxes, King of Kings, complete the Space Race Legacy Path.</description>
+			</l10n>
+			<sortIndex>100500</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_SCIENCE_VICTORY_MODERN" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_SCIENCE_VICTORY_MODERN_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Space Race 2</name>
+				<description>As Xerxes, King of Kings, complete the Space Race Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>100510</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_SCIENCE_VICTORY_MODERN" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_SCIENCE_VICTORY_MODERN_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Space Race 3</name>
+				<description>As Xerxes, King of Kings, complete the Space Race Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>100520</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_SCIENCE_VICTORY_MODERN" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_CULTURE_VICTORY_ANTIQUITY" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders of the Ancient World</name>
+				<description>As Xerxes, King of Kings, complete the Wonders of the Ancient World Legacy Path.</description>
+			</l10n>
+			<sortIndex>99100</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_CULTURE_VICTORY_ANTIQUITY" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_CULTURE_VICTORY_ANTIQUITY_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders of the Ancient World 2</name>
+				<description>As Xerxes, King of Kings, complete the Wonders of the Ancient World Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>99110</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_CULTURE_VICTORY_ANTIQUITY" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_CULTURE_VICTORY_ANTIQUITY_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Wonders of the Ancient World 3</name>
+				<description>As Xerxes, King of Kings, complete the Wonders of the Ancient World Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>99120</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_CULTURE_VICTORY_ANTIQUITY" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_CULTURE_VICTORY_EXPLORATION" scope="Career" difficulty="3">
+			<l10n>
+				<name>Toshakhana</name>
+				<description>As Xerxes, King of Kings, complete the Toshakhana Legacy Path.</description>
+			</l10n>
+			<sortIndex>99700</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_CULTURE_VICTORY_EXPLORATION" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_CULTURE_VICTORY_EXPLORATION_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Toshakhana 2</name>
+				<description>As Xerxes, King of Kings, complete the Toshakhana Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>99710</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_CULTURE_VICTORY_EXPLORATION" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_CULTURE_VICTORY_EXPLORATION_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Toshakhana 3</name>
+				<description>As Xerxes, King of Kings, complete the Toshakhana Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>99720</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_CULTURE_VICTORY_EXPLORATION" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_CULTURE_VICTORY_MODERN" scope="Career" difficulty="3">
+			<l10n>
+				<name>Geographic Society</name>
+				<description>As Xerxes, King of Kings, complete the Geographic Society Legacy Path.</description>
+			</l10n>
+			<sortIndex>100600</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_CULTURE_VICTORY_MODERN" threshold="1" />
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_CULTURE_VICTORY_MODERN_2" scope="Career" difficulty="3">
+			<l10n>
+				<name>Geographic Society 2</name>
+				<description>As Xerxes, King of Kings, complete the Geographic Society Legacy Path twice.</description>
+			</l10n>
+			<sortIndex>100610</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_CULTURE_VICTORY_MODERN" threshold="2" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_CULTURE_VICTORY_MODERN_3" scope="Career" difficulty="3">
+			<l10n>
+				<name>Geographic Society 3</name>
+				<description>As Xerxes, King of Kings, complete the Geographic Society Legacy Path thrice.</description>
+			</l10n>
+			<sortIndex>100620</sortIndex>
+			<careerConfig statistic="CHALLENGE_STATISTIC_LEADER_XERXES_CULTURE_VICTORY_MODERN" threshold="3" />
+			<reward type="XP" reward="25" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_FLAWLESS_VICTORY_ANTIQUITY" scope="Campaign" difficulty="4">
+			<l10n>
+				<name>Dual Legacies, Antiquity</name>
+				<description>As Xerxes, King of Kings, complete 2 Legacy Paths in a single Antiquity Age.</description>
+			</l10n>
+			<sortIndex>99500</sortIndex>
+			<campaignConfig event="CHALLENGE_EVENT_LEADER_XERXES_FLAWLESS_VICTORY_ACHIEVED" />
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="legacyPathCount">2</rule>
+					<rule type="equals" var="age">AGE_ANTIQUITY</rule>
+				</rule>
+			</rules>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_FLAWLESS_VICTORY_EXPLORATION" scope="Campaign" difficulty="4">
+			<l10n>
+				<name>Dual Legacies, Exploration</name>
+				<description>As Xerxes, King of Kings, complete 2 Legacy Paths in a single Exploration Age.</description>
+			</l10n>
+			<sortIndex>100100</sortIndex>
+			<campaignConfig event="CHALLENGE_EVENT_LEADER_XERXES_FLAWLESS_VICTORY_ACHIEVED" />
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="legacyPathCount">2</rule>
+					<rule type="equals" var="age">AGE_EXPLORATION</rule>
+				</rule>
+			</rules>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_XERXES_FLAWLESS_VICTORY_MODERN" scope="Campaign" difficulty="4">
+			<l10n>
+				<name>Dual Legacies, Modern</name>
+				<description>As Xerxes, King of Kings, complete 2 Legacy Paths in a single Modern Age.</description>
+			</l10n>
+			<sortIndex>100700</sortIndex>
+			<campaignConfig event="CHALLENGE_EVENT_LEADER_XERXES_FLAWLESS_VICTORY_ACHIEVED" />
+			<rules>
+				<rule type="and">
+					<rule type="equals" var="legacyPathCount">2</rule>
+					<rule type="equals" var="age">AGE_MODERN</rule>
+				</rule>
+			</rules>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_XERXES_QUEST_A_ANTIQUITY" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Axis Mundi</name>
+				<description>As Xerxes, King of Kings, in Antiquity, complete a quest to compare the cosmos to the rule of Xerxes.</description>
+			</l10n>
+			<sortIndex>101700</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_XERXES_QUEST_B_ANTIQUITY" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Ahura Mazda</name>
+				<description>As Xerxes, King of Kings, in Antiquity, complete a quest to balance the power of fire.</description>
+			</l10n>
+			<sortIndex>101800</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_XERXES_QUEST_A_EXPLORATION" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Rules of the Court</name>
+				<description>As Xerxes, King of Kings, in Exploration, complete a quest to send a brazen youth abroad.</description>
+			</l10n>
+			<sortIndex>101900</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_XERXES_QUEST_B_EXPLORATION" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Flames of War</name>
+				<description>As Xerxes, King of Kings, in Exploration, complete a quest to cleanse the land with fire.</description>
+			</l10n>
+			<sortIndex>102000</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_XERXES_QUEST_A_MODERN" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>The Order of the Universe</name>
+				<description>As Xerxes, King of Kings, in Modern, complete a quest to understand the orbit of heavenly bodies.</description>
+			</l10n>
+			<sortIndex>102100</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_XERXES_QUEST_B_MODERN" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>A New Order</name>
+				<description>As Xerxes, King of Kings, in Modern, complete a quest to reshape the world by war.</description>
+			</l10n>
+			<sortIndex>102200</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_XERXES_UNLOCKED_STRATEGYCARDS_EXPLORATION" scope="Campaign" difficulty="1" hidden="true" allowRewardWhenHidden="true">
+			<l10n>
+				<name>Age Transition Card Exploration</name>
+				<description>As Xerxes, King of Kings, unlock age transition legend strategycards for exploration age.</description>
+			</l10n>
+			<sortIndex>62501</sortIndex>
+			<reward type="UnlockableReward" reward="STRATEGYCARD_AS_XERXES_KING_EXPLORATION_1" />
+			<reward type="UnlockableReward" reward="STRATEGYCARD_AS_XERXES_KING_EXPLORATION_2" />
+		</challenge>
+		<challenge id="CHALLENGE_LEADER_XERXES_UNLOCKED_STRATEGYCARDS_MODERN" scope="Campaign" difficulty="1" hidden="true" allowRewardWhenHidden="true">
+			<l10n>
+				<name>Age Transition Card Modern</name>
+				<description>As Xerxes, King of Kings, unlock age transition legend strategycards for modern age.</description>
+			</l10n>
+			<sortIndex>62502</sortIndex>
+			<reward type="UnlockableReward" reward="STRATEGYCARD_AS_XERXES_KING_MODERN_1" />
+			<reward type="UnlockableReward" reward="STRATEGYCARD_AS_XERXES_KING_MODERN_2" />
+		</challenge>
+	</challenges>
+</metaprogression>

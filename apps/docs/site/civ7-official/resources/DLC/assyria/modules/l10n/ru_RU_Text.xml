@@ -1,0 +1,884 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA1" Language="ru_RU">
+      <Text>Ниневия|Ниневии|Ниневии|Ниневию|Ниневией|Ниневии</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA10" Language="ru_RU">
+      <Text>Нухадра|Нухадры|Нухадре|Нухадру|Нухадрой|Нухадре</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA11" Language="ru_RU">
+      <Text>Арби-Илу|Арби-Илу|Арби-Илу|Арби-Илу|Арби-Илу|Арби-Илу</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA12" Language="ru_RU">
+      <Text>Хилакку|Хилакку|Хилакку|Хилакку|Хилакку|Хилакку</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA13" Language="ru_RU">
+      <Text>Хузирина|Хузирины|Хузирине|Хузирину|Хузириной|Хузирине</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA14" Language="ru_RU">
+      <Text>Канеш|Канеша|Канешу|Канеш|Канешем|Канеше</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA15" Language="ru_RU">
+      <Text>Мардама|Мардамы|Мардаме|Мардаму|Мардамой|Мардаме</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA16" Language="ru_RU">
+      <Text>Шинахуттум|Шинахуттума|Шинахуттуму|Шинахуттум|Шинахуттумом|Шинахуттуме</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA17" Language="ru_RU">
+      <Text>Мансуат|Мансуата|Мансуату|Мансуат|Мансуатом|Мансуате</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA18" Language="ru_RU">
+      <Text>Рапику|Рапику|Рапику|Рапику|Рапику|Рапику</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA19" Language="ru_RU">
+      <Text>Шарейша|Шарейши|Шарейше|Шарейшу|Шарейшей|Шарейше</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA2" Language="ru_RU">
+      <Text>Кальху|Кальху|Кальху|Кальху|Кальху|Кальху</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA20" Language="ru_RU">
+      <Text>Кахат|Кахата|Кахату|Кахат|Кахатом|Кахате</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA21" Language="ru_RU">
+      <Text>Ситтак|Ситтака|Ситтаку|Ситтак|Ситтаком|Ситтаке</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA22" Language="ru_RU">
+      <Text>Кар-Шульману-Ашареду|Кар-Шульману-Ашареду|Кар-Шульману-Ашареду|Кар-Шульману-Ашареду|Кар-Шульману-Ашареду|Кар-Шульману-Ашареду</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA23" Language="ru_RU">
+      <Text>Хадату|Хадату|Хадату|Хадату|Хадату|Хадату</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA24" Language="ru_RU">
+      <Text>Тушхан|Тушхана|Тушхану|Тушхан|Тушханом|Тушхане</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA25" Language="ru_RU">
+      <Text>Кар-Сипар|Кар-Сипара|Кар-Сипару|Кар-Сипар|Кар-Сипаром|Кар-Сипаре</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA26" Language="ru_RU">
+      <Text>Хана|Ханы|Хане|Хану|Ханой|Хане</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA27" Language="ru_RU">
+      <Text>Мари|Мари|Мари|Мари|Мари|Мари</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA28" Language="ru_RU">
+      <Text>Кишассу|Кишассу|Кишассу|Кишассу|Кишассу|Кишассу</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA29" Language="ru_RU">
+      <Text>Аринну|Аринну|Аринну|Аринну|Аринну|Аринну</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA3" Language="ru_RU">
+      <Text>Ашшур|Ашшура|Ашшуру|Ашшур|Ашшуром|Ашшуре</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA30" Language="ru_RU">
+      <Text>Самаль|Самаля|Самалю|Самаль|Самалем|Самале</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA4" Language="ru_RU">
+      <Text>Аррапха|Аррапхи|Аррапхе|Аррапху|Аррапхой|Аррапхе</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA5" Language="ru_RU">
+      <Text>Каркемиш|Каркемиша|Каркемишу|Каркемиш|Каркемишем|Каркемише</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA6" Language="ru_RU">
+      <Text>Дур-Катлимму|Дур-Катлимму|Дур-Катлимму|Дур-Катлимму|Дур-Катлимму|Дур-Катлимму</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA7" Language="ru_RU">
+      <Text>Кар-Тукульти-Нинурта|Кар-Тукульти-Нинурты|Кар-Тукульти-Нинурте|Кар-Тукульти-Нинурту|Кар-Тукульти-Нинуртой|Кар-Тукульти-Нинурте</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA8" Language="ru_RU">
+      <Text>Имгур-Энлиль|Имгур-Энлиль|Имгур-Энлиль|Имгур-Энлиль|Имгур-Энлиль|Имгур-Энлиль</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_ASSYRIA9" Language="ru_RU">
+      <Text>Амида|Амиды|Амиде|Амиду|Амидой|Амиде</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_1" Language="ru_RU">
+      <Text>Шаддиту|Шаддиту|Шаддиту|Шаддиту|Шаддиту|Шаддиту</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_10" Language="ru_RU">
+      <Text>Мубаллитат-Шеруа|Мубаллитат-Шеруа|Мубаллитат-Шеруа|Мубаллитат-Шеруа|Мубаллитат-Шеруа|Мубаллитат-Шеруа</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_2" Language="ru_RU">
+      <Text>Либбали-шаррат|Либбали-шаррат|Либбали-шаррат|Либбали-шаррат|Либбали-шаррат|Либбали-шаррат</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_3" Language="ru_RU">
+      <Text>Ташмету-шаррат|Ташмету-шаррат|Ташмету-шаррат|Ташмету-шаррат|Ташмету-шаррат|Ташмету-шаррат</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_4" Language="ru_RU">
+      <Text>Самму-рамат|Самму-рамат|Самму-рамат|Самму-рамат|Самму-рамат|Самму-рамат</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_5" Language="ru_RU">
+      <Text>Ахат-Абиша|Ахат-Абиши|Ахат-Абише|Ахат-Абишу|Ахат-Абишей|Ахат-Абише</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_6" Language="ru_RU">
+      <Text>Закуту|Закуту|Закуту|Закуту|Закуту|Закуту</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_7" Language="ru_RU">
+      <Text>Шеруа-эттират|Шеруа-эттират|Шеруа-эттират|Шеруа-эттират|Шеруа-эттират|Шеруа-эттират</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_8" Language="ru_RU">
+      <Text>Эшарра-хаммат|Эшарра-хаммат|Эшарра-хаммат|Эшарра-хаммат|Эшарра-хаммат|Эшарра-хаммат</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_FEMALE_9" Language="ru_RU">
+      <Text>Раима|Раимы|Раиме|Раиму|Раимой|Раиме</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_1" Language="ru_RU">
+      <Text>Арда-Мулишши|Арда-Мулишши|Арда-Мулишши|Арда-Мулишши|Арда-Мулишши|Арда-Мулишши</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_10" Language="ru_RU">
+      <Text>Ашшур-этиль-илани|Ашшур-этиль-илани|Ашшур-этиль-илани|Ашшур-этиль-илани|Ашшур-этиль-илани|Ашшур-этиль-илани</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_2" Language="ru_RU">
+      <Text>Син-аху-усур|Син-аху-усура|Син-аху-усуру|Син-аху-усур|Син-аху-усуром|Син-аху-усуре</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_3" Language="ru_RU">
+      <Text>Мутаккиль-Нуску|Мутаккиль-Нуску|Мутаккиль-Нуску|Мутаккиль-Нуску|Мутаккиль-Нуску|Мутаккиль-Нуску</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_4" Language="ru_RU">
+      <Text>Тукульти-Нинурта|Тукульти-Нинурты|Тукульти-Нинурте|Тукульти-Нинурту|Тукульти-Нинуртой|Тукульти-Нинурте</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_5" Language="ru_RU">
+      <Text>Ашшур-раби|Ашшур-раби|Ашшур-раби|Ашшур-раби|Ашшур-раби|Ашшур-раби</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_6" Language="ru_RU">
+      <Text>Шамши-илу|Шамши-илу|Шамши-илу|Шамши-илу|Шамши-илу|Шамши-илу</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_7" Language="ru_RU">
+      <Text>Адад-нирари|Адад-нирари|Адад-нирари|Адад-нирари|Адад-нирари|Адад-нирари</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_8" Language="ru_RU">
+      <Text>Син-надин-апли|Син-надин-апли|Син-надин-апли|Син-надин-апли|Син-надин-апли|Син-надин-апли</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_ASSYRIA_MALE_9" Language="ru_RU">
+      <Text>Ашшур-дан|Ашшур-дана|Ашшур-дану|Ашшур-дана|Ашшур-даном|Ашшур-дане</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_ASSYRIA_ADJECTIVE" Language="ru_RU">
+      <Text>Ассирийский|Ассирийск|ассирийск</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_ASSYRIA_FULLNAME" Language="ru_RU">
+      <Text>Ассирийская империя|Ассирийской империи|Ассирийской империи|Ассирийскую империю|Ассирийской империей|Ассирийской империи</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_ASSYRIA_NAME" Language="ru_RU">
+      <Text>Ассирия|Ассирии|Ассирии|Ассирию|Ассирией|Ассирии</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_ANTIQUITY_35_MAJOR_ASSYRIA_NAME" Language="ru_RU">
+      <Text>Вашуканни|Вашуканни|Вашуканни|Вашуканни|Вашуканни|Вашуканни</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_ANTIQUITY_35_MINOR_ASSYRIA_NAME" Language="ru_RU">
+      <Text>Митанни|Митанни|Митанни|Митанни|Митанни|Митанни</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_CITADEL_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Мощь Ассирийской империи зиждилась на централизации — в масштабах, невиданных ранее в истории. Система управления всецело зависела от одного царя, чье слово было законом. Царские требования, адресованные даже самым влиятельным наместникам, нередко заканчивались угрозой смерти — не только самому адресату, но и его семье — в случае невыполнения в срок. Такого рода жесткий контроль стал возможен благодаря целому ряду организационных факторов, включая инфраструктуру связи, специально обученную постоянную армию, переселение покоренных народов для устранения оппозиции и распределение провинциальной власти. Но все это исходило из единого центра — цитадели царя в самом сердце его столицы.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_ROYAL_LIBRARY_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Ашшурбанапал, правитель Новоассирийского царства, был известен своей жестокостью на поле брани, но не менее прославился собиранием и сохранением литературы. Языки древней Месопотамии записывались клинописью — знаки выдавливались на глиняных табличках при помощи тростникового стилоса. Ашшурбанапал, часто изображавшийся на рельефах со стилосом в руке, собирал эти таблички в своем дворце и отправлял запросы в соседние царства, чтобы пополнить коллекцию. Среди сохранившихся текстов наиболее знаменитым является «Эпос о Гильгамеше», но есть также письма, политические документы, медицинские трактаты, инструкции по проведению религиозных обрядов и многое другое. Все они предлагают взглянуть во внутреннюю жизнь Ассирии глазами самих ассирийцев.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_ROYAL_LIBRARY_CHAPTER_HISTORY_PARA_2" Language="ru_RU">
+      <Text>Коллекция из более чем 30 тысяч табличек, которая сейчас называется Царской библиотекой Ашшурбанапала, была впервые обнаружена в XIX веке. Таблички были найдены и в других дворцах, что указывает на существование дополнительных царских библиотек, хотя и не в таком количестве, как в Ниневии. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Ашшур — это бог, земля и город одновременно. Название «Ассирия» является греческой версией выражения «мат Ашшур», что означает «земля [божьего города] Ашшура». Это была одной из самых влиятельных и прогрессивных империй древнего мира. Она распространилась по всей Месопотамии, включая кратковременные завоевания территорий (будущей) Персии и (уже существовавшего) Египта.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_10" Language="ru_RU">
+      <Text>Переселение народов было неотъемлемой частью ассирийских завоеваний, сыграв ключевую роль в зарождении культурных сдвигов. Носители арамейского языка расселялись по всей империи, и он постепенно стал новым лингва франка — языком межнационального общения, который пережил саму империю.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_11" Language="ru_RU">
+      <Text>Ассирия пала вскоре после правления Ашшурбанапала, хотя точные причины ее гибели остаются неясными — есть указания как на экологические, так и на социальные потрясения, после которых на пепелище империи возник новый Вавилон.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_2" Language="ru_RU">
+      <Text>Для начала нам нужно взглянуть на шумерскую историю. Этот окутанный тайной народ появился на заре появления городов — возможно, они пришли с Индийского субконтинента. Именно шумеры построили одни из первых городов на территории современного Ирака. Со временем аккадцы под предводительством Саргона восстали и основали империю на бывших шумерских землях, но та рухнула примерно к 2150 году до н. э. Последовавшие за этим столетия были мрачными: разрозненные города-государства (в том числе Ашшур) вели борьбу за господство.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_3" Language="ru_RU">
+      <Text>Ассирия пережила два восхождения: первое — в середине XIV века до н. э. и позднее, второе — около 900 года до н. э. (для сравнения: это моложе Древнего Египта, но значительно древнее Греции; в конце эпохи Шан и начале эпохи Чжоу в Китае). Здесь мы сосредоточимся на более позднем Новоассирийском царстве.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_4" Language="ru_RU">
+      <Text>Имена таких царей Ассирии, как Саргон II, Синаххериб, Ашшурбанапал и других, не зря вошли в легенды — эти правители изменили само понимание власти в данном регионе. Их успех был отчасти обусловлен несколькими новаторскими экспериментами в экономике: в Ассирии довольно рано была принята форма свободной торговли (в отличие от Шумера, где торговля регулировалась храмами), но наиболее значительным новшеством стало развитие постоянной армии. Вы только представьте: солдатам больше не нужно было думать о возвращении домой к сбору урожая, и они могли месяцами сидеть у вражеских стен, дожидаясь, пока противник сам выдохнется. Кроме того, ассирийцы были искусными инженерами: в их армии существовал специальный инженерный корпус, способный строить осадные машины, крупные насыпи и другие конструкции, которые позволяли легко противостоять древним стенам. Ассирийцы были также царством железного века — и хотя железо уступает бронзе по прочности (в зависимости от содержания углерода), но его можно было массово производить и не опасаться перебоев в торговле. (Кстати, именно такие перебои во время катастрофы бронзового века погубили более раннюю Ассирийскую империю.) Даже мелкие военные новшества вроде боевых сапог берут начало в Ассирии — армия этой державы действительно была военной машиной своего времени.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_5" Language="ru_RU">
+      <Text>И это было ужасно. Ассирийские хроники с особым смаком описывают ужасы, обрушившиеся на тех, кто осмеливался встать у них на пути: сдирание кожи, расчленение, полное уничтожение городов, оказавших сопротивление. Завоевания Синаххериба в Иудее вошли даже в Ветхий Завет: когда Иудея восстала при поддержке Египта, Синаххериб ответил без пощады, забрав все население в плен и подвергнув вождей жестоким пыткам, приведшим к их смерти. По преданию, когда пленные шли в вавилонское изгнание, ассирийцы заставляли их петь песни радости. Библейская версия утверждает, что во время последующей осады Иерусалима на ассирийцев обрушилось божественное возмездие, однако, возможно, истинной причиной их отступления стали известия о восстании в самом Вавилоне.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_6" Language="ru_RU">
+      <Text>Сады Синаххериба прославились на родине, будучи настоящими чудесами гидротехнического искусства, которые, вероятно, послужили вдохновением для «висячих садов». И это тоже было связано с властью — ассирийские сады были символами завоеваний, ландшафт и флора в них отражали особенности завоеванных земель. Можно было прогуляться среди кедров из Ливана на родине и вспомнить о его покорении.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_7" Language="ru_RU">
+      <Text>Ашшурбанапал был величайшим (хотя это можно оспорить) и в то же время последним (почти) из ассирийских царей. Его отец разделил царство между Ашшуром и Вавилоном для своих двух сыновей, но брат Ашшурбанапала (получивший Вавилон) попытался заключить союз с эламитами и захватил все. Это не увенчалось успехом — Ашшурбанапал уничтожил и своего брата, и Элам (да еще и покорил Египет). Его завоевания были представлены на барельефах, полных изображений плавающих трупов. Его жестокость также находила отражение в барельефах с изображением его охоты на львов — деяния настолько жестокого, что художник изобразил животных в крайних проявлениях их страданий, как бы противопоставляя их образ гордому царю-завоевателю.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_8" Language="ru_RU">
+      <Text>Однако Ашшурбанапал был не просто завоевателем — он был грамотным человеком, а его библиотека была особой гордостью. Он собирал все тексты, какие только мог найти, самых разных видов и жанров, чтобы сохранить знания своей эпохи. Десятки тысяч глиняных табличек из его коллекции сохранились в руинах Ниневии. И именно в его библиотеке мы нашли «Эпос о Гильгамеше».</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_ASSYRIA_CHAPTER_HISTORY_PARA_9" Language="ru_RU">
+      <Text>Ассирийское общество было многоязычным, с присутствием аккадского и шумерского языков в различных формах. У каждого города был свой бог-покровитель, и войны считались не только сражениями между царями, но и между этими богами. После захвата город отказывался от своего бога (например, Мардука, покровителя Вавилона), а завоевавший бог мог подвергнуть побежденных ритуальному унижению или просто включить это божество в пантеон как подчиненное. Вассалы также могли остаться на своих местах или быть заменены ассирийской знатью — что порождало негодование среди завоеванных народов.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_ASSYRIA_BIRTUTU_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Ассирийская армия была самой эффективной военной силой в мире и обладала выдающимися навыками в осадной войне. Завоевания обеспечивались не только хорошо подготовленными войсками и эффективной тактикой, но и использованием осадных орудий, земляных валов и психологической войны. Благодаря этому ассирийцы прекрасно разбирались в строительстве собственных укрепленных городов (биртуту). Сочетание башен и толстых зубчатых стен обеспечивало защиту тем, кто находился внутри, а рвы и насыпи можно было эффективно оборонять с высоты. Ворота, всегда являвшиеся самым уязвимым местом крепости, были не только физически укреплены, но и богато украшены мифологическими существами и рельефами на военную тематику, чтобы внушать страх как захватчикам, так и мирным посетителям.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_ASSYRIA_KIBRAT_ARBA_I_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Царские надписи правителей Древней Месопотамии, как правило, начинались с перечня титулов, и одним из самых значимых среди новоассирийских царей был титул «царь четырех сторон света». Эти четыре стороны (кибрат арбаи) обозначали древние географические области, соответствовавшие сторонам света (Шумер, Марту, Элам и Субарту), но подразумевался под ними весь мир. Данный титул использовал не каждый царь — его появление становилось реже по мере уменьшения числа военных походов, так что, возможно, для его провозглашения требовались определенные военные достижения. Однако значение этого титула пережило самих ассирийцев: последним правителем, использовавшим его, был Кир Великий.  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_ASSYRIA_TUPSARRUTU_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Образование в Ассирийской империи начиналось с раннего возраста для детей, стремившихся стать писцами. В течение 12 лет мальчики и девочки проходили строгое обучение клинописи, а также изучали различные предметы от истории и религии до медицины и сельского хозяйства. Эта форма писцового образования — тупшарруту — была интенсивной и сложной для учеников. Однако после окончания обучения они становились очень востребованными специалистами: их навыки открывали путь ко множеству профессий, требующих грамотности и образования, включая писцов, врачей, астрономов, музыкантов и архитекторов. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_QUARTER_EKALLU_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Ассирийский экаллу (дворец) представлял собой комплекс, совмещавший царскую резиденцию и политический центр. Это были внушительные сооружения, в которых сочетались общественные и частные пространства: залы для приемов и тронный зал для гостей, административные помещения для чиновников, а также сады и жилые покои для царя и его семьи. Здания богато украшались в зависимости от предполагаемых посетителей каждого помещения. У ворот и входов стояли статуи львов и гибридов людей и животных, а стены украшали расписные рельефы. В дипломатических залах изображения были связаны с царской жизнью (сцены из жизни придворных, охота на львов), тогда как в частных помещениях преобладали мифологические или религиозные сюжеты. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_MAGARRU_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>«Магарру» означает колесницу, важное оружие в новоассирийской армии. Хотя лошади использовались в Месопотамии как минимум еще с Аккадского царства, отсутствие седел, стремян и другого снаряжения затрудняло их эффективное использование в бою. Ими было легче управлять, когда их запрягали в колесницы. Эти транспортные средства были маленькими и легкими, имели два колеса и вмещали двоих пассажиров — возницу и лучника. Поскольку лошади по своей природе не любят нестись на ряды солдат, они использовались только тогда, когда враг уже начинал отступать или был готов к бегству, — тогда колесницы применялись для быстрого перемещения лучников ближе к целям. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_MAGARRU_CHAPTER_HISTORY_PARA_2" Language="ru_RU">
+      <Text>Недостатком колесниц была высокая стоимость их производства, поэтому их использование на поле боя всегда представляло собой финансовый риск. Однако к правлению Саргона II в VIII веке до н. э. конская упряжь и искусство верховой езды начали совершенствоваться, и вскоре кавалерия превзошла колесницы в качестве мобильного подразделения армии.  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_TURTANU_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Туртану был высокопоставленным военным чиновником, возглавлявшим ассирийскую армию вместо царя во время войны. Это была чрезвычайно влиятельная должность, вторая по значимости после самого правителя. В какой-то момент в VIII веке до н. э. титул, по-видимому, был разделен: появились туртану «правой стороны» и туртану «левой стороны» — вероятно, для ослабления чрезмерной концентрации власти в руках одного человека. Со временем обязанности туртану вышли за пределы чисто военной сферы, и они начали заниматься и гражданским управлением региональными территориями. </Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_CITADEL_NAME" Language="ru_RU">
+      <Text>Цитадель|цитадели|цитадели|цитадель|цитаделью|цитадели</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_ROYAL_LIBRARY_NAME" Language="ru_RU">
+      <Text>Царская библиотека|Царской библиотеки|Царской библиотеке|Царскую библиотеку|Царской библиотекой|Царской библиотеке</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_EKALLU_NAME" Language="ru_RU">
+      <Text>Экаллу|экаллу|экаллу|экаллу|экаллу|экаллу</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_BALIKH_RIVER_NAME" Language="ru_RU">
+      <Text>Белих|Белиха|Белиху|Белих|Белихом|Белихе</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_BATMAN_RIVER_NAME" Language="ru_RU">
+      <Text>Батман|Батмана|Батману|Батман|Батманом|Батмане</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_DIYALA_RIVER_NAME" Language="ru_RU">
+      <Text>Дияла|Диялы|Дияле|Диялу|Диялой|Дияле</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_KHABUR_RIVER_NAME" Language="ru_RU">
+      <Text>Хабур|Хабура|Хабуру|Хабур|Хабуром|Хабуре</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SAJUR_RIVER_NAME" Language="ru_RU">
+      <Text>Саджур|Саджура|Саджуру|Саджур|Саджуром|Саджуре</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_GIREKOL_NAME" Language="ru_RU">
+      <Text>Гиреколь-тепе|Гиреколь-тепе|Гиреколь-тепе|Гиреколь-тепе|Гиреколь-тепе|Гиреколь-тепе</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_HASANDAGI_NAME" Language="ru_RU">
+      <Text>Хасандаг|Хасандага|Хасандагу|Хасандаг|Хасандагом|Хасандаге</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_KARACA_DAG_NAME" Language="ru_RU">
+      <Text>Карасадаг|Карасадага|Карасадагу|Карасадаг|Карасадагом|Карасадаге</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_KAUKAB_NAME" Language="ru_RU">
+      <Text>Каукаб|Каукаба|Каукабу|Каукаб|Каукабом|Каукабе</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_MOUNT_ARARAT_NAME" Language="ru_RU">
+      <Text>Арарат|Арарата|Арарату|Арарат|Араратом|Арарате</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_BIRTUTU_NAME" Language="ru_RU">
+      <Text>Биртуту|биртуту|биртуту|биртуту|биртуту|биртуту</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_KIBRAT_ARBA_I_NAME" Language="ru_RU">
+      <Text>Кибрат арбаи|кибрат арбаи|кибрат арбаи|кибрат арбаи|кибрат арбаи|кибрат арбаи</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TUPSARRUTU_NAME" Language="ru_RU">
+      <Text>Тупшарруту|тупшарруту|тупшарруту|тупшарруту|тупшарруту|тупшарруту</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_11071A_COMPLETION" Language="ru_RU">
+      <Text>Ассирийские глашатаи провозглашают свое право править как шар кибрат арбаи — владыки четырех сторон света. Однако смысл этого титула открыт для толкований.</Text>
+    </Replace>
+    <Replace Tag="LOC_11071A_STORYTITLE" Language="ru_RU">
+      <Text>Четыре стороны</Text>
+    </Replace>
+    <Replace Tag="LOC_11071B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11071B_NAME" Language="ru_RU">
+      <Text>Тут все буквально. Стремиться к завоеванию.</Text>
+    </Replace>
+    <Replace Tag="LOC_11071C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11071C_NAME" Language="ru_RU">
+      <Text>Тут все образно. Стремиться к знаниям.</Text>
+    </Replace>
+    <Replace Tag="LOC_11072A_COMPLETION" Language="ru_RU">
+      <Text>Лавочница протискивается сквозь толпу у храма к своим товарам, надежно хранящимся под надзором жрецов. Вокруг нее другие торговцы суют монеты в руки служителям — каждый жаждет, чтобы его сделку задокументировали. Здесь можно решить и духовные, и финансовые вопросы за один раз.</Text>
+    </Replace>
+    <Replace Tag="LOC_11072A_STORYTITLE" Language="ru_RU">
+      <Text>Храм торговли</Text>
+    </Replace>
+    <Replace Tag="LOC_11072B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11072B_NAME" Language="ru_RU">
+      <Text>Расширить алтарные хранилища.</Text>
+    </Replace>
+    <Replace Tag="LOC_11072C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11072C_NAME" Language="ru_RU">
+      <Text>Священники должны сами финансировать свои торговые авантюры.</Text>
+    </Replace>
+    <Replace Tag="LOC_11073A_COMPLETION" Language="ru_RU">
+      <Text>Ассирийские саперы помогают боевым орудиям, выламывая кирпичи из стены молотами и кирками. Когда пыль оседает, расчеты орудий и их командиры присваивают себе заслугу за обрушение стены.</Text>
+    </Replace>
+    <Replace Tag="LOC_11073A_STORYTITLE" Language="ru_RU">
+      <Text>Осаждай и властвуй</Text>
+    </Replace>
+    <Replace Tag="LOC_11073B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} для осадных юнитов.</Text>
+    </Replace>
+    <Replace Tag="LOC_11073B_NAME" Language="ru_RU">
+      <Text>Это результат ассирийского инженерного дела.</Text>
+    </Replace>
+    <Replace Tag="LOC_11073C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} для текущих командиров.</Text>
+    </Replace>
+    <Replace Tag="LOC_11073C_NAME" Language="ru_RU">
+      <Text>Пусть это будет уроком для ассирийских командиров.</Text>
+    </Replace>
+    <Replace Tag="LOC_11074A_COMPLETION" Language="ru_RU">
+      <Text>В недавно завоеванном городе начинается кормление бога Ашшура, и унылые очереди тянутся к алтарю, неся в дар скот и зерно. Жрец прежней веры остается в стороне, отказываясь признать новый божественный порядок, а за всем наблюдает ассирийский командир.</Text>
+    </Replace>
+    <Replace Tag="LOC_11074A_STORYTITLE" Language="ru_RU">
+      <Text>Кормление Ашшура</Text>
+    </Replace>
+    <Replace Tag="LOC_11074B_DESCRIPTION" Language="ru_RU">
+      <Text>Выберите дополнительный пантеон, но {1_reward} во всех поселениях.</Text>
+    </Replace>
+    <Replace Tag="LOC_11074B_NAME" Language="ru_RU">
+      <Text>Не обращать внимания на жреца. Пришло время милосердия.</Text>
+    </Replace>
+    <Replace Tag="LOC_11074C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}, но {2_reward} во всех поселениях.</Text>
+    </Replace>
+    <Replace Tag="LOC_11074C_NAME" Language="ru_RU">
+      <Text>Выхватить оружие. Капитуляция должна быть абсолютной.</Text>
+    </Replace>
+    <Replace Tag="LOC_11075A_COMPLETION" Language="ru_RU">
+      <Text>Новобранцы спят в конюшнях, а командиры проводят совещания под открытым небом. Просто солдат слишком много, а мест — слишком мало.</Text>
+    </Replace>
+    <Replace Tag="LOC_11075A_STORYTITLE" Language="ru_RU">
+      <Text>Армия Ашшура</Text>
+    </Replace>
+    <Replace Tag="LOC_11075B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11075B_NAME" Language="ru_RU">
+      <Text>Расширить существующие цитадели.</Text>
+    </Replace>
+    <Replace Tag="LOC_11075C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11075C_NAME" Language="ru_RU">
+      <Text>Жизнь солдата тяжела. Они должны приспосабливаться.</Text>
+    </Replace>
+    <Replace Tag="LOC_11076A_COMPLETION" Language="ru_RU">
+      <Text>Никто не произносит ни слова, когда командир уходит. Слова мало значат, когда на Ашшур и всю его славу идет растущая волна, грозящая все утопить. Весть о недавнем поражении вскоре дойдет и до остального ассирийского народа.</Text>
+    </Replace>
+    <Replace Tag="LOC_11076A_STORYTITLE" Language="ru_RU">
+      <Text>Падение</Text>
+    </Replace>
+    <Replace Tag="LOC_11076B_DESCRIPTION" Language="ru_RU">
+      <Text>Начните празднество.</Text>
+    </Replace>
+    <Replace Tag="LOC_11076B_NAME" Language="ru_RU">
+      <Text>Возродить надежду. Волна еще может вернуться.</Text>
+    </Replace>
+    <Replace Tag="LOC_11076C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} для военных юнитов.</Text>
+    </Replace>
+    <Replace Tag="LOC_11076C_NAME" Language="ru_RU">
+      <Text>Обучить больше солдат. Волна еще может вернуться.</Text>
+    </Replace>
+    <Replace Tag="LOC_11077A_COMPLETION" Language="ru_RU">
+      <Text>Молодая женщина учится выводить свое имя на мягкой глине. Пусть едва разборчиво, но оно станет печатью, скрепляющей временный контракт в поисках лучшей жизни. Жизни в неволе — но с едой, одеждой и теплом.</Text>
+    </Replace>
+    <Replace Tag="LOC_11077A_STORYTITLE" Language="ru_RU">
+      <Text>Тело как инструмент</Text>
+    </Replace>
+    <Replace Tag="LOC_11077B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} от производственных зданий.</Text>
+    </Replace>
+    <Replace Tag="LOC_11077B_NAME" Language="ru_RU">
+      <Text>Найти службу в армии.</Text>
+    </Replace>
+    <Replace Tag="LOC_11077C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11077C_NAME" Language="ru_RU">
+      <Text>Работать в храме.</Text>
+    </Replace>
+    <Replace Tag="LOC_11077D_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} за здания, производящие пищу.</Text>
+    </Replace>
+    <Replace Tag="LOC_11077D_NAME" Language="ru_RU">
+      <Text>Уничтожить табличку и вернуться домой. Неволя — не выбор.</Text>
+    </Replace>
+    <Replace Tag="LOC_11078A_COMPLETION" Language="ru_RU">
+      <Text>Библиотека возносится к небу, но ее величие меркнет перед мирами, сокрытыми в хранящихся здесь писаниях. И все же полок слишком много, и слишком много на них пустого места — для новых мечтаний, запечатленных на глине.</Text>
+    </Replace>
+    <Replace Tag="LOC_11078A_STORYTITLE" Language="ru_RU">
+      <Text>Царская библиотека</Text>
+    </Replace>
+    <Replace Tag="LOC_11078B_COMPLETION" Language="ru_RU">
+      <Text>Библиотекарь ставит труд на почетное место. Она берет небольшую тряпицу и аккуратно вытирает крошечное пятнышко. Чернила, возможно.</Text>
+    </Replace>
+    <Replace Tag="LOC_11078B_DESCRIPTION" Language="ru_RU">
+      <Text>+1 к дополнительному кодексу.</Text>
+    </Replace>
+    <Replace Tag="LOC_11078B_IMPERATIVE" Language="ru_RU">
+      <Text>Захватите поселение.</Text>
+    </Replace>
+    <Replace Tag="LOC_11078B_NAME" Language="ru_RU">
+      <Text>Все тексты повсюду принадлежат Ассирии.</Text>
+    </Replace>
+    <Replace Tag="LOC_11078B_STORYTITLE" Language="ru_RU">
+      <Text>Царская библиотека</Text>
+    </Replace>
+    <Replace Tag="LOC_11078C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11078C_NAME" Language="ru_RU">
+      <Text>Использовать часть этого пустого пространства для местных торговцев.</Text>
+    </Replace>
+    <Replace Tag="LOC_11079A_COMPLETION" Language="ru_RU">
+      <Text>Арена украшена изображениями охоты на львов, и именно львов жаждет увидеть толпа. Когда зверя выпускают, толпа взрывается восторженным ревом. Но под конец, когда доносятся жалобные стоны раненого зверя, по рядам прокатывается шепот сочувствия.</Text>
+    </Replace>
+    <Replace Tag="LOC_11079A_STORYTITLE" Language="ru_RU">
+      <Text>Гривное событие</Text>
+    </Replace>
+    <Replace Tag="LOC_11079B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11079B_NAME" Language="ru_RU">
+      <Text>Пощадить львов. Заставить солдат сражаться.</Text>
+    </Replace>
+    <Replace Tag="LOC_11079C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11079C_NAME" Language="ru_RU">
+      <Text>Убить зверей!</Text>
+    </Replace>
+    <Replace Tag="LOC_11080A_COMPLETION" Language="ru_RU">
+      <Text>Захваченного вражеского командира заставляют встать на колени, а ассирийские солдаты тащат колесницу. После унижения на поле боя требуется еще одно демонстративное действие.</Text>
+    </Replace>
+    <Replace Tag="LOC_11080A_STORYTITLE" Language="ru_RU">
+      <Text>Крупнейшее оскорбление</Text>
+    </Replace>
+    <Replace Tag="LOC_11080B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11080B_NAME" Language="ru_RU">
+      <Text>Заключенный потащит колесницу по городу!</Text>
+    </Replace>
+    <Replace Tag="LOC_11080C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11080C_NAME" Language="ru_RU">
+      <Text>Заключенный заржет, как настоящий конь.</Text>
+    </Replace>
+    <Replace Tag="LOC_12010A_COMPLETION" Language="ru_RU">
+      <Text>Доктор Рисаль смотрит на огромную осадную башню, вершина которой едва видна за стеной ассирийского гарнизона, и по его спине пробегает холодок.</Text>
+    </Replace>
+    <Replace Tag="LOC_12010A_STORYTITLE" Language="ru_RU">
+      <Text>Добрый доктор в стране царей</Text>
+    </Replace>
+    <Replace Tag="LOC_12010B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} для воинов.</Text>
+    </Replace>
+    <Replace Tag="LOC_12010B_NAME" Language="ru_RU">
+      <Text>Она пережила столько войн...</Text>
+    </Replace>
+    <Replace Tag="LOC_12010C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_12010C_NAME" Language="ru_RU">
+      <Text>Какое суровое изящество...</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_MAGARRU_DESCRIPTION" Language="ru_RU">
+      <Text>Может перемещаться после атаки и игнорирует зону контроля.</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_TURTANU_COMBAT_DESCRIPTION" Language="ru_RU">
+      <Text>+5 к боевой мощи против районов.</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_TURTANU_DESCRIPTION" Language="ru_RU">
+      <Text>Юниты пехоты и кавалерии в зоне командования получают +5 к боевой мощи при против районов.</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_CITADEL_DESCRIPTION" Language="ru_RU">
+      <Text>+3 к [icon:YIELD_PRODUCTION] производству. +2 к[icon:YIELD_HAPPINESS] довольству при размещении на ровном ландшафте. Бонус за соседство +1 к[icon:YIELD_PRODUCTION] производству от чудес. Уникальное производственное здание и укрепление Ассирии. Не устаревает. Чтобы захватить поселение, все укрепленные районы должны быть захвачены.</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_CITADEL_TOOLTIP" Language="ru_RU">
+      <Text>+2 к[icon:YIELD_HAPPINESS] довольству при размещении на ровном ландшафте. Уникальное производственное здание и укрепление Ассирии. Не устаревает. Чтобы захватить поселение, все укрепленные районы должны быть захвачены.</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_ROYAL_LIBRARY_DESCRIPTION" Language="ru_RU">
+      <Text>+3 к [icon:YIELD_SCIENCE] науке. Имеет 2 ячейки кодекса. Бонус за соседство +1 к [icon:YIELD_SCIENCE] науке от рек и чудес. Уникальное научное здание Ассирии. Не устаревает.</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_ROYAL_LIBRARY_TOOLTIP" Language="ru_RU">
+      <Text>2 ячейки кодекса. Уникальное научное здание Ассирии. Не устаревает.</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_BIRTUTU_AUTHOR" Language="ru_RU">
+      <Text>Саргон II</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_BIRTUTU_QUOTE" Language="ru_RU">
+      <Text>«Я воздвиг городскую стену, крепкую, словно горы, и поселил внутри народы земли, покоренной моей дланью».</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_KIBRAT_ARBA_I_AUTHOR" Language="ru_RU">
+      <Text>Синаххериб</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_KIBRAT_ARBA_I_QUOTE" Language="ru_RU">
+      <Text>«Я провел свои армии от одного конца земли до другого и покорил всех царей четырех сторон света».</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TUPSARRUTU_AUTHOR" Language="ru_RU">
+      <Text>Ашшурбанапал</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TUPSARRUTU_QUOTE" Language="ru_RU">
+      <Text>«Ты, о Ашшур, знаешь все, от древнего прошлого до далекого будущего».</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_ASSYRIA_DESCRIPTION" Language="ru_RU">
+      <Text>Получите технологию при захвате поселения в первый раз. Кодексы не даются в награду за технологии. Может создавать кодексы при завоеваниях после завершения института «Тупшарруту».</Text>
+    </Replace>
+    <Replace Tag="LOC_INTRO_ASSYRIA" Language="ru_RU">
+      <Text>Народ призвали сюда, в сердце империи, где он будет трудиться и процветать. И по промыслу Ашура имя ему будет Ассирия.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_ASSYRIA" Language="ru_RU">
+      <Text>Осадные башни грохочут, а железные мечи становятся все острее — боевая машина Ассирии приходит в движение. Под зорким взглядом Ашшура на выжженной солнцем земле рождается новый порядок: с продуманными городами, умелыми зодчими и неумолимым маршем сапогов. Отправляйтесь завоевать мир — никто не может с вами соперничать.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_ASSYRIA" Language="ru_RU">
+      <Text>Освоение технологий не дает Ассирии кодексы, но приносит культуру с социальным институтом «Биртуту». Быстро откройте социальный институт «Тупшарруту», чтобы получить кодексы за завоевание поселений!</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASSYRIA_COMPLETE_DUR_SHARRUKIN_DESC" Language="ru_RU">
+      <Text>Завершите Дур-Шаррукин, играя за Ассирию</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASSYRIA_COMPLETE_DUR_SHARRUKIN_NAME" Language="ru_RU">
+      <Text>Дур-Шаррукин</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASSYRIA_LEGACY_PATH_SCIENTIFIC_DESC" Language="ru_RU">
+      <Text>Завершите научную тропу наследия, играя за Ассирию</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ASSYRIA_LEGACY_PATH_SCIENTIFIC_NAME" Language="ru_RU">
+      <Text>Тропа наследия Ассирии</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_BIRTUTU_COMBAT_DEFENDING_DESCRIPTION" Language="ru_RU">
+      <Text>Боевые единицы получают +5 к боевой мощи при обороне от дальнобойных юнитов.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_BIRTUTU_TECH_MASTERY_CULTURE_DESCRIPTION" Language="ru_RU">
+      <Text>Столица получает 2 к [icon:YIELD_CULTURE] культуре за каждое усовершенствование технологии.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_ASSYRIA_DESCRIPTION" Language="ru_RU">
+      <Text>+30% [icon:YIELD_PRODUCTION] производства за чудо света, связанное с Ассирией.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_KIBRAT_ARBA_I_CAPTURE_SCIENCE_DESCRIPTION" Language="ru_RU">
+      <Text>+20% [icon:YIELD_SCIENCE] науки в городах, которые основали не вы.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_KIBRAT_ARBA_I_COMBAT_MAGARRU_DESCRIPTION" Language="ru_RU">
+      <Text>+5 к боевой мощи магарру, если они находятся в зоне командования.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TUPSARRUTU_GREATWORK_DESCRIPTION" Language="ru_RU">
+      <Text>Получите кодекс за первый захват поселения.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TUPSARRUTU_HAPPINNESS_SCIENCE_BUILDING_DESCRIPTION" Language="ru_RU">
+      <Text>+2 к [icon:YIELD_HAPPINESS] довольству в научных зданиях.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_EKALLU_DESCRIPTION" Language="ru_RU">
+      <Text>Уникальный квартал Ассирии. Чтобы создать его, постройте царскую библиотеку и цитадель в одном районе. +2 к [icon:YIELD_PRODUCTION] производству за каждый [icon:NAR_REW_GREATWORK] шедевр в этом поселении.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_EKALLU_TOOLTIP" Language="ru_RU">
+      <Text>+2 к [icon:YIELD_PRODUCTION] производству за каждый [icon:NAR_REW_GREATWORK] шедевр в этом поселении.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_DURANI_DESCRIPTION" Language="ru_RU">
+      <Text>+1 к [icon:YIELD_SCIENCE] науке от укреплений.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_GIRRU_DESCRIPTION" Language="ru_RU">
+      <Text>+3 к [icon:YIELD_PRODUCTION] производству и [icon:YIELD_FOOD] пище в поселениях, которые основали не вы.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_MIHISTU_DESCRIPTION" Language="ru_RU">
+      <Text>+25% [icon:YIELD_PRODUCTION] производства для зданий и чудес с ячейкой шедевра.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_ASSYRIA_ABILITY_DESCRIPTION" Language="ru_RU">
+      <Text>[BLIST][LI]Получите [B]технологию[/B] при захвате поселения в первый раз. [LI][B]Кодексы [/B]не даются в награду за технологии.[LI]Может создавать [B]кодексы[/B] при завоеваниях после завершения института «Тупшарруту».[LI][B]+30%[icon:YIELD_PRODUCTION] к производству[/B] при строительстве [B]Дур-Шаррукина[/B].[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_ASSYRIA_ABILITY_NAME" Language="ru_RU">
+      <Text>Сокровища Ниневии</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_AQ_ASSYRIA_NAME" Language="ru_RU">
+      <Text>Ассирийские социальные институты</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_MAGARRU_2_DESCRIPTION" Language="ru_RU">
+      <Text>Уникальный кавалерийский юнит Ассирии 3-го уровня. Перемещается как юнит на колесах и имеет дополнительные ОП. Может перемещаться после атаки и игнорирует зону контроля.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_MAGARRU_BASE_DESCRIPTION" Language="ru_RU">
+      <Text>Уникальный кавалерийский юнит Ассирии. Перемещается как юнит на колесах и имеет дополнительные ОП. Может перемещаться после атаки и игнорирует зону контроля.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_MAGARRU_DESCRIPTION" Language="ru_RU">
+      <Text>Уникальный кавалерийский юнит Ассирии 2-го уровня. Перемещается как юнит на колесах и имеет дополнительные ОП. Может перемещаться после атаки и игнорирует зону контроля.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_TURTANU_DESCRIPTION" Language="ru_RU">
+      <Text>Уникальный командир армии Ассирии. Юниты пехоты и кавалерии в зоне командования получают +5 к боевой мощи против районов.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ASSYRIA_DESCRIPTION" Language="ru_RU">
+      <Text>Играйте за [B]Ассирию[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_GENGHIS_KHAN_ASSYRIA_TOOLTIP" Language="ru_RU">
+      <Text>Особенности [B]Ассирии[/B] стратегически сочетаются с игрой за [B]Чингисхана[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_LAKSHMIBAI_ASSYRIA_TOOLTIP" Language="ru_RU">
+      <Text>[B]Лакшми Баи[/B] была родом с того же континента, где находился [B]Ассирия[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_XERXES_ASSYRIA_TOOLTIP" Language="ru_RU">
+      <Text>[B]Ксеркс[/B] правил регионом, который когда-то был [B]Ассирией[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_BIRTUTU_COMBAT_DEFENDING_PREVIEW" Language="ru_RU">
+      <Text>Биртуту: +{1_Amount}</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_KIBRAT_ARBA_I_COMBAT_MAGARRU_PREVIEW" Language="ru_RU">
+      <Text>Кибрат арбаи: +{1_Amount}</Text>
+    </Replace>
+    <Replace Tag="LOC_TURTANU_COMMAND_RADIUS_COMBAT_PREVIEW" Language="ru_RU">
+      <Text>Туртан: +{1_Amount}</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_DURANI_NAME" Language="ru_RU">
+      <Text>Дурани|Дурани|Дурани|Дурани|Дурани|Дурани</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_GIRRU_NAME" Language="ru_RU">
+      <Text>Гирру|Гирру|Гирру|Гирру|Гирру|Гирру</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_MIHISTU_NAME" Language="ru_RU">
+      <Text>Михишту|Михишту|Михишту|Михишту|Михишту|Михишту</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_1_ACCEPTED_ADVISOR_BODY_ASSYRIA" Language="ru_RU">
+      <Text>Мир таит в себе бесчисленное множество тайн, ждущих раскрытия, но многие из них эгоистично скрыты врагами Ассирии. Как ваш скромный научный советник, я считаю, что в стремлении к знанию цена не может быть слишком велика. Начнем же с того, чтобы познать нашу собственную силу.</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_1_ACCEPTED_BODY_ASSYRIA" Language="ru_RU">
+      <Text>Задача: [icon:NOTIFICATION_CULTURE_TREE_REVEALED] [b]изучить социальный институт {LOC_CIVIC_BIRTUTU_NAME} и {LOC_CIVIC_DISCIPLINE_NAME}[/b], что станет первым шагом к созданию [b][icon:NOTIFICATION_TEAM_VICTORIOUS] {LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME} [/b][icon:YIELD_SCIENCE]научного наследия эпохи античности.
+
+			[n][n]Помните: [icon:NOTIFICATION_TEAM_VICTORIOUS] [b]наследия [/b]повышают вашу успешность в последующие эпохи, но [b]вы можете выбрать одно, несколько или вообще ни одного[/b].</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_1_TRACKING_BODY_ASSYRIA" Language="ru_RU">
+      <Text>Изучить: [icon:NOTIFICATION_CULTURE_TREE_REVEALED] {LOC_CIVIC_BIRTUTU_NAME} {1_itemComplete}
+
+			[n]Изучить: [icon:NOTIFICATION_CULTURE_TREE_REVEALED] {LOC_CIVIC_DISCIPLINE_NAME} {2_itemComplete}</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_2_ADVISOR_BODY_ASSYRIA" Language="ru_RU">
+      <Text>Я не воин, но ясно одно: Ассирия свирепа, как львиная стая. Нам понадобятся сильнейшие из сильнейших, чтобы вырвать тайны мира из чужих алчных рук. Соберите войска и приготовьтесь к битве.</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_2_BODY_ASSYRIA" Language="ru_RU">
+      <Text>Играя за [b]Ассирию[/b], вы можете получить кодексы только путем [b]захвата поселений [/b]и на [icon:NOTIFICATION_CULTURE_TREE_REVEALED] дереве социальных институтов [b]Ассирии[/b]. В отличие от других цивилизаций, вам нужно будет создать сильную армию, чтобы продвинуться по этой тропе наследия.
+
+			[n]Следующая цель: изучить социальный институт [icon:NOTIFICATION_CULTURE_TREE_REVEALED] [b]«{LOC_CIVIC_TUPSARRUTU_NAME}»[/b], что позволит вам получить [b]кодекс [/b] при захвате поселения. Затем соберите {1_ArmyCommanderIcon} [b]{2_ArmyCommanderName[4]} с юнитами[/b], чтобы создать военную силу.</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_2_TRACKING_BODY_ASSYRIA" Language="ru_RU">
+      <Text>Изучить: [icon:NOTIFICATION_CULTURE_TREE_REVEALED] {LOC_CIVIC_TUPSARRUTU_NAME} {1_itemComplete}
+
+			[n]Подготовить военных юнитов: {2_UnitsTarget}. Сейчас: {3_UnitsCurrent}/{2_UnitsTarget}
+
+			[n]Собрать полную армию: {4_PackedCurrent}/{2_UnitsTarget}</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_3_ADVISOR_BODY_ASSYRIA" Language="ru_RU">
+      <Text>Воистину львиная стая. Вспомните мои слова: в стремлении к знанию цена не может быть слишком велика. Отправляйтесь к нашим врагам и верните нашу законную добычу.</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_3_BODY_ASSYRIA" Language="ru_RU">
+      <Text>Следующая цель: [b]захватить любое поселение[/b], создав [b]кодекс[/b] — шедевр эпохи античности.</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_3_TRACKING_BODY_ASSYRIA" Language="ru_RU">
+      <Text>Захватить любое поселение: {1_CapturedCurrent}/{2_CapturedTarget}</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_4_ADVISOR_BODY_ASSYRIA" Language="ru_RU">
+      <Text>Из огня войны рождается свет, который поведет наш народ вперед.
+
+			[n]Но я верю, что это только начало. Продолжайте наш крестовый поход за знаниями и подготовьте место для их хранения.</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_4_BODY_ASSYRIA" Language="ru_RU">
+      <Text>Кодексы должны быть [b]выставлены [/b]для учета на [icon:NOTIFICATION_TEAM_VICTORIOUS] [b][icon:YIELD_SCIENCE] научной тропе наследия «{LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME}»[/b], ассирийская [icon:BUILDING_ROYAL_LIBRARY] [b]{LOC_BUILDING_ROYAL_LIBRARY_NAME} [/b]может быть построена в любом городе, и в ней есть ячейки для [b]выставления [/b]ваших кодексов. 
+
+			[n]Следующая цель: построить такое здание, как [icon:BUILDING_ROYAL_LIBRARY] [b]{LOC_BUILDING_ROYAL_LIBRARY_NAME} [/b], затем заработать и выставить [b] {1_CodexGoalNum: plural 1?кодекс; 2?кодекса; 3?кодекса; 4?кодекса; other?кодексов;}[/b].</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_4_TRACKING_BODY_ASSYRIA" Language="ru_RU">
+      <Text>Построить: [icon:BUILDING_ROYAL_LIBRARY] {LOC_BUILDING_ROYAL_LIBRARY_NAME} {1_itemComplete}
+
+			[n]Собрать и выставить кодексы: {2_CodexCurrent}/{3_CodexTarget}</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_5_ADVISOR_BODY_ASSYRIA" Language="ru_RU">
+      <Text>Наши учебные залы украшены {1_CodexCount} кодексами, содержащими собранные знания ассирийского народа. Какие тайны еще ускользают от нас?</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_5_BODY_ASSYRIA" Language="ru_RU">
+      <Text>Вы достигли первой [b]вехи [/b]в [b]тропе наследия «{LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME}»[/b]! 
+
+			[n]Следующая цель: построить второе такое здание, как [icon:BUILDING_ROYAL_LIBRARY] [b]{LOC_BUILDING_ROYAL_LIBRARY_NAME}[/b], для размещения большего количества кодексов, затем [b]выставить {1_CodexGoalNum: plural 1?кодекс; 2?кодекса; 3?кодекса; 4?кодекса; other?кодексов;}[/b], чтобы достичь второй вехи в этой тропе наследия.</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_5_TRACKING_BODY_ASSYRIA" Language="ru_RU">
+      <Text>Построить: вторая [icon:BUILDING_ROYAL_LIBRARY] {LOC_BUILDING_ROYAL_LIBRARY_NAME} {1_itemComplete}
+
+			[n]Собрать и выставить кодексы: {2_CodexCurrent}/{3_CodexTarget}</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_6_ADVISOR_BODY_ASSYRIA" Language="ru_RU">
+      <Text>Теперь мы обладаем {1_CodexCount} кодексами. Мудрость ассирийского народа растет с каждым днем, а тьма невежества отступает все дальше.</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_6_BODY_ASSYRIA" Language="ru_RU">
+      <Text>Вы достигли второй важной [b]вехи [/b]в [b]тропе наследия {LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME}[/b]! Продолжайте собирать [b]кодексы [/b], чтобы заработать последнюю группу наград.
+
+			[n]Следующая задача: [b]выставите {1_CodexGoalNum: plural 1?кодекс; 2?кодекса; 3?кодекса; 4?кодекса; other?кодексов;}[/b], чтобы достичь третьей и [b]последней [/b]вехи в тропе наследия {LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME}.
+
+			</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_6_TRACKING_BODY_ASSYRIA" Language="ru_RU">
+      <Text>Собрать и выставить кодексы: {1_CodexCurrent}/{2_CodexTarget}</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_LINE_COMPLETED_ADVISOR_BODY_ASSYRIA" Language="ru_RU">
+      <Text>Наша коллекция кодексов — предмет зависти всего мира, настоящий сад знаний, который будет плодоносить в веках. Тайны вселенной неисчислимы, но мы должны относиться к нашей работе с гордостью.</Text>
+    </Replace>
+    <Replace Tag="LOC_TUTORIAL_SCIENCE_QUEST_LINE_COMPLETED_BODY_ASSYRIA" Language="ru_RU">
+      <Text>Поздравляем! Вы [b]выставили {1_CodexCount: plural 1?кодекс; 2?кодекса; 3?кодекса; 4?кодекса; other?кодексов;} кодексов [/b]и успешно завершили [b][icon:NOTIFICATION_TEAM_VICTORIOUS] [icon:YIELD_SCIENCE] научную тропу наследия «{LOC_LEGACY_PATH_ANTIQUITY_SCIENCE_NAME}»[/b] в эпоху античности. Вы можете открыть [n]экран троп наследия[b], чтобы посмотреть другие тропы наследия, по которым вы можете следовать, или же проложить собственную тропу.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_MAGARRU_NAME" Language="ru_RU">
+      <Text>Магарру|магарру|магарру|магарру|магарру|магарру</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_UNIT_TURTANU_NAME" Language="ru_RU">
+      <Text>Туртан|туртана|туртану|туртана|туртаном|туртане</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+  </LocalizedText>
+</Database>

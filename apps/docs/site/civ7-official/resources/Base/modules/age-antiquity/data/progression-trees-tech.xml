@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<Row Type="NODE_TECH_AQ_AGRICULTURE" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_AQ_POTTERY" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_AQ_ANIMAL_HUSBANDRY" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_AQ_SAILING" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_AQ_WRITING" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_AQ_IRRIGATION" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_AQ_MASONRY" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_AQ_CURRENCY" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_AQ_BRONZE_WORKING" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_AQ_WHEEL" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_AQ_NAVIGATION" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_AQ_ENGINEERING" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_AQ_MILITARY_TRAINING" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_AQ_MATHEMATICS" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_AQ_IRON_WORKING" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_TECH_AQ_FUTURE_TECH" Kind="KIND_TREE_NODE"/>
+	</Types>
+	<TypeQuotes>
+		<Row Type="NODE_TECH_AQ_AGRICULTURE" Quote="LOC_TECH_AGRICULTURE_QUOTE" QuoteAuthor="LOC_TECH_AGRICULTURE_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Agriculture"/>
+		<Row Type="NODE_TECH_AQ_POTTERY" Quote="LOC_TECH_POTTERY_QUOTE" QuoteAuthor="LOC_TECH_POTTERY_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Pottery"/>
+		<Row Type="NODE_TECH_AQ_ANIMAL_HUSBANDRY" Quote="LOC_TECH_ANIMAL_HUSBANDRY_QUOTE" QuoteAuthor="LOC_TECH_ANIMAL_HUSBANDRY_QUOTE_AUTHOR" QuoteAudio="VO_Quote_AnimalHusbandry"/>
+		<Row Type="NODE_TECH_AQ_SAILING" Quote="LOC_TECH_SAILING_QUOTE" QuoteAuthor="LOC_TECH_SAILING_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Sailing" />
+		<Row Type="NODE_TECH_AQ_WRITING" Quote="LOC_TECH_WRITING_QUOTE" QuoteAuthor="LOC_TECH_WRITING_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Writing"/>
+		<Row Type="NODE_TECH_AQ_IRRIGATION" Quote="LOC_TECH_IRRIGATION_QUOTE" QuoteAuthor="LOC_TECH_IRRIGATION_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Irrigation"/>
+		<Row Type="NODE_TECH_AQ_MASONRY" Quote="LOC_TECH_MASONRY_QUOTE" QuoteAuthor="LOC_TECH_MASONRY_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Masonry"/>
+		<Row Type="NODE_TECH_AQ_CURRENCY" Quote="LOC_TECH_CURRENCY_QUOTE" QuoteAuthor="LOC_TECH_CURRENCY_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Currency"/>
+		<Row Type="NODE_TECH_AQ_BRONZE_WORKING" Quote="LOC_TECH_BRONZE_WORKING_QUOTE" QuoteAuthor="LOC_TECH_BRONZE_WORKING_QUOTE_AUTHOR" QuoteAudio="VO_Quote_BronzeWorking"/>
+		<Row Type="NODE_TECH_AQ_WHEEL" Quote="LOC_TECH_WHEEL_QUOTE" QuoteAuthor="LOC_TECH_WHEEL_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Wheel"/>
+		<Row Type="NODE_TECH_AQ_NAVIGATION" Quote="LOC_TECH_NAVIGATION_QUOTE" QuoteAuthor="LOC_TECH_NAVIGATION_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Navigation"/>
+		<Row Type="NODE_TECH_AQ_ENGINEERING" Quote="LOC_TECH_ENGINEERING_QUOTE" QuoteAuthor="LOC_TECH_ENGINEERING_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Engineering"/>
+		<Row Type="NODE_TECH_AQ_MILITARY_TRAINING" Quote="LOC_TECH_MILITARY_TRAINING_QUOTE" QuoteAuthor="LOC_TECH_MILITARY_TRAINING_QUOTE_AUTHOR" QuoteAudio="VO_Quote_MilitaryTraining"/>
+		<Row Type="NODE_TECH_AQ_MATHEMATICS" Quote="LOC_TECH_MATHEMATICS_QUOTE" QuoteAuthor="LOC_TECH_MATHEMATICS_QUOTE_AUTHOR" QuoteAudio="VO_Quote_Mathematics"/>
+		<Row Type="NODE_TECH_AQ_IRON_WORKING" Quote="LOC_TECH_IRON_WORKING_QUOTE" QuoteAuthor="LOC_TECH_IRON_WORKING_QUOTE_AUTHOR" QuoteAudio="VO_Quote_IronWorking"/>
+	</TypeQuotes>
+	<ProgressionTreeNodes>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_AGRICULTURE" ProgressionTree="TREE_TECHS_AQ" Cost="1" Name="LOC_TECH_AGRICULTURE_NAME" IconString="tech_agriculture" />
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_POTTERY" ProgressionTree="TREE_TECHS_AQ" Cost="70" Name="LOC_TECH_POTTERY_NAME" IconString="tech_pottery" />
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_ANIMAL_HUSBANDRY" ProgressionTree="TREE_TECHS_AQ" Cost="70" Name="LOC_TECH_ANIMAL_HUSBANDRY_NAME" IconString="tech_animalhusbandry" />
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_SAILING" ProgressionTree="TREE_TECHS_AQ" Cost="85" Name="LOC_TECH_SAILING_NAME" IconString="tech_sailing" />
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WRITING" ProgressionTree="TREE_TECHS_AQ" Cost="125" Name="LOC_TECH_WRITING_NAME" IconString="tech_writing" />
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_IRRIGATION" ProgressionTree="TREE_TECHS_AQ" Cost="125" Name="LOC_TECH_IRRIGATION_NAME" IconString="tech_irrigation" />
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MASONRY" ProgressionTree="TREE_TECHS_AQ" Cost="125" Name="LOC_TECH_MASONRY_NAME" IconString="tech_masonry" />
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_CURRENCY" ProgressionTree="TREE_TECHS_AQ" Cost="245" Name="LOC_TECH_CURRENCY_NAME" IconString="tech_currency" />
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_BRONZE_WORKING" ProgressionTree="TREE_TECHS_AQ" Cost="255" Name="LOC_TECH_BRONZE_WORKING_NAME" IconString="tech_bronzeworking" />
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WHEEL" ProgressionTree="TREE_TECHS_AQ" Cost="245" Name="LOC_TECH_WHEEL_NAME" IconString="tech_wheel" />
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_NAVIGATION" ProgressionTree="TREE_TECHS_AQ" Cost="430" Name="LOC_TECH_NAVIGATION_NAME" IconString="tech_navigation" />
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_ENGINEERING" ProgressionTree="TREE_TECHS_AQ" Cost="430" Name="LOC_TECH_ENGINEERING_NAME" IconString="tech_engineering" />
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MILITARY_TRAINING" ProgressionTree="TREE_TECHS_AQ" Cost="430" Name="LOC_TECH_MILITARY_TRAINING_NAME" IconString="tech_militarytraining" />
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MATHEMATICS" ProgressionTree="TREE_TECHS_AQ" Cost="738" Name="LOC_TECH_MATHEMATICS_NAME" IconString="tech_mathematics"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_IRON_WORKING" ProgressionTree="TREE_TECHS_AQ" Cost="738" Name="LOC_TECH_IRON_WORKING_NAME" IconString="tech_ironworking"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_FUTURE_TECH" ProgressionTree="TREE_TECHS_AQ" Cost="1255" Name="LOC_TECH_FUTURE_TECH_NAME" IconString="tech_futuretech" Repeatable="true" RepeatableCostProgressionModel="COST_PROGRESSION_PREVIOUS_COPIES" RepeatableCostProgressionParam1="1255"/>
+	</ProgressionTreeNodes>
+	<ProgressionTreeNodeUnlocks>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_AGRICULTURE" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_GRANARY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_AGRICULTURE" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_AQ_FLAT_FOOD" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_AGRICULTURE" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_AQ_DESERT_FLOODPLAIN_FOOD" UnlockDepth="1" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_AGRICULTURE" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_AQ_GRASSLAND_FLOODPLAIN_FOOD" UnlockDepth="1" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_AGRICULTURE" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_AQ_PLAINS_FLOODPLAIN_FOOD" UnlockDepth="1" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_AGRICULTURE" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_AQ_TROPICAL_FLOODPLAIN_FOOD" UnlockDepth="1" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_AGRICULTURE" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_AQ_TUNDRA_FLOODPLAIN_FOOD" UnlockDepth="1" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_POTTERY" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_BRICKYARD" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_POTTERY" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_AQ_PLANTATION_FOOD" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_POTTERY" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_AQ_WET_PRODUCTION" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_ANIMAL_HUSBANDRY" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_SAW_PIT" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_ANIMAL_HUSBANDRY" TargetKind="KIND_UNIT" TargetType="UNIT_SLINGER" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_ANIMAL_HUSBANDRY" TargetKind="KIND_UNIT" TargetType="UNIT_BURNING_ARROW" UnlockDepth="1" RequiredTraitType="TRAIT_MISSISSIPPIAN"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_ANIMAL_HUSBANDRY" TargetKind="KIND_UNIT" TargetType="UNIT_HULCHE" UnlockDepth="1" RequiredTraitType="TRAIT_MAYA"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_ANIMAL_HUSBANDRY" TargetKind="KIND_UNIT" TargetType="UNIT_NU" UnlockDepth="1" RequiredTraitType="TRAIT_HAN"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_ANIMAL_HUSBANDRY" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_AQ_CAMP_PRODUCTION" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_ANIMAL_HUSBANDRY" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_AQ_PASTURE_FOOD" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_ANIMAL_HUSBANDRY" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_AQ_WOODCUTTER_PRODUCTION" UnlockDepth="1" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_ANIMAL_HUSBANDRY" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_AQ_VEGETATED_PRODUCTION" UnlockDepth="1" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_SAILING" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_FISHING_QUAY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_SAILING" TargetKind="KIND_UNIT" TargetType="UNIT_GALLEY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_SAILING" TargetKind="KIND_UNIT" TargetType="UNIT_DHOW" UnlockDepth="1" RequiredTraitType="TRAIT_AKSUM"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_SAILING" TargetKind="KIND_MODIFIER" TargetType="MOD_SAILING_EMBARKATION" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_SAILING" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_AQ_FISHING_BOAT_FOOD" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_SAILING" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_AQ_COAST_FOOD" UnlockDepth="1" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_SAILING" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_AQ_REEF_FOOD" UnlockDepth="1" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_SAILING" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_AQ_COLD_REEF_FOOD" UnlockDepth="1" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_SAILING" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_AQ_NAVIGABLE_RIVER_FOOD" UnlockDepth="1" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WRITING" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_LIBRARY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WRITING" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_GREAT_STELE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WRITING" TargetKind="KIND_PROJECT" TargetType="PROJECT_CITY_SCIENCE_PROJECT" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WRITING" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_TECH_SCIENCE_BUILDING" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WRITING" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_CODEX" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WRITING" TargetKind="KIND_DIPLOMATIC_ACTION" TargetType="DIPLOMACY_ACTION_ESPIONAGE_STEAL_TECH" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_IRRIGATION" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_GARDEN" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_IRRIGATION" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_SETTLEMENT_CAP_INCREASE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_IRRIGATION" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_HANGING_GARDENS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MASONRY" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_ANCIENT_WALLS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MASONRY" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_MONUMENT" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MASONRY" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_PYRAMIDS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MASONRY" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_AQ_MINE_PRODUCTION" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MASONRY" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_AQ_ROUGH_PRODUCTION" UnlockDepth="1" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MASONRY" TargetKind="KIND_MODIFIER" TargetType="MOD_TECH_AQ_QUARRY_PRODUCTION" UnlockDepth="1" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MASONRY" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_TECH_WALL_STRENGTH" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MASONRY" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_TECH_PRODUCTION_BUILDING" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_CURRENCY" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_BATH" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_CURRENCY" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_MARKET" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_CURRENCY" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_SPECIALIST_CAP_INCREASE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_CURRENCY" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_TECH_GOLD_BUILDING" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_CURRENCY" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_CODEX" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_BRONZE_WORKING" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_BARRACKS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_BRONZE_WORKING" TargetKind="KIND_UNIT" TargetType="UNIT_SPEARMAN" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_BRONZE_WORKING" TargetKind="KIND_UNIT" TargetType="UNIT_ARCHER" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_BRONZE_WORKING" TargetKind="KIND_UNIT" TargetType="UNIT_BURNING_ARROW_2" UnlockDepth="1" RequiredTraitType="TRAIT_MISSISSIPPIAN"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_BRONZE_WORKING" TargetKind="KIND_UNIT" TargetType="UNIT_HOPLITE_2" UnlockDepth="1" RequiredTraitType="TRAIT_GREECE"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_BRONZE_WORKING" TargetKind="KIND_UNIT" TargetType="UNIT_HULCHE_2" UnlockDepth="1" RequiredTraitType="TRAIT_MAYA"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_BRONZE_WORKING" TargetKind="KIND_UNIT" TargetType="UNIT_IMMORTAL" UnlockDepth="1" RequiredTraitType="TRAIT_PERSIA"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_BRONZE_WORKING" TargetKind="KIND_UNIT" TargetType="UNIT_LEGION" UnlockDepth="1" RequiredTraitType="TRAIT_ROME"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_BRONZE_WORKING" TargetKind="KIND_UNIT" TargetType="UNIT_MEDJAY_2" UnlockDepth="1" RequiredTraitType="TRAIT_EGYPT"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_BRONZE_WORKING" TargetKind="KIND_UNIT" TargetType="UNIT_NU_2" UnlockDepth="1" RequiredTraitType="TRAIT_HAN"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_BRONZE_WORKING" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_TECH_INFANTRY_STRENGTH" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_BRONZE_WORKING" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_TECH_MILITARY_BUILDING" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WHEEL" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_VILLA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WHEEL" TargetKind="KIND_UNIT" TargetType="UNIT_BALLISTA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WHEEL" TargetKind="KIND_UNIT" TargetType="UNIT_CHARIOT" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WHEEL" TargetKind="KIND_UNIT" TargetType="UNIT_DANTINAS_TATHA" UnlockDepth="1" RequiredTraitType="TRAIT_KHMER"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WHEEL" TargetKind="KIND_UNIT" TargetType="UNIT_PURABHETTARAH" UnlockDepth="1" RequiredTraitType="TRAIT_MAURYA"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WHEEL" TargetKind="KIND_DIPLOMATIC_ACTION" TargetType="DIPLOMACY_ACTION_ESPIONAGE_MILITARY_INFILTRATION" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WHEEL" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_TECH_SIEGE_MOVEMENT" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WHEEL" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_CODEX" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_NAVIGATION" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_LIGHTHOUSE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_NAVIGATION" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_HA_AMONGA_A_MAUI" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_NAVIGATION" TargetKind="KIND_UNIT" TargetType="UNIT_QUADRIREME" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_NAVIGATION" TargetKind="KIND_UNIT" TargetType="UNIT_DHOW_2" UnlockDepth="1" RequiredTraitType="TRAIT_AKSUM"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_NAVIGATION" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_TECH_NAVAL_STRENGTH" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_NAVIGATION" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_TECH_FOOD_BUILDING" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_NAVIGATION" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_CODEX" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_ENGINEERING" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_AMPHITHEATER" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_ENGINEERING" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_BLACKSMITH" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_ENGINEERING" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_ANCIENT_BRIDGE" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_ENGINEERING" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_TECH_CULTURE_BUILDING" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_ENGINEERING" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_CODEX" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MILITARY_TRAINING" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_ARENA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MILITARY_TRAINING" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_TECH_UNLOCK_UNIT_FLANKING" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MILITARY_TRAINING" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_TECH_RANGED_STRENGTH" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MILITARY_TRAINING" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_TECH_SIEGE_STRENGTH" UnlockDepth="2" Hidden="true"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MILITARY_TRAINING" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_TECH_HAPPINESS_BUILDING" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MILITARY_TRAINING" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_CODEX" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MATHEMATICS" TargetKind="KIND_CONSTRUCTIBLE" TargetType="BUILDING_ACADEMY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MATHEMATICS" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_PYRAMID_OF_THE_SUN" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MATHEMATICS" TargetKind="KIND_MODIFIER" TargetType="MOD_AQ_MATHEMATICS_CODEX" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_IRON_WORKING" TargetKind="KIND_UNIT" TargetType="UNIT_HORSEMAN" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_IRON_WORKING" TargetKind="KIND_UNIT" TargetType="UNIT_PHALANX" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_IRON_WORKING" TargetKind="KIND_UNIT" TargetType="UNIT_DANTINAS_TATHA_2" UnlockDepth="1" RequiredTraitType="TRAIT_KHMER"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_IRON_WORKING" TargetKind="KIND_UNIT" TargetType="UNIT_HOPLITE_3" UnlockDepth="1" RequiredTraitType="TRAIT_GREECE"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_IRON_WORKING" TargetKind="KIND_UNIT" TargetType="UNIT_IMMORTAL_2" UnlockDepth="1" RequiredTraitType="TRAIT_PERSIA"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_IRON_WORKING" TargetKind="KIND_UNIT" TargetType="UNIT_LEGION_2" UnlockDepth="1" RequiredTraitType="TRAIT_ROME"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_IRON_WORKING" TargetKind="KIND_UNIT" TargetType="UNIT_MEDJAY_3" UnlockDepth="1" RequiredTraitType="TRAIT_EGYPT"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_IRON_WORKING" TargetKind="KIND_UNIT" TargetType="UNIT_PURABHETTARAH_2" UnlockDepth="1" RequiredTraitType="TRAIT_MAURYA"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_FUTURE_TECH" TargetKind="KIND_MODIFIER" TargetType="MOD_FUTURE_TECH_ATTRIBUTE" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_FUTURE_TECH" TargetKind="KIND_MODIFIER" TargetType="MOD_FUTURE_TECH_BOOST" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_FUTURE_TECH" TargetKind="KIND_MODIFIER" TargetType="MOD_FUTURE_TECH_AGE_PROGRESS" UnlockDepth="1"/>
+	</ProgressionTreeNodeUnlocks>
+	<ProgressionTreePrereqs>
+		<Row Node="NODE_TECH_AQ_POTTERY" PrereqNode="NODE_TECH_AQ_AGRICULTURE"/>
+		<Row Node="NODE_TECH_AQ_ANIMAL_HUSBANDRY" PrereqNode="NODE_TECH_AQ_AGRICULTURE"/>
+		<Row Node="NODE_TECH_AQ_SAILING" PrereqNode="NODE_TECH_AQ_AGRICULTURE"/>
+		<Row Node="NODE_TECH_AQ_WRITING" PrereqNode="NODE_TECH_AQ_POTTERY"/>
+		<Row Node="NODE_TECH_AQ_IRRIGATION" PrereqNode="NODE_TECH_AQ_POTTERY"/>
+		<Row Node="NODE_TECH_AQ_IRRIGATION" PrereqNode="NODE_TECH_AQ_ANIMAL_HUSBANDRY"/>
+		<Row Node="NODE_TECH_AQ_MASONRY" PrereqNode="NODE_TECH_AQ_ANIMAL_HUSBANDRY"/>
+		<Row Node="NODE_TECH_AQ_CURRENCY" PrereqNode="NODE_TECH_AQ_SAILING"/>
+		<Row Node="NODE_TECH_AQ_CURRENCY" PrereqNode="NODE_TECH_AQ_WRITING"/>
+		<Row Node="NODE_TECH_AQ_BRONZE_WORKING" PrereqNode="NODE_TECH_AQ_WRITING"/>
+		<Row Node="NODE_TECH_AQ_BRONZE_WORKING" PrereqNode="NODE_TECH_AQ_IRRIGATION"/>
+		<Row Node="NODE_TECH_AQ_WHEEL" PrereqNode="NODE_TECH_AQ_IRRIGATION"/>
+		<Row Node="NODE_TECH_AQ_WHEEL" PrereqNode="NODE_TECH_AQ_MASONRY"/>
+		<Row Node="NODE_TECH_AQ_NAVIGATION" PrereqNode="NODE_TECH_AQ_CURRENCY"/>
+		<Row Node="NODE_TECH_AQ_ENGINEERING" PrereqNode="NODE_TECH_AQ_CURRENCY"/>
+		<Row Node="NODE_TECH_AQ_ENGINEERING" PrereqNode="NODE_TECH_AQ_BRONZE_WORKING"/>
+		<Row Node="NODE_TECH_AQ_MILITARY_TRAINING" PrereqNode="NODE_TECH_AQ_BRONZE_WORKING"/>
+		<Row Node="NODE_TECH_AQ_MILITARY_TRAINING" PrereqNode="NODE_TECH_AQ_WHEEL"/>
+		<Row Node="NODE_TECH_AQ_MATHEMATICS" PrereqNode="NODE_TECH_AQ_ENGINEERING"/>
+		<Row Node="NODE_TECH_AQ_IRON_WORKING" PrereqNode="NODE_TECH_AQ_MILITARY_TRAINING"/>
+		<Row Node="NODE_TECH_AQ_FUTURE_TECH" PrereqNode="NODE_TECH_AQ_IRON_WORKING"/>
+		<Row Node="NODE_TECH_AQ_FUTURE_TECH" PrereqNode="NODE_TECH_AQ_MATHEMATICS"/>
+	</ProgressionTreePrereqs>
+	<ProgressionTree_Advisories>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_POTTERY" AdvisoryClassType="ADVISORY_CLASS_FOOD"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_POTTERY" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_ANIMAL_HUSBANDRY" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_ANIMAL_HUSBANDRY" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_SAILING" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WRITING" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_IRRIGATION" AdvisoryClassType="ADVISORY_CLASS_FOOD"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MASONRY" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_CURRENCY" AdvisoryClassType="ADVISORY_CLASS_ECONOMIC"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_BRONZE_WORKING" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WHEEL" AdvisoryClassType="ADVISORY_CLASS_HAPPINESS"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_WHEEL" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_NAVIGATION" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_ENGINEERING" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MILITARY_TRAINING" AdvisoryClassType="ADVISORY_CLASS_HAPPINESS"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MILITARY_TRAINING" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_MATHEMATICS" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_IRON_WORKING" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row ProgressionTreeNodeType="NODE_TECH_AQ_FUTURE_TECH" AdvisoryClassType="ADVISORY_CLASS_SCIENCE"/>
+	</ProgressionTree_Advisories>
+</Database>

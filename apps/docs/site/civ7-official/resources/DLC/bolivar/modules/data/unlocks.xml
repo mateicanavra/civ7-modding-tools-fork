@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_UNLOCK"/>
+	</Kinds>
+	<Types>
+		<InsertOrIgnore Type="UNLOCK_LEGEND_LEVEL_4_BOLIVAR" Kind="KIND_UNLOCK"/>
+		<InsertOrIgnore Type="UNLOCK_LEGEND_LEVEL_8_BOLIVAR" Kind="KIND_UNLOCK"/>
+	</Types>
+	<Unlocks>
+		<InsertOrIgnore UnlockType="UNLOCK_LEGEND_LEVEL_4_BOLIVAR"/>
+		<InsertOrIgnore UnlockType="UNLOCK_LEGEND_LEVEL_8_BOLIVAR"/>
+	</Unlocks>
+	<UnlockRewards>
+		<InsertOrIgnore UnlockType="UNLOCK_LEGEND_LEVEL_4_BOLIVAR" Name="LOC_CARD_AT_EXP_LEGEND_BOLIVAR_1_NAME" Description="LOC_CARD_AT_EXP_LEGEND_BOLIVAR_1_DESCRIPTION" Icon="LEADER_BOLIVAR"/>
+		<InsertOrIgnore UnlockType="UNLOCK_LEGEND_LEVEL_4_BOLIVAR" Name="LOC_CARD_AT_EXP_LEGEND_BOLIVAR_2_NAME" Description="LOC_CARD_AT_EXP_LEGEND_BOLIVAR_2_DESCRIPTION" Icon="LEADER_BOLIVAR"/>
+
+		<InsertOrIgnore UnlockType="UNLOCK_LEGEND_LEVEL_8_BOLIVAR" Name="LOC_CARD_AT_MOD_LEGEND_BOLIVAR_1_NAME" Description="LOC_CARD_AT_MOD_LEGEND_BOLIVAR_1_DESCRIPTION" Icon="LEADER_BOLIVAR"/>
+		<InsertOrIgnore UnlockType="UNLOCK_LEGEND_LEVEL_8_BOLIVAR" Name="LOC_CARD_AT_MOD_LEGEND_BOLIVAR_2_NAME" Description="LOC_CARD_AT_MOD_LEGEND_BOLIVAR_2_DESCRIPTION" Icon="LEADER_BOLIVAR"/>
+	</UnlockRewards>
+	<RequirementSets>
+		<Row RequirementSetId="REQSET_LEADER_IS_BOLIVAR" RequirementSetType="REQUIREMENTSET_TEST_ALL"/>
+
+		<Row RequirementSetId="REQSET_LEGEND_LEVEL_4_BOLIVAR" RequirementSetType="REQUIREMENTSET_TEST_ALL"/>
+		<Row RequirementSetId="REQSET_LEGEND_LEVEL_8_BOLIVAR" RequirementSetType="REQUIREMENTSET_TEST_ALL"/>
+	</RequirementSets>
+	<Requirements>
+		<Row RequirementId="REQ_LEADER_IS_BOLIVAR" RequirementType="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES"/>
+
+		<Row RequirementId="REQ_LEGEND_LEVEL_4_BOLIVAR" RequirementType="REQUIREMENT_METAPROGRESSION_LEGEND_PATH_LEVEL"/>
+		<Row RequirementId="REQ_LEGEND_LEVEL_8_BOLIVAR" RequirementType="REQUIREMENT_METAPROGRESSION_LEGEND_PATH_LEVEL"/>
+	</Requirements>
+	<RequirementArguments>
+		<Row RequirementId="REQ_LEADER_IS_BOLIVAR" Name="LeaderType" Value="LEADER_BOLIVAR"/>
+
+		<Row RequirementId="REQ_LEGEND_LEVEL_4_BOLIVAR" Name="LegendPaths" Value="LEGEND_PATH_BOLIVAR"/>
+		<Row RequirementId="REQ_LEGEND_LEVEL_4_BOLIVAR" Name="LevelThreshold" Value="4"/>
+		<Row RequirementId="REQ_LEGEND_LEVEL_4_BOLIVAR" Name="Amount" Value="1"/>
+		<Row RequirementId="REQ_LEGEND_LEVEL_8_BOLIVAR" Name="LegendPaths" Value="LEGEND_PATH_BOLIVAR"/>
+		<Row RequirementId="REQ_LEGEND_LEVEL_8_BOLIVAR" Name="LevelThreshold" Value="8"/>
+		<Row RequirementId="REQ_LEGEND_LEVEL_8_BOLIVAR" Name="Amount" Value="1"/>
+	</RequirementArguments>
+	<RequirementSetRequirements>
+		<Row RequirementSetId="REQSET_LEADER_IS_BOLIVAR" RequirementId="REQ_LEADER_IS_BOLIVAR"/>
+
+		<Row RequirementSetId="REQSET_LEGEND_LEVEL_4_BOLIVAR" RequirementId="REQ_LEADER_IS_BOLIVAR"/>
+		<Row RequirementSetId="REQSET_LEGEND_LEVEL_4_BOLIVAR" RequirementId="REQ_LEGEND_LEVEL_4_BOLIVAR"/>
+		<Row RequirementSetId="REQSET_LEGEND_LEVEL_8_BOLIVAR" RequirementId="REQ_LEADER_IS_BOLIVAR"/>
+		<Row RequirementSetId="REQSET_LEGEND_LEVEL_8_BOLIVAR" RequirementId="REQ_LEGEND_LEVEL_8_BOLIVAR"/>
+	</RequirementSetRequirements>
+	<UnlockRequirements>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_INCA" RequirementSetId="REQSET_LEADER_IS_BOLIVAR" Tooltip="LOC_UNLOCK_PLAY_AS_BOLIVAR_INCA_TOOLTIP"/>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_SPAIN" RequirementSetId="REQSET_LEADER_IS_BOLIVAR" Tooltip="LOC_UNLOCK_PLAY_AS_BOLIVAR_SPAIN_TOOLTIP"/>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_FRENCH_EMPIRE" RequirementSetId="REQSET_LEADER_IS_BOLIVAR" Tooltip="LOC_UNLOCK_PLAY_AS_BOLIVAR_FRANCE_TOOLTIP"/>
+		<InsertOrIgnore UnlockType="UNLOCK_CIVILIZATION_MEXICO" RequirementSetId="REQSET_LEADER_IS_BOLIVAR" Tooltip="LOC_UNLOCK_PLAY_AS_BOLIVAR_MEXICO_TOOLTIP"/>
+
+		<InsertOrIgnore UnlockType="UNLOCK_LEGEND_LEVEL_4_BOLIVAR" RequirementSetId="REQSET_LEGEND_LEVEL_4_BOLIVAR" Description=""/>
+		<InsertOrIgnore UnlockType="UNLOCK_LEGEND_LEVEL_8_BOLIVAR" RequirementSetId="REQSET_LEGEND_LEVEL_8_BOLIVAR" Description=""/>
+	</UnlockRequirements>
+</Database>

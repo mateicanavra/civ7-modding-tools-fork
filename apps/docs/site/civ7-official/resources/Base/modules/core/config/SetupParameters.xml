@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<QueryTypes>
+		<Row QueryType="Parameters"/>
+		<Row QueryType="ParameterCriteria"/>
+		<Row QueryType="ParameterDependencies"/>
+		<Row QueryType="DomainRanges"/>
+		<Row QueryType="ParameterDomainOverrides"/>
+		<Row QueryType="DomainValues"/>
+		<Row QueryType="DomainValueUnions"/>
+		<Row QueryType="DomainValueFilters"/>
+		<Row QueryType="ConfigurationUpdates"/>
+	</QueryTypes>
+	<MetaQueryTypes>
+		<Row MetaQueryType="Queries" />
+		<Row MetaQueryType="QueryCriteria" />
+		<Row MetaQueryType="QueryParameters" />
+	</MetaQueryTypes>
+	<ParameterGroups>
+		<Row GroupId="GameOptions" Name="LOC_GROUPID_GAMEOPTIONS"/>
+		<Row GroupId="MapOptions" Name="LOC_GROUPID_MAPOPTIONS"/>
+		<Row GroupId="AdvancedOptions" Name="LOC_GROUPID_ADVANCEDOPTIONS"/>
+		<Row GroupId="DifficultyOptions" Name="LOC_GROUPID_DIFFICULTY_OPTIONS"/>
+		<Row GroupId="PlayerOptions" Name="LOC_GROUPID_PLAYEROPTIONS"/>
+		<Row GroupId="LegacyOptions" Name="LOC_GROUPID_LEGACYOPTIONS"/>
+		<Row GroupId="DisasterOptions" Name="LOC_GROUPID_DISASTEROPTIONS"/>
+	</ParameterGroups>
+	<Parameters>
+		<!-- Game Options -->
+		<Row ParameterID="Ruleset" Name="LOC_RULESET_NAME" Description="LOC_RULESET_DESCRIPTION" Domain="Rulesets" Hash="0" ConfigurationGroup="Game" ConfigurationKey="RuleSet" ValueNameConfigurationKey="RuleSetName" GroupId="GameOptions" SortIndex="10"/>
+		<Row ParameterID="Age" Name="LOC_AGE_NAME" Description="LOC_AGE_DESCRIPTION" Domain="StandardAges" Hash="1" ConfigurationGroup="Game" ConfigurationKey="StartAge" ValueConfigurationKey="StartAgeTypeName" ValueNameConfigurationKey="StartAgeName" GroupId="GameOptions" SortIndex="20"/>
+		<Row ParameterID="GameName" Name="LOC_GAMENAME_NAME" Description="" Domain="text" Hash="0" ConfigurationGroup="Game" ConfigurationKey="Name" GroupId="GameOptions" SupportsSinglePlayer="0" ChangeableAfterGameStart="1" IsUGC="1" SortIndex="30"/>
+		<Row ParameterID="PrivateGame" Name="LOC_PRIVATE_GAME" Description="LOC_PRIVATE_GAME_DESCRIPTION" Domain="bool" Hash="0" DefaultValue="0" ConfigurationGroup="Game" ConfigurationKey="IsPrivate" GroupId="GameOptions" SupportsLANMultiplayer="1" SupportsInternetMultiplayer="1" SupportsSinglePlayer="0" ChangeableAfterGameStart="1" SortIndex="40"/>
+		<Row ParameterID="KickVote" Name="LOC_KICKVOTE_NAME" Description="LOC_KICK_VOTE_DESCRIPTION" Domain="bool" Hash="0" DefaultValue="0" ConfigurationGroup="Game" ConfigurationKey="KickVote" GroupId="GameOptions" SupportsLANMultiplayer="1" SupportsInternetMultiplayer="1" SupportsSinglePlayer="0" ChangeableAfterGameStart="1" SortIndex="50"/>
+		<Row ParameterID="Difficulty" Name="LOC_DIFFICULTY_NAME" Description="LOC_DIFFICULTY_DESCRIPTION" Domain="StandardDifficulties" DefaultValue="DIFFICULTY_PRINCE" Hash="1" ConfigurationGroup="Game" ConfigurationKey="Handicap" ValueConfigurationKey="HandicapTypeName" ValueNameConfigurationKey="HandicapName" GroupId="GameOptions" SortIndex="60"/>
+		<Row ParameterID="TurnTimerType" Name="LOC_GAME_TURNTIMER_TYPE" Description="LOC_GAME_TURNTIMER_DESC" Domain="StandardTurnTimers" DefaultValue="TURNTIMER_NONE" Hash="1" ConfigurationGroup="Game" ConfigurationKey="TurnTimerType" GroupId="GameOptions" SupportsSinglePlayer="0" ChangeableAfterGameStart="1" SortIndex="70"/>
+		<Row ParameterID="TurnTimerTime" Name="LOC_GAME_TURN_TIMER_TIME" Description="LOC_GAME_TURN_TIMER_TIME_TOOLTIP" Domain="uint" DefaultValue="180" ConfigurationGroup="Game" ConfigurationKey="TurnTimerTime" GroupId="GameOptions" SupportsSinglePlayer="0" ChangeableAfterGameStart="1" SortIndex="80"/>
+		<Row ParameterID="TurnPhaseType" Name="LOC_GAME_TURNPHASE_TYPE" Description="LOC_GAME_TURNPHASE_DESC" Domain="StandardTurnPhases" Hash="1" DefaultValue="TURNPHASE_SIMULTANEOUS" ConfigurationGroup="Game" ConfigurationKey="TURN_PHASE_TYPE" GroupId="GameOptions" SupportsLANMultiplayer="0" SupportsInternetMultiplayer="0" SupportsSinglePlayer="0" ChangeableAfterGameStart="0" SortIndex="90"/>
+		<!-- Two mutually exclusive game speed parameters.  The MP version defaults to GameSpeed Online, while the SP version defaults to GameSpeed Standard. -->
+		<Row ParameterID="GameSpeeds" Name="LOC_GAME_SPEED" Description="LOC_GAMESPEED_DESCRIPTION" Domain="StandardGameSpeeds" DefaultValue="GAMESPEED_STANDARD" Hash="1" ConfigurationGroup="Game" ConfigurationKey="SpeedType" ValueConfigurationKey="SpeedTypeName" ValueNameConfigurationKey="SpeedName" GroupId="GameOptions" SupportsLANMultiplayer="0" SupportsInternetMultiplayer="0" UxHint="SimpleSelectWindow" SortIndex="100"/>
+		<Row ParameterID="GameSpeeds" Name="LOC_GAME_SPEED" Description="LOC_GAMESPEED_DESCRIPTION" Domain="StandardGameSpeeds" DefaultValue="GAMESPEED_ONLINE" Hash="1" ConfigurationGroup="Game" ConfigurationKey="SpeedType" ValueConfigurationKey="SpeedTypeName" ValueNameConfigurationKey="SpeedName" GroupId="GameOptions" SupportsSinglePlayer="0" SortIndex="110"/>
+		<!-- Two mutually exclusive map start position parameters.  The MP version defaults to "balanced", while the SP version defaults to "standard". -->
+		<Row ParameterId="StartPosition" Name="LOC_MAP_START_POSITION_NAME" Description="LOC_MAP_START_POSITION_DESCRIPTION" Domain="StandardMapStartPositions" DefaultValue="START_POSITION_STANDARD" ConfigurationGroup="Map" ConfigurationKey="StartPosition" GroupId="GameOptions" Hash="1" SupportsLANMultiplayer="0" SupportsInternetMultiplayer="0" SortIndex="120"/>
+		<Row ParameterId="StartPosition" Name="LOC_MAP_START_POSITION_NAME" Description="LOC_MAP_START_POSITION_DESCRIPTION" Domain="StandardMapStartPositions" DefaultValue="START_POSITION_BALANCED" ConfigurationGroup="Map" ConfigurationKey="StartPosition" GroupId="GameOptions" Hash="1" SupportsSinglePlayer="0" SortIndex="130"/>
+		<Row ParameterID="AgeLength" Name="LOC_ADVANCED_OPTIONS_AGE_LENGTH" Description="LOC_ADVANCED_OPTIONS_AGE_LENGTH_DESC" Domain="StandardAgeLengths" Hash="0" DefaultValue="AGE_LENGTH_STANDARD" ConfigurationGroup="Game" ConfigurationKey="AgeLength" GroupId="GameOptions" ChangeableAfterGameStart="0" SortIndex="140"/>
+		<Row ParameterID="AgeCountdownTimer" Name="LOC_AGE_COUNTDOWN_NAME" Description="LOC_AGE_COUNTDOWN_DESCRIPTION" Domain="AgeCountdownLengths" Hash="0" DefaultValue="AGE_COUNTDOWN_LENGTH_STANDARD" ConfigurationGroup="Game" ConfigurationKey="EndOfAgeCountdownLength" ChangeableAfterGameStart="0" GroupId="GameOptions" SortIndex="145"/>
+		<Row ParameterID="AgeTransitionSetting" Name="LOC_AGE_TRANSITION_SETTING_NAME" Description="LOC_AGE_TRANSITION_SETTING_DESCRIPTION" Domain="AgeTransitionSettings" Hash="1" DefaultValue="AGE_TRANSITION_SETTING_KEEP_MORE" ConfigurationGroup="Game" ConfigurationKey="AgeTransitionSetting" ValueConfigurationKey="AgeTransitionSettingName" GroupId="GameOptions" ChangeableAfterAgeTransition="false" SortIndex="147"/>
+		<Row ParameterID="IndependentHostility" Name="LOC_INDEPENDENT_HOSTILITY_NAME" Description="LOC_INDEPENDENT_HOSTILITY_DESCRIPTION" Domain="StandardIndependentHostilities" DefaultValue="INDEPENDENT_HOSTILITY_DEFAULT" Hash="1" ConfigurationGroup="Game" ConfigurationKey="IndependentHostility" GroupId="GameOptions" SortIndex="150"/>
+		<Row ParameterID="NoCivUnlocks" Name="LOC_SETUP_NO_CIV_UNLOCKS_NAME" Description="LOC_SETUP_NO_CIV_UNLOCKS_DESC" Domain="bool" Hash="0" DefaultValue="0" ConfigurationGroup="Game" ConfigurationKey="NoCivilizationUnlocks" GroupId="GameOptions" ChangeableAfterGameStart="0" SortIndex="155"/>
+		<Row ParameterID="SingleAgeGame" Name="LOC_SINGLEAGE_NAME" Description="LOC_SINGLEAGE_DESCRIPTION" Domain="bool" DefaultValue="0" ConfigurationGroup="Game" ConfigurationKey="SingleAge" GroupId="GameOptions" SupportsSinglePlayer="0" SortIndex="160"/>
+		<Row ParameterID="GameRandomSeed" Name="LOC_GAMESEED_NAME" Description="" Domain="int" Hash="0" ConfigurationGroup="Game" ConfigurationKey="RandomSeed" GroupId="GameOptions" SortIndex="170"/>
+
+		<!-- Map Options -->
+		<!-- Two mutually mapscript parameters.  The MP version defaults to Pangaea, while the SP version defaults to Continents. -->
+		<Row ParameterID="Map" Name="LOC_MAP_SCRIPT" Description="LOC_MAP_DESCRIPTION" Domain="StandardMaps" DefaultValue="continents-plus.js" ConfigurationGroup="Map" ConfigurationKey="Script" ValueNameConfigurationKey="Name" ValueDomainConfigurationKey="Domain" GroupId="MapOptions" SupportsLANMultiplayer="0" SupportsInternetMultiplayer="0" SortIndex="1010"/>
+		<Row ParameterID="Map" Name="LOC_MAP_SCRIPT" Description="LOC_MAP_DESCRIPTION" Domain="StandardMaps" DefaultValue="pangea.js" ConfigurationGroup="Map" ConfigurationKey="Script" ValueNameConfigurationKey="Name" ValueDomainConfigurationKey="Domain" GroupId="MapOptions" SupportsSinglePlayer="0" SortIndex="1020"/>
+		<Row ParameterID="MapSize" Name="LOC_MAP_SIZE" Description="LOC_MAPSIZE_DESCRIPTION" Domain="StandardMapSizes" DefaultValue="MAPSIZE_SMALL" Hash="1" ConfigurationGroup="Map" ConfigurationKey="SizeType" ValueConfigurationKey="SizeTypeName" ValueNameConfigurationKey="SizeName" GroupId="MapOptions" SortIndex="1030"/>
+		<Row ParameterID="MapRandomSeed" Name="LOC_MAPSEED_NAME" Description="" Domain="int" Hash="0" ConfigurationGroup="Map" ConfigurationKey="RandomSeed" GroupId="MapOptions" SortIndex="1040"/>
+
+		<!-- Advanced Options -->
+		<Row ParameterID="TurnLimit" Name="LOC_LIMIT_TURNS_NAME" Description="LOC_LIMIT_TURNS_DESCRIPTION" Domain="StandardTurnLimits" Hash="1" DefaultValue="TURNLIMIT_NONE" ConfigurationGroup="Game" ConfigurationKey="TurnLimitType" GroupId="AdvancedOptions" SortIndex="2010" Hidden="1"/>
+		<Row ParameterID="MaxTurns" Name="LOC_MAX_TURNS_NAME" Description="LOC_MAX_TURNS_DESCRIPTION" Domain="uint" Hash="0" DefaultValue="500" ConfigurationGroup="Game" ConfigurationKey="MaxTurns" GroupId="AdvancedOptions" SortIndex="2020"/>
+		<Row ParameterID="MementosEnabled" Name="LOC_MEMENTOS_ENABLED_NAME" Description="LOC_MEMENTOS_ENABLED_DESC" Domain="bool" Hash="0" DefaultValue="1" ConfigurationGroup="Game" ConfigurationKey="MementosEnabled" GroupId="AdvancedOptions" SupportsLANMultiplayer="1" SupportsInternetMultiplayer="1" SupportsSinglePlayer="0" ChangeableAfterGameStart="0" SortIndex="2040"/>
+
+		<!-- Crisis Options -->
+		<Row ParameterID="DisasterIntensity" Name="LOC_ADVANCED_OPTIONS_DISASTER_INTENSITY" Description="LOC_ADVANCED_OPTIONS_DISASTER_INTENSITY_DESC" Domain="StandardDisasterIntensities" Hash="1" DefaultValue="REALISM_SETTING_LIGHT" ConfigurationGroup="Game" ConfigurationKey="RealismSettingType" GroupId="DisasterOptions" ChangeableAfterGameStart="0" SortIndex="3010"/>
+		<Row ParameterID="CrisesEnabled" Name="LOC_ADVANCED_OPTIONS_CRISIS" Description="LOC_ADVANCED_OPTIONS_CRISIS_DESC" Domain="bool" Hash="0" DefaultValue="1" ConfigurationGroup="Game" ConfigurationKey="CrisesEnabled" GroupId="DisasterOptions" ChangeableAfterGameStart="0" SupportsSinglePlayer="0" SortIndex="3020"/>
+
+		<Row ParameterID="Crises" Name="LOC_SETUP_CRISIS_NAME" Description="LOC_SETUP_CRISIS_DESC" Domain="StandardCrises" Hash="0" Array="1" UxHint="InvertSelection" ConfigurationGroup="Game" ConfigurationKey="ExcludeCrises" GroupId="DisasterOptions" SupportsLANMultiplayer="0" SupportsInternetMultiplayer="0" ChangeableAfterGameStart="0" SortIndex="3030" />
+
+		<!-- Difficulty Options -->
+		<Row ParameterID="DifficultyIndependentsCombat" Name="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_IP_COMBAT" Description="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_IP_COMBAT_TOOLTIP" Domain="StandardDifficultiesNoCustom" DefaultValue="DIFFICULTY_PRINCE" Hash="1" ConfigurationGroup="Game" ConfigurationKey="HANDICAP_INDEPENDENTS_COMBAT" GroupId="DifficultyOptions" SortIndex="4010"/>
+		<Row ParameterID="DifficultyCombat" Name="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_COMBAT" Description="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_COMBAT_TOOLTIP" Domain="StandardDifficultiesNoCustom" DefaultValue="DIFFICULTY_PRINCE" Hash="1" ConfigurationGroup="Game" ConfigurationKey="HANDICAP_COMBAT" GroupId="DifficultyOptions" SortIndex="4020"/>
+		<Row ParameterID="DifficultyArmyXP" Name="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_ARMY_XP" Description="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_ARMY_XP_TOOLTIP" Domain="StandardDifficultiesNoCustom" DefaultValue="DIFFICULTY_PRINCE" Hash="1" ConfigurationGroup="Game" ConfigurationKey="HANDICAP_ARMY_XP" GroupId="DifficultyOptions" SortIndex="4030"/>
+		<Row ParameterID="DifficultyUnitProduction" Name="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_UNIT_PRODUCTION" Description="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_UNIT_PRODUCTION_TOOLTIP" Domain="StandardDifficultiesNoCustom" DefaultValue="DIFFICULTY_PRINCE" Hash="1" ConfigurationGroup="Game" ConfigurationKey="HANDICAP_UNITS" GroupId="DifficultyOptions" SortIndex="4040"/>
+		<Row ParameterID="DifficultyBuildingProduction" Name="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_BUILDING_PRODUCTION" Description="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_BUILDING_PRODUCTION_TOOLTIP" Domain="StandardDifficultiesNoCustom" DefaultValue="DIFFICULTY_PRINCE" Hash="1" ConfigurationGroup="Game" ConfigurationKey="HANDICAP_BUILDINGS" GroupId="DifficultyOptions" SortIndex="4050"/>
+		<Row ParameterID="DifficultyFreeStuff" Name="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_FREE_STUFF" Description="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_FREE_STUFF_TOOLTIP" Domain="StandardDifficultiesNoCustom" DefaultValue="DIFFICULTY_PRINCE" Hash="1" ConfigurationGroup="Game" ConfigurationKey="FreeStuffHandicap" GroupId="DifficultyOptions" SortIndex="4060"/>
+		<Row ParameterID="DifficultyGold" Name="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_GOLD" Description="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_GOLD_TOOLTIP" Domain="StandardDifficultiesNoCustom" DefaultValue="DIFFICULTY_PRINCE" Hash="1" ConfigurationGroup="Game" ConfigurationKey="HANDICAP_GOLD" GroupId="DifficultyOptions" SortIndex="4070"/>
+		<Row ParameterID="DifficultyScience" Name="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_SCIENCE" Description="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_SCIENCE_TOOLTIP" Domain="StandardDifficultiesNoCustom" DefaultValue="DIFFICULTY_PRINCE" Hash="1" ConfigurationGroup="Game" ConfigurationKey="HANDICAP_SCIENCE" GroupId="DifficultyOptions" SortIndex="4080"/>
+		<Row ParameterID="DifficultyCulture" Name="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_CULTURE" Description="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_CULTURE_TOOLTIP" Domain="StandardDifficultiesNoCustom" DefaultValue="DIFFICULTY_PRINCE" Hash="1" ConfigurationGroup="Game" ConfigurationKey="HANDICAP_CULTURE" GroupId="DifficultyOptions" SortIndex="4090"/>
+		<Row ParameterID="DifficultyHappiness" Name="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_HAPPINESS" Description="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_HAPPINESS_TOOLTIP" Domain="StandardDifficultiesNoCustom" DefaultValue="DIFFICULTY_PRINCE" Hash="1" ConfigurationGroup="Game" ConfigurationKey="HANDICAP_HAPPINESS" GroupId="DifficultyOptions" SortIndex="4100"/>
+		<Row ParameterID="DifficultyTechCost" Name="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_TECH_NODE_COST" Description="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_TECH_NODE_COST_TOOLTIP" Domain="StandardDifficultiesNoCustom" DefaultValue="DIFFICULTY_PRINCE" Hash="1" ConfigurationGroup="Game" ConfigurationKey="HANDICAP_TECH_COST" GroupId="DifficultyOptions" SortIndex="4110"/>
+		<Row ParameterID="DifficultyCivicCost" Name="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_CIVIC_NODE_COST" Description="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_CIVIC_NODE_COST_TOOLTIP" Domain="StandardDifficultiesNoCustom" DefaultValue="DIFFICULTY_PRINCE" Hash="1" ConfigurationGroup="Game" ConfigurationKey="HANDICAP_CIVIC_COST" GroupId="DifficultyOptions" SortIndex="4120"/>
+		<Row ParameterID="DifficultyOceanDamage" Name="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_OCEAN_DAMAGE" Description="LOC_ADVANCED_OPTIONS_PLAYER_DIFFICULTY_OCEAN_DAMAGE_TOOLTIP" Domain="StandardDifficultiesNoCustom" DefaultValue="DIFFICULTY_PRINCE" Hash="1" ConfigurationGroup="Game" ConfigurationKey="HANDICAP_WATER_DAMAGE" GroupId="DifficultyOptions" SortIndex="4130"/>
+
+		<!-- Legacy Path Options -->
+		<Row ParameterID="EnableScoreVictory" Name="LOC_ADVANCED_OPTIONS_ENABLE_SCORE_VICTORY" Description="LOC_ADVANCED_OPTIONS_ENABLE_SCORE_VICTORY_DESCRIPTION" Domain="bool" Hash="0" DefaultValue="1" ConfigurationGroup="Game" ConfigurationKey="VICTORY_LEGACY" GroupId="LegacyOptions" ChangeableAfterGameStart="0" SortIndex="5010"/>
+		<Row ParameterID="LegacyPaths" Name="LOC_SETUP_LEGACY_PATHS_NAME" Description="LOC_SETUP_LEGACY_PATHS_DESC" Domain="StandardLegacyPaths" Hash="0" Array="1" UxHint="InvertSelection" ConfigurationGroup="Game" ConfigurationKey="ExcludeLegacyPaths" GroupId="LegacyOptions" SupportsLANMultiplayer="0" SupportsInternetMultiplayer="0" SupportsSinglePlayer="1" ChangeableAfterGameStart="0" SortIndex="5020" />
+
+		<!-- Standard Game Options -->
+		<!-- WorldBuilder Options -->
+		<!-- Player Parameters -->
+		<Row ParameterID="PlayerCivilization" Name="LOC_CIVILIZATION_NAME" Description="" Domain="StandardCivilizations" Hash="1" ConfigurationGroup="Player" ConfigurationKey="CivilizationTypeID" ValueConfigurationKey="CivilizationTypeName" DomainConfigurationKey="CivilizationTypeDomain" PossibleValuesConfigurationKey="CivilizationTypeValues" ValueDomainConfigurationKey="CivilizationTypeValueDomain" GroupId="PlayerOptions"/>
+		<Row ParameterID="PlayerLeader" Name="LOC_LEADER_TYPE" Description="" Domain="StandardLeaders" Hash="1" ConfigurationGroup="Player" ConfigurationKey="LeaderTypeID" ValueConfigurationKey="LeaderTypeName" DomainConfigurationKey="LeaderTypeDomain" PossibleValuesConfigurationKey="LeaderTypeValues" ValueDomainConfigurationKey="LeaderTypeValueDomain" GroupId="PlayerOptions"/>
+		<Row ParameterID="PlayerTeam" Name="LOC_PLAYER_TEAM" Description="The player team." Domain="int" Hash="0" ConfigurationGroup="Player" ConfigurationKey="Team" GroupId="PlayerOptions"/>
+		<Row ParameterID="PlayerDifficulty" Name="LOC_PLAYER_DIFFICULTY" Description="" Domain="StandardDifficulties" DefaultValue="DIFFICULTY_PRINCE" Hash="1" ConfigurationGroup="Player" ConfigurationKey="HandicapTypeID" GroupId="PlayerOptions" SortIndex="3020"/>
+		<Row ParameterID="PlayerMementoMajorSlot" Name="LOC_PLAYER_MEMENTOS" Description="LOC_MEMENTOS_GENERAL_DESCRIPTION" Domain="StandardMementos" Hash="0" ConfigurationGroup="Player" ConfigurationKey="MajorMemento" ValueConfigurationKey="MajorMementoValue" GroupId="PlayerOptions" SortIndex="3030"/>
+		<Row ParameterID="PlayerMementoMinorSlot1" Name="LOC_PLAYER_MEMENTOS" Description="LOC_MEMENTOS_GENERAL_DESCRIPTION" Domain="StandardMementos" Hash="0" ConfigurationGroup="Player" ConfigurationKey="MinorMemento1" ValueConfigurationKey="MinorMemento1Value" GroupId="PlayerOptions" SortIndex="3031"/>
+	</Parameters>
+	<ParameterDependencies>
+		<!-- Enable certain options only if in world builder. -->
+		<Row ParameterId="WorldWrap" ConfigurationGroup="Game" ConfigurationKey="WORLD_BUILDER" Operator="Equals" ConfigurationValue="1"/>
+		<!-- Disable certain options if this is for world builder. -->
+		<Row ParameterId="GameDifficulty" ConfigurationGroup="Game" ConfigurationKey="WORLD_BUILDER" Operator="NotEquals" ConfigurationValue="1"/>
+		<Row ParameterId="TurnTimerType" ConfigurationGroup="Game" ConfigurationKey="WORLD_BUILDER" Operator="NotEquals" ConfigurationValue="1"/>
+		<Row ParameterId="GameSpeeds" ConfigurationGroup="Game" ConfigurationKey="WORLD_BUILDER" Operator="NotEquals" ConfigurationValue="1"/>
+		<Row ParameterId="TurnLimit" ConfigurationGroup="Game" ConfigurationKey="WORLD_BUILDER" Operator="NotEquals" ConfigurationValue="1"/>
+		<Row ParameterId="MaxTurns" ConfigurationGroup="Game" ConfigurationKey="WORLD_BUILDER" Operator="NotEquals" ConfigurationValue="1"/>
+		<Row ParameterId="GameRandomSeed" ConfigurationGroup="Game" ConfigurationKey="WORLD_BUILDER" Operator="NotEquals" ConfigurationValue="1"/>
+		<!-- Teams should only be enabled if NO_TEAMS is not selected. -->
+		<Row ParameterId="PlayerTeam" ConfigurationGroup="Game" ConfigurationKey="NO_TEAMS" Operator="NotEquals" ConfigurationValue="1"/>
+		<!-- Turn Timer Time should only be set when the turn timer is set to standard. -->
+		<Row ParameterId="TurnTimerTime" ConfigurationGroup="Game" ConfigurationKey="TurnTimerType" Operator="Equals" ConfigurationValue="TURNTIMER_STANDARD"/>
+		<!-- Max turns may only be set when turn limit is manual. -->
+		<Row ParameterId="MaxTurns" ConfigurationGroup="Game" ConfigurationKey="TurnLimitType" Operator="Equals" ConfigurationValue="TURNLIMIT_CUSTOM"/>
+
+		<!-- Custom Difficulty Options rely on Difficulty being set to Custom. -->
+		<Row ParameterId="DifficultyIndependentsCombat" ConfigurationGroup="Game" ConfigurationKey="Handicap" Operator="Equals" ConfigurationValue="DIFFICULTY_CUSTOM"/>
+		<Row ParameterId="DifficultyCombat" ConfigurationGroup="Game" ConfigurationKey="Handicap" Operator="Equals" ConfigurationValue="DIFFICULTY_CUSTOM"/>
+		<Row ParameterId="DifficultyArmyXP" ConfigurationGroup="Game" ConfigurationKey="Handicap" Operator="Equals" ConfigurationValue="DIFFICULTY_CUSTOM"/>
+		<Row ParameterId="DifficultyUnitProduction" ConfigurationGroup="Game" ConfigurationKey="Handicap" Operator="Equals" ConfigurationValue="DIFFICULTY_CUSTOM"/>
+		<Row ParameterId="DifficultyBuildingProduction" ConfigurationGroup="Game" ConfigurationKey="Handicap" Operator="Equals" ConfigurationValue="DIFFICULTY_CUSTOM"/>
+		<Row ParameterId="DifficultyGold" ConfigurationGroup="Game" ConfigurationKey="Handicap" Operator="Equals" ConfigurationValue="DIFFICULTY_CUSTOM"/>
+		<Row ParameterId="DifficultyScience" ConfigurationGroup="Game" ConfigurationKey="Handicap" Operator="Equals" ConfigurationValue="DIFFICULTY_CUSTOM"/>
+		<Row ParameterId="DifficultyCulture" ConfigurationGroup="Game" ConfigurationKey="Handicap" Operator="Equals" ConfigurationValue="DIFFICULTY_CUSTOM"/>
+		<Row ParameterId="DifficultyHappiness" ConfigurationGroup="Game" ConfigurationKey="Handicap" Operator="Equals" ConfigurationValue="DIFFICULTY_CUSTOM"/>
+		<Row ParameterId="DifficultyTechCost" ConfigurationGroup="Game" ConfigurationKey="Handicap" Operator="Equals" ConfigurationValue="DIFFICULTY_CUSTOM"/>
+		<Row ParameterId="DifficultyCivicCost" ConfigurationGroup="Game" ConfigurationKey="Handicap" Operator="Equals" ConfigurationValue="DIFFICULTY_CUSTOM"/>
+		<Row ParameterId="DifficultyOceanDamage" ConfigurationGroup="Game" ConfigurationKey="Handicap" Operator="Equals" ConfigurationValue="DIFFICULTY_CUSTOM"/>
+		<Row ParameterId="DifficultyFreeStuff" ConfigurationGroup="Game" ConfigurationKey="Handicap" Operator="Equals" ConfigurationValue="DIFFICULTY_CUSTOM"/>
+	</ParameterDependencies>
+	<ParameterQueryDependencies>
+		<!-- Hide Defeat/Victory parameters if in WorldBuilder mode.-->
+		<Row ParameterQueryId="DefeatParameters" ConfigurationGroup="Game" ConfigurationKey="WORLD_BUILDER" Operator="NotEquals" ConfigurationValue="1"/>
+		<Row ParameterQueryId="VictoryParameters" ConfigurationGroup="Game" ConfigurationKey="WORLD_BUILDER" Operator="NotEquals" ConfigurationValue="1"/>
+	</ParameterQueryDependencies>
+	<DomainValues>
+		<Row Domain="StandardLeaders" Value="RANDOM" Name="LOC_LEADER_RANDOM_NAME" Description="LOC_LEADER_RANDOM_DESCRIPTION" Icon="LEADER_RANDOM" SortIndex="-1000"/>
+		<Row Domain="StandardTurnLimits" Value="TURNLIMIT_NONE" Name="LOC_TURNLIMIT_NONE_NAME" Description="LOC_TURNLIMIT_NONE_DESCRIPTION" SortIndex="10"/>
+		<Row Domain="StandardTurnLimits" Value="TURNLIMIT_GAMESPEED" Name="LOC_TURNLIMIT_GAMESPEED_NAME" Description="LOC_TURNLIMIT_GAMESPEED_DESCRIPTION" SortIndex="20"/>
+		<Row Domain="StandardTurnLimits" Value="TURNLIMIT_CUSTOM" Name="LOC_TURNLIMIT_CUSTOM_NAME" Description="LOC_TURNLIMIT_CUSTOM_DESCRIPTION" SortIndex="30"/>
+		<Row Domain="StandardCalendars" Value="CALENDAR_STANDARD" Name="Standard Calendar" Description="" SortIndex="1"/>
+		<Row Domain="StandardAgeLengths" Value="AGE_LENGTH_ABBREVIATED" Name="LOC_ADVANCED_OPTIONS_ABBREVIATED" SortIndex="10"/>
+		<Row Domain="StandardAgeLengths" Value="AGE_LENGTH_STANDARD" Name="LOC_ADVANCED_OPTIONS_STANDARD" SortIndex="20"/>
+		<Row Domain="StandardAgeLengths" Value="AGE_LENGTH_LONG" Name="LOC_ADVANCED_OPTIONS_LONG" SortIndex="30"/>
+		<Row Domain="AgeCountdownLengths" Value="AGE_COUNTDOWN_LENGTH_NONE" Name="LOC_ADVANCED_OPTIONS_COUNTDOWN_NONE" SortIndex="10"/>
+		<Row Domain="AgeCountdownLengths" Value="AGE_COUNTDOWN_LENGTH_STANDARD" Name="LOC_ADVANCED_OPTIONS_COUNTDOWN_STANDARD" SortIndex="20"/>
+		<Row Domain="AgeCountdownLengths" Value="AGE_COUNTDOWN_LENGTH_LONG" Name="LOC_ADVANCED_OPTIONS_COUNTDOWN_LONG" SortIndex="30"/>
+		<Row Domain="StandardDisasterIntensities" Value="REALISM_SETTING_LIGHT" Name="LOC_ADVANCED_OPTIONS_LIGHT" SortIndex="10"/>
+		<Row Domain="StandardDisasterIntensities" Value="REALISM_SETTING_MODERATE" Name="LOC_ADVANCED_OPTIONS_MODERATE" SortIndex="20"/>
+		<Row Domain="StandardDisasterIntensities" Value="REALISM_SETTING_HEAVY" Name="LOC_ADVANCED_OPTIONS_CATASTROPHIC" SortIndex="30"/>
+		<Row Domain="StandardIndependentHostilities" Value="INDEPENDENT_HOSTILITY_FRIENDLY" Name="LOC_INDEPENDENT_HOSTILITY_FRIENDLY" Description="LOC_INDEPENDENT_HOSTILITY_FRIENDLY_DESCRIPTION" SortIndex="10"/>
+		<Row Domain="StandardIndependentHostilities" Value="INDEPENDENT_HOSTILITY_DEFAULT" Name="LOC_INDEPENDENT_HOSTILITY_DEFAULT" Description="LOC_INDEPENDENT_HOSTILITY_DEFAULT_DESCRIPTION" SortIndex="20"/>
+		<Row Domain="StandardIndependentHostilities" Value="INDEPENDENT_HOSTILITY_HOSTILE" Name="LOC_INDEPENDENT_HOSTILITY_HOSTILE" Description="LOC_INDEPENDENT_HOSTILITY_HOSTILE_DESCRIPTION" SortIndex="30"/>
+
+		<Row Domain="StandardMapStartPositions" Value="START_POSITION_BALANCED" Name="LOC_MAP_START_POSITION_BALANCED_NAME" Description="LOC_MAP_START_POSITION_BALANCED_DESCRIPTION" SortIndex="10"/>
+		<Row Domain="StandardMapStartPositions" Value="START_POSITION_STANDARD" Name="LOC_MAP_START_POSITION_STANDARD_NAME" Description="LOC_MAP_START_POSITION_STANDARD_DESCRIPTION" SortIndex="20"/>
+
+		<Row Domain="AgeTransitionSettings" Value="AGE_TRANSITION_SETTING_KEEP_MORE" Name="LOC_AGE_TRANSITION_SETTING_KEEP_MORE_NAME" Description="LOC_AGE_TRANSITION_SETTING_KEEP_MORE_DESCRIPTION" SortIndex="1"/>
+		<Row Domain="AgeTransitionSettings" Value="AGE_TRANSITION_SETTING_ORIGINAL" Name="LOC_AGE_TRANSITION_SETTING_ORIGINAL_NAME" Description="LOC_AGE_TRANSITION_SETTING_ORIGINAL_DESCRIPTION" SortIndex="2"/>
+	</DomainValues>
+	<!-- Domain Value Unions are currently not functioning, use an explicit list for now.-->
+	<!--<DomainValueUnions>
+		<Row Domain="StandardDifficultiesNoCustom" OtherDomain="StandardDifficulties" />
+	</DomainValueUnions>
+	<DomainValueFilters>
+		<Row Domain="StandardDifficultiesNoCustom" Value="DIFFICULTY_CUSTOM" Filter="Difference" />
+	</DomainValueFilters>-->
+
+	<DomainValues>
+		<Row Domain="StandardDifficultiesNoCustom" Value="DIFFICULTY_SETTLER" Name="LOC_DIFFICULTY_SETTLER_NAME" Description="LOC_DIFFICULTY_SETTLER_DESCRIPTION" SortIndex="10" />
+		<Row Domain="StandardDifficultiesNoCustom" Value="DIFFICULTY_PRINCE" Name="LOC_DIFFICULTY_PRINCE_NAME" Description="LOC_DIFFICULTY_PRINCE_DESCRIPTION" SortIndex="20" />
+		<Row Domain="StandardDifficultiesNoCustom" Value="DIFFICULTY_KING" Name="LOC_DIFFICULTY_KING_NAME" Description="LOC_DIFFICULTY_KING_DESCRIPTION" SortIndex="30" />
+		<Row Domain="StandardDifficultiesNoCustom" Value="DIFFICULTY_EMPEROR" Name="LOC_DIFFICULTY_EMPEROR_NAME" Description="LOC_DIFFICULTY_EMPEROR_DESCRIPTION" SortIndex="40" />
+		<Row Domain="StandardDifficultiesNoCustom" Value="DIFFICULTY_IMMORTAL" Name="LOC_DIFFICULTY_IMMORTAL_NAME" Description="LOC_DIFFICULTY_IMMORTAL_DESCRIPTION" SortIndex="50" />
+		<Row Domain="StandardDifficultiesNoCustom" Value="DIFFICULTY_DEITY" Name="LOC_DIFFICULTY_DEITY_NAME" Description="LOC_DIFFICULTY_DEITY_DESCRIPTION" SortIndex="60" />
+	</DomainValues>
+
+	<ConfigurationUpdates>
+		<Row SourceGroup="Game" SourceKey="RuleSet" SourceValue="RULESET_STANDARD" TargetGroup="Game" TargetKey="TurnLimitType" TargetValue="TURNLIMIT_GAMESPEED" Hash="1"/>
+		<Row SourceGroup="Game" SourceKey="MaxTurns" SourceValue="0" TargetGroup="Game" TargetKey="TurnLimitType" TargetValue="TURNLIMIT_NONE" Hash="1"/>
+		<Row SourceGroup="Game" SourceKey="TurnTimerTime" SourceValue="0" TargetGroup="Game" TargetKey="TurnTimerTime" TargetValue="180" Hash="0"/>
+	</ConfigurationUpdates>
+	<Queries>
+		<!-- Parameter Queries -->
+		<Row QueryId="Parameters" Type="Parameters" SQL="SELECT * FROM Parameters P WHERE Key1 IS NULL and Key2 IS NULL"/>
+		<Row QueryId="AgeParameters" Type="Parameters" SQL="SELECT * FROM Parameters P WHERE Key1='Age' AND Key2= ?1"/>
+		<Row QueryId="RulesetParameters" Type="Parameters" SQL="SELECT * FROM Parameters P WHERE Key1='Ruleset' AND Key2 = ?1"/>
+		<Row QueryId="MapParameters" Type="Parameters" SQL="SELECT * FROM Parameters P WHERE Key1='Map' AND Key2 = ?1"/>
+		<Row QueryId="DefeatParameters" Type="Parameters" SQL="SELECT DefeatType AS ParameterID, D.Name AS Name, D.Description AS Description, Visible, ReadOnly, 1 AS SupportsSinglePlayer, 1 AS SupportsLANMultiplayer, 1 AS SupportsInternetMultiplayer, 0 AS ChangeableAfterGameStart, 'bool' AS Domain, 0 AS Hash, 1 AS DefaultValue, 'Game' AS ConfigurationGroup, DefeatType AS ConfigurationKey, 'Victories' AS GroupId, 10 AS SortIndex FROM Defeats D, Ages WHERE AgeType = ?1 and D.Domain = Ages.DefeatDomain"/>
+		<Row QueryId="VictoryParameters" Type="Parameters" SQL="SELECT VictoryType AS ParameterID, V.Name AS Name, V.Description AS Description, Visible, ReadOnly, 1 AS SupportsSinglePlayer, 1 AS SupportsLANMultiplayer, 1 AS SupportsInternetMultiplayer, 0 AS ChangeableAfterGameStart, 'bool' AS Domain, 0 AS Hash, 1 AS DefaultValue, 'Game' AS ConfigurationGroup, VictoryType AS ConfigurationKey, 'Victories' AS GroupId, 20 AS SortIndex FROM Victories V, Ages WHERE AgeType =?1 and V.Domain = Ages.VictoryDomain"/>
+		<!-- Parameter Criteria Queries -->
+		<Row QueryId="ParameterCriteria" Type="ParameterCriteria" SQL="SELECT * FROM ParameterCriteria ORDER BY ParameterID"/>
+		<Row QueryId="FixedMaxTurnsCriteria" Type="ParameterCriteria" SQL="SELECT 'MaxTurns' AS ParameterID, 'Game' AS ConfigurationGroup, 'AGE' AS ConfigurationKey, 'NotEquals' AS Operator, AgeType AS ConfigurationValue FROM Ages WHERE FixedMaxTurns = 1"/>
+		<!-- Parameter Dependency Queries -->
+		<Row QueryId="ParameterDependencies" Type="ParameterDependencies" SQL="SELECT * FROM ParameterDependencies ORDER BY ParameterID"/>
+		<!-- Disable 'Resources' drop-down if map is fixed map, e.g pre-populated with resources. -->
+		<Row QueryId="MapResourcesDependencies" Type="ParameterDependencies" SQL="SELECT 'Resources' AS ParameterID, 'Map' AS ConfigurationGroup, 'MAP_SCRIPT' AS ConfigurationKey, 'NotEquals' AS Operator, File AS ConfigurationValue FROM Maps WHERE StaticMap = 1"/>
+		<!-- Value Queries -->
+		<Row QueryId="Ages" Type="DomainValues" SQL="SELECT Domain, Name, Description, AgeType AS Value, Banner, SortIndex FROM Ages"/>
+		<Row QueryId="DomainValues" Type="DomainValues" SQL="SELECT * FROM DomainValues WHERE Key1 IS NULL AND Key2 IS NULL"/>
+		<Row QueryId="Civilizations" Type="DomainValues" SQL="SELECT Domain, CivilizationType AS Value, CivilizationName as Name, CivilizationDescription AS Description, CivilizationIcon as Icon, SortIndex FROM Civilizations"/>
+		<Row QueryId="Difficulties" Type="DomainValues" SQL="SELECT Domain, Name, Description, DifficultyType AS Value, SortIndex FROM Difficulties"/>
+		<Row QueryId="GameSpeeds" Type="DomainValues" SQL="SELECT Domain, Name, Description, GameSpeedType AS Value, SortIndex FROM GameSpeeds"/>
+		<Row QueryId="Leaders" Type="DomainValues" SQL="SELECT Domain, LeaderType AS Value, LeaderName as Name, LeaderDescription AS Description, LeaderIcon as Icon, SortIndex FROM Leaders"/>
+		<Row QueryId="Maps" Type="DomainValues" SQL="SELECT Domain, Name, Description, File AS Value, SortIndex FROM Maps WHERE (not WorldBuilderOnly or ?)"/>
+		<Row QueryId="MapSizes" Type="DomainValues" SQL="SELECT Domain, Name, Description, MapSizeType AS Value, MinPlayers, MaxPlayers, MaxHumans, DefaultPlayers, SortIndex FROM MapSizes"/>
+		<Row QueryId="Mementos" Type="DomainValues" SQL="SELECT Mementos.Domain, Mementos.Name, Mementos.Description, Mementos.FunctionalDescription, Mementos.Type AS Value, Mementos.SortIndex, Rewards.CustomData AS Icon FROM Mementos INNER JOIN Rewards ON Mementos.Type = Rewards.GameItemID"/>
+
+		<Row QueryId="LegacyPaths" Type="DomainValues" SQL="SELECT Domain, Name, Description, LegacyPathClassName, AgeType, Category, LegacyPathClassType, LegacyPathClassName, LegacyPathType AS Value, SortIndex FROM LegacyPaths"/>
+		<Row QueryId="Crises" Type="DomainValues" SQL="SELECT Domain, Name, Description, Category, AgeCrisisEventType AS Value, AgeType, SortIndex FROM Crises"/>
+
+		<!-- TODO - Bring this back once we fix mode specification. -->
+		<!-- <Row QueryId="Rulesets" Type="DomainValues" SQL="SELECT 'Rulesets' AS Domain, Name, Description, RulesetType AS Value, SortIndex FROM Rulesets WHERE ((?1 = -379035929 and SupportsSinglePlayer = 1) or ((?1 = 1161765858 or ?1 = 20463770 or ?1 = -413661464) and SupportsMultiplayer = 1))"/> -->
+		<Row QueryId="Rulesets" Type="DomainValues" SQL="SELECT 'Rulesets' AS Domain, Name, Description, RulesetType AS Value, SortIndex FROM Rulesets"/>
+		<Row QueryId="TurnTimers" Type="DomainValues" SQL="SELECT Domain, Name, Description, TurnTimerType AS Value, SortIndex FROM TurnTimers"/>
+		<Row QueryId="TurnPhases" Type="DomainValues" SQL="SELECT Domain, Name, Description, TurnPhaseType AS Value, SortIndex FROM TurnPhases"/>
+		<!-- Value Filter Queries -->
+		<Row QueryId="DomainValueFilters" Type="DomainValueFilters" SQL="SELECT * FROM DomainValueFilters WHERE Key1 IS NULL AND Key2 IS NULL"/>
+		<!-- Value Union Queries -->
+		<Row QueryId="DomainValueUnions" Type="DomainValueUnions" SQL="SELECT * FROM DomainValueUnions WHERE Key1 IS NULL AND Key2 IS NULL"/>
+		<!-- Range Queries -->
+		<Row QueryId="DomainRanges" Type="DomainRanges" SQL="SELECT * FROM DomainRanges"/>
+		<!-- Map Specific Queries -->
+		<!-- These queries adjust the domain values based on the selected map. -->
+		<Row QueryId="MapLeaders" Type="DomainValueFilters" SQL="SELECT 'Players:*' AS Domain, LeaderType as Value, 'Intersect' as Filter FROM MapLeaders WHERE Map = ?1"/>
+		<Row QueryId="DomainOverridesByMap" Type="ParameterDomainOverrides" SQL="SELECT ParameterID, Domain FROM DomainOverridesByMap WHERE Map = ?1 and (PlayerId = ?2 or PlayerId is null)"/>
+		<Row QueryId="SupportedValuesByMap" Type="DomainValueFilters" SQL="SELECT Domain, Value, 'Intersect' AS Filter FROM SupportedValuesByMap WHERE Map = ?1 and (PlayerId = ?2 or PlayerId is null)"/>
+		<Row QueryId="UnSupportedValuesByMap" Type="DomainValueFilters" SQL="SELECT Domain, Value, 'Difference' AS Filter FROM UnSupportedValuesByMap WHERE Map = ?1 and (PlayerId = ?2 or PlayerId is null)"/>
+		<!-- Ruleset Specific queries -->
+		<!-- These queries adjust the domain values based on the selected ruleset. -->
+		<Row QueryId="DomainOverridesByRuleset" Type="ParameterDomainOverrides" SQL="SELECT ParameterID, Domain FROM DomainOverridesByRuleset WHERE RulesetType = ?1 and (PlayerId = ?2 or PlayerId is null)"/>
+		<Row QueryId="SupportedValuesByRuleset" Type="DomainValueFilters" SQL="SELECT Domain, Value, 'Intersect' AS Filter FROM SupportedValuesByRuleset WHERE RulesetType = ?1 and (PlayerId = ?2 or PlayerId is null)"/>
+		<Row QueryId="UnSupportedValuesByRuleset" Type="DomainValueFilters" SQL="SELECT Domain, Value, 'Difference' AS Filter FROM UnSupportedValuesByRuleset WHERE RulesetType = ?1 and (PlayerId = ?2 or PlayerId is null)"/>
+		<!-- Age Specific queries -->
+		<!-- These queries adjust the domain values based on the selected ruleset. -->
+		<Row QueryId="DomainOverridesByAge" Type="ParameterDomainOverrides" SQL="SELECT ParameterID, Domain FROM DomainOverridesByAge WHERE Make_Hash(AgeType) = ?1 and (PlayerId = ?2 or PlayerId is null)"/>
+		<Row QueryId="PlayerCivilizationsByAge" Type="ParameterDomainOverrides" SQL="SELECT 'PlayerCivilization' as ParameterID, PlayerCivilizationDomain as Domain FROM Ages WHERE Make_Hash(AgeType) = ?1 LIMIT 1"/>
+		<Row QueryId="MapSizesByAge" Type="ParameterDomainOverrides" SQL="SELECT 'MapSize' as ParameterID, MapSizeDomain as Domain FROM Ages WHERE Make_Hash(AgeType) = ?1 LIMIT 1"/>
+		<Row QueryId="SupportedValuesByAge" Type="DomainValueFilters" SQL="SELECT Domain, Value, 'Intersect' AS Filter FROM SupportedValuesByAge WHERE Make_Hash(AgeType) = ?1 and (PlayerId = ?2 or PlayerId is null)"/>
+		<Row QueryId="UnSupportedValuesByAge" Type="DomainValueFilters" SQL="SELECT Domain, Value, 'Difference' AS Filter FROM UnSupportedValuesByAge WHERE Make_Hash(AgeType) = ?1 and (PlayerId = ?2 or PlayerId is null)"/>
+		<!-- If the Age has 'FixedMaxTurns' then restrict the turn limit to custom. -->
+		<Row QueryId="FixedMaxTurns" Type="DomainValueFilters" SQL="SELECT 'StandardTurnLimits' as Domain, 'TURNLIMIT_CUSTOM' as Value, 'Intersect' AS Filter FROM Ages WHERE Make_Hash(AgeType) = ?1 AND FixedMaxTurns = 1"/>
+		<!-- Configuration Update queries -->
+		<Row QueryId="ConfigurationUpdates" Type="ConfigurationUpdates" SQL="SELECT * FROM ConfigurationUpdates WHERE Key1 IS NULL AND Key2 IS NULL"/>
+		<Row QueryId="ConfigurationUpdatesByAge" Type="ConfigurationUpdates" SQL="SELECT * FROM ConfigurationUpdates WHERE Key1='Age' AND Key2 = ?1"/>
+		<Row QueryId="ConfigurationUpdatesByRuleset" Type="ConfigurationUpdates" SQL="SELECT * FROM ConfigurationUpdates WHERE Key1='Ruleset' AND Key2 = ?1"/>
+		<Row QueryId="TurnLimitNoneUpdates" Type="ConfigurationUpdates" SQL="SELECT 'Game' AS SourceGroup, 'StartAge' AS SourceKey, AgeType AS SourceValue, 'Game' AS TargetGroup, 'TurnLimitType' AS TargetKey, 'TURNLIMIT_NONE' AS TargetValue, 1 AS 'Hash' FROM Ages WHERE MaxTurns = 0"/>
+		<Row QueryId="TurnLimitCustomUpdates" Type="ConfigurationUpdates" SQL="SELECT 'Game' AS SourceGroup, 'StartAge' AS SourceKey, AgeType AS SourceValue, 'Game' AS TargetGroup, 'TurnLimitType' AS TargetKey, 'TURNLIMIT_CUSTOM' AS TargetValue, 1 AS 'Hash' FROM Ages WHERE MaxTurns > 0"/>
+		<Row QueryId="MaxTurnUpdates" Type="ConfigurationUpdates" SQL="SELECT 'Game' AS SourceGroup, 'AGE' AS SourceKey, AgeType AS SourceValue, 'Game' AS TargetGroup, 'MaxTurns' AS TargetKey, MaxTurns AS TargetValue FROM Ages WHERE MaxTurns IS NOT NULL"/>
+		<Row QueryId="VictoryUpdates" Type="ConfigurationUpdates" SQL="SELECT 'Game' As SourceGroup, 'AGE' AS SourceKey, AgeType AS SourceValue, 'Game' AS TargetGroup, VictoryType AS TargetKey, 1 AS TargetValue FROM Victories V, Ages WHERE V.EnabledByDefault = 1 AND V.Domain = Ages.VictoryDomain"/>
+	</Queries>
+	<MetaQueries>
+		<!-- Live Event Meta-Queries-->
+		<Row MetaQueryId="LiveEventDomainValueFilterQueries" MetaQueryType="QueryCriteria" SQL="SELECT LiveEventType || '_DVF' as QueryID, 'Game' as ConfigurationGroup, ConfigurationKey, 'Equals' as Operator, 1 as ConfigurationValue from LiveEvents"/>
+		<Row MetaQueryId="LiveEventDomainValueFilterQueryCriteria" MetaQueryType="Queries" SQL="SELECT LiveEventType || '_DVF' as QueryID, 'DomainValueFilters' as Type, 'SELECT * FROM DomainValueFilters where Key1 = ''LiveEvent'' AND Key2 = '''|| LiveEventType || '''' as SQL from LiveEvents"/>
+	</MetaQueries>
+
+	<QueryParameters>
+		<!--<Row QueryId="Rulesets" Index="1" ConfigurationGroup="Game" ConfigurationKey="GAME_MODE"/>-->
+		<Row QueryId="RulesetParameters" Index="1" ConfigurationGroup="Game" ConfigurationKey="RuleSet"/>
+		<Row QueryId="AgeParameters" Index="1" ConfigurationGroup="Game" ConfigurationKey="StartAge"/>
+		<Row QueryId="MapParameters" Index="1" ConfigurationGroup="Map" ConfigurationKey="Script"/>
+		<Row QueryId="DefeatParameters" Index="1" ConfigurationGroup="Game" ConfigurationKey="StartAge"/>
+		<Row QueryId="VictoryParameters" Index="1" ConfigurationGroup="Game" ConfigurationKey="StartAge"/>
+		<Row QueryId="Maps" Index="1" ConfigurationGroup="Game" ConfigurationKey="WorldBuilder"/>
+		<Row QueryId="DomainOverridesByMap" Index="1" ConfigurationGroup="Map" ConfigurationKey="Script"/>
+		<Row QueryId="DomainOverridesByMap" Index="2" ConfigurationGroup="Player" ConfigurationKey="PlayerID"/>
+		<Row QueryId="MapLeaders" Index="1" ConfigurationGroup="Map" ConfigurationKey="Script"/>
+		<Row QueryId="SupportedValuesByMap" Index="1" ConfigurationGroup="Map" ConfigurationKey="Script"/>
+		<Row QueryId="SupportedValuesByMap" Index="2" ConfigurationGroup="Player" ConfigurationKey="PlayerID"/>
+		<Row QueryId="UnSupportedValuesByMap" Index="1" ConfigurationGroup="Game" ConfigurationKey="Script"/>
+		<Row QueryId="UnSupportedValuesByMap" Index="2" ConfigurationGroup="Player" ConfigurationKey="PlayerID"/>
+		<Row QueryId="DomainOverridesByRuleset" Index="1" ConfigurationGroup="Game" ConfigurationKey="RuleSet"/>
+		<Row QueryId="DomainOverridesByRuleset" Index="2" ConfigurationGroup="Player" ConfigurationKey="PlayerID"/>
+		<Row QueryId="SupportedValuesByRuleset" Index="1" ConfigurationGroup="Game" ConfigurationKey="RuleSet"/>
+		<Row QueryId="SupportedValuesByRuleset" Index="2" ConfigurationGroup="Player" ConfigurationKey="PlayerID"/>
+		<Row QueryId="UnSupportedValuesByRuleset" Index="1" ConfigurationGroup="Game" ConfigurationKey="RuleSet"/>
+		<Row QueryId="UnSupportedValuesByRuleset" Index="2" ConfigurationGroup="Player" ConfigurationKey="PlayerID"/>
+		<Row QueryId="DomainOverridesByAge" Index="1" ConfigurationGroup="Game" ConfigurationKey="StartAge"/>
+		<Row QueryId="DomainOverridesByAge" Index="2" ConfigurationGroup="Player" ConfigurationKey="PlayerID"/>
+		<Row QueryId="PlayerCivilizationsByAge" Index="1" ConfigurationGroup="Game" ConfigurationKey="StartAge"/>
+		<Row QueryId="MapSizesByAge" Index="1" ConfigurationGroup="Game" ConfigurationKey="StartAge"/>
+		<Row QueryId="SupportedValuesByAge" Index="1" ConfigurationGroup="Game" ConfigurationKey="StartAge"/>
+		<Row QueryId="SupportedValuesByAge" Index="2" ConfigurationGroup="Player" ConfigurationKey="PlayerID"/>
+		<Row QueryId="UnSupportedValuesByAge" Index="1" ConfigurationGroup="Game" ConfigurationKey="StartAge"/>
+		<Row QueryId="UnSupportedValuesByAge" Index="2" ConfigurationGroup="Player" ConfigurationKey="PlayerID"/>
+		<Row QueryId="FixedMaxTurns" Index="1" ConfigurationGroup="Game" ConfigurationKey="StartAge"/>
+		<Row QueryId="ConfigurationUpdatesByAge" Index="1" ConfigurationGroup="Game" ConfigurationKey="StartAge"/>
+		<Row QueryId="ConfigurationUpdatesByRuleset" Index="1" ConfigurationGroup="Game" ConfigurationKey="RuleSet"/>
+	</QueryParameters>
+</Database>

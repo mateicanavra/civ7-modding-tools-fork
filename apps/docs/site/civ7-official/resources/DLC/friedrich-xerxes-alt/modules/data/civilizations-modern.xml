@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LeaderCivPriorities>
+		<Row Leader="LEADER_FRIEDRICH_ALT" Civilization="CIVILIZATION_PRUSSIA" Priority="4"/>
+		<Row Leader="LEADER_FRIEDRICH_ALT" Civilization="CIVILIZATION_FRENCH_EMPIRE" Priority="2"/>
+		<Row Leader="LEADER_XERXES_ALT" Civilization="CIVILIZATION_MUGHAL" Priority="2"/>
+		<Row Leader="LEADER_XERXES_ALT" Civilization="CIVILIZATION_RUSSIA" Priority="1"/>
+	</LeaderCivPriorities>
+</Database>

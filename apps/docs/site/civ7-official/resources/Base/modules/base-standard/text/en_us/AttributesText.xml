@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--Attribute Progression Trees-->
+		<!-- Cultural Attribute -->
+		<Row Tag="LOC_TREE_ATTRIBUTE_CULTURAL">
+			<Text>Cultural Attribute Skills</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_CULTURAL_01_DESCRIPTION">
+			<Text>+1[icon:YIELD_CULTURE] Culture per Age on the Palace and City Halls.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_CULTURAL_02_DESCRIPTION">
+			<Text>+10%[icon:YIELD_PRODUCTION] Production towards constructing Wonders.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_CULTURAL_03_DESCRIPTION">
+			<Text>+25%[icon:YIELD_CULTURE] Culture towards studying Civic Masteries.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_CULTURAL_04_DESCRIPTION">
+			<Text>+10%[icon:YIELD_CULTURE] Culture in Cities with at least 1 Wonder.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_CULTURAL_05_DESCRIPTION">
+			<Text>+1[icon:YIELD_CULTURE] Culture in Settlements for each Resource assigned to them.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_CULTURAL_06_DESCRIPTION">
+			<Text>+1[icon:YIELD_CULTURE] Culture per Age from Great Works on display.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_CULTURAL_07_DESCRIPTION">
+			<Text>+1[icon:YIELD_CULTURE] Culture from Specialists, or +2 if you have 3 or fewer Cities.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_CULTURAL_08_DESCRIPTION">
+			<Text>+10%[icon:YIELD_CULTURE] Culture for every Alliance you have.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_CULTURAL_09_DESCRIPTION">
+			<Text>+1[icon:YIELD_CULTURE] Culture per Age in Towns, or +2 in Distant Lands.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_CULTURAL_10_DESCRIPTION">
+			<Text>+5% total[icon:YIELD_CULTURE] Culture. Repeatable.</Text>
+		</Row>
+		<!-- Diplomatic Attribute -->
+		<Row Tag="LOC_TREE_ATTRIBUTE_POLITICAL">
+			<Text>Diplomatic Attribute Skills</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_POLITICAL_01_DESCRIPTION">
+			<Text>+1[icon:YIELD_HAPPINESS] Happiness per Age on the Palace and City Halls.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_POLITICAL_02_DESCRIPTION">
+			<Text>+1[icon:YIELD_DIPLOMACY] Influence per Age on the Palace.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_POLITICAL_03_DESCRIPTION">
+			<Text>+1[icon:YIELD_HAPPINESS] Happiness in Settlements for each Resource assigned to them.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_POLITICAL_04_DESCRIPTION">
+			<Text>+50%[icon:YIELD_DIPLOMACY] Influence towards initiating and progressing the Befriend Independent Action.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_POLITICAL_05_DESCRIPTION">
+			<Text>+25%[icon:YIELD_DIPLOMACY] Influence towards supporting or rejecting Diplomatic Actions.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_POLITICAL_06_DESCRIPTION">
+			<Text>+50% Celebration length.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_POLITICAL_07_DESCRIPTION">
+			<Text>+2[icon:YIELD_CULTURE] Culture and[icon:YIELD_SCIENCE] Science per Age for each City-State you are Suzerain of.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_POLITICAL_08_DESCRIPTION">
+			<Text>+1 Social Policy slot.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_POLITICAL_09_DESCRIPTION">
+			<Text>Unlock the Military Sabotage Espionage Action.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_POLITICAL_10_DESCRIPTION">
+			<Text>+3% towards all yields for every Alliance you have. Repeatable.</Text>
+		</Row>
+		<!-- Economic Attribute -->
+		<Row Tag="LOC_TREE_ATTRIBUTE_ECONOMIC">
+			<Text>Economic Attribute Skills</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_ECONOMIC_01_DESCRIPTION">
+			<Text>+1[icon:YIELD_GOLD] Gold per Age on the Palace and City Halls.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_ECONOMIC_02_DESCRIPTION">
+			<Text>+2[icon:YIELD_GOLD] Gold per Age for every active Trade Route.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_ECONOMIC_03_DESCRIPTION">
+			<Text>+2[icon:YIELD_GOLD] Gold for every Tech and Civic Mastery completed in an Age.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_ECONOMIC_04_DESCRIPTION">
+			<Text>+1[icon:YIELD_GOLD] Gold for every imported Resource.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_ECONOMIC_05_DESCRIPTION">
+			<Text>+15%[icon:YIELD_GOLD] Gold towards purchasing in all Settlements.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_ECONOMIC_06_DESCRIPTION">
+			<Text>+1[icon:YIELD_GOLD] Gold on Resources in Towns, or +2 in Towns in Distant Lands.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_ECONOMIC_07_DESCRIPTION">
+			<Text>+1 Resource Capacity in Cities, or +2 if you have 3 or fewer Cities.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_ECONOMIC_08_DESCRIPTION">
+			<Text>+10%[icon:YIELD_GOLD] Gold for every Alliance you have.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_ECONOMIC_09_DESCRIPTION">
+			<Text>+1 Resource Capacity in Towns.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_ECONOMIC_10_DESCRIPTION">
+			<Text>+5% total[icon:YIELD_GOLD] Gold. Repeatable.</Text>
+		</Row>
+		<!-- Expansionist Attribute -->
+		<Row Tag="LOC_TREE_ATTRIBUTE_EXPANSIONIST">
+			<Text>Expansionist Attribute Skills</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_EXPANSIONIST_01_DESCRIPTION">
+			<Text>+25%[icon:YIELD_PRODUCTION] Production towards training Settlers.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_EXPANSIONIST_02_DESCRIPTION">
+			<Text>+5% Growth Rate in Cities.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_EXPANSIONIST_03_DESCRIPTION">
+			<Text>+1[icon:YIELD_FOOD] Food per Age on Warehouse Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_EXPANSIONIST_04_DESCRIPTION">
+			<Text>15% of[icon:YIELD_FOOD] Food is refunded when a City grows by adding a Specialist.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_EXPANSIONIST_05_DESCRIPTION">
+			<Text>Gain +1 Population in Towns. New Towns start with an additional Population.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_EXPANSIONIST_06_DESCRIPTION">
+			<Text>+10%[icon:YIELD_FOOD] Food and[icon:YIELD_HAPPINESS] Happiness towards maintaining Specialists, or +20% if you have 3 or fewer Cities.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_EXPANSIONIST_07_DESCRIPTION">
+			<Text>+15% Yields in Towns with a Specialization, or +30% in Distant Lands.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_EXPANSIONIST_08_DESCRIPTION">
+			<Text>+1 Specialist Limit in all Cities, -1 Settlement Limit.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_EXPANSIONIST_09_DESCRIPTION">
+			<Text>+1 Settlement Limit.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_EXPANSIONIST_10_DESCRIPTION">
+			<Text>+1[icon:YIELD_FOOD] Food in Cities per Town. Repeatable.</Text>
+		</Row>
+		<!-- Militaristic Attribute -->
+		<Row Tag="LOC_TREE_ATTRIBUTE_MILITARISTIC">
+			<Text>Militaristic Attribute Skills</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_01_DESCRIPTION">
+			<Text>+5 Combat Strength against Independent Powers and City-States.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_02_DESCRIPTION">
+			<Text>Gain 1 free War Support on all your wars.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_03_DESCRIPTION">
+			<Text>+50%[icon:YIELD_DIPLOMACY] Influence towards Levying Units from City-States.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_04_DESCRIPTION">
+			<Text>+15%[icon:YIELD_PRODUCTION] Production towards training Military Units.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_05_DESCRIPTION">
+			<Text>Ignore the [icon:YIELD_HAPPINESS] Happiness penalty from Unrest in captured Settlements.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_06_DESCRIPTION">
+			<Text>Garrisoned Commanders reduce[icon:YIELD_HAPPINESS] Happiness penalties by an additional 10%.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_07_DESCRIPTION">
+			<Text>-1[icon:YIELD_GOLD] Gold maintenance for all Units.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_08_DESCRIPTION">
+			<Text>+1 Settlement Limit.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_09_DESCRIPTION">
+			<Text>Commanders gain a free Level. New Commanders start with a free Level.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_10_DESCRIPTION">
+			<Text>Units receive +2 HP when healing. Repeatable.</Text>
+		</Row>
+		<!-- Scientific Attribute -->
+		<Row Tag="LOC_TREE_ATTRIBUTE_SCIENTIFIC">
+			<Text>Scientific Attribute Skills</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_01_DESCRIPTION">
+			<Text>+1[icon:YIELD_SCIENCE] Science per Age on the Palace and City Halls.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_02_DESCRIPTION">
+			<Text>+15%[icon:YIELD_PRODUCTION] Production towards constructing Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_03_DESCRIPTION">
+			<Text>+25%[icon:YIELD_SCIENCE] Science towards researching Tech Masteries.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_04_DESCRIPTION">
+			<Text>+20%[icon:YIELD_GOLD] Gold and[icon:YIELD_HAPPINESS] Happiness towards maintaining Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_05_DESCRIPTION">
+			<Text>+1[icon:YIELD_SCIENCE] Science in Settlements for each Resource assigned to them.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_06_DESCRIPTION">
+			<Text>+1[icon:YIELD_SCIENCE] Science on each Quarter.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_07_DESCRIPTION">
+			<Text>+1[icon:YIELD_SCIENCE] Science on Specialists, or +2 if you have 3 or fewer Cities.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_08_DESCRIPTION">
+			<Text>+10%[icon:YIELD_SCIENCE] Science for every Alliance you have.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_09_DESCRIPTION">
+			<Text>+1[icon:YIELD_SCIENCE] Science per Age in Towns, or +2 in Distant Lands.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_10_DESCRIPTION">
+			<Text>+5% total[icon:YIELD_SCIENCE] Science. Repeatable.</Text>
+		</Row>
+		<!-- ==============================================================	-->
+		<!--	Legend Unlocks												-->
+		<!-- ==============================================================	-->
+		<!-- Cultural Attribute -->
+		<Row Tag="LOC_MOD_ATTRIBUTE_CULTURAL_LEGEND_AUGUSTUS_L1_DESCRIPTION">
+			<Text>Legend Unlock. +15% [icon:YIELD_PRODUCTION]Production towards constructing Buildings and Wonders with Great Works slots.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_CULTURAL_LEGEND_CATHERINE_L1_DESCRIPTION">
+			<Text>Legend Unlock. +15% [icon:YIELD_PRODUCTION]Production towards constructing Buildings and Wonders with Great Works slots.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_CULTURAL_LEGEND_HATSHEPSUT_L1_DESCRIPTION">
+			<Text>Legend Unlock. +15% [icon:YIELD_PRODUCTION]Production towards constructing Buildings and Wonders with Great Works slots.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_CULTURAL_LEGEND_JOSE_RIZAL_L1_DESCRIPTION">
+			<Text>Legend Unlock. +15% [icon:YIELD_PRODUCTION]Production towards constructing Buildings and Wonders with Great Works slots.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_CULTURAL_LEGEND_LAFAYETTE_L1_DESCRIPTION">
+			<Text>Legend Unlock. +15% [icon:YIELD_PRODUCTION]Production towards constructing Buildings and Wonders with Great Works slots.</Text>
+		</Row>
+		<!-- Diplomatic Attribute -->
+		<Row Tag="LOC_MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_ASHOKA_L1_DESCRIPTION">
+			<Text>Legend Unlock. +25% Relationship from starting or supporting Endeavors. -25% Relationship from starting Sanctions or rejecting Endeavors.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_BENJAMIN_FRANKLIN_L1_DESCRIPTION">
+			<Text>Legend Unlock. +25% Relationship from starting or supporting Endeavors. -25% Relationship from starting Sanctions or rejecting Endeavors.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_HARRIET_TUBMAN_L1_DESCRIPTION">
+			<Text>Legend Unlock. +25% Relationship from starting or supporting Endeavors. -25% Relationship from starting Sanctions or rejecting Endeavors.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_HIMIKO_L1_DESCRIPTION">
+			<Text>Legend Unlock. +25% Relationship from starting or supporting Endeavors. -25% Relationship from starting Sanctions or rejecting Endeavors.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_JOSE_RIZAL_L2_DESCRIPTION">
+			<Text>Legend Unlock. +25% Relationship from starting or supporting Endeavors. -25% Relationship from starting Sanctions or rejecting Endeavors.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_LAFAYETTE_L2_DESCRIPTION">
+			<Text>Legend Unlock. +25% Relationship from starting or supporting Endeavors. -25% Relationship from starting Sanctions or rejecting Endeavors.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_DIPLOMATIC_LEGEND_MACHIAVELLI_L1_DESCRIPTION">
+			<Text>Legend Unlock. +25% Relationship from starting or supporting Endeavors. -25% Relationship from starting Sanctions or rejecting Endeavors.</Text>
+		</Row>
+		<!-- Economic Attribute -->
+		<Row Tag="LOC_MOD_ATTRIBUTE_ECONOMIC_LEGEND_AMINA_L1_DESCRIPTION">
+			<Text>Legend Unlock.[n]+25% [icon:YIELD_GOLD]Gold from Trade and Treasure Convoys.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_ECONOMIC_LEGEND_HATSHEPSUT_L2_DESCRIPTION">
+			<Text>Legend Unlock.[n]+25% [icon:YIELD_GOLD]Gold from Trade and Treasure Convoys.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_ECONOMIC_LEGEND_IBN_BATTUTA_L1_DESCRIPTION">
+			<Text>Legend Unlock.[n]+25% [icon:YIELD_GOLD]Gold from Trade and Treasure Convoys.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_ECONOMIC_LEGEND_ISABELLA_L1_DESCRIPTION">
+			<Text>Legend Unlock.[n]+25% [icon:YIELD_GOLD]Gold from Trade and Treasure Convoys.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_ECONOMIC_LEGEND_MACHIAVELLI_L2_DESCRIPTION">
+			<Text>Legend Unlock.[n]+25% [icon:YIELD_GOLD]Gold from Trade and Treasure Convoys.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_ECONOMIC_LEGEND_PACHACUTI_L1_DESCRIPTION">
+			<Text>Legend Unlock.[n]+25% [icon:YIELD_GOLD]Gold from Trade and Treasure Convoys.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_ECONOMIC_LEGEND_XERXES_L1_DESCRIPTION">
+			<Text>Legend Unlock.[n]+25% [icon:YIELD_GOLD]Gold from Trade and Treasure Convoys.</Text>
+		</Row>
+		<!-- Expansionist Attribute -->
+		<Row Tag="LOC_MOD_ATTRIBUTE_EXPANSIONIST_LEGEND_ASHOKA_L2_DESCRIPTION">
+			<Text>Legend Unlock. +50% [icon:YIELD_GOLD]Gold towards converting a Town to a City.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_EXPANSIONIST_LEGEND_AUGUSTUS_L2_DESCRIPTION">
+			<Text>Legend Unlock. +50% [icon:YIELD_GOLD]Gold towards converting a Town to a City.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_EXPANSIONIST_LEGEND_CONFUCIUS_L1_DESCRIPTION">
+			<Text>Legend Unlock. +50% [icon:YIELD_GOLD]Gold towards converting a Town to a City.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_EXPANSIONIST_LEGEND_IBN_BATTUTA_L2_DESCRIPTION">
+			<Text>Legend Unlock. +50% [icon:YIELD_GOLD]Gold towards converting a Town to a City.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_EXPANSIONIST_LEGEND_ISABELLA_L2_DESCRIPTION">
+			<Text>Legend Unlock. +50% [icon:YIELD_GOLD]Gold towards converting a Town to a City.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_EXPANSIONIST_LEGEND_PACHACUTI_L2_DESCRIPTION">
+			<Text>Legend Unlock. +50% [icon:YIELD_GOLD]Gold towards converting a Town to a City.</Text>
+		</Row>
+		<!-- Militaristic Attribute -->
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_AMINA_L2_DESCRIPTION">
+			<Text>Legend Unlock. +5 Combat Strength for all Units against Districts.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_AMINA_L2_COMBAT_PREVIEW">
+			<Text>+{1_Value} Legend Militaristic Attribute</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_CHARLEMAGNE_L1_DESCRIPTION">
+			<Text>Legend Unlock. +5 Combat Strength for all Units against Districts.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_CHARLEMAGNE_L1_COMBAT_PREVIEW">
+			<Text>+{1_Value} Legend Militaristic Attribute</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_FRIEDRICH_L1_DESCRIPTION">
+			<Text>Legend Unlock. +5 Combat Strength for all Units against Districts.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_FRIEDRICH_L1_COMBAT_PREVIEW">
+			<Text>+{1_Value} Legend Militaristic Attribute</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_HARRIET_TUBMAN_L2_DESCRIPTION">
+			<Text>Legend Unlock. +5 Combat Strength for all Units against Districts.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_HARRIET_TUBMAN_L2_COMBAT_PREVIEW">
+			<Text>+{1_Value} Legend Militaristic Attribute</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_TRUNG_TRAC_L1_DESCRIPTION">
+			<Text>Legend Unlock. +5 Combat Strength for all Units against Districts.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_TRUNG_TRAC_L1_COMBAT_PREVIEW">
+			<Text>+{1_Value} Legend Militaristic Attribute</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_XERXES_L2_DESCRIPTION">
+			<Text>Legend Unlock. +5 Combat Strength for all Units against Districts.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_XERXES_L2_COMBAT_PREVIEW">
+			<Text>+{1_Value} Legend Militaristic Attribute</Text>
+		</Row>
+		<!-- Scientific Attribute -->
+		<Row Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_LEGEND_BENJAMIN_FRANKLIN_L2_DESCRIPTION">
+			<Text>Legend Unlock. +1 to the adjacencies of standard [icon:YIELD_GOLD]Gold, [icon:YIELD_PRODUCTION]Production, and [icon:YIELD_SCIENCE]Science Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_LEGEND_CATHERINE_L2_DESCRIPTION">
+			<Text>Legend Unlock. +1 to the adjacencies of standard [icon:YIELD_GOLD]Gold, [icon:YIELD_PRODUCTION]Production, and [icon:YIELD_SCIENCE]Science Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_LEGEND_CHARLEMAGNE_L2_DESCRIPTION">
+			<Text>Legend Unlock. +1 to the adjacencies of standard [icon:YIELD_GOLD]Gold, [icon:YIELD_PRODUCTION]Production, and [icon:YIELD_SCIENCE]Science Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_LEGEND_CONFUCIUS_L2_DESCRIPTION">
+			<Text>Legend Unlock. +1 to the adjacencies of standard [icon:YIELD_GOLD]Gold, [icon:YIELD_PRODUCTION]Production, and [icon:YIELD_SCIENCE]Science Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_LEGEND_FRIEDRICH_L2_DESCRIPTION">
+			<Text>Legend Unlock. +1 to the adjacencies of standard [icon:YIELD_GOLD]Gold, [icon:YIELD_PRODUCTION]Production, and [icon:YIELD_SCIENCE]Science Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_LEGEND_HIMIKO_L2_DESCRIPTION">
+			<Text>Legend Unlock. +1 to the adjacencies of standard [icon:YIELD_GOLD]Gold, [icon:YIELD_PRODUCTION]Production, and [icon:YIELD_SCIENCE]Science Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_LEGEND_TRUNG_TRAC_L2_DESCRIPTION">
+			<Text>Legend Unlock. +1 to the adjacencies of standard [icon:YIELD_GOLD]Gold, [icon:YIELD_PRODUCTION]Production, and [icon:YIELD_SCIENCE]Science Buildings.</Text>
+		</Row>
+	</EnglishText>
+</Database>

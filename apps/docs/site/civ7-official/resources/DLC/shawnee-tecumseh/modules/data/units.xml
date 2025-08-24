@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<!--Civ Unique Military-->
+		<Row Type="UNIT_KISPOKO_NENA_TO" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_KISPOKO_NENA_TO_2" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_KISPOKO_NENA_TO_3" Kind="KIND_UNIT"/>
+		<!--Civ Unique Civilian-->
+		<Row Type="UNIT_HOCEEPKILENI" Kind="KIND_UNIT"/>
+		<!--Civ Unique Abilities-->
+		<Row Type="ABILITY_KISPOKO_NENA_TO" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_HOCEEPKILENI" Kind="KIND_ABILITY"/>
+	</Types>
+	<Units>
+		<!--Civ Unique Military-->
+		<Row UnitType="UNIT_KISPOKO_NENA_TO" Name="LOC_UNIT_KISPOKO_NENA_TO_NAME" Description="LOC_UNIT_KISPOKO_NENA_TO_DESCRIPTION" Tier="1" Maintenance="2" BaseSightRange="2" BaseMoves="2" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" ZoneOfControl="true" TraitType="TRAIT_SHAWNEE"/>
+		<Row UnitType="UNIT_KISPOKO_NENA_TO_2" Name="LOC_UNIT_KISPOKO_NENA_TO_NAME" Description="LOC_UNIT_KISPOKO_NENA_TO_2_DESCRIPTION" Tier="2" Maintenance="3" BaseSightRange="2" BaseMoves="2" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" ZoneOfControl="true" TraitType="TRAIT_SHAWNEE"/>
+		<Row UnitType="UNIT_KISPOKO_NENA_TO_3" Name="LOC_UNIT_KISPOKO_NENA_TO_NAME" Description="LOC_UNIT_KISPOKO_NENA_TO_3_DESCRIPTION" Tier="3" Maintenance="4" BaseSightRange="2" BaseMoves="2" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" ZoneOfControl="true" TraitType="TRAIT_SHAWNEE"/>
+		<!--Civ Unique Civilian-->
+		<Row UnitType="UNIT_HOCEEPKILENI" Name="LOC_UNIT_HOCEEPKILENI_NAME" Description="LOC_UNIT_HOCEEPKILENI_DESCRIPTION" BaseSightRange="1" BaseMoves="5" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_CIVILIAN" FormationClass="FORMATION_CLASS_CIVILIAN" SpreadCharges="3" ZoneOfControl="false" TraitType="TRAIT_SHAWNEE"/>
+	</Units>
+	<Unit_Stats>
+		<!--Civ Unique Military-->
+		<Row UnitType="UNIT_KISPOKO_NENA_TO" Combat="35"/>
+		<Row UnitType="UNIT_KISPOKO_NENA_TO_2" Combat="40"/>
+		<Row UnitType="UNIT_KISPOKO_NENA_TO_3" Combat="45"/>
+	</Unit_Stats>
+	<Unit_Costs>
+		<!--Civ Unique Military-->
+		<Row UnitType="UNIT_KISPOKO_NENA_TO" YieldType="YIELD_PRODUCTION" Cost="130"/>
+		<Row UnitType="UNIT_KISPOKO_NENA_TO_2" YieldType="YIELD_PRODUCTION" Cost="170"/>
+		<Row UnitType="UNIT_KISPOKO_NENA_TO_3" YieldType="YIELD_PRODUCTION" Cost="220"/>
+		<!--Civ Unique Civilian-->
+		<Row UnitType="UNIT_HOCEEPKILENI" YieldType="YIELD_PRODUCTION" Cost="150"/>
+	</Unit_Costs>
+	<Unit_Advisories>
+		<Row UnitType="UNIT_KISPOKO_NENA_TO" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_KISPOKO_NENA_TO_2" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_KISPOKO_NENA_TO_3" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_HOCEEPKILENI" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+	</Unit_Advisories>
+	<Unit_RequiredConstructibles>
+		<Row UnitType="UNIT_HOCEEPKILENI" ConstructibleType="BUILDING_TEMPLE"/>
+	</Unit_RequiredConstructibles>
+	<UnitUpgrades>
+		<!--Civ Unique Military-->
+		<Row Unit="UNIT_KISPOKO_NENA_TO" UpgradeUnit="UNIT_KISPOKO_NENA_TO_2"/>
+		<Row Unit="UNIT_KISPOKO_NENA_TO_2" UpgradeUnit="UNIT_KISPOKO_NENA_TO_3"/>
+	</UnitUpgrades>
+	<UnitReplaces>
+		<!--Civ Unique Military-->
+		<Row CivUniqueUnitType="UNIT_KISPOKO_NENA_TO" ReplacesUnitType="UNIT_SWORDSMAN"/>
+		<Row CivUniqueUnitType="UNIT_KISPOKO_NENA_TO_2" ReplacesUnitType="UNIT_MAN_AT_ARMS"/>
+		<Row CivUniqueUnitType="UNIT_KISPOKO_NENA_TO_3" ReplacesUnitType="UNIT_PIKEMAN"/>
+		<!--Civ Unique Civilian-->
+		<Row CivUniqueUnitType="UNIT_HOCEEPKILENI" ReplacesUnitType="UNIT_MISSIONARY"/>
+	</UnitReplaces>
+	<Tags>
+		<!--Civ Unique Military-->
+		<Row Tag="UNIT_CLASS_KISPOKO_NENA_TO" Category="UNIT_CLASS"/>
+		<!--Civ Unique Civilian-->
+		<Row Tag="UNIT_CLASS_HOCEEPKILENI" Category="UNIT_CLASS"/>
+	</Tags>
+	<TypeTags>
+		<!--Civ Unique Military-->
+		<Row Type="UNIT_KISPOKO_NENA_TO" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_KISPOKO_NENA_TO" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_KISPOKO_NENA_TO" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_KISPOKO_NENA_TO" Tag="UNIT_CLASS_KISPOKO_NENA_TO"/>
+		<Row Type="UNIT_KISPOKO_NENA_TO_2" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_KISPOKO_NENA_TO_2" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_KISPOKO_NENA_TO_2" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_KISPOKO_NENA_TO_2" Tag="UNIT_CLASS_KISPOKO_NENA_TO"/>
+		<Row Type="UNIT_KISPOKO_NENA_TO_3" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_KISPOKO_NENA_TO_3" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_KISPOKO_NENA_TO_3" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_KISPOKO_NENA_TO_3" Tag="UNIT_CLASS_KISPOKO_NENA_TO"/>
+		<Row Type="UNIT_KISPOKO_NENA_TO_3" Tag="UNIT_CLASS_ELITE_INFANTRY"/>
+		<!--Civ Unique Civilian-->
+		<Row Type="UNIT_HOCEEPKILENI" Tag="UNIT_CLASS_HOCEEPKILENI"/>
+		<Row Type="UNIT_HOCEEPKILENI" Tag="UNIT_CLASS_RELIGIOUS"/>
+	</TypeTags>
+	<UnitClass_Abilities>
+		<Row UnitAbilityType="ABILITY_KISPOKO_NENA_TO" UnitClassType="UNIT_CLASS_KISPOKO_NENA_TO"/>
+		<Row UnitAbilityType="ABILITY_HOCEEPKILENI" UnitClassType="UNIT_CLASS_HOCEEPKILENI"/>
+	</UnitClass_Abilities>
+	<UnitAbilities>
+		<Row UnitAbilityType="ABILITY_KISPOKO_NENA_TO" Name="LOC_UNIT_KISPOKO_NENA_TO_NAME" Description="LOC_ABILITY_KISPOKO_NENA_TO_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_HOCEEPKILENI" Name="LOC_UNIT_HOCEEPKILENI_NAME" Description="LOC_ABILITY_HOCEEPKILENI_DESCRIPTION"/>
+	</UnitAbilities>
+	<UnitAbilityModifiers>
+		<Row UnitAbilityType="ABILITY_KISPOKO_NENA_TO" ModifierId="KISPOKO_NENA_TO_RESOURCE_COMBAT"/>
+		<Row UnitAbilityType="ABILITY_HOCEEPKILENI" ModifierId="HOCEEPKILENI_MINOR_RIVER"/>
+		<Row UnitAbilityType="ABILITY_HOCEEPKILENI" ModifierId="HOCEEPKILENI_NAVIGABLE_RIVER"/>
+		<Row UnitAbilityType="ABILITY_HOCEEPKILENI" ModifierId="HOCEEPKILENI_FREE_EMBARK"/>
+	</UnitAbilityModifiers>
+	<RequirementSets>
+	</RequirementSets>
+	<RequirementSetRequirements>
+	</RequirementSetRequirements>
+	<Requirements>
+	</Requirements>
+	<RequirementArguments>
+	</RequirementArguments>
+  <CivilopediaUnitsUniqueUpgrades>
+    <Row BaseUnitType="UNIT_KISPOKO_NENA_TO" UpgradeUnitType="UNIT_KISPOKO_NENA_TO_2" />
+    <Row BaseUnitType="UNIT_KISPOKO_NENA_TO" UpgradeUnitType="UNIT_KISPOKO_NENA_TO_3" />
+  </CivilopediaUnitsUniqueUpgrades>
+</Database>

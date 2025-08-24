@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metaprogression xmlns="Metaprogression">
+	<challenges class="CHALLENGE_CLASS_FOUNDATION" category="CHALLENGE_CATEGORY_FOUNDATION_CIV_VICTORIES" legendPath="LEGEND_PATH_FOUNDATION">
+		<challenge id="CHALLENGE_CARTHAGE_LEGACY_PATH_MILITARISTIC" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Carthage Legacy Path</name>
+				<description>As Carthage, complete a Militaristic Legacy Path</description>
+			</l10n>
+			<sortIndex>106250</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_CARTHAGE_LEGACY_PATH_MILESTONE_COMPLETED" scope="Campaign" difficulty="2" hidden="true">
+			<l10n>
+				<name>Carthage Legacy Path Milestone</name>
+				<description>As Carthage, reach at least 1 Legacy Path Milestone</description>
+			</l10n>
+			<sortIndex>107210</sortIndex>
+		</challenge>
+	</challenges>
+	<challenges class="CHALLENGE_CLASS_FOUNDATION" category="CHALLENGE_CATEGORY_FOUNDATION_WONDERS" legendPath="LEGEND_PATH_FOUNDATION">
+		<challenge id="CHALLENGE_CARTHAGE_COMPLETE_BYRSA" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Byrsa</name>
+				<description>As Carthage, complete the Byrsa</description>
+			</l10n>
+			<sortIndex>106350</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+	</challenges>
+</metaprogression>

@@ -1,0 +1,348 @@
+@use '../../utilities/utility-layout' as *;
+@use '../../utilities/utility-text' as *;
+
+.painting-narrative__placement {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	pointer-events: none;
+}
+
+#painting__container_image {
+	bottom: pixels(0);
+	position: absolute;
+	height: 100%;
+	width: pixels(1920);
+	background-image: url("test_painting_w_unit_full.png");
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+#book-narrative__container {
+	position: absolute;
+	display: flex;
+	height: pixels(864);
+	width: pixels(1440);
+	//	background-image: url("test_book_bg.png");
+	background-size: contain;
+	background-position: center center;
+	background-repeat: no-repeat;
+	pointer-events: auto;
+}
+
+.book-narrative__book-page {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	width: 50%;
+	height: 100%;
+}
+
+.book-right-page {
+	left: 50%;
+	//background-color: rgba(255, 0, 234, 0.1);
+}
+
+.book-left-page {
+	right: 50%;
+	//background-color: rgba(0, 255, 55, 0.1);
+}
+
+.book-narrative__inner-page {
+	display: flex;
+	flex-direction: column;
+	height: 96%;
+	margin: pixels(8) pixels(36) pixels(0) pixels(20);
+}
+
+.book-narrative__image-container {
+	margin: pixels(40) pixels(40) pixels(17) pixels(96);
+	width: pixels(592);
+	height: pixels(768);
+	//border-width: pixels(2);
+	//border-style: solid;
+	//border-color: rgba(0, 0, 0, 0.4);
+}
+
+
+.book-narrative__body-text {
+	margin: pixels(4) pixels(16);
+	font-family: "BodyFont";
+	font-weight: 700;
+	line-height: pixels(9);
+}
+
+.book-narrative__button-container {
+	//	background-color: rgba(153, 205, 50, 0.295);
+	margin: pixels(0) pixels(20);
+	flex-direction: column;
+	display: flex;
+}
+
+.book-narrative__button-container {
+	margin-right: pixels(32);
+	margin-left: pixels(32);
+	margin-top: pixels(40)
+}
+
+
+.book-narrative__button-placeholder {
+	width: 100%;
+	margin: pixels(8) pixels(0) pixels(80) pixels(0);
+	display: flex;
+	flex-direction: column;
+	//	height: pixels(80);
+
+}
+
+
+
+.book-narrative__button-placeholder-top {
+	position: relative;
+	//background-color: rgba(yellow, 0.5);
+	height: pixels(80);
+	width: 100%;
+	margin-top: pixels(-120);
+}
+
+.book-narrative__button-placeholder-top-main-bg {
+	width: 100%;
+	height: 100%;
+	border-image-slice: 32 48 31 48 fill;
+	border-image-width: pixels(32) pixels(48) pixels(31) pixels(48);
+	filter: fxs-color-mask(var(--clr-bg--button));
+	border-image-source: url("mask_top_narrative_button.png");
+}
+
+.book-narrative__button-placeholder-top-highlight {
+	top: pixels(8);
+	position: absolute;
+	width: 100%;
+	height: 100%;
+}
+
+.book-narrative__button-placeholder-top-highlight:hover {
+	background: linear-gradient(90deg, rgba(237, 233, 187, 0) 10%, rgba(219, 218, 173, 0.6796919451374299) 49%, rgba(249, 248, 172, 0) 91%)
+}
+
+.book-narrative__button-placeholder-top-overlay {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	border-image-slice: 32 48 31 48 fill;
+	border-image-width: pixels(32) pixels(48) pixels(31) pixels(48);
+	border-image-source: url("overlay_top_narrative_button.png");
+}
+
+.book-narrative__button-placeholder-top-decorations {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+
+.book-narrative__button-wingding {
+	top: pixels(18);
+	left: pixels(16);
+	position: absolute;
+	width: pixels(24);
+	height: pixels(40);
+	opacity: 0.2;
+	background-image: url("button_wingding.png");
+	background-size: 100% 100%;
+}
+
+.book-narrative__button-wingding-reverse {
+	top: pixels(18);
+	right: pixels(16);
+	position: absolute;
+	width: pixels(24);
+	height: pixels(40);
+	opacity: 0.2;
+	background-image: url("button_wingding.png");
+	background-size: 100% 100%;
+	transform: scaleX(-1);
+}
+
+
+.book-narrative__button-placeholder-bottom {
+	position: relative;
+	top: pixels(8);
+	height: pixels(104);
+	width: 97%;
+	margin: pixels(0) pixels(8);
+}
+
+.book-narrative__button-placeholder-bottom-main-bg {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	border-image-slice: 32 48 31 48 fill;
+	border-image-width: pixels(32) pixels(48) pixels(31) pixels(48);
+	border-image-source: url("mask_bottom_narrative_button.png");
+}
+
+
+
+.book_narrative__button-placeholder-text-top {
+	font-family: "BodyFont";
+	font-size: pixels-font(18);
+	top: pixels(16);
+	padding: pixels(8) pixels(40);
+	position: absolute;
+	text-align: center;
+	line-height: pixels(16);
+}
+
+.book_narrative__button-placeholder-text-bottom {
+	font-family: "BodyFont";
+	font-weight: 700;
+	font-size: pixels-font(18);
+	top: pixels(56);
+	padding: pixels(8) pixels(40);
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	line-height: pixels(16);
+}
+
+.book-narrative__rim-color {
+	width: 100%;
+	height: 100%;
+	background-color: var(--clr-bg--button);
+	background-image: linear-gradient(to right, rgba(10, 2, 13, .125)0%, transparent 40%, rgba(236, 224, 212, .125)50%, transparent 60%, rgba(10, 2, 13, .125)100%),
+		linear-gradient(to right, rgba(10, 2, 13, .5) 0%, rgba(10, 2, 13, .1875) 15%, transparent 25%, rgba(236, 224, 212, .125) 50%, transparent 75%, rgba(10, 2, 13, .1875) 85%, rgba(10, 2, 13, .5)100%);
+}
+
+.book-narrative__rim-bottom {
+	position: absolute;
+	height: pixels(8);
+	left: pixels(-12);
+	width: pixels(1472);
+	top: pixels(856);
+}
+
+.book-narrative__rim-bottom-support {
+	position: absolute;
+	height: pixels(8);
+	left: pixels(-4);
+	width: pixels(1456);
+	top: pixels(848);
+}
+
+.book-narrative__rim-top {
+	position: absolute;
+	height: pixels(8);
+	left: pixels(-20);
+	width: pixels(1472);
+}
+
+.book-narrative__rim-top-support {
+	left: pixels(-12);
+	width: pixels(1456);
+	position: absolute;
+	height: pixels(8);
+	top: pixels(8);
+}
+
+.book-narrative__rim-top-shadow {
+	position: absolute;
+	top: pixels(4);
+	left: pixels(-6);
+	right: pixels(-3);
+	height: pixels(8);
+	border-image-source: url('fs://game/shadow_bar.png');
+	border-image-slice: 6 20 8 20 fill;
+	border-image-width: pixels(6) pixels(20) pixels(12) pixels(20);
+}
+
+.book-narrative__rim-bottom-shadow {
+	position: absolute;
+	top: pixels(2);
+	left: pixels(-6);
+	right: pixels(-3);
+	height: pixels(12);
+	border-image-source: url('fs://game/shadow_bar.png');
+	border-image-slice: 6 20 8 20 fill;
+	border-image-width: pixels(6) pixels(20) pixels(12) pixels(20);
+}
+
+
+
+
+///controls
+.book-narrative__button-hide {
+	left: pixels(160);
+	width: pixels(144);
+	position: absolute;
+	height: pixels(40);
+	background-color: yellow;
+	margin: pixels(4) pixels(0);
+}
+
+.book-narrative__button-hide-outside {
+	width: pixels(144);
+	position: absolute;
+	height: pixels(40);
+	background-color: yellow;
+	margin: pixels(4) pixels(0);
+}
+
+.book-narrative__button-add {
+	left: pixels(320);
+	width: pixels(144);
+	position: absolute;
+	height: pixels(40);
+	background-color: green;
+	margin: pixels(4) pixels(0);
+}
+
+.book-narrative__button-extra {
+	left: pixels(480);
+	width: pixels(144);
+	position: absolute;
+	height: pixels(40);
+	background-color: green;
+	margin: pixels(4) pixels(0);
+}
+
+.book-narrative__book-page-text-container {
+	font-size: pixels-font(20);
+	margin: pixels(16) pixels(32);
+}
+
+.book-narrative__book-page-title-container {
+	margin: pixels(64) pixels(32) pixels(24) pixels(32);
+
+}
+
+.book-narrative__book-page-title-text {
+	font-family: 'TitleFont';
+	color: #1a191a;
+	text-align: center;
+	font-size: pixels-font(44);
+}
+
+.book-narrative__book-page-title-deco-top {
+	opacity: 0.6;
+	width: 100%;
+	height: pixels(56);
+	background-image: url('narrative_decoration_1_top.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 50% 70%;
+}
+
+.book-narrative__book-page-title-deco-bottom {
+	opacity: 0.6;
+	width: 100%;
+	height: pixels(56);
+	background-image: url('narrative_decoration_1_bottom.png');
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 50% 70%;
+}

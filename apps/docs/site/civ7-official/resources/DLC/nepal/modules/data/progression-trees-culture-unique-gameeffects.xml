@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!--Nepal-->
+	<Modifier id="MOD_SAGARMATHA_BUILDINGS_MOUNTAIN_ADJACENCY" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ACTIVATE_CONSTRUCTIBLE_ADJACENCY">
+		<Argument name="ConstructibleAdjacency">SagarmathaWildcardFoodBuildingMountain, SagarmathaWildcardScienceBuildingMountain</Argument>
+		<String context="Description">LOC_MOD_SAGARMATHA_BUILDINGS_MOUNTAIN_ADJACENCY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SHERPA_MOUNTAIN_CLAIM" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_CLAIM_MOUNTAIN</Argument>
+		<String context="Description">LOC_MOD_SHERPA_MOUNTAIN_CLAIM_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_GIFT_GURKHA" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_GRANT_DIPLOMATIC_ACTION">
+		<Argument name="ActionType">DIPLOMACY_ACTION_GIFT_GURKHA</Argument>
+		<String context="Description">LOC_MOD_GIFT_GURKHA_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_JYUMDO_BAGHA_MOUNTAIN_WALLS" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_GRANT_BUILDING_IN_CITY_ADJACENT_TO_TERRAIN" permanent="true">
+		<Argument name="BuildingType">BUILDING_DEFENSIVE_FORTIFICATIONS</Argument>
+		<Argument name="AdjacentTerrainType">TERRAIN_MOUNTAIN</Argument>
+		<String context="Description">LOC_MOD_JYUMDO_BAGHA_MOUNTAIN_WALLS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_GORKHAPATRA_MUSEUM_SLOTS" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_GREAT_WORK_SLOTS">
+		<Argument name="ConstructibleType">BUILDING_MUSEUM</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Description">LOC_MOD_GORKHAPATRA_MUSEUM_SLOTS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_JYUMDO_BAGHA_FORTIFICATION" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_FORTIFICATION_CONSTRUCTION_TIME">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_TERRAIN_TYPE_MATCHES">
+				<Argument name="TerrainType">TERRAIN_MOUNTAIN</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">-1</Argument>
+		<String context="Description">LOC_MOD_JYUMDO_BAGHA_FORTIFICATION_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SINGHA_DURBAR_INFLUENCE_CULTURE_BUILDING" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Tag">CULTURE</Argument>
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="Amount">3</Argument>
+		<String context="Description">LOC_MOD_SINGHA_DURBAR_INFLUENCE_CULTURE_BUILDING_DESCRIPTION</String>
+	</Modifier>
+</GameEffects>

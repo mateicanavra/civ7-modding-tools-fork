@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="MEMENTO_GENGHIS_KHAN_PAIZA_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_UNIT_MAINTENANCE_EFFICIENCY">
+		<Argument name="Amount">1</Argument>
+		<Argument name="UnitTag">UNIT_CLASS_MOUNTED</Argument>
+		<String context="Description">LOC_MEMENTO_GENGHIS_KHAN_PAIZA_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_GENGHIS_KHAN_SADDLE_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_MOUNTED</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_UNIT_IS_STATIONED_ON_DISTRICT">
+				<Argument name="DistrictType">DISTRICT_CITY_CENTER</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ModifierId">MEMENTO_GENGHIS_KHAN_SADDLE_MODIFIER_MOD</Argument>
+		<String context="Description">LOC_MEMENTO_GENGHIS_KHAN_SADDLE_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_GENGHIS_KHAN_SADDLE_MODIFIER_MOD" collection="COLLECTION_UNIT_OCCUPIED_CITY" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_TOWN"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_GENGHIS_KHAN_SADDLE_NAME</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_GENGHIS_KHAN_SULDE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_PER_COMMANDER_LEVEL">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">1</Argument>
+		<String context="Preview">LOC_MEMENTO_GENGHIS_KHAN_SULDE_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+</GameEffects>

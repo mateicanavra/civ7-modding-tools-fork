@@ -1,0 +1,392 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-shapes' as shapes;
+@use '../../../core/ui/themes/default/baseColors';
+@use '../../../core/ui/themes/default/animations';
+
+@keyframes fading {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes slideshow {
+	0% {
+		transform: scale(1);
+	}
+
+	4% {
+		opacity: 1;
+	}
+
+	28% {
+		opacity: 1
+	}
+
+	34% {
+		opacity: 0;
+		transform: matrix(1.05, 0, 0, 1.05, 10, -10);
+		/*transform: translate2d(200px,-200px) scale(1.01);*/
+
+	}
+}
+
+:root {
+	user-select: none;
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0px;
+	width: 100%;
+	height: 100%;
+	//display: flex;
+	//flex-direction: column;
+	//justify-content: flex-end;
+	align-items: center;
+	//overflow: hidden;
+	background-color: rgba(255, 0, 0, 0);
+	background-image: url('./loading/img/temp_SplashScreen.png');
+	background-size: cover;
+	opacity: 1;
+	visibility: visible;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: contain;
+
+
+}
+
+.gauntlet {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	opacity: 1;
+	animation-iteration-count: infinite;
+	background-size: cover;
+	background-position: center;
+}
+
+.wallpaper {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	animation-iteration-count: infinite;
+	background-size: cover;
+	background-position: center;
+}
+
+.slideshow {
+	animation-name: slideshow;
+	animation-duration: 45s;
+}
+
+.delay-1 {
+	animation-delay: 15s;
+}
+
+.delay-2 {
+	animation-delay: 30s;
+}
+
+.title-ribbon {
+	position: absolute;
+	top: 0.2%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	height: pixels(324);
+	width: 100%;
+	margin: 0;
+	filter: drop-shadow(0 pixels(4) pixels(12) #000000);
+}
+
+.left-ribbon {
+	background-image: url('../loading/img/Logo_BG_v02.png');
+	background-position: center;
+	background-size: contain;
+	width: pixels(96);
+	height: 100%;
+	flex: 0 1;
+}
+
+.diamond {
+	//lets see if it's loading it from here by swapping this for 
+	//another image in the same folder.
+	//logo. if it is that's good our scss is working.
+	//next we can check if loading here from Gauntlet will work.
+	//if it doesnt we know that we will need to store the image in loading.
+	//but why? it must mean these paths, if they are relative, are in the same folder
+	//which would mean potentially our html file is
+
+	background-image: url('../loading/img/temp_gauntlet.png');
+
+	//../loading/img/greatLibrary.png
+	background-position: center;
+	background-size: 100%;
+	background-repeat: no-repeat;
+
+	// margin fix for pixel rounding in drop shadow
+	//margin-left: pixels(-0.4);
+	//margin-right: pixels(-0.4);
+	height: 100%;
+	width: pixels(672);
+	flex: 0 1;
+}
+
+.right-ribbon {
+	background-image: url('../loading/img/Logo_BG_v02.png');
+	background-position: center;
+
+	background-size: contain;
+	height: 100%;
+	flex: 1 1;
+}
+
+.loading {
+	display: flex;
+	height: pixels(52);
+	position: absolute;
+	top: pixels(136);
+	right: pixels(192);
+}
+
+.loading-anim-sand {
+	background-color: baseColors.$third-dark-color;
+	width: 50%;
+	height: 50%;
+	position: relative;
+	margin-left: 25%;
+	animation-timing-function: animations.$quadInOut;
+	animation: sand-drip 3s infinite;
+}
+
+@keyframes sand-drip {
+	0% {
+		top: 2%; //hold
+	}
+
+	20% {
+		top: 50%; //begin flip
+	}
+
+	50% {
+		top: 50%; //end flip
+	}
+
+	70% {
+		top: 2%; // hold
+	}
+
+	100% {
+		top: 2%; //hold flip
+	}
+}
+
+.loading-anim-hour-glass {
+	background-image: url('../loading/img/HourGlass.png');
+	background-position: center;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0%;
+}
+
+.loading-anim {
+	width: pixels(52);
+	height: 100%;
+	position: relative;
+	top: 0%;
+	left: pixels(6);
+	transform-origin: 50% 50%;
+	animation-timing-function: animations.$quadInOut;
+	animation: spin 3s infinite;
+}
+
+@keyframes spin {
+	0% {
+
+		transform: rotate(0deg);
+	}
+
+	20% {
+		transform: rotate(0deg);
+	}
+
+	50% {
+		transform: rotate(180deg);
+	}
+
+	70% {
+		transform: rotate(180deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.loading-text {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	position: relative;
+	color: baseColors.$third-dark-color;
+}
+
+h4 {
+	color: baseColors.$third-dark-color;
+	text-align: left;
+	font-size: pixels(36);
+	vertical-align: middle;
+	position: relative;
+	margin-left: pixels(21);
+}
+
+#great-leader-symposium-frame {
+	position: relative;
+	background-color: baseColors.$base-color;
+	width: 100%;
+	height: pixels(168);
+	filter: drop-shadow(0 0 pixels(6) #000); //TODO: Optimize Drop Shadow
+}
+
+.ornament-image {
+	width: pixels(424);
+	height: 100%;
+	position: relative;
+	background-image: url('../loading/img/schoolOfAthens.png');
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.left-quotation-mark {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: pixels(120);
+	left: pixels(60);
+	top: pixels(48);
+	position: absolute;
+	text-align: center;
+}
+
+.right-quotation-mark {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: pixels(120);
+	right: pixels(60);
+	top: pixels(48);
+	position: absolute;
+	text-align: center;
+}
+
+h2 {
+	font-family: "TitleFont", "TitleFont-JP", "TitleFont-KR", "TitleFont-SC", "TitleFont-TC";
+	color: baseColors.$third-dark-color;
+	font-size: pixels(96);
+	opacity: .5;
+	height: 100%;
+}
+
+.tip-text {
+	width: 85%;
+	height: 100%;
+	position: absolute;
+}
+
+h3 {
+	color: baseColors.$third-dark-color;
+	font-family: "BodyFont", "BodyFont-JP", "BodyFont-KR", "BodyFont-SC", "BodyFont-TC";
+	text-align: left;
+	font-size: pixels(24);
+	vertical-align: middle;
+	position: relative;
+	padding-top: pixels(72);
+	padding-left: pixels(120);
+	padding-right: pixels(144);
+}
+
+.gls-frame {
+	position: absolute;
+	top: pixels(24);
+	left: pixels(24);
+	right: pixels(24);
+	bottom: pixels(0);
+	border-image-source: url('../loading/img/gls_frame.png');
+	border-image-slice: 60 508 fill;
+	border-image-width: pixels(60) pixels(508);
+	filter: fxs-color-mask(baseColors.$accent-color);
+}
+
+.section-title {
+	width: 100%;
+	height: pixels(72);
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.section-title-text {
+	font-family: "TitleFont", "TitleFont-JP", "TitleFont-KR", "TitleFont-SC", "TitleFont-TC";
+	color: baseColors.$third-dark-color;
+	text-align: center;
+	font-size: pixels(34);
+}
+
+.flavor-image {
+	position: absolute;
+	top: pixels(-48);
+	right: pixels(120);
+}
+
+.flavor-image-frame-stroke {
+	width: pixels(216);
+	height: pixels(216);
+
+	background-color: baseColors.$second-color;
+	background-position: center;
+	background-repeat: no-repeat;
+	mask-image: url("fs://game/core/ui/themes/default/img/Hex_256px.png");
+	mask-repeat: no-repeat;
+	mask-size: cover;
+
+}
+
+.flavor-image-frame-center {
+	width: pixels(214);
+	height: pixels(214);
+
+	background-color: baseColors.$base-color;
+	background-position: center;
+	background-repeat: no-repeat;
+	mask-image: url("fs://game/core/ui/themes/default/img/Hex_256px.png");
+	mask-repeat: no-repeat;
+	mask-size: cover;
+	position: absolute;
+	top: pixels(1);
+	left: pixels(1);
+}
+
+.flavor-image-icon {
+	filter: drop-shadow(0 0 pixels(6) #000);
+	width: pixels(192);
+	height: pixels(192);
+	background-image: url('../loading/img/incanUniversity.png');
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	position: absolute;
+	top: pixels(12);
+	left: pixels(12);
+}

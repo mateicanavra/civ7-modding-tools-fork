@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<Row Type="ABILITY_ASHOKA_CONQUEROR" Kind="KIND_ABILITY"/>
+	</Types>
+	<UnitAbilities>
+		<Row UnitAbilityType="ABILITY_ASHOKA_CONQUEROR" Inactive="true" Name="LOC_TRAIT_LEADER_ASHOKA_ABILITY_NAME" Description="LOC_ABILITY_ASHOKA_CONQUEROR_DESCRIPTION"/>
+	</UnitAbilities>
+	<UnitAbilityModifiers>
+		<Row UnitAbilityType="ABILITY_ASHOKA_CONQUEROR" ModifierId="ASHOKA_CONQUEROR_MOD_ADJUST_UNIT_COMBAT_STRENGTH_MODIFIER"/>
+	</UnitAbilityModifiers>
+	<LeaderCivPriorities>
+		<Row Leader="LEADER_ASHOKA_ALT" Civilization="CIVILIZATION_CHOLA" Priority="3"/>
+		<Row Leader="LEADER_ASHOKA_ALT" Civilization="CIVILIZATION_HAWAII" Priority="1"/>
+		<Row Leader="LEADER_HIMIKO_ALT" Civilization="CIVILIZATION_HAWAII" Priority="2"/>
+		<Row Leader="LEADER_HIMIKO_ALT" Civilization="CIVILIZATION_MAJAPAHIT" Priority="1"/>
+	</LeaderCivPriorities>
+</Database>

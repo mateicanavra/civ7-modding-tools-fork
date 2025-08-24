@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<!-- Delete existing strings/translations for the given keys.-->
+	<LocalizedText>
+		<Delete Tag="LOC_MAIN_MENU_PREMIUM_SERVICES_ERROR_NO_PREMIUM_SERVICES" />
+		<Delete Tag="LOC_UI_OFFLINE_ACCOUNT_TITLE" />
+		<Delete Tag="LOC_UI_STORE_BUY" />
+	</LocalizedText>
+
+	<EnglishText>
+		<Row Tag="LOC_MAIN_MENU_PREMIUM_SERVICES_ERROR_NO_PREMIUM_SERVICES_NX_OVERRIDE">
+			<Text>Missing Nintendo Switch Online membership</Text>
+		</Row>
+		<Row Tag="LOC_UI_OFFLINE_ACCOUNT_TITLE_NX_OVERRIDE">
+			<Text>Offline</Text>
+		</Row>
+		<Row Tag="LOC_UI_STORE_BUY_NX_OVERRIDE">
+			<Text>Available via Nintendo eShop</Text>
+		</Row>
+
+		<Replace Tag="LOC_MAIN_MENU_PREMIUM_SERVICES_ERROR_NO_PREMIUM_SERVICES">
+			<Text>{LOC_MAIN_MENU_PREMIUM_SERVICES_ERROR_NO_PREMIUM_SERVICES_NX_OVERRIDE}</Text>
+		</Replace>
+		<Replace Tag="LOC_UI_OFFLINE_ACCOUNT_TITLE">
+			<Text>{LOC_UI_OFFLINE_ACCOUNT_TITLE_NX_OVERRIDE}</Text>
+		</Replace>
+		<Replace Tag="LOC_UI_STORE_BUY">
+			<Text>{LOC_UI_STORE_BUY_NX_OVERRIDE}</Text>
+		</Replace>
+	</EnglishText>
+</Database>

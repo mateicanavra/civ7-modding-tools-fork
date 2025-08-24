@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Database>
+  <VisualRemaps>
+    <Row>
+      <ID>REMAP_SCOUT_FOUNDER</ID>
+      <DisplayName>LOC_REMAP_SCOUT_FOUNDER</DisplayName>
+      <Kind>UNIT</Kind>
+       <From>UNIT_SCOUT</From>
+        <To>UNIT_SCOUT_FOUNDER</To>
+    </Row>
+    <Row>
+      <ID>REMAP_PALACE_FOUNDER</ID>
+      <DisplayName>LOC_REMAP_PALACE_FOUNDER</DisplayName>
+      <Kind>BUILDING</Kind>
+      <From>BUILDING_PALACE</From>
+      <To>BUILDING_PALACE_FOUNDER</To>
+    </Row>
+    <Row>
+      <ID>REMAP_FOW_FOUNDER</ID>
+      <DisplayName>LOC_REMAP_FOW_FOUNDER</DisplayName>
+      <Kind>ART_BIN</Kind>
+      <From>FOW_Tile_Bin</From>
+      <To>FOW_Tile_Bin_Founder</To>
+    </Row>
+  </VisualRemaps>
+</Database>

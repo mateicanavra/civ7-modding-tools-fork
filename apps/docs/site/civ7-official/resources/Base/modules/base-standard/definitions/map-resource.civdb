@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="Definitions">
+	<definition name="Resource" table-name="Resources" cpp="true">
+		<field name="ResourceType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="ResourceClassType" type="Text" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="Tooltip" type="Text" not-null="true"/>
+		<field name="NoRiver" type="Bool" value="0" not-null="true"/>
+		<field name="RequiresRiver" type="Bool" value="0" not-null="true"/>
+		<field name="Weight" type="Integer" value="0" not-null="true"/>
+		<field name="Clumped" type="Bool" value="0" not-null="true"/>
+		<field name="LakeEligible" type="Bool" value="true" not-null="true"/>
+		<field name="AdjacentToLand" type="Bool" value="0" not-null="true"/>
+		<field name="AssignCoastal" type="Bool" value="0" not-null="true"/>
+		<field name="AssignInland" type="Bool" value="0" not-null="true"/>
+		<field name="BonusResourceSlots" type="Integer" value="0" not-null="true"/>
+		<field name="Tradeable" type="Bool" value="true" not-null="true"/>
+		<field name="UnlocksCiv" type="Bool" value="false" not-null="true"/>
+		<field name="Staple" type="Bool" value="false" not-null="true"/>
+		<field name="MinimumPerHemisphere" type="Integer" value="3" not-null="true"/>
+		<field name="HemisphereUnique" type="Bool" value="false" not-null="true"/>
+		<reference source="ResourceType" target="Type" to="Type"/>
+		<property name="ValidAges" path="ValidAgesRef.AgeRef"/>
+		<property name="RequiredLeaders" path="RequiredLeadersRef.LeaderRef"/>
+		<property name="RequiredCivs" path="RequiredCivsRef.CivilizationRef"/>
+		<property name="ValidBiomes" path="ValidBiomesResourceRef"/>
+		<reference source="ResourceClassType" target="ResourceClassType" sourceRoleName="ResourceClassRef" targetRoleName="ResourceCollectionRef" to="ResourceClass"/>
+		<property name="ResourceClassReference" path="ResourceClassRef"/>
+		<property name="Harvests" path="HarvestsRef"/>
+		<property name="ConstructibleCollection" path="ConstructibleResourceRef"/>
+		<property name="StartBiasResourceCollection" path="StartBiasResourceCollectionRef"/>
+		<property name="StrategicUnitCollection" path="StrategicUnitRef"/>
+		<property name="ResourceProjectCollection" path="ResourceProjectCollection"/>
+		<property name="YieldChangesCollection" path="YieldChangesRef"/>
+	</definition>
+	<definition name="ResourceClass" table-name="ResourceClasses" cpp="true">
+		<field name="ResourceClassType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="Description" type="Text" not-null="true"/>
+		<field name="Assignable" type="Bool" not-null="true"/>
+		<reference source="ResourceClassType" target="Type" to="Type"/>
+		<property name="ResourceCollection" path="ResourceCollectionRef"/>
+	</definition>
+	<definition name="ResourceClassApplicableLegacyPath" table-name="ResourceClassApplicableLegacyPaths" cpp="true">
+		<field name="ResourceClassType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="LegacyPathType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="MinimumPerMap" type="Integer" value="0" not-null="true"/>
+		<reference source="ResourceClassType" target="ResourceClassType" sourceRoleName="ResourceClassRef" targetRoleName="ApplicableLegacyPathsRef" to="ResourceClass"/>
+		<reference source="LegacyPathType" target="LegacyPathType" sourceRoleName="LegacyPathRef" targetRoleName="ApplicableLegacyPathsResourceClassRef" to="LegacyPath"/>
+	</definition>
+	<definition name="Resource_YieldChange" table-name="Resource_YieldChanges" cpp="true">
+		<field name="ResourceType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="YieldType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="YieldChange" type="Integer" not-null="true"/>
+		<reference source="ResourceType" target="ResourceType" sourceRoleName="ResourceRef" targetRoleName="YieldChangesRef" to="Resource"/>
+		<reference source="YieldType" target="YieldType" sourceRoleName="YieldRef" to="Yield"/>
+		<property name="YieldReference" path="YieldRef"/>
+	</definition>
+	<definition name="Resource_ValidAge" table-name="Resource_ValidAges" cpp="false">
+		<field name="ResourceType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="AgeType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="AIModifierHint" type="Text" hash="true"/>
+		<reference source="ResourceType" target="ResourceType" sourceRoleName="ResourceRef" targetRoleName="ValidAgesRef" to="Resource"/>
+		<reference source="AgeType" target="AgeType" sourceRoleName="AgeRef" targetRoleName="ValidAgesResourceRef" to="Age"/>
+	</definition>
+	<definition name="Resource_RequiredLeader" table-name="Resource_RequiredLeaders" cpp="false">
+		<field name="ResourceType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="LeaderType" type="Text" key="true" not-null="true" hash="true"/>
+		<reference source="ResourceType" target="ResourceType" sourceRoleName="ResourceRef" targetRoleName="RequiredLeadersRef" to="Resource"/>
+		<reference source="LeaderType" target="LeaderType" sourceRoleName="LeaderRef" targetRoleName="RequiredLeadersResourceRef" to="Leader"/>
+	</definition>
+	<definition name="Resource_RequiredCiv" table-name="Resource_RequiredCivs" cpp="false">
+		<field name="ResourceType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="CivilizationType" type="Text" key="true" not-null="true" hash="true"/>
+		<reference source="ResourceType" target="ResourceType" sourceRoleName="ResourceRef" targetRoleName="RequiredCivsRef" to="Resource"/>
+		<reference source="CivilizationType" target="CivilizationType" sourceRoleName="CivilizationRef" targetRoleName="RequiredCivilizationRef" to="Civilization"/>
+	</definition>
+	<definition name="Resource_ValidBiome" table-name="Resource_ValidBiomes" cpp="true">
+		<field name="ResourceType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="BiomeType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="TerrainType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="FeatureType" type="Text" key="true" hash="true"/>
+		<reference source="ResourceType" target="ResourceType" sourceRoleName="ResourceRef" targetRoleName="ValidBiomesResourceRef" to="Resource"/>
+		<reference source="BiomeType" target="BiomeType" sourceRoleName="BiomeRef" targetRoleName="ValidResourceBiomesRef" to="Biome"/>
+		<reference source="TerrainType" target="TerrainType" sourceRoleName="TerrainRef" targetRoleName="ValidResourceTerrainsRef" to="Terrain"/>
+		<reference source="FeatureType" target="FeatureType" sourceRoleName="FeatureRef" targetRoleName="ValidResourceFeaturesRef" to="Feature"/>
+	</definition>
+	<definition name="Resource_Harvest" table-name="Resource_Harvests" cpp="true">
+		<field name="ResourceType" type="Text" key="true" not-null="true"/>
+		<field name="YieldType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="Amount" type="Integer" not-null="true"/>
+		<reference source="ResourceType" target="ResourceType" sourceRoleName="ResourceRef" targetRoleName="HarvestsRef" to="Resource"/>
+		<reference source="YieldType" target="YieldType" sourceRoleName="YieldRef" to="Yield"/>
+		<property name="YieldReference" path="YieldRef"/>
+	</definition>
+	<definition name="Resource_Distribution" table-name="Resource_Distribution" cpp="true">
+		<field name="AgeType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="MaxResourceTypes" type="Integer" not-null="true"/>
+		<field name="AdditionalCutAmount" type="Integer" not-null="true"/>
+		<field name="ResourceTypeMaxPerHemisphere" type="Integer" not-null="true"/>
+	</definition>
+</definitions>

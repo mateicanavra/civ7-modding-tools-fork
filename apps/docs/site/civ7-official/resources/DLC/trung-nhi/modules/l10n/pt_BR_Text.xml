@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS_NAME" Language="pt_BR">
+      <Text>65 Fortalezas</Text>
+      <Gender>feminine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_HAI_BA_TRUNG_NAME" Language="pt_BR">
+      <Text>Hai Bà Trung</Text>
+      <Gender>feminine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE_NAME" Language="pt_BR">
+      <Text>Guerrilha de Selva</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION_NAME" Language="pt_BR">
+      <Text>Rebelião de Lạc</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE_NAME" Language="pt_BR">
+      <Text>Força e Coragem</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY_NAME" Language="pt_BR">
+      <Text>Um Único Brado</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_TRUNG_COMMENDATION_DUTY_NAME" Language="pt_BR">
+      <Text>União das Irmãs</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_DESCRIPTION" Language="pt_BR">
+      <Text>+3 de dano para Assalto Heroico.</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_FINAL_DESCRIPTION" Language="pt_BR">
+      <Text>+10 de dano para Assalto Heroico.</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_TRUNG_COMMENDATION_DUTY_DESCRIPTION" Language="pt_BR">
+      <Text>+30 de dano para Assalto Heroico.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_TRUNG_NHI_DESCRIPTION" Language="pt_BR">
+      <Text>Comandante do Exército Exclusivo. Possui uma Árvore de Promoção adicional. Ressurge mais rápido do que outros Comandantes se sofrer a derrota.</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_ARMY_TRUNG_NHI_HAI_BA_TRUNG_PREVIEW" Language="pt_BR">
+      <Text>+{Amount} Hai Bà Trung</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS_DESCRIPTION" Language="pt_BR">
+      <Text>+5 de Força de Combate contra Distritos Fortificados para Unidades Terrestres na Área de Comando. [n]{LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_DESCRIPTION}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS_PREVIEW" Language="pt_BR">
+      <Text>+{Amount} 65 Fortalezas</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_HAI_BA_TRUNG_DESCRIPTION" Language="pt_BR">
+      <Text>+15 de Força de Combate para este Comandante ao defender. [n]{LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_DESCRIPTION}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE_DESCRIPTION" Language="pt_BR">
+      <Text>+5 de Força de Combate para Unidades Terrestres em terreno Tropical na Área de Comando. [n]{LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_DESCRIPTION}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE_PREVIEW" Language="pt_BR">
+      <Text>+{1_Amount} Guerrilha de Selva</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION_DESCRIPTION" Language="pt_BR">
+      <Text>+3 de Força de Combate para Unidades Terrestres na Área de Comando quando houver pelo menos 2 Unidades inimigas adjacentes. [n]{LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_DESCRIPTION}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION_PREVIEW" Language="pt_BR">
+      <Text>+{1_Amount} Rebelião de Lạc</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE_DESCRIPTION" Language="pt_BR">
+      <Text>+5 de Força de Combate para Unidades Terrestres na Área de Comando quando em território amigável. [n]{LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_DESCRIPTION}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE_PREVIEW" Language="pt_BR">
+      <Text>+{1_Amount} Força e Coragem</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY_DESCRIPTION" Language="pt_BR">
+      <Text>+5 de Força de Combate com Ataque Coordenado e Fogo Concentrado. [n]{LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_FINAL_DESCRIPTION}</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_TRUNG_NHI_NAME" Language="pt_BR">
+      <Text>Trung Nhi|Trung Nhi</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+  </LocalizedText>
+</Database>

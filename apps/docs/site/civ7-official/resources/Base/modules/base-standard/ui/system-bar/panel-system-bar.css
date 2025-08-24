@@ -1,0 +1,151 @@
+/* DO NOT EDIT */
+/* Generated from panel-system-bar.scss */
+/**
+Based on Robert Penner's easing equations
+@url http://robertpenner.com/easing/
+**/
+@keyframes showMultiplayerCode {
+	0% {
+		transform: translate(13.3333333333rem);
+	}
+	100% {
+		transform: translate(0rem);
+	}
+}
+@keyframes hideMultiplayerCode {
+	0% {
+		transform: translate(0rem);
+	}
+	100% {
+		transform: translate(13.3333333333rem);
+	}
+}
+.system-bar-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
+	font-size: calc(1rem + -0.3333333333rem);
+}
+.system-bar-container > .fxs-button {
+	margin-left: 0.8888888889rem;
+}
+.system-bar-container .ps-btn {
+	position: relative;
+}
+
+.ps-content-wrapper {
+	position: relative;
+	height: 3em;
+	max-height: 1.6666666667rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+.ps-turn-info {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+}
+.ps-turn-info::before {
+	content: "";
+	width: 1.5em;
+	max-width: 0.8333333333rem;
+	height: 100%;
+}
+
+.game-code {
+	width: 13.3333333333rem;
+}
+
+.ps-turn-multiplayer-code {
+	width: auto;
+}
+
+.ps-spacer {
+	position: relative;
+	width: 1.5em;
+	max-width: 0.8333333333rem;
+	height: 100%;
+}
+
+.ps-icon-container {
+	width: auto;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
+
+.ps-bar-civilopedia {
+	width: 5.5em;
+	height: 5.5em;
+	max-width: 2.5555555556rem;
+	max-height: 2.5555555556rem;
+}
+@media (experience: mobile) {
+	.ps-bar-civilopedia {
+		width: 3.1111111111rem;
+		height: 3.1111111111rem;
+		max-width: 3.1111111111rem;
+		max-height: 3.1111111111rem;
+		margin-left: 0.8888888889rem;
+		margin-right: 0.7777777778rem;
+	}
+}
+
+@media (experience: mobile) {
+	.ps-bar-pause {
+		width: 3.3333333333rem;
+		height: 3.3333333333rem;
+		margin-right: 0.6666666667rem;
+	}
+}
+
+.ps-wrapper-multiplayer {
+	height: 3em;
+	max-height: 1.6666666667rem;
+	transform: translate(13.3333333333rem);
+}
+.ps-wrapper-multiplayer .ps-btn-icon {
+	filter: fxs-color-tint(var(--player-color-primary));
+}
+
+.ps-content-wrapper-multiplayer {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: center;
+	padding-left: 0.2222222222rem;
+	padding-right: 0.4444444444rem;
+}
+
+.radial-menu-mode .ps-content-wrapper-multiplayer.focused {
+	background-color: #ffe4b8;
+	color: #272526;
+}
+
+.show-multiplayer-code {
+	animation: 0.5s ease-in-out both showMultiplayerCode;
+}
+
+.hide-multiplayer-code {
+	animation: 0.5s ease-in-out both hideMultiplayerCode;
+}
+
+.screen-turntimer_text_turn_active {
+	color: #79bd2b;
+}
+
+.screen-turntimer_text_turn_active_flash {
+	color: #f64a4a;
+}
+
+.screen-turntimer_text_turn_inactive {
+	color: #4174ff;
+}

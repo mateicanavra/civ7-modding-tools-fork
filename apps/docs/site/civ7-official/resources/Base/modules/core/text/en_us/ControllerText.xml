@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Controller mapping screen text -->
+		<Row Tag="LOC_UI_CONTROLLER_MAPPING_TITLE">
+			<Text>Controls</Text>
+		</Row>
+		<Row Tag="LOC_UI_CONTROLLER_MAPPING_TITLE_HYBRID">
+			<Text>{1_type} Mouse Controls</Text>
+		</Row>
+		<Row Tag="LOC_UI_CONTROLLER_MAPPING_LEFT">
+			<Text>Left</Text>
+		</Row>
+		<Row Tag="LOC_UI_CONTROLLER_MAPPING_RIGHT">
+			<Text>Right</Text>
+		</Row>
+		<Row Tag="LOC_UI_CONTROLLER_MAPPING_SUBTITLE">
+			<Text>View mappings and rebind any input</Text>
+		</Row>
+		<Row Tag="LOC_UI_CONTROLLER_MAPPING_INVERT_STICK">
+			<Text>Swap Stick Functionality</Text>
+		</Row>
+		<Row Tag="LOC_UI_CONTROLLER_MAPPING_RESTORE_DEFAULT">
+			<Text>Restore Default</Text>
+		</Row>
+		<Row Tag="LOC_UI_CONTROLLER_MAPPING_BIND_TITLE">
+			<Text>Currently Remapping</Text>
+		</Row>
+		<Row Tag="LOC_UI_CONTROLLER_MAPPING_BIND_GESTURE">
+			<Text>Press any input to rebind this command</Text>
+		</Row>
+		<Row Tag="LOC_UI_CONTROLLER_MAPPING_RESET_DEFAULT_TITLE">
+			<Text>Restore Default</Text>
+		</Row>
+		<Row Tag="LOC_UI_CONTROLLER_MAPPING_RESET_DEFAULT_BODY">
+			<Text>Are you sure you want to restore to the default mapping?</Text>
+		</Row>
+		<Row Tag="LOC_UI_CONTROLLER_MAPPING_CONFIRM_CHANGE_TITLE">
+			<Text>Confirm Changes</Text>
+		</Row>
+		<Row Tag="LOC_UI_CONTROLLER_MAPPING_CONFIRM_CHANGE_BODY">
+			<Text>Are you sure you want to save this new mapping?</Text>
+		</Row>
+		<!-- Controller button/axis actions for Xbox-style controller -->
+		<Row Tag="LOC_OPTIONS_PAD_A">
+			<Text>A</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_B">
+			<Text>B</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_X">
+			<Text>X</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_Y">
+			<Text>Y</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_LSHOULDER">
+			<Text>Left bumper</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_LTRIGGER">
+			<Text>Left trigger</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_RSHOULDER">
+			<Text>Right bumper</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_RTRIGGER">
+			<Text>Right trigger</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_DPAD_RIGHT">
+			<Text>D-pad right</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_DPAD_LEFT">
+			<Text>D-pad left</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_DPAD_UP">
+			<Text>D-pad up</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_DPAD_DOWN">
+			<Text>D-pad down</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_START">
+			<Text>Start</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_BACK">
+			<Text>Back</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_SHARE">
+			<Text>Share</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_LTHUMB_AXIS">
+			<Text>Left stick</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_RTHUMB_AXIS">
+			<Text>Right stick</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_LTHUMB_PRESS">
+			<Text>Left stick click</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_RTHUMB_PRESS">
+			<Text>Right stick click</Text>
+		</Row>
+		<!-- Controller button/axis actions for PS-style controller -->
+		<Row Tag="LOC_OPTIONS_PAD_A_PS">
+			<Text>X</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_B_PS">
+			<Text>Circle</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_X_PS">
+			<Text>Square</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_Y_PS">
+			<Text>Triangle</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_LSHOULDER_PS">
+			<Text>Left bumper</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_LTRIGGER_PS">
+			<Text>Left trigger</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_RSHOULDER_PS">
+			<Text>Right bumper</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_RTRIGGER_PS">
+			<Text>Right trigger</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_DPAD_RIGHT_PS">
+			<Text>D-pad right</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_DPAD_LEFT_PS">
+			<Text>D-pad left</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_DPAD_UP_PS">
+			<Text>D-pad up</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_DPAD_DOWN_PS">
+			<Text>D-pad down</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_START_PS">
+			<Text>Options</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_BACK_PS">
+			<Text>Touch Pad</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_LTHUMB_AXIS_PS">
+			<Text>Left stick</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_RTHUMB_AXIS_PS">
+			<Text>Right stick</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_LTHUMB_PRESS_PS">
+			<Text>Left stick click</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_RTHUMB_PRESS_PS">
+			<Text>Right stick click</Text>
+		</Row>
+		<!-- Controller button/axis actions for NX-style controller -->
+		<Row Tag="LOC_OPTIONS_PAD_A_NX">
+			<Text>A</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_B_NX">
+			<Text>B</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_X_NX">
+			<Text>X</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_Y_NX">
+			<Text>Y</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_LSHOULDER_NX">
+			<Text>Left bumper</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_LTRIGGER_NX">
+			<Text>Left trigger</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_RSHOULDER_NX">
+			<Text>Right bumper</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_RTRIGGER_NX">
+			<Text>Right trigger</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_DPAD_RIGHT_NX">
+			<Text>D-pad right</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_DPAD_LEFT_NX">
+			<Text>D-pad left</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_DPAD_UP_NX">
+			<Text>D-pad up</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_DPAD_DOWN_NX">
+			<Text>D-pad down</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_START_NX">
+			<Text>Plus</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_BACK_NX">
+			<Text>Minus</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_LTHUMB_AXIS_NX">
+			<Text>Left stick</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_RTHUMB_AXIS_NX">
+			<Text>Right stick</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_LTHUMB_PRESS_NX">
+			<Text>Left stick click</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_PAD_RTHUMB_PRESS_NX">
+			<Text>Right stick click</Text>
+		</Row>
+	</EnglishText>
+</Database>

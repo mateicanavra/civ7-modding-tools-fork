@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Database>
+	<PlayerColors>
+		<Row>
+			<Type>LEADER_GENGHIS_KHAN</Type>
+			<Usage>Unique</Usage>
+			<PrimaryColor>COLOR_STANDARD_RED_DK</PrimaryColor>
+			<SecondaryColor>COLOR_STANDARD_ORANGE_MD</SecondaryColor>
+			<Alt1PrimaryColor>COLOR_STANDARD_ORANGE_DK</Alt1PrimaryColor>
+			<Alt1SecondaryColor>COLOR_STANDARD_RED_LT</Alt1SecondaryColor>
+			<Alt2PrimaryColor>COLOR_STANDARD_PURPLE_LT</Alt2PrimaryColor>
+			<Alt2SecondaryColor>COLOR_STANDARD_WHITE_LT</Alt2SecondaryColor>
+			<Alt3PrimaryColor>COLOR_STANDARD_ORANGE_LT</Alt3PrimaryColor>
+			<Alt3SecondaryColor>COLOR_STANDARD_RED_DK</Alt3SecondaryColor>
+		</Row>		
+	</PlayerColors>
+</Database>

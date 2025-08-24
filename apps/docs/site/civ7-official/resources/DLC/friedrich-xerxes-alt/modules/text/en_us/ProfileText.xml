@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_PROFILE_TITLE_FRIEDRICH_BAROQUE">
+			<Text>Without Worries</Text>
+		</Row>
+
+		<Row Tag="LOC_PROFILE_TITLE_XERXES_ACHAEMENID">
+			<Text>Shāh of the Silk Road</Text>
+		</Row>
+	</EnglishText>
+</Database>

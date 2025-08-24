@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<GameEffects xmlns="GameEffects">
+	<Modifier id="MOD_MANGOS_CITY_FLAT_FOOD" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_RESOURCE">
+		<Argument name="Amount">2</Argument>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="ResourceType">RESOURCE_MANGOS</Argument>
+		<Argument name="PercentMultiplier">false</Argument>
+	</Modifier>
+	<Modifier id="MOD_MANGOS_CITY_FLAT_CULTURE" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_RESOURCE">
+		<Argument name="Amount">2</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="ResourceType">RESOURCE_MANGOS</Argument>
+		<Argument name="PercentMultiplier">false</Argument>
+	</Modifier>
+	<Modifier id="MOD_CLAY_WAREHOUSE_PRODUCTION" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD_PER_RESOURCE">
+		<Argument name="ResourceType">RESOURCE_CLAY</Argument>
+		<Argument name="Tag">WAREHOUSE</Argument>
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="MOD_FLAX_CITY_FLAT_SCIENCE" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_RESOURCE">
+		<Argument name="Amount">2</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="ResourceType">RESOURCE_FLAX</Argument>
+		<Argument name="PercentMultiplier">false</Argument>
+	</Modifier>
+	<Modifier id="MOD_FLAX_CITY_FLAT_CULTURE" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_RESOURCE">
+		<Argument name="Amount">2</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="ResourceType">RESOURCE_FLAX</Argument>
+		<Argument name="PercentMultiplier">false</Argument>
+	</Modifier>
+	<Modifier id="MOD_RUBIES_CITY_FLAT_GOLD" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_RESOURCE">
+		<Argument name="Amount">4</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="ResourceType">RESOURCE_RUBIES</Argument>
+		<Argument name="PercentMultiplier">false</Argument>
+	</Modifier>
+	<Modifier id="MOD_RICE_CITY_PERCENT_FOOD" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_AVAILABLE_RESOURCE_TYPE">
+		<Argument name="Amount">5</Argument>
+		<Argument name="Percent">true</Argument>
+		<Argument name="ResourceType">RESOURCE_RICE</Argument>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+	</Modifier>
+	<Modifier id="MOD_LIMESTONE_DESERT_WONDER_PRODUCTION" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_BIOME_WONDER_PRODUCTION_PER_RESOURCE">
+		<Argument name="Empire">true</Argument>
+		<Argument name="Amount">5</Argument>
+		<Argument name="ResourceType">RESOURCE_LIMESTONE</Argument>
+		<Argument name="BiomeType">BIOME_DESERT</Argument>
+	</Modifier>
+	<Modifier id="MOD_LIMESTONE_GRASSLAND_WONDER_PRODUCTION" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_BIOME_WONDER_PRODUCTION_PER_RESOURCE">
+		<Argument name="Empire">true</Argument>
+		<Argument name="Amount">5</Argument>
+		<Argument name="ResourceType">RESOURCE_LIMESTONE</Argument>
+		<Argument name="BiomeType">BIOME_GRASSLAND</Argument>
+	</Modifier>
+	<Modifier id="MOD_LIMESTONE_MARINE_WONDER_PRODUCTION" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_BIOME_WONDER_PRODUCTION_PER_RESOURCE">
+		<Argument name="Empire">true</Argument>
+		<Argument name="Amount">5</Argument>
+		<Argument name="ResourceType">RESOURCE_LIMESTONE</Argument>
+		<Argument name="BiomeType">BIOME_MARINE</Argument>
+	</Modifier>
+	<Modifier id="MOD_LIMESTONE_PLAINS_WONDER_PRODUCTION" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_BIOME_WONDER_PRODUCTION_PER_RESOURCE">
+		<Argument name="Empire">true</Argument>
+		<Argument name="Amount">5</Argument>
+		<Argument name="ResourceType">RESOURCE_LIMESTONE</Argument>
+		<Argument name="BiomeType">BIOME_PLAINS</Argument>
+	</Modifier>
+	<Modifier id="MOD_LIMESTONE_TROPICAL_WONDER_PRODUCTION" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_BIOME_WONDER_PRODUCTION_PER_RESOURCE">
+		<Argument name="Empire">true</Argument>
+		<Argument name="Amount">5</Argument>
+		<Argument name="ResourceType">RESOURCE_LIMESTONE</Argument>
+		<Argument name="BiomeType">BIOME_TROPICAL</Argument>
+	</Modifier>
+	<Modifier id="MOD_LIMESTONE_TUNDRA_WONDER_PRODUCTION" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_BIOME_WONDER_PRODUCTION_PER_RESOURCE">
+		<Argument name="Empire">true</Argument>
+		<Argument name="Amount">5</Argument>
+		<Argument name="ResourceType">RESOURCE_LIMESTONE</Argument>
+		<Argument name="BiomeType">BIOME_TUNDRA</Argument>
+	</Modifier>
+	<Modifier id="MOD_TIN_CITY_FLAT_PRODUCTION" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_RESOURCE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="ResourceType">RESOURCE_TIN</Argument>
+		<Argument name="Amount">2</Argument>
+		<Argument name="PercentMultiplier">false</Argument>
+	</Modifier>
+	<Modifier id="MOD_TIN_TOWN_FLAT_PRODUCTION" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_RESOURCE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_TOWN"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="ResourceType">RESOURCE_TIN</Argument>
+		<Argument name="Amount">4</Argument>
+		<Argument name="PercentMultiplier">false</Argument>
+	</Modifier>
+	<Modifier id="MOD_LLAMAS_CITY_FLAT_PRODUCTION" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_RESOURCE">
+		<Argument name="Amount">1</Argument>
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="ResourceType">RESOURCE_LLAMAS</Argument>
+		<Argument name="PercentMultiplier">false</Argument>
+	</Modifier>
+	<Modifier id="MOD_LLAMAS_CITY_FLAT_HAPPINESS" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_RESOURCE">
+		<Argument name="Amount">3</Argument>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="ResourceType">RESOURCE_LLAMAS</Argument>
+		<Argument name="PercentMultiplier">false</Argument>
+	</Modifier>
+	<Modifier id="MOD_HARDWOOD_NAVAL_PRODUCTION" collection="COLLECTION_ALL_PLAYERS" effect="EFFECT_PLAYER_ADJUST_UNIT_PRODUCTION_PER_RESOURCE">
+		<Argument name="Percent">20</Argument>
+		<Argument name="Domain">DOMAIN_SEA</Argument>
+		<Argument name="ResourceType">RESOURCE_HARDWOOD</Argument>
+	</Modifier>
+	<Modifier id="MOD_WILD_GAME_CITY_FLAT_FOOD" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_RESOURCE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="ResourceType">RESOURCE_WILD_GAME</Argument>
+		<Argument name="Amount">2</Argument>
+		<Argument name="PercentMultiplier">false</Argument>
+	</Modifier>
+	<Modifier id="MOD_WILD_GAME_TOWN_FLAT_FOOD" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_RESOURCE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_TOWN"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="ResourceType">RESOURCE_WILD_GAME</Argument>
+		<Argument name="Amount">4</Argument>
+		<Argument name="PercentMultiplier">false</Argument>
+	</Modifier>
+</GameEffects>

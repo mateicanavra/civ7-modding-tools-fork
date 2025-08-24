@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_DESCRIPTION" Language="pt_BR">
+      <Text>Contém um novo Líder, Genghis Khan.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_NAME" Language="pt_BR">
+      <Text>Genghis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_DESCRIPTION" Language="fr_FR">
+      <Text>Contient un nouveau dirigeant : Gengis Khan.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_NAME" Language="fr_FR">
+      <Text>Gengis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_DESCRIPTION" Language="de_DE">
+      <Text>Enthält einen neuen Anführer, Dschingis Khan.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_NAME" Language="de_DE">
+      <Text>Dschingis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_DESCRIPTION" Language="it_IT">
+      <Text>Contiene un nuovo leader, Genghis Khan.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_NAME" Language="it_IT">
+      <Text>Genghis Khan</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_DESCRIPTION" Language="ja_JP">
+      <Text>新たな指導者「チンギス・ハン」を含みます。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_NAME" Language="ja_JP">
+      <Text>チンギス・ハン</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_DESCRIPTION" Language="ko_KR">
+      <Text>새로운 지도자 칭기즈 칸이 포함되어 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_NAME" Language="ko_KR">
+      <Text>칭기즈 칸</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_DESCRIPTION" Language="pl_PL">
+      <Text>Zawiera nowego przywódcę – Czyngis-chana.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_NAME" Language="pl_PL">
+      <Text>Czyngis-chan</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_DESCRIPTION" Language="ru_RU">
+      <Text>Содержит нового лидера — Чингисхана.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_NAME" Language="ru_RU">
+      <Text>Чингисхан</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>包含1位新领袖：成吉思汗。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_NAME" Language="zh_Hans_CN">
+      <Text>成吉思汗</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_DESCRIPTION" Language="es_ES">
+      <Text>Contiene un nuevo líder, Gengis Kan.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_NAME" Language="es_ES">
+      <Text>Gengis Kan</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>包含一位新的領袖——成吉思汗。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_GENGHIS_KHAN_NAME" Language="zh_Hant_HK">
+      <Text>成吉思汗</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

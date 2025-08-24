@@ -1,0 +1,37 @@
+/* DO NOT EDIT */
+/* Generated from screen-legends-report.scss */
+.legends-ring {
+	background-image: url("fs://game/report_port_bk.png");
+}
+.legends-ring .fxs-ring-meter__ring-left,
+.legends-ring .fxs-ring-meter__ring-right {
+	background-image: url("fs://game/report_port_rad.png");
+	background-size: cover;
+}
+.legends-ring .fxs-ring-meter__ring-left {
+	background-position: left;
+}
+.legends-ring .fxs-ring-meter__ring-right {
+	background-position: right;
+}
+
+.legends-report-scrollable {
+	height: 80%;
+}
+@media (max-height: 55.5555555556rem) {
+	.legends-report-scrollable {
+		height: 70%;
+	}
+}
+
+.ring-level-circle {
+	background-image: url("fs://game/prof_lvl_bk");
+}
+
+.challenges-item:focus .challenges-highlight, .challenges-item:hover .challenges-highlight {
+	background: linear-gradient(90deg, transparent 0%, #4C473D 100%);
+}
+
+.rewards-item:focus, .rewards-item:hover {
+	background: linear-gradient(90deg, #333640 0%, #4C473D 100%);
+}

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Genghis Khan Main Menu Char Select Text-->
+		<Row Tag="LOC_MAIN_CHAR_SELECT_LEADER_GENGHIS_KHAN_ANY">
+			<Text>The Eternal Blue Sky commands all. Who dares to listen? </Text>
+		</Row>
+
+		<!-- Genghis Khan Statement Text-->
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_GENGHIS_KHAN_ANY">
+			<Text>I am Genghis Khan. Are you friend or foe? For your sake, I hope a peace-seeking friend… </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_GENGHIS_KHAN_ANY">
+			<Text>I am Genghis Khan. Are you friend or foe? For your sake, I hope a peace-seeking friend… </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_GENGHIS_KHAN_ANY">
+			<Text>I am Genghis Khan. Are you friend or foe? For your sake, I hope a peace-seeking friend… </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_GENGHIS_KHAN_ANY">
+			<Text>My enemy, I will not defeat you. I will annihilate your entire bloodline. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_GENGHIS_KHAN_ANY">
+			<Text>Ha! You attack me? You seek your own demise. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DEFEAT_AI_LEADER_GENGHIS_KHAN_ANY">
+			<Text>Tengri, have you forsaken me? Has my destiny failed? </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_GENGHIS_KHAN">
+			<Text>Your words hold the wisdom of the divine. </Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_GENGHIS_KHAN">
+			<Text>Your vision hinders my own. </Text>
+		</Row>
+	</EnglishText>
+</Database>

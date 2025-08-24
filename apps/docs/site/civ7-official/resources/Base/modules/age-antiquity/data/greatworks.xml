@@ -1,0 +1,536 @@
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_GREATWORK"/>
+		<InsertOrIgnore Kind="KIND_GREATWORKOBJECT"/>
+	</Kinds>
+	<Types>
+		<InsertOrIgnore Type="GREATWORKOBJECT_WRITING" Kind="KIND_GREATWORKOBJECT"/>
+		<!--Codices-->
+		<Row Type="GREATWORK_CODEX_1" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_2" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_3" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_4" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_5" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_6" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_7" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_8" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_9" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_10" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_11" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_12" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_13" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_14" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_15" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_16" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_17" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_18" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_19" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_20" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_21" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_22" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_23" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_24" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_25" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_26" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_27" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_28" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_29" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_30" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_31" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_32" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_33" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_34" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_35" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_36" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_37" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_38" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_39" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_40" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_51" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_52" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_53" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_54" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_55" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_56" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_57" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_58" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_59" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_60" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_61" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_62" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_63" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_64" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_65" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_66" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_67" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_68" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_69" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_70" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_71" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_72" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_73" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_74" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_75" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_76" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_77" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_78" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_79" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_80" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_81" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_82" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_83" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_84" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_85" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_86" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_87" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_88" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_89" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_90" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_91" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_92" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_93" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_94" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_95" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_96" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_97" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_98" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_99" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_100" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_101" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_102" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_103" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_104" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_105" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_106" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_107" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_108" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_109" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_110" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_111" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_112" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_113" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_114" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_115" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_116" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_117" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_118" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_119" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_120" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_121" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_122" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_123" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_124" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_125" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_126" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_127" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_128" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_129" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_130" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_131" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_132" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_133" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_134" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_135" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_136" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_137" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_138" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_139" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_140" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_141" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_142" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_143" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_144" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_145" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_146" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_147" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_148" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_149" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_150" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_151" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_152" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_153" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_154" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_155" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_156" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_157" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_158" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_159" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_160" Kind="KIND_GREATWORK"/>
+		<!-- Great Person Great Works -->
+		<Row Type="GREATWORK_SAPPHO_APHRODITE" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_PTAHHOTEP_MAXIMS" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_BAN_ZHAO_LESSONS" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_LAOZI_TAO" Kind="KIND_GREATWORK"/>
+		<!-- Uniquely named Great Works -->
+		<Row Type="GREATWORK_CODEX_ON_THE_WARS" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_HISTORIA_ANIMALIUM" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_DE_PARTIBUS_ANIMALIUM" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_ANABASIS" Kind="KIND_GREATWORK"/>
+		<Row Type="GREATWORK_CODEX_BRASS_PLATES" Kind="KIND_GREATWORK"/>
+	</Types>
+	<GreatWorkObjectTypes>
+		<!-- The value field of the great work object must correspond to the enum value in GreatWorkObjectTypes -->
+		<InsertOrIgnore GreatWorkObjectType="GREATWORKOBJECT_WRITING" Value="0" Name="LOC_GREATWORK_CODEX_NAME" PseudoYieldType="PSEUDOYIELD_GREAT_WORK" IconString="[ICON_GreatWork_Codex]"/>
+	</GreatWorkObjectTypes>
+	<GreatWorkSlotTypes>
+		<InsertOrIgnore GreatWorkSlotType="GREATWORKSLOT_WRITING"/>
+	</GreatWorkSlotTypes>
+	<GreatWork_ValidSubTypes>
+		<InsertOrIgnore GreatWorkSlotType="GREATWORKSLOT_WRITING" GreatWorkObjectType="GREATWORKOBJECT_WRITING"/>
+	</GreatWork_ValidSubTypes>
+	<GreatWorks>
+		<!--Codices-->
+		<Row GreatWorkType="GREATWORK_CODEX_1" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_2" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_3" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_4" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_5" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_6" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_7" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_8" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_9" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_10" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_11" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_12" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_13" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_14" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_15" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_16" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_17" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_18" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_19" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_20" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_21" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_22" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_23" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_24" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_25" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_26" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_27" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_28" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_29" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_30" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_31" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_32" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_33" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_34" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_35" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_36" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_37" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_38" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_39" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_40" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_41" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_42" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_43" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_44" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_45" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_46" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_47" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_48" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_49" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_50" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_51" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_52" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_53" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_54" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_55" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_56" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_57" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_58" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_59" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_60" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_61" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_62" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_63" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_64" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_65" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_66" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_67" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_68" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_69" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_70" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_71" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet2.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_72" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet2.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_73" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet2.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_74" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet2.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_75" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet2.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_76" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet2.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_77" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet2.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_78" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet2.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_79" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet2.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_80" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet2.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_81" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_82" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_83" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_84" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_85" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_86" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_87" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_88" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_89" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_90" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_91" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_92" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_93" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_94" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_95" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_96" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_97" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_98" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_99" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_100" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_101" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_102" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_103" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_104" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_105" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_106" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_107" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_108" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_109" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_palmleaftexts.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_110" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_111" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_112" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_113" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_114" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_115" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_116" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_117" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_118" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_119" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_120" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_121" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_122" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_123" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_124" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_125" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_126" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_127" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_128" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_129" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_130" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_131" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_132" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_133" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_134" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_135" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_136" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_137" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_138" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_139" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_140" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_141" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_142" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_143" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_144" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_145" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_146" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_147" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_148" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_149" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_150" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet1.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_151" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet2.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_152" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet2.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_153" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet2.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_154" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet2.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_155" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet2.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_156" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet2.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_157" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet2.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_158" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet2.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_159" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet2.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_160" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Image="fs://game/gw_tablet2.png"/>
+		<!-- Great Person Great Works -->
+		<Row GreatWorkType="GREATWORK_SAPPHO_APHRODITE" GreatWorkObjectType="GREATWORKOBJECT_WRITING" GreatPersonIndividualType="GREAT_PERSON_INDIVIDUAL_LOGIOS_SAPPHO" Name="LOC_GREATWORK_SAPPHO_APHRODITE_NAME" Description="LOC_GREATWORK_SAPPHO_APHRODITE_DESCRIPTION" Generic="false" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_PTAHHOTEP_MAXIMS" GreatWorkObjectType="GREATWORKOBJECT_WRITING" GreatPersonIndividualType="GREAT_PERSON_INDIVIDUAL_TJATY_PTAHHOTEP" Name="LOC_GREATWORK_PTAHHOTEP_MAXIMS_NAME" Description="LOC_GREATWORK_PTAHHOTEP_MAXIMS_DESCRIPTION" Generic="false" Image="fs://game/gw_horizontalscroll.png"/>
+		<Row GreatWorkType="GREATWORK_BAN_ZHAO_LESSONS" GreatWorkObjectType="GREATWORKOBJECT_WRITING" GreatPersonIndividualType="GREAT_PERSON_INDIVIDUAL_SHI_DAFU_BAN_ZHAO" Name="LOC_GREATWORK_BAN_ZHAO_LESSONS_NAME" Description="LOC_GREATWORK_BAN_ZHAO_LESSONS_DESCRIPTION" Generic="false" Image="fs://game/gw_books.png"/>
+		<Row GreatWorkType="GREATWORK_LAOZI_TAO" GreatWorkObjectType="GREATWORKOBJECT_WRITING" GreatPersonIndividualType="GREAT_PERSON_INDIVIDUAL_SHI_DAFU_LAOZI" Name="LOC_GREATWORK_LAOZI_TAO_NAME" Description="LOC_GREATWORK_LAOZI_TAO_DESCRIPTION" Generic="false" Image="fs://game/gw_books.png"/>
+		<!-- Uniquely named Great Works -->
+		<Row GreatWorkType="GREATWORK_CODEX_ON_THE_WARS" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_ON_THE_WARS_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Generic="false" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_HISTORIA_ANIMALIUM" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_HISTORIA_ANIMALIUM_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Generic="false" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_DE_PARTIBUS_ANIMALIUM" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_DE_PARTIBUS_ANIMALIUM_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Generic="false" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_ANABASIS" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_ANABASIS_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Generic="false" Image="fs://game/gw_rotulus.png"/>
+		<Row GreatWorkType="GREATWORK_CODEX_BRASS_PLATES" GreatWorkObjectType="GREATWORKOBJECT_WRITING" Name="LOC_GREATWORK_CODEX_BRASS_PLATES_NAME" Description="LOC_GREATWORK_CODEX_DESCRIPTION" Generic="false" Image="fs://game/gw_tablet2.png"/>
+	</GreatWorks>
+	<GreatWork_YieldChanges>
+		<!--Codices-->
+		<Row GreatWorkType="GREATWORK_CODEX_1" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_2" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_3" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_4" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_5" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_6" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_7" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_8" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_9" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_10" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_11" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_12" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_13" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_14" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_15" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_16" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_17" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_18" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_19" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_20" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_21" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_22" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_23" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_24" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_25" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_26" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_27" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_28" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_29" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_30" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_31" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_32" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_33" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_34" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_35" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_36" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_37" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_38" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_39" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_40" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_41" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_42" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_43" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_44" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_45" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_46" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_47" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_48" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_49" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_50" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_51" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_52" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_53" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_54" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_55" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_56" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_57" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_58" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_59" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_60" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_61" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_62" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_63" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_64" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_65" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_66" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_67" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_68" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_69" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_70" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_71" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_72" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_73" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_74" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_75" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_76" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_77" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_78" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_79" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_80" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_81" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_82" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_83" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_84" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_85" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_86" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_87" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_88" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_89" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_90" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_91" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_92" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_93" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_94" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_95" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_96" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_97" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_98" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_99" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_100" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_101" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_102" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_103" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_104" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_105" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_106" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_107" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_108" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_109" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_110" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_111" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_112" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_113" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_114" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_115" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_116" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_117" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_118" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_119" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_120" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_121" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_122" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_123" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_124" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_125" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_126" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_127" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_128" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_129" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_130" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_131" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_132" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_133" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_134" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_135" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_136" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_137" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_138" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_139" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_140" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_141" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_142" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_143" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_144" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_145" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_146" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_147" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_148" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_149" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_150" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_151" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_152" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_153" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_154" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_155" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_156" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_157" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_158" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_159" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_160" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<!-- Great Person Great Works -->
+		<Row GreatWorkType="GREATWORK_SAPPHO_APHRODITE" YieldType="YIELD_CULTURE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_PTAHHOTEP_MAXIMS" YieldType="YIELD_SCIENCE" YieldChange="3"/>
+		<Row GreatWorkType="GREATWORK_BAN_ZHAO_LESSONS" YieldType="YIELD_CULTURE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_LAOZI_TAO" YieldType="YIELD_HAPPINESS" YieldChange="2"/>
+		<!-- Uniquely named Great Works -->
+		<Row GreatWorkType="GREATWORK_CODEX_ON_THE_WARS" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_HISTORIA_ANIMALIUM" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_DE_PARTIBUS_ANIMALIUM" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_ANABASIS" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+		<Row GreatWorkType="GREATWORK_CODEX_BRASS_PLATES" YieldType="YIELD_SCIENCE" YieldChange="2"/>
+	</GreatWork_YieldChanges>
+	<Constructible_GreatWorks>
+		<Row ConstructibleType="BUILDING_ACADEMY" GreatWorkSlotType="GREATWORKSLOT_WRITING" NumSlots="3"/>
+		<Row ConstructibleType="BUILDING_LIBRARY" GreatWorkSlotType="GREATWORKSLOT_WRITING" NumSlots="2"/>
+		<Row ConstructibleType="BUILDING_PALACE" GreatWorkSlotType="GREATWORKSLOT_WRITING" NumSlots="1"/>
+		<!--Wonders-->
+		<Row ConstructibleType="WONDER_NALANDA" GreatWorkSlotType="GREATWORKSLOT_WRITING" NumSlots="2"/>
+	</Constructible_GreatWorks>
+</Database>

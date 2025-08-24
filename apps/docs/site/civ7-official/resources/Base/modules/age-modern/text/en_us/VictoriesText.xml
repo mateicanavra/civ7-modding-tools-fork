@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_LEGACY_PATH_MODERN_ECONOMIC_NAME">
+			<Text>Railroad Tycoon</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_MODERN_ECONOMIC_DESCRIPTION">
+			<Text>Gain 500 Railroad Tycoon Points from manufacturing goods in your Factories. These Points are earned each turn for each Factory Resource that is slotted into a Settlement with a Factory and connected to your Rail or Port network.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_MODERN_ECONOMIC_VICTORY_TEXT">
+			<Text>Congratulations, you won an Economic Victory!</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_MODERN_ECONOMIC_VICTORY_DESCRIPTION">
+			<Text>Use John Maynard to establish the World Bank in all other player's capitals. Cost of establishment is cheaper for each Economic Legacy Point you have earned throughout the campaign.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_MODERN_MILITARY_NAME">
+			<Text>Ideology</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_MILITARY_WITHOUT_IDEOLOGY_NAME">
+			<Text>Domination</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_MODERN_MILITARY_DESCRIPTION">
+			<Text>Gain 20 Ideology Points from conquering Settlements for the first time. Gain 1 Point before you have an Ideology, 2 Points with an Ideology, or 3 Points against an opponent with a different Ideology.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_MODERN_MILITARY_WITHOUT_IDEOLOGY_DESCRIPTION">
+			<Text>Gain 30 VP from conquering Settlements.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_MODERN_MILITARY_VICTORY_TEXT">
+			<Text>Congratulations, you won a Military Victory!</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_MODERN_MILITARY_VICTORY_DESCRIPTION">
+			<Text>Complete the Manhattan Project, and then complete the Operation Ivy Project. Both are cheaper for each Militaristic Legacy Point you have earned throughout the campaign.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_MODERN_SCIENCE_NAME">
+			<Text>Space Race</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_MODERN_SCIENCE_DESCRIPTION">
+			<Text>Complete all 3 Space Race Projects.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_MODERN_SCIENCE_VICTORY_TEXT">
+			<Text>Congratulations, you won a Science Victory!</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_MODERN_SCIENCE_VICTORY_DESCRIPTION">
+			<Text>Complete the First Crewed Space Flight Project. The Project is cheaper for each Scientific Legacy Point you have earned throughout the campaign.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_MODERN_CULTURE_NAME">
+			<Text>Geographic Society</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_MODERN_CULTURE_DESCRIPTION">
+			<Text>House 15 Artifacts in your empire.</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_MODERN_CULTURE_VICTORY_TEXT">
+			<Text>Congratulations, you won a Culture Victory!</Text>
+		</Row>
+		<Row Tag="LOC_LEGACY_PATH_MODERN_CULTURE_VICTORY_DESCRIPTION">
+			<Text>Complete the World's Fair Wonder. The World's Fair is cheaper for each Cultural Legacy Point you have earned throughout the campaign.</Text>
+		</Row>
+	</EnglishText>
+</Database>

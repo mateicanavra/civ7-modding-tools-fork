@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--CARTHAGE-->
+		<Row Tag="LOC_CITY_NAME_CARTHAGE1">
+			<Text>Carthage</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE2">
+			<Text>Utica</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE3">
+			<Text>Hadrumetum</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE4">
+			<Text>Hippo</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE5">
+			<Text>Motya</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE6">
+			<Text>Thenae</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE7">
+			<Text>Leptis</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE8">
+			<Text>Tsabratan</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE9">
+			<Text>Maleth</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE10">
+			<Text>Rusicade</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE11">
+			<Text>Thysdrus</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE12">
+			<Text>Rusguniae</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE13">
+			<Text>Tinga</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE14">
+			<Text>Gadir</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE15">
+			<Text>Oyat</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE16">
+			<Text>Kition</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE17">
+			<Text>Lapathus</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE18">
+			<Text>Idalion</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE19">
+			<Text>Ruspina</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE20">
+			<Text>Ziz</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE21">
+			<Text>Karaly</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE22">
+			<Text>Sexi </Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE23">
+			<Text>Kapara</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE24">
+			<Text>Rusadir</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE25">
+			<Text>Abdera</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE26">
+			<Text>Malake</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE27">
+			<Text>Lilybaeum</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE28">
+			<Text>Chullu</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE29">
+			<Text>Arambys</Text>
+		</Row>
+		<Row Tag="LOC_CITY_NAME_CARTHAGE30">
+			<Text>Meninx</Text>
+		</Row>
+	</EnglishText>
+</Database>

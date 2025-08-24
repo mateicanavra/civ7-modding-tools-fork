@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- LEADER_NAPOLEON -->
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_NAPOLEON_TITLE">
+			<Text>{LOC_LEADER_NAPOLEON_NAME}</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_NAPOLEON_CHAPTER_HISTORY_PARA_1">
+			<Text>The French Revolution aggressively sought to implement a reimagined state, one that rested on new bureaucratic, scientific, and political principles. Months were renamed, new systems of measurement were created, and the clergy was actively targeted. The middle class saw their positions advance, but the Revolution ultimately hit a number of snags. Political chaos was not good for France’s economy, and the specter of rebellion terrified neighboring powers with established monarchies – nearly all of them. This chaos demanded order.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_NAPOLEON_CHAPTER_HISTORY_PARA_2">
+			<Text>Napoleon was born into an Italian-Corsican family who had fought for Corsica’s independence after it was conquered by France in 1769. Educated at a military school on the mainland, Napoleon rose to become an artillery officer in the French army just before the Revolution struck. He was sympathetic to the Revolution’s ideals, but in the midst of such chaos, fortunes changed swiftly, and Napoleon soon found himself arranging artillery against royalists seeking to reclaim Paris.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_NAPOLEON_CHAPTER_HISTORY_PARA_3">
+			<Text>His fortunes really soared during his command of the Army of Italy – a front in those wars that inevitably broke out when neighboring monarchies (Austria and its allies) moved to halt the revolutionary fire in its tracks. Napoleon launched a series of aggressive campaigns against Austrian forces to devastating effect. With central authority in France deteriorating, Napoleon had broad latitude to do what he liked in the realms he conquered, setting up his own republics in Italy under new models of administration. Flush with success, Napoleon sought to stop British ambitions in India by seizing their holdings in Egypt and, he hoped, allying with the British East India Company’s enemies on the subcontinent. True to the principles of the Revolution, Napoleon dealt with Egyptian subjects as fellows, advocating citizenship for all regardless of their religion.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_NAPOLEON_CHAPTER_HISTORY_PARA_4">
+			<Text>The Egyptian campaign led to defeat for France, but not for Napoleon. Upon his return to Paris, he received a hero’s welcome and played a major role in the construction of the new government, of which he became the First Consul – a term originally used in the Roman Empire. Napoleon was in theory elected, but exploited the corruption of the regime and the chaos of France to inflate his numbers. The ongoing wars ended abruptly, for now, and France emerged victorious, gaining territories abandoned by the Austrians.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_NAPOLEON_CHAPTER_HISTORY_PARA_5">
+			<Text>The interwar period was tense. Napoleon consolidated his power as ruler for life and sought to revitalize the flagging French economy. In doing so, he reinstating slavery in overseas colonies, a move that sparked the Haitian Revolution. He also sold the French claims to much of North America – the Louisiana Purchase. The Napoleonic Code (le Code civil des Français) enshrined rights to property and an end to aristocratic privileges, marking a transition from a system governed by status to one governed by skill, merit, and order. Famously, Napoleon invited the pope to attend his coronation as emperor...and crowned himself. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_NAPOLEON_CHAPTER_HISTORY_PARA_6">
+			<Text>But neighboring European powers would not go quietly. War resumed just a few years later. Again, Napoleon seemed invincible, outflanking and outmaneuvering coalition forces wherever he could. At the Battle of Austerlitz, he tricked the coalition into believing his army was weak and demoralized, and when they took the bait, he slaughtered them. This defeat, and those of a later Prussian campaign, neutralized Austria, Russia and Prussia and drove the Ottomans into the French orbit. It also allowed for the establishment of the Continental System, a Europe-wide boycott of the British in an attempt to starve out France’s oldest enemy.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_NAPOLEON_CHAPTER_HISTORY_PARA_7">
+			<Text>Once again, a tense peace took hold. European powers chafed at the Continental System, and at Napoleon’s constant threats to monarchies everywhere. In one egregious move, he installed his brother as King of Spain – a decision that, along with subsequent wars in Spain, set the stage for Latin American revolutions in the years to come.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_NAPOLEON_CHAPTER_HISTORY_PARA_8">
+			<Text>As before, the peace was soon shattered. Napoleon’s short-lived conquests and asymmetrical peace treaties were quickly broken as Austria and its allies launched new wars. His campaign in Russia proved to be his undoing. As Napoleon marched toward Moscow to end this threat for good, the Russians turned the land against the French. They burned crops in advance of Napoleon and let the Russian weather work its magic. When the French entered Moscow, the Russians set it ablaze. Napoleon remarked that the French were worthy of victory, but the Russians were worthy of invincibility. Bolstered by seeing the dictator defeated, the rest of Europe rallied, and in 1814 a coalition force finally took Paris and exiled Napoleon to the Mediterranean island of Elba.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_NAPOLEON_CHAPTER_HISTORY_PARA_9">
+			<Text>Less than a year later, Napoleon escaped and marshaled his former allies into a campaign to take back what he had lost. But his sun had set. After a devastating defeat at Waterloo, he abdicated in favor of his son, tried to flee, and ultimately surrendered. This time, Napoleon was sent to Saint Helena, a remote island in the Atlantic Ocean, where he remained until his death. During his lonely years in exile, he wrote a book about Caesar, the man who he admired and who, for a time, he was.</Text>
+		</Row>
+	</EnglishText>
+</Database>
+				

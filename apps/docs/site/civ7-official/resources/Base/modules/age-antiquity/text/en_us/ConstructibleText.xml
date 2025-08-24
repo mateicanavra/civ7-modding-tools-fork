@@ -1,0 +1,595 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_BUILDING_UNIQUE_TITLE">
+			<Text>Unique Building</Text>
+		</Row>
+		<!-- Buildings -->
+		<Row Tag="LOC_BUILDING_ACADEMY_NAME">
+			<Text>Academy</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_BUILDING_ACADEMY_DESCRIPTION">
+			<Text>+4[icon:YIELD_SCIENCE] Science. Has 3 Codex slots. Antiquity Science Building.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_ACADEMY_TOOLTIP">
+			<Text>Has 3 Codex slots. Antiquity Science Building.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_ALTAR_NAME">
+			<Text>Altar</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_BUILDING_ALTAR_DESCRIPTION">
+			<Text>+2[icon:YIELD_HAPPINESS] Happiness. Receives additional benefits from Pantheons. Antiquity Happiness Building. Can be purchased in Towns.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_ALTAR_TOOLTIP">
+			<Text>Receives additional benefits from Pantheons. Antiquity Happiness Building. Can be purchased in Towns.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_AMPHITHEATER_NAME">
+			<Text>Amphitheater</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_BUILDING_AMPHITHEATER_DESCRIPTION">
+			<Text>+4[icon:YIELD_CULTURE] Culture. Antiquity Culture Building. +10% [icon:YIELD_PRODUCTION] Production towards Wonders.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_AMPHITHEATER_TOOLTIP">
+			<Text>Antiquity Culture Building. +10% [icon:YIELD_PRODUCTION] Production towards Wonders.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_ANCIENT_BRIDGE_NAME">
+			<Text>Ancient Bridge</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_BUILDING_ANCIENT_BRIDGE_DESCRIPTION">
+			<Text>+4[icon:YIELD_GOLD] Gold. Allows Land Units to move over a Navigable River without having to Embark. Cheaper to build where a Road has already formed a Ferry across the River. Must be placed on a Navigable River. Pillaged by any Flood. Can be purchased in Towns.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_ANCIENT_BRIDGE_TOOLTIP">
+			<Text>Allows Land Units to move over a Navigable River without having to Embark. Cheaper to build where a Road has already formed a Ferry across the River. Must be placed on a Navigable River. Pillaged by any Flood. Can be purchased in Towns.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_ANCIENT_WALLS_NAME">
+			<Text>Ancient Walls</Text>
+			<Gender>Masculine:an</Gender>
+			<Plurality>2</Plurality>
+		</Row>
+		<Row Tag="LOC_BUILDING_ANCIENT_WALLS_DESCRIPTION">
+			<Text>Adds 100 HP to the District and +15 Combat Strength to Units defending in the tile. All Fortified Districts must be conquered to capture a Settlement. Antiquity Fortification. Must be built adjacent to another Fortified District. Can be purchased in Towns only on the Town Center.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_ANCIENT_WALLS_TOOLTIP">
+			<Text>Adds 100 HP to the District and +15 Combat Strength to Units defending in the tile. All Fortified Districts must be conquered to capture a Settlement. Antiquity Fortification. Must be built adjacent to another Fortified District. Can be purchased in Towns only on the Town Center.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_ARENA_NAME">
+			<Text>Arena</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_BUILDING_ARENA_DESCRIPTION">
+			<Text>+4[icon:YIELD_HAPPINESS] Happiness. Antiquity Happiness Building. +1 [icon:YIELD_HAPPINESS] Happiness on Quarters.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_ARENA_TOOLTIP">
+			<Text>Antiquity Happiness Building. +1 [icon:YIELD_HAPPINESS] Happiness on Quarters.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_BARRACKS_NAME">
+			<Text>Barracks</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_BARRACKS_DESCRIPTION">
+			<Text>+2[icon:YIELD_PRODUCTION] Production. Antiquity Military Building. Land Units trained in this Settlement will spawn at this Building's location. +10% [icon:YIELD_PRODUCTION] Production towards Land Units.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_BARRACKS_TOOLTIP">
+			<Text>Antiquity Military Building. Land Units trained in this Settlement will spawn at this Building's location. +10% [icon:YIELD_PRODUCTION] Production towards Land Units.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_BATH_NAME">
+			<Text>Bath</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_BATH_DESCRIPTION">
+			<Text>+4[icon:YIELD_FOOD] Food. Antiquity Food Building. +10% Growth Rate. Must be placed on a River.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_BATH_TOOLTIP">
+			<Text>Antiquity Food Building. +10% Growth Rate. Must be placed on a River.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_BLACKSMITH_NAME">
+			<Text>Blacksmith</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_BLACKSMITH_DESCRIPTION">
+			<Text>+3[icon:YIELD_PRODUCTION] Production. Antiquity Production Building. +1 [icon:YIELD_PRODUCTION] Production on Quarters.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_BLACKSMITH_TOOLTIP">
+			<Text>Antiquity Production Building. +1 [icon:YIELD_PRODUCTION] Production on Quarters.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_BRICKYARD_NAME">
+			<Text>Brickyard</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_BRICKYARD_DESCRIPTION">
+			<Text>+1[icon:YIELD_PRODUCTION] Production. +1[icon:YIELD_PRODUCTION] Production on Clay Pits, Mines, and Quarries. Warehouse Production Building. Ageless. Buildable in all Ages. Can be purchased in Towns.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_BRICKYARD_TOOLTIP">
+			<Text>+1[icon:YIELD_PRODUCTION] Production on Clay Pits, Mines, and Quarries. Warehouse Production Building. Ageless. Buildable in all Ages. Can be purchased in Towns.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_FISHING_QUAY_NAME">
+			<Text>Fishing Quay</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_FISHING_QUAY_DESCRIPTION">
+			<Text>+1[icon:YIELD_FOOD] Food. +1[icon:YIELD_FOOD] Food on Fishing Boats. Warehouse Food Building. Ageless. Buildable in all Ages. Can be purchased in Towns. Must be placed on Coast, a Lake tile, or a Navigable River.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_FISHING_QUAY_TOOLTIP">
+			<Text>+1[icon:YIELD_FOOD] Food on Fishing Boats. Warehouse Food Building. Ageless. Buildable in all Ages. Can be purchased in Towns. Must be placed on Coast, a Lake tile, or a Navigable River.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_GARDEN_NAME">
+			<Text>Garden</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_GARDEN_DESCRIPTION">
+			<Text>+3[icon:YIELD_FOOD] Food and +3[icon:YIELD_HAPPINESS] Happiness. Antiquity Food and Happiness Building.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_GARDEN_TOOLTIP">
+			<Text>Antiquity Food and Happiness Building.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_GRANARY_NAME">
+			<Text>Granary</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_GRANARY_DESCRIPTION">
+			<Text>+1[icon:YIELD_FOOD] Food. +1[icon:YIELD_FOOD] Food on Farms, Pastures, and Plantations. Warehouse Food Building. Ageless. Buildable in all Ages. Can be purchased in Towns.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_GRANARY_TOOLTIP">
+			<Text>+1[icon:YIELD_FOOD] Food on Farms, Pastures, and Plantations. Warehouse Food Building. Ageless. Buildable in all Ages. Can be purchased in Towns.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_LIBRARY_NAME">
+			<Text>Library</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_LIBRARY_DESCRIPTION">
+			<Text>+2[icon:YIELD_SCIENCE] Science. Has 2 Codex slots. Antiquity Science Building.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_LIBRARY_TOOLTIP">
+			<Text>Has 2 Codex slots. Antiquity Science Building.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_LIGHTHOUSE_NAME">
+			<Text>Lighthouse</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_LIGHTHOUSE_DESCRIPTION">
+			<Text>+3[icon:YIELD_GOLD] Gold. Increases the number of Resources that may be assigned to this Settlement by 2. Antiquity Gold Building. Must be placed on Coast.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_LIGHTHOUSE_TOOLTIP">
+			<Text>Increases the number of Resources that may be assigned to this Settlement by 2. Antiquity Gold Building. Must be placed on a Coast tile.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_MARKET_NAME">
+			<Text>Market</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_MARKET_DESCRIPTION">
+			<Text>+2[icon:YIELD_GOLD] Gold. Increases number of Resources that may be assigned to this Settlement by 1. Antiquity Gold Building.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_MARKET_TOOLTIP">
+			<Text>Increases number of Resources that may be assigned to this Settlement by 1. Antiquity Gold Building.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_MONUMENT_NAME">
+			<Text>Monument</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_MONUMENT_DESCRIPTION">
+			<Text>+2[icon:YIELD_CULTURE] Culture and +1[icon:YIELD_DIPLOMACY] Influence. Antiquity Culture and Diplomacy Building.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_MONUMENT_TOOLTIP">
+			<Text>Antiquity Culture and Diplomacy Building.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_SAW_PIT_NAME">
+			<Text>Saw Pit</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_SAW_PIT_DESCRIPTION">
+			<Text>+1[icon:YIELD_PRODUCTION] Production. +1[icon:YIELD_PRODUCTION] Production on Camps and Woodcutters. Warehouse Production Building. Ageless. Buildable in all Ages. Can be purchased in Towns.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_SAW_PIT_TOOLTIP">
+			<Text>+1[icon:YIELD_PRODUCTION] Production on Camps and Woodcutters. Warehouse Production Building. Ageless. Buildable in all Ages. Can be purchased in Towns.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_VILLA_NAME">
+			<Text>Villa</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_VILLA_DESCRIPTION">
+			<Text>+3[icon:YIELD_HAPPINESS] Happiness and +2[icon:YIELD_DIPLOMACY] Influence. Antiquity Happiness and Diplomacy Building. Can be purchased in Towns during the Revolt Crisis.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_VILLA_TOOLTIP">
+			<Text>Antiquity Happiness and Diplomacy Building.</Text>
+		</Row>
+		<!-- Civ Unique Buildings -->
+		<Row Tag="LOC_BUILDING_MASTABA_NAME">
+			<Text>Mastaba</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_MASTABA_DESCRIPTION">
+			<Text>+3[icon:YIELD_CULTURE] Culture. +1[icon:YIELD_GOLD] Gold Adjacency for Desert Terrain and Wonders. Egyptian Unique Culture Building. Ageless. </Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_MASTABA_TOOLTIP">
+			<Text>Egyptian Unique Culture Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_MORTUARY_TEMPLE_NAME">
+			<Text>Mortuary Temple</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_MORTUARY_TEMPLE_DESCRIPTION">
+			<Text>+4[icon:YIELD_GOLD] Gold. +1[icon:YIELD_HAPPINESS] Happiness Adjacency for Navigable Rivers and Wonders. Egyptian Unique Gold Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_MORTUARY_TEMPLE_TOOLTIP">
+			<Text>Egyptian Unique Gold Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_ODEON_NAME">
+			<Text>Odeon</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_ODEON_DESCRIPTION">
+			<Text>+3[icon:YIELD_HAPPINESS] Happiness. +1[icon:YIELD_CULTURE] Culture Adjacency for Quarters and Wonders. Greek Unique Happiness Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_ODEON_TOOLTIP">
+			<Text>Greek Unique Happiness Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PARTHENON_NAME">
+			<Text>Parthenon</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PARTHENON_DESCRIPTION">
+			<Text>+4[icon:YIELD_CULTURE] Culture. +2[icon:YIELD_DIPLOMACY] Influence if placed on Rough Terrain. +1[icon:YIELD_CULTURE] Culture adjacency for Wonders. Greek Unique Culture Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_PARTHENON_TOOLTIP">
+			<Text>+2[icon:YIELD_DIPLOMACY] Influence if placed on Rough Terrain. Greek Unique Culture Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_DHARAMSHALA_NAME">
+			<Text>Dharamshala</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_DHARAMSHALA_DESCRIPTION">
+			<Text>+3[icon:YIELD_HAPPINESS] Happiness. +1[icon:YIELD_SCIENCE] Science Adjacency for Quarters and Wonders. Mauryan Unique Happiness Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_DHARAMSHALA_TOOLTIP">
+			<Text>Mauryan Unique Happiness Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_VIHARA_NAME">
+			<Text>Vihara</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_VIHARA_DESCRIPTION">
+			<Text>+3[icon:YIELD_HAPPINESS] Happiness. +1[icon:YIELD_CULTURE] Culture Adjacency for Mountains and Wonders. Mauryan Unique Happiness Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_VIHARA_TOOLTIP">
+			<Text>Mauryan Unique Happiness Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_JALAW_NAME">
+			<Text>Jalaw</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_JALAW_DESCRIPTION">
+			<Text>+3[icon:YIELD_HAPPINESS] Happiness. +1[icon:YIELD_CULTURE] Culture Adjacency for Quarters and Wonders. Mayan Unique Happiness Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_JALAW_TOOLTIP">
+			<Text>Mayan Unique Happiness Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_KUH_NAH_NAME">
+			<Text>K'uh Nah</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_KUH_NAH_DESCRIPTION">
+			<Text>+3[icon:YIELD_SCIENCE] Science. +2[icon:YIELD_SCIENCE] Science if placed on Vegetation. +1[icon:YIELD_SCIENCE] Science Adjacency for Wonders. Mayan Unique Science Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_KUH_NAH_TOOLTIP">
+			<Text>+2[icon:YIELD_SCIENCE] Science if placed on Vegetation. Mayan Unique Science Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_BASILICA_NAME">
+			<Text>Basilica</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_BASILICA_DESCRIPTION">
+			<Text>+4[icon:YIELD_GOLD] Gold. +1[icon:YIELD_DIPLOMACY] Influence Adjacency for Culture Buildings and Wonders. Roman Unique Gold Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_BASILICA_TOOLTIP">
+			<Text>Roman Unique Gold Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_TEMPLE_OF_JUPITER_NAME">
+			<Text>Temple of Jupiter</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_TEMPLE_OF_JUPITER_DESCRIPTION">
+			<Text>+3[icon:YIELD_HAPPINESS] Happiness. +1[icon:YIELD_CULTURE] Culture Adjacency for Happiness Buildings and Wonders. Roman Unique Happiness Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_TEMPLE_OF_JUPITER_TOOLTIP">
+			<Text>Roman Unique Happiness Building. Ageless.</Text>
+		</Row>
+		<!-- Civ Unique Improvements -->
+		<Row Tag="LOC_IMPROVEMENT_BARAY_NAME">
+			<Text>Baray</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_BARAY_DESCRIPTION">
+			<Text>Khmer Unique Improvement. Ageless. Does not remove Warehouse bonuses on a tile. Must be placed on an existing Improvement on Flat Terrain. One per Settlement. +3[icon:YIELD_FOOD] Food. +1[icon:YIELD_FOOD] Food on all Floodplains in this Settlement. Improvements, Buildings, and Districts in this Settlement do not get pillaged by floods.</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_BARAY_TOOLTIP">
+			<Text>Khmer Unique Improvement. Ageless. Does not remove Warehouse bonuses on a tile. Must be placed on an existing Improvement on Flat Terrain. One per Settlement. +1[icon:YIELD_FOOD] Food on all Floodplains in this Settlement. Improvements, Buildings, and Districts in this Settlement do not get pillaged by floods.</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_HAN_GREAT_WALL_NAME">
+			<Text>Great Wall</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_HAN_GREAT_WALL_DESCRIPTION">
+			<Text>+2[icon:YIELD_CULTURE] Culture. +1[icon:YIELD_HAPPINESS] Happiness for adjacent Great Wall segments. Han Unique Improvement. Ageless. Counts as Fortification, +6 Combat Strength when defending. Does not remove Warehouse bonuses on a tile. Can only be built in a line and must be placed on an existing Improvement. Cannot branch or fork. </Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_HAN_GREAT_WALL_TOOLTIP">
+			<Text>+6 Combat Strength for Units defending in the tile. Han Unique Improvement. Ageless. Does not remove Warehouse bonuses on a tile. Can only be built in a line and must be placed on an existing Improvement. Cannot branch or fork.</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_HAWELT_NAME">
+			<Text>Hawilt</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_HAWELT_DESCRIPTION">
+			<Text>+2[icon:YIELD_GOLD] Gold. +1[icon:YIELD_CULTURE] Culture for adjacent Wonders and other Hawilti. Aksumite Unique Improvement. Ageless. Does not remove Warehouse bonuses on a tile. Must be placed on an existing Improvement on Flat Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_HAWELT_TOOLTIP">
+			<Text>Aksumite Unique Improvement. Ageless. Does not remove Warehouse bonuses on a tile. Must be placed on an existing Improvement on Flat Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_PAIRIDAEZA_NAME">
+			<Text>Pairidaeza</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_PAIRIDAEZA_DESCRIPTION">
+			<Text>+1[icon:YIELD_CULTURE] Culture and[icon:YIELD_GOLD] Gold. Persian Unique Improvement. Ageless. Does not remove Warehouse bonuses on a tile. Must be placed on an existing Improvement, and cannot be placed adjacent to another Pairidaeza.</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_PAIRIDAEZA_TOOLTIP">
+			<Text>Persian Unique Improvement. Ageless. Does not remove Warehouse bonuses on a tile. Must be placed on an existing Improvement, and cannot be placed adjacent to another Pairidaeza.</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_POTKOP_NAME">
+			<Text>Potkop</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_POTKOP_DESCRIPTION">
+			<Text>+1[icon:YIELD_GOLD] Gold. +1[icon:YIELD_FOOD] Food for each adjacent Resource. Mississippian Unique Improvement. Ageless. Does not remove Warehouse bonuses on a tile. Must be placed on an existing Improvement on Flat Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_POTKOP_TOOLTIP">
+			<Text>Mississippian Unique Improvement. Ageless. Does not remove Warehouse bonuses on a tile. Must be placed on an existing Improvement on Flat Terrain.</Text>
+		</Row>
+		<!-- City State Improvements -->
+		<Row Tag="LOC_IMPROVEMENT_HILLFORT_NAME">
+			<Text>Hillfort</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_HILLFORT_DESCRIPTION">
+			<Text>+2[icon:YIELD_PRODUCTION] Production. +1 sight, and +5 healing per turn to Military Units on this tile. City-State Unique Improvement. Does not remove Warehouse bonuses on a tile. Counts as Fortification, +6 Combat Strength when defending. Must be placed on an existing Improvement on Rough Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_HILLFORT_TOOLTIP">
+			<Text>+1 sight, and +5 healing per turn to Military Units on this tile. City-State Unique Improvement. Does not remove Warehouse bonuses on a tile. Counts as Fortification, +6 Combat Strength when defending. Must be placed on an existing Improvement on Rough Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_MEGALITH_NAME">
+			<Text>Megalith</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_MEGALITH_DESCRIPTION">
+			<Text>+2[icon:YIELD_CULTURE] Culture. +1[icon:YIELD_FOOD] Food for every adjacent Rural tile. City-State Unique Improvement. Does not remove Warehouse bonuses on a tile. Must be placed on an existing Improvement on Flat Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_MEGALITH_TOOLTIP">
+			<Text>City-State Unique Improvement. Does not remove Warehouse bonuses on a tile. Must be placed on an existing Improvement on Flat Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_SOUQ_NAME">
+			<Text>Emporium</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_SOUQ_DESCRIPTION">
+			<Text>+2[icon:YIELD_GOLD] Gold. +2[icon:YIELD_GOLD] Gold in Cities if they have at least one Resource assigned to them. City-State Unique Improvement. Does not remove Warehouse bonuses on a tile. Must be placed on an existing Improvement, and cannot be placed adjacent to another Emporium.</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_SOUQ_TOOLTIP">
+			<Text>+2[icon:YIELD_GOLD] Gold in Cities if they have at least one Resource assigned to them. City-State Unique Improvement. Does not remove Warehouse bonuses on a tile. Must be placed on an existing Improvement, and cannot be placed adjacent to another Emporium.</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_ZIGGURAT_NAME">
+			<Text>Step Pyramid</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_ZIGGURAT_DESCRIPTION">
+			<Text>+2[icon:YIELD_SCIENCE] Science. +1[icon:YIELD_HAPPINESS] Happiness for every adjacent River tile. City-State Unique Improvement. Does not remove Warehouse bonuses on a tile. Must be placed on an existing Improvement on tiles with a natural Happiness yield.</Text>
+		</Row>
+		<Row Tag="LOC_IMPROVEMENT_ZIGGURAT_TOOLTIP">
+			<Text>City-State Unique Improvement. +1[icon:YIELD_HAPPINESS] Happiness for every adjacent River tile. Does not remove Warehouse bonuses on a tile. Must be placed on an existing Improvement on tiles with a natural Happiness yield.</Text>
+		</Row>
+		<!-- Civ Unique Quarters -->
+		<Row Tag="LOC_QUARTER_ACROPOLIS_NAME">
+			<Text>Acropolis</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_QUARTER_ACROPOLIS_DESCRIPTION">
+			<Text>Greek Unique Quarter. Created by constructing the Odeon and Parthenon in the same District. +2[icon:YIELD_GOLD] Gold on the Parthenon for each City-State you are Suzerain of.</Text>
+		</Row>
+		<Row Tag="LOC_QUARTER_ACROPOLIS_TOOLTIP">
+			<Text>+2[icon:YIELD_GOLD] Gold on the Parthenon for each City-State you are Suzerain of.</Text>
+		</Row>
+		<Row Tag="LOC_QUARTER_FORUM_NAME">
+			<Text>Forum</Text>
+		</Row>
+		<Row Tag="LOC_QUARTER_FORUM_DESCRIPTION">
+			<Text>Roman Unique Quarter. Created by constructing the Basilica and Temple of Jupiter in the same District. +1[icon:YIELD_CULTURE] Culture for every Unique Tradition in the Government.</Text>
+		</Row>
+		<Row Tag="LOC_QUARTER_FORUM_TOOLTIP">
+			<Text>+1[icon:YIELD_CULTURE] Culture for every Unique Tradition in the Government.</Text>
+		</Row>
+		<Row Tag="LOC_QUARTER_MATHA_NAME">
+			<Text>Matha</Text>
+		</Row>
+		<Row Tag="LOC_QUARTER_MATHA_DESCRIPTION">
+			<Text>Mauryan Unique Quarter. Created by constructing the Dharamshala and Vihara in the same District. +10%[icon:YIELD_HAPPINESS] Happiness in this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_QUARTER_MATHA_TOOLTIP">
+			<Text>+10%[icon:YIELD_HAPPINESS] Happiness in this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_QUARTER_NECROPOLIS_NAME">
+			<Text>Necropolis</Text>
+		</Row>
+		<Row Tag="LOC_QUARTER_NECROPOLIS_DESCRIPTION">
+			<Text>Egyptian Unique Quarter. Created by constructing the Mastaba and Mortuary Temple in the same District. Grants 100[icon:YIELD_GOLD] Gold (on Standard Speed) when any Wonder is completed in this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_QUARTER_NECROPOLIS_TOOLTIP">
+			<Text>Grants 100[icon:YIELD_GOLD] Gold (on Standard Speed) when any Wonder is completed in this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_QUARTER_UWAYBIL_KUH_NAME">
+			<Text>Uwaybil K'uh</Text>
+			<Gender>Masculine:an</Gender>
+		</Row>
+		<Row Tag="LOC_QUARTER_UWAYBIL_KUH_DESCRIPTION">
+			<Text>Maya Unique Quarter. Created by constructing the Jalaw and K'uh Nah in the same District. Every time you research a Technology, this Settlement gains[icon:YIELD_PRODUCTION] Production equal to 5% of its cost.</Text>
+		</Row>
+		<Row Tag="LOC_QUARTER_UWAYBIL_KUH_TOOLTIP">
+			<Text>Every time you research a Technology, this Settlement gains[icon:YIELD_PRODUCTION] Production equal to 5% of its cost.</Text>
+		</Row>
+		<!-- Wonders -->
+		<Row Tag="LOC_WONDER_ANGKOR_WAT_NAME">
+			<Text>Angkor Wat</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_ANGKOR_WAT_DESCRIPTION">
+			<Text>+3[icon:YIELD_HAPPINESS] Happiness. +1 Specialist Limit in this Settlement. Ageless. Must be placed adjacent to a River.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_ANGKOR_WAT_TOOLTIP">
+			<Text>+1 Specialist Limit in this Settlement. Ageless. Must be placed adjacent to a River.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_COLOSSEUM_NAME">
+			<Text>Colosseum</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_COLOSSEUM_DESCRIPTION">
+			<Text>+3[icon:YIELD_CULTURE] Culture. +2[icon:YIELD_HAPPINESS] Happiness on Quarters in this Settlement. Ageless. Must be placed adjacent to a District.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_COLOSSEUM_TOOLTIP">
+			<Text>+2[icon:YIELD_HAPPINESS] Happiness on Quarters in this Settlement. Ageless. Must be placed adjacent to a District.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_COLOSSUS_NAME">
+			<Text>Colossus</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_COLOSSUS_DESCRIPTION">
+			<Text>+3[icon:YIELD_GOLD] Gold. +3 Resource Capacity in this Settlement. +1 Economic Attribute Point. Ageless. Must be placed on Coast adjacent to land.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_COLOSSUS_TOOLTIP">
+			<Text>+3 Resource Capacity in this Settlement. +1 Economic Attribute Point. Ageless. Must be placed on Coast adjacent to land.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_DUR_SHARRUKIN_NAME">
+			<Text>Dur-Sharrukin</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_DUR_SHARRUKIN_DESCRIPTION">
+			<Text>Acts as a Fortified District that must be conquered. +3 Combat Strength to Fortified Districts in all Settlements. Ageless. Must be placed adjacent to a District.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_DUR_SHARRUKIN_TOOLTIP">
+			<Text>Acts as a Fortified District that must be conquered. +3 Combat Strength to Fortified Districts in all Settlements. Ageless. Must be placed adjacent to a District.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_DUR_SHARRUKIN_PREVIEW">
+			<Text>+{1_Amount} Dur-Sharrukin</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_EMILE_BELL_NAME">
+			<Text>Emile Bell</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_EMILE_BELL_DESCRIPTION">
+			<Text>Gain a unique Diplomatic Endeavor called Ginseng Agreement that grants Food to both Leaders' Capitals. +1 Diplomatic Attribute Point. Ageless. Must be placed on Rough Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_EMILE_BELL_TOOLTIP">
+			<Text>Gain a unique Diplomatic Endeavor called Ginseng Agreement that grants Food to both Leaders' Capitals. +1 Diplomatic Attribute Point. Ageless. Must be placed on Rough Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_GATE_OF_ALL_NATIONS_NAME">
+			<Text>Gate of All Nations</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_GATE_OF_ALL_NATIONS_DESCRIPTION">
+			<Text>+2 Support on all wars. Ageless. Must be placed adjacent to a District.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_GATE_OF_ALL_NATIONS_TOOLTIP">
+			<Text>+2 Support on all wars. Ageless. Must be placed adjacent to a District.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_GREAT_STELE_NAME">
+			<Text>Great Stele</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_GREAT_STELE_DESCRIPTION">
+			<Text>Gain 200[icon:YIELD_GOLD] Gold when you construct a Wonder in this Settlement, including this one. Ageless. Must be placed on Flat Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_GREAT_STELE_TOOLTIP">
+			<Text>Gain 200[icon:YIELD_GOLD] Gold when you construct a Wonder in this Settlement, including this one. Ageless. Must be placed on Flat Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_HA_AMONGA_A_MAUI_NAME">
+			<Text>Ha'amonga 'a Maui</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_HA_AMONGA_A_MAUI_DESCRIPTION">
+			<Text>+2[icon:YIELD_CULTURE] Culture. +1[icon:YIELD_CULTURE] Culture and[icon:YIELD_FOOD] Food on Fishing Boats in this Settlement. +1 Cultural Attribute Point. Ageless. Must be placed on Grassland or Tropical and adjacent to Coast.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_HA_AMONGA_A_MAUI_TOOLTIP">
+			<Text>+1[icon:YIELD_CULTURE] Culture and [icon:YIELD_FOOD] Food on Fishing Boats in this Settlement. +1 Cultural Attribute Point. Ageless. Must be placed on Grassland or Tropical and adjacent to Coast.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_HANGING_GARDENS_NAME">
+			<Text>Hanging Gardens</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_HANGING_GARDENS_DESCRIPTION">
+			<Text>+1 [icon:YIELD_FOOD] Food on Farms in this Settlement. +10% Growth Rate in all Cities. +1 Expansionist Attribute Point. Ageless. Must be placed adjacent to a River.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_HANGING_GARDENS_TOOLTIP">
+			<Text>+1[icon:YIELD_FOOD] Food on Farms in this Settlement. +10% Growth Rate in all Cities. +1 Expansionist Attribute Point. Ageless. Must be placed adjacent to a River.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_MAUSOLEUM_OF_THEODORIC_NAME">
+			<Text>Mausoleum of Theodoric</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_MAUSOLEUM_OF_THEODORIC_DESCRIPTION">
+			<Text>+3[icon:YIELD_PRODUCTION] Production. +100% yields and HP from pillaging. +1 Militaristic Attribute Point. Ageless. Must be placed adjacent to Coast.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_MAUSOLEUM_OF_THEODORIC_TOOLTIP">
+			<Text>+100% yields and HP from pillaging. +1 Militaristic Attribute Point. Ageless. Must be placed adjacent to Coast.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_MONKS_MOUND_NAME">
+			<Text>Monks Mound</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_MONKS_MOUND_DESCRIPTION">
+			<Text>+3[icon:YIELD_FOOD] Food. +4 Resource Capacity in this Settlement. Ageless. Must be placed adjacent to a River.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_MONKS_MOUND_TOOLTIP">
+			<Text>+4 Resource Capacity in this Settlement. Ageless. Must be placed adjacent to a River.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_MUNDO_PERDIDO_NAME">
+			<Text>Mundo Perdido</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_MUNDO_PERDIDO_DESCRIPTION">
+			<Text>+1[icon:YIELD_HAPPINESS] Happiness and[icon:YIELD_SCIENCE] Science on Tropical Terrain in this Settlement. Ageless. Must be placed on Tropical.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_MUNDO_PERDIDO_TOOLTIP">
+			<Text>+1[icon:YIELD_HAPPINESS] Happiness and[icon:YIELD_SCIENCE] Science on Tropical Terrain in this Settlement. Ageless. Must be placed on Tropical.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_NALANDA_NAME">
+			<Text>Nalanda</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_NALANDA_DESCRIPTION">
+			<Text>+3[icon:YIELD_SCIENCE] Science. Gain 1 Codex. Has 2 Codex slots. +1 Scientific Attribute Point. Ageless. Must be placed on Plains.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_NALANDA_TOOLTIP">
+			<Text>Gain 1 Codex. Has 2 Codex slots. +1 Scientific Attribute Point. Ageless. Must be placed on Plains.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_ORACLE_NAME">
+			<Text>Oracle</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_ORACLE_DESCRIPTION">
+			<Text>+2[icon:YIELD_CULTURE] Culture. When gaining rewards from a Narrative Event, gain an additional 10[icon:YIELD_CULTURE] Culture per Age. Ageless. Must be placed on Rough Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_ORACLE_TOOLTIP">
+			<Text>When gaining rewards from a Narrative Event, gain an additional 10[icon:YIELD_CULTURE] Culture per Age. Ageless. Must be placed on Rough Terrain.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_PETRA_NAME">
+			<Text>Petra</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_PETRA_DESCRIPTION">
+			<Text>+2[icon:YIELD_GOLD] Gold. +1[icon:YIELD_GOLD] Gold and[icon:YIELD_PRODUCTION] Production on Desert Terrain in this Settlement. Ageless. Must be placed on Desert.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_PETRA_TOOLTIP">
+			<Text>+1[icon:YIELD_GOLD] Gold and[icon:YIELD_PRODUCTION] Production on Desert Terrain in this Settlement. Ageless. Must be placed on Desert.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_PYRAMID_OF_THE_SUN_NAME">
+			<Text>Pyramid Of The Sun</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_PYRAMID_OF_THE_SUN_DESCRIPTION">
+			<Text>+3[icon:YIELD_CULTURE] Culture. +2[icon:YIELD_CULTURE] Culture on Quarters in this Settlement. Ageless. Must be placed on Flat Terrain adjacent to a District.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_PYRAMID_OF_THE_SUN_TOOLTIP">
+			<Text>+2[icon:YIELD_CULTURE] Culture on Quarters in this Settlement. Ageless. Must be placed on Flat Terrain adjacent to a District.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_PYRAMIDS_NAME">
+			<Text>Pyramids</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_PYRAMIDS_DESCRIPTION">
+			<Text>+1[icon:YIELD_GOLD] Gold and[icon:YIELD_PRODUCTION] Production on Minor and Navigable River tiles in this Settlement. Ageless. Must be placed on Desert and adjacent to a Navigable River.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_PYRAMIDS_TOOLTIP">
+			<Text>+1[icon:YIELD_GOLD] Gold and[icon:YIELD_PRODUCTION] Production on Minor and Navigable River tiles in this Settlement. Ageless. Must be placed on Desert and adjacent to a Navigable River.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_SANCHI_STUPA_NAME">
+			<Text>Sanchi Stupa</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_SANCHI_STUPA_DESCRIPTION">
+			<Text>+2[icon:YIELD_HAPPINESS] Happiness. +1[icon:YIELD_CULTURE] Culture for every 5 excess[icon:YIELD_HAPPINESS] Happiness in this Settlement. Ageless. Must be placed on Plains.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_SANCHI_STUPA_TOOLTIP">
+			<Text>+1[icon:YIELD_CULTURE] Culture for every 5 excess[icon:YIELD_HAPPINESS] Happiness in this Settlement. Ageless. Must be placed on Plains.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_TERRACOTTA_ARMY_NAME">
+			<Text>Terracotta Army</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_TERRACOTTA_ARMY_DESCRIPTION">
+			<Text>+2[icon:YIELD_PRODUCTION] Production. Grants a free Army Commander when built. +25% Army experience. Ageless. Must be placed on Grassland.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_TERRACOTTA_ARMY_TOOLTIP">
+			<Text>Grants a free Army Commander when built. +25% Army experience. Ageless. Must be placed on Grassland.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_WEIYANG_PALACE_NAME">
+			<Text>Weiyang Palace</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_WEIYANG_PALACE_DESCRIPTION">
+			<Text>+6[icon:YIELD_DIPLOMACY] Influence. Ageless. Must be placed on Grassland.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_WEIYANG_PALACE_TOOLTIP">
+			<Text>Ageless. Must be placed on Grassland.</Text>
+		</Row>
+	</EnglishText>
+</Database>

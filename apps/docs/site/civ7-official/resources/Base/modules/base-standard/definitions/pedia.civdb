@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="Definitions">
+	<definition name="CivilopediaPageExclude" description="This table specifies pages that should be hidden from the civilopedia." table-name="CivilopediaPageExcludes" cpp="false">
+		<field name="SectionID" type="Text" key="true" not-null="true" />
+		<field name="PageID" type="Text" key="true" not-null="true" />
+	</definition>
+	<definition name="CivilopediaSectionExclude" table-name="CivilopediaSectionExcludes" cpp="false">
+		<field name="SectionID" type="Text" key="true" not-null="true" />
+	</definition>
+	<definition name="CivilopediaPageGroupExclude" table-name="CivilopediaPageGroupExcludes" cpp="false">
+		<field name="SectionID" type="Text" key="true" not-null="true" />
+		<field name="PageGroupID" type="Text" key="true" not-null="true" />
+	</definition>
+	<definition name="CivilopediaPageLayout" table-name="CivilopediaPageLayouts" cpp="false">
+		<field name="PageLayoutID" type="Text" key="true" not-null="true" />
+		<field name="UseSidebar" type="Bool" not-null="true" value="true" />
+	</definition>
+	<definition name="CivilopediaSection" table-name="CivilopediaSections" cpp="false">
+		<field name="SectionID" type="Text" key="true" not-null="true" />
+		<field name="Name" type="Text" not-null="true" />
+		<field name="Icon" type="Text" />
+		<field name="SortIndex" type="Integer" value="0" not-null="true" />
+	</definition>
+	<definition name="CivilopediaPage" table-name="CivilopediaPages" cpp="false">
+		<field name="SectionID" type="Text" key="true" not-null="true" />
+		<field name="PageID" type="Text" key="true" not-null="true" />
+		<field name="PageGroupID" type="Text" />
+		<field name="PageLayoutID" type="Text" not-null="true" />
+		<field name="Name" type="Text" not-null="true" />
+		<field name="TextKeyPrefix" type="Text" not-null="false" />
+		<field name="SortIndex" type="Integer" value="0" not-null="true" />
+		<reference source="PageLayoutID" target="PageLayoutID" to="CivilopediaPageLayout"/>
+	</definition>
+	<definition name="CivilopediaPageQuery" table-name="CivilopediaPageQueries" cpp="false">
+		<field name="SectionID" type="Text" not-null="true" />
+		<field name="SQL" type="Text" not-null="true" />
+	</definition>
+	<definition name="CivilopediaPageGroup" table-name="CivilopediaPageGroups" cpp="false">
+		<field name="SectionID" type="Text" key="true" not-null="true" />
+		<field name="PageGroupID" type="Text" key="true" not-null="true" />
+		<field name="Name" type="Text" not-null="true" />
+		<field name="VisibleIfEmpty" type="Bool" value="0" not-null="true" />
+		<field name="SortIndex" type="Integer" value="0" not-null="true" />
+	</definition>
+	<definition name="CivilopediaPageLayoutChapter" table-name="CivilopediaPageLayoutChapters" cpp="false">
+		<field name="PageLayoutID" type="Text" key="true" not-null="true" />
+		<field name="ChapterID" type="Text" key="true" not-null="true" />
+		<field name="Header" type="Text" not-null="false" />
+		<field name="SortIndex" type="Integer" value="0" not-null="true" />
+		<reference source="PageLayoutID" target="PageLayoutID" to="CivilopediaPageLayout"/>
+	</definition>
+	<definition name="CivilopediaPageLayoutChapterContentQuery" table-name="CivilopediaPageLayoutChapterContentQueries" cpp="false">
+		<field name="PageLayoutID" type="Text" key="true" not-null="true" />
+		<field name="ChapterID" type="Text" key="true" not-null="true" />
+		<field name="SQL" type="Text" not-null="true" />
+	</definition>
+	<definition name="CivilopediaPageGroupQuery" table-name="CivilopediaPageGroupQueries" cpp="false">
+		<field name="SectionID" type="Text" not-null="true" />
+		<field name="SQL" type="Text" not-null="true" />
+	</definition>
+	<definition name="CivilopediaPageSearchTerm" description="Additional single word terms that can be used when searching the pedia." table-name="CivilopediaPageSearchTerms" cpp="false">
+		<field name="SectionID" type="Text" key="true" not-null="true" />
+		<field name="PageID" type="Text" key="true" not-null="true" />
+		<field name="Term" type="LocalizedText" key="true" not-null="true" />
+	</definition>
+	<definition name="CivilopediaPageChapterHeader" table-name="CivilopediaPageChapterHeaders" cpp="false">
+		<field name="SectionID" type="Text" key="true" not-null="true" />
+		<field name="PageID" type="Text" key="true" not-null="true" />
+		<field name="ChapterID" type="Text" key="true" not-null="true" />
+		<field name="Header" type="LocalizedText" not-null="true" />
+	</definition>
+	<definition name="CivilopediaPageChapterParagraph" table-name="CivilopediaPageChapterParagraphs" cpp="false">
+		<field name="SectionID" type="Text" key="true" not-null="true" />
+		<field name="PageID" type="Text" key="true" not-null="true" />
+		<field name="ChapterID" type="Text" key="true" not-null="true" />
+		<field name="Paragraph" type="LocalizedText" not-null="true" />
+		<field name="SortIndex" type="Integer" value="0" not-null="true" />
+	</definition>
+	<definition name="CivilopediaPageSearchTermQuery" description="Queries to dynamically provide additional search terms." table-name="CivilopediaPageSearchTermQueries" cpp="false">
+		<field name="SQL" type="Text" not-null="true" />
+	</definition>
+	<definition name="CivilopediaPageSidebarPanel" description="Components used to populate the sidebar for pages" table-name="CivilopediaPageSidebarPanels" cpp="false">
+		<field name="SectionID" type="Text" not-null="false" />
+		<field name="PageID" type="Text" not-null="false" />
+		<field name="Component" type="Text" not-null="true" />
+		<field name="SortIndex" type="Integer" value="100" not-null="true"/>
+	</definition>
+
+
+	<!-- The following definitions are for very specialized use-cases that are not a part of the core pedia implementation.  -->
+
+	<!-- Register units as unique upgrades to existing units -->
+	<!-- This will result in those upgrades not showing up in page lists and instead having their stats listed as part of the base unit. -->
+	<definition name="CivilopediaUnitsUniqueUpgrade" table-name="CivilopediaUnitsUniqueUpgrades" cpp="false">
+		<field name="BaseUnitType" type="Text" key="true" not-null="true" />
+		<field name="UpgradeUnitType" type="Text" key="true" not-null="true" />
+		<reference source="BaseUnitType" target="UnitType" to="Unit" />
+		<reference source="UpgradeUnitType" target="UnitType" to="Unit" />
+	</definition>
+</definitions>

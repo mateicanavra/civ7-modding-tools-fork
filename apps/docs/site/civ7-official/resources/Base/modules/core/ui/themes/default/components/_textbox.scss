@@ -1,0 +1,18 @@
+@use 'sass:math';
+@use 'sass:string';
+@use '../theme';
+@use '../../../utilities/utility-layout' as *;
+@use '../../../utilities/utility-text' as *;
+
+/** Textbox *********************************************************************/
+.fxs-textbox {
+	>input {
+		&.no-border {
+			border: 0;
+		}
+
+		&.no-background {
+			background-color: transparent;
+		}
+	}
+}

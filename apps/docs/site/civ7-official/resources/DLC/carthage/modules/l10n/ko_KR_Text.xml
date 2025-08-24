@@ -1,0 +1,825 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE1" Language="ko_KR">
+      <Text>카르타고</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE10" Language="ko_KR">
+      <Text>루시케이드</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE11" Language="ko_KR">
+      <Text>티스드루스</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE12" Language="ko_KR">
+      <Text>루스구니아에</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE13" Language="ko_KR">
+      <Text>틴가</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE14" Language="ko_KR">
+      <Text>가디르</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE15" Language="ko_KR">
+      <Text>오야트</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE16" Language="ko_KR">
+      <Text>키티온</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE17" Language="ko_KR">
+      <Text>라파투스</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE18" Language="ko_KR">
+      <Text>이달리온</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE19" Language="ko_KR">
+      <Text>루스피나</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE2" Language="ko_KR">
+      <Text>우티카</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE20" Language="ko_KR">
+      <Text>지즈</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE21" Language="ko_KR">
+      <Text>카랄리</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE22" Language="ko_KR">
+      <Text>섹시 </Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE23" Language="ko_KR">
+      <Text>카파라</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE24" Language="ko_KR">
+      <Text>루사디르</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE25" Language="ko_KR">
+      <Text>아브데라</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE26" Language="ko_KR">
+      <Text>말라케</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE27" Language="ko_KR">
+      <Text>릴리바이움</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE28" Language="ko_KR">
+      <Text>출루</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE29" Language="ko_KR">
+      <Text>아람비스</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE3" Language="ko_KR">
+      <Text>하드루메툼</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE30" Language="ko_KR">
+      <Text>메닉스</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE4" Language="ko_KR">
+      <Text>힙포</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE5" Language="ko_KR">
+      <Text>모티아</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE6" Language="ko_KR">
+      <Text>테나이</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE7" Language="ko_KR">
+      <Text>렙티스</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE8" Language="ko_KR">
+      <Text>차브라탄</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_CARTHAGE9" Language="ko_KR">
+      <Text>말레스</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_1" Language="ko_KR">
+      <Text>아리샤트</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_10" Language="ko_KR">
+      <Text>지압콧</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_2" Language="ko_KR">
+      <Text>시폰바알</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_3" Language="ko_KR">
+      <Text>바트바알</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_4" Language="ko_KR">
+      <Text>바트노암</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_5" Language="ko_KR">
+      <Text>무툰바알</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_6" Language="ko_KR">
+      <Text>움마슈타르트</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_7" Language="ko_KR">
+      <Text>한비</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_8" Language="ko_KR">
+      <Text>아모아슈타르트</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_FEMALE_9" Language="ko_KR">
+      <Text>이제벨</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_1" Language="ko_KR">
+      <Text>하밀카르</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_10" Language="ko_KR">
+      <Text>보밀카르</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_2" Language="ko_KR">
+      <Text>한노</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_3" Language="ko_KR">
+      <Text>마고</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_4" Language="ko_KR">
+      <Text>하스드루발</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_5" Language="ko_KR">
+      <Text>기스고</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_6" Language="ko_KR">
+      <Text>보도</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_7" Language="ko_KR">
+      <Text>아자르바알</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_8" Language="ko_KR">
+      <Text>보스타르</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_CARTHAGE_MALE_9" Language="ko_KR">
+      <Text>마탄바알</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_CARTHAGE_ADJECTIVE" Language="ko_KR">
+      <Text>카르타고의</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_CARTHAGE_FULLNAME" Language="ko_KR">
+      <Text>카르타고 제국</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_CARTHAGE_NAME" Language="ko_KR">
+      <Text>카르타고</Text>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_ANTIQUITY_4_MAJOR_CARTHAGE_NAME" Language="ko_KR">
+      <Text>파이스토스</Text>
+      <Gender>neuter:vowel</Gender>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_ANTIQUITY_4_MINOR_CARTHAGE_NAME" Language="ko_KR">
+      <Text>미노스</Text>
+      <Gender>neuter:vowel</Gender>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_COTHON_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>코톤은 카르타고 항만의 내항으로서 카르타고 해군의 근거지였습니다. 비슷한 모양의 그리스 술잔에서 이름을 따온 코톤은 완전한 인공 구조물로, 가운데에 섬이 있는 원형의 항구였습니다. 안쪽과 바깥쪽 해안에 선박 정비창이 늘어서 있었고, 그 위에는 보급품으로 가득 찬 창고가 있었습니다. 고전 시대의 자료에 따르면 코톤은 최대 220척의 배를 수용할 수 있었다고 하지만, 고고학 발굴 결과 실제로는 170척에 가까웠을 것으로 추정됩니다. 코톤은 독특한 외관으로 고대 카르타고를 대표하는 상징이 되었지만, 정작 제2차 포에니 전쟁 직후의 상당히 늦은 시기에 건설되었으며, 이후 50년도 채 되지 않아 카르타고는 멸망하고 맙니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_DOCKYARD_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>카르타고에는 군사용 항만과 민간인용 항만까지 두 개의 항만이 있었으며, 카르타고의 부유함을 책임진 경제적 관문 역할을 한 것은 후자인 상업 기지창이였습니다. 이 직사각형의 인공 항구에서 카르타고인들은 무역선의 화물을 하역하고 선적하며 세금을 징수했습니다. 또한, 이곳은 가깝고 먼 식민지에서 온 공물이 모이는 장소이기도 했습니다. 제2차 포에니 전쟁 이후 대대적인 개수를 거쳤음에도 불구하고, 상업항의 면적은 7헥타르(70,000제곱미터)에 불과했으며 성벽 바깥 바다로 뻗어나간 나무 부두가 부족한 공간을 보완했습니다.  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>기원전 12세기에 발생한 청동기 시대의 붕괴로 인해 지중해와 근동 지역의 많은 문명이 마비되었습니다. 기후 변화, 기술적 불균형, 침략 등의 요인이 복합적으로 작용하여 중앙 집중화된 정부를 좀먹었고, 그 결과 제국이 붕괴했습니다. 사람들은 시가지 마을에서 소규모 농촌 정착지로 옮겨갔습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_10" Language="ko_KR">
+      <Text>3세기 무렵, 로마는 그리스를 제치고 카르타고의 주요 라이벌로 부상했습니다. 시칠리아는 다시금 화약고 역할을 하여 기원전 264년에 제1차 포에니 전쟁이 발발했습니다. 로마는 20여 년에 걸친 전쟁 끝에 승리했으며, 카르타고는 시칠리아의 모든 영토를 잃고 내부적으로는 새롭게 일어난 용병의 반란을 처리해야 했습니다. 하지만 기원전 218년에 다시 전쟁이 발발했습니다. 제2차 포에니 전쟁에서 카르타고의 명장 한니발은 군대를 이끌고 육로로 골을 거쳐 알프스를 넘은 뒤 북쪽에서 로마를 공격했습니다. 한니발은 칸나이 전투에서 로마 대군을 격파했지만, 지원군이 부족해 로마를 정복하지는 못했습니다. 로마는 이탈리아와 스페인에서 카르타고군을 몰아내는 데 성공하고 다시금 승리를 거두며 서부 지중해 지역의 지배 세력으로 부상했습니다. 카르타고는 모든 해외 영토를 빼앗겼으며, 해군은 단 10척의 전함으로 축소되었습니다. 사실상 로마의 속국이 된 것입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_11" Language="ko_KR">
+      <Text>카르타고는 전쟁을 치를 수도 없게 되었습니다. 50년 후, 카르타고는 이 규칙을 어기고 누미디아의 영토 침공에 보복하기 위해 군대를 동원했습니다. 로마인들은 카르타고와 누미디아의 분쟁에는 관심이 없었지만, 제2차 포에니 전쟁의 상처는 깊었습니다. 정치적 관계에서 우위에 있었음에도 로마는 무역과 농업이라는 전통적인 방식을 통해 경제력을 재건하기 시작한 카르타고를 끊임없이 의심했습니다. 대 카토는 원로원에서 연설할 때마다 '케테룸 아우템 켄세오 카르타기넴 에세 델렌담(Ceterum autem censeo Carthaginem esse delendam, 더욱이 나는 카르타고를 멸망시켜야 한다고 생각합니다)'이라는 말로 연설을 마무리한 것으로 유명합니다. 누미디아를 상대하기 위한 카르타고의 군대 동원은 로마가 기다리던 카수스 벨리(casus belli, 개전 이유)를 제공했습니다. 전쟁이 선포되었고 도시는 포위되었으며 카르타고는 폐허가 되었습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_2" Language="ko_KR">
+      <Text>하지만 모든 문명이 암흑 속으로 사라진 것은 아닙니다. 페니키아 도시 국가는 레반트 해안 정착지를 정복한 이집트의 기록에서 처음 언급된 이후 적어도 2세기 동안 부흥을 거듭했습니다. 페니키아는 유럽, 북아프리카, 아시아 간의 접촉을 촉진하는 무역 중심지가 되었지만, 이 지역의 경제력을 장악하려는 제국들에 어려움을 겪었습니다. 청동기 시대의 붕괴 이후, 이러한 강대국들은 쇠약해지거나 몰락했으며 페니키아에 대한 영향력도 사라졌습니다. 이제 진정한 독립을 이룬 페니키아는 본격적으로 번영하기 시작했고, 권력의 공백을 메우며 곧 지중해 전역의 무역을 지배하기 시작했습니다. 페니키아는 유럽과 북아프리카 해안을 따라 모로코와 스페인까지 이르는 지중해 전역에 식민지를 건설하기 시작했고, 좋은 입지의 자연항과 현지 시장 접근성, 인근 자원의 제어권을 확보하기 위해 노력했습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_3" Language="ko_KR">
+      <Text>기원전 814년경, 티레에서 온 한 무리의 식민지 개척자가 지금은 튀니지가 된 튀니스만에 도착했습니다. 이곳은 새 정착지로 이상적인 곳이었습니다. 방어에 유리한 언덕이 폭풍우를 피할 수 있는 항만을 내려다보고 있었으며, 이 항구는 지중해 무역의 병목 지점인 시칠리아 해협과도 가까웠기 때문입니다. 티레인들은 재빨리 식민지를 건설하기 시작했고, 이 도시를 새로운 도시라는 뜻의 '카르타하다스트(qrt-ḥdšt)'라고 명명했습니다. 이곳이 바로 오늘날 카르타고라고 부르는 곳입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_4" Language="ko_KR">
+      <Text>카르타고의 건국에 관한 이 평범한 이야기는 후대의 자료에서 전해지는 전설과는 다릅니다. 더 흥미로운 버전에서는 유산을 빼앗고 남편까지 살해한, 오빠 피그말리온에게서 달아난 티레의 여왕 디도(엘리사)의 이야기가 나옵니다. 북아프리카에 도착한 그녀는 현지 베르베르 족장과 소 한 마리의 가죽으로 덮을 만큼의 땅을 주겠다는 협정을 맺습니다. 디도는 소가죽을 실처럼 길게 잘라 언덕 전체를 감쌌고, 이 땅은 향후 그녀의 도시가 되었습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_5" Language="ko_KR">
+      <Text>카르타고는 기원전 4세기에 알렉산드로스 대왕이 레반트를 정복할 때까지 수 세기 동안 작은 식민지로 존재했습니다. 기원전 332년, 알렉산더 대왕은 티레를 약탈하여 페니키아 세력의 중추를 파괴하고 티레 난민을 흩어놓았습니다. 이들 중 다수가 카르타고에 정착했으며, 티레의 함락으로 인해 인구가 급격하게 유입되면서 카르타고는 지중해의 새로운 권력과 부의 중심지로 급부상했습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_6" Language="ko_KR">
+      <Text>카르타고의 부는 주로 무역과 공물, 세금에서 나왔습니다. 성벽 안에서 권력을 강화하기만 한 다른 페니키아 도시 국가들과 달리 카르타고인들은 영토 정복을 통해 국경을 확장하는 정책을 추구했습니다. 카르타고는 강력한 해군을 주축으로 삼아 이웃 누미디아 왕국의 군대와 함께 다른 페니키아 식민지를 정복하고 지중해 양쪽의 새로운 영토를 정복했습니다. 카르타고가 팽창주의 정책을 추구한 이유에 관해서는 다양한 이론이 존재하며, 개중에는 그리스와 로마와의 무역 경쟁에 맞서 우위를 점해야 할 필요성이나 카르타고 정부 내 군사 지도자들의 세력이 강해진 것 등이 있습니다. 이유가 무엇이든 카르타고는 일반적으로 새로운 영토를 직접 지배하기보다는 정착지와 식민지에서 공물을 징수하고 무역 거점으로 활용하는 헤게모니적인 접근 방식을 선호했습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_7" Language="ko_KR">
+      <Text>카르타고의 통치는 4세기에 이르러 군주제에서 공화정으로 발전했습니다. 그 정점에는 가장 강력한 가문에서 선출된 두 명의 수페트(판관)가 있었습니다. 수페트는 200~300명으로 구성된 원로원과 함께 나라를 다스렸습니다. 민회에서는 수페트와 원로원이 제출한 법률과 정책에 투표했습니다. 시민 권력과 군사력은 분리되어 있었습니다. 즉, 장군은 선출되거나 임명되었고 이들은 정치 문제에 발언할 자격이 없었으며, 수페트 역시 군대를 통제할 권한이 없었습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_8" Language="ko_KR">
+      <Text>도시 자체는 바다가 내려다보이는 언덕 꼭대기 위의 성채, 비르사가 지배하고 있었습니다. 언덕 아래쪽에는 거주 구역 네 곳과 큰 항구가 있었습니다. 시가지 마을 너머에는 농경지가 있었는데, 농업에 정통했던 카르타고는 다양한 작물을 재배하는 데 성공하여 도시에 식량을 공급하고 수출하기에 충분한 양의 잉여 작물을 확보했습니다. 카르타고의 농업 지식은 매우 중요한 취급을 받았습니다. 도시가 멸망한 후에도 살아남은 저서 중 하나가 작가 마고의 농업 논문이었을 정도였습니다. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_CARTHAGE_CHAPTER_HISTORY_PARA_9" Language="ko_KR">
+      <Text>카르타고의 확장에 저항이 아예 없었던 것은 아닙니다. 맨 처음에는 그리스와 큰 충돌을 일으켰습니다. 카르타고가 작은 식민지에서 유명한 도시로 성장하기 전부터 그리스는 페니키아의 주요 경쟁자였으며, 페니키아의 지중해 무역 독점권을 서서히 잠식하고 있었습니다. 카르타고가 발전하면서 이러한 마찰은 새로운 도시 카르타하다스트(qrt-ḥdšt)로 옮겨왔고, 곧 두 제국은 격렬하게 대립하게 되었습니다. 480년부터 카르타고는 시칠리아의 지배권을 놓고 그리스와 연이어 전쟁을 벌였습니다. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_CARTHAGE_RED_SLIP_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>그 신과 의식 등, 카르타고 종교에 관한 온전한 정보는 사라지고 신뢰할 수 없는 자료 뒤에 숨겨져 있지만, 도시와 식민지에 널리 퍼져 있던 타니트 여신은 살아남았습니다. 지혜, 다산, 모성의 여신인 타니트는 배우자인 바알 함몬과 함께 카르타고의 주요 신 중 하나였습니다. 타니트는 포에니 만신전에 뒤늦게 등장한 신입니다. 바알 함몬은 페니키아와 그 너머 지역에 뿌리를 둔 반면, 타니트는 기원전 5세기경에 베르베르 지방의 신앙을 통해 등장한 것으로 추정되며, 뒤늦게 등장했음에도 카르타고에서 곧 그 배우자인 바알 함몬보다 더 중요하고 존경받는 신이 되었습니다. 타니트에 대한 숭배 의식 중에는 신성한 성소인 토페트에서의 인신 공양도 있었던 것 같지만, 카르타고에서 그러한 의식을 어느 정도까지 실행했는지는 논란의 여지가 있습니다. 이 게임에서 카르타고를 나타내는 데 사용된 것과 동일한 그녀의 상징은 석조 조각과 모자이크에서 흔히 볼 수 있으며, 후대에는 사자 머리를 한 날개 달린 존재로 묘사되었습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_CARTHAGE_SHIPSHEDS_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>카르타고는 경제력과 군사력을 선박에 의존했습니다. 따라서 이러한 선박의 유지보수는 성공에 무엇보다도 중요한 요소였습니다. 지중해 안팎을 항해하는 동안 폭풍으로 손상되거나, 늑재가 침수되어 속도가 떨어지고 선체가 썩거나, 탐욕스러운 해양 생물이 목재를 갉아 먹는 등, 목조 선박은 상당히 많이 마모되고 손상되었습니다. 하지만 크고 무거운 배를 육지로 끌어올려 건조 및 보관하고 수리하는 건 어렵고 시간이 오래 걸렸으며, 끊임없이 날씨의 위험에 노출되었습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_CARTHAGE_SHIPSHEDS_CHAPTER_HISTORY_PARA_2" Language="ko_KR">
+      <Text>이러한 문제를 해결하기 위해 카르타고는 선단을 보관할 선박 정비창을 건설했습니다. 선박 정비창은 물가에 건설된, 지붕이 있는 조선대로서 비바람을 피할 수 있는 드라이 독으로 빠르고 쉽게 이동할 수 있는 시설이었습니다. 선박 정비창에서는 선박을 수리한 다음 신속하게 재배치할 수 있었으며, 선박의 가동 중단 시간을 줄이고 유지보수 빈도를 높여 카르타고의 해군과 상선 선단을 최상의 상태로 유지할 수 있었습니다. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_AQ_CARTHAGE_SICILIAN_WARS_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>카르타고는 페니키아의 뒤를 이어 지중해 교역로의 주인이 되었습니다. 하지만 이에 도전하는 세력이 많았습니다. 카르타고의 첫 번째 주요 라이벌은 강력한 해군력을 지닌 그리스 도시 국가들로, 지중해 교역로의 패권을 두고 경쟁을 이어갔습니다. 이들의 주요 쟁점은 지중해를 사실상 반으로 나누고 있는 동시에 고대 지중해 지배에 핵심적인 역할을 했던 시칠리아섬이었습니다. 카르타고와 그리스는 기원전 480년부터 306년까지 시칠리아섬의 지배권을 놓고 여러 차례 전쟁을 벌였고, 그 과정에서 두 세력은 시칠리아섬의 지배권을 계속 얻고 빼앗았습니다. 로마가 그리스의 세력을 압도하고 그리스가 점령한 시칠리아가 로마에 귀속되자, 시칠리아 전쟁의 불길은 사그라들었습니다. 하지만 카르타고의 새로운 경쟁자가 등장하면서 시칠리아를 두고 다시 한번 포에니 전쟁이 시작되는 등, 새로운 갈등에 불이 붙었습니다. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_QUARTER_PUNIC_PORT_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>해상 경제 대국으로서 카르타고의 성공과 생존은 항만에 달려 있었습니다. 이 놀라운 구조물은 외부의 상업 기지창과 내부의 전함을 위한 코톤으로 구성되었습니다. 이 모든 것은 기원전 200년경 약 235,000㎥의 흙을 습지에서 파낸 끝에 발굴되었습니다. 이 항구는 사암으로 된 마름돌 벽돌로 지어졌으며, 거대한 벽으로 외부를 대부분 가렸고, 외항과 내항으로 통하는 좁은 입구는 거대한 철제 쇠사슬로 막았습니다. 제3차 포에니 전쟁 당시 로마가 카르타고를 정복했을 때 이 항구는 가장 먼저 파괴되었습니다. 하지만 카르타고 항구의 흔적은 튀니지 해안에 잘 남아 있으며, 이야말로 얼마 없는 카르타고 시절 영광의 흔적입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_COLONIST_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>카르타고는 페니키아의 식민지, 즉, 지중해 전역의 무역을 촉진하고 통제하기 위해 세워진 작은 해안 전초기지로 시작되었습니다. 도시이자 독립 세력의 중심지로 성장한 카르타고는 페니키아와 같은 방식으로 제국의 동력을 땅이 아닌 식민지에 의존하여 영향력과 세력을 확장했습니다. 카르타고의 역사를 적대적으로 바라보는 로마의 기록 때문에 이러한 확장 방식은 역사적으로 공격적, 제국주의적이라는 딱지가 붙었지만, 최근의 조사에 따르면 초기에는 서부 해안선을 따라 있는 기존 페니키아 정착지를 장악하고 강화하며 세력을 통합하는 데 집중했으며, 직접적인 영토 점령은 그 이후의 일인 것으로 나타났습니다. 이 후기 단계에서 카르타고는 자국 선단을 위한 무역 거점이자 창고, 안전한 항만 역할을 하는 정착지를 건설하기 위해 지중해 전역과 그 너머까지 식민지 개척자들을 파견했습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_NUMIDIAN_CAVALRY_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>카르타고의 힘은 교역로와 작은 해안 식민지에서 비롯되었기에 도시 자체와 카르타고 경제 제국의 인구는 많지 않았습니다. 카르타고는 전시에 군대를 충원하기 위해 이웃 누미디아에서 용병을 고용했습니다. 이 베르베르 전사들은 가벼운 무장을 하고 작고 빠른 말을 탄 채 달리며 투창을 휘둘렀고, 빠르고 민첩하여 적을 무자비하게 공격할 수 있었습니다. 제2차 포에니 전쟁 동안 카르타고는 누미디아 기병을 광범위하게 활용했으며, 이들은 한니발이 이탈리아를 침공할 때, 북아프리카에서 로마의 침략에 맞설 때 커다란 전과를 거두었습니다. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_BYRSA_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>카르타고 중심부의 언덕 꼭대기에는 비르사 성채가 카르타고를 지켜보고 있었습니다. 그 이름의 정확한 기원은 알기 어려운데, 디도의 전설에 따르면 디도가 카르타고가 될 땅을 획득한 수단인 소가죽을 뜻하는 그리스어 '비르사(byrsa)'에서 비롯되었다는 설이 있습니다. 그러나 이는 요새를 뜻하는 페니키아어 '바르사트(barsat)'의 변형일 가능성이 더 큽니다. 비르사는 카르타고 군대의 심장부였으며, 성채와 똑같이 비르사라고 불리는 이 언덕에는 주요 정치 및 종교 기관들도 있었습니다. 카르타고가 함락된 후 로마와 반달족, 비잔틴 등이 이 성벽으로 둘러싸인 성채를 재사용했습니다. 오늘날 이곳은 주요 고고학 유적지입니다.  </Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_COTHON_NAME" Language="ko_KR">
+      <Text>코톤</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_DOCKYARD_NAME" Language="ko_KR">
+      <Text>기지창</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_PUNIC_PORT_NAME" Language="ko_KR">
+      <Text>포에니 항구</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BYRSA_NAME" Language="ko_KR">
+      <Text>비르사</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_MEDJERDA_NAME" Language="ko_KR">
+      <Text>메제르다강</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_MILIANE_NAME" Language="ko_KR">
+      <Text>밀리안강</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SEJENANE_NAME" Language="ko_KR">
+      <Text>세제난강</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_SILIANA_NAME" Language="ko_KR">
+      <Text>실리아나강</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_TESSA_NAME" Language="ko_KR">
+      <Text>테사강</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_EMI_KOUSSI_NAME" Language="ko_KR">
+      <Text>에미쿠시산</Text>
+      <Gender>neuter</Gender>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_HARUJ_NAME" Language="ko_KR">
+      <Text>하루즈</Text>
+      <Gender>neuter:vowel</Gender>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_JEBEL_TOUBKAL_NAME" Language="ko_KR">
+      <Text>제벨투브칼산</Text>
+      <Gender>neuter</Gender>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_PANTELLERIA_NAME" Language="ko_KR">
+      <Text>판텔레리아</Text>
+      <Gender>neuter:vowel</Gender>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_WAW_AN_NAMUS_NAME" Language="ko_KR">
+      <Text>와우 안 나무스</Text>
+      <Gender>neuter:vowel</Gender>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_RED_SLIP_NAME" Language="ko_KR">
+      <Text>타니트의 지혜</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SHIPSHEDS_NAME" Language="ko_KR">
+      <Text>선박 정비창</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SICILIAN_WARS_NAME" Language="ko_KR">
+      <Text>시칠리아 전쟁</Text>
+    </Replace>
+    <Replace Tag="LOC_11000A_COMPLETION" Language="ko_KR">
+      <Text>새로운 정착지가 사람들로 북적이면서 카르타고의 영향력이 도시 성벽 너머로 뻗어 나가자, 세계는 숨 막히게 아름다운 보라색을 갈망합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11000A_STORYTITLE" Language="ko_KR">
+      <Text>번영의 색</Text>
+    </Replace>
+    <Replace Tag="LOC_11000B_DESCRIPTION" Language="ko_KR">
+      <Text>정찰병에 {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11000B_NAME" Language="ko_KR">
+      <Text>카르타고의 영향력이 어디까지 미칠 수 있는지 알아봅니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11000C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11000C_NAME" Language="ko_KR">
+      <Text>카르타고의 것을 보호합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11001A_COMPLETION" Language="ko_KR">
+      <Text>무역선의 돛이 바람에 부풀어 오르며 머나먼 땅의 풍요로움을 찾아 떠나는 새 무리처럼 카르타고의 항구를 떠나갑니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11001A_STORYTITLE" Language="ko_KR">
+      <Text>순풍</Text>
+    </Replace>
+    <Replace Tag="LOC_11001B_DESCRIPTION" Language="ko_KR">
+      <Text>상인에 {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11001B_NAME" Language="ko_KR">
+      <Text>무역의 바람을 재촉합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11001C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11001C_NAME" Language="ko_KR">
+      <Text>카르타고의 위대함을 다룬 이야기를 실어 보냅니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11002A_COMPLETION" Language="ko_KR">
+      <Text>카르타고의 항구들은 머나먼 거리를 넘어 쇠사슬처럼 제국을 연결합니다. 부는 안쪽으로 흐르고, 힘은 바깥으로 뻗어 나갑니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11002A_STORYTITLE" Language="ko_KR">
+      <Text>끊을 수 없는 유대</Text>
+    </Replace>
+    <Replace Tag="LOC_11002B_DESCRIPTION" Language="ko_KR">
+      <Text>기념 행사가 시작됩니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11002B_NAME" Language="ko_KR">
+      <Text>와인이 흐르게 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11002C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_capital}에 인구 +1</Text>
+    </Replace>
+    <Replace Tag="LOC_11002C_NAME" Language="ko_KR">
+      <Text>항구의 매력을 다룬 이야기를 퍼뜨립니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11003A_COMPLETION" Language="ko_KR">
+      <Text>어디에 가든 장대한 풍경이 카르타고인을 둘러싸고 있지만, 기본적인 쾌적도와 기반 시설이 부족하다고 한탄합니다. 놀라운 불가사의를 제대로 감상할 수단이 부족한데, 불가사의가 다 무슨 소용일까요?</Text>
+    </Replace>
+    <Replace Tag="LOC_11003A_STORYTITLE" Language="ko_KR">
+      <Text>압도적인 경관</Text>
+    </Replace>
+    <Replace Tag="LOC_11003B_DESCRIPTION" Language="ko_KR">
+      <Text>교역로 범위 +3.</Text>
+    </Replace>
+    <Replace Tag="LOC_11003B_NAME" Language="ko_KR">
+      <Text>기반 시설은 다른 곳에서 조달해야 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11003C_DESCRIPTION" Language="ko_KR">
+      <Text>불가사의에 {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11003C_NAME" Language="ko_KR">
+      <Text>불가사의가 곧 기반 시설입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11004A_COMPLETION" Language="ko_KR">
+      <Text>로마인들에게는 그들의 선조였던 초라한 목동의 흔적이 남아 있지만, 그 흔적은 아주 미미합니다. 이제 저들의 야망은 자기들의 목초지를 넘어섰고 카르타고의 목초지까지 침범할 것입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11004A_STORYTITLE" Language="ko_KR">
+      <Text>초승달과 늑대</Text>
+    </Replace>
+    <Replace Tag="LOC_11004B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11004B_NAME" Language="ko_KR">
+      <Text>상호 합의가 항구적인 평화를 가져올 것입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11004C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11004C_NAME" Language="ko_KR">
+      <Text>카르타고는 방심하지 않습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11004D_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11004D_NAME" Language="ko_KR">
+      <Text>카르타고는 생각보다 많은 것을 로마와 공유합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11005A_COMPLETION" Language="ko_KR">
+      <Text>카푸트 문디, 세상의 머리가 불타고 있습니다. 빌라에서도, 집단 주택에서도 연기가 피어오르고 로마인과 카르타고인 모두 연기에 질식합니다. 많은 시민이 되는대로 짐을 챙겨 도망쳤습니다. 노인과 병자, 가난한 시민과 완고한 시민들이 남아 카르타고 군에게 자비를 간청합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11005A_STORYTITLE" Language="ko_KR">
+      <Text>몰락</Text>
+    </Replace>
+    <Replace Tag="LOC_11005B_DESCRIPTION" Language="ko_KR">
+      <Text>모든 전쟁에 전쟁 지원 +1.</Text>
+    </Replace>
+    <Replace Tag="LOC_11005B_NAME" Language="ko_KR">
+      <Text>모두 잿더미로 만들고 대지에 소금을 뿌립니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11005C_DESCRIPTION" Language="ko_KR">
+      <Text>모든 정착지의 인구 +1.</Text>
+    </Replace>
+    <Replace Tag="LOC_11005C_NAME" Language="ko_KR">
+      <Text>진정한 세상의 우두머리에게 이들을 데려갑니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11005D_DESCRIPTION" Language="ko_KR">
+      <Text>레벨이 제일 높은 사령관이 전선 고수 진급 획득.</Text>
+    </Replace>
+    <Replace Tag="LOC_11005D_NAME" Language="ko_KR">
+      <Text>그들 중 가장 용맹한 장군을 그대로 둡니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11006A_COMPLETION" Language="ko_KR">
+      <Text>로마와 카르타고 사절단은 양피지에 서명하면서 조심스럽게 서로를 경계합니다. 로마의 한 원로원 의원이 ''...델렌다 에스트'', 즉 카르타고는 멸망해야 한다고 웅얼거립니다. 어쨌거나 협상은 타결됩니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11006A_STORYTITLE" Language="ko_KR">
+      <Text>마지못한 동의</Text>
+    </Replace>
+    <Replace Tag="LOC_11006B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11006B_NAME" Language="ko_KR">
+      <Text>로마의 바다와 카르타고의 바다에 평화가 찾아올 것입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11006C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11006C_NAME" Language="ko_KR">
+      <Text>새로운 동맹은 새로운 아이디어를 낳습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11006D_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11006D_NAME" Language="ko_KR">
+      <Text>도시는 모두를 환영합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11007A_COMPLETION" Language="ko_KR">
+      <Text>조약이 체결되자마자 한 노련한 원로원 의원이 항의하기 시작합니다. 그는 주제와 상관없이 모든 회의에서 카르타고가 너무 번영했기 때문에 교역을 장악하고 로마를 괴롭히리라고 주장합니다. 그러므로 카르타고를 파괴해야 한다고 거듭 경고합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11007A_STORYTITLE" Language="ko_KR">
+      <Text>델렌다 에스트</Text>
+    </Replace>
+    <Replace Tag="LOC_11007B_DESCRIPTION" Language="ko_KR">
+      <Text>마을에 {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11007B_NAME" Language="ko_KR">
+      <Text>교외의 시민들은 이 조약으로 고통이 아닌 혜택을 받을 것입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11007C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_capital}의 자원 수용량 +1.</Text>
+    </Replace>
+    <Replace Tag="LOC_11007C_NAME" Language="ko_KR">
+      <Text>동맹이 주는 이익이 너무 커서 쉽게 포기할 수 없습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11007D_DESCRIPTION" Language="ko_KR">
+      <Text>마을에 {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11007D_NAME" Language="ko_KR">
+      <Text>낡은 사고방식에 얽매인 늙은 괴짜라고 비난합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11008A_COMPLETION" Language="ko_KR">
+      <Text>궁전부터 항구에 이르기까지, 카르타고는 단 한 치의 땅도 낭비하지 않습니다. 세계에서 가장 번영한 도시의 거리에서 카르타고 사람들이 활기차게 생활합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11008A_STORYTITLE" Language="ko_KR">
+      <Text>진정한 부</Text>
+    </Replace>
+    <Replace Tag="LOC_11008B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_capital}의 전문가 한도 +1.</Text>
+    </Replace>
+    <Replace Tag="LOC_11008B_NAME" Language="ko_KR">
+      <Text>카르타고는 위대함이 탄생한 곳입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11008C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11008C_NAME" Language="ko_KR">
+      <Text>카르타고는 불가침의 도시로 남을 것입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11009A_COMPLETION" Language="ko_KR">
+      <Text>누미디아인들이 계약 조건에 만족하며 고개를 끄덕입니다. 누미디아 기병은 카르타고에 충성할 의무는 없지만, 보급만 된다면 어디든 명령받은 곳으로 달려갈 것입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11009A_STORYTITLE" Language="ko_KR">
+      <Text>금으로 산 강철</Text>
+    </Replace>
+    <Replace Tag="LOC_11009B_DESCRIPTION" Language="ko_KR">
+      <Text>누미디아 기병에 {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11009B_NAME" Language="ko_KR">
+      <Text>그들은 자비를 보이지 말아야 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11009C_DESCRIPTION" Language="ko_KR">
+      <Text>누미디아 기병에 {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11009C_NAME" Language="ko_KR">
+      <Text>기강이 해이해지는 것은 용납할 수 없습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11009D_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11009D_NAME" Language="ko_KR">
+      <Text>계약을 재협상합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11064A_COMPLETION" Language="ko_KR">
+      <Text>보수를 받지 못한 누미디아인들이 투덜거립니다. 그들은 카르타고가 아니라 자기 배를 채우기 위해 싸웁니다. 하지만 카르타고는 전에도 관대했으니, 이번에도 그럴지 모릅니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11064A_STORYTITLE" Language="ko_KR">
+      <Text>파기된 계약</Text>
+    </Replace>
+    <Replace Tag="LOC_11064B_DESCRIPTION" Language="ko_KR">
+      <Text>생산력 건물에 {1_reward}, 하지만 {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11064B_NAME" Language="ko_KR">
+      <Text>계약을 이행하기 위해 세금을 인상합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11064C_DESCRIPTION" Language="ko_KR">
+      <Text>누미디아 기병에 {1_reward}, 하지만 {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11064C_NAME" Language="ko_KR">
+      <Text>누미디아 기병은 주는 대로 받아야 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11065A_COMPLETION" Language="ko_KR">
+      <Text>적 함선의 선체가 박살이 나고 승무원들은 살길을 찾아 허우적댑니다. 지금도, 그리고 이후에도 카르타고의 해역은 안전하게 유지되며 시민들을 보호할 것입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11065A_STORYTITLE" Language="ko_KR">
+      <Text>안전한 항만</Text>
+    </Replace>
+    <Replace Tag="LOC_11065B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11065B_NAME" Language="ko_KR">
+      <Text>안전하다고 느끼는 가족들이 카르타고 성장의 원동력이 됩니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11065C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11065C_NAME" Language="ko_KR">
+      <Text>일꾼들은 안전 걱정을 하지 않아도 될 것입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11066A_COMPLETION" Language="ko_KR">
+      <Text>거대한 석벽이 해안에서 내륙의 가장자리까지 도시를 완전히 감쌉니다. 카르타고는 시민들을 지킵니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11066A_STORYTITLE" Language="ko_KR">
+      <Text>벽으로 둘러싸인 정원</Text>
+    </Replace>
+    <Replace Tag="LOC_11066B_DESCRIPTION" Language="ko_KR">
+      <Text>주둔군 유닛에 {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11066B_NAME" Language="ko_KR">
+      <Text>파수꾼에게 필요한 모든 것을 제공합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11066C_DESCRIPTION" Language="ko_KR">
+      <Text>무료로 고대 성벽을 구매합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11066C_NAME" Language="ko_KR">
+      <Text>석공을 징집하여 성벽을 확장합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11067A_COMPLETION" Language="ko_KR">
+      <Text>성벽을 쌓고 돛이 올라갈 때마다 카르타고의 이야기가 전 세계로 퍼져나갑니다. 그리고 그 누구도 의심하지 않을 것입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11067A_STORYTITLE" Language="ko_KR">
+      <Text>카르타고인</Text>
+    </Replace>
+    <Replace Tag="LOC_11067B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11067B_NAME" Language="ko_KR">
+      <Text>이 이야기는 부인할 수 없는 힘에 관한 이야기입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_11067C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11067C_NAME" Language="ko_KR">
+      <Text>이 이야기는 엄청난 부에 관한 이야기입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_12004A_COMPLETION" Language="ko_KR">
+      <Text>카르타고의 거리를 걷던 의사 리살은 바쁘게 움직이는 도시를 봅니다. 말을 탄 용병들은 발밑의 사람을 거의 신경 쓰지 않고, 항구에서는 거대한 배들이 오가며 도시에 활기를 더합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_12004A_STORYTITLE" Language="ko_KR">
+      <Text>카르타고로 간 의사</Text>
+    </Replace>
+    <Replace Tag="LOC_12004B_DESCRIPTION" Language="ko_KR">
+      <Text>갤리에 {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_12004B_NAME" Language="ko_KR">
+      <Text>배를 자세히 살펴봅니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_12004C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_12004C_NAME" Language="ko_KR">
+      <Text>말을 바라보며 경외감을 느낍니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1030_CARTHAGEB_IMPERATIVE" Language="ko_KR">
+      <Text>정원을 보유하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1030_CARTHAGEC_IMPERATIVE" Language="ko_KR">
+      <Text>기념비를 보유하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1031_CARTHAGEB_IMPERATIVE" Language="ko_KR">
+      <Text>학술원을 보유하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1040_CARTHAGEC_IMPERATIVE" Language="ko_KR">
+      <Text>도서관과 기념비를 보유하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1041_CARTHAGEB_IMPERATIVE" Language="ko_KR">
+      <Text>원형 극장을 보유하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1050_CARTHAGEC_IMPERATIVE" Language="ko_KR">
+      <Text>도서관을 보유하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1052_CARTHAGEB_IMPERATIVE" Language="ko_KR">
+      <Text>시장 1개, 교역로 2개를 보유하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1060_CARTHAGEC_IMPERATIVE" Language="ko_KR">
+      <Text>고문서로 도서관을 채우세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1062_CARTHAGEB_IMPERATIVE" Language="ko_KR">
+      <Text>학술원을 보유하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1070_CARTHAGEC_IMPERATIVE" Language="ko_KR">
+      <Text>정원을 보유하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1070_CARTHAGEF_IMPERATIVE" Language="ko_KR">
+      <Text>정원을 보유하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1072_CARTHAGEB_IMPERATIVE" Language="ko_KR">
+      <Text>학술원을 보유하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1072_CARTHAGED_IMPERATIVE" Language="ko_KR">
+      <Text>학술원을 보유하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1090_CARTHAGEC_IMPERATIVE" Language="ko_KR">
+      <Text>불가사의를 1개 건설하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1130_CARTHAGEB_IMPERATIVE" Language="ko_KR">
+      <Text>고문서로 도서관을 채우세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1140_CARTHAGEB_IMPERATIVE" Language="ko_KR">
+      <Text>정원과 시장을 보유하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1170_CARTHAGEC_IMPERATIVE" Language="ko_KR">
+      <Text>기념비를 1개 보유한 다음 기념 행사를 시작하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1172_CARTHAGEB_IMPERATIVE" Language="ko_KR">
+      <Text>학술원을 보유하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1180_CARTHAGEB_IMPERATIVE" Language="ko_KR">
+      <Text>기념비를 1개 보유한 다음 기념 행사를 시작하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1180_CARTHAGEE_IMPERATIVE" Language="ko_KR">
+      <Text>기념비를 1개 보유한 다음 기념 행사를 시작하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_COLONIST_DESCRIPTION" Language="ko_KR">
+      <Text>자원에 인접하여 정착하면 승선 이동력이 +1, 인구가 +1 증가합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_NUMIDIAN_CAVALRY_DESCRIPTION" Language="ko_KR">
+      <Text>수도에 할당된 각 특유 도시 자원마다 전투력이 +1 증가합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTR_TOTAL_TRADE_ROUTES" Language="ko_KR">
+      <Text>모든 교역로</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTR_YIELDS_FROM_NUM_TRADE_ROUTES" Language="ko_KR">
+      <Text>교역로 수</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_COTHON_DESCRIPTION" Language="ko_KR">
+      <Text>[icon:YIELD_PRODUCTION] 생산력이 +2 증가합니다. 해안, 깊은 강 및 불가사의 인접 시 [icon:YIELD_PRODUCTION] 생산력이 +1 증가합니다. 카르타고 특유 생산력 건물입니다. 시대를 초월합니다. 마을에서 구매할 수 있습니다. 해안에 배치해야 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_COTHON_TOOLTIP" Language="ko_KR">
+      <Text>카르타고 특유 생산력 건물입니다. 시대를 초월합니다. 마을에서 구매할 수 있습니다. 해안에 배치해야 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_DOCKYARD_DESCRIPTION" Language="ko_KR">
+      <Text>[icon:YIELD_GOLD] 금이 +2 증가합니다. 자원, 특수지구 및 불가사의 인접 시 [icon:YIELD_FOOD] 식량이 +1 증가합니다. 카르타고 특유 금 건물입니다. 시대를 초월합니다. 마을에서 구매할 수 있습니다. 해안에 배치해야 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_DOCKYARD_TOOLTIP" Language="ko_KR">
+      <Text>카르타고 특유 금 건물입니다. 시대를 초월합니다. 마을에서 구매할 수 있습니다. 해안에 배치해야 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_RED_SLIP_AUTHOR" Language="ko_KR">
+      <Text>마고</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_RED_SLIP_QUOTE" Language="ko_KR">
+      <Text>''시가지에서 거주하는 게 더 즐거운 자에게 교외 농장은 필요하지 않으리.''</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SHIPSHEDS_AUTHOR" Language="ko_KR">
+      <Text>항해자 한노</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SHIPSHEDS_QUOTE" Language="ko_KR">
+      <Text>''우리는 화염과 향기로 불타며 바다로 불줄기가 떨어지는 나라를 재빨리 항해하여 지나갔다.''</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SICILIAN_WARS_AUTHOR" Language="ko_KR">
+      <Text>디오도로스 시켈로스</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SICILIAN_WARS_QUOTE" Language="ko_KR">
+      <Text>''카르타고인은 사로잡은 선단을 보여주며 이들이 이룩한 성과가 얼마나 위대한지 눈으로 보고 귀로 듣게 하였다.''</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_CARTHAGE_DESCRIPTION" Language="ko_KR">
+      <Text>도시를 1개만 보유할 수 있습니다. 마을에서 도시로 전환을 사용할 수 없습니다. 상인 또는 식민지 개척자를 구매하거나 양성할 때마다 두 번째 상인 또는 식민지 개척자를 받습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_CARTHAGE" Language="ko_KR">
+      <Text>코톤의 쉼터에서 배들이 탐험을 준비합니다. 일부는 금과 상아를 사들이기 위해 도자기와 곡물을, 다른 배에는 다른 방법으로 돈을 벌 준비가 된 병사들이 있습니다. 이들은 모두 세계의 중심, 카르타고로 돌아갈 것입니다. 코톤의 관문을 여십시오. 그리고 수많은 보물을 싣고 도시로 돌아온 배를 맞이하십시오.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_CARTHAGE" Language="ko_KR">
+      <Text>마을에서 포에니 항구 특유 구역을 구입해 자원 수용량을 늘릴 수 있습니다. 이는 이후 시대에도 지속되므로 장기적으로 강력한 이점을 누릴 수 있습니다!</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_INTRO_CARTHAGE" Language="ko_KR">
+      <Text>티레의 자손들이 운명을 쟁취하기 위해 먼 곳에서 왔습니다. 그들은 세계 가운데에서 누구도 넘볼 수 없는 제국을 통치하게 될 것입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_CARTHAGE_COMPLETE_BYRSA_DESC" Language="ko_KR">
+      <Text>카르타고로 비르사를 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_CARTHAGE_COMPLETE_BYRSA_NAME" Language="ko_KR">
+      <Text>비르사</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_CARTHAGE_LEGACY_PATH_MILITARISTIC_DESC" Language="ko_KR">
+      <Text>카르타고로 군사 유산의 길을 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_CARTHAGE_LEGACY_PATH_MILITARISTIC_NAME" Language="ko_KR">
+      <Text>카르타고 유산의 길</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_CARTHAGE_DESCRIPTION" Language="ko_KR">
+      <Text>카르타고와 관련된 불가사의이므로 [icon:YIELD_PRODUCTION] 생산력이 +30% 증가합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_RED_SLIP_RESOURCE_CAP_DESCRIPTION" Language="ko_KR">
+      <Text>수도에 할당할 수 있는 자원 수가 3 증가합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_RED_SLIP_TRADE_GOLD_DESCRIPTION" Language="ko_KR">
+      <Text>해상 교역로 범위가 +15 증가합니다. 수도에서 출발하는 교역로마다 수도의 [icon:YIELD_GOLD] 금이 +3 증가합니다. </Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SHIPSHEDS_NAVAL_MOVEMENT_DESCRIPTION" Language="ko_KR">
+      <Text>해상 유닛 이동력 +1</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SHIPSHEDS_NAVAL_RANGE_DESCRIPTION" Language="ko_KR">
+      <Text>해상 유닛 사정거리 +1</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SICILIAN_WARS_MOVEMENT_NUMIDIAN_CAVALRY_DESCRIPTION" Language="ko_KR">
+      <Text>누미디아 기병 이동력 및 시야 +1</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SICILIAN_WARS_SETTLEMENT_CAP_DESCRIPTION" Language="ko_KR">
+      <Text>정착지 한도가 +2 증가합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SICILIAN_WARS_TOWN_PROJECT_DESCRIPTION" Language="ko_KR">
+      <Text>교역 거점 마을 집중을 채택한 마을 내 시청의 고문서 슬롯이 +1 증가합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_PUNIC_PORT_DESCRIPTION" Language="ko_KR">
+      <Text>카르타고 특유 구역입니다. 하나의 특수지구에 코톤과 기지창을 지으면 생성됩니다. 이 정착지에 할당할 수 있는 [icon:NOTIFICATION_DISCOVER_RESOURCE] 자원 수가 2 증가합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_PUNIC_PORT_TOOLTIP" Language="ko_KR">
+      <Text>이 정착지에 할당할 수 있는 [icon:NOTIFICATION_DISCOVER_RESOURCE] 자원 수가 2 증가합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_BYRSA" Language="ko_KR">
+      <Text>레오 아프리카누스</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_BYRSA" Language="ko_KR">
+      <Text>특정한 도시 벽의 폐허는 오늘날에도 볼 수 있다.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_GAULOS_DESCRIPTION" Language="ko_KR">
+      <Text>해안이나 깊은 강에 있는 건물 구매 시 [icon:YIELD_GOLD] 금 효율을 +25% 제공합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_QUINQUEREME_DESCRIPTION" Language="ko_KR">
+      <Text>해상 유닛 구매 시 [icon:YIELD_GOLD] 금 효율을 +25% 제공하고, 해상 유닛 유지에 드는 [icon:YIELD_GOLD] 금 비용이 -1 감소합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_SUFFETES_DESCRIPTION" Language="ko_KR">
+      <Text>광업 마을의 [icon:YIELD_GOLD] 금이 +20% 증가합니다. 어업 마을 또는 농업 마을의 [icon:YIELD_FOOD] 식량이 +20% 증가합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_CARTHAGE_ABILITY_DESCRIPTION" Language="ko_KR">
+      <Text>[BLIST][LI]도시를 1개만 보유할 수 있습니다. 마을에서 [B]도시로 전환[/B]을 사용할 수 없습니다.[LI]상인 또는 식민지 개척자를 구매하거나 양성할 때마다 두 번째 [B]상인[/B] 또는 [B]식민지 개척자[/B]를 받습니다.[LI][B]비르사[/B] 건설 시 [B][icon:YIELD_PRODUCTION] 생산력 효율을 +30%[/B] 제공합니다.[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_CARTHAGE_ABILITY_NAME" Language="ko_KR">
+      <Text>페니키아의 유산</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_AQ_CARTHAGE_NAME" Language="ko_KR">
+      <Text>카르타고 사회 제도</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_COLONIST_DESCRIPTION" Language="ko_KR">
+      <Text>카르타고 특유 개척자입니다. 자원에 인접하여 정착하면 승선 이동력이 +1, 인구가 +1 증가합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_NUMIDIAN_CAVALRY_2_DESCRIPTION" Language="ko_KR">
+      <Text>카르타고 특유 3티어 기병 유닛입니다. 구매만 가능하며 더 비쌉니다. 수도에 할당된 각 특유 도시 자원마다 전투력이 +1 증가합니다. 통제 지역을 무시합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_NUMIDIAN_CAVALRY_BASE_DESCRIPTION" Language="ko_KR">
+      <Text>카르타고 특유 기병 유닛입니다. 구매만 가능하며 더 비쌉니다. 수도에 할당된 각 특유 도시 자원마다 전투력이 +1 증가합니다. 통제 지역을 무시합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_NUMIDIAN_CAVALRY_DESCRIPTION" Language="ko_KR">
+      <Text>카르타고 특유 2티어 기병 유닛입니다. 구매만 가능하며 더 비쌉니다. 수도에 할당된 각 특유 도시 자원마다 전투력이 +1 증가합니다. 통제 지역을 무시합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_AUGUSTUS_CARTHAGE_TOOLTIP" Language="ko_KR">
+      <Text>[B]카르타고[/B]는 [B]아우구스투스[/B]를 전략적으로 보완합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_CARTHAGE_DESCRIPTION" Language="ko_KR">
+      <Text>[B]카르타고[/B]로 플레이하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_CARTHAGE_SPAIN_TOOLTIP" Language="ko_KR">
+      <Text>[B]카르타고[/B]와 [B]스페인[/B]은 모두 지중해의 강자였습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_HATSHEPSUT_CARTHAGE_TOOLTIP" Language="ko_KR">
+      <Text>[B]하트셉수트[/B]는 [B]카르타고[/B]와 같은 대륙 출신입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_IBN_BATTUTA_CARTHAGE_TOOLTIP" Language="ko_KR">
+      <Text>[B]이븐 바투타[/B]는 [B]카르타고[/B]과 같은 지역을 여행했습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ISABELLA_CARTHAGE_TOOLTIP" Language="ko_KR">
+      <Text>[B]이사벨 1세[/B]와 [B]카르타고[/B]는 지중해를 공유합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BYRSA_DESCRIPTION" Language="ko_KR">
+      <Text>[icon:YIELD_GOLD] 금이 +2 증가합니다. 교역로가 약탈당하지 않습니다. 이 도시에서 해안과 인접했으며 성벽을 건설할 수 있는 모든 타일이 성벽을 받습니다. 해안 타일 옆에 배치해야 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BYRSA_TOOLTIP" Language="ko_KR">
+      <Text>교역로가 약탈당하지 않습니다. 이 도시에서 해안과 인접했으며 성벽을 건설할 수 있는 모든 타일이 성벽을 받습니다. 해안 타일 옆에 배치해야 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_COMBAT_PREVIEW_NUMBER_RESOURCES_CAPITAL_BONUS_DESC" Language="ko_KR">
+      <Text>수도에 할당된 자원에서 전투력을 +{1_Value} 얻습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_GAULOS_NAME" Language="ko_KR">
+      <Text>가울로스</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_QUINQUEREME_NAME" Language="ko_KR">
+      <Text>5단노선</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_SUFFETES_NAME" Language="ko_KR">
+      <Text>수페트</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_COLONIST_NAME" Language="ko_KR">
+      <Text>식민지 개척자</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_NUMIDIAN_CAVALRY_NAME" Language="ko_KR">
+      <Text>누미디아 기병</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

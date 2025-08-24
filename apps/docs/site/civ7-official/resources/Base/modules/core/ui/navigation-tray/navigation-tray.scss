@@ -1,0 +1,46 @@
+// @copyright 2020-2022, Firaxis Games
+
+@use '../utilities/utility-layout' as *;
+@use '../utilities/utility-text' as *;
+
+@use '../../../core/ui/themes/default/baseColors';
+@use '../../../core/ui/themes/default/animations';
+
+.nav-tray {
+	left: var(--safezone-left);
+	bottom: var(--safezone-bottom);
+
+	.nav-tray-bg {
+		left: -var(--safezone-left);
+	}
+
+	.item {
+		animation: AnimateIn .2s animations.$quadIn;
+	}
+
+	@keyframes AnimateIn {
+		0% {
+			opacity: 0;
+		}
+
+		75% {
+			opacity: 0;
+		}
+
+		100% {
+			opacity: 1;
+		}
+	}
+
+	.spacing-sm {
+		&.flow-row {
+			>.spaced {
+				margin-right: pixels(8);
+
+				&:last-child {
+					margin-right: pixels(0);
+				}
+			}
+		}
+	}
+}

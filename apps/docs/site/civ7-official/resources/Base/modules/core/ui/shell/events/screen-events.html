@@ -1,0 +1,54 @@
+<div class="screen-events flow-column relative">
+	<div class="events-content flex-auto flow-column" tabindex="-1">
+		<fxs-hslot class="flex-auto">
+			<fxs-vslot class="events-menu" tabindex="-1">
+				<div class="events-menu-top bg-cover bg-no-repeat self-center"></div>
+				<div class="events-title font-title text-xl text-secondary-1 uppercase self-center mt-2"
+					 data-l10n-id="LOC_MAIN_MENU_EVENTS"></div>
+				<div class="events-menu-divider bg-contain bg-no-repeat self-center mt-4"></div>
+				<!--<fxs-activatable class="events-menu-item events-item-continue font-title uppercase text-xl text-accent-2 self-center"
+								 data-l10n-id="LOC_UI_CONTINUE_EVENTS" tabindex="-1"></fxs-activatable>
+				<div class="events-menu-divider bg-contain bg-no-repeat self-center"></div>-->
+				<fxs-activatable class="events-menu-item events-item-sp font-title uppercase text-xl text-accent-2 self-center"
+								 data-l10n-id="LOC_UI_EVENTS_SINGLEPLAYER" tabindex="-1"></fxs-activatable>
+				<fxs-activatable class="events-menu-item events-item-load font-title uppercase text-xl text-accent-2 self-center"
+								 data-l10n-id="LOC_UI_LOAD_EVENTS" tabindex="-1"></fxs-activatable>
+				<div class="events-menu-divider bg-contain bg-no-repeat self-center"></div>
+				<fxs-activatable class="events-menu-item events-item-mp font-title uppercase text-xl text-accent-2 self-center"
+								 data-l10n-id="LOC_UI_EVENTS_MULTIPLAYER" tabindex="-1"></fxs-activatable>
+				<fxs-activatable class="events-menu-item events-item-exit events-indent font-title uppercase text-xl text-accent-2 self-center"
+								 data-l10n-id="LOC_EXTRAS_EXIT_TO_MAIN" tabindex="-1"></fxs-activatable>
+			</fxs-vslot>
+			<fxs-vslot class="events-info h-full">
+				<div class="inset-x-4 inset-y-0 flex-auto flow-column">
+					<fxs-vslot class="events-description flex-auto py-6 self-center">
+						<!-- Title and divider-->
+						<div class="events-desc-title font-title text-secondary-1 text-2xl self-center uppercase mb-2">
+						</div>
+						<div class="filigree-divider-h3 bg-no-repeat bg-contain self-center"></div>
+						<div class="events-banner w-full h-18 bg-cover bg-no-repeat mb-8"></div>
+						<!-- scrollable region -->
+						<fxs-scrollable class="events-scrollable flex-auto" handle-gamepad-pan="true">
+							<div
+								 class="events-desc-subtitle font-title text-secondary-1 text-xl self-center uppercase mb-2">
+							</div>
+							<div class="filigree-shell-small bg-no-repeat bg-contain self-center mb-2"></div>
+							<!-- Rewards -->
+							<div class="events-reward-container self-center"></div>
+							<div class="events-desc-text font-body text-lg text-accent-2 leading-tight"></div>
+							<div class="font-title text-secondary-1 text-xl self-center uppercase mt-6"
+								 data-l10n-id="LOC_UI_EVENTS_RULES">
+							</div>
+							<div class="filigree-shell-small bg-no-repeat bg-contain self-center mb-2"></div>
+							<div class="events-rules-text font-body text-lg text-accent-2 leading-tight"></div>
+							<div class="font-body text-base text-accent-2 leading-tight"></div>
+						</fxs-scrollable>
+					</fxs-vslot>
+				</div>
+				<fxs-button caption="LOC_GENERIC_BACK" class="event-rules-dismiss"
+							action-key="inline-cancel"></fxs-button>
+			</fxs-vslot>
+		</fxs-hslot>
+	</div>
+	<fxs-close-button class="events-close-button absolute"></fxs-close-button>
+</div>

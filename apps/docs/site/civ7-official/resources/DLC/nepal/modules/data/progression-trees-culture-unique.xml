@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<!--Civ Unique Mastery Trees-->
+		<Row Type="TREE_CIVICS_MO_NEPAL" Kind="KIND_TREE"/>
+		<!--Civ Unique Mastery Tree Nodes-->
+		<!--Nepal-->
+		<Row Type="NODE_CIVIC_MO_NEPAL_SAGARMATHA" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_MO_NEPAL_JYUMDO_BAGHA" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_MO_NEPAL_SINGHA_DURBAR" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_CIVIC_MO_NEPAL_GORKHAPATRA" Kind="KIND_TREE_NODE"/>
+	</Types>
+	<TypeQuotes>
+		<Row Type="NODE_CIVIC_MO_NEPAL_SAGARMATHA" Quote="LOC_CIVIC_SAGARMATHA_QUOTE" QuoteAuthor="LOC_CIVIC_SAGARMATHA_AUTHOR" QuoteAudio="VO_Quote_Sagarmatha"/>
+		<Row Type="NODE_CIVIC_MO_NEPAL_JYUMDO_BAGHA" Quote="LOC_CIVIC_JYUMDO_BAGHA_QUOTE" QuoteAuthor="LOC_CIVIC_JYUMDO_BAGHA_AUTHOR" QuoteAudio="VO_Quote_JyumdoBagha"/>
+		<Row Type="NODE_CIVIC_MO_NEPAL_SINGHA_DURBAR" Quote="LOC_CIVIC_SINGHA_DURBAR_QUOTE" QuoteAuthor="LOC_CIVIC_SINGHA_DURBAR_AUTHOR" QuoteAudio="VO_Quote_SinghaDurbar"/>
+		<Row Type="NODE_CIVIC_MO_NEPAL_GORKHAPATRA" Quote="LOC_CIVIC_GORKHAPATRA_QUOTE" QuoteAuthor="LOC_CIVIC_GORKHAPATRA_AUTHOR" QuoteAudio="VO_Quote_Gorkhapatra"/>
+	</TypeQuotes>
+	<ProgressionTrees>
+		<!--Civ Unique Mastery Trees-->
+		<Row ProgressionTreeType="TREE_CIVICS_MO_NEPAL" AgeType="AGE_MODERN" SystemType="SYSTEM_CULTURE" Name="LOC_TREE_CIVICS_MO_NEPAL_NAME"/>
+	</ProgressionTrees>
+	<ProgressionTreeNodes>
+		<!--Civ Unique Mastery Tree Nodes-->
+		<!--NEPAL-->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_NEPAL_SAGARMATHA" ProgressionTree="TREE_CIVICS_MO_NEPAL" Cost="2070" Name="LOC_CIVIC_SAGARMATHA_NAME" IconString="cult_nepal"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_NEPAL_JYUMDO_BAGHA" ProgressionTree="TREE_CIVICS_MO_NEPAL" Cost="2300" Name="LOC_CIVIC_JYUMDO_BAGHA_NAME" IconString="cult_nepal"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_NEPAL_SINGHA_DURBAR" ProgressionTree="TREE_CIVICS_MO_NEPAL" Cost="2300" Name="LOC_CIVIC_SINGHA_DURBAR_NAME" IconString="cult_nepal"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_NEPAL_GORKHAPATRA" ProgressionTree="TREE_CIVICS_MO_NEPAL" Cost="2530" Name="LOC_CIVIC_GORKHAPATRA_NAME" IconString="cult_nepal"/>
+	</ProgressionTreeNodes>
+	<ProgressionTreeNodeUnlocks>
+		<!--Nepal-->
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_NEPAL_SAGARMATHA" TargetKind="KIND_MODIFIER" TargetType="MOD_SAGARMATHA_BUILDINGS_MOUNTAIN_ADJACENCY" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_NEPAL_SAGARMATHA" TargetKind="KIND_MODIFIER" TargetType="MOD_SHERPA_MOUNTAIN_CLAIM" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_NEPAL_JYUMDO_BAGHA" TargetKind="KIND_MODIFIER" TargetType="MOD_JYUMDO_BAGHA_MOUNTAIN_WALLS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_NEPAL_JYUMDO_BAGHA" TargetKind="KIND_TRADITION" TargetType="TRADITION_TUNDIKHEL" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_NEPAL_JYUMDO_BAGHA" TargetKind="KIND_MODIFIER" TargetType="MOD_JYUMDO_BAGHA_FORTIFICATION" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_NEPAL_SINGHA_DURBAR" TargetKind="KIND_MODIFIER" TargetType="MOD_GIFT_GURKHA" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_NEPAL_SINGHA_DURBAR" TargetKind="KIND_CONSTRUCTIBLE" TargetType="WONDER_BOUDHANATH" UnlockDepth="1" AIIgnoreUnlockValue="true"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_NEPAL_SINGHA_DURBAR" TargetKind="KIND_MODIFIER" TargetType="MOD_SINGHA_DURBAR_INFLUENCE_CULTURE_BUILDING" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_NEPAL_SINGHA_DURBAR" TargetKind="KIND_TRADITION" TargetType="TRADITION_MAITRI_SANADHI" UnlockDepth="2"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_NEPAL_GORKHAPATRA" TargetKind="KIND_MODIFIER" TargetType="MOD_GORKHAPATRA_MUSEUM_SLOTS" UnlockDepth="1"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_NEPAL_GORKHAPATRA" TargetKind="KIND_TRADITION" TargetType="TRADITION_HIMAL" UnlockDepth="1"/>
+	</ProgressionTreeNodeUnlocks>
+	<ProgressionTreePrereqs>
+		<!--Nepal-->
+		<Row Node="NODE_CIVIC_MO_NEPAL_JYUMDO_BAGHA" PrereqNode="NODE_CIVIC_MO_NEPAL_SAGARMATHA"/>
+		<Row Node="NODE_CIVIC_MO_NEPAL_SINGHA_DURBAR" PrereqNode="NODE_CIVIC_MO_NEPAL_SAGARMATHA"/>
+		<Row Node="NODE_CIVIC_MO_NEPAL_GORKHAPATRA" PrereqNode="NODE_CIVIC_MO_NEPAL_JYUMDO_BAGHA"/>
+		<Row Node="NODE_CIVIC_MO_NEPAL_GORKHAPATRA" PrereqNode="NODE_CIVIC_MO_NEPAL_SINGHA_DURBAR"/>
+	</ProgressionTreePrereqs>
+	<ProgressionTree_Advisories>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_NEPAL_SAGARMATHA" AdvisoryClassType="ADVISORY_CLASS_DIPLOMACY"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_NEPAL_JYUMDO_BAGHA" AdvisoryClassType="ADVISORY_CLASS_DEFENSE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_NEPAL_SINGHA_DURBAR" AdvisoryClassType="ADVISORY_CLASS_DEFENSE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_NEPAL_SINGHA_DURBAR" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+		<Row ProgressionTreeNodeType="NODE_CIVIC_MO_NEPAL_GORKHAPATRA" AdvisoryClassType="ADVISORY_CLASS_CULTURE"/>
+	</ProgressionTree_Advisories>
+</Database>

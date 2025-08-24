@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="MOD_UBUDIAH_MOSQUE_DOUBLE_RURAL" collection="COLLECTION_OWNER" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_UBUDIAH_MOSQUE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ModifierId">MOD_UBUDIAH_MOSQUE_DOUBLE_RURAL_EFFECT</Argument>
+	</Modifier>
+	<Modifier id="MOD_UBUDIAH_MOSQUE_DOUBLE_RURAL_EFFECT" collection="COLLECTION_CITY_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_DISTRICT_CLASS">
+				<Argument name="DistrictClass">RURAL, WILDERNESS</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_FOOD, YIELD_PRODUCTION, YIELD_GOLD, YIELD_SCIENCE, YIELD_CULTURE, YIELD_HAPPINESS, YIELD_DIPLOMACY</Argument>
+		<Argument name="Apply">Rate</Argument>
+		<Argument name="Percent">50</Argument>
+	</Modifier>
+</GameEffects>

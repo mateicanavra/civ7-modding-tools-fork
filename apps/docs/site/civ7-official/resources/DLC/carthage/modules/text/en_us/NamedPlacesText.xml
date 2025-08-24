@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_RIVER_MEDJERDA_NAME">
+			<Text>Medjerda River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_MILIANE_NAME">
+			<Text>Miliane River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SILIANA_NAME">
+			<Text>Siliana River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_TESSA_NAME">
+			<Text>Tessa River</Text>
+		</Row>
+		<Row Tag="LOC_RIVER_SEJENANE_NAME">
+			<Text>Sejenane River</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_PANTELLERIA_NAME">
+			<Text>Pantelleria</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_HARUJ_NAME">
+			<Text>Haruj</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_EMI_KOUSSI_NAME">
+			<Text>Emi Koussi</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_WAW_AN_NAMUS_NAME">
+			<Text>Waw an Namus</Text>
+		</Row>
+		<Row Tag="LOC_VOLCANO_JEBEL_TOUBKAL_NAME">
+			<Text>Jebel Toubkal</Text>
+		</Row>
+	</EnglishText>
+</Database>

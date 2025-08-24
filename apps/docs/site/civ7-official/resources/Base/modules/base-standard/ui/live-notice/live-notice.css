@@ -1,0 +1,99 @@
+/* DO NOT EDIT */
+/* Generated from live-notice.scss */
+@keyframes live-notice-animate-in {
+	0% {
+		transform: translateX(22vw);
+		opacity: 0;
+	}
+	100% {
+		transform: translateX(0rem);
+		opacity: 1;
+	}
+}
+@keyframes live-notice-animate-out {
+	0% {
+		transform: translateX(0rem);
+		opacity: 1;
+	}
+	100% {
+		transform: translateX(30.5555555556rem);
+		opacity: 0;
+	}
+}
+.live-notice-panel {
+	max-width: 30.5555555556rem;
+	max-height: 2.7777777778rem;
+	top: 10.5555555556rem;
+}
+
+.live-notice-container-background {
+	display: flex;
+	width: 30.5555555556rem;
+	height: 2.7777777778rem;
+	font-size: 1rem;
+}
+.live-notice-container-background.hidden {
+	visibility: hidden;
+}
+.live-notice-container-background.live-notice-off-screen {
+	display: none;
+	transform: translateX(30.5555555556rem);
+}
+.live-notice-container-background.live-notice-animate-in {
+	animation-name: live-notice-animate-in;
+	animation-direction: normal;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	animation-iteration-count: 1;
+}
+.live-notice-container-background.live-notice-animate-out {
+	animation-name: live-notice-animate-out;
+	animation-direction: normal;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	animation-iteration-count: 1;
+}
+
+.live-notice-main-hslot {
+	background-image: url("fs://game/hud_challenge_bk");
+	width: 30.5555555556rem;
+	height: 2.7777777778rem;
+}
+
+.live-notice-main-container {
+	position: relative;
+	display: flex;
+	width: 30.5555555556rem;
+	height: 2.5rem;
+	padding: 0.4444444444rem;
+}
+
+.live-notice-title {
+	text-align: right;
+	padding-top: 0.0833333333rem;
+}
+
+.live-notice-check {
+	width: 1.5555555556rem;
+	background-image: url("fs://game/chal_check");
+}
+
+.live-notice-filigree-right {
+	width: 10%;
+	background-image: url("fs://game/hud_chal_bk");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.live-notice-title-bar {
+	width: 18.6111111111rem;
+}
+
+.live-notice-main-info {
+	width: 11.5555555556rem;
+	color: #2c2a2b;
+}
+
+.live-notice-challenge-score {
+	width: 7.5rem;
+}

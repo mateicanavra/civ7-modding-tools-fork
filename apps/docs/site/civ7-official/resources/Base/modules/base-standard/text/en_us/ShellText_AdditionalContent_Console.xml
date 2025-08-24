@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<!-- Delete existing strings/translations for the given keys.-->
+	<LocalizedText>
+		<Delete Tag="LOC_UI_CONTENT_MGR_TITLE" />
+		<Delete Tag="LOC_UI_CONTENT_MGR_SUBTITLE" />
+		<Delete Tag="LOC_UI_STORE_ADDITIONAL_CONTENT" />
+	</LocalizedText>
+
+	<!-- Define platform-specific overrides. -->
+	<EnglishText>
+		<Row Tag="LOC_UI_CONTENT_MGR_TITLE_CONSOLE">
+			<Text>Downloadable Content</Text>
+		</Row>
+		<Row Tag="LOC_UI_CONTENT_MGR_SUBTITLE_CONSOLE">
+			<Text>DLC</Text>
+		</Row>
+		<Row Tag="LOC_UI_STORE_ADDITIONAL_CONTENT_CONSOLE">
+			<Text>Downloadable Content</Text>
+		</Row>
+
+		<Replace Tag="LOC_UI_CONTENT_MGR_TITLE">
+			<Text>{LOC_UI_CONTENT_MGR_TITLE_CONSOLE}</Text>
+		</Replace>
+		<Replace Tag="LOC_UI_CONTENT_MGR_SUBTITLE">
+			<Text>{LOC_UI_CONTENT_MGR_SUBTITLE_CONSOLE}</Text>
+		</Replace>
+		<Replace Tag="LOC_UI_STORE_ADDITIONAL_CONTENT">
+			<Text>{LOC_UI_STORE_ADDITIONAL_CONTENT_CONSOLE}</Text>
+		</Replace>
+	</EnglishText>
+</Database>

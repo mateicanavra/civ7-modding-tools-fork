@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<!-- Delete existing strings/translations for the given keys.-->
+	<LocalizedText>
+		<Delete Tag="LOC_OPTIONS_GROUP_GAMEPAD" />
+		<Delete Tag="LOC_OPTIONS_RUMBLE" />
+		<Delete Tag="LOC_OPTIONS_RUMBLE_DESCRIPTION" />
+	</LocalizedText>
+
+	<!-- Define platform-specific overrides. -->
+	<EnglishText>
+		<Row Tag="LOC_OPTIONS_GROUP_WIRELESS_CONTROLLER">
+			<Text>Wireless Controller</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_VIBRATION">
+			<Text>Vibration</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_VIBRATION_DESCRIPTION">
+			<Text>Vibration - enable or disable vibration.</Text>
+		</Row>
+
+		<Replace Tag="LOC_OPTIONS_GROUP_GAMEPAD">
+			<Text>{LOC_OPTIONS_GROUP_WIRELESS_CONTROLLER}</Text>
+		</Replace>
+		<Replace Tag="LOC_OPTIONS_RUMBLE">
+			<Text>{LOC_OPTIONS_VIBRATION}</Text>
+		</Replace>
+		<Replace Tag="LOC_OPTIONS_RUMBLE_DESCRIPTION">
+			<Text>{LOC_OPTIONS_VIBRATION_DESCRIPTION}</Text>
+		</Replace>
+	</EnglishText>
+</Database>

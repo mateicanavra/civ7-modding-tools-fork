@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_TUTORIAL_CALLOUT_CLOSE">
+			<Text>Close</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CALLOUT_BEGIN">
+			<Text>Begin</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CALLOUT_CONTINUE">
+			<Text>Continue</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CALLOUT_GO_BACK">
+			<Text>Go Back</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CALLOUT_EXPLORE">
+			<Text>Explore</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CALLOUT_ACCEPT">
+			<Text>Accept</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CALLOUT_ACCEPT_QUEST">
+			<Text>Accept Objective</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CALLOUT_DECLINE_QUEST">
+			<Text>Decline for Now</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CALLOUT_VICTORIES">
+			<Text>See Legacy Paths</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CIVILOPEDIA_MORE_INFO">
+			<Text>More Info</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CIVILOPEDIA_TELL_ME_MORE">
+			<Text>Tell Me More</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CIVILOPEDIA_SUBJECT_PARAMETER">
+			<Text>Civilopedia: {1_SubjectName}</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CALLOUT_SHOW_ME">
+			<Text>Show Me</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CALLOUT_ALLOCATE_RESOURCES">
+			<Text>Allocate Resources</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CALLOUT_CANCEL_QUEST">
+			<Text>Cancel Quest</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CALLOUT_DISMISS">
+			<Text>Dismiss</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_CALLOUT_TAKE_ME">
+			<Text>Take Me There</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_DEACTIVATE_ALL">
+			<Text>Deactivate All Tutorials</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_DEACTIVATE_TITLE">
+			<Text>Deactivate Tutorials</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_REOPEN_KBM">
+			<Text>Click to re-open</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_REOPEN_GAMEPAD">
+			<Text>Re-open</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_REOPEN_TOUCH">
+			<Text>Select to re-open</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_DEACTIVATE_BODY">
+			<Text>Do you want to deactivate all tutorials? You can reactivate them later on the Options Menu</Text>
+		</Row>
+		<!-- Crisis Tutorial Text -->
+		<Row Tag="LOC_TUTORIAL_PLAGUES_NAME">
+			<Text>Plagues</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_PLAGUES_BODY">
+			<Text>A Settlement is suffering from an Outbreak. Outbreaks cause Unrest, pillage Buildings and Improvements and damage Units in the affected tiles. While a settlement is Infected, it cannot grow and will create Migrants instead.[n]Major Outbreaks can spread and cause Minor Outbreaks in Connected settlements.[n]Outbreaks are more likely to occur in settlements that are densely populated, connected to road and trade networks or under siege.</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_REVOLTS_NAME">
+			<Text>Revolts</Text>
+		</Row>
+		<Row Tag="LOC_TUTORIAL_REVOLTS_BODY">
+			<Text>The Settlement of [b]{1_CityName} [/b] is so unhappy they are considering Revolt. If they remain Unhappy they may petition to join another Civilization.[n]Consider changing your Policies or moving Resources to this settlement to improve their Happiness. If all else fails, Stationing a Commander here will help reduce the Unhappiness as well.</Text>
+		</Row>
+	</EnglishText>
+</Database>

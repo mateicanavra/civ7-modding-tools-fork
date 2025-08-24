@@ -1,0 +1,143 @@
+/* DO NOT EDIT */
+/* Generated from panel-radial-menu.scss */
+panel-radial-menu .radial-menu__donut {
+	background-image: url("fs://game/radial_donut");
+	background-size: cover;
+	background-repeat: no-repeat;
+	width: 36.3333333333rem;
+	height: 36.3333333333rem;
+}
+@media (max-height: 45.5555555556rem) {
+	panel-radial-menu .radial-menu__donut {
+		background-image: url("fs://game/radial_donut_sm");
+		width: 30.1666666667rem;
+		height: 30.1666666667rem;
+	}
+}
+panel-radial-menu .radial-menu__circle {
+	background-image: url("fs://game/radial_middle_circle");
+	background-size: cover;
+	background-repeat: no-repeat;
+	bottom: 5.2222222222rem;
+	top: 5.8888888889rem;
+	left: 5.5555555556rem;
+	right: 5.5555555556rem;
+}
+@media (max-height: 45.5555555556rem) {
+	panel-radial-menu .radial-menu__circle {
+		background-image: url("fs://game/radial_middle_circle_sm");
+		bottom: 4.5555555556rem;
+		top: 4.3333333333rem;
+		left: 4.4444444444rem;
+		right: 4.4444444444rem;
+	}
+}
+@media (max-height: 45.5555555556rem) {
+	panel-radial-menu .radial-menu__line-container {
+		bottom: 0.4444444444rem;
+		top: 0.4444444444rem;
+		left: 0.4444444444rem;
+		right: 0.4444444444rem;
+	}
+}
+panel-radial-menu .radial-menu__line {
+	background-image: url("fs://game/radial_line");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 5.8888888889rem;
+	height: 5.8888888889rem;
+}
+@media (max-height: 45.5555555556rem) {
+	panel-radial-menu .radial-menu__line {
+		background-image: url("fs://game/radial_line_sm");
+		width: 4.7777777778rem;
+		height: 4.7777777778rem;
+	}
+}
+@media (max-height: 45.5555555556rem) {
+	panel-radial-menu .radial-menu__item {
+		bottom: 0.4444444444rem;
+		top: 0.4444444444rem;
+		left: 0.4444444444rem;
+		right: 0.4444444444rem;
+	}
+}
+panel-radial-menu .radial-menu__directional {
+	background-image: url("fs://game/radial_directional");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 10rem;
+	height: 10rem;
+}
+@media (max-height: 45.5555555556rem) {
+	panel-radial-menu .radial-menu__directional {
+		background-image: url("fs://game/radial_directional_sm");
+		width: 7.7777777778rem;
+		height: 7.7777777778rem;
+	}
+}
+panel-radial-menu .radial-menu__highlight {
+	background-image: url("fs://game/radial_highlight");
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	top: -6.5rem;
+	bottom: -6.5rem;
+	left: -6.6111111111rem;
+	right: -6.6111111111rem;
+}
+@media (max-height: 45.5555555556rem) {
+	panel-radial-menu .radial-menu__highlight {
+		background-image: url("fs://game/radial_highlight_sm");
+		top: -5.0555555556rem;
+		bottom: -5.0555555556rem;
+		left: -5.1111111111rem;
+		right: -5.1111111111rem;
+	}
+}
+panel-radial-menu .img-tab-bar {
+	border-image-source: url("fs://game/radial_tabbar-bg");
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+@media (max-height: 45.5555555556rem) {
+	panel-radial-menu .menu-items-arrow-container {
+		bottom: 0rem;
+	}
+}
+panel-radial-menu .radial-menu-item .radial-menu__highlight {
+	opacity: 0;
+}
+panel-radial-menu .radial-menu-item:focus .radial-menu__highlight {
+	opacity: 1;
+}
+panel-radial-menu .radial-menu__item-description__container {
+	width: 12.7777777778rem;
+	height: 12.7777777778rem;
+}
+@media (max-height: 45.5555555556rem) {
+	panel-radial-menu .radial-menu__item-description__container {
+		width: 10.5555555556rem;
+		height: 10.5555555556rem;
+	}
+}
+panel-radial-menu .radial-menu__name-filigree-right {
+	display: flex;
+	width: 7.1111111111rem;
+	height: 0.8888888889rem;
+	background-image: url("fs://game/hud_unit-panel_divider-line");
+	transform: scaleX(-1) scaleY(-1);
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+panel-radial-menu .radial-menu__name-filigree-left {
+	display: flex;
+	width: 7.1111111111rem;
+	height: 0.8888888889rem;
+	background-image: url("fs://game/hud_unit-panel_divider-line");
+	transform: scaleY(-1);
+	background-size: cover;
+	background-repeat: no-repeat;
+}

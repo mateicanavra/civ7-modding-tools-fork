@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- Victory Challenges -->
+	<Modifier id="METAPROGRESSION_CHALLENGE_AMERICA_LEGACY_PATH_ECONOMIC_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_MODERN_ECONOMIC</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_AMERICA</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_AMERICA_LEGACY_PATH_ECONOMIC</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_BUGANDA_LEGACY_PATH_CULTURE_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_MODERN_CULTURE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_BUGANDA</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_BUGANDA_LEGACY_PATH_CULTURE</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_FRENCH_EMPIRE_LEGACY_PATH_MILITARY_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_MODERN_MILITARY</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_FRENCH_EMPIRE</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_FRENCH_EMPIRE_LEGACY_PATH_MILITARY</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MEIJI_LEGACY_PATH_MILITARY_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_MODERN_MILITARY</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MEIJI</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MEIJI_LEGACY_PATH_MILITARY</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MEXICO_LEGACY_PATH_CULTURE_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_MODERN_CULTURE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MEXICO</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MEXICO_LEGACY_PATH_CULTURE</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MUGHAL_LEGACY_PATH_ECONOMIC_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_MODERN_ECONOMIC</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MUGHAL</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MUGHAL_LEGACY_PATH_ECONOMIC</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_PRUSSIA_LEGACY_PATH_MILITARY_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_MODERN_MILITARY</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_PRUSSIA</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_PRUSSIA_LEGACY_PATH_MILITARY</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_QING_LEGACY_PATH_ECONOMIC_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_MODERN_ECONOMIC</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_QING</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_QING_LEGACY_PATH_ECONOMIC</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_RUSSIA_LEGACY_PATH_SCIENCE_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_MODERN_SCIENCE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_RUSSIA</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_RUSSIA_LEGACY_PATH_SCIENCE</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_SIAM_LEGACY_PATH_CULTURE_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_MODERN_CULTURE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_SIAM</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_SIAM_LEGACY_PATH_CULTURE</Argument>
+	</Modifier>
+
+	<!-- Wonder Challenges -->
+	<Modifier id="METAPROGRESSION_CHALLENGE_AMERICA_COMPLETE_STATUE_OF_LIBERTY_WISDOM_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_AMERICA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_STATUE_OF_LIBERTY</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_AMERICA_COMPLETE_STATUE_OF_LIBERTY</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_BUGANDA_COMPLETE_MUZIBU_AZAALA_MPANGA_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_BUGANDA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_MUZIBU_AZAALA_MPANGA</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_BUGANDA_COMPLETE_MUZIBU_AZAALA_MPANGA</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_FRENCH_EMPIRE_COMPLETE_EIFFEL_TOWER_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_FRENCH_EMPIRE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_EIFFEL_TOWER</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_FRENCH_EMPIRE_COMPLETE_EIFFEL_TOWER</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MEIJI_COMPLETE_DOGO_ONSEN_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MEIJI</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_DOGO_ONSEN</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MEIJI_COMPLETE_DOGO_ONSEN</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MEXICO_COMPLETE_PALACIO_DE_BELLAS_ARTES_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MEXICO</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_PALACIO_DE_BELLAS_ARTES</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MEXICO_COMPLETE_PALACIO_DE_BELLAS_ARTES</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MUGHAL_COMPLETE_RED_FORT_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MUGHAL</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_RED_FORT</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MUGHAL_COMPLETE_RED_FORT</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_PRUSSIA_COMPLETE_BRANDENBURG_GATE" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_PRUSSIA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_BRANDENBURG_GATE</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_PRUSSIA_COMPLETE_BRANDENBURG_GATE</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_QING_COMPLETE_CHENGDE_MOUNTAIN_RESORT_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_QING</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_CHENGDE_MOUNTAIN_RESORT</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_QING_COMPLETE_CHENGDE_MOUNTAIN_RESORT</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_RUSSIA_COMPLETE_HERMITAGE_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_RUSSIA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_HERMITAGE</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_RUSSIA_COMPLETE_HERMITAGE</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_SIAM_COMPLETE_DOI_SUTHEP_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_SIAM</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_DOI_SUTHEP</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_SIAM_COMPLETE_DOI_SUTHEP</Argument>
+	</Modifier>
+
+	<!-- Legacy Path Challenges -->
+	<Modifier id="METAPROGRESSION_CHALLENGE_AMERICA_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_AMERICA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_AMERICA_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_BUGANDA_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_BUGANDA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_BUGANDA_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_FRENCH_EMPIRE_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_FRENCH_EMPIRE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_FRENCH_EMPIRE_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MEIJI_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MEIJI</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MEIJI_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MEXICO_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MEXICO</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MEXICO_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MUGHAL_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MUGHAL</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MUGHAL_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_PRUSSIA_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_PRUSSIA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_PRUSSIA_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_QING_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_QING</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_QING_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_RUSSIA_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_RUSSIA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_RUSSIA_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_SIAM_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_SIAM</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_SIAM_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+</GameEffects>

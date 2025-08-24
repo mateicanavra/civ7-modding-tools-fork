@@ -1,0 +1,653 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA1" Language="zh_Hant_HK">
+      <Text>普雷斯拉夫</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA10" Language="zh_Hant_HK">
+      <Text>普羅夫迪夫</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA11" Language="zh_Hant_HK">
+      <Text>博瑞</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA12" Language="zh_Hant_HK">
+      <Text>史高比耶</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA13" Language="zh_Hant_HK">
+      <Text>貝洛格拉德 </Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA14" Language="zh_Hant_HK">
+      <Text>瓦爾納</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA15" Language="zh_Hant_HK">
+      <Text>布雷茲尼克</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA16" Language="zh_Hant_HK">
+      <Text>德維納</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA17" Language="zh_Hant_HK">
+      <Text>佩爾尼克</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA18" Language="zh_Hant_HK">
+      <Text>利普連</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA19" Language="zh_Hant_HK">
+      <Text>杜爾圖姆</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA2" Language="zh_Hant_HK">
+      <Text>特爾諾沃</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA20" Language="zh_Hant_HK">
+      <Text>比托利亞</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA21" Language="zh_Hant_HK">
+      <Text>德倫比察</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA22" Language="zh_Hant_HK">
+      <Text>普里萊普</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA23" Language="zh_Hant_HK">
+      <Text>科索沃</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA24" Language="zh_Hant_HK">
+      <Text>安基亞洛</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA25" Language="zh_Hant_HK">
+      <Text>梅爾尼克</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA26" Language="zh_Hant_HK">
+      <Text>梅塞姆夫里亞</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA27" Language="zh_Hant_HK">
+      <Text>普里茲倫</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA28" Language="zh_Hant_HK">
+      <Text>揚博爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA29" Language="zh_Hant_HK">
+      <Text>阿爾薩</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA3" Language="zh_Hant_HK">
+      <Text>奧赫里德</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA30" Language="zh_Hant_HK">
+      <Text>德沃爾 </Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA31" Language="zh_Hant_HK">
+      <Text>帕扎爾吉克 </Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA4" Language="zh_Hant_HK">
+      <Text>普利斯卡</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA5" Language="zh_Hant_HK">
+      <Text>德拉斯塔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA6" Language="zh_Hant_HK">
+      <Text>普列文</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA7" Language="zh_Hant_HK">
+      <Text>巴汀</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA8" Language="zh_Hant_HK">
+      <Text>斯雷德茲</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_BULGARIA9" Language="zh_Hant_HK">
+      <Text>卡爾武納</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_1" Language="zh_Hant_HK">
+      <Text>安娜</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_10" Language="zh_Hant_HK">
+      <Text>斯米爾塞娜</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_2" Language="zh_Hant_HK">
+      <Text>德西斯拉娃</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_3" Language="zh_Hant_HK">
+      <Text>柯拉薩</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_4" Language="zh_Hant_HK">
+      <Text>米莉薩</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_5" Language="zh_Hant_HK">
+      <Text>瑞普西米婭</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_6" Language="zh_Hant_HK">
+      <Text>米羅斯拉娃</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_7" Language="zh_Hant_HK">
+      <Text>科薩拉</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_8" Language="zh_Hant_HK">
+      <Text>瑪麗亞</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_FEMALE_9" Language="zh_Hant_HK">
+      <Text>別洛斯拉娃</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_1" Language="zh_Hant_HK">
+      <Text>鮑里斯</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_10" Language="zh_Hant_HK">
+      <Text>拉迪沃伊</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_2" Language="zh_Hant_HK">
+      <Text>阿斯巴魯赫</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_3" Language="zh_Hant_HK">
+      <Text>拉迪斯拉夫</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_4" Language="zh_Hant_HK">
+      <Text>伊凡</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_5" Language="zh_Hant_HK">
+      <Text>貝茲梅爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_6" Language="zh_Hant_HK">
+      <Text>特爾韋爾</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_7" Language="zh_Hant_HK">
+      <Text>卡洛揚</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_8" Language="zh_Hant_HK">
+      <Text>伊瓦伊洛</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_BULGARIA_MALE_9" Language="zh_Hant_HK">
+      <Text>彼得</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_BULGARIA_ADJECTIVE" Language="zh_Hant_HK">
+      <Text>保加利亞</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_BULGARIA_FULLNAME" Language="zh_Hant_HK">
+      <Text>保加利亞帝國</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_BULGARIA_NAME" Language="zh_Hant_HK">
+      <Text>保加利亞</Text>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_EXPLORATION_9_MAJOR_BULGARIA_NAME" Language="zh_Hant_HK">
+      <Text>阿伯夫勞</Text>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_EXPLORATION_9_MINOR_BULGARIA_NAME" Language="zh_Hant_HK">
+      <Text>威爾斯</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>670年代，由可汗阿斯巴魯赫率領的強大保加爾部族來到多瑙河區域，意圖在此定居。當時，這片土地名義上歸屬拜占庭帝國統治，但隨著阿瓦爾汗國的擴張以及當地斯拉夫部落的結盟，拜占庭的統治權威受到嚴重威脅。保加爾人原來是來自伏爾加河與裏海一帶的突厥民族，在舊大保加利亞短暫的統一瓦解後，他們追隨阿瓦爾人離開了歐亞大草原。然而，與始終保持遊牧生活的阿瓦爾人不同，阿斯巴魯赫領導的保加爾人已逐漸傾向定居生活，期望找到一塊可以安身立命的永久領地。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_10" Language="zh_Hant_HK">
+      <Text>1185年，彼得和伊凡‧阿森兄弟組織了一場爭取獨立的起義。經過兩年的艱苦戰鬥，拜占庭最終再次承認保加利亞為獨立王國──保加利亞第二帝國由此誕生。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_11" Language="zh_Hant_HK">
+      <Text>這一時期，保加利亞在第一帝國奠定的根基上持續發展，同時也因應區域政治的日趨複雜而調整方針。過去保加利亞雖然尋求強大的南方鄰國認可，但隨著拜占庭的衰落，其認可和賞賜已不復從前的分量與光彩。彼得‧阿森的繼承人──其弟卡洛揚轉而向另一個羅馬──西羅馬尋求承認。君士坦丁堡淪陷於第四次十字軍不久後，他和保加利亞教會便獲得教皇依諾增爵三世承認其帝國與牧首地位。此後，保加利亞又與短暫存在的拉丁帝國結下新仇。  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_12" Language="zh_Hant_HK">
+      <Text>第二帝國在伊凡‧阿森二世（1218-1241年）統治期間迎來了全盛時期。雖然與鄰邦的衝突未曾停歇，但戰爭已不再是保加利亞經濟的主要支柱。隨著帝國疆域的擴張，更多肥沃的土地納入版圖，農業成為社會發展的重要動力。保加利亞更善用其位處東西方交會點的地理優勢，重新崛起為強大的貿易樞紐。經濟的繁榮帶動了藝術的蓬勃發展。特爾諾沃成為新都，特爾諾沃學院更掀起了一波創作浪潮。藝術家、建築師和文人齊聚一堂，創作出豐富的宗教和世俗藝術與文化。在城市快速發展的同時，遙遠的山區也矗立起堡壘與修道院。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_13" Language="zh_Hant_HK">
+      <Text>伊凡‧阿森二世辭世後，保加利亞江山風雨飄搖。國內貴族與農民之間的矛盾日益加劇，引發連串叛亂，甚至一度出現養豬人暫掌王權的離奇局面。國外局勢更是險峻，這個日漸衰微的帝國四面楚歌──北有蒙古人虎視眈眈，東有塞爾維亞人步步進逼，最後南方又冒出致命的鄂圖曼威脅。14世紀末期，鄂圖曼帝國在巴爾幹半島節節推進，終於在1393年攻陷特爾諾沃。到了1396年，隨著最後一位統治者殞命、國土盡失，保加利亞第二帝國正式走入歷史。  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>680年，阿斯巴魯赫與團結一致的斯拉夫部落結盟，率軍渡過多瑙河。君士坦丁四世皇帝隨即出兵阻擋，卻在昂加爾戰役中遭保加爾人徹底擊潰。這場勝利為保加爾人贏得了優厚的和平條約，不僅迫使拜占庭承認保加利亞的國家地位，還不得不將巴爾幹山脈以北的土地盡數割讓。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_3" Language="zh_Hant_HK">
+      <Text>保加利亞第一帝國的初期，主要致力於建設國家，並由遊牧轉向定居生活。他們以石材建造首都普利斯卡，以求千秋萬世，農業經濟也逐漸興盛。然而，這個時期同時也是一個擴張的年代。帝國仍保留著保加爾人遊牧時期的軍事體制，其財富主要來自戰爭，特別是對南方富饒的拜占庭領土的掠奪。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_4" Language="zh_Hant_HK">
+      <Text>保加爾人與拜占庭的關係向來錯綜複雜，這段關係在整個中世紀深深塑造了保加利亞的民族特質。保加爾人對拜占庭採取強硬態度，一方面是因為掠奪能為這個新興國家帶來財富，另一方面也是因為被拜占庭吞併始終是個真實的威脅。然而，他們又渴望得到這個東羅馬帝國的認可，無論是透過條約還是賜予的頭銜（比如阿斯巴魯赫的繼承人特瓦爾，就因協助被廢黜的查士丁尼二世重登王位，而獲得「凱撒」的尊稱，令他欣喜若狂）。幾個世紀以來，與拜占庭的比鄰而居，逐漸在政治、宗教、文學和藝術等諸多層面影響了保加利亞。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_5" Language="zh_Hant_HK">
+      <Text>拜占庭人對這個盤踞在北方門戶的威脅深感不滿。他們偶爾會利用保加爾人，特別是在內戰時期將其當作對付敵人的工具，但總的來說視其為帝國的眼中釘。然而拜占庭還有更棘手的問題要應付──這個時期他們的主要勁敵是阿拔斯哈里發帝國，那才是真正的大患。為了避免腹背受敵，他們在東線作戰時，往往以條約和金錢來安撫保加爾人；只有在東方戰事暫歇或受到挑釁時，才會展開巴爾幹半島的軍事行動。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_6" Language="zh_Hant_HK">
+      <Text>保加爾人是一群兇悍的戰士，特別擅長運用巴爾幹半島錯綜複雜的地形作戰。他們對這片土地瞭如指掌，發展出各種戰術技巧和伏擊策略，即使面對人數遠勝於己的敵人也能佔得上風。這些優勢不僅使他們成為令人聞風喪膽的掠奪者，在大規模戰役中更是屢建奇功。811年的普利斯卡之戰就是最好的明證：可汗克魯姆率軍殲滅了由尼基弗魯斯一世親自統帥的拜占庭大軍，連皇帝本人都戰死沙場。克魯姆更將這位皇帝的頭骨製成酒杯，來慶祝這場輝煌的勝利。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_7" Language="zh_Hant_HK">
+      <Text>普利斯卡大捷為保加利亞帶來了一段和平時期，使這個國家有機會走向新的發展階段。拜占庭傳教士基里爾和美多德開始在巴爾幹半島四處傳教，向當地的保加爾人和斯拉夫人宣揚福音。為了更有效地傳播教義，他們創造了格拉哥里字母，讓斯拉夫語有了書寫系統。隨著東正教的傳入，保加爾貴族與斯拉夫民眾之間的文化藩籬逐漸消融，保加爾人也日漸融入當地文化。這些身份認同的轉變不僅加強了王國的凝聚力，更為保加利亞開啟了與基督教歐洲和平進行政治、經濟往來的新契機。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_8" Language="zh_Hant_HK">
+      <Text>保加利亞第一帝國在西美昂一世（893-927年）統治時期迎來了黃金時代。這位在君士坦丁堡接受教育的君主既拓展國土，又提升文化。他大力贊助藝術與文學，更將新都普雷斯拉夫打造成一座令人讚嘆的大都會。在軍事上，他指揮遠征，將保加利亞的版圖擴展至愛琴海與亞得里亞海沿岸。然而，這份輝煌終究未能長存。1014年，巴西爾二世在克雷迪昂一役徹底殲滅保加利亞大軍，因而被稱為「保加利亞殺手」。此後，保加利亞帝國喪失獨立，在往後150年間淪為拜占庭的臣屬。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_BULGARIA_CHAPTER_HISTORY_PARA_9" Language="zh_Hant_HK">
+      <Text>在這段被統治的歲月裡，保加爾人並未甘於屈服。他們多次嘗試重奪獨立，其中最著名的是1040年的起義：彼得‧德利揚一度攻佔了西巴爾幹大片土地，最終卻敗在米海爾四世手下。（當時年輕的挪威王子哈拉爾‧哈德拉達正以瓦蘭吉衛隊成員的身份參與米海爾的征討，並因戰功獲得晉升。）拜占庭雖然沒有採取武力，但仍積極推動巴爾幹半島的希臘化，首先從改造保加利亞教會著手。然而，十字軍東征和塞爾柱土耳其人的入侵在其他行省引發的動盪，使這項計畫終究難以取得實質進展。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_IMPROVEMENT_HIDDEN_FORTRESS_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>在巴爾幹山脈中，鄰近貝洛格拉奇克鎮的地方，聳立著一座隱藏著祕密的岩石山峰──在其巔峰之處，一座古老的軍事要塞曾巧妙地隱匿於天然屏障之後。這樣的小型堡壘，在保加利亞帝國崎嶇的地形上比比皆是。它們都建在地形天然庇護的戰略要地：或是懸崖峭壁，或是幽谷深壑，或是便於防守的岩石高地。這些地點經過進一步加固，並建造房舍以安置士兵和儲存軍需。小型堡壘往往刻意避開行人視線，以便於祕密監視或發動奇襲──這正是保加爾人善用地形優勢對抗敵人的諸多手段之一。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_IMPROVEMENT_HIDDEN_FORTRESS_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>這些隱匿堡壘，如今僅存寥寥可數，其中最引人矚目的當屬貝洛格拉奇克要塞。這座堡壘最早在羅馬時期就建有防禦設施，其後歷經拜占庭人、保加爾人，直至鄂圖曼人的統治，都不斷進行加固與擴建。對以維丁為核心的保加利亞分支政權而言，這裡更是一處極具戰略價值的要地。時至今日，這座要塞的規模已大幅擴展，遠超原有的岩石範圍，但其最早的城堡主體依然巧妙地與周圍自然地貌渾然一體。  </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_SEVEN_TRIBES_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>當保加爾人從中亞故鄉遷徙至東歐時，發現這片土地早有斯拉夫人聚居。拜占庭史家狄奧法內斯記載，多瑙河流域有七個斯拉夫部落，他們在七世紀結成聯盟，共同抵抗南方的拜占庭人與西方的阿瓦爾人。然而面對保加爾人的到來，這些部落並未選擇對抗，反而與這群新來者結為盟友，甘願臣服於保加爾可汗阿斯巴魯赫的統治之下。這支強大的聯軍隨後擊敗拜占庭軍隊，跨越多瑙河，奠定了保加利亞第一帝國的基業。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_SEVEN_TRIBES_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>斯拉夫人始終是這個王國的重要構成，而隨著歲月流逝，突厥裔的保加爾人逐漸融入當地的風俗、文化與語言。到了十世紀，他們已經徹底斯拉夫化，與當地居民幾無二致。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_TARNOVO_SCHOOLS_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>在保加利亞第二帝國時期，首都特爾諾沃成為了藝術、建築與文學的璀璨明珠。各路創意人才匯聚於不同學院，掀起了一波前所未有的創作浪潮。建築學院巧妙運用複雜的磚工技藝，融合拜占庭風格的設計元素，打造出宗教與世俗建築，創造出獨樹一幟的保加利亞建築風格。藝術學院則以精美的壁畫和馬賽克為這些建築錦上添花，妝點牆面與天頂；畫家們也在手稿插圖和聖像畫等小型作品上一展長才。隨著識字率提升，文學學院蓬勃發展，創作了豐富多彩的作品，從聖徒傳記、讚美詩集，到歷史編纂與民間故事，不一而足。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_TARNOVO_SCHOOLS_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>特爾諾沃學院的蓬勃發展，穩固了特爾諾沃作為文化重鎮的地位。這些藝術家和文人的創作為人們開啟了親近信仰、追求知識和展現自我的新途徑。透過精美的手稿和聖像畫，這些學院也培養了人們對藝術的私人鑑賞能力——而這也僅限於那些富裕之人。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_EX_BULGARIA_TSARSTVIE_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>遊牧的保加爾人發展為一個穩固的王國（「沙皇國」），這堪稱一項輝煌成就，而這與其位處東西方之間的地理位置，既是福也是禍。保加爾人與當地斯拉夫族群逐漸融合，加速了早期王國的茁壯，將兩個民族的特質熔鑄為一個嶄新的政體，奠定了數世紀的基業。然而，保加利亞位處大國勢力的交會點，這也深刻地影響了其發展軌跡。其中最深遠的互動莫過於與拜占庭的關係，後者的影響力在兩個保加利亞帝國時期都無所不在。隨著保加爾人努力擺脫君士坦丁堡的影響圈，西方逐漸成為他們汲取權力、財富與靈感的新泉源。縱觀其漫長而動盪的歷史長河，保加利亞憑藉其適應與成長的才能得以延續不絕，同時始終保持著堅定不移的民族本色。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_BALIK_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>「答剌罕（Tarkhan）」是突厥語中代表高級將領或地方總督的詞彙。這個頭銜在中亞古代和中世紀各族中廣泛流傳，保加爾人在西遷之前也沿用這套體系。雖然保加利亞第一帝國建立後，保加爾人迅速從遊牧轉為定居生活，但他們源自草原的政軍體制，包括頭銜制度、職責分工和權力架構，仍然保留了下來。其中，答剌罕的職位得以延續，並以不同的附加頭銜（如諸潘-答剌罕、奧格魯-答剌罕、卡魯-答剌罕等）來區分內部等級。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_BALIK_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>隨著時光流逝，保加爾人的國家不斷演進，他們與當地斯拉夫人融合，深受拜占庭帝國影響，並最終皈依基督教，使其突厥文化根源逐漸淡去。儘管答剌罕的職責日漸式微，但這個古老的頭銜依然存續，甚至在12世紀的文獻中仍可尋得其蹤跡。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_BOYAR_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>在保加利亞第一帝國時期稱為「波依拉（boila）」的貴族，到了第二帝國時期改稱「波雅爾（bolyar）」。這些貴族身兼文武雙重職責，平時治理地方，戰時則擔負軍事重任。作為高級將領，他們以精湛的騎術和對地形的熟稔，為保加利亞軍隊注入了強大戰力。騎兵在軍中地位如此之重要，即便是在太平盛世，若有人怠慢了馬匹照料，也會遭受嚴厲懲罰。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_BOYAR_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>波雅爾的頭銜世代相傳，其內部更有嚴格的階級之分：地位最崇高的幾位大波雅爾組成王室議會，而其餘小波雅爾則致力於治理地方。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_RILA_MONASTERY_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>西元10世紀，修士伊凡（亦稱約翰）隱居里拉山，過著遁世生活。他以顯現神蹟聞名於世，吸引眾多信徒不遠千里前來他棲身的幽洞，渴望聆聽教誨、求取祝福。這些虔誠的來訪者在山中搭建居所，臨時棲身之所逐漸發展為永久住所，日後成為著名的里拉修道院。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_RILA_MONASTERY_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>幾經世代變遷，這座修道院歷經多次毀壞與重建。今日的建築群雖深受保加利亞第二帝國特爾諾沃藝術學院的薰陶，卻也融合了保加利亞各個時期的藝術、建築與歷史風采。在其悠久的歲月中，里拉修道院始終是保加利亞精神信仰、藝術成就與民族認同的象徵。時至今日，這座古老的修道院依然生機盎然。 </Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIDDEN_FORTRESS_NAME" Language="zh_Hant_HK">
+      <Text>隱匿堡壘</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_RILA_MONASTERY_NAME" Language="zh_Hant_HK">
+      <Text>里拉修道院</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_DRINA_NAME" Language="zh_Hant_HK">
+      <Text>德里納河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_ISKAR_NAME" Language="zh_Hant_HK">
+      <Text>伊斯克爾河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_MORAVA_NAME" Language="zh_Hant_HK">
+      <Text>摩拉瓦河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_PRUT_NAME" Language="zh_Hant_HK">
+      <Text>普魯特河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_YANTRA_NAME" Language="zh_Hant_HK">
+      <Text>揚特拉河</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_ADATEPE_NAME" Language="zh_Hant_HK">
+      <Text>阿達特佩山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_CIOMADUL_NAME" Language="zh_Hant_HK">
+      <Text>錫馬杜山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_CSOVANYOS_NAME" Language="zh_Hant_HK">
+      <Text>喬萬約斯山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_KERKIS_NAME" Language="zh_Hant_HK">
+      <Text>克爾基斯山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_MOUNT_KARADAG_NAME" Language="zh_Hant_HK">
+      <Text>卡拉達格山</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SEVEN_TRIBES_NAME" Language="zh_Hant_HK">
+      <Text>七部落</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TARNOVO_SCHOOLS_NAME" Language="zh_Hant_HK">
+      <Text>特爾諾沃學院</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TSARSTVIE_NAME" Language="zh_Hant_HK">
+      <Text>沙皇國</Text>
+    </Replace>
+    <Replace Tag="LOC_11020A_COMPLETION" Language="zh_Hant_HK">
+      <Text>保加利亞的巍峨群山蘊藏著無數祕密。它們雄偉蒼古，靜默的峰巒吸引著每個路過旅人的目光。然而敵人很快就會發現，這些山嶺也在凝視著他們——而這目光，卻是冰冷而充滿敵意的。</Text>
+    </Replace>
+    <Replace Tag="LOC_11020A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>鮮活懸崖</Text>
+    </Replace>
+    <Replace Tag="LOC_11020B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11020B_NAME" Language="zh_Hant_HK">
+      <Text>在不被察覺間觀察他人，可以學到很多。</Text>
+    </Replace>
+    <Replace Tag="LOC_11020C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11020C_NAME" Language="zh_Hant_HK">
+      <Text>山中還能保藏更多的祕密。</Text>
+    </Replace>
+    <Replace Tag="LOC_11021A_COMPLETION" Language="zh_Hant_HK">
+      <Text>太平盛世裡，保加利亞帝國蓬勃發展。即便遠離戰場，答剌罕們在街道上依然氣宇軒昂，百姓們也逐漸轉向他們，尋求解決日常瑣事的幫助。</Text>
+    </Replace>
+    <Replace Tag="LOC_11021A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>承平時期的領導</Text>
+    </Replace>
+    <Replace Tag="LOC_11021B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}，但{2_reward}，持續{3_turn_timer}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11021B_NAME" Language="zh_Hant_HK">
+      <Text>答剌罕們必須學習市政管理。</Text>
+    </Replace>
+    <Replace Tag="LOC_11021C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11021C_NAME" Language="zh_Hant_HK">
+      <Text>和平就是備戰的理想時機。</Text>
+    </Replace>
+    <Replace Tag="LOC_11022A_COMPLETION" Language="zh_Hant_HK">
+      <Text>在群山深處，一位聖者隱居洞中，常於鄉里顯現神蹟。虔誠的信眾絡繹不絕地前往這處幽居之地，只為求得祝福。</Text>
+    </Replace>
+    <Replace Tag="LOC_11022A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>山中的奇蹟</Text>
+    </Replace>
+    <Replace Tag="LOC_11022B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11022B_NAME" Language="zh_Hant_HK">
+      <Text>應該在這裡建立一座永久的修道院。</Text>
+    </Replace>
+    <Replace Tag="LOC_11022C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11022C_NAME" Language="zh_Hant_HK">
+      <Text>不要去打擾隱士！</Text>
+    </Replace>
+    <Replace Tag="LOC_11023A_COMPLETION" Language="zh_Hant_HK">
+      <Text>里拉修道院的修士們靜默地坐在教堂中冥想。忽然，外頭傳來陣陣驚嘆聲，打破了祈禱的寧靜。遊人們在讚歎著建築上那些精美絕倫的壁畫。</Text>
+    </Replace>
+    <Replace Tag="LOC_11023A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>文化旅遊</Text>
+    </Replace>
+    <Replace Tag="LOC_11023B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}與{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11023B_NAME" Language="zh_Hant_HK">
+      <Text>修道院是所有保加利亞人的空間。</Text>
+    </Replace>
+    <Replace Tag="LOC_11023C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11023C_NAME" Language="zh_Hant_HK">
+      <Text>這個地方是專為精神靈修而保留的。</Text>
+    </Replace>
+    <Replace Tag="LOC_11024A_COMPLETION" Language="zh_Hant_HK">
+      <Text>敵軍統帥正召集部眾，而四周野地卻彷彿在低聲詛咒著他們的死期。保加爾人如鬼魅般時隱時現，虛實難辨。整個漫漫長夜，盾牌的撞擊聲不絕於耳。敵軍陷入困惑…恐懼…疲憊…當保加爾人終於在破曉時分發動狂風驟雨般的襲擊，勝利來得是如此迅速而決絕。</Text>
+    </Replace>
+    <Replace Tag="LOC_11024A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>沃爾比察的復仇</Text>
+    </Replace>
+    <Replace Tag="LOC_11024B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>騎兵{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11024B_NAME" Language="zh_Hant_HK">
+      <Text>今夜，士兵們將開懷暢飲。</Text>
+    </Replace>
+    <Replace Tag="LOC_11024C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11024C_NAME" Language="zh_Hant_HK">
+      <Text>戰爭還在繼續，再派遣增援！</Text>
+    </Replace>
+    <Replace Tag="LOC_11025A_COMPLETION" Language="zh_Hant_HK">
+      <Text>一位以神蹟而聞名的神父創辦了一所培育年輕傳教士的學堂。他向學生們傳授全新的文字系統，並且教誨他們要以這份學識去啟迪他人。</Text>
+    </Replace>
+    <Replace Tag="LOC_11025A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>奧赫里德的神父</Text>
+    </Replace>
+    <Replace Tag="LOC_11025B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11025B_NAME" Language="zh_Hant_HK">
+      <Text>只有傳播這火焰，我們才能照亮世界。</Text>
+    </Replace>
+    <Replace Tag="LOC_11025C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11025C_NAME" Language="zh_Hant_HK">
+      <Text>他們所開闢的道路為商人們帶來了新的機會。</Text>
+    </Replace>
+    <Replace Tag="LOC_11026A_COMPLETION" Language="zh_Hant_HK">
+      <Text>保加利亞的傳教士們或乘船渡海，或隨商隊遠行，向一切願意聆聽的人傳播信仰。這些教義很快吸引了眾多求知若渴的學子，他們不遠千里前來，只為能夠得到保加利亞聖徒的親自祝福。</Text>
+    </Replace>
+    <Replace Tag="LOC_11026A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>遠道而來的朝聖者</Text>
+    </Replace>
+    <Replace Tag="LOC_11026B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11026B_NAME" Language="zh_Hant_HK">
+      <Text>廟宇必須歡迎大眾。</Text>
+    </Replace>
+    <Replace Tag="LOC_11026C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11026C_NAME" Language="zh_Hant_HK">
+      <Text>這真是一個販售聖像的好市場…</Text>
+    </Replace>
+    <Replace Tag="LOC_11027A_COMPLETION" Language="zh_Hant_HK">
+      <Text>波雅爾們正忙著將掠奪而來的財物馱上戰馬，身後是冒著濃煙的殘垣斷壁。這次成功的突襲讓他們意氣風發，卻也不禁暗自思忖，這片土地究竟是如何累積起如此豐厚的財富。</Text>
+    </Replace>
+    <Replace Tag="LOC_11027A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>突襲</Text>
+    </Replace>
+    <Replace Tag="LOC_11027B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11027B_NAME" Language="zh_Hant_HK">
+      <Text>富裕的鄰邦就是保加利亞的福音。</Text>
+    </Replace>
+    <Replace Tag="LOC_11027C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11027C_NAME" Language="zh_Hant_HK">
+      <Text>也許我們可以從他們的繁榮中學習到一些東西。</Text>
+    </Replace>
+    <Replace Tag="LOC_11028A_COMPLETION" Language="zh_Hant_HK">
+      <Text>首都淪陷，舉國哀悼，一些預言文獻在帝國境內廣為流傳。這些典籍中記載著古代先知在天使指引下所述的保加利亞往昔、今生與未來。在這風雨飄搖的歲月裡，許多人從重讀這段歷史中尋得些許慰藉，而那些關於末日的預言則令人心生恐懼。</Text>
+    </Replace>
+    <Replace Tag="LOC_11028A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>偽編年鑑</Text>
+    </Replace>
+    <Replace Tag="LOC_11028B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>最高等級的指揮官獲得免費強化。</Text>
+    </Replace>
+    <Replace Tag="LOC_11028B_NAME" Language="zh_Hant_HK">
+      <Text>回望過去能為未來帶來希望。</Text>
+    </Replace>
+    <Replace Tag="LOC_11028C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>騎兵{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11028C_NAME" Language="zh_Hant_HK">
+      <Text>神將賜予人民力量。</Text>
+    </Replace>
+    <Replace Tag="LOC_11029A_COMPLETION" Language="zh_Hant_HK">
+      <Text>造訪保加利亞帝國的旅人無不讚嘆其城市的壯麗與居民的藝術造詣。然而當他們注視著士兵操演時，內心不免泛起一絲畏懼，因為深知自己的國度或許就是這支雄師的下一個征服目標。</Text>
+    </Replace>
+    <Replace Tag="LOC_11029A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>盛極一時</Text>
+    </Replace>
+    <Replace Tag="LOC_11029B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11029B_NAME" Language="zh_Hant_HK">
+      <Text>保加利亞的聲譽推動了其發展。</Text>
+    </Replace>
+    <Replace Tag="LOC_11029C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11029C_NAME" Language="zh_Hant_HK">
+      <Text>保加利亞的驕傲在於其軍隊。</Text>
+    </Replace>
+    <Replace Tag="LOC_12006A_COMPLETION" Language="zh_Hant_HK">
+      <Text>黎剎博士謹慎地在崎嶇山徑上緩步而行，腦中思索著保加利亞這片土地的弔詭——巍峨群山將其與外界阻隔，而貿易卻又讓它與外界保持緊密相連。</Text>
+    </Replace>
+    <Replace Tag="LOC_12006A_STORYTITLE" Language="zh_Hant_HK">
+      <Text>好醫生在十字路口</Text>
+    </Replace>
+    <Replace Tag="LOC_12006B_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>追獵者{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_12006B_NAME" Language="zh_Hant_HK">
+      <Text>膽敢入侵的人要遭殃了。</Text>
+    </Replace>
+    <Replace Tag="LOC_12006C_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>所有聚落{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_12006C_NAME" Language="zh_Hant_HK">
+      <Text>那些商隊好勇敢。</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SEVEN_TRIBES_AUTHOR" Language="zh_Hant_HK">
+      <Text>《克魯姆汗法典》</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SEVEN_TRIBES_QUOTE" Language="zh_Hant_HK">
+      <Text>「一如先前所報，保加利亞人殲滅了所有敵手。」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TARNOVO_SCHOOLS_AUTHOR" Language="zh_Hant_HK">
+      <Text>科斯馬斯長老</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TARNOVO_SCHOOLS_QUOTE" Language="zh_Hant_HK">
+      <Text>「惡魔害怕這些遺物，不敢接近其受到祝福的內容物。」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TSARSTVIE_AUTHOR" Language="zh_Hant_HK">
+      <Text>彼得一世的頌詞</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_TSARSTVIE_QUOTE" Language="zh_Hant_HK">
+      <Text>「你如同晨星般出現在我們面前，驅散了敵人的陰影。」</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_BULGARIA_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>掠奪建築時，所有城市獲得等同於所取得之產出或生命值50%的[icon:YIELD_PRODUCTION]生產力。所有戰鬥單位對抗有中世紀城墻的區域時-3戰鬥力。</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIDDEN_FORTRESS_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>+4[icon:YIELD_PRODUCTION]生產力。必須放置在非相鄰於其他隱匿堡壘的崎嶇地形中現有的改良設施上。此格位上的單位獲得匿蹤能力。保加利亞特色改良設施。算做防禦工事，防守時+6戰鬥力。不分時代。不會移除格位上的倉庫加成。</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIDDEN_FORTRESS_TOOLTIP" Language="zh_Hant_HK">
+      <Text>必須放置在非相鄰於其他隱匿堡壘的崎嶇地形中現有的改良設施上。此格位上的單位獲得匿蹤能力。保加利亞特色改良設施。算做防禦工事，防守時+6戰鬥力。不分時代。不會移除格位上的倉庫加成。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_BULGARIA" Language="zh_Hant_HK">
+      <Text>在高聳的山巔上，僧侶們將虔誠的祈禱送上天際；而在山下的遼闊平原，號角已然吹響。保加利亞的鐵騎奔馳，手中利劍受信念所指引，而此信念比鋼鐵更加堅不可摧。高舉戰號與馬刀，緊握套索與長矛，讓保加爾人就此縱橫馳騁於世上！</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_BULGARIA" Language="zh_Hant_HK">
+      <Text>運用你的特色能力「克魯姆王朝」，搭配「以退為進」與「智謀」等傳統，在掠奪時獲得大量收益。但攻打有防禦工事的聚落時務必要小心！</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_INTRO_BULGARIA" Language="zh_Hant_HK">
+      <Text>就像騎士踏平巨龍，保加利亞將稱霸世界。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BULGARIA_COMPLETE_RILA_MONASTERY_DESC" Language="zh_Hant_HK">
+      <Text>扮演保加利亞，建成里拉修道院</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BULGARIA_COMPLETE_RILA_MONASTERY_NAME" Language="zh_Hant_HK">
+      <Text>里拉修道院</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BULGARIA_LEGACY_PATH_MILITARISTIC_DESC" Language="zh_Hant_HK">
+      <Text>扮演保加利亞，完成一條軍事傳承路徑</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BULGARIA_LEGACY_PATH_MILITARISTIC_NAME" Language="zh_Hant_HK">
+      <Text>保加利亞傳承路徑</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_BULGARIA_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>+30%生產力，來自身為保加利亞的特色奇觀。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SEVEN_TRIBES_GREATWORKS_COMBAT_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>當你展示至少5個聖物時，戰鬥單位+5戰鬥力。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TARNOVO_SCHOOLS_TEMPLE_HAPPINESS_HIDDEN_FORTRESS_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>在有寺廟的聚落中，隱匿堡壘獲得+2[icon:YIELD_HAPPINESS]幸福感。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TSARSTVIE_CULTURE_MOUNTAIN_HIDDEN_FORTRESS_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>每有一個相鄰的山脈格位，隱匿堡壘便會獲得+2[icon:YIELD_CULTURE]文化值。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_TSARSTVIE_TWO_MIGRANTS_DESCRIPTION" Language="zh_Hant_HK">
+      <Text> 首都獲得2個移民。</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_RILA_MONASTERY" Language="zh_Hant_HK">
+      <Text>里拉的約翰</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_RILA_MONASTERY" Language="zh_Hant_HK">
+      <Text>「隱士的財富不在於銀或金的多寡，而在於安貧樂道、不屈的意志，和無限的謙卑。」</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_FALSE_RETREAT_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>掠奪改良設施時，所有城鎮獲得等同於所取得之收益或生命值50%的[icon:YIELD_FOOD]食物。所有戰鬥單位對抗有防禦工事的區域時-3戰鬥力。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_ICONOLATRY_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>巨作提供+1[icon:YIELD_HAPPINESS]幸福感和+1[icon:YIELD_GOLD]金幣。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_STRATAGEMS_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>掠奪獲得+50%收益與生命值。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_BULGARIA_ABILITY_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>[BLIST][LI]掠奪建築時，所有[B]城市[/B]獲得等同於所取得之收益或生命值50%的[B][icon:YIELD_PRODUCTION]生產力[/B]。[LI]所有戰鬥單位對抗有中世紀城墻的區域時[B]-3戰鬥力[/B]。[LI]建造[B]里拉修道院[/B]時[B]+30%[icon:YIELD_PRODUCTION]生產力[/B]。[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_BULGARIA_ABILITY_NAME" Language="zh_Hant_HK">
+      <Text>克魯姆王朝</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_EX_BULGARIA_NAME" Language="zh_Hant_HK">
+      <Text>保加利亞市政</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BALIK_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>保加利亞特色軍隊指揮官。擁有3移動力。其指揮半徑內的單位可以花費1移動力執行掠奪。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_2_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>2階保加利亞特色騎兵單位。忽視崎嶇地形對自身移動力的影響，並且讓對方單位在崎嶇地形上的戰鬥力加成無效。當此單位在崎嶇地形上戰鬥時，+3戰鬥力。能忽視控制區。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_3_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>3階保加利亞特色騎兵單位。忽視崎嶇地形對自身移動力的影響，並且讓對方單位在崎嶇地形上的戰鬥力加成無效。當此單位在崎嶇地形上戰鬥時，+3戰鬥力。能忽視控制區。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_BASE_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>保加利亞特色騎兵單位。忽視崎嶇地形對自身移動力的影響，並且讓對方單位在崎嶇地形上的戰鬥力加成無效。當此單位在崎嶇地形上戰鬥時，+3戰鬥力。能忽視控制區。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>1階保加利亞特色騎兵單位。忽視崎嶇地形對自身移動力的影響，並且讓對方單位在崎嶇地形上的戰鬥力加成無效。當此單位在崎嶇地形上戰鬥時，+3戰鬥力。能忽視控制區。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_ALTARS_BULGARIA_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]祭壇[/B]曾是[B]保加利亞[/B]國家認同的重要組成。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_ALTARS_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>擁有3座[B]祭壇[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_AUGUSTUS_BULGARIA_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]奧古斯都[/B]曾統治後來成為[B]保加利亞[/B]的地區。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BULGARIA_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>扮演[B]保加利亞[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_CATHERINE_BULGARIA_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]凱薩琳[/B]源自與[B]保加利亞[/B]相同的大陸。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_CHARLEMAGNE_BULGARIA_TOOLTIP" Language="zh_Hant_HK">
+      <Text>[B]保加利亞[/B]和[B]查理曼[/B]在策略上互補。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_RILA_MONASTERY_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>+4[icon:YIELD_CULTURE]文化值。擁有3個遺物槽位。每次當你建造奇觀時（也包括此座）獲得1個遺物。不得放置在相鄰於某區域處。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_RILA_MONASTERY_TOOLTIP" Language="zh_Hant_HK">
+      <Text>擁有3個遺物槽位。每次當你建造奇觀時（也包括此座）獲得1個遺物。不得放置在相鄰於某區域處。</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_BOYAR_PREVIEW" Language="zh_Hant_HK">
+      <Text>在崎嶇地形上+{1_Amount}</Text>
+    </Replace>
+    <Replace Tag="LOC_COMBAT_PREVIEW_NUMBER_GREATWORKS_BONUS_DESC" Language="zh_Hant_HK">
+      <Text>+{1_Value}戰鬥力，來自放入槽位的巨作。</Text>
+    </Replace>
+    <Replace Tag="LOC_SEVEN_TRIBES_GREATWORKS_COMBAT_PREVIEW" Language="zh_Hant_HK">
+      <Text>+{1_Amount}七部落</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_FALSE_RETREAT_PREVIEW" Language="zh_Hant_HK">
+      <Text>{1_CombatAmount}，來自以退為進</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_BULGARIA_ABILITY_PREVIEW" Language="zh_Hant_HK">
+      <Text>{1_CombatAmount}，來自克魯姆王朝</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_ALTARS_BULGARIA_NARRATIVE" Language="zh_Hant_HK">
+      <Text>宗教一直是{1_Civilization_Adj}人民的個人事務。然而在城市各處的祭壇前，人們卻常常聚集，分享著先古聖賢的傳說。在這些故事的流傳中，一個新的信徒網路悄然成形，他們期望能將自己的理念帶進權力的殿堂。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_FALSE_RETREAT_NAME" Language="zh_Hant_HK">
+      <Text>以退為進</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_ICONOLATRY_NAME" Language="zh_Hant_HK">
+      <Text>聖像崇拜</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_STRATAGEMS_NAME" Language="zh_Hant_HK">
+      <Text>智謀</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BALIK_NAME" Language="zh_Hant_HK">
+      <Text>答剌罕</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_BOYAR_NAME" Language="zh_Hant_HK">
+      <Text>波雅爾</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

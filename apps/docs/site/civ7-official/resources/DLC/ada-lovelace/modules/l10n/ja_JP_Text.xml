@@ -1,0 +1,1107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_1" Language="ja_JP">
+      <Text>エイダ・ラブレスことラブレス伯爵夫人オーガスタ・エイダ・キング（1815年-1852年）は、対照的な両親の元に生まれた。父親はロマン派の詩人として知られるバイロン卿で、エイダはその唯一の嫡出子である。しかし父親は娘の首も座らぬうちにイギリスを離れ、その後二人が会うことはなかった。よく言えばドラマチック、悪く言えば支離滅裂な性格で、過剰なまでに創造性豊かなこの夫と対をなすのが妻のバイロン夫人だ。彼女もまた聡明だったが、こちらは数学や科学方面に通じていた。バイロン卿が情熱家で衝動的であったのに対し、夫人は厳格で信仰に篤く、教育改革や奴隷制度廃止に深く関わった。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_2" Language="ja_JP">
+      <Text>エイダを育てたのは主に母方の祖母だった。母親は傍にいないことが多かったが、娘の成長に目を光らせ、数学や科学への興味を伸ばそうと働きかけた。父親のような詩作の才に目覚めれば、父親と同じような破滅的な道をたどるのではないかと危ぶんだのだ。学問好きなところは母親に似ていたが、エイダは父親の想像力も受け継いでいた。エイダの子供時代についてよく語られるエピソードに、鳥が空を飛ぶ仕組みに興味を持ち、人が飛べる翼を作るのに適した材料を探しまわったというものがある。豊かな想像力と、厳密さを追求する科学的姿勢を兼ね備えたエイダらしい逸話だ。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_3" Language="ja_JP">
+      <Text>教育熱心な母親のおかげで、エイダは家庭教師として呼ばれた当時のそうそうたる学者たちから教えを受けることができた。この時エイダを教えた顔ぶれの中には、数学者のオーガスタス・ド・モルガンや天文学者のメアリー・サマヴィルなどがいる。エイダは18歳のとき、サマヴィルからチャールズ・バベッジを紹介される。技師にして発明家であり、史上初の機械式計算機とされる階差機関を発明した人物だ。彼女はたちまちこの発明に魅了され、バベッジに弟子入りして共同研究のような形で協力をはじめた。1842年から1843年にかけては、バベッジの次なる発明品についてイタリア人のルイジ・メナブレアが書いた記録を英語に翻訳している。この第2号機は解析機関と呼ばれ、パンチカードを使って数学の問題を解くという触れ込みだったが、資金不足のせいで当時は完成に至らなかった。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_4" Language="ja_JP">
+      <Text>メナブレアの記録を翻訳する中でエイダは、解析機関の性質とその可能性について、本文を超える量の注釈を加えている。解析機関が処理できる変数は、より抽象的な概念の代用として扱える可能性があるという推測は、注目に値する。さらに、この注釈の中でも白眉とされるのが「注釈G」と呼ばれる箇所で、ここで示されている理論上のアルゴリズムを最初のコンピュータープログラムと考える向きも少なくない。彼女が加えた注釈は、長さにおいても洞察の鋭さにおいても元の記録をはるかに上回っていた。エイダはこの機械の仕組みを完全に理解していただけでなく、それを使って何ができるか、誰よりも先まで考えていたのである。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_5" Language="ja_JP">
+      <Text>エイダは1835年、20歳の時に8代目キング男爵ウィリアムと結婚し、3人の子をもうけた。数学の他にも宗教やメスメルの動物磁気説、音楽に強い興味を持ち、科学の進歩への関心を失わなかった。エイダはわずか36歳でこの世を去った。死因は癌だった。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_ADA_LOVELACE_ANY" Language="ja_JP">
+      <Text>この宇宙に満ちる生気は、あなたが好きにしてよいものではありません。去りなさい！ </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_ADA_LOVELACE_ANY" Language="ja_JP">
+      <Text>心を失ったのですね。ならばその頭も不要でしょう。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DEFEAT_AI_LEADER_ADA_LOVELACE_ANY" Language="ja_JP">
+      <Text>私の足跡が消えた後も、人類が彼方の輝きを少しでも見出せますように。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_ADA_LOVELACE_ANY" Language="ja_JP">
+      <Text>エイダ・ラブレスと申します。早速ですが、微積分はお好きですか？ </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_ADA_LOVELACE_ANY" Language="ja_JP">
+      <Text>エイダ・ラブレスと申します。早速ですが、微積分はお好きですか？ </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_ADA_LOVELACE_ANY" Language="ja_JP">
+      <Text>エイダ・ラブレスと申します。早速ですが、微積分はお好きですか？ </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_ADA_LOVELACE" Language="ja_JP">
+      <Text>この問題の本質を抜いたご提案ですわ。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_ADA_LOVELACE" Language="ja_JP">
+      <Text>あなたの変数が数式に入る余地はありません。 </Text>
+    </Replace>
+    <Replace Tag="LOC_MAIN_CHAR_SELECT_LEADER_ADA_LOVELACE_ANY" Language="ja_JP">
+      <Text>科学の言葉を使いこなすには、見えないものを頭で理解し、心で感じ、手でつかむことが大切です。 </Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_ADA_LOVELACE_NAME" Language="ja_JP">
+      <Text>エイダ・ラブレス</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_NAME" Language="ja_JP">
+      <Text>自然の神秘を学ぼう。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_NAME" Language="ja_JP">
+      <Text>思うままに大地を形作ろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210D_NAME" Language="ja_JP">
+      <Text>彼女に活躍の場を与えよう。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_NAME" Language="ja_JP">
+      <Text>よく整理された書庫は整然とした精神のお手本になる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211C_NAME" Language="ja_JP">
+      <Text>散らかりすぎて片付けるだけ無駄だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_NAME" Language="ja_JP">
+      <Text>キャラバンへの贈り物を持たせて使者を送ろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212C_NAME" Language="ja_JP">
+      <Text>何も与えずに追い払おう。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213B_NAME" Language="ja_JP">
+      <Text>エイダの目にケンタウルス座が映る。創造力と実利主義の象徴、心をとらえて離さない星座だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213C_NAME" Language="ja_JP">
+      <Text>エイダの目にちょうこくぐ座が映る。このノミは彼女の名を永遠に宇宙へ刻むだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_NAME" Language="ja_JP">
+      <Text>専門家の力を活かさないともったいない。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214C_NAME" Language="ja_JP">
+      <Text>仕事を用意するのが大変だ。割に合わない。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_NAME" Language="ja_JP">
+      <Text>閉じる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_NAME" Language="ja_JP">
+      <Text>開かれた心を皆に身につけてもらおう。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216C_NAME" Language="ja_JP">
+      <Text>自分たちで決めさせよう。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_NAME" Language="ja_JP">
+      <Text>閉じる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_NAME" Language="ja_JP">
+      <Text>閉じる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218C_NAME" Language="ja_JP">
+      <Text>閉じる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218D_NAME" Language="ja_JP">
+      <Text>閉じる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_NAME" Language="ja_JP">
+      <Text>閉じる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219C_NAME" Language="ja_JP">
+      <Text>閉じる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219D_NAME" Language="ja_JP">
+      <Text>閉じる。</Text>
+    </Replace>
+    <Replace Tag="LOC_10000A_COMPLETION" Language="ja_JP">
+      <Text>計算式と殴り書きのような図がエイダの思考を物語っている。そこから垣間見えるのは、混沌とした彼女の頭脳の動きだ。紙に書かれた数字と図を見ただけでは、彼女の理論が正しいか否かを判断するのは難しい。だが、進歩を望むなら、善は急げだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_10000A_STORYTITLE" Language="ja_JP">
+      <Text>成功の確率</Text>
+    </Replace>
+    <Replace Tag="LOC_10000B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10000B_NAME" Language="ja_JP">
+      <Text>前進あるのみ。そうすれば答えにたどり着けるだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_10000C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10000C_NAME" Language="ja_JP">
+      <Text>まずは皆の意見を聞いてみよう。</Text>
+    </Replace>
+    <Replace Tag="LOC_10001A_COMPLETION" Language="ja_JP">
+      <Text>エイダが席に腰を下ろすと、同じ列にいた上流階級の人々がひそひそ話をはじめた。噂によると、エイダは競馬の必勝法を考案したらしい。だが、運がよかっただけだと鼻で笑う者もいる。</Text>
+    </Replace>
+    <Replace Tag="LOC_10001A_STORYTITLE" Language="ja_JP">
+      <Text>アルゴリズムに賭けろ</Text>
+    </Replace>
+    <Replace Tag="LOC_10001B_DESCRIPTION" Language="ja_JP">
+      <Text>馬に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10001B_NAME" Language="ja_JP">
+      <Text>話をつづけさせよう！ レースが面白くなりそうだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_10001C_DESCRIPTION" Language="ja_JP">
+      <Text>馬に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10001C_NAME" Language="ja_JP">
+      <Text>噂など一蹴して、あえて遅い馬に賭けよう。</Text>
+    </Replace>
+    <Replace Tag="LOC_10002A_COMPLETION" Language="ja_JP">
+      <Text>隣人たちが科学における信仰の役割について話し合っている。混沌に意味を与え、神の御業を理解しようとするのは、人間の性ではないのだろうか？</Text>
+    </Replace>
+    <Replace Tag="LOC_10002A_STORYTITLE" Language="ja_JP">
+      <Text>信仰の科学</Text>
+    </Replace>
+    <Replace Tag="LOC_10002B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10002B_NAME" Language="ja_JP">
+      <Text>信仰は道具にすぎない。計算器と一緒だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_10002C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10002C_NAME" Language="ja_JP">
+      <Text>信仰は答えをもたらすが、同じだけ疑問も生む。</Text>
+    </Replace>
+    <Replace Tag="LOC_10002D_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10002D_NAME" Language="ja_JP">
+      <Text>世界が不規則性に満ちていることこそ偶然ではありえない。</Text>
+    </Replace>
+    <Replace Tag="LOC_10003A_COMPLETION" Language="ja_JP">
+      <Text>エイダが糸の先に重りを結わえると、糸がピンと張った。いくつか色を織り交ぜて複雑な模様を織るその様子は、難解な数式を書くのに似ている。彼女は2つの概念を結びつけ、思案を巡らせる。両者の間に何かつながりはないだろうか、と。</Text>
+    </Replace>
+    <Replace Tag="LOC_10003A_STORYTITLE" Language="ja_JP">
+      <Text>一糸も乱れず</Text>
+    </Replace>
+    <Replace Tag="LOC_10003B_DESCRIPTION" Language="ja_JP">
+      <Text>文化関連の建造物に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10003B_NAME" Language="ja_JP">
+      <Text>この経験を教育方法に取り入れよう。</Text>
+    </Replace>
+    <Replace Tag="LOC_10003C_DESCRIPTION" Language="ja_JP">
+      <Text>ゴールド関連の建造物に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10003C_NAME" Language="ja_JP">
+      <Text>織った布を売ろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_10004A_COMPLETION" Language="ja_JP">
+      <Text>大学が完成すると、近くの聖堂が建築家の目に留まった。そういえば、こうした信仰の場は学問の府を非難することが多いと聞いた気がする…</Text>
+    </Replace>
+    <Replace Tag="LOC_10004A_STORYTITLE" Language="ja_JP">
+      <Text>数字の後援者</Text>
+    </Replace>
+    <Replace Tag="LOC_10004B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10004B_NAME" Language="ja_JP">
+      <Text>好きに言わせておこう。痛くも痒くもない。</Text>
+    </Replace>
+    <Replace Tag="LOC_10004C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10004C_NAME" Language="ja_JP">
+      <Text>溝を埋める努力が大切だ。相互理解を目指そう。</Text>
+    </Replace>
+    <Replace Tag="LOC_10004D_DESCRIPTION" Language="ja_JP">
+      <Text>科学関連と文化関連の建造物に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10004D_NAME" Language="ja_JP">
+      <Text>いいか悪いかで考えても始まらない。理由を聞こう。</Text>
+    </Replace>
+    <Replace Tag="LOC_10005A_COMPLETION" Language="ja_JP">
+      <Text>学童が手を挙げる。神学の本に納得できないので、他のものを読ませてほしいそうだ。エイダは少年の肩越しにのぞき込み、素早く本に目を走らせる。</Text>
+    </Replace>
+    <Replace Tag="LOC_10005A_STORYTITLE" Language="ja_JP">
+      <Text>箱の外へ</Text>
+    </Replace>
+    <Replace Tag="LOC_10005B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10005B_NAME" Language="ja_JP">
+      <Text>宗教が思考の枠組みを形作るのだと教えてやろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_10005C_DESCRIPTION" Language="ja_JP">
+      <Text>科学関連の建造物に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10005C_NAME" Language="ja_JP">
+      <Text>勉強の役に立つものを読ませてやろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_10006A_COMPLETION" Language="ja_JP">
+      <Text>エイダは病院のベッドを整え、最後に残ったしわを伸ばす。敷布のひだはどこか脳に似ている。彼女は昔を思い出した。自分で作った檻の中に、自分を閉じ込めていた時のことを。</Text>
+    </Replace>
+    <Replace Tag="LOC_10006A_STORYTITLE" Language="ja_JP">
+      <Text>心身の分断</Text>
+    </Replace>
+    <Replace Tag="LOC_10006B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10006B_NAME" Language="ja_JP">
+      <Text>脳は体と別個のものだ。そうすぐには疲れない。</Text>
+    </Replace>
+    <Replace Tag="LOC_10006C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10006C_NAME" Language="ja_JP">
+      <Text>強い心があればすべてを乗り越えられる。</Text>
+    </Replace>
+    <Replace Tag="LOC_10007A_COMPLETION" Language="ja_JP">
+      <Text>エイダが耳を澄ましている。科学者と司祭の会話を聞いているのだ。二人は世界を作る隠れた力について話している。神について、神秘について... 価値観がぶつかるたびに、緊張が高まっていく。</Text>
+    </Replace>
+    <Replace Tag="LOC_10007A_STORYTITLE" Language="ja_JP">
+      <Text>目には見えなくても</Text>
+    </Replace>
+    <Replace Tag="LOC_10007B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。ただし{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10007B_NAME" Language="ja_JP">
+      <Text>信仰は意味をもたらし、仕事をする意欲を高めてくれる。</Text>
+    </Replace>
+    <Replace Tag="LOC_10007C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。ただし{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10007C_NAME" Language="ja_JP">
+      <Text>わからないことがあるからこそ、人は答えを探す。</Text>
+    </Replace>
+    <Replace Tag="LOC_10008A_COMPLETION" Language="ja_JP">
+      <Text>助言者がエイダに苦言を呈する。彼女の設計は野心的すぎて実現不可能だと。彼女が指揮を執らないと進みが遅くなるが、誰かが考えなければ数式は完成しない。</Text>
+    </Replace>
+    <Replace Tag="LOC_10008A_STORYTITLE" Language="ja_JP">
+      <Text>遅れ</Text>
+    </Replace>
+    <Replace Tag="LOC_10008B_DESCRIPTION" Language="ja_JP">
+      <Text>科学関連の建造物に{1_reward}、ただし町に{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10008B_NAME" Language="ja_JP">
+      <Text>後れてもレースに参加するほうがいい。</Text>
+    </Replace>
+    <Replace Tag="LOC_10008C_DESCRIPTION" Language="ja_JP">
+      <Text>町に{1_reward}、ただし科学関連の建造物に{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10008C_NAME" Language="ja_JP">
+      <Text>焦ってもろくな結果にはならない。</Text>
+    </Replace>
+    <Replace Tag="LOC_10009A_COMPLETION" Language="ja_JP">
+      <Text>エイダが羽根ペンで額をコツコツと叩く。それで画期的なアイデアが思い浮かべばしめたものだ。電気は機械を動かし、明かりを灯す。だが、もっと革新的な使い方があるはずだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_10009A_STORYTITLE" Language="ja_JP">
+      <Text>光あれ</Text>
+    </Replace>
+    <Replace Tag="LOC_10009B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10009B_NAME" Language="ja_JP">
+      <Text>脳を調べられる装置を作ろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_10009C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10009C_NAME" Language="ja_JP">
+      <Text>電気を蓄えておける装置を作ろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_10010A_COMPLETION" Language="ja_JP">
+      <Text>数学者であり詩人でもあるエイダは、ともすると矛盾を指摘されがちだ。同輩たちに自分の心のありようを見せたい一心で、彼女はある案を思いついた。</Text>
+    </Replace>
+    <Replace Tag="LOC_10010A_STORYTITLE" Language="ja_JP">
+      <Text>歩く矛盾</Text>
+    </Replace>
+    <Replace Tag="LOC_10010B_DESCRIPTION" Language="ja_JP">
+      <Text>科学関連の建造物に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10010B_NAME" Language="ja_JP">
+      <Text>他の数学者たちに向けて文章講座を開こう。</Text>
+    </Replace>
+    <Replace Tag="LOC_10010C_DESCRIPTION" Language="ja_JP">
+      <Text>科学関連の建造物に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10010C_NAME" Language="ja_JP">
+      <Text>芸術家への挑戦として発明をさせてみよう。</Text>
+    </Replace>
+    <Replace Tag="LOC_10011A_COMPLETION" Language="ja_JP">
+      <Text>一筋の煙が空にたなびく。かつてそこには活気に沸く研究施設があったが、今やその面影もない。残った一握りの人々は、最後の力を振り絞って{1_Capital}に向かい、エイダ・ラブレスに助けを求めた。</Text>
+    </Replace>
+    <Replace Tag="LOC_10011A_STORYTITLE" Language="ja_JP">
+      <Text>過ちを正す</Text>
+    </Replace>
+    <Replace Tag="LOC_10011B_DESCRIPTION" Language="ja_JP">
+      <Text>文化関連の建造物に{1_reward}、ただし{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10011B_NAME" Language="ja_JP">
+      <Text>ミュージックホールで働かせよう。</Text>
+    </Replace>
+    <Replace Tag="LOC_10011C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。ただし{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10011C_NAME" Language="ja_JP">
+      <Text>工場の人員に空きがないか調べよう。</Text>
+    </Replace>
+    <Replace Tag="LOC_10012A_COMPLETION" Language="ja_JP">
+      <Text>長い時間をかけて複雑な技術の注釈を翻訳したエイダは、この新発明への出資者を募ることにした。新たな可能性によって世界が広がろうとしている。まだ誰も知らないものを作れるなら、どんな苦労も怖くない。</Text>
+    </Replace>
+    <Replace Tag="LOC_10012A_STORYTITLE" Language="ja_JP">
+      <Text>アイデアの取引</Text>
+    </Replace>
+    <Replace Tag="LOC_10012B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10012B_NAME" Language="ja_JP">
+      <Text>外国の技術者が資金援助してくれるかもしれない。</Text>
+    </Replace>
+    <Replace Tag="LOC_10012C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10012C_NAME" Language="ja_JP">
+      <Text>研究者の人脈を頼れば、いい出資者が見つかるはずだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_10013A_COMPLETION" Language="ja_JP">
+      <Text>新たな時代の頭脳明晰な女性たちが入学してきた。新学期を迎えるにあたり、彼女たちは大学で何を学ぶべきか、エイダに助言を求めた。</Text>
+    </Replace>
+    <Replace Tag="LOC_10013A_STORYTITLE" Language="ja_JP">
+      <Text>オックスフォード方式</Text>
+    </Replace>
+    <Replace Tag="LOC_10013B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10013B_NAME" Language="ja_JP">
+      <Text>数学と科学を勧めよう。</Text>
+    </Replace>
+    <Replace Tag="LOC_10013C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10013C_NAME" Language="ja_JP">
+      <Text>文学と芸術を推そう。</Text>
+    </Replace>
+    <Replace Tag="LOC_10014A_COMPLETION" Language="ja_JP">
+      <Text>エイダが紅茶を飲もうと腰を下ろすと、考古協会の代表が部屋に押しかけてきた。近代化が急激なペースで進んでいくことに苦言を呈した後、代表は過去を保存するためにもっと力を尽くすべきだと熱弁をふるった。</Text>
+    </Replace>
+    <Replace Tag="LOC_10014A_STORYTITLE" Language="ja_JP">
+      <Text>古物収集家の憂鬱</Text>
+    </Replace>
+    <Replace Tag="LOC_10014B_DESCRIPTION" Language="ja_JP">
+      <Text>文化関連の建造物に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10014B_NAME" Language="ja_JP">
+      <Text>時間は前に進むもの。後戻りはしない。</Text>
+    </Replace>
+    <Replace Tag="LOC_10014C_DESCRIPTION" Language="ja_JP">
+      <Text>科学関連の建造物に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10014C_NAME" Language="ja_JP">
+      <Text>歴史は計り知れない教訓を与えてくれる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210A_COMPLETION" Language="ja_JP">
+      <Text>エイダ・ラブレスの才能に惹かれた科学者と哲学者の一団が、彼女の役に立ちたいと言っている。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210A_STORYTITLE" Language="ja_JP">
+      <Text>足場固め</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_COMPLETION" Language="ja_JP">
+      <Text>哲学者たちは、隔離された空間で数日間にわたる熟考を重ねた末、エイダの考えを覆す、新しくて刺激的な理論を披露した。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_IMPERATIVE" Language="ja_JP">
+      <Text>スロットに写本を3冊入れる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_STORYTITLE" Language="ja_JP">
+      <Text>足場固め</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_COMPLETION" Language="ja_JP">
+      <Text>エイダ・ラブレスの助手たちは、いつの日か己の作品の上を歩くだろうさまざまな人々を思い浮かべながら粘土を成形し、レンガを焼いた。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_IMPERATIVE" Language="ja_JP">
+      <Text>レンガ工場をさらに2つ建設する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_STORYTITLE" Language="ja_JP">
+      <Text>足場固め</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210D_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211A_COMPLETION" Language="ja_JP">
+      <Text>ある学者が図書館でエイダに出くわし、本を散らかしていて申し訳ないと謝罪した。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211A_STORYTITLE" Language="ja_JP">
+      <Text>整然たる混乱</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_COMPLETION" Language="ja_JP">
+      <Text>学者は製本されたばかりの本を棚に並べ、きれいに揃えられた背表紙を眺めて微笑んだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_IMPERATIVE" Language="ja_JP">
+      <Text>スロットに写本を6冊入れる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_STORYTITLE" Language="ja_JP">
+      <Text>整然たる混乱</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212A_COMPLETION" Language="ja_JP">
+      <Text>急速な成長に促され、多くの人々が新天地を探している。探検家たちも、これから目にするであろう場所や学ぶであろう事柄に思いを馳せ、興奮に沸き立っている。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212A_STORYTITLE" Language="ja_JP">
+      <Text>定住</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_COMPLETION" Language="ja_JP">
+      <Text>幾日も旅した後、隊商は発展させるに値する土地の所有権を主張した。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_IMPERATIVE" Language="ja_JP">
+      <Text>町をさらに3つ建設する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_STORYTITLE" Language="ja_JP">
+      <Text>定住</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212C_DESCRIPTION" Language="ja_JP">
+      <Text>すべての居住地に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213A_COMPLETION" Language="ja_JP">
+      <Text>夜空で小さく光る星々と星座も、エイダにとっては読み解くべき対象だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213A_STORYTITLE" Language="ja_JP">
+      <Text>占星学のアルゴリズム</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213B_DESCRIPTION" Language="ja_JP">
+      <Text>物語はつづく。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213C_DESCRIPTION" Language="ja_JP">
+      <Text>物語はつづく。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214A_COMPLETION" Language="ja_JP">
+      <Text>各分野の第一人者たちがエイダのために尽力し、行く先々で彼女の価値観を擁護している。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214A_STORYTITLE" Language="ja_JP">
+      <Text>賢明な社会</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_COMPLETION" Language="ja_JP">
+      <Text>専門家にとって仕事を見つけるのは簡単だ。特殊な分野には専門家が必要だが、この都市には多くの専門家を育ててきた実績がある。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_IMPERATIVE" Language="ja_JP">
+      <Text>専門家を10人保有する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_STORYTITLE" Language="ja_JP">
+      <Text>賢明な社会</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215A_COMPLETION" Language="ja_JP">
+      <Text>建造物は指導者の名を冠するためだけに造られるのではない。指導者としてのエイダにはさまざまな側面があるが、無教養はそこに含まれていない。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215A_STORYTITLE" Language="ja_JP">
+      <Text>勃興する都市</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_COMPLETION" Language="ja_JP">
+      <Text>エイダの都市は、彼女の堅実で自信に満ちた手腕に導かれ、今後も成長しつづけるだろう。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_DESCRIPTION" Language="ja_JP">
+      <Text>すべての居住地に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_IMPERATIVE" Language="ja_JP">
+      <Text>総産出量が40ある都心以外の区域を5つ保有する。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_STORYTITLE" Language="ja_JP">
+      <Text>勃興する都市</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216A_COMPLETION" Language="ja_JP">
+      <Text>祈りの力は、身体や脳の病気に対する強力な治療法となり得る。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216A_STORYTITLE" Language="ja_JP">
+      <Text>痛みを癒す祈り</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_COMPLETION" Language="ja_JP">
+      <Text>データを集める必要はあるし、単なる思い込みかもしれないが、エイダの民は祈りによって幸福で健康になっている。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_IMPERATIVE" Language="ja_JP">
+      <Text>自分の宗教を信奉する居住地を5つ保有する</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_STORYTITLE" Language="ja_JP">
+      <Text>痛みを癒す祈り</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216C_DESCRIPTION" Language="ja_JP">
+      <Text>すべての居住地に{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217A_COMPLETION" Language="ja_JP">
+      <Text>変化が目前に迫っている。現状の転換… 宗教上の教えに対する不満と未知なるものへの恐れが交錯する。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217A_STORYTITLE" Language="ja_JP">
+      <Text>すべてを疑え</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_COMPLETION" Language="ja_JP">
+      <Text>恐れを鎮め、否定派を黙らせるために展示された遺物は、人々をつなぎ止める錨となる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_DESCRIPTION" Language="ja_JP">
+      <Text>すべての傑作の [icon:YIELD_HAPPINESS] 幸福度+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_IMPERATIVE" Language="ja_JP">
+      <Text>スロットに遺物を5つ入れる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_STORYTITLE" Language="ja_JP">
+      <Text>すべてを疑え</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218A_COMPLETION" Language="ja_JP">
+      <Text>野心は人類の原動力だ... より高みを目指す以外、どこへ向かえというのだ？ これは何か大きなものを築きあげる好機だ。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218A_STORYTITLE" Language="ja_JP">
+      <Text>上昇の機運</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_COMPLETION" Language="ja_JP">
+      <Text>エイダの未来は、ロケット1つ分だけ月へ近づいた。その後に何が訪れるのか、今はまだわからない。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_IMPERATIVE" Language="ja_JP">
+      <Text>発射場を築く</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_STORYTITLE" Language="ja_JP">
+      <Text>上昇の機運</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218D_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}を得て祝宴に入る。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219A_COMPLETION" Language="ja_JP">
+      <Text>土の下には遠い昔に亡くなった人々の亡骸が眠っている。彼らの物語や装身具は、発掘され、白日の下にさらされる日を待っているのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219A_STORYTITLE" Language="ja_JP">
+      <Text>遺物は語る</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_COMPLETION" Language="ja_JP">
+      <Text>秘宝が発掘され、保管されたことで、研究して学びを得ることができるようになった。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_DESCRIPTION" Language="ja_JP">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_IMPERATIVE" Language="ja_JP">
+      <Text>スロットに秘宝を5つ入れる。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_STORYTITLE" Language="ja_JP">
+      <Text>遺物は語る</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219C_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219D_DESCRIPTION" Language="ja_JP">
+      <Text>{1_reward}を得て祝宴に入る。</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ADA_LOVELACE_L1_DESCRIPTION" Language="ja_JP">
+      <Text>通常のゴールド、生産力、科学関連の建造物の隣接ボーナス+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ADA_LOVELACE_L1_NAME" Language="ja_JP">
+      <Text>科学属性ノード</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ADA_LOVELACE_L2_DESCRIPTION" Language="ja_JP">
+      <Text>傑作スロットのある建造物や遺産の建設に対する生産力+15%。</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ADA_LOVELACE_L2_NAME" Language="ja_JP">
+      <Text>文化属性ノード</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_ADA_LOVELACE_NAME" Language="ja_JP">
+      <Text>エイダ・ラブレスのバッジ1</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_ADA_LOVELACE_P_NAME" Language="ja_JP">
+      <Text>エイダ・ラブレスのバッジ2</Text>
+    </Replace>
+    <Replace Tag="LOC_BANNER_ADA_LOVELACE_NAME" Language="ja_JP">
+      <Text>エイダ・ラブレスのバナー</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ADA_LOVELACE_1_DESCRIPTION" Language="ja_JP">
+      <Text>この時代の [icon:YIELD_Science] 科学力+15%、ただし [icon:YIELD_CULTURE] 文化力-10%</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ADA_LOVELACE_1_NAME" Language="ja_JP">
+      <Text>エイダ・ラブレス 探検の時代 伝説 科学</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ADA_LOVELACE_2_DESCRIPTION" Language="ja_JP">
+      <Text>この時代の [icon:YIELD_CULTURE] 文化力+15%、ただし [icon:YIELD_Science] 科学力-10%</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ADA_LOVELACE_2_NAME" Language="ja_JP">
+      <Text>エイダ・ラブレス 探検の時代 伝説 文化</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ADA_LOVELACE_1_DESCRIPTION" Language="ja_JP">
+      <Text>この時代の [icon:YIELD_Science] 科学力+15%、ただし [icon:YIELD_CULTURE] 文化力-10%</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ADA_LOVELACE_1_NAME" Language="ja_JP">
+      <Text>エイダ・ラブレス 近代 伝説 科学</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ADA_LOVELACE_2_DESCRIPTION" Language="ja_JP">
+      <Text>この時代の [icon:YIELD_CULTURE] 文化力+15%、ただし [icon:YIELD_Science] 科学力-10%</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ADA_LOVELACE_2_NAME" Language="ja_JP">
+      <Text>エイダ・ラブレス 近代 伝説 文化</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_AGENDA_ANALYTICAL_ENGINE_DESC" Language="ja_JP">
+      <Text>習熟が最も多い指導者を好み、最も少ない指導者を嫌う。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_AGENDA_ANALYTICAL_ENGINE_NAME" Language="ja_JP">
+      <Text>解析機関</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_ADA_LOVELACE_DESCRIPTION" Language="ja_JP">
+      <Text>[icon:RADIAL_CIVICS] 社会制度習熟を完了すると、 [icon:YIELD_CITIES] 都市が時代ごとに [icon:YIELD_SCIENCE] 科学力+2を得る。これは各時代の開始時にリセットされる。 [icon:RADIAL_TECH] 技術習熟を完了すると、ターンごとの合計 [icon:YIELD_SCIENCE] 科学力の50%に等しい [icon:YIELD_CULTURE] 文化力を得る。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_LEADER_INTRO_TEXT_ADA_LOVELACE" Language="ja_JP">
+      <Text>エイダ・ラブレス、論理と魂によって世界の仕組みを理解せんとする者よ、理性と計算の相互作用の中に心は宿る。それを解き放ち、理性を必要とする世界に解析機関を役立てよ。そして、いかなる新たな地平線を思い描くことが可能であるかを確かめるのだ。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_NOTE_G_DESCRIPTION" Language="ja_JP">
+      <Text>未来のビジョン</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_NOTE_G_FUNCTIONAL_DESCRIPTION" Language="ja_JP">
+      <Text>技術または社会制度の習熟を1つ研究するたびに、首都がそのコストの15%に等しい [icon:YIELD_PRODUCTION] 生産力を得る。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_NOTE_G_NAME" Language="ja_JP">
+      <Text>注釈G</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_NOTE_G_UNLOCK_TITLE" Language="ja_JP">
+      <Text>エイダ・ラブレスがレベル9で解除</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PIANO_DESCRIPTION" Language="ja_JP">
+      <Text>音楽と数学の融合。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PIANO_FUNCTIONAL_DESCRIPTION" Language="ja_JP">
+      <Text>社会制度習熟の研究に対する [icon:YIELD_CULTURE] 文化力+10%。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PIANO_NAME" Language="ja_JP">
+      <Text>ピアノ</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PIANO_UNLOCK_TITLE" Language="ja_JP">
+      <Text>エイダ・ラブレスがレベル5で解除</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PUNCH_CARDS_DESCRIPTION" Language="ja_JP">
+      <Text>織機からコンピュータへ。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PUNCH_CARDS_FUNCTIONAL_DESCRIPTION" Language="ja_JP">
+      <Text>建設した科学関連の建造物1つにつき時代ごとの [icon:YIELD_SCIENCE] 科学力+20。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PUNCH_CARDS_NAME" Language="ja_JP">
+      <Text>パンチカード</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PUNCH_CARDS_UNLOCK_TITLE" Language="ja_JP">
+      <Text>エイダ・ラブレスがレベル2で解除</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_2_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、古代を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_2_NAME" Language="ja_JP">
+      <Text>古代の完了2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_3_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、古代を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_3_NAME" Language="ja_JP">
+      <Text>古代の完了3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、古代を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_NAME" Language="ja_JP">
+      <Text>古代の完了</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_2_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、探検の時代を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_2_NAME" Language="ja_JP">
+      <Text>探検の時代の完了2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_3_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、探検の時代を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_3_NAME" Language="ja_JP">
+      <Text>探検の時代の完了3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、探検の時代を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_NAME" Language="ja_JP">
+      <Text>探検の時代の完了</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_2_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、近代を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_2_NAME" Language="ja_JP">
+      <Text>近代の完了2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_3_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、近代を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_3_NAME" Language="ja_JP">
+      <Text>近代の完了3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、近代を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_NAME" Language="ja_JP">
+      <Text>近代の完了</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_2_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「古代世界の遺産」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_2_NAME" Language="ja_JP">
+      <Text>古代世界の遺産2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_3_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「古代世界の遺産」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_3_NAME" Language="ja_JP">
+      <Text>古代世界の遺産3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「古代世界の遺産」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_NAME" Language="ja_JP">
+      <Text>古代世界の遺産</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_2_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「トシャカーナ」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_2_NAME" Language="ja_JP">
+      <Text>トシャカーナ2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_3_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「トシャカーナ」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_3_NAME" Language="ja_JP">
+      <Text>トシャカーナ3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「トシャカーナ」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_NAME" Language="ja_JP">
+      <Text>トシャカーナ</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_2_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「地理的社会」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_2_NAME" Language="ja_JP">
+      <Text>地理的社会2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_3_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「地理的社会」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_3_NAME" Language="ja_JP">
+      <Text>地理的社会3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「地理的社会」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_NAME" Language="ja_JP">
+      <Text>地理的社会</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_2_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「シルクロード」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_2_NAME" Language="ja_JP">
+      <Text>シルクロード2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_3_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「シルクロード」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_3_NAME" Language="ja_JP">
+      <Text>シルクロード3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「シルクロード」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_NAME" Language="ja_JP">
+      <Text>シルクロード</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_2_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「財宝船団」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_2_NAME" Language="ja_JP">
+      <Text>財宝船団2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_3_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「財宝船団」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_3_NAME" Language="ja_JP">
+      <Text>財宝船団3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「財宝船団」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_NAME" Language="ja_JP">
+      <Text>財宝船団</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_2_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「鉄道王」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_2_NAME" Language="ja_JP">
+      <Text>鉄道王2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_3_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「鉄道王」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_3_NAME" Language="ja_JP">
+      <Text>鉄道王3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「鉄道王」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_NAME" Language="ja_JP">
+      <Text>鉄道王</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_ANTIQUITY_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、1回の古代でレガシーパスを2つ完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_ANTIQUITY_NAME" Language="ja_JP">
+      <Text>2つのレガシー（古代）</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_EXPLORATION_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、1回の探検の時代でレガシーパスを2つ完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_EXPLORATION_NAME" Language="ja_JP">
+      <Text>2つのレガシー（探検の時代）</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_MODERN_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、1回の近代でレガシーパスを2つ完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_MODERN_NAME" Language="ja_JP">
+      <Text>2つのレガシー（近代）</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_2_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「パクス・インペラトリア」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_2_NAME" Language="ja_JP">
+      <Text>パクス・インペラトリア2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_3_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「パクス・インペラトリア」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_3_NAME" Language="ja_JP">
+      <Text>パクス・インペラトリア3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「パクス・インペラトリア」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_NAME" Language="ja_JP">
+      <Text>パクス・インペラトリア</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_2_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「この時代の世界では物足りない」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_2_NAME" Language="ja_JP">
+      <Text>この時代の世界では物足りない2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_3_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「この時代の世界では物足りない」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_3_NAME" Language="ja_JP">
+      <Text>この時代の世界では物足りない3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「この時代の世界では物足りない」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_NAME" Language="ja_JP">
+      <Text>この時代の世界では物足りない</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_2_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「イデオロギー」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_2_NAME" Language="ja_JP">
+      <Text>イデオロギー2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_3_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「イデオロギー」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_3_NAME" Language="ja_JP">
+      <Text>イデオロギー3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「イデオロギー」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_NAME" Language="ja_JP">
+      <Text>イデオロギー</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_1_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、1つ以上のレガシーパス・マイルストーンに到達する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_1_NAME" Language="ja_JP">
+      <Text>ゲームプレイ1</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_2_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、2つ以上のレガシーパス・マイルストーンに到達する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_2_NAME" Language="ja_JP">
+      <Text>ゲームプレイ2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_3_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、2つ以上のレガシーパス・マイルストーンに到達する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_3_NAME" Language="ja_JP">
+      <Text>ゲームプレイ3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_ANTIQUITY_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスで古代をプレイし、クエストを完了して図書館を設ける。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_ANTIQUITY_NAME" Language="ja_JP">
+      <Text>整然たる混乱</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_EXPLORATION_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスで探検の時代をプレイし、クエストを完了して最良にして最優の人材を育成する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_EXPLORATION_NAME" Language="ja_JP">
+      <Text>賢明な社会</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_MODERN_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスで近代をプレイし、クエストを完了して宇宙旅行を実現する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_MODERN_NAME" Language="ja_JP">
+      <Text>上昇の気運</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_ANTIQUITY_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスで古代をプレイし、クエストを完了して新たな故郷を見つける。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_ANTIQUITY_NAME" Language="ja_JP">
+      <Text>定住</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_EXPLORATION_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスで探検の時代をプレイし、クエストを完了して祈りを通じて人々を支える。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_EXPLORATION_NAME" Language="ja_JP">
+      <Text>痛みを癒す祈り</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_MODERN_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスで近代をプレイし、クエストを完了して地中に埋もれている知識を探し求める。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_MODERN_NAME" Language="ja_JP">
+      <Text>遺物は語る</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_2_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「アレキサンドリア図書館」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_2_NAME" Language="ja_JP">
+      <Text>アレキサンドリア図書館2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_3_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「アレキサンドリア図書館」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_3_NAME" Language="ja_JP">
+      <Text>アレキサンドリア図書館3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「アレキサンドリア図書館」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_NAME" Language="ja_JP">
+      <Text>アレキサンドリア図書館</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_2_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「啓蒙思想」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_2_NAME" Language="ja_JP">
+      <Text>啓蒙思想2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_3_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「啓蒙思想」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_3_NAME" Language="ja_JP">
+      <Text>啓蒙思想3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「啓蒙思想」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_NAME" Language="ja_JP">
+      <Text>啓蒙思想</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_2_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「宇宙開発競争」を2回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_2_NAME" Language="ja_JP">
+      <Text>宇宙開発競争2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_3_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「宇宙開発競争」を3回完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_3_NAME" Language="ja_JP">
+      <Text>宇宙開発競争3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_DESC" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、レガシーパス「宇宙開発競争」を完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_NAME" Language="ja_JP">
+      <Text>宇宙開発競争</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_CULTURAL_LEGEND_ADA_LOVELACE_L2_DESCRIPTION" Language="ja_JP">
+      <Text>伝説により解除。傑作スロットのある建造物や遺産の建設に対する [icon:YIELD_PRODUCTION] 生産力+15%。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_LEGEND_ADA_LOVELACE_L1_DESCRIPTION" Language="ja_JP">
+      <Text>伝説により解除。通常の [icon:YIELD_GOLD] ゴールド、[icon:YIELD_PRODUCTION] 生産力、[icon:YIELD_SCIENCE] 科学関連の建造物の隣接ボーナス+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_ADA_LOVELACE" Language="ja_JP">
+      <Text>数字の魔女</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_EXPLORATION_1_DESCRIPTION" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、新しい探検の時代のレガシーカードを得る:[n]
+				科学力+15%、文化力-10%</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_EXPLORATION_1_NAME" Language="ja_JP">
+      <Text>探検の時代の科学レガシーカード</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_EXPLORATION_2_DESCRIPTION" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、新しい探検の時代のレガシーカードを得る:[n]
+				文化力+15%、科学力-10%</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_EXPLORATION_2_NAME" Language="ja_JP">
+      <Text>探検の時代の文化レガシーカード</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_MODERN_1_DESCRIPTION" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、新しい近代のレガシーカードを得る:[n]
+				科学力+15%、文化力-10%</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_MODERN_1_NAME" Language="ja_JP">
+      <Text>近代の科学レガシーカード</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_MODERN_2_DESCRIPTION" Language="ja_JP">
+      <Text>エイダ・ラブレスでプレイし、新しい近代のレガシーカードを得る:[n]
+				文化力+15%、科学力-10%</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_MODERN_2_NAME" Language="ja_JP">
+      <Text>近代の文化レガシーカード</Text>
+    </Replace>
+    <Replace Tag="LOC_TITLE_ADA_LOVELACE_NAME" Language="ja_JP">
+      <Text>数字の魔女</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_ADA_LOVELACE_ABILITY_DESCRIPTION" Language="ja_JP">
+      <Text>[BLIST][LI] [icon:RADIAL_CIVICS] [B]社会制度習熟[/B]を完了すると、[B]都市[/B]が時代ごとに[B] [icon:YIELD_SCIENCE] 科学力+2[/B]を得る。これは各時代の開始時にリセットされる。[LI][B]技術習熟[/B]を完了すると、ターンごとの合計[B] [icon:YIELD_SCIENCE] 科学力[/B]の50%に等しい[icon:YIELD_CULTURE] 文化力を得る。[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_ADA_LOVELACE_ABILITY_NAME" Language="ja_JP">
+      <Text>数字の魔女</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_ABBASID_TOOLTIP" Language="ja_JP">
+      <Text>[B]アッバース朝[/B]は[B]エイダ・ラブレス[/B]を戦略的に補完する。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_DESCRIPTION" Language="ja_JP">
+      <Text>[B]エイダ・ラブレス[/B]としてプレイする。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_GREECE_TOOLTIP" Language="ja_JP">
+      <Text>[B]エイダ・ラブレス[/B]は[B]ギリシャ[/B]と同じ大陸に属していた。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_NORMAN_TOOLTIP" Language="ja_JP">
+      <Text>[B]エイダ・ラブレス[/B]の[B]イギリス[/B]はかつて[B]ノルマン[/B]に支配されていた。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_ROME_TOOLTIP" Language="ja_JP">
+      <Text>[B]エイダ・ラブレス[/B]は[B]ローマ[/B]と同じ大陸に属していた。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_RUSSIA_TOOLTIP" Language="ja_JP">
+      <Text>[B]エイダ・ラブレス[/B]は[B]ロシア[/B]と同じ大陸に属していた。</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

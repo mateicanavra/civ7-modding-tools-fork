@@ -1,0 +1,95 @@
+@use 'sass:math';
+@use '../../default/theme';
+@use '../../../utilities/utility-layout' as *;
+@use '../../../utilities/utility-text' as *;
+
+.fxs-text-button {
+	position: relative;
+	pointer-events: auto;
+	align-self: center;
+
+	&:hover,
+	&:focus,
+	&.pressed {
+
+		.text-button__highlight,
+		.text-button__highlight-decorative {
+			opacity: 1;
+		}
+
+		.text-button__label {
+			color: theme.color('secondary-1');
+		}
+	}
+
+	&.disabled {
+		opacity: .3; // TODO: Improve disabled styling
+		pointer-events: none;
+
+		>.text-button__highlight {
+			display: none;
+		}
+
+		>.text-button__highlight-decorative {
+			display: none;
+		}
+	}
+}
+
+.text-button__label {
+	line-height: 150%;
+	letter-spacing: pixels(5);
+}
+
+.text-button__highlight {
+	position: absolute;
+	pointer-events: none;
+	top: pixels(-6);
+	bottom: pixels(-6);
+	left: pixels(-12);
+	right: pixels(-12);
+	opacity: 0;
+	transition-property: opacity;
+	transition-duration: .375s;
+	transition-delay: 0s;
+	transition-timing-function: cubic-bezier(0.33, 1, 0.68, 1), cubic-bezier(0.215, 0.61, 0.355, 1);
+	background-image: url('fs://game/popup_icon_glow.png');
+	background-size: 100% 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+
+}
+
+.text-button__highlight-decorative-bg {
+	background: linear-gradient(270deg, rgba(0, 0, 0, 0) 25%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0) 75%);
+}
+
+.text-button__highlight-decorative {
+	position: absolute;
+	pointer-events: none;
+	opacity: 0;
+	transition-property: opacity;
+	transition-duration: .375s;
+	transition-delay: 0s;
+}
+
+.text-button__highlight-decorative-rays {
+	position: absolute;
+	width: pixels(270);
+	height: pixels(22);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-image: url('fs://game/mm_highlight_rays');
+	background-position: center;
+}
+
+.text-button__highlight-decorative-glow {
+	position: absolute;
+	width: pixels(279);
+	height: pixels(59);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-image: url('fs://game/mm_highlight_glow');
+	background-position: center;
+
+}

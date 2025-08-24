@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<AssetObjects..GameDependencyData>
+	<ID>
+		<name text="ashoka-himiko-alt"/>
+		<id text="18311ce3-96ea-4daa-9852-26d9d6b8546d"/>
+	</ID>
+	<RequiredGameArtIDs>
+		<Element>
+			<name text="ashoka-himiko-alt-shell"/>
+			<id text="8B01F77F-1D9D-4AC9-9FCB-BB24D637EA01"/>
+		</Element>
+		<Element>
+			<name text="Civ7"/>
+			<id text="F5D94984-9531-46FF-92D9-3B65894F212B"/>
+		</Element>
+	</RequiredGameArtIDs>
+	<LibraryDependencies>
+		<Element>
+			<LibraryName text="TiledMaterialLibrary"/>
+			<LibraryHash>3419754368</LibraryHash>
+			<PackageNames>
+				<Element text="Material"/>
+			</PackageNames>
+		</Element>
+		<Element>
+			<LibraryName text="StandardAsset"/>
+			<LibraryHash>3471015496</LibraryHash>
+			<PackageNames>
+				<Element text="StandardAsset"/>
+			</PackageNames>
+		</Element>
+		<Element>
+			<LibraryName text="ScriptLibrary"/>
+			<LibraryHash>219262143</LibraryHash>
+			<PackageNames>
+				<Element text="VFX"/>
+				<Element text="Script"/>
+			</PackageNames>
+		</Element>
+		<Element>
+			<LibraryName text="UI"/>
+			<LibraryHash>2079568635</LibraryHash>
+			<PackageNames>
+				<Element text="UI"/>
+				<Element text="icons_standard"/>
+				<Element text="icons_antiquity"/>
+				<Element text="icons_exploration"/>
+				<Element text="UISlugs"/>
+			</PackageNames>
+		</Element>
+	</LibraryDependencies>
+</AssetObjects..GameDependencyData>
+

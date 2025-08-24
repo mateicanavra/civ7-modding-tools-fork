@@ -1,0 +1,5 @@
+<Database>
+	<LeaderCivPriorities>
+			<InsertOrIgnore Leader="LEADER_ADA_LOVELACE" Civilization="CIVILIZATION_GREAT_BRITAIN" Priority="4"/>
+	</LeaderCivPriorities>
+</Database>

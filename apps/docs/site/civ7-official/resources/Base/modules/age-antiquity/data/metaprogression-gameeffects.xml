@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- Victory Challenges -->
+	<Modifier id="METAPROGRESSION_CHALLENGE_AKSUM_LEGACY_PATH_ECONOMIC_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_ANTIQUITY_ECONOMIC</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_AKSUM</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_AKSUM_LEGACY_PATH_ECONOMIC</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_EGYPT_LEGACY_PATH_CULTURE_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_ANTIQUITY_CULTURE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_EGYPT</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_EGYPT_LEGACY_PATH_CULTURE</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_GREECE_LEGACY_PATH_CULTURE_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_ANTIQUITY_CULTURE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_GREECE</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_GREECE_LEGACY_PATH_CULTURE</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_HAN_LEGACY_PATH_SCIENCE_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_ANTIQUITY_SCIENCE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_HAN</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_HAN_LEGACY_PATH_SCIENCE</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_KHMER_LEGACY_PATH_ECONOMIC_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_ANTIQUITY_ECONOMIC</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_KHMER</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_KHMER_LEGACY_PATH_ECONOMIC</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MAURYA_LEGACY_PATH_MILITARY_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_ANTIQUITY_MILITARY</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MAURYA</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MAURYA_LEGACY_PATH_MILITARY</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MAYA_LEGACY_PATH_SCIENCE_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_ANTIQUITY_SCIENCE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MAYA</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MAYA_LEGACY_PATH_SCIENCE</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MISSISSIPPIAN_LEGACY_PATH_ECONOMIC_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_ANTIQUITY_ECONOMIC</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MISSISSIPPIAN</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MISSISSIPPIAN_LEGACY_PATH_ECONOMIC</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_PERSIA_LEGACY_PATH_MILITARY_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_ANTIQUITY_MILITARY</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_PERSIA</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_PERSIA_LEGACY_PATH_MILITARY</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_ROME_LEGACY_PATH_CULTURE_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_COMPLETED">
+				<Argument name="LegacyPathType">LEGACY_PATH_ANTIQUITY_CULTURE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_ROME</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_ROME_LEGACY_PATH_CULTURE</Argument>
+	</Modifier>
+
+	<!-- Wonder Challenges -->
+	<Modifier id="METAPROGRESSION_CHALLENGE_AKSUM_COMPLETE_GREAT_STELE_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_AKSUM</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_GREAT_STELE</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_AKSUM_COMPLETE_GREAT_STELE</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_EGYPT_COMPLETE_PYRAMIDS_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_EGYPT</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_PYRAMIDS</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_EGYPT_COMPLETE_PYRAMIDS</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_GREECE_COMPLETE_ORACLE_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_GREECE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_ORACLE</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_GREECE_COMPLETE_ORACLE</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_HAN_COMPLETE_WEIYANG_PALACE_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_HAN</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_WEIYANG_PALACE</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_HAN_COMPLETE_WEIYANG_PALACE</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_KHMER_COMPLETE_ANGKOR_WAT_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_KHMER</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_ANGKOR_WAT</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_KHMER_COMPLETE_ANGKOR_WAT</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MAURYA_COMPLETE_SANCHI_STUPA_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MAURYA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_SANCHI_STUPA</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MAURYA_COMPLETE_SANCHI_STUPA</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MAYA_COMPLETE_MUNDO_PERDIDO_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MAYA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_MUNDO_PERDIDO</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MAYA_COMPLETE_MUNDO_PERDIDO</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MISSISSIPPIAN_COMPLETE_MONKS_MOUND_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MISSISSIPPIAN</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_MONKS_MOUND</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MISSISSIPPIAN_COMPLETE_MONKS_MOUND</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_PERSIA_COMPLETE_GATE_OF_ALL_NATIONS_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_PERSIA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_GATE_OF_ALL_NATIONS</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_PERSIA_COMPLETE_GATE_OF_ALL_NATIONS</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_ROME_COMPLETE_COLOSSEUM_ACHIEVED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_ROME</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_SPECIFIC_WONDER_BUILT">
+				<Argument name="ConstructibleType">WONDER_COLOSSEUM</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_ROME_COMPLETE_COLOSSEUM</Argument>
+	</Modifier>
+
+	<!-- Legacy Path Challenges -->
+	<Modifier id="METAPROGRESSION_CHALLENGE_AKSUM_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_AKSUM</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_AKSUM_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_EGYPT_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_EGYPT</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_EGYPT_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_GREECE_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_GREECE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_GREECE_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_HAN_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_HAN</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_HAN_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_KHMER_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_KHMER</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_KHMER_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MAURYA_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MAURYA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MAURYA_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MAYA_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MAYA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MAYA_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_MISSISSIPPIAN_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_MISSISSIPPIAN</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_MISSISSIPPIAN_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_PERSIA_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_PERSIA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_PERSIA_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+	<Modifier id="METAPROGRESSION_CHALLENGE_ROME_LEGACY_PATH_MILESTONE_COMPLETED" collection="COLLECTION_OWNER" effect="EFFECT_METAPROGRESSION_COMPLETE_CHALLENGE" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_CIVILIZATION_TYPE_MATCHES">
+				<Argument name="CivilizationType">CIVILIZATION_ROME</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_LEGACY_PATH_MILESTONE_COMPLETED" />
+		</OwnerRequirements>
+		<Argument name="Challenge">CHALLENGE_ROME_LEGACY_PATH_MILESTONE_COMPLETED</Argument>
+	</Modifier>
+</GameEffects>

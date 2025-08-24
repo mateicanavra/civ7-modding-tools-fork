@@ -1,0 +1,1144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_UNIT_PROMOTION_EXPERIENCE_LABEL">
+			<Text>XP: {1_currentXP}/{2_nextLevelXP}</Text>
+		</Row>
+		<!-- _____Commendation Names_______________________________________________________________________________________________ -->
+		<Row Tag="LOC_COMMENDATION_VALOR_NAME">
+			<Text>Valor</Text>
+		</Row>
+		<Row Tag="LOC_COMMENDATION_DUTY_NAME">
+			<Text>Duty</Text>
+		</Row>
+		<Row Tag="LOC_COMMENDATION_SERVICE_NAME">
+			<Text>Service</Text>
+		</Row>
+		<Row Tag="LOC_COMMENDATION_MERIT_NAME">
+			<Text>Merit</Text>
+		</Row>
+		<Row Tag="LOC_COMMENDATION_ORDER_NAME">
+			<Text>Order</Text>
+		</Row>
+		<Row Tag="LOC_COMMENDATION_ACHIEVEMENT_NAME">
+			<Text>Achievement</Text>
+		</Row>
+		<!-- _____Commendation Descriptions/Previews_______________________________________________________________________________________________ -->
+		<!-- Valor -->
+		<Row Tag="LOC_PROMOTION_COMMENDATION_ARMY_VALOR_DESCRIPTION">
+			<Text>Gain the Grant Second Wind Commander Ability. Grants a Land Unit within the Command Radius 1 extra attack and 2 movement points.</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_COMMENDATION_FLEET_VALOR_DESCRIPTION">
+			<Text>Gain the Grant Second Wind Commander Ability. Grants a Naval Unit within the Command Radius 1 extra attack and 2 movement points.</Text>
+		</Row>
+		<!-- Duty -->
+		<Row Tag="LOC_PROMOTION_COMMENDATION_DUTY_DESCRIPTION">
+			<Text>Gain the Heroic Assault Ability. Deal direct damage to a unit in the command radius that has the same domain as the commander.</Text>
+		</Row>
+		<!-- Service -->
+		<Row Tag="LOC_PROMOTION_COMMENDATION_ARMY_SERVICE_DESCRIPTION">
+			<Text>+1 Movement for Land Units within the Command Radius.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_SERVICE_DESCRIPTION">
+			<Text>+1 Movement for Land Units within the Command Radius.</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_COMMENDATION_FLEET_SERVICE_DESCRIPTION">
+			<Text>+1 Movement for Naval Units within the Command Radius.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_SERVICE_DESCRIPTION">
+			<Text>+1 Movement for Naval Units within the Command Radius.</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_COMMENDATION_SQUADRON_SERVICE_DESCRIPTION">
+			<Text>+2 Movement for packed Air Units.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_SERVICE_DESCRIPTION">
+			<Text>+2 Movement for packed Air Units.</Text>
+		</Row>
+		<!-- Merit -->
+		<Row Tag="LOC_PROMOTION_COMMENDATION_MERIT_DESCRIPTION">
+			<Text>+1 Command Radius range.</Text>
+		</Row>
+		<!-- Order -->
+		<Row Tag="LOC_PROMOTION_COMMENDATION_ARMY_ORDER_DESCRIPTION">
+			<Text>+5 Combat Strength for Land Units within the Command Radius.</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_COMMENDATION_SQUADRON_ORDER_DESCRIPTION">
+			<Text>+5 Combat Strength for packed Air Units.</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_COMMENDATION_FLEET_ORDER_DESCRIPTION">
+			<Text>+5 Combat Strength for Naval Units within the Command Radius.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ORDER_PREVIEW">
+			<Text>+{Amount} Order</Text>
+		</Row>
+		<!-- Achievement -->
+		<Row Tag="LOC_PROMOTION_COMMENDATION_SQUADRON_ACHIEVEMENT_DESCRIPTION">
+			<Text>Units heal 10 HP after attacking.</Text>
+		</Row>
+		<!-- _____Promotion Discipline Tree Names_______________________________________________________________________________________________ -->
+		<!-- Common -->
+		<Row Tag="LOC_DISCIPLINE_LOGISTICS_NAME">
+			<Text>Logistics</Text>
+		</Row>
+		<Row Tag="LOC_DISCIPLINE_MANEUVER_NAME">
+			<Text>Maneuver</Text>
+		</Row>
+		<Row Tag="LOC_DISCIPLINE_LEADERSHIP_NAME">
+			<Text>Leadership</Text>
+		</Row>
+		<Row Tag="LOC_DISCIPLINE_UNIQUE_NAME">
+			<Text>Unique</Text>
+		</Row>
+		<!-- Army -->
+		<Row Tag="LOC_DISCIPLINE_ARMY_BASTION_NAME">
+			<Text>Bastion</Text>
+		</Row>
+		<Row Tag="LOC_DISCIPLINE_ARMY_ASSAULT_NAME">
+			<Text>Assault</Text>
+		</Row>
+		<!-- Fleet -->
+		<Row Tag="LOC_DISCIPLINE_FLEET_BOMBARDMENT_NAME">
+			<Text>Bombardment</Text>
+		</Row>
+		<Row Tag="LOC_DISCIPLINE_FLEET_ENGAGEMENT_NAME">
+			<Text>Engagement</Text>
+		</Row>
+		<!-- Squadron -->
+		<Row Tag="LOC_DISCIPLINE_SQUADRON_DOGFIGHTING_NAME">
+			<Text>Dogfighting</Text>
+		</Row>
+		<Row Tag="LOC_DISCIPLINE_SQUADRON_RAIDS_NAME">
+			<Text>Raids</Text>
+		</Row>
+		<Row Tag="LOC_DISCIPLINE_AIRLIFT_OPERATIONS_NAME">
+			<Text>Airlift Operations</Text>
+		</Row>
+		<Row Tag="LOC_DISCIPLINE_CARRIER_OPERATIONS_NAME">
+			<Text>Carrier Operations</Text>
+		</Row>
+		<!-- Unique -->
+		<Row Tag="LOC_DISCIPLINE_ARMY_TRUNG_NHI_NAME">
+			<Text>Trung Nhi</Text>
+		</Row>
+		<!-- _______ARMY PROMOTIONS/ABILITIES_____________________________________________________________________________________________ -->
+
+		<!-- Army PromotionDiscipline Bastion -->
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_STEADFAST_NAME">
+			<Text>Steadfast</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_STEADFAST_DESCRIPTION">
+			<Text>+2 Combat Strength for Land Units within the Command Radius when defending.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_STEADFAST_NAME">
+			<Text>Steadfast</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_STEADFAST_DESCRIPTION">
+			<Text>+{Amount} Combat Strength when defending.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_STEADFAST_PREVIEW">
+			<Text>+{Amount} Steadfast</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_BULWARK_NAME">
+			<Text>Bulwark</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_BULWARK_DESCRIPTION">
+			<Text>Land Units within the Command Radius complete Fortifications 1 turn faster.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_BULWARK_NAME">
+			<Text>Bulwark</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_BULWARK_DESCRIPTION">
+			<Text>Land Units within the Command Radius complete Fortifications 1 turn faster.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_HOLD_THE_LINE_NAME">
+			<Text>Hold the Line</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_HOLD_THE_LINE_DESCRIPTION">
+			<Text>+2 Combat Strength for Land Units stationed on a District within the Command Radius.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_HOLD_THE_LINE_NAME">
+			<Text>Hold the Line</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_HOLD_THE_LINE_DESCRIPTION">
+			<Text>+{Amount} Combat Strength when stationed on a District.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_HOLD_THE_LINE_PREVIEW">
+			<Text>+{Amount} Hold the Line</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_DEFILADE_NAME">
+			<Text>Defilade</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_DEFILADE_DESCRIPTION">
+			<Text>+3 Combat Strength from Fortifications for Land Units within the Command Radius.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_DEFILADE_NAME">
+			<Text>Defilade</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_DEFILADE_DESCRIPTION">
+			<Text>+3 Combat Strength from Fortifications for Land Units within the Command Radius.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_DEFILADE_PREVIEW">
+			<Text>+{Amount} Defilade</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_GARRISON_NAME">
+			<Text>Garrison</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_GARRISON_DESCRIPTION">
+			<Text>+10 HP to Fortified Districts in this City when stationed on the City Center.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_GARRISON_NAME">
+			<Text>Garrison</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_GARRISON_DESCRIPTION">
+			<Text>[WIP]</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_GARRISON_PREVIEW">
+			<Text>[WIP]</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_RESOLUTE_NAME">
+			<Text>Resolute</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_RESOLUTE_DESCRIPTION">
+			<Text>Land Units within the Command Radius heal 5 HP after attacking.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_RESOLUTE_NAME">
+			<Text>Resolute</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_RESOLUTE_DESCRIPTION">
+			<Text>Units heal {Amount} HP after attacking.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+
+		<!-- Army PromotionDiscipline Assault -->
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_INITIATIVE_NAME">
+			<Text>Initiative</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_INITIATIVE_DESCRIPTION">
+			<Text>Units can move after unpacking from this Commander.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_ROUT_NAME">
+			<Text>Rout</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_ROUT_DESCRIPTION">
+			<Text>+2 Combat Strength for Infantry Units within the Command Radius when attacking.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_ROUT_NAME">
+			<Text>Rout</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_ROUT_DESCRIPTION">
+			<Text>+{Amount} Combat Strength for Infantry Units when attacking.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_ROUT_PREVIEW">
+			<Text>+{Amount} Rout</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_STORM_NAME">
+			<Text>Storm</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_STORM_DESCRIPTION">
+			<Text>+2 Combat Strength for Ranged Units within the Command Radius when attacking.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_STORM_NAME">
+			<Text>Storm</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_STORMSTRENGTH_DESCRIPTION">
+			<Text>+{Amount} Combat Strength for Ranged Units when attacking.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_STORM_PREVIEW">
+			<Text>+{Amount} Storm</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_SHOCK_TACTICS_NAME">
+			<Text>Shock Tactics</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_SHOCK_TACTICS_DESCRIPTION">
+			<Text>+3 Combat Strength for Cavalry Units within the Command Radius when attacking.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_SHOCK_TACTICS_NAME">
+			<Text>Shock Tactics</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_SHOCK_TACTICS_DESCRIPTION">
+			<Text>+{Amount} Combat Strength for Cavalry Units when attacking.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_SHOCK_TACTICS_PREVIEW">
+			<Text>+{Amount} Shock Tactics</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_ENFILADE_NAME">
+			<Text>Enfilade</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_ENFILADE_DESCRIPTION">
+			<Text>+3 Combat Strength for Siege Units within the Command Radius when attacking.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_ENFILADE_NAME">
+			<Text>Enfilade</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_ENFILADE_DESCRIPTION">
+			<Text>+{Amount} Combat Strength for Siege Units when attacking.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_ENFILADE_PREVIEW">
+			<Text>+{Amount} Enfilade</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_ADVANCEMENT_NAME">
+			<Text>Advancement</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_ADVANCEMENT_DESCRIPTION">
+			<Text>Infantry and Cavalry Units within the Command Radius have the First Strike ability, +5 Combat Strength when at full health.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_ADVANCEMENT_NAME">
+			<Text>Advancement</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_ADVANCEMENT_DESCRIPTION">
+			<Text>Infantry and Cavalry Units within the Command Radius have the First Strike ability, +5 Combat Strength when at full health.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+
+		<!-- Army PromotionDiscipline Logistics -->
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_QUARTERMASTER_NAME">
+			<Text>Quartermaster</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_QUARTERMASTER_DESCRIPTION">
+			<Text>+1[icon:YIELD_GOLD] Gold for each Unit packed in this Commander.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_RECRUITMENT_NAME">
+			<Text>Recruitment</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_RECRUITMENT_DESCRIPTION">
+			<Text>+15% Production towards training Land Units when stationed on a District.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_PROMOTION_ARMY_RECRUITMENT_DESCRIPTION">
+			<Text>+15% Production towards training Land Units from a Commander with the Recruitment Promotion.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_REGIMENTS_NAME">
+			<Text>Regiments</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_REGIMENTS_DESCRIPTION">
+			<Text>+2 Unit Slots and faster reinforcement for this Commander.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_FIELD_MEDIC_NAME">
+			<Text>Field Medic</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_FIELD_MEDIC_DESCRIPTION">
+			<Text>Land Units within the Command Radius gain +5 Healing in enemy and neutral territory.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_FIELD_MEDIC_NAME">
+			<Text>Field Medic</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_FIELD_MEDIC_DESCRIPTION">
+			<Text>Land Units within the Command Radius gain +5 Healing in enemy and neutral territory.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_LOOTING_NAME">
+			<Text>Looting</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_LOOTING_DESCRIPTION">
+			<Text>+50% Yield and HP from pillaging within the Command Radius.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_LOOTING_NAME">
+			<Text>Looting</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_LOOTING_DESCRIPTION">
+			<Text>+50% Yield and HP from pillaging.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_SURVIVAL_TRAINING_NAME">
+			<Text>Survival Training</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_SURVIVAL_TRAINING_DESCRIPTION">
+			<Text>Land Units within the Command Radius gain the Commando ability. Terrain combat bonuses are doubled, and Infantry Units can move and attack through cliffs.</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_COMMANDO_NAME">
+			<Text>Commando</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_COMMANDO_DESCRIPTION">
+			<Text>Terrain combat bonuses are doubled, and Infantry Units can move and attack through cliffs.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+
+		<!-- Army PromotionDiscipline Maneuver -->
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_HARASSMENT_NAME">
+			<Text>Harassment</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_HARASSMENT_DESCRIPTION">
+			<Text>Land Units within the Command Radius have a +2 Flanking bonus when attacking.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_HARASSMENT_NAME">
+			<Text>Harassment</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_HARASSMENT_DESCRIPTION">
+			<Text>Land Units within the Command Radius have a +2 Flanking bonus when attacking.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_REDEPLOY_NAME">
+			<Text>Redeploy</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_REDEPLOY_DESCRIPTION">
+			<Text>Opponents have -2 to Flanking bonuses when attacking Land Units within the Command Radius.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_REDEPLOY_NAME">
+			<Text>Redeploy</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_REDEPLOY_DESCRIPTION">
+			<Text>Opponents have -2 to Flanking bonuses when attacking Land Units within the Command Radius.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_MOBILITY_NAME">
+			<Text>Mobility</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_MOBILITY_DESCRIPTION">
+			<Text>This Commander has +1 Movement while on land and ignores Terrain movement restrictions when packed.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_SENTRY_NAME">
+			<Text>Sentry</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_SENTRY_DESCRIPTION">
+			<Text>+1 sight range for this Commander.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_AMPHIBIOUS_NAME">
+			<Text>Amphibious</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_AMPHIBIOUS_DESCRIPTION">
+			<Text>Land Units within the Command Radius suffer no Combat penalties when attacking while embarked. It costs 1 Movement to Embark and Disembark.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_AMPHIBIOUS_NAME">
+			<Text>Amphibious</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_AMPHIBIOUS_DESCRIPTION">
+			<Text>Land Units within the Command Radius suffer no Combat penalties when attacking while embarked. It costs 1 Movement to Embark and Disembark.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_PATHFINDER_NAME">
+			<Text>Pathfinder</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_PATHFINDER_DESCRIPTION">
+			<Text>Land Units within the Command Radius ignore Terrain movement restrictions.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_PATHFINDER_NAME">
+			<Text>Pathfinder</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_PATHFINDER_DESCRIPTION">
+			<Text>Land Units within the Command Radius ignore Terrain movement restrictions.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_AREA_DENIAL_NAME">
+			<Text>Area Denial</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_AREA_DENIAL_DESCRIPTION">
+			<Text>The Command Radius applies Zone of Control to enemy Land Units.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+
+		<!-- Army PromotionDiscipline Leadership -->
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_ZEAL_NAME">
+			<Text>Zeal</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_ZEAL_DESCRIPTION">
+			<Text>+5% to all Yields in a Settlement when stationed on a District.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_FIELD_COMMISSION_NAME">
+			<Text>Field Commission</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_FIELD_COMMISSION_DESCRIPTION">
+			<Text>Land Units within the Command Radius can be upgraded as if in friendly territory, and heal 10 HP when upgraded.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_RESILIENCE_NAME">
+			<Text>Resilience</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_RESILIENCE_DESCRIPTION">
+			<Text>+50% reduction in this Commander's Recovery Time.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_OLD_GUARD_NAME">
+			<Text>Old Guard</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_OLD_GUARD_DESCRIPTION">
+			<Text>+10 Combat Strength for this Commander when defending.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_OLD_GUARD_PREVIEW">
+			<Text>+{Amount} Old Guard</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_ONSLAUGHT_NAME">
+			<Text>Onslaught</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_ONSLAUGHT_DESCRIPTION">
+			<Text>+5 Combat Strength for all Units attacking when using the Coordinated Attack Commander Ability.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_ONSLAUGHT_NAME">
+			<Text>Onslaught</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_ONSLAUGHT_DESCRIPTION">
+			<Text>+5 Combat Strength with Coordinated Attack.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_ARMY_BARRAGE_NAME">
+			<Text>Barrage</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_ARMY_BARRAGE_DESCRIPTION">
+			<Text>+5 Combat Strength for all Units attacking when using the Focus Fire Commander Ability.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_BARRAGE_NAME">
+			<Text>Barrage</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ARMY_BARRAGE_DESCRIPTION">
+			<Text>+5 Combat Strength with Focus Fire.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<!-- ____________________________________________________________________________________________________ -->
+
+		<!-- FLEET PROMOTIONS -->
+		<!-- Fleet PromotionDiscipline Bombardment -->
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_SHELLING_NAME">
+			<Text>Shelling</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_SHELLING_DESCRIPTION">
+			<Text>+3 Combat Strength for Naval Units within the Command Radius when attacking Land Units.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_SHELLING_NAME">
+			<Text>Shelling</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_SHELLING_DESCRIPTION">
+			<Text>+{Amount} Combat Strength when attacking Land Units.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_SHELLING_PREVIEW">
+			<Text>+{Amount} Shelling</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_NAVAL_ARTILLERY_NAME">
+			<Text>Naval Artillery</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_NAVAL_ARTILLERY_DESCRIPTION">
+			<Text>+5 Combat Strength for Naval Units within the Command Radius when attacking Fortified Districts.</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_NAVAL_ARTILLERY_PREVIEW">
+			<Text>+{Amount} Naval Artillery</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_NAVAL_ARTILLERY_NAME">
+			<Text>Naval Artillery</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_NAVAL_ARTILLERY_DESCRIPTION">
+			<Text>+{Amount} Combat Strength when attacking Fortified Districts.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_SPOTTER_NAME">
+			<Text>Spotter</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_SPOTTER_DESCRIPTION">
+			<Text>+1 Ranged Attack Distance for Naval Units within the Command Radius.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_SPOTTER_NAME">
+			<Text>Spotter</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_SPOTTER_DESCRIPTION">
+			<Text>+{Amount} Range</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_SECONDARY_ARMAMENT_NAME">
+			<Text>Secondary Armament</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_SECONDARY_ARMAMENT_DESCRIPTION">
+			<Text>Naval Units within the Command Radius deal reciprocal damage when defending against ranged attacks.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_GUNFIRE_SUPPORT_NAME">
+			<Text>Gunfire Support</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_GUNFIRE_SUPPORT_DESCRIPTION">
+			<Text>Naval Units within the Command Radius have the Splash ability. Enemy Units in tiles adjacent to the target take 50% of the total damage done to the target.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+
+		<!-- Fleet PromotionDiscipline Engagement -->
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_REINFORCED_HULL_NAME">
+			<Text>Reinforced Hull</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_REINFORCED_HULL_DESCRIPTION">
+			<Text>Naval Units within the Command Radius take half reciprocal damage when flanking.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_RAKING_FIRE_NAME">
+			<Text>Reinforced Hull</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_RAKING_FIRE_DESCRIPTION">
+			<Text>Naval Units within the Command Radius take half reciprocal damage when flanking.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_RAKING_FIRE_PREVIEW">
+			<Text>Reduced retaliation damage received</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_WEATHER_GAGE_NAME">
+			<Text>Weather Gage</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_WEATHER_GAGE_DESCRIPTION">
+			<Text>Naval Units within the Command Radius can move after unpacking.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_WEATHER_GAGE_NAME">
+			<Text>Weather Gage</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_WEATHER_GAGE_DESCRIPTION">
+			<Text>Naval Units can move after unpacking.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_RAKING_FIRE_NAME">
+			<Text>Raking Fire</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_RAKING_FIRE_DESCRIPTION">
+			<Text>+3 Combat Strength for Naval Units within the Command Radius when defending.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_REINFORCED_HULL_NAME">
+			<Text>Raking Fire</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_REINFORCED_HULL_DESCRIPTION">
+			<Text>+{Amount} Combat Strength when defending.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_REINFORCED_HULL_PREVIEW">
+			<Text>+{Amount} Raking Fire</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_SALVO_NAME">
+			<Text>Salvo</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_SALVO_DESCRIPTION">
+			<Text>+3 Combat Strength for Naval Units within the Command Radius when attacking other Naval Units.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_SALVO_NAME">
+			<Text>Salvo</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_SALVO_DESCRIPTION">
+			<Text>+{Amount} Combat Strength when attacking Naval Units.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_SALVO_PREVIEW">
+			<Text>+{Amount} Salvo</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_FUSILLADE_NAME">
+			<Text>Fusillade</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_FUSILLADE_DESCRIPTION">
+			<Text>Naval Units within the Command Radius have the First Strike ability. +5 Combat Strength when at full health.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_FUSILLADE_NAME">
+			<Text>Fusillade</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_FUSILLADE_DESCRIPTION">
+			<Text>Naval Units within the Command Radius have the First Strike ability. +5 Combat Strength when at full health.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+
+		<!-- Fleet PromotionDiscipline Logistics -->
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_QUARTERMASTER_NAME">
+			<Text>Quartermaster</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_QUARTERMASTER_DESCRIPTION">
+			<Text>+1[icon:YIELD_GOLD] Gold for each Unit packed in this Commander.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_WARSHIPS_NAME">
+			<Text>Warships</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_WARSHIPS_DESCRIPTION">
+			<Text>+15% Production towards training Naval Units when stationed on a water District.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_FLOTILLA_NAME">
+			<Text>Flotilla</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_FLOTILLA_DESCRIPTION">
+			<Text>+2 Unit Slots and Land Units can pack into this Commander.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_SHIPS_TENDER_NAME">
+			<Text>Ship's Tender</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_SHIPS_TENDER_DESCRIPTION">
+			<Text>Naval Units within the Command Radius gain +5 Healing in enemy and neutral territory.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_SHIPS_TENDER_NAME">
+			<Text>Ships Tender</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_SHIPS_TENDER_DESCRIPTION">
+			<Text>Naval Units within the Command Radius gain +5 Healing in enemy and neutral territory.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_LOOTING_NAME">
+			<Text>Looting</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_LOOTING_DESCRIPTION">
+			<Text>+50% Yield and HP from pillaging and coastal raiding within the Command Radius.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_FIELD_COMMISSION_NAME">
+			<Text>Field Commission</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_FIELD_COMMISSION_DESCRIPTION">
+			<Text>Naval Units within the Command Radius can be upgraded as if in friendly territory, and heal 10 HP when upgraded.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+
+		<!-- Fleet PromotionDiscipline Maneuver -->
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_CHARTS_NAME">
+			<Text>Charts</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_CHARTS_DESCRIPTION">
+			<Text>+1 Movement for this Commander when packed.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_LOOKOUT_NAME">
+			<Text>Lookout</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_LOOKOUT_DESCRIPTION">
+			<Text>+1 sight range for this Commander.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_CROSSING_THE_T_NAME">
+			<Text>Crossing the T</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_CROSSING_THE_T_DESCRIPTION">
+			<Text>Naval Units within the Command Radius have a +3 Flanking bonus when attacking.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_CROSSING_THE_T_NAME">
+			<Text>Crossing The T</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_CROSSING_THE_T_DESCRIPTION">
+			<Text>Naval Units within the Command Radius have a +3 Flanking bonus when attacking.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_BRACE_NAME">
+			<Text>Brace</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_BRACE_DESCRIPTION">
+			<Text>Opponents have -3 to Flanking bonuses when attacking Naval Units within the Command Radius.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_BRACE_NAME">
+			<Text>Brace</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_BRACE_DESCRIPTION">
+			<Text>Opponents have -3 to Flanking bonuses when attacking Naval Units within the Command Radius.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_DEAD_RECKONING_NAME">
+			<Text>Dead Reckoning</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_DEAD_RECKONING_DESCRIPTION">
+			<Text>The Command Radius applies Zone of Control to Naval Units.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_DEAD_RECKONING_NAME">
+			<Text>Dead Reckoning</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_DEAD_RECKONING_DESCRIPTION">
+			<Text>The Command Radius applies Zone of Control to enemy Naval Units.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+
+		<!-- Fleet PromotionDiscipline Leadership -->
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_ZEAL_NAME">
+			<Text>Zeal</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_ZEAL_DESCRIPTION">
+			<Text>+5% Yields in a Settlement when stationed on a water District.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_FLAGSHIP_NAME">
+			<Text>Flagship</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_FLAGSHIP_DESCRIPTION">
+			<Text>+10 Combat Strength for this Commander when defending.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_FLAGSHIP_PREVIEW">
+			<Text>+{Amount} Flagship</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_CONVOYS_NAME">
+			<Text>Convoys</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_CONVOYS_NAME">
+			<Text>Convoys</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_CONVOYS_DESCRIPTION">
+			<Text>Land Units within the Command Radius have +10 Embarked Strength. Traders within the Command Radius cannot be pillaged.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_CONVOYS_PREVIEW">
+			<Text>+{Amount} Convoys</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_CONVOYS_DESCRIPTION">
+			<Text>Land Units within the Command Radius have +{Amount} Embarked Strength. Traders within the Command Radius cannot be pillaged.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_FLEET_BARRAGE_NAME">
+			<Text>Barrage</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_FLEET_BARRAGE_DESCRIPTION">
+			<Text>+5 Combat Strength with Focus Fire.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_BARRAGE_NAME">
+			<Text>Barrage</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_BARRAGE_DESCRIPTION">
+			<Text>+5 Combat Strength with Focus Fire.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<!-- ____________________________________________________________________________________________________ -->
+		<!-- ____________________________________________________________________________________________________ -->
+
+		<!-- SQUADRON PROMOTIONS -->
+		<!-- Squadron PromotionDiscipline Dogfighting -->
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_SQUADRON_SYNCHRONIZATION_NAME">
+			<Text>Synchronization</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_SQUADRON_SYNCHRONIZATION_DESCRIPTION">
+			<Text>+3 Combat Strength for all packed Fighters against Air Units.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_SYNCHRONIZATION_NAME">
+			<Text>Synchronization</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_SYNCHRONIZATION_DESCRIPTION">
+			<Text>+{Amount} Combat Strength for Fighters against Air Units.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_SYNCHRONIZATION_PREVIEW">
+			<Text>+{Amount} Synchronization</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_SQUADRON_EVASIVE_MANEUVERS_NAME">
+			<Text>Evasive Maneuvers</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_SQUADRON_EVASIVE_MANEUVERS_DESCRIPTION">
+			<Text>+3 Combat Strength for packed Air Units when defending.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_EVASIVE_MANEUVERS_NAME">
+			<Text>Evasive Maneuvers</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_EVASIVE_MANEUVERS_DESCRIPTION">
+			<Text>+{Amount} Combat Strength when defending.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_EVASIVE_MANEUVERS_PREVIEW">
+			<Text>+{Amount} Evasive Maneuvers</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_SQUADRON_COMBAT_SPREAD_NAME">
+			<Text>Combat Spread</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_SQUADRON_COMBAT_SPREAD_DESCRIPTION">
+			<Text>Packed Fighters gain the First Strike ability. +5 Combat Strength when at full health.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_SQUADRON_ACE_NAME">
+			<Text>Ace</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_SQUADRON_ACE_DESCRIPTION">
+			<Text>+1 Interception range for packed Fighters.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_ACE_NAME">
+			<Text>Ace</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_ACE_DESCRIPTION">
+			<Text>+1 Interception range.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+
+		<!-- Squadron PromotionDiscipline Raids -->
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_SQUADRON_TACTICAL_STRIKE_NAME">
+			<Text>Tactical Strike</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_SQUADRON_TACTICAL_STRIKE_DESCRIPTION">
+			<Text>+3 Combat Strength for packed Ground Attackers and Bombers when attacking Land Units.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_TACTICAL_STRIKE_NAME">
+			<Text>Tactical Strike</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_TACTICAL_STRIKE_DESCRIPTION">
+			<Text>+{Amount} Combat Strength for Attack Air Units and Bombers when attacking Land Units.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_TACTICAL_STRIKE_PREVIEW">
+			<Text>+{Amount} Tactical Strike</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_AERIAL_RECON_NAME">
+			<Text>Aerial Reconnaissance</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_CARGO_DROP_NAME">
+			<Text>Cargo Drop</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_UNIT_AIR_DROP_NAME">
+			<Text>Air Drop</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_SQUADRON_FORMATIONS_NAME">
+			<Text>Formations</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_SQUADRON_FORMATIONS_DESCRIPTION">
+			<Text>+5 Combat Strength when using the Ground Attack Commander Ability</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_FORMATIONS_NAME">
+			<Text>Formations</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_FORMATIONS_DESCRIPTION">
+			<Text>+5 Combat Strength when using the Ground Attack Commander Ability</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_SQUADRON_SATURATION_NAME">
+			<Text>Saturation</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_SQUADRON_SATURATION_DESCRIPTION">
+			<Text>+5 Combat when using the Carpet Bomb Commander Ability</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_SATURATION_NAME">
+			<Text>Saturation</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_SATURATION_DESCRIPTION">
+			<Text>+5 Combat when using the Carpet Bomb Commander Ability</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_SQUADRON_OBLITERATION_NAME">
+			<Text>Obliteration</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_SQUADRON_OBLITERATION_DESCRIPTION">
+			<Text>Packed Bombers gain the Splash ability. Enemy Units in tiles adjacent to the target take 50% of the total damage done to the target.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+
+		<!-- Squadron PromotionDiscipline Logistics -->
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_SQUADRON_ADVANCED_LANDING_GROUND_NAME">
+			<Text>Advanced Landing Ground</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_SQUADRON_ADVANCED_LANDING_GROUND_DESCRIPTION">
+			<Text>+10 Combat Strength for this Commander when defending. +2 Unit Slots.</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_SQUADRON_ADVANCED_LANDING_GROUND_PREVIEW">
+			<Text>+{Amount} Advanced Landing Ground</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_CARRIER_BATTLE_GROUP_NAME">
+			<Text>Battle Group</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_CARRIER_BATTLE_GROUP_DESCRIPTION">
+			<Text>+10 Combat Strength for this Commander when defending. Naval Units within the Command Radius gain +5 Combat Strength when defending.</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_CARRIER_BATTLE_GROUP_PREVIEW">
+			<Text>+{Amount} Battle Group</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_SQUADRON_FIELD_COMMISSION_NAME">
+			<Text>Field Commission</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_SQUADRON_FIELD_COMMISSION_DESCRIPTION">
+			<Text>Packed Air Units can be upgraded as if in friendly territory, and heal 10 HP when upgraded.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_SQUADRON_AERIAL_RECONNIASSANCE_NAME">
+			<Text>Aerial Reconnaissance</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_SQUADRON_AERIAL_RECONNIASSANCE_DESCRIPTION">
+			<Text>Unlock the Aerial Reconnaissance Commander Ability. Grants sight on an area, revels enemy commanders receiving reinforcements through the area and reveals any enemy Stealth Units.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_SQUADRON_DANGER_CLOSE_NAME">
+			<Text>Danger Close</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_SQUADRON_DANGER_CLOSE_DESCRIPTION">
+			<Text>+3 Combat Strength for packed Air Units when attacking an enemy Unit that is adjacent to a friendly Military Unit.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_DANGER_CLOSE_NAME">
+			<Text>Danger Close</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_DANGER_CLOSE_DESCRIPTION">
+			<Text>+3 Combat Strength for packed Air Units when attacking an enemy Unit that is adjacent to a friendly Military Unit.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_DANGER_CLOSE_PREVIEW">
+			<Text>+{1_Amount} Danger Close</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+
+		<!-- Squadron PromotionDiscipline Airlift Operations -->
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_SQUADRON_AIRBORNE_FORCES_NAME">
+			<Text>Airborne Forces</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_SQUADRON_AIRBORNE_FORCES_DESCRIPTION">
+			<Text>Unlock the Airdrop Commander Ability. Infantry Units can pack into this Commander and deploy within range.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_SQUADRON_CARGO_DROP_NAME">
+			<Text>Cargo Drop</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_SQUADRON_CARGO_DROP_DESCRIPTION">
+			<Text>Unlock the Cargo Drop Commander Ability. Heals a Land Unit and all adjacent Land Units.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_SQUADRON_LOW_LEVEL_EXTRACTION_NAME">
+			<Text>Low Level Extraction</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_SQUADRON_LOW_LEVEL_EXTRACTION_DESCRIPTION">
+			<Text>Cavalry Units can be Airdropped.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_SQUADRON_VERTICAL_ENVELOPMENT_NAME">
+			<Text>Vertical Envelopment</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_SQUADRON_VERTICAL_ENVELOPMENT_DESCRIPTION">
+			<Text>Units can move and attack after being Airdropped.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+
+		<!-- Squadron PromotionDiscipline Aerodrome Logistics -->
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_AERODROME_ADVANCED_LANDING_GROUND_DESCRIPTION">
+			<Text>+10 Combat Strength for this Aerodrome when defending. +2 Unit Slots.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_AERODROME_FIELD_COMMISSION_DESCRIPTION">
+			<Text>+25% Gold towards upgrading Air Units packed on this Aerodrome, and they heal 10 HP when upgraded.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+
+		<!-- Squadron PromotionDiscipline Carrier Operations -->
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_SQUADRON_FLIGHT_DECK_NAME">
+			<Text>Flight Deck</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_SQUADRON_FLIGHT_DECK_DESCRIPTION">
+			<Text>+2 Unit Slots. +1 Movement for packed Air Units.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_FLIGHT_DECK_NAME">
+			<Text>Flight Deck</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_FLIGHT_DECK_DESCRIPTION">
+			<Text>+2 Unit Slots. +1 Movement for packed Air Units.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_SQUADRON_BATTLE_GROUP_NAME">
+			<Text>Battle Group</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_SQUADRON_BATTLE_GROUP_DESCRIPTION">
+			<Text>+15 Combat Strength for this Commander when defending.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_SQUADRON_TORPEDO_BOMBERS_NAME">
+			<Text>Torpedo Bombers</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_SQUADRON_TORPEDO_BOMBERS_DESCRIPTION">
+			<Text>+5 Combat for packed Ground Attack Air Units and Bombers against Naval Units.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_TORPEDO_BOMBERS_NAME">
+			<Text>Torpedo Bombers</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_TORPEDO_BOMBERS_DESCRIPTION">
+			<Text>+5 Combat for packed Ground Attack Air Units and Bombers against Naval Units.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_TORPEDO_BOMBERS_PREVIEW">
+			<Text>+{Amount} Torpedo Bombers</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_CARRIER_SUPERCARRIER_NAME">
+			<Text>Supercarrier</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_CARRIER_SUPERCARRIER_DESCRIPTION">
+			<Text>+10 Healing for this Commander in enemy and neutral territory.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_PROMOTION_SQUADRON_SPOTTING_NAME">
+			<Text>Spotting</Text>
+		</Row>
+		<Row Tag="LOC_PROMOTION_SQUADRON_SPOTTING_DESCRIPTION">
+			<Text>All Units within 3 tiles are revealed. +5 Combat for packed Air Units against Stealth Units.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_SPOTTING_NAME">
+			<Text>Spotting</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_SPOTTING_DESCRIPTION">
+			<Text>All Units within 3 tiles are revealed. +5 Combat for packed Air Units against Stealth Units.</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SQUADRON_SPOTTING_PREVIEW">
+			<Text>+{1_Amount} Spotting</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<!-- ____________________________________________________________________________________________________ -->
+		<!-- ____________________________________________________________________________________________________ -->
+
+		<!--- COMMON ABILITIES -->
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_ABILITY_FIRST_STRIKE_PREVIEW">
+			<Text>+{Amount} First Strike</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="ABILITY_ALLOW_UNIT_UPGRADE_OUTSIDE_FRIENDLY_TERRITORY_NAME">
+			<Text>Field Commission</Text>
+		</Row>
+		<Row Tag="ABILITY_ALLOW_UNIT_UPGRADE_OUTSIDE_FRIENDLY_TERRITORY_DESCRIPTION">
+			<Text>Units can be upgraded as if in friendly territory, and heal 10 HP when upgraded.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_ABILITY_COMMANDO_NAME">
+			<Text>Commando</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_COMMANDO_DESCRIPTION">
+			<Text>Land Units within the Command Radius gain the Commando ability. Terrain combat bonuses are doubled, and Infantry Units can move and attack through cliffs.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_ABILITY_ABILITY_UNIT_AFFECTED_BY_ZOC_NAME">
+			<Text>Commander Zone Of Control</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ABILITY_UNIT_AFFECTED_BY_ZOC_DESCRIPTION">
+			<Text>The Command Radius applies Zone of Control to Units.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_ABILITY_RETALIATE_WHEN_RANGED_DAMAGE_RECEIVED_NAME">
+			<Text>Reduced Retaliation Damage</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_RETALIATE_WHEN_RANGED_DAMAGE_RECEIVED_DESCRIPTION">
+			<Text>50% damage received from retaliation attacks.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_ABILITY_SPLASH_DAMAGE_NAME">
+			<Text>Splash</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_SPLASH_DAMAGE_DESCRIPTION">
+			<Text>Deals 50% of attack damage to enemies adjacent to the target.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_ABILITY_ALLOW_UNIT_UPGRADE_OUTSIDE_FRIENDLY_TERRITORY_NAME">
+			<Text>Field Commission</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_ALLOW_UNIT_UPGRADE_OUTSIDE_FRIENDLY_TERRITORY_DESCRIPTION">
+			<Text>Unit can be upgraded as if in friendly territory, and heals 10 HP when upgraded.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_ABILITY_FLEET_PACK_LAND_UNITS_NAME">
+			<Text>Pack Land Units With Fleet</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_FLEET_PACK_LAND_UNITS_DESCRIPTION">
+			<Text>Allows land units to pack into a fleet commander.</Text>
+		</Row>
+		<!-- ____________________________________________________________________________________________________ -->
+		<Row Tag="LOC_ABILITY_MOVE_AFTER_UNPACKING_NAME">
+			<Text>Move After Unpacking</Text>
+		</Row>
+		<Row Tag="LOC_ABILITY_MOVE_AFTER_UNPACKING_DESCRIPTION">
+			<Text>Units can move after unpacking from this Commander.</Text>
+		</Row>
+	</EnglishText>
+</Database>

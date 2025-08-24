@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_DESCRIPTION" Language="pt_BR">
+      <Text>Contém uma nova personalidade para Napoleão.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_NAME" Language="pt_BR">
+      <Text>Pacote de Personalidade – Napoleão</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_DESCRIPTION" Language="fr_FR">
+      <Text>Contient une nouvelle personnalité pour Napoléon.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_NAME" Language="fr_FR">
+      <Text>Pack de personnalité : Napoléon</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_DESCRIPTION" Language="de_DE">
+      <Text>Enthält eine neue Persona Napoléons.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_NAME" Language="de_DE">
+      <Text>Persona-Paket – Napoléon</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_DESCRIPTION" Language="it_IT">
+      <Text>Contiene una nuova personalità per Napoleone.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_NAME" Language="it_IT">
+      <Text>Pacchetto personaggio Napoleone</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_DESCRIPTION" Language="ja_JP">
+      <Text>ナポレオンの新たなパーソナリティを含みます。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_NAME" Language="ja_JP">
+      <Text>パーソナリティパック - ナポレオン</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_DESCRIPTION" Language="ko_KR">
+      <Text>나폴레옹의 새로운 페르소나가 포함되어 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_NAME" Language="ko_KR">
+      <Text>페르소나 팩 - 나폴레옹</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_DESCRIPTION" Language="pl_PL">
+      <Text>Zawiera nowy wariant Napoleona.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_NAME" Language="pl_PL">
+      <Text>Pakiet wariantu Napoleona</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_DESCRIPTION" Language="ru_RU">
+      <Text>Содержит новую персону для Наполеона.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_NAME" Language="ru_RU">
+      <Text>Набор персоны: Наполеон</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>包含拿破仑的一个新形象。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_NAME" Language="zh_Hans_CN">
+      <Text>形象包 - 拿破仑</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_DESCRIPTION" Language="es_ES">
+      <Text>Contiene una personalidad nueva de Napoleón.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_NAME" Language="es_ES">
+      <Text>Pack de personalidades: Napoleón</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>包含拿破崙的新形象。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_NAPOLEON_ALT_NAME" Language="zh_Hant_HK">
+      <Text>形象包：拿破崙</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

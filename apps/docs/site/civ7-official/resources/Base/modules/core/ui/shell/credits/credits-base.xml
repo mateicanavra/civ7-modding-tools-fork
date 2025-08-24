@@ -1,0 +1,5824 @@
+<credits><![CDATA[
+	[m,l]Credits_UNIT03
+	[1,c]Firaxis Games
+	[1]Sid Meier's Civilization VII
+	
+	[2,c]Team Leadership
+	[3,c]Creative Director
+	Ed Beach
+
+	[3,c]Executive Producer
+	Dennis Shirk
+	
+	[3,c]Lead Producer
+	Andrew Frederiksen
+
+	[3,c]Art Director
+	Jason Johnson
+
+	[3,c]Lead Programmer
+	Ken Grey
+
+	[2,c]Design
+	[3,c]Creative Director
+	Ed Beach
+
+	[3,c]System Designers
+	Bill Anderson
+	Brian Feldges
+	David Raabe
+	Edward (Zihao) Zhang
+	Jonathan Zungre
+	Tim Flemming
+
+	
+	[3,c]Additional Systems Designers
+	Anton Strenger
+	David McDonough
+
+	[3,c]Gameplay Engineers
+	Bradley Olson
+	Chris Burke
+	Justin Rodgers
+	Matt Baros
+	Scott Elson
+
+	[3,c]Content Designers
+	Carl Harrison
+	Kiera Boyle
+	Matthew Beach
+	Rebecca Rost
+
+	[3,c]AI Engineers
+	Andrew Garrett
+	Jean-Francois Clavette
+
+	[3,c]AI Tuning
+	Bill Anderson
+	David Feldman
+	Edward (Zihao) Zhang
+	Scott Elson
+	Tim Flemming
+
+	[3,c]Pacing and Progression
+	Andrew Garrett
+	Bill Anderson
+	Carl Harrison
+	David Raabe
+	Edward (Zihao) Zhang
+	Matthew Beach
+	Shaun Wilson
+	Tim Flemming
+
+	[3,c]In Memoriam - Special Design Inspiration
+	Scott Lewis
+	
+	[2,c]Production
+	[3,c]Executive Producer
+	Dennis Shirk
+
+	[3,c]Lead Producer
+	Andrew Frederiksen
+
+	[3,c]Lead Live Producer
+	Marshall Harlan
+
+	[3,c]Lead Release Manager
+	Joseph Sozio
+	
+	[3,c]Senior Producer, Gameplay
+	Tom Shaw
+
+	[3,c]Senior Producer, Content
+	Mike Rea
+
+	[3,c]Senior Producer, Live
+	Karsten Davis
+
+	[3,c]Producers
+	Amanda Belmont
+	Derek Chan
+	Emily Walton
+	John Greene
+	Kevin Shultz
+	Michael Kotey
+	Nat McDyer
+	Nick Todd
+
+	[3,c]Development
+	Rony Kahana
+
+	[3,c]Additional Development
+	Lisa Foster
+	Morgan Brodskiy
+
+	[3,c]Production Interns
+	Aidan Miller
+	Katherine Riehl
+	Simon Murray
+
+	[3,c]Additional Production
+	Ave Kaye
+	Maya Himelfarb
+
+	[2,c]Narrative
+	[3,c]Narrative Director
+	Cat Manning
+
+	[3,c]Historian
+	Andrew Johnson
+
+	[3,c]Narrative
+	Benjamin Reeves
+	Emma Kidwell
+	Nell Raban
+	Rue Taylor
+
+	[3,c]Additional Narrative
+	Alexander Horn
+	Andrea Saravia Perez
+
+	[2,c]Programming
+	[3,c]Technical Director
+	Michael Springer
+
+	[3,c]Lead Engineer
+	Ken Grey
+
+	[3,c]Principal Game Development Engineer
+	Don Wuenschell
+
+	[3,c]Principle Combat Engineer
+	Scott Spanburg
+
+	[3,c]Gameplay Engineers
+	Chris Burke
+	Ivan Zadniprovskyi
+	Justin Rodgers
+	Matt Baros
+	Sang Le
+	Scott Elson
+	Tammi Tay
+	Zo Douglass
+
+	[3,c]Lead Graphics Engineer
+	John Kloetzli
+
+	[3,c]Graphics Engineers
+	Asher Norland
+	Clementine Hassouni
+	Gabriel Ortega
+	Ken Pruiksma
+	Kevin Jones
+	Richard Van Natta
+
+	[3,c]Additional Graphics Engineer
+	Theodore Maselko
+
+	[3,c]Lead Database/Modding Engineer
+	Shaun Seckman
+
+	[3,c]Lead Multiplayer Engineer
+	Bradley Olson
+
+	[3,c]Systems Engineers
+	Adam Petrone
+	Elizabeth Layton
+	Nicholai Wojtowycz
+	Sang Le
+
+	[3,c]Lead Technical Artist
+	Arthur Gould
+
+	[3,c]Technical Artists
+	Katie Wang
+	Raffaele Scaduto-Mendola
+	Xintong 'Sandra' Liu
+
+	[3,c]Additional Technical Artist
+	Alex Rybak
+
+	[3,c]Additional DevOps Engineers
+	Eric Konzal
+	Jake Stambaugh
+
+	[3,c]Lead Tools Engineer
+	Brian Whitman
+
+	[3,c]Tools Engineers
+	Adam Sherburne
+	Mike Breitkreutz
+	Nicholai Wojtowycz
+
+	[3,c]Additional Tools Engineers
+	David Gurley
+	Matthew Kelley
+
+	[3,c]Additional Programming
+	Josh Bouscher
+	Ram Eshwar Kaundinya
+	Saransh Wali
+	Scott Ramsay
+	Todd Smith
+	Yadikaer Yasheng
+
+	[2,c]User Interface
+	[3,c]UI Team Lead
+	Tronster Hartley
+
+	[3,c]UI Art/Design Lead
+	Steve 'Og' Ogden
+
+	[3,c]Interface Engineers
+	Francis Rockwell
+	Ian Schmidt
+	John Montemorano
+	Karl-Heinz Gilbert-Wason
+	Kevin Rucks
+	Nick Wilkins
+
+	[3,c]Additional Interface Engineering
+	Brittany Steiner
+
+	[3,c]Interface Designers
+	David Wright
+	Jeff Fry
+	Kaitlyn Magnuson
+	Peter Smith
+	Rob Sugama
+	Sean Warwick
+	Val Nunez
+
+	[3,c]Additional Interface Designers
+	Alvin Liu
+	Jacob Jones
+	Tyler Windham
+
+	[3,c]Interface Artists
+	Rob Sugama
+
+	[3,c]UI Interns
+	Ali Brooks
+	Angus "Gus" Goucher
+
+	[2,c]Live Services Team
+	[3,c]Lead Producer
+	Marshall Harlan
+
+	[3,c]Producer
+	Karsten Davis
+
+	[3,c]Lead Designer
+	Taymoor Rehman
+
+    [3,c]Designers
+	Matthew Owens
+	Rebecca Rost
+
+	[3,c]Gameplay & Systems Engineers
+	Ivan Zadniprovskyi
+	Sang Le
+	Tammi Tay
+	Zo Douglass
+
+	[3,c]Additional Live Services
+	Tyrone Shaffer
+
+	[2,c]Art Team
+	[3,c]Art Director
+	Jason Johnson
+
+	[3,c]Diplomacy Visual Lead
+	Keenan Nishi-Manely
+
+	[3,c]Lead Character Artist (Leaders)
+	Marcello Laborda
+
+	[3,c]Character Modeling (Leaders)
+	Esther Didini-James
+	Ethan Song
+	Losha Magee
+	Singer Ko
+
+	[3,c]Lead Animation (Leaders)
+	Rachel Schneider
+
+	[3,c]Animation (Leaders)
+	Alex Kim
+	Andrew Currie
+	Bobby Taylor
+	Chandrahas Tanguturi
+	Francisco Serrano
+	Grant Chang
+	Justin Thomas
+	Sam Ming
+	Tai Beaumont
+
+	[3,c]Lead Technical Animation (Leaders)
+	Destiny Freeman
+
+	[3,c]Technical Animation (Leaders)
+	Elizabeth Barry
+	Joshua Mock
+	Max Greene
+	Raship Trikha
+
+	[3,c]Lead Character Artist (Units)
+	John FitzGerald
+
+	[3,c]Character Modeling (Units)
+	Andrew Cothill
+	Daniel Stilley
+	Esther Didini-James
+	Ethan Song
+	Johann Tan
+	Losha Magee
+	Michael Unkrich
+	Singer Ko
+
+	[3,c]Animation (Units)
+	Aaron Andersen
+	Alex Schabbing
+	Bryan Twomey
+	Kevin Bradley
+	Louis Ferina
+
+	[3,c]Technical Animation (Units)
+	Andrew Benson
+	Erika Ward
+
+	[3,c]Additional Animation
+	Kevin Bradley
+	Kyle Baeta-Orick
+
+	[3,c]Additional Technical Animation
+	Brian Evans
+	Eunjin Cho
+	John Stewart
+	Julian Krotser
+
+	[3,c]Additional Character Modeling
+	David Jones
+	Jonathan Flanders
+	Stephanie Gitlin
+	Zihao Zhu
+
+	[3,c]Lead Environment Artist
+	Clark Coots
+	Matthew Quickel
+
+	[3,c]Environment Artists
+	Alex Llivicura
+	Brian Busatti
+	Dean Scott
+	Jamie Theodore
+	Lee Arnest
+	Logan Bernatt
+	Luke James
+	May Mize
+	Tommy Cox
+
+	[3,c]Environment Materials
+	Clark Coots
+	Daniella Zeman
+
+	[3,c]Additional Environment Artists
+	Andrew Clark
+	Daniel Pinto
+	Jerome Atherholt
+	Kate Blackshear
+	Kristofer Lalinde Diachenko
+	Mike Bates
+	Ranko Prozo
+
+	[3,c]Principal Wonder Artist
+	Rambo Siu
+
+	[3,c]Lead Visual Effects Artist
+	Thomas DiCosola
+
+	[3,c]Principal Visual Effects Artist, Units
+	Rick Menkhaus
+
+	[3,c]Visual Effects Artist
+	Todd Bergantz
+
+	[3,c]Additional Visual Effects Artists
+	Kyle Bunk
+	Troy Adams
+
+	[3,c]Lead Concept Artist
+	Ryan Andrade
+
+	[3,c]Concept Artists
+	Can Wen
+	Devin Dai
+	Dongmin Shin
+	Erik Bakker
+	Jen Kraft
+	Kat Berkley
+	Michael Tassie
+	Sang Han
+	Silvio Aebischer
+
+	[3,c]Additional Concept Artists
+	Anita Tabackziewicz
+	Brian Chan
+	Emily France
+	Michael Bazzell
+
+	[3,c]Motion Graphics Designer
+	Peter Smith
+	Steve 'Og' Ogden
+
+	[3,c]Lighting
+	Jason Keith
+	Tai Beaumont
+
+	[3,c]Art Interns
+	Audrey DuVall
+	Katherine Horst
+	Otto Wu
+	Ryan Creedon
+	Valerie Kilchenstein
+
+	[2,c]Outsourcing
+	[3,c]Studio Outsource Manager
+	Sean Murphy
+
+	[3,c]Lead Outsourcing Producer
+	Austin Angelman
+
+	[3,c]Senior Review Artist
+	Megan Stojanova
+
+	[3,c]Review Artist
+	Laurin Crozier
+
+	[3,c]Pipeline Producer
+	Jon Jones
+
+	[2,c]Cinematics
+	[3,c]Principal Cinematic Artist
+	Chris Staehler
+
+	[3,c]Principal Cinematic Producer
+	Maya Himelfarb
+
+	[3,c]Cinematic Producer
+	Rachel Sima
+
+	[2,c]Senior Art Managers
+	[3,c]VFX/UI/Technical Art
+	Todd Bilger
+
+	[3,c]Animation/Technical Animation
+	Kaye Vassey
+
+	[3,c]Environment
+	Brian Theodore
+
+	[3,c]Character
+	Caroline Guevara
+
+	[2,c]Audio
+	[3,c]Studio Audio Director
+	Justin Drust
+
+	[3,c]Project Audio Lead
+	Kadet Kuhne
+
+	[3,c]Sound Designers
+	Adam Schneider
+	Dmytro Nebesh
+	Dylan Escalona-Sandoval
+
+	[3,c]Technical Sound Designer
+	Evan Galvanek
+
+	[3,c]Additional Sound Designers
+	Daniel Costello
+
+	[3,c]In-Game Music
+	Geoff Knorr
+	Roland Rizzo
+
+	[3,c]Audio Programmer
+	Eric Phister
+	Jason Buzzell
+	Joseph Marcus
+
+	[3,c]Additional Audio Programmers
+	Dan Price
+
+	[2,c]Quality Assurance
+	[3,c]QA Manager
+	Steffen Drees
+
+	[3,c]Test Manager
+	Meaghan McNelis
+	Scott Ellison
+
+	[3,c]QA Lead
+	Albert Briggs
+	Llewyn Spencer
+	Ryan Oliphant
+	Shaun Wilson
+
+	[3,c]QA Art Specialist
+	Emily France
+
+	[3,c]QA Audio Specialist
+	Carter Deken
+	Kyler Bondura
+
+	[3,c]QA Engineering Specialist
+	David Feldman
+	Zachary Crise
+
+	[3,c]Tester
+	Brooke Anderson
+	Corre Catalano
+	Daron Carlock
+	Gabe Scanlan
+	Gregory Wickham
+	Jesse Clark
+	Logan Blackwood
+	Nathan Antolin
+	River Cafri
+	Robert Seal
+	Ryan Mosher
+	Nathan Antolin
+	Savannah David
+	Terrence Myers
+	Tiffany Ann Somera
+
+	[3,c]Testing Interns
+	Alexander Dorman
+	Hunter Seefried
+	Ian Shirk
+	Michael Cisco
+	Simon Murray
+	Stephen Snyder
+
+	[2,c]Firaxis Live Team
+	[3,c]Producer
+	Clint McCaul
+
+	[3,c]Leader Engineer
+	Adam Sherburne
+
+	[3,c]Engineer
+	Brian Whooley
+	Todd Smith
+
+	[3,c]DevOps Engineer
+	David Bisset
+	Jake Stambaugh
+
+	[2,c]Firaxis Management
+	[3,c]President of Firaxis
+	Heather Hazen
+
+	[3,c]Director, Creative Development
+	Sid Meier
+
+	[3,c]Chief Creative Officer
+	Arne Schmidt
+
+	[3,c]Chief Administrative Officer
+	Shawn Kohn
+
+	[3,c]Chief of Staff
+	Lindsay Riehl
+
+	[3,c]Chief Operating Officer
+	Scott Nolfi
+
+	[3,c]Director of Operations
+	Josh Cooper
+
+	[3,c]Sr. Director of Engineering
+	Tom Whittaker
+	
+	[3,c]Additional Firaxis Management
+	Barry Caudill
+	Casey O'Toole
+	Steve Martin
+	Steve Meyer
+
+	[2,c]Admin Staff
+	[3,c]HR Manager
+	Kat Miller
+
+	[3,c]HR Operations Manager
+	Beth Petrovich
+
+	[3,c]Office Manager
+	Donna Milesky
+
+	[3,c]People Coordinator
+	Aledria Cooper
+	Natalie Hofferbert
+
+	[3,c]Human Resources Business Partner
+	Sara Pickering
+
+	[3,c]Learning and Development Manager
+	Pete Murray
+
+	[3,c]Building Manager
+	John Huovinen
+
+	[3,c]Facilities Associate
+	Kenny Sherrod
+
+	[3,c]Special Projects Coordinator
+	Susan Meier
+
+	[3,c]IT Manager
+	David McFall
+
+	[3,c]Systems Admin
+	Jeffery Woosley
+	Jordan Phillips
+	Justin McShane
+
+	[2,c]Video Department
+	[3,c]Director of Product Marketing
+	Jessica Kopp
+
+	[3,c]Video Content Producer
+	Brian Stansbury
+
+	[3,c]Community Manager
+	Sarah Engel
+
+	[3,c]Video Effects Editor
+	Logan Boyd
+
+	[3,c]Production Assistant
+	Dashiell Sarnoff
+
+	[3,c]Additional Video Department
+	Eric Vincent
+
+	[2,c]Bonus Content
+	[3,c]Art Director
+	Nick Georgopoulos
+
+	[3,c]Live Lead Producer
+	Marshall Harlan
+
+	[3,c]Lead Outsourcing Producer
+	Austin Angelman
+
+	[3,c]Production Intern
+	Aidan Miller
+
+	[3,c]Senior Review Artist
+	Megan Stojanova
+
+	[3,c]Review Artist
+	Laurin Crozier
+
+	[3,c]Gameplay Lead
+	Matthew Beach
+
+	[3,c]Narrative Designer/Historian
+	Rue Taylor
+
+	[3,c]Concept Lead
+	Can Wen
+
+	[3,c]Leader Modeler Lead
+	Marcelo Laborda
+
+	[3,c]Leader Animation Lead
+	Bobby Taylor
+	Grant Chang
+
+	[3,c]Units Tech Animation
+	Erika Ward
+
+	[3,c]Units Lead
+	Singer Ko
+
+	[3,c]Environment Lead
+	Rambo Siu
+
+	[3,c]VFX Lead
+	Rick Menkhaus
+
+	[3,c]Audio Lead
+	Kadet Kuhne
+
+	[3,c]Narrative Lead
+	Nell Raban
+
+	[3,c]Tech Animation Lead
+	Destiny Freeman
+
+	[3,c]Technical Art Lead
+	Katie Wang
+
+	[2]Collections
+	[2,c]Team Leadership
+	[3,c]Art Director
+	Nick Georgopoulos
+
+	[2,c]Production	
+	[3,c]Live Lead Producer	
+	Marshall Harlan
+
+	[3,c]Live Senior Producer	
+	Jeff Brown
+
+	[3,c]Lead Outsourcing Producer	
+	Austin Angelman
+
+	[3,c]Producers	
+	Amanda Belmont
+	Emily Walton
+	Nat McDyer
+	Nick Todd
+
+	[3,c]Production Assistant	
+	Aidan Miller
+
+	[2,c]Design	
+	[3,c]Gameplay Lead	
+	Matthew Beach
+
+	[2,c]Programming	
+	[3,c]DLC Unit Support	
+	Scott Spanburg
+	Kevin Jones
+
+	[3,c]Performance Improvement / Profiling Support	
+	Asher Norland
+	John Kloetzli
+
+	[3,c]DLC Asset Overriding	
+	Gabriel Ortega
+
+	[2,c]Narrative	
+	[3,c]Narrative Director	
+	Cat Manning
+
+	[3,c]Narrative Lead	
+	Nell Raban
+
+	[3,c]Gameplay Engineer	
+	Justin Rodgers
+
+	[3,c]Writers	
+	Benjamin Reeves
+	Emma Kidwell
+
+	[2,c]Historians	
+	[3,c]Senior Historian	
+	Andrew Johnson
+
+	[3,c]Historian	
+	Rue Taylor
+
+	[2,c]Art	
+	[3,c]Senior Review Artist	
+	Megan Stojanova
+
+	[3,c]Review Artist	
+	Laurin Crozier
+
+	[3,c]Concept Lead	
+	Can Wen
+
+	[3,c]Concept Artists	
+	Devin Dai
+	Dongmin Shin
+	Erik Bakker
+	Jennifer Kraft
+	Kat Berkley
+	Mike Tassie
+	Ryan Andrade
+	Sang Han
+	Silvio Aebisher
+
+	[3,c]Leader Modeler Lead	
+	Marcelo Laborda
+
+	[3,c]Leader Animation Lead	
+	Bobby Taylor
+	Grant Chang
+
+	[3,c]Units Tech Animation	
+	Erika Ward
+
+	[3,c]Units Lead	
+	Singer Ko
+
+	[3,c]Environment Lead	
+	Clark Coots
+	Rambo Siu
+
+	[3,c]Visual Effects Lead	
+	Rick Menkhaus
+
+	[3,c]Visual Effects Artists	
+	Thomas DiCosola
+	Todd Bergantz
+
+	[3,c]Technical Animation Lead	
+	Destiny Freeman
+
+	[3,c]Technical Animation	
+	Raship Trikha
+
+	[3,c]Technical Art Lead	
+	Katie Wang
+
+	[2,c]Audio	
+	[3,c]Audio Lead	
+	Kadet Kuhne
+
+	[2,c]Quality Assurance	
+	[3,c]Test Managers	
+	Meghan McNelis
+	Scott Elison
+
+	[3,c]QA Lead	
+	Albert Briggs
+	Llewyn Spencer
+	Shaun Wilson
+
+	[3,c]QA Audio Specialist	
+	Carter Deken
+
+	[3,c]QA Art Specialist	
+	Emily France
+
+	[3,c]QA Engineering Specialist	
+	David Feldman
+	Zachary Crise
+
+	[3,c]Testers	
+	Brooke Anderson
+	Corre Catalano
+	Daron Carlock
+	Logan Blackwood
+	Nathan Antolin
+	Savannah David
+	Terrence Myers
+	Tiffany Ann Somera
+
+	[3,c]Additional Testers	
+	Michael Cisco
+	Simon Murray
+
+	[2]Performers
+	[3,c]Narrator
+	Gwendoline Christie
+	
+	[3,c]Leaders
+	Umma Yunisa – Amina
+	Sunil Tiwari – Ashoka
+	Gianmarco Ceconi – Augustus           
+	Christopher Smith – Benjamin Franklin  
+	Svetlana Migdissdva – Catherine the Great
+	Christian Manuel Oliveira – Charlemagne
+	Xiucheng Zhang – Confucius           
+	Linus Kraus – Friedrich    
+	Shaimaa Mohamed Shaalan – Hatshepsut  
+	Debra Wilson – Harriet Tubman  
+	Ran Kurotani - Himiko     
+	Boutros Moussa – Ibn Battuta         
+	Yasmina Alvarez Tienenozz – Isabella
+	Bryan Allen Encarnacion – José Rizal  
+	Nicolas Collombet – Lafayette       
+	Michele Cory – Machiavelli         
+	Fernando Saire – Pachacuti
+	Hong Nhung – Trung Trac
+	Mario Miguel De Candia – Xerxes
+	Dillon Dean – Tecumseh
+	Sam Kalidi – Napoleon
+
+	[3,c]Additional Voices
+	Akira Tokugawa 
+	Annie Dick
+	Jerry Habibi
+	Kal Parekh
+	Kion Heidari
+	Matt Curtis
+	Monique Shi
+	Nassim Arastoopour
+	Pranshu Mishra
+	Purnima Parashar
+	Stephen Fu 
+	Tom Schalk
+	
+	[3,c]Scout Dog Audio
+	Kaiya Bear Gilchrist
+	[m,r]Credits_UNIT01
+
+	[2,c]Orchestral and Choral Music Performed by the FILMharmonic Orchestra and Choir, Prague
+	[3,c]Orchestra Conductor
+	Andy Brick
+
+	[3,c]Choir Conductor
+	Lukáš Vasilek
+
+	[3,c]Organist
+	Daniela Valtová
+
+	[3,c]Solo Piano
+	Martin Levický
+
+	[3,c]Orchestra Recording Engineer
+	Oldřich Slezák
+
+	[3,c]Additional Orchestra Recording Engineer
+	Jakub Hadraba
+
+	[3,c]Orchestra Assistant Engineer
+	Čeněk Kotzmann 
+	Jan Krček
+	Ivan Zbíral
+
+	[3,c]Pro Tools Operator
+	Čeněk Kotzmann
+
+	[3,c]In-game Music Choir Recording Engineer
+	Jan Holzner
+
+	[3,c]Choir Assistant Engineer and Pro Tools Operator
+	Michael Hradiský
+
+	[3,c]Music Contractor and Recording Manager
+	Petr Pýcha
+
+	[3,c]Orchestra Librarian
+	Tomáš Kirschner 
+
+	[3,c]Orchestrator
+	Geoff Knorr 
+
+	[3,c]Accordian
+	Josef Hřebík
+
+	[3,c]Bassoon
+	Daniel Hucek
+	Jaroslav Jedlička
+	Jaroslav Kubita
+	Peter Hlucháň
+	Petr Němeček
+	Svatopluk Čech
+
+	[3,c]Cello
+	Ctibor Příhoda
+	Jan Klika
+	Jan	Relich
+	Jan	Sládeček
+	Karel Huth
+	Kristýna Bělohlávková
+	Ladislav Mariaš
+	Marek Elznic
+	Marek Sůva
+	Marie Dorazilová
+	Martin Sedlák
+	Michaela Kučerová
+	Miloš Jahoda
+	Petr Houdek
+	Petr Malíšek
+	Richard	Žemlička
+	Roman Petrov
+	Roman Stehlík
+	Štěpánka Kutmanová
+	Věra Anýžová
+	Zdenka Melkusová
+
+	[3,c]Clarinet
+	Aleš Hustoles
+	Jan	Mach
+	Jiří Mráz
+	Lukáš Dittrich
+	Tomáš Hustoles
+
+	[3,c]Double Bass
+	Eri	Ishikawa
+	Gonzalo	Jiménez
+	Jan	Buble
+	Jan	Prokop
+	Jan	Smažík
+	Jan	Špaček
+	Jan	Vokoun
+	Jaromír	Gardoň
+	Jiří Vopálka
+	Marek Lustig
+	Michal Mandel
+	Pavel Pospíšil
+	Radomír Žalud
+	Roman Koudelka
+	Rudolf Andrš
+	Zdeněk Pazourek
+
+	[3,c]Flute
+	Hana Knauerová
+	Jiří Loukota
+	Jiří Skuhra
+	Martin Klimánek
+	Robert Heger
+
+	[3,c]French Horn
+	Blanka Vojtíšková
+	David Prchlý
+	Eva	Krajhanzlová
+	František Langweil
+	František Pok
+	Jan	Vítek
+	Jan	Vobořil
+	Jiří Havlík
+	Pavel Douba
+	Petr Hernych
+	Tomáš Kirschner
+	Zdeněk Bělohradský
+	Zuzana Rzounková
+
+	[3,c]Harp
+	Hana Müllerová
+	Kamila Jouzová
+
+	[3,c]Oboe
+	Eva	Houdková
+	Jiří Zelba
+	Jitka Tomšíčková
+	Marie Vaňková
+	Vratislav Vlna
+	Zdeněk Rys
+
+	[3,c]Percussion
+	Blanka Šindelářová
+	Dalibor Němec
+	Jiří Svoboda
+	Matěj Diviš
+	Miroslav Kejmar
+	Pavel Polívka
+	Svatopluk Čech, ml.
+
+	[3,c]Piano / Keyboard Instruments
+	Daniela Valtová Kosinová
+	Josef Hřebík
+	Martin Levický
+
+	[3,c]Trombone / Tuba
+	Aleš Vopelka
+	David Czech
+	Jan	Triebenekl
+	Karel Kohout
+	Karel Kučera
+	Ladislav Ščurek
+	Lubomír Maryška
+	Luděk Hrabec
+	Petr Salajka
+	Šimon Pudlovský
+	Tomáš Bialko
+
+	[3,c]Trumpet
+	Igor Vasil
+	Ladislav Kozderka
+	Marek Zvolánek
+	Marie Pačesová
+	Martin Pavluš
+	Radek Němec
+	Stanislav Masaryk
+	Tomáš Hrbáček
+
+	[3,c]Viola
+	Adam Pechočiak
+	Adéla Malec
+	Alan Melkus
+	Anežka Kroupová
+	Anna Šimková
+	Boris Goldstein
+	Dagmar Mašková
+	Dominik Trávníček
+	Hana Pechočiak
+	Ilja Samojlov
+	Jan Forest
+	Jan	Mareček
+	Jan	Stippl
+	Jiří Poslední
+	Kamila Puteany
+	Marek Jiříček
+	Marina Martincová
+	Martin Jirka
+	Pavel Kirs
+	Radka Teichmanová
+	Robert Střihavka
+	Vladan Malinjak
+	Vladimír Plíva
+	Vladislav Syčov
+
+	[3,c]Violin
+	Adéla Stružinská
+	Anna Kostková
+	Anna Vaňková
+	Dana Jelínková
+	David Voráč
+	Dmitrij Večer
+	Eva	Nedomová
+	Eva	Rohanová
+	František Eret
+	Greti Kalčeva
+	Hana Kutmanová
+	Hiroko Takahashi
+	Iva	Jaške Příhonská
+	Jakub Marek
+	Jan	Nykrýn
+	Jaroslav Bohdal
+	Jaroslav Hájek
+	Jindřich Vácha
+	Jiří Ševčík
+	Jiří Škoda
+	Jitka Kokšová
+	Josef Bauer
+	Josef Vychytil
+	Kateřina Penková
+	Klára Kutmanová
+	Lucie Švehlová
+	Ludvík Sklenář
+	Lukáš Kutman
+	Marcel Kozánek
+	Marie Dvorská
+	Martin Válek
+	Matěj Vlk
+	Midori Hayashi
+	Miho Sugihara
+	Milan Machačka
+	Miloš Černý
+	Pavel Kutman
+	Pavel Nechvíle
+	Petr Hlaváč
+	Petr Zemanec
+	Rita Čepurčenko
+	Roman Konečný
+	Stanislav Rada
+	Světlana Oliveira
+	Světlana Štěpánková
+	Táňa Mistrjuková
+	Tomáš Kokš
+	Václav Prudil
+	Václav Vacek
+	Viktoryia Englberth
+	Vladimír Kučera
+	Vlastimil Zeman
+	Zdeněk Zelba
+
+	Orchestra Recorded in Dvorak Hall, Rudolfinum, Prague, Czech Republic
+	In-game Choir Recorded at Smecky Music Studios
+
+	[2,c]Renaissance and Baroque Music performed by I Fedeli
+	[3,c]Period Instrument Consultation, Cornetto
+	Josue Melendez Palaez
+
+	[3,c]Ensemble Contractor and Logistics, Dulcian, and Baroque Bassoon
+	Nora Hansen
+
+	[3,c]Treble Viol and Contrabass
+	Teodoro Baù
+
+	[3,c]Tenor Viol
+	Leonardo Bortolotto
+
+	[3,c]Bass Viol
+	Stephen Moran
+
+	[3,c]G Violone and Baroque Bass
+	Christoph Prendl
+
+	[3,c]Tenor Viol
+	Caroline Ritchie
+
+	[3,c]Trombone
+	Catherine Motuz
+	Henry van Engen
+	Maximillian Brisson
+
+	[3,c]Recorder
+	Carla Escuerdo
+	Clément Gester
+	Eleonora Biscevic
+	Tabea Schwartz
+	Vicente Parrilla
+
+	[3,c]Baroque Violin
+	Johannes Frisch
+	Michèle Party
+	
+	[3,c]Baroque Flute
+	Liane Erlich
+
+	[3,c]Baroque Oboe
+	Hanna Geisel
+	Johannes Knoll
+
+	[3,c]Percussion
+	Hiram Santos
+	Matteo Rabolini
+
+	[3,c]Lute and Vihuela
+	Ivàn Garcìa
+
+	[3,c]Recording Engineer
+	Geoff Knorr
+
+	[3,c]Assistant Recording Engineer
+	BJ Hernandez
+
+	Recorded at Martinskirche, Müllheim, Germany
+
+	[2,c]Music for the Mongols performed by members of the Mongolian State Morin Khuur Ensemble
+	[3,c]Conductor
+	Jigjiddorj Nanzaddorj
+
+	[3,c]Long Song Singer
+	Munkhbaatar Bat-Ulzii
+
+	[3,c]Throat Singer and Tovshuur
+	Munkhbat Myagmarjav
+
+	[3,c]1st Morin Khuur
+	Tumurkhuyag Ochirbat
+
+	[3,c]2nd Morin Khuur
+	Orgil Dariimaa
+
+	[3,c]3rd Morin Khuur
+	Orgil Dariimaa
+
+	[3,c]Ikh Khuur
+	Purev-Ochir Lhagvajav
+
+	[3,c]Yatga
+	Oyuntuya Enkhbat
+
+	[3,c]Yochin
+	Badamdari Chuluunbaatar
+
+	[3,c]Percussion
+	Gantulga Ganbat
+
+	[3,c]Recording Engineers
+	Bayarkhuu Nyamkhuu
+	Geoff Knorr
+
+	Recorded at White Arch Studios, Ulaanbaatar, Mongolia
+
+	[2,c]Music for the Mississippians performed by Southern Pine Drum Group
+	Bonifacio Hernandez
+	Celia Isaac
+	Donald Cotton
+	Hugh R. Isaac
+	Jacob Hickman
+	Kirk Mcmillan
+	Leda Isaac
+	Roland S. Billy
+	William D. Isaac
+	Zaiah Isaac
+	
+	[3,c]Recording Engineers
+	Bayarkhuu Nyamkhuu
+
+	Recorded in Choctaw, Mississippi
+
+	[2,c]Music for the Khmer Empire performed by Wong Pleng Khmer
+	[3,c]Vocals
+	Sophy Theam
+	Sayon Soeun 
+	Sovann Khon
+	Sovann-Thida Loeung
+
+	[3,c]Sralai Thom
+	Navy Chhim
+
+	[3,c]Roneat Ek
+	Song Heng
+
+	[3,c]Roneat Thung
+	Christian Rivera
+
+	[3,c]Kong Vong Thom
+	Samrith Rivera
+
+	[3,c]Skor Samphor, Skor Thom
+	Rorthanakdara Run
+
+	[3,c]Chheng
+	Peter Tham
+
+	[3,c]Recording Engineer
+	Geoff Knorr
+
+	Recorded at The Richard & Nancy Donahue Family Academic Arts Center Recital Hall, Middlesex Community College, Lowell, MA
+
+	[3,c]Colonial “ancient” style snare and bass drums
+	John Rugolo
+	Nathan Egloff
+
+	Members of the Monumental City Ancient Fife and Drum Corps, Baltimore, MD
+
+	[3,c]Recording Engineer
+	Geoff Knorr
+
+	Recorded at Central Presbyterian Church
+
+	[2,c]Chinese Music Consultant and Contractor - Bei Bei Monter
+	[3,c]Guzheng
+	Bei Bei Monter
+
+	[3,c]Erhu (Qing)
+	Chiu Steve Chieh-Wei
+
+	[3,c]Erhu (Ming)
+	Liu Yang
+
+	[3,c]Dizi (Qing), Xiao
+	Ashley Jarmack 
+
+	[3,c]Pipa
+	Celia Liu
+
+	[3,c]Yangqin
+	Aiko Kyo
+
+	[3,c]Sheng, Dizi (Ming)
+	Zhiming Shu
+
+	[3,c]Guban, Chinese cymbal
+	Zhe Song
+
+	Music for The Han Dynasty and Ming Dynasty Conducted by Geoff Knorr
+
+	[3,c]Recording Engineer
+	Chris Sorem
+
+	Recorded at The Nest, Los Angeles, CA
+
+	Music research, consultation, and transcriptions for the Chola Dynasty, Maurya Empire, and Mughal Empire by Gaayatri Kaundinya of Chai Time Studios, LLC
+
+	[2,c]Music for the Chola Dynasty
+	[3,c]Carnatic Flute
+	Anirudh Bharadwaj
+
+	[3,c]Carnatic Vocals
+	Ananya Ashok
+	Vani Ramamurthi
+
+	[3,c]Veena
+	Hrishikesh Chary
+
+	[3,c]Mridangam, Kanjira, Ghatam
+	Rohan Krishnamurthy
+
+	[3,c]Recording Engineer
+	Neil Godbole
+
+	[3,c]Assistant Engineer
+	Geoff Knorr
+
+	[3,c]Studio Assistant
+	Andreas Pichardo
+
+	Recorded at Airship Laboratories, Richmond, CA
+
+	[2,c]Music for the Maurya Empire
+	[3,c]Vocals
+	Anand Sankar Vemuri
+	Karthik Krishnan
+	Rajasekhar Ayala
+	Vinay Sharma
+	Vinay Somashekar
+	Vivek Thyagarajan
+
+	[3,c]Percussion
+	Sanket Naik
+
+	[3,c]Bansuri
+	Deepak Ram
+
+	[3,c]Recording Engineer
+	Deepak Ram
+
+	[3,c]Assistant Engineer
+	Nick Hodges
+
+	Vocals Recorded at The Village, Los Angeles, CA
+
+	Traditional Hawaiian Oli and Ipu Heke performed by Luana Haraguchi
+	Assisted and accompanied by Hula Dancer Masue Suz
+
+	[3,c]Recording Engineer
+	Geoff Knorr
+
+	[2,c]Music for Meiji Japan featuring soloists
+	[3,c]Koto
+	Masayo Ishigure
+
+	[3,c]Shakuhachi
+	James Nyoraku Schlefer
+	
+	[3,c]Recording Engineer
+	Geoff Knorr
+
+	[3,c]Assistant Engineer
+	Christian Pace
+
+	Recorded at Pinch Recording, Long Island City, NY
+
+	Additional Musical Performance
+	Brandon Acker
+	Niccolo Seligmann 
+	Sandro Freidrich
+	Deepak Ram
+	Karim Nagi
+	Victor Ghannam
+	Naeif Rafeh
+	Chamni Sripraram
+	Amadou Kouyate
+	Amir Vahab
+	AJ Block
+	Geoff Knorr
+	Jared Denhard
+	Ian Hochberg
+	Mixed and mastered by Geoff Knorr
+
+	[2,c]Christopher Tin Music
+	[2,c]"Live Gloriously" - Performed by Crouch End Festival Chorus and FILMHarmonic Orchestra
+	[3,c]Choir Conductor
+	David Temple
+
+	[3,c]Session Producer
+	Claire Long
+
+	[3,c]Recording Engineer
+	Rupert Coulson
+
+	[3,c]Pro Tools Operator
+	Gianluca Massimo
+
+	[3,c]Assistant Engineer
+	Alex Ferguson
+
+	Recorded at AIR Studios
+
+	[3,c]Orchestra Conductor
+	Andy Brick
+
+	[3,c]Session Producer
+	Geoff Knorr
+
+	[3,c]Recording Engineer
+	Jakub Hadraba
+
+	[3,c]Assistant Recording Engineers
+	Čeněk Kotzmann
+	Jan Krček
+	Ivan Zbíral
+
+	[3,c]Pro Tools Operator
+	Čeněk Kotzmann
+
+	[3,c]Music Contractor and Recording Manager
+	Petr Pýcha
+
+	[3,c]Orchestra Librarian
+	Tomáš Kirschner
+
+	Recorded at Dvorak Hall, Rudolfinum, Prague, CZ
+
+	[3,c]Music Prep
+	Theo Schmitt
+
+	[3,c]Mixing Engineer
+	Rich Breen
+
+	Produced by Christopher Tin
+
+	[2,c]"Carved in Stone" - Performed by the FILMHarmonic Orchestra
+	[3,c]Cello
+	Miloš Jahoda
+
+	[3,c]Zurna
+	Sandro Friedrich
+
+	[3,c]Orchestra Conductor
+	Andy Brick
+
+	[3,c]Session Producer
+	Geoff Knorr
+
+	[3,c]Recording Engineer
+	Jakub Hadraba
+
+	[3,c]Assistant Recording Engineers
+	Čeněk Kotzmann
+	Jan Krček
+	Ivan Zbíral
+
+	[3,c]Pro Tools Operator
+	Čeněk Kotzmann
+
+	[3,c]Music Contractor and Recording Manager
+	Petr Pýcha
+
+	[3,c]Orchestra Librarian
+	Tomáš Kirschner
+
+	Recorded at Dvorak Hall, Rudolfinum, Prague, CZ
+
+	[3,c]Music Prep
+	Theo Schmitt
+
+	[3,c]Mixing Engineer
+	Rich Breen
+
+	Produced by Christopher Tin
+
+	Crouch End Festival Chorus
+
+	[3,c]SOPRANOS
+	Becca Budgett
+	Emily Soppet
+	Genevieve Helsby
+	Helen Garrison
+	Maddie Ellis
+	Pilar Bolado
+	Rachel Johnson
+	Sarah Gilbert
+	Sarah Niblock
+	Susannah Bayliss
+	Tara Munnelly
+	Ùna Yates
+
+	[3,c]ALTOS
+	Alice Jeffery
+	Bethany Burrow
+	Caroline Milton
+	Diana Parkinson
+	Ela Harrison
+	Karen Stead
+	Natalie Fine
+	Paula Miller
+	Sarah Elliot
+	Tina Burnett
+
+	[3,c]TENORS
+	Bob Bishop
+	Clive Seale
+	Craig Wilkie
+	Guy Shirm
+	John Vernon
+	Martin Dowling
+	Matt Griffin
+	Sean Denny
+
+	[3,c]BASSES
+	Bryn Popham
+	Christopher Wetherall
+	Duncan McAlpine
+	Geoffrey Kemball-Cook
+	Hugh Bowden
+	John Mindlin
+	Michael Brookes
+	Nick Buxton
+	Peter Reddingius
+	Phil Rashleigh
+	Robert Gorrie
+
+	[3,c]Chorus Director
+	David Temple
+
+	[3,c]Chorus Management
+	Davina Ross-Anderson
+	
+	[3,c]Additional Music
+	Gabriel Sachs
+
+	[2,c]Shawnee Tribe
+	Chief Ben Barnes
+	Karl Meyer
+	Anastasia Miller-Youst
+	Joel Barnes
+	George "Fife" Blanchard
+	Tonya Tipton
+	Dillon Dean
+
+	[2,c]Shawnee Soundtrack
+	[3,c]Vocals & Drumming
+	Brett Barnes
+	Joel Barnes
+	Trenton Stand
+
+	[3,c]Ensemble LogisticsRecorded, Miami, OK
+	Karl Meyer
+
+	[3,c]Recording Engineer
+	Geoff Knorr
+
+	[2,c]Collection Performers
+	[3,c]Leaders
+	Ellie Kendrick - Ada Lovelace
+	Elvis Di Marcantonio - Bolivar
+	Sam Bayaraa - Genghis Khan
+
+	[2,c]Carthage (Antiquity Age)
+	Composed by Roland Rizzo
+
+	[3,c]Aulos,Bone Flute, & Ney
+	Sandro Friedrich
+
+	Produced by Geoff Knorr and Roland Rizzo
+	Editing, Mixing & Mastering Engineer: Geoff Knorr
+
+	[2,c]Great Britain (Modern Age)	
+	Sir Hubert Parry, arrangement composed by Geoff Knorr
+	FILMHarmonic Orchestra, Prague
+	Andy Brick, conductor
+	Produced by Geoff Knorr
+	Recorded at Dvorak Hall, Rudolfinum, Prague, CZ
+	Recording Engineer: Jakub Hadraba
+	Assistant Recording Engineers: Čeněk Kotzmann, Jan Krček, Ivan Zbíral
+	Pro Tools Operator: Čeněk Kotzmann
+	Music Contractor and Recording Manager: Petr Pýcha
+	Orchestra Librarian: Tomáš Kirschner
+	Editing, Mixing & Mastering Engineer: Geoff Knorr
+
+	[2,c]Bulgaria (Exploration Age)
+	Traditional, arranged by Geoff Knorr
+
+	[3,c]Vocals
+	Kathryn Mitchell
+	Trayana Stankova
+
+	[3,c]Kaval
+	Valeri Georgiev
+
+	[3,c]Gadulka
+	Angel Dobrev
+
+	[3,c]Gaida	
+	Petar Aleksiev
+
+	[3,c]Tambura	
+	Kalin Kirilov
+
+	[3,c]Tupan	
+	Bryndyn Weiner
+
+	Recorded at 38 North Studio, Falls Church, Virginia
+	Recording Engineer: Sean Russell
+	Assistant Engineers: Geoff Knorr & Logan Huber
+	Editing, Mixing & Mastering Engineer: Geoff Knorr	
+	
+	[2,c]Nepal (Modern Age)	
+	Traditional, arrangement composed by Roland Rizzo
+	FILMHarmonic Orchestra, Prague
+	Andy Brick, conductor
+
+	[3,c]Madal & Bells	
+	Rohan Krishnamurthy
+
+	[3,c]Bansuri & Shehnai	
+	Sandro Friedrich
+
+	Geoff Knorr, orchestrator
+	Produced by Geoff Knorr & Roland Rizzo
+	Recorded at Dvorak Hall, Rudolfinum, Prague, CZ
+	Recording Engineer: Jakub Hadraba
+	Assistant Recording Engineers: Čeněk Kotzmann, Jan Krček, Ivan Zbíral
+	Pro Tools Operator: Čeněk Kotzmann
+	Music Contractor and Recording Manager: Petr Pýcha
+	Orchestra Librarian: Tomáš Kirschner
+	Editing, Mixing & Mastering Engineer: Geoff Knorr
+
+	[2]PunchEV
+	[3,c]Art Director
+	Magdalena Chervenyakova
+
+	[3,c]Producer
+	Elitsa Dimitrova
+
+	[3,c]Lead Artist
+	Daria Sukhareva
+
+	[3,c]UX/UI Artist
+	Rada Savovska
+
+	[3,c]Illustrator
+	Ilina Naydenova
+	Stilian Geshev
+
+	[2]Virtuos
+	[3,c]Studio Manager
+	Tian Li
+
+	[3,c]Studio Art Operation Director
+	Zhang Lu
+
+	[3,c]Art Director
+	Peng Liang
+
+	[3,c]Producer
+	Deng Xiaoshuang
+
+	[3,c]Team Leader
+	Huang Qin
+
+	[3,c]Art Quality Control
+	Luo Zhanghan
+
+	[3,c]Technical Artist
+	Liu Jingxi
+
+	[3,c]Character Artist
+	Chen Xueguo
+	Lang Chengxu
+	He Qichen
+	Wen Hao
+	Yuan Meng
+
+	[2]Hangar 13
+	[3,c]OS Review Artist
+	Bernardo Ruas
+	Zuzana Risianova
+
+	[2]LittleRedZombies
+	[3,c]Director
+	Ankit Garg
+	Sri Ra Chandra
+
+	[3,c]Art Director
+	Nakshatra Bhaskar Solanki
+
+	[3,c]Senior Project Coordinator
+	Naveen Kumar Kommula
+
+	[3,c]Quality Control
+	Murli Sharma
+
+	[3,c]Character Artist
+	Lokesh M
+	M Sai Praneeth
+	Rishabh Shrimali
+	Siddharth Sinha
+	Siddhartha Das
+
+    [m,l]Credits_UNIT04
+	[2]Ghostpunch Games, part of the PTW family
+	[3,c]Rigging/Skinning Support
+	Christian Santori
+
+	[3,c]Engineering Support
+	Keaton VanAuken
+
+	[2]2K Valencia
+	[3,c]Associate Lead Character Artist
+	Pierre Hanneuse
+
+	[3,c]Character Artists
+	Adrian Rojas Espi
+	Albert Pǎtru
+	Carlos Guerra Gomez
+	Santiago Gamez Carnicer
+
+	[3,c]Lead Hard Surface Artist
+	Damiao Correia Faria Paço Viana
+
+	[3,c]Hard Surface Artists
+	Aldo Arrieta
+	Gabriel Pajares Perez
+	Julián Campillo
+	Marcos Tonda
+	Oriol Soler Vilallonga
+	Owyn Springer Rubio
+
+	[3,c]Lead Prop/Environment Artist
+	Leopoldo Coto Alonso
+
+	[3,c]Associate Lead Prop/Environment Artist
+	Mateo Ramírez
+
+	[3,c]Prop/Environment Artists
+	Alejandro García Sánchez
+	Alejandro Moya Gala
+	Alex Bouhaben
+	Andrea Notarstefano
+	Angel Muñoz Biesa
+	Antonio Ruiz Roda
+	Aritz Sanchez Fuertes
+	Dennis Levi
+	Diego Cremades Rodrigo
+	Fco. Javier Mercado Clavijo
+	Imanol Gomez
+	Pablo Gimenez Ortiz
+	Rob Izquierdo
+
+	[3,c]Animator
+	Ivan Voto Moreno
+
+	[3,c]Producers
+	J. Pablo Cózar
+	Roelof Elsman Contreras
+	Soraya Timmers
+
+	[3,c]Projects Director
+	Bjorn Seinstra
+
+	[3,c]Director of Creative Development
+	Jose Luis Queral
+
+	[3,c]IT Administrator
+	Fernando Fargueta
+	Jaime Motos Bastida
+	Luis Navarro
+	Sami Sakr Kibbe
+
+	[2]CGBOT/DevBot
+	[3,c]Producer
+	Odeth Garcia
+	Monica Sanchez
+
+	[3,c]Client Producer
+	Patricia Raquel Santos Muñoz
+
+	[3,c]Lead
+	Esteban Eduardo Cerda Sepulveda
+
+	[3,c]Developer
+	Hazel Gallegos Wence
+	Jose Salvador Cuellar Alvarado
+	Pablo Andres Mariles Feregrino
+
+	[3,c]QA
+	Isabela López Ruiz
+
+	[3,c]Development Director
+	Oscar Muñoz
+
+	[2]SIDE LA 
+	[3,c]Head of Studio
+	Jessica Kent
+
+	[3,c]Head of Production
+	Christan Maestas
+
+	[3,c]Production Manager
+	Emily Nelson
+
+	[3,c]Production Assistant
+	Ian Hamilton
+
+	[3,c]Senior Recording Engineer
+	Jesus C. Murillo
+
+	[3,c]Recording Engineer
+	Bradley Elliott
+	Frankie Galvez
+	Justin Longerbeam
+	Logan Nyman
+	Ulysses Nieto
+
+	[3,c]Audio Editor
+	Gio Murillo
+
+	[3,c]Client Partnerships Manager
+	Christopher Woolf
+
+	[3,c]Studio Administator
+	Denise Kent
+
+	[2]SIDE UK 
+	[3,c]Head of Studio
+	Sini Downing
+
+	[3,c]Head of Production
+	Christopher Donnelly
+
+	[3,c]Production Manager
+	Ramsey Ibrahim
+
+	[3,c]Recording Engineer
+	Adriaan Kastelejin
+	Rob Kirby
+
+	[3,c]Audio Manager
+	Dan Yates
+
+	[3,c]Audio Editior
+	Ace Lim Wen Jian
+	Elliott Jasmin-Baker
+	Giridhar Ganesan
+	Jazley Chua Yi Le
+	Kyle Nichol
+	Zack Leonard
+
+	[3,c]Head of Post Production
+	Gaberiella Scanio
+
+	[3,c]Post Production Lead
+	Caanan Nathaniel
+	Dario Vola
+	Vicenzo Bosa
+
+	[3,c]Post Production Coordinator
+	Alejandro Carrasco
+
+	[2]Waterproof Studios 
+	[3,c]Producer
+	Marc Stephenson
+
+	[3,c]Production Manager
+	Alishia Adams
+
+	[3,c]Creative Director
+	Brien Goodrich
+
+	[3,c]Editor
+	Christian Trineer
+	Nickolas Lacasse
+
+	[3,c]Storyboard Artist
+	Monty Granito
+
+	[3,c]Animation Director
+	Jeremy Stewart
+
+	[3,c]Lead Animator
+	Jenny (Yan-Yee) Kong
+
+	[3,c]Animator
+	Aaron Fernandes
+	Blake Piebenga
+	Charles Spencer
+	Chrissy (Qian Rong) Wang
+	Harper Eskuri
+	Manuel Zambrano
+	Raphael Lima
+
+	[3,c]Look Dev Director
+	Max Wahyudi
+
+	[3,c]Technical Director
+	Bennett Ewanchyna
+
+	[3,c]Modeller
+	Zi Xin(Lucy) Zhu
+
+	[3,c]UE Artist
+	David Chiang
+
+	[3,c]Rigging TD
+	Daniel Davie
+
+	[3,c]Character / Assets / Additional Rigging
+	FirstPeak Studios
+
+	[3,c]Additional Rigging / Asset Support
+	Gimbal Zen
+
+	[3,c]FX TD
+	Erika Salatiello
+	Nikhil Chandra Soma
+	Reza Ghulam Yahya
+
+	[2]Cloud Mark Studios
+	[3]Art Director
+	Chao Chong
+
+	[3]Producer
+	Jacky Jiang
+
+	[3]Project Manager
+	Nancy Chen
+
+	[3]Project Assistant
+	Jesse Ding
+
+	[3]Art Manager
+	Yu Wang
+
+	[3]Art Lead
+	Yifan Rui
+	Ziyan Wei
+
+	[3]Quality Check
+	Pei Yang
+	Pinzhi Chen
+
+	[3]Artist
+	Chao Sun
+	Guiling Gan
+	Hao Wang
+	Jiale Li
+	Lan Yan
+	Shaocong Qi
+	Tongqing Cui
+	Weidong Liu
+	Xiaoqing Chen
+	Xin Wang
+	Xinyi Sun
+	Xinyu Song
+	Ye Liu
+	Yixuan Xie
+	Yong Yang
+
+	[2]Injected Senses Audio 
+	[3,c]Audio Director
+	Gary Miranda, MPSE
+
+	[3,c]Sound Designer
+	Adam Sanchez, MPSE
+	Brendan Wolf, MPSE
+	Jeremy Neroes, MPSE
+	Matt Callahan
+
+	[2]Source Sound
+	[3,c]Supervising Sound Designer and Mixer
+	Charles Deenen
+
+	[3,c]Sound Mixer
+	Tom Brewer
+
+	[3,c]Sound Designers
+	Nick Interlandi
+	Nick Martin
+	Nick Spradlin
+
+	[3,c]Assistant Sound Editors
+	Cadmus Blackwood
+	Landen Belardes
+
+	[3,c]Sound Producer
+	Daniel Lepervanche
+	Kelly Baffoni
+
+	[2]Gameshastra
+	[3,c]Project Manager
+	Mohamad Jahangeer
+
+	[3,c]Artist
+	John Luie Thangaraj
+	Saikrishna Dasu
+	Srikrishna Teja
+
+	[2]Rocket Science
+	[3,c]Engineer
+	Jeffrey Strader
+	Jorge Alfonso González Herrera
+	Randolf DeSouto
+	Tyler Wood
+
+	[3,c]Director of Engineering
+	Thomas Gawrys
+
+	[3,c]Associate Producer
+	Catherine Gravereaux
+
+	[3,c]Senior Business Development Manager
+	Alejandro Ura
+
+	[2]Signal Space
+	[3,c]VO Session Directors
+	Lucinda Davis
+	Thor Bishopric
+
+	[3,c]Audio Production (Signal Space Lab)
+	David Arango
+	Joe Barrucco
+	Jose Aguirre
+	Michel Marchant
+	Travis Griffith
+
+	[3,c]Research/Translations
+	Dr. Bayo Adepetun
+	Dr. Rabea Kohnen
+	Hayley Blum
+	Hong Yu Chen
+	Inga Sophia Knoth (Signal Space Lab)
+	Leslie McCurdy
+	Lori Feng
+	Marissa Stevens
+	Mustapha Hashim Kurfi
+	Olesya Ivantsova
+	Philip Jacobs
+	Rasha El Hawari
+	Raul Alvarez
+	Rudolf Baldonado Jr.
+	Sandra Waldenberger
+	Sebastiano Bazzichetto
+	Sehar Manji (Signal Space Lab)
+	Tabitha Sparks
+	Thu Thi An Vo
+	Vijay Shekhawat
+
+	[2]Red Hot CG
+	[3,c]Operation Head
+	Leo Ling
+
+	[3,c]Account Manager
+	Drew Cichy
+
+	[3,c]Producers
+	Alex You
+	Tianhao Hu
+
+	[3,c]Art Director
+	Xiangzi Luo
+
+	[3,c]Team Lead
+	Yixi Zheng
+
+	[3,c]Artists
+	Haiqing Cai
+	Hang Shi
+	Longyao Zhu
+	Shiyi Liu
+
+	[2]Formosa Interactive - Los Angeles
+	[3,c]Senior Vice President
+	Paul Lipson
+
+	[3,c]Studio Head - Los Angeles
+	Shannon Potter
+
+	[3,c]Senior Producer
+	Christopher J. Evans
+
+	[3,c]Director, Voice Over Services
+	Erica Mehallo
+
+	[3,c]Head of Casting
+	Kirsten Scoles
+
+	[3,c]Studio Host
+	Dillon Stewart
+
+	[3,c]Producers
+	Heather Plunkard
+	Madison Jordan Burnett
+	Maya Zach
+	Michael Canty
+	Meghan Brabant
+	Soobin Park
+
+	[3,c]Dialogue Editor
+	Brandon Roos
+	Cesar Marenco
+	Dani Turner
+	TJ Boyd
+
+	[3,c]Manager, Editorial and Production
+	Duncan Brown 
+
+	[3,c]Assets Technicians
+	Amanda Sussman
+	Israel Hernandez
+
+	[3,c]Assistant Engineers
+	Christopher De Lis
+
+	[3,c]Recording Engineers
+	Jason Kim
+
+	[3,c]Historical and Language Consultants
+	Alka Jain
+	Rupali Pawar
+	Sam Bayaraa
+
+	[3,c]Language Consultants
+	Chase Emery Davis 
+
+	[2]Voice Trax West
+	[3,c]Sound Engineer
+	Andrew Feliciano
+
+	[2]Contractor/Consultants
+	[3,c]Editor
+	Leigh Alexander
+
+	[3,c]Consultant
+	Brett Alfieri 
+	Celia Hodent 
+
+	[3,c]Leader Animation Contractor
+	Greg Marlow
+	Heather Carpini-Harris
+
+	[2]Rogue Planet Mastering
+	[3,c]Mixing/Mastering
+	Mike Kalajian
+
+	[2]Liquid Development 
+	[3,c]Lead Animator
+	Jason Baskett
+
+	[3,c]Animator
+	Nathaniel Wagner
+
+	[3,c]Producer
+	Kat Moseley
+
+	[3,c]Asset Implementor
+	Meredith Finnigan
+
+	[3,c]Account Manager
+	Chuck Byas
+
+	[2]2K Audio Services
+	[3,c]Director, Studio Audio
+	Matt Bauer
+
+	[3,c]Audio Lead
+	Tyler Piersall 
+
+	[3,c]Audio Designer
+	Erik Schmall
+	Olivia Pargoux
+
+	[2]Frankenstein
+	Adam Partridge
+	Anthony Seekatz
+	Dan "Danq" Quick
+	Frithjof Nikolai Wilborn
+	Hannah/Codex
+	Jason Grade
+	Onno "donald23" Zaal
+	Rob Riley
+	Sean "Gorbles" Hickman
+	Sheila Anderson
+	Steve "WarningU2" Warner
+	Timo Schwabe
+	
+	[2]Production Babies	
+	Kaia 
+	AnnaLynne 
+	Violet 
+	Maya 
+	Bryce 
+	Aubrey 
+	Levi 
+	Noah 
+	Roy 
+	Ellie 
+	Francis 
+	Elowyn 
+	Niamh
+	Charlotte 
+	Everleigh 
+	Albert 
+	Emma
+	Julius 
+	Elliot 
+	Olive 
+	Julia 
+	Isaac 
+	William
+	Brooke
+	Charlie
+	Maxwell
+	Jiraiya
+	Charles
+	Leon
+	Amara
+
+	[2,c]Collection Outsourcing
+	[2,c]Mindwalk
+	[3,c]Studio Head
+	Zhang Jie
+
+	[3,c]Studio Environment Head
+	Zhang Hengyu
+
+	[3,c]Branch Studio Head
+	Wang Hao
+
+	[3,c]Account Manager
+	Wang Qi
+
+	[3,c]Project Manager
+	Elfy Liu
+	Chili Ke
+
+	[3,c]Lead Artist
+	Li Xiaocheng
+	Yang Dongrong
+
+	[3,c]Artist
+	Liu Wanhui
+	Liu Yetong
+	Su Linyue
+	Sun Hao
+	Xia Hongwei
+	Xu Lei
+	Xu Rongyuan
+	Zhang Hanxiao
+	Zhang Yiming
+	Zhao Jingyu
+	Zhao Xijie
+
+	[2,c]Redhot CG
+	[3,c]Operation Head
+	Leo Ling
+
+	[3,c]Account Manager
+	Drew Cichy
+	
+	[3,c]Producer
+	Alex You
+	Tianhao Hu
+	
+	[3,c]Art Director
+	Xiangzi Luo
+
+	[3,c]Team Lead
+	Yixi Zheng
+
+	[3,c]Artist
+	Haiqing Cai
+	Hang Shi
+	Longyao Zhu
+	Shiyi Liu
+
+	[2,c]Liquid Development
+	[3,c]Studio Director
+	Darren Bartlett
+
+	[3,c]Production Director
+	Chuck Byas
+
+	[3,c]Production Manager
+	Allegra Ambrosio Wood
+
+	[3,c]Senior Art Producer
+	Gonzalo Sanchez T.
+
+	[3,c]IT Coordinator
+	Tony Brinlee
+
+	[3,c]Network Engineer
+	Colin Mariani
+
+	[3,c]Support Bar Analyst Lead
+	Luis Hernandez
+
+	[3,c]Animation Director
+	Cydoni Reyes
+	Jason Baskett
+
+	[3,c]Producer
+	Kathryn Moseley
+
+	[3,c]Senior Asset Coordinator
+	Meredith Finnigan
+
+	[3,c]Lead Animator
+	Nathaniel Wagner
+
+	[3,c]Senior Technical Animator
+	Alexander Wagner
+
+	[3,c]3D Rigger
+	Rene Sanchez
+
+	[3,c]3D Animator
+	Lorena Torres Franco
+	María Fernanda Rodríguez Lemus
+	Mariel Arredondo
+	Norberto Aguilera
+	Salvador Almanza García
+
+	[2,c]Formosa Interactive
+	[3,c]Senior Vice President
+	Paul Lipson
+
+	[3,c]Studio Head - Los Angeles
+	Shannon Potter
+
+	[3,c]Senior Producer
+	Christopher J. Evans
+
+	[3,c]Director, Voice Over Services
+	Erica Mehallo
+
+	[3,c]Head of Casting
+	Kirsten Scoles
+
+	[3,c]Studio Host
+	Dillon Stewart
+
+	[3,c]Producers
+	Heather Plunkard
+	Madison Jordan Burnett
+	Maya Zach
+	Michael Canty
+
+	[3,c]Associate Producer
+	Meghan Brabant
+	Soobin Park
+
+	[3,c]Senior Dialogue Editor
+	Cesar Marenco
+
+	[3,c]Manager, Editorial and Production
+	Duncan Brown 
+
+	[3,c]Dialogue Editors
+	Brandon Roos
+	Dani Turner
+	TJ Boyd
+
+	[3,c]Assets Technicians
+	Amanda Sussman
+	Israel Hernandez
+
+	[3,c]Assistant Engineers
+	Christopher De Lis
+
+	[3,c]Recording Engineers
+	Jason Kim
+
+	[3,c]Language Consultants
+	Professor Ilan Stavans
+
+	[2,c]Injected Senses
+	[3,c]Audio Director
+	Gary Miranda, MPSE
+
+	[3,c]Sound Designer
+	Brendan Wolf, MPSE
+
+	[1,c]2K Games
+	Published by 2K
+
+	2K is a publishing label of Take-Two Interactive Software, Inc.	
+
+	[2,c]2K Leadership	
+	[3,c]President
+	David Ismailer
+
+	[3,c]Chief Operating Officer
+	Phil Dixon
+
+	[3,c]Senior Vice President and General Manager
+	Catharina Lavers Mallet
+
+	[2,c]2K Product	
+	[3,c]Vice President, Product
+	Greg Rinaldi
+
+	[2,c]Product Development	
+	[3,c]Executive Producer
+	Phil Bolus
+
+	[3,c]Lead Producer
+	Doug MacLeod
+
+	[3,c]Senior Producer
+	Dean Razavi
+
+	[3,c]Producer
+	Daniel Allender
+	Antonio Romeo
+
+	[3,c]Production Assistant
+	Conner Allen
+	Jadon Magana
+	Ky Elder
+
+	[2,c]Product Management	
+	[3,c]Senior Director, Product Management
+	Amanda Lui
+	Gina Herrle
+
+	[3,c]Design Director
+	Francois Giuntini
+
+	[3,c]Senior Product Manager
+	Tarek Elbanhawy
+
+	[3,c]Associate Manager, Product Management
+	Meadhbh Barry
+
+	[2,c]Player Insights
+	[3,c]Director, Data Science
+	Shahrum Amiri
+
+	[3,c]Staff Data Scientist
+	Ashton Macaulay
+	Bethany Kok
+
+	[3,c]Senior Data Scientist
+	Amy Quach
+
+	[3,c]Manager, Data Analytics
+	Garrett Moran
+
+	[3,c]Data Scientist
+	Aaron Lan
+
+	[2,c]Additional Production 
+	Casey Coleman
+	Corey Lay
+	Tony Trillo
+	Berenice Guzman
+	Mariah Leder
+	Natalie Keyte
+
+	[2,c]Core Portfolio Operations & Planning	
+	[3,c]Director
+	Davis Tiblier
+
+	[3,c]Senior Manager
+	Joanna Yeo
+
+	[3,c]Manager
+	Elysia Robins
+
+	[3,c]Project Manager
+	Kara Reason
+
+	[2,c]2K Commercial		
+	[2,c]Commercial Strategy & Operations	
+	[3,c]Vice-President
+	Michael Lorenzo
+
+	[3,c]Director
+	James Martin
+
+	[3,c]Analyst
+	Utku Utkan
+
+	[3,c]Senior Manager
+	Christian Cordova
+
+	[3,c]Commercial Business Analyst
+	Carl Cullen
+
+	[2,c]2K Marketing & Communications			
+	[2,c]Global Brand Marketing
+	[3,c]Vice-President
+	Pat Alvarado
+
+	[3,c]Director
+	Ryan Taljonick
+
+	[3,c]Senior Manager
+	Brandon Schug
+
+	[3,c]Manager
+	Maya Clark
+
+	[3,c]Executive Assistant
+	Jennifer Cathcart
+
+	[2,c]Global Communications
+	[3,c]Head of 2K Global Communications
+	Cori Barrett
+
+	[3,c]Senior Director
+	Joe DiMiero 
+
+	[3,c]Director
+	Roderick Jago
+
+	[3,c]Senior Manager
+	Dennis De Bruin 
+	Kayleigh Watson
+	Matt Chang 
+
+	[2,c]Territory Marketing & Communications			
+	
+	[2,c]NORTH AMERICA
+	[3,c]Senior Director, GTM
+	Josh Goldberg
+
+	[3,c]Senior Manager, GTM
+	Deborah Beckman
+	Katherine Russell
+
+	[2,c]EMEA/ANZ/LATAM
+	[3,c]Senior Director, Regional Strategy and GTM, EMEA + LATAM
+	Elsa Dann
+
+	[3,c]Director, Regional Strategy and GTM, EMEA + LATAM
+	Stefan Eder
+
+	[3,c]Director, Regional Strategy and GTM, ANZ
+	Keri-Ann Stroud-Conner
+
+	[3,c]Senior Manager, Regional Strategy and GTM, EMEA + LATAM
+	Davide Detta
+	Diana Heinzelmann
+	Jonah Musitano
+
+	[3,c]Manager, Regional Strategy and GTM, EMEA + LATAM
+	Anne Speth
+	[3,c]Manager, Regional Strategy & GTM, EMEA & LATAM
+	Ben Lewis
+	[3,c]Manager, Regional Strategy and GTM, ANZ
+	Caitlin O'Neill
+
+	[3,c]Associate Manager, Regional Strategy & GTM, EMEA & LATAM
+	Jules Bredar
+
+	[3,c]Associate Manager, Global Lifecycle Marketing
+	Roisin Barry
+
+	[2,c]ASIA
+	[3,c]General Manager, APAC & Global Emerging Markets
+	Jason Wong
+
+	[3,c]Senior Director, Asia Marketing, APAC
+	Felicia Lim
+
+	[3,c]Senior Manager, Asia Marketing, ROA
+	Jack Tang
+
+	[3,c]Senior Manager, Asia Marketing, China
+	Leo Li
+
+	[3,c]Senior Manager, Asia Marketing, Japan
+	Kyoko Fuke
+
+	[3,c]Senior Manager, Asia Marketing, Korea
+	Averlyn Doh
+
+	[3,c]Manager, Asia Growth Strategy
+	Christopher Law
+
+	[3,c]Manager, Asia Marketing, Japan
+	Kai Ohara
+
+	[3,c]Associate Manager, Asia Marketing, Korea
+	Danny Lee
+
+	[3,c]Marketing Coordinator, China
+	Cathy Zhai
+
+	[3,c]Consultant, Asia Marketing, Japan
+	Shiro Kuroki
+	[m,r]Credits_UNIT05
+
+	[2,c]Global Creative Services Team	
+	[3,c]Senior Vice President, Global Creative
+	Sami Thessman
+
+	[3,c]Senior Global Creative Director
+	Adrien De Tray
+
+	[3,c]Creative Director
+	Brenden Mendez
+	Daniel Maxwell
+
+	[3,c]Art Director
+	David Peixoto
+
+	[3,c]Sr. Global Marketing Producer
+	Nicole Ellis
+
+	[3,c]Global Marketing Producer
+	Jim Call
+
+	[3,c]Copywriter, Core Games
+	James Davenport
+	
+	[3,c]Senior Director, Global Creative Production & Operations
+	Kate Mazzeo 
+
+	[3,c]Senior Manager, Creative Operations
+	Ashley Jones
+
+	[3,c]Associate Manger, Creative Operation
+	Owen Scragg
+
+	[3,c]Senior Director, Gobal Creative & Tech
+	Kenny Crosbie
+
+	[3,c]Senior Manager, Global Video Lead
+	Nick Pylvanainen 
+
+	[3,c]Senior Manager, Creative Tech
+	Declan Dowling
+
+	[3,c]Senior Creative Technical Artist
+	Fionn Sherrard
+
+	[3,c]Creative Technical Artist
+	Brendan Sutton
+
+	[3,c]Associate Creative Director
+	Mike Regelean
+
+	[3,c]Senior Video Editor
+	Calvin Wong
+
+	[3,c]Motion Graphics Designer
+	Eric Neff
+
+	[3,c]Senior Manager, Design Lead
+	Ben Murphy
+	Ham Nguyen
+
+	[3,c]Sr. Project Manager
+	Cara Lacey
+
+	[3,c]Project Manager
+	Katherine Wong
+
+	[3,c]Senior Manager, Game Capture
+	Allison Mann
+	Luke McCarthy
+
+	[3,c]Senior Artist, Game Capture
+	Omar Sultani
+
+	[3,c]Artist, Game Capture
+	Drew Gilinsky
+
+	[3,c]Senior Cinematic Artist
+	Dylan Shapiro
+	Haley Robinson
+
+	[3,c]Sr. Manager, Content Design Lead
+	Ben Murphy
+
+	[3,c]Sr. Graphic Designer
+	Katelyn Angers
+
+	[3,c]Graphic Designer
+	Daniel Terceiro
+
+	[3,c]Content Designer
+	Thomas Yuen
+
+	[3,c]Senior Manager, Events
+	Sarah Aquas
+
+	[3,c]Events Producer
+	Amie Festa
+
+	[3,c]Executive Assistant
+	Catherine Celso
+
+	[2,c]Digital Community Marketing
+	[3,c]Manager, Social Marketing
+	Gajan Kulasingham
+
+	[3,c]Manager, Digital Content
+	Lucas Sullivan
+
+	[3,c]Associate Manager, Social Marketing
+	Michael Orlando
+
+	[2,c]PlayerServices	
+	[3,c]Senior Vice President, Player Strategy & Operations
+	Bart Storan
+
+	[3,c]Director of Operations, Player Services 
+	Natalie Netter
+
+	[2,c]2K Player Connections 
+	[3,c]Vice President, 2K Games Dublin, Player Connections & Demand Generation
+	Nick Cudahy 
+
+	[3,c]Director, Player Connections Planning
+	Alistair Wong
+	
+	[3,c]Analyst, Player Connections Planning
+	Samuel Quang
+
+	[3,c]Senior Manager, Biddable Media, Player Connections & Demand Generation
+	Pauric Barry
+
+	[3,c]Manager, Biddable Media, Player Connections & Demand Generation
+	Carla McGrath
+	Kian Coleman
+
+	[3,c]Manager, Biddable Operations, Player Connections & Demand Generation
+	Darragh Gaule
+
+	[3,c]Specialist, Biddable Media, Player Connections & Demand Generation
+	Aifric Mac Namara 
+	Chloe Gallagher
+	Darren Kearney
+	Eoghan Sutton
+	Philip Begg 
+
+	[3,c]Senior Manager, Owned Media, Player Connections & Demand Generation
+	David Baigel
+
+	[3,c]Manager, Owned Media, Player Connections & Demand Generation
+	Conor Fitzsimons
+
+	[3,c]Manager, In-Game Messaging, Player Connections & Demand Generation
+	Conor Dempsey
+
+	[3,c]Specialist, In-Game Messaging, Player Connections & Demand Generation
+	Meghan Murray
+	Susan Arekosoko
+	Zachary Woods-Oliver
+
+	[3,c]Manager, Customer Relationship Management, Player Connections & Demand Generation
+	Denise De Luca
+	Ian O'Keeffe
+
+	[3,c]Specialist, Customer Relationship Management, Player Connections & Demand Generation
+	Mark O'Boyle
+
+	[2,c]Player Research and Insights
+	[3,c]VP Regional Strategy & GTM, Player Research & Insights
+	Alison Bakunowich
+
+	[3,c]Director of Market Research, Player Sciences & Strategy
+	Kyle Pickering
+
+	[3,c]Senior Manager, Strategy and Insights
+	Chris Pollitt
+
+	[3,c]Senior Researcher, Player Research & Insights
+	Déborah Püschner
+	Sarita Rainey
+
+	[3,c]Analyst, Player Research & Insights
+	Rónán Ó Grálaigh
+
+	[2,c]Player Experience Services
+	[3,c]Senior Director, Player Experience Services
+	Alan Doran
+
+	[3,c]Associate Program Manager, Player Operations
+	Jane Loughman
+	Kristen Bell
+
+	[3,c]Product Manager, Player Experience
+	Emily-Claire Burke
+	Philip Carroll
+
+	[3,c]Associate Product Manager, Player Experience
+	Robert McGoldrick
+
+	[3,c]Director of Product, Digital Experience
+	Will Valentine Secor
+
+	[3,c]Senior Manager, Digital Innovation & Products
+	Kevin Moore
+
+	[3,c]Associate Digital Producer, Digital Innovation and Production
+	Michelle Hoy
+	Tinatin Murzakhmetova
+
+	[3,c]Senior Product Manager, Digital Experience
+	Charlie Troy
+
+	[3,c]Director of Product, Player Appropriate Design
+	Robert Ellis
+
+	[3,c]Product Manager, Player Appropriate Design
+	Liam Maguire
+
+	[3,c]Associate Technical Program Manager, Player Appropriate Design
+	Lia Duggan
+
+	[3,c]Director, Business Intelligence and Development Solutions
+	James Coulson
+
+	[3,c]Senior Manager, Business Reporting Operations
+	David Dillane
+
+	[3,c]Manager, Business and Reporting Operations
+	Ashish Moossaddee
+	Niamh McCann
+
+	[3,c]Analyst, Business and Reporting Operations
+	Mariia Ermolova
+
+	[3,c]Senior Manager, Visual Analytics
+	Saurabh Singh
+
+	[3,c]Manager, Visual Analytics
+	Louis Yu
+
+	[3,c]Analyst, Visual Analytics
+	Vipluv Chaudhary
+
+	[3,c]Senior Analyst, Visual Analytics
+	Elakeya Ramachandran
+
+	[2,c]Marketing Innovation & Technology
+	[3,c]Head of Marketing Technology
+	Stuart Morrison
+
+	[3,c]Snr. Marketing Technology Product Manager, Advertising
+	Allan Cantu
+
+	[3,c]Sr, Product Manager, Web and Creative Capabilities
+	Eric Hanover
+
+	[3,c]Associate Director, Marketing Insights
+	Joyce Chao
+
+	[3,c]Director, Portfolio and Operational Performance
+	Juliana Hein
+
+	[3,c]Senior Director, Player Sciences & Technology Solutions
+	Martin Esani
+
+	[3,c]Snr. Director, Consumer Solutions Architecture
+	Michael Healy
+
+	[3,c]Snr. Marketing Technology Product Manager
+	Bertram Hudson
+	John Banvard
+
+	[3,c]Jr Product Manager, Ad Tech
+	Becky Benett
+
+	[3,c]Technical Product Manager, Marketing Insights
+	Kevin Byers
+
+	[3,c]Junior Product Manager, Marketing Analytics
+	Sky Lian
+
+	[3,c]Technical Project Manager
+	Jessie Villacis
+
+	[3,c]Senior Manager, Player Ad and Compliance Tech
+	David Genis
+
+	[3,c]Manager, Data Operations
+	Paul Doran
+
+	[3,c]Senior Data Scientist
+	Ger Dempsey
+
+	[3,c]Data Scientist II, Data Science
+	Oonagh Morrison
+
+	[3,c]Developer, Player Development Technology
+	Rachel Brady
+
+	[3,c]Lead, Player Ad and Compliance Tech
+	Sebastian Pacheco
+
+	[3,c]Manager, Data Engineering
+	Christine Etoke
+
+	[3,c]Senior Marketing Technology Data Engineer
+	Amit Patel
+
+	[3,c]Snr. Marketing Technology Data Analyst
+	Garrecht Metzger
+
+	[3,c]Marketing Technology Data Analyst
+	Thao Duyen Tran
+
+	[3,c]Senior Developer, Player Ad and Compliance Technology
+	Andrew Lawler
+
+	[3,c]Senior Product Manager, Player Ad and Compliance Tech
+	John Doyle
+
+	[3,c]Snr. Marketing Technology Data Engineer
+	Gwen Rathgeber
+
+	[3,c]Data Engineer, Marketing Technology
+	Lakshmi Lingamaneni
+	Marques Kelly	
+
+	[3,c]Product Manager, Customer Journey       
+	Ben Wagner
+
+	[2,c]2K Publishing Graduate Programme
+	[3,c]Senior Manager
+	Niamh Holly
+
+	[3,c]Publishing Graduate
+	Carolina Silva
+	Emily Wharton-Hood
+	Evan Boyle
+	Izzy Jones-McAuley
+	Jackson Barry
+	Jane Loughman
+	Jodi Mejury
+	Kajetan Wilczak
+	Liam Ryan
+	Marc Ahicart Tort
+	Matteo Romoli
+	Nida Siddiqui
+	Robert Tomalin
+	Vittorio Lazzini
+
+	[2,c]2K Quality Assurance	
+	[2,c]2K Vegas QA	
+	[3,c]Senior Vice President of Quality Assurance
+	Michael Gilmartin
+
+	[3,c]Vice President of Quality Assurance
+	Katherine Sanford
+
+	[3,c]Director of Quality Assurance
+	Michael "Gryf" Weber
+
+	[3,c]Associate Test Manager II
+	Bhavika Banwari
+	Hugo Dominguez
+
+	[3,c]Associate Test Manager I
+	Erik Morton
+	Matthew Abog
+
+	[3,c]Feature Lead
+	Brian Brannan
+	Keith Rische
+
+	[3,c]QA Live Lead
+	Annastasia Larsen
+
+	[3,c]Associate Feature Lead
+	Jacob Leibner
+	Jen Martinez
+	Kristian Garcia
+	Mike Galo
+	Rodney Craig
+	Stephen "Yoshi" Florida
+	Tyler Redmann	
+
+	[3,c]Qualitative Analyst I
+	Max Mercer
+
+	[3,c]Test Analyst II
+	Carson Hogue
+
+	[3,c]Test Analyst I
+	Alexander Hernandez
+	Amed Donado
+	Andrew Neal
+	Armando-Jose Benavides
+	Austin Fry
+	Chadmin Nash
+	Dakota Rightmire
+	Dalton Zeigler
+	Diego Barrientos
+	Drew Ortenberg
+	Jacob Ray
+	Jada Burton
+	Jasmin Calma
+	Jason Kilgore
+	Javier Garay
+	Jayden Hill
+	Joseph Caruso
+	Kaylanee Godbout
+	Matthew Olds
+	Michael Spicer
+	Nathan Antolin
+	Nya Lawrence
+	Rafael Mejia
+	Ryan Compton
+	Ryan Scialpi
+	Sean O'Connor
+	Steven Molash
+	TJ Rogers
+	Travis Hagen
+
+	[3,c]Support Team QA Lead
+	Daniel A. Nelson
+
+	[3,c]Support Team QA Tester
+	Danny Kneale
+	Roland Bars
+
+	[3,c]Age Ratings Manager
+	Clarisse Hansard
+
+	[3,c]Age Ratings Producer
+	Madison Kannapel
+	Nick Syrovatka
+
+	[3,c]Associate Age Ratings Producer
+	Cameron Contreras
+	Kenneth Ellis
+
+	[3,c]Assistant  Age Ratings Producer
+	Mando Delgado
+
+	[2,c]Data QA
+	[3,c]Data Analytics Tester
+	Jonathan Campbell
+	Jelly Edwards
+	Eric Giron
+	Ryan Grady
+	Noah Letkiewicz
+	Zack Manning
+	Shared Westover
+	Rana Wilkins
+
+	[3,c]Lead Data Analytics Tester
+	Shane Ellason
+
+	[3,c]Manager Data Analytics Test
+	Marcus King
+
+	[3,c]Contigent Staffer
+	Chethan KR
+	Chenna Krishna
+	Pornima Mahakal
+	Shahawar Shaik
+	Nikhil J Shetty
+	Kamesh Rajan T
+	
+	[2,c]Vegas Localization QA
+	[3,c]Vice President of Quality Assurance
+	Zhang Xi Kun
+
+	[3,c]Localization QA Senior Manager
+	Óscar Pereira Fraga
+
+	[3,c]Localization QA Manager
+	Timothy Cooper
+
+	[3,c]Localization QA Leads
+	Benny Johnson
+	Dmitry Kuzmin
+	Hannah Carrillo
+	Pericles Barros DeCastro
+
+	[3,c]Localization QA Associate Leads
+	Riccardo Gately
+
+	[3,c]Localization QA Senior Technicians
+	Maximilian Stumvoll
+	Tim Egly
+
+	[3,c]Localization QA Technicians
+	Alanna Cieslewicz
+	Arnau Alonso Gil
+	David Mace
+	Fellipe Rinaldis
+	Giacomo Riva
+	Jennifer Garcia
+	Julien Giacopino
+	Junko Chapman
+	Matthew Thompson
+	Murat Khabriev
+	Seon Hee Anderson
+	Sho Terada
+	Surja Dehn
+	Yayi Sidime
+	Yuhwa Jang
+	Yuki Neiman
+	Zachary Chew Kim
+
+	[2,c]2K Certification QA
+	[3,c]Certification Manager
+	Michael Yubane
+
+	[3,c]QA Manager
+	Shen Wei
+
+	[3,c]Senior Certification Lead
+	James Schindler
+
+	[3,c]Certification Lead
+	Elise Finck
+	Ivan Fix
+	Ji Yang
+	Justin Lightfoot
+	Soraya Lamoudi
+	Zhang Biao
+
+	[3,c]Associate Certification Lead
+	Zhang Wei
+
+	[3,c]Senior Certification Specialist
+	Brian Reiss
+	Evan Hulet
+	Lin Bu Er
+	Robert Klempner
+	Yang Hui
+	Zhou Hao Tian
+
+	[3,c]Certification Specialist
+	Alba Coullaut
+	Chen Qian
+	Conner Allen
+	Kimberlyn Palmer
+	Leo Prusakov
+	Li Tian Le
+	Li Xin Chang
+	Nick Melchor
+	Pablo Martin
+	Qiao Zi Ke
+	Rain McCoy
+	Wang Yi Min
+	Xian Xing Min
+	Zhang Tian Mi
+
+	[2,c]Vegas Release Management
+	[3,c]Senior Release Manager
+	Ron Pascucci
+
+	[3,c]Release Managers
+	Bill Lanker
+	Christopher Nguyen
+	Jairus Muller
+	Julian Molina
+
+	[3,c]Associate Release Managers
+	John Y.K. Jeon
+	Patrick Kulikowski
+	Steven Johnson
+
+	[3,c]Senior Release Technicians
+	Jeniffer Lunders
+	Joshua Vance
+
+	[3,c]Release Technicians
+	Sam Hoover
+
+	[2,c]2K Madrid QA
+	[3,c]QA Lead
+	Ángel Lorenzo López
+	Bernie Rosenfeld
+
+	[3,c]Associate QA Lead
+	Carlos Quiñones Lezama 
+	Elena Collantes
+	Rubén González Olmeda
+	Vicky Pastor Ruiz
+
+	[3,c]Core CX Tester
+	Alejandro Fresquet Monter
+
+	[3,c]Senior QA Tester
+	Ana Isabel Parra Expósito
+	Theodoros Mouschakis
+	Víctor Lopez del Prado Magariño
+
+	[3,c]QA Tester
+	Bruno Pérez de Lema Sánchez
+	Daniel Jesús de Pedro Hanych
+	Hugo Larios Colino
+	Miguel Conde
+	Pablo Martín
+	Sergio Mercado Gil
+
+	[2,c]Madrid Release Management
+	[3,c]Release Manager
+	Virgilijus Matukas
+
+	[3,c]Associate Release Manager
+	Cristina Sanchez Perez
+
+	[3,c]Senior Release Technician
+	Eduardo Aparicio Sarrión
+
+	[3,c]Release Technician
+	Andy Castro Conde-Pumpido
+
+	[2,c]Chengdu Release Management
+	[3,c]Release Technician
+	Liu Ya Qin
+	Zhang Rui Bin
+	Zhang Yin Xue
+
+	[2,c]Madrid Localization QA
+	[3,c]Vice President of Quality Assurance
+	Zhang Xi Kun
+
+	[3,c]Localization QA Senior Manager
+	Óscar Pereira Fraga
+
+	[3,c]Localization QA Project Associate Lead
+	Frédéric Créhin
+
+	[3,c]Localization QA Leads
+	Alessandra Mazzarella
+	Laura Gorostiaga López
+	Miguel Brites
+	Pablo Menéndez Pérez
+	Vincent Bouchu
+
+	[3,c]Localization QA Associate Leads
+	Nicolas Bonin
+
+	[3,c]Localization QA Senior Technicians
+	Francesco Alfonsetti
+	Gabriele Cesarini
+	Gracia Amez Blanco
+	Maximilian Breuning
+
+	[3,c]Localization QA Technicians
+	Alba Palazón Vicente
+	Alice Rouben
+	Benja Kongsinon
+	Dominik Diedenhofen
+	Emma Pott
+	Isabel Vazquez Monje
+	Izabella Kuznetsova
+	Jinkyeong Lim
+	Jorge Carrión Mena
+	Lili Jeanneret Beaufils
+	Mar Bargiela Casasnovas
+	Marcello Bonomini
+	Marta Basu Gajos
+	Matheus Overbeck
+	Mélanie Patri
+	Olha Broskova
+	Paula Vieira Neves
+	Sofia Gasparato
+	Thomas Polossat
+	Yaiza Castaño Pérez
+
+	[2,c]2K Chengdu QA
+	[3,c]VP, Operations and Head of Chengdu QA
+	Zhang Xi Kun
+
+	[3,c]Senior QA Manager
+	Qi Ke Lei
+	Steve Manners
+
+	[3,c]QA Manager
+	Wu Xiao Bin
+
+	[3,c]QA Supervisor
+	Zhu Jian
+
+	[3,c]Lead QA Testers
+	Gong Yi Ren
+	Tang Cong
+	Wang Zhi Chen
+	Xiao Fei
+	Yue Chang Yue
+
+	[3,c]Core CX Testers
+	Dai Tian Hao
+
+	[3,c]Associate Lead QA Tester
+	Lai Xiao Rong
+	Wu Di
+
+	[3,c]Senior QA Testers
+	Hu Die
+	Lan Shi Bo
+
+	[3,c]QA Testers
+	Dai Ji Chao
+	Di Wen Xin
+	Fang Yi Jing
+	Gan Yu Chen
+	He Qie Han
+	Hu Yu Han
+	Jiang Xiang 
+	Kong Jia Wei
+	Li Wei
+	Lin Xiao
+	Lin Xin Hao
+	Liu Xi Cheng
+	Ma Xiao Tian
+	Ma Ze Rui
+	Sha Qi Song
+	Su Yi Wei
+	Tang Jun Hui
+	Wang Chuan
+	Wang Hao
+	Wang Yi
+	Wang Zhi Jia
+	Xiang Ou Yang
+	Xing Min Song
+	Xu Qing
+	Yan Chen
+	Yuan Er Yan
+	Zhang Lian Xin
+	Zhang Tian Ci
+	Zhang Yong Xiang
+	Zhang Yu Fei
+	Zhou Chun Lin
+	Zhou Lan Xin
+	Zhou Zi Yi
+
+	[3,c]IT Support
+	Hu Xiang
+	Huang Xin
+	Wang Peng
+
+	[3,c]Special Thanks
+	Duan Shuang Li
+	Li Hua
+	Li Min
+	Pei Zi Ye
+	Shao Bang Zhu
+	Xie Ya Xi
+	Xu Zi Ya
+	Zhang Pei
+
+	[2,c]Chengdu Localization QA
+	[3,c]Vice President of Quality Assurance
+	Zhang Xi Kun
+
+	[3,c]Localization QA Senior Manager
+	Óscar Pereira Fraga
+
+	[3,c]QA Manager
+	Du Jing
+
+	[3,c]Localization QA Project Lead
+	Hyunmin Cho
+
+	[3,c]Localization QA Project Associate Lead
+	Tong Yi Feng
+
+	[3,c]Localization QA Lead
+	Kan Liang
+
+	[3,c]Localization QA Associate Leads
+	Tan Liu Yang
+	Wang Ce
+	Zhao Jin Yi
+
+	[3,c]QA Specialist
+	Zhao Yu
+
+	[3,c]Sr. QA Localization Testers
+	Chen Xue Mei
+	Hu Meng Meng
+	Hu Yong Jia
+	Li Ling Li
+	Li Zong Yu
+	Tang Shu
+	Tian Qi Feng
+	Zhang Zi Tong
+	Zhao Peng
+	Zhuo Wei
+
+	[3,c]QA Localization Testers
+	Guo Qiu Yun
+	Jiang You Mei
+	Jin Zhe Jun
+	Kuang Yi Ting
+	Liu Yu Wei
+	Ma Chen Yang
+	Qi Meng Yao
+	Song Xin Yi
+	Xiong Chang
+
+    [m,l]Credits_UNIT06
+	[2,c]2K Customer Service
+	[3,c]Vice President, Customer Success
+	Grace Kenworthy
+
+	[3,c]Sr. Director, Customer Service
+	Christine Byrnes
+
+	[3,c]Sr. Manager, Customer Service
+	Matthew Gardner
+
+	[3,c]Manager, Player Advocacy
+	Adam Schaefer
+
+	[3,c]Associate Manager, Customer Service
+	Justin Rodriguez
+
+	[3,c]Associate Manager, Quality Compliance
+	Ciera Scott
+
+	[3,c]Supervisor, Customer Service
+	Chad Morton
+
+	[3,c]Associate Supervisors, Customer Service
+	Ashley Stewart
+	Roger Johnson Jr.
+	Tanner Stordahl
+
+	[3,c]Knowledge Base Administrator
+	Colleen Tulley
+
+	[3,c]Workforce Management Analyst
+	Victor Torres
+
+	[3,c]Player Advocacy Specialists II
+	Annastasia Larsen
+
+	[3,c]Player Advocacy Specialists
+	Alex Washburn
+	Dan MacDonald
+	Jagger Strehlow
+
+	[3,c]Quality Compliance Analysts
+	Emilee Chang
+	Lillian Safarian
+
+	[3,c]Customer Service Associates
+	Aliya Scheppmann
+	Andrew Kessler
+	Arthur Harsono
+	Benjamin Gardner
+	Charlise LaBoy
+	Cody Lacey
+	Dekel Fridman
+	Ivy Salazar
+	Joel Martinez
+	Jon-Christopher White
+	Julieta Salcido
+	Karlo Samiling
+	Michael Patrecelli
+	Miguel Lopez
+	Mikkel Canlapan
+	Morris Jackson
+	Ray Torres
+	Shane McQueeney
+	Xavien Saavedra
+
+	[2,c]2K Madrid	
+	[3,c]Supervisor, Customer Service
+	Florencia Calandria
+
+	[3,c]Associate Supervisor, Customer Service
+	Francisco Gonzalez Quevedo
+
+	[3,c]Customer Service Associates
+	Alejandro Moros
+	Alexandra Martinez Tornos
+	Alvaro Pita
+	Conor Farrell
+	Daniel Gomez Martín
+	Daniel Martin Rodriguez
+	Erik Urrutia
+	Ivan Lui
+	Sergio Hernandez
+	Teresa Navarro Navarro
+
+	[2,c]2K Chengdu	
+	[3,c]Supervisor, Customer Service
+	Jun Wei
+
+	[3,c]Lead, Customer Service
+	Da Wei Liu
+
+	[3,c]Associate Supervisor, Customer Service
+	Yu Shuang Zheng
+
+	[3,c]Customer Service Associates
+	Hang Yu Su
+	Hao Bing Bai
+	Hui Zi Yang
+	Jia Min Ding
+	Kai Bo Wang
+	Ming Ming Zhao
+	Ming Yu Wang
+	Pei Xin Chen
+	Peng Yue Gao
+	Qian Liu
+	Qiyu Zhu
+	Rui Kun Su
+	Siyu Zhou
+	Ting Yang
+	Ting Zhang
+	Xi Zeng
+	Xinglin He
+	Yu Ping Deng
+
+	[3,c]Special Thanks
+	Ana Machado
+	Shih Wu
+
+	[2,c]2K Global Services	
+	[2,c]Localization Team	
+	[3,c]International Producer
+	Sajjad Majid
+
+	[3,c]Principal International Producer
+	Jean-Sebastien Ferey
+
+	[2,c]Casting Team
+	[3,c]Senior Casting Manager
+	Sajjad Majid
+
+	[3,c]Director, Casting
+	Harasyn Sipes
+
+	[3,c]Casting Manager
+	Jaclyn Imai
+
+	[3,c]Casting Coordinator
+	Brandon Cary
+
+	[3,c]Casting Assistant
+	Amanda Chiappari
+
+	[2,c]User Research Team
+	[3,c]Senior Director, User Research
+	Meagan Timney
+
+	[3,c]User Resesarch Lead
+	Sarah Bracken
+
+	[3,c]Senior User Researcher
+	Douglas Owusu
+	Melissa Moore
+	Veronica Cortez
+
+	[3,c]User Researcher 
+	Taylor Collins
+
+	[3,c]Associate User Research Manager
+	Samantha Smith
+
+	[3,c]Additional User Research
+	Gina Smith
+	Julian O'Neal
+
+	[3,c]External User Research Partners
+	Aaron G. Johnson
+	Aaron Hawley
+	Alan Chu
+	Alex Metzroth
+	Amanda Russell
+	April Miller
+	Ben Gifford
+	Bowen Trammell
+	Carmen Chiu
+	Charlie Monzo
+	Chris Ortiz
+	Daniel Mendez
+	Daniella Rourke
+	Elliott Danon
+	Esteban Costantino
+	Francesca Ashcroft
+	Gabriel Lashell
+	Gina Weisner
+	Greg Ford
+	Hannah Jones
+	Harley Huke
+	Ishi Dos Vais
+	Jack DeCesare
+	Jack Showan
+	Jake Williams
+	Jordan Holland
+	Julian "Jaz" Rignall
+	Justin Speer
+	Kylie Weglo
+	Mark D. Saporta
+	Miguel Pascua
+	Olusegun Ajike
+	Patrick Ong
+	Ralph Zebala
+	Rick Dykes
+	Sabrina Wu
+	Samantha Crowder
+	Sarah Rolerkite
+	Soleil Burgess
+	Taylor Karbowski
+	Victoria Chan
+	Wenchi Chiu
+
+	[2,c]2K Technology Team	
+	[3,c]Director of Global Services Technology
+	Jonathan Tilden
+
+	[3,c]Operations Director
+	Brooke Petersen
+
+	[3,c]Technical Relations Manager
+	Adam Schwartz
+
+	[3,c]Senior Tools Engineer
+	Christopher Rabideau
+
+	[3,c]Additional Technical Product Manager
+	Brian Russ
+
+	[2,c]Technology Team - Mass Media	
+	[3,c]Technical Director
+	Lee Chidgey
+
+	[3,c]Lead Engineer
+	Nicholas Miyake
+
+	[3,c]Producer
+	Kamie Al-Abboud
+
+	[3,c]Engineer
+	Aaron Lee
+	Andrey Emelianov
+	Christopher Boone
+	Collin Wing
+	Robert Mann
+
+	[3,c]Technical QA Admin
+	Oleg Vasilyev
+
+	[2,c]Special thanks to 2K Graduate Program Engineers
+	[3,c]Engineer
+	Chi Zhang
+	Qingxia Guo
+	Xiaokai Li
+	Yilei Li
+
+	[2,c]2K Partnerships		
+	[3,c]Chief Partnerships Officer
+	Jessica Hopp
+
+	[3,c]Chief Partnerships Officer
+	Jessica Hopp
+
+	[3,c]Executive Assistant
+	Kelsey Elliott
+
+	[2,c]Business Development	
+	[3,c]Senior Director, Business Development
+	Mark Hill
+
+	[3,c]Senior Manager, External Development
+	Tiffany Callum de Kraan
+
+	[3,c]Middleware Producer
+	Jacob Gildea
+
+	[3,c]Senior Outsourcing Producer
+	Jean-Marc Pereira
+
+	[3,c]Outsourcing Producer
+	Jun Wang
+
+	[2,c]Partnerships & Licensing
+	[3,c]VP, Partnerships and Licensing
+	Billy Inglis
+
+	[3,c]Head of Partnerships & Licensing - CORE
+	Sean Haran
+
+	[3,c]Director, Partnerships & Licensing
+	Tim Andrade
+
+	[3,c]Manager, Licensing 
+	Barb Radziwon
+
+	[3,c]Specialist, Licensing
+	Matt Costa
+	Micah Sims
+
+	[3,c]Coordinator, Licensing 
+	Mikayla Jackson
+
+	[3,c]Senior Director, Global Licensing
+	Greg Brownstein
+
+	[3,c]Director, 1st Party Partnerships
+	Ari Schwartz
+
+	[3,c]Manager, 1st Party Partnerships
+	Kelsie Lywandowsky
+
+	[3,c]Manager, 1st Party Marketing
+	Jenna White
+
+	[3,c]Associate Manager, 1st Party Marketing
+	Gabe Baltazar
+
+	[3,c]Director, Partnerships & Licensing - Music
+	David Kelley
+
+	[3,c]Senior Manager, Music Licensing
+	Richie Menchavez
+
+	[3,c]Partnerships & Licensing Specialist
+	Simon Weedn
+
+	[3,c]Director, Lead Casting
+	Harasyn Sipes
+	
+	[3,c]Senior Manager, Casting
+	Tom Celia
+
+	[3,c]Manager, Casting
+	Jaclyn Imai
+
+	[3,c]Assistant, Casting
+	Amanda Chiappari
+
+	[3,c]Coordinator, Casting
+	Brandon Cary
+
+	[2,c]Global Influencer & Talent
+	[3,c]Director, Influencer Content Marketing
+	Cobi Robertson
+
+	[3,c]Senior Manager, Talent & Influencer
+	Thomas Nelson
+
+	[3,c]Manager, Talent & Influencer
+	David Rosenfeld
+	Tom Taillandier
+	Whitney Stutes
+
+	[3,c]Operations Executive, Talent & Influencer
+	Arthur Potts
+
+	[2,c]2K Technology	
+	[3,c]Chief Technology Officer
+	Tim Morrow
+
+	[3,c]Director, Chief of Staff
+	Holly Macintosh
+
+	[3,c]Senior Administrative Assistant
+	Jessica Hurst
+
+	[3,c]VP Technology Operations
+	Ryan Landry
+
+	[3,c]Director, Operations
+	Vaclav Dolezal
+
+	[3,c]Infrastructure Operations Managers
+	Andrej Kacer
+
+	[3,c]VP, Head of Technical Infrastructure and Security
+	Justin Ferris
+
+	[3,c]Technical Director, Online Technology and Security
+	Josh Scanlan
+
+	[3,c]Senior Director, Site Reliability Engineering
+	Mark Sass
+
+	[3,c]Director Site Reliability Engineers
+	Petr Fiala
+	Ron Miller
+
+	[3,c]Senior Technical Program Manager
+	Coffy David-Shea
+
+	[3,c]Associate Technical Project Manager
+	Pavel "Pablo" Niahodkin
+
+	[3,c]Senior Site Reliability Engineer
+	Bo Dong
+	Davis Krieghoff
+	Jean-Philippe Bouillot
+	Kevin Strohbehn
+	Michal Bernat
+	Norman Shipman
+	Shawn Hansen
+
+	[3,c]Staff Site Reliability Engineer
+	Kevin Cox
+	Matej Zverina
+	Peter Pribylinec
+	Radek Trojan
+
+	[3,c]Site Reliability Engineer
+	Filip Safar
+	Josef Klima
+	Manish Patel
+	Maros Bockai
+	Wen Long Tee
+
+	[3,c]Associate Technical Project Manager
+	Pavel "Pablo" Niahodkin
+
+	[3,c]Director, Platforms
+	Tomas Caslavsky
+
+	[3,c]Manager, Network Engineering
+	Don Claybrook
+
+	[3,c]Senior Network Engineer
+	Bruna Barbosa
+	Fernando Ramirez
+
+	[3,c]Senior Director, Game Security
+	Thomas Goebl
+
+	[3,c]Senior Game Security Analyst
+	Nick Everson
+
+	[3,c]Game Security Analyst
+	Gregory Bagramyan
+
+	[3,c]Senior Game Security Engineer
+	Michal Poslusny
+
+	[3,c]Principal Game Security Engineer
+	James Roosens
+
+	[3,c]Technical Program Manager, Security
+	Mikey Lepard
+
+	[3,c]Technical Project Coordinator
+	Michal Maly
+
+	[3,c]Director, Security Engineering
+	Michael Freeman
+
+	[3,c]Senior Security Operations Analyst
+	Ryan Monaghan
+
+	[3,c]Senior Security Engineer
+	Alina Iacovici
+	Jay Atighe
+
+	[3,c]Senior Security Architect
+	Robbie Ketron
+
+	[3,c]Security Operations Analyst
+	Sarah White
+
+	[3,c]Lead Incident Responder
+	Tallis Jordan
+
+	[3,c]Principal Red Team Specialist
+	Peter Kim
+
+	[3,c]Technical Project Coordinator, Vulnerability Management
+	Jonathan Mai
+
+	[3,c]Senior Penetration Tester
+	Michael Lim
+
+	[3,c]VP, Head of Software Engineering
+	Nibedita Baral
+
+	[3,c]Sr. Director, Data Engineering
+	Tariq Shaikh
+
+	[3,c]Director, Data Engineering
+	Subash Kumaresan
+
+	[3,c]Sr. Data Engineers
+	Kevin Ewert
+	Ravi Satya Durga Prasad Yenugula
+
+	[3,c]Manager, Data Engineering
+	Naganthran Nagarajan
+
+	[3,c]Staff Data Engineer
+	Praneeth Reddy Vatti
+
+	[3,c]Data Engineer I
+	Aakarsha Chug
+	Vaishnavi Mudubagilu
+
+	[3,c]Data Engineer II
+	Aruna Kamireddy
+
+	[3,c]Senior Director of Engineering
+	Eddy Hal
+
+	[3,c]Director of Software Engineering
+	Martin Livesey
+	Scott Barrett
+
+	[3,c]Technical Directors
+	Frederic Loranger
+	Michael Ross
+	Sanju Sriram
+	Shan "Seven" Lyons
+
+	[3,c]Principal Software Engineers
+	James Schonian
+	Labhesh Deshpande
+	Matt Stennett
+	Tim Lynch
+
+	[3,c]Senior Software Engineers
+	Aseem Jain
+	Ashley Kozachek
+	Matt Keith
+	Sean Cosgrave
+
+	[3,c]Senior Manager, Partner Engineering
+	Jason Martin
+
+	[3,c]Software Engineer
+	Dylan Clark
+
+	[3,c]Associate Software Engineer
+	Maanya Mishra
+
+	[3,c]Client Engineer
+	Scott Spitzer
+
+	[3,c]DevOps Engineer
+	Lovelyn Chinenye
+
+	[3,c]Director - QA Software Engineering & Development
+	Tim Attuquayefio
+
+	[3,c]Senior Manager, QA Software Engineering and Development
+	Brad Mitchell
+
+	[3,c]Senior Quality Assurance Engineer
+	Cara Bradley
+	James Riedel
+
+	[3,c]Senior Quality Assurance Automation Engineer
+	Jesus Ochoa
+
+	[3,c]Sr QA Tester- Core Tech
+	Mackenzie Hume
+
+	[3,c]SSoftware Development Engineer in Test
+	Joey Robinson
+
+	[3,c]Jr. SDET
+	Christopher Stanley
+	James Stevens
+
+	[3,c]Senior Director, Partner Success
+	Meir Wasserman
+
+	[3,c]Technical Director, Game Integration
+	Michael Douglas
+
+	[3,c]Senior Director of Product
+	Christopher Saunders
+
+	[3,c]Director of Product
+	Jacob Hoffman
+	Kaleb Lora
+
+	[3,c]Senior Manager, Data Strategy
+	Brian DeWolf
+
+	[3,c]Senior Technical Product Managers
+	Gladys Kwok
+	JB Fuoco
+	Jennifer Heffernan
+	Josh Havens
+
+	[3,c]Manager, Telemetry Architect
+	Zack Gartner
+
+	[3,c]Lead Product Manager
+	Kit Brown-Watts
+
+	[3,c]Senior Director, Technical Program Manager
+	Michael Bernstein
+
+	[3,c]Senior Manager, Program Mgmt.
+	Kristi Desai
+
+	[3,c]Technical Project Manager
+	Renae Evaro
+
+	[3,c]Program Director, Portfolio Governance & Operations
+	Yudha Pratama
+
+	[3,c]Senior Technical Program Managers
+	Arthur Argon
+	Imshan Ali
+	Matthew Cottingham
+	Tobin Bushart
+
+	[3,c]Technical Program Manager
+	Allie Fabiani
+	Erica Therrell
+	Jose Llanos
+
+	[3,c]VP IT Operations, T2
+	Jill Porubovic
+
+	[3,c]Director, IT Site Support, EMEA
+	Caoibhin Nealon
+
+	[3,c]VP Global Technical Support, T2
+	Ted Schraven
+
+	[3,c]Director, IT Site Support, Americas
+	Judy Barbosa
+
+	[3,c]Senior Director, Global Support
+	Bob Jones
+
+	[3,c]Senior IT Support Manager
+	Min Lin
+
+	[3,c]Media Systems Manager
+	James Dykstra
+	Kenji Sommers
+
+	[3,c]Media Systems Engineer I
+	Bryan Dennis
+	Jonathan Aquino
+
+	[3,c]Director, IT
+	Andy Bezer
+
+	[3,c]Senior Managers, IT
+	Lubomir Domsky
+	Luis Navarro
+	Scott Alexander
+	Tareq Abbassi
+
+	[3,c]Managers, IT
+	Christopher Smith
+	David McFall
+	Hu Xiang
+	Shan Guan
+
+	[3,c]Senior Systems Administrators
+	Alex Chahmirian
+	Bryan Perez
+	Chris Swinney
+	Jan Zahradnik
+	Joe Vanvekoven
+
+	[3,c]Systems Administrators
+	Anthony Maffei
+	Miro Oliva
+	Oskar Skrzynski
+	Peng Wang
+	Stuart Godbolt
+
+	[3,c]Systems Administrators I
+	Jeffrey Woosley
+	Jordan Phillips
+	Sami Sakr Kibbe
+
+	[3,c]Systems Administrator II
+	Alex Castillo
+	Connor Kann
+	Graciela Vazquez
+	Kevin Zheng
+	Sarai Juarez
+
+	[3,c]Systems Administrator III
+	Luis Rubio
+
+	[3,c]Systems Administrator IV
+	Kory Bell
+
+	[3,c]Senior IT Administrator
+	Fernando Fargueta
+
+	[3,c]IT Administrator
+	Jaime Motos Bastida
+
+	[3,c]Jr. IT Support Specialist
+	David Rosenberg
+
+	[3,c]IT Support Manager
+	Daven Scott
+	Eric Chu
+
+	[3,c]IT Support Specialist
+	Filip Michl
+
+	[3,c]Junior IT Support Administrator
+	Eric Whye
+
+	[3,c]PC Technician
+	Victor Lytle
+	Xin Huang
+
+	[3,c]Lead, Enterprise Technology
+	Stephen Huynh
+
+	[3,c]Advanced Operations Engineer I
+	Absanael Boggio
+
+	[3,c]In Memoriam
+	Steven Sexton
+
+	[m,r]Credits_UNIT07
+	[3,c]Special Thanks to
+	The Entire Take-Two IT & Security Teams
+	Abdelilah Amezghal
+	Abdelouahab Mbarki
+	Abdul Azimi
+	Abhijeet Kakade
+	Adam Marek
+	Adil Sahabdeen
+	Aditya Christian
+	Aga Atmaja
+	Aji Lesmana
+	Akram Dhiabi
+	Aleksandr Chernyshev
+	Alex Talisker
+	Alexis Lopez
+	Ali Roozitalab
+	Alie Quiambao
+	Amal Saji Joseph
+	Amerigo Moscaroli
+	Amit Arora
+	Amsal Wicaksono
+	Anastasiya Chernenka
+	Andang Perdana
+	Andika Pramoedya
+	Andre Campos
+	Andreas Isnawan
+	Andres Gismondi
+	Angela Butler
+	Anne Macaso
+	Artur Kulik
+	Ayobami Bamigboye
+	Bagas Adi Pamungkas
+	Banu Kusuma
+	Barnabas Domma
+	Basavaraj Gopalappa
+	Ben Pyser
+	Benjamin Cavanaugh
+	Bharath Reddy
+	Bibash KC
+	Blago Ugrinov
+	Brian Corrigan
+	Brian Galon Brigola
+	Brian Russ
+	Bruno Lopes
+	Burhanudin Dwi Prakoso
+	Cai Zhao Tan
+	Carlos Guerra
+	Carlos Matos
+	Carlos Salguero
+	Cary Collins
+	Catherine Gravereux
+	Chandrakanth K Y
+	Chandrika Halgekar
+	Charliyn Tran
+	Charmi Shah
+	Cheryl Wink
+	Chris Kirby
+	Christopher Gabler
+	Cierra Hildebrand
+	Cilas Beltrame
+	Cody Russell
+	Daniel Arias
+	Daniel Barra
+	Daniel Ferreira
+	Daniel Naz
+	Daniel Neto
+	Daniel Perales
+	Darius Carrier
+	Darron Biles
+	David Cutbill
+	David Domonkos
+	David Fontes
+	David Immanuel Maksi
+	David Kriz
+	David Kuchynka
+	David Murray
+	David Roberts
+	Devinsha Pradana Rachman
+	Dhiraj Shenoy
+	Diogo Alves
+	Diogo Dias
+	Doglas Silva
+	Donald Kershaw
+	Duarte Cabral
+	Edson Yhe
+	Emanuel Feijo
+	Evan Mickelson
+	Ezequiel Lovelle
+	Fahmi Febriansyah
+	Fajar Setiawan
+	Felipe Athaydes
+	Felipe Gehrke
+	Fernanda Viviani
+	Fernando Moura
+	Fernando Pintado
+	Filip Spacek
+	Francis Spor
+	Francisco Rones
+	Francisco Santos
+	Frida Issa
+	Gabriel Arocha
+	Gabriel Franco
+	Gabriel Garcia
+	Gary Richey
+	Gaston Rodriguez
+	Gaurav Pimpalkar
+	Gerardo Peralta
+	German Hernandez
+	German Razo
+	Gilang Ario Prayogo
+	Giovanni Acosta
+	Goncalo Marques
+	Gurya Jivani
+	Henrique Lira
+	Hero Akbar Ahmadi
+	Hiago Silva
+	Howard Fridia
+	Hrishikesh Gawari
+	Hugo Manaia
+	Hugo Sousa
+	Ignatius Aldi Pradana
+	Inês Cerqueira
+	Iqbal Fauzi
+	Ismael González Burgos
+	Jacob Farraher
+	Jacob Marshall
+	Jacob Maxwell
+	Jan Kubesa
+	Jared Lauer
+	Jason Weyland
+	Jesse Catrinck
+	Jessica Triana
+	Jhunnyr Galman
+	Joao Bandolin
+	Joao Ferraz
+	Joao Jacob
+	Joao Pires
+	Joao Wiciuk
+	Joaquin Leon
+	John Vanzuita
+	Jonathan Linhares
+	Jonathan Mejias
+	Jordan Gasc
+	Jose Attento
+	Joseph Davila
+	Josh Galera
+	Joshua Pineda Dizon
+	Juan Quiroga
+	Katie Aguilar
+	Keith Vedol
+	Kelly Zelenko
+	Klaudijus Miseckas
+	Kris Ludwig
+	Krisnawan Hartanto
+	Kristina Jingling
+	Leonardo Balsalobre
+	Leslie Aula
+	Lucas Kindinger
+	Luiz Menezes
+	Luke Leiserowitz-Rossi
+	Luthfi Anandra
+	Malix Ren
+	Malwina Faferek
+	Manu Mendez Brito
+	Manuel Gomes
+	Manuel Pereira
+	Marcie Press
+	Marcus Lucero
+	Mariana Gimenez
+	Markeith Saucedo
+	Maros Bockai
+	Matej Nanko
+	Mateus Pontes
+	Mathias Varela
+	Mauro Henriques
+	Mehul Ira
+	Meiko Lauguico
+	Meirim Jumakhanbetova
+	Melvin Locklear
+	Melvin Montezon Molina
+	Michael Caccia
+	Miguel Fonseca
+	Mike Flynn
+	Mohamad Darien
+	Mohamed Sharifa
+	Mohammed Tameem
+	Muhammad Chafied
+	Muhammad Fauzi Islami
+	Muhammad Ilman Nafian
+	Mulk Abdulhadi
+	Nandish Padashetti
+	Naresh Maharjan
+	Natch Khongpasuk
+	Navjot Saini
+	Nelson Reverendo
+	Ngoc Truong
+	Odiaz Bumma
+	Pablo Contreras
+	Pallav Panda
+	Panchaksariah n
+	Pavlo Sazonov
+	Pebrian Charliady
+	Pedro Evangelista
+	Pedro Lobo
+	Pedro Rocha
+	Pedro Sacramento
+	Pedro Souza
+	Pedro Ventura
+	Piotr Krzepowski
+	Pooja Sultanpur
+	Prashanth Chandrasekar
+	Přemek Radil
+	Rafael Campaña
+	Rafi Isakh
+	Raghib Aftab
+	Rajappa Omkar
+	Raphael Neumann
+	Raul Costa
+	Renz Capulong
+	Rhayzon Felipe
+	Rian Junianto
+	Ricardo Preto
+	Ricardo Vieira
+	Ridai Pombo
+	Rishabh Poddar
+	Rizky Pandu Nugroho
+	Rob Cavanaugh
+	Robi Hidayat
+	Rohit Ranjan
+	Roslyn Myr
+	Ruben Juliarto
+	Ryandito Danuansa
+	Salman Mohammed
+	Satendra Singh
+	Sav Dhillon
+	Sayan Chanda
+	Scott Darone
+	Scott Sargent
+	Sergii Chornenkyi
+	Sérgio Pires
+	Seungbeom Roh
+	Shane Vogt
+	Shannon Carty
+	Shiljo Paulson
+	Shreena Radia
+	Shubham Biswas
+	Simao Silva
+	Simon Pitel
+	Simon Wilson
+	Sravya Badhiraju
+	Sreejith Sivasankara Pillai
+	Srinivasa Rao Avula
+	Sriram Balachander
+	Sterling Watts
+	Steven Hartland
+	Suryadi S
+	Tamas Zoltan Bandi
+	Thiago Puntar
+	Tiago Fernandes
+	Tiago Reis
+	Tiago Teixeira
+	Tom Tyler
+	Trenae Woodward
+	Tristan Soriano
+	Vinicius Vasconcelos
+	Vinton Whitcomb
+	Vishal Sinha
+	Wesley Paulino
+	Wilhelm Berniak
+	Yevgeniy Gorbatenko
+	Yoga Putra
+	Yolanda Ihsan
+	Yu Chen Ding
+	Zeke Ng
+	Zineb Ouaissa
+	Zoltan Jaksa
+
+	[2,c]2K People Team	
+	[2,c]HRBP Team
+	[3,c]Vice President, People
+	Amy Magni
+
+	[3,c]Senior Director, HRBP North America
+	Anna Noguerio
+
+	[3,c]Senior Director, HRBP
+	Charly Paris
+
+	[3,c]Senior Director, People Programs
+	Veronica Dining
+
+	[3,c]Senior Managers, HR Business Partner
+	Ben Mariano
+	Enrique Ramirez
+	Lianne Soong
+	Sarah McDonagh
+
+	[3,c]Senior Manager HR
+	Alfonso Sornosa
+
+	[3,c]Senior HR Business Partner
+	Felicia Neo
+
+	[3,c]Senior Manager, People Analytics
+	Mary Bolanos
+
+	[3,c]Human Resources Manager
+	Miriam Zuriarrain
+
+	[3,c]Manager, HRBP, EMEA
+	Róisín Keogh
+
+	[3,c]Learning & Development Trainer
+	Stephanie Seitzer
+
+	[3,c]HR Generalist
+	Sasha Genis
+
+	[3,c]HR Assistant
+	Raquel Munoz
+
+	[3,c]HR Specialist
+	Lara Ferrandiz Garcia
+
+	[2,c]Talent Acqusition, Diversity, Equity & Inclusion Team
+	[3,c]Sr. Director, Talent Acquisition
+	Nicole Earnest-Payte
+
+	[3,c]Sr Manager, TA Ops and Programs
+	Megan Fowler
+
+	[3,c]Talent Acquisition Manager
+	Michelle Starkey
+
+	[3,c]People Program Manager
+	Anastasia Fedorova
+
+	[3,c]Senior Recruiter, Studios & Publishing Technology
+	Brittany Neal
+
+	[3,c]Senior Recruiters, Studios
+	Oluwatoni Olusanya
+	Whitney Anujuo
+
+	[3,c]Senior Recruiters
+	Emily Davis
+	Katie Watson
+	Michael Downey
+
+	[3,c]Recruiters
+	Audrey Berendsen
+	Valerie Vinet
+
+	[2,c]People Operations Team
+	[3,c]Senior Manager, People Operations
+	Ashley Kneeland
+
+	[3,c]Senior HR Manager
+	Ya Xi Xie
+
+	[3,c]Manager, People Relations
+	Rachel Killigrew
+
+	[3,c]Manager, People Operations
+	Alexandria Belk
+
+	[3,c]Senior HR Specialist
+	Min Li
+
+	[3,c]People Operations Generalist
+	Jade Travillian 
+
+	[3,c]Training Specialist
+	Bang Zhu Shao
+
+	[3,c]Learning & Development Specialist
+	Carmen Martínez Tejero
+
+	[3,c]HR Specialist
+	Shuang Li Duan
+
+	[3,c]HR Generalist
+	Chasity West
+
+	[3,c]Employee Relations Specialist
+	Raye Jamison
+
+	[2,c]2K Operations	
+	[3,c]Engineering Graduate Program, Sr. Manager
+	Addie Perry-Lennon
+
+	[3,c]Gaming Technology & Production Instructor
+	Eoghan O'Donovan
+
+	[3,c]Software Engineering Graduates
+	Andrew McClean
+	Annika Sonne
+	Brett Schumacher
+	Caelen Wang
+	Calvin Chen
+	Cezar Trisca-Vicol
+	Chi Zhang
+	Daniel Mulcahy
+	David McGuigan
+	Diogo Silva
+	Elaine Toh
+	Haokun Zhang
+	Haoyang Zhang
+	Jianhao Li
+	Jing Wang
+	Justin Michelotti
+	Kieran Cosson
+	Kyler Saiki
+	Leonhard Kepser
+	Lucas Ming Ming Bachmann
+	Luke Feely
+	Mengran Dai
+	Mingwei Cui
+	Pavit Samra
+	Qingxia Guo
+	Ruiqi Zhao
+	Sharon Andrea Gomez
+	Shrujal Ambati
+	Siri Valluri
+	Vaibhavi Chettiar
+	Xiaokai Li
+	Xinsong Cui
+	Yanyi Bao
+	Yi Xu
+	Yilei Li
+	Yilin Zhan
+	Yulan He
+	Zhuofan Zhang
+
+	[2,c]Asia Localization Team
+	[3,c]Senior Manager, Localization
+	Yuriko Kera-Brown
+
+	[3,c]Language Lead
+	Jungsoo Lee
+
+	[3,c]Localization Producer
+	Aki Kawashima
+
+	[3,c]Localization Producer
+	Chen Li
+
+	[3,c]Localization Editor
+	Shunsuke Takagi
+
+	[3,c]Associate Localization Producer
+	Pau López Guerras
+
+	[2,c]Business Operations
+	[3,c]Vice President, Strategy
+	Phanmaly Somsanith
+
+	[3,c]Director, Business Planning & Strategy
+	Spank Sage
+
+	[3,c]Sr. Manager, Project Management
+	Jan Gonzalez
+
+	[3,c]Strategy Analyst
+	Beau Santero
+
+	[2,c]2K Finance	
+	[3,c]SVP, Finance
+	Sylvia Lee
+
+	[3,c]VP, Finance
+	Melissa Shu
+
+	[3,c]Sr. Director, Finance Business Partner
+	Barry Charleton
+
+	[3,c]Director, FP&A
+	Jacob Walters
+
+	[3,c]Senior Manager, FP&A
+	Benny Lee
+	Li Maw
+
+	[3,c]Manager, FP&A
+	Constantine Chong
+	Jared Grosslight
+	Jason Taylor
+	Silivia Napolitano
+
+	[3,c]Manager, Finance
+	Rajesh Joseph
+
+	[3,c]Senior Analyst, FP&A
+	Gabriel Zárate
+	Kristoffer Nystrom
+	Mandy Jiang
+	Matt Elliott
+
+	[3,c]Analyst, FP&A
+	William Tan
+
+	[3,c]Analyst, Procurement
+	Christian Beltran
+
+	[3,c]Junior Analyst, FP&A
+	Isaiah Machin
+
+	[2,c]2K Workplace Services and Real Estate	
+	[3,c]Sr. Director Workplace Services
+	Frank Bassett
+
+	[3,c]Director, Workplace Services
+	Phillip Dunn
+
+	[3,c]Sr. Director, Global Capital Projects
+	Shannon Prince-Thomas
+
+	[3,c]Workplace, Senior Site Supervisor
+	Rory Nevin
+
+	[3,c]Administrator, 2K Dublin Operations
+	Luke Henderson
+
+	[3,c]Snr Workplace Manager
+	Matthew Masih
+
+	[2,c]Take-Two Gaming Platform	
+	[2,c]Leadership Team
+	[3,c]Senior Vice President, Take-Two Gaming Platform
+	Michael Lewis
+
+	[3,c]Senior Director of Engineering
+	Eng Keong Tay
+
+	[3,c]Senior Director of Product
+	Ted Fong
+
+	[3,c]Director Technical Program Management
+	Roberto Loi
+
+	[3,c]Creative Director
+	Jeff Thoene
+
+	[2,c]Identity Team
+	[3,c]Senior Product Manager
+	William Park
+
+	[3,c]Technical Director
+	Mun Loong Leong
+
+	[3,c]Technical Program Manager
+	Tiffany Tsang
+
+	[3,c]Senior Product Designer
+	Ivan Kolesnik
+
+	[3,c]Staff Software Engineer
+	Russel Yang
+
+	[3,c]Senior Software Engineers
+	Chris Peters
+	Edison Li
+	Sean Li
+
+	[3,c]Senior Software Development Engineer in Test
+	Harry Yun
+
+	[3,c]Quality Assurance Engineers
+	Kevin Lee
+	Michael Card
+
+	[3,c]Site Reliability Engineering Manager
+	Karl Ma
+
+	[2,c]Social Team
+	[3,c]Senior Product Manager
+	Thang Phan
+
+	[3,c]Associate Technical Director
+	Steven Gieng
+
+	[3,c]Senior Technical Program Manager
+	Haris Widjaya
+	Homan Sanaie
+
+	[3,c]Senior Product Designer
+	Darren Law
+	Denise Villanueva
+
+	[3,c]Staff Software Engineer
+	Yulius Tjahjadi
+
+	[3,c]Senior Software Engineers
+	Dave Hora
+	Edward Chung
+	Steve Jiang
+	Tahsin Mazumdar
+
+	[3,c]Software Engineers
+	Ali Roustaei
+	Rocky Choi
+
+	[3,c]Quality Assurance Manager
+	Avery Seto
+
+	[3,c]Quality Assurance Engineer
+	Armi Dimaranan
+
+	[3,c]Software Development Engineer in Test
+	Jeffrey Chien
+
+	[3,c]Site Reliability Engineer
+	Jack Chao
+
+	[2,c]Play Team
+	[3,c]Product Manager
+	Rene Valen
+
+	[3,c]Engineering Director
+	Richard Zhang
+
+	[3,c]Staff Software Engineer
+	John Mautari
+	Sean Li
+
+	[3,c]Software Engineer
+	Oscar Lin
+
+	[2,c]Partnership Team
+	[3,c]Senior Product Managers, Partnerships
+	Rupali Sharma
+	Shawn Pisio
+
+	[3,c]Senior Technical Product Manager Partnerships
+	Aki Tamminen
+
+	[3,c]Partner Engineer
+	Lake Watkins
+
+	[2,c]Take-Two Legal	
+	[2,c]Publishing 
+	[3,c]EVP and Chief Legal Officer
+	Dan Emerson
+
+	[3,c]SVP & Deputy General Counsel
+	Pete Welch
+
+	[3,c]VP & Counsel 
+	Justyn Sanderford
+
+	[3,c]Sr. Director & Counsel
+	David Harris
+
+	[3,c]Director & Counsel
+	Travis Brashears
+
+	[3,c]Director & Counsel, Legal
+	Pamela Rockmore
+
+	[3,c]Senior Paralegal Manager
+	Heidi Masturzo
+
+	[3,c]Paralegal, IP & Marketing
+	Clarice Cohn
+	Nick Martinez
+	Rebecca Riley
+	Taylor Araujo
+
+	[2,c]Business Affairs
+	[3,c]SVP & Deputy General Counsel, Business Affairs
+	Greg Gibson
+
+	[3,c]Vice President & Counsel, Business Affairs
+	Oren Hoffman
+
+	[3,c]Sr. Director & Managing Counsel
+	Aaron Epstein
+
+	[3,c]Senior Director & Managing Counsel, Business Affairs
+	Jon Peritz
+
+	[3,c]Director & Counsel, Business Affairs
+	Ingrid Festin
+
+	[3,c]Counsel, Business Affairs
+	Bethany Wong
+	Tyler Fredricks
+
+	[2,c]Music Licensing
+	[3,c]Vice President, Business Affairs and Global Head of Music
+	Nick Zabawsky
+
+	[3,c]Composer - Original Score/Main Theme
+	Christopher Tin
+
+	[3,c]Composer - Original Score
+	Geoff Knorr
+	Roland Rizzo	
+
+	[3,c]Orchestrator
+	Andy Brick
+
+	[2,c]Employment, Immigration & Security
+	[3,c]SVP, Associate General Counsel
+	Adam Wexler
+
+	[3,c]VP & Lead Counsel, International Employment
+	Justin Roberts
+
+	[3,c]Sr. Director & Counsel, International Employment
+	Kate Howitt 
+
+	[3,c]Director & Counsel, International Employment
+	Michael Horrocks
+
+	[3,c]Sr. Director & Lead Counsel, North America Employment
+	Chelsea Conanan
+
+	[3,c]VP, Global Head of Physical Security
+	Joshua Levin-Soler
+
+	[3,c]Counsel, Immigration
+	Tharusha Edirisinghe
+
+	[2,c]Privacy
+	[3,c]SVP & Counsel, Global Head of Privacy & DPO
+	Chris Loeffler
+
+	[3,c]Director & Counsel, Privacy
+	Marine Cabour
+	Robyn Ellis
+
+	[3,c]Associate Director & Counsel, Privacy
+	Dagatha Delgado 
+
+	[3,c]Privacy Analyst
+	Theophilus Dolor
+
+	[2,c]Corporate
+	[3,c]Vice President & Counsel 
+	Aaron Diamond
+
+	[2,c]International
+	[3,c]VP & Counsel
+	Nic Murfett
+	Paul Collins
+	Victoria Bourke
+
+	[3,c]Sr. Director & Lead Counsel , International Employment
+	Justin Roberts
+
+	[3,c]Associate Director & Counsel 
+	Liam Haeburn-Little 
+
+	[3,c]Sr. Director & Counsel
+	Ben McMeechan
+
+	[3,c]Director & Counsel
+	Emma A. Oxlade Williams
+	Sarah Cramer
+	Lauren Horman 	
+
+	[3,c]Counsel
+	Kirsty Cox
+
+	[3,c]Counsel, Mobile & AdTech
+	Cheryl Stevens
+
+	[3,c]Trainee Solicitor 
+	Noora Honkasalo
+
+	[3,c]Paralegal 
+	Alice Andrews
+
+	[2,c]Take-Two Operations	
+	Christopher Fiumano
+	Daniel Einzig
+	Dorian Rehfield
+	Nicole Williams
+	Ursula Baker
+
+	[3,c]International Operations
+	Kevin Smith
+	Phil Anderton
+	Richard Kelly
+
+	[3,c]Asia Operations
+	Chermine Tan
+	Eileen Chong
+	Takako Davis
+
+    [m,l]Credits_UNIT02
+	[2,c]Take-Two Business Development	
+	[2,c]Take-Two Asia Business Development
+	[3,c]VP, Publishing Asia 
+	Erik Ford
+
+	[3,c]Director of Business Development, Asia Packaged Goods
+	Syn Chua
+
+	[3,c]Director of Business Development, China 
+	Dustin Zhao
+
+	[3,c]Director Digital Strategy, Asia
+	Ken Tilakaratna
+
+	[3,c]Sr. Sales Manager, Hong Kong
+	Thomas Chung
+
+	[3,c]Manager, Digital Strategy, Asia
+	Anna Choi
+
+	[3,c]Business Development Manager, Korea
+	Hyun Jiwon
+
+	[3,c]Manager, Digital Business Development and Strategy, Asia
+	Fern Yeap
+
+	[3,c]Assistant Sales Manager, Asia Packaged Goods
+	Felix Ng
+
+	[2,c]Behaviour Interactive	
+	[3,c]Executive Producer
+	Rached Chatti
+
+	[3,c]Producer
+	Jon Brown
+
+	[3,c]Associate Producer 
+	Adrien Janvier
+
+	[3,c]Project Manager
+	Camille Piot
+
+	[3,c]Executive Creative Director
+	Vincent Régimbald
+
+	[3,c]Executive Technical Director
+	Martin Poirier
+
+	[3,c]Technical Director
+	Stéphane Pelletier
+
+	[3,c]Programming Team Lead
+	Olivier Guitton
+
+	[3,c]Programming Technical Lead
+	André Sochard
+	Dominic Hudon
+	Jonathan Filion
+	Maxime De Vecchi
+
+	[3,c]Graphics Programmer
+	Gaëtan Barel
+	Lotfi Mira
+	Michel Kassis
+
+	[3,c]UI Programmer 
+	Adrien Rodriguez
+	Amandine Reliat
+	Jérémie St-Pierre
+	Jonathan Bergeron
+
+	[3,c]Programmer 
+	Benoît Lebel
+	Jack Storm
+	Tiffany Bolivar
+
+	[3,c]QA Team Lead 
+	Bradley Bourne
+
+	[3,c]QA
+	Benoit Dumulong
+	Chloe Gowdy
+	Lauren Quiniou
+	Nazim Zahaf
+	Véronique Lavoie
+
+	[3,c]UI Designer
+	Catherine Gyorvary
+
+	[3,c]UX Designer
+	Meghan Deslauriers
+
+	[3,c]President & Executive Producer
+	Rémi Racine
+
+	[3,c]Chief Business Officer
+	Wayne Meazza
+
+	[3,c]Senior VP Production
+	Stephanie Marchand
+
+	[3,c]VP Creative
+	Chris Ferriera
+
+	[3,c]Principal Art Director
+	Gregory Fromenteau
+
+	[3,c]VP Technology
+	Vincent Villeneuve
+
+	[3,c]Additional Producer
+	Nicolas Lartigue
+
+	[3,c]Additional Associate Producer
+	Gabriel Hernandez
+
+	[3,c]Additional Graphics Programmer
+	Antoine Bouchard
+
+	[3,c]Additional Programmer
+	Felipe Pareja
+	Hao Shi
+	Pavan Jakhu
+
+	[3,c]Additional UX Designer
+	Jan Colin Bayucot
+
+	[3,c]Additional UI Designer
+	Mélanie Diaz
+	Samantha Mohan
+
+	[3,c]Additional QA Director
+	Maxime Allard
+
+	[3,c]Additional QA Team Lead
+	Kevin Buttle
+
+	[3,c]Additional QA
+	Ruth Van Den Hoogen
+
+	[3,c]Special Thanks
+	[3,c]Programming Technical Lead
+	Jonathan Mercier
+
+	[3,c]Graphics Programmer
+	Alexandre Brochu
+	Catalin Arsenescu
+	Evgeny Maltsev
+	Lucas Charbit
+	Nicolas Sola
+
+	[3,c]Tools Programmer
+	Adam Kazma
+	Arhan Banerjee
+	Daniel Tian
+	Mathieu Casubolo
+	Rayhan Moidu
+
+	[3,c]UI Programmer
+	Erin Vaartjes
+	Mikael Heck
+
+	[3,c]Programmer
+	Dave McCann
+	David Zhang
+	Joel Robichaud
+	Maxime Ostorero
+	Thomas Caroff	
+
+	[3,c]Game Designer
+	George Harmon
+	Xinran Ma
+
+	[3,c]UI Designer
+	Marie-Lee Bergeron-Graus
+
+	[3,c]QA
+	Jeremy Morcos
+	Jonathan Pedroso-Jodry
+	Keven Pagé
+
+	[2,c]Playside
+	[3,c]Design Lead
+	Felix Strangio
+
+	[3,c]Design
+	Ben Carruthers
+	Clint Reid
+	Finn Teague-Moore
+
+	[3,c]UI/UX Design
+	Carla Gonzalez
+	Cerise Gardner
+
+	[3,c]Executive Producer
+	Ivan Ertlov
+
+	[3,c]Production Lead
+	Tim Schmidt
+
+	[3,c]Production
+	Andy Cook
+	Christopher "Chrispy" Poermandya
+	Eveline Sulistio
+	Mitch Walker
+	Steven Yeakey
+
+	[3,c]Art Lead
+	Jake Opperman
+	Justin "Millsy" Mills
+	Mitch Cosgrave
+
+	[3,c]Concept Art
+	Andrea Mahaffey
+	Valentyn Porada
+
+	[3,c]3D Art
+	Adam Breen
+	Dan Hecht
+	Daniel Victor Agerman
+	Danny Lawrie
+	Dmytro Baryshev
+	Sienna Wilton
+	William Kong
+
+	[3,c]UI Art & Design
+	Jano Vesina
+	Joel Hardgrave
+	Ritchie Wijaya
+
+	[3,c]Tech Art Lead
+	Adam McHenry
+	Victor Nascimento
+
+	[3,c]Tech Art
+	Harrison Lorraway
+	Rohin Knight
+	Trent Fealy
+
+	[3,c]Rigging
+	Lachlan Dunbar
+
+	[3,c]Engineering Leads
+	Daniel Stephens
+	Kieran Collard
+	Vikram Saran
+
+	[3,c]Engineering Managers
+	Joseph Griggs
+	Peter "Macky" McIntosh
+
+	[3,c]Engineering - Gameplay
+	Alexander Ong
+	Barak Abitbol
+	Ben Guest
+	Benjamin Finlay
+	Eli Iannuzzo
+	Ewan Hickey
+	Jackson Luff
+	Jarod Short
+	Jarryd Adaens
+	Jarryd Pinto
+	Josh Moten
+	Justin Etchell
+	Mathew Henderson
+	Matt Duan
+	Michael Brown
+	Mitchell Currie
+	Munib Syed
+	Sean Ryan
+	Steve Meagher
+	Thomas Knowles
+	Tom Lawlor
+	Tom Liang
+
+	[3,c]Engineering - Graphics
+	Colin Scott-Fleming
+	Greg Mildenhall
+	James Owen
+	Samson Starmer-Lee
+
+	[3,c]Engineering - UI
+	Aaron Caratelli
+	Ben Evans
+	Carlos Del Valle Diguez
+	Dan Blake
+	Heather Taylor
+	James Campbell
+	Jeffrey Chua
+	Joseph Tran
+	Justin Richards
+	Karl Montalban Loquellano
+	Kia Andersen
+	Matthew Stubbins
+	Michael Barnett
+	Oscar Harris
+	Shannon Matthews
+	Will Truscott
+	Yuri Feldman
+
+	[3,c]QA Managers
+	Erin Joselin
+	Steve Poels
+
+	[3,c]QA Lead
+	Maksym Petrykeiev
+
+	[3,c]QA 
+	Harrison McNeil
+	Haotian (Johnson) Zhang
+	Kat Racovalis
+	Leon Paleg
+
+	[3,c]Audio Design
+	Chris O'Neill
+	Zachary Zuluaga
+
+	[3,c]Audio Engineering
+	Roland Peddie
+
+	[3,c]Tools Team
+	Ben Frye
+	Callum Chisholm
+	Dyson Hamilton
+
+	[3,c]IT
+	Andrew Horvat
+	Daniel Harkin
+	Nicholas Weldon
+	Timothy Rutherford
+
+	[3,c]Studio Managers
+	Beth McMahon
+	Morgan Thomas-Connor
+	Nikki James
+
+	[3,c]Data
+	Anthony Commane
+	Zak Ahchay
+
+	[3,c]Talent Aquisition
+	Anh Nguyen
+	Emily Dipple
+	Luke Danielson-Stewart
+
+	[3,c]Release Management
+	Julie Staub
+	Shannon Conroy
+
+	[3,c]CEO
+	Gerry Sakkas
+
+	[3,c]CSO
+	Benn Skender
+
+	[3,c]CFO
+	Darren Briggs
+
+	[3,c]Non Executive Directors
+	Aaron Pasias
+	Mark Goulopoulos
+	Sophie Karzis
+
+	[3,c]Chairman
+	Cristiano Nicoli
+
+	[3,c]Executive Vice President
+	TJ Munusamy
+
+	[3,c]Vice Presidents
+	Jamie T. Bentley
+	Taylah Walker
+
+	[3,c]General Managers
+	Ben Kelly
+	Danny Armstrong
+	Ryan McMahon
+
+	[3,c]Creative Lead
+	Nick Merrett
+
+	[3,c]Head of Studio Operations
+	Joshua Birse
+
+	[3,c]Art Director
+	Jason Dalton
+
+	[3,c]Audio Director
+	John Guscott
+
+	[3,c]Design Director
+	Florian Ziegler
+
+	[3,c]Engineering Directors
+	Richard Au
+	Steve Wilcox
+
+	[3,c]Divisional Design Lead
+	Harley Price
+
+	[3,c]Divisional Engineering Lead
+	Daniel Armstrong
+
+	[3,c]Divisional Art Lead
+	Adrian Vaughan
+
+	[3,c]People & Culture Directors
+	Lauren Dawe
+	Sam Cleeton
+
+	[3,c]Head of Global Marketing
+	Michael McAlister
+
+	[3,c]Head of Publishing
+	Harley David Homewood
+
+	[3,c]Special Thanks to
+	Chloe Haywood-Anderson - Additional Production
+	David Weaver - Additional Audio Engineering
+	Pascal Cross - Additional Audio Engineering
+	Liam Pickering - Additional QA
+	Andrew Zell - Additional QA
+	Tyson Tifere - Additional QA
+	George Goutoglou - Additional QA
+	Isabelle de Villecourt
+	Rowan Ryder
+
+	[3,c]Emotional Support Animals
+	Addy
+	Alfador
+	Angus
+	Aster
+	Bubble
+	Buddhapest
+	Cash
+	Charlie Barnett
+	Chidi
+	Chippy
+	Chook
+	Cookie Taylor
+	Dandenong Truscott
+	Fig
+	Freija
+	Germ
+	Gnocchi
+	Guzman
+	Lilly Lin Ling
+	Mace
+	Marble
+	Mash
+	Max
+	Melly
+	Midas
+	Missy
+	Misty Taylor
+	Moon
+	Nori
+	Odin Opperman
+	Poppy
+	Putri
+	Raze
+	Rena
+	Rhubarb
+	Roxie
+	Rue
+	Rumpole
+	Samwise Gamgee GUDIPATI Pinto
+	Sasha
+	Sierra
+	Sir Lemsworth Scrumpets (Lemmy)
+	Sprite
+	Star
+	Tango
+	Taters
+	Theo
+	Tigger
+	Webis
+	Wendy
+	Worm
+	Zephyrus
+	Triangle Donkey
+
+	[2,c]Grip Digital s.r.o.
+	[3,c]GRIP Studios Co-CEOs
+	Jakub Mikyska
+	Jan Cabuk
+
+	[3,c]GRIP Studios Production Lead
+	Vit Vondracek
+
+	[3,c]Producer
+	Hana Vranak Rihackova
+	Jan Pavlik
+
+	[3,c]Lead Render Programmer
+	Vojtech Cimbura
+
+	[3,c]Render Programmers
+	Jan Sipr
+	Jozef Valko
+	Lubomir Bubenik
+	Martin Smutny
+	Martin Vykoukal
+	Matej Hoffman
+	Michal Skalsky
+	Petr Flajsingr
+	Tomas Berdis
+	Tomas Dubsky
+
+	[3,c]Lead UI Programmer
+	Antonin Prazsky
+
+	[3,c]UI Programmers
+	Denisa Svobodova
+	Jan Mikulka
+	Kirill Wayne
+	Lubomir BubenÃ­k
+	Marek Zouhar
+	Martin Daru
+	Petr Zavodny
+	Vojtech Struhar
+
+	[3,c]Lead Gameplay Programmer
+	Marek Zouhar
+
+	[3,c]Gameplay Programmer
+	Adam Szentesi
+	Jan Bryda
+	Katarina Dedikova
+
+	[2,c]Grip Digital s.r.o.
+	[3,c]GRIP Studios Co-CEOs
+
+	[2,c]Very Special Thanks
+	Strauss Zelnick
+
+	[2,c]Special Thanks
+	Alan Lewis
+	Chris Casazza
+	Dan Emerson
+	Jenn Kolbe
+	Jordan Katz
+	Karl Slatoff
+	Lainie Goldstein
+	Linda Zabriskie
+	Michael Gilmartin
+	Nicole Shevins
+	Scott Belmont
+	Steve Glickstein
+	Take-Two Digital Sales Team
+	Take-Two Channel Marketing Team
+	Take-Two Finance Team
+	Take-Two HR Team
+	Take-Two Legal Team
+	Take-Two Sales Team
+	Take-Two Workplace and Real Estate Team
+	Take-Two IT Global Support 
+
+	[2,c]EXTERNAL LOCALISATION TEAMS	
+
+	[2,c]Keywords Studios
+	[3,c]Producer
+	Davide Pierro
+
+	[3,c]Global Project Managers
+	Alex Rossetto
+	Kaya Daudrix Buttignol
+
+	[3,c]Global Audio Tech Lead
+	Manuel Auletta
+
+	[3,c]Global Lead Audio Engineer
+	Paolo Lorenzino
+
+	[3,c]Global Lead Audio QA
+	Maria Chiara Montagnari
+
+	[2,c]French Localization
+	[3,c]Project Managers
+	Chloé Pellegrini
+	Flavie Laurent
+	Mélanie Cocheteux
+
+	[3,c]Translators
+	Adeline Guichard-Lepetit
+	Alvina Veillon
+	Anthony Fragoso
+	Julien Schroiff
+	Lucas Messmer
+	Manuel Deroulers
+	Marie Lorbach
+	Marine Trépos
+	Mireille Besson
+	Pauline Carpentier
+	Pierrick Fleuriot
+
+	[3,c]Artistic Director
+	Robinson Lerisset
+
+	[3,c]Lead Audio Engineer
+	Nassim Hiber
+
+	[3,c]Audio Engineers
+	Fernando Vereau
+	Jérémie Durand
+	Tomoya Lafon
+
+	[2,c]Italian Localization
+	[3,c]Translators
+	Andrea Ferrari
+	Floriana Grasso
+	Luca Ricci
+	Stefano Gaburri
+
+	[3,c]Artistic Director
+	Ilaria Bendazzi
+
+	[3,c]Audio Engineer
+	William Zancan
+
+	[2,c]Spanish Localization
+	[3,c]Project Managers
+	Ángela Juan Ruiz
+	Javier Fernández Lebrero
+	Rebecca Clark
+
+	[3,c]Translators
+	Carlos Enrique Velasco Vaamonde
+	Carlos Rodillo Hernández
+	Manuel Mata Álvarez-Santullano
+	Miguel González Álvarez
+	Pablo Burgos González
+	Patricia López Iglesias
+	Salva Tintoré
+
+	[3,c]Artistic Director
+	Héctor Garay
+
+	[3,c]Audio Engineers
+	Germán López
+	Miguel Ángel Mederos
+
+	[3,c]Audio Production
+	Iris Pérez
+	Lina Ballesteros
+	Sandra Férez
+
+	[2,c]Russian Localization
+	[3,c]Project Managers
+	Danila Syrtsov
+	Ekaterina Yamenskova
+
+	[3,c]Translators
+	Dmitriy Sapojnik
+	Maxim Mikhailov
+	Pavel Efremov
+	Valya Bachurina
+
+	[3,c]Artistic Director
+	Irina Petrosyants
+
+	[3,c]Lead Audio Engineer
+	Aleksandr Zakharov
+
+	[2,c]Brazilian Portuguese Localization
+	[3,c]Project Managers
+	Bruno Gallo
+	Daniel Berbel
+	Felipe Caminada
+
+	[3,c]Translators
+	Danilo Venturini
+	Hális Alves
+	Maria Cláudia Araújo
+	Mariana Claussen
+	Monique Paula Pereira
+	Yuri Riccaldone
+
+	[2,c]QLOC S.A.
+	[2,c]Polish Localization
+	[3,c]Localization Producer
+	Maciej Polak
+
+	[3,c]Translators
+	Janusz Mrzigod
+	Marek Gałązka
+
+	[3,c]Reviewers
+	Ewa Nawrocka
+	Staszek Krawczyk	
+
+	[3,c]Audio Director
+	Konrad Darocha
+
+	[3,c]Audio Engineers
+	Dawid Jankowski
+	Dawid La Torre
+
+	[2,c]PTW Japan Co., Ltd.
+	[2,c]Japanese Team
+	[3,c]Audio Recording Division - Direction Team
+	Katsuaki Yamagishi
+	Mamiko Ito
+	Yu Sasaki
+
+	[3,c]Localization Advisor
+	Hideyuki Omi
+
+	[3,c]Localization Division - Coordinator
+	Sebastien Tourdes
+	Yoshiyuki Hayashi
+
+	[3,c]Localization Division - Translation Coordinator
+	Shimpei Kawashima
+
+	[3,c]Localization Division - Translator
+	Kei Suzuki
+
+	[3,c]Translator
+	Ami Amaki
+	Kazunori Yanagita
+	Masako Katdumata
+
+	[2,c]GlobalWay
+	[2,c]Korean Team
+	[3,c]Project Manager
+	Taesung Kim
+
+	[3,c]Linguist
+	Hanjoo Lee
+	Jaehyun Kim
+	Taerie Kim
+
+	[3,c]Casting Director
+	Soi Kim
+
+	[3,c]Recording
+	Sangmin Lee
+
+	[3,c]Studio DOMA
+	Recording/VO Editing
+
+	[2,c]VGLOC Localization Studios
+	[2,c]Simplified/Traditional Chinese Team
+	[3,c]Project Lead/Linguist
+	Thomas Qin
+
+	[3,c]Assistant Project Lead/Linguist
+	Leo Li
+
+	[3,c]Linguist
+	AC Hsu
+	Lily Zhao
+	Ray Fang
+	Xing Rao
+
+	[2,c]Voiceover Cast
+	[3,c]French Narrator
+	Déborah Perret
+
+	[3,c]German Narrator
+	Sabine Fischer
+
+	[3,c]Italian Narrator
+	Stefania Patruno
+
+	[3,c]Spanish Narrator
+	Ana Plaza
+
+	[3,c]Polish Narrator
+	Monika Węgiel-Jarocińska
+
+	[3,c]Russian Narrator
+	Elena Kharitonova
+
+	[3,c]Japanese Narrator
+	Yuka Adachi
+
+	[3,c]Korean Narrator
+	Bi Jueon
+
+	[3,c]Simplified Chinese Narrator
+	Li Mingming
+
+	[3,c]Traditional Chinese Narrator
+	Charlene
+
+	[3,c]Localization tools and support provided by XLOC Inc.
+
+	[3,c]Production Babies	
+	Mary 
+	Emma 
+	Aloïs 
+	Iris 
+	Marco 
+	Kaede 
+	Wren 
+
+	Wwise
+	Powered by Wwise © 2006- 2025 Audiokinetic Inc. All rights reserved.
+	[i]powered_by_wwise
+
+	Coherent GT
+	Sid Meier’s Civilization VII uses Coherent Labs user interface technology. Copyright 2012-2025 Coherent Labs. All Rights Reserved.
+	[i]coherent-gt-white
+
+	Oodle Network/Data
+	Uses Oodle. Copyright © 2008- 2025 by Epic Games Tools, LLC
+	[i]oodle_logo
+
+	[2]Special Thanks
+	Sarge the Dog
+	Pixel the Dog
+	Haku the Cat
+	Krish Kalra – Encounter Shadow
+	Leo Wang – Encounter Shadow
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	
+
+	
+
+[x]Credits_UNIT02
+]]>
+</credits>

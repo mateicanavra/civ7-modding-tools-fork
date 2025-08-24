@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_PROFILE_TITLE_ASHOKA_CONQUEROR">
+			<Text>World Conqueror</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_HIMIKO_HIGH_SHAMAN">
+			<Text>Avatar of Amaterasu</Text>
+		</Row>
+	</EnglishText>
+</Database>

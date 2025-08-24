@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_LOADING_BEGIN_GAME">
+			<Text>Begin Game</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CONTINUE_GAME">
+			<Text>Continue Game</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_WAITING_TO_START">
+			<Text>Waiting to start...</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_GREAT_LEADER_SYMPOSIUM">
+			<Text>Great Leader Symposium</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_TITLE_INTRO_TEXT">
+			<Text>A New Age Begins</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_TITLE_AGE">
+			<Text>Age</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_TIPS_AND_HINTS">
+			<Text>Tips And Hints</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_ABILITY">
+			<Text>Leader Ability</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIVILIZATION_ABILITY">
+			<Text>Civilization Ability</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_UNIQUE_UNITS">
+			<Text>Unique Units</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_UNIQUE_BUILDINGS">
+			<Text>Unique Buildings</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_UNIQUE_QUARTER">
+			<Text>Unique Quarter</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_EQUIPPED_MEMENTOS">
+			<Text>Equipped Mementos</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_TRADITIONS">
+			<Text>Traditions</Text>
+		</Row>
+        <Row Tag="LOC_LOADING_TRADITION_UNLOCKED_WITH">
+			<Text>Unlocked with</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_MEMENTO_EMPTY">
+			<Text>Equip Mementos when starting a New Game or at Age Transition</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_GENERIC_INTRO_TEXT">
+			<Text>It is the dawn of a new Age. Your Leader has chosen one of the great Civilizations of that period to further their epic tale.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_AMINA">
+			<Text>Amina, sarauniya of the Hausa, bowing to none, prepare your mount for war. You who would not serve, protected those who served you behind high walls - and rode down those who would not. Fight now, sarauniya, and gain what is yours.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_ASHOKA">
+			<Text>Chakravartin Ashoka, the wheel-turning monarch, your success in war made plain to you its costs. Determined to end the cycle of violence that marked your time as emperor of Maurya, you brought wisdom instead of swords, the dharma in place of destruction, and a message of non-violence to all beings. The world now needs your wisdom.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_AUGUSTUS">
+			<Text>First among equals, Augustus Caesar claims his right. You, who never call yourself Emperor, are revered by your people as a god. The world now is disorder; you will give it form. The world is leaderless; you will provide it direction. Set the laurels on your head and issue your commands - lead your people to glory, and your name will become synonymous with rule.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_BENJAMIN_FRANKLIN">
+			<Text>Writer, printer, and inventor, you offer your counsel to all who ask - and many who do not. With your dry wit and keen mind, you challenge the injustice of foreign rule and set your inventive mind towards building a nation based on principled rationality. Benjamin Franklin, bring your sound advice, and let us ensure that the sun rises on your people.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_CATHERINE">
+			<Text>Catherine the Great, Tsarina of the Romanovs, you bring beauty to autocracy. With your keen eye, you transform not only your palace, but your people. Cultivate a love of the arts - and respect for authority. Guide them to knowledge, and let them see the light of the north star, shining out from your throne.  </Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_CHARLEMAGNE">
+			<Text>The clarion call of the knight’s trumpet seeks you out, Charlemagne, King of the Franks and Holy Roman Emperor. In feast-halls and in troubadours’ songs, may your victories resound. In legend, may your victories remain. As your knights take the battlefield, let them know for whom they ride.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_CONFUCIUS">
+			<Text>Master Kong, you gave guidance to rulers when they were lost. Now, wise one, the world is again in need of your guidance. Help us to temper duty with benevolence; help us to see with wisdom and propriety. Where the darkness of ignorance falls, lead us in the righteous path.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_FRIEDRICH">
+			<Text>Though a lover of the opera house more than the battlefield, it is in the cannon’s fire that you shine. The line of attack replaces the violin’s bow, the roll of cannon stands in for the timpani, and the brass horn now calls forth iron shot. Bend your mind towards the artistry of war, Friedrich - your orchestra awaits your signal.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_HARRIET_TUBMAN">
+			<Text>The guiding lantern shines bright in your hand, Harriet Tubman, as you call your people to you. You lead on through the darkness, a beacon for the lost, casting an unwavering light forward, towards the promise of dawn.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_HATSHEPSUT">
+			<Text>Great Pharaoh Hatshepsut, your name is written again and again in immortal stone. Extend your hand now, and bring once again wonders from the sand. Ensure that your people, like the river, rise and fall, but never vanish.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_HIMIKO">
+			<Text>Himiko, shaman-queen of Yamatai, stands between worlds. As you bring the power of the land, you turn forests to shrines, waterfalls to music, and the mountains themselves to allies. The divine wind seeks to blow; great queen, direct its path.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_IBN_BATTUTA">
+			<Text>The wanderer’s road is a long one, but there is no greater traveler than Muhammad ibn Battuta. The qadi gathers stories, resolves disputes, and compiles judgements for those who seek his wisdom. Take your pilgrim’s staff in hand, and take the first step.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_ISABELLA">
+			<Text>Isabella of Castille, you united your kingdoms under one crown, and set sail the voyages that were to reshape the world. Guide your people to the wonders and riches that the world contains, and maintain your firm hand, lest they stray. Give the order, Queen, that we may see what the world has to offer.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_JOSE_RIZAL">
+			<Text>With a voice that does not falter, and a pen that does not hesitate, Jose Rizal calls his people to him. In the fire of revolution, some falter, but Rizal stands resolute to the end. Ready yourself; there are hearts to be won.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_LAFAYETTE">
+			<Text>Gilbert du Motier, the Marquis de Lafayette, the Hero of Two Worlds, you stand on the knife’s edge. On one side is heartless autocracy, and on the other mindless anarchy, with only reason and compassion leading you forward. Tread carefully, Marquis, one missed step risks a fall.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_PACHACUTI">
+			<Text>Sapa Inca Pachacuti, Earth-Shaker, your time has come. Bring your allies among the tirakuna, in the stones and light of the high places, in the print of the puma’s paw - your people have need of you. You call to the mountains and they tremble for you. Let them tremble again.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_MACHIAVELLI">
+			<Text>A spider in his web, or a writer at his desk, you, Niccolo Machiavelli, see the world as it is, untempered by convention or sentimentality. To succeed in this world requires unconscionable acts, and it is a brave heart that can be made a stone. The time has come to set your plans in motion.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_TRUNG_TRAC">
+			<Text>With a cry of defiance, you stand against those who would impose their will. Though your enemies, Trung Trac, may be many, you will make them pay for each step they take in your lands.  Raise your cry, and call upon your people to stand with you. The sky darkens.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_XERXES">
+			<Text>Shah of shahs, you bring the fire of ambition to the world. Its light glitters off of the gold in your throne room - and the bronze blades of your warriors. You conceive of a new world, one of wonders rising from the wilderness, of an empire that defies time, and one that will never forget your name - Xerxes.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_UNIQUE_UNITS_INTRO_TEXT">
+			<Text>Each Civilization grants you exclusive access to the following items:[LIST][LI]- a Unique Ability, unlocked at the Age start[LI]- two Unique Units (typically a military unit and a civilian)[LI]- a Unique Improvement or a Unique Quarter[LI]- Unique Civics that unlock special Social Policies called Traditions[/LIST]</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIP_00">
+			<Text>Many of the Diplomatic Actions are in the different Leader Attribute trees. Look to take advantage being the only player able to start them.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIP_01">
+			<Text>Explore the map to find Independent powers, other Civilizations, and Discoveries. Activating Discoveries provide bonuses to advance your empire.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIP_02">
+			<Text>Be careful not to settle too close to an Independent Power. If you place a Settlement within 5 tiles of their village, their Relationship with you will degrade.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIP_03">
+			<Text>Look out for Building adjacency bonuses early on and plan your Cities accordingly. You can even convert a Rural tile to an Urban one by placing a Building on it. This will allow you to move that Rural Population elsewhere.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIP_04">
+			<Text>Improving and then placing Resources into Settlements will grant bonuses. There are Resources that can be placed in any Settlement, Resources exclusive to Cities, and Empire Resources that provide passive bonuses across your Civilization.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIP_05">
+			<Text>Towns can't produce Buildings or Units, but can purchase them. Keep Gold in the bank so you can hit the ground running once new Towns are settled.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIP_06">
+			<Text>If your Civilization grants two unique Buildings, you can place them into the same tile to turn it into a Unique Quarter with powerful benefits! Be aware, however, of differing adjacency targets.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIP_07">
+			<Text>When your Population grows in a City, assign them to Urban Districts to make Specialists for Science and Culture as well as boosting adjacency multipliers for Buildings in the tile. Be aware that Specialists cost Food and Happiness.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIP_08">
+			<Text>Build your Leader how you want! Attributes represent their skills and stay with your Leader throughout the Ages.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIP_09">
+			<Text>Wonders last the entire game, so try planning for future Ages when deciding which ones to build.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIP_10">
+			<Text>Winning is not without its rewards! Each Victory grants a special set of rewards when entering the next Age. There are benefits for first, second, and even third place.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIP_11">
+			<Text>Newly conquered Settlements experience unrest. You can send a Commander to the City Center to reduce the unhappiness caused by the Unrest while they are present.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIP_12">
+			<Text>Units don't get Promotions, but Commanders do! These are a wide range of powerful effects that stay with the Commander throughout the Ages.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIP_13">
+			<Text>Squadron Commanders can make air bases. These open new aircraft actions for powerful attacks.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIP_14">
+			<Text>When transitioning to a new Age, you will select a new Civilization. Look into how to unlock the Civilization you want while playing this Age.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_TELEMETRY_RIBBON_TEXT">
+			<Text>It's your first time playing the Khmer. It's also your first game with Amina as your Leader.</Text>
+		</Row>
+	</EnglishText>
+</Database>

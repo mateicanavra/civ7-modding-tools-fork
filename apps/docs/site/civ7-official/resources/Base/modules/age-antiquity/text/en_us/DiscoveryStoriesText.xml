@@ -1,0 +1,2483 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+        <Row Tag="LOC_DISCOVERY_11001A_STORYTITLE">
+            <Text>Woven Stories</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11001A_COMPLETION">
+            <Text>An elder of this remote village has died. The body is wrapped in a vibrant, handwoven textile – in its colors and patterns, the stories of its creators.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11001B_NAME">
+            <Text>Learn the weavers' techniques.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11001B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11001C_NAME">
+            <Text>Take the textiles.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11001C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11002A_STORYTITLE">
+            <Text>Monolith Builders</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11002A_COMPLETION">
+            <Text>Builders have raised a monolith, effortlessly and with few tools. The artisans back home will want to know of these novel techniques.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11002B_NAME">
+            <Text>Learn the builders' techniques.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11002B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward} to {3_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11002C_NAME">
+            <Text>Study the builders' tools.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11002C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11003A_STORYTITLE">
+            <Text>God of Plenty</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11003A_COMPLETION">
+            <Text>Folk have gathered to celebrate a god of plenty. Dancers drink and make merry. Gamblers cluster together. In the morning they tally their fortunes.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11003B_NAME">
+            <Text>Join the celebration.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11003B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11003C_NAME">
+            <Text>Observe from the sidelines.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11003C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11004A_STORYTITLE">
+            <Text>Sublime Sunset</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11004A_COMPLETION">
+            <Text>This place of respite has sheltered countless travelers, a symbol of humanity’s perseverance in spite of a hostile wilderness.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11004B_NAME">
+            <Text>Stay a while.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11004B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11004C_NAME">
+            <Text>Leave a gift for future travelers.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11004C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11005A_STORYTITLE">
+            <Text>Buried in Earth</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11005A_COMPLETION">
+            <Text>Diggers have uncovered evidence of forgotten waterworks. This could be used for farming or for urban infrastructure.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11005B_NAME">
+            <Text>Apply it to the cities.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11005B_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11005C_NAME">
+            <Text>Apply it to the fields.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11005C_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11006A_STORYTITLE">
+            <Text>Hot Springs</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11006A_COMPLETION">
+            <Text>Explorers have discovered a network of hot springs. These vapors offer respite for the weary traveler and inspiration for the poet. Paradise does not remain secret for long.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11006B_NAME">
+            <Text>Test the waters.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11006B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11006C_NAME">
+            <Text>Charge for access.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11006C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11201A_STORYTITLE">
+            <Text>Star Movements</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11201A_COMPLETION">
+            <Text>Astronomers have crafted a tool for measuring the stars, hoping to discern meaning from their movements. The mysteries of the universe widen.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11201B_NAME">
+            <Text>Study the instrument.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11201B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11201C_NAME">
+            <Text>Consult the stars for wisdom.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11201C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11202A_STORYTITLE">
+            <Text>Salted, Preserved Meat</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11202A_COMPLETION">
+            <Text>Hunters have perfected a recipe for curing meat so that it does not spoil – perfect for travelers enduring prolonged journeys.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11202B_NAME">
+            <Text>Study the curing process.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11202B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11202C_NAME">
+            <Text>Enjoy the food.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11202C_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11203A_STORYTITLE">
+            <Text>Strange Spices</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11203A_COMPLETION">
+            <Text>A trader has obtained a cargo of spices from afar. The weightless herbs crumble to dust in the hand, and are sure to become a sensation before long.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11203B_NAME">
+            <Text>Sample the herbs.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11203B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11203C_NAME">
+            <Text>Take the seasonings home.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11203C_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11204A_STORYTITLE">
+            <Text>Aging Recluse</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11204A_COMPLETION">
+            <Text>An aging recluse has opened their homestead to orphans. He is ailing, but the children seem able to sustain the land.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11204B_NAME">
+            <Text>Let them.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11204B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11204C_NAME">
+            <Text>Bring the children back.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11204C_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11205A_STORYTITLE">
+            <Text>Portable Traps</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11205A_COMPLETION">
+            <Text>A hunter has crafted an ingenious new portable trap. Techniques this elegant are sure to spread fast.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11205B_NAME">
+            <Text>Set traps.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11205B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward} to {3_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11205C_NAME">
+            <Text>Impose hunting regulations.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11205C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11206A_STORYTITLE">
+            <Text>Bountiful Grove</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11206A_COMPLETION">
+            <Text>Refugees have settled near a grove of berry bushes – vital nourishment. The juices also produce a dye that may catch the eyes of marketgoers.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11206B_NAME">
+            <Text>Sample the berries.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11206B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward} to {3_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11206C_NAME">
+            <Text>Test the dye.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11206C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11207A_STORYTITLE">
+            <Text>Ritual Dancers</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11207A_COMPLETION">
+            <Text>A group of dancers has withdrawn to the wilderness to focus on their craft. They stretch their bodies as they reach for perfection. Those who touch it become legends.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11207B_NAME">
+            <Text>Compose songs for the group.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11207B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11207C_NAME">
+            <Text>Organize a traveling show.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_11207C_DESCRIPTION">
+            <Text>{1_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12001A_STORYTITLE">
+            <Text>Cave of Scrolls</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12001A_COMPLETION">
+            <Text>Explorers have recovered the obscure writings of a local sage – poetic ruminations on death stained with tears.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12001B_NAME">
+            <Text>Study the text.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12001B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12001C_NAME">
+            <Text>Sell reproductions.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12001C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12002A_STORYTITLE">
+            <Text>Stolen Treasure</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12002A_COMPLETION">
+            <Text>Soldiers have tracked a horde of bandits to their stolen treasure. Debts must be repaid.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12002B_NAME">
+            <Text>Offer repentance through labor.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12002B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward} to {3_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12002C_NAME">
+            <Text>Redistribute their valuables.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12002C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12003A_STORYTITLE">
+            <Text>Cave of Cheese</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12003A_COMPLETION">
+            <Text>Shepherds have found a cave perfect for aging various cheeses. Locals find their unique musk irresistible – those in the capital will find them a pure delicacy.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12003B_NAME">
+            <Text>Sample the cheese.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12003B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward} to {3_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12003C_NAME">
+            <Text>Study the technique.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12003C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12004A_STORYTITLE">
+            <Text>Cave Drawings</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12004A_COMPLETION">
+            <Text>Scholars have been debating the origins of images adorning the mouth of a cave. The animal shapes are unfamiliar. The handprints next to them are not.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12004B_NAME">
+            <Text>Examine the animals.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12004B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12004C_NAME">
+            <Text>Contemplate the handprints.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12004C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12005A_STORYTITLE">
+            <Text>New Mushrooms</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12005A_COMPLETION">
+            <Text>Foragers have discovered an unknown type of mushroom. But such morsels warrant caution; they should not be eaten until they are studied.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12005B_NAME">
+            <Text>Examine the fungi.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12005B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12005C_NAME">
+            <Text>Test if they can be eaten safely.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12005C_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12006A_STORYTITLE">
+            <Text>Small Silver Deposit</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12006A_COMPLETION">
+            <Text>Miners digging for iron have stumbled across a vein of silver within the hollow of a mountain. Blacksmiths will offer a fair price for such a precious resource.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12006B_NAME">
+            <Text>Gather the silver.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12006B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12006C_NAME">
+            <Text>Share the profits with the hardest workers.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12006C_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12007A_STORYTITLE">
+            <Text>Glass Makers</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12007A_COMPLETION">
+            <Text>Artisans have refined a technique for making glass, pouring molten sand into unique clay molds. The dust of the Earth is cooked into captivating charms.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12007B_NAME">
+            <Text>Learn the glass makers' techniques.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12007B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward} to {3_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12007C_NAME">
+            <Text>Package the goods for market.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_12007C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17001A_STORYTITLE">
+            <Text>Serene Coastline</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17001A_COMPLETION">
+            <Text>Pilgrims have carved a trail to a rock formation offering a stunning view of the coastline. Such natural beauty is sure to attract poets – who will struggle to capture its splendor.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17001B_NAME">
+            <Text>Soak in the beauty.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17001B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17001C_NAME">
+            <Text>Sell the land.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17001C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17002A_STORYTITLE">
+            <Text>Bottlenose Dolphin Pod</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17002A_COMPLETION">
+            <Text>Fishermen have befriended a pod of dolphins. The animals weave through the water, threading their way into the fabric of the community.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17002B_NAME">
+            <Text>Delight in the creatures.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17002B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17002C_NAME">
+            <Text>Study their habits.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17002C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17003A_STORYTITLE">
+            <Text>Seaside Forge</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17003A_COMPLETION">
+            <Text>Blacksmiths at this seaside forge have taken to using salt brine to quench their metal. Traders will clamber for this superior steel.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17003B_NAME">
+            <Text>Set standards for excellence.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17003B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward} to {3_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17003C_NAME">
+            <Text>Increase production.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17003C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17004A_STORYTITLE">
+            <Text>Wisdom Traders</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17004A_COMPLETION">
+            <Text>Traders have come ashore bearing the wisdom of faraway places. Scholars back home would stumble over themselves to hear these stories.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17004B_NAME">
+            <Text>Pass the tales on.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17004B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17004C_NAME">
+            <Text>Mine the stories for information.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17004C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17005A_STORYTITLE">
+            <Text>Oyster Bed</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17005A_COMPLETION">
+            <Text>A community has organized a festival celebrating the oyster harvest. Mollusks roast over heated stones while travelers trade mouthwatering recipes.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17005B_NAME">
+            <Text>Savor the feast.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17005B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward} to {3_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17005C_NAME">
+            <Text>Declare the creatures sacred.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17005C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17006A_STORYTITLE">
+            <Text>Measuring Rod</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17006A_COMPLETION">
+            <Text>Surveyors have devised a specialized rod for measuring coastlines – sizing up the world one calculation at a time. Mapmakers will be eager to test its worth.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17006B_NAME">
+            <Text>Study the tool.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17006B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17006C_NAME">
+            <Text>Celebrate the surveyors' wisdom.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_17006C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_19001A_STORYTITLE">
+            <Text>Grappling Contest</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_19001A_COMPLETION">
+            <Text>Several soldiers have gathered for an impromptu contest of sport. News of one contender's stunning victory is sure to ripple across the empire.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_19001B_NAME">
+            <Text>Record the feat.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_19001B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_19001C_NAME">
+            <Text>Throw a celebratory feast.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_19001C_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_19003A_STORYTITLE">
+            <Text>Ball Game</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_19003A_COMPLETION">
+            <Text>Players use long sticks to whip a wicker ball across a grassy field, as wealthy patrons look on. A goal is scored – bets are collected. Visitors are taught how to play.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_19003B_NAME">
+            <Text>Watch the games.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_19003B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_19003C_NAME">
+            <Text>Learn how to play.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_19003C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_19004A_STORYTITLE">
+            <Text>Rapt Congregants</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_19004A_COMPLETION">
+            <Text>An orator has attracted an audience of rapt congregants, extolling the virtues of hard work, and promising salvation through obedience.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_19004B_NAME">
+            <Text>Seek salvation.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_19004B_DESCRIPTION">
+            <Text>{1_Reward} to the nearest Settlement.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_19004C_NAME">
+            <Text>Ignore the orator.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_19004C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15001A_STORYTITLE">
+            <Text>Noble Hunt</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15001A_COMPLETION">
+            <Text>A party of noblemen has had a successful hunt. They instruct their servants to leave what they cannot carry, but there's no shortage of hungry mouths back home.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15001B_NAME">
+            <Text>Take the excess game.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15001B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward} to {3_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15001C_NAME">
+            <Text>Do not risk conflict.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15001C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15002A_STORYTITLE">
+            <Text>Traveling Idol</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15002A_COMPLETION">
+            <Text>Devotees have come to see an idol of their faith. The worshippers, many of whom traveled from afar, rejoice in its presence and are generous with their tithes.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15002B_NAME">
+            <Text>Collect the tithes.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15002B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15002C_NAME">
+            <Text>Share in their joy.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15002C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15003A_STORYTITLE">
+            <Text>Crossroads Fair</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15003A_COMPLETION">
+            <Text>Traveling merchants have set up a fair at a crossroads. Visitors gawk at curios and take part in lively entertainments before returning to the road.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15003B_NAME">
+            <Text>Enjoy the fair.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15003B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15003C_NAME">
+            <Text>Bring the fair back home.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15003C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15004A_STORYTITLE">
+            <Text>Pit-Fired Clay</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15004A_COMPLETION">
+            <Text>A family of nomads has perfected the crafting of pottery in pit fires. The wares will sell handsomely at market, and the potters aren't shy about their ingenious techniques.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15004B_NAME">
+            <Text>Learn the potters' techniques.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15004B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15004C_NAME">
+            <Text>Resell the creations at a higher price.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15004C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15005A_STORYTITLE">
+            <Text>Hiding in Plain Sight</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15005A_COMPLETION">
+            <Text>Soldiers have caught bandits masquerading as aristocrats. They claim they are no worse than those they imitate, but are stripped of their counterfeit attire nonetheless.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15005B_NAME">
+            <Text>Concede their point.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15005B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15005C_NAME">
+            <Text>Punish the bandits with hard labor.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_15005C_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14001A_STORYTITLE">
+            <Text>Abandoned Fort</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14001A_COMPLETION">
+            <Text>Weary soldiers have been guarding a crumbling fort. They say they await orders, but months have passed without news or supply. Some fear they've been abandoned.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14001B_NAME">
+            <Text>Find work for the soldiers.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14001B_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14001C_NAME">
+            <Text>Make plans to return home.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14001C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14002A_STORYTITLE">
+            <Text>Forgotten Deity</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14002A_COMPLETION">
+            <Text>Worshippers have congregated under the torchlight of a shrine. The image of their deity looks down on them from a pedestal, forgotten by some, but not all.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14002B_NAME">
+            <Text>Exalt the deity.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14002B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14002C_NAME">
+            <Text>Tear down the statue.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14002C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14003A_STORYTITLE">
+            <Text>Ancient Orrery</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14003A_COMPLETION">
+            <Text>Scavengers have unearthed an ancient clockwork device – the heavens themselves cast in miniature. To know our place in the cosmos is to know ourselves.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14003B_NAME">
+            <Text>Study the device.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14003B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14003C_NAME">
+            <Text>Charge a fee to marvel at the device.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14003C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14004A_STORYTITLE">
+            <Text>Dilapidated Winery</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14004A_COMPLETION">
+            <Text>This dilapidated winery hasn't operated in quite some time – but its cellars contain a trove of untouched jars, ripe for the pillaging.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14004B_NAME">
+            <Text>Claim the wine.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14004B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14004C_NAME">
+            <Text>Tear down the winery.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14004C_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14005A_STORYTITLE">
+            <Text>Discontented Subjects</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14005A_COMPLETION">
+            <Text>The discontented subjects of a departed lord have disturbed his tomb. They haul out the riches buried with him, tribute stolen from their own chapped hands.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14005B_NAME">
+            <Text>Reclaim the stolen tribute.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14005B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14005C_NAME">
+            <Text>Rebury the lord with dignity.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_14005C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13001A_STORYTITLE">
+            <Text>Family Business</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13001A_COMPLETION">
+            <Text>Artisans have set up a commune along a busy road. Some wield hammers, others brushes. Trades passed onto them, which they will pass on in turn.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13001B_NAME">
+            <Text>Hire the artisans.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13001B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward} to {3_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13001C_NAME">
+            <Text>Have the artisans teach their skills.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13001C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13002A_STORYTITLE">
+            <Text>Generous Hunters</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13002A_COMPLETION">
+            <Text>Hunters have set up camp in a quiet forest. They complain of their neighbors, who encroach on their lands and cull the wildlife. Still, they are happy to trade what they have.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13002B_NAME">
+            <Text>Trade with the hunters.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13002B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward} to {3_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13002C_NAME">
+            <Text>Negotiate with the neighbors.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13002C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13003A_STORYTITLE">
+            <Text>Military Engineers</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13003A_COMPLETION">
+            <Text>A small band of soldiers, canny engineers among them, has fled their homeland, cursing their despotic general. They long for a more fulfilling purpose.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13003B_NAME">
+            <Text>Find work for the soldiers.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13003B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward} to {3_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13003C_NAME">
+            <Text>Encourage them to make their own fates.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13003C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13004A_STORYTITLE">
+            <Text>Striking Workers</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13004A_COMPLETION">
+            <Text>Workers have stopped mining a quarry for lack of pay. The supervisor threatens punishment, but quickly realizes the size of the crowd.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13004B_NAME">
+            <Text>Mediate a settlement.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13004B_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13004C_NAME">
+            <Text>Take their money while they argue.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13004C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13005A_STORYTITLE">
+            <Text>Itinerant Soldiers</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13005A_COMPLETION">
+            <Text>A band of soldiers – their flag and faces unfamiliar – has kept a well-ordered but tattered camp in the wilderness. They have given up on home and need work to do and a place to settle.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13005B_NAME">
+            <Text>Find work for the soldiers.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13005B_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13005C_NAME">
+            <Text>Rebuild camp somewhere safer.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_13005C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18001A_STORYTITLE">
+            <Text>Splinters and Shards</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18001A_COMPLETION">
+            <Text>A calamity has swept through, leaving wood and clay splintered, charred, and broken. Some have escaped. Others were not so lucky.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18001B_NAME">
+            <Text>Comb through detritus for valuables.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18001B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward} to {3_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18001C_NAME">
+            <Text>Leave an offering to the dead.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18001C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18002A_STORYTITLE">
+            <Text>Votive Figures</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18002A_COMPLETION">
+            <Text>Votive figures have been flung across the landscape. For the slain, they may be comfort; for their orphans, signs of devotion. For those in the capital, thrilling curiosities.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18002B_NAME">
+            <Text>Leave the votive figures for the dead.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18002B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18002C_NAME">
+            <Text>Collect the votive figures.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18002C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18003A_STORYTITLE">
+            <Text>Dangerous Business</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18003A_COMPLETION">
+            <Text>Raiders have repeatedly plagued a remote market town. A few townsfolk think they can rebuild – again – but most agree they would feel safer in the cities.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18003B_NAME">
+            <Text>Welcome the merchants.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18003B_DESCRIPTION">
+            <Text>{1_reward} and {2_reward} to {3_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18003C_NAME">
+            <Text>Send soldiers after the raiders.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18003C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18004A_STORYTITLE">
+            <Text>Ruined Garden</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18004A_COMPLETION">
+            <Text>Wildfires have left a once-flourishing garden in ruin. The acolytes who tended the rare plants here comb the detritus for salvage, hoping they can rebuild.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18004B_NAME">
+            <Text>Study what's left of the rare plants.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18004B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18004C_NAME">
+            <Text>Petition the garden be rebuilt.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18004C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18005A_STORYTITLE">
+            <Text>Severe Drought</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18005A_COMPLETION">
+            <Text>Severe drought has left these farmlands dormant. But the farmers, relentless, have devised a plan to irrigate – replenishing lands and spirits both.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18005B_NAME">
+            <Text>Aid the irrigation plans.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18005B_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18005C_NAME">
+            <Text>Stockpile resources for future disasters.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18005C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18006A_STORYTITLE">
+            <Text>Nobody's Home</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18006A_COMPLETION">
+            <Text>Soldiers have just been here – their campfires are still warm, and there are supplies packed in anticipation for their return. However, just now, all is still and quiet.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18006B_NAME">
+            <Text>Take the supplies.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18006B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18006C_NAME">
+            <Text>Demolish the camp and erect a banner.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_18006C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21201A_STORYTITLE">
+            <Text>Chariot Makers</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21201A_COMPLETION">
+            <Text>A petty warlord has driven a community of artisans from their home. They had been building chariots – anyone who helps reclaim their home is welcome to them.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21201B_NAME">
+            <Text>Help the artisans reclaim their home.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21201B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21201B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21201C_NAME">
+            <Text>Move on.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21201C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21201D_STORYTITLE">
+            <Text>Chariot Makers</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21201D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21201D_DESCRIPTION">
+            <Text>{1_reward} to nearest Settlement.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21201D_COMPLETION">
+            <Text>The warlord is gone, happy with a small bribe. The artisans are only too eager to return to work.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21202A_STORYTITLE">
+            <Text>Provocative Poet</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21202A_COMPLETION">
+            <Text>A poet has been driven into hiding because his provocative remarks have offended townsfolk. But none can deny his talents.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21202B_NAME">
+            <Text>Smooth over the poet's offense.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21202B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21202B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21202C_NAME">
+            <Text>Leave the campfire.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21202C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21202D_STORYTITLE">
+            <Text>Provocative Poet</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21202D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21202D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21202D_COMPLETION">
+            <Text>The townsfolk welcome back the poet. Some secretly smile.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21203A_STORYTITLE">
+            <Text>Farm to Pasture</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21203A_COMPLETION">
+            <Text>Farmers have been toiling over a stony tract of land with little success. If nothing can take root in its ground, maybe something can graze over it.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21203B_NAME">
+            <Text>Give the land over to horses.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21203B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21203C_NAME">
+            <Text>Recover the seeds to harvest elsewhere.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21203C_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21203D_STORYTITLE">
+            <Text>Farm to Pasture</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21203D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21203D_DESCRIPTION">
+            <Text>Tile becomes a Horses Resource.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21203D_COMPLETION">
+            <Text>Where grain once withered, horses now prosper. They will make excellent mounts.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21001A_STORYTITLE">
+            <Text>Proper Burial</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21001A_COMPLETION">
+            <Text>The fallen dead of a nearby conflict have been left without a resting place. A proper cemetery would honor them, and draw pilgrims from far and wide.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21001B_NAME">
+            <Text>Commission a cemetery to honor the fallen.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21001B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21001B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21001C_NAME">
+            <Text>Move on.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21001C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21001D_STORYTITLE">
+            <Text>Proper Burial</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21001D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21001D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21001D_COMPLETION">
+            <Text>The dead are laid to rest in solemn tombs, to be watched over by ageless sentinels for eternity.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21002A_STORYTITLE">
+            <Text>Fertile Field</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21002A_COMPLETION">
+            <Text>Farmers have noticed that evening temperatures are perfect for the grapes that grow here. If they were to establish a vineyard, the wine would flow for miles and miles.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21002B_NAME">
+            <Text>Cultivate a vineyard here.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21002B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21002C_NAME">
+            <Text>Take some grapes and move on.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21002C_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21002D_STORYTITLE">
+            <Text>Fertile Field</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21002D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21002D_DESCRIPTION">
+            <Text>Tile becomes a Wine Resource.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21002D_COMPLETION">
+            <Text>The vineyard has begun to flourish, its wines renowned for their robust flavor.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21003A_STORYTITLE">
+            <Text>Greener Pastures</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21003A_COMPLETION">
+            <Text>Famine has left breeders without sufficient pasture for their animals. Close to desperation, they are willing to part with a few in exchange for a place to graze.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21003B_NAME">
+            <Text>Help the breeders find pasture.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21003B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21003B_IMPERATIVE">
+            <Text>{1_reward} and {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21003C_NAME">
+            <Text>Move on.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21003C_DESCRIPTION">
+            <Text>{1_reward} to nearest Settlement.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21003D_STORYTITLE">
+            <Text>Greener Pastures</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21003D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21003D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21003D_COMPLETION">
+            <Text>The grateful breeders offer as thanks some of their most agile mounts, well-suited for the cavalry.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21004A_STORYTITLE">
+            <Text>Camp of Outcasts</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21004A_COMPLETION">
+            <Text>An unorthodox sect has taken up residence on this hill. They feel their practices are not welcome in the cities.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21004B_NAME">
+            <Text>Show tolerance to the outcasts.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21004B_DESCRIPTION">
+            <Text>Gain 1 Population in the nearest Settlement.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21004B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21004C_NAME">
+            <Text>They are outcasts for a reason. Ignore them.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21004C_DESCRIPTION">
+            <Text>{1_reward} in the nearest Settlement.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21004D_STORYTITLE">
+            <Text>Camp of Outcasts</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21004D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21004D_DESCRIPTION">
+            <Text>Gain 1 Population in the nearest Settlement.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21004D_COMPLETION">
+            <Text>With eyes full of trepidation, the group sets their course for a new home.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21005A_STORYTITLE">
+            <Text>Gypsum Quarry</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21005A_COMPLETION">
+            <Text>Surveyors have discovered a source of gypsum – soft stone perfect for fine carving. But the stone rests under a wealthy family's ancestral shrines.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21005B_NAME">
+            <Text>Move the shrine-stones.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21005B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21005C_NAME">
+            <Text>Take what gypsum is lying on the ground.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21005C_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21005D_STORYTITLE">
+            <Text>Gypsum Quarry</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21005D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21005D_DESCRIPTION">
+            <Text>Tile becomes a Gypsum Resource.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21005D_COMPLETION">
+            <Text>The landowners hide their anger well, but not completely. The mine prospers.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22001A_STORYTITLE">
+            <Text>Wolf Cave</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22001A_COMPLETION">
+            <Text>A pack of wolves has been driven from their home by human expansion. They have begun threatening travelers, frustrating the nearby village of {1_Independent}'s helpless officials.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22001B_NAME">
+            <Text>Hire hunters to deal with the wolf problem.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22001B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22001B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22001C_NAME">
+            <Text>Leave {1_Independent} with its wolf problem.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22001C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22001D_STORYTITLE">
+            <Text>Wolf Cave</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22001D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22001D_DESCRIPTION">
+            <Text>Greatly improve Relationship with {1_Independent}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22001D_COMPLETION">
+            <Text>Travelers leaving {1_Independent} return to the road, feeling safe again.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22002A_STORYTITLE">
+            <Text>Reclusive Diplomat</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22002A_COMPLETION">
+            <Text>A celebrated diplomat has retreated to a sacred site to copy withering religious texts. Her oratory skills are wasted here, but she refuses to leave these documents to fade.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22002B_NAME">
+            <Text>Offer to reproduce the documents.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22002B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22002B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22002C_NAME">
+            <Text>Move on.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22002C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22002D_STORYTITLE">
+            <Text>Reclusive Diplomat</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22002D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22002D_DESCRIPTION">
+            <Text>{1_reward} and {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22002D_COMPLETION">
+            <Text>These religious texts will not be forgotten. In gratitude, the diplomat agrees to take up the concerns of the {1_civilization_adj} civilization.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22003A_STORYTITLE">
+            <Text>Silver Sinkhole</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22003A_COMPLETION">
+            <Text>A massive sinkhole has opened near a struggling community, revealing a collapsed silver mine. The residents are elated, but question their safety.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22003B_NAME">
+            <Text>Reinforce the mineworks.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22003B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22003C_NAME">
+            <Text>Take some silver.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22003C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22003D_STORYTITLE">
+            <Text>Silver Sinkhole</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22003D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22003D_DESCRIPTION">
+            <Text>Tile becomes a Silver Resource.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22003D_COMPLETION">
+            <Text>With a properly reinforced mineworks, the community begins to see an end to its struggles.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27001A_STORYTITLE">
+            <Text>Sea Turtles Hatching</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27001A_COMPLETION">
+            <Text>Sea turtles have begun to nest here. Locals wait in anticipation of the eggs hatching, to be moved by one of nature’s many cycles.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27001B_NAME">
+            <Text>Celebrate the cycle of life with a festival.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27001B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27001B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27001C_NAME">
+            <Text>Move on.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27001C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27001D_STORYTITLE">
+            <Text>Sea Turtles Hatching</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27001D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27001D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27001D_COMPLETION">
+            <Text>The festival has become an annual occurrence. Folk come from near and far to rejoice in life, the sea turtles’ and their own.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27002A_STORYTITLE">
+            <Text>Underwater Outpost</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27002A_COMPLETION">
+            <Text>A burgeoning merchant outpost has been terrorized by frequent coastal storms. The opportunity for trade is ripe, but the risk is great without a seawall.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27002B_NAME">
+            <Text>Shore up the outpost.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27002B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27002B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27002C_NAME">
+            <Text>Move on.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27002C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27002D_STORYTITLE">
+            <Text>Underwater Outpost</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27002D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27002D_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27002D_COMPLETION">
+            <Text>As the seawalls hold back an angry sea, the merchants bustle about – already drafting plans to expand the market.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27003A_STORYTITLE">
+            <Text>Ocean's Abundance</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27003A_COMPLETION">
+            <Text>The gods have favored them with a more abundant harvest than they could ever need, fishermen say. They don't wish it to spoil, but aim to be compensated for their labor.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27003B_NAME">
+            <Text>Purchase the excess.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27003B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27003B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27003C_NAME">
+            <Text>Test the gods' favor.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27003C_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27003D_STORYTITLE">
+            <Text>Ocean's Abundance</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27003D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27003D_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27003D_COMPLETION">
+            <Text>Traders haul carts of fresh fish back to the city, where they will surely get twice what they paid for them.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27004A_STORYTITLE">
+            <Text>Roadside Oddity</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27004A_COMPLETION">
+            <Text>Locals claim that in this glade, objects roll towards the center, regardless of the slope.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27004B_NAME">
+            <Text>Stay and test the site.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27004B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27004B_IMPERATIVE">
+            <Text>{2_reward} in {1_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27004C_NAME">
+            <Text>Move on.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27004C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27004D_STORYTITLE">
+            <Text>Roadside Oddity</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27004D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27004D_DESCRIPTION">
+            <Text>Gain a boost to the earliest available Technology.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27004D_COMPLETION">
+            <Text>The oddity is an illusion, but thinkers have begun to experiment with perspective.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27005A_STORYTITLE">
+            <Text>Saddled Up</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27005A_COMPLETION">
+            <Text>The locals here have become proficient at hunting on horseback and would make excellent cavalry. But traditional saddles won't fit their unique riding style.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27005B_NAME">
+            <Text>Develop a saddle for the riders.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27005B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27005B_IMPERATIVE">
+            <Text>{1_reward} and {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27005C_NAME">
+            <Text>Leave the hunters alone.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27005C_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27005D_STORYTITLE">
+            <Text>Saddled Up</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27005D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27005D_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27005D_COMPLETION">
+            <Text>The horsemen find the saddles unwieldy at first, but quickly discover their benefits.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27006A_STORYTITLE">
+            <Text>Shipwrecked Survivors</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27006A_COMPLETION">
+            <Text>A group of refugees has survived a shipwreck, their numerous faces molded by years of hardship. Their bodies may be battered, but their spirits are completely broken.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27006B_NAME">
+            <Text>Show hospitality to the refugees.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27006B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27006B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27006C_NAME">
+            <Text>Leave them.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27006C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27006D_STORYTITLE">
+            <Text>Shipwrecked Survivors</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27006D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27006D_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27006D_COMPLETION">
+            <Text>The refugees came seeking asylum. They found something greater: acceptance.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27007A_STORYTITLE">
+            <Text>Local Coral</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27007A_COMPLETION">
+            <Text>Local healers treat wounds with the thick mats of kelp that wash up on the shore.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27007B_NAME">
+            <Text>Purchase kelp mats in bulk.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27007B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27007B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27007C_NAME">
+            <Text>The kelp is also edible.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27007C_DESCRIPTION">
+            <Text>{1_reward} to nearest Settlement.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27007D_STORYTITLE">
+            <Text>Local Coral</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27007D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27007D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27007D_COMPLETION">
+            <Text>These healers have raised vital questions about the nature of injury and infection.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27008A_STORYTITLE">
+            <Text>Pearl Divers</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27008A_COMPLETION">
+            <Text>Pearl-divers have made this stretch of coast a favorite site, but they do not allow others access.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27008B_NAME">
+            <Text>Force access.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27008B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27008C_NAME">
+            <Text>Scavenge when they depart.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27008C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27008D_STORYTITLE">
+            <Text>Pearl Divers</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27008D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27008D_DESCRIPTION">
+            <Text>Tile becomes a Pearls Resource.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_27008D_COMPLETION">
+            <Text>Locals now permit outsiders to harvest pearls, but they do so with stony stares and muttered curses.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25001A_STORYTITLE">
+            <Text>Cattle Herders</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25001A_COMPLETION">
+            <Text>An especially rich nomad encampment – and its sizeable herd – brings color to the landscape. They are hard bargainers, but are willing to make a deal.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25001B_NAME">
+            <Text>Make a deal for the cattle.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25001B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25001B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25001C_NAME">
+            <Text>Leave the camp.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25001C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25001D_STORYTITLE">
+            <Text>Cattle Herders</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25001D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25001D_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25001D_COMPLETION">
+            <Text>The cattle begin their march towards the abattoir.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24001A_STORYTITLE">
+            <Text>Unintelligible Manuscripts</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24001A_COMPLETION">
+            <Text>Manuscripts have been recovered from a collapsed archive. But the ravages of time have left their secrets unintelligible.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24001B_NAME">
+            <Text>Study the manuscripts for scientific knowledge.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24001B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24001B_IMPERATIVE">
+            <Text>{2_reward} in {1_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24001C_NAME">
+            <Text>Sell them.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24001C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24001D_STORYTITLE">
+            <Text>Unintelligible Manuscripts</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24001D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24001D_DESCRIPTION">
+            <Text>Gain a boost to the earliest available Technology.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24001D_COMPLETION">
+            <Text>After careful reading, the manuscripts spark new ideas.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23001A_STORYTITLE">
+            <Text>Wary Hunters</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23001A_COMPLETION">
+            <Text>A fierce group of archers lives in these areas, skilled but proud. Their skills would be a powerful addition to the military, if they could be convinced.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23001B_NAME">
+            <Text>Find common ground with the hunters.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23001B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23001B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23001C_NAME">
+            <Text>Leave the hunters.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23001C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23001D_STORYTITLE">
+            <Text>Wary Hunters</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23001D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23001D_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23001D_COMPLETION">
+            <Text>The bow hunters settle into their barracks – uneasily at first, but they carouse with the other soldiers in time.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23002A_STORYTITLE">
+            <Text>Suspicious Flag</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23002A_COMPLETION">
+            <Text>Representatives from the independent village of {1_Independent} have expressed concerns over a nearby mercenary camp. The soldiers say they merely wish to rest. But the flag they fly is suspicious.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23002B_NAME">
+            <Text>Host the mercenaries.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23002B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23002B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23002C_NAME">
+            <Text>Leave the mercenaries.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23002C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23002D_STORYTITLE">
+            <Text>Suspicious Flag</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23002D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23002D_DESCRIPTION">
+            <Text>Improve Relationship with {1_Independent}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23002D_COMPLETION">
+            <Text>The mercenaries' presence is no more welcome in {1_Capital}, but at least {2_Independent} is relieved.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23003A_STORYTITLE">
+            <Text>Prized Cattle</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23003A_COMPLETION">
+            <Text>A herd of prized cattle has stopped to graze. Their rich meat is a delicacy back home, but the cowherds say they are bound for nearby {1_Independent}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23003B_NAME">
+            <Text>Steal the cattle.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23003B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23003B_IMPERATIVE">
+            <Text>{1_independent} becomes Hostile (removes all progress towards Befriending) and sends a Raid to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23003C_NAME">
+            <Text>A meal isn't worth an enemy.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23003C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23003D_STORYTITLE">
+            <Text>Prized Cattle</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23003D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23003D_DESCRIPTION">
+            <Text>{1_reward} and {2_reward} to {3_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23003D_COMPLETION">
+            <Text>The beef is gone virtually overnight, while relations with {1_Independent} are permanently stained. Many consider it a fair trade.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23004A_STORYTITLE">
+            <Text>Mysterious Minerals</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23004A_COMPLETION">
+            <Text>A mining operation has stumbled across a trove of unusually strong crystals – they do not scratch or melt. Their practical value remains undetermined.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23004B_NAME">
+            <Text>Appraise the minerals.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23004B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23004B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23004C_NAME">
+            <Text>Move on.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23004C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23004D_STORYTITLE">
+            <Text>Mysterious Minerals</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23004D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23004D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23004D_COMPLETION">
+            <Text>The purest stones carry an enchanting polish; keen jewelers will pay handsomely.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28001A_STORYTITLE">
+            <Text>Broken Bowman</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28001A_COMPLETION">
+            <Text>Some archers have managed to survive a conflict that bore no victor. They no longer have a flag, but this is the only life they know.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28001B_NAME">
+            <Text>Recruit the archers.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28001B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28001B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28001C_NAME">
+            <Text>Let them find their own way.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28001C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28001D_STORYTITLE">
+            <Text>Broken Bowman</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28001D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28001D_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28001D_COMPLETION">
+            <Text>The archers check the condition of their bows, preparing them for the next battle.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28002A_STORYTITLE">
+            <Text>Menagerie</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28002A_COMPLETION">
+            <Text>Animals have broken from the confines of a wealthy noble's menagerie and run amok. They are no longer fit for the wilds, but clearly were not happy.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28002B_NAME">
+            <Text>Build the animals a proper home.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28002B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28002B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28002C_NAME">
+            <Text>Let the animals roam.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28002C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28002D_STORYTITLE">
+            <Text>Menagerie</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28002D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28002D_DESCRIPTION">
+            <Text>{1_reward} and {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_28002D_COMPLETION">
+            <Text>The animals return to a more accommodating shelter – where they can be studied and enjoyed.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24002A_STORYTITLE">
+            <Text>Sacred Shrine</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24002A_COMPLETION">
+            <Text>A temple complex has fallen into disrepair, despite its residents' best efforts. The foundations are too unstable, but the acolytes won't leave their shrine behind.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24002B_NAME">
+            <Text>Devise a way to move the shrine safely.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24002B_DESCRIPTION">
+            <Text>Gain 1 Population in {1_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24002B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24002C_NAME">
+            <Text>Leave the acolytes to their problem.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24002C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24002D_STORYTITLE">
+            <Text>Sacred Shrine</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24002D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24002D_DESCRIPTION">
+            <Text>Gain 1 Population in {1_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24002D_COMPLETION">
+            <Text>The acolytes find a new place for them and their shrine at the city's outskirts, ready to start again.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23005A_STORYTITLE">
+            <Text>Merciless Mercenaries</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23005A_COMPLETION">
+            <Text>Mercenaries have been seeking their next engagement, and are willing to do anything for the right price. But can loyalty be bought?</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23005B_NAME">
+            <Text>Purchase the mercenaries' loyalty.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23005B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23005B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23005C_NAME">
+            <Text>Let them seek their fortune elsewhere.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23005C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23005D_STORYTITLE">
+            <Text>Merciless Mercenaries</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23005D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23005D_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23005D_COMPLETION">
+            <Text>The mercenaries find the pay sufficient, and begin packing their things.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24003A_STORYTITLE">
+            <Text>Traveling Players</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24003A_COMPLETION">
+            <Text>A crowd has become captivated by a troupe of players. They deserve an audience that can fully appreciate their talents.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24003B_NAME">
+            <Text>Convince the players to tour {1_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24003B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24003B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24003C_NAME">
+            <Text>Move on.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24003C_DESCRIPTION">
+            <Text>{1_reward} to nearest Settlement.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24003D_STORYTITLE">
+            <Text>Traveling Players</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24003D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24003D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_24003D_COMPLETION">
+            <Text>People come from all over to see the thespians perform, to enrich their spirits.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22004A_STORYTITLE">
+            <Text>Shrine of Silence</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22004A_COMPLETION">
+            <Text>A wilderness shrine lies in a tranquil grotto. Its devotees promise healing – and silence.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22004B_NAME">
+            <Text>Spend time in quiet seclusion.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22004B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22004B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22004C_NAME">
+            <Text>Recruit those who wish more in their lives.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22004C_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22004D_STORYTITLE">
+            <Text>Shrine of Silence</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22004D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22004D_DESCRIPTION">
+            <Text>{1_reward} and fully heal Unit.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22004D_COMPLETION">
+            <Text>The calm of the shrine lingers, even after one has long departed.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22005A_STORYTITLE">
+            <Text>Band of Thieves</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22005A_COMPLETION">
+            <Text>A band of thieves had all once been accomplished artists, only turning to crime out of necessity. They regret their actions, but will have to earn back their place in society.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22005B_NAME">
+            <Text>Accept the thieves' repentance.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22005B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22005B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22005C_NAME">
+            <Text>Leave them with their regrets.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22005C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22005D_STORYTITLE">
+            <Text>Band of Thieves</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22005D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22005D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_22005D_COMPLETION">
+            <Text>Many are wary of the reformed criminals, but the artists hope to win back their hearts.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29002A_STORYTITLE">
+            <Text>Charlatan</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29002A_COMPLETION">
+            <Text>A beloved prophet has been exposed as a charlatan by followers who claim they were bled of all their wealth. They don't care about the money, they say – only justice.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29002B_NAME">
+            <Text>Bring the charlatan to justice.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29002B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29002B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29002C_NAME">
+            <Text>Leave justice to the gods.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29002C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29002D_STORYTITLE">
+            <Text>Charlatan</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29002D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29002D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29002D_COMPLETION">
+            <Text>The charlatan is hauled away in chains, while his former followers consider their folly.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29003A_STORYTITLE">
+            <Text>Dragon Bones</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29003A_COMPLETION">
+            <Text>An excavation has uncovered a bone the length of an entire person, with signs that there may be more. Could this be the winged dragon of legend?</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29003B_NAME">
+            <Text>Dig up the remaining bones.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29003B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29003B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29003C_NAME">
+            <Text>Let them remain a legend.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29003C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29003D_STORYTITLE">
+            <Text>Dragon Bones</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29003D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29003D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29003D_COMPLETION">
+            <Text>Curiously, the reconstructed skeleton lacks wings. News of the maimed dragon begins to spread.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23006A_STORYTITLE">
+            <Text>Desperate Nomads</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23006A_COMPLETION">
+            <Text>A group of nomads has noticed that the cattle they follow have dwindled. Many argue that their way of life is no longer sustainable.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23006B_NAME">
+            <Text>Find a place for the cattle herders to settle.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23006B_DESCRIPTION">
+            <Text>Gain 1 Population in the nearest Settlement.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23006B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23006C_NAME">
+            <Text>Leave the nomads be.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23006C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23006D_STORYTITLE">
+            <Text>Desperate Nomads</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23006D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23006D_DESCRIPTION">
+            <Text>Gain 1 Population in the nearest Settlement.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_23006D_COMPLETION">
+            <Text>No longer nomadic, the cattle herders have begun to adjust to their new lives.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29004A_STORYTITLE">
+            <Text>Unsharpened Blades</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29004A_COMPLETION">
+            <Text>Scavengers picking through battlefield remains begin play-fighting with rusted swords. Their form needs work, but the swings are solid.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29004B_NAME">
+            <Text>Find room for them in the reserves.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29004B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29004B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29004C_NAME">
+            <Text>Leave them be.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29004C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29004D_STORYTITLE">
+            <Text>Unsharpened Blades</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29004D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29004D_DESCRIPTION">
+            <Text>{1_reward} to nearest Settlement.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_29004D_COMPLETION">
+            <Text>The scavengers' rusty swords have been replaced with sharp ones, ready for the next battlefield.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25002A_STORYTITLE">
+            <Text>Strange Texts</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25002A_COMPLETION">
+            <Text>Among her sundries, a merchant has long held an assortment of texts in an unusual script. Wary of what they might say, she offers the manuscripts to any who is willing to take them.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25002B_NAME">
+            <Text>Attempt to translate the strange texts.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25002B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25002B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25002C_NAME">
+            <Text>Give the strange texts to a scholar for study.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25002C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25002D_STORYTITLE">
+            <Text>Strange Texts</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25002D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25002D_DESCRIPTION">
+            <Text>Gain the earliest available Technology.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_25002D_COMPLETION">
+            <Text>The texts document numerous failed attempts to complete certain ambitious experiments – but where some failed, perhaps others can succeed.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40021A_STORYTITLE">
+            <Text>Engraved Tomb</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40021A_COMPLETION">
+            <Text>Seeking shade, herders have stumbled upon the long-neglected tomb of a sage, its funerary slab covered with cryptic markings and swirling forms. Curiosity has turned to debate over its true worth.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40021B_NAME">
+            <Text>These are geometric equations.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40021B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40021C_NAME">
+            <Text>These patterns represent divine perfection.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40021C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40022A_STORYTITLE">
+            <Text>Blended Threads</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40022A_COMPLETION">
+            <Text>For generations, a clan of weavers has spun fabrics prized for their warmth and strength. Now, in a rare show of respect, the head weaver offers to share their secret technique.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40022B_NAME">
+            <Text>Graciously accept.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40022B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40022C_NAME">
+            <Text>Decline to honor their tradition.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40022C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40023A_STORYTITLE">
+            <Text>Beneath the Tide</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40023A_COMPLETION">
+            <Text>Shell collectors have found a series of strange shapes beneath the waves – low stone enclosures crumbling among coral, once used to trap schools of fish with the rhythm of the tides.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40023B_NAME">
+            <Text>Rebuild the enclosure.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40023B_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40023C_NAME">
+            <Text>Ship the stones home for construction.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40023C_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40024A_STORYTITLE">
+            <Text>The Song of the Reed</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40024A_COMPLETION">
+            <Text>A lonely shepherd has carved a flute from a hollow reed. Its melodies ride the wind, inviting those who long for home to follow its call.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40024B_NAME">
+            <Text>Learn to play the reeds.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40024B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40024C_NAME">
+            <Text>Stop and listen.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40024C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40025A_STORYTITLE">
+            <Text>Sunlight in the Hollow</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40025A_COMPLETION">
+            <Text>The hollow within a mysterious mound has been uncovered, its passageway aligned so the winter solstice sun illuminates its inner chamber. Local priests insist the site be preserved as sacred.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40025B_NAME">
+            <Text>Measure celestial movements at the site.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40025B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40025C_NAME">
+            <Text>Consecrate the mound as holy.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40025C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40026A_STORYTITLE">
+            <Text>Ceremonial Blade</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40026A_COMPLETION">
+            <Text>Inside a collapsed stronghold, workers have unearthed a ceremonial dagger engraved with the sigil of a once-mighty commander. The find would be invaluable to its original heirs … but a rival house could probably name a price.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40026B_NAME">
+            <Text>Return the armor to its owner.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40026B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40026C_NAME">
+            <Text>Find a new buyer.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40026C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40027A_STORYTITLE">
+            <Text>Hidden Cloves</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40027A_COMPLETION">
+            <Text>A spice harvester has been venturing deep into the forest to harvest wild cloves in secret. These dried buds fetch more than their weight in silver – so long as no one else finds the grove.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40027B_NAME">
+            <Text>Share this spice; it prevents spoilage.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40027B_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40027C_NAME">
+            <Text>Silence has a price.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40027C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40028A_STORYTITLE">
+            <Text>Scattered Cargo</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40028A_COMPLETION">
+            <Text>The bodies of two feuding merchants lie by the roadside, their dispute settled in blood. As birds circle overhead, passing travelers have begun to squabble over the abandoned wares.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40028B_NAME">
+            <Text>These are now {1_CIVILIZATION_ADJ} goods.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40028B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40028C_NAME">
+            <Text>The goods pass to the merchants' kin.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_40028C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21120A_STORYTITLE">
+            <Text>Fire and Sheen</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21120A_COMPLETION">
+            <Text>Potters have been experimenting with ceramic coatings that create an arresting glow. Their bowls catch the sunlight, dazzling the eye, but the firing process must be meticulously controlled to avoid an uneven finish.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21120B_NAME">
+            <Text>Mastering the kiln is the mark of true craft.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21120B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21120B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21120C_NAME">
+            <Text>This labor is hardly worth the shine.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21120C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21120D_STORYTITLE">
+            <Text>Fire and Sheen</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21120D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21120D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21120D_COMPLETION">
+            <Text>Smoke curls through the air as the potters lift their creation from the kiln – the vessel's lustrous surface still hot to the touch.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21121A_STORYTITLE">
+            <Text>Echoes of the Dead</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21121A_COMPLETION">
+            <Text>A cache of grave goods contains an ingenious whistle. When blown, it emits a chilling shriek, like a spirit returning from the dead. It could be useful.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21121B_NAME">
+            <Text>Warriors will wield it in battle.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21121B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21121B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21121C_NAME">
+            <Text>Destroy the cursed thing.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21121C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21121D_STORYTITLE">
+            <Text>Echoes of the Dead</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21121D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21121D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21121D_COMPLETION">
+            <Text>The whistle’s shriek cuts through the morning fog, a warning to all {1_CIVILIZATION_ADJ} foes.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21122A_STORYTITLE">
+            <Text>Broken Salvage</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21122A_COMPLETION">
+            <Text>A salvage team has pulled a fractured religious icon from the wreckage of a sunken ship. They believe the icon's desecration cursed the voyage, but one engineer insists an unbalanced keel caused the vessel to tip.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21122B_NAME">
+            <Text>Shipwrights should heed this vessel’s failings.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21122B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21122B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21122C_NAME">
+            <Text>Restore the relic to still the sea.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21122C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21122D_STORYTITLE">
+            <Text>Broken Salvage</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21122D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21122D_DESCRIPTION">
+            <Text>{1_reward} to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21122D_COMPLETION">
+            <Text>Bent beneath a ship's hull, a shipbuilder measures the keel with deliberate care, knowing it must meet the ocean's might.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21123A_STORYTITLE">
+            <Text>Skilled Archers</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21123A_COMPLETION">
+            <Text>A band of wandering archers looses volley after volley, each arrow landing with uncanny precision. A gathered crowd watches in awe.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21123B_NAME">
+            <Text>Enlist them.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21123B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21123B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21123C_NAME">
+            <Text>Silently admire the warriors' craft.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21123C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21123D_STORYTITLE">
+            <Text>Skilled Archers</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21123D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21123D_DESCRIPTION">
+            <Text>{1_reward} in the nearest Settlement.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21123D_COMPLETION">
+            <Text>With bows strapped to their backs, the archers stand ready to march like a storm across the earth.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21124A_STORYTITLE">
+            <Text>The Exhausted Well</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21124A_COMPLETION">
+            <Text>Workers have been digging out an exhausted well, hoping to strike water. Instead, the foreman unearths a pale stone with dark veins that coil like frozen smoke.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21124B_NAME">
+            <Text>Seek a larger marble deposit below.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21124B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21124C_NAME">
+            <Text>Let artisans give the stone worth.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21124C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21124D_STORYTITLE">
+            <Text>The Exhausted Well</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21124D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21124D_DESCRIPTION">
+            <Text>Tile becomes a Marble Resource.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21124D_COMPLETION">
+            <Text>The cliff breaks beneath ringing hammers, and a wall of marble is revealed, pale as moonlight trapped in stone.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21126A_STORYTITLE">
+            <Text>Scorched Temple</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21126A_COMPLETION">
+            <Text>A temple once filled with voices of outspoken philosophers – fierce critics of {1_CIVILIZATION_ADJ} rule – has burned to the ground. The priests claim they've lost more than a building; they’ve lost the spirit of independent thought.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21126B_NAME">
+            <Text>Mourn the fall of a cherished landmark.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21126B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21126B_IMPERATIVE">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21126C_NAME">
+            <Text>Frame the loss as divine judgment.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21126C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21126D_STORYTITLE">
+            <Text>Scorched Temple</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21126D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21126D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21126D_COMPLETION">
+            <Text>In time all buildings turn to dust – but great ideas may linger where walls once stood.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21135A_STORYTITLE">
+            <Text>plundered trade route</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21135A_COMPLETION">
+            <Text>Brigands have been raiding the merchant caravans that frequent nearby villages, taking a torch to everything that is useless to them. The smoke is a clear warning to give {1_independent} a wide berth.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21135B_NAME">
+            <Text>Take over the trade route.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21135B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21135B_IMPERATIVE">
+            <Text>{1_independent} becomes Hostile (removes all progress towards Befriending) and sends a Raid to {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21135C_NAME">
+            <Text>Offer sympathies to {1_independent}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21135C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21135D_STORYTITLE">
+            <Text>plundered trade route</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21135D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21135D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_DISCOVERY_21135D_COMPLETION">
+            <Text>Their loss is {1_civilization_adj} gain.</Text>
+        </Row>
+    </EnglishText>
+</Database>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_TREE_NODE"/>
+	</Kinds>
+	<Types>
+		<!-- Nodes -->
+		<!-- ==============================================================	-->
+		<!--	Legend Unlocks												-->
+		<!-- ==============================================================	-->
+		<Row Type="NODE_ATTRIBUTE_CULTURAL_LEGEND_NAPOLEON_ALT_L1" Kind="KIND_TREE_NODE"/>
+		<Row Type="NODE_ATTRIBUTE_MILITARISTIC_LEGEND_NAPOLEON_ALT_L2" Kind="KIND_TREE_NODE"/>
+	</Types>
+	<ProgressionTreeNodes>
+
+		<!-- ==============================================================	-->
+		<!--	Legend Unlocks												-->
+		<!-- ==============================================================	-->
+		<!-- Cultural Attribute -->
+		<Row ProgressionTreeNodeType="NODE_ATTRIBUTE_CULTURAL_LEGEND_NAPOLEON_ALT_L1" ProgressionTree="TREE_ATTRIBUTE_CULTURAL" Cost="1"/>
+		<!-- Diplomatic Attribute -->
+
+		<!-- Economic Attribute -->
+
+		<!-- Expansionist Attribute -->
+
+		<!-- Militaristic Attribute -->
+		<Row ProgressionTreeNodeType="NODE_ATTRIBUTE_MILITARISTIC_LEGEND_NAPOLEON_ALT_L2" ProgressionTree="TREE_ATTRIBUTE_MILITARISTIC" Cost="1"/>
+		<!-- Scientific Attribute -->
+
+	</ProgressionTreeNodes>
+	<ProgressionTreeNodeUnlocks>
+		<!-- ==============================================================	-->
+		<!--	Legend Unlocks												-->
+		<!-- ==============================================================	-->
+		<!-- Cultural Attribute -->
+		<Row ProgressionTreeNodeType="NODE_ATTRIBUTE_CULTURAL_LEGEND_NAPOLEON_ALT_L1" TargetKind="KIND_MODIFIER" TargetType="MOD_ATTRIBUTE_CULTURAL_LEGEND_NAPOLEON_ALT_L1" UnlockDepth="1" RequiredTraitType="TRAIT_LEADER_NAPOLEON_ALT_ABILITY"/>
+		<!-- Diplomatic Attribute -->
+
+		<!-- Economic Attribute -->
+
+		<!-- Expansionist Attribute -->
+
+		<!-- Militaristic Attribute -->
+		<Row ProgressionTreeNodeType="NODE_ATTRIBUTE_MILITARISTIC_LEGEND_NAPOLEON_ALT_L2" TargetKind="KIND_MODIFIER" TargetType="MOD_ATTRIBUTE_MILITARISTIC_LEGEND_NAPOLEON_ALT_L2" UnlockDepth="1" RequiredTraitType="TRAIT_LEADER_NAPOLEON_ALT_ABILITY"/>
+		<!-- Scientific Attribute -->
+
+	</ProgressionTreeNodeUnlocks>
+	<ProgressionTreePrereqs>
+		<!-- ==============================================================	-->
+		<!--	Legend Unlocks												-->
+		<!-- ==============================================================	-->
+		<!-- Cultural Attribute -->
+		<Row Node="NODE_ATTRIBUTE_CULTURAL_LEGEND_NAPOLEON_ALT_L1" PrereqNode="NODE_ATTRIBUTE_CULTURAL_10"/>
+		<!-- Diplomatic Attribute -->
+
+		<!-- Economic Attribute -->
+
+		<!-- Expansionist Attribute -->
+
+		<!-- Militaristic Attribute -->
+		<Row Node="NODE_ATTRIBUTE_MILITARISTIC_LEGEND_NAPOLEON_ALT_L2" PrereqNode="NODE_ATTRIBUTE_MILITARISTIC_10"/>
+		<!-- Scientific Attribute -->
+
+	</ProgressionTreePrereqs>
+</Database>

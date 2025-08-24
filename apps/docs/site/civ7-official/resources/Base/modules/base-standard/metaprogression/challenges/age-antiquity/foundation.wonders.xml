@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metaprogression xmlns="Metaprogression">
+	<challenges class="CHALLENGE_CLASS_FOUNDATION" category="CHALLENGE_CATEGORY_FOUNDATION_WONDERS" legendPath="LEGEND_PATH_FOUNDATION">
+		<challenge id="CHALLENGE_AKSUM_COMPLETE_GREAT_STELE" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Great Stele</name>
+				<description>As Aksum, complete the Great Stele</description>
+			</l10n>
+			<sortIndex>300</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_EGYPT_COMPLETE_PYRAMIDS" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Pyramids</name>
+				<description>As Egypt, complete the Pyramids</description>
+			</l10n>
+			<sortIndex>700</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_GREECE_COMPLETE_ORACLE" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Oracle</name>
+				<description>As Greece, complete the Oracle</description>
+			</l10n>
+			<sortIndex>900</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_HAN_COMPLETE_WEIYANG_PALACE" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Weiyang Palace</name>
+				<description>As Han, complete the Weiyang Palace</description>
+			</l10n>
+			<sortIndex>1000</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_KHMER_COMPLETE_ANGKOR_WAT" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Angkor Wat</name>
+				<description>As Khmer, complete Angkor Wat</description>
+			</l10n>
+			<sortIndex>1300</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_MAURYA_COMPLETE_SANCHI_STUPA" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Sanchi Stupa</name>
+				<description>As Maurya, complete Sanchi Stupa</description>
+			</l10n>
+			<sortIndex>1500</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_MAYA_COMPLETE_MUNDO_PERDIDO" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Mundo Perdido</name>
+				<description>As Maya, complete Mundo Perdido</description>
+			</l10n>
+			<sortIndex>1600</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_MISSISSIPPIAN_COMPLETE_MONKS_MOUND" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Monks Mound</name>
+				<description>As Mississippian, complete the Monks Mound</description>
+			</l10n>
+			<sortIndex>2000</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_PERSIA_COMPLETE_GATE_OF_ALL_NATIONS" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Gate of All Nations</name>
+				<description>As Persia, complete the Gate of All Nations</description>
+			</l10n>
+			<sortIndex>2400</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_ROME_COMPLETE_COLOSSEUM" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Colosseum</name>
+				<description>As Rome, complete the Colosseum</description>
+			</l10n>
+			<sortIndex>2700</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+	</challenges>
+</metaprogression>

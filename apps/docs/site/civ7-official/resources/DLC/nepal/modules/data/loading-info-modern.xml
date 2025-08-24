@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LoadingInfo_Civilizations>
+		<Row CivilizationType="CIVILIZATION_NEPAL" CivilizationText="LOC_LOADING_CIV_INTRO_TEXT_NEPAL" Audio="VO_Loading_Nepal" Subtitle="LOC_LOADING_INTRO_NEPAL" BackgroundImageHigh="fs://game/lsbg_nepal_1080.png" BackgroundImageLow="fs://game/lsbg_nepal_720.png" ForegroundImage="fs://game/civ_line_nepal.png"  Tip="LOC_LOADING_CIV_TIPS_TEXT_NEPAL" />
+	</LoadingInfo_Civilizations>
+</Database>

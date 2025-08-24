@@ -1,0 +1,571 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/themes/default/theme';
+
+.screen-tree {
+	margin-top: pixels(16);
+
+	@media (experience: mobile) {
+		margin-top: 0;
+	}
+
+	>.tech-tree,
+	>.culture-tree {
+		position: relative;
+		margin: pixels(32) 0 0 0;
+		padding: 0;
+		display: flex;
+
+		.fxs-close-button {
+			right: pixels(-144);
+		}
+	}
+
+	@media (experience: mobile),
+	(max-height: pixels(800)) {
+		.tree-grid-column .tree-grid-card {
+			min-height: pixels(0);
+		}
+	}
+}
+
+.card-detail-container {
+	display: none;
+
+	@media (experience: mobile),
+	(max-height: pixels(800)) {
+		display: flex;
+	}
+}
+
+.hoverqueued {
+	.tree-card-bg {
+		transform: scale(1.05);
+	}
+}
+
+.queued {
+	.tree-card-bg {
+		background-image: url("fs://game/techtree_parent-node_selected");
+	}
+
+	.tree-card-hitbox {
+
+		&:hover,
+		&:focus {
+			.tree-card-bg {
+				background-image: url("fs://game/techtree_parent-node_selected_hover");
+			}
+
+			.tree-card-child-bg {
+				background-image: url("fs://game/techtree_child-node_selected_hover");
+			}
+		}
+	}
+
+	.tree-card-queue-order {
+		display: flex
+	}
+}
+
+.tree-card {
+	pointer-events: none;
+
+	.unlock-item {
+		margin-right: pixelsToEm(4);
+		width: pixelsToEm(40);
+		height: pixelsToEm(40);
+	}
+
+	.fxs-ring-meter__ring-left,
+	.fxs-ring-meter__ring-right {
+		background-image: url("fs://game/hud_small-progress_bar.png");
+	}
+
+	.fxs-ring-meter__ring-left {
+		background-size: cover;
+		background-position: left;
+	}
+
+	.fxs-ring-meter__ring-right {
+		background-size: cover;
+		background-position: right;
+	}
+
+	@media (experience: mobile),
+	(max-height: pixels(800)) {
+		width: pixels(120);
+
+		.hoverqueued {
+			.tree-card-bg {
+				transform: scale(1.33);
+			}
+		}
+
+		.tree-card-background {
+			width: pixelsToEm(108);
+			height: pixelsToEm(108);
+		}
+
+		.tree-card__bg--base {
+			background-image: url("fs://game/techtree_parent-node_c");
+		}
+
+		.tree-card-bg {
+			background-image: url("fs://game/techtree_parent-node_c");
+			width: pixelsToEm(108);
+			height: pixelsToEm(108);
+
+			.turn-text,
+			.tree-card-unlocks,
+			.tree-card-name {
+				display: none;
+			}
+
+			.tree-card-progress {
+				padding-left: pixelsToEm(25);
+			}
+		}
+
+		.tree-card-child-background {
+			width: pixelsToEm(88);
+			height: pixelsToEm(88);
+		}
+
+		.tree-card__child-bg--base {
+			background-image: url("fs://game/techtree_child-node_idle_c");
+		}
+
+		.tree-card-child-bg {
+			background-image: url("fs://game/techtree_child-node_idle_c");
+			width: pixelsToEm(88);
+			height: pixelsToEm(88);
+
+			.turn-text,
+			.tree-card-unlocks,
+			.tree-card-name {
+				display: none;
+			}
+		}
+
+		.tree-card-hitbox {
+			&.current-research {
+				.img-list-focus-frame {
+					opacity: 1;
+				}
+
+				.tree-card-bg {
+					background-image: url("fs://game/techtree_parent-node_selected_c");
+				}
+
+				.tree-card-child-bg {
+					background-image: url("fs://game/techtree_child-node_selected_c");
+				}
+			}
+
+			&.completed {
+				.tree-card-bg {
+					background-image: url("fs://game/techtree_parent-node_c");
+				}
+
+				.tree-card-child-bg {
+					background-image: url("fs://game/techtree_child-node_idle_c");
+				}
+			}
+
+			&.disabled {
+				.tree-card-bg {
+					background-image: url("fs://game/techtree_parent-node_inactive_c");
+					filter: grayscale(0.5);
+				}
+
+				.tree-card-child-bg {
+					background-image: url("fs://game/techtree_child-node_inactive_c");
+					filter: grayscale(0.5);
+				}
+			}
+
+			&:hover,
+			&:focus {
+				.tree-card-bg {
+					background-image: url("fs://game/techtree_parent-node_hover_c");
+				}
+
+				.tree-card-child-bg {
+					background-image: url("fs://game/techtree_child-node_hover_c");
+				}
+
+				&.current-research {
+					.tree-card-bg {
+						background-image: url("fs://game/techtree_parent-node_selected_hover_c");
+					}
+
+					.tree-card-child-bg {
+						background-image: url("fs://game/techtree_child-node_selected_hover_c");
+					}
+				}
+
+				// TODO: Ask design for a outline or a more subtle highlight for disabled tree cards
+				// &.disabled {
+				// 	.tree-card-bg {
+				// 		background-image: url("fs://game/techtree_parent-node_inactive_c");
+				// 	}
+
+				// 	.tree-card-child-bg {
+				// 		background-image: url("fs://game/techtree_child-node_inactive_c");
+				// 	}
+				// }
+			}
+		}
+
+		.check-icon {
+			display: none;
+		}
+	}
+}
+
+.tree-card-background {
+	background-size: cover;
+	width: pixelsToEm(396);
+	height: pixelsToEm(102);
+}
+
+.tree-card-child-background {
+	background-size: cover;
+	width: pixelsToEm(361);
+	height: pixelsToEm(88);
+}
+
+.tree-card__bg--base {
+	background-image: url("fs://game/techtree_parent-node");
+}
+
+.tree-card__child-bg--base {
+	background-image: url("fs://game/techtree_child-node_idle");
+}
+
+.tree-card-bg {
+	background-image: url("fs://game/techtree_parent-node");
+	background-size: cover;
+	width: pixelsToEm(396);
+	height: pixelsToEm(102);
+}
+
+.tree-card-child-bg {
+	background-image: url("fs://game/techtree_child-node_idle");
+	background-size: cover;
+	width: pixelsToEm(361);
+	height: pixelsToEm(88);
+}
+
+.tree-card-unlocks {
+	padding-top: pixelsToEm(8);
+}
+
+.tree-card-progress {
+	padding-left: pixelsToEm(20);
+	padding-top: pixelsToEm(20);
+	margin-left: pixelsToEm(1);
+	width: pixelsToEm(80);
+	height: pixelsToEm(80);
+}
+
+.tree-card-name-container {
+	height: 30%;
+}
+
+.tree-card-name-unlocks {
+	padding: pixelsToEm(12) pixelsToEm(16) pixelsToEm(20);
+}
+
+.tree-node-icon {
+	width: pixelsToEm(48);
+	height: pixelsToEm(48);
+}
+
+.ring-size {
+	width: pixelsToEm(144);
+	height: pixelsToEm(144);
+}
+
+.tree-card-hitbox {
+
+	&.tree-type-culture {
+
+		.fxs-ring-meter__ring-left,
+		.fxs-ring-meter__ring-right {
+			background-image: url("fs://game/hud_civic_circle_rad.png");
+		}
+	}
+
+	&.tree-type-tech {
+
+		.fxs-ring-meter__ring-left,
+		.fxs-ring-meter__ring-right {
+			background-image: url("fs://game/hud_tech_circle_rad.png");
+		}
+	}
+
+	&.current-research {
+		.img-list-focus-frame {
+			opacity: 1;
+		}
+
+		.tree-card-bg {
+			background-image: url("fs://game/techtree_parent-node_selected");
+		}
+
+		.tree-card-child-bg {
+			background-image: url("fs://game/techtree_child-node_selected");
+		}
+	}
+
+	&.disabled {
+		.tree-card-bg {
+			background-image: url("fs://game/techtree_parent-node_inactive");
+			filter: grayscale(0.5);
+		}
+
+		.tree-card-child-bg {
+			background-image: url("fs://game/techtree_child-node_inactive");
+			filter: grayscale(0.5);
+		}
+	}
+
+	&.completed {
+		.tree-card-bg {
+			background-image: url("fs://game/techtree_parent-node_researched");
+		}
+
+		.tree-card-child-bg {
+			background-image: url("fs://game/techtree_child-node_researched");
+		}
+	}
+
+	&:hover,
+	&:focus {
+		.tree-card-bg {
+			background-image: url("fs://game/techtree_parent-node_hover");
+		}
+
+		.tree-card-child-bg {
+			background-image: url("fs://game/techtree_child-node_hover");
+		}
+
+		&.current-research {
+			.tree-card-bg {
+				background-image: url("fs://game/techtree_parent-node_selected_hover");
+			}
+
+			.tree-card-child-bg {
+				background-image: url("fs://game/techtree_child-node_selected_hover");
+			}
+		}
+
+		// TODO: Ask design for a outline or a more subtle highlight for disabled tree cards
+		// &.disabled {
+		// 	.tree-card-bg {
+		// 		background-image: url("fs://game/techtree_parent-node_inactive");
+		// 	}
+
+		// 	.tree-card-child-bg {
+		// 		background-image: url("fs://game/techtree_child-node_inactive");
+		// 	}
+		// }
+	}
+}
+
+.tree-card--mastery {
+	.unlock-item {
+		width: pixelsToEm(36);
+		height: pixelsToEm(36);
+	}
+
+	.tree-card-progress {
+		padding-left: pixelsToEm(14);
+		padding-top: pixelsToEm(18);
+		margin-left: pixelsToEm(0);
+		width: pixelsToEm(72);
+		height: pixelsToEm(72);
+	}
+
+	.tree-card-name-unlocks {
+		padding: pixelsToEm(12) pixelsToEm(8) pixelsToEm(12) pixelsToEm(12);
+	}
+
+	.tree-card-unlocks {
+		padding-top: pixelsToEm(2);
+	}
+
+	.ring-size {
+		width: pixelsToEm(122.4);
+		height: pixelsToEm(122.4);
+	}
+
+	.tree-node-icon {
+		width: pixelsToEm(28);
+		height: pixelsToEm(28);
+	}
+}
+
+.tree-line-arrow {
+	border-left: pixels(16) solid transparent;
+	border-right: pixels(16) solid transparent;
+	border-bottom: pixels(16) solid theme.color('primary');
+}
+
+.lines-container {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	pointer-events: none;
+	z-index: -1;
+
+	.center-split,
+	.right-split,
+	.left-split {
+		transform-origin: top left;
+		position: absolute;
+		width: inherit;
+	}
+
+	.center-split {
+		transform: rotateZ(0deg);
+	}
+
+	.tree-line {
+		background-color: theme.color('primary');
+		position: absolute;
+
+		.bottom-split,
+		.top-split,
+		.center-split,
+		.right-split,
+		.left-split {
+			background-color: theme.color('primary');
+		}
+
+		&.locked {
+			.tree-grid-line {
+				border-image: url("fs://game/techtree_node-connection_inactive_line.png");
+				border-image-slice: 6 4 6 4 fill;
+				border-image-width: pixels(6) pixels(4);
+				border-image-outset: 0 pixels(4);
+			}
+
+			.tree-grid-line-corner {
+				background-image: url("fs://game/techtree_node-connection_inactive_corner.png");
+			}
+		}
+	}
+
+	.tree-line.locked {
+		background-color: theme.color('primary-3');
+
+		.bottom-split,
+		.top-split,
+		.center-split,
+		.right-split,
+		.left-split {
+			background-color: theme.color('primary-3');
+		}
+
+		.tree-line-arrow {
+			border-bottom: pixels(16) solid theme.color('primary-3');
+		}
+	}
+
+	&.vertical {
+
+		.center-split,
+		.bottom-split,
+		.top-split {
+			transform: rotateZ(0deg);
+			transform-origin: top left;
+			position: absolute;
+			width: inherit;
+		}
+
+		.center-split {
+			transform: rotateZ(90deg);
+		}
+
+		.tree-line-arrow {
+			transform: rotateZ(180deg);
+		}
+	}
+}
+
+.tree-detail {
+
+	.fxs-scrollbar-container {
+		right: pixels(4);
+	}
+
+	.detail-ring {
+		background-image: url("fs://game/cPromo_level_circle.png");
+
+		.fxs-ring-meter__ring-left,
+		.fxs-ring-meter__ring-right {
+			background-image: url("fs://game/cPromo_level_circle_rad.png");
+		}
+
+		.fxs-ring-meter__ring-left {
+			background-size: cover;
+			background-position: left;
+		}
+
+		.fxs-ring-meter__ring-right {
+			background-size: cover;
+			background-position: right;
+		}
+	}
+}
+
+// Tree Grid Styles
+.tree-grid-row {
+	display: flex;
+	flex-direction: row;
+
+	.tree-grid-card {
+		min-width: pixels(64);
+		min-height: pixels(40);
+		margin-left: pixels(12);
+		margin-right: pixels(12);
+	}
+}
+
+.tree-grid-column {
+	display: flex;
+	flex-direction: column;
+
+	.tree-grid-card {
+		min-width: pixels(48);
+		min-height: pixels(35);
+	}
+}
+
+.tree-grid-card {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.tree-grid-line {
+	border-image: url("fs://game/techtree_node-connection_active_line.png");
+	border-image-slice: 6 4 6 4 fill;
+	border-image-width: pixels(6) pixels(4);
+	border-image-outset: 0 pixels(4);
+
+
+	&.locked {
+		border-image: url("fs://game/techtree_node-connection_inactive_line.png");
+	}
+}
+
+.tree-grid-line-corner {
+	background-image: url("fs://game/techtree_node-connection_active_corner.png");
+
+	&.locked {
+		background-image: url("fs://game/techtree_node-connection_inactive_corner.png");
+	}
+}

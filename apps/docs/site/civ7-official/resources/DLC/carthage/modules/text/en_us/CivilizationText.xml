@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--Civilization Traits-->
+		<Row Tag="LOC_TRAIT_CARTHAGE_ABILITY_NAME">
+			<Text>Phoenician Heritage</Text>
+		</Row>
+		<Row Tag="LOC_CIVILIZATION_CARTHAGE_DESCRIPTION">
+			<Text>Can only have 1 City. Towns cannot use Convert to City. Receive a second Merchant or Colonist each time you purchase or train one.</Text>
+		</Row>
+		<Row Tag="LOC_TRAIT_CARTHAGE_ABILITY_DESCRIPTION">
+			<Text>[BLIST][LI]Can only have 1 City. Towns cannot use [B]Convert to City[/B].[LI]Receive a second [B]Merchant[/B] or [B]Colonist[/B] each time you purchase or train one.[LI][B]+30%[icon:YIELD_PRODUCTION] Production [/B]towards constructing [B]Byrsa[/B].[/LIST]</Text>
+		</Row>
+		<Row Tag="LOC_MOD_CIV_WONDER_PRODUCTION_CARTHAGE_DESCRIPTION">
+			<Text>+30%[icon:YIELD_PRODUCTION] Production from being Carthage's associated Wonder.</Text>
+		</Row>
+	</EnglishText>
+</Database>

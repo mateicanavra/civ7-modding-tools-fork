@@ -1,0 +1,803 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="MAJOR_CIV_MOD_BASE_TRADE_CAPACITY" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_TRADE_CAPACITY">
+		<Argument name="Amount">1</Argument>
+		<Argument name="MajorsOnly">false</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Amina -->
+	<!-- ==================================================	-->
+	<Modifier id="AMINA_MOD_RESOURCE_CAPACITY" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_RESOURCE_CAP">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="AMINA_MOD_RESOURCE_GOLD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_RESOURCE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<Argument name="PercentMultiplier">false</Argument>
+	</Modifier>
+	<Modifier id="AMINA_LEAD_MOD_CHECK_FOR_BIOME" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_AMINA_CHECK_FOR_BIOME</Argument>
+	</Modifier>
+	<Modifier id="AMINA_MOD_AGENDA_DESERT_OF_THE_WARRIOR_QUEEN" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_DESERT_OF_THE_WARRIOR_QUEEN_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_DESERT_OF_THE_WARRIOR_QUEEN_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_DESERT_OF_THE_WARRIOR_QUEEN_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_BIOMES</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_HIGHER</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_NEG_AMT_MEDIUM</Argument>
+		<Argument name="Arg1">BIOME_PLAINS</Argument>
+		<Argument name="Arg2">BIOME_DESERT</Argument>
+		<Argument name="Arg4">DIPLOMACY_AGENDA_INSTRUCTION_SETTLEMENT_CENTER_ONLY</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_NONE</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_AMT_SMALL</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Ashoka, World Renouncer -->
+	<!-- ==================================================	-->
+	<Modifier id="ASHOKA_MOD_HAPPINESS_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_SURPLUS_HAPPINESS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Divisor">5</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_ASHOKA_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="ASHOKA_MOD_CELEBRATION_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_IN_GOLDEN_AGE"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Percent">10</Argument>
+	</Modifier>
+	<Modifier id="ASHOKA_MOD_HAPPINESS_RURAL_ADJACENCY" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ACTIVATE_CONSTRUCTIBLE_ADJACENCY">
+		<Argument name="ConstructibleAdjacency">AshokaRuralAdjacency</Argument>
+	</Modifier>
+	<Modifier id="ASHOKA_MOD_AGENDA_WITHOUT_SORROW" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_WITHOUT_SORROW_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_WITHOUT_SORROW_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_WITHOUT_SORROW_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_YIELD_TYPE</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_HIGHEST</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_AMT_MEDIUM</Argument>
+		<Argument name="Arg1">YIELD_HAPPINESS</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_LOWEST</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_NEG_AMT_MEDIUM</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Augustus -->
+	<!-- ==================================================	-->
+	<Modifier id="AUGUSTUS_MOD_CAPITAL_PRODUCTION_PER_TOWN" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_ADJUST_YIELD_PER_NUM_CITIES">
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Amount">2</Argument>
+		<Argument name="Cities">false</Argument>
+		<Argument name="Towns">true</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_AUGUSTUS_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="AUGUSTUS_MOD_TOWN_PURCHASE_RATE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_ADJUST_PLAYER_OR_CITY_BUILDING_PURCHASE_EFFICIENCY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_TOWN"/>
+		</SubjectRequirements>
+		<Argument name="ConstructibleClass">BUILDING</Argument>
+		<Argument name="Percent">50</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_AUGUSTUS_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="AUGUSTUS_MOD_TOWN_CULTURE_BUILDING" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_ADJUST_TOWN_CAN_PURCHASE_TAGGED_CONSTRUCTIBLES">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_TOWN"/>
+		</SubjectRequirements>
+		<Argument name="ConstructibleTag">CULTURE</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_AUGUSTUS_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="AUGUSTUS_MOD_AGENDA_RESTITUTOR_ORBIS" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_RESTITUTOR_ORBIS_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_RESTITUTOR_ORBIS_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_RESTITUTOR_ORBIS_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_NUM_CITIES_TOWNS</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_HIGHER</Argument>
+		<!--  Since Weight Type is Cities Towns I have Award 1 relating to Cities since they're listed first.  -->
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_AMT_SMALL</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_HIGHER</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_NEG_AMT_SMALL</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Benjamin Franklin -->
+	<!-- ==================================================	-->
+	<Modifier id="FRANKLIN_MOD_PRODUCTION_BUILDING_SCIENCE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+		</SubjectRequirements>
+		<Argument name="Tag">PRODUCTION</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_BENJAMIN_FRANKLIN_ABILITY_NAME</Argument>
+		<String context="Description">LOC_TRAIT_LEADER_BENJAMIN_FRANKLIN_ABILITY_NAME</String>
+	</Modifier>
+	<Modifier id="FRANKLIN_MOD_PRODUCTION_BUILDING_RATE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_PRODUCTION">
+		<Argument name="Percent">50</Argument>
+		<Argument name="Tag">PRODUCTION</Argument>
+	</Modifier>
+	<Modifier id="FRANKLIN_MOD_DIPLO_EVENT_SCIENCE" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_YIELD_PER_PLAYER_INVOLVED_ACTION">
+		<Argument name="ActionGroupType">DIPLOMACY_ACTION_GROUP_ENDEAVOR</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_BENJAMIN_FRANKLIN_ABILITY_NAME</Argument>
+		<String context="Description">LOC_TRAIT_LEADER_BENJAMIN_FRANKLIN_ABILITY_NAME</String>
+	</Modifier>
+	<Modifier id="FRANKLIN_MOD_EXTRA_SINGLE_INSTANT_DIPLO_ACTIONS" collection="COLLECTION_OWNER" effect="EFFECT_BASIC_DIPLOMACY_MODS">
+		<Argument name="ModName">LOC_DIPLOMACY_EXTRA_SINGLE_INSTANCE_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_EXTRA_SINGLE_INSTANCE_DESC</Argument>
+		<Argument name="Modifier1Type">DIPLOMACY_BASIC_MODIFIER_VALUE_EXTRA_SINGLE_INSTANCE_ENDEAVOR</Argument>
+		<Argument name="Modifier1Value">1.0</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+		<String context="Name">LOC_DIPLOMACY_EXTRA_SINGLE_INSTANCE_NAME</String>
+	</Modifier>
+	<Modifier id="FRANKLIN_MOD_AGENDA_CIVIC_VIRTUE" collection="COLLECTION_OWNER" effect="EFFECT_BASIC_DIPLOMACY_MODS">
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_CIVIC_VIRTUE_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_CIVIC_VIRTUE_DESC</Argument>
+		<Argument name="Modifier1Type">DIPLOMACY_BASIC_MODIFIER_VALUE_CIVIC_VIRTUE</Argument>
+		<Argument name="Modifier1Value">1.0</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+		<String context="Name">LOC_DIPLOMACY_AGENDA_CIVIC_VIRTUE_NAME</String>
+	</Modifier>
+	<Modifier id="FRANKLIN_MOD_AGENDA_CIVIC_VIRTUE_DESCRIPTION" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_CIVIC_VIRTUE_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_CIVIC_VIRTUE_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_CIVIC_VIRTUE_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_JUST_DESCRIPTION</Argument>
+		<Argument name="FirstMeetDelay">200</Argument>
+		<Argument name="UpdateFreq">100</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_IGNORE</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_AMT_SMALL</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Cathrine the Great -->
+	<!-- ==================================================	-->
+	<Modifier id="CATHERINE_MOD_GREAT_WORK_CULTURE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_GREAT_WORK">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_CATHERINE_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="CATHERINE_MOD_CONSTRUCTIBLE_GREAT_WORK_SLOTS" collection="COLLECTION_PLAYER_CONSTRUCTIBLES" effect="EFFECT_CONSTRUCTIBLE_ADJUST_GREAT_WORK_SLOTS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CONSTRUCTIBLE_HAS_GREAT_WORK_SLOT"/>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="CATHERINE_MOD_CITY_SCIENCE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_CONVERSION">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+			<Requirement type="REQUIREMENT_PLOT_BIOME_TYPE_MATCHES">
+				<Argument name="BiomeType">BIOME_TUNDRA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="FromYieldType">YIELD_CULTURE</Argument>
+		<Argument name="ToYieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Percent">25</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_CATHERINE_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="CATHERINE_MOD_AGENDA_DUSHA" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_DUSHA_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_DUSHA_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_DUSHA_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_NUM_GREAT_WORKS</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_HIGHEST</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_NEG_AMT_MEDIUM</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_LOWEST</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_AMT_MEDIUM</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Charlemagne -->
+	<!-- ==================================================	-->
+	<Modifier id="CHARLEMAGNE_MOD_MILITARY_BUILDING_ADJACENCY" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ACTIVATE_CONSTRUCTIBLE_ADJACENCY">
+		<Argument name="ConstructibleAdjacency">CharlemagneMilitaryBuildingHappiness</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_CHARLEMAGNE_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="CHARLEMAGNE_MOD_SCIENCE_BUILDING_ADJACENCY" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ACTIVATE_CONSTRUCTIBLE_ADJACENCY">
+		<Argument name="ConstructibleAdjacency">CharlemagneScienceBuildingHappiness</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_CHARLEMAGNE_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="CHARLEMAGNE_MOD_UNITS_ON_GOLDEN_AGE" collection="COLLECTION_OWNER" effect="TRIGGER_PLAYER_GRANT_UNIT_ON_GOLDEN_AGE">
+		<Argument name="UnitTag">UNIT_CLASS_CAVALRY</Argument>
+		<Argument name="Amount">2</Argument>
+		<Argument name="AllowUniqueOverride">true</Argument>
+	</Modifier>
+	<Modifier id="CHARLEMAGNE_MOD_CAVALRY_ABILITY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_IN_GOLDEN_AGE"/>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_CHARLEMAGNE_CAVALRY</Argument>
+	</Modifier>
+	<Modifier id="CHARLEMAGNE_MOD_AGENDA_THE_GOLDEN_SHEPHERD" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_THE_GOLDEN_SHEPHERD_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_THE_GOLDEN_SHEPHERD_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_THE_GOLDEN_SHEPHERD_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_GOLDEN_AGES</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_HIGHEST</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_AMT_MEDIUM</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_LOWEST</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_NEG_AMT_MEDIUM</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Confucius -->
+	<!-- ==================================================	-->
+	<Modifier id="CONFUCIUS_MOD_CITY_GROWTH" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_GROWTH">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+		</SubjectRequirements>
+		<Argument name="Percent">25</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_CONFUCIUS_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="CONFUCIUS_MOD_WORKER_SCIENCE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_WORKER_YIELD">
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount">2</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_CONFUCIUS_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="CONFUCIUS_MOD_AGENDA_GUANXI" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_GUANXI_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_GUANXI_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_GUANXI_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_DISTRICT_SPECIALISTS</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_HIGHEST</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_AMT_MEDIUM</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_LOWEST</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_NEG_AMT_SMALL</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Friedrich, Oblique -->
+	<!-- ==================================================	-->
+	<Modifier id="FRIEDRICH_MOD_COMMANDER_COMMENDATION" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_GRANT_UNIT_PROMOTION">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_ARMY_COMMANDER</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="UnitPromotionType">PROMOTION_COMMENDATION_ARMY_MERIT</Argument>
+		<Argument name="UnitPromotionDisciplineType">DISCIPLINE_ARMY_COMMENDATION_MERIT</Argument>
+	</Modifier>
+	<Modifier id="FRIEDRICH_MOD_INFANTRY_CONSTRUCT_SCIENCE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_UNIT" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_BUILT_TAGGED_CONSTRUCTIBLE">
+				<Argument name="Tags">SCIENCE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AllowUniqueOverride">true</Argument>
+		<Argument name="UnitTag">UNIT_CLASS_INFANTRY</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="FRIEDRICH_MOD_INFANTRY_TECH" collection="COLLECTION_OWNER" effect="TRIGGER_PLAYER_GRANT_UNIT_ON_PROGRESSION_TREE_NODE_DEPTH_UNLOCKED">
+		<Argument name="SystemType">SYSTEM_TECH</Argument>
+		<Argument name="UnitTag">UNIT_CLASS_INFANTRY</Argument>
+		<Argument name="AllowUniqueOverride">true</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Depth">2</Argument>
+	</Modifier>
+	<Modifier id="FRIEDRICH_MOD_AGENDA_TO_ARMS" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_TO_ARMS_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_TO_ARMS_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_TO_ARMS_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_NUM_COMBAT_UNITS</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_LOWEST</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_NEG_AMT_MEDIUM</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_HIGHEST</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_AMT_SMALL</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Harriet Tubman -->
+	<!-- ==================================================	-->
+	<Modifier id="HARRIET_TUBMAN_MOD_ADJUST_ESPIONAGE" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_DIPLOMATIC_ACTION_TYPE_EFFICIENCY">
+		<Argument name="ActionGroupType">DIPLOMACY_ACTION_GROUP_ESPIONAGE</Argument>
+		<Argument name="Percent">100</Argument>
+	</Modifier>
+	<Modifier id="HARRIET_TUBMAN_MOD_WAR_SUPPORT" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_DIPLOMATIC_ACTION_TOKEN_BONUS">
+		<Argument name="ActionType">DIPLOMACY_ACTION_DECLARE_WAR</Argument>
+		<Argument name="OnlyWhenTarget">true</Argument>
+		<Argument name="Amount">5</Argument>
+	</Modifier>
+	<Modifier id="HARRIET_TUBMAN_MOD_IGNORE_VEGETATION" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_IGNORE_MOVEMENT_OBSTACLE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="FeatureClassTypes">FEATURE_CLASS_VEGETATED</Argument>
+	</Modifier>
+	<Modifier id="HARRIET_TUBMAN_MOD_AGENDA_VERACITY" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_ON_WAR_START">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_VERACITY_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_VERACITY_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_VERACITY_DESC</Argument>
+		<Argument name="AwardAmtTypeFormal">DIPLOMACY_AGENDA_AMT_MEDIUM</Argument>
+		<Argument name="AwardAmtTypeSurprise">DIPLOMACY_AGENDA_NEG_AMT_MEDIUM</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Hatshepsut -->
+	<!-- ==================================================	-->
+	<Modifier id="HATSHEPSUT_MOD_CULTURE_FROM_RESOURCES" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_PER_UNIQUE_RESOURCE">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<!-- <Argument name="Tooltip">LOC_TRAIT_LEADER_HATSHEPSUT_ABILITY_NAME</Argument> -->
+	</Modifier>
+	<Modifier id="HATSHEPSUT_MOD_BUILDING_PRODUCTION_RIVER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_PRODUCTION">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_TO_RIVER">
+				<Argument name="Navigable">true</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Apply">Rate</Argument>
+		<Argument name="Percent">15</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_HATSHEPSUT_ABILITY_NAME</Argument>
+		<String context="Description">LOC_TRAIT_LEADER_HATSHEPSUT_ABILITY_NAME</String>
+	</Modifier>
+	<Modifier id="HATSHEPSUT_MOD_AGENDA_WONDERS_OF_ITERU" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_WONDERS_OF_ITERU_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_WONDERS_OF_ITERU_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_WONDERS_OF_ITERU_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_NUM_WONDERS</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_HIGHER</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_NEG_AMT_MEDIUM</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_LOWER</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_AMT_MEDIUM</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Himiko, Queen of Wa -->
+	<!-- ==================================================	-->
+	<Modifier id="HIMIKO_MOD_FRIEND_OF_WA" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_GRANT_DIPLOMATIC_ACTION">
+		<Argument name="ActionType">DIPLOMACY_ACTION_FRIEND_OF_WA</Argument>
+	</Modifier>
+	<Modifier id="HIMIKO_MOD_SCIENCE_BONUS_FRIENDLY" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_YIELD_PER_PLAYER_RELATIONSHIP">
+		<Argument name="RelationshipType">PLAYER_RELATIONSHIP_FRIENDLY</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">4</Argument>
+	</Modifier>
+	<Modifier id="HIMIKO_MOD_SCIENCE_BONUS_HELPFUL" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_YIELD_PER_PLAYER_RELATIONSHIP">
+		<Argument name="RelationshipType">PLAYER_RELATIONSHIP_HELPFUL</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">4</Argument>
+	</Modifier>
+	<Modifier id="HIMIKO_MOD_NO_COST_ENDEAVOR_ACCEPT" collection="COLLECTION_OWNER" effect="EFFECT_BASIC_DIPLOMACY_MODS">
+		<Argument name="ModName">LOC_DIPLOMACY_NO_COST_ENDEAVOR_SUPPORT_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_NO_COST_ENDEAVOR_SUPPORT_DESC</Argument>
+		<Argument name="Modifier1Type">DIPLOMACY_BASIC_MODIFIER_VALUE_SUPPORT_ENDEAVOR_DISCOUNT</Argument>
+		<Argument name="Modifier1Value">100.0</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+		<String context="Name">LOC_DIPLOMACY_NO_COST_ENDEAVOR_SUPPORT_NAME</String>
+	</Modifier>
+	<Modifier id="HIMIKO_MOD_AGENDA_YAMATAI" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_YAMATAI_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_YAMATAI_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_YAMATAI_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_DISTRICTS2</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_ALL</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_NEG_AMT_SMALL</Argument>
+		<Argument name="Arg1">CULTURE</Argument>
+		<Argument name="Arg2">HAPPINESS</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_ALL</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_AMT_SMALL</Argument>
+		<Argument name="Arg3">SCIENCE</Argument>
+		<Argument name="Arg4">GOLD</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Ibn Battuta -->
+	<!-- ==================================================	-->
+	<Modifier id="IBN_BATTUTA_MOD_UNIT_SIGHT" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ADJUST_UNIT_SIGHT">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="IBN_BATTUTA_MOD_TRADE_MAP" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_GRANT_DIPLOMATIC_ACTION">
+		<Argument name="ActionType">DIPLOMACY_ACTION_TRADE_MAP</Argument>
+	</Modifier>
+	<Modifier id="IBN_BATTUTA_MOD_AGENDA_FAR_AND_WIDE" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_FAR_AND_WIDE_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_FAR_AND_WIDE_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_FAR_AND_WIDE_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_REVEALED_TILES</Argument>
+		<Argument name="FirstMeetDelay">10</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_HIGHEST</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_AMT_LARGE</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_LOWEST</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_NEG_AMT_SMALL</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Isabella -->
+	<!-- ==================================================	-->
+	<Modifier id="ISABELLA_MOD_NATURAL_WONDER_DISCOVERY" collection="COLLECTION_OWNER" effect="TRIGGER_PLAYER_GRANT_YIELD_ON_FIND_WONDER">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">100</Argument>
+		<Argument name="DistantLandBonus" type="ScaleByGameAge" extra="100">100</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_ISABELLA_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="ISABELLA_MOD_DOUBLE_NATURAL_WONDERS_ABILITY" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD_PER_PLAYER_NATURAL_WONDER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IS_NATURAL_WONDER"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_FOOD, YIELD_PRODUCTION, YIELD_GOLD, YIELD_SCIENCE, YIELD_CULTURE, YIELD_HAPPINESS, YIELD_DIPLOMACY</Argument>
+		<Argument name="Percent">50</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_ISABELLA_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="ISABELLA_MOD_NAVAL_UNIT_PURCHASE" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_OR_CITY_UNIT_PURCHASE_EFFICIENCY">
+		<Argument name="UnitTag">UNIT_CLASS_NAVAL</Argument>
+		<Argument name="Percent">50</Argument>
+	</Modifier>
+	<Modifier id="ISABELLA_MOD_NAVAL_UNIT_MAINTENANCE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_UNIT_MAINTENANCE_EFFICIENCY">
+		<Argument name="UnitTag">UNIT_CLASS_NAVAL</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="ISABELLA_MOD_AGENDA_WONDERLUST" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_WONDERLUST_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_WONDERLUST_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_WONDERLUST_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_NUM_NATURAL_WONDERS</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_ALL</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_NEG_AMT_MEDIUM</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_NONE</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_AMT_SMALL</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Jose Rizal -->
+	<!-- ==================================================	-->
+	<Modifier id="RIZAL_MOD_NARRATIVE_EVENT_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_FOR_COMPLETING_NARRATIVE_EVENTS" run-once="true" permanent="true">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">20</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_RIZAL_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="RIZAL_MOD_NARRATIVE_EVENT_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_FOR_COMPLETING_NARRATIVE_EVENTS" run-once="true" permanent="true">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">20</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_RIZAL_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="RIZAL_MOD_NARRATIVE_EVENT_INFLUENCE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_FOR_COMPLETING_NARRATIVE_EVENTS" run-once="true" permanent="true">
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">20</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_RIZAL_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="RIZAL_MOD_EXTRA_STORIES" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_BONUS_STORIES" permanent="true">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="RIZAL_MOD_CELEBRATION_LENGTH" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_GOLDEN_AGE_DURATION">
+		<Argument name="Percent">50</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_RIZAL_ABILITY_NAME</Argument>
+		<String context="Description">LOC_RIZAL_MOD_CELEBRATION_LENGTH_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="RIZAL_MOD_CELEBRATION_HAPPINESS" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Percent">50</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_RIZAL_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="RIZAL_MOD_AGENDA_KAPWA" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_KAPWA_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_KAPWA_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_KAPWA_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_NUM_PROJECTS</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_HIGHEST</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_AMT_MEDIUM</Argument>
+		<Argument name="Arg1">DIPLOMACY_ACTION_GROUP_ENDEAVOR</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_HIGHEST</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_NEG_AMT_MEDIUM</Argument>
+		<Argument name="Arg2">DIPLOMACY_ACTION_GROUP_SANCTION</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Lafayette -->
+	<!-- ==================================================	-->
+	<Modifier id="LAFAYETTE_MOD_TRADITION_SLOT" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_GRANT_DIPLOMATIC_ACTION">
+		<Argument name="ActionType">DIPLOMACY_ACTION_GRANT_POLICY_SLOT</Argument>
+	</Modifier>
+	<Modifier id="LAFAYETTE_MOD_COMBAT_ABILITY_TRADITION" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_LAFAYETTE_TRADITION</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_LAFAYETTE_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="LAFAYETTE_MOD_CULTURE_SETTLEMENTS_DISTANT_LANDS" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_DISTANT_LANDS"/>
+		</SubjectRequirements>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<Argument name="YieldType">YIELD_CULTURE,YIELD_HAPPINESS</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_LAFAYETTE_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="LAFAYETTE_MOD_CULTURE_SETTLEMENTS_HOMELANDS" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_DISTANT_LANDS" inverse="true"/>
+		</SubjectRequirements>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<Argument name="YieldType">YIELD_CULTURE,YIELD_HAPPINESS</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_LAFAYETTE_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="LAFAYETTE_MOD_AGENDA_FRENCH_QUARTERS" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_FRENCH_QUARTERS_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_FRENCH_QUARTERS_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_FRENCH_QUARTERS_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_DISTRICT_BUILDINGS</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_HIGHEST</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_AMT_SMALL</Argument>
+		<Argument name="Arg1">DISTRICT_URBAN</Argument>		<!-- What districts do we consider.  -->
+		<Argument name="Arg2">2</Argument>		<!--  What's the minimum number of buildings for the district to be considered.  -->
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_LOWEST</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_NEG_AMT_SMALL</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Machiavelli -->
+	<!-- ==================================================	-->
+	<Modifier id="MACHIAVELLI_MOD_INFLUENCE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">3</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_RIZAL_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="MACHIAVELLI_MOD_GOLD_ACTION_ACCEPT" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_INITIATED_DIPLOMACY_ACTION_RESPONSE_TYPE_MATCHES">
+				<Argument name="ResponseType">DIPLOMACY_RESPONSE_ACCEPT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">50</Argument>
+	</Modifier>
+	<Modifier id="MACHIAVELLI_MOD_GOLD_ACTION_REJECT" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_INITIATED_DIPLOMACY_ACTION_RESPONSE_TYPE_MATCHES">
+				<Argument name="ResponseType">DIPLOMACY_RESPONSE_REJECT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">100</Argument>
+	</Modifier>
+	<Modifier id="MACHIAVELLI_MOD_FORMAL_WAR" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_DIPLOMACY_IGNORE_WAR_REQUIREMENTS">
+		<Argument name="WarType">FORMAL_WAR</Argument>
+	</Modifier>
+	<Modifier id="MACHIAVELLI_MOD_CITY_STATE_LEVY" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_DIPLOMACY_ALLOW_LEVY_FROM_ALL_CITY_STATES">
+		<Argument name="AllowLevy">true</Argument>
+	</Modifier>
+	<Modifier id="MACHIAVELLI_MOD_AGENDA_THE_SPIDER" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_THE_SPIDER_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_THE_SPIDER_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_THE_SPIDER_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_WEIGHTING_AT_WAR</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_FOR_EACH</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_AMT_MEDIUM</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Pachacuti -->
+	<!-- ==================================================	-->
+	<Modifier id="PACHACUTI_MOD_WILDCARD_ADJACENCY_MOUNTAINS" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ACTIVATE_CONSTRUCTIBLE_ADJACENCY">
+		<Argument name="ConstructibleAdjacency">PachacutiMountainFood, PachacutiMountainUniqueImprovementFood</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_PACHACUTI_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="PACHACUTI_MOD_MOUNTAIN_SPECIALIST_HAPPINESS" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_WORKER_MAINTENANCE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_TERRAIN_TYPE_MATCHES">
+				<Argument name="TerrainType">TERRAIN_MOUNTAIN</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">-2</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_PACHACUTI_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="PACHACUTI_MOD_CITY_PRODUCTION_FROM_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_CONVERSION">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+		</SubjectRequirements>
+		<Argument name="FromYieldType">YIELD_FOOD</Argument>
+		<Argument name="ToYieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Percent">10</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_PACHACUTI_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="PACHACUTI_MOD_AGENDA_MOUNTAIN_KING" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_MOUNTAIN_KING_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_MOUNTAIN_KING_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_MOUNTAIN_KING_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_NUM_TERRAIN_TYPE</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_LOWEST</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_AMT_MEDIUM</Argument>
+		<Argument name="Arg1">TERRAIN_MOUNTAIN</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_HIGHEST</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_NEG_AMT_MEDIUM</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Trung Trac -->
+	<!-- ==================================================	-->
+	<Modifier id="TRUNG_TRAC_MOD_TRUNG_NHI" collection="COLLECTION_OWNER" effect="EFFECT_ATTACH_MODIFIERS" run-once="true" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_MILITARY_UNITS">
+				<Argument name="DomainType">DOMAIN_LAND</Argument>
+				<Argument name="Amount">1</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_IS_AGE_COUNT">
+				<Argument name="AgeCount">1</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_TRUNG_TRAC_MOD_TRUNG_NHI</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_TRUNG_TRAC_MOD_TRUNG_NHI" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_UNIT" run-once="true" permanent="true">
+		<Argument name="UnitType">UNIT_TRUNG_NHI</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="TRUNG_TRAC_MOD_TRUNG_NHI_FASTER_RESPAWN" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ARMY_ADJUST_RESPAWN_SPEED">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_TRUNG_NHI</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Percent">-50</Argument>
+	</Modifier>
+	<Modifier id="TRUNG_TRAC_MOD_TRUNG_NHI_GRANT_HEROIC_ASSAULT" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_TRUNG_NHI</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_SCALING_COMMANDER_ATTACK</Argument>
+	</Modifier>
+	<Modifier id="TRUNG_TRAC_MOD_COMMANDER_XP" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ARMY_ADJUST_EXPERIENCE_RATE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_COMMAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Percent">20</Argument>
+	</Modifier>
+	<Modifier id="TRUNG_TRAC_MOD_TROPICAL_SCIENCE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+			<Requirement type="REQUIREMENT_PLOT_BIOME_TYPE_MATCHES">
+				<Argument name="BiomeType">BIOME_TROPICAL</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Percent">10</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_TRUNG_TRAC_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="TRUNG_TRAC_MOD_TROPICAL_SCIENCE_AT_WAR" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+			<Requirement type="REQUIREMENT_PLOT_BIOME_TYPE_MATCHES">
+				<Argument name="BiomeType">BIOME_TROPICAL</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLAYER_ACTIVE_WARS">
+				<Argument name="WarType">FORMAL_WAR</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Percent">10</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_TRUNG_TRAC_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="TRUNG_TRAC_MOD_AGENDA_VAN_MINH" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_VAN_MINH_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_VAN_MINH_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_VAN_MINH_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_COMMANDERS</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_HIGHEST</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_NEG_AMT_MEDIUM</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_LOWEST</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_AMT_MEDIUM</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!-- Xerxes, King of Kings -->
+	<!-- ==================================================	-->
+	<Modifier id="XERXES_MOD_UNIT_ATTACK_ABILITY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_XERXES_UNIT_FOREIGN_TERRITORY</Argument>
+	</Modifier>
+	<Modifier id="XERXES_MOD_CULTURE_ON_CAPTURE_SETTLEMENT" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_YIELD" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_FIRST_TIME_SETTLEMENT_OCCUPATION"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">100</Argument>
+	</Modifier>
+	<Modifier id="XERXES_MOD_GOLD_ON_CAPTURE_SETTLEMENT" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_YIELD" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_FIRST_TIME_SETTLEMENT_OCCUPATION"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">100</Argument>
+	</Modifier>
+	<Modifier id="XERXES_MOD_SETTLEMENT_GOLD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_ORIGINAL_OWNER"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Percent">10</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_XERXES_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="XERXES_MOD_CAPTURED_SETTLEMENT_GOLD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_ORIGINAL_OWNER" inverse="true"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Percent">20</Argument>
+		<Argument name="Tooltip">LOC_TRAIT_LEADER_XERXES_ABILITY_NAME</Argument>
+	</Modifier>
+	<Modifier id="XERXES_MOD_SETTLEMENT_CAP" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_SETTLEMENT_CAP">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_GAME_IS_STARTED"/>
+		</SubjectRequirements>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<Argument name="Ageless">true</Argument>
+	</Modifier>
+	<Modifier id="XERXES_MOD_AGENDA_LORD_OF_FIRE" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_LORD_OF_FIRE_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_LORD_OF_FIRE_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_LORD_OF_FIRE_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_WEIGHTING_AT_WAR</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_ALL_NOT</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_NEG_AMT_MEDIUM</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_AT_LEAST_ONE</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_AMT_SMALL</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+</GameEffects>

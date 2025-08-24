@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_QUOTE_WONDER_BRANDENBURG_GATE">
+			<Text>Not through speeches will the great questions of the day be decided, but by iron and blood.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_BRANDENBURG_GATE">
+			<Text>Otto von Bismarck</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_CHENGDE_MOUNTAIN_RESORT">
+			<Text>Endless wonder at slow waters quiet in frozen beauty and bamboo shimmering with frost.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_CHENGDE_MOUNTAIN_RESORT">
+			<Text>Xie Lingyun</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_DOGO_ONSEN">
+			<Text>It is cold, but we have sake and the hot spring.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_DOGO_ONSEN">
+			<Text>Masaoka Shiki</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_DOI_SUTHEP">
+			<Text>Just as the rain breaks through an ill-thatched house, so passion penetrates an undeveloped mind.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_DOI_SUTHEP">
+			<Text>The Tripiṭaka</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_EIFFEL_TOWER">
+			<Text>The Tower can live on itself: one can dream there, eat there, observe there, understand there; one can feel oneself cut off from the world and yet the owner of a world.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_EIFFEL_TOWER">
+			<Text>Roland Barthes</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_HERMITAGE">
+			<Text>Every passion borders on the chaotic, but the collector's passion borders on the chaos of memories.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_HERMITAGE">
+			<Text>Walter Benjamin</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_MANHATTAN_PROJECT">
+			<Text>Now, I am become Death, the destroyer of worlds.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_MANHATTAN_PROJECT">
+			<Text>The Bhagavad Gita</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_MUZIBU_AZAALA_MPANGA">
+			<Text>Princes are like pythons. They swallow each other.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_MUZIBU_AZAALA_MPANGA">
+			<Text>Mwanga II</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_OXFORD_UNIVERSITY">
+			<Text>I wonder anybody does anything at Oxford but dream and remember.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_OXFORD_UNIVERSITY">
+			<Text>William Butler Yeats</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_PALACIO_DE_BELLAS_ARTES">
+			<Text>Feet, what do I need them for if I have wings to fly?</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_PALACIO_DE_BELLAS_ARTES">
+			<Text>Frida Kahlo</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_RED_FORT">
+			<Text>The world is the place we prove real by dying in it.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_RED_FORT">
+			<Text>Salman Rushdie</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_STATUE_OF_LIBERTY">
+			<Text>Give me your tired, your poor, your huddled masses yearning to breathe free. I lift my lamp beside the golden door.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_STATUE_OF_LIBERTY">
+			<Text>Emma Lazarus</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_TAJ_MAHAL">
+			<Text>We are never so defenseless against suffering as when we love, never so helplessly unhappy as when we have lost our loved object or its love.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_TAJ_MAHAL">
+			<Text>Sigmund Freud</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_WORLDS_FAIR">
+			<Text>Sell the cook stove if necessary and come. You must see this fair.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_WORLDS_FAIR">
+			<Text>Harmlin Garland</Text>
+		</Row>
+	</EnglishText>
+</Database>

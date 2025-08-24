@@ -1,0 +1,53 @@
+@use '../../utilities/utility-layout' as *;
+@use '../../utilities/utility-text' as *;
+@use '../../themes/default/theme';
+
+.age-transition-civ-card {
+	width: pixels(384);
+	height: pixels(512);
+	margin: pixels(20);
+
+	@media (max-height: pixels(1000)) {
+		width: pixels(340);
+		height: pixels(456);
+		margin: pixels(10);
+
+		.age-transition-civ-card-name {
+			margin-top: pixels(10);
+		}
+
+		.age-transition-civ-card-icon {
+			width: pixels(40);
+			height: pixels(40);
+		}
+
+		.age-transition-civ-card-filigree {
+			opacity: 0;
+		}
+	}
+
+	&:hover,
+	&:focus {
+		.age-transition-civ-card-focus-border {
+			opacity: 1;
+		}
+
+		.age-transition-civ-card-hover-info {
+			opacity: 1;
+		}
+
+		.age-transition-civ-card-darkening {
+			background-color: #00000077;
+		}
+	}
+}
+
+.age-transition-civ-card-content-locked {
+	background-color: #44444488;
+}
+
+
+.age-transition-civ-card-locked {
+	background-image: url("fs://game/icon_locked.png");
+	background-size: cover;
+}

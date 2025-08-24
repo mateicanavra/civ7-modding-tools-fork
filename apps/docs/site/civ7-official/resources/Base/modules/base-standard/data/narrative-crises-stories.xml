@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <Types>
+        <Row Type="LOYALTY001A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="LOYALTY001B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="LOYALTY001C" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="LOYALTY001D" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="LOYALTY002A" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="LOYALTY002B" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="LOYALTY002C" Kind="KIND_NARRATIVE_STORY"/>
+        <Row Type="LOYALTY002D" Kind="KIND_NARRATIVE_STORY"/>
+    </Types>
+    <NarrativeStories>
+        <Row NarrativeStoryType="LOYALTY001A" Name="LOC_LOYALTY001A_NAME" Description="LOC_LOYALTY001A_DESCRIPTION" Completion="LOC_LOYALTY001A_COMPLETION" StoryTitle="LOC_LOYALTY001A_STORYTITLE" Activation="UNLOCKED" Hidden="FALSE" RequirementSetId="Met" FirstOnly="TRUE" UIActivation="CRISIS" ForceChoice="FALSE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="LOYALTY001B" Name="LOC_LOYALTY001B_NAME" Description="LOC_LOYALTY001B_DESCRIPTION" Completion="LOC_LOYALTY001B_COMPLETION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="FALSE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="LOYALTY001C" Name="LOC_LOYALTY001C_NAME" Description="LOC_LOYALTY001C_DESCRIPTION" Completion="LOC_LOYALTY001C_COMPLETION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="FALSE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="LOYALTY001D" Name="LOC_LOYALTY001D_NAME" Description="LOC_LOYALTY001D_DESCRIPTION" Completion="LOC_LOYALTY001D_COMPLETION" Activation="AUTO" Hidden="TRUE" RequirementSetId="REQSET_LOYALTY001D_NARRATIVE" UIActivation="CRISIS" Queue="NARRATIVE_GROUP_CRISIS_LOYALTY" AllowDuplicates="TRUE" ForceChoice="FALSE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="LOYALTY002A" Name="LOC_LOYALTY002A_NAME" Description="LOC_LOYALTY002A_DESCRIPTION" Completion="LOC_LOYALTY002A_COMPLETION" StoryTitle="LOC_LOYALTY002A_STORYTITLE" Activation="UNLOCKED" Hidden="FALSE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="FALSE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="LOYALTY002B" Name="LOC_LOYALTY002B_NAME" Description="LOC_LOYALTY002B_DESCRIPTION" Completion="LOC_LOYALTY002B_COMPLETION" Activation="AUTO" Hidden="TRUE" RequirementSetId="REQSET_LOYALTY002B_NARRATIVE" FirstOnly="TRUE" UIActivation="CRISIS" Queue="NARRATIVE_GROUP_CRISIS_LOYALTY" AllowDuplicates="TRUE" ForceChoice="FALSE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="LOYALTY002C" Name="LOC_LOYALTY002C_NAME" Description="LOC_LOYALTY002C_DESCRIPTION" Completion="LOC_LOYALTY002C_COMPLETION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="FALSE" Crisis="TRUE"/>
+        <Row NarrativeStoryType="LOYALTY002D" Name="LOC_LOYALTY002D_NAME" Description="LOC_LOYALTY002D_DESCRIPTION" Completion="LOC_LOYALTY002D_COMPLETION" Activation="LINKED" Hidden="TRUE" RequirementSetId="Met" UIActivation="CRISIS" ForceChoice="FALSE" Crisis="TRUE"/>
+    </NarrativeStories>
+    <NarrativeRewards>
+        <Row NarrativeRewardType="LOYALTY001B_REWARD" ModifierID="LOYALTY001B_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="LOYALTY001C_REWARD" ModifierID="LOYALTY001C_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="LOYALTY001C_REWARD2" ModifierID="LOYALTY001C_NARRATIVE_MODIFIER2"/>
+        <Row NarrativeRewardType="LOYALTY001C_REWARD3" ModifierID="LOYALTY001C_NARRATIVE_MODIFIER3"/>
+        <Row NarrativeRewardType="LOYALTY002C_REWARD" ModifierID="LOYALTY002C_NARRATIVE_MODIFIER"/>
+        <Row NarrativeRewardType="LOYALTY002D_REWARD" ModifierID="LOYALTY002D_NARRATIVE_MODIFIER"/>
+    </NarrativeRewards>
+    <NarrativeStory_Rewards>
+        <Row NarrativeStoryType="LOYALTY001B" NarrativeRewardType="LOYALTY001B_REWARD" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="LOYALTY001C" NarrativeRewardType="LOYALTY001C_REWARD" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="LOYALTY001C" NarrativeRewardType="LOYALTY001C_REWARD2" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="LOYALTY001C" NarrativeRewardType="LOYALTY001C_REWARD3" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="LOYALTY002C" NarrativeRewardType="LOYALTY002C_REWARD" Activation="START" BonusEligible="FALSE"/>
+        <Row NarrativeStoryType="LOYALTY002D" NarrativeRewardType="LOYALTY002D_REWARD" Activation="START" BonusEligible="FALSE"/>
+    </NarrativeStory_Rewards>
+    <NarrativeStoryOverrides>
+    </NarrativeStoryOverrides>
+    <NarrativeVariations>
+    </NarrativeVariations>
+    <NarrativeRewardIcons>
+    </NarrativeRewardIcons>
+    <NarrativeStory_TextReplacements>
+        <Row NarrativeStoryType="LOYALTY001A" NarrativeStoryTextType="BODY" NarrativeTextReplacementType="STORY_CITY" Priority="1"/>
+        <Row NarrativeStoryType="LOYALTY001B" NarrativeStoryTextType="OPTION" NarrativeTextReplacementType="STORY_CITY" Priority="1"/>
+        <Row NarrativeStoryType="LOYALTY002A" NarrativeStoryTextType="BODY" NarrativeTextReplacementType="STORY_CITY" Priority="1"/>
+    </NarrativeStory_TextReplacements>
+    <NarrativeStory_Links>
+        <Row FromNarrativeStoryType="LOYALTY001D" ToNarrativeStoryType="LOYALTY001A" Priority="0" Name="LOC_LOYALTY001A_NAME" Description="LOC_LOYALTY001A_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="LOYALTY001A" ToNarrativeStoryType="LOYALTY001B" Priority="0" Name="LOC_LOYALTY001B_NAME" Description="LOC_LOYALTY001B_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="LOYALTY001A" ToNarrativeStoryType="LOYALTY001C" Priority="1" Name="LOC_LOYALTY001C_NAME" Description="LOC_LOYALTY001C_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="LOYALTY002B" ToNarrativeStoryType="LOYALTY002A" Priority="0" Name="LOC_LOYALTY002A_NAME" Description="LOC_LOYALTY002A_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="LOYALTY002A" ToNarrativeStoryType="LOYALTY002C" Priority="0" Name="LOC_LOYALTY002C_NAME" Description="LOC_LOYALTY002C_DESCRIPTION"/>
+        <Row FromNarrativeStoryType="LOYALTY002A" ToNarrativeStoryType="LOYALTY002D" Priority="1" Name="LOC_LOYALTY002D_NAME" Description="LOC_LOYALTY002D_DESCRIPTION"/>
+    </NarrativeStory_Links>
+</Database>

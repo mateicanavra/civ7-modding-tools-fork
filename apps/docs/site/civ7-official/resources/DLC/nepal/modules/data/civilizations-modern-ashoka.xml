@@ -1,0 +1,6 @@
+<Database>
+	<LeaderCivPriorities>
+		<!--This is the table used for AI, the UI uses LeaderCivilizationBias in config.xml-->
+		<Row Leader="LEADER_ASHOKA_ALT" Civilization="CIVILIZATION_NEPAL" Priority="3"/>
+	</LeaderCivPriorities>
+</Database>

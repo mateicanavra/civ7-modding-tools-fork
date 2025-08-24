@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<AiListTypes>
+
+		<!-- Leader Yield biases -->
+		<Row ListType="Napoleon Emperor Yield Biases"/>
+
+		<!-- Leader AI Budget Biases -->
+		<Row ListType="Napoleon Emperor Budget Biases"/>
+
+	</AiListTypes>
+	<AiLists>
+
+		<!-- Leader Yield Biases -->
+		<Row ListType="Napoleon Emperor Yield Biases" LeaderType="TRAIT_LEADER_NAPOLEON_ABILITY" System="YieldBiases"/>
+
+		<!-- Leader AI Budget Biases -->
+		<Row ListType="Napoleon Emperor Budget Biases" LeaderType="TRAIT_LEADER_NAPOLEON_ABILITY" System="AiBudgetBiases"/>
+
+	</AiLists>
+	<AiFavoredItems>
+
+		<!-- Leader Yield Biases -->
+		<Row ListType="Napoleon Emperor Yield Biases" Item="YIELD_DIPLOMACY" Value="50"/>
+		<Row ListType="Napoleon Emperor Yield Biases" Item="YIELD_GOLD" Value="25"/>
+
+		<!-- Leader AI Budget Biases -->
+		<Row ListType="Napoleon Emperor Budget Biases" Item="AI_BUDGET_STANDING_ARMY" Value="50"/>
+
+	</AiFavoredItems>
+</Database>

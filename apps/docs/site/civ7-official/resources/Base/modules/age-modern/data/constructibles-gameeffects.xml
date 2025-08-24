@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==================================================	-->
+	<!--	BUILDINGS						-->
+	<!-- ==================================================	-->
+	<!-- Airfield -->
+	<Modifier id="MOD_AIRFIELD_INTERCEPT_RANGE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_ARMY_ADJUST_AIR_INTERCEPTION_RANGE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_HAS_CONSTRUCTIBLE">
+				<Argument name="ConstructibleType">BUILDING_AIRFIELD</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<!-- Cannery -->
+	<Modifier id="MOD_CANNERY_GROWTH_RATE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_GROWTH">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_HAS_CONSTRUCTIBLE">
+				<Argument name="ConstructibleType">BUILDING_CANNERY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Percent">10</Argument>
+	</Modifier>
+	<!-- City Park -->
+	<Modifier id="MOD_CITY_PARK_VEGETATION_HAPPINESS" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILDING">
+				<Argument name="BuildingType">BUILDING_CITY_PARK</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_MOD_CITY_PARK_VEGETATION_HAPPINESS</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_MOD_CITY_PARK_VEGETATION_HAPPINESS" collection="COLLECTION_CITY_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_FEATURE_TYPE_MATCHES">
+				<Argument name="FeatureClassType">FEATURE_CLASS_VEGETATED</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<!-- Laboratory -->
+	<Modifier id="MOD_LABORATORY_SCIENCE_ON_QUARTERS" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILDING">
+				<Argument name="BuildingType">BUILDING_LABORATORY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_MOD_LABORATORY_SCIENCE_ON_QUARTERS</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_MOD_LABORATORY_SCIENCE_ON_QUARTERS" collection="COLLECTION_CITY_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_HAS_NUM_CONSTRUCTIBLES">
+				<Argument name="Amount">2</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<!-- Stock Exchange -->
+	<Modifier id="MOD_STOCK_EXCHANGE_GOLD_ON_QUARTERS" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILDING">
+				<Argument name="BuildingType">BUILDING_STOCK_EXCHANGE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_MOD_STOCK_EXCHANGE_GOLD_ON_QUARTERS</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_MOD_STOCK_EXCHANGE_GOLD_ON_QUARTERS" collection="COLLECTION_CITY_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_HAS_NUM_CONSTRUCTIBLES">
+				<Argument name="Amount">2</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<!-- Tenament -->
+	<Modifier id="MOD_TENEMENT_HAPPINESS_ON_QUARTERS" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILDING">
+				<Argument name="BuildingType">BUILDING_TENEMENT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_MOD_TENEMENT_HAPPINESS_ON_QUARTERS</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_MOD_TENEMENT_HAPPINESS_ON_QUARTERS" collection="COLLECTION_CITY_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_HAS_NUM_CONSTRUCTIBLES">
+				<Argument name="Amount">2</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<!-- University Mo -->
+	<Modifier id="MOD_UNIVERSITY_SCIENCE_MO_ON_URBAN_PLOTS" collection="COLLECTION_CITY_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IS_QUARTER">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Tooltip">LOC_BUILDING_UNIVERSITY_MO_NAME</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	WONDERS							-->
+	<!-- ==================================================	-->
+	<!-- Brandenburg Gate -->
+	<Modifier id="MOD_BRANDENBURG_GATE_IGNORE_YIELD_WAR_WEARINESS" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_WAR_WEARINESS_YIELD_PENALTY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_BRANDENBURG_GATE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Percent">-100</Argument>
+		<Argument name="Tooltip">LOC_WONDER_BRANDENBURG_GATE_NAME</Argument>
+	</Modifier>
+	<Modifier id="MOD_BRANDENBURG_GATE_CONQUERED_SETTLEMENT_HAPPINESS" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_ORIGINAL_OWNER" inverse="true">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">5</Argument>
+		<Argument name="Tooltip">LOC_WONDER_BRANDENBURG_GATE_NAME</Argument>
+	</Modifier>
+	<!-- Chengde Mountain Resort -->
+	<Modifier id="MOD_CHENGDE_MOUNTAIN_RESORT_CULTURE_PER_TRADE_ROUTE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_PER_NUM_CIVS_TRADING_WITH">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_CHENGDE_MOUNTAIN_RESORT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Percent">5</Argument>
+		<Argument name="Tooltip">LOC_WONDER_CHENGDE_MOUNTAIN_RESORT_NAME</Argument>
+	</Modifier>
+	<!-- Dogo Onsen -->
+	<Modifier id="MOD_DOGO_ONSEN_GOLDEN_AGE_POPULATION" collection="COLLECTION_OWNER_CITY" effect="TRIGGER_CITY_ADJUST_POPULATION_ON_GOLDEN_AGE" run-once="false" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_DOGO_ONSEN</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<!-- Doi Suthep -->
+	<Modifier id="MOD_DOI_SUTHEP_SUZERAIN_CULTURE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_PER_SUZERAIN">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_DOI_SUTHEP</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">5</Argument>
+		<Argument name="Tooltip">LOC_WONDER_DOI_SUTHEP_NAME</Argument>
+	</Modifier>
+	<Modifier id="MOD_DOI_SUTHEP_SUZERAIN_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_PER_SUZERAIN">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_DOI_SUTHEP</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">5</Argument>
+		<Argument name="Tooltip">LOC_WONDER_DOI_SUTHEP_NAME</Argument>
+	</Modifier>
+	<!-- Eiffel Tower -->
+	<Modifier id="MOD_EIFFEL_TOWER_URBAN_CULTURE" collection="COLLECTION_CITY_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_EIFFEL_TOWER</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_IS_QUARTER">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MOD_EIFFEL_TOWER_URBAN_HAPPINESS" collection="COLLECTION_CITY_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_EIFFEL_TOWER</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_IS_QUARTER">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<!-- Hermitage -->
+	<Modifier id="MOD_HERMITAGE_GREAT_WORK_CULTURE" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_HERMITAGE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_CITY_HAS_GREAT_WORK">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Percent">10</Argument>
+	</Modifier>
+	<!-- Muzibu Azaala Mpanga -->
+	<Modifier id="MOD_MUZIBU_AZAALA_MPANGA_LAKE_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_MUZIBU_AZAALA_MPANGA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="WarehouseYieldChange">MuzibuAzaalaMpangaLakeFood</Argument>
+	</Modifier>
+	<Modifier id="MOD_MUZIBU_AZAALA_MPANGA_KABAKAS_LAKE_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_MUZIBU_AZAALA_MPANGA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="WarehouseYieldChange">MuzibuAzaalaMpangaKabakasLakeFood</Argument>
+	</Modifier>
+	<Modifier id="MOD_MUZIBU_AZAALA_MPANGA_LAKE_CULTURE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_MUZIBU_AZAALA_MPANGA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILDING">
+				<Argument name="ConstructibleType">WONDER_MUZIBU_AZAALA_MPANGA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="WarehouseYieldChange">MuzibuAzaalaMpangaLakeCulture</Argument>
+	</Modifier>
+	<Modifier id="MOD_MUZIBU_AZAALA_MPANGA_KABAKAS_LAKE_CULTURE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_MUZIBU_AZAALA_MPANGA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILDING">
+				<Argument name="ConstructibleType">WONDER_MUZIBU_AZAALA_MPANGA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="WarehouseYieldChange">MuzibuAzaalaMpangaKabakasLakeCulture</Argument>
+	</Modifier>
+	<Modifier id="MOD_MUZIBU_AZAALA_MPANGA_LAKE_HAPPINESS" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_MUZIBU_AZAALA_MPANGA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILDING">
+				<Argument name="ConstructibleType">WONDER_MUZIBU_AZAALA_MPANGA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="WarehouseYieldChange">MuzibuAzaalaMpangaLakeHappiness</Argument>
+	</Modifier>
+	<Modifier id="MOD_MUZIBU_AZAALA_MPANGA_KABAKAS_LAKE_HAPPINESS" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_WAREHOUSE_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_MUZIBU_AZAALA_MPANGA</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILDING">
+				<Argument name="ConstructibleType">WONDER_MUZIBU_AZAALA_MPANGA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="WarehouseYieldChange">MuzibuAzaalaMpangaKabakasLakeHappiness</Argument>
+	</Modifier>
+	<!-- Manhattan Project -->
+	<Modifier id="MOD_MANHATTAN_PROJECT_GRANT_NUCLEAR_DEVICE" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_WMD_COUNT" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_MANHATTAN_PROJECT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Type">WMD_NUCLEAR_DEVICE</Argument>
+	</Modifier>
+	<!-- Oxford -->
+	<Modifier id="MOD_OXFORD_FREE_TECHS" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_PROGRESSION" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_OXFORD_UNIVERSITY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">2</Argument>
+		<Argument name="SystemType">SYSTEM_TECH</Argument>
+		<Argument name="FreeProgressionType">FREE_PROGRESSION_NODE_CHEAPEST_UNLOCKED</Argument>
+	</Modifier>
+	<Modifier id="MOD_OXFORD_WILDCARD_ATTRIBUTE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_OXFORD_UNIVERSITY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<Argument name="AttributeType">ATTRIBUTE_WILDCARD</Argument>
+	</Modifier>
+	<!-- Palacio de Bellas Artes -->
+	<Modifier id="MOD_PALACIO_DE_BELLAS_ARTES_GREAT_WORK_HAPPINESS" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_GREAT_WORK">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_PALACIO_DE_BELLAS_ARTES</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">2</Argument>
+		<Argument name="Tooltip">LOC_WONDER_PALACIO_DE_BELLAS_ARTES_NAME</Argument>
+	</Modifier>
+	<Modifier id="MOD_PALACIO_DE_BELLAS_ARTES_CITY_HAPPINESS" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_PALACIO_DE_BELLAS_ARTES</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Percent">10</Argument>
+		<Argument name="Tooltip">LOC_WONDER_PALACIO_DE_BELLAS_ARTES_NAME</Argument>
+	</Modifier>
+	<Modifier id="MOD_PALACIO_DE_BELLAS_ARTES_CULTURE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_PALACIO_DE_BELLAS_ARTES</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">10</Argument>
+		<Argument name="Tooltip">LOC_WONDER_PALACIO_DE_BELLAS_ARTES_NAME</Argument>
+	</Modifier>
+	<!-- Red Fort -->
+	<Modifier id="MOD_RED_FORT_CAPITAL_CITYCENTER_HEALTH" collection="COLLECTION_PLAYER_DISTRICTS" effect="EFFECT_DISTRICT_ADJUST_TOTAL_HEALTH" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_RED_FORT</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_HAS_CONSTRUCTIBLE">
+				<Argument name="ConstructibleType">BUILDING_PALACE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">50</Argument>
+	</Modifier>
+	<Modifier id="MOD_RED_FORT_CITYCENTER_HEALTH" collection="COLLECTION_PLAYER_DISTRICTS" effect="EFFECT_DISTRICT_ADJUST_TOTAL_HEALTH" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_RED_FORT</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_HAS_CONSTRUCTIBLE">
+				<Argument name="ConstructibleType">BUILDING_CITY_HALL</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">50</Argument>
+	</Modifier>
+	<Modifier id="MOD_RED_FORT_WONDER_HEALTH" collection="COLLECTION_PLAYER_DISTRICTS" effect="EFFECT_DISTRICT_ADJUST_TOTAL_HEALTH" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_RED_FORT</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_HAS_CONSTRUCTIBLE">
+				<Argument name="ConstructibleType">WONDER_RED_FORT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">50</Argument>
+	</Modifier>
+	<!-- Statue of Liberty -->
+	<Modifier id="MOD_STATUE_OF_LIBERTY_MIGRANTS" collection="COLLECTION_OWNER" effect="EFFECT_CITY_GRANT_UNIT" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_STATUE_OF_LIBERTY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">4</Argument>
+		<Argument name="UnitType">UNIT_MIGRANT</Argument>
+	</Modifier>
+	<Modifier id="MOD_STATUE_OF_LIBERTY_MIGRANT_FOOD" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_STATUE_OF_LIBERTY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+	</Modifier>
+	<!-- Taj Mahal -->
+	<Modifier id="MOD_TAJ_MAHAL_GOLDEN_AGE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_GOLDEN_AGE_DURATION">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_TAJ_MAHAL</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Percent">50</Argument>
+		<Argument name="Tooltip">LOC_WONDER_TAJ_MAHAL_NAME</Argument>
+	</Modifier>
+	<Modifier id="MOD_TAJ_MAHAL_WILDCARD_ATTRIBUTE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_TAJ_MAHAL</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<Argument name="AttributeType">ATTRIBUTE_WILDCARD</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	QUARTERS							-->
+	<!-- ==================================================	-->
+	<!--America Industrial Park-->
+	<Modifier id="MOD_AMERICA_INDUSTRIAL_PARK_RESOURCE_CAP" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_RESOURCE_CAP">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_UNIQUE_QUARTER">
+				<Argument name="UniqueQuarterType">QUARTER_INDUSTRIAL_PARK</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<!--French Empire Avenue-->
+	<Modifier id="MOD_FRENCH_EMPIRE_AVENUE_URBAN_HAPPINESS" collection="COLLECTION_ALL_CITIES" effect="EFFECT_ATTACH_MODIFIERS" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_UNIQUE_QUARTER">
+				<Argument name="UniqueQuarterType">QUARTER_AVENUE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_MOD_FRENCH_EMPIRE_AVENUE_URBAN_HAPPINESS</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_MOD_FRENCH_EMPIRE_AVENUE_URBAN_HAPPINESS" collection="COLLECTION_CITY_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD" permanent="true">
+		<SubjectRequirements type="REQUIREMENTSET_TEST_ANY">
+			<Requirement type="REQUIREMENT_PLOT_DISTRICT_CLASS">
+				<Argument name="DistrictClass">CITY_CENTER</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_DISTRICT_CLASS">
+				<Argument name="DistrictClass">URBAN</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<!--Meiji Zaibatsu-->
+	<Modifier id="MOD_MEIJI_ZAIBATSU_ADJACENT_GOLD" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ACTIVATE_CONSTRUCTIBLE_ADJACENCY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_UNIQUE_QUARTER">
+				<Argument name="UniqueQuarterType">QUARTER_ZAIBATSU</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ConstructibleAdjacency">ZaibatsuWildcardZaibatsuGold</Argument>
+	</Modifier>
+	<Modifier id="MOD_MEIJI_ZAIBATSU_ADJACENT_PRODUCTION" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ACTIVATE_CONSTRUCTIBLE_ADJACENCY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_UNIQUE_QUARTER">
+				<Argument name="UniqueQuarterType">QUARTER_ZAIBATSU</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ConstructibleAdjacency">ZaibatsuWildcardZaibatsuProduction</Argument>
+	</Modifier>
+	<Modifier id="MOD_MEIJI_ZAIBATSU_RESOURCE_CAP" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_RESOURCE_CAP">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_UNIQUE_QUARTER">
+				<Argument name="UniqueQuarterType">QUARTER_ZAIBATSU</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<!--Mexico Zocalo-->
+	<Modifier id="MOD_MEXICO_ZOCALO_CULTURE_PER_TRADITION" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_ACTIVE_TRADITION">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_UNIQUE_QUARTER">
+				<Argument name="UniqueQuarterType">QUARTER_ZOCALO</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="CivUnique">true</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<!--Qing Huiguan-->
+	<Modifier id="MOD_QING_HUIGUAN_TRADE_INCOME" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_UNIQUE_QUARTER">
+				<Argument name="UniqueQuarterType">QUARTER_HUIGUAN</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Percent">25</Argument>
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--	MODIFIERS							-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_AERODROME_SETUP_COMMANDER" collection="COLLECTION_OWNER" effect="EFFECT_CITY_GRANT_UNIT" run-once="true" permanent="true">
+		<Argument name="UnitType">UNIT_AERODROME_COMMANDER</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="MOD_RAILYARD_CONNECTED_PRODUCTION" collection="COLLECTION_OWNER" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION">
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Percent">10</Argument>
+		<String context="Description">LOC_MOD_RAILYARD_CONNECTED_PRODUCTION_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_MILITARY_ACADEMY_COMMANDER_PROMOTION" collection="COLLECTION_CITY_TRAINED_UNITS" effect="EFFECT_GRANT_UNIT_PROMOTION">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_ARMY_COMMANDER</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_BUILDING_MILITARY_ACADEMY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_ROUTE_STAATSEISENBAHN_GOLD" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_HAS_ROUTE_TYPE">
+				<Argument name="RouteType">ROUTE_STAATSEISENBAHN</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_DISTRICT_CLASS">
+				<Argument name="DistrictClass">RURAL, WILDERNESS</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">2</Argument>
+		<String context="Description">LOC_ROUTE_STAATSEISENBAHN_YIELD_DESCRIPTION</String>
+		<Argument name="Tooltip">LOC_ROUTE_STAATSEISENBAHN_NAME</Argument>
+	</Modifier>
+	<Modifier id="MOD_ROUTE_STAATSEISENBAHN_PRODUCTION" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_HAS_ROUTE_TYPE">
+				<Argument name="RouteType">ROUTE_STAATSEISENBAHN</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_DISTRICT_CLASS">
+				<Argument name="DistrictClass">RURAL, WILDERNESS</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Amount">2</Argument>
+		<Argument name="Tooltip">LOC_ROUTE_STAATSEISENBAHN_NAME</Argument>
+	</Modifier>
+	<Modifier id="MOD_SHORE_BATTERY_ABILITY" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_HAS_CONSTRUCTIBLE">
+				<Argument name="ConstructibleType">IMPROVEMENT_SHORE_BATTERY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_SHORE_BATTERY</Argument>
+	</Modifier>
+	<Modifier id="SHORE_BATTERY_MOD_HEAL" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_HEAL_PER_TURN">
+		<Argument name="Amount">5</Argument>
+		<Argument name="TerritoryTypes">ALL_TERRITORIES</Argument>
+	</Modifier>
+	<Modifier id="SHORE_BATTERY_MOD_RANGE" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_ATTACK_RANGE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_RANGED, UNIT_CLASS_SIEGE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="SHORE_BATTERY_MOD_RANGE_COMBAT" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_RANGED, UNIT_CLASS_SIEGE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Type">RANGED</Argument>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_SHORE_BATTERY_RANGED_PREVIEW</String>
+	</Modifier>
+	<Modifier id="TRAIT_MOD_JUKOGYO_RESOURCE_CAP" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_RESOURCE_CAP">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_BUILDING">
+				<Argument name="BuildingType">BUILDING_JUKOGYO</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+</GameEffects>

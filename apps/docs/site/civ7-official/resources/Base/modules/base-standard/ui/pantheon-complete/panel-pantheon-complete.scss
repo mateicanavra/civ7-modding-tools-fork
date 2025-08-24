@@ -1,0 +1,11 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+
+.screen-pantheon-complete {
+	.pantheon-frame {
+		@media (experience: mobile) {
+			margin-top: pixels(70);
+			margin-bottom: pixels(12);
+			width: pixels(700);
+		}
+	}
+}

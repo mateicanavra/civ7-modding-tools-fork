@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="MEMENTO_ADA_LOVELACE_PUNCH_CARDS_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_PLAYER_GRANT_YIELD" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_BUILT_TAGGED_CONSTRUCTIBLE">
+				<Argument name="Tags">SCIENCE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">20</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<String context="Description">LOC_MEMENTO_ADA_LOVELACE_PUNCH_CARDS_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_ADA_LOVELACE_PIANO_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_PROGRESSION_TREE_MASTERY_EFFICIENCY">
+		<Argument name="SystemType">SYSTEM_CULTURE</Argument>
+		<Argument name="Percent">10</Argument>
+		<String context="Description">LOC_MEMENTO_ADA_LOVELACE_PIANO_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_ADA_LOVELACE_NOTE_G_MODIFIER_1" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="TRIGGER_CITY_GRANT_YIELD_ON_PROGRESSION_TREE_NODE_DEPTH_UNLOCKED">
+		<Argument name="SystemType">SYSTEM_TECH</Argument>
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="PercentCost">15</Argument>
+		<Argument name="MasteryNodesOnly">true</Argument>
+		<String context="Preview">LOC_MEMENTO_ADA_LOVELACE_NOTE_G_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_ADA_LOVELACE_NOTE_G_MODIFIER_2" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="TRIGGER_CITY_GRANT_YIELD_ON_PROGRESSION_TREE_NODE_DEPTH_UNLOCKED">
+		<Argument name="SystemType">SYSTEM_CULTURE</Argument>
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="PercentCost">15</Argument>
+		<Argument name="MasteryNodesOnly">true</Argument>
+		<String context="Preview">LOC_MEMENTO_ADA_LOVELACE_NOTE_G_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+</GameEffects>

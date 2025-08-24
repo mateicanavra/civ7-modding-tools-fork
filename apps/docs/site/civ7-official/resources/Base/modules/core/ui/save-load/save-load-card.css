@@ -1,0 +1,152 @@
+/* DO NOT EDIT */
+/* Generated from save-load-card.scss */
+save-load-card {
+	display: flex;
+	position: relative;
+	margin-bottom: 0;
+	padding: 0.8888888889rem;
+	align-items: center;
+	transition: 0.2s ease-in-out transform;
+	z-index: 1;
+	font-size: 0.4444444444rem;
+}
+save-load-card .card__frame {
+	position: absolute;
+	filter: fxs-color-mask(#796144);
+	top: 0.3333333333rem;
+	bottom: 0.3333333333rem;
+	left: 0.3333333333rem;
+	right: 0.3333333333rem;
+	border-image-source: url("fs://game/Frame_small_symmetrical.png");
+	border-image-width: 1.3333333333rem 1.3333333333rem;
+	border-image-slice: 24 fill;
+	border-image-repeat: stretch;
+	pointer-events: none;
+}
+save-load-card .card-selection__frame {
+	position: absolute;
+	top: 0rem;
+	bottom: 0rem;
+	left: 0.4444444444rem;
+	right: 0.4444444444rem;
+	display: flex;
+	flex-direction: column;
+	filter: fxs-color-mask(#E5E5E5);
+	opacity: 0;
+	transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+}
+save-load-card .card__bg {
+	z-index: -1;
+	position: absolute;
+	top: 0.3333333333rem;
+	bottom: 0.3333333333rem;
+	left: 0.3333333333rem;
+	right: 0.3333333333rem;
+	border-image-source: url("fs://game/Frame_small_symmetrical_fill.png");
+	border-image-width: 1.3333333333rem 1.3333333333rem;
+	border-image-slice: 24 fill;
+	border-image-repeat: stretch;
+	opacity: 0.45;
+	filter: fxs-color-mask(#131213);
+	pointer-events: none;
+}
+save-load-card .card__bg--highlight {
+	visibility: hidden;
+	z-index: -1;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	border-image-source: url("fs://game/Frame_small_symmetrical_fill.png");
+	border-image-width: 1.3333333333rem 1.3333333333rem;
+	border-image-slice: 24 fill;
+	border-image-repeat: stretch;
+	opacity: 0;
+	transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+	filter: fxs-color-mask(#E5E5E5);
+	pointer-events: none;
+}
+save-load-card .card-selection {
+	position: absolute;
+	top: 0.3333333333rem;
+	bottom: 0.3333333333rem;
+	left: 0.3333333333rem;
+	right: 0.3333333333rem;
+	mask-image: linear-gradient(to right, transparent, black 40%, black 60%, transparent);
+	pointer-events: none;
+	mask-position: -2.2222222222rem;
+	transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+	visibility: hidden;
+	opacity: 0;
+}
+save-load-card .card-selection__frame-bottom {
+	flex: 1;
+	border-image-source: url("fs://game/Ornament_centerDivider_simple.png");
+	border-image-width: 0.2222222222rem;
+	border-image-slice: 0 0 100 0;
+	border-image-repeat: stretch;
+}
+save-load-card .card-selection__frame-top {
+	flex: 1;
+	border-image-source: url("fs://game/Ornament_centerDivider_simple.png");
+	border-image-width: 0.2222222222rem;
+	border-image-slice: 100 0 0 0;
+	border-image-repeat: stretch;
+}
+save-load-card .card-select-icon {
+	visibility: hidden;
+	width: 2.2222222222rem;
+	height: 2.2222222222rem;
+	margin-left: -0.4888888889rem;
+	margin-right: -1.5111111111rem;
+	mask-image: linear-gradient(to top, rgba(0, 0, 0, 0), black 10%, black 90%, rgba(0, 0, 0, 0));
+	pointer-events: none;
+}
+save-load-card .card-select-icon .select-icon-bg {
+	width: 100%;
+	height: 100%;
+	background-image: url("fs://game/Selector_TabBarItem.png");
+	filter: fxs-color-mask(var(--default-color-secondary));
+	background-size: 10.6666666667rem 3.1111111111rem;
+	background-position: -4.2222222222rem 0;
+	transform: rotate(-90deg);
+	transform-origin: center;
+	background-repeat: no-repeat;
+}
+save-load-card.selected .card-select-icon {
+	visibility: visible;
+}
+save-load-card.selected .card__bg--highlight {
+	visibility: visible;
+	opacity: 0.125;
+}
+save-load-card.selected .card-selection {
+	visibility: visible;
+	opacity: 1;
+}
+save-load-card.selected .card-selection__frame {
+	opacity: 1;
+}
+save-load-card:focus .card-select-icon {
+	visibility: visible;
+}
+save-load-card:focus .card__bg--highlight {
+	visibility: visible;
+	opacity: 0.125;
+}
+save-load-card:focus .card-selection {
+	visibility: visible;
+	opacity: 1;
+}
+save-load-card:focus .card-selection__frame {
+	opacity: 1;
+}
+save-load-card:hover .card-selection {
+	visibility: visible;
+	opacity: 1;
+}
+save-load-card:hover .card__bg--highlight {
+	visibility: visible;
+	opacity: 0.375;
+}

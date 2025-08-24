@@ -1,0 +1,36 @@
+@use 'sass:math';
+@use 'sass:string';
+@use '../theme';
+@use "../baseColors" as baseColors;
+@use '../../../utilities/utility-layout' as *;
+@use '../../../utilities/utility-text' as *;
+
+/** Nav Help *********************************************************************/
+
+.trigger-nav-help .fxs-nav-help {
+	display: flex;
+}
+
+.hide-nav-help .fxs-nav-help {
+	display: none;
+}
+
+/** Displayed on hover/focus only ***************************************************/
+
+// When, and only when, a parent with the 'hover-only-trigger' attribute
+// is hovered / has the focus, the .hover-only-display element appears.
+//
+// For instance, the FxsNavHelp can use that mode when its (FxsActivatable) parent
+// is part of a list/grid (with a unique selection).
+[hover-only-trigger="true"] {
+	.hover-only-display {
+		display: none;
+	}
+
+	&:hover,
+	&:focus {
+		.hover-only-display {
+			display: flex;
+		}
+	}
+}

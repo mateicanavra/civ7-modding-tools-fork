@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_DESCRIPTION" Language="pt_BR">
+      <Text>Contém um novo Líder, Tecumseh, e uma nova Civilização da Era da Exploração, os shawnees.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_NAME" Language="pt_BR">
+      <Text>Shawnee/Tecumseh</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_DESCRIPTION" Language="fr_FR">
+      <Text>Contient un nouveau dirigeant, Tecumseh, ainsi qu'une nouvelle civilisation de l'Âge de l'exploration, les Chaouanons.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_NAME" Language="fr_FR">
+      <Text>Chaouanons/Tecumseh</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_DESCRIPTION" Language="de_DE">
+      <Text>Enthält einen neuen Anführer, Tecumseh, und eine neue Zivilisation des Zeitalters der Entdeckung, die Shawnee.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_NAME" Language="de_DE">
+      <Text>Shawnee/Tecumseh</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_DESCRIPTION" Language="it_IT">
+      <Text>Contiene un nuovo leader, Tecumseh, e una nuova civiltà dell'epoca delle esplorazioni, gli Shawnee.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_NAME" Language="it_IT">
+      <Text>Shawnee/Tecumseh</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_DESCRIPTION" Language="ja_JP">
+      <Text>新たな指導者「テカムセ」と、新たな探検の時代の文明「ショーニー」を含みます。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_NAME" Language="ja_JP">
+      <Text>ショーニー/テカムセ</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_DESCRIPTION" Language="ko_KR">
+      <Text>새로운 지도자 테쿰세와 새로운 대항해시대 문명인 쇼니가 포함되어 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_NAME" Language="ko_KR">
+      <Text>쇼니/테쿰세</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_DESCRIPTION" Language="pl_PL">
+      <Text>Zawiera nowego przywódcę, Tecumseha, oraz nową cywilizację epoki odkryć – Szaunisów.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_NAME" Language="pl_PL">
+      <Text>Szaunisi/Tecumseh</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_DESCRIPTION" Language="ru_RU">
+      <Text>Содержит нового лидера Текумсе и новую цивилизацию эпохи исследований — шони.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_NAME" Language="ru_RU">
+      <Text>Шони/Текумсе</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>包含1位新领袖特库姆塞，以及1个新探索时代文明肖尼族。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_NAME" Language="zh_Hans_CN">
+      <Text>肖尼族/特库姆塞</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_DESCRIPTION" Language="es_ES">
+      <Text>Contiene un nuevo líder, Tecumseh, y una civilización de la Era de los Descubrimientos, los shawnees.</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_NAME" Language="es_ES">
+      <Text>Shawnees/Tecumseh</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>包含一位新的領袖——特庫姆塞，以及一個新的探索時代文明——肖尼族。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODULE_SHAWNEE_TECUMSEH_NAME" Language="zh_Hant_HK">
+      <Text>肖尼族/特庫姆塞</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

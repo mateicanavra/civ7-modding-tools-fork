@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+
+	<!-- Property Collection Definitions -->
+	<!-- Player_Instance -->
+	<IProperties>
+		<Row Collection="Player_Instance" Name="AllowEmbarkation" Type="Bool" Access="Indexed"/>
+		<Row Collection="Player_Instance" Name="AllowCityWalls" Type="Bool" Access="Indexed"/>
+	</IProperties>
+	<!-- Player_Cities-->
+	<IProperties>
+		<Row Collection="Player_Cities" Name="FreshWaterHousingBonus" Type="Bool" Access="Indexed"/>
+		<Row Collection="Player_Cities" Name="UrbanDefenceLevel" Type="Int" Access="Indexed"/>
+		<Row Collection="Player_Cities" Name="PeakCities" Type="UInt" Access="Indexed"/>
+		<Row Collection="Player_Cities" Name="HomeContinent" Type="ContinentTypes" Access="Indexed"/>
+		<Row Collection="Player_Cities" Name="SettledContinents" Type="ContinentTypes" Container="Vector" Access="Indexed"/>
+	</IProperties>
+	
+</Database>

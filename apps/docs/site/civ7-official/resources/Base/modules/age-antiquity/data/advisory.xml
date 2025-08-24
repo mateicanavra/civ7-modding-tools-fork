@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<Database>
+	<Types>
+		<Row Type="ADVISOR_WARNING_NO_CODEX_SLOT" Kind="KIND_ADVISOR_WARNING"/>
+		<Row Type="ADVISOR_WARNING_COMPETING_WONDER" Kind="KIND_ADVISOR_WARNING"/>
+		<Row Type="ADVISOR_WARNING_SURPLUS_GOLD" Kind="KIND_ADVISOR_WARNING"/>
+		<Row Type="ADVISOR_WARNING_SETTLEMENT_LOST" Kind="KIND_ADVISOR_WARNING"/>
+		<Row Type="ADVISOR_WARNING_SETTLEMENT_RAZED" Kind="KIND_ADVISOR_WARNING"/>
+		<Row Type="ADVISOR_WARNING_AGE_TRANSITION_COMMANDERS" Kind="KIND_ADVISOR_WARNING"/>
+	</Types>
+	<!-- Watch Out warnings issued by Advisors-->
+	<AdvisorWarnings>
+		<Row AdvisorWarningType="ADVISOR_WARNING_NO_CODEX_SLOT" AdvisorType="ADVISOR_SCIENCE" NotificationType="NOTIFICATION_ADVISOR_WARNING_SCIENCE" Name="LOC_WARNING_NO_CODEX_SLOT_SUMMARY" Description="LOC_WARNING_NO_CODEX_SLOT_MESSAGE" NotificationLevel="0" Repeatable="false"/>
+		<Row AdvisorWarningType="ADVISOR_WARNING_COMPETING_WONDER" AdvisorType="ADVISOR_CULTURE" NotificationType="NOTIFICATION_ADVISOR_WARNING_CULTURE" Name="LOC_WARNING_COMPETING_WONDER_SUMMARY" Description="LOC_WARNING_COMPETING_WONDER_MESSAGE" NotificationLevel="0" Repeatable="true" CooldownTurns="1" SpecificItemCooldownTurns="99999"/>
+		<Row AdvisorWarningType="ADVISOR_WARNING_SURPLUS_GOLD" AdvisorType="ADVISOR_ECONOMIC" NotificationType="NOTIFICATION_ADVISOR_WARNING_ECONOMIC" Name="LOC_WARNING_SURPLUS_GOLD_SUMMARY" Description="LOC_WARNING_SURPLUS_GOLD_MESSAGE" NotificationLevel="0" Repeatable="true" CooldownTurns="30" MaxAgePercentComplete="75"/>
+		<Row AdvisorWarningType="ADVISOR_WARNING_SETTLEMENT_LOST" AdvisorType="ADVISOR_MILITARY" NotificationType="NOTIFICATION_ADVISOR_WARNING_MILITARY" Name="LOC_WARNING_SETTLEMENT_LOST_SUMMARY" Description="LOC_WARNING_SETTLEMENT_LOST_MESSAGE" NotificationLevel="0" Repeatable="false"/>
+		<Row AdvisorWarningType="ADVISOR_WARNING_SETTLEMENT_RAZED" AdvisorType="ADVISOR_MILITARY" NotificationType="NOTIFICATION_ADVISOR_WARNING_MILITARY" Name="LOC_WARNING_SETTLEMENT_RAZED_SUMMARY" Description="LOC_WARNING_SETTLEMENT_RAZED_MESSAGE" NotificationLevel="0" Repeatable="false"/>
+		<Row AdvisorWarningType="ADVISOR_WARNING_AGE_TRANSITION_COMMANDERS" AdvisorType="ADVISOR_MILITARY" NotificationType="NOTIFICATION_ADVISOR_WARNING_MILITARY" Name="LOC_WARNING_AGE_TRANSITION_COMMANDERS_SUMMARY" Description="LOC_WARNING_AGE_TRANSITION_COMMANDERS_MESSAGE" NotificationLevel="0" Repeatable="false"/>
+	</AdvisorWarnings>
+</Database>

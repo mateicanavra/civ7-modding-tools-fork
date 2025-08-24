@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metaprogression xmlns="Metaprogression">
+	<challenges class="CHALLENGE_CLASS_FOUNDATION" category="CHALLENGE_CATEGORY_FOUNDATION_CIV_VICTORIES" legendPath="LEGEND_PATH_FOUNDATION">
+		<challenge id="CHALLENGE_FOUNDATION_COMPLETION_ALL_CIV_VICTORIES_CHALLENGES" scope="Campaign" difficulty="5">
+			<l10n>
+				<name>Victorious</name>
+				<description>Complete all base game Civ Victories Challenges.</description>
+			</l10n>
+			<sortIndex>6350</sortIndex>
+			<reward type="XP" reward="100"/>
+			<reward type="UnlockableReward" reward="BADGE_EVERY_VICTORY_BADGE"/>
+		</challenge>
+	</challenges>
+</metaprogression>

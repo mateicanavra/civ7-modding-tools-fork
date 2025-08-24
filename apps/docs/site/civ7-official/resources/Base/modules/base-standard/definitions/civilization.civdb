@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns="Definitions">
+	<definition name="Civilization" table-name="Civilizations" cpp="true">
+		<field name="CivilizationType" type="Text" key="true" not-null="true"/>
+		<field name="Name" type="LocalizedText" not-null="true"/>
+		<field name="Description" type="Text"/>
+		<field name="FullName" type="Text" not-null="true"/>
+		<field name="Adjective" type="Text" not-null="true"/>
+		<field name="CapitalName" type="Text" not-null="true"/>
+		<field name="RandomCityNameDepth" type="Integer" value="1" not-null="true"/>
+		<field name="StartingCivilizationLevelType" type="Text" not-null="true"/>
+		<field name="UniqueCultureProgressionTree" type="Text" hash="true"/>
+		<field name="AITargetCityPercentage" type="Integer" value="50" not-null="true"/>
+		<reference source="StartingCivilizationLevelType" target="CivilizationLevelType" sourceRoleName="StartingCivilizationLevelTypeRef" on-delete="SetDefault" to="CivilizationLevel"/>
+		<reference source="UniqueCultureProgressionTree" target="ProgressionTreeType" sourceRoleName="UniqueCultureProgressionTreeRef" on-delete="SetDefault" to="ProgressionTree"/>
+		<reference source="CivilizationType" target="Type" to="Type"/>
+		<property name="CityNameCollection" path="CityNameCollectionRef"/>
+		<property name="TraitCollection" path="CivTraitCollection.TraitRef"/>
+		<property name="CitizenNameCollection" path="CitizenNameCollectionRef"/>
+		<property name="StartBiasBiomeCollection" path="StartBiasBiomeCollectionRef"/>
+		<property name="StartBiasFeatureClassCollection" path="StartBiasFeatureClassCollectionRef"/>
+		<property name="StartBiasResourceCollection" path="StartBiasResourceCollectionRef"/>
+		<property name="StartBiasTerrainCollection" path="StartBiasTerrainCollectionRef"/>
+		<property name="StartBiasRiverCollection" path="StartBiasRiverCollectionRef"/>
+		<property name="StartBiasLakeCollection" path="StartBiasLakeCollectionRef"/>
+		<property name="StartBiasNaturalWonderCollection" path="StartBiasNaturalWonderCollectionRef"/>
+		<property name="ReligionCollection" path="ReligionCollection.ReligionRef"/>
+		<property name="UniqueCultureProgressionTreeReference" path="UniqueCultureProgressionTreeRef"/>
+	</definition>
+	<definition name="CivilizationLevel" table-name="CivilizationLevels" cpp="true">
+		<field name="CivilizationLevelType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="CanFoundCities" type="Bool" not-null="true"/>
+		<field name="CanEarnGreatPeople" type="Bool" not-null="true"/>
+		<field name="CanGiveInfluence" type="Bool" not-null="true"/>
+		<field name="CanReceiveInfluence" type="Bool" not-null="true"/>
+		<field name="CanBuildWonders" type="Bool" not-null="true"/>
+		<field name="IgnoresUnitStrategicResourceRequirements" type="Bool" value="false" not-null="true"/>
+	</definition>
+	<definition name="LegacyCivilization" table-name="LegacyCivilizations" cpp="true">
+		<field name="CivilizationType" type="Text" key="true" not-null="true"/>
+		<field name="Name" type="LocalizedText" not-null="true"/>
+		<field name="FullName" type="Text" not-null="true"/>
+		<field name="Adjective" type="Text" not-null="true"/>
+		<field name="Age" type="Text" not-null="true" hash="true"/>
+		<reference source="CivilizationType" target="Type" to="Type"/>
+		<reference source="Age" target="AgeType" sourceRoleName="AgeRef" to="Age"/>
+		<property name="LegacyTraitCollection" path="LegacyCivTraitCollection.TraitRef"/>
+	</definition>
+	<definition name="LegacyLeaderCivPriority" table-name="LegacyLeaderCivPriorities" cpp="true">
+		<field name="Leader" type="Text" not-null="true" key="true" hash="true"/>
+		<field name="CivilizationType" type="Text" not-null="true" key="true" hash="true"/>
+		<reference source="Leader" target="LeaderType" sourceRoleName="LeaderRef" targetRoleName="LegacyCivPriorityCollectionRef" to="Leader"/>
+		<property name="LeaderReference" path="LeaderRef"/>
+	</definition>
+	<definition name="LegacyIndependent" table-name="LegacyIndependents" cpp="true">
+		<field name="IndependentType" type="Text" key="true" not-null="true"/>
+		<field name="Name" type="LocalizedText" not-null="true"/>
+		<field name="Age" type="Text" not-null="true" hash="true"/>
+	</definition>
+	<definition name="CivilizationTrait" table-name="CivilizationTraits" cpp="true">
+		<field name="CivilizationType" type="Text" key="true" not-null="true"/>
+		<field name="TraitType" type="Text" key="true" not-null="true"/>
+		<reference source="TraitType" target="TraitType" sourceRoleName="TraitRef" to="Trait"/>
+		<reference source="CivilizationType" target="CivilizationType" targetRoleName="CivTraitCollection" to="Civilization"/>
+	</definition>
+	<definition name="LegacyCivilizationTrait" table-name="LegacyCivilizationTraits" cpp="true">
+		<field name="CivilizationType" type="Text" key="true" not-null="true"/>
+		<field name="TraitType" type="Text" key="true" not-null="true"/>
+		<reference source="TraitType" target="TraitType" sourceRoleName="TraitRef" to="Trait"/>
+		<reference source="CivilizationType" target="CivilizationType" targetRoleName="LegacyCivTraitCollection" to="LegacyCivilization"/>
+	</definition>
+	<definition name="Independent" table-name="Independents" cpp="true">
+		<field name="IndependentType" type="Text" key="true" not-null="true"/>
+		<field name="Name" type="LocalizedText" not-null="true"/>
+		<field name="CityStateName" type="LocalizedText" not-null="true"/>
+		<field name="CityStateIsCity" type="Bool" value="false" not-null="true"/>
+		<field name="CityStateType" type="Text" not-null="true" hash="true"/>
+		<field name="Affinity" type="Text" not-null="true"/>
+		<field name="BiomeType" type="Text" hash="true"/>
+		<field name="TribeType" type="Text" not-null="true" value="TRIBE_DEFAULT"/>
+		<reference source="BiomeType" target="BiomeType" to="Biome"/>
+		<reference source="Affinity" target="Affinity" sourceRoleName="AffinityRef" to="Affinity"/>
+		<reference source="CityStateType" target="CityStateType" sourceRoleName="CityStateTypeRef" to="CityStateType"/>
+		<reference source="TribeType" target="TribeType" sourceRoleName="TribeRef" to="IndependentTribeType"/>
+		<property name="AffinityReference" path="AffinityRef"/>
+		<property name="TribeReference" path="TribeRef"/>
+		<property name="CityStateTypeRefereence" path="CityStateTypeRef"/>
+	</definition>
+	<!-- AI Support -->
+	<definition name="Affinity" table-name="Affinities" cpp="true">
+		<field name="Affinity" type="Text" key="true" not-null="true"/>
+		<field name="HostilityChance" type="Integer" value="100" not-null="true"/>
+		<field name="NeutralityChance" type="Integer" value="50" not-null="true"/>
+	</definition>
+	<definition name="IndependentTribeType" table-name="IndependentTribeTypes" cpp="true">
+		<field name="TribeType" type="Text" key="true" not-null="true"/>
+		<field name="RaidOperation" type="Text" not-null="true" value="Independent Raid"/>
+		<field name="AssaultOperation" type="Text" not-null="true" value="Independent Assault"/>
+		<!-- If there is an advanced raid, it will run the base raid NumNormalRaid times, then only advanced raids -->
+		<field name="AdvancedRaidOperation" type="Text"/>
+		<field name="NumNormalRaids" type="Integer" not-null="true" value="1"/>
+		<field name="RespawnTime" type="Integer" not-null="true" value="-1"/>
+		<field name="CanBeBefriended" type="Bool" not-null="true" value="true"/>
+		<field name="IgnoreSpacing" type="Bool" not-null="true" value="false"/>
+		<field name="UnitBuildTime" type="Integer" not-null="true" value="8"/>
+		<field name="CampConstructibleType" type="Text"/>
+		<!-- There can only be one defender set. Other types are collections -->
+		<field name="DefenderTagSet" type="Text" not-null="true"/>
+		<reference source="DefenderTagSet" target="TribeTagName" to="TribeTagSet" sourceRoleName="DefenderTagSetRef"/>
+		<reference source="CampConstructibleType" target="ConstructibleType" to="Constructible" sourceRoleName="ConstructibleRef"/>
+		<property name="ScoutTagSetCollection" path="ScoutTagSetCollectionRef.TribeTagSetRef"/>
+		<property name="CombatTagSetCollection" path="CombatTagSetCollectionRef.TribeTagSetRef"/>
+		<property name="CommanderTagSetCollection" path="CommanderTagSetCollectionRef.TribeTagSetRef"/>
+		<property name="DefenderTagSetReference" path="DefenderTagSetRef"/>
+		<property name="ConstructibleReference" path="ConstructibleRef"/>
+	</definition>
+	<definition name="TribeTagSet" table-name="TribeTagSets" cpp="true">
+		<field name="TribeTagName" type="Text" key="true" not-null="true"/>
+		<field name="InitialUnitAmount" type="Integer" not-null="true" value="0"/>
+		<field name="MaxUnitAmount" type="Integer" not-null="true" value="1"/>
+		<property name="CombatCollection" path="CombatCollectionRef"/>
+		<property name="RequiredCombatCollection" path="RequiredCombatCollectionRef"/>
+		<property name="ForbiddenCombatCollection" path="ForbiddenCombatCollectionRef"/>
+	</definition>
+	<definition name="TribeCombatTag" table-name="TribeCombatTags" cpp="true">
+		<!-- When creating a combat unit, will choose one of these tags -->
+		<field name="TribeTagSet" type="Text" key="true" not-null="true"/>
+		<field name="CombatTag" type="Text" key="true" not-null="true"/>
+		<reference source="TribeTagSet" target="TribeTagName" targetRoleName="CombatCollectionRef" to="TribeTagSet"/>
+	</definition>
+	<definition name="TribeRequiredCombatTag" table-name="TribeRequiredCombatTags" cpp="true">
+		<!-- When creating a combat unit, must have all of these tags -->
+		<field name="TribeTagSet" type="Text" key="true" not-null="true"/>
+		<field name="CombatTag" type="Text" key="true" not-null="true"/>
+		<reference source="TribeTagSet" target="TribeTagName" targetRoleName="RequiredCombatCollectionRef" to="TribeTagSet"/>
+	</definition>
+	<definition name="TribeForbiddenCombatTag" table-name="TribeForbiddenCombatTags" cpp="true">
+		<!-- When creating a combat unit, must have none of these tags -->
+		<field name="TribeTagSet" type="Text" key="true" not-null="true"/>
+		<field name="CombatTag" type="Text" key="true" not-null="true"/>
+		<reference source="TribeTagSet" target="TribeTagName" targetRoleName="ForbiddenCombatCollectionRef" to="TribeTagSet"/>
+	</definition>
+	<definition name="TribeScoutTagSet" table-name="TribeScoutTagSets" cpp="true">
+		<field name="TribeTypeName" type="Text" key="true" not-null="true"/>
+		<field name="TribeTagSetName" type="Text" key="true" not-null="true"/>
+		<reference source="TribeTypeName" target="TribeType" to="IndependentTribeType" targetRoleName="ScoutTagSetCollectionRef"/>
+		<reference source="TribeTagSetName" target="TribeTagName" to="TribeTagSet" sourceRoleName="TribeTagSetRef"/>
+	</definition>
+	<definition name="TribeCombatTagSet" table-name="TribeCombatTagSets" cpp="true">
+		<field name="TribeTypeName" type="Text" key="true" not-null="true"/>
+		<field name="TribeTagSetName" type="Text" key="true" not-null="true"/>
+		<reference source="TribeTypeName" target="TribeType" to="IndependentTribeType" targetRoleName="CombatTagSetCollectionRef"/>
+		<reference source="TribeTagSetName" target="TribeTagName" to="TribeTagSet" sourceRoleName="TribeTagSetRef"/>
+	</definition>
+	<definition name="TribeCommanderTagSet" table-name="TribeCommanderTagSets" cpp="true">
+		<field name="TribeTypeName" type="Text" key="true" not-null="true"/>
+		<field name="TribeTagSetName" type="Text" key="true" not-null="true"/>
+		<reference source="TribeTypeName" target="TribeType" to="IndependentTribeType" targetRoleName="CommanderTagSetCollectionRef"/>
+		<reference source="TribeTagSetName" target="TribeTagName" to="TribeTagSet" sourceRoleName="TribeTagSetRef"/>
+	</definition>
+	<definition name="CityStateType" table-name="CityStateTypes" cpp="true">
+		<field name="CityStateType" type="Text" key="true" not-null="true" hash="true"/>
+		<field name="Name" type="Text" not-null="true"/>
+		<field name="Weight" type="Integer" value="100" not-null="true"/>
+		<field name="YieldType" type="Text" value="NO_YIELD" not-null="true" hash="true"/>
+		<field name="DisperseRewardAmount" type="Integer" value="100" not-null="true"/>
+	</definition>
+	<definition name="CivilizationCitizenName" table-name="CivilizationCitizenNames" cpp="true">
+		<field name="CivilizationType" type="Text" key="true" not-null="true"/>
+		<field name="CitizenName" type="Text" key="true" not-null="true"/>
+		<field name="Female" type="Bool" value="0" not-null="true"/>
+		<field name="Modern" type="Bool" value="0" not-null="true"/>
+		<reference source="CivilizationType" target="CivilizationType" sourceRoleName="CivilizationRef" targetRoleName="CitizenNameCollectionRef" to="Civilization"/>
+	</definition>
+	<definition name="BarbarianTribe" table-name="BarbarianTribes" cpp="true">
+		<field name="TribeType" type="Text" key="true" unique="true" not-null="true"/>
+		<field name="IsCoastal" type="Bool" value="false" not-null="true"/>
+		<field name="RequiredResource" type="Text"/>
+		<field name="ResourceRange" type="Integer" value="0" not-null="true"/>
+		<field name="PercentRangedUnits" type="Integer" value="0" not-null="true"/>
+		<field name="TurnsToWarriorSpawn" type="Integer" value="15" not-null="true"/>
+		<field name="ScoutTag" type="Text" not-null="true"/>
+		<field name="MeleeTag" type="Text" not-null="true"/>
+		<field name="RangedTag" type="Text" not-null="true"/>
+		<field name="SiegeTag" type="Text" not-null="true"/>
+		<field name="DefenderTag" type="Text" not-null="true"/>
+		<field name="SupportTag" type="Text"/>
+		<field name="ScoutingBehaviorTree" type="Text" not-null="true"/>
+		<field name="RaidingBehaviorTree" type="Text" not-null="true"/>
+		<field name="RaidingBoldness" type="Integer" value="20" not-null="true"/>
+		<field name="CityAttackOperation" type="Text" not-null="true"/>
+		<field name="CityAttackBoldness" type="Integer" value="25" not-null="true"/>
+		<reference source="RequiredResource" target="ResourceType" sourceRoleName="RequiredResourceRef" to="Resource"/>
+		<property name="RequiredResourceReference" path="RequiredResourceRef"/>
+		<property name="TribeNames" path="TribeNameRef"/>
+		<property name="AttackCollection" path="AttackCollection.ForceRef"/>
+	</definition>
+	<definition name="BarbarianTribeName" table-name="BarbarianTribeNames" cpp="true">
+		<field name="TribeNameType" type="Text" key="true" not-null="true"/>
+		<field name="TribeType" type="Text" not-null="true"/>
+		<field name="NumMilitary" type="Integer" description="The number of military units it will create normally. Can be overridden by raiding or city attack trees" value="5"/>
+		<field name="NumScouts" type="Integer" description="Not needed. One by default"/>
+		<field name="PercentRangedUnits" type="Integer"/>
+		<field name="TurnsToWarriorSpawn" type="Integer"/>
+		<field name="TribeDisplayName" type="Text" not-null="true"/>
+		<field name="ScoutingBehaviorTree" type="Text"/>
+		<field name="RaidingBehaviorTree" type="Text"/>
+		<field name="RaidingBoldness" type="Integer"/>
+		<reference source="TribeType" target="TribeType" sourceRoleName="TribeTypeRef" targetRoleName="TribeNameRef" to="BarbarianTribe"/>
+		<property name="TribeTypeReference" path="TribeTypeRef"/>
+		<property name="AttackCollection" path="TribeAttackCollection.ForceRef"/>
+	</definition>
+	<definition name="CivilizationInfo" description="Random bits of information about the Civilization" table-name="CivilizationInfo" cpp="false">
+		<field name="CivilizationType" type="Text" key="true" not-null="true"/>
+		<field name="Header" type="Text" key="true" not-null="true"/>
+		<field name="Caption" type="Text" not-null="true"/>
+		<field name="SortIndex" type="Integer" value="100" not-null="true"/>
+		<reference source="CivilizationType" target="CivilizationType" to="Civilization"/>
+	</definition>
+	<definition name="CivilizationFavoredWonder" table-name="CivilizationFavoredWonders" cpp="true">
+		<field name="CivilizationType" key="true" hash="true" type="Text" not-null="true"/>
+		<field name="FavoredWonderType" type="Text" hash="true"/>
+		<field name="FavoredWonderName" type="Text"/>
+		<reference source="CivilizationType" target="CivilizationType" sourceRoleName="CivilizationRef" targetRoleName="CivilizationFavoredWonderCollectionRef" to="Civilization"/>
+	</definition>
+</definitions>

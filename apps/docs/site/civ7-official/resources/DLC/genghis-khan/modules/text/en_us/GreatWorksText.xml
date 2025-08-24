@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!--Artifacts-->
+		<Row Tag="LOC_GREATWORK_ARTIFACT_SECRET_HISTORY_NAME">
+			<Text>The Secret History of the Mongols</Text>
+		</Row>
+	</EnglishText>
+</Database>

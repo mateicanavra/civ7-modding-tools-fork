@@ -1,0 +1,4871 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CIVILIZATION_RANDOM_NAME" Language="ja_JP">
+      <Text>ランダム</Text>
+    </Replace>
+    <Replace Tag="LOC_GRAMMAR_A_AN_WITH_ICON" Language="ja_JP">
+      <Text>{2} {1}</Text>
+    </Replace>
+    <Replace Tag="LOC_GRAMMAR_CIVDESC" Language="ja_JP">
+      <Text>{1:gender}</Text>
+    </Replace>
+    <Replace Tag="LOC_GRAMMAR_CIVDESC_UPPER" Language="ja_JP">
+      <Text>{1:gender}</Text>
+    </Replace>
+    <Replace Tag="LOC_GRAMMAR_COMMA_SEPARATOR" Language="ja_JP">
+      <Text>、</Text>
+    </Replace>
+    <Replace Tag="LOC_GRAMMAR_UPPER_A_AN_WITH_ICON" Language="ja_JP">
+      <Text>{2} {1}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_RANDOM_NAME" Language="ja_JP">
+      <Text>ランダム</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_BAD_REMARKS" Language="ja_JP">
+      <Text>不適切なコメント</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_BAD_REMARKS_TOOLTIP" Language="ja_JP">
+      <Text>他のプレイヤーを刺激する発言をしている。</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_BULLYING" Language="ja_JP">
+      <Text>いじめ、脅し、嫌がらせ</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_BULLYING_TOOLTIP" Language="ja_JP">
+      <Text>いじめ、脅し、嫌がらせ</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_CHEATING" Language="ja_JP">
+      <Text>チート</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_CHEATING_TOOLTIP" Language="ja_JP">
+      <Text>チート行為をしている。</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_EXPLICIT_CONTENT" Language="ja_JP">
+      <Text>成人向け性的コンテンツの明示</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_EXPLICIT_CONTENT_TOOLTIP" Language="ja_JP">
+      <Text>成人向け性的コンテンツの明示</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_FOUL_LANGUAGE" Language="ja_JP">
+      <Text>汚い言葉遣い</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_FOUL_LANGUAGE_TOOLTIP" Language="ja_JP">
+      <Text>差別的な表現など、言葉づかいに問題がある。</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_FRAUD" Language="ja_JP">
+      <Text>詐欺</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_FRAUD_TOOLTIP" Language="ja_JP">
+      <Text>詐欺</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_HACKS" Language="ja_JP">
+      <Text>ハッキング</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_HACKS_TOOLTIP" Language="ja_JP">
+      <Text>ハック</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_HARASSMENT" Language="ja_JP">
+      <Text>きわめて性的で不快な行為</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_HARASSMENT_TOOLTIP" Language="ja_JP">
+      <Text>きわめて性的で不快な行為</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_HATESPEECH" Language="ja_JP">
+      <Text>ヘイトスピーチや差別</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_HATESPEECH_TOOLTIP" Language="ja_JP">
+      <Text>ヘイトスピーチや差別</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_MINORABUSE" Language="ja_JP">
+      <Text>児童虐待または小児性愛に関するコンテンツ</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_MINORABUSE_TOOLTIP" Language="ja_JP">
+      <Text>児童虐待または小児性愛に関するコンテンツ</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_OTHER" Language="ja_JP">
+      <Text>その他の違法コンテンツ</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_OTHER_TOOLTIP" Language="ja_JP">
+      <Text>その他の違法コンテンツ</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_PRIVACY" Language="ja_JP">
+      <Text>プライバシー</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_PRIVACY_TOOLTIP" Language="ja_JP">
+      <Text>プライバシー</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_SELECT_REASON" Language="ja_JP">
+      <Text>理由を選択</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_SELFHARM" Language="ja_JP">
+      <Text>自傷</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_SELFHARM_TOOLTIP" Language="ja_JP">
+      <Text>自死または自傷</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_SPAM" Language="ja_JP">
+      <Text>スパム</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_SPAM_TOOLTIP" Language="ja_JP">
+      <Text>スパム</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_TERRORISM" Language="ja_JP">
+      <Text>テロリズムまたは暴力的過激思想</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_TERRORISM_TOOLTIP" Language="ja_JP">
+      <Text>テロリズムまたは暴力的過激思想</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_VIOLENCE" Language="ja_JP">
+      <Text>暴力</Text>
+    </Replace>
+    <Replace Tag="LOC_ABUSE_REPORT_VIOLENCE_TOOLTIP" Language="ja_JP">
+      <Text>暴力</Text>
+    </Replace>
+    <Replace Tag="LOC_ACCEPT" Language="ja_JP">
+      <Text>承認</Text>
+    </Replace>
+    <Replace Tag="LOC_ACCEPT_HELP" Language="ja_JP">
+      <Text>アイテムを選択または承諾</Text>
+    </Replace>
+    <Replace Tag="LOC_AGE_TRANSITION_CIV_LOCKED" Language="ja_JP">
+      <Text>未解除</Text>
+    </Replace>
+    <Replace Tag="LOC_AGE_TRANSITION_EDIT_MEMENTOS" Language="ja_JP">
+      <Text>記念品を変更</Text>
+    </Replace>
+    <Replace Tag="LOC_AGE_TRANSITION_SCREEN_TITLE" Language="ja_JP">
+      <Text>新たな文化の台頭</Text>
+    </Replace>
+    <Replace Tag="LOC_AGE_TRANSITION_VIEW_DETAILS" Language="ja_JP">
+      <Text>詳細を表示</Text>
+    </Replace>
+    <Replace Tag="LOC_AUTHORS_FIRAXIS" Language="ja_JP">
+      <Text>Firaxis Games</Text>
+    </Replace>
+    <Replace Tag="LOC_CAMERA_PAN" Language="ja_JP">
+      <Text>カメラの移動</Text>
+    </Replace>
+    <Replace Tag="LOC_CAMERA_PAN_HELP" Language="ja_JP">
+      <Text>ワールド内でのカメラの移動</Text>
+    </Replace>
+    <Replace Tag="LOC_CAMERA_ZOOM_IN" Language="ja_JP">
+      <Text>ズームイン</Text>
+    </Replace>
+    <Replace Tag="LOC_CAMERA_ZOOM_IN_HELP" Language="ja_JP">
+      <Text>マップのズームイン</Text>
+    </Replace>
+    <Replace Tag="LOC_CAMERA_ZOOM_OUT" Language="ja_JP">
+      <Text>ズームアウト</Text>
+    </Replace>
+    <Replace Tag="LOC_CAMERA_ZOOM_OUT_HELP" Language="ja_JP">
+      <Text>マップのズームアウト</Text>
+    </Replace>
+    <Replace Tag="LOC_CANCEL" Language="ja_JP">
+      <Text>キャンセル</Text>
+    </Replace>
+    <Replace Tag="LOC_CANCEL_HELP" Language="ja_JP">
+      <Text>画面から出るか、アイテムをキャンセルする</Text>
+    </Replace>
+    <Replace Tag="LOC_CENTER_PLOT_CURSOR" Language="ja_JP">
+      <Text>カーソルのセンタリング/名前の変更</Text>
+    </Replace>
+    <Replace Tag="LOC_CENTER_PLOT_CURSOR_HELP" Language="ja_JP">
+      <Text>状況に応じて、視界の中央にカーソルを動かしたり、焦点を当てているオブジェクトの名前を変更したりすることができます。</Text>
+    </Replace>
+    <Replace Tag="LOC_CHAT_GLOBAL" Language="ja_JP">
+      <Text>グローバル</Text>
+    </Replace>
+    <Replace Tag="LOC_CHAT_TEAM" Language="ja_JP">
+      <Text>チーム</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_RANDOM_DESCRIPTION" Language="ja_JP">
+      <Text>文明が自動的に選択されます。</Text>
+    </Replace>
+    <Replace Tag="LOC_CLOSEMGR_CONFIRM_BODY" Language="ja_JP">
+      <Text>終了しますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_CLOSEMGR_CONFIRM_TITLE" Language="ja_JP">
+      <Text>終了を確認</Text>
+    </Replace>
+    <Replace Tag="LOC_COPYRIGHT_BLOCK" Language="ja_JP">
+      <Text>© 1991-2025 Take-Two Interactive Software, Inc.  Developed by Firaxis Games.  2K, Firaxis Games, Sid Meier's Civilization VII, Sid Meier's Civilization, Civilization, Civ, and their respective logos are trademarks of Take-Two Interactive Software, Inc.  Sid Meier's Civilization VII uses Coherent Labs user interface technology. Copyright 2012-2025 Coherent Labs. All Rights Reserved.  Powered by Wwise © 2006-2025 Audiokinetic Inc.  All rights reserved.  Uses Oodle. Copyright © 2008-2025 by Epic Games Tools, LLC.  Uses Quixel Megascans ®, Copyright © 2017 Quixel AB.</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_CIV_UNIQUE_BONUSES_SUBTITLE" Language="ja_JP">
+      <Text>固有のユニットと建造物</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_ADD_MEMENTO_MAJOR" Language="ja_JP">
+      <Text>記念品の追加</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_ADD_MEMENTO_MINOR" Language="ja_JP">
+      <Text>記念品の追加</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_AGE_CIV_SELECT_CATEGORY" Language="ja_JP">
+      <Text>時代と文明</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_AGE_UNLOCK_TITLE" Language="ja_JP">
+      <Text>時代の解除</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_BUYABLE" Language="ja_JP">
+      <Text>選択してこの指導者を購入</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_GAME_START_CATEGORY" Language="ja_JP">
+      <Text>確定</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_GEOGRAPHIC_CHOICE" Language="ja_JP">
+      <Text>地理的な選択！</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_HISTORICAL_CHOICE" Language="ja_JP">
+      <Text>歴史的な選択！</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_LEADER_SELECT_CATEGORY" Language="ja_JP">
+      <Text>指導者</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_LEADER_TO_AGE" Language="ja_JP">
+      <Text>時代:</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_LEADER_TO_CIV" Language="ja_JP">
+      <Text>文明:</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_LEARN_MORE" Language="ja_JP">
+      <Text>もっと学ぶ</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_NEXT_UNLOCK_TITLE" Language="ja_JP">
+      <Text>次のレベル解除</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_POPUP_TITLE" Language="ja_JP">
+      <Text>2K Store</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_RECOMMENDED_CHOICE" Language="ja_JP">
+      <Text>おすすめの選択！</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_STRATEGIC_CHOICE" Language="ja_JP">
+      <Text>戦略的な選択！</Text>
+    </Replace>
+    <Replace Tag="LOC_CROSSPLAY_BODY_CONFLICT_RESOLUTION" Language="ja_JP">
+      <Text>ローカルにあるクロスプレイのセーブデータが2Kアカウントとリンクしたデータと競合しています。どちらを残すか選ばなければなりません。このデバイスと2Kアカウントの両方で同期するセーブデータを選択してください。</Text>
+    </Replace>
+    <Replace Tag="LOC_CROSSPLAY_BODY_CONSOLE_CONFLICT_RESOLUTION" Language="ja_JP">
+      <Text>ローカルにあるクロスプレイのセーブデータが2Kアカウントとリンクしたデータと競合しています。どちらを残すか選ばなければなりません。このゲーム機と2Kアカウントの両方で同期するセーブデータを選択してください。</Text>
+    </Replace>
+    <Replace Tag="LOC_CROSSPLAY_CHOICE_1_CONFLICT_RESOLUTION" Language="ja_JP">
+      <Text>ローカルクロスプレイ</Text>
+    </Replace>
+    <Replace Tag="LOC_CROSSPLAY_CHOICE_2_CONFLICT_RESOLUTION" Language="ja_JP">
+      <Text>2Kリンククロスプレイ</Text>
+    </Replace>
+    <Replace Tag="LOC_CROSSPLAY_TITLE_CONFLICT_RESOLUTION" Language="ja_JP">
+      <Text>2Kリンクアカウントクロスプレイのセーブデータ競合</Text>
+    </Replace>
+    <Replace Tag="LOC_CYCLE_NEXT" Language="ja_JP">
+      <Text>次へ切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_CYCLE_NEXT_HELP" Language="ja_JP">
+      <Text>次のユニットまたは都市へ選択が切り替わります</Text>
+    </Replace>
+    <Replace Tag="LOC_CYCLE_PREV" Language="ja_JP">
+      <Text>前へ切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_CYCLE_PREV_HELP" Language="ja_JP">
+      <Text>前のユニットまたは都市へ選択が切り替わります</Text>
+    </Replace>
+    <Replace Tag="LOC_DRIVER_OUT_OF_DATE_CONTINUE" Language="ja_JP">
+      <Text>「続ける」</Text>
+    </Replace>
+    <Replace Tag="LOC_DRIVER_OUT_OF_DATE_EXIT" Language="ja_JP">
+      <Text>「終了」</Text>
+    </Replace>
+    <Replace Tag="LOC_DRIVER_OUT_OF_DATE_IGNORE" Language="ja_JP">
+      <Text>「常に無視する」</Text>
+    </Replace>
+    <Replace Tag="LOC_DRIVER_OUT_OF_DATE_MESSAGE" Language="ja_JP">
+      <Text>「グラフィックドライバが古い可能性があります。最高の体験をお楽しみいただくには、『シドマイヤーズ シヴィライゼーション VII』が公式に対応しているグラフィックドライバを使用することをお勧めします。詳細については、https://support.2k.com/をご覧ください。」</Text>
+    </Replace>
+    <Replace Tag="LOC_EDIT_MEMENTOS_CANCEL" Language="ja_JP">
+      <Text>キャンセル</Text>
+    </Replace>
+    <Replace Tag="LOC_EDIT_MEMENTOS_CONFIRM" Language="ja_JP">
+      <Text>確定</Text>
+    </Replace>
+    <Replace Tag="LOC_EDIT_MEMENTOS_SHOWALL" Language="ja_JP">
+      <Text>指導者の記念品をすべて表示</Text>
+    </Replace>
+    <Replace Tag="LOC_EDIT_MEMENTOS_TITLE" Language="ja_JP">
+      <Text>記念品を選択</Text>
+    </Replace>
+    <Replace Tag="LOC_FILTERS_AUTOSAVES" Language="ja_JP">
+      <Text>セーブ</Text>
+    </Replace>
+    <Replace Tag="LOC_FOCUS_PLOT_CURSOR" Language="ja_JP">
+      <Text>土地フォーカスカーソル</Text>
+    </Replace>
+    <Replace Tag="LOC_FOCUS_PLOT_CURSOR_HELP" Language="ja_JP">
+      <Text>選択している土地タイルにフォーカスする</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_APP_SLEPT" Language="ja_JP">
+      <Text>スリープモードによりネットワーク接続が切断されました。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_APP_SLEPT_TITLE" Language="ja_JP">
+      <Text>切断</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_CONNECTION_LOST" Language="ja_JP">
+      <Text>ネットワークとの接続が解除されました。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_CONNECTION_LOST_TITLE" Language="ja_JP">
+      <Text>接続解除</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_CROSSPLAY_DISABLED_CLIENT" Language="ja_JP">
+      <Text>「クロスプレイ」が無効になっている状態ではクロスプレイゲームに参加できません。「オプション」メニューで「クロスプレイ」を有効にしてください。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_CROSSPLAY_DISABLED_CLIENT_TITLE" Language="ja_JP">
+      <Text>クロスプレイ無効</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_CROSSPLAY_DISABLED_HOST" Language="ja_JP">
+      <Text>このゲームには参加できません。ホストのプラットフォームが異なりますが、「クロスプレイ」が無効になっています。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_CROSSPLAY_DISABLED_HOST_TITLE" Language="ja_JP">
+      <Text>クロスプレイの不一致</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_GAME_STARTED" Language="ja_JP">
+      <Text>このゲームには参加できません。ゲームがすでに始まっています。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_GAME_STARTED_TITLE" Language="ja_JP">
+      <Text>進行中のゲーム</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_HOST_LOSTED" Language="ja_JP">
+      <Text>ホストへのネットワーク接続が解除されました。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_HOST_LOSTED_TITLE" Language="ja_JP">
+      <Text>ホストとの接続が解除</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_JOIN_FAILED" Language="ja_JP">
+      <Text>マルチプレイヤーセッションへの参加手続き中にエラーが発生しました。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_JOIN_FAILED_TITLE" Language="ja_JP">
+      <Text>参加失敗</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_KICK_PLATFORM_MAPSIZE" Language="ja_JP">
+      <Text>このゲームには参加できません。プラットフォームが対応していないマップサイズです。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_KICK_PLATFORM_MAPSIZE_TITLE" Language="ja_JP">
+      <Text>マップサイズ非対応</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_KICKED" Language="ja_JP">
+      <Text>このゲームからキックされました。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_KICKED_TITLE" Language="ja_JP">
+      <Text>キックされました！</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_LOBBY_CONNECT" Language="ja_JP">
+      <Text>ゲームロビーに接続できませんでした。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_LOBBY_CONNECT_TITLE" Language="ja_JP">
+      <Text>ロビー接続失敗</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_MATCH_DELETED" Language="ja_JP">
+      <Text>ホストがゲームを削除しました。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_MATCH_DELETED_TITLE" Language="ja_JP">
+      <Text>ゲーム削除</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_MOD_ACCESS_DENIED" Language="ja_JP">
+      <Text>Steamワークショップから必要な追加コンテンツを取得できません。[N]コンテンツ:[N]</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_MOD_ERROR" Language="ja_JP">
+      <Text>追加コンテンツを適用できません。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_MOD_ERROR_TITLE" Language="ja_JP">
+      <Text>MODエラー</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_MOD_MISSING" Language="ja_JP">
+      <Text>必要な追加コンテンツが購入またはインストールされていません。[N]コンテンツ:[N]</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_MOD_MISSING_DOWNLOADS_DISABLED" Language="ja_JP">
+      <Text>このゲームのプレイには追加コンテンツが必要です。追加コンテンツの自動ダウンロードは現在無効になっています。追加コンテンツの自動ダウンロードは「ゲームオプション」から有効にできます。[N]コンテンツ:[N]</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_MOD_MISSING_TITLE" Language="ja_JP">
+      <Text>MODなし</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_ROOM_FULL" Language="ja_JP">
+      <Text>ゲームのプレイヤー数上限に達しています。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_ROOM_FULL_TITLE" Language="ja_JP">
+      <Text>定員オーバー</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_TOO_MANY_MATCHES" Language="ja_JP">
+      <Text>参加できるマルチプレイヤーゲームの上限に達しています。既存のゲームをクリアするか、終了してやり直してください。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_TOO_MANY_MATCHES_TITLE" Language="ja_JP">
+      <Text>マッチが多すぎます</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_VERSION_MISMATCH_TITLE" Language="ja_JP">
+      <Text>バージョンの不一致</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_LIST_ERROR_GENERAL" Language="ja_JP">
+      <Text>ゲームリストを更新できませんでした。少し待ってから再度お試しください。</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_LIST_ERROR_TITLE" Language="ja_JP">
+      <Text>ゲームリスト更新失敗</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_ACCEPT" Language="ja_JP">
+      <Text>承認</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_BACK" Language="ja_JP">
+      <Text>戻る</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_CANCEL" Language="ja_JP">
+      <Text>キャンセル</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_CIVILIZATION" Language="ja_JP">
+      <Text>文明</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_CLOSE" Language="ja_JP">
+      <Text>閉じる</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_CONFIRM" Language="ja_JP">
+      <Text>確定</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_CONTINUE" Language="ja_JP">
+      <Text>続ける</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_DATE" Language="ja_JP">
+      <Text>日時</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_DESELECT" Language="ja_JP">
+      <Text>選択解除</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_GO" Language="ja_JP">
+      <Text>開始</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_HIDE_DETAILS" Language="ja_JP">
+      <Text>詳細を非表示</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_LEADER" Language="ja_JP">
+      <Text>指導者</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_LESS_INFO" Language="ja_JP">
+      <Text>情報を減らす</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_LOGOUT" Language="ja_JP">
+      <Text>ログアウト</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_MORE_INFO" Language="ja_JP">
+      <Text>情報を増やす</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_NO" Language="ja_JP">
+      <Text>いいえ</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_OK" Language="ja_JP">
+      <Text>OK</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_PLAYER_NAME" Language="ja_JP">
+      <Text>プレイヤー名</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_POSITION" Language="ja_JP">
+      <Text>順位</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_RANK" Language="ja_JP">
+      <Text>ランク</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_REDEEM" Language="ja_JP">
+      <Text>引き換え</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_REDEEMCODE" Language="ja_JP">
+      <Text>ご利用コードの引き換え</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_RESET_PRIMARY_ACCOUNT" Language="ja_JP">
+      <Text>メインアカウントをリセット</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_RESUME" Language="ja_JP">
+      <Text>再開</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_SAVE" Language="ja_JP">
+      <Text>セーブ</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_SCORE" Language="ja_JP">
+      <Text>スコア</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_SELECT" Language="ja_JP">
+      <Text>選択</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_SHOW_DETAILS" Language="ja_JP">
+      <Text>詳細を表示</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_TWOKPORTAL" Language="ja_JP">
+      <Text>2Kポータル</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_UNLINK" Language="ja_JP">
+      <Text>リンク解除</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_YES" Language="ja_JP">
+      <Text>はい</Text>
+    </Replace>
+    <Replace Tag="LOC_GESTURE_THUMB_AXIS" Language="ja_JP">
+      <Text>スティックを使用するアクション</Text>
+    </Replace>
+    <Replace Tag="LOC_GESTURE_THUMB_AXIS_MICROSOFT" Language="ja_JP">
+      <Text>スティックを使用するアクション</Text>
+    </Replace>
+    <Replace Tag="LOC_GESTURE_THUMB_AXIS_PS4" Language="ja_JP">
+      <Text>スティックを使用するアクション</Text>
+    </Replace>
+    <Replace Tag="LOC_GESTURE_THUMB_AXIS_PS5" Language="ja_JP">
+      <Text>スティックを使用するアクション</Text>
+    </Replace>
+    <Replace Tag="LOC_GROUPID_ADVANCEDOPTIONS" Language="ja_JP">
+      <Text>上級</Text>
+    </Replace>
+    <Replace Tag="LOC_GROUPID_DIFFICULTY_OPTIONS" Language="ja_JP">
+      <Text>難易度設定</Text>
+    </Replace>
+    <Replace Tag="LOC_GROUPID_DISASTER_CRISIS_OPTIONS" Language="ja_JP">
+      <Text>災害と危機の設定</Text>
+    </Replace>
+    <Replace Tag="LOC_GROUPID_DISASTEROPTIONS" Language="ja_JP">
+      <Text>災害と危機の設定</Text>
+    </Replace>
+    <Replace Tag="LOC_GROUPID_GAMEOPTIONS" Language="ja_JP">
+      <Text>ゲーム設定</Text>
+    </Replace>
+    <Replace Tag="LOC_GROUPID_LEGACYOPTIONS" Language="ja_JP">
+      <Text>レガシーパス設定</Text>
+    </Replace>
+    <Replace Tag="LOC_GROUPID_MAPOPTIONS" Language="ja_JP">
+      <Text>マップ限定</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_CITY" Language="ja_JP">
+      <Text>都市</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_DIAL" Language="ja_JP">
+      <Text>ダイアルセレクター</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_DIPLOMACY" Language="ja_JP">
+      <Text>外交</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_HUD" Language="ja_JP">
+      <Text>HUD</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_PANEL" Language="ja_JP">
+      <Text>パネル</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_PLACEMENT" Language="ja_JP">
+      <Text>配置</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_RADIAL_MENU" Language="ja_JP">
+      <Text>ラジアルメニュー</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_SHELL" Language="ja_JP">
+      <Text>シェル</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_UNIT" Language="ja_JP">
+      <Text>ユニット</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_WORLD" Language="ja_JP">
+      <Text>ワールド</Text>
+    </Replace>
+    <Replace Tag="LOC_INPUT_CONTEXT_WORLD_BUILDER" Language="ja_JP">
+      <Text>ワールドビルダー</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_BANNED_BODY" Language="ja_JP">
+      <Text>マルチプレイヤーへの参加を禁止されています。詳細は2Kのサポートへお問い合わせください。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_BANNED_TITLE" Language="ja_JP">
+      <Text>参加禁止</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_CHILD_ACCOUNT" Language="ja_JP">
+      <Text>承認されていない2Kアカウントです。保護者の方からオンラインモードでプレイする許可を得てください。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_CONNECTION_REJECTED" Language="ja_JP">
+      <Text>ゲームのホストに接続できませんでした。参加コードを使用している場合は、コードを確認してもう一度お試しださい。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_JOINCODE_SYNTAX" Language="ja_JP">
+      <Text>参加コードが正しくありません。コードを確認して再度お試しください。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_JOINCODE_TRANSPORT" Language="ja_JP">
+      <Text>この参加コードのマルチプレイヤーモードには対応していません。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_LINK_ACCOUNT" Language="ja_JP">
+      <Text>2Kアカウントをリンクさせる必要があります。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_LINK_INCOMPLETE" Language="ja_JP">
+      <Text>2Kアカウントを完了する必要があります。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_MATCHMAKING_FAILED" Language="ja_JP">
+      <Text>マッチメイキングが失敗しました。ゲームを再起動してもう一度お試しください。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_MATCHMAKING_TIMED_OUT" Language="ja_JP">
+      <Text>マッチメイキングがタイムアウトしました。キューに十分なプレイヤーがいません。時間をおいてもう一度試すか、別のキューを試してください。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_NO_ONLINE_SUB" Language="ja_JP">
+      <Text>マルチプレイヤーでプレイするには、オンライン・サブスクリプションが必要です。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_ROOM_FULL" Language="ja_JP">
+      <Text>ゲームが定員に達しています。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_ROOM_UNKNOWN_ERROR" Language="ja_JP">
+      <Text>ゲームへの参加時に不明なエラーが発生しました。ゲームを再起動してもう一度お試しください。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_SESSION_ERROR" Language="ja_JP">
+      <Text>ゲームへの参加プロセスを開始できませんでした。ゲームを再起動してもう一度お試しください。</Text>
+    </Replace>
+    <Replace Tag="LOC_JOIN_GAME_SESSION_UNEXPECTED" Language="ja_JP">
+      <Text>ゲームへの参加時に予期せぬ状態が発生しました。ゲームを再起動してもう一度お試しください。</Text>
+    </Replace>
+    <Replace Tag="LOC_KEYBOARD_ALT" Language="ja_JP">
+      <Text>Alt</Text>
+    </Replace>
+    <Replace Tag="LOC_KEYBOARD_CAMERA_MODIFIER" Language="ja_JP">
+      <Text>カメラ修正</Text>
+    </Replace>
+    <Replace Tag="LOC_KEYBOARD_CTRL" Language="ja_JP">
+      <Text>Ctrl</Text>
+    </Replace>
+    <Replace Tag="LOC_KEYBOARD_DOWN" Language="ja_JP">
+      <Text>キーボード↓</Text>
+    </Replace>
+    <Replace Tag="LOC_KEYBOARD_ENTER" Language="ja_JP">
+      <Text>キーボードEnter</Text>
+    </Replace>
+    <Replace Tag="LOC_KEYBOARD_ESCAPE" Language="ja_JP">
+      <Text>キーボードEsc</Text>
+    </Replace>
+    <Replace Tag="LOC_KEYBOARD_LEFT" Language="ja_JP">
+      <Text>キーボード←</Text>
+    </Replace>
+    <Replace Tag="LOC_KEYBOARD_RIGHT" Language="ja_JP">
+      <Text>キーボード→</Text>
+    </Replace>
+    <Replace Tag="LOC_KEYBOARD_SHIFT" Language="ja_JP">
+      <Text>Shift</Text>
+    </Replace>
+    <Replace Tag="LOC_KEYBOARD_UP" Language="ja_JP">
+      <Text>キーボード↑</Text>
+    </Replace>
+    <Replace Tag="LOC_KICK_DIALOG_TIMEOUT" Language="ja_JP">
+      <Text>次のキック投票を開始できるのは30秒後です。</Text>
+    </Replace>
+    <Replace Tag="LOC_KICK_DIALOG_TITLE" Language="ja_JP">
+      <Text>プレイヤーをキックしますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_DE_DE_NAME" Language="ja_JP">
+      <Text>Deutsch（ドイツ語）</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_DEFAULT_NAME" Language="ja_JP">
+      <Text>システムデフォルト</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_DEFAULT_NAME_CONSOLE" Language="ja_JP">
+      <Text>本体デフォルト</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_EN_US_NAME" Language="ja_JP">
+      <Text>English（英語）</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_ES_ES_NAME" Language="ja_JP">
+      <Text>Español（スペイン語）</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_FR_FR_NAME" Language="ja_JP">
+      <Text>Français（フランス語）</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_IT_IT_NAME" Language="ja_JP">
+      <Text>Italiano（イタリア語）</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_JA_JP_NAME" Language="ja_JP">
+      <Text>日本語</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_KO_KR_NAME" Language="ja_JP">
+      <Text>한국어（韓国語）</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_PL_PL_NAME" Language="ja_JP">
+      <Text>polski（ポーランド語）</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_PT_BR_NAME" Language="ja_JP">
+      <Text>Português Brasileiro（ポルトガル語（ブラジル））</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_RU_RU_NAME" Language="ja_JP">
+      <Text>Русский（ロシア語）</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_ZH_HANS_CN_NAME" Language="ja_JP">
+      <Text>汉语（簡体字中国語）</Text>
+    </Replace>
+    <Replace Tag="LOC_LANGUAGE_ZH_HANT_HK_NAME" Language="ja_JP">
+      <Text>漢語（繁体字中国語）</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_RANDOM_DESCRIPTION" Language="ja_JP">
+      <Text>指導者が自動的に選択されます。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOAD_GAME_ERROR_BAD_MAPSIZE_BODY" Language="ja_JP">
+      <Text>このプラットフォームが対応していないマップサイズです。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOAD_GAME_ERROR_BAD_MAPSIZE_TITLE" Language="ja_JP">
+      <Text>マップサイズ非対応</Text>
+    </Replace>
+    <Replace Tag="LOC_LOAD_GAME_ERROR_LINKED_ACCOUNT" Language="ja_JP">
+      <Text>ライブイベントへの参加には、リンク済みの2Kアカウントが必要です</Text>
+    </Replace>
+    <Replace Tag="LOC_LOAD_GAME_ERROR_MOD_CONFIG" Language="ja_JP">
+      <Text>コンテンツを設定できません</Text>
+    </Replace>
+    <Replace Tag="LOC_LOAD_GAME_ERROR_MOD_CONTENT" Language="ja_JP">
+      <Text>必要なコンテンツが見つかりません</Text>
+    </Replace>
+    <Replace Tag="LOC_LOAD_GAME_ERROR_MOD_OWNERSHIP" Language="ja_JP">
+      <Text>コンテンツの設定に必要な所有権が不足しています</Text>
+    </Replace>
+    <Replace Tag="LOC_LOAD_GAME_ERROR_MOD_VALIDATION" Language="ja_JP">
+      <Text>コンテンツ構成を検証できません</Text>
+    </Replace>
+    <Replace Tag="LOC_LOAD_GAME_ERROR_SCRIPT_PROCESSING" Language="ja_JP">
+      <Text>マップ生成スクリプトに重大なエラーがあります</Text>
+    </Replace>
+    <Replace Tag="LOC_LOAD_GAME_ERROR_UNKNOWN" Language="ja_JP">
+      <Text>不明な設定エラーが発生しました</Text>
+    </Replace>
+    <Replace Tag="LOC_LOAD_GAME_ERROR_UNKNOWN_VERSION" Language="ja_JP">
+      <Text>対応していないバージョンのセーブデータです</Text>
+    </Replace>
+    <Replace Tag="LOC_LOBBY_ERROR_DEVICE_REMOVED" Language="ja_JP">
+      <Text>デバイスが取り外されました。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOBBY_ERROR_GENERAL" Language="ja_JP">
+      <Text>ロビーでエラーが発生しました。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOBBY_ERROR_NO_ERROR" Language="ja_JP">
+      <Text>ロビーにエラーはありません。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOBBY_ERROR_TITLE" Language="ja_JP">
+      <Text>ロビーエラー</Text>
+    </Replace>
+    <Replace Tag="LOC_LOBBY_ERROR_UNKNOWN_ERROR" Language="ja_JP">
+      <Text>ロビーで不明なエラーが発生しました。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOBBY_ERROR_WIFI_OFF" Language="ja_JP">
+      <Text>Wi-Fiが利用できません。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_TUTORIAL_REWARD_UNLOCKED_TEXT" Language="ja_JP">
+      <Text>チュートリアルチャレンジをすべて完了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODDING_ERROR_CONTENT" Language="ja_JP">
+      <Text>MODコンテンツの設定中にエラーが発生しました。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODDING_ERROR_REASON_GAMEPLAY_DATABASE" Language="ja_JP">
+      <Text>ゲームプレイデータベースの検証に失敗しました。詳細はデータベースログをご覧ください。</Text>
+    </Replace>
+    <Replace Tag="LOC_MODDING_ERROR_UNKNOWN" Language="ja_JP">
+      <Text>ゲームを起動中に不明なエラーが発生しました。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOUSE_BUTTON_LEFT" Language="ja_JP">
+      <Text>左マウスボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_MOUSE_BUTTON_MIDDLE" Language="ja_JP">
+      <Text>中マウスボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_MOUSE_BUTTON_RIGHT" Language="ja_JP">
+      <Text>右マウスボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_MOUSE_BUTTON_X1" Language="ja_JP">
+      <Text>X1マウスボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_MOUSE_BUTTON_X2" Language="ja_JP">
+      <Text>X2マウスボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_MOUSE_SCROLLWHEEL_DOWN" Language="ja_JP">
+      <Text>マウスホイール下</Text>
+    </Replace>
+    <Replace Tag="LOC_MOUSE_SCROLLWHEEL_UP" Language="ja_JP">
+      <Text>マウスホイール上</Text>
+    </Replace>
+    <Replace Tag="LOC_MOVE_CURSOR" Language="ja_JP">
+      <Text>移動</Text>
+    </Replace>
+    <Replace Tag="LOC_MOVE_CURSOR_HELP" Language="ja_JP">
+      <Text>メニュー項目間を移動</Text>
+    </Replace>
+    <Replace Tag="LOC_MP_CANT_PLAY_ONLINE_ERROR_TITLE" Language="ja_JP">
+      <Text>オンラインでプレイできません</Text>
+    </Replace>
+    <Replace Tag="LOC_MP_CREATE_GAME_WAITING_BODY" Language="ja_JP">
+      <Text>お待ちください...</Text>
+    </Replace>
+    <Replace Tag="LOC_MP_CREATE_GAME_WAITING_TITLE" Language="ja_JP">
+      <Text>ゲームを作成中</Text>
+    </Replace>
+    <Replace Tag="LOC_MP_JOIN_PARENT_PERMISSIONS_DISABLED" Language="ja_JP">
+      <Text>承認されていない2Kアカウントです。保護者の方からオンラインモードでプレイする許可を得てください。</Text>
+    </Replace>
+    <Replace Tag="LOC_MP_JOINING_ERROR_TITLE" Language="ja_JP">
+      <Text>参加エラー</Text>
+    </Replace>
+    <Replace Tag="LOC_MP_JOINING_GAME_BODY" Language="ja_JP">
+      <Text>お待ちください...</Text>
+    </Replace>
+    <Replace Tag="LOC_MP_JOINING_GAME_TITLE" Language="ja_JP">
+      <Text>参加中</Text>
+    </Replace>
+    <Replace Tag="LOC_MP_MATCHMAKING_GAME_TITLE" Language="ja_JP">
+      <Text>ロビーを検索中</Text>
+    </Replace>
+    <Replace Tag="LOC_MP_PARENT_PERMISSIONS_TITLE" Language="ja_JP">
+      <Text>保護者の許可</Text>
+    </Replace>
+    <Replace Tag="LOC_MULTIPLAYER_DEFAULT_NO_TEAM_NAME" Language="ja_JP">
+      <Text>チームなし</Text>
+    </Replace>
+    <Replace Tag="LOC_MUTE_DIALOG_TITLE" Language="ja_JP">
+      <Text>プレイヤーをミュートしますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_DOWN" Language="ja_JP">
+      <Text>下</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_DOWN_HELP" Language="ja_JP">
+      <Text>下へ移動</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_LEFT" Language="ja_JP">
+      <Text>左</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_LEFT_HELP" Language="ja_JP">
+      <Text>左へ移動</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_MOVE_CURSOR" Language="ja_JP">
+      <Text>マップ上でカーソルを動かす</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_NEXT" Language="ja_JP">
+      <Text>次</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_NEXT_HELP" Language="ja_JP">
+      <Text>次のタブ</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_PAN" Language="ja_JP">
+      <Text>見回す</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_PREVIOUS" Language="ja_JP">
+      <Text>前</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_PREVIOUS_HELP" Language="ja_JP">
+      <Text>前のタブ</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_RADIAL_BEAM" Language="ja_JP">
+      <Text>ビームを動かす</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_RADIAL_MENU" Language="ja_JP">
+      <Text>ラジアルメニュー</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_RIGHT" Language="ja_JP">
+      <Text>右</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_RIGHT_HELP" Language="ja_JP">
+      <Text>右へ移動</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_SELECT" Language="ja_JP">
+      <Text>選択</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_UP" Language="ja_JP">
+      <Text>上</Text>
+    </Replace>
+    <Replace Tag="LOC_NAV_UP_HELP" Language="ja_JP">
+      <Text>上へ移動</Text>
+    </Replace>
+    <Replace Tag="LOC_NAVIGATE_YIELDS" Language="ja_JP">
+      <Text>産出</Text>
+    </Replace>
+    <Replace Tag="LOC_NAVIGATE_YIELDS_HELP" Language="ja_JP">
+      <Text>産出の概要を開く</Text>
+    </Replace>
+    <Replace Tag="LOC_NEXT_ACTION" Language="ja_JP">
+      <Text>次のアクション</Text>
+    </Replace>
+    <Replace Tag="LOC_NEXT_ACTION_HELP" Language="ja_JP">
+      <Text>次のアクションを実行する。実行できるアクションがない場合はターンを終了する。</Text>
+    </Replace>
+    <Replace Tag="LOC_NEXT_SELECT" Language="ja_JP">
+      <Text>次の選択</Text>
+    </Replace>
+    <Replace Tag="LOC_NOTIFICATION" Language="ja_JP">
+      <Text>通知</Text>
+    </Replace>
+    <Replace Tag="LOC_NOTIFICATION_HELP" Language="ja_JP">
+      <Text>HUD通知を開きます</Text>
+    </Replace>
+    <Replace Tag="LOC_OOBE_TITLE_AUDIO" Language="ja_JP">
+      <Text>音声オプションの選択</Text>
+    </Replace>
+    <Replace Tag="LOC_OOBE_TITLE_AUTOSAVE" Language="ja_JP">
+      <Text>このゲームはオートセーブ機能を備えています。[n]このアイコンが表示されている間はゲームを終了しないでください。</Text>
+    </Replace>
+    <Replace Tag="LOC_OOBE_TITLE_DISPLAY" Language="ja_JP">
+      <Text>表示オプションの選択</Text>
+    </Replace>
+    <Replace Tag="LOC_OOBE_TITLE_LANGUAGE" Language="ja_JP">
+      <Text>言語の選択</Text>
+    </Replace>
+    <Replace Tag="LOC_OPEN_CULTURE_TREE" Language="ja_JP">
+      <Text>文化ツリーを開く</Text>
+    </Replace>
+    <Replace Tag="LOC_OPEN_LENS_PANEL" Language="ja_JP">
+      <Text>マップオプション</Text>
+    </Replace>
+    <Replace Tag="LOC_OPEN_LENS_PANEL_HELP" Language="ja_JP">
+      <Text>マップオプションを開く</Text>
+    </Replace>
+    <Replace Tag="LOC_OPEN_TECH_TREE" Language="ja_JP">
+      <Text>技術ツリーを開く</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTION_KEY_QUOTE" Language="ja_JP">
+      <Text>"</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ACCEPT" Language="ja_JP">
+      <Text>承認</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ACCEPT_CHANGES" Language="ja_JP">
+      <Text>変更を承認</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ACCESSIBILITY_COLORBLIND" Language="ja_JP">
+      <Text>色覚異常アクセシビリティ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ACCESSIBILITY_COLORBLIND_DESCRIPTION" Language="ja_JP">
+      <Text>最も頻度の高い三つの色覚異常のいずれかをお持ちの方がプレイしやすいよう、色彩の一部が変更されます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ACCESSIBILITY_COLORBLIND_DEUTERANOPIA" Language="ja_JP">
+      <Text>2型2色覚（緑色覚異常）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ACCESSIBILITY_COLORBLIND_NONE" Language="ja_JP">
+      <Text>標準色</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ACCESSIBILITY_COLORBLIND_PROTANOPIA" Language="ja_JP">
+      <Text>1型2色覚（赤色覚異常）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ACCESSIBILITY_COLORBLIND_TRITANOPIA" Language="ja_JP">
+      <Text>3型2色覚（青色覚異常）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ADAPTIVE_TRIGGERS_ENABLED" Language="ja_JP">
+      <Text>アダプティブトリガー有効</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ADAPTIVE_TRIGGERS_ENABLED_DESCRIPTION" Language="ja_JP">
+      <Text>ゲーム内でトリガーエフェクト機能が有効になっている場合。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ARE_YOU_SURE" Language="ja_JP">
+      <Text>よろしいですか？</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ARE_YOU_SURE_DEFAULT" Language="ja_JP">
+      <Text>デフォルトの設定に戻してよろしいですか？</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE" Language="ja_JP">
+      <Text>ダイナミックレンジ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE_DESCRIPTION" Language="ja_JP">
+      <Text>ダイナミックレンジ: 最大音量と最小音量の差です。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE_NARROW" Language="ja_JP">
+      <Text>狭音域</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE_NARROW_DESCRIPTION" Language="ja_JP">
+      <Text>最小のダイナミックレンジ: すべてのサウンドが低音量で聞こえます。周囲にノイズが多い環境、またはレンジの狭いスピーカー向けです。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE_STANDARD" Language="ja_JP">
+      <Text>標準</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE_STANDARD_DESCRIPTION" Language="ja_JP">
+      <Text>中程度のダイナミックレンジ: 大半のプレイヤーにとって最適な設定です。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE_WIDE" Language="ja_JP">
+      <Text>広音域</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_DYNAMIC_RANGE_WIDE_DESCRIPTION" Language="ja_JP">
+      <Text>最大のダイナミックレンジ: ハイエンドの音響システムや静かな環境向けの設定です。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_LANGUAGE" Language="ja_JP">
+      <Text>オーディオ言語</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_LANGUAGE_DESCRIPTION" Language="ja_JP">
+      <Text>ナレーターが使用する言語を指定します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_MUTEONFOCUSLOSS" Language="ja_JP">
+      <Text>他アプリ使用時に音声オフ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_MUTEONFOCUSLOSS_DESCRIPTION" Language="ja_JP">
+      <Text>別のアプリのウィンドウをクリックすると、『シヴィライゼーション VII』の音声がオフになります。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_CINEMATICS" Language="ja_JP">
+      <Text>ムービーの音量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_CINEMATICS_DESCRIPTION" Language="ja_JP">
+      <Text>ムービーシーンの音量です。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_MASTER" Language="ja_JP">
+      <Text>マスター音量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_MASTER_DESCRIPTION" Language="ja_JP">
+      <Text>ゲーム中の全音声の音量調整。他の音量はすべてマスター音量が基準になります。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_MUSIC" Language="ja_JP">
+      <Text>BGMの音量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_MUSIC_DESCRIPTION" Language="ja_JP">
+      <Text>BGMの音量です。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_SFX" Language="ja_JP">
+      <Text>効果音の音量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_SFX_DESCRIPTION" Language="ja_JP">
+      <Text>周辺環境やユニットの移動など、効果音の音量です。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_UI" Language="ja_JP">
+      <Text>UI音量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_UI_DESCRIPTION" Language="ja_JP">
+      <Text>ボタンを押したときの音など、ユーザーインターフェース関連の音量です。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_VOICE" Language="ja_JP">
+      <Text>セリフの音量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUDIO_VOLUME_VOICE_DESCRIPTION" Language="ja_JP">
+      <Text>ゲーム中の指導者や助言者の声の大きさです。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUTOENDTURN" Language="ja_JP">
+      <Text>自動ターン終了</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUTOENDTURN_DESCRIPTION" Language="ja_JP">
+      <Text>ターンが自動終了します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUTOSAVE_BETWEEN" Language="ja_JP">
+      <Text>オートセーブ頻度（ターン数）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUTOSAVE_BETWEEN_DESCRIPTION" Language="ja_JP">
+      <Text>このターン数ごとにオートセーブが実行されます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUTOSAVE_KEEP_COUNT" Language="ja_JP">
+      <Text>オートセーブ数</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUTOSAVE_KEEP_COUNT_DESCRIPTION" Language="ja_JP">
+      <Text>現在のゲームのオートセーブ保存数です。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUTOUNITYCYCLE" Language="ja_JP">
+      <Text>ユニットの自動切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_AUTOUNITYCYCLE_DESCRIPTION" Language="ja_JP">
+      <Text>選択したユニットの移動ポイントをすべて消費すると、移動ポイントが残っているユニットに切り替わります。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_BRIGHTNESS" Language="ja_JP">
+      <Text>輝度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_BRIGHTNESS_DESCRIPTION" Language="ja_JP">
+      <Text>画面の表示される明るさを調整します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CAMERA_MOVEMENT_FRICTION" Language="ja_JP">
+      <Text>カメラ移動抵抗</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CAMERA_MOVEMENT_FRICTION_DESCRIPTION" Language="ja_JP">
+      <Text>カメラをアナログスティックで移動させる際の抵抗感の大きさです。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CAMERA_PANNING_SPEED" Language="ja_JP">
+      <Text>カメラのパン速度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CAMERA_PANNING_SPEED_DESCRIPTION" Language="ja_JP">
+      <Text>カメラが向きを変える速度です。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CANCEL" Language="ja_JP">
+      <Text>キャンセル</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CANCEL_CHANGES" Language="ja_JP">
+      <Text>変更をキャンセル</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_ACCESSIBILITY" Language="ja_JP">
+      <Text>アクセシビリティ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_ACCESSIBILITY_DESCRIPTION" Language="ja_JP">
+      <Text>画面、字幕、入力を変更</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_AUDIO" Language="ja_JP">
+      <Text>オーディオ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_AUDIO_DESCRIPTION" Language="ja_JP">
+      <Text>オーディオ設定を変更</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_GAME" Language="ja_JP">
+      <Text>ゲーム</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_GAME_DESCRIPTION" Language="ja_JP">
+      <Text>HUD、オートセーブ、時刻設定を変更</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_GRAPHICS" Language="ja_JP">
+      <Text>グラフィック</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_GRAPHICS_DESCRIPTION" Language="ja_JP">
+      <Text>ゲームのクオリティとパフォーマンスを変更します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_INPUT" Language="ja_JP">
+      <Text>入力</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_INPUT_DESCRIPTION" Language="ja_JP">
+      <Text>操作を表示および設定</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_INTERFACE" Language="ja_JP">
+      <Text>インターフェイス</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_INTERFACE_DESCRIPTION" Language="ja_JP">
+      <Text>インターフェイス設定を変更</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_SYSTEM" Language="ja_JP">
+      <Text>システム</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_SYSTEM_CONSOLE" Language="ja_JP">
+      <Text>本体</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CATEGORY_SYSTEM_DESCRIPTION" Language="ja_JP">
+      <Text>インターフェイス、カメラ、タッチ設定を変更</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CITY_RANGED_ATTACK_TURN_BLOCKING" Language="ja_JP">
+      <Text>ターン終了条件: 都市の長距離攻撃</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CITY_RANGED_ATTACK_TURN_BLOCKING_DESCRIPTION" Language="ja_JP">
+      <Text>都市による長距離攻撃が可能な場合、ターン終了がブロックされます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CLOCK_FORMAT" Language="ja_JP">
+      <Text>時間表示形式</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CLOCK_FORMAT_24HR" Language="ja_JP">
+      <Text>24時間</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CLOCK_FORMAT_AMPM" Language="ja_JP">
+      <Text>AM/PM</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CLOCK_FORMAT_DESCRIPTION" Language="ja_JP">
+      <Text>ゲームのシステムパネルに表示される現実世界の時間の表示形式です。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CONFIRM" Language="ja_JP">
+      <Text>確認</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CONFIRM_CHANGES" Language="ja_JP">
+      <Text>変更を確認</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CROSSPLAY" Language="ja_JP">
+      <Text>クロスプレイ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_CROSSPLAY_DESCRIPTION" Language="ja_JP">
+      <Text>異なるプラットフォームを使用しているプレイヤーとマルチプレイヤーゲームを楽しめます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_DEFAULT" Language="ja_JP">
+      <Text>デフォルト</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_DEFAULTS" Language="ja_JP">
+      <Text>デフォルト</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_DEFAULTS_DESCRIPTION" Language="ja_JP">
+      <Text>すべての変更をデフォルト設定に戻します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_DISABLED_IN_GAME" Language="ja_JP">
+      <Text>このオプションはゲーム中に変更できません。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_DISPLAY_LANGUAGE" Language="ja_JP">
+      <Text>表示言語</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_EMBLEM_BRIGHTNESS" Language="ja_JP">
+      <Text>明るさを設定します。上のエンブレムが見えず、中央の正方形がかろうじて見える明るさに調節してください。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_FGX_APPLY_CHANGES" Language="ja_JP">
+      <Text>変更を適用</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_FIRSTTIMETUTORIAL" Language="ja_JP">
+      <Text>初回チュートリアル</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_FIRSTTIMETUTORIAL_DESCRIPTION" Language="ja_JP">
+      <Text>ゲーム開始時の初回チュートリアルを有効にします。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_FXS_CLEAR_CHANGES" Language="ja_JP">
+      <Text>変更をクリア</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_0" Language="ja_JP">
+      <Text>オフ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_0_DESCRIPTION" Language="ja_JP">
+      <Text>警告とチュートリアルがオフになっています。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_0_TOOLTIP" Language="ja_JP">
+      <Text>警告とチュートリアルがオフになっています。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_1" Language="ja_JP">
+      <Text>警告のみ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_1_DESCRIPTION" Language="ja_JP">
+      <Text>チュートリアルなし。何らかの問題が予測されると助言者が忠告してくれます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_1_TOOLTIP" Language="ja_JP">
+      <Text>チュートリアルなし。何らかの問題が予測されると助言者が忠告してくれます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_2" Language="ja_JP">
+      <Text>チュートリアル</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_2_DESCRIPTION" Language="ja_JP">
+      <Text>実際にプレイしながらいろいろなことを学べます。警告も有効になっています。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_2_TOOLTIP" Language="ja_JP">
+      <Text>実際にプレイしながらいろいろなことを学べます。警告も有効になっています。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_2_TOOLTIP_ALT" Language="ja_JP">
+      <Text>実際にプレイしながらいろいろなことを学べます。警告も有効になっています。変更した場合、チュートリアルを見るにはこの設定で新しいゲームを開始する必要があります。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GAME_TUTORIAL_3" Language="ja_JP">
+      <Text>初心者</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_ASSET_QUALITY" Language="ja_JP">
+      <Text>アセットクオリティ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_ASSET_QUALITY_DESCRIPTION" Language="ja_JP">
+      <Text>ゲーム中の3Dオブジェクトの詳細度を選択します。「高」ではより詳細なオブジェクトが、「低」では簡素であまり詳細に描かれないオブジェクトが使用されます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_ASSET_QUALITY_HIGH" Language="ja_JP">
+      <Text>高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_ASSET_QUALITY_LOW" Language="ja_JP">
+      <Text>低</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_AUTO" Language="ja_JP">
+      <Text>自動</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_BLOOM" Language="ja_JP">
+      <Text>ブルーム</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_BLOOM_DESCRIPTION" Language="ja_JP">
+      <Text>ブルームを有効にします。画面上の明るい部分を周囲ににじませることで、ある種のカメラセンサーの機能を模倣します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_CALIBRATE_HDR" Language="ja_JP">
+      <Text>HDRのキャリブレーション</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_CALIBRATE_HDR_DESCRIPTION" Language="ja_JP">
+      <Text>HDR表示のキャリブレーションを実行します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_CLOUD_SHADOWS" Language="ja_JP">
+      <Text>雲影を有効にする</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_CLOUD_SHADOWS_DESCRIPTION" Language="ja_JP">
+      <Text>雲の影の表示を有効にします。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_AUTO" Language="ja_JP">
+      <Text>自動</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_AUTO_DESCRIPTION" Language="ja_JP">
+      <Text>現在の出力解像度に最適なDLSSモードを選択します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_BALANCED" Language="ja_JP">
+      <Text>バランス</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_BALANCED_DESCRIPTION" Language="ja_JP">
+      <Text>最適化されたパフォーマンスと画質の両方を提供します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_DLAA" Language="ja_JP">
+      <Text>DLAA</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_DLAA_DESCRIPTION" Language="ja_JP">
+      <Text>AIベースのアンチエイリアス技術により、より高い画質を実現します。DLAAはDLSSのために開発されたものと同じ高解像度技術を採用し、ネイティブ解像度の画像を再構築して画質を最大化します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_PERFORMANCE" Language="ja_JP">
+      <Text>パフォーマンス</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_PERFORMANCE_DESCRIPTION" Language="ja_JP">
+      <Text>バランスモードよりも高度なパフォーマンスブーストを提供します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_QUALITY" Language="ja_JP">
+      <Text>クオリティ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_QUALITY_DESCRIPTION" Language="ja_JP">
+      <Text>バランスモードよりも高い画質を提供します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_SETTING" Language="ja_JP">
+      <Text>NVIDIA DLSSクオリティレベル</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_SETTING_DESCRIPTION" Language="ja_JP">
+      <Text>NVIDIA DLSSのクオリティレベルを設定します。クオリティレベルが高いと高画質に、低いと処理速度が速くなります。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_ULTRA_PERFORMANCE" Language="ja_JP">
+      <Text>ウルトラパフォーマンス</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_DLSS_QUALITY_ULTRA_PERFORMANCE_DESCRIPTION" Language="ja_JP">
+      <Text>最も高度なパフォーマンスブーストを提供します。8Kでのゲームプレイにのみ推奨される設定です。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_ENABLE_HDR" Language="ja_JP">
+      <Text>HDR有効化</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_ENABLE_HDR_DESCRIPTION" Language="ja_JP">
+      <Text>HDRディスプレイを有効にします（再起動が必要です）。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FRAME_RATE_LIMIT" Language="ja_JP">
+      <Text>フレームレート上限</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FRAME_RATE_LIMIT_DESCRIPTION" Language="ja_JP">
+      <Text>フレームレートの上限を定めます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR1_QUALITY_BALANCED" Language="ja_JP">
+      <Text>バランス</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR1_QUALITY_PERFORMANCE" Language="ja_JP">
+      <Text>パフォーマンス</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR1_QUALITY_QUALITY" Language="ja_JP">
+      <Text>クオリティ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR1_QUALITY_SETTING" Language="ja_JP">
+      <Text>AMD FSR1アップスケーリングクオリティレベル</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR1_QUALITY_SETTING_DESCRIPTION" Language="ja_JP">
+      <Text>AMD FSR1のクオリティレベルを設定します。クオリティレベルが高いと高画質に、低いと処理速度が速くなります。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR1_QUALITY_ULTRA_QUALITY" Language="ja_JP">
+      <Text>ウルトラクオリティ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_BALANCED" Language="ja_JP">
+      <Text>バランス</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_BALANCED_DESCRIPTION" Language="ja_JP">
+      <Text>バランスモードは、画質とパフォーマンス向上の理想の妥協点を提供します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_NATIVE" Language="ja_JP">
+      <Text>ネイティブ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_NATIVE_DESCRIPTION" Language="ja_JP">
+      <Text>ネイティブAAモードは、パフォーマンスの低下をほどほどに抑えつつ、ネイティブレンダリングよりも優れた画質を提供します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_PERFORMANCE" Language="ja_JP">
+      <Text>パフォーマンス</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_PERFORMANCE_DESCRIPTION" Language="ja_JP">
+      <Text>パフォーマンスモードは、パフォーマンスを大幅に向上させつつ、ネイティブレンダリングに近い画質を提供します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_QUALITY" Language="ja_JP">
+      <Text>クオリティ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_QUALITY_DESCRIPTION" Language="ja_JP">
+      <Text>クオリティモードは、パフォーマンスを著しく向上させつつ、ネイティブレンダリングと同等かより優れた画質を提供します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_SETTING" Language="ja_JP">
+      <Text>AMD FSR3クオリティレベル</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_SETTING_DESCRIPTION" Language="ja_JP">
+      <Text>AMD FSR3のクオリティレベルを設定します。クオリティレベルが高いと高画質に、低いと処理速度が速くなります。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_ULTRA_PERFORMANCE" Language="ja_JP">
+      <Text>ウルトラパフォーマンス</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_FSR3_QUALITY_ULTRA_PERFORMANCE_DESCRIPTION" Language="ja_JP">
+      <Text>ウルトラパフォーマンスモードはネイティブレンダリングに相当する画質を維持しつつ、最大限のパフォーマンス向上を実現します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_GENERAL_RESTRICTION" Language="ja_JP">
+      <Text>現在のグラフィックオプション構成では設定できません。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_GPU_RESTRICTION" Language="ja_JP">
+      <Text>現在選択しているGPUでは設定できません。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_GPU_SELECTION" Language="ja_JP">
+      <Text>GPU選択</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_GPU_SELECTION_DESCRIPTION" Language="ja_JP">
+      <Text>ゲームの描画に使用するグラフィックハードウェアを選択します（再起動が必要です）。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_GRAPHICS_OPTIONS" Language="ja_JP">
+      <Text>グラフィックオプション</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_GRAPHICS_OPTIONS_RESTART" Language="ja_JP">
+      <Text>グラフィックオプション（再起動が必要です）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_HDR_NOT_AVAILABLE" Language="ja_JP">
+      <Text>このデバイスでHDRは利用できません。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_BALANCED" Language="ja_JP">
+      <Text>バランス</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_BALANCED_DESCRIPTION" Language="ja_JP">
+      <Text>最適なパフォーマンスと画質を実現します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_PERFORMANCE" Language="ja_JP">
+      <Text>パフォーマンス</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_PERFORMANCE_DESCRIPTION" Language="ja_JP">
+      <Text>ゲーム全体のパフォーマンスが向上します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_QUALITY" Language="ja_JP">
+      <Text>クオリティ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_QUALITY_DESCRIPTION" Language="ja_JP">
+      <Text>高品質のビジュアルアップスケールを実現します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_SETTING" Language="ja_JP">
+      <Text>MetalFX Spatialアップスケーリングクオリティレベル</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_SETTING_DESCRIPTION" Language="ja_JP">
+      <Text>MetalFX Spatialのクオリティレベルを設定します。クオリティレベルが高いと高画質になり、低いと処理速度が向上します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_ULTRA_QUALITY" Language="ja_JP">
+      <Text>ウルトラクオリティ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_SPATIAL_QUALITY_ULTRA_QUALITY_DESCRIPTION" Language="ja_JP">
+      <Text>極めて高品質のビジュアルアップスケールを実現します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_BALANCED" Language="ja_JP">
+      <Text>バランス</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_BALANCED_DESCRIPTION" Language="ja_JP">
+      <Text>最適なパフォーマンスと画質を実現します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_NATIVE" Language="ja_JP">
+      <Text>ネイティブクオリティ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_NATIVE_DESCRIPTION" Language="ja_JP">
+      <Text>最高品質のアンチエイリアスを実現します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_PERFORMANCE" Language="ja_JP">
+      <Text>パフォーマンス</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_PERFORMANCE_DESCRIPTION" Language="ja_JP">
+      <Text>ゲーム全体のパフォーマンスが向上します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_QUALITY" Language="ja_JP">
+      <Text>クオリティ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_QUALITY_DESCRIPTION" Language="ja_JP">
+      <Text>高品質のビジュアルアップスケールを実現します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_SETTING" Language="ja_JP">
+      <Text>MetalFX Temporalアップスケーリングクオリティレベル</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_SETTING_DESCRIPTION" Language="ja_JP">
+      <Text>MetalFX Temporalのクオリティレベルを設定します。クオリティレベルが高いと高画質になり、低いと処理速度が向上します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_ULTRA_QUALITY" Language="ja_JP">
+      <Text>ウルトラクオリティ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_METALFX_TEMPORAL_QUALITY_ULTRA_QUALITY_DESCRIPTION" Language="ja_JP">
+      <Text>極めて高品質のビジュアルアップスケールを実現します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_MSAA_QUALITY" Language="ja_JP">
+      <Text>MSAAクオリティ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_MSAA_QUALITY_1X" Language="ja_JP">
+      <Text>1x</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_MSAA_QUALITY_2X" Language="ja_JP">
+      <Text>2x</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_MSAA_QUALITY_4X" Language="ja_JP">
+      <Text>4x</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_MSAA_QUALITY_8X" Language="ja_JP">
+      <Text>8x</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_MSAA_QUALITY_DESCRIPTION" Language="ja_JP">
+      <Text>エッジをより滑らかに見せます。サンプル数が多いほど見た目がよくなりますが、少ない場合は処理速度が速くなり、メモリ使用量も減少します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_NOT_AVAILABLE_IN_GAME" Language="ja_JP">
+      <Text>このオプションはメインメニューからのみ使用できます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PARTICLE_QUALITY" Language="ja_JP">
+      <Text>パーティクルクオリティ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PARTICLE_QUALITY_DESCRIPTION" Language="ja_JP">
+      <Text>火や煙などのパーティクルエフェクトのクオリティレベルを選択します。「高」では粒子が増えてモーションの詳細度も上昇し、「低」では粒子が減って処理速度が速くなります。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PARTICLE_QUALITY_HIGH" Language="ja_JP">
+      <Text>高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PARTICLE_QUALITY_LOW" Language="ja_JP">
+      <Text>低</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_DESCRIPTION" Language="ja_JP">
+      <Text>前景でのポイントライトシャドウを有効にします。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_QUALITY" Language="ja_JP">
+      <Text>ポイントライトシャドウクオリティ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_QUALITY_DESCRIPTION" Language="ja_JP">
+      <Text>前景ポイントライトシャドーのクオリティを選択します。レベルを上げると影の描写が詳細になり、レベルを下げると処理速度が速くなってメモリ使用量も減ります。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_QUALITY_HIGH" Language="ja_JP">
+      <Text>高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_QUALITY_LOW" Language="ja_JP">
+      <Text>低</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_QUALITY_MEDIUM" Language="ja_JP">
+      <Text>中</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_QUALITY_OFF" Language="ja_JP">
+      <Text>オフ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOW_QUALITY_ULTRA" Language="ja_JP">
+      <Text>ウルトラ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_POINT_LIGHT_SHADOWS" Language="ja_JP">
+      <Text>ポイントライトシャドウ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PROFILE" Language="ja_JP">
+      <Text>グラフィックプロフィール</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PROFILE_BATTERY" Language="ja_JP">
+      <Text>バッテリー</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PROFILE_CUSTOM" Language="ja_JP">
+      <Text>カスタム</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PROFILE_DESCRIPTION" Language="ja_JP">
+      <Text>目標のクオリティレベルに基づき、高度なグラフィックオプションを選択します。高度なグラフィックオプションに慣れていない場合は、このプロフィールオプションの使用が推奨されます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PROFILE_HIGH" Language="ja_JP">
+      <Text>高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PROFILE_LOW" Language="ja_JP">
+      <Text>低</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PROFILE_MEDIUM" Language="ja_JP">
+      <Text>中</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PROFILE_QUALITY" Language="ja_JP">
+      <Text>クオリティ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_PROFILE_ULTRA" Language="ja_JP">
+      <Text>ウルトラ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_RESOLUTION" Language="ja_JP">
+      <Text>ゲームの解像度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_RESOLUTION_DESCRIPTION" Language="ja_JP">
+      <Text>ゲームの解像度を選択します。ウィンドウモードではこれによってウィンドウのサイズが決定し、フルスクリーンモードでは画面全体にゲームが表示されます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_RESOLUTION_RESTRICTION" Language="ja_JP">
+      <Text>現在のゲーム解像度では設定できません。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_RESTART_WARNING" Language="ja_JP">
+      <Text>一部の変更は、有効化するのにアプリケーションの再起動が必要です。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SCREEN_MODE" Language="ja_JP">
+      <Text>スクリーンモード</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SCREEN_MODE_DESCRIPTION" Language="ja_JP">
+      <Text>ウィンドウモードまたはフルスクリーン表示を選択します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SCREEN_MODE_FULLSCREEN" Language="ja_JP">
+      <Text>フルスクリーン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SCREEN_MODE_RESTRICTION" Language="ja_JP">
+      <Text>現在のスクリーンモードでは設定できません。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SCREEN_MODE_WINDOWED" Language="ja_JP">
+      <Text>ウィンドウ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SHADOW_QUALITY" Language="ja_JP">
+      <Text>シャドウクオリティ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SHADOW_QUALITY_DESCRIPTION" Language="ja_JP">
+      <Text>影のクオリティを選択します。レベルを上げると影の描写が詳細になり、レベルを下げると処理速度が速くなってメモリ使用量も減ります。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SHADOW_QUALITY_HIGH" Language="ja_JP">
+      <Text>高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SHADOW_QUALITY_LOW" Language="ja_JP">
+      <Text>低</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SHADOW_QUALITY_MEDIUM" Language="ja_JP">
+      <Text>中</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SHADOW_QUALITY_ULTRA" Language="ja_JP">
+      <Text>ウルトラ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SHARPENING" Language="ja_JP">
+      <Text>画像の鮮明度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SHARPENING_DESCRIPTION" Language="ja_JP">
+      <Text>画像の鮮明度を任意のレベルに設定します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SHOW_ADVANCED_GRAPHICS_OPTIONS" Language="ja_JP">
+      <Text>高度なグラフィックオプションを表示</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSAO_QUALITY" Language="ja_JP">
+      <Text>AMD FidelityFX アンビエント・オクルージョン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSAO_QUALITY_DESCRIPTION" Language="ja_JP">
+      <Text>AMD FidelityFX アンビエント・オクルージョンのクオリティレベルを設定します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSAO_QUALITY_HIGH" Language="ja_JP">
+      <Text>高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSAO_QUALITY_LOW" Language="ja_JP">
+      <Text>低</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSAO_QUALITY_MEDIUM" Language="ja_JP">
+      <Text>中</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSAO_QUALITY_OFF" Language="ja_JP">
+      <Text>オフ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSOVERLAY" Language="ja_JP">
+      <Text>スクリーンスペースオーバーレイ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSOVERLAY_DESCRIPTION" Language="ja_JP">
+      <Text>スクリーンスペースオーバーレイを有効にします。文化や移動の境界線などの3Dオーバーレイがより詳細になります。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSR" Language="ja_JP">
+      <Text>AMD FidelityFX スクリーンスペースリフレクション</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSR_DESCRIPTION" Language="ja_JP">
+      <Text>ゲーム中の3Dオブジェクトの反射を有効にします。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSSHADOWS" Language="ja_JP">
+      <Text>スクリーンスペースシャドウ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_SSSHADOWS_DESCRIPTION" Language="ja_JP">
+      <Text>スクリーンスペースシャドウを有効にします。これにより、影の描写がいっそう詳細になります。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_TEXTURE_DETAIL" Language="ja_JP">
+      <Text>テクスチャー詳細度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_TEXTURE_DETAIL_DESCRIPTION" Language="ja_JP">
+      <Text>テクスチャーの詳細度を選択します。レベルを上げるとオブジェクトの描写が細かくなり、下げるとメモリ使用量が大幅に減少します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_TEXTURE_DETAIL_HIGH" Language="ja_JP">
+      <Text>高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_TEXTURE_DETAIL_LOW" Language="ja_JP">
+      <Text>低</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_TEXTURE_DETAIL_MEDIUM" Language="ja_JP">
+      <Text>中</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UNAVAILABLE" Language="ja_JP">
+      <Text>利用不可</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA" Language="ja_JP">
+      <Text>アップスケール/アンチエイリアスモード</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_DESCRIPTION" Language="ja_JP">
+      <Text>アップスケーリングおよび/またはアンチエイリアスモードを選択します。アップスケーリングは低解像度での3Dレンダリングを可能にし、パフォーマンスを向上させます。アンチエイリアスはちらつきを抑え、画像をより滑らかにします。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_DLSS" Language="ja_JP">
+      <Text>NVidia DLSS（アンチエイリアスおよびアップスケーリング）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_DLSS_DESCRIPTION" Language="ja_JP">
+      <Text>NVidia DLSSを有効にする</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_DLSS_DESCRIPTION_LONG" Language="ja_JP">
+      <Text>NVIDIA DLSSは優れた画質と応答性を保ちつつ、AIを使用してフレームレートを向上させます。この機能にはGeForce RTXグラフィックスカードが必要です。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_DLSS_DLAA_DESCRIPTION" Language="ja_JP">
+      <Text>NVIDIA DLAAは、画質を向上させるAIベースのアンチエイリアスモードです。この機能にはGeForce RTXグラフィックスカードが必要です。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_DLSS_SUPER_RESOLUTION_DESCRIPTION" Language="ja_JP">
+      <Text>スーパーレゾリューションは少ないピクセル数のレンダリングとAIの使用によりフレームレートを向上させ、高解像度なフレームを出力します。この機能にはGeForce RTXグラフィックスカードが必要です。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_FSR1" Language="ja_JP">
+      <Text>MSAA+AMD FidelityFXスーパーレゾリューション1（アンチエイリアスとアップスケーリング）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_FSR1_DESCRIPTION" Language="ja_JP">
+      <Text>AMD FidelityFXスーパーレゾリューション1とMSAAを有効にする</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_FSR3" Language="ja_JP">
+      <Text>AMD FidelityFXスーパーレゾリューション3（アンチエイリアスとアップスケーリング）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_FSR3_DESCRIPTION" Language="ja_JP">
+      <Text>AMD FidelityFX Super Resolution 3を有効にする</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_FSR3_DESCRIPTION_LONG" Language="ja_JP">
+      <Text>AMD FidelityFXスーパーレゾリューション3は高品質の画像アップスケーリングにより、高速フレームレートで高解像度のフレームを生成します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_METALFX_SPATIAL" Language="ja_JP">
+      <Text>MSAA + MetalFX Spatial</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_METALFX_SPATIAL_DESCRIPTION" Language="ja_JP">
+      <Text>MSAA + MetalFX Spatialを有効にする</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_METALFX_TEMPORAL" Language="ja_JP">
+      <Text>MetalFX Temporal</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_METALFX_TEMPORAL_DESCRIPTION" Language="ja_JP">
+      <Text>MetalFX Temporalを有効にする</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_MSAA" Language="ja_JP">
+      <Text>MSAA（アンチエイリアス）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_MSAA_DESCRIPTION" Language="ja_JP">
+      <Text>マルチサンプルアンチエイリアスを有効にする</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_XESS" Language="ja_JP">
+      <Text>Intel XeSS（アンチエイリアスおよびアップスケーリング）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_XESS_DESCRIPTION" Language="ja_JP">
+      <Text>Intel XeSSを有効にする</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_XESS_DESCRIPTION_MINIMUM" Language="ja_JP">
+      <Text>インテルXeスーパーサンプリング（XeSS）テクノロジーは、機械学習を活用し、並外れた高画質と高いパフォーマンスを実現します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_UPSCALE_AA_XESS_DESCRIPTION_SHORT" Language="ja_JP">
+      <Text>インテルXeスーパーサンプリング（XeSS）テクノロジーは、機械学習を活用し、並外れた高画質と高いパフォーマンスを実現します。ハードウェア加速を使用したXeSSは、Xe-HPGマイクロアーキテクチャーベースのGPU向けに最適化されています。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_VSYNC" Language="ja_JP">
+      <Text>V Syncを有効にする</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_VSYNC_DESCRIPTION" Language="ja_JP">
+      <Text>垂直同期を有効にして画面のテｨアリングを回避します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_WATER_QUALITY" Language="ja_JP">
+      <Text>水のクオリティ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_WATER_QUALITY_DESCRIPTION" Language="ja_JP">
+      <Text>水の描画クオリティを選択します。「高」にすれば波が増えて屈折も表現されますが、「低」にすれば処理速度が速くなります。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_WATER_QUALITY_HIGH" Language="ja_JP">
+      <Text>高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_WATER_QUALITY_LOW" Language="ja_JP">
+      <Text>低</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XEFG" Language="ja_JP">
+      <Text>Intel XeSSフレーム生成</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XEFG_DESCRIPTION" Language="ja_JP">
+      <Text>AI生成のフレームを既存のグラフィック出力と組み合わせることにより、秒間フレーム数（FPS）を大幅に高め、パフォーマンスを向上させます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XELL" Language="ja_JP">
+      <Text>Intel Xe低レイテンシー</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XELL_DESCRIPTION" Language="ja_JP">
+      <Text>ラグと入力の遅延を軽減します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XELL_FRAME_RATE" Language="ja_JP">
+      <Text>Intel Xe低レイテンシーフレームレート制御</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XELL_FRAME_RATE_DESCRIPTION" Language="ja_JP">
+      <Text>最大フレームレートを制限します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XELL_FRAME_RATE_UNLIMITED" Language="ja_JP">
+      <Text>無制限</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_BALANCED" Language="ja_JP">
+      <Text>バランス</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_BALANCED_DESCRIPTION" Language="ja_JP">
+      <Text>最適なパフォーマンスと画質を実現します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_NATIVE" Language="ja_JP">
+      <Text>ネイティブ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_NATIVE_DESCRIPTION" Language="ja_JP">
+      <Text>最高品質のアンチエイリアスを実現します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_PERFORMANCE" Language="ja_JP">
+      <Text>パフォーマンス</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_PERFORMANCE_DESCRIPTION" Language="ja_JP">
+      <Text>全体的なゲームパフォーマンスを向上させます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_QUALITY" Language="ja_JP">
+      <Text>クオリティ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_QUALITY_DESCRIPTION" Language="ja_JP">
+      <Text>高品質のビジュアルアップスケールを実現します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_SETTING" Language="ja_JP">
+      <Text>Intel XeSSクオリティレベル</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_SETTING_DESCRIPTION" Language="ja_JP">
+      <Text>Intel XeSSのクオリティレベルを設定します。クオリティレベルが高いと高画質に、低いと処理速度が速くなります。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_ULTRA_PERFORMANCE" Language="ja_JP">
+      <Text>ウルトラパフォーマンス</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_ULTRA_PERFORMANCE_DESCRIPTION" Language="ja_JP">
+      <Text>全体的なゲームパフォーマンスを最も向上させます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_ULTRA_QUALITY" Language="ja_JP">
+      <Text>ウルトラクオリティ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_ULTRA_QUALITY_DESCRIPTION" Language="ja_JP">
+      <Text>極めて高品質のビジュアルアップスケールを実現します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_ULTRA_QUALITY_PLUS" Language="ja_JP">
+      <Text>ウルトラクオリティプラス</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GFX_XESS_QUALITY_ULTRA_QUALITY_PLUS_DESCRIPTION" Language="ja_JP">
+      <Text>最高品質のビジュアルアップスケールを実現します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_ADVANCED" Language="ja_JP">
+      <Text>上級</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_ADVISORS" Language="ja_JP">
+      <Text>助言者</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_AUTOSAVES" Language="ja_JP">
+      <Text>オートセーブ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_CAMERA" Language="ja_JP">
+      <Text>カメラ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_CONTROLS" Language="ja_JP">
+      <Text>操作</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_GAMEPAD" Language="ja_JP">
+      <Text>コントローラー</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_GENERAL" Language="ja_JP">
+      <Text>一般</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_SUBTITLES" Language="ja_JP">
+      <Text>字幕</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_TIMEOFDAY" Language="ja_JP">
+      <Text>時刻</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_TOUCH" Language="ja_JP">
+      <Text>タッチ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_TUTORIAL" Language="ja_JP">
+      <Text>チュートリアル</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_VOLUME" Language="ja_JP">
+      <Text>音量</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_GROUP_WIRELESS_CONTROLLER" Language="ja_JP">
+      <Text>ワイヤレスコントローラー</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HDR_3D_BRIGHTNESS" Language="ja_JP">
+      <Text>3D輝度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HDR_CONFIRM" Language="ja_JP">
+      <Text>変更を確認</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HDR_CONSTRAST" Language="ja_JP">
+      <Text>コントラスト</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HDR_DISCARD" Language="ja_JP">
+      <Text>変更を破棄</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HDR_EMBLEM_VISIBILITY" Language="ja_JP">
+      <Text>明るさを設定します。上のエンブレムが見えず、中央の正方形がかろうじて見える明るさに調節してください。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HDR_UI_BRIGHTNESS" Language="ja_JP">
+      <Text>UI輝度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HELP_TYPES" Language="ja_JP">
+      <Text>ヘルプを表示</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HELP_TYPES_0" Language="ja_JP">
+      <Text>なし</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HELP_TYPES_1" Language="ja_JP">
+      <Text>警告のみ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HELP_TYPES_2" Language="ja_JP">
+      <Text>すべてのヘルプ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_HELP_TYPES_DESCRIPTION" Language="ja_JP">
+      <Text>ゲーム中に表示するヘルプの種類です。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_INPUT_DEVICE" Language="ja_JP">
+      <Text>入力デバイス</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_INPUT_DEVICE_AUTO" Language="ja_JP">
+      <Text>オートスイッチ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_INPUT_DEVICE_DESCRIPTION" Language="ja_JP">
+      <Text>サポートする入力デバイスです。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_INPUT_DEVICE_GAMEPAD" Language="ja_JP">
+      <Text>ゲームパッド</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_INPUT_DEVICE_KBM" Language="ja_JP">
+      <Text>キーボード+マウス</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_INPUT_DEVICE_TOUCH" Language="ja_JP">
+      <Text>タッチ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_INSTRUCTIONS" Language="ja_JP">
+      <Text>操作方法を表示</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_INSTRUCTIONS_DESCRIPTION" Language="ja_JP">
+      <Text>ゲーム開始時に、初めてプレイするユーザー向けの説明を表示します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_BACKSPACE" Language="ja_JP">
+      <Text>Backspace</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_CANCEL" Language="ja_JP">
+      <Text>キャンセル</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_CAPSLOCK" Language="ja_JP">
+      <Text>Caps Lock</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_DELETE" Language="ja_JP">
+      <Text>削除</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_END" Language="ja_JP">
+      <Text>End</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_HOME" Language="ja_JP">
+      <Text>Home</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_INSERT" Language="ja_JP">
+      <Text>Insert</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_LALT" Language="ja_JP">
+      <Text>Alt（左）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_LCONTROL" Language="ja_JP">
+      <Text>Ctrl（左）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_LSHIFT" Language="ja_JP">
+      <Text>Shift（左）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_0" Language="ja_JP">
+      <Text>0（テンキー）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_1" Language="ja_JP">
+      <Text>1（テンキー）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_2" Language="ja_JP">
+      <Text>2（テンキー）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_3" Language="ja_JP">
+      <Text>3（テンキー）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_4" Language="ja_JP">
+      <Text>4（テンキー）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_5" Language="ja_JP">
+      <Text>5（テンキー）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_6" Language="ja_JP">
+      <Text>6（テンキー）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_7" Language="ja_JP">
+      <Text>7（テンキー）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_8" Language="ja_JP">
+      <Text>8（テンキー）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_9" Language="ja_JP">
+      <Text>9（テンキー）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_CENTER" Language="ja_JP">
+      <Text>Center（テンキー）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_DECIMAL" Language="ja_JP">
+      <Text>.（テンキー）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_DIVIDE" Language="ja_JP">
+      <Text>/（テンキー）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_MINUS" Language="ja_JP">
+      <Text>-（テンキー）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_MULTIPLY" Language="ja_JP">
+      <Text>*（テンキー）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NP_PLUS" Language="ja_JP">
+      <Text>+（テンキー）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_NUMLOCK" Language="ja_JP">
+      <Text>Num Lock</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_PAGEDOWN" Language="ja_JP">
+      <Text>Page Down</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_PAGEUP" Language="ja_JP">
+      <Text>Page Up</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_PAUSE" Language="ja_JP">
+      <Text>一時停止</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_PRINTSCREEN" Language="ja_JP">
+      <Text>Print Screen</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_RALT" Language="ja_JP">
+      <Text>Alt（右）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_RCONTROL" Language="ja_JP">
+      <Text>Ctrl（右）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_RSHIFT" Language="ja_JP">
+      <Text>Shift（右）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_SCROLLLOCK" Language="ja_JP">
+      <Text>Scroll Lock</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_SPACE" Language="ja_JP">
+      <Text>Space</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_KEY_TAB" Language="ja_JP">
+      <Text>Tab</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_LANGUAGE" Language="ja_JP">
+      <Text>言語</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_LANGUAGE_AUDIO" Language="ja_JP">
+      <Text>音声:</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_LANGUAGE_DESCRIPTION" Language="ja_JP">
+      <Text>音声とテキストの言語を選択します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_LANGUAGE_DISPLAY" Language="ja_JP">
+      <Text>テキスト:</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_LANGUAGE_TEXT" Language="ja_JP">
+      <Text>言語を変更</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_LOCK_MOUSE" Language="ja_JP">
+      <Text>マウスをウィンドウにロック</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_LOCK_MOUSE_DESCRIPTION" Language="ja_JP">
+      <Text>マウスがゲームのウィンドウ領域外に出なくなります。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MINIMAP_SIZE" Language="ja_JP">
+      <Text>ミニマップのサイズ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MINIMAP_SIZE_DESCRIPTION" Language="ja_JP">
+      <Text>HUD内のミニマップをどのサイズにするか選びます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MINIMAP_SIZE_LARGE" Language="ja_JP">
+      <Text>大</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MINIMAP_SIZE_MEDIUM" Language="ja_JP">
+      <Text>中</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MINIMAP_SIZE_SMALL" Language="ja_JP">
+      <Text>小</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MISC_EXTREME" Language="ja_JP">
+      <Text>最高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MISC_HIGH" Language="ja_JP">
+      <Text>高</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MISC_LOW" Language="ja_JP">
+      <Text>低</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MISC_MEDIUM" Language="ja_JP">
+      <Text>中</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MISC_NONE" Language="ja_JP">
+      <Text>なし</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MISC_OFF" Language="ja_JP">
+      <Text>オフ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MISC_VERY_HIGH" Language="ja_JP">
+      <Text>超高速</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MISC_VERY_LOW" Language="ja_JP">
+      <Text>超低速</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MOUSE_L" Language="ja_JP">
+      <Text>左マウスボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MOUSE_M" Language="ja_JP">
+      <Text>中央マウスボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MOUSE_R" Language="ja_JP">
+      <Text>右マウスボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MOUSE_WHEEL_DOWN" Language="ja_JP">
+      <Text>マウスホイール下</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MOUSE_WHEEL_SPEED" Language="ja_JP">
+      <Text>マウスホイール速度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MOUSE_WHEEL_SPEED_DESCRIPTION" Language="ja_JP">
+      <Text>マウスホイールの速度を設定します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MOUSE_WHEEL_UP" Language="ja_JP">
+      <Text>マウスホイール上</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MOUSE_X1" Language="ja_JP">
+      <Text>マウスX1</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_MOUSE_X2" Language="ja_JP">
+      <Text>マウスX2</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_NARRATE_CHAT" Language="ja_JP">
+      <Text>チャットの読み上げ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_NARRATE_CHAT_DESCRIPTION" Language="ja_JP">
+      <Text>マルチプレイヤーのチャットメッセージを受信すると、自動的に読み上げます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_NARRATE_HOVER" Language="ja_JP">
+      <Text>カーソル合わせで読み上げ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_NARRATE_HOVER_DELAY" Language="ja_JP">
+      <Text>カーソル合わせで読み上げのタイムラグ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_NARRATE_HOVER_DELAY_DESCRIPTION" Language="ja_JP">
+      <Text>マウスカーソルを合わせてからテキストが読み上げられるまでの時間（ミリ秒）です。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_NARRATE_HOVER_DESCRIPTION" Language="ja_JP">
+      <Text>マウスカーソルをテキストに合わせると、自動的に読み上げます</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_NO" Language="ja_JP">
+      <Text>いいえ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_NONE_IN_CATEGORY" Language="ja_JP">
+      <Text>カテゴリーに選択肢がありません。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_NOTIFICATION_CAMERA_PAN" Language="ja_JP">
+      <Text>通知位置に自動的に移動</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_NOTIFICATION_CAMERA_PAN_DESCRIPTION" Language="ja_JP">
+      <Text>ターン終了条件の次の通知位置にカメラが自動的に移動します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_A" Language="ja_JP">
+      <Text>A</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_A_NX" Language="ja_JP">
+      <Text>A</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_A_PS" Language="ja_JP">
+      <Text>ばつボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_B" Language="ja_JP">
+      <Text>B</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_B_NX" Language="ja_JP">
+      <Text>B</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_B_PS" Language="ja_JP">
+      <Text>まるボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_BACK" Language="ja_JP">
+      <Text>ビュー ボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_BACK_NX" Language="ja_JP">
+      <Text>－</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_BACK_PS" Language="ja_JP">
+      <Text>タッチパッド</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_DOWN" Language="ja_JP">
+      <Text>方向パッド下</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_DOWN_NX" Language="ja_JP">
+      <Text>下ボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_DOWN_PS" Language="ja_JP">
+      <Text>方向キー下</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_LEFT" Language="ja_JP">
+      <Text>方向パッド左</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_LEFT_NX" Language="ja_JP">
+      <Text>左ボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_LEFT_PS" Language="ja_JP">
+      <Text>方向キー左</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_RIGHT" Language="ja_JP">
+      <Text>方向パッド右</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_RIGHT_NX" Language="ja_JP">
+      <Text>右ボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_RIGHT_PS" Language="ja_JP">
+      <Text>方向キー右</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_UP" Language="ja_JP">
+      <Text>方向パッド上</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_UP_NX" Language="ja_JP">
+      <Text>上ボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_DPAD_UP_PS" Language="ja_JP">
+      <Text>方向キー上</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LSHOULDER" Language="ja_JP">
+      <Text>L ボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LSHOULDER_NX" Language="ja_JP">
+      <Text>Lボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LSHOULDER_PS" Language="ja_JP">
+      <Text>L1ボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LTHUMB_AXIS" Language="ja_JP">
+      <Text>左スティック</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LTHUMB_AXIS_NX" Language="ja_JP">
+      <Text>Lスティック</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LTHUMB_AXIS_PS" Language="ja_JP">
+      <Text>左スティック</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LTHUMB_PRESS" Language="ja_JP">
+      <Text>左スティックを押す</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LTHUMB_PRESS_NX" Language="ja_JP">
+      <Text>Lスティックボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LTHUMB_PRESS_PS" Language="ja_JP">
+      <Text>L3ボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LTRIGGER" Language="ja_JP">
+      <Text>左トリガー</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LTRIGGER_NX" Language="ja_JP">
+      <Text>ZLボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_LTRIGGER_PS" Language="ja_JP">
+      <Text>L2ボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RSHOULDER" Language="ja_JP">
+      <Text>R ボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RSHOULDER_NX" Language="ja_JP">
+      <Text>Rボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RSHOULDER_PS" Language="ja_JP">
+      <Text>R1ボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RTHUMB_AXIS" Language="ja_JP">
+      <Text>右スティック</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RTHUMB_AXIS_NX" Language="ja_JP">
+      <Text>Rスティック</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RTHUMB_AXIS_PS" Language="ja_JP">
+      <Text>右スティック</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RTHUMB_PRESS" Language="ja_JP">
+      <Text>右スティックを押す</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RTHUMB_PRESS_NX" Language="ja_JP">
+      <Text>Rスティックボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RTHUMB_PRESS_PS" Language="ja_JP">
+      <Text>R3ボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RTRIGGER" Language="ja_JP">
+      <Text>右トリガー</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RTRIGGER_NX" Language="ja_JP">
+      <Text>ZRボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_RTRIGGER_PS" Language="ja_JP">
+      <Text>R2ボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_SHARE" Language="ja_JP">
+      <Text>Share</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_START" Language="ja_JP">
+      <Text>メニュー ボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_START_NX" Language="ja_JP">
+      <Text>+</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_START_PS" Language="ja_JP">
+      <Text>OPTIONS</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_X" Language="ja_JP">
+      <Text>X</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_X_NX" Language="ja_JP">
+      <Text>X</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_X_PS" Language="ja_JP">
+      <Text>しかくボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_Y" Language="ja_JP">
+      <Text>Y</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_Y_NX" Language="ja_JP">
+      <Text>Y</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PAD_Y_PS" Language="ja_JP">
+      <Text>さんかくボタン</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PLOT_TOOLTIP_DELAY" Language="ja_JP">
+      <Text>ツールチップのタイムラグ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PLOT_TOOLTIP_DELAY_DESCRIPTION" Language="ja_JP">
+      <Text>ツールチップが表示されるまでの秒数です。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PRODUCTIONPANEL_STAYSOPEN" Language="ja_JP">
+      <Text>生産パネルが常時表示</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PRODUCTIONPANEL_STAYSOPEN_DESCRIPTION" Language="ja_JP">
+      <Text>建設する建造物を配置した後、再び生産パネルに戻ります。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PROMOTIONS" Language="ja_JP">
+      <Text>プロモーションコンテンツを表示</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PROMOTIONS_DESCRIPTION" Language="ja_JP">
+      <Text>『シヴィライゼーション』制作チームによるプロモーションコンテンツが表示されます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_QUICK_COMBAT" Language="ja_JP">
+      <Text>クイック戦闘</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_QUICK_COMBAT_DESCRIPTION" Language="ja_JP">
+      <Text>クイックアニメーションによる戦闘解決に切り替えます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_QUICK_MOVEMENT" Language="ja_JP">
+      <Text>クイック移動</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_QUICK_MOVEMENT_DESCRIPTION" Language="ja_JP">
+      <Text>ユニットのマップ上での移動をクイック移動に切り替えます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RELOAD_WARN_ABANDON_CHANGES" Language="ja_JP">
+      <Text>変更を破棄</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RELOAD_WARN_BODY" Language="ja_JP">
+      <Text>オプションを変更すると、変更内容を反映するため、ゲームがリロードされます。リロードは短時間で終わり、位置も維持されますが、途中だったアクションはやり直しになる場合があります。続行しますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RELOAD_WARN_CONTINUE" Language="ja_JP">
+      <Text>続ける</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RELOAD_WARN_TITLE" Language="ja_JP">
+      <Text>リロードしますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_REMAP_CONTROLLER" Language="ja_JP">
+      <Text>操作</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_REMAP_CONTROLLER_DESCRIPTION" Language="ja_JP">
+      <Text>入力の割り当てを設定します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_REMAP_CONTROLLER_TEXT" Language="ja_JP">
+      <Text>設定</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_REMAP_KBM" Language="ja_JP">
+      <Text>キーボード + マウス</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_REMAP_KBM_DESCRIPTION" Language="ja_JP">
+      <Text>キーボードとマウスの操作を設定します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_REMAP_KBM_TEXT" Language="ja_JP">
+      <Text>設定</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_REPLACE_HOLD_TO_DRAG" Language="ja_JP">
+      <Text>ドラッグ操作をクリックと置き換える</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_REPLACE_HOLD_TO_DRAG_DESCRIPTION" Language="ja_JP">
+      <Text>ドラッグアンドホールド機能をクリック+ドラッグ+ドロップに置き換えます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RESET_TO_DEFAULTS" Language="ja_JP">
+      <Text>リセット</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RESTART_BODY" Language="ja_JP">
+      <Text>オプション変更を有効にするには、ゲームを再起動する必要があります。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RESTART_TITLE" Language="ja_JP">
+      <Text>再起動が必要</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_REVERT" Language="ja_JP">
+      <Text>元に戻す</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_REVERT_DESCRIPTION" Language="ja_JP">
+      <Text>変更をすべて元に戻しますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RIBBON_DEFAULT_DISPLAY" Language="ja_JP">
+      <Text>デフォルトで産出リボンを表示</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RIBBON_DISPLAY" Language="ja_JP">
+      <Text>常に産出リボンを表示</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RIBBON_DISPLAY_DESCRIPTION" Language="ja_JP">
+      <Text>プレイヤーの産出量を常にHUDリボンに表示します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RUMBLE" Language="ja_JP">
+      <Text>コントローラーの振動</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RUMBLE_DESCRIPTION" Language="ja_JP">
+      <Text>コントローラーの振動機能を有効または無効にします。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RUMBLE_FEATURE" Language="ja_JP">
+      <Text>振動機能</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_RUMBLE_FEATURE_DESCRIPTION" Language="ja_JP">
+      <Text>振動機能 - 有効または無効にします。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCALE_UI" Language="ja_JP">
+      <Text>UIのスケーリング</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCALE_UI_1" Language="ja_JP">
+      <Text>1x</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCALE_UI_2" Language="ja_JP">
+      <Text>2x</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCALE_UI_4" Language="ja_JP">
+      <Text>4x</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCALE_UI_AUTO" Language="ja_JP">
+      <Text>自動</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCALE_UI_DESCRIPTION" Language="ja_JP">
+      <Text>ユーザーインターフェース全体をスケールアップします。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCREEN_SIZE" Language="ja_JP">
+      <Text>画面サイズ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCREEN_SIZE_ADJUST_HORIZONTALLY" Language="ja_JP">
+      <Text>画面の水平調整</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCREEN_SIZE_ADJUST_VERTICALLY" Language="ja_JP">
+      <Text>画面の垂直調整</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCREEN_SIZE_DESCRIPTION" Language="ja_JP">
+      <Text>描画する画面のセーフエリアとみなされる範囲を設定します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCREEN_SIZE_INSTRUCTIONS_1" Language="ja_JP">
+      <Text>セーフエリアの画面サイズを設定します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCREEN_SIZE_INSTRUCTIONS_2" Language="ja_JP">
+      <Text>アウトラインが表示されるようにします。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCREEN_SIZE_INSTRUCTIONS_3" Language="ja_JP">
+      <Text>ゲーム中、ライン内にあるものはすべて表示されます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SCREEN_SIZE_TEXT" Language="ja_JP">
+      <Text>設定</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SEARCH" Language="ja_JP">
+      <Text>検索</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SHOW_INTRO_VIDEO" Language="ja_JP">
+      <Text>イントロ動画を表示</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SHOW_INTRO_VIDEO_DESCRIPTION" Language="ja_JP">
+      <Text>開始時にイントロ動画を表示します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SHOW_UNOWNED_CONTENT" Language="ja_JP">
+      <Text>未所有の指導者と文明を表示</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SHOW_UNOWNED_CONTENT_DESCRIPTION" Language="ja_JP">
+      <Text>未所有の指導者と文明を表示</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES" Language="ja_JP">
+      <Text>字幕を表示</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_BACKGROUND_OPACITY" Language="ja_JP">
+      <Text>背景不透明度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_BACKGROUND_OPACITY_DESCRIPTION" Language="ja_JP">
+      <Text>字幕テキストの背景の透明度を選択します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_DESCRIPTION" Language="ja_JP">
+      <Text>音声付きのムービーシーンに字幕が表示されます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_TEXT_BORDER" Language="ja_JP">
+      <Text>テキスト境界線</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_TEXT_BORDER_DESCRIPTION" Language="ja_JP">
+      <Text>字幕テキストを囲む境界線の濃さです。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_TEXT_COLOR" Language="ja_JP">
+      <Text>テキストの色</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_TEXT_COLOR_DESCRIPTION" Language="ja_JP">
+      <Text>字幕のテキストで使用する色です。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_TEXT_SIZE" Language="ja_JP">
+      <Text>テキストのサイズ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_TEXT_SIZE_DESCRIPTION" Language="ja_JP">
+      <Text>字幕のテキストの大きさです。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_TEXT_SIZE_LARGE" Language="ja_JP">
+      <Text>大</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_TEXT_SIZE_MEDIUM" Language="ja_JP">
+      <Text>中</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SUBTITLES_TEXT_SIZE_SMALL" Language="ja_JP">
+      <Text>小</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_SYMBOL_INFINITY" Language="ja_JP">
+      <Text>無限</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TEXT_SCROLLING_SPEED" Language="ja_JP">
+      <Text>テキストスクロール速度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TEXT_SCROLLING_SPEED_DESCRIPTION" Language="ja_JP">
+      <Text>テキストの自動スクロールの速度です。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TEXT_TO_SPEECH" Language="ja_JP">
+      <Text>テキスト読み上げ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TOOLTIP_DELAY" Language="ja_JP">
+      <Text>ツールチップのタイムラグ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TOOLTIP_DELAY_DESCRIPTION" Language="ja_JP">
+      <Text>ユーザーインターフェースにツールチップが表示されるまでの秒数です。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TOUCH_INPUT_ENABLE" Language="ja_JP">
+      <Text>タッチ入力有効</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TOUCH_INPUT_ENABLE_DESCRIPTION" Language="ja_JP">
+      <Text>ゲーム中のタッチ入力を有効にするかどうかを決定します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TOUCH_INPUT_NOT_AVAILABLE" Language="ja_JP">
+      <Text>このデバイスはタッチ入力が可能な設定になっていません。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TOUCH_INPUT_TOOLTIP_DELAY" Language="ja_JP">
+      <Text>タッチツールチップのタイムラグ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TOUCH_INPUT_TOOLTIP_DESCRIPTION" Language="ja_JP">
+      <Text>タッチ操作使用時のツールチップのタイムラグに作用します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TUNER" Language="ja_JP">
+      <Text>チューナー（実績を無効化）</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TUNER_DESCRIPTION" Language="ja_JP">
+      <Text>MODチューナーを起動します。これにより実績が無効になります。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TUTORIALLEVEL" Language="ja_JP">
+      <Text>チュートリアルレベル</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TUTORIALLEVEL_DESCRIPTION" Language="ja_JP">
+      <Text>ゲームプレイ中にどの程度の詳細なチュートリアル情報を受け取るかを決定します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_AUTO_SCALE" Language="ja_JP">
+      <Text>高解像度UIスケーリングを有効にする</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_AUTO_SCALE_DESCRIPTION" Language="ja_JP">
+      <Text>高解像度表示でのUIのサイズを大きくします。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_EXPERIENCE" Language="ja_JP">
+      <Text>視聴媒体</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_EXPERIENCE_CONSOLE" Language="ja_JP">
+      <Text>テレビ</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_EXPERIENCE_DESCRIPTION" Language="ja_JP">
+      <Text>ゲーム画面を映している媒体に応じて、表示体験を最適化します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_EXPERIENCE_DESKTOP" Language="ja_JP">
+      <Text>デスクトップ/ラップトップコンピューター</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_EXPERIENCE_HANDHELD" Language="ja_JP">
+      <Text>携帯機</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_GLOBAL_SCALE" Language="ja_JP">
+      <Text>UIスケール</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_GLOBAL_SCALE_DESCRIPTION" Language="ja_JP">
+      <Text>UI要素のサイズを調整します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_HDR" Language="ja_JP">
+      <Text>UI輝度を調整</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_HDR_DESCRIPTION" Language="ja_JP">
+      <Text>このコンテナは、ゲーム中のUIの表示例です。これを使うと、UIの輝度レベルによる見え方の変化を確認できます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_SCALE" Language="ja_JP">
+      <Text>フォントスケール</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_SCALE_DESCRIPTION" Language="ja_JP">
+      <Text>テキストの表示サイズを選択します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_SCALE_EXTRA_LARGE" Language="ja_JP">
+      <Text>特大</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_SCALE_EXTRA_SMALL" Language="ja_JP">
+      <Text>極小</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_SCALE_LARGE" Language="ja_JP">
+      <Text>大</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_SCALE_MEDIUM" Language="ja_JP">
+      <Text>中</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UI_SCALE_SMALL" Language="ja_JP">
+      <Text>小</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UNITCYCLE_REMAININGMOVES" Language="ja_JP">
+      <Text>移動可能ユニットの切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_UNITCYCLE_REMAININGMOVES_DESCRIPTION" Language="ja_JP">
+      <Text>ターン終了に必要なアクションを完了後、まだ移動力が残っているユニットが順番に選択されます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_USE_NARRATOR" Language="ja_JP">
+      <Text>Windowsのナレーターを使用</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_USE_NARRATOR_DESCRIPTION" Language="ja_JP">
+      <Text>Windowsのナレーター機能を使ってテキストを読み上げます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_USE_RGB" Language="ja_JP">
+      <Text>RGBライティングを使用</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_USE_RGB_DESCRIPTION" Language="ja_JP">
+      <Text>ゲームと互換性のあるサードパーティーのRGBライティングを使用します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_USE_SCREEN_READER" Language="ja_JP">
+      <Text>読み上げソフトを使用</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_USE_SCREEN_READER_DESCRIPTION" Language="ja_JP">
+      <Text>外部の読み上げソフトを使ってテキストを読み上げます。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_VIBRATION" Language="ja_JP">
+      <Text>振動</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_VIBRATION_DESCRIPTION" Language="ja_JP">
+      <Text>振動: 振動機能を有効または無効にします。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_WARN_MOD" Language="ja_JP">
+      <Text>MODの互換性について警告</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_WARN_MOD_DESCRIPTION" Language="ja_JP">
+      <Text>MODのロード時に互換性について警告します。</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_YES" Language="ja_JP">
+      <Text>はい</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ZOOM_SPEED" Language="ja_JP">
+      <Text>ズーム速度</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_ZOOM_SPEED_DESCRIPTION" Language="ja_JP">
+      <Text>カメラがズームする速度です。</Text>
+    </Replace>
+    <Replace Tag="LOC_PANEL_X_CLOSE" Language="ja_JP">
+      <Text>閉じる</Text>
+    </Replace>
+    <Replace Tag="LOC_PANEL_X_MINIMIZE" Language="ja_JP">
+      <Text>最小化/最大化</Text>
+    </Replace>
+    <Replace Tag="LOC_PLATFORM_ICON_EOS" Language="ja_JP">
+      <Text>Epic Games Store</Text>
+    </Replace>
+    <Replace Tag="LOC_PLATFORM_ICON_GAMECENTER" Language="ja_JP">
+      <Text>Nintendo Switch</Text>
+    </Replace>
+    <Replace Tag="LOC_PLATFORM_ICON_GENERIC_CROSSPLAY" Language="ja_JP">
+      <Text>クロスプレイプラットフォーム</Text>
+    </Replace>
+    <Replace Tag="LOC_PLATFORM_ICON_NX" Language="ja_JP">
+      <Text>Nintendo Switch</Text>
+    </Replace>
+    <Replace Tag="LOC_PLATFORM_ICON_PLAYSTATION" Language="ja_JP">
+      <Text>PlayStation</Text>
+    </Replace>
+    <Replace Tag="LOC_PLATFORM_ICON_STEAM" Language="ja_JP">
+      <Text>Steam</Text>
+    </Replace>
+    <Replace Tag="LOC_PLATFORM_ICON_T2GP" Language="ja_JP">
+      <Text>Take-Two</Text>
+    </Replace>
+    <Replace Tag="LOC_PLATFORM_ICON_XBOX" Language="ja_JP">
+      <Text>Xbox</Text>
+    </Replace>
+    <Replace Tag="LOC_PLOT_MOVE" Language="ja_JP">
+      <Text>移動</Text>
+    </Replace>
+    <Replace Tag="LOC_PLOT_MOVE_HELP" Language="ja_JP">
+      <Text>土地のハイライトをマップ上で移動</Text>
+    </Replace>
+    <Replace Tag="LOC_PREVIOUS_SELECT" Language="ja_JP">
+      <Text>以前の選択</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_ALL_EVENTS" Language="ja_JP">
+      <Text>すべてのイベント</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_CHALLENGE_CLASS_EVENT" Language="ja_JP">
+      <Text>イベント</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_CHALLENGE_CLASS_FOUNDATION" Language="ja_JP">
+      <Text>基礎</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_CHALLENGE_CLASS_LEADER" Language="ja_JP">
+      <Text>指導者</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_CHALLENGE_COMPLETION_TOTAL" Language="ja_JP">
+      <Text>合計</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_CHALLENGE_HELP" Language="ja_JP">
+      <Text>種類別ソートに移動</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_CHALLENGE_RETURN" Language="ja_JP">
+      <Text>チャレンジにジャンプ</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_COMPLETION" Language="ja_JP">
+      <Text>完了</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_CURRENT_XP_TEXT" Language="ja_JP">
+      <Text>現在の経験値</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_EQUIPPED" Language="ja_JP">
+      <Text>装備中</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_GAME" Language="ja_JP">
+      <Text>ゲーム</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_GENERIC_TURNS" Language="ja_JP">
+      <Text>ターン</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_HOF_DIFFICULTY_ALL" Language="ja_JP">
+      <Text>すべて</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_HOF_DIFFICULTY_HELP" Language="ja_JP">
+      <Text>難易度フィルターに移動</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_HOF_SPEED_HELP" Language="ja_JP">
+      <Text>ゲーム速度フィルターに移動</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_LEGEND_PROGRESS" Language="ja_JP">
+      <Text>伝説の達成状況</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_LOCKED" Language="ja_JP">
+      <Text>未解除</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_MARK_AS_SEEN" Language="ja_JP">
+      <Text>すべて閲覧済みにする</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_NEXT_LEVEL_XP_TEXT" Language="ja_JP">
+      <Text>次のレベルまでの経験値</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_NEXT_QUEST" Language="ja_JP">
+      <Text>次のチャレンジ: </Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_PROGRESS_BODY_CONFLICT_RESOLUTION" Language="ja_JP">
+      <Text>ローカルの進行データが2Kアカウントとリンクしたデータと競合しています。どちらを残すか選ばなければなりません。このデバイスと2Kアカウントの両方で同期する進捗データを選択してください。</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_PROGRESS_BODY_CONSOLE_CONFLICT_RESOLUTION" Language="ja_JP">
+      <Text>ローカルの進行データが2Kアカウントとリンクしたデータと競合しています。どちらを残すか選ばなければなりません。このコンソールと2Kアカウントの両方で同期する進捗データを選択してください。</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_PROGRESS_CHOICE_1_CONFLICT_RESOLUTION" Language="ja_JP">
+      <Text>ローカル進行データ</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_PROGRESS_CHOICE_2_CONFLICT_RESOLUTION" Language="ja_JP">
+      <Text>2Kリンク進行データ</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_PROGRESS_COMING_SOON" Language="ja_JP">
+      <Text>Coming Soon...</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_PROGRESS_TITLE_CONFLICT_RESOLUTION" Language="ja_JP">
+      <Text>2Kリンクアカウントの進行データの競合</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SAMPLE_BADGE_DATE" Language="ja_JP">
+      <Text>完了 11/23/29</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SAMPLE_BADGE_DESCRIPTION" Language="ja_JP">
+      <Text>自然遺産イベントを完了</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SAMPLE_BADGE_NAME" Language="ja_JP">
+      <Text>忘れえぬ日々</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SAMPLE_BANNER_NAME" Language="ja_JP">
+      <Text>戦争の達人</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SAMPLE_TITLE_DATE" Language="ja_JP">
+      <Text>完了 11/25/29</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SAMPLE_TITLE_DESCRIPTION" Language="ja_JP">
+      <Text>ハロウィン・イベント中に獲得。2013年にリリースされたFiraxisのゲーム。</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SAMPLE_TITLE_NAME" Language="ja_JP">
+      <Text>『Haunted Hallow』</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SELECT_BADGE" Language="ja_JP">
+      <Text>バッジを選択</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SELECT_BANNER" Language="ja_JP">
+      <Text>バナーを選択</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SELECT_BORDER" Language="ja_JP">
+      <Text>フレームを選択</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SELECT_COLOR" Language="ja_JP">
+      <Text>色を選択</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_SELECT_TITLE" Language="ja_JP">
+      <Text>称号の選択</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_BADGES" Language="ja_JP">
+      <Text>バッジ</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_BANNERS" Language="ja_JP">
+      <Text>バナー</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_BORDERS" Language="ja_JP">
+      <Text>フレーム</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_CHALLENGES" Language="ja_JP">
+      <Text>チャレンジ</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_CIVILIZATIONS" Language="ja_JP">
+      <Text>文明</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_COLORS" Language="ja_JP">
+      <Text>色</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_CUSTOMIZE" Language="ja_JP">
+      <Text>カスタマイズ</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_HALL_OF_FAME" Language="ja_JP">
+      <Text>栄誉の殿堂</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_HISTORY" Language="ja_JP">
+      <Text>歴史</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_LEADERBOARDS" Language="ja_JP">
+      <Text>ランキング</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_LEADERS" Language="ja_JP">
+      <Text>指導者</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_OVERVIEW" Language="ja_JP">
+      <Text>一般</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_PROGRESS" Language="ja_JP">
+      <Text>進展</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TAB_TITLES" Language="ja_JP">
+      <Text>称号</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_AMINA" Language="ja_JP">
+      <Text>戦士女王</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_ASHOKA_RENOUNCER" Language="ja_JP">
+      <Text>世界の救済者</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_AUGUSTUS" Language="ja_JP">
+      <Text>第一市民</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_BENJAMIN_FRANKLIN" Language="ja_JP">
+      <Text>最初のアメリカ人</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_CATHERINE" Language="ja_JP">
+      <Text>北方の星</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_CHARLEMAGNE" Language="ja_JP">
+      <Text>ヨーロッパの父</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_CONFUCIUS" Language="ja_JP">
+      <Text>大賢</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_DEFAULT" Language="ja_JP">
+      <Text>新時代</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_DLC_DELUXEPACK" Language="ja_JP">
+      <Text>水平線の先へ</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_DLC_FOUNDERPACK" Language="ja_JP">
+      <Text>文明の創建者</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_DLC_SEASONPASS_1" Language="ja_JP">
+      <Text>交差路の旅人</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_DLC_SEASONPASS_2" Language="ja_JP">
+      <Text>正当なる統治者</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_1" Language="ja_JP">
+      <Text>筆走る書記官</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_10" Language="ja_JP">
+      <Text>伝説</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_2" Language="ja_JP">
+      <Text>恵み深き総督</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_3" Language="ja_JP">
+      <Text>選ばれし長</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_4_1" Language="ja_JP">
+      <Text>大胆な男爵</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_4_2" Language="ja_JP">
+      <Text>大胆な男爵夫人</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_5" Language="ja_JP">
+      <Text>勝ち誇る副王</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_6" Language="ja_JP">
+      <Text>辣腕の君主</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_7_1" Language="ja_JP">
+      <Text>いと高き皇帝</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_7_2" Language="ja_JP">
+      <Text>いと高き女帝</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_8" Language="ja_JP">
+      <Text>偉大なる英雄</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FOUNDATION_9" Language="ja_JP">
+      <Text>まつろわぬ神</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_FRIEDRICH_OBLIQUE" Language="ja_JP">
+      <Text>オールド・フリッツ</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_HARRIET_TUBMAN" Language="ja_JP">
+      <Text>指揮者</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_HATSHEPSUT" Language="ja_JP">
+      <Text>太陽の声</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_HIMIKO_QUEEN_OF_WA" Language="ja_JP">
+      <Text>倭の女王</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_IBN_BATTUTA" Language="ja_JP">
+      <Text>驚異の旅人</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_ISABELLA" Language="ja_JP">
+      <Text>黄金時代の専制君主</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_JOSE_RIZAL" Language="ja_JP">
+      <Text>国家的英雄</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_LAFAYETTE" Language="ja_JP">
+      <Text>両大陸の英雄</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_MACHIAVELLI" Language="ja_JP">
+      <Text>君主</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_PACHACUTI" Language="ja_JP">
+      <Text>大地を揺らす者</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_TRUNG_TRAC" Language="ja_JP">
+      <Text>反逆の女王</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_XERXES_KING_OF_KINGS" Language="ja_JP">
+      <Text>諸王の王</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_VICTORIES" Language="ja_JP">
+      <Text>勝利</Text>
+    </Replace>
+    <Replace Tag="LOC_RADIAL_MENU_TITLE_TEXT" Language="ja_JP">
+      <Text>ラジアルメニュー</Text>
+    </Replace>
+    <Replace Tag="LOC_RANDOM_LEADER" Language="ja_JP">
+      <Text>ランダムな指導者</Text>
+    </Replace>
+    <Replace Tag="LOC_REMAP_FOW_FOUNDER" Language="ja_JP">
+      <Text>創始者エディション 不可視領域タイル</Text>
+    </Replace>
+    <Replace Tag="LOC_REMAP_PALACE_FOUNDER" Language="ja_JP">
+      <Text>創始者エディション 宮殿</Text>
+    </Replace>
+    <Replace Tag="LOC_REMAP_SCOUT_FOUNDER" Language="ja_JP">
+      <Text>デラックスエディション 斥候スキン</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_GAME_CONFIG_DEFAULT" Language="ja_JP">
+      <Text>ゲーム設定</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_GAME_CONFIG_INFO_TITLE" Language="ja_JP">
+      <Text>設定情報</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_GAME_CONFIG_LOAD_PANEL_SUBTITLE" Language="ja_JP">
+      <Text>設定をロード</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_GAME_CONFIG_LOAD_PANEL_TITLE" Language="ja_JP">
+      <Text>セーブした設定をロードする</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_GAME_CONFIG_NEW_CONFIG" Language="ja_JP">
+      <Text>新しい設定</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_GAME_CONFIG_SAVE_PANEL_SUBTITLE" Language="ja_JP">
+      <Text>設定をセーブ</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_GAME_CONFIG_SAVE_PANEL_TITLE" Language="ja_JP">
+      <Text>ゲーム設定をセーブ</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_AGETRANSITIONSAVES" Language="ja_JP">
+      <Text>時代の移行</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_AUTOSAVES" Language="ja_JP">
+      <Text>オートセーブ</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_BACK_BUTTON" Language="ja_JP">
+      <Text>戻る</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_COMPLETE_2K_ACCOUNT" Language="ja_JP">
+      <Text>2Kアカウントを完了</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CONFIG_TEXT" Language="ja_JP">
+      <Text>設定</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CONFIRM_LOAD_BODY" Language="ja_JP">
+      <Text>本当にこのセーブデータをロードしますか？ セーブしていない進行状況はすべて失われます。</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CONFIRM_LOAD_IMPORT_BODY" Language="ja_JP">
+      <Text>このセーブファイルはあなたが作成したものではありません。チャレンジなど、一部の進行状況は反映されません。ロードしますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CONFIRM_LOAD_IMPORT_TITLE" Language="ja_JP">
+      <Text>インポートしたセーブデータをロード</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CONFIRM_LOAD_TITLE" Language="ja_JP">
+      <Text>セーブデータのロード</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CONFIRM_OVERWRITE_TITLE" Language="ja_JP">
+      <Text>セーブデータの上書き</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CONNECT_2K_ACCOUNT" Language="ja_JP">
+      <Text>2Kアカウントとリンク</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CONTENT_ERROR" Language="ja_JP">
+      <Text>追加コンテンツが必要ですが、購入されていないかインストールされていません。</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CONTENT_ERROR_TITLE" Language="ja_JP">
+      <Text>コンテンツエラー</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CROSSPLAY_MISSING_2K_CLOUD_SERVICE_1" Language="ja_JP">
+      <Text>クロスプレイセーブサービスが利用できません</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CROSSPLAY_MISSING_2K_CLOUD_SERVICE_2" Language="ja_JP">
+      <Text>少し待ってから再度お試しください</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CROSSPLAY_MISSING_SSO_1" Language="ja_JP">
+      <Text>2Kアカウントをリンクして</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CROSSPLAY_MISSING_SSO_1_A" Language="ja_JP">
+      <Text>2Kアカウントを完了するとアクセスできます</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CROSSPLAY_MISSING_SSO_2" Language="ja_JP">
+      <Text>クロスプレイのセーブデータにアクセスする</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CROSSPLAYSAVES" Language="ja_JP">
+      <Text>クロスプレイ</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DELETE_BUTTON" Language="ja_JP">
+      <Text>削除</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DELETE_DIALOG_TITLE" Language="ja_JP">
+      <Text>セーブデータの削除</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DELETE_ERROR" Language="ja_JP">
+      <Text>ファイルを削除できませんでした。</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DELETE_ERROR_TITLE" Language="ja_JP">
+      <Text>ファイル削除エラー</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DELETE_NAVTRAY" Language="ja_JP">
+      <Text>削除</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_ADDITIONAL_CONTENT_TITLE" Language="ja_JP">
+      <Text>ダウンロード コンテンツ</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_AGE" Language="ja_JP">
+      <Text>時代: </Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_CREATED_BY_VERSION" Language="ja_JP">
+      <Text>作成バージョン: </Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_CREATED_TIME" Language="ja_JP">
+      <Text>作成: </Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_DIFFERENT_PLAYER_SAVE" Language="ja_JP">
+      <Text>このプレイヤーによってセーブされていません。チャレンジはカウントされません</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_DIFFICULTY" Language="ja_JP">
+      <Text>難易度: </Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_MAP_INFO_TITLE" Language="ja_JP">
+      <Text>ゲームオプション</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_MAP_SIZE" Language="ja_JP">
+      <Text>マップのサイズ: </Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_MAP_TYPE" Language="ja_JP">
+      <Text>マップの種類: </Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_REQUIRED_CONTENT_TITLE" Language="ja_JP">
+      <Text>必要なコンテンツ</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_RULE_SET" Language="ja_JP">
+      <Text>ルール: </Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_SAVED_BY_PLATFORM" Language="ja_JP">
+      <Text>プラットフォーム: </Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_SAVED_BY_VERSION" Language="ja_JP">
+      <Text>バージョン: </Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_SPEED" Language="ja_JP">
+      <Text>ゲーム速度: </Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_FILTER_BUTTON" Language="ja_JP">
+      <Text>フィルター</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_GAME_TEXT" Language="ja_JP">
+      <Text>ゲーム</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_LOAD_BUTTON" Language="ja_JP">
+      <Text>ロード</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_LOAD_NAVTRAY" Language="ja_JP">
+      <Text>ロード</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_LOCALSAVE" Language="ja_JP">
+      <Text>ローカル</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_LOCATION_FULL_DIALOG" Language="ja_JP">
+      <Text>容量が足りません。[N]新規ゲームをセーブするには、空き容量を確保する必要があります。</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_LOCATION_FULL_DIALOG_TITLE" Language="ja_JP">
+      <Text>メモリー不足</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_NEW_SAVE" Language="ja_JP">
+      <Text>新規セーブデータ</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_OVERWRITE_BUTTON" Language="ja_JP">
+      <Text>上書き</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_OVERWRITE_NAVTRAY" Language="ja_JP">
+      <Text>上書き</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_QUERY_ERROR" Language="ja_JP">
+      <Text>ファイルをクエリーできませんでした。</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_QUERY_ERROR_TITLE" Language="ja_JP">
+      <Text>ファイルクエリーエラー</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_QUOTA_EXCEEDED_DIALOG" Language="ja_JP">
+      <Text>ユーザー1人あたりの割り当てを超過しました。[N]いくつかのセーブデータを削除し、ユーザー1人あたりのストレージに空きを作ってください。</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_QUOTA_EXCEEDED_DIALOG_TITLE" Language="ja_JP">
+      <Text>ユーザー割り当てストレージの超過</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVE_BUTTON" Language="ja_JP">
+      <Text>セーブ</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVE_DISABLED_DESCRIPTION" Language="ja_JP">
+      <Text>これ以上クロスプレイをセーブできません。セーブデータを上書きするか、削除してください</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVE_ERROR" Language="ja_JP">
+      <Text>データをセーブできません。</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVE_ERROR_INVALID_CHARACTERS" Language="ja_JP">
+      <Text>無効な文字です。</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVE_ERROR_TITLE" Language="ja_JP">
+      <Text>ファイルセーブエラー</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVE_NAVTRAY" Language="ja_JP">
+      <Text>新規セーブデータの作成</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVEACTION_AUTO" Language="ja_JP">
+      <Text>オートセーブ</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVEACTION_MANUAL" Language="ja_JP">
+      <Text>手動セーブ</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVEACTION_QUICK" Language="ja_JP">
+      <Text>クイックセーブ</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVES" Language="ja_JP">
+      <Text>セーブ</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_TITLE_LOAD" Language="ja_JP">
+      <Text>ロード</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_TITLE_LOAD_CONFIG" Language="ja_JP">
+      <Text>設定をロード</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_TITLE_LOADING" Language="ja_JP">
+      <Text>ロード中</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_TITLE_OVERWRITING" Language="ja_JP">
+      <Text>セーブデータを上書きしています...</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_TITLE_SAVE" Language="ja_JP">
+      <Text>セーブ</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_TITLE_SAVE_CONFIG" Language="ja_JP">
+      <Text>設定をセーブ</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_UNABLE_TO_LOAD_BODY" Language="ja_JP">
+      <Text>ファイルを読み込めませんでした！</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_UNABLE_TO_LOAD_TITLE" Language="ja_JP">
+      <Text>ロード失敗</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_UNABLE_TO_SAVE_BODY" Language="ja_JP">
+      <Text>ファイルを保存できませんでした！</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_UNABLE_TO_SAVE_TITLE" Language="ja_JP">
+      <Text>セーブ失敗</Text>
+    </Replace>
+    <Replace Tag="LOC_SCROLL_BOTTOM" Language="ja_JP">
+      <Text>下へスクロール</Text>
+    </Replace>
+    <Replace Tag="LOC_SCROLL_PAN" Language="ja_JP">
+      <Text>スクロール</Text>
+    </Replace>
+    <Replace Tag="LOC_SCROLL_PAN_HELP" Language="ja_JP">
+      <Text>リストをスクロール</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_ACTION_1" Language="ja_JP">
+      <Text>交流1</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_ACTION_1_HELP" Language="ja_JP">
+      <Text>各画面固有の特別な交流1</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_ACTION_2" Language="ja_JP">
+      <Text>交流2</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_ACTION_2_HELP" Language="ja_JP">
+      <Text>各画面固有の特別な交流2</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_ACTION_3" Language="ja_JP">
+      <Text>交流3</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_ACTION_3_HELP" Language="ja_JP">
+      <Text>各画面固有の特別な交流3</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_ACTION_4" Language="ja_JP">
+      <Text>ツールチップ</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_ACTION_4_HELP" Language="ja_JP">
+      <Text>アイテムツールチップの切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_ACTION_5" Language="ja_JP">
+      <Text>ソーシャルパネル</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_ACTION_5_HELP" Language="ja_JP">
+      <Text>ソーシャルパネルを開く</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_NEXT" Language="ja_JP">
+      <Text>次のセカンダリ</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_NEXT_HELP" Language="ja_JP">
+      <Text>次のセカンダリタブ</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_PREVIOUS" Language="ja_JP">
+      <Text>前のセカンダリ</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_PREVIOUS_HELP" Language="ja_JP">
+      <Text>前のセカンダリタブ</Text>
+    </Replace>
+    <Replace Tag="LOC_SLOTTYPE_AI" Language="ja_JP">
+      <Text>AI</Text>
+    </Replace>
+    <Replace Tag="LOC_SLOTTYPE_CLOSED" Language="ja_JP">
+      <Text>クローズ</Text>
+    </Replace>
+    <Replace Tag="LOC_SLOTTYPE_HUMANREQ" Language="ja_JP">
+      <Text>人間が必要</Text>
+    </Replace>
+    <Replace Tag="LOC_SLOTTYPE_OPEN" Language="ja_JP">
+      <Text>オープン</Text>
+    </Replace>
+    <Replace Tag="LOC_SWAP_PLOT_SELECTION" Language="ja_JP">
+      <Text>土地の交換</Text>
+    </Replace>
+    <Replace Tag="LOC_SWAP_PLOT_SELECTION_HELP" Language="ja_JP">
+      <Text>同じ土地タイルで選択したアイテムを交換</Text>
+    </Replace>
+    <Replace Tag="LOC_SYSTEM_BACK" Language="ja_JP">
+      <Text>システムバック</Text>
+    </Replace>
+    <Replace Tag="LOC_SYSTEM_MENU" Language="ja_JP">
+      <Text>ポーズメニュー</Text>
+    </Replace>
+    <Replace Tag="LOC_SYSTEM_MENU_HELP" Language="ja_JP">
+      <Text>ポーズメニューを開く</Text>
+    </Replace>
+    <Replace Tag="LOC_TARGET" Language="ja_JP">
+      <Text>目標</Text>
+    </Replace>
+    <Replace Tag="LOC_TEXT_R" Language="ja_JP">
+      <Text>®</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_CHAT" Language="ja_JP">
+      <Text>チャット</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_CHAT_HELP" Language="ja_JP">
+      <Text>チャットウィンドウを開く/閉じる</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_DIPLO" Language="ja_JP">
+      <Text>指導者リボン</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_DIPLO_HELP" Language="ja_JP">
+      <Text>指導者リボンの非表示/表示</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_MOUSE_EMULATE" Language="ja_JP">
+      <Text>マウスエミュレーションの切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_QUEST" Language="ja_JP">
+      <Text>クエスト</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_QUEST_HELP" Language="ja_JP">
+      <Text>クエストの非表示/表示</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_RADIAL_MENU" Language="ja_JP">
+      <Text>ラジアルメニュー</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_RADIAL_MENU_HELP" Language="ja_JP">
+      <Text>ラジアルメニューを開く</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_TOOLTIP" Language="ja_JP">
+      <Text>土地のツールチップ</Text>
+    </Replace>
+    <Replace Tag="LOC_TOGGLE_TOOLTIP_HELP" Language="ja_JP">
+      <Text>土地のツールチップの切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_ACTIVITY_HOST_MP_DESC" Language="ja_JP">
+      <Text>新しいロビーに進むと、セーブせずにこのゲームから離脱することになります。よろしいですか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_ACTIVITY_LAST_SAVE_DESC" Language="ja_JP">
+      <Text>前回のセーブポイントから再開すると、このマッチを離脱することになります。よろしいですか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_ACTIVITY_LEAVE_GAME_TITLE" Language="ja_JP">
+      <Text>ゲームから離脱しますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_ACTIVITY_LEAVE_MP_GAME_TITLE" Language="ja_JP">
+      <Text>マルチプレイヤーゲームから離脱しますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_AFFECTS_SAVE" Language="ja_JP">
+      <Text>セーブデータに影響: </Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_ARG_MESSAGE" Language="ja_JP">
+      <Text>（チャットメッセージ）</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_ARG_PLAYER" Language="ja_JP">
+      <Text>（プレイヤー名）</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_DESC_GLOBAL" Language="ja_JP">
+      <Text>グローバルチャットを送信します。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_DESC_HELP" Language="ja_JP">
+      <Text>チャットパネルにチャットコマンドの一覧を表示します。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_DESC_RESPOND" Language="ja_JP">
+      <Text>最近のプライベートメッセージに返信します。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_DESC_TEAM" Language="ja_JP">
+      <Text>チームチャンネルにメッセージを送信します。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_ERROR_BLANK" Language="ja_JP">
+      <Text>コマンドエラー: メッセージを送信してください</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_ERROR_RESPOND" Language="ja_JP">
+      <Text>コマンドエラー: 返信可能なプライベートメッセージがありません</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_LIST" Language="ja_JP">
+      <Text>使用可能なチャットコマンド一覧:</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_PROMPT_HELP" Language="ja_JP">
+      <Text>「/help」か「/h」と打つと、全チャットコマンドが表示されます</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_FROM" Language="ja_JP">
+      <Text>送信元</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_GAMEPAD_INPUT_DESC_GLOBAL" Language="ja_JP">
+      <Text>グローバル宛</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_GAMEPAD_INPUT_DESC_TEAM" Language="ja_JP">
+      <Text>チーム宛</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_ICONS" Language="ja_JP">
+      <Text>アイコン</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_ICONS_EMOJI" Language="ja_JP">
+      <Text>絵文字</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_ICONS_RESOURCES" Language="ja_JP">
+      <Text>資源</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_ICONS_YIELDS" Language="ja_JP">
+      <Text>産出</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_NEW_MESSAGE" Language="ja_JP">
+      <Text>新着メッセージ</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_OPEN_TIP" Language="ja_JP">
+      <Text>チャットパネルを開く</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_OPEN_TIP_ICONS" Language="ja_JP">
+      <Text>アイコンオプションを開く</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_OPEN_TIP_PREVIEW" Language="ja_JP">
+      <Text>メッセージプレビューを開く</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_OPEN_TIP_PRIVATE" Language="ja_JP">
+      <Text>ターゲットオプションを開く</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_TOGGLE_TIP" Language="ja_JP">
+      <Text>チャットパネルの切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PREVIEW" Language="ja_JP">
+      <Text>プレビュー</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PRIVATE" Language="ja_JP">
+      <Text>プライベート</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PROMPT_GLOBAL_SHORT" Language="ja_JP">
+      <Text>g</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PROMPT_HELP_LONG" Language="ja_JP">
+      <Text>help</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PROMPT_HELP_SHORT" Language="ja_JP">
+      <Text>h</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PROMPT_PRIVATE_SHORT" Language="ja_JP">
+      <Text>w</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PROMPT_RESPOND_SHORT" Language="ja_JP">
+      <Text>r</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PROMPT_TEAM_SHORT" Language="ja_JP">
+      <Text>t</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_SEND" Language="ja_JP">
+      <Text>送信</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_SEND_TO" Language="ja_JP">
+      <Text>送信先</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_TEAM" Language="ja_JP">
+      <Text>チーム</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_TO" Language="ja_JP">
+      <Text>宛先</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CODE_REDEEM_ERROR_ALREADY_REDEEMED" Language="ja_JP">
+      <Text>コードは引き換え済みです。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CODE_REDEEM_ERROR_BAD_REQUEST" Language="ja_JP">
+      <Text>無効なコードリクエストです。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CODE_REDEEM_ERROR_RESOURCE_NOT_FOUND" Language="ja_JP">
+      <Text>コードが見つかりません。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CODE_REDEEM_ERROR_TOO_MANY_REQUESTS" Language="ja_JP">
+      <Text>コードリクエストが多すぎます。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CODE_REDEEM_ERROR_UNSUPPORTED_MEDIA_TYPE" Language="ja_JP">
+      <Text>未対応のメディアタイプです。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CODE_REDEEM_INTERNAL_SERVER_ERROR" Language="ja_JP">
+      <Text>不明なサーバーエラーです。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CODE_REDEEM_UNKOWN_ERROR" Language="ja_JP">
+      <Text>不明なエラーが発生しました。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTINUE_EVENTS" Language="ja_JP">
+      <Text>イベントゲームを続ける</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_BIND_GESTURE" Language="ja_JP">
+      <Text>いずれかの入力を押すとこのコマンドを再割り当てします</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_BIND_TITLE" Language="ja_JP">
+      <Text>再割り当て中</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_CONFIRM_CHANGE_BODY" Language="ja_JP">
+      <Text>新しい割り当てを保存しますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_CONFIRM_CHANGE_TITLE" Language="ja_JP">
+      <Text>変更を確認</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_INVERT_STICK" Language="ja_JP">
+      <Text>スティック機能の切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_INVERT_STICK_MICROSOFT" Language="ja_JP">
+      <Text>スティック機能の切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_INVERT_STICK_PS4" Language="ja_JP">
+      <Text>スティック機能の切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_INVERT_STICK_PS5" Language="ja_JP">
+      <Text>スティック機能の切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_LEFT" Language="ja_JP">
+      <Text>左</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_RESET_DEFAULT_BODY" Language="ja_JP">
+      <Text>最初の割り当てに戻しますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_RESET_DEFAULT_TITLE" Language="ja_JP">
+      <Text>最初の状態に戻す</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_RESTORE_DEFAULT" Language="ja_JP">
+      <Text>最初の状態に戻す</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_RIGHT" Language="ja_JP">
+      <Text>右</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_SUBTITLE" Language="ja_JP">
+      <Text>割り当ての確認と入力の再割り当て</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_TITLE" Language="ja_JP">
+      <Text>操作</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_DEPENDENDENCIES" Language="ja_JP">
+      <Text>属国</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_DISABLED" Language="ja_JP">
+      <Text>無効</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_DROPDOWN_NO_SELECTION" Language="ja_JP">
+      <Text>アイテムを選択してください</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_ENABLED" Language="ja_JP">
+      <Text>有効</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_ERROR_DECODING_ENTITLEMENT_NAME" Language="ja_JP">
+      <Text>エラーG100: 付与されたアイテムの名前を解読できません</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_EVENTS_EXIT" Language="ja_JP">
+      <Text>メインメニューに戻る</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_EVENTS_MULTIPLAYER" Language="ja_JP">
+      <Text>マルチプレイヤーイベントゲーム</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_EVENTS_MULTIPLAYER_NO_WIRELESS" Language="ja_JP">
+      <Text>ワイヤレスモードでは、イベントに必要なインターネット接続が切断されます。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_EVENTS_RULES" Language="ja_JP">
+      <Text>ルール:</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_EVENTS_SINGLEPLAYER" Language="ja_JP">
+      <Text>新しいイベントゲーム</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_FILTER_SORT_FILTERS" Language="ja_JP">
+      <Text>フィルター</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_FILTER_SORT_SORTING" Language="ja_JP">
+      <Text>ソート</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_FRIENDS_OPEN_SEARCH" Language="ja_JP">
+      <Text>2Kフレンドを探す</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_FRIENDS_OPEN_SEARCH_TITLE" Language="ja_JP">
+      <Text>2Kプレイヤーを探す</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_FRIENDS_SEARCH" Language="ja_JP">
+      <Text>検索</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_FRIENDS_SEARCH_FIELD" Language="ja_JP">
+      <Text>2Kフレンドのユーザー名を入力してください</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_FRIENDS_SEARCH_TITLE" Language="ja_JP">
+      <Text>2Kフレンドを探す</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_ACCEPT" Language="ja_JP">
+      <Text>承認</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_ACTIONS" Language="ja_JP">
+      <Text>アクション</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_BACK" Language="ja_JP">
+      <Text>戻る</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_BIND_GESTURE" Language="ja_JP">
+      <Text>いずれかのキーを押すとこのコマンドを再割り当てします</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_BIND_TITLE" Language="ja_JP">
+      <Text>再割り当て中</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CAMERA_PAN_DOWN" Language="ja_JP">
+      <Text>カメラの下移動</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CAMERA_PAN_DOWN_TT" Language="ja_JP">
+      <Text>カメラを下に動かします</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CAMERA_PAN_LEFT" Language="ja_JP">
+      <Text>カメラの左移動</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CAMERA_PAN_LEFT_TT" Language="ja_JP">
+      <Text>カメラを左に動かします</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CAMERA_PAN_RIGHT" Language="ja_JP">
+      <Text>カメラの右移動</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CAMERA_PAN_RIGHT_TT" Language="ja_JP">
+      <Text>カメラを右に動かします</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CAMERA_PAN_UP" Language="ja_JP">
+      <Text>カメラの上移動</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CAMERA_PAN_UP_TT" Language="ja_JP">
+      <Text>カメラを上に動かします</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CANCEL" Language="ja_JP">
+      <Text>キャンセル</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CAPITAL_CITY" Language="ja_JP">
+      <Text>首都</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CAPITAL_CITY_TT" Language="ja_JP">
+      <Text>首都にフォーカスが移ります</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CITY_HEADER" Language="ja_JP">
+      <Text>都市の概要</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CIV_BACK" Language="ja_JP">
+      <Text>シヴィロペディアの履歴を戻る</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CIV_BACK_TT" Language="ja_JP">
+      <Text>シヴィロペディアを開いている時、ページの閲覧履歴を戻ります</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CIV_FORWARD" Language="ja_JP">
+      <Text>シヴィロペディアの履歴を進む</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CIV_FORWARD_TT" Language="ja_JP">
+      <Text>シヴィロペディアを開いている時、ページの閲覧履歴を進みます</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CONFIRM_CHANGE_BODY" Language="ja_JP">
+      <Text>新しい割り当てを保存しますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_CONFIRM_CHANGE_TITLE" Language="ja_JP">
+      <Text>変更を確認</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_DESCRIPTION_1" Language="ja_JP">
+      <Text>キーボードの割り当ての確認と入力の再割り当て</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_DESCRIPTION_2" Language="ja_JP">
+      <Text>キーボードとマウスの割り当てを確認し、再割り当てします。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_DIPLOMACY_HEADER" Language="ja_JP">
+      <Text>外交の概要</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_FORCE_END_TURN" Language="ja_JP">
+      <Text>次のターンへ強制移動</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_FORCE_END_TURN_TT" Language="ja_JP">
+      <Text>ターン終了の妨げとなるアクションを無視し、現在のターンを終了させます。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_GLOBAL_ACTIONS" Language="ja_JP">
+      <Text>グローバルアクション</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_HEADER" Language="ja_JP">
+      <Text>キーボードの割り当て</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_IN_GAME_MENU" Language="ja_JP">
+      <Text>インゲームメニュー</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_IN_GAME_MENU_TT" Language="ja_JP">
+      <Text>インゲームメニューを表示します</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_LENSES" Language="ja_JP">
+      <Text>レンズ</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_MAP_SEARCH" Language="ja_JP">
+      <Text>マップの検索</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_MAP_SEARCH_TT" Language="ja_JP">
+      <Text>ワールドマップを検索します</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_MENUS_HEADER" Language="ja_JP">
+      <Text>メニュー</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_NEXT_ACTION" Language="ja_JP">
+      <Text>次のアクション</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_NEXT_ACTION_TT" Language="ja_JP">
+      <Text>次のアクションを実行するか、可能であればプレイヤーのターンを終了します。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_NEXT_CITY" Language="ja_JP">
+      <Text>次の都市</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_NEXT_CITY_TT" Language="ja_JP">
+      <Text>次の都市に切り替えます</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_NEXT_READY_UNIT" Language="ja_JP">
+      <Text>次の行動可能ユニット</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_NEXT_READY_UNIT_TT" Language="ja_JP">
+      <Text>次の行動可能なユニットに切り替えます</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_OPEN_ATTRIBUTES" Language="ja_JP">
+      <Text>属性を開く</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_OPEN_ATTRIBUTES_TT" Language="ja_JP">
+      <Text>「属性」画面を開く</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_OPEN_CIVILOPEDIA" Language="ja_JP">
+      <Text>シヴィロペディアを開く</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_OPEN_GOVERNMENT" Language="ja_JP">
+      <Text>政府を開く</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_OPEN_GOVERNMENT_TT" Language="ja_JP">
+      <Text>「政府」画面を開く</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_PAUSE_ONLINE_GAME" Language="ja_JP">
+      <Text>オンラインゲームの一時停止</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_PAUSE_ONLINE_GAME_TT" Language="ja_JP">
+      <Text>オンラインゲームを一時停止します</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_PREVIOUS_CITY" Language="ja_JP">
+      <Text>前の都市</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_PREVIOUS_CITY_TT" Language="ja_JP">
+      <Text>前の都市に切り替えます</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_PREVIOUS_READY_UNIT" Language="ja_JP">
+      <Text>前の行動可能ユニット</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_PREVIOUS_READY_UNIT_TT" Language="ja_JP">
+      <Text>前の行動可能なユニットに切り替えます</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_PRIMARY_KEY" Language="ja_JP">
+      <Text>メイン</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_QUICK_LOAD" Language="ja_JP">
+      <Text>クイックロード</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_QUICK_LOAD_TT" Language="ja_JP">
+      <Text>クイックセーブが存在する場合、最新のものを読み込みます。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_QUICK_SAVE" Language="ja_JP">
+      <Text>クイックセーブ</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_QUICK_SAVE_TT" Language="ja_JP">
+      <Text>クイックセーブを行います</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_RESET_DEFAULT_TITLE" Language="ja_JP">
+      <Text>最初の状態に戻す</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_SAVE" Language="ja_JP">
+      <Text>セーブ</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_SECONDARY_KEY" Language="ja_JP">
+      <Text>セカンダリ</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_CIVICS_SCREEN" Language="ja_JP">
+      <Text>社会制度画面の切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_GREAT_PEOPLE_SCREEN" Language="ja_JP">
+      <Text>偉人画面の切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_GREAT_WORKS_SCREEN" Language="ja_JP">
+      <Text>傑作画面の切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_GRID" Language="ja_JP">
+      <Text>グリッドの切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_GRID_TT" Language="ja_JP">
+      <Text>地形上のグリッドの表示/非表示を切り替えます</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_JOURNAL" Language="ja_JP">
+      <Text>ジャーナルの切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_LENS_CONTINENT" Language="ja_JP">
+      <Text>大陸</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_LENS_CONTINENT_TT" Language="ja_JP">
+      <Text>大陸レンズの切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_LENS_RELIGION" Language="ja_JP">
+      <Text>宗教</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_LENS_RELIGION_TT" Language="ja_JP">
+      <Text>宗教レンズの切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_LENS_SETTLER" Language="ja_JP">
+      <Text>開拓者</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_LENS_SETTLER_TT" Language="ja_JP">
+      <Text>開拓者レンズの切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_LENS_TRADE" Language="ja_JP">
+      <Text>交易</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_LENS_TRADE_TT" Language="ja_JP">
+      <Text>交易レンズの切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_RANKINGS_SCREEN" Language="ja_JP">
+      <Text>ランキング画面の切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_RELIGION" Language="ja_JP">
+      <Text>宗教パネルの切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_RESOURCE_ICONS" Language="ja_JP">
+      <Text>資源アイコンの切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_RESOURCE_ICONS_TT" Language="ja_JP">
+      <Text>資源アイコンの表示/非表示を切り替えます</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_RESOURCE_SCREEN" Language="ja_JP">
+      <Text>資源画面</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_TECH_TREE" Language="ja_JP">
+      <Text>技術ツリーの切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_TRADE_SCREEN" Language="ja_JP">
+      <Text>交易画面の切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_VICTORY_PROGRESS" Language="ja_JP">
+      <Text>勝利の達成状況画面の切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_YIELD_ICONS" Language="ja_JP">
+      <Text>産出アイコンの切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_YIELD_ICONS_TT" Language="ja_JP">
+      <Text>産出アイコンの表示/非表示を切り替えます</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_TOGGLE_YIELDS_REPORT" Language="ja_JP">
+      <Text>産出報告の切り替え</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_ACTIONS" Language="ja_JP">
+      <Text>ユニットのアクション</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_ALERT" Language="ja_JP">
+      <Text>警戒</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_ALERT_TT" Language="ja_JP">
+      <Text>選択したユニットが警戒アクションを実行します</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_AND_CITY_ACTIONS" Language="ja_JP">
+      <Text>ユニットと都市のアクション</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_ATTACK" Language="ja_JP">
+      <Text>攻撃</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_ATTACK_TT" Language="ja_JP">
+      <Text>選択したユニットが攻撃アクションを実行します</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_AUTOMATE_EXPLORATION" Language="ja_JP">
+      <Text>探索を自動化</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_AUTOMATE_EXPLORATION_TT" Language="ja_JP">
+      <Text>選択したユニットの自動探索を有効にします</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_DELETE" Language="ja_JP">
+      <Text>ゲームの削除</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_DELETE_TT" Language="ja_JP">
+      <Text>選択したユニットを削除します</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_FORTIFIED_HEAL" Language="ja_JP">
+      <Text>回復するまで守りを固める</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_FORTIFIED_HEAL_TT" Language="ja_JP">
+      <Text>選択したユニットが回復するまで守りを固めます</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_FORTIFY" Language="ja_JP">
+      <Text>守りを固める</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_FORTIFY_TT" Language="ja_JP">
+      <Text>選択したユニットが守りを固めます</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_FOUND_CITY" Language="ja_JP">
+      <Text>都市を建設</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_FOUND_CITY_TT" Language="ja_JP">
+      <Text>選択したユニットが開拓者の場合、都市を建設します</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_MOVE_TO" Language="ja_JP">
+      <Text>移動先</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_MOVE_TO_TT" Language="ja_JP">
+      <Text>選択したユニットが移動アクションを実行します</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_RANGED_ATTACK" Language="ja_JP">
+      <Text>長距離攻撃</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_RANGED_ATTACK_TT" Language="ja_JP">
+      <Text>選択したユニットが長距離攻撃を実行します</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_SKIP_TURN" Language="ja_JP">
+      <Text>ターンをスキップ</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_SKIP_TURN_TT" Language="ja_JP">
+      <Text>選択したユニットが現在のターンをスキップします</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_SLEEP" Language="ja_JP">
+      <Text>休眠</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_UNIT_SLEEP_TT" Language="ja_JP">
+      <Text>選択したユニットが休眠アクションを実行します</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_USER_INTERFACE_ACTIONS" Language="ja_JP">
+      <Text>ユーザーインターフェイスのアクション</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_KBM_MAPPING_WORLD_HEADER" Language="ja_JP">
+      <Text>ワールドの概要</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_LOAD_CONFIG" Language="ja_JP">
+      <Text>設定をロード</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_LOAD_EVENTS" Language="ja_JP">
+      <Text>イベントゲームをロード</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MOD_MULTIPLAYER" Language="ja_JP">
+      <Text>マルチプレイヤー: </Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MOD_NONE_AVAILABLE" Language="ja_JP">
+      <Text>追加コンテンツはありません。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MOD_SINGLE_PLAYER" Language="ja_JP">
+      <Text>シングルプレイヤー: </Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BLOCKED_PLAYER_GAME" Language="ja_JP">
+      <Text>ブロックされたプレイヤーのゲーム</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_CREATE_GAME" Language="ja_JP">
+      <Text>ゲームを作成</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_CREATE_NAVTRAY" Language="ja_JP">
+      <Text>ゲームを作成</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_ENTER_JOIN_CODE" Language="ja_JP">
+      <Text>参加コードを入力</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_FILTER_CONTENT" Language="ja_JP">
+      <Text>コンテンツ</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_FILTER_EVENT" Language="ja_JP">
+      <Text>イベント</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_FILTER_GAME_NAME" Language="ja_JP">
+      <Text>ゲーム名</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_FILTER_GAME_SPEED" Language="ja_JP">
+      <Text>ゲーム速度</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_FILTER_MAP_TYPE" Language="ja_JP">
+      <Text>マップの種類</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_FILTER_PLAYERS" Language="ja_JP">
+      <Text>プレイヤー</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_FILTER_RULE" Language="ja_JP">
+      <Text>ルールセット</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_FILTERS" Language="ja_JP">
+      <Text>フィルター</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_JOIN_BUTTON" Language="ja_JP">
+      <Text>参加コード</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_JOIN_GAME" Language="ja_JP">
+      <Text>参加</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_JOIN_NAVTRAY" Language="ja_JP">
+      <Text>参加</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_LOAD_GAME" Language="ja_JP">
+      <Text>ゲームをロード</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_LOAD_NAVTRAY" Language="ja_JP">
+      <Text>ゲームをロード</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_LOADING_SAVE_TOOLTIP" Language="ja_JP">
+      <Text>セーブデータ読み込み中</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_MISSING_MOD_TOOLTIP" Language="ja_JP">
+      <Text>コンテンツがみつかりません</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_PLAYERS" Language="ja_JP">
+      <Text>プレイヤー</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_QUICK_JOIN" Language="ja_JP">
+      <Text>クイック参加</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_QUICK_JOIN_NAVTRAY" Language="ja_JP">
+      <Text>クイック参加</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_REFRESH_BUTTON" Language="ja_JP">
+      <Text>更新</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_REFRESH_MESSAGE" Language="ja_JP">
+      <Text>ゲームリストを更新中</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_SCREEN_SUBTITLE" Language="ja_JP">
+      <Text>パブリックゲーム</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_SCREEN_TITLE" Language="ja_JP">
+      <Text>パブリックゲームをブラウズ</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_TITLE" Language="ja_JP">
+      <Text>ゲームをブラウズ</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_TITLE_INTERNET" Language="ja_JP">
+      <Text>インターネットゲームをブラウズ</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_TITLE_LAN" Language="ja_JP">
+      <Text>LANゲームをブラウズ</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_TITLE_WIRELESS" Language="ja_JP">
+      <Text>ワイヤレスゲームをブラウズ</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_CHAT" Language="ja_JP">
+      <Text>チャット</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_CREATE_GAME_SUBTITLE" Language="ja_JP">
+      <Text>マルチプレイヤーゲームを作成</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_CREATE_GAME_TITLE" Language="ja_JP">
+      <Text>マルチプレイヤー</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_EXTRA_CONTENT" Language="ja_JP">
+      <Text>ダウンロード コンテンツ</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_2K_HEART_TOOLTIP" Language="ja_JP">
+      <Text>あなたは2Kフレンドです</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_ACTION_ADD_FRIEND" Language="ja_JP">
+      <Text>フレンドを追加</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_ACTION_INVITE" Language="ja_JP">
+      <Text>招待を送信</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_ACTION_INVITED" Language="ja_JP">
+      <Text>招待を送信済み</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_ACTION_NOTIFICATIONS_RECEIVED" Language="ja_JP">
+      <Text>受信したアクション</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_ACTION_NOTIFICATIONS_SENT" Language="ja_JP">
+      <Text>送信したアクション</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_ACTION_UNBLOCK" Language="ja_JP">
+      <Text>ブロック解除</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_ACCEPT_INVITE_TITLE" Language="ja_JP">
+      <Text>ゲームへの招待を承諾</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_ACCEPT_REQUEST_TITLE" Language="ja_JP">
+      <Text>フレンド申請を承諾</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_BLOCK_TITLE" Language="ja_JP">
+      <Text>プレイヤーをブロック</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_CANCEL_REQUEST_TITLE" Language="ja_JP">
+      <Text>フレンド申請をキャンセル</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_DECLINE_INVITE_TITLE" Language="ja_JP">
+      <Text>ゲームへの招待を拒否</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_DECLINE_REQUEST_TITLE" Language="ja_JP">
+      <Text>フレンド申請を拒否</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_GAME_INVITE_TITLE" Language="ja_JP">
+      <Text>ゲームへの招待を送信</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_REQUEST_TITLE" Language="ja_JP">
+      <Text>フレンド申請を送信</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_UNBLOCK_TITLE" Language="ja_JP">
+      <Text>プレイヤーのブロックを解除</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_ADD_FRIEND_TITLE" Language="ja_JP">
+      <Text>フレンド申請を送信済み</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_INVITE_TITLE" Language="ja_JP">
+      <Text>招待したプレイヤー</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_INVITE_TO_JOIN_TITLE" Language="ja_JP">
+      <Text>ゲームへの招待を送信済み</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_UNBLOCK_TITLE" Language="ja_JP">
+      <Text>プレイヤーのブロックが解除</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FRIENDS_LIST" Language="ja_JP">
+      <Text>フレンド</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_HEART_TOOLTIP" Language="ja_JP">
+      <Text>フレンドです</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_LOBBY_LIST" Language="ja_JP">
+      <Text>ロビー</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_LOBBY_MULTIPLYER_REMINDER" Language="ja_JP">
+      <Text>マルチプレイヤーモードでなければなりません</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_NOTIFICATIONS_LIST" Language="ja_JP">
+      <Text>通知</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_RECENT_LIST" Language="ja_JP">
+      <Text>最近</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_REMOVE_FRIEND_TITLE" Language="ja_JP">
+      <Text>フレンドを削除</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_SEARCH_LIST" Language="ja_JP">
+      <Text>検索</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_SEARCH_RESULTS_LIST" Language="ja_JP">
+      <Text>検索結果</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_SEARCHING" Language="ja_JP">
+      <Text>検索中...</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_TAB_INVITE" Language="ja_JP">
+      <Text>フレンド</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_TAB_LOBBY" Language="ja_JP">
+      <Text>ロビー</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_TAB_NOTIFICATIONS" Language="ja_JP">
+      <Text>通知</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_TAB_RECENT" Language="ja_JP">
+      <Text>最近</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_TAB_SEARCH" Language="ja_JP">
+      <Text>検索結果</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_TAB_UNBLOCK" Language="ja_JP">
+      <Text>ブロックリスト</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_TITLE_INVITE" Language="ja_JP">
+      <Text>フレンドを招待</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_TITLE_RECENT" Language="ja_JP">
+      <Text>最近</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_TITLE_SEARCH" Language="ja_JP">
+      <Text>検索結果</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_TITLE_UNBLOCK" Language="ja_JP">
+      <Text>ブロックリスト</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_UNBLOCK_LIST" Language="ja_JP">
+      <Text>ブロック</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_MODE_AUTOMATCH" Language="ja_JP">
+      <Text>オートマッチ</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_MODE_AUTOMATCH_DESCRIPTION" Language="ja_JP">
+      <Text>ランダムなプレイヤーとのオートマッチ</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_MODE_CREATE_GAME" Language="ja_JP">
+      <Text>ゲームを作成</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_MODE_CREATE_GAME_DESCRIPTION" Language="ja_JP">
+      <Text>オンラインゲームを作成してフレンドを招待</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_MODE_SUBTITLE" Language="ja_JP">
+      <Text>マルチプレイヤー</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_MODE_TITLE" Language="ja_JP">
+      <Text>ゲームモードを選択</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_AI_PLAYER_COUNT" Language="ja_JP">
+      <Text>CPUプレイヤー数:</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_HOST" Language="ja_JP">
+      <Text>ホスト:</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_HUMAN_PLAYER_COUNT" Language="ja_JP">
+      <Text>プレイヤー数:</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_KICK_VOTING" Language="ja_JP">
+      <Text>キック投票:</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_PRIVATE_GAME" Language="ja_JP">
+      <Text>非公開ゲーム:</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_STARTING_AGE" Language="ja_JP">
+      <Text>開始する時代：</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_TURN_MODE" Language="ja_JP">
+      <Text>ターンモード:</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_TURN_MODE_NONE" Language="ja_JP">
+      <Text>なし</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_TURN_MODE_SIMULTANEOUS" Language="ja_JP">
+      <Text>同時</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_TURN_MODE_SINGLEPLAYER" Language="ja_JP">
+      <Text>シングルプレイヤー</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_TURN_TIME" Language="ja_JP">
+      <Text>ターン時間:</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_TURN_TIMER" Language="ja_JP">
+      <Text>ターンタイマー: </Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_TURN_TIMER_DYNAMIC" Language="ja_JP">
+      <Text>ダイナミック</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_TURN_TIMER_NONE" Language="ja_JP">
+      <Text>なし</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULE_TURN_TIMER_STANDARD" Language="ja_JP">
+      <Text>標準</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_GAME_RULES_TITLE" Language="ja_JP">
+      <Text>マルチプレイヤーのルールとMOD</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_HEADER_CIV" Language="ja_JP">
+      <Text>文明</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_HEADER_KICK" Language="ja_JP">
+      <Text>キック</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_HEADER_LEADER" Language="ja_JP">
+      <Text>指導者</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_HEADER_MODS" Language="ja_JP">
+      <Text>MOD</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_HEADER_PLAYER" Language="ja_JP">
+      <Text>プレイヤー</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_HEADER_READY" Language="ja_JP">
+      <Text>準備OK？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_HEADER_RULES" Language="ja_JP">
+      <Text>ルール</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_HEADER_TEAM" Language="ja_JP">
+      <Text>チーム</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_HOST_LOBBY" Language="ja_JP">
+      <Text>ロビーをホストする</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_JOIN_CODE_PLACEHOLDER" Language="ja_JP">
+      <Text>コードを入力</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_JOIN_CODE_TITLE" Language="ja_JP">
+      <Text>参加コード</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_CREATE_GAME" Language="ja_JP">
+      <Text>ゲームを作成</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_ERROR_GAME_STARTED" Language="ja_JP">
+      <Text>ゲーム開始済み</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_ERROR_NO_CONNECTION" Language="ja_JP">
+      <Text>接続なし</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_ERROR_ROOM_FULL" Language="ja_JP">
+      <Text>満員</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_ERROR_TOO_MANY_MATCHES" Language="ja_JP">
+      <Text>マッチ過多</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_GAMES_BROWSER" Language="ja_JP">
+      <Text>ゲームをブラウズ</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_INTERNET" Language="ja_JP">
+      <Text>インターネット</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_JOIN_GAME" Language="ja_JP">
+      <Text>ゲームに参加</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_LAN" Language="ja_JP">
+      <Text>LAN</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_LOAD_GAME" Language="ja_JP">
+      <Text>ロード</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_MATCHMAKE_GAME" Language="ja_JP">
+      <Text>クイック参加</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_MATCHMAKE_START_ERROR" Language="ja_JP">
+      <Text>マッチメイキングを開始できませんでした</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_RELAY_SERVER_ADDRESS_PROMPT" Language="ja_JP">
+      <Text>中継サーバーのアドレス:</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_SUBTITLE" Language="ja_JP">
+      <Text>ランディング画面</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_TITLE" Language="ja_JP">
+      <Text>マルチプレイヤーモード</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_WIRELESS" Language="ja_JP">
+      <Text>ワイヤレス</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_DIFFICULTY" Language="ja_JP">
+      <Text>難易度: </Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_DROPDOWN_ACTION_DEFAULT" Language="ja_JP">
+      <Text>プレイヤーのアクション</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_DROPDOWN_ACTION_DESC" Language="ja_JP">
+      <Text>このプレイヤースロットのアクションセレクターです。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_DROPDOWN_CIV_DESC" Language="ja_JP">
+      <Text>このプレイヤーの文明セレクターです。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_DROPDOWN_LEADER_DESC" Language="ja_JP">
+      <Text>このプレイヤーの指導者セレクターです。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_DROPDOWN_TEAM_DEFAULT" Language="ja_JP">
+      <Text>なし</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_DROPDOWN_TEAM_DESC" Language="ja_JP">
+      <Text>このプレイヤーのチームセレクターです。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_GAME_OPTION" Language="ja_JP">
+      <Text>ゲームオプション</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_GAME_SPEED" Language="ja_JP">
+      <Text>ゲーム速度: </Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_MAP_SIZE" Language="ja_JP">
+      <Text>マップのサイズ: </Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_MAP_TYPE" Language="ja_JP">
+      <Text>マップの種類: </Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_NAVTRAY_READY" Language="ja_JP">
+      <Text>準備OK</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_NAVTRAY_UNREADY" Language="ja_JP">
+      <Text>準備中</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_READY_BUTTON_NOT_READY" Language="ja_JP">
+      <Text>準備はよろしいですか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_READY_BUTTON_STARTING_GAME" Language="ja_JP">
+      <Text>開始します...</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_READY_BUTTON_WAITING_FOR_OTHERS" Language="ja_JP">
+      <Text>プレイヤーを待っています</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_RULE_SET" Language="ja_JP">
+      <Text>ルールセット: </Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_RULES" Language="ja_JP">
+      <Text>すべてのルールを表示</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_SHOW_FRIENDS" Language="ja_JP">
+      <Text>フレンドを表示</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_SHOW_JOIN_CODE" Language="ja_JP">
+      <Text>参加コードを表示</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_SUBTITLE" Language="ja_JP">
+      <Text>ロビー</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_TIME_REMAINING" Language="ja_JP">
+      <Text>残り時間</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_MEMENTO" Language="ja_JP">
+      <Text>記念品を選択</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_NEW_GAME_CREATE" Language="ja_JP">
+      <Text>作成する</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_NEW_GAME_ENTER_JOIN_CODE" Language="ja_JP">
+      <Text>参加コードを入力してください:</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_NEW_GAME_JOIN" Language="ja_JP">
+      <Text>参加する</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_NEW_GAME_TITLE" Language="ja_JP">
+      <Text>新規ゲーム</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_NOT_CONNECTED_TO_LOBBY" Language="ja_JP">
+      <Text>ロビーに接続していません</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAY_MODE_LOCAL" Language="ja_JP">
+      <Text>ローカル</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAY_MODE_LOCAL_DESCRIPTION" Language="ja_JP">
+      <Text>ローカルゲームを作成してフレンドを招待</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAY_MODE_ONLINE" Language="ja_JP">
+      <Text>オンライン</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAY_MODE_ONLINE_DESCRIPTION" Language="ja_JP">
+      <Text>フレンドとマルチプレイヤーオンラインゲームを作成するか、オートマッチに参加</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAY_MODE_SUBTITLE" Language="ja_JP">
+      <Text>マルチプレイヤー</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAY_MODE_TITLE" Language="ja_JP">
+      <Text>プレイモードを選択</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_ACCEPT_T2GP_FRIEND_REQUEST" Language="ja_JP">
+      <Text>フレンド申請を承諾</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_ACCEPT_T2GP_GAME_INVITE_REQUEST" Language="ja_JP">
+      <Text>ゲームへの招待を承諾する</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_ADD_PLAT_FRIEND" Language="ja_JP">
+      <Text>フレンド</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_ADD_T2GP_FRIEND" Language="ja_JP">
+      <Text>フレンドを追加</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_BLOCK" Language="ja_JP">
+      <Text>ブロック</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_CANCEL_T2GP_FRIEND_REQUEST" Language="ja_JP">
+      <Text>フレンド申請をキャンセル</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_CHAT_UNAVAILABLE" Language="ja_JP">
+      <Text>利用できません</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_DECLINE_T2GP_FRIEND_REQUEST" Language="ja_JP">
+      <Text>フレンド申請を拒否</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_DECLINE_T2GP_GAME_INVITE_REQUEST" Language="ja_JP">
+      <Text>ゲームへの招待を断る</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_INVITE_FRIEND" Language="ja_JP">
+      <Text>ゲームへ招待</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_KICK" Language="ja_JP">
+      <Text>キック</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_MUTE" Language="ja_JP">
+      <Text>ミュート</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_REMOVE_FRIEND" Language="ja_JP">
+      <Text>フレンドを削除</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_REPORT" Language="ja_JP">
+      <Text>報告</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_UNBLOCK" Language="ja_JP">
+      <Text>ブロック解除</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_UNMUTE" Language="ja_JP">
+      <Text>ミュート解除</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_PLAYER_OPTIONS_VIEW_PROFILE" Language="ja_JP">
+      <Text>プロフィールを表示</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_QUICK_JOIN_JOIN" Language="ja_JP">
+      <Text>クイック参加</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_QUICK_JOIN_RULE_AGE" Language="ja_JP">
+      <Text>開始する時代</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_QUICK_JOIN_RULE_RULESET" Language="ja_JP">
+      <Text>ルールセット</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_QUICK_JOIN_RULE_SPEED" Language="ja_JP">
+      <Text>ゲーム速度</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_QUICK_JOIN_SUBTITLE" Language="ja_JP">
+      <Text>クイック参加のルール</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_REPORT_BODY" Language="ja_JP">
+      <Text>ホストプレイヤーを報告し、このゲームをリスト上で非表示にしますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_REPORT_PLAYER_BODY" Language="ja_JP">
+      <Text>このプレイヤーの問題行動はどのようなものですか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_REPORT_PLAYER_TITLE" Language="ja_JP">
+      <Text>プレイヤーを報告</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_REPORT_TITLE" Language="ja_JP">
+      <Text>ゲームを報告</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_SOCIAL_BUTTON_LABEL" Language="ja_JP">
+      <Text>ソーシャルメニュー</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_SOCIAL_RESTRICTED_GAME" Language="ja_JP">
+      <Text>カスタムゲーム</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_STAGING_CLIENT_TITLE" Language="ja_JP">
+      <Text>マルチプレイヤーステージング画面: クライアント設定</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_STAGING_HOST_TITLE" Language="ja_JP">
+      <Text>マルチプレイヤーステージング画面: ホスト設定</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_STAGING_INVITE_BUTTON" Language="ja_JP">
+      <Text>フレンドを招待</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_STAGING_PLAYER_LIST_TITLE" Language="ja_JP">
+      <Text>プレイヤーリスト: </Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_STAGING_READY_BUTTON_READY" Language="ja_JP">
+      <Text>準備OK</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_STAGING_READY_BUTTON_UNREADY" Language="ja_JP">
+      <Text>準備中</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_STAGING_SUBTITLE" Language="ja_JP">
+      <Text>ステージング画面</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_STAGING_TITLE" Language="ja_JP">
+      <Text>マルチプレイヤー</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_STATUS_JOINING" Language="ja_JP">
+      <Text>参加中...</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_NO_INTERNET_CONNECTION" Language="ja_JP">
+      <Text>既存のクラウドセーブは利用できなくなります。[n]伝説のメタ進行状況を保存できない場合があります。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_NO_INTERNET_CONNECTION_TITLE" Language="ja_JP">
+      <Text>インターネット接続がありません</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_ODR_DOWNLOAD_DESCRIPTION" Language="ja_JP">
+      <Text>ダウンロードはバックグラウンドで継続されます</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_OPTIONS_TITLE" Language="ja_JP">
+      <Text>オプション</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_REDEEM_CODE_ALREADY_REDEEMED_INFO" Language="ja_JP">
+      <Text>このご利用コードはすでに引き換え済みです。[n]別のご利用コードを引き換えますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_REDEEM_CODE_ALREADY_REDEEMED_TITLE" Language="ja_JP">
+      <Text>引き換え済みコード</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_REDEEM_CODE_FAILED_TITLE" Language="ja_JP">
+      <Text>無効なご利用コード</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_REDEEM_CODE_SUCCESS_TITLE" Language="ja_JP">
+      <Text>コード成功</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_REDEEM_CODE_TEXT_FIELD" Language="ja_JP">
+      <Text>ご利用コードを入力</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_SAVE_CONFIG" Language="ja_JP">
+      <Text>設定を保存</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_SOCIAL_TITLE" Language="ja_JP">
+      <Text>ソーシャル</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_SPOP_LOGOUT_GAME" Language="ja_JP">
+      <Text>ログアウト</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_STORE_DESCRIPTION" Language="ja_JP">
+      <Text>利用可能な『シヴィライゼーション VII』の追加コンテンツを表示します</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_TERMINATE_SESSION" Language="ja_JP">
+      <Text>他のセッションを終了</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_TEXT_ENTRY_DENIAL" Language="ja_JP">
+      <Text>無効なテキスト入力</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_TEXT_TO_SPEECH_CONTROLLER" Language="ja_JP">
+      <Text>テキスト読み上げ（コントローラーフォーカス）</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_TEXT_TO_SPEECH_CONTROLLER_TT" Language="ja_JP">
+      <Text>プラットフォームがテキスト読み上げ機能に対応している場合、コントローラーでフォーカスしているテキストを読み上げます。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_TEXT_TO_SPEECH_KEYBOARD" Language="ja_JP">
+      <Text>テキスト読み上げ（マウスカーソル）</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_TEXT_TO_SPEECH_KEYBOARD_TT" Language="ja_JP">
+      <Text>プラットフォームがテキスト読み上げ機能に対応している場合、マウスのカーソルを合わせているテキストを読み上げます。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_TOOLTIP_DISABLED_CONTENT" Language="ja_JP">
+      <Text>無効になっているコンテンツ</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_TOOLTIP_DLCS" Language="ja_JP">
+      <Text>オフィシャルコンテンツ</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_TOOLTIP_MODS" Language="ja_JP">
+      <Text>追加コンテンツ</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_TOOLTIP_STORE" Language="ja_JP">
+      <Text>コレクション</Text>
+    </Replace>
+    <Replace Tag="LOC_UNMUTE_DIALOG_TITLE" Language="ja_JP">
+      <Text>プレイヤーをミュート解除しますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UPSELL_UPGRADE_COMPLETE" Language="ja_JP">
+      <Text>ご購入ありがとうございます。ゲームを再起動して変更を有効にしてください。</Text>
+    </Replace>
+    <Replace Tag="LOC_XR_CONTROLLER_TRIGGER_ACCEPT" Language="ja_JP">
+      <Text>承認</Text>
+    </Replace>
+    <Replace Tag="LOC_AGE_TRANSITION_CHOOSE_CIV" Language="ja_JP">
+      <Text>{1_Civilization}を選択</Text>
+    </Replace>
+    <Replace Tag="LOC_AGE_TRANSITION_PLAY_AS" Language="ja_JP">
+      <Text>[B]{1_Requirement}[/B]としてプレイする</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_ADD_MEMENTO_UNLOCK" Language="ja_JP">
+      <Text>レベル{1_Level}で解除</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_AGE_TITLE" Language="ja_JP">
+      <Text>{1_Item}</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_LEADER_CIV_HISTORIC_BIAS" Language="ja_JP">
+      <Text>[B]{1_LeaderName}[/B]はこの文明の歴史と関係している。</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_POPUP_BODY" Language="ja_JP">
+      <Text> {1_Name}を購入しますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_UNLOCK_ITEM" Language="ja_JP">
+      <Text>[B]{1_Item}[/B]を解除する。</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_UNLOCK_ITEM_IN_AGE" Language="ja_JP">
+      <Text>[B]{2_Age}[/B]に[B]{1_Item}[/B]を解除する。</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_UNLOCKS_LIST" Language="ja_JP">
+      <Text>以下を解除する: [BLIST]{1_Items}[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_UNLOCKS_LIST_ITEM" Language="ja_JP">
+      <Text>[LI] [B]{1_UnlockName}[/B]</Text>
+    </Replace>
+    <Replace Tag="LOC_CREATE_GAME_UNLOCKS_LIST_ITEM_IN_AGE" Language="ja_JP">
+      <Text>[LI] [B]{1_UnlockName}[/B]を[B]{2_AgeName}[/B]時代に解除する。</Text>
+    </Replace>
+    <Replace Tag="LOC_CROSSPLAY_CHOICE_1_CONTEXT_CONFLICT_RESOLUTION" Language="ja_JP">
+      <Text>ローカルクロスプレイのセーブデータ{1_CrossplayType}</Text>
+    </Replace>
+    <Replace Tag="LOC_CROSSPLAY_CHOICE_2_CONTEXT_RESOLUTION" Language="ja_JP">
+      <Text>2Kリンククロスプレイのセーブデータ{1_CrossplayType}</Text>
+    </Replace>
+    <Replace Tag="LOC_DIRECT_KICK_CONFIRM_DIALOG" Language="ja_JP">
+      <Text>本当に{1_kickPlayerName}をこのゲームからキックしますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_DIRECT_MUTE_CONFIRM_DIALOG" Language="ja_JP">
+      <Text>本当に{1_mutePlayerName}をミュートしますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_DIRECT_UNMUTE_CONFIRM_DIALOG" Language="ja_JP">
+      <Text>本当に{1_mutePlayerName}をミュート解除しますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_EDIT_MEMENTOS_LEADER_TITLE" Language="ja_JP">
+      <Text>{1_LeaderName}の記念品</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_ABANDONED_VERSION_MISMATCH" Language="ja_JP">
+      <Text>バージョンがホストと異なります。[N]自分のバージョン={1_localVersion}[N]ホストのバージョン={2_remoteVersion}</Text>
+    </Replace>
+    <Replace Tag="LOC_GAME_SUMMARY_JOIN_CODE" Language="ja_JP">
+      <Text>参加コード: {1_JoinCode}</Text>
+    </Replace>
+    <Replace Tag="LOC_GENERIC_CHOOSE" Language="ja_JP">
+      <Text>{1_Choice}を選択</Text>
+    </Replace>
+    <Replace Tag="LOC_KICK_VOTE_CHOICE_DIALOG" Language="ja_JP">
+      <Text>{2_kickerPlayerName}が{1_kickPlayerName}に対する投票を開始しました。[N]{1_kickPlayerName}をこのゲームからキックすることを希望しますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_KICK_VOTE_CONFIRM_DIALOG" Language="ja_JP">
+      <Text>{1_kickPlayerName}をこのゲームからキックすることを希望しますか？ 投票が始まります。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOCKED_GENERIC" Language="ja_JP">
+      <Text>{1_LeaderOrCivName}は解除されていません。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOCKED_INCLUDED_WITH_CONTENT" Language="ja_JP">
+      <Text>{1_LeaderOrCivName}は{2_ContentPack}に含まれています。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOCKED_LINK_ACCOUNT" Language="ja_JP">
+      <Text>2Kアカウントにサインアップ/サインインして、{1_LeaderOrCivName}を解除しましょう！</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_MEMENTO_UNLOCKED_TEXT" Language="ja_JP">
+      <Text>{1_PathType}レベル{2_level}の記念品が解除されました</Text>
+    </Replace>
+    <Replace Tag="LOC_MULTIPLAYER_DEFAULT_GAME_NAME" Language="ja_JP">
+      <Text>{1_PlayerName}のゲーム</Text>
+    </Replace>
+    <Replace Tag="LOC_MULTIPLAYER_DEFAULT_TEAM_NAME" Language="ja_JP">
+      <Text>チーム{1_TeamNumber}</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_PLOT_TOOLTIP_DELAY_VALUE" Language="ja_JP">
+      <Text>{1: number 0.0}秒</Text>
+    </Replace>
+    <Replace Tag="LOC_OPTIONS_TOOLTIP_DELAY_VALUE" Language="ja_JP">
+      <Text>{1: number 0.0}秒</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_ALL_QUESTS" Language="ja_JP">
+      <Text>すべての{1_Quests}チャレンジ</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_CHALLENGE_REPEATABLE_PROGRESS" Language="ja_JP">
+      <Text>完了: {1_CurrentProgress}/{2_MaxProgress}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_DIFFICULTY" Language="ja_JP">
+      <Text>難易度: {1_Difficulty}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_GAME_SPEED" Language="ja_JP">
+      <Text>ゲーム速度: {1_Speed}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_NUMBER_COMPLETE" Language="ja_JP">
+      <Text>すべてのチャレンジ {1_NumCompleted}/{2_Total}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_PATH_HEADER" Language="ja_JP">
+      <Text>{1_Path}レベル{2_Level}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_PROGRESS_CHOICE_1_CONTEXT_CONFLICT_RESOLUTION" Language="ja_JP">
+      <Text>ローカル進行データ{1_ProgressType}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_PROGRESS_CHOICE_2_CONTEXT_RESOLUTION" Language="ja_JP">
+      <Text>2Kリンク進行データ{1_ProgressType}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_PROGRESS_HEADER" Language="ja_JP">
+      <Text>レベル{1_Level}: {2_CurrentPoints}/{3_NextLevelPoints}XP</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_QUEST_PROGRESS" Language="ja_JP">
+      <Text>{1_Completed}/{2_Total}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TURNS" Language="ja_JP">
+      <Text>{1_Turns}</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_GAME_MOD_NOT_INSTALLED" Language="ja_JP">
+      <Text>[STYLE:text-negative]{1_modTitle}（未インストール）[/STYLE]</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_GAME_MOD_NOT_OWNED" Language="ja_JP">
+      <Text>[STYLE:text-negative]{1_modTitle}（未所有）[/STYLE]</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_CONFIRM_OVERWRITE_BODY" Language="ja_JP">
+      <Text>本当にこの{1_type}セーブデータを上書きしますか？ この操作はやり直せません。</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DELETE_DIALOG" Language="ja_JP">
+      <Text>本当にこの{1_type}セーブデータを削除しますか？ この操作はやり直せません。</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DELETING" Language="ja_JP">
+      <Text>{1_SaveType}セーブデータを削除しています...</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_DETAILS_SAVE_TYPE" Language="ja_JP">
+      <Text>セーブデータの種類: {1_SaveType}</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_LOADING" Language="ja_JP">
+      <Text>{1_SaveType}セーブデータを取得中...</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVE_DATE" Language="ja_JP">
+      <Text>{1_Date: date short}</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVE_TIME" Language="ja_JP">
+      <Text>{1_Date: time short}</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_SAVING" Language="ja_JP">
+      <Text>{1_SaveType}セーブデータを作成中...</Text>
+    </Replace>
+    <Replace Tag="LOC_SAVE_LOAD_TURN" Language="ja_JP">
+      <Text>ターン{1_Turns}</Text>
+    </Replace>
+    <Replace Tag="LOC_SHELL_BUILD_INFO" Language="ja_JP">
+      <Text>ビルド: {1_BuildString}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_ALREADY_FRIEND" Language="ja_JP">
+      <Text>{1_PlayerName}とはすでにフレンドになっています</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_DESC_PRIVATE" Language="ja_JP">
+      <Text>{1_Name}にプライベートメッセージを送信します。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_ERROR_PLAYER" Language="ja_JP">
+      <Text>コマンドエラー: 「{1_Name}」という名前のプレイヤーは存在しないか、この名前のプレイヤーが複数存在します。正確な名前を入力してください</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_COMMAND_ERROR_UNKNOWN" Language="ja_JP">
+      <Text>コマンドエラー: 不明なコマンド「/{1_Name}」</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_GAMEPAD_INPUT_DESC_PRIVATE" Language="ja_JP">
+      <Text>{1_Name}に書き込む</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_CONNECTED" Language="ja_JP">
+      <Text>プレイヤー[STYLE:mp-chat__text-shrink]{1_Name} [/S]が接続しました...</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_DIRECT_FAIL" Language="ja_JP">
+      <Text>[STYLE:mp-chat__text-shrink]{1_Name} [/S]に対する直接キックに失敗しました。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_DIRECT_KICK" Language="ja_JP">
+      <Text>[STYLE:mp-chat__text-shrink]{1_Name} [/S]に対する直接キックに失敗しました。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_DISCONNECTED" Language="ja_JP">
+      <Text>プレイヤー[STYLE:mp-chat__text-shrink]{1_Name} [/S]の接続が切れました...</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_KICKED_CROSSPLAY_DISABLED_CLIENT" Language="ja_JP">
+      <Text>クライアント側でクロスプレイが無効になっているため、プレイヤー[STYLE:mp-chat__text-shrink]{1_Name} [/S]がキックされました。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_KICKED_CROSSPLAY_DISABLED_HOST" Language="ja_JP">
+      <Text>ホスト側でクロスプレイが無効になっているため、プレイヤー[STYLE:mp-chat__text-shrink]{1_Name} [/S]がキックされました。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_KICKED_DEFAULT" Language="ja_JP">
+      <Text>プレイヤー[STYLE:mp-chat__text-shrink]{1_Name} [/S]がキックされました。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_KICKED_MOD_ERROR" Language="ja_JP">
+      <Text>MODエラーによりプレイヤー[STYLE:mp-chat__text-shrink]{1_Name} [/S]がキックされました。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_KICKED_MOD_MISSING" Language="ja_JP">
+      <Text>MODが見つからないため、プレイヤー[STYLE:mp-chat__text-shrink]{1_Name} [/S]がキックされました。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_KICKED_NO_ROOM" Language="ja_JP">
+      <Text>空きがないため、プレイヤー[STYLE:mp-chat__text-shrink]{1_Name} [/S]がキックされました。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_KICKED_VERSION_MISMATCH" Language="ja_JP">
+      <Text>バージョンの不一致のため、プレイヤー[STYLE:mp-chat__text-shrink]{1_Name} [/S]がキックされました。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_VOTE_KICK" Language="ja_JP">
+      <Text>[STYLE:mp-chat__text-shrink]{1_Name} [/S]に対するキック投票が可決されました。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_VOTE_NO_KICK" Language="ja_JP">
+      <Text>[STYLE:mp-chat__text-shrink]{1_Name} [/S]に対するキック投票が否決されました。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_VOTE_NOT_ENOUGH_PLAYERS" Language="ja_JP">
+      <Text>[STYLE:mp-chat__text-shrink]{1_Name} [/S]に対するキック投票がキャンセルされました。投票の定員を満たしていません。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_VOTE_TARGET_INVALID" Language="ja_JP">
+      <Text>[STYLE:mp-chat__text-shrink]{1_Name} [/S]に対するキック投票がキャンセルされました。有効なキック対象ではありません。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CHAT_PANEL_PLAYER_VOTE_TIME_ELAPSED" Language="ja_JP">
+      <Text>[STYLE:mp-chat__text-shrink]{1_Name} [/S]に対するキック投票がキャンセルされました。投票期限を過ぎました。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_CONTROLLER_MAPPING_TITLE_HYBRID" Language="ja_JP">
+      <Text>{1_type} マウス操作</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MOD_AUTHOR" Language="ja_JP">
+      <Text>作成者: {1_Name}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MOD_DATE" Language="ja_JP">
+      <Text>作成日: {1_Date: datetime}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_AGE" Language="ja_JP">
+      <Text>時代: {1_age}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_MAP_TYPE" Language="ja_JP">
+      <Text>マップの種類: {1_map_type}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_RULE_SET" Language="ja_JP">
+      <Text>ルール: {1_rule_set}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_BROWSER_SPEED" Language="ja_JP">
+      <Text>速度: {1_speed}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_ACCEPT_INVITE" Language="ja_JP">
+      <Text>{1_PlayerName}からのゲームへの招待を承諾しますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_ACCEPT_REQUEST" Language="ja_JP">
+      <Text>{1_PlayerName}のフレンド申請を承諾しますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_BLOCK" Language="ja_JP">
+      <Text>{1_PlayerName}をブロックしますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_CANCEL_REQUEST" Language="ja_JP">
+      <Text>{1_PlayerName}へのフレンド申請をキャンセルしますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_DECLINE_INVITE" Language="ja_JP">
+      <Text>{1_PlayerName}からのゲームへの招待を断りますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_DECLINE_REQUEST" Language="ja_JP">
+      <Text>{1_PlayerName}からのフレンド申請を拒否しますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_GAME_INVITE" Language="ja_JP">
+      <Text>{1_PlayerName}にゲームへの招待を送信しますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_REQUEST" Language="ja_JP">
+      <Text>{1_PlayerName}へフレンド申請を送信しますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_CONFIRM_UNBLOCK" Language="ja_JP">
+      <Text>{1_PlayerName}に対するブロックを解除しますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_ACCEPT_FRIEND" Language="ja_JP">
+      <Text>{1_PlayerName}とフレンドになりました</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_ADD_FRIEND" Language="ja_JP">
+      <Text>{1_PlayerName}にフレンド申請を送信しました</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_BLOCK" Language="ja_JP">
+      <Text>{1_PlayerName}をブロックしました</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_DECLINE_FREIND" Language="ja_JP">
+      <Text>{1_PlayerName}からのフレンド申請を拒否しました</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_INVITE" Language="ja_JP">
+      <Text>{1_PlayerName}を招待しました</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_INVITE_TO_JOIN" Language="ja_JP">
+      <Text>{1_PlayerName}にゲームへの招待を送信しました</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_REMOVE_FRIEND" Language="ja_JP">
+      <Text>{1_PlayerName}をフレンドリストから削除しました</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_FEEDBACK_UNBLOCK" Language="ja_JP">
+      <Text>{1_PlayerName}に対するブロックを解除しました</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_NO_RESULTS" Language="ja_JP">
+      <Text>{1_ListType}リストには誰もいません。</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_FRIENDS_REMOVE_FRIEND" Language="ja_JP">
+      <Text>フレンドリストから{1_PlayerName}を削除しますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_ERROR_BODY" Language="ja_JP">
+      <Text>ロビーに参加できませんでした: {1_Reason}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LANDING_UNKNOWN_ERROR" Language="ja_JP">
+      <Text>不明なエラーが返されました: {1_ErrorNumber}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_PLAYERS" Language="ja_JP">
+      <Text>{1_currentPlayers}/{2_maxPlayers}プレイヤー</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_LOBBY_TEAM" Language="ja_JP">
+      <Text>{1_TeamNumber}</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_MP_REPORT_FEEDBACK_REPORTED" Language="ja_JP">
+      <Text>{1_PlayerName}を報告しました</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_REDEEM_CODE_FAILED_INFO" Language="ja_JP">
+      <Text>このご利用コードは無効です。[n]{1_ErrorMessage}[n]別のご利用コードを引き換えますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_REDEEM_CODE_SUCCESS_INFO" Language="ja_JP">
+      <Text>ご利用コードの引き換えに成功しました！ [n]{1_ListOfNames}を獲得しました。[n]別のご利用コードを引き換えますか？</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_REDEEM_CODE_SUCCESS_INFO_CURRENCY" Language="ja_JP">
+      <Text>{2_Name}-{1_Amount}[n]</Text>
+    </Replace>
+    <Replace Tag="LOC_UI_REDEEM_CODE_SUCCESS_INFO_ENTITLEMENT" Language="ja_JP">
+      <Text>- {1_Name}[n]</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

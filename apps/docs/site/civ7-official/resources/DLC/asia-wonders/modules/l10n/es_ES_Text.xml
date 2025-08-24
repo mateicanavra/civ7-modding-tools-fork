@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_GRAND_BAZAAR_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>El crecimiento del Imperio otomano en el siglo XV supuso también la expansión de su economía, lo que se reflejó en la construcción de "bedesten" o bazares cubiertos. En un principio diseñados para la venta de productos textiles, estos mercados cubiertos proporcionaban un almacenaje seguro para los bienes de valor durante la noche, y muy pronto se ampliaron para albergar una amplia variedad de productos de lujo. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_GRAND_BAZAAR_CHAPTER_HISTORY_PARA_2" Language="es_ES">
+      <Text>Como capital del imperio, en el corazón de Estambul se crearon dos bazares cubiertos en las décadas posteriores a la conquista otomana de la ciudad. Construidos uno junto al otro, el bedesten Iç y el Sandal no tardaron en rodearse de mercados al aire libre para formar un gran espacio comercial: el Gran Bazar. Situado en el punto focal de numerosas rutas comerciales, el bazar hacía gala de una notable diversidad de productos de zonas distantes repartidos en miles de tiendas, que eclipsaban a los mercados europeos y atraían a visitantes de todo el mundo. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_GRAND_BAZAAR_CHAPTER_HISTORY_PARA_3" Language="es_ES">
+      <Text>El Gran Bazar sigue siendo un mercado activo y uno de los enclaves turísticos más visitados del mundo. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_MAUSOLEUM_AT_HALICARNASSUS_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>El Mausoleo de Halicarnaso, una de las siete maravillas del mundo antiguo, era una tumba construida alrededor de los años 353-351 a. C. para Mausolo, gobernador de Caria en la Anatolia Occidental. Se trataba de una estructura magnífica, diseñada y decorada por los mejores arquitectos y escultores griegos de su tiempo, con elaborados relieves, cientos de esculturas y coronada por un carro tirado por cuatro caballos, en el que se erigían las estatuas de Mausolo y de su esposa (y hermana) Artemisia. De aquí procede la palabra "mausoleo". La estructura sobrevivió hasta bien entrada la Edad Media, pero se destruyó, probablemente durante un terremoto, entre los siglos XI y XV d. C. y no quedan más que unos pocos fragmentos.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_UBUDIAH_MOSQUE_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>El principio de Ubudiah del Corán enseña a los musulmanes a no rendirse más que ante la divinidad y sirvió como guía para la construcción de la mezquita del mismo nombre. El islam llegó al Sudeste Asiático en el siglo XII y sirvió de base para una nueva cadena de sultanatos repartidos por todo el mundo malayo. Entre ellos, el sultanato de Perak (en la actual Malasia) obtuvo relevancia y riquezas, incluso bajo dominio británico, durante los siglos XIX y principios del XX. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_UBUDIAH_MOSQUE_CHAPTER_HISTORY_PARA_2" Language="es_ES">
+      <Text>Aquí, el sultán Idries Shah I construyó una mezquita en agradecimiento por recuperarse de una enfermedad. Terminada en 1917, la mezquita está construida con mármol italiano y coronada por cúpulas doradas al estilo de Asia Meridional (aunque la diseñó un arquitecto británico). La guerra y una pelea entre dos elefantes retrasaron la construcción, pero en la actualidad perdura como un símbolo de Kuala Kangsar y Perak, y sirve a la comunidad musulmana de este último como mezquita en activo.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_WAT_XIENG_THONG_CHAPTER_HISTORY_PARA_1" Language="es_ES">
+      <Text>Mientras que los templos budistas theravada del Sudeste Asiático servían como escuelas comunitarias y sitios de reunión, otros subrayaban la majestuosidad del reino. Ubicado en Luang Prabang, la antigua capital del reino laosiano de Lan Xang ("un millón de elefantes"), Wat Xieng Thong pertenece al segundo grupo. Se construyó alrededor del año 1560 por orden del rey Setthathirath en la cúspide del poder de Lan Xang, al inicio de su defensa contra la invasión de los ejércitos birmanos y antes de lograr otra victoria sobre los ejércitos de Ayutthaya (Siam). Su tejado telescópico de estilo tradicional le confiere una gran elegancia, mientras que su perspectiva sobre los ríos Mekong y Nam Khan lo sitúan en el entorno; cuenta la leyenda que son el hogar de los espíritus naga que bendicen el lugar.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_GRAND_BAZAAR_NAME" Language="es_ES">
+      <Text>Gran Bazar|Grandes Bazares</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_WONDER_MAUSOLEUM_AT_HALICARNASSUS_NAME" Language="es_ES">
+      <Text>Mausoleo de Halicarnaso|Mausoleos de Halicarnaso</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_WONDER_UBUDIAH_MOSQUE_NAME" Language="es_ES">
+      <Text>Mezquita de Ubudiah|Mezquitas de Ubudiah</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_WONDER_WAT_XIENG_THONG_NAME" Language="es_ES">
+      <Text>Wat Xieng Thong|Wat Xieng Thong</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1|2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_GRAND_BAZAAR" Language="es_ES">
+      <Text>James Elroy Flecker</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_MAUSOLEUM_AT_HALICARNASSUS" Language="es_ES">
+      <Text>Luciano de Samosata</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_UBUDIAH_MOSQUE" Language="es_ES">
+      <Text>Hamzah Fansuri</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_WAT_XIENG_THONG" Language="es_ES">
+      <Text>La leyenda del Rey Sapo</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_GRAND_BAZAAR" Language="es_ES">
+      <Text>"Tomamos el camino dorado hacia Samarcanda".</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_MAUSOLEUM_AT_HALICARNASSUS" Language="es_ES">
+      <Text>"Una gran tumba se muestra ante mí en Halicarnaso, de tales dimensiones, tan exquisitamente bella, que hace sombra a cualquier otra".</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_UBUDIAH_MOSQUE" Language="es_ES">
+      <Text>"Recuerda y recuerda, niño comerciante, tus deseos son los enemigos de la guerra".</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_WAT_XIENG_THONG" Language="es_ES">
+      <Text>"Que la lluvia caiga según la estación y que las ranas croen en los campos".</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_GRAND_BAZAAR_DESCRIPTION" Language="es_ES">
+      <Text>+2 de[icon:YIELD_GOLD] Oro. +2 espacios de recursos. Las casillas de recursos de tesoro de la tierra de origen reciben +3 de[icon:YIELD_GOLD] Oro. No envejece. Se debe construir adyacente a un distrito en la tierra de origen.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_GRAND_BAZAAR_TOOLTIP" Language="es_ES">
+      <Text>+2 espacios de recursos. Las casillas de recursos de tesoro de la tierra de origen reciben +3 de[icon:YIELD_GOLD] Oro. No envejece. Se debe construir adyacente a un distrito en la tierra de origen.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_MAUSOLEUM_AT_HALICARNASSUS_DESCRIPTION" Language="es_ES">
+      <Text>La primera vez que se destruye una unidad de caballería, vuelve a aparecer con los PG al 25 % en el asentamiento más cercano que poseas. No envejece. Se debe construir en terreno Llano y adyacente a la Costa.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_MAUSOLEUM_AT_HALICARNASSUS_TOOLTIP" Language="es_ES">
+      <Text>La primera vez que se destruye una unidad de caballería, vuelve a aparecer con los PG al 25 % en el asentamiento más cercano que poseas. No envejece. Se debe construir en terreno Llano y adyacente a la Costa.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_UBUDIAH_MOSQUE_DESCRIPTION" Language="es_ES">
+      <Text>+4 a[icon:YIELD_HAPPINESS] Felicidad. Las mejoras en este asentamiento reciben +50 % de rendimiento. No envejece. Se debe construir en terreno Húmedo.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_UBUDIAH_MOSQUE_TOOLTIP" Language="es_ES">
+      <Text>Las mejoras en este asentamiento reciben +50 % de rendimiento. No envejece. Se debe construir en terreno Húmedo.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_WAT_XIENG_THONG_DESCRIPTION" Language="es_ES">
+      <Text>+2 a[icon:YIELD_CULTURE] Cultura. +200 de [icon:YIELD_GOLD] Oro (aumenta según la velocidad del juego) cada vez que obtienes una Gran obra. No envejece. Se debe construir adyacente a un Río.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_WAT_XIENG_THONG_TOOLTIP" Language="es_ES">
+      <Text>+200 de [icon:YIELD_GOLD] Oro (aumenta según la velocidad del juego) cada vez que obtienes una Gran obra. No envejece. Se debe construir adyacente a un Río.</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

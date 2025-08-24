@@ -1,0 +1,40 @@
+/* DO NOT EDIT */
+/* Generated from war-chooser-item.scss */
+.war-chooser-item {
+	border-image: url("fs://game/hud_sidepanel_list-bg.png");
+	border-image-slice: 8 8 8 8 fill;
+	border-image-width: 0.4444444444rem;
+}
+.war-chooser-item:hover .war-chooser-item_border, .war-chooser-item:focus .war-chooser-item_border {
+	visibility: visible;
+}
+
+.war-chooser-item_bg {
+	border-image-source: url("fs://game/dip_war_card.png");
+	border-image-slice: 8 8 fill;
+	border-image-width: 0.4444444444rem 0.4444444444rem;
+}
+
+.war-chooser-item_border {
+	visibility: hidden;
+	border-image-source: url("fs://game/dip_war_card_border.png");
+	border-image-slice: 1 1 fill;
+	border-image-width: 0.0555555556rem 0.0555555556rem;
+}
+
+.war-chooser-item_support-bar-bg {
+	border-image-source: url("fs://game/dip_war_tracker_progress.png");
+	border-image-slice: 2 2 fill;
+}
+
+.war-chooser-item_support-tracker {
+	border-image-source: url("fs://game/dip_war_track.png");
+	border-image-slice: 5 24 fill;
+	border-image-width: 0.2777777778rem 1.3333333333rem;
+}
+
+.war-chooser-item_war-support-bar-border {
+	border-image-source: url("dip_war_tracker_progress_border");
+	border-image-slice: 1 1 fill;
+	border-image-width: 0.0555555556rem 0.0555555556rem;
+}

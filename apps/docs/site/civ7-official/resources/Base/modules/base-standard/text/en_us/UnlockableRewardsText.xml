@@ -1,0 +1,1333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_BANNER_DESCRIPTION">
+			<Text>A customizable Banner.</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_DESCRIPTION">
+			<Text>A customizable Badge.</Text>
+		</Row>
+		<Row Tag="LOC_COLOR_BACKGROUND_DESCRIPTION">
+			<Text>A customizable Background Color.</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_DESCRIPTION">
+			<Text>A customizable Title.</Text>
+		</Row>
+		<Row Tag="LOC_COLOR_DESCRIPTION">
+			<Text>A customizable Color.</Text>
+		</Row>
+		<Row Tag="LOC_BORDER_DESCRIPTION">
+			<Text>A customizable Border.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_SLOT_1_NAME">
+			<Text>Memento Slot 1</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_SLOT_1_DESCRIPTION">
+			<Text>Unlock your first Memento Slot.</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_SLOT_2_NAME">
+			<Text>Memento Slot 2</Text>
+		</Row>
+		<Row Tag="LOC_MEMENTO_SLOT_2_DESCRIPTION">
+			<Text>Unlock your second Memento Slot.</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_FOUNDATION_1_NAME">
+			<Text>Scrawling Scribe</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_FOUNDATION_1_NAME">
+			<Text>Inspiration</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_FOUNDATION_PATH_1_BADGE_NAME">
+			<Text>Five</Text>
+		</Row>
+		<Row Tag="LOC_COLOR_BACKGROUND_1_NAME">
+			<Text>Grey Background Color</Text>
+		</Row>
+		<Row Tag="LOC_BORDER_STARTING_NAME">
+			<Text>First Border</Text>
+		</Row>
+		<Row Tag="LOC_BORDER_INTERMEDIATE_NAME">
+			<Text>Second Border</Text>
+		</Row>
+		<Row Tag="LOC_BORDER_ADVANCED_NAME">
+			<Text>Third Border</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_FOUNDATION_2_NAME">
+			<Text>Gracious Governor</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_FOUNDATION_2_NAME">
+			<Text>Wondrous</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_FOUNDATION_PATH_2_BADGE_NAME">
+			<Text>Ten</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_FOUNDATION_3_NAME">
+			<Text>Chosen Chieftain</Text>
+		</Row>
+		<Row Tag="LOC_COLOR_BACKGROUND_2_NAME">
+			<Text>Yellow Background Color</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_FOUNDATION_PATH_3_BADGE_NAME">
+			<Text>Fifteen</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_FOUNDATION_4_NAME">
+			<Text>"Bold Baron/Bold Baroness"</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_FOUNDATION_3_NAME">
+			<Text>Foreign Trade</Text>
+		</Row>
+		<Row Tag="LOC_COLOR_BACKGROUND_3_NAME">
+			<Text>Blue Background Color</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_FOUNDATION_PATH_4_BADGE_NAME">
+			<Text>Twenty</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_FOUNDATION_5_NAME">
+			<Text>Victorious Viceroy</Text>
+		</Row>
+		<Row Tag="LOC_COLOR_BACKGROUND_4_NAME">
+			<Text>Orange Background Color</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_FOUNDATION_PATH_5_BADGE_NAME">
+			<Text>Twenty-Five</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_FOUNDATION_6_NAME">
+			<Text>Savvy Sovereign</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_FOUNDATION_4_NAME">
+			<Text>Distant Shores</Text>
+		</Row>
+		<Row Tag="LOC_COLOR_BACKGROUND_5_NAME">
+			<Text>Red Background Color</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_FOUNDATION_PATH_6_BADGE_NAME">
+			<Text>Thirty</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_FOUNDATION_7_NAME">
+			<Text>Exalted Emperor/Exalted Empress</Text>
+		</Row>
+		<Row Tag="LOC_BORDER_4_NAME">
+			<Text>Fourth Border</Text>
+		</Row>
+		<Row Tag="LOC_COLOR_BACKGROUND_6_NAME">
+			<Text>Indigo Background Color</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_FOUNDATION_PATH_7_BADGE_NAME">
+			<Text>Thirty-Five</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_FOUNDATION_8_NAME">
+			<Text>Impressive Immortal</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_FOUNDATION_5_NAME">
+			<Text>Melee</Text>
+		</Row>
+		<Row Tag="LOC_COLOR_BACKGROUND_7_NAME">
+			<Text>Green Background Color</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_FOUNDATION_PATH_8_BADGE_NAME">
+			<Text>Forty</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_FOUNDATION_9_NAME">
+			<Text>Defiant Deity</Text>
+		</Row>
+		<Row Tag="LOC_BORDER_5_NAME">
+			<Text>Fifth Border</Text>
+		</Row>
+		<Row Tag="LOC_COLOR_BACKGROUND_8_NAME">
+			<Text>Black Background Color</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_FOUNDATION_PATH_9_BADGE_NAME">
+			<Text>Forty-Five</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_FOUNDATION_10_NAME">
+			<Text>Legend</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_FOUNDATION_6_NAME">
+			<Text>Triumph</Text>
+		</Row>
+		<Row Tag="LOC_COLOR_BACKGROUND_9_NAME">
+			<Text>Violet Background Color</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_FOUNDATION_PATH_10_BADGE_NAME">
+			<Text>Fifty</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_AMINA_NAME">
+			<Text>Amina Badge 1</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_ASHOKA_RENOUNCER_NAME">
+			<Text>Ashoka, World Renouncer Badge 1</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_AUGUSTUS_NAME">
+			<Text>Augustus Badge 1</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_BENJAMIN_FRANKLIN_NAME">
+			<Text>Benjamin Franklin Badge 1</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_CATHERINE_NAME">
+			<Text>Catherine Badge 1</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_CHARLEMAGNE_NAME">
+			<Text>Charlemagne Badge 1</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_CONFUCIUS_NAME">
+			<Text>Confucius Badge 1</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_FRIEDRICH_OBLIQUE_NAME">
+			<Text>Friedrich, Oblique Badge 1</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_HARRIET_TUBMAN_NAME">
+			<Text>Harriet Tubman Badge 1</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_HATSHEPSUT_NAME">
+			<Text>Hatshepsut Badge 1</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_HIMIKO_QUEEN_OF_WA_NAME">
+			<Text>Himiko, Queen of Wa Badge 1</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_IBN_BATTUTA_NAME">
+			<Text>Ibn Battuta Badge 1</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_ISABELLA_NAME">
+			<Text>Isabella Badge 1</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_JOSE_RIZAL_NAME">
+			<Text>José Rizal Badge 1</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_LAFAYETTE_NAME">
+			<Text>Lafayette Badge 1</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_MACHIAVELLI_NAME">
+			<Text>Machiavelli Badge 1</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_PACHACUTI_NAME">
+			<Text>Pachacuti Badge 1</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_TRUNG_TRAC_NAME">
+			<Text>Trung Trac Badge 1</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_XERXES_KING_OF_KINGS_NAME">
+			<Text>Xerxes, King of Kings Badge 1</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_AMINA_P_NAME">
+			<Text>Amina Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_ASHOKA_RENOUNCER_P_NAME">
+			<Text>Ashoka, World Renouncer Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_AUGUSTUS_P_NAME">
+			<Text>Augustus Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_BENJAMIN_FRANKLIN_P_NAME">
+			<Text>Benjamin Franklin Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_CATHERINE_P_NAME">
+			<Text>Catherine Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_CHARLEMAGNE_P_NAME">
+			<Text>Charlemagne Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_CONFUCIUS_P_NAME">
+			<Text>Confucius Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_FRIEDRICH_OBLIQUE_P_NAME">
+			<Text>Friedrich, Oblique Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_HARRIET_TUBMAN_P_NAME">
+			<Text>Harriet Tubman Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_HATSHEPSUT_P_NAME">
+			<Text>Hatshepsut Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_HIMIKO_QUEEN_OF_WA_P_NAME">
+			<Text>Himiko, Queen of Wa Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_HIMIKO_QUEEN_P_NAME">
+			<Text>Himiko, Queen of Wa Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_IBN_BATTUTA_P_NAME">
+			<Text>Ibn Battuta Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_ISABELLA_P_NAME">
+			<Text>Isabella Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_JOSE_RIZAL_P_NAME">
+			<Text>José Rizal Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_LAFAYETTE_P_NAME">
+			<Text>Lafayette Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_MACHIAVELLI_P_NAME">
+			<Text>Machiavelli Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_PACHACUTI_P_NAME">
+			<Text>Pachacuti Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_TRUNG_TRAC_P_NAME">
+			<Text>Trung Trac Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_XERXES_KINGS_P_NAME">
+			<Text>Xerxes, King of Kings Badge 2</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_AMINA_NAME">
+			<Text>Amina Banner</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_ASHOKA_RENOUNCER_NAME">
+			<Text>Ashoka, World Renouncer Banner</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_AUGUSTUS_NAME">
+			<Text>Augustus Banner</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_BENJAMIN_FRANKLIN_NAME">
+			<Text>Benjamin Franklin Banner</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_CATHERINE_NAME">
+			<Text>Catherine Banner</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_CHARLEMAGNE_NAME">
+			<Text>Charlemagne Banner</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_CONFUCIUS_NAME">
+			<Text>Confucius Banner</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_FRIEDRICH_OBLIQUE_NAME">
+			<Text>Friedrich, Oblique Banner</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_HARRIET_TUBMAN_NAME">
+			<Text>Harriet Tubman Banner</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_HATSHEPSUT_NAME">
+			<Text>Hatshepsut Banner</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_HIMIKO_QUEEN_OF_WA_NAME">
+			<Text>Himiko, Queen of Wa Banner</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_IBN_BATTUTA_NAME">
+			<Text>Ibn Battuta Banner</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_ISABELLA_NAME">
+			<Text>Isabella Banner</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_JOSE_RIZAL_NAME">
+			<Text>José Rizal Banner</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_LAFAYETTE_NAME">
+			<Text>Lafayette Banner</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_MACHIAVELLI_NAME">
+			<Text>Machiavelli Banner</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_PACHACUTI_NAME">
+			<Text>Pachacuti Banner</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_TRUNG_TRAC_NAME">
+			<Text>Trung Trac Banner</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_XERXES_KING_OF_KINGS_NAME">
+			<Text>Xerxes, King of Kings Banner</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_GAMESCOM_NAME">
+			<Text>Ancient Canoe</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_GAMESCOM_UNLOCK_CONDITION">
+			<Text>Unlocked as 2024 Gamescom reward</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_AMINA_NAME">
+			<Text>Warrior-Queen</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_ASHOKA_RENOUNCER_NAME">
+			<Text>World Renouncer</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_AUGUSTUS_NAME">
+			<Text>First Citizen</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_BENJAMIN_FRANKLIN_NAME">
+			<Text>First American</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_CATHERINE_NAME">
+			<Text>Star of the North</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_CHARLEMAGNE_NAME">
+			<Text>Father of Europe</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_CONFUCIUS_NAME">
+			<Text>Great Sage</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_FRIEDRICH_OBLIQUE_NAME">
+			<Text>Old Fritz</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_HARRIET_TUBMAN_NAME">
+			<Text>Conductor</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_HATSHEPSUT_NAME">
+			<Text>Voice of the Sun</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_HIMIKO_QUEEN_OF_WA_NAME">
+			<Text>Queen of Wa</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_IBN_BATTUTA_NAME">
+			<Text>Marvelous Traveller</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_ISABELLA_NAME">
+			<Text>Golden Age Monarch</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_JOSE_RIZAL_NAME">
+			<Text>National Hero</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_LAFAYETTE_NAME">
+			<Text>Hero of Two Worlds</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_MACHIAVELLI_NAME">
+			<Text>The Prince</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_PACHACUTI_NAME">
+			<Text>Earth Shaker</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_TRUNG_TRAC_NAME">
+			<Text>Rebel Queen</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_XERXES_KING_OF_KINGS_NAME">
+			<Text>King of Kings</Text>
+		</Row>
+		<Row Tag="LOC_DEFAULT_BANNER_ID_NAME">
+			<Text>Hex</Text>
+		</Row>
+		<Row Tag="LOC_DEFAULT_BADGE_ID_NAME">
+			<Text>VII</Text>
+		</Row>
+		<Row Tag="LOC_DEFAULT_TITLE_ID_NAME">
+			<Text>A New Age</Text>
+		</Row>
+		<Row Tag="LOC_DEFAULT_BORDER_ID_NAME">
+			<Text>Round</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_TUTORIAL_BADGE_NAME">
+			<Text>Tutorialized</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_ANTIQUITY_BADGE_NAME">
+			<Text>Antiquity Afficionado</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_EXPLORATION_BADGE_NAME">
+			<Text>Exploration Expert</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_MODERN_BADGE_NAME">
+			<Text>Modern Master</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_HAPPINESS_BADGE_NAME">
+			<Text>Happiness</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_GOLD_BADGE_NAME">
+			<Text>Gold</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_INFLUENCE_BADGE_NAME">
+			<Text>Influence</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_FOOD_BADGE_NAME">
+			<Text>Food</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_SCIENCE_BADGE_NAME">
+			<Text>Science</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_CULTURE_BADGE_NAME">
+			<Text>Culture</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_PRODUCTION_BADGE_NAME">
+			<Text>Production</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_FLAWLESS_CAMPAIGN_BADGE_NAME">
+			<Text>Flawless</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_EVERY_BASE_GAME_WONDER_NAME">
+			<Text>Wondrous</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_EVERY_VICTORY_BADGE_NAME">
+			<Text>Victorious</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_STORYLETS_1_NAME">
+			<Text>Seen Some Things</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_STORYLETS_2_NAME">
+			<Text>Seen Many Things</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_STORYLETS_3_NAME">
+			<Text>Seen Lots of Things</Text>
+		</Row>
+
+		<Row Tag="LOC_STRATEGYCARD_AMINA_EXPLORATION_1_NAME">
+			<Text>Exploration Economic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_AMINA_EXPLORATION_1_DESCRIPTION">
+			<Text>As Amina, access a new Exploration Legacy Card:[n]
+				+15% Gold, -10% Food</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_AMINA_EXPLORATION_2_NAME">
+			<Text>Exploration Militaristic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_AMINA_EXPLORATION_2_DESCRIPTION">
+			<Text>As Amina, access a new Exploration Legacy Card:[n]
+				+3 Combat Strength towards Naval Units, -10% Influence</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_AMINA_MODERN_1_NAME">
+			<Text>Modern Economic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_AMINA_MODERN_1_DESCRIPTION">
+			<Text>As Amina, access a new Modern Legacy Card:[n]
+				+15% Gold, -10% Food</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_AMINA_MODERN_2_NAME">
+			<Text>Modern Militaristic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_AMINA_MODERN_2_DESCRIPTION">
+			<Text>As Amina, access a new Modern Legacy Card:[n]
+				+3 Combat Strength towards Air Units, -10% Influence</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_ASHOKA_RENOUNCER_EXPLORATION_1_NAME">
+			<Text>Exploration Diplomatic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_ASHOKA_RENOUNCER_EXPLORATION_1_DESCRIPTION">
+			<Text>As Ashoka, World Renouncer, access a new Exploration Legacy Card:[n]
+				+15% Influence, -2 Combat Strength for Naval Units</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_ASHOKA_RENOUNCER_EXPLORATION_2_NAME">
+			<Text>Exploration Expansionist Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_ASHOKA_RENOUNCER_EXPLORATION_2_DESCRIPTION">
+			<Text>As Ashoka, World Renouncer, access a new Exploration Legacy Card:[n]
+				+15% Food, -10% Gold</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_ASHOKA_RENOUNCER_MODERN_1_NAME">
+			<Text>Modern Diplomatic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_ASHOKA_RENOUNCER_MODERN_1_DESCRIPTION">
+			<Text>As Ashoka, World Renouncer, access a new Modern Legacy Card:[n]
+				+15% Influence, -2 Combat Strength for Air Units</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_ASHOKA_RENOUNCER_MODERN_2_NAME">
+			<Text>Modern Expansionist Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_ASHOKA_RENOUNCER_MODERN_2_DESCRIPTION">
+			<Text>As Ashoka, World Renouncer, access a new Modern Legacy Card:[n]
+				+15% Food, -10% Gold</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_AUGUSTUS_EXPLORATION_1_NAME">
+			<Text>Exploration Cultural Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_AUGUSTUS_EXPLORATION_1_DESCRIPTION">
+			<Text>As Augustus, access a new Exploration Legacy Card:[n]
+				+15% Culture, -10% Science</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_AUGUSTUS_EXPLORATION_2_NAME">
+			<Text>Exploration Expansionist Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_AUGUSTUS_EXPLORATION_2_DESCRIPTION">
+			<Text>As Augustus, access a new Exploration Legacy Card:[n]
+				+15% Food, -10% Gold</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_AUGUSTUS_MODERN_1_NAME">
+			<Text>Modern Cultural Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_AUGUSTUS_MODERN_1_DESCRIPTION">
+			<Text>As Augustus, access a new Modern Legacy Card:[n]
+				+15% Culture, -10% Science</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_AUGUSTUS_MODERN_2_NAME">
+			<Text>Modern Expansionist Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_AUGUSTUS_MODERN_2_DESCRIPTION">
+			<Text>As Augustus, access a new Modern Legacy Card:[n]
+				+15% Food, -10% Gold</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_FRANKLIN_EXPLORATION_1_NAME">
+			<Text>Exploration Diplomatic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_FRANKLIN_EXPLORATION_1_DESCRIPTION">
+			<Text>As Benjamin Franklin, access a new Exploration Legacy Card:[n]
+				+15% Influence, -2 Combat Strength for Naval Units</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_FRANKLIN_EXPLORATION_2_NAME">
+			<Text>Exploration Scientific Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_FRANKLIN_EXPLORATION_2_DESCRIPTION">
+			<Text>As Benjamin Franklin, access a new Exploration Legacy Card:[n]
+				+15% Science, -10% Culture</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_FRANKLIN_MODERN_1_NAME">
+			<Text>Modern Diplomatic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_FRANKLIN_MODERN_1_DESCRIPTION">
+			<Text>As Benjamin Franklin, access a new Modern Legacy Card:[n]
+				+15% Influence, -2 Combat Strength for Air Units</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_FRANKLIN_MODERN_2_NAME">
+			<Text>Modern Scientific Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_FRANKLIN_MODERN_2_DESCRIPTION">
+			<Text>As Benjamin Franklin, access a new Modern Legacy Card:[n]
+				+15% Science, -10% Culture</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CATHERINE_EXPLORATION_1_NAME">
+			<Text>Exploration Cultural Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CATHERINE_EXPLORATION_1_DESCRIPTION">
+			<Text>As Catherine, access a new Exploration Legacy Card:[n]
+				+15% Culture, -10% Science</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CATHERINE_EXPLORATION_2_NAME">
+			<Text>Exploration Scientific Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CATHERINE_EXPLORATION_2_DESCRIPTION">
+			<Text>As Catherine, access a new Exploration Legacy Card:[n]
+				+15% Science, -10% Culture</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CATHERINE_MODERN_1_NAME">
+			<Text>Modern Cultural Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CATHERINE_MODERN_1_DESCRIPTION">
+			<Text>As Catherine, access a new Modern Legacy Card:[n]
+				+15% Culture, -10% Science</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CATHERINE_MODERN_2_NAME">
+			<Text>Modern Scientific Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CATHERINE_MODERN_2_DESCRIPTION">
+			<Text>As Catherine, access a new Modern Legacy Card:[n]
+				+15% Science, -10% Culture</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CHARLEMAGNE_EXPLORATION_1_NAME">
+			<Text>Exploration Militaristic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CHARLEMAGNE_EXPLORATION_1_DESCRIPTION">
+			<Text>As Charlemagne, access a new Exploration Legacy Card:[n]
+				+3 Combat Strength towards Naval Units, -10% Influence</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CHARLEMAGNE_EXPLORATION_2_NAME">
+			<Text>Exploration Scientific Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CHARLEMAGNE_EXPLORATION_2_DESCRIPTION">
+			<Text>As Charlemagne, access a new Exploration Legacy Card:[n]
+				+15% Science, -10% Culture</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CHARLEMAGNE_MODERN_1_NAME">
+			<Text>Modern Militaristic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CHARLEMAGNE_MODERN_1_DESCRIPTION">
+			<Text>As Charlemagne, access a new Modern Legacy Card:[n]
+				+3 Combat Strength towards Air Units, -10% Influence</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CHARLEMAGNE_MODERN_2_NAME">
+			<Text>Modern Scientific Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CHARLEMAGNE_MODERN_2_DESCRIPTION">
+			<Text>As Charlemagne, access a new Modern Legacy Card:[n]
+				+15% Science, -10% Culture</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CONFUCIUS_EXPLORATION_1_NAME">
+			<Text>Exploration Expansionist Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CONFUCIUS_EXPLORATION_1_DESCRIPTION">
+			<Text>As Confucius, access a new Exploration Legacy Card:[n]
+				+15% Food, -10% Gold</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CONFUCIUS_EXPLORATION_2_NAME">
+			<Text>Exploration Scientific Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CONFUCIUS_EXPLORATION_2_DESCRIPTION">
+			<Text>As Confucius, access a new Exploration Legacy Card:[n]
+				+15% Science, -10% Culture</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CONFUCIUS_MODERN_1_NAME">
+			<Text>Modern Expansionist Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CONFUCIUS_MODERN_1_DESCRIPTION">
+			<Text>As Confucius, access a new Modern Legacy Card:[n]
+				+15% Food, -10% Gold</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CONFUCIUS_MODERN_2_NAME">
+			<Text>Modern Scientific Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_CONFUCIUS_MODERN_2_DESCRIPTION">
+			<Text>As Confucius, access a new Modern Legacy Card:[n]
+				+15% Science, -10% Culture</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_FRIEDRICH_OBLIQUE_EXPLORATION_1_NAME">
+			<Text>Exploration Militaristic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_FRIEDRICH_OBLIQUE_EXPLORATION_1_DESCRIPTION">
+			<Text>As Friedrich, Oblique, access a new Exploration Legacy Card:[n]
+				+3 Combat Strength towards Naval Units, -10% Influence</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_FRIEDRICH_OBLIQUE_EXPLORATION_2_NAME">
+			<Text>Exploration Scientific Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_FRIEDRICH_OBLIQUE_EXPLORATION_2_DESCRIPTION">
+			<Text>As Friedrich, Oblique, access a new Exploration Legacy Card:[n]
+				+15% Science, -10% Culture</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_FRIEDRICH_OBLIQUE_MODERN_1_NAME">
+			<Text>Modern Militaristic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_FRIEDRICH_OBLIQUE_MODERN_1_DESCRIPTION">
+			<Text>As Friedrich, Oblique, access a new Modern Legacy Card:[n]
+				+3 Combat Strength towards Air Units, -10% Influence</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_FRIEDRICH_OBLIQUE_MODERN_2_NAME">
+			<Text>Modern Scientific Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_FRIEDRICH_OBLIQUE_MODERN_2_DESCRIPTION">
+			<Text>As Friedrich, Oblique, access a new Modern Legacy Card:[n]
+				+15% Science, -10% Culture</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_TUBMAN_EXPLORATION_1_NAME">
+			<Text>Exploration Diplomatic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_TUBMAN_EXPLORATION_1_DESCRIPTION">
+			<Text>As Harriet Tubman, access a new Exploration Legacy Card:[n]
+				+15% Influence, -2 Combat Strength for Naval Units</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_TUBMAN_EXPLORATION_2_NAME">
+			<Text>Exploration Militaristic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_TUBMAN_EXPLORATION_2_DESCRIPTION">
+			<Text>As Harriet Tubman, access a new Exploration Legacy Card:[n]
+				+3 Combat Strength towards Naval Units, -10% Influence</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_TUBMAN_MODERN_1_NAME">
+			<Text>Modern Diplomatic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_TUBMAN_MODERN_1_DESCRIPTION">
+			<Text>As Harriet Tubman, access a new Modern Legacy Card:[n]
+				+15% Influence, -2 Combat Strength for Air Units</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_TUBMAN_MODERN_2_NAME">
+			<Text>Modern Militaristic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_TUBMAN_MODERN_2_DESCRIPTION">
+			<Text>As Harriet Tubman, access a new Modern Legacy Card:[n]
+				+3 Combat Strength towards Air Units, -10% Influence</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_HATSHEPSUT_EXPLORATION_1_NAME">
+			<Text>Exploration Cultural Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_HATSHEPSUT_EXPLORATION_1_DESCRIPTION">
+			<Text>As Hatshepsut, access a new Exploration Legacy Card:[n]
+				+15% Culture, -10% Science</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_HATSHEPSUT_EXPLORATION_2_NAME">
+			<Text>Exploration Economic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_HATSHEPSUT_EXPLORATION_2_DESCRIPTION">
+			<Text>As Hatshepsut, access a new Exploration Legacy Card:[n]
+				+15% Gold, -10% Food</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_HATSHEPSUT_MODERN_1_NAME">
+			<Text>Modern Cultural Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_HATSHEPSUT_MODERN_1_DESCRIPTION">
+			<Text>As Hatshepsut, access a new Modern Legacy Card:[n]
+				+15% Culture, -10% Science</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_HATSHEPSUT_MODERN_2_NAME">
+			<Text>Modern Economic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_HATSHEPSUT_MODERN_2_DESCRIPTION">
+			<Text>As Hatshepsut, access a new Modern Legacy Card:[n]
+				+15% Gold, -10% Food</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_HIMIKO_QUEEN_EXPLORATION_1_NAME">
+			<Text>Exploration Diplomatic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_HIMIKO_QUEEN_EXPLORATION_1_DESCRIPTION">
+			<Text>As Himiko, Queen of Wa, access a new Exploration Legacy Card:[n]
+				+15% Influence, -2 Combat Strength for Naval Units</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_HIMIKO_QUEEN_EXPLORATION_2_NAME">
+			<Text>Exploration Scientific Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_HIMIKO_QUEEN_EXPLORATION_2_DESCRIPTION">
+			<Text>As Himiko, Queen of Wa, access a new Exploration Legacy Card:[n]
+				+15% Science, -10% Culture</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_HIMIKO_QUEEN_MODERN_1_NAME">
+			<Text>Modern Diplomatic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_HIMIKO_QUEEN_MODERN_1_DESCRIPTION">
+			<Text>As Himiko, Queen of Wa, access a new Modern Legacy Card:[n]
+				+15% Influence, -2 Combat Strength for Air Units</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_HIMIKO_QUEEN_MODERN_2_NAME">
+			<Text>Modern Scientific Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_HIMIKO_QUEEN_MODERN_2_DESCRIPTION">
+			<Text>As Himiko, Queen of Wa, access a new Modern Legacy Card:[n]
+				+15% Science, -10% Culture</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_BATTUTA_EXPLORATION_1_NAME">
+			<Text>Exploration Economic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_BATTUTA_EXPLORATION_1_DESCRIPTION">
+			<Text>As Ibn Battuta, access a new Exploration Legacy Card:[n]
+				+15% Gold, -10% Food</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_BATTUTA_EXPLORATION_2_NAME">
+			<Text>Exploration Cultural Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_BATTUTA_EXPLORATION_2_DESCRIPTION">
+			<Text>As Ibn Battuta, access a new Exploration Legacy Card:[n]
+				+15% Culture, -10% Science</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_BATTUTA_MODERN_1_NAME">
+			<Text>Modern Economic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_BATTUTA_MODERN_1_DESCRIPTION">
+			<Text>As Ibn Battuta, access a new Modern Legacy Card:[n]
+				+15% Gold, -10% Food</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_BATTUTA_MODERN_2_NAME">
+			<Text>Modern Cultural Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_BATTUTA_MODERN_2_DESCRIPTION">
+			<Text>As Ibn Battuta, access a new Modern Legacy Card:[n]
+				+15% Culture, -10% Science</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_ISABELLA_EXPLORATION_1_NAME">
+			<Text>Exploration Economic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_ISABELLA_EXPLORATION_1_DESCRIPTION">
+			<Text>As Isabella, access a new Exploration Legacy Card:[n]
+				+15% Gold, -10% Food</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_ISABELLA_EXPLORATION_2_NAME">
+			<Text>Exploration Expansionist Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_ISABELLA_EXPLORATION_2_DESCRIPTION">
+			<Text>As Isabella, access a new Exploration Legacy Card:[n]
+				+15% Food, -10% Gold</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_ISABELLA_MODERN_1_NAME">
+			<Text>Modern Economic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_ISABELLA_MODERN_1_DESCRIPTION">
+			<Text>As Isabella, access a new Modern Legacy Card:[n]
+				+15% Gold, -10% Food</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_ISABELLA_MODERN_2_NAME">
+			<Text>Modern Expansionist Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_ISABELLA_MODERN_2_DESCRIPTION">
+			<Text>As Isabella, access a new Modern Legacy Card:[n]
+				+15% Food, -10% Gold</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_RIZAL_EXPLORATION_1_NAME">
+			<Text>Exploration Cultural Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_RIZAL_EXPLORATION_1_DESCRIPTION">
+			<Text>As José Rizal, access a new Exploration Legacy Card:[n]
+				+15% Culture, -10% Science</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_RIZAL_EXPLORATION_2_NAME">
+			<Text>Exploration Diplomatic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_RIZAL_EXPLORATION_2_DESCRIPTION">
+			<Text>As José Rizal, access a new Exploration Legacy Card:[n]
+				+15% Influence, -2 Combat Strength for Naval Units</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_RIZAL_MODERN_1_NAME">
+			<Text>Modern Cultural Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_RIZAL_MODERN_1_DESCRIPTION">
+			<Text>As José Rizal, access a new Modern Legacy Card:[n]
+				+15% Culture, -10% Science</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_RIZAL_MODERN_2_NAME">
+			<Text>Modern Diplomatic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_RIZAL_MODERN_2_DESCRIPTION">
+			<Text>As José Rizal, access a new Modern Legacy Card:[n]
+				+15% Influence, -2 Combat Strength for Air Units</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_LAFAYETTE_EXPLORATION_1_NAME">
+			<Text>Exploration Cultural Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_LAFAYETTE_EXPLORATION_1_DESCRIPTION">
+			<Text>As Lafayette, access a new Exploration Legacy Card:[n]
+				+15% Culture, -10% Science</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_LAFAYETTE_EXPLORATION_2_NAME">
+			<Text>Exploration Diplomatic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_LAFAYETTE_EXPLORATION_2_DESCRIPTION">
+			<Text>As Lafayette, access a new Exploration Legacy Card:[n]
+				+15% Influence, -2 Combat Strength for Naval Units</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_LAFAYETTE_MODERN_1_NAME">
+			<Text>Modern Cultural Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_LAFAYETTE_MODERN_1_DESCRIPTION">
+			<Text>As Lafayette, access a new Modern Legacy Card:[n]
+				+15% Culture, -10% Science</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_LAFAYETTE_MODERN_2_NAME">
+			<Text>Modern Diplomatic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_LAFAYETTE_MODERN_2_DESCRIPTION">
+			<Text>As Lafayette, access a new Modern Legacy Card:[n]
+				+15% Influence, -2 Combat Strength for Air Units</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_MACHIAVELLI_EXPLORATION_1_NAME">
+			<Text>Exploration Diplomatic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_MACHIAVELLI_EXPLORATION_1_DESCRIPTION">
+			<Text>As Machiavelli, access a new Exploration Legacy Card:[n]
+				+15% Influence, -2 Combat Strength for Naval Units</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_MACHIAVELLI_EXPLORATION_2_NAME">
+			<Text>Exploration Economic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_MACHIAVELLI_EXPLORATION_2_DESCRIPTION">
+			<Text>As Machiavelli, access a new Exploration Legacy Card:[n]
+				+15% Gold, -10% Food</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_MACHIAVELLI_MODERN_1_NAME">
+			<Text>Modern Diplomatic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_MACHIAVELLI_MODERN_1_DESCRIPTION">
+			<Text>As Machiavelli, access a new Modern Legacy Card:[n]
+				+15% Influence, -2 Combat Strength for Air Units</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_MACHIAVELLI_MODERN_2_NAME">
+			<Text>Modern Economic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_MACHIAVELLI_MODERN_2_DESCRIPTION">
+			<Text>As Machiavelli, access a new Modern Legacy Card:[n]
+				+15% Gold, -10% Food</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_PACHACUTI_EXPLORATION_1_NAME">
+			<Text>Exploration Economic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_PACHACUTI_EXPLORATION_1_DESCRIPTION">
+			<Text>As Pachacuti, access a new Exploration Legacy Card:[n]
+				+15% Gold, -10% Food</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_PACHACUTI_EXPLORATION_2_NAME">
+			<Text>Exploration Expansionist Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_PACHACUTI_EXPLORATION_2_DESCRIPTION">
+			<Text>As Pachacuti, access a new Exploration Legacy Card:[n]
+				+15% Food, -10% Gold</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_PACHACUTI_MODERN_1_NAME">
+			<Text>Modern Economic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_PACHACUTI_MODERN_1_DESCRIPTION">
+			<Text>As Pachacuti, access a new Modern Legacy Card:[n]
+				+15% Gold, -10% Food</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_PACHACUTI_MODERN_2_NAME">
+			<Text>Modern Expansionist Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_PACHACUTI_MODERN_2_DESCRIPTION">
+			<Text>As Pachacuti, access a new Modern Legacy Card:[n]
+				+15% Food, -10% Gold</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_TRUNG_EXPLORATION_1_NAME">
+			<Text>Exploration Militaristic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_TRUNG_EXPLORATION_1_DESCRIPTION">
+			<Text>As Trung Trac, access a new Exploration Legacy Card:[n]
+				+3 Combat Strength towards Naval Units, -10% Influence</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_TRUNG_EXPLORATION_2_NAME">
+			<Text>Exploration Scientific Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_TRUNG_EXPLORATION_2_DESCRIPTION">
+			<Text>As Trung Trac, access a new Exploration Legacy Card:[n]
+				+15% Science, -10% Culture</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_TRUNG_MODERN_1_NAME">
+			<Text>Modern Militaristic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_TRUNG_MODERN_1_DESCRIPTION">
+			<Text>As Trung Trac, access a new Modern Legacy Card:[n]
+				+3 Combat Strength towards Air Units, -10% Influence</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_TRUNG_MODERN_2_NAME">
+			<Text>Modern Scientific Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_TRUNG_MODERN_2_DESCRIPTION">
+			<Text>As Trung Trac, access a new Modern Legacy Card:[n]
+				+15% Science, -10% Culture</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_XERXES_KING_EXPLORATION_1_NAME">
+			<Text>Exploration Economic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_XERXES_KING_EXPLORATION_1_DESCRIPTION">
+			<Text>As Xerxes, King of Kings, access a new Exploration Legacy Card:[n]
+				+15% Gold, -10% Food</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_XERXES_KING_EXPLORATION_2_NAME">
+			<Text>Exploration Militaristic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_XERXES_KING_EXPLORATION_2_DESCRIPTION">
+			<Text>As Xerxes, King of Kings, access a new Exploration Legacy Card:[n]
+				+3 Combat Strength towards Naval Units, -10% Influence</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_XERXES_KING_MODERN_1_NAME">
+			<Text>Modern Economic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_XERXES_KING_MODERN_1_DESCRIPTION">
+			<Text>As Xerxes, King of Kings, access a new Modern Legacy Card:[n]
+				+15% Gold, -10% Food</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_XERXES_KING_MODERN_2_NAME">
+			<Text>Modern Militaristic Legacy Card</Text>
+		</Row>
+		<Row Tag="LOC_STRATEGYCARD_XERXES_KING_MODERN_2_DESCRIPTION">
+			<Text>As Xerxes, King of Kings, access a new Modern Legacy Card:[n]
+				+3 Combat Strength towards Air Units, -10% Influence</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_AMINA_L1_NAME">
+			<Text>Economic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_AMINA_L1_DESCRIPTION">
+			<Text>+25% Gold from Trade and Treasure Convoys.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_AMINA_L2_NAME">
+			<Text>Militaristic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_AMINA_L2_DESCRIPTION">
+			<Text>+5 Combat Strength for all Units against Districts.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_ASHOKA_RENOUNCER_L1_NAME">
+			<Text>Diplomatic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_ASHOKA_RENOUNCER_L1_DESCRIPTION">
+			<Text>+25% Relationship from starting or supporting Endeavors. -25% Relationship from starting Sanctions or rejecting Endeavors.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_ASHOKA_RENOUNCER_L2_NAME">
+			<Text>Expansionist Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_ASHOKA_RENOUNCER_L2_DESCRIPTION">
+			<Text>+50% Gold towards converting a Town to a City.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_AUGUSTUS_L1_NAME">
+			<Text>Cultural Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_AUGUSTUS_L1_DESCRIPTION">
+			<Text>+15% Production towards constructing Buildings and Wonders with Great Works slots.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_AUGUSTUS_L2_NAME">
+			<Text>Expansionist Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_AUGUSTUS_L2_DESCRIPTION">
+			<Text>+50% Gold towards converting a Town to a City.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_FRANKLIN_L1_NAME">
+			<Text>Diplomatic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_FRANKLIN_L1_DESCRIPTION">
+			<Text>+25% Relationship from starting or supporting Endeavors. -25% Relationship from starting Sanctions or rejecting Endeavors.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_FRANKLIN_L2_NAME">
+			<Text>Scientific Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_FRANKLIN_L2_DESCRIPTION">
+			<Text>+1 to the adjacencies of standard Gold, Production, and Science Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_CATHERINE_L1_NAME">
+			<Text>Cultural Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_CATHERINE_L1_DESCRIPTION">
+			<Text>+15% Production towards constructing Buildings and Wonders with Great Works slots.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_CATHERINE_L2_NAME">
+			<Text>Scientific Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_CATHERINE_L2_DESCRIPTION">
+			<Text>+1 to the adjacencies of standard Gold, Production, and Science Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_CHARLEMAGNE_L1_NAME">
+			<Text>Militaristic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_CHARLEMAGNE_L1_DESCRIPTION">
+			<Text>+5 Combat Strength for all Units against Districts.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_CHARLEMAGNE_L2_NAME">
+			<Text>Scientific Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_CHARLEMAGNE_L2_DESCRIPTION">
+			<Text>+1 to the adjacencies of standard Gold, Production, and Science Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_CONFUCIUS_L1_NAME">
+			<Text>Expansionist Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_CONFUCIUS_L1_DESCRIPTION">
+			<Text>+50% Gold towards converting a Town to a City.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_CONFUCIUS_L2_NAME">
+			<Text>Scientific Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_CONFUCIUS_L2_DESCRIPTION">
+			<Text>+1 to the adjacencies of standard Gold, Production, and Science Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_FRIEDRICH_OBLIQUE_L1_NAME">
+			<Text>Militaristic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_FRIEDRICH_OBLIQUE_L1_DESCRIPTION">
+			<Text>+5 Combat Strength for all Units against Districts.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_FRIEDRICH_OBLIQUE_L2_NAME">
+			<Text>Scientific Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_FRIEDRICH_OBLIQUE_L2_DESCRIPTION">
+			<Text>+1 to the adjacencies of standard Gold, Production, and Science Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_TUBMAN_L1_NAME">
+			<Text>Diplomatic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_TUBMAN_L1_DESCRIPTION">
+			<Text>+25% Relationship from starting or supporting Endeavors. -25% Relationship from starting Sanctions or rejecting Endeavors.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_TUBMAN_L2_NAME">
+			<Text>Militaristic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_TUBMAN_L2_DESCRIPTION">
+			<Text>+5 Combat Strength for all Units against Districts.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_HATSHEPSUT_L1_NAME">
+			<Text>Cultural Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_HATSHEPSUT_L1_DESCRIPTION">
+			<Text>+15% Production towards constructing Buildings and Wonders with Great Works slots.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_HATSHEPSUT_L2_NAME">
+			<Text>Economic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_HATSHEPSUT_L2_DESCRIPTION">
+			<Text>+25% Gold from Trade and Treasure Convoys.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_HIMIKO_QUEEN_L1_NAME">
+			<Text>Diplomatic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_HIMIKO_QUEEN_L1_DESCRIPTION">
+			<Text>+25% Relationship from starting or supporting Endeavors. -25% Relationship from starting Sanctions or rejecting Endeavors.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_HIMIKO_QUEEN_L2_NAME">
+			<Text>Scientific Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_HIMIKO_QUEEN_L2_DESCRIPTION">
+			<Text>+1 to the adjacencies of standard Gold, Production, and Science Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_BATTUTA_L1_NAME">
+			<Text>Economic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_BATTUTA_L1_DESCRIPTION">
+			<Text>+25% Gold from Trade and Treasure Convoys.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_BATTUTA_L2_NAME">
+			<Text>Expansionist Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_BATTUTA_L2_DESCRIPTION">
+			<Text>+50% Gold towards converting a Town to a City.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_ISABELLA_L1_NAME">
+			<Text>Economic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_ISABELLA_L1_DESCRIPTION">
+			<Text>+25% Gold from Trade and Treasure Convoys.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_ISABELLA_L2_NAME">
+			<Text>Expansionist Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_ISABELLA_L2_DESCRIPTION">
+			<Text>+50% Gold towards converting a Town to a City.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_RIZAL_L1_NAME">
+			<Text>Cultural Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_RIZAL_L1_DESCRIPTION">
+			<Text>+15% Production towards constructing Buildings and Wonders with Great Works slots.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_RIZAL_L2_NAME">
+			<Text>Diplomatic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_RIZAL_L2_DESCRIPTION">
+			<Text>+25% Relationship from starting or supporting Endeavors. -25% Relationship from starting Sanctions or rejecting Endeavors.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_LAFAYETTE_L1_NAME">
+			<Text>Cultural Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_LAFAYETTE_L1_DESCRIPTION">
+			<Text>+15% Production towards constructing Buildings and Wonders with Great Works slots.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_LAFAYETTE_L2_NAME">
+			<Text>Diplomatic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_LAFAYETTE_L2_DESCRIPTION">
+			<Text>+25% Relationship from starting or supporting Endeavors. -25% Relationship from starting Sanctions or rejecting Endeavors.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_MACHIAVELLI_L1_NAME">
+			<Text>Diplomatic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_MACHIAVELLI_L1_DESCRIPTION">
+			<Text>+25% Relationship from starting or supporting Endeavors. -25% Relationship from starting Sanctions or rejecting Endeavors.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_MACHIAVELLI_L2_NAME">
+			<Text>Economic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_MACHIAVELLI_L2_DESCRIPTION">
+			<Text>+25% Gold from Trade and Treasure Convoys.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_PACHACUTI_L1_NAME">
+			<Text>Economic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_PACHACUTI_L1_DESCRIPTION">
+			<Text>+25% Gold from Trade and Treasure Convoys.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_PACHACUTI_L2_NAME">
+			<Text>Expansionist Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_PACHACUTI_L2_DESCRIPTION">
+			<Text>+50% Gold towards converting a Town to a City.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_TRUNG_L1_NAME">
+			<Text>Militaristic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_TRUNG_L1_DESCRIPTION">
+			<Text>+5 Combat Strength for all Units against Districts.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_TRUNG_L2_NAME">
+			<Text>Scientific Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_TRUNG_L2_DESCRIPTION">
+			<Text>+1 to the adjacencies of standard Gold, Production, and Science Buildings.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_XERXES_KING_L1_NAME">
+			<Text>Economic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_XERXES_KING_L1_DESCRIPTION">
+			<Text>+25% Gold from Trade and Treasure Convoys.</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_XERXES_KING_L2_NAME">
+			<Text>Militaristic Attribute Node</Text>
+		</Row>
+		<Row Tag="LOC_ATTRIBUTENODE_XERXES_KING_L2_DESCRIPTION">
+			<Text>+5 Combat Strength for all Units against Districts.</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_EVENT_PARTICIPATION_LEADERMIXNMATCH_NAME">
+			<Text>First Event Participation Badge</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_EVENT_PARTICIPATION_NATURALWONDER_NAME">
+			<Text>Uluru Badge</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_EVENT_VICTORY_NATURALWONDER_NAME">
+			<Text>Mount Kilimanjaro Badge</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_EVENT_PARTICIPATION_MONEYMONEYMONEY_NAME">
+			<Text>Crossroads Badge</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_EVENT_VICTORY_MONEYMONEYMONEY_NAME">
+			<Text>Bloody Gold Badge</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_EVENT_PARTICIPATION_TROTTINGWATER_NAME">
+			<Text>Sea Horse Badge</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_EVENT_PARTICIPATION_MARVELOUSMOUNTAINS_NAME">
+			<Text>Mount Everest Badge</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_EVENT_PARTICIPATION_RESOURCESHUFFLE_NAME">
+			<Text>Cornucopia Badge</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_DLC_DELUXEPACK_NAME">
+			<Text>Badge for Deluxe Content Pack</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_DLC_DELUXEPACK_NAME">
+			<Text>Banner for Deluxe Content Pack</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_DLC_DELUXEPACK_NAME">
+			<Text>Title for Deluxe Content Pack</Text>
+		</Row>
+		<Row Tag="LOC_BORDER_DLC_DELUXEPACK_NAME">
+			<Text>Border for Deluxe Content Pack</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_DLC_FOUNDERPACK_NAME">
+			<Text>Badge for Founder's Pack</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_DLC_FOUNDERPACK_NAME">
+			<Text>Banner for Founder's Pack</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_DLC_FOUNDERPACK_NAME">
+			<Text>Title for Founder's Pack</Text>
+		</Row>
+		<Row Tag="LOC_BORDER_DLC_FOUNDERPACK_NAME">
+			<Text>Border for Founder's Pack</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_DLC_SEASONPASS_1_NAME">
+			<Text>Badge for Crossroads of the World</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_DLC_SEASONPASS_2_NAME">
+			<Text>Badge for Right to Rule</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_DLC_SEASONPASS_1_NAME">
+			<Text>Banner for Crossroads of the World</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_DLC_SEASONPASS_2_NAME">
+			<Text>Banner for Right to Rule</Text>
+		</Row>
+		<Row Tag="LOC_BORDER_DLC_SEASONPASS_1_NAME">
+			<Text>Border for Crossroads of the World</Text>
+		</Row>
+		<Row Tag="LOC_BORDER_DLC_SEASONPASS_2_NAME">
+			<Text>Border for Right to Rule</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_DLC_SEASONPASS_1_NAME">
+			<Text>Title for Crossroads of the World</Text>
+		</Row>
+		<Row Tag="LOC_TITLE_DLC_SEASONPASS_2_NAME">
+			<Text>Title for Right to Rule</Text>
+		</Row>
+		<Row Tag="LOC_DLC_DELUXEPACK_UNLOCK_CONDITION">
+			<Text>To Unlock: Purchase of Deluxe pack</Text>
+		</Row>
+		<Row Tag="LOC_DLC_FOUNDERPACK_UNLOCK_CONDITION">
+			<Text>To Unlock: Purchase of Founder pack</Text>
+		</Row>
+		<Row Tag="LOC_DLC_SEASONPASS_1_UNLOCK_CONDITION">
+			<Text>To Unlock: Purchase of Crossroads of the World</Text>
+		</Row>
+		<Row Tag="LOC_DLC_SEASONPASS_2_UNLOCK_CONDITION">
+			<Text>To Unlock: Purchase of Right to Rule</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_TWITCH_NAME">
+			<Text>Trade Ships</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_TWITCH_UNLOCK_CONDITION">
+			<Text>To Unlock: Twitch Drops</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_TWITCH_NAME">
+			<Text>Twitch Viewer</Text>
+		</Row>
+		<Row Tag="LOC_BADGE_TWITCH_UNLOCK_CONDITION">
+			<Text>To Unlock: Twitch Drops</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_HYPERX_NAME">
+			<Text>Egypt</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_HYPERX2_NAME">
+			<Text>Egypt 2</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_HYPERX_UNLOCK_CONDITION">
+			<Text>Unlocked from HyperX Promotion</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_TWITCH_WC_NAME">
+			<Text>Cavalry Charge</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_TWITCH_WC_UNLOCK_CONDITION">
+			<Text>To Unlock: View Twitch World Congress Stream</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_DISCORD_NAME">
+			<Text>Modern Trade</Text>
+		</Row>
+		<Row Tag="LOC_BANNER_DISCORD_UNLOCK_CONDITION">
+			<Text>Earn the Modern Trade Banner by joining the Civilization Official Discord![n]See below for the steps to redeem:[n][b]Step 1[/b]: Join the Official Civilization Discord.[n][b]Step 2[/b]: Follow the instructions in the channel #earn-discord-banner.[n][b]Step 3[/b]: In-game, navigate to the Collection screen and select the code redemption button. Enter your unique code in-game to unlock.</Text>
+		</Row>
+	</EnglishText>
+</Database>

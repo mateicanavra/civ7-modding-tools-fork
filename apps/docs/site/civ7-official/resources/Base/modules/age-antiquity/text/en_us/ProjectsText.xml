@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Town Warehouse Projects -->
+		<Row Tag="LOC_PROJECT_TOWN_GRANARY_SHORT_NAME">
+			<Text>Warehouse Project</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_FISHING_SHORT_NAME">
+			<Text>Warehouse Project</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_PRODUCTION_SHORT_NAME">
+			<Text>Warehouse Project</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_GRANARY_NAME">
+			<Text>Farming Town</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_FISHING_NAME">
+			<Text>Fishing Town</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_PRODUCTION_NAME">
+			<Text>Mining Town</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_GRANARY_DESCRIPTION">
+			<Text>+1[icon:YIELD_FOOD] Food on Farms, Pastures, Plantations and Fishing Boats.</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_FISHING_DESCRIPTION">
+			<Text>+1[icon:YIELD_FOOD] Food on Farms, Pastures, Plantations and Fishing Boats.</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_PRODUCTION_DESCRIPTION">
+			<Text>+2[icon:YIELD_PRODUCTION] Production on Camps, Woodcutters, Clay Pits, Mines, and Quarries.</Text>
+		</Row>
+		<!-- Town Common Projects -->
+		<Row Tag="LOC_PROJECT_TOWN_TRADE_NAME">
+			<Text>Trade Outpost</Text>
+		</Row>
+		<Row Tag="LOC_PROJECT_TOWN_TRADE_DESCRIPTION">
+			<Text>+2[icon:YIELD_HAPPINESS] Happiness to each Resource tile in the Town and +5 Trade Route range.</Text>
+		</Row>
+	</EnglishText>
+</Database>

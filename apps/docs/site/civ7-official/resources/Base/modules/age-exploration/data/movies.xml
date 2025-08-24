@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Movies>
+		<!-- Defeat Movies -->
+		<Row MovieType="MOVIE_DEFEAT_EXPLORATION" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_720p.webm" Audio="play_wilco_civ_loss_generic_exploration" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_generic_exploration_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_EXPLORATION" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_1080p.webm" Audio="play_wilco_civ_loss_generic_exploration" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_generic_exploration_defeat.vtt" UseCoverFitMode="true" />
+
+		<!-- Defeat movie with civ-specific audio. -->
+		<Row MovieType="MOVIE_DEFEAT_ABBASID" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_720p.webm" Audio="play_wilco_civ_loss_abbasid" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_abbasid_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_ABBASID" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_1080p.webm" Audio="play_wilco_civ_loss_abbasid" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_abbasid_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_CHOLA" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_720p.webm" Audio="play_wilco_civ_loss_chola" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_chola_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_CHOLA" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_1080p.webm" Audio="play_wilco_civ_loss_chola" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_chola_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_HAWAII" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_720p.webm" Audio="play_wilco_civ_loss_hawaii" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_hawaii_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_HAWAII" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_1080p.webm" Audio="play_wilco_civ_loss_hawaii" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_hawaii_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_INCA" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_720p.webm" Audio="play_wilco_civ_loss_inca" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_inca_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_INCA" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_1080p.webm" Audio="play_wilco_civ_loss_inca" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_inca_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_MAJAPAHIT" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_720p.webm" Audio="play_wilco_civ_loss_majapahit" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_majapahit_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_MAJAPAHIT" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_1080p.webm" Audio="play_wilco_civ_loss_majapahit" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_majapahit_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_MING" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_720p.webm" Audio="play_wilco_civ_loss_ming" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_ming_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_MING" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_1080p.webm" Audio="play_wilco_civ_loss_ming" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_ming_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_MONGOLIA" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_720p.webm" Audio="play_wilco_civ_loss_mongolia" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_mongolia_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_MONGOLIA" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_1080p.webm" Audio="play_wilco_civ_loss_mongolia" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_mongolia_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_NORMAN" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_720p.webm" Audio="play_wilco_civ_loss_norman" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_norman_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_NORMAN" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_1080p.webm" Audio="play_wilco_civ_loss_norman" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_norman_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_SONGHAI" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_720p.webm" Audio="play_wilco_civ_loss_songhai" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_songhai_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_SONGHAI" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_1080p.webm" Audio="play_wilco_civ_loss_songhai" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_songhai_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_SPAIN" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_720p.webm" Audio="play_wilco_civ_loss_spain" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_spain_defeat.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_DEFEAT_SPAIN" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/DEFEAT_EXPL_1080p.webm" Audio="play_wilco_civ_loss_spain" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_spain_defeat.vtt" UseCoverFitMode="true" />
+
+		<!-- Victory Movies-->
+		<Row MovieType="MOVIE_VICTORY_EXPLORATION_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/VIC_Culture_EXPL_720p.webm" Audio="play_wilco_vic_culture_exploration" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_victory_exploration_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_VICTORY_EXPLORATION_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/VIC_Culture_EXPL_1080p.webm" Audio="play_wilco_vic_culture_exploration" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_victory_exploration_culture.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_VICTORY_EXPLORATION_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/VIC_Economic_EXPL_720p.webm" Audio="play_wilco_vic_economic_exploration" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_victory_exploration_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_VICTORY_EXPLORATION_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/1080/VIC_Economic_EXPL_1080p.webm" Audio="play_wilco_vic_economic_exploration" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_victory_exploration_economic.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_VICTORY_EXPLORATION_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/VIC_Domination_EXPL_720p.webm" Audio="play_wilco_vic_military_exploration" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_victory_exploration_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_VICTORY_EXPLORATION_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/VIC_Domination_EXPL_1080p.webm" Audio="play_wilco_vic_military_exploration" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_victory_exploration_military.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_VICTORY_EXPLORATION_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/VIC_Science_EXPL_720p.webm" Audio="play_wilco_vic_science_exploration" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_victory_exploration_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_VICTORY_EXPLORATION_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/VIC_Science_EXPL_1080p.webm" Audio="play_wilco_vic_science_exploration" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_victory_exploration_science.vtt" UseCoverFitMode="true" />
+
+		<!-- Civ-Specific Legacy Path -->
+		<!-- (Economic)-->
+		<Row MovieType="MOVIE_CIVILIZATION_ABBASID_LEGACY_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Abbasid_720p.webm" Audio="play_wilco_civ_economic_abbasid" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_abbasid_legacy_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_ABBASID_LEGACY_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Abbasid_1080p.webm" Audio="play_wilco_civ_economic_abbasid" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_abbasid_legacy_economic.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_CHOLA_LEGACY_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Chola_720.webm" Audio="play_wilco_civ_economic_chola" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_chola_legacy_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_CHOLA_LEGACY_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Chola_1080.webm" Audio="play_wilco_civ_economic_chola" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_chola_legacy_economic.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_HAWAII_LEGACY_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Hawaii_720p.webm" Audio="play_wilco_civ_economic_hawaii" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_hawaii_legacy_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_HAWAII_LEGACY_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Hawaii_1080p.webm" Audio="play_wilco_civ_economic_hawaii" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_hawaii_legacy_economic.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_INCA_LEGACY_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Inca_720p.webm" Audio="play_wilco_civ_economic_inca" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_inca_legacy_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_INCA_LEGACY_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Inca_1080p.webm" Audio="play_wilco_civ_economic_inca" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_inca_legacy_economic.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MAJAPAHIT_LEGACY_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Majapahit_720p.webm" Audio="play_wilco_civ_economic_majapahit" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_majapahit_legacy_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MAJAPAHIT_LEGACY_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Majapahit_1080p.webm" Audio="play_wilco_civ_economic_majapahit" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_majapahit_legacy_economic.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MING_LEGACY_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Ming_720p.webm" Audio="play_wilco_civ_economic_ming" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_ming_legacy_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MING_LEGACY_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Ming_1080p.webm" Audio="play_wilco_civ_economic_ming" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_ming_legacy_economic.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MONGOLIA_LEGACY_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Mongolia_720p.webm" Audio="play_wilco_civ_economic_mongolia" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_mongolia_legacy_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MONGOLIA_LEGACY_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Mongolia_1080p.webm" Audio="play_wilco_civ_economic_mongolia" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_mongolia_legacy_economic.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_NORMAN_LEGACY_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Norman_720p.webm" Audio="play_wilco_civ_economic_norman" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_norman_legacy_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_NORMAN_LEGACY_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Norman1080.webm" Audio="play_wilco_civ_economic_norman" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_norman_legacy_economic.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_SONGHAI_LEGACY_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Songhai_720p.webm" Audio="play_wilco_civ_economic_songhai" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_songhai_legacy_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_SONGHAI_LEGACY_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Songhai_1080p.webm" Audio="play_wilco_civ_economic_songhai" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_songhai_legacy_economic.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_SPAIN_LEGACY_ECONOMIC" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Spain_720p.webm" Audio="play_wilco_civ_economic_spain" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_spain_legacy_economic.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_SPAIN_LEGACY_ECONOMIC" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Spain_1080p.webm" Audio="play_wilco_civ_economic_spain" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_spain_legacy_economic.vtt" UseCoverFitMode="true" />
+
+		<!-- (Military)-->
+		<Row MovieType="MOVIE_CIVILIZATION_ABBASID_LEGACY_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Abbasid_720p.webm" Audio="play_wilco_civ_military_abbasid" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_abbasid_legacy_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_ABBASID_LEGACY_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Abbasid_1080p.webm" Audio="play_wilco_civ_military_abbasid" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_abbasid_legacy_military.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_CHOLA_LEGACY_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Chola_720.webm" Audio="play_wilco_civ_military_chola" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_chola_legacy_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_CHOLA_LEGACY_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Chola_1080.webm" Audio="play_wilco_civ_military_chola" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_chola_legacy_military.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_HAWAII_LEGACY_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Hawaii_720p.webm" Audio="play_wilco_civ_military_hawaii" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_hawaii_legacy_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_HAWAII_LEGACY_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Hawaii_1080p.webm" Audio="play_wilco_civ_military_hawaii" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_hawaii_legacy_military.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_INCA_LEGACY_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Inca_720p.webm" Audio="play_wilco_civ_military_inca" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_inca_legacy_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_INCA_LEGACY_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Inca_1080p.webm" Audio="play_wilco_civ_military_inca" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_inca_legacy_military.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MAJAPAHIT_LEGACY_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Majapahit_720p.webm" Audio="play_wilco_civ_military_majapahit" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_majapahit_legacy_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MAJAPAHIT_LEGACY_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Majapahit_1080p.webm" Audio="play_wilco_civ_military_majapahit" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_majapahit_legacy_military.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MING_LEGACY_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Ming_720p.webm" Audio="play_wilco_civ_military_ming" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_ming_legacy_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MING_LEGACY_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Ming_1080p.webm" Audio="play_wilco_civ_military_ming" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_ming_legacy_military.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MONGOLIA_LEGACY_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Mongolia_720p.webm" Audio="play_wilco_civ_military_mongolia" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_mongolia_legacy_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MONGOLIA_LEGACY_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Mongolia_1080p.webm" Audio="play_wilco_civ_military_mongolia" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_mongolia_legacy_military.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_NORMAN_LEGACY_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Norman_720p.webm" Audio="play_wilco_civ_military_norman" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_norman_legacy_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_NORMAN_LEGACY_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Norman1080.webm" Audio="play_wilco_civ_military_norman" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_norman_legacy_military.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_SONGHAI_LEGACY_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Songhai_720p.webm" Audio="play_wilco_civ_military_songhai" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_songhai_legacy_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_SONGHAI_LEGACY_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Songhai_1080p.webm" Audio="play_wilco_civ_military_songhai" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_songhai_legacy_military.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_SPAIN_LEGACY_MILITARY" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Spain_720p.webm" Audio="play_wilco_civ_military_spain" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_spain_legacy_military.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_SPAIN_LEGACY_MILITARY" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Spain_1080p.webm" Audio="play_wilco_civ_military_spain" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_spain_legacy_military.vtt" UseCoverFitMode="true" />
+
+		<!-- (Science)-->
+		<Row MovieType="MOVIE_CIVILIZATION_ABBASID_LEGACY_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Abbasid_720p.webm" Audio="play_wilco_civ_science_abbasid" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_abbasid_legacy_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_ABBASID_LEGACY_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Abbasid_1080p.webm" Audio="play_wilco_civ_science_abbasid" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_abbasid_legacy_science.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_CHOLA_LEGACY_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Chola_720.webm" Audio="play_wilco_civ_science_chola" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_chola_legacy_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_CHOLA_LEGACY_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Chola_1080.webm" Audio="play_wilco_civ_science_chola" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_chola_legacy_science.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_HAWAII_LEGACY_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Hawaii_720p.webm" Audio="play_wilco_civ_science_hawaii" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_hawaii_legacy_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_HAWAII_LEGACY_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Hawaii_1080p.webm" Audio="play_wilco_civ_science_hawaii" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_hawaii_legacy_science.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_INCA_LEGACY_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Inca_720p.webm" Audio="play_wilco_civ_science_inca" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_inca_legacy_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_INCA_LEGACY_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Inca_1080p.webm" Audio="play_wilco_civ_science_inca" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_inca_legacy_science.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MAJAPAHIT_LEGACY_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Majapahit_720p.webm" Audio="play_wilco_civ_science_majapahit" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_majapahit_legacy_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MAJAPAHIT_LEGACY_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Majapahit_1080p.webm" Audio="play_wilco_civ_science_majapahit" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_majapahit_legacy_science.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MING_LEGACY_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Ming_720p.webm" Audio="play_wilco_civ_science_ming" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_ming_legacy_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MING_LEGACY_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Ming_1080p.webm" Audio="play_wilco_civ_science_ming" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_ming_legacy_science.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MONGOLIA_LEGACY_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Mongolia_720p.webm" Audio="play_wilco_civ_science_mongolia" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_mongolia_legacy_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MONGOLIA_LEGACY_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Mongolia_1080p.webm" Audio="play_wilco_civ_science_mongolia" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_mongolia_legacy_science.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_NORMAN_LEGACY_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Norman_720p.webm" Audio="play_wilco_civ_science_norman" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_norman_legacy_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_NORMAN_LEGACY_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Norman1080.webm" Audio="play_wilco_civ_science_norman" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_norman_legacy_science.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_SONGHAI_LEGACY_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Songhai_720p.webm" Audio="play_wilco_civ_science_songhai" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_songhai_legacy_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_SONGHAI_LEGACY_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Songhai_1080p.webm" Audio="play_wilco_civ_science_songhai" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_songhai_legacy_culture.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_SPAIN_LEGACY_SCIENCE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Spain_720p.webm" Audio="play_wilco_civ_science_spain" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_spain_legacy_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_SPAIN_LEGACY_SCIENCE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Spain_1080p.webm" Audio="play_wilco_civ_science_spain" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_spain_legacy_science.vtt" UseCoverFitMode="true" />
+
+		<!-- (Culture)-->
+		<Row MovieType="MOVIE_CIVILIZATION_ABBASID_LEGACY_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Abbasid_720p.webm" Audio="play_wilco_civ_culture_abbasid" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_abbasid_legacy_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_ABBASID_LEGACY_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Abbasid_1080p.webm" Audio="play_wilco_civ_culture_abbasid" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_abbasid_legacy_culture.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_CHOLA_LEGACY_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Chola_720.webm" Audio="play_wilco_civ_culture_chola" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_chola_legacy_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_CHOLA_LEGACY_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Chola_1080.webm" Audio="play_wilco_civ_culture_chola" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_chola_legacy_culture.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_HAWAII_LEGACY_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Hawaii_720p.webm" Audio="play_wilco_civ_culture_hawaii" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_hawaii_legacy_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_HAWAII_LEGACY_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Hawaii_1080p.webm" Audio="play_wilco_civ_culture_hawaii" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_hawaii_legacy_culture.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_INCA_LEGACY_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Inca_720p.webm" Audio="play_wilco_civ_culture_inca" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_inca_legacy_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_INCA_LEGACY_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Inca_1080p.webm" Audio="play_wilco_civ_culture_inca" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_inca_legacy_culture.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MAJAPAHIT_LEGACY_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Majapahit_720p.webm" Audio="play_wilco_civ_culture_majapahit" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_majapahit_legacy_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MAJAPAHIT_LEGACY_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Majapahit_1080p.webm" Audio="play_wilco_civ_culture_majapahit" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_majapahit_legacy_culture.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MING_LEGACY_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Ming_720p.webm" Audio="play_wilco_civ_culture_ming" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_ming_legacy_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MING_LEGACY_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Ming_1080p.webm" Audio="play_wilco_civ_culture_ming" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_ming_legacy_culture.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_MONGOLIA_LEGACY_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Mongolia_720p.webm" Audio="play_wilco_civ_culture_mongolia" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_mongolia_legacy_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_MONGOLIA_LEGACY_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Mongolia_1080p.webm" Audio="play_wilco_civ_culture_mongolia" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_mongolia_legacy_culture.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_NORMAN_LEGACY_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Norman_720p.webm" Audio="play_wilco_civ_culture_norman" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_norman_legacy_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_NORMAN_LEGACY_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Norman1080.webm" Audio="play_wilco_civ_culture_norman" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_norman_legacy_culture.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_SONGHAI_LEGACY_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Songhai_720p.webm" Audio="play_wilco_civ_culture_songhai" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_songhai_legacy_science.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_SONGHAI_LEGACY_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Songhai_1080p.webm" Audio="play_wilco_civ_culture_songhai" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_songhai_legacy_science.vtt" UseCoverFitMode="true" />
+
+		<Row MovieType="MOVIE_CIVILIZATION_SPAIN_LEGACY_CULTURE" Locale="en_US" Resolution="720" Url="fs://game/age-exploration/movies/AT_Spain_720p.webm" Audio="play_wilco_civ_culture_spain" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_spain_legacy_culture.vtt" UseCoverFitMode="true" />
+		<Row MovieType="MOVIE_CIVILIZATION_SPAIN_LEGACY_CULTURE" Locale="en_US" Resolution="1080" Url="fs://game/age-exploration/movies/AT_Spain_1080p.webm" Audio="play_wilco_civ_culture_spain" StopAudio="stop_wilco" Subtitles="fs://game/age-exploration/text/subtitles/wilco_civ_exploration_spain_legacy_culture.vtt" UseCoverFitMode="true" />
+	</Movies>
+
+	<EndGameMovies>
+
+		<!-- Defeats (Civ Specific) -->
+		<Row DefeatType="DEFEAT_DEFAULT" CivilizationType="CIVILIZATION_ABBASID" Priority="450" MovieType="MOVIE_DEFEAT_ABBASID" />
+		<Row DefeatType="DEFEAT_DEFAULT" CivilizationType="CIVILIZATION_CHOLA" Priority="450" MovieType="MOVIE_DEFEAT_CHOLA" />
+		<Row DefeatType="DEFEAT_DEFAULT" CivilizationType="CIVILIZATION_HAWAII" Priority="450" MovieType="MOVIE_DEFEAT_HAWAII" />
+		<Row DefeatType="DEFEAT_DEFAULT" CivilizationType="CIVILIZATION_INCA" Priority="450" MovieType="MOVIE_DEFEAT_INCA" />
+		<Row DefeatType="DEFEAT_DEFAULT" CivilizationType="CIVILIZATION_MAJAPAHIT" Priority="450" MovieType="MOVIE_DEFEAT_MAJAPAHIT" />
+		<Row DefeatType="DEFEAT_DEFAULT" CivilizationType="CIVILIZATION_MING" Priority="450" MovieType="MOVIE_DEFEAT_MING" />
+		<Row DefeatType="DEFEAT_DEFAULT" CivilizationType="CIVILIZATION_MONGOLIA" Priority="450" MovieType="MOVIE_DEFEAT_MONGOLIA" />
+		<Row DefeatType="DEFEAT_DEFAULT" CivilizationType="CIVILIZATION_NORMAN" Priority="450" MovieType="MOVIE_DEFEAT_NORMAN" />
+		<Row DefeatType="DEFEAT_DEFAULT" CivilizationType="CIVILIZATION_SONGHAI" Priority="450" MovieType="MOVIE_DEFEAT_SONGHAI" />
+		<Row DefeatType="DEFEAT_DEFAULT" CivilizationType="CIVILIZATION_SPAIN" Priority="450" MovieType="MOVIE_DEFEAT_SPAIN" />
+
+		<Row DefeatType="DEFEAT_RETIRE" CivilizationType="CIVILIZATION_ABBASID" Priority="460" MovieType="MOVIE_DEFEAT_ABBASID" />
+		<Row DefeatType="DEFEAT_RETIRE" CivilizationType="CIVILIZATION_CHOLA" Priority="460" MovieType="MOVIE_DEFEAT_CHOLA" />
+		<Row DefeatType="DEFEAT_RETIRE" CivilizationType="CIVILIZATION_HAWAII" Priority="460" MovieType="MOVIE_DEFEAT_HAWAII" />
+		<Row DefeatType="DEFEAT_RETIRE" CivilizationType="CIVILIZATION_INCA" Priority="460" MovieType="MOVIE_DEFEAT_INCA" />
+		<Row DefeatType="DEFEAT_RETIRE" CivilizationType="CIVILIZATION_MAJAPAHIT" Priority="460" MovieType="MOVIE_DEFEAT_MAJAPAHIT" />
+		<Row DefeatType="DEFEAT_RETIRE" CivilizationType="CIVILIZATION_MING" Priority="460" MovieType="MOVIE_DEFEAT_MING" />
+		<Row DefeatType="DEFEAT_RETIRE" CivilizationType="CIVILIZATION_MONGOLIA" Priority="460" MovieType="MOVIE_DEFEAT_MONGOLIA" />
+		<Row DefeatType="DEFEAT_RETIRE" CivilizationType="CIVILIZATION_NORMAN" Priority="460" MovieType="MOVIE_DEFEAT_NORMAN" />
+		<Row DefeatType="DEFEAT_RETIRE" CivilizationType="CIVILIZATION_SONGHAI" Priority="460" MovieType="MOVIE_DEFEAT_SONGHAI" />
+		<Row DefeatType="DEFEAT_RETIRE" CivilizationType="CIVILIZATION_SPAIN" Priority="460" MovieType="MOVIE_DEFEAT_SPAIN" />
+		<!-- Defeats  -->
+		<Row DefeatType="DEFEAT_DEFAULT" Priority="400" MovieType="MOVIE_DEFEAT_EXPLORATION" />
+		<Row DefeatType="DEFEAT_RETIRE" Priority="400" MovieType="MOVIE_DEFEAT_EXPLORATION" />
+
+		<!-- Victories (Age-Specific) -->
+		<Row AgeType="AGE_EXPLORATION" VictoryType="VICTORY_DOMINATION" Priority="300" MovieType="MOVIE_VICTORY_EXPLORATION_MILITARY"/>
+		<!--
+		<Row VictoryType="VICTORY_EXPLORATION_CULTURE" Priority="300" MovieType="MOVIE_VICTORY_EXPLORATION_CULTURE"/>
+		<Row VictoryType="VICTORY_EXPLORATION_ECONOMIC" Priority="300" MovieType="MOVIE_VICTORY_EXPLORATION_ECONOMIC"/>
+		<Row VictoryType="VICTORY_EXPLORATION_MILITARY" Priority="300" MovieType="MOVIE_VICTORY_EXPLORATION_MILITARY"/>
+		<Row VictoryType="VICTORY_EXPLORATION_SCIENCE" Priority="300" MovieType="MOVIE_VICTORY_EXPLORATION_SCIENCE" />
+		-->
+
+		<!-- Age Transition/Legacy Points Victory -->
+		<Row CivilizationType="CIVILIZATION_ABBASID" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_ECONOMIC" Priority="200" MovieType="MOVIE_CIVILIZATION_ABBASID_LEGACY_ECONOMIC" />
+		<Row CivilizationType="CIVILIZATION_CHOLA" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_ECONOMIC" Priority="200" MovieType="MOVIE_CIVILIZATION_CHOLA_LEGACY_ECONOMIC" />
+		<Row CivilizationType="CIVILIZATION_HAWAII" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_ECONOMIC" Priority="200" MovieType="MOVIE_CIVILIZATION_HAWAII_LEGACY_ECONOMIC" />
+		<Row CivilizationType="CIVILIZATION_INCA" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_ECONOMIC" Priority="200" MovieType="MOVIE_CIVILIZATION_INCA_LEGACY_ECONOMIC" />
+		<Row CivilizationType="CIVILIZATION_MAJAPAHIT" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_ECONOMIC" Priority="200" MovieType="MOVIE_CIVILIZATION_MAJAPAHIT_LEGACY_ECONOMIC" />
+		<Row CivilizationType="CIVILIZATION_MING" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_ECONOMIC" Priority="200" MovieType="MOVIE_CIVILIZATION_MING_LEGACY_ECONOMIC" />
+		<Row CivilizationType="CIVILIZATION_MONGOLIA" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_ECONOMIC" Priority="200" MovieType="MOVIE_CIVILIZATION_MONGOLIA_LEGACY_ECONOMIC" />
+		<Row CivilizationType="CIVILIZATION_NORMAN" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_ECONOMIC" Priority="200" MovieType="MOVIE_CIVILIZATION_NORMAN_LEGACY_ECONOMIC" />
+		<Row CivilizationType="CIVILIZATION_SONGHAI" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_ECONOMIC" Priority="200" MovieType="MOVIE_CIVILIZATION_SONGHAI_LEGACY_ECONOMIC" />
+		<Row CivilizationType="CIVILIZATION_SPAIN" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_ECONOMIC" Priority="200" MovieType="MOVIE_CIVILIZATION_SPAIN_LEGACY_ECONOMIC" />
+
+		<Row CivilizationType="CIVILIZATION_ABBASID" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_MILITARY" Priority="200" MovieType="MOVIE_CIVILIZATION_ABBASID_LEGACY_MILITARY" />
+		<Row CivilizationType="CIVILIZATION_CHOLA" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_MILITARY" Priority="200" MovieType="MOVIE_CIVILIZATION_CHOLA_LEGACY_MILITARY" />
+		<Row CivilizationType="CIVILIZATION_HAWAII" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_MILITARY" Priority="200" MovieType="MOVIE_CIVILIZATION_HAWAII_LEGACY_MILITARY" />
+		<Row CivilizationType="CIVILIZATION_INCA" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_MILITARY" Priority="200" MovieType="MOVIE_CIVILIZATION_INCA_LEGACY_MILITARY" />
+		<Row CivilizationType="CIVILIZATION_MAJAPAHIT" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_MILITARY" Priority="200" MovieType="MOVIE_CIVILIZATION_MAJAPAHIT_LEGACY_MILITARY" />
+		<Row CivilizationType="CIVILIZATION_MING" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_MILITARY" Priority="200" MovieType="MOVIE_CIVILIZATION_MING_LEGACY_MILITARY" />
+		<Row CivilizationType="CIVILIZATION_MONGOLIA" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_MILITARY" Priority="200" MovieType="MOVIE_CIVILIZATION_MONGOLIA_LEGACY_MILITARY" />
+		<Row CivilizationType="CIVILIZATION_NORMAN" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_MILITARY" Priority="200" MovieType="MOVIE_CIVILIZATION_NORMAN_LEGACY_MILITARY" />
+		<Row CivilizationType="CIVILIZATION_SONGHAI" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_MILITARY" Priority="200" MovieType="MOVIE_CIVILIZATION_SONGHAI_LEGACY_MILITARY" />
+		<Row CivilizationType="CIVILIZATION_SPAIN" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_MILITARY" Priority="200" MovieType="MOVIE_CIVILIZATION_SPAIN_LEGACY_MILITARY" />
+
+		<Row CivilizationType="CIVILIZATION_ABBASID" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_SCIENCE" Priority="200" MovieType="MOVIE_CIVILIZATION_ABBASID_LEGACY_SCIENCE" />
+		<Row CivilizationType="CIVILIZATION_CHOLA" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_SCIENCE" Priority="200" MovieType="MOVIE_CIVILIZATION_CHOLA_LEGACY_SCIENCE" />
+		<Row CivilizationType="CIVILIZATION_HAWAII" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_SCIENCE" Priority="200" MovieType="MOVIE_CIVILIZATION_HAWAII_LEGACY_SCIENCE" />
+		<Row CivilizationType="CIVILIZATION_INCA" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_SCIENCE" Priority="200" MovieType="MOVIE_CIVILIZATION_INCA_LEGACY_SCIENCE" />
+		<Row CivilizationType="CIVILIZATION_MAJAPAHIT" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_SCIENCE" Priority="200" MovieType="MOVIE_CIVILIZATION_MAJAPAHIT_LEGACY_SCIENCE" />
+		<Row CivilizationType="CIVILIZATION_MING" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_SCIENCE" Priority="200" MovieType="MOVIE_CIVILIZATION_MING_LEGACY_SCIENCE" />
+		<Row CivilizationType="CIVILIZATION_MONGOLIA" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_SCIENCE" Priority="200" MovieType="MOVIE_CIVILIZATION_MONGOLIA_LEGACY_SCIENCE" />
+		<Row CivilizationType="CIVILIZATION_NORMAN" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_SCIENCE" Priority="200" MovieType="MOVIE_CIVILIZATION_NORMAN_LEGACY_SCIENCE" />
+		<Row CivilizationType="CIVILIZATION_SONGHAI" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_SCIENCE" Priority="200" MovieType="MOVIE_CIVILIZATION_SONGHAI_LEGACY_SCIENCE" />
+		<Row CivilizationType="CIVILIZATION_SPAIN" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_SCIENCE" Priority="200" MovieType="MOVIE_CIVILIZATION_SPAIN_LEGACY_SCIENCE" />
+
+		<Row CivilizationType="CIVILIZATION_ABBASID" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_CULTURE" Priority="200" MovieType="MOVIE_CIVILIZATION_ABBASID_LEGACY_CULTURE" />
+		<Row CivilizationType="CIVILIZATION_CHOLA" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_CULTURE" Priority="200" MovieType="MOVIE_CIVILIZATION_CHOLA_LEGACY_CULTURE" />
+		<Row CivilizationType="CIVILIZATION_HAWAII" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_CULTURE" Priority="200" MovieType="MOVIE_CIVILIZATION_HAWAII_LEGACY_CULTURE" />
+		<Row CivilizationType="CIVILIZATION_INCA" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_CULTURE" Priority="200" MovieType="MOVIE_CIVILIZATION_INCA_LEGACY_CULTURE" />
+		<Row CivilizationType="CIVILIZATION_MAJAPAHIT" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_CULTURE" Priority="200" MovieType="MOVIE_CIVILIZATION_MAJAPAHIT_LEGACY_CULTURE" />
+		<Row CivilizationType="CIVILIZATION_MING" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_CULTURE" Priority="200" MovieType="MOVIE_CIVILIZATION_MING_LEGACY_CULTURE" />
+		<Row CivilizationType="CIVILIZATION_MONGOLIA" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_CULTURE" Priority="200" MovieType="MOVIE_CIVILIZATION_MONGOLIA_LEGACY_CULTURE" />
+		<Row CivilizationType="CIVILIZATION_NORMAN" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_CULTURE" Priority="200" MovieType="MOVIE_CIVILIZATION_NORMAN_LEGACY_CULTURE" />
+		<Row CivilizationType="CIVILIZATION_SONGHAI" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_CULTURE" Priority="200" MovieType="MOVIE_CIVILIZATION_SONGHAI_LEGACY_CULTURE" />
+		<Row CivilizationType="CIVILIZATION_SPAIN" LastCompletedLegacyPath="LEGACY_PATH_EXPLORATION_CULTURE" Priority="200" MovieType="MOVIE_CIVILIZATION_SPAIN_LEGACY_CULTURE" />
+	</EndGameMovies>
+</Database>

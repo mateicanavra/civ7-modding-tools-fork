@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Settlement recommendations-->
+		<Row Tag="LOC_HUD_ADVISOR_SAYS">
+			<Text>Advisor says</Text>
+		</Row>
+		<!-- Settlement recommendations tooltips (old unused)-->
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_TOTAL_YIELD">
+			<Text>REGIONAL YIELD</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_INNER_YIELD">
+			<Text>INNER RING YIELD</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_FRESH_WATER">
+			<Text>FRESH WATER</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_NEW_RESOURCES">
+			<Text>NEW RESOURCES</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_COAST">
+			<Text>COAST</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_RESOURCES">
+			<Text>EARLY-GAME RESOURCES</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_LUXURY_RESOURCES">
+			<Text>RESOURCES</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_STRATEGIC_RESOURCES">
+			<Text>RESOURCES</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_FEATURES">
+			<Text>SPECIFIC FEATURES</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_FOREIGN_CONTINENT">
+			<Text>FOREIGN CONTINENT</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_FOREIGN_HEMISPHERE">
+			<Text>FOREIGN HEMISPHERE</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_NEAREST_CITY">
+			<Text>NEAREST CITY</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_DANGER">
+			<Text>unused</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_TERRAIN">
+			<Text>TERRAIN</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_LAKE_COUNT">
+			<Text>LAKE</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_BIOME">
+			<Text>BIOME</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_CITY_CENTER_BIOME">
+			<Text>CITY CENTER BIOME</Text>
+		</Row>
+		<!-- Settlement recommendations tooltips - POOR-->
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_POOR_TOTAL_YIELD">
+			<Text>Poor yields within 3 tiles</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_POOR_INNER_YIELD">
+			<Text>Poor yields adjacent to this site</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_POOR_FRESH_WATER">
+			<Text>No fresh water at site</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_POOR_NEW_RESOURCES">
+			<Text>Scarce resources here</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_POOR_COAST">
+			<Text>Site is inland</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_POOR_RESOURCES">
+			<Text>Limited Horses, Iron, Niter seen here</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_POOR_STRATEGIC_RESOURCES">
+			<Text>Few luxuries or strategics nearby</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_POOR_FEATURES">
+			<Text>No significant features nearby</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_POOR_FOREIGN_CONTINENT">
+			<Text>No benefit for new continent</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_POOR_FOREIGN_HEMISPHERE">
+			<Text>No benefit for new hemisphere</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_POOR_CITY_CENTER_BIOME">
+			<Text>Your abilities do not benefit from settling in this biome</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_GOOD_CITY_CENTER_BIOME">
+			<Text>Your abilities benefit from settling in this biome</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_POOR_SPECIFIC_BIOME">
+			<Text>Few tiles providing biome-specific benefits</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_GOOD_SPECIFIC_BIOME">
+			<Text>Many tiles provide biome-specific benefits</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_POOR_LAKE_COUNT">
+			<Text>No lake tiles within city range</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_GOOD_LAKE_COUNT">
+			<Text>Lake tiles within city range</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_POOR_NEAREST_CITY">
+			<Text>Far from other friendly cities</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_POOR_TERRAIN">
+			<Text>Lack of Preferred Terrain</Text>
+		</Row>
+		<!-- Settlement recommendations tooltips - GOOD-->
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_GOOD_TOTAL_YIELD">
+			<Text>Strong yields within 3 tiles</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_GOOD_INNER_YIELD">
+			<Text>Strong yields adjacent to this site</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_GOOD_FRESH_WATER">
+			<Text>This site has fresh water</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_GOOD_NEW_RESOURCES">
+			<Text>Likely to gain new resources</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_GOOD_COAST">
+			<Text>Site is on coast</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_GOOD_RESOURCES">
+			<Text>Horses, Iron, or Niter nearby</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_GOOD_STRATEGIC_RESOURCES">
+			<Text>Abundant resources nearby</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_GOOD_FEATURES">
+			<Text>Beneficial features nearby</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_GOOD_FOREIGN_CONTINENT">
+			<Text>Desire settling a new continent</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_GOOD_FOREIGN_HEMISPHERE">
+			<Text>Desire settling in a new hemisphere</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_GOOD_NEAREST_CITY">
+			<Text>Close to a friendly site</Text>
+		</Row>
+		<Row Tag="LOC_SETTLEMENT_RECOMMENDATION_GOOD_TERRAIN">
+			<Text>Preferred Terrain</Text>
+		</Row>
+	</EnglishText>
+</Database>

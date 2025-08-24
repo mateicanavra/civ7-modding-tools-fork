@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_PROFILE_TAB_PROGRESS">
+			<Text>Progress</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TAB_CUSTOMIZE">
+			<Text>Customize</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TAB_HALL_OF_FAME">
+			<Text>Hall of Fame</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TAB_CHALLENGES">
+			<Text>Challenges</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TAB_LEADERBOARDS">
+			<Text>Leaderboards</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TAB_BADGES">
+			<Text>Badge</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TAB_BANNERS">
+			<Text>Banner</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TAB_TITLES">
+			<Text>Title</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TAB_BORDERS">
+			<Text>Border</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TAB_COLORS">
+			<Text>Color</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_COMPLETION">
+			<Text>Completion</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_VICTORIES">
+			<Text>Victories</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_DIFFICULTY">
+			<Text>Difficulty: {1_Difficulty}</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_GAME_SPEED">
+			<Text>Game Speed: {1_Speed}</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_MARK_AS_SEEN">
+			<Text>Mark All As Seen</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_SELECT_TITLE">
+			<Text>Select Title</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_SELECT_BADGE">
+			<Text>Select Badge</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_SELECT_BORDER">
+			<Text>Select Border</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_SELECT_COLOR">
+			<Text>Select Color</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_SAMPLE_BADGE_NAME">
+			<Text>Wonder-ful Days</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TAB_OVERVIEW">
+			<Text>General</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TAB_LEADERS">
+			<Text>Leaders</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TAB_CIVILIZATIONS">
+			<Text>Civilizations</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_EQUIPPED">
+			<Text>Equipped</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_LOCKED">
+			<Text>Locked</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_SAMPLE_BADGE_DESCRIPTION">
+			<Text>Completed the Natural Wonders Event</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TAB_HISTORY">
+			<Text>History</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_SAMPLE_BADGE_DATE">
+			<Text>Completed 11/23/29</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_SELECT_BANNER">
+			<Text>Select Banner</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_SAMPLE_BANNER_NAME">
+			<Text>Warmaster</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_SAMPLE_TITLE_NAME">
+			<Text>Haunted Hallow</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_SAMPLE_TITLE_DESCRIPTION">
+			<Text>Won during the Halloween Event.  This was a Firaxis game released in 2013.</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_SAMPLE_TITLE_DATE">
+			<Text>Completed 11/25/29</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_LEGEND_PROGRESS">
+			<Text>Legend Progress</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_PATH_HEADER">
+			<Text>{1_Path} Level {2_Level}</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_NEXT_QUEST">
+			<Text>Next Challenge:</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_ALL_QUESTS">
+			<Text>All {1_Quests} Challenges</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_CURRENT_XP_TEXT">
+			<Text>Current XP</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_NEXT_LEVEL_XP_TEXT">
+			<Text>Next Level XP</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_QUEST_PROGRESS">
+			<Text>{1_Completed} / {2_Total}</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_NUMBER_COMPLETE">
+			<Text>All Challenges {1_NumCompleted}/{2_Total}</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_PROGRESS_HEADER">
+			<Text>Level {1_Level}: {2_CurrentPoints} / {3_NextLevelPoints} XP</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TURNS">
+			<Text>{1_Turns} {1_Turns: plural 1?turn; other?turns;}</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_GAME">
+			<Text>Game</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_GENERIC_TURNS">
+			<Text>Turns</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_ALL_EVENTS">
+			<Text>All Events</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_HOF_DIFFICULTY_HELP">
+			<Text>Jump to Difficulty filter</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_HOF_DIFFICULTY_ALL">
+			<Text>All</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_HOF_SPEED_HELP">
+			<Text>Jump to Game Speed filter</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_CHALLENGE_HELP">
+			<Text>Jump to Sort Type</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_CHALLENGE_RETURN">
+			<Text>Jump to Challenges</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_CHALLENGE_CLASS_FOUNDATION">
+			<Text>Foundation</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_CHALLENGE_CLASS_LEADER">
+			<Text>Leader</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_CHALLENGE_CLASS_EVENT">
+			<Text>Event</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_CHALLENGE_COMPLETION_TOTAL">
+			<Text>Total</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_CHALLENGE_REPEATABLE_PROGRESS">
+			<Text>Completed {1_CurrentProgress} / {2_MaxProgress}</Text>
+		</Row>
+		<Row Tag="LOC_METAPROGRESSION_CHALLENGE_TUTORIAL_REWARD_UNLOCKED_TEXT">
+			<Text>Completed all tutorial challenges</Text>
+		</Row>
+		<Row Tag="LOC_METAPROGRESSION_CHALLENGE_MEMENTO_UNLOCKED_TEXT">
+			<Text>Memento unlocked for {1_PathType} level {2_level}</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_DEFAULT">
+			<Text>A New Age</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_FOUNDATION_1">
+			<Text>Scrawling Scribe</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_FOUNDATION_2">
+			<Text>Gracious Governor</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_FOUNDATION_3">
+			<Text>Chosen Chieftain</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_FOUNDATION_4_1">
+			<Text>Bold Baron</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_FOUNDATION_4_2">
+			<Text>Bold Baroness</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_FOUNDATION_5">
+			<Text>Victorious Viceroy</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_FOUNDATION_6">
+			<Text>Savvy Sovereign</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_FOUNDATION_7_1">
+			<Text>Exalted Emperor</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_FOUNDATION_7_2">
+			<Text>Exalted Empress</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_FOUNDATION_8">
+			<Text>Impressive Immortal</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_FOUNDATION_9">
+			<Text>Defiant Deity</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_FOUNDATION_10">
+			<Text>Legend</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_AMINA">
+			<Text>Warrior-Queen</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_ASHOKA_RENOUNCER">
+			<Text>World Renouncer</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_AUGUSTUS">
+			<Text>First Citizen</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_BENJAMIN_FRANKLIN">
+			<Text>First American</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_CATHERINE">
+			<Text>Star of the North</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_CHARLEMAGNE">
+			<Text>Father of Europe</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_CONFUCIUS">
+			<Text>Great Sage</Text>
+		</Row>
+
+		<Row Tag="LOC_PROFILE_TITLE_FRIEDRICH_OBLIQUE">
+			<Text>Old Fritz</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_HARRIET_TUBMAN">
+			<Text>Conductor</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_HATSHEPSUT">
+			<Text>Voice of the Sun</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_HIMIKO_QUEEN_OF_WA">
+			<Text>Queen of Wa</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_IBN_BATTUTA">
+			<Text>Marvelous Traveler</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_ISABELLA">
+			<Text>Golden Age Monarch</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_JOSE_RIZAL">
+			<Text>National Hero</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_LAFAYETTE">
+			<Text>Hero of Two Worlds</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_MACHIAVELLI">
+			<Text>The Prince</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_PACHACUTI">
+			<Text>Earth Shaker</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_TRUNG_TRAC">
+			<Text>Rebel Queen</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_XERXES_KING_OF_KINGS">
+			<Text>King of Kings</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_DLC_DELUXEPACK">
+			<Text>Beyond the Horizon</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_DLC_FOUNDERPACK">
+			<Text>Founder of Civilization</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_DLC_SEASONPASS_1">
+			<Text>Crossroads Traveler</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_TITLE_DLC_SEASONPASS_2">
+			<Text>Rightful Ruler</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_PROGRESS_TITLE_CONFLICT_RESOLUTION">
+			<Text>2K Linked Account Progression Conflict</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_PROGRESS_BODY_CONFLICT_RESOLUTION">
+			<Text>Your local progress conflicts with what is linked with your 2K account.  You will need to choose a version to proceed.  Please select the progress you will keep to be synced to this device and your 2K account.</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_PROGRESS_BODY_CONSOLE_CONFLICT_RESOLUTION">
+			<Text>Your local progress conflicts with what is linked with your 2K account.  You will need to choose a version to proceed.  Please select the progress you will keep to be synced to this console and your 2K account.</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_PROGRESS_CHOICE_1_CONFLICT_RESOLUTION">
+			<Text>Local Progress</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_PROGRESS_CHOICE_2_CONFLICT_RESOLUTION">
+			<Text>2K Linked Progress</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_PROGRESS_CHOICE_1_CONTEXT_CONFLICT_RESOLUTION">
+			<Text>Local Progress {1_ProgressType}</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_PROGRESS_CHOICE_2_CONTEXT_RESOLUTION">
+			<Text>2K Linked Progress {1_ProgressType}</Text>
+		</Row>
+		<Row Tag="LOC_PROFILE_PROGRESS_COMING_SOON">
+			<Text>Coming Soon...</Text>
+		</Row>
+	</EnglishText>
+</Database>

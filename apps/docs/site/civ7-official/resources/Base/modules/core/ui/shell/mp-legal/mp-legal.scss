@@ -1,0 +1,32 @@
+@use '../../utilities/utility-layout' as *;
+@use '../../../../core/ui/themes/default/baseColors.scss';
+
+.mp-legal {
+	position: absolute;
+	height: 90%;
+	width: 85%;
+	top: 5%;
+	left: 7%;
+
+	pointer-events: auto;
+
+	.fxs-close-button {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+
+	.button-container-inner {
+		display: flex;
+		justify-content: space-between;
+	}
+}
+
+.mp-legal__scrollable {
+	height: 95%;
+}
+
+// Script uses the "hidden" class itself, so use our own for controller hiding
+.mp-legal__hidden {
+	display: none;
+}

@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="PLAYER_DIPLOMACY_FAVOR_ACCRUE_MOD" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_DIPLOMACY_FAVOR_ACCRUE_MOD">
+		<Argument name="Percent">25</Argument>
+		<String context="Description">LOC_TRADITION_DIPLOMACY_FAVOR_ACCRUE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="LEND_LEASE_MOD_FAVOR_ON_ACTION_SUPPORT" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_DIPLOMACY_FAVOR_ACCRUE_MOD">
+		<Argument name="Percent">50</Argument>
+		<String context="Description">LOC_TRADITION_LEND_LEASE_DESCRIPTION</String>
+	</Modifier>
+
+	<!--  For testing Cooperative GameEffects. -->
+	<!--
+	<Modifier id="MOD_TEST_DAE_SCI_BONUS" collection="COLLECTION_OWNER" effect="EFFECT_DAE_COMPLETE_GRANT_COOPERATIVE_YIELD">
+		<Argument name="Amount">7000</Argument>
+		<Argument name="TargetAmount">5000</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+	</Modifier>
+	<Modifier id="MOD_TEST_DAE_SCI_BONUS_START" collection="COLLECTION_OWNER" effect="EFFECT_DAE_START_GRANT_COOPERATIVE_YIELD">
+		<Argument name="Amount">700</Argument>
+		<Argument name="TargetAmount">500</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+	</Modifier>
+	<Modifier id="MOD_TEST_DAE_SCI_BONUS_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_COMPLETE_GRANT_COOPERATIVE_YIELD">
+		<Argument name="Amount">7000</Argument>
+		<Argument name="TargetAmount">5000</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+	</Modifier>
+-->
+
+
+	<Modifier id="PLAYER_DIPLOMACY_OPEN_BORDERS_ACTIVE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_TARGET_ATTACH_MODIFIER">
+		<String context="Name">LOC_DIPLOMACY_PROJECT_OPEN_BORDERS_NAME</String>
+		<Argument name="TargetPlayerAccept">PLAYER_DIPLOMACY_OPEN_BORDERS_TARGET_PLAYER_ACCEPT</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_OPEN_BORDERS_TARGET_PLAYER_ACCEPT" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<Argument name="Tooltip">LOC_PLAYER_DIPLOMACY_OPEN_BORDERS_TARGET_PLAYER_ACCEPT</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_APPLY_BEHAVIOR_MOD" collection="COLLECTION_OWNER" effect="EFFECT_DAE_COMPLETE_APPLY_BEHAVIOR">
+		<!--  If you need to give/update the display name.  Below was just a test using an existing LOC_.
+		<String context="Name">LOC_TRADITION_STRATEGOI_NAME</String>
+-->
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_LOCAL_FESTIVALS_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_COOPERATIVE_ATTACH_MODIFIER">
+		<String context="Name">LOC_DIPLOMACY_PROJECT_LOCAL_FESTIVALS_NAME</String>
+		<Argument name="InitialPlayerAccept">PLAYER_DIPLOMACY_LOCAL_FESTIVALS_INITIAL_PLAYER_ACCEPT</Argument>
+		<Argument name="TargetPlayerAccept">PLAYER_DIPLOMACY_LOCAL_FESTIVALS_TARGET_PLAYER_ACCEPT</Argument>
+		<Argument name="InitialPlayerSupport">PLAYER_DIPLOMACY_LOCAL_FESTIVALS_SUPPORT</Argument>
+		<Argument name="TargetPlayerSupport">PLAYER_DIPLOMACY_LOCAL_FESTIVALS_SUPPORT</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_LOCAL_FESTIVALS_INITIAL_PLAYER_ACCEPT" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+		</SubjectRequirements>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_PROJECT_LOCAL_FESTIVALS_NAME</Argument>
+		<String context="Description">LOC_DIPLOMACY_PROJECT_LOCAL_FESTIVALS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_LOCAL_FESTIVALS_TARGET_PLAYER_ACCEPT" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_PROJECT_LOCAL_FESTIVALS_NAME</Argument>
+		<String context="Description">LOC_DIPLOMACY_PROJECT_LOCAL_FESTIVALS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_LOCAL_FESTIVALS_SUPPORT" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+		</SubjectRequirements>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">3</Argument>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_PROJECT_LOCAL_FESTIVALS_NAME</Argument>
+		<String context="Description">LOC_DIPLOMACY_PROJECT_LOCAL_FESTIVALS_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_SABOTAGE_TREASURY_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_GRANT_COOPERATIVE_YIELD_SUPPORT_BASE_PER_TURN">
+		<!-- If you change any value here, also make the same changes in the _DESCRIBE version.  Also update the _INITIAL description in DiplomacyText.xml -->
+		<String context="Name">LOC_DIPLOMACY_PROJECT_SABOTAGE_TREASURY_NAME</String>
+		<Argument name="Tooltip">LOC_DIPLOMACY_PROJECT_SABOTAGE_TREASURY_NAME</Argument>
+		<Argument name="Amount">0</Argument>
+		<Argument name="Percent">0</Argument>
+		<Argument name="TargetPercent">-10</Argument>
+		<Argument name="AyalyzeNumTurns">10</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_SABOTAGE_MORALE_START" collection="COLLECTION_OWNER" effect="EFFECT_DAE_GRANT_COOPERATIVE_YIELD_SUPPORT_BASE_PER_TURN">
+		<!-- If you change any value here, also make the same changes in the _DESCRIBE version.  Also update the _INITIAL description in DiplomacyText.xml -->
+		<String context="Name">LOC_DIPLOMACY_PROJECT_SABOTAGE_MORALE_NAME</String>
+		<Argument name="Tooltip">LOC_DIPLOMACY_PROJECT_SABOTAGE_MORALE_NAME</Argument>
+		<Argument name="Amount">0</Argument>
+		<Argument name="Percent">0</Argument>
+		<Argument name="TargetPercent">-10</Argument>
+		<Argument name="AyalyzeNumTurns">10</Argument>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_SABOTAGE_RESEARCH_START" collection="COLLECTION_OWNER" effect="EFFECT_DAE_GRANT_COOPERATIVE_YIELD_SUPPORT_BASE_PER_TURN">
+		<!-- If you change any value here, also make the same changes in the _DESCRIBE version.  Also update the _INITIAL description in DiplomacyText.xml -->
+		<String context="Name">LOC_DIPLOMACY_PROJECT_SABOTAGE_RESEARCH_NAME</String>
+		<Argument name="Tooltip">LOC_DIPLOMACY_PROJECT_SABOTAGE_RESEARCH_NAME</Argument>
+		<Argument name="Amount">0</Argument>
+		<Argument name="Percent">0</Argument>
+		<Argument name="TargetPercent">-10</Argument>
+		<Argument name="AyalyzeNumTurns">10</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_SABOTAGE_CIVIC_STUDY_START" collection="COLLECTION_OWNER" effect="EFFECT_DAE_GRANT_COOPERATIVE_YIELD_SUPPORT_BASE_PER_TURN">
+		<!-- If you change any value here, also make the same changes in the _DESCRIBE version.  Also update the _INITIAL description in DiplomacyText.xml -->
+		<String context="Name">LOC_DIPLOMACY_PROJECT_SABOTAGE_CIVIC_STUDY_NAME</String>
+		<Argument name="Tooltip">LOC_DIPLOMACY_PROJECT_SABOTAGE_CIVIC_STUDY_NAME</Argument>
+		<Argument name="Amount">0</Argument>
+		<Argument name="Percent">0</Argument>
+		<Argument name="TargetPercent">-10</Argument>
+		<Argument name="AyalyzeNumTurns">10</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_SABOTAGE_MILITARY_PRODUCTION_START" collection="COLLECTION_OWNER" effect="EFFECT_DAE_COOPERATIVE_ATTACH_MODIFIER">
+		<String context="Name">LOC_DIPLOMACY_PROJECT_SABOTAGE_MILITARY_PRODUCTION_NAME</String>
+		<Argument name="InitialPlayerAccept">PLAYER_DIPLOMACY_SABOTAGE_MILITARY_PRODUCTION_NO_EFFECT</Argument>
+		<Argument name="TargetPlayerAccept">PLAYER_DIPLOMACY_SABOTAGE_MILITARY_PRODUCTION_TARGET</Argument>
+		<Argument name="InitialPlayerSupport">PLAYER_DIPLOMACY_SABOTAGE_MILITARY_PRODUCTION_NO_EFFECT</Argument>
+		<Argument name="TargetPlayerSupport">PLAYER_DIPLOMACY_SABOTAGE_MILITARY_PRODUCTION_NO_EFFECT</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_SABOTAGE_MILITARY_PRODUCTION_TARGET" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION">
+		<Argument name="UnitCoreClass">CORE_CLASS_MILITARY</Argument>
+		<Argument name="Percent">-20</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_SABOTAGE_MILITARY_PRODUCTION_NO_EFFECT" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_DO_NOTHING"/>
+	<Modifier id="PLAYER_DIPLOMACY_TRADE_MAP_ACCEPT" collection="COLLECTION_OWNER" effect="EFFECT_DAE_COOPERATIVE_ATTACH_MODIFIER">
+		<String context="Name">LOC_DIPLOMACY_PROJECT_TRADE_MAP_NAME</String>
+		<Argument name="InitialPlayerAccept">PLAYER_DIPLOMACY_TRADE_MAP_NO_EFFECT</Argument>
+		<Argument name="TargetPlayerAccept">PLAYER_DIPLOMACY_TRADE_MAP_TARGET_PLAYER_ACCEPT</Argument>
+		<Argument name="InitialPlayerSupport">PLAYER_DIPLOMACY_TRADE_MAP_NO_EFFECT</Argument>
+		<Argument name="TargetPlayerSupport">PLAYER_DIPLOMACY_TRADE_MAP_NO_EFFECT</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_TRADE_MAP_TARGET_PLAYER_ACCEPT" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_PROJECT_TRADE_MAP_NAME</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_TRADE_MAP_NO_EFFECT" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_DO_NOTHING"/>
+	<Modifier id="PLAYER_DIPLOMACY_TRADE_MAP_1" collection="COLLECTION_OWNER" effect="EFFECT_DAE_TRADE_MAP" permanent="true">
+		<String context="Name">LOC_DIPLOMACY_PROJECT_TRADE_MAP_NAME</String>
+		<Argument name="CapitalRadius">1</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_TRADE_MAP_2" collection="COLLECTION_OWNER" effect="EFFECT_DAE_TRADE_MAP" permanent="true">
+		<String context="Name">LOC_DIPLOMACY_PROJECT_TRADE_MAP_NAME</String>
+		<Argument name="CapitalRadius">2</Argument>
+		<Argument name="CityRadius">1</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_TRADE_MAP_3" collection="COLLECTION_OWNER" effect="EFFECT_DAE_TRADE_MAP" permanent="true">
+		<String context="Name">LOC_DIPLOMACY_PROJECT_TRADE_MAP_NAME</String>
+		<Argument name="CapitalRadius">3</Argument>
+		<Argument name="CityRadius">2</Argument>
+		<Argument name="TownRadius">1</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_TRADE_MAP_4" collection="COLLECTION_OWNER" effect="EFFECT_DAE_TRADE_MAP" permanent="true">
+		<String context="Name">LOC_DIPLOMACY_PROJECT_TRADE_MAP_NAME</String>
+		<Argument name="CapitalRadius">4</Argument>
+		<Argument name="CityRadius">3</Argument>
+		<Argument name="TownRadius">2</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_TRADE_MAP_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_TRADE_MAP" permanent="true">
+		<String context="Name">LOC_DIPLOMACY_PROJECT_TRADE_MAP_NAME</String>
+		<Argument name="CapitalRadius">4</Argument>
+		<Argument name="CityRadius">4</Argument>
+		<Argument name="TownRadius">4</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_FARMERS_MARKET_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_COOPERATIVE_ATTACH_MODIFIER">
+		<String context="Name">LOC_DIPLOMACY_PROJECT_FARMERS_MARKET_NAME</String>
+		<Argument name="InitialPlayerAccept">PLAYER_DIPLOMACY_FARMERS_MARKET_INITIAL_PLAYER_ACCEPT</Argument>
+		<Argument name="TargetPlayerAccept">PLAYER_DIPLOMACY_FARMERS_MARKET_TARGET_PLAYER_ACCEPT</Argument>
+		<Argument name="InitialPlayerSupport">PLAYER_DIPLOMACY_FARMERS_MARKET_SUPPORT</Argument>
+		<Argument name="TargetPlayerSupport">PLAYER_DIPLOMACY_FARMERS_MARKET_SUPPORT</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_FARMERS_MARKET_INITIAL_PLAYER_ACCEPT" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY" inverse="true"/>
+		</SubjectRequirements>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_PROJECT_FARMERS_MARKET_NAME</Argument>
+		<String context="Description">LOC_DIPLOMACY_PROJECT_FARMERS_MARKET_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_FARMERS_MARKET_TARGET_PLAYER_ACCEPT" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_PROJECT_FARMERS_MARKET_NAME</Argument>
+		<String context="Description">LOC_DIPLOMACY_PROJECT_FARMERS_MARKET_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_FARMERS_MARKET_SUPPORT" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY" inverse="true"/>
+		</SubjectRequirements>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">3</Argument>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_PROJECT_FARMERS_MARKET_NAME</Argument>
+		<String context="Description">LOC_DIPLOMACY_PROJECT_FARMERS_MARKET_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_MILITARY_AID_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_COOPERATIVE_ATTACH_MODIFIER">
+		<String context="Name">LOC_DIPLOMACY_PROJECT_MILITARY_AID_NAME</String>
+		<Argument name="InitialPlayerAccept">PLAYER_DIPLOMACY_MILITARY_AID_INITIAL_PLAYER_ACCEPT</Argument>
+		<Argument name="TargetPlayerAccept">PLAYER_DIPLOMACY_MILITARY_AID_TARGET_PLAYER_ACCEPT</Argument>
+		<Argument name="InitialPlayerSupport">PLAYER_DIPLOMACY_MILITARY_AID_SUPPORT</Argument>
+		<Argument name="TargetPlayerSupport">PLAYER_DIPLOMACY_MILITARY_AID_SUPPORT</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_MILITARY_AID_INITIAL_PLAYER_ACCEPT" collection="COLLECTION_PLAYER_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<String context="Preview">LOC_PLAYER_DIPLOMACY_MILITARY_AID_COMBAT_PREVIEW</String>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_MILITARY_AID_SUPPORT" collection="COLLECTION_PLAYER_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<String context="Preview">LOC_PLAYER_DIPLOMACY_MILITARY_AID_COMBAT_PREVIEW</String>
+		<Argument name="Amount">3</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_MILITARY_AID_TARGET_PLAYER_ACCEPT" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<Argument name="Tooltip">LOC_PLAYER_DIPLOMACY_MILITARY_AID_TARGET_PLAYER_ACCEPT</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_DENOUNCE_DESCRIBE" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING"/>
+	<Modifier id="PLAYER_DIPLOMACY_DENOUNCE_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING"/>
+	<Modifier id="PLAYER_DIPLOMACY_SEND_DELEGATION_DESCRIBE" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING"/>
+	<Modifier id="PLAYER_DIPLOMACY_SEND_DELEGATION_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING"/>
+	<Modifier id="PLAYER_DIPLOMACY_SUPPORT_LAND_CLAIMS_DESCRIBE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_DIPLOMACY_ACTION_DESCRIBE_PROGRESS_ENVOY_MOD" permanent="true">
+		<!-- If you change any value here, also make the same changes in the _DESCRIBE version.  Also update the _INITIAL description in DiplomacyText.xml -->
+		<Argument name="ActionType">DIPLOMACY_ACTION_LAND_CLAIM</Argument>
+		<Argument name="Percent">50</Argument>
+		<Argument name="FactorEnvoys">true</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_SUPPORT_LAND_CLAIMS_ACTIVE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_DIPLOMACY_ACTION_PROGRESS_ENVOY_MOD">
+		<!-- If you change any value here, also make the same changes in the _DESCRIBE version.  Also update the _INITIAL description in DiplomacyText.xml -->
+		<Argument name="ActionType">DIPLOMACY_ACTION_LAND_CLAIM</Argument>
+		<Argument name="Percent">50</Argument>
+		<Argument name="FactorEnvoys">true</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_OPPOSE_LAND_CLAIMS_DESCRIBE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_DIPLOMACY_ACTION_DESCRIBE_PROGRESS_ENVOY_MOD" permanent="true">
+		<!-- If you change any value here, also make the same changes in the _DESCRIBE version.  Also update the _INITIAL description in DiplomacyText.xml -->
+		<Argument name="ActionType">DIPLOMACY_ACTION_LAND_CLAIM</Argument>
+		<Argument name="Percent">-25</Argument>
+		<Argument name="FactorEnvoys">true</Argument>
+		<Argument name="Range">10</Argument>
+		<Argument name="ApplyToOtherPlayers">true</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_OPPOSE_LAND_CLAIMS_ACTIVE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_DIPLOMACY_ACTION_PROGRESS_ENVOY_MOD">
+		<!-- If you change any value here, also make the same changes in the _DESCRIBE version.  Also update the _INITIAL description in DiplomacyText.xml -->
+		<Argument name="ActionType">DIPLOMACY_ACTION_LAND_CLAIM</Argument>
+		<Argument name="Percent">-25</Argument>
+		<Argument name="FactorEnvoys">true</Argument>
+		<Argument name="Range">10</Argument>
+		<Argument name="ApplyToOtherPlayers">true</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_INCITE_RAID_DESCRIBE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_DESCRIBE_INDEPENDENT_AND_TARGET" permanent="true">
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_INCITE_RAID_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_DIPLOMACY_INCITE_RAID" permanent="true">
+		<Argument name="OperationName">Independent Raid</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_CS_PROMOTE_GROWTH_DESCRIBE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_DESCRIBE_GRANT_COOPERATIVE_YIELD">
+		<!-- If you change any value here, also make the same changes in the _COMPLETE version.  Also update the _INITIAL description in DiplomacyText.xml  -->
+		<Argument name="Amount">8</Argument>
+		<Argument name="EnvoyMultAmount">8</Argument>
+		<Argument name="TargetAmount">4</Argument>
+		<Argument name="TargetEnvoyMultAmount">4</Argument>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_CS_PROMOTE_GROWTH_ACTIVE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_TARGET_ATTACH_MODIFIER">
+		<String context="Name">LOC_DIPLOMACY_PROJECT_IMPROVE_TRADE_RELATIONS_NAME</String>
+		<Argument name="TargetPlayerAccept">PLAYER_DIPLOMACY_CS_PROMOTE_GROWTH_FOOD</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_CS_PROMOTE_GROWTH_FOOD" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Amount">15</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_CS_BOLSTER_MILITARY_DESCRIBE" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING"/>
+	<Modifier id="PLAYER_DIPLOMACY_CS_BOLSTER_MILITARY_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_COOPERATIVE_ATTACH_MODIFIER">
+		<String context="Name">LOC_DIPLOMACY_PROJECT_SABOTAGE_MILITARY_PRODUCTION_NAME</String>
+		<Argument name="InitialPlayerAccept">PLAYER_DIPLOMACY_CS_BOLSTER_MILITARY_DO_NOTHING</Argument>
+		<Argument name="TargetPlayerAccept">PLAYER_DIPLOMACY_CS_BOLSTER_MILITARY_TARGET</Argument>
+		<Argument name="InitialPlayerSupport">PLAYER_DIPLOMACY_CS_BOLSTER_MILITARY_DO_NOTHING</Argument>
+		<Argument name="TargetPlayerSupport">PLAYER_DIPLOMACY_CS_BOLSTER_MILITARY_DO_NOTHING</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_CS_BOLSTER_MILITARY_DO_NOTHING" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING"/>
+	<Modifier id="PLAYER_DIPLOMACY_CS_BOLSTER_MILITARY_TARGET" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_UNIT" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="UnitTag">UNIT_CLASS_MELEE</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_CS_ORDER_ATTACK_DESCRIBE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_DESCRIBE_GRANT_FAVORS_GRIEVANCES" permanent="true">
+		<!-- If you change any value here, also make the same changes in the _COMPLETE version.  Also update the _INITIAL description in DiplomacyText.xml  -->
+		<Argument name="GrievancesAmount">1</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_CS_ORDER_ATTACK_ACTIVE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_COMPLETE_GRANT_FAVORS_GRIEVANCES" permanent="true">
+		<!-- If you change any value here, also make the same changes in the _DESCRIBE version.  Also update the _INITIAL description in DiplomacyText.xml -->
+		<Argument name="GrievancesAmount">1</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_COUNTER_SPY_ACTIVE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_DIPLOMACY_ACTION_BASIC_DIPLOMACY_MODS">
+		<!-- If you change any value here, also make the same changes in the _DESCRIBE version.  Also update the _INITIAL description in DiplomacyText.xml -->
+		<Argument name="IsCounterSpy">true</Argument>
+		<Argument name="ApplyToTarget">true</Argument>
+		<Argument name="ActionGroup">DIPLOMACY_ACTION_GROUP_ESPIONAGE</Argument>
+		<Argument name="Modifier1Type">DIPLOMACY_BASIC_MODIFIER_VALUE_REVEAL_PERC</Argument>
+		<Argument name="Modifier1Value">30</Argument>
+		<Argument name="Modifier2Type">DIPLOMACY_BASIC_MODIFIER_VALUE_FAILURE_PERC</Argument>
+		<Argument name="Modifier2Value">30</Argument>
+		<Argument name="Modifier3Type">DIPLOMACY_BASIC_MODIFIER_VALUE_PROGRESS_DENOM</Argument>
+		<Argument name="Modifier3Value">1</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_IMPROVE_TRADE_RELATIONS_DESCRIBE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_DESCRIBE_IMPROVE_TRADE_RELATIONS" permanent="true">
+		<!-- If you change any value here, also make the same changes in the _COMPLETE version.  Also update the _INITIAL description in DiplomacyText.xml -->
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_IMPROVE_TRADE_RELATIONS_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_COMPLETE_IMPROVE_TRADE_RELATIONS" permanent="true">
+		<!-- If you change any value here, also make the same changes in the _DESCRIBE version.  Also update the _INITIAL description in DiplomacyText.xml -->
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_IMPROVE_TRADE_RELATIONS_COMPLETE_TARGET" collection="COLLECTION_OWNER" effect="EFFECT_DAE_TARGET_ATTACH_MODIFIER">
+		<String context="Name">LOC_DIPLOMACY_PROJECT_IMPROVE_TRADE_RELATIONS_NAME</String>
+		<Argument name="TargetPlayerAccept">PLAYER_DIPLOMACY_IMPROVE_TRADE_RELATIONS_TARGET_GOLD</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_IMPROVE_TRADE_RELATIONS_TARGET_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD" permanent="true">
+		<Argument name="Amount">30</Argument>
+		<Argument name="YieldType" type="ScaleByGameAge" extra="100">YIELD_GOLD</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_BLOCK_ENDEAVORS_10" collection="COLLECTION_OWNER" effect="EFFECT_BLOCK_DIPLOMAITC_ACTION_GROUP_FOR_X_TURNS">
+		<!-- If you change any value here, also make the same changes in the _DESCRIBE version.  Also update the _INITIAL description in DiplomacyText.xml -->
+		<Argument name="NumTurns">10</Argument>
+		<Argument name="BlockGroupType">DIPLOMACY_ACTION_GROUP_ENDEAVOR</Argument>
+		<!--		<Argument name="NoBlockActions">DIPLOMACY_ACTION_CLOSE_BORDERS</Argument>  -->
+		<!--		<Argument name="BlockActions">DIPLOMACY_ACTION_CLOSE_BORDERS</Argument>  -->
+		<Argument name="TargetType">DIPLOMACY_MODIFIER_TARGET_BOTH</Argument>
+		<!--		<Argument name="AyalyzeNumTurns">8</Argument>  -->
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_BLOCK_ENDEAVORS_5" collection="COLLECTION_OWNER" effect="EFFECT_BLOCK_DIPLOMAITC_ACTION_GROUP_FOR_X_TURNS">
+		<!-- If you change any value here, also make the same changes in the _DESCRIBE version.  Also update the _INITIAL description in DiplomacyText.xml -->
+		<Argument name="NumTurns">5</Argument>
+		<Argument name="BlockGroupType">DIPLOMACY_ACTION_GROUP_ENDEAVOR</Argument>
+		<!--		<Argument name="NoBlockActions">DIPLOMACY_ACTION_CLOSE_BORDERS</Argument>  -->
+		<!--		<Argument name="BlockActions">DIPLOMACY_ACTION_CLOSE_BORDERS</Argument>  -->
+		<Argument name="TargetType">DIPLOMACY_MODIFIER_TARGET_BOTH</Argument>
+		<!--		<Argument name="AyalyzeNumTurns">8</Argument>  -->
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_BLOCK_ALLIANCE_10" collection="COLLECTION_OWNER" effect="EFFECT_BLOCK_DIPLOMAITC_ACTION_GROUP_FOR_X_TURNS">
+		<Argument name="NumTurns">10</Argument>
+		<!--  <Argument name="BlockGroupType">DIPLOMACY_ACTION_GROUP_ENDEAVOR</Argument>  -->
+		<!--		<Argument name="NoBlockActions">DIPLOMACY_ACTION_CLOSE_BORDERS</Argument>  -->
+		<Argument name="BlockActions">DIPLOMACY_ACTION_FORM_ALLIANCE</Argument>
+		<Argument name="TargetType">DIPLOMACY_MODIFIER_TARGET_BOTH</Argument>
+		<!--		<Argument name="AyalyzeNumTurns">8</Argument>  -->
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_BLOCK_OPEN_BORDERS_10" collection="COLLECTION_OWNER" effect="EFFECT_BLOCK_DIPLOMAITC_ACTION_GROUP_FOR_X_TURNS">
+		<Argument name="NumTurns">10</Argument>
+		<!--  <Argument name="BlockGroupType">DIPLOMACY_ACTION_GROUP_ENDEAVOR</Argument>  -->
+		<!--		<Argument name="NoBlockActions">DIPLOMACY_ACTION_CLOSE_BORDERS</Argument>  -->
+		<Argument name="BlockActions">DIPLOMACY_ACTION_OPEN_BORDERS</Argument>
+		<Argument name="TargetType">DIPLOMACY_MODIFIER_TARGET_BOTH</Argument>
+		<!--		<Argument name="AyalyzeNumTurns">8</Argument>  -->
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_BLOCK_IMPROVE_TRADE_10" collection="COLLECTION_OWNER" effect="EFFECT_BLOCK_DIPLOMAITC_ACTION_GROUP_FOR_X_TURNS">
+		<Argument name="NumTurns">10</Argument>
+		<!--  <Argument name="BlockGroupType">DIPLOMACY_ACTION_GROUP_ENDEAVOR</Argument>  -->
+		<!--		<Argument name="NoBlockActions">DIPLOMACY_ACTION_CLOSE_BORDERS</Argument>  -->
+		<Argument name="BlockActions">DIPLOMACY_ACTION_IMPROVE_TRADE_RELATIONS</Argument>
+		<Argument name="TargetType">DIPLOMACY_MODIFIER_TARGET_BOTH</Argument>
+		<!--		<Argument name="AyalyzeNumTurns">8</Argument>  -->
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_BLOCK_DENOUNCE_10" collection="COLLECTION_OWNER" effect="EFFECT_BLOCK_DIPLOMAITC_ACTION_GROUP_FOR_X_TURNS">
+		<Argument name="NumTurns">10</Argument>
+		<!--  <Argument name="BlockGroupType">DIPLOMACY_ACTION_GROUP_ENDEAVOR</Argument>  -->
+		<!--		<Argument name="NoBlockActions">DIPLOMACY_ACTION_CLOSE_BORDERS</Argument>  -->
+		<Argument name="BlockActions">DIPLOMACY_ACTION_DENOUNCE</Argument>
+		<Argument name="TargetType">DIPLOMACY_MODIFIER_TARGET_BOTH</Argument>
+		<!--		<Argument name="AyalyzeNumTurns">8</Argument>  -->
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_GRIEVANCES_FOR_ACTION_REJECTION" collection="COLLECTION_OWNER" effect="EFFECT_DAE_COMPLETE_GRANT_FAVORS_GRIEVANCES" permanent="true">
+		<Argument name="GrievancesAmount">15</Argument>
+		<Argument name="EventType">GRIEVANCE_FROM_REJECTED_ENDEAVOR</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_GRIEVANCES_FOR_ALLIANCE_REJECTION" collection="COLLECTION_OWNER" effect="EFFECT_DAE_COMPLETE_GRANT_FAVORS_GRIEVANCES" permanent="true">
+		<Argument name="GrievancesAmount">30</Argument>
+		<Argument name="EventType">GRIEVANCE_FROM_REJECTED_ALLIANCE</Argument>
+	</Modifier>
+	<Modifier id="DIPLOMACY_MACHINATIONS_START" collection="COLLECTION_OWNER" effect="EFFECT_DAE_COMPLETE_GRANT_FAVORS_GRIEVANCES" permanent="true">
+		<Argument name="GrievancesAmount">20</Argument>
+		<Argument name="EventType">GRIEVANCE_FROM_SANCTION</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_DENOUNCE_MILITARY_PRESENCE_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_APPLY_NON_AGGRESSION_PACT">
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_FREE_CAPTURED_COMMANDER_IN_PROGRESS" collection="COLLECTION_OWNER" effect="EFFECT_DAE_FREE_CAPTURED_COMMANDER_CHANGE_INITIATOR_GOLD">
+		<Argument name="RemoveGold">true</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_FREE_CAPTURED_COMMANDER_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_COMPLETE_FREE_CAPTURED_COMMANDER">
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_FREE_CAPTURED_COMMANDER_REJECT" collection="COLLECTION_OWNER" effect="EFFECT_DAE_FREE_CAPTURED_COMMANDER_CHANGE_INITIATOR_GOLD">
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_CS_LEVY_UNIT_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_LEVY_UNIT" permanent="true">
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_CS_INCORPORATE_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_INCORPORATE_CITY_STATE" permanent="true">
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_GRANT_POLICY_SLOT_STARTED" collection="COLLECTION_OWNER" effect="EFFECT_DAE_TARGET_ATTACH_MODIFIER">
+		<String context="Name">LOC_DIPLOMACY_PROJECT_GRANT_POLICY_SLOT_NAME</String>
+		<Argument name="TargetPlayerAccept">PLAYER_DIPLOMACY_GRANT_POLICY_SLOT_TARGET_ACCEPT_GOLD</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_GRANT_POLICY_SLOT_COMPLETE_TARGET" collection="COLLECTION_OWNER" effect="EFFECT_DAE_TARGET_ATTACH_MODIFIER">
+		<Argument name="TargetPlayerSupport">PLAYER_DIPLOMACY_GRANT_POLICY_SLOT_COMPLETE</Argument>
+		<Argument name="SupportEffectIsRemovable">false</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_GRANT_POLICY_SLOT_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_TRADITION_SLOTS" permanent="true">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_GRANT_POLICY_SLOT_TARGET_ACCEPT_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">4</Argument>
+		<Argument name="Tooltip">LOC_PLAYER_DIPLOMACY_GRANT_POLICY_SLOT_TARGET_PLAYER_ACCEPT</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_SABOTAGE_FOOD_PRODUCTION_START" collection="COLLECTION_OWNER" effect="EFFECT_DAE_ADJUST_SETTLEMENT_YIELD">
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Percent">-20</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_MOD_SEND_GOLD" collection="COLLECTION_OWNER" effect="EFFECT_DAE_SEND_GOLD" permanent="true">
+	</Modifier>
+	<!-- ESPIONAGE MODIFIERS -->
+	<Modifier id="DIPLOMACY_MOD_ESPIONAGE_ACTION_STARTED" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING">
+	</Modifier>
+	<Modifier id="DIPLOMACY_MOD_ESPIONAGE_MILITARY_SABOTAGE_IN_PROGRESS" collection="COLLECTION_OWNER" effect="EFFECT_DAE_ESPIONAGE_ATTACH_MODIFIER">
+		<Argument name="TargetEspionageActionModifierName">PLAYER_DIPLOMACY_ESPIONAGE_MILITARY_SABOTAGE_MOD</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_ESPIONAGE_MILITARY_SABOTAGE_MOD" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<Argument name="AbilityType">ABILITY_ESPIONAGE_MILITARY_SABOTAGE</Argument>
+	</Modifier>
+	<Modifier id="DIPLOMACY_MOD_ESPIONAGE_STEAL_TECH_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_ESPIONAGE_STEAL_TREE_NODE" permanent="true">
+		<Argument name="SystemType">SYSTEM_TECH</Argument>
+	</Modifier>
+	<Modifier id="DIPLOMACY_MOD_ESPIONAGE_STEAL_CIVIC_COMPLETE" collection="COLLECTION_OWNER" effect="EFFECT_DAE_ESPIONAGE_STEAL_TREE_NODE" permanent="true">
+		<Argument name="SystemType">SYSTEM_CULTURE</Argument>
+	</Modifier>
+	<Modifier id="DIPLOMACY_MOD_ESPIONAGE_MILITARY_INFILTRATION_IN_PROGRESS" collection="COLLECTION_OWNER" effect="EFFECT_DAE_ESPIONAGE_GRANT_TARGET_COMMANDER_VISION">
+	</Modifier>
+	<Modifier id="PLAYER_DIPLOMACY_SABOTAGE_TRADE_CAPACITY_STARTED" collection="COLLECTION_OWNER" effect="EFFECT_DAE_TARGET_ATTACH_MODIFIER">
+		<Argument name="TargetPlayerAccept">PLAYER_REDUCE_TRADE_ROUTE_CAPACITY</Argument>
+	</Modifier>
+	<Modifier id="PLAYER_REDUCE_TRADE_ROUTE_CAPACITY" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_TRADE_CAPACITY">
+		<Argument name="Amount">-1</Argument>
+		<Argument name="MajorsOnly">true</Argument>
+	</Modifier>
+</GameEffects>

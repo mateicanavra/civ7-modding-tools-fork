@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Tecumseh Main Menu Char Select Text-->
+		<Row Tag="LOC_MAIN_CHAR_SELECT_LEADER_TECUMSEH_ANY">
+			<Text>My forefathers were warriors. Their son is a warrior. From them I take only my existence. I have made myself what I am. </Text>
+		</Row>
+
+		<!--Tecumseh Statement Text-->
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_TECUMSEH_ANY">
+			<Text>You see a star that crosses the night sky like a bolt of lightning? That is me, Tecumseh, the one who leaps great distances.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_TECUMSEH_ANY">
+			<Text>You see a star that crosses the night sky like a bolt of lightning? That is me, Tecumseh, the one who leaps great distances.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_TECUMSEH_ANY">
+			<Text>You see a star that crosses the night sky like a bolt of lightning? That is me, Tecumseh, the one who leaps great distances.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_TECUMSEH_ANY">
+			<Text>We will drive you back to the sea, to the caves, to whatever place you have come from.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_TECUMSEH_ANY">
+			<Text>Let it be taken, our homes and our land given to us by the Great Spirit? The places we bury the ones who have gone home? Never!</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DEFEAT_AI_LEADER_TECUMSEH_ANY">
+			<Text>A death song has come to me and I am going to sing it. When I am done, I will go to where the snows of winter go, where you cannot reach.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_TECUMSEH">
+			<Text>Deal. Don’t make us regret it.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_TECUMSEH">
+			<Text>No. </Text>
+		</Row>
+	</EnglishText>
+</Database>

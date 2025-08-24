@@ -1,0 +1,51 @@
+/* DO NOT EDIT */
+/* Generated from test-unit.scss */
+.test-unit {
+	position: absolute;
+	top: 4.4444444444rem;
+	left: 4.4444444444rem;
+	width: 90em;
+	height: 30em;
+	opacity: 1;
+	transition-property: top, opacity;
+	transition-duration: 1s, 0.25s;
+}
+.test-unit:hover {
+	top: 5.3333333333rem;
+	opacity: 0.5;
+}
+
+.test-unit__bg {
+	position: absolute;
+	top: 0rem;
+	left: 0rem;
+	right: 0rem;
+	bottom: 0rem;
+	border-image-source: url("fs://game/hud_unit-panel_bg.png");
+	border-image-slice: 56 88 56 28 fill;
+	border-image-width: 3.1111111111rem 4.8888888889rem 3.1111111111rem 1.5555555556rem;
+	border-image-outset: 0.9444444444rem 0.7222222222rem;
+}
+
+.test-unit__content-container {
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	top: 0rem;
+	left: 0rem;
+	right: 0rem;
+	bottom: 0rem;
+	padding: 1.3333333333rem 5.3333333333rem 1.3333333333rem 1.3333333333rem;
+}
+
+.test-unit__content {
+	position: relative;
+	width: auto;
+	height: auto;
+	background-color: pink;
+	flex: 1 1 auto;
+}
+.test-unit__content.content--second {
+	background-color: red;
+}

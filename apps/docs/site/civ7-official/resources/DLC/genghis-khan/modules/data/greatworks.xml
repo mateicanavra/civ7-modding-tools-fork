@@ -1,0 +1,14 @@
+<Database>
+	<Types>
+		<!--Named Artifacts-->
+		<Row Type="GREATWORK_ARTIFACT_SECRET_HISTORY" Kind="KIND_GREATWORK"/>
+	</Types>
+	<GreatWorks>
+		<!--Named Artifacts-->
+		<Row GreatWorkType="GREATWORK_ARTIFACT_SECRET_HISTORY" GreatWorkObjectType="GREATWORKOBJECT_ARTIFACT" Name="LOC_GREATWORK_ARTIFACT_SECRET_HISTORY_NAME" Description="LOC_GREATWORK_ARTIFACT_DESCRIPTION" Generic="false" Image="fs://game/gw_museumtagging.png"/>
+	</GreatWorks>
+	<GreatWork_YieldChanges>
+		<!--Named Artifacts-->
+		<Row GreatWorkType="GREATWORK_ARTIFACT_SECRET_HISTORY" YieldType="YIELD_CULTURE" YieldChange="4"/>
+	</GreatWork_YieldChanges>
+</Database>

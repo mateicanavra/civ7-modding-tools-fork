@@ -1,0 +1,44 @@
+/* DO NOT EDIT */
+/* Generated from civ-button.scss */
+/**
+Based on Robert Penner's easing equations
+@url http://robertpenner.com/easing/
+**/
+.civ-button-bg {
+	border-image-source: url("fs://game/shell_thick-square.png");
+	border-image-slice: 16 fill;
+	border-image-width: 0.8888888889rem;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	width: 5rem;
+	height: 5rem;
+	margin: 0.5555555556rem;
+}
+@media (max-height: 55.5555555556rem) {
+	.civ-button-bg {
+		margin: 0.2777777778rem;
+	}
+}
+
+.civ-button-icon {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	filter: fxs-color-mask(white);
+}
+
+.civ-button-bg-focus {
+	border-image-source: url("fs://game/shell_thick-square-focus.png");
+}
+.civ-button-bg-focus .civ-button-icon {
+	filter: fxs-color-mask(black);
+}
+
+.civ-button-lock-icon {
+	display: none;
+}
+
+.civ-button-locked .civ-button-lock-icon {
+	display: inherit;
+}

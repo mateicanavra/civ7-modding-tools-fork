@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="MOD_MAUSOLEUM_AT_HALICARNASSUS_RESPAWN" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_MAUSOLEUM_AT_HALICARNASSUS</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_HALICARNASSUS</Argument>
+	</Modifier>
+	<Modifier id="MOD_HALICARNASSUS_RESPAWN" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_UNIT_RESPAWN_CHARGE" run-once="true" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="Health">75</Argument>
+		<Argument name="TurnTimer">0</Argument>
+	</Modifier>
+</GameEffects>

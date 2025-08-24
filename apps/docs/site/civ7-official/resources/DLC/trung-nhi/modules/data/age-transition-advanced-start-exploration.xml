@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<TraitModifiers>
+		<Row TraitType="TRAIT_LEADER_TRUNG_TRAC_ABILITY" ModifierId="MOD_PROMOTION_ARMY_TRUNG_NHI_ADVANCED_START_EXPLORATION"/>
+	</TraitModifiers>
+</Database>

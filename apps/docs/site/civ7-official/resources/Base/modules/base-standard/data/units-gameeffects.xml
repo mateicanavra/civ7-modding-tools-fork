@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="AMPHIBIOUS_MOD_ADJUST_UNIT_IGNORE_SHORES" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_IGNORE_MOVEMENT_OBSTACLE">
+		<Argument name="Obstacle">OBSTACLE_EMBARKATION</Argument>
+	</Modifier>
+	<Modifier id="ENTER_FOREIGN_MOD_ADJUST_UNIT_ENTER_FOREIGN_LANDS" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_ENTER_FOREIGN_LANDS">
+		<Argument name="Enter">true</Argument>
+	</Modifier>
+	<Modifier id="AMINA_MOD_CHECK_FOR_BIOME" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_BIOME_TYPE_MATCHES">
+				<Argument name="BiomeType">BIOME_DESERT, BIOME_PLAINS</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_AMINA_BIOME_COMBAT_STRENGTH</Argument>
+	</Modifier>
+	<Modifier id="AMINA_MOD_ADJUST_UNIT_COMBAT_STRENGTH_MODIFIER" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_ABILITY_AMINA_COMBAT_PREVIEW</String>
+	</Modifier>
+	<Modifier id="CHARLEMAGNE_MOD_ADJUST_CAVALRY_STRENGTH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_CAVALRY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_ABILITY_CHARLEMAGNE_COMBAT_PREVIEW</String>
+	</Modifier>
+	<Modifier id="LAFAYETTE_MOD_TRADITION_ADJUST_STRENGTH" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_CIV_UNIQUE_TRADITION_COMBAT_MODIFIER">
+		<Argument name="Amount">1</Argument>
+		<String context="Preview">LOC_ABILITY_LAFAYETTE_COMBAT_PREVIEW</String>
+	</Modifier>
+	<Modifier id="XERXES_MOD_ADJUST_UNIT_GIVE_FOREIGN_COMBAT_ABILITY" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_IN_OWNER_TERRITORY" inverse="true">
+				<Argument name="friendlyOnly">true</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_XERXES_UNIT_ATTACK</Argument>
+	</Modifier>
+	<Modifier id="XERXES_MOD_ADJUST_UNIT_COMBAT_STRENGTH_MODIFIER" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING"/>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_XERXES_COMBAT_PREVIEW</String>
+	</Modifier>
+	<Modifier id="FIRST_STRIKE_MOD_ADJUST_UNIT_COMBAT_STRENGTH_MODIFIER" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_IS_WOUNDED" inverse="true"/>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_KEYWORD_ABILITY_FIRST_STRIKE_PREVIEW</String>
+	</Modifier>
+	<Modifier id="FEAR_MOD_ADJUST_ENEMY_UNIT_COMBAT_STRENGTH_MODIFIER" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_TO_OWNER_AT_WAR"/>
+		</SubjectRequirements>
+		<Argument name="Amount">-4</Argument>
+		<Argument name="StackPercent">100</Argument>
+		<String context="Preview">LOC_KEYWORD_ABILITY_FEAR_PREVIEW</String>
+	</Modifier>
+	<Modifier id="FLEET_COMMANDER_MOD_ADJUST_PACKED_MOVEMENT" collection="COLLECTION_OWNER" effect="EFFECT_ARMY_ADJUST_MOVEMENT_RATE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_HAS_PACKED_UNITS">
+				<Argument name="CountCombatUnits">true</Argument>
+				<Argument name="CountNonCombatUnits">true</Argument>
+				<Argument name="Amount">1</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="FLOODPLAIN_COMBAT_MOD_ADJUST_UNIT_COMBAT_STRENGTH_MODIFIER" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements type="REQUIREMENTSET_TEST_ANY">
+			<Requirement type="REQUIREMENT_PLOT_FEATURE_TYPE_MATCHES">
+				<Argument name="FeatureClassType">FEATURE_CLASS_FLOODPLAIN</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">4</Argument>
+		<String context="Preview">LOC_ABILITY_FLOODPLAIN_COMBAT_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="INDEPENDENT_COMBAT_MAJOR_MOD_ADJUST_UNIT_COMBAT_STRENGTH_MODIFIER" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_IS_MINOR_CIV"/>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_ABILITY_INDEPENDENT_COMBAT_MAJOR_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="INDEPENDENT_COMBAT_MINOR_MOD_ADJUST_UNIT_COMBAT_STRENGTH_MODIFIER" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_IS_INDEPENDENT"/>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_ABILITY_INDEPENDENT_COMBAT_MINOR_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="INDEPENDENT_COMBAT_MINOR_PENALTY_MOD_ADJUST_UNIT_COMBAT_STRENGTH_MODIFIER" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_IS_INDEPENDENT"/>
+		</SubjectRequirements>
+		<Argument name="Amount">-6</Argument>
+		<String context="Preview">LOC_ABILITY_INDEPENDENT_COMBAT_MINOR_PENALTY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="ATTRIBUTE_MILITARISTIC_12_MOD_ADJUST_UNIT_COMBAT_VS_DISTRICTS" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_DISTRICT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_TREE_ATTRIBUTE_MILITARISTIC</String>
+	</Modifier>
+	<Modifier id="POISON_MOD_ADJUST_UNIT_COMBAT_STRENGTH_MODIFIER" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_DAMAGE_MINIMUM">
+				<Argument name="MinimumAmount">1</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_KEYWORD_ABILITY_POISON_SUMMARY</String>
+	</Modifier>
+	<Modifier id="SKIRMISH_MOD_ADJUST_UNIT_FLANKING_BONUS" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_FLANKING_ATTACK_MODIFIER">
+		<Argument name="Percent">50</Argument>
+	</Modifier>
+	<Modifier id="SWIFT_MOD_UNIT_IGNORE_ZOC" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_IGNORE_ZOC">
+		<Argument name="Ignore">true</Argument>
+	</Modifier>
+	<Modifier id="UNIT_HIDDEN_VISIBILITY" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_HIDDEN_VISIBILITY">
+		<Argument name="Hidden">true</Argument>
+	</Modifier>
+	<Modifier id="VEGETATION_STEALTH_MOD_ADJUST_UNIT_HIDDEN_VISIBILITY" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_HIDDEN_VISIBILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_FEATURE_TYPE_MATCHES">
+				<Argument name="FeatureClassType">FEATURE_CLASS_VEGETATED</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Hidden">true</Argument>
+		<String context="Preview">LOC_ABILITY_VEGETATED_STEALTH_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_SIEGE_VULNERABILITY" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING" inverse="true"/>
+		</SubjectRequirements>
+		<String context="Preview">LOC_ABILITY_SIEGE_VULNERABILITY_PREVIEW</String>
+	</Modifier>
+	<!-- Tradiiton Unit Abilites -->
+	<Modifier id="ATASSA_MOD_RANGED_DEFENSE_MODIFIER" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING" inverse="true">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">4</Argument>
+		<String context="Preview">LOC_TRADITION_ATASSA_PREVIEW</String>
+	</Modifier>
+	<Modifier id="SAHANSAH_MOD_COMBAT_STRENGTH_ENEMY_TERRITORY" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_IN_ENEMY_TERRITORY"/>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_TRADITION_SHAHANSHAH_PREVIEW</String>
+	</Modifier>
+	<!-- Espionage -->
+	<Modifier id="ESPIONAGE_MOD_MILITARY_SABOTAGE" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">-3</Argument>
+		<String context="Preview">LOC_ABILITY_ESPIONAGE_MILITARY_SABOTAGE_PREVIEW</String>
+	</Modifier>
+	<!-- This modifier does nothing but give the unit ability. The effect takes place in game core if the unit has the ability -->
+	<Modifier id="MOD_PILLAGE_XP" collection="COLLECTION_OWNER" effect="EFFECT_DO_NOTHING">
+	</Modifier>
+	<Modifier id="AREA_DAMAGE_MOD_GRANT_ABILITY_CHARGE" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_UNIT_ABILITY_CHARGE" permanent="true">
+		<Argument name="ChargedAbilityType">CHARGED_ABILITY_AREA_DAMAGE</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="SECOND_WIND_CHARGE_MOD" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_UNIT_ABILITY_CHARGE" permanent="true">
+		<Argument name="ChargedAbilityType">CHARGED_ABILITY_GRANT_SECOND_WIND</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="COMMANDER_ATTACK_CHARGE_MOD" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_UNIT_ABILITY_CHARGE" permanent="true">
+		<Argument name="ChargedAbilityType">CHARGED_ABILITY_COMMANDER_ATTACK</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="SCALING_COMMANDER_ATTACK_CHARGE_MOD" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_UNIT_ABILITY_CHARGE" permanent="true">
+		<Argument name="ChargedAbilityType">CHARGED_ABILITY_SCALING_COMMANDER_ATTACK</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="MOD_ADJUST_UNIT_SEE_HIDDEN" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_SEE_HIDDEN" permanent="true">
+		<Argument name="SeeHidden">true</Argument>
+	</Modifier>
+</GameEffects>

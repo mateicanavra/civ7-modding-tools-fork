@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+
+	<!-- VICTORY REQUIREMENTS -->
+	<!-- Miltary (Modern) Victory -->
+	<RequirementSet id="REQSET_VICTORY_MODERN_MILITARY">
+		<Requirement type="REQUIREMENT_COLLECTION_ANY_MET">
+			<Argument name="CollectionType">COLLECTION_TEAM_PLAYERS</Argument>
+			<Argument name="RequirementSetId">REQSET_VICTORY_MODERN_MILITARY_OPERATION_IVY_COMPLETE</Argument>
+		</Requirement>
+	</RequirementSet>
+
+	<RequirementSet id="REQSET_VICTORY_MODERN_MILITARY_OPERATION_IVY_COMPLETE">
+		<Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_PROJECT">
+			<Argument name="ProjectType">PROJECT_OPERATION_IVY</Argument>
+		</Requirement>
+	</RequirementSet>
+
+	<!-- Economic (Modern) Victory -->
+	<RequirementSet id="REQSET_VICTORY_MODERN_ECONOMIC">
+		<Requirement type="REQUIREMENT_COLLECTION_ANY_MET">
+			<Argument name="CollectionType">COLLECTION_TEAM_PLAYERS</Argument>
+			<Argument name="RequirementSetId">REQSET_VICTORY_MODERN_ECONOMIC_WORLD_BANKS_ESTABLISHED</Argument>
+		</Requirement>
+	</RequirementSet>
+
+	<RequirementSet id="REQSET_VICTORY_MODERN_ECONOMIC_WORLD_BANKS_ESTABLISHED">
+		<Requirement type="REQUIREMENT_PLAYER_HAS_VICTORY_POINTS_FOR_TYPE">
+			<Argument name="GreatPersonIndividual">GREAT_PERSON_INDIVIDUAL_VICTORY_JOHN_MAYNARD_KEYNES</Argument>
+			<Argument name="VictoryType">VICTORY_MODERN_ECONOMIC</Argument>
+			<Argument name="Points">1</Argument>
+			<Argument name="OtherAliveMajors">true</Argument>
+		</Requirement>
+	</RequirementSet>
+
+	<!-- Culture (Modern) Victory -->
+	<RequirementSet id="REQSET_VICTORY_MODERN_CULTURE">
+		<Requirement type="REQUIREMENT_COLLECTION_ANY_MET">
+			<Argument name="CollectionType">COLLECTION_TEAM_PLAYERS</Argument>
+			<Argument name="RequirementSetId">REQSET_VICTORY_MODERN_CULTURE_WORLDS_FAIR_CONSTRUCTED</Argument>
+		</Requirement>
+	</RequirementSet>
+
+	<RequirementSet id="REQSET_VICTORY_MODERN_CULTURE_WORLDS_FAIR_CONSTRUCTED">
+		<Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_BUILDINGS">
+			<Argument name="BuildingType">WONDER_WORLDS_FAIR</Argument>
+			<Argument name="Amount">1</Argument>
+		</Requirement>
+	</RequirementSet>
+
+	<!-- Science (Modern) Victory -->
+	<RequirementSet id="REQSET_VICTORY_MODERN_SCIENCE">
+		<Requirement type="REQUIREMENT_COLLECTION_ANY_MET">
+			<Argument name="CollectionType">COLLECTION_TEAM_PLAYERS</Argument>
+			<Argument name="RequirementSetId">REQSET_VICTORY_MODERN_SCIENCE_LAUNCH_ROCKET_COMPLETE</Argument>
+		</Requirement>
+	</RequirementSet>
+
+	<RequirementSet id="REQSET_VICTORY_MODERN_SCIENCE_LAUNCH_ROCKET_COMPLETE">
+		<Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_PROJECT">
+			<Argument name="ProjectType">PROJECT_LAUNCH_ROCKET</Argument>
+		</Requirement>
+	</RequirementSet>
+</GameEffects>

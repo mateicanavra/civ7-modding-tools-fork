@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<NarrativeDisplay_Civilizations>
+		<Row CivilizationType="CIVILIZATION_DAI_VIET" CivilizationImage="bg-panel-dai_viet.png"/>
+	</NarrativeDisplay_Civilizations>
+</Database>

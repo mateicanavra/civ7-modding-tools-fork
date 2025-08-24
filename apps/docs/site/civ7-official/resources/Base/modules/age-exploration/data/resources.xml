@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<Database>
+	<Types>
+		<!--ResourceClasses-->
+		<Row Type="RESOURCECLASS_TREASURE" Kind="KIND_RESOURCECLASS"/>
+	</Types>
+	<Resources>
+		<Update>
+			<Where ResourceType="RESOURCE_IVORY"/>
+			<Set ResourceClassType="RESOURCECLASS_BONUS"/>
+		</Update>
+		<Update>
+			<Where ResourceType="RESOURCE_FURS"/>
+			<Set ResourceClassType="RESOURCECLASS_TREASURE"/>
+		</Update>
+		<Update>
+			<Where ResourceType="RESOURCE_COCOA"/>
+			<Set ResourceClassType="RESOURCECLASS_TREASURE"/>
+		</Update>
+		<Update>
+			<Where ResourceType="RESOURCE_SPICES"/>
+			<Set ResourceClassType="RESOURCECLASS_TREASURE"/>
+		</Update>
+		<Update>
+			<Where ResourceType="RESOURCE_SUGAR"/>
+			<Set ResourceClassType="RESOURCECLASS_TREASURE"/>
+		</Update>
+		<Update>
+			<Where ResourceType="RESOURCE_TEA"/>
+			<Set ResourceClassType="RESOURCECLASS_TREASURE"/>
+		</Update>
+		<Update>
+			<Where ResourceType="RESOURCE_HORSES"/>
+			<Set ResourceClassType="RESOURCECLASS_TREASURE"/>
+		</Update>
+		<Update>
+			<Where ResourceType="RESOURCE_GOLD"/>
+			<Set ResourceClassType="RESOURCECLASS_TREASURE"/>
+		</Update>
+		<Update>
+			<Where ResourceType="RESOURCE_GOLD_DISTANT_LANDS"/>
+			<Set ResourceClassType="RESOURCECLASS_TREASURE"/>
+		</Update>
+		<Update>
+			<Where ResourceType="RESOURCE_SILVER"/>
+			<Set ResourceClassType="RESOURCECLASS_TREASURE"/>
+		</Update>
+		<Update>
+			<Where ResourceType="RESOURCE_SILVER_DISTANT_LANDS"/>
+			<Set ResourceClassType="RESOURCECLASS_TREASURE"/>
+		</Update>
+		<Update>
+			<Where ResourceType="RESOURCE_RUBIES"/>
+			<Set ResourceClassType="RESOURCECLASS_TREASURE"/>
+		</Update>
+	</Resources>
+	<ResourceClasses>
+		<Row ResourceClassType="RESOURCECLASS_TREASURE" Name="LOC_RESOURCECLASS_TREASURE_NAME" Description="LOC_RESOURCECLASS_TREASURE_DESCRIPTION" Assignable="false"/>
+	</ResourceClasses>
+	<ResourceClassApplicableLegacyPaths>
+		<Row ResourceClassType="RESOURCECLASS_TREASURE" LegacyPathType="LEGACY_PATH_EXPLORATION_ECONOMIC" MinimumPerMap="12"/>
+	</ResourceClassApplicableLegacyPaths>
+	<GameModifiers>
+		<Row ModifierId="MOD_CLOVES_CITY_FLAT_FOOD"/>
+		<Row ModifierId="MOD_CLOVES_CITY_GOLD"/>
+		<Row ModifierId="MOD_COTTON_CITY_FLAT_FOOD"/>
+		<Row ModifierId="MOD_COTTON_CITY_FLAT_PRODUCTION"/>
+		<Row ModifierId="MOD_DATES_CITY_FLAT_FOOD"/>
+		<Row ModifierId="MOD_DATES_CITY_FLAT_HAPPINESS"/>
+		<Row ModifierId="MOD_DYES_CITY_FLAT_HAPPINESS"/>
+		<Row ModifierId="MOD_FISH_CITY_FLAT_FOOD"/>
+		<Row ModifierId="MOD_FURS_FLAT_HAPPINESS"/>
+		<Row ModifierId="MOD_FURS_GOLDEN_AGE_GOLD"/>
+		<Row ModifierId="MOD_GOLD_BUILDING_PURCHASE_DISCOUNT"/>
+		<Row ModifierId="MOD_GYPSUM_HOMELAND_PRODUCTION"/>
+		<Row ModifierId="MOD_GYPSUM_DISTANT_LAND_PRODUCTION"/>
+		<Row ModifierId="MOD_HORSES_CAVALRY_COMBAT_STRENGTH"/>
+		<Row ModifierId="MOD_INCENSE_CITY_MISSIONARY_PRODUCTION"/>
+		<Row ModifierId="MOD_INCENSE_CITY_TEMPLE_PRODUCTION"/>
+		<Row ModifierId="MOD_IRON_INFANTRY_COMBAT_STRENGTH"/>
+		<Row ModifierId="MOD_IVORY_CITY_FLAT_PRODUCTION"/>
+		<Row ModifierId="MOD_IVORY_CITY_FLAT_HAPPINESS"/>
+		<Row ModifierId="MOD_JADE_CITY_GOLD"/>
+		<Row ModifierId="MOD_KAOLIN_HOMELAND_FOOD"/>
+		<Row ModifierId="MOD_KAOLIN_DISTANT_LAND_FOOD"/>
+		<Row ModifierId="MOD_MARBLE_DESERT_WONDER_PRODUCTION"/>
+		<Row ModifierId="MOD_MARBLE_GRASSLAND_WONDER_PRODUCTION"/>
+		<Row ModifierId="MOD_MARBLE_MARINE_WONDER_PRODUCTION"/>
+		<Row ModifierId="MOD_MARBLE_PLAINS_WONDER_PRODUCTION"/>
+		<Row ModifierId="MOD_MARBLE_TROPICAL_WONDER_PRODUCTION"/>
+		<Row ModifierId="MOD_MARBLE_TUNDRA_WONDER_PRODUCTION"/>
+		<Row ModifierId="MOD_NITER_SIEGE_AND_NAVAL_COMBAT_STRENGTH"/>
+		<Row ModifierId="MOD_PEARLS_HOMELAND_HAPPINESS"/>
+		<Row ModifierId="MOD_PEARLS_DISTANT_LAND_HAPPINESS"/>
+		<Row ModifierId="MOD_SILK_CITY_CULTURE"/>
+		<Row ModifierId="MOD_SILVER_UNIT_PURCHASE_DISCOUNT"/>
+		<Row ModifierId="MOD_TRUFFLES_UNIT_PRODUCTION"/>
+		<Row ModifierId="MOD_WHALES_CITY_FLAT_PRODUCTION"/>
+		<Row ModifierId="MOD_WINE_FLAT_HAPPINESS"/>
+		<Row ModifierId="MOD_WINE_GOLDEN_AGE_CULTURE"/>
+		<Row ModifierId="MOD_SPICES_HOMELAND_CULTURE"/>
+		<Row ModifierId="MOD_SPICES_DISTANT_LANDS_CULTURE"/>
+		<Row ModifierId="MOD_SPICES_HOMELAND_INFLUENCE"/>
+		<Row ModifierId="MOD_SPICES_DISTANT_LANDS_INFLUENCE"/>
+		<Row ModifierId="MOD_SUGAR_HOMELAND_FOOD"/>
+		<Row ModifierId="MOD_SUGAR_DISTANT_LANDS_FOOD"/>
+		<Row ModifierId="MOD_SUGAR_HOMELAND_HAPPINESS"/>
+		<Row ModifierId="MOD_SUGAR_DISTANT_LANDS_HAPPINESS"/>
+		<Row ModifierId="MOD_TEA_HOMELAND_PRODUCTION"/>
+		<Row ModifierId="MOD_TEA_DISTANT_LANDS_PRODUCTION"/>
+		<Row ModifierId="MOD_TEA_HOMELAND_SCIENCE"/>
+		<Row ModifierId="MOD_TEA_DISTANT_LANDS_SCIENCE"/>
+		<Row ModifierId="MOD_COCOA_HOMELAND_TOWN_HAPPINESS"/>
+		<Row ModifierId="MOD_COCOA_DISTANT_LAND_TOWN_HAPPINESS"/>
+	</GameModifiers>
+	<TradeYields>
+		<Row Domain="DOMAIN_LAND" ResourceCount="1" YieldType="YIELD_GOLD" Amount="3"/>
+		<Row Domain="DOMAIN_LAND" ResourceCount="2" YieldType="YIELD_GOLD" Amount="6"/>
+		<Row Domain="DOMAIN_LAND" ResourceCount="3" YieldType="YIELD_GOLD" Amount="9"/>
+		<Row Domain="DOMAIN_SEA" ResourceCount="1" YieldType="YIELD_GOLD" Amount="6"/>
+		<Row Domain="DOMAIN_SEA" ResourceCount="2" YieldType="YIELD_GOLD" Amount="12"/>
+		<Row Domain="DOMAIN_SEA" ResourceCount="3" YieldType="YIELD_GOLD" Amount="18"/>
+	</TradeYields>
+	<ModifierMetadatas>
+		<Row ModifierId="MOD_CLOVES_CITY_FLAT_FOOD" FieldName="ResourceType" String="RESOURCE_CLOVES"/>
+		<Row ModifierId="MOD_CLOVES_CITY_GOLD" FieldName="ResourceType" String="RESOURCE_CLOVES"/>
+		<Row ModifierId="MOD_COTTON_CITY_FLAT_FOOD" FieldName="ResourceType" String="RESOURCE_COTTON"/>
+		<Row ModifierId="MOD_COTTON_CITY_FLAT_PRODUCTION" FieldName="ResourceType" String="RESOURCE_COTTON"/>
+		<Row ModifierId="MOD_DATES_CITY_FLAT_FOOD" FieldName="ResourceType" String="RESOURCE_DATES"/>
+		<Row ModifierId="MOD_DATES_CITY_FLAT_HAPPINESS" FieldName="ResourceType" String="RESOURCE_DATES"/>
+		<Row ModifierId="MOD_DYES_CITY_FLAT_HAPPINESS" FieldName="ResourceType" String="RESOURCE_DYES"/>
+		<Row ModifierId="MOD_FISH_CITY_FLAT_FOOD" FieldName="ResourceType" String="RESOURCE_FISH"/>
+		<Row ModifierId="MOD_FURS_FLAT_HAPPINESS" FieldName="ResourceType" String="RESOURCE_FURS"/>
+		<Row ModifierId="MOD_FURS_GOLDEN_AGE_GOLD" FieldName="ResourceType" String="RESOURCE_FURS"/>
+		<Row ModifierId="MOD_GOLD_BUILDING_PURCHASE_DISCOUNT" FieldName="ResourceType" String="RESOURCE_GOLD"/>
+		<Row ModifierId="MOD_GYPSUM_HOMELAND_PRODUCTION" FieldName="ResourceType" String="RESOURCE_GYPSUM"/>
+		<Row ModifierId="MOD_GYPSUM_DISTANT_LAND_PRODUCTION" FieldName="ResourceType" String="RESOURCE_GYPSUM"/>
+		<Row ModifierId="MOD_HORSES_CAVALRY_COMBAT_STRENGTH" FieldName="ResourceType" String="RESOURCE_HORSES"/>
+		<Row ModifierId="MOD_INCENSE_CITY_MISSIONARY_PRODUCTION" FieldName="ResourceType" String="RESOURCE_INCENSE"/>
+		<Row ModifierId="MOD_INCENSE_CITY_TEMPLE_PRODUCTION" FieldName="ResourceType" String="RESOURCE_INCENSE"/>
+		<Row ModifierId="MOD_IRON_INFANTRY_COMBAT_STRENGTH" FieldName="ResourceType" String="RESOURCE_IRON"/>
+		<Row ModifierId="MOD_JADE_CITY_GOLD" FieldName="ResourceType" String="RESOURCE_JADE"/>
+		<Row ModifierId="MOD_IVORY_CITY_FLAT_PRODUCTION" FieldName="ResourceType" String="RESOURCE_IVORY"/>
+		<Row ModifierId="MOD_IVORY_CITY_FLAT_HAPPINESS" FieldName="ResourceType" String="RESOURCE_IVORY"/>
+		<Row ModifierId="MOD_KAOLIN_HOMELAND_FOOD" FieldName="ResourceType" String="RESOURCE_KAOLIN"/>
+		<Row ModifierId="MOD_KAOLIN_DISTANT_LAND_FOOD" FieldName="ResourceType" String="RESOURCE_KAOLIN"/>
+		<Row ModifierId="MOD_MARBLE_DESERT_WONDER_PRODUCTION" FieldName="ResourceType" String="RESOURCE_MARBLE"/>
+		<Row ModifierId="MOD_MARBLE_GRASSLAND_WONDER_PRODUCTION" FieldName="ResourceType" String="RESOURCE_MARBLE"/>
+		<Row ModifierId="MOD_MARBLE_MARINE_WONDER_PRODUCTION" FieldName="ResourceType" String="RESOURCE_MARBLE"/>
+		<Row ModifierId="MOD_MARBLE_PLAINS_WONDER_PRODUCTION" FieldName="ResourceType" String="RESOURCE_MARBLE"/>
+		<Row ModifierId="MOD_MARBLE_TROPICAL_WONDER_PRODUCTION" FieldName="ResourceType" String="RESOURCE_MARBLE"/>
+		<Row ModifierId="MOD_MARBLE_TUNDRA_WONDER_PRODUCTION" FieldName="ResourceType" String="RESOURCE_MARBLE"/>
+		<Row ModifierId="MOD_NITER_SIEGE_AND_NAVAL_COMBAT_STRENGTH" FieldName="ResourceType" String="RESOURCE_NITER"/>
+		<Row ModifierId="MOD_PEARLS_HOMELAND_HAPPINESS" FieldName="ResourceType" String="RESOURCE_PEARLS"/>
+		<Row ModifierId="MOD_PEARLS_DISTANT_LAND_HAPPINESS" FieldName="ResourceType" String="RESOURCE_PEARLS"/>
+		<Row ModifierId="MOD_SILK_CITY_CULTURE" FieldName="ResourceType" String="RESOURCE_SILK"/>
+		<Row ModifierId="MOD_SILVER_UNIT_PURCHASE_DISCOUNT" FieldName="ResourceType" String="RESOURCE_SILVER"/>
+		<Row ModifierId="MOD_TRUFFLES_UNIT_PRODUCTION" FieldName="ResourceType" String="RESOURCE_TRUFFLES"/>
+		<Row ModifierId="MOD_WHALES_CITY_FLAT_PRODUCTION" FieldName="ResourceType" String="RESOURCE_WHALES"/>
+		<Row ModifierId="MOD_WINE_FLAT_HAPPINESS" FieldName="ResourceType" String="RESOURCE_WINE"/>
+		<Row ModifierId="MOD_WINE_GOLDEN_AGE_CULTURE" FieldName="ResourceType" String="RESOURCE_WINE"/>
+		<Row ModifierId="MOD_SPICES_HOMELAND_CULTURE" FieldName="ResourceType" String="RESOURCE_SPICES"/>
+		<Row ModifierId="MOD_SPICES_DISTANT_LANDS_CULTURE" FieldName="ResourceType" String="RESOURCE_SPICES"/>
+		<Row ModifierId="MOD_SPICES_HOMELAND_INFLUENCE" FieldName="ResourceType" String="RESOURCE_SPICES"/>
+		<Row ModifierId="MOD_SPICES_DISTANT_LANDS_INFLUENCE" FieldName="ResourceType" String="RESOURCE_SPICES"/>
+		<Row ModifierId="MOD_SUGAR_HOMELAND_FOOD" FieldName="ResourceType" String="RESOURCE_SUGAR"/>
+		<Row ModifierId="MOD_SUGAR_DISTANT_LANDS_FOOD" FieldName="ResourceType" String="RESOURCE_SUGAR"/>
+		<Row ModifierId="MOD_SUGAR_HOMELAND_HAPPINESS" FieldName="ResourceType" String="RESOURCE_SUGAR"/>
+		<Row ModifierId="MOD_SUGAR_DISTANT_LANDS_HAPPINESS" FieldName="ResourceType" String="RESOURCE_SUGAR"/>
+		<Row ModifierId="MOD_TEA_HOMELAND_PRODUCTION" FieldName="ResourceType" String="RESOURCE_TEA"/>
+		<Row ModifierId="MOD_TEA_DISTANT_LANDS_PRODUCTION" FieldName="ResourceType" String="RESOURCE_TEA"/>
+		<Row ModifierId="MOD_TEA_HOMELAND_SCIENCE" FieldName="ResourceType" String="RESOURCE_TEA"/>
+		<Row ModifierId="MOD_TEA_DISTANT_LANDS_SCIENCE" FieldName="ResourceType" String="RESOURCE_TEA"/>
+		<Row ModifierId="MOD_COCOA_HOMELAND_TOWN_HAPPINESS" FieldName="ResourceType" String="RESOURCE_COCOA"/>
+		<Row ModifierId="MOD_COCOA_DISTANT_LAND_TOWN_HAPPINESS" FieldName="ResourceType" String="RESOURCE_COCOA"/>
+	</ModifierMetadatas>
+	<Pseudoyields>
+		<Row PseudoYieldType="PSEUDOYIELD_RESOURCE_UNIQUE" DefaultValue="50"/>
+	</Pseudoyields>
+</Database>

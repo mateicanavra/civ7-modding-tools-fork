@@ -1,0 +1,37 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-shapes' as shapes;
+@use '../../../core/ui/themes/default/baseColors.scss';
+
+//TODO: Cast this file into Nuclear Hellfire
+.screen-general-chooser {
+	position: absolute;
+	height: 100%;
+	width: 40%;
+	pointer-events: auto;
+
+	.fxs-close-button {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+
+	.primary-window {
+		flex: 1 1 auto;
+		display: flex;
+		justify-content: flex-start;
+		flex-direction: column;
+		height: 100%;
+		width: 100%;
+		pointer-events: auto;
+	}
+}
+
+.gen-chooser-content {
+	pointer-events: auto;
+}
+
+.gen-chooser-item {
+	display: flex;
+	margin-top: pixels(8);
+	pointer-events: auto;
+}

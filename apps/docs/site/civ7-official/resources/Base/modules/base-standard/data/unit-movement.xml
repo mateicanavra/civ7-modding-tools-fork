@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_EMBARKATION"/>
+	</Kinds>
+	<Types>
+		<Row Type="UNIT_EMBARKATION_INLAND_WATER" Kind="KIND_EMBARKATION"/>
+		<Row Type="UNIT_EMBARKATION_SHALLOW_WATER" Kind="KIND_EMBARKATION"/>
+		<Row Type="UNIT_EMBARKATION_DEEP_WATER" Kind="KIND_EMBARKATION"/>
+		<Row Type="UNIT_EMBARKATION_ROUGH_WATER" Kind="KIND_EMBARKATION"/>
+	</Types>
+	<UnitEmbarkationTypes>
+		<Row EmbarkationType="UNIT_EMBARKATION_INLAND_WATER" Name="LOC_UNIT_EMBARKATION_INLAND_WATER_NAME"/>
+		<Row EmbarkationType="UNIT_EMBARKATION_SHALLOW_WATER" Name="LOC_UNIT_EMBARKATION_SHALLOW_WATER_NAME"/>
+		<Row EmbarkationType="UNIT_EMBARKATION_DEEP_WATER" Name="LOC_UNIT_EMBARKATION_DEEP_WATER_NAME"/>
+		<Row EmbarkationType="UNIT_EMBARKATION_ROUGH_WATER" Name="LOC_UNIT_EMBARKATION_ROUGH_WATER_NAME"/>
+	</UnitEmbarkationTypes>
+	<EmbarkationValidTerrains>
+		<Row EmbarkationType="UNIT_EMBARKATION_INLAND_WATER" TerrainType="TERRAIN_NAVIGABLE_RIVER"/>
+		<Row EmbarkationType="UNIT_EMBARKATION_SHALLOW_WATER" TerrainType="TERRAIN_NAVIGABLE_RIVER"/>
+		<Row EmbarkationType="UNIT_EMBARKATION_SHALLOW_WATER" TerrainType="TERRAIN_COAST"/>
+		<Row EmbarkationType="UNIT_EMBARKATION_DEEP_WATER" TerrainType="TERRAIN_NAVIGABLE_RIVER"/>
+		<Row EmbarkationType="UNIT_EMBARKATION_DEEP_WATER" TerrainType="TERRAIN_COAST"/>
+		<Row EmbarkationType="UNIT_EMBARKATION_DEEP_WATER" TerrainType="TERRAIN_OCEAN"/>
+	</EmbarkationValidTerrains>
+	<UnitMovementClassObstacles>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" FeatureType="FEATURE_FOREST" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" FeatureType="FEATURE_MANGROVE" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" FeatureType="FEATURE_MARSH" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" FeatureType="FEATURE_RAINFOREST" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" FeatureType="FEATURE_SAGEBRUSH_STEPPE" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" FeatureType="FEATURE_SAVANNA_WOODLAND" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" FeatureType="FEATURE_TAIGA" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" FeatureType="FEATURE_TUNDRA_BOG" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" RiverType="RIVER_MINOR" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" RiverType="RIVER_NAVIGABLE" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" TerrainType="TERRAIN_HILL" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" TerrainType="TERRAIN_MOUNTAIN" Prohibited="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" ObstacleTag="OBSTACLE_EMBARKATION" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" FeatureType="FEATURE_FOREST" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" FeatureType="FEATURE_MANGROVE" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" FeatureType="FEATURE_MARSH" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" FeatureType="FEATURE_RAINFOREST" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" FeatureType="FEATURE_SAGEBRUSH_STEPPE" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" FeatureType="FEATURE_SAVANNA_WOODLAND" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" FeatureType="FEATURE_TAIGA" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" FeatureType="FEATURE_TUNDRA_BOG" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" RiverType="RIVER_MINOR" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" RiverType="RIVER_NAVIGABLE" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" TerrainType="TERRAIN_HILL" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" TerrainType="TERRAIN_MOUNTAIN" Prohibited="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_MOUNTED" ObstacleTag="OBSTACLE_EMBARKATION" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_RECON" FeatureType="FEATURE_MANGROVE" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_RECON" FeatureType="FEATURE_MARSH" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_RECON" FeatureType="FEATURE_TUNDRA_BOG" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_RECON" RiverType="RIVER_MINOR" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_RECON" RiverType="RIVER_NAVIGABLE" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_RECON" TerrainType="TERRAIN_MOUNTAIN" Prohibited="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_TRACKED" FeatureType="FEATURE_MANGROVE" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_TRACKED" FeatureType="FEATURE_MARSH" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_TRACKED" FeatureType="FEATURE_TUNDRA_BOG" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_TRACKED" RiverType="RIVER_MINOR" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_TRACKED" RiverType="RIVER_NAVIGABLE" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_TRACKED" TerrainType="TERRAIN_HILL" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_TRACKED" ObstacleTag="OBSTACLE_EMBARKATION" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_WHEELED" FeatureType="FEATURE_FOREST" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_WHEELED" FeatureType="FEATURE_MANGROVE" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_WHEELED" FeatureType="FEATURE_MARSH" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_WHEELED" FeatureType="FEATURE_RAINFOREST" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_WHEELED" FeatureType="FEATURE_SAGEBRUSH_STEPPE" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_WHEELED" FeatureType="FEATURE_SAVANNA_WOODLAND" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_WHEELED" FeatureType="FEATURE_TAIGA" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_WHEELED" FeatureType="FEATURE_TUNDRA_BOG" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_WHEELED" RiverType="RIVER_MINOR" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_WHEELED" RiverType="RIVER_NAVIGABLE" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_WHEELED" TerrainType="TERRAIN_HILL" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_WHEELED" ObstacleTag="OBSTACLE_EMBARKATION" EndsTurn="true"/>
+		<Row UnitMovementClass="UNIT_MOVEMENT_CLASS_WHEELED" TerrainType="TERRAIN_MOUNTAIN" Prohibited="true"/>
+	</UnitMovementClassObstacles>
+</Database>

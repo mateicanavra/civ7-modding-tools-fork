@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LeaderCivPriorities>
+		<Row Leader="LEADER_XERXES_ALT" Civilization="CIVILIZATION_ASSYRIA" Priority="2"/>
+	</LeaderCivPriorities>
+</Database>

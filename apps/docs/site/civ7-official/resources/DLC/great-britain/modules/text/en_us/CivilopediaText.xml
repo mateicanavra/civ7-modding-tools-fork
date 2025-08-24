@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- CIVILIZATION_GREAT_BRITAIN -->
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_1">
+			<Text>In 1800, the Act of Union joined the crowns of Ireland and Great Britain (which was already a union of Scotland, Wales, and England) to form the United Kingdom. This was the core of the Second British Empire, which emerged as an industrial power on the world stage, consolidating rule over colonial possessions in India and Africa, and remaining a potent player in European politics.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_2">
+			<Text>The wars against France were key to the United Kingdom's early history. These began as reactions against the French Revolution, as the U.K.'s monarchies regarded France as an existential threat. This menace evolved as Napoleon Bonaparte took control of the French Republic and created the First French Empire, embarking on a wave of European conquests. After Napoleon’s defeat, Britain came into its own.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_3">
+			<Text>Europe was devastated but Britain was untouched (and the undisputed master of the seas), and so became one of the key players in the later era of colonialism. At this time, the crown took over various trading companies, which were crippled by corruption, plagued by losses, and steadily acquiring a terrible reputation for provoking local conflict. While the British abolished slavery in their colonies and curbed the worst impulses of the trading companies, the tide of imperialism still rose. In Asia, the British staged a coup d’etat in the Malay state of Johor, which gave the British control over Singapore. In India, the East India Company was replaced by direct British rule, despite the threat of constant revolts in differing parts of the Raj (of which Tipu Sultan’s was one of the most famous). These two colonies acted as an opium pipeline to China – a deliberate British strategy to find a commodity the Chinese would buy as the Chinese had heretofore disdained British goods, seeking only silver. This led to the two Opium Wars (out of which Britain gained Hong Kong), which forced China's market to open.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_4">
+			<Text>In short, the British created a worldwide system – for the benefit of London. Nearly every continent in the world had British influence (South America largely excepted). Unlike the more war-inclined French, the British used a variety of means of domination. For instance, debt became a key tool; preying on rulers’ desire for finished goods, British merchants urged them to accrue immense debts and then those debts could be “paid” by allowing the British to “manage” the finances. This is how Malaya and Egypt fell to the British. Meanwhile, Central Asia was the site of the “Great Game,” a strategic rivalry against Russia for mastery of the region.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_5">
+			<Text>Interestingly, Britain debated getting involved in another war with the United States – the Civil War. The U.K. was closer economically to the South, depended on Southern cotton, and felt more comfortable with Southern aristocracy than the hard-headed Puritan descendants in the Northeast. However, the Emancipation Proclamation underlined that supporting the South meant supporting slavery, and even the British would not cross that line. At least, they wouldn’t by the 1860s.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_6">
+			<Text>Internally, Britain epitomized liberal economics, focusing on free trade and property rights. The specter of the French Revolution haunted Britain, so the various parties sought to placate populism by either taking a conciliatory line (Whigs) or a hostile line (Tories).</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_7">
+			<Text>The latter part of the 19th century housed Britain's Victorian era. This was a time of industrialization, literature, science, and philosophy, a quintessentially British time. As industrialization took over (William Blake’s “dark Satanic mills”), the British industrial class evolved. For one, factories regulated by the clock allowed home life to be separated from work life, which came with attendant gender roles. Another change was the expansion of psychological and other social sciences; the 20th-century notions of race and sexuality were profoundly shaped by this era. This was a world of steam power, of Charles Dickens and Sherlock Holmes, of the Brontë sisters and Dracula, of Jeeves and Wooster and Friedrich Engels, where middle-class respectability became codified and elevated.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_8">
+			<Text>In short, the British Empire had multiple faces – industry and politics at home, and blatant imperialism abroad. It was a period based around an unstoppable navy, a world order guaranteed by British force and the omnipresent threat of social upheaval. Conflict always seemed to be lurking in the background, but with the understanding that war would be profoundly different in this brave new world. Which it was.</Text>
+		</Row>
+		<!--Constructibles-->
+		<Row Tag="LOC_PEDIA_PAGE_QUARTER_FINANCIAL_CENTRE_CHAPTER_HISTORY_PARA_1">
+			<Text>The British Empire’s dominance was largely built upon economics and trade, which in turn required significant financial infrastructure within the metropole. By the mid-19th century, London had become the world’s financial hub, and over half of all global trade took place in pounds sterling. Production and finances went hand in hand: Britain’s manufactories, transforming colonial resources into finished goods, fed from and fueled trade routes powered by the Royal Exchange. At its zenith, the system empowered the British to take direct control over the finances of individual colonies through the leverage of debt. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_BUILDING_ROYAL_EXCHANGE_CHAPTER_HISTORY_PARA_1">
+			<Text>The British Empire was built upon the stock exchange; it was on the networks of commerce that British power radiated forth. The Royal Exchange was opened in 1571 by Queen Elizabeth I, who was later to give a royal charter to the East India Company. By the Victorian era, the networks of British trade were moving tea, spices, porcelain, and fine cloths from one corner of the world to the other, and in so doing reshaped not only the colonies, but also British middle-class life. And the Royal Exchange was the nerve center of this network – it is not a coincidence that proclamations such as the confirmation of a new monarch are announced to the public in front of the Exchange.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_BUILDING_ROYAL_EXCHANGE_CHAPTER_HISTORY_PARA_2">
+			<Text>The building itself is not the same as Elizabeth’s. The Exchange twice burned down, and the current building was opened in 1844 by Queen Victoria. It is today, however, not a stock exchange, but a shopping mall – a statement, perhaps, on how things both change and remain constant. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_BUILDING_MANUFACTORY_CHAPTER_HISTORY_PARA_1">
+			<Text>The utter transformation of English society in the 19th century as a result of the Industrial Revolution cannot be overstated. Whereas an activity such as weaving had in previous centuries been done in the countryside in large family homesteads, now, if a wealthy investor bought spinning and twisting machinery, he could rapidly outproduce any home industry. These machines needed steel and coal, and so these industries too began to rise. The operation of machines also required a workforce, preferably low-wage and unskilled, inducing people to move en masse from the countryside to the city. As these workers were paid wages and had no land to work, they needed more commodities, produced by the factories in which they worked. And as these machines needed more and more raw materials, largely from Britain’s colonies, colonial control grew tighter and tighter. It was a system that squeezed what it could from workers, colonial subjects, and the land itself, and yielded massive quantities of product and profit. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_BUILDING_MANUFACTORY_CHAPTER_HISTORY_PARA_2">
+			<Text>Charles Dickens charted the everyday lives of British citizens within this system and pointed to the remnants of humanity that persisted despite it. Friedrich Engels charted its cruel excesses, noting how the health and happiness in factory towns was far below what it was in the country – but, of course, the country was rapidly disappearing. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_BUILDING_MANUFACTORY_CHAPTER_HISTORY_PARA_3">
+			<Text>Here, then, is the manufactory: the “dark Satanic mill” of William Blake’s imagination. It belches smoke and steam and reshapes the land, but just look at how much money it can make!</Text>
+		</Row>
+		<!--Civics-->
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_GREAT_BRITAIN_PAX_BRITANNICA_CHAPTER_HISTORY_PARA_1">
+			<Text>With the fall of Napoleon, Britain ruled the waves. In the century that followed, no other power gained significant advantage over the British when it came to sea routes, and as the era of high colonialism was fully in sway, this meant all would-be intercontinental empires were subject to British sea power. The name given to this era, Pax Britannica, reflects similar conditions elsewhere, when a single empire controls a network of trade and communication, fostering peace…albeit under a single ordered rule. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_GREAT_BRITAIN_PAX_BRITANNICA_CHAPTER_HISTORY_PARA_2">
+			<Text>This domination lasted until the end of the 19th century, when the rise of the United States, Japan, and Germany set up new challengers to the British, and ultimately fell apart in the 20th century.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_GREAT_BRITAIN_SOCIETY_OF_ANTIQUARIES_CHAPTER_HISTORY_PARA_1">
+			<Text>As the modern era progressed, various empires developed an interest in the past. In Britain, the Society of Antiquaries was established in 1707 to discuss history, largely of Britain, amongst (nascent) archaeologists and other learned people. That this establishment should be necessary and novel might be easily overlooked; knowledge about the past and the idea that the past is necessarily something interesting have not always been present in England, as in many places, and the society reflected a growing awareness of the forces and stories that changed Britain over time. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_GREAT_BRITAIN_SOCIETY_OF_ANTIQUARIES_CHAPTER_HISTORY_PARA_2">
+			<Text>The Society is still present, and publishes various journals, both popular and scholarly.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_GREAT_BRITAIN_CHARTERED_COMPANIES_CHAPTER_HISTORY_PARA_1">
+			<Text>When we speak of colonialism, we often phrase the era as the conquest of one region by a power in another, with an ideology of superiority and with the purposes of extraction. But this is only partially true: colonial ventures were largely semi-private business ventures, established by a company that had been incorporated and given a charter by the crown. This focus on trade and profits underlines the purposes of such institutions – as opposed to direct imperial conquest, these ventures were established to make money.</Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_GREAT_BRITAIN_CHARTERED_COMPANIES_CHAPTER_HISTORY_PARA_2">
+			<Text>The East India Company, perhaps the most famous of the English chartered companies, was established well before the modern period. But as the EIC and other companies continued their operations, their monopolistic stance and rapacious practices (and the resistance that they brought about) caused the Crown to intervene, and the chartered companies of the modern era were more limited in scope, and subject to more intervention on the part of the state. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_GREAT_BRITAIN_SPLENDID_ISOLATION_CHAPTER_HISTORY_PARA_1">
+			<Text>In the period between the Napoleonic Wars and the 20th century, it was British policy to avoid entangling itself in permanent alliances with other powers. From a British perspective, this approach made a great deal of sense: their power at sea was unquestioned, but Europe remained a potentially messy tangle of alliances and rivalries, and the English Channel presented a natural barrier to any direct assault. From there, Britain could look upon Europe, secure in its strength, in splendid isolation, although the lack of close allies eventually drove British interests back to standard diplomacy.</Text>
+		</Row>
+		<!-- WONDER_BATTERSEA_POWER_STATION -->
+		<Row Tag="LOC_PEDIA_PAGE_WONDER_BATTERSEA_POWER_STATION_CHAPTER_HISTORY_PARA_1">
+			<Text>In 1929, work began on a coal-fired power station in Battersea, London, on the north bank of the Thames. Designed by Theo J. Halliday and Giles Gilbert Scott (who was also responsible for Britain’s famous red phone box), the Art Deco structure was fashioned to hold two power stations in a single building. By the time of its completion in 1955, Battersea Power Station was one of the largest brick buildings in the world. Smoke from its 101-meter chimneys provided directional guidance for pilots during WWII, and the building appeared on the cover of Pink Floyd’s 1977 album “Animals.” Battersea Power Station did not run for long – its stations were decommissioned separately in 1975 and 1983. After sitting empty for over 30 years, the landmark has recently found new life as a shopping and residential center. </Text>
+		</Row>
+		<!-- UNIQUE_CIVILIAN-->
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_ANTIQUARIAN_CHAPTER_HISTORY_PARA_1">
+			<Text>The understanding of the past as a place both different from but sharing some link to the present, and an interest in collecting information about and objects from that past, has existed in places as disparate as ancient Egypt to Song-era China. But the Enlightenment and later eras in Europe provided a particularly rich ground – Europeans first delved into classical history; then, during the 18th century obsession with nationalism and national origins, European prehistory; and finally, during the high colonial era, Europeans obsessed themselves with the past of their new “possessions.” </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_ANTIQUARIAN_CHAPTER_HISTORY_PARA_2">
+			<Text>Here, names like Heinrich Schliemann, who excavated Troy; Flinders Petrie, who examined the Great Pyramid; Howard Carter, who opened the tomb of Tutankhamun; and others come to mind. These discoveries fueled a boom in the late 19th and early 20th century in Britain for all things of the ancient world. The figure of the antiquarian lies here: a collector of things and a curator of interest in the past.  </Text>
+		</Row>
+		<!-- UNIQUE_UNIT-->
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_REVENGE_CHAPTER_HISTORY_PARA_1">
+			<Text>In the first years of the 20th century, as militaries began to embrace the destructive potential of mechanized warfare, dreadnoughts hit the water. These were ships that relied upon large long-range guns, and would both dominate naval battle in World War II and see their power superseded by aircraft in the same conflict. </Text>
+		</Row>
+		<Row Tag="LOC_PEDIA_PAGE_UNIT_REVENGE_CHAPTER_HISTORY_PARA_2">
+			<Text>The Revenge class of British warships had eight 15-inch guns mounted on four turrets, a secondary battery along the side of the ship, and platforms for early fighter and reconnaissance aircraft. They saw brief battle in World War I, but primarily saw service in the interwar years; by World War II they were eventually phased out in favor of more modern ships. </Text>
+		</Row>
+	</EnglishText>
+</Database>
+				

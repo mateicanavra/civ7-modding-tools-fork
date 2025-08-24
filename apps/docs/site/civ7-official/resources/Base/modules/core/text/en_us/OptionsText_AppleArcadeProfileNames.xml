@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<!-- Delete existing strings/translations for the given keys.-->
+	<LocalizedText>
+		<Delete Tag="LOC_OPTIONS_GFX_PROFILE_LOW" />
+		<Delete Tag="LOC_OPTIONS_GFX_PROFILE_HIGH" />
+	</LocalizedText>
+
+	<!-- Define platform-specific overrides. -->
+	<EnglishText>
+		<Row Tag="LOC_OPTIONS_GFX_PROFILE_BATTERY">
+			<Text>Battery</Text>
+		</Row>
+		<Row Tag="LOC_OPTIONS_GFX_PROFILE_QUALITY">
+			<Text>Quality</Text>
+		</Row>
+
+		<Replace Tag="LOC_OPTIONS_GFX_PROFILE_LOW">
+			<Text>{LOC_OPTIONS_GFX_PROFILE_BATTERY}</Text>
+		</Replace>
+		<Replace Tag="LOC_OPTIONS_GFX_PROFILE_HIGH">
+			<Text>{LOC_OPTIONS_GFX_PROFILE_QUALITY}</Text>
+		</Replace>
+	</EnglishText>
+</Database>

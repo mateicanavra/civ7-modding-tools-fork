@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==================================================	-->
+	<!--	Unique Abilities							-->
+	<!-- ==================================================	-->
+	<!--Carthage-->
+	<Modifier id="NUMIDIAN_CAVALRY_MOD_COMBAT_PER_CAPITAL_RESOURCE" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_RESOURCE_DAMAGE">
+		<Argument name="Amount">1</Argument>
+		<Argument name="ResourceClassType">RESOURCECLASS_CITY</Argument>
+	</Modifier>
+	<Modifier id="COLONIST_MOD_EMBARKED_MOVEMENT" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_EMBARKED_MOVEMENT">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+</GameEffects>

@@ -1,0 +1,38 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+@use '../../../core/ui/utilities/utility-shapes' as shapes;
+
+// TODO: Different animation sets based on the type of text sent through (heal vs damange).  Requires gamecore to pass some type of "category" value.
+
+@keyframes floatWorldAnchorText {
+	0% {
+		transform: translateX(-50%) translateY(pixels(0)) scale(0.5);
+		opacity: 0;
+	}
+
+	10% {
+		opacity: 1;
+	}
+
+	15% {
+		transform: translateX(-50%) translateY(pixels(-48)) scale(1.0);
+	}
+
+	80% {
+		transform: translateX(-50%) translateY(pixels(-64)) scale(1.0);
+		opacity: 1;
+	}
+
+	100% {
+		transform: translateX(-50%) translateY(pixels(-80)) scale(1.0);
+		opacity: 0;
+	}
+}
+
+// Offsets from container, actual moving text
+.world-anchor-text {
+	font-weight: 700;
+	animation-name: floatWorldAnchorText;
+	animation-timing-function: cubic-bezier(0.455, 0.030, 0.515, 0.955), linear;
+	animation-duration: 7s, 7s;
+}

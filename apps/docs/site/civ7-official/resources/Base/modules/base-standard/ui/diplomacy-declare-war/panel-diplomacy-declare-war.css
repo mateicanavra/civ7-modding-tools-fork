@@ -1,0 +1,41 @@
+/* DO NOT EDIT */
+/* Generated from panel-diplomacy-declare-war.scss */
+.declare-war {
+	border-image-source: url("fs://game/dip_modal_bg.png");
+	border-image-slice: 26 40 62 40 fill;
+	border-image-width: 1.4444444444rem 2.2222222222rem 3.4444444444rem 2.2222222222rem;
+	border-image-outset: 0.3888888889rem 1.1111111111rem 2.2222222222rem 1.1111111111rem;
+	max-width: 38.6666666667rem;
+}
+@media (max-height: 40rem) {
+	.declare-war {
+		max-width: 38.6666666667rem;
+	}
+}
+
+.screen-dialog-box__declare-war-shield-bg {
+	background-image: url("fs://game/dip_warshield_big.png");
+}
+
+.panel-diplomacy-declare-war__custom-header {
+	border-image-source: url("fs://game/shell_small-filigree.png");
+	border-image-width: 0 0 20 0;
+	border-image-outset: 0 20 0;
+}
+
+.screen-dialog-box__declare-war fxs-header {
+	fxs-font-gradient-color: #e5d2ac;
+}
+
+/*
+.panel-diplomacy-declare-war__war-icon-wrapper {
+	background-image: url("fs://game/radial_highlight.png");
+	fxs-background-image-tint: theme.color("positive");
+} */
+.panel-diplomacy-declare-war__radial-bg {
+	background-image: url("fs://game/hud_sub_circle_bk.png");
+}
+
+.panel-diplomacy-declare-war__radial-bg-hover {
+	background-image: url("fs://game/hud_sub_circle_hov.png");
+}

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<!--Civ Unique Military-->
+		<Row Type="UNIT_GURKHA" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_GURKHA_2" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_GURKHA_3" Kind="KIND_UNIT"/>
+		<!--Civ Unique Civilian-->
+		<Row Type="UNIT_SHERPA" Kind="KIND_UNIT"/>
+		<!--Civ Unique Abilities-->
+		<Row Type="ABILITY_GURKHA" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_SHERPA" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_CLAIM_MOUNTAIN" Kind="KIND_ABILITY"/>
+	</Types>
+	<Units>
+		<!--Civ Unique Military-->
+		<Row UnitType="UNIT_GURKHA" Name="LOC_UNIT_GURKHA_NAME" Description="LOC_UNIT_GURKHA_DESCRIPTION" Tier="1" Maintenance="4" BaseMoves="3" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_NEPAL"/>
+		<Row UnitType="UNIT_GURKHA_2" Name="LOC_UNIT_GURKHA_NAME" Description="LOC_UNIT_GURKHA_2_DESCRIPTION" Tier="2" Maintenance="4" BaseMoves="3" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_NEPAL"/>
+		<Row UnitType="UNIT_GURKHA_3" Name="LOC_UNIT_GURKHA_NAME" Description="LOC_UNIT_GURKHA_3_DESCRIPTION" Tier="3" Maintenance="5" BaseMoves="3" BaseSightRange="2" ZoneOfControl="true" Domain="DOMAIN_LAND" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" TraitType="TRAIT_NEPAL"/>
+		<!--Civ Unique Civilian-->
+		<Row UnitType="UNIT_SHERPA" Name="LOC_UNIT_SHERPA_NAME" Description="LOC_UNIT_SHERPA_DESCRIPTION" BaseSightRange="2" BaseMoves="2" UnitMovementClass="UNIT_MOVEMENT_CLASS_RECON" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_RECON" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" TraitType="TRAIT_NEPAL"/>
+	</Units>
+	<Unit_Stats>
+		<!--Civ Unique Military-->
+		<Row UnitType="UNIT_GURKHA" Combat="55"/>
+		<Row UnitType="UNIT_GURKHA_2" Combat="60"/>
+		<Row UnitType="UNIT_GURKHA_3" Combat="65"/>
+		<!--Civ Unique Civilian-->
+		<Row UnitType="UNIT_SHERPA"/>
+	</Unit_Stats>
+	<Unit_Costs>
+		<!--Civ Unique Military-->
+		<Row UnitType="UNIT_GURKHA" YieldType="YIELD_PRODUCTION" Cost="300"/>
+		<Row UnitType="UNIT_GURKHA_2" YieldType="YIELD_PRODUCTION" Cost="350"/>
+		<Row UnitType="UNIT_GURKHA_3" YieldType="YIELD_PRODUCTION" Cost="410"/>
+		<!--Civ Unique Civilian-->
+		<Row UnitType="UNIT_SHERPA" YieldType="YIELD_PRODUCTION" Cost="30"/>
+	</Unit_Costs>
+	<UnitUpgrades>
+		<!--Civ Unique Military-->
+		<Row Unit="UNIT_GURKHA" UpgradeUnit="UNIT_GURKHA_2"/>
+		<Row Unit="UNIT_GURKHA_2" UpgradeUnit="UNIT_GURKHA_3"/>
+	</UnitUpgrades>
+	<UnitReplaces>
+		<!--Civ Unique Military-->
+		<Row CivUniqueUnitType="UNIT_GURKHA" ReplacesUnitType="UNIT_LINE_INFANTRY"/>
+		<Row CivUniqueUnitType="UNIT_GURKHA_2" ReplacesUnitType="UNIT_RIFLEMAN"/>
+		<Row CivUniqueUnitType="UNIT_GURKHA_3" ReplacesUnitType="UNIT_INFANTRY_COMPANY"/>
+		<!--Civ Unique Civilian-->
+		<Row CivUniqueUnitType="UNIT_SHERPA" ReplacesUnitType="UNIT_SCOUT"/>
+	</UnitReplaces>
+	<Tags>
+		<!--Civ Unique Military-->
+		<Row Tag="UNIT_CLASS_GURKHA" Category="UNIT_CLASS"/>
+		<!--Civ Unique Civilian-->
+		<Row Tag="UNIT_CLASS_SHERPA" Category="UNIT_CLASS"/>
+	</Tags>
+	<TypeTags>
+		<!--Civ Unique Military-->
+		<Row Type="UNIT_GURKHA" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_GURKHA" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_GURKHA" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_GURKHA" Tag="UNIT_CLASS_GURKHA"/>
+		<Row Type="UNIT_GURKHA_2" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_GURKHA_2" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_GURKHA_2" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_GURKHA_2" Tag="UNIT_CLASS_GURKHA"/>
+		<Row Type="UNIT_GURKHA_3" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_GURKHA_3" Tag="UNIT_CLASS_MELEE"/>
+		<Row Type="UNIT_GURKHA_3" Tag="UNIT_CLASS_INFANTRY"/>
+		<Row Type="UNIT_GURKHA_3" Tag="UNIT_CLASS_GURKHA"/>
+		<Row Type="UNIT_GURKHA_3" Tag="UNIT_CLASS_ELITE_INFANTRY"/>
+		<!--Civ Unique Civilian-->
+		<Row Type="UNIT_SHERPA" Tag="UNIT_CLASS_SHERPA"/>
+		<Row Type="UNIT_SHERPA" Tag="UNIT_CLASS_NON_COMBAT"/>
+		<Row Type="UNIT_SHERPA" Tag="UNIT_CLASS_RECON"/>
+		<Row Type="UNIT_SHERPA" Tag="UNIT_CLASS_RECON_ABILITIES"/>
+		<Row Type="UNIT_SHERPA" Tag="UNIT_CLASS_AUTOEXPLORE"/>
+		<Row Type="UNIT_SHERPA" Tag="UNIT_CLASS_INFLUENCE_INDEPENDENT"/>
+		<Row Type="UNIT_SHERPA" Tag="UNIT_CLASS_PET_THE_DOG"/>
+	</TypeTags>
+	<UnitClass_Abilities>
+		<Row UnitAbilityType="ABILITY_GURKHA" UnitClassType="UNIT_CLASS_GURKHA"/>
+		<Row UnitAbilityType="ABILITY_SHERPA" UnitClassType="UNIT_CLASS_SHERPA"/>
+		<Row UnitAbilityType="ABILITY_CLAIM_MOUNTAIN" UnitClassType="UNIT_CLASS_SHERPA"/>
+	</UnitClass_Abilities>
+	<UnitAbilities>
+		<!--Unique-->
+		<Row UnitAbilityType="ABILITY_GURKHA" Name="LOC_UNIT_GURKHA_NAME" Description="LOC_ABILITY_GURKHA_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_SHERPA" Name="LOC_UNIT_SHERPA_NAME" Description="LOC_ABILITY_SHERPA_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_CLAIM_MOUNTAIN" Name="LOC_UNIT_SHERPA_UNLOCK_NAME" Description="LOC_ABILITY_SHERPA_UNLOCK_DESCRIPTION" Inactive="true"/>
+	</UnitAbilities>
+	<UnitAbilityModifiers>
+		<Row UnitAbilityType="ABILITY_SHERPA" ModifierId="SHERPA_MOD_MOVE_TERRAIN"/>
+		<Row UnitAbilityType="ABILITY_SHERPA" ModifierId="SHERPA_MOD_SEE_TERRAIN"/>
+		<Row UnitAbilityType="ABILITY_SHERPA" ModifierId="SHERPA_MOD_MOVE_EVEREST"/>
+		<Row UnitAbilityType="ABILITY_CLAIM_MOUNTAIN" ModifierId="SHERPA_MOD_GRANT_ABILITY_CHARGE"/>
+	</UnitAbilityModifiers>
+	<ChargedUnitAbilities>
+		<Row UnitAbilityType="CHARGED_ABILITY_CLAIM_MOUNTAIN" RechargeTurns="5" ConstructibleType="IMPROVEMENT_HIGHLAND_POWER_STATION"/>
+	</ChargedUnitAbilities>
+	<AIUnitPrioritizedActions>
+		<Row UnitType="UNIT_SHERPA" CommandType="UNITCOMMAND_CLAIM_MOUNTAIN" ChargedUnitAbilityType="CHARGED_ABILITY_CLAIM_MOUNTAIN" />
+	</AIUnitPrioritizedActions>
+	<Unit_BuildConstructibles>
+		<Row UnitType="UNIT_SHERPA" ConstructibleType="IMPROVEMENT_HIGHLAND_POWER_STATION"/>
+	</Unit_BuildConstructibles>
+</Database>

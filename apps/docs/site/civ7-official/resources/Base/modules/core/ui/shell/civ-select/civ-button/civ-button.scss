@@ -1,0 +1,45 @@
+@use '../../../utilities/utility-layout' as *;
+@use '../../../../../core/ui/utilities/utility-shapes' as shapes;
+@use '../../../themes/default/_baseColors.scss';
+@use '../../../themes/default/_animations.scss';
+
+.civ-button-bg {
+	border-image-source: url("fs://game/shell_thick-square.png");
+	border-image-slice: 16 fill;
+	border-image-width: pixels(16);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	width: pixels(90);
+	height: pixels(90);
+	margin: pixels(10);
+
+	@media (max-height: pixels(1000)) {
+		margin: pixels(5);
+	}
+}
+
+.civ-button-icon {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	filter: fxs-color-mask(white);
+}
+
+.civ-button-bg-focus {
+	border-image-source: url("fs://game/shell_thick-square-focus.png");
+
+	.civ-button-icon {
+		filter: fxs-color-mask(black);
+	}
+}
+
+.civ-button-lock-icon {
+	display: none;
+}
+
+.civ-button-locked {
+	.civ-button-lock-icon {
+		display: inherit;
+	}
+}

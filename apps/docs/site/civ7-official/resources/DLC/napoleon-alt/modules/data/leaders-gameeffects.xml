@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==================================================	-->
+	<!-- Napoleon, Revolutionary -->
+	<!-- ==================================================	-->
+	<Modifier id="NAPOLEON_ALT_MOD_LAND_UNIT_MOVEMENT" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_TRAIT_LEADER_NAPOLEON_ALT_ABILITY_NAME</String>
+	</Modifier>
+	<Modifier id="NAPOLEON_ALT_MOD_CULTURE_ON_UNIT_DEFEAT" collection="COLLECTION_PLAYER_COMBAT" effect="EFFECT_ADJUST_UNIT_POST_COMBAT_YIELD">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="PercentDefeatedStrength">50</Argument>
+		<String context="Description">LOC_TRAIT_LEADER_NAPOLEON_ALT_ABILITY_NAME</String>
+		<String context="WorldText">LOC_WORLD_CULTURE_INCREASE_FLOATER</String>
+	</Modifier>
+	<Modifier id="NAPOLEON_ALT_MOD_AGENDA_CULTURE_FROM_CONQUEST" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_CULTURE_FROM_CONQUEST_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_CULTURE_FROM_CONQUEST_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_CULTURE_FROM_CONQUEST_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_ALLIANCES_AND_CULTURE</Argument>
+		<Argument name="FirstMeetDelay">10</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_FOR_EACH</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_NEG_AMT_SMALL</Argument>
+		<Argument name="Arg1">YIELD_CULTURE</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_HIGHEST</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_AMT_MEDIUM</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+</GameEffects>

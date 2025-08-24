@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="MEMENTO_FOUNDATION_SLING_BULLET_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="AttributeType">ATTRIBUTE_MILITARISTIC</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_FOUNDATION_EA_NASIR_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="AttributeType">ATTRIBUTE_ECONOMIC</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_FOUNDATION_TREATY_OF_KADESH_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="AttributeType">ATTRIBUTE_POLITICAL</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_FOUNDATION_GROMA_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="AttributeType">ATTRIBUTE_EXPANSIONIST</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_FOUNDATION_SHAKOKIDOGU_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="AttributeType">ATTRIBUTE_CULTURAL</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_FOUNDATION_ANTIKYTHERA_MECHANISM_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="AttributeType">ATTRIBUTE_SCIENTIFIC</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_FOUNDATION_SWORD_BRENNUS_MODIFIER_1" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_RETURNED_CITIES_BONUS">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">400</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_FOUNDATION_LYDIAN_LION_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD" permanent="true" run-once="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_GAME_IS_STARTED"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">200</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_FOUNDATION_IMAGO_MUNDI_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TYPE_MATCHES">
+				<Argument name="UnitType">UNIT_SCOUT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_SCOUT_RANGE_INCREASE</Argument>
+	</Modifier>
+
+	<Modifier id="MEMENTO_FOUNDATION_CORPUS_JURIS_CIVILIS_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_TRADITION_SLOTS" permanent="true">
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MEMENTO_FOUNDATION_CORPUS_JURIS_CIVILIS_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_FOUNDATION_TRAVELS_MARCO_POLO_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_EXPLORED_X_TILES">
+				<Argument name="Threshold">100</Argument>
+				<Argument name="Repeatable">true</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">50</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_FOUNDATION_EQUESTRIAN_FIGURE_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ARMY_ADJUST_RESPAWN_SPEED">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_COMMAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Percent">-50</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_FOUNDATION_POCHTECA_BACKPACK_MODIFIER_1" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_TRADE_ROUTE_RANGE">
+		<Argument name="Amount">5</Argument>
+		<Argument name="DomainType">DOMAIN_LAND</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_FOUNDATION_POCHTECA_BACKPACK_MODIFIER_2" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_TRADE_ROUTE_RANGE">
+		<Argument name="Amount">5</Argument>
+		<Argument name="DomainType">DOMAIN_SEA</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_FOUNDATION_COLADA_TIZONA_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ADJUST_UNIT_COMBAT_STRENGTH_MULTIPLE_ADJACENT_ENEMIES_MODIFIER">
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_FOUNDATION_SHISA_NECKLACE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_FOR_BECOMING_SUZERAIN">
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="Amount">100</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_FOUNDATION_AGINCOURT_ARROWHEAD_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_RANGED</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MEMENTO_FOUNDATION_AGINCOURT_ARROWHEAD_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_FOUNDATION_GARUDA_STATUE_MODIFIER" collection="COLLECTION_OWNER" effect="TRIGGER_PLAYER_ADJUST_POPULATION_ON_CELEBRATION_STARTED">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_FOUNDATION_ART_OF_WAR_MODIFIER_1" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ARMY_ADJUST_EXPERIENCE_RATE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_COMMAND</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_GAME_TURN_ATLEAST">
+				<Argument name="MinGameTurn">2</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Percent">10</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_FOUNDATION_ART_OF_WAR_MODIFIER_2" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ARMY_ADJUST_EXPERIENCE_RATE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_COMMAND</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_COMMANDER_IN_COMMAND_RADIUS">
+				<Argument name="IsHigherLevelCommander">True</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_GAME_TURN_ATLEAST">
+				<Argument name="MinGameTurn">2</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Percent">40</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_FOUNDATION_GAME_OF_UR_MODIFIER_1" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_HIGHER_PROGRESSION" inverse="true">
+				<Argument name="TechOnly">true</Argument>
+				<Argument name="ProgressionTreeType">TREE_TECHS_AQ,TREE_TECHS_EX,TREE_TECHS_MO</Argument>
+				<Argument name="PlayerPercentile">50</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Percent">10</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_FOUNDATION_GAME_OF_UR_MODIFIER_2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_HIGHER_PROGRESSION" inverse="true">
+				<Argument name="CultureOnly">true</Argument>
+				<Argument name="ProgressionTreeType">TREE_CIVICS_AQ_MAIN,TREE_CIVICS_EX_MAIN,TREE_CIVICS_MO_MAIN</Argument>
+				<Argument name="PlayerPercentile">50</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Percent">10</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_AMINA_TAKOBA_MODIFIER" collection="COLLECTION_PLAYER_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_ATTACKER_PLOT_BIOME_MATCHES">
+				<Argument name="BiomeType">BIOME_PLAINS, BIOME_DESERT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Preview">LOC_MEMENTO_AMINA_TAKOBA_COMBAT_PREVIEW</String>
+	</Modifier>
+	<Modifier id="MEMENTO_AMINA_KWALKWALI_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_RESOURCE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY" />
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<Argument name="PercentMultiplier">false</Argument>
+		<String context="Description">LOC_MEMENTO_AMINA_KWALKWALI_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_AMINA_RAWANI_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ADJUST_UNIT_COMBAT_STRENGTH_PREVIOUS_ENGAGEMENT_KILL_BONUS">
+		<Argument name="Amount">3</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_ASHOKA_RENOUNCER_CHAKRA_MODIFIER" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_ADJUST_YIELD_PER_SURPLUS_HAPPINESS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Divisor">5</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_ASHOKA_RENOUNCER_CHAKRA_NAME</Argument>
+		<String context="Description">LOC_MEMENTO_ASHOKA_RENOUNCER_CHAKRA_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_ASHOKA_RENOUNCER_GOLD_SAPPHIRE_FLOWERS_MODIFIER" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_YIELD" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_SPENT_ATTRIBUTE_POINT">
+				<Argument name="AttributeType">ATTRIBUTE_EXPANSIONIST</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Amount">100</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_ASHOKA_RENOUNCER_DIAMOND_THRONE_MODIFIER" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_IN_GOLDEN_AGE">
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_IS_QUARTER">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType" type="ScaleByGameAge" extra="100">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_AUGUSTUS_CORONA_CIVICA_MODIFIER_1" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_SETTLEMENT_CAP">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_GAME_IS_STARTED"/>
+		</SubjectRequirements>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_AUGUSTUS_CORONA_CIVICA_FUNCTIONAL_DESCRIPTION</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_AUGUSTUS_BREASTPLATE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY" inverse="true">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_AUGUSTUS_BREASTPLATE_NAME</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_AUGUSTUS_CLIPEUS_VIRTUTIS_MODIFIER" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_ADJUST_YIELD_PER_NUM_CITIES">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CAPITAL"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Cities">false</Argument>
+		<Argument name="Towns">true</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_AUGUSTUS_CLIPEUS_VIRTUTIS_FUNCTIONAL_DESCRIPTION</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_BENJAMIN_FRANKLIN_BIFOCALS_MODIFIER" collection="COLLECTION_OWNER" effect="TRIGGER_PLAYER_GRANT_YIELD_ON_MASTERY_COMPLETED">
+		<Argument name="ProgressionTreeType">TREE_CIVICS_AQ_MAIN,TREE_TECHS_AQ,TREE_CIVICS_EX_MAIN,TREE_TECHS_EX,TREE_CIVICS_MO_MAIN,TREE_TECHS_MO</Argument>
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="Amount">50</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_BENJAMIN_FRANKLIN_KITE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_PROGRESSION_TREE_MASTERY_EFFICIENCY">
+		<Argument name="SystemType">SYSTEM_TECH</Argument>
+		<Argument name="Percent">10</Argument>
+		<String context="Description">LOC_MEMENTO_BENJAMIN_FRANLKIN_KITE_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_BENJAMIN_FRANKLIN_GLASS_ARMONICA_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_YIELD_PER_PLAYER_RELATIONSHIP">
+		<Argument name="YieldType">YIELD_SCIENCE,YIELD_HAPPINESS</Argument>
+		<Argument name="UseAlliances">true</Argument>
+		<Argument name="Percent">10</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_CATHERINE_EAGLE_BANNER_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD_PER_GREAT_WORK">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Percent">2</Argument>
+		<Argument name="MaxPercent">20</Argument>
+		<String context="Description">LOC_MEMENTO_CATHERINE_EAGLE_BANNER_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_CATHERINE_POTEMKINS_SWORD_KNOT_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_COMMAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MEMENTO_CATHERINE_POTEMKINS_SWORD_KNOT_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_CATHERINE_GREAT_IMPERIAL_CROWN_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_TOWN"/>
+			<Requirement type="REQUIREMENT_PLOT_BIOME_TYPE_MATCHES">
+				<Argument name="BiomeType">BIOME_TUNDRA</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_CATHERINE_GREAT_IMPERIAL_CROWN_NAME</Argument>
+		<String context="Description">LOC_MEMENTO_CATHERINE_GREAT_IMPERIAL_CROWN_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_CHARLEMAGNE_JOYEUSE_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_PLAYER_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_CAVALRY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_CHARLEMAGNE_GLOBUS_CRUCIGER_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_SPENT_ATTRIBUTE_POINT">
+				<Argument name="AttributeType">ATTRIBUTE_POLITICAL</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="Amount">50</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_CHARLEMAGNE_TENCENDUR_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_CAVALRY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MEMENTO_CHARLEMAGNE_TENCENDUR_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_CONFUCIUS_BRUSH_SCROLL_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_GROWTH_PER_WORKER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"></Requirement>
+		</SubjectRequirements>
+		<Argument name="Percent">5</Argument>
+		<Argument name="Max">25</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_CONFUCIUS_ALTAR_SET_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_WORKER_YIELD">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_CONFUCIUS_ANALECTS_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_WORKER_YIELD">
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_FRIEDRICH_OBLIQUE_WALKING_STICK_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Tag">MILITARY</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_FRIEDRICH_OBLIQUE_WALKING_STICK_NAME</Argument>
+		<String context="Description">LOC_MEMENTO_FRIEDRICH_OBLIQUE_WALKING_STICK_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_FRIEDRICH_OBLIQUE_ORDER_BLACK_EAGLE_MODIFIER" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_YIELD" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_SPENT_ATTRIBUTE_POINT">
+				<Argument name="AttributeType">ATTRIBUTE_MILITARISTIC</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Amount">50</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_FRIEDRICH_OBLIQUE_KRONE_VON_FRIEDRICH_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ADJUST_UNIT_FOCUSED_ATTACK_DAMAGE">
+		<Argument name="Amount">2</Argument>
+		<Argument name="IsAllTypes">True</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_TUBMAN_LANTERN_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_GRANT_UNIT_ON_SUCCESSFUL_UNDETECTED_ESPIONAGE_ACTION">
+		<Argument name="UnitType">UNIT_MIGRANT</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_TUBMAN_SATCHEL_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_GRANT_UNIT_RESPAWN_CHARGE" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TYPE_MATCHES">
+				<Argument name="UnitType">UNIT_SETTLER</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">999</Argument>
+		<Argument name="Health">100</Argument>
+		<Argument name="TurnTimer">3</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_TUBMAN_SIDEARM_MODIFIER" collection="COLLECTION_PLAYER_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_HEALTH_THRESHOLD">
+				<Argument name="Amount">50</Argument>
+				<Argument name="BelowAmount">true</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_MEMENTO_TUBMAN_SIDEARM_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_HATSHEPSUT_ROYAL_MACE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_PER_RESOURCE">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<Argument name="Imported">true</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_HATSHEPSUT_ROYAL_MACE_NAME</Argument>
+		<String context="Description">LOC_MEMENTO_HATSHEPSUT_ROYAL_MACE_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_HATSHEPSUT_FALSE_BEARD_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_CONSTRUCTIBLE_YIELD" permanent="true">
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="ConstructibleClass">WONDER</Argument>
+		<Argument name="Amount">2</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_HATSHEPSUT_URAEUS_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_ANY_WONDER"/>
+			<Requirement type="REQUIREMENT_CITY_IS_CITY"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Percent">10</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_HATSHEPSUT_URAEUS_NAME</Argument>
+		<String context="Description">LOC_MEMENTO_HATSHEPSUT_URAEUS_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_HIMIKO_QUEEN_GOLDEN_SEAL_STONE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="Tag">SCIENCE</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_HIMIKO_QUEEN_GOLDEN_SEAL_STONE_NAME</Argument>
+		<String context="Description">LOC_MEMENTO_HIMIKO_QUEEN_GOLDEN_SEAL_STONE_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_HIMIKO_QUEEN_YASAKANI_NO_MAGATAMA_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_PER_COMPLETED_MASTERY">
+		<Argument name="SystemType">SYSTEM_TECH</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_HIMIKO_QUEEN_YASAKANI_NO_MAGATAMA_NAME</Argument>
+		<String context="Description">LOC_MEMENTO_HIMIKO_QUEEN_YASAKANI_NO_MAGATAMA_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_HIMIKO_QUEEN_DOTAKU_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_SPENT_ATTRIBUTE_POINT">
+				<Argument name="AttributeType">ATTRIBUTE_SCIENTIFIC</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount">50</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_BATTUTA_TRAVELLERS_SANDALS_MODIFIER_1" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_SPENT_ATTRIBUTE_POINT">
+				<Argument name="AttributeType">ATTRIBUTE_CULTURAL</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount">10</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_BATTUTA_TRAVELLERS_SANDALS_MODIFIER_2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_SPENT_ATTRIBUTE_POINT">
+				<Argument name="AttributeType">ATTRIBUTE_POLITICAL</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+		<Argument name="Amount">10</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_BATTUTA_TRAVELLERS_SANDALS_MODIFIER_3" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_SPENT_ATTRIBUTE_POINT">
+				<Argument name="AttributeType">ATTRIBUTE_ECONOMIC</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount">10</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_BATTUTA_TRAVELLERS_SANDALS_MODIFIER_4" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_YIELD" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_SPENT_ATTRIBUTE_POINT">
+				<Argument name="AttributeType">ATTRIBUTE_EXPANSIONIST</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Amount">10</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_BATTUTA_TRAVELLERS_SANDALS_MODIFIER_5" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_GRANT_YIELD" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_SPENT_ATTRIBUTE_POINT">
+				<Argument name="AttributeType">ATTRIBUTE_MILITARISTIC</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Amount">10</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_BATTUTA_TRAVELLERS_SANDALS_MODIFIER_6" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_SPENT_ATTRIBUTE_POINT">
+				<Argument name="AttributeType">ATTRIBUTE_SCIENTIFIC</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount">10</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_BATTUTA_MERCHANTS_SADDLE_MODIFIER_1" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TYPE_MATCHES">
+				<Argument name="UnitType">UNIT_SCOUT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MEMENTO_BATTUTA_MERCHANTS_SADDLE_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_BATTUTA_MERCHANTS_SADDLE_MODIFIER_2" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TYPE_MATCHES">
+				<Argument name="UnitType">UNIT_SETTLER</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MEMENTO_BATTUTA_MERCHANTS_SADDLE_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_BATTUTA_MERCHANTS_SADDLE_MODIFIER_3" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TYPE_MATCHES">
+				<Argument name="UnitType">UNIT_MERCHANT</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MEMENTO_BATTUTA_MERCHANTS_SADDLE_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_BATTUTA_MERCHANTS_SADDLE_MODIFIER_4" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TYPE_MATCHES">
+				<Argument name="UnitType">UNIT_EXPLORER</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MEMENTO_BATTUTA_MERCHANTS_SADDLE_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_BATTUTA_RIHLA_MODIFIER" collection="COLLECTION_OWNER" effect="TRIGGER_PLAYER_ADJUST_YIELD_PER_ATTRIBUTE_TREE_UNLOCKED">
+		<Argument name="ProgressionTreeType">TREE_ATTRIBUTE_CULTURAL,TREE_ATTRIBUTE_POLITICAL,TREE_ATTRIBUTE_ECONOMIC,TREE_ATTRIBUTE_EXPANSIONIST,TREE_ATTRIBUTE_MILITARISTIC,TREE_ATTRIBUTE_SCIENTIFIC</Argument>
+		<Argument name="YieldType">YIELD_GOLD,YIELD_SCIENCE,YIELD_CULTURE,YIELD_HAPPINESS</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1,1,1,1</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_ISABELLA_QUEENS_JEWELRY_MODIFIER" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IS_NATURAL_WONDER"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_ISABELLA_QUEENS_JEWELRY_NAME</Argument>
+		<String context="Description">LOC_MEMENTO_ISABELLA_QUEENS_JEWELRY_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_ISABELLA_BALLESTILLA_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ADJUST_UNIT_SIGHT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_NAVAL</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_ISABELLA_PADRON_REAL_MODIFIER" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IS_NATURAL_WONDER"/>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_ISABELLA_PADRON_REAL_NAME</Argument>
+		<String context="Description">LOC_MEMENTO_ISABELLA_PADRON_REAL_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_RIZAL_FORGET_ME_NOT_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_FOR_COMPLETING_NARRATIVE_EVENTS">
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">10</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_RIZAL_FORGET_ME_NOT_NAME</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_RIZAL_OPHTHALMOSCOPE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_GOLDEN_AGE_DURATION">
+		<Argument name="Percent">25</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_RIZAL_OPHTHALMOSCOPE_NAME</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_RIZAL_NOLI_ME_TANGERE_MODIFIER_1" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_VICTORY_PLACED">
+				<Argument name="VictoryClass">VICTORY_CLASS_CULTURE</Argument>
+				<Argument name="Place">1</Argument>
+				<Argument name="Specific">true</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_SCIENCE,YIELD_CULTURE,YIELD_GOLD</Argument>
+		<Argument name="Percent">10</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_RIZAL_NOLI_ME_TANGERE_MODIFIER_2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_VICTORY_PLACED">
+				<Argument name="VictoryClass">VICTORY_CLASS_ECONOMIC</Argument>
+				<Argument name="Place">1</Argument>
+				<Argument name="Specific">true</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_SCIENCE,YIELD_CULTURE,YIELD_GOLD</Argument>
+		<Argument name="Percent">10</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_RIZAL_NOLI_ME_TANGERE_MODIFIER_3" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_VICTORY_PLACED">
+				<Argument name="VictoryClass">VICTORY_CLASS_MILITARY</Argument>
+				<Argument name="Place">1</Argument>
+				<Argument name="Specific">true</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_SCIENCE,YIELD_CULTURE,YIELD_GOLD</Argument>
+		<Argument name="Percent">10</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_RIZAL_NOLI_ME_TANGERE_MODIFIER_4" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_VICTORY_PLACED">
+				<Argument name="VictoryClass">VICTORY_CLASS_SCIENCE</Argument>
+				<Argument name="Place">1</Argument>
+				<Argument name="Specific">true</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_SCIENCE,YIELD_CULTURE,YIELD_GOLD</Argument>
+		<Argument name="Percent">10</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_LAFAYETTE_LETTER_ADRIENNE_MODIFIER_1" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_PER_ACTIVE_TRADITION">
+		<Argument name="CivUnique">true</Argument>
+		<Argument name="Invert">false</Argument>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<String context="Description">LOC_MEMENTO_LAFAYETTE_LETTER_ADRIENNE_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_LAFAYETTE_LETTER_ADRIENNE_MODIFIER_2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_PER_ACTIVE_TRADITION">
+		<Argument name="CivUnique">true</Argument>
+		<Argument name="Invert">true</Argument>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<String context="Description">LOC_MEMENTO_LAFAYETTE_LETTER_ADRIENNE_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_LAFAYETTE_HERMIONE_MODEL_MODIFIER_1" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_NAVAL</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_MEMENTO_CHARLEMAGNE_TENCENDUR_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_LAFAYETTE_TRICOLOUR_COCKADE_MODIFIER_1" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_ADJUST_YIELD_PER_ACTIVE_TRADITION">
+		<Argument name="CivUnique">true</Argument>
+		<Argument name="Invert">false</Argument>
+		<Argument name="YieldType">YIELD_CULTURE</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_LAFAYETTE_TRICOLOUR_COCKADE_NAME</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_LAFAYETTE_TRICOLOUR_COCKADE_MODIFIER_2" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_ADJUST_YIELD_PER_ACTIVE_TRADITION">
+		<Argument name="CivUnique">true</Argument>
+		<Argument name="Invert">false</Argument>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">2</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_LAFAYETTE_TRICOLOUR_COCKADE_NAME</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_MACHIAVELLI_DISCORSI_SOPRA_LIVIO_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_DIPLOMATIC_RESPONSE_EFFICIENCY">
+		<Argument name="ResponseType">DIPLOMACY_RESPONSE_REJECT</Argument>
+		<Argument name="Percent">50</Argument>
+		<Argument name="ApplyToTarget">true</Argument>
+		<String context="Description">LOC_MEMENTO_MACHIAVELLI_DISCORSI_SOPRA_LIVIO_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_MACHIAVELLI_DELL_ARTE_DELLA_GUERRA_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_YIELD_PER_PLAYER_INVOLVED_ACTION">
+		<Argument name="ActionGroupType">DIPLOMACY_ACTION_GROUP_SANCTION</Argument>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">5</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_MACHIAVELLI_IL_PRINCIPE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_WAR_DIPLOMATIC_RELATIONSHIP_CHANGE" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_DECLARED_WAR">
+				<Argument name="DeclaredByOwner">true</Argument>
+				<Argument name="WarType">FORMAL_WAR</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="OnlyWarChangedTurn">true</Argument>
+		<Argument name="Amount">-25</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_PACHACUTI_TOPAYAURI_MODIFIER" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_DISTRICT_CLASS">
+				<Argument name="DistrictClass">CITYCENTER, URBAN</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_TERRAIN_TYPE_MATCHES">
+				<Argument name="TerrainType">TERRAIN_MOUNTAIN</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_FOOD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_PACHACUTI_TOPAYAURI_NAME</Argument>
+		<String context="Description">LOC_MEMENTO_PACHACUTI_TOPAYAURI_FUNCTIONAL_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MEMENTO_PACHACUTI_ALL_TOQAPU_TUNIC_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ADJUST_UNIT_SIGHT">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_TERRAIN_TYPE_MATCHES">
+				<Argument name="TerrainType">TERRAIN_MOUNTAIN</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_PACHACUTI_MASCAPAYCHA_MODIFIER" collection="COLLECTION_PLAYER_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_WORKER_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_TERRAIN_TYPE_MATCHES">
+				<Argument name="TerrainType">TERRAIN_MOUNTAIN</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<Argument name="YieldType">YIELD_GOLD, YIELD_FOOD</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_PACHACUTI_MASCAPAYCHA_NAME</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_TRUNG_KIEM_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_PLAYER_ADJUST_YIELD_PER_UNIT_LEVEL">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_COMMAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_TRUNG_ANKUS_MODIFIER_1" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_WAR_SUPPORT_BONUS">
+		<Argument name="Amount">1</Argument>
+		<Argument name="IsAggressor">false</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_TRUNG_ANKUS_MODIFIER_2" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_WAR_SUPPORT_BONUS">
+		<Argument name="Amount">1</Argument>
+		<Argument name="IsAggressor">true</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_TRUNG_DONG_SON_DRUM_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_PROGRESSION" permanent="true">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_DECLARED_WAR">
+				<Argument name="DeclaredByOwner">true</Argument>
+				<Argument name="WarType">FORMAL_WAR</Argument>
+				<Argument name="WhileMet">true</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+		<Argument name="SystemType">SYSTEM_TECH</Argument>
+		<Argument name="BoostPercentage">50</Argument>
+		<Argument name="FreeProgressionType">FREE_PROGRESSION_BOOST_CHEAPEST_UNLOCKED</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_XERXES_KING_SCYTHIAN_AXE_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_GRANT_YIELD_PER_XP_EARNED">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_COMMAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_XERXES_KING_LOTUS_BLOSSOM_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_CONVERSION">
+		<Argument name="FromYieldType">YIELD_GOLD,YIELD_GOLD</Argument>
+		<Argument name="ToYieldType">YIELD_SCIENCE,YIELD_CULTURE</Argument>
+		<Argument name="Percent">4</Argument>
+	</Modifier>
+	<Modifier id="MEMENTO_XERXES_KING_GOLDEN_SCEPTRE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADJUST_YIELD_PER_CONQUERED_SETTLEMENT">
+		<Argument name="YieldType">YIELD_GOLD</Argument>
+		<Argument name="Amount" type="ScaleByGameAge" extra="100">3</Argument>
+		<Argument name="Tooltip">LOC_MEMENTO_XERXES_KING_GOLDEN_SCEPTRE_NAME</Argument>
+		<String context="Description">LOC_MEMENTO_XERXES_KING_GOLDEN_SCEPTRE_DESCRIPTION</String>
+	</Modifier>
+</GameEffects>

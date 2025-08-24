@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+
+	<!-- ==================================================	-->
+	<!--					Improvements					-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_HIDDEN_FORTRESS_STEALTH" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ADJUST_UNIT_HIDDEN_VISIBILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_HAS_CONSTRUCTIBLE">
+				<Argument name="ConstructibleType">IMPROVEMENT_HIDDEN_FORTRESS</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Hidden">true</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--					Wonders							-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_RILA_MONASTERY_WONDER_RELICS" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_PLAYER_RELIC_FOR_BUILDING_WONDER">
+			<SubjectRequirements>
+			<Requirement type="REQUIREMENT_WONDER_IS_ACTIVE">
+				<Argument name="ConstructibleType">WONDER_RILA_MONASTERY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+</GameEffects>

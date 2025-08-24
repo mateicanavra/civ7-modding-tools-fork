@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==================================================	-->
+	<!--	ANTIQUITY							-->
+	<!-- ==================================================	-->
+	<!-- Assyria -->
+	<Modifier id="DURANI_MOD_SCIENCE_FORTIFICATION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD">
+		<Argument name="Tag">FORTIFICATION</Argument>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Tooltip">LOC_TRADITION_DURANI_NAME</Argument>
+		<Argument name="Description">LOC_TRADITION_DURANI_DESCRIPTION</Argument>
+	</Modifier>
+	<Modifier id="MIHISTU_MOD_GREATWORK_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_PRODUCTION">
+		<Argument name="Tag">GREATWORK</Argument>
+		<Argument name="Percent">25</Argument>
+		<Argument name="Apply">Rate</Argument>
+		<Argument name="Tooltip">LOC_TRADITION_MIHISTU_NAME</Argument>
+		<String context="Description">LOC_TRADITION_MIHISTU_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="GIRRU_MOD_CONQUERED_FOOD_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement inverse="true" type="REQUIREMENT_CITY_IS_ORIGINAL_OWNER"/>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<Argument name="YieldType">YIELD_FOOD, YIELD_PRODUCTION</Argument>
+		<Argument name="Tooltip">LOC_TRADITION_GIRRU_NAME</Argument>
+		<String context="Description">LOC_TRADITION_GIRRU_DESCRIPTION</String>
+	</Modifier>
+</GameEffects>

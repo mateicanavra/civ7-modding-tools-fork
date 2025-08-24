@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+
+	<!-- Property Types specific to the defined Collections -->
+	<IPropertyTypes>
+		<Row Type="DynamicAdjacencyBonus" KindOf="Class"/>
+	</IPropertyTypes>
+
+	<!-- Property Collection Definitions -->
+	<IProperties>
+		<Row Collection="City_Instance" Name="Name" Type="LocalizationString" Access="Indexed"/>
+		<Row Collection="City_Instance" Name="DynamicBonusList" Type="DynamicAdjacencyBonus" Container="Vector" Access="Indexed"/>
+		<Row Collection="City_Instance" Name="Population" Type="Int" Access="Indexed"/>
+		<Row Collection="City_Instance" Name="TurnFounded" Type="Int" Access="Indexed"/>
+		<Row Collection="City_Instance" Name="IsCapital" Type="Bool" Access="Indexed"/>
+		<Row Collection="City_Instance" Name="IsOriginalCapital" Type="Bool" Access="Indexed"/>
+		<Row Collection="City_Instance" Name="ConqueredCount" Type="Int" Access="Indexed"/>
+		<Row Collection="City_Instance" Name="OwnerBeforeOccupation" Type="PlayerTypes" Access="Indexed"/>
+		<Row Collection="City_Instance" Name="JustConqueredFrom" Type="PlayerTypes" Access="Indexed"/>
+		<Row Collection="City_Instance" Name="LastBarbarianInvasionTurn" Type="Int" Access="Indexed"/>
+		<Row Collection="City_Instance" Name="LastTransferType" Type="Enum" Access="Indexed"/>
+		<Row Collection="City_Instance" Name="WonderGrantEnvoys" Type="Int" Access="Indexed"/>
+		<Row Collection="City_Instance" Name="FoundedByUnit" Type="Int" Access="Indexed"/>
+	</IProperties>
+</Database>

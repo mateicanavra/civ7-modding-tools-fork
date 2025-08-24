@@ -1,0 +1,15 @@
+/* DO NOT EDIT */
+/* Generated from game-setup-panel.scss */
+/**
+Based on Robert Penner's easing equations
+@url http://robertpenner.com/easing/
+**/
+.game-setup-selector {
+	margin: 0.6666666667rem 1.1111111111rem;
+}
+@media (max-height: 40rem) {
+	.game-setup-selector {
+		min-height: 5.3333333333rem;
+		margin: 0.2222222222rem 0.2222222222rem 0.2222222222rem 0.8888888889rem;
+	}
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<Modifier id="BOLIVAR_MOD_WAR_SUPPORT_DEF" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_WAR_SUPPORT_BONUS">
+		<Argument name="Amount">1</Argument>
+		<Argument name="IsAggressor">false</Argument>
+	</Modifier>
+	<Modifier id="BOLIVAR_MOD_WAR_SUPPORT_AGGRO" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_WAR_SUPPORT_BONUS">
+		<Argument name="Amount">1</Argument>
+		<Argument name="IsAggressor">true</Argument>
+	</Modifier>
+	<Modifier id="BOLIVAR_MOD_FREE_BUILDING" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_FIRST_TIME_SETTLEMENT_OCCUPATION"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_BOLIVAR_MOD_FREE_BUILDING</Argument>
+	</Modifier>
+	<Modifier id="ATTACH_BOLIVAR_MOD_FREE_BUILDING" collection="COLLECTION_OWNER" effect="EFFECT_CITY_GRANT_FREE_BUILDING" run-once="true" permanent="true">
+		<Argument name="Amount">1</Argument>
+	</Modifier>
+	<Modifier id="BOLIVAR_MOD_PURCHASE_UNREST" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CAN_PURCHASE_IN_UNREST">
+	</Modifier>
+	<Modifier id="BOLIVAR_MOD_AGENDA_CORNERSTONE_FREEDOM" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_AGENDA_TIMED_UPDATE">
+		<String context="Name">LOC_DIPLOMACY_AGENDA_CORNERSTONE_FREEDOM_NAME</String>
+		<Argument name="ModName">LOC_DIPLOMACY_AGENDA_CORNERSTONE_FREEDOM_NAME</Argument>
+		<Argument name="Tooltip">LOC_DIPLOMACY_AGENDA_CORNERSTONE_FREEDOM_DESC</Argument>
+		<Argument name="WeightType">DIPLOMACY_AGENDA_COMPARE_NUM_UNHAPPY_SETTLEMENTS</Argument>
+		<Argument name="FirstMeetDelay">20</Argument>
+		<Argument name="UpdateFreq">10</Argument>
+		<Argument name="AwardTo1">DIPLOMACY_AGENDA_AWARD_LOWEST</Argument>
+		<Argument name="AwardAmtType1">DIPLOMACY_AGENDA_AMT_MEDIUM</Argument>
+		<Argument name="AwardTo2">DIPLOMACY_AGENDA_AWARD_HIGHEST</Argument>
+		<Argument name="AwardAmtType2">DIPLOMACY_AGENDA_NEG_AMT_MEDIUM</Argument>
+		<Argument name="NotifyMessage">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_MESSAGE</Argument>
+		<Argument name="NotifySummary">LOC_NOTIFICATION_DIPLOMATIC_AGENDA_DEFAULT_SUMMARY</Argument>
+	</Modifier>
+</GameEffects>

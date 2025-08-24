@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_BUILDING_ROYAL_EXCHANGE_NAME">
+			<Text>Royal Exchange</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_ROYAL_EXCHANGE_DESCRIPTION">
+			<Text>+5 [icon:YIELD_GOLD] Gold. +1 [icon:YIELD_GOLD] Gold Adjacency for Quarters and Wonders. Great Britain Unique Gold Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_ROYAL_EXCHANGE_TOOLTIP">
+			<Text>Great Britain Unique Gold Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_MANUFACTORY_NAME">
+			<Text>Manufactory</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_MANUFACTORY_DESCRIPTION">
+			<Text>+5 [icon:YIELD_PRODUCTION] Production. +1 [icon:YIELD_PRODUCTION] Production Adjacency for Resources and Wonders. +1 [icon:YIELD_GOLD] Gold Adjacency for Navigable Rivers. Great Britain Unique Production Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_BUILDING_MANUFACTORY_TOOLTIP">
+			<Text>Great Britain Unique Production Building. Ageless.</Text>
+		</Row>
+		<Row Tag="LOC_QUARTER_FINANCIAL_CENTRE_NAME">
+			<Text>Financial Centre</Text>
+		</Row>
+		<Row Tag="LOC_QUARTER_FINANCIAL_CENTRE_DESCRIPTION">
+			<Text>Great Britain Unique Quarter. Created by constructing the Manufactory and Royal Exchange in the same District. +2 [icon:YIELD_GOLD] Gold and [icon:YIELD_SCIENCE] Science for every connected Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_QUARTER_FINANCIAL_CENTRE_TOOLTIP">
+			<Text>+2 [icon:YIELD_GOLD] Gold and [icon:YIELD_SCIENCE] Science for every connected Settlement.</Text>
+		</Row>
+		<!--Wonders-->
+		<Row Tag="LOC_WONDER_BATTERSEA_POWER_STATION_NAME">
+			<Text>Battersea Power Station</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_BATTERSEA_POWER_STATION_DESCRIPTION">
+			<Text>+4[icon:YIELD_PRODUCTION] Production. Receive a second Naval Unit each time you train a Naval Unit (But not Purchase). Ageless. Must be placed on land adjacent to Coast.</Text>
+		</Row>
+		<Row Tag="LOC_WONDER_BATTERSEA_POWER_STATION_TOOLTIP">
+			<Text>Receive a second Naval Unit each time you train a Naval Unit. Ageless. Must be placed on land adjacent to Coast.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_BATTERSEA_POWER_STATION">
+			<Text>You asked me once if I remembered Battersea. And now I do.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_BATTERSEA_POWER_STATION">
+			<Text>Susanna Clarke</Text>
+		</Row>
+	</EnglishText>
+</Database>

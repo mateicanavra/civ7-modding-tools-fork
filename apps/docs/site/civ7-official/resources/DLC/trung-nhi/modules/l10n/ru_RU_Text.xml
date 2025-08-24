@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS_NAME" Language="ru_RU">
+      <Text>65 крепостей|65 крепостей|65 крепостям|65 крепостей|65 крепостями|65 крепостях</Text>
+      <Gender>feminine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_HAI_BA_TRUNG_NAME" Language="ru_RU">
+      <Text>Сестры Чынг|сестер Чынг|сестрам Чынг|сестер Чынг|сестрами Чынг|сестрах Чынг</Text>
+      <Gender>feminine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE_NAME" Language="ru_RU">
+      <Text>Война в джунглях|войны в джунглях|войне в джунглях|войну в джунглях|войной в джунглях|войне в джунглях</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION_NAME" Language="ru_RU">
+      <Text>Восстание Лак|восстания Лак|восстанию Лак|восстание Лак|восстанием Лак|восстание Лак</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE_NAME" Language="ru_RU">
+      <Text>Сила и храбрость|силы и храбрости|силе и храбрости|силу и храбрость|силой и храбростью|силе и храбрости</Text>
+      <Gender>feminine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY_NAME" Language="ru_RU">
+      <Text>Один клич|одного клича|одному кличу|один клич|одним кличем|одном кличе</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_TRUNG_COMMENDATION_DUTY_NAME" Language="ru_RU">
+      <Text>Сестры, объединяйтесь|Сестры, объединяйтесь|Сестры, объединяйтесь|Сестры, объединяйтесь|Сестры, объединяйтесь|Сестры, объединяйтесь</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_DESCRIPTION" Language="ru_RU">
+      <Text>+3 к урону за «Героический штурм».</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_FINAL_DESCRIPTION" Language="ru_RU">
+      <Text>+10 к урону за «Героический штурм».</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_TRUNG_COMMENDATION_DUTY_DESCRIPTION" Language="ru_RU">
+      <Text>+30 к урону за «Героический штурм».</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_TRUNG_NHI_DESCRIPTION" Language="ru_RU">
+      <Text>Уникальный командир армии. Имеет дополнительное древо развития. В случае поражения возрождается быстрее других командиров.</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_ARMY_TRUNG_NHI_HAI_BA_TRUNG_PREVIEW" Language="ru_RU">
+      <Text>Сестры Чынг: +{Amount}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS_DESCRIPTION" Language="ru_RU">
+      <Text>+5 к боевой мощи сухопутных юнитов против укрепленных районов в зоне командования. [n]{LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_DESCRIPTION}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS_PREVIEW" Language="ru_RU">
+      <Text>65 крепостей: +{Amount}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_HAI_BA_TRUNG_DESCRIPTION" Language="ru_RU">
+      <Text>+15 к боевой мощи этого командира во время обороны. [n]{LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_DESCRIPTION}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE_DESCRIPTION" Language="ru_RU">
+      <Text>+5 к боевой мощи сухопутных юнитов на тропической территории в зоне командования. [n]{LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_DESCRIPTION}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE_PREVIEW" Language="ru_RU">
+      <Text>Война в джунглях: +{1_Amount}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION_DESCRIPTION" Language="ru_RU">
+      <Text>+3 к боевой мощи сухопутных юнитов в зоне командования, если по соседству находится не менее 2 вражеских юнитов. [n]{LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_DESCRIPTION}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION_PREVIEW" Language="ru_RU">
+      <Text>Восстание Лак: +{1_Amount}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE_DESCRIPTION" Language="ru_RU">
+      <Text>+5 к боевой мощи сухопутных юнитов в зоне командования при нахождении на дружественной территории. [n]{LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_DESCRIPTION}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE_PREVIEW" Language="ru_RU">
+      <Text>Сила и храбрость: +{1_Amount}</Text>
+    </Replace>
+    <Replace Tag="LOC_PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY_DESCRIPTION" Language="ru_RU">
+      <Text>+5 к боевой мощи во время скоординированной атаки и сосредоточенного огня. [n]{LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_FINAL_DESCRIPTION}</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_TRUNG_NHI_NAME" Language="ru_RU">
+      <Text>Чынг Ни|Чынг Ни|Чынг Ни|Чынг Ни|Чынг Ни|Чынг Ни</Text>
+      <Gender>feminine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+  </LocalizedText>
+</Database>

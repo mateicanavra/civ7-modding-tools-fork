@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <EnglishText>
+        <Row Tag="LOC_AC001A_STORYTITLE">
+            <Text>The Rising Storm</Text>
+        </Row>
+        <Row Tag="LOC_AC001A_COMPLETION">
+            <Text>The great civilizations of the world have risen, and in their rise others, too, ascend. Once metalworking, agriculture, and the growth of cities were limited to points on the landscape; now, these are commonplace in all but the most remote corners of the world. Those once thought barbarians now lay equal claim to the mantle of civilization, and the learning of the city centers extends far beyond the boundaries of the known world. With this comes the question: Why are you ascendant, and we are not?</Text>
+        </Row>
+        <Row Tag="LOC_AC001B_NAME">
+            <Text>Continue the crisis</Text>
+        </Row>
+        <Row Tag="LOC_AC001B_DESCRIPTION">
+            <Text>+1 Crisis Policy Slot. New hostile independent powers are arriving.</Text>
+        </Row>
+        <Row Tag="LOC_AC003A_STORYTITLE">
+            <Text>Rumors and Portents</Text>
+        </Row>
+        <Row Tag="LOC_AC003A_COMPLETION">
+            <Text>In the spaces between, in the distant points on the map, the steady growth of prosperity – and population – intensifies even as the great civilizations of the world expand. Land once thought wasteland turns to pasture, and expanding families mean more second and third children eager to make a name for themselves. Ambitions grow, and the eyes of the steppes and mountains, the forests and deserts turn hungrily towards the great cities.</Text>
+        </Row>
+        <Row Tag="LOC_AC003B_NAME">
+            <Text>Continue the crisis</Text>
+        </Row>
+        <Row Tag="LOC_AC003B_DESCRIPTION">
+            <Text>+1 Crisis Policy Slot. Independent encampments grow stronger.</Text>
+        </Row>
+        <Row Tag="LOC_AC005A_STORYTITLE">
+            <Text>The Scourge Unveiled</Text>
+        </Row>
+        <Row Tag="LOC_AC005A_COMPLETION">
+            <Text>Ambition finds a home in the hearts of the once-scattered people of the places in between – a great scourge has amassed with an eye towards the settled world. A scourge is not one strand, but many – each an army led by commanders seeking their own chance at dominion, seeking to claim the mantle of civilization… or leave it shattered. With their arrival comes a fracturing of what peace remains in the land. The time has come to kill or be killed, to fight or perish, to seek to catch the whirlwind in a net.</Text>
+        </Row>
+        <Row Tag="LOC_AC005B_NAME">
+            <Text>Continue the crisis</Text>
+        </Row>
+        <Row Tag="LOC_AC005B_DESCRIPTION">
+            <Text>+2 Crisis Policy Slots. Independent encampments grow stronger.</Text>
+        </Row>
+        <Row Tag="LOC_AC007A_STORYTITLE">
+            <Text>A World Broken</Text>
+        </Row>
+        <Row Tag="LOC_AC007A_COMPLETION">
+            <Text>The scourge has ended, and the world yet turns. But its shape is unfamiliar. Peoples displaced from their homelands make new homes where they have settled. Forever gone is a world of a singular city and a vast barbarian hinterland; now, those that city-dwellers once looked down upon wear their own crowns, and tongues once thought unfit for the capital are spoken by monarchs. The ancient era has passed on to a new time of interconnection. Even we have not remained untouched, as a wave of refugees and immigrants reshape who we are, what tongue we speak, and what stories we tell.</Text>
+        </Row>
+        <Row Tag="LOC_AC007B_NAME">
+            <Text>The Age of Antiquity is ending.</Text>
+        </Row>
+        <Row Tag="LOC_AC007B_DESCRIPTION">
+            <Text>Who will carry our legacy?</Text>
+        </Row>
+        <Row Tag="LOC_APC001A_STORYTITLE">
+            <Text>A Strange Year</Text>
+        </Row>
+        <Row Tag="LOC_APC001A_COMPLETION">
+            <Text>After the rains, harder and heavier than before, unusual verdure covers the fields. Rats and mice follow, and farmers who smiled at their earlier fortune now crease their brows in frustration. And, worse – at the fringes of the land, illness spreads.</Text>
+        </Row>
+        <Row Tag="LOC_APC001B_NAME">
+            <Text>Continue the crisis</Text>
+        </Row>
+        <Row Tag="LOC_APC001B_DESCRIPTION">
+            <Text>+1 Crisis Policy Slot.</Text>
+        </Row>
+        <Row Tag="LOC_APC002A_STORYTITLE">
+            <Text>The Houses of Healing</Text>
+        </Row>
+        <Row Tag="LOC_APC002A_COMPLETION">
+            <Text>The houses of healing, normally places of quiet whispers and muffled footfalls, overflow. The sick and dying stumble, or are carried, towards already overcrowded halls. Eventually, the healers seal the doors. Some new evil grips the land.</Text>
+        </Row>
+        <Row Tag="LOC_APC002B_NAME">
+            <Text>Continue the crisis</Text>
+        </Row>
+        <Row Tag="LOC_APC002B_DESCRIPTION">
+            <Text>+1 Crisis Policy Slot. The plagues grow stronger.</Text>
+        </Row>
+        <Row Tag="LOC_APC003A_STORYTITLE">
+            <Text>The Hollow Land</Text>
+        </Row>
+        <Row Tag="LOC_APC003A_COMPLETION">
+            <Text>Villages sit empty and lifeless. Grass pokes out of thatched roofs, and a tree sprouts from a threshold, with only a glint of bone tangled in the roots to show that once this was a place of human habitation. The few travelers pass by without a glance; these sights are commonplace.</Text>
+        </Row>
+        <Row Tag="LOC_APC003B_NAME">
+            <Text>Continue the crisis</Text>
+        </Row>
+        <Row Tag="LOC_APC003B_DESCRIPTION">
+            <Text>+1 Crisis Policy Slot. The plagues grow stronger.</Text>
+        </Row>
+        <Row Tag="LOC_APC004A_STORYTITLE">
+            <Text>Regrowth</Text>
+        </Row>
+        <Row Tag="LOC_APC004A_COMPLETION">
+            <Text>The survivors cluster, their eyes filled with memories of what has been lost, but also what remains. Empty lands demand new owners, and fallow fields new plowings. From the ashes of this land will rise a new birth, and the plague’s memories will fade, in time, like dreams.</Text>
+        </Row>
+        <Row Tag="LOC_APC004B_NAME">
+            <Text>The Age of Antiquity is ending.</Text>
+        </Row>
+        <Row Tag="LOC_APC004B_DESCRIPTION">
+            <Text>Who will carry our legacy?</Text>
+        </Row>
+        <Row Tag="LOC_ALC001A_STORYTITLE">
+            <Text>Power at the Center</Text>
+        </Row>
+        <Row Tag="LOC_ALC001A_COMPLETION">
+            <Text>At the heart of civilization, the capital city radiates authority. Banners bearing the sigil of empire flutter atop monuments to the power of a people united. Yet other settlements distinguish themselves, and as their stars rise, citizens question their place in this larger community. Does the empire truly represent us all?</Text>
+        </Row>
+        <Row Tag="LOC_ALC001B_NAME">
+            <Text>Continue the crisis</Text>
+        </Row>
+        <Row Tag="LOC_ALC001B_DESCRIPTION">
+            <Text>+2 Crisis Policy Slots. Villas can be purchased in Towns.</Text>
+        </Row>
+        <Row Tag="LOC_ALC002A_STORYTITLE">
+            <Text>Broken Borders</Text>
+        </Row>
+        <Row Tag="LOC_ALC002A_COMPLETION">
+            <Text>The empire fractures as once-loyal settlements seek their own path forward. Laws and customs, symbols and pageantry – they are no longer sufficient in holding society together. What was once a shared identity forks like a river, and its currents bear many beyond political borders. They pledge themselves to outside powers, seeking new threads of connection, and aid in extracting themselves from their former state.</Text>
+        </Row>
+        <Row Tag="LOC_ALC002B_NAME">
+            <Text>Continue the crisis</Text>
+        </Row>
+        <Row Tag="LOC_ALC002B_DESCRIPTION">
+            <Text>+1 Crisis Policy Slots.</Text>
+        </Row>
+        <Row Tag="LOC_ALC003A_STORYTITLE">
+            <Text>Paradigm Shift</Text>
+        </Row>
+        <Row Tag="LOC_ALC003A_COMPLETION">
+            <Text>As settlements drift farther and farther from the empire’s core, the capital falters and its banners lie limp. Once the city held civilization together; now it sits as a vestige of broken bonds and archaic union. But smaller hubs find voices that grow ever louder, proclaiming their singularity amid new communities based not on tradition, but customs, beliefs, economy, identity.</Text>
+        </Row>
+        <Row Tag="LOC_ALC003B_NAME">
+            <Text>Continue the crisis</Text>
+        </Row>
+        <Row Tag="LOC_ALC003B_DESCRIPTION">
+            <Text>+1 Crisis Policy Slots.</Text>
+        </Row>
+        <Row Tag="LOC_ALC004A_STORYTITLE">
+            <Text>The Coming of Dawn</Text>
+        </Row>
+        <Row Tag="LOC_ALC004A_COMPLETION">
+            <Text>The world has settled into a new order. In the wake of unrest, borders have been reforged and political bonds redefined. The old world’s models of authority have broken beneath the weight of progress, and the very nature of “empire” transforms into a new Age.</Text>
+        </Row>
+        <Row Tag="LOC_ALC004B_NAME">
+            <Text>The Age of Antiquity is ending.</Text>
+        </Row>
+        <Row Tag="LOC_ALC004B_DESCRIPTION">
+            <Text>Who will carry our legacy?</Text>
+        </Row>
+    </EnglishText>
+</Database>

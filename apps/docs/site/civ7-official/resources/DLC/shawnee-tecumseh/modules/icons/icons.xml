@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Database>
+	<IconDefinitions>
+		<!-- Shawnee -->
+		<Row>
+			<ID>ICON_CIVILIZATION_SHAWNEE</ID>
+			<Path>fs://game/civ_sym_shawnee</Path>
+		</Row>
+		<Row>
+			<ID>CIVILIZATION_SHAWNEE</ID>
+			<Path>fs://game/civ_sym_shawnee</Path>
+		</Row>
+		<Row>
+			<ID>CIVILIZATION_SHAWNEE</ID>
+			<Context>BACKGROUND</Context>
+			<Path>fs://game/lsbg_shawnee_1080</Path>
+			<IconSize>1080</IconSize>
+		</Row>
+		<Row>
+			<ID>CIVILIZATION_SHAWNEE</ID>
+			<Context>BACKGROUND</Context>
+			<Path>fs://game/lsbg_shawnee_720</Path>
+			<IconSize>720</IconSize>
+		</Row>
+		<Row>
+			<ID>IMPROVEMENT_MAWASKAWE_SKOTE</ID>
+			<Path>blp:impicon_mawaskawe</Path>
+		</Row>
+		<Row>
+			<ID>WONDER_SERPENT_MOUND</ID>
+			<Path>blp:wondericon_serpent</Path>
+		</Row>
+		<Row>
+			<ID>UNIT_KISPOKO_NENA_TO</ID>
+			<Path>blp:unitflag_kispoko</Path>
+		</Row>
+		<Row>
+			<ID>UNIT_KISPOKO_NENA_TO_2</ID>
+			<Path>blp:unitflag_kispoko</Path>
+		</Row>
+		<Row>
+			<ID>UNIT_KISPOKO_NENA_TO_3</ID>
+			<Path>blp:unitflag_kispoko</Path>
+		</Row>
+		<Row>
+			<ID>UNIT_HOCEEPKILENI</ID>
+			<Path>blp:unitflag_hoceepkileni</Path>
+		</Row>
+
+
+		<!-- Tecumseh -->
+		<Row>
+			<ID>LEADER_TECUMSEH</ID>
+			<Path>blp:lp_hex_tecumseh_256</Path>
+			<IconSize>256</IconSize>
+		</Row>
+		<Row>
+			<ID>LEADER_TECUMSEH</ID>
+			<Path>blp:lp_hex_tecumseh_128</Path>
+			<IconSize>128</IconSize>
+		</Row>
+		<Row>
+			<ID>LEADER_TECUMSEH</ID>
+			<Path>blp:lp_hex_tecumseh_128_h</Path>
+			<Context>LEADER_HAPPY</Context>
+			<IconSize>128</IconSize>
+		</Row>
+		<Row>
+			<ID>LEADER_TECUMSEH</ID>
+			<Path>blp:lp_hex_tecumseh_128_a</Path>
+			<Context>LEADER_ANGRY</Context>
+			<IconSize>128</IconSize>
+		</Row>
+		<Row>
+			<ID>LEADER_TECUMSEH</ID>
+			<Path>blp:lp_hex_tecumseh_64</Path>
+			<IconSize>64</IconSize>
+		</Row>
+		<Row>
+			<ID>LEADER_TECUMSEH</ID>
+			<Path>blp:lp_circ_tecumseh_256</Path>
+			<Context>CIRCLE_MASK</Context>
+			<IconSize>256</IconSize>
+		</Row>
+		<Row>
+			<ID>LEADER_TECUMSEH</ID>
+			<Path>blp:lp_circ_tecumseh_128</Path>
+			<Context>CIRCLE_MASK</Context>
+			<IconSize>128</IconSize>
+		</Row>
+		<Row>
+			<ID>LEADER_TECUMSEH</ID>
+			<Path>blp:lp_circ_tecumseh_64</Path>
+			<Context>CIRCLE_MASK</Context>
+			<IconSize>64</IconSize>
+		</Row>
+	</IconDefinitions>
+	<IconAliases>
+		<Row ID="MOD_WYEHI_SIMEKOFI_MAWASKAWE_SKOTE" OtherID="MOD_TILE_YIELD_BONUS"/>
+		<!-- Yes, this modifier tag is correct -->
+		<Row ID="_MOD_MIYASKA_LATOWEKI_ENDEAVOR_TRADE" OtherID="MOD_GENERIC_BONUS"/>
+		<Row ID="MOD_MIYASKA_LATOWEKI_CITY_STATE_RESOURCES" OtherID="MOD_GENERIC_BONUS"/>
+		<Row ID="MOD_TELWATIKI_THIRD_PARTY" OtherID="KIND_DIPLOMATIC_ACTION_UNLOCK"/>
+		<Row ID="MOD_TELWATIKI_INFLUENCE" OtherID="MOD_GENERIC_BONUS"/>
+		<Row ID="MOD_KISPOKO_NENA_TO_SUPPORT" OtherID="MOD_UNIT_UPGRADE"/>
+		<Row ID="MOD_MALEKI_KINTAKE_WAREHOUSES" OtherID="MOD_TILE_YIELD_BONUS"/>
+	</IconAliases>
+
+</Database>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Icon Reference</title>
+	<link rel="stylesheet" href="fs://game/core/ui/themes/default/fonts.css">
+	<link rel="stylesheet" href="fs://game/core/ui/themes/default/default.css">
+	<script src="fs://game/game/cohtml.js"></script>
+	<script src="fs://game/core/ui/themes/default/global-scaling.js"></script>
+	<script src="fs://game/game/component-support.js"></script>
+</head>
+
+<body class="text-accent-2 hidden flex items-center justify-center">
+	<fxs-frame class="size-3\/4" style="overflow-y:auto">
+		<div class="size-full flex flow-column justify-start items-start">
+			<div class="flex flow-row items-center text-base m-3">
+				<fxs-dropdown id="movie-list" class="w-1\/2"></fxs-dropdown>
+				<!--
+				<fxs-checkbox id="show-fullscreen" selected="true"></fxs-checkbox>
+				FullScreen
+				-->
+				<fxs-button id="play-button" caption="Play" disabled="true" class="m-4"></fxs-button>
+			</div>
+			<fxs-movie id="movie" class="flex flex-auto self-stretch overflow-hidden"></fxs-movie>
+		</div>
+	</fxs-frame>
+	<div id="tooltips" class="absolute pointer-events-none"></div>
+
+	<!-- TODO - This should be moved to a component `<fxs-simple-tooltip id="tooltip-root" data-content-id="tooltip-root-content"></fxs-simple-tooltip>` -->
+	<div id="tooltip-root" class="new-tooltip--root absolute p-3 img-tooltip-border img-tooltip-bg pointer-events-none"
+		 style="visibility:hidden; z-index: 99;">
+		<div id="tooltip-root-content" class="relative font-body"></div>
+	</div>
+
+	<script type="text/javascript">
+
+		function getMovies() {
+			const movies = []
+
+			const configQ = Database.query('config', "SELECT * FROM Movies")
+			if (configQ) {
+				for (let r of configQ) {
+					movies.push(r)
+				}
+			}
+			if (UI.isInGame()) {
+				const inGameQ = Database.query('gameplay', "SELECT * FROM Movies")
+				if (inGameQ) {
+					for (let r of inGameQ) {
+						movies.push(r)
+					}
+				}
+			}
+			return movies
+		}
+
+		function populateMovies(parent, movies) {
+			const dropdownItems = movies.map((m) => {
+				return {
+					label: `${m.MovieType}[${m.Locale}] (${m.Resolution})`,
+					tooltip: m.Url
+				}
+			})
+			parent.setAttribute('dropdown-items', JSON.stringify(dropdownItems))
+		}
+
+		Loading.runWhenLoaded(() => {
+			const movies = getMovies()
+			console.log(`Found ${movies.length} movies.`)
+			let currentMovie = null
+
+			const list = document.getElementById('movie-list')
+			const fullscreen = document.get
+			const btnPlayNow = document.getElementById('play-button')
+			//const chkFullScreen = document.getElementById('show-fullscreen');
+			const movie = document.getElementById('movie')
+			if (list) {
+				// KLUDGE
+				list.classList.remove('flex-auto')
+				populateMovies(list, movies)
+
+				list.addEventListener('dropdown-selection-change', (evt) => {
+					// console.log(`SELECTION CHANGED - ${evt.detail.selectedIndex}`);
+					if (evt.detail.selectedIndex > -1) {
+						btnPlayNow.removeAttribute('disabled')
+						currentMovie = movies[evt.detail.selectedIndex]
+					}
+					else {
+						btnPlayNow.setAttribute('disabled', 'true')
+					}
+				})
+			}
+
+			if (btnPlayNow) {
+				btnPlayNow.addEventListener('action-activate', (evt) => {
+					//const attrSelected = chkFullScreen.getAttribute('selected');
+					//const showFullScreen = attrSelected == 'true';
+					//if (showFullScreen) {
+					//}
+
+					if (movie && currentMovie) {
+						movie.removeAttribute('data-movie-id')
+						movie.setAttribute('data-movie-select-resolution', currentMovie.Resolution)
+						movie.setAttribute('data-movie-select-locale', currentMovie.Locale)
+						movie.setAttribute('data-movie-id', currentMovie.MovieType)
+					}
+				})
+			}
+
+			document.body.classList.remove('hidden')
+			UI.notifyUIReady()
+		});
+	</script>
+</body>
+
+</html>

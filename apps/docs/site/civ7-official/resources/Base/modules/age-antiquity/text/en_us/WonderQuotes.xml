@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_QUOTE_WONDER_ANGKOR_WAT">
+			<Text>All beings who are plunged into the ocean of existence, may I draw them out by virtue of this good work.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_ANGKOR_WAT">
+			<Text>Jayavarman VII</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_COLOSSEUM">
+			<Text>While stands the Colosseum, Rome shall stand. When falls the Colosseum, Rome shall fall, and when Rome falls, with it shall fall the world.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_COLOSSEUM">
+			<Text>The Venerable Bede</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_COLOSSUS">
+			<Text>He doth bestride the narrow world, and we petty men walk under his huge legs, and peep about to find ourselves dishonorable graves.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_COLOSSUS">
+			<Text>William Shakespeare</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_DUR_SHARRUKIN">
+			<Text>From this day forward, your pronouncement shall be unchangeable, to raise or bring low - these shall be in your hand.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_DUR_SHARRUKIN">
+			<Text>Enūma Eliš</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_EMILE_BELL">
+			<Text>In the midst of the snow, the light of Goreyo hovers; An icy temple bell resounds echoes of the old kingdom.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_EMILE_BELL">
+			<Text>Hwang Jini</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_GATE_OF_ALL_NATIONS">
+			<Text>No man is foolish enough to desire war over peace: for in peace sons bury fathers, but in war fathers bury sons.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_GATE_OF_ALL_NATIONS">
+			<Text>Croesus of Lydia</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_GREAT_STELE">
+			<Text>May the might of the Lord cause no enemy to resist me, no enemy to follow me.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_GREAT_STELE">
+			<Text>Aksumite Inscription</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_HA_AMONGA_A_MAUI">
+			<Text>I am the River, the River is me.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_HA_AMONGA_A_MAUI">
+			<Text>Whanganui saying</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_HANGING_GARDENS">
+			<Text>The canal-water gushes from above into the gardens; fragrance pervades the walkways, streams of water as numerous as the stars of heaven flow in the pleasure garden.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_HANGING_GARDENS">
+			<Text>Ashurbanipal</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_MAUSOLEUM_OF_THEODORIC">
+			<Text>Better it is for every man to avenge his friend than mourn him.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_MAUSOLEUM_OF_THEODORIC">
+			<Text>Beowulf</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_MUNDO_PERDIDO">
+			<Text>My light is great. I am the path and the foothold of the people, because my eyes are of metal, while my teeth glitter with jewels.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_MUNDO_PERDIDO">
+			<Text>Popol Vuh</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_MONKS_MOUND">
+			<Text>And here he lay, older than the hill he rested on.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_MONKS_MOUND">
+			<Text>Zitkala-Sa</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_NALANDA">
+			<Text>If you desire ease, forsake learning. If you desire learning, forsake ease.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_NALANDA">
+			<Text>Nagarjuna</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_ORACLE">
+			<Text>I count the grains of sand on the beach and measure the sea; I understand the speech of the dumb and hear the voiceless.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_ORACLE">
+			<Text>The Pythia</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_PETRA">
+			<Text>Sedentary life is civilization's goal. It marks the end of its life and heralds its corruption.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_PETRA">
+			<Text>Ibn Khaldun</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_PYRAMID_OF_THE_SUN">
+			<Text>The warriors' blood flowed like water and gathered in pools.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_PYRAMID_OF_THE_SUN">
+			<Text>Mexica Account of Toxcatl</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_PYRAMIDS">
+			<Text>Soldiers, from the summit of these pyramids, forty centuries of history look down upon you!</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_PYRAMIDS">
+			<Text>Napoleon Bonaparte</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_SANCHI_STUPA">
+			<Text>All religions should reside everywhere, for all of them desire self-control and purity of heart.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_SANCHI_STUPA">
+			<Text>Ashoka</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_TERRACOTTA_ARMY">
+			<Text>After the battle many new ghosts cry.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_TERRACOTTA_ARMY">
+			<Text>Du Fu</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_WEIYANG_PALACE">
+			<Text>Heaven is lasting. Earth endures. Time has no limit. Regret goes on and on without end.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_WEIYANG_PALACE">
+			<Text>Bai Juyi</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_WONDER_LIBRARY_OF_ALEXANDRIA">
+			<Text>The place for the cure of the soul.</Text>
+		</Row>
+		<Row Tag="LOC_QUOTE_AUTHOR_WONDER_LIBRARY_OF_ALEXANDRIA">
+			<Text>Inscription over the door at the library</Text>
+		</Row>
+	</EnglishText>
+</Database>

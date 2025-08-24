@@ -1,0 +1,387 @@
+/* DO NOT EDIT */
+/* Generated from panel-sub-system-dock.scss */
+.sub-system-dock {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: flex-end;
+	align-self: flex-end;
+	margin-top: 0.8888888889rem;
+}
+
+.sub-system-dock--button-container {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+	align-items: flex-start;
+	padding-bottom: 1.3333333333rem;
+}
+
+.sub-system-dock--golden-age-ring {
+	background-image: url("blp:hud_sub_golden");
+}
+
+.sub-system-dock--golden-age-timer-bg {
+	bottom: -3.7777777778rem;
+	background-color: rgba(40, 40, 40, 0.5);
+}
+
+.ssb__element {
+	width: 2.8888888889rem;
+	height: 2.8888888889rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 50%;
+}
+@media (experience: mobile) {
+	.ssb__element {
+		width: 3.4666666667rem;
+		height: 3.4666666667rem;
+	}
+}
+.ssb__element:last-child {
+	margin-right: 0;
+}
+.ssb__element.ssb__button {
+	margin: 0.3333333333rem;
+	margin-top: 0.5555555556rem;
+}
+.ssb__element.disabled {
+	pointer-events: none;
+}
+.ssb__element:hover .ssb__button-iconbg--hover {
+	opacity: 1;
+}
+.ssb__element:active .ssb__button-iconbg--active, .ssb__element:focus .ssb__button-iconbg--active {
+	opacity: 1;
+}
+.ssb__element:last-child {
+	margin-right: 0;
+}
+
+.ssb__element.agetimer,
+.ssb__element.ageextended {
+	width: 7.1111111111rem;
+	height: 7.1111111111rem;
+	margin: -0.8611111111rem;
+	margin-left: 1.1111111111rem;
+}
+@media (experience: mobile) {
+	.ssb__element.agetimer,
+.ssb__element.ageextended {
+		width: 8.5333333333rem;
+		height: 8.5333333333rem;
+		margin: -1.0333333333rem;
+		margin-left: 0.7619047619rem;
+	}
+}
+
+.ssb__element.tech,
+.ssb__element.civic {
+	width: 7.1111111111rem;
+	height: 7.1111111111rem;
+	margin: -0.8611111111rem;
+}
+@media (experience: mobile) {
+	.ssb__element.tech,
+.ssb__element.civic {
+		width: 8.5333333333rem;
+		height: 8.5333333333rem;
+		margin: -1.0333333333rem;
+	}
+}
+
+.ssb__element.agetimer .fxs-ring-meter__ring-left,
+.ssb__element.agetimer .fxs-ring-meter__ring-right,
+.ssb__element.ageextended .fxs-ring-meter__ring-left,
+.ssb__element.ageextended .fxs-ring-meter__ring-right {
+	background-image: url("blp:hud_age_circle_rad");
+}
+
+.ssb__element.tech .fxs-ring-meter__ring-left,
+.ssb__element.tech .fxs-ring-meter__ring-right {
+	background-image: url("blp:hud_tech_circle_rad");
+}
+
+.ssb__element.civic .fxs-ring-meter__ring-left,
+.ssb__element.civic .fxs-ring-meter__ring-right {
+	background-image: url("blp:hud_civic_circle_rad");
+}
+
+.ssb__texture-ring .fxs-ring-meter__ring-left {
+	background-size: cover;
+	background-position: left;
+}
+.ssb__texture-ring .fxs-ring-meter__ring-right {
+	background-size: cover;
+	background-position: right;
+}
+
+.ssb__button {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	pointer-events: auto;
+	width: 2.8888888889rem;
+	height: 2.8888888889rem;
+}
+@media (experience: mobile) {
+	.ssb__button {
+		width: 3.4666666667rem;
+		height: 3.4666666667rem;
+	}
+}
+.ssb__button.hud-select-potential:focus {
+	transform: scale(1.3);
+	z-index: 1;
+}
+.ssb__button.hud-select-potential:focus .ssb__button-highlight {
+	opacity: 0.875;
+}
+
+.ssb__button-iconbg.agetimer {
+	width: 7.1111111111rem;
+	height: 7.1111111111rem;
+	background-image: url("blp:hud_age_circle_bk");
+}
+@media (experience: mobile) {
+	.ssb__button-iconbg.agetimer {
+		width: 8.5333333333rem;
+		height: 8.5333333333rem;
+	}
+}
+
+.ssb__button-iconbg--idle.agetimer {
+	opacity: 0;
+	background-image: url("blp:hud_age_circle_bk");
+}
+
+.ssb__button-iconbg--hover.agetimer {
+	opacity: 0;
+	background-image: url("blp:hud_age_circle_hov");
+}
+
+.ssb__button-iconbg--active.agetimer {
+	opacity: 0;
+	background-image: url("blp:hud_age_circle_prs");
+}
+
+.ssb__button-iconbg--disabled.agetimer {
+	opacity: 0;
+	background-image: url("blp:hud_age_circle_dis");
+}
+
+.ssb__button-iconbg.ageextended {
+	width: 7.1111111111rem;
+	height: 7.1111111111rem;
+	background-image: url("blp:hud_age_circle_bk");
+}
+@media (experience: mobile) {
+	.ssb__button-iconbg.ageextended {
+		width: 8.5333333333rem;
+		height: 8.5333333333rem;
+	}
+}
+
+.ssb__button-iconbg--idle.ageextended {
+	opacity: 0;
+	background-image: url("blp:hud_age_circle_bk");
+}
+
+.ssb__button-iconbg--hover.ageextended {
+	opacity: 0;
+	background-image: url("blp:hud_age_circle_hov");
+}
+
+.ssb__button-iconbg--active.ageextended {
+	opacity: 0;
+	background-image: url("blp:hud_age_circle_prs");
+}
+
+.ssb__button-iconbg--disabled.ageextended {
+	opacity: 0;
+	background-image: url("blp:hud_age_circle_dis");
+}
+
+.ssb__button-iconbg.tech {
+	width: 7.1111111111rem;
+	height: 7.1111111111rem;
+	background-image: url("blp:hud_tech_circle_bk");
+}
+@media (experience: mobile) {
+	.ssb__button-iconbg.tech {
+		width: 8.5333333333rem;
+		height: 8.5333333333rem;
+	}
+}
+
+.ssb__button-iconbg--idle.tech {
+	opacity: 0;
+	background-image: url("blp:hud_tech_circle_bk");
+}
+
+.ssb__button-iconbg--hover.tech {
+	opacity: 0;
+	background-image: url("blp:hud_tech_circle_hov");
+}
+
+.ssb__button-iconbg--active.tech {
+	opacity: 0;
+	background-image: url("blp:hud_tech_circle_prs");
+}
+
+.ssb__button-iconbg--disabled.tech {
+	opacity: 0;
+	background-image: url("blp:hud_tech_circle_dis");
+}
+
+.ssb__button-iconbg.civic {
+	width: 7.1111111111rem;
+	height: 7.1111111111rem;
+	background-image: url("blp:hud_civic_circle_bk");
+}
+@media (experience: mobile) {
+	.ssb__button-iconbg.civic {
+		width: 8.5333333333rem;
+		height: 8.5333333333rem;
+	}
+}
+
+.ssb__button-iconbg--idle.civic {
+	opacity: 0;
+	background-image: url("blp:hud_civic_circle_bk");
+}
+
+.ssb__button-iconbg--hover.civic {
+	opacity: 0;
+	background-image: url("blp:hud_civic_circle_hov");
+}
+
+.ssb__button-iconbg--active.civic {
+	opacity: 0;
+	background-image: url("blp:hud_civic_circle_prs");
+}
+
+.ssb__button-iconbg--disabled.civic {
+	opacity: 0;
+	background-image: url("blp:hud_civic_circle_dis");
+}
+
+.ssb__button-iconbg {
+	background-image: url("blp:hud_sub_circle_bk");
+}
+
+.ssb__button-iconbg--idle {
+	opacity: 0;
+	background-image: url("blp:hud_sub_circle_bk");
+}
+
+.ssb__button-iconbg--hover {
+	opacity: 0;
+	background-image: url("blp:hud_sub_circle_hov");
+}
+
+.ssb__button-iconbg--active {
+	opacity: 0;
+	background-image: url("blp:hud_sub_circle_prs");
+}
+
+.ssb__button-iconbg--disabled {
+	opacity: 0;
+	background-image: url("blp:hud_sub_circle_dis");
+}
+
+.ssb__button-iconbg {
+	position: absolute;
+	pointer-events: none;
+	width: 3.5555555556rem;
+	height: 3.5555555556rem;
+	background-size: contain;
+	background-repeat: no-repeat no-repeat;
+	background-position: center;
+	transition: opacity 0.25s cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+@media (experience: mobile) {
+	.ssb__button-iconbg {
+		width: 4.2666666667rem;
+		height: 4.2666666667rem;
+	}
+}
+
+.ssb__button-icon.agetimer {
+	background-image: url("blp:sub_agetimer");
+}
+
+.ssb__button-icon.ageextended {
+	background-image: url("blp:hud_omt_infinity");
+}
+
+.ssb__button-icon.tech {
+	background-image: url("blp:sub_tech");
+}
+
+.ssb__button-icon.civic {
+	background-image: url("blp:sub_civics");
+}
+
+.ssb__button-icon.gov {
+	background-image: url("blp:sub_govt");
+}
+
+.ssb__button-icon.religion {
+	background-image: url("blp:sub_religion");
+}
+
+.ssb__button-icon.resources {
+	background-image: url("blp:sub_resource");
+}
+
+.ssb__button-icon.greatworks {
+	background-image: url("blp:sub_greatworks");
+}
+
+.ssb__button-icon.unlocks {
+	background-image: url("blp:sub_unlock");
+}
+
+.ssb__button-icon.advanced-start {
+	background-image: url("blp:sub_advstart");
+}
+
+.ssb__button-icon {
+	position: absolute;
+	pointer-events: none;
+	width: 3.5555555556rem;
+	height: 3.5555555556rem;
+	background-position: 50% 50%;
+	background-size: contain;
+	background-repeat: no-repeat no-repeat;
+}
+@media (experience: mobile) {
+	.ssb__button-icon {
+		width: 4.2666666667rem;
+		height: 4.2666666667rem;
+	}
+}
+
+.ssb-button__turn-counter {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	pointer-events: auto;
+	left: 0;
+	right: 0;
+	bottom: 0.4444444444rem;
+	height: 0.8888888889rem;
+	text-align: center;
+}
+
+.ssb-button__turn-counter--hidden {
+	display: none;
+}

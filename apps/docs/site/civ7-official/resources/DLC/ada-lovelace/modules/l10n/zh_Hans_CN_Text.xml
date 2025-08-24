@@ -1,0 +1,1107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>洛夫莱斯伯爵夫人奥古斯塔·埃达·金（1815-1852）出生于一个充满矛盾的家庭。她是浪漫主义诗人拜伦勋爵唯一的合法子嗣。拜伦在她出生后不久便离开英国，此后再未谋面。他戏剧化、混乱且极具创造力的个性与其妻子拜伦夫人形成了鲜明对比。虽然拜伦夫人同样是位知识分子，但她更专注于数学和科学领域。当丈夫表现得狂野任性、率性而为时，她却严于律己、恪守规矩、虔诚笃信，并深度参与教育改革和废奴运动。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_2" Language="zh_Hans_CN">
+      <Text>埃达主要在外祖母的抚养下成长。虽然母亲不常在身边，但始终对女儿严加关注，并悉心培养她对数学和科学的兴趣——她深恐此女若像父亲那般沉醉于创造性思维，便会重蹈其自我毁灭的覆辙。埃达确实传承了母亲的学术禀性，同时也继承了父亲丰沛的想象力。有这样一则广为流传的童年轶事：埃达对鸟类产生了痴迷，并立志学习飞行。在这个项目中，她将天马行空的创意与严谨的研究完美结合，既探究翅膀的运作机理，又寻找最适合人类驾驭的材料。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_3" Language="zh_Hans_CN">
+      <Text>得益于母亲在教育上的悉心栽培，埃达得以师从当时多位学界泰斗，其中包括数学家奥古斯塔斯·德摩根和天文学家玛丽·萨默维尔。埃达18岁那年，萨默维尔将她引荐给查尔斯·巴贝奇——这位工程师兼发明家创造了差分机，如今被公认为世界第一台机械计算机。她立即就被这项发明深深吸引，随后便开始与巴贝奇展开密切合作。1842年至1843年期间，她将路易吉·梅纳布雷亚撰写的一篇意大利语文章译为英语，而这篇文章研究的正是巴贝奇的又一力作——分析机。这台机器原本设计用于处理通过打孔卡输入的数学问题，可惜因资金匮乏最终未能完整问世。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_4" Language="zh_Hans_CN">
+      <Text>在翻译梅纳布雷亚文章的过程中，埃达添加了大量关于分析机本质及其机械潜能的精辟注释。尤为引人注目的是，她提出这台机器处理的数学变量可以作为更抽象概念的载体。她的补充内容在注释G中臻至完美，提出了一个理论算法，这也被后世公认为首个计算机程序。她的贡献无论在篇幅还是洞见上都远超原文，这不仅印证了她对机器运作机理的深刻理解，更彰显了她对这项发明未来前景的远见卓识。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_5" Language="zh_Hans_CN">
+      <Text>1835年，年方20岁的她与第八代金男爵威廉·金步入婚姻殿堂，婚后育有三个孩子。除了醉心于数学研究，她对宗教、催眠术和音乐都怀有深厚兴趣，并始终密切关注科学领域的最新突破。然而天妒英才，她在仅仅36岁时便因癌症不幸辞世。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_ADA_LOVELACE_ANY" Language="zh_Hans_CN">
+      <Text>这宇宙的生命之源岂容你肆意掠夺！滚开，卑鄙小人！ </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_ADA_LOVELACE_ANY" Language="zh_Hans_CN">
+      <Text>你丧心病狂，终将丢掉性命。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DEFEAT_AI_LEADER_ADA_LOVELACE_ANY" Language="zh_Hans_CN">
+      <Text>但愿世人能在我渐行渐远的足迹中，寻得那一缕来自彼岸的曙光。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_ADA_LOVELACE_ANY" Language="zh_Hans_CN">
+      <Text>我是埃达，幸会。请问你对微积分有何高见？ </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_ADA_LOVELACE_ANY" Language="zh_Hans_CN">
+      <Text>我是埃达，幸会。请问你对微积分有何高见？ </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_ADA_LOVELACE_ANY" Language="zh_Hans_CN">
+      <Text>我是埃达，幸会。请问你对微积分有何高见？ </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_ADA_LOVELACE" Language="zh_Hans_CN">
+      <Text>你对此事的见解令人叹服。 </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_ADA_LOVELACE" Language="zh_Hans_CN">
+      <Text>你的变量永远无法在我的方程中成立。 </Text>
+    </Replace>
+    <Replace Tag="LOC_MAIN_CHAR_SELECT_LEADER_ADA_LOVELACE_ANY" Language="zh_Hans_CN">
+      <Text>要真正运用科学的语言，我们必须全身心理解、感受并把握那无形之物。 </Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_ADA_LOVELACE_NAME" Language="zh_Hans_CN">
+      <Text>埃达·洛夫莱斯</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_NAME" Language="zh_Hans_CN">
+      <Text>研究自然的奥秘。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_NAME" Language="zh_Hans_CN">
+      <Text>按照他们的意愿塑造大地。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210D_NAME" Language="zh_Hans_CN">
+      <Text>给她留出工作空间。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_NAME" Language="zh_Hans_CN">
+      <Text>整齐的档案能够激发出有序的思维。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211C_NAME" Language="zh_Hans_CN">
+      <Text>不值得清理这个烂摊子。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_NAME" Language="zh_Hans_CN">
+      <Text>为商队提供礼物和使者。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212C_NAME" Language="zh_Hans_CN">
+      <Text>让他们带着东西离开。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213B_NAME" Language="zh_Hans_CN">
+      <Text>她看到了半人马——富有创造力、务实、令人难忘。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213C_NAME" Language="zh_Hans_CN">
+      <Text>她看到了凿子，将她的名字永久刻在宇宙中。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_NAME" Language="zh_Hans_CN">
+      <Text>不利用这些专家的技能就是浪费。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214C_NAME" Language="zh_Hans_CN">
+      <Text>为他们找工作所付出的努力超过了所得的益处。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_NAME" Language="zh_Hans_CN">
+      <Text>关闭。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_NAME" Language="zh_Hans_CN">
+      <Text>鼓励人们保持开放心态。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216C_NAME" Language="zh_Hans_CN">
+      <Text>让他们自行决定。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_NAME" Language="zh_Hans_CN">
+      <Text>关闭。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_NAME" Language="zh_Hans_CN">
+      <Text>关闭。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218C_NAME" Language="zh_Hans_CN">
+      <Text>关闭。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218D_NAME" Language="zh_Hans_CN">
+      <Text>关闭。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_NAME" Language="zh_Hans_CN">
+      <Text>关闭。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219C_NAME" Language="zh_Hans_CN">
+      <Text>关闭。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219D_NAME" Language="zh_Hans_CN">
+      <Text>关闭。</Text>
+    </Replace>
+    <Replace Tag="LOC_10000A_COMPLETION" Language="zh_Hans_CN">
+      <Text>纷繁的方程式与略显粗糙的插图勾勒出埃达的思维，让我们得以一窥她那充满创意与混沌的头脑。单从纸面上，很难断定这个模型是否可行——而此刻，时间对于她的突破至关重要。</Text>
+    </Replace>
+    <Replace Tag="LOC_10000A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>成功的可能性</Text>
+    </Replace>
+    <Replace Tag="LOC_10000B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10000B_NAME" Language="zh_Hans_CN">
+      <Text>持续迭代吧，答案终将浮现。</Text>
+    </Replace>
+    <Replace Tag="LOC_10000C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10000C_NAME" Language="zh_Hans_CN">
+      <Text>不妨先听听社区的意见。</Text>
+    </Replace>
+    <Replace Tag="LOC_10001A_COMPLETION" Language="zh_Hans_CN">
+      <Text>埃达在上流社会成员中落座时，引来一片低声议论。有传闻说她研究出了预测赛马获胜的方法。其他人对此不屑一顾，认为那不过是侥幸罢了。</Text>
+    </Replace>
+    <Replace Tag="LOC_10001A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>根据算法下注</Text>
+    </Replace>
+    <Replace Tag="LOC_10001B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>马匹{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10001B_NAME" Language="zh_Hans_CN">
+      <Text>让他们说去吧！这些揣测反而让赛马更添几分趣味。</Text>
+    </Replace>
+    <Replace Tag="LOC_10001C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>马匹{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10001C_NAME" Language="zh_Hans_CN">
+      <Text>打破谣言，押注一匹缓慢的马。</Text>
+    </Replace>
+    <Replace Tag="LOC_10002A_COMPLETION" Language="zh_Hans_CN">
+      <Text>邻居们热议着信仰在科学领域中的角色。为混沌寻找意义，探寻诸神的法则，这不正是人类的天性使然吗？</Text>
+    </Replace>
+    <Replace Tag="LOC_10002A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>信仰的科学</Text>
+    </Replace>
+    <Replace Tag="LOC_10002B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10002B_NAME" Language="zh_Hans_CN">
+      <Text>信仰只是另一种形式的工具，与计算器无异。</Text>
+    </Replace>
+    <Replace Tag="LOC_10002C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10002C_NAME" Language="zh_Hans_CN">
+      <Text>信仰既解答疑惑，又衍生新的迷思。</Text>
+    </Replace>
+    <Replace Tag="LOC_10002D_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10002D_NAME" Language="zh_Hans_CN">
+      <Text>世间万物看似杂乱无章，却绝非偶然形成。</Text>
+    </Replace>
+    <Replace Tag="LOC_10003A_COMPLETION" Language="zh_Hans_CN">
+      <Text>埃达将重物系在纱线上，让它们完美地绷紧在经线之间。她巧妙地交织着各种颜色的纱线，编织出错综复杂的图案，仿佛在书写精密的数学公式。当她将这些概念串联起来时，不禁思索织物与公式之间是否暗藏着某种玄妙的联系。</Text>
+    </Replace>
+    <Replace Tag="LOC_10003A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>三思而后行</Text>
+    </Replace>
+    <Replace Tag="LOC_10003B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>文化值建筑{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10003B_NAME" Language="zh_Hans_CN">
+      <Text>将这次经验转化为课程方案。</Text>
+    </Replace>
+    <Replace Tag="LOC_10003C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>金币建筑{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10003C_NAME" Language="zh_Hans_CN">
+      <Text>将这些匠心独具的织物推向市场。</Text>
+    </Replace>
+    <Replace Tag="LOC_10004A_COMPLETION" Language="zh_Hans_CN">
+      <Text>大学竣工之际，一位建筑师将目光投向了附近的神庙。人们早已耳闻，宗教殿堂常常对学术研究持敌视态度。</Text>
+    </Replace>
+    <Replace Tag="LOC_10004A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>数理庇护者</Text>
+    </Replace>
+    <Replace Tag="LOC_10004B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10004B_NAME" Language="zh_Hans_CN">
+      <Text>任凭他们施加迫害吧，最终也徒劳无功。</Text>
+    </Replace>
+    <Replace Tag="LOC_10004C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10004C_NAME" Language="zh_Hans_CN">
+      <Text>重点在于搭建桥梁，增进双方理解。</Text>
+    </Replace>
+    <Replace Tag="LOC_10004D_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>科技值和文化值建筑{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10004D_NAME" Language="zh_Hans_CN">
+      <Text>这种问题非此即彼太过局限。不妨探寻其背后的原因。</Text>
+    </Replace>
+    <Replace Tag="LOC_10005A_COMPLETION" Language="zh_Hans_CN">
+      <Text>一个学童举起了手。他对神学课本中的一段内容表示质疑，希望更换其他读物。埃达探身凑近他的肩头，仔细审视课文内容。</Text>
+    </Replace>
+    <Replace Tag="LOC_10005A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>打破常规</Text>
+    </Replace>
+    <Replace Tag="LOC_10005B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10005B_NAME" Language="zh_Hans_CN">
+      <Text>向孩子展示宗教如何提供更广阔的知识维度。</Text>
+    </Replace>
+    <Replace Tag="LOC_10005C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>科技值建筑{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10005C_NAME" Language="zh_Hans_CN">
+      <Text>让孩子自主选择富有教育意义的读物。</Text>
+    </Replace>
+    <Replace Tag="LOC_10006A_COMPLETION" Language="zh_Hans_CN">
+      <Text>埃达轻抚着病床，抹平最后一丝褶皱。布料上蜿蜒的褶痕恍若脑回沟的纹路，唤起了她对那些被困在自我思维迷宫中时光的回忆。</Text>
+    </Replace>
+    <Replace Tag="LOC_10006A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>身心相隔</Text>
+    </Replace>
+    <Replace Tag="LOC_10006B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10006B_NAME" Language="zh_Hans_CN">
+      <Text>大脑独立于肉体，且它的耐力远胜后者。</Text>
+    </Replace>
+    <Replace Tag="LOC_10006C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10006C_NAME" Language="zh_Hans_CN">
+      <Text>坚毅的心智可以跨越一切藩篱。</Text>
+    </Replace>
+    <Replace Tag="LOC_10007A_COMPLETION" Language="zh_Hans_CN">
+      <Text>埃达倾听着一位科学家和一位牧师热议是何种冥冥之力塑造了这个世界，话题涉及诸神和玄学。随着双方世界观的碰撞，对话的气氛渐趋紧张。</Text>
+    </Replace>
+    <Replace Tag="LOC_10007A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>其中必有玄机</Text>
+    </Replace>
+    <Replace Tag="LOC_10007B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}，但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10007B_NAME" Language="zh_Hans_CN">
+      <Text>信仰既能赋予意义，也能激励我们前行。</Text>
+    </Replace>
+    <Replace Tag="LOC_10007C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}，但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10007C_NAME" Language="zh_Hans_CN">
+      <Text>正是这份对神秘的向往驱使我们探寻答案。</Text>
+    </Replace>
+    <Replace Tag="LOC_10008A_COMPLETION" Language="zh_Hans_CN">
+      <Text>顾问们告诫埃达，她的设计野心太大，根本无法实现。没有她亲自主持，项目进展迟缓，但数学公式终究也不会自行推导。</Text>
+    </Replace>
+    <Replace Tag="LOC_10008A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>日渐落后</Text>
+    </Replace>
+    <Replace Tag="LOC_10008B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>科技值建筑{1_reward}，但城镇{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10008B_NAME" Language="zh_Hans_CN">
+      <Text>宁可步伐落后，也不愿退出。</Text>
+    </Replace>
+    <Replace Tag="LOC_10008C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>城镇{1_reward}，但科技值建筑{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10008C_NAME" Language="zh_Hans_CN">
+      <Text>欲速则不达，结果反不如意。</Text>
+    </Replace>
+    <Replace Tag="LOC_10009A_COMPLETION" Language="zh_Hans_CN">
+      <Text>埃达用羽毛笔轻叩额际，期待灵感的迸发。电力虽能驱动机器、照亮黑暗，但它的潜能必定远不止于此。</Text>
+    </Replace>
+    <Replace Tag="LOC_10009A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>赐予光明</Text>
+    </Replace>
+    <Replace Tag="LOC_10009B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10009B_NAME" Language="zh_Hans_CN">
+      <Text>设计一种检查大脑的装置。</Text>
+    </Replace>
+    <Replace Tag="LOC_10009C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10009C_NAME" Language="zh_Hans_CN">
+      <Text>设计一种储存电能以备后用的装置。</Text>
+    </Replace>
+    <Replace Tag="LOC_10010A_COMPLETION" Language="zh_Hans_CN">
+      <Text>身兼数学家与诗人双重身份的埃达，常因这看似矛盾的特质引发议论。为了让同僚们一窥她独特思维的运作机制，她构思了一个妙方。</Text>
+    </Replace>
+    <Replace Tag="LOC_10010A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>矛盾的化身</Text>
+    </Replace>
+    <Replace Tag="LOC_10010B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>科技值建筑{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10010B_NAME" Language="zh_Hans_CN">
+      <Text>为数学界同仁举办写作工坊。</Text>
+    </Replace>
+    <Replace Tag="LOC_10010C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>科技值建筑{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10010C_NAME" Language="zh_Hans_CN">
+      <Text>邀请艺术家们参与创新发明。</Text>
+    </Replace>
+    <Replace Tag="LOC_10011A_COMPLETION" Language="zh_Hans_CN">
+      <Text>昔日繁盛的科学社区如今只余袅袅残烟与一片灰烬。幸存的几人拖着疲惫的身躯跋涉至{1_Capital}，向埃达·洛夫莱斯寻求庇护。</Text>
+    </Replace>
+    <Replace Tag="LOC_10011A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>拨乱反正</Text>
+    </Replace>
+    <Replace Tag="LOC_10011B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>文化值建筑{1_reward}，但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10011B_NAME" Language="zh_Hans_CN">
+      <Text>安排他们在音乐厅谋生。</Text>
+    </Replace>
+    <Replace Tag="LOC_10011C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}，但{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10011C_NAME" Language="zh_Hans_CN">
+      <Text>在工厂中为他们寻觅容身之所。</Text>
+    </Replace>
+    <Replace Tag="LOC_10012A_COMPLETION" Language="zh_Hans_CN">
+      <Text>在耗费数小时翻译晦涩的工程笔记之后，埃达对找到这个新项目的赞助人充满了信心。当新的机遇不断开启，打造一个前所未有的发明又有何难？</Text>
+    </Replace>
+    <Replace Tag="LOC_10012A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>创意交融</Text>
+    </Replace>
+    <Replace Tag="LOC_10012B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10012B_NAME" Language="zh_Hans_CN">
+      <Text>海外工程师或许愿意提供资金支持。</Text>
+    </Replace>
+    <Replace Tag="LOC_10012C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10012C_NAME" Language="zh_Hans_CN">
+      <Text>学者的交际圈中定有投资实力雄厚的伯乐。</Text>
+    </Replace>
+    <Replace Tag="LOC_10013A_COMPLETION" Language="zh_Hans_CN">
+      <Text>一群才思敏捷的女学生即将开启新学期，她们向埃达请教求学的方向。</Text>
+    </Replace>
+    <Replace Tag="LOC_10013A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>牛津方程</Text>
+    </Replace>
+    <Replace Tag="LOC_10013B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10013B_NAME" Language="zh_Hans_CN">
+      <Text>引导她们探索数理世界。</Text>
+    </Replace>
+    <Replace Tag="LOC_10013C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10013C_NAME" Language="zh_Hans_CN">
+      <Text>建议她们迈入文艺殿堂。</Text>
+    </Replace>
+    <Replace Tag="LOC_10014A_COMPLETION" Language="zh_Hans_CN">
+      <Text>埃达方才坐下享用下午茶，古物学会的代表们就不请自来，闯入她的房间。他们因现代化的脚步过于急促而扼腕叹息，坚持要采取更多措施来守护历史遗产。</Text>
+    </Replace>
+    <Replace Tag="LOC_10014A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>谁来为古物学家发言？</Text>
+    </Replace>
+    <Replace Tag="LOC_10014B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>文化值建筑{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10014B_NAME" Language="zh_Hans_CN">
+      <Text>时间的车轮永远向前，从不后退。</Text>
+    </Replace>
+    <Replace Tag="LOC_10014C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>科技值建筑{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_10014C_NAME" Language="zh_Hans_CN">
+      <Text>历史的智慧无可替代。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210A_COMPLETION" Language="zh_Hans_CN">
+      <Text>一群科学家和哲学家被埃达·洛夫莱斯的睿智光芒所折服，纷纷前来为她效力。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>基础工作</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_COMPLETION" Language="zh_Hans_CN">
+      <Text>几日闭门思辨后，哲学家们带着令人振奋的新理论重现天日，这些理论甚至对埃达自己的观点提出了挑战。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>在槽位中放置3件抄本。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_STORYTITLE" Language="zh_Hans_CN">
+      <Text>基础工作</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_COMPLETION" Language="zh_Hans_CN">
+      <Text>埃达·洛夫莱斯的助手们认真塑造烧制砖块，想象着未来无数人将踏足于他们的心血之上。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>再建造2座砖瓦窑。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_STORYTITLE" Language="zh_Hans_CN">
+      <Text>基础工作</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210D_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211A_COMPLETION" Language="zh_Hans_CN">
+      <Text>一位学者在图书馆中不慎撞到埃达，为散落一地的典籍连连致歉。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>混乱而有序</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_COMPLETION" Language="zh_Hans_CN">
+      <Text>学者将新装订的书籍整齐地排列上架，满意地欣赏着那整齐划一的书脊。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>在槽位中放置6件抄本。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_STORYTITLE" Language="zh_Hans_CN">
+      <Text>混乱而有序</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212A_COMPLETION" Language="zh_Hans_CN">
+      <Text>快速的发展催生了寻找新家园的热潮。探险者们为即将发现的新天地和知识兴奋不已。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>安生立命</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_COMPLETION" Language="zh_Hans_CN">
+      <Text>经历数日跋涉，商队终于在这片沃土上树起了他们的旗帜。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>再建立3座城镇。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_STORYTITLE" Language="zh_Hans_CN">
+      <Text>安生立命</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>所有定居点{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213A_COMPLETION" Language="zh_Hans_CN">
+      <Text>夜空中星辰闪烁，星座璀璨，等待着埃达破解其中奥秘。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>星象演算</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>故事仍在继续。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>故事仍在继续。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214A_COMPLETION" Language="zh_Hans_CN">
+      <Text>各领域的精英俊杰为埃达效力，四处传扬她的理念。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>智慧社会</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_COMPLETION" Language="zh_Hans_CN">
+      <Text>为专家们寻觅岗位轻而易举。那些小众领域渴求专业人士，而这座城市已经培育了众多英才。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>拥有10名专家。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_STORYTITLE" Language="zh_Hans_CN">
+      <Text>智慧社会</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215A_COMPLETION" Language="zh_Hans_CN">
+      <Text>建筑的意义不仅是为了让领袖的威名永驻。作为一位领袖，埃达集多种特质于一身……而无知绝非其中之一。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>城市崛起</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_COMPLETION" Language="zh_Hans_CN">
+      <Text>在埃达稳健而自信的掌舵下，她的城市将持续蓬勃发展。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>所有定居点{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>拥有5个非市中心的区块，每个均拥有40总产量。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_STORYTITLE" Language="zh_Hans_CN">
+      <Text>城市崛起</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216A_COMPLETION" Language="zh_Hans_CN">
+      <Text>祈祷的神圣力量，或许能成为治愈身心创伤的灵丹妙药。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>祷愈苍生</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_COMPLETION" Language="zh_Hans_CN">
+      <Text>数据必须严谨采集，但不论是否只是心理作用，埃达的子民们通过祈祷确实获得了更多欢愉与健康。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>让5个定居点信奉你的宗教。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_STORYTITLE" Language="zh_Hans_CN">
+      <Text>祷愈苍生</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>所有定居点{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217A_COMPLETION" Language="zh_Hans_CN">
+      <Text>变革的暗流在天际涌动。旧秩序开始动摇——对宗教教义的质疑之声与对未知的恐惧交织回荡。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>诘问万象</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_COMPLETION" Language="zh_Hans_CN">
+      <Text>为了抚平恐慌、压制异议，遗物被郑重展出，成为稳定人心的定海神针。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>所有巨作+1[icon:YIELD_HAPPINESS]幸福值。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>在槽位中放置5件遗物。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_STORYTITLE" Language="zh_Hans_CN">
+      <Text>诘问万象</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218A_COMPLETION" Language="zh_Hans_CN">
+      <Text>雄心壮志是推动人类前行的原动力——除了继续攀登，还能何去何从？这是成就伟业的绝佳良机。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>势不可挡</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_COMPLETION" Language="zh_Hans_CN">
+      <Text>埃达的遗产又朝月球推进了一枚火箭的距离。至于未来会通向何方，仍有待探究。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>建造1座发射台。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_STORYTITLE" Language="zh_Hans_CN">
+      <Text>势不可挡</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218D_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}并进入庆典。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219A_COMPLETION" Language="zh_Hans_CN">
+      <Text>在这片土地的深处，长眠着逝者的遗迹，他们的故事与珍宝正等待着重见天日，与世界共鸣。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>明证于物</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_COMPLETION" Language="zh_Hans_CN">
+      <Text>如今这些文物重见天日，得到妥善保护，终于可以用于后人研究，启迪智慧。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>在槽位中放置5件文物。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_STORYTITLE" Language="zh_Hans_CN">
+      <Text>明证于物</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219D_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}并进入庆典。</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ADA_LOVELACE_L1_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>标准金币、生产力和科技值建筑+1相邻加成。</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ADA_LOVELACE_L1_NAME" Language="zh_Hans_CN">
+      <Text>科技属性节点</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ADA_LOVELACE_L2_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>建造拥有巨作槽位的建筑和奇观时+15%生产力效用。</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ADA_LOVELACE_L2_NAME" Language="zh_Hans_CN">
+      <Text>文化属性节点</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_ADA_LOVELACE_NAME" Language="zh_Hans_CN">
+      <Text>埃达·洛夫莱斯徽章1</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_ADA_LOVELACE_P_NAME" Language="zh_Hans_CN">
+      <Text>埃达·洛夫莱斯徽章2</Text>
+    </Replace>
+    <Replace Tag="LOC_BANNER_ADA_LOVELACE_NAME" Language="zh_Hans_CN">
+      <Text>埃达·洛夫莱斯背景</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ADA_LOVELACE_1_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>在此时代中+15%[icon:YIELD_SCIENCE]科技值，但-10%[icon:YIELD_CULTURE]文化值</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ADA_LOVELACE_1_NAME" Language="zh_Hans_CN">
+      <Text>埃达·洛夫莱斯探索时代传奇科技</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ADA_LOVELACE_2_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>在此时代中+15%[icon:YIELD_CULTURE]文化值，但-10%[icon:YIELD_Science]科技值</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ADA_LOVELACE_2_NAME" Language="zh_Hans_CN">
+      <Text>埃达·洛夫莱斯探索时代传奇文化</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ADA_LOVELACE_1_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>在此时代中+15%[icon:YIELD_SCIENCE]科技值，但-10%[icon:YIELD_CULTURE]文化值</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ADA_LOVELACE_1_NAME" Language="zh_Hans_CN">
+      <Text>埃达·洛夫莱斯近世时代传奇科技</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ADA_LOVELACE_2_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>在此时代中+15%[icon:YIELD_CULTURE]文化值，但-10%[icon:YIELD_Science]科技值</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ADA_LOVELACE_2_NAME" Language="zh_Hans_CN">
+      <Text>埃达·洛夫莱斯近世时代传奇文化</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_AGENDA_ANALYTICAL_ENGINE_DESC" Language="zh_Hans_CN">
+      <Text>喜欢拥有精通最多的领袖。讨厌拥有精通最少的领袖。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_AGENDA_ANALYTICAL_ENGINE_NAME" Language="zh_Hans_CN">
+      <Text>分析引擎</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_ADA_LOVELACE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>你达成一项[icon:RADIAL_CIVICS]市政精通时，[icon:YIELD_CITIES]城市获得+2[icon:YIELD_SCIENCE]科技值，按时代叠加。此效果在每个时代开始时重置。达成一项[icon:RADIAL_TECH]科技精通时获得等同于每回合总[icon:YIELD_SCIENCE]科技值50%的[icon:YIELD_CULTURE]文化值。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_LEADER_INTRO_TEXT_ADA_LOVELACE" Language="zh_Hans_CN">
+      <Text>埃达·洛夫莱斯，你以逻辑为骨，以灵魂为翼，探寻世界运行的奥秘。理性与运算的交汇之处，正是精神之花绽放之地。释放这股力量吧，让你的分析引擎在这渴求理性的世界中运转，开拓前人未至的崭新天地。 </Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_NOTE_G_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>对未来的展望。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_NOTE_G_FUNCTIONAL_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>每达成一项科技或市政精通，首都便获得等同于其花费15%的[icon:YIELD_PRODUCTION]生产力。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_NOTE_G_NAME" Language="zh_Hans_CN">
+      <Text>注释G</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_NOTE_G_UNLOCK_TITLE" Language="zh_Hans_CN">
+      <Text>在埃达·洛夫莱斯9级时解锁</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PIANO_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>将音乐和数学融合。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PIANO_FUNCTIONAL_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>研究市政精通时+10%[icon:YIELD_CULTURE]文化值效用。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PIANO_NAME" Language="zh_Hans_CN">
+      <Text>钢琴</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PIANO_UNLOCK_TITLE" Language="zh_Hans_CN">
+      <Text>在埃达·洛夫莱斯5级时解锁</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PUNCH_CARDS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>从织布机到计算机。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PUNCH_CARDS_FUNCTIONAL_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>每建成一座科技值建筑，便获得20[icon:YIELD_SCIENCE]科技值，按时代叠加。</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PUNCH_CARDS_NAME" Language="zh_Hans_CN">
+      <Text>打孔卡</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PUNCH_CARDS_UNLOCK_TITLE" Language="zh_Hans_CN">
+      <Text>在埃达·洛夫莱斯2级时解锁</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_2_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成古典时代2次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_2_NAME" Language="zh_Hans_CN">
+      <Text>古典时代完成2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_3_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成古典时代3次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_3_NAME" Language="zh_Hans_CN">
+      <Text>古典时代完成3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成古典时代。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_NAME" Language="zh_Hans_CN">
+      <Text>古典时代完成</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_2_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成探索时代2次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_2_NAME" Language="zh_Hans_CN">
+      <Text>探索时代完成2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_3_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成探索时代3次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_3_NAME" Language="zh_Hans_CN">
+      <Text>探索时代完成3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成探索时代。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_NAME" Language="zh_Hans_CN">
+      <Text>探索时代完成</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_2_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成近世时代2次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_2_NAME" Language="zh_Hans_CN">
+      <Text>近世时代完成2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_3_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成近世时代3次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_3_NAME" Language="zh_Hans_CN">
+      <Text>近世时代完成3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成探索时代。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_NAME" Language="zh_Hans_CN">
+      <Text>近世时代完成</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_2_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成古代世界奇观传承路径2次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_2_NAME" Language="zh_Hans_CN">
+      <Text>古代世界奇观2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_3_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成古代世界奇观传承路径3次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_3_NAME" Language="zh_Hans_CN">
+      <Text>古代世界奇观3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成古代世界奇观传承路径。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_NAME" Language="zh_Hans_CN">
+      <Text>古代世界奇观</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_2_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成皇家宝库传承路径2次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_2_NAME" Language="zh_Hans_CN">
+      <Text>皇家宝库2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_3_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成皇家宝库传承路径3次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_3_NAME" Language="zh_Hans_CN">
+      <Text>皇家宝库3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成皇家宝库传承路径。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_NAME" Language="zh_Hans_CN">
+      <Text>皇家宝库</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_2_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成地理学会传承路径2次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_2_NAME" Language="zh_Hans_CN">
+      <Text>地理学会2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_3_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成地理学会传承路径3次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_3_NAME" Language="zh_Hans_CN">
+      <Text>地理学会3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成地理学会传承路径。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_NAME" Language="zh_Hans_CN">
+      <Text>地理学会</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_2_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成丝绸之路传承路径2次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_2_NAME" Language="zh_Hans_CN">
+      <Text>丝绸之路2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_3_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成丝绸之路传承路径3次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_3_NAME" Language="zh_Hans_CN">
+      <Text>丝绸之路3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成丝绸之路传承路径。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_NAME" Language="zh_Hans_CN">
+      <Text>丝绸之路</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_2_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成宝藏舰队传承路径2次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_2_NAME" Language="zh_Hans_CN">
+      <Text>宝藏舰队2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_3_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成宝藏舰队传承路径3次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_3_NAME" Language="zh_Hans_CN">
+      <Text>宝藏舰队3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成宝藏舰队传承路径。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_NAME" Language="zh_Hans_CN">
+      <Text>宝藏舰队</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_2_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成铁路大亨传承路径2次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_2_NAME" Language="zh_Hans_CN">
+      <Text>铁路大亨2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_3_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成铁路大亨传承路径3次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_3_NAME" Language="zh_Hans_CN">
+      <Text>铁路大亨3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成铁路大亨传承路径。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_NAME" Language="zh_Hans_CN">
+      <Text>铁路大亨</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_ANTIQUITY_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，在一次古典时代中完成2条传承路径。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_ANTIQUITY_NAME" Language="zh_Hans_CN">
+      <Text>古典时代双传承</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_EXPLORATION_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，在一次探索时代中完成2条传承路径。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_EXPLORATION_NAME" Language="zh_Hans_CN">
+      <Text>探索时代双传承</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_MODERN_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，在一次近世时代中完成2条传承路径。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_MODERN_NAME" Language="zh_Hans_CN">
+      <Text>近世时代双传承</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_2_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成帝国和平传承路径2次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_2_NAME" Language="zh_Hans_CN">
+      <Text>帝国和平2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_3_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成帝国和平传承路径3次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_3_NAME" Language="zh_Hans_CN">
+      <Text>帝国和平3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成帝国和平传承路径。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_NAME" Language="zh_Hans_CN">
+      <Text>帝国和平</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_2_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成世界不够大传承路径2次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_2_NAME" Language="zh_Hans_CN">
+      <Text>世界不够大2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_3_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成世界不够大传承路径3次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_3_NAME" Language="zh_Hans_CN">
+      <Text>世界不够大3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成世界不够大传承路径。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_NAME" Language="zh_Hans_CN">
+      <Text>世界不够大</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_2_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成意识形态传承路径2次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_2_NAME" Language="zh_Hans_CN">
+      <Text>意识形态2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_3_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成意识形态传承路径3次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_3_NAME" Language="zh_Hans_CN">
+      <Text>意识形态3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成意识形态传承路径。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_NAME" Language="zh_Hans_CN">
+      <Text>意识形态</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_1_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，达到至少1个传承路径里程碑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_1_NAME" Language="zh_Hans_CN">
+      <Text>进行游戏1</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_2_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，达到至少2个传承路径里程碑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_2_NAME" Language="zh_Hans_CN">
+      <Text>进行游戏2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_3_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，达到至少3个传承路径里程碑。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_3_NAME" Language="zh_Hans_CN">
+      <Text>进行游戏3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_ANTIQUITY_DESC" Language="zh_Hans_CN">
+      <Text>在古典时代中扮演埃达·洛夫莱斯，完成一项任务，组建图书馆。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_ANTIQUITY_NAME" Language="zh_Hans_CN">
+      <Text>混乱而有序</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_EXPLORATION_DESC" Language="zh_Hans_CN">
+      <Text>在探索时代中扮演埃达·洛夫莱斯，完成一项任务，培养最优秀最聪明的人才。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_EXPLORATION_NAME" Language="zh_Hans_CN">
+      <Text>智慧社会</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_MODERN_DESC" Language="zh_Hans_CN">
+      <Text>在近世时代中扮演埃达·洛夫莱斯，完成一项任务，踏上星际之旅。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_MODERN_NAME" Language="zh_Hans_CN">
+      <Text>势不可挡</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_ANTIQUITY_DESC" Language="zh_Hans_CN">
+      <Text>在古典时代中扮演埃达·洛夫莱斯，完成一项任务，找到新的家园。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_ANTIQUITY_NAME" Language="zh_Hans_CN">
+      <Text>安生立命</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_EXPLORATION_DESC" Language="zh_Hans_CN">
+      <Text>在探索时代中扮演埃达·洛夫莱斯，完成一项任务，通过祈祷支持人民。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_EXPLORATION_NAME" Language="zh_Hans_CN">
+      <Text>祷愈苍生</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_MODERN_DESC" Language="zh_Hans_CN">
+      <Text>在近世时代中扮演埃达·洛夫莱斯，完成一项任务，探寻埋藏于土壤之下的知识。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_MODERN_NAME" Language="zh_Hans_CN">
+      <Text>明证于物</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_2_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成大图书馆传承路径2次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_2_NAME" Language="zh_Hans_CN">
+      <Text>大图书馆2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_3_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成大图书馆传承路径3次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_3_NAME" Language="zh_Hans_CN">
+      <Text>大图书馆3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成大图书馆传承路径。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_NAME" Language="zh_Hans_CN">
+      <Text>大图书馆</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_2_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成启蒙传承路径2次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_2_NAME" Language="zh_Hans_CN">
+      <Text>启蒙2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_3_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成启蒙传承路径3次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_3_NAME" Language="zh_Hans_CN">
+      <Text>启蒙3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成启蒙传承路径。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_NAME" Language="zh_Hans_CN">
+      <Text>启蒙</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_2_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成太空竞赛传承路径2次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_2_NAME" Language="zh_Hans_CN">
+      <Text>太空竞赛2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_3_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成太空竞赛传承路径3次。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_3_NAME" Language="zh_Hans_CN">
+      <Text>太空竞赛3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_DESC" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，完成太空竞赛传承路径。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_NAME" Language="zh_Hans_CN">
+      <Text>太空竞赛</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_CULTURAL_LEGEND_ADA_LOVELACE_L2_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>传奇解锁。建造拥有巨作槽位的建筑和奇观时+15%[icon:YIELD_PRODUCTION]生产力效用。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_LEGEND_ADA_LOVELACE_L1_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>传奇解锁。标准[icon:YIELD_GOLD]金币、[icon:YIELD_PRODUCTION]生产力和[icon:YIELD_SCIENCE]科技值建筑相邻加成+1。</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_ADA_LOVELACE" Language="zh_Hans_CN">
+      <Text>数字魔女</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_EXPLORATION_1_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，获得一张新的探索时代传承卡：[n]
+				+15%科技值、-10%文化值</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_EXPLORATION_1_NAME" Language="zh_Hans_CN">
+      <Text>探索时代科技传承卡</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_EXPLORATION_2_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，获得一张新的探索时代传承卡：[n]
+				+15%文化值、-10%科技值</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_EXPLORATION_2_NAME" Language="zh_Hans_CN">
+      <Text>探索时代文化传承卡</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_MODERN_1_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，获得一张新的近世时代传承卡：[n]
+				+15%科技值、-10%文化值</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_MODERN_1_NAME" Language="zh_Hans_CN">
+      <Text>近世时代科技传承卡</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_MODERN_2_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>扮演埃达·洛夫莱斯，获得一张新的近世时代传承卡：[n]
+				+15%文化值、-10%科技值</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_MODERN_2_NAME" Language="zh_Hans_CN">
+      <Text>近世时代文化传承卡</Text>
+    </Replace>
+    <Replace Tag="LOC_TITLE_ADA_LOVELACE_NAME" Language="zh_Hans_CN">
+      <Text>数字魔女</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_ADA_LOVELACE_ABILITY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>[BLIST][LI]你达成一项[icon:RADIAL_CIVICS][B]市政精通[/B]时，[icon:YIELD_CITIES][B]城市[/B]获得[B]+2[icon:YIELD_SCIENCE]科技值[/B]，按时代叠加。此效果在每个时代开始时重置。[LI]达成一项[icon:RADIAL_TECH][B]科技精通[/B]时获得等同于每回合总[B][icon:YIELD_SCIENCE]科技值[/B]50%的[B][icon:YIELD_CULTURE]文化值[/B]。[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_ADA_LOVELACE_ABILITY_NAME" Language="zh_Hans_CN">
+      <Text>数字魔女</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_ABBASID_TOOLTIP" Language="zh_Hans_CN">
+      <Text>[B]阿拔斯[/B]能在策略上助力[B]埃达·洛夫莱斯[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>扮演[B]埃达·洛夫莱斯[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_GREECE_TOOLTIP" Language="zh_Hans_CN">
+      <Text>[B]埃达·洛夫莱斯[/B]与[B]希腊[/B]来自相同的大陆。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_NORMAN_TOOLTIP" Language="zh_Hans_CN">
+      <Text>[B]埃达·洛夫莱斯[/B]的不列颠曾经被[B]诺曼[/B]统治。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_ROME_TOOLTIP" Language="zh_Hans_CN">
+      <Text>[B]埃达·洛夫莱斯[/B]与[B]罗马[/B]来自相同的大陆。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_RUSSIA_TOOLTIP" Language="zh_Hans_CN">
+      <Text>[B]埃达·洛夫莱斯[/B]与[B]俄罗斯[/B]来自相同的大陆。</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

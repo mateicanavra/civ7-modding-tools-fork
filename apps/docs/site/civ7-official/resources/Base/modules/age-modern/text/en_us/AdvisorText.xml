@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<Database>
+	<EnglishText>
+		<!--Watch Out Moments-->
+		<Row Tag="LOC_WARNING_FOREIGN_LAUNCH_PAD_MESSAGE">
+			<Text>With a newly finished Launch Pad in {1_CityName}, {2_LeaderName} is one step closer to unraveling the mysteries of the heavens. If the stars are to be our destiny, we must begin construction of our own Launch Pad at once.</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_FOREIGN_LAUNCH_PAD_SUMMARY">
+			<Text>Early Space Race Leader</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_OPPONENT_FIRST_RRTYCOON_MESSAGE">
+			<Text>The thrum of machines from {1_LeaderName} is rapidly becoming the pulse of the world's economy; they have just become the world's first Railroad Tycoon. Build more Factories if our own products are to compete!</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_OPPONENT_FIRST_RRTYCOON_SUMMARY">
+			<Text>Foreign Leader is Earliest Railroad Tycoon</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_UNUSED_WMD_SUMMARY">
+			<Text>Nuclear Weapon Available</Text>
+		</Row>
+		<Row Tag="LOC_WARNING_UNUSED_WMD_MESSAGE">
+			<Text>You have a Nuclear Weapon available but no way to deploy it! To use the Nuclear Weapon we must have a Bomber based in an Aerodrome, Squadron or Carrier Commander. Once they have a Bomber, that Commander can perform the WMD Strike action once for each Nuclear Weapon we have produced.</Text>
+		</Row>
+	</EnglishText>
+</Database>

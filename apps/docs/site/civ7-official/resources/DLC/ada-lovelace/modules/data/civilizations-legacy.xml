@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LegacyLeaderCivPriorities>
+		<Row Leader="LEADER_ADA_LOVELACE" CivilizationType="CIVILIZATION_ROME"/>
+		<Row Leader="LEADER_ADA_LOVELACE" CivilizationType="CIVILIZATION_GREECE"/>
+		<Row Leader="LEADER_ADA_LOVELACE" CivilizationType="CIVILIZATION_NORMAN"/>
+		<Row Leader="LEADER_ADA_LOVELACE" CivilizationType="CIVILIZATION_ABBASID"/>
+		<Row Leader="LEADER_ADA_LOVELACE" CivilizationType="CIVILIZATION_FRENCH_EMPIRE"/>
+	</LegacyLeaderCivPriorities>
+</Database>

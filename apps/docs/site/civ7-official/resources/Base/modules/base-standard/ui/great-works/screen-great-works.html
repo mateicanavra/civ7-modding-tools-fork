@@ -1,0 +1,73 @@
+<div class="great-works-root h-full w-full flex">
+	<fxs-vslot class="great-works-parent-slot items-center w-full mt-28 mb-16">
+		<fxs-header class="great-works-header relative font-title text-xl uppercase text-secondary mb-7" filigree-style="none"
+					title="LOC_UI_GREAT_WORKS_TITLE"></fxs-header>
+		<div class="border-frame-container shrink grow w-full relative flex flex-col flex-nowrap">
+			<fxs-frame frame-style="f2" class="resource-allocation-inner-frame h-full"
+					   override-styling="items-center pt-5 relative flex max-w-full max-h-full px-10 pb-10 mb-16"
+					   filigree-class="hidden" top-border-style="none">
+				<fxs-hslot class="great-works-columns grow shrink w-full">
+					<div
+						 class="showcase-column grow shrink mx-4 items-center flex flex-col relative pointer-events-none">
+						<div class="absolute top-0 left-0 h-full w-64 img-frame-filigree pointer-events-none">
+						</div>
+						<div
+							 class="absolute top-0 right-0 h-full w-64 rotate-y-180 img-frame-filigree pointer-events-none">
+						</div>
+						<div class="showcase-header-container mt-9">
+							<fxs-header filigree-style="none"
+										class="showcase-column-header relative flex justify-center font-title text-base uppercase text-secondary mb-2"
+										title="LOC_UI_GREAT_WORKS_SHOWCASE"></fxs-header>
+							<img src="shell_small-filigree" class="relative w-full">
+						</div>
+						<fxs-scrollable class="showcase-scrollable px-5">
+							<fxs-spatial-slot
+											  class="showcase-list flex items-center flex-wrap max-w-full"></fxs-spatial-slot>
+						</fxs-scrollable>
+					</div>
+					<div
+						 class="archive-column w-1\/4 mx-4 max-h-full pointer-events-none relative flex flex-col flex-nowrap">
+						<fxs-inner-frame class="archive-box relative items-center grow max-h-full">
+							<div class="img-popup-middle-decor absolute -top-2"></div>
+							<div class="py-3 max-h-full w-full">
+								<div>
+									<fxs-header filigree-style="none"
+												class="archive-column-header mb-2 flex justify-center font-title text-base uppercase text-secondary"
+												title="LOC_UI_GREAT_WORKS_ARCHIVE">
+									</fxs-header>
+									<img src="shell_small-filigree" class="relative w-full">
+								</div>
+								<fxs-header filigree-style="none"
+											class="archive-description my-1 flex justify-center font-body text-2xs text-center"
+											title="LOC_UI_GREAT_WORKS_ARCHIVE_INSTRUCTIONS">
+								</fxs-header>
+								<div class="archive-container relative shrink w-full">
+									<fxs-scrollable class="archive-container-scrollable grow px-4 w-full">
+										<fxs-vslot class="archived-great-works-list flex w-full mb-8"
+												   ignore-prior-focus="true"></fxs-vslot>
+									</fxs-scrollable>
+								</div>
+							</div>
+						</fxs-inner-frame>
+					</div>
+					<div class="city-column w-1\/2 mx-8 relative flex flex-col flex-nowrap">
+						<div class="city-box relative items-center grow shrink mb-9">
+							<div class="settlement-tab-bar-container mb-3 px-6"></div>
+							<fxs-scrollable class="city-scrollable px-4 mb-12">
+								<fxs-spatial-slot class="city-slots-displayed-list flex flex-wrap items-stretch justify-between"
+												  data-navrule-up="stop" data-navrule-down="stop"
+												  ignore-prior-focus="true"></fxs-spatial-slot>
+							</fxs-scrollable>
+						</div>
+					</div>
+				</fxs-hslot>
+				<fxs-close-button></fxs-close-button>
+			</fxs-frame>
+			<fxs-hslot class="great-works-top-border decoration w-full justify-center items-center absolute -top-9">
+				<div class="img-top-filigree-left grow"></div>
+				<div class="img-top-filigree-center"></div>
+				<div class="img-top-filigree-right grow"></div>
+			</fxs-hslot>
+		</div>
+	</fxs-vslot>
+</div>

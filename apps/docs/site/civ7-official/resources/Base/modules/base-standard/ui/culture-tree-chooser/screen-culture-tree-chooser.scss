@@ -1,0 +1,93 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/_utility-shapes' as shapes;
+@use '../../../core/ui/themes/default/baseColors';
+@use '../../../core/ui/themes/default/animations';
+@use '../../../core/ui/themes/default/theme';
+
+.screen-culture-tree-chooser {
+	position: absolute;
+	top: pixels(152);
+	left: pixels(24);
+	bottom: pixels(24);
+	min-width: pixels(418);
+	pointer-events: auto;
+	@media (experience: mobile) {
+		bottom: 0;
+		top: pixels(55);
+	}
+
+	.culture-tree-currently-studying {
+		pointer-events: auto;
+		position: relative;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding: pixels(8);
+
+		.culture-current__empty {
+			width: 100%;
+			min-height: pixels(64);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+
+	.culture-tree-list {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+	}
+}
+
+.screen-culture-tree-chooser.hidden {
+	visibility: hidden;
+}
+
+.culture-chooser-container {
+	width: 100%;
+
+	.fxs-scrollable {
+		padding-top: 0;
+		flex: 1 1 auto;
+	}
+}
+
+.screen-culture-tree-chooser__tree-expand-button {
+	width: pixels(32);
+	height: pixels(32);
+	margin-top: pixels(4);
+	margin-left: pixels(7);
+	margin-right: pixels(-32);
+	pointer-events: auto;
+	background-image: url("fs://game/hud_quest_open.png");
+
+	&:hover,
+	&:focus {
+		background-image:
+			radial-gradient(50% 50% at 50% 50%, rgba(243, 233, 176, 0.5) 0%, rgba(243, 233, 176, 0) 100%),
+			url("fs://game/hud_quest_open.png");
+
+		border-radius: 100%;
+	}
+}
+
+.screen-culture-tree-chooser.collapsed {
+	.locked-item {
+		display: none;
+	}
+}
+
+.screen-culture-tree-chooser.expanded {
+	.screen-culture-tree-chooser__tree-expand-button {
+		background-image: url("fs://game/hud_quest_close.png");
+
+		&:hover,
+		&:focus {
+			background-image:
+				radial-gradient(50% 50% at 50% 50%, rgba(243, 233, 176, 0.5) 0%, rgba(243, 233, 176, 0) 100%),
+				url("fs://game/hud_quest_close.png");
+		}
+	}
+}

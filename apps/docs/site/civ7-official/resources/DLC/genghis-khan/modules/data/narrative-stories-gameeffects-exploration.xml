@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+    <Modifier id="LEADER_CHAIN_1234B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" run-once="false" permanent="true">
+        <Argument name="AttributeType">ATTRIBUTE_EXPANSIONIST</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1234C_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_ADJUST_RESOURCE_CAP" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1235B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY" run-once="false" permanent="true">
+        <SubjectRequirements>
+            <Requirement type="REQUIREMENT_UNIT_TYPE_MATCHES">
+                <Argument name="UnitType">UNIT_TREASURE_FLEET</Argument>
+            </Requirement>
+        </SubjectRequirements>
+        <Argument name="AbilityType">ABILITY_NARRATIVE_MOVEMENT</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1236B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" run-once="false" permanent="true">
+        <Argument name="AttributeType">ATTRIBUTE_MILITARISTIC</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1236C_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY" run-once="false" permanent="true">
+        <SubjectRequirements>
+            <Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+                <Argument name="Tag">UNIT_CLASS_INFANTRY</Argument>
+            </Requirement>
+        </SubjectRequirements>
+        <Argument name="AbilityType">ABILITY_NARRATIVE_DEFENSIVE</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1237B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_UNIT" run-once="false" permanent="true">
+        <Argument name="UnitTag">UNIT_CLASS_INFANTRY</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1237B_NARRATIVE_MODIFIER2" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_UNIT" run-once="false" permanent="true">
+        <Argument name="UnitTag">UNIT_CLASS_CAVALRY</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="10055B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION" run-once="false" permanent="true">
+        <Argument name="Percent">15</Argument>
+        <Argument name="UnitCoreClass">CORE_CLASS_MILITARY</Argument>
+    </Modifier>
+    <Modifier id="10055B_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ADD_YIELD_DEBT_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MINOR_EARLY</Argument>
+    </Modifier>
+    <Modifier id="10055C_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MEDIUM_EARLY</Argument>
+    </Modifier>
+    <Modifier id="10055C_NARRATIVE_MODIFIER2" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_DAMAGE" run-once="true" permanent="true">
+        <Argument name="Amount">25</Argument>
+    </Modifier>
+    <Modifier id="10055D_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_DIPLOMACY_ADJUST_DIPLOMATIC_ACTION_TOKEN_BONUS" run-once="false" permanent="true">
+        <Argument name="ActionType">DIPLOMACY_ACTION_DECLARE_WAR</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="10056B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_UNIT" run-once="false" permanent="true">
+        <Argument name="UnitType">UNIT_MISSIONARY</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="10056C_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_UNIT" run-once="false" permanent="true">
+        <Argument name="UnitType">UNIT_MIGRANT</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="10056D_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY" run-once="false" permanent="true">
+        <SubjectRequirements>
+            <Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+                <Argument name="Tag">UNIT_CLASS_RELIGIOUS</Argument>
+            </Requirement>
+        </SubjectRequirements>
+        <Argument name="AbilityType">ABILITY_NARRATIVE_MOVEMENT</Argument>
+    </Modifier>
+    <Modifier id="10057B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY" run-once="false" permanent="true">
+        <Argument name="AbilityType">ABILITY_NARRATIVE_AGGRESSION</Argument>
+    </Modifier>
+    <Modifier id="10057C_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_YIELD_NARRATIVE" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+        <Argument name="MultiplierType">REWARD_TYPE_MEDIUM_LATE</Argument>
+    </Modifier>
+    <Modifier id="10057D_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_GRANT_UNIT_EXPERIENCE" run-once="false" permanent="true">
+        <SubjectRequirements>
+            <Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+                <Argument name="Tag">UNIT_CLASS_COMMAND</Argument>
+            </Requirement>
+        </SubjectRequirements>
+        <Argument name="Amount" type="ScaleByGameAge" extra="100">10</Argument>
+    </Modifier>
+    <Modifier id="10058B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_UNIT" run-once="false" permanent="true">
+        <Argument name="UnitType">UNIT_MERCHANT</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="10058C_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_ADJUST_PLAYER_OR_CITY_BUILDING_PURCHASE_EFFICIENCY" run-once="false" permanent="true">
+        <Argument name="Percent">25</Argument>
+        <Argument name="BuildingType">IMPROVEMENT_ORTOO</Argument>
+    </Modifier>
+    <Modifier id="10059B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY" run-once="false" permanent="true">
+        <SubjectRequirements>
+            <Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+                <Argument name="Tag">UNIT_CLASS_KESHIG</Argument>
+            </Requirement>
+        </SubjectRequirements>
+        <Argument name="AbilityType">ABILITY_NARRATIVE_STRENGTH</Argument>
+    </Modifier>
+    <Modifier id="10059C_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION" run-once="false" permanent="true">
+        <Argument name="UnitClass">UNIT_CLASS_KESHIG</Argument>
+        <Argument name="Percent">15</Argument>
+    </Modifier>
+    <Modifier id="10060B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ADJUST_UNIT_BUILDING_PILLAGE_YIELD_MODIFIER" run-once="false" permanent="true">
+        <Argument name="Amount">25</Argument>
+        <Argument name="PlunderTypes">PLUNDER_SCIENCE</Argument>
+    </Modifier>
+    <Modifier id="10060B_NARRATIVE_MODIFIER2" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ADJUST_UNIT_IMPROVEMENT_PILLAGE_YIELD_MODIFIER" run-once="false" permanent="true">
+        <Argument name="Amount">25</Argument>
+        <Argument name="PlunderTypes">PLUNDER_SCIENCE</Argument>
+    </Modifier>
+    <Modifier id="10060C_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY" run-once="false" permanent="true">
+        <SubjectRequirements>
+            <Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+                <Argument name="Tag">UNIT_CLASS_SIEGE</Argument>
+            </Requirement>
+        </SubjectRequirements>
+        <Argument name="AbilityType">ABILITY_NARRATIVE_RANGE_DEFENSE</Argument>
+    </Modifier>
+    <Modifier id="10060D_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY" run-once="false" permanent="true">
+        <SubjectRequirements>
+            <Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+                <Argument name="Tag">UNIT_CLASS_SIEGE</Argument>
+            </Requirement>
+        </SubjectRequirements>
+        <Argument name="AbilityType">ABILITY_NARRATIVE_MOVEMENT</Argument>
+    </Modifier>
+    <Modifier id="10061B_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_SCIENCE</Argument>
+        <Argument name="Amount" type="ScaleByGameAge" extra="100">1</Argument>
+        <Argument name="Tag">SCIENCE</Argument>
+    </Modifier>
+    <Modifier id="10061C_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_UNIT_PRODUCTION" run-once="false" permanent="true">
+        <Argument name="Percent">10</Argument>
+        <Argument name="UnitCoreClass">CORE_CLASS_MILITARY</Argument>
+    </Modifier>
+    <Modifier id="10061D_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+        <Argument name="Amount">1</Argument>
+        <Argument name="Tag">FOOD</Argument>
+    </Modifier>
+    <Modifier id="10062B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER_CITY_NEAREST_STORY" effect="EFFECT_CITY_GRANT_UNIT" run-once="true" permanent="true">
+        <Argument name="UnitType">UNIT_MIGRANT</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="10062C_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER_CITY_NEAREST_STORY" effect="EFFECT_CITY_GRANT_UNIT" run-once="true" permanent="true">
+        <Argument name="UnitType">UNIT_SWORDSMAN</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="10062D_NARRATIVE_MODIFIER" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_YIELD" run-once="false" permanent="true">
+        <Argument name="YieldType">YIELD_DIPLOMACY</Argument>
+        <Argument name="Amount">1</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1233B_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_NARRATIVE_TAG" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_LEADER_CHAIN_A</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1233C_NARRATIVE_MODIFIER" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_NARRATIVE_TAG" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_LEADER_CHAIN_B</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1234B_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_NARRATIVE_TAG" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_LEADER_CHAIN_A</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1235B_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_NARRATIVE_TAG" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_LEADER_CHAIN_A</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1236B_NARRATIVE_MODIFIER2" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_NARRATIVE_TAG" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_LEADER_CHAIN_B</Argument>
+    </Modifier>
+    <Modifier id="LEADER_CHAIN_1237B_NARRATIVE_MODIFIER3" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_GRANT_NARRATIVE_TAG" run-once="false" permanent="true">
+        <Argument name="Amount">1</Argument>
+        <Argument name="NarrativeTagType">NARRATIVE_TAG_LEADER_CHAIN_B</Argument>
+    </Modifier>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1233A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_GENGHIS_KHAN_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1234A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_GENGHIS_KHAN_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1235A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_GENGHIS_KHAN_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1236A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_GENGHIS_KHAN_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1237A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_GENGHIS_KHAN_ONLY"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10055A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_GENGHIS_KHAN"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10055D_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_MONGOLIA"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10056A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_GENGHIS_KHAN"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10056D_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_MONGOLIA"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10057A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_GENGHIS_KHAN"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10057D_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_MONGOLIA"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10058A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_MONGOLIA"/>
+        <Requirement xref="REQ_STORY_LEADER_GENGHIS_KHAN"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10059A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_GENGHIS_KHAN"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10060A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_GENGHIS_KHAN"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10060D_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_MONGOLIA"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10061A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_GENGHIS_KHAN"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10061D_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_MONGOLIA"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10062A_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_LEADER_GENGHIS_KHAN"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10062D_NARRATIVE_REQUISITE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_MONGOLIA"/>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1233A_NARRATIVE">
+        <Requirement type="REQUIREMENT_IS_AGE_COUNT">
+            <Argument name="AgeCount">1</Argument>
+        </Requirement>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_PROGRESSION_TREE_NODE">
+            <Argument name="ProgressionTreeNodeType">NODE_CIVIC_EX_MAIN_AUTHORITY</Argument>
+            <Argument name="MinDepth">1</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1234A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_NARRATIVE_TAGS">
+            <Argument name="NarrativeTagType">NARRATIVE_TAG_LEADER_CHAIN_A</Argument>
+            <Argument name="Amount">1</Argument>
+        </Requirement>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_PROGRESSION_TREE_NODE">
+            <Argument name="ProgressionTreeNodeType">NODE_TECH_EX_CARTOGRAPHY</Argument>
+            <Argument name="MinDepth">1</Argument>
+        </Requirement>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_COMPLETED_PROGRESSION_TREE_NODE">
+            <Argument name="ProgressionTreeNodeType">NODE_TECH_EX_ASTRONOMY</Argument>
+            <Argument name="MinDepth">1</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1234B_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_CONSTRUCT_BUILDING01</Argument>
+            <Argument name="GOSSIP_CONSTRUCT_BUILDING01">Hash,ConstructibleType,BUILDING_FISHING_QUAY,Hash,IsForeignHemisphere,True</Argument>
+            <Argument name="DuplicateCount">3</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1235A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_TRAIN_UNIT01</Argument>
+            <Argument name="GOSSIP_TRAIN_UNIT01">Hash,UnitTypeReplaces,UNIT_TREASURE_FLEET</Argument>
+        </Requirement>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_NARRATIVE_TAGS">
+            <Argument name="NarrativeTagType">NARRATIVE_TAG_LEADER_CHAIN_A</Argument>
+            <Argument name="Amount">1</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1235B_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_SCORE_DISBAND_UNIT01</Argument>
+            <Argument name="GOSSIP_SCORE_DISBAND_UNIT01">Numeric,Amount,1</Argument>
+            <Argument name="AfterInit">True</Argument>
+            <Argument name="DuplicateCount">3</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1236A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_NARRATIVE_TAGS">
+            <Argument name="NarrativeTagType">NARRATIVE_TAG_LEADER_CHAIN_B</Argument>
+            <Argument name="Amount">1</Argument>
+        </Requirement>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_MAKE_DOW01</Argument>
+            <Argument name="GOSSIP_MAKE_DOW01">Hash,OtherPlayer,Other</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1236B_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_CONQUER_CITY01</Argument>
+            <Argument name="GOSSIP_CONQUER_CITY01">Hash,OtherPlayer,Other,Hash,IsCapital,True</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1237A_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_REJECT_DEAL01</Argument>
+            <Argument name="GOSSIP_REJECT_DEAL01">Hash,OtherPlayer,Other,Hash,DealType,DEAL_ITEM_AGREEMENT_MAKE_PEACE</Argument>
+        </Requirement>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_NARRATIVE_TAGS">
+            <Argument name="NarrativeTagType">NARRATIVE_TAG_LEADER_CHAIN_B</Argument>
+            <Argument name="Amount">1</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_LEADER_CHAIN_1237B_NARRATIVE">
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_CONQUER_CITY01</Argument>
+            <Argument name="GOSSIP_CONQUER_CITY01">Hash,OtherPlayer,Other</Argument>
+            <Argument name="AfterInit">True</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10055A_NARRATIVE">
+        <Requirement xref="REQ_STORY_LEADER_GENGHIS_KHAN"/>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_MAKE_DOW01</Argument>
+            <Argument name="GOSSIP_MAKE_DOW01">Hash,OtherPlayer,Other,Hash,WarType,SURPRISE_WAR</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10056A_NARRATIVE">
+        <Requirement xref="REQ_STORY_LEADER_GENGHIS_KHAN"/>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_X_RELIGIONS">
+            <Argument name="Amount">3</Argument>
+            <Argument name="MajorityOnly">false</Argument>
+        </Requirement>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_FOUND_RELIGION01</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10057A_NARRATIVE">
+        <Requirement xref="REQ_STORY_LEADER_GENGHIS_KHAN"/>
+        <Requirement type="REQUIREMENT_PLAYER_ACTIVE_WARS">
+            <Argument name="Amount">3</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10058A_NARRATIVE">
+        <Requirement xref="REQ_STORY_CIVILIZATION_MONGOLIA"/>
+        <Requirement xref="REQ_STORY_LEADER_GENGHIS_KHAN"/>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_BUILDINGS">
+            <Argument name="BuildingType">IMPROVEMENT_ORTOO</Argument>
+            <Argument name="Amount">2</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10059A_NARRATIVE">
+        <Requirement xref="REQ_STORY_LEADER_GENGHIS_KHAN"/>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_UNIT_COMBAT_DEATH01,GOSSIP_UNIT_COMBAT_DEATH02,GOSSIP_UNIT_COMBAT_DEATH03</Argument>
+            <Argument name="GOSSIP_UNIT_COMBAT_DEATH01">Hash,OtherPlayer,Other,Hash,DyingUnitType,UNIT_KESHIG,Hash,DyingUnitInCommandRadius,True</Argument>
+            <Argument name="GOSSIP_UNIT_COMBAT_DEATH02">Hash,OtherPlayer,Other,Hash,DyingUnitType,UNIT_KESHIG_2,Hash,DyingUnitInCommandRadius,True</Argument>
+            <Argument name="GOSSIP_UNIT_COMBAT_DEATH03">Hash,OtherPlayer,Other,Hash,DyingUnitType,UNIT_KESHIG_3,Hash,DyingUnitInCommandRadius,True</Argument>
+            <Argument name="Amount">1</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10060A_NARRATIVE">
+        <Requirement xref="REQ_STORY_LEADER_GENGHIS_KHAN"/>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_UNIT_COMBAT_DEATH01</Argument>
+            <Argument name="GOSSIP_UNIT_COMBAT_DEATH01">Hash,OtherPlayer,Self,Hash,KillingUnitType,UNIT_TREBUCHET,Hash,IsDyingUnitPlotOwner,True</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10061A_NARRATIVE">
+        <Requirement xref="REQ_STORY_LEADER_GENGHIS_KHAN"/>
+        <Requirement type="REQUIREMENT_COLLECTION_COUNT_ATLEAST">
+            <Argument name="Count">5</Argument>
+            <Argument name="CollectionType">COLLECTION_PLAYER_CITIES</Argument>
+            <Argument name="RequirementSetId">SUBREQSET_10061A_NARRATIVE</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="SUBREQSET_10061A_NARRATIVE">
+        <Requirement type="REQUIREMENT_CITY_POPULATION">
+            <Argument name="MinRuralPopulation">15</Argument>
+        </Requirement>
+    </RequirementSet>
+    <RequirementSet id="REQSET_10062A_NARRATIVE">
+        <Requirement xref="REQ_STORY_LEADER_GENGHIS_KHAN"/>
+        <Requirement type="REQUIREMENT_PLAYER_HAS_AT_LEAST_NUM_GOSSIPS">
+            <Argument name="GossipTypes">GOSSIP_UNIT_USES_ABILITY_CHARGE01</Argument>
+            <Argument name="GOSSIP_UNIT_USES_ABILITY_CHARGE01">Hash,Ability,CHARGED_ABILITY_CONVERT_INDEPENDENT</Argument>
+        </Requirement>
+    </RequirementSet>
+</GameEffects>

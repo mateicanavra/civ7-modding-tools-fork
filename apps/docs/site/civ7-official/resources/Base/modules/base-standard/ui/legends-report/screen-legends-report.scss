@@ -1,0 +1,50 @@
+@use '../../../core/ui/themes/default/theme';
+@use '../../../core/ui/utilities/utility-layout' as *;
+
+.legends-ring {
+	background-image: url("fs://game/report_port_bk.png");
+
+	.fxs-ring-meter__ring-left,
+	.fxs-ring-meter__ring-right {
+		background-image: url("fs://game/report_port_rad.png");
+		background-size: cover;
+	}
+
+	.fxs-ring-meter__ring-left {
+		background-position: left;
+	}
+
+	.fxs-ring-meter__ring-right {
+		background-position: right;
+	}
+}
+
+.legends-report-scrollable {
+	@media (max-height: pixels(1000)) {
+		height: 70%;
+	}
+
+	height: 80%;
+}
+
+.ring-level-circle {
+	background-image: url("fs://game/prof_lvl_bk");
+}
+
+.challenges-item {
+
+	&:focus,
+	&:hover {
+		.challenges-highlight {
+			background: linear-gradient(90deg, transparent 0%, theme.color('secondary-3') 100%);
+		}
+	}
+}
+
+.rewards-item {
+
+	&:focus,
+	&:hover {
+		background: linear-gradient(90deg, theme.color('primary-3') 0%, theme.color('secondary-3') 100%);
+	}
+}

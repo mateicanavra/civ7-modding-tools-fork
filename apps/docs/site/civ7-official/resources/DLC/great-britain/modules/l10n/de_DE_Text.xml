@@ -1,0 +1,758 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN1" Language="de_DE">
+      <Text>London</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN10" Language="de_DE">
+      <Text>Stoke-upon-Trent</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN11" Language="de_DE">
+      <Text>Newcastle</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN12" Language="de_DE">
+      <Text>Plymouth</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN13" Language="de_DE">
+      <Text>Portsmouth</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN14" Language="de_DE">
+      <Text>Leicester</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN15" Language="de_DE">
+      <Text>Sunderland</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN16" Language="de_DE">
+      <Text>Nottingham</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN17" Language="de_DE">
+      <Text>Oldham</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN18" Language="de_DE">
+      <Text>Brighton</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN19" Language="de_DE">
+      <Text>Bolton</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN2" Language="de_DE">
+      <Text>Liverpool</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN20" Language="de_DE">
+      <Text>Blackburn</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN21" Language="de_DE">
+      <Text>Preston</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN22" Language="de_DE">
+      <Text>Norwich</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN23" Language="de_DE">
+      <Text>Birkenhead</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN24" Language="de_DE">
+      <Text>Huddersfield</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN25" Language="de_DE">
+      <Text>Derby</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN26" Language="de_DE">
+      <Text>Wolverhampton</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN27" Language="de_DE">
+      <Text>Halifax</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN28" Language="de_DE">
+      <Text>Rochdale</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN29" Language="de_DE">
+      <Text>Gateshead</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN3" Language="de_DE">
+      <Text>Birmingham</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN30" Language="de_DE">
+      <Text>Southampton</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN4" Language="de_DE">
+      <Text>Manchester</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN5" Language="de_DE">
+      <Text>Leeds</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN6" Language="de_DE">
+      <Text>Sheffield</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN7" Language="de_DE">
+      <Text>Bristol</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN8" Language="de_DE">
+      <Text>Bradford</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_GREAT_BRITAIN9" Language="de_DE">
+      <Text>Hull</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_1" Language="de_DE">
+      <Text>Mary</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_10" Language="de_DE">
+      <Text>Hannah</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_2" Language="de_DE">
+      <Text>Elizabeth</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_3" Language="de_DE">
+      <Text>Sarah</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_4" Language="de_DE">
+      <Text>Margaret</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_5" Language="de_DE">
+      <Text>Eliza</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_6" Language="de_DE">
+      <Text>Ann</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_7" Language="de_DE">
+      <Text>Ellen</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_8" Language="de_DE">
+      <Text>Jane</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_FEMALE_9" Language="de_DE">
+      <Text>Emma</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_1" Language="de_DE">
+      <Text>William</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_10" Language="de_DE">
+      <Text>Joseph</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_2" Language="de_DE">
+      <Text>John</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_3" Language="de_DE">
+      <Text>George</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_4" Language="de_DE">
+      <Text>Thomas</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_5" Language="de_DE">
+      <Text>James</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_6" Language="de_DE">
+      <Text>Robert</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_7" Language="de_DE">
+      <Text>Henry</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_8" Language="de_DE">
+      <Text>Edward</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_GREAT_BRITAIN_MALE_9" Language="de_DE">
+      <Text>Charles</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_GREAT_BRITAIN_ADJECTIVE" Language="de_DE">
+      <Text>britisch|britischen|britische|britischer|britisches</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_GREAT_BRITAIN_FULLNAME" Language="de_DE">
+      <Text>British Empire|British Empire|British Empire|British Empire|British Empire</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_GREAT_BRITAIN_NAME" Language="de_DE">
+      <Text>Großbritannien|Großbritannien|Großbritannien|Großbritanniens|Großbritannien</Text>
+      <Gender>neuter:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_MANUFACTORY_CHAPTER_HISTORY_PARA_1" Language="de_DE">
+      <Text>Die völlige Umgestaltung der englischen Gesellschaft im 19. Jahrhundert als Folge der Industriellen Revolution kann nicht hoch genug eingeschätzt werden. Während Tätigkeiten wie das Weben in den Jahrhunderten zuvor auf dem Land in großen Familienhöfen ausgeübt worden waren, konnte ein wohlhabender Investor, der Spinn- und Zwirnmaschinen kaufte, nun jede Heimarbeit schnell übertreffen. Diese Maschinen benötigten Stahl und Kohle, und so begannen auch diese Industrien zu wachsen. Der Betrieb von Maschinen erforderte zudem Arbeitskräfte, vorzugsweise mit niedrigem Lohn und ungelernt, was dazu führte, dass die Menschen massenhaft vom Land in die Stadt zogen. Da diese Arbeiter Löhne erhielten und kein Land zum Bebauen hatten, benötigten sie mehr Waren, die von den Fabriken, in denen sie arbeiteten, produziert wurden. Und da diese Maschinen immer mehr Rohstoffe benötigten, die größtenteils aus den britischen Kolonien stammten, wurde die Kontrolle der Kolonien immer strenger. Es war ein System, das alles aus den Arbeitern, den Kolonialuntertanen und dem Land selbst herausholte und riesige Mengen an Produkten und Gewinn abwarf. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_MANUFACTORY_CHAPTER_HISTORY_PARA_2" Language="de_DE">
+      <Text>Charles Dickens zeichnete den Alltag der britischen Bürger in diesem System auf und wies auf die Überreste der Menschlichkeit hin, die trotz allem fortbestanden. Friedrich Engels zeichnete seine grausamen Auswüchse auf und stellte fest, dass die Gesundheit und das Glück in den Fabrikstädten weit unter dem Niveau auf dem Land lagen - aber das Land verschwand natürlich schnell. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_MANUFACTORY_CHAPTER_HISTORY_PARA_3" Language="de_DE">
+      <Text>Hier ist also die Manufaktur: die "finstere satanische Mühle" aus William Blakes Fantasie. Sie spuckt Rauch und Dampf und verändert das Land, aber wie viel Geld sie einbringen kann!</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_ROYAL_EXCHANGE_CHAPTER_HISTORY_PARA_1" Language="de_DE">
+      <Text>Das British Empire wurde an der Börse aufgebaut; es waren die Handelsnetzwerke, von denen aus die britische Macht ausstrahlte. Die Royal Exchange wurde 1571 von Königin Elisabeth I. eröffnet, die später der East India Company eine königliche Charta verleihen sollte. Im viktorianischen Zeitalter transportierten die britischen Handelsnetze Tee, Gewürze, Porzellan und feine Stoffe von einem Ende der Welt zum anderen und veränderten damit nicht nur die Kolonien, sondern auch das Leben der britischen Mittelschicht. Und die Royal Exchange war das Nervenzentrum dieses Netzwerks - es ist kein Zufall, dass Proklamationen wie die Bestätigung eines neuen Monarchen der Öffentlichkeit vor der Börse verkündet werden.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_BUILDING_ROYAL_EXCHANGE_CHAPTER_HISTORY_PARA_2" Language="de_DE">
+      <Text>Das Gebäude selbst ist nicht dasselbe wie das von Elisabeth. Die Börse brannte zweimal ab, und das heutige Gebäude wurde 1844 von Königin Victoria eröffnet. Heute ist es jedoch keine Börse mehr, sondern ein Einkaufszentrum - vielleicht ein Zeichen dafür, wie sich die Dinge sowohl verändern als auch gleichbleiben. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_1" Language="de_DE">
+      <Text>Im Jahr 1800 wurden die Kronen von Irland und Großbritannien (das bereits eine Union von Schottland, Wales und England war) durch den Act of Union zum Vereinigten Königreich vereint. Dies war der Kern des Zweiten British Empires, das sich als Industriemacht auf der Weltbühne etablierte, die Herrschaft über Kolonialbesitz in Indien und Afrika festigte und ein einflussreicher Akteur in der europäischen Politik blieb.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_2" Language="de_DE">
+      <Text>Die Kriege gegen Frankreich waren für die frühe Geschichte des Vereinigten Königreichs von entscheidender Bedeutung. Sie begannen als Reaktion auf die Französische Revolution, da die Monarchien des Vereinigten Königreichs Frankreich als existenzielle Bedrohung betrachteten. Diese Bedrohung verschärfte sich, als Napoléon Bonaparte die Kontrolle über die Französische Republik übernahm und das Erste Französische Kaiserreich gründete, das eine Welle europäischer Eroberungen einleitete. Nach Napoléons Niederlage kam Großbritannien zu seinem Recht.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_3" Language="de_DE">
+      <Text>Europa war verwüstet, aber Großbritannien war unversehrt (und der unangefochtene Herrscher der Meere) und wurde so zu einem der Hauptakteure in der späteren Ära des Kolonialismus. Zu dieser Zeit übernahm die Krone verschiedene Handelsgesellschaften, die durch Korruption gelähmt und von Verlusten geplagt waren und sich allmählich einen schrecklichen Ruf als Auslöser lokaler Konflikte erwarben. Während die Briten die Sklaverei in ihren Kolonien abschafften und die schlimmsten Auswüchse der Handelsgesellschaften eindämmten, nahm der Imperialismus weiter zu. In Asien inszenierten die Briten einen Staatsstreich im malaiischen Staat Johor, wodurch sie die Kontrolle über Singapur erlangten. In Indien wurde die Ostindien-Kompanie trotz der ständigen Gefahr von Aufständen in verschiedenen Teilen des Raj (von denen der von Tipu Sultan einer der berühmtesten war) durch die direkte britische Herrschaft ersetzt. Diese beiden Kolonien dienten als Opium-Pipeline nach China - eine bewusste britische Strategie, um einen Rohstoff zu finden, den die Chinesen kaufen würden, da die Chinesen bisher britische Waren verschmäht und nur Silber nachgefragt hatten. Dies führte zu den beiden Opiumkriegen, aus denen Großbritannien Hongkong gewann und die China zur Öffnung seines Marktes zwangen.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_4" Language="de_DE">
+      <Text>Kurz gesagt schufen die Briten ein weltweites System - zum Vorteil Londons. Fast jeder Kontinent der Welt stand unter britischem Einfluss (mit Ausnahme von Südamerika). Im Gegensatz zu den eher kriegslüsternen Franzosen nutzten die Briten eine Vielzahl von Mitteln zur Beherrschung. So wurden beispielsweise Schulden zu einem wichtigen Instrument: Britische Kaufleute nutzten den Wunsch der Herrscher nach Fertigwaren aus und drängten sie dazu, immense Schulden zu machen, die dann "beglichen" werden konnten, indem man den Briten erlaubte, die Finanzen zu "verwalten". Auf diese Weise fielen Malaya und Ägypten an die Briten. In Zentralasien fand unterdessen das "Great Game" statt, eine strategische Rivalität mit Russland um die Vorherrschaft in der Region.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_5" Language="de_DE">
+      <Text>Interessanterweise diskutierte Großbritannien darüber, sich in einen weiteren Krieg mit den Vereinigten Staaten einzumischen - den Bürgerkrieg. Das Vereinigte Königreich stand dem Süden wirtschaftlich näher, war von der Baumwolle aus dem Süden abhängig und fühlte sich mit der Aristokratie des Südens wohler als mit den nüchternen puritanischen Nachkommen im Nordosten. Die Emanzipationserklärung unterstrich jedoch, dass die Unterstützung des Südens die Unterstützung der Sklaverei bedeutete, und selbst die Briten würden diese Grenze nicht überschreiten. Zumindest nicht in den 1860er Jahren.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_6" Language="de_DE">
+      <Text>Intern verkörperte Großbritannien liberale Wirtschaft mit Schwerpunkt auf Freihandel und Eigentumsrechten. Das Gespenst der Französischen Revolution spukte in Großbritannien herum, sodass die verschiedenen Parteien versuchten, den Populismus zu besänftigen, indem sie entweder eine versöhnliche (Whigs) oder eine feindliche (Tories) Linie einschlugen.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_7" Language="de_DE">
+      <Text>Die zweite Hälfte des 19. Jahrhunderts war das Viktorianische Zeitalter in Großbritannien. Es war eine Ära der Industrialisierung, der Literatur, der Wissenschaft und der Philosophie, eine typisch britische Zeit. Mit der Industrialisierung (William Blakes "finstere satanische Mühlen") entwickelte sich die britische Industrieklasse. Zum einen ermöglichten Fabriken, die nach der Uhr reguliert wurden, die Trennung von Privat- und Arbeitsleben, was mit den entsprechenden Geschlechterrollen einherging. Eine weitere Veränderung war die Ausweitung der Psychologie und anderer Sozialwissenschaften; die Vorstellungen von Rasse und Sexualität im 20. Jahrhundert wurden von dieser Ära tiefgreifend geprägt. Dies war eine Welt der Dampfkraft, von Charles Dickens und Sherlock Holmes, der Brontë-Schwestern und Dracula, von Jeeves &amp; Wooster und Friedrich Engels, in der die bürgerliche Ehrbarkeit kodifiziert und aufgewertet wurde.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_GREAT_BRITAIN_CHAPTER_HISTORY_PARA_8" Language="de_DE">
+      <Text>Kurz gesagt hatte das British Empire mehrere Gesichter - Industrie und Politik im Inland und unverhohlener Imperialismus im Ausland. Es war eine Zeit, die auf einer unaufhaltsamen Marine, einer durch britische Streitkräfte garantierten Weltordnung und der allgegenwärtigen Gefahr sozialer Unruhen basierte. Konflikte schienen immer im Hintergrund zu lauern, aber mit dem Verständnis, dass der Krieg in dieser schönen neuen Welt völlig anders sein würde. Und so war es auch.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_GREAT_BRITAIN_CHARTERED_COMPANIES_CHAPTER_HISTORY_PARA_1" Language="de_DE">
+      <Text>Wenn wir von Kolonialismus sprechen, beschreiben wir diese Ära oft als die Eroberung einer Region durch eine örtlich fremde Macht mit einer Ideologie der Überlegenheit und mit dem Ziel der Ausbeutung. Dies ist jedoch nur teilweise richtig: Kolonialunternehmen waren größtenteils halbprivate Geschäftsbetriebe, die von einer Gesellschaft gegründet wurden, die wiederum von der Krone eingetragen und mit einer Charta ausgestattet wurde. Diese Fokussierung auf Handel und Gewinne unterstreicht die Ziele solcher Institutionen - im Gegensatz zur direkten imperialen Eroberung wurden diese Unternehmen gegründet, um Geld zu verdienen.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_GREAT_BRITAIN_CHARTERED_COMPANIES_CHAPTER_HISTORY_PARA_2" Language="de_DE">
+      <Text>Die East India Company, die vielleicht berühmteste der englischen Handelskompanien, wurde lange vor der Moderne gegründet. Doch während die EIC und andere Unternehmen ihre Geschäfte weiterführten, veranlassten ihre monopolistische Haltung und ihre räuberischen Praktiken (und der Widerstand, den diese hervorriefen) die Krone zum Eingreifen, und die Handelskompanien der Moderne waren in ihrem Umfang stärker eingeschränkt und unterlagen mehr staatlichen Eingriffen. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_GREAT_BRITAIN_PAX_BRITANNICA_CHAPTER_HISTORY_PARA_1" Language="de_DE">
+      <Text>Mit dem Sturz Napoléons beherrschte Großbritannien die Weltmeere. Im darauffolgenden Jahrhundert erlangte keine andere Macht einen bedeutenden Vorteil gegenüber den Briten, wenn es um Seewege ging, und da die Ära des Hochkolonialismus in vollem Gange war, bedeutete dies, dass alle aufstrebenden interkontinentalen Reiche der britischen Seemacht unterworfen waren. Der Name dieser Ära, Pax Britannica, spiegelt ähnliche Bedingungen anderswo wider, wenn ein einzelnes Imperium ein Handels- und Kommunikationsnetzwerk kontrolliert und den Frieden fördert ... wenn auch unter einer einzigen geordneten Herrschaft. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_GREAT_BRITAIN_PAX_BRITANNICA_CHAPTER_HISTORY_PARA_2" Language="de_DE">
+      <Text>Diese Vorherrschaft dauerte bis zum Ende des 19. Jahrhunderts, bis sie schließlich im 20. Jahrhundert durch den Aufstieg der Vereinigten Staaten, Japans und Deutschlands und die damit entstandenen neuen Herausforderungen zusammenbrach.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_GREAT_BRITAIN_SOCIETY_OF_ANTIQUARIES_CHAPTER_HISTORY_PARA_1" Language="de_DE">
+      <Text>Mit dem Voranschreiten der Moderne entwickelten etliche Reiche großes Interesse an der Vergangenheit. 1707 gründete man in Großbritannien die antiquarische Gesellschaft, die aufstrebenden Archäologen und anderen Gelehrten einen Rahmen für Diskurse über die (vornehmlich britische) Geschichte bot. Es überrascht vielleicht, dass eine solche Einrichtung zu diesem Zeitpunkt notwendig und neuartig war, doch zuvor waren Wissen über die Vergangenheit ebenso wie die Erkenntnis, dass solches Wissen von Interesse sein könnte, in England wie auch an vielen anderen Orten rar. Die Gesellschaft spiegelt somit das wachsende Bewusstsein für die Mächte und Geschichten wider, die Großbritannien mit der Zeit prägten.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_GREAT_BRITAIN_SOCIETY_OF_ANTIQUARIES_CHAPTER_HISTORY_PARA_2" Language="de_DE">
+      <Text>Die Gesellschaft ist immer noch präsent und veröffentlicht verschiedene Zeitschriften, sowohl populärwissenschaftliche als auch rein akademische.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_GREAT_BRITAIN_SPLENDID_ISOLATION_CHAPTER_HISTORY_PARA_1" Language="de_DE">
+      <Text>In der Zeit zwischen den Napoléonischen Kriegen und dem 20. Jahrhundert war es britische Politik, sich nicht in dauerhafte Bündnisse mit anderen Mächten zu verstricken. Aus Sicht der Briten war dieser Ansatz sehr sinnvoll: Die britische Macht auf See war unbestritten, aber Europa blieb ein potenziell chaotisches Gewirr aus Bündnissen und Rivalitäten und der Ärmelkanal stellte eine natürliche Barriere für jeden direkten Angriff dar. Von dort aus konnte Großbritannien Europa in seiner Stärke und in herrlicher Isolation betrachten, obwohl der Mangel an engen Verbündeten die britischen Interessen schließlich wieder auf die Standarddiplomatie zurückführte.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_QUARTER_FINANCIAL_CENTRE_CHAPTER_HISTORY_PARA_1" Language="de_DE">
+      <Text>Die Dominanz des British Empire beruhte größtenteils auf Wirtschaft und Handel, was wiederum eine bedeutende Finanzinfrastruktur innerhalb der Metropole erforderte. Mitte des 19. Jahrhunderts war London zum Finanzzentrum der Welt geworden und mehr als die Hälfte des gesamten Welthandels wurde in Pfund Sterling abgewickelt. Produktion und Finanzen gingen Hand in Hand: Die Manufakturen Großbritanniens, die koloniale Ressourcen in Fertigwaren umwandelten, profitierten von Handelswegen und füllten diese wiederum, ermöglicht durch die Royal Exchange. Auf seinem Höhepunkt ermächtigte das System die Briten, mittels Schuldenhebeln die direkte Kontrolle über die Finanzen einzelner Kolonien zu übernehmen. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_ANTIQUARIAN_CHAPTER_HISTORY_PARA_1" Language="de_DE">
+      <Text>Das Verständnis der Vergangenheit als ein Ort, der sich von der Gegenwart unterscheidet, aber dennoch eine Verbindung zu ihr hat, und das Interesse, Informationen und Objekte aus dieser Vergangenheit zu sammeln, gab es an so unterschiedlichen Orten wie dem alten Ägypten und dem China der Song-Dynastie. Aber die Aufklärung und spätere Epochen in Europa boten einen besonders fruchtbaren Boden - die Europäer beschäftigten sich zunächst mit der klassischen Geschichte, dann, im 18. Jahrhundert, in der Zeit des Nationalismus und der Besessenheit von der nationalen Herkunft, mit der europäischen Vorgeschichte, und schließlich, während der Hochphase der Kolonialzeit, mit der Vergangenheit ihrer neuen "Besitztümer". </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_ANTIQUARIAN_CHAPTER_HISTORY_PARA_2" Language="de_DE">
+      <Text>Hier fallen einem Namen wie Heinrich Schliemann ein, der Troja ausgrub, Flinders Petrie, der die Große Pyramide untersuchte, Howard Carter, der das Grab von Tutanchamun öffnete, und andere. Diese Entdeckungen lösten im späten 19. und frühen 20. Jahrhundert in Großbritannien einen Boom für alles aus, was mit der Antike zu tun hatte. Hier liegt die Figur des Antiquars begründet: ein Sammler alter Dinge und ein Kurator des Interesses an der Vergangenheit. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_REVENGE_CHAPTER_HISTORY_PARA_1" Language="de_DE">
+      <Text>In den ersten Jahren des 20. Jahrhunderts, als das Militär begann, das zerstörerische Potenzial der mechanisierten Kriegsführung zu nutzen, kamen Dreadnoughts zum Einsatz. Dabei handelte es sich um Schiffe, die mit großen Langstreckenkanonen ausgerüstet waren und gleichzeitig die Seeschlachten im Zweiten Weltkrieg dominierten sowie im selben Konflikt von Flugzeugen in ihrer Macht übertroffen wurden. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_REVENGE_CHAPTER_HISTORY_PARA_2" Language="de_DE">
+      <Text>Die britische Kriegsschiffklasse Revenge verfügte über acht 381-mm-Geschütze, die auf vier Geschütztürmen montiert waren, eine Sekundärbatterie an der Seite des Schiffes und Plattformen für frühe Jagd- und Aufklärungsflugzeuge. Diese Kriegsschiffe erlebten im Ersten Weltkrieg die Kampfhandlungen nur für kurze Zeit und wurden hauptsächlich in den Zwischenkriegsjahren eingesetzt; im Zweiten Weltkrieg wurden sie schließlich zugunsten modernerer Schiffe ausgemustert. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_BATTERSEA_POWER_STATION_CHAPTER_HISTORY_PARA_1" Language="de_DE">
+      <Text>1929 begannen die Arbeiten an einem Kohlekraftwerk in Battersea, London, am Nordufer der Themse. Das von Theo J. Halliday und Giles Gilbert Scott (der auch für die berühmte rote Telefonzelle Großbritanniens verantwortlich war) entworfene Art-déco-Gebäude wurde so konzipiert, dass es zwei Kraftwerke in einem einzigen Gebäude beherbergen konnte. Zum Zeitpunkt seiner Fertigstellung im Jahr 1955 war die Battersea Power Station eines der größten Backsteingebäude der Welt. Der Rauch seiner 101 Meter hohen Schornsteine diente Piloten während des Zweiten Weltkriegs als Orientierungshilfe, und das Gebäude erschien auf dem Cover von Pink Floyds Album "Animals" aus dem Jahr 1977. Die Battersea Power Station war nicht lange in Betrieb - die Blöcke des Kraftwerks wurden zwischen 1975 und 1983 einzeln stillgelegt. Nachdem das Wahrzeichen über 30 Jahre lang leer stand, wurde es kürzlich als Einkaufs- und Wohnzentrum wieder zum Leben erweckt. </Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_MANUFACTORY_NAME" Language="de_DE">
+      <Text>Fabrikanlage|Fabrikanlage|Fabrikanlage|Fabrikanlage|Fabrikanlage</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_ROYAL_EXCHANGE_NAME" Language="de_DE">
+      <Text>Königliche Börse|Königliche Börse|Königlichen Börse|Königlichen Börse|Königliche Börse</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_FINANCIAL_CENTRE_NAME" Language="de_DE">
+      <Text>Finanzzentrum|Finanzzentrum|Finanzzentrum|Finanzzentrums|Finanzzentrum</Text>
+      <Gender>neuter</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BATTERSEA_POWER_STATION_NAME" Language="de_DE">
+      <Text>Battersea Power Station|Battersea Power Station|Battersea Power Station|Battersea Power Station|Battersea Power Station</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_TAY_NAME" Language="de_DE">
+      <Text>Tay|Tay|Tay|Tay|Tay</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_THAMES_NAME" Language="de_DE">
+      <Text>Themse|Themse|Themse|Themse|Themse</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_RIVER_WYE_NAME" Language="de_DE">
+      <Text>Wye|Wye|Wye|Wye|Wye</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_ARTHUR_S_SEAT_NAME" Language="de_DE">
+      <Text>Arthur's Seat|Arthur's Seat|Arthur's Seat|Arthur's Seat|Arthur's Seat</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_BARROW_HILL_NAME" Language="de_DE">
+      <Text>Barrow Hill|Barrow Hill|Barrow Hill|Barrow Hill|Barrow Hill</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_BEN_NEVIS_NAME" Language="de_DE">
+      <Text>Ben Nevis|Ben Nevis|Ben Nevis|Ben Nevis|Ben Nevis</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_HELVELLYN_NAME" Language="de_DE">
+      <Text>Helvellyn|Helvellyn|Helvellyn|Helvellyn|Helvellyn</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_MYNYDD_Y_DREF_NAME" Language="de_DE">
+      <Text>Mynydd y Dref|Mynydd y Dref|Mynydd y Dref|Mynydd y Dref|Mynydd y Dref</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_THE_CHEVIOT_NAME" Language="de_DE">
+      <Text>Cheviot|Cheviot|Cheviot|Cheviot|Cheviot</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_CHARTERED_COMPANIES_NAME" Language="de_DE">
+      <Text>Handelskompanien|Handelskompanien|Handelskompanien|Handelskompanien|Handelskompanien</Text>
+      <Gender>feminine</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_PAX_BRITANNICA_NAME" Language="de_DE">
+      <Text>Pax Britannica|Pax Britannica|Pax Britannica|Pax Britannica|Pax Britannica</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SOCIETY_OF_ANTIQUARIES_NAME" Language="de_DE">
+      <Text>Antiquarische Gesellschaft|Antiquarische Gesellschaft|Antiquarischen Gesellschaft|Antiquarischen Gesellschaft|Antiquarische Gesellschaft</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SPLENDID_ISOLATION_NAME" Language="de_DE">
+      <Text>Splendid Isolation|Splendid Isolation|Splendid Isolation|Splendid Isolation|Splendid Isolation</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_GREATWORK_ARTIFACT_CONTESTED_STATUE_NAME" Language="de_DE">
+      <Text>Umkämpfte Statue</Text>
+    </Replace>
+    <Replace Tag="LOC_GREATWORK_ARTIFACT_KOH_I_NOOR_NAME" Language="de_DE">
+      <Text>Koh-i-Noor</Text>
+    </Replace>
+    <Replace Tag="LOC_11010A_COMPLETION" Language="de_DE">
+      <Text>Ein Kadett der Royal Air Force hört gespannt einem erfahrenen Piloten zu, der seine Klasse über die Risiken waghalsiger Flugmanöver aufklärt. Er versucht, dem Unterricht zu folgen, aber die mit Kampfspuren und Abschussmarkierungen übersäte Bristol F.2 des Piloten lenken ihn immer wieder ab.</Text>
+    </Replace>
+    <Replace Tag="LOC_11010A_STORYTITLE" Language="de_DE">
+      <Text>Luftüberlegenheit</Text>
+    </Replace>
+    <Replace Tag="LOC_11010B_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward} für Lufteinheiten.</Text>
+    </Replace>
+    <Replace Tag="LOC_11010B_NAME" Language="de_DE">
+      <Text>Mögliche Draufgänger aussortieren.</Text>
+    </Replace>
+    <Replace Tag="LOC_11010C_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward} für Lufteinheiten.</Text>
+    </Replace>
+    <Replace Tag="LOC_11010C_NAME" Language="de_DE">
+      <Text>Draufgänger ermutigen.</Text>
+    </Replace>
+    <Replace Tag="LOC_11011A_COMPLETION" Language="de_DE">
+      <Text>Angesichts immer längerer Schichten tauschen Arbeiter geheime Handschläge und unterschriebene Petitionen aus. Sie schreien über das Quietschen rostiger Zahnräder hinweg und träumen von einer Gewerkschaft, um die Sicherheitsbedingungen ihrer Mühle zu verbessern.</Text>
+    </Replace>
+    <Replace Tag="LOC_11011A_STORYTITLE" Language="de_DE">
+      <Text>Murmeln der Unzufriedenheit</Text>
+    </Replace>
+    <Replace Tag="LOC_11011B_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11011B_NAME" Language="de_DE">
+      <Text>Gründung einer Gewerkschaft zulassen.</Text>
+    </Replace>
+    <Replace Tag="LOC_11011C_DESCRIPTION" Language="de_DE">
+      <Text>Kostenloser Fabrikkauf.</Text>
+    </Replace>
+    <Replace Tag="LOC_11011C_NAME" Language="de_DE">
+      <Text>Infrastruktur priorisieren.</Text>
+    </Replace>
+    <Replace Tag="LOC_11012A_COMPLETION" Language="de_DE">
+      <Text>Hinter vorgehaltener Hand beklagt sich die einheimische Bevölkerung einer entlegenen Kolonie über die harte Unterdrückung durch den britischen Gouverneur. Der schwelende Unmut droht eine Rebellion zu entfachen.</Text>
+    </Replace>
+    <Replace Tag="LOC_11012A_STORYTITLE" Language="de_DE">
+      <Text>Aufflammende Revolution</Text>
+    </Replace>
+    <Replace Tag="LOC_11012B_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11012B_NAME" Language="de_DE">
+      <Text>Den Widerstand mit einer kontrollierten Nachricht zum Schweigen bringen.</Text>
+    </Replace>
+    <Replace Tag="LOC_11012C_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward}, aber {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11012C_NAME" Language="de_DE">
+      <Text>Den Widerstand mit Militärgewalt niederschlagen.</Text>
+    </Replace>
+    <Replace Tag="LOC_11012D_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward}, aber {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11012D_NAME" Language="de_DE">
+      <Text>Der Stadt die Ernennung eines eigenen Vizekönigs erlauben.</Text>
+    </Replace>
+    <Replace Tag="LOC_11013A_COMPLETION" Language="de_DE">
+      <Text>Frisch polierte Stiefel poltern über das Deck eines großen Walfangschiffs. Ein Presskommando verteilt Befehle für die Zwangseinberufung. Ein Aufschrei hallt durch die Decks.</Text>
+    </Replace>
+    <Replace Tag="LOC_11013A_STORYTITLE" Language="de_DE">
+      <Text>Zwangsrekrutierung</Text>
+    </Replace>
+    <Replace Tag="LOC_11013B_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward} für Marineeinheiten, aber {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11013B_NAME" Language="de_DE">
+      <Text>Befehle müssen befolgt werden.</Text>
+    </Replace>
+    <Replace Tag="LOC_11013C_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward}, aber {2_reward} für Marineeinheiten.</Text>
+    </Replace>
+    <Replace Tag="LOC_11013C_NAME" Language="de_DE">
+      <Text>Die Schiffseigner werden entschädigt.</Text>
+    </Replace>
+    <Replace Tag="LOC_11014A_COMPLETION" Language="de_DE">
+      <Text>Britische Geschäftsinhaber sind wütend über die Flut an Überseeimporten, die dafür sorgt, dass Ihre Lager voller britischer Produkte sich nicht mehr verkaufen, und beschweren sich, dass Großbritannien sich verrannt hat - und es dem Volk an nationalem Stolz mangelt.</Text>
+    </Replace>
+    <Replace Tag="LOC_11014A_STORYTITLE" Language="de_DE">
+      <Text>Offene Häfen</Text>
+    </Replace>
+    <Replace Tag="LOC_11014B_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward}, aber {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11014B_NAME" Language="de_DE">
+      <Text>Zölle auf Importwaren erheben.</Text>
+    </Replace>
+    <Replace Tag="LOC_11014C_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward}, aber {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11014C_NAME" Language="de_DE">
+      <Text>Britische Waren in fremde Märkte drängen.</Text>
+    </Replace>
+    <Replace Tag="LOC_11015A_COMPLETION" Language="de_DE">
+      <Text>Je mehr Großbritannien floriert, desto mehr junge Männer und Frauen bemühen sich um einen Platz in seinen heiligen Institutionen. Aber die Elite sorgt sich, dass die Ausbildung in Oxford schon bald nichts mehr wert sein könnte, wenn die zukünftigen Anführer des Landes gezwungen wären, sich mit dem gemeinen Pöbel abzugeben.</Text>
+    </Replace>
+    <Replace Tag="LOC_11015A_STORYTITLE" Language="de_DE">
+      <Text>Oxford-Elite</Text>
+    </Replace>
+    <Replace Tag="LOC_11015B_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward} in allen Siedlungen, aber {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11015B_NAME" Language="de_DE">
+      <Text>Woher stammt die Tradition?</Text>
+    </Replace>
+    <Replace Tag="LOC_11015C_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11015C_NAME" Language="de_DE">
+      <Text>Die zukünftigen Anführer Großbritanniens können von überall her kommen.</Text>
+    </Replace>
+    <Replace Tag="LOC_11016A_COMPLETION" Language="de_DE">
+      <Text>Hoch aufragende schwarze Öfen kippen vor und zurück, während sie Ströme von geschmolzenem Metall ausspucken - das ist der Beweis, dass Großbritanniens neues Bessemerverfahren die Stahlproduktion revolutioniert hat.</Text>
+    </Replace>
+    <Replace Tag="LOC_11016A_STORYTITLE" Language="de_DE">
+      <Text>Stärke des Stahls</Text>
+    </Replace>
+    <Replace Tag="LOC_11016B_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward} für Rache.</Text>
+    </Replace>
+    <Replace Tag="LOC_11016B_NAME" Language="de_DE">
+      <Text>Schiffsproduktion ankurbeln.</Text>
+    </Replace>
+    <Replace Tag="LOC_11016C_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward} für Rache.</Text>
+    </Replace>
+    <Replace Tag="LOC_11016C_NAME" Language="de_DE">
+      <Text>Kanonenfertigung optimieren.</Text>
+    </Replace>
+    <Replace Tag="LOC_11017A_COMPLETION" Language="de_DE">
+      <Text>Ein Zug rattert zum Stillstand vor einer Konservenfabrik und etliche Arbeiter beladen die Waggons mit Kisten von in Sägemehl eingepacktem Dosenfleisch - der Inbegriff von britischem Luxus und Überfluss.</Text>
+    </Replace>
+    <Replace Tag="LOC_11017A_STORYTITLE" Language="de_DE">
+      <Text>Spitze der Nahrungskette</Text>
+    </Replace>
+    <Replace Tag="LOC_11017B_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11017B_NAME" Language="de_DE">
+      <Text>Lebensmittelnotrationen lagern.</Text>
+    </Replace>
+    <Replace Tag="LOC_11017C_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11017C_NAME" Language="de_DE">
+      <Text>Überschüssige Lebensmittel exportieren.</Text>
+    </Replace>
+    <Replace Tag="LOC_11018A_COMPLETION" Language="de_DE">
+      <Text>Ein Sozialreformer steht vor einer Fabrik und drückt den Passanten Flugblätter in die Hände, während er davon predigt, wie junge Leben auf dem Altar des Profits geopfert werden.</Text>
+    </Replace>
+    <Replace Tag="LOC_11018A_STORYTITLE" Language="de_DE">
+      <Text>Die Mühen der Jugend</Text>
+    </Replace>
+    <Replace Tag="LOC_11018B_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward}, aber {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11018B_NAME" Language="de_DE">
+      <Text>Kinder verdienen eine gute Bildung.</Text>
+    </Replace>
+    <Replace Tag="LOC_11018C_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11018C_NAME" Language="de_DE">
+      <Text>Hart arbeitende Kinder werden zu disziplinierten Erwachsenen.</Text>
+    </Replace>
+    <Replace Tag="LOC_11019_ALT2A_COMPLETION" Language="de_DE">
+      <Text>Ein britischer Antiquitätenhändler hat im Mogulreich einen Diamanten gefunden, der schon lange als verschollen galt. Er ist riesig und wunderschön. Die Mogulbehörden wollen ihn zurückhaben.</Text>
+    </Replace>
+    <Replace Tag="LOC_11019_ALT2A_STORYTITLE" Language="de_DE">
+      <Text>Berg des Lichts</Text>
+    </Replace>
+    <Replace Tag="LOC_11019_ALT2B_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward}, aber es kommt zum Krieg.</Text>
+    </Replace>
+    <Replace Tag="LOC_11019_ALT2B_NAME" Language="de_DE">
+      <Text>Er sollte die britische Krone zieren.</Text>
+    </Replace>
+    <Replace Tag="LOC_11019_ALT2C_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward}, aber das Artefakt wird zurückgegeben.</Text>
+    </Replace>
+    <Replace Tag="LOC_11019_ALT2C_NAME" Language="de_DE">
+      <Text>Er gehört den Moguln.</Text>
+    </Replace>
+    <Replace Tag="LOC_11019A_COMPLETION" Language="de_DE">
+      <Text>Eine Expedition in {1_OPPONENT_CIVILIZATION_ADJ[3]} Länder kehrt mit geheimer Fracht zurück - eine prächtige Statue, die in der {2_OWNER_EXPLORATION_CIVILIZATION_ADJ[2]} Geschichte lange als verschollen galt. Der Antiquitätensammler beharrt darauf, dass sie in ein Museum gehört, aber {3_OPPONENT_CIVILIZATION_ADJ[3]} Gesandte verlangen ihre sofortige Rückgabe und untermauern ihre Forderungen mit Drohungen.</Text>
+    </Replace>
+    <Replace Tag="LOC_11019A_STORYTITLE" Language="de_DE">
+      <Text>Hüter der Vergangenheit</Text>
+    </Replace>
+    <Replace Tag="LOC_11019B_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward}, aber es kommt zum Krieg.</Text>
+    </Replace>
+    <Replace Tag="LOC_11019B_NAME" Language="de_DE">
+      <Text>Großbritannien wird das Kulturerbe der Welt hüten, ob es der Welt passt oder nicht.</Text>
+    </Replace>
+    <Replace Tag="LOC_11019C_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward}, aber das Artefakt wird zurückgegeben.</Text>
+    </Replace>
+    <Replace Tag="LOC_11019C_NAME" Language="de_DE">
+      <Text>Das Artefakt mit einer Entschuldigung zurückgeben.</Text>
+    </Replace>
+    <Replace Tag="LOC_11019D_DESCRIPTION" Language="de_DE">
+      <Text>Das Artefakt ist verloren.</Text>
+    </Replace>
+    <Replace Tag="LOC_11019D_NAME" Language="de_DE">
+      <Text>Das Artefakt zerstören.</Text>
+    </Replace>
+    <Replace Tag="LOC_11068A_COMPLETION" Language="de_DE">
+      <Text>Je komplexer die Welt wird, desto mehr verschließen sich britische Politiker möglichen Allianzen mit anderen Mächten. Sie sind der Meinung, dass Großbritannien den Abstand wahren sollte, um sich von jeglichen außenpolitischen Verwicklungen fernzuhalten. Andere fürchten jedoch, dass ein Mangel an Verbündeten sich irgendwann rächen könnte.</Text>
+    </Replace>
+    <Replace Tag="LOC_11068A_STORYTITLE" Language="de_DE">
+      <Text>Diplomatisches Dilemma</Text>
+    </Replace>
+    <Replace Tag="LOC_11068B_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11068B_NAME" Language="de_DE">
+      <Text>Großbritannien lebt von innerer Stärke.</Text>
+    </Replace>
+    <Replace Tag="LOC_11068C_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_11068C_NAME" Language="de_DE">
+      <Text>Kontakte nach außen sind unabdingbar für den Erfolg.</Text>
+    </Replace>
+    <Replace Tag="LOC_12005A_COMPLETION" Language="de_DE">
+      <Text>Der Smog der Industrie hängt wie ein Schleier über der britischen Hauptstadt. Rizal ist vor allem von der Vielfalt der Menschen beeindruckt.</Text>
+    </Replace>
+    <Replace Tag="LOC_12005A_STORYTITLE" Language="de_DE">
+      <Text>Der gute Doktor in Großbritannien.</Text>
+    </Replace>
+    <Replace Tag="LOC_12005B_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_12005B_NAME" Language="de_DE">
+      <Text>Sie scheinen sich einem strengen Klassensystem zu unterwerfen.</Text>
+    </Replace>
+    <Replace Tag="LOC_12005C_DESCRIPTION" Language="de_DE">
+      <Text>{1_reward} in allen Siedlungen.</Text>
+    </Replace>
+    <Replace Tag="LOC_12005C_NAME" Language="de_DE">
+      <Text>Sie scheinen aus jeder Ecke des Reichs zu kommen.</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_MANUFACTORY_DESCRIPTION" Language="de_DE">
+      <Text>+5 [icon:YIELD_PRODUCTION] Produktion. +1 [icon:YIELD_PRODUCTION] Produktionsnachbarschaft für Ressourcen und Wunder. +1 [icon:YIELD_GOLD] Goldnachbarschaft für schiffbare Flüsse. Einzigartiges britisches Produktionsgebäude. Zeitlos.</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_MANUFACTORY_TOOLTIP" Language="de_DE">
+      <Text>Einzigartiges britisches Produktionsgebäude. Zeitlos.</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_ROYAL_EXCHANGE_DESCRIPTION" Language="de_DE">
+      <Text>+5 [icon:YIELD_GOLD] Gold. +1 [icon:YIELD_GOLD] Goldnachbarschaft für Viertel und Wunder. Einzigartiges britisches Goldgebäude. Zeitlos.</Text>
+    </Replace>
+    <Replace Tag="LOC_BUILDING_ROYAL_EXCHANGE_TOOLTIP" Language="de_DE">
+      <Text>Einzigartiges britisches Goldgebäude. Zeitlos.</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_CHARTERED_COMPANIES_AUTHOR" Language="de_DE">
+      <Text>Lord Byron</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_CHARTERED_COMPANIES_QUOTE" Language="de_DE">
+      <Text>"Man sagt: "Wissen ist Macht" - das dachte ich früher auch, aber jetzt weiß ich, dass sie "Geld" meinen."</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_PAX_BRITANNICA_AUTHOR" Language="de_DE">
+      <Text>Benjamin Disraeli</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_PAX_BRITANNICA_QUOTE" Language="de_DE">
+      <Text>"Vermehrte Mittel und vermehrte Muße sind die beiden Zivilisatoren des Menschen."</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SOCIETY_OF_ANTIQUARIES_AUTHOR" Language="de_DE">
+      <Text>Howard Carter</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SOCIETY_OF_ANTIQUARIES_QUOTE" Language="de_DE">
+      <Text>"Als sich meine Augen an das Licht gewöhnten, konnte ich die Details des Raums ausmachen. Seltsame Tiere, Statuen und Gold - überall der Glanz von Gold."</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SPLENDID_ISOLATION_AUTHOR" Language="de_DE">
+      <Text>Lord Salisbury</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SPLENDID_ISOLATION_QUOTE" Language="de_DE">
+      <Text>"Der Krieg ist gerecht oder ungerecht, je nachdem, ob er opportun ist oder nicht."</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_GREAT_BRITAIN_DESCRIPTION" Language="de_DE">
+      <Text>+25 % [icon:YIELD_GOLD] Gold für den Kauf und +25 % [icon:YIELD_PRODUCTION] Produktion für den Bau von Gebäuden. Die Umwandlung von Gemeinden in Städte kostet 50 % mehr.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_GREAT_BRITAIN" Language="de_DE">
+      <Text>Herrsch, Britannia! Jenseits des rauchigen Londoner Himmels, jenseits der raunenden Fabriken von Manchester gibt es einen größeren Ruhm - das Empire. Die hungrigen Fabriken müssen versorgt werden und die vollen Lagerhäuser brauchen Absatzmärkte. Erhört ihren Ruf und möge die Sonne niemals über Eurem Reich untergehen.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_GREAT_BRITAIN" Language="de_DE">
+      <Text>Großbritannien liebt es, viele Gemeinden zu haben, um viel Gold mit der Tradition Ostindien-Kompanie und dem Spezialviertel Finanzzentrum zu erzielen. Nutzt diese Gemeinden, um Fabrikressourcen für Eure Städte zu sammeln!</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_INTRO_GREAT_BRITAIN" Language="de_DE">
+      <Text>Chaos ist die Abwesenheit von Ordnung und die Welt braucht Struktur. Großbritannien steigt auf.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GREAT_BRITAIN_COMPLETE_BATTERSEA_POWER_STATION_DESC" Language="de_DE">
+      <Text>Schließt als Großbritannien die Battersea Power Station ab</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GREAT_BRITAIN_COMPLETE_BATTERSEA_POWER_STATION_NAME" Language="de_DE">
+      <Text>Battersea Power Station</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GREAT_BRITAIN_LEGACY_PATH_ECONOMIC_DESC" Language="de_DE">
+      <Text>Schließt als Großbritannien einen Wirtschaftsvermächtnis-Weg ab</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_GREAT_BRITAIN_LEGACY_PATH_ECONOMIC_NAME" Language="de_DE">
+      <Text>Großbritannien-Vermächtnis-Weg</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CHARTERED_COMPANIES_PORT_RESOURCE_CAP_DESCRIPTION" Language="de_DE">
+      <Text>+1 Ressourcenkapazität in Siedlungen mit einem Hafen.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_GREAT_BRITAIN_DESCRIPTION" Language="de_DE">
+      <Text>+30 % [icon:YIELD_PRODUCTION] Produktion als zugehöriges Wunder von Großbritannien.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_PAX_BRITANNICA_PRODUCTION_FACTORY_RESOURCES_DESCRIPTION" Language="de_DE">
+      <Text>+3 [icon:YIELD_PRODUCTION] Produktion für Siedlungen für jede mit ihnen verbundene Fabrikressource.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SOCIETY_OF_ANTIQUARIES_ENTER_FOREIGN_LANDS_DESCRIPTION" Language="de_DE">
+      <Text>Antiquare können die Grenzen anderer Zivilisationen ohne offene Grenzen überschreiten.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SOCIETY_OF_ANTIQUARIES_MOVEMENT_DESCRIPTION" Language="de_DE">
+      <Text>+1 Fortbewegung für Zivilisten.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SPLENDID_ISOLATION_POSITIVE_GOLD_CS_DESCRIPTION" Language="de_DE">
+      <Text>Zu Beginn Runde erhalten Einheiten +3 Kampfstärke, wenn Ihr positives oder 0 [icon:YIELD_GOLD] Gold pro Runde habt.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SPLENDID_ISOLATION_POSITIVE_GOLD_CS_PREVIEW" Language="de_DE">
+      <Text>+3 Kampfstärke für die Ausrichtung "Splendid Isolation".</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_FINANCIAL_CENTRE_DESCRIPTION" Language="de_DE">
+      <Text>Britisches Spezialviertel. Wird erschaffen, wenn Fabrikanlage und Königliche Börse im selben Bezirk errichtet werden. +2 [icon:YIELD_GOLD] Gold und [icon:YIELD_SCIENCE] Wissenschaft für jede verbundene Siedlung.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUARTER_FINANCIAL_CENTRE_TOOLTIP" Language="de_DE">
+      <Text>+2 [icon:YIELD_GOLD] Gold und [icon:YIELD_SCIENCE] Wissenschaft für jede verbundene Siedlung.</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_BATTERSEA_POWER_STATION" Language="de_DE">
+      <Text>Susanna Clarke</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_BATTERSEA_POWER_STATION" Language="de_DE">
+      <Text>Ihr habt mich einmal gefragt, ob ich mich an Battersea erinnere. Und jetzt tue ich es.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_EAST_INDIA_COMPANY_DESCRIPTION" Language="de_DE">
+      <Text>+3 [icon:YIELD_GOLD] Gold für jedes Gebäude in Gemeinden.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_NO_ETERNAL_ALLIES_DESCRIPTION" Language="de_DE">
+      <Text>+10 % [icon:YIELD_FOOD] Nahrung und [icon:YIELD_GOLD] Gold in Gemeinden, aber -5 % [icon:YIELD_GOLD] Gold in der Hauptstadt für jede Allianz.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_PROCEEDINGS_DESCRIPTION" Language="de_DE">
+      <Text>Städte mit einem Großen Werk und einer platzierten Ressource erhalten +4 [icon:YIELD_CULTURE] Kultur und [icon:YIELD_SCIENCE] Wissenschaft.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_GREAT_BRITAIN_ABILITY_DESCRIPTION" Language="de_DE">
+      <Text>[BLIST][LI]+25 % [icon:YIELD_GOLD] Gold für den Erwerb von Gebäuden und +25 % [icon:YIELD_PRODUCTION] Produktion für den Bau von Gebäuden.[LI]Es kostet 50 % mehr, Gemeinden in Städte umzuwandeln.[LI][B]+30 % [icon:YIELD_PRODUCTION] Produktion [/B]für den Bau der [B]Battersea Power Station[/B].[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_GREAT_BRITAIN_ABILITY_NAME" Language="de_DE">
+      <Text>Werkstatt der Welt</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_MO_GREAT_BRITAIN_NAME" Language="de_DE">
+      <Text>Britische Ausrichtungen</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_ANTIQUARIAN_DESCRIPTION" Language="de_DE">
+      <Text>Einzigartiger britischer Erkunder. +20 [icon:YIELD_CULTURE] Kultur für jedes Geländefeld Eurer Hauptstadt, wenn Ihr "Artefakt ausgraben" benutzt.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_REVENGE_2_DESCRIPTION" Language="de_DE">
+      <Text>Schwere britische Spezial-Marineeinheit der Stufe 3. Feindliche Einheiten auf an das Ziel grenzenden Geländefeldern erleiden 25 % des Gesamtschadens auf das Ziel.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_REVENGE_BASE_DESCRIPTION" Language="de_DE">
+      <Text>Schwere britische Spezial-Marineeinheit. Feindliche Einheiten auf an das Ziel grenzenden Geländefeldern erleiden 25 % des Gesamtschadens auf das Ziel.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_REVENGE_DESCRIPTION" Language="de_DE">
+      <Text>Schwere britische Spezial-Marineeinheit der Stufe 2. Feindliche Einheiten auf an das Ziel grenzenden Geländefeldern erleiden 25 % des Gesamtschadens auf das Ziel.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_FLEET_COMMANDERS_DESCRIPTION" Language="de_DE">
+      <Text>Habt zwei [B]Flottenkommandeure[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_FLEET_COMMANDERS_GREAT_BRITAIN_NARRATIVE" Language="de_DE">
+      <Text>Der Admiral verspricht eine "hölzerne Mauer" und deutet dabei auf die Schiffe im Trockendock. Die neue Klasse der Marineoffiziere schlägt eine neue Herrschaftsvision vor, die nicht nur an Land, sondern auch auf den Wellen gelten soll.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_FLEET_COMMANDERS_GREAT_BRITAIN_TOOLTIP" Language="de_DE">
+      <Text>[B]Flottenkommandeure[/B] waren ein wichtiger Teil von [B]Großbritanniens[/B] Identität.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_GREAT_BRITAIN_TOOLTIP" Language="de_DE">
+      <Text>[B]Ada Lovelace[/B] war [B]britisch[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BENJAMIN_FRANKLIN_GREAT_BRITAIN_TOOLTIP" Language="de_DE">
+      <Text>[B]Großbritannien[/B] komplementiert [B]Benjamin Franklin[/B] strategisch.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_NORMAN_GREAT_BRITAIN_TOOLTIP" Language="de_DE">
+      <Text>Die [B]Normannen[/B] waren eine Vorläufer-Zivilisation von [B]Großbritannien[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ROME_GREAT_BRITAIN_TOOLTIP" Language="de_DE">
+      <Text>[B]Rom[/B] war eine Vorläufer-Zivilisation von [B]Großbritannien[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BATTERSEA_POWER_STATION_DESCRIPTION" Language="de_DE">
+      <Text>+4 [icon:YIELD_PRODUCTION] Produktion. Erhaltet eine zweite Marineeinheit, immer wenn Ihr eine Marineeinheit ausbildet (gilt nicht für Kauf). Zeitlos. Muss auf an Küste grenzendem Land platziert werden.</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BATTERSEA_POWER_STATION_TOOLTIP" Language="de_DE">
+      <Text>Erhaltet eine zweite Marineeinheit, immer wenn Ihr eine Marineeinheit ausbildet. Zeitlos. Muss auf an Küste grenzendem Land platziert werden.</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_EAST_INDIA_COMPANY_NAME" Language="de_DE">
+      <Text>Ostindien-Kompanie|Ostindien-Kompanie|Ostindien-Kompanie|Ostindien-Kompanie|Ostindien-Kompanie</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_NO_ETERNAL_ALLIES_NAME" Language="de_DE">
+      <Text>Keine ewigen Verbündeten|Keine ewigen Verbündeten|Keinen ewigen Verbündeten|Keinen ewigen Verbündeten|Keine ewigen Verbündeten</Text>
+      <Gender>neuter:no_article</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_PROCEEDINGS_NAME" Language="de_DE">
+      <Text>Procedere|Procedere|Procedere|Procedere|Procedere</Text>
+      <Gender>neuter</Gender>
+      <Plurality>2</Plurality>
+    </Replace>
+    <Replace Tag="LOC_UNIT_ANTIQUARIAN_NAME" Language="de_DE">
+      <Text>Antiquar|Antiquar|Antiquar|Antiquars|Antiquar</Text>
+      <Gender>masculine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_UNIT_REVENGE_NAME" Language="de_DE">
+      <Text>Revenge|Revenge|Revenge|Revenge|Revenge</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+  </LocalizedText>
+</Database>

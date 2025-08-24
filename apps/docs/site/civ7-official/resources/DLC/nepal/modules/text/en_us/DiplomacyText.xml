@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_DIPLOMACY_ACTION_GIFT_GURKHA_NAME">
+			<Text>Gift Gurkha</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_DESCRIPTION">
+			<Text>Gives a Gurkha.[n]Accepted: You receive +10 Relationship with them and 5 [icon:YIELD_CULTURE] Culture, on Standard Speed, for the current Relationship Level with them. Other Leader receives a Gurkha Unit in their Capital. Can only be done with Friendly or Helpful Civilizations.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_REQUEST">
+			<Text>{1_leaderName} is offering you a Gurkha unit.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_REJECT">
+			<Text>Cancels the Diplomatic Action.[n]{1_initialName}'s[icon:YIELD_DIPLOMACY] Influence is refunded.[n]No new Endeavors between Leaders for {2_cooldown} turns.[n]Relationships worsen.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_ACCEPT">
+			<Text>You will receive a Gurkha Unit in your Capital.</Text>
+		</Row>
+	</EnglishText>
+</Database>

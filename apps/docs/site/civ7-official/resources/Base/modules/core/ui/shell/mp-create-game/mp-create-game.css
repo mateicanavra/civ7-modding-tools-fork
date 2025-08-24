@@ -1,0 +1,12 @@
+/* DO NOT EDIT */
+/* Generated from mp-create-game.scss */
+.mp-create-game .main-container .option-row::after {
+	content: "";
+	margin-top: 0.6666666667rem;
+	margin-bottom: 0.6666666667rem;
+	width: 100%;
+	height: 0.0555555556rem;
+}
+.mp-create-game .main-container .option-row:last-child::after {
+	display: none;
+}

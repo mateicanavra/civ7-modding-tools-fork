@@ -1,0 +1,1113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_1" Language="ru_RU">
+      <Text>Ада Августа Кинг, графиня Лавлейс (1815-1852), родилась буквально в семье противоположностей. Она была единственным законнорожденным ребенком поэта-романтика лорда Байрона, который покинул Англию вскоре после рождения дочери и больше никогда ее не видел. Драматизм и хаотичность отца, а также его непомерную страсть к творчеству уравновешивал характер матери. Леди Байрон также принадлежала к интеллектуальной элите, однако ее больше интересовали науки и математика. Лорд Байрон был человеком эмоциональным и импульсивным, его жена, напротив, была сдержанной, строгой и глубоко религиозной. Она посвятила жизнь социальным реформам, в том числе реформе образования и отмене рабства.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_2" Language="ru_RU">
+      <Text>Воспитанием Ады в основном занималась ее бабушка с материнской стороны. Несмотря на то, что леди Байрон проводила с дочерью мало времени, она внимательно следила за образованием Ады и поощряла ее интерес к математике и науке. Она боялась, что увлечение искусствами может направить Аду по стопам отца и погубить ее. Ада действительно обладала научным складом ума своей матери, но она также унаследовала и воображение отца. Согласно одной известной истории из детства Ады, в какой-то момент девочка увлеклась птицами и решила научиться летать. В этом проекте Ада не только проявила творческое мышление, но и провела тщательное исследование того, как работают крылья птиц и какие материалы лучше всего подходят для летательного аппарата. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_3" Language="ru_RU">
+      <Text>Мать Ады нанимала для нее лучших учителей, в том числе именитых ученых того времени, таких как математик Огастес де Морган и астроном Мэри Сомервилль. Когда Аде было 18 лет, Сомервилль познакомила ее с инженером и изобретателем Чарлзом Бэббиджем, создателем разностной машины, которая сегодня считается первым механическим компьютером. Это изобретение сразу же заинтересовало девушку, и она начала работать с Бэббиджем. В период с 1842 по 1843 год Ада перевела на английский статью инженера Луиджи Менабреа, посвященную новой идее Бэббиджа — аналитической машине. Предполагалось, что устройство будет получать информацию через перфокарты и решать математические уравнения, однако оно так и не было построено из-за недостатка финансирования.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_4" Language="ru_RU">
+      <Text>Перевод статьи Менабреа Ада сопроводила подробными комментариями, разъяснявшими принцип работы аналитической машины и возможности ее применения. В частности, она предположила, что математические переменные, которые обрабатывает машина, могут заменять собой другие абстрактные концепции. Кульминацией ее трудов стал теоретический алгоритм Note G («Примечание G» или «Нота Соль»), который часто называют первой компьютерной программой. Заметки Ады как по объему, так и по глубине превзошли переведенную статью. Она не только отлично понимала, как работает машина, но и видела ее потенциал.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_ADA_LOVELACE_CHAPTER_HISTORY_PARA_5" Language="ru_RU">
+      <Text>В 1835 году в возрасте 20 лет Ада вышла замуж за Уильяма, 8-го барона Кинга. В браке она родила трех детей. Помимо математики ее интересовали религия, месмеризм, музыка и новейшие научные достижения. Ада умерла от рака в возрасте 36 лет. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_ADA_LOVELACE_ANY" Language="ru_RU">
+      <Text>Я не позволю вам вытягивать жизненные силы из этого мира. Прочь, негодяи! </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_ADA_LOVELACE_ANY" Language="ru_RU">
+      <Text>Вы совсем потеряли рассудок, а скоро потеряете и голову. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DEFEAT_AI_LEADER_ADA_LOVELACE_ANY" Language="ru_RU">
+      <Text>Пусть же в моих угасающих следах человечество найдет крупицу света Небес. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_ADA_LOVELACE_ANY" Language="ru_RU">
+      <Text>Я Ада, рада встрече. Скажите, как вы относитесь к математическому анализу? </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_ADA_LOVELACE_ANY" Language="ru_RU">
+      <Text>Я Ада, рада встрече. Скажите, как вы относитесь к математическому анализу? </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_ADA_LOVELACE_ANY" Language="ru_RU">
+      <Text>Я Ада, рада встрече. Скажите, как вы относитесь к математическому анализу? </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_ADA_LOVELACE" Language="ru_RU">
+      <Text>Вы превосходно разбираетесь в данном вопросе. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_ADA_LOVELACE" Language="ru_RU">
+      <Text>Вашей переменной нет место в моих уравнениях. </Text>
+    </Replace>
+    <Replace Tag="LOC_MAIN_CHAR_SELECT_LEADER_ADA_LOVELACE_ANY" Language="ru_RU">
+      <Text>Чтобы использовать и применять язык науки, мы должны принять, почувствовать и поймать то, что недоступно глазу. </Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_ADA_LOVELACE_NAME" Language="ru_RU">
+      <Text>Ада Лавлейс|Ады Лавлейс|Аде Лавлейс|Аду Лавлейс|Адой Лавлейс|Аде Лавлейс</Text>
+      <Gender>feminine</Gender>
+      <Plurality>1</Plurality>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_NAME" Language="ru_RU">
+      <Text>Изучить тайны природы.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_NAME" Language="ru_RU">
+      <Text>Подчинить землю их воле.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210D_NAME" Language="ru_RU">
+      <Text>Дайте ей место для работы.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_NAME" Language="ru_RU">
+      <Text>Организованный архив вдохновляет организованный ум.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211C_NAME" Language="ru_RU">
+      <Text>Этот беспорядок не стоит убирать.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_NAME" Language="ru_RU">
+      <Text>Обеспечить караван дарами и послом.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212C_NAME" Language="ru_RU">
+      <Text>Отправить их с тем, что у них есть.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213B_NAME" Language="ru_RU">
+      <Text>Она видит Кентавра — незабываемое существо, символ творчества и прагматизма.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213C_NAME" Language="ru_RU">
+      <Text>Она видит Резец, навсегда выгравировавший ее имя в космосе.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_NAME" Language="ru_RU">
+      <Text>Было бы расточительством не использовать навыки этих специалистов.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214C_NAME" Language="ru_RU">
+      <Text>Усилия, затраченные на поиск работы для них, перевешивают преимущества.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_NAME" Language="ru_RU">
+      <Text>Закрыть.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_NAME" Language="ru_RU">
+      <Text>Призвать людей к непредвзятости.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216C_NAME" Language="ru_RU">
+      <Text>Позволить им самим решать.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_NAME" Language="ru_RU">
+      <Text>Закрыть.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_NAME" Language="ru_RU">
+      <Text>Закрыть.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218C_NAME" Language="ru_RU">
+      <Text>Закрыть.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218D_NAME" Language="ru_RU">
+      <Text>Закрыть.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_NAME" Language="ru_RU">
+      <Text>Закрыть.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219C_NAME" Language="ru_RU">
+      <Text>Закрыть.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219D_NAME" Language="ru_RU">
+      <Text>Закрыть.</Text>
+    </Replace>
+    <Replace Tag="LOC_10000A_COMPLETION" Language="ru_RU">
+      <Text>Уравнения и небрежные иллюстрации передают мысли Ады, позволяя заглянуть в хаотичные механизмы ее разума. На бумаге трудно понять, будет ли модель работать. Нельзя терять ни минуты, если она хочет продвинуться вперед.</Text>
+    </Replace>
+    <Replace Tag="LOC_10000A_STORYTITLE" Language="ru_RU">
+      <Text>Вероятность успеха</Text>
+    </Replace>
+    <Replace Tag="LOC_10000B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10000B_NAME" Language="ru_RU">
+      <Text>Продолжить итерации, решение придет.</Text>
+    </Replace>
+    <Replace Tag="LOC_10000C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10000C_NAME" Language="ru_RU">
+      <Text>Собрать обратную связь от сообщества.</Text>
+    </Replace>
+    <Replace Tag="LOC_10001A_COMPLETION" Language="ru_RU">
+      <Text>Члены высшего общества перешептываются, когда Ада садится в их ряду. Одни говорят, что она вычислила формулу, позволяющую определить, какая лошадь победит на скачках. Другие презрительно фыркают — ей просто повезло.</Text>
+    </Replace>
+    <Replace Tag="LOC_10001A_STORYTITLE" Language="ru_RU">
+      <Text>Ставка на алгоритм</Text>
+    </Replace>
+    <Replace Tag="LOC_10001B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} за лошадей.</Text>
+    </Replace>
+    <Replace Tag="LOC_10001B_NAME" Language="ru_RU">
+      <Text>Пусть говорят! Скачки веселее, когда есть интрига.</Text>
+    </Replace>
+    <Replace Tag="LOC_10001C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} за лошадей.</Text>
+    </Replace>
+    <Replace Tag="LOC_10001C_NAME" Language="ru_RU">
+      <Text>Развеять слухи и поставить на медленную лошадь.</Text>
+    </Replace>
+    <Replace Tag="LOC_10002A_COMPLETION" Language="ru_RU">
+      <Text>Соседи спорят о том, какую роль вера играет в науке. Ведь стремление найти порядок в хаосе — понять замысел богов — это свойство человеческой природы, не так ли?</Text>
+    </Replace>
+    <Replace Tag="LOC_10002A_STORYTITLE" Language="ru_RU">
+      <Text>Наука веры</Text>
+    </Replace>
+    <Replace Tag="LOC_10002B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10002B_NAME" Language="ru_RU">
+      <Text>Вера — такой же инструмент, как калькулятор.</Text>
+    </Replace>
+    <Replace Tag="LOC_10002C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10002C_NAME" Language="ru_RU">
+      <Text>Вера дает больше вопросов, чем ответов.</Text>
+    </Replace>
+    <Replace Tag="LOC_10002D_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10002D_NAME" Language="ru_RU">
+      <Text>В мире слишком много хаоса, это не может быть случайным совпадением.</Text>
+    </Replace>
+    <Replace Tag="LOC_10003A_COMPLETION" Language="ru_RU">
+      <Text>Ада привязывает гирьки к нитям, чтобы натянуть их как следует. Она переплетает нити разных цветов и создает сложные узоры. Ей приходит в голову, что это похоже на написание формул. Интересно, есть ли здесь связь?</Text>
+    </Replace>
+    <Replace Tag="LOC_10003A_STORYTITLE" Language="ru_RU">
+      <Text>Семь раз отмерь, один раз отрежь</Text>
+    </Replace>
+    <Replace Tag="LOC_10003B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} от культурных зданий.</Text>
+    </Replace>
+    <Replace Tag="LOC_10003B_NAME" Language="ru_RU">
+      <Text>Превратить эту мысль в план урока.</Text>
+    </Replace>
+    <Replace Tag="LOC_10003C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} от зданий золота.</Text>
+    </Replace>
+    <Replace Tag="LOC_10003C_NAME" Language="ru_RU">
+      <Text>Продать ткани, сделанные на ткацком станке.</Text>
+    </Replace>
+    <Replace Tag="LOC_10004A_COMPLETION" Language="ru_RU">
+      <Text>Строительство университета близится к завершению, когда архитектор замечает, что рядом стоит храм. Говорят, что священники часто осуждают работу ученых.</Text>
+    </Replace>
+    <Replace Tag="LOC_10004A_STORYTITLE" Language="ru_RU">
+      <Text>Покровитель чисел</Text>
+    </Replace>
+    <Replace Tag="LOC_10004B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10004B_NAME" Language="ru_RU">
+      <Text>Пусть осуждают — науку не остановить.</Text>
+    </Replace>
+    <Replace Tag="LOC_10004C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10004C_NAME" Language="ru_RU">
+      <Text>Нужно преодолеть эту пропасть и прийти к взаимопониманию.</Text>
+    </Replace>
+    <Replace Tag="LOC_10004D_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} от научных и культурных зданий.</Text>
+    </Replace>
+    <Replace Tag="LOC_10004D_NAME" Language="ru_RU">
+      <Text>На такой вопрос может быть только два ответа. Лучше спросить, почему так происходит.</Text>
+    </Replace>
+    <Replace Tag="LOC_10005A_COMPLETION" Language="ru_RU">
+      <Text>Школьник поднимает руку. Он не согласен с главой из книги по теологии и хочет читать что-нибудь другое. Ада заглядывает ему через плечо, чтобы прочитать текст.</Text>
+    </Replace>
+    <Replace Tag="LOC_10005A_STORYTITLE" Language="ru_RU">
+      <Text>За рамками</Text>
+    </Replace>
+    <Replace Tag="LOC_10005B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10005B_NAME" Language="ru_RU">
+      <Text>Показать ребенку, как религия дает нам контекст.</Text>
+    </Replace>
+    <Replace Tag="LOC_10005C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} от научных зданий.</Text>
+    </Replace>
+    <Replace Tag="LOC_10005C_NAME" Language="ru_RU">
+      <Text>Позволить ребенку выбрать другую познавательную книгу.</Text>
+    </Replace>
+    <Replace Tag="LOC_10006A_COMPLETION" Language="ru_RU">
+      <Text>Ада разглаживает покрывало на больничной койке. Складки на ткани похожи на извилины мозга. Они напоминают ей о тех временах, когда ее разум был пленником своих же идей.</Text>
+    </Replace>
+    <Replace Tag="LOC_10006A_STORYTITLE" Language="ru_RU">
+      <Text>Раскол между разумом и телом</Text>
+    </Replace>
+    <Replace Tag="LOC_10006B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10006B_NAME" Language="ru_RU">
+      <Text>Мозг существует отдельно от тела, он не так быстро устает.</Text>
+    </Replace>
+    <Replace Tag="LOC_10006C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10006C_NAME" Language="ru_RU">
+      <Text>Сильный разум может превзойти все.</Text>
+    </Replace>
+    <Replace Tag="LOC_10007A_COMPLETION" Language="ru_RU">
+      <Text>Ада слушает дискуссию ученого и священника о том, какие скрытые силы формируют мир. Конечно же, речь заходит о богах и сверхъестественном, и беседа становится напряженной.</Text>
+    </Replace>
+    <Replace Tag="LOC_10007A_STORYTITLE" Language="ru_RU">
+      <Text>Должно быть что-то еще</Text>
+    </Replace>
+    <Replace Tag="LOC_10007B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}, но {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10007B_NAME" Language="ru_RU">
+      <Text>Вера помогает нам находить смысл в жизни и в работе.</Text>
+    </Replace>
+    <Replace Tag="LOC_10007C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}, но {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10007C_NAME" Language="ru_RU">
+      <Text>Именно тайны этого мира побуждают нас искать ответы.</Text>
+    </Replace>
+    <Replace Tag="LOC_10008A_COMPLETION" Language="ru_RU">
+      <Text>Советники предупреждают Аду, что ее идеи слишком амбициозны и реализовать их невозможно. Когда Ада не стоит у руля, прогресс замедляется, но и формулы сами себя не напишут.</Text>
+    </Replace>
+    <Replace Tag="LOC_10008A_STORYTITLE" Language="ru_RU">
+      <Text>Отставание</Text>
+    </Replace>
+    <Replace Tag="LOC_10008B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} от научных зданий, но {2_reward} в городках.</Text>
+    </Replace>
+    <Replace Tag="LOC_10008B_NAME" Language="ru_RU">
+      <Text>Лучше на время отстать, чем сойти в дистанции.</Text>
+    </Replace>
+    <Replace Tag="LOC_10008C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} в городках, но {2_reward} от научных зданий.</Text>
+    </Replace>
+    <Replace Tag="LOC_10008C_NAME" Language="ru_RU">
+      <Text>Поспешность приводит к непредсказуемым результатам.</Text>
+    </Replace>
+    <Replace Tag="LOC_10009A_COMPLETION" Language="ru_RU">
+      <Text>Ада постукивает пером по лбу, пытаясь призвать озарение. Электричество питает станки и машины, освещает улицы и дома. Но наверняка для него можно найти и более новаторские применения.</Text>
+    </Replace>
+    <Replace Tag="LOC_10009A_STORYTITLE" Language="ru_RU">
+      <Text>Да будет свет</Text>
+    </Replace>
+    <Replace Tag="LOC_10009B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10009B_NAME" Language="ru_RU">
+      <Text>Создать устройство для изучения мозга.</Text>
+    </Replace>
+    <Replace Tag="LOC_10009C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10009C_NAME" Language="ru_RU">
+      <Text>Создать устройство, накапливающее электричество.</Text>
+    </Replace>
+    <Replace Tag="LOC_10010A_COMPLETION" Language="ru_RU">
+      <Text>Аду часто спрашивают, как в ней уживаются одновременно математик и поэт. Она хочет показать коллегам, как работает ее ум, и придумывает план.</Text>
+    </Replace>
+    <Replace Tag="LOC_10010A_STORYTITLE" Language="ru_RU">
+      <Text>Ходячий парадокс</Text>
+    </Replace>
+    <Replace Tag="LOC_10010B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} от научных зданий.</Text>
+    </Replace>
+    <Replace Tag="LOC_10010B_NAME" Language="ru_RU">
+      <Text>Организовать творческую мастерскую для других математиков.</Text>
+    </Replace>
+    <Replace Tag="LOC_10010C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} от научных зданий.</Text>
+    </Replace>
+    <Replace Tag="LOC_10010C_NAME" Language="ru_RU">
+      <Text>Устроить конкурс изобретений для художников и авторов.</Text>
+    </Replace>
+    <Replace Tag="LOC_10011A_COMPLETION" Language="ru_RU">
+      <Text>От преуспевающего научного сообщества остались лишь пепел и дым. Горстка выживших отправляется в {1_Capital[4]} и из последних сил умоляет Аду Лавлейс помочь им.</Text>
+    </Replace>
+    <Replace Tag="LOC_10011A_STORYTITLE" Language="ru_RU">
+      <Text>Восстановить справедливость</Text>
+    </Replace>
+    <Replace Tag="LOC_10011B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} от культурных зданий, но {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10011B_NAME" Language="ru_RU">
+      <Text>Позволить им работать в концертных залах.</Text>
+    </Replace>
+    <Replace Tag="LOC_10011C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}, но {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10011C_NAME" Language="ru_RU">
+      <Text>Найти для них место на фабриках.</Text>
+    </Replace>
+    <Replace Tag="LOC_10012A_COMPLETION" Language="ru_RU">
+      <Text>Ада провела много часов за переводом сложных инженерных записей, и она не сомневается, что найдет спонсора для этого новаторского проекта. Теперь, когда перед ней открылись новый горизонты, она может построить невозможное.</Text>
+    </Replace>
+    <Replace Tag="LOC_10012A_STORYTITLE" Language="ru_RU">
+      <Text>Обмен идеями</Text>
+    </Replace>
+    <Replace Tag="LOC_10012B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10012B_NAME" Language="ru_RU">
+      <Text>Заграничные инженеры могут помочь с финансированием.</Text>
+    </Replace>
+    <Replace Tag="LOC_10012C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10012C_NAME" Language="ru_RU">
+      <Text>Кто-то в сообществе ученых наверняка знает спонсора с толстым кошельком.</Text>
+    </Replace>
+    <Replace Tag="LOC_10013A_COMPLETION" Language="ru_RU">
+      <Text>Новый курс умных и целеустремленных женщин готовится начать семестр, и они просят Аду посоветовать им область для изучения.</Text>
+    </Replace>
+    <Replace Tag="LOC_10013A_STORYTITLE" Language="ru_RU">
+      <Text>Формула Оксфорда</Text>
+    </Replace>
+    <Replace Tag="LOC_10013B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10013B_NAME" Language="ru_RU">
+      <Text>Пусть изучают математику и науки.</Text>
+    </Replace>
+    <Replace Tag="LOC_10013C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10013C_NAME" Language="ru_RU">
+      <Text>Посоветовать им литературу и искусство.</Text>
+    </Replace>
+    <Replace Tag="LOC_10014A_COMPLETION" Language="ru_RU">
+      <Text>Не успевает Ада поднести кружку чая к губам, как в помещение врываются представители Общества антиквариев. Они сетуют, что модернизация идет все быстрее, и требуют сделать что-нибудь для сохранения прошлого.</Text>
+    </Replace>
+    <Replace Tag="LOC_10014A_STORYTITLE" Language="ru_RU">
+      <Text>Подумайте об антиквариях!</Text>
+    </Replace>
+    <Replace Tag="LOC_10014B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} от культурных зданий.</Text>
+    </Replace>
+    <Replace Tag="LOC_10014B_NAME" Language="ru_RU">
+      <Text>Время идет вперед, мы не можем повернуть его вспять.</Text>
+    </Replace>
+    <Replace Tag="LOC_10014C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} от научных зданий.</Text>
+    </Replace>
+    <Replace Tag="LOC_10014C_NAME" Language="ru_RU">
+      <Text>История может преподать нам ценные уроки.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210A_COMPLETION" Language="ru_RU">
+      <Text>Привлеченное гениальностью Ады Лавлейс, сообщество ученых и философов предлагает ей свои услуги.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210A_STORYTITLE" Language="ru_RU">
+      <Text>Фундамент</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_COMPLETION" Language="ru_RU">
+      <Text>После нескольких дней обсуждений философы приходят к новым захватывающим теориям, которые бросают вызов идеям самой Ады.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_IMPERATIVE" Language="ru_RU">
+      <Text>Разместите в ячейки 3 кодекса.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210B_STORYTITLE" Language="ru_RU">
+      <Text>Фундамент</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_COMPLETION" Language="ru_RU">
+      <Text>Помощники Ады Лавлейс, придавая глине форму и обжигая ее для создания кирпичей, думают о разных людях, которые однажды будут ступать по их работе.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_IMPERATIVE" Language="ru_RU">
+      <Text>Постройте еще 2 кирпичных завода</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210C_STORYTITLE" Language="ru_RU">
+      <Text>Фундамент</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1210D_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211A_COMPLETION" Language="ru_RU">
+      <Text>Ученый натыкается на Аду в библиотеке и извиняется за беспорядок из-за разбросанных повсюду работ.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211A_STORYTITLE" Language="ru_RU">
+      <Text>Организованный хаос</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_COMPLETION" Language="ru_RU">
+      <Text>Ученый ставит на полки недавно переплетенные книги, радуясь аккуратным корешкам.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_IMPERATIVE" Language="ru_RU">
+      <Text>Разместите в ячейки 6 кодексов.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211B_STORYTITLE" Language="ru_RU">
+      <Text>Организованный хаос</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1211C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212A_COMPLETION" Language="ru_RU">
+      <Text>Стремительный рост заставляет многих искать новый дом. Исследователи с волнением обсуждают новые места, которые они увидят, и вещи, которые они узнают.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212A_STORYTITLE" Language="ru_RU">
+      <Text>Обустраивание</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_COMPLETION" Language="ru_RU">
+      <Text>После нескольких дней пути караван заявляет свои права на землю, где можно начать строительство.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_IMPERATIVE" Language="ru_RU">
+      <Text>Постройте еще 3 городка.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212B_STORYTITLE" Language="ru_RU">
+      <Text>Обустраивание</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1212C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} во всех поселениях.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213A_COMPLETION" Language="ru_RU">
+      <Text>В ночном небе тускло мерцают звезды и созвездия, которые Ада может изучать.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213A_STORYTITLE" Language="ru_RU">
+      <Text>Астрологический алгоритм</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213B_DESCRIPTION" Language="ru_RU">
+      <Text>История продолжается.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1213C_DESCRIPTION" Language="ru_RU">
+      <Text>История продолжается.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214A_COMPLETION" Language="ru_RU">
+      <Text>Самые лучшие и талантливые специалисты в своих областях трудятся от лица Ады, отстаивая ее ценности, где бы они ни находились.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214A_STORYTITLE" Language="ru_RU">
+      <Text>Интеллектуальное общество</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_COMPLETION" Language="ru_RU">
+      <Text>Найти работу для специалистов несложно. Нишевая область требует экспертов, а город таковых воспитал много.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_IMPERATIVE" Language="ru_RU">
+      <Text>Владейте 10 специалистами.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214B_STORYTITLE" Language="ru_RU">
+      <Text>Интеллектуальное общество</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1214C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215A_COMPLETION" Language="ru_RU">
+      <Text>Здания строятся не только для того, чтобы увековечить имя главы. У Ады, как у лидера, множество качеств... но необразованности среди них нет.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215A_STORYTITLE" Language="ru_RU">
+      <Text>Подъем городов</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_COMPLETION" Language="ru_RU">
+      <Text>Города Ады будут продолжать расти, направляемые ее твердой и уверенной рукой.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} во всех поселениях.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_IMPERATIVE" Language="ru_RU">
+      <Text>Владейте 5 районами, которые не являются центром города, с общей прибылью 40 у каждого.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1215B_STORYTITLE" Language="ru_RU">
+      <Text>Подъем городов</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216A_COMPLETION" Language="ru_RU">
+      <Text>Сила молитвы может стать мощным средством от недугов тела и мозга.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216A_STORYTITLE" Language="ru_RU">
+      <Text>Молитесь для избавления от боли</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_COMPLETION" Language="ru_RU">
+      <Text>Необходимо собрать данные, но, плацебо это или нет, люди Ады становятся счастливее и здоровее благодаря молитве.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_IMPERATIVE" Language="ru_RU">
+      <Text>Владейте 5 поселениями, исповедующими вашу религию.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216B_STORYTITLE" Language="ru_RU">
+      <Text>Молитесь для избавления от боли</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1216C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} во всех поселениях.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217A_COMPLETION" Language="ru_RU">
+      <Text>На горизонте маячат перемены. Статус-кво меняется, и ропот несогласия с религиозными учениями смешивается со страхом перед неизвестностью.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217A_STORYTITLE" Language="ru_RU">
+      <Text>Ставьте все под сомнение</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_COMPLETION" Language="ru_RU">
+      <Text>Чтобы развеять страхи и заткнуть скептиков, на всеобщее обозрение выставляются реликвии, которые становятся опорой для людей.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_DESCRIPTION" Language="ru_RU">
+      <Text>+1 к [icon:YIELD_HAPPINESS] довольству от всех шедевров.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_IMPERATIVE" Language="ru_RU">
+      <Text>Разместите в ячейки 5 реликвий.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1217B_STORYTITLE" Language="ru_RU">
+      <Text>Ставьте все под сомнение</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218A_COMPLETION" Language="ru_RU">
+      <Text>Честолюбие — это движущая сила человечества, а куда еще направляться, кроме как вверх? Это возможность построить что-то грандиозное.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218A_STORYTITLE" Language="ru_RU">
+      <Text>Импульс для движения вверх</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_COMPLETION" Language="ru_RU">
+      <Text>Будущее наследие Ады стало на одну ракету ближе к Луне. Что будет после этого, еще предстоит узнать.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_IMPERATIVE" Language="ru_RU">
+      <Text>Постройте космодром.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218B_STORYTITLE" Language="ru_RU">
+      <Text>Импульс для движения вверх</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1218D_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} и начните празднество.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219A_COMPLETION" Language="ru_RU">
+      <Text>Под землей лежат останки давно ушедших людей, чьи истории и безделушки ждут, чтобы их откопали и поведали о них всему миру.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219A_STORYTITLE" Language="ru_RU">
+      <Text>Обучающие безделушки</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_COMPLETION" Language="ru_RU">
+      <Text>Теперь, когда артефакты извлечены из-под земли и сохранены, их можно исследовать и узнавать что-то новое.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_DESCRIPTION" Language="ru_RU">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_IMPERATIVE" Language="ru_RU">
+      <Text>Разместите в ячейки 5 артефактов.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219B_STORYTITLE" Language="ru_RU">
+      <Text>Обучающие безделушки</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219C_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1219D_DESCRIPTION" Language="ru_RU">
+      <Text>{1_reward} и начните празднество.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ADA_LOVELACE_L1_DESCRIPTION" Language="ru_RU">
+      <Text>+1 за каждое соседство со стандартными зданиями, повышающими золото, производство и науку.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ADA_LOVELACE_L1_NAME" Language="ru_RU">
+      <Text>Ячейка характеристики науки</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ADA_LOVELACE_L2_DESCRIPTION" Language="ru_RU">
+      <Text>+15% производства для строительства зданий и чудес в ячейках шедевров.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_ADA_LOVELACE_L2_NAME" Language="ru_RU">
+      <Text>Ячейка характеристики культуры</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_ADA_LOVELACE_NAME" Language="ru_RU">
+      <Text>Медаль 1 «Ада Лавлейс»</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_ADA_LOVELACE_P_NAME" Language="ru_RU">
+      <Text>Медаль 2 «Ада Лавлейс»</Text>
+    </Replace>
+    <Replace Tag="LOC_BANNER_ADA_LOVELACE_NAME" Language="ru_RU">
+      <Text>Штандарт «Ада Лавлейс»</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ADA_LOVELACE_1_DESCRIPTION" Language="ru_RU">
+      <Text>В эту эпоху вы получите +15% [icon:YIELD_SCIENCE] науки в обмен на -10% [icon:YIELD_CULTURE] культуры</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ADA_LOVELACE_1_NAME" Language="ru_RU">
+      <Text>Легенда Ады Лавлейс в эпоху исследований: наука</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ADA_LOVELACE_2_DESCRIPTION" Language="ru_RU">
+      <Text>В эту эпоху вы получите +15% [icon:YIELD_CULTURE] культуры в обмен на -10% [icon:YIELD_Science] науки</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_ADA_LOVELACE_2_NAME" Language="ru_RU">
+      <Text>Легенда Ады Лавлейс в эпоху исследований: культура</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ADA_LOVELACE_1_DESCRIPTION" Language="ru_RU">
+      <Text>В эту эпоху вы получите +15% [icon:YIELD_SCIENCE] науки в обмен на -10% [icon:YIELD_CULTURE] культуры</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ADA_LOVELACE_1_NAME" Language="ru_RU">
+      <Text>Легенда Ады Лавлейс в современную эпоху: наука</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ADA_LOVELACE_2_DESCRIPTION" Language="ru_RU">
+      <Text>В эту эпоху вы получите +15% [icon:YIELD_CULTURE] культуры в обмен на -10% [icon:YIELD_Science] науки</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_ADA_LOVELACE_2_NAME" Language="ru_RU">
+      <Text>Легенда Ады Лавлейс в современную эпоху: культура</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_AGENDA_ANALYTICAL_ENGINE_DESC" Language="ru_RU">
+      <Text>Этому лидеру нравятся лидеры, у которых больше всего усовершенствований, и не нравятся те, у которых их меньше всего.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_AGENDA_ANALYTICAL_ENGINE_NAME" Language="ru_RU">
+      <Text>Аналитическая машина</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_ADA_LOVELACE_DESCRIPTION" Language="ru_RU">
+      <Text>[icon:YIELD_CITIES] Города получают +2 к [icon:YIELD_SCIENCE] науке за эпоху при освоении [icon:RADIAL_CIVICS] социального института. Это значение сбрасывается в начале каждой эпохи. Получите [icon:YIELD_CULTURE] культуру в размере 50% от общей [icon:YIELD_SCIENCE] науки за ход при [icon:RADIAL_TECH] усовершенствовании технологии.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_LEADER_INTRO_TEXT_ADA_LOVELACE" Language="ru_RU">
+      <Text>Ты пытаешься понять, как устроен мир, с помощью логики и души, Ада Лавлейс. Причину и расчеты связывает дух. Освободи его, создай аналитические машины, чтобы повлиять на мир, нуждающийся в благоразумии, и узнай, какие невероятные перспективы ты способна вообразить. </Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_NOTE_G_DESCRIPTION" Language="ru_RU">
+      <Text>Видение будущего.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_NOTE_G_FUNCTIONAL_DESCRIPTION" Language="ru_RU">
+      <Text>Когда вы исследуете технологию или осваиваете социальный институт, столица получает 15% стоимости в единицах[icon:YIELD_PRODUCTION] производства.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_NOTE_G_NAME" Language="ru_RU">
+      <Text>Заметка G</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_NOTE_G_UNLOCK_TITLE" Language="ru_RU">
+      <Text>Открывается на 9 уровне Ады Лавлейс</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PIANO_DESCRIPTION" Language="ru_RU">
+      <Text>Слияние музыки и математики.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PIANO_FUNCTIONAL_DESCRIPTION" Language="ru_RU">
+      <Text>+10%[icon:YIELD_CULTURE] культуры для совершенствования социальных институтов.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PIANO_NAME" Language="ru_RU">
+      <Text>Пиано</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PIANO_UNLOCK_TITLE" Language="ru_RU">
+      <Text>Открывается на 5 уровне Ады Лавлейс</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PUNCH_CARDS_DESCRIPTION" Language="ru_RU">
+      <Text>От ткацкого станка до компьютера.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PUNCH_CARDS_FUNCTIONAL_DESCRIPTION" Language="ru_RU">
+      <Text>Получайте 20 к [icon:YIELD_SCIENCE] науке за эпоху за каждое построенное научное здание.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PUNCH_CARDS_NAME" Language="ru_RU">
+      <Text>Перфокарты</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_ADA_LOVELACE_PUNCH_CARDS_UNLOCK_TITLE" Language="ru_RU">
+      <Text>Открывается на 2 уровне Ады Лавлейс</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_2_DESC" Language="ru_RU">
+      <Text>Завершите эпоху античности дважды, играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_2_NAME" Language="ru_RU">
+      <Text>Эпоха античности завершена 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_3_DESC" Language="ru_RU">
+      <Text>Завершите эпоху античности трижды, играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_3_NAME" Language="ru_RU">
+      <Text>Эпоха античности завершена 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_DESC" Language="ru_RU">
+      <Text>Завершите эпоху античности, играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_ANTIQUITY_NAME" Language="ru_RU">
+      <Text>Эпоха античности завершена</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_2_DESC" Language="ru_RU">
+      <Text>Завершите эпоху исследований дважды, играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_2_NAME" Language="ru_RU">
+      <Text>Эпоха исследований завершена 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_3_DESC" Language="ru_RU">
+      <Text>Завершите эпоху исследований трижды, играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_3_NAME" Language="ru_RU">
+      <Text>Эпоха исследований завершена 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_DESC" Language="ru_RU">
+      <Text>Завершите эпоху исследований, играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_EXPLORATION_NAME" Language="ru_RU">
+      <Text>Эпоха исследований завершена</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_2_DESC" Language="ru_RU">
+      <Text>Завершите современную эпоху дважды, играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_2_NAME" Language="ru_RU">
+      <Text>Современная эпоха завершена 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_3_DESC" Language="ru_RU">
+      <Text>Завершите современную эпоху трижды, играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_3_NAME" Language="ru_RU">
+      <Text>Современная эпоха завершена 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_DESC" Language="ru_RU">
+      <Text>Завершите современную эпоху, играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_AGE_COMPLETED_MODERN_NAME" Language="ru_RU">
+      <Text>Современная эпоха завершена</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_2_DESC" Language="ru_RU">
+      <Text>Дважды завершите тропу наследия «Чудеса древнего мира», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_2_NAME" Language="ru_RU">
+      <Text>Чудеса древнего мира 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_3_DESC" Language="ru_RU">
+      <Text>Трижды завершите тропу наследия «Чудеса древнего мира», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_3_NAME" Language="ru_RU">
+      <Text>Чудеса древнего мира 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_DESC" Language="ru_RU">
+      <Text>Завершите тропу наследия «Чудеса древнего мира», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_ANTIQUITY_NAME" Language="ru_RU">
+      <Text>Чудеса древнего мира</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_2_DESC" Language="ru_RU">
+      <Text>Дважды завершите тропу наследия «Тошахана», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_2_NAME" Language="ru_RU">
+      <Text>Тошахана 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_3_DESC" Language="ru_RU">
+      <Text>Трижды завершите тропу наследия «Тошахана», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_3_NAME" Language="ru_RU">
+      <Text>Тошахана 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_DESC" Language="ru_RU">
+      <Text>Завершите тропу наследия «Тошахана», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_EXPLORATION_NAME" Language="ru_RU">
+      <Text>Тошахана</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_2_DESC" Language="ru_RU">
+      <Text>Дважды завершите тропу наследия «Географическое общество», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_2_NAME" Language="ru_RU">
+      <Text>Географическое общество 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_3_DESC" Language="ru_RU">
+      <Text>Трижды завершите тропу наследия «Географическое общество», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_3_NAME" Language="ru_RU">
+      <Text>Географическое общество 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_DESC" Language="ru_RU">
+      <Text>Завершите тропу наследия «Географическое общество», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_CULTURE_VICTORY_MODERN_NAME" Language="ru_RU">
+      <Text>Географическое общество</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_2_DESC" Language="ru_RU">
+      <Text>Дважды завершите тропу наследия «Шелковые пути», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_2_NAME" Language="ru_RU">
+      <Text>Шелковые пути 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_3_DESC" Language="ru_RU">
+      <Text>Трижды завершите тропу наследия «Шелковые пути», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_3_NAME" Language="ru_RU">
+      <Text>Шелковые пути 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_DESC" Language="ru_RU">
+      <Text>Завершите тропу наследия «Шелковые пути», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_ANTIQUITY_NAME" Language="ru_RU">
+      <Text>Шелковые пути</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_2_DESC" Language="ru_RU">
+      <Text>Дважды завершите тропу наследия «Серебряный флот», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_2_NAME" Language="ru_RU">
+      <Text>Серебряный флот 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_3_DESC" Language="ru_RU">
+      <Text>Трижды завершите тропу наследия «Серебряный флот», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_3_NAME" Language="ru_RU">
+      <Text>Серебряный флот 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_DESC" Language="ru_RU">
+      <Text>Завершите тропу наследия «Серебряный флот», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_EXPLORATION_NAME" Language="ru_RU">
+      <Text>Серебряный флот</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_2_DESC" Language="ru_RU">
+      <Text>Дважды завершите тропу наследия «Железнодорожный магнат», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_2_NAME" Language="ru_RU">
+      <Text>Железнодорожный магнат 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_3_DESC" Language="ru_RU">
+      <Text>Трижды завершите тропу наследия «Железнодорожный магнат», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_3_NAME" Language="ru_RU">
+      <Text>Железнодорожный магнат 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_DESC" Language="ru_RU">
+      <Text>Завершите тропу наследия «Железнодорожный магнат», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_ECONOMIC_VICTORY_MODERN_NAME" Language="ru_RU">
+      <Text>Железнодорожный магнат</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_ANTIQUITY_DESC" Language="ru_RU">
+      <Text>Завершите 2 тропы наследия за одну эпоху античности, играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_ANTIQUITY_NAME" Language="ru_RU">
+      <Text>Двойное наследие, эпоха античности</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_EXPLORATION_DESC" Language="ru_RU">
+      <Text>Завершите 2 тропы наследия за одну эпоху исследований, играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_EXPLORATION_NAME" Language="ru_RU">
+      <Text>Двойное наследие, эпоха исследования</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_MODERN_DESC" Language="ru_RU">
+      <Text>Завершите 2 тропы наследия за одну современную эпоху, играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_FLAWLESS_VICTORY_MODERN_NAME" Language="ru_RU">
+      <Text>Двойное наследие, современная эпоха</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_2_DESC" Language="ru_RU">
+      <Text>Дважды завершите тропу наследия Pax Imperatoria, играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_2_NAME" Language="ru_RU">
+      <Text>Pax Imperatoria 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_3_DESC" Language="ru_RU">
+      <Text>Трижды завершите тропу наследия Pax Imperatoria, играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_3_NAME" Language="ru_RU">
+      <Text>Pax Imperatoria 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_DESC" Language="ru_RU">
+      <Text>Завершите тропу наследия Pax Imperatoria, играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_ANTIQUITY_NAME" Language="ru_RU">
+      <Text>Pax Imperatoria</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_2_DESC" Language="ru_RU">
+      <Text>Дважды завершите тропу наследия «И целого мира мало», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_2_NAME" Language="ru_RU">
+      <Text>И целого мира мало 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_3_DESC" Language="ru_RU">
+      <Text>Трижды завершите тропу наследия «И целого мира мало», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_3_NAME" Language="ru_RU">
+      <Text>И целого мира мало 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_DESC" Language="ru_RU">
+      <Text>Завершите тропу наследия «И целого мира мало», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_EXPLORATION_NAME" Language="ru_RU">
+      <Text>И целого мира мало</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_2_DESC" Language="ru_RU">
+      <Text>Дважды завершите тропу наследия «Идеология», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_2_NAME" Language="ru_RU">
+      <Text>Идеология 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_3_DESC" Language="ru_RU">
+      <Text>Трижды завершите тропу наследия «Идеология», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_3_NAME" Language="ru_RU">
+      <Text>Идеология 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_DESC" Language="ru_RU">
+      <Text>Завершите тропу наследия «Идеология», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_MILITARY_VICTORY_MODERN_NAME" Language="ru_RU">
+      <Text>Идеология</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_1_DESC" Language="ru_RU">
+      <Text>Достигните хотя бы 1 вехи на тропе наследия, играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_1_NAME" Language="ru_RU">
+      <Text>Сыграть в игру 1</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_2_DESC" Language="ru_RU">
+      <Text>Достигните хотя бы 2 вех на тропе наследия, играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_2_NAME" Language="ru_RU">
+      <Text>Сыграть в игру 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_3_DESC" Language="ru_RU">
+      <Text>Достигните хотя бы 3 вех на тропе наследия, играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_PLAY_GAMES_3_NAME" Language="ru_RU">
+      <Text>Сыграть в игру 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_ANTIQUITY_DESC" Language="ru_RU">
+      <Text>Играя за Аду Лавлейс в эпоху античности, завершите задание и организуйте библиотеку.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_ANTIQUITY_NAME" Language="ru_RU">
+      <Text>Организованный хаос</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_EXPLORATION_DESC" Language="ru_RU">
+      <Text>Играя за Аду Лавлейс в эпоху исследований, завершите задание и воспитайте лучших и умнейших.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_EXPLORATION_NAME" Language="ru_RU">
+      <Text>Интеллектуальное общество</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_MODERN_DESC" Language="ru_RU">
+      <Text>Играя за Аду Лавлейс в современную эпоху, завершите задание и отправьтесь в путешествие к звездам.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_A_MODERN_NAME" Language="ru_RU">
+      <Text>Импульс для движения вверх</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_ANTIQUITY_DESC" Language="ru_RU">
+      <Text>Играя за Аду Лавлейс в эпоху античности, завершите задание и найдите новый дом.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_ANTIQUITY_NAME" Language="ru_RU">
+      <Text>Обустраивание</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_EXPLORATION_DESC" Language="ru_RU">
+      <Text>Играя за Аду Лавлейс в эпоху исследований, завершите задание и поддержите людей с помощью молитвы.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_EXPLORATION_NAME" Language="ru_RU">
+      <Text>Молитесь для избавления от боли</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_MODERN_DESC" Language="ru_RU">
+      <Text>Играя за Аду Лавлейс в современную эпоху, завершите задание и поищите знания под землей.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_QUEST_B_MODERN_NAME" Language="ru_RU">
+      <Text>Обучающие безделушки</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_2_DESC" Language="ru_RU">
+      <Text>Дважды завершите тропу наследия «Великая библиотека», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_2_NAME" Language="ru_RU">
+      <Text>Великая библиотека 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_3_DESC" Language="ru_RU">
+      <Text>Трижды завершите тропу наследия «Великая библиотека», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_3_NAME" Language="ru_RU">
+      <Text>Великая библиотека 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_DESC" Language="ru_RU">
+      <Text>Завершите тропу наследия «Великая библиотека», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_ANTIQUITY_NAME" Language="ru_RU">
+      <Text>Великая библиотека</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_2_DESC" Language="ru_RU">
+      <Text>Дважды завершите тропу наследия «Просвещение», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_2_NAME" Language="ru_RU">
+      <Text>Просвещение 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_3_DESC" Language="ru_RU">
+      <Text>Трижды завершите тропу наследия «Просвещение», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_3_NAME" Language="ru_RU">
+      <Text>Просвещение 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_DESC" Language="ru_RU">
+      <Text>Завершите тропу наследия «Просвещение», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_EXPLORATION_NAME" Language="ru_RU">
+      <Text>Просвещение</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_2_DESC" Language="ru_RU">
+      <Text>Дважды завершите тропу наследия «Космическая гонка», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_2_NAME" Language="ru_RU">
+      <Text>Космическая гонка 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_3_DESC" Language="ru_RU">
+      <Text>Трижды завершите тропу наследия «Космическая гонка», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_3_NAME" Language="ru_RU">
+      <Text>Космическая гонка 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_DESC" Language="ru_RU">
+      <Text>Завершите тропу наследия «Космическая гонка», играя за Аду Лавлейс.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_ADA_LOVELACE_SCIENCE_VICTORY_MODERN_NAME" Language="ru_RU">
+      <Text>Космическая гонка</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_CULTURAL_LEGEND_ADA_LOVELACE_L2_DESCRIPTION" Language="ru_RU">
+      <Text>Открывается легендой. +15% [icon:YIELD_PRODUCTION] производства для строительства зданий и чудес с ячейками шедевров.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_SCIENTIFIC_LEGEND_ADA_LOVELACE_L1_DESCRIPTION" Language="ru_RU">
+      <Text>Открывается легендой. +1 бонус за соседство для стандартных зданий [icon:YIELD_GOLD]золота, [icon:YIELD_PRODUCTION]производства и [icon:YIELD_SCIENCE]науки.</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_ADA_LOVELACE" Language="ru_RU">
+      <Text>Чародейка чисел</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_EXPLORATION_1_DESCRIPTION" Language="ru_RU">
+      <Text>Играя за Аду Лавлейс, получите доступ к новой карте наследия эпохи исследований:[n]
+
+				+15% науки, -10% культуры</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_EXPLORATION_1_NAME" Language="ru_RU">
+      <Text>Карта научного наследия эпохи исследований</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_EXPLORATION_2_DESCRIPTION" Language="ru_RU">
+      <Text>Играя за Аду Лавлейс, получите доступ к новой карте наследия эпохи исследований:[n]
+
+				+15% культуры, -10% науки</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_EXPLORATION_2_NAME" Language="ru_RU">
+      <Text>Карта культурного наследия эпохи исследований</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_MODERN_1_DESCRIPTION" Language="ru_RU">
+      <Text>Играя за Аду Лавлейс, получите доступ к новой карте наследия современной эпохи:[n]
+
+				+15% науки, -10% культуры</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_MODERN_1_NAME" Language="ru_RU">
+      <Text>Карта научного наследия современной эпохи</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_MODERN_2_DESCRIPTION" Language="ru_RU">
+      <Text>Играя за Аду Лавлейс, получите доступ к новой карте наследия современной эпохи:[n]
+
+				+15% культуры, -10% науки</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_ADA_LOVELACE_MODERN_2_NAME" Language="ru_RU">
+      <Text>Карта культурного наследия современной эпохи</Text>
+    </Replace>
+    <Replace Tag="LOC_TITLE_ADA_LOVELACE_NAME" Language="ru_RU">
+      <Text>Чародейка чисел</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_ADA_LOVELACE_ABILITY_DESCRIPTION" Language="ru_RU">
+      <Text>[BLIST][LI][icon:YIELD_CITIES] [B]Города [/B]получают [B]+2 к [icon:YIELD_SCIENCE] науке [/B]за эпоху при освоении [icon:RADIAL_CIVICS] [B]социального института[/B]. Это значение сбрасывается в начале каждой эпохи. [LI]Получите [B][icon:YIELD_CULTURE] культуру [/B]в размере 50% от общей [B][icon:YIELD_SCIENCE] науки [/B]за ход при [icon:RADIAL_TECH] [B]усовершенствовании технологии[/B].[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_ADA_LOVELACE_ABILITY_NAME" Language="ru_RU">
+      <Text>Чародейка чисел</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_ABBASID_TOOLTIP" Language="ru_RU">
+      <Text>Особенности [B]Аббасидов[/B] стратегически сочетаются с игрой за [B]Аду Лавлейс[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_DESCRIPTION" Language="ru_RU">
+      <Text>Играйте за [B]Аду Лавлейс[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_GREECE_TOOLTIP" Language="ru_RU">
+      <Text>[B]Ада Лавлейс[/B] была родом с того же континента, где находилась [B]Греция[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_NORMAN_TOOLTIP" Language="ru_RU">
+      <Text>Британией [B]Ады Лавлейс[/B] когда-то правили [B]норманны[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_ROME_TOOLTIP" Language="ru_RU">
+      <Text>[B]Ада Лавлейс[/B] была родом с того же континента, где находился [B]Рим[/B].</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ADA_LOVELACE_RUSSIA_TOOLTIP" Language="ru_RU">
+      <Text>[B]Ада Лавлейс[/B] была родом с того же континента, где находилась [B]Россия[/B].</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

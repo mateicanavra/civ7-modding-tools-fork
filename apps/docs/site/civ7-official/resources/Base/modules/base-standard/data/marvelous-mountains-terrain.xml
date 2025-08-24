@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<Row Type="FEATURE_MOUNT_EVEREST" Kind="KIND_FEATURE"/>
+	</Types>
+
+	<TypeTags>
+		<Row Type="FEATURE_MOUNT_EVEREST" Tag="NOTADJACENTTORIVER"/>
+		<Row Type="FEATURE_MOUNT_EVEREST" Tag="ADJACENTTOSAMEBIOME"/>
+		<Row Type="FEATURE_MOUNT_EVEREST" Tag="NOTNEARCOAST"/>
+	</TypeTags>
+	
+	<TypeQuotes>
+		<Row Type="FEATURE_MOUNT_EVEREST" Quote="LOC_QUOTE_FEATURE_MOUNT_EVEREST" QuoteAuthor="LOC_QUOTE_AUTHOR_FEATURE_MOUNT_EVEREST" QuoteAudio="VO_Quote_MountEverest"/>
+	</TypeQuotes>
+
+	<Features>
+		<Row FeatureType="FEATURE_MOUNT_EVEREST" Name="LOC_FEATURE_MOUNT_EVEREST_NAME" Description="LOC_FEATURE_MOUNT_EVEREST_DESCRIPTION" Tooltip="LOC_FEATURE_MOUNT_EVEREST_TOOLTIP" PlacementClass="FOURPARALLELAGRM" NoLake="true" Impassable="true" Appeal="1" SightThroughModifier="1" Removable="false"/>
+	</Features>
+
+	<Feature_NaturalWonders>
+		<Row FeatureType="FEATURE_MOUNT_EVEREST" Tiles="4" PlacementPercentage="100"/>
+	</Feature_NaturalWonders>
+
+	<Feature_ValidTerrains>
+		<Row FeatureType="FEATURE_MOUNT_EVEREST" TerrainType="TERRAIN_MOUNTAIN"/>
+	</Feature_ValidTerrains>
+
+	<Feature_ValidBiomes>
+		<Row FeatureType="FEATURE_MOUNT_EVEREST" BiomeType="BIOME_TROPICAL"/>
+	</Feature_ValidBiomes>
+
+	<TerrainBiomeFeature_YieldChanges>
+		<Row TerrainType="TERRAIN_MOUNTAIN" BiomeType="BIOME_TROPICAL" FeatureType="FEATURE_MOUNT_EVEREST" YieldType="YIELD_HAPPINESS" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_MOUNTAIN" BiomeType="BIOME_TROPICAL" FeatureType="FEATURE_MOUNT_EVEREST" YieldType="YIELD_DIPLOMACY" YieldChange="2" ScaleByGameAge="50"/>
+		<Row TerrainType="TERRAIN_MOUNTAIN" BiomeType="BIOME_TROPICAL" FeatureType="FEATURE_MOUNT_EVEREST" YieldType="YIELD_CULTURE" YieldChange="2" ScaleByGameAge="50"/>
+	</TerrainBiomeFeature_YieldChanges>
+
+	<PlayerModifiers>
+		<Row ModifierId="MOUNT_EVEREST_REVEAL_ALL_MOUNTAIN_TILES"/>
+	</PlayerModifiers>
+</Database>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==================================================	-->
+	<!--				Civ-Specific Traits					-->
+	<!-- ==================================================	-->
+	<!-- GREAT_BRITAIN -->
+	<Modifier id="TRAIT_MOD_CITY_PROJECT_MORE_EXPENSIVE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_TOWN_UPGRADE_DISCOUNT">
+		<Argument name="Percent">-50</Argument>
+		<String context="Description">LOC_TRAIT_GREAT_BRITAIN_ABILITY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="TRAIT_GB_MOD_BUILDING_CHEAPER_PURCHASE" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_ADJUST_PLAYER_OR_CITY_BUILDING_PURCHASE_EFFICIENCY">
+		<Argument name="Percent">25</Argument>
+		<String context="Description">LOC_TRAIT_GREAT_BRITAIN_ABILITY_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="TRAIT_GB_MOD_BUILDING_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_CONSTRUCTIBLE_PRODUCTION">
+		<Argument name="Percent">25</Argument>
+		<Argument name="ConstructibleClass">BUILDING</Argument>
+		<String context="Description">LOC_TRAIT_GREAT_BRITAIN_ABILITY_DESCRIPTION</String>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--				Civ-Specific Trees					-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_REVEAL_CIV_CULTURE_TREE_GREAT_BRITAIN" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_REVEAL_CULTURE_TREE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_CIVILIZATION_OR_LEADER_TRAIT">
+				<Argument name="TraitType">TRAIT_GREAT_BRITAIN</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ProgressionTreeType">TREE_CIVICS_MO_GREAT_BRITAIN</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--				Wonder Bonuses						-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_CIV_WONDER_PRODUCTION_GREAT_BRITAIN" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_FAVORED_WONDER_PRODUCTION">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_CIVILIZATION_OR_LEADER_TRAIT">
+				<Argument name="TraitType">TRAIT_GREAT_BRITAIN</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Percent">30</Argument>
+		<String context="Preview">LOC_MOD_CIV_WONDER_PRODUCTION_GREAT_BRITAIN_DESCRIPTION</String>
+	</Modifier>
+</GameEffects>

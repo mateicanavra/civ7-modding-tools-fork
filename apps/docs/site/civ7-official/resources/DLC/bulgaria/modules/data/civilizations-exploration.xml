@@ -1,0 +1,129 @@
+<Database>
+	<Types>
+		<!-- Major Civs -->
+		<Row Type="TRAIT_BULGARIA_ABILITY" Kind="KIND_TRAIT"/>
+	</Types>
+	<Kinds>
+		<InsertOrIgnore KIND="KIND_TRAIT"/>
+	</Kinds>
+	<Civilizations>
+		<!-- Full Civs -->
+		<Row CivilizationType="CIVILIZATION_BULGARIA" Name="LOC_CIVILIZATION_BULGARIA_NAME" FullName="LOC_CIVILIZATION_BULGARIA_FULLNAME" Description="LOC_CIVILIZATION_BULGARIA_DESCRIPTION" Adjective="LOC_CIVILIZATION_BULGARIA_ADJECTIVE" StartingCivilizationLevelType="CIVILIZATION_LEVEL_FULL_CIV" UniqueCultureProgressionTree="TREE_CIVICS_EX_BULGARIA" CapitalName="LOC_CITY_NAME_BULGARIA1" RandomCityNameDepth="10"/>
+	</Civilizations>
+	<CivilizationFavoredWonders>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" FavoredWonderType="WONDER_RILA_MONASTERY" FavoredWonderName="LOC_WONDER_RILA_MONASTERY_NAME"/>
+	</CivilizationFavoredWonders>
+	<Traits>
+		<!--Civ Traits-->
+		<Row TraitType="TRAIT_BULGARIA_ABILITY" Name="LOC_TRAIT_BULGARIA_ABILITY_NAME" Description="LOC_TRAIT_BULGARIA_ABILITY_DESCRIPTION" InternalOnly="true"/>
+	</Traits>
+	<TraitModifiers>
+		<Row TraitType="TRAIT_BULGARIA_ABILITY" ModifierId="MOD_REVEAL_CIV_CULTURE_TREE_BULGARIA"/>
+		<Row TraitType="TRAIT_BULGARIA_ABILITY" ModifierId="MOD_CIV_WONDER_PRODUCTION_BULGARIA"/>
+		<Row TraitType="TRAIT_BULGARIA_ABILITY" ModifierId="MOD_CIV_PRODUCTION_PILLAGE_BUILDING"/>
+		<Row TraitType="TRAIT_BULGARIA_ABILITY" ModifierId="MOD_CIV_COMBAT_VS_MEDIEVAL_WALLS"/>
+	</TraitModifiers>
+	<CivilizationTraits>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" TraitType="TRAIT_EXPLORATION_CIV"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" TraitType="TRAIT_BULGARIA"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" TraitType="TRAIT_BULGARIA_ABILITY"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" TraitType="TRAIT_ATTRIBUTE_MILITARISTIC"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" TraitType="TRAIT_ATTRIBUTE_EXPANSIONIST"/>
+	</CivilizationTraits>
+	<RequirementSets>
+		<Row RequirementSetId="REQSET_PLAYER_IS_BULGARIA" RequirementSetType="REQUIREMENTSET_TEST_ALL"/>
+	</RequirementSets>
+	<RequirementSetRequirements>
+		<Row RequirementSetId="REQSET_PLAYER_IS_BULGARIA" RequirementId="REQ_PLAYER_HAS_TRAIT_BULGARIA"/>
+	</RequirementSetRequirements>
+	<Requirements>
+		<Row RequirementId="REQ_PLAYER_HAS_TRAIT_BULGARIA" RequirementType="REQUIREMENT_PLAYER_HAS_CIVILIZATION_OR_LEADER_TRAIT"/>
+	</Requirements>
+	<RequirementArguments>
+		<Row RequirementId="REQ_PLAYER_HAS_TRAIT_BULGARIA" Name="TraitType" Value="TRAIT_BULGARIA"/>
+	</RequirementArguments>
+	<LeaderCivPriorities>
+		<!--This is the table used for AI, the UI uses LeaderCivilizationBias in config.xml-->
+		<Row Leader="LEADER_CATHERINE" Civilization="CIVILIZATION_BULGARIA" Priority="3"/>
+		<Row Leader="LEADER_AUGUSTUS" Civilization="CIVILIZATION_BULGARIA" Priority="2"/>
+		<Row Leader="LEADER_CHARLEMAGNE" Civilization="CIVILIZATION_BULGARIA" Priority="1"/>
+	</LeaderCivPriorities>
+	<CityNames>
+		<!--Shawnee-->
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA1"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA2"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA3"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA4"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA5"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA6"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA7"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA8"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA9"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA10"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA11"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA12"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA13"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA14"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA15"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA16"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA17"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA18"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA19"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA20"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA21"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA22"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA23"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA24"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA25"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA26"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA27"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA28"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA29"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA30"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" CityName="LOC_CITY_NAME_BULGARIA31"/>
+	</CityNames>
+	<StartBiasTerrains>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" TerrainType="TERRAIN_HILL" Score="15"/>
+	</StartBiasTerrains>
+	<VisArt_CivilizationBuildingCultures>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" BuildingCulture="BUILDING_CULTURE_MED"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" BuildingCulture="ANT_STONE"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" BuildingCulture="EXP_STONE"/>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" BuildingCulture="MOD_STONE"/>
+	</VisArt_CivilizationBuildingCultures>
+	<VisArt_CivilizationUnitCultures>
+		<Row CivilizationType="CIVILIZATION_BULGARIA" UnitCulture="MidE"/>
+	</VisArt_CivilizationUnitCultures>
+	<AiListTypes>
+		<Row ListType="Bulgaria Unit Biases"/>
+		<Row ListType="Bulgaria Government Bias"/>
+		<Row ListType="Bulgaria PseudoYield Biases" />
+		<Row ListType="Bulgaria Constructibles Biases" />
+		<Row ListType="Bulgaria Settlement Plot Evaluations" />
+	</AiListTypes>
+	<AiLists>
+		<Row ListType="Bulgaria Unit Biases" LeaderType="TRAIT_BULGARIA" System="UnitBiases"/>
+		<Row ListType="Bulgaria Government Bias" LeaderType="TRAIT_BULGARIA" System="GovernmentBiases"/>
+		<Row ListType="Bulgaria PseudoYield Biases" LeaderType="TRAIT_BULGARIA" System="PseudoYieldBiases"/>
+		<Row ListType="Bulgaria Constructibles Biases" LeaderType="TRAIT_BULGARIA" System="ConstructibleBiases" />
+		<Row ListType="Bulgaria Settlement Plot Evaluations" LeaderType="TRAIT_BULGARIA" System="SettlementPlotEvaluations"/>
+	</AiLists>
+	<AiFavoredItems>
+		<Row ListType="Bulgaria Unit Biases" Item="UNIT_BOYAR" Value="50"/>
+		<Row ListType="Bulgaria Unit Biases" Item="UNIT_BOYAR_2" Value="50"/>
+		<Row ListType="Bulgaria Unit Biases" Item="UNIT_BOYAR_3" Value="50"/>
+		<Row ListType="Bulgaria Unit Biases" Item="UNIT_BALIK" Value="50"/>
+		<Row ListType="Bulgaria Government Bias" Item="GOVERNMENT_FEUDAL_MONARCHY" Value="50"/>
+		<Row ListType="Bulgaria PseudoYield Biases" Item="PSEUDOYIELD_GREAT_WORK" Value="25"/>
+		<Row ListType="Bulgaria Constructibles Biases" Item="WONDER_RILA_MONASTERY" Value="50"/>
+		<Row ListType="Bulgaria Constructibles Biases" Item="BUILDING_TEMPLE" Value="200"/>
+		<Row ListType="Bulgaria Constructibles Biases" Item="IMPROVEMENT_HIDDEN_FORTRESS" Value="200"/>
+		<Row ListType="Bulgaria Settlement Plot Evaluations" Item="Specific Terrain" Favored="false" Value="5" StringVal="TERRAIN_HILL" TooltipString="LOC_SETTLEMENT_RECOMMENDATION_TERRAIN"/>
+	</AiFavoredItems>
+	<Independents>
+		<Update>
+			<Where IndependentType="INDEPENDENT_EXPLORATION_9"/>
+			<Set Name="LOC_INDEPENDENT_EXPLORATION_9_MINOR_BULGARIA_NAME" CityStateName="LOC_INDEPENDENT_EXPLORATION_9_MAJOR_BULGARIA_NAME"/>
+		</Update>
+	</Independents>
+</Database>

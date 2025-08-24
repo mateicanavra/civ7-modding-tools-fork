@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Antiquity -->
+		<Row Tag="LOC_RESOURCE_COTTON_NAME">
+			<Text>Cotton</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_DATES_NAME">
+			<Text>Dates</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_DYES_NAME">
+			<Text>Dyes</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_FISH_NAME">
+			<Text>Fish</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_GOLD_NAME">
+			<Text>Gold</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_GYPSUM_NAME">
+			<Text>Gypsum</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_INCENSE_NAME">
+			<Text>Incense</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_IVORY_NAME">
+			<Text>Ivory</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_JADE_NAME">
+			<Text>Jade</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_KAOLIN_NAME">
+			<Text>Kaolin</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_MARBLE_NAME">
+			<Text>Marble</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_PEARLS_NAME">
+			<Text>Pearls</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_SILK_NAME">
+			<Text>Silk</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_SILVER_NAME">
+			<Text>Silver</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_WINE_NAME">
+			<Text>Wine</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_CAMELS_NAME">
+			<Text>Camels</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_HIDES_NAME">
+			<Text>Hides</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_HORSES_NAME">
+			<Text>Horses</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_IRON_NAME">
+			<Text>Iron</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_SALT_NAME">
+			<Text>Salt</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_WOOL_NAME">
+			<Text>Wool</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_LAPIS_LAZULI_NAME">
+			<Text>Lapis Lazuli (Not Tradeable)</Text>
+		</Row>
+		<!-- Exploration -->
+		<Row Tag="LOC_RESOURCE_COCOA_NAME">
+			<Text>Cocoa</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_FURS_NAME">
+			<Text>Furs</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_NITER_NAME">
+			<Text>Niter</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_SPICES_NAME">
+			<Text>Spices</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_SUGAR_NAME">
+			<Text>Sugar</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_TEA_NAME">
+			<Text>Tea</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_TRUFFLES_NAME">
+			<Text>Truffles</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_CLOVES_NAME">
+			<Text>Cloves (Not Tradeable)</Text>
+		</Row>
+		<!-- Modern -->
+		<Row Tag="LOC_RESOURCE_COFFEE_NAME">
+			<Text>Coffee</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_CITRUS_NAME">
+			<Text>Citrus</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_COAL_NAME">
+			<Text>Coal</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_NICKEL_NAME">
+			<Text>Nickel (Not Tradeable)</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_OIL_NAME">
+			<Text>Oil</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_QUININE_NAME">
+			<Text>Quinine</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_RUBBER_NAME">
+			<Text>Rubber</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_TOBACCO_NAME">
+			<Text>Tobacco</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_WHALES_NAME">
+			<Text>Whales</Text>
+		</Row>
+		<!-- v2 -->
+		<Row Tag="LOC_RESOURCE_MANGOS_NAME">
+			<Text>Mangoes</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_CLAY_NAME">
+			<Text>Clay</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_FLAX_NAME">
+			<Text>Flax</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_RUBIES_NAME">
+			<Text>Rubies</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_RICE_NAME">
+			<Text>Rice</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_LIMESTONE_NAME">
+			<Text>Limestone</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_TIN_NAME">
+			<Text>Tin</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_LLAMAS_NAME">
+			<Text>Llamas</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_HARDWOOD_NAME">
+			<Text>Hardwood</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_WILD_GAME_NAME">
+			<Text>Wild Game</Text>
+		</Row>
+		<!-- Classes -->
+		<Row Tag="LOC_RESOURCECLASS_TOOLTIP_NAME">
+			<Text>{1_ClassType} Resource</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCECLASS_BONUS_NAME">
+			<Text>Bonus</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCECLASS_BONUS_DESCRIPTION">
+			<Text>This is a Bonus Resource</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCECLASS_CITY_NAME">
+			<Text>City</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCECLASS_CITY_DESCRIPTION">
+			<Text>This is a City Resource</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCECLASS_EMPIRE_NAME">
+			<Text>Empire</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCECLASS_EMPIRE_DESCRIPTION">
+			<Text>This is an Empire Resource</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCECLASS_TREASURE_NAME">
+			<Text>Treasure</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCECLASS_TREASURE_DESCRIPTION">
+			<Text>This is a Treasure Resource</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCECLASS_FACTORY_NAME">
+			<Text>Factory</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCECLASS_FACTORY_DESCRIPTION">
+			<Text>This is a Factory Resource</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_GENERAL_TYPE_FACTORY">
+			<Text>Factory Resource</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_GENERAL_TYPE_DISTANT_LANDS">
+			<Text>Distant Lands</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_GENERAL_YIELD_ICON_CULTURE">
+			<Text>[icon:YIELD_CULTURE] Culture</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_GENERAL_YIELD_ICON_GOLD">
+			<Text>[icon:YIELD_GOLD] Gold</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_GENERAL_YIELD_ICON_HAPPINESS">
+			<Text>[icon:YIELD_HAPPINESS] Happiness</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_GENERAL_YIELD_ICON_PRODUCTION">
+			<Text>[icon:YIELD_PRODUCTION] Production</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_GENERAL_YIELD_ICON_SCIENCE">
+			<Text>[icon:YIELD_SCIENCE] Science</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_GENERAL_PERCENT">
+			<Text>{1_Type} +{2_Amt}% {3_Yield}</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_GENERAL_POINT">
+			<Text>{1_Type} +{2_Amt} {3_Yield}</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_BONUS_DESCRIPTION">
+			<Text>Provides a flat yield buff to any settlement.</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_BONUS_SHORT_DESCRIPTION">
+			<Text>Provides a flat yield buff.</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_CITY_DESCRIPTION">
+			<Text>Enhances a city's ability in a particular area to promote city specialization.</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_EMPIRE_DESCRIPTION">
+			<Text>Provides enhancements empire-wide</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_CONFIRM">
+			<Text>Confirm</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_REVERT">
+			<Text>Revert</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_AUTO_SLOT">
+			<Text>Automatically slotted</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_AUTO_ALLOCATED">
+			<Text>Automatically allocated</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_CONFIRM_ALLOCATION">
+			<Text>Confirm Allocation</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_SLOT">
+			<Text>Slot</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_SLOT_RESOURCE">
+			<Text>Slot Resource</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_ALLOCATE">
+			<Text>Allocate</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_ALLOCATE_RESOURCE">
+			<Text>Allocate Resource</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_CONFIRM_ALLOCATE">
+			<Text>Are you sure this is how you want to allocate these resources?</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_CONFIRM_NOTE">
+			<Text>This cannot be undone.</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_CONFIRM_NOTE_AGE">
+			<Text>This cannot be undone in this age.</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_CONFIRM_NOTE_TOWN">
+			<Text>This cannot be undone until a new town is founded.</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_CONFIRM_NOTE_CITY">
+			<Text>This cannot be undone until a new city is founded.</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_SEE_CIVILOPEDIA">
+			<Text>See Civilopedia</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_PILLAGED">
+			<Text>Pillaged</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_PILLAGED_RESOURCE">
+			<Text>Pillaged resource</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_UNASSIGNED">
+			<Text>Unassigned</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_UNASSIGNED_RESOURCE">
+			<Text>Unassigned resource</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_REQUIRES">
+			<Text>Requires</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_CONNECTING_ROADS">
+			<Text>Connecting Roads</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_FILTER_SHOW">
+			<Text>Show</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_FILTER_YIELDS">
+			<Text>Yields</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_FILTER_CITIES_ONLY">
+			<Text>Cities Only</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_FILTER_FACTORIES_ONLY">
+			<Text>Factories Only</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_FILTER_SHOW_YIELDS">
+			<Text>Show Yields</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_FILTER_SHOW_CITIES_ONLY">
+			<Text>Show Cities Only</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_FILTER_SHOW_FACTORIES_ONLY">
+			<Text>Show Factories Only</Text>
+		</Row>
+		<Row Tag="LOC_RESOURCE_UNASSIGNED_BONUSES">
+			<Text>Yield Bonuses When Unassigned</Text>
+		</Row>
+	</EnglishText>
+</Database>

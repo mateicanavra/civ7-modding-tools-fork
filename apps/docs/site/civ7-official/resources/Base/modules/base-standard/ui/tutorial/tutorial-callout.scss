@@ -1,0 +1,470 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/themes/default/_baseColors.scss';
+@use '../../../core/ui/themes/default/theme';
+
+tutorial-callout {
+	--title-display: none;
+	position: relative;
+	height: 100%;
+	width: 100%;
+
+	&.handheld {
+		&.top-center {
+			.tutorial-callout-content {
+				max-width: 80vw;
+			}
+		}
+	}
+
+	&.top-center {
+		animation-name: tutorial-callout-anim-top;
+		animation-duration: .5s;
+		animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+		animation-fill-mode: both;
+
+		.tutorial-callout-content {
+			max-width: 55vw;
+			margin-top: pixels(16);
+		}
+	}
+
+	&.top-left {
+		.tutorial-callout-content {
+			right: 100%;
+			transform: translate(100%, pixels(48));
+			margin-top: pixels(16);
+		}
+	}
+
+	&.top-right {
+		.tutorial-callout-content {
+			left: 100%;
+			transform: translate(-100%, pixels(48));
+			margin-top: pixels(16);
+		}
+	}
+
+	&.middle-left {
+		.tutorial-callout-content {
+			top: 50%;
+			right: 100%;
+			transform: translate(100%, -50%);
+		}
+	}
+
+	&.middle-center {
+		.tutorial-callout-content {
+			top: 50%;
+			right: 50%;
+			transform: translate(50%, -50%);
+		}
+	}
+
+	&.middle-right {
+		.tutorial-callout-content {
+			top: 50%;
+			left: 100%;
+			transform: translate(-100%, -50%);
+		}
+	}
+
+	&.bottom-left {
+		.tutorial-callout-content {
+			top: 100%;
+			right: 100%;
+			transform: translate(100%, -100%);
+		}
+	}
+
+	&.bottom-center {
+		.tutorial-callout-content {
+			top: 100%;
+			transform: translate(pixels(0), -100%);
+		}
+	}
+
+	&.bottom-right {
+		.tutorial-callout-content {
+			top: 100%;
+			left: 100%;
+			transform: translate(-100%, -100%);
+		}
+	}
+
+	// Animations
+
+	&.top-left,
+	&.middle-left,
+	&.bottom-left {
+		animation-name: tutorial-callout-anim-left;
+
+		.tutorial-callout-content {
+			max-width: 30vw;
+		}
+	}
+
+	&.top-right,
+	&.middle-right,
+	&.bottom-right {
+		animation-name: tutorial-callout-anim-right;
+
+		.tutorial-callout-content {
+			max-width: 30vw;
+
+			@media (max-height: pixels(1000)) {
+				max-width: 35vw;
+			}
+		}
+	}
+
+	&.bottom-center,
+	&.middle-center {
+		animation-name: tutorial-callout-anim-bottom;
+
+		.tutorial-callout-content {
+			max-width: 55vw;
+
+			.tutorial-callout-buttons {
+				fxs-button {
+					@media (max-height: pixels(1000)) {
+						min-width: pixels(150);
+						max-width: pixels(220);
+						text-align: center;
+					}
+				}
+			}
+		}
+	}
+
+	&.show-title {
+		--title-display: flex;
+	}
+
+	// anchor
+	&.tutorial-callout__anchor-position {
+		position: absolute;
+		pointer-events: none;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+
+		.tutorial-callout-content {
+			max-width: pixels(480);
+			transform: translateY(0%);
+			margin: pixels(16);
+		}
+
+		&.anchor-position--left {
+			.tutorial-callout-content {
+				left: initial;
+				right: 105%;
+			}
+		}
+
+		&.anchor-position--right {
+			.tutorial-callout-content {
+				transform: translateX(0%);
+				left: 100%;
+				right: initial;
+			}
+		}
+
+		&.anchor-position--top {
+			.tutorial-callout-content {
+				transform: translateY(-115%);
+				top: 0%;
+			}
+		}
+
+		&.anchor-position--bottom {
+			.tutorial-callout-content {
+				top: 100%;
+			}
+		}
+	}
+
+	&.type--notification {
+
+		.tutorial-callout-content {
+			left: 95%;
+		}
+
+		.tutorial-callout-body-advisor-container {
+			flex-direction: column;
+			margin-top: pixels(24);
+			margin-bottom: pixels(24);
+		}
+
+		.tutorial-callout-body-advisor-image {
+			margin-bottom: pixels(24);
+		}
+
+		.advisor-text__tail {
+			top: pixels(-12);
+			left: initial;
+			right: 33%;
+			transform: rotateZ(-30deg);
+		}
+	}
+
+	&.minimized {
+		.tutorial-callout-content {
+			visibility: hidden;
+
+			fxs-minus-plus,
+			.tutorial-callout-title-container,
+			.tutorial-callout-body,
+			.callout-minimize__navhelp,
+			.tutorial-callout-buttons {
+				display: none;
+			}
+
+			.tutorial-callout-minimized {
+				display: flex;
+				visibility: visible;
+			}
+		}
+
+		&.empty-advisor {
+			.tutorial-callout-content {
+				visibility: visible;
+			}
+		}
+	}
+}
+
+.tutorial-callout-content {
+	max-width: pixels(480);
+	align-items: center;
+	justify-content: flex-start;
+	align-self: center;
+	padding-top: pixels(24);
+	padding-left: pixels(20);
+	padding-right: pixels(20);
+	padding-bottom: pixels(16);
+	top: pixels(0);
+	transform: translate(pixels(0), pixels(48));
+	margin: pixels(0) pixels(-24);
+}
+
+.tutorial-callout-content .tutorial-callout-minimized {
+	display: none;
+}
+
+.tutorial-callout-content .tutorial-callout-bg {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	border-image-source: url("fs://game/hud_unit-panel_box-bg.png");
+	border-image-slice: 30 20 30 20 fill;
+	border-image-width: auto;
+	border-image-outset: pixels(17) pixels(13);
+}
+
+.tutorial-callout-body-advisor-wrapper {
+	border-image-source: url('fs://game/hud_advisor-title_decoration.png');
+	border-image-slice: 126 208 1 24 fill;
+	border-image-width: auto;
+	height: pixels(120);
+}
+
+.tutorial-callout-body-advisor-bg {
+	background-image: url('fs://game/hud_advisor-gold-base.png');
+}
+
+.tutorial-callout-body-advisor-wrapper-right {
+	left: pixels(278);
+	right: pixels(278);
+}
+
+.tutorial-callout-content .tutorial-callout-title-container {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: auto;
+	display: var(--title-display);
+}
+
+.tutorial-callout-content .tutorial-callout-title {
+	position: relative;
+	margin-top: pixels(6);
+	padding-bottom: pixels(8);
+	letter-spacing: pixels(3);
+	margin-right: pixels(-3);
+	justify-content: center;
+	text-align: center;
+	line-height: 1.5em;
+
+	p {
+		margin: 0;
+	}
+}
+
+.tutorial-callout-title-decoration {
+	background: url("fs://game/hud_fleur.png");
+}
+
+.tutorial-callout-content>.tutorial-callout-body {
+	position: relative;
+	display: flex;
+	justify-content: space-around;
+	flex-direction: column;
+
+	fxs-font-icon {
+		margin-right: pixels(6);
+	}
+
+	p {
+		margin-bottom: pixels(12);
+	}
+}
+
+.tutorial-callout-body-advisor-container {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	margin: pixels(0) pixels(6);
+	position: relative;
+}
+
+.tutorial-callout-body-advisor-topper {
+	top: pixels(-60);
+}
+
+.tutorial-callout-body-advisor-image-container {
+	top: pixels(-17);
+}
+
+.tutorial-callout-body-advisor-image {
+	width: pixels(110);
+	height: pixels(110);
+	left: pixels(21);
+	top: pixels(21);
+	background-size: contain;
+	background-repeat: no-repeat;
+
+	&.no-advisor {
+		display: none;
+	}
+}
+
+.advisor-default {
+	background-color: white;
+	border-radius: 50%;
+}
+
+.advisor-text__shadow {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	border-image-source: url('fs://game/shadow_square.png');
+	border-image-slice: 18 fill;
+	border-image-width: pixels(68);
+	border-image-outset: pixels(50) pixels(56);
+	opacity: .875;
+}
+
+.advisor-text__background {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	border-radius: pixels(10);
+	background-color: theme.color('secondary');
+}
+
+.advisor-text__tail {
+	position: absolute;
+	left: pixels(-12);
+	top: pixels(8);
+	width: pixels(0);
+	height: pixels(0);
+	border-left: pixels(20) solid transparent;
+	border-right: pixels(0) solid transparent;
+	border-bottom: pixels(20) solid theme.color('secondary');
+	transform: rotateZ(4deg);
+}
+
+.tutorial-callout-advisor-text {
+	&.empty {
+		display: none;
+	}
+}
+
+.advisor-text__content,
+.tutorial-callout-body-text {
+	line-height: 1.25em;
+
+	.indent-1 {
+		padding-right: pixels(12);
+	}
+
+	&.empty {
+		display: none;
+	}
+}
+
+.tutorial-callout-content>.tutorial-callout-check-container {
+	margin-top: pixels(8);
+	margin-bottom: pixels(8);
+	align-self: flex-end;
+}
+
+.tutorial-callout-content>.tutorial-callout-frame {
+	position: absolute;
+	left: pixels(0);
+	right: pixels(0);
+	top: pixels(0);
+	bottom: pixels(0);
+	border-style: solid;
+	border-image-width: pixels(24);
+	border-image: linear-gradient(to bottom, theme.color('secondary-2'), theme.color('secondary-3')) 1;
+}
+
+//.tutorial-callout-content .tutorial-callout-divider {
+//	position: absolute;
+//	bottom: pixels(2);
+//	width: pixels(256);
+//	height: pixels(8);
+//	background-image: url("fs://game/Ornament_Thin_CenterHex.png");
+//	background-size: contain;
+//	background-repeat: no-repeat;
+//	background-position: center;
+//	filter: fxs-color-mask(theme.$default-color-secondary-accent);
+//}
+
+@keyframes tutorial-callout-anim-left {
+	from {
+		opacity: 0;
+		transform: translate(pixels(-12), pixels(0));
+	}
+}
+
+@keyframes tutorial-callout-anim-right {
+	from {
+		opacity: 0;
+		transform: translate(pixels(12), pixels(0));
+	}
+}
+
+@keyframes tutorial-callout-anim-top {
+	from {
+		opacity: 0;
+		transform: translate(pixels(0), pixels(-12));
+	}
+}
+
+@keyframes tutorial-callout-anim-bottom {
+	from {
+		opacity: 0;
+		transform: translate(pixels(0), pixels(12));
+	}
+}

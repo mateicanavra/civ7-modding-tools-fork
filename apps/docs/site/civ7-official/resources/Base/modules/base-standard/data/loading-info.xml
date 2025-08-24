@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LoadingInfo_Leaders>
+		<Row LeaderType="LEADER_AMINA" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_AMINA" LeaderImage="blp:lsl_amina.png" Audio="VO_Loading2_AMINA" />
+		<Row LeaderType="LEADER_ASHOKA" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_ASHOKA" LeaderImage="blp:lsl_ashoka.png" Audio="VO_Loading2_ASHOKA" />
+		<Row LeaderType="LEADER_AUGUSTUS" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_AUGUSTUS" LeaderImage="blp:lsl_augustus.png" Audio="VO_Loading2_AUGUSTUS" />
+		<Row LeaderType="LEADER_BENJAMIN_FRANKLIN" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_BENJAMIN_FRANKLIN" LeaderImage="blp:lsl_benjamin_franklin.png" Audio="VO_Loading2_BENJAMIN_FRANKLIN" />
+		<Row LeaderType="LEADER_CATHERINE" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_CATHERINE" LeaderImage="blp:lsl_catherine.png" Audio="VO_Loading2_CATHERINE" />
+		<Row LeaderType="LEADER_CHARLEMAGNE" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_CHARLEMAGNE" LeaderImage="blp:lsl_charlemagne.png" Audio="VO_Loading2_CHARLEMAGNE" />
+		<Row LeaderType="LEADER_CONFUCIUS" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_CONFUCIUS" LeaderImage="blp:lsl_confucius.png" Audio="VO_Loading2_CONFUCIOUS" />
+		<Row LeaderType="LEADER_FRIEDRICH" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_FRIEDRICH" LeaderImage="blp:lsl_friedrich.png" Audio="VO_Loading2_FRIEDRICH" />
+		<Row LeaderType="LEADER_HARRIET_TUBMAN" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_HARRIET_TUBMAN" LeaderImage="blp:lsl_harriet_tubman.png" Audio="VO_Loading2_HARRIET_TUBMAN" />
+		<Row LeaderType="LEADER_HATSHEPSUT" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_HATSHEPSUT" LeaderImage="blp:lsl_hatshepsut.png" Audio="VO_Loading2_HATSHEPSUT" />
+		<Row LeaderType="LEADER_HIMIKO" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_HIMIKO" LeaderImage="blp:lsl_himiko.png" Audio="VO_Loading2_HIMIKO" />
+		<Row LeaderType="LEADER_IBN_BATTUTA" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_IBN_BATTUTA" LeaderImage="blp:lsl_ibn_battuta.png" Audio="VO_Loading2_IBN_BATTUTA" />
+		<Row LeaderType="LEADER_ISABELLA" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_ISABELLA" LeaderImage="blp:lsl_isabella.png" Audio="VO_Loading2_ISABELLA" />
+		<Row LeaderType="LEADER_JOSE_RIZAL" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_JOSE_RIZAL" LeaderImage="blp:lsl_jose_rizal.png" Audio="VO_Loading2_JOSE_RIZAL" />
+		<Row LeaderType="LEADER_LAFAYETTE" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_LAFAYETTE" LeaderImage="blp:lsl_lafayette.png" Audio="VO_Loading2_LAFAYETTE" />
+		<Row LeaderType="LEADER_MACHIAVELLI" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_MACHIAVELLI" LeaderImage="blp:lsl_machiavelli.png" Audio="VO_Loading2_MACHIAVELLI" />
+		<Row LeaderType="LEADER_PACHACUTI" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_PACHACUTI" LeaderImage="blp:lsl_pachacuti.png" Audio="VO_Loading2_PACHACUTI" />
+		<Row LeaderType="LEADER_TRUNG_TRAC" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_TRUNG_TRAC" LeaderImage="blp:lsl_trung_trac.png" Audio="VO_Loading2_TRUNG_TRAC" />
+		<Row LeaderType="LEADER_XERXES" LeaderText="LOC_LOADING_LEADER_INTRO_TEXT_XERXES" LeaderImage="blp:lsl_xerxes.png" Audio="VO_Loading2_XERXES" />
+	</LoadingInfo_Leaders>
+</Database>

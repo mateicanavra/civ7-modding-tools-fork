@@ -1,0 +1,9 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+
+panel-age-rankings {
+	.fxs-scrollbar__track--vertical {
+		@media (experience: mobile) {
+			top: pixels(16);
+		}
+	}
+}

@@ -1,0 +1,1141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAR_CHAPTER_HISTORY_PARA_1" Language="ko_KR">
+      <Text>시몬 볼리바르는 스페인의 지배에서 남미를 독립시키는 운동을 주도했으며, 이러한 노력으로 해방자라는 뜻의 '엘 리베르타도르'라는 별명을 얻게 되었습니다. 다른 지도자 지망생들과 볼리바르의 내분으로 인해 통합된 남미라는 그의 구상은 산산조각 나고 말았지만, 볼리바르는 유럽의 남미 대륙 지배에 결정적인 타격을 가했으며 오늘날에도 영웅으로 추앙받고 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAR_CHAPTER_HISTORY_PARA_2" Language="ko_KR">
+      <Text>볼리바르는 1783년 베네수엘라에서 부유한 크리올로 가문, 즉 유럽계 혈통의 가문에서 태어났습니다. 어린 시절부터 가족의 영지와 재산을 관리하는 청지기 역할을 맡았던 볼리바르는 당시 프랑스에서 시작된 자유의 원칙을 독학으로 배웠으며, 장 자크 루소의 영향을 많이 받았습니다. 젊은 시절에 그는 파리를 방문했다가 나폴레옹이 권좌에 오르는 모습을 목격했습니다. 볼리바르는 나폴레옹이 이룬 일에는 감탄했지만, 혁명 이후의 권력 집중 행위에는 반발했습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAR_CHAPTER_HISTORY_PARA_3" Language="ko_KR">
+      <Text>나폴레옹 전쟁으로 인해 프랑스의 국력이 쇠하고, 나아가 스페인의 국력도 약해지자, 스페인의 괴뢰 국가였던 카라카스 군사 정부가 독립을 선언했습니다. 이후 베네수엘라가 해방되었다가 다시 스페인에 넘어가는 분쟁이 계속되는 가운데 볼리바르는 군대를 모으는 대신 외교적 지원을 모으는 일로 방향을 틀었습니다. 개중 기억할 만한 순간을 꼽자면, 볼리바르가 군대를 이끌어 가혹한 안데스산맥을 넘고, 결국 고지대에서 저지대로 스페인 군대를 기습 공격하여 승리를 거둔 사건이 있습니다. </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAR_CHAPTER_HISTORY_PARA_4" Language="ko_KR">
+      <Text>볼리바르는 독립 이후 바뀐 지형 속에서 통합을 어느 정도라도 유지하기 위해 고군분투했습니다. 이러한 노력 중 볼리바르는 부통령 프란시스코 데 파울라 산탄데르와 민주주의, 통합의 상대적 가치를 놓고 충돌했습니다. 볼리바르는 종신 대통령직과 더욱 강력한 권력 장악을 추구한 반면, 산탄데르는 선거민주주의에 대한 비전을 갖고 있었습니다. 결국 볼리바르는 독재를 선언했지만, 단 2년 만에 축출당했습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAR_CHAPTER_HISTORY_PARA_5" Language="ko_KR">
+      <Text>결핵에 걸리고 통합된 남미에 대한 희망마저 흔들리는 상황에서, 볼리바르는 유럽에 가려 했으나 1830년 사망했습니다. 그는 남미 대륙을 해방했지만, 그 투쟁을 '바다를 갈아엎는' 행위에 비유했습니다. 그의 유산은 남미에 혁명의 기념비로서 영원히 남아 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_LEADERS_PAGE_LEADER_BOLIVAT_TITLE" Language="ko_KR">
+      <Text>{LOC_LEADER_BOLIVAR_NAME}</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_BOLIVAR_ANY" Language="ko_KR">
+      <Text>넌 이 땅을 좀먹는 괴물이며, 그 죄에 합당한 벌을 받을 것이다. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_BOLIVAR_ANY" Language="ko_KR">
+      <Text>능구렁이 같은 놈, 네 독기 어린 분노로 내 땅을 삼키게 두지는 않겠다. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_DEFEAT_AI_LEADER_BOLIVAR_ANY" Language="ko_KR">
+      <Text>나는 빛을 보았고, 이제 어둠 속으로 떨어진다. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_BOLIVAR_ANY" Language="ko_KR">
+      <Text>반갑소. 난 폭정을 무너뜨리고 여러 나라를 해방한 자, 시몬 볼리바르요. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_BOLIVAR_ANY" Language="ko_KR">
+      <Text>반갑소. 난 폭정을 무너뜨리고 여러 나라를 해방한 자, 시몬 볼리바르요. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_BOLIVAR_ANY" Language="ko_KR">
+      <Text>반갑소. 난 폭정을 무너뜨리고 여러 나라를 해방한 자, 시몬 볼리바르요. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_BOLIVAR" Language="ko_KR">
+      <Text>참으로 황홀한 제안이로군. 영광이오. </Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_BOLIVAR" Language="ko_KR">
+      <Text>좋은 뜻이라는 건 이해하지만, 방향이 잘못되었소. </Text>
+    </Replace>
+    <Replace Tag="LOC_MAIN_CHAR_SELECT_LEADER_BOLIVAR_ANY" Language="ko_KR">
+      <Text>폭정의 무게를 견디는 것보다 자유의 균형을 유지하는 것이 더 어려운 법이지. </Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_BOLIVAR_NAME" Language="ko_KR">
+      <Text>시몬 볼리바르</Text>
+      <Gender>neuter:vowel</Gender>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220B_NAME" Language="ko_KR">
+      <Text>이 땅은 시작에 불과합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220C_NAME" Language="ko_KR">
+      <Text>그들을 보호해야 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220D_NAME" Language="ko_KR">
+      <Text>그것으로 충분합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221B_NAME" Language="ko_KR">
+      <Text>농부와 광부, 마부를 기억합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221C_NAME" Language="ko_KR">
+      <Text>잘된 일입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222B_NAME" Language="ko_KR">
+      <Text>다음 전투로 넘어갑니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222C_NAME" Language="ko_KR">
+      <Text>피는 충분히 흘렸습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1223B_NAME" Language="ko_KR">
+      <Text>번영하는 제국을 위협할 것은 없습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1223C_NAME" Language="ko_KR">
+      <Text>최악의 상황에 대비해야 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224B_NAME" Language="ko_KR">
+      <Text>알아볼 수 있는 방법은 하나뿐입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224C_NAME" Language="ko_KR">
+      <Text>무엇도 고르지 않습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1225B_NAME" Language="ko_KR">
+      <Text>적이 되기 전에 친구가 되게 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226B_NAME" Language="ko_KR">
+      <Text>복종을 시키려면 힘을 써야 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226C_NAME" Language="ko_KR">
+      <Text>병사들은 스스로 생각하는 법을 배워야 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1227B_NAME" Language="ko_KR">
+      <Text>적의 머리를 공격합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228B_NAME" Language="ko_KR">
+      <Text>근대화라는 약속은 모두의 것입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228C_NAME" Language="ko_KR">
+      <Text>닫기</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228D_NAME" Language="ko_KR">
+      <Text>닫기</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229B_NAME" Language="ko_KR">
+      <Text>그에게 대적하는 자는 몰락할 뿐입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229C_NAME" Language="ko_KR">
+      <Text>닫기</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229D_NAME" Language="ko_KR">
+      <Text>닫기</Text>
+    </Replace>
+    <Replace Tag="LOC_10030A_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르는 도서관 관리자들이 이 시대의 지혜를 소중히 다루는 것을 보았지만, 여전히 그 지혜가 차가운 지하실에서 허무하게 사라지지 않기를 바랍니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10030A_STORYTITLE" Language="ko_KR">
+      <Text>목적 있는 지식</Text>
+    </Replace>
+    <Replace Tag="LOC_10030B_DESCRIPTION" Language="ko_KR">
+      <Text>군사 건물에 {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10030B_NAME" Language="ko_KR">
+      <Text>관리들과 공유합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10030C_DESCRIPTION" Language="ko_KR">
+      <Text>군사 건물에 {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10030C_NAME" Language="ko_KR">
+      <Text>병사들과 공유합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10031A_COMPLETION" Language="ko_KR">
+      <Text>수많은 신하에게 둘러싸인 시몬 볼리바르는 그 순간의 분위기에 취할 수밖에 없었습니다. 그의 머리 위에서 새롭게 빛나는 왕관과 과거 나폴레옹 황제의 모습은 시몬 볼리바르의 기억 속에 각인되어 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10031A_STORYTITLE" Language="ko_KR">
+      <Text>정면교사</Text>
+    </Replace>
+    <Replace Tag="LOC_10031B_DESCRIPTION" Language="ko_KR">
+      <Text>{2_capital}에 {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10031B_NAME" Language="ko_KR">
+      <Text>그는 모범적인 정치가입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10031C_DESCRIPTION" Language="ko_KR">
+      <Text>{2_capital}에 {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10031C_NAME" Language="ko_KR">
+      <Text>그의 군사적 기량은 따라올 자가 없습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10032A_COMPLETION" Language="ko_KR">
+      <Text>이는 그 운명적인 대관식 날 시몬 볼리바르가 보았던 찬란한 황제의 모습이 아닙니다. 그건 모두 쇼였을 뿐인가요?</Text>
+    </Replace>
+    <Replace Tag="LOC_10032A_STORYTITLE" Language="ko_KR">
+      <Text>반면교사</Text>
+    </Replace>
+    <Replace Tag="LOC_10032B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10032B_NAME" Language="ko_KR">
+      <Text>나폴레옹의 백성에게 자비를 베풉니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10032C_DESCRIPTION" Language="ko_KR">
+      <Text>모든 전쟁에 전쟁 지원 +1.</Text>
+    </Replace>
+    <Replace Tag="LOC_10032C_NAME" Language="ko_KR">
+      <Text>계속 압박합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10033A_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르의 지휘관들이 자유라는 대의에 헌신한 용맹함을 인정받아 한 명씩 훈장을 받습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10033A_STORYTITLE" Language="ko_KR">
+      <Text>계급이 보여주는 것</Text>
+    </Replace>
+    <Replace Tag="LOC_10033B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10033B_NAME" Language="ko_KR">
+      <Text>다른 병사들에게 귀감이 됩니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10033C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward} 및 {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10033C_NAME" Language="ko_KR">
+      <Text>모두에게 귀감이 됩니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10034A_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르는 {1_Independent} 세력과 그 국민이 자유로운 독립 시민임을 인정합니다. 하지만 누구의 자유가 더 중요할까요?</Text>
+    </Replace>
+    <Replace Tag="LOC_10034A_STORYTITLE" Language="ko_KR">
+      <Text>자유의 문제</Text>
+    </Replace>
+    <Replace Tag="LOC_10034B_DESCRIPTION" Language="ko_KR">
+      <Text>보병에 {1_reward}, 하지만 {3_capital}에 {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10034B_NAME" Language="ko_KR">
+      <Text>스페인의 정복할 자유가 더 중요합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10034C_DESCRIPTION" Language="ko_KR">
+      <Text>모든 정착지에 {1_reward} 및 {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10034C_NAME" Language="ko_KR">
+      <Text>{1_Independent} 세력의 저항할 자유가 더 중요합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10035A_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르는 {1_Independent} 세력과 그 국민이 자유로운 독립 시민임을 인정합니다. 첫인상이 무엇보다 중요합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10035A_STORYTITLE" Language="ko_KR">
+      <Text>자치권</Text>
+    </Replace>
+    <Replace Tag="LOC_10035B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10035B_NAME" Language="ko_KR">
+      <Text>이민자를 환영합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10035C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10035C_NAME" Language="ko_KR">
+      <Text>지도자로 대우합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10036A_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르의 군대가 피비린내 나는 전투 끝에 {1_STORY_CITY} 도시를 탈환하고, {2_civilization_adj} 시민들은 스페인 정복자들이 포로로 잡힌 것을 보며 환호합니다. 멋진 날입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10036A_STORYTITLE" Language="ko_KR">
+      <Text>숙적</Text>
+    </Replace>
+    <Replace Tag="LOC_10036B_DESCRIPTION" Language="ko_KR">
+      <Text>최고 레벨 사령관 무료 진급.</Text>
+    </Replace>
+    <Replace Tag="LOC_10036B_NAME" Language="ko_KR">
+      <Text>성취에 따른 보상을 내립니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10036C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10036C_NAME" Language="ko_KR">
+      <Text>모든 상황에 대비합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10037A_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르는 {1_capital} 도시로 달아나야 했고, 국가의 운명은 바람 앞의 등불과 같습니다. 죽음을 앞에 두고 시몬 볼리바르는 정답이 될 대응책을 찾습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10037A_STORYTITLE" Language="ko_KR">
+      <Text>절망의 시기</Text>
+    </Replace>
+    <Replace Tag="LOC_10037B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}, 하지만 {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10037B_NAME" Language="ko_KR">
+      <Text>필사적으로 싸웁니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10037C_DESCRIPTION" Language="ko_KR">
+      <Text>모든 전쟁에 전쟁 지원 +1, 하지만 {1_capital}의 타일이 1개 약탈당합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10037C_NAME" Language="ko_KR">
+      <Text>대담한 아이디어를 중심으로 뭉칩니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10038A_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르가 {1_capital} 도시에 승리하여 귀환했음을 알리며 군중을 향해 고개를 끄덕입니다. 그들은 다시, 아니 항상 그랬던 것처럼 {2_civilization_adj}의 백성입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10038A_STORYTITLE" Language="ko_KR">
+      <Text>예전으로 돌아가기</Text>
+    </Replace>
+    <Replace Tag="LOC_10038B_DESCRIPTION" Language="ko_KR">
+      <Text>기념 행사가 시작됩니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10038B_NAME" Language="ko_KR">
+      <Text>기념할 만한 일입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10038C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10038C_NAME" Language="ko_KR">
+      <Text>다시는 이런 일이 없기를 바랍니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10039A_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르는 거부당하는 상황에서도 애써 평정심을 유지합니다. 이러한 모욕은 자신뿐만 아니라 국민들에게도 영향을 미칩니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10039A_STORYTITLE" Language="ko_KR">
+      <Text>거부됨</Text>
+    </Replace>
+    <Replace Tag="LOC_10039B_DESCRIPTION" Language="ko_KR">
+      <Text>모든 전쟁에 전쟁 지원 +1.</Text>
+    </Replace>
+    <Replace Tag="LOC_10039B_NAME" Language="ko_KR">
+      <Text>절대 잊지 못할 것입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10039C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10039C_NAME" Language="ko_KR">
+      <Text>이미 잊었습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10040A_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르 입장에서 리더십이란 언제나 따라오는 것이었습니다. 그는 그가 직면한 도전에 맞설 준비가 안 된 것 같은 사람을 잘 믿지 않습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10040A_STORYTITLE" Language="ko_KR">
+      <Text>딜레마</Text>
+    </Replace>
+    <Replace Tag="LOC_10040B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10040B_NAME" Language="ko_KR">
+      <Text>엘리트가 있는 데에는 이유가 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10040C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10040C_NAME" Language="ko_KR">
+      <Text>신뢰는 주고받는 것입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10042A_COMPLETION" Language="ko_KR">
+      <Text>아무리 노력해도 시몬 볼리바르는 칼을 내려놓을 수 없습니다. 아마도 그는 자기가 자유를 주는 사람일 때만 자유를 믿는 것 같습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10042A_STORYTITLE" Language="ko_KR">
+      <Text>전투 준비</Text>
+    </Replace>
+    <Replace Tag="LOC_10042B_DESCRIPTION" Language="ko_KR">
+      <Text>모든 유닛에 {1_reward}, 하지만 모든 정착지의 타일이 1개 약탈당합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10042B_NAME" Language="ko_KR">
+      <Text>국민들이 희생을 감수해야 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10042C_DESCRIPTION" Language="ko_KR">
+      <Text>모든 전쟁에 전쟁 지원 +3, 하지만 유닛이 50점의 피해를 받음.</Text>
+    </Replace>
+    <Replace Tag="LOC_10042C_NAME" Language="ko_KR">
+      <Text>군대가 희생을 감수해야 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10043A_COMPLETION" Language="ko_KR">
+      <Text>두 나라가 자국민과 양국의 발전을 위해 생산적인 관계를 맺는다는 것은 참으로 간단한 일이지만, 오랫동안 시몬 볼리바르는 이를 놓치고 있었습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10043A_STORYTITLE" Language="ko_KR">
+      <Text>굳건한 악수</Text>
+    </Replace>
+    <Replace Tag="LOC_10043B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}, 하지만 {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10043B_NAME" Language="ko_KR">
+      <Text>아이디어와 자본의 자유로운 교환을 환영합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10043C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}, 하지만 {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10043C_NAME" Language="ko_KR">
+      <Text>경계를 늦추지 않습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10046A_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르는 혼자서 싸워야 하는 절박함을 너무나도 잘 알고 있습니다. 그래서 도움 요청에는 주저하지 않고 응답합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10046A_STORYTITLE" Language="ko_KR">
+      <Text>통합</Text>
+    </Replace>
+    <Replace Tag="LOC_10046B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10046B_NAME" Language="ko_KR">
+      <Text>시몬 볼리바르가 온다고 전 세계에 알립니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10046C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10046C_NAME" Language="ko_KR">
+      <Text>지원군을 징발합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10047A_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르는 다른 지도자들은 물론, 자국민들에게도 인기가 많습니다. 아마도 그의 말솜씨와 그의 순수한 성격 때문일 것입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10047A_STORYTITLE" Language="ko_KR">
+      <Text>매력적인 지도자</Text>
+    </Replace>
+    <Replace Tag="LOC_10047B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10047B_NAME" Language="ko_KR">
+      <Text>그들은 시몬 볼리바르의 땅을 직접 보고 싶어 합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10047C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10047C_NAME" Language="ko_KR">
+      <Text>그들은 시몬 볼리바르의 대의를 위해 목숨을 바칩니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10048A_COMPLETION" Language="ko_KR">
+      <Text>전쟁으로 폐허가 된 거리를 지나가는 영웅 시몬 볼리바르를 향해 {1_STORY_CITY} 시민들이 환호합니다. 적국 시민의 존경을 받는 것은 불가능에 가까운 일입니다. 해방자 엘 리베르타도르가 아닌 이상에는요.</Text>
+    </Replace>
+    <Replace Tag="LOC_10048A_STORYTITLE" Language="ko_KR">
+      <Text>반가운 광경</Text>
+    </Replace>
+    <Replace Tag="LOC_10048B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10048B_NAME" Language="ko_KR">
+      <Text>상인들이 사업이 더 번창하리라고 기대합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10048C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10048C_NAME" Language="ko_KR">
+      <Text>장인들이 가장 야심 찬 프로젝트를 계획합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10049A_COMPLETION" Language="ko_KR">
+      <Text>황금의 강을 타고 멕시코로 번영의 물길이 흘러듭니다. 이는 국민들의 인내와 의지력이 결실을 본 근거이자, 시몬 볼리바르의 터무니없는 야망이 실현된 증거입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10049A_STORYTITLE" Language="ko_KR">
+      <Text>비바 라 레볼루시온</Text>
+    </Replace>
+    <Replace Tag="LOC_10049B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward} 및 {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10049B_NAME" Language="ko_KR">
+      <Text>이건 시작일 뿐입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_10049C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward} 및 {2_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_10049C_NAME" Language="ko_KR">
+      <Text>세상은 아직 준비되지 않았습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220A_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르가 자신의 땅을 뒤덮고 국민을 먹여 살리는 들판에 서서 최근 내린 비로 곡식이 반짝이는 모습을 바라봅니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220A_STORYTITLE" Language="ko_KR">
+      <Text>이 땅들</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220B_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르의 격려에 힘입어 그의 국민은 정착하고 일할 새로운 땅을 찾습니다. 때가 되면 그들에게도 생명의 비가 내릴 것입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220B_IMPERATIVE" Language="ko_KR">
+      <Text>정착지를 2개 더 건설하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220B_STORYTITLE" Language="ko_KR">
+      <Text>이 땅들</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220C_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르는 성벽을 따라 걸으며 제국을 바라보는 새로운 관점을 얻습니다. 그의 땅은 여전히 그의 시선이 닿는 곳까지만 뻗어 있지만, 이제 그 심장부는 방어 체계를 갖췄습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220C_IMPERATIVE" Language="ko_KR">
+      <Text>고대 성벽을 4개 더 건설하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220C_STORYTITLE" Language="ko_KR">
+      <Text>이 땅들</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1220D_DESCRIPTION" Language="ko_KR">
+      <Text>{2_capital}에 {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221A_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르의 상인들은 협상 테이블에서 이웃 상인들을 만나 주머니에 금을 가득 채워줄 거래를 모색합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221A_STORYTITLE" Language="ko_KR">
+      <Text>사람들</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221B_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르의 제국은 장소가 아닙니다. 상인, 군인, 노동자들이 있는 곳이 곧 그의 제국입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221B_IMPERATIVE" Language="ko_KR">
+      <Text>교외 인구 10명이 있는 정착지를 보유하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221B_STORYTITLE" Language="ko_KR">
+      <Text>사람들</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1221C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222A_COMPLETION" Language="ko_KR">
+      <Text>전투의 먼지가 가라앉으며 패자와 승자 모두의 어깨 위로 쌓입니다. 시몬 볼리바르의 병사들은 무기를 거두고 다시 뽑으라는 명령을 기다립니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222A_STORYTITLE" Language="ko_KR">
+      <Text>만반의 대비</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222B_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르는 {1_STORY_CITY} 도시를 자기 부관들의 확고한 통제 아래 두고 유혈 사태를 끝내라고 명령을 내립니다. 시몬 볼리바르가 적에게 보내는 메시지로 이만큼 명확한 것도 없을 것입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222B_IMPERATIVE" Language="ko_KR">
+      <Text>정착지를 점령하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222B_STORYTITLE" Language="ko_KR">
+      <Text>만반의 대비</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1222C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1223A_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르의 보좌관들은 하루에도 수천 번씩 그를 찾아옵니다. 제국의 일상적인 행정부터 멀리서 오는 위협까지 다양한 문제에 대한 지도와 지시를 받기 위해서입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1223A_STORYTITLE" Language="ko_KR">
+      <Text>끝없는 일</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1223B_DESCRIPTION" Language="ko_KR">
+      <Text>이야기가 계속됩니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1223C_DESCRIPTION" Language="ko_KR">
+      <Text>이야기가 계속됩니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224A_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르는 제독이 섬세한 도구를 여봐란듯이 흔들며 위험한 바다를 항해하는 방법을 설명하는 모습을 멍하니 바라봅니다. 시몬 볼리바르는 항상 국민들의 요구를 최우선으로 생각했는데, 이 세계의 절반 너머에 있는 땅이 무슨 소용일까요?</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224A_STORYTITLE" Language="ko_KR">
+      <Text>필요하다면 행할 것</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224B_COMPLETION" Language="ko_KR">
+      <Text>이 새로운 땅은 낯설지 몰라도 {1_STORY_CITY}의 잠재력은 이미 활짝 꽃을 피웠습니다. 아무래도 기존 주민 중에 마음이 맞는 사람이 있는 모양입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224B_IMPERATIVE" Language="ko_KR">
+      <Text>머나먼 땅에 정착지를 보유하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224B_STORYTITLE" Language="ko_KR">
+      <Text>필요하다면 행할 것</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1224C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1225A_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르가 서성거리는 동안, 측근들이 말다툼을 벌입니다. 새 지도자와의 만남은 재앙까지는 아니었지만, 광활한 바다 건너에서 온 이들의 동기에 의문을 제기하는 사람도 있었습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1225A_STORYTITLE" Language="ko_KR">
+      <Text>방문자</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1225B_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르가 상대방과 승낙의 악수를 나누는 동안 계약서에 잉크가 마르고 있습니다. 이 세상에서 혼자가 아니라는 사실을 알게 된 일은 무시하기에는 너무 거대한 사건입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1225B_DESCRIPTION" Language="ko_KR">
+      <Text>금 건물에 {1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1225B_IMPERATIVE" Language="ko_KR">
+      <Text>머나먼 땅의 문명과 동맹을 맺으세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1225B_STORYTITLE" Language="ko_KR">
+      <Text>방문자</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226A_COMPLETION" Language="ko_KR">
+      <Text>병영을 방문한 시몬 볼리바르는 베테랑 병사가 신병에게 명령을 따르느냐, 아니냐로 생사가 갈릴 수 있다고 경고합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226A_STORYTITLE" Language="ko_KR">
+      <Text>한 다발의 화살</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226B_COMPLETION" Language="ko_KR">
+      <Text>과녁 없는 화살 같았던 시몬 볼리바르의 병사들은 이제 사령관이 부여하는 목적하에 행동합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226B_IMPERATIVE" Language="ko_KR">
+      <Text>8회 진급한 사령관을 1기 보유하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226B_STORYTITLE" Language="ko_KR">
+      <Text>한 다발의 화살</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1226C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1227A_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르에게 전쟁이 닥쳤지만, 예상치 못한 전쟁은 아니었습니다. 시몬 볼리바르와 그의 국민은 정복에 맞서 하나로 뭉쳤습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1227A_STORYTITLE" Language="ko_KR">
+      <Text>입장 표명</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1227B_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르의 군대가 적군을 밀어내면서 승리의 서막을 열었습니다. 전쟁은 아직 끝나지 않았지만, 이제 곧 끝날지도 모릅니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1227B_DESCRIPTION" Language="ko_KR">
+      <Text>기념 행사가 시작됩니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1227B_IMPERATIVE" Language="ko_KR">
+      <Text>머나먼 땅에서 군단장 1기를 물리치세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1227B_STORYTITLE" Language="ko_KR">
+      <Text>입장 표명</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228A_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르는 {1_CAPITAL}의 거리가 그 어느 때보다 활기차다는 사실을 알아챕니다. 여기에 기회가 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228A_STORYTITLE" Language="ko_KR">
+      <Text>열린 문</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228B_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르의 제국을 가로지르는 길을 따라 {1_CIVILIZATION_ADJ} 특유의 거대한 기운이 흐르고 있습니다. 국민이 이토록 통합된 적은 없었습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228B_IMPERATIVE" Language="ko_KR">
+      <Text>철도역 5개를 보유하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228B_STORYTITLE" Language="ko_KR">
+      <Text>열린 문</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1228D_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward} 및 기념 행사 시작.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229A_COMPLETION" Language="ko_KR">
+      <Text>시몬 볼리바르는 초창기부터 자신의 신념을 지키기 위해 노력했습니다. 지금 그가 국민들에게 함께해달라고 요청합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229A_STORYTITLE" Language="ko_KR">
+      <Text>굳건한 결의</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229B_COMPLETION" Language="ko_KR">
+      <Text>그의 정적들이 한 명씩 차례로 쓰러집니다. 남들은 뭐라고 하든, 시몬 볼리바르는 자신의 신념을 고수했습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229B_DESCRIPTION" Language="ko_KR">
+      <Text>{1_child_reward}</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229B_IMPERATIVE" Language="ko_KR">
+      <Text>정착지를 2곳 점령하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229B_STORYTITLE" Language="ko_KR">
+      <Text>굳건한 결의</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229C_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward}.</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_CHAIN_1229D_DESCRIPTION" Language="ko_KR">
+      <Text>{1_reward} 및 기념 행사 시작.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_BOLIVAR_L1_DESCRIPTION" Language="ko_KR">
+      <Text>마을을 도시로 전환하는 데 드는 금 효율을 +50% 제공합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_BOLIVAR_L1_NAME" Language="ko_KR">
+      <Text>팽창주의 속성 노드</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_BOLIVAR_L2_DESCRIPTION" Language="ko_KR">
+      <Text>특수지구 상대 시 모든 유닛의 전투력이 +5 증가합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_ATTRIBUTENODE_BOLIVAR_L2_NAME" Language="ko_KR">
+      <Text>군사 속성 노드</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_BOLIVAR_NAME" Language="ko_KR">
+      <Text>시몬 볼리바르 배지 1</Text>
+    </Replace>
+    <Replace Tag="LOC_BADGE_BOLIVAR_P_NAME" Language="ko_KR">
+      <Text>시몬 볼리바르 배지 2</Text>
+    </Replace>
+    <Replace Tag="LOC_BANNER_BOLIVAR_NAME" Language="ko_KR">
+      <Text>시몬 볼리바르 배너</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_BOLIVAR_1_DESCRIPTION" Language="ko_KR">
+      <Text>이 시대 동안 [icon:YIELD_GOLD] 금을 -10% 희생하여 [icon:YIELD_FOOD] 식량을 +15% 증가시킵니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_BOLIVAR_1_NAME" Language="ko_KR">
+      <Text>시몬 볼리바르 대항해시대 전설 팽창주의</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_BOLIVAR_2_DESCRIPTION" Language="ko_KR">
+      <Text>이 시대 동안 [icon:YIELD_DIPLOMACY] 영향력을 -10% 희생하여 해상 유닛의 전투력을 +3 증가시킵니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_EXP_LEGEND_BOLIVAR_2_NAME" Language="ko_KR">
+      <Text>시몬 볼리바르 대항해시대 전설 군사</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_BOLIVAR_1_DESCRIPTION" Language="ko_KR">
+      <Text>이 시대 동안 [icon:YIELD_GOLD] 금을 -10% 희생하여 [icon:YIELD_FOOD] 식량을 +15% 증가시킵니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_BOLIVAR_1_NAME" Language="ko_KR">
+      <Text>시몬 볼리바르 근대 전설 팽창주의</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_BOLIVAR_2_DESCRIPTION" Language="ko_KR">
+      <Text>이 시대 동안 [icon:YIELD_DIPLOMACY] 영향력을 -10% 희생하여 공중 유닛 전투력을 +3 증가시킵니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_CARD_AT_MOD_LEGEND_BOLIVAR_2_NAME" Language="ko_KR">
+      <Text>시몬 볼리바르 근대 전설 군사</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_AGENDA_CORNERSTONE_FREEDOM_DESC" Language="ko_KR">
+      <Text>불행한 정착지가 가장 적은 지도자를 좋아합니다. 불행한 정착지가 가장 많은 지도자를 싫어합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_AGENDA_CORNERSTONE_FREEDOM_NAME" Language="ko_KR">
+      <Text>자유의 초석</Text>
+    </Replace>
+    <Replace Tag="LOC_LEADER_BOLIVAR_DESCRIPTION" Language="ko_KR">
+      <Text>모든 전쟁에 [icon:WAR_SUPPORT] 전쟁 지원을 1회 얻습니다. 처음으로 정착지를 정복하면 시설물 1개를 무료로 구매할 수 있습니다. [icon:YIELD_ANGRY] 사회불안 상태에서도 구매할 수 있습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_LEADER_INTRO_TEXT_BOLIVAR" Language="ko_KR">
+      <Text>구세계가 저물고 신세계가 떠오릅니다. 위대한 해방자 시몬 볼리바르여, 당신은 감히 당신의 꿈에 한계를 정하려는 자들과 맞섭니다. 사람들은 당신의 카리스마에 이끌리며, 그 대담함을 보고 앞으로 나아갑니다. 맨몸으로 바다를 일구는 기분이 들지라도, 계속 싸우십시오.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_DAVALOS_MEDAL_DESCRIPTION" Language="ko_KR">
+      <Text>아야쿠초의 유산입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_DAVALOS_MEDAL_FUNCTIONAL_DESCRIPTION" Language="ko_KR">
+      <Text>군사 건물의 시대당 [icon:YIELD_HAPPINESS] 행복도가 +1 증가합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_DAVALOS_MEDAL_NAME" Language="ko_KR">
+      <Text>다발로스 메달</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_DAVALOS_MEDAL_UNLOCK_TITLE" Language="ko_KR">
+      <Text>시몬 볼리바르 5레벨에 잠금 해제</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_GOLD_SNUFF_BOX_DESCRIPTION" Language="ko_KR">
+      <Text>왕실의 선물입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_GOLD_SNUFF_BOX_FUNCTIONAL_DESCRIPTION" Language="ko_KR">
+      <Text>하나의 동맹에만 소속된 경우 [icon:YIELD_FOOD] 식량이 +20% 증가합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_GOLD_SNUFF_BOX_NAME" Language="ko_KR">
+      <Text>금제 코담뱃갑</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_GOLD_SNUFF_BOX_UNLOCK_TITLE" Language="ko_KR">
+      <Text>시몬 볼리바르 2레벨에 잠금 해제</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_LETTER_TO_JAMAICA_DESCRIPTION" Language="ko_KR">
+      <Text>미래의 비전입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_LETTER_TO_JAMAICA_FUNCTIONAL_DESCRIPTION" Language="ko_KR">
+      <Text>기념 행사 기간에 유닛 구매 시 [icon:YIELD_GOLD] 금 효율을 +50% 제공합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_LETTER_TO_JAMAICA_NAME" Language="ko_KR">
+      <Text>자메이카에 보내는 편지</Text>
+    </Replace>
+    <Replace Tag="LOC_MEMENTO_BOLIVAR_LETTER_TO_JAMAICA_UNLOCK_TITLE" Language="ko_KR">
+      <Text>시몬 볼리바르 9레벨에 잠금 해제</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_ANTIQUITY_2_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 고대 시대를 두 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_ANTIQUITY_2_NAME" Language="ko_KR">
+      <Text>고대 완료 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_ANTIQUITY_3_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 고대 시대를 세 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_ANTIQUITY_3_NAME" Language="ko_KR">
+      <Text>고대 완료 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_ANTIQUITY_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 고대 시대를 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_ANTIQUITY_NAME" Language="ko_KR">
+      <Text>고대 완료</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_EXPLORATION_2_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 대항해시대를 두 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_EXPLORATION_2_NAME" Language="ko_KR">
+      <Text>대항해시대 완료 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_EXPLORATION_3_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 대항해시대를 세 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_EXPLORATION_3_NAME" Language="ko_KR">
+      <Text>대항해시대 완료 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_EXPLORATION_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 대항해시대를 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_EXPLORATION_NAME" Language="ko_KR">
+      <Text>대항해시대 완료</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_MODERN_2_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 근대 시대를 두 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_MODERN_2_NAME" Language="ko_KR">
+      <Text>근대 완료 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_MODERN_3_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 근대 시대를 세 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_MODERN_3_NAME" Language="ko_KR">
+      <Text>근대 완료 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_MODERN_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 근대 시대를 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_AGE_COMPLETED_MODERN_NAME" Language="ko_KR">
+      <Text>근대 완료</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_ANTIQUITY_2_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 고대 세계의 불가사의 유산의 길을 두 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_ANTIQUITY_2_NAME" Language="ko_KR">
+      <Text>고대 세계의 불가사의 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_ANTIQUITY_3_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 고대 세계의 불가사의 유산의 길을 세 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_ANTIQUITY_3_NAME" Language="ko_KR">
+      <Text>고대 세계의 불가사의 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_ANTIQUITY_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 고대 세계의 불가사의 유산의 길을 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_ANTIQUITY_NAME" Language="ko_KR">
+      <Text>고대 세계의 불가사의</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_EXPLORATION_2_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 토샤카나 유산의 길을 두 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_EXPLORATION_2_NAME" Language="ko_KR">
+      <Text>토샤카나 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_EXPLORATION_3_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 토샤카나 유산의 길을 세 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_EXPLORATION_3_NAME" Language="ko_KR">
+      <Text>토샤카나 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_EXPLORATION_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 토샤카나 유산의 길을 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_EXPLORATION_NAME" Language="ko_KR">
+      <Text>토샤카나</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_MODERN_2_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 지리학 협회 유산의 길을 두 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_MODERN_2_NAME" Language="ko_KR">
+      <Text>지리학 협회 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_MODERN_3_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 지리학 협회 유산의 길을 세 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_MODERN_3_NAME" Language="ko_KR">
+      <Text>지리학 협회 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_MODERN_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 지리학 협회 유산의 길을 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_CULTURE_VICTORY_MODERN_NAME" Language="ko_KR">
+      <Text>지리학 협회</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_ANTIQUITY_2_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 실크로드 유산의 길을 두 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_ANTIQUITY_2_NAME" Language="ko_KR">
+      <Text>실크로드 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_ANTIQUITY_3_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 실크로드 유산의 길을 세 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_ANTIQUITY_3_NAME" Language="ko_KR">
+      <Text>실크로드 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_ANTIQUITY_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 실크로드 유산의 길을 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_ANTIQUITY_NAME" Language="ko_KR">
+      <Text>실크로드</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_EXPLORATION_2_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 보물선단 유산의 길을 두 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_EXPLORATION_2_NAME" Language="ko_KR">
+      <Text>보물선단 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_EXPLORATION_3_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 보물선단 유산의 길을 세 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_EXPLORATION_3_NAME" Language="ko_KR">
+      <Text>보물선단 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_EXPLORATION_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 보물선단 유산의 길을 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_EXPLORATION_NAME" Language="ko_KR">
+      <Text>보물선단</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_MODERN_2_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 철도 타이쿤 유산의 길을 두 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_MODERN_2_NAME" Language="ko_KR">
+      <Text>철도 타이쿤 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_MODERN_3_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 철도 타이쿤 유산의 길을 세 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_MODERN_3_NAME" Language="ko_KR">
+      <Text>철도 타이쿤 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_MODERN_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 철도 타이쿤 유산의 길을 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_ECONOMIC_VICTORY_MODERN_NAME" Language="ko_KR">
+      <Text>철도 타이쿤</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_FLAWLESS_VICTORY_ANTIQUITY_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 한 번의 고대 시대에 유산의 길을 2개 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_FLAWLESS_VICTORY_ANTIQUITY_NAME" Language="ko_KR">
+      <Text>고대의 두 가지 유산</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_FLAWLESS_VICTORY_EXPLORATION_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 한 번의 대항해시대에 유산의 길을 2개 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_FLAWLESS_VICTORY_EXPLORATION_NAME" Language="ko_KR">
+      <Text>대항해시대의 두 가지 유산</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_FLAWLESS_VICTORY_MODERN_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 한 번의 근대 시대에 유산의 길을 2개 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_FLAWLESS_VICTORY_MODERN_NAME" Language="ko_KR">
+      <Text>근대 시대의 두 가지 유산</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_ANTIQUITY_2_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 팍스 임페라토리아 유산의 길을 두 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_ANTIQUITY_2_NAME" Language="ko_KR">
+      <Text>팍스 임페라토리아 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_ANTIQUITY_3_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 팍스 임페라토리아 유산의 길을 세 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_ANTIQUITY_3_NAME" Language="ko_KR">
+      <Text>팍스 임페라토리아 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_ANTIQUITY_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 팍스 임페라토리아 유산의 길을 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_ANTIQUITY_NAME" Language="ko_KR">
+      <Text>팍스 임페라토리아</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_EXPLORATION_2_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 세계는 충분하지 않다 유산의 길을 두 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_EXPLORATION_2_NAME" Language="ko_KR">
+      <Text>세계는 충분하지 않다 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_EXPLORATION_3_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 세계는 충분하지 않다 유산의 길을 세 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_EXPLORATION_3_NAME" Language="ko_KR">
+      <Text>세계는 충분하지 않다 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_EXPLORATION_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 세계는 충분하지 않다 유산의 길을 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_EXPLORATION_NAME" Language="ko_KR">
+      <Text>세계는 충분하지 않다</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_MODERN_2_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 이데올로기 유산의 길을 두 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_MODERN_2_NAME" Language="ko_KR">
+      <Text>이데올로기 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_MODERN_3_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 이데올로기 유산의 길을 세 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_MODERN_3_NAME" Language="ko_KR">
+      <Text>이데올로기 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_MODERN_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 이데올로기 유산의 길을 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_MILITARY_VICTORY_MODERN_NAME" Language="ko_KR">
+      <Text>이데올로기</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_PLAY_GAMES_1_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 유산의 길 이정표를 1개 이상 달성하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_PLAY_GAMES_1_NAME" Language="ko_KR">
+      <Text>게임 플레이 1</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_PLAY_GAMES_2_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 유산의 길 이정표를 2개 이상 달성하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_PLAY_GAMES_2_NAME" Language="ko_KR">
+      <Text>게임 플레이 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_PLAY_GAMES_3_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 유산의 길 이정표를 3개 이상 달성하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_PLAY_GAMES_3_NAME" Language="ko_KR">
+      <Text>게임 플레이 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_A_ANTIQUITY_DESC" Language="ko_KR">
+      <Text>고대에서 시몬 볼리바르로 교외의 사람들과 접촉하는 퀘스트를 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_A_ANTIQUITY_NAME" Language="ko_KR">
+      <Text>사람들</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_A_EXPLORATION_DESC" Language="ko_KR">
+      <Text>대항해시대에서 시몬 볼리바르로 위험한 바다를 항해하는 퀘스트를 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_A_EXPLORATION_NAME" Language="ko_KR">
+      <Text>필요하다면 행할 것</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_A_MODERN_DESC" Language="ko_KR">
+      <Text>근대에서 시몬 볼리바르로 철도로 제국을 하나로 만드는 퀘스트를 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_A_MODERN_NAME" Language="ko_KR">
+      <Text>열린 문</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_B_ANTIQUITY_DESC" Language="ko_KR">
+      <Text>고대에서 시몬 볼리바르로 전쟁의 소란을 진정시키는 퀘스트를 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_B_ANTIQUITY_NAME" Language="ko_KR">
+      <Text>만반의 대비</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_B_EXPLORATION_DESC" Language="ko_KR">
+      <Text>대항해시대에서 시몬 볼리바르로 베테랑 군인을 승진시키는 퀘스트를 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_B_EXPLORATION_NAME" Language="ko_KR">
+      <Text>한 다발의 화살</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_B_MODERN_DESC" Language="ko_KR">
+      <Text>근대에서 시몬 볼리바르로 자신의 신념을 위해 싸우는 퀘스트를 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_QUEST_B_MODERN_NAME" Language="ko_KR">
+      <Text>굳건한 결의</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_ANTIQUITY_2_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 알렉산드리아 도서관 유산의 길을 두 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_ANTIQUITY_2_NAME" Language="ko_KR">
+      <Text>알렉산드리아 도서관 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_ANTIQUITY_3_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 알렉산드리아 도서관 유산의 길을 세 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_ANTIQUITY_3_NAME" Language="ko_KR">
+      <Text>알렉산드리아 도서관 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_ANTIQUITY_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 알렉산드리아 도서관 유산의 길을 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_ANTIQUITY_NAME" Language="ko_KR">
+      <Text>알렉산드리아 도서관</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_EXPLORATION_2_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 계몽주의 유산의 길을 두 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_EXPLORATION_2_NAME" Language="ko_KR">
+      <Text>계몽주의 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_EXPLORATION_3_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 계몽주의 유산의 길을 세 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_EXPLORATION_3_NAME" Language="ko_KR">
+      <Text>계몽주의 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_EXPLORATION_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 계몽주의 유산의 길을 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_EXPLORATION_NAME" Language="ko_KR">
+      <Text>계몽주의</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_MODERN_2_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 우주 경쟁 유산의 길을 두 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_MODERN_2_NAME" Language="ko_KR">
+      <Text>우주 경쟁 2</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_MODERN_3_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 우주 경쟁 유산의 길을 세 번 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_MODERN_3_NAME" Language="ko_KR">
+      <Text>우주 경쟁 3</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_MODERN_DESC" Language="ko_KR">
+      <Text>시몬 볼리바르로 우주 경쟁 유산의 길을 완료하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_BOLIVAR_SCIENCE_VICTORY_MODERN_NAME" Language="ko_KR">
+      <Text>우주 경쟁</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_EXPANSIONIST_LEGEND_BOLIVAR_L1_DESCRIPTION" Language="ko_KR">
+      <Text>전설 잠금 해제입니다. 마을을 도시로 전환하는 데 드는 [icon:YIELD_GOLD] 금 효율을 +50% 제공합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_BOLIVAR_L2_DESCRIPTION" Language="ko_KR">
+      <Text>전설 잠금 해제입니다. 특수지구 상대 시 모든 유닛의 전투력이 +5 증가합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_PROFILE_TITLE_BOLIVAR" Language="ko_KR">
+      <Text>해방자</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_EXPLORATION_1_DESCRIPTION" Language="ko_KR">
+      <Text>시몬 볼리바르가 새로운 대항해시대 유산 카드를 사용할 수 있게 되었습니다.[n]
+				금 +15%, 식량 -10%</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_EXPLORATION_1_NAME" Language="ko_KR">
+      <Text>대항해시대 팽창주의 유산 카드</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_EXPLORATION_2_DESCRIPTION" Language="ko_KR">
+      <Text>시몬 볼리바르가 새로운 대항해시대 유산 카드를 사용할 수 있게 되었습니다.[n]
+				해상 유닛 전투력 +3, 영향력 -10%</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_EXPLORATION_2_NAME" Language="ko_KR">
+      <Text>대항해시대 군국주의 유산 카드</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_MODERN_1_DESCRIPTION" Language="ko_KR">
+      <Text>시몬 볼리바르가 새로운 근대 유산 카드를 사용할 수 있게 되었습니다.[n]
+				식량 +15%, 금 -10%</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_MODERN_1_NAME" Language="ko_KR">
+      <Text>근대 팽창주의 유산 카드</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_MODERN_2_DESCRIPTION" Language="ko_KR">
+      <Text>시몬 볼리바르가 새로운 근대 유산 카드를 사용할 수 있게 되었습니다.[n]
+				공중 유닛 전투력 +3, 영향력 -10%</Text>
+    </Replace>
+    <Replace Tag="LOC_STRATEGYCARD_BOLIVAR_MODERN_2_NAME" Language="ko_KR">
+      <Text>근대 군국주의 유산 카드</Text>
+    </Replace>
+    <Replace Tag="LOC_TITLE_BOLIVAR_NAME" Language="ko_KR">
+      <Text>해방자</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_BOLIVAR_ABILITY_DESCRIPTION" Language="ko_KR">
+      <Text>[BLIST][LI]모든 전쟁에 [B][icon:WAR_SUPPORT] 전쟁 지원을 1회[/B] 얻습니다. [LI]처음으로 정착지를 정복하면 [B]정착지에서 시설물 1개를 무료로 구매할 수 있습니다[/B]. [LI][B][icon:YIELD_ANGRY] 사회불안[/B] 상태에서도 구매할 수 있습니다.[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_LEADER_BOLIVAR_ABILITY_NAME" Language="ko_KR">
+      <Text>엘 리베르타도르</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BOLIVAR_DESCRIPTION" Language="ko_KR">
+      <Text>[B]시몬 볼리바르[/B]로 플레이하세요.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BOLIVAR_FRANCE_TOOLTIP" Language="ko_KR">
+      <Text>[B]시몬 볼리바르[/B]는 [B]프랑스 제국[/B]의 영향을 받았습니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BOLIVAR_INCA_TOOLTIP" Language="ko_KR">
+      <Text>[B]시몬 볼리바르[/B]는 아메리카 대륙 출신입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BOLIVAR_MAYA_TOOLTIP" Language="ko_KR">
+      <Text>[B]시몬 볼리바르[/B]는 아메리카 대륙 출신입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BOLIVAR_MEXICO_TOOLTIP" Language="ko_KR">
+      <Text>[B]시몬 볼리바르[/B]는 아메리카 대륙 출신입니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BOLIVAR_ROME_TOOLTIP" Language="ko_KR">
+      <Text>[B]로마[/B]는 [B]시몬 볼리바르[/B]를 전략적으로 보완합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_BOLIVAR_SPAIN_TOOLTIP" Language="ko_KR">
+      <Text>[B]스페인[/B]은 [B]시몬 볼리바르[/B]를 전략적으로 보완합니다.</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_ATTRIBUTE_MILITARISTIC_LEGEND_BOLIVAR_L2_COMBAT_PREVIEW" Language="ko_KR">
+      <Text>+{1_Value} 전설 군사 속성</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

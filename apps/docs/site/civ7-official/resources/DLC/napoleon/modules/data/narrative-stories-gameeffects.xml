@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+    <Requirement id="REQ_STORY_LEADER_NAPOLEON" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_NAPOLEON</Argument>
+        <Argument name="AcceptVariation">true</Argument>
+    </Requirement>
+    <Requirement id="REQ_STORY_LEADER_NAPOLEON_ONLY" type="REQUIREMENT_PLAYER_LEADER_TYPE_MATCHES">
+        <Argument name="LeaderType">LEADER_NAPOLEON</Argument>
+    </Requirement>
+</GameEffects>

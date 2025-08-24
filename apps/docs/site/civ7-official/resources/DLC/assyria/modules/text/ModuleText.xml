@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MODULE_ASSYRIA_NAME">
+			<Text>Assyria</Text>
+		</Row>
+		<Row Tag="LOC_MODULE_ASSYRIA_DESCRIPTION">
+			<Text>Contains a new Antiquity Age Civilization, Assyria.</Text>
+		</Row>
+	</EnglishText>
+</Database>

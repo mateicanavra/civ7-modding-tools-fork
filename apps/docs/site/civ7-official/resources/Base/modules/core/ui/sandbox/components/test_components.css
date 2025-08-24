@@ -1,0 +1,826 @@
+/* DO NOT EDIT */
+/* Generated from test_components.scss */
+.test-container {
+	position: absolute;
+	align-self: center;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.test-card-container {
+	position: relative;
+	align-self: center;
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-start;
+	padding: 1.3333333333rem 2.6666666667rem 2.6666666667rem;
+}
+
+test-turn-counter {
+	--turn-font-size: 0.9444444444rem;
+	position: absolute;
+	height: 1.7777777778rem;
+	min-width: 2.4444444444rem;
+}
+
+.test-turn-counter__shadow {
+	position: absolute;
+	top: -0.6666666667rem;
+	bottom: -0.6666666667rem;
+	left: -1.5555555556rem;
+	right: -1.5555555556rem;
+	border-image-slice: 15 28 15 28 fill;
+	border-image-width: 1.4444444444rem 2.8888888889rem 1.4444444444rem 2.8888888889rem;
+	border-image-source: url("fs://game/shadow_turn-counter.png");
+}
+
+.test-turn-counter__bg-shape {
+	position: absolute;
+	top: 0rem;
+	bottom: 0rem;
+	left: -0.5555555556rem;
+	right: -0.5555555556rem;
+	border-image-slice: 15 24 15 36 fill;
+	border-image-width: 0.8333333333rem 1.3333333333rem 0.8333333333rem 2rem;
+}
+.test-turn-counter__bg-shape.test-turn-counter__outer-bg {
+	border-image-source: url("fs://game/mask_turn-counter.png");
+	filter: fxs-color-mask(var(--bg-color));
+}
+.test-turn-counter__bg-shape.test-turn-counter__frame {
+	border-image-source: url("fs://game/frame_turn-counter.png");
+	filter: fxs-color-mask(var(--frame-color));
+}
+.test-turn-counter__bg-shape.test-turn-counter__overlay {
+	border-image-source: url("fs://game/overlay_turn-counter.png");
+}
+
+.test-turn-counter__number {
+	position: relative;
+	padding-left: 1.6666666667rem;
+	padding-right: 0.6111111111rem;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	font-family: "BodyFont";
+	font-weight: 700;
+	font-size: var(--turn-font-size);
+	color: var(--frame-color);
+}
+
+test-hex-icon {
+	--icon-width: 2.6666666667rem;
+	--border-thickness: 0.1666666667rem;
+	--inner-width: calc((-2 * var(--border-thickness)) + var(--icon-width));
+	--step-icon-image: url("fs://game/cult_discipline.png");
+	position: absolute;
+	height: 3.6666666667rem;
+	width: var(--icon-width);
+	pointer-events: none;
+}
+
+.test-hex-icon__bg-shape {
+	position: absolute;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	mask-size: contain;
+	mask-position: center;
+	mask-repeat: no-repeat;
+}
+.test-hex-icon__bg-shape.test-hex-icon__bg-shadow {
+	top: 0rem;
+	left: 0rem;
+	bottom: 0rem;
+	right: 0rem;
+	background-image: url("fs://game/shadow_icon-rounded-hex.png");
+}
+.test-hex-icon__bg-shape.test-hex-icon__bg-outer {
+	width: var(--icon-width);
+	height: var(--icon-width);
+	mask-image: url("fs://game/mask_icon-rounded-hex.png");
+	background-color: var(--player-color-secondary);
+	background-image: url("fs://game/overlay_rounded-hex.png");
+}
+.test-hex-icon__bg-shape.test-hex-icon__bg-inner {
+	top: var(--border-thickness);
+	left: var(--border-thickness);
+	width: var(--inner-width);
+	height: var(--inner-width);
+	mask-image: url("fs://game/mask_icon-rounded-hex.png");
+	background-color: var(--player-color-primary);
+	background-image: url("fs://game/overlay_rounded-hex-inner.png");
+}
+
+.test-hex-icon__image {
+	position: absolute;
+	top: 0rem;
+	left: 0rem;
+	width: var(--icon-width);
+	height: var(--icon-width);
+	mask-image: url("fs://game/mask_hex_icon_64px.png");
+	mask-size: cover;
+	mask-position: 50% calc(-0.1111111111rem + -0.0625 * var(--icon-width));
+	mask-repeat: no-repeat;
+	background-image: var(--step-icon-image);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: calc(0.4444444444rem + var(--icon-width));
+	pointer-events: auto;
+}
+
+test-civics-card {
+	--shadow-x-offset: 0rem;
+	--shadow-y-offset: 0rem;
+	--shadow-opacity: 1;
+	--card-scale: 1;
+	--card-hover-scale: 1.0625;
+	--highlight-opacity: 0;
+	--icon-shadow-opacity: 1;
+	--card-bg-light: var(--player-color-primary);
+	--card-bg-dark: var(--player-color-primary-more);
+	--card-title-color: var(--player-color-secondary);
+	--card-pattern-color: var(--player-color-secondary);
+	--card-bg-accent: var(--player-color-secondary-accent);
+	--icon-bg-light: var(--player-color-secondary-more);
+	--icon-bg-dark: var(--player-color-secondary);
+	--icon-inner-bg: var(--player-color-primary);
+	--icon-inner-color: var(--player-color-secondary);
+	--icon-image: url("fs://game/cult_discipline.png");
+	--bar-light-color: var(--player-color-secondary-more);
+	--bar-med-color: var(--player-color-secondary);
+	--bar-dark-color: var(--player-color-secondary-less);
+	--bar-bg-color: var(--player-color-primary-more);
+	--progress-visibility: hidden;
+	--hitbox-left-offset: -4rem;
+	--turn-counter-visibility: visible;
+	--checkmark-visibility: hidden;
+	--icon-image-opacity: 1;
+	--card-overlay-light-opacity: .125;
+	--card-overlay-dark-opacity: .25;
+	--show-tiers: hidden;
+	position: relative;
+	width: auto;
+	height: auto;
+	transform: scale(var(--card-scale));
+	transition-property: transform;
+	transition-duration: 0.25s;
+	transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: center;
+	align-items: flex-start;
+	pointer-events: none;
+	margin-left: 3.3333333333rem;
+}
+test-civics-card.test-civics-card--in-progress {
+	--progress-visibility: visible;
+	--card-scale: 1.125;
+	--card-hover-scale: 1.1875;
+	--hitbox-left-offset: -5.3333333333rem;
+}
+test-civics-card.test-civics-card--has-tiers {
+	--show-tiers: visible;
+}
+test-civics-card.primary-color-is-lighter {
+	--card-bg-light: var(--player-color-primary-more);
+	--card-bg-dark: var(--player-color-primary);
+	--icon-bg-light: var(--player-color-secondary);
+	--icon-bg-dark: var(--player-color-secondary-more);
+	--card-overlay-light-opacity: .25;
+	--card-overlay-dark-opacity: .125;
+	--bar-light-color: var(--player-color-secondary-less);
+	--bar-med-color: var(--player-color-secondary);
+	--bar-dark-color: var(--player-color-secondary-more);
+	--bar-bg-color: var(--player-color-primary);
+}
+test-civics-card.primary-color-is-lighter .test-civics-card__icon-bg--tier-inner {
+	text-shadow: 0.0555555556rem 0rem var(--player-color-secondary);
+}
+test-civics-card:hover, test-civics-card:focus {
+	--shadow-x-offset: -0.4444444444rem;
+	--shadow-y-offset: 0.3333333333rem;
+	--shadow-opacity: .875;
+	--card-scale: var(--card-hover-scale);
+	--highlight-opacity: 1;
+	--icon-shadow-opacity: .625;
+	z-index: 2;
+}
+
+.test-civics-card__hitbox {
+	position: absolute;
+	top: -0.6666666667rem;
+	left: var(--hitbox-left-offset);
+	bottom: -1.3333333333rem;
+	right: -0.6666666667rem;
+	pointer-events: auto;
+}
+
+.test-civics__main-container {
+	position: relative;
+	min-height: 5.3333333333rem;
+	min-width: 16.6666666667rem;
+	margin-top: 0.6666666667rem;
+	display: flex;
+	flex-direction: column-reverse;
+	justify-content: flex-start;
+	align-items: stretch;
+}
+
+.test-civics-card__card {
+	--turn-bg-color: var(--player-color-secondary);
+	--turn-frame-color: var(--player-color-primary);
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: stretch;
+}
+.test-civics-card__card.test-civics-card__card--main {
+	min-height: 5.3333333333rem;
+	min-width: 16.6666666667rem;
+	padding-top: 0.6666666667rem;
+	padding-left: 4.6666666667rem;
+}
+.test-civics-card__card.test-civics-card__card--tier {
+	--progress-visibility: hidden;
+	min-height: 4.6666666667rem;
+	min-width: 5.3333333333rem;
+	margin-top: -1.3333333333rem;
+	padding-top: 1.3333333333rem;
+	padding-left: 2rem;
+}
+.test-civics-card__card.test-civics-card--in-progress {
+	--progress-visibility: visible;
+	--card-scale: 1.125;
+	--card-hover-scale: 1.1875;
+	--hitbox-left-offset: -5.3333333333rem;
+}
+.test-civics-card__card.test-civics-card--complete {
+	--turn-counter-visibility: hidden;
+	--checkmark-visibility: visible;
+	--card-bg-light: var(--player-color-secondary-more);
+	--card-bg-dark: var(--player-color-secondary);
+	--card-overlay-light-opacity: .25;
+	--card-overlay-dark-opacity: .125;
+	--card-title-color: var(--player-color-primary);
+	--card-pattern-color: var(--player-color-primary);
+	--card-bg-accent: var(--player-color-primary-accent);
+}
+.test-civics-card__card.test-civics-card--locked {
+	--card-bg-light: rgb(192, 192, 192);
+	--card-bg-dark: rgb(144, 144, 144);
+	--card-overlay-light-opacity: .25;
+	--card-overlay-dark-opacity: .125;
+	--card-title-color: rgb(72, 72, 72);
+	--card-pattern-color: rgb(72, 72, 72);
+	--card-bg-accent: rgb(120, 120, 120);
+	--icon-bg-light: rgb(192, 192, 192);
+	--icon-bg-dark: rgb(144, 144, 144);
+	--icon-inner-bg: rgb(72, 72, 72);
+	--icon-inner-color: rgb(192, 192, 192);
+	--turn-bg-color: rgb(192, 192, 192);
+	--turn-frame-color: rgb(72, 72, 72);
+	--icon-image-opacity: .5;
+}
+.test-civics-card__card.test-civics-card--locked .test-civics-card__icon-bg--tier-inner {
+	text-shadow: none;
+}
+
+.test-civics-card__bg-shadow {
+	position: absolute;
+	top: -2.6666666667rem;
+	bottom: -2.6666666667rem;
+	left: -2.6666666667rem;
+	right: -2.6666666667rem;
+	border-image-source: url("fs://game/shadow_card-cutout.png");
+	border-image-slice: 30 30 30 30 fill;
+	border-image-width: 3.3333333333rem 3.3333333333rem 3.3333333333rem 3.3333333333rem;
+	transform-origin: 50% 50%;
+	transform: translateX(var(--shadow-x-offset)) translateY(var(--shadow-y-offset));
+	transition-property: transform, opacity;
+	transition-duration: 0.25s;
+	transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+	opacity: var(--shadow-opacity);
+	z-index: -2;
+}
+.test-civics-card__bg-shadow.test-civics-card__bg-shadow--tier {
+	visibility: var(--show-tiers);
+}
+
+.test-civics-card__bg-shape {
+	position: absolute;
+	top: 0rem;
+	bottom: 0rem;
+	left: 0rem;
+	right: 0rem;
+	mask-size: 100%;
+	mask-repeat: no-repeat;
+	mask-position: center;
+	border-image-source: url("fs://game/mask_card-cutout.png");
+	border-image-slice: 12 12 12 12 fill;
+	border-image-width: 0.6666666667rem 0.6666666667rem 0.6666666667rem 0.6666666667rem;
+}
+.test-civics-card__bg-shape.test-civics-card__base-bg {
+	filter: fxs-color-mask(var(--card-bg-light));
+}
+.test-civics-card__bg-shape.test-civics-card__main-highlight {
+	top: -0.3333333333rem;
+	bottom: -0.3333333333rem;
+	left: -0.3333333333rem;
+	right: -0.3333333333rem;
+	filter: fxs-color-mask(#ece0d4);
+	opacity: var(--highlight-opacity);
+	transition-property: opacity;
+	transition-duration: 0.25s;
+	transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+	z-index: -1;
+}
+.test-civics-card__bg-shape.test-civics-card__main-highlight.test-civics-card__tier-highlight {
+	visibility: var(--show-tiers);
+}
+.test-civics-card__bg-shape.test-civics-card__bg-gradient {
+	filter: fxs-color-mask(var(--card-bg-dark));
+	mask-image: linear-gradient(210deg, rgba(0, 0, 0, 0) 0%, black 100%);
+}
+.test-civics-card__bg-shape.test-civics-card__overlay-light {
+	filter: fxs-color-mask(#ece0d4);
+	mask-image: linear-gradient(210deg, rgba(0, 0, 0, var(--card-overlay-light-opacity)) 0%, rgba(0, 0, 0, 0) 100%);
+}
+.test-civics-card__bg-shape.test-civics-card__overlay-dark {
+	filter: fxs-color-mask(#0a020d);
+	mask-image: linear-gradient(210deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, var(--card-overlay-dark-opacity)) 100%);
+}
+
+.test-civics-card__thin-frame {
+	position: absolute;
+	top: 0.1666666667rem;
+	bottom: 0.1666666667rem;
+	left: 0.1666666667rem;
+	right: 0.1666666667rem;
+	border-image-source: url("fs://game/frame_card-thin.png");
+	border-image-slice: 12 12 12 12 fill;
+	border-image-width: 0.6666666667rem 0.6666666667rem 0.6666666667rem 0.6666666667rem;
+	filter: fxs-color-mask(var(--card-bg-accent));
+}
+
+.test-civics-card__thick-frame {
+	position: absolute;
+	top: 0rem;
+	bottom: 0rem;
+	left: 0rem;
+	right: 0rem;
+	border-image-source: url("fs://game/frame_card-thick.png");
+	border-image-slice: 12 12 12 12 fill;
+	border-image-width: 0.6666666667rem 0.6666666667rem 0.6666666667rem 0.6666666667rem;
+	filter: fxs-color-mask(var(--card-title-color));
+	visibility: var(--progress-visibility);
+}
+
+.test-civics-card__title {
+	position: relative;
+	font-family: "TitleFont";
+	font-weight: 400;
+	font-size: calc(1rem + -0.1111111111rem);
+	color: var(--card-title-color);
+	line-height: 1.3333333333rem;
+	letter-spacing: 0.1111111111rem;
+	margin-left: -0.1111111111rem;
+}
+
+.test-civics-card__bonus-container {
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	margin-top: 0.2222222222rem;
+}
+
+.test-civics-card__bonus {
+	position: relative;
+	height: var(--icon-width);
+	margin: 0rem -0.0555555556rem;
+}
+.test-civics-card__bonus .test-hex-icon__image {
+	top: var(--border-thickness);
+	left: var(--border-thickness);
+	width: calc(-2 * var(--border-thickness) + var(--icon-width));
+	height: calc(-2 * var(--border-thickness) + var(--icon-width));
+	mask-image: url("fs://game/mask_icon-rounded-hex.png");
+	mask-size: contain;
+	mask-position: center;
+	mask-repeat: no-repeat;
+	background-size: cover;
+	opacity: var(--icon-image-opacity);
+}
+.test-civics-card__bonus .test-hex-icon__bg-outer {
+	background-color: var(--icon-bg-light);
+}
+.test-civics-card__bonus .test-hex-icon__bg-inner {
+	background-color: var(--icon-inner-bg);
+}
+
+.test-civics-card__bonus-pattern-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	height: 0.8888888889rem;
+	flex: 1 1 auto;
+	border-style: solid;
+	border-width: 0rem;
+	border-left-width: 0.3333333333rem;
+	border-right-width: 0.3333333333rem;
+	border-left-color: var(--card-pattern-color);
+	border-right-color: var(--card-pattern-color);
+	opacity: 0.25;
+}
+.test-civics-card__bonus-pattern-container.pattern-left {
+	flex: 0 0 auto;
+	margin-left: -3rem;
+	width: 2.3333333333rem;
+	margin-right: 0.3333333333rem;
+}
+.test-civics-card__bonus-pattern-container.pattern-right {
+	flex: 1 0 auto;
+	margin-right: 0.6666666667rem;
+	transform-origin: 50% 50%;
+	transform: scaleX(-1);
+	margin-left: 0.3333333333rem;
+	min-width: 1.3333333333rem;
+}
+
+.test-civics-card__bonus-pattern {
+	position: relative;
+	height: 0.8888888889rem;
+	width: 100%;
+	background-image: url("fs://game/core/ui/themes/default/img/civ_patterns/egypt_pattern.png");
+	background-size: 0.8888888889rem 0.8888888889rem;
+	background-position: 0% 0%;
+	filter: fxs-color-mask(var(--card-pattern-color));
+}
+
+.test-civics-card__icon-container {
+	position: absolute;
+	top: -0.6666666667rem;
+	left: -3.3333333333rem;
+	width: 6.6666666667rem;
+	height: 6.6666666667rem;
+}
+
+.test-civics-card__icon-highlight {
+	position: absolute;
+	mask-image: url("fs://game/mask_circle-120px.png");
+	mask-repeat: no-repeat;
+	mask-position: 50% 50%;
+	mask-size: 100% 100%;
+	background-color: #ece0d4;
+	opacity: var(--highlight-opacity);
+	transition-property: opacity;
+	transition-duration: 0.25s;
+	transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+	z-index: -1;
+}
+.test-civics-card__icon-highlight.test-civics-card__icon-highlight--main {
+	top: -1.3333333333rem;
+	left: -4rem;
+	width: 8rem;
+	height: 8rem;
+	margin-right: -3.3333333333rem;
+}
+.test-civics-card__icon-highlight.test-civics-card__icon-highlight--tier {
+	top: 1.1111111111rem;
+	left: -1.8888888889rem;
+	width: 3.7777777778rem;
+	height: 3.7777777778rem;
+}
+
+.test-civics-card__icon-bg {
+	position: absolute;
+	top: 0rem;
+	left: 0rem;
+	right: 0rem;
+	bottom: 0rem;
+	background-image: linear-gradient(195deg, var(--icon-bg-light) 0%, var(--icon-bg-dark) 100%);
+	background-size: contain;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	mask-image: url("fs://game/mask_circle-120px.png");
+	mask-repeat: no-repeat;
+	mask-position: 50% 50%;
+}
+.test-civics-card__icon-bg.test-civics-card__icon-bg--main {
+	mask-size: 7.1111111111rem 7.1111111111rem;
+}
+.test-civics-card__icon-bg.test-civics-card__icon-bg--tier {
+	mask-size: 2.8888888889rem 2.8888888889rem;
+}
+.test-civics-card__icon-bg.test-civics-card__icon-bg--tier-inner {
+	mask-size: 2.8888888889rem 2.8888888889rem;
+	top: 0.5555555556rem;
+	left: 0.5555555556rem;
+	right: 0.5555555556rem;
+	bottom: 0.5555555556rem;
+	mask-size: 1.8888888889rem 1.8888888889rem;
+	background-image: none;
+	background-color: var(--icon-inner-bg);
+	color: var(--icon-inner-color);
+	font-family: "TitleFont";
+	font-weight: 400;
+	font-size: calc(1rem + -0.1111111111rem);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	letter-spacing: 0.0555555556rem;
+	padding-left: 0.0555555556rem;
+}
+
+.test-civics-card__icon-shadow {
+	position: absolute;
+	background-size: 100%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+.test-civics-card__icon-shadow.test-civics-card__icon-shadow--main-big {
+	width: 14.2222222222rem;
+	height: 14.2222222222rem;
+	top: -1.7777777778rem;
+	left: -4.4444444444rem;
+	background-image: url("fs://game/shadow_card-circle-big.png");
+}
+.test-civics-card__icon-shadow.test-civics-card__icon-shadow--main-tight {
+	width: 14.2222222222rem;
+	height: 14.2222222222rem;
+	top: -3.7777777778rem;
+	left: -3.7777777778rem;
+	background-image: url("fs://game/shadow_card-circle-tight.png");
+	opacity: 0.625;
+}
+.test-civics-card__icon-shadow.test-civics-card__icon-shadow--tier-big {
+	width: 5.7777777778rem;
+	height: 5.7777777778rem;
+	top: 0.1111111111rem;
+	left: -2.8888888889rem;
+	background-image: url("fs://game/shadow_card-circle-small.png");
+	z-index: -1;
+	transform: translateX(var(--shadow-x-offset)) translateY(var(--shadow-y-offset));
+	transition-property: transform;
+	transition-duration: 0.25s;
+	transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.test-civics-card__icon-shadow.test-civics-card__icon-shadow--tier-tight {
+	width: 5.7777777778rem;
+	height: 5.7777777778rem;
+	top: -1.4444444444rem;
+	left: -1.4444444444rem;
+	background-image: url("fs://game/shadow_card-circle-big.png");
+	opacity: var(--icon-shadow-opacity);
+	transition-property: opacity;
+	transition-duration: 0.25s;
+	transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+	transform: translateX(0rem);
+}
+
+.test-civics-card__icon-frame {
+	position: absolute;
+	top: 0.1666666667rem;
+	left: 0.1666666667rem;
+	bottom: 0.1666666667rem;
+	right: 0.1666666667rem;
+	background-color: transparent;
+	border-radius: 50%;
+	border-style: solid;
+	border-width: 0.0555555556rem;
+	border-color: white;
+	background-repeat: no-repeat;
+	filter: fxs-color-mask(var(--card-bg-accent));
+}
+.test-civics-card__icon-frame.test-civics-card__icon-frame--main {
+	background-image: url("fs://game/frame_circle-branches.png");
+	background-size: 7.1111111111rem 7.1111111111rem;
+	background-position: 50% 50%;
+}
+
+.test-civics-card__icon-image {
+	position: absolute;
+	top: 1rem;
+	bottom: 1rem;
+	left: 1rem;
+	right: 1rem;
+	mask-image: url("fs://game/mask_circle-120px.png");
+	mask-repeat: no-repeat;
+	mask-position: 50% 50%;
+	mask-size: 4.7777777778rem 4.7777777778rem;
+	background-image: var(--icon-image);
+	background-size: 5.3333333333rem 5.3333333333rem;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	opacity: var(--icon-image-opacity);
+}
+
+.test-civics-card__icon-overlay {
+	position: absolute;
+	top: 0rem;
+	bottom: 0rem;
+	left: 0rem;
+	right: 0rem;
+	background-image: url("fs://game/overlay_card-circle.png");
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+.test-civics-card__icon-overlay.test-civics-card__icon-overlay--main {
+	background-size: 7.1111111111rem 7.1111111111rem;
+}
+.test-civics-card__icon-overlay.test-civics-card__icon-overlay--tier {
+	background-size: 2.8888888889rem 2.8888888889rem;
+}
+
+.test-civics-card__turn-counter {
+	--bg-color: var(--turn-bg-color);
+	--frame-color: var(--turn-frame-color);
+	bottom: -0.5555555556rem;
+	align-self: center;
+	visibility: var(--turn-counter-visibility);
+}
+
+.test-civics-card__progress-container {
+	position: absolute;
+	width: 3.5555555556rem;
+	height: 7.1111111111rem;
+	top: -0.8888888889rem;
+	left: -4.8888888889rem;
+	visibility: var(--progress-visibility);
+}
+
+.test-civics-card__progress-highlight {
+	position: absolute;
+	width: 4.4444444444rem;
+	height: 8rem;
+	top: -1.3333333333rem;
+	left: -5.5555555556rem;
+	right: 0rem;
+	mask-image: url("fs://game/mask_civics-progress-bg.png");
+	mask-size: contain;
+	mask-repeat: no-repeat;
+	mask-position: 50% 50%;
+	visibility: var(--progress-visibility);
+	background-color: #ece0d4;
+	opacity: var(--highlight-opacity);
+	transition-property: opacity;
+	transition-duration: 0.25s;
+	transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+	z-index: -1;
+}
+
+.test-civics-card__progress-shadow {
+	position: absolute;
+	width: 7.1111111111rem;
+	height: 14.2222222222rem;
+	background-size: 100%;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	top: -1.7777777778rem;
+	left: -4rem;
+	background-image: url("fs://game/shadow_civics-progress-bar.png");
+	visibility: var(--progress-visibility);
+}
+
+.test-civics-card__progress-bg {
+	position: absolute;
+	top: 0rem;
+	left: 0rem;
+	bottom: 0rem;
+	right: 0rem;
+	mask-image: url("fs://game/mask_civics-progress-bg.png");
+	mask-size: contain;
+	mask-repeat: no-repeat;
+	mask-position: 50% 50%;
+	background-color: var(--bar-bg-color);
+}
+
+.test-civics-card__progress-bar {
+	--progress-amount: 35%;
+	position: absolute;
+	bottom: 1.1666666667rem;
+	right: 0rem;
+	width: 3.5555555556rem;
+	height: 4.7777777778rem;
+	mask-image: url("fs://game/mask_civics-progress-bar.png");
+	mask-size: 3.5555555556rem 7.1111111111rem;
+	mask-repeat: no-repeat;
+	mask-position: 50% 50%;
+	background-image: linear-gradient(to bottom, rgba(236, 224, 212, 0.75) 0rem, rgba(236, 224, 212, 0.75) 0.1111111111rem, transparent 0.1111111111rem), linear-gradient(to top, var(--bar-dark-color) 0%, var(--bar-med-color) 50%, var(--bar-light-color) 100%);
+	background-position: 50% 100%;
+	background-repeat: no-repeat;
+	background-size: 3.5555555556rem var(--progress-amount), 3.5555555556rem var(--progress-amount);
+}
+
+.test-civics-card__progress-frame {
+	position: absolute;
+	top: 0rem;
+	left: 0rem;
+	bottom: 0rem;
+	right: 0rem;
+	mask-image: url("fs://game/frame_civics-progress-bar.png");
+	mask-size: contain;
+	mask-repeat: no-repeat;
+	mask-position: 50% 50%;
+	background-color: var(--player-color-secondary);
+}
+
+.test-civics-card__checkmark {
+	--checkmark-size: 2.6666666667rem;
+	position: absolute;
+	top: -1.3333333333rem;
+	right: -1.2222222222rem;
+	visibility: var(--checkmark-visibility);
+}
+
+.test-civics-card__tier-container {
+	position: relative;
+	margin-left: 2.6666666667rem;
+	margin-right: 0.6666666667rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-start;
+	height: 0rem;
+}
+
+.test-civics-card__tier-inner-container {
+	position: relative;
+	display: flex;
+	flex-direction: column-reverse;
+	justify-content: flex-start;
+	align-items: stretch;
+	margin-left: 2.6666666667rem;
+	margin-right: 0.6666666667rem;
+	align-self: flex-start;
+}
+
+.test-civics-card__tier-top-shadow {
+	position: absolute;
+	top: 0rem;
+	left: -0.2222222222rem;
+	right: -0.2222222222rem;
+	height: 1.6666666667rem;
+	border-image-source: url("fs://game/shadow_bar.png");
+	border-image-slice: 6 20 8 20 fill;
+	border-image-width: 0.3333333333rem 1.1111111111rem 0.3333333333rem 1.1111111111rem;
+}
+
+.test-civics-card__tier-icon-container {
+	position: absolute;
+	width: 2.8888888889rem;
+	height: 2.8888888889rem;
+	left: -1.4444444444rem;
+	top: 1.5555555556rem;
+}
+
+.test-civics-card__tier-turn-counter {
+	--bg-color: var(--turn-bg-color);
+	--frame-color: var(--turn-frame-color);
+	bottom: -0.7777777778rem;
+	align-self: center;
+	visibility: var(--turn-counter-visibility);
+}
+.test-civics-card__tier-turn-counter .test-turn-counter__shadow {
+	z-index: -1;
+}
+
+.test-civics-card__tier-hitbox {
+	position: absolute;
+	top: 0rem;
+	left: -2.6666666667rem;
+	bottom: -0.6666666667rem;
+	right: -1.3333333333rem;
+	pointer-events: auto;
+}
+
+.test-civics-card__tier-checkmark {
+	--checkmark-size: 2rem;
+	position: absolute;
+	top: 1.2222222222rem;
+	right: -1rem;
+	visibility: var(--checkmark-visibility);
+}
+
+.test-civics-card__progress-arrow {
+	--arrow-color: var(--icon-bg-dark);
+	--arrow-highlight: var(--icon-inner-bg);
+	visibility: var(--progress-visibility);
+	left: -0.4444444444rem;
+	top: 0.8888888889rem;
+}

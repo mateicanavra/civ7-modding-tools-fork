@@ -1,0 +1,287 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+@use '../../../core/ui/utilities/utility-shapes' as shapes;
+@use '../../../core/ui/themes/default/theme';
+
+$notification-train-decor-width: pixels(16);
+$notification-train-offset: pixels(8);
+
+.notification-train {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-end;
+	align-self: flex-end;
+	margin-right: pixels(32);
+	margin-bottom: $notification-train-offset;
+
+	.type-container {
+		width: pixels(46);
+		height: pixels(46);
+
+		&:hover,
+		&:focus {
+			transform: scale(1.125);
+		}
+
+		>.up-arrow {
+			position: relative;
+			height: pixels(16);
+			width: pixels(40);
+			left: pixels(7.2);
+			bottom: pixels(-16);
+			mask-image: url("fs://game/core/ui/themes/default/img/Scrollbar_arrow.png");
+			mask-size: contain;
+			mask-repeat: no-repeat;
+			visibility: hidden;
+			pointer-events: auto;
+			transform: rotate(0deg);
+		}
+
+		>.down-arrow {
+			position: relative;
+			height: pixels(16);
+			width: pixels(40);
+			left: pixels(7.2);
+			background-color: theme.$color-highlight;
+			mask-image: url("fs://game/core/ui/themes/default/img/Scrollbar_arrow.png");
+			mask-size: contain;
+			mask-repeat: no-repeat;
+			transform: rotate(180deg);
+			visibility: hidden;
+			pointer-events: auto;
+		}
+
+		&.full {
+			>.up-arrow {
+				visibility: visible;
+			}
+
+			>.down-arrow {
+				visibility: visible;
+			}
+		}
+
+		>.notification-container {
+			pointer-events: auto;
+			width: pixels(42);
+			height: pixels(42);
+
+			background-image: url("fs://game/hud_notif_bk.png");
+			background-size: cover;
+		}
+	}
+
+	>.bg {
+		opacity: 0.5;
+		position: absolute;
+		border-width: pixels(4) pixels(4);
+		border-style: solid;
+		top: 15%;
+		bottom: 15%;
+		right: pixels(40);
+		left: pixels(0);
+
+		>.bg-stripe {
+			position: relative;
+			width: 80%;
+			height: 100%;
+			margin: 5%;
+		}
+	}
+
+}
+
+// Display nav help container only on gamepad and when an action is available
+.trigger-nav-help .notification-train__nav-help-container.gamepad-active.notification-available {
+	display: flex;
+}
+
+.notification-train__decor {
+	position: absolute;
+	right: -$notification-train-decor-width;
+	width: $notification-train-decor-width;
+	bottom: -$notification-train-offset;
+	height: 100%;
+
+	border-width: pixels(48) pixels(16) pixels(12);
+	border-style: solid;
+	border-image-source: url('fs://game/hud_notif_decor.png');
+	border-image-slice: 48 15 12 1 fill;
+	border-image-width: pixels(48) pixels(16) pixels(12) auto;
+	border-image-outset: 0;
+	border-image-repeat: stretch;
+
+
+}
+
+.notification-train__nav-help-container {
+	flex-direction: column;
+	align-items: center;
+	align-self: flex-start;
+	display: none;
+
+	position: relative;
+	top: pixels(-88);
+	left: pixels(-11);
+}
+
+.notification-train__nav-help-ext {
+	// TODO use a dedicated texture for nav help extension
+	background-image: url("fs://game/core/hud_quest_ext.png");
+	background-size: cover;
+	width: pixels(16);
+	height: pixels(64);
+	transform: rotate(180deg);
+	margin-top: pixels(-24);
+}
+
+.notification-train__list {
+	padding-top: pixels(32);
+	padding-bottom: pixels(12);
+}
+
+.notification-central-shelf {
+	position: absolute;
+	width: 80%;
+	height: pixels(240);
+	left: pixels(96);
+	top: pixels(-192);
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.notification-big-container {
+	position: relative;
+	width: auto;
+	height: auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.notif__container {
+	position: relative;
+	width: pixels(64);
+	height: pixels(64);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.notif__animate {
+	$max-notification-count: 10;
+	$slide-in-speed: 1;
+
+	opacity: 0;
+	animation-direction: normal;
+	animation-duration: #{$slide-in-speed}s;
+	animation-fill-mode: forwards;
+	animation-name: trainNotificationSlideIn;
+
+	@for $i from 1 through $max-notification-count {
+		&:nth-child(#{$i}) {
+			animation-delay: #{calc(($slide-in-speed / 2) * $i)}s;
+		}
+	}
+
+	@keyframes trainNotificationSlideIn {
+		0% {
+			transform: translateX(pixels(48)) scaleX(.75);
+			opacity: 0;
+		}
+
+		50% {
+			opacity: 1;
+		}
+
+		80% {
+			transform: translateX(pixels(-4)) scaleX(1);
+		}
+
+		100% {
+			transform: translateX(pixels(0)) scaleX(1);
+			opacity: 1;
+		}
+	}
+}
+
+.notif__anim-skip {
+	transform: translateX(pixels(0)) scaleX(1);
+}
+
+.notif__button {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	pointer-events: auto;
+	margin-left: pixels(10);
+	width: pixels(64);
+	height: pixels(64);
+	transition: transform 0.25s cubic-bezier(0.215, 0.61, 0.355, 1);
+
+	&:hover,
+	&:focus {
+		transform: scale(1.125);
+	}
+
+	&.hud-select-potential {
+		width: 100%;
+		height: 100%;
+
+		&:focus {
+			transform: scale(1.3);
+
+			.button-bg-shadow {
+				opacity: 0;
+			}
+
+			.button-bg-focus-outline {
+				opacity: 1;
+			}
+		}
+	}
+}
+
+.notif__highlight {
+	filter: saturate(0%);
+}
+
+.notif__button-number {
+	background-image: url("fs://game/prof_lvl_bk.png");
+}
+
+.notif__button-bk {
+	position: absolute;
+	width: pixels(128);
+	height: pixels(128);
+	pointer-events: none;
+	transform-origin: 50% 50%;
+	transition-duration: .25s;
+	transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+	background-image: url("fs://game/hud_notif_bk.png");
+	background-size: pixels(128) pixels(128);
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.notif__button-icon {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: pixels(48);
+	height: pixels(48);
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+}
+
+.notification-container {
+	flex-direction: column-reverse;
+	display: flex;
+}

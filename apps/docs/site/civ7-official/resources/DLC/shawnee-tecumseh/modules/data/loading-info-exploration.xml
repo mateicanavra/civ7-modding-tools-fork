@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LoadingInfo_Civilizations>
+		<Row CivilizationType="CIVILIZATION_SHAWNEE" CivilizationText="LOC_LOADING_CIV_INTRO_TEXT_SHAWNEE" Subtitle="LOC_LOADING_VO_SHAWNEE" Audio="VO_Loading_Shawnee" BackgroundImageHigh="fs://game/lsbg_shawnee_1080.png" BackgroundImageLow="fs://game/lsbg_shawnee_720.png" ForegroundImage="fs://game/civ_line_shawnee.png" Tip="LOC_LOADING_CIV_TIPS_TEXT_SHAWNEE" />
+	</LoadingInfo_Civilizations>
+</Database>

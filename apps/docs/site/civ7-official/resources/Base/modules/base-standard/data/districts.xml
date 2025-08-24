@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_DISTRICT"/>
+	</Kinds>
+	<Types>
+		<Row Type="DISTRICT_CITY_CENTER" Kind="KIND_DISTRICT"/>
+		<Row Type="DISTRICT_URBAN" Kind="KIND_DISTRICT"/>
+		<Row Type="DISTRICT_WONDER" Kind="KIND_DISTRICT"/>
+		<Row Type="DISTRICT_RURAL" Kind="KIND_DISTRICT"/>
+		<Row Type="DISTRICT_WILDERNESS" Kind="KIND_DISTRICT"/>
+	</Types>
+	<Districts>
+		<Row DistrictType="DISTRICT_CITY_CENTER" Name="LOC_DISTRICT_CITY_CENTER_NAME" DistrictClass="CITYCENTER" OnePerCity="true" UrbanCoreType="ALWAYS_URBAN" Roads="true" ResourceBlocks="true" MaxConstructibles="2" OverwritePreviousAge="true" Workable="true" HitPoints="100"/>
+		<Row DistrictType="DISTRICT_URBAN" Name="LOC_DISTRICT_URBAN_NAME" DistrictClass="URBAN" AutoPlace="true" UrbanCoreType="ALWAYS_URBAN" Roads="true" ResourceBlocks="true" Water="true" MaxConstructibles="2" OverwritePreviousAge="true" Workable="true" HitPoints="100"/>
+		<Row DistrictType="DISTRICT_WONDER" Name="LOC_DISTRICT_WONDER_NAME" DistrictClass="WONDER" AutoPlace="true" UrbanCoreType="URBAN_IF_CONNECTED" Roads="true" ResourceBlocks="true" Water="true" MaxConstructibles="1"/>
+		<Row DistrictType="DISTRICT_RURAL" Name="LOC_DISTRICT_RURAL_NAME" DistrictClass="RURAL" UrbanCoreType="NEVER_URBAN" AutoRemove="true" NatureYields="true" Water="true" MaxConstructibles="1"/>
+		<Row DistrictType="DISTRICT_WILDERNESS" Name="LOC_DISTRICT_WILDERNESS_NAME" DistrictClass="WILDERNESS" UrbanCoreType="NEVER_URBAN" NatureYields="true" MaxConstructibles="1"/>
+	</Districts>
+	<!-- Features first, then terrain. Within each category speedier if organized from most likely to least -->
+	<District_FreeConstructibles>
+		<!--Resource free constructibles-->
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_CAMP" ResourceType="RESOURCE_FURS"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_CAMP" ResourceType="RESOURCE_IVORY"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_CAMP" ResourceType="RESOURCE_TRUFFLES"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_CAMP" ResourceType="RESOURCE_CAMELS"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_CAMP" ResourceType="RESOURCE_HIDES"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_CAMP" ResourceType="RESOURCE_WILD_GAME"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_CLAY_PIT" ResourceType="RESOURCE_CLAY"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_FISHING_BOAT_RESOURCE" ResourceType="RESOURCE_DYES"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_FISHING_BOAT_RESOURCE" ResourceType="RESOURCE_FISH"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_FISHING_BOAT_RESOURCE" ResourceType="RESOURCE_PEARLS"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_FISHING_BOAT_RESOURCE" ResourceType="RESOURCE_WHALES"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_MINE_RESOURCE" ResourceType="RESOURCE_GOLD"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_MINE_RESOURCE" ResourceType="RESOURCE_GOLD_DISTANT_LANDS"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_MINE_RESOURCE" ResourceType="RESOURCE_SILVER"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_MINE_RESOURCE" ResourceType="RESOURCE_SILVER_DISTANT_LANDS"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_MINE_RESOURCE" ResourceType="RESOURCE_COAL"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_MINE_RESOURCE" ResourceType="RESOURCE_IRON"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_MINE_RESOURCE" ResourceType="RESOURCE_NITER"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_MINE_RESOURCE" ResourceType="RESOURCE_RUBIES"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_MINE_RESOURCE" ResourceType="RESOURCE_SALT"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_MINE_RESOURCE" ResourceType="RESOURCE_TIN"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_OIL_RIG" ResourceType="RESOURCE_OIL"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_PASTURE" ResourceType="RESOURCE_HORSES"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_PASTURE" ResourceType="RESOURCE_LLAMAS"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_PASTURE" ResourceType="RESOURCE_WOOL"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_PLANTATION" ResourceType="RESOURCE_COFFEE"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_PLANTATION" ResourceType="RESOURCE_COTTON"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_PLANTATION" ResourceType="RESOURCE_DATES"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_PLANTATION" ResourceType="RESOURCE_FLAX"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_PLANTATION" ResourceType="RESOURCE_INCENSE"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_PLANTATION" ResourceType="RESOURCE_MANGOS"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_PLANTATION" ResourceType="RESOURCE_RICE"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_PLANTATION" ResourceType="RESOURCE_SILK"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_PLANTATION" ResourceType="RESOURCE_SUGAR"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_PLANTATION" ResourceType="RESOURCE_TEA"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_PLANTATION" ResourceType="RESOURCE_TOBACCO"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_PLANTATION" ResourceType="RESOURCE_WINE"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_PLANTATION" ResourceType="RESOURCE_CITRUS"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_QUARRY" ResourceType="RESOURCE_GYPSUM"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_QUARRY" ResourceType="RESOURCE_JADE"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_QUARRY" ResourceType="RESOURCE_KAOLIN"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_QUARRY" ResourceType="RESOURCE_LIMESTONE"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_QUARRY" ResourceType="RESOURCE_MARBLE"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_WOODCUTTER_RESOURCE" ResourceType="RESOURCE_COCOA"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_WOODCUTTER_RESOURCE" ResourceType="RESOURCE_HARDWOOD"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_WOODCUTTER_RESOURCE" ResourceType="RESOURCE_SPICES"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_WOODCUTTER_RESOURCE" ResourceType="RESOURCE_QUININE"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_WOODCUTTER_RESOURCE" ResourceType="RESOURCE_RUBBER"/>
+		<!--River free constructibles-->
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_FISHING_BOAT" RiverType="RIVER_NAVIGABLE" Priority="2"/>
+		<!--Feature-based free constructibles-->
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_EXPEDITION_BASE" FeatureType="FEATURE_VALLEY_OF_FLOWERS" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_EXPEDITION_BASE" FeatureType="FEATURE_BARRIER_REEF" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_EXPEDITION_BASE" FeatureType="FEATURE_REDWOOD_FOREST" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_EXPEDITION_BASE" FeatureType="FEATURE_GRAND_CANYON" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_EXPEDITION_BASE" FeatureType="FEATURE_GULLFOSS" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_EXPEDITION_BASE" FeatureType="FEATURE_HOERIKWAGGO" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_EXPEDITION_BASE" FeatureType="FEATURE_IGUAZU_FALLS" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_EXPEDITION_BASE" FeatureType="FEATURE_KILIMANJARO" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_EXPEDITION_BASE" FeatureType="FEATURE_MOUNT_EVEREST" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_EXPEDITION_BASE" FeatureType="FEATURE_ZHANGJIAJIE" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_EXPEDITION_BASE" FeatureType="FEATURE_THERA" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_EXPEDITION_BASE" FeatureType="FEATURE_TORRES_DEL_PAINE" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_EXPEDITION_BASE" FeatureType="FEATURE_ULURU" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_WOODCUTTER" FeatureType="FEATURE_RAINFOREST" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_WOODCUTTER" FeatureType="FEATURE_FOREST" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_WOODCUTTER" FeatureType="FEATURE_SAVANNA_WOODLAND" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_WOODCUTTER" FeatureType="FEATURE_TAIGA" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_WOODCUTTER" FeatureType="FEATURE_SAGEBRUSH_STEPPE" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_CLAY_PIT" FeatureType="FEATURE_MANGROVE" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_CLAY_PIT" FeatureType="FEATURE_MARSH" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_CLAY_PIT" FeatureType="FEATURE_WATERING_HOLE" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_CLAY_PIT" FeatureType="FEATURE_TUNDRA_BOG" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_CLAY_PIT" FeatureType="FEATURE_OASIS" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_FISHING_BOAT" FeatureType="FEATURE_REEF" Priority="3"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_FISHING_BOAT" FeatureType="FEATURE_COLD_REEF" Priority="3"/>
+		<!--Terrain free constructibles-->
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_FARM" TerrainType="TERRAIN_FLAT" Priority="4"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_MINE" TerrainType="TERRAIN_HILL" Priority="4"/>
+		<Row DistrictType="DISTRICT_RURAL" ConstructibleType="IMPROVEMENT_FISHING_BOAT" TerrainType="TERRAIN_COAST" Priority="4"/>
+	</District_FreeConstructibles>
+	<District_RemovedFeatures/>
+</Database>

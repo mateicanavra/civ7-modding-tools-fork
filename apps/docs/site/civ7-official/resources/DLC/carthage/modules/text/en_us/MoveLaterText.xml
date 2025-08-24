@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_COMBAT_PREVIEW_NUMBER_RESOURCES_CAPITAL_BONUS_DESC">
+			<Text>+{1_Value} Combat Strength from Resources assigned to the Capital.</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_YIELDS_FROM_NUM_TRADE_ROUTES">
+			<Text>Number of Trade Routes</Text>
+		</Row>
+		<Row Tag="LOC_ATTR_TOTAL_TRADE_ROUTES">
+			<Text>Total Trade Routes</Text>
+		</Row>
+	</EnglishText>
+</Database>

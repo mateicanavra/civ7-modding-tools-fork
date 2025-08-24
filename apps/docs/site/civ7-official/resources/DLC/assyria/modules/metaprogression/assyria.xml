@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metaprogression xmlns="Metaprogression">
+	<challenges class="CHALLENGE_CLASS_FOUNDATION" category="CHALLENGE_CATEGORY_FOUNDATION_CIV_VICTORIES" legendPath="LEGEND_PATH_FOUNDATION">
+		<challenge id="CHALLENGE_ASSYRIA_LEGACY_PATH_SCIENTIFIC" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Assyria Legacy Path</name>
+				<description>As Assyria, complete a Scientific Legacy Path</description>
+			</l10n>
+			<sortIndex>105000</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+		<challenge id="CHALLENGE_ASSYRIA_LEGACY_PATH_MILESTONE_COMPLETED" scope="Campaign" difficulty="2" hidden="true">
+			<l10n>
+				<name>Assyria Legacy Path Milestone</name>
+				<description>As Assyria, reach at least 1 Legacy Path Milestone</description>
+			</l10n>
+			<sortIndex>105010</sortIndex>
+		</challenge>
+	</challenges>
+	<challenges class="CHALLENGE_CLASS_FOUNDATION" category="CHALLENGE_CATEGORY_FOUNDATION_WONDERS" legendPath="LEGEND_PATH_FOUNDATION">
+		<challenge id="CHALLENGE_ASSYRIA_COMPLETE_DUR_SHARRUKIN" scope="Campaign" difficulty="2">
+			<l10n>
+				<name>Dur-Sharrukin</name>
+				<description>As Assyria, complete the Dur-Sharrukin</description>
+			</l10n>
+			<sortIndex>105100</sortIndex>
+			<reward type="XP" reward="50" />
+		</challenge>
+	</challenges>
+</metaprogression>

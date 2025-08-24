@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Database>
+	<IconContexts>
+		<!-- General purpose icons -->
+		<Row Context="DEFAULT" AllowTinting="0" />
+
+		<!-- Overrides for icons embedded in text. -->
+		<Row Context="FONTICON" AllowTinting="0" />
+
+		<!-- Map icons that are shown in the fog of war. -->
+		<Row Context="FOW" AllowTinting="0" />
+
+		<!-- General purpose icons that are tinted based on player color. -->
+		<Row Context="PLAYER" AllowTinting="1" />
+
+		<!-- Advisor type icons (Economic/Military/Culutral/Scientific) that are shown with advisor portraits. -->
+		<Row Context="BADGE" AllowTinting="0" />
+
+		<!-- General purpose icons that are used w/ a circular frame instead of a hexagonal one -->
+		<Row Context="CIRCLE_MASK" AllowTinting="1" />
+
+		<!-- General purpose resource for backgrounds associated with icons -->
+		<Row Context="BACKGROUND" AllowTinting="0" />
+
+		<!-- Notification icons that are turn blocking that are shown as a bubble -->
+		<Row Context="BUBBLE" AllowTinting="0" />
+
+		<!-- Leader icons for happy leaders -->
+		<Row Context="LEADER_HAPPY" AllowTinting="0" />
+
+		<!-- Leader icons for not-so-happy leaders -->
+		<Row Context="LEADER_ANGRY" AllowTinting="0" />
+
+		<!-- TODO: Document what this context is for. -->
+		<Row Context="OUTLINE" AllowTinting="0" />
+
+	</IconContexts>
+
+	<ChatIconGroups>
+		<Row GroupID="EMOJI" IconID="CHAT_EMOJI" SortIndex="0" />
+		<Row GroupID="RESOURCES" IconID="CHAT_RESOURCES" SortIndex="10" />
+		<Row GroupID="YIELDS" IconID="CHAT_YIELDS" SortIndex="20" />
+	</ChatIconGroups>
+</Database>

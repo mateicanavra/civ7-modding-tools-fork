@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_CITYCOMMAND_DESTROY_RAZE_PENALTY">
+			<Text>-4[icon:YIELD_DIPLOMACY] Influence per turn for the rest of the Age once razing is complete</Text>
+		</Row>
+		<Row Tag="LOC_CITYCOMMAND_KEEP_PENALTY">
+			<Text>-2[icon:YIELD_DIPLOMACY] Influence per turn while you control this Settlement during this Age</Text>
+		</Row>
+	</EnglishText>
+</Database>

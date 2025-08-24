@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_LOADING_CIV_INTRO_TEXT_SHAWNEE">
+			<Text>The Shawnee are consummate diplomats, who cross leagues on foot to bring together disparate groups even when facing catastrophic odds. Under the watchful eyes of the kispoko, the hoceepkileni call all who will come to the stomp grounds, to hear the orators speak, and to rise together, as one.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_LEADER_INTRO_TEXT_TECUMSEH">
+			<Text>Where there is division, Tecumseh, you speak of unity, and where there is discord, you counsel sense. Bring peoples of all lands to you, great chief, that they may be stronger together, and weather the storms that are to come.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_VO_SHAWNEE">
+			<Text>Spring comes to the woodlands. The Shawnee will craft their legacy of unity — and dominance.</Text>
+		</Row>
+		<Row Tag="LOC_LOADING_CIV_TIPS_TEXT_SHAWNEE">
+			<Text>Use the Kakawfe Pafkotaweta Tradition to make your Settlements immune to storms, and receive extra Culture and Gold when they hit.</Text>
+		</Row>
+	</EnglishText>
+</Database>

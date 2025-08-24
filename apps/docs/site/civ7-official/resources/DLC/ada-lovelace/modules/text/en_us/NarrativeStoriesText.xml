@@ -1,0 +1,563 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <EnglishText>
+        <Row Tag="LOC_10000A_STORYTITLE">
+            <Text>Probability of Success</Text>
+        </Row>
+        <Row Tag="LOC_10000A_COMPLETION">
+            <Text>Equations and crude illustrations detail Ada's thoughts, offering a glimpse into the chaotic workings of her mind. On paper, it's hard to tell if the model works — time is of the essence, if she wishes to make progress.</Text>
+        </Row>
+        <Row Tag="LOC_10000B_NAME">
+            <Text>Keep iterating; the solution will come.</Text>
+        </Row>
+        <Row Tag="LOC_10000B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10000C_NAME">
+            <Text>Source feedback from the community first.</Text>
+        </Row>
+        <Row Tag="LOC_10000C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10001A_STORYTITLE">
+            <Text>Bet on the Algorithm</Text>
+        </Row>
+        <Row Tag="LOC_10001A_COMPLETION">
+            <Text>Members of high society whisper as Ada takes a seat in their row. Rumor says she created a method to predict which horse wins the race. Others scoff, seeing it as nothing but luck.</Text>
+        </Row>
+        <Row Tag="LOC_10001B_NAME">
+            <Text>Let them talk! Intrigue keeps the races fun.</Text>
+        </Row>
+        <Row Tag="LOC_10001B_DESCRIPTION">
+            <Text>{1_reward} on Horses.</Text>
+        </Row>
+        <Row Tag="LOC_10001C_NAME">
+            <Text>Dispel the rumors and bet on a slow horse.</Text>
+        </Row>
+        <Row Tag="LOC_10001C_DESCRIPTION">
+            <Text>{1_reward} on Horses.</Text>
+        </Row>
+        <Row Tag="LOC_10002A_STORYTITLE">
+            <Text>The Science of Faith</Text>
+        </Row>
+        <Row Tag="LOC_10002A_COMPLETION">
+            <Text>Neighbors argue about the role faith plays in the sciences. Is it not human nature to assign meaning to chaos? To understand how the Gods operate?</Text>
+        </Row>
+        <Row Tag="LOC_10002B_NAME">
+            <Text>Faith is a tool no different from a calculator.</Text>
+        </Row>
+        <Row Tag="LOC_10002B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10002C_NAME">
+            <Text>Faith creates as many questions as answers.</Text>
+        </Row>
+        <Row Tag="LOC_10002C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10002D_NAME">
+            <Text>There is too much randomness in the world for it to be accidental.</Text>
+        </Row>
+        <Row Tag="LOC_10002D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10003A_STORYTITLE">
+            <Text>Measure Twice, Cut Once</Text>
+        </Row>
+        <Row Tag="LOC_10003A_COMPLETION">
+            <Text>Ada ties weights to her yarn so they’re taught against the warp. She interlaces several colors, weaving complex patterns as if writing intricate formulae. Connecting the concepts, she wonders if there’s a connection between the two.</Text>
+        </Row>
+        <Row Tag="LOC_10003B_NAME">
+            <Text>Turn this experience into a lesson plan.</Text>
+        </Row>
+        <Row Tag="LOC_10003B_DESCRIPTION">
+            <Text>{1_reward} on Culture Buildings.</Text>
+        </Row>
+        <Row Tag="LOC_10003C_NAME">
+            <Text>Sell the textiles made from the loom.</Text>
+        </Row>
+        <Row Tag="LOC_10003C_DESCRIPTION">
+            <Text>{1_reward} on Gold Buildings.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1210A_STORYTITLE">
+            <Text>Groundwork</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1210A_COMPLETION">
+            <Text>Drawn to her brilliance, a community of scientists and philosophers offer its services to Ada Lovelace.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1210B_STORYTITLE">
+            <Text>Groundwork</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1210B_NAME">
+            <Text>Study nature's mysteries.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1210B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1210B_COMPLETION">
+            <Text>After a few days sequestered in deliberation, the philosophers emerge with new and exciting theories that challenge Ada's own ideas.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1210B_IMPERATIVE">
+            <Text>Have 3 Slotted Codices.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1210C_STORYTITLE">
+            <Text>Groundwork</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1210C_NAME">
+            <Text>Shape the earth to their will.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1210C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1210C_COMPLETION">
+            <Text>Ada Lovelace's aides shape and fire clay to form bricks, thinking of the different people who will one day walk upon their work.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1210C_IMPERATIVE">
+            <Text>Build 2 more Brickyards</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1210D_NAME">
+            <Text>Give her space to work.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1210D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1211A_STORYTITLE">
+            <Text>Organized Chaos</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1211A_COMPLETION">
+            <Text>A scholar stumbles into Ada at the library. They apologize for the mess, citing the disorganized works strewn about.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1211B_STORYTITLE">
+            <Text>Organized Chaos</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1211B_NAME">
+            <Text>An organized archive inspires an organized mind.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1211B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1211B_COMPLETION">
+            <Text>The scholar shelves freshly bound books, pleased with the spines tucked neatly into place.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1211B_IMPERATIVE">
+            <Text>Have 6 Slotted Codices.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1211C_NAME">
+            <Text>This mess is not worth cleaning.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1211C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1212A_STORYTITLE">
+            <Text>Settle Down</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1212A_COMPLETION">
+            <Text>Rapid growth prompts many to search for a new home. Explorers buzz with excitement over the new places they will see and things they will learn.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1212B_STORYTITLE">
+            <Text>Settle Down</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1212B_NAME">
+            <Text>Supply the caravan with gifts and an envoy.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1212B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1212B_COMPLETION">
+            <Text>After days of traveling, the caravan stake their claim on land worthy of building upon.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1212B_IMPERATIVE">
+            <Text>Found 3 more Towns.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1212C_NAME">
+            <Text>Send them off with what they have.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1212C_DESCRIPTION">
+            <Text>{1_reward} in all Settlements.</Text>
+        </Row>
+        <Row Tag="LOC_10004A_STORYTITLE">
+            <Text>Patron of Numbers</Text>
+        </Row>
+        <Row Tag="LOC_10004A_COMPLETION">
+            <Text>As construction of the university ends, an architect takes note of the temple nearby. They have heard that houses of worship often denounce the work of academics.</Text>
+        </Row>
+        <Row Tag="LOC_10004B_NAME">
+            <Text>Let them bring persecution — it won't work.</Text>
+        </Row>
+        <Row Tag="LOC_10004B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10004C_NAME">
+            <Text>The idea is to bridge the gap. Create understanding.</Text>
+        </Row>
+        <Row Tag="LOC_10004C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10004D_NAME">
+            <Text>The binary nature of such a question is restrictive. Better to ask why.</Text>
+        </Row>
+        <Row Tag="LOC_10004D_DESCRIPTION">
+            <Text>{1_reward} on Science and Culture Buildings.</Text>
+        </Row>
+        <Row Tag="LOC_10005A_STORYTITLE">
+            <Text>Outside the Box</Text>
+        </Row>
+        <Row Tag="LOC_10005A_COMPLETION">
+            <Text>A schoolchild raises his hand. He disagrees with a passage from his theology book, and wants to read something else. Ada peers over his shoulder, scanning the text.</Text>
+        </Row>
+        <Row Tag="LOC_10005B_NAME">
+            <Text>Show the child how religion provides context.</Text>
+        </Row>
+        <Row Tag="LOC_10005B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10005C_NAME">
+            <Text>Allow the child to pick something educational to read.</Text>
+        </Row>
+        <Row Tag="LOC_10005C_DESCRIPTION">
+            <Text>{1_reward} on Science Buildings.</Text>
+        </Row>
+        <Row Tag="LOC_10006A_STORYTITLE">
+            <Text>Mind Body Disconnect</Text>
+        </Row>
+        <Row Tag="LOC_10006A_COMPLETION">
+            <Text>Ada smoothes out the top of a hospital bed, removing the last wrinkle. Folds in the fabric resemble a brain, reminding her of times when her own mind became a prisoner of it's own design.</Text>
+        </Row>
+        <Row Tag="LOC_10006B_NAME">
+            <Text>The brain is separate from the body; it doesn't tire so quickly.</Text>
+        </Row>
+        <Row Tag="LOC_10006B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10006C_NAME">
+            <Text>A strong mind can overcome all.</Text>
+        </Row>
+        <Row Tag="LOC_10006C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10007A_STORYTITLE">
+            <Text>There Has to Be More</Text>
+        </Row>
+        <Row Tag="LOC_10007A_COMPLETION">
+            <Text>Ada listens as a scientist and priest discuss what hidden forces shape the world, including the gods and the mystical. Conversation grows tense as their worldviews clash.</Text>
+        </Row>
+        <Row Tag="LOC_10007B_NAME">
+            <Text>Faith can assign meaning and motivate our work.</Text>
+        </Row>
+        <Row Tag="LOC_10007B_DESCRIPTION">
+            <Text>{1_reward} but {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10007C_NAME">
+            <Text>It's the mystical that drives us to find answers.</Text>
+        </Row>
+        <Row Tag="LOC_10007C_DESCRIPTION">
+            <Text>{1_reward} but {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1213A_STORYTITLE">
+            <Text>Astrological Algorithm</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1213A_COMPLETION">
+            <Text>The night sky twinkles faintly of stars and constellations for Ada to interpret.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1213B_NAME">
+            <Text>She sees the Centaur — creative, pragmatic, and unforgettable.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1213B_DESCRIPTION">
+            <Text>Story continues.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1213C_NAME">
+            <Text>She sees the Chisel, engraving her name in the cosmos forever.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1213C_DESCRIPTION">
+            <Text>Story continues.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1214A_STORYTITLE">
+            <Text>Smart Society</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1214A_COMPLETION">
+            <Text>The best and brightest in their fields endeavor on behalf of Ada, championing her values wherever they go.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1214B_STORYTITLE">
+            <Text>Smart Society</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1214B_NAME">
+            <Text>It would be a waste not to utilize these specialists skills.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1214B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1214B_COMPLETION">
+            <Text>Finding work for the specialists proves easy. A niche field calls for experts, and the city has fostered many.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1214B_IMPERATIVE">
+            <Text>Have 10 Specialists.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1214C_NAME">
+            <Text>The effort it takes to find them work outweighs the benefits.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1214C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1215A_STORYTITLE">
+            <Text>Cities Rise</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1215A_COMPLETION">
+            <Text>Buildings are not constructed just to be a leader's namesake. As a leader, Ada is many things... but uneducated is not one of them.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1215B_STORYTITLE">
+            <Text>Cities Rise</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1215B_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1215B_DESCRIPTION">
+            <Text>{1_reward} in all Settlements.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1215B_COMPLETION">
+            <Text>Ada's cities will continue to grow, guided by her steady and confident hand.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1215B_IMPERATIVE">
+            <Text>Have 5 Districts that are not the City Center with 40 total Yield each.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1216A_STORYTITLE">
+            <Text>Pray the Pain Away</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1216A_COMPLETION">
+            <Text>The power of invocation could be a powerful remedy for ailments of the body and brain.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1216B_STORYTITLE">
+            <Text>Pray the Pain Away</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1216B_NAME">
+            <Text>Encourage the people to have an open mind.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1216B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1216B_COMPLETION">
+            <Text>Data must be collected, but placebo or not, Ada's people are happier and healthier with prayer.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1216B_IMPERATIVE">
+            <Text>Have 5 Settlements following your Religion.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1216C_NAME">
+            <Text>Let them decide for themselves.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1216C_DESCRIPTION">
+            <Text>{1_reward} in all Settlements.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1217A_STORYTITLE">
+            <Text>Question it All</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1217A_COMPLETION">
+            <Text>Change looms on the horizon. A shift in the status quo — murmurs of dissent over religious teachings mix with fear of the unknown.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1217B_STORYTITLE">
+            <Text>Question it All</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1217B_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1217B_DESCRIPTION">
+            <Text>+1 [icon:YIELD_HAPPINESS] Happiness on all Greatworks.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1217B_COMPLETION">
+            <Text>To quell fears and shut down naysayers, relics are put on display, becoming an anchor to ground the people.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1217B_IMPERATIVE">
+            <Text>Have 5 Slotted Relics.</Text>
+        </Row>
+        <Row Tag="LOC_10008A_STORYTITLE">
+            <Text>Falling Behind</Text>
+        </Row>
+        <Row Tag="LOC_10008A_COMPLETION">
+            <Text>Advisors caution Ada that her designs are too ambitious and impossible to build. Progress is slow without her at the helm, but formulas don't write themselves.</Text>
+        </Row>
+        <Row Tag="LOC_10008B_NAME">
+            <Text>Better to be behind than out of the race.</Text>
+        </Row>
+        <Row Tag="LOC_10008B_DESCRIPTION">
+            <Text>{1_reward} on Science Buildings but {2_reward} in Towns.</Text>
+        </Row>
+        <Row Tag="LOC_10008C_NAME">
+            <Text>Rushing yields skewed results.</Text>
+        </Row>
+        <Row Tag="LOC_10008C_DESCRIPTION">
+            <Text>{1_reward} in Towns but {2_reward} on Science Buildings.</Text>
+        </Row>
+        <Row Tag="LOC_10009A_STORYTITLE">
+            <Text>Let There Be Light</Text>
+        </Row>
+        <Row Tag="LOC_10009A_COMPLETION">
+            <Text>Ada taps the quill against her forehead, willing a breakthrough to spring forth. Electricity powers machines and provides light, but there must be more innovative ways to use it.</Text>
+        </Row>
+        <Row Tag="LOC_10009B_NAME">
+            <Text>Design a device to examine the brain.</Text>
+        </Row>
+        <Row Tag="LOC_10009B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10009C_NAME">
+            <Text>Design a device that stores electricity for later use.</Text>
+        </Row>
+        <Row Tag="LOC_10009C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10010A_STORYTITLE">
+            <Text>A Walking Paradox</Text>
+        </Row>
+        <Row Tag="LOC_10010A_COMPLETION">
+            <Text>Being both a mathematician and poet, Ada is often questioned for the paradox she is. Eager to show colleagues the inner workings of her mind, she comes up with a plan.</Text>
+        </Row>
+        <Row Tag="LOC_10010B_NAME">
+            <Text>Host a writing workshop for other mathematicians.</Text>
+        </Row>
+        <Row Tag="LOC_10010B_DESCRIPTION">
+            <Text>{1_reward} on Science Buildings.</Text>
+        </Row>
+        <Row Tag="LOC_10010C_NAME">
+            <Text>Challenge artists to come up with inventions.</Text>
+        </Row>
+        <Row Tag="LOC_10010C_DESCRIPTION">
+            <Text>{1_reward} on Science Buildings.</Text>
+        </Row>
+        <Row Tag="LOC_10011A_STORYTITLE">
+            <Text>Righting Wrongs</Text>
+        </Row>
+        <Row Tag="LOC_10011A_COMPLETION">
+            <Text>Smoke rises from ash where a thriving scientific community once stood. Those few who remain march to {1_Capital} with the last of their strength, and beg Ada Lovelace for succor.</Text>
+        </Row>
+        <Row Tag="LOC_10011B_NAME">
+            <Text>Let them work the music halls.</Text>
+        </Row>
+        <Row Tag="LOC_10011B_DESCRIPTION">
+            <Text>{1_reward} on Culture Buildings but {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10011C_NAME">
+            <Text>Find room in the factories.</Text>
+        </Row>
+        <Row Tag="LOC_10011C_DESCRIPTION">
+            <Text>{1_reward} but {2_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10012A_STORYTITLE">
+            <Text>Transaction of Ideas</Text>
+        </Row>
+        <Row Tag="LOC_10012A_COMPLETION">
+            <Text>After hours of translating complex engineering notes, Ada is confident she'll find a sponsor for this new prospect. With new avenues widening her reach, how hard can it be to build what has never been built?</Text>
+        </Row>
+        <Row Tag="LOC_10012B_NAME">
+            <Text>Engineers abroad may be able to help with funding.</Text>
+        </Row>
+        <Row Tag="LOC_10012B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10012C_NAME">
+            <Text>A network of scholars is sure to know someone with deep pockets.</Text>
+        </Row>
+        <Row Tag="LOC_10012C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10013A_STORYTITLE">
+            <Text>The Oxford Formula</Text>
+        </Row>
+        <Row Tag="LOC_10013A_COMPLETION">
+            <Text>A new class of sharp-minded women is ready to start the semester, and they look to Ada for a recommendation on what to study.</Text>
+        </Row>
+        <Row Tag="LOC_10013B_NAME">
+            <Text>Recommend math and science.</Text>
+        </Row>
+        <Row Tag="LOC_10013B_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10013C_NAME">
+            <Text>Suggest literature and the arts.</Text>
+        </Row>
+        <Row Tag="LOC_10013C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_10014A_STORYTITLE">
+            <Text>Won't Someone Think of the Antiquarians?</Text>
+        </Row>
+        <Row Tag="LOC_10014A_COMPLETION">
+            <Text>Ada has just sat down for tea when representatives from the Society of Antiquaries barge into her rooms. They bemoan the rapid pace of modernization, and insist more be done to preserve the past.</Text>
+        </Row>
+        <Row Tag="LOC_10014B_NAME">
+            <Text>Time marches forward, not backward.</Text>
+        </Row>
+        <Row Tag="LOC_10014B_DESCRIPTION">
+            <Text>{1_reward} on Culture Buildings.</Text>
+        </Row>
+        <Row Tag="LOC_10014C_NAME">
+            <Text>The lessons of history are invaluable.</Text>
+        </Row>
+        <Row Tag="LOC_10014C_DESCRIPTION">
+            <Text>{1_reward} on Science Buildings.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1218A_STORYTITLE">
+            <Text>Upward Momentum</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1218A_COMPLETION">
+            <Text>Ambition is the driving force of humankind — where else is there to go but up? This is an opportunity to build something big.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1218B_STORYTITLE">
+            <Text>Upward Momentum</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1218B_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1218B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1218B_COMPLETION">
+            <Text>The future of Ada's legacy is one rocket closer to the moon. What comes after that remains to be discovered.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1218B_IMPERATIVE">
+            <Text>Build a Launch Pad.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1218C_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1218C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1218D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1218D_DESCRIPTION">
+            <Text>{1_reward} and enter a Celebration.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1219A_STORYTITLE">
+            <Text>Trinkets that Teach</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1219A_COMPLETION">
+            <Text>Beneath the soil lie remnants of people long gone, whose stories and trinkets are waiting to be unearthed and shared with the world.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1219B_STORYTITLE">
+            <Text>Trinkets that Teach</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1219B_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1219B_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1219B_COMPLETION">
+            <Text>Now that the artifacts have been unearthed and preserved, they may now be studied and learned from.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1219B_IMPERATIVE">
+            <Text>Have 5 Slotted Artifacts.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1219C_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1219C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1219D_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1219D_DESCRIPTION">
+            <Text>{1_reward} and enter a Celebration.</Text>
+        </Row>
+    </EnglishText>
+</Database>

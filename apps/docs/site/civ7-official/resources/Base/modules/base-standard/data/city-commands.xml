@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<Row Kind="KIND_CITYCOMMAND"/>
+	</Kinds>
+	<!-- The types of city expansion we track -->
+	<CityExpansionTypes>
+		<Row CityExpansionType="CITY_EXPANSION_EXPAND" Name="LOC_CITY_EXPANSION_EXPAND_NAME"/>
+		<Row CityExpansionType="CITY_EXPANSION_DEVELOP" Name="LOC_CITY_EXPANSION_DEVELOP_NAME"/>
+	</CityExpansionTypes>
+	<!-- For the expansion type, what terrains are we allowed to expand to.  These are global.  A player can override these with a modifier. -->
+	<CityExpansionValidTerrains>
+		<!-- Expanding into new plots -->
+		<Row CityExpansionType="CITY_EXPANSION_EXPAND" TerrainType="TERRAIN_MOUNTAIN"/>
+		<Row CityExpansionType="CITY_EXPANSION_EXPAND" TerrainType="TERRAIN_HILL"/>
+		<Row CityExpansionType="CITY_EXPANSION_EXPAND" TerrainType="TERRAIN_FLAT"/>
+		<Row CityExpansionType="CITY_EXPANSION_EXPAND" TerrainType="TERRAIN_COAST"/>
+		<Row CityExpansionType="CITY_EXPANSION_EXPAND" TerrainType="TERRAIN_OCEAN"/>
+		<Row CityExpansionType="CITY_EXPANSION_EXPAND" TerrainType="TERRAIN_NAVIGABLE_RIVER"/>
+		<!-- Developing existing plots -->
+		<Row CityExpansionType="CITY_EXPANSION_DEVELOP" TerrainType="TERRAIN_MOUNTAIN"/>
+		<Row CityExpansionType="CITY_EXPANSION_DEVELOP" TerrainType="TERRAIN_HILL"/>
+		<Row CityExpansionType="CITY_EXPANSION_DEVELOP" TerrainType="TERRAIN_FLAT"/>
+		<Row CityExpansionType="CITY_EXPANSION_DEVELOP" TerrainType="TERRAIN_COAST"/>
+		<Row CityExpansionType="CITY_EXPANSION_DEVELOP" TerrainType="TERRAIN_OCEAN"/>
+		<Row CityExpansionType="CITY_EXPANSION_DEVELOP" TerrainType="TERRAIN_NAVIGABLE_RIVER"/>
+	</CityExpansionValidTerrains>
+</Database>

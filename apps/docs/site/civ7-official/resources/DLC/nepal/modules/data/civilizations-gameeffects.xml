@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ==================================================	-->
+	<!--				Civ-Specific Traits					-->
+	<!-- ==================================================	-->
+	<!-- NEPAL -->
+	<Modifier id="MOD_NEPAL_MOUNTAIN_WAREHOUSES" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ACTIVATE_CONSTRUCTIBLE_WAREHOUSE_YIELD">
+		<Argument name="ConstructibleWarehouseYield">NepalBrickyardMountainProduction, NepalFishingQuayMountainFood, NepalGranaryMountainFood, NepalSawPitMountainProduction, NepalGristmillMountainFood, NepalSawmillMountainProduction, NepalStonecutterMountainProduction, NepalGrocerMountainFood, NepalIronworksMountainProduction
+		</Argument>
+	</Modifier>
+	<Modifier id="MOD_EXPENSIVE_WAREHOUSE_BUILDINGS" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_SPECIFIC_CONSTRUCTIBLE_MAINTENANCE">
+		<Argument name="Tag">WAREHOUSE</Argument>
+		<Argument name="YieldType">YIELD_HAPPINESS, YIELD_GOLD</Argument>
+		<Argument name="Amount">1, 1</Argument>
+		<String context="Tooltip">LOC_TRAIT_NEPAL_ABILITY_NAME</String>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--				Civ-Specific Trees					-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_REVEAL_CIV_CULTURE_TREE_NEPAL" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_REVEAL_CULTURE_TREE">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_CIVILIZATION_OR_LEADER_TRAIT">
+				<Argument name="TraitType">TRAIT_NEPAL</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ProgressionTreeType">TREE_CIVICS_MO_NEPAL</Argument>
+	</Modifier>
+	<!-- ==================================================	-->
+	<!--				Wonder Bonuses						-->
+	<!-- ==================================================	-->
+	<Modifier id="MOD_CIV_WONDER_PRODUCTION_NEPAL" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_FAVORED_WONDER_PRODUCTION">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_HAS_CIVILIZATION_OR_LEADER_TRAIT">
+				<Argument name="TraitType">TRAIT_NEPAL</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Percent">30</Argument>
+		<String context="Preview">LOC_MOD_CIV_WONDER_PRODUCTION_NEPAL_DESCRIPTION</String>
+	</Modifier>
+</GameEffects>

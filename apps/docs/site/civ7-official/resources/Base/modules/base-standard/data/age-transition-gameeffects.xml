@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+     <!-- Attributes-->
+    <Modifier id="CARD_AT_GRANT_WILD_CARD_ATTRIBUTE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="AttributeType">ATTRIBUTE_WILDCARD</Argument>
+	</Modifier>
+	<Modifier id="CARD_AT_GRANT_SCIENTIFIC_ATTRIBUTE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="AttributeType">ATTRIBUTE_SCIENTIFIC</Argument>
+	</Modifier>
+	<Modifier id="CARD_AT_GRANT_MILITARISTIC_ATTRIBUTE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="AttributeType">ATTRIBUTE_MILITARISTIC</Argument>
+	</Modifier>
+	<Modifier id="CARD_AT_GRANT_EXPANSIONIST_ATTRIBUTE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="AttributeType">ATTRIBUTE_EXPANSIONIST</Argument>
+	</Modifier>
+	<Modifier id="CARD_AT_GRANT_ECONOMIC_ATTRIBUTE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="AttributeType">ATTRIBUTE_ECONOMIC</Argument>
+	</Modifier>
+	<Modifier id="CARD_AT_GRANT_POLITICAL_ATTRIBUTE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="AttributeType">ATTRIBUTE_POLITICAL</Argument>
+	</Modifier>
+	<Modifier id="CARD_AT_GRANT_CULTURAL_ATTRIBUTE" collection="COLLECTION_OWNER" effect="EFFECT_PLAYER_ATTRIBUTE" permanent="true" run-once="true">
+		<Argument name="Amount">1</Argument>
+		<Argument name="AttributeType">ATTRIBUTE_CULTURAL</Argument>
+	</Modifier>
+    <!-- Wonders -->
+    <Modifier id="CARD_AT_FAVORED_WONDER_PRODUCTION" collection="COLLECTION_PLAYER_CITIES" effect="EFFECT_CITY_ADJUST_FAVORED_WONDER_PRODUCTION" permanent="true" run-once="true">
+        <Argument name="Percent">50</Argument>
+	</Modifier>
+	<Modifier id="CARD_AT_GRANT_MERCHANT" collection="COLLECTION_PLAYER_CAPITAL_CITY" effect="EFFECT_CITY_GRANT_UNIT" permanent="true" run-once="true">
+        <Argument name="Amount">1</Argument>
+		<Argument name="AllowUniqueOverride">true</Argument>
+		<Argument name="UnitType">UNIT_MERCHANT</Argument>
+	</Modifier>
+</GameEffects>

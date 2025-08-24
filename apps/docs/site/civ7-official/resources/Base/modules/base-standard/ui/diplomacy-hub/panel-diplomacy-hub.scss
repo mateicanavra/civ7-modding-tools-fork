@@ -1,0 +1,148 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+@use '../../../core/ui/utilities/utility-text' as *;
+@use '../../../core/ui/themes/default/baseColors';
+@use '../../../core/ui/themes/default/theme';
+
+.diplomacy-container {
+
+
+	&.action-response {
+		opacity: 1;
+		transition: all 1s;
+
+		.dialog-divider {
+			display: none;
+		}
+
+		.diplomacy-options {
+			display: none;
+		}
+
+		&.fade-action-response {
+			opacity: 0;
+		}
+	}
+
+	.skip-dialog-text {
+		display: none;
+
+		border-image-source: url("fs://game/hud_squarepanel-bg.png");
+		border-image-slice: 115 120 120 120 fill;
+		border-image-width: pixels(120) pixels(120) pixels(120) pixels(64);
+		border-image-outset: pixels(7) pixels(12) pixels(12) pixels(12);
+
+
+		text-align: center;
+
+		&.skippable {
+			display: block;
+			animation: fadeIn 1s;
+		}
+
+		@keyframes fadeIn {
+			0% {
+				opacity: 0;
+			}
+
+			100% {
+				opacity: 1;
+			}
+		}
+	}
+
+	&.initial-subtitles {
+
+		.diplomacy-dialog-content {
+			.dialog-text-container {
+				max-height: 100%;
+				padding-top: 2%;
+
+			}
+
+
+			.diplomacy-options {
+				display: none;
+			}
+		}
+	}
+
+	.diplomacy-dialog-content {
+		max-width: pixels(640);
+		border-image-source: url("fs://game/dip_card_holder_bg.png");
+		border-image-slice: 120 120 fill;
+		border-image-width: pixels(120) pixels(120);
+		border-image-outset: pixels(4) pixels(16) pixels(24) pixels(16);
+
+		.dialog-history-container {
+			position: absolute;
+			display: flex;
+		}
+
+		.expand-diplomacy-chat-button {
+			position: absolute;
+			top: pixels(-24);
+			left: pixels(-32);
+			width: pixels(64);
+			height: pixels(64);
+			background-image: url('fs://game/core/ui/themes/default/img/Button_arrow_up.png');
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: right top;
+			pointer-events: auto;
+
+			&:hover,
+			&:focus {
+				background-image: url('fs://game/core/ui/themes/default/img/Button_arrow_up_hover.png');
+			}
+		}
+
+		.dialog-text-container {
+			padding-bottom: 1%;
+			padding-top: 4%;
+			border-image: url("fs://game/base_quotes.png");
+			border-image-slice: 23 fill;
+			border-image-width: pixels(23);
+		}
+
+		.dialog-divider {
+			width: 60%;
+			background-image: url('fs://game/hud_divider-h2.png');
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: right top;
+		}
+
+		.diplomacy-options {
+			max-height: pixels(136);
+			align-items: center;
+		}
+	}
+
+
+}
+
+.dialog_war-response-divider {
+	position: relative;
+	width: 40%;
+	height: pixels(32);
+	display: flex;
+
+	background-image: url('fs://game/hud_divider-h2.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: right top;
+	pointer-events: auto;
+}
+
+.panel-diplomacy-hub__button-acknowledge {
+	background-image: url("fs://game/radial_highlight.png");
+	fxs-background-image-tint: theme.color("positive");
+}
+
+.panel-diplomacy-hub__radial-bg {
+	background-image: url("fs://game/hud_sub_circle_bk.png");
+}
+
+.panel-diplomacy-hub__radial-bg-hover {
+	background-image: url("fs://game/hud_sub_circle_hov.png");
+}

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <EnglishText>
+    <!--Civilization Names-->
+    <Row Tag="LOC_CIVILIZATION_GREAT_BRITAIN_NAME">
+      <Text>Great Britain</Text>
+    </Row>
+    <!--Civilization Full Names-->
+    <Row Tag="LOC_CIVILIZATION_GREAT_BRITAIN_FULLNAME">
+      <Text>British Empire</Text>
+    </Row>
+    <!--Civilization Adjectives-->
+    <Row Tag="LOC_CIVILIZATION_GREAT_BRITAIN_ADJECTIVE">
+      <Text>British</Text>
+    </Row>
+  </EnglishText>
+</Database>

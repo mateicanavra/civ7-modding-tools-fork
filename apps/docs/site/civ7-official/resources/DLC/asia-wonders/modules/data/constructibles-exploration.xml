@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Kinds>
+		<InsertOrIgnore Kind="KIND_CONSTRUCTIBLE"/>
+	</Kinds>
+	<Types>
+		<Row Type="WONDER_GRAND_BAZAAR" Kind="KIND_CONSTRUCTIBLE"/>
+		<Row Type="WONDER_WAT_XIENG_THONG" Kind="KIND_CONSTRUCTIBLE"/>
+	</Types>
+	<TypeQuotes>
+		<Row Type="WONDER_GRAND_BAZAAR" Quote="LOC_QUOTE_WONDER_GRAND_BAZAAR" QuoteAuthor="LOC_QUOTE_AUTHOR_WONDER_GRAND_BAZAAR" QuoteAudio="VO_Quote_GrandBazaar"/>
+		<Row Type="WONDER_WAT_XIENG_THONG" Quote="LOC_QUOTE_WONDER_WAT_XIENG_THONG" QuoteAuthor="LOC_QUOTE_AUTHOR_WONDER_WAT_XIENG_THONG" QuoteAudio="VO_Quote_WatXiengThong"/>
+	</TypeQuotes>
+	<Constructibles>
+		<Row ConstructibleType="WONDER_GRAND_BAZAAR" Name="LOC_WONDER_GRAND_BAZAAR_NAME" Description="LOC_WONDER_GRAND_BAZAAR_DESCRIPTION" Tooltip="LOC_WONDER_GRAND_BAZAAR_TOOLTIP" RequiresHomeland="true" AdjacentDistrict="DISTRICT_URBAN" ConstructibleClass="WONDER" Cost="400" Population="0" ImmuneDamage="true" RequiresUnlock="true" Age="AGE_EXPLORATION"/>
+		<Row ConstructibleType="WONDER_WAT_XIENG_THONG" Name="LOC_WONDER_WAT_XIENG_THONG_NAME" Description="LOC_WONDER_WAT_XIENG_THONG_DESCRIPTION" Tooltip="LOC_WONDER_WAT_XIENG_THONG_TOOLTIP" ConstructibleClass="WONDER" Cost="400" Population="0" AdjacentRiver="true" ImmuneDamage="true" RequiresUnlock="true" Age="AGE_EXPLORATION"/>
+	</Constructibles>
+	<Wonders>
+		<Row ConstructibleType="WONDER_GRAND_BAZAAR" MaxWorldInstances="1"/>
+		<Row ConstructibleType="WONDER_WAT_XIENG_THONG" MaxWorldInstances="1"/>
+	</Wonders>
+	<Constructible_ValidDistricts>
+		<Row ConstructibleType="WONDER_GRAND_BAZAAR" DistrictType="DISTRICT_WONDER"/>
+		<Row ConstructibleType="WONDER_WAT_XIENG_THONG" DistrictType="DISTRICT_WONDER"/>
+	</Constructible_ValidDistricts>
+	<Constructible_YieldChanges>
+		<Row ConstructibleType="WONDER_GRAND_BAZAAR" YieldType="YIELD_GOLD" YieldChange="2"/>
+		<Row ConstructibleType="WONDER_WAT_XIENG_THONG" YieldType="YIELD_CULTURE" YieldChange="2"/>
+	</Constructible_YieldChanges>
+	<ConstructibleModifiers>
+		<Row ConstructibleType="WONDER_GRAND_BAZAAR" ModifierId="MOD_GRAND_BAZAAR_RESOURCE_CAP"/>
+		<Row ConstructibleType="WONDER_GRAND_BAZAAR" ModifierId="MOD_GRAND_BAZAAR_HOMELAND_RESOURCE_GOLD"/>
+		<Row ConstructibleType="WONDER_WAT_XIENG_THONG" ModifierId="MOD_WAT_XIENG_THONG_GW_GOLD"/>
+	</ConstructibleModifiers>
+</Database>

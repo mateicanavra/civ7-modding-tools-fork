@@ -1,0 +1,686 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_CITY_NAME_NEPAL1" Language="zh_Hans_CN">
+      <Text>加德满都</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL10" Language="zh_Hans_CN">
+      <Text>贾纳克普达姆</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL11" Language="zh_Hans_CN">
+      <Text>朱姆拉</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL12" Language="zh_Hans_CN">
+      <Text>比拉特纳加尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL13" Language="zh_Hans_CN">
+      <Text>图尔西普尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL14" Language="zh_Hans_CN">
+      <Text>布特瓦尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL15" Language="zh_Hans_CN">
+      <Text>戈达瓦里</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL16" Language="zh_Hans_CN">
+      <Text>尼泊尔根杰</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL17" Language="zh_Hans_CN">
+      <Text>戈拉希</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL18" Language="zh_Hans_CN">
+      <Text>蓝毗尼</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL19" Language="zh_Hans_CN">
+      <Text>南迦尔科</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL2" Language="zh_Hans_CN">
+      <Text>博卡拉</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL20" Language="zh_Hans_CN">
+      <Text>杜利克尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL21" Language="zh_Hans_CN">
+      <Text>卡莱亚</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL22" Language="zh_Hans_CN">
+      <Text>达马克</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL23" Language="zh_Hans_CN">
+      <Text>穆斯塘</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL24" Language="zh_Hans_CN">
+      <Text>盖加特</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL25" Language="zh_Hans_CN">
+      <Text>比尔甘杰</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL26" Language="zh_Hans_CN">
+      <Text>桑库</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL27" Language="zh_Hans_CN">
+      <Text>丹加地</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL28" Language="zh_Hans_CN">
+      <Text>伊纳瓦西拉</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL29" Language="zh_Hans_CN">
+      <Text>阿姆莱赫甘杰</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL3" Language="zh_Hans_CN">
+      <Text>拉利特普尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL30" Language="zh_Hans_CN">
+      <Text>塔拉克什瓦尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL4" Language="zh_Hans_CN">
+      <Text>巴拉特普尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL5" Language="zh_Hans_CN">
+      <Text>加哈瓦</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL6" Language="zh_Hans_CN">
+      <Text>达兰</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL7" Language="zh_Hans_CN">
+      <Text>赫陶达</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL8" Language="zh_Hans_CN">
+      <Text>比伦德拉纳加尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITY_NAME_NEPAL9" Language="zh_Hans_CN">
+      <Text>伊塔哈里</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_1" Language="zh_Hans_CN">
+      <Text>沙姆巴芙</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_10" Language="zh_Hans_CN">
+      <Text>阿努斯卡</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_2" Language="zh_Hans_CN">
+      <Text>斯妮哈</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_3" Language="zh_Hans_CN">
+      <Text>莎里塔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_4" Language="zh_Hans_CN">
+      <Text>阿米塔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_5" Language="zh_Hans_CN">
+      <Text>阿丽娜</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_6" Language="zh_Hans_CN">
+      <Text>塔尼沙</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_7" Language="zh_Hans_CN">
+      <Text>蕾什玛</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_8" Language="zh_Hans_CN">
+      <Text>什瑞佳</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_FEMALE_9" Language="zh_Hans_CN">
+      <Text>索尼娅</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_1" Language="zh_Hans_CN">
+      <Text>比贝克</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_10" Language="zh_Hans_CN">
+      <Text>乌德加姆</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_2" Language="zh_Hans_CN">
+      <Text>克里希纳</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_3" Language="zh_Hans_CN">
+      <Text>卡玛尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_4" Language="zh_Hans_CN">
+      <Text>普拉萨德</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_5" Language="zh_Hans_CN">
+      <Text>加甘</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_6" Language="zh_Hans_CN">
+      <Text>拉姆</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_7" Language="zh_Hans_CN">
+      <Text>比沙尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_8" Language="zh_Hans_CN">
+      <Text>阿米尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CITIZEN_NEPAL_MALE_9" Language="zh_Hans_CN">
+      <Text>罗沙</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_NEPAL_ADJECTIVE" Language="zh_Hans_CN">
+      <Text>尼泊尔</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_NEPAL_FULLNAME" Language="zh_Hans_CN">
+      <Text>尼泊尔王国</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_NEPAL_NAME" Language="zh_Hans_CN">
+      <Text>尼泊尔</Text>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_MODERN_23_MAJOR_NEPAL_NAME" Language="zh_Hans_CN">
+      <Text>普那卡</Text>
+    </Replace>
+    <Replace Tag="LOC_INDEPENDENT_MODERN_23_MINOR_NEPAL_NAME" Language="zh_Hans_CN">
+      <Text>不丹</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>尼泊尔坐拥独特的地理位置，同时身处世界的边陲与中心：它栖居在地球最高峰的山谷之中，又被两个世界大国所环抱。这种地缘政治的邻近性使其成为重要的贸易与资源枢纽，而其独特的地理形势又确保了它的生存与独立。就国内而言，尼泊尔是一个多元交融的国度：高地以佛教徒为主，低地则以印度教徒占多数。在低地地区，各个政权与高地之间保持着不同程度的往来，形成了一种既重共存又求控制的微妙权力平衡：虽然低地的印度教尼瓦尔人和查特里人掌控着政权核心，但他们也离不开塔芒人和夏尔巴人等高地民族所建立的运输网络和资源供给。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_2" Language="zh_Hans_CN">
+      <Text>在印度北部边境和巍峨的山间峡谷之中，尼泊尔诸国自公元第一个千年以来就以朝贡国的形式存在，“尼泊拉（Nepala）”这个名字在笈多王朝等政权的碑文中若隐若现。公元10世纪，随着加德满都的建立，这些王国逐渐显露其势力，但直到18世纪，才真正出现了一个举足轻重的政权——廓尔喀王朝，而开创这个王朝的传奇人物则是普利特维·纳拉扬·沙阿。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_3" Language="zh_Hans_CN">
+      <Text>在印度处于穆斯林莫卧儿统治的时代，倚重马匹、骆驼和大象骑兵的莫卧儿军队在面对陡峭寒冷的山谷时举步维艰，更无法切断通往中国的高地补给线。正因如此，当穆斯林诸多苏丹国和帝国在南方征战不休时，尼泊尔得以成为印度教的一方净土。后来，当英国势力渗入印度时，他们同样难以掌控这片区域。然而在英尼战争（1814-1816年）中，装备落后的尼泊尔不得不向英国作出领土让步，最终沦为其保护国。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_4" Language="zh_Hans_CN">
+      <Text>在其后的拉纳王朝统治时期，这种保护国地位反而促使尼泊尔走向闭关锁国。从印度民族起义到第二次世界大战，拉纳王朝始终与英国保持着紧密的同盟关系。在拉纳统治时期，尼泊尔是一个实行专制统治和闭关政策的王国，但凭借老练的外交手腕、险峻的地理屏障和得天独厚的地缘政治位置，成功维护了国家的独立地位。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_5" Language="zh_Hans_CN">
+      <Text>拉纳家族凭借一系列政变和暗杀攫取了权力，通过首相一职牢牢掌控君主政权，并不时借助精心策划的宫廷谋杀来巩固其统治。拉纳家族看似对英国的效忠，实则是精心计算的棋招——王朝开创者江格·巴哈都尔在参观英国军事设施后，深知对方实力强大不可撼动。由此，拉纳家族转而在1857年印度民族起义中力挺英国，更是为英国培养了精锐的廓尔喀军团，这支部队此后在阿富汗战争和两次世界大战中都成为了英军的得力助手。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_CIVILIZATION_NEPAL_CHAPTER_HISTORY_PARA_6" Language="zh_Hans_CN">
+      <Text>这个政权最终在20世纪50年代末走向衰落，随着拉纳王朝的覆灭，尼泊尔陷入了一段动荡岁月。在此期间，君主立宪与君主专制两种力量此消彼长，而积压已久的民怨也催生了共产主义武装叛乱。2001年王宫中爆发了一场血腥屠杀事件，成为君主制覆灭的转折点；到2008年，尼泊尔最终正式宣告废除延续已久的君主制度。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_IMPROVEMENT_HIGHLAND_POWER_STATION_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>1911年，紧随美国和印度开展水力发电之后，尼泊尔建成了其首座水力发电站。这个国家可谓天生适合发展水电：陡峭的地形造就了巨大的落差，喜马拉雅山脉源源不断的溪流提供了充沛的水源。然而，尽管具备得天独厚的自然条件，在这一开创性项目之后，新的水电项目发展却显得步履蹒跚。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_GORKHAPATRA_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>媒体在塑造民族意识的过程中扮演着关键角色。《廓尔喀日报》（意为“尼泊尔邮报”）长期由首相办公室掌控，在其发行历史的大部分时期都充当着政府喉舌，新闻报道备受审查钳制。时至今日，这份报纸依然在发行，虽然始终未能摆脱与政府关系过于亲密的质疑声音，但它却成功延续至今，熬过了当初创立它的政权。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_JYUMDO_BAGHA_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>阿马尔·辛格·塔帕这位被尼泊尔人尊称为“生命之虎（Jyumdo Bagha）”的统帅，曾在英尼战争中率领尼泊尔军队与英军展开殊死较量。这场战争爆发于19世纪初，起因是英国东印度公司觊觎尼泊尔这个富庶的资源宝库。在战争过程中，尽管英军拥有精良的装备，却在险峻的地形和猖獗的疟疾面前举步维艰。最终虽然英国赢得了战争的胜利，但他们在尼泊尔的统治始终有限，难以真正渗透。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_SAGARMATHA_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>藏语称其为朱姆朗马，意为“世界之母”；尼泊尔语唤其为萨加玛塔，意为“天空女神”；而在中文世界中，这座巍峨高峰以“珠穆朗玛峰”的名字为人所熟知。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_SAGARMATHA_CHAPTER_HISTORY_PARA_2" Language="zh_Hans_CN">
+      <Text>尼泊尔栖居在巍峨群山的庇护之下，这些直插云霄的山峰从天际攫取水汽，进而塑造了整个地球的生态与地质格局。掠过印度次大陆的炎热潮湿气流在此倾泻水汽，在群峰南麓孕育出郁郁葱葱、土地肥沃的山谷，而在北侧则形成了西藏干旱的高原地带。这道天然分界不仅划分了自然地理，更深刻地影响了人文格局——低地与高地的对比，河谷与高原荒漠的反差，印度教尼泊尔人与藏传佛教徒的共处。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_NODE_CIVIC_MO_NEPAL_SINGHA_DURBAR_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>现代尼泊尔的统治建立在对国家的铁腕控制之上——这不禁令人觉得颇具讽刺意味，因为尼泊尔复杂的民族构成和支离破碎的地理特征足以动摇任何政权的根基。1908年建成的辛格杜巴尔宫（意为“狮子宫”）正是拉纳王朝强权统治的象征。在这一时期，历任首相和高级官员实际掌控了君主政权，对内实施高压政策，对外则严密把控。然而，一些改变现代尼泊尔面貌的重大进程也正是从这座威严的建筑中诞生——例如奴隶制度的废除和尼泊尔独立地位的确立。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_GURKHA_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>“廓尔喀”一词最初不过是现代尼泊尔前身之一廓尔喀王国的称谓，但到了19世纪末20世纪初，这个词逐渐演变为对受雇为他国作战的尼泊尔勇士的代称。其中最负盛名的是其为英国效力的历史——英尼战争后，英国人为尼泊尔战士的忠勇品格所折服，随即组建了由志愿为英国而战的廓尔喀人组成的军营。这支部队此后屡建战功——先后在1857年印度民族起义、第一次和第二次世界大战中为英国浴血奋战。印度独立后，虽然部分廓尔喀人继续效忠英国，但更多则转投印度军方。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_GURKHA_CHAPTER_HISTORY_PARA_2" Language="zh_Hans_CN">
+      <Text>廓尔喀人最具代表性的标志物是库克力弯刀——这种向前弯曲的重型刀具不仅是实用的砍伐工具，更是令人生畏的致命武器。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_UNIT_SHERPA_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>夏尔巴人是一个信仰佛教的藏族少数民族，世代生活在尼泊尔、印度和不丹的高地区域。他们适应了这片极高海拔地区的生存环境，并很快因其在攀登高峰时展现出的非凡勇气而声名远扬。“夏尔巴”这个名字逐渐成为无畏高山探险者的代名词，其中最负盛名的当属丹增诺盖——他是人类历史上首次成功登顶珠穆朗玛峰的两位英雄之一。在当代，夏尔巴人已经成为尼泊尔旅游业的中坚力量，尤其是在指引探险者穿越该国巍峨群山方面，发挥着不可替代的作用。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_BOUDHANATH_CHAPTER_HISTORY_PARA_1" Language="zh_Hans_CN">
+      <Text>满愿塔恢弘无比，四周环绕着其他小塔，它是在尼泊尔这个以印度教为主的国度中最具代表性的佛教圣迹。这里是城中的一片佛教净土，汇聚了众多寺院和膜拜圣地。耸立其中的主塔以其纯白的穹顶和极具特色的“慧眼”，不仅成为这座城市的地标，更跃升为尼泊尔整体文化形象的缩影。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_WONDER_BOUDHANATH_CHAPTER_HISTORY_PARA_2" Language="zh_Hans_CN">
+      <Text>相传，这座佛塔是由被逐出天界的因陀罗之女所建，她希望通过建造这座圣迹来重获功德。传说中，佛教使者正是从这里启程，向着北方的冰雪峻岭和西藏高原传播佛法；而如今，它的所在地恰恰成为了尼泊尔佛教徒的主要聚居之处。</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIGHLAND_POWER_STATION_NAME" Language="zh_Hans_CN">
+      <Text>高地发电站</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BOUDHANATH_NAME" Language="zh_Hans_CN">
+      <Text>满愿塔</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_BAGMATI_NAME" Language="zh_Hans_CN">
+      <Text>巴格马蒂河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_BHERI_NAME" Language="zh_Hans_CN">
+      <Text>贝里河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_GANDAKI_NAME" Language="zh_Hans_CN">
+      <Text>甘达基河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_GHAGHARA_NAME" Language="zh_Hans_CN">
+      <Text>加格拉河</Text>
+    </Replace>
+    <Replace Tag="LOC_RIVER_KOSI_NAME" Language="zh_Hans_CN">
+      <Text>戈西河</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_DAHEI_SHAN_NAME" Language="zh_Hans_CN">
+      <Text>大黑山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_DHOSI_HILL_NAME" Language="zh_Hans_CN">
+      <Text>多西山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_KA_ER_DAXI_NAME" Language="zh_Hans_CN">
+      <Text>卡尔达西山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_POPA_NAME" Language="zh_Hans_CN">
+      <Text>波巴山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_TOSHAM_HILL_NAME" Language="zh_Hans_CN">
+      <Text>托萨姆山</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_GORKHAPATRA_NAME" Language="zh_Hans_CN">
+      <Text>廓尔喀日报</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_JYUMDO_BAGHA_NAME" Language="zh_Hans_CN">
+      <Text>生命之虎</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SAGARMATHA_NAME" Language="zh_Hans_CN">
+      <Text>萨加玛塔</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SINGHA_DURBAR_NAME" Language="zh_Hans_CN">
+      <Text>狮子宫</Text>
+    </Replace>
+    <Replace Tag="LOC_11030A_COMPLETION" Language="zh_Hans_CN">
+      <Text>高地部族从巍峨山巅下行至尼泊尔谷地，肩头堆满货物，步履艰难。虽说群山为尼泊尔提供了天然屏障，但这些昔日的印加后裔才是真正的高山之子。</Text>
+    </Replace>
+    <Replace Tag="LOC_11030A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>苍穹儿女</Text>
+    </Replace>
+    <Replace Tag="LOC_11030B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>山脉{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11030B_NAME" Language="zh_Hans_CN">
+      <Text>让他们延续自身传统。</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_COMPLETION" Language="zh_Hans_CN">
+      <Text>印加语言在尼泊尔语的冲击下渐渐消逝，古老习俗也日渐凋零。</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_IMPERATIVE" Language="zh_Hans_CN">
+      <Text>拥有3所与山脉相邻的校舍。</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_NAME" Language="zh_Hans_CN">
+      <Text>他们需要接受教育，融入尼泊尔。</Text>
+    </Replace>
+    <Replace Tag="LOC_11031A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>苍穹儿女</Text>
+    </Replace>
+    <Replace Tag="LOC_11032A_COMPLETION" Language="zh_Hans_CN">
+      <Text>山体震撼，冰雪在嘶嘶蒸汽中败退于烈焰。夏尔巴人在摇晃的山体上艰难寻找立足之处，眼见四周都被火焰吞噬。</Text>
+    </Replace>
+    <Replace Tag="LOC_11032A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>火神的怒火</Text>
+    </Replace>
+    <Replace Tag="LOC_11032B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11032B_NAME" Language="zh_Hans_CN">
+      <Text>留下，见证地脉之血的喷涌。</Text>
+    </Replace>
+    <Replace Tag="LOC_11032C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}、{2_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11032C_NAME" Language="zh_Hans_CN">
+      <Text>快逃！</Text>
+    </Replace>
+    <Replace Tag="LOC_11033A_COMPLETION" Language="zh_Hans_CN">
+      <Text>巍峨的双子雪峰高耸于群山之巅，仿佛在宣告它对苍穹的统御。</Text>
+    </Replace>
+    <Replace Tag="LOC_11033A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>鱼尾峰</Text>
+    </Replace>
+    <Replace Tag="LOC_11033B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11033B_NAME" Language="zh_Hans_CN">
+      <Text>让它保持这份神圣威严。</Text>
+    </Replace>
+    <Replace Tag="LOC_11034A_COMPLETION" Language="zh_Hans_CN">
+      <Text>这次探险以惨痛的失败告终——甚至付出了生命的代价。山地向导郑重警告，这里是诸神的居所，凡人不该僭越。</Text>
+    </Replace>
+    <Replace Tag="LOC_11034A_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}，故事继续。</Text>
+    </Replace>
+    <Replace Tag="LOC_11034A_NAME" Language="zh_Hans_CN">
+      <Text>筹划一次登顶远征。</Text>
+    </Replace>
+    <Replace Tag="LOC_11034A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>鱼尾峰</Text>
+    </Replace>
+    <Replace Tag="LOC_11034B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11034B_NAME" Language="zh_Hans_CN">
+      <Text>关闭。</Text>
+    </Replace>
+    <Replace Tag="LOC_11035A_COMPLETION" Language="zh_Hans_CN">
+      <Text>战场上，廓尔喀人与廓尔喀人刀剑相向。战后，在敌军的阵亡者中，赫然可见尼泊尔同胞的面容。</Text>
+    </Replace>
+    <Replace Tag="LOC_11035A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>手足相残</Text>
+    </Replace>
+    <Replace Tag="LOC_11035B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>文化值建筑{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11035B_NAME" Language="zh_Hans_CN">
+      <Text>他们终究是尼泊尔的儿女。为他们举行庄重的葬礼。</Text>
+    </Replace>
+    <Replace Tag="LOC_11035C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>生产力建筑{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11035C_NAME" Language="zh_Hans_CN">
+      <Text>既然他们选择与尼泊尔为敌，那就已是异邦人。</Text>
+    </Replace>
+    <Replace Tag="LOC_11036A_COMPLETION" Language="zh_Hans_CN">
+      <Text>尼泊尔维持着独立地位，在列强争斗时扮演调停者的角色。即便在战火纷飞的世界中，商贸依然不息。</Text>
+    </Replace>
+    <Replace Tag="LOC_11036A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>夹缝求生</Text>
+    </Replace>
+    <Replace Tag="LOC_11036B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>贸易路线+2[icon:YIELD_DIPLOMACY]影响力。</Text>
+    </Replace>
+    <Replace Tag="LOC_11036B_NAME" Language="zh_Hans_CN">
+      <Text>继续扮演和平使者的角色。</Text>
+    </Replace>
+    <Replace Tag="LOC_11036C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}，但与所有文明的关系-15。</Text>
+    </Replace>
+    <Replace Tag="LOC_11036C_NAME" Language="zh_Hans_CN">
+      <Text>涉足军火贸易。</Text>
+    </Replace>
+    <Replace Tag="LOC_11037A_COMPLETION" Language="zh_Hans_CN">
+      <Text>列强争相掠夺资源，为进步的烈焰添薪加柴。城镇拔地而起，铁轨蜿蜒向前。然而在尼泊尔的边陲，一位独行的夏尔巴人默默在地上插下路标，随后继续踏上征途。</Text>
+    </Replace>
+    <Replace Tag="LOC_11037A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>高原拓路者</Text>
+    </Replace>
+    <Replace Tag="LOC_11037B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11037B_NAME" Language="zh_Hans_CN">
+      <Text>尼泊尔的扩张虽不显山露水，却从未停歇。</Text>
+    </Replace>
+    <Replace Tag="LOC_11038A_COMPLETION" Language="zh_Hans_CN">
+      <Text>尼泊尔凭借其公正持平的态度和睿智冷静的建议赢得盛誉，使得尼泊尔谈判专家在几乎所有国际纷争中都成为不可或缺的调停者。</Text>
+    </Replace>
+    <Replace Tag="LOC_11038A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>高参顾问</Text>
+    </Replace>
+    <Replace Tag="LOC_11038B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11038B_NAME" Language="zh_Hans_CN">
+      <Text>这理所应当。</Text>
+    </Replace>
+    <Replace Tag="LOC_11038C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11038C_NAME" Language="zh_Hans_CN">
+      <Text>为这项服务收取些许费用，也无可厚非。</Text>
+    </Replace>
+    <Replace Tag="LOC_11039A_COMPLETION" Language="zh_Hans_CN">
+      <Text>冰川河流自古流淌过尼泊尔的山谷，而今不仅有清冽的山泉，更有电流从巍峨山巅奔涌而下。这是一幅山中理想国的景象——洁净通透的现代气息与巍峨峻拔的山峰完美交融。</Text>
+    </Replace>
+    <Replace Tag="LOC_11039A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>山岳堡垒</Text>
+    </Replace>
+    <Replace Tag="LOC_11039B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11039B_NAME" Language="zh_Hans_CN">
+      <Text>山脉是我们的资源，山谷是我们的家园。</Text>
+    </Replace>
+    <Replace Tag="LOC_11039C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>在山脉相邻地块中防御时+2战斗力。</Text>
+    </Replace>
+    <Replace Tag="LOC_11039C_NAME" Language="zh_Hans_CN">
+      <Text>山脉就是我们永恒的屏障。</Text>
+    </Replace>
+    <Replace Tag="LOC_11040A_COMPLETION" Language="zh_Hans_CN">
+      <Text>在不列颠军队中服役是令尼泊尔人和外国人都肃然起敬的荣耀。新兵们在异国观众的注目下昂首阔步，踏上远赴他乡的征程。</Text>
+    </Replace>
+    <Replace Tag="LOC_11040A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>廓尔喀精锐旅</Text>
+    </Replace>
+    <Replace Tag="LOC_11040B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>军事建筑{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11040B_NAME" Language="zh_Hans_CN">
+      <Text>他们的功勋同样也记载到本国历史中。</Text>
+    </Replace>
+    <Replace Tag="LOC_11040C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>发起“赠送廓尔喀人”行动时+15%[icon:YIELD_DIPLOMACY]影响力效用。</Text>
+    </Replace>
+    <Replace Tag="LOC_11040C_NAME" Language="zh_Hans_CN">
+      <Text>他们将军饷寄回故土。</Text>
+    </Replace>
+    <Replace Tag="LOC_11041A_COMPLETION" Language="zh_Hans_CN">
+      <Text>辛格杜巴尔宫——这座威严的狮子宫——向尼泊尔全境彰显着它的权威。然而首都内暗潮汹涌：世家大族们愤愤不平，认为自己世代相传的势力范围正在被蚕食。政府官员则频频报告遭到恐吓和勒索。</Text>
+    </Replace>
+    <Replace Tag="LOC_11041A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>世家权衡</Text>
+    </Replace>
+    <Replace Tag="LOC_11041B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>城市{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11041B_NAME" Language="zh_Hans_CN">
+      <Text>准许各大家族保有其固有权益。</Text>
+    </Replace>
+    <Replace Tag="LOC_11041C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>城镇{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11041C_NAME" Language="zh_Hans_CN">
+      <Text>狮子宫的权威至高无上。</Text>
+    </Replace>
+    <Replace Tag="LOC_11069A_COMPLETION" Language="zh_Hans_CN">
+      <Text>晨曦洒落狮子宫，尼泊尔官员的长队蜿蜒穿过整座城市。在这庄严的宫殿中，一种新的秩序正在酝酿，它将在世界舞台上镌刻下尼泊尔的印记。</Text>
+    </Replace>
+    <Replace Tag="LOC_11069A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>团结塑像</Text>
+    </Replace>
+    <Replace Tag="LOC_11069B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11069B_NAME" Language="zh_Hans_CN">
+      <Text>尼泊尔将在世界局势中扮演属于自己的角色。</Text>
+    </Replace>
+    <Replace Tag="LOC_11069C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_11069C_NAME" Language="zh_Hans_CN">
+      <Text>尼泊尔应该专注于完善自身。</Text>
+    </Replace>
+    <Replace Tag="LOC_12007A_COMPLETION" Language="zh_Hans_CN">
+      <Text>随着夏尔巴人攀上陡峭山路，黎刹医生回望尼泊尔的高山与谷地，尽览这片土地的雄奇壮丽。</Text>
+    </Replace>
+    <Replace Tag="LOC_12007A_STORYTITLE" Language="zh_Hans_CN">
+      <Text>好医生在高山低地</Text>
+    </Replace>
+    <Replace Tag="LOC_12007B_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_12007B_NAME" Language="zh_Hans_CN">
+      <Text>高地人民桀骜不驯，自主独立。</Text>
+    </Replace>
+    <Replace Tag="LOC_12007C_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>{1_reward}。</Text>
+    </Replace>
+    <Replace Tag="LOC_12007C_NAME" Language="zh_Hans_CN">
+      <Text>低地百姓真挚好客，温情似火。</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_SHERPA_UNLOCK_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>在距离你旗下一个定居点市中心5个地块之内的山脉地块上激活。山脉将立即得到改良，并获得一座高地发电站。如果山脉位于国界之外，定居点将获得通往山脉路径的地块。</Text>
+    </Replace>
+    <Replace Tag="LOC_ABILITY_SHERPA_UNLOCK_NAME" Language="zh_Hans_CN">
+      <Text>占据山脉</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_GORKHAPATRA_AUTHOR" Language="zh_Hans_CN">
+      <Text>比兰德拉国王</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_GORKHAPATRA_QUOTE" Language="zh_Hans_CN">
+      <Text>“国家的文化与其遵循的意识形态之间存在着不可分割的关系。”</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_JYUMDO_BAGHA_AUTHOR" Language="zh_Hans_CN">
+      <Text>廓尔喀箴言</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_JYUMDO_BAGHA_QUOTE" Language="zh_Hans_CN">
+      <Text>“做懦夫，毋宁死。”</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SAGARMATHA_AUTHOR" Language="zh_Hans_CN">
+      <Text>拉迪亚德·吉卜林</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SAGARMATHA_QUOTE" Language="zh_Hans_CN">
+      <Text>“遁入山中，一劳永逸——逃到宁静、凉雨和弥散的薄雾中去。”</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SINGHA_DURBAR_AUTHOR" Language="zh_Hans_CN">
+      <Text>廓尔喀战嚎</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVIC_SINGHA_DURBAR_QUOTE" Language="zh_Hans_CN">
+      <Text>“嗨嗨，古尔卡里！廓尔喀人来了！”</Text>
+    </Replace>
+    <Replace Tag="LOC_CIVILIZATION_NEPAL_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>所有仓库建筑应用至山脉地形地块，但其维护费用+1[icon:YIELD_GOLD]金币和[icon:YIELD_HAPPINESS]幸福值。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_ACTION_GIFT_GURKHA_NAME" Language="zh_Hans_CN">
+      <Text>赠送廓尔喀人</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_ACCEPT" Language="zh_Hans_CN">
+      <Text>你将在自己的首都中获得1个廓尔喀人单位。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>赠送1个廓尔喀人。[n]接受：你与对方的关系+10、根据与对方的当前关系等级获得5[icon:YIELD_CULTURE]文化值（标准速度下）。对方领袖在自己的首都中获得1个廓尔喀人单位。只能与关系为“友好”或“有益”的文明进行。</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIGHLAND_POWER_STATION_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>+3[icon:YIELD_PRODUCTION]生产力、+3[icon:YIELD_CULTURE]文化值。尼泊尔特色改良设施。无时代限制。不会移除地块上的仓库加成。必须放置在无地貌山脉地块上，拥有“萨加玛塔”精通后由夏尔巴人建造。</Text>
+    </Replace>
+    <Replace Tag="LOC_IMPROVEMENT_HIGHLAND_POWER_STATION_TOOLTIP" Language="zh_Hans_CN">
+      <Text>尼泊尔特色改良设施。无时代限制。不会移除地块上的仓库加成。必须放置在无地貌山脉地块上，拥有“萨加玛塔”精通后由夏尔巴人建造。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_INTRO_TEXT_NEPAL" Language="zh_Hans_CN">
+      <Text>尼泊尔永不屈服。高山要塞之中，廓尔喀勇士严阵以待；王宫广场之上，朝廷重臣运筹帷幄。尼泊尔旌旗所指，巍峨雪峰尽显繁华；砖砌佛塔与高耸楼阁映衬之下，敌人在崇山峻岭间折戟沉沙。</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_CIV_TIPS_TEXT_NEPAL" Language="zh_Hans_CN">
+      <Text>夏尔巴人可以在你的山脉上，或距离你市中心5格内的无主山脉地块上创建高地发电站。好好规划你的徒步路线！</Text>
+    </Replace>
+    <Replace Tag="LOC_LOADING_INTRO_NEPAL" Language="zh_Hans_CN">
+      <Text>尼泊尔在邻国之中异军突起，渴望成为世界强权。</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NEPAL_COMPLETE_BOUDHANATH_DESC" Language="zh_Hans_CN">
+      <Text>扮演尼泊尔，建成满愿塔</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NEPAL_COMPLETE_BOUDHANATH_NAME" Language="zh_Hans_CN">
+      <Text>满愿塔</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NEPAL_LEGACY_PATH_CULTURAL_DESC" Language="zh_Hans_CN">
+      <Text>扮演尼泊尔，完成一条文化传承路径</Text>
+    </Replace>
+    <Replace Tag="LOC_METAPROGRESSION_CHALLENGE_NEPAL_LEGACY_PATH_CULTURAL_NAME" Language="zh_Hans_CN">
+      <Text>尼泊尔传承路径</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_CIV_WONDER_PRODUCTION_NEPAL_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>作为尼泊尔的特色奇观，+30%生产力。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_GIFT_GURKHA_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>解锁“赠送廓尔喀人”行动，将廓尔喀人赠与给其他文明。尼泊尔与其关系+10，并根据与其之间的当前关系等级获得5[icon:YIELD_CULTURE]文化值（按游戏速度调整）。只能与关系为“友好”或“有益”的文明进行。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_GORKHAPATRA_MUSEUM_SLOTS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>博物馆拥有2个额外的巨作槽位。 </Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_JYUMDO_BAGHA_FORTIFICATION_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>如果与山脉相邻，单位用1回合就能构建防御工事。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_JYUMDO_BAGHA_MOUNTAIN_WALLS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>与山脉相邻的所有区块获得防御工事，一次性效果。遵循普通城墙放置规则。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SAGARMATHA_BUILDINGS_MOUNTAIN_ADJACENCY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>食物和科技值建筑从山脉获得相邻加成。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SHERPA_MOUNTAIN_CLAIM_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>夏尔巴人可以在一个定居点宫殿或市政厅5格范围内的山脉地块上激活（每5回合限一次）。定居点将获得通往山脉路径的地块，山脉地块将立即得到改良并获得一座高地发电站。</Text>
+    </Replace>
+    <Replace Tag="LOC_MOD_SINGHA_DURBAR_INFLUENCE_CULTURE_BUILDING_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>文化值建筑+3[icon:YIELD_DIPLOMACY]影响力。 </Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_WONDER_BOUDHANATH" Language="zh_Hans_CN">
+      <Text>《贤劫经》</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_WONDER_BOUDHANATH" Language="zh_Hans_CN">
+      <Text>“习是慧，犹如海。消吾我，尘劳厄，说佛道，诸灭度。”</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_HIMAL_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>首都中的山脉地块获得+4[icon:YIELD_CULTURE]文化值。其他定居点中的山脉获得+2[icon:YIELD_CULTURE]文化值。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_MAITRI_SANADHI_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>如果你拥有最少的定居点数量，发起外交努力时+50%[icon:YIELD_DIPLOMACY]影响力效用；如果定居点数量并非最少，则+20%。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_TUNDIKHEL_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>与山脉地形相邻的所有单位+3战斗力。如果单位同时还位于你的领土中，此加成加倍。</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_NEPAL_ABILITY_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>[BLIST][LI][B]所有仓库建筑[/B]效果应用至[B]山脉地形[/B]地块，但其维护费用+1[icon:YIELD_GOLD]金币和[icon:YIELD_HAPPINESS]幸福值。[LI]建造[B]满愿塔[/B]时[B]+30%[icon:YIELD_PRODUCTION]生产力效用[/B]。[/LIST]</Text>
+    </Replace>
+    <Replace Tag="LOC_TRAIT_NEPAL_ABILITY_NAME" Language="zh_Hans_CN">
+      <Text>世界屋脊</Text>
+    </Replace>
+    <Replace Tag="LOC_TREE_CIVICS_MO_NEPAL_NAME" Language="zh_Hans_CN">
+      <Text>尼泊尔市政</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_2_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>第2阶尼泊尔特色步兵单位。+1移动力。+5战斗力。生产成本高于步枪步兵。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_3_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>第3阶尼泊尔特色步兵单位。+1移动力。+5战斗力。生产成本高于步兵连。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_BASE_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>尼泊尔特色步兵单位。战斗力更强、移动力更高、生产成本更高。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>第1阶尼泊尔特色步兵单位。+1移动力。+5战斗力。生产成本高于线列步兵。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_SHERPA_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>尼泊尔特色探路者。无视山脉和崎岖地形对视野的影响。无视无地貌山脉对移动力的影响。能在珠穆朗玛峰上移动。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNITCOMMAND_CLAIM_MOUNTAIN_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>在距离你旗下一个定居点市中心5个地块之内的山脉地块上激活。山脉将立即得到改良，并获得一座高地发电站。如果山脉位于国界之外，定居点将获得通往山脉路径的地块。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNITCOMMAND_CLAIM_MOUNTAIN_NAME" Language="zh_Hans_CN">
+      <Text>占据山脉</Text>
+    </Replace>
+    <Replace Tag="LOC_UNITCOMMAND_CLAIM_MOUNTAIN_REQUIRES_UNOWNED_MOUNTAIN" Language="zh_Hans_CN">
+      <Text>需要在定居点宫殿或市政厅5格范围内有一处山脉地块。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_MOUNTAIN_5_SETTLEMENTS_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>拥有3个至少拥有5处[B]山脉[/B]定居点。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_MOUNTAIN_SETTLEMENTS_NEPAL_TOOLTIP" Language="zh_Hans_CN">
+      <Text>[B]山脉[/B]是[B]尼泊尔[/B]身份认同的重要组成部分。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_ASHOKA_NEPAL_TOOLTIP" Language="zh_Hans_CN">
+      <Text>[B]阿育王[/B]与[B]尼泊尔[/B]来自相同的大陆。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_LAKSHMIBAI_NEPAL_TOOLTIP" Language="zh_Hans_CN">
+      <Text>[B]拉克什米芭伊[/B]与[B]尼泊尔[/B]来自相同的大陆。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_PLAY_AS_PACHACUTI_NEPAL_TOOLTIP" Language="zh_Hans_CN">
+      <Text>[B]尼泊尔[/B]能在策略上助力[B]帕查库特克[/B]。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BOUDHANATH_DESCRIPTION" Language="zh_Hans_CN">
+      <Text>+4[icon:YIELD_DIPLOMACY]影响力。你与所有其他领袖的关系+20。必须建在靠近山脉的热带地区。</Text>
+    </Replace>
+    <Replace Tag="LOC_WONDER_BOUDHANATH_TOOLTIP" Language="zh_Hans_CN">
+      <Text>你与所有其他领袖的关系+20。必须建在靠近山脉的热带地区。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_REJECT" Language="zh_Hans_CN">
+      <Text>取消外交行动。[n]将退还{1_initialName}的[icon:YIELD_DIPLOMACY]影响力。[n]{2_cooldown}回合内领袖之间不可进行新的外交努力。[n]关系将恶化。</Text>
+    </Replace>
+    <Replace Tag="LOC_DIPLOMACY_PROJECT_GIFT_GURKHA_REQUEST" Language="zh_Hans_CN">
+      <Text>{1_leaderName}正为你提供1个廓尔喀人单位。</Text>
+    </Replace>
+    <Replace Tag="LOC_UNLOCK_MOUNTAIN_SETTLEMENTS_NEPAL_NARRATIVE" Language="zh_Hans_CN">
+      <Text>在这片{1_Civilization_Adj}国土的屋脊之上，峡谷与幽谷纵横交错，宛如迷宫。{1_Civilization_Adj}政权的触角因此难以企及。税吏和户籍官在这片崎岖地带举步维艰，而当地居民则得以保持自由与骄傲。 </Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_HIMAL_NAME" Language="zh_Hans_CN">
+      <Text>雪域</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_MAITRI_SANADHI_NAME" Language="zh_Hans_CN">
+      <Text>慈悲庇护</Text>
+    </Replace>
+    <Replace Tag="LOC_TRADITION_TUNDIKHEL_NAME" Language="zh_Hans_CN">
+      <Text>军操广场</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_GURKHA_NAME" Language="zh_Hans_CN">
+      <Text>廓尔喀人</Text>
+    </Replace>
+    <Replace Tag="LOC_UNIT_SHERPA_NAME" Language="zh_Hans_CN">
+      <Text>夏尔巴人</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

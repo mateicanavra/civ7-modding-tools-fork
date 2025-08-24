@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!--Valley of Flowers-->
+	<Modifier id="VALLEY_OF_FLOWERS_TRADE_ROUTE_RANGE" collection="COLLECTION_ALL_CITIES" effect="EFFECT_CITY_ADJUST_TRADE_ROUTE_RANGE">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_MAP_HAS_FEATURE">
+				<Argument name="FeatureType">FEATURE_VALLEY_OF_FLOWERS</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_CITY_HAS_FEATURE">
+				<Argument name="FeatureType">FEATURE_VALLEY_OF_FLOWERS</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">10</Argument>
+		<Argument name="DomainType">DOMAIN_LAND</Argument>
+	</Modifier>
+	<!--Barrier Reef-->
+	<Modifier id="BARRIER_REEF_ADJACENT_RURAL_SEA_YIELDS" collection="COLLECTION_ALL_PLOT_YIELDS" effect="EFFECT_ATTACH_MODIFIERS" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_MAP_HAS_FEATURE">
+				<Argument name="FeatureType">FEATURE_BARRIER_REEF</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_FEATURE_TYPE_MATCHES">
+				<Argument name="FeatureType">FEATURE_BARRIER_REEF</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_BIOME_TYPE_MATCHES">
+				<Argument name="BiomeType">BIOME_MARINE</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_IS_NATURAL_WONDER" inverse="true"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_BARRIER_REEF_RURAL_SEA_YIELDS</Argument>
+		<String context="Description">LOC_FEATURE_BARRIER_REEF_NAME</String>
+	</Modifier>
+	<!--Natural Wonder Adjacencies are implemented with nested Modifiers to avoid oversubscription to District Class change signals-->
+	<Modifier id="ATTACH_BARRIER_REEF_RURAL_SEA_YIELDS" collection="COLLECTION_SINGLE_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_DISTRICT_CLASS">
+				<Argument name="DistrictClass">RURAL, WILDERNESS</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_SCIENCE</Argument>
+		<Argument name="Amount">2</Argument>
+		<Argument name="Tooltip">LOC_FEATURE_BARRIER_REEF_NAME</Argument>
+	</Modifier>
+	<!--Hoerikwaggo-->
+	<Modifier id="HOERIKWAGGO_ADJACENT_URBAN_YIELDS" collection="COLLECTION_ALL_PLOT_YIELDS" effect="EFFECT_ATTACH_MODIFIERS" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_MAP_HAS_FEATURE">
+				<Argument name="FeatureType">FEATURE_HOERIKWAGGO</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_FEATURE_TYPE_MATCHES">
+				<Argument name="FeatureType">FEATURE_HOERIKWAGGO</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_IS_NATURAL_WONDER" inverse="true"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_HOERIKWAGGO_URBAN_YIELDS</Argument>
+		<String context="Description">LOC_FEATURE_HOERIKWAGGO_NAME</String>
+	</Modifier>
+	<!--Natural Wonder Adjacencies are implemented with nested Modifiers to avoid oversubscription to District Class change signals-->
+	<Modifier id="ATTACH_HOERIKWAGGO_URBAN_YIELDS" collection="COLLECTION_SINGLE_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IS_QUARTER">
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_HAPPINESS</Argument>
+		<Argument name="Amount">2</Argument>
+		<Argument name="Tooltip">LOC_FEATURE_HOERIKWAGGO_NAME</Argument>
+	</Modifier>
+	<!--Iguazu Falls-->
+	<Modifier id="IGUAZU_FALLS_ADJACENT_URBAN_YIELDS" collection="COLLECTION_ALL_PLOT_YIELDS" effect="EFFECT_ATTACH_MODIFIERS" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_MAP_HAS_FEATURE">
+				<Argument name="FeatureType">FEATURE_IGUAZU_FALLS</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_FEATURE_TYPE_MATCHES">
+				<Argument name="FeatureType">FEATURE_IGUAZU_FALLS</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_IS_NATURAL_WONDER" inverse="true"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_IGUAZU_FALLS_URBAN_YIELDS</Argument>
+		<String context="Description">LOC_FEATURE_IGUAZU_FALLS_NAME</String>
+	</Modifier>
+	<!--Natural Wonder Adjacencies are implemented with nested Modifiers to avoid oversubscription to District Class change signals-->
+	<Modifier id="ATTACH_IGUAZU_FALLS_URBAN_YIELDS" collection="COLLECTION_SINGLE_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_DISTRICT_CLASS">
+				<Argument name="DistrictClass">URBAN, CITYCENTER</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_PRODUCTION</Argument>
+		<Argument name="Amount">2</Argument>
+		<Argument name="Tooltip">LOC_FEATURE_IGUAZU_FALLS_NAME</Argument>
+	</Modifier>
+	<!--Gullfoss-->
+	<Modifier id="GULLFOSS_ADJACENT_YIELDS" collection="COLLECTION_ALL_PLOT_YIELDS" effect="EFFECT_ATTACH_MODIFIERS" permanent="true">
+		<OwnerRequirements>
+			<Requirement type="REQUIREMENT_MAP_HAS_FEATURE">
+				<Argument name="FeatureType">FEATURE_GULLFOSS</Argument>
+			</Requirement>
+		</OwnerRequirements>
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_FEATURE_TYPE_MATCHES">
+				<Argument name="FeatureType">FEATURE_GULLFOSS</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_IS_NATURAL_WONDER" inverse="true"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">ATTACH_GULLFOSS_YIELDS</Argument>
+		<String context="Description">LOC_FEATURE_GULLFOSS_NAME</String>
+	</Modifier>
+	<!--Natural Wonder Adjacencies are implemented with nested Modifiers to avoid oversubscription to District Class change signals-->
+	<Modifier id="ATTACH_GULLFOSS_YIELDS" collection="COLLECTION_SINGLE_PLOT_YIELDS" effect="EFFECT_PLOT_ADJUST_YIELD">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_DISTRICT_CLASS">
+				<Argument name="DistrictClass">RURAL, WILDERNESS</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="YieldType">YIELD_PRODUCTION, YIELD_CULTURE</Argument>
+		<Argument name="Amount">1</Argument>
+		<Argument name="Tooltip">LOC_FEATURE_GULLFOSS_NAME</Argument>
+	</Modifier>
+</GameEffects>

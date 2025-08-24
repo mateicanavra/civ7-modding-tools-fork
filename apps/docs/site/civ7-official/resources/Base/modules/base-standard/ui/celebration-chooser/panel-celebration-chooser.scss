@@ -1,0 +1,13 @@
+@use '../../../core/ui/utilities/utility-layout' as *;
+
+.celebration-subsystem-frame {
+	@media (experience: mobile) {
+		width: pixels(672);
+	}
+}
+
+.celebrations__header {
+	@media (experience: mobile) {
+		width: pixels(520);
+	}
+}

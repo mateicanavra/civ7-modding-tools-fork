@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<LoadingInfo_Civilizations>
+		<Row CivilizationType="CIVILIZATION_ASSYRIA" CivilizationText="LOC_LOADING_CIV_INTRO_TEXT_ASSYRIA" Audio="VO_Loading_Assyria" Subtitle="LOC_INTRO_ASSYRIA" BackgroundImageHigh="fs://game/lsbg_assyria_1080.png" BackgroundImageLow="fs://game/lsbg_assyria_720.png" ForegroundImage="fs://game/civ_line_assyria.png" Tip="LOC_LOADING_CIV_TIPS_TEXT_ASSYRIA" />
+	</LoadingInfo_Civilizations>
+</Database>

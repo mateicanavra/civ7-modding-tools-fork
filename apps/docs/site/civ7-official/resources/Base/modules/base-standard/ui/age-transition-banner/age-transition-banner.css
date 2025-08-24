@@ -1,0 +1,229 @@
+/* DO NOT EDIT */
+/* Generated from age-transition-banner.scss */
+.age-ending__small-text {
+	line-height: 2rem;
+	letter-spacing: 0.4444444444rem;
+	margin-right: -0.4444444444rem;
+}
+
+.age-ending__main-text {
+	line-height: normal;
+	font-size: 4rem;
+	letter-spacing: 1rem;
+	font-weight: 400;
+}
+
+.age-ending__panel-text-ornament {
+	width: 33%;
+	height: 12%;
+	background-image: url("fs://game/age-banner_ornament.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	align-self: center;
+	transform: translate(-60%, 0);
+	opacity: 0.2;
+	margin-left: 39.5%;
+	filter: fxs-color-mask(#E5D2AC);
+}
+
+.age-ending__panel-text-ornament-bottom {
+	transform: translate(-60%, 0) scale3d(1, -1, 0);
+}
+
+.age-ending__big-filligree-hslot {
+	width: 99%;
+}
+
+.age-ending-filligree-top {
+	top: -0.5rem;
+}
+
+.age-ending-filligree-bottom {
+	top: 0.2777777778rem;
+}
+
+.age-ending__panel-big-ornament {
+	border-image-source: url("fs://game/age-banner_filligree.png");
+	border-image-slice: 60 256 2 48 fill;
+	border-image-width: 3.5555555556rem 14.2222222222rem 0.4444444444rem 2.6666666667rem;
+}
+
+.age-ending__banner-text {
+	animation-name: banner-fade-in, banner-move-down, age-ending-end-part-1;
+	animation-delay: 2.5s;
+	animation-duration: 1s, 1.85s, 2.85s;
+	animation-timing-function: linear, cubic-bezier(0.33, 1, 0.68, 1), linear;
+	animation-fill-mode: both;
+}
+
+@keyframes center-bar-slide-out {
+	100% {
+		transform: scale(0.825);
+	}
+}
+@keyframes center-bar-fade-out {
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes fade-in-and-zoom-center-bar {
+	0% {
+		opacity: 0;
+		transform: translateY(-53.3333333333rem) scale(6);
+	}
+	25% {
+		opacity: 1;
+	}
+	100% {
+		transform: translateY(0rem) scale(1);
+	}
+}
+.age-ending__panel {
+	height: 16.6666666667rem;
+	transform-origin: 50% 50%;
+	animation-name: fade-in-and-zoom-center-bar;
+	animation-delay: 0.75s;
+	animation-duration: 2.5s;
+	animation-timing-function: cubic-bezier(0, 1, 0.25, 1);
+	animation-fill-mode: both;
+}
+.age-ending__panel.age-ending__panel--fade-out {
+	animation-name: center-bar-slide-out, center-bar-fade-out;
+	animation-delay: 2.625s, 2.375s;
+	animation-duration: 2.75s, 3s;
+	animation-timing-function: cubic-bezier(0.25, 0, 1, 0.85), cubic-bezier(0, 0.15, 0.75, 1);
+	animation-fill-mode: both;
+}
+.age-ending__panel.age-ending__panel--fade-out .age-ending__panel-darkening {
+	animation-name: darkening-fade-in;
+	animation-delay: 2.375s;
+	animation-duration: 3s;
+	animation-timing-function: cubic-bezier(0, 0.15, 0.75, 1);
+	animation-fill-mode: forwards;
+	animation-direction: normal;
+	opacity: 0;
+}
+.age-ending__panel.age-ending__panel--fade-out-banner .age-ending__small-banner {
+	animation-name: banner-fade-in;
+	animation-delay: 1.25s;
+	animation-duration: 0.75s;
+	animation-timing-function: linear;
+	animation-fill-mode: forwards;
+	animation-direction: reverse;
+	opacity: 1;
+}
+.age-ending__panel.age-ending__panel--pause-animations {
+	animation-play-state: paused;
+}
+.age-ending__panel.age-ending__panel--pause-animations div {
+	animation-play-state: paused;
+}
+
+.age-ending__panel-main {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	animation-name: panel-slow-zoom;
+	animation-delay: 6.25s;
+	animation-duration: 10s;
+	animation-timing-function: linear;
+	animation-fill-mode: both;
+}
+
+.age-ending__panel-shadow {
+	position: absolute;
+	top: -0.3333333333rem;
+	left: 0;
+	right: 0;
+	bottom: -1.3333333333rem;
+	opacity: 0;
+	background-image: linear-gradient(to top, rgba(var(--clr-panel__overlay-dark), 0) 0rem, rgba(var(--clr-panel__overlay-dark), 1) 1.3333333333rem, rgba(var(--clr-panel__overlay-dark), 1) 95%, rgba(var(--clr-panel__overlay-dark), 0) 100%);
+	animation-name: fade-in-bar-drop-shadow;
+	animation-delay: 1s;
+	animation-duration: 2.5s;
+	animation-timing-function: cubic-bezier(0, 1, 0.25, 1);
+	animation-fill-mode: both;
+}
+
+@keyframes fade-in-bar-drop-shadow {
+	0% {
+		opacity: 0;
+		transform: translateX(-10.6666666667rem) translateY(42.6666666667rem);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0rem) translateY(0rem);
+	}
+}
+.age-ending__panel-bg {
+	border-image-source: url("fs://game/base_tooltip-bg.png");
+	border-image-slice: 18 24 36 18 fill;
+	border-image-outset: 0.3333333333rem 0.8888888889rem 1.3333333333rem 0.8888888889rem;
+	border-image-width: 0.8888888889rem 1.3333333333rem 2rem 1.3333333333rem;
+	display: flex;
+	background-image: linear-gradient(to bottom, rgba(35, 37, 43, 0.95) 0%, rgba(18, 21, 31, 0.95) 100%);
+}
+
+.age-summary__container {
+	opacity: 0;
+	animation-delay: 0s;
+	animation-duration: 0.75s;
+	animation-timing-function: linear;
+	animation-fill-mode: both;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+.age-summary__container.age-summary_container--active {
+	animation-name: banner-fade-in;
+}
+
+@keyframes banner-fade-in {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes banner-move-down {
+	0% {
+		transform: translateY(-100%);
+	}
+	100% {
+		transform: translateY(0%);
+	}
+}
+@keyframes banner-line-stretch {
+	0% {
+		transform: scaleX(0);
+	}
+	100% {
+		transform: scaleX(1);
+	}
+}
+@keyframes age-ending-end-part-1 {
+	0% {
+		border-width: 0;
+	}
+	100% {
+		border-width: 0;
+	}
+}
+@keyframes age-ending-end-part-2 {
+	0% {
+		border-width: 0;
+	}
+	100% {
+		border-width: 0;
+	}
+}
+@keyframes age-ending-end-part-3 {
+	0% {
+		border-width: 0;
+	}
+	100% {
+		border-width: 0;
+	}
+}

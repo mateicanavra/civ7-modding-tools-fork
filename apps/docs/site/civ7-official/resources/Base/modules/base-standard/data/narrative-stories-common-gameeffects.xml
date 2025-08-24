@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+    <Modifier id="ABILITY_NARRATIVE_STRENGTH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">2</Argument>
+		<String context="Preview">LOC_NARRATIVE_ABILITY_STRENGTH_BONUS</String>
+	</Modifier>
+	<Modifier id="ABILITY_NARRATIVE_STRENGTH_PENALTY" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">-2</Argument>
+		<String context="Preview">LOC_NARRATIVE_ABILITY_STRENGTH_PENALTY</String>
+	</Modifier>
+    <Modifier id="ABILITY_NARRATIVE_AGGRESSION_BONUS" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+        <SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING"/>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_NARRATIVE_ABILITY_AGGRESSIVE_BONUS</String>
+	</Modifier>
+    <Modifier id="ABILITY_NARRATIVE_AGGRESSION_PENALTY" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+        <SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING">
+                <Argument name="Inverse">true</Argument>
+            </Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">-2</Argument>
+		<String context="Preview">LOC_NARRATIVE_ABILITY_AGGRESSIVE_PENALTY</String>
+	</Modifier>
+    <Modifier id="ABILITY_NARRATIVE_DEFENSIVE_PENALTY" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+        <SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING"/>
+		</SubjectRequirements>
+		<Argument name="Amount">-2</Argument>
+		<String context="Preview">LOC_NARRATIVE_ABILITY_DEFENSE_PENALTY</String>
+	</Modifier>
+    <Modifier id="ABILITY_NARRATIVE_DEFENSIVE_BONUS" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+        <SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING">
+                <Argument name="Inverse">true</Argument>
+            </Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_NARRATIVE_ABILITY_DEFENSE_BONUS</String>
+	</Modifier>
+	<Modifier id="ABILITY_NARRATIVE_MOVEMENT" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<Argument name="Amount">1</Argument>
+		<String context="Description">LOC_NARRATIVE_ABILITY_MOVEMENT_BONUS</String>
+	</Modifier>
+	<Modifier id="ABILITY_NARRATIVE_MOVEMENT_PENALTY" collection="COLLECTION_OWNER" effect="EFFECT_UNIT_ADJUST_MOVEMENT">
+		<Argument name="Amount">-1</Argument>
+		<String context="Description">LOC_NARRATIVE_ABILITY_MOVEMENT_PENALTY</String>
+	</Modifier>
+	<Modifier id="ABILITY_NARRATIVE_RANGE_DEFENSE_BONUS" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING">
+				<Argument name="Inverse">true</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_COMBAT_TYPE_MATCHES">
+				<Argument name="CombatType">COMBAT_RANGED</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">2</Argument>
+		<String context="Preview">LOC_NARRATIVE_ABILITY_RANGE_DEFENSE_BONUS</String>
+	</Modifier>
+</GameEffects>

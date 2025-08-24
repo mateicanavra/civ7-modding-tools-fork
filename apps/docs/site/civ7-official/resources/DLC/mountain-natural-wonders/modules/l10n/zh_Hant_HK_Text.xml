@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+  <LocalizedText>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_MACHAPUCHARE_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>魚尾峰是一塊近乎垂直延伸的岩石平面，正位於尼泊爾喜馬拉雅山脈的安納普爾納峰群中，從未有人登頂過。雖然6700多公尺的高度不及聖母峰，但魚尾峰卻是從相對較低的區域拔地而起，形成了引人注目的地勢。這也許就是周圍居民（包括高地藏族和尼泊爾人）將之奉為聖地的原因，他們說那是濕婆神的住所。出於上述原因，尼泊爾政府非常不願意批准攀登這座山峰的許可。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_MOUNT_FUJI_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>富士山是位於日本本州島中部的大型活火山，呈平滑的錐形，一年之中大部分時間都有雪帽覆蓋在山頂。因其美麗，成為了日本群島數千年來的象徵，甚至還曾出現在葛飾北齋的木版畫和松尾芭蕉的詩歌中，至今也依舊是神道教祭拜和朝聖的重要場所。山頂上有一座神社，山坡則是宗教和休閒健行的地方。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_MOUNT_FUJI_CHAPTER_HISTORY_PARA_2" Language="zh_Hant_HK">
+      <Text>鑒於在文化方面的影響，富士山於2013年榮登世界遺產。</Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_VIHREN_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>在保加利亞的西南角，皮林山脈從下方山谷中陡峭升起。中心名為維赫倫峰，是該山脈的最高峰，也是巴爾幹半島的第三高峰。這座金字塔形山峰的海拔高2914公尺，是典型的喀斯特地形；其底部坐落著歐洲最南端的冰川，斯尼日尼卡冰川。皮林山脈長久以來便與斯拉夫風暴之神霹隆有關，維赫倫這個名字就意味著「旋風」，它至今仍然是一個深受歡迎的登山目的地。 </Text>
+    </Replace>
+    <Replace Tag="LOC_PEDIA_PAGE_FEATURE_VINICUNCA_CHAPTER_HISTORY_PARA_1" Language="zh_Hant_HK">
+      <Text>彩虹山座落於秘魯的安地斯山脈深處，那些鮮豔色調是多種礦物質混合的結果：粉紅色來自紅黏土、白色來自石英和泥灰岩、紫色來自褐鐵礦和針鐵礦、紅色來自鐵、綠色來自綠泥石、棕色來自鎂，而黃色則來自鈣質砂岩。一直到2013年，人們才發現彩虹山。它過去一直隱藏在冰川之下，但隨著地球氣溫不斷上升，永久性積雪現在已開始融化，此後，它便成為秘魯的主要旅遊景點之一。</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MACHAPUCHARE_NAME" Language="zh_Hant_HK">
+      <Text>魚尾峰</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MOUNT_FUJI_NAME" Language="zh_Hant_HK">
+      <Text>富士山</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VIHREN_NAME" Language="zh_Hant_HK">
+      <Text>維赫倫峰</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VINICUNCA_NAME" Language="zh_Hant_HK">
+      <Text>彩虹山</Text>
+    </Replace>
+    <Replace Tag="LOC_VOLCANO_MOUNT_VINSON_NAME" Language="zh_Hant_HK">
+      <Text>文森峰</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MACHAPUCHARE_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>+2[icon:YIELD_CULTURE]文化值與+4[icon:YIELD_PRODUCTION]生產力，依照時代疊加。此聚落中的崎嶇與山脈地形+1[icon:YIELD_HAPPINESS]幸福感。</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MACHAPUCHARE_TOOLTIP" Language="zh_Hant_HK">
+      <Text>此聚落中的崎嶇與山脈地形+1[icon:YIELD_HAPPINESS]幸福感。</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MOUNT_FUJI_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>+2[icon:YIELD_GOLD]金幣、[icon:YIELD_CULTURE]文化值與[icon:YIELD_HAPPINESS]幸福感，依照時代疊加。火山格位。</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_MOUNT_FUJI_TOOLTIP" Language="zh_Hant_HK">
+      <Text>火山格位。</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VIHREN_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>+4[icon:YIELD_FOOD]食物且+2[icon:YIELD_PRODUCTION]生產力，依照時代疊加。此時代每次有自然災難為你提供肥沃度時，+1[icon:YIELD_HAPPINESS]幸福感和[icon:YIELD_CULTURE]文化值，依照時代疊加。 </Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VIHREN_TOOLTIP" Language="zh_Hant_HK">
+      <Text>此時代每次有自然災難為你提供肥沃度時，+1[icon:YIELD_HAPPINESS]幸福感和[icon:YIELD_CULTURE]文化值，依照時代疊加。 </Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VINICUNCA_DESCRIPTION" Language="zh_Hant_HK">
+      <Text>+2[icon:YIELD_PRODUCTION]生產力、[icon:YIELD_HAPPINESS]幸福感與[icon:YIELD_SCIENCE]科技值，依照時代疊加。相鄰的鄉村格位+2[icon:YIELD_CULTURE]文化值。</Text>
+    </Replace>
+    <Replace Tag="LOC_FEATURE_VINICUNCA_TOOLTIP" Language="zh_Hant_HK">
+      <Text>為相鄰鄉村格位+2[icon:YIELD_CULTURE]文化值。</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_MACHAPUCHARE" Language="zh_Hant_HK">
+      <Text>《林伽往世書》</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_MOUNT_FUJI" Language="zh_Hant_HK">
+      <Text>松尾芭蕉</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_VIHREN" Language="zh_Hant_HK">
+      <Text>拉祖尼克</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_AUTHOR_FEATURE_VINICUNCA" Language="zh_Hant_HK">
+      <Text>帕查庫特克</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_MACHAPUCHARE" Language="zh_Hant_HK">
+      <Text>「濕婆無相、無色、無味、無香，超越文字與觸覺，不受品質定義，靜止且不變。」</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_MOUNT_FUJI" Language="zh_Hant_HK">
+      <Text>「魅幻世界中，太陽登上富士峰，不巧撞到頭。」</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_VIHREN" Language="zh_Hant_HK">
+      <Text>「大地被山峰牢牢地固定住，才不至在水面上飄搖。」</Text>
+    </Replace>
+    <Replace Tag="LOC_QUOTE_FEATURE_VINICUNCA" Language="zh_Hant_HK">
+      <Text>「喔，帕查卡馬克！你是在空中還是在地上？在雲中還是在深淵？」</Text>
+    </Replace>
+  </LocalizedText>
+</Database>

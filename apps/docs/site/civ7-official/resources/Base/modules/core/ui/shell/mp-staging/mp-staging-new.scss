@@ -1,0 +1,82 @@
+@use '../../utilities/utility-layout' as *;
+@use '../../themes/default/theme';
+
+screen-mp-lobby {
+	.mp-staging__frame {
+		max-width: pixels(1750);
+		max-height: pixels(1080);
+	}
+
+	.mp-staging__left-section-header {
+		width: pixels(400);
+	}
+
+	.mp-staging__player-header {
+		width: pixels(450);
+	}
+
+	.mp-staging__civ-header,
+	.civ-dropdown-and-divider {
+		width: pixels(180);
+	}
+
+	.mp-staging__team-header {
+		width: pixels(136);
+	}
+
+	.team-dropdown-and-divider {
+		width: pixels(130);
+	}
+
+	.player-info-slot-container,
+	.player-info-header-container {
+		max-width: pixels(1260);
+	}
+
+	.mp-staging__ready-header,
+	.mp-staging__ready-slot {
+		width: pixels(90);
+	}
+
+	.mp-staging__kick-header,
+	.mp-staging__kick-slot {
+		width: pixels(60);
+	}
+
+	.mp-staging__left-section-content {
+		width: pixels(400);
+	}
+
+	.img-ring-meter-ring {
+		.fxs-ring-meter__ring-left {
+			background-image: url("fs://game/hud_small-progress_bar-white.png");
+			background-size: cover;
+			background-position: left;
+			fxs-background-image-tint: theme.color('secondary');
+		}
+
+		.fxs-ring-meter__ring-right {
+			background-image: url("fs://game/hud_small-progress_bar-white.png");
+			background-size: cover;
+			background-position: right;
+			fxs-background-image-tint: theme.color('secondary');
+		}
+	}
+
+	.mp-staging__player-info-scrollable {
+		.fxs-scrollbar__track--vertical {
+			right: pixels(-20);
+		}
+	}
+
+	.mp-staging__team-bg {
+		background-image: url('fs://game/mp_lobby_teamcolor.png');
+	}
+}
+
+panel-mp-lobby-chat {
+	.mp-staging__chat-panel {
+		max-width: pixels(500);
+		max-height: pixels(800);
+	}
+}

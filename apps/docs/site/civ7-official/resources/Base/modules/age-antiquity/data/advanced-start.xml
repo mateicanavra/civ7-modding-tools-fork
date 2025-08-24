@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<AdvancedStartUnits>
+		<Row Age="AGE_ANTIQUITY" Unit="UNIT_FOUNDER"/>
+		<Row Age="AGE_ANTIQUITY" Unit="UNIT_SCOUT" Capital="true" AiOnly="true" MinDifficulty="DIFFICULTY_KING" DifficultyDelta="1" NotStartTile="true"/>
+	</AdvancedStartUnits>
+	<AdvancedStartParameters>
+		<Row Age="AGE_ANTIQUITY" ShowRegion="true" MaxRegionPlots="12" FreeUnits="1" RevealType="REVEAL_TYPE_NONE"/>
+	</AdvancedStartParameters>
+	<AdvancedStartTowns/>
+	<!--Age-based Modifiers: apply to all players in this age-->
+	<PlayerModifiers>
+		<Row ModifierId="AGE_ANTIQUITY_MOD_OCEAN_TERRAIN_INVALID"/>
+	</PlayerModifiers>
+	<Modifiers>
+		<Row ModifierId="AGE_ANTIQUITY_MOD_OCEAN_TERRAIN_INVALID" ModifierType="MODIFIER_PLAYER_UNITS_ADJUST_VALID_TERRAIN"/>
+	</Modifiers>
+	<ModifierArguments>
+		<Row ModifierId="AGE_ANTIQUITY_MOD_OCEAN_TERRAIN_INVALID" Name="TerrainType" Value="TERRAIN_OCEAN"/>
+		<Row ModifierId="AGE_ANTIQUITY_MOD_OCEAN_TERRAIN_INVALID" Name="Valid" Value="false"/>
+	</ModifierArguments>
+</Database>

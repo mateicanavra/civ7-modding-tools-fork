@@ -1,0 +1,503 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+    <EnglishText>
+        <Row Tag="LOC_LEADER_CHAIN_1010E_STORYTITLE">
+            <Text>The Chakravarti</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1010E_NAME">
+            <Text>He will become the devaraja, the gods' avatar.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1010E_DESCRIPTION">
+            <Text>{1_reward} in all Settlements.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1010E_COMPLETION">
+            <Text>Ashoka's warriors spar with one another, sharpening their skills so as to reflect his strength through their own. Their gear sits nearby, ready to be gathered at a moment's notice.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1010E_IMPERATIVE">
+            <Text>Train 3 Warriors.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1010F_STORYTITLE">
+            <Text>The Chakravarti</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1010F_NAME">
+            <Text>He will become a bodhisattva, an enlightened one.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1010F_DESCRIPTION">
+            <Text>{1_reward} in this Settlement.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1010F_COMPLETION">
+            <Text>Ashoka treads the line between enlightenment and power.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1010F_IMPERATIVE">
+            <Text>Found a Settlement.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1010D_STORYTITLE">
+            <Text>The Chakravarti</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1010D_NAME">
+            <Text>He will become a person bored by such sermons!</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1010D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1011D_STORYTITLE">
+            <Text>Devaraja</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1011D_NAME">
+            <Text>In Ashoka's eyes live the fires of war.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1011D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1011D_COMPLETION">
+            <Text>The banners of Ashoka's armies wave in the wind as his soldiers bow their heads before the divine. Their faith will keep them in the wars to come.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1011D_IMPERATIVE">
+            <Text>Have 3 Altars.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1011E_STORYTITLE">
+            <Text>Devaraja</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1011E_NAME">
+            <Text>The waters hold the strength of kings.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1011E_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1012D_STORYTITLE">
+            <Text>Dhammaraja</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1012D_NAME">
+            <Text>A stable empire has more leverage on the diplomatic stage.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1012D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1012D_COMPLETION">
+            <Text>Ashoka's growing population demands the world's attention, just as he demands its utmost respect.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1012D_IMPERATIVE">
+            <Text>Reach 20 Population in Capital.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1012E_STORYTITLE">
+            <Text>Dhammaraja</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1012E_NAME">
+            <Text>The world and its riches will soon belong to Ashoka.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1012E_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1100E_STORYTITLE">
+            <Text>Call of the Mountain</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1100E_NAME">
+            <Text>They inhabit earth and stone.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1100E_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1100E_COMPLETION">
+            <Text>Himiko's empire spreads. Yet through the earth, all her people are connected, living as one beneath the sun's beams.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1100E_IMPERATIVE">
+            <Text>Have a Settlement adjacent to a Mountain.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1100F_STORYTITLE">
+            <Text>Call of the Mountain</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1100F_NAME">
+            <Text>They watch over the city from the sky.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1100F_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1100F_COMPLETION">
+            <Text>The mountain rises above the new settlement, a guardian of earth and sky watching over Himiko's people. Drawing strength from its crags, they begin their work in the name of Amaterasu.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1100F_IMPERATIVE">
+            <Text>Have a Settlement with 10 Population.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1100G_STORYTITLE">
+            <Text>Call of the Mountain</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1100G_NAME">
+            <Text>It’s just a mountain.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1100G_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1101D_STORYTITLE">
+            <Text>Daughter of the Mountain</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1101D_NAME">
+            <Text>Those beyond these borders are friends.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1101D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1101D_COMPLETION">
+            <Text>Himiko's world is a shared treasure, created through clever diplomacy and careful negotiation. But it is still her world.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1101D_IMPERATIVE">
+            <Text>Start 4 Diplomatic Endeavors.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1101E_STORYTITLE">
+            <Text>Daughter of the Mountain</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1101E_NAME">
+            <Text>There are many of whom one must be wary.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1101E_DESCRIPTION">
+            <Text>{1_reward} in {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1102D_STORYTITLE">
+            <Text>Daughter of the Sun</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1102D_NAME">
+            <Text>The artisans' have many grand ideas.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1102D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1102D_COMPLETION">
+            <Text>Himiko showers her artisans with goods from many lands. In return, they decorate her cities with unparalleled beauty.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1102D_IMPERATIVE">
+            <Text>Have 15 Resources Slotted across all Settlements.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1102E_STORYTITLE">
+            <Text>Daughter of the Sun</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1102E_NAME">
+            <Text>The army needs more bows.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1102E_DESCRIPTION">
+            <Text>{1_reward} in {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1013D_STORYTITLE">
+            <Text>The Fate of the World</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1013D_NAME">
+            <Text>This is the age of the conqueror.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1013D_DESCRIPTION">
+            <Text>Story continues.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1013E_STORYTITLE">
+            <Text>The Fate of the World</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1013E_NAME">
+            <Text>Many paths await the negotiator.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1013E_DESCRIPTION">
+            <Text>Story continues.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1014D_STORYTITLE">
+            <Text>Narayan</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1014D_NAME">
+            <Text>These concerns must not be allowed to grow.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1014D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1014D_COMPLETION">
+            <Text>The temples offer guidance to the people, but they never forget that these temples were Ashoka's gift.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1014D_IMPERATIVE">
+            <Text>Build 3 Temples.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1014E_STORYTITLE">
+            <Text>Narayan</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1014E_NAME">
+            <Text>The monks must take charge, no questions asked.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1014E_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1015C_STORYTITLE">
+            <Text>Divine Glory</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1015C_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1015C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1015C_COMPLETION">
+            <Text>The world's wealth flows to Ashoka's cities. When it falters, he seizes it himself.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1015C_IMPERATIVE">
+            <Text>Gather Sugar, Cocoa, Tea, and Spices.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1016D_STORYTITLE">
+            <Text>Bodhisattva</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1016D_NAME">
+            <Text>Meditation and seclusion must become common practices.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1016D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1016D_COMPLETION">
+            <Text>Within the quiet halls of the university, students and teachers ponder deep questions of existence and enlightenment. Many more join them, encouraged by Ashoka.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1016D_IMPERATIVE">
+            <Text>Build a University.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1016E_STORYTITLE">
+            <Text>Bodhisattva</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1016E_NAME">
+            <Text>The state should turn outward to learn from the world.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1016E_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1017C_STORYTITLE">
+            <Text>The Call of the Temple Bell</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1017C_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1017C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1017C_COMPLETION">
+            <Text>Incense hangs in the air as the people gather before Ashoka. He leads their chant, and together many voices rise as one.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1017C_IMPERATIVE">
+            <Text>Have 3 Incense Resources.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1103D_STORYTITLE">
+            <Text>Taiyo</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1103D_NAME">
+            <Text>Sunlight smiles on visitors from near and far.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1103D_DESCRIPTION">
+            <Text>Story continues.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1103E_STORYTITLE">
+            <Text>Taiyo</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1103E_NAME">
+            <Text>Such beauty should be honored through art.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1103E_DESCRIPTION">
+            <Text>Story continues.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1104D_STORYTITLE">
+            <Text>The Kami</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1104D_NAME">
+            <Text>Their eager stories are timeless.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1104D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1104D_COMPLETION">
+            <Text>Stories of Amaterasu spread beyond Himiko's borders. They bring light and comfort to all who listen.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1104D_IMPERATIVE">
+            <Text>Become Suzerain over an Independent Power.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1104E_STORYTITLE">
+            <Text>The Kami</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1104E_NAME">
+            <Text>Such believers will make good missionaries.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1104E_DESCRIPTION">
+            <Text>{1_reward} in {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1105C_STORYTITLE">
+            <Text>Kegawa</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1105C_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1105C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1105C_COMPLETION">
+            <Text>Furs bring warmth to Himiko's people. They are also valued gifts to her closest allies.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1105C_IMPERATIVE">
+            <Text>Have 3 Fur Resources.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1106D_STORYTITLE">
+            <Text>Divine Prosperity</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1106D_NAME">
+            <Text>The mirror's beauty is surpassed only by that of Himiko herself.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1106D_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1106D_COMPLETION">
+            <Text>The temples in Himiko's empire capture the grace and elegance she embodies. Her people incorporate these lessons into their lives.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1106D_IMPERATIVE">
+            <Text>Build 3 Temples.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1106E_STORYTITLE">
+            <Text>Divine Prosperity</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1106E_NAME">
+            <Text>These works of art will fetch a fine profit.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1106E_DESCRIPTION">
+            <Text>{1_reward} in {2_capital}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1107C_STORYTITLE">
+            <Text>Hisui</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1107C_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1107C_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1107C_COMPLETION">
+            <Text>Jade pours into Himiko's realm. Her artisans carve the stone at a rapid pace to ensure its beauty, and their skill, will be witnessed by all.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1107C_IMPERATIVE">
+            <Text>Have 3 Jade Resources.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1018E_STORYTITLE">
+            <Text>World Conqueror</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1018E_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1018E_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1018E_COMPLETION">
+            <Text>Ashoka's cites are magnificent. All who see them admire his ambition and tremble at his might.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1018E_IMPERATIVE">
+            <Text>Build a Wonder.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1018F_STORYTITLE">
+            <Text>World Conqueror</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1018F_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1018F_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1018G_STORYTITLE">
+            <Text>World Conqueror</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1018G_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1018G_DESCRIPTION">
+            <Text>{1_reward} and enter a Celebration.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1019E_STORYTITLE">
+            <Text>World Renouncer</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1019E_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1019E_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1019E_COMPLETION">
+            <Text>Knowledge guides the course of Ashoka's empire. His people seek discoveries in both the world and themselves.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1019E_IMPERATIVE">
+            <Text>Build a Laboratory and a Factory.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1019F_STORYTITLE">
+            <Text>World Renouncer</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1019F_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1019F_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1019G_STORYTITLE">
+            <Text>World Renouncer</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1019G_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1019G_DESCRIPTION">
+            <Text>{1_reward} and enter a Celebration.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1108E_STORYTITLE">
+            <Text>Himiko Triumphant</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1108E_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1108E_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1108E_COMPLETION">
+            <Text>Travelers arrive from all corners of the world to see Himiko's artifacts. Each item holds a story, and from them, the people learn of themselves.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1108E_IMPERATIVE">
+            <Text>Have 5 Artifacts.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1108F_STORYTITLE">
+            <Text>Himiko Triumphant</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1108F_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1108F_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1108G_STORYTITLE">
+            <Text>Himiko Triumphant</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1108G_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1108G_DESCRIPTION">
+            <Text>{1_reward} and enter a Celebration.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1109E_STORYTITLE">
+            <Text>Amaterasu Triumphant</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1109E_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1109E_DESCRIPTION">
+            <Text>{1_child_reward}</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1109E_COMPLETION">
+            <Text>Production speeds up. In Himiko's factories, new outlets for creativity shape the creation of everyday items – and with them, her empire.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1109E_IMPERATIVE">
+            <Text>Build 4 Factories.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1109F_STORYTITLE">
+            <Text>Amaterasu Triumphant</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1109F_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1109F_DESCRIPTION">
+            <Text>{1_reward}.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1109G_STORYTITLE">
+            <Text>Amaterasu Triumphant</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1109G_NAME">
+            <Text>Close.</Text>
+        </Row>
+        <Row Tag="LOC_LEADER_CHAIN_1109G_DESCRIPTION">
+            <Text>{1_reward} and enter a Celebration.</Text>
+        </Row>
+    </EnglishText>
+</Database>

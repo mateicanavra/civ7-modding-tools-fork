@@ -1,0 +1,23 @@
+/* DO NOT EDIT */
+/* Generated from screen-mp-chat.scss */
+screen-mp-chat .mp-chat__input-container fxs-nav-help {
+	margin-right: -0.2222222222rem;
+}
+screen-mp-chat .mp-chat__preview .fxs-scrollbar-container {
+	top: 0;
+}
+screen-mp-chat .mp-chat__unread-button-icon {
+	background-position: center;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url("fs://game/shell_back-button.png");
+	transform: rotate(270deg);
+}
+screen-mp-chat .mp-chat__unread-button-icon:focus, screen-mp-chat .mp-chat__unread-button-icon:hover {
+	background-image: url("fs://game/shell_back-button-focus.png");
+}
+screen-mp-chat .mp-chat__text-shrink {
+	coh-font-fit-mode: shrink;
+	white-space: nowrap;
+	max-width: 100%;
+}

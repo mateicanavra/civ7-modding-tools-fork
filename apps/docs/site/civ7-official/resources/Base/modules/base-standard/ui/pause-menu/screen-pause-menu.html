@@ -1,0 +1,22 @@
+<fxs-frame class="pause menu h-full flex relative justify-center"
+		   override-styling="relative flex max-w-full max-h-full pt-14 px-10 pb-2" id="pause-top">
+	<div class="pause-menu__header-top-filigree flex w-96 h-6 -mt-6 bg-contain bg-no-repeat self-center"></div>
+	<div class="pause-menu__logo bg-contain bg-no-repeat self-center"></div>
+	<div class="pause-menu__header-bottom-filigree self-center mb-12"></div>
+	<div class="pause-menu__progression-container relative self-center"></div>
+
+	<fxs-spatial-slot class="pauselist">
+		<div class="flex flex-row pause-menu__main-buttons justify-center">
+			<div class="flex flex-col pauselist">
+			</div>
+			<div class="flex flex-col morelist ml-2">
+			</div>
+		</div>
+	</fxs-spatial-slot>
+	<div class="pause-menu__footer flex flex-auto flex-col justify-end self-stretch">
+		<div role="paragraph" class="pause-menu__game-info self-center font-body-base pointer-events-auto"></div>
+		<div role="paragraph" class="pause-menu__game-info-map-seed self-center font-body-base pointer-events-auto">
+		</div>
+		<div role="paragraph" class="build-info flex justify-center mt-4 pointer-events-auto"></div>
+	</div>
+</fxs-frame>

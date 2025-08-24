@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<Types>
+		<!--Civ Unique Military-->
+		<Row Type="UNIT_VOI_CHIEN" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_VOI_CHIEN_2" Kind="KIND_UNIT"/>
+		<Row Type="UNIT_VOI_CHIEN_3" Kind="KIND_UNIT"/>
+		<!--Civ Unique Civilian-->
+		<Row Type="UNIT_VIET_KIEU" Kind="KIND_UNIT"/>
+		<!--Civ Unique Abilities-->
+		<Row Type="ABILITY_VOI_CHIEN" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_VIET_KIEU" Kind="KIND_ABILITY"/>
+		<Row Type="ABILITY_CAM_QUAN" Kind="KIND_ABILITY"/>
+	</Types>
+	<Units>
+		<!--Civ Unique Military-->
+		<Row UnitType="UNIT_VOI_CHIEN" Name="LOC_UNIT_VOI_CHIEN_NAME" Description="LOC_UNIT_VOI_CHIEN_DESCRIPTION" Tier="1" Maintenance="2" BaseSightRange="3" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" ZoneOfControl="false" TraitType="TRAIT_DAI_VIET"/>
+		<Row UnitType="UNIT_VOI_CHIEN_2" Name="LOC_UNIT_VOI_CHIEN_NAME" Description="LOC_UNIT_VOI_CHIEN_2_DESCRIPTION" Tier="2" Maintenance="3" BaseSightRange="3" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" ZoneOfControl="false" TraitType="TRAIT_DAI_VIET"/>
+		<Row UnitType="UNIT_VOI_CHIEN_3" Name="LOC_UNIT_VOI_CHIEN_NAME" Description="LOC_UNIT_VOI_CHIEN_3_DESCRIPTION" Tier="3" Maintenance="4" BaseSightRange="3" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_MILITARY" FormationClass="FORMATION_CLASS_LAND_COMBAT" ZoneOfControl="false" TraitType="TRAIT_DAI_VIET"/>
+		<!--Civ Unique Civilian-->
+		<Row UnitType="UNIT_VIET_KIEU" Name="LOC_UNIT_VIET_KIEU_NAME" Description="LOC_UNIT_VIET_KIEU_DESCRIPTION" BaseSightRange="1" BaseMoves="3" UnitMovementClass="UNIT_MOVEMENT_CLASS_FOOT" Domain="DOMAIN_LAND" CoreClass="CORE_CLASS_SUPPORT" FormationClass="FORMATION_CLASS_CIVILIAN" ZoneOfControl="false" FoundCity="true" CostProgressionModel="COST_PROGRESSION_NUM_SETTLEMENTS" PrereqPopulation="5" CostProgressionParam1="30" TraitType="TRAIT_DAI_VIET"/>
+	</Units>
+	<Unit_Stats>
+		<!--Civ Unique Military-->
+		<Row UnitType="UNIT_VOI_CHIEN" Combat="25" RangedCombat="30" Bombard="20" Range="2"/>
+		<Row UnitType="UNIT_VOI_CHIEN_2" Combat="30" RangedCombat="35" Bombard="25" Range="2"/>
+		<Row UnitType="UNIT_VOI_CHIEN_3" Combat="35" RangedCombat="40" Bombard="30" Range="2"/>
+	</Unit_Stats>
+	<Unit_Costs>
+		<!--Civ Unique Military-->
+		<Row UnitType="UNIT_VOI_CHIEN" YieldType="YIELD_PRODUCTION" Cost="160"/>
+		<Row UnitType="UNIT_VOI_CHIEN_2" YieldType="YIELD_PRODUCTION" Cost="210"/>
+		<Row UnitType="UNIT_VOI_CHIEN_3" YieldType="YIELD_PRODUCTION" Cost="260"/>
+		<!--Civ Unique Civilian-->
+		<Row UnitType="UNIT_VIET_KIEU" YieldType="YIELD_PRODUCTION" Cost="50"/>
+	</Unit_Costs>
+	<UnitUpgrades>
+		<!--Civ Unique Military-->
+		<Row Unit="UNIT_VOI_CHIEN" UpgradeUnit="UNIT_VOI_CHIEN_2"/>
+		<Row Unit="UNIT_VOI_CHIEN_2" UpgradeUnit="UNIT_VOI_CHIEN_3"/>
+	</UnitUpgrades>
+	<UnitReplaces>
+		<!--Civ Unique Military-->
+		<Row CivUniqueUnitType="UNIT_VOI_CHIEN" ReplacesUnitType="UNIT_HEAVY_ARCHER"/>
+		<Row CivUniqueUnitType="UNIT_VOI_CHIEN_2" ReplacesUnitType="UNIT_CROSSBOWMAN"/>
+		<Row CivUniqueUnitType="UNIT_VOI_CHIEN_3" ReplacesUnitType="UNIT_ARQUEBUSIER"/>
+		<!--Civ Unique Civilian-->
+		<Row CivUniqueUnitType="UNIT_VIET_KIEU" ReplacesUnitType="UNIT_SETTLER"/>
+	</UnitReplaces>
+	<Tags>
+		<!--Civ Unique Military-->
+		<Row Tag="UNIT_CLASS_VOI_CHIEN" Category="UNIT_CLASS"/>
+		<!--Civ Unique Civilian-->
+		<Row Tag="UNIT_CLASS_VIET_KIEU" Category="UNIT_CLASS"/>
+	</Tags>
+	<TypeTags>
+		<!--Civ Unique Military-->
+		<Row Type="UNIT_VOI_CHIEN" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_VOI_CHIEN" Tag="UNIT_CLASS_RANGED"/>
+		<Row Type="UNIT_VOI_CHIEN" Tag="UNIT_CLASS_VOI_CHIEN"/>
+		<Row Type="UNIT_VOI_CHIEN_2" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_VOI_CHIEN_2" Tag="UNIT_CLASS_RANGED"/>
+		<Row Type="UNIT_VOI_CHIEN_2" Tag="UNIT_CLASS_VOI_CHIEN"/>
+		<Row Type="UNIT_VOI_CHIEN_3" Tag="UNIT_CLASS_COMBAT"/>
+		<Row Type="UNIT_VOI_CHIEN_3" Tag="UNIT_CLASS_RANGED"/>
+		<Row Type="UNIT_VOI_CHIEN_3" Tag="UNIT_CLASS_VOI_CHIEN"/>
+		<Row Type="UNIT_VOI_CHIEN_3" Tag="UNIT_CLASS_ELITE_RANGED"/>
+		<!--Civ Unique Civilian-->
+		<Row Type="UNIT_VIET_KIEU" Tag="UNIT_CLASS_CREATE_TOWN"/>
+		<Row Type="UNIT_VIET_KIEU" Tag="UNIT_CLASS_VIET_KIEU"/>
+		<Row Type="UNIT_VIET_KIEU" Tag="UNIT_CLASS_NON_COMBAT"/>
+	</TypeTags>
+	<UnitClass_Abilities>
+		<Row UnitAbilityType="ABILITY_VOI_CHIEN" UnitClassType="UNIT_CLASS_VOI_CHIEN"/>
+		<Row UnitAbilityType="ABILITY_VIET_KIEU" UnitClassType="UNIT_CLASS_VIET_KIEU"/>
+		<Row UnitAbilityType="ABILITY_CAM_QUAN" UnitClassType="UNIT_CLASS_COMBAT"/>
+	</UnitClass_Abilities>
+	<UnitAbilities>
+		<!--Unique-->
+		<Row UnitAbilityType="ABILITY_VOI_CHIEN" Name="LOC_UNIT_VOI_CHIEN_NAME" Description="LOC_ABILITY_VOI_CHIEN_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_VIET_KIEU" Name="LOC_UNIT_VIET_KIEU_NAME" Description="LOC_ABILITY_VIET_KIEU_DESCRIPTION"/>
+		<Row UnitAbilityType="ABILITY_CAM_QUAN" Name="LOC_CIVIC_CAM_QUAN_NAME" Description="LOC_MOD_FORMAL_WAR_COMBAT_ABILITY_DESCRIPTION" Inactive="true"/>
+	</UnitAbilities>
+	<UnitAbilityModifiers>
+		<Row UnitAbilityType="ABILITY_VOI_CHIEN" ModifierId="VOI_CHIEN_MOD_MOVE_AFTER_ATTACK"/>
+		<Row UnitAbilityType="ABILITY_CAM_QUAN" ModifierId="CAM_QUAN_UNIT_OWNER_TERRITORY"/>
+		<Row UnitAbilityType="ABILITY_CAM_QUAN" ModifierId="CAM_QUAN_UNIT_NOT_OWNER_TERRITORY"/>
+	</UnitAbilityModifiers>
+	<Unit_Advisories>
+		<Row UnitType="UNIT_VIET_KIEU" AdvisoryClassType="ADVISORY_CLASS_EMPIRE_EXPANSION"/>
+		<Row UnitType="UNIT_VOI_CHIEN" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_VOI_CHIEN_2" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+		<Row UnitType="UNIT_VOI_CHIEN_3" AdvisoryClassType="ADVISORY_CLASS_MILITARY"/>
+	</Unit_Advisories>
+</Database>

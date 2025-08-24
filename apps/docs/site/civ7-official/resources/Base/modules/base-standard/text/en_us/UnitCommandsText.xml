@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_UNITCOMMAND_WAKE_NAME">
+			<Text>Wake</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_WAKE_DESCRIPTION">
+			<Text>Wake up the Unit from its current action.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_CANCEL_NAME">
+			<Text>Cancel</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_CANCEL_DESCRIPTION">
+			<Text>Cancel</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_DELETE_NAME">
+			<Text>Delete</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_DELETE_DESCRIPTION">
+			<Text>Remove the unit from the game.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_DISBAND_NAME">
+			<Text>Unload Cargo</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_DISBAND_DESCRIPTION">
+			<Text>Scores Treasure Fleet Points, awards Gold, and removes the Unit from the game.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_DISBAND_FAILURE_WRONG_LOCATION">
+			<Text>Must be within the borders of one of your Homeland Settlements to unload cargo.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_CONFIRM_DEFAULT_TITLE">
+			<Text>Are you sure?</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_CONFIRM_DELETE_BODY">
+			<Text>Are you sure you want to delete {1_unitName}?</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_CONSTRUCT_DESCRIPTION">
+			<Text>Construct</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_CONSTRUCT_IN_RANGE_DESCRIPTION">
+			<Text>Construct</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ARMY_CONSTRUCT_IN_RANGE_DESCRIPTION">
+			<Text>Army Construct</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_PACK_ARMY_NAME">
+			<Text>Assemble Army</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_PACK_ARMY_DESCRIPTION">
+			<Text>Gather adjacent Land Units to form up on the Commander.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_PACK_FLEET_NAME">
+			<Text>Assemble Fleet</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_PACK_FLEET_DESCRIPTION">
+			<Text>Gather adjacent Naval Units to form up on the Commander.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_UNPACK_ARMY_NAME">
+			<Text>Deploy Army</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_UNPACK_ARMY_DESCRIPTION">
+			<Text>Deploy stacked Units into adjacent tiles.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_UNPACK_FLEET_NAME">
+			<Text>Deploy Fleet</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_UNPACK_FLEET_DESCRIPTION">
+			<Text>Deploy stacked Units into adjacent tiles.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ADD_TO_ARMY_NAME">
+			<Text>Add To Commander</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ADD_TO_ARMY_DESCRIPTION">
+			<Text>Order the Unit to form up on a nearby Commander.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_REMOVE_FROM_ARMY_NAME">
+			<Text>Leave Commander</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_REMOVE_FROM_ARMY_DESCRIPTION">
+			<Text>Order the unit to remove itself from the Commander</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ADD_TO_FLEET_NAME">
+			<Text>Add To Fleet</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ADD_TO_FLEET_DESCRIPTION">
+			<Text>Order the Unit to form up on a nearby Fleet Commander.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ADD_TO_SQUADRON_NAME">
+			<Text>Add To Squadron</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ADD_TO_SQUADRON_DESCRIPTION">
+			<Text>Order the Unit to form up on a nearby Squadron Commander.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_CONNECT_WITH_ROAD_NAME">
+			<Text>Build Road to Settlement</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_CONNECT_WITH_ROAD_DESCRIPTION">
+			<Text>Build Road to a friendly Settlement</Text>
+		</Row>
+		<Row Tag="UNITCOMMAND_REMOVE_FROM_ARMY_NAME">
+			<Text>Leave Army</Text>
+		</Row>
+		<Row Tag="UNITCOMMAND_REMOVE_FROM_ARMY_DESCRIPTION">
+			<Text>Remove the Unit from the Army.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_LEAVE_FLEET_NAME">
+			<Text>Leave Fleet</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_LEAVE_FLEET_DESCRIPTION">
+			<Text>Remove the Unit from the Fleet.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_LEAVE_SQUADRON_NAME">
+			<Text>Leave Squadron</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_LEAVE_SQUADRON_DESCRIPTION">
+			<Text>Remove the Unit from the Squadron.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_MAKE_TRADE_ROUTE_NAME">
+			<Text>Make Trade Route</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_MAKE_TRADE_ROUTE_DESCRIPTION">
+			<Text>Make Trade Route</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_MOVE_BY_RAIL_NAME">
+			<Text>Move By Rail</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_MOVE_BY_RAIL_DESCRIPTION">
+			<Text>Transfer Unit between Settlements in the Empire's Rail Network.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ARMY_OVERRUN_NAME">
+			<Text>Overrun</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ARMY_OVERRUN_DESCRIPTION">
+			<Text>Destroy a weaker Unit without needing to Deploy stacked Units.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_FOCUSED_ATTACK_LAND_RANGED_NAME">
+			<Text>Focus Fire</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_FOCUSED_ATTACK_LAND_RANGED_DESCRIPTION">
+			<Text>Order all Ranged Units within Command Radius to fire on a specified target. All Units have +2 Combat Strength for this attack.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_GRANT_SECOND_WIND_NAME">
+			<Text>Grant Second Wind</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_GRANT_SECOND_WIND_DESCRIPTION">
+			<Text>Grant 2 movement and 1 attack to a unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_SCALING_COMMANDER_ATTACK_NAME">
+			<Text>Heroic Assault</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_SCALING_COMMANDER_ATTACK_DESCRIPTION">
+			<Text>Directly attack a unit that shares the domain type with the commander. Damage increases for each commander level.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_COMMANDER_ATTACK_NAME">
+			<Text>Heroic Assault</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_COMMANDER_ATTACK_DESCRIPTION">
+			<Text>Directly attack a unit that shares the domain type with the commander.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_FORCE_MARCH_NAME">
+			<Text>Force March</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_FORCE_MARCH_DESCRIPTION">
+			<Text>Gain 3 Movement in exchange for a percentage of Unit health.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_UPGRADE_NAME">
+			<Text>Upgrade Unit</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_UPGRADE_DESCRIPTION">
+			<Text>Upgrade to the next tier Unit of the same class, which gives +5 Combat Strength.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_UPGRADE_ARMY_NAME">
+			<Text>Upgrade All Units</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_UPGRADE_ARMY_DESCRIPTION">
+			<Text>Upgrade all eligible units in the army, which grants each unit +5 Combat Strength.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_PROMOTE_NAME">
+			<Text>Promote</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_PROMOTE_DESCRIPTION">
+			<Text>Grant a Promotion to this Unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_FOCUSED_ATTACK_LAND_MELEE_NAME">
+			<Text>Coordinated Attack</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_FOCUSED_ATTACK_LAND_MELEE_DESCRIPTION">
+			<Text>Order all Infantry and Cavalry Units within Command Radius to attack a specified target. All Units have +2 Combat Strength for this attack.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_FOCUSED_ATTACK_SEA_MELEE_NAME">
+			<Text>Coordinated Naval Attack</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_FOCUSED_ATTACK_SEA_MELEE_DESCRIPTION">
+			<Text>Order all Naval Units within Command Radius to attack a specified target. All Units have +2 Combat Strength for this attack.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_FOCUSED_ATTACK_SEA_RANGED_NAME">
+			<Text>Barrage Land Target</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_FOCUSED_ATTACK_SEA_RANGED_DESCRIPTION">
+			<Text>Order all Naval Units within Command Radius to fire upon a specified land target. All Units have +2 Combat Strength for this attack.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_FOCUSED_ATTACK_AIR_TO_AIR_NAME">
+			<Text>Fighter Sweep</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_FOCUSED_ATTACK_AIR_TO_AIR_DESCRIPTION">
+			<Text>Order all Fighter Units to scout a location and engage any intercepting enemy Fighters.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_FOCUSED_ATTACK_AIR_TO_LAND_NAME">
+			<Text>Ground Attack</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_FOCUSED_ATTACK_AIR_TO_LAND_DESCRIPTION">
+			<Text>Order eligible Attack Air Units to attack a land target.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_FOCUSED_ATTACK_AIR_BOMB_NAME">
+			<Text>Carpet Bomb</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_FOCUSED_ATTACK_AIR_BOMB_DESCRIPTION">
+			<Text>Order Bomber Units to drop their payloads on a specified target.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_DEFENSIVE_PERIMETER_NAME">
+			<Text>Defensive Perimeter</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_DEFENSIVE_PERIMETER_DESCRIPTION">
+			<Text>Order all Military Units within Command Radius to build temporary fortifications.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_PLUNDER_TRADE_ROUTE_NAME">
+			<Text>Plunder Trade Route</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_PLUNDER_TRADE_ROUTE_DESCRIPTION">
+			<Text>Attack this Trade Unit and plunder their wares.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_PLUNDER_TRADE_ROUTE_REQUIRES_WAR_DECLARATION">
+			<Text>Must be at-war with Trader.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_PLUNDER_TRADE_ROUTE_PROTECTED">
+			<Text>This Trade Route is protected.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_PLUNDERED_WORLD_TEXT_MESSAGE">
+			<Text>TRADE ROUTE PLUNDERED</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_SCORCHED_EARTH_NAME">
+			<Text>Scorched Earth</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_NOTHING_TO_PILLAGE">
+			<Text>Nothing to Pillage</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_SCORCHED_EARTH_DESCRIPTION">
+			<Text>Order all Military Units within Command Radius to pillage nearby enemy Settlement tiles.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_STONE_TRAP_NAME">
+			<Text>Jaguar Trap</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_STONE_TRAP_DESCRIPTION">
+			<Text>Place a trap that damages enemies and stops their movement.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_CLAIM_RESOURCE_NAME">
+			<Text>Claim Resource</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_CLAIM_RESOURCE_DESCRIPTION">
+			<Text>Activate on an unowned Resource. A path of tiles is claimed back to the Settlement and the Resource is improved immediately.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_TREAT_SICK_NAME">
+			<Text>Treat the Sick</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_TREAT_SICK_DESCRIPTION">
+			<Text>Activate in an Infected Urban District to remove Unrest from that Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_PET_THE_DOG_NAME">
+			<Text>Pet the Dog</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_PET_THE_DOG_DESCRIPTION">
+			<Text>Who's a good dog?</Text>
+		</Row>
+		<!--Result Strings-->
+		<Row Tag="LOC_BUILD_IMPROVEMENT_UNOWNED_PLOT">
+			<Text>Cannot build outside your territory.</Text>
+		</Row>
+		<Row Tag="LOC_BUILD_IMPROVEMENT_NONE_VALID_FOR_LOCATION">
+			<Text>This Unit has no valid Improvements for this location.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_CONSTRUCT_NONE_VALID_FOR_LOCATION">
+			<Text>This Unit has no valid constructions for this location.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_UPGRADE_INFO">
+			<Text>Upgrade to {1_Unit}: {2_Amount} [icon:YIELD_GOLD] Gold</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_UPGRADE_INSUFFICIENT_FUNDS">
+			<Text>Not enough [icon:YIELD_GOLD] Gold in treasury.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_UPGRADE_MUST_BE_IN_TERRITORY">
+			<Text>Must be in friendly territory.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_UPGRADE_REQUIRES_RESOURCE_ACCESS">
+			<Text>Your Civilization needs {2_AmountNeeded} {1_ResourceName} to upgrade this type of Unit.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_UPGRADE_ARMY_INFO">
+			<Text>Upgrade {1_Num} units: {2_Amount} [icon:YIELD_GOLD] Gold</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ADD_TO_ARMY_NO_ROOM">
+			<Text>Nearby Army at full capacity.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_LEAVE_ARMY_NO_LOCATION">
+			<Text>No available location to move.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_OVERRUN_INSUFICCIENT_STRENGTH_RATIO">
+			<Text>Insufficient Strength Difference</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_OVERRUN_TARGET_STRENGTH_RATIO">
+			<Text>{1_FailMsg}[N]{2_Ratio}</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_FORCE_MARCH_NO_ACTIONS_REMAINING">
+			<Text>No Army Special Actions remaining this turn.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_REQUIRES_FULL_MOVEMENT">
+			<Text>Requires Full Movement</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_NO_MOVES_REMAINING">
+			<Text>No Moves Remaining</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ADD_TO_ARMY_FAILURE_MAX_COMBAT_UNITS">
+			<Text>Maximum Military Unit count reached.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ADD_TO_ARMY_FAILURE_MAX_CIVILIAN_UNITS">
+			<Text>Maximum non-combat unit count reached.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_CANNOT_PACK_IN_ZOC">
+			<Text>Cannot assemble Units while in an enemy Army Zone of Control</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_CONNECT_WITH_ROAD_FAILURE_NOT_IN_URBAN">
+			<Text>Can only build roads from a friendly urban tile.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_CONNECT_WITH_ROAD_FAILURE_NO_SUITABLE_LOCATIONS">
+			<Text>Cannot build a road: no settlements within range that need a road connection back to this settlement.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_FORTIFICATIONS_ALREADY_EXIST">
+			<Text>Fortifications already exist at this location.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_TRADE_ROUTE_INFO_LAND">
+			<Text>Create a land Trade Route to gain the {1_Num} resource(s) present in this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_TRADE_ROUTE_INFO_SEA">
+			<Text>Create a sea Trade Route to gain the {1_Num} resource(s) present in this Settlement.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_TRADE_ROUTE_NEAREST_CITIES">
+			<Text>The nearest Settlements where Trade Routes can be established are: {1_CityList}</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_TRADE_ROUTE_APPEND_CITY_LIST">
+			<Text>{1_List}, {2_AppendCity}</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_TRADE_ROUTE_FAILURE_AT_WAR">
+			<Text>Cannot establish a Trade Route with an enemy Civilization.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_REQUIRES_MOVEMENT">
+			<Text>Requires Movement</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_ALREADY_UNPACKED_THIS_TURN">
+			<Text>Units cannot be added to an army on the same turn they have unpacked from an army.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_REQUIRES_ABILITY_CHARGE">
+			<Text>Ability is Recharging</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_REQUIRES_ABILITY_RECHARGE">
+			<Text>This action will recharge in {1_Turns} {1_Turns: plural 1?turn; other?turns;}</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_CLAIM_RESOURCE_REQUIRES_UNOWNED_RESOURCE">
+			<Text>Requires an unowned Resource within 5 tiles of one of your Settlements' Palace or City Hall.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_STONE_TRAP_REQUIRES_VEGETATED_TILE">
+			<Text>Requires Vegetated Terrain</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_STONE_TRAP_NO_PLACEMENT_ON_RESOURCE">
+			<Text>Cannot be placed on a Resource</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_STONE_TRAP_NO_PLACEMENT_ON_MINOR_RIVER">
+			<Text>Cannot be placed on a Minor River</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_STONE_TRAP_REQUIRE_FLAT_OR_VEGETATED">
+			<Text>Requires Flat or Vegetated Terrain</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_STONE_TRAP_CAN_REMOVE_EXISTING">
+			<Text>Trap exists here. This action will remove it!</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_STONE_TRAP_NOT_ON_FOREIGN_TERRITORY">
+			<Text>Cannot be placed on Tiles belonging to another Leader</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_TRADE_ROUTE_FAILURE_MORE_DIPLO_ONE">
+			<Text>The 1 Trade Route possible to this Civilization has already been established. Complete the Improve Trade Relations Diplomatic Action to add another route.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_TRADE_ROUTE_FAILURE_MORE_DIPLO">
+			<Text>The {1_NumPossible} Trade Routes possible to this player have already been established.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_TRADE_ROUTE_FAILURE_NO_NEARBY_CITIES">
+			<Text>No Trade Routes currently possible. Explore the map to find new trade partners, establish Towns near other Civilizations, or find ways to extend your Trade Route range.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_REQUIRES_PACKED_UNIT">
+			<Text>This action requires a packed eligible aircraft with movement points.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_AERODROME_PILLAGED">
+			<Text>Aerodrome Pillaged.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_REQUIRES_URBAN_DISTRICT">
+			<Text>Requires an Urban District.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_NO_INFECTIONS">
+			<Text>No settlements are currently infected. Wait for an Outbreak to occur.</Text>
+		</Row>
+		<Row Tag="LOC_UNITCOMMAND_NEAREST_INFECTED_CITY">
+			<Text>The nearest Infected Settlement is {1_CityList}</Text>
+		</Row>
+		<Row Tag="LOC_HUD_UNIT_ACTION_AUTOEXPLORE_NEAR_GOODY_HUT">
+			<Text>There is a Discovery nearby!</Text>
+		</Row>
+		<Row Tag="LOC_HUD_UNIT_ACTION_AUTOEXPLORE_IN_ZONE_OF_CONTROL">
+			<Text>There is an enemy unit nearby!</Text>
+		</Row>
+		<Row Tag="LOC_HUD_UNIT_ACTION_AUTOEXPLORE_UNAVAILABLE">
+			<Text>Automate Exploration is not available now. Try moving to safer ground.</Text>
+		</Row>
+	</EnglishText>
+</Database>

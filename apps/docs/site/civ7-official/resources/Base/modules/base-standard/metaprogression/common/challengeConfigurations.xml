@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metaprogression xmlns="Metaprogression" common="true">
+	<challengeCategoryData>
+		<challengeClass id="CHALLENGE_CLASS_FOUNDATION" name="Foundation"/>
+		<challengeClass id="CHALLENGE_CLASS_LEADER" name="Leader"/>
+
+		<challengeCategory id="CHALLENGE_CATEGORY_FOUNDATION_TUTORIALS" name="Tutorials" iconUrl="prof_tutorial" sortIndex="1000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_FOUNDATION_STARTERS" name="Starters" sortIndex="2000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_FOUNDATION_WONDERS" name="Wonders" iconUrl="prof_wonders" sortIndex="3000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_FOUNDATION_CIV_VICTORIES" name="Civ Victories" iconUrl="prof_civvictories" sortIndex="4000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_FOUNDATION_INCREMENTALS" name="Milestones" iconUrl="prof_milestones" sortIndex="5000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_FOUNDATION_ACCOMPLISHMENTS" name="Accomplishments" iconUrl="prof_uniquevictories" sortIndex="5500"/>
+		<!-- 
+		<challengeCategory id="CHALLENGE_CATEGORY_FOUNDATION_UNIQUE_VICTORIES" name="Unique Victories" sortIndex="6000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_FOUNDATION_MILITARY" name="Military" sortIndex="7000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_FOUNDATION_DIPLOMACY" name="Diplomacy" sortIndex="8000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_FOUNDATION_EXPANSION" name="Expansion" sortIndex="9000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_FOUNDATION_ECONOMIC" name="Economic" sortIndex="10000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_FOUNDATION_EXPLORATION" name="Exploration" sortIndex="11000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_FOUNDATION_ATTRIBUTES" name="Attributes" sortIndex="12000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_FOUNDATION_DARK_AGE_CARDS" name="Dark Age Cards" sortIndex="13000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_FOUNDATION_COMPLETION" name="Completion" sortIndex="14000"/>
+		-->
+		<challengeCategory id="CHALLENGE_CATEGORY_FOUNDATION_MONTHLY" name="Monthly" sortIndex="15000"/>
+
+		<challengeCategory id="CHALLENGE_CATEGORY_LEADER_AMINA" locName="LOC_LEADER_AMINA_NAME" sortIndex="17000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_LEADER_ASHOKA" locName="LOC_LEADER_ASHOKA_NAME" sortIndex="19000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_LEADER_AUGUSTUS" locName="LOC_LEADER_AUGUSTUS_NAME" sortIndex="20000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_LEADER_BENJAMIN_FRANKLIN" locName="LOC_LEADER_BENJAMIN_FRANKLIN_NAME" sortIndex="21000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_LEADER_CATHERINE" locName="LOC_LEADER_CATHERINE_NAME" sortIndex="23000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_LEADER_CHARLEMAGNE" locName="LOC_LEADER_CHARLEMAGNE_NAME" sortIndex="24000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_LEADER_CONFUCIUS" locName="LOC_LEADER_CONFUCIUS_NAME" sortIndex="25000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_LEADER_FRIEDRICH" locName="LOC_LEADER_FRIEDRICH_NAME" sortIndex="26000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_LEADER_HARRIET_TUBMAN" locName="LOC_LEADER_HARRIET_TUBMAN_NAME" sortIndex="29000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_LEADER_HATSHEPSUT" locName="LOC_LEADER_HATSHEPSUT_NAME" sortIndex="30000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_LEADER_HIMIKO" locName="LOC_LEADER_HIMIKO_NAME" sortIndex="31000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_LEADER_IBN_BATTUTA" locName="LOC_LEADER_IBN_BATTUTA_NAME" sortIndex="33000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_LEADER_ISABELLA" locName="LOC_LEADER_ISABELLA_NAME" sortIndex="34000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_LEADER_JOSE_RIZAL" locName="LOC_LEADER_JOSE_RIZAL_NAME" sortIndex="35000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_LEADER_LAFAYETTE" locName="LOC_LEADER_LAFAYETTE_NAME" sortIndex="36000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_LEADER_MACHIAVELLI" locName="LOC_LEADER_MACHIAVELLI_NAME" sortIndex="38000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_LEADER_PACHACUTI" locName="LOC_LEADER_PACHACUTI_NAME" sortIndex="41000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_LEADER_TRUNG_TRAC" locName="LOC_LEADER_TRUNG_TRAC_NAME" sortIndex="43000"/>
+		<challengeCategory id="CHALLENGE_CATEGORY_LEADER_XERXES" locName="LOC_LEADER_XERXES_NAME" sortIndex="44000"/>
+	</challengeCategoryData>
+</metaprogression>

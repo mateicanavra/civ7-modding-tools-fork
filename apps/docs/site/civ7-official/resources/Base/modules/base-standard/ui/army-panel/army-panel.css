@@ -1,0 +1,232 @@
+/* DO NOT EDIT */
+/* Generated from army-panel.scss */
+@keyframes army-panel-slide-in {
+	0% {
+		opacity: 0;
+		transform: translateX(1.7777777778rem) scaleX(0);
+	}
+	15% {
+		opacity: 1;
+	}
+	80% {
+		transform: translateX(-0.4444444444rem) scaleX(1);
+	}
+	100% {
+		opacity: 1;
+		transform: translateX(0) scaleX(1);
+	}
+}
+@keyframes army-panel-slide-out {
+	0% {
+		opacity: 1;
+		transform: translateX(0) scaleX(1);
+	}
+	85% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+		transform: translateX(8.3333333333rem) scaleX(0.65);
+	}
+}
+.army-panel {
+	margin-bottom: 1.3333333333rem;
+	margin-top: -2.8888888889rem;
+	transform: translateX(0);
+	transform-origin: right;
+}
+.army-panel.army-panel--visible {
+	animation: army-panel-slide-in 0.1s linear 0ms forwards;
+}
+.army-panel.army-panel--hidden {
+	animation: army-panel-slide-out 0.15s linear 0ms forwards;
+}
+
+.army-panel__action-button {
+	--button-icon: url("fs://game/unitflag_missingicon.png");
+	width: 2rem;
+	height: 1.5555555556rem;
+	display: flex;
+	justify-content: center;
+	background-color: blanchedalmond;
+	pointer-events: auto;
+	margin: 0.2222222222rem;
+}
+.army-panel__action-button:hover .army-action-button__button-bg-highlight, .army-panel__action-button:focus .army-action-button__button-bg-highlight, .army-panel__action-button.focused .army-action-button__button-bg-highlight {
+	opacity: 1;
+}
+.army-panel__action-button.inactive:hover .army-action-button__button-bg-highlight, .army-panel__action-button.inactive:focus .army-action-button__button-bg-highlight, .army-panel__action-button.inactive.focused .army-action-button__button-bg-highlight {
+	opacity: 1;
+}
+
+.army-action-button__button-bg-container {
+	border-image: url("fs://game/hud_unit-panel_action");
+	border-image-slice: 13 fill;
+	border-image-width: auto;
+	border-image-outset: 0.5555555556rem;
+}
+
+.army-action-button__button-bg-highlight {
+	opacity: 0;
+	transition-property: opacity;
+	transition-duration: 0.25s;
+	border-image: url("fs://game/hud_unit-panel_action-focus");
+	border-image-slice: 13 fill;
+	border-image-width: auto;
+	border-image-outset: 0.5555555556rem;
+}
+
+.army-action-button__button-icon {
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-image: var(--button-icon);
+	transform-origin: 50% 50%;
+}
+
+.army-panel__units-background {
+	border-image-source: url("fs://game/hud_unit-panel_bg");
+	border-image-slice: 54 90 54 28 fill;
+	border-image-width: 3rem 5rem 3rem 1.5555555556rem;
+	border-image-outset: 1.1111111111rem 5.5555555556rem 1.1111111111rem 0.7777777778rem;
+}
+
+.army-panel__action-panel-decor {
+	border-image-source: url("fs://game/hud_unit-panel_bracket-lines.png");
+	border-image-slice: 31 32 31 12 fill;
+	border-image-width: 1.8333333333rem 1.7777777778rem 1.8333333333rem 0.6666666667rem;
+	border-image-outset: 0.5555555556rem 0.2222222222rem 0.5555555556rem 0.4444444444rem;
+}
+
+.army-panel__commander-portrait-container .army-panel__unit-button {
+	margin: 0rem;
+	width: 6.4444444444rem;
+	height: 9.5555555556rem;
+	border-image: url("fs://game/hud_unit-panel_focus-frame");
+	border-image-slice: 5 5 5 5 fill;
+	border-image-width: auto;
+	border-image-outset: 0rem;
+}
+.army-panel__commander-portrait-container .army-panel__unit-portrait-container {
+	width: 6.4444444444rem;
+	height: 9.5555555556rem;
+	border-image-source: none;
+}
+.army-panel__commander-portrait-container .army-panel__unit-portrait-image {
+	width: 6.1111111111rem;
+	height: 9.2777777778rem;
+}
+.army-panel__commander-portrait-container .army-panel__unit-health-bar-container {
+	right: 0rem;
+}
+
+.army-panel__unit-button {
+	--button-icon: url("fs://game/unitflag_missingicon.png");
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0.2222222222rem;
+	pointer-events: auto;
+}
+.army-panel__unit-button:hover, .army-panel__unit-button:focus, .army-panel__unit-button.focused {
+	border-image: url("fs://game/hud_unit-panel_focus-frame");
+	border-image-slice: 5 5 5 5 fill;
+	border-image-width: auto;
+	border-image-outset: 0rem;
+}
+.army-panel__unit-button:hover .button-highlight, .army-panel__unit-button:focus .button-highlight, .army-panel__unit-button.focused .button-highlight {
+	opacity: 1;
+}
+.army-panel__unit-button.inactive:hover .button-highlight, .army-panel__unit-button.inactive:focus .button-highlight, .army-panel__unit-button.inactive.focused .button-highlight {
+	opacity: 0;
+}
+.army-panel__unit-button.isTraveling {
+	opacity: 0.6;
+}
+.army-panel__unit-button.isTraveling .army-panel__turn-counter-container {
+	visibility: visible;
+}
+.army-panel__unit-button.isTraveling .army-panel__unit-health-bar-container {
+	visibility: hidden;
+}
+.army-panel__unit-button.noUnit .army-panel__unit-portrait-image {
+	background-image: url("fs://game/hud_unit-panel_empty-slot");
+	visibility: hidden;
+}
+.army-panel__unit-button.noUnit .army-panel__unit-portrait-container {
+	visibility: hidden;
+}
+.army-panel__unit-button.noUnit .army-panel__unit-health-bar-container {
+	visibility: hidden;
+}
+.army-panel__unit-button.noUnit .army-panel__unit-portrait-image {
+	visibility: visible;
+}
+.army-panel__unit-button.locked .army-panel__lock-icon {
+	visibility: visible;
+}
+
+.army-panel__unit-portrait-container {
+	border-image: url("fs://game/hud_unit-panel_action-focus-hi");
+	border-image-slice: 5 5 5 5 fill;
+	border-image-width: auto;
+	border-image-outset: 0.7222222222rem;
+}
+
+.army-panel__unit-portrait-bg {
+	border-image: url("fs://game/hud_unit-panel_empty-slot");
+	border-image-slice: 5 5 5 5 fill;
+	border-image-width: auto;
+}
+
+.army-panel__unit-portrait-image {
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-image: url("fs://game/unitflag_missingicon.png");
+}
+
+.army-panel__unit-health-bar-bg {
+	background-color: #1c4212;
+}
+
+.army-panel__unit-health-bar-fill {
+	--health-percentage: 100%;
+	width: var(--health-percentage);
+	background-color: #9bd371;
+}
+
+.army-panel__low-health-bar {
+	background-color: #bb2823;
+}
+
+.army-panel__low-health-bar-bg {
+	background-color: #3a0806;
+}
+
+.army-panel__med-health-bar {
+	background-color: #cea92f;
+}
+
+.army-panel__med-health-bar-bg {
+	background-color: #442c0b;
+}
+
+.army-panel__turn-counter-container {
+	opacity: 1;
+	visibility: hidden;
+}
+.army-panel__turn-counter-container .step-turn-container {
+	position: relative;
+	align-items: center;
+	opacity: 1;
+}
+.army-panel__turn-counter-container .step-turn-number {
+	color: white;
+}
+
+.army-panel__lock-icon {
+	background-image: url("fs://game/icon_lock.png");
+	background-size: contain;
+	background-repeat: no-repeat;
+	visibility: hidden;
+}

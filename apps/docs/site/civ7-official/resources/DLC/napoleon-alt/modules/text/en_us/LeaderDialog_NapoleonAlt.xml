@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+		<!-- Napoleon Main Menu Char Select Text-->
+		<Row Tag="LOC_MAIN_CHAR_SELECT_LEADER_NAPOLEON_ALT_ANY">
+			<Text>To do all that one is able to do, is to be human; to do all that one would like to do, is to be a god.</Text>
+		</Row>
+
+		<!--Napoleon Statement Text-->
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_INITIATOR_LEADER_NAPOLEON_ALT_ANY">
+			<Text>I am Napoleon, and I am here to decide the fate of the world.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NEAR_RECIPIENT_LEADER_NAPOLEON_ALT_ANY">
+			<Text>I am Napoleon, and I am here to decide the fate of the world.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_FIRST_MEET_NO_MANS_LEADER_NAPOLEON_ALT_ANY">
+			<Text>I am Napoleon, and I am here to decide the fate of the world.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_INITIATOR_LEADER_NAPOLEON_ALT_ANY">
+			<Text>I have made all the calculations; fate will do the rest.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DECLARE_WAR_RECIPIENT_LEADER_NAPOLEON_ALT_ANY">
+			<Text>The bullet that will kill me is not yet cast.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_DEFEAT_AI_LEADER_NAPOLEON_ALT_ANY">
+			<Text>Exile. I shall write my memoirs. Work is the scythe of time.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_ACCEPTED_LEADER_NAPOLEON_ALT">
+			<Text>The superior man is never in anyone's way.</Text>
+		</Row>
+		<Row Tag="LOC_DIPLO_MAKE_DEAL_REJECTED_LEADER_NAPOLEON_ALT">
+			<Text>One cannot treat with all the world at once.</Text>
+		</Row>
+	</EnglishText>
+</Database>

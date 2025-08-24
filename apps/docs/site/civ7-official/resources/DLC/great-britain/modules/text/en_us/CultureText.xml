@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<EnglishText>
+
+		<!-- ==================================================	-->
+		<!--	GREAT_BRITAIN							-->
+		<!-- ==================================================	-->
+		<Row Tag="LOC_TREE_CIVICS_MO_GREAT_BRITAIN_NAME">
+			<Text>Great Britain Civics</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_PAX_BRITANNICA_NAME">
+			<Text>Pax Britannica</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_PAX_BRITANNICA_QUOTE">
+			<Text>"Increased means and increased leisure are the two civilizers of man."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_PAX_BRITANNICA_AUTHOR">
+			<Text>Benjamin Disraeli</Text>
+		</Row>
+
+		<Row Tag="LOC_CIVIC_SOCIETY_OF_ANTIQUARIES_NAME">
+			<Text>Society of Antiquaries</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SOCIETY_OF_ANTIQUARIES_QUOTE">
+			<Text>"As my eyes grew accustomed to the light, details of the room emerged. Strange animals, statues, and gold – everywhere the glint of gold."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SOCIETY_OF_ANTIQUARIES_AUTHOR">
+			<Text>Howard Carter</Text>
+		</Row>
+
+		<Row Tag="LOC_CIVIC_CHARTERED_COMPANIES_NAME">
+			<Text>Chartered Companies</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CHARTERED_COMPANIES_QUOTE">
+			<Text>"They say that "Knowledge is Power." I used to think so; but I now know that they meant "money.""</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_CHARTERED_COMPANIES_AUTHOR">
+			<Text>Lord Byron</Text>
+		</Row>
+
+		<Row Tag="LOC_CIVIC_SPLENDID_ISOLATION_NAME">
+			<Text>Splendid Isolation</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SPLENDID_ISOLATION_QUOTE">
+			<Text>"War is righteous or unrighteous according as it is opportune or inopportune."</Text>
+		</Row>
+		<Row Tag="LOC_CIVIC_SPLENDID_ISOLATION_AUTHOR">
+			<Text>Lord Salisbury</Text>
+		</Row>
+
+		<!--Great Britain Civic Description-->
+		<Row Tag="LOC_MOD_PAX_BRITANNICA_PRODUCTION_FACTORY_RESOURCES_DESCRIPTION">
+			<Text>+3 [icon:YIELD_PRODUCTION] Production to Settlements for every Factory Resource assigned to them.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_SOCIETY_OF_ANTIQUARIES_ENTER_FOREIGN_LANDS_DESCRIPTION">
+			<Text>Antiquaries can enter other Civilizations’ borders without Open Borders.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_SOCIETY_OF_ANTIQUARIES_MOVEMENT_DESCRIPTION">
+			<Text>+1 Movement to Civilians.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_SPLENDID_ISOLATION_POSITIVE_GOLD_CS_DESCRIPTION">
+			<Text>At the start of the turn, if you have positive or 0 [icon:YIELD_GOLD] Gold per turn, Units receive +3 Combat Strength.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_SPLENDID_ISOLATION_POSITIVE_GOLD_CS_PREVIEW">
+			<Text>+3 Combat Strength from the Splendid Isolation Civic.</Text>
+		</Row>
+		<Row Tag="LOC_MOD_CHARTERED_COMPANIES_PORT_RESOURCE_CAP_DESCRIPTION">
+			<Text>+1 Resource Capacity in Settlements with a Port.</Text>
+		</Row>
+		<!--Great Britain Unique Traditions-->
+		<Row Tag="LOC_TRADITION_PROCEEDINGS_NAME">
+			<Text>Proceedings</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_PROCEEDINGS_DESCRIPTION">
+			<Text>Cities with both a Great Work and a Resource Slotted receive +4 [icon:YIELD_CULTURE] Culture and [icon:YIELD_SCIENCE] Science.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_EAST_INDIA_COMPANY_NAME">
+			<Text>East India Company</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_EAST_INDIA_COMPANY_DESCRIPTION">
+			<Text>+3 [icon:YIELD_GOLD] Gold on each Building in Towns.</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_NO_ETERNAL_ALLIES_NAME">
+			<Text>No Eternal Allies</Text>
+		</Row>
+		<Row Tag="LOC_TRADITION_NO_ETERNAL_ALLIES_DESCRIPTION">
+			<Text>+10% [icon:YIELD_FOOD] Food and [icon:YIELD_GOLD] Gold in Towns, but -5% [icon:YIELD_GOLD] Gold in the Capital for every Alliance.</Text>
+		</Row>
+	</EnglishText>
+</Database>

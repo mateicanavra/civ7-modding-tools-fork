@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameEffects xmlns="GameEffects">
+	<!-- ____________________________________________________________________________________________________ -->
+	<!-- Army PromotionDiscipline Trung Nhi -->
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE" collection="COLLECTION_OWNER" effect="EFFECT_ARMY_ADJUST_COMMANDER_ATTACK_DAMAGE">
+		<Argument name="Amount">3</Argument>
+		<String context="Description">LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_DESCRIPTION</String>
+	</Modifier>
+	<Modifier id="MOD_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_FINAL" collection="COLLECTION_OWNER" effect="EFFECT_ARMY_ADJUST_COMMANDER_ATTACK_DAMAGE">
+		<Argument name="Amount">10</Argument>
+		<String context="Description">LOC_PROMOTION_ARMY_TRUNG_NHI_ATTACK_DAMAGE_FINAL_DESCRIPTION</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_BIOME_TYPE_MATCHES">
+				<Argument name="BiomeType">BIOME_TROPICAL</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ModifierId">MOD_PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE_ATTACH</Argument>
+	</Modifier>
+	<Modifier id="MOD_PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE_ATTACH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_PROMOTION_ARMY_TRUNG_NHI_JUNGLE_WARFARE_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_IS_OWNER"/>
+		</SubjectRequirements>
+		<Argument name="ModifierId">MOD_PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE_ATTACH</Argument>
+	</Modifier>
+	<Modifier id="MOD_PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE_ATTACH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_PROMOTION_ARMY_TRUNG_NHI_METTLE_COURAGE_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_PLOT_ADJACENT_NUM_ENEMY_UNITS">
+				<Argument name="NumUnits">2</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ModifierId">MOD_PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION_ATTACH</Argument>
+	</Modifier>
+	<Modifier id="MOD_PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION_ATTACH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<Argument name="Amount">3</Argument>
+		<String context="Preview">LOC_PROMOTION_ARMY_TRUNG_NHI_LAC_REBELLION_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY_COORDINATED_ATTACK" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_MELEE, UNIT_CLASS_CAVALRY</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ARMY_ONSLAUGHT_TRUNG_NHI</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_ARMY_ONSLAUGHT_TRUNG_NHI" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_FOCUSED_ATTACK_DAMAGE">
+		<Argument name="Amount">5</Argument>
+		<Argument name="CombatType">COMBAT_MELEE</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_TRUNG_NHI_ONE_SINGLE_CRY_FOCUS_FIRE" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_UNIT_ADJUST_ABILITY">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_UNIT_TAG_MATCHES">
+				<Argument name="Tag">UNIT_CLASS_RANGED, UNIT_CLASS_SIEGE</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="AbilityType">ABILITY_ARMY_BARRAGE_TRUNG_NHI</Argument>
+	</Modifier>
+	<Modifier id="MOD_ABILITY_ARMY_BARRAGE_TRUNG_NHI" collection="COLLECTION_OWNER" effect="EFFECT_ADJUST_UNIT_FOCUSED_ATTACK_DAMAGE">
+		<Argument name="Amount">5</Argument>
+		<Argument name="CombatType">COMBAT_RANGED</Argument>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS" collection="COLLECTION_PLAYER_UNITS" effect="EFFECT_ATTACH_MODIFIERS">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLOT_IN_COMMAND_RADIUS"/>
+			<Requirement type="REQUIREMENT_UNIT_DOMAIN_MATCHES">
+				<Argument name="UnitDomain">DOMAIN_LAND</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="ModifierId">MOD_PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS_ATTACH</Argument>
+	</Modifier>
+	<Modifier id="MOD_PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS_ATTACH" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_OPPONENT_IS_DISTRICT"/>
+		</SubjectRequirements>
+		<Argument name="Amount">5</Argument>
+		<String context="Preview">LOC_PROMOTION_ARMY_TRUNG_NHI_65_STRONGHOLDS_PREVIEW</String>
+	</Modifier>
+	<!-- ____________________________________________________________________________________________________ -->
+	<Modifier id="MOD_PROMOTION_ARMY_TRUNG_NHI_HAI_BA_TRUNG" collection="COLLECTION_UNIT_COMBAT" effect="EFFECT_ADJUST_UNIT_STRENGTH_MODIFIER">
+		<SubjectRequirements>
+			<Requirement type="REQUIREMENT_PLAYER_IS_ATTACKING">
+				<Argument name="Inverse">true</Argument>
+			</Requirement>
+			<Requirement type="REQUIREMENT_UNIT_CLASS_MATCHES">
+				<Argument name="UnitClass">UNIT_CLASS_TRUNG_NHI</Argument>
+			</Requirement>
+		</SubjectRequirements>
+		<Argument name="Amount">15</Argument>
+		<String context="Preview">LOC_ABILITY_ARMY_TRUNG_NHI_HAI_BA_TRUNG_PREVIEW</String>
+	</Modifier>
+</GameEffects>

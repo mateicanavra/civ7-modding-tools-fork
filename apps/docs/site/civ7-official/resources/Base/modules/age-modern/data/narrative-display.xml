@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Database>
+	<NarrativeDisplay_Civilizations>
+		<Row CivilizationType="CIVILIZATION_AMERICA" CivilizationImage="bg-panel-america.png"/>
+		<Row CivilizationType="CIVILIZATION_BUGANDA" CivilizationImage="bg-panel-buganda"/>
+		<Row CivilizationType="CIVILIZATION_FRENCH_EMPIRE" CivilizationImage="bg-panel-french_empire.png"/>
+		<Row CivilizationType="CIVILIZATION_MEXICO" CivilizationImage="bg-panel-mexico.png"/>
+		<Row CivilizationType="CIVILIZATION_MUGHAL" CivilizationImage="bg-panel-mughal.png"/>
+		<Row CivilizationType="CIVILIZATION_MEIJI" CivilizationImage="bg-panel-meiji.png"/>
+		<Row CivilizationType="CIVILIZATION_PRUSSIA" CivilizationImage="bg-panel-prussia.png"/>
+		<Row CivilizationType="CIVILIZATION_QING" CivilizationImage="bg-panel-qing.png"/>
+		<Row CivilizationType="CIVILIZATION_RUSSIA" CivilizationImage="bg-panel-russia.png"/>
+		<Row CivilizationType="CIVILIZATION_SIAM" CivilizationImage="bg-panel-siam.png"/>
+	</NarrativeDisplay_Civilizations>
+</Database>
