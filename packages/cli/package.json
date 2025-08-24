@@ -57,6 +57,10 @@
     "plugins": [
       "@oclif/plugin-help"
     ],
+    "topicSeparator": " ",
+    "hooks": {
+      "prerun": "./dist/hooks/prerun/promptRepoUrl.js"
+    },
     "topics": {
       "data": {
         "description": "Work with Civilization VII data: crawl XML resources, explore relationships, zip outputs."

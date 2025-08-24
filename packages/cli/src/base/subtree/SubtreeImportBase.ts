@@ -5,10 +5,9 @@ import { configureRemote, importSubtree } from '../../utils/git.js';
 export default abstract class SubtreeImportBase extends SubtreeCommand {
   static flags = {
     ...SubtreeCommand.baseFlags,
-    remoteUrl: Flags.string({
-      description: 'Git remote URL',
+    repoUrl: Flags.string({
+      description: 'Git repository URL',
       char: 'u',
-      required: true,
     }),
     squash: Flags.boolean({
       description: 'Squash history when importing',
@@ -46,7 +45,7 @@ export default abstract class SubtreeImportBase extends SubtreeCommand {
     await configureRemote({
       domain: this.domain,
       slug,
-      remoteUrl: flags.remoteUrl,
+      repoUrl: flags.repoUrl,
       branch: flags.branch,
       verbose: flags.verbose,
       logger: this,

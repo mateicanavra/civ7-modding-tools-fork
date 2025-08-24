@@ -5,10 +5,9 @@ import { configureRemote } from '../../utils/git.js';
 export default abstract class SubtreeConfigRemoteBase extends SubtreeCommand {
   static flags = {
     ...SubtreeCommand.baseFlags,
-    remoteUrl: Flags.string({
-      description: 'Git remote URL',
+    repoUrl: Flags.string({
+      description: 'Git repository URL',
       char: 'u',
-      required: true,
     }),
   } as const;
 
@@ -26,7 +25,7 @@ export default abstract class SubtreeConfigRemoteBase extends SubtreeCommand {
     await configureRemote({
       domain: this.domain,
       slug,
-      remoteUrl: flags.remoteUrl,
+      repoUrl: flags.repoUrl,
       branch: flags.branch,
       verbose: flags.verbose,
       logger: this,

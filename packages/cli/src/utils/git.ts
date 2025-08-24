@@ -6,8 +6,8 @@ import {
   subtreePullWithFetch,
   getLocalConfig,
   getRemotePushConfig,
+  getRemoteUrl,
   setLocalConfig,
-  findRemoteByUrl,
   listSubtreeConfigs,
   removeSubtreeConfig,
   clearSubtreeConfigs,
@@ -16,6 +16,7 @@ import {
 
 export {
   getRemotePushConfig,
+  getRemoteUrl,
   type RemotePushConfig,
   listSubtreeConfigs,
   removeSubtreeConfig,
@@ -47,19 +48,17 @@ function getLogger(logger?: Logger): Logger {
   return logger ?? console;
 }
 
-function computeRemoteName(domain: string, slug: string): string {
-  return domain === 'mod' ? `mod-${slug}` : slug;
-}
-
 export async function findRemoteNameForSlug(
   domain: string,
   slug: string,
-  opts: { verbose?: boolean } = {},
 ): Promise<string | undefined> {
-  const { verbose = false } = opts;
-  const url = await getRepoUrlForSlug(domain, slug);
-  if (!url) return undefined;
-  return (await findRemoteByUrl(url, { verbose })) ?? undefined;
+  try {
+    return (
+      (await getLocalConfig(`civ7.${domain}.${slug}.remoteName`)) ?? undefined
+    );
+  } catch {
+    return undefined;
+  }
 }
 
 export async function requireRemoteNameForSlug(
@@ -68,14 +67,20 @@ export async function requireRemoteNameForSlug(
   opts: { verbose?: boolean } = {},
 ): Promise<string> {
   const { verbose = false } = opts;
-  const url = await getRepoUrlForSlug(domain, slug);
-  if (!url) {
-    throw new Error(`No repoUrl configured for ${domain} "${slug}". Run setup first.`);
-  }
-  const name = await findRemoteByUrl(url, { verbose });
+  const name = await findRemoteNameForSlug(domain, slug);
   if (!name) {
+    throw new Error(`No remote configured for ${domain} "${slug}". Run setup first.`);
+  }
+  const repoUrl = await getRepoUrlForSlug(domain, slug);
+  const url = await getRemoteUrl(name, { verbose });
+  if (!url) {
     throw new Error(
-      `No git remote with URL ${url} found for ${domain} "${slug}". Run setup again.`,
+      `No git remote named ${name} found for ${domain} "${slug}". Run setup again.`,
+    );
+  }
+  if (repoUrl && url !== repoUrl) {
+    throw new Error(
+      `Stored repoUrl ${repoUrl} does not match remote "${name}" URL ${url}. Run setup again.`,
     );
   }
   return name;
@@ -138,12 +143,12 @@ export async function requireBranch(opts: ResolveBranchOptions): Promise<string>
 export interface ConfigureRemoteOptions {
   domain: string;
   slug: string;
-  remoteUrl: string;
+  repoUrl: string;
   branch?: string;
   defaultBranch?: string;
   verbose?: boolean;
   logger?: Logger;
-  /** Custom message when remoteUrl cannot be resolved. */
+  /** Custom message when repoUrl cannot be resolved. */
   remoteRequiredMessage?: string;
 }
 
@@ -178,32 +183,32 @@ export async function configureRemote(
   const {
     domain,
     slug,
-    remoteUrl,
+    repoUrl,
     branch,
     defaultBranch = 'main',
     verbose = false,
     logger,
     remoteRequiredMessage,
   } = opts;
-  if (!remoteUrl) {
+  if (!repoUrl) {
     throw new Error(
-      remoteRequiredMessage ?? 'remoteUrl is required to configure a remote.',
+      remoteRequiredMessage ?? 'repoUrl is required to configure a remote.',
     );
   }
-  const existing = await findRemoteByUrl(remoteUrl, { verbose });
-  const rName = existing ?? computeRemoteName(domain, slug);
+  const rName = slug;
   const res = await configureRemoteAndFetch(
     rName,
-    existing ? undefined : remoteUrl,
+    repoUrl,
     { tags: true },
     { verbose },
   );
-  await setLocalConfig(`civ7.${domain}.${slug}.repoUrl`, remoteUrl, { verbose });
+  await setLocalConfig(`civ7.${domain}.${slug}.remoteName`, rName, { verbose });
+  await setLocalConfig(`civ7.${domain}.${slug}.repoUrl`, repoUrl, { verbose });
   const branchName = branch ?? defaultBranch;
   await setLocalConfig(`civ7.${domain}.${slug}.branch`, branchName, { verbose });
   const log = getLogger(logger).log;
   const badge = res === 'added' ? 'added' : res === 'updated' ? 'updated' : 'unchanged';
-  log(`Remote "${rName}" ${badge}: ${remoteUrl}`);
+  log(`Remote "${rName}" ${badge}: ${repoUrl}`);
   log(`Fetched tags from "${rName}". Tracking branch: ${branchName}`);
   await logRemotePushConfig(rName, { logger, verbose });
   return res;

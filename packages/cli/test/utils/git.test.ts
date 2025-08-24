@@ -10,8 +10,8 @@ vi.mock('@civ7/plugin-git', () => ({
   subtreePullWithFetch: vi.fn().mockResolvedValue(undefined),
   getLocalConfig: vi.fn(),
   getRemotePushConfig: vi.fn().mockResolvedValue({}),
+  getRemoteUrl: vi.fn(),
   setLocalConfig: vi.fn(),
-  findRemoteByUrl: vi.fn(),
 }));
 
 import {
@@ -32,8 +32,8 @@ import {
   subtreePullWithFetch,
   getLocalConfig,
   getRemotePushConfig,
+  getRemoteUrl,
   setLocalConfig,
-  findRemoteByUrl,
 } from '@civ7/plugin-git';
 
 describe('git utilities', () => {
@@ -69,8 +69,12 @@ describe('git utilities', () => {
     });
 
     it('importSubtree wires plugin-git helpers', async () => {
-      vi.mocked(getLocalConfig).mockResolvedValueOnce('git@github.com:me/repo.git');
-      vi.mocked(findRemoteByUrl).mockResolvedValueOnce('mod-foo');
+      vi.mocked(getLocalConfig).mockImplementation(async (key) => {
+        if (key === 'civ7.mod.foo.remoteName') return 'foo';
+        if (key === 'civ7.mod.foo.repoUrl') return 'git@github.com:me/repo.git';
+        return undefined;
+      });
+      vi.mocked(getRemoteUrl).mockResolvedValueOnce('git@github.com:me/repo.git');
       await importSubtree({
         domain: 'mod',
         slug: 'foo',
@@ -79,14 +83,14 @@ describe('git utilities', () => {
         logger,
       });
       expect(configureRemoteAndFetch).toHaveBeenCalledWith(
-        'mod-foo',
+        'foo',
         undefined,
         { tags: true },
         { verbose: false },
       );
       expect(subtreeAddFromRemote).toHaveBeenCalledWith(
         'mods/foo',
-        'mod-foo',
+        'foo',
         'main',
         { squash: false, autoUnshallow: false, allowDirty: false },
         { verbose: false },
@@ -94,8 +98,12 @@ describe('git utilities', () => {
     });
 
     it('pushSubtree wires plugin-git helpers', async () => {
-      vi.mocked(getLocalConfig).mockResolvedValueOnce('git@github.com:me/repo.git');
-      vi.mocked(findRemoteByUrl).mockResolvedValueOnce('mod-foo');
+      vi.mocked(getLocalConfig).mockImplementation(async (key) => {
+        if (key === 'civ7.mod.foo.remoteName') return 'foo';
+        if (key === 'civ7.mod.foo.repoUrl') return 'git@github.com:me/repo.git';
+        return undefined;
+      });
+      vi.mocked(getRemoteUrl).mockResolvedValueOnce('git@github.com:me/repo.git');
       await pushSubtree({
         domain: 'mod',
         slug: 'foo',
@@ -105,7 +113,7 @@ describe('git utilities', () => {
       });
       expect(subtreePushWithFetch).toHaveBeenCalledWith(
         'mods/foo',
-        'mod-foo',
+        'foo',
         'main',
         { allowDirty: false, autoUnshallow: false, autoFastForwardTrunk: false, trunkOverride: undefined },
         { verbose: false },
@@ -113,12 +121,16 @@ describe('git utilities', () => {
     });
 
     it('pullSubtree wires plugin-git helpers', async () => {
-      vi.mocked(getLocalConfig).mockResolvedValueOnce('git@github.com:me/repo.git');
-      vi.mocked(findRemoteByUrl).mockResolvedValueOnce('mod-foo');
+      vi.mocked(getLocalConfig).mockImplementation(async (key) => {
+        if (key === 'civ7.mod.foo.remoteName') return 'foo';
+        if (key === 'civ7.mod.foo.repoUrl') return 'git@github.com:me/repo.git';
+        return undefined;
+      });
+      vi.mocked(getRemoteUrl).mockResolvedValueOnce('git@github.com:me/repo.git');
       await pullSubtree({ domain: 'mod', slug: 'foo', prefix: 'mods/foo', branch: 'main', logger });
       expect(subtreePullWithFetch).toHaveBeenCalledWith(
         'mods/foo',
-        'mod-foo',
+        'foo',
         'main',
         { squash: false, allowDirty: false, autoUnshallow: false },
         { verbose: false },
@@ -128,8 +140,12 @@ describe('git utilities', () => {
     it('importSubtree blocks non-empty dirs without allowDirty', async () => {
       const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'git-util-import-'));
       fs.writeFileSync(path.join(dir, 'x.txt'), 'x');
-      vi.mocked(getLocalConfig).mockResolvedValueOnce('git@github.com:me/repo.git');
-      vi.mocked(findRemoteByUrl).mockResolvedValueOnce('mod-foo');
+      vi.mocked(getLocalConfig).mockImplementation(async (key) => {
+        if (key === 'civ7.mod.foo.remoteName') return 'foo';
+        if (key === 'civ7.mod.foo.repoUrl') return 'git@github.com:me/repo.git';
+        return undefined;
+      });
+      vi.mocked(getRemoteUrl).mockResolvedValueOnce('git@github.com:me/repo.git');
       await expect(
         importSubtree({ domain: 'mod', slug: 'foo', prefix: dir, branch: 'main', logger }),
       ).rejects.toThrow(/already exists/);
@@ -137,9 +153,13 @@ describe('git utilities', () => {
     });
 
     it('pushSubtree resolves remote and branch from config when omitted', async () => {
-      vi.mocked(getLocalConfig).mockResolvedValueOnce('git@github.com:me/repo.git');
-      vi.mocked(findRemoteByUrl).mockResolvedValueOnce('saved-remote');
-      vi.mocked(getLocalConfig).mockResolvedValueOnce('main');
+      vi.mocked(getLocalConfig).mockImplementation(async (key) => {
+        if (key === 'civ7.mod.foo.remoteName') return 'saved-remote';
+        if (key === 'civ7.mod.foo.repoUrl') return 'git@github.com:me/repo.git';
+        if (key === 'civ7.mod.foo.branch') return 'main';
+        return undefined;
+      });
+      vi.mocked(getRemoteUrl).mockResolvedValueOnce('git@github.com:me/repo.git');
       await pushSubtree({ domain: 'mod', slug: 'foo', prefix: 'mods/foo', logger });
       expect(subtreePushWithFetch).toHaveBeenCalledWith(
         'mods/foo',
@@ -158,16 +178,15 @@ describe('git utilities', () => {
       logger.log.mockReset();
     });
 
-    it('findRemoteNameForSlug resolves via repoUrl', async () => {
-      vi.mocked(getLocalConfig).mockResolvedValueOnce('git@github.com:me/repo.git');
-      vi.mocked(findRemoteByUrl).mockResolvedValueOnce('saved-remote');
+    it('findRemoteNameForSlug reads from config', async () => {
+      vi.mocked(getLocalConfig).mockResolvedValueOnce('saved-remote');
       await expect(findRemoteNameForSlug('mod', 'slug')).resolves.toBe('saved-remote');
-      expect(getLocalConfig).toHaveBeenCalledWith('civ7.mod.slug.repoUrl');
+      expect(getLocalConfig).toHaveBeenCalledWith('civ7.mod.slug.remoteName');
     });
 
-    it('requireRemoteNameForSlug throws when unresolved', async () => {
+    it('requireRemoteNameForSlug throws when missing', async () => {
       vi.mocked(getLocalConfig).mockResolvedValueOnce(undefined);
-      await expect(requireRemoteNameForSlug('mod', 'slug')).rejects.toThrow(/No repoUrl configured/);
+      await expect(requireRemoteNameForSlug('mod', 'slug')).rejects.toThrow(/No remote configured/);
     });
 
     it('resolveBranch reads from config', async () => {
@@ -194,24 +213,25 @@ describe('git utilities', () => {
         prDraft: false,
         prAutoMerge: true,
         prMergeStrategy: 'rebase',
+        url: 'git@github.com:me/repo.git',
       });
-      vi.mocked(findRemoteByUrl).mockResolvedValueOnce(null);
       await configureRemote({
         domain: 'mod',
         slug: 'foo',
-        remoteUrl: 'git@github.com:me/repo.git',
+        repoUrl: 'git@github.com:me/repo.git',
         branch: 'main',
         logger,
       });
+      expect(setLocalConfig).toHaveBeenCalledWith('civ7.mod.foo.remoteName', 'foo', { verbose: false });
       expect(setLocalConfig).toHaveBeenCalledWith('civ7.mod.foo.repoUrl', 'git@github.com:me/repo.git', { verbose: false });
       expect(setLocalConfig).toHaveBeenCalledWith('civ7.mod.foo.branch', 'main', { verbose: false });
       expect(configureRemoteAndFetch).toHaveBeenCalledWith(
-        'mod-foo',
+        'foo',
         'git@github.com:me/repo.git',
         { tags: true },
         { verbose: false },
       );
-      expect(getRemotePushConfig).toHaveBeenCalledWith('mod-foo', { verbose: false });
+      expect(getRemotePushConfig).toHaveBeenCalledWith('foo', { verbose: false });
       expect(logger.log).toHaveBeenCalledWith('Push config:');
       expect(logger.log).toHaveBeenCalledWith('  trunk: (auto)');
     });

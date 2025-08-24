@@ -12,11 +12,11 @@ describe('mod git import command', () => {
   beforeEach(() => vi.clearAllMocks());
 
   test('configures remote then imports subtree', async () => {
-    await ModGitImport.run(['my-mod', '--remoteUrl', 'https://example.com/repo.git']);
+    await ModGitImport.run(['my-mod', '--repoUrl', 'https://example.com/repo.git']);
     expect(configureRemote).toHaveBeenCalledWith(
       expect.objectContaining({
         slug: 'my-mod',
-        remoteUrl: 'https://example.com/repo.git',
+        repoUrl: 'https://example.com/repo.git',
       }),
     );
     expect(importSubtree).toHaveBeenCalledWith(
