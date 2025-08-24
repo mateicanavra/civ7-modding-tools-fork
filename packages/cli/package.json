@@ -31,6 +31,7 @@
   "dependencies": {
     "@civ7/plugin-files": "workspace:*",
     "@civ7/plugin-graph": "workspace:*",
+    "@civ7/plugin-git": "workspace:*",
     "@civ7/plugin-mods": "workspace:*",
     "@civ7/config": "workspace:*",
     "@oclif/core": "^4.5.2",
@@ -56,7 +57,33 @@
     "plugins": [
       "@oclif/plugin-help"
     ],
-    "topicSeparator": " "
+    "topicSeparator": " ",
+    "hooks": {
+      "prerun": "./dist/hooks/prerun/promptMissingArgs.js"
+    },
+    "topics": {
+      "data": {
+        "description": "Work with Civilization VII data: crawl XML resources, explore relationships, zip outputs."
+      },
+      "docs": {
+        "description": "Serve the project documentation site (Mintlify or Docsify) with optional syncing."
+      },
+      "git": {
+        "description": "Git utilities"
+      },
+      "git:subtree": {
+        "description": "Configure remotes, import repos, pull, push, setup and view status via git subtree"
+      },
+      "mod": {
+        "description": "Manage Civilization VII mods"
+      },
+      "mod:git": {
+        "description": "Configure and sync mod repositories via git subtree (setup, import, pull, push, status, list, clear, remove, update)"
+      },
+      "mod:manage": {
+        "description": "Manage local mod folders (list, deploy)"
+      }
+    }
   },
   "engines": {
     "node": ">=20"

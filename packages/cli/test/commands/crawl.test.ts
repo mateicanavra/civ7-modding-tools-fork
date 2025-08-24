@@ -23,7 +23,7 @@ vi.mock('node:fs', () => ({
   },
 }));
 
-import Crawl from '../../src/commands/crawl';
+import Crawl from '../../src/commands/data/crawl';
 import { crawlGraph } from '@civ7/plugin-graph';
 
 describe('crawl command', () => {

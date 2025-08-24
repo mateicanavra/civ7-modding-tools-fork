@@ -1,4 +1,4 @@
-import { kebabCase } from "lodash";
+import * as lodash from "lodash-es";
 
 import { TClassProperties, TPartialRequired } from "../types";
 import {
@@ -124,7 +124,7 @@ export class UnlockBuilder extends BaseBuilder<TUnlockRewardBuilder> {
     }
 
     build() {
-        const name = `${kebabCase(trim(this.unlockConfigurationValue.configurationValue))}`;
+        const name = `${lodash.kebabCase(trim(this.unlockConfigurationValue.configurationValue))}`;
         const path = `/unlocks/${name}/`;
         return [
             new XmlFile({

@@ -5,14 +5,14 @@ vi.mock('@civ7/plugin-mods', () => ({
   resolveModsDir: vi.fn(() => ({ modsDir: '/Mods', platform: 'darwin' })),
 }));
 
-import ModList from '../../src/commands/mod/list';
+import ModManageList from '../../src/commands/mod/manage/list';
 import { listMods } from '@civ7/plugin-mods';
 
-describe('mod list command', () => {
+describe('mod manage list command', () => {
   beforeEach(() => vi.clearAllMocks());
 
   test('lists mods from default dir', async () => {
-    await ModList.run([]);
+    await ModManageList.run([]);
     expect(listMods).toHaveBeenCalledWith('/Mods');
   });
 });

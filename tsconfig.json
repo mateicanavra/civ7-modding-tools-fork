@@ -1,16 +1,17 @@
 {
-    "extends": "./tsconfig.base.json",
-    "compilerOptions": {
-        "noEmit": true
-    },
-    "files": [],
-    "references": [
-        { "path": "./packages/cli" },
-        { "path": "./packages/config" },
-        { "path": "./packages/sdk" },
-        { "path": "./packages/plugins/plugin-files" },
-        { "path": "./packages/plugins/plugin-graph" },
-        { "path": "./apps/playground" },
-        { "path": "./apps/docs" }
-    ]
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true
+  },
+  "files": [],
+  "references": [
+    { "path": "./packages/cli" },
+    { "path": "./packages/config" },
+    { "path": "./packages/sdk" },
+    { "path": "./packages/plugins/plugin-files" },
+    { "path": "./packages/plugins/plugin-graph" },
+    { "path": "./mods/mod-swooper-civ-dacia" },
+    { "path": "./apps/playground" },
+    { "path": "./apps/docs" }
+  ]
 }

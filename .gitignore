@@ -27,6 +27,10 @@ apps/docs/dist/
 # Playground generated examples
 apps/playground/example-generated-mod/
 
+# Built mod outputs
+mods/*/mod/
+
+
 # OS/system files
 .DS_Store
 **/.DS_Store

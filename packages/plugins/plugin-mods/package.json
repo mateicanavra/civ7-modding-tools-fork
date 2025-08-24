@@ -18,7 +18,8 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@civ7/plugin-files": "workspace:*"
+    "@civ7/plugin-files": "workspace:*",
+    "@civ7/plugin-git": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^8.5.0",
@@ -30,5 +31,3 @@
     "node": ">=20"
   }
 }
-
-

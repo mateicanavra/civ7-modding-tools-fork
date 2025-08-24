@@ -11,7 +11,7 @@ vi.mock('@civ7/config', () => ({
   findProjectRoot: vi.fn(() => '/project'),
 }));
 
-import Unzip from '../../src/commands/unzip';
+import Unzip from '../../src/commands/data/unzip';
 import { unzipResources } from '@civ7/plugin-files';
 
 describe('unzip command', () => {

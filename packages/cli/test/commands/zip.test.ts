@@ -19,7 +19,7 @@ vi.mock('node:fs', async () => {
   };
 });
 
-import Zip from '../../src/commands/zip';
+import Zip from '../../src/commands/data/zip';
 import { zipResources } from '@civ7/plugin-files';
 
 describe('zip command', () => {

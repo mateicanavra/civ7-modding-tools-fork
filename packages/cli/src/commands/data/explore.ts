@@ -4,7 +4,7 @@ import * as path from "node:path";
 import * as fssync from "node:fs";
 import { exploreGraph } from "@civ7/plugin-graph";
 import { findProjectRoot, loadConfig, resolveGraphOutDir } from "@civ7/config";
-import { resolveRootFromConfigOrFlag } from "../utils";
+import { resolveRootFromConfigOrFlag } from "../../utils";
 import { spawn } from "node:child_process";
 import * as http from "node:http";
 
@@ -20,20 +20,55 @@ export default class Explore extends Command {
 
   static flags = {
     config: Flags.string({ description: "Path to config file", required: false }),
-    profile: Flags.string({ description: "Profile key from config", required: false, default: "default" }),
-    root: Flags.string({ description: "Override root folder (XML dir) if not using config", required: false }),
-    engine: Flags.string({ description: "Graphviz engine", options: ["dot", "neato", "fdp", "sfdp", "circo", "twopi"], default: "dot" }),
-    open: Flags.boolean({ description: "Open the generated visualization (HTML viewer by default) in your default browser", default: true }),
-    openOnline: Flags.boolean({ description: "Open GraphvizOnline with DOT in the URL hash (may be too long for big graphs)", default: false }),
-    maxUrlLength: Flags.integer({ description: "Max URL length for online viewer (guard)", default: 8000 }),
+    profile: Flags.string({
+      description: "Profile key from config",
+      required: false,
+      default: "default",
+    }),
+    root: Flags.string({
+      description: "Override root folder (XML dir) if not using config",
+      required: false,
+    }),
+    engine: Flags.string({
+      description: "Graphviz engine",
+      options: ["dot", "neato", "fdp", "sfdp", "circo", "twopi"],
+      default: "dot",
+    }),
+    open: Flags.boolean({
+      description:
+        "Open the generated visualization (HTML viewer by default) in your default browser",
+      default: true,
+    }),
+    openOnline: Flags.boolean({
+      description: "Open GraphvizOnline with DOT in the URL hash (may be too long for big graphs)",
+      default: false,
+    }),
+    maxUrlLength: Flags.integer({
+      description: "Max URL length for online viewer (guard)",
+      default: 8000,
+    }),
     // Viewer options
-    vizHtml: Flags.boolean({ description: "Emit a local HTML viewer (graph.html) that embeds the generated SVG and adds pan/zoom", default: true, aliases: ["viz.html"] }),
-    serve: Flags.boolean({ description: "Serve the output directory and open http://localhost:<port>/graph.html", default: false }),
-    port: Flags.integer({ description: "Port for --serve (default 3000 or next free)", default: 3000 }),
+    vizHtml: Flags.boolean({
+      description:
+        "Emit a local HTML viewer (graph.html) that embeds the generated SVG and adds pan/zoom",
+      default: true,
+      aliases: ["viz.html"],
+    }),
+    serve: Flags.boolean({
+      description: "Serve the output directory and open http://localhost:<port>/graph.html",
+      default: false,
+    }),
+    port: Flags.integer({
+      description: "Port for --serve (default 3000 or next free)",
+      default: 3000,
+    }),
   } as const;
 
   static args = {
-    seed: Args.string({ description: "Seed identifier: Table:ID or an ID with a known prefix (e.g., LEADER_*)", required: true }),
+    seed: Args.string({
+      description: "Seed identifier: Table:ID or an ID with a known prefix (e.g., LEADER_*)",
+      required: true,
+    }),
     outDir: Args.string({ description: "Output directory (default: out/<seed>)", required: false }),
   } as const;
 
@@ -42,23 +77,40 @@ export default class Explore extends Command {
 
     const projectRoot = findProjectRoot(process.cwd());
     const cfg = await loadConfig(projectRoot, flags.config);
-    const root = await resolveRootFromConfigOrFlag({ projectRoot, profile: flags.profile!, flagsRoot: flags.root, flagsConfig: flags.config });
-    if (!root) this.error("Could not determine XML root directory. Provide --root or define 'outputs.unzip.dir' in the config file.");
+    const root = await resolveRootFromConfigOrFlag({
+      projectRoot,
+      profile: flags.profile!,
+      flagsRoot: flags.root,
+      flagsConfig: flags.config,
+    });
+    if (!root)
+      this.error(
+        "Could not determine XML root directory. Provide --root or define 'outputs.unzip.dir' in the config file."
+      );
     if (!fssync.existsSync(root)) this.error(`Root path not found: ${root}`);
 
     const seed = args.seed;
     // Guard against accidental boolean strings being parsed as OUTDIR (e.g., --open=false)
     let outDirArg = args.outDir as string | undefined;
-    if (outDirArg === 'false' || outDirArg === 'true' || (outDirArg && outDirArg.startsWith('--'))) {
+    if (
+      outDirArg === "false" ||
+      outDirArg === "true" ||
+      (outDirArg && outDirArg.startsWith("--"))
+    ) {
       outDirArg = undefined;
     }
-    const outDir = resolveGraphOutDir({ projectRoot, profile: flags.profile }, cfg.raw ?? {}, seed, outDirArg);
+    const outDir = resolveGraphOutDir(
+      { projectRoot, profile: flags.profile },
+      cfg.raw ?? {},
+      seed,
+      outDirArg
+    );
 
     const useHtmlViewer = Boolean((flags as any)["viz.html"]) || Boolean((flags as any).vizHtml);
     const { dot, json, svg, html, manifestFiles } = await exploreGraph({
       rootDir: root,
       seed,
-      engine: flags.engine as 'dot' | 'neato' | 'fdp' | 'sfdp' | 'circo' | 'twopi',
+      engine: flags.engine as "dot" | "neato" | "fdp" | "sfdp" | "circo" | "twopi",
       emitHtml: useHtmlViewer,
       log: this.log.bind(this),
     });
@@ -143,7 +195,10 @@ export default class Explore extends Command {
   /**
    * Start a minimal static server rooted at rootDir. If the requested port is busy, falls back to an ephemeral port.
    */
-  private startStaticServer(rootDir: string, desiredPort: number): Promise<{ server: http.Server; url: string; port: number }> {
+  private startStaticServer(
+    rootDir: string,
+    desiredPort: number
+  ): Promise<{ server: http.Server; url: string; port: number }> {
     const root = path.resolve(rootDir);
     const contentTypes: Record<string, string> = {
       ".html": "text/html; charset=utf-8",
@@ -158,14 +213,26 @@ export default class Explore extends Command {
 
     const server = http.createServer(async (req, res) => {
       try {
-        if (!req.url) { res.statusCode = 400; res.end("Bad Request"); return; }
+        if (!req.url) {
+          res.statusCode = 400;
+          res.end("Bad Request");
+          return;
+        }
         const url = new URL(req.url, "http://localhost");
         let pathname = decodeURIComponent(url.pathname);
         if (pathname === "/") pathname = "/graph.html";
         const safePath = path.normalize(path.join(root, pathname));
-        if (!safePath.startsWith(root)) { res.statusCode = 403; res.end("Forbidden"); return; }
+        if (!safePath.startsWith(root)) {
+          res.statusCode = 403;
+          res.end("Forbidden");
+          return;
+        }
         const stat = await fs.stat(safePath).catch(() => null);
-        if (!stat || !stat.isFile()) { res.statusCode = 404; res.end("Not Found"); return; }
+        if (!stat || !stat.isFile()) {
+          res.statusCode = 404;
+          res.end("Not Found");
+          return;
+        }
         const ext = path.extname(safePath).toLowerCase();
         const ctype = contentTypes[ext] || "application/octet-stream";
         res.setHeader("Content-Type", ctype);
@@ -203,5 +270,3 @@ export default class Explore extends Command {
     });
   }
 }
-
-

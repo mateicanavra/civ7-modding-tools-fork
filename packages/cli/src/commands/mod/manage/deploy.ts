@@ -4,14 +4,14 @@ import * as path from 'node:path';
 import * as fs from 'node:fs';
 import { pathToFileURL } from 'node:url';
 
-export default class ModDeploy extends Command {
-    static id = 'mod deploy';
+export default class ModManageDeploy extends Command {
+    static id = 'mod manage deploy';
     static summary = 'Deploy a mod folder into the Civ7 Mods directory';
     static description = 'Copies files from an input directory into Mods/[mod-id].';
 
     static examples = [
-        '<%= config.bin %> mod deploy --input ./dist --id my_mod',
-        '<%= config.bin %> mod deploy -i ../plugin-mapgen/dist -m epic-diverse-huge',
+        '<%= config.bin %> mod manage deploy --input ./dist --id my_mod',
+        '<%= config.bin %> mod manage deploy -i ../plugin-mapgen/dist -m epic-diverse-huge',
     ];
 
     static flags = {
@@ -21,7 +21,7 @@ export default class ModDeploy extends Command {
     };
 
     public async run(): Promise<void> {
-        const { flags } = await this.parse(ModDeploy);
+        const { flags } = await this.parse(ModManageDeploy);
         const inputDir = path.resolve(flags.input!);
         if (!fs.existsSync(inputDir)) this.error(`Input directory not found: ${inputDir}`);
         const modsDir = flags.dir ?? resolveModsDir().modsDir;

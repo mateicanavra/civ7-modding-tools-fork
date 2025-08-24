@@ -3,7 +3,7 @@ import { promises as fs } from "node:fs";
 import * as path from "node:path";
 import * as fssync from "node:fs";
 import { expandPath, findProjectRoot } from "@civ7/config";
-import { resolveRootFromConfigOrFlag } from "../utils";
+import { resolveRootFromConfigOrFlag } from "../../utils";
 
 export default class Slice extends Command {
   static id = "slice";
@@ -20,13 +20,23 @@ preserving relative directory structure.
 
   static flags = {
     config: Flags.string({ description: "Path to config file", required: false }),
-    profile: Flags.string({ description: "Profile key from config", required: false, default: "default" }),
-    root: Flags.string({ description: "Override root directory (XML source) if not using config", required: false }),
+    profile: Flags.string({
+      description: "Profile key from config",
+      required: false,
+      default: "default",
+    }),
+    root: Flags.string({
+      description: "Override root directory (XML source) if not using config",
+      required: false,
+    }),
     dest: Flags.string({ description: "Override destination directory", required: false }),
   } as const;
 
   static args = {
-    manifest: Args.string({ description: "Path to manifest.txt (defaults to out/<seed>/manifest.txt)", required: true }),
+    manifest: Args.string({
+      description: "Path to manifest.txt (defaults to out/<seed>/manifest.txt)",
+      required: true,
+    }),
   } as const;
 
   public async run(): Promise<void> {
@@ -40,7 +50,9 @@ preserving relative directory structure.
       flagsConfig: flags.config,
     });
     if (!root) {
-      this.error("Could not determine root. Provide --root or define 'outputs.unzip.dir' in the config file.");
+      this.error(
+        "Could not determine root. Provide --root or define 'outputs.unzip.dir' in the config file."
+      );
     }
     if (!fssync.existsSync(root)) this.error(`Root not found: ${root}`);
 
@@ -49,13 +61,18 @@ preserving relative directory structure.
     const dest = path.resolve(projectRoot, expandPath(flags.dest || defaultDest));
 
     const manifestRaw = await fs.readFile(manifestPath, "utf8");
-    const files = manifestRaw.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+    const files = manifestRaw
+      .split(/\r?\n/)
+      .map((l) => l.trim())
+      .filter(Boolean);
 
     await fs.mkdir(dest, { recursive: true });
 
     let copied = 0;
     for (const abs of files) {
-      const rel = abs.startsWith(root) ? abs.slice(root.length + (abs[root.length] === path.sep ? 1 : 0)) : path.basename(abs);
+      const rel = abs.startsWith(root)
+        ? abs.slice(root.length + (abs[root.length] === path.sep ? 1 : 0))
+        : path.basename(abs);
       const src = abs;
       const outPath = path.join(dest, rel);
 
@@ -72,5 +89,3 @@ preserving relative directory structure.
     this.log(`Slice complete. Copied ${copied} files to: ${dest}`);
   }
 }
-
-
