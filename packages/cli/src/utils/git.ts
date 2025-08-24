@@ -7,6 +7,8 @@ import {
   getLocalConfig,
   getRemotePushConfig,
   setLocalConfig,
+  getRemoteUrl,
+  remoteExists,
   type RemotePushConfig,
 } from '@civ7/plugin-git';
 
@@ -55,12 +57,53 @@ export async function getRemoteNameForSlug(
 export async function requireRemoteNameForSlug(
   domain: string,
   slug: string,
+  opts: { verify?: boolean; verbose?: boolean } = {},
 ): Promise<string> {
+  const { verify = true, verbose = false } = opts;
   const remoteName = await getRemoteNameForSlug(domain, slug);
   if (!remoteName) {
     throw new Error(`No remote configured for ${domain} "${slug}". Run setup first.`);
   }
+  if (verify) {
+    const exists = await remoteExists(remoteName, { verbose });
+    if (!exists) {
+      throw new Error(`Remote "${remoteName}" missing for ${domain} "${slug}". Run setup again.`);
+    }
+    const expectedUrl = await getRepoUrlForSlug(domain, slug);
+    if (expectedUrl) {
+      const actualUrl = await getRemoteUrl(remoteName, { verbose });
+      if (actualUrl && actualUrl !== expectedUrl) {
+        throw new Error(
+          `Remote "${remoteName}" URL mismatch for ${domain} "${slug}". Run setup again.`,
+        );
+      }
+    }
+  }
   return remoteName;
+}
+
+export async function getRepoUrlForSlug(
+  domain: string,
+  slug: string,
+): Promise<string | undefined> {
+  try {
+    return (await getLocalConfig(`civ7.${domain}.${slug}.repoUrl`)) ?? undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+export async function requireRepoUrlForSlug(
+  domain: string,
+  slug: string,
+  opts: { verbose?: boolean } = {},
+): Promise<string> {
+  const { verbose = false } = opts;
+  const url = await getRepoUrlForSlug(domain, slug);
+  if (!url) {
+    throw new Error(`No repoUrl configured for ${domain} "${slug}". Run setup first.`);
+  }
+  return url;
 }
 
 export interface ResolveBranchOptions {
@@ -150,7 +193,9 @@ export async function configureRemote(
   }
   const rName = computeRemoteName(domain, slug);
   await setLocalConfig(`civ7.${domain}.${slug}.remoteName`, rName, { verbose });
+  await setLocalConfig(`civ7.${domain}.${slug}.repoUrl`, remoteUrl, { verbose });
   const branchName = branch ?? defaultBranch;
+  await setLocalConfig(`civ7.${domain}.${slug}.branch`, branchName, { verbose });
   const log = getLogger(logger).log;
   log(`Configuring remote "${rName}" → ${remoteUrl} ...`);
   const res = await configureRemoteAndFetch(rName, remoteUrl, { tags: true }, { verbose });
@@ -168,36 +213,34 @@ export async function configureRemote(
   return res;
 }
 
-export interface ImportSubtreeOptions {
-  domain: string;
-  slug: string;
-  prefix: string;
-  branch?: string;
-  remoteUrl?: string;
-  defaultBranch?: string;
-  squash?: boolean;
-  allowDirty?: boolean;
-  autoUnshallow?: boolean;
-  verbose?: boolean;
-  logger?: Logger;
-  remoteRequiredMessage?: string;
-}
+  export interface ImportSubtreeOptions {
+    domain: string;
+    slug: string;
+    prefix: string;
+    branch?: string;
+    squash?: boolean;
+    allowDirty?: boolean;
+    autoUnshallow?: boolean;
+    verbose?: boolean;
+    logger?: Logger;
+    remoteRequiredMessage?: string;
+    branchRequiredMessage?: string;
+  }
 
 export async function importSubtree(opts: ImportSubtreeOptions): Promise<void> {
-  const {
-    domain,
-    slug,
-    prefix,
-    branch,
-    remoteUrl,
-    defaultBranch = 'main',
-    squash = false,
-    allowDirty = false,
-    autoUnshallow = false,
-    verbose = false,
-    logger,
-    remoteRequiredMessage,
-  } = opts;
+    const {
+      domain,
+      slug,
+      prefix,
+      branch,
+      squash = false,
+      allowDirty = false,
+      autoUnshallow = false,
+      verbose = false,
+      logger,
+      remoteRequiredMessage,
+      branchRequiredMessage,
+    } = opts;
   const log = getLogger(logger).log;
 
   if (fs.existsSync(prefix)) {
@@ -210,18 +253,27 @@ export async function importSubtree(opts: ImportSubtreeOptions): Promise<void> {
     }
   }
 
-  const rName = await requireRemoteNameForSlug(domain, slug).catch((err) => {
+  const rName = await requireRemoteNameForSlug(domain, slug, { verbose }).catch((err) => {
     if (remoteRequiredMessage) throw new Error(remoteRequiredMessage);
     throw err;
   });
-  const branchName = branch ?? defaultBranch;
+  const branchName = await requireBranch({
+    domain,
+    slug,
+    branch,
+    verbose,
+    logger,
+  }).catch((err) => {
+    if (branchRequiredMessage) throw new Error(branchRequiredMessage);
+    throw err;
+  });
 
   log(
     `Importing subtree: prefix=${prefix} remote=${rName} branch=${branchName} squash=${
       squash ? 'yes' : 'no'
     } autoUnshallow=${autoUnshallow ? 'yes' : 'no'}`,
   );
-  await configureRemoteAndFetch(rName, remoteUrl, { tags: true }, { verbose });
+  await configureRemoteAndFetch(rName, undefined, { tags: true }, { verbose });
   await subtreeAddFromRemote(
     prefix,
     rName,
@@ -266,7 +318,7 @@ export async function pushSubtree(opts: PushSubtreeOptions): Promise<void> {
   } = opts;
   const log = getLogger(logger).log;
 
-  const rName = await requireRemoteNameForSlug(domain, slug).catch((err) => {
+  const rName = await requireRemoteNameForSlug(domain, slug, { verbose }).catch((err) => {
     if (remoteRequiredMessage) throw new Error(remoteRequiredMessage);
     throw err;
   });
@@ -326,7 +378,7 @@ export async function pullSubtree(opts: PullSubtreeOptions): Promise<void> {
   } = opts;
   const log = getLogger(logger).log;
 
-  const rName = await requireRemoteNameForSlug(domain, slug).catch((err) => {
+  const rName = await requireRemoteNameForSlug(domain, slug, { verbose }).catch((err) => {
     if (remoteRequiredMessage) throw new Error(remoteRequiredMessage);
     throw err;
   });

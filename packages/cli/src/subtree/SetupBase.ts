@@ -59,8 +59,6 @@ export default abstract class SetupBase extends SubtreeCommand {
       domain: this.domain,
       slug,
       prefix,
-      remoteUrl: flags.remoteUrl,
-      branch: flags.branch,
       squash: flags.squash,
       allowDirty: flags.yes,
       autoUnshallow: flags.autoUnshallow,

@@ -38,6 +38,12 @@ async function setLinkedRemoteName(slug: string, remoteName: string, opts: { ver
 async function getLinkedRemoteName(slug: string, opts: { verbose?: boolean } = {}): Promise<string | null> {
   return getLocalConfig(`civ7.mod.${slug}.remoteName`, { verbose: opts.verbose });
 }
+async function setLinkedRepoUrl(slug: string, repoUrl: string, opts: { verbose?: boolean } = {}) {
+  await setLocalConfig(`civ7.mod.${slug}.repoUrl`, repoUrl, { verbose: opts.verbose });
+}
+async function getLinkedRepoUrl(slug: string, opts: { verbose?: boolean } = {}): Promise<string | null> {
+  return getLocalConfig(`civ7.mod.${slug}.repoUrl`, { verbose: opts.verbose });
+}
 async function setLinkedTrunk(slug: string, branch: string, opts: { verbose?: boolean } = {}) {
   await setLocalConfig(`civ7.mod.${slug}.trunk`, branch, { verbose: opts.verbose });
 }
@@ -232,6 +238,8 @@ export async function importModFromRemote(opts: ImportModOptions): Promise<void>
   // Let git plugin handle subtree readiness, allowDirty, unshallow, and add
   await subtreeAddFromRemote(prefix, rName, branch, { squash, autoUnshallow, allowDirty }, { verbose });
   await setLinkedRemoteName(slug, rName, { verbose });
+  await setLinkedBranch(slug, branch, { verbose });
+  if (remoteUrl) await setLinkedRepoUrl(slug, remoteUrl, { verbose });
 }
 
 /**
@@ -431,6 +439,7 @@ export async function link(opts: LinkModOptions): Promise<{ slug: string; remote
   // Persist link defaults for subsequent commands
   await setLinkedBranch(slug, branch, { verbose });
   await setLinkedRemoteName(slug, remoteName, { verbose });
+  await setLinkedRepoUrl(slug, remoteUrl, { verbose });
   const resolvedTrunk = trunk ?? (await resolveTrunkBranch(remoteName, {}, { verbose }));
   if (resolvedTrunk) await setLinkedTrunk(slug, resolvedTrunk, { verbose });
 
@@ -444,7 +453,7 @@ export async function listRegisteredSlugs(opts: { verbose?: boolean } = {}): Pro
     if (res.code !== 0) return [];
     const slugs = new Set<string>();
     for (const line of (res.stdout || "").split("\n")) {
-      const m = line.trim().match(/^civ7\.mod\.([^\.]+)\.(?:branch|remoteName|trunk)$/);
+      const m = line.trim().match(/^civ7\.mod\.([^\.]+)\.(?:branch|remoteName|repoUrl|trunk)$/);
       if (m && m[1]) slugs.add(m[1]);
     }
     return Array.from(slugs).sort();

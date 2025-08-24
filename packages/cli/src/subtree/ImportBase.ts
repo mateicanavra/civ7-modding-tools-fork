@@ -1,6 +1,6 @@
 import { Args, Flags } from '@oclif/core';
 import SubtreeCommand from '../base/SubtreeCommand.js';
-import { importSubtree } from '../utils/git.js';
+import { configureRemote, importSubtree } from '../utils/git.js';
 
 export default abstract class ImportBase extends SubtreeCommand {
   static flags = {
@@ -43,12 +43,18 @@ export default abstract class ImportBase extends SubtreeCommand {
     });
     const slug = args.slug as string;
     const prefix = this.getPrefix(slug);
+    await configureRemote({
+      domain: this.domain,
+      slug,
+      remoteUrl: flags.remoteUrl,
+      branch: flags.branch,
+      verbose: flags.verbose,
+      logger: this,
+    });
     await importSubtree({
       domain: this.domain,
       slug,
       prefix,
-      remoteUrl: flags.remoteUrl,
-      branch: flags.branch,
       squash: flags.squash,
       allowDirty: flags.yes,
       autoUnshallow: flags.autoUnshallow,
