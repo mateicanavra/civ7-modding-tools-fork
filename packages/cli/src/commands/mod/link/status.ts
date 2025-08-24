@@ -7,6 +7,7 @@ export default class ModLinkStatus extends SubtreeStatusBase {
   static summary = 'Show git subtree status for a mod';
   static description = 'Displays repository and remote information for mods/<slug>.';
   static args = { slug: Args.string({ description: 'Mod slug', required: true }) } as any;
+  static aliases = ['link:status'];
 
   protected domain = 'mod';
 

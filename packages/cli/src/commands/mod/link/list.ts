@@ -2,5 +2,6 @@ import SubtreeListConfigBase from '../../../base/subtree/SubtreeListConfigBase.j
 
 export default class ModLinkList extends SubtreeListConfigBase {
   static summary = 'List stored mod subtree configurations';
+  static aliases = ['link:list'];
   protected domain = 'mod';
 }
