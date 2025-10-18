@@ -23,6 +23,7 @@
  *   logStoryTagsSummary(StoryTags);
  *   logRainfallHistogram(width, height, 12);
  */
+import * as globals from "/base-standard/maps/map-globals.js";
 /**
  * Master toggles (all false by default).
  * Flip selectively during development sessions; keep off for release builds.
@@ -35,6 +36,7 @@ export const DEV = {
     RAINFALL_HISTOGRAM: true, // Log a coarse rainfall histogram (non-water tiles only)
     LOG_CORRIDOR_ASCII: true, // Print a coarse ASCII overlay of corridor tags (downsampled)
     LOG_WORLDMODEL_SUMMARY: false, // Print compact WorldModel summary when available
+    LOG_WORLDMODEL_ASCII: true, // ASCII visualization of plate boundaries & terrain mix
     WORLDMODEL_HISTOGRAMS: false, // Print histograms for rift/uplift (optionally near tags)
     LAYER_COUNTS: false, // Reserved for layer-specific counters (if used by callers)
 };
@@ -62,6 +64,8 @@ try {
             DEV.LOG_CORRIDOR_ASCII = !!__cfg.LOG_CORRIDOR_ASCII;
         if ("LOG_WORLDMODEL_SUMMARY" in __cfg)
             DEV.LOG_WORLDMODEL_SUMMARY = !!__cfg.LOG_WORLDMODEL_SUMMARY;
+        if ("LOG_WORLDMODEL_ASCII" in __cfg)
+            DEV.LOG_WORLDMODEL_ASCII = !!__cfg.LOG_WORLDMODEL_ASCII;
         if ("WORLDMODEL_HISTOGRAMS" in __cfg)
             DEV.WORLDMODEL_HISTOGRAMS = !!__cfg.WORLDMODEL_HISTOGRAMS;
     }
@@ -379,6 +383,116 @@ export function logWorldModelHistograms(WorldModel, opts = {}) {
     }
 }
 /**
+ * ASCII snapshot of terrain with optional plate-boundary overlay.
+ * Prints a base map (water/mountains/hills/volcanoes) and a second map where
+ * boundary tiles are annotated with their type (C=convergent, R=rift/divergent,
+ * T=transform, +=boundary/no type).
+ * @param {{isEnabled?:()=>boolean,boundaryCloseness?:Uint8Array,boundaryType?:Uint8Array}} WorldModel
+ * @param {{step?:number,boundaryThreshold?:number}} [opts]
+ */
+export function logWorldModelAscii(WorldModel, opts = {}) {
+    if (!isOn("LOG_WORLDMODEL_ASCII"))
+        return;
+    try {
+        const enabled = !!WorldModel &&
+            typeof WorldModel.isEnabled === "function" &&
+            !!WorldModel.isEnabled();
+        if (!enabled) {
+            safeLog("[DEV][wm] ascii: WorldModel disabled or unavailable.");
+            return;
+        }
+        const width = GameplayMap?.getGridWidth?.() ?? 0;
+        const height = GameplayMap?.getGridHeight?.() ?? 0;
+        if (!width || !height) {
+            safeLog("[DEV][wm] ascii: No map bounds; skipping overlay.");
+            return;
+        }
+        const boundaryCloseness = WorldModel.boundaryCloseness;
+        const boundaryType = WorldModel.boundaryType;
+        if (!boundaryCloseness || !boundaryType) {
+            safeLog("[DEV][wm] ascii: Missing boundary data.");
+            return;
+        }
+        const size = width * height;
+        const boundaryLen = Math.min(size, boundaryCloseness.length, boundaryType.length);
+        if (!boundaryLen) {
+            safeLog("[DEV][wm] ascii: Boundary arrays empty.");
+            return;
+        }
+        const sampleStep = (() => {
+            if (Number.isFinite(opts.step))
+                return Math.max(1, Math.trunc(opts.step));
+            return 1; // match base ASCII dumps (full resolution)
+        })();
+        const thresholdRatio = typeof opts.boundaryThreshold === "number"
+            ? Math.max(0, Math.min(1, opts.boundaryThreshold))
+            : 0.65;
+        const closenessCutoff = Math.round(thresholdRatio * 255);
+        const isWater = typeof GameplayMap?.isWater === "function"
+            ? (x, y) => GameplayMap.isWater(x, y)
+            : () => false;
+        const isMountain = typeof GameplayMap?.isMountain === "function"
+            ? (x, y) => GameplayMap.isMountain(x, y)
+            : () => false;
+        const getTerrainType = typeof GameplayMap?.getTerrainType === "function"
+            ? (x, y) => GameplayMap.getTerrainType(x, y)
+            : () => -1;
+        const getFeatureType = typeof GameplayMap?.getFeatureType === "function"
+            ? (x, y) => GameplayMap.getFeatureType(x, y)
+            : () => -1;
+        const hillTerrain = globals?.g_HillTerrain;
+        const volcanoFeature = globals?.g_VolcanoFeature;
+        const baseRows = [];
+        const overlayRows = [];
+        for (let y = 0; y < height; y += sampleStep) {
+            let baseRow = "";
+            let overlayRow = "";
+            for (let x = 0; x < width; x += sampleStep) {
+                const i = y * width + x;
+                const baseChar = (() => {
+                    if (isWater(x, y))
+                        return "~";
+                    if (isMountain(x, y)) {
+                        if (volcanoFeature >= 0 && getFeatureType(x, y) === volcanoFeature)
+                            return "V";
+                        return "M";
+                    }
+                    if (hillTerrain >= 0 && getTerrainType(x, y) === hillTerrain)
+                        return "H";
+                    return ".";
+                })();
+                baseRow += baseChar + " ";
+                let overlayChar = baseChar;
+                if (i < boundaryLen) {
+                    const close = boundaryCloseness[i] | 0;
+                    if (close >= closenessCutoff) {
+                        const bType = boundaryType[i] | 0;
+                        overlayChar = bType === 1
+                            ? "+"
+                            : bType === 2
+                                ? "-"
+                                : bType === 3
+                                    ? "#"
+                                    : " ";
+                    }
+                }
+                overlayRow += overlayChar + " ";
+            }
+            baseRows.push(baseRow);
+            overlayRows.push(overlayRow);
+        }
+        safeLog(`[DEV][wm] ascii base (step=${sampleStep}): ~ water, M mountain, V volcano, H hill, . land`);
+        for (const row of baseRows)
+            safeLog(row);
+        safeLog(`[DEV][wm] ascii plates (step=${sampleStep}): + convergent, - rift/divergent, # transform, space = boundary/no type, other glyphs mirror base terrain`);
+        for (const row of overlayRows)
+            safeLog(row);
+    }
+    catch (err) {
+        safeLog("[DEV][wm] ascii error:", err);
+    }
+}
+/**
  * Log a coarse ASCII overlay of corridor tags (downsampled).
  * Legend:
  * Legend:
@@ -491,4 +605,5 @@ export default {
     logRainfallHistogram,
     logWorldModelSummary,
     logWorldModelHistograms,
+    logWorldModelAscii,
 };

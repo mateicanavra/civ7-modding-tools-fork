@@ -19,35 +19,39 @@
  */
 
 /**
- * Master configuration object (top-level config consumed by the generator)
+ * Master configuration object controlling all map generation layers.
+ *
+ * Generation pipeline: WorldModel (plates/winds) → Landmass → Climate → Biomes → Features
+ *
  * @typedef {Object} MapConfig
- * @property {Toggles} toggles - Master feature toggles to enable/disable major Climate Story systems
- * @property {Story} story - Parameters for narrative motifs (hotspots, rifts, orogeny, swatches, paleo)
- * @property {Microclimate} microclimate - Small microclimate tweaks (rainfall and feature chances) applied in refinement passes
- * @property {Corridors} [corridors] - Strategic corridors configuration (sea lanes, island-hop, land, river chains, kinds/styles)
- * @property {Landmass} [landmass] - Land vs. ocean balance and band shaping (size-aware curvature/jitter + band geometry presets)
- * @property {Coastlines} [coastlines] - Coast ruggedizing probabilities (bays/fjords), lane-safe guardrails
- * @property {Margins} [margins] - Continental margin tagging proportions (active vs. passive)
- * @property {Islands} [islands] - Offshore island cluster seeding and hotspot-biased placement
- * @property {ClimateBaseline} [climateBaseline] - Baseline rainfall blending with latitude bands and local bonuses
- * @property {ClimateRefine} [climateRefine] - Earthlike refinement (coastal gradient, orographic, rivers/basins)
- * @property {Biomes} [biomes] - Biome nudge thresholds for tundra restraint, tropical coasts, river valleys, rift shoulders
- * @property {FeaturesDensity} [featuresDensity] - Gentle, validated feature-density tweaks (rainforest, forest, taiga, shelf reefs)
- * @property {Placement} [placement] - Late-stage placement config (wonders +1, floodplains length)
- * @property {DevLogging} [dev] - Developer logging toggles (kept off for release)
- * @property {WorldModel} [worldModel] - Optional foundational Earth-model fields (plates, winds, currents, pressure, directionality, policy)
+ * @property {Toggles} toggles - Enable/disable major systems (hotspots, rifts, orogeny, swatches, corridors)
+ * @property {Story} story - Narrative elements creating distinctive terrain features (volcanic trails, rift valleys, mountain rain shadows)
+ * @property {Microclimate} microclimate - Fine-tuned rainfall and feature bonuses near story elements (rift lines, hotspot centers)
+ * @property {Corridors} [corridors] - Protected travel routes (sea lanes, island chains, land corridors, river valleys) that remain unobstructed
+ * @property {Landmass} [landmass] - Continental layout: water percentage, band geometry, curvature/jitter, plate-driven vs preset modes
+ * @property {Coastlines} [coastlines] - Coast ruggedization: bay/fjord probabilities, active vs passive margin effects
+ * @property {Margins} [margins] - Tectonic margin types: convergent (mountains, subduction) vs divergent (rifts, spreading)
+ * @property {Islands} [islands] - Offshore island generation: fractal thresholds, hotspot biasing, cluster distribution
+ * @property {ClimateBaseline} [climateBaseline] - Initial rainfall: latitude bands, orographic lift from mountains, coastal humidity
+ * @property {ClimateRefine} [climateRefine] - Realistic refinements: coastal gradients, rain shadows (leeward drying), river/basin effects
+ * @property {Biomes} [biomes] - Biome assignment rules: tundra limits, tropical coast preferences, river grasslands, rift shoulders
+ * @property {FeaturesDensity} [featuresDensity] - Feature density: rainforest, forest, taiga prevalence, coral reef placement
+ * @property {Placement} [placement] - Final placement: natural wonder counts, floodplain river lengths
+ * @property {DevLogging} [dev] - Debug logging: timing stats, story tag counts, rainfall distribution histograms
+ * @property {WorldModel} [worldModel] - Earth-like physical simulation: tectonic plates, prevailing winds, ocean currents, mantle convection
  */
 
 /**
- * Feature toggles for major motifs/systems
+ * Feature toggles for major narrative and simulation systems.
+ *
  * @typedef {Object} Toggles
- * @property {boolean} STORY_ENABLE_HOTSPOTS - Enable deep-ocean hotspot trails and paradise/volcanic island classification
- * @property {boolean} STORY_ENABLE_RIFTS - Enable continental rift lines with shoulder humidity and biome bias
- * @property {boolean} STORY_ENABLE_OROGENY - Enable windward/lee amplification along mountain belts
- * @property {boolean} STORY_ENABLE_SWATCHES - Enable one weighted macro climate swatch (soft-edge rainfall deltas)
- * @property {boolean} STORY_ENABLE_PALEO - Enable paleo-hydrology overlays (deltas/oxbows/fossil channels; clamped)
- * @property {boolean} STORY_ENABLE_CORRIDORS - Enable strategic corridors (sea lanes, island-hop, land, river chains)
- * @property {boolean} [STORY_ENABLE_WORLDMODEL] - Enable world model fields (plates, winds, currents, pressure, policies)
+ * @property {boolean} STORY_ENABLE_HOTSPOTS - Volcanic island chains (like Hawaii) formed as plates move over mantle plumes
+ * @property {boolean} STORY_ENABLE_RIFTS - Continental rift valleys (like East African Rift) with humid shoulders and grassland bias
+ * @property {boolean} STORY_ENABLE_OROGENY - Mountain rain shadows: wet windward slopes, dry leeward deserts (orographic effect)
+ * @property {boolean} STORY_ENABLE_SWATCHES - Guaranteed macro-climate zones (e.g., Sahara-like desert belt, Congo/Amazon rainbelt)
+ * @property {boolean} STORY_ENABLE_PALEO - Ancient river features: fossil channels in deserts, oxbow lakes, delta wetlands
+ * @property {boolean} STORY_ENABLE_CORRIDORS - Protected routes for strategic gameplay (sea lanes, island chains, river valleys)
+ * @property {boolean} [STORY_ENABLE_WORLDMODEL] - Full Earth simulation (tectonic plates, winds, currents); enables plate-driven landmass mode
  */
 
 /**
@@ -61,85 +65,111 @@
  */
 
 /**
- * Deep-ocean hotspot trails
+ * Deep-ocean hotspot trails (volcanic island chains).
+ *
+ * Simulates stationary mantle plumes creating linear archipelagos as tectonic plates drift overhead.
+ * Think Hawaiian Islands: older islands to the northwest, active volcano in the southeast.
+ *
  * @typedef {Object} Hotspot
- * @property {number} [maxTrails] - Absolute max trails per map (count; size-scaled internally)
- * @property {number} [steps] - Number of steps per trail (count; higher = longer trails)
- * @property {number} [stepLen] - Step length per trail step (tiles)
- * @property {number} [minDistFromLand] - Minimum distance required from land for trail points (tiles)
- * @property {number} [minTrailSeparation] - Minimum separation between distinct trails (tiles)
- * @property {number} [paradiseBias] - Relative weight for "paradise" center classification (unitless weight)
- * @property {number} [volcanicBias] - Relative weight for "volcanic" center classification (unitless weight)
- * @property {number} [volcanicPeakChance] - Chance a volcanic hotspot center becomes land (ratio 0..1)
+ * @property {number} [maxTrails] - Maximum trails per map; fewer = more isolated chains (typically 2-5)
+ * @property {number} [steps] - Chain length in steps; higher = longer trails like Hawaii (typically 8-15)
+ * @property {number} [stepLen] - Spacing between islands in tiles (typically 3-6)
+ * @property {number} [minDistFromLand] - Keep trails in deep ocean, away from continents in tiles (typically 15+)
+ * @property {number} [minTrailSeparation] - Minimum distance between different chains in tiles (typically 25+)
+ * @property {number} [paradiseBias] - Weight for tropical paradise centers (lush, high humidity, reefs)
+ * @property {number} [volcanicBias] - Weight for volcanic centers (active, dramatic terrain, geothermal)
+ * @property {number} [volcanicPeakChance] - Probability volcanic centers become land vs staying underwater (0..1, typically 0.3-0.7)
  */
 
 /**
- * Continental rift lines
+ * Continental rift lines (tectonic valleys where plates pull apart).
+ *
+ * Creates linear depressions like the East African Rift Valley or the Rio Grande Rift.
+ * Rift shoulders receive extra humidity and grassland bias, while the valley floor may be drier.
+ *
  * @typedef {Object} Rift
- * @property {number} [maxRiftsPerMap] - Absolute cap on rifts per map (count; size-scaled internally)
- * @property {number} [lineSteps] - Steps marched per rift line (count; controls straight-line length)
- * @property {number} [stepLen] - Step length per rift step (tiles)
- * @property {number} [shoulderWidth] - Shoulder band width on each side of the rift (tiles)
+ * @property {number} [maxRiftsPerMap] - Maximum rifts on the map; 1-2 typical, 3+ creates heavily fractured continents
+ * @property {number} [lineSteps] - Length of rift in steps; higher = longer valleys (typically 15-30)
+ * @property {number} [stepLen] - Distance per step in tiles; controls rift straightness (typically 2-4)
+ * @property {number} [shoulderWidth] - Width of elevated shoulders on each side receiving humidity bonus (typically 2-5 tiles)
  */
 
 /**
- * Orogeny belts (windward/lee amplification)
+ * Orogeny belts (mountain-building zones with rain shadow effects).
+ *
+ * Orographic effect: mountains force air upward, causing rainfall on the windward (upwind) side.
+ * Air descends on the leeward (downwind) side, creating rain shadows (deserts).
+ * Example: Sierra Nevada (wet west, dry east), Himalayas (wet south, dry Gobi Desert north).
+ *
  * @typedef {Object} Orogeny
- * @property {number} [beltMaxPerContinent] - Hard cap on belts per large continent (count)
- * @property {number} [beltMinLength] - Minimum length to consider a belt (tiles)
- * @property {number} [radius] - Radius for windward/lee flank effects (tiles)
- * @property {number} [windwardBoost] - Wetness boost on windward side (rainfall units; 0..200 scale clamp applies)
- * @property {number} [leeDrynessAmplifier] - Multiplier for lee-side dryness (unitless ratio; >=1)
+ * @property {number} [beltMaxPerContinent] - Maximum mountain belts per continent (typically 1-3)
+ * @property {number} [beltMinLength] - Minimum tiles for a mountain range to qualify (typically 10-20)
+ * @property {number} [radius] - Distance from mountains to apply rain shadow effect (typically 3-8 tiles)
+ * @property {number} [windwardBoost] - Extra rainfall on upwind side in rainfall units (typically 10-30, max 200)
+ * @property {number} [leeDrynessAmplifier] - Drying multiplier for downwind side; 1.5 = 50% drier (typically 1.2-2.0)
  */
 
 /**
- * Macro climate swatches
+ * Macro climate swatches (guaranteed major climate features).
+ *
+ * Each map gets ONE guaranteed macro-climate zone to create distinctive character.
+ * These override normal patterns to ensure interesting gameplay variety.
+ *
  * @typedef {Object} Swatches
- * @property {number} [maxPerMap] - Maximum swatches applied per map (count; typically 1)
- * @property {boolean} [forceAtLeastOne] - Ensure at least one swatch gets selected and applied
- * @property {Object} [sizeScaling] - Size-aware multipliers for width/length based on sqrt(map area) (unitless scalars)
- * @property {number} [sizeScaling.widthMulSqrt] - Multiplier applied to swatch width on larger maps (scalar)
- * @property {number} [sizeScaling.lengthMulSqrt] - Multiplier applied to swatch length on larger maps (scalar)
- * @property {Object} [types] - Per-kind configuration; known keys optional, additional swatch keys supported
- * @property {SwatchType} [types.macroDesertBelt] - Subtropical dryness band with soft falloff around ~20 degrees latitude
- * @property {SwatchType} [types.equatorialRainbelt] - Equatorial wetness belt with coastal bleed
- * @property {SwatchType} [types.rainforestArchipelago] - Tropics-only coastal/island wetness emphasis
- * @property {SwatchType} [types.mountainForests] - Windward forest bias and slight lee penalty near mountain belts
- * @property {SwatchType} [types.greatPlains] - Mid-lat lowland dryness bias (broad plains feel)
+ * @property {number} [maxPerMap] - Maximum swatches per map; typically 1 to avoid competing features
+ * @property {boolean} [forceAtLeastOne] - Guarantee at least one swatch is applied (recommended: true)
+ * @property {Object} [sizeScaling] - Scale swatch dimensions with map size
+ * @property {number} [sizeScaling.widthMulSqrt] - Width scaling for larger maps (typically 1.0-1.5)
+ * @property {number} [sizeScaling.lengthMulSqrt] - Length scaling for larger maps (typically 1.0-1.5)
+ * @property {Object} [types] - Available swatch types and their weights
+ * @property {SwatchType} [types.macroDesertBelt] - Sahara/Kalahari-like subtropical desert band at ~20-30° latitude
+ * @property {SwatchType} [types.equatorialRainbelt] - Congo/Amazon-like equatorial rainforest belt with high humidity
+ * @property {SwatchType} [types.rainforestArchipelago] - Southeast Asia-style tropical island rainforests with coral reefs
+ * @property {SwatchType} [types.mountainForests] - Alpine/Himalayan-style wet forests on windward mountain slopes
+ * @property {SwatchType} [types.greatPlains] - Central Asia/American Great Plains-style continental grasslands/steppes
  */
 
 /**
- * One swatch kind's tunables (fields used vary by kind)
+ * Individual swatch type configuration (fields vary by swatch kind).
+ *
+ * Each swatch type has different parameters depending on whether it's a latitude band
+ * (desert belt, rainbelt), geographic feature (archipelago), or terrain type (plains, mountains).
+ *
  * @typedef {Object} SwatchType
- * @property {number} [weight] - Selection weight in the swatch lottery (unitless weight)
- * @property {number} [latitudeCenterDeg] - Latitude center (degrees) for banded swatches (deg)
- * @property {number} [halfWidthDeg] - Half-width around the center (degrees)
- * @property {number} [wetnessDelta] - Positive rainfall delta (rainfall units) to add within the swatch
- * @property {number} [drynessDelta] - Negative rainfall delta (rainfall units) to subtract within the swatch
- * @property {number} [dryDelta] - Alternative dryness delta used by some kinds (rainfall units)
- * @property {number} [lowlandMaxElevation] - Maximum elevation considered "lowland" (elevation units; engine scale)
- * @property {number} [islandBias] - Bias near coasts/islands (unitless scalar multiplier)
- * @property {number} [reefBias] - Slightly increases reef propensity in warm shallow zones (unitless scalar multiplier)
- * @property {boolean} [coupleToOrogeny] - Couple to orogeny windward/lee tags for more coherent patterns
- * @property {number} [windwardBonus] - Extra wetness on windward tiles (rainfall units)
- * @property {number} [leePenalty] - Small penalty on lee tiles (rainfall units)
- * @property {number} [bleedRadius] - Soft blending radius for swatch edges (tiles)
+ * @property {number} [weight] - Lottery weight for selection; higher = more likely to be chosen (typically 1-10)
+ * @property {number} [latitudeCenterDeg] - Center latitude for banded swatches; e.g., 25° for subtropical deserts (degrees)
+ * @property {number} [halfWidthDeg] - Band half-width from center; wider = more spread (typically 5-15 degrees)
+ * @property {number} [wetnessDelta] - Rainfall increase within swatch zone (typically 20-50 units for rainbelts)
+ * @property {number} [drynessDelta] - Rainfall decrease within swatch zone (typically -20 to -40 units for desert belts)
+ * @property {number} [dryDelta] - Alternative dryness parameter used by some swatches (units)
+ * @property {number} [lowlandMaxElevation] - Elevation ceiling for "lowland" designation; plains swatches ignore highlands (typically 30-50)
+ * @property {number} [islandBias] - Strength multiplier near coasts/islands for archipelago swatches (typically 1.0-2.5)
+ * @property {number} [reefBias] - Coral reef probability multiplier in warm shallows (typically 1.0-2.0)
+ * @property {boolean} [coupleToOrogeny] - Link to mountain rain shadow system for coherent wind patterns
+ * @property {number} [windwardBonus] - Extra rainfall on windward mountain slopes (typically 10-25 units)
+ * @property {number} [leePenalty] - Rainfall reduction on leeward mountain slopes (typically 5-15 units)
+ * @property {number} [bleedRadius] - Edge softening distance for gradual transitions (typically 5-12 tiles)
  */
 
 /**
- * Paleo-hydrology overlays (subtle, clamped)
+ * Paleo-hydrology overlays (ancient water features that no longer flow).
+ *
+ * Adds traces of past hydrological activity: dried riverbeds in deserts, oxbow lakes from ancient
+ * meanders, wetland deltas. These features add historical depth and subtle humidity/resource bonuses.
+ * Think: Australian dry lakes, Saharan wadis, abandoned Mississippi oxbows.
+ *
  * @typedef {Object} PaleoHydrology
- * @property {number} [maxDeltas] - Max river mouth deltas (count)
- * @property {number} [deltaFanRadius] - Landward fan radius around selected river mouths (tiles)
- * @property {number} [deltaMarshChance] - Chance that landward fan tiles become marsh (ratio 0..1; validated)
- * @property {number} [maxOxbows] - Max one-tile oxbows (count) in lowland meanders
- * @property {number} [oxbowElevationMax] - Elevation ceiling for oxbow candidates (elevation units)
- * @property {number} [maxFossilChannels] - Max fossil channels (count; short polylines in dry lowlands toward basins)
- * @property {number} [fossilChannelLengthTiles] - Fossil channel polyline length (tiles; before size scaling)
- * @property {number} [fossilChannelStep] - Step length between fossil channel points (tiles)
- * @property {number} [fossilChannelHumidity] - Humidity delta applied on fossil centerlines (rainfall units; clamped)
- * @property {number} [fossilChannelMinDistanceFromCurrentRivers] - Minimum distance from current rivers (tiles)
- * @property {number} [minDistanceFromStarts] - Minimum distance from starts for intrusive paleo effects (tiles)
+ * @property {number} [maxDeltas] - Maximum river deltas to create (wetland fans at river mouths; typically 2-5)
+ * @property {number} [deltaFanRadius] - Size of delta wetland spread inland from river mouth (typically 3-6 tiles)
+ * @property {number} [deltaMarshChance] - Probability delta tiles become marshland (0..1, typically 0.4-0.7)
+ * @property {number} [maxOxbows] - Maximum oxbow lakes (isolated crescent lakes from old meanders; typically 3-8)
+ * @property {number} [oxbowElevationMax] - Only create oxbows in lowlands below this elevation (typically 30-50)
+ * @property {number} [maxFossilChannels] - Maximum fossil riverbeds (dry channels in deserts; typically 2-6)
+ * @property {number} [fossilChannelLengthTiles] - Length of each fossil channel before scaling (typically 15-30 tiles)
+ * @property {number} [fossilChannelStep] - Spacing between channel points; lower = more sinuous (typically 2-4)
+ * @property {number} [fossilChannelHumidity] - Small humidity bonus along dry channels (typically 5-15 units)
+ * @property {number} [fossilChannelMinDistanceFromCurrentRivers] - Keep fossil channels away from active rivers (typically 10+ tiles)
+ * @property {number} [minDistanceFromStarts] - Keep paleo features away from player starts for fairness (typically 15+ tiles)
  * @property {Object} [sizeScaling] - Size-aware scaling for fossil channel length (unitless scalar based on sqrt(area))
  * @property {number} [sizeScaling.lengthMulSqrt] - Length multiplier based on sqrt(map area) (scalar)
  * @property {Object} [elevationCarving] - Optional canyon rim contrast (very subtle)
@@ -150,39 +180,57 @@
  */
 
 /**
- * Microclimate adjustments applied by refinement passes
+ * Microclimate adjustments near story elements (localized bonuses).
+ *
+ * Applies targeted rainfall and feature bonuses around narrative features like rifts and hotspots.
+ * These create distinctive local environments: lush rift valleys, tropical paradise islands,
+ * forested volcanic slopes. Subtle but noticeable effects that reward exploration.
+ *
  * @typedef {Object} Microclimate
- * @property {Object} [rainfall] - Rainfall adjustments
- * @property {number} [rainfall.riftBoost] - Narrow rift-line rainfall boost (rainfall units; clamped; applied near StoryTags.riftLine)
- * @property {number} [rainfall.riftRadius] - Radius around rift line for the boost (tiles)
- * @property {number} [rainfall.paradiseDelta] - Small wetness boost near "paradise" hotspots (rainfall units)
- * @property {number} [rainfall.volcanicDelta] - Small wetness boost near "volcanic" hotspots (rainfall units)
- * @property {Object} [features] - Feature adjustments
- * @property {number} [features.paradiseReefChance] - Percent chance for extra reefs near passive shelves (percent 0..100; validated)
- * @property {number} [features.volcanicForestChance] - Percent chance for extra forest near volcanic centers in warm/wet zones (percent 0..100; validated)
- * @property {number} [features.volcanicTaigaChance] - Percent chance for extra taiga near volcanic centers in cold/wet zones (percent 0..100; validated)
+ * @property {Object} [rainfall] - Localized rainfall adjustments
+ * @property {number} [rainfall.riftBoost] - Humidity bonus along rift valley shoulders (typically 15-30 units)
+ * @property {number} [rainfall.riftRadius] - Distance from rift centerline to apply boost (typically 2-5 tiles)
+ * @property {number} [rainfall.paradiseDelta] - Humidity bonus near tropical paradise hotspots (typically 10-20 units)
+ * @property {number} [rainfall.volcanicDelta] - Humidity bonus near volcanic hotspots from geothermal moisture (typically 8-15 units)
+ * @property {Object} [features] - Localized feature bonuses
+ * @property {number} [features.paradiseReefChance] - Extra coral reef probability near paradise islands (percent 0..100, typically 30-60%)
+ * @property {number} [features.volcanicForestChance] - Extra forest near volcanic slopes in warm climates (percent 0..100, typically 25-50%)
+ * @property {number} [features.volcanicTaigaChance] - Extra coniferous forest near volcanoes in cold climates (percent 0..100, typically 20-40%)
  */
 
 /**
- * Landmass shaping
+ * Landmass shaping (continental size, shape, and curvature).
+ *
+ * Controls the land/water ratio and how continents are shaped via fractal noise, jitter, and curvature.
+ * Water percentage: 60-65% = Earth-like, 70-75% = archipelago world, 50-55% = Pangaea-like.
+ *
  * @typedef {Object} Landmass
- * @property {number} [baseWaterPercent] - Baseline global water percent used for fractal thresholding (percent 0..100)
- * @property {number} [waterThumbOnScale] - Gentle water adjustment applied with sqrt(area) scaler (percent points; negative reduces water on larger maps)
- * @property {number} [jitterAmpFracBase] - Base fraction of map width used for per-row sinusoidal jitter amplitude (ratio 0..1 of width)
- * @property {number} [jitterAmpFracScale] - Extra jitter fraction applied with size scaling (ratio 0..1 of width)
- * @property {number} [curveAmpFrac] - Curvature amplitude as fraction of width to bow bands into long arcs (ratio 0..1 of width)
- * @property {LandmassGeometry} [geometry] - Up-front band layout and ocean columns scaling (used before landmass carving)
+ * @property {number} [baseWaterPercent] - Target water coverage; 65 = Earth-like, 75 = island world (percent 0..100, typically 55-75)
+ * @property {number} [waterThumbOnScale] - Water adjustment on larger maps; negative = less water (typically -5 to +5)
+ * @property {number} [jitterAmpFracBase] - Base coastline waviness as fraction of width; higher = more irregular (typically 0.02-0.08)
+ * @property {number} [jitterAmpFracScale] - Extra jitter on larger maps (typically 0.01-0.04)
+ * @property {number} [curveAmpFrac] - Continental bowing/curvature; higher = more crescent-shaped landmasses (typically 0.1-0.3)
+ * @property {LandmassGeometry} [geometry] - Preset layouts and ocean spacing (bands vs plate-driven modes)
  */
 
 /**
- * Landmass geometry presets and band definitions
+ * Landmass geometry presets and band definitions.
+ *
+ * Controls how continents are arranged on the map. Two approaches:
+ * - "bands": Classic preset layouts (Pangaea, three continents, etc.) using predefined bands
+ * - "plates": Tectonic simulation using Voronoi diagrams to create natural plate boundaries
+ * - "auto": Uses plates mode if WorldModel is enabled, otherwise bands
+ *
+ * Voronoi: A geometric technique that divides space into regions based on distance to seed points.
+ * Each plate grows outward from its seed, creating natural-looking boundaries where plates meet.
+ *
  * @typedef {Object} LandmassGeometry
- * @property {"bands"|"plates"|"auto"} [mode] - Layout mode: legacy three-band geometry, plate-driven layout, or automatic selection
- * @property {number} [oceanColumnsScale] - Scale applied to globals.g_OceanWaterColumns when computing base ocean widths (scalar multiplier)
- * @property {string} [preset] - Active preset name to mirror (string key into presets)
- * @property {Object.<string, {bands: ReadonlyArray<LandmassBand>}>} [presets] - Named presets mapping to band arrays (open set of presets)
- * @property {ReadonlyArray<LandmassBand>} [bands] - Three-band layout fallback (should mirror selected preset). Fractions are relative to map width (ratio 0..1).
- * @property {LandmassGeometryPost} [post] - Optional post-processing adjustments applied after deriving landmass windows
+ * @property {"bands"|"plates"|"auto"} [mode] - Layout mode selection
+ * @property {number} [oceanColumnsScale] - Ocean width multiplier; >1 = wider oceans, <1 = narrower (typically 0.8-1.3)
+ * @property {string} [preset] - Active preset name: "pangaea", "continents", "archipelago", "voronoi", etc.
+ * @property {Object.<string, {bands: ReadonlyArray<LandmassBand>}>} [presets] - Preset definitions with band layouts
+ * @property {ReadonlyArray<LandmassBand>} [bands] - Fallback three-band layout if no preset specified
+ * @property {LandmassGeometryPost} [post] - Fine-tuning adjustments applied after initial layout
  */
 
 /**
@@ -209,47 +257,69 @@
  */
 
 /**
- * Coastline ruggedizing (lane-safe)
+ * Coastline ruggedization (creates natural, irregular coasts).
+ *
+ * Transforms smooth generated coastlines into realistic features like bays and fjords.
+ * Active margins get more dramatic features (fjords, cliffs), passive margins get gentler ones.
+ * Respects strategic corridors to avoid blocking sea lanes.
+ *
  * @typedef {Object} Coastlines
- * @property {Object} [bay] - Bay configuration
- * @property {number} [bay.noiseGateAdd] - Additional widening of the noise gate for bay carving on larger maps (internal threshold units; scalar)
- * @property {number} [bay.rollDenActive] - Random denominator for bay rolls on ACTIVE margins (lower = more frequent; unitless denominator)
- * @property {number} [bay.rollDenDefault] - Random denominator for bay rolls elsewhere (lower = more frequent; unitless denominator)
- * @property {Object} [fjord] - Fjord configuration
- * @property {number} [fjord.baseDenom] - Base random denominator for fjord-like coast conversions (lower = more frequent; unitless denominator)
- * @property {number} [fjord.activeBonus] - Bias on ACTIVE margins (subtracts from denom; unitless additive bias)
- * @property {number} [fjord.passiveBonus] - Bias near PASSIVE shelves (subtracts from denom; unitless additive bias)
- * @property {number} [minSeaLaneWidth] - Documented minimum safe sea-lane width (tiles)
+ * @property {Object} [bay] - Bay configuration (gentle coastal indentations)
+ * @property {number} [bay.noiseGateAdd] - Extra noise threshold on larger maps; higher = fewer/larger bays (typically 0-3)
+ * @property {number} [bay.rollDenActive] - Bay frequency on active margins; lower = more bays (typically 8-15)
+ * @property {number} [bay.rollDenDefault] - Bay frequency elsewhere; lower = more bays (typically 12-20)
+ * @property {Object} [fjord] - Fjord configuration (deep, narrow inlets like Norway/New Zealand)
+ * @property {number} [fjord.baseDenom] - Base fjord frequency; lower = more fjords (typically 15-25)
+ * @property {number} [fjord.activeBonus] - Extra fjords on active margins (converging plates); subtracts from baseDenom (typically 3-8)
+ * @property {number} [fjord.passiveBonus] - Fjords near passive shelves; subtracts from baseDenom (typically 0-2)
+ * @property {number} [minSeaLaneWidth] - Minimum channel width to preserve for naval passage (typically 3-6 tiles)
  */
 
 /**
- * Continental margins tagging
+ * Continental margins tagging (tectonic boundary classification).
+ *
+ * ACTIVE margins: Convergent plate boundaries with subduction, volcanism, mountains, fjords, earthquakes.
+ *   Examples: Pacific Ring of Fire (Andes, Japan, Cascades), steep/dramatic coasts.
+ *
+ * PASSIVE margins: Divergent or stable boundaries with wide continental shelves, gentle slopes, coral reefs.
+ *   Examples: US Atlantic coast, most of Africa, broad coastal plains.
+ *
  * @typedef {Object} Margins
- * @property {number} [activeFraction] - Target fraction of coastal land tagged as ACTIVE margin (ratio 0..1; size-aware cap applies)
- * @property {number} [passiveFraction] - Target fraction of coastal land tagged as PASSIVE shelf (ratio 0..1; size-aware cap applies)
- * @property {number} [minSegmentLength] - Minimum contiguous coastal segment length eligible (tiles)
+ * @property {number} [activeFraction] - Fraction of coasts as active margins; higher = more mountainous/volcanic coasts (typically 0.2-0.4)
+ * @property {number} [passiveFraction] - Fraction of coasts as passive shelves; higher = more gentle/reef coasts (typically 0.3-0.5)
+ * @property {number} [minSegmentLength] - Minimum coastal stretch length to classify as a margin type (typically 8-15 tiles)
  */
 
 /**
- * Island chain placement
+ * Island chain placement (offshore archipelagos and volcanic islands).
+ *
+ * Uses fractal noise to seed islands in appropriate locations. Lower fractal threshold = more islands.
+ * Active margins (like Japan, Philippines) get more volcanic islands than passive margins.
+ * Hotspot trails automatically bias toward island formation (like Hawaii, Galapagos).
+ *
  * @typedef {Object} Islands
- * @property {number} [fractalThresholdPercent] - Fractal height threshold percent for island seeds (percent 0..100; sparse when high)
- * @property {number} [baseIslandDenNearActive] - Random denominator for island seeding near ACTIVE margins (lower = more frequent; unitless denominator)
- * @property {number} [baseIslandDenElse] - Random denominator elsewhere (lower = more frequent; unitless denominator)
- * @property {number} [hotspotSeedDenom] - Random denominator when on a hotspot trail point (lower = more frequent; unitless denominator)
- * @property {number} [clusterMax] - Max tiles in a small island cluster (tiles; total cluster size)
- * @property {number} [minDistFromLandRadius] - Minimum Chebyshev radius from existing land for island placement (tiles)
+ * @property {number} [fractalThresholdPercent] - Noise cutoff for island seeds; higher = fewer islands (typically 75-90 for sparse, 60-75 for moderate)
+ * @property {number} [baseIslandDenNearActive] - Island frequency near active margins; lower = more islands (typically 6-12)
+ * @property {number} [baseIslandDenElse] - Island frequency elsewhere; lower = more islands (typically 15-30)
+ * @property {number} [hotspotSeedDenom] - Island frequency on hotspot trails; lower = more islands (typically 3-8)
+ * @property {number} [clusterMax] - Maximum tiles per island cluster; creates small archipelagos (typically 3-8 tiles)
+ * @property {number} [minDistFromLandRadius] - Minimum spacing from continents; prevents coastal clutter (typically 4-8 tiles)
  */
 
 /**
- * Strategic corridors (sea lanes, island-hop, land, river chains)
+ * Strategic corridors (protected travel routes for gameplay).
+ *
+ * Identifies and preserves key routes that should remain passable and unobstructed.
+ * Prevents map generation from accidentally creating chokepoints or blocked passages.
+ * Useful for ensuring naval mobility, island hopping chains, and cross-continent land routes.
+ *
  * @typedef {Object} Corridors
- * @property {CorridorSea} [sea] - Open-water protected sea lanes
- * @property {CorridorIslandHop} [islandHop] - Hotspot-based island-hop arcs
- * @property {CorridorLand} [land] - Land open corridors (e.g., along rift shoulders)
- * @property {CorridorRiver} [river] - River-adjacent lowland chains seeded post-rivers
- * @property {CorridorPolicy} [policy] - Per-consumer policy strengths and behaviors
- * @property {CorridorKinds} [kinds] - Corridor kinds and styles (probabilities are gentle multipliers; consumers must validate). Known keys are provided in defaults; additional styles are allowed.
+ * @property {CorridorSea} [sea] - Open-water naval lanes (e.g., trans-oceanic shipping routes)
+ * @property {CorridorIslandHop} [islandHop] - Island-hopping chains along hotspot trails (e.g., Polynesian triangle)
+ * @property {CorridorLand} [land] - Overland corridors through rift valleys or grassland belts
+ * @property {CorridorRiver} [river] - River valley routes connecting coasts through lowlands
+ * @property {CorridorPolicy} [policy] - How strictly to enforce corridor protection (hard vs soft blocking)
+ * @property {CorridorKinds} [kinds] - Biome and feature preferences within corridor zones
  */
 
 /**
@@ -340,23 +410,27 @@
  */
 
 /**
- * Baseline rainfall and local bonuses
+ * Baseline rainfall and local bonuses.
+ *
+ * Establishes fundamental rainfall distribution based on latitude (distance from equator).
+ * Mimics Earth's climate zones: wet tropics, dry subtropics, temperate mid-latitudes, cold poles.
+ *
  * @typedef {Object} ClimateBaseline
- * @property {Object} [blend] - Blending configuration
- * @property {number} [blend.baseWeight] - Weight for engine base rainfall component (ratio 0..1; unitless)
- * @property {number} [blend.bandWeight] - Weight for latitude band target component (ratio 0..1; unitless)
- * @property {Object} [bands] - Latitude band targets
- * @property {number} [bands.deg0to10] - Target rainfall at absolute latitude 0-10 degrees (rainfall units; 0..200)
- * @property {number} [bands.deg10to20] - Target rainfall at absolute latitude 10-20 degrees (rainfall units; 0..200)
- * @property {number} [bands.deg20to35] - Target rainfall at absolute latitude 20-35 degrees (rainfall units; 0..200)
- * @property {number} [bands.deg35to55] - Target rainfall at absolute latitude 35-55 degrees (rainfall units; 0..200)
- * @property {number} [bands.deg55to70] - Target rainfall at absolute latitude 55-70 degrees (rainfall units; 0..200)
- * @property {number} [bands.deg70plus] - Target rainfall at absolute latitude 70+ degrees (rainfall units; 0..200)
- * @property {Object} [orographic] - Orographic bonuses
- * @property {number} [orographic.hi1Threshold] - First elevation threshold for mild orographic bonus (elevation units)
- * @property {number} [orographic.hi1Bonus] - Bonus applied when above first elevation threshold (rainfall units)
- * @property {number} [orographic.hi2Threshold] - Second elevation threshold for mild orographic bonus (elevation units)
- * @property {number} [orographic.hi2Bonus] - Bonus applied when above second elevation threshold (rainfall units)
+ * @property {Object} [blend] - How to mix engine default rainfall with latitude-based targets
+ * @property {number} [blend.baseWeight] - Weight for engine's base rainfall (0..1; typically 0.5-0.7)
+ * @property {number} [blend.bandWeight] - Weight for latitude band targets (0..1; typically 0.3-0.5)
+ * @property {Object} [bands] - Rainfall targets by latitude zone (units 0..200)
+ * @property {number} [bands.deg0to10] - Equatorial zone (rainforests, monsoons; typically 110-130)
+ * @property {number} [bands.deg10to20] - Tropical zone (wet but variable; typically 90-110)
+ * @property {number} [bands.deg20to35] - Subtropical zone (deserts, Mediterranean; typically 60-80)
+ * @property {number} [bands.deg35to55] - Temperate zone (moderate rainfall; typically 70-90)
+ * @property {number} [bands.deg55to70] - Subpolar zone (cool, moderate moisture; typically 55-70)
+ * @property {number} [bands.deg70plus] - Polar zone (cold deserts, ice; typically 40-50)
+ * @property {Object} [orographic] - Orographic lift bonuses (mountains force air upward, causing condensation and rain)
+ * @property {number} [orographic.hi1Threshold] - Elevation for modest rain increase (hills get some extra moisture)
+ * @property {number} [orographic.hi1Bonus] - Rainfall bonus at first threshold in units (typically 5-15)
+ * @property {number} [orographic.hi2Threshold] - Elevation for strong rain increase (mountains get significant moisture)
+ * @property {number} [orographic.hi2Bonus] - Rainfall bonus at second threshold in units (typically 10-25)
  * @property {Object} [coastal] - Coastal bonuses
  * @property {number} [coastal.coastalLandBonus] - Bonus rainfall on coastal land tiles (rainfall units)
  * @property {number} [coastal.shallowAdjBonus] - Bonus rainfall when adjacent to shallow water (rainfall units)
@@ -366,60 +440,81 @@
  */
 
 /**
- * Earthlike refinement parameters
+ * Earthlike refinement parameters (realistic climate adjustments).
+ *
+ * Adds physically motivated climate effects on top of baseline latitude patterns:
+ * - Continental effect: interiors are drier than coasts
+ * - Rain shadows: mountains block moisture from reaching leeward areas
+ * - River corridors: valleys retain moisture and support greenery
+ * - Enclosed basins: low areas trap humidity
+ *
  * @typedef {Object} ClimateRefine
- * @property {Object} [waterGradient] - Water gradient configuration
- * @property {number} [waterGradient.radius] - Max Chebyshev radius to search for nearest water (tiles)
- * @property {number} [waterGradient.perRingBonus] - Bonus per ring closer to water (rainfall units per ring)
- * @property {number} [waterGradient.lowlandBonus] - Additional bonus on low elevations (rainfall units)
- * @property {Object} [orographic] - Orographic configuration
- * @property {number} [orographic.steps] - Upwind scan distance for mountain/high-elevation barriers (steps approx tiles)
- * @property {number} [orographic.reductionBase] - Base rainfall reduction when upwind barrier exists (rainfall units)
- * @property {number} [orographic.reductionPerStep] - Additional reduction scaled by closeness of barrier (rainfall units per step)
- * @property {Object} [riverCorridor] - River corridor configuration
- * @property {number} [riverCorridor.lowlandAdjacencyBonus] - River-adjacent wetness bonus at low elevation (rainfall units)
- * @property {number} [riverCorridor.highlandAdjacencyBonus] - River-adjacent wetness bonus at higher elevation (rainfall units)
- * @property {Object} [lowBasin] - Low basin configuration
- * @property {number} [lowBasin.radius] - Neighborhood radius for detecting enclosed low basins (tiles)
- * @property {number} [lowBasin.delta] - Humidity bonus within enclosed low basins (rainfall units; lowlands only)
+ * @property {Object} [waterGradient] - Continental effect (distance from ocean impacts humidity)
+ * @property {number} [waterGradient.radius] - How far inland to measure water proximity (typically 8-15 tiles)
+ * @property {number} [waterGradient.perRingBonus] - Humidity per tile closer to water; creates coastal→interior gradient (typically 1-3 units/tile)
+ * @property {number} [waterGradient.lowlandBonus] - Extra humidity in low-elevation areas near water (typically 5-12 units)
+ * @property {Object} [orographic] - Orographic rain shadow simulation (leeward drying effect)
+ * @property {number} [orographic.steps] - How far upwind to scan for blocking mountains (typically 4-8 tiles)
+ * @property {number} [orographic.reductionBase] - Base rainfall loss in rain shadow (typically 8-20 units)
+ * @property {number} [orographic.reductionPerStep] - Extra drying per tile closer to mountain barrier (typically 1-3 units/tile)
+ * @property {Object} [riverCorridor] - River valley humidity (water channels transport moisture inland)
+ * @property {number} [riverCorridor.lowlandAdjacencyBonus] - Humidity bonus next to rivers in lowlands (typically 8-18 units)
+ * @property {number} [riverCorridor.highlandAdjacencyBonus] - Humidity bonus next to rivers in highlands; less than lowlands (typically 3-8 units)
+ * @property {Object} [lowBasin] - Enclosed basin humidity retention (valleys trap moisture)
+ * @property {number} [lowBasin.radius] - Search radius to detect if a lowland is surrounded by higher ground (typically 3-6 tiles)
+ * @property {number} [lowBasin.delta] - Humidity bonus in enclosed lowland basins like oases (typically 10-25 units)
  */
 
 /**
- * Biome nudge thresholds
+ * Biome nudge thresholds (fine-tuning terrain assignment).
+ *
+ * Adjusts biome distribution to avoid unrealistic patterns and create interesting gameplay zones.
+ * Example: prevent excessive tundra in temperate highlands, encourage tropical coasts near equator,
+ * add grasslands along rivers and rift valleys for mobility and settlement opportunities.
+ *
  * @typedef {Object} Biomes
- * @property {Object} [tundra] - Tundra configuration
- * @property {number} [tundra.latMin] - Minimum absolute latitude for tundra restraint to apply (degrees)
- * @property {number} [tundra.elevMin] - Minimum elevation for tundra restraint to apply (elevation units)
- * @property {number} [tundra.rainMax] - Maximum rainfall for tundra to be retained (rainfall units)
- * @property {Object} [tropicalCoast] - Tropical coast configuration
- * @property {number} [tropicalCoast.latMax] - Maximum absolute latitude for equatorial tropical coast encouragement (degrees)
- * @property {number} [tropicalCoast.rainMin] - Minimum rainfall to trigger tropical bias on coasts (rainfall units)
- * @property {Object} [riverValleyGrassland] - River valley grassland configuration
- * @property {number} [riverValleyGrassland.latMax] - Maximum absolute latitude for temperate/warm river-valley grassland bias (degrees)
- * @property {number} [riverValleyGrassland.rainMin] - Minimum rainfall to trigger grassland bias in valleys (rainfall units)
- * @property {Object} [riftShoulder] - Rift shoulder configuration
- * @property {number} [riftShoulder.grasslandLatMax] - Max latitude for grassland bias on rift shoulders (degrees)
- * @property {number} [riftShoulder.grasslandRainMin] - Minimum rainfall for grassland bias on rift shoulders (rainfall units)
- * @property {number} [riftShoulder.tropicalLatMax] - Max latitude for tropical bias on rift shoulders (degrees)
- * @property {number} [riftShoulder.tropicalRainMin] - Minimum rainfall for tropical bias on rift shoulders (rainfall units)
+ * @property {Object} [tundra] - Tundra constraints (prevent over-expansion of frozen terrain)
+ * @property {number} [tundra.latMin] - Only allow tundra beyond this latitude; prevents equatorial tundra (typically 45-60°)
+ * @property {number} [tundra.elevMin] - Minimum elevation for tundra; prevents lowland tundra sprawl (typically 40-60)
+ * @property {number} [tundra.rainMax] - Maximum rainfall for tundra; wet cold areas become taiga instead (typically 60-80)
+ * @property {Object} [tropicalCoast] - Tropical coast encouragement (lush coastlines near equator)
+ * @property {number} [tropicalCoast.latMax] - Latitude limit for tropical coast preference (typically 20-30 degrees)
+ * @property {number} [tropicalCoast.rainMin] - Minimum humidity for tropical vegetation (typically 90-110 units)
+ * @property {Object} [riverValleyGrassland] - River valley grassland bias (fertile flood plains)
+ * @property {number} [riverValleyGrassland.latMax] - Latitude limit for temperate river grasslands (typically 45-60 degrees)
+ * @property {number} [riverValleyGrassland.rainMin] - Minimum humidity for lush valley grasslands (typically 65-85 units)
+ * @property {Object} [riftShoulder] - Rift shoulder biome preferences (elevated rift margins)
+ * @property {number} [riftShoulder.grasslandLatMax] - Latitude limit for grassland on rift shoulders (typically 45-55 degrees)
+ * @property {number} [riftShoulder.grasslandRainMin] - Minimum humidity for grassland rift shoulders (typically 60-80 units)
+ * @property {number} [riftShoulder.tropicalLatMax] - Latitude limit for tropical rift shoulders (typically 25-35 degrees)
+ * @property {number} [riftShoulder.tropicalRainMin] - Minimum humidity for tropical rift vegetation (typically 90-110 units)
  */
 
 /**
- * Validated feature density tweaks
+ * Feature density controls (vegetation and reef prevalence).
+ *
+ * Fine-tunes how much forest, jungle, and reef coverage appears on the map.
+ * Higher values create denser vegetation and more abundant natural features.
+ * Affects visual variety and resource distribution.
+ *
  * @typedef {Object} FeaturesDensity
- * @property {number} [rainforestExtraChance] - Percent chance for additional rainforest in very wet tropical zones (percent 0..100)
- * @property {number} [forestExtraChance] - Percent chance for additional forest in wetter temperate grasslands (percent 0..100)
- * @property {number} [taigaExtraChance] - Percent chance for additional taiga in cold lowlands (percent 0..100)
- * @property {number} [shelfReefMultiplier] - Multiplier applied to paradiseReefChance to derive passive-shelf reef chance (unitless scalar)
+ * @property {number} [rainforestExtraChance] - Bonus jungle/rainforest in wet tropics (percent 0..100, typically 15-40%)
+ * @property {number} [forestExtraChance] - Bonus temperate forests in moderate rainfall zones (percent 0..100, typically 20-45%)
+ * @property {number} [taigaExtraChance] - Bonus coniferous forests in cold regions (percent 0..100, typically 15-35%)
+ * @property {number} [shelfReefMultiplier] - Coral reef density on passive continental shelves (multiplier, typically 0.8-1.5)
  */
 
 /**
- * Late-stage placement
+ * Late-stage placement (final touches and special features).
+ *
+ * Controls placement of natural wonders and floodplains along rivers.
+ * Applied after all other generation is complete.
+ *
  * @typedef {Object} Placement
- * @property {boolean} [wondersPlusOne] - Whether to place +1 natural wonder vs. map default (compatibility)
- * @property {Object} [floodplains] - Floodplains segment lengths (tiles; min/max along river segments)
- * @property {number} [floodplains.minLength] - Minimum floodplain length (tiles)
- * @property {number} [floodplains.maxLength] - Maximum floodplain length (tiles)
+ * @property {boolean} [wondersPlusOne] - Add one extra natural wonder beyond map size default for more variety
+ * @property {Object} [floodplains] - River floodplain generation (fertile lowland strips)
+ * @property {number} [floodplains.minLength] - Minimum floodplain segment length along rivers (typically 2-4 tiles)
+ * @property {number} [floodplains.maxLength] - Maximum floodplain segment length along rivers (typically 4-8 tiles)
  */
 
 /**
@@ -432,64 +527,72 @@
  */
 
 /**
- * Optional world model (Earth forces; lightweight, optional)
+ * Optional world model (comprehensive Earth-like physical simulation).
+ *
+ * Simulates tectonic plates, atmospheric circulation (winds), ocean currents, and mantle convection.
+ * When enabled, the map generator uses plate boundaries to derive continents, mountain ranges,
+ * rifts, and realistic climate patterns. More computationally expensive but creates coherent,
+ * geologically plausible worlds.
+ *
+ * Recommended for players who want Earth-realism. Can be disabled for faster/simpler generation.
+ *
  * @typedef {Object} WorldModel
- * @property {boolean} [enabled] - Master switch for foundational Earth forces fields
- * @property {Object} [plates] - Plates (Voronoi plates + boundary types; drive rifts/orogeny/margins)
- * @property {number} [plates.count] - Plate count target (count)
- * @property {ReadonlyArray<number>} [plates.axisAngles] - Macro axes used to align plate trends (degrees)
- * @property {number} [plates.convergenceMix] - 0..1 fraction for convergent vs divergent balance (ratio 0..1)
- * @property {number} [plates.relaxationSteps] - Lloyd relaxation iterations when seeding plates (integer)
- * @property {number} [plates.seedJitter] - Tile jitter applied to plate seeds (tiles)
+ * @property {boolean} [enabled] - Master switch: true = full simulation, false = simpler preset-based generation
+ * @property {Object} [plates] - Tectonic plate generation using Voronoi diagrams; drives continental layout and boundaries
+ * @property {number} [plates.count] - Number of tectonic plates; 8=Pangaea, 15-20=Earth-like, 25+=fragmented (typically 12-18)
+ * @property {ReadonlyArray<number>} [plates.axisAngles] - Preferred plate movement directions in degrees to create aligned features
+ * @property {number} [plates.convergenceMix] - Ratio of convergent (colliding/mountains) vs divergent (rifting) boundaries (0..1, typically 0.4-0.6)
+ * @property {number} [plates.relaxationSteps] - Lloyd relaxation iterations: smooths plate shapes by moving seeds toward region centers; 0=random, 5=balanced, 10+=very uniform (typically 4-7)
+ * @property {number} [plates.seedJitter] - Random offset applied to initial plate seeds in tiles; adds irregularity (typically 0-8)
  * @property {number} [plates.interiorSmooth] - Smoothing steps for shield interiors (steps; iterations)
  * @property {number} [plates.plateRotationMultiple] - Multiplier for plate rotation influence when evaluating boundaries
  * @property {number} [plates.seedOffset] - Additional RNG offset applied before plate generation (integer)
  * @property {number} [plates.seedBase] - Optional explicit RNG seed; overrides engine seed when provided
- * @property {Object} [wind] - Global winds (zonal baseline + jet streams; used in refinement upwind checks)
- * @property {number} [wind.jetStreaks] - Number of jet streaks (count)
- * @property {number} [wind.jetStrength] - Jet streak relative strength (unitless scalar)
- * @property {number} [wind.variance] - Wind variance (ratio 0..1)
- * @property {number} [wind.coriolisZonalScale] - Coriolis scaling for zonal components (unitless scalar)
- * @property {Object} [currents] - Ocean currents (basin gyres + boundary currents; small humidity/coast effects)
- * @property {number} [currents.basinGyreCountMax] - Max basin gyre systems (count)
- * @property {number} [currents.westernBoundaryBias] - Western boundary current bias (unitless scalar)
- * @property {number} [currents.currentStrength] - Overall current strength (unitless scalar)
- * @property {Object} [pressure] - Mantle pressure (bumps/ridges; optional small influence on hills/relief)
- * @property {number} [pressure.bumps] - Number of pressure bumps (count)
- * @property {number} [pressure.amplitude] - Pressure amplitude (unitless scalar)
- * @property {number} [pressure.scale] - Pressure scale (unitless scalar)
- * @property {Object} [directionality] - Directionality (global cohesion and alignment controls for Earth forces)
- * @property {number} [directionality.cohesion] - Master cohesion dial; higher = stronger alignment between systems (ratio 0..1)
- * @property {Object} [directionality.primaryAxes] - Macro axes in degrees: bias plate motion, prevailing winds, and gyre/currents
- * @property {number} [directionality.primaryAxes.plateAxisDeg] - Macro plate motion axis (degrees)
- * @property {number} [directionality.primaryAxes.windBiasDeg] - Global wind bias offset (degrees)
- * @property {number} [directionality.primaryAxes.currentBiasDeg] - Global current gyre bias (degrees)
- * @property {Object} [directionality.interplay] - Interplay weights: how much one system aligns with another (ratio 0..1)
- * @property {number} [directionality.interplay.windsFollowPlates] - Jets and streaks align with plate axes (ratio 0..1)
- * @property {number} [directionality.interplay.currentsFollowWinds] - Surface currents track prevailing winds (ratio 0..1)
- * @property {number} [directionality.interplay.riftsFollowPlates] - Divergent rifts align with plate boundaries (ratio 0..1)
- * @property {number} [directionality.interplay.orogenyOpposesRifts] - Convergent uplift tends to oppose divergent directions (ratio 0..1)
- * @property {Object} [directionality.hemispheres] - Hemisphere options and seasonal asymmetry (future-facing)
- * @property {boolean} [directionality.hemispheres.southernFlip] - Flip sign conventions in S hemisphere for winds/currents bias
- * @property {number} [directionality.hemispheres.equatorBandDeg] - Symmetric behavior band around equator (degrees)
- * @property {number} [directionality.hemispheres.monsoonBias] - Seasonal asymmetry placeholder (ratio 0..1; conservative)
- * @property {Object} [directionality.variability] - Variability knobs to avoid rigid patterns while honoring directionality
- * @property {number} [directionality.variability.angleJitterDeg] - Random jitter around macro axes (degrees)
- * @property {number} [directionality.variability.magnitudeVariance] - Variance applied to vector magnitudes (ratio 0..1)
- * @property {number} [directionality.variability.seedOffset] - RNG stream offset dedicated to directionality (integer steps)
- * @property {Object} [policy] - Policy scalars for consumers (keep gentle; effects clamped/validated)
- * @property {number} [policy.windInfluence] - Scales wind use in refinement upwind barrier checks (unitless scalar)
- * @property {number} [policy.currentHumidityBias] - Scales coastal humidity tweak from currents (unitless scalar)
- * @property {number} [policy.boundaryFjordBias] - Scales fjord/bay bias near convergent boundaries (unitless scalar)
- * @property {number} [policy.shelfReefBias] - Scales passive-shelf reef bias (unitless scalar)
- * @property {Object} [policy.oceanSeparation] - Ocean separation policy (plate-aware; consumed by landmass/coast shaping)
- * @property {boolean} [policy.oceanSeparation.enabled] - Enable ocean separation biasing (flag)
- * @property {ReadonlyArray<ReadonlyArray<number>>} [policy.oceanSeparation.bandPairs] - Which continent band pairs to bias apart. Uses 0-based indices used by orchestrator. Example: [[0,1],[1,2]]
- * @property {number} [policy.oceanSeparation.baseSeparationTiles] - Base lateral push applied pre-coast expansion; positive widens oceans (tiles)
- * @property {number} [policy.oceanSeparation.boundaryClosenessMultiplier] - Multiplier scaling separation near high boundary closeness (ratio 0..2)
- * @property {number} [policy.oceanSeparation.maxPerRowDelta] - Maximum absolute separation delta per row to preserve sea lanes (tiles)
- * @property {boolean} [policy.oceanSeparation.respectSeaLanes] - Respect strategic sea lanes and enforce minimum channel width
- * @property {number} [policy.oceanSeparation.minChannelWidth] - Minimum channel width to preserve when separating (tiles)
+ * @property {Object} [wind] - Atmospheric circulation (prevailing winds and jet streams for rain shadows)
+ * @property {number} [wind.jetStreaks] - Number of high-altitude jet stream bands; affects storm tracks (typically 2-4)
+ * @property {number} [wind.jetStrength] - Jet stream intensity multiplier; stronger = more pronounced effects (typically 0.8-1.5)
+ * @property {number} [wind.variance] - Wind direction variability; higher = less uniform patterns (0..1, typically 0.2-0.5)
+ * @property {number} [wind.coriolisZonalScale] - Coriolis effect strength on east-west winds (typically 0.8-1.2)
+ * @property {Object} [currents] - Ocean circulation (gyres and boundary currents affecting coastal climate)
+ * @property {number} [currents.basinGyreCountMax] - Maximum ocean gyre systems like Gulf Stream/Kuroshio (typically 3-6)
+ * @property {number} [currents.westernBoundaryBias] - Intensity of western boundary currents; higher = stronger Gulf Stream analogs (typically 1.0-2.0)
+ * @property {number} [currents.currentStrength] - Overall ocean current strength multiplier (typically 0.8-1.5)
+ * @property {Object} [pressure] - Mantle convection pressure (subsurface hotspots affecting terrain relief)
+ * @property {number} [pressure.bumps] - Number of mantle plume hotspots creating localized uplift (typically 3-8)
+ * @property {number} [pressure.amplitude] - Uplift strength from mantle pressure; higher = more relief variation (typically 0.5-1.5)
+ * @property {number} [pressure.scale] - Spatial scale of pressure effects; higher = broader influence (typically 0.8-1.5)
+ * @property {Object} [directionality] - System coherence (how aligned plates/winds/currents are with each other)
+ * @property {number} [directionality.cohesion] - Global alignment strength; 0=independent systems, 1=fully aligned (0..1, typically 0.3-0.7)
+ * @property {Object} [directionality.primaryAxes] - Preferred directions for each system in compass degrees
+ * @property {number} [directionality.primaryAxes.plateAxisDeg] - Primary plate movement direction (0-360 degrees, e.g., 45=northeast)
+ * @property {number} [directionality.primaryAxes.windBiasDeg] - Wind direction bias offset from zonal (0-360 degrees)
+ * @property {number} [directionality.primaryAxes.currentBiasDeg] - Ocean gyre rotation bias (0-360 degrees)
+ * @property {Object} [directionality.interplay] - Cross-system coupling strength (how systems influence each other)
+ * @property {number} [directionality.interplay.windsFollowPlates] - Jet streams align with plate movement (0..1, typically 0.3-0.6)
+ * @property {number} [directionality.interplay.currentsFollowWinds] - Ocean currents follow wind patterns (0..1, typically 0.4-0.7)
+ * @property {number} [directionality.interplay.riftsFollowPlates] - Rift valleys align with divergent plate boundaries (0..1, typically 0.5-0.9)
+ * @property {number} [directionality.interplay.orogenyOpposesRifts] - Mountain ranges oppose rift directions (0..1, typically 0.4-0.7)
+ * @property {Object} [directionality.hemispheres] - Hemisphere-specific behavior (Coriolis effect and seasonal patterns)
+ * @property {boolean} [directionality.hemispheres.southernFlip] - Reverse wind/current rotation in southern hemisphere (realistic Coriolis)
+ * @property {number} [directionality.hemispheres.equatorBandDeg] - Latitude band around equator with symmetric behavior (typically 10-20 degrees)
+ * @property {number} [directionality.hemispheres.monsoonBias] - Seasonal wind variation strength (0..1, typically 0.0-0.3 for conservative)
+ * @property {Object} [directionality.variability] - Randomness injection to prevent overly uniform patterns
+ * @property {number} [directionality.variability.angleJitterDeg] - Random angle deviation from preferred axes (degrees, typically 15-45)
+ * @property {number} [directionality.variability.magnitudeVariance] - Strength variation in vectors (0..1, typically 0.2-0.4)
+ * @property {number} [directionality.variability.seedOffset] - Random seed offset for directionality calculations (integer)
+ * @property {Object} [policy] - Effect strength modifiers (how much WorldModel systems affect terrain)
+ * @property {number} [policy.windInfluence] - Wind impact on rain shadow calculations (multiplier, typically 0.5-1.5)
+ * @property {number} [policy.currentHumidityBias] - Ocean current humidity effects on coasts (multiplier, typically 0.5-1.5)
+ * @property {number} [policy.boundaryFjordBias] - Fjord frequency increase at convergent boundaries (multiplier, typically 0.8-2.0)
+ * @property {number} [policy.shelfReefBias] - Coral reef density on passive shelves (multiplier, typically 0.8-1.5)
+ * @property {Object} [policy.oceanSeparation] - Tectonic ocean widening (push continents apart at plate boundaries)
+ * @property {boolean} [policy.oceanSeparation.enabled] - Enable plate-driven ocean expansion between continents
+ * @property {ReadonlyArray<ReadonlyArray<number>>} [policy.oceanSeparation.bandPairs] - Continent pairs to separate; 0-based indices, e.g., [[0,1],[1,2]] separates first-second and second-third
+ * @property {number} [policy.oceanSeparation.baseSeparationTiles] - Base ocean widening in tiles; positive = wider oceans (typically 2-8 tiles)
+ * @property {number} [policy.oceanSeparation.boundaryClosenessMultiplier] - Extra separation near active plate boundaries (multiplier 0..2, typically 0.5-1.5)
+ * @property {number} [policy.oceanSeparation.maxPerRowDelta] - Maximum separation variation per latitude row; prevents distortion (typically 1-3 tiles)
+ * @property {boolean} [policy.oceanSeparation.respectSeaLanes] - Preserve strategic corridors during ocean widening
+ * @property {number} [policy.oceanSeparation.minChannelWidth] - Minimum ocean channel width to maintain for naval passage (typically 4-8 tiles)
  * @property {Object} [policy.oceanSeparation.edgeWest] - Optional outer-edge ocean widening/narrowing (west map edge)
  * @property {boolean} [policy.oceanSeparation.edgeWest.enabled] - Enable west-edge override
  * @property {number} [policy.oceanSeparation.edgeWest.baseTiles] - Base lateral tiles at west edge (tiles)

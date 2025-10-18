@@ -1,22 +1,55 @@
-# Plate-Driven Landmass Refactor Plan
+# Swooper Maps Plate Refactor – Unified Plan
 
-Tracking work to integrate Civ VII plate generation into the Swooper map pipeline.
+Unified tracker for the plate-driven landmass refactor. This document replaces both
+`PLATE_REFACTOR_PLAN.md` and `REFACTORING_PROGRESS.md`.
 
-## Task List
+## Status Snapshot
 
-- [x] Config surface updates (types, defaults, tunables) for WorldModel controls
-- [x] New preset/entry wiring to opt into plate-driven settings
-- [x] Landmass generation refactor to consume WorldModel plate output
-- [x] Optional post-processing hooks (plate seed overrides, ocean adjustments)
+- ✅ Phase 1 – MapContext/adapter seam completed (`core/types.js`, `core/adapters.js`, orchestrator threading).
+- ✅ Phase 1.5 – Civ VII Voronoi plates wired in (`world/plates.js`, `world/model.js`, `landmass_voronoi.js`).
+- ⏳ Phase 2 – Plate-driven terrain & climate tuning in progress (mountains/hills/config work outstanding).
+- ⏳ Phase 3 – Corridor policy enforcement queued.
+- ⏳ Phase 4 – Optional plate-grown landmass experiments (defer until Phase 2+3 ship).
 
-## Phase 2 – Plate-Driven Terrain & Climate
+## Active Focus — Phase 2 (Terrain & Climate)
 
-- [x] Integrate plate polygons into landmass carving (port or wrap the Voronoi continent generator)
-- [ ] Re-tune mountains & hills to honor uplift/rift potentials (adjust targets + weighting)
-- [ ] Expand configuration hooks for plate-aware terrain (post-processing ranges, presets, docs)
+- [x] Landmass pipeline consumes Voronoi plates (new preset + orchestrator windows).
+- [ ] Validate Voronoi output in-game (seed parity, shoreline sanity, start placement checks).
+- [ ] Re-tune mountains & hills to honor uplift/rift/boundary data (`layers/mountains.js`, hill helpers, fallback knobs).
+  - Confirm boundary-derived uplift weights, rebalance hill % targets, gate fallback fractals behind config.
+- [ ] Expand plate-aware configuration surface (tunables, presets, docs) so post-processing ranges are exposed.
+  - Update map config typing, preset commentary, and mod README snippets.
+- [ ] Observability: improve plate debugging overlays.
+  - [x] Add DEV ASCII snapshot that annotates plate boundaries alongside terrain.
+  - [ ] Surface lightweight boundary metrics (counts, hotspots) in logs.
+- [ ] Cross-layer consumers audit: ensure climate/coastline passes actually read `WorldModel` fields or document gaps.
 
-## Notes
+## Upcoming Phases
 
-- Keep the game’s official WorldModel as the primary data source; we only layer custom tweaks on top.
-- Avoid touching files under `mods/mod-swooper-maps/mod/maps/base-standard/` since they are regenerated from the game.
-- When tackling Phase 2, validate each step in-game (terrain distribution, start placement, climate) before moving to the next bullet.
+### Phase 3 – Corridor Enforcement
+- Guard island placement in `layers/islands.js` using corridor width rules.
+- Tame rugged coasts within corridor sea lanes (`layers/coastlines.js`).
+- Add validation/metrics pass for corridor widths (new helper or orchestrator hook).
+
+### Phase 4 (Optional) – Plate-Grown Landmass
+- Experiment with using base-game plate growth as primary landmass stage, keeping Swooper refiners on top.
+- Alternatively, prototype a custom plate growth algorithm fed by `WorldModel` data.
+
+## Legacy Safety Nets (Keep Until Phase 2 Sign-off)
+
+- `layers/landmass.js` – legacy three-band landmass generator.
+- `layers/landmass_plate.js` – shield-stability fallback mask.
+- Both remain callable until plate pipeline is fully verified in live games.
+
+## Validation & Testing Checklist
+
+- Smoke-test Huge and Standard presets (`swooper-diverse-huge.js`, Voronoi preset) with multiple seeds.
+- Inspect `Scripting.log` for timing/WorldModel summaries and new ASCII overlays.
+- Run `pnpm lint` + `pnpm test` after feature work; add Vitest coverage for exposed config surfaces when feasible.
+- Verify XML/doc examples mirror `civ7-official-resources` schemas when updating documentation.
+
+## Notes & Constraints
+
+- Keep Civ VII’s official `WorldModel` data authoritative—our tweaks layer on top only.
+- Do not modify files under `mods/mod-swooper-maps/mod/maps/base-standard/`; they mirror Firaxis assets.
+- Continue using the adapter pattern for engine calls so headless tests remain possible.
