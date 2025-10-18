@@ -79,16 +79,16 @@ bootstrap({
         },
         climateBaseline: {
             blend: {
-                baseWeight: 0.35,
-                bandWeight: 0.65,
+                baseWeight: 0.45,
+                bandWeight: 0.55,
             },
             bands: {
-                deg0to10: 225,
-                deg10to20: 93,
-                deg20to35: 12,
-                deg35to55: 72,
-                deg55to70: 22,
-                deg70plus: 10,
+                deg0to10: 92,
+                deg10to20: 64,
+                deg20to35: 32,
+                deg35to55: 52,
+                deg55to70: 34,
+                deg70plus: 18,
             },
             orographic: {
                 hi1Threshold: 280,
@@ -97,19 +97,19 @@ bootstrap({
                 hi2Bonus: 18,
             },
             coastal: {
-                coastalLandBonus: 6,
-                shallowAdjBonus: 4,
+                coastalLandBonus: 3,
+                shallowAdjBonus: 2,
             },
             noise: {
-                baseSpanSmall: 6,
-                spanLargeScaleFactor: 1.4,
+                baseSpanSmall: 5,
+                spanLargeScaleFactor: 1.1,
             },
         },
         climateRefine: /** @type {Partial<ClimateRefine>} */ ({
             waterGradient: {
-                radius: 9,
-                perRingBonus: 2.4,
-                lowlandBonus: 4,
+                radius: 7,
+                perRingBonus: 1.6,
+                lowlandBonus: 3,
             },
             orographic: {
                 steps: 6,

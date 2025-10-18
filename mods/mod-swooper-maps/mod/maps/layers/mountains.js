@@ -171,6 +171,16 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
     // Select top-scoring tiles for hills (excluding mountains)
     const hillTiles = selectTopScoringTiles(hillScores, width, height, targetHills, adapter, mountainTiles);
 
+    const mountainsPlaced = mountainTiles instanceof Set
+        ? mountainTiles.size
+        : Array.isArray(mountainTiles)
+            ? mountainTiles.length
+            : 0;
+    const hillsPlaced = hillTiles instanceof Set
+        ? hillTiles.size
+        : Array.isArray(hillTiles)
+            ? hillTiles.length
+            : 0;
     // Place mountains
     for (const i of mountainTiles) {
         const x = i % width;
@@ -185,11 +195,17 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
         adapter.setTerrainType(x, y, globals.g_HillTerrain);
     }
 
-    devLogIf &&
-        devLogIf("LOG_MOUNTAINS", "[Mountains] Placement complete", {
-            mountainsPlaced: mountainTiles.length,
-            hillsPlaced: hillTiles.length,
-        });
+    const summary = {
+        targetMountains,
+        targetHills,
+        mountainsPlaced,
+        hillsPlaced,
+        landTiles,
+        worldModelEnabled,
+        upliftWeight,
+        fractalWeight,
+    };
+    devLogIf && devLogIf("LOG_MOUNTAINS", "[Mountains] placement", JSON.stringify(summary));
 }
 
 /**
@@ -222,6 +238,8 @@ function computePlateBasedScores(ctx, scores, hillScores, options) {
 
     if (!upliftPotential || !boundaryType) {
         // Fallback if WorldModel data missing
+        devLogIf &&
+            devLogIf("LOG_MOUNTAINS", "[Mountains] Falling back to fractal-only scores (missing WorldModel arrays)");
         computeFractalOnlyScores(ctx, scores, hillScores, options);
         return;
     }

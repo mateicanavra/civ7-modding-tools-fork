@@ -29,6 +29,26 @@ Unified tracker for the plate-driven landmass refactor. This document replaces b
 - [ ] Cross-layer consumers audit: ensure climate/coastline passes actually read `WorldModel` fields or document gaps.
   - [ ] Future climate/story config: plan plate-aware toggles for climate refinements (rainbelts, rainforests) and paleo/canyon passes.
 
+### Phase 2 Cleanup — Remove Legacy Three-Band Landmass Fallback
+
+- Stabilize the plate-first path before ripping anything out.
+  - Lift the ocean-separation math out of `layers/landmass.js` into a shared helper (likely `landmass_utils.js`) so both Voronoi and plate-driven generators can reuse it.
+  - Call that helper inside `map_orchestrator.js` immediately after Voronoi or plate windows are produced, keeping `applyLandmassPostAdjustments` for the post tweaks.
+  - Verify WorldModel-off runs still succeed by leaning on the Civ VII Voronoi builder; document/emit a hard failure if both generators bail.
+- Remove the legacy generator and tighten orchestration.
+  - Delete `layers/landmass.js`.
+  - Drop the fallback branch in `map_orchestrator.js` (`layerCreateDiverseLandmasses`, `"bands"` logging) and replace it with an explicit error path when no windows are returned.
+- Trim configuration surfaces that only existed for the three-band preset.
+  - Strip `geometry.presets`/`bands` from `bootstrap/defaults/base.js` and the TypeScript typedefs in `map_config.types.js`, keeping only the post-adjustment knobs.
+  - Update every preset (`classic`, `temperate`, `voronoi`, custom variants) to remove the legacy geometry fields and rely on plate-first defaults.
+- Update documentation and trackers.
+  - Refresh `SWOOPER_MAPS_ARCHITECTURE_AUDIT.md` to describe the new landmass flow and delete the “legacy three-band” wording.
+  - Remove the “Legacy Safety Nets” checklist in this plan once the code is gone and note that Voronoi → plate-mask is the only fallback chain.
+- Validation & rollout.
+  - Smoke-test Voronoi, Desert Mountains, and other plate-heavy presets with/without `STORY_ENABLE_WORLDMODEL`.
+  - Force a Voronoi failure (mock throw) to exercise the plate fallback; force a WorldModel init failure to confirm the abort message.
+  - Finish with `pnpm lint`, `pnpm test`, and an in-game seed sweep before signing off Phase 2.
+
 ## Upcoming Phases
 
 ### Phase 3 – Corridor Enforcement

@@ -31,7 +31,7 @@ import { refineRainfallEarthlike as layerRefineRainfallEarthlike } from "./layer
 import { designateEnhancedBiomes as layerDesignateEnhancedBiomes } from "./layers/biomes.js";
 import { addDiverseFeatures as layerAddDiverseFeatures } from "./layers/features.js";
 import { runPlacement as layerRunPlacement } from "./layers/placement.js";
-import { devLogIf, timeStart, timeEnd, logStoryTagsSummary, logRainfallHistogram, logCorridorAsciiOverlay, logWorldModelSummary, logWorldModelHistograms, logWorldModelAscii, logBoundaryMetrics, logLandmassAscii, logTerrainReliefAscii, logRainfallAscii, logBiomeAscii, } from "./bootstrap/dev.js";
+import { devLogIf, timeStart, timeEnd, logStoryTagsSummary, logRainfallHistogram, logRainfallStats, logCorridorAsciiOverlay, logWorldModelSummary, logWorldModelHistograms, logWorldModelAscii, logBoundaryMetrics, logLandmassAscii, logTerrainReliefAscii, logRainfallAscii, logBiomeAscii, logBiomeSummary, } from "./bootstrap/dev.js";
 import { WorldModel } from "./world/model.js";
 // Phase 1 Refactoring: Context + Adapter layer
 import { createMapContext } from "./core/types.js";
@@ -276,6 +276,29 @@ function generateMap() {
         }
         timeEnd(t);
     }
+    if (Array.isArray(landmassWindowsFinal) && landmassWindowsFinal.length) {
+        const windowSummary = landmassWindowsFinal.map((win, idx) => {
+            if (!win)
+                return { index: idx };
+            const spanX = Number.isFinite(win.east) && Number.isFinite(win.west) ? win.east - win.west + 1 : null;
+            const spanY = Number.isFinite(win.north) && Number.isFinite(win.south) ? win.north - win.south + 1 : null;
+            return {
+                index: idx,
+                continent: win.continent ?? idx,
+                west: win.west,
+                east: win.east,
+                south: win.south,
+                north: win.north,
+                width: spanX,
+                height: spanY,
+                area: spanX && spanY ? spanX * spanY : null,
+            };
+        });
+        devLogIf("LOG_LANDMASS_WINDOWS", "[Landmass] windows summary", windowSummary);
+    }
+    else {
+        devLogIf("LOG_LANDMASS_WINDOWS", "[Landmass] windows summary", "no plate windows");
+    }
     logLandmassAscii(usedPlateLandmasses ? "plate" : "bands", {
         windows: Array.isArray(landmassWindowsFinal) ? landmassWindowsFinal : [],
         landMask: landmaskDebug || undefined,
@@ -381,7 +404,6 @@ function generateMap() {
         console.log(`[MAP_STATS] Land breakdown: Mountains: ${mountainCount} (${mtnPct}%), Hills: ${hillCount} (${hillPct}%), Flat: ${flatCount} (${flatPct}%)`);
     }
     AreaBuilder.recalculateAreas();
-    TerrainBuilder.buildElevation();
     // Create moderated rainfall patterns (keep enhanced but gentle)
     {
         const t = timeStart("Climate: Baseline");
@@ -389,12 +411,14 @@ function generateMap() {
         timeEnd(t);
     }
     logRainfallAscii("baseline");
+    logRainfallStats("baseline", iWidth, iHeight);
     {
         const t = timeStart("Climate: Swatches");
         const swatchResult = storyTagClimateSwatches();
         if (swatchResult && swatchResult.kind) {
             devLogIf("LOG_STORY_TAGS", `Climate Swatch: ${swatchResult.kind} (${swatchResult.tiles} tiles)`);
         }
+        devLogIf("LOG_SWATCHES", "[Swatches] result", swatchResult || null);
         timeEnd(t);
     }
     // Rivers – closer to base values for balance
@@ -416,6 +440,7 @@ function generateMap() {
         timeEnd(t);
     }
     logRainfallAscii("refined");
+    logRainfallStats("refined", iWidth, iHeight);
     // Enhanced biome diversity
     {
         const t = timeStart("Biomes");
@@ -423,6 +448,7 @@ function generateMap() {
         timeEnd(t);
     }
     logBiomeAscii("final");
+    logBiomeSummary("final", iWidth, iHeight);
     // Add extensive feature variety
     {
         const t = timeStart("Features");

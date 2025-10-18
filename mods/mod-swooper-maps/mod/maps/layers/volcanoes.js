@@ -59,7 +59,7 @@ export function layerAddVolcanoesPlateAware(ctx, options = {}) {
     const { width, height, adapter } = ctx;
 
     if (!enabled) {
-        devLogIf && devLogIf("LOG_STORY_TAGS", "[Volcanoes] Disabled via config; skipping placement.");
+        devLogIf && devLogIf("LOG_VOLCANOES", "[Volcanoes] Disabled via config; skipping placement.");
         return;
     }
 
@@ -70,7 +70,7 @@ export function layerAddVolcanoesPlateAware(ctx, options = {}) {
 
     if (!worldEnabled || !boundaryCloseness || !boundaryType) {
         devLogIf &&
-            devLogIf("LOG_STORY_TAGS", "[Volcanoes] WorldModel unavailable; falling back to base generator.");
+            devLogIf("LOG_VOLCANOES", "[Volcanoes] WorldModel unavailable; falling back to base generator.");
         baseAddVolcanoes(width, height, minSpacing);
         return;
     }
@@ -143,7 +143,7 @@ export function layerAddVolcanoesPlateAware(ctx, options = {}) {
 
     if (candidates.length === 0) {
         devLogIf &&
-            devLogIf("LOG_STORY_TAGS", "[Volcanoes] No candidates with positive weight; falling back to base generator.");
+            devLogIf("LOG_VOLCANOES", "[Volcanoes] No candidates with positive weight; falling back to base generator.");
         baseAddVolcanoes(width, height, minSpacing);
         return;
     }
@@ -167,7 +167,7 @@ export function layerAddVolcanoesPlateAware(ctx, options = {}) {
     }
 
     devLogIf &&
-        devLogIf("LOG_STORY_TAGS", "[Volcanoes] Placement summary", {
+        devLogIf("LOG_VOLCANOES", "[Volcanoes] placement", {
             candidates: candidates.length,
             placed: placed.length,
             targetVolcanoes,

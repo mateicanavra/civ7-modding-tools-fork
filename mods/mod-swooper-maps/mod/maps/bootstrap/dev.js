@@ -35,13 +35,19 @@ export const DEV = {
     LOG_TIMING: true, // Log per-section timings (timeSection / timeStart/timeEnd)
     LOG_STORY_TAGS: true, // Log StoryTags summary counts
     RAINFALL_HISTOGRAM: true, // Log a coarse rainfall histogram (non-water tiles only)
+    LOG_RAINFALL_SUMMARY: true, // Log rainfall min/max/avg statistics
     LOG_CORRIDOR_ASCII: true, // Print a coarse ASCII overlay of corridor tags (downsampled)
     LOG_WORLDMODEL_SUMMARY: false, // Print compact WorldModel summary when available
     LOG_WORLDMODEL_ASCII: true, // ASCII visualization of plate boundaries & terrain mix
     LOG_LANDMASS_ASCII: true, // ASCII snapshot of land vs. ocean bands/continents
+    LOG_LANDMASS_WINDOWS: true, // Log landmass window bounding boxes/areas
     LOG_RELIEF_ASCII: true, // ASCII visualization of major relief (mountains/hills/volcanoes)
     LOG_RAINFALL_ASCII: true, // ASCII heatmap buckets for rainfall bands
     LOG_BIOME_ASCII: true, // ASCII biome classification overlay
+    LOG_BIOME_SUMMARY: true, // Log biome tile counts
+    LOG_SWATCHES: true, // Log climate swatch usage/results
+    LOG_MOUNTAINS: true, // Detailed mountain placement summaries
+    LOG_VOLCANOES: true, // Detailed volcano placement summaries
     LOG_BOUNDARY_METRICS: false, // Quantitative summary of plate boundary coverage
     WORLDMODEL_HISTOGRAMS: false, // Print histograms for rift/uplift (optionally near tags)
     LAYER_COUNTS: false, // Reserved for layer-specific counters (if used by callers)
@@ -66,6 +72,8 @@ try {
             DEV.LOG_STORY_TAGS = !!__cfg.logStoryTags;
         if ("rainfallHistogram" in __cfg)
             DEV.RAINFALL_HISTOGRAM = !!__cfg.rainfallHistogram;
+        if ("LOG_RAINFALL_SUMMARY" in __cfg)
+            DEV.LOG_RAINFALL_SUMMARY = !!__cfg.LOG_RAINFALL_SUMMARY;
         if ("LOG_CORRIDOR_ASCII" in __cfg)
             DEV.LOG_CORRIDOR_ASCII = !!__cfg.LOG_CORRIDOR_ASCII;
         if ("LOG_WORLDMODEL_SUMMARY" in __cfg)
@@ -74,14 +82,24 @@ try {
             DEV.LOG_WORLDMODEL_ASCII = !!__cfg.LOG_WORLDMODEL_ASCII;
         if ("LOG_LANDMASS_ASCII" in __cfg)
             DEV.LOG_LANDMASS_ASCII = !!__cfg.LOG_LANDMASS_ASCII;
+        if ("LOG_LANDMASS_WINDOWS" in __cfg)
+            DEV.LOG_LANDMASS_WINDOWS = !!__cfg.LOG_LANDMASS_WINDOWS;
         if ("LOG_RELIEF_ASCII" in __cfg)
             DEV.LOG_RELIEF_ASCII = !!__cfg.LOG_RELIEF_ASCII;
         if ("LOG_RAINFALL_ASCII" in __cfg)
             DEV.LOG_RAINFALL_ASCII = !!__cfg.LOG_RAINFALL_ASCII;
         if ("LOG_BIOME_ASCII" in __cfg)
             DEV.LOG_BIOME_ASCII = !!__cfg.LOG_BIOME_ASCII;
+        if ("LOG_BIOME_SUMMARY" in __cfg)
+            DEV.LOG_BIOME_SUMMARY = !!__cfg.LOG_BIOME_SUMMARY;
+        if ("LOG_SWATCHES" in __cfg)
+            DEV.LOG_SWATCHES = !!__cfg.LOG_SWATCHES;
         if ("LOG_BOUNDARY_METRICS" in __cfg)
             DEV.LOG_BOUNDARY_METRICS = !!__cfg.LOG_BOUNDARY_METRICS;
+        if ("LOG_MOUNTAINS" in __cfg)
+            DEV.LOG_MOUNTAINS = !!__cfg.LOG_MOUNTAINS;
+        if ("LOG_VOLCANOES" in __cfg)
+            DEV.LOG_VOLCANOES = !!__cfg.LOG_VOLCANOES;
         if ("WORLDMODEL_HISTOGRAMS" in __cfg)
             DEV.WORLDMODEL_HISTOGRAMS = !!__cfg.WORLDMODEL_HISTOGRAMS;
     }
@@ -244,6 +262,123 @@ export function logRainfallHistogram(width, height, bins = 10) {
     catch (err) {
         safeLog("[DEV][rain] histogram error:", err);
     }
+}
+
+export function logRainfallStats(label = "rainfall", width, height) {
+    if (!isOn("LOG_RAINFALL_SUMMARY"))
+        return;
+    try {
+        const w = Number.isFinite(width) ? width : GameplayMap?.getGridWidth?.();
+        const h = Number.isFinite(height) ? height : GameplayMap?.getGridHeight?.();
+        if (!w || !h) {
+            safeLog(`[DEV][rain] stats ${label}: No map bounds.`);
+            return;
+        }
+        if (typeof GameplayMap?.getRainfall !== "function" || typeof GameplayMap?.isWater !== "function") {
+            safeLog(`[DEV][rain] stats ${label}: GameplayMap API unavailable.`);
+            return;
+        }
+        let min = Infinity;
+        let max = -Infinity;
+        let sum = 0;
+        let landTiles = 0;
+        const buckets = { arid: 0, semiArid: 0, temperate: 0, wet: 0, lush: 0 };
+        for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+                if (GameplayMap.isWater(x, y))
+                    continue;
+                const value = GameplayMap.getRainfall(x, y) ?? 0;
+                landTiles++;
+                if (value < min)
+                    min = value;
+                if (value > max)
+                    max = value;
+                sum += value;
+                if (value < 25)
+                    buckets.arid++;
+                else if (value < 60)
+                    buckets.semiArid++;
+                else if (value < 95)
+                    buckets.temperate++;
+                else if (value < 130)
+                    buckets.wet++;
+                else
+                    buckets.lush++;
+            }
+        }
+        if (landTiles === 0) {
+            safeLog(`[DEV][rain] stats ${label}: No land tiles.`);
+            return;
+        }
+        const avg = sum / landTiles;
+        safeLog(`[DEV][rain] stats ${label}:`, {
+            landTiles,
+            min,
+            max,
+            avg: Number(avg.toFixed(2)),
+            buckets,
+        });
+    }
+    catch (err) {
+        safeLog(`[DEV][rain] stats ${label} error:`, err);
+    }
+}
+
+export function logBiomeSummary(label = "biomes", width, height) {
+    if (!isOn("LOG_BIOME_SUMMARY"))
+        return;
+    try {
+        const w = Number.isFinite(width) ? width : GameplayMap?.getGridWidth?.();
+        const h = Number.isFinite(height) ? height : GameplayMap?.getGridHeight?.();
+        if (!w || !h) {
+            safeLog(`[DEV][biome] summary ${label}: No map bounds.`);
+            return;
+        }
+        if (typeof GameplayMap?.getBiomeType !== "function") {
+            safeLog(`[DEV][biome] summary ${label}: GameplayMap.getBiomeType unavailable.`);
+            return;
+        }
+        const counts = new Map();
+        let landTiles = 0;
+        for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+                if (GameplayMap.isWater?.(x, y))
+                    continue;
+                landTiles++;
+                const id = GameplayMap.getBiomeType(x, y) ?? -1;
+                counts.set(id, (counts.get(id) ?? 0) + 1);
+            }
+        }
+        const summary = Array.from(counts.entries())
+            .map(([id, count]) => ({
+            id,
+            name: resolveBiomeName(id),
+            count,
+            share: landTiles > 0 ? Number(((count / landTiles) * 100).toFixed(2)) : 0,
+        }))
+            .sort((a, b) => b.count - a.count);
+        safeLog(`[DEV][biome] summary ${label}:`, {
+            landTiles,
+            summary,
+        });
+    }
+    catch (err) {
+        safeLog(`[DEV][biome] summary ${label} error:`, err);
+    }
+}
+
+function resolveBiomeName(id) {
+    try {
+        if (id == null || id < 0)
+            return null;
+        const entry = GameInfo?.Biomes?.[id];
+        if (entry?.Name)
+            return entry.Name;
+    }
+    catch {
+        /* ignore */
+    }
+    return null;
 }
 /**
  * WorldModel summary: plates and boundary type counts (compact).
@@ -517,17 +652,6 @@ export function logLandmassAscii(label = "landmass", opts = {}) {
         if (!width || !height) {
             safeLog(`[DEV][landmass] dump ${label}: No map bounds.`);
             return;
-        }
-        const windows = Array.isArray(opts.windows) ? opts.windows : [];
-        if (windows.length) {
-            const summary = windows.map((w, idx) => ({
-                id: w?.continent ?? idx,
-                west: w?.west ?? null,
-                east: w?.east ?? null,
-                south: w?.south ?? null,
-                north: w?.north ?? null,
-            }));
-            safeLog(`[DEV][landmass] windows ${label}:`, summary);
         }
         safeLog(`[DEV][landmass] dump ${label}: delegating to base-standard dumpContinents()`);
         dumpContinents(width, height);
@@ -884,9 +1008,11 @@ export default {
     timeEnd,
     logStoryTagsSummary,
     logRainfallHistogram,
+    logRainfallStats,
     logWorldModelSummary,
     logWorldModelHistograms,
     logWorldModelAscii,
     logBoundaryMetrics,
+    logBiomeSummary,
     ASCII_DISPLAY,
 };
