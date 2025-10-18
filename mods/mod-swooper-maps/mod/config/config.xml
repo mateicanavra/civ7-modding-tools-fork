@@ -3,12 +3,11 @@
 	<Maps>
 		<!-- Base variant - Classic preset -->
 		<Row
-			File="{swooper-maps}/maps/swooper-diverse-huge.js"
-			Name="LOC_MAP_SWOOPER_DIVERSE_HUGE_NAME"
-			Description="LOC_MAP_SWOOPER_DIVERSE_HUGE_DESCRIPTION"
+			File="{swooper-maps}/maps/swooper-desert-mountains.js"
+			Name="LOC_MAP_SWOOPER_DESERT_MOUNTAINS_NAME"
+			Description="LOC_MAP_SWOOPER_DESERT_MOUNTAINS_DESCRIPTION"
 			SortIndex="500"
 		/>
-
 		<!-- Temperate variant - Milder climate -->
 		<Row
 			File="{swooper-maps}/maps/swooper-diverse-huge-temperate.js"
@@ -16,7 +15,6 @@
 			Description="LOC_MAP_SWOOPER_DIVERSE_HUGE_TEMPERATE_DESCRIPTION"
 			SortIndex="501"
 		/>
-
 		<!-- Kahula variant - Dramatic tectonics with central ridge -->
 		<Row
 			File="{swooper-maps}/maps/swooper-diverse-huge-kahula.js"

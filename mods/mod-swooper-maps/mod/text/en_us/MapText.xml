@@ -1,34 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LocalizedText>
-	<Database>
-		<!-- Base Map -->
-		<Row>
-			<Tag>LOC_MAP_SWOOPER_DIVERSE_HUGE_NAME</Tag>
-			<Text>Swooper Diverse Huge</Text>
+<Database>
+	<EnglishText>
+		<Row Tag="LOC_MAP_SWOOPER_DESERT_MOUNTAINS_NAME">
+			<Text>Swooper Desert Mountains</Text>
 		</Row>
-		<Row>
-			<Tag>LOC_MAP_SWOOPER_DIVERSE_HUGE_DESCRIPTION</Tag>
-			<Text>Physics-based map generation with plate tectonics, realistic climate, and diverse terrain. Mountains follow convergent boundaries, rift valleys form at divergent zones, and atmospheric pressure shapes rainfall patterns.</Text>
+		<Row Tag="LOC_MAP_SWOOPER_DESERT_MOUNTAINS_DESCRIPTION">
+			<Text>Plate-forged mega ranges carve a hyper-arid world into stark basins and windward oases. Expect towering boundary cordilleras, savage lee-side deserts, and a handful of monsoon belts clinging to the mountains that feed them.</Text>
 		</Row>
 
-		<!-- Temperate Variant -->
-		<Row>
-			<Tag>LOC_MAP_SWOOPER_DIVERSE_HUGE_TEMPERATE_NAME</Tag>
+		<Row Tag="LOC_MAP_SWOOPER_DIVERSE_HUGE_TEMPERATE_NAME">
 			<Text>Swooper Diverse Huge (Temperate)</Text>
 		</Row>
-		<Row>
-			<Tag>LOC_MAP_SWOOPER_DIVERSE_HUGE_TEMPERATE_DESCRIPTION</Tag>
+		<Row Tag="LOC_MAP_SWOOPER_DIVERSE_HUGE_TEMPERATE_DESCRIPTION">
 			<Text>Temperate climate variant with milder weather patterns and reduced extremes. Same physics-based generation with adjusted climate parameters for a more moderate world.</Text>
 		</Row>
 
-		<!-- Kahula Variant -->
-		<Row>
-			<Tag>LOC_MAP_SWOOPER_DIVERSE_HUGE_KAHULA_NAME</Tag>
+		<Row Tag="LOC_MAP_SWOOPER_DIVERSE_HUGE_KAHULA_NAME">
 			<Text>Swooper Diverse Huge (Kahula)</Text>
 		</Row>
-		<Row>
-			<Tag>LOC_MAP_SWOOPER_DIVERSE_HUGE_KAHULA_DESCRIPTION</Tag>
+		<Row Tag="LOC_MAP_SWOOPER_DIVERSE_HUGE_KAHULA_DESCRIPTION">
 			<Text>Dramatic tectonic variant featuring a massive central continent with a north-south convergent ridge and flanking rifts. Extreme geography with pronounced mountain chains and rift valleys.</Text>
 		</Row>
-	</Database>
-</LocalizedText>
+	</EnglishText>
+</Database>

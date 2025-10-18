@@ -48,7 +48,7 @@ Unified tracker for the plate-driven landmass refactor. This document replaces b
 
 ## Validation & Testing Checklist
 
-- Smoke-test Huge and Standard presets (`swooper-diverse-huge.js`, Voronoi preset) with multiple seeds.
+- Smoke-test Huge and Standard presets (`swooper-desert-mountains.js`, Voronoi preset) with multiple seeds.
 - Inspect `Scripting.log` for timing/WorldModel summaries and new ASCII overlays.
 - Run `pnpm lint` + `pnpm test` after feature work; add Vitest coverage for exposed config surfaces when feasible.
 - Verify XML/doc examples mirror `civ7-official-resources` schemas when updating documentation.
