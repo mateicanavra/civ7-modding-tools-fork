@@ -66,7 +66,6 @@
  * All terrain/feature reads and writes MUST go through this interface.
  * Two implementations:
  * - CivEngineAdapter: uses GameplayMap, TerrainBuilder, etc. (production)
- * - InMemoryAdapter: uses typed arrays only (testing, headless)
  *
  * @interface
  * @typedef {Object} EngineAdapter

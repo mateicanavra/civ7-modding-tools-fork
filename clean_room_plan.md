@@ -6,6 +6,9 @@ A strict clean‑room requires airtight separation between people who have seen 
 
 Because you are involved in both roles, you must **discipline how information flows**.  When acting as spec team, you can read the original SDK and produce a neutral specification; when managing the implementation agent, you must avoid quoting or paraphrasing the original code.  OpenAI chat logs and repository history will provide some evidence of this separation.  This is a lighter version of a clean room but still offers a defensible narrative that your implementation was derived from a specification rather than copied code.  Keep in mind that this does not eliminate all risk; the safest course would still be to obtain permission or rewrite with completely separate human teams.  
 
+> **Note (2024‑XX)**  
+> We evaluated building a headless “in‑memory” adapter for Civ VII map generation and determined it is impractical: the map pipeline depends on dozens of runtime globals (`GameplayMap`, `TerrainBuilder`, `FertilityBuilder`, `ResourceBuilder`, `GameInfo`, etc.) and engine services that are not exposed in script form.  Instead of pursuing a mock engine, future experimentation should leverage FireTuner workflows to shorten iteration without restarting the game client.
+
 ## Implementation plan
 
 The plan below assumes that the existing repository (e.g., `mateicanavra/civ7-modding-tools-fork`) remains the **spec team repo** and that you will create a **new, empty repository** for the clean‑room implementation.  The goal is to build a drop‑in replacement SDK that matches the API surface documented in the spec repo while avoiding any direct reuse of the original code.
