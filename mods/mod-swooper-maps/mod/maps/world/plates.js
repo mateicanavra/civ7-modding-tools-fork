@@ -21,6 +21,7 @@
 import { VoronoiUtils, RegionCell, PlateBoundary, RegionCellPosGetter, PlateBoundaryPosGetter } from '/base-standard/scripts/voronoi-utils.js';
 import { PlateRegion } from '/base-standard/scripts/voronoi-region.js';
 import { kdTree } from '/base-standard/scripts/kd-tree.js';
+import { RandomImpl } from '/base-standard/scripts/random-pcg-32.js';
 
 /**
  * @typedef {Object} PlateGenerationResult
@@ -45,7 +46,9 @@ import { kdTree } from '/base-standard/scripts/kd-tree.js';
  * @property {number} convergenceMix - 0..1, ratio of convergent vs divergent boundaries
  * @property {number} plateRotationMultiple - Multiplier for plate rotation influence
  * @property {Object} directionality - Optional directionality config
- */
+ * @property {number} [seedOffset] - Additional RNG offset applied before plate generation (integer)
+ * @property {number} [seedBase] - Optional explicit RNG seed overriding the engine seed
+*/
 
 const ENUM_BOUNDARY = Object.freeze({
     none: 0,
@@ -53,6 +56,50 @@ const ENUM_BOUNDARY = Object.freeze({
     divergent: 2,
     transform: 3,
 });
+
+function applySeedControl(seedBase, seedOffset) {
+    if (!RandomImpl || typeof RandomImpl.getState !== "function" || typeof RandomImpl.setState !== "function") {
+        return null;
+    }
+    const hasBase = Number.isFinite(seedBase);
+    const offsetValue = Number.isFinite(seedOffset) ? Math.trunc(seedOffset) : 0;
+    if (!hasBase && offsetValue === 0) {
+        return null;
+    }
+    try {
+        const originalState = RandomImpl.getState();
+        if (!originalState || typeof originalState.state !== "bigint") {
+            return null;
+        }
+        let seedValue;
+        if (hasBase) {
+            seedValue = Math.trunc(seedBase);
+        }
+        else {
+            seedValue = Number(originalState.state & 0xffffffffn);
+        }
+        if (offsetValue) {
+            seedValue = (seedValue + offsetValue) >>> 0;
+        }
+        else {
+            seedValue = seedValue >>> 0;
+        }
+        if (typeof RandomImpl.seed === "function") {
+            RandomImpl.seed(seedValue >>> 0);
+        }
+        return () => {
+            try {
+                RandomImpl.setState(originalState);
+            }
+            catch (_) {
+                /* no-op */
+            }
+        };
+    }
+    catch (_) {
+        return null;
+    }
+}
 
 /**
  * Generate tectonic plates using proper Voronoi diagrams
@@ -69,172 +116,178 @@ export function computePlatesVoronoi(width, height, config) {
         convergenceMix = 0.5,
         plateRotationMultiple = 1.0,
         directionality = null,
+        seedOffset = 0,
+        seedBase = undefined,
     } = config;
 
     const size = width * height;
 
-    // Create Voronoi diagram using base game utilities
-    const bbox = { xl: 0, xr: width, yt: 0, yb: height };
-    const sites = VoronoiUtils.createRandomSites(count, bbox.xr, bbox.yb);
-    const diagram = VoronoiUtils.computeVoronoi(sites, bbox, relaxationSteps);
+    const runGeneration = () => {
+        // Create Voronoi diagram using base game utilities
+        const bbox = { xl: 0, xr: width, yt: 0, yb: height };
+        const sites = VoronoiUtils.createRandomSites(count, bbox.xr, bbox.yb);
+        const diagram = VoronoiUtils.computeVoronoi(sites, bbox, relaxationSteps);
 
-    // Create PlateRegion instances with movement vectors
-    const plateRegions = diagram.cells.map((cell, index) => {
-        const region = new PlateRegion(
-            `Plate${index}`,
-            index,
-            0, // type
-            bbox.xr * bbox.yb, // maxArea
-            { x: Math.random(), y: Math.random(), z: Math.random() } // color (not used in WorldModel)
-        );
-        region.seedLocation = { x: cell.site.x, y: cell.site.y };
+        // Create PlateRegion instances with movement vectors
+        const plateRegions = diagram.cells.map((cell, index) => {
+            const region = new PlateRegion(
+                `Plate${index}`,
+                index,
+                0, // type
+                bbox.xr * bbox.yb, // maxArea
+                { x: Math.random(), y: Math.random(), z: Math.random() } // color (not used in WorldModel)
+            );
+            region.seedLocation = { x: cell.site.x, y: cell.site.y };
 
-        // Apply directionality bias if provided
-        if (directionality) {
-            applyDirectionalityBias(region, directionality);
-        }
-
-        return region;
-    });
-
-    // Create RegionCells for the map grid
-    // Note: For performance, we create a coarser Voronoi grid for plate assignment
-    // This matches the base game's approach in ContinentGenerator.growPlates()
-    const cellCount = Math.floor(width * height * 0.01); // 1% of tiles as Voronoi cells
-    const cellSites = VoronoiUtils.createRandomSites(cellCount, bbox.xr, bbox.yb);
-    const cellDiagram = VoronoiUtils.computeVoronoi(cellSites, bbox, 2);
-
-    const regionCells = cellDiagram.cells.map((cell, index) => {
-        const area = VoronoiUtils.calculateCellArea(cell);
-        return new RegionCell(cell, index, area);
-    });
-
-    // Build kdTree for fast spatial queries
-    const cellKdTree = new kdTree(RegionCellPosGetter);
-    cellKdTree.build(regionCells);
-
-    // Assign each region cell to nearest plate
-    for (const regionCell of regionCells) {
-        const pos = { x: regionCell.cell.site.x, y: regionCell.cell.site.y };
-        let bestDist = Infinity;
-        let bestPlateId = -1;
-
-        for (let i = 0; i < plateRegions.length; i++) {
-            const dx = pos.x - plateRegions[i].seedLocation.x;
-            const dy = pos.y - plateRegions[i].seedLocation.y;
-            const dist = dx * dx + dy * dy;
-
-            if (dist < bestDist) {
-                bestDist = dist;
-                bestPlateId = i;
+            // Apply directionality bias if provided
+            if (directionality) {
+                applyDirectionalityBias(region, directionality);
             }
-        }
 
-        regionCell.plateId = bestPlateId;
-    }
+            return region;
+        });
 
-    // Compute plate boundaries at Voronoi edges
-    const plateBoundaries = computePlateBoundaries(
-        regionCells,
-        plateRegions,
-        plateRotationMultiple
-    );
+        // Create RegionCells for the map grid
+        // Note: For performance, we create a coarser Voronoi grid for plate assignment
+        // This matches the base game's approach in ContinentGenerator.growPlates()
+        const cellCount = Math.floor(width * height * 0.01); // 1% of tiles as Voronoi cells
+        const cellSites = VoronoiUtils.createRandomSites(cellCount, bbox.xr, bbox.yb);
+        const cellDiagram = VoronoiUtils.computeVoronoi(cellSites, bbox, 2);
 
-    // Build kdTree for boundary queries
-    const boundaryTree = new kdTree(PlateBoundaryPosGetter);
-    boundaryTree.build(plateBoundaries);
+        const regionCells = cellDiagram.cells.map((cell, index) => {
+            const area = VoronoiUtils.calculateCellArea(cell);
+            return new RegionCell(cell, index, area);
+        });
 
-    // Allocate output arrays
-    const plateId = new Int16Array(size);
-    const boundaryCloseness = new Uint8Array(size);
-    const boundaryType = new Uint8Array(size);
-    const tectonicStress = new Uint8Array(size);
-    const upliftPotential = new Uint8Array(size);
-    const riftPotential = new Uint8Array(size);
-    const shieldStability = new Uint8Array(size);
-    const plateMovementU = new Int8Array(size);
-    const plateMovementV = new Int8Array(size);
-    const plateRotation = new Int8Array(size);
+        // Build kdTree for fast spatial queries
+        const cellKdTree = new kdTree(RegionCellPosGetter);
+        cellKdTree.build(regionCells);
 
-    // Assign each map tile to nearest Voronoi cell, then inherit plate properties
-    const convThreshold = 0.3; // Subduction threshold for convergent
-    const divThreshold = -0.2; // Divergence threshold
-    const transformThreshold = 0.5; // Sliding threshold for transform
+        // Assign each region cell to nearest plate
+        for (const regionCell of regionCells) {
+            const pos = { x: regionCell.cell.site.x, y: regionCell.cell.site.y };
+            let bestDist = Infinity;
+            let bestPlateId = -1;
 
-    for (let y = 0; y < height; y++) {
-        for (let x = 0; x < width; x++) {
-            const i = y * width + x;
-            const pos = { x, y };
+            for (let i = 0; i < plateRegions.length; i++) {
+                const dx = pos.x - plateRegions[i].seedLocation.x;
+                const dy = pos.y - plateRegions[i].seedLocation.y;
+                const dist = dx * dx + dy * dy;
 
-            // Find nearest Voronoi cell
-            const nearestCell = cellKdTree.search(pos);
-            const pId = nearestCell.plateId;
-            plateId[i] = pId;
-
-            // Get plate movement at this location
-            const plate = plateRegions[pId];
-            const movement = calculatePlateMovement(plate, pos, plateRotationMultiple);
-            plateMovementU[i] = clampInt8(Math.round(movement.x * 100));
-            plateMovementV[i] = clampInt8(Math.round(movement.y * 100));
-            plateRotation[i] = clampInt8(Math.round(plate.m_rotation * 100));
-
-            // Find nearest plate boundary
-            const nearestBoundary = boundaryTree.search(pos);
-            const distToBoundary = Math.sqrt(VoronoiUtils.sqDistance(pos, nearestBoundary.pos));
-
-            // Boundary closeness: inverse distance normalized
-            // Use similar falloff as base game: score = 1 - d/(d + scale)
-            const scaleFactor = 4.0; // Similar to RuleNearPlateBoundary default
-            const closeness = 1 - distToBoundary / (distToBoundary + scaleFactor);
-            boundaryCloseness[i] = toByte(closeness);
-
-            // Boundary type based on physics
-            let bType = ENUM_BOUNDARY.none;
-
-            if (closeness > 0.3) { // Only classify near boundaries
-                const subduction = nearestBoundary.plateSubduction;
-                const sliding = nearestBoundary.plateSliding;
-
-                if (subduction > convThreshold) {
-                    bType = ENUM_BOUNDARY.convergent;
-                } else if (subduction < divThreshold) {
-                    bType = ENUM_BOUNDARY.divergent;
-                } else if (sliding > transformThreshold) {
-                    bType = ENUM_BOUNDARY.transform;
+                if (dist < bestDist) {
+                    bestDist = dist;
+                    bestPlateId = i;
                 }
             }
 
-            boundaryType[i] = bType;
+            regionCell.plateId = bestPlateId;
+        }
 
-            // Potentials derived from boundary type and closeness
-            const stress255 = boundaryCloseness[i];
-            tectonicStress[i] = stress255;
+        // Compute plate boundaries at Voronoi edges
+        const plateBoundaries = computePlateBoundaries(
+            regionCells,
+            plateRegions,
+            plateRotationMultiple
+        );
 
-            // Uplift high at convergent boundaries
-            upliftPotential[i] = bType === ENUM_BOUNDARY.convergent ? stress255 : stress255 >> 2;
+        // Build kdTree for boundary queries
+        const boundaryTree = new kdTree(PlateBoundaryPosGetter);
+        boundaryTree.build(plateBoundaries);
 
-            // Rift high at divergent boundaries
-            riftPotential[i] = bType === ENUM_BOUNDARY.divergent ? stress255 : stress255 >> 2;
+        // Allocate output arrays
+        const plateId = new Int16Array(size);
+        const boundaryCloseness = new Uint8Array(size);
+        const boundaryType = new Uint8Array(size);
+        const tectonicStress = new Uint8Array(size);
+        const upliftPotential = new Uint8Array(size);
+        const riftPotential = new Uint8Array(size);
+        const shieldStability = new Uint8Array(size);
+        const plateMovementU = new Int8Array(size);
+        const plateMovementV = new Int8Array(size);
+        const plateRotation = new Int8Array(size);
 
-            // Shield stability is inverse of stress (plate interiors are stable)
-            shieldStability[i] = 255 - stress255;
+        // Assign each map tile to nearest Voronoi cell, then inherit plate properties
+        const convThreshold = 0.3; // Subduction threshold for convergent
+        const divThreshold = -0.2; // Divergence threshold
+        const transformThreshold = 0.5; // Sliding threshold for transform
+
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                const i = y * width + x;
+                const pos = { x, y };
+
+                const nearestCell = cellKdTree.search(pos);
+                const pId = nearestCell.plateId;
+                plateId[i] = pId;
+
+                const plate = plateRegions[pId];
+                const movement = calculatePlateMovement(plate, pos, plateRotationMultiple);
+                plateMovementU[i] = clampInt8(Math.round(movement.x * 100));
+                plateMovementV[i] = clampInt8(Math.round(movement.y * 100));
+                plateRotation[i] = clampInt8(Math.round(plate.m_rotation * 100));
+
+                const nearestBoundary = boundaryTree.search(pos);
+                const distToBoundary = Math.sqrt(VoronoiUtils.sqDistance(pos, nearestBoundary.pos));
+
+                const scaleFactor = 4.0;
+                const closeness = 1 - distToBoundary / (distToBoundary + scaleFactor);
+                boundaryCloseness[i] = toByte(closeness);
+
+                let bType = ENUM_BOUNDARY.none;
+
+                if (closeness > 0.3) {
+                    const subduction = nearestBoundary.plateSubduction;
+                    const sliding = nearestBoundary.plateSliding;
+
+                    if (subduction > convThreshold) {
+                        bType = ENUM_BOUNDARY.convergent;
+                    }
+                    else if (subduction < divThreshold) {
+                        bType = ENUM_BOUNDARY.divergent;
+                    }
+                    else if (sliding > transformThreshold) {
+                        bType = ENUM_BOUNDARY.transform;
+                    }
+                }
+
+                boundaryType[i] = bType;
+
+                const stress255 = boundaryCloseness[i];
+                tectonicStress[i] = stress255;
+
+                upliftPotential[i] = bType === ENUM_BOUNDARY.convergent ? stress255 : stress255 >> 2;
+                riftPotential[i] = bType === ENUM_BOUNDARY.divergent ? stress255 : stress255 >> 2;
+                shieldStability[i] = 255 - stress255;
+            }
+        }
+
+        return {
+            plateId,
+            boundaryCloseness,
+            boundaryType,
+            tectonicStress,
+            upliftPotential,
+            riftPotential,
+            shieldStability,
+            plateMovementU,
+            plateMovementV,
+            plateRotation,
+            boundaryTree,
+            plateRegions,
+        };
+    };
+
+    const restoreSeed = applySeedControl(seedBase, seedOffset);
+    let output;
+    try {
+        output = runGeneration();
+    }
+    finally {
+        if (restoreSeed) {
+            restoreSeed();
         }
     }
-
-    return {
-        plateId,
-        boundaryCloseness,
-        boundaryType,
-        tectonicStress,
-        upliftPotential,
-        riftPotential,
-        shieldStability,
-        plateMovementU,
-        plateMovementV,
-        plateRotation,
-        boundaryTree,
-        plateRegions,
-    };
+    return output;
 }
 
 /**

@@ -177,6 +177,7 @@
 /**
  * Landmass geometry presets and band definitions
  * @typedef {Object} LandmassGeometry
+ * @property {"bands"|"plates"|"auto"} [mode] - Layout mode: legacy three-band geometry, plate-driven layout, or automatic selection
  * @property {number} [oceanColumnsScale] - Scale applied to globals.g_OceanWaterColumns when computing base ocean widths (scalar multiplier)
  * @property {string} [preset] - Active preset name to mirror (string key into presets)
  * @property {Object.<string, {bands: ReadonlyArray<LandmassBand>}>} [presets] - Named presets mapping to band arrays (open set of presets)
@@ -423,8 +424,12 @@
  * @property {number} [plates.count] - Plate count target (count)
  * @property {ReadonlyArray<number>} [plates.axisAngles] - Macro axes used to align plate trends (degrees)
  * @property {number} [plates.convergenceMix] - 0..1 fraction for convergent vs divergent balance (ratio 0..1)
+ * @property {number} [plates.relaxationSteps] - Lloyd relaxation iterations when seeding plates (integer)
  * @property {number} [plates.seedJitter] - Tile jitter applied to plate seeds (tiles)
  * @property {number} [plates.interiorSmooth] - Smoothing steps for shield interiors (steps; iterations)
+ * @property {number} [plates.plateRotationMultiple] - Multiplier for plate rotation influence when evaluating boundaries
+ * @property {number} [plates.seedOffset] - Additional RNG offset applied before plate generation (integer)
+ * @property {number} [plates.seedBase] - Optional explicit RNG seed; overrides engine seed when provided
  * @property {Object} [wind] - Global winds (zonal baseline + jet streams; used in refinement upwind checks)
  * @property {number} [wind.jetStreaks] - Number of jet streaks (count)
  * @property {number} [wind.jetStrength] - Jet streak relative strength (unitless scalar)

@@ -327,8 +327,11 @@ export const BASE_CONFIG = Object.freeze({
             count: 8, // Huge maps: 6–10 recommended
             axisAngles: Object.freeze([15, -20, 35]), // degrees; used to align macro trends
             convergenceMix: 0.6, // 0..1 fraction for convergent vs divergent balance
+            relaxationSteps: 5, // Lloyd relaxation iterations for plate sites
             seedJitter: 3, // tile jitter for plate seeds
             interiorSmooth: 3, // smoothing steps for shield interiors
+            plateRotationMultiple: 5, // rotation influence multiplier (mirrors base Voronoi scripts)
+            seedOffset: 0, // RNG offset to produce deterministic plate variants
         }),
         // Global winds (zonal baseline + jet streams; used in refinement upwind checks)
         wind: Object.freeze({
@@ -431,6 +434,7 @@ export const BASE_CONFIG = Object.freeze({
         // Geometry: up-front band layout (fractions) and ocean columns scaling.
         // Consumers can use these values to compute the three continental band windows before landmass carving.
         geometry: Object.freeze({
+            mode: "bands", // legacy default; entries can switch to plate-driven layout
             // Scale applied to globals.g_OceanWaterColumns when computing base ocean widths
             oceanColumnsScale: 1.1,
             // Optional named presets for starting geometry. Consumers may prefer to read `preset`

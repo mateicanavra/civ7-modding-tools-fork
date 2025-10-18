@@ -197,15 +197,24 @@ function idx(x, y, width) {
 function computePlates(width, height) {
     const count = Math.max(2, WORLDMODEL_PLATES?.count | 0 || 8);
     const convergenceMix = Math.max(0, Math.min(1, WORLDMODEL_PLATES?.convergenceMix ?? 0.5));
+    const relaxationSteps = Math.max(0, WORLDMODEL_PLATES?.relaxationSteps | 0 || 5);
     const plateRotationMultiple = WORLDMODEL_PLATES?.plateRotationMultiple ?? 1.0;
+    const seedOffset = Number.isFinite(WORLDMODEL_PLATES?.seedOffset)
+        ? Math.trunc(WORLDMODEL_PLATES.seedOffset)
+        : 0;
+    const seedBase = Number.isFinite(WORLDMODEL_PLATES?.seedBase)
+        ? Math.trunc(WORLDMODEL_PLATES.seedBase)
+        : undefined;
 
     // Call new Voronoi-based plate generation
     const plateData = computePlatesVoronoi(width, height, {
         count,
-        relaxationSteps: 5, // Lloyd relaxation like base game
+        relaxationSteps,
         convergenceMix,
         plateRotationMultiple,
         directionality: WORLDMODEL_DIRECTIONALITY,
+        seedOffset,
+        seedBase,
     });
 
     // Copy results into WorldModel state arrays
