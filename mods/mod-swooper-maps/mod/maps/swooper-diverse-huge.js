@@ -11,57 +11,78 @@ import { bootstrap } from "./bootstrap/entry.js";
 /** @typedef {import("./bootstrap/map_config.types.js").Toggles} Toggles */
 /** @typedef {import("./bootstrap/map_config.types.js").WorldModel} WorldModelCfg */
 /** @typedef {MapConfig['worldModel']} WorldModel */
-/** @typedef {WorldModel[]} Plates */
 /** @typedef {MapConfig['climateRefine']} ClimateRefine */
+
 
 
 bootstrap({
     presets: ["voronoi"],
     overrides: /** @type {Partial<MapConfig>} */ ({
-        // Earth-like climate with enhanced desertification
+        // Earth-like climate pushed toward arid, ancient continental interiors
         climateBaseline: {
             bands: {
-                deg0to10: 210,      // Keep equatorial wet (rainforests)
-                deg10to20: 130,      // Reduce slightly (transitional)
-                deg20to35: 34,      // Strong reduction for subtropical desert belts (Sahara-like)
-                deg35to55: 80,      // Slight reduction (temperate)
-                deg55to70: 58,      // Reduce tundra precipitation
-                deg70plus: 33,      // Reduce polar precipitation
+                deg0to10: 165,      // Still humid equator, but less jungle saturation
+                deg10to20: 95,      // Hot subtropics trending arid
+                deg20to35: 22,      // Broad desert girdle (old Gondwanan belts)
+                deg35to55: 54,      // Semi-arid temperate zones
+                deg55to70: 41,      // Dry, windswept subpolar bands
+                deg70plus: 24,      // Stark polar deserts
             },
             coastal: {
-                coastalLandBonus: 10,    // Reduced from 24 (drier coasts, allows coastal deserts)
-                shallowAdjBonus: 8,     // Reduced from 16
+                coastalLandBonus: 4,     // Dusty shorelines—coastal deserts thrive
+                shallowAdjBonus: 3,      // Minimal humidity bleed from shallow seas
             },
         },
         climateRefine: /** @type {Partial<ClimateRefine>} */ ({
             waterGradient: {
-                radius: 5,
-                perRingBonus: 2.3,       // Reduced from 5 (drier continental interiors)
-                lowlandBonus: 2.0,       // Reduced from 3 (less moisture inland)
+                radius: 6,
+                perRingBonus: 1.4,       // Interiors desiccate quickly away from coasts
+                lowlandBonus: 1.2,       // Basins stay dry unless fed by rivers
             },
             orographic: {
-                steps: 4,
-                reductionBase: 21,       // Increased from 8 (stronger rain shadows)
-                reductionPerStep: 12,     // Increased from 6 (steeper moisture gradients)
+                steps: 5,
+                reductionBase: 28,       // Brutal lee-side shadows
+                reductionPerStep: 16,    // Moisture collapse with each ridge
             },
         }),
+        mountains: {
+            boundaryExponent: 2,
+            mountainPercent: 11,
+            boundaryWeight: 2,
+            convergenceBonus: 1.6,
+            hillInteriorFalloff: 0.9,
+            hillPercent: 2,
+            riftDepth: 0,
+            riftPenalty: 0,
+            hillRiftBonus: 0.6,
+            hillBoundaryWeight: 0.2,
+            hillConvergentFoothill: 0.1,
+            hillUpliftWeight: 0.3,
+            interiorPenaltyWeight: 0.8,
+            transformPenalty: 0.8
+        },
+        margins: {
+            activeFraction: 0.25,
+            passiveFraction: 0.87,
+            minSegmentLength: 33
+        },
         // Enhanced desert swatches and rain shadow effects
         story: {
             swatches: {
-                maxPerMap: 22,            // Increased from 7 (allow more climate zones)
+                maxPerMap: 26,            // Many overlapping paleo climate pockets
                 types: {
                     macroDesertBelt: {
-                        weight: 17,          // Increased from 8 (much more likely)
-                        drynessDelta: 53,    // Increased from 28 (more intense deserts)
-                        halfWidthDeg: 23,    // Increased from 12 (wider Sahara/Gobi-like belts)
+                        weight: 22,          // Dominant macro feature
+                        drynessDelta: 70,    // Scorched earth core belts
+                        halfWidthDeg: 27,    // Sprawling desert girdles
                     },
                     equatorialRainbelt: {
-                        weight: 7,           // Increased from 3 (preserve Amazon/Congo)
-                        wetnessDelta: 67,    // Increased from 24 (wetter rainforests)
+                        weight: 4,           // Sparse equatorial refuges
+                        wetnessDelta: 58,    // Still lush where it survives
                     },
                     greatPlains: {
-                        weight: 4,           // Increased from 5 (more dry grasslands)
-                        dryDelta: 20,        // Increased from 12 (drier plains)
+                        weight: 6,           // Windswept steppe shelves
+                        dryDelta: 28,        // Parched prairie basins
                     },
                     rainforestArchipelago: {
                         weight: 6,
@@ -71,36 +92,40 @@ bootstrap({
                 },
             },
             orogeny: {
-                leeDrynessAmplifier: 2.3,    // Increased from 1.2 (strong rain shadows like Gobi/Atacama)
-                windwardBoost: 6,            // Increased from 5 (wetter windward slopes)
+                beltMaxPerContinent: 3,
+                beltMinLength: 10,
+                radius: 6,
+                leeDrynessAmplifier: 3.1,    // Hyper-arid lees
+                windwardBoost: 8,            // Verdant windward pockets
             },
             paleo: {
-                maxFossilChannels: 16,       // Increased from 12 (more dry wadis/arroyos)
-                canyonDryBonus: 5,           // Increased from 3 (drier canyon floors)
+                maxFossilChannels: 20,       // Abundant dry paleo channels
+                canyonDryBonus: 9,           // Bone-dry canyon floors
             },
         },
         worldModel: /** @type {Partial<WorldModelCfg>} */ {
             pressure: {
-                amplitude: 6,
-                scale: 1.7,
-                bumps: 13
+                amplitude: 7,
+                scale: 1.9,
+                bumps: 14
             },
             wind: {
-                jetStreaks: 3,
-                jetStrength: 1.8,
-                coriolisZonalScale: 2.2
+                jetStreaks: 4,
+                jetStrength: 2.1,
+                coriolisZonalScale: 2.5
             },
             currents: {
-                currentStrength: 1.7
+                currentStrength: 1.9
             },
             plates: {
                 count: 13,
-                relaxationSteps: 3,
-                plateRotationMultiple: 6,
-                seedOffset: 1000
+                convergenceMix: 0.72,
+                relaxationSteps: 2,
+                plateRotationMultiple: 7,
+                seedOffset: 1000,
             },
             policy: {
-                boundaryFjordBias: 3.0,
+                boundaryFjordBias: 1.4,
                 oceanSeparation: {
                     enabled: false
                 }

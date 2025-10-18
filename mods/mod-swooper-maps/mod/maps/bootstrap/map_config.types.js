@@ -34,6 +34,7 @@
  * @property {Islands} [islands] - Offshore island generation: fractal thresholds, hotspot biasing, cluster distribution
  * @property {ClimateBaseline} [climateBaseline] - Initial rainfall: latitude bands, orographic lift from mountains, coastal humidity
  * @property {ClimateRefine} [climateRefine] - Realistic refinements: coastal gradients, rain shadows (leeward drying), river/basin effects
+ * @property {Mountains} [mountains] - Mountain and hill placement weights: WorldModel uplift, boundary biasing, foothill distribution
  * @property {Biomes} [biomes] - Biome assignment rules: tundra limits, tropical coast preferences, river grasslands, rift shoulders
  * @property {FeaturesDensity} [featuresDensity] - Feature density: rainforest, forest, taiga prevalence, coral reef placement
  * @property {Placement} [placement] - Final placement: natural wonder counts, floodplain river lengths
@@ -463,6 +464,33 @@
  * @property {Object} [lowBasin] - Enclosed basin humidity retention (valleys trap moisture)
  * @property {number} [lowBasin.radius] - Search radius to detect if a lowland is surrounded by higher ground (typically 3-6 tiles)
  * @property {number} [lowBasin.delta] - Humidity bonus in enclosed lowland basins like oases (typically 10-25 units)
+ */
+
+/**
+ * Mountain and hill placement tuning (WorldModel-driven orogeny).
+ *
+ * Controls how the physics-based `layerAddMountainsPhysics` module blends uplift, plate boundaries,
+ * and fractal noise when selecting mountain and hill tiles. Defaults are conservative; increasing
+ * weights pushes more extreme belts along convergent margins and deeper rift depressions.
+ *
+ * @typedef {Object} Mountains
+ * @property {number} [mountainPercent] - Target % of land tiles promoted to mountains (typically 4-12%)
+ * @property {number} [hillPercent] - Target % of land tiles promoted to hills (typically 10-22%)
+ * @property {number} [upliftWeight] - Weight (0..1) applied to `WorldModel.upliftPotential`; higher = mountains stick to convergent zones
+ * @property {number} [fractalWeight] - Weight (0..1) applied to fractal noise; higher = more legacy randomness in belts
+ * @property {number} [riftDepth] - 0..1 depression severity at divergent boundaries (1 = completely flatten divergent zones)
+ * @property {number} [variance] - Random +/- percentage variance (in percentage points) applied to mountain/hill targets
+ * @property {number} [boundaryWeight] - Additional mountain weight contributed by boundary closeness (0..2 typical)
+ * @property {number} [boundaryExponent] - Exponent (>=0.25) shaping how quickly boundary weight falls off from plate margins (1.0 = linear)
+ * @property {number} [interiorPenaltyWeight] - Amount subtracted from mountains deep inside plates; nudges belts toward margins (0..1)
+ * @property {number} [convergenceBonus] - Extra additive weight for convergent tiles (0..1.5 typical) creating high orogeny ridges
+ * @property {number} [transformPenalty] - Multiplier penalty applied along transform boundaries (0..1; 0.3 softens shearing ridges)
+ * @property {number} [riftPenalty] - Multiplier penalty applied along divergent boundaries before `riftDepth` carve (0..1.5)
+ * @property {number} [hillBoundaryWeight] - Hill weight contributed by boundary closeness (0..1; creates foothill skirts)
+ * @property {number} [hillRiftBonus] - Hill bonus for divergent belts (0..1; creates uplifted shoulders beside rifts)
+ * @property {number} [hillConvergentFoothill] - Extra foothill weight on convergent tiles (0..0.5 typical)
+ * @property {number} [hillInteriorFalloff] - Penalty for hills deep inside plates (0..0.5; higher keeps hills near action)
+ * @property {number} [hillUpliftWeight] - Residual uplift contribution to hills (0..1; balances foothills + basins)
  */
 
 /**
