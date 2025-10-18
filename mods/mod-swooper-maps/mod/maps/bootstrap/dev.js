@@ -23,7 +23,6 @@
  *   logStoryTagsSummary(StoryTags);
  *   logRainfallHistogram(width, height, 12);
  */
-import * as globals from "/base-standard/maps/map-globals.js";
 /**
  * Master toggles (all false by default).
  * Flip selectively during development sessions; keep off for release builds.
@@ -431,61 +430,35 @@ export function logWorldModelAscii(WorldModel, opts = {}) {
         const isWater = typeof GameplayMap?.isWater === "function"
             ? (x, y) => GameplayMap.isWater(x, y)
             : () => false;
-        const isMountain = typeof GameplayMap?.isMountain === "function"
-            ? (x, y) => GameplayMap.isMountain(x, y)
-            : () => false;
-        const getTerrainType = typeof GameplayMap?.getTerrainType === "function"
-            ? (x, y) => GameplayMap.getTerrainType(x, y)
-            : () => -1;
-        const getFeatureType = typeof GameplayMap?.getFeatureType === "function"
-            ? (x, y) => GameplayMap.getFeatureType(x, y)
-            : () => -1;
-        const hillTerrain = globals?.g_HillTerrain;
-        const volcanoFeature = globals?.g_VolcanoFeature;
-        const baseRows = [];
-        const overlayRows = [];
+        const rows = [];
         for (let y = 0; y < height; y += sampleStep) {
-            let baseRow = "";
-            let overlayRow = "";
+            let combinedRow = "";
             for (let x = 0; x < width; x += sampleStep) {
                 const i = y * width + x;
-                const baseChar = (() => {
-                    if (isWater(x, y))
-                        return "~";
-                    if (isMountain(x, y)) {
-                        if (volcanoFeature >= 0 && getFeatureType(x, y) === volcanoFeature)
-                            return "V";
-                        return "M";
-                    }
-                    if (hillTerrain >= 0 && getTerrainType(x, y) === hillTerrain)
-                        return "H";
-                    return ".";
+                const close = i < boundaryLen ? boundaryCloseness[i] | 0 : 0;
+                const isBoundary = close >= closenessCutoff;
+                const background = (() => {
+                    // if (isWater(x, y))
+                    //     return [" ", "~", " "];
+                    return [" ", "~"];
                 })();
-                baseRow += baseChar + " ";
-                let overlayChar = baseChar;
-                if (i < boundaryLen) {
-                    const close = boundaryCloseness[i] | 0;
-                    if (close >= closenessCutoff) {
-                        const bType = boundaryType[i] | 0;
-                        overlayChar = bType === 1
-                            ? "+"
-                            : bType === 2
-                                ? "-"
-                                : bType === 3
-                                    ? "#"
-                                    : " ";
-                    }
+                if (isBoundary) {
+                    const bType = boundaryType[i] | 0;
+                    let symbol = bType === 1
+                        ? "^"
+                        : bType === 2
+                            ? "~"
+                            : bType === 3
+                                ? "#"
+                                : "@";
+                    background[1] = symbol;
                 }
-                overlayRow += overlayChar + " ";
+                combinedRow += background.join("");
             }
-            baseRows.push(baseRow);
-            overlayRows.push(overlayRow);
+            rows.push(combinedRow);
         }
-        safeLog(`[DEV][wm] ascii base (step=${sampleStep}): ~ water, M mountain, V volcano, H hill, . land`);
-        for (const row of baseRows)
-            safeLog(row);
-        safeLog(`[DEV][wm] ascii plates (step=${sampleStep}): + convergent, - rift/divergent, # transform, space = boundary/no type, other glyphs mirror base terrain`);
-        for (const row of overlayRows)
+        safeLog(`[DEV][wm] ascii plates (step=${sampleStep}): background ~ water, . land, spaces = boundary; overlay + convergent, - rift, # transform, @ boundary/unknown`);
+        for (const row of rows)
             safeLog(row);
     }
     catch (err) {
