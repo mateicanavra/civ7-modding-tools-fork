@@ -46,20 +46,37 @@ bootstrap({
             },
         }),
         mountains: {
-            boundaryExponent: 2,
             mountainPercent: 11,
-            boundaryWeight: 2,
-            convergenceBonus: 1.6,
-            hillInteriorFalloff: 0.9,
             hillPercent: 2,
-            riftDepth: 0,
-            riftPenalty: 0,
+            upliftWeight: 0.85,
+            fractalWeight: 0.15,
+            riftDepth: 0.4,
+            variance: 2.0,
+            boundaryWeight: 0.95,
+            boundaryExponent: 1.6,
+            interiorPenaltyWeight: 0.35,
+            convergenceBonus: 1.1,
+            transformPenalty: 0.4,
+            riftPenalty: 0.9,
+            hillBoundaryWeight: 0.55,
             hillRiftBonus: 0.6,
-            hillBoundaryWeight: 0.2,
-            hillConvergentFoothill: 0.1,
+            hillConvergentFoothill: 0.35,
+            hillInteriorFalloff: 0.25,
             hillUpliftWeight: 0.3,
-            interiorPenaltyWeight: 0.8,
-            transformPenalty: 0.8
+        },
+        volcanoes: {
+            baseDensity: 1 / 160,
+            minSpacing: 4,
+            boundaryThreshold: 0.32,
+            boundaryWeight: 1.45,
+            convergentMultiplier: 2.8,
+            transformMultiplier: 1.15,
+            divergentMultiplier: 0.25,
+            hotspotWeight: 0.18,
+            shieldPenalty: 0.7,
+            randomJitter: 0.3,
+            minVolcanoes: 8,
+            maxVolcanoes: 48,
         },
         margins: {
             activeFraction: 0.25,
@@ -75,13 +92,14 @@ bootstrap({
                         weight: 22,          // Dominant macro feature
                         drynessDelta: 70,    // Scorched earth core belts
                         halfWidthDeg: 27,    // Sprawling desert girdles
+                        bleedRadius: 12
                     },
                     equatorialRainbelt: {
                         weight: 4,           // Sparse equatorial refuges
                         wetnessDelta: 58,    // Still lush where it survives
                     },
                     greatPlains: {
-                        weight: 6,           // Windswept steppe shelves
+                        weight: 3,           // Windswept steppe shelves
                         dryDelta: 28,        // Parched prairie basins
                     },
                     rainforestArchipelago: {

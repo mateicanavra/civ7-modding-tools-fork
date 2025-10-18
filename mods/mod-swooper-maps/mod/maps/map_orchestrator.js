@@ -15,11 +15,11 @@ import { expandCoasts, generateLakes } from "/base-standard/maps/elevation-terra
 import { layerAddMountainsPhysics } from "./layers/mountains.js";
 import * as globals from "/base-standard/maps/map-globals.js";
 import * as utilities from "/base-standard/maps/map-utilities.js";
-import { STORY_ENABLE_HOTSPOTS, STORY_ENABLE_RIFTS, STORY_ENABLE_OROGENY, STORY_ENABLE_WORLDMODEL, LANDMASS_CFG, LANDMASS_GEOMETRY, MOUNTAINS_CFG, rebind, } from "./bootstrap/tunables.js";
+import { STORY_ENABLE_HOTSPOTS, STORY_ENABLE_RIFTS, STORY_ENABLE_OROGENY, STORY_ENABLE_WORLDMODEL, LANDMASS_CFG, LANDMASS_GEOMETRY, MOUNTAINS_CFG, VOLCANOES_CFG, rebind, } from "./bootstrap/tunables.js";
 import { StoryTags, resetStoryTags } from "./story/tags.js";
 import { storyTagStrategicCorridors } from "./story/corridors.js";
 import { storyTagHotspotTrails, storyTagRiftValleys, storyTagOrogenyBelts, storyTagContinentalMargins, storyTagClimateSwatches, OrogenyCache, } from "./story/tagging.js";
-import { addVolcanoes } from "/base-standard/maps/volcano-generator.js";
+import { layerAddVolcanoesPlateAware } from "./layers/volcanoes.js";
 import { createDiverseLandmasses as layerCreateDiverseLandmasses } from "./layers/landmass.js";
 import { generateVoronoiLandmasses } from "./layers/landmass_voronoi.js";
 import { createPlateDrivenLandmasses } from "./layers/landmass_plate.js";
@@ -81,9 +81,28 @@ function generateMap() {
         hillInteriorFalloff: mountainsConfig.hillInteriorFalloff ?? 0.2,
         hillUpliftWeight: mountainsConfig.hillUpliftWeight ?? 0.25,
     };
+    const volcanoConfig = VOLCANOES_CFG || {};
+    const volcanoOptions = {
+        enabled: volcanoConfig.enabled ?? true,
+        baseDensity: volcanoConfig.baseDensity ?? (1 / 170),
+        minSpacing: volcanoConfig.minSpacing ?? 3,
+        boundaryThreshold: volcanoConfig.boundaryThreshold ?? 0.35,
+        boundaryWeight: volcanoConfig.boundaryWeight ?? 1.2,
+        convergentMultiplier: volcanoConfig.convergentMultiplier ?? 2.4,
+        transformMultiplier: volcanoConfig.transformMultiplier ?? 1.1,
+        divergentMultiplier: volcanoConfig.divergentMultiplier ?? 0.35,
+        hotspotWeight: volcanoConfig.hotspotWeight ?? 0.12,
+        shieldPenalty: volcanoConfig.shieldPenalty ?? 0.6,
+        randomJitter: volcanoConfig.randomJitter ?? 0.08,
+        minVolcanoes: volcanoConfig.minVolcanoes ?? 5,
+        maxVolcanoes: volcanoConfig.maxVolcanoes ?? 40,
+    };
     console.log("[SWOOPER_MOD] Tunables rebound successfully");
     console.log(
         `[SWOOPER_MOD] Mountain target: ${mountainOptions.mountainPercent}% | Hills: ${mountainOptions.hillPercent}%`
+    );
+    console.log(
+        `[SWOOPER_MOD] Volcano config — base density ${(volcanoOptions.baseDensity ?? 0).toFixed(4)}, spacing ${volcanoOptions.minSpacing}`
     );
     let iWidth = GameplayMap.getGridWidth();
     let iHeight = GameplayMap.getGridHeight();
@@ -316,7 +335,7 @@ function generateMap() {
     }
     {
         const t = timeStart("Volcanoes");
-        addVolcanoes(iWidth, iHeight);
+        layerAddVolcanoesPlateAware(ctx, volcanoOptions);
         timeEnd(t);
     }
     // Lakes – fewer than before

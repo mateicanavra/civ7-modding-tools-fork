@@ -29,7 +29,7 @@
 // @ts-check
 import { refresh as __refreshResolved__, 
 // group getters
-TOGGLES as __TOGGLES__, STORY as __STORY__, MICROCLIMATE as __MICROCLIMATE__, LANDMASS_CFG as __LANDMASS__, COASTLINES_CFG as __COASTLINES__, MARGINS_CFG as __MARGINS__, ISLANDS_CFG as __ISLANDS__, CLIMATE_BASELINE_CFG as __CLIMATE_BASELINE__, CLIMATE_REFINE_CFG as __CLIMATE_REFINE__, MOUNTAINS_CFG as __MOUNTAINS__, BIOMES_CFG as __BIOMES__, FEATURES_DENSITY_CFG as __FEATURES_DENSITY__, CORRIDORS_CFG as __CORRIDORS__, PLACEMENT_CFG as __PLACEMENT__, DEV_LOG_CFG as __DEV__, WORLDMODEL_CFG as __WM__, 
+TOGGLES as __TOGGLES__, STORY as __STORY__, MICROCLIMATE as __MICROCLIMATE__, LANDMASS_CFG as __LANDMASS__, COASTLINES_CFG as __COASTLINES__, MARGINS_CFG as __MARGINS__, ISLANDS_CFG as __ISLANDS__, CLIMATE_BASELINE_CFG as __CLIMATE_BASELINE__, CLIMATE_REFINE_CFG as __CLIMATE_REFINE__, MOUNTAINS_CFG as __MOUNTAINS__, VOLCANOES_CFG as __VOLCANOES__, BIOMES_CFG as __BIOMES__, FEATURES_DENSITY_CFG as __FEATURES_DENSITY__, CORRIDORS_CFG as __CORRIDORS__, PLACEMENT_CFG as __PLACEMENT__, DEV_LOG_CFG as __DEV__, WORLDMODEL_CFG as __WM__, 
 // nested WM helpers
 WORLDMODEL_PLATES as __WM_PLATES__, WORLDMODEL_WIND as __WM_WIND__, WORLDMODEL_CURRENTS as __WM_CURRENTS__, WORLDMODEL_PRESSURE as __WM_PRESSURE__, WORLDMODEL_POLICY as __WM_POLICY__, WORLDMODEL_DIRECTIONALITY as __WM_DIR__, WORLDMODEL_OCEAN_SEPARATION as __WM_OSEPARATION__, } from "./resolved.js";
 /**
@@ -43,6 +43,7 @@ WORLDMODEL_PLATES as __WM_PLATES__, WORLDMODEL_WIND as __WM_WIND__, WORLDMODEL_C
 * @typedef {import('./map_config.types.js').ClimateRefine} ClimateRefine
  * @typedef {import('./map_config.types.js').Mountains} MountainsCfg
  * @typedef {import('./map_config.types.js').Biomes} Biomes
+ * @typedef {import('./map_config.types.js').Volcanoes} VolcanoesCfg
  * @typedef {import('./map_config.types.js').FeaturesDensity} FeaturesDensity
  * @typedef {import('./map_config.types.js').Corridors} Corridors
  * @typedef {import('./map_config.types.js').CorridorPolicy} CorridorPolicy
@@ -89,6 +90,8 @@ export let CLIMATE_BASELINE_CFG = Object.freeze({});
 export let CLIMATE_REFINE_CFG = Object.freeze({});
 /** @type {Readonly<MountainsCfg>} */
 export let MOUNTAINS_CFG = Object.freeze({});
+/** @type {Readonly<VolcanoesCfg>} */
+export let VOLCANOES_CFG = Object.freeze({});
 /** @type {Readonly<Biomes>} */
 export let BIOMES_CFG = Object.freeze({});
 /** @type {Readonly<FeaturesDensity>} */
@@ -161,6 +164,7 @@ export function rebind() {
     CLIMATE_BASELINE_CFG = safeObj(__CLIMATE_BASELINE__());
     CLIMATE_REFINE_CFG = safeObj(__CLIMATE_REFINE__());
     MOUNTAINS_CFG = safeObj(__MOUNTAINS__());
+    VOLCANOES_CFG = safeObj(__VOLCANOES__());
     BIOMES_CFG = safeObj(__BIOMES__());
     FEATURES_DENSITY_CFG = safeObj(__FEATURES_DENSITY__());
     CORRIDORS_CFG = safeObj(__CORRIDORS__());

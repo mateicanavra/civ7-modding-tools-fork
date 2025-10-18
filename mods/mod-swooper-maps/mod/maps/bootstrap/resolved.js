@@ -34,6 +34,7 @@
  * @typedef {import('./map_config.types.js').Biomes} Biomes
  * @typedef {import('./map_config.types.js').FeaturesDensity} FeaturesDensity
  * @typedef {import('./map_config.types.js').Mountains} Mountains
+ * @typedef {import('./map_config.types.js').Volcanoes} Volcanoes
  * @typedef {import('./map_config.types.js').Corridors} Corridors
  * @typedef {import('./map_config.types.js').Placement} Placement
  * @typedef {import('./map_config.types.js').DevLogging} DevLogging
@@ -290,6 +291,10 @@ export function CLIMATE_REFINE_CFG() {
 /** @returns {Readonly<Mountains>} */
 export function MOUNTAINS_CFG() {
     return /** @type {Readonly<Mountains>} */ (getGroup("mountains"));
+}
+/** @returns {Readonly<Volcanoes>} */
+export function VOLCANOES_CFG() {
+    return /** @type {Readonly<Volcanoes>} */ (getGroup("volcanoes"));
 }
 /** @returns {Readonly<Biomes>} */
 export function BIOMES_CFG() {

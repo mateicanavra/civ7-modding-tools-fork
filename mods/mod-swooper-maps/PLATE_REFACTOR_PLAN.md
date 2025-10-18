@@ -19,7 +19,7 @@ Unified tracker for the plate-driven landmass refactor. This document replaces b
   - New WorldModel-driven weighting blends uplift, boundary closeness, and rift penalties; follow up with in-game validation and tweak presets if needed.
 - [ ] Expand plate-aware configuration surface (tunables, presets, docs) so post-processing ranges are exposed.
   - [ ] Thread new `mountains` config block through bootstrap → orchestrator → `layerAddMountainsPhysics`.
-  - [ ] Surface plate-aware volcano toggles/weights (convergent arcs vs. interior hot spots).
+  - [x] Surface plate-aware volcano toggles/weights (convergent arcs vs. interior hot spots).
   - [ ] Refresh presets/README snippets to document the exposed knobs and defaults.
 - [ ] Observability: improve plate debugging overlays.
   - [x] Add DEV ASCII snapshot that annotates plate boundaries alongside terrain.

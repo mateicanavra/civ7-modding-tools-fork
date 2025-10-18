@@ -35,6 +35,7 @@
  * @property {ClimateBaseline} [climateBaseline] - Initial rainfall: latitude bands, orographic lift from mountains, coastal humidity
  * @property {ClimateRefine} [climateRefine] - Realistic refinements: coastal gradients, rain shadows (leeward drying), river/basin effects
  * @property {Mountains} [mountains] - Mountain and hill placement weights: WorldModel uplift, boundary biasing, foothill distribution
+ * @property {Volcanoes} [volcanoes] - Volcano placement controls: convergent arc bias, hotspot allowance, spacing
  * @property {Biomes} [biomes] - Biome assignment rules: tundra limits, tropical coast preferences, river grasslands, rift shoulders
  * @property {FeaturesDensity} [featuresDensity] - Feature density: rainforest, forest, taiga prevalence, coral reef placement
  * @property {Placement} [placement] - Final placement: natural wonder counts, floodplain river lengths
@@ -491,6 +492,28 @@
  * @property {number} [hillConvergentFoothill] - Extra foothill weight on convergent tiles (0..0.5 typical)
  * @property {number} [hillInteriorFalloff] - Penalty for hills deep inside plates (0..0.5; higher keeps hills near action)
  * @property {number} [hillUpliftWeight] - Residual uplift contribution to hills (0..1; balances foothills + basins)
+ */
+
+/**
+ * Volcano placement controls (plate-aware arcs + hotspots).
+ *
+ * Shapes how many volcanoes spawn, how tightly they track convergent margins,
+ * and how much room is left for inland hotspot mechanics.
+ *
+ * @typedef {Object} Volcanoes
+ * @property {boolean} [enabled] - Toggle volcano placement (default true)
+ * @property {number} [baseDensity] - Volcanoes per land tile (e.g., 1/170 ≈ 0.0059)
+ * @property {number} [minSpacing] - Minimum Euclidean distance between volcanoes (tiles)
+ * @property {number} [boundaryThreshold] - Boundary closeness threshold (0..1) for treating a tile as margin adjacent
+ * @property {number} [boundaryWeight] - Base weight applied to tiles within the boundary band (0..3 typical)
+ * @property {number} [convergentMultiplier] - Weight multiplier for convergent boundaries (>=0)
+ * @property {number} [transformMultiplier] - Weight multiplier for transform boundaries (>=0)
+ * @property {number} [divergentMultiplier] - Weight multiplier for divergent boundaries (>=0; usually <1 to discourage)
+ * @property {number} [hotspotWeight] - Weight contributed to interior (non-boundary) hotspots (0..1)
+ * @property {number} [shieldPenalty] - Penalty applied using shield stability (0..1; higher reduces interior volcanoes)
+ * @property {number} [randomJitter] - Random additive jitter added per-tile (0..1) for variety
+ * @property {number} [minVolcanoes] - Minimum volcano count target (integer)
+ * @property {number} [maxVolcanoes] - Maximum volcano count target (integer; <=0 disables the cap)
  */
 
 /**

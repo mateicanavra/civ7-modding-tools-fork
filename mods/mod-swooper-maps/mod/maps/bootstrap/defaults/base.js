@@ -646,6 +646,21 @@ export const BASE_CONFIG = Object.freeze({
         hillInteriorFalloff: 0.2,
         hillUpliftWeight: 0.25,
     }),
+    volcanoes: Object.freeze({
+        enabled: true,
+        baseDensity: 1 / 170,
+        minSpacing: 3,
+        boundaryThreshold: 0.35,
+        boundaryWeight: 1.2,
+        convergentMultiplier: 2.4,
+        transformMultiplier: 1.1,
+        divergentMultiplier: 0.35,
+        hotspotWeight: 0.12,
+        shieldPenalty: 0.6,
+        randomJitter: 0.08,
+        minVolcanoes: 5,
+        maxVolcanoes: 40,
+    }),
     // --- Biomes (nudges) ---
     biomes: Object.freeze({
         tundra: Object.freeze({
