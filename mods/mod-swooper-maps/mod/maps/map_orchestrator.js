@@ -384,6 +384,10 @@ function generateMap() {
         console.log(`[MAP_STATS] Land breakdown: Mountains: ${mountainCount} (${mtnPct}%), Hills: ${hillCount} (${hillPct}%), Flat: ${flatCount} (${flatPct}%)`);
     }
     AreaBuilder.recalculateAreas();
+    // Commit the latest mountain/hill assignments before climate stages.
+    // Base-standard scripts call TerrainBuilder.buildElevation() here so the
+    // engine propagates terrain height for rainfall, biomes, and placement.
+    TerrainBuilder.buildElevation();
     // Create moderated rainfall patterns (keep enhanced but gentle)
     {
         const t = timeStart("Climate: Baseline");

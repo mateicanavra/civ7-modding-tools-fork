@@ -10,12 +10,12 @@
 /** @type {MapConfig} */
 export const VORONOI_PRESET = {
     toggles: /** @type {Toggles} */ ({
-        STORY_ENABLE_HOTSPOTS: true,
-        STORY_ENABLE_RIFTS: true,
-        STORY_ENABLE_OROGENY: true,
-        STORY_ENABLE_SWATCHES: true,
-        STORY_ENABLE_PALEO: true,
-        STORY_ENABLE_CORRIDORS: true,
+        STORY_ENABLE_HOTSPOTS: false,
+        STORY_ENABLE_RIFTS: false,
+        STORY_ENABLE_OROGENY: false,
+        STORY_ENABLE_SWATCHES: false,
+        STORY_ENABLE_PALEO: false,
+        STORY_ENABLE_CORRIDORS: false,
         STORY_ENABLE_WORLDMODEL: true,
     }),
     story: {},

@@ -550,9 +550,9 @@ const ASCII_WORLD_MODEL_CHARS = {
     },
     overlay: {
         convergent: "^",
-        divergent: "-",
-        transform: "X",
-        boundary: " ",
+        divergent: "v",
+        transform: "x",
+        boundary: ":",
     },
 };
 const ASCII_CORRIDOR_CHARS = {

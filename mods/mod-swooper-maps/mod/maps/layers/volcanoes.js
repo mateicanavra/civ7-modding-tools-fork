@@ -56,7 +56,24 @@ export function layerAddVolcanoesPlateAware(ctx, options = {}) {
         maxVolcanoes = 40,
     } = options;
 
-    const { width, height, adapter } = ctx;
+    const dimensions = ctx?.dimensions || {};
+    const width = Number.isFinite(dimensions.width)
+        ? dimensions.width
+        : GameplayMap?.getGridWidth?.() ?? 0;
+    const height = Number.isFinite(dimensions.height)
+        ? dimensions.height
+        : GameplayMap?.getGridHeight?.() ?? 0;
+    const adapter = ctx?.adapter;
+
+    if (!width || !height || !adapter) {
+        devLogIf &&
+            devLogIf("LOG_VOLCANOES", "[Volcanoes] Missing dimensions/adapter; skipping placement", {
+                width,
+                height,
+                hasAdapter: !!adapter,
+            });
+        return;
+    }
 
     if (!enabled) {
         devLogIf && devLogIf("LOG_VOLCANOES", "[Volcanoes] Disabled via config; skipping placement.");

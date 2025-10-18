@@ -80,7 +80,24 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
         hillUpliftWeight = 0.25,
     } = options;
 
-    const { width, height, adapter } = ctx;
+    const dimensions = ctx?.dimensions || {};
+    const width = Number.isFinite(dimensions.width)
+        ? dimensions.width
+        : GameplayMap?.getGridWidth?.() ?? 0;
+    const height = Number.isFinite(dimensions.height)
+        ? dimensions.height
+        : GameplayMap?.getGridHeight?.() ?? 0;
+    const adapter = ctx?.adapter;
+
+    if (!width || !height || !adapter) {
+        devLogIf &&
+            devLogIf("LOG_MOUNTAINS", "[Mountains] Missing dimensions/adapter; skipping placement", {
+                width,
+                height,
+                hasAdapter: !!adapter,
+            });
+        return;
+    }
     const worldModelEnabled = WorldModel.isEnabled();
 
     devLogIf &&
