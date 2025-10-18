@@ -64,9 +64,9 @@ bootstrap({
                         dryDelta: 20,        // Increased from 12 (drier plains)
                     },
                     rainforestArchipelago: {
-                        weight: 20,
+                        weight: 6,
                         coupleToOrogeny: true,
-                        latitudeCenterDeg: 27
+                        latitudeCenterDeg: 19
                     }
                 },
             },
@@ -86,16 +86,16 @@ bootstrap({
                 bumps: 13
             },
             wind: {
-                jetStreaks: 5,
-                jetStrength: 1.2,
+                jetStreaks: 3,
+                jetStrength: 1.8,
                 coriolisZonalScale: 2.2
             },
             currents: {
                 currentStrength: 1.7
             },
             plates: {
-                count: 5,
-                relaxationSteps: 7,
+                count: 13,
+                relaxationSteps: 3,
                 plateRotationMultiple: 6,
                 seedOffset: 1000
             },

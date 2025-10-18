@@ -440,7 +440,7 @@ export function logWorldModelAscii(WorldModel, opts = {}) {
                 const background = (() => {
                     // if (isWater(x, y))
                     //     return [" ", "~", " "];
-                    return [" ", "~"];
+                    return [" ", "."];
                 })();
                 if (isBoundary) {
                     const bType = boundaryType[i] | 0;

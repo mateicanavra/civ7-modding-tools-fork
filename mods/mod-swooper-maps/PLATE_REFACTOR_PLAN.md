@@ -15,8 +15,8 @@ Unified tracker for the plate-driven landmass refactor. This document replaces b
 
 - [x] Landmass pipeline consumes Voronoi plates (new preset + orchestrator windows).
 - [ ] Validate Voronoi output in-game (seed parity, shoreline sanity, start placement checks).
-- [ ] Re-tune mountains & hills to honor uplift/rift/boundary data (`layers/mountains.js`, hill helpers, fallback knobs).
-  - Confirm boundary-derived uplift weights, rebalance hill % targets, gate fallback fractals behind config.
+- [x] Re-tune mountains & hills to honor uplift/rift/boundary data (`layers/mountains.js`, hill helpers, fallback knobs).
+  - New WorldModel-driven weighting blends uplift, boundary closeness, and rift penalties; follow up with in-game validation and tweak presets if needed.
 - [ ] Expand plate-aware configuration surface (tunables, presets, docs) so post-processing ranges are exposed.
   - Update map config typing, preset commentary, and mod README snippets.
 - [ ] Observability: improve plate debugging overlays.

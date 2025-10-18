@@ -25,7 +25,7 @@
  */
 
 import { WorldModel } from "../world/model.js";
-import { ctxRandom, idx, inBounds } from "../core/types.js";
+import { ctxRandom, idx } from "../core/types.js";
 import { devLogIf } from "../bootstrap/dev.js";
 import * as globals from "/base-standard/maps/map-globals.js";
 
@@ -47,6 +47,17 @@ const ENUM_BOUNDARY = Object.freeze({
  * @param {number} [options.fractalWeight=0.25] - Weight for fractal noise (0..1)
  * @param {number} [options.riftDepth=0.3] - Depression strength at rifts (0..1)
  * @param {number} [options.variance=2.0] - Random variance in percentages
+ * @param {number} [options.boundaryWeight=0.6] - Additional mountain weight contributed by boundary closeness
+ * @param {number} [options.boundaryExponent=1.4] - Exponent applied to boundary closeness shaping belt width
+ * @param {number} [options.interiorPenaltyWeight=0.2] - Penalty applied to interior tiles (push mountains toward margins)
+ * @param {number} [options.convergenceBonus=0.9] - Added weight for convergent tiles (mountain belts)
+ * @param {number} [options.transformPenalty=0.3] - Reduction applied to transform boundaries (flatter ridges)
+ * @param {number} [options.riftPenalty=0.75] - Reduction applied to divergent tiles (discourage mountains in rifts)
+ * @param {number} [options.hillBoundaryWeight=0.45] - Hill weight contributed by boundary closeness (foothills)
+ * @param {number} [options.hillRiftBonus=0.5] - Hill bonus for divergent tiles (rift shoulders)
+ * @param {number} [options.hillConvergentFoothill=0.25] - Hill bonus adjacent to convergent belts
+ * @param {number} [options.hillInteriorFalloff=0.2] - Penalty for deep-interior tiles (keeps hills near action)
+ * @param {number} [options.hillUpliftWeight=0.25] - Residual uplift contribution to hills
  */
 export function layerAddMountainsPhysics(ctx, options = {}) {
     const {
@@ -56,6 +67,17 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
         fractalWeight = 0.25,
         riftDepth = 0.3,
         variance = 2.0,
+        boundaryWeight = 0.6,
+        boundaryExponent = 1.4,
+        interiorPenaltyWeight = 0.2,
+        convergenceBonus = 0.9,
+        transformPenalty = 0.3,
+        riftPenalty = 0.75,
+        hillBoundaryWeight = 0.45,
+        hillRiftBonus = 0.5,
+        hillConvergentFoothill = 0.25,
+        hillInteriorFalloff = 0.2,
+        hillUpliftWeight = 0.25,
     } = options;
 
     const { width, height, adapter } = ctx;
@@ -118,6 +140,17 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
             fractalWeight,
             g_MountainFractal,
             g_HillFractal,
+            boundaryWeight,
+            boundaryExponent,
+            interiorPenaltyWeight,
+            convergenceBonus,
+            transformPenalty,
+            riftPenalty,
+            hillBoundaryWeight,
+            hillRiftBonus,
+            hillConvergentFoothill,
+            hillInteriorFalloff,
+            hillUpliftWeight,
         });
     } else {
         // Fallback: pure fractal (base game behavior)
@@ -164,10 +197,28 @@ export function layerAddMountainsPhysics(ctx, options = {}) {
  */
 function computePlateBasedScores(ctx, scores, hillScores, options) {
     const { width, height } = ctx;
-    const { upliftWeight, fractalWeight, g_MountainFractal, g_HillFractal } = options;
+    const {
+        upliftWeight,
+        fractalWeight,
+        g_MountainFractal,
+        g_HillFractal,
+        boundaryWeight,
+        boundaryExponent,
+        interiorPenaltyWeight,
+        convergenceBonus,
+        transformPenalty,
+        riftPenalty,
+        hillBoundaryWeight,
+        hillRiftBonus,
+        hillConvergentFoothill,
+        hillInteriorFalloff,
+        hillUpliftWeight,
+    } = options;
 
     const upliftPotential = WorldModel.upliftPotential;
     const boundaryType = WorldModel.boundaryType;
+    const boundaryCloseness = WorldModel.boundaryCloseness;
+    const riftPotential = WorldModel.riftPotential;
 
     if (!upliftPotential || !boundaryType) {
         // Fallback if WorldModel data missing
@@ -175,38 +226,59 @@ function computePlateBasedScores(ctx, scores, hillScores, options) {
         return;
     }
 
-    // Normalize uplift potential to 0..1 and combine with fractal
+    const exponent = Math.max(0.25, boundaryExponent || 1);
+
     for (let y = 0; y < height; y++) {
         for (let x = 0; x < width; x++) {
             const i = idx(x, y, width);
 
-            // Get WorldModel data
-            const uplift = upliftPotential[i] / 255; // 0..1
+            const uplift = upliftPotential ? upliftPotential[i] / 255 : 0;
             const bType = boundaryType[i];
+            const closenessRaw = boundaryCloseness ? boundaryCloseness[i] / 255 : 0;
+            const closeness = Math.pow(closenessRaw, exponent);
+            const rift = riftPotential ? riftPotential[i] / 255 : 0;
 
-            // Get fractal noise (0..1)
             const fractalMtn = FractalBuilder.getHeight(g_MountainFractal, x, y) / 65535;
             const fractalHill = FractalBuilder.getHeight(g_HillFractal, x, y) / 65535;
 
-            // Mountain score: weighted blend of uplift and fractal
             let mountainScore = uplift * upliftWeight + fractalMtn * fractalWeight;
-
-            // Boost convergent boundaries (mountain belts)
-            if (bType === ENUM_BOUNDARY.convergent) {
-                mountainScore *= 1.5; // 50% boost for collision zones
+            if (boundaryWeight > 0 && closeness > 0) {
+                mountainScore += closeness * boundaryWeight;
+            }
+            if (interiorPenaltyWeight > 0) {
+                const interiorPenalty = (1 - closenessRaw) * interiorPenaltyWeight;
+                mountainScore = Math.max(0, mountainScore - interiorPenalty);
             }
 
-            scores[i] = mountainScore;
-
-            // Hill score: similar but with broader distribution
-            let hillScore = (uplift * 0.5 + 0.5) * upliftWeight + fractalHill * fractalWeight;
-
-            // Hills favor areas near but not at boundaries
             if (bType === ENUM_BOUNDARY.convergent) {
-                hillScore *= 1.2; // Modest boost for foothills
+                mountainScore += closeness * convergenceBonus;
+            }
+            else if (bType === ENUM_BOUNDARY.divergent) {
+                mountainScore *= Math.max(0, 1 - rift * riftPenalty);
+            }
+            else if (bType === ENUM_BOUNDARY.transform) {
+                mountainScore *= Math.max(0, 1 - closenessRaw * transformPenalty);
             }
 
-            hillScores[i] = hillScore;
+            scores[i] = Math.max(0, mountainScore);
+
+            let hillScore = fractalHill * fractalWeight + uplift * hillUpliftWeight;
+            if (hillBoundaryWeight > 0 && closenessRaw > 0) {
+                const foothillBand = Math.sqrt(closenessRaw);
+                hillScore += foothillBand * hillBoundaryWeight;
+            }
+            if (hillInteriorFalloff > 0) {
+                hillScore -= (1 - closenessRaw) * hillInteriorFalloff;
+            }
+
+            if (bType === ENUM_BOUNDARY.divergent) {
+                hillScore += rift * hillRiftBonus;
+            }
+            else if (bType === ENUM_BOUNDARY.convergent) {
+                hillScore += closeness * hillConvergentFoothill;
+            }
+
+            hillScores[i] = Math.max(0, hillScore);
         }
     }
 }
