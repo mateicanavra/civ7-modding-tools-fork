@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LocalizedText>
+	<Database>
+		<!-- Mod Name & Description -->
+		<Row>
+			<Tag>LOC_MODULE_SWOOPER_MAPS_NAME</Tag>
+			<Text>Swooper's Physics-Based Maps</Text>
+		</Row>
+		<Row>
+			<Tag>LOC_MODULE_SWOOPER_MAPS_DESCRIPTION</Tag>
+			<Text>Advanced map generation using plate tectonics, climate simulation, and narrative storytelling systems. Features convergent mountain chains, rift valleys, atmospheric pressure systems, and physics-driven coastlines. Replaces random terrain generation with realistic geological processes.</Text>
+		</Row>
+	</Database>
+</LocalizedText>

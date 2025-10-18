@@ -28,7 +28,8 @@ apps/docs/dist/
 apps/playground/example-generated-mod/
 
 # Built mod outputs
-mods/*/mod/
+# mods/*/mod/
+mods/mod-swooper-civ-dacia/mod/
 
 
 # OS/system files

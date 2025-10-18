@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LocalizedText>
+	<Database>
+		<!-- Base Map -->
+		<Row>
+			<Tag>LOC_MAP_SWOOPER_DIVERSE_HUGE_NAME</Tag>
+			<Text>Swooper Diverse Huge</Text>
+		</Row>
+		<Row>
+			<Tag>LOC_MAP_SWOOPER_DIVERSE_HUGE_DESCRIPTION</Tag>
+			<Text>Physics-based map generation with plate tectonics, realistic climate, and diverse terrain. Mountains follow convergent boundaries, rift valleys form at divergent zones, and atmospheric pressure shapes rainfall patterns.</Text>
+		</Row>
+
+		<!-- Temperate Variant -->
+		<Row>
+			<Tag>LOC_MAP_SWOOPER_DIVERSE_HUGE_TEMPERATE_NAME</Tag>
+			<Text>Swooper Diverse Huge (Temperate)</Text>
+		</Row>
+		<Row>
+			<Tag>LOC_MAP_SWOOPER_DIVERSE_HUGE_TEMPERATE_DESCRIPTION</Tag>
+			<Text>Temperate climate variant with milder weather patterns and reduced extremes. Same physics-based generation with adjusted climate parameters for a more moderate world.</Text>
+		</Row>
+
+		<!-- Kahula Variant -->
+		<Row>
+			<Tag>LOC_MAP_SWOOPER_DIVERSE_HUGE_KAHULA_NAME</Tag>
+			<Text>Swooper Diverse Huge (Kahula)</Text>
+		</Row>
+		<Row>
+			<Tag>LOC_MAP_SWOOPER_DIVERSE_HUGE_KAHULA_DESCRIPTION</Tag>
+			<Text>Dramatic tectonic variant featuring a massive central continent with a north-south convergent ridge and flanking rifts. Extreme geography with pronounced mountain chains and rift valleys.</Text>
+		</Row>
+	</Database>
+</LocalizedText>
