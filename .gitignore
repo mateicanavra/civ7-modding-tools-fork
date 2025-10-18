@@ -30,6 +30,7 @@ apps/playground/example-generated-mod/
 # Built mod outputs
 # mods/*/mod/
 mods/mod-swooper-civ-dacia/mod/
+packages/plugins/plugin-mapgen/
 
 
 # OS/system files
