@@ -22,8 +22,7 @@ bootstrap({
             waterThumbOnScale: -6,
             jitterAmpFracBase: 0.02,
             geometry: {
-                preset: "tightMiddle",
-                oceanColumnsScale: 1.05,
+                mode: "plates",
             },
         },
         margins: {

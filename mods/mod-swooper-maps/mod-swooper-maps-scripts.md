@@ -58,7 +58,6 @@ mod/
       coastlines.js
       features.js
       islands.js
-      landmass.js
       placement.js
     story/
       corridors.js
@@ -506,114 +505,14 @@ export const BASE_CONFIG = Object.freeze({
         jitterAmpFracBase: 0.03,
         jitterAmpFracScale: 0.015,
         curveAmpFrac: 0.05,
-        // Geometry: up-front band layout (fractions) and ocean columns scaling.
-        // Consumers can use these values to compute the three continental band windows before landmass carving.
+        // Geometry: orchestrator preferences for landmass generators.
         geometry: Object.freeze({
-            // Scale applied to globals.g_OceanWaterColumns when computing base ocean widths
-            oceanColumnsScale: 1.1,
-            // Optional named presets for starting geometry. Consumers may prefer to read `preset`
-            // and load the matching entry from `presets`. The `bands` array below serves as a
-            // backward-compatible fallback and should mirror the currently selected preset.
-            preset: "classic",
-            presets: Object.freeze({
-                // Mirrors the original hardcoded layout
-                classic: Object.freeze({
-                    bands: Object.freeze([
-                        // Left band: [0.00 .. 0.30] with ocean offsets
-                        Object.freeze({
-                            westFrac: 0.0,
-                            eastFrac: 0.3,
-                            westOceanOffset: 1.0, // + 1.0 × iOceanWaterColumns
-                            eastOceanOffset: -0.35, // - 0.35 × iOceanWaterColumns
-                        }),
-                        // Middle band: [0.35 .. 0.60] with symmetric ocean offsets
-                        Object.freeze({
-                            westFrac: 0.35,
-                            eastFrac: 0.6,
-                            westOceanOffset: 0.25, // + 0.25 × iOceanWaterColumns
-                            eastOceanOffset: -0.25, // - 0.25 × iOceanWaterColumns
-                        }),
-                        // Right band: [0.75 .. 1.00] with edge ocean offsets
-                        Object.freeze({
-                            westFrac: 0.75,
-                            eastFrac: 1.0,
-                            westOceanOffset: 0.5, // + 0.50 × iOceanWaterColumns
-                            eastOceanOffset: -1.0, // - 1.00 × iOceanWaterColumns (to map edge)
-                        }),
-                    ]),
-                }),
-                // Tighter middle band (more separation between left/middle by default)
-                tightMiddle: Object.freeze({
-                    bands: Object.freeze([
-                        Object.freeze({
-                            westFrac: 0.0,
-                            eastFrac: 0.28,
-                            westOceanOffset: 1.0,
-                            eastOceanOffset: -0.4,
-                        }),
-                        Object.freeze({
-                            westFrac: 0.32,
-                            eastFrac: 0.58,
-                            westOceanOffset: 0.2,
-                            eastOceanOffset: -0.2,
-                        }),
-                        Object.freeze({
-                            westFrac: 0.72,
-                            eastFrac: 1.0,
-                            westOceanOffset: 0.5,
-                            eastOceanOffset: -1.0,
-                        }),
-                    ]),
-                }),
-                // Wider exterior oceans by default (conservative; still plate-aware later)
-                wideOceans: Object.freeze({
-                    bands: Object.freeze([
-                        Object.freeze({
-                            westFrac: 0.0,
-                            eastFrac: 0.25,
-                            westOceanOffset: 1.2,
-                            eastOceanOffset: -0.5,
-                        }),
-                        Object.freeze({
-                            westFrac: 0.4,
-                            eastFrac: 0.6,
-                            westOceanOffset: 0.35,
-                            eastOceanOffset: -0.35,
-                        }),
-                        Object.freeze({
-                            westFrac: 0.75,
-                            eastFrac: 1.0,
-                            westOceanOffset: 0.8,
-                            eastOceanOffset: -1.2,
-                        }),
-                    ]),
-                }),
+            mode: "auto",
+            post: Object.freeze({
+                expandTiles: 0,
+                expandWestTiles: 0,
+                expandEastTiles: 0,
             }),
-            // Three-band layout fallback. Fractions are relative to map width (0..1).
-            // This should mirror the currently selected preset (see `preset` above).
-            bands: Object.freeze([
-                // Left band: [0.00 .. 0.30] with ocean offsets
-                Object.freeze({
-                    westFrac: 0.0,
-                    eastFrac: 0.3,
-                    westOceanOffset: 1.0, // + 1.0 × iOceanWaterColumns
-                    eastOceanOffset: -0.35, // - 0.35 × iOceanWaterColumns
-                }),
-                // Middle band: [0.35 .. 0.60] with symmetric ocean offsets
-                Object.freeze({
-                    westFrac: 0.35,
-                    eastFrac: 0.6,
-                    westOceanOffset: 0.25, // + 0.25 × iOceanWaterColumns
-                    eastOceanOffset: -0.25, // - 0.25 × iOceanWaterColumns
-                }),
-                // Right band: [0.75 .. 1.00] with edge ocean offsets
-                Object.freeze({
-                    westFrac: 0.75,
-                    eastFrac: 1.0,
-                    westOceanOffset: 0.5, // + 0.50 × iOceanWaterColumns
-                    eastOceanOffset: -1.0, // - 1.00 × iOceanWaterColumns (to map edge)
-                }),
-            ]),
         }),
     }),
     // --- Coastlines (rugged coasts; lane-safe) ---
@@ -773,11 +672,10 @@ export const CLASSIC_PRESET = Object.freeze({
         STORY_ENABLE_CORRIDORS: true,
         STORY_ENABLE_WORLDMODEL: true,
     }),
-    // Classic three-band layout; slightly less ocean widening than "temperate"
+    // Classic baseline: Voronoi-first with plate fallback when available
     landmass: Object.freeze({
         geometry: Object.freeze({
-            preset: "classic",
-            oceanColumnsScale: 1.0, // vanilla‑like base; variants may increase this (e.g., 1.1)
+            mode: "auto",
         }),
     }),
     // WorldModel is available but uses central defaults for detailed fields
@@ -799,7 +697,7 @@ export default CLASSIC_PRESET;
 ```javascript
 // @ts-nocheck
 /**
- * Temperate preset — gentle, trade‑wind world with classic three‑band layout.
+ * Temperate preset — gentle, trade‑wind world with plate-aware Voronoi layout.
  *
  * Purpose
  * - Provide a concise, conservative preset to compose with defaults and/or
@@ -824,11 +722,10 @@ export const TEMPERATE_PRESET = Object.freeze({
         STORY_ENABLE_CORRIDORS: true,
         STORY_ENABLE_WORLDMODEL: true,
     }),
-    // Classic three-band layout with slightly wider true oceans (safe navigation)
+    // Voronoi-first layout with gentle plate fallback (safe navigation)
     landmass: Object.freeze({
         geometry: Object.freeze({
-            preset: "classic",
-            oceanColumnsScale: 1.1,
+            mode: "auto",
         }),
     }),
     // Lightweight Earth Forces with moderated global cohesion
@@ -3531,214 +3428,6 @@ export function addIslandChains(iWidth, iHeight) {
     }
 }
 export default addIslandChains;
-```
-
-## File: mod/maps/layers/landmass.js
-```javascript
-// @ts-nocheck
-/**
- * Landmass Layer — createDiverseLandmasses
- *
- * Generates three-band continental structure with organic, wiggled edges.
- * This mirrors the existing implementation used in the main script, extracted
- * into a dedicated layer module so the orchestrator (or the main script) can
- * import and call it directly.
- *
- * Responsibilities
- * - Initialize fractals for landmass shape and per-row jitter.
- * - Apply sinusoidal and noise-based horizontal shifts to avoid straight edges.
- * - Bias land probability toward band centers for robust interiors and porous rims.
- * - Write terrain as ocean or flat land; coast expansion happens later.
- *
- * Performance
- * - O(width × height), single pass; uses already-available engine primitives.
- */
-import * as globals from "/base-standard/maps/map-globals.js";
-import { LANDMASS_CFG, WORLDMODEL_OCEAN_SEPARATION, } from "../config/tunables.js";
-import { WorldModel } from "../world/model.js";
-/**
- * Create continental landmasses with organic variation.
- * @param {number} iWidth
- * @param {number} iHeight
- * @param {Array<{west:number,east:number,south:number,north:number,continent:number}>} landmasses
- */
-export function createDiverseLandmasses(iWidth, iHeight, landmasses) {
-    // Single fractal with higher water level to ensure real oceans and coasts
-    FractalBuilder.create(globals.g_LandmassFractal, iWidth, iHeight, 3, 0);
-    // Auxiliary fractal to wiggle band edges by row and add irregularity
-    FractalBuilder.create(globals.g_HillFractal, iWidth, iHeight, 4, 0);
-    // Size-aware scaling (gentle): derive a sqrt factor from map area
-    const area = Math.max(1, iWidth * iHeight);
-    const BASE_AREA = 10000;
-    const sqrtScale = Math.min(2.0, Math.max(0.6, Math.sqrt(area / BASE_AREA)));
-    // Slightly less water on larger maps for fuller continents (clamped)
-    const _lm = LANDMASS_CFG || {};
-    const baseWaterPct = Number.isFinite(_lm.baseWaterPercent)
-        ? _lm.baseWaterPercent
-        : 64;
-    const waterThumbOnScale = Number.isFinite(_lm.waterThumbOnScale)
-        ? _lm.waterThumbOnScale
-        : -4;
-    const waterPct = Math.max(60, Math.min(64, Math.round(baseWaterPct + waterThumbOnScale * (sqrtScale - 1))));
-    const iWaterHeight = FractalBuilder.getHeightFromPercent(globals.g_LandmassFractal, waterPct);
-    // More wiggle on larger maps, but still restrained
-    const jitterAmpFracBase = Number.isFinite(_lm.jitterAmpFracBase)
-        ? _lm.jitterAmpFracBase
-        : 0.03;
-    const jitterAmpFracScale = Number.isFinite(_lm.jitterAmpFracScale)
-        ? _lm.jitterAmpFracScale
-        : 0.015;
-    const jitterAmp = Math.max(2, Math.floor(iWidth * (jitterAmpFracBase + jitterAmpFracScale * (sqrtScale - 1))));
-    // Curvature amplitude to bow bands into gentle arcs
-    const curveAmpFrac = Number.isFinite(_lm.curveAmpFrac)
-        ? _lm.curveAmpFrac
-        : 0.05;
-    const curveAmp = Math.floor(iWidth * curveAmpFrac * sqrtScale);
-    // Plate-aware ocean separation: derive per-row band shifts from WorldModel boundary closeness (optional)
-    const sepCfg = WORLDMODEL_OCEAN_SEPARATION || {};
-    const sepEnabled = !!sepCfg.enabled &&
-        !!(WorldModel &&
-            typeof WorldModel.isEnabled === "function" &&
-            WorldModel.isEnabled()) &&
-        !!WorldModel.boundaryCloseness;
-    const rowShifts = new Array(landmasses.length);
-    for (let k = 0; k < landmasses.length; k++)
-        rowShifts[k] = new Int16Array(iHeight);
-    if (sepEnabled) {
-        const BC = WorldModel.boundaryCloseness;
-        const pairs = Array.isArray(sepCfg.bandPairs)
-            ? sepCfg.bandPairs
-            : [
-                [0, 1],
-                [1, 2],
-            ];
-        const baseSep = Math.max(0, sepCfg.baseSeparationTiles | 0 || 0);
-        const mult = Math.max(0, Number.isFinite(sepCfg.boundaryClosenessMultiplier)
-            ? sepCfg.boundaryClosenessMultiplier
-            : 1.0);
-        const maxDelta = Math.max(0, sepCfg.maxPerRowDelta | 0 || 3);
-        for (const p of pairs) {
-            const li = Array.isArray(p) ? p[0] | 0 : -1;
-            const ri = Array.isArray(p) ? p[1] | 0 : -1;
-            if (li < 0 ||
-                ri < 0 ||
-                li >= landmasses.length ||
-                ri >= landmasses.length)
-                continue;
-            const left = landmasses[li];
-            const right = landmasses[ri];
-            for (let y = 0; y < iHeight; y++) {
-                // Approximate mid-gap sample between band bounds on this row
-                const midX = Math.max(0, Math.min(iWidth - 1, Math.floor((left.east + right.west) / 2)));
-                const i = y * iWidth + midX;
-                const clos = BC[i] | 0;
-                const f = clos / 255; // 0..1
-                let sep = baseSep + Math.round(f * mult * baseSep);
-                if (sep > maxDelta)
-                    sep = maxDelta;
-                if (sep < 0)
-                    sep = 0;
-                if (sepCfg.respectSeaLanes) {
-                    const minCh = Math.max(0, sepCfg.minChannelWidth | 0 || 0);
-                    const leftEdge = left.east + rowShifts[li][y] - sep;
-                    const rightEdge = right.west + rowShifts[ri][y] + sep;
-                    const widthNow = rightEdge - leftEdge;
-                    if (widthNow < minCh) {
-                        const deficit = minCh - widthNow;
-                        sep = Math.max(0, sep - deficit);
-                    }
-                }
-                rowShifts[li][y] -= sep; // push left band left
-                rowShifts[ri][y] += sep; // push right band right
-            }
-        }
-        // Edge widening/narrowing (west/east map edges) — optional
-        const eW = sepCfg.edgeWest || {};
-        const eE = sepCfg.edgeEast || {};
-        const firstBand = 0;
-        const lastBand = landmasses.length - 1;
-        if (firstBand >= 0 && eW && eW.enabled) {
-            const baseW = eW.baseTiles | 0 || 0;
-            const multW = Number.isFinite(eW.boundaryClosenessMultiplier)
-                ? eW.boundaryClosenessMultiplier
-                : 1.0;
-            const capW = Math.max(0, eW.maxPerRowDelta | 0 || 2);
-            for (let y = 0; y < iHeight; y++) {
-                const clos = WorldModel.boundaryCloseness[y * iWidth + 0] | 0;
-                const f = clos / 255;
-                let mag = Math.abs(baseW) + Math.round(f * multW * Math.abs(baseW));
-                if (mag > capW)
-                    mag = capW;
-                // baseW > 0 widens west ocean (push left band left = negative shift)
-                const signed = baseW >= 0 ? -mag : mag;
-                rowShifts[firstBand][y] += signed;
-            }
-        }
-        if (lastBand >= 0 && eE && eE.enabled) {
-            const baseE = eE.baseTiles | 0 || 0;
-            const multE = Number.isFinite(eE.boundaryClosenessMultiplier)
-                ? eE.boundaryClosenessMultiplier
-                : 1.0;
-            const capE = Math.max(0, eE.maxPerRowDelta | 0 || 2);
-            for (let y = 0; y < iHeight; y++) {
-                const clos = WorldModel.boundaryCloseness[y * iWidth + (iWidth - 1)] | 0;
-                const f = clos / 255;
-                let mag = Math.abs(baseE) + Math.round(f * multE * Math.abs(baseE));
-                if (mag > capE)
-                    mag = capE;
-                // baseE > 0 widens east ocean (push right band right = positive shift)
-                const signed = baseE >= 0 ? mag : -mag;
-                rowShifts[lastBand][y] += signed;
-            }
-        }
-    }
-    for (let iY = 0; iY < iHeight; iY++) {
-        for (let iX = 0; iX < iWidth; iX++) {
-            let terrain = globals.g_OceanTerrain;
-            // Check if this tile should be land based on landmass boundaries
-            for (const landmass of landmasses) {
-                // Apply a per-row horizontal shift and slight width change to avoid straight columns
-                const sinOffset = Math.floor(Math.sin((iY + landmass.continent * 13) * 0.25) * jitterAmp);
-                let noise = FractalBuilder.getHeight(globals.g_HillFractal, iX, iY);
-                noise = Math.floor(((noise % 200) / 200 - 0.5) * jitterAmp);
-                // Bow continents into long, gentle arcs; each band uses a different phase
-                const t = iY / Math.max(1, iHeight - 1);
-                const curve = Math.floor(curveAmp * Math.sin(Math.PI * t + landmass.continent * 0.7));
-                const bandIdx = landmass.continent | 0;
-                const sepRowShift = sepEnabled
-                    ? rowShifts[bandIdx]?.[iY] | 0
-                    : 0;
-                const shift = sinOffset + Math.floor(noise * 0.5) + curve + sepRowShift;
-                const widthDelta = Math.floor(noise * 0.3);
-                const westY = Math.max(0, Math.min(iWidth - 1, landmass.west + shift + widthDelta));
-                const eastY = Math.max(0, Math.min(iWidth - 1, landmass.east + shift - widthDelta));
-                if (iX >= westY &&
-                    iX <= eastY &&
-                    iY >= landmass.south &&
-                    iY <= landmass.north) {
-                    // Use fractal to determine if this specific plot should be land
-                    const iPlotHeight = FractalBuilder.getHeight(globals.g_LandmassFractal, iX, iY);
-                    // Bias toward land near center of landmass
-                    const centerX = (landmass.west + landmass.east) / 2;
-                    const centerY = (landmass.south + landmass.north) / 2;
-                    const dx = iX - centerX;
-                    const dy = iY - centerY;
-                    const distanceFromCenter = Math.sqrt(dx * dx + dy * dy);
-                    const maxDistance = Math.sqrt(((landmass.east - landmass.west) / 2) ** 2 +
-                        ((landmass.north - landmass.south) / 2) ** 2);
-                    const centerBonus = Math.max(0, (1 - distanceFromCenter / maxDistance) *
-                        (110 + Math.round(10 * (sqrtScale - 1))));
-                    if (iPlotHeight + centerBonus >= iWaterHeight) {
-                        terrain = globals.g_FlatTerrain;
-                        break;
-                    }
-                }
-            }
-            TerrainBuilder.setTerrainType(iX, iY, terrain);
-        }
-    }
-}
-export default createDiverseLandmasses;
 ```
 
 ## File: mod/maps/layers/placement.js
@@ -6553,35 +6242,7 @@ bootstrap({
             waterThumbOnScale: -5,
             curveAmpFrac: 0.35,
             geometry: {
-                preset: "kahula",
-                oceanColumnsScale: 1.2,
-                presets: {
-                    kahula: {
-                        bands: [
-                            // Left band: narrow; mostly ocean with tiny coastal land
-                            {
-                                westFrac: 0.05,
-                                eastFrac: 0.18,
-                                westOceanOffset: 1.2,
-                                eastOceanOffset: -0.64,
-                            },
-                            // Middle band: wide central “blob”
-                            {
-                                westFrac: 0.28,
-                                eastFrac: 0.72,
-                                westOceanOffset: 0.0,
-                                eastOceanOffset: 0.0,
-                            },
-                            // Right band: narrow; mostly ocean with tiny coastal land
-                            {
-                                westFrac: 0.82,
-                                eastFrac: 0.95,
-                                westOceanOffset: 0.53,
-                                eastOceanOffset: -1.2,
-                            },
-                        ],
-                    },
-                },
+                mode: "plates",
             },
         },
         biomes: {
@@ -6754,7 +6415,6 @@ import "./map_orchestrator.js";
 
 ## File: mod/maps/map_orchestrator.js
 ```javascript
-// @ts-nocheck
 // Epic Diverse Huge Map Generator
 /**
  * Custom map script - Produces diverse terrain with cliffs, inland lakes,
@@ -6762,16 +6422,24 @@ import "./map_orchestrator.js";
  * @packageDocumentation
  */
 console.log("Loading Epic Diverse Huge Map Generator");
+console.log("[SWOOPER_MOD] ========================================");
+console.log("[SWOOPER_MOD] Map orchestrator loaded - v1.0");
+console.log("[SWOOPER_MOD] Plate-aware mountain tuning enabled");
+console.log("[SWOOPER_MOD] Diagnostics enabled");
+console.log("[SWOOPER_MOD] ========================================");
 import { chooseStartSectors } from "/base-standard/maps/assign-starting-plots.js";
-import { addMountains, addHills, expandCoasts, generateLakes, } from "/base-standard/maps/elevation-terrain-generator.js";
+import { expandCoasts, generateLakes } from "/base-standard/maps/elevation-terrain-generator.js";
+import { layerAddMountainsPhysics } from "./layers/mountains.js";
 import * as globals from "/base-standard/maps/map-globals.js";
 import * as utilities from "/base-standard/maps/map-utilities.js";
-import { STORY_ENABLE_HOTSPOTS, STORY_ENABLE_RIFTS, STORY_ENABLE_OROGENY, STORY_ENABLE_WORLDMODEL, LANDMASS_GEOMETRY, rebind, } from "./config/tunables.js";
+import { STORY_ENABLE_HOTSPOTS, STORY_ENABLE_RIFTS, STORY_ENABLE_OROGENY, STORY_ENABLE_WORLDMODEL, LANDMASS_CFG, LANDMASS_GEOMETRY, MOUNTAINS_CFG, VOLCANOES_CFG, rebind, } from "./bootstrap/tunables.js";
 import { StoryTags, resetStoryTags } from "./story/tags.js";
 import { storyTagStrategicCorridors } from "./story/corridors.js";
 import { storyTagHotspotTrails, storyTagRiftValleys, storyTagOrogenyBelts, storyTagContinentalMargins, storyTagClimateSwatches, OrogenyCache, } from "./story/tagging.js";
-import { addVolcanoes } from "/base-standard/maps/volcano-generator.js";
-import { createDiverseLandmasses as layerCreateDiverseLandmasses } from "./layers/landmass.js";
+import { layerAddVolcanoesPlateAware } from "./layers/volcanoes.js";
+import { generateVoronoiLandmasses } from "./layers/landmass_voronoi.js";
+import { createPlateDrivenLandmasses } from "./layers/landmass_plate.js";
+import { applyLandmassPostAdjustments, applyPlateAwareOceanSeparation } from "./layers/landmass_utils.js";
 import { addRuggedCoasts as layerAddRuggedCoasts } from "./layers/coastlines.js";
 import { addIslandChains as layerAddIslandChains } from "./layers/islands.js";
 import { buildEnhancedRainfall as layerBuildEnhancedRainfall } from "./layers/climate-baseline.js";
@@ -6779,9 +6447,19 @@ import { refineRainfallEarthlike as layerRefineRainfallEarthlike } from "./layer
 import { designateEnhancedBiomes as layerDesignateEnhancedBiomes } from "./layers/biomes.js";
 import { addDiverseFeatures as layerAddDiverseFeatures } from "./layers/features.js";
 import { runPlacement as layerRunPlacement } from "./layers/placement.js";
-import { devLogIf, timeStart, timeEnd, logStoryTagsSummary, logRainfallHistogram, logCorridorAsciiOverlay, logWorldModelSummary, logWorldModelHistograms, } from "./config/dev.js";
+import { devLogIf, timeStart, timeEnd, logStoryTagsSummary, logRainfallHistogram, logRainfallStats, logCorridorAsciiOverlay, logWorldModelSummary, logWorldModelHistograms, logWorldModelAscii, logBoundaryMetrics, logLandmassAscii, logTerrainReliefAscii, logRainfallAscii, logBiomeAscii, logBiomeSummary, } from "./bootstrap/dev.js";
 import { WorldModel } from "./world/model.js";
-// Orchestrator import removed for stability while we restore local engine listeners
+// Phase 1 Refactoring: Context + Adapter layer
+import { createMapContext } from "./core/types.js";
+import { CivEngineAdapter } from "./core/adapters.js";
+
+// Maintain compatibility with dev helpers that expect StoryTags on the global scope.
+try {
+    globalThis.StoryTags = StoryTags;
+}
+catch (_err) {
+    // Swallow silently; the game VM should always expose globalThis but guard just in case.
+}
 /**
  * Climate Story v0.1 — StoryTags scaffolding and toggles
  * Tags are sparse: store as "x,y" strings in Sets.
@@ -6795,9 +6473,53 @@ function requestMapData(initParams) {
     engine.call("SetMapInitData", initParams);
 }
 function generateMap() {
+    console.log("[SWOOPER_MOD] === generateMap() CALLED ===");
     console.log("Generating Epic Diverse Map with maximum terrain variety!");
     // Ensure tunables reflect the active entry config for this run.
     rebind();
+    const mountainsConfig = MOUNTAINS_CFG || {};
+    const mountainOptions = {
+        mountainPercent: mountainsConfig.mountainPercent ?? 3,
+        hillPercent: mountainsConfig.hillPercent ?? 8,
+        upliftWeight: mountainsConfig.upliftWeight ?? 0.75,
+        fractalWeight: mountainsConfig.fractalWeight ?? 0.25,
+        riftDepth: mountainsConfig.riftDepth ?? 0.3,
+        variance: mountainsConfig.variance ?? 2.0,
+        boundaryWeight: mountainsConfig.boundaryWeight ?? 0.6,
+        boundaryExponent: mountainsConfig.boundaryExponent ?? 1.4,
+        interiorPenaltyWeight: mountainsConfig.interiorPenaltyWeight ?? 0.2,
+        convergenceBonus: mountainsConfig.convergenceBonus ?? 0.9,
+        transformPenalty: mountainsConfig.transformPenalty ?? 0.3,
+        riftPenalty: mountainsConfig.riftPenalty ?? 0.75,
+        hillBoundaryWeight: mountainsConfig.hillBoundaryWeight ?? 0.45,
+        hillRiftBonus: mountainsConfig.hillRiftBonus ?? 0.5,
+        hillConvergentFoothill: mountainsConfig.hillConvergentFoothill ?? 0.25,
+        hillInteriorFalloff: mountainsConfig.hillInteriorFalloff ?? 0.2,
+        hillUpliftWeight: mountainsConfig.hillUpliftWeight ?? 0.25,
+    };
+    const volcanoConfig = VOLCANOES_CFG || {};
+    const volcanoOptions = {
+        enabled: volcanoConfig.enabled ?? true,
+        baseDensity: volcanoConfig.baseDensity ?? (1 / 170),
+        minSpacing: volcanoConfig.minSpacing ?? 3,
+        boundaryThreshold: volcanoConfig.boundaryThreshold ?? 0.35,
+        boundaryWeight: volcanoConfig.boundaryWeight ?? 1.2,
+        convergentMultiplier: volcanoConfig.convergentMultiplier ?? 2.4,
+        transformMultiplier: volcanoConfig.transformMultiplier ?? 1.1,
+        divergentMultiplier: volcanoConfig.divergentMultiplier ?? 0.35,
+        hotspotWeight: volcanoConfig.hotspotWeight ?? 0.12,
+        shieldPenalty: volcanoConfig.shieldPenalty ?? 0.6,
+        randomJitter: volcanoConfig.randomJitter ?? 0.08,
+        minVolcanoes: volcanoConfig.minVolcanoes ?? 5,
+        maxVolcanoes: volcanoConfig.maxVolcanoes ?? 40,
+    };
+    console.log("[SWOOPER_MOD] Tunables rebound successfully");
+    console.log(
+        `[SWOOPER_MOD] Mountain target: ${mountainOptions.mountainPercent}% | Hills: ${mountainOptions.hillPercent}%`
+    );
+    console.log(
+        `[SWOOPER_MOD] Volcano config — base density ${(volcanoOptions.baseDensity ?? 0).toFixed(4)}, spacing ${volcanoOptions.minSpacing}`
+    );
     let iWidth = GameplayMap.getGridWidth();
     let iHeight = GameplayMap.getGridHeight();
     let uiMapSize = GameplayMap.getMapSize();
@@ -6805,12 +6527,30 @@ function generateMap() {
     let mapInfo = GameInfo.Maps.lookup(uiMapSize);
     if (mapInfo == null)
         return;
-    // Initialize WorldModel (optional)
+
+    // Phase 1 Refactoring: Create MapContext with adapter
+    console.log("[Refactoring] Creating MapContext with CivEngineAdapter...");
+    const adapter = new CivEngineAdapter(iWidth, iHeight);
+    const ctx = createMapContext(
+        { width: iWidth, height: iHeight },
+        adapter,
+        {
+            STORY_ENABLE_WORLDMODEL,
+            STORY_ENABLE_HOTSPOTS,
+            STORY_ENABLE_RIFTS,
+            STORY_ENABLE_OROGENY,
+            LANDMASS_GEOMETRY,
+        }
+    );
+
+    // Initialize WorldModel (optional) and attach to context
     if (STORY_ENABLE_WORLDMODEL) {
         try {
             if (WorldModel.init()) {
-                devLogIf("LOG_STORY_TAGS", "[WorldModel] Initialized");
+                ctx.worldModel = WorldModel;
+                devLogIf("LOG_STORY_TAGS", "[WorldModel] Initialized and attached to context");
                 logWorldModelSummary(WorldModel);
+                logWorldModelAscii(WorldModel);
             }
         }
         catch (err) {
@@ -6842,73 +6582,124 @@ function generateMap() {
         north: iHeight - globals.g_PolarWaterRows,
         continent: 0,
     };
+    let landmassSource = null;
+    let landmaskDebug = null;
     // Create more complex continent boundaries for our diverse terrain generation
     // Compute band windows from per-map geometry config (if provided)
     {
         const GEOM = LANDMASS_GEOMETRY || /**/ {};
-        const oceanScale = Number.isFinite(GEOM.oceanColumnsScale)
-            ? GEOM.oceanColumnsScale
-            : 1.1;
-        let iOceanWaterColumns = Math.floor(globals.g_OceanWaterColumns * oceanScale);
-        // Select bands from preset when present; fallback to explicit bands, then defaults
-        const presetName = GEOM.preset;
-        const presetBands = presetName &&
-            GEOM.presets &&
-            Array.isArray(GEOM.presets[presetName]?.bands)
-            ? GEOM.presets[presetName].bands
-            : null;
-        const bandDefs = Array.isArray(presetBands) && presetBands.length >= 3
-            ? presetBands
-            : Array.isArray(GEOM.bands) && GEOM.bands.length >= 3
-                ? GEOM.bands
-                : [
-                    {
-                        westFrac: 0.0,
-                        eastFrac: 0.3,
-                        westOceanOffset: 1.0,
-                        eastOceanOffset: -0.35,
-                    },
-                    {
-                        westFrac: 0.35,
-                        eastFrac: 0.6,
-                        westOceanOffset: 0.25,
-                        eastOceanOffset: -0.25,
-                    },
-                    {
-                        westFrac: 0.75,
-                        eastFrac: 1.0,
-                        westOceanOffset: 0.5,
-                        eastOceanOffset: -1.0,
-                    },
-                ];
-        function bandWindow(band, idx) {
-            const west = Math.floor(iWidth * (band.westFrac ?? 0)) +
-                Math.floor(iOceanWaterColumns * (band.westOceanOffset ?? 0));
-            const east = Math.floor(iWidth * (band.eastFrac ?? 1)) +
-                Math.floor(iOceanWaterColumns * (band.eastOceanOffset ?? 0));
-            return {
-                west: Math.max(0, Math.min(iWidth - 1, west)),
-                east: Math.max(0, Math.min(iWidth - 1, east)),
-                south: globals.g_PolarWaterRows,
-                north: iHeight - globals.g_PolarWaterRows,
-                continent: idx,
+        const geomMode = typeof GEOM.mode === "string" ? GEOM.mode : "auto";
+        const worldModelActive = !!(WorldModel?.isEnabled?.() && WorldModel.isEnabled());
+        const preferVoronoi = geomMode === "voronoi" || geomMode === "auto" || !worldModelActive;
+        const allowPlate = geomMode !== "voronoi" && worldModelActive;
+        let landmassWindows;
+        let derivedStartRegions;
+        let activeLandMask = null;
+        if (preferVoronoi) {
+            const voronoiResult = generateVoronoiLandmasses(iWidth, iHeight, ctx, mapInfo, GEOM);
+            if (voronoiResult && Array.isArray(voronoiResult.windows) && voronoiResult.windows.length > 0) {
+                landmassSource = "voronoi";
+                landmassWindows = voronoiResult.windows;
+                derivedStartRegions = voronoiResult.startRegions;
+                activeLandMask = voronoiResult.landMask || null;
+                landmaskDebug = activeLandMask;
+            }
+        }
+        if (!landmassWindows && allowPlate) {
+            const plateResult = createPlateDrivenLandmasses(iWidth, iHeight, ctx, {
+                landmassCfg: LANDMASS_CFG,
+                geometry: GEOM,
+            });
+            if (plateResult && Array.isArray(plateResult.windows) && plateResult.windows.length > 0) {
+                landmassSource = "plate";
+                landmassWindows = plateResult.windows;
+                derivedStartRegions = plateResult.startRegions;
+                activeLandMask = plateResult.landMask || null;
+                landmaskDebug = activeLandMask;
+            }
+        }
+        if (!landmassWindows) {
+            console.log("[SWOOPER_MOD] ERROR: Landmass generation failed — no Voronoi or plate windows returned.");
+            return;
+        }
+        const separationResult = applyPlateAwareOceanSeparation({
+            width: iWidth,
+            height: iHeight,
+            windows: landmassWindows,
+            landMask: activeLandMask,
+            adapter: ctx?.adapter,
+            worldModel: WorldModel,
+        });
+        landmassWindows = separationResult.windows;
+        if (separationResult.landMask) {
+            activeLandMask = separationResult.landMask;
+            landmaskDebug = activeLandMask;
+        }
+        landmassWindows = applyLandmassPostAdjustments(landmassWindows, GEOM, iWidth, iHeight);
+        if (!derivedStartRegions && Array.isArray(landmassWindows) && landmassWindows.length >= 2) {
+            const first = landmassWindows[0];
+            const last = landmassWindows[landmassWindows.length - 1];
+            derivedStartRegions = {
+                westContinent: Object.assign({}, first),
+                eastContinent: Object.assign({}, last),
             };
         }
-        // Landmass approach – 3 vertical bands using configurable geometry
-        var landmass1 = bandWindow(bandDefs[0], 0);
-        var landmass2 = bandWindow(bandDefs[1], 1);
-        var landmass3 = bandWindow(bandDefs[2], 2);
+        if (derivedStartRegions?.westContinent && derivedStartRegions?.eastContinent) {
+            westContinent = {
+                west: derivedStartRegions.westContinent.west,
+                east: derivedStartRegions.westContinent.east,
+                south: derivedStartRegions.westContinent.south,
+                north: derivedStartRegions.westContinent.north,
+                continent: derivedStartRegions.westContinent.continent ?? 0,
+            };
+            eastContinent = {
+                west: derivedStartRegions.eastContinent.west,
+                east: derivedStartRegions.eastContinent.east,
+                south: derivedStartRegions.eastContinent.south,
+                north: derivedStartRegions.eastContinent.north,
+                continent: derivedStartRegions.eastContinent.continent ?? 1,
+            };
+        }
+        var landmassWindowsFinal = landmassWindows;
     }
     // Generate landmasses without creating a hard horizontal ocean band
     {
         const t = timeStart("Landmass");
-        layerCreateDiverseLandmasses(iWidth, iHeight, [
-            landmass1,
-            landmass2,
-            landmass3,
-        ]);
+        if (landmassSource === "plate") {
+            console.log("[SWOOPER_MOD] Applied plate-driven landmass mask");
+        }
+        else if (landmassSource === "voronoi") {
+            console.log("[SWOOPER_MOD] Applied Voronoi landmass mask");
+        }
         timeEnd(t);
     }
+    if (Array.isArray(landmassWindowsFinal) && landmassWindowsFinal.length) {
+        const windowSummary = landmassWindowsFinal.map((win, idx) => {
+            if (!win)
+                return { index: idx };
+            const spanX = Number.isFinite(win.east) && Number.isFinite(win.west) ? win.east - win.west + 1 : null;
+            const spanY = Number.isFinite(win.north) && Number.isFinite(win.south) ? win.north - win.south + 1 : null;
+            return {
+                index: idx,
+                continent: win.continent ?? idx,
+                west: win.west,
+                east: win.east,
+                south: win.south,
+                north: win.north,
+                width: spanX,
+                height: spanY,
+                area: spanX && spanY ? spanX * spanY : null,
+            };
+        });
+        devLogIf("LOG_LANDMASS_WINDOWS", "[Landmass] windows summary", windowSummary);
+    }
+    else {
+        devLogIf("LOG_LANDMASS_WINDOWS", "[Landmass] windows summary", "no plate windows");
+    }
+    logLandmassAscii(landmassSource || "unknown", {
+        windows: Array.isArray(landmassWindowsFinal) ? landmassWindowsFinal : [],
+        landMask: landmaskDebug || undefined,
+    });
     TerrainBuilder.validateAndFixTerrain();
     {
         const t = timeStart("ExpandCoasts");
@@ -6922,7 +6713,7 @@ function generateMap() {
     // Add post-processing to make coasts more rugged (margin-aware) and place a few islands
     {
         const t = timeStart("RuggedCoasts");
-        layerAddRuggedCoasts(iWidth, iHeight);
+        layerAddRuggedCoasts(iWidth, iHeight, ctx);
         timeEnd(t);
     }
     // Climate Story v0.1: Tag narrative motifs after coasts exist
@@ -6955,48 +6746,76 @@ function generateMap() {
     logStoryTagsSummary(StoryTags, OrogenyCache);
     {
         const t = timeStart("IslandChains");
-        layerAddIslandChains(iWidth, iHeight);
+        layerAddIslandChains(iWidth, iHeight, ctx);
         timeEnd(t);
     }
     // Remove aggressive cliff systems for playability
     AreaBuilder.recalculateAreas();
     TerrainBuilder.stampContinents();
-    // Mountains – use base generator only (fewer peaks)
+    // Restore plot tags (west/east landmass, corridor water, etc.) for downstream placement logic.
+    utilities.addPlotTags(iHeight, iWidth, eastContinent.west);
+    // Mountains & Hills – Phase 2: Physics-based placement using plate boundaries
     {
-        const t = timeStart("Mountains");
-        addMountains(iWidth, iHeight);
+        const t = timeStart("Mountains & Hills (Physics)");
+        layerAddMountainsPhysics(ctx, mountainOptions);
         timeEnd(t);
     }
+    logBoundaryMetrics(WorldModel, { stage: "post-mountains" });
     {
         const t = timeStart("Volcanoes");
-        addVolcanoes(iWidth, iHeight);
+        layerAddVolcanoesPlateAware(ctx, volcanoOptions);
         timeEnd(t);
     }
+    logBoundaryMetrics(WorldModel, { stage: "post-volcanoes" });
+    logTerrainReliefAscii("post-volcanoes");
     // Lakes – fewer than before
     {
         const t = timeStart("Lakes");
         generateLakes(iWidth, iHeight, iTilesPerLake);
         timeEnd(t);
     }
-    AreaBuilder.recalculateAreas();
-    TerrainBuilder.buildElevation();
+    // MAP STATISTICS LOGGING - Diagnostic for start placement failures
+    console.log("[SWOOPER_MOD] About to calculate MAP_STATS...");
     {
-        const t = timeStart("Hills");
-        addHills(iWidth, iHeight);
-        timeEnd(t);
+        let waterCount = 0, mountainCount = 0, hillCount = 0, flatCount = 0;
+        const totalTiles = iWidth * iHeight;
+        for (let y = 0; y < iHeight; y++) {
+            for (let x = 0; x < iWidth; x++) {
+                if (GameplayMap.isWater(x, y))
+                    waterCount++;
+                else if (GameplayMap.isMountain(x, y))
+                    mountainCount++;
+                else if (GameplayMap.getTerrainType(x, y) === globals.g_HillTerrain)
+                    hillCount++;
+                else
+                    flatCount++;
+            }
+        }
+        const landCount = totalTiles - waterCount;
+        const waterPct = ((waterCount / totalTiles) * 100).toFixed(1);
+        const landPct = ((landCount / totalTiles) * 100).toFixed(1);
+        const mtnPct = landCount > 0 ? ((mountainCount / landCount) * 100).toFixed(1) : 0;
+        const hillPct = landCount > 0 ? ((hillCount / landCount) * 100).toFixed(1) : 0;
+        const flatPct = landCount > 0 ? ((flatCount / landCount) * 100).toFixed(1) : 0;
+        console.log(`[MAP_STATS] Total tiles: ${totalTiles}, Water: ${waterCount} (${waterPct}%), Land: ${landCount} (${landPct}%)`);
+        console.log(`[MAP_STATS] Land breakdown: Mountains: ${mountainCount} (${mtnPct}%), Hills: ${hillCount} (${hillPct}%), Flat: ${flatCount} (${flatPct}%)`);
     }
+    AreaBuilder.recalculateAreas();
     // Create moderated rainfall patterns (keep enhanced but gentle)
     {
         const t = timeStart("Climate: Baseline");
         layerBuildEnhancedRainfall(iWidth, iHeight);
         timeEnd(t);
     }
+    logRainfallAscii("baseline");
+    logRainfallStats("baseline", iWidth, iHeight);
     {
         const t = timeStart("Climate: Swatches");
         const swatchResult = storyTagClimateSwatches();
         if (swatchResult && swatchResult.kind) {
             devLogIf("LOG_STORY_TAGS", `Climate Swatch: ${swatchResult.kind} (${swatchResult.tiles} tiles)`);
         }
+        devLogIf("LOG_SWATCHES", "[Swatches] result", swatchResult || null);
         timeEnd(t);
     }
     // Rivers – closer to base values for balance
@@ -7013,19 +6832,24 @@ function generateMap() {
     // Refine rainfall with earthlike dynamics after rivers exist
     {
         const t = timeStart("Climate: Earthlike Refinements");
-        layerRefineRainfallEarthlike(iWidth, iHeight);
+        // Phase 1: Pass context to refactored layer
+        layerRefineRainfallEarthlike(iWidth, iHeight, ctx);
         timeEnd(t);
     }
+    logRainfallAscii("refined");
+    logRainfallStats("refined", iWidth, iHeight);
     // Enhanced biome diversity
     {
         const t = timeStart("Biomes");
         layerDesignateEnhancedBiomes(iWidth, iHeight);
         timeEnd(t);
     }
+    logBiomeAscii("final");
+    logBiomeSummary("final", iWidth, iHeight);
     // Add extensive feature variety
     {
         const t = timeStart("Features");
-        layerAddDiverseFeatures(iWidth, iHeight);
+        layerAddDiverseFeatures(iWidth, iHeight, ctx);
         timeEnd(t);
     }
     TerrainBuilder.validateAndFixTerrain();
@@ -7058,4 +6882,6 @@ function generateMap() {
 engine.on("RequestMapInitData", requestMapData);
 engine.on("GenerateMap", generateMap);
 console.log("Epic Diverse Huge Map Generator loaded and ready!");
+
+```
 ```

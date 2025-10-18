@@ -25,11 +25,10 @@ export const CLASSIC_PRESET = Object.freeze({
         STORY_ENABLE_CORRIDORS: true,
         STORY_ENABLE_WORLDMODEL: true,
     }),
-    // Classic three-band layout; slightly less ocean widening than "temperate"
+    // Classic baseline: rely on Voronoi first with plate fallback when available
     landmass: Object.freeze({
         geometry: Object.freeze({
-            preset: "classic",
-            oceanColumnsScale: 1.0, // vanilla‑like base; variants may increase this (e.g., 1.1)
+            mode: "auto",
         }),
     }),
     // WorldModel is available but uses central defaults for detailed fields

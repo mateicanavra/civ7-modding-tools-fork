@@ -212,36 +212,21 @@
  * @property {number} [jitterAmpFracBase] - Base coastline waviness as fraction of width; higher = more irregular (typically 0.02-0.08)
  * @property {number} [jitterAmpFracScale] - Extra jitter on larger maps (typically 0.01-0.04)
  * @property {number} [curveAmpFrac] - Continental bowing/curvature; higher = more crescent-shaped landmasses (typically 0.1-0.3)
- * @property {LandmassGeometry} [geometry] - Preset layouts and ocean spacing (bands vs plate-driven modes)
+ * @property {LandmassGeometry} [geometry] - Generator preference (Voronoi vs plates) and post adjustments
  */
 
 /**
- * Landmass geometry presets and band definitions.
+ * Landmass geometry orchestrator preferences.
  *
- * Controls how continents are arranged on the map. Two approaches:
- * - "bands": Classic preset layouts (Pangaea, three continents, etc.) using predefined bands
- * - "plates": Tectonic simulation using Voronoi diagrams to create natural plate boundaries
- * - "auto": Uses plates mode if WorldModel is enabled, otherwise bands
- *
- * Voronoi: A geometric technique that divides space into regions based on distance to seed points.
- * Each plate grows outward from its seed, creating natural-looking boundaries where plates meet.
+ * Controls which landmass generator the orchestrator invokes and how the resulting
+ * plate windows are adjusted after generation.
+ * - "voronoi": Always use the official Civ VII Voronoi continent builder
+ * - "plates": Use the plate-driven mask derived from WorldModel stability
+ * - "auto": Prefer Voronoi, falling back to plate masks when the WorldModel is enabled
  *
  * @typedef {Object} LandmassGeometry
- * @property {"bands"|"plates"|"auto"} [mode] - Layout mode selection
- * @property {number} [oceanColumnsScale] - Ocean width multiplier; >1 = wider oceans, <1 = narrower (typically 0.8-1.3)
- * @property {string} [preset] - Active preset name: "pangaea", "continents", "archipelago", "voronoi", etc.
- * @property {Object.<string, {bands: ReadonlyArray<LandmassBand>}>} [presets] - Preset definitions with band layouts
- * @property {ReadonlyArray<LandmassBand>} [bands] - Fallback three-band layout if no preset specified
+ * @property {"auto"|"voronoi"|"plates"} [mode] - Generator selection strategy
  * @property {LandmassGeometryPost} [post] - Fine-tuning adjustments applied after initial layout
- */
-
-/**
- * One continental band window and ocean offsets
- * @typedef {Object} LandmassBand
- * @property {number} westFrac - West bound as a fraction of map width (ratio 0..1)
- * @property {number} eastFrac - East bound as a fraction of map width (ratio 0..1)
- * @property {number} westOceanOffset - West ocean offset (+ scalar x iOceanWaterColumns to tiles)
- * @property {number} eastOceanOffset - East ocean offset (- scalar x iOceanWaterColumns to tiles)
  */
 
 /**

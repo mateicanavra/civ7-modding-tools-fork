@@ -25,11 +25,10 @@ export const TEMPERATE_PRESET = Object.freeze({
         STORY_ENABLE_CORRIDORS: true,
         STORY_ENABLE_WORLDMODEL: true,
     }),
-    // Classic three-band layout with slightly wider true oceans (safe navigation)
+    // Voronoi-first layout with gentle plate fallback (safe navigation)
     landmass: Object.freeze({
         geometry: Object.freeze({
-            preset: "classic",
-            oceanColumnsScale: 1.1,
+            mode: "auto",
         }),
     }),
     // Lightweight Earth Forces with moderated global cohesion

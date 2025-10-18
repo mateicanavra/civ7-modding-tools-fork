@@ -23,7 +23,6 @@ export const VORONOI_PRESET = {
     landmass: {
         geometry: /** @type {import("../map_config.types.js").LandmassGeometry} */ ({
             mode: "plates",
-            oceanColumnsScale: 1.0,
             post: {
                 expandTiles: 0,
                 expandWestTiles: 0,

@@ -20,10 +20,9 @@ import { StoryTags, resetStoryTags } from "./story/tags.js";
 import { storyTagStrategicCorridors } from "./story/corridors.js";
 import { storyTagHotspotTrails, storyTagRiftValleys, storyTagOrogenyBelts, storyTagContinentalMargins, storyTagClimateSwatches, OrogenyCache, } from "./story/tagging.js";
 import { layerAddVolcanoesPlateAware } from "./layers/volcanoes.js";
-import { createDiverseLandmasses as layerCreateDiverseLandmasses } from "./layers/landmass.js";
 import { generateVoronoiLandmasses } from "./layers/landmass_voronoi.js";
 import { createPlateDrivenLandmasses } from "./layers/landmass_plate.js";
-import { applyLandmassPostAdjustments } from "./layers/landmass_utils.js";
+import { applyLandmassPostAdjustments, applyPlateAwareOceanSeparation } from "./layers/landmass_utils.js";
 import { addRuggedCoasts as layerAddRuggedCoasts } from "./layers/coastlines.js";
 import { addIslandChains as layerAddIslandChains } from "./layers/islands.js";
 import { buildEnhancedRainfall as layerBuildEnhancedRainfall } from "./layers/climate-baseline.js";
@@ -166,79 +165,60 @@ function generateMap() {
         north: iHeight - globals.g_PolarWaterRows,
         continent: 0,
     };
-    let usedPlateLandmasses = false;
+    let landmassSource = null;
     let landmaskDebug = null;
     // Create more complex continent boundaries for our diverse terrain generation
-    // Compute band windows from per-map geometry config (if provided)
+    // Compute landmass windows using Voronoi/plate geometry preferences
     {
         const GEOM = LANDMASS_GEOMETRY || /**/ {};
-        const usePlateGeometry = (GEOM.mode === "plates" || (GEOM.mode === "auto" && WorldModel?.isEnabled?.()));
+        const geomMode = typeof GEOM.mode === "string" ? GEOM.mode : "auto";
+        const worldModelActive = !!(WorldModel?.isEnabled?.() && WorldModel.isEnabled());
+        const preferVoronoi = geomMode === "voronoi" || geomMode === "auto" || !worldModelActive;
+        const allowPlate = geomMode !== "voronoi" && worldModelActive;
         let landmassWindows;
         let derivedStartRegions;
-        let adjustmentsApplied = false;
-        if (usePlateGeometry) {
+        let activeLandMask = null;
+        if (preferVoronoi) {
             const voronoiResult = generateVoronoiLandmasses(iWidth, iHeight, ctx, mapInfo, GEOM);
             if (voronoiResult && Array.isArray(voronoiResult.windows) && voronoiResult.windows.length > 0) {
-                usedPlateLandmasses = true;
+                landmassSource = "voronoi";
                 landmassWindows = voronoiResult.windows;
                 derivedStartRegions = voronoiResult.startRegions;
-                adjustmentsApplied = true;
-                landmaskDebug = voronoiResult.landMask || null;
+                activeLandMask = voronoiResult.landMask || null;
+                landmaskDebug = activeLandMask;
             }
         }
-        if (!landmassWindows && usePlateGeometry) {
+        if (!landmassWindows && allowPlate) {
             const plateResult = createPlateDrivenLandmasses(iWidth, iHeight, ctx, {
                 landmassCfg: LANDMASS_CFG,
                 geometry: GEOM,
             });
             if (plateResult && Array.isArray(plateResult.windows) && plateResult.windows.length > 0) {
-                usedPlateLandmasses = true;
+                landmassSource = "plate";
                 landmassWindows = plateResult.windows;
                 derivedStartRegions = plateResult.startRegions;
-                adjustmentsApplied = true;
-                landmaskDebug = plateResult.landMask || null;
+                activeLandMask = plateResult.landMask || null;
+                landmaskDebug = activeLandMask;
             }
         }
         if (!landmassWindows) {
-            const oceanScale = Number.isFinite(GEOM.oceanColumnsScale)
-                ? GEOM.oceanColumnsScale
-                : 1.1;
-            const iOceanWaterColumns = Math.floor(globals.g_OceanWaterColumns * oceanScale);
-            const presetName = GEOM.preset;
-            const presetBands = presetName && GEOM.presets && Array.isArray(GEOM.presets[presetName]?.bands)
-                ? GEOM.presets[presetName].bands
-                : null;
-            const bandDefs = Array.isArray(presetBands) && presetBands.length >= 3
-                ? presetBands
-                : Array.isArray(GEOM.bands) && GEOM.bands.length >= 3
-                    ? GEOM.bands
-                    : [
-                        { westFrac: 0.0, eastFrac: 0.3, westOceanOffset: 1.0, eastOceanOffset: -0.35 },
-                        { westFrac: 0.35, eastFrac: 0.6, westOceanOffset: 0.25, eastOceanOffset: -0.25 },
-                        { westFrac: 0.75, eastFrac: 1.0, westOceanOffset: 0.5, eastOceanOffset: -1.0 },
-                    ];
-            function bandWindow(band, idx) {
-                const west = Math.floor(iWidth * (band.westFrac ?? 0)) + Math.floor(iOceanWaterColumns * (band.westOceanOffset ?? 0));
-                const east = Math.floor(iWidth * (band.eastFrac ?? 1)) + Math.floor(iOceanWaterColumns * (band.eastOceanOffset ?? 0));
-                return {
-                    west: Math.max(0, Math.min(iWidth - 1, west)),
-                    east: Math.max(0, Math.min(iWidth - 1, east)),
-                    south: globals.g_PolarWaterRows,
-                    north: iHeight - globals.g_PolarWaterRows,
-                    continent: idx,
-                };
-            }
-            landmassWindows = [
-                bandWindow(bandDefs[0], 0),
-                bandWindow(bandDefs[1], 1),
-                bandWindow(bandDefs[2], 2),
-            ];
-            landmassWindows = applyLandmassPostAdjustments(landmassWindows, GEOM, iWidth, iHeight);
-            adjustmentsApplied = true;
+            console.log("[SWOOPER_MOD] ERROR: Landmass generation failed — no Voronoi or plate windows returned.");
+            return;
         }
-        if (landmassWindows && !adjustmentsApplied) {
-            landmassWindows = applyLandmassPostAdjustments(landmassWindows, GEOM, iWidth, iHeight);
+        const separationResult = applyPlateAwareOceanSeparation({
+            width: iWidth,
+            height: iHeight,
+            windows: landmassWindows,
+            landMask: activeLandMask,
+            adapter: ctx?.adapter,
+            worldModel: WorldModel,
+        });
+        landmassWindows = separationResult.windows;
+        if (separationResult.landMask) {
+            activeLandMask = separationResult.landMask;
+            landmaskDebug = activeLandMask;
         }
+        landmassWindows = applyLandmassPostAdjustments(landmassWindows, GEOM, iWidth, iHeight);
         if (!derivedStartRegions && Array.isArray(landmassWindows) && landmassWindows.length >= 2) {
             const first = landmassWindows[0];
             const last = landmassWindows[landmassWindows.length - 1];
@@ -268,11 +248,11 @@ function generateMap() {
     // Generate landmasses without creating a hard horizontal ocean band
     {
         const t = timeStart("Landmass");
-        if (usedPlateLandmasses) {
+        if (landmassSource === "plate") {
             console.log("[SWOOPER_MOD] Applied plate-driven landmass mask");
         }
-        else {
-            layerCreateDiverseLandmasses(iWidth, iHeight, landmassWindowsFinal, ctx);
+        else if (landmassSource === "voronoi") {
+            console.log("[SWOOPER_MOD] Applied Voronoi landmass mask");
         }
         timeEnd(t);
     }
@@ -299,7 +279,7 @@ function generateMap() {
     else {
         devLogIf("LOG_LANDMASS_WINDOWS", "[Landmass] windows summary", "no plate windows");
     }
-    logLandmassAscii(usedPlateLandmasses ? "plate" : "bands", {
+    logLandmassAscii(landmassSource || "unknown", {
         windows: Array.isArray(landmassWindowsFinal) ? landmassWindowsFinal : [],
         landMask: landmaskDebug || undefined,
     });
