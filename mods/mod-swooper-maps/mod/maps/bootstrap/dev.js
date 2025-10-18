@@ -28,6 +28,7 @@
  * Flip selectively during development sessions; keep off for release builds.
  */
 import * as globals from "/base-standard/maps/map-globals.js";
+import { dumpTerrain, dumpRainfall, dumpBiomes, dumpContinents } from "/base-standard/maps/map-debug-helpers.js";
 import { DEV_LOG_CFG as __DEV_CFG__ } from "./resolved.js";
 export const DEV = {
     ENABLED: true, // Master switch — must be true for any dev logging
@@ -397,6 +398,45 @@ export function logWorldModelHistograms(WorldModel, opts = {}) {
         safeLog("[DEV][wm] hist error:", err);
     }
 }
+const ASCII_GRID_LAYOUT = {
+    basePadding: {
+        left: " ",
+        right: " ",
+    },
+    overlayPadding: {
+        left: " ",
+        right: " ",
+    },
+};
+const ASCII_WORLD_MODEL_CHARS = {
+    base: {
+        water: "~",
+        land: ".",
+    },
+    overlay: {
+        convergent: "^",
+        divergent: "-",
+        transform: "X",
+        boundary: " ",
+    },
+};
+const ASCII_CORRIDOR_CHARS = {
+    base: {
+        water: "~",
+        land: ".",
+    },
+    overlays: {
+        seaLane: "S",
+        islandHop: "I",
+        riverChain: "R",
+        landOpen: "L",
+    },
+};
+export const ASCII_DISPLAY = {
+    grid: ASCII_GRID_LAYOUT,
+    worldModel: ASCII_WORLD_MODEL_CHARS,
+    corridor: ASCII_CORRIDOR_CHARS,
+};
 /**
  * ASCII snapshot of terrain with optional plate-boundary overlay.
  * Prints a base map (water/mountains/hills/volcanoes) and a second map where
@@ -439,24 +479,28 @@ export function logWorldModelAscii(WorldModel, opts = {}) {
             ? Math.max(0, Math.min(1, opts.boundaryThreshold))
             : 0.65;
         const closenessCutoff = Math.round(thresholdRatio * 255);
+        const asciiChars = ASCII_DISPLAY.worldModel;
+        const baseWater = asciiChars.base.water;
+        const baseLand = asciiChars.base.land;
+        const overlays = asciiChars.overlay;
         const rows = renderAsciiGrid(width, height, sampleStep, (x, y) => {
             const idx = y * width + x;
             const close = idx < boundaryLen ? boundaryCloseness[idx] | 0 : 0;
             const isBoundary = close >= closenessCutoff;
-            const base = GameplayMap?.isWater?.(x, y) ? "~" : ".";
+            const base = GameplayMap?.isWater?.(x, y) ? baseWater : baseLand;
             if (!isBoundary)
                 return { base };
             const bType = boundaryType[idx] | 0;
             const overlay = bType === 1
-                ? "^"
+                ? overlays.convergent
                 : bType === 2
-                    ? "~"
+                    ? overlays.divergent
                     : bType === 3
-                        ? "#"
-                        : "@";
+                        ? overlays.transform
+                        : overlays.boundary;
             return { base, overlay };
         });
-        safeLog(`[DEV][wm] ascii plates (step=${sampleStep}): base ~~ ocean, .. land; overlays ^ convergent, ~ divergent, # transform, @ boundary/unknown`);
+        safeLog(`[DEV][wm] ascii plates (step=${sampleStep}): base ${legendBasePair(baseWater)} ocean, ${legendBasePair(baseLand)} land; overlays ${overlays.convergent} convergent, ${overlays.divergent} divergent, ${overlays.transform} transform, ${overlays.boundary} boundary/unknown`);
         rows.forEach((row) => safeLog(row));
     }
     catch (err) {
@@ -471,153 +515,79 @@ export function logLandmassAscii(label = "landmass", opts = {}) {
         const width = GameplayMap?.getGridWidth?.() ?? 0;
         const height = GameplayMap?.getGridHeight?.() ?? 0;
         if (!width || !height) {
-            safeLog(`[DEV][landmass] ascii ${label}: No map bounds.`);
+            safeLog(`[DEV][landmass] dump ${label}: No map bounds.`);
             return;
         }
-        const landMask = ArrayBuffer.isView(opts.landMask) ? opts.landMask : null;
-        const maskLen = landMask?.length ?? 0;
         const windows = Array.isArray(opts.windows) ? opts.windows : [];
-        const windowInfo = windows.map((win, index) => ({
-            data: win,
-            symbol: ASCII_WINDOW_SERIES[index % ASCII_WINDOW_SERIES.length],
-            continent: win?.continent ?? index,
-        }));
-        const symbolByContinent = new Map(windowInfo.map((w) => [w.continent, w.symbol]));
-        const sampleStep = computeAsciiSampleStep(width, height, opts.step);
-        const rows = renderAsciiGrid(width, height, sampleStep, (x, y) => {
-            const idx = y * width + x;
-            const base = (() => {
-                if (landMask && idx < maskLen)
-                    return landMask[idx] ? "." : "~";
-                return GameplayMap?.isWater?.(x, y) ? "~" : ".";
-            })();
-            if (!windowInfo.length)
-                return { base };
-            for (let wi = 0; wi < windowInfo.length; wi++) {
-                const win = windowInfo[wi].data;
-                if (win &&
-                    x >= (win.west ?? 0) &&
-                    x <= (win.east ?? width - 1) &&
-                    y >= (win.south ?? 0) &&
-                    y <= (win.north ?? height - 1)) {
-                    const overlay = symbolByContinent.get(windowInfo[wi].continent) ?? windowInfo[wi].symbol;
-                    return { base, overlay };
-                }
-            }
-            return { base };
-        });
-        const legend = windowInfo.length
-            ? `; overlays ${windowInfo
-                .map((win) => `${win.symbol}=continent${win.continent}`)
-                .join(", ")}`
-            : "";
-        safeLog(`[DEV][landmass] ascii ${label} (step=${sampleStep}): base ~~ ocean, .. land${legend}`);
-        rows.forEach((row) => safeLog(row));
+        if (windows.length) {
+            const summary = windows.map((w, idx) => ({
+                id: w?.continent ?? idx,
+                west: w?.west ?? null,
+                east: w?.east ?? null,
+                south: w?.south ?? null,
+                north: w?.north ?? null,
+            }));
+            safeLog(`[DEV][landmass] windows ${label}:`, summary);
+        }
+        safeLog(`[DEV][landmass] dump ${label}: delegating to base-standard dumpContinents()`);
+        dumpContinents(width, height);
     }
     catch (err) {
-        safeLog(`[DEV][landmass] ascii ${label} error:`, err);
+        safeLog(`[DEV][landmass] dump ${label} error:`, err);
     }
 }
 
-export function logTerrainReliefAscii(label = "relief", opts = {}) {
+export function logTerrainReliefAscii(label = "relief") {
     if (!isOn("LOG_RELIEF_ASCII"))
         return;
     try {
         const width = GameplayMap?.getGridWidth?.() ?? 0;
         const height = GameplayMap?.getGridHeight?.() ?? 0;
         if (!width || !height) {
-            safeLog(`[DEV][relief] ascii ${label}: No map bounds.`);
+            safeLog(`[DEV][relief] dump ${label}: No map bounds.`);
             return;
         }
-        const sampleStep = computeAsciiSampleStep(width, height, opts.step);
-        const rows = renderAsciiGrid(width, height, sampleStep, (x, y) => {
-            const base = GameplayMap?.isWater?.(x, y) ? "~" : ".";
-            if (base === "~")
-                return { base };
-            const featureType = GameplayMap?.getFeatureType?.(x, y) ?? -1;
-            if (featureType === globals.g_VolcanoFeature)
-                return { base, overlay: "V" };
-            if (GameplayMap?.isMountain?.(x, y))
-                return { base, overlay: "M" };
-            const terrainType = GameplayMap?.getTerrainType?.(x, y) ?? -1;
-            if (terrainType === globals.g_HillTerrain)
-                return { base, overlay: "h" };
-            return { base };
-        });
-        safeLog(`[DEV][relief] ascii ${label} (step=${sampleStep}): base ~~ ocean, .. land; overlays M mountains, h hills, V volcanoes`);
-        rows.forEach((row) => safeLog(row));
+        safeLog(`[DEV][relief] dump ${label}: delegating to base-standard dumpTerrain()`);
+        dumpTerrain(width, height);
     }
     catch (err) {
-        safeLog(`[DEV][relief] ascii ${label} error:`, err);
+        safeLog(`[DEV][relief] dump ${label} error:`, err);
     }
 }
 
-export function logRainfallAscii(label = "rainfall", opts = {}) {
+export function logRainfallAscii(label = "rainfall") {
     if (!isOn("LOG_RAINFALL_ASCII"))
         return;
     try {
         const width = GameplayMap?.getGridWidth?.() ?? 0;
         const height = GameplayMap?.getGridHeight?.() ?? 0;
         if (!width || !height) {
-            safeLog(`[DEV][rain] ascii ${label}: No map bounds.`);
+            safeLog(`[DEV][rain] dump ${label}: No map bounds.`);
             return;
         }
-        const thresholds = Array.isArray(opts.thresholds) && opts.thresholds.length
-            ? opts.thresholds
-                .map((v) => Math.max(0, Number(v) || 0))
-                .sort((a, b) => a - b)
-            : [40, 80, 120, 160];
-        const symbols = Array.isArray(opts.symbols) && opts.symbols.length
-            ? opts.symbols
-            : ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-        const sampleStep = computeAsciiSampleStep(width, height, opts.step);
-        const rows = renderAsciiGrid(width, height, sampleStep, (x, y) => {
-            const base = GameplayMap?.isWater?.(x, y) ? "~" : ".";
-            if (base === "~")
-                return { base };
-            const rainfall = GameplayMap?.getRainfall?.(x, y) ?? 0;
-            let bucket = 0;
-            while (bucket < thresholds.length && rainfall >= thresholds[bucket])
-                bucket++;
-            const overlay = symbols[Math.min(bucket, symbols.length - 1)] ?? `${bucket}`;
-            return { base, overlay };
-        });
-        const legendSegments = thresholds.map((t, idx) => `${symbols[Math.min(idx, symbols.length - 1)]}<${t}`);
-        if (thresholds.length) {
-            legendSegments.push(`${symbols[Math.min(thresholds.length, symbols.length - 1)]}≥${thresholds[thresholds.length - 1] ?? 0}`);
-        }
-        safeLog(`[DEV][rain] ascii ${label} (step=${sampleStep}): base ~~ ocean, .. land; overlays buckets ${legendSegments.join(", ")}`);
-        rows.forEach((row) => safeLog(row));
+        safeLog(`[DEV][rain] dump ${label}: delegating to base-standard dumpRainfall()`);
+        dumpRainfall(width, height);
     }
     catch (err) {
-        safeLog(`[DEV][rain] ascii ${label} error:`, err);
+        safeLog(`[DEV][rain] dump ${label} error:`, err);
     }
 }
 
-export function logBiomeAscii(label = "biomes", opts = {}) {
+export function logBiomeAscii(label = "biomes") {
     if (!isOn("LOG_BIOME_ASCII"))
         return;
     try {
         const width = GameplayMap?.getGridWidth?.() ?? 0;
         const height = GameplayMap?.getGridHeight?.() ?? 0;
         if (!width || !height) {
-            safeLog(`[DEV][biome] ascii ${label}: No map bounds.`);
+            safeLog(`[DEV][biome] dump ${label}: No map bounds.`);
             return;
         }
-        const sampleStep = computeAsciiSampleStep(width, height, opts.step);
-        const rows = renderAsciiGrid(width, height, sampleStep, (x, y) => {
-            const base = GameplayMap?.isWater?.(x, y) ? "~" : ".";
-            if (base === "~")
-                return { base };
-            const biome = GameplayMap?.getBiomeType?.(x, y) ?? -1;
-            const overlay = resolveBiomeSymbol(biome);
-            return overlay ? { base, overlay } : { base };
-        });
-        safeLog(`[DEV][biome] ascii ${label} (step=${sampleStep}): base ~~ ocean, .. land; overlays ${BIOME_LEGEND}`);
-        rows.forEach((row) => safeLog(row));
+        safeLog(`[DEV][biome] dump ${label}: delegating to base-standard dumpBiomes()`);
+        dumpBiomes(width, height);
     }
     catch (err) {
-        safeLog(`[DEV][biome] ascii ${label} error:`, err);
+        safeLog(`[DEV][biome] dump ${label} error:`, err);
     }
 }
 /**
@@ -792,15 +762,19 @@ export function logCorridorAsciiOverlay(step = 8) {
             return;
         }
         const s = computeAsciiSampleStep(width, height, step);
-        safeLog(`[DEV][corridor] ASCII overlay (step=${s}): base ~~ ocean, .. land; overlays S sea-lane, I island-hop, L land-open, R river-chain`);
+        const asciiChars = ASCII_DISPLAY.corridor;
+        const baseWater = asciiChars.base.water;
+        const baseLand = asciiChars.base.land;
+        const overlayChars = asciiChars.overlays;
+        safeLog(`[DEV][corridor] ASCII overlay (step=${s}): base ${legendBasePair(baseWater)} ocean, ${legendBasePair(baseLand)} land; overlays ${overlayChars.seaLane} sea-lane, ${overlayChars.islandHop} island-hop, ${overlayChars.landOpen} land-open, ${overlayChars.riverChain} river-chain`);
         const rows = renderAsciiGrid(width, height, s, (x, y) => {
-            const base = GameplayMap?.isWater?.(x, y) ? "~" : ".";
+            const base = GameplayMap?.isWater?.(x, y) ? baseWater : baseLand;
             const key = `${x},${y}`;
             const overlays = [
-                StoryTags?.corridorSeaLane?.has?.(key) ? "S" : null,
-                StoryTags?.corridorIslandHop?.has?.(key) ? "I" : null,
-                StoryTags?.corridorRiverChain?.has?.(key) ? "R" : null,
-                StoryTags?.corridorLandOpen?.has?.(key) ? "L" : null,
+                StoryTags?.corridorSeaLane?.has?.(key) ? overlayChars.seaLane : null,
+                StoryTags?.corridorIslandHop?.has?.(key) ? overlayChars.islandHop : null,
+                StoryTags?.corridorRiverChain?.has?.(key) ? overlayChars.riverChain : null,
+                StoryTags?.corridorLandOpen?.has?.(key) ? overlayChars.landOpen : null,
             ].filter(Boolean);
             const overlay = overlays.length ? overlays[0] : null;
             return overlay ? { base, overlay } : { base };
@@ -810,23 +784,6 @@ export function logCorridorAsciiOverlay(step = 8) {
     catch (err) {
         safeLog("[DEV][corridor] ASCII overlay error:", err);
     }
-}
-
-const ASCII_WINDOW_SERIES = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-const BIOME_SYMBOL_TABLE = [
-    [globals.g_GrasslandBiome, "G", "grassland"],
-    [globals.g_PlainsBiome, "P", "plains"],
-    [globals.g_DesertBiome, "D", "desert"],
-    [globals.g_TropicalBiome, "J", "tropical"],
-    [globals.g_TundraBiome, "T", "tundra"],
-];
-const BIOME_SYMBOLS = new Map(BIOME_SYMBOL_TABLE.map(([id, symbol]) => [id, symbol]));
-const BIOME_LEGEND = BIOME_SYMBOL_TABLE.map(([, symbol, label]) => `${symbol}=${label}`).join(", ");
-
-function resolveBiomeSymbol(biomeId) {
-    if (biomeId == null)
-        return null;
-    return BIOME_SYMBOLS.get(biomeId) ?? null;
 }
 
 function computeAsciiSampleStep(width, height, requested) {
@@ -857,7 +814,20 @@ function renderAsciiGrid(width, height, sampleStep, cellFn) {
 function asciiCell(base, overlay) {
     const baseChar = typeof base === "string" && base.length ? base[0] : ".";
     const center = typeof overlay === "string" && overlay.length ? overlay[0] : baseChar;
-    return `${baseChar}${center}${baseChar}`;
+    const grid = ASCII_DISPLAY.grid ?? {};
+    const padding = (overlay ? grid.overlayPadding : grid.basePadding) || grid.basePadding || { left: "", right: "" };
+    const left = padding.left ?? "";
+    const right = padding.right ?? left;
+    return `${left}${center}${right}`;
+}
+
+function legendBasePair(baseChar) {
+    const c = typeof baseChar === "string" && baseChar.length ? baseChar[0] : ".";
+    const grid = ASCII_DISPLAY.grid ?? {};
+    const padding = grid.basePadding || { left: "", right: "" };
+    const left = padding.left ?? "";
+    const right = padding.right ?? left;
+    return `${left}${c}${right}`;
 }
 /* ----------------------- internal helpers ----------------------- */
 function safeLog(...args) {
@@ -918,4 +888,5 @@ export default {
     logWorldModelHistograms,
     logWorldModelAscii,
     logBoundaryMetrics,
+    ASCII_DISPLAY,
 };
