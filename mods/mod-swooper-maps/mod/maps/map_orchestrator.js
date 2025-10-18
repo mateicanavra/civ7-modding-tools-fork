@@ -7,7 +7,7 @@
 console.log("Loading Epic Diverse Huge Map Generator");
 console.log("[SWOOPER_MOD] ========================================");
 console.log("[SWOOPER_MOD] Map orchestrator loaded - v1.0");
-console.log("[SWOOPER_MOD] Mountain reduction: 3%, Hills: 8%");
+console.log("[SWOOPER_MOD] Plate-aware mountain tuning enabled");
 console.log("[SWOOPER_MOD] Diagnostics enabled");
 console.log("[SWOOPER_MOD] ========================================");
 import { chooseStartSectors } from "/base-standard/maps/assign-starting-plots.js";
@@ -15,7 +15,7 @@ import { expandCoasts, generateLakes } from "/base-standard/maps/elevation-terra
 import { layerAddMountainsPhysics } from "./layers/mountains.js";
 import * as globals from "/base-standard/maps/map-globals.js";
 import * as utilities from "/base-standard/maps/map-utilities.js";
-import { STORY_ENABLE_HOTSPOTS, STORY_ENABLE_RIFTS, STORY_ENABLE_OROGENY, STORY_ENABLE_WORLDMODEL, LANDMASS_CFG, LANDMASS_GEOMETRY, rebind, } from "./bootstrap/tunables.js";
+import { STORY_ENABLE_HOTSPOTS, STORY_ENABLE_RIFTS, STORY_ENABLE_OROGENY, STORY_ENABLE_WORLDMODEL, LANDMASS_CFG, LANDMASS_GEOMETRY, MOUNTAINS_CFG, rebind, } from "./bootstrap/tunables.js";
 import { StoryTags, resetStoryTags } from "./story/tags.js";
 import { storyTagStrategicCorridors } from "./story/corridors.js";
 import { storyTagHotspotTrails, storyTagRiftValleys, storyTagOrogenyBelts, storyTagContinentalMargins, storyTagClimateSwatches, OrogenyCache, } from "./story/tagging.js";
@@ -61,7 +61,30 @@ function generateMap() {
     console.log("Generating Epic Diverse Map with maximum terrain variety!");
     // Ensure tunables reflect the active entry config for this run.
     rebind();
+    const mountainsConfig = MOUNTAINS_CFG || {};
+    const mountainOptions = {
+        mountainPercent: mountainsConfig.mountainPercent ?? 3,
+        hillPercent: mountainsConfig.hillPercent ?? 8,
+        upliftWeight: mountainsConfig.upliftWeight ?? 0.75,
+        fractalWeight: mountainsConfig.fractalWeight ?? 0.25,
+        riftDepth: mountainsConfig.riftDepth ?? 0.3,
+        variance: mountainsConfig.variance ?? 2.0,
+        boundaryWeight: mountainsConfig.boundaryWeight ?? 0.6,
+        boundaryExponent: mountainsConfig.boundaryExponent ?? 1.4,
+        interiorPenaltyWeight: mountainsConfig.interiorPenaltyWeight ?? 0.2,
+        convergenceBonus: mountainsConfig.convergenceBonus ?? 0.9,
+        transformPenalty: mountainsConfig.transformPenalty ?? 0.3,
+        riftPenalty: mountainsConfig.riftPenalty ?? 0.75,
+        hillBoundaryWeight: mountainsConfig.hillBoundaryWeight ?? 0.45,
+        hillRiftBonus: mountainsConfig.hillRiftBonus ?? 0.5,
+        hillConvergentFoothill: mountainsConfig.hillConvergentFoothill ?? 0.25,
+        hillInteriorFalloff: mountainsConfig.hillInteriorFalloff ?? 0.2,
+        hillUpliftWeight: mountainsConfig.hillUpliftWeight ?? 0.25,
+    };
     console.log("[SWOOPER_MOD] Tunables rebound successfully");
+    console.log(
+        `[SWOOPER_MOD] Mountain target: ${mountainOptions.mountainPercent}% | Hills: ${mountainOptions.hillPercent}%`
+    );
     let iWidth = GameplayMap.getGridWidth();
     let iHeight = GameplayMap.getGridHeight();
     let uiMapSize = GameplayMap.getMapSize();
@@ -288,14 +311,7 @@ function generateMap() {
     // Mountains & Hills – Phase 2: Physics-based placement using plate boundaries
     {
         const t = timeStart("Mountains & Hills (Physics)");
-        layerAddMountainsPhysics(ctx, {
-            mountainPercent: 3,    // Target % of land as mountains (reduced for start placement)
-            hillPercent: 8,        // Target % of land as hills (reduced for start placement)
-            upliftWeight: 0.75,    // Weight for WorldModel uplift potential
-            fractalWeight: 0.25,   // Weight for fractal variety
-            riftDepth: 0.3,        // Depression at divergent boundaries
-            variance: 2.0,         // Random variance in percentages
-        });
+        layerAddMountainsPhysics(ctx, mountainOptions);
         timeEnd(t);
     }
     {

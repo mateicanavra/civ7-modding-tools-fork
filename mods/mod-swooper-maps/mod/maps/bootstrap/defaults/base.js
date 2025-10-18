@@ -626,6 +626,26 @@ export const BASE_CONFIG = Object.freeze({
             delta: 6,
         }),
     }),
+    // --- Mountains & Hills (WorldModel-driven) ---
+    mountains: Object.freeze({
+        mountainPercent: 3,
+        hillPercent: 8,
+        upliftWeight: 0.75,
+        fractalWeight: 0.25,
+        riftDepth: 0.3,
+        variance: 2.0,
+        boundaryWeight: 0.6,
+        boundaryExponent: 1.4,
+        interiorPenaltyWeight: 0.2,
+        convergenceBonus: 0.9,
+        transformPenalty: 0.3,
+        riftPenalty: 0.75,
+        hillBoundaryWeight: 0.45,
+        hillRiftBonus: 0.5,
+        hillConvergentFoothill: 0.25,
+        hillInteriorFalloff: 0.2,
+        hillUpliftWeight: 0.25,
+    }),
     // --- Biomes (nudges) ---
     biomes: Object.freeze({
         tundra: Object.freeze({
